@@ -27,7 +27,9 @@
 #    include "wave.h"
 #endif
 
-uint8_t keycode_to_disp_index(uint16_t keycode);
+//uint8_t keycode_to_disp_index(uint16_t keycode);
+
+bool is_master(void);
 
 // key updates
 
@@ -48,7 +50,7 @@ void dec_brightness(void);
 
 void set_displays(enum diplay_state state, uint8_t contrast);
 
-uint8_t select_display(uint8_t row, uint8_t col);
+//uint8_t select_display(uint8_t row, uint8_t col);
 
 bool display_wakeup(keyrecord_t* record);
 

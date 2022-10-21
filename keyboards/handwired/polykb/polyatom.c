@@ -5,8 +5,9 @@
 #include "base/shift_reg.h"
 #include "base/spi_helper.h"
 
-static uint32_t timer;
-static int32_t last_update;
+static uint32_t timer = 0;
+static int32_t last_update = 0;
+static bool splash_shown = false;
 
 uint16_t currentLayer = 0;
 
@@ -15,6 +16,8 @@ static bool     diplays_on = false;
 static deferred_token displays_task_user_token;
 
 static uint8_t global_contrast;
+
+static bool is_master_side = false;
 
 #ifdef OLED_ENABLE
 
@@ -38,8 +41,11 @@ bool oled_task_user(void) {
     snprintf(buffer, sizeof(buffer), "\nLast Key: 0x%04x", last_key);
     oled_write(buffer, false);
 
-    snprintf(buffer, sizeof(buffer), "\nMode:%2d ver. %d.%d\n",
+    snprintf(buffer, sizeof(buffer), "\nMode:%2d ver. %d.%d",
         rgb_matrix_get_mode(), (char)(DEVICE_VER >> 8), (char)DEVICE_VER);
+    oled_write(buffer, false);
+
+    snprintf(buffer, sizeof(buffer), "\n%s", is_master_side ? "MASTER" : "SLAVE");
     oled_write(buffer, false);
 
     oled_set_cursor(0, 4);
@@ -103,12 +109,20 @@ void dec_brightness(void) {
 #define FADE_OUT_TIME 60000
 
 uint32_t displays_task_user(uint32_t trigger_time, void* cb_arg) {
-    uint32_t elapsed_time_since_update = timer_elapsed32(timer) - last_update;
+    uint32_t totalTime = timer_elapsed32(timer);
+    uint32_t elapsed_time_since_update = totalTime - last_update;
 
     if (elapsed_time_since_update > FADE_OUT_TIME && diplays_on) {
         int32_t contrast = ((FADE_TRANSITION_TIME - (elapsed_time_since_update - FADE_OUT_TIME)) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
 
         set_displays(contrast < 1 ? DISPLAYS_OFF : DISPLAYS_SET_CONTRAST, (uint8_t)contrast);
+    }
+
+    if(!splash_shown) {
+        if(totalTime > 500) {
+            force_layer_switch();
+            splash_shown = true;
+        }
     }
 
     return 100;
@@ -145,7 +159,6 @@ void clear_all_displays(void) {
 }
 
 void early_hardware_init_post(void) {
-    last_update = 0;
     kdisp_hw_setup();
     spi_hw_setup();
 }
@@ -193,22 +206,26 @@ void keyboard_post_init_user(void) {
 
     set_displays(DISPLAYS_ON_SET_CONTRAST, FULL_BRIGHT);
     show_splash_screen();
-    wait_ms(1000);
-    force_layer_switch();
+
+    is_master_side = is_keyboard_master();
+    uprintf("Poly Keyboard ready.");
 }
 
-
-uint8_t keycode_to_disp_index(uint16_t keycode) {
-   for(uint8_t row =0; row < MATRIX_ROWS; ++row) {
-       for(uint8_t col =0; col < MATRIX_COLS; ++col) {
-           if(keymaps[currentLayer][row][col]==keycode) {
-               return LAYOUT_TO_INDEX(row, col);
-           }
-       }
-   }
-
-    return 255;
+bool is_master(void) {
+    return is_master_side;
 }
+
+// uint8_t keycode_to_disp_index(uint16_t keycode) {
+//    for(uint8_t row =0; row < MATRIX_ROWS; ++row) {
+//        for(uint8_t col =0; col < MATRIX_COLS; ++col) {
+//            if(keymaps[currentLayer][row][col]==keycode) {
+//                return LAYOUT_TO_INDEX(row, col);
+//            }
+//        }
+//    }
+
+//     return 255;
+// }
 
 void update_performed(void) {
     last_update = timer_elapsed32(timer);

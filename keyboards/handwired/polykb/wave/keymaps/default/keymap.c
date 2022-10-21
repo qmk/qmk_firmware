@@ -35,7 +35,7 @@ enum kb_layers { _LAYER0 = 0,  _LAYER1 = 1, _LAYER2 = 2, //, _LAYER3 = 3, _LAYER
                  NUM_LAYERS = 2 };
 
 enum my_keycodes {
-  KC_NEXT_LAYER = SAFE_RANGE,
+  KC_NXTL = SAFE_RANGE,
   KC_LANG,
   //KC_NEXT_LANG,
   KC_ENC_UP,
@@ -43,11 +43,11 @@ enum my_keycodes {
   RGB_TOGGLE,
   RGB_NEXT,
   RGB_PREV,
-  KC_DISP_CMINUS,
-  KC_DISP_CONTRAST,
-  KC_DISP_CPLUS,
+  KC_DARKER,
+  KC_CONTRAST,
+  KC_BRIGTHER,
   KC_SAVE_EE,
-  KC_RESET_DISPLAYS,
+  KC_RST_DSP,
   /*[[[cog
     for lang in languages:
         cog.outl(f"KC_{lang},")
@@ -64,9 +64,6 @@ enum my_keycodes {
   KC_LANG_AR,
   //[[[end]]]
 };
-
-
-
 
 static bool encUpHigh, encDownHigh;
 
@@ -100,24 +97,47 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_LAYER0] = LAYOUT( KC_GRAVE,       KC_1,               KC_2,               KC_3,               KC_4,               KC_5,                   KC_NEXT_LAYER,      /*no key*/KC_NO,
-                        KC_TAB,         KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,                   KC_EQUAL,           KC_ENC_UP,
-                        KC_CAPSLOCK,    KC_A,               KC_S,               KC_D,               KC_F,               KC_G,                   KC_MINUS,           KC_ENC_DOWN,
-                        KC_LSHIFT,      KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,                   KC_ESC,             KC_MS_BTN1, /*encoder switch*/
-                        KC_LCTL,        KC_LALT,            KC_LANG,            KC_APP,             KC_LWIN,            KC_SPACE,               KC_END,             KC_HOME
-                        ),
-    [_LAYER1] = LAYOUT( KC_NO,          KC_NO,              KC_SAVE_EE,         KC_NO,              KC_NO,              KC_MEDIA_PREV_TRACK,    KC_NEXT_LAYER,      /*no key*/KC_NO,
-                        RGB_PREV,       KC_AUDIO_VOL_UP,    QK_DEBUG_TOGGLE,    KC_DISP_CMINUS,     KC_NO,              KC_MEDIA_PLAY_PAUSE,    KC_NO,              KC_ENC_UP,
-                        RGB_TOGGLE,     KC_AUDIO_MUTE,      QK_CLEAR_EEPROM,    KC_DISP_CONTRAST,   KC_RESET_DISPLAYS,  KC_MEDIA_STOP,          KC_NO,              KC_ENC_DOWN,
-                        RGB_NEXT,       KC_AUDIO_VOL_DOWN,  QK_BOOTLOADER,      KC_DISP_CPLUS,      KC_NO,              KC_MEDIA_NEXT_TRACK,    KC_NO,              KC_MS_BTN1, /*encoder switch*/
-                        KC_NO,          KC_NO,              QK_MAKE,            QK_REBOOT,          KC_NO,              KC_NO,                  KC_NO,              KC_NO
-                        ),
-    [_LAYER2] = LAYOUT( KC_LEAD,        KC_F1,              KC_F2,              KC_F3,              KC_F4,              KC_F5,                  KC_F6,              /*no key*/KC_NO,
-                        KC_NO,          KC_LANG_PT,         KC_LANG_ES,         KC_LANG_AR,         KC_NO,              KC_NO,                  KC_NO,              KC_ENC_UP,
-                        KC_NO,          KC_LANG_FR,         KC_LANG_DE,         KC_LANG_JA,         KC_LANG_TR,         KC_NO,                  KC_NO,              KC_ENC_DOWN,
-                        KC_NO,          KC_LANG_IT,         KC_LANG_EN,         KC_LANG_KO,         KC_NO,              KC_NO,                  KC_NO,              KC_MS_BTN1, /*encoder switch*/
-                        KC_NO,          KC_NO,              KC_LANG,            KC_NO,              KC_NO,              KC_NO,                  KC_NO,              KC_NO
-                        )
+    [_LAYER0] = SPLIT_LAYOUT(
+        KC_GRAVE,       KC_1,       KC_2,        KC_3,       KC_4,       KC_5,       KC_MINUS,    /*no key*/KC_NO,    
+        KC_TAB,         KC_Q,       KC_W,        KC_E,       KC_R,       KC_T,       KC_LBRC,   KC_ENC_UP,          
+        KC_CAPSLOCK,    KC_A,       KC_S,        KC_D,       KC_F,       KC_G,       KC_SCLN,   KC_ENC_DOWN,        
+        KC_LSHIFT,      KC_Z,       KC_X,        KC_C,       KC_V,       KC_B,       KC_ESC,     KC_MS_BTN1,/*enc*/  
+        KC_LCTL,        KC_LALT,    KC_LANG,     KC_APP,     KC_LWIN,    KC_SPACE,   KC_END,     KC_HOME,            
+        
+/*!key*/KC_NO,          KC_EQUAL,   KC_6,        KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC, 
+        KC_ENC_UP,      KC_RBRC,    KC_Y,        KC_U,       KC_I,       KC_O,       KC_P,       KC_BSLS,    
+        KC_ENC_DOWN,    KC_QUOTE,   KC_H,        KC_J,       KC_K,       KC_L,       KC_L,       KC_NUHS,     
+ /*enc*/KC_MS_BTN1,     KC_UP,      KC_N,        KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSHIFT,
+        KC_ENT,         KC_LEFT,    KC_DOWN,     KC_RIGHT,   KC_LNG1,    KC_RWIN,    KC_NXTL,    KC_RCTL
+        ),
+
+    [_LAYER1] = SPLIT_LAYOUT(
+        KC_NO,          KC_NO,      KC_SAVE_EE,  KC_NO,      KC_NO,      KC_MPRV,    KC_NXTL,    /*no key*/KC_NO,    
+        RGB_PREV,       KC_VOLU,    DB_TOGG,     KC_DARKER,  KC_NO,      KC_MPLY,    KC_NO,      KC_ENC_UP,          
+        RGB_TOGGLE,     KC_MUTE,    EE_CLR,      KC_CONTRAST,KC_RST_DSP, KC_MSTP,    KC_NO,      KC_ENC_DOWN,        
+        RGB_NEXT,       KC_VOLD,    QK_BOOT,     KC_BRIGTHER,KC_NO,      KC_MNXT,    KC_NO,      KC_MS_BTN1,/*enc*/  
+        KC_NO,          KC_NO,      QK_MAKE,     QK_RBT,     KC_NO,      KC_NO,      KC_NO,      KC_NO,              
+
+/*!key*/KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+ /*enc*/KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO
+        ),
+
+    [_LAYER2] = SPLIT_LAYOUT(
+        KC_LEAD,        KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      /*no key*/KC_NO,    
+        KC_NO,          KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_NO,      KC_NO,      KC_NO,      KC_ENC_UP,          
+        KC_NO,          KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_ENC_DOWN,        
+        KC_NO,          KC_LANG_IT, KC_LANG_EN, KC_LANG_KO, KC_NO,      KC_NO,      KC_NO,      KC_MS_BTN1,/*enc*/  
+        KC_NO,          KC_NO,      KC_LANG,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,              
+
+/*!key*/KC_NO,          KC_NO,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
+        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+ /*enc*/KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO         
+        )
 };
 
 led_config_t g_led_config = {{// Key Matrix to LED Index
@@ -145,14 +165,6 @@ led_config_t g_led_config = {{// Key Matrix to LED Index
                              }};
 
 void process_layer_switch_user(uint16_t new_layer);
-
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
 
 struct diplay_info {
     uint8_t bitmask[NUM_SHIFT_REGISTERS];
@@ -260,7 +272,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u"  " ICON_VOL_DOWN;
         case KC_AUDIO_VOL_UP:
             return u"  " ICON_VOL_UP;
-        case KC_NEXT_LAYER:
+        case KC_NXTL:
             return u"Nxt" ICON_LAYER;
         case KC_PRINT_SCREEN:
             return u"PScn";
@@ -331,11 +343,11 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u" " ICON_SHIFT;
         case KC_NO:
             return u"";
-        case KC_DISP_CMINUS:
+        case KC_DARKER:
             return u" -";
-        case KC_DISP_CONTRAST:
+        case KC_CONTRAST:
             return u"Bright";
-        case KC_DISP_CPLUS:
+        case KC_BRIGTHER:
             return u" +";
         case KC_LANG:
             return PRIVATE_WORLD;
@@ -343,7 +355,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u"Make";
         case QK_REBOOT:
             return u"Reset";
-        case KC_RESET_DISPLAYS:
+        case KC_RST_DSP:
             return u"Reset\r\vDisp";
         case KC_SAVE_EE:
             return u"Save\r\v\tEE";
@@ -374,6 +386,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         case KC_LANG_JA: return current_lang==LANG_JA ? u"[JA]" : u" JA";
         case KC_LANG_AR: return current_lang==LANG_AR ? u"[AR]" : u" AR";
         //[[[end]]]
+        case KC_LNG1:
+            return u"Han/Y";
         case KC_APP:
             return u" Ctx";
         default:
@@ -392,13 +406,14 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
 void process_layer_switch_user(uint16_t new_layer) {
     layer_move(new_layer);
     led_t state = host_keyboard_led_state();
+    uint8_t offset = is_master() ? MATRIX_ROWS_PER_SIDE : 0;
 
     // keypos_t key;
-    for (uint8_t r = 0; r < MATRIX_ROWS; ++r) {
+    for (uint8_t r = 0; r < MATRIX_ROWS_PER_SIDE; ++r) {
         for (uint8_t c = 0; c < MATRIX_COLS; ++c) {
             //key.col           = c;
             //key.row           = r;
-            uint16_t keycode  = keymaps[new_layer][r][c];
+            uint16_t keycode  = keymaps[new_layer][r+offset][c];
             uint8_t  disp_idx = LAYOUT_TO_INDEX(r, c);
 
             if (disp_idx != 255) {
@@ -435,36 +450,6 @@ void display_message(uint8_t row, uint8_t col, const uint16_t* message, const GF
     }
 }
 
-/*
-void clear_all_displays(void) {
-    select_all_displays();
-    kdisp_set_buffer(0x00);
-    kdisp_send_buffer();
-}
-
-void display_message(uint8_t row, uint8_t col, const uint16_t* message, const GFXfont* font) {
-
-    const GFXfont* displayFont [] = {font};
-    uint8_t index = 0;
-    for (uint8_t c = col; c < MATRIX_COLS; ++c) {
-        uint8_t  disp_idx = LAYOUT_TO_INDEX(row, c);
-
-        if (disp_idx != 255) {
-            const uint16_t text[2] = {message[index], 0};
-            sr_shift_out_buffer_latch(key_display[disp_idx].bitmask, sizeof(key_display->bitmask));
-            kdisp_set_buffer(0x00);
-            kdisp_write_gfx_text(displayFont, 1, 49, 38, text);
-            kdisp_send_buffer();
-        }
-        index++;
-        if(message[index]==0) {
-            return;
-        }
-    }
-
-}
-*/
-
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
         switch (keycode) {
@@ -487,18 +472,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
-    uint8_t disp_idx = LAYOUT_TO_INDEX(record->event.key.row, record->event.key.col);
+    uint8_t disp_idx = LAYOUT_TO_INDEX(record->event.key.row % MATRIX_ROWS_PER_SIDE, record->event.key.col );
     const uint8_t* bitmask = key_display[disp_idx].bitmask;
     sr_shift_out_buffer_latch(bitmask, sizeof(key_display->bitmask));
-    if (record->event.pressed) {
-        set_last_key(keycode);
-        if (disp_idx != 255) {
-            kdisp_invert(true);
+    
+    if((is_master() && record->event.key.row >= MATRIX_ROWS_PER_SIDE) ||
+       (!is_master() && record->event.key.row < MATRIX_ROWS_PER_SIDE) ) {
+        if (record->event.pressed) {
+            set_last_key(keycode);
+            if (disp_idx != 255) {
+                kdisp_invert(true);
+            }
+        } else {
+            if (disp_idx != 255) {
+                kdisp_invert(false);
+            }
         }
-    } else {
-        if (disp_idx != 255) {
-            kdisp_invert(false);
-        }
+    }
+
+    if(keycode==KC_CAPSLOCK) {
+        force_layer_switch();
     }
 
     if(!record->event.pressed) {
@@ -511,7 +504,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             case KC_LEFT_SHIFT:
                 force_layer_switch();
                 break;
-            case KC_NEXT_LAYER:
+            case KC_NXTL:
                 next_layer(NUM_LAYERS);
                 break;
             case RGB_NEXT:
@@ -520,10 +513,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             case RGB_PREV:
                 rgb_matrix_step_reverse_noeeprom();
                 break;
-            case KC_DISP_CMINUS:
+            case KC_DARKER:
                 dec_brightness();
                 break;
-            case KC_DISP_CPLUS:
+            case KC_BRIGTHER:
                 inc_brightness();
                 break;
             case KC_SAVE_EE:
@@ -534,7 +527,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                     rgb_matrix_disable();
                 }
                 break;
-            case KC_RESET_DISPLAYS:
+            case KC_RST_DSP:
                 kdisp_init(NUM_SHIFT_REGISTERS, true);
                 break;
             /*case KC_NEXT_LANG:
@@ -590,25 +583,24 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
     }
 
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %d, time: %u, interrupt: %d, count: %u display: %d SR bitmask: 0x%02X%02X%02X%02X%02X\n",
-        keycode, record->event.key.col, record->event.key.row, record->event.pressed ? 1 : 0,
+    uprintf("Key 0x%04X, col/row: %u/%u, %s, time: %u, int: %d, cnt: %u disp#: %d 0x%02X%02X%02X%02X%02X\n",
+        keycode, record->event.key.col, record->event.key.row, record->event.pressed ? "DN" : "UP",
         record->event.time, record->tap.interrupted ? 1 : 0, record->tap.count, disp_idx, bitmask[4], bitmask[3], bitmask[2], bitmask[1], bitmask[0]);
 
    update_performed();
 };
 
-bool led_update_user(led_t led_state) {
-    force_layer_switch();
-    return true;
-}
+// uint8_t select_display(uint8_t row, uint8_t col) {
+//     if(is_master()) {
+//         col -= MATRIX_COLS;
+//     }
 
-uint8_t select_display(uint8_t row, uint8_t col) {
-    uint8_t  disp_idx = LAYOUT_TO_INDEX(row, col);
-    if (disp_idx != 255) {
-        sr_shift_out_buffer_latch(key_display[disp_idx].bitmask, sizeof(key_display->bitmask));
-    }
-    return disp_idx;
-}
+//     uint8_t  disp_idx = LAYOUT_TO_INDEX(row, col);
+//     if (disp_idx != 255) {
+//         sr_shift_out_buffer_latch(key_display[disp_idx].bitmask, sizeof(key_display->bitmask));
+//     }
+//     return disp_idx;
+// }
 
 void show_splash_screen(void) {
     clear_all_displays();
@@ -618,3 +610,9 @@ void show_splash_screen(void) {
     display_message(1, 1, u"POLY", &FreeSansBold24pt7b);
     display_message(2, 2, u"KB", &FreeSansBold24pt7b);
 }
+
+#ifdef OLED_ENABLE
+void keyboard_pre_init_user(void) {
+    setPinInputHigh(I2C1_SDA_PIN);
+}
+#endif

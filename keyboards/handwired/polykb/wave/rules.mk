@@ -14,18 +14,25 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
-UNICODE_ENABLE = no        # Unicode
+UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 ENCODER_ENABLE = yes
 DEFERRED_EXEC_ENABLE = yes
 
+#Split keyboard setup
+SERIAL_DRIVER = vendor
+SPLIT_KEYBOARD = yes
+
+#OLED setup
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
+#RGB matrix lighting
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 
+#source files
 QUANTUM_LIB_SRC += spi_master.c
 SRC += base/disp_array.c base/shift_reg.c base/spi_helper.c lang/lang_lut.c polyatom.c
 

@@ -298,7 +298,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_JA  */  HIRAGANA_KA,                  NULL,                         NULL,                         
     /*  LANG_AR  */  ARABIC_FEH,                   NULL,                         NULL
     },
-    /*KC_U       */ {NULL,                         NULL,                         NULL,                         
+    /*KC_U       */ {u"u",                         u"U",                         NULL,                         
     /*  LANG_DE  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_FR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_ES  */  NULL,                         NULL,                         NULL,                         
@@ -463,16 +463,16 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_JA  */  HIRAGANA_YO,                  HIRAGANA_SMALL_YO,            NULL,                         
     /*  LANG_AR  */  u"9" u"\r\v\t" ARABIC_INDIC_9,u"(" u"\r\v\t" ARABIC_INDIC_9,u"9" u"\r\v\t" ARABIC_INDIC_9
     },
-    /*KC_0       */ {NULL,                         u")",                         NULL,                         
-    /*  LANG_DE  */   u"\r\v\t}",                  EQUALS u"\r\v\t}",            NULL,                         
-    /*  LANG_FR  */  A_WITH_GRAVE_SMALL u"\r\v\t@", u"\r\v\t@",                  NULL,                         
-    /*  LANG_ES  */  NULL,                         EQUALS,                       NULL,                         
-    /*  LANG_PT  */   u"\r\v\t}",                  EQUALS u"\r\v\t}",             u"\r\v\t}",                  
-    /*  LANG_IT  */  NULL,                         EQUALS,                       NULL,                         
-    /*  LANG_TR  */   u"\r\v\t}",                  EQUALS u"\r\v\t}",             u"\r\v\t}",                  
+    /*KC_0       */ {ZERO,                         u")",                         ZERO,                         
+    /*  LANG_DE  */  ZERO u"\r\v\t}",              EQUALS u"\r\v\t}",            NULL,                         
+    /*  LANG_FR  */  A_WITH_GRAVE_SMALL u"\r\v\t@",ZERO u"\r\v\t@",              NULL,                         
+    /*  LANG_ES  */  ZERO,                         EQUALS,                       ZERO,                         
+    /*  LANG_PT  */  ZERO u"\r\v\t}",              EQUALS u"\r\v\t}",            ZERO u"\r\v\t}",              
+    /*  LANG_IT  */  ZERO,                         EQUALS,                       ZERO,                         
+    /*  LANG_TR  */  ZERO u"\r\v\t}",              EQUALS u"\r\v\t}",            ZERO u"\r\v\t}",              
     /*  LANG_KO  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_JA  */  HIRAGANA_WA,                  HIRAGANA_WO,                  NULL,                         
-    /*  LANG_AR  */   u"\r\v\t" ARABIC_INDIC_0,    u")" u"\r\v\t" ARABIC_INDIC_0, u"\r\v\t" ARABIC_INDIC_0
+    /*  LANG_AR  */  ZERO u"\r\v\t" ARABIC_INDIC_0,u")" u"\r\v\t" ARABIC_INDIC_0,ZERO u"\r\v\t" ARABIC_INDIC_0
     },
     /*KC_ENTER   */ {u"Ent",                       NULL,                         NULL,                         
     /*  LANG_DE  */  NULL,                         NULL,                         NULL,                         

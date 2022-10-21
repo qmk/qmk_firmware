@@ -34,3 +34,5 @@
 //#undef HAL_USE_PWM
 //#define HAL_USE_PWM TRUE
 
+//for split keyboard setup
+#define PAL_USE_CALLBACKS TRUE
