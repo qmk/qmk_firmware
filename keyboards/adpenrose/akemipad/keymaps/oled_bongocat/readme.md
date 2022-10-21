@@ -13,7 +13,7 @@ click feature and the display of the OLED animations. This was possible
 thanks to the [squeez-o](https://github.com/nullbitsco/squeez-o) compression tool.
 
 <p>
-  <img style="display:block;margin-left:auto;margin-right:auto;width:10%" src="https://i.imgur.com/VXpS2AL.gif">
+  <img style="display:block;margin-left:auto;margin-right:auto;width:100%" src="https://i.imgur.com/VXpS2AL.gif">
 </p>
 
 ___
