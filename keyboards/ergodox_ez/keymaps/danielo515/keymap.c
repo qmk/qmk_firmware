@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(4,KC_ENTER)      ,KC_DOWN             ,KC_LBRC             ,KC_RBRC             ,OSL(2)              ,
     KC_AUDIO_MUTE       ,KC_ESCAPE           ,
     KC_END              ,
-    KC_COLN             ,KC_LEAD             ,LT(4,KC_SPACE)
+    KC_COLN             ,QK_LEAD             ,LT(4,KC_SPACE)
     ),
 
   [1] = LAYOUT_ergodox(

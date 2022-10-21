@@ -225,7 +225,7 @@ bool process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, true);
 
     // This is how you use actions here
-    // if (keycode == KC_LEAD) {
+    // if (keycode == QK_LEADER) {
     //   action_t action;
     //   action.code = ACTION_DEFAULT_LAYER_SET(0);
     //   process_action(record, action);

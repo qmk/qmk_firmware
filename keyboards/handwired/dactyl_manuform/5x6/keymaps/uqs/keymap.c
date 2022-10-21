@@ -44,14 +44,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,
                          KC_LBRC,  KC_RBRC,
      /*thumb*/ LT_EXTD_ESC, KC_SPC, LT_MOUSE_ALT_SHIFT_INS,
-      /*aux*/  KC_LEAD,  OSM_GUI,  KC_LALT,
+      /*aux*/  QK_LEAD,  OSM_GUI,  KC_LALT,
      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINUS,
      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSLS,
      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  RSFT_T(KC_GRV),
                          KC_MINS,  KC_EQL,
      /*thumb*/ LT_FUNC_SHIFT_INS, KC_ENT, LT_NUM_BSPC,
-      /*aux*/  KC_RALT,  KC_APP,   KC_LEAD
+      /*aux*/  KC_RALT,  KC_APP,   QK_LEAD
   ),
 
   [L_WASD] = LAYOUT_uqs(
@@ -78,21 +78,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_BTN3,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,
                          MS_WHUP,  MS_WHDN,
      /*thumb*/ LT_EXTD_ESC, SFT_T(KC_SPC), LT(L_MOUSE, KC_TAB),
-      /*aux*/  KC_LEAD,  OSM_GUI,  KC_LALT,
+      /*aux*/  QK_LEAD,  OSM_GUI,  KC_LALT,
      KC_NO,    KC_BTN1,  KC_BTN2,  KC_BTN3,  KC_NO,    KC_NO,
      KC_J,     KC_L,     KC_U,     KC_Y,     KC_QUOT,  KC_NO,
      KC_M,     KC_C_N,   KC_S_E,   KC_A_I,   KC_G_O,   KC_NO,
      KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_NO,
                          KC_NO,    KC_NO,
      /*thumb*/ LT_FUNC_SHIFT_INS, KC_ENT, LT_NUM_BSPC,
-      /*aux*/  KC_LEAD,  KC_RALT,  KC_APP
+      /*aux*/  QK_LEAD,  KC_RALT,  KC_APP
   ),
 
   // Updated with inspiration from https://forum.colemak.com/topic/2014-extend-extra-extreme/
   // I like the AltGr trick from https://stevep99.github.io/seniply/ and should probably incorporate some stuff from it.
   [L_EXTD] = LAYOUT_uqs(
      _______,  _______,  _______,  _______,  _______,  _______,
-     _______,  KC_BTN1,  KC_SCTAB, KC_PGUP,  KC_CTAB,  KC_LEAD,
+     _______,  KC_BTN1,  KC_SCTAB, KC_PGUP,  KC_CTAB,  QK_LEAD,
      _______,  OSM_GUI,  OSM_ALT,  OSM_SFT,  OSM_CTL,  KC_RALT,
      _______,  ALT_TAB,  MS_WHUP,  MS_WHDN,  KC_PGDN,  INS_HARD,
                          _______,  _______,

@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_ADJUST] = LAYOUT(
 		EE_CLR,  QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-		KC_LEAD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   QWERTY,  COLEMAK, KC_NO,   KC_NO,   KC_NO,   KC_NO,
+		QK_LEAD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   QWERTY,  COLEMAK, KC_NO,   KC_NO,   KC_NO,   KC_NO,
 		KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
 		RGB_VAD, RGB_TOG, RGB_VAI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
 	),
