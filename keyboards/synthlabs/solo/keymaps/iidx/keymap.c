@@ -18,74 +18,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#if defined(ENCODER_ENABLE)
+#if defined(ENCODER_MAP_ENABLE)
+/* The amount of time the encoder has to remain stationary, before unregistering encoder bindings */
+uint16_t encoder_stationary_release_delay_ms = 25;
 
-enum encoder_direction {
-    DIRECTION_CW,
-    DIRECTION_CCW
+uint16_t encoder_last_update_time = 0;
+
+enum {
+    CCW_JOYSTICK_BUTTON = 8,
+    CW_JOYSTICK_BUTTON = 7,
 };
 
-#ifdef ENCODERS
-int16_t encoder_stationary_release_delay_ms = 25;
+enum {
+    CCW_MACRO = SAFE_RANGE,
+    CW_MACRO,
+};
 
-static uint8_t encoder_state[] = {0};
-static keypos_t encoder_cw[] = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[] = ENCODERS_CCW_KEY;
-static uint16_t encoder_last_update_time[] = {0};
-static enum encoder_direction encoder_last_direction[] = {DIRECTION_CW};
-#endif
-
-void encoder_action_unregister(uint8_t index) {
-#ifdef ENCODERS
-    if (encoder_state[index]) {
-        keyevent_t encoder_event = (keyevent_t) {
-            .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
-            .pressed = false,
-            .time = (timer_read() | 1)
-        };
-        encoder_state[index] = 0;
-        action_exec(encoder_event);
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CCW_MACRO:
+            unregister_joystick_button(CW_JOYSTICK_BUTTON);
+            register_joystick_button(CCW_JOYSTICK_BUTTON);
+            encoder_last_update_time = timer_read(); /* Update the last time that the encoder was detected as rotated */
+            return false;
+        case CW_MACRO:
+            unregister_joystick_button(CCW_JOYSTICK_BUTTON);
+            register_joystick_button(CW_JOYSTICK_BUTTON);
+            encoder_last_update_time = timer_read();  /* Update the last time that the encoder was detected as rotated */
+            return false;
+        default:
+            return true;
     }
-#endif
-}
-
-void encoder_action_register(uint8_t index, bool clockwise) {
-#ifdef ENCODERS
-    keyevent_t encoder_event = (keyevent_t) {
-        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
-        .pressed = true,
-        .time = (timer_read() | 1)
-    };
-
-    /* Record the time that the encoder was detected as rotated */
-    encoder_last_update_time[index] = timer_read();
-
-    /* Check if the encoder direction has reversed, and if so unregister the opposite direction's event */
-    enum encoder_direction new_direction = clockwise ? DIRECTION_CW : DIRECTION_CCW;
-    if (encoder_last_direction[index] != new_direction) {
-        encoder_action_unregister(index);
-    }
-    encoder_last_direction[index] = new_direction;
-
-    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
-    action_exec(encoder_event);
-#endif
 }
 
 void matrix_scan_user(void) {
-    /* If an encoder has been stationary for encoder_stationary_release_delay_ms, then unregister its event */
     uint16_t current_time = timer_read();
-    for (int index = 0; index < ENCODERS; ++index) {
-        uint16_t elapsed_time_since_last_update = current_time - encoder_last_update_time[index];
-        if (elapsed_time_since_last_update >= encoder_stationary_release_delay_ms) {
-            encoder_action_unregister(index);
-        }
+    uint16_t elapsed_time_since_last_update = current_time - encoder_last_update_time;
+
+    /* If an encoder has been stationary for encoder_stationary_release_delay_ms, then unregister the joystick buttons for both directions */
+    if (elapsed_time_since_last_update >= encoder_stationary_release_delay_ms) {
+        unregister_joystick_button(CCW_JOYSTICK_BUTTON);
+        unregister_joystick_button(CW_JOYSTICK_BUTTON);
     }
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    encoder_action_register(index, clockwise);
-    return false;
-}
-
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] =   { ENCODER_CCW_CW(
+                CCW_MACRO,
+                CW_MACRO
+            ) },
+    [1] =   { ENCODER_CCW_CW(_______, _______) },
+};
 #endif
