@@ -3,18 +3,9 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
 #ifdef WPM_ENABLE
   #include "wpm.h"
 #endif
-
-extern uint8_t is_master;
 
 enum layer_number {
   _QWERTY = 0,
@@ -147,8 +138,8 @@ bool oled_task_user(void) {
     oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
 
-    sprintf(wpm_str, "WPM: %03d", get_current_wpm());
-    oled_write_ln(wpm_str, false); 
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write_ln(get_u8_str(get_current_wpm(), '0'), false);
   } else {
     render_logo();
   }
