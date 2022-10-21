@@ -1,4 +1,4 @@
-// Copyright 2021 Brett Wolf (@bwprobably)
+/// Copyright 2022 bwprobably
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
