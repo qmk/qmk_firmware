@@ -51,7 +51,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     uint16_t current_time = timer_read();
     uint16_t elapsed_time_since_last_update = current_time - encoder_last_update_time;
 
