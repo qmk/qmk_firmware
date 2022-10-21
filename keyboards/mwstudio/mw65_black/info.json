@@ -2,7 +2,7 @@
     "keyboard_name": "MW65 Black",
     "manufacturer": "MWStudio",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "TW59420",
     "usb": {
         "vid": "0x7BA1",
         "pid": "0x6500",
