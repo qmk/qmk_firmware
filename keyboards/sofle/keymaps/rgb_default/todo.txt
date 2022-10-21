@@ -7,3 +7,7 @@ check if ctrl+esc can do ctrl+~
 
 
 add tab controls for chrome cmd+opt+arrow to switch left and right
+
+
+right arrow stack 23, 24, 21, 31
+left arrow stack 
