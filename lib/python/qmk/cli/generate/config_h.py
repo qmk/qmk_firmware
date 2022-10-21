@@ -174,7 +174,7 @@ def generate_config_h(cli):
     # Determine our keyboard/keymap
     if cli.args.filename:
         user_keymap = parse_configurator_json(cli.args.filename)
-        kb_info_json = user_keymap.get('config', {})
+        kb_info_json = dotty(user_keymap.get('config', {}))
     elif cli.args.keyboard:
         kb_info_json = dotty(info_json(cli.args.keyboard))
     else:
