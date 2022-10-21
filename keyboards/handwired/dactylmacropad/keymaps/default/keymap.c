@@ -1,3 +1,6 @@
+// Copyright 2022 bwprobably
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 bool is_alt_tab_active = false;
