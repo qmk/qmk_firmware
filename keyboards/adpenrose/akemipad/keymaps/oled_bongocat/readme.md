@@ -12,7 +12,7 @@ very few animations due to AVR constraints), the encoder map, the audio
 click feature and the display of the OLED animations. This was possible 
 thanks to the [squeez-o](https://github.com/nullbitsco/squeez-o) compression tool.
 
-![Bongo Cat](https://i.imgur.com/VXpS2AL.gif)
+![Bongo Cat](https://i.imgur.com/Ty0qKnV.gif)
 
 ___
 
