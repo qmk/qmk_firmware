@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *          `-----------------------------------------------------------------------------------------------------------'
 */
 [_BASE] = LAYOUT_PEEJ_hhkb(
-    KC_GESC, BASE_ROW_1_L, BASE_ROW_1_M,    BASE_ROW_1_R, KC_BSPC,
+    QK_GESC, BASE_ROW_1_L, BASE_ROW_1_M,    BASE_ROW_1_R, KC_BSPC,
     KC_TAB,  BASE_ROW_2_L, BASE_ROW_2_M,    BASE_ROW_2_R, KC_BSLS,
     CTLESC,  BASE_ROW_3_L, BASE_ROW_3_M,    BASE_ROW_3_R, KC_QUOT,
     KC_LSFT, BASE_ROW_4_L, BASE_ROW_4_M,    BASE_ROW_4_R, KC_ENT,
