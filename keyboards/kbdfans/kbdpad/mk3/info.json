@@ -13,6 +13,10 @@
         "nkro": true,
 		"rgb_matrix":true
 	},
+  "matrix_size": {
+     "cols": 6,
+     "rows": 10
+  },	
     "matrix_pins": {
         "cols": ["F4", "C7", "C6", "B6", "B5", "D7"],
         "rows": ["F7", "F6", "D5", "D3"]
@@ -23,8 +27,9 @@
         "pid": "0x0012",
         "vid": "0x4B42"
     },
+    
     "rgb_matrix": {
-        "driver": "WS2812",		
+        "driver": "WS2812",	        	
         "layout": [
       { "flags": 4, "matrix": [0, 0], "x": 0,   "y": 0 },
       { "flags": 4, "matrix": [0, 1], "x": 75,  "y": 0 },
@@ -56,7 +61,6 @@
   },	
     "layouts": {
         "LAYOUT_numpad_6x4": {
-            "key_count": 21,
             "layout": [
                 {"matrix": [0, 0],"x":0, "y":0},
                 {"matrix": [0, 1],"x":1, "y":0},
