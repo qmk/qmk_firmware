@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
+ * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,22 +17,19 @@
 
 #include QMK_KEYBOARD_H
 
-enum charybdis_keymap_layers {
+enum dilemma_keymap_layers {
     LAYER_BASE = 0,
-    LAYER_LOWER,
-    LAYER_RAISE,
+    LAYER_NAV,
+    LAYER_SYM,
+    LAYER_NUM,
 };
 
-#define LOWER MO(LAYER_LOWER)
-#define RAISE MO(LAYER_RAISE)
-
-#define CTL_BSP CTL_T(KC_BSPC)
-#define SFT_SPC SFT_T(KC_SPC)
-#define GUI_ENT GUI_T(KC_ENT)
+#define NAV MO(LAYER_NAV)
+#define SYM MO(LAYER_SYM)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LAYER_BASE] = LAYOUT_charybdis_3x5(
+  [LAYER_BASE] = LAYOUT_split_3x5_3(
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
@@ -40,32 +37,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
-                         CTL_BSP, SFT_SPC,   LOWER,      RAISE, GUI_ENT
-  //                   ╰───────────────────────────╯ ╰──────────────────╯
+                            KC_A,     NAV, CAPSWRD,     KC_SPC,     SYM,    KC_A
+  //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 
-  [LAYER_LOWER] = LAYOUT_charybdis_3x5(
+  [LAYER_NAV] = LAYOUT_split_3x5_3(
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
-       RGB_TOG, KC_MNXT, KC_MPLY, KC_MPRV, XXXXXXX,    KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC,
+        KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLU,    XXXXXXX, KC_HOME,   KC_UP,  KC_END,  KC_DEL,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    KC_PPLS,    KC_4,    KC_5,    KC_6, KC_PMNS,
+       KC_LSFT, KC_LCTL, KC_LALT, KC_RGUI, KC_VOLD,    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, QK_BOOT,    KC_PAST,    KC_1,    KC_2,    KC_3, KC_PSLS,
+       QK_BOOT, EEP_RST, KC_MPRV, KC_MNXT, KC_MPLY,    XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,  KC_ENT,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
-                         XXXXXXX, XXXXXXX, _______,    XXXXXXX, _______
-  //                   ╰───────────────────────────╯ ╰──────────────────╯
+                            KC_A, _______, KC_LSFT,     KC_SPC, _______,    KC_A
+  //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 
-  [LAYER_RAISE] = LAYOUT_charybdis_3x5(
+  [LAYER_SYM] = LAYOUT_split_3x5_3(
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_VOLU, KC_MUTE, KC_VOLD, XXXXXXX,
+        KC_ESC, KC_LBRC, KC_LCBR, KC_LPRN, KC_TILD,    KC_CIRC, KC_RPRN, KC_RCBR, KC_RBRC,  KC_GRV,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI,
+       KC_MINS, KC_ASTR,  KC_EQL, KC_UNDS,  KC_DLR,    KC_HASH, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       KC_HOME, KC_PGUP, KC_PGDN,  KC_END, XXXXXXX,    QK_BOOT, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX,
+       KC_PLUS, KC_PIPE,   KC_AT, KC_SLSH, KC_PERC,    _______, KC_BSLS, KC_AMPR, KC_QUES, KC_EXLM,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
-                         _______, _______, XXXXXXX,    _______, XXXXXXX
-  //                   ╰───────────────────────────╯ ╰──────────────────╯
+                            KC_A, _______, KC_LSFT,     KC_SPC, _______,    KC_A
+  //                   ╰───────────────────────────╯ ╰──────────────────────────╯
+  ),
+
+  [LAYER_NUM] = LAYOUT_split_3x5_3(
+  // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
+          KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,   KC_0,
+  // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
+       KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,  KC_F11,     KC_F12, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT,
+  // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
+         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,
+  // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
+                            KC_A, _______, KC_LSFT,     KC_SPC, _______,    KC_A
+  //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 };
 // clang-format on
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, LAYER_NAV, LAYER_SYM, LAYER_NUM);
+}

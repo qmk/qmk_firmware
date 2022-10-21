@@ -22,13 +22,13 @@ RGB_MATRIX_SUPPORTED = no   # RGB matrix is supported and enabled by default
 RGBLIGHT_SUPPORTED = no     # RGB underglow is supported, but not enabled by default
 RGB_MATRIX_ENABLE = no      # Enable keyboard RGB matrix functionality
 
-POINTING_DEVICE_ENABLE = yes
 SERIAL_DRIVER = vendor
+
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c # DIY version uses I2C.
 
 SPLIT_KEYBOARD = yes
 LAYOUTS = split_3x5_2
-
-DEFAULT_FOLDER = bastardkb/dilemma/splinky
 
 # RP2040-specific options
 PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.

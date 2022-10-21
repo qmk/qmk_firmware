@@ -15,18 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#pragma once
 
-// Forward declare RP2040 SDK declaration.
-void gpio_init(uint gpio);
+#define HAL_USE_I2C TRUE
+#define HAL_USE_SPI TRUE
 
-void keyboard_pre_init_user(void) {
-    // Ensures that GP26 through GP29 are initialized as digital inputs (as
-    // opposed to analog inputs).  These GPIOs are shared with A0 through A3,
-    // respectively.  On RP2040-B2 and later, the digital inputs are disabled by
-    // default (see RP2040-E6).
-    gpio_init(GP26);
-    gpio_init(GP27);
-    gpio_init(GP28);
-    gpio_init(GP29);
-}
+#include_next "halconf.h"

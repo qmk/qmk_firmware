@@ -1,4 +1,5 @@
-/*
+/**
+ * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,51 +15,77 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { GP26, GP5, GP4, GP9 }
-#ifdef SPLINKY_BETA_PINOUT
-#    define MATRIX_COL_PINS \
-        { GP28, GP15, GP6, GP7, GP8 }
-#else
-#    define MATRIX_COL_PINS \
-        { GP28, GP21, GP6, GP7, GP8 }
-#endif // SPLINKY_BETA_PINOUT
+#ifdef VIA_ENABLE
+/* Via configuration. */
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 8
+#endif // VIA_ENABLE
 
-/* Handedness. */
-#define MASTER_RIGHT
+/**
+ * Configure the global tapping term (default: 200ms).
+ * If you have a lot of accidental mod activations, crank up the tapping term.
+ *
+ * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-term
+ */
+#ifndef TAPPING_TERM
+#    define TAPPING_TERM 160
+#endif // TAPPING_TERM
 
-// To use the handedness pin, resistors need to be installed on the adapter PCB.
-// If so, uncomment the following code, and undefine MASTER_RIGHT above.
-// #define SPLIT_HAND_PIN GP13
-// #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
+// disable trackpad taps
+// #define CIRQUE_PINNACLE_TAPPING_TERM 0
 
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN GP1
+/**
+ * Enable rapid switch from tap to hold.  Disable auto-repeat when pressing key
+ * twice, except for one-shot keys.
+ *
+ * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-force-hold
+ */
+#define TAPPING_FORCE_HOLD
 
-/* RGB settings. */
-#define RGB_DI_PIN GP0
+/*
+ * Tap-or-Hold decision modes.
+ *
+ * Note that the following flags behave differently when combined (ie. when 2 or
+ * more are enabled).
+ *
+ * See bit.ly/tap-or-hold for a visual explanation of the following tap-or-hold
+ * decision modes.
+ */
 
-/* SPI & PMW3360 settings. */
-#define SPI_DRIVER SPID0
-#define SPI_MISO_PIN GP20
-#ifdef SPLINKY_BETA_PINOUT
-#    define SPI_SCK_PIN GP18
-#    define SPI_MOSI_PIN GP19
-#    define PMW33XX_CS_PIN GP14
-#else
-#    define SPI_SCK_PIN GP22
-#    define SPI_MOSI_PIN GP23
-#    define PMW33XX_CS_PIN GP16
-#endif // SPLINKY_BETA_PINOUT
+/**
+ * Faster tap-hold trigger.
+ *
+ * Without `PERMISSIVE_HOLD`, within `TAPPING_TERM`:
+ *   Mod(a)🠗 e🠗 e🠕 Mod(a)🠕 ➞ ae
+ * With `PERMISSIVE_HOLD`, within `TAPPING_TERM`:
+ *   Mod(a)🠗 e🠗 e🠕 Mod(a)🠕 ➞ Mod+e
+ *
+ * See docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold
+ */
+#define PERMISSIVE_HOLD
 
-/* Reset. */
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
+/**
+ * Prevent normal rollover on alphas from accidentally triggering mods.
+ *
+ * Ignores key presses that interrupt a mod-tap.  Must-have for Home Row mod.
+ *
+ * Without `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
+ *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ Mod+e
+ * With `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
+ *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ ae
+ *
+ * See docs.qmk.fm/using-qmk/software-features/tap_hold#ignore-mod-tap-interrupt
+ */
+#define IGNORE_MOD_TAP_INTERRUPT
+
+/** Dilemma-specific features. */
+
+#ifdef POINTING_DEVICE_ENABLE
+// Flip horizontal direction for drag-scroll.
+#    define DILEMMA_DRAGSCROLL_REVERSE_X
+// #define DILEMMA_DRAGSCROLL_REVERSE_Y
+#endif // POINTING_DEVICE_ENABLE
 
 /** RGB Matrix. */
 
