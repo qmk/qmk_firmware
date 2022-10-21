@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FCTN] = LAYOUT(KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_SYRQ,
                     //-------------------------------//
-                    KC_PSCR, RGB_TOG, KC_HOME, KC_UP, KC_END, KC_PGUP, KC_LOCK, KC_LBRC, KC_RBRC, S(KC_LBRC), S(KC_RBRC), KC_INS,
+                    KC_PSCR, RGB_TOG, KC_HOME, KC_UP, KC_END, KC_PGUP, QK_LOCK, KC_LBRC, KC_RBRC, S(KC_LBRC), S(KC_RBRC), KC_INS,
                     //-------------------------------//
                     KC_PAUS, RGB_VAI, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_BRIU, KC_CLR,
                     //-------------------------------//

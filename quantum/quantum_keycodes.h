@@ -471,7 +471,7 @@ enum quantum_keycodes {
     OUT_BT, // 5D2A
 
     // Lock Key
-    KC_LOCK, // 5D2B
+    QK_LOCK, // 5D2B
 
     // Unused slots
     UNUSED_000, // 5D2C

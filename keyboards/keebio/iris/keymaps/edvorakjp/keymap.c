@@ -1,12 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "edvorakjp.h"
 
-/*
- * enum custom_keycodes {
- *   KC_LOCK = NEW_SAFE_RANGE,
- * };
- */
-
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define __KC_TRNS_x6__ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
