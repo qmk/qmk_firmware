@@ -50,8 +50,8 @@
 #endif
 
 /* Encoder pins */
-#define ENCODERS_PAD_A { A1, B5, A3 }
-#define ENCODERS_PAD_B { A2, B6, A4 }
+#define ENCODERS_PAD_A { B5, A1, A3 }
+#define ENCODERS_PAD_B { B6, A2, A4 }
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
