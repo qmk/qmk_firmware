@@ -59,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ISRT] = LAYOUT_ortho_4x12(
-    SWAPPWIN_TAB, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_DEL,
-    KC_ESC,       KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    KC_ENT,
-    KC_LSFT,      KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
-    CAPSWRD,      KC_LCTL, KC_LALT, KC_LGUI, MEH_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
+    KC_TAB,  KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_DEL,
+    KC_ESC,  KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    KC_ENT,
+    KC_LSFT, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
+    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI, MEH_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
   /* SYMBOL
