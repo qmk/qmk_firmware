@@ -66,13 +66,11 @@ enum custom_keycodes {
     CC_SCOLN,
     CC_COLN,
     CC_EXLM,
+    CC_SAVRGB,
 };
 
-// Called on every key stroke -> alles nach unten geschoben
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-// };
-
+// Animation Speeds
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {150, 100, 50};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -198,11 +196,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_TOG,  RGB_M_P,  RGB_M_B,  RGB_M_SW, RGB_M_G,  RGB_M_SN,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GAME, 
   RGB_MOD,  RGB_SAI,  RGB_SPI,  XXXXXXX,  XXXXXXX,  RGB_M_T,                       KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_PEQL,
   XXXXXXX,  RGB_SAD,  RGB_SPD,  XXXXXXX,  XXXXXXX,  XXXXXXX,                       KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PMNS,  KC_PERC, 
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_NUM,   XXXXXXX,  _______,   _______,  KC_P0,    KC_P1,    KC_P2,    KC_P3,    KC_PDOT,  KC_PENT, 
-                                 XXXXXXX, _______,  _______,  _______,   _______,   _______,  _______, _______
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_NUM,   XXXXXXX, CC_SAVRGB,  _______,  KC_P0,    KC_P1,    KC_P2,    KC_P3,    KC_PDOT,  KC_PENT, 
+                                 XXXXXXX, _______,  _______, _______,    _______,  _______,  _______, _______
 ),
-
-// TODO IMAGE
 
   [_GAME] = LAYOUT(
   KC_ESC,  KC_1,  KC_2,  KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,   KC_0,     GAME, 
@@ -214,15 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-// existing variant:
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     state = update_tri_layer_state(state, _UPPER, _LOWER, _MOD, _GAME);
-//     return state;
-// }
-
-// CHANGE LAYER COLOR  -> TODO: Helligkeit noch anpassen - steckt das in der Farbinfo?
-
+// Change RGB Color based on layer state
 // layer_state_t layer_state_set_user(layer_state_t state) {
 //     switch (get_highest_layer(state)) {
 //     case _UPPER:
@@ -485,13 +473,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code16(KC_QUES);             // ? 
                 }
                 break;
-        }
-        return false;
-    }
 
-            // SEND_STRING("BackDel Key pressed-");
-            //     SEND_STRING("MOD:shift ");
-            //     SEND_STRING("KC_delete.");
+            case CC_SAVRGB:   // Saves color config to eeprom. Used to save eeprom write cycles              
+                rgblight_sethsv(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val()); 
+                rgblight_set_speed( rgblight_get_speed() );
+                break;
+
+        return false;
+        }   
+    }
             
     return true;
 }
@@ -508,9 +498,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(_MOD))          // _MOD LAYER
     {
         if (clockwise) {
-            tap_code16(RGB_HUI);          // Increase Hue
+            rgblight_increase_hue_noeeprom();
         } else {
-            tap_code16(RGB_HUD);
+            rgblight_decrease_hue_noeeprom();
         }
     }
     else {                          // _QWERTY LAYER and others
@@ -532,9 +522,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     else if (IS_LAYER_ON(_MOD))     // _MOD LAYER
     {
         if (clockwise) {
-            tap_code16(RGB_VAI);          // Increase Brightness
+            rgblight_increase_val_noeeprom();
         } else {
-            tap_code16(RGB_VAD);
+            rgblight_decrease_val_noeeprom();
         }
     }
     else {                          // _QWERTY LAYER and others
