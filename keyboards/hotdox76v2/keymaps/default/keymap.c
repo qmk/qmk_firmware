@@ -1,4 +1,5 @@
 // Copyright 2021 JasonRen(biu)
+// Copyright 2022 Drashna Jael're (@Drashna Jael're)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
