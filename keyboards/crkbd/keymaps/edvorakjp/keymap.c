@@ -5,12 +5,6 @@
 
 #include "edvorakjp.h"
 
-/*
- * enum custom_keycodes {
- *   KC_LOCK = NEW_SAFE_RANGE,
- * };
- */
-
 #define LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 
 // clang-format off
