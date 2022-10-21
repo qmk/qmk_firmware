@@ -3,27 +3,35 @@
     "keyboard_name": "alcor_dactyl",
     "maintainer": "rocketstrong",
     "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
-    "features": {
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
-    "split": {
-        "enabled": true
-    },
-    "matrix_pins": {
-        "cols": ["GP29", "GP28", "GP27", "GP26", "GP15", "GP14", "GP13"],
-        "rows": ["GP5", "GP4", "GP3", "GP2", "GP1", "GP0"]
-    },
     "processor": "RP2040",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED"
+    },
+    "features": {
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "split": {
+        "enabled": true
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["GP29", "GP28", "GP27", "GP26", "GP15", "GP14", "GP13"],
+        "rows": ["GP5", "GP4", "GP3", "GP2", "GP1", "GP0"]
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            {"x":0, "y":0.375},
+            {"x":16.5, "y":0.38}
+        ]
     },
     "layouts": {
         "LAYOUT":{
