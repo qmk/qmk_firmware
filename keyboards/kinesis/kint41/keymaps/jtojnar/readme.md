@@ -2,7 +2,7 @@
 
 ## Keymap
 
-This is based on the `default` layout.
+This is based on the `default` layout, with a few modifications to better match my usage patterns.
 
 ### Default layer (QWERTY)
 
@@ -28,6 +28,10 @@ This is based on the `default` layout.
                                 |      |      | End  |         | PgDn |      |      |
                                 `--------------------'         `--------------------'
 ```
+
+#### Changes compared to `default`
+
+- Right <kbd>Super</kbd> in the right thumb cluster was changed to left <kbd>Super</kbd>, to allow opening Activities view in GNOME Shell.
 
 ## Setting up
 
