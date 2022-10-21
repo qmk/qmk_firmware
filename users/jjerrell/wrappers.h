@@ -53,10 +53,10 @@
  */
 
 #   define ____________________________________________________________PLANCK_VERBOSE_BOTTOM_ROW_____________________________________________________________ \
-           KC_LEAD, KC_LSFT, KC_CCCV, KC_HYPR, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_MEH,    RGB_TOG,    RGB_IDL,    LED_LEVEL
+           QK_LEAD, KC_LSFT, KC_CCCV, KC_HYPR, LT(_LOWER, KC_BSPC), SFT_T(KC_SPC), XXXXXXX, LT(_RAISE, KC_ENT),  KC_MEH,    RGB_TOG,    RGB_IDL,    LED_LEVEL
 
 #   define _________________________________________PLANCK_LOWER_BOTTOM_ROW_________________________________________ \
-           KC_LEAD, KC_LSFT, KC_CCCV, KC_HYPR,  KC_BSPC,  KC_SPC, XXXXXXX,   KC_ENT, KC_0, KC_DOT, KC_COMM, LED_LEVEL
+           QK_LEAD, KC_LSFT, KC_CCCV, KC_HYPR,  KC_BSPC,  KC_SPC, XXXXXXX,   KC_ENT, KC_0, KC_DOT, KC_COMM, LED_LEVEL
 // TODO: It would be nice to find a way to apply the bottom row with optional left/right varargs. 
 //       I'm completely unsure if this language can support something like that though.
 
@@ -131,7 +131,7 @@
         XXXXXXX,     k21,     k22,     k23,     k24,     k25, XXXXXXX,   XXXXXXX, k81,     k82,     k83,     k84,     k85,     XXXXXXX,      \
         KC_LSFT,     k31,     k32,     k33,     k34,     k35,                     k91,     k92,     k93,     k94,     k95,     KC_RSFT,      \
    MO(_SPECIAL),     k41,     k42,     k43,     k44,        TO(_GAME),   XXXXXXX,          ka2,     ka3,     ka4,     ka5,     MO(_SPECIAL), \
-                           LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),KC_LEAD,   KC_CCCV,SFT_T(KC_TAB),LT(_RAISE, KC_ENT)                            )
+                           LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),QK_LEAD,   KC_CCCV,SFT_T(KC_TAB),LT(_RAISE, KC_ENT)                            )
 
 #   define WRAPPER_moonlander_mods( \
         k11, k12, k13, k14, k15,             k71, k72, k73, k74, k75, \
@@ -232,7 +232,7 @@
                                                                                                                                                      \
                                                       XXXXXXX,XXXXXXX,           XXXXXXX,XXXXXXX,                                                    \
                                                               XXXXXXX,           XXXXXXX,                                                            \
-                           LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),KC_LEAD,           KC_CCCV,SFT_T(KC_TAB),LT(_RAISE, KC_ENT)                            )
+                           LT(_LOWER, KC_SPC),HYPR_T(KC_BSPC),QK_LEAD,           KC_CCCV,SFT_T(KC_TAB),LT(_RAISE, KC_ENT)                            )
 
 /** Common Wrapper with Mod Tap/Hold overlay
      .---------------------------------------------. .---------------------------------------------.

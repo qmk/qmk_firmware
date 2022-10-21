@@ -465,7 +465,7 @@ enum quantum_keycodes {
     JS_BUTTON31, // 5D28
 
     // Leader Key
-    KC_LEAD, // 5D29
+    QK_LEADER, // 5D29
 
     // Bluetooth: output selection (continued)
     OUT_BT, // 5D2A
@@ -845,6 +845,9 @@ enum quantum_keycodes {
 #define UC_M_BS UNICODE_MODE_BSD
 #define UC_M_WC UNICODE_MODE_WINC
 #define UC_M_EM UNICODE_MODE_EMACS
+
+// Leader key
+#define QK_LEAD QK_LEADER
 
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))

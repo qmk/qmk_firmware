@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Updated with inspiration from https://forum.colemak.com/topic/2014-extend-extra-extreme/
   // I like the AltGr trick from https://stevep99.github.io/seniply/ and should probably incorporate some stuff from it.
   [L_EXTD] = LAYOUT_uqs(
-     _______,  KC_BTN1,  KC_SCTAB, KC_PGUP,  KC_CTAB,  KC_LEAD,
+     _______,  KC_BTN1,  KC_SCTAB, KC_PGUP,  KC_CTAB,  QK_LEAD,
      _______,  OSM_GUI,  OSM_ALT,  OSM_SFT,  OSM_CTL,  KC_RALT,
      _______,  ALT_TAB,  MS_WHUP,  MS_WHDN,  KC_PGDN,  INS_HARD,
                          _______,  _______,

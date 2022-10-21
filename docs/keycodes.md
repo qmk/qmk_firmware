@@ -328,7 +328,7 @@ See also: [Leader Key](feature_leader_key.md)
 
 |Key      |Description             |
 |---------|------------------------|
-|`KC_LEAD`|Begins a leader sequence|
+|`QK_LEAD`|Begins a leader sequence|
 
 ## Magic Keycodes :id=magic-keycodes
 
