@@ -73,7 +73,7 @@ enum alfrdmalr_keycodes {
 #define K1B_ALT    KC_DEL // for 5x12 boards, keep backspace as the top-left key and add delete key
 #define K2B        KC_QUOT
 #define K3B        KC_RSFT
-#define K4B        KC_LEAD
+#define K4B        QK_LEAD
 
 // LAYOUT WRAPPERS =====================================================================
 #if (!defined(LAYOUT) && defined(KEYMAP))

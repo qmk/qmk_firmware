@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   LAYOUT_wrapper( \
     MT(MOD_LALT,KC_TAB),  K01,    K02,     K03,      K04,     K05,     LT(RAISE,KC_PGUP),  K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
     SFT_T(KC_ESC),        K11,    K12,     K13,      K14,     K15,     LT(LOWER,KC_PGDN),  K16,     K17,     K18,     K19,     K1A,     SFT_T(KC_ENT), \
-    MT(MOD_LCTL,KC_DEL),  K21,    K22,     K23,      K24,     K25,     KC_SPACE,           K26,     K27,     K28,     K29,     K2A,     KC_LEAD  \
+    MT(MOD_LCTL,KC_DEL),  K21,    K22,     K23,      K24,     K25,     KC_SPACE,           K26,     K27,     K28,     K29,     K2A,     QK_LEAD  \
   )
 
 /* 
