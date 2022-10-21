@@ -70,7 +70,8 @@ enum custom_keycodes {
 };
 
 // Animation Speeds
-const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {150, 100, 50};
+//const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {200, 150, 100};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -497,10 +498,19 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {             // Encoder on master side
     if (IS_LAYER_ON(_MOD))          // _MOD LAYER
     {
-        if (clockwise) {
-            rgblight_increase_hue_noeeprom();
-        } else {
-            rgblight_decrease_hue_noeeprom();
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+            if (clockwise) {
+                rgblight_increase_sat_noeeprom();
+            } else {
+                rgblight_decrease_sat_noeeprom();
+            }
+        }
+        else {
+            if (clockwise) {
+                rgblight_increase_hue_noeeprom();
+            } else {
+                rgblight_decrease_hue_noeeprom();
+            }
         }
     }
     else {                          // _QWERTY LAYER and others
@@ -521,10 +531,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     else if (IS_LAYER_ON(_MOD))     // _MOD LAYER
     {
-        if (clockwise) {
-            rgblight_increase_val_noeeprom();
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+            if (clockwise) {
+                rgblight_increase_speed_noeeprom();
+            } else {
+                rgblight_decrease_speed_noeeprom();
+            }
         } else {
-            rgblight_decrease_val_noeeprom();
+            if (clockwise) {
+                rgblight_increase_val_noeeprom();
+            } else {
+                rgblight_decrease_val_noeeprom();
+            }
         }
     }
     else {                          // _QWERTY LAYER and others
