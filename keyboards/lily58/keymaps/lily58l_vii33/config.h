@@ -44,9 +44,9 @@ use define EE_HANDS at flashing time*/
   
 #  define RGBLIGHT_SLEEP      // the RGB lighting will be switched off when the host goes to sleep
 // #  define RGBLIGHT_ANIMATIONS  // deprecated!
-#  define RGBLIGHT_HUE_STEP 6 // number of steps to cycle through the hue by
-#  define RGBLIGHT_SAT_STEP 6 // number of steps to increment the saturation by
-#  define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
+#  define RGBLIGHT_HUE_STEP 1 // number of steps to cycle through the hue by
+#  define RGBLIGHT_SAT_STEP 2 // number of steps to increment the saturation by
+#  define RGBLIGHT_VAL_STEP 2 // number of steps to increment the brightness by
 
 // #  define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 
@@ -59,8 +59,11 @@ use define EE_HANDS at flashing time*/
 #endif
 
 
-// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-#define SPLIT_USB_DETECT
-#define NO_USB_STARTUP_CHECK
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_MAX_LAYERS 2  // Default 8 / Performance impact!
 
+
+// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
+// #define SPLIT_USB_DETECT
+// #define NO_USB_STARTUP_CHECK
 
