@@ -1,13 +1,11 @@
 # allez 
 
-![allez](imgur link)
-
 An affordable intro into 40% Keyboards. Concept and Design by Zakariya Khan.
 
 - Keyboard Designer: Zakariya Khan
 - Keyboard Maintainer: Zakariya Khan
 - Hardware Supported: handwired
-- Hardware Availability: plate files on GitHub
+- Hardware Availability: plate files on [GitHub](https://github.com/zakariyavkhan/allez-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 

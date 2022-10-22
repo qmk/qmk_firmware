@@ -1,13 +1,11 @@
 # allez 
 
-![allez](imgur link)
-
 An affordable intro into 40% Keyboards. Concept and Design by Zakariya Khan.
 
 - Keyboard Designer: Zakariya Khan
 - Keyboard Maintainer: Zakariya Khan
-- Hardware Supported: allez v1.0 PCB
-- Hardware Availability: GitHub - JLCPCB
+- Hardware Supported: allez PCB
+- Hardware Availability: [GitHub](https://github.com/zakariyavkhan/allez-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
