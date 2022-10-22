@@ -25,5 +25,6 @@ enum custom_keycodes {
   // Norwegian keys
   CT_AA,
   CT_AE,
-  CT_OE
+  CT_OE,
+  CT_F
 };

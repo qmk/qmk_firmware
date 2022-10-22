@@ -21,11 +21,12 @@
 #define LT_UP LT(0,KC_UP)
 #define LT_LEFT LT(0,KC_LEFT)
 #define SWAPPWIN_TAB LT(0,KC_TAB)
+#define ENT_BTN2 LT(0,KC_ENT)
 /* Home row mods */
 #define HOME_R LALT_T(KC_R)
 #define HOME_T LCTL_T(KC_T)
 #define HOME_N RCTL_T(KC_N)
-#define HOME_E LALT_T(KC_E)
+#define HOME_E RALT_T(KC_E)
 
 
 enum planck_layers {
@@ -56,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Q  |   V  |   W  |   D  |   J  |   B  |   H  |   /  |   .  |   X  |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |CPSWRD| Ctrl | Alt  | GUI  |Space | Num  | Func |Bksp  | Nav  | GUI  | Left |Right |
+   * |CPSWRD| Ctrl | Alt  | GUI  |Space | Sym  | Func | Bksp | Nav  | GUI  | Left |Right |
    * `-----------------------------------------------------------------------------------'
    */
 
@@ -82,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_SYMBOL] = LAYOUT_ortho_4x12(
     KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_NO, KC_NO, KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
     KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT, ARROW, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
-    KC_LSFT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO, KC_NO, KC_MINS, KC_HASH, GRAVE,  KC_CIRC, KC_RSFT,
+    KC_LSFT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO, KC_NO, KC_MINS, KC_HASH, GRAVE,   KC_CIRC, KC_RSFT,
     KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,  NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
@@ -144,10 +145,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
   
   [_COC] = LAYOUT_ortho_4x12(
-    KC_WH_U, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_ESC,
-    KC_WH_D, KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    KC_ENT,
-    KC_BTN1, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    SW_APP,
-    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MEH_SPC, HOME,   FUNCTION, BSP_DWRD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    KC_WH_U, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     LT(0,CT_F), KC_U,    KC_COMM, KC_QUOT, KC_ESC,
+    KC_WH_D, KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,     HOME_E,  KC_A,    KC_O,    ENT_BTN2,
+    KC_BTN1, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,       KC_SLSH, KC_DOT,  KC_X,    SW_APP,
+    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MEH_SPC, HOME,   FUNCTION, BSP_DWRD,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     )
 
 };
@@ -201,6 +202,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
+  case LT(0,CT_F):
+    if (record->tap.count && isPressed) {
+      tap_code16(KC_F);
+    } else if (isHeld) {
+      tap_code16(S(KC_F));
+    }
+    return false;
+  case ENT_BTN2:
+    if (isHeld) {
+      tap_code16(KC_BTN2);
+      return false;
+    }
+    return true;
   case SWAPPWIN_TAB:
     if (isHeld) {
       /* process_record_user(SW_APP, record); */
