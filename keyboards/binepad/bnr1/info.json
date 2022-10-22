@@ -30,8 +30,9 @@
         "pid": "0x4231",
         "device_version": "1.0.0"
     },
+    "community_layouts": ["ortho_1x1"],
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ortho_1x1": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 2, "h": 2}
             ]

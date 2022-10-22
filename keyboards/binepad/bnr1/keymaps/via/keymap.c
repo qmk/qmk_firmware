@@ -9,11 +9,11 @@ enum {
 } keyboard_layers;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_L0] = LAYOUT_all(
+    [_L0] = LAYOUT_ortho_1x1(
         LT(_L1, KC_MUTE)
     ),
 
-    [_L1] = LAYOUT_all(
+    [_L1] = LAYOUT_ortho_1x1(
         _______
     )
 };
