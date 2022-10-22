@@ -15,7 +15,9 @@
  */
 
 #include "stdint.h"
-#include "via.h"
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
 #include "quantum_keycodes.h"
 
 enum custom_keycodes {
