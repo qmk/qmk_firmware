@@ -1,9 +1,0 @@
-{
-    "lighting": "none",
-    "matrix":{ "rows":1, "cols":1 },
-    "layouts":{
-        "keymap":[
-            [{"c":"#777777"},"0,0\n\n\n\n\n\n\n\n\ne",{"x":0.25,"c":"#cccccc","w":2,"h":2},"0,0",{"x":0.25,"c":"#777777"},"0,1\n\n\n\n\n\n\n\n\ne"]
-        ]
-    }
-}
