@@ -101,7 +101,7 @@ void dance_finished(qk_tap_dance_state_t *state, void* user_data) {
     case SINGLE_TAP:
     {
       // VS Build: CTRL+SHIFT+B
-      send_string_with_delay_P(PSTR(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "b" SS_UP(X_LSHIFT) SS_UP(X_LCTRL)), 10);
+      send_string_with_delay_P(PSTR(SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) "b" SS_UP(X_LSFT) SS_UP(X_LCTL)), 10);
       tap_dance_active = false;
       break;
     }

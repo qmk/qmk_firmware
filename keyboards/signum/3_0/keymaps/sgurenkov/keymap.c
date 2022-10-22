@@ -44,12 +44,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,         KC_Q,      KC_W,       KC_E,      KC_R,      KC_T,       KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,         KC_DEL,
     KC_TAB,         M4(KC_A),  M3(KC_S),   M2(KC_D),  M1(KC_F),  M0(KC_G),   M0(KC_H), M1(KC_J), M2(KC_K), M3(KC_L), M4(KC_COLN),  KC_QUOT,
     KC_GRV,         KC_Z,      KC_X,       KC_C,      KC_V,      KC_B,       KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,      KC_BSLS,
-    OSM(MOD_LSFT),  KC_LEAD,   KC_LGUI,    LTH1,      XXXXXXX,   LTH2,       RTH2,     XXXXXXX,  RTH1,     KC_RGUI,  KC_LEAD,      OSM(MOD_HYPR)),
+    OSM(MOD_LSFT),  QK_LEAD,   KC_LGUI,    LTH1,      XXXXXXX,   LTH2,       RTH2,     XXXXXXX,  RTH1,     KC_RGUI,  QK_LEAD,      OSM(MOD_HYPR)),
 
 // L_LEFT
     LAYOUT(
     _______, XXXXXXX,   XXXXXXX, KC_EQL,  KC_PERC, KC_AT,        COPY,     KC_UNDS, KC_HASH, RALT(KC_SPC), KC_PLUS,  _______,
-    _______, KC_LSHIFT, KC_LALT, KC_LCTL, KC_LGUI, KC_HYPR,      KC_LEFT,  KC_DOWN, KC_UP,   KC_RIGHT,     KC_LBRC,  KC_RBRC,
+    _______, KC_LSFT,   KC_LALT, KC_LCTL, KC_LGUI, KC_HYPR,      KC_LEFT,  KC_DOWN, KC_UP,   KC_RIGHT,     KC_LBRC,  KC_RBRC,
     _______, XXXXXXX,   KC_EXLM, KC_CIRC, XXXXXXX, KC_HOME,      KC_END,   KC_MINS, KC_LPRN, KC_RPRN,      PASTE,    XXXXXXX,
     _______, KC_BRID,   KC_BRIU, _______, _______,  _______,     _______, _______, _______,  KC_VOLD,      KC_VOLU,  _______),
 
@@ -117,7 +117,7 @@ void matrix_scan_user(void) {
 
             tap_code(KC_RIGHT);
 
-            tap_code(KC_BSPACE);
+            tap_code(KC_BACKSPACE);
 
             unregister_code(KC_LGUI);
         }

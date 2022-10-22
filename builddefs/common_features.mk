@@ -64,6 +64,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
         OPT_DEFS += -DAUDIO_DRIVER_PWM
     endif
     OPT_DEFS += -DAUDIO_ENABLE
+    COMMON_VPATH += $(QUANTUM_PATH)/audio
     MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c

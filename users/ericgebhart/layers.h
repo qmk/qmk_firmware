@@ -122,7 +122,7 @@
 
 // Kinesis function key row. I don't use them. but might as well define them.
 #define ___KINTFUNC_L___ KC_ESC, ___FUNC_1_6___, KC_F7, KC_F8
-// #define ___KINTFUNC_RIGHT___ KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SLCK, KC_PAUS, KC_FN0, RESET
+// #define ___KINTFUNC_RIGHT___ KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SCRL, KC_PAUS, KC_FN0, RESET
 #define ___KINTFUNC_R___ KC_F9, KC_F10, KC_F11, KC_F12, XXX, XXX, XXX, XXX, RESET
 
 // A TOPROWS Layer.
@@ -630,7 +630,7 @@
 #define ___6_ADJUST_L3___ MG_NKRO,  ___RGB_HUE_SAT_INT_DN___,        KC_RGB_T
 
 #define ___6_ADJUST_R1___  ___5___,                          KC_RESET
-#define ___6_ADJUST_R2___  ___,     ___PRV_PLAY_NXT_STOP___, EEP_RST
+#define ___6_ADJUST_R2___  ___,     ___PRV_PLAY_NXT_STOP___, EE_CLR
 #define ___6_ADJUST_R3___  MG_NKRO, ___VDN_MUTE_VUP___, ___, RGB_IDL
 
 /********************************************************************************/

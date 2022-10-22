@@ -53,7 +53,7 @@ enum macro_keycodes {
   _30, _31, _32, _33, _34 \
 ) \
 LAYOUT_ortho_5x6( \
-      KC_GESC, _00,     _01,     _02,     _03,     _04, \
+      QK_GESC, _00,     _01,     _02,     _03,     _04, \
       KC_TAB,  _10,     _11,     _12,     _13,     _14, \
       FN_CAPS, _20,     _21,     _22,     _23,     _24, \
       KC_LSFT, _30,     _31,     _32,     _33,     _34, \
@@ -109,7 +109,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
 
   switch (keycode) {
     case QWERTY:

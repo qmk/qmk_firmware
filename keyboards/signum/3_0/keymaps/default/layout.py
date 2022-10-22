@@ -349,7 +349,7 @@ qmk_dict = {
     ":": "S(KC_SCLN)", "'": "KC_QUOT", "\"": "S(KC_QUOT)", "`": "KC_GRV",
     "~": "S(KC_GRV)", ",": "KC_COMM", "<": "S(KC_COMM)", ".": "KC_DOT",
     ">": "S(KC_DOT)", "/": "KC_SLSH", "?": "S(KC_SLSH)", "Caps": "KC_CAPS",
-    "Pr Scr": "KC_PSCR", "Scr Lck": "KC_SLCK", "Pause": "KC_BRK", "Insert": "KC_INS", "SInsert": "LSFT(KC_INS)",
+    "Pr Scr": "KC_PSCR", "Scr Lck": "KC_SCRL", "Pause": "KC_BRK", "Insert": "KC_INS", "SInsert": "LSFT(KC_INS)",
     "Home": "KC_HOME", "Pg Up": "KC_PGUP", "Del": "KC_DEL", "End": "KC_END",
     "Pg Down": "KC_PGDN", "> Arrow": "KC_RGHT", "< Arrow": "KC_LEFT",
     "v Arrow": "KC_DOWN", "^ Arrow": "KC_UP",
@@ -370,7 +370,7 @@ qmk_dict = {
     ">>|": "KC_MNXT", "|<<": "KC_MPRV", "play/ps": "KC_MPLY",
     "Bri +": "KC_BRIU", "Bri -": "KC_BRID",
     # Quantum Keycodes
-    "_reset": "QK_BOOT", "_debug": "DEBUG", "_eep_re": "EEP_RST",
+    "_reset": "QK_BOOT", "_debug": "DB_TOGG", "_eep_re": "EE_CLR",
     # Audio Keys missing
     # Backlighting
     "Led 0": "BL_TOGG", "Led +": "BL_INC", "Led -": "BL_DEC", "Led ~": "BL_BRTG",

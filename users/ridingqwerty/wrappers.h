@@ -93,12 +93,12 @@
 #define ________________EDITOR_R3__________________        KC_PGDN, _______, _______, _______, KC_BSLS
 
 
-#define ________________DEBUG_L1___________________        DEBUG,   _______, _______, RNGWORD, SARCASM
+#define ________________DEBUG_L1___________________        DB_TOGG, _______, _______, RNGWORD, SARCASM
 #define ________________DEBUG_L2___________________        GREEK,   RUSSIAN, HIRAGAN, RUNES,   _______
 #define ________________DEBUG_L3___________________        _______, _______, _______, VERSION, _______
 
 #define ________________DEBUG_R1___________________        VPRWAVE, STRAYA,  _______, TESTING, _______
-#define ________________DEBUG_R2___________________        _______, _______, EEP_RST, RESET,   MAKE
+#define ________________DEBUG_R2___________________        _______, _______, EE_CLR,  RESET,   MAKE
 #define ________________DEBUG_R3___________________        QWERTY,  DVORAK,  COLEMAK, _______, _______
 
 

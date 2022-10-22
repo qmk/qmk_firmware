@@ -305,7 +305,7 @@ See also: [Key Lock](feature_key_lock.md)
 
 |Key      |Description                                                   |
 |---------|--------------------------------------------------------------|
-|`KC_LOCK`|Hold down the next key pressed, until the key is pressed again|
+|`QK_LOCK`|Hold down the next key pressed, until the key is pressed again|
 
 ## Layer Switching :id=layer-switching
 
@@ -328,7 +328,7 @@ See also: [Leader Key](feature_leader_key.md)
 
 |Key      |Description             |
 |---------|------------------------|
-|`KC_LEAD`|Begins a leader sequence|
+|`QK_LEAD`|Begins a leader sequence|
 
 ## Magic Keycodes :id=magic-keycodes
 

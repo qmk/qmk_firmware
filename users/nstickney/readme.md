@@ -38,7 +38,7 @@ Note that my Iris keyboard has an Elite-C on the left half and a ProMicro on the
 	* `PRINT SCREEN`, `PAUSE`, `SYSREQ`, `INSERT`, and `CLEAR` also mapped, as intelligently as possible.
 	* `Q` toggles the RGB underglow (which changes color to indicate active layer).
 	* `A` increases RGB underglow brightness (with `SHIFT`, decreases brightness).
-	* `Y` is mapped to [`KC_LOCK`](https://beta.docs.qmk.fm/using-qmk/software-features/feature_key_lock).
+	* `Y` is mapped to [`QK_LOCK`](https://beta.docs.qmk.fm/using-qmk/software-features/feature_key_lock).
 
 ## Contribute
 

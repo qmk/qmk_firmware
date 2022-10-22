@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [0] = LAYOUT(
                         KC_MPLY, KC_MUTE,
                 TG(3), TG(2), TG(1), TG(0),
-                KC_PSCR, KC_SLCK, KC_PAUS, A(KC_F4),
+                KC_PSCR, KC_SCRL, KC_PAUS, A(KC_F4),
                 KC_INS, KC_HOME, KC_PGUP, KC_F12,    //Transparent to let you go between layers
                 KC_DEL, A(KC_F4), KC_PGDN, KC_CALCULATOR
 
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,  KC_TRNS, KC_TRNS,   KC_TRNS,         //Transparent to let you go between layers
                 RGB_MOD,  RGB_HUI, RGB_SAI,   RGB_VAI,
                 RGB_RMOD, RGB_HUD, RGB_SAD,   RGB_VAD,
-                RGB_TOG,  EEP_RST, QK_BOOT,   KC_TRNS
+                RGB_TOG,  EE_CLR,  QK_BOOT,   KC_TRNS
         ),
 
         [3] = LAYOUT(
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,  KC_TRNS, KC_TRNS,   KC_TRNS,         //Transparent to let you go between layers
                 RGB_MOD,  RGB_HUI, RGB_SAI,   RGB_VAI,
                 RGB_RMOD, RGB_HUD, RGB_SAD,   RGB_VAD,
-                RGB_TOG,  EEP_RST, QK_BOOT,   KC_TRNS
+                RGB_TOG,  EE_CLR,  QK_BOOT,   KC_TRNS
         )
 
 
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //                 KC_MPLY, KC_MUTE,
         //         RGB_MOD,  RGB_HUI, RGB_SAI,   RGB_VAI,
         //         RGB_RMOD, RGB_HUD, RGB_SAD,   RGB_VAD,
-        //         RGB_TOG,  EEP_RST, QK_BOOT,   KC_LSHIFT,
+        //         RGB_TOG,  EE_CLR,  QK_BOOT,   KC_LSFT,
         //         KC_TRNS,  KC_TRNS, KC_TRNS,   KC_TRNS         //Transparent to let you go between layers
         // ),
 };

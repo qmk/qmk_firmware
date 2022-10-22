@@ -58,7 +58,7 @@ LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_
 	//┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
 	   SE_TILD,  KC_EXLM, SE_AT,   KC_HASH, SE_DLR, KC_PERC,                     		SE_CIRC,  SE_AMPR, SE_ASTR, SE_SLSH, SE_LPRN, SE_RPRN,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	   KC_TRNS,  KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_PGUP, KC_UP, KC_PGDOWN, SE_LCBR, SE_RCBR,
+	   KC_TRNS,  KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_PGUP, KC_UP, KC_PGDN,   SE_LCBR, SE_RCBR,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
 	  KC_TRNS,  KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, SE_BSLS,                     		KC_TRNS, KC_LEFT,  KC_DOWN, KC_RGHT, SE_LBRC,  SE_RBRC,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤

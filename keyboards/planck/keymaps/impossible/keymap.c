@@ -55,10 +55,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_FN] = LAYOUT_planck_grid(
-  KC_EXLM, KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC, KC_AMPR,   KC_ASTR, KC_F12,  KC_F7,  KC_F8,  KC_F9,
-  KC_TAB,  KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_QUOT, KC_LPRN,   KC_RPRN, KC_F11,  KC_F4,  KC_F5,  KC_F6,
-  KC_MENU, _______,     _______,     KC_EQUAL, KC_BSLS,   KC_SLSH, XXXXXXX,   XXXXXXX, KC_PGUP, KC_F1,  KC_F2,  KC_F3,
-  _______, KC_LGUI,     KC_GRAVE,    _______,  _______,   _______, KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_F10, _______
+  KC_EXLM, KC_AT,   KC_HASH,  KC_DLR,   KC_PERC,   KC_CIRC, KC_AMPR,   KC_ASTR, KC_F12,  KC_F7,  KC_F8,  KC_F9,
+  KC_TAB,  KC_LBRC, KC_RBRC,  KC_MINUS, KC_DELETE, KC_QUOT, KC_LPRN,   KC_RPRN, KC_F11,  KC_F4,  KC_F5,  KC_F6,
+  KC_MENU, _______, _______,  KC_EQUAL, KC_BSLS,   KC_SLSH, XXXXXXX,   XXXXXXX, KC_PGUP, KC_F1,  KC_F2,  KC_F3,
+  _______, KC_LGUI, KC_GRAVE, _______,  _______,   _______, KC_SCLN,   KC_HOME, KC_PGDN, KC_END, KC_F10, _______
 ),
 
 /* Qwerty
@@ -132,9 +132,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJ] = LAYOUT_planck_grid(
   _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  KC_PSCR, KC_PAUSE, QK_BOOT,
-  _______, _______, _______, _______, _______, _______, _______, KC_CLCK, MUV_IN,  AU_TOG,  MI_OFF,   _______,
-  _______, _______, _______, _______, _______, _______, _______, KC_SLCK, MUV_DE,  MU_TOG,  MI_ON,    _______,
-  _______, _______, _______, _______, _______, _______, _______, KC_NLCK, WORKMAN, QWERTY,  PLOVER,   _______
+  _______, _______, _______, _______, _______, _______, _______, KC_CAPS, MUV_IN,  AU_TOG,  MI_OFF,   _______,
+  _______, _______, _______, _______, _______, _______, _______, KC_SCRL, MUV_DE,  MU_TOG,  MI_ON,    _______,
+  _______, _______, _______, _______, _______, _______, _______, KC_NUM,  WORKMAN, QWERTY,  PLOVER,   _______
 )
 
 };

@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY] = LAYOUT_wrapper(
                    _________________NUMBER_L__________________,
-       KC_GESC, KC_TAB, _________________QWERTY_L1_________________,
+       QK_GESC, KC_TAB, _________________QWERTY_L1_________________,
           KC_CAPS, _________________QWERTY_L2_________________, KC_H,
        KC_LSFT, _________________QWERTY_L3_________________, KC_N,
      KC_LCTL, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_COLEMAK] = LAYOUT_wrapper(
                    _________________NUMBER_L__________________,
-       KC_GESC, KC_TAB, _________________COLEMAK_L1________________,
+       QK_GESC, KC_TAB, _________________COLEMAK_L1________________,
           KC_LCTL, _________________COLEMAK_L2________________, KC_ENT,
        KC_LSFT, _________________COLEMAK_L3________________, KC_M,
      KC_CAPS, KC_GRV, KC_LGUI, KC_LALT, MIS_EIS, KC_SPC, KC_SPC, KC_PSCR,
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI,
-          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EEP_RST, RGB_TOG
+          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EE_CLR, RGB_TOG
     )
 };
 
@@ -243,7 +243,7 @@ bool rgb_matrix_indicators_user(void) {
 
                 rgb_matrix_set_color(31, RGB_DARKBLUE);        //  RGB_RMOD
                 rgb_matrix_set_color(37, RGB_DARKBLUE);        //  RGB_MOD
-                rgb_matrix_set_color(38, RGB_DARKPINK);        //  EEP_RST
+                rgb_matrix_set_color(38, RGB_DARKPINK);        //  EE_CLR
                 rgb_matrix_set_color(40, RGB_DARKRED);         //  RGB_TOG
 
                 rgb_matrix_set_color(41, RGB_DARKORANGE);      //  _FN

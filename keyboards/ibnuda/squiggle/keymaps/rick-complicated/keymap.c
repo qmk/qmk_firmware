@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_SCLN,KC_COMM,KC_DOT, KC_P,   KC_Y,       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,
     SH_A,   CT_O,   AL_E,   KC_U,   GU_I,       GU_D,   KC_H,   AL_T,   CT_N,   SH_S,
     KC_QUOT,KC_Q,   KC_J,   KC_K,   KC_X,       KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,
-                            LW_BSPC,KC_LEAD,    ALT_ENT,RS_SPC,
+                            LW_BSPC,QK_LEAD,    ALT_ENT,RS_SPC,
                             LW_BSPC,SFT_ESC,    ALT_ENT,RS_SPC
 ),
 
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_complicated(
     _______,_______,_______,KC_F1,  KC_F2,      KC_F3,  KC_F4,  _______,_______,_______ ,
     KC_LSFT,KC_TAB, KC_PGUP,KC_F5,  KC_F6,      KC_F7,  KC_F8,  KC_HOME,KC_LALT,KC_ENT  ,
-    KC_CLCK,KC_SLCK,KC_PGDN,KC_F9,  KC_F10,     KC_F11, KC_F12, KC_END, KC_INS, _______ ,
+    KC_CAPS,KC_SCRL,KC_PGDN,KC_F9,  KC_F10,     KC_F11, KC_F12, KC_END, KC_INS, _______ ,
                             _______,_______,    _______,ADDDD,
                             _______,_______,    _______,ADDDD
 ),

@@ -28,10 +28,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_ortho_4x12(
-  KC_KP_0,     KC_KP_1,    KC_KP_4,     KC_KP_7,    KC_NUMLOCK,     KC_LEFT,   KC_KP_0,     KC_KP_1,    KC_KP_4,     KC_KP_7,    KC_NUMLOCK,     KC_LEFT,
+  KC_KP_0,     KC_KP_1,    KC_KP_4,     KC_KP_7,    KC_NUM_LOCK,    KC_LEFT,   KC_KP_0,     KC_KP_1,    KC_KP_4,     KC_KP_7,    KC_NUM_LOCK,    KC_LEFT,
   ADJUST,      KC_KP_2,    KC_KP_5,     KC_KP_8,    KC_KP_SLASH,    KC_DOWN,   ADJUST,      KC_KP_2,    KC_KP_5,     KC_KP_8,    KC_KP_SLASH,    KC_DOWN,
   KC_KP_DOT,   KC_KP_3,    KC_KP_6,     KC_KP_9,    KC_KP_ASTERISK, KC_UP,     KC_KP_DOT,   KC_KP_3,    KC_KP_6,     KC_KP_9,    KC_KP_ASTERISK, KC_UP,
-  KC_KP_ENTER, KC_TAB,     KC_KP_MINUS, KC_KP_PLUS, KC_BSPACE,      KC_RIGHT,  KC_KP_ENTER, KC_TAB,     KC_KP_MINUS, KC_KP_PLUS, KC_BSPACE,      KC_RIGHT
+  KC_KP_ENTER, KC_TAB,     KC_KP_MINUS, KC_KP_PLUS, KC_BSPC,        KC_RIGHT,  KC_KP_ENTER, KC_TAB,     KC_KP_MINUS, KC_KP_PLUS, KC_BSPC,        KC_RIGHT
 ),
 
 /* Adjust (Lower + Raise)

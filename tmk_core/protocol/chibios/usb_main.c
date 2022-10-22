@@ -127,7 +127,7 @@ static USBInEndpointState kbd_ep_state;
 static const USBEndpointConfig kbd_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    kbd_in_cb,              /* IN notification callback */
+    NULL,                   /* IN notification callback */
     NULL,                   /* OUT notification callback */
     KEYBOARD_EPSIZE,        /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -145,7 +145,7 @@ static USBInEndpointState mouse_ep_state;
 static const USBEndpointConfig mouse_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    mouse_in_cb,            /* IN notification callback */
+    NULL,                   /* IN notification callback */
     NULL,                   /* OUT notification callback */
     MOUSE_EPSIZE,           /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -163,11 +163,47 @@ static USBInEndpointState shared_ep_state;
 static const USBEndpointConfig shared_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    shared_in_cb,           /* IN notification callback */
+    NULL,                   /* IN notification callback */
     NULL,                   /* OUT notification callback */
     SHARED_EPSIZE,          /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
     &shared_ep_state,       /* IN Endpoint state */
+    NULL,                   /* OUT endpoint state */
+    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
+};
+#endif
+
+#ifdef JOYSTICK_ENABLE
+/* joystick endpoint state structure */
+static USBInEndpointState joystick_ep_state;
+
+/* joystick endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
+static const USBEndpointConfig joystick_ep_config = {
+    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
+    NULL,                   /* SETUP packet notification callback */
+    NULL,                   /* IN notification callback */
+    NULL,                   /* OUT notification callback */
+    JOYSTICK_EPSIZE,        /* IN maximum packet size */
+    0,                      /* OUT maximum packet size */
+    &joystick_ep_state,     /* IN Endpoint state */
+    NULL,                   /* OUT endpoint state */
+    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
+};
+#endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+/* digitizer endpoint state structure */
+static USBInEndpointState digitizer_ep_state;
+
+/* digitizer endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
+static const USBEndpointConfig digitizer_ep_config = {
+    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
+    NULL,                   /* SETUP packet notification callback */
+    NULL,                   /* IN notification callback */
+    NULL,                   /* OUT notification callback */
+    DIGITIZER_EPSIZE,       /* IN maximum packet size */
+    0,                      /* OUT maximum packet size */
+    &digitizer_ep_state,    /* IN Endpoint state */
     NULL,                   /* OUT endpoint state */
     usb_lld_endpoint_fields /* USB driver specific endpoint fields */
 };
@@ -315,12 +351,6 @@ typedef struct {
 #ifdef VIRTSER_ENABLE
             usb_driver_config_t serial_driver;
 #endif
-#ifdef JOYSTICK_ENABLE
-            usb_driver_config_t joystick_driver;
-#endif
-#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
-            usb_driver_config_t digitizer_driver;
-#endif
         };
         usb_driver_config_t array[0];
     };
@@ -360,22 +390,6 @@ static usb_driver_configs_t drivers = {
 #    define CDC_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define CDC_OUT_MODE USB_EP_MODE_TYPE_BULK
     .serial_driver = QMK_USB_DRIVER_CONFIG(CDC, CDC_NOTIFICATION_EPNUM, false),
-#endif
-
-#ifdef JOYSTICK_ENABLE
-#    define JOYSTICK_IN_CAPACITY 4
-#    define JOYSTICK_OUT_CAPACITY 4
-#    define JOYSTICK_IN_MODE USB_EP_MODE_TYPE_BULK
-#    define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
-    .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
-#endif
-
-#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
-#    define DIGITIZER_IN_CAPACITY 4
-#    define DIGITIZER_OUT_CAPACITY 4
-#    define DIGITIZER_IN_MODE USB_EP_MODE_TYPE_BULK
-#    define DIGITIZER_OUT_MODE USB_EP_MODE_TYPE_BULK
-    .digitizer_driver = QMK_USB_DRIVER_CONFIG(DIGITIZER, 0, false),
 #endif
 };
 
@@ -482,6 +496,12 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #endif
 #ifdef SHARED_EP_ENABLE
             usbInitEndpointI(usbp, SHARED_IN_EPNUM, &shared_ep_config);
+#endif
+#ifdef JOYSTICK_ENABLE
+            usbInitEndpointI(usbp, JOYSTICK_IN_EPNUM, &joystick_ep_config);
+#endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+            usbInitEndpointI(usbp, DIGITIZER_IN_EPNUM, &digitizer_ep_config);
 #endif
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
 #ifdef USB_ENDPOINTS_ARE_REORDERABLE
@@ -690,7 +710,6 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 
 /* Start-of-frame callback */
 static void usb_sof_cb(USBDriver *usbp) {
-    kbd_sof_cb(usbp);
     osalSysLockFromISR();
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
         qmkusbSOFHookI(&drivers.array[i].driver);
@@ -764,21 +783,6 @@ __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
  *                  Keyboard functions
  * ---------------------------------------------------------
  */
-/* keyboard IN callback hander (a kbd report has made it IN) */
-#ifndef KEYBOARD_SHARED_EP
-void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
-    /* STUB */
-    (void)usbp;
-    (void)ep;
-}
-#endif
-
-/* start-of-frame handler
- * TODO: i guess it would be better to re-implement using timers,
- *  so that this is not going to have to be checked every 1ms */
-void kbd_sof_cb(USBDriver *usbp) {
-    (void)usbp;
-}
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
@@ -889,15 +893,6 @@ unlock:
  */
 
 #ifdef MOUSE_ENABLE
-
-#    ifndef MOUSE_SHARED_EP
-/* mouse IN callback hander (a mouse report has made it IN) */
-void mouse_in_cb(USBDriver *usbp, usbep_t ep) {
-    (void)usbp;
-    (void)ep;
-}
-#    endif
-
 void send_mouse(report_mouse_t *report) {
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
@@ -924,19 +919,6 @@ void send_mouse(report_mouse_t *report) {
     (void)report;
 }
 #endif /* MOUSE_ENABLE */
-
-/* ---------------------------------------------------------
- *                   Shared EP functions
- * ---------------------------------------------------------
- */
-#ifdef SHARED_EP_ENABLE
-/* shared IN callback hander */
-void shared_in_cb(USBDriver *usbp, usbep_t ep) {
-    /* STUB */
-    (void)usbp;
-    (void)ep;
-}
-#endif
 
 /* ---------------------------------------------------------
  *                   Extrakey functions
@@ -991,20 +973,51 @@ void send_programmable_button(report_programmable_button_t *report) {
 #endif
 }
 
-void send_digitizer(report_digitizer_t *report) {
-#ifdef DIGITIZER_ENABLE
-#    ifdef DIGITIZER_SHARED_EP
+void send_joystick(report_joystick_t *report) {
+#ifdef JOYSTICK_ENABLE
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
         osalSysUnlock();
         return;
     }
 
+    if (usbGetTransmitStatusI(&USB_DRIVER, JOYSTICK_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[JOYSTICK_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+
+    usbStartTransmitI(&USB_DRIVER, JOYSTICK_IN_EPNUM, (uint8_t *)report, sizeof(report_joystick_t));
+    osalSysUnlock();
+#endif
+}
+
+void send_digitizer(report_digitizer_t *report) {
+#ifdef DIGITIZER_ENABLE
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, DIGITIZER_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[DIGITIZER_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+
     usbStartTransmitI(&USB_DRIVER, DIGITIZER_IN_EPNUM, (uint8_t *)report, sizeof(report_digitizer_t));
     osalSysUnlock();
-#    else
-    chnWrite(&drivers.digitizer_driver.driver, (uint8_t *)report, sizeof(report_digitizer_t));
-#    endif
 #endif
 }
 
@@ -1139,16 +1152,3 @@ void virtser_task(void) {
 }
 
 #endif
-
-void send_joystick(report_joystick_t *report) {
-#ifdef JOYSTICK_ENABLE
-    osalSysLock();
-    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-        osalSysUnlock();
-        return;
-    }
-
-    usbStartTransmitI(&USB_DRIVER, JOYSTICK_IN_EPNUM, (uint8_t *)report, sizeof(report_joystick_t));
-    osalSysUnlock();
-#endif
-}

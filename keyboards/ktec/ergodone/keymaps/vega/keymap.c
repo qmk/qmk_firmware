@@ -652,8 +652,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        UC_M_LN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
        UC_M_WC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
        TO(TINY),KC_F21, KC_F22, KC_F23,KC_F24, MAGIC_TOGGLE_NKRO,
-       TO(FULL),KC_PAUSE,KC_PSCR,KC_SLCK,KC_NO,KC_NO,KC_NO,
-          EEP_RST,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
+       TO(FULL),KC_PAUSE,KC_PSCR,KC_SCRL,KC_NO,KC_NO,KC_NO,
+          EE_CLR,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
                                        KC_NO,KC_NO,
                                                KC_NO,
                                KC_NO,KC_NO,KC_NO,
@@ -686,7 +686,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [MATH] = LAYOUT_ergodox(
 	KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV,
-	KC_TAB,	X(Mc),	X(Munion),	X(arwl),	X(or),	X(exists),	KC_BSLASH,
+	KC_TAB,	X(Mc),	X(Munion),	X(arwl),	X(or),	X(exists),	KC_BSLS,
 	X(arwr), X(root), X(and), X(imply), X(nexists), X(forall),
 	KC_LSPO,	KC_SCLN,	X(intgrl),	X(Mn),	X(Mz),	X(member),	X(arwl),
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,

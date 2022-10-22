@@ -321,7 +321,7 @@ bool music_mask_kb(uint16_t keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
         case AU_ON ... MUV_DE:
         case QK_BOOT:
-        case EEP_RST:
+        case QK_CLEAR_EEPROM:
             return false;
         default:
             return music_mask_user(keycode);
@@ -358,6 +358,7 @@ void keyboard_post_init_kb(void) {
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
 // clang-format off
+__attribute__ ((weak))
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
     58, 59, 60, 61, 62, 63, 64,    65, 66, 67, 68, 69, 70, 71,
     44, 45, 46, 47, 48, 49, 50,    51, 52, 53, 54, 55, 56, 57,
@@ -370,12 +371,8 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 #endif
 
 #ifdef CAPS_LOCK_STATUS
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        ML_LED_6(led_state.caps_lock);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    ML_LED_6(led_state.caps_lock);
 }
 #endif
 

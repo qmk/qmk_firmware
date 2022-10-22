@@ -128,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
  */
 [FUNCTIONS] = LAYOUT_ortho_4x12(
-    _______, _______, _______, _______, _______, KC__MUTE, KC_MPRV, KC__VOLDOWN, KC_VOLU, KC_MNXT, KC_MEDIA_PLAY_PAUSE, KC_DEL,
-    KC_CAPS, _______, KC_WBAK, _______, _______, KC_WFWD,  KC_LEFT, KC_DOWN,     KC_UP,   KC_RGHT, _______,             _______,
-    _______, _______, _______, _______, _______, _______,  KC_HOME, KC_PGDN,     KC_PGUP, KC_END,  _______,             _______,
-    _______, _______, _______, _______, _______, _______,  _______, _______,     _______, _______, _______,             _______
+    _______, _______, _______, _______, _______, KC_MUTE, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_MEDIA_PLAY_PAUSE, KC_DEL,
+    KC_CAPS, _______, KC_WBAK, _______, _______, KC_WFWD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,             _______,
+    _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,             _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______
 ),
 
 /* Unicode Layer
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
  */
 [SPECIALS] = LAYOUT_ortho_4x12(
-    XXXXXXX, XXXXXXX, UC_M_WC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_M_OS, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, UC_M_WC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_M_MA, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_M_LN, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

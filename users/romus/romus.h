@@ -183,8 +183,8 @@ enum {
  * |     |     |     |     |     |     ||     |     |     |     |     |     |
  * `------------------------------------------------------------------------' */
 #define ALTCHAR \
-    KC_GRV,	DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCREEN,		KC_BSLASH,	KC_SLSH, \
-    REDO,	DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,KC_LALT,KC_INS,	KC_END, KC_PGDN,KC_SCROLLLOCK,	CUR_BIT,	KC_MINUS, \
+    KC_GRV,	DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCR,		KC_BSLS,	KC_SLSH, \
+    REDO,	DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,KC_LALT,KC_INS,	KC_END, KC_PGDN,KC_SCRL,	CUR_BIT,	KC_MINUS, \
     UNDO,	CUT,    COPY,   PASTE,	EXIT,	KC_LSFT,_______,_______,_______,_______,		CUR_YEN,	KC_EQUAL,   \
     _______,_______,_______,_______,_______,_______,_______,DBL_SPC,_______,_______,		_______,	_______
 
@@ -199,7 +199,7 @@ enum {
  * | Ctrl| Alt |  /  |  `  | SYM | Spc ||  F5 | Ent |  0  |  <  |  v  |  >  |
  * `------------------------------------------------------------------------' */
 #define GAME \
-    K_GAMES,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_ESC, KC_P7,  KC_P8,  KC_P9,  KC_NLCK,KC_BSPC, \
+    K_GAMES,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_ESC, KC_P7,  KC_P8,  KC_P9,  KC_NUM, KC_BSPC, \
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_F1,  KC_P4,  KC_P5,  KC_P6,  KC_BSLS,KC_ENT , \
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F2,  KC_P1,  KC_P2,  KC_P3,  KC_UP,K_MOUSE, \
     KC_LCTL,KC_LALT,KC_SLSH,KC_GRV,	K_NUMBR,KC_SPC, KC_F5, 	KC_ENT, KC_P0,  KC_LEFT,KC_DOWN,KC_RGHT

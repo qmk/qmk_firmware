@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [L_EXTD] = LAYOUT_uqs(
      KC_F11,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,
-     _______,  KC_BTN1,  KC_SCTAB, KC_PGUP,  KC_CTAB,  KC_LEAD,
+     _______,  KC_BTN1,  KC_SCTAB, KC_PGUP,  KC_CTAB,  QK_LEAD,
      _______,  OSM_GUI,  OSM_ALT,  OSM_SFT,  OSM_CTL,  KC_RALT,
      _______,  ALT_TAB,  MS_WHUP,  MS_WHDN,  KC_PGDN,  INS_HARD,
      /*thumb*/ _______,  _______,
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                /* ^^^^ use these */
      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
      KC_PSCR,  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_NO,
-     KC_SLCK,  KC_F4,    KC_F5,    KC_F6,    KC_F11,   KC_NO,
+     KC_SCRL,  KC_F4,    KC_F5,    KC_F6,    KC_F11,   KC_NO,
      KC_PAUS,  KC_F1,    KC_F2,    KC_F3,    KC_F12,   KC_NO,
      /*thumb*/ _______,  _______,
       /*aux*/  _______,  _______,  _______

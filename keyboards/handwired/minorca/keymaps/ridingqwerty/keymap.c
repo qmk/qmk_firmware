@@ -43,7 +43,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = {
-        {KC_GESC,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     SC(BSPC) },
+        {QK_GESC,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     SC(BSPC) },
         {ED(TAB),  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     XXXXXXX,  NM(SCLN) },
         {LS(QUOT), XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  FK(DOT),  RS(SLSH) },
         {LC(ESC),  XXXXXXX,  LG(LBRC), LA(RBRC), NM(BSPC), XXXXXXX,  XXXXXXX,  SM(SPC),  XXXXXXX,  RA(MINS), RG(EQL),  RC(ENT)  }
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
         {QK_BOOT, _______, _______, _______, SECRET0, SECRET1, _______, _______, _______, _______, VERSION, _______ },
       //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
-        {_______, SECRET4, SECRET8, DEBUG,   _______, _______, _______, _______, _______, SECRET7, XXXXXXX, MAKE    },
+        {_______, SECRET4, SECRET8, DB_TOGG, _______, _______, _______, _______, _______, SECRET7, XXXXXXX, MAKE    },
       //├────────┴────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┤
         {_______, XXXXXXX, SECRET6, _______, SECRET2, SECRET5, _______, _______, SECRET3, _______, _______, _______ },
       //├─────────────────┼────────┼────────┼────────┴────────┼────────┴────────┼────────┴────────┼────────┼────────┤

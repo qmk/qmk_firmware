@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [_DYN] = LAYOUT_planck_mit( /* special */
         KM_HOLD,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______,    _______, _______, KC_APP,  KC_INS,  _______, KC_PSCR, KC_PAUS,
-        KC_LOCK,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______,    _______, _______, _______, _______, KC_CAPS, KC_SLCK, KC_NLCK,
+        QK_LOCK,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______,    _______, _______, _______, _______, KC_CAPS, KC_SCRL, KC_NUM,
         KM_SHLK,  _______,        _______,         _______, _______,    _______, _______, _______, _______, _______, _______, _______,
         _______,  _______,        _______,         _______, KM_PP_GAME,      DF(_QW),     DF(_PP), _______, _______, _______, _______
         ),

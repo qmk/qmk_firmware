@@ -37,15 +37,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [3] = LAYOUT_planck_grid(
-  KC_TRNS, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS,  KC_DEL,
+  KC_TRNS, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_NO,   KC_PSCR, KC_SCRL, KC_PAUS,  KC_DEL,
   KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_PGUP, KC_MS_U, KC_PGDN,  KC_TRNS,
   KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R,  KC_HOME,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2, KC_BTN3,  KC_END
 ),
 
 [4] = LAYOUT_planck_grid(
-  KC_TRNS, QK_BOOT, DEBUG,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MU_MOD,  MUV_IN,  MU_ON,   AU_ON,    KC_EJCT,
-  KC_TRNS, EEP_RST, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MUV_DE,  MU_OFF,  AU_OFF,   KC_TRNS,
+  KC_TRNS, QK_BOOT, DB_TOGG, KC_NO,   KC_NO,   KC_NO,   KC_NO,   MU_MOD,  MUV_IN,  MU_ON,   AU_ON,    KC_EJCT,
+  KC_TRNS, EE_CLR,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MUV_DE,  MU_OFF,  AU_OFF,   KC_TRNS,
   KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_MUTE, KC_MPRV, KC_MNXT,  KC_NO,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_VOLD, KC_VOLU,  KC_MPLY
 ),
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   UC(0xB0), UC(0xB9), UC(0xB2), UC(0xB3), UC(0xDF),   UC(0x20AC), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   KC_TRNS,  UC(0xC4), UC(0xD6), UC(0xDC), UC(0xBB),   UC(0xAB),   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   KC_TRNS,  UC(0xE4), UC(0xF6), UC(0xFC), UC(0x2022), KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, UC_M_OS, UC_M_LN, UC_M_WI, UC_M_WC
+  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, UC_M_MA, UC_M_LN, UC_M_WI, UC_M_WC
 )};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
