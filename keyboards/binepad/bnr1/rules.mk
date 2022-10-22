@@ -1,2 +1,1 @@
-# settings aree now in info.json
-# .. or in keymap specific rules.mk
+# This file intentionally left blank
