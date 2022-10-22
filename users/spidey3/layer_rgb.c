@@ -470,7 +470,7 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
 
 #ifdef VELOCIKEY_ENABLE
-        case VLK_TOG:
+        case QK_VELOCIKEY_TOGGLE:
             rgb_layer_ack_yn(velocikey_enabled());
             break;
 #endif

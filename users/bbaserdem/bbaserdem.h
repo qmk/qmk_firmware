@@ -434,7 +434,7 @@ enum userspace_layers {
 #define _ME1_5_ RGB_SPI,RGB_MOD,RGB_HUI,RGB_SAI,RGB_VAI
 #define _ME2_5_ RGB_TOG,KC_MPRV,KC_MPLY,KC_MSTP,KC_MNXT
 #define _ME3_5_ KC_F13, KC_VOLD,KC_MUTE,KC_EJCT,KC_VOLU
-#define _ME4_3_ BB_OLED,VLK_TOG,MU_TOG
+#define _ME4_3_ BB_OLED,VK_TOGG,MU_TOG
 
 /* Navigation layer
  *       ┌─────┬─────┬─────┬─────┬─────┐

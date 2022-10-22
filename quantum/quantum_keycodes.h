@@ -359,7 +359,7 @@ enum quantum_keycodes {
     RGB_MODE_RGBTEST,  // 5CD6
 
     // Velocikey
-    VLK_TOG, // 5CD7
+    QK_VELOCIKEY_TOGGLE, // 5CD7
 
     // Space Cadet
     KC_LSPO,   // 5CD8
@@ -742,6 +742,9 @@ enum quantum_keycodes {
 #define CRT_ON AUTOCORRECT_ON
 #define CRT_OFF AUTOCORRECT_OFF
 #define CRT_TOG AUTOCORRECT_TOGGLE
+
+// Velocikey
+#define VK_TOGG QK_VELOCIKEY_TOGGLE
 
 // GOTO layer - 256 layer max
 #define TO(layer) (QK_TO | ((layer)&0xFF))

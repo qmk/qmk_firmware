@@ -379,7 +379,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
                 return false;
 #ifdef VELOCIKEY_ENABLE
-            case VLK_TOG:
+            case QK_VELOCIKEY_TOGGLE:
                 velocikey_toggle();
                 return false;
 #endif
