@@ -89,7 +89,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Allow for a preview of changes when modifying RGB
 # if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
   switch (keycode) {
-    case RGB_TOG ... VLK_TOG:
+    case RGB_TOG ... QK_VELOCIKEY_TOGGLE:
       for (uint8_t i = 0; i < RGBLIGHT_MAX_LAYERS; i++) {
         rgblight_set_layer_state(i, false);
       }
