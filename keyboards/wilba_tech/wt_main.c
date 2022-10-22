@@ -115,14 +115,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
     return process_record_user(keycode, record);
 }
 
-void led_set_kb(uint8_t usb_led)
-{
-#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    backlight_set_indicator_state(usb_led);
-#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    led_set_user(usb_led);
-}
-
 void suspend_power_down_kb(void)
 {
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
