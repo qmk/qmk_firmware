@@ -282,10 +282,10 @@ TEST_F(HoldOnOtherKeyPress, nested_tap_of_layer_0_layer_tap_keys) {
     TestDriver driver;
     InSequence s;
     /* The keys are layer-taps on layer 0 but regular keys on layer 1 */
-    auto       first_layer_tap_key  = KeymapKey(0, 1, 0, LT(1, KC_A));
-    auto       second_layer_tap_key = KeymapKey(0, 2, 0, LT(1, KC_P));
-    auto       first_key_on_layer   = KeymapKey(1, 1, 0, KC_B);
-    auto       second_key_on_layer  = KeymapKey(1, 2, 0, KC_Q);
+    auto first_layer_tap_key  = KeymapKey(0, 1, 0, LT(1, KC_A));
+    auto second_layer_tap_key = KeymapKey(0, 2, 0, LT(1, KC_P));
+    auto first_key_on_layer   = KeymapKey(1, 1, 0, KC_B);
+    auto second_key_on_layer  = KeymapKey(1, 2, 0, KC_Q);
 
     set_keymap({first_layer_tap_key, second_layer_tap_key, first_key_on_layer, second_key_on_layer});
 
@@ -318,12 +318,12 @@ TEST_F(HoldOnOtherKeyPress, nested_tap_of_layer_tap_keys) {
     TestDriver driver;
     InSequence s;
     /* The keys are layer-taps on all layers */
-    auto       first_key_layer_0  = KeymapKey(0, 1, 0, LT(1, KC_A));
-    auto       second_key_layer_0 = KeymapKey(0, 2, 0, LT(1, KC_P));
-    auto       first_key_layer_1  = KeymapKey(1, 1, 0, LT(2, KC_B));
-    auto       second_key_layer_1 = KeymapKey(1, 2, 0, LT(2, KC_Q));
-    auto       first_key_layer_2  = KeymapKey(2, 1, 0, KC_TRNS);
-    auto       second_key_layer_2 = KeymapKey(2, 2, 0, KC_TRNS);
+    auto first_key_layer_0  = KeymapKey(0, 1, 0, LT(1, KC_A));
+    auto second_key_layer_0 = KeymapKey(0, 2, 0, LT(1, KC_P));
+    auto first_key_layer_1  = KeymapKey(1, 1, 0, LT(2, KC_B));
+    auto second_key_layer_1 = KeymapKey(1, 2, 0, LT(2, KC_Q));
+    auto first_key_layer_2  = KeymapKey(2, 1, 0, KC_TRNS);
+    auto second_key_layer_2 = KeymapKey(2, 2, 0, KC_TRNS);
 
     set_keymap({first_key_layer_0, second_key_layer_0, first_key_layer_1, second_key_layer_1, first_key_layer_2, second_key_layer_2});
 
@@ -391,9 +391,9 @@ TEST_F(HoldOnOtherKeyPress, roll_layer_tap_key_with_regular_key) {
     TestDriver driver;
     InSequence s;
 
-    auto       layer_tap_hold_key = KeymapKey(0, 1, 0, LT(1, KC_P));
-    auto       regular_key        = KeymapKey(0, 2, 0, KC_A);
-    auto       layer_key          = KeymapKey(1, 2, 0, KC_B);
+    auto layer_tap_hold_key = KeymapKey(0, 1, 0, LT(1, KC_P));
+    auto regular_key        = KeymapKey(0, 2, 0, KC_A);
+    auto layer_key          = KeymapKey(1, 2, 0, KC_B);
 
     set_keymap({layer_tap_hold_key, regular_key, layer_key});
 
