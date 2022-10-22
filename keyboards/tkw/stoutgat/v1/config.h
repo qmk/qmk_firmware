@@ -28,6 +28,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { B4, B0 }
 #define ENCODERS_PAD_B { B3, B1 }
 
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW

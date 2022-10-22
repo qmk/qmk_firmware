@@ -26,8 +26,8 @@
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B7 }
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4, F7, F6, F5, F4, F1, F0 }
 
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 6
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -37,9 +37,6 @@
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
 
 /* LED Indicator */
 #define LED_CAPS_LOCK_PIN C7
