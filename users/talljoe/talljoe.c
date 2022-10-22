@@ -17,6 +17,10 @@
 
 #include "talljoe.h"
 
+#ifdef ZEAL_RGB
+#include "../../../keyboards/wilba_tech/wt_rgb_backlight.h"
+#endif
+
 #ifdef VISUALIZER_ENABLE
 const char layer_names[32][16] = {
   [_BASE] = "QWERTY",
