@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_VOLD, KC_VOLU, KC_MUTE, KC_BRID, KC_BRIU,  MU_MOD,           AU_OFF,  KC_RCTL, KC_LCTL, KC_RALT, KC_LALT, KC_DEL,  KC_NO,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                      WM_6,  VLK_TOG, RGB_MOD,                   RGB_TOG, BL_TOGG,  BL_STEP
+                                      WM_6,  VK_TOGG, RGB_MOD,                   RGB_TOG, BL_TOGG,  BL_STEP
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
