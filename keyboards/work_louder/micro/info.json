@@ -11,7 +11,7 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "rgblight": true,
+        "rgblight": false,
         "rgb_matrix": true
     },
     "matrix_pins": {
