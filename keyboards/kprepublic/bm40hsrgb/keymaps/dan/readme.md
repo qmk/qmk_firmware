@@ -10,7 +10,8 @@
 > * Keycaps: WOB ABS Cherry Profile
 > * Switches: Gazzew Boba u4t (62g 2 stage long spring)
 
-![](https://imgur.com/CAR3AKT.jpg)
+![](https://i.imgur.com/imqhjZW.jpg)
+> * Case: JJ40 Aluminium Acclive Case with Acrylic Diffuser
 > * Keycaps: YMDK DSA Keycaps
 > * Artisan: Rodríguez Cap by Polykeys
 
@@ -76,7 +77,7 @@
 
 |         | _A_ | _B_ | _C_ | _D_ | _E_ | _F_ | _G_ | _H_ | _I_ | _J_ | _K_ | _L_ |
 |---------|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|
-| **_1_** |  *  |  7  |  8  |  9  | NUM |  /  |     |     |     |     |     | BSP |
+| **_1_** | *or/|  7  |  8  |  9  | NUM |     |     |     |     |     |     | BSP |
 | **_2_** | ALT |  4  |  5  |  6  | RET |     |     |     |     |     | SFT |     |
 | **_3_** |  -  |  1  |  2  |  3  | BSP |     |     |     |  ,  |  .  | CTL | RET |
 | **_4_** | TRN | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;. | &nbsp;&nbsp;&nbsp;0 | SPC | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;LY1 | &nbsp;LY2 | &nbsp;LY3 | &nbsp;LY4 | &nbsp;LY5 |

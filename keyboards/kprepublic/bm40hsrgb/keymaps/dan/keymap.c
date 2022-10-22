@@ -43,11 +43,13 @@ enum layers {
 
 // Tap dance declarations
 enum {
-    TD_LNG1_LNG2
+    TD_LNG1_LNG2,
+    TD_PAST_PSLS
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_LNG1_LNG2] = ACTION_TAP_DANCE_DOUBLE(KC_LNG1, KC_LNG2)
+    [TD_LNG1_LNG2] = ACTION_TAP_DANCE_DOUBLE(KC_LNG1, KC_LNG2),
+    [TD_PAST_PSLS] = ACTION_TAP_DANCE_DOUBLE(KC_PAST, KC_PSLS)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -60,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  SFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |ESC/NU|KOR/HN|  Win |  Alt |LEFTFN|    Space    |RFN/- |   =  |Delete|  \   | Enter|
+ * |ESC/NU|KOR/HN|  Win |  Alt |LEFTFN|    Space    |RFN/- |   =  |Delete|   \  | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_ALPHA] = LAYOUT_planck_mit(
@@ -108,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* NUMPAD
  * ,-----------------------------------------------------------------------------------.
- * |   *  |   7  |   8  |   9  | NumLk|  /   |      |      |      |      |      | Bksp |
+ * | *or/ |   7  |   8  |   9  | NumLk|      |      |      |      |      |      | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Alt |   4  |   5  |   6  |Return|      |      |      |      |      | Shift|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -118,10 +120,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_mit(
-    KC_PAST, KC_P7,   KC_P8,   KC_P9,   KC_NUM,  KC_PSLS,   KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_NO,     KC_BSPC,
-    KC_LALT, KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_NO,     KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_LSFT,   KC_NO,
-    KC_PMNS, KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_NO,     KC_NO, KC_NO,  KC_COMM, KC_DOT,    KC_LCTL,   KC_ENT,
-    KC_TRNS, KC_COMM, KC_PPLS, KC_PDOT, KC_P0,       KC_SPC,       LEAGUE, PUBG,    OVERWATCH, STARCRAFT, TETRIS
+    TD(TD_PAST_PSLS), KC_P7,   KC_P8,   KC_P9,   KC_NUM,  KC_NO,     KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_NO,     KC_BSPC,
+    KC_LALT,          KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_NO,     KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_LSFT,   KC_NO,
+    KC_PMNS,          KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_NO,     KC_NO, KC_NO,  KC_COMM, KC_DOT,    KC_LCTL,   KC_ENT,
+    KC_TRNS,          KC_COMM, KC_PPLS, KC_PDOT, KC_P0,       KC_SPC,       LEAGUE, PUBG,    OVERWATCH, STARCRAFT, TETRIS
 ),
 
 /* LEAGUE
@@ -267,6 +269,8 @@ void rgb_matrix_indicators_user(void) {
     uint8_t yellow[3] = {20, 22, 0};
     uint8_t blue[3] = {0, 6, 20};
     uint8_t green[3] = {14, 22, 0};
+    uint8_t purple[3] = {6, 0, 22};
+    uint8_t pink[3] = {17, 0, 22};
     uint8_t white[3] = {255, 255, 255};
 
     switch (get_highest_layer(layer_state)) {
@@ -282,10 +286,11 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(16, red[0], red[1], red[2]);
             rgb_matrix_set_color(15, yellow[0], yellow[1], yellow[2]);
             rgb_matrix_set_color(29, blue[0], blue[1], blue[2]);
-            rgb_matrix_set_color(42, green[0], green[1], green[2]);
+            rgb_matrix_set_color(10, purple[0], purple[1], purple[2]);
             break;
         case _PUBG:
             rgb_matrix_set_color(43, green[0], green[1], green[2]);
+
             break;
         case _OVERWATCH:
             rgb_matrix_set_color(44, green[0], green[1], green[2]);
@@ -294,7 +299,10 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(45, green[0], green[1], green[2]);
             break;
         case _TETRIS:
-            rgb_matrix_set_color(46, green[0], green[1], green[2]);
+            rgb_matrix_set_color(2, pink[0], pink[1], pink[2]);
+            rgb_matrix_set_color(13, pink[0], pink[1], pink[2]);
+            rgb_matrix_set_color(14, pink[0], pink[1], pink[2]);
+            rgb_matrix_set_color(15, pink[0], pink[1], pink[2]);
             break;
         case _CLEAN:
             rgb_matrix_set_color_all(white[0], white[1], white[2]);
