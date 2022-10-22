@@ -9,7 +9,8 @@
         "device_version": "0.0.1"
     },
     "layout_aliases": {
-        "LAYOUT_tsangan": "LAYOUT_60_ansi_tsangan"
+        "LAYOUT_tsangan": "LAYOUT_60_ansi_tsangan",
+        "LAYOUT_tsangan_arrowkeys": "LAYOUT_60_ansi_arrow_tsangan"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -155,7 +156,7 @@
                 {"x":13.5, "y":4, "w":1.5}
             ]
         },
-		"LAYOUT_tsangan_arrowkeys": {
+        "LAYOUT_60_ansi_arrow_tsangan": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
