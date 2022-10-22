@@ -8,3 +8,7 @@
 // Since we do support keypad, let’s restore the LED indication.
 // We will need to control the LED explicitly, though.
 #undef LED_COMPOSE_PIN
+
+// I redefined Caps Lock to Compose key in my OS
+// so I can just use the indicator for Compose status.
+#define LED_COMPOSE_PIN LINE_PIN12
