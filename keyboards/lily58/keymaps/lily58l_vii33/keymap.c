@@ -34,8 +34,8 @@ enum layers {
 // Layer quick names
 #define LOWER MO(_LOWER)
 #define RAISE MO(_UPPER)
-#define MOD TG(_MOD)
-#define GAME TG(_GAME)
+#define MOD   TG(_MOD)
+#define GAME  TG(_GAME)
 
 // Key quick names
 #define QC_AT   S(KC_2)     // @
@@ -52,7 +52,7 @@ enum layers {
 #define QC_CTLV LCTL(KC_V)
 #define GMESCN  LSFT(KC_F11)
 #define CTALDEL LCTL(LALT(KC_DEL))  // CTRL+ALT+DEL
-#define WINSCNS LSFT(LGUI(KC_S))
+#define WINSCNS SGUI(KC_S)          // WIN+SHIFT+S
 
 // Custom Keycodes / Keys  https://docs.qmk.fm/#/custom_quantum_functions?id=defining-a-new-keycode
 enum custom_keycodes {
@@ -72,6 +72,30 @@ enum custom_keycodes {
 // Animation Speeds
 //const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {200, 150, 100};
+
+
+#ifdef RGBLIGHT_LAYERS
+
+ // Lightning Layers as status indicators. -> Array of segments
+const rgblight_segment_t PROGMEM mod_indicator[] = RGBLIGHT_LAYER_SEGMENTS(
+    {6, 4, HSV_GREEN}   // First segment: Turn on 5 LEDs starting with #4
+);
+
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    mod_indicator   // 0
+);
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = my_rgb_layers;    // Enable the LED layers
+}
+
+// Callback when layer changes
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Set my_rgb_layer 0 when comparison is true (here: _MOD Layer active)
+    rgblight_set_layer_state(0, layer_state_cmp(state, _MOD));
+    return state;
+}
+#endif
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -105,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,                            KC_Z,   KC_U,  KC_I,      KC_O,    KC_P,    CC_UE, 
   CC_QUOT,  KC_A,   KC_S,   KC_D,    KC_F,    KC_G,                            KC_H,   KC_J,  KC_K,      KC_L,    CC_OE,   CC_AE, 
   CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,     KC_B,  KC_MUTE,        _______, KC_N,   KC_M,  CC_SCOLN,  CC_COLN, CC_EXLM, KC_MINS, 
-                            CC_SLH,  MOD,     LOWER, RSFT_T(KC_SPC), RSFT_T(KC_ENT),  RAISE,  KC_DEL,    KC_BSPC
+                            CC_SLH,  MOD,     LOWER, RSFT_T(KC_SPC), RSFT_T(KC_SPC),  RAISE,  KC_DEL,    KC_BSPC
 ),
 
 
@@ -211,27 +235,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// Change RGB Color based on layer state
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     switch (get_highest_layer(state)) {
-//     case _UPPER:
-//         rgblight_setrgb (0x00,  0x00, 0xFF);
-//         break;
-//     case _LOWER:
-//         rgblight_setrgb (0xFF,  0x00, 0x00);
-//         break;
-//     case _GAME:
-//         rgblight_setrgb (0x00,  0xFF, 0x00);
-//         break;
-//     case _MOD:
-//         rgblight_setrgb (0x7A,  0x00, 0xFF);
-//         break;
-//     default: //  for any other layers, or the default layer
-//         rgblight_setrgb (0x00,  0xFF, 0xFF);
-//         break;
-//     }
-//   return state;
-// }
 
 // --------------------------------------------------------------------------------
 //SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
@@ -392,18 +395,22 @@ bool oled_task_user(void) {
     return false;
 }
 #endif // OLED_ENABLE
+
+uint8_t mods_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // For OLED Key Printer
     if (record->event.pressed) {
         add_keylog(keycode);
     }
 
-    if (record->event.pressed) { // On key down
+    if (record->event.pressed) {    // On key down
+        mods_state = get_mods();    // Store the current modifier state in the variable for later reference
         switch (keycode) {
             case CC_BckDel:
                 if ( get_mods() & MOD_MASK_SHIFT ) {  // Shift pressed
                     del_mods(MOD_MASK_SHIFT);           // cancel the shifts so they are not applied to the keycodes
                     tap_code(KC_DEL);                 
+                    set_mods(mods_state);
                 }else {                               // No shift is pressed
                     tap_code(KC_BSPC);
                 }
@@ -424,7 +431,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CC_SLH:
                 if ( get_mods() & MOD_MASK_SHIFT ) {  
                     del_mods(MOD_MASK_SHIFT);         
-                    tap_code(KC_BSLS);           // backslash      
+                    tap_code(KC_BSLS);           // backslash   
+                    set_mods(mods_state);   
                 }else {                               
                     tap_code(KC_SLSH);          // /
                 }
@@ -433,7 +441,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CC_APHO:
                 if ( get_mods() & MOD_MASK_SHIFT ) {  
                     del_mods(MOD_MASK_SHIFT);         
-                    tap_code(KC_GRV);              // ` grave     
+                    tap_code(KC_GRV);              //  ` grave 
+                    set_mods(mods_state);    
                 }else {                               
                     tap_code16(ALGR(KC_QUOT));     //  ´ aigu
                 }
@@ -441,8 +450,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             case CC_QUOT:
                 if ( get_mods() & MOD_MASK_SHIFT ) {  
-                    del_mods(MOD_MASK_SHIFT);         
-                    tap_code(KC_QUOT);             // "      
+                    SEND_STRING("\"");             // "      
                 }else {                               
                     tap_code16(LSFT(KC_QUOT));     // '
                 }
@@ -460,7 +468,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CC_SCOLN:
                 if ( get_mods() & MOD_MASK_SHIFT ) {  
                     del_mods(MOD_MASK_SHIFT);         
-                    tap_code(KC_SCLN);             // ;     
+                    tap_code(KC_SCLN);             // ; 
+                    set_mods(mods_state);    
                 }else {                               
                     tap_code(KC_COMM);             // , (comma)
                 }
@@ -470,10 +479,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ( get_mods() & MOD_MASK_SHIFT ) {  
                     del_mods(MOD_MASK_SHIFT);         
                     tap_code16(KC_EXLM);             // !     
+                    set_mods(mods_state);
                 }else {                               
                     tap_code16(KC_QUES);             // ? 
                 }
                 break;
+
+            case KC_LPRN:   // (
+                if ( get_mods() & MOD_MASK_SHIFT ) {
+                    SEND_STRING("()" SS_TAP(X_LEFT));
+                } else {
+                    return true;    // continue with normal KC
+                }
 
             case CC_SAVRGB:   // Saves color config to eeprom. Used to save eeprom write cycles              
                 rgblight_sethsv(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val()); 
