@@ -120,6 +120,16 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
         return &desc;
 }
 
+/*
+ * USB notification callback that does nothing.  Needed to work around bugs in
+ * some USB LLDs that fail to resume the waiting thread when the notification
+ * callback pointer is NULL.
+ */
+static void dummy_usb_cb(USBDriver *usbp, usbep_t ep) {
+    (void)usbp;
+    (void)ep;
+}
+
 #ifndef KEYBOARD_SHARED_EP
 /* keyboard endpoint state structure */
 static USBInEndpointState kbd_ep_state;
@@ -127,7 +137,7 @@ static USBInEndpointState kbd_ep_state;
 static const USBEndpointConfig kbd_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    NULL,                   /* IN notification callback */
+    dummy_usb_cb,           /* IN notification callback */
     NULL,                   /* OUT notification callback */
     KEYBOARD_EPSIZE,        /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -145,7 +155,7 @@ static USBInEndpointState mouse_ep_state;
 static const USBEndpointConfig mouse_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    NULL,                   /* IN notification callback */
+    dummy_usb_cb,           /* IN notification callback */
     NULL,                   /* OUT notification callback */
     MOUSE_EPSIZE,           /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -163,7 +173,7 @@ static USBInEndpointState shared_ep_state;
 static const USBEndpointConfig shared_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    NULL,                   /* IN notification callback */
+    dummy_usb_cb,           /* IN notification callback */
     NULL,                   /* OUT notification callback */
     SHARED_EPSIZE,          /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -181,7 +191,7 @@ static USBInEndpointState joystick_ep_state;
 static const USBEndpointConfig joystick_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    NULL,                   /* IN notification callback */
+    dummy_usb_cb,           /* IN notification callback */
     NULL,                   /* OUT notification callback */
     JOYSTICK_EPSIZE,        /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -199,7 +209,7 @@ static USBInEndpointState digitizer_ep_state;
 static const USBEndpointConfig digitizer_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    NULL,                   /* IN notification callback */
+    dummy_usb_cb,           /* IN notification callback */
     NULL,                   /* OUT notification callback */
     DIGITIZER_EPSIZE,       /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
