@@ -15,6 +15,7 @@
 #define NAV TO(_NAV)
 #define HOME TO(_ISRT)
 #define NUM TO(_NUM)
+#define COC TO(_COC)
 #define MEH_SPC MT(MOD_MEH,KC_SPC)
 #define BSP_DWRD LT(0,KC_BSPC)
 #define LT_UP LT(0,KC_UP)
@@ -32,7 +33,8 @@ enum planck_layers {
   _SYMBOL,
   _FUNCTION,
   _NAV,
-  _NUM
+  _NUM,
+  _COC
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
@@ -135,11 +137,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_NAV] = LAYOUT_ortho_4x12(
-    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   KC_NO,
+    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   COC,
     KC_ESC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_BTN4, LT_LEFT, KC_DOWN, KC_RGHT, KC_BTN5, KC_ENT,
     KC_NO,  SW_APP,  SW_WIN,  KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_NO,
     KC_NO,  KC_NO,   KC_NO,   KC_BTN3, KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO,   KC_NO
+    ),
+  
+  [_COC] = LAYOUT_ortho_4x12(
+    KC_WH_U, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_ESC,
+    KC_WH_D, KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    KC_ENT,
+    KC_BTN1, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    SW_APP,
+    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MEH_SPC, HOME,   FUNCTION, BSP_DWRD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     )
+
 };
 
 // Returns the value set by CG_TOGG
