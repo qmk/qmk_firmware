@@ -1,0 +1,40 @@
+{
+    "manufacturer": "Binepad",
+    "keyboard_name": "BNR1",
+    "maintainer": "Binpad",
+    "bootloader": "atmel-dfu",
+    "debounce": 5,
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "encoder": true
+    },
+    "matrix_pins": {
+        "cols": ["B0"],
+        "rows": ["E6"]
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "D6", "pin_b": "D7" }
+        ]
+    },
+    "processor": "atmega32u4",
+    "url": "http://binepad.com",
+    "usb": {
+        "vid": "0x4249",
+        "pid": "0x4231",
+        "device_version": "1.0.0"
+    },
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 2, "h": 2}
+            ]
+        }
+    }
+}
