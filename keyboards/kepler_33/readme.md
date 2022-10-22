@@ -1,6 +1,6 @@
 # Kepler-33
 
-![Kepler-33](https://i.imgur.com/zVvzBrO.png)
+![Kepler-33](https://i.imgur.com/zVvzBrOl.png)
 
 *True 40% keyboard. The simple and symmetric.*
 
