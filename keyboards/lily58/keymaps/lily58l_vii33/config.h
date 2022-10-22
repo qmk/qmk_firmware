@@ -27,7 +27,23 @@ use define EE_HANDS at flashing time*/
 // #define MASTER_RIGHT
 #define EE_HANDS
 
+
 #define TAPPING_TERM 150  // mod tap hold time (shift) in ms, default 200
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_FORCE_HOLD   // activate the hold function instead, when holding a dual-role key after having tapped it. 
+//No more accidental repeats of mod-tap letters when typing quickly!
+// The downside is that it removes the possibility of auto-repeating the letter/tapping function of the mod-tap.
+// BUT The good news is that there exists a per-key variant of this configuration option: TAPPING_FORCE_HOLD_PER_KEY
+// ->> Just enable it for your home row modifiers
+
+
+//global: PERMISSIVE_HOLD  or  PERMISSIVE_HOLD_PER_KEY  // The tapping term is irrelevant here. 
+//assumption here is that if the user taps another key while holding down one or more mod-tap keys, 
+// he isn’t doing typing rolls and as such desires to trigger a keyboard shortcut instead.
+// ->> since its more permisse it can triggers mods more often. Depending on your typing style, permissive hold might do more harm than good.
+// PERMISSIVE_HOLD generally produces many misfires unless you’re very consistent in your typing style so it is not recommended.
+
+
 
 #define ENCODER_DIRECTION_FLIP    // Change analog encoder rotation direction
 #define ENCODER_RESOLUTION 1
