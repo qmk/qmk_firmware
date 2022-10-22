@@ -8,31 +8,21 @@
 [x] better places for "-", "=", "[", "]", "\"
 [x] media keys
 [x] double tap shift for caps lock
-
-[ ] double tap esc/ctrl/caps for caps lock? might not be the best
-
-[ ] one shot shift
-
-[ ] double tap: alt tab, double tap and hold: alt
-
-[ ] layer locking with tap dance?
-
-[ ] alt tab with w instead of tab or override v to be tab with home row mods gacs
-
-[ ] home row mods: 
+[x] home row mods: 
     - press and release before tapping term ends is tap
     - press and release after tapping term ends is tap
     - press after tapping term ends along with another keypress is hold+key
-    - tap and then hold triggers the tap key repeated
+    - tap (press and release) and then hold triggers the tap key repeated (for everything except left homerow mods and ';')
+[x] shift modtapped with a thumb key? maybe space or backspace
+[ ] layer locking with tap dance?
 
-[ ] shift modtapped with a thumb key? maybe space or backspace
-
+[ ] double tap: alt tab, double tap and hold: alt
+[ ] double tap esc/ctrl/caps for caps lock? might not be the best
+[ ] one shot shift
+[ ] alt tab with w instead of tab or override v to be tab with home row mods gacs
 [ ] miryoku layout
-
 [ ] callum layout
-
 [ ] sofle layout
-
 [ ] play with tap dance
 [ ] triple tap shift for caps word?
 [ ] mod-tap shift to something: space cadet shift?: open brackets on left shift and close on right
