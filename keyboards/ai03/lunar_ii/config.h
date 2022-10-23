@@ -1,5 +1,5 @@
 /*
-Copyright 2020 ai03 Design Studio
+Copyright 2022 ai03 Design Studio
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
