@@ -181,7 +181,7 @@ const char *get_layer_name(void){
             snprintf(layer_name_str, sizeof(layer_name_str), "Game Genshin");
             break;
         default:
-            snprintf(layer_name_str, sizeof(layer_name_str), "Undef-%ld", layer_state);
+            snprintf(layer_name_str, sizeof(layer_name_str), "Undef-%d", layer_state);
             break;
     }
     return layer_name_str;
