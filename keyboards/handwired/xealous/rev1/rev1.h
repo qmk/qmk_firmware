@@ -22,5 +22,3 @@
     { R30, R31, R32, R33, R34, R35, XXX, XXX }, \
     { R40, R41, R42, R43, R44, XXX, XXX, XXX } \
 }
-
-#define LAYOUT_split60 LAYOUT

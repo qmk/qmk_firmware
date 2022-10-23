@@ -1,7 +1,13 @@
 {
     "keyboard_name": "merro60",
+    "manufacturer": "chlx",
     "url": "www.github.com/gaclee3b",
     "maintainer": "gaclee3b",
+    "usb": {
+        "vid": "0x4358",
+        "pid": "0x0601",
+        "device_version": "1.0.0"
+    },
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT_all",
         "LAYOUT_hhkb": "LAYOUT_60_hhkb",

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "lemonpad",
+    "manufacturer": "dari-studios",
     "url": "",
     "maintainer": "dari-studios",
+    "usb": {
+        "vid": "0x6473",
+        "pid": "0x4C50",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

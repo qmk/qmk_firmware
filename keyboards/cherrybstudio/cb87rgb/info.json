@@ -1,7 +1,13 @@
     {
-        "keyboard_name": "cb87v2",
+        "keyboard_name": "CB87RGB",
+        "manufacturer": "CherryB.Studio",
         "url": "https://discord.gg/qVwv3gcq83",
         "maintainer": "duongaanh",
+    "usb": {
+        "vid": "0x4342",
+        "pid": "0x8785",
+        "device_version": "0.0.1"
+    },
         "layouts": {
             "LAYOUT_all": {
                 "layout": [

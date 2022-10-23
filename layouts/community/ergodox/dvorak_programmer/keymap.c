@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
         MO(BRACKETS),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
         MO(SHELL_NAV),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
-                   OSL(SHORTCUTS),OSM(MOD_LCTL), OSM(MOD_LALT),OSL(SYMBOL),MO(NUMBER),  
+                   OSL(SHORTCUTS),OSM(MOD_LCTL), OSM(MOD_LALT),OSL(SYMBOL),MO(NUMBER),
                                               // thumb cluster
                                                OSM(MOD_LSFT), RCTL(KC_S),
                                                           RCTL(KC_DEL),
@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_UP,
              KC_DOWN,KC_ENT, KC_SPC
     ),
-     
 
-	 
-	 
+
+
+
 // shell navigation layer
 [SHELL_NAV] = LAYOUT_ergodox(
        // left hand
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-    
+
 // key navigation layer
 [KEY_NAV] = LAYOUT_ergodox(
        // left hand
@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,       
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_PLUS, KC_AMPR, KC_ASTR, KC_GRAVE,KC_TILD, KC_TRNS,
                 KC_MINS, KC_DLR,  KC_PERC, KC_CIRC, KC_PIPE, KC_TRNS,
        KC_TRNS, KC_EQUAL,KC_EXLM, KC_AT,   KC_HASH, KC_TRNS, KC_TRNS,
-                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        M(SEMICOLON_NEWLINE), M(END_NEWLINE),
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_TRNS,KC_TRNS,             KC_TRNS,            KC_TRNS,               KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,M(OPEN_CLOSE_CURLY), M(OPEN_CLOSE_PAREN),M(OPEN_CLOSE_BRACKET), KC_TRNS,KC_TRNS,
        KC_TRNS,KC_LPRN, KC_RPRN,            KC_LBRC,            KC_RBRC,               KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,             KC_LCBR,            KC_RCBR,               KC_TRNS,KC_TRNS,       
+       KC_TRNS,KC_TRNS,KC_TRNS,             KC_LCBR,            KC_RCBR,               KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,             KC_TRNS,            KC_TRNS,
                                         KC_TRNS,KC_TRNS,
                                                KC_TRNS,
@@ -207,8 +207,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS, KC_TRNS, M(OPEN_CLOSE_BRACKET),M(OPEN_CLOSE_PAREN),M(OPEN_CLOSE_CURLY),KC_TRNS,KC_TRNS,
                 KC_TRNS, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_LCBR, KC_RCBR, KC_TRNS, KC_TRNS, KC_TRNS, 
-                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+       KC_TRNS, KC_TRNS, KC_LCBR, KC_RCBR, KC_TRNS, KC_TRNS, KC_TRNS,
+                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,  MEH(KC_F1), MEH(KC_F2), MEH(KC_F3),  MEH(KC_F4), MEH(KC_F5), MEH(KC_F6),
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,       
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                          MEH(KC_0),MEH(KC_1),
                                                    MEH(KC_2),
@@ -272,12 +272,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case MC_CUT_LINE:
             if (record->event.pressed) {
                 return MACRO( T(HOME), D(LSFT), T(END), U(LSFT), D(LCTL), T(X), U(LCTL), END);
-            }        
+            }
             break;
         case MC_PASTE_LINE:
             if (record->event.pressed) {
                 return MACRO( T(END), T(ENTER), D(LCTL), T(V), U(LCTL), END);
-            }                
+            }
             break;
         case MC_NEW_SEARCH_TAB:
              if (record->event.pressed) {
@@ -287,17 +287,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case SCREEN_TAB_LEFT:
              if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(P), END);
-            }        
+            }
             break;
         case SCREEN_TAB_RIGHT:
              if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(N), END);
-            }                    
+            }
             break;
         case SCREEN_NEW_TAB:
              if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(C), END);
-            }                                
+            }
         break;
         case SCREEN_COPY_MODE:
             if (record->event.pressed) {
@@ -306,14 +306,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
         case SCREEN_PASTE:
             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END); 
+                return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END);
             }
-        break;        
+        break;
         case SWITCH_NDS:
              if (record->event.pressed) {
                 return MACRO( D(LSFT), T(F11), U(LSFT), W(255), D(LALT), T(TAB), U(LALT), END);
-            }                                
-        break;        
+            }
+        break;
         case OPEN_CLOSE_PAREN:
             if (record->event.pressed) {
                 return MACRO( D(LSFT), T(9), T(0), U(LSFT), T(LEFT), END);
@@ -323,39 +323,39 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 return MACRO( T(LBRC), T(RBRC), T(LEFT), END);
             }
-        break;        
+        break;
         case OPEN_CLOSE_CURLY:
             if (record->event.pressed) {
                 return MACRO( D(LSFT), T(LBRC), T(RBRC), U(LSFT), T(LEFT), END);
             }
-        break;                
+        break;
         case OPEN_CLOSE_SINGLE_QUOTE:
             if (record->event.pressed) {
                 return MACRO( T(QUOT), T(QUOT), T(LEFT), END);
             }
-        break;        
+        break;
         case OPEN_CLOSE_DOUBLE_QUOTE:
             if (record->event.pressed) {
                 return MACRO( D(LSFT), T(QUOT), T(QUOT), U(LSFT), T(LEFT), END);
             }
-        break;                        
+        break;
         case SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND:
             if (record->event.pressed) {
                 return MACRO( T(UP), T(HOME), D(LALT), T(D), U(LALT), END);
             }
-        break;                                
+        break;
 		case SEMICOLON_NEWLINE:
             if (record->event.pressed) {
                 return MACRO( T(END), T(SCLN), T(ENTER), END);
-            }		
+            }
 		break;
 		case END_NEWLINE:
             if (record->event.pressed) {
                 return MACRO( T(END), T(ENTER), END);
-            }		
-		break;	
-		
-        
+            }
+		break;
+
+
       }
     return MACRO_NONE;
 };
@@ -378,7 +378,7 @@ void led_set_user(uint8_t usb_led) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_2_off();
@@ -387,13 +387,13 @@ void matrix_scan_user(void) {
         case NUMBER:
         case SYMBOL:
 		case BRACKETS:
-		//case SHELL_LAYER:		
+		//case SHELL_LAYER:
             ergodox_right_led_2_on();
             break;
         case KEY_NAV:
         case KEY_SEL:
             ergodox_right_led_3_on();
-            break;        
+            break;
         case SHORTCUTS:
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
@@ -401,6 +401,6 @@ void matrix_scan_user(void) {
         default:
             // none
             break;
-    } 
+    }
     return;
 };

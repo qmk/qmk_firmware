@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5544 // "UD" = Ungodly Design
-#define PRODUCT_ID      0x544E // "TN" = The Nines
-#define DEVICE_VER      0x9999
-#define MANUFACTURER    Ungodly Design
-#define PRODUCT         The Nines
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
@@ -34,7 +27,6 @@
     { F7, B1, B3 }, \
     { B2, B6, B5 }  \
 }
-#define UNUSED_PINS
 
 /* Rotary Encoder Assignments */
 #define ENCODERS_PAD_A { C6, E6 }

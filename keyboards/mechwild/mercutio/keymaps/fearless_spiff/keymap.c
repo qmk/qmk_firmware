@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 tap_code(KC_VOLD);
             }
         }
-        return true;
+        return false;
     }
 #endif
 
@@ -292,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             oled_write(get_u8_str(get_current_wpm(), ' '), false);
     */
 
-      return true;
+      return false;
     }
 
     void suspend_power_down_user(void) {
