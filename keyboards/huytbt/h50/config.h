@@ -1,4 +1,4 @@
-/* Copyright 2021
+/* Copyright 2022 Huy Ta (@huytbt)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,15 +13,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include "polyandry.h"
+#include "config_common.h"
 
-#define LAYOUT_ortho_4x3( \
-	K000, K001, K002, \
- 	K003, K004, K005, \
-	K006, K007, K008, \
-	K009, K010, K011  \
-) { \
-	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011 }  \
-}
+/* key matrix size */
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 14
+
+/*
+ * Keyboard Matrix Assignments
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ */
+#define MATRIX_ROW_PINS { D1, D0, D4, C6 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, D7, E6, B4, B5, D2, D3 }
+
+#define LED_CAPS_LOCK_PIN D5
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
+/* define if matrix has ghost */
+// #define MATRIX_HAS_GHOST
+
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 5

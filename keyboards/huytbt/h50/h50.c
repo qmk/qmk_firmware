@@ -1,4 +1,4 @@
-/* Copyright 2021
+/* Copyright 2022 Huy Ta (@huytbt)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,15 +13,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
 
-#include "polyandry.h"
-
-#define LAYOUT_ortho_4x3( \
-	K000, K001, K002, \
- 	K003, K004, K005, \
-	K006, K007, K008, \
-	K009, K010, K011  \
-) { \
-	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011 }  \
-}
+#include "h50.h"
