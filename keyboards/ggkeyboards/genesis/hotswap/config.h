@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xBB00
-#define PRODUCT_ID   0xD4D3
-#define DEVICE_VER   0x0001
-#define MANUFACTURER GG Keyboards
-#define PRODUCT      Genesis Hotswap
-
 /* key matrix size */
 #define MATRIX_ROWS  6
 #define MATRIX_COLS  18

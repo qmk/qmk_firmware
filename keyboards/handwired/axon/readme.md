@@ -15,8 +15,8 @@ Make example for this keyboard (after setting up your build environment):
 ## To reset into bootloader mode:
 
 1. While plugged in, press and hold `BOOT` switch
-2. While holding `BOOT`, press `RESET` and hold it for a second or two
-3. Release `RESET`
+2. While holding `BOOT`, press `QK_BOOT` and hold it for a second or two
+3. Release `QK_BOOT`
 4. Release `BOOT`
 5. The keyboard should now be recognized as a USBasp programmer device.
 

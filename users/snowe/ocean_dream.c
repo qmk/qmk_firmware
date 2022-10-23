@@ -20,13 +20,13 @@
 #include "print.h"
 
 // Calculated Parameters
-#define TWINKLE_PROBABILITY_MODULATOR 100 / TWINKLE_PROBABILITY                             // CALCULATED: Don't Touch
-#define TOTAL_STARS STARS_PER_LINE *NUMBER_OF_STAR_LINES                                    // CALCULATED: Don't Touch
-#define OCEAN_ANIMATION_MODULATOR NUMBER_OF_FRAMES / OCEAN_ANIMATION_SPEED                  // CALCULATED: Don't Touch
-#define SHOOTING_STAR_ANIMATION_MODULATOR NUMBER_OF_FRAMES / SHOOTING_STAR_ANIMATION_SPEED  // CALCULATED: Don't Touch
-#define STAR_ANIMATION_MODULATOR NUMBER_OF_FRAMES / STAR_ANIMATION_SPEED                    // CALCULATED: Don't Touch
+#define TWINKLE_PROBABILITY_MODULATOR 100 / TWINKLE_PROBABILITY                            // CALCULATED: Don't Touch
+#define TOTAL_STARS STARS_PER_LINE *NUMBER_OF_STAR_LINES                                   // CALCULATED: Don't Touch
+#define OCEAN_ANIMATION_MODULATOR NUMBER_OF_FRAMES / OCEAN_ANIMATION_SPEED                 // CALCULATED: Don't Touch
+#define SHOOTING_STAR_ANIMATION_MODULATOR NUMBER_OF_FRAMES / SHOOTING_STAR_ANIMATION_SPEED // CALCULATED: Don't Touch
+#define STAR_ANIMATION_MODULATOR NUMBER_OF_FRAMES / STAR_ANIMATION_SPEED                   // CALCULATED: Don't Touch
 
-uint8_t    animation_counter       = 0;  // global animation counter.
+uint8_t    animation_counter       = 0; // global animation counter.
 bool       is_calm                 = false;
 uint32_t   starry_night_anim_timer = 0;
 uint32_t   starry_night_anim_sleep = 0;
@@ -52,10 +52,10 @@ static uint8_t decrement_counter(uint8_t counter, uint8_t max) {
 }
 #endif
 
-#ifdef ENABLE_MOON  // region
+#ifdef ENABLE_MOON // region
 #    ifndef STATIC_MOON
-uint8_t  moon_animation_frame   = 0;  // keeps track of current moon frame
-uint16_t moon_animation_counter = 0;  // counts how many frames to wait before animating moon to next frame
+uint8_t  moon_animation_frame   = 0; // keeps track of current moon frame
+uint16_t moon_animation_counter = 0; // counts how many frames to wait before animating moon to next frame
 #    endif
 
 #    ifdef STATIC_MOON
@@ -99,9 +99,9 @@ static void draw_moon(void) {
     }
 #    endif
 }
-#endif  // endregion
+#endif // endregion
 
-#ifdef ENABLE_WAVE  // region
+#ifdef ENABLE_WAVE // region
 uint8_t starry_night_wave_frame_width_counter = 31;
 uint8_t rough_waves_frame_counter             = 0;
 
@@ -193,8 +193,8 @@ static const char PROGMEM ocean_bottom[8][32] = {
 // clang-format on
 
 static void animate_waves(void) {
-    starry_night_wave_frame_width_counter = decrement_counter(starry_night_wave_frame_width_counter, WIDTH - 1);  // only 3 frames for last wave type
-    rough_waves_frame_counter             = increment_counter(rough_waves_frame_counter, 3);                      // only 3 frames for last wave type
+    starry_night_wave_frame_width_counter = decrement_counter(starry_night_wave_frame_width_counter, WIDTH - 1); // only 3 frames for last wave type
+    rough_waves_frame_counter             = increment_counter(rough_waves_frame_counter, 3);                     // only 3 frames for last wave type
 
     void draw_ocean(uint8_t frame, uint16_t offset, uint8_t byte_index) {
         oled_write_raw_byte(pgm_read_byte(ocean_top[frame] + byte_index), offset);
@@ -218,9 +218,9 @@ static void animate_waves(void) {
         }
     }
 }
-#endif  // endregion
+#endif // endregion
 
-#ifdef ENABLE_ISLAND  // region
+#ifdef ENABLE_ISLAND // region
 uint8_t island_frame_1 = 0;
 
 // clang-format off
@@ -276,17 +276,17 @@ static void animate_island(void) {
         draw_island_parts(island_frame_1 + 4);
     }
 }
-#endif  // endregion
+#endif // endregion
 
-#ifdef ENABLE_STARS  // region
-bool stars_setup = false;  // only setup stars once, then we just twinkle them
+#ifdef ENABLE_STARS       // region
+bool stars_setup = false; // only setup stars once, then we just twinkle them
 struct Coordinate {
     int  x;
     int  y;
     bool exists;
 };
 
-struct Coordinate stars[TOTAL_STARS];  // tracks all stars/coordinates
+struct Coordinate stars[TOTAL_STARS]; // tracks all stars/coordinates
 
 /**
  * Setup all the initial stars on the screen
@@ -334,18 +334,18 @@ static void twinkle_stars(void) {
                 continue;
             }
             if (rand() % TWINKLE_PROBABILITY_MODULATOR == 0) {
-                oled_write_pixel(star.x, star.y, false);  // black out pixel
+                oled_write_pixel(star.x, star.y, false); // black out pixel
 
                 // don't allow stars to leave their own region
-                if (star.x == (column_group * 8)) {                     // star is the farthest left it can go in its region
-                    star.x++;                                           // move it right immediately
-                } else if (star.x == (((column_group + 1) * 8) - 1)) {  // star is farthest right it can go in its region
-                    star.x--;                                           // move it left immediately
+                if (star.x == (column_group * 8)) {                    // star is the farthest left it can go in its region
+                    star.x++;                                          // move it right immediately
+                } else if (star.x == (((column_group + 1) * 8) - 1)) { // star is farthest right it can go in its region
+                    star.x--;                                          // move it left immediately
                 }
-                if (star.y == (line * 8)) {                     // star is the farthest up it can go in its region
-                    star.y++;                                   // move it down immediately
-                } else if (star.y == (((line + 1) * 8) - 1)) {  // star is farthest down it can go in its region
-                    star.y--;                                   // move it up immediately
+                if (star.y == (line * 8)) {                    // star is the farthest up it can go in its region
+                    star.y++;                                  // move it down immediately
+                } else if (star.y == (((line + 1) * 8) - 1)) { // star is farthest down it can go in its region
+                    star.y--;                                  // move it up immediately
                 }
 
                 // now decide direction
@@ -389,10 +389,10 @@ static void animate_stars(void) {
         twinkle_stars();
     }
 }
-#endif  // endregion
+#endif // endregion
 
-#ifdef ENABLE_SHOOTING_STARS  // region
-bool shooting_stars_setup = false;  // only setup shooting stars array once with defaults
+#ifdef ENABLE_SHOOTING_STARS       // region
+bool shooting_stars_setup = false; // only setup shooting stars array once with defaults
 
 struct ShootingStar {
     int  x_1;
@@ -404,11 +404,11 @@ struct ShootingStar {
     int  delay;
 };
 
-struct ShootingStar shooting_stars[MAX_NUMBER_OF_SHOOTING_STARS];  // tracks all the shooting stars
+struct ShootingStar shooting_stars[MAX_NUMBER_OF_SHOOTING_STARS]; // tracks all the shooting stars
 
 static void setup_shooting_star(struct ShootingStar *shooting_star) {
     int column_to_start = rand() % (WIDTH / 2);
-    int row_to_start    = rand() % (HEIGHT - 48);  // shooting_stars travel diagonally 1 down, 1 across. So the lowest a shooting_star can start and not 'hit' the ocean is 32 above the ocean.
+    int row_to_start    = rand() % (HEIGHT - 48); // shooting_stars travel diagonally 1 down, 1 across. So the lowest a shooting_star can start and not 'hit' the ocean is 32 above the ocean.
 
     shooting_star->x_1     = column_to_start;
     shooting_star->y_1     = row_to_start;
@@ -494,7 +494,7 @@ static void animate_shooting_stars(void) {
         end_extra_stars(number_of_shooting_stars);
     }
 }
-#endif  // endregion
+#endif // endregion
 
 /**
  * Main rendering function
@@ -502,52 +502,53 @@ static void animate_shooting_stars(void) {
  * Calls all different animations at different rates
  */
 void render_stars(void) {
-    //    // animation timer
-    if (timer_elapsed32(starry_night_anim_timer) > STARRY_NIGHT_ANIM_FRAME_DURATION) {
-        starry_night_anim_timer = timer_read32();
-        current_wpm             = get_current_wpm();
+    current_wpm             = get_current_wpm();
 
+    void render_stars_anim(void) {
 #ifdef ENABLE_ISLAND
-        animate_island();
+            animate_island();
 #endif
 
 #ifdef ENABLE_SHOOTING_STARS
-        if (animation_counter % SHOOTING_STAR_ANIMATION_MODULATOR == 0) {
-            animate_shooting_stars();
-        }
+            if (animation_counter % SHOOTING_STAR_ANIMATION_MODULATOR == 0) {
+                animate_shooting_stars();
+            }
 #endif
 
 #ifdef ENABLE_STARS
-        // TODO offsetting the star animation from the wave animation would look better,
-        // but if I do that, then the stars appear in the water because
-        // the ocean animation has to wait a bunch of frames to overwrite it.
-        // Possible solutions:
-        // 1. Only draw stars to the top of the island/ocean.
-        // 2. Draw ocean every frame, only move ocean on frames matching modulus
-        // Problems:
-        // 1. What if someone wants to move the island up a bit, or they want to have the stars reflect in the water?
-        // 2. More cpu intensive. And I'm already running out of cpu as it is...
-        if (animation_counter % STAR_ANIMATION_MODULATOR == 0) {
-            animate_stars();
-        }
+            // TODO offsetting the star animation from the wave animation would look better,
+            // but if I do that, then the stars appear in the water because
+            // the ocean animation has to wait a bunch of frames to overwrite it.
+            // Possible solutions:
+            // 1. Only draw stars to the top of the island/ocean.
+            // 2. Draw ocean every frame, only move ocean on frames matching modulus
+            // Problems:
+            // 1. What if someone wants to move the island up a bit, or they want to have the stars reflect in the water?
+            // 2. More cpu intensive. And I'm already running out of cpu as it is...
+            if (animation_counter % STAR_ANIMATION_MODULATOR == 0) {
+                animate_stars();
+            }
 #endif
 
 #ifdef ENABLE_WAVE
-        if (animation_counter % OCEAN_ANIMATION_MODULATOR == 0) {
-            animate_waves();
-        }
+            if (animation_counter % OCEAN_ANIMATION_MODULATOR == 0) {
+                animate_waves();
+            }
 #endif
 
 #ifdef ENABLE_MOON
-        draw_moon();
+            draw_moon();
 #endif
 
-        animation_counter = increment_counter(animation_counter, NUMBER_OF_FRAMES);
+            animation_counter = increment_counter(animation_counter, NUMBER_OF_FRAMES);
     }
 
-    // this fixes the screen on and off bug
-    if (current_wpm > 0) {
+
+    // Turn screen on/off based on typing and timeout
+    if (current_wpm > 0 && timer_elapsed32(starry_night_anim_timer) > STARRY_NIGHT_ANIM_FRAME_DURATION) {
+        starry_night_anim_timer = timer_read32();
         oled_on();
+        render_stars_anim();
         starry_night_anim_sleep = timer_read32();
     } else if (timer_elapsed32(starry_night_anim_sleep) > OLED_TIMEOUT) {
         oled_off();

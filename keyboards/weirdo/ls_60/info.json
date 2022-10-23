@@ -1,7 +1,13 @@
 {
     "keyboard_name": "LS_60",
+    "manufacturer": "Weirdo",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7764",
+        "pid": "0x4C53",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -96,7 +96,7 @@ enum anne_pro_layers {
   *
   */
  [FN2] = LAYOUT_60_ansi( /* FN2 */
-    _______, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, KC_AP_LED_OFF, KC_AP_LED_ON, _______, _______, _______, _______,
+    _______, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, _______, KC_AP_RGB_MOD, KC_AP_RGB_TOG, KC_AP_RGB_VAD, KC_AP_RGB_VAI, _______,
     MO(FN2), _______,    KC_UP,      _______,    _______,    _______, _______, _______, _______,       _______,      KC_PSCR, KC_HOME, KC_END,  _______,
     _______, KC_LEFT,    KC_DOWN,    KC_RGHT,    _______,    _______, _______, _______, _______,       _______,      KC_PGUP, KC_PGDN, _______,
     _______,             _______,    _______,    _______,    _______, _______, _______, _______,       _______,      KC_INS,  KC_DEL,  _______,
@@ -109,9 +109,11 @@ enum anne_pro_layers {
 bool led_update_user(led_t leds) {
     if (leds.caps_lock) {
         // Set the leds to red
-        ap2_led_set_foreground_color(0xFF, 0x00, 0x00);
+        const ap2_led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0xff};
+        ap2_led_mask_set_mono(color);
     } else {
-        ap2_led_reset_foreground_color();
+        const ap2_led_t color = {.p.red = 0x00, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0x00};
+        ap2_led_mask_set_mono(color);
     }
 
     return true;
