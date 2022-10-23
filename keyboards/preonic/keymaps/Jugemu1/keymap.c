@@ -142,5 +142,6 @@ _______, _______,  KC_LALT, KC_LCTL, KC_SPC, KC_SPC, KC_ENT, MO(_RAISE), KC_BSPC
 
 };
 
-void pre_process_record_user(uint16_t keycode, keyrecord_t *record){
+bool pre_process_record_user(uint16_t keycode, keyrecord_t *record){
+    return true;
 }
