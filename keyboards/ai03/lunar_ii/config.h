@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Ryota Goto
+Copyright 2020 ai03 Design Studio
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,39 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-// #define VENDOR_ID 0xA103
-// #define PRODUCT_ID 0x0016
-#define DEVICE_VER 0x0001
-// #define MANUFACTURER ai03 Design Studio
-#define PRODUCT Lunar II
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-// #define MATRIX_ROW_PINS { D0, D1, D2, F0, F1 }
-// #define MATRIX_COL_PINS { F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3 }
-
-/* COL2ROW, ROW2COL*/
-// #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -60,6 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Solenoid support */
 #define SOLENOID_PIN B7
 #define SOLENOID_DEFAULT_DWELL 15
+
+/* Performance and responsiveness improvements */
+#define USB_POLLING_INTERVAL_MS 1
+#define DEBOUNCE_TYPE asym_eager_defer_pk
 
 
 /*
