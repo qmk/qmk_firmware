@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LMSE] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,   RESET,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO, KC_MS_U,   KC_NO, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_PSCR,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO, KC_MS_U,   KC_NO, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
            TO(LCMK), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,  KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -150,13 +150,21 @@ void set_mods_lights(uint16_t keycode, bool active) {
     switch (keycode) {
         case KC_LSFT:
         case SFT_BSP:
+        case SFT_Z:
+        case SFT_SLS:
             rgblight_set_layer_state(12, active);
-        break;
+            break;
         case KC_LCTL:
         case CTL_Y:
         case CTL_W:
             rgblight_set_layer_state(11, active);
-        break;
+            break;
+        case KC_LGUI:
+            rgblight_set_layer_state(13, active);
+            break;
+        case KC_LALT:
+            rgblight_set_layer_state(14, active);
+            break;
     }
 }
 
@@ -183,6 +191,9 @@ enum combo_keys {
     // left hand only
     WF_ESC,
     CD_TAB,
+
+    RESET_COMBO,
+
     // right hand only
     UY_DEL,
     NUM_89_DEL,  // same as UY on num layer
@@ -201,6 +212,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM combo_wf[] = {CTL_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_reset[] = {KC_PSCR, KC_NO, COMBO_END};
 const uint16_t PROGMEM combo_uy[] = {KC_U, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_89[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_hcom[] = {KC_H, KC_COMM, COMBO_END};
@@ -213,6 +225,8 @@ const uint16_t PROGMEM combo_pl[] = {KC_P, KC_L, COMBO_END};
 combo_t key_combos[] = {
     [WF_ESC] = COMBO(combo_wf, KC_ESC),
     [CD_TAB] = COMBO(combo_cd, KC_TAB),
+
+    [RESET_COMBO] = COMBO(combo_reset, RESET),
 
     [UY_DEL] = COMBO(combo_uy, KC_DEL),
     [NUM_89_DEL] = COMBO(combo_89, KC_DEL),
