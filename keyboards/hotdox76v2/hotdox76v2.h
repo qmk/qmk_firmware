@@ -6,6 +6,7 @@
 
 #include "quantum.h"
 
+/*
 #define LAYOUT_ergodox( \
     L500,  L501,  L502,  L503,  L504,  L505,  L506,                       \
     L400,  L401,  L402,  L403,  L404,  L405,  L406,                       \
@@ -64,5 +65,7 @@
     { R100,  R101,  R102,  R103,  R104,  R105,  R106  }, \
     { R110,  R111,  R112,  R113,  R114,  R115,  R116  }  \
 }
+
+*/
 
 #define TOG_OLED KC_F13
