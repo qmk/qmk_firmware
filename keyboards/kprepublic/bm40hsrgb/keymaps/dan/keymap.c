@@ -84,10 +84,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LEFTFN] = LAYOUT_planck_mit(
-    KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,     KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_LCTL,  KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_PGUP, KC_LBRC, KC_RBRC, KC_RPRN, KC_COLN, KC_DQUO,
-    KC_LSFT,  KC_CAPS, KC_INS,  KC_HOME, KC_END,   KC_PGDN,       KC_PSCR, KC_LPRN, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    RGB,      KC_LBRC, KC_RBRC, KC_LALT, KC_TRNS,        KC_SPC,           KC_UNDS, KC_PLUS, KC_DEL,  KC_PIPE, KC_PENT
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+    KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_PGUP, KC_LBRC, KC_RBRC, KC_RPRN, KC_COLN, KC_DQUO,
+    KC_LSFT, KC_CAPS, KC_INS,  KC_HOME, KC_END,   KC_PGDN,       KC_PSCR, KC_LPRN, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+    RGB,     KC_LBRC, KC_RBRC, KC_LALT, KC_TRNS,        KC_SPC,           KC_UNDS, KC_PLUS, KC_DEL,  KC_PIPE, KC_PENT
 ),
 
 /* RIGHTFN
@@ -272,6 +272,7 @@ void rgb_matrix_indicators_user(void) {
     uint8_t purple[3] = {6, 0, 22};
     uint8_t pink[3] = {17, 0, 22};
     uint8_t white[3] = {255, 255, 255};
+    uint8_t wasd[4] = {2, 13, 14, 15};
 
     switch (get_highest_layer(layer_state)) {
         case _ALPHA:
@@ -290,7 +291,6 @@ void rgb_matrix_indicators_user(void) {
             break;
         case _PUBG:
             rgb_matrix_set_color(43, green[0], green[1], green[2]);
-
             break;
         case _OVERWATCH:
             rgb_matrix_set_color(44, green[0], green[1], green[2]);
@@ -299,10 +299,9 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(45, green[0], green[1], green[2]);
             break;
         case _TETRIS:
-            rgb_matrix_set_color(2, pink[0], pink[1], pink[2]);
-            rgb_matrix_set_color(13, pink[0], pink[1], pink[2]);
-            rgb_matrix_set_color(14, pink[0], pink[1], pink[2]);
-            rgb_matrix_set_color(15, pink[0], pink[1], pink[2]);
+            for (int i = 0; i < sizeof wasd; i++) {
+                rgb_matrix_set_color(wasd[i], pink[0], pink[1], pink[2]);
+            }
             break;
         case _CLEAN:
             rgb_matrix_set_color_all(white[0], white[1], white[2]);
