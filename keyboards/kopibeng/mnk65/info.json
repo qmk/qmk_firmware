@@ -1,9 +1,9 @@
 {
     "keyboard_name": "MNK65",
-	  "manufacturer": "kopibeng",
+    "manufacturer": "kopibeng",
     "maintainer": "kopibeng",
     "url": "https://monokei.co/",
-	  "usb": {
+    "usb": {
         "vid": "0x4B50",
         "pid": "0x0651",
         "device_version": "1.0.0"
