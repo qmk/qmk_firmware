@@ -5,10 +5,6 @@
 
 #include "config_common.h"
 
-/* key matrix */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
-
 /* rgb */
 #define RGB_DI_PIN D2
 #define RGBLED_NUM 7
