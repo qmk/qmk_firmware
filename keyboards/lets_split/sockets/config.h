@@ -18,14 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0BEE
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Duckle29
-#define PRODUCT         Lets Split Sockets
-#define DESCRIPTION     A split keyboard for the cheapish makers
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -50,11 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D4
 
@@ -62,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE
-    #define C6_AUDIO // Define this to enable the buzzer
+    #define AUDIO_PIN C6 // Define this to enable the buzzer
 #endif
 
 /*

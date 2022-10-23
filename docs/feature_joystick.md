@@ -2,8 +2,6 @@
 
 The keyboard can be made to be recognized as a joystick HID device by the operating system.
 
-This is enabled by adding `JOYSTICK_ENABLE` to `rules.mk`. You can set this value to `analog`, `digital`, or `no`.
-
 !> Joystick support is not currently available on V-USB devices.
 
 The joystick feature provides two services:
@@ -17,8 +15,9 @@ or send gamepad reports based on values computed by the keyboard.
 
 To use analog input you must first enable it in `rules.mk`:
 
-```makefile
-JOYSTICK_ENABLE = analog
+```make
+JOYSTICK_ENABLE = yes
+JOYSTICK_DRIVER = analog # or 'digital'
 ```
 
 An analog device such as a potentiometer found on a gamepad's analog axes is based on a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider).
@@ -141,7 +140,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+### Axis Resolution
+
+By default, the resolution of each axis is 8 bit, giving a range of -127 to +127. If you need higher precision, you can increase it by defining eg. `JOYSTICK_AXES_RESOLUTION 12` in your `config.h`. The resolution must be between 8 and 16.
+
+Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MCUs.
+
 ### Triggering Joystick Buttons
 
 Joystick buttons are normal Quantum keycodes, defined as `JS_BUTTON0` to `JS_BUTTON31`, depending on the number of buttons you have configured.
 To trigger a joystick button, just add the corresponding keycode to your keymap.
+
+You can also trigger joystick buttons in code with `register_joystick_button(button)` and `unregister_joystick_button(button)`, where `button` is the 0-based button index (0 = button 1).

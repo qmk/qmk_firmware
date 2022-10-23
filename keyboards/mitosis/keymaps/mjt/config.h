@@ -15,7 +15,7 @@
 #endif
 
 #define AUDIO_VOICES
-#define C6_AUDIO
+#define AUDIO_PIN C6
 
 // fix iPhone power adapter issue
 #define USB_MAX_POWER_CONSUMPTION 50

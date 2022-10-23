@@ -13,17 +13,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PROCESS_STENO_H
-#define PROCESS_STENO_H
+
+#pragma once
 
 #include "quantum.h"
 
-typedef enum { STENO_MODE_BOLT, STENO_MODE_GEMINI } steno_mode_t;
+#define BOLT_STROKE_SIZE 4
+#define GEMINI_STROKE_SIZE 6
 
-bool     process_steno(uint16_t keycode, keyrecord_t *record);
-void     steno_init(void);
-void     steno_set_mode(steno_mode_t mode);
-uint8_t *steno_get_state(void);
-uint8_t *steno_get_chord(void);
-
+#ifdef STENO_ENABLE_GEMINI
+#    define MAX_STROKE_SIZE GEMINI_STROKE_SIZE
+#else
+#    define MAX_STROKE_SIZE BOLT_STROKE_SIZE
 #endif
+
+typedef enum {
+    STENO_MODE_GEMINI,
+    STENO_MODE_BOLT,
+} steno_mode_t;
+
+bool process_steno(uint16_t keycode, keyrecord_t *record);
+#ifdef STENO_ENABLE_ALL
+void steno_init(void);
+void steno_set_mode(steno_mode_t mode);
+#endif // STENO_ENABLE_ALL

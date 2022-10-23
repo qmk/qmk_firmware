@@ -1,5 +1,0 @@
-#include "christmas_tree.h"
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-}

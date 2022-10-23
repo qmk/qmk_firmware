@@ -1,4 +1,5 @@
 /* Copyright 2016 Jack Humbert
+ * Copyright 2020 JohSchneider
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
 
-#ifndef MUSICAL_NOTES_H
-#define MUSICAL_NOTES_H
-
-// Tempo Placeholder
-#define TEMPO_DEFAULT 100
+#ifndef TEMPO_DEFAULT
+#    define TEMPO_DEFAULT 120
+// in beats-per-minute
+#endif
 
 #define SONG(notes...) \
     { notes }
@@ -26,12 +27,14 @@
 // Note Types
 #define MUSICAL_NOTE(note, duration) \
     { (NOTE##note), duration }
+
 #define BREVE_NOTE(note) MUSICAL_NOTE(note, 128)
 #define WHOLE_NOTE(note) MUSICAL_NOTE(note, 64)
 #define HALF_NOTE(note) MUSICAL_NOTE(note, 32)
 #define QUARTER_NOTE(note) MUSICAL_NOTE(note, 16)
 #define EIGHTH_NOTE(note) MUSICAL_NOTE(note, 8)
 #define SIXTEENTH_NOTE(note) MUSICAL_NOTE(note, 4)
+#define THIRTYSECOND_NOTE(note) MUSICAL_NOTE(note, 2)
 
 #define BREVE_DOT_NOTE(note) MUSICAL_NOTE(note, 128 + 64)
 #define WHOLE_DOT_NOTE(note) MUSICAL_NOTE(note, 64 + 32)
@@ -39,6 +42,9 @@
 #define QUARTER_DOT_NOTE(note) MUSICAL_NOTE(note, 16 + 8)
 #define EIGHTH_DOT_NOTE(note) MUSICAL_NOTE(note, 8 + 4)
 #define SIXTEENTH_DOT_NOTE(note) MUSICAL_NOTE(note, 4 + 2)
+#define THIRTYSECOND_DOT_NOTE(note) MUSICAL_NOTE(note, 2 + 1)
+// duration of 64 units == one beat == one whole note
+// with a tempo of 60bpm this comes to a length of one second
 
 // Note Type Shortcuts
 #define M__NOTE(note, duration) MUSICAL_NOTE(note, duration)
@@ -48,55 +54,52 @@
 #define Q__NOTE(n) QUARTER_NOTE(n)
 #define E__NOTE(n) EIGHTH_NOTE(n)
 #define S__NOTE(n) SIXTEENTH_NOTE(n)
+#define T__NOTE(n) THIRTYSECOND_NOTE(n)
 #define BD_NOTE(n) BREVE_DOT_NOTE(n)
 #define WD_NOTE(n) WHOLE_DOT_NOTE(n)
 #define HD_NOTE(n) HALF_DOT_NOTE(n)
 #define QD_NOTE(n) QUARTER_DOT_NOTE(n)
 #define ED_NOTE(n) EIGHTH_DOT_NOTE(n)
 #define SD_NOTE(n) SIXTEENTH_DOT_NOTE(n)
+#define TD_NOTE(n) THIRTYSECOND_DOT_NOTE(n)
 
 // Note Timbre
 // Changes how the notes sound
-#define TIMBRE_12 0.125f
-#define TIMBRE_25 0.250f
-#define TIMBRE_50 0.500f
-#define TIMBRE_75 0.750f
-#define TIMBRE_DEFAULT TIMBRE_50
+#define TIMBRE_12 12
+#define TIMBRE_25 25
+#define TIMBRE_50 50
+#define TIMBRE_75 75
+#ifndef TIMBRE_DEFAULT
+#    define TIMBRE_DEFAULT TIMBRE_50
+#endif
 
 // Notes - # = Octave
 
-#ifdef __arm__
-#    define NOTE_REST 1.00f
-#else
-#    define NOTE_REST 0.00f
-#endif
+#define NOTE_REST 0.00f
 
-/* These notes are currently bugged
-#define NOTE_C0          16.35f
-#define NOTE_CS0         17.32f
-#define NOTE_D0          18.35f
-#define NOTE_DS0         19.45f
-#define NOTE_E0          20.60f
-#define NOTE_F0          21.83f
-#define NOTE_FS0         23.12f
-#define NOTE_G0          24.50f
-#define NOTE_GS0         25.96f
-#define NOTE_A0          27.50f
-#define NOTE_AS0         29.14f
-#define NOTE_B0          30.87f
-#define NOTE_C1          32.70f
-#define NOTE_CS1         34.65f
-#define NOTE_D1          36.71f
-#define NOTE_DS1         38.89f
-#define NOTE_E1          41.20f
-#define NOTE_F1          43.65f
-#define NOTE_FS1         46.25f
-#define NOTE_G1          49.00f
-#define NOTE_GS1         51.91f
-#define NOTE_A1          55.00f
-#define NOTE_AS1         58.27f
-*/
-
+#define NOTE_C0 16.35f
+#define NOTE_CS0 17.32f
+#define NOTE_D0 18.35f
+#define NOTE_DS0 19.45f
+#define NOTE_E0 20.60f
+#define NOTE_F0 21.83f
+#define NOTE_FS0 23.12f
+#define NOTE_G0 24.50f
+#define NOTE_GS0 25.96f
+#define NOTE_A0 27.50f
+#define NOTE_AS0 29.14f
+#define NOTE_B0 30.87f
+#define NOTE_C1 32.70f
+#define NOTE_CS1 34.65f
+#define NOTE_D1 36.71f
+#define NOTE_DS1 38.89f
+#define NOTE_E1 41.20f
+#define NOTE_F1 43.65f
+#define NOTE_FS1 46.25f
+#define NOTE_G1 49.00f
+#define NOTE_GS1 51.91f
+#define NOTE_A1 55.00f
+#define NOTE_AS1 58.27f
 #define NOTE_B1 61.74f
 #define NOTE_C2 65.41f
 #define NOTE_CS2 69.30f
@@ -229,5 +232,3 @@
 #define NOTE_GF8 NOTE_FS8
 #define NOTE_AF8 NOTE_GS8
 #define NOTE_BF8 NOTE_AS8
-
-#endif

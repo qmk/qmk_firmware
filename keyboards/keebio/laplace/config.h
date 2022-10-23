@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x1147
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    Keebio
-#define PRODUCT         Laplace
-#define DESCRIPTION     40 percent staggered keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 7

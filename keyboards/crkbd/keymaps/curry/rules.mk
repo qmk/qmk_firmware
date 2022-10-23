@@ -2,15 +2,15 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE        = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE         = no
 CONSOLE_ENABLE          = no
 COMMAND_ENABLE          = no
 
 RGBLIGHT_ENABLE         = no
-RGB_MATRIX_ENABLE       = WS2812
+RGB_MATRIX_ENABLE       = yes
 
-OLED_DRIVER_ENABLE      = yes
+OLED_ENABLE     = yes
 
 BOOTLOADER              = atmel-dfu
 SPLIT_TRANSPORT         = mirror

@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    KC_BSPC, KC_DEL,   KC_ENT,  KC_SPC \
 
   ),
-  
+
   [_QWERTY] = LAYOUT( \
       KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_HOME,  KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_END,   KC_PGDN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_SLSH, \
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] =  LAYOUT( \
-      _______, _______, _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_NLCK, _______, _______, \
       KC_CAPS, _______, QWERTY,  COLEMAK, DVORAK,  DESTINY, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, \
       _______, _______, _______, RGB_SPI, RGB_SPD, _______, XXXXXXX, XXXXXXX, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, \
@@ -253,7 +253,7 @@ const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
     )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (!is_keyboard_master())
     return;
 
@@ -263,7 +263,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
   } else
 #endif
   {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
     uint16_t keycode = encoders[layer][index][clockwise];
     while (keycode == KC_TRANSPARENT && layer > 0)
     {
@@ -274,11 +274,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (keycode != KC_TRANSPARENT)
       tap_code16(keycode);
   }
+    return true;
 }
 #endif
 
 // OLED Driver Logic
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
  oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master())
     return OLED_ROTATION_270;
@@ -305,7 +306,7 @@ static void render_status(void) {
 
   // Define layers here
   oled_write_P(PSTR("     Layer-----"), false);
-  uint8_t layer = layer_state ? biton(layer_state) : biton32(default_layer_state);
+  uint8_t layer = layer_state ? get_highest_layer(layer_state) : get_highest_layer(default_layer_state);
   switch (layer) {
     case _DVORAK:
       oled_write_P(PSTR("DVRAK"), false);
@@ -349,13 +350,14 @@ static void render_status(void) {
 #endif
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     render_status();
   } else {
     render_logo();
     oled_scroll_left();
   }
+    return false;
 }
 
 #endif

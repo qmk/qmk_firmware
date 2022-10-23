@@ -1,10 +1,14 @@
 {
     "keyboard_name": "Fallacy", 
+    "manufacturer": "SheuBox",
     "maintainer": "Toraifu", 
-    "width": 18.75, 
-    "height": 5, 
+    "usb": {
+        "vid": "0xBF00",
+        "pid": "0xBFFA",
+        "device_version": "0.0.1"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_alice_split_bs": {
             "layout": [
                 {"label":"Esc", "x":0.5, "y":0},
                 {"label":"~", "x":1.75, "y":0},
@@ -74,7 +78,7 @@
                 {"label":"RCtl", "x":17, "y":4, "w":1.5}
             ]
         },
-        "LAYOUT_default": {
+        "LAYOUT_alice": {
             "layout": [
                 {"label":"Esc", "x":0.5, "y":0},
                 {"label":"~", "x":1.75, "y":0},

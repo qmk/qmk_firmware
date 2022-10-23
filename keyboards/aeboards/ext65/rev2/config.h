@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4145 // "AE"
-#define PRODUCT_ID      0xA652 // AEboards EXT65 Rev2
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AEboards
-#define PRODUCT         AEBoards Ext65 Rev2
-
 /* key matrix size */
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -51,16 +44,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //SPI
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13
 #define WS2812_EXTERNAL_PULLUP
 
 // I2C OLED defines
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
 
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
 
-#define I2C1_TIMINGR_PRESC 	0U
 #define I2C1_TIMINGR_SCLDEL 3U
 #define I2C1_TIMINGR_SDADEL 1U
 #define I2C1_TIMINGR_SCLH 	3U
@@ -75,3 +69,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
+
+#define SLEEP_LED_GPT_DRIVER GPTD1

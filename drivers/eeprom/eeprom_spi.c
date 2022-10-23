@@ -31,6 +31,8 @@
 */
 
 #include "wait.h"
+#include "debug.h"
+#include "timer.h"
 #include "spi_master.h"
 #include "eeprom.h"
 #include "eeprom_spi.h"
@@ -50,31 +52,26 @@
 #    define EXTERNAL_EEPROM_SPI_TIMEOUT 100
 #endif
 
-#if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
-#    include "timer.h"
-#    include "debug.h"
-#endif  // CONSOLE_ENABLE
-
-static void init_spi_if_required(void) {
-    static int done = 0;
-    if (!done) {
-        spi_init();
-        done = 1;
-    }
+static bool spi_eeprom_start(void) {
+    return spi_start(EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN, EXTERNAL_EEPROM_SPI_LSBFIRST, EXTERNAL_EEPROM_SPI_MODE, EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR);
 }
-
-static bool spi_eeprom_start(void) { return spi_start(EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN, EXTERNAL_EEPROM_SPI_LSBFIRST, EXTERNAL_EEPROM_SPI_MODE, EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR); }
 
 static spi_status_t spi_eeprom_wait_while_busy(int timeout) {
     uint32_t     deadline = timer_read32() + timeout;
-    spi_status_t response;
-    do {
+    spi_status_t response = SR_WIP;
+    while (response & SR_WIP) {
+        if (!spi_eeprom_start()) {
+            return SPI_STATUS_ERROR;
+        }
+
         spi_write(CMD_RDSR);
         response = spi_read();
+        spi_stop();
+
         if (timer_read32() >= deadline) {
             return SPI_STATUS_TIMEOUT;
         }
-    } while (response & SR_WIP);
+    }
     return SPI_STATUS_SUCCESS;
 }
 
@@ -91,7 +88,9 @@ static void spi_eeprom_transmit_address(uintptr_t addr) {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void eeprom_driver_init(void) {}
+void eeprom_driver_init(void) {
+    spi_init();
+}
 
 void eeprom_driver_erase(void) {
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
@@ -110,31 +109,23 @@ void eeprom_driver_erase(void) {
 }
 
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
-    init_spi_if_required();
-
     //-------------------------------------------------
     // Wait for the write-in-progress bit to be cleared
-    bool res = spi_eeprom_start();
-    if (!res) {
-        dprint("failed to start SPI for WIP check\n");
-        memset(buf, 0, len);
-        return;
-    }
-
     spi_status_t response = spi_eeprom_wait_while_busy(EXTERNAL_EEPROM_SPI_TIMEOUT);
-    spi_stop();
-    if (response == SPI_STATUS_TIMEOUT) {
-        dprint("SPI timeout for WIP check\n");
+    if (response != SPI_STATUS_SUCCESS) {
+        spi_stop();
         memset(buf, 0, len);
+        dprint("SPI timeout for WIP check\n");
         return;
     }
 
     //-------------------------------------------------
     // Perform read
-    res = spi_eeprom_start();
+    bool res = spi_eeprom_start();
     if (!res) {
-        dprint("failed to start SPI for read\n");
+        spi_stop();
         memset(buf, 0, len);
+        dprint("failed to start SPI for read\n");
         return;
     }
 
@@ -148,14 +139,12 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
         dprintf(" %02X", (int)(((uint8_t *)buf)[i]));
     }
     dprintf("\n");
-#endif  // DEBUG_EEPROM_OUTPUT
+#endif // DEBUG_EEPROM_OUTPUT
 
     spi_stop();
 }
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
-    init_spi_if_required();
-
     bool      res;
     uint8_t * read_buf    = (uint8_t *)buf;
     uintptr_t target_addr = (uintptr_t)addr;
@@ -169,15 +158,9 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
 
         //-------------------------------------------------
         // Wait for the write-in-progress bit to be cleared
-        res = spi_eeprom_start();
-        if (!res) {
-            dprint("failed to start SPI for WIP check\n");
-            return;
-        }
-
         spi_status_t response = spi_eeprom_wait_while_busy(EXTERNAL_EEPROM_SPI_TIMEOUT);
-        spi_stop();
-        if (response == SPI_STATUS_TIMEOUT) {
+        if (response != SPI_STATUS_SUCCESS) {
+            spi_stop();
             dprint("SPI timeout for WIP check\n");
             return;
         }
@@ -186,6 +169,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         // Enable writes
         res = spi_eeprom_start();
         if (!res) {
+            spi_stop();
             dprint("failed to start SPI for write-enable\n");
             return;
         }
@@ -197,6 +181,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         // Perform the write
         res = spi_eeprom_start();
         if (!res) {
+            spi_stop();
             dprint("failed to start SPI for write\n");
             return;
         }
@@ -207,7 +192,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
             dprintf(" %02X", (int)(uint8_t)(read_buf[i]));
         }
         dprintf("\n");
-#endif  // DEBUG_EEPROM_OUTPUT
+#endif // DEBUG_EEPROM_OUTPUT
 
         spi_write(CMD_WRITE);
         spi_eeprom_transmit_address(target_addr);

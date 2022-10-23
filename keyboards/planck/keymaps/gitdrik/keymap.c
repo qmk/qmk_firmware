@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
  [_RIGHTER] = LAYOUT_planck_grid(
-    KC_TRNS, RESET,   DEBUG,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_WH_L, KC_MS_U, KC_WH_R, KC_BTN2, KC_WH_U,
+    KC_TRNS, QK_BOOT, DEBUG,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_WH_L, KC_MS_U, KC_WH_R, KC_BTN2, KC_WH_U,
     KC_TRNS, KC_BTN4, KC_BTN3, KC_BTN2, KC_BTN1, KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_WH_D,
     KC_TRNS, KC_TRNS, MU_MOD,  MU_ON,   MU_OFF,  KC_NO, KC_NO, KC_BTN1, KC_BTN2, KC_BTN3, KC_TRNS, KC_TRNS,
     KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_BRID, KC_BRIU, KC_NO
@@ -137,7 +137,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RIGHT)) {
       if (clockwise) {
@@ -167,9 +167,10 @@ void encoder_update(bool clockwise) {
       #endif
     }
   }
+    return true;
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0: {
 #ifdef AUDIO_ENABLE
@@ -198,6 +199,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
+    return true;
 }
 
 void matrix_scan_user(void) {

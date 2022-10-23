@@ -12,6 +12,18 @@ const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {60, 30, 15};
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {20, 10, 4};
 #endif
 
+/**
+ * Kodi shortcuts:
+ *
+ * ESC - Previous menu OR Home screen
+ * Enter - Select
+ * X - Stop
+ * Arrows to move
+ *
+ * For details have a look at:
+ * https://kodi.wiki/view/Keyboard_controls
+ */
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAIN] = LAYOUT_ortho_2x4(
      KC_ESC, KC_UP, KC_ENTER, KC_X,
@@ -24,19 +36,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_ln_P(PSTR("ANAVI Macro Pad 8"), false);
-  oled_write_P(PSTR("Active layer:"), false);
+  oled_write_P(PSTR("Active layer: "), false);
 
   switch (get_highest_layer(layer_state)) {
     case _MAIN:
-      oled_write_ln_P(PSTR("Main"), false);
+      oled_write_ln_P(PSTR("Kodi"), false);
       break;
     case _FN:
       oled_write_ln_P(PSTR("FN"), false);
@@ -64,5 +76,6 @@ void oled_task_user(void) {
   snprintf(rgbStatusLine2, sizeof(rgbStatusLine2), "h:%d s:%d v:%d", rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val());
   oled_write_ln(rgbStatusLine2, false);
 #endif
+    return false;
 }
 #endif

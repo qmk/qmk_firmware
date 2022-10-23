@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_FUNCT] = LAYOUT_planck_grid(
-    RESET,   XALLWIN, XPRVSPC, NWIN,    XNXTSPC, XDESKTP, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F13,
+    QK_BOOT, XALLWIN, XPRVSPC, NWIN,    XNXTSPC, XDESKTP, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F13,
     DEBUG,   XNOTIFY, PTAB,    PWIN,    NTAB,    NAVBACK, NAVFWD,  KC_F4,   KC_F5,   KC_F6,   KC_F11,  KC_F14,
     KC_MUTE, KC_VOLD, KC_VOLU, KC_MRWD, KC_MFFD, KC_MPLY, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F12,  KC_F15,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______

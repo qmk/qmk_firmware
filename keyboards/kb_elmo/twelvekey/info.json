@@ -1,0 +1,28 @@
+{
+    "keyboard_name": "Twelvekey", 
+    "manufacturer": "kb-elmo",
+    "url": "https://github.com/kb-elmo/twelvekey", 
+    "maintainer": "kb-elmo", 
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0x9879",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_ortho_3x4": {
+            "layout": [{"x":0, "y":0},
+                {"x":1, "y":0},
+                {"x":2, "y":0},
+                {"x":3, "y":0},
+                {"x":0, "y":1},
+                {"x":1, "y":1},
+                {"x":2, "y":1},
+                {"x":3, "y":1},
+                {"x":0, "y":2},
+                {"x":1, "y":2},
+                {"x":2, "y":2},
+                {"x":3, "y":2}
+            ]
+        }
+    }
+}

@@ -17,13 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0B91
-#define DEVICE_VER      0x0001
-#define MANUFACTURER Xiaomi
-#define PRODUCT MK02
-#define DESCRIPTION Yuemi Pro MK02
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -54,5 +48,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

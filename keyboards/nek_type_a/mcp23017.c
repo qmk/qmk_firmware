@@ -15,8 +15,8 @@
  */
 #include <stdbool.h>
 #include "action.h"
-#include "lib/lufa/LUFA/Drivers/Peripheral/TWI.h"
-#include "lib/lufa/LUFA/Drivers/Peripheral/AVR8/TWI_AVR8.c"
+#include <LUFA/Drivers/Peripheral/TWI.h>
+#include <LUFA/Drivers/Peripheral/AVR8/TWI_AVR8.c>
 #include "mcp23017.h"
 #include "debug.h"
 #include "wait.h"

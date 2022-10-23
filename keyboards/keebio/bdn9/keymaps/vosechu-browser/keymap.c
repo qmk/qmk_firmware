@@ -11,7 +11,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-    RESET  , PAWFIVE, RELOAD ,
+    QK_BOOT, PAWFIVE, RELOAD ,
     SLACKUP, KC_UP  , KC_PGUP,
     SLACKDN, KC_DOWN, KC_PGDN
   ),
@@ -35,7 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {
     if (clockwise) {
       // Tab right
@@ -54,4 +54,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code16(LGUI(KC_LBRC));
     }
   }
+    return true;
 }

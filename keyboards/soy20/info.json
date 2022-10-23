@@ -1,0 +1,37 @@
+{
+    "keyboard_name": "Soy20",
+    "manufacturer": "drewkeys",
+    "url": "",
+    "maintainer": "twholt",
+    "usb": {
+        "vid": "0x4452",
+        "pid": "0x534F",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_ortho_5x4": {
+            "layout": [
+                {"label":"K00 (B0,B5)", "x":0, "y":0},
+                {"label":"K01 (B0,B6)", "x":1, "y":0},
+                {"label":"K02 (B0,B7)", "x":2, "y":0},
+                {"label":"K03 (B0,C7)", "x":3, "y":0},
+                {"label":"K10 (B1,B5)", "x":0, "y":1},
+                {"label":"K11 (B1,B6)", "x":1, "y":1},
+                {"label":"K12 (B1,B7)", "x":2, "y":1},
+                {"label":"K13 (B1,C7)", "x":3, "y":1},
+                {"label":"K20 (B2,B5)", "x":0, "y":2},
+                {"label":"K21 (B2,B6)", "x":1, "y":2},
+                {"label":"K22 (B2,B7)", "x":2, "y":2},
+                {"label":"K23 (B2,C7)", "x":3, "y":2},
+                {"label":"K30 (B3,B5)", "x":0, "y":3},
+                {"label":"K31 (B3,B6)", "x":1, "y":3},
+                {"label":"K32 (B3,B7)", "x":2, "y":3},
+                {"label":"K33 (B3,C7)", "x":3, "y":3},
+                {"label":"K40 (B4,B5)", "x":0, "y":4},
+                {"label":"K41 (B4,B6)", "x":1, "y":4},
+                {"label":"K42 (B4,B7)", "x":2, "y":4},
+                {"label":"K43 (B4,C7)", "x":3, "y":4}
+            ]
+        }
+    }
+}

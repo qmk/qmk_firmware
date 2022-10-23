@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
     [_ADJUST] = LAYOUT_ortho_4x12(
-            _______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______,  _______, _______, KC_DEL ,
+            _______, QK_BOOT, DEBUG,   _______, _______, _______, _______, _______, _______,  _______, _______, KC_DEL ,
             _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK,  GAME,    _______,
             _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______,  _______, _______, _______,
             _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
@@ -142,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(_RAISE) || IS_LAYER_ON(_LOWER)) {
         if (clockwise) {
             register_code(KC_VOLU);
@@ -170,6 +170,5 @@ void encoder_update(bool clockwise) {
             #endif
         }
     }
+    return true;
 }
-
-

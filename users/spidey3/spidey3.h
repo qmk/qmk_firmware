@@ -1,3 +1,6 @@
+// Copyright 2022 Joshua Diamond josh@windowoffire.com (@spidey3)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include QMK_KEYBOARD_H
@@ -8,19 +11,15 @@
 
 enum userspace_layers {
     _BASE = 0,
-    _OSX,
     _NUMPAD,
     _FN,
+    _GLYPH,
 };
 
 enum custom_keycodes {
-    SPI_GLO = SAFE_RANGE,
-    SPI_LNX,  // Mode: Linux
-    SPI_OSX,  // Mode: Mac
-    SPI_WIN,  // Mode: Windows
-    CH_CPNL,  // AL Control Panel
-    CH_ASST,  // AL Context-aware Desktop Assistant
-    CH_SUSP,  // Suspend
+    CH_CPNL = SAFE_RANGE,  // AL Control Panel
+    CH_ASST,               // AL Context-aware Desktop Assistant
+    CH_SUSP,               // Suspend
 
     SPI_NORMAL,
     SPI_WIDE,
@@ -30,7 +29,11 @@ enum custom_keycodes {
     SPI_SQUARE,
     SPI_PARENS,
     SPI_FRAKTR,
+    SPI_BOLD,
+    SPI_MATH,
     SPI_GFLOCK,
+    SPI_KP_00,
+    SPI_GLO,
 };
 
 #ifdef RGBLIGHT_ENABLE
@@ -45,12 +48,13 @@ typedef enum layer_ack {
     ACK_NO = 0,
     ACK_YES,
     ACK_MEH,
+    ACK_HUH,
 } layer_ack_t;
 
 #    define RGB_LAYER_ACK_DURATION 500
 
-void          eeconfig_init_user_rgb(void);
 void          matrix_init_user_rgb(void);
+void          matrix_scan_user_rgb(void);
 void          keyboard_post_init_user_rgb(void);
 bool          process_record_user_rgb(uint16_t keycode, keyrecord_t *record);
 void          post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record);
@@ -60,6 +64,7 @@ bool          led_update_user_rgb(led_t led_state);
 void          rgb_layer_ack(layer_ack_t n);
 void          rgb_layer_ack_yn(bool yn);
 void          clear_rgb_layers(void);
+void          shutdown_user_rgb(void);
 #endif
 
 #ifdef UNICODEMAP_ENABLE

@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "Uni660",
+    "keyboard_name": "Uni660 V2 ISO",
+    "manufacturer": "SiRius",
     "url": "",
     "maintainer": "qmk",
-    "width": 19,
-    "height": 5,
+    "usb": {
+        "vid": "0x5352",
+        "pid": "0x0203",
+        "device_version": "20.0.4"
+    },
     "layouts": {
         "LAYOUT_iso": {
             "layout": [
@@ -44,7 +48,6 @@
                 {"x": 13, "y": 1},
                 {"x": 14, "y": 1},
                 {"x": 15, "y": 1},
-                {"x": 16.25, "y": 1, "w": 1.25, "h": 2},
 
                 {"x": 18, "y": 1},
 
@@ -64,6 +67,7 @@
                 {"x": 13.25, "y": 2},
                 {"x": 14.25, "y": 2},
                 {"x": 15.25, "y": 2},
+                {"x": 16.25, "y": 1, "w": 1.25, "h": 2},
 
                 {"x": 0, "y": 3},
 

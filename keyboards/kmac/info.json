@@ -1,13 +1,14 @@
 {
-  "keyboard_name": "kmac",
-  "url": "",
+  "keyboard_name": "KMAC",
+  "manufacturer": "KBDMania",
   "maintainer": "qmk",
-  "bootloader": "",
-  "width": 18.25,
-  "height": 6.5,
+  "usb": {
+    "vid": "0x4B4D",
+    "pid": "0x4143",
+    "device_version": "1.0.4"
+  },
   "layouts": {
     "LAYOUT_tkl_ansi": {
-      "key_count": 87,
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "F1", "x": 2, "y": 0 },
@@ -99,7 +100,6 @@
       ]
     },
     "LAYOUT_tkl_ansi_wkl": {
-      "key_count": 84,
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "F1", "x": 2, "y": 0 },

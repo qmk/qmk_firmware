@@ -15,7 +15,7 @@ RAW_ENABLE = yes
 
 In your `keymap.c` include `"raw_hid.h"` and implement the following:
 
-```C
+```c
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     // Your code goes here. data is the packet received from host.
 }
@@ -23,13 +23,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 
 The `"raw_hid.h"` header also declares `void raw_hid_send(uint8_t *data, uint8_t length);` which allows sending packets from keyboard to host. As an example, it can also be used for debugging when building your host application by returning all data back to the host.
 
-```C
+```c
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     raw_hid_send(data, length);
 }
 ```
 
-`raw_hid_receive` can receive variable size packets from host with maximum length `RAW_EPSIZE`. `raw_hid_send` on the other hand can send packets to host of exactly `RAW_EPSIZE` length, therefore it should be used with data of length `RAW_EPSIZE`.
+These two functions send and receive packets of length `RAW_EPSIZE` bytes to and from the host (32 on LUFA/ChibiOS/V-USB, 64 on ATSAM).
 
 Make sure to flash raw enabled firmware before proceeding with working on the host side.
 

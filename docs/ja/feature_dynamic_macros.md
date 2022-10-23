@@ -1,8 +1,8 @@
 # 動的マクロ: ランタイムでのマクロの記録および再生
 
 <!---
-  original document: 0.9.43:docs/feature_dynamic_macros.md
-  git diff 0.9.43 HEAD -- docs/feature_dynamic_macros.md | cat
+  original document: 0.10.33:docs/feature_dynamic_macros.md
+  git diff 0.10.33 HEAD -- docs/feature_dynamic_macros.md | cat
 -->
 
 QMK はその場で作られた一時的なマクロをサポートします。これらを動的マクロと呼びます。それらはユーザがキーボードから定義し、キーボードのプラグを抜くか再起動すると失われます。
@@ -40,6 +40,7 @@ QMK はその場で作られた一時的なマクロをサポートします。�
 | `DYNAMIC_MACRO_SIZE` | 128 | 動的マクロが使用できるメモリ量を設定します。これは限られたリソースであり、コントローラに依存します。 |
 | `DYNAMIC_MACRO_USER_CALL` | *定義なし* | これを定義すると、ユーザの `keymap.c` ファイルを使ってマクロが起動されます。 |
 | `DYNAMIC_MACRO_NO_NESTING` | *定義なし* | これを定義すると、別のマクロからマクロを呼び出す(入れ子になったマクロ)機能を無効にします。 |
+| `DYNAMIC_MACRO_DELAY` | *定義なし* | 各キーを送信する時の待ち時間（ms単位）を設定します。 |
 
 
 記録中にキーを押すたびに LED が点滅し始めた場合は、マクロバッファにマクロを入れるスペースがもう無いことを意味します。マクロを入れるには、他のマクロ(それらは同じバッファを共有します)を短くするか、`config.h` に `DYNAMIC_MACRO_SIZE` 定義を追加することでバッファを増やします(デフォルト値: 128; ヘッダ内のコメントを読んでください)。

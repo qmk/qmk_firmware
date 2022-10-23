@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "Chiron Keyboard",
+    "keyboard_name": "Chiron",
+    "manufacturer": "Mike Hix",
     "url": "",
     "maintainer": "musl",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -18,20 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    John M Daly
-#define PRODUCT         CO60 rev6
-#define DESCRIPTION     An open hardware sixty percent PCB
-
-/* Address for jumping to bootloader on STM32 chips. */
-/* It is chip dependent, the correct number can be looked up here:
- * http://www.st.com/web/en/resource/technical/document/application_note/CD00167594.pdf
- */
-#define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

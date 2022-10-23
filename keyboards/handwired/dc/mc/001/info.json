@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "DC MC 001",
+    "manufacturer": "Daniel Cormier",
+    "url": "https://imgur.com/a/PM9lQ",
+    "maintainer": "Daniel Cormier (Twitter: @danielcormier)",
+    "usb": {
+        "vid": "0x4443",
+        "pid": "0x4D43",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "Mute", "x": 0, "y": 0},
+                {"label": "Stop", "x": 1, "y": 0},
+                {"label": "Previous", "x": 2, "y": 0},
+                {"label": "Next", "x": 3, "y": 0},
+                {"label": "Play/Pause", "x": 4, "y": 0}
+            ]
+        }
+    }
+}

@@ -47,4 +47,3 @@ This configuration is from usbasploader's Makefile.
 #             |     |   +----- LB 2..1 (No memory lock features enabled)
 #             |     +--------- BLB0 2..1 (No restrictions for SPM or LPM accessing the Application section)
 #             +--------------- BLB1 2..1 (No restrictions for SPM or LPM accessing the Boot Loader section)
-

@@ -1,11 +1,15 @@
 {
     "keyboard_name": "Alter",
+    "manufacturer": "Neil Brian Ramirez",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
-    "width": 20,
-    "height": 5.25,
+    "usb": {
+    	"vid": "0x0717",
+    	"pid": "0x0002",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_alice_split_bs": {
              "layout": [
 				{"x":0.5, "y":0}, 
 				{"x":2, "y":0}, 

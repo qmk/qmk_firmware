@@ -3,7 +3,8 @@
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LT),
-  [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_GT)
+  [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_GT),
+  [TD_SLSH] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_BSLS),
 };
 
 __attribute__ ((weak))
@@ -29,15 +30,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KB_FLSH:
       if (!record->event.pressed) {
-        SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
-          #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-            ":dfu "
-          #elif defined(BOOTLOADER_HALFKAY)
-            ":teensy "
-          #elif defined(BOOTLOADER_CATERINA)
-            ":avrdude "
-          #endif
-          SS_TAP(X_ENTER)
+        SEND_STRING(
+          "qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP
         );
 
         reset_keyboard();

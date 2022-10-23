@@ -1,1 +1,0 @@
-#define RGBLIGHT_LIMIT_VAL 80

@@ -15,18 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEAE
-#define PRODUCT_ID      0x8870
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    TheVan Keyboards
-#define PRODUCT         BananaSplit 60
-#define DESCRIPTION     keyboard firmware for BananaSplit 60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -34,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { B0, B2, B4, B5, B6 }
 #define MATRIX_COL_PINS { F5, B1, F0, F1, F4, B3, D7, D6, D4, D5, D3, D2, D1, D0 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION ROW2COL
 
@@ -56,22 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-#endif

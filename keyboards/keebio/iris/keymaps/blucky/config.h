@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Brian Luckenbill 
+Copyright 2019 Brian Luckenbill
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define C6_AUDIO
+#define AUDIO_PIN C6
 
 #undef  RGBLED_NUM
 #define RGBLED_NUM                  12

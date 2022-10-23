@@ -6,10 +6,6 @@
 #define RGBLIGHT_EFFECT_BREATHING
 #endif // RGBLIGHT_ENABLE
 
-#ifndef QMK_KEYS_PER_SCAN
-#define QMK_KEYS_PER_SCAN 4
-#endif // !QMK_KEYS_PER_SCAN
-
 #undef FORCE_NKRO
 
 #ifndef TAPPING_TOGGLE
@@ -34,6 +30,7 @@
 
 #define USE_BABBLEPASTE
 // All options
+#define BABL_MODSWAP
 #define BABL_MOVE // Uncomment to add basic cursor movement
 #define BABL_OSKEYS // This adds Cut, paste, window movement and common OS shortcuts
 #define BABL_BROWSER // Browser shortcuts, with Chrome/Firefox as the default. 
@@ -44,10 +41,11 @@
 #define BABL_APP_WINDOWSPLITTING // splitting frames & windows
 
 //All OSes
-#define BABL_WINDOWS
+
+//#define BABL_WINDOWS
 #define BABL_READMUX
-#define BABL_VI
+//#define BABL_VI
 #define BABL_MAC
 #define BABL_LINUX
-#define BABL_EMACS
+//#define BABL_EMACS
 #define BABL_CHROMEOS

@@ -4,12 +4,13 @@ SRC += $(ARM_ATSAM_DIR)/adc.c
 SRC += $(ARM_ATSAM_DIR)/clks.c
 SRC += $(ARM_ATSAM_DIR)/d51_util.c
 SRC += $(ARM_ATSAM_DIR)/i2c_master.c
-ifeq ($(RGB_MATRIX_ENABLE),custom)
-  SRC += $(ARM_ATSAM_DIR)/led_matrix_programs.c
-  SRC += $(ARM_ATSAM_DIR)/led_matrix.c
+ifeq ($(RGB_MATRIX_DRIVER),custom)
+  SRC += $(ARM_ATSAM_DIR)/md_rgb_matrix_programs.c
+  SRC += $(ARM_ATSAM_DIR)/md_rgb_matrix.c
 endif
 SRC += $(ARM_ATSAM_DIR)/main_arm_atsam.c
-SRC += $(ARM_ATSAM_DIR)/spi.c
+SRC += $(ARM_ATSAM_DIR)/shift_register.c
+SRC += $(ARM_ATSAM_DIR)/spi_master.c
 SRC += $(ARM_ATSAM_DIR)/startup.c
 
 SRC += $(ARM_ATSAM_DIR)/usb/main_usb.c
@@ -19,10 +20,12 @@ SRC += $(ARM_ATSAM_DIR)/usb/udi_hid.c
 SRC += $(ARM_ATSAM_DIR)/usb/udi_hid_kbd.c
 SRC += $(ARM_ATSAM_DIR)/usb/udi_hid_kbd_desc.c
 SRC += $(ARM_ATSAM_DIR)/usb/ui.c
-SRC += $(ARM_ATSAM_DIR)/usb/usb2422.c
 SRC += $(ARM_ATSAM_DIR)/usb/usb.c
 SRC += $(ARM_ATSAM_DIR)/usb/usb_device_udd.c
+SRC += $(ARM_ATSAM_DIR)/usb/usb_hub.c
 SRC += $(ARM_ATSAM_DIR)/usb/usb_util.c
+
+SRC += $(DRIVER_PATH)/usb2422.c
 
 # Search Path
 VPATH += $(TMK_DIR)/$(ARM_ATSAM_DIR)

@@ -1,5 +1,5 @@
 #include "satisfaction75.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 
 void pre_encoder_mode_change(){
   if(encoder_mode == ENC_MODE_CLOCK_SET){
@@ -125,7 +125,6 @@ uint16_t handle_encoder_clockwise(){
 #endif
     case ENC_MODE_CLOCK_SET:
       update_time_config(1);
-      queue_for_send = true;
       break;
   }
   return mapped_code;
@@ -171,7 +170,6 @@ uint16_t handle_encoder_ccw(){
 
     case ENC_MODE_CLOCK_SET:
       update_time_config(-1);
-      queue_for_send = true;
       break;
   }
   return mapped_code;

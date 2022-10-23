@@ -1,16 +1,12 @@
-# generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
+# Copyright 2019 Manna Harbour
+# https://github.com/manna-harbour/miryoku
 
 MOUSEKEY_ENABLE = yes # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
+AUTO_SHIFT_ENABLE = yes # Auto Shift
 
-SRC += manna-harbour_miryoku.c # keymap
+INTROSPECTION_KEYMAP_C = manna-harbour_miryoku.c # keymaps
 
-# select alternative base layer alphas
-ifneq ($(strip $(MIRYOKU_ALPHAS)),)
-  OPT_DEFS += -DMIRYOKU_ALPHAS_$(MIRYOKU_ALPHAS)
-endif
+include users/manna-harbour_miryoku/custom_rules.mk
 
-# select alternative subset mappings
-ifneq ($(strip $(MIRYOKU_MAPPING)),)
-  OPT_DEFS += -DMIRYOKU_MAPPING_$(MIRYOKU_MAPPING)
-endif
+include users/manna-harbour_miryoku/post_rules.mk

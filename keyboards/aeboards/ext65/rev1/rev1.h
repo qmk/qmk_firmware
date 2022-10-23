@@ -1,4 +1,4 @@
-/* Copyright 2018 Jason Williams (Wilba)
+/* Copyright 2020 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include "ext65.h"
 #include "quantum.h"
 
 #define ____ KC_NO

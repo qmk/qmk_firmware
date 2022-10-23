@@ -3,6 +3,25 @@
 Since starting, QMK has grown by leaps and bounds thanks to people like you who contribute to creating and maintaining our community keyboards. As we've grown we've discovered some patterns that work well, and ask that you conform to them to make it easier for other people to benefit from your hard work.
 
 
+## Use QMK Lint
+
+We have provided a tool, `qmk lint`, which will let you check over your keyboard for problems. We suggest using it frequently while working on your keyboard and keymap. 
+
+Example passing check:
+
+```
+$ qmk lint -kb rominronin/katana60/rev2
+Ψ Lint check passed!
+```
+
+Example failing check:
+
+```
+$ qmk lint -kb clueboard/66/rev3
+☒ Missing keyboards/clueboard/66/rev3/readme.md
+☒ Lint check failed!
+```
+
 ## Naming Your Keyboard/Project
 
 All keyboard names are in lower case, consisting only of letters, numbers, and underscore (`_`). Names may not begin with an underscore. Forward slash (`/`) is used as a sub-folder separation character.
@@ -68,6 +87,7 @@ The `config.h` files can also be placed in sub-folders, and the order in which t
     * `keyboards/top_folder/sub_1/sub_2/config.h`
       * `keyboards/top_folder/sub_1/sub_2/sub_3/config.h`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/config.h`
+          * [`.build/objs_<keyboard>/src/info_config.h`](data_driven_config.md#add-code-to-generate-it) see [Data Driven Configuration](data_driven_config.md)
           * `users/a_user_folder/config.h`
           * `keyboards/top_folder/keymaps/a_keymap/config.h`
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_config.h`
@@ -125,9 +145,37 @@ The `rules.mk` file can also be placed in a sub-folder, and its reading order is
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
           * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
           * `users/a_user_folder/rules.mk`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_rules.mk`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/post_rules.mk`
+    * `keyboards/top_folder/sub_1/sub_2/post_rules.mk`
+  * `keyboards/top_folder/sub_1/post_rules.mk`
+* `keyboards/top_folder/post_rules.mk`
 * `common_features.mk`
 
 Many of the settings written in the `rules.mk` file are interpreted by `common_features.mk`, which sets the necessary source files and compiler options.
+
+The `post_rules.mk` file can interpret `features` of a keyboard-level before `common_features.mk`.  For example, when your designed keyboard has the option to implement backlighting or underglow using rgblight.c, writing the following in the `post_rules.mk` makes it easier for the user to configure the `rules.mk`.
+
+* `keyboards/top_folder/keymaps/a_keymap/rules.mk`
+  ```make
+  # Please set the following according to the selection of the hardware implementation option.
+  RGBLED_OPTION_TYPE = backlight   ## none, backlight or underglow
+  ```
+* `keyboards/top_folder/post_rules.mk`
+  ```make
+  ifeq ($(filter $(strip $(RGBLED_OPTION_TYPE))x, nonex backlightx underglowx x),)
+     $(error unknown RGBLED_OPTION_TYPE value "$(RGBLED_OPTION_TYPE)")
+  endif
+
+  ifeq ($(strip $(RGBLED_OPTION_TYPE)),backlight)
+    RGBLIGHT_ENABLE = yes
+    OPT_DEFS += -DRGBLED_NUM=30
+  endif
+  ifeq ($(strip $(RGBLED_OPTION_TYPE)),underglow)
+    RGBLIGHT_ENABLE = yes
+    OPT_DEFS += -DRGBLED_NUM=6
+  endif
+  ```
 
 ?> See `build_keyboard.mk` and `common_features.mk` for more details.
 
@@ -164,15 +212,15 @@ As an example, if you have a 60% PCB that supports ANSI and ISO you might define
 
 In an effort to keep the repo size down we're no longer accepting binary files of any format, with few exceptions. Hosting them elsewhere (such as <https://imgur.com>) and linking them in the `readme.md` is preferred.
 
-Hardware files (such as plates, cases, pcb) can be contributed to the [qmk.fm repo](https://github.com/qmk/qmk.fm) and they will be made available on [qmk.fm](http://qmk.fm). Downloadable files are stored in `/<keyboard>/` (name follows the same format as above) which are served at `http://qmk.fm/<keyboard>/`, and pages are generated from `/_pages/<keyboard>/` which are served at the same location (.md files are generated into .html files through Jekyll). Check out the `lets_split` folder for an example.
+Hardware files (such as plates, cases, pcb) can be contributed to the [qmk.fm repo](https://github.com/qmk/qmk.fm) and they will be made available on [qmk.fm](https://qmk.fm). Downloadable files are stored in `/<keyboard>/` (name follows the same format as above) which are served at `https://qmk.fm/<keyboard>/`, and pages are generated from `/_pages/<keyboard>/` which are served at the same location (.md files are generated into .html files through Jekyll). Check out the `lets_split` folder for an example.
 
 ## Keyboard Defaults
 
 Given the amount of functionality that QMK exposes it's very easy to confuse new users. When putting together the default firmware for your keyboard we recommend limiting your enabled features and options to the minimal set needed to support your hardware. Recommendations for specific features follow.
 
-### Bootmagic and Command
+### Magic Keycodes and Command
 
-[Bootmagic](feature_bootmagic.md) and [Command](feature_command.md) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
+[Magic Keycodes](keycodes_magic.md) and [Command](feature_command.md) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
 
 By far the most common problem new users encounter is accidentally triggering Bootmagic while they're plugging in their keyboard. They're holding the keyboard by the bottom, unknowingly pressing in alt and spacebar, and then they find that these keys have been swapped on them. We recommend leaving this feature disabled by default, but if you do turn it on consider setting `BOOTMAGIC_KEY_SALT` to a key that is hard to press while plugging your keyboard in.
 
@@ -192,7 +240,7 @@ When developing your keyboard, keep in mind that all warnings will be treated as
 
 ## Copyright Blurb
 
-If you're adapting your keyboard's setup from another project, but not using the same code, but sure to update the copyright header at the top of the files to show your name, in this format:
+If you're adapting your keyboard's setup from another project, but not using the same code, be sure to update the copyright header at the top of the files to show your name, in this format:
 
     Copyright 2017 Your Name <your@email.com>
 
@@ -206,9 +254,7 @@ The year should be the first year the file is created. If work was done to that 
 
 ## License
 
-The core of QMK is licensed under the [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). If you are shipping binaries for AVR processors you may choose either [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) or [GPLv3](https://www.gnu.org/licenses/gpl.html). If you are shipping binaries for ARM processors you must choose [GPL Version 3](https://www.gnu.org/licenses/gpl.html) to comply with the [ChibiOS](http://www.chibios.org) GPLv3 license.
-
-If your keyboard makes use of the [uGFX](https://ugfx.io) features within QMK you must comply with the [uGFX License](https://ugfx.io/license.html), which requires a separate commercial license before selling a device containing uGFX.
+The core of QMK is licensed under the [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). If you are shipping binaries for AVR processors you may choose either [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) or [GPLv3](https://www.gnu.org/licenses/gpl.html). If you are shipping binaries for ARM processors you must choose [GPL Version 3](https://www.gnu.org/licenses/gpl.html) to comply with the [ChibiOS](https://www.chibios.org) GPLv3 license.
 
 ## Technical Details
 
