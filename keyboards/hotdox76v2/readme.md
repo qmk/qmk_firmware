@@ -1,19 +1,18 @@
 # hotdox76
 
-
-*A short description of the keyboard/project*
+*An Ergodox style keyboard with per key RGB.*
 
 * Keyboard Maintainer: [Drashna Jael're](https://github.com/Drashna Jael're)
 * Hardware Supported: Hotdox 76v2
-Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
+* Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hotdox76:default
+    make hotdox76v2:default
 
 Flashing example for this keyboard:
 
-    make hotdox76:default:flash
+    make hotdox76v2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
