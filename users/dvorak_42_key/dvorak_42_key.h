@@ -230,7 +230,7 @@ enum {
     // TD_BSPC_CTL_BSPC,
     // TD_BSPC_CTL_BSPC_IOS,
     TD_DEL_WORD_DEL,
-    TD_DEL_WORD_DEL_IOS,
+    TD_DEL_WORD_DEL_IOS
 };
 
 typedef struct {
