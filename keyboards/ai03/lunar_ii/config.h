@@ -19,18 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+/* Mechanical lock switch support */
 #define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
 /* Solenoid support */
 #define SOLENOID_PIN B7
 #define SOLENOID_DEFAULT_DWELL 15
-
-/* Performance and responsiveness improvements */
-#define USB_POLLING_INTERVAL_MS 1
-#define DEBOUNCE_TYPE asym_eager_defer_pk
 
 
 /*
