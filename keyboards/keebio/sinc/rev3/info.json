@@ -3,5 +3,43 @@
     "usb": {
         "pid": "0x3267",
         "device_version": "3.0.0"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "debounce": 5,
+    "diode_direction": "COL2ROW",
+    "features": {
+        "rgblight": false,
+        "backlight": false,
+    },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "GP0",
+        "transport": {
+            "protocol": "serial"
+        },
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "GP5", "pin_b": "GP6" }
+                ]
+            }
+        },
+        "matrix_pins": {
+            "right":{
+                "cols": ["GP29", "GP28", "GP27", "GP7", "GP2", "GP3", "GP11", "GP12", "GP13"],
+                "rows": ["GP16", "GP19", "GP17", "GP9", "GP8", "GP26"]
+            },
+        },
+    },
+    "matrix_pins": {
+        "cols": ["GP29", "GP28", "GP27", "GP7", "GP2", "GP3", "GP11", "GP12", "GP13"],
+        "rows": ["GP25", "GP19", "GP24", "GP17", "GP16", "GP26"]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "GP21", "pin_b": "GP20" }
+        ]
     }
 }

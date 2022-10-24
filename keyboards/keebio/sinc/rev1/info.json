@@ -4,6 +4,8 @@
         "pid": "0x1267",
         "device_version": "1.0.0"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {

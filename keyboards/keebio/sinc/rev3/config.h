@@ -21,29 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
 
-#define DIODE_DIRECTION COL2ROW
 // wiring of each half
-#define MATRIX_ROW_PINS { GP25, GP19, GP24, GP17, GP16, GP26 }
-#define MATRIX_COL_PINS { GP29, GP28, GP27, GP7, GP2, GP3, GP11, GP12, GP13 }
-#define MATRIX_ROW_PINS_RIGHT { GP16, GP19, GP17, GP9, GP8, GP26 }
-#define MATRIX_COL_PINS_RIGHT { GP29, GP28, GP27, GP7, GP2, GP3, GP11, GP12, GP13 }
+#undef SPLIT_HAND_PIN
 #define SPLIT_HAND_PIN GP4
-#define ENCODERS_PAD_A { GP21 }
-#define ENCODERS_PAD_B { GP20 }
-#define ENCODERS_PAD_A_RIGHT { GP5 }
-#define ENCODERS_PAD_B_RIGHT { GP6 }
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 #define I2C_DRIVER I2CD2
 #define I2C1_SCL_PIN GP22
 #define I2C1_SDA_PIN GP23
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN GP0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
