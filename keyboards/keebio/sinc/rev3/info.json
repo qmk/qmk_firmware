@@ -43,6 +43,14 @@
             {"pin_a": "GP21", "pin_b": "GP20" }
         ]
     },
+    "rgblight": {
+       "pin": "GP18",
+       "led_count": 113,
+       "max_brightness": 120,
+       "sleep": true,
+       "split": true,
+       "split_count": [56, 57]
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
