@@ -9,6 +9,7 @@ enum layers {
     _COLEMAK_DH,
     _NUM_NAV,
     _FUNCTION,
+    _MOUSE,
     _GAME,
     _GAME_FUN,
 };
@@ -23,6 +24,7 @@ enum layers {
 
 /* misc mods */
 #define GAME TG(_GAME)
+#define MOUSE TG(_MOUSE)
 #define SFT_Z LSFT_T(KC_Z)
 #define SFT_SLSH RSFT_T(KC_SLSH)
 #define SFT_BSLS RSFT_T(KC_BSLS)
@@ -81,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
  | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ' "  |
- | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+ | SFT  | CTL  | OPT  | CMD  |XMSE  |            |      | CMD  | OPT  | CTL  | SFT  |
  |------+------+------+------+------|            |------+------+------+------+------|
  |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
@@ -118,6 +120,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT, KC_LCTL,  KC_LGUI, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_RSFT,
   RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_F11,  KC_F12,   XXXXXXX, XXXXXXX,  GAME,
                      KC_TRNS, KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS,  KC_TRNS
+),
+
+[_MOUSE] = LAYOUT_split_3x5_3(
+/*
+ .------.------.------.------.------.            .------.------.------.------.------.
+ |      | ←    | ↑    | →    |      |            |      |      | MC   |      |      |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ |      | ←    | ↓    | →    | MSE  |            |      | LC   | RC   |      |      |
+ | SFT  |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | Z    | X    | C    |      | V    |            | ⇐    | ⇓    | ⇑    | ⇒    |      |
+ |      |      |      |      |      |            |      |      |      |      | SFT  |
+ '------'------'------'------'------'            '------'------'------'------'------'
+                  .------.------.------.      .------.------.------.
+                  |      | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  |      |
+                  |      |      |      |      |      |      |      |
+                  '------'------'------'      '------'------'------'
+*/
+  XXXXXXX, KC_MS_L,  KC_MS_U, KC_MS_R, XXXXXXX,      XXXXXXX, XXXXXXX, KC_BTN3, XXXXXXX, XXXXXXX,
+  KC_LSFT, KC_MS_L,  KC_MS_D, KC_MS_R, MOUSE,        XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX,
+  KC_Z,    KC_X,     KC_C,    XXXXXXX, KC_V,         KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_RSFT,
+                     XXXXXXX, KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS, XXXXXXX
 ),
 
 [_GAME] = LAYOUT_split_3x5_3(
@@ -342,12 +367,17 @@ const rgblight_segment_t PROGMEM rgb_gaming2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 12, HSV_PURPLE}
 );
 
+const rgblight_segment_t PROGMEM rgb_mouse_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_GREEN}
+);
+
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_capslock_layer,
     rgb_colemakdh_layer, // Overrides caps lock layer
     rgb_gaming_layer,    // Overrides other layers
-    rgb_gaming2_layer    // Overrides other layers
+    rgb_gaming2_layer,   // Overrides other layers
+    rgb_mouse_layer      // Overrides other layers
 );
 
 void keyboard_post_init_user(void) {
@@ -355,6 +385,7 @@ void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
 }
 
+// TODO: currently not working
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(0, led_state.caps_lock);
     return true;
@@ -368,5 +399,6 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _GAME));
     rgblight_set_layer_state(3, layer_state_cmp(state, _GAME_FUN));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _MOUSE));
     return state;
 }

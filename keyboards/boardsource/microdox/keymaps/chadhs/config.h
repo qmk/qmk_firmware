@@ -40,3 +40,10 @@
 #define RGBLIGHT_LAYERS
 // https://docs.qmk.fm/#/feature_rgblight?id=configuration
 #define RGBLIGHT_LIMIT_VAL 192
+
+// https://docs.qmk.fm/#/feature_mouse_keys?id=accelerated-mode
+/* #define MOUSEKEY_INTERVAL 16 */
+/* #define MOUSEKEY_DELAY 0 */
+/* #define MOUSEKEY_TIME_TO_MAX 60 */
+/* #define MOUSEKEY_MAX_SPEED 4 // 7 */
+/* #define MOUSEKEY_WHEEL_DELAY 0 */
