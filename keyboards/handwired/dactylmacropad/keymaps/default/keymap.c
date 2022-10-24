@@ -9,7 +9,7 @@ uint16_t alt_tab_timer = 0;
 enum layer_names {
     _BASE,
     _MTG,
-		_MAC
+    _MAC
 };
 
 enum custom_keycodes {
