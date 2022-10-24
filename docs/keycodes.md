@@ -275,9 +275,9 @@ See also: [Bluetooth](feature_bluetooth.md)
 
 See also: [Caps Word](feature_caps_word.md)
 
-|Key        |Aliases  |Description                   |
-|-----------|---------|------------------------------|
-|`CAPS_WORD`|`CAPSWRD`|Toggles Caps Word             |
+|Key                  |Aliases  |Description                   |
+|---------------------|---------|------------------------------|
+|`QK_CAPS_WORD_TOGGLE`|`CW_TOGG`|Toggles Caps Word             |
 
 ## Dynamic Macros :id=dynamic-macros
 

@@ -118,19 +118,19 @@ TEST_F(CapsWord, DefaultCapsWordPressUserFun) {
     }
 }
 
-// Tests that `CAPSWRD` key toggles Caps Word.
+// Tests that `QK_CAPS_WORD_TOGGLE` key toggles Caps Word.
 TEST_F(CapsWord, CapswrdKey) {
     TestDriver driver;
-    KeymapKey  key_capswrd(0, 0, 0, CAPSWRD);
+    KeymapKey  key_capswrd(0, 0, 0, QK_CAPS_WORD_TOGGLE);
     set_keymap({key_capswrd});
 
     // No keyboard reports should be sent.
     EXPECT_NO_REPORT(driver);
 
-    tap_key(key_capswrd); // Tap the CAPSWRD key.
+    tap_key(key_capswrd); // Tap the QK_CAPS_WORD_TOGGLE key.
     EXPECT_EQ(is_caps_word_on(), true);
 
-    tap_key(key_capswrd); // Tap the CAPSWRD key again.
+    tap_key(key_capswrd); // Tap the QK_CAPS_WORD_TOGGLE key again.
     EXPECT_EQ(is_caps_word_on(), false);
 
     testing::Mock::VerifyAndClearExpectations(&driver);

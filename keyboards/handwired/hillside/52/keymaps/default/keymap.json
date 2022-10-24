@@ -60,7 +60,7 @@
         ["KC_INS"      , "KC_EXLM" , "KC_AT"  , "KC_HASH", "KC_DLR" , "KC_PERC",
          "KC_CIRC"     , "KC_AMPR" , "KC_ASTR", "KC_LPRN", "KC_RPRN", "KC_DEL",
 
-         "ANY(CAPSWRD)", "KC_BSLS" , "KC_MINS", "KC_EQL" , "KC_LBRC", "KC_RBRC",
+         "ANY(CW_TOGG)", "KC_BSLS" , "KC_MINS", "KC_EQL" , "KC_LBRC", "KC_RBRC",
          "KC_VOLU"     , "KC_RSFT" , "KC_RCTL", "KC_LALT", "KC_RGUI", "KC_TRNS",
 
          "KC_TRNS"     , "KC_PIPE" , "KC_UNDS", "KC_PLUS", "KC_LCBR", "KC_RCBR"      , "KC_MPLY",

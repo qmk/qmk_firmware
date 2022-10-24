@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_CLMK_DH] = LAYOUT_planck_wrapper(
     __COLEMAK_MOD_DH_L1________________________, KC_DEL,  KC_BSPC, __COLEMAK_MOD_DH_R1_W_QUOT_________________,
-    __COLEMAK_MOD_DH_L2_W_GACS_________________, CAPSWRD, KC_QUOT, __COLEMAK_MOD_DH_R2_W_SCAG_________________,
+    __COLEMAK_MOD_DH_L2_W_GACS_________________, CW_TOGG, KC_QUOT, __COLEMAK_MOD_DH_R2_W_SCAG_________________,
     __COLEMAK_MOD_DH_L3_W_SFTV_________________, KC_ENT,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________,
     TD_LAYR,  XXXXXXX, XXXXXXX, HY_ESC, LOW_ENT, KC_BSPC, KC_BSPC, RAI_SPC, HY_ESC,  KC_BSPC, XXXXXXX, XXXXXXX
 ),
