@@ -4,10 +4,12 @@
 #include QMK_KEYBOARD_H
 
 
-#define _LAYER0 0
-#define _LAYER1 1
-#define _LAYER2 2
-#define _LAYER3 3
+enum custom_layer {
+    _LAYER0,
+    _LAYER1,
+    _LAYER2,
+    _LAYER3,
+};
 
 enum custom_keycodes {
     LAYER0 = SAFE_RANGE,
