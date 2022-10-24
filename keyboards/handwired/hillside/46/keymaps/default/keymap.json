@@ -12,7 +12,7 @@
          "KC_H"        , "KC_J"    , "KC_K"         , "KC_L"   , "KC_SCLN", "KC_ENT",
 
          "KC_LCTL"     , "KC_Z"    , "KC_X"         , "KC_C"   , "KC_V"   , "KC_B"      , "KC_ESC",
-         "ANY(CAPSWRD)", "KC_N"    , "KC_M"         , "KC_COMM", "KC_DOT" , "KC_SLSH"   , "KC_QUOT",
+         "ANY(CW_TOGG)", "KC_N"    , "KC_M"         , "KC_COMM", "KC_DOT" , "KC_SLSH"   , "KC_QUOT",
 
          "KC_LGUI"     , "KC_LALT" , "OSM(MOD_LSFT)", "MO(3)",
          "MO(4)"       , "KC_SPC"  , "KC_LALT"      , "KC_RGUI"
@@ -25,7 +25,7 @@
          "KC_D"        , "KC_H"    , "KC_T"         , "KC_N"   , "KC_S"   , "KC_ENT",
 
          "KC_LCTL"     , "KC_SCLN" , "KC_Q"         , "KC_J"   , "KC_K"   , "KC_X"      , "KC_ESC",
-         "ANY(CAPSWRD)", "KC_B"    , "KC_M"         , "KC_W"   , "KC_V"   , "KC_Z"      , "KC_SLSH",
+         "ANY(CW_TOGG)", "KC_B"    , "KC_M"         , "KC_W"   , "KC_V"   , "KC_Z"      , "KC_SLSH",
 
          "KC_LGUI"     , "KC_LALT" , "OSM(MOD_LSFT)", "MO(3)",
          "MO(4)"       , "KC_SPC"  , "KC_LALT"      , "KC_RGUI"
@@ -38,7 +38,7 @@
          "KC_M"        , "KC_N"    , "KC_E"         , "KC_I"   , "KC_O"   , "KC_ENT",
 
          "KC_LCTL"     , "KC_Z"    , "KC_TRNS"      , "KC_C"   , "KC_D"   , "KC_V"      , "KC_ESC",
-         "ANY(CAPSWRD)", "KC_K"    , "KC_H"         , "KC_COMM", "KC_DOT" , "KC_SLSH"   , "KC_QUOT",
+         "ANY(CW_TOGG)", "KC_K"    , "KC_H"         , "KC_COMM", "KC_DOT" , "KC_SLSH"   , "KC_QUOT",
 
          "KC_LGUI"     , "KC_LALT" , "OSM(MOD_LSFT)", "MO(3)",
          "MO(4)"       , "KC_SPC"  , "KC_LALT"      , "KC_RGUI"
