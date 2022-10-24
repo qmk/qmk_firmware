@@ -620,7 +620,6 @@
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},
-                "ignore_mod_tap_interrupt_per_key": {"type": "boolean"},
                 "hold_on_other_key_press": {"type": "boolean"},
                 "hold_on_other_key_press_per_key": {"type": "boolean"},
                 "permissive_hold": {"type": "boolean"},

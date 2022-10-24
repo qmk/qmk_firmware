@@ -33,7 +33,6 @@
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
     "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "tapping.ignore_mod_tap_interrupt", "value_type": "bool"},
-    "IGNORE_MOD_TAP_INTERRUPT_PER_KEY": {"info_key": "tapping.ignore_mod_tap_interrupt_per_key", "value_type": "bool"},
     "HOLD_ON_OTHER_KEY_PRESS": {"info_key": "tapping.hold_on_other_key_press", "value_type": "bool"},
     "HOLD_ON_OTHER_KEY_PRESS_PER_KEY": {"info_key": "tapping.hold_on_other_key_press_per_key", "value_type": "bool"},
     "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},
