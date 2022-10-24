@@ -1,5 +1,4 @@
  /* Copyright 2022 Bastien Baloup
-  * based on the work of Josef Adamcik, Jens Bonk-Wiltfang and Michal S. (@ihatethefrench)
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -23,7 +22,8 @@ enum custom_keycodes {
     CL_AGRV,                   // À
     CL_EACU,                   // É
     CL_EGRV,                   // È
-    // UC_ keycodes uses (ctrl+shift+u)+code+enter to input unicode. Should be replaced by alt+code for windows.
+    // UC_ keycodes uses (ctrl+shift+u)+code+enter to input unicode. 
+    // I do not use the qmk unicode implementation because it does not uses the right keycodes to input numbers in a french layout.
     UC_PI  ,                   // π
     UC_ELIP                    // …
 };
@@ -34,15 +34,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * LOWERcase
  * ,-----------------------------------------.                     ,-----------------------------------------.
- * |   ²  |   &  |   é  |   "  |   '  |  _^  |                     |  _¨  |   è  |   %  |   ç  |   à  |TGUtil|
+ * |   ²  |   &  |   é  |   "  |   '  |   ^  |                     |   ¨  |   è  |   %  |   ç  |   à  |  TG3 |
  * |------+------+------+------+------+------|                     |------+------+------+------+------+------|
  * | ESC  |   a  |   z  |   e  |   r  |   t  |                     |   y  |   u  |   i  |   o  |   p  | Bspc |
  * |------+------+------+------+------+------|                     |------+------+------+------+------+------|
- * | Tab  |   q  |   s  |   d  |   f  |   g  |-------.     ,-------|   h  |   j  |   k  |   l  |   m  |  ù   |
+ * | Tab  |   q  |   s  |   d  |   f  |   g  |-------.     ,-------|   h  |   j  |   k  |   l  |   m  |   ù  |
  * |------+------+------+------+------+------|       |     | Mute  |------+------+------+------+------+------|
- * |UPPER |   w  |   x  |   c  |   v  |   b  |-------|     |-------|   n  |   ,  |   ;  |   :  |   !  | UPPER|
+ * | MO1  |   w  |   x  |   c  |   v  |   b  |-------|     |-------|   n  |   ,  |   ;  |   :  |   !  |  MO1 |
  * `-----------------------------------------/       /      \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |SYMBOL| /Enter  /        \Space \  |UTILS | RCTR | RAlt | HYPER|
+ *            | LGUI | LAlt | LCTR |  MO2 | /Enter  /        \Space \  |  MO3 | RCTR | RAlt | HYPER|
  *            |      |      |      |      |/       /          \      \ |      |      |      |      |
  *            `-----------------------------------'            '------''---------------------------'
  */
@@ -54,19 +54,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    MO(1)     , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , XXXXXXX,       KC_MUTE, KC_N      , KC_M   , KC_COMM   , KC_DOT , KC_SLSH, MO(1)  ,
                       KC_LGUI, KC_LALT, KC_LCTRL, MO(2)  , KC_ENT,           KC_SPC, MO(3)  , KC_RCTRL, KC_RALT, KC_HYPR
 ),
-
+// I use a uppercase layer instead of using the Shift key because I find it easier to change the effect of shift+key chords this way.
 /*
  * UPPERcase
  * ,-----------------------------------------.                     ,-----------------------------------------.
- * |      |   1  |   2  |   3  |   4  |   5  |                     |   6  |   7  |   8  |   9  |   0  |TGUtil|
+ * |      |   1  |   2  |   3  |   4  |   5  |                     |   6  |   7  |   8  |   9  |   0  |  TG3 |
  * |------+------+------+------+------+------|                     |------+------+------+------+------+------|
  * | ESC  |   A  |   Z  |   E  |   R  |   T  |                     |   Y  |   U  |   I  |   O  |   P  | Bspc |
  * |------+------+------+------+------+------|                     |------+------+------+------+------+------|
- * | TAB  |   Q  |   S  |   D  |   F  |   G  |-------.     ,-------|   H  |   J  |   K  |   L  |   M  |  µ   |
+ * | TAB  |   Q  |   S  |   D  |   F  |   G  |-------.     ,-------|   H  |   J  |   K  |   L  |   M  |   µ  |
  * |------+------+------+------+------+------|       |     | Mute  |------+------+------+------+------+------|
- * |UPPER |   W  |   X  |   C  |   V  |   B  |-------|     |-------|   N  |   ?  |   .  |   /  |   §  | UPPER|
+ * | MO1  |   W  |   X  |   C  |   V  |   B  |-------|     |-------|   N  |   ?  |   .  |   /  |   §  |  MO1 |
  * `-----------------------------------------/       /      \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |SYMBOL| /Enter  /        \Space \  |UTILS | RCTR | RAlt | HYPER|
+ *            | LGUI | LAlt | LCTR |  MO2 | /Enter  /        \Space \  |  MO3 | RCTR | RAlt | HYPER|
  *            |      |      |      |      |/       /          \      \ |      |      |      |      |
  *            `-----------------------------------'            '------''---------------------------'
  */
@@ -78,17 +78,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______
 ),
 
+// I replaced MO1 with the Shift key in the next layers to be able to use it for some shortcuts.
+
 /* SYMBOLS
  * ,-----------------------------------------.                     ,-----------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                     |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------|                     |------+------+------+------+------+------|
  * | ESC  |   À  |   È  |   É  |   (  |   )  |                     |   =  |   |  |   \  |   ·  |   @  | Bspc |
  * |------+------+------+------+------+------|                     |------+------+------+------+------+------|
- * | Tab  |   `  |   ~  |   #  |   <  |   >  |-------.     ,-------|   +  |   -  |   /  |   *  |   °  |  …   |
+ * | Tab  |   `  |   ~  |   #  |   <  |   >  |-------.     ,-------|   +  |   -  |   /  |   *  |   °  |   …  |
  * |------+------+------+------+------+------|       |     | Play  |------+------+------+------+------+------|
  * | Shift|   ¤  |   [  |   ]  |   {  |   }  |-------|     |-------|   π  |   _  |   €  |   $  |   £  | Shift|
  * `-----------------------------------------/       /      \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |SYMBOL| /Enter  /        \Space \  |UTILS | RCTR | RAlt | HYPER|
+ *            | LGUI | LAlt | LCTR |  MO2 | /Enter  /        \Space \  |  MO3 | RCTR | RAlt | HYPER|~
  *            |      |      |      |      |/       /          \      \ |      |      |      |      |
  *            `-----------------------------------'            '------''---------------------------'
  */
@@ -101,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* UTILS
  * ,----------------------------------------.                      ,-----------------------------------------.
- * |      |   &  |   é  |   "  |   (  |  _^  |                     | CLock|PScr  |ScLock| Pause|  Ins |TGUtil|
+ * |      |   &  |   é  |   "  |   (  |   ^  |                     | CLock|PScr  |ScLock| Pause|  Ins |  TG3 |
  * |------+------+------+------+------+------|                     |------+------+------+------+------+------|
  * | Esc  |   a  |   z  |   e  |   r  |  t   |                     | PgUp | Home |  Up  | End  |  Del | Bspc |
  * |------+------+------+------+------+------|                     |------+------+------+------+------+------|
@@ -109,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |     | Play  |------+------+------+------+------+------|
  * |Shift |   w  |   x  |   c  |   v  |  b   |-------|     |-------|      | PWrd |      | NWrd | Menu | Shift|
  * `-----------------------------------------/      /       \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |SYMBOL| /Enter  /        \Space \  |UTILS | RCTR | RAlt | HYPER|
+ *            | LGUI | LAlt | LCTR |  MO2 | /Enter  /        \Space \  |  MO3 | RCTR | RAlt | HYPER|
  *            |      |      |      |      |/      /           \      \ |      |      |      |      |
  *            `----------------------------------'             '------''---------------------------'
  */
@@ -131,15 +133,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case CL_AGRV:
+            // capsLockOn à capsLockOff
             SEND_STRING(SS_TAP(X_CAPS)"0"SS_TAP(X_CAPS));
             break;
         case CL_EACU:
+            // capsLockOn é capsLockOff
             SEND_STRING(SS_TAP(X_CAPS)"2"SS_TAP(X_CAPS));
             break;
         case CL_EGRV:
+            // capsLockOn è capsLockOff
             SEND_STRING(SS_TAP(X_CAPS)"7"SS_TAP(X_CAPS));
             break;
         case UC_PI:
+            // Ctrl+Shift+u 3CO Enter
             tap_code16(LCTL(LSFT(KC_U)));
             tap_code16(S(KC_3));
             tap_code16(KC_C);
@@ -147,6 +153,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(KC_ENT);
             break;
         case UC_ELIP:
+            // Ctrl+Shift+u 2026 Enter
             tap_code16(LCTL(LSFT(KC_U)));
             tap_code16(S(KC_2));
             tap_code16(S(KC_0));
@@ -161,9 +168,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 #ifdef ENCODER_ENABLE
-
+#ifdef ENCODER_MAP_ENABLE
 // This section is like the keymap matrix, but for rotary encoders
-// My left encoder is currently not working, so I'm using Layers to cope :')
+// My left encoder is currently not working, so I'm using Layers instead
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [0] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
     [1] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
@@ -172,18 +179,22 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 
 #endif
+#endif
 
 #ifdef RGBLIGHT_ENABLE
+// This section define RGB_Lighting overrides by layers
 
 const rgblight_segment_t PROGMEM rgb_layer_1[] = RGBLIGHT_LAYER_SEGMENTS(
     {30, 6, HSV_TURQUOISE},
     {38, 6, HSV_TURQUOISE}
 );
 const rgblight_segment_t PROGMEM rgb_layer_2[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 73, HSV_TEAL}
+    {30, 6, HSV_TEAL},
+    {38, 6, HSV_TEAL}
 );
 const rgblight_segment_t PROGMEM rgb_layer_3[] = RGBLIGHT_LAYER_SEGMENTS(
-    {37, 36, HSV_PURPLE}
+    {30, 6, HSV_PURPLE},
+    {38, 6, HSV_PURPLE}
 );
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -192,11 +203,12 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_layer_3     // Overrides for layer 3
 );
 
+// Enable the LED layers
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
     rgblight_layers = rgb_layers;
 }
 
+// Set activation conditions for each LED layers
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, 1));
     rgblight_set_layer_state(1, layer_state_cmp(state, 2));
