@@ -9,7 +9,8 @@
         "device_version": "0.0.1"
     },
     "layout_aliases": {
-        "LAYOUT_60_ansi_7u_spc": "LAYOUT_60_ansi_tsangan"
+        "LAYOUT_60_ansi_7u_spc": "LAYOUT_60_ansi_tsangan",
+        "LAYOUT_60_iso_7u_spc_split_rshift": "LAYOUT_60_iso_tsangan_split_rshift"
     },
     "layouts": {
         "LAYOUT_60_ansi": {
@@ -868,7 +869,7 @@
                 {"x":13.75, "y":4, "w":1.25}
             ]
         },
-        "LAYOUT_60_iso_7u_spc_split_rshift": {
+        "LAYOUT_60_iso_tsangan_split_rshift": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
