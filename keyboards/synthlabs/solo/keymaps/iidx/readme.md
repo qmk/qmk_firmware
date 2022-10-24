@@ -3,6 +3,7 @@
 This keymap is intended for usage as a gamepad for [beatmania IIDX INFINITAS](https://p.eagate.573.jp/game/infinitas/2/index.html).
 
 This keycap follows the default keymapping for the game, shown here:
+
 ![Default Keymapping Settings Screen](https://i.imgur.com/Va48FnZ.png)
 
 The face buttons correspond directly to ボタン 1 - ボタン 7
