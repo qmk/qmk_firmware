@@ -193,7 +193,6 @@ const rgblight_segment_t PROGMEM rgb_layer_2[] = RGBLIGHT_LAYER_SEGMENTS(
     {38, 6, HSV_TEAL}
 );
 const rgblight_segment_t PROGMEM rgb_layer_3[] = RGBLIGHT_LAYER_SEGMENTS(
-    {30, 6, HSV_PURPLE},
     {38, 6, HSV_PURPLE}
 );
 
