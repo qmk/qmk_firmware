@@ -603,7 +603,7 @@ enum quantum_keycodes {
     SECURE_TOGGLE,
     SECURE_REQUEST,
 
-    CAPS_WORD,
+    QK_CAPS_WORD_TOGGLE,
 
     MAGIC_SWAP_ESCAPE_CAPSLOCK,
     MAGIC_UNSWAP_ESCAPE_CAPSLOCK,
@@ -846,6 +846,9 @@ enum quantum_keycodes {
 // Leader key
 #define QK_LEAD QK_LEADER
 
+// Caps Word
+#define CW_TOGG QK_CAPS_WORD_TOGGLE
+
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))
 #define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
@@ -951,7 +954,5 @@ enum quantum_keycodes {
 #define PB_32 QK_PROGRAMMABLE_BUTTON_32
 #define QK_PROGRAMMABLE_BUTTON_MIN QK_PROGRAMMABLE_BUTTON_1
 #define QK_PROGRAMMABLE_BUTTON_MAX QK_PROGRAMMABLE_BUTTON_32
-
-#define CAPSWRD CAPS_WORD
 
 #include "quantum_keycodes_legacy.h"

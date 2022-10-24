@@ -42,8 +42,8 @@ CAPS_WORD_ENABLE = yes
 
 Next, use one the following methods to activate Caps Word:
 
-* **Activate by pressing a key**: Use the `CAPS_WORD` keycode (short
-  alias `CAPSWRD`) in your keymap.
+* **Activate by pressing a key**: Use the `QK_CAPS_WORD_TOGGLE` keycode (short
+  alias `CW_TOGG`) in your keymap.
 
 * **Activate by pressing Left Shift + Right Shift**: Add `#define
   BOTH_SHIFTS_TURNS_ON_CAPS_WORD` to config.h. You may also need to disable or

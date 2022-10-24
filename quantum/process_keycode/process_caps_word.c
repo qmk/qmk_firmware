@@ -15,7 +15,7 @@
 #include "process_caps_word.h"
 
 bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
-    if (keycode == CAPSWRD) { // Pressing CAPSWRD toggles Caps Word.
+    if (keycode == QK_CAPS_WORD_TOGGLE) {
         if (record->event.pressed) {
             caps_word_toggle();
         }
