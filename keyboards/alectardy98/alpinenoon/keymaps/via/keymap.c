@@ -18,7 +18,9 @@
 
 enum _layer {
   _BASE,
-  _FN
+  _FN,
+  _FN2,
+  _FN3
 };
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
