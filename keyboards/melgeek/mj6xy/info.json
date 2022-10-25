@@ -12,7 +12,8 @@
         "LAYOUT_60_ansi_7u_spc": "LAYOUT_60_ansi_tsangan",
         "LAYOUT_60_iso_7u_spc_split_rshift": "LAYOUT_60_iso_tsangan_split_rshift",
         "LAYOUT_60_ansi_7u_spc_split_bs": "LAYOUT_60_ansi_tsangan_split_bs",
-        "LAYOUT_60_iso_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift"
+        "LAYOUT_60_iso_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift",
+        "LAYOUT_60_iso_7u_spc_split_bs": "LAYOUT_60_iso_tsangan_split_bs"
     },
     "layouts": {
         "LAYOUT_60_ansi": {
@@ -2827,7 +2828,7 @@
                 {"x":14, "y":4}
             ]
         },
-        "LAYOUT_60_iso_7u_spc_split_bs": {
+        "LAYOUT_60_iso_tsangan_split_bs": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -2874,7 +2875,8 @@
                 {"x":12.75, "y":2},
                 {"x":13.75, "y":1, "w":1.25, "h":2},
 
-                {"x":0, "y":3, "w":2.25},
+                {"x":0, "y":3, "w":1.25},
+                {"x":1.25, "y":3},
                 {"x":2.25, "y":3},
                 {"x":3.25, "y":3},
                 {"x":4.25, "y":3},
