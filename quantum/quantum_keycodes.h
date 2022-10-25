@@ -598,10 +598,10 @@ enum quantum_keycodes {
     QK_MAKE,
     QK_REBOOT,
 
-    SECURE_LOCK,
-    SECURE_UNLOCK,
-    SECURE_TOGGLE,
-    SECURE_REQUEST,
+    QK_SECURE_LOCK,
+    QK_SECURE_UNLOCK,
+    QK_SECURE_TOGGLE,
+    QK_SECURE_REQUEST,
 
     QK_CAPS_WORD_TOGGLE,
 
@@ -856,6 +856,12 @@ enum quantum_keycodes {
 #define KO_TOGG QK_KEY_OVERRIDE_TOGGLE
 #define KO_ON QK_KEY_OVERRIDE_ON
 #define KO_OFF QK_KEY_OVERRIDE_OFF
+
+// Secure
+#define SE_LOCK QK_SECURE_LOCK
+#define SE_UNLK QK_SECURE_UNLOCK
+#define SE_TOGG QK_SECURE_TOGGLE
+#define SE_REQ QK_SECURE_REQUEST
 
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))
