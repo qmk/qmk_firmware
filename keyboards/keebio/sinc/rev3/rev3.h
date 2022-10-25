@@ -127,8 +127,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, KC_NO, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { KC_NO, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, KC_NO }, \
-    { RB1, RB2, RB3, RB4, RB5, RB6, RB7, KC_NO, KC_NO }, \
-    { RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8, KC_NO }, \
+    { RB1, RB2, RB3, RB4, RB5, RB6, RB7, RC8, KC_NO }, \
+    { RC1, RC2, RC3, RC4, RC5, RC6, RC7, KC_NO, KC_NO }, \
     { RD1, RD2, RD3, RD4, RD5, KC_NO, RD7, RD8, KC_NO }, \
     { RE1, RE2, RE3, RE4, RE5, KC_NO, RE7, RE8, KC_NO }, \
     { KC_NO, RF2, RF3, RF4, RF5, RF6, RF7, RF8, KC_NO } \
@@ -150,8 +150,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, KC_NO, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { KC_NO, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9 }, \
-    { RB1, RB2, RB3, RB4, RB5, RB6, RB7, KC_NO, RB9 }, \
-    { RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8, RC9 }, \
+    { RB1, RB2, RB3, RB4, RB5, RB6, RB7, RC8, RB9 }, \
+    { RC1, RC2, RC3, RC4, RC5, RC6, RC7, KC_NO, RC9 }, \
     { RD1, RD2, RD3, RD4, RD5, KC_NO, RD7, RD8, RD9 }, \
     { RE1, RE2, RE3, RE4, RE5, KC_NO, RE7, RE8, RE9 }, \
     { KC_NO, RF2, RF3, RF4, RF5, RF6, RF7, RF8, RF9 } \
@@ -173,8 +173,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { LE1, LE2, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { LF1, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, KC_NO }, \
-    { RB1, RB2, RB3, RB4, RB5, RB6, RB7, KC_NO, KC_NO }, \
-    { RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8, KC_NO }, \
+    { RB1, RB2, RB3, RB4, RB5, RB6, RB7, RC8, KC_NO }, \
+    { RC1, RC2, RC3, RC4, RC5, RC6, RC7, KC_NO, KC_NO }, \
     { RD1, RD2, RD3, RD4, RD5, KC_NO, RD7, RD8, KC_NO }, \
     { RE1, RE2, RE3, RE4, RE5, KC_NO, RE7, RE8, KC_NO }, \
     { KC_NO, RF2, RF3, RF4, RF5, RF6, RF7, RF8, KC_NO } \
@@ -196,8 +196,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { LE1, LE2, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { LF1, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9 }, \
-    { RB1, RB2, RB3, RB4, RB5, RB6, RB7, KC_NO, RB9 }, \
-    { RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8, RC9 }, \
+    { RB1, RB2, RB3, RB4, RB5, RB6, RB7, RC8, RB9 }, \
+    { RC1, RC2, RC3, RC4, RC5, RC6, RC7, KC_NO, RC9 }, \
     { RD1, RD2, RD3, RD4, RD5, KC_NO, RD7, RD8, RD9 }, \
     { RE1, RE2, RE3, RE4, RE5, KC_NO, RE7, RE8, RE9 }, \
     { KC_NO, RF2, RF3, RF4, RF5, RF6, RF7, RF8, RF9 } \
