@@ -46,20 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // rotary encoder
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    // scroll with CTRL
-    if (get_mods() & MOD_BIT(KC_CAPS)) {
-        if (clockwise) {
-            tap_code(KC_WH_U);
-        } else {
-            tap_code(KC_WH_D);
-    }
     // Volume control
+    if (clockwise) {
+        tap_code(KC_VOLD);
     } else {
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
-        }
+        tap_code(KC_VOLU);
     }
     return false;
-}
+};
