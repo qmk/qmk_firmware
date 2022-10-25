@@ -736,13 +736,13 @@ See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
 See also: [One Shot Keys](one_shot_keys.md)
 
-|Key         |Description                       |
-|------------|----------------------------------|
-|`OSM(mod)`  |Hold `mod` for one keypress       |
-|`OSL(layer)`|Switch to `layer` for one keypress|
-|`OS_ON`     |Turns One Shot keys on            |
-|`OS_OFF`    |Turns One Shot keys off           |
-|`OS_TOGG`   |Toggles One Shot keys status      |
+|Key                 |Aliases  |Description                       |
+|--------------------|---------|----------------------------------|
+|`OSM(mod)`          |         |Hold `mod` for one keypress       |
+|`OSL(layer)`        |         |Switch to `layer` for one keypress|
+|`QK_ONE_SHOT_TOGGLE`|`OS_TOGG`|Toggles One Shot keys status      |
+|`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on            |
+|`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off           |
 
 ## Programmable Button Support :id=programmable-button
 
