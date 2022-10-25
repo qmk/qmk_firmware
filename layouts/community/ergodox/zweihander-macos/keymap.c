@@ -8,6 +8,24 @@
 
 // Best viewed in Xcode in Menlo Regular or SF Mono.
 
+enum custom_keycodes {
+    NEWITEM = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case NEWITEM:
+        if (record->event.pressed) {
+            // when keycode NEWITEM is pressed
+            SEND_STRING("\n- "); // starts a new item in a Markdown-style list
+        } else {
+            // when keycode NEWITEM is released
+        }
+        break;
+    }
+    return true; // the key press we just processed should continue to be processed as normal
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -79,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
        KC_TRNS,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_DQT ,KC_TRNS,
        KC_TRNS,KC_LABK,KC_RABK,KC_LPRN,KC_RPRN,KC_QUOT,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_EQL ,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,NEWITEM,KC_EQL ,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,

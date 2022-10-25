@@ -61,12 +61,18 @@ All the common spreadsheet operations (+-*/=) are on the right side of the Symbo
 
 Have you looked at the Page Up, Page Down, Home, and End keys on the EDSF keys and wondered why they’re arranged that way? They’re arranged the same way as the fn-key shortcuts on an Apple laptop’s arrow keys. On Apple keyboards with an\* fn key, if you press fn-↑, you’ll get Page Up; if you press fn-← you’ll get Home. Similarly, on Zweihander, ;-E is Page Up and ;-S is Home.
 
+## write a fair bit of Markdown
+
+If you’re on the second layer (hold/tap one of the four inside middle top keys), the `'` button on the far right is a `\`` key.
+
+If you’re on the second layer, pressing `v` will send the string `"\n- "`, not including the quotation marks. This is intended to be a faster way to make a new list item when writing meeting notes in Markdown.
+
 ## use Siri
 
 F16, accessed by holding ; and pressing the ' key next to it, is intended for Siri.
 
-\* I pronounce “fn” as “effin’”. Your mileage may vary.
-
 ## use it with an iPad
 
 This layout overrides `USB_MAX_POWER_CONSUMPTION` to turn it down to 100 mA instead of the default of 500 mA. This is not what you want if your Ergodox EZ has the Shine or Glow lights, but good if you want to be able to plug it into your iPad’s lightning port with a USB adapter. The indicator lights that tell you what layer you’re on are _not_ Shine or Glow lights.
+
+\* I pronounce “fn” as “effin’”. Your mileage may vary.
