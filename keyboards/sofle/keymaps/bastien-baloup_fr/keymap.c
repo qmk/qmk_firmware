@@ -17,9 +17,8 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    PLACEHOLDER = SAFE_RANGE,  // can always be here (4 bytes)
     // CL_ keycodes are here for charaters that need capslock on to be inputed.
-    CL_AGRV,                   // À
+    CL_AGRV = SAFE_RANGE,      // À
     CL_EACU,                   // É
     CL_EGRV,                   // È
     // UC_ keycodes uses (ctrl+shift+u)+code+enter to input unicode. 
@@ -127,48 +126,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Custom keycode handling.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // handling this once instead of in each keycode uses less program memory.
-    if ((keycode >= SAFE_RANGE) && !(record->event.pressed)) {
-        return false;
+    if (record->event.pressed) {
+	    switch (keycode) {
+	        case CL_AGRV:
+	            // capsLockOn à capsLockOff
+	            SEND_STRING(SS_TAP(X_CAPS)"0"SS_TAP(X_CAPS));
+	            break;
+	        case CL_EACU:
+	            // capsLockOn é capsLockOff
+	            SEND_STRING(SS_TAP(X_CAPS)"2"SS_TAP(X_CAPS));
+	            break;
+	        case CL_EGRV:
+	            // capsLockOn è capsLockOff
+	            SEND_STRING(SS_TAP(X_CAPS)"7"SS_TAP(X_CAPS));
+	            break;
+	        case UC_PI:
+	            // Ctrl+Shift+u 3CO Enter
+	            tap_code16(LCTL(LSFT(KC_U)));
+	            tap_code16(S(KC_3));
+	            tap_code16(KC_C);
+	            tap_code16(S(KC_0));
+	            tap_code16(KC_ENT);
+	            break;
+	        case UC_ELIP:
+	            // Ctrl+Shift+u 2026 Enter
+	            tap_code16(LCTL(LSFT(KC_U)));
+	            tap_code16(S(KC_2));
+	            tap_code16(S(KC_0));
+	            tap_code16(S(KC_2));
+	            tap_code16(S(KC_6));
+	            tap_code16(KC_ENT);
+	            break;
+	    }
     }
-
-    switch (keycode) {
-        case CL_AGRV:
-            // capsLockOn à capsLockOff
-            SEND_STRING(SS_TAP(X_CAPS)"0"SS_TAP(X_CAPS));
-            break;
-        case CL_EACU:
-            // capsLockOn é capsLockOff
-            SEND_STRING(SS_TAP(X_CAPS)"2"SS_TAP(X_CAPS));
-            break;
-        case CL_EGRV:
-            // capsLockOn è capsLockOff
-            SEND_STRING(SS_TAP(X_CAPS)"7"SS_TAP(X_CAPS));
-            break;
-        case UC_PI:
-            // Ctrl+Shift+u 3CO Enter
-            tap_code16(LCTL(LSFT(KC_U)));
-            tap_code16(S(KC_3));
-            tap_code16(KC_C);
-            tap_code16(S(KC_0));
-            tap_code16(KC_ENT);
-            break;
-        case UC_ELIP:
-            // Ctrl+Shift+u 2026 Enter
-            tap_code16(LCTL(LSFT(KC_U)));
-            tap_code16(S(KC_2));
-            tap_code16(S(KC_0));
-            tap_code16(S(KC_2));
-            tap_code16(S(KC_6));
-            tap_code16(KC_ENT);
-            break;
-    }
-
     // this uses less memory than returning in each case.
     return keycode < SAFE_RANGE;
 };
 
-#ifdef ENCODER_ENABLE
-#ifdef ENCODER_MAP_ENABLE
+#if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 // This section is like the keymap matrix, but for rotary encoders
 // My left encoder is currently not working, so I'm using Layers instead
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -177,8 +172,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(KC_MNXT, KC_MPRV)},
     [3] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(KC_MNXT, KC_MPRV)},
 };
-
-#endif
 #endif
 
 #ifdef RGBLIGHT_ENABLE
