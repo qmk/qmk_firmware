@@ -7,7 +7,6 @@
         "vid": "0xA103",
         "pid": "0x0016",
         "device_version": "1.0.0",
-        "polling_interval": 1
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
