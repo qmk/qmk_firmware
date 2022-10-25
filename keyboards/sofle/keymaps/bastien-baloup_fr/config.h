@@ -18,22 +18,29 @@
 
 // More lighting options in quantum/rgblight/rgblight.h
 #ifdef RGBLIGHT_ENABLE
-   // Disabling some of these is a good way to save flash space.
-// #define RGBLIGHT_EFFECT_ALTERNATING     // 108
-// #define RGBLIGHT_EFFECT_RGB_TEST        // 158
-// #define RGBLIGHT_EFFECT_RAINBOW_MOOD    // 160
-// #define RGBLIGHT_EFFECT_STATIC_GRADIENT // 168
-   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   // 192
-// #define RGBLIGHT_EFFECT_BREATHING       // 348
-// #define RGBLIGHT_EFFECT_KNIGHT          // 336
-// #define RGBLIGHT_EFFECT_SNAKE           // 406
-// #define RGBLIGHT_EFFECT_CHRISTMAS       // 508
-// #define RGBLIGHT_EFFECT_TWINKLE         // 1156
 
-   // Set default lighting option
-   #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL+2
-   // Allow use of LEDs as modifier/layer indicators without disrupting animations.
-   #define RGBLIGHT_LAYERS
+    // Disabling some of these is a good way to save flash space.
+//  #define RGBLIGHT_EFFECT_ALTERNATING     // 108
+//  #define RGBLIGHT_EFFECT_RGB_TEST        // 158
+//  #define RGBLIGHT_EFFECT_RAINBOW_MOOD    // 160
+//  #define RGBLIGHT_EFFECT_STATIC_GRADIENT // 168
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   // 192
+//  #define RGBLIGHT_EFFECT_BREATHING       // 348
+//  #define RGBLIGHT_EFFECT_KNIGHT          // 336
+//  #define RGBLIGHT_EFFECT_SNAKE           // 406
+//  #define RGBLIGHT_EFFECT_CHRISTMAS       // 508
+//  #define RGBLIGHT_EFFECT_TWINKLE         // 1156
+
+    // Set default lighting option
+    #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL+2
+    // Allow use of LEDs as modifier/layer indicators without disrupting animations.
+    #define RGBLIGHT_LAYERS
+   
+    // Allow compiling to work on sofle/rev1
+    #if defined(KEYBOARD_sofle_rev1)
+	    #define RGBLED_NUM 70
+	    #define RGB_DI_PIN D3
+    #endif
 #endif
 
 // Disabled to save space
