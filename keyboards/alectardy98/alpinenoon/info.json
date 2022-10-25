@@ -9,7 +9,6 @@
         "device_version": "0.0.1"
     },
     "url": "https://github.com/alectardy98",
-    "maintainer": "Alectardy98",
     "encoder": {
         "rotary": [
             { "pin_a": "B1", "pin_b": "B2" }
