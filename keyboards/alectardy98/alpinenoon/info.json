@@ -23,7 +23,7 @@
         "rows": ["D2", "D1", "D0", "B7", "B3"],
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"F1", "x":0, "y":0},
                 {"label":"F2", "x":1, "y":0},
