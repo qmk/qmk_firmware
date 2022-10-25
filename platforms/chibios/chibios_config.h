@@ -28,6 +28,11 @@
 #    define USE_GPIOV1
 #    define PAL_OUTPUT_TYPE_OPENDRAIN _Static_assert(0, "RP2040 has no Open Drain GPIO configuration, setting this is not possible");
 
+/* Aliases for GPIO PWM channels - every pin has at least one PWM channel
+ * assigned */
+#    define RP2040_PWM_CHANNEL_A 1U
+#    define RP2040_PWM_CHANNEL_B 2U
+
 #    define BACKLIGHT_PAL_MODE (PAL_MODE_ALTERNATE_PWM | PAL_RP_PAD_DRIVE12 | PAL_RP_GPIO_OE)
 #    define BACKLIGHT_PWM_COUNTER_FREQUENCY 1000000
 #    define BACKLIGHT_PWM_PERIOD BACKLIGHT_PWM_COUNTER_FREQUENCY / 2048
