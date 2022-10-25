@@ -8,6 +8,9 @@
         "bootmagic": true,
         "extrakey": true
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_split_3x5_2"
+    },
     "layouts": {
         "LAYOUT_split_3x5_2": {
             "layout": [
