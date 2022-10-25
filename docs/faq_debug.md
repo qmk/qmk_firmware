@@ -133,3 +133,4 @@ Check:
 - Set `debug_enable=true`. See [Debugging](#debugging)
 - Try using `print` function instead of debug print. See **common/print.h**.
 - Disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
+- Ensure all strings end with a newline character (`\n`). QMK Toolbox prints console output on a per-line basis.

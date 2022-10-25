@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
+#define UNICODE_SELECTED_MODES UC_LNX
 
 #define MOUSEKEY_INTERVAL 12
 #define MOUSEKEY_MAX_SPEED 6
@@ -30,3 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_INTERVAL 50
 // The default is 40
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
+
+#define FLOW_COUNT 6
+#define FLOW_LAYERS_COUNT 5
