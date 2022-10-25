@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LAYERS
 
 #ifdef RGBLIGHT_ENABLE
-    #define RGBLIGHT_LIMIT_VAL 120
+    #define RGBLIGHT_LIMIT_VAL 90
     // #define RGBLIGHT_LIMIT_VAL 0
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
