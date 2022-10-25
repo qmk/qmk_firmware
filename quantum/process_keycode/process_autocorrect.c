@@ -73,8 +73,13 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
         case KC_LSFT:
         case KC_RSFT:
         case KC_CAPS:
-        case QK_TO ... QK_ONE_SHOT_LAYER_MAX:
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_MOD_MAX:
+        case QK_TO ... QK_TO_MAX:
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+        case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+        case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
             return false;
 
