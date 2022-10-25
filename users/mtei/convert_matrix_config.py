@@ -162,7 +162,7 @@ def build_port_pin_list(pins):
       mask = 0
       raw_list.append(["NO_DEVICE", port, mask, 0])
     else:
-      m = re.match('([A-Z])([0-9]*)', pin)
+      m = re.match('([A-Z]+)([0-9]*)', pin)
       port = m[1]+"0"
       mask = (1<<int(m[2]))
       raw_list.append(["MCU_GPIO", port, mask, (1<<(pin_number - 1))])

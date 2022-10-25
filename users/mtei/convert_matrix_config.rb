@@ -170,7 +170,7 @@ def build_port_pin_list(pins)
       mask = 0
       ["NO_DEVICE", port, mask, 0]
     else
-      /([A-Z])([0-9]*)/ =~ pin.strip;
+      /([A-Z]+)([0-9]*)/ =~ pin.strip;
       port = $1+"0"
       mask = (1<<$2.to_i)
       ["MCU_GPIO", port, mask, (1<<(pin_number - 1))]
