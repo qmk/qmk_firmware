@@ -513,9 +513,9 @@ enum quantum_keycodes {
     RGB_MODE_TWINKLE,
 
     // Key Overrides
-    KEY_OVERRIDE_TOGGLE,
-    KEY_OVERRIDE_ON,
-    KEY_OVERRIDE_OFF,
+    QK_KEY_OVERRIDE_TOGGLE,
+    QK_KEY_OVERRIDE_ON,
+    QK_KEY_OVERRIDE_OFF,
 
     // Additional magic key
     MAGIC_TOGGLE_GUI,
@@ -851,6 +851,11 @@ enum quantum_keycodes {
 
 // Caps Word
 #define CW_TOGG QK_CAPS_WORD_TOGGLE
+
+// Key Overrides
+#define KO_TOGG QK_KEY_OVERRIDE_TOGGLE
+#define KO_ON QK_KEY_OVERRIDE_ON
+#define KO_OFF QK_KEY_OVERRIDE_OFF
 
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))
