@@ -27,7 +27,7 @@ bool process_secure(uint16_t keycode, keyrecord_t *record) {
             secure_lock();
             return false;
         }
-        if (keycode ==QK_ SECURE_UNLOCK) {
+        if (keycode == QK_SECURE_UNLOCK) {
             secure_unlock();
             return false;
         }
