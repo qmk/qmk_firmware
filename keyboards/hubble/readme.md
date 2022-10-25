@@ -1,6 +1,6 @@
 # hubble
 
-![hubble](https://i.imgur.com/buTSdUq.jpg)
+![hubble](https://i.imgur.com/buTSdUqh.jpg)
 
 *ProMicro based 40% keyboard for with nav cluster, underglow and cyrillic layout support*
 
