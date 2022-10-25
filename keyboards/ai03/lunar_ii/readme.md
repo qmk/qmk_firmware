@@ -1,6 +1,6 @@
 # Lunar II
 
-![lunar_ii](https://i.imgur.com/W3xbm4m.png)
+![lunar_ii](https://i.imgur.com/W3xbm4mh.png)
 
 Second generation compact AEK keyboard
 
