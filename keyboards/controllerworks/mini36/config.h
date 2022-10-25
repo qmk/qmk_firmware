@@ -24,7 +24,7 @@
 
 #define WS2812_PIO_USE_PIO1
 #define RGBLED_NUM 48
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGB_MATRIX_SPLIT \
         { 24, 24 }
 
@@ -36,29 +36,3 @@
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN GP25
 #define I2C1_SDA_PIN GP24
-
-/* #define EE_HANDS  */
-/* #define MASTER_LEFT */
-/* #define MASTER_RIGHT */
-
-/* Top left key on left half */
-#define BOOTMAGIC_LITE_ROW    0
-#define BOOTMAGIC_LITE_COLUMN 0
-/* Top right key on right half */
-#define BOOTMAGIC_LITE_ROW_RIGHT    0
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
