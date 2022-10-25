@@ -63,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }break;
             case VDRT:
             if (record->event.pressed) {
-                SEND_STRING(SS_LGUI( SS_DOWN(X_LCTRL) SS_TAP(X_RIGHT) SS_UP(X_LCTRL) ));
+                tap_code16(C(G(KC_RIGHT)));
                 }break;
             case VDLT:
             if (record->event.pressed) {
