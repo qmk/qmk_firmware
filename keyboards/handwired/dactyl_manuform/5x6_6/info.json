@@ -1,7 +1,6 @@
 {
-    "keyboard_name": "Dactyl (5x6+6)",
-    "manufacturer": "fgoodwin",
-    "url": "",
+    "keyboard_name": "Dactyl Manuform 5x6+6",
+    "url": "https://github.com/fgoodwin/dactyl-manuform-5x6_6/tree/main/5x6_6",
     "maintainer": "fgoodwin",
     "usb": {
         "vid": "0x444D",
