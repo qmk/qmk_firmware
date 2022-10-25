@@ -57,7 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
           // Mappings for 1st Encoder
     [_BASE] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  }, // Mapping for Base layer
-    [_FN] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN) }, // Mapping for Layer 3
+    [_FN] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN) }, // Mapping for Layer 1
+    [_FN2] = { ENCODER_CCW_CW(_______, _______) }, // Mapping for Layer 2
+    [_FN3] = { ENCODER_CCW_CW(_______, _______) }, // Mapping for Layer 3
 
 
     // You can add more layers here if you need them, or you can also delete lines for layers you are not using
