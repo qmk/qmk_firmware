@@ -52,14 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | Shift  | Pg Dn  |  Left  |  Down  | Right  |Rt Click|                    |  Acl1  | Ms lft | Ms dn  | Ms rgt |        | Delete |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  | QWERTY | Insert |        |Tab Back|Tab Fwd |LeftClic|                    |  Acl2  | Wh lft |        | Wh rgt |        | Escape |
+//  | QWERTY | Insert |Tab Back|Function|Tab Fwd |LeftClic|                    |  Acl2  | Wh lft |        | Wh rgt |        | Escape |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |   Alt  |Spc/Ctrl|Ctrl+Shft| | QWERTY |Spc/Ctrl| Adjust |
 //                                      `--------------------------'  `--------------------------'
   [_NAVIGATION] = LAYOUT_split_3x6_3(
       TABLGUI, KC_PGUP,  KC_HOME,  KC_UP,  KC_END, KC_BTN3,                      KC_ACL0, KC_WH_U, KC_MS_U, KC_WH_D, XXXXXXX, KC_BSPC,
       KC_LSFT, KC_PGDN,  KC_LEFT,KC_DOWN, KC_RGHT, KC_BTN1,                      KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,  KC_DEL,
-      LQWERTY,  KC_INS, LOSLFUN, TABBKWD, TABFWRD, KC_BTN2,                      KC_ACL2, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX,  KC_ESC,
+      LQWERTY,  KC_INS, TABBKWD, LOSLFUN, TABFWRD, KC_BTN2,                      KC_ACL2, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX,  KC_ESC,
                                           KC_LALT, CTRLSPC, CTRLSFT,    LQWERTY, CTRLSPC, TO(_ADJUST)
 
   ),
@@ -104,16 +104,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
 //  |   ~    |   !    |   @    |   #    |   $    |   %    |                    |   ^    |   &    |   *    |   (    |   )    |  Bksp  |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |   `    |   (    |   )    |   {    |   }    |        |                    |   =    |   -    |   +    |        |   -    |   +    |
+//  |   `    |   (    |   <    |   {    |   [    |        |                    |   =    |   -    |   +    |        |   -    |   +    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |   <    |   >    |   [    |   ]    |   |    |                    |   :    |   _    |  , <   |   . >  |   / ?  |   \    |
+//  |        |   )    |   >    |   }    |   ]    |   |    |                    |   :    |   _    |  , <   |   . >  |   / ?  |   \    |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |  Del   |        |TO(SYM) |  | QWERTY |        |   .    |
 //                                      `--------------------------'  `--------------------------'
   [_SYMBOL] = LAYOUT_split_3x6_3(
       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-       KC_GRV, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, XXXXXXX,                       KC_EQL, KC_MINS, KC_PLUS, XXXXXXX, KC_MINS, KC_PLUS,
-   XXXXXXX,S(KC_COMM),S(KC_DOT), KC_LBRC, KC_RBRC, KC_PIPE,                        COLON, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,
+       KC_GRV, KC_LPRN,S(KC_COMM),KC_LCBR,KC_LBRC, XXXXXXX,                       KC_EQL, KC_MINS, KC_PLUS, XXXXXXX, KC_MINS, KC_PLUS,
+      XXXXXXX, KC_RPRN,S(KC_DOT),KC_RCBR, KC_RBRC, KC_PIPE,                        COLON, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,
                                            KC_DEL, XXXXXXX,TO(_SYMBOL), LQWERTY, XXXXXXX, KC_DOT
 
   ),

@@ -63,7 +63,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color(33, RGB_CORAL);            // To qwerty
             rgb_matrix_set_color(26, RGB_CORAL);            // To qwerty
             rgb_matrix_set_color(41, RGB_RED);              // To Adjust
-            rgb_matrix_set_color(20, RGB_MAGENTA);          // To Function keys
+            rgb_matrix_set_color(15, RGB_MAGENTA);          // To Function keys
             break;
         case _GAMING:
             if (is_keyboard_master()) {
