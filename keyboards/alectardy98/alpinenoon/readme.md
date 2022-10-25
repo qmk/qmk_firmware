@@ -1,6 +1,6 @@
 # Gvalchca x Alectardy98 Alpinenoon
 
-Alps and MX 65% +10 PCB with ANSI and iso Enter support. To update the firmware connect the PCB to your computer and press Reset button.
+Alps and MX 65% +10 PCB with ANSI and iso Enter support. To update the firmware connect the PCB to your computer and press Reset button on the back of the pcb.
 ![alpinenoon](https://i.imgur.com/0mB5HFxh.jpeg)
 
 * Keyboard Maintainer: [Alectardy98](https://github.com/alectardy98)
