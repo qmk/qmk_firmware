@@ -84,6 +84,11 @@
 #define JS_BUTTON30 QK_JOYSTICK_BUTTON_30
 #define JS_BUTTON31 QK_JOYSTICK_BUTTON_31
 
+#define SECURE_LOCK QK_SECURE_LOCK
+#define SECURE_UNLOCK QK_SECURE_UNLOCK
+#define SECURE_TOGGLE QK_SECURE_TOGGLE
+#define SECURE_REQUEST QK_SECURE_REQUEST
+
 #define TERM_ON _Static_assert(false, "The Terminal feature has been removed from QMK. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 #define TERM_OFF _Static_assert(false, "The Terminal feature has been removed from QMK.. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 // #define RESET _Static_assert(false, "The RESET keycode has been removed from QMK.. Please remove use from your keymap.")
