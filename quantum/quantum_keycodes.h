@@ -505,9 +505,9 @@ enum quantum_keycodes {
 #define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : KC_NO)
 
     // One Shot
-    ONESHOT_ENABLE,
-    ONESHOT_DISABLE,
-    ONESHOT_TOGGLE,
+    QK_ONE_SHOT_ON,
+    QK_ONE_SHOT_OFF,
+    QK_ONE_SHOT_TOGGLE,
 
     // RGB underglow/matrix (continued)
     RGB_MODE_TWINKLE,
@@ -923,9 +923,9 @@ enum quantum_keycodes {
 #define QK_JOYSTICK_BUTTON_MAX QK_JOYSTICK_BUTTON_31
 
 // One Shot aliases
-#define OS_TOGG ONESHOT_TOGGLE
-#define OS_ON ONESHOT_ENABLE
-#define OS_OFF ONESHOT_DISABLE
+#define OS_TOGG QK_ONE_SHOT_TOGGLE
+#define OS_ON QK_ONE_SHOT_ON
+#define OS_OFF QK_ONE_SHOT_OFF
 
 // Programmable Button aliases
 #define PB_1 QK_PROGRAMMABLE_BUTTON_1
