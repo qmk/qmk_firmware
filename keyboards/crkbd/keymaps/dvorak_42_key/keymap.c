@@ -253,13 +253,24 @@ const rgblight_segment_t PROGMEM rgb_layer_orange[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, RGBLED_NUM, HSV_ORANGE}
 );
 
+const rgblight_segment_t PROGMEM rgb_layer_yellow[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, RGBLED_NUM, HSV_YELLOW}
+);
+
+const rgblight_segment_t PROGMEM rgb_layer_green[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, RGBLED_NUM, HSV_GREEN}
+);
+
+
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_layer_off,
     rgb_layer_blue,
     rgb_layer_purple,
     rgb_layer_red,
-    rgb_layer_orange
+    rgb_layer_orange,
+    rgb_layer_yellow,
+    rgb_layer_green
 );
 
 void keyboard_post_init_user(void) {
@@ -282,6 +293,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     
     rgblight_set_layer_state(3, layer_state_cmp(state, SHELL_NAV));    
     rgblight_set_layer_state(4, layer_state_cmp(state, SHELL_SCREEN));
+    
+    rgblight_set_layer_state(5, layer_state_cmp(state, SHORTCUTS));
+    
+    rgblight_set_layer_state(6, layer_state_cmp(state, VSCODE));
     
     
     return state;
