@@ -318,8 +318,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
 bool music_mask_kb(uint16_t keycode) {
     switch (keycode) {
-    case QK_LAYER_TAP ... QK_ONE_SHOT_LAYER_MAX:
-    case QK_LAYER_TAP_TOGGLE ... QK_LAYER_MOD_MAX:
+    case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    case QK_TO ... QK_TO_MAX:
+    case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+    case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+    case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+    case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+    case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+    case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
+    case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
     case QK_MOD_TAP ... QK_MOD_TAP_MAX:
     case AU_ON ... MUV_DE:
     case QK_BOOT:
