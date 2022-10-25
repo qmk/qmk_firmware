@@ -7,7 +7,7 @@
 * Keyboard Maintainer: [bwprobably](https://github.com/bwprobably)
 * Hardware Supported: ProMicro (Atmega32U4), EC11 Rotary Encoder
 * Hardware Availability: [Example Encoder](https://www.amazon.com/dp/B07D3DF8TK/)
-[ProMicro](https://www.amazon.com/HiLetgo-Atmega32U4-Bootloadered-Development-Microcontroller/dp/B01MTU9GOB/ref=sr_1_4?crid=2YWTO4R56JPDN&keywords=pro+micro&qid=1666109727&qu=eyJxc2MiOiI0LjMwIiwicXNhIjoiNC4wNyIsInFzcCI6IjMuOTgifQ%3D%3D&sprefix=pro+micro%2Caps%2C173&sr=8-4)
+[ProMicro](https://www.sparkfun.com/products/12640)
 
 Make example for this keyboard (after setting up your build environment):
 
