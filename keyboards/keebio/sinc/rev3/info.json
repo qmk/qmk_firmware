@@ -15,10 +15,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "GP0",
-        "transport": {
-            "protocol": "serial"
-        },
         "encoder": {
             "right": {
                 "rotary": [
