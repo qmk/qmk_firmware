@@ -45,6 +45,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
             case MAGIC_SWAP_LCTL_LGUI ... MAGIC_EE_HANDS_RIGHT:
             case MAGIC_TOGGLE_GUI:
             case MAGIC_TOGGLE_CONTROL_CAPSLOCK:
+            case MAGIC_TOGGLE_BACKSLASH_BACKSPACE:
             case MAGIC_SWAP_ESCAPE_CAPSLOCK ... MAGIC_TOGGLE_ESCAPE_CAPSLOCK:
                 /* keymap config */
                 keymap_config.raw = eeconfig_read_keymap();
@@ -162,6 +163,9 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                             PLAY_SONG(cg_norm_song);
                         }
 #endif
+                        break;
+                    case MAGIC_TOGGLE_BACKSLASH_BACKSPACE:
+                        keymap_config.swap_backslash_backspace = !keymap_config.swap_backslash_backspace;
                         break;
                     case MAGIC_TOGGLE_NKRO:
                         clear_keyboard(); // clear first buffer to prevent stuck keys

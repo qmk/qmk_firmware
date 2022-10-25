@@ -615,6 +615,8 @@ enum quantum_keycodes {
     AUTOCORRECT_OFF,
     AUTOCORRECT_TOGGLE,
 
+    MAGIC_TOGGLE_BACKSLASH_BACKSPACE,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -731,6 +733,7 @@ enum quantum_keycodes {
 
 #define BS_SWAP MAGIC_SWAP_BACKSLASH_BACKSPACE
 #define BS_NORM MAGIC_UNSWAP_BACKSLASH_BACKSPACE
+#define BS_TOGG MAGIC_TOGGLE_BACKSLASH_BACKSPACE
 
 #define NK_ON MAGIC_HOST_NKRO
 #define NK_OFF MAGIC_UNHOST_NKRO

@@ -404,6 +404,7 @@ See also: [Magic Keycodes](keycodes_magic.md)
 |`MAGIC_UNSWAP_GRAVE_ESC`          |`GE_NORM`|Unswap <code>&#96;</code> and Escape                                      |
 |`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |`BS_SWAP`|Swap `\` and Backspace                                                    |
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|`BS_NORM`|Unswap `\` and Backspace                                                  |
+|`MAGIC_TOGGLE_BACKSLASH_BACKSPACE`|`BS_TOGG`|Toggle `\` and Backspace swap state                                       |
 |`MAGIC_HOST_NKRO`                 |`NK_ON`  |Enable N-key rollover                                                     |
 |`MAGIC_UNHOST_NKRO`               |`NK_OFF` |Disable N-key rollover                                                    |
 |`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Toggle N-key rollover                                                     |
