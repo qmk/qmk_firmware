@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Dalius Dobravolskas <dalius.dobravolskas@gmail.com>
+Copyright 2022 Dalius Dobravolskas <dalius.dobravolskas@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,22 +14,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
-#define UNICODE_SELECTED_MODES UC_LNX
+#include QMK_KEYBOARD_H
 
-#define MOUSEKEY_INTERVAL 12
-#define MOUSEKEY_MAX_SPEED 6
-#define MOUSEKEY_TIME_TO_MAX 50
+bool update_flow(
+    uint16_t keycode,
+    bool pressed,
+    keypos_t key_position
+);
 
-#define MOUSEKEY_DELAY 20
-// It makes sense to use the same delay for the mouseweel
-#define MOUSEKEY_WHEEL_DELAY 100
-// The default is 100
-#define MOUSEKEY_WHEEL_INTERVAL 50
-// The default is 40
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 100
-
-#define FLOW_COUNT 6
-#define FLOW_LAYERS_COUNT 5
+void flow_matrix_scan(void);
