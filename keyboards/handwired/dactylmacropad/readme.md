@@ -1,6 +1,6 @@
 # DactylMacropad
 
-[Glamour shot](https://i.imgur.com/ONvbIbm.jpg)
+[Glamour shot](https://i.imgur.com/ONvbIbmh.jpg)
 
 *A short description of the keyboard/project*
 
