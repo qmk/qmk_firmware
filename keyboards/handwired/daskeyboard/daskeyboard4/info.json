@@ -23,14 +23,14 @@
     "processor": "STM32F411",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0140",
-        "vid": "0x24F0"
+        "vid": "0xFEED",
+        "pid": "0x0140"
     },
     "indicators": {
         "num_lock": "C13",
         "caps_lock": "B14",
         "scroll_lock": "B2",
-        "on_state": 1,
+        "on_state": 1
     },
     "encoder": {
         "rotary": [
