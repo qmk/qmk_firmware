@@ -86,7 +86,7 @@ KC_TRNS, RCTL(KC_P), KC_TRNS,  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,            
 
   [SHELL_NAV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                              ,-----------------------------------------------------.
-KC_TRNS,SHELL_GIT_DIFF, SHELL_PGREP, SHELL_PLESS, SHELL_LESS, KC_TRNS,              RCTL(KC_D), KC_HOME, KC_UP, KC_END, RCTL(KC_L), RCTL(KC_X),
+TO(BASE),SHELL_GIT_DIFF, SHELL_PGREP, SHELL_PLESS, SHELL_LESS, KC_TRNS,              RCTL(KC_D), KC_HOME, KC_UP, KC_END, RCTL(KC_L), RCTL(KC_X),
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 OSL(SHELL_SCREEN),SHELL_GIT_STATUS,SHELL_CDPRE,SHELL_LSLTR,SHELL_LS, SHELL_LSLA,              LALT(KC_B), KC_LEFT, KC_DOWN, KC_RIGHT, LALT(KC_F), LALT(KC_BSPC),
   //|--------+--------+--------+--------+--------+--------|                           |--------+--------+--------+--------+--------+--------|
@@ -98,7 +98,7 @@ KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, KC_TRN
 
   [SHELL_SCREEN] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                                 ,-----------------------------------------------------.
-KC_TRNS,KC_TRNS, SCREEN_READREG_3, SCREEN_READREG_2, SCREEN_READREG_1,KC_TRNS,          KC_TRNS,         SCREEN_7, SCREEN_8, SCREEN_9, SCREEN_RENAME, KC_TRNS,
+TO(BASE),KC_TRNS, SCREEN_READREG_3, SCREEN_READREG_2, SCREEN_READREG_1,KC_TRNS,          KC_TRNS,         SCREEN_7, SCREEN_8, SCREEN_9, SCREEN_RENAME, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                                 |--------+--------+--------+--------+--------+--------|
 TO(BASE),KC_TRNS,SCREEN_PASTEREG_3,SCREEN_PASTEREG_2,SCREEN_PASTEREG_1,SCREEN_DETACH,    SCREEN_TAB_LEFT, SCREEN_4, SCREEN_5, SCREEN_6, SCREEN_TAB_RIGHT, SCREEN_COPY_MODE,
   //|--------+--------+--------+--------+--------+--------|                                 |--------+--------+--------+--------+--------+--------|
@@ -110,7 +110,7 @@ TO(BASE),KC_TRNS,SCREEN_PASTEREG_3,SCREEN_PASTEREG_2,SCREEN_PASTEREG_1,SCREEN_DE
 
   [VSCODE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                             ,-----------------------------------------------------.
-KC_TRNS, KC_TRNS, KC_TRNS, VS_CMT_BLOCK, VS_CMT_LINE, VS_BM_LISTALL,                     VS_COPYLINEDOWN, VS_REFERENCES, VS_DEFINITION, VS_IMPLEMENTATION, VS_LINE,   VS_BRACKET,
+TO(BASE), KC_TRNS, KC_TRNS, VS_CMT_BLOCK, VS_CMT_LINE, VS_BM_LISTALL,                     VS_COPYLINEDOWN, VS_REFERENCES, VS_DEFINITION, VS_IMPLEMENTATION, VS_LINE,   VS_BRACKET,
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 KC_TRNS, KC_TRNS, VS_TOGGLE_TERMINAL, VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR, VS_BM_LIST,    VS_CLOSETAB,     VS_TABLEFT,    VS_TABRIGHT,   VS_SYMBOLEDITOR,   VS_FILE,   VS_BACK,
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
@@ -164,7 +164,7 @@ KC_TRNS, RCTL(LSFT(KC_TAB)), RCTL(KC_TAB), WINDOWS10_WORKSPACE_LEFT, WINDOWS10_W
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 TG(RGB_CONTROL), OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,            MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X), MEH(KC_Y), MEH(KC_Z),
   //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,                 TG(BASE_IOS), KC_TRNS, KC_TRNS
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,                 TG(BASE_IOS), KC_TRNS, TO(BASE)
                                       //`--------------------------'             `--------------------------'
   ),
 
