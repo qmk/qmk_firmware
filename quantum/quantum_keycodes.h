@@ -859,7 +859,7 @@ enum quantum_keycodes {
 
 // Secure
 #define SE_LOCK QK_SECURE_LOCK
-#define SE_ULCK QK_SECURE_UNLOCK
+#define SE_UNLK QK_SECURE_UNLOCK
 #define SE_TOGG QK_SECURE_TOGGLE
 #define SE_REQ QK_SECURE_REQUEST
 
