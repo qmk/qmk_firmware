@@ -1,4 +1,5 @@
-/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 DOIO
+ * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
 #include QMK_KEYBOARD_H
 
 // OLED animation
-#include "oled/bongocat.h"
+#include "lib/layer_status/layer_status.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -55,11 +56,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        │   │   │   │   │      └───┘
        └───┴───┴───┴───┘
 */
-    /*  Row:    0         1        2        3         4        5        6      */
+    /*  Row:    0         1        2        3         4      */
     [_BASE] = LAYOUT(
-                KC_1,     KC_2,    KC_3,    KC_4,     KC_MPRV, KC_MPLY, KC_MNXT,
-                KC_5,     KC_6,    KC_7,    KC_8,     KC_PGDN, TO(_FN), KC_PGUP,
-                KC_9,     KC_0,    KC_UP,   KC_ENT,   KC_VOLD, KC_MUTE, KC_VOLU,
+                KC_1,     KC_2,    KC_3,    KC_4,     KC_MPLY,
+                KC_5,     KC_6,    KC_7,    KC_8,     TO(_FN),
+                KC_9,     KC_0,    KC_UP,   KC_ENT,   KC_MUTE,
                 MO(_FN2), KC_LEFT, KC_DOWN, KC_RIGHT
             ),
 
@@ -74,11 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        │   │   │   │   │      └───┘
        └───┴───┴───┴───┘
 */
-    /*  Row:    0        1        2        3        4        5         6      */
+    /*  Row:    0        1        2        3        4       */
     [_FN] = LAYOUT(
-                _______, _______, _______, _______, _______, _______,  _______,
-                _______, _______, _______, _______, _______, TO(_FN1), _______,
-                _______, _______, _______, _______, _______, _______,  _______,
+                _______, _______, _______, _______, _______,
+                _______, _______, _______, _______, TO(_FN1),
+                _______, _______, _______, _______, _______,
                 _______, _______, _______, _______
             ),
 
@@ -93,11 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        │   │   │   │   │      └───┘
        └───┴───┴───┴───┘
 */
-    /*  Row:    0        1        2        3        4        5         6      */
+    /*  Row:    0        1        2        3        4       */
     [_FN1] = LAYOUT(
-                _______, _______, _______, _______, _______, _______,  _______,
-                _______, _______, _______, _______, _______, TO(_FN2), _______,
-                _______, _______, _______, _______, _______, _______,  _______,
+                _______, _______, _______, _______, _______,
+                _______, _______, _______, _______, TO(_FN2),
+                _______, _______, _______, _______, _______,
                 _______, _______, _______, _______
             ),
 
@@ -112,69 +113,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        │   │Vai│Hud│Vad│      └───┘
        └───┴───┴───┴───┘
 */
-    /*  Row:    0        1        2        3        4        5          6      */
+    /*  Row:    0        1        2        3        4        */
     [_FN2] = LAYOUT(
-                RGB_SPI, RGB_SPD, _______, QK_BOOT, _______, _______,   _______,
-                RGB_SAI, RGB_SAD, _______, _______, _______, TO(_BASE), _______,
-                RGB_TOG, RGB_MOD, RGB_HUI, _______, _______, _______,   _______,
+                RGB_SPI, RGB_SPD, _______, QK_BOOT, _______,
+                RGB_SAI, RGB_SAD, _______, _______, TO(_BASE),
+                RGB_TOG, RGB_MOD, RGB_HUI, _______, _______,
                 _______, RGB_VAI, RGB_HUD, RGB_VAD
             ),
 };
 
 #ifdef OLED_ENABLE
     bool oled_task_user(void) {
-        led_t led_usb_state = host_keyboard_led_state();
-
-        render_bongocat();
-        oled_set_cursor(14, 0);                                // sets cursor to (column, row) using charactar spacing (4 rows on 128x32 screen, anything more will overflow back to the top)
-        oled_write_P(PSTR("WPM:"), false);
-        oled_write(get_u8_str(get_current_wpm(), '0'), false); // writes wpm on top right corner of string
-        oled_set_cursor(17, 2);
-        oled_write_P(led_usb_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
-        oled_set_cursor(17, 3);
-        oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRL") : PSTR("    "), false);
+        render_layer_status();
 
         return true;
     }
 #endif
 
-#ifdef ENCODER_ENABLE
-
-#define ENCODERS 3
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = {{ 5, 0 }, { 5, 1 }, { 5, 2 }};
-static keypos_t encoder_ccw[ENCODERS]   = {{ 6, 0 }, { 6, 1 }, { 6, 2 }};
-
-void encoder_action_unregister(void) {
-    for (int index = 0; index < ENCODERS; ++index) {
-        if (encoder_state[index]) {
-            keyevent_t encoder_event = (keyevent_t) {
-                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
-                .pressed = false,
-                .time = (timer_read() | 1)
-            };
-            encoder_state[index] = 0;
-            action_exec(encoder_event);
-        }
-    }
-}
-
-void encoder_action_register(uint8_t index, bool clockwise) {
-    keyevent_t encoder_event = (keyevent_t) {
-        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
-        .pressed = true,
-        .time = (timer_read() | 1)
-    };
-    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
-    action_exec(encoder_event);
-}
-
-void matrix_scan_user(void) {
-    encoder_action_unregister();
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    encoder_action_register(index, clockwise);
-	return false;
-}
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_PGDN, KC_PGUP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_FN]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [_FN1]  = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [_FN2]  = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+};
 #endif
