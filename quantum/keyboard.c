@@ -130,7 +130,7 @@ void last_matrix_activity_trigger(void) {
 
 static uint32_t last_encoder_modification_time = 0;
 uint32_t        last_encoder_activity_time(void) {
-           return last_encoder_modification_time;
+    return last_encoder_modification_time;
 }
 uint32_t last_encoder_activity_elapsed(void) {
     return timer_elapsed32(last_encoder_modification_time);
