@@ -82,8 +82,8 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
         __asm__ volatile("" ::: "memory");
     }
 }
-bool is_matrix_locked(void) {
-    return !matrix_scanned;
+bool matrix_available(void) {
+    return matrix_scanned;
 }
 #endif // MATRIX_NO_SCAN
 
