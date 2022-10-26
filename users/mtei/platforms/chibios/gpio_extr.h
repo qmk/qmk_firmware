@@ -47,4 +47,29 @@ typedef uint16_t port_data_t;
 #define writePortBunchLow(port, bunch) palWriteGroup(PAL_PORT(port), (bunch), 0, 0)
 #define writePortBunchHigh(port, bunch) palWriteGroup(PAL_PORT(port), (bunch), 0, (bunch))
 
+// ChibiOS's GPIO implementation for RP2040 doesn't seem to implement palSetGroupMode(),
+// so as a workaround, use the implementation below.
+#    ifndef pal_lld_setgroupmode
+//#        pragma message "Use alternate palSetGroupMode"
+#        undef palSetGroupMode
+
+#        define palSetGroupMode(port, mask, offset, mode)       \
+              pal_lld_setgroupmode(port, mask, offset, mode)
+#        define pal_lld_setgroupmode(port, mask, offset, mode)  \
+              _pal_lld_setgroupmode(port, mask << offset, mode)
+
+static inline void _pal_lld_setgroupmode(ioportid_t port,
+                             ioportmask_t mask,
+                             iomode_t mode) {
+    iopadid_t pad = 0;
+    while (mask != 0) {
+        if ((mask & 1) != 0) {
+            pal_lld_setpadmode(port, pad, mode);
+        }
+        pad ++;
+        mask = mask >> 1;
+    }
+}
+#    endif // ifndef pal_lld_setgroupmode
+
 #endif // ifndef readPort
