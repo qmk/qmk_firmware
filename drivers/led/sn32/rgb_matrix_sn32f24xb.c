@@ -83,7 +83,7 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     }
 }
 bool is_matrix_locked(void) {
-    return matrix_locked;
+    return !matrix_scanned;
 }
 #endif // MATRIX_NO_SCAN
 
