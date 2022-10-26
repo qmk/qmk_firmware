@@ -13,19 +13,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "rart75hs.h"
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    switch (index) {
-        case 0:
-            if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        break;
-    }
-    return true;
-}
-#endif
