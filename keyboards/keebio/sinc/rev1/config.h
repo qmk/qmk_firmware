@@ -31,3 +31,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Set right column, left macro, 1.75u shift, split spaces, and 5x1u on by default
 #define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00DE
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
