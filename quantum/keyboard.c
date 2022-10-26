@@ -111,7 +111,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
-    return last_input_modification_time;
+           return last_input_modification_time;
 }
 uint32_t last_input_activity_elapsed(void) {
     return timer_elapsed32(last_input_modification_time);
@@ -119,7 +119,7 @@ uint32_t last_input_activity_elapsed(void) {
 
 static uint32_t last_matrix_modification_time = 0;
 uint32_t        last_matrix_activity_time(void) {
-    return last_matrix_modification_time;
+           return last_matrix_modification_time;
 }
 uint32_t last_matrix_activity_elapsed(void) {
     return timer_elapsed32(last_matrix_modification_time);
@@ -130,7 +130,7 @@ void last_matrix_activity_trigger(void) {
 
 static uint32_t last_encoder_modification_time = 0;
 uint32_t        last_encoder_activity_time(void) {
-    return last_encoder_modification_time;
+           return last_encoder_modification_time;
 }
 uint32_t last_encoder_activity_elapsed(void) {
     return timer_elapsed32(last_encoder_modification_time);
@@ -457,12 +457,16 @@ static inline void generate_tick_event(void) {
  * @return false Matrix didn't change
  */
 static bool matrix_task(void) {
-    if (!is_matrix_locked()) {
+    bool matrix_changed = false;
+
+    if (is_matrix_locked()) {
+        generate_tick_event();
+        return matrix_changed;
+    } else {
         static matrix_row_t matrix_previous[MATRIX_ROWS];
 
         matrix_scan();
 
-        bool matrix_changed = false;
         for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
             matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
         }
@@ -506,8 +510,7 @@ static bool matrix_task(void) {
         }
 
         return matrix_changed;
-    } else
-        return false;
+    }
 }
 
 /** \brief Tasks previously located in matrix_scan_quantum
