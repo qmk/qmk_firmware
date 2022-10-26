@@ -1,5 +1,5 @@
-SRC += lib/layer_status/layer_status.c
-SRC += lib/logo.c
+SRC += ./lib/layer_status/layer_status.c
+SRC += ./lib/logo.c
 
 # MCU name
 MCU = atmega32u4
