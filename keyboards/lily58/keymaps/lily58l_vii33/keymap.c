@@ -17,23 +17,21 @@
   */
 
 #include QMK_KEYBOARD_H
+#include "enums.h"
+#include "oled.h"
+#include "process_record_user.h"
+
 //#include "keymap_us_international.h"
 //#include "sendstring_us_international.h"
 
 extern uint8_t is_master;
 
 
-enum layers {
-    _QWERTY,    //0
-    _LOWER,     //1
-    _UPPER,     //2
-    _MOD,       //3
-    _GAME       //4
-};
+
 
 // Layer quick names
 #define LOWER MO(_LOWER)
-#define RAISE MO(_UPPER)
+#define UPPER MO(_UPPER)
 #define MOD   TG(_MOD)
 #define GAME  TG(_GAME)
 
@@ -59,11 +57,10 @@ enum layers {
 #define GUI_S LGUI_T(KC_S)
 #define ALT_D LALT_T(KC_D)
 #define CTL_F LCTL_T(KC_F)
-
 // Right-hand home row mods
 #define CTL_J RCTL_T(KC_J)
 #define ALT_K LALT_T(KC_K)
-#define GUI_L RGUI_T(CC_L)
+#define GUI_L RGUI_T(KC_L)
 
 
 // Custom Keycodes / Keys  https://docs.qmk.fm/#/custom_quantum_functions?id=defining-a-new-keycode
@@ -123,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |UPPER |BackSP| RGUI |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -133,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
 //   KC_LCTRL, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
 //   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
-//                              KC_LALT, KC_LGUI,LOWER, KC_SPC,   KC_ENT,   RAISE,   KC_BSPC, KC_RGUI
+//                              KC_LALT, KC_LGUI,LOWER, KC_SPC,   KC_ENT,   UPPER,   KC_BSPC, KC_RGUI
 // ),
 
 [_QWERTY] = LAYOUT(
@@ -141,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,                            KC_Z,   KC_U,  KC_I,      KC_O,    KC_P,    CC_UE, 
   CC_QUOT,  KC_A,   GUI_S,  ALT_D,   CTL_F,   KC_G,                            KC_H,   CTL_J, ALT_K,     GUI_L,   CC_OE,   CC_AE, 
   CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,     KC_B,  KC_MUTE,        _______, KC_N,   KC_M,  CC_SCOLN,  CC_COLN, CC_EXLM, KC_MINS, 
-                            CC_SLH,  MOD,     LOWER, RSFT_T(KC_SPC), RSFT_T(KC_SPC),  RAISE,  KC_DEL,    KC_BSPC
+                            CC_SLH,  MOD,     LOWER, RSFT_T(KC_SPC), RSFT_T(KC_SPC),  UPPER,  KC_DEL,    KC_BSPC
 ),
 
 
@@ -155,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |UPPER |BackSP| RGUI |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -176,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-/* RAISE
+/* UPPER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -186,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   +  |   -  |   =  |   [  |   ]  |   \  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |UPPER |BackSP| RGUI |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -217,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      | MODE | HUE- | SAT- | VAL- |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |UPPER |BackSP| RGUI |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -248,279 +245,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-// --------------------------------------------------------------------------------
-//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
-#ifdef OLED_ENABLE
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_270;
-    } else {
-        return OLED_ROTATION_0;
-    }
-}
-
-void render_lily58_logo(void) {
-    static const char PROGMEM lily58_logo[] = {
-    // 'logo', 128x32px
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xc0, 0x40, 0x40, 0xc0, 0x80, 0x80, 0x80, 0x00, 0x00,
-    0x80, 0xe0, 0x70, 0x3c, 0x0e, 0x06, 0x0e, 0x3c, 0x70, 0xe0, 0x80, 0x00, 0x00, 0xc0, 0xc0, 0x00,
-    0xc0, 0xc0, 0x00, 0xc0, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xc0, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x80,
-    0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x80, 0x80, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0xc0, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0xfc, 0xc0, 0x80, 0x80, 0x80, 0x81, 0x83, 0x83,
-    0x07, 0x07, 0x0c, 0x18, 0x70, 0xe0, 0x80, 0x00, 0x00, 0x01, 0xff, 0xfc, 0x80, 0xb6, 0xb6, 0x80,
-    0xb0, 0xb0, 0x00, 0x36, 0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xf1, 0x00, 0x00, 0x00, 0x00, 0xff,
-    0xff, 0x00, 0x00, 0x00, 0x30, 0xf0, 0xf0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xf0, 0xf0,
-    0x30, 0x00, 0x00, 0x7f, 0xff, 0xff, 0xe1, 0x71, 0x71, 0xf1, 0xf1, 0xe1, 0xc1, 0x81, 0x00, 0x00,
-    0x00, 0x00, 0x0c, 0x3f, 0xff, 0xf3, 0xe1, 0xc1, 0xc1, 0x81, 0x81, 0xc3, 0xff, 0x7f, 0x1c, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x20, 0x70, 0x78, 0xdc, 0xcc, 0x86, 0x06, 0x03, 0x03, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-    0x01, 0x03, 0x02, 0x06, 0x84, 0xe1, 0xfb, 0x38, 0x1c, 0x0c, 0x02, 0x01, 0x01, 0x01, 0x01, 0x01,
-    0x01, 0x01, 0x03, 0x03, 0x06, 0x86, 0xcc, 0xdc, 0x78, 0x70, 0x20, 0x00, 0xff, 0xff, 0x80, 0x80,
-    0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0xff,
-    0xff, 0x80, 0x00, 0x00, 0x00, 0x00, 0x03, 0x1f, 0x7e, 0xf8, 0xe0, 0xf0, 0x7e, 0x1f, 0x03, 0x00,
-    0x00, 0x00, 0x00, 0xe0, 0xe0, 0xc0, 0xc0, 0x80, 0x80, 0x80, 0xc0, 0xe1, 0xff, 0x7f, 0x3f, 0x00,
-    0x00, 0x00, 0x3e, 0xff, 0xff, 0xc1, 0xc0, 0x80, 0x81, 0x81, 0xc3, 0xc3, 0xff, 0xfe, 0x3c, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x03, 0x03, 0x06, 0x06, 0x06, 0x04, 0x04, 0x04, 0x04, 0x06,
-    0x06, 0x02, 0x03, 0x01, 0x01, 0x00, 0x01, 0x01, 0x03, 0x02, 0x06, 0x06, 0x04, 0x04, 0x04, 0x04,
-    0x06, 0x06, 0x06, 0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01,
-    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x01, 0x01, 0x01, 0x00, 0x00, 0x60, 0x60, 0x70, 0x38, 0x1f, 0x0f, 0x03, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00
-    };
-
-    oled_write_raw_P(lily58_logo, sizeof(lily58_logo));
-}
-
-
-#    define KEYLOG_LEN 6
-char     keylog_str[KEYLOG_LEN] = {};
-uint8_t  keylogs_str_idx        = 0;
-uint16_t log_timer              = 0;
-
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-void add_keylog(uint16_t keycode) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-        keycode = keycode & 0xFF;
-    }
-
-    for (uint8_t i = KEYLOG_LEN - 1; i > 0; i--) {
-        keylog_str[i] = keylog_str[i - 1];
-    }
-    if (keycode < 60) {
-        keylog_str[0] = code_to_name[keycode];
-    }
-    keylog_str[KEYLOG_LEN - 1] = 0;
-
-    log_timer = timer_read();
-}
-
-void update_log(void) {
-    if (timer_elapsed(log_timer) > 750) {
-        add_keylog(0);
-    }
-}
-
-void render_keylogger_status(void) {
-    oled_write_P(PSTR("KLogr"), false);
-    oled_write(keylog_str, false);
-}
-
-void render_default_layer_state(void) {
-    oled_write_P(PSTR("Layer"), false);
-    oled_write_P(PSTR(" "), false);
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("QRTY"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("LOWR"), false);
-            break;
-        case _UPPER:
-            oled_write_P(PSTR("UPPR"), false);
-            break;
-        case _MOD:
-            oled_write_ln_P(PSTR("MOD"), false);
-            break;
-        case _GAME:
-            oled_write_ln_P(PSTR("GAME"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("ndef"), false);
-    }
-}
-
-void render_keylock_status(led_t led_state) {
-    oled_write_ln_P(PSTR("Lock"), false);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("N"), led_state.num_lock);
-    oled_write_P(PSTR("C"), led_state.caps_lock);
-    oled_write_ln_P(PSTR("S"), led_state.scroll_lock);
-}
-
-void render_mod_status(uint8_t modifiers) {
-    oled_write_ln_P(PSTR("Mods"), false);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
-    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
-    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
-    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
-}
-
-void render_status_main(void) {
-    // Show keyboard layout
-    render_default_layer_state();
-    // Add a empty line
-    oled_write_P(PSTR("-----"), false);
-    // Show host keyboard led status
-    //render_keylock_status(host_keyboard_led_state());
-    // Add a empty line
-    //oled_write_P(PSTR("-----"), false);
-    // Show modifier status
-    render_mod_status(get_mods());
-    // Add a empty line
-    oled_write_P(PSTR("-----"), false);
-    render_keylogger_status();
-}
-
-bool oled_task_user(void) {
-//   update_log();
-  if (is_keyboard_master()) {
-    render_lily58_logo();  // TEST to see if render gets overwritten
-    render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-  } else {
-    render_lily58_logo();
-  }
-    return false;
-}
-#endif // OLED_ENABLE
-
-uint8_t mods_state;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // For OLED Key Printer
-    if (record->event.pressed) {
-        add_keylog(keycode);
-    }
-
-    if (record->event.pressed) {    // On key down
-        mods_state = get_mods();    // Store the current modifier state in the variable for later reference
-        switch (keycode) {
-            case CC_BckDel:
-                if ( get_mods() & MOD_MASK_SHIFT ) {  // Shift pressed
-                    del_mods(MOD_MASK_SHIFT);           // cancel the shifts so they are not applied to the keycodes
-                    tap_code(KC_DEL);                 
-                    set_mods(mods_state);
-                }else {                               // No shift is pressed
-                    tap_code(KC_BSPC);
-                }
-                break;
-            
-            case CC_AE:
-                tap_code16(ALGR(KC_Q));   // tapcode16() allows you to use modifiers!
-                break;
-
-            case CC_OE:
-                tap_code16(ALGR(KC_P));   
-                break;
-
-            case CC_UE:
-                tap_code16(ALGR(KC_Y));   
-                break;
-                
-            case CC_SLH:
-                if ( get_mods() & MOD_MASK_SHIFT ) {  
-                    del_mods(MOD_MASK_SHIFT);         
-                    tap_code(KC_BSLS);           // backslash   
-                    set_mods(mods_state);   
-                }else {                               
-                    tap_code(KC_SLSH);          // /
-                }
-                break;
-
-            case CC_APHO:
-                if ( get_mods() & MOD_MASK_SHIFT ) {  
-                    del_mods(MOD_MASK_SHIFT);         
-                    tap_code(KC_GRV);              //  ` grave 
-                    set_mods(mods_state);    
-                }else {                               
-                    tap_code16(ALGR(KC_QUOT));     //  ´ aigu
-                }
-                break;
-
-            case CC_QUOT:
-                if ( get_mods() & MOD_MASK_SHIFT ) {  
-                    SEND_STRING("\"");             // "      
-                }else {                               
-                    tap_code16(LSFT(KC_QUOT));     // '
-                }
-                break;
-
-            case CC_COLN:
-                if ( get_mods() & MOD_MASK_SHIFT ) {  
-                    //del_mods(MOD_MASK_SHIFT);         
-                    tap_code(KC_SCLN);             // :      
-                }else {                               
-                    tap_code(KC_DOT);              // . (dot)
-                }
-                break;
-
-            case CC_SCOLN:
-                if ( get_mods() & MOD_MASK_SHIFT ) {  
-                    del_mods(MOD_MASK_SHIFT);         
-                    tap_code(KC_SCLN);             // ; 
-                    set_mods(mods_state);    
-                }else {                               
-                    tap_code(KC_COMM);             // , (comma)
-                }
-                break;
-
-            case CC_EXLM:
-                if ( get_mods() & MOD_MASK_SHIFT ) {  
-                    del_mods(MOD_MASK_SHIFT);         
-                    tap_code16(KC_EXLM);             // !     
-                    set_mods(mods_state);
-                }else {                               
-                    tap_code16(KC_QUES);             // ? 
-                }
-                break;
-
-            case KC_LPRN:   // (
-                if ( get_mods() & MOD_MASK_SHIFT ) {
-                    SEND_STRING("()" SS_TAP(X_LEFT));
-                } else {
-                    return true;    // continue with normal KC
-                }
-
-            case CC_SAVRGB:   // Saves color config to eeprom. Used to save eeprom write cycles              
-                rgblight_sethsv(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val()); 
-                rgblight_set_speed( rgblight_get_speed() );
-                break;
-
-        return false;
-        }   
-    }
-            
-    return true;
-}
-
-
-
-// #endif // OLED_ENABLE
 // --------------------------------------------------------------------------------
 
 // Rotary encoder related code
@@ -586,4 +310,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   }
   return true;
 }
-#endif
+#endif  // ENCODER_ENABLE

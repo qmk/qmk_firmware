@@ -28,7 +28,7 @@ use define EE_HANDS at flashing time*/
 #define EE_HANDS
 
 
-#define TAPPING_TERM 150  // mod tap hold time (shift) in ms, default 200
+#define TAPPING_TERM 170  // mod tap hold time (shift) in ms, default 200
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD   // activate the hold function instead, when holding a dual-role key after having tapped it. 
 //No more accidental repeats of mod-tap letters when typing quickly!
@@ -78,8 +78,14 @@ use define EE_HANDS at flashing time*/
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_MAX_LAYERS 2  // Default 8 / Performance impact!
 
+// OLED
+#define OLED_TIMEOUT 20000
+#define OLED_FADE_OUT
+#define OLED_UPDATE_INTERVAL 80  // set oled update interval in ms (default: 0). improves matrix scan rate
+#define OLED_BRIGHTNESS 120
+
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-// #define SPLIT_USB_DETECT
-// #define NO_USB_STARTUP_CHECK
+//#define SPLIT_USB_DETECT
+//#define NO_USB_STARTUP_CHECK
 
