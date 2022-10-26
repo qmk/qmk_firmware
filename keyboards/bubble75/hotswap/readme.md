@@ -1,4 +1,4 @@
-# Bubble75
+# Bubble 75
 
 ![image](https://user-images.githubusercontent.com/31980883/198159649-718a85f7-5d49-47b6-a46e-fa8c656d27c3.png)
 
