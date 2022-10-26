@@ -7,7 +7,7 @@
 #    include "via.h"
 #endif
 
-#define FADER_SAMPLE_RATE 100
+#define FADER_SAMPLE_RATE 10
 #define ADC_DEADBAND 255
 #define ADC_ERROR 0xFF
 
