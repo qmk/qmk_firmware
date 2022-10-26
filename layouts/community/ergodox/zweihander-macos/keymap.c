@@ -18,9 +18,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // when keycode NEWITEM is pressed
             SEND_STRING("\n- "); // starts a new item in a Markdown-style list
-        } else {
-            // when keycode NEWITEM is released
         }
+        // else-clause (for when NEWITEM is released) omitted
         break;
     }
     return true; // the key press we just processed should continue to be processed as normal
