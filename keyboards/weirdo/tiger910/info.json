@@ -1,7 +1,13 @@
 {
     "keyboard_name": "tiger910",
+    "manufacturer": "Weirdo",
     "url": "",
     "maintainer": "Weirdo",
+    "usb": {
+        "vid": "0x7764",
+        "pid": "0x5447",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

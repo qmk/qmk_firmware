@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		    KC_LCTL,         KC_LGUI,  KC_LALT,                KC_SPC,                         KC_RALT,  MO(1),     KC_RGUI,             KC_RCTL),
 		[_LAYER1] = LAYOUT_60_ansi( /* FN */
 				KC_GESC,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_DEL ,
-			    KC_TRNS,  RGB_TOG,  KC_UP,    RGB_MOD,  KC_TRNS,  KC_TRNS,  KC_CALC,  KC_TRNS,  KC_INS,   KC_TRNS,  KC_PSCR,  KC_SLCK,  KC_PAUS,  RESET  ,
+			    KC_TRNS,  RGB_TOG,  KC_UP,    RGB_MOD,  KC_TRNS,  KC_TRNS,  KC_CALC,  KC_TRNS,  KC_INS,   KC_TRNS,  KC_PSCR,  KC_SLCK,  KC_PAUS,  QK_BOOT  ,
 			    KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_HOME,  KC_PGUP,            KC_TRNS,
 				KC_MPRV,  KC_VOLD,  KC_VOLU,  KC_MUTE,  KC_TRNS,  KC_TRNS,  MAGIC_TOGGLE_NKRO,  KC_TRNS,  KC_TRNS,  KC_END,   KC_PGDOWN,KC_MNXT,
 				KC_TRNS,  KC_TRNS,  KC_TRNS,                      KC_TRNS,                                  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS),

@@ -1,12 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1220
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DZ60RGB_ANSI
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -23,7 +16,6 @@
  */
 #define MATRIX_ROW_PINS { B1, B10, B11, B14, B12 }
 #define MATRIX_COL_PINS { A6, A7, B0, B13, B15, A8, A15, B3, B4, B5, B8, B9, C13, C14 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

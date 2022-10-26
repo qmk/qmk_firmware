@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7463 // tc = takashicompany
-#define PRODUCT_ID   0x0013
-#define DEVICE_VER   0x0001
-#define MANUFACTURER takashicompany
-#define PRODUCT      QooLee
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 12
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { E6, B4, B5 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, D0, D4, C6, D7}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

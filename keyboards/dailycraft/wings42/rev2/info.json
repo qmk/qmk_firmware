@@ -1,7 +1,13 @@
 {
     "keyboard_name": "wings42 rev2",
+    "manufacturer": "yfuku",
     "url": "",
     "maintainer": "yfuku",
+    "usb": {
+        "vid": "0x5946",
+        "pid": "0x0005",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x6_3_2": {
             "layout": [

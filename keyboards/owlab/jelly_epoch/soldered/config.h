@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter*/
-#define VENDOR_ID       0x4F53  //0x4F53 OS for owl studio
-#define PRODUCT_ID      0x4A53  //0x4A4C JL for jelly, 0x4A53 JS for jelly solder
-#define DEVICE_VER      0x0001 
-#define MANUFACTURER    OwLab 
-#define PRODUCT         Jelly Epoch
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14

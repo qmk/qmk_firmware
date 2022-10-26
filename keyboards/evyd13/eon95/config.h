@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x8A18
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         Eon95
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 10
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS {D1,D0,D3,D2,D6,D4,D7,B4,B5,B6,C6,C7}
 #define MATRIX_COL_PINS {E6,F0,F1,F4,F5,F6,F7,B3,B2,B1}
-#define UNUSED_PINS {}
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

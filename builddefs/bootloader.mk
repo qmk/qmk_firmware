@@ -105,8 +105,8 @@ ifeq ($(strip $(BOOTLOADER)), halfkay)
     ifeq ($(strip $(MCU)), at90usb1286)
         BOOTLOADER_SIZE = 1024
     endif
-    # Teensy LC, 3.x
-    ifneq (,$(filter $(MCU_ORIG), MKL26Z64 MK20DX128 MK20DX256 MK66FX1M0))
+    # Teensy LC, 3.0, 3.1/2, 3.5, 3.6
+    ifneq (,$(filter $(MCU_ORIG), MKL26Z64 MK20DX128 MK20DX256 MK64FX512 MK66FX1M0))
         FIRMWARE_FORMAT = hex
     endif
 endif
@@ -199,6 +199,11 @@ endif
 ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_TINYUF2
     BOOTLOADER_TYPE = tinyuf2
+    FIRMWARE_FORMAT = uf2
+endif
+ifeq ($(strip $(BOOTLOADER)), rp2040)
+    OPT_DEFS += -DBOOTLOADER_RP2040
+    BOOTLOADER_TYPE = rp2040
 endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
@@ -207,6 +212,10 @@ endif
 ifeq ($(strip $(BOOTLOADER)), md-boot)
     OPT_DEFS += -DBOOTLOADER_MD_BOOT
     BOOTLOADER_TYPE = md_boot
+endif
+ifeq ($(strip $(BOOTLOADER)), wb32-dfu)
+    OPT_DEFS += -DBOOTLOADER_WB32_DFU
+    BOOTLOADER_TYPE = wb32_dfu
 endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)

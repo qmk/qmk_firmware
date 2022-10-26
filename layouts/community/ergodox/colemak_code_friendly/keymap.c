@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,         KC_A,          KC_R,          KC_S,     KC_T,            KC_D,
   KC_LSFT,        LCTL_T(KC_Z),  LGUI_T(KC_X),  KC_C,     KC_V,            RALT_T(KC_B),    KC_LCBR,
   KC_LCTL,        KC_LGUI,       KC_LALT,       KC_LBRC,  KC_RBRC,
-  
+
                                                               KC_HOME, KC_END,
                                                                       KC_PSCR,
                                             MO(LAYER_LNUM), KC_ENT,   KC_LGUI,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_F8,      KC_F7,   KC_F6,    KC_F5,    M_IN_PRN,
   KC_TRNS, KC_F4,      KC_F3,   KC_F2,    KC_F1,    M_IN_BRC,       KC_TRNS,
   KC_MUTE, KC_VOLD,    KC_VOLU, KC_TRNS,  KC_TRNS,
-  
+
                                                        KC_TRNS,   KC_TRNS,
                                                            DYN_REC_START1,
                                         KC_TRNS, KC_TRNS, DYN_MACRO_PLAY1,
@@ -126,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |  |  }   |------+------+------+------+------+--------|
  * |        |  F4  |  F3  |  F2  |  F1  |  []  |      |  |      |K/RAlt|   M  |   ,  |./Supe|/ RCtl| RShift |
  * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
- *   | MUTE | VOLD | VOLU |      |      |                              | Left | Down | Up   |Right | Del  |  
- *   '----------------------------------'                              '----------------------------------'  
+ *   | MUTE | VOLD | VOLU |      |      |                              | Left | Down | Up   |Right | Del  |
+ *   '----------------------------------'                              '----------------------------------'
  *                                      .-------------.  .-------------.
  *                                      |      |      |  | Ins  |ScrLck|
  *                               .------+------+------|  |------+------+------.
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_F8,      KC_F7,   KC_F6,    KC_F5,    M_IN_PRN,
   KC_TRNS, KC_F4,      KC_F3,   KC_F2,    KC_F1,    M_IN_BRC,       KC_TRNS,
   KC_MUTE, KC_VOLD,    KC_VOLU, KC_TRNS,  KC_TRNS,
-  
+
                                                        KC_TRNS,   KC_TRNS,
                                                            DYN_REC_START1,
                                         KC_TRNS, KC_TRNS, DYN_MACRO_PLAY1,
@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   S(KC_ESC),   S(KC_A),     S(KC_R),     S(KC_S),     S(KC_T),     S(KC_D),
   KC_LSFT,     S(KC_Z),     S(KC_X),     S(KC_C),     S(KC_V),     S(KC_B),    KC_LCBR,
   S(KC_LCTL),  S(KC_LGUI),  S(KC_LALT),  S(KC_LBRC),  S(KC_RBRC),
-  
+
                                                               S(KC_HOME), S(KC_END),
                                                                          S(KC_PSCR),
                                                    KC_CAPS, S(KC_ENT),   S(KC_LGUI),
@@ -227,7 +227,7 @@ static bool process_record_dynamic_macro_wrapper(uint16_t keycode, keyrecord_t *
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  
+
   /* the purpose of the ..._wrapper is to detect START/ST0P keys to
      light the blue led during recording */
   if (!process_record_dynamic_macro_wrapper(keycode, record)) {
@@ -308,19 +308,19 @@ void matrix_init_user(void) {
 
 /* Runs constantly in the background, in a loop. */
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   //led 1, RED, Caps-Lock ON
   //if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ergodox_right_led_1_on();
 
   //led 2, GREEN
-  if (layer == LAYER_NUM) 
+  if (layer == LAYER_NUM)
       ergodox_right_led_2_on();
   else
       ergodox_right_led_2_off();
 
   //led 3, BLUE
-  if (recording_dynamic_macro) 
+  if (recording_dynamic_macro)
       ergodox_right_led_3_on();
   else
       ergodox_right_led_3_off();

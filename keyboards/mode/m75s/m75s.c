@@ -18,6 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "m75s.h"
 
 void board_init(void) {
-    setPinInput(B9);
     setPinInput(B10);
 }

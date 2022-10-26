@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_ADJUST] = LAYOUT(
-  RESET,
+  QK_BOOT,
   HPT_TOG, HPT_FBK,  HPT_RST, KC_BSPC,
   _______, HPT_MODI, XXXXXXX, XXXXXXX,
   _______, HPT_MODD, CK_TOGG, KC_DEL

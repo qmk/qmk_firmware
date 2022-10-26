@@ -57,12 +57,20 @@
 #    define ISSI_PERSISTENCE 0
 #endif
 
+#ifndef ISSI_PWM_FREQUENCY
+#    define ISSI_PWM_FREQUENCY 0b000 // PFS - IS31FL3737B only
+#endif
+
 #ifndef ISSI_SWPULLUP
 #    define ISSI_SWPULLUP PUR_0R
 #endif
 
 #ifndef ISSI_CSPULLUP
 #    define ISSI_CSPULLUP PUR_0R
+#endif
+
+#ifndef ISSI_GLOBALCURRENT
+#    define ISSI_GLOBALCURRENT 0xFF
 #endif
 
 // Transfer buffer for TWITransmitData()
@@ -157,9 +165,9 @@ void IS31FL3737_init(uint8_t addr) {
     // Set de-ghost pull-down resistors (CSx)
     IS31FL3737_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
-    IS31FL3737_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
+    IS31FL3737_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
     // Disable software shutdown.
-    IS31FL3737_write_register(addr, ISSI_REG_CONFIGURATION, 0x01);
+    IS31FL3737_write_register(addr, ISSI_REG_CONFIGURATION, ((ISSI_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);

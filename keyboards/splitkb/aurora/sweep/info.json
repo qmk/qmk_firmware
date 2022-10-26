@@ -1,0 +1,67 @@
+{
+    "manufacturer": "splitkb.com",
+    "url": "https://splitkb.com/products/aurora-sweep-pcb-kit",
+    "maintainer": "splitkb",
+    "usb": {
+        // pid is not defined here as that is
+        // revision-specific due to VIA limitations
+        "vid": "0x8D1D",
+        "device_version": "1.0.0"
+    },
+    // Technically it only uses Pro Micro pins,
+    // but most people buy the Elite-C controller
+    // so we want to use the atmel-dfu bootloader.
+    "development_board": "elite_c",
+    "split": {
+        "enabled": true
+    },
+    "build": {
+        "lto": true
+    },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_split_3x5_2"
+    },
+    "layouts": {
+        "LAYOUT_split_3x5_2": {
+            "layout": [
+                {"label": "L01", "x":  0, "y": 0.93},
+                {"label": "L02", "x":  1, "y": 0.31},
+                {"label": "L03", "x":  2, "y": 0},
+                {"label": "L04", "x":  3, "y": 0.28},
+                {"label": "L05", "x":  4, "y": 0.42},
+                {"label": "R05", "x":  7, "y": 0.42},
+                {"label": "R04", "x":  8, "y": 0.28},
+                {"label": "R03", "x":  9, "y": 0},
+                {"label": "R02", "x": 10, "y": 0.31},
+                {"label": "R01", "x": 11, "y": 0.93},
+
+                {"label": "L06", "x":  0, "y": 1.93},
+                {"label": "L07", "x":  1, "y": 1.31},
+                {"label": "L08", "x":  2, "y": 1},
+                {"label": "L09", "x":  3, "y": 1.28},
+                {"label": "L10", "x":  4, "y": 1.42},
+                {"label": "R10", "x":  7, "y": 1.42},
+                {"label": "R09", "x":  8, "y": 1.28},
+                {"label": "R08", "x":  9, "y": 1},
+                {"label": "R07", "x": 10, "y": 1.31},
+                {"label": "R06", "x": 11, "y": 1.93},
+
+                {"label": "L11", "x":  0, "y": 2.93},
+                {"label": "L12", "x":  1, "y": 2.31},
+                {"label": "L13", "x":  2, "y": 2},
+                {"label": "L14", "x":  3, "y": 2.28},
+                {"label": "L15", "x":  4, "y": 2.42},
+                {"label": "R15", "x":  7, "y": 2.42},
+                {"label": "R14", "x":  8, "y": 2.28},
+                {"label": "R13", "x":  9, "y": 2},
+                {"label": "R12", "x": 10, "y": 2.31},
+                {"label": "R11", "x": 11, "y": 2.93},
+
+                {"label": "L16", "x": 3.5, "y": 3.75},
+                {"label": "L17", "x": 4.5, "y": 4},
+                {"label": "R17", "x": 6.5, "y": 4},
+                {"label": "R16", "x": 7.5, "y": 3.75}
+            ]
+        }
+    }
+}

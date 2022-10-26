@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  KC_0,     KC_DOT,   KC_ENT,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______),
 
   [_ADJUST]   = LAYOUT_ortho_4x12(
-      _______,  NK_ON,    NK_OFF,   EEP_RST,  RESET,    KC_MSTP,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  KC_BTN2,  KC_INS,  \
+      _______,  NK_ON,    NK_OFF,   EEP_RST,  QK_BOOT,  KC_MSTP,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  KC_BTN2,  KC_INS,  \
       _______,  GE_SWAP,  GE_NORM,  DEBUG,    AG_SWAP,  AG_NORM,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  _______, \
       _______,  KC_LYRC,  KC_FIRST, KC_CAPS,  KC_NO,    KC_MPRV,  KC_MNXT,  KC_MUTE,  KC_ACL0,  KC_ACL1,  KC_ACL2,  _______, \
       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______)

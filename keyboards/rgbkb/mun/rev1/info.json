@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Mun",
+    "keyboard_name": "Mün",
+    "manufacturer": "RGBKB",
     "url": "https://www.rgbkb.net/products/mun",
     "maintainer": "Legonut",
+    "usb": {
+        "vid": "0x3535",
+        "pid": "0x3505",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

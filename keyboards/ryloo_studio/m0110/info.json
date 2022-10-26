@@ -1,7 +1,13 @@
 {
     "keyboard_name": "M0110",
+    "manufacturer": "Ryloo studio",
     "url": "https://drop.com/buy/ryloo-studio-hello-m0110-mechanical-keyboard-kit",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x614D",
+        "pid": "0x1000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

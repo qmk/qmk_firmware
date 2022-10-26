@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6666
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    bpiphany
-#define PRODUCT         sixshooter
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
@@ -18,7 +11,6 @@
     { F7, F6, F1 }, \
     { F5, F4, F0 } \
 }
-#define UNUSED_PINS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

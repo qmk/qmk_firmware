@@ -20,12 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x8E81  // Yugo-M
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IBM
-#define PRODUCT         Yugo-M (Model M replacement controller)
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
@@ -42,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B8, B7, B6, B5, B4, B3, A15, A14 }
 #define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4, A3 }
-#define UNUSED_PINS { A0, A1, A2, A10, A13, B9, C13, C14, C15 }
 
 
 

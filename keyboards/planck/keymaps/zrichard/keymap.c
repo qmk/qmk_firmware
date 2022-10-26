@@ -206,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
   | XXXXXX | BRTOG  | BRSPD+ | BRSPD- | BRDFLT | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX |
   |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-  | XXXXXX | QWERTY | XXXXXX | XXXXXX | BACKLT | RESET  | XXXXXX | MOUSE  | XXXXXX | XXXXXX | VOICE+ | MACRO  |
+  | XXXXXX | QWERTY | XXXXXX | XXXXXX | BACKLT | QK_BOOT  | XXXXXX | MOUSE  | XXXXXX | XXXXXX | VOICE+ | MACRO  |
   |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
   | XXXXXX | XXXXXX | XXXXXX | XXXXXX | LOWER  | XXXXXX | XXXXXX | UPPER  | XXXXXX | TEMPO- | VOICE- | TEMPO+ |
   '-----------------------------------------------------------------------------------------------------------'
@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LAYER_ADJUST] = LAYOUT_planck_grid(
    XXXXXXX, M_HELP1, M_HELP2, M_HELP3, M_HELP4, M_HELP5, M_HELP6, M_HELP7, M_HELP8, M_HELP9, MU_TOG , AU_TOG  ,
    XXXXXXX, M_BRTOG, M_BSPDU, M_BSPDD, M_BDFLT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX ,
-   XXXXXXX, M_QWRTY, XXXXXXX, XXXXXXX, M_BACKL, RESET  , XXXXXXX, M_MOUSE, XXXXXXX, XXXXXXX, MUV_IN , MY_MACRO,
+   XXXXXXX, M_QWRTY, XXXXXXX, XXXXXXX, M_BACKL, QK_BOOT, XXXXXXX, M_MOUSE, XXXXXXX, XXXXXXX, MUV_IN , MY_MACRO,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_LOWER, XXXXXXX, XXXXXXX, M_UPPER, XXXXXXX, TMPO_DN, MUV_DE , TMPO_UP
 ),
 

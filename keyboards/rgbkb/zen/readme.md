@@ -20,8 +20,6 @@ Make example for this keyboard (after setting up your build environment):
 
 To build for a Proton-C:
 
-    make rgbkb/zen/rev2:default CTPC=yes
-
-**Note:** The Proton-C does not have split keyboard, or encoder support. Also OLED driver support is untested. Will update as status changes.
+    make rgbkb/zen/rev2:default CONVERT_TO=proton_c
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

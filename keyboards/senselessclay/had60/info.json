@@ -1,7 +1,13 @@
 {
     "keyboard_name": "had60",
+    "manufacturer": "senselessclay",
     "url": "https://senselessclay.com/",
     "maintainer": "hadi",
+    "usb": {
+      "vid": "0x4849",
+      "pid": "0x060F",
+      "device_version": "0.0.1"
+    },
     "layouts": {
       "LAYOUT_all": {
           "layout": [

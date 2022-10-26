@@ -16,8 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "joystick.h"
-
 enum layer_names {
   NORMAL_LAYER = 0
 };
