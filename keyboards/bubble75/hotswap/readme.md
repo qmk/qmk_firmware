@@ -1,6 +1,6 @@
 # Bubble75
 
-![Bubble75](![image](https://user-images.githubusercontent.com/31980883/198081952-dd1b555a-54e0-4363-9819-de6f5c1abae5.png))
+![Bubble75](![image](https://pbs.twimg.com/media/FaAS6k2XwAEZJPm?format=jpg&name=4096x4096))
 
 A compact exploded F-Row 75% made by Velocifire.
 
