@@ -82,13 +82,10 @@ void matrix_init_user(void) {
   writePinLow(GP6);
 }
 
-bool led_update_user(led_t led_state) {
-    if(res) {
-        writePin(GP4, led_state.num_lock);
-        writePin(GP5, led_state.caps_lock);
-        //writePin(B2, led_state.scroll_lock);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    writePin(GP4, led_state.num_lock);
+    writePin(GP5, led_state.caps_lock);
+    writePin(GP6, led_state.scroll_lock);
 }
 
 static uint16_t type_count = 0;
