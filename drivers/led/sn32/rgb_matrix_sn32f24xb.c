@@ -63,8 +63,8 @@ static uint8_t row_idx                         = 0;   // key row scan counter
 extern matrix_row_t raw_matrix[MATRIX_ROWS];    // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];        // debounced values
 static matrix_row_t shared_matrix[MATRIX_ROWS]; // scan values
-static bool         matrix_locked  = false;     // matrix update check
-static bool         matrix_scanned = false;
+static volatile bool matrix_locked  = false;     // matrix update check
+static volatile bool matrix_scanned = false;
 #endif
 static const uint32_t periodticks                      = 256;
 static const uint32_t freq                             = (RGB_MATRIX_HUE_STEP * RGB_MATRIX_SAT_STEP * RGB_MATRIX_VAL_STEP * RGB_MATRIX_SPD_STEP * RGB_MATRIX_LED_PROCESS_LIMIT);
