@@ -326,6 +326,13 @@ static void update_pwm_channels(PWMDriver *pwmp) {
             default:;
         }
     }
+#ifdef MATRIX_NO_SCAN
+#    if (DIODE_DIRECTION == ROW2COL)
+        // The whole matrix has been scanned
+        matrix_locked = false;
+        matrix_scanned = true;
+#    endif // DIODE_DIRECTION == ROW2COL
+#endif     // MATRIX_NO_SCAN
 }
 static void rgb_callback(PWMDriver *pwmp) {
     chSysLockFromISR();
