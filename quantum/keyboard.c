@@ -252,12 +252,12 @@ __attribute__((weak)) void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-/** \brief is_matrix_locked
+/** \brief matrix_available
  *
- * FIXME: needs doc
+ * Override this function if you have a condition where matrix tasks should not be available
  */
-__attribute__((weak)) bool is_matrix_locked(void) {
-    return false;
+__attribute__((weak)) bool matrix_available(void) {
+    return true;
 }
 
 /** \brief keyboard_setup
@@ -459,7 +459,7 @@ static inline void generate_tick_event(void) {
 static bool matrix_task(void) {
     bool matrix_changed = false;
 
-    if (is_matrix_locked()) {
+    if (!matrix_available()) {
         generate_tick_event();
         return matrix_changed;
     } else {
