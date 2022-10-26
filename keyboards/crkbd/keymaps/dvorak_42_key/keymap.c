@@ -110,7 +110,7 @@ TO(BASE),KC_TRNS,SCREEN_PASTEREG_3,SCREEN_PASTEREG_2,SCREEN_PASTEREG_1,SCREEN_DE
 
   [VSCODE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                             ,-----------------------------------------------------.
-TO(BASE), KC_TRNS, KC_TRNS, VS_CMT_BLOCK, VS_CMT_LINE, VS_BM_LISTALL,                     VS_COPYLINEDOWN, VS_REFERENCES, VS_DEFINITION, VS_IMPLEMENTATION, VS_LINE,   VS_BRACKET,
+TO(BASE), KC_TRNS, VS_FIND_FILES, VS_CMT_BLOCK, VS_CMT_LINE, VS_BM_LISTALL,                     VS_COPYLINEDOWN, VS_REFERENCES, VS_DEFINITION, VS_IMPLEMENTATION, VS_LINE,   VS_BRACKET,
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 KC_TRNS, KC_TRNS, VS_TOGGLE_TERMINAL, VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR, VS_BM_LIST,    VS_CLOSETAB,     VS_TABLEFT,    VS_TABRIGHT,   VS_SYMBOLEDITOR,   VS_FILE,   VS_BACK,
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|

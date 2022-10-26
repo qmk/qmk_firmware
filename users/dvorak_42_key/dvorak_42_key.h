@@ -162,6 +162,9 @@ enum custom_keycodes {
 #define VS_DEL_LEFT         HYPR(KC_E) // deleteAllLeft
 #define VS_DEL_RIGHT        HYPR(KC_F) // deleteAllRight
 
+// search operations
+#define VS_FIND_FILES       HYPR(KC_G) // workbench.action.findInFiles
+
 
 // unused vscode shortcuts
 // #define VS_BM_LIST LCTL(LALT(KC_L))
