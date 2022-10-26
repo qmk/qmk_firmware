@@ -2,6 +2,11 @@
     "keyboard_name": "Keychron K8 Pro",
     "url": "https://github.com/Keychron",
     "maintainer": "lokher",
+    "usb": {
+    	"vid": "0x3434",
+    	"pid": "0x0281",
+    	"device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT_iso_88": {
             "layout": [

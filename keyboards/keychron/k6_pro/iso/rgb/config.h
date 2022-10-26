@@ -14,22 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#define PRODUCT_ID      0x0280
-#define DEVICE_VER      0x0101
-
 #ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix driver configuration */
 #    define DRIVER_COUNT 2
 
 #    define DRIVER_ADDR_1 0b1110111
 #    define DRIVER_ADDR_2 0b1110100
-#    define DRIVER_1_LED_TOTAL 47
-#    define DRIVER_2_LED_TOTAL 40
+#    define DRIVER_1_LED_TOTAL 31
+#    define DRIVER_2_LED_TOTAL 38
 #    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* Set to infinit, which is use in USB mode by default */
-#define RGB_DISABLE_TIMEOUT RGB_DISABLE_TIME_INFINITE
+#    define RGB_DISABLE_TIMEOUT RGB_DISABLE_TIME_INFINITE
 /* Allow shutdown of led driver to save power */
 #    define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 /* Turn off backlight on low brightness to save power */
@@ -46,7 +42,6 @@
 
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
 // #    define ENABLE_RGB_MATRIX_ALPHAS_MODS
 // #    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 // #    define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -67,7 +62,7 @@
 #    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
 #    define ENABLE_RGB_MATRIX_DUAL_BEACON
 #    define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-// #    define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+//#    define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 //#    define ENABLE_RGB_MATRIX_RAINDROPS
 #    define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 //#    define ENABLE_RGB_MATRIX_HUE_BREATHING
@@ -97,5 +92,8 @@
 
 /* Set LED driver current */
 #    define CKLED2001_CURRENT_TUNE   {0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38}
+
+#    define DIM_CAPS_LOCK
+#    define CAPS_LOCK_INDEX    30
 
 #endif

@@ -29,6 +29,7 @@
 #    define USER_START SAFE_RANGE
 #endif
 
+// clang-format off
 enum {
     KC_LOPTN = USER_START,
     KC_ROPTN,
@@ -48,7 +49,6 @@ enum {
 #endif
     BAT_LVL,
 };
-
 
 #define LAYOUT_ansi_87( \
 	K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,      K0E, K0F, K0G, \

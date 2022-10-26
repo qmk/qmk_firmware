@@ -14,18 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#define PRODUCT_ID      0x0280
-#define DEVICE_VER      0x0101
-
 #ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix driver configuration */
 #    define DRIVER_COUNT 2
 
 #    define DRIVER_ADDR_1 0b1110111
 #    define DRIVER_ADDR_2 0b1110100
-#    define DRIVER_1_LED_TOTAL 47
-#    define DRIVER_2_LED_TOTAL 40
+#    define DRIVER_1_LED_TOTAL 30
+#    define DRIVER_2_LED_TOTAL 38
 #    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* Set to infinit, which is use in USB mode by default */
@@ -97,5 +93,8 @@
 
 /* Set LED driver current */
 #    define CKLED2001_CURRENT_TUNE   {0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38, 0x38}
+
+#    define DIM_CAPS_LOCK
+#    define CAPS_LOCK_INDEX    30
 
 #endif

@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
+// clang-format off
 enum layers{
   MAC_BASE,
   MAC_FN,

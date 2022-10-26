@@ -70,10 +70,6 @@ static uint8_t host_led_matrix_list[HOST_DEVICES_COUNT] = HOST_LED_MATRIX_LIST;
 static pin_t host_led_pin_list[HOST_DEVICES_COUNT] = HOST_LED_PIN_LIST;
 #endif
 
-#ifndef BACKLIGHT_TURN_OFF_VALUE
-#    define BACKLIGHT_TURN_OFF_VALUE 32
-#endif
-
 #ifdef LED_MATRIX_ENABLE
 #    define LED_DRIVER led_matrix_driver
 #    define LED_INDICATORS_KB led_matrix_indicators_kb
@@ -165,7 +161,6 @@ bool indicator_is_running(void) {
 }
 
 static void indicator_timer_cb(void *arg) {
-uprintf("indicator_timer_cb: %02x\n", (uint8_t)(*(indicator_type_t *)arg));
     if (*(indicator_type_t *)arg != INDICATOR_LAST) type = *(indicator_type_t *)arg;
 
     bool time_up = false;
