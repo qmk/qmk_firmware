@@ -2,11 +2,6 @@
 
 #include "config_common.h"
 
-#undef PRODUCT
-#define PRODUCT    Planck Light
-#define PRODUCT_ID 0xBEA2
-#define DEVICE_VER 0x0001
-
 #undef MATRIX_ROW_PINS
 #undef MATRIX_COL_PINS
 

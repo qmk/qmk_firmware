@@ -15,20 +15,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6653
-#define PRODUCT_ID      0x3371
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mokey
-#define PRODUCT         xox70hot
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 18
 
 #define MATRIX_ROW_PINS { F7, B7, F5, F1, B0 }
 #define MATRIX_COL_PINS { F6, C7, F4, F5, F1, B6, D0, D2, D3, D1, D7, D4, D5, D6, B4, B5, C6, B7 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 

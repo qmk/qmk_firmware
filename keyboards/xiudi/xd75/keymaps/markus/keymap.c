@@ -163,7 +163,7 @@ KC_F13,   KC_F14,   KC_F15,   KC_F16,   KC_F17,   KC_F18,   KC_BRID,  ___xx___, 
 ________, QWERTZ,   UC_M_LN,  ___xx___, ___xx___, KC_PWR,   RGB_TOG,  RGB_M_P,  RGB_MOD,  ___xx___, KC_PGUP,  KC_UP,    KC_PGDN,  ___xx___, ___xx___,
 ________, QWERTY,   UC_M_WC,  UC(L'›'), UC(L'‹'), KC_SLEP,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_END,   ________,
 ________, GAMING,   UC_M_MA,  UC(L'»'), UC(L'«'), KC_WAKE,  RGB_HUD,  RGB_SAD,  RGB_VAD,  UC(L' '), UC(L' '), UC(L' '), UC(L' '), UC(L'‑'), ________,
-________, ________, ________, ________, ________, ________, ________, RESET,    ________, ________, ________, ________, ________, ________, ________
+________, ________, ________, ________, ________, ________, ________, QK_BOOT,  ________, ________, ________, ________, ________, ________, ________
 )
 
 };

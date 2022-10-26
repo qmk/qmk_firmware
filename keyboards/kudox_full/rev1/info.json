@@ -1,7 +1,13 @@
 {
+    "keyboard_name": "The Kudox Full Keyboard Rev1",
+    "manufacturer": "Kumao Kobo",
     "url": "http://kumaokobo.com/",
     "maintainer": "Kumao Kobo",
-    "keyboard_name": "Kudox Full Keyboard Rev1",
+    "usb": {
+        "vid": "0xABBA",
+        "pid": "0x9693",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

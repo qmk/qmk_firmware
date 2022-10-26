@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "stickey4",
+    "manufacturer": "yfuku",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5946",
+        "pid": "0x0010",
+        "device_version": "0.0.1"
+    }
+}

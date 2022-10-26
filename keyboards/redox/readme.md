@@ -41,7 +41,7 @@ qmk flash
 ```
 Enter the bootloader when prompted by doing one of the following:
 * **Physical reset button**: Briefly press the button on the back of the PCB
-* **Keycode in layout**: Press the key mapped to `RESET` if you have a layout that has one.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if you have a layout that has one.
 
 The WS2812 driver is *untested* on the Proton C, but if you choose to use this feature, you will need to source 5v from the Proton's VUSB pin and not use the PCB's dedicated pin which will be 3v3 *and* follow the [documentation](https://docs.qmk.fm/#/ws2812_driver) to enable the correct driver settings.
 

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Resume1800",
+    "manufacturer": "CrimsonKeyboards",
     "url": "",
     "maintainer": "CrimsonKeyboards",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xC18B",
+        "device_version": "0.0.1"
+    },
     "layouts": {
 		"LAYOUT_resume1800_ansi_all": {
             "layout": [

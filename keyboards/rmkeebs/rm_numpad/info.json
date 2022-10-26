@@ -1,7 +1,13 @@
 {
     "keyboard_name": "rm_numpad",
+    "manufacturer": "RMKeebs",
     "url": "https://www.rmkeebs.com/product/rm-numpad/",
     "maintainer": "RuckerMachine",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x524E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

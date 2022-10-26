@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xB141
-#define PRODUCT_ID      0x0602 //F is 6th in alphabet, 02 as in DUO
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ParyzFilip
-#define PRODUCT         Freoduo
-
 /* key matrix size */
 /* rows are doubled-up */
 #define MATRIX_ROWS 10

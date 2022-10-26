@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xE0E0
-#define PRODUCT_ID      0x0030
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Aplyard
-#define PRODUCT         Aplx2
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 2
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* pin-out */
 #define MATRIX_ROW_PINS { D1 }
 #define MATRIX_COL_PINS { B5, D3 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

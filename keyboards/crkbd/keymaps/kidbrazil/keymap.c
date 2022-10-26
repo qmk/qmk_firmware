@@ -182,13 +182,13 @@ bool oled_task_user(void) {
             master_oled_cleared = true;
         }
         render_logo();
-        return;
+        return false;
     }
     // Drashna style timeout for LED and OLED Roughly 8mins
     else if (timer_elapsed32(oled_timer) > 480000) {
         oled_off();
         rgb_matrix_disable_noeeprom();
-        return;
+        return false;
     }
     else {
         oled_on();

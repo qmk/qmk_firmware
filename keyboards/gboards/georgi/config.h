@@ -30,13 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 #define IGNORE_MOD_TAP_INTERRUPT
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1337
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    g Heavy Industries 
-#define PRODUCT         Georgi
-
 /* key matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)

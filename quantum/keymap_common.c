@@ -47,10 +47,9 @@ action_t action_for_keycode(uint16_t keycode) {
     keycode = keycode_config(keycode);
 
     action_t action = {};
-    uint8_t  action_layer, when, mod;
+    uint8_t  action_layer, mod;
 
     (void)action_layer;
-    (void)when;
     (void)mod;
 
     switch (keycode) {
@@ -85,9 +84,8 @@ action_t action_for_keycode(uint16_t keycode) {
             break;
         case QK_TO ... QK_TO_MAX:;
             // Layer set "GOTO"
-            when         = (keycode >> 0x4) & 0x3;
-            action_layer = keycode & 0xF;
-            action.code  = ACTION_LAYER_SET(action_layer, when);
+            action_layer = keycode & 0xFF;
+            action.code  = ACTION_LAYER_GOTO(action_layer);
             break;
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:;
             // Momentary action_layer

@@ -19,20 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x504B
-#define PRODUCT_ID      0x1000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Ace of Spades
-#define PRODUCT         Ace of Spades TKL
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
 
 #define MATRIX_ROW_PINS { D3, D2, B7, F1, C7, D5 }
 #define MATRIX_COL_PINS { B0, B1, B2, B3, F4, F5, F6, F7, B6, B5, D7, B4, D6, F0, D1, C6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

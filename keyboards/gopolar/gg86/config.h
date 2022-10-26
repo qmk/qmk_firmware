@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x0007
-#define PRODUCT_ID      0x0007
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Gopolar
-#define PRODUCT         GG86 Tai-Chi
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -41,9 +34,6 @@
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
 
 /* Use the custom font */
 #define OLED_FONT_H "lib/glcdfont.c"

@@ -1,3 +1,1 @@
-BACKLIGHT_ENABLE = yes
-RGBLIGHT_ENABLE = yes
-ENCODER_ENABLE = yes
+# This file intentionally left blank

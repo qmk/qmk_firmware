@@ -1,7 +1,13 @@
 {
     "keyboard_name": "namecard2x4", 
+    "manufacturer": "takashiski",
     "url": "https://skyhigh-works.hatenablog.com/", 
     "maintainer": "takashiski", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "bootloader": "atmel-dfu", 
     "layouts": {
         "LAYOUT": {

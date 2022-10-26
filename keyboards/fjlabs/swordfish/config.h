@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7074 // FJLaboratories
-#define PRODUCT_ID   0x0024 // Swordfish
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    FJLaboratories
-#define PRODUCT         Swordfish
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -44,7 +37,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Checked with Eagle Schematic
 #define MATRIX_ROW_PINS { B0, B1, C7, C6, B6 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, B2, B3, B7, B5, B4, D7, D6, D4, D5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

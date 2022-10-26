@@ -19,20 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x5959
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Red Scarf
-#define PRODUCT         Red Scarf I
-
 /* Matrix */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D4, D5 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7 }
-#define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
 /* Backlight */

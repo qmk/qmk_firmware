@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Sunsetter",
+    "manufacturer": "CharueDesign",
     "url": "https://charue-design.com/products/sunsetter",
     "maintainer": "coarse",
+    "usb": {
+        "vid": "0x4344",
+        "pid": "0x5353",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

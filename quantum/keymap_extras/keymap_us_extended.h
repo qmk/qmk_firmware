@@ -145,7 +145,7 @@
 #define US_CURR ALGR(US_4)    // ¤
 #define US_EURO ALGR(US_5)    // €
 #define US_DCIR ALGR(US_6)    // ^ (dead)
-#define US_HORN ALGR(US_7)    // ̛̛  (dead)
+#define US_HORN ALGR(US_7)    // ̛  (dead)
 #define US_OGON ALGR(US_8)    // ˛ (dead)
 #define US_LSQU ALGR(US_9)    // ‘
 #define US_RSQU ALGR(US_0)    // ’

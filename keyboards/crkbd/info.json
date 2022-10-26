@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "crkbd rev. 1",
+  "keyboard_name": "Corne",
+  "manufacturer": "foostan",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4653",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_split_3x6_3": {
       "layout": [

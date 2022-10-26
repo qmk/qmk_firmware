@@ -15,6 +15,7 @@ from milc.questions import yesno
 import_names = {
     # A mapping of package name to importable name
     'pep8-naming': 'pep8ext_naming',
+    'pyserial': 'serial',
     'pyusb': 'usb.core',
     'qmk-dotty-dict': 'dotty_dict',
     'pillow': 'PIL'
@@ -59,6 +60,9 @@ subcommands = [
     'qmk.cli.generate.rules_mk',
     'qmk.cli.generate.version_h',
     'qmk.cli.hello',
+    'qmk.cli.import.kbfirmware',
+    'qmk.cli.import.keyboard',
+    'qmk.cli.import.keymap',
     'qmk.cli.info',
     'qmk.cli.json2c',
     'qmk.cli.lint',
@@ -91,7 +95,7 @@ def _install_deps(requirements):
 
     elif not os.access(sys.prefix, os.W_OK):
         # We can't write to sys.prefix, attempt to install locally
-        command.append('--local')
+        command.append('--user')
 
     return _run_cmd(*command, '-r', requirements)
 

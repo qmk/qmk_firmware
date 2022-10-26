@@ -21,12 +21,6 @@ Ported to QMK by Techsock <info@techsock.com>
 
 #pragma once
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0110
-#define DEVICE_VER      0x0101
-#define MANUFACTURER    Apple
-#define PRODUCT         M0110(A)
-
 /* matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 8

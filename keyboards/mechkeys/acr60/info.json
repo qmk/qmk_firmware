@@ -1,7 +1,13 @@
 {
     "keyboard_name": "ACR60",
+    "manufacturer": "MechKeys",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xCA60",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_2_shifts": "LAYOUT_all"
     },

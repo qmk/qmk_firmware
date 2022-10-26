@@ -18,7 +18,7 @@
  * qmk compile -kb kinesis/kint41 -km farmergreg
  *
  * Layout Details:
- * PROGM + F9 to RESET and load new firmware.
+ * PROGM + F9 to QK_BOOT and load new firmware.
  * Colemak (default / PROGM+C), Dvorak (PROGM + F4) and QWERTY (PROGM+F3) layouts are available for use
  * CAPS LOCK is ESC (for use in VIM). Double tap to activate CAPS Lock
  * UP and DOWN arrows are swapped to be more like VIM
@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[_LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
 				_______,
 			_______,_______,_______,
 
-	RESET  ,_______,_______,_______,_______,_______,_______,_______,_______,
+	QK_BOOT,_______,_______,_______,_______,_______,_______,_______,_______,
 	_______,_______,_______,_______,_______,_______,
 	_______,_______,_______,_______,_______,_______,
 	_______,_______,_______,_______,_______,_______,

@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6535
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         IBM Terminal Keyboard
-
-
 /* matrix size */
 #define MATRIX_ROWS 17  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4

@@ -114,7 +114,7 @@ The audio core offers interface functions to get/set/change the tone multiplexin
 There's a couple of different sounds that will automatically be enabled without any other configuration:
 ```
 STARTUP_SONG // plays when the keyboard starts up (audio.c)
-GOODBYE_SONG // plays when you press the RESET key (quantum.c)
+GOODBYE_SONG // plays when you press the QK_BOOT key (quantum.c)
 AG_NORM_SONG // plays when you press AG_NORM (quantum.c)
 AG_SWAP_SONG // plays when you press AG_SWAP (quantum.c)
 CG_NORM_SONG // plays when you press CG_NORM (quantum.c)
@@ -177,7 +177,7 @@ The available keycodes for audio are:
 |`AUDIO_INIT_DELAY`               | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.        |
 |`AUDIO_ENABLE_TONE_MULTIPLEXING` | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.     |
 |`STARTUP_SONG`                   | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                    |
-|`GOODBYE_SONG`                   | `GOODBYE_SOUND`      |Plays when you press the RESET key (quantum.c)                                 |
+|`GOODBYE_SONG`                   | `GOODBYE_SOUND`      |Plays when you press the QK_BOOT key (quantum.c)                               |
 |`AG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press AG_NORM (process_magic.c)                                 |
 |`AG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press AG_SWAP (process_magic.c)                                 |
 |`CG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press CG_NORM (process_magic.c)                                 |

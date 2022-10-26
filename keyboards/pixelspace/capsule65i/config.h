@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xE061
-#define PRODUCT_ID      0xE66E
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    PixelSpace
-#define PRODUCT         Capsule65i
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16

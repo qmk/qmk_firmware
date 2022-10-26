@@ -6,9 +6,6 @@
 #ifdef AUTOCORRECTION_ENABLE
 #    include "autocorrection/autocorrection.h"
 #endif
-#ifdef __AVR__
-#    include <avr/wdt.h>
-#endif
 
 uint16_t copy_paste_timer;
 bool     host_driver_disabled = false;
@@ -49,7 +46,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %1d, time: %5u, int: %1d, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif // KEYLOGGER_ENABLE
 #if defined(OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
     process_record_user_oled(keycode, record);

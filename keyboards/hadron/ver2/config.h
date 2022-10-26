@@ -16,9 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0002
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -26,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Hadron Ver0 PCB default pin-out */
 #define MATRIX_ROW_PINS { D7, E6, B4, B5, B6 }
 #define MATRIX_COL_PINS { F6, F7, D6, C7, F5, F4, F1, F0, D2, D3, D5, B3, B2, B1, B0 }
-#define UNUSED_PINS
 
 // configure oled driver for the 128x32 oled
 #define OLED_UPDATE_INTERVAL 33 // ~30fps

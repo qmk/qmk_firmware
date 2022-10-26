@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FN1] = LAYOUT_all(
   QM_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  MC_LHPD, MC_MSSN, MC_SLPD, \
-  RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RESET,   _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  KC_DEL,           KC_VOLU, \
+  RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, QK_BOOT, _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  KC_DEL,           KC_VOLU, \
   _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, QM_KYMP, _______, _______, _______,          TG_ADJT,          KC_VOLD, \
   _______, XXXXXXX, RGB_TOG, RGB_LYR, RGB_THM, QM_VRSN, _______, _______, _______, KC_MPRV, KC_MNXT, KC_MPLY, _______,          KC_PGUP, KC_MUTE, \
   _______, _______, _______,                   XXXXXXX, _______, XXXXXXX,                   _______, _______, XXXXXXX, KC_HOME, KC_PGDN, KC_END ),
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_all(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_ADJT,          XXXXXXX, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,          XXXXXXX, XXXXXXX, \
   _______, _______, _______,                   XXXXXXX, XXXXXXX, XXXXXXX,                   _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),

@@ -15,7 +15,6 @@
         #define DRIVER_LED_TOTAL 27  // -4 disabled underglow LEDs
     #endif
 
-    // #define RGBLIGHT_ANIMATIONS  // don't use, please explicitly define
     // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  // don't use, too few key to make it look good
     #define RGB_MATRIX_KEYPRESSES
 

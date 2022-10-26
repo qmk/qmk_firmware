@@ -1,7 +1,13 @@
 {
     "keyboard_name": "tkl",
+    "manufacturer": "superuser",
     "url": "",
     "maintainer": "kaylanm",
+    "usb": {
+        "vid": "0x5355",
+        "pid": "0x544B",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_tkl": "LAYOUT_all"
     },

@@ -1,8 +1,5 @@
 #pragma once
 
-#define PRODUCT_ID      0xDEF2
-#define DEVICE_VER      0x0001
-
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 13

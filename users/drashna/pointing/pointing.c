@@ -22,7 +22,7 @@ __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t 
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    int8_t x = mouse_report.x, y = mouse_report.y;
+    mouse_xy_report_t x = mouse_report.x, y = mouse_report.y;
     mouse_report.x = 0;
     mouse_report.y = 0;
 
@@ -33,8 +33,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 #endif
         if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
             if (enable_acceleration) {
-                x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
-                y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
+                x = (mouse_xy_report_t)(x > 0 ? x * x / 16 + x : -x * x / 16 + x);
+                y = (mouse_xy_report_t)(y > 0 ? y * y / 16 + y : -y * y / 16 + y);
             }
             mouse_report.x = x;
             mouse_report.y = y;

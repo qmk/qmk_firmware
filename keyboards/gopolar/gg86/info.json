@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "GG86", 
+    "keyboard_name": "GG86 Tai-Chi", 
+    "manufacturer": "Gopolar",
     "url": "", 
     "maintainer": "Gopolar", 
+    "usb": {
+        "vid": "0x0007",
+        "pid": "0x0007",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
