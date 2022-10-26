@@ -119,7 +119,7 @@ uint32_t last_input_activity_elapsed(void) {
 
 static uint32_t last_matrix_modification_time = 0;
 uint32_t        last_matrix_activity_time(void) {
-           return last_matrix_modification_time;
+    return last_matrix_modification_time;
 }
 uint32_t last_matrix_activity_elapsed(void) {
     return timer_elapsed32(last_matrix_modification_time);
