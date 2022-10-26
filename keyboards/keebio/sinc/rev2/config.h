@@ -13,16 +13,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
-#include "quantum.h"
+// wiring of each half
+#define SPLIT_HAND_PIN F7
 
-#ifdef KEYBOARD_keebio_sinc_rev1
-    #include "rev1.h"
-#endif
-#ifdef KEYBOARD_keebio_sinc_rev2
-    #include "rev2.h"
-#endif
-#ifdef KEYBOARD_keebio_sinc_rev3
-    #include "rev3.h"
-#endif
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
+
+/* ws2812 RGB LED */
+#define RGBLIGHT_LED_MAP { 1, 2, 3, 12, 13, 14, 15, 0, 7, 6, 5, 4, 11, 10, 9, 8 }
+#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
+
+// Set right column, left macro, 1.75u shift, split spaces, and 5x1u on by default
+#define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00DE
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
