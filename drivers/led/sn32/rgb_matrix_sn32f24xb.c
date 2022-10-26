@@ -344,20 +344,24 @@ static void rgb_callback(PWMDriver *pwmp) {
 #ifdef MATRIX_NO_SCAN
 #    if (DIODE_DIRECTION == COL2ROW)
     // Scan the key matrix row
+    static uint8_t first_scanned_row;
     if (!matrix_scanned) {
-        matrix_locked = true;
-        matrix_read_cols_on_row(shared_matrix, row_idx);
+        if (!matrix_locked) {
+            matrix_locked = true;
+            first_scanned_row = row_idx;
+        } else {
+            if ((last_row_idx != row_idx) && (row_idx == first_scanned_row)) {
+                matrix_locked = false;
+                matrix_scanned = true;
+            }
+        }
+        if (matrix_locked) {
+            matrix_read_cols_on_row(shared_matrix, row_idx);
+        }
     }
 #    endif // DIODE_DIRECTION == COL2ROW
 #endif     // MATRIX_NO_SCAN
     update_pwm_channels(pwmp);
-#ifdef MATRIX_NO_SCAN
-    // Assume we have finished scanning the matrix
-    if (last_row_idx > row_idx) {
-        matrix_scanned = true;
-        matrix_locked  = false;
-    }
-#endif // MATRIX_NO_SCAN
     if (enable_pwm) writePinHigh(led_row_pins[current_row]);
     // Advance the timer to just before the wrap-around, that will start a new PWM cycle
     pwm_lld_change_counter(pwmp, 0xFFFF);
