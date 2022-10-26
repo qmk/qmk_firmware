@@ -18,6 +18,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
+// clang-format off
+
 const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL] = {
 /* Refer to CKLED manual for these locations
  *   driver
@@ -67,12 +69,12 @@ led_config_t g_led_config = {
     },
     {
         // LED Index to Physical Position
-        {0,0},  {74,0},  {150,0},  {224,0},
-        {0,13}, {74,13}, {150,13}, {224,13},
-        {0,26}, {74,26}, {150,26},
-        {0,38}, {74,38}, {150,38}, {224,32},
-        {0,51}, {74,51}, {150,51},
-        {36,64},         {150,64}, {224,58},
+        {0,0},  {37,0},  {75,0},  {112,0},
+        {0,6},  {37,6},  {75,6},  {112,6},
+        {0,13}, {37,13}, {75,13},
+        {0,19}, {37,19}, {75,19}, {112,16},
+        {0,25}, {37,25}, {75,25},
+        {18,32},         {75,32}, {112,29},
     },
     {
         // LED Index to Flag
