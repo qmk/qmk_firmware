@@ -21,11 +21,11 @@
 
 /* key matrix size */
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 7
+#define MATRIX_COLS 5
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D5, D4, D3, D2 }
-#define MATRIX_COL_PINS { F5, F4, F1, F0, B7, B4, B5 }
+#define MATRIX_COL_PINS { F5, F4, F1, F0, B7 }
 
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
@@ -40,7 +40,7 @@
 #define FORCE_NKRO
 
 /* Use the custom font */
-#define OLED_FONT_H "lib/glcdfont.c"
+#define OLED_FONT_H "./lib/glcdfont.c"
 
 /* Encoder pins */
 #define ENCODERS_PAD_A { F7, C7, D7 }
