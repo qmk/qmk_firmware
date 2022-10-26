@@ -28,7 +28,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LED_MAP { 1, 2, 3, 12, 13, 14, 15, 0, 7, 6, 5, 4, 11, 10, 9, 8 }
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
-// Set right column, left macro, 1.75u shift, split spaces, and 5x1u on by default
-#define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00DE
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
