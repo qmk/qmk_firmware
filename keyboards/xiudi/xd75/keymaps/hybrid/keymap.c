@@ -282,9 +282,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 //Define layer colors
-#define rgblight_setrgb_user_MAIN()  rgblight_sethsv_red()
-#define rgblight_setrgb_user_LY1()  rgblight_sethsv_green()
-#define rgblight_setrgb_user_LY2() rgblight_sethsv_blue()
+#define rgblight_setrgb_user_MAIN()  rgblight_sethsv(HSV_RED)
+#define rgblight_setrgb_user_LY1()  rgblight_sethsv(HSV_GREEN)
+#define rgblight_setrgb_user_LY2() rgblight_sethsv(HSV_BLUE)
 
 void matrix_init_user(void) {
   rgblight_enable();

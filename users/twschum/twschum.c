@@ -97,7 +97,6 @@ static inline bool tap_ctrl_other_pressed(void) {
 /* Use RGB underglow to indicate layer
  * https://docs.qmk.fm/reference/customizing-functionality
  */
-// add to quantum/rgblight_list.h
 #ifdef RGBLIGHT_ENABLE
 static bool rgb_layers_enabled = true;
 static bool rgb_L0_enabled = false;
