@@ -27,8 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SCL_PIN GP22
 #define I2C1_SDA_PIN GP23
 
-#define RGBLIGHT_DEFAULT_VAL 120
-#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 // RGB Matrix
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -70,8 +68,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define DRIVER_LED_TOTAL RGBLED_NUM
-#define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#define RGB_DI_PIN GP18
+#define RGB_MATRIX_LED_COUNT 113
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
