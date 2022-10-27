@@ -21,7 +21,7 @@
     KC_TAB,  KC_Q,    KC_G,   KC_M,    KC_L,   KC_W,    KC_B,    KC_Y,   KC_U,    KC_V,    KC_QUOT, KC_BSPC,\
     KC_ESC,  KC_D,    KC_S,   KC_T,    KC_N,   KC_R,    KC_I,    KC_A,   KC_E,    KC_O,    KC_H,    KC_ENT,\
     KC_LSFT, KC_Z,    KC_X,   KC_C,    KC_F,   KC_J,    KC_K,    KC_P,   KC_COMM, KC_DOT,  KC_MINS, KC_BSLS,\
-    KC_LCTL, KC_LALT, numpad, KC_LGUI, QLower, KC_LSPC, KC_RSPC, QRaise, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT\
+    KC_LCTL, KC_LALT, numpad, KC_LGUI, QLower, SC_LSPC, SC_RSPC, QRaise, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT\
 )
 // Norwegian Layout
 #define qgmlwb_no_map qgmlwb_en_map
