@@ -787,15 +787,15 @@ See also: [Programmable Button](feature_programmable_button.md)
 
 See also: [Space Cadet](feature_space_cadet.md)
 
-|Key        |Description                             |
-|-----------|----------------------------------------|
-|`KC_LCPO`  |Left Control when held, `(` when tapped |
-|`KC_RCPC`  |Right Control when held, `)` when tapped|
-|`KC_LSPO`  |Left Shift when held, `(` when tapped   |
-|`KC_RSPC`  |Right Shift when held, `)` when tapped  |
-|`KC_LAPO`  |Left Alt when held, `(` when tapped     |
-|`KC_RAPC`  |Right Alt when held, `)` when tapped    |
-|`KC_SFTENT`|Right Shift when held, Enter when tapped|
+|Key                                           |Aliases  |Description                             |
+|----------------------------------------------|---------|----------------------------------------|
+|`QK_SPACE_CADET_LEFT_CTRL_PARENTHESIS_OPEN`   |`SC_LCPO`|Left Control when held, `(` when tapped |
+|`QK_SPACE_CADET_RIGHT_CTRL_PARENTHESIS_CLOSE` |`SC_RCPC`|Right Control when held, `)` when tapped|
+|`QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN`  |`SC_LSPO`|Left Shift when held, `(` when tapped   |
+|`QK_SPACE_CADET_RIGHT_SHIFT_PARENTHESIS_CLOSE`|`SC_RSPC`|Right Shift when held, `)` when tapped  |
+|`QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN`    |`SC_LAPO`|Left Alt when held, `(` when tapped     |
+|`QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE`  |`SC_RAPC`|Right Alt when held, `)` when tapped    |
+|`QK_SPACE_CADET_RIGHT_SHIFT_ENTER`            |`SC_SENT`|Right Shift when held, Enter when tapped|
 
 ## Swap Hands :id=swap-hands
 

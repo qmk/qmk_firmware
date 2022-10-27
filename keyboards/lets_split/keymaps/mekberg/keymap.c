@@ -36,7 +36,7 @@ enum layer_names {
 #define SPECIAL MO(_SPECIAL)
 
 // Modifiers
-#define SFTENT KC_SFTENT        // Enter => Shift when held
+#define SFTENT SC_SENT          // Enter => Shift when held
 #define CTLTAB LCTL_T(KC_TAB)   // Tab => Ctrl when held
 
 // ISO keycodes with Swedish layout names
