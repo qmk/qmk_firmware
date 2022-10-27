@@ -267,7 +267,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 #    error DIODE_DIRECTION is not defined!
 #endif
 
-void matrix_init(void) {
+void matrix_init_custom(void) {
 #ifdef SPLIT_KEYBOARD
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
@@ -292,21 +292,10 @@ void matrix_init(void) {
         }
 #    endif
     }
-
-    thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
-    thatHand = ROWS_PER_HAND - thisHand;
 #endif
 
     // initialize key pins
     matrix_init_pins();
-
-    // initialize matrix state: all keys off
-    memset(matrix, 0, sizeof(matrix));
-    memset(raw_matrix, 0, sizeof(raw_matrix));
-
-    debounce_init(ROWS_PER_HAND);
-
-    matrix_init_quantum();
 }
 
 #ifdef SPLIT_KEYBOARD
