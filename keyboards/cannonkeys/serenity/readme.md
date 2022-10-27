@@ -1,6 +1,6 @@
 # Serenity
 
-*A calming F13 TKL from HoodrowThrillson*
+A calming F13 TKL from HoodrowThrillson
 
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: STM32F072CBT6
