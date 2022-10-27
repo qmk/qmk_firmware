@@ -47,6 +47,6 @@ void shutdown_user (void) {
   #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_setrgb_red();
+    rgblight_setrgb(RGB_RED);
   #endif // RGBLIGHT_ENABLE
 }

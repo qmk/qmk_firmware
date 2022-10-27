@@ -31,22 +31,6 @@
 ########################################################################################
 */
 
-/*                            SET RGB List                            */
-#define rgblight_setrgb_white() rgblight_setrgb(RGB_WHITE)
-#define rgblight_setrgb_red() rgblight_setrgb(RGB_RED)
-#define rgblight_setrgb_orange() rgblight_setrgb(RGB_ORANGE)
-#define rgblight_setrgb_yellow() rgblight_setrgb(RGB_YELLOW)
-#define rgblight_setrgb_chartreuse() rgblight_setrgb(RGB_CHARTREUSE)
-#define rgblight_setrgb_green() rgblight_setrgb(RGB_GREEN)
-#define rgblight_setrgb_springgreen() rgblight_setrgb(RGB_SPRINGGREEN)
-#define rgblight_setrgb_teal() rgblight_setrgb(RGB_TEAL)
-#define rgblight_setrgb_blue() rgblight_setrgb(RGB_BLUE)
-#define rgblight_setrgb_pink() rgblight_setrgb(RGB_PINK)
-
-/*                            SET RGB List                            */
-#define rgblight_setrgb_red_at(at) rgblight_setrgb_at(RGB_RED, at)
-#define rgblight_setrgb_gold_at(at) rgblight_setrgb_at(RGB_GOLD, at)
-
 /*                            SET HSV List                            */
 #define rgblight_sethsv_white() rgblight_sethsv(HSV_WHITE)
 #define rgblight_sethsv_red() rgblight_sethsv(HSV_RED)
