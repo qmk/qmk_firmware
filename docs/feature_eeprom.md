@@ -119,7 +119,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 
   // use the non noeeprom versions, to write these values to EEPROM too
   rgblight_enable(); // Enable RGB by default
-  rgblight_sethsv_cyan();  // Set it to CYAN by default
+  rgblight_sethsv(HSV_CYAN);  // Set it to CYAN by default
   rgblight_mode(1); // set to solid by default
 }
 ```

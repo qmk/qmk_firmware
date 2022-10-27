@@ -16,7 +16,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
             break;
         default:  //  for any other layers, or the default layer
             rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
-            rgblight_sethsv_red();
+            rgblight_sethsv(HSV_RED);
             break;
     }
     return state;

@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_teal();
+    rgblight_sethsv(HSV_TEAL);
 }
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {

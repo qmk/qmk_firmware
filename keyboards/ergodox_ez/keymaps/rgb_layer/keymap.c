@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void eeconfig_init_user(void) {
   rgblight_enable();
-  rgblight_sethsv_cyan();
+  rgblight_sethsv(HSV_CYAN);
   rgblight_mode(1);
   user_config.rgb_layer_change = true;
   eeconfig_update_user(user_config.raw);

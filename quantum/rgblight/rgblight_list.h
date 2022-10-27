@@ -32,17 +32,6 @@
 */
 
 /*                            SET HSV List                            */
-#define rgblight_sethsv_white() rgblight_sethsv(HSV_WHITE)
-#define rgblight_sethsv_red() rgblight_sethsv(HSV_RED)
-#define rgblight_sethsv_orange() rgblight_sethsv(HSV_ORANGE)
-#define rgblight_sethsv_yellow() rgblight_sethsv(HSV_YELLOW)
-#define rgblight_sethsv_green() rgblight_sethsv(HSV_GREEN)
-#define rgblight_sethsv_teal() rgblight_sethsv(HSV_TEAL)
-#define rgblight_sethsv_cyan() rgblight_sethsv(HSV_CYAN)
-#define rgblight_sethsv_blue() rgblight_sethsv(HSV_BLUE)
-#define rgblight_sethsv_purple() rgblight_sethsv(HSV_PURPLE)
-
-/*                            SET HSV List                            */
 /*   If you're doing layer indication, this is best, as it won't      */
 /*   write to the eeprom, since it's limited (very high value).       */
 /*   If you want to use modes with this (since you can), then you     */

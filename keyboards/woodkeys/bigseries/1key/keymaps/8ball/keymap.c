@@ -135,6 +135,6 @@ void led_set_user(uint8_t usb_led) {
 void reset_rgb(void) {
   // This gets called on init and after the timeout for the answer color
   // If you want to change the default color/mode, do it here
-  rgblight_sethsv_blue();
+  rgblight_sethsv(HSV_BLUE);
   rgblight_mode(7);
 }
