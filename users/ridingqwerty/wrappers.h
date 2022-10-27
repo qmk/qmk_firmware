@@ -81,7 +81,7 @@
 #define ________________FKEYROW_R1_________________        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 #define ________________EDITOR_L1__________________        KC_GRV,  _______, KC_END,  _______, KC_F5  
-#define ________________EDITOR_L2__________________        KC_HOME, _______, KC_DELT, _______, _______
+#define ________________EDITOR_L2__________________        KC_HOME, _______, KC_DEL,  _______, _______
 #if defined(TAP_DANCE_ENABLE)
 #define ________________EDITOR_L3__________________        _______, KC_VOLD, KC_VOLU, CCCV,    TD_BRC
 #else
