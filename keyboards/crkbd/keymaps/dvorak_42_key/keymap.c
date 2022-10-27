@@ -164,7 +164,7 @@ KC_TRNS, RCTL(LSFT(KC_TAB)), RCTL(KC_TAB), WINDOWS10_WORKSPACE_LEFT, WINDOWS10_W
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 TG(RGB_CONTROL), OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,            MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X), MEH(KC_Y), MEH(KC_Z),
   //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,                 TG(BASE_IOS), KC_TRNS, TO(BASE)
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,                 TG(BASE_IOS), TO(SHORTCUTS), TO(BASE)
                                       //`--------------------------'             `--------------------------'
   ),
 
