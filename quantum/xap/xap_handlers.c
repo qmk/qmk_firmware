@@ -338,7 +338,7 @@ bool xap_respond_set_rgb_matrix_config(xap_token_t token, const void *data, size
     rgb_matrix_mode_noeeprom(mode);
     rgb_matrix_sethsv_noeeprom(arg->hue, arg->sat, arg->val);
     rgb_matrix_set_speed_noeeprom(arg->speed);
-    rgb_matrix_set_flags(arg->flags);
+    rgb_matrix_set_flags_noeeprom(arg->flags);
 
     xap_respond_success(token);
     return true;
