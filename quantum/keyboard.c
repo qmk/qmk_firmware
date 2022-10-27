@@ -462,55 +462,55 @@ static bool matrix_task(void) {
     if (!matrix_available()) {
         generate_tick_event();
         return matrix_changed;
-    } else {
-        static matrix_row_t matrix_previous[MATRIX_ROWS];
+    }
 
-        matrix_scan();
+    static matrix_row_t matrix_previous[MATRIX_ROWS];
 
-        for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
-            matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
-        }
+    matrix_scan();
 
-        matrix_scan_perf_task();
+    for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
+        matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
+    }
 
-        // Short-circuit the complete matrix processing if it is not necessary
-        if (!matrix_changed) {
-            generate_tick_event();
-            return matrix_changed;
-        }
+    matrix_scan_perf_task();
 
-        if (debug_config.matrix) {
-            matrix_print();
-        }
-
-        const bool process_keypress = should_process_keypress();
-
-        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-            const matrix_row_t current_row = matrix_get_row(row);
-            const matrix_row_t row_changes = current_row ^ matrix_previous[row];
-
-            if (!row_changes || has_ghost_in_row(row, current_row)) {
-                continue;
-            }
-
-            matrix_row_t col_mask = 1;
-            for (uint8_t col = 0; col < MATRIX_COLS; col++, col_mask <<= 1) {
-                if (row_changes & col_mask) {
-                    const bool key_pressed = current_row & col_mask;
-
-                    if (process_keypress) {
-                        action_exec(MAKE_KEYEVENT(row, col, key_pressed));
-                    }
-
-                    switch_events(row, col, key_pressed);
-                }
-            }
-
-            matrix_previous[row] = current_row;
-        }
-
+    // Short-circuit the complete matrix processing if it is not necessary
+    if (!matrix_changed) {
+        generate_tick_event();
         return matrix_changed;
     }
+
+    if (debug_config.matrix) {
+        matrix_print();
+    }
+
+    const bool process_keypress = should_process_keypress();
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        const matrix_row_t current_row = matrix_get_row(row);
+        const matrix_row_t row_changes = current_row ^ matrix_previous[row];
+
+        if (!row_changes || has_ghost_in_row(row, current_row)) {
+            continue;
+        }
+
+        matrix_row_t col_mask = 1;
+        for (uint8_t col = 0; col < MATRIX_COLS; col++, col_mask <<= 1) {
+            if (row_changes & col_mask) {
+                const bool key_pressed = current_row & col_mask;
+
+                if (process_keypress) {
+                    action_exec(MAKE_KEYEVENT(row, col, key_pressed));
+                }
+
+                switch_events(row, col, key_pressed);
+            }
+        }
+
+        matrix_previous[row] = current_row;
+    }
+
+    return matrix_changed;
 }
 
 /** \brief Tasks previously located in matrix_scan_quantum
