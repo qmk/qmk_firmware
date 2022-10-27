@@ -660,8 +660,6 @@ enum quantum_keycodes {
 // US ANSI shifted keycode aliases
 #include "keymap_us.h"
 
-#define KC_DELT KC_DELETE // Del key (four letter code)
-
 // Modified keycode aliases
 #define C(kc) LCTL(kc)
 #define S(kc) LSFT(kc)
