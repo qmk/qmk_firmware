@@ -21,7 +21,7 @@ enum layer_names {
 #define L_KEYBD MO(_KEYBOARD_LAYER)
 #define SCL_NAV LT(_NAVIGATION_LAYER, KC_SCLN)
 #define SFT_MIN MT(MOD_RSFT, KC_MINS)
-#define SFT_ENT KC_SFTENT
+#define SFT_ENT SC_SENT
 
 // GUI chords
 #define GUI_1 LGUI(KC_1)
