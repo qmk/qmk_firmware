@@ -341,7 +341,9 @@ static void rgb_callback(PWMDriver *pwmp) {
     // Advance to the next LED RGB channels
     current_row++;
     if (current_row >= LED_MATRIX_ROWS_HW) current_row = 0;
+#    if (DIODE_DIRECTION == COL2ROW)
     uint8_t last_row_idx = row_idx;
+#    endif // DIODE_DIRECTION == COL2ROW
     // Advance to the next key matrix row
     if (current_row % LED_MATRIX_ROW_CHANNELS == 2) row_idx++;
     if (row_idx >= LED_MATRIX_ROWS) row_idx = 0;
