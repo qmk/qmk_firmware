@@ -29,8 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_MAGIC (uint16_t *)0
 #define EECONFIG_DEBUG (uint8_t *)2
 #define EECONFIG_DEFAULT_LAYER (uint8_t *)3
-#define EECONFIG_KEYMAP (uint8_t *)4
-#define EECONFIG_MOUSEKEY_ACCEL (uint8_t *)5
+#define EECONFIG_KEYMAP (uint16_t *)4
 #define EECONFIG_BACKLIGHT (uint8_t *)6
 #define EECONFIG_AUDIO (uint8_t *)7
 #define EECONFIG_RGBLIGHT (uint32_t *)8
@@ -51,9 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_LED_MATRIX_EXTENDED (uint16_t *)32
 #define EECONFIG_RGB_MATRIX_EXTENDED (uint16_t *)32
 
-// TODO: Combine these into a single word and single block of EEPROM
-#define EECONFIG_KEYMAP_UPPER_BYTE (uint8_t *)34
 // Size of EEPROM being used, other code can refer to this for available EEPROM
+// TODO: Reduce?
 #define EECONFIG_SIZE 35
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
@@ -70,8 +68,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_KEYMAP_SWAP_GRAVE_ESC (1 << 5)
 #define EECONFIG_KEYMAP_SWAP_BACKSLASH_BACKSPACE (1 << 6)
 #define EECONFIG_KEYMAP_NKRO (1 << 7)
-
-#define EECONFIG_KEYMAP_LOWER_BYTE EECONFIG_KEYMAP
 
 bool eeconfig_is_enabled(void);
 bool eeconfig_is_disabled(void);
