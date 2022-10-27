@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Onekey SN32",
+    "processor": "SN32F248BF",
+    "bootloader": "sn32-dfu",
+    "matrix_pins": {
+        "cols": ["A8"],
+        "rows": ["D11"]
+    }
+}
