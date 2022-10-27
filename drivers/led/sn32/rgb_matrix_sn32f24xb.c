@@ -55,14 +55,14 @@
     (B)     (E)
     GPIO    GND
 */
-static uint8_t chan_col_order[LED_MATRIX_COLS] = {0}; // track the channel col order
-static uint8_t current_row                     = 0;   // LED row scan counter
-static uint8_t row_idx                         = 0;   // key row scan counter
-extern matrix_row_t  raw_matrix[MATRIX_ROWS];    // raw values
-extern matrix_row_t  matrix[MATRIX_ROWS];        // debounced values
-static matrix_row_t  shared_matrix[MATRIX_ROWS]; // scan values
-static volatile bool matrix_locked  = false;     // matrix update check
-static volatile bool matrix_scanned = false;
+static uint8_t        chan_col_order[LED_MATRIX_COLS] = {0};    // track the channel col order
+static uint8_t        current_row                     = 0;      // LED row scan counter
+static uint8_t        row_idx                         = 0;      // key row scan counter
+extern matrix_row_t   raw_matrix[MATRIX_ROWS];                  // raw values
+extern matrix_row_t   matrix[MATRIX_ROWS];                      // debounced values
+static matrix_row_t   shared_matrix[MATRIX_ROWS];               // scan values
+static volatile bool  matrix_locked                    = false; // matrix update check
+static volatile bool  matrix_scanned                   = false;
 static const uint32_t periodticks                      = 256;
 static const uint32_t freq                             = (RGB_MATRIX_HUE_STEP * RGB_MATRIX_SAT_STEP * RGB_MATRIX_VAL_STEP * RGB_MATRIX_SPD_STEP * RGB_MATRIX_LED_PROCESS_LIMIT);
 static const pin_t    led_row_pins[LED_MATRIX_ROWS_HW] = LED_MATRIX_ROW_PINS; // We expect a R,B,G order here
