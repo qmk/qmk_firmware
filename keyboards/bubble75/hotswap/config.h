@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    PHL
 #define PRODUCT         BUBBLE 75
-#define DESCRIPTION     BUBBLE 75
 
 /* key matrix size */
 #define MATRIX_ROWS 6
