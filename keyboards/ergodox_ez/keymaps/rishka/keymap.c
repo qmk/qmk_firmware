@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_ergodox_pretty_wrapper(
   KC_EQL,  ________________NUMBERS_L__________________, TG(WIN),       OSX_LOCK, ________________NUMBERS_R__________________, KC_MINS,
-  KC_DELT, _________________QWERTY_L1_________________, TG(SYMB),      TG(SYMB), _________________QWERTY_R1_________________, KC_BSLS,
+  KC_DEL,  _________________QWERTY_L1_________________, TG(SYMB),      TG(SYMB), _________________QWERTY_R1_________________, KC_BSLS,
   KC_BSPC, _____________MOD_QWERTY_L2_________________,                          _____________MOD_QWERTY_R2_________________, LT(MDIA, KC_QUOT),
   OS_LSFT, _________________QWERTY_L3_________________, ALL_T(KC_NO),  TG(MDIA), _________________QWERTY_R3_________________, OS_RSFT,
   LT(SYMB,KC_GRV), KC_QUOT, LALT(KC_LSFT), KC_LEFT, KC_RGHT,                        KC_UP,   KC_DOWN, KC_LBRC,  KC_RBRC,        OSL(SYMB),
