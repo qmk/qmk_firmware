@@ -322,28 +322,28 @@ __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_mat
 uint8_t matrix_scan(void) {
     matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
 
-#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
+#    if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
         matrix_read_cols_on_row(curr_matrix, current_row);
     }
-#elif (DIODE_DIRECTION == ROW2COL)
+#    elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++, row_shifter <<= 1) {
         matrix_read_rows_on_col(curr_matrix, current_col, row_shifter);
     }
-#endif
+#    endif
 
     bool changed = memcmp(raw_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
     if (changed) memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix));
 
-#ifdef SPLIT_KEYBOARD
+#    ifdef SPLIT_KEYBOARD
     changed = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed) | matrix_post_scan();
-#else
+#    else
     changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
     matrix_scan_quantum();
-#endif
+#    endif
     return (uint8_t)changed;
 }
 #endif
