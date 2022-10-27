@@ -131,6 +131,6 @@ void matrix_scan_user(void) {
 //EEPROM Reset Function
 void eeconfig_init_user(void) {
   rgblight_enable(); // Enable RGB by default
-  rgblight_sethsv_orange();  // Set it to orange by default
+  rgblight_sethsv(HSV_ORANGE);  // Set it to orange by default
 }
 
