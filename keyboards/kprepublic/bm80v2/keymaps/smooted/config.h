@@ -12,6 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+<<<<<<<< HEAD:keyboards/kprepublic/bm80v2/keymaps/smooted/config.h
 
 #pragma once
 #define FORCE_NKRO
+========
+#include "teensypp_ssk.h"
+>>>>>>>> 34da7a0efa (For teensypp_ssk adjust file names according to new folder name):keyboards/modelm/teensypp_ssk/teensypp_ssk.c
