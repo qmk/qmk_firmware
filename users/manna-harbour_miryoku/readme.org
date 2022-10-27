@@ -3,36 +3,41 @@
 
 * Miryoku QMK [[https://raw.githubusercontent.com/manna-harbour/miryoku/master/data/logos/miryoku-roa-32.png]]
 
-[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/data/cover/miryoku-kle-cover.png]]
+[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/data/cover/miryoku-kle-cover-miryoku_qmk.png]]
 
 [[https://github.com/manna-harbour/miryoku/][Miryoku]] is an ergonomic, minimal, orthogonal, and universal keyboard layout.  [[https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku][Miryoku QMK]] is the Miryoku implementation for [[https://qmk.fm][QMK]].
+
 
 ** Branches
 
 
 *** QMK master
 
-Miryoku QMK is periodically merged upstream into QMK master and it is generally recommended to build directly from QMK master.
+QMK master is the current version of QMK, but usually does not contain the current version of Miryoku QMK.
 
-QMK master is at https://github.com/qmk/qmk_firmware/tree/master, and the corresponding Miryoku QMK readme is at https://github.com/qmk/qmk_firmware/tree/master/users/manna-harbour_miryoku.
+QMK master is at https://github.com/qmk/qmk_firmware/tree/master. The corresponding Miryoku QMK readme is at https://github.com/qmk/qmk_firmware/tree/master/users/manna-harbour_miryoku and describes the version of Miryoku QMK in QMK master.
 
 
 *** Miryoku QMK development branch
 
-The Miryoku QMK development branch is ~miryoku~ and may contain new commits not yet merged into QMK master.
+The Miryoku QMK development branch is the current version of Miryoku QMK, but usually does not contain the current version of QMK.
 
-~miryoku~ is at https://github.com/manna-harbour/miryoku_qmk/tree/miryoku, and the corresponding Miryoku QMK readme is at https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku.
+The Miryoku QMK development branch is named ~miryoku~ and is at https://github.com/manna-harbour/miryoku_qmk/tree/miryoku. The corresponding Miryoku QMK readme is at https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku.
 
-New commits can be seen at the top of the [[https://github.com/manna-harbour/miryoku_qmk/commits/miryoku][history]] with commit messages beginning ~[miryoku]~.  After the new commits are squashed and merged upstream into QMK master by pull request the ~miryoku~ branch is renamed and a new ~miryoku~ branch is created from QMK master.
+New commits can be seen at the top of the [[https://github.com/manna-harbour/miryoku_qmk/commits/miryoku][history]] with commit messages beginning ~[miryoku]~ or ~[miryoku-github]~
 
-To checkout the ~miryoku~ branch in your existing QMK build environment:
-#+BEGIN_SRC sh :tangle no
-git remote add miryoku_qmk git@github.com:manna-harbour/miryoku_qmk.git # if using SSH
-git remote add miryoku_qmk https://github.com/manna-harbour/miryoku_qmk.git # if using HTTPS
-git fetch miryoku_qmk
-git checkout --track miryoku_qmk/miryoku
-#+END_SRC
+Periodically, the ~[miryoku]~ commits are squashed and merged upstream into QMK master by pull request, the ~miryoku~ branch is renamed, and a new ~miryoku~ branch is created from QMK master.
 
+
+**** Merge
+
+To use both the current versions of QMK and Miryoku QMK together, the QMK master and ~miryoku~ branches need to be merged.
+
+The ~[miryoku-github]~ commits relate to GitHub specific functions of the Miryoku QMK repository and forks, such as workflows. Directly merging ~miryoku~ with a branch based on QMK master will lead to conflicts due to those commits. To avoid conflicts, first drop or revert all ~[miryoku-github]~ commits from ~miryoku~ before merging.
+
+Merging branches can be performed automatically at build time for [[#workflow-builds][workflow builds]] using the ~merge~ option, which will automatically revert all ~[miryoku-github]~ commits before merging.  For local builds, see [[#checkout-update-and-merge][Checkout, Update, and Merge]] below.
+
+Any local changes to existing workflow files should be made independently in commits with messages starting ~[miryoku-github]~ so that they can also be automatically excluded in workflow builds.
 
 ** Building
 
@@ -41,7 +46,52 @@ git checkout --track miryoku_qmk/miryoku
 
 First [[https://docs.qmk.fm/#/newbs_getting_started][set up the QMK build environment and build the default keymap for your keyboard]].
 
-Build with ~manna-harbour_miryoku~ as the keymap name.  Customised defaults for [[https://github.com/manna-harbour/miryoku/tree/master/docs/reference#alternative-layouts][alternative layout]] options can be set in [[#userspace][custom_rules.mk]].  Options can also be set or overridden at build time.
+Next choose the [[#branches][branch]]. If using ~miryoku~, [[#checkout-update-and-merge][checkout, update, or merge]] as needed.
+
+Build with ~manna-harbour_miryoku~ as the keymap name.  Personalised defaults for [[https://github.com/manna-harbour/miryoku/tree/master/docs/reference#alternative-layouts][alternative layout]] options can be set in [[#userspace][custom_rules.mk]].  Options can also be set or overridden at build time. Build with [[#qmk][qmk]] or [[#make][make]].
+
+
+**** Checkout, Update, and Merge
+
+All of the following examples operate in your existing QMK build environment.
+#+BEGIN_SRC sh :tangle no
+cd qmk_firmware
+#+END_SRC
+
+To checkout the ~miryoku~ branch from Miryoku QMK:
+#+BEGIN_SRC sh :tangle no
+git remote add miryoku_qmk git@github.com:manna-harbour/miryoku_qmk.git # if using SSH
+git remote add miryoku_qmk https://github.com/manna-harbour/miryoku_qmk.git # if using HTTPS
+git fetch miryoku_qmk
+git checkout --track miryoku_qmk/miryoku
+make git-submodule
+#+END_SRC
+
+To update the ~miryoku~ branch from Miryoku QMK:
+#+BEGIN_SRC sh :tangle no
+git checkout miryoku
+git fetch miryoku_qmk
+git merge miryoku_qmk/miryoku
+#+END_SRC
+
+If a new ~miryoku~ branch has been created in Miryoku QMK you will see ~(forced update)~ after the fetch. To rename the existing ~miryoku~ branch and create a new ~miryoku~ branch from Miryoku QMK:
+#+BEGIN_SRC sh :tangle no
+git checkout miryoku
+git branch -m miryoku-`whoami`-`date --rfc-3339=date`
+git fetch miryoku_qmk
+git checkout --track miryoku_qmk/miryoku
+make git-submodule
+#+END_SRC
+
+To [[#merge][merge]] the ~miryoku~ branch with QMK master:
+#+BEGIN_SRC sh :tangle no
+git checkout miryoku
+git checkout -b miryoku-merge-master
+git revert --no-edit `git log --grep='^\[miryoku-github\]' --pretty='format:%H' | tr '\n' ' '`
+git fetch origin
+git merge origin/master
+make git-submodule
+#+END_SRC
 
 
 **** qmk
@@ -51,7 +101,13 @@ Build with the ~qmk~ command.  E.g.
 #+BEGIN_SRC sh :tangle no
 qmk compile -c -kb crkbd -km manna-harbour_miryoku # build for crkbd
 qmk flash -c -kb crkbd -km manna-harbour_miryoku # build for crkbd and flash
-qmk compile -c -kb crkbd -km manna-harbour_miryoku -e MIRYOKU_ALPHAS=QWERTY -e MIRYOKU_NAV=INVERTEDT -e MIRYOKU_CLIPBOARD=WIN -e MIRYOKU_LAYERS=FLIP # build for crkbd with alternative layouts
+qmk compile -c -kb crkbd -km manna-harbour_miryoku \
+  -e MIRYOKU_ALPHAS=QWERTY \
+  -e MIRYOKU_EXTRA=COLEMAKDH \
+  -e MIRYOKU_TAP=QWERTY \
+  -e MIRYOKU_NAV=INVERTEDT \
+  -e MIRYOKU_CLIPBOARD=WIN \
+  -e MIRYOKU_LAYERS=FLIP # build for crkbd with alternative layouts
 #+END_SRC
 
 
@@ -62,7 +118,13 @@ First ~cd~ to the repository root.  Then build with ~make~. E.g.
 #+BEGIN_SRC sh :tangle no
 make clean crkbd:manna-harbour_miryoku # build for crkbd
 make clean crkbd:manna-harbour_miryoku:flash # build for crkbd and flash
-make clean crkbd:manna-harbour_miryoku MIRYOKU_ALPHAS=QWERTY MIRYOKU_NAV=INVERTEDT MIRYOKU_CLIPBOARD=WIN MIRYOKU_LAYERS=FLIP # build for crkbd with alternative layouts
+make clean crkbd:manna-harbour_miryoku \
+  MIRYOKU_ALPHAS=QWERTY \
+  MIRYOKU_EXTRA=COLEMAKDH \
+  MIRYOKU_TAP=QWERTY \
+  MIRYOKU_NAV=INVERTEDT \
+  MIRYOKU_CLIPBOARD=WIN \
+  MIRYOKU_LAYERS=FLIP # build for crkbd with alternative layouts
 #+END_SRC
 
 
@@ -70,11 +132,20 @@ make clean crkbd:manna-harbour_miryoku MIRYOKU_ALPHAS=QWERTY MIRYOKU_NAV=INVERTE
 
 Firmware can be built via GitHub Actions workflows without use of a local build environment.  Local tools are still required for [[https://docs.qmk.fm/#/newbs_flashing][flashing]].
 
-First log in to GitHub, fork the [[#miryoku-qmk-development-branch][Miryoku QMK development branch]] repository, and enable workflows.
+First [[#fork-or-sync][fork the Miryoku QMK repository or sync the ~miryoku~ branch]]. Then use the [[#build-examples][Build Examples]] or [[#build-inputs][Build Inputs]] workflows.
 
 To access a workflow, visit the Actions tab and select the workflow.  To download the firmware from a workflow run, select the workflow, select the workflow run, select the desired Artifacts, and unzip the downloaded zip file.
 
 Workflow files are in [[../../.github/workflows]].
+
+
+**** Fork or Sync
+
+If you don't have a fork, first [[https://github.com/signup][create a GitHub account]], [[https://github.com/login][login to GitHub]], [[https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository][fork]] https://github.com/manna-harbour/miryoku_qmk, and visit the Actions tab and enable workflows.
+
+If you already have a fork, [[https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-web-ui][sync]] the ~miryoku~ branch.
+
+If a new ~miryoku~ branch has been created in Miryoku QMK, there will be a warning about conflicts when trying to sync.  If you have local changes, first create a copy of the branch by [[https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-and-deleting-branches-within-your-repository#creating-a-branch][creating a new branch]] and specifying the ~miryoku~ branch in your fork as the source, then sync the ~miryoku~ branch again.  Accept the prompt to discard commits.
 
 
 **** Build Examples
@@ -91,7 +162,9 @@ The ~keyboard~ option specifies the keyboard and is required.  All other options
 
 The ~alphas~, ~nav~, ~clipboard~, and ~layers~ options correspond to the [[https://github.com/manna-harbour/miryoku/tree/master/docs/reference#alternative-layouts][alternative layout]] options.  The ~mapping~ option corresponds to the alternative [[#subset-mapping][mapping]] options.  Alternative layout and mapping options are given in the documentation in the form ~MIRYOKU_OPTION=VALUE~.  To use here, convert to the form specified above.  Use ~default~ to represent the default value.  Values for these five options are case-insensitive.  See the [[../../.github/workflows/test-all-configs.yml][Test All Configs workflow file]] for all supported values.
 
-The ~rules~ and ~config~ options can be used to specify values to be appended to ~custom_rules.mk~ and ~custom_config.h~, respectively.  Separate multiple lines with ~\n~.
+The ~rules~ and ~custom_config~ options can be used to specify values to be appended to ~custom_rules.mk~ and ~custom_config.h~, respectively.  Separate multiple lines with ~\n~.
+
+The ~merge~ option can be used to merge branches at build time. Branches are specified in the form ~<user>/<repo>/<branch>~. E.g. QMK ~master~ and ~develop~ would be specified as ~qmk/qmk_firmware/master~ and ~qmk/qmk_firmware/develop~ respectively. Multiple space separated branches can be specified. For no merges, leave as ~default~.
 
 
 **** Build Inputs
@@ -105,6 +178,8 @@ The ~Keyboard~ option specifies the keyboard and is required.  All other options
 The ~Miryoku Alphas~, ~Miryoku Nav~, ~Miryoku Clipboard~, and ~Miryoku Layers~ options correspond to the [[https://github.com/manna-harbour/miryoku/tree/master/docs/reference#alternative-layouts][alternative layout]] options.  The ~Miryoku Mapping~ option corresponds to the alternative [[#subset-mapping][mapping]] options.  Alternative layout and mapping options are given in the documentation in the form ~MIRYOKU_OPTION=VALUE~.  To use here, enter the ~value~ in the corresponding ~Miryoku Option~ field.  Use ~default~ to represent the default value.  Values for these five options are case-insensitive.
 
 The ~custom_rules.mk~ and ~custom_config.h~ options can be used to specify values to be appended to the corresponding files.  Join multiple lines with ~\n~.
+
+The ~Merge QMK Branches~ option can be used to merge branches at build time. Branches are specified in the form ~<user>/<repo>/<branch>~. E.g. QMK ~master~ and ~develop~ would be specified as ~qmk/qmk_firmware/master~ and ~qmk/qmk_firmware/develop~ respectively. Multiple space separated branches can be specified. For no merges, leave as ~default~.
 
 
 ** Subset Mapping
@@ -122,13 +197,13 @@ thumb keys.
 
 - [[./rules.mk]] :: Build options.  Automatically included.
 
-- [[./custom_rules.mk]] :: Custom ~make~ options including customised defaults for alternative layout options, for local builds.  Included from ~rules.mk~.
+- [[./custom_rules.mk]] :: Custom ~make~ options including customised defaults for alternative layout and mapping options.  Included from ~rules.mk~.
 
 - [[./post_rules.mk]] :: Handles Miryoku ~make~ options.  Included from ~rules.mk~.
 
 - [[./config.h]] :: Config options.  Automatically included.
 
-- [[./custom_config.h]] :: Custom config options for local builds.  Included from ~config.h~.
+- [[./custom_config.h]] :: Custom config options.  Included from ~config.h~.
 
 - [[./manna-harbour_miryoku.h]] :: Keymap-related definitions.  Included from ~manna-harbour_miryoku.c~.  Layer data is generated by [[https://github.com/manna-harbour/miryoku_babel][Miryoku Babel]] and is included from files in the [[miryoku_babel]] directory.
 
@@ -500,6 +575,17 @@ make handwired/dactyl_manuform/4x5:manna-harbour_miryoku:flash
 #+END_SRC
 
 
+**** handwired/dactyl_manuform/4x6
+
+Only the main 5x3 alphas and the main 3 thumb keys are used.
+
+To build for this keyboard,
+
+#+BEGIN_SRC sh :tangle no
+make handwired/dactyl_manuform/4x6:manna-harbour_miryoku:flash
+#+END_SRC
+
+
 **** handwired/dactyl_manuform/5x6
 
 Only the main 5x3 alphas and the main 3 thumb keys are used.
@@ -539,6 +625,17 @@ To build for this keyboard,
 
 #+BEGIN_SRC sh :tangle no
 make keyboardio/atreus:manna-harbour_miryoku:flash
+#+END_SRC
+
+
+**** keyboardio/model01
+
+Only the main 5x3 alphas and the inner 3 thumb keys are used.
+
+To build for this keyboard,
+
+#+BEGIN_SRC sh :tangle no
+make keyboardio/model01:manna-harbour_miryoku:flash
 #+END_SRC
 
 
@@ -585,6 +682,15 @@ To build for this keyboard,
 
 #+BEGIN_SRC sh :tangle no
 make redox_w:manna-harbour_miryoku:flash
+#+END_SRC
+
+
+**** satt/vision
+
+To build for this keyboard,
+
+#+BEGIN_SRC sh :tangle no
+make satt/vision:manna-harbour_miryoku:flash
 #+END_SRC
 
 
@@ -646,6 +752,16 @@ Combo the primary and secondary thumb keys to emulate the tertiary thumb key.  C
 
 - [[https://github.com/manna-harbour/qmk_firmware/issues/33][Retro Shift]]
 
+
+*** 𝑥MK
+
+Use Miryoku QMK with any keyboard with [[https://github.com/manna-harbour/xmk][𝑥MK]].
+
+For [[#local-builds][local builds]], merge https://github.com/manna-harbour/qmk_firmware/tree/xmk and build for keyboard ~converter/xmk~.
+
+For [[#workflow-builds][workflow builds]], use the Build Inputs workflow and build with keyboard ~converter/xmk~ and merge ~manna-harbour/qmk_firmware/xmk~, or use the Build Example 𝑥MK workflow.
+
+Also see [[https://github.com/manna-harbour/miryoku_kmonad][Miryoku KMonad]].
 
 ** 
 
