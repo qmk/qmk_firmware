@@ -143,16 +143,26 @@ void eeconfig_read_user_datablock(void *data);
 void eeconfig_update_user_datablock(const void *data);
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
 
-#define EECONFIG_DEBOUNCE_HELPER(name, offset, config)                  \
+// Any "checked" debounce variant used requires implementation of:
+//    -- bool eeconfig_check_valid_##name(void)
+//    -- void eeconfig_post_write_##name(void)
+#define EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config)          \
     static uint8_t dirty_##name = false;                                \
                                                                         \
+    bool eeconfig_check_valid_##name(void);                             \
+    void eeconfig_post_write_##name(void);                              \
+                                                                        \
     static inline void eeconfig_init_##name(void) {                     \
-        eeprom_read_block(&config, offset, sizeof(config));             \
-        dirty_##name = false;                                           \
+        dirty_##name = true;                                            \
+        if (eeconfig_check_valid_##name()) {                            \
+            eeprom_read_block(&config, offset, sizeof(config));         \
+            dirty_##name = false;                                       \
+        }                                                               \
     }                                                                   \
     static inline void eeconfig_flush_##name(bool force) {              \
         if (force || dirty_##name) {                                    \
             eeprom_update_block(&config, offset, sizeof(config));       \
+            eeconfig_post_write_##name();                               \
             dirty_##name = false;                                       \
         }                                                               \
     }                                                                   \
@@ -172,3 +182,11 @@ void eeconfig_update_user_datablock(const void *data);
             eeconfig_flag_##name(true);                                 \
         }                                                               \
     }
+
+#define EECONFIG_DEBOUNCE_HELPER(name, offset, config)     \
+    EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config) \
+                                                           \
+    bool eeconfig_check_valid_##name(void) {               \
+        return true;                                       \
+    }                                                      \
+    void eeconfig_post_write_##name(void) {}
