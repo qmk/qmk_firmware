@@ -267,7 +267,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 #    error DIODE_DIRECTION is not defined!
 #endif
 
-void matrix_init_custom(void) {
+__attribute__((weak)) void matrix_init_custom(void) {
 #ifdef SPLIT_KEYBOARD
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
