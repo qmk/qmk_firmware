@@ -11,13 +11,13 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
       rgblight_sethsv_noeeprom(RGB_CLEAR);
       break;
     case _SYMB:
-      rgblight_sethsv_noeeprom_red();
+      rgblight_sethsv_noeeprom(HSV_RED);
       break;
     case _NUMP:
-      rgblight_sethsv_noeeprom_green();
+      rgblight_sethsv_noeeprom(HSV_GREEN);
       break;
     case _OVERWATCH:
-      rgblight_sethsv_noeeprom_blue();
+      rgblight_sethsv_noeeprom(HSV_BLUE);
       // TODO set up animated rainbow swirl with overwatch colors.
       // rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
       // rgblight_effect_breathing(&animation_status);

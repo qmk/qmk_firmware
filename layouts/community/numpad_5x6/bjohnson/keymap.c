@@ -37,9 +37,9 @@ void keyboard_post_init_user(void) {
 
 void led_set_user(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    rgblight_sethsv_noeeprom_cyan();
+    rgblight_sethsv_noeeprom(HSV_CYAN);
   } else {
-    rgblight_sethsv_noeeprom_magenta();
+    rgblight_sethsv_noeeprom(HSV_MAGENTA);
   }
 }
 
