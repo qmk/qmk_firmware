@@ -50,8 +50,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_LED_MATRIX_EXTENDED (uint16_t *)32
 #define EECONFIG_RGB_MATRIX_EXTENDED (uint16_t *)32
 
+// Size of EEPROM being used for core data storage
+#define EECONFIG_BASE_SIZE 34
+
+// Size of EEPROM dedicated to keyboard- and user-specific data
+#ifndef EECONFIG_KB_DATA_SIZE
+#    define EECONFIG_KB_DATA_SIZE 0
+#endif
+#ifndef EECONFIG_KB_DATA_VERSION
+#    define EECONFIG_KB_DATA_VERSION (EECONFIG_KB_DATA_SIZE)
+#endif
+#ifndef EECONFIG_USER_DATA_SIZE
+#    define EECONFIG_USER_DATA_SIZE 0
+#endif
+#ifndef EECONFIG_USER_DATA_VERSION
+#    define EECONFIG_USER_DATA_VERSION (EECONFIG_USER_DATA_SIZE)
+#endif
+
+#define EECONFIG_KB_DATABLOCK ((uint8_t *)(EECONFIG_BASE_SIZE))
+#define EECONFIG_USER_DATABLOCK ((uint8_t *)((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE)))
+
 // Size of EEPROM being used, other code can refer to this for available EEPROM
-#define EECONFIG_SIZE 34
+#define EECONFIG_SIZE ((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + (EECONFIG_USER_DATA_SIZE))
+
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
 #define EECONFIG_DEBUG_MATRIX (1 << 1)
@@ -94,10 +115,15 @@ uint8_t eeconfig_read_audio(void);
 void    eeconfig_update_audio(uint8_t val);
 #endif
 
+#if (EECONFIG_KB_DATA_SIZE) == 0
 uint32_t eeconfig_read_kb(void);
 void     eeconfig_update_kb(uint32_t val);
+#endif // (EECONFIG_KB_DATA_SIZE) == 0
+
+#if (EECONFIG_USER_DATA_SIZE) == 0
 uint32_t eeconfig_read_user(void);
 void     eeconfig_update_user(uint32_t val);
+#endif // (EECONFIG_USER_DATA_SIZE) == 0
 
 #ifdef HAPTIC_ENABLE
 uint32_t eeconfig_read_haptic(void);
@@ -106,6 +132,16 @@ void     eeconfig_update_haptic(uint32_t val);
 
 bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
+
+#if (EECONFIG_KB_DATA_SIZE) > 0
+void eeconfig_read_kb_datablock(void *data);
+void eeconfig_update_kb_datablock(const void *data);
+#endif // (EECONFIG_KB_DATA_SIZE) > 0
+
+#if (EECONFIG_USER_DATA_SIZE) > 0
+void eeconfig_read_user_datablock(void *data);
+void eeconfig_update_user_datablock(const void *data);
+#endif // (EECONFIG_USER_DATA_SIZE) > 0
 
 #define EECONFIG_DEBOUNCE_HELPER(name, offset, config)                  \
     static uint8_t dirty_##name = false;                                \
@@ -130,7 +166,9 @@ void eeconfig_update_handedness(bool val);
     static inline void eeconfig_flag_##name(bool v) {                   \
         dirty_##name |= v;                                              \
     }                                                                   \
-    static inline void eeconfig_write_##name(typeof(config) conf) {     \
-        memcpy(&config, &conf, sizeof(config));                         \
-        eeconfig_flag_##name(true);                                     \
+    static inline void eeconfig_write_##name(typeof(config) *conf) {    \
+        if (memcmp(&config, conf, sizeof(config)) != 0) {               \
+            memcpy(&config, conf, sizeof(config));                      \
+            eeconfig_flag_##name(true);                                 \
+        }                                                               \
     }
