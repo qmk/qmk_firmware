@@ -60,9 +60,9 @@ static uint8_t chan_col_order[LED_MATRIX_COLS] = {0}; // track the channel col o
 static uint8_t current_row                     = 0;   // LED row scan counter
 static uint8_t row_idx                         = 0;   // key row scan counter
 #ifdef MATRIX_NO_SCAN
-extern matrix_row_t raw_matrix[MATRIX_ROWS];    // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];        // debounced values
-static matrix_row_t shared_matrix[MATRIX_ROWS]; // scan values
+extern matrix_row_t  raw_matrix[MATRIX_ROWS];    // raw values
+extern matrix_row_t  matrix[MATRIX_ROWS];        // debounced values
+static matrix_row_t  shared_matrix[MATRIX_ROWS]; // scan values
 static volatile bool matrix_locked  = false;     // matrix update check
 static volatile bool matrix_scanned = false;
 #endif
@@ -328,9 +328,9 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     }
 #ifdef MATRIX_NO_SCAN
 #    if (DIODE_DIRECTION == ROW2COL)
-        // The whole matrix has been scanned
-        matrix_locked = false;
-        matrix_scanned = true;
+    // The whole matrix has been scanned
+    matrix_locked  = false;
+    matrix_scanned = true;
 #    endif // DIODE_DIRECTION == ROW2COL
 #endif     // MATRIX_NO_SCAN
 }
@@ -341,9 +341,9 @@ static void rgb_callback(PWMDriver *pwmp) {
     // Advance to the next LED RGB channels
     current_row++;
     if (current_row >= LED_MATRIX_ROWS_HW) current_row = 0;
-#    if (DIODE_DIRECTION == COL2ROW)
+#if (DIODE_DIRECTION == COL2ROW)
     uint8_t last_row_idx = row_idx;
-#    endif // DIODE_DIRECTION == COL2ROW
+#endif // DIODE_DIRECTION == COL2ROW
     // Advance to the next key matrix row
     if (current_row % LED_MATRIX_ROW_CHANNELS == 2) row_idx++;
     if (row_idx >= LED_MATRIX_ROWS) row_idx = 0;
@@ -356,11 +356,11 @@ static void rgb_callback(PWMDriver *pwmp) {
     static uint8_t first_scanned_row;
     if (!matrix_scanned) {
         if (!matrix_locked) {
-            matrix_locked = true;
+            matrix_locked     = true;
             first_scanned_row = row_idx;
         } else {
             if ((last_row_idx != row_idx) && (row_idx == first_scanned_row)) {
-                matrix_locked = false;
+                matrix_locked  = false;
                 matrix_scanned = true;
             }
         }
