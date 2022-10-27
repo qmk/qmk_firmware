@@ -17,13 +17,12 @@
 #    define RGB_MATRIX_SPD_STEP 16
 #endif
 
-#ifdef MATRIX_NO_SCAN
-#    define ROWS_PER_HAND (MATRIX_ROWS)
+#define ROWS_PER_HAND (MATRIX_ROWS)
 
-#    ifndef MATRIX_IO_DELAY
-#        define MATRIX_IO_DELAY 30
-#    endif
+#if !defined(MATRIX_IO_DELAY)
+#    define MATRIX_IO_DELAY 30
 #endif
+
 /*
     COLS key / led
     SS8050 transistors NPN driven low
@@ -59,13 +58,11 @@
 static uint8_t chan_col_order[LED_MATRIX_COLS] = {0}; // track the channel col order
 static uint8_t current_row                     = 0;   // LED row scan counter
 static uint8_t row_idx                         = 0;   // key row scan counter
-#ifdef MATRIX_NO_SCAN
 extern matrix_row_t  raw_matrix[MATRIX_ROWS];    // raw values
 extern matrix_row_t  matrix[MATRIX_ROWS];        // debounced values
 static matrix_row_t  shared_matrix[MATRIX_ROWS]; // scan values
 static volatile bool matrix_locked  = false;     // matrix update check
 static volatile bool matrix_scanned = false;
-#endif
 static const uint32_t periodticks                      = 256;
 static const uint32_t freq                             = (RGB_MATRIX_HUE_STEP * RGB_MATRIX_SAT_STEP * RGB_MATRIX_VAL_STEP * RGB_MATRIX_SPD_STEP * RGB_MATRIX_LED_PROCESS_LIMIT);
 static const pin_t    led_row_pins[LED_MATRIX_ROWS_HW] = LED_MATRIX_ROW_PINS; // We expect a R,B,G order here
@@ -76,7 +73,6 @@ bool                  enable_pwm = false;
 static const uint8_t underglow_leds[UNDERGLOW_LEDS] = UNDERGLOW_IDX;
 #endif
 
-#ifdef MATRIX_NO_SCAN
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     for (int i = 0; i < TIME_US2I(MATRIX_IO_DELAY); ++i) {
         __asm__ volatile("" ::: "memory");
@@ -85,7 +81,6 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
 bool matrix_available(void) {
     return matrix_scanned;
 }
-#endif // MATRIX_NO_SCAN
 
 /* PWM configuration structure. We use timer CT16B1 with 24 channels. */
 static PWMConfig pwmcfg = {
@@ -298,15 +293,13 @@ static void shared_matrix_rgb_disable_leds(void) {
 static void update_pwm_channels(PWMDriver *pwmp) {
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for (uint8_t col_idx = 0; col_idx < LED_MATRIX_COLS; col_idx++, row_shifter <<= 1) {
-#ifdef MATRIX_NO_SCAN
-#    if (DIODE_DIRECTION == ROW2COL)
+#if (DIODE_DIRECTION == ROW2COL)
         // Scan the key matrix column
         if (!matrix_scanned) {
             matrix_locked = true;
             matrix_read_rows_on_col(shared_matrix, col_idx, row_shifter);
         }
-#    endif // DIODE_DIRECTION == ROW2COL
-#endif     // MATRIX_NO_SCAN
+#endif // DIODE_DIRECTION == ROW2COL
         uint8_t led_index = g_led_config.matrix_co[row_idx][col_idx];
         // Check if we need to enable RGB output
         if (led_state[led_index].b != 0) enable_pwm |= true;
@@ -326,13 +319,11 @@ static void update_pwm_channels(PWMDriver *pwmp) {
             default:;
         }
     }
-#ifdef MATRIX_NO_SCAN
-#    if (DIODE_DIRECTION == ROW2COL)
+#if (DIODE_DIRECTION == ROW2COL)
     // The whole matrix has been scanned
     matrix_locked  = false;
     matrix_scanned = true;
-#    endif // DIODE_DIRECTION == ROW2COL
-#endif     // MATRIX_NO_SCAN
+#endif // DIODE_DIRECTION == ROW2COL
 }
 static void rgb_callback(PWMDriver *pwmp) {
     chSysLockFromISR();
@@ -350,8 +341,7 @@ static void rgb_callback(PWMDriver *pwmp) {
     // Disable LED output before scanning the key matrix
     shared_matrix_rgb_disable_leds();
     shared_matrix_rgb_disable_pwm();
-#ifdef MATRIX_NO_SCAN
-#    if (DIODE_DIRECTION == COL2ROW)
+#if (DIODE_DIRECTION == COL2ROW)
     // Scan the key matrix row
     static uint8_t first_scanned_row;
     if (!matrix_scanned) {
@@ -368,8 +358,7 @@ static void rgb_callback(PWMDriver *pwmp) {
             matrix_read_cols_on_row(shared_matrix, row_idx);
         }
     }
-#    endif // DIODE_DIRECTION == COL2ROW
-#endif     // MATRIX_NO_SCAN
+#endif // DIODE_DIRECTION == COL2ROW
     update_pwm_channels(pwmp);
     if (enable_pwm) writePinHigh(led_row_pins[current_row]);
     // Advance the timer to just before the wrap-around, that will start a new PWM cycle
@@ -386,12 +375,10 @@ void SN32F24xB_init(void) {
     }
     // Determine which PWM channels we need to control
     rgb_ch_ctrl(&pwmcfg);
-#ifdef MATRIX_NO_SCAN
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         shared_matrix[i] = 0;
     }
-#endif // MATRIX_NO_SCAN
     pwmStart(&PWMD1, &pwmcfg);
     shared_matrix_rgb_enable();
 }
@@ -423,7 +410,7 @@ void SN32F24xB_set_color_all(uint8_t r, uint8_t g, uint8_t b) {
         SN32F24xB_set_color(i, r, g, b);
     }
 }
-#ifdef MATRIX_NO_SCAN
+
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     if (!matrix_scanned) return false; // Nothing to process until we have the matrix scanned
 
@@ -434,4 +421,3 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     return changed;
 }
-#endif // MATRIX_NO_SCAN
