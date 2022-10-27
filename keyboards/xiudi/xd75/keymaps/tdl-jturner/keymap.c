@@ -162,14 +162,14 @@ LT(_LYMD,KC_ESC),  KC_A  ,  KC_R  ,  KC_S  ,  KC_T  ,  KC_D  ,________  ,_______
 
 //Define layer colors
 #define rgblight_setrgb_user_base()  rgblight_sethsv(325,255,255)
-#define rgblight_setrgb_user_LYFK()  rgblight_sethsv_red()
-#define rgblight_setrgb_user_LYMED() rgblight_sethsv_blue()
-#define rgblight_setrgb_user_LYNUM() rgblight_sethsv_purple()
-#define rgblight_setrgb_user_LYNAV() rgblight_sethsv_cyan()
-#define rgblight_setrgb_user_LYMOS() rgblight_sethsv_orange()
-#define rgblight_setrgb_user_LYSYS() rgblight_sethsv_green()
-#define rgblight_setrgb_user_LYLT()  rgblight_sethsv_yellow()
-#define rgblight_setrgb_user_LYMD()  rgblight_sethsv_white()
+#define rgblight_setrgb_user_LYFK()  rgblight_sethsv(HSV_RED)
+#define rgblight_setrgb_user_LYMED() rgblight_sethsv(HSV_BLUE)
+#define rgblight_setrgb_user_LYNUM() rgblight_sethsv(HSV_PURPLE)
+#define rgblight_setrgb_user_LYNAV() rgblight_sethsv(HSV_CYAN)
+#define rgblight_setrgb_user_LYMOS() rgblight_sethsv(HSV_ORANGE)
+#define rgblight_setrgb_user_LYSYS() rgblight_sethsv(HSV_GREEN)
+#define rgblight_setrgb_user_LYLT()  rgblight_sethsv(HSV_YELLOW)
+#define rgblight_setrgb_user_LYMD()  rgblight_sethsv(HSV_WHITE)
 
 //initialize rgb
 void matrix_init_user(void) {

@@ -16,7 +16,6 @@
 
 #include "dp60.h"
 
-#include "rgblight_list.h"
 #include "rgblight.h"
 
 

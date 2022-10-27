@@ -249,19 +249,19 @@ void persistent_default_layer_set(uint16_t default_layer) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _SYMB:
-            rgblight_setrgb_orange();
+            rgblight_setrgb(RGB_ORANGE);
             break;
         case _NAV:
-            rgblight_setrgb_springgreen();
+            rgblight_setrgb(RGB_SPRINGGREEN);
             break;
         case _INTER:
-            rgblight_setrgb_teal();
+            rgblight_setrgb(RGB_TEAL);
             break;
         case _ADJUST:
-            rgblight_setrgb_red();
+            rgblight_setrgb(RGB_RED);
             break;
         default:  //  for any other layers, or the default layer
-            rgblight_setrgb_yellow();
+            rgblight_setrgb(RGB_YELLOW);
             break;
     }
     return state;
