@@ -1,4 +1,16 @@
 {
+    "flake-utils": {
+        "branch": "master",
+        "description": "Pure Nix flake utility functions",
+        "homepage": null,
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "sha256": "0rq21mnxq8wkwsgjbrqpq4ph062qfprd7m0zy3hysq5pmbqmnnff",
+        "type": "tarball",
+        "url": "https://github.com/numtide/flake-utils/archive/c0e246b9b83f637f4681389ecabcb2681b4f3af0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",

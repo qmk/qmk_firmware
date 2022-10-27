@@ -38,7 +38,7 @@ in
             # adding propagatedBuildInputs and buildInputs from the same source.
             propagatedBuildInputs = (old.buildInputs or []) ++ pkgs.python3.pkgs.pillow.propagatedBuildInputs;
             buildInputs = (old.buildInputs or []) ++ pkgs.python3.pkgs.pillow.buildInputs;
-            preConfigure = (builtins.toString (old.preConfigure or "")) + pkgs.python3.pkgs.pillow.preConfigure;
+            preConfigure = (old.preConfigure or "") + pkgs.python3.pkgs.pillow.preConfigure;
           });
           qmk = super.qmk.overridePythonAttrs (old: {
             # Allow QMK CLI to run "qmk" as a subprocess (the wrapper changes
