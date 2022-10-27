@@ -1,9 +1,5 @@
-# Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
-#
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-WPM_ENABLE = yes	    # Words per minute calculation 
+EXTRAKEY_ENABLE = yes
+WPM_ENABLE = yes
 
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/rgb_state_reader.c \
