@@ -408,9 +408,9 @@ enum quantum_keycodes {
     QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE,  // 5CF7
 
     // Combos
-    CMB_ON,  // 5CF8
-    CMB_OFF, // 5CF9
-    CMB_TOG, // 5CFA
+    QK_COMBO_ON,     // 5CF8
+    QK_COMBO_OFF,    // 5CF9
+    QK_COMBO_TOGGLE, // 5CFA
 
     // Magic (continued)
     MAGIC_SWAP_LCTL_LGUI,   // 5CFB
@@ -871,6 +871,11 @@ enum quantum_keycodes {
 #define SC_LAPO QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN
 #define SC_RAPC QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE
 #define SC_SENT QK_SPACE_CADET_RIGHT_SHIFT_ENTER
+
+// Combos
+#define CM_ON QK_COMBO_ON
+#define CM_OFF QK_COMBO_OFF
+#define CM_TOGG QK_COMBO_TOGGLE
 
 // Swap Hands
 #define SH_T(kc) (QK_SWAP_HANDS | (kc))
