@@ -306,7 +306,7 @@ __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_mat
 }
 #endif
 
-bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+__attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
