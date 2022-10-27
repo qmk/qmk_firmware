@@ -635,7 +635,7 @@ endif
 COMMON_VPATH += $(QUANTUM_DIR)/bootmagic
 QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/magic.c
 
-VALID_CUSTOM_MATRIX_TYPES:= yes lite shared no
+VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
 CUSTOM_MATRIX ?= no
 
@@ -651,11 +651,6 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     ifneq ($(strip $(CUSTOM_MATRIX)), lite)
         # Include the standard or split matrix code if needed
         QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
-    endif
-    # if 'shared' then skip only the matrix scan implementation
-    ifeq ($(strip $(CUSTOM_MATRIX)), shared)
-        # Exclude only the standard or split matrix code scan
-        OPT_DEFS += -DMATRIX_NO_SCAN
     endif
 endif
 

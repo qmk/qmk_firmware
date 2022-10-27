@@ -317,8 +317,6 @@ __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_mat
 }
 #endif
 
-#ifndef MATRIX_NO_SCAN
-// Some implementations require custom code to time the matrix scan in a very short window. Let them scan it with a custom function
 uint8_t matrix_scan(void) {
     matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
 
@@ -346,4 +344,3 @@ uint8_t matrix_scan(void) {
 #    endif
     return (uint8_t)changed;
 }
-#endif
