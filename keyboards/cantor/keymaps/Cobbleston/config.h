@@ -45,4 +45,10 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds timeout for CAPS_WORD
+// 3 seconds timeout for CAPS_WORD
+#define CAPS_WORD_IDLE_TIMEOUT 3000
+
+// For Home Row Mods
+#define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT    // Prevent normal rollover on alphas from accidentally triggering mods.
+#define PERMISSIVE_HOLD
