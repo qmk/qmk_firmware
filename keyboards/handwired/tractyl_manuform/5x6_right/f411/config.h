@@ -53,7 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PWM_DRIVER   PWMD3
 #define AUDIO_PWM_CHANNEL  4
 #define AUDIO_PWM_PAL_MODE 2
-#define AUDIO_STATE_TIMER  GPTD4
 
 /* serial.c configuration for split keyboard */
 #define SERIAL_USART_FULL_DUPLEX  // Enable full duplex operation mode.
