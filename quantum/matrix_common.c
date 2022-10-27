@@ -175,7 +175,7 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
     matrix_scan_quantum();
 #endif
 
-    return changed;
+    return (uint8_t)changed;
 }
 
 __attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) {
