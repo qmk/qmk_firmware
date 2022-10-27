@@ -42,17 +42,17 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
-BOOTMAGIC_ENABLE ?= lite # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= no    # Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes   # Audio control and System control(+450)
-CONSOLE_ENABLE ?= no     # Console for debug(+400)
+BOOTMAGIC_ENABLE ?= lite # Virtual DIP switch configuration
+MOUSEKEY_ENABLE ?= no    # Mouse keys
+EXTRAKEY_ENABLE ?= yes   # Audio control and System control
+CONSOLE_ENABLE ?= no     # Console for debug
 COMMAND_ENABLE ?= no     # Commands for debug and configuration
 SLEEP_LED_ENABLE ?= no   # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 NKRO_ENABLE ?= yes       # USB Nkey Rollover. See <https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work> if doesn't work.
 BACKLIGHT_ENABLE ?= no   # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE ?= no
-AUDIO_ENABLE ?= no       # +7048
-OLED_DRIVER_ENABLE ?= no # +3838
+AUDIO_ENABLE ?= no       
+OLED_DRIVER_ENABLE ?= no 
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 VIA_ENABLE = yes
