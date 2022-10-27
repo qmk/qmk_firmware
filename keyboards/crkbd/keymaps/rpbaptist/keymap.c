@@ -76,8 +76,8 @@ user_config_t user_config;
 #define WIN_CLS LALT(KC_F4)
 
 // CTRL become parens keys on NAV and NUM layers
-#define LCT_PRN KC_LCPO
-#define RCT_PRN KC_RCPC
+#define LCT_PRN SC_LCPO
+#define RCT_PRN SC_RCPC
 
 // €
 #define KC_EUR ALGR(KC_5)

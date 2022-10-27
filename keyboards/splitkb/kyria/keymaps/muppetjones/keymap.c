@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_CLMK_DH] = LAYOUT_wrapper(
     CW_TOGG, __COLEMAK_MOD_DH_L1________________________,                                     __COLEMAK_MOD_DH_R1_W_QUOT_________________, KC_BSLS,
     HY_ESC,  __COLEMAK_MOD_DH_L2_W_GACS_________________,                                     __COLEMAK_MOD_DH_R2_W_SCAG_________________, KC_QUOT,
-    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, KC_LSFT, QK_LEAD, KC_DEL,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
+    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, KC_LSFT, QK_LEAD, KC_DEL,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________, SC_SENT,
                                KC_MUTE, KC_DEL,  HY_ESC,  LOW_BSP, RAI_ENT, KC_BSPC, NAV_SPC, HY_ESC,  RAI_TAB, KC_RALT
 ),
 [_QWERTY] = LAYOUT_wrapper(

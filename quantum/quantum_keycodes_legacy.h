@@ -89,6 +89,14 @@
 #define SECURE_TOGGLE QK_SECURE_TOGGLE
 #define SECURE_REQUEST QK_SECURE_REQUEST
 
+#define KC_LSPO QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN
+#define KC_RSPC QK_SPACE_CADET_RIGHT_SHIFT_PARENTHESIS_CLOSE
+#define KC_LCPO QK_SPACE_CADET_LEFT_CTRL_PARENTHESIS_OPEN
+#define KC_RCPC QK_SPACE_CADET_RIGHT_CTRL_PARENTHESIS_CLOSE
+#define KC_LAPO QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN
+#define KC_RAPC QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE
+#define KC_SFTENT QK_SPACE_CADET_RIGHT_SHIFT_ENTER
+
 #define TERM_ON _Static_assert(false, "The Terminal feature has been removed from QMK. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 #define TERM_OFF _Static_assert(false, "The Terminal feature has been removed from QMK.. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 // #define RESET _Static_assert(false, "The RESET keycode has been removed from QMK.. Please remove use from your keymap.")

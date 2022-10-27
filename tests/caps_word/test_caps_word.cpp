@@ -419,7 +419,7 @@ TEST_P(CapsWordBothShifts, PressLRLR) {
     right_shift.press();
 
     // For mod-tap and Space Cadet keys, wait for the tapping term.
-    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == KC_LSPO) {
+    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN) {
         idle_for(TAPPING_TERM);
     }
 
@@ -456,7 +456,7 @@ TEST_P(CapsWordBothShifts, PressLRRL) {
     run_one_scan_loop();
     right_shift.press();
 
-    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == KC_LSPO) {
+    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN) {
         idle_for(TAPPING_TERM);
     }
     run_one_scan_loop();
@@ -481,7 +481,7 @@ INSTANTIATE_TEST_CASE_P(
         CapsWordBothShiftsParams{
             "OneshotShifts", OSM(MOD_LSFT), OSM(MOD_RSFT)},
         CapsWordBothShiftsParams{
-            "SpaceCadetShifts", KC_LSPO, KC_RSPC},
+            "SpaceCadetShifts", SC_LSPO, SC_RSPC},
         CapsWordBothShiftsParams{
             "ModTapShifts", LSFT_T(KC_A), RSFT_T(KC_B)}
         ),
