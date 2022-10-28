@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | Brt- | Prev | Bckw | Stop | Vol- |                              |  End | Left | Down | Right|ScrLck| BkSpace|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |  ´   |  `   |  ^   |  ¨   | Mute |      |UC_MOD|  |RShift| Menu | PrtSc| ç/Ç  | § °  |      | SAVE | Insert |
+ * | LShift |  ´   |  `   |  ^   |  ¨   | Mute |      |UC_Nxt|  |RShift| Menu | PrtSc| ç/Ç  | § °  |      | SAVE | Insert |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |LCtrl | LGUI | LAlt |      | MO(1)|  | MO(2)| UNDO |  CUT | COPY | PASTE|
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
  _______, KC_BRIU, KC_MNXT, KC_MFFD, KC_MPLY, KC_VOLU,                                     KC_HOME, KC_PGUP,   KC_UP, KC_PGDN, _______,  KC_DEL,
  _______, KC_BRID, KC_MPRV, KC_MRWD, KC_MSTP, KC_VOLD,                                      KC_END, KC_LEFT, KC_DOWN, KC_RGHT, KC_SCRL, KC_BSPC,
- KC_LSFT, US_ACUT, US_DGRV, US_DCIR, US_DIAE, KC_MUTE, _______,  UC_MOD, KC_RSFT,  KC_APP, KC_PSCR, XP(CEDIL,CEDIL_MAJ), XP(SECTION,DEGREE), _______, LCTL(KC_S),  KC_INS,
+ KC_LSFT, US_ACUT, US_DGRV, US_DCIR, US_DIAE, KC_MUTE, _______, UC_NEXT, KC_RSFT,  KC_APP, KC_PSCR, XP(CEDIL,CEDIL_MAJ), XP(SECTION,DEGREE), _______, LCTL(KC_S),  KC_INS,
                             KC_LCTL, KC_LGUI, KC_LALT, _______,   MO(1),   MO(2), LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V)
     ),
 

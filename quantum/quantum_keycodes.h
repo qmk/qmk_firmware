@@ -378,13 +378,13 @@ enum quantum_keycodes {
     QK_CLEAR_EEPROM, // 5CDF
 
     // Unicode
-    UNICODE_MODE_FORWARD, // 5CE0
-    UNICODE_MODE_REVERSE, // 5CE1
-    UNICODE_MODE_MAC,     // 5CE2
-    UNICODE_MODE_LNX,     // 5CE3
-    UNICODE_MODE_WIN,     // 5CE4
-    UNICODE_MODE_BSD,     // 5CE5
-    UNICODE_MODE_WINC,    // 5CE6
+    QK_UNICODE_MODE_NEXT,     // 5CE0
+    QK_UNICODE_MODE_PREVIOUS, // 5CE1
+    UNICODE_MODE_MAC,         // 5CE2
+    UNICODE_MODE_LNX,         // 5CE3
+    UNICODE_MODE_WIN,         // 5CE4
+    UNICODE_MODE_BSD,         // 5CE5
+    UNICODE_MODE_WINC,        // 5CE6
 
     // Haptic
     HPT_ON,   // 5CE7
@@ -834,8 +834,8 @@ enum quantum_keycodes {
 #define X(i) (QK_UNICODEMAP | (i))
 #define XP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7)) // 127 max i and j
 
-#define UC_MOD UNICODE_MODE_FORWARD
-#define UC_RMOD UNICODE_MODE_REVERSE
+#define UC_NEXT QK_UNICODE_MODE_NEXT
+#define UC_PREV QK_UNICODE_MODE_PREVIOUS
 
 #define UC_M_MA UNICODE_MODE_MAC
 #define UC_M_LN UNICODE_MODE_LNX
