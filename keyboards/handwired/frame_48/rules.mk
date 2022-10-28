@@ -21,4 +21,4 @@ OLED_DRIVER_ENABLE = no
 VIA_ENABLE = yes
 LT0_ENABLE = yes
 
-DEFAULT_FOLDER = handwired/frame_48/slim
+DEFAULT_FOLDER = handwired/frame_48/rev1
