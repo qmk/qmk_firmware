@@ -132,6 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+#ifdef ENCODER_ENABLE
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_DEFAULT_LAYER_1] = { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } },
@@ -184,6 +185,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return false;
 }
+#endif
 #endif
 
 #ifdef OLED_ENABLE
