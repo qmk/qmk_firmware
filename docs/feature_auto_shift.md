@@ -300,14 +300,14 @@ This will enable you to define three keys temporarily to increase, decrease and 
 
 Map three keys temporarily in your keymap:
 
-|Keycode               |Aliases  | Description                                 |
-|----------------------|---------|---------------------------------------------|
-|`QK_AUTO_SHIFT_DOWN`  |`AS_DOWN`| Lower the Auto Shift timeout variable (down)|
-|`QK_AUTO_SHIFT_UP`    |`AS_UP`  | Raise the Auto Shift timeout variable (up)  |
-|`QK_AUTO_SHIFT_REPORT`|`AS_RPT` | Report your current Auto Shift timeout value|
-|`QK_AUTO_SHIFT_ON`    |`AS_ON`  | Turns on the Auto Shift Function            |
-|`QK_AUTO_SHIFT_OFF`   |`AS_OFF` | Turns off the Auto Shift Function           |
-|`QK_AUTO_SHIFT_TOGGLE`|`AS_TOGG`| Toggles the state of the Auto Shift feature |
+|Keycode               |Aliases  |Description                                 |
+|----------------------|---------|--------------------------------------------|
+|`QK_AUTO_SHIFT_DOWN`  |`AS_DOWN`|Lower the Auto Shift timeout variable (down)|
+|`QK_AUTO_SHIFT_UP`    |`AS_UP`  |Raise the Auto Shift timeout variable (up)  |
+|`QK_AUTO_SHIFT_REPORT`|`AS_RPT` |Report your current Auto Shift timeout value|
+|`QK_AUTO_SHIFT_ON`    |`AS_ON`  |Turns on the Auto Shift Function            |
+|`QK_AUTO_SHIFT_OFF`   |`AS_OFF` |Turns off the Auto Shift Function           |
+|`QK_AUTO_SHIFT_TOGGLE`|`AS_TOGG`|Toggles the state of the Auto Shift feature |
 
 Compile and upload your new firmware.
 
