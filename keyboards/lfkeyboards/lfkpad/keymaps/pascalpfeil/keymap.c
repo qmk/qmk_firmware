@@ -67,7 +67,7 @@ bool led_update_user(led_t led_state) {
             // this is needed so that upon disabling num lock, the leds don't stay red 
             rgblight_sethsv_at(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val(), numer_leds[i]); 
         else
-            rgblight_setrgb_red_at(numer_leds[i]); // set to red
+            rgblight_setrgb_at(RGB_RED, numer_leds[i]); // set to red
 
     return true;
 }

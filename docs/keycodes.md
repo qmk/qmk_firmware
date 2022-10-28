@@ -275,9 +275,9 @@ See also: [Bluetooth](feature_bluetooth.md)
 
 See also: [Caps Word](feature_caps_word.md)
 
-|Key        |Aliases  |Description                   |
-|-----------|---------|------------------------------|
-|`CAPS_WORD`|`CAPSWRD`|Toggles Caps Word             |
+|Key                  |Aliases  |Description                   |
+|---------------------|---------|------------------------------|
+|`QK_CAPS_WORD_TOGGLE`|`CW_TOGG`|Toggles Caps Word             |
 
 ## Dynamic Macros :id=dynamic-macros
 
@@ -298,6 +298,45 @@ See also: [Grave Escape](feature_grave_esc.md)
 |Key              |Aliases  |Description                                                       |
 |-----------------|---------|------------------------------------------------------------------|
 |`QK_GRAVE_ESCAPE`|`QK_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
+
+## Joystick :id=joystick
+
+See also: [Joystick](feature_joystick.md)
+
+|Key                    |Aliases|Description|
+|-----------------------|-------|-----------|
+|`QK_JOYSTICK_BUTTON_0` |`JS_0` |Button 0   |
+|`QK_JOYSTICK_BUTTON_1` |`JS_1` |Button 1   |
+|`QK_JOYSTICK_BUTTON_2` |`JS_2` |Button 2   |
+|`QK_JOYSTICK_BUTTON_3` |`JS_3` |Button 3   |
+|`QK_JOYSTICK_BUTTON_4` |`JS_4` |Button 4   |
+|`QK_JOYSTICK_BUTTON_5` |`JS_5` |Button 5   |
+|`QK_JOYSTICK_BUTTON_6` |`JS_6` |Button 6   |
+|`QK_JOYSTICK_BUTTON_7` |`JS_7` |Button 7   |
+|`QK_JOYSTICK_BUTTON_8` |`JS_8` |Button 8   |
+|`QK_JOYSTICK_BUTTON_9` |`JS_9` |Button 9   |
+|`QK_JOYSTICK_BUTTON_10`|`JS_10`|Button 10  |
+|`QK_JOYSTICK_BUTTON_11`|`JS_11`|Button 11  |
+|`QK_JOYSTICK_BUTTON_12`|`JS_12`|Button 12  |
+|`QK_JOYSTICK_BUTTON_13`|`JS_13`|Button 13  |
+|`QK_JOYSTICK_BUTTON_14`|`JS_14`|Button 14  |
+|`QK_JOYSTICK_BUTTON_15`|`JS_15`|Button 15  |
+|`QK_JOYSTICK_BUTTON_16`|`JS_16`|Button 16  |
+|`QK_JOYSTICK_BUTTON_17`|`JS_17`|Button 17  |
+|`QK_JOYSTICK_BUTTON_18`|`JS_18`|Button 18  |
+|`QK_JOYSTICK_BUTTON_19`|`JS_19`|Button 19  |
+|`QK_JOYSTICK_BUTTON_20`|`JS_20`|Button 20  |
+|`QK_JOYSTICK_BUTTON_21`|`JS_21`|Button 21  |
+|`QK_JOYSTICK_BUTTON_22`|`JS_22`|Button 22  |
+|`QK_JOYSTICK_BUTTON_23`|`JS_23`|Button 23  |
+|`QK_JOYSTICK_BUTTON_24`|`JS_24`|Button 24  |
+|`QK_JOYSTICK_BUTTON_25`|`JS_25`|Button 25  |
+|`QK_JOYSTICK_BUTTON_26`|`JS_26`|Button 26  |
+|`QK_JOYSTICK_BUTTON_27`|`JS_27`|Button 27  |
+|`QK_JOYSTICK_BUTTON_28`|`JS_28`|Button 28  |
+|`QK_JOYSTICK_BUTTON_29`|`JS_29`|Button 29  |
+|`QK_JOYSTICK_BUTTON_30`|`JS_30`|Button 30  |
+|`QK_JOYSTICK_BUTTON_31`|`JS_31`|Button 31  |
 
 ## Key Lock :id=key-lock
 
@@ -365,6 +404,7 @@ See also: [Magic Keycodes](keycodes_magic.md)
 |`MAGIC_UNSWAP_GRAVE_ESC`          |`GE_NORM`|Unswap <code>&#96;</code> and Escape                                      |
 |`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |`BS_SWAP`|Swap `\` and Backspace                                                    |
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|`BS_NORM`|Unswap `\` and Backspace                                                  |
+|`MAGIC_TOGGLE_BACKSLASH_BACKSPACE`|`BS_TOGG`|Toggle `\` and Backspace swap state                                       |
 |`MAGIC_HOST_NKRO`                 |`NK_ON`  |Enable N-key rollover                                                     |
 |`MAGIC_UNHOST_NKRO`               |`NK_OFF` |Disable N-key rollover                                                    |
 |`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Toggle N-key rollover                                                     |
@@ -696,67 +736,66 @@ See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
 See also: [One Shot Keys](one_shot_keys.md)
 
-|Key         |Description                       |
-|------------|----------------------------------|
-|`OSM(mod)`  |Hold `mod` for one keypress       |
-|`OSL(layer)`|Switch to `layer` for one keypress|
-|`OS_ON`     |Turns One Shot keys on            |
-|`OS_OFF`    |Turns One Shot keys off           |
-|`OS_TOGG`   |Toggles One Shot keys status      |
+|Key                 |Aliases  |Description                       |
+|--------------------|---------|----------------------------------|
+|`OSM(mod)`          |         |Hold `mod` for one keypress       |
+|`OSL(layer)`        |         |Switch to `layer` for one keypress|
+|`QK_ONE_SHOT_TOGGLE`|`OS_TOGG`|Toggles One Shot keys status      |
+|`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on            |
+|`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off           |
 
 ## Programmable Button Support :id=programmable-button
 
 See also: [Programmable Button](feature_programmable_button.md)
 
-|Key                     |Description                                                     |
-|------------------------|----------------------|
-|`PROGRAMMABLE_BUTTON_1` |Programmable button 1 |
-|`PROGRAMMABLE_BUTTON_2` |Programmable button 2 |
-|`PROGRAMMABLE_BUTTON_3` |Programmable button 3 |
-|`PROGRAMMABLE_BUTTON_4` |Programmable button 4 |
-|`PROGRAMMABLE_BUTTON_5` |Programmable button 5 |
-|`PROGRAMMABLE_BUTTON_6` |Programmable button 6 |
-|`PROGRAMMABLE_BUTTON_7` |Programmable button 7 |
-|`PROGRAMMABLE_BUTTON_8` |Programmable button 8 |
-|`PROGRAMMABLE_BUTTON_9` |Programmable button 9 |
-|`PROGRAMMABLE_BUTTON_10`|Programmable button 10|
-|`PROGRAMMABLE_BUTTON_11`|Programmable button 11|
-|`PROGRAMMABLE_BUTTON_12`|Programmable button 12|
-|`PROGRAMMABLE_BUTTON_13`|Programmable button 13|
-|`PROGRAMMABLE_BUTTON_14`|Programmable button 14|
-|`PROGRAMMABLE_BUTTON_15`|Programmable button 15|
-|`PROGRAMMABLE_BUTTON_16`|Programmable button 16|
-|`PROGRAMMABLE_BUTTON_17`|Programmable button 17|
-|`PROGRAMMABLE_BUTTON_18`|Programmable button 18|
-|`PROGRAMMABLE_BUTTON_19`|Programmable button 19|
-|`PROGRAMMABLE_BUTTON_20`|Programmable button 20|
-|`PROGRAMMABLE_BUTTON_21`|Programmable button 21|
-|`PROGRAMMABLE_BUTTON_22`|Programmable button 22|
-|`PROGRAMMABLE_BUTTON_23`|Programmable button 23|
-|`PROGRAMMABLE_BUTTON_24`|Programmable button 24|
-|`PROGRAMMABLE_BUTTON_25`|Programmable button 25|
-|`PROGRAMMABLE_BUTTON_26`|Programmable button 26|
-|`PROGRAMMABLE_BUTTON_27`|Programmable button 27|
-|`PROGRAMMABLE_BUTTON_28`|Programmable button 28|
-|`PROGRAMMABLE_BUTTON_29`|Programmable button 29|
-|`PROGRAMMABLE_BUTTON_30`|Programmable button 30|
-|`PROGRAMMABLE_BUTTON_31`|Programmable button 31|
-|`PROGRAMMABLE_BUTTON_32`|Programmable button 32|
-|`PB_1` to `PB_32`       |Aliases for keymaps   |
+|Key                        |Aliases|Description           |
+|---------------------------|-------|----------------------|
+|`QK_PROGRAMMABLE_BUTTON_1` |`PB_1` |Programmable button 1 |
+|`QK_PROGRAMMABLE_BUTTON_2` |`PB_2` |Programmable button 2 |
+|`QK_PROGRAMMABLE_BUTTON_3` |`PB_3` |Programmable button 3 |
+|`QK_PROGRAMMABLE_BUTTON_4` |`PB_4` |Programmable button 4 |
+|`QK_PROGRAMMABLE_BUTTON_5` |`PB_5` |Programmable button 5 |
+|`QK_PROGRAMMABLE_BUTTON_6` |`PB_6` |Programmable button 6 |
+|`QK_PROGRAMMABLE_BUTTON_7` |`PB_7` |Programmable button 7 |
+|`QK_PROGRAMMABLE_BUTTON_8` |`PB_8` |Programmable button 8 |
+|`QK_PROGRAMMABLE_BUTTON_9` |`PB_9` |Programmable button 9 |
+|`QK_PROGRAMMABLE_BUTTON_10`|`PB_10`|Programmable button 10|
+|`QK_PROGRAMMABLE_BUTTON_11`|`PB_11`|Programmable button 11|
+|`QK_PROGRAMMABLE_BUTTON_12`|`PB_12`|Programmable button 12|
+|`QK_PROGRAMMABLE_BUTTON_13`|`PB_13`|Programmable button 13|
+|`QK_PROGRAMMABLE_BUTTON_14`|`PB_14`|Programmable button 14|
+|`QK_PROGRAMMABLE_BUTTON_15`|`PB_15`|Programmable button 15|
+|`QK_PROGRAMMABLE_BUTTON_16`|`PB_16`|Programmable button 16|
+|`QK_PROGRAMMABLE_BUTTON_17`|`PB_17`|Programmable button 17|
+|`QK_PROGRAMMABLE_BUTTON_18`|`PB_18`|Programmable button 18|
+|`QK_PROGRAMMABLE_BUTTON_19`|`PB_19`|Programmable button 19|
+|`QK_PROGRAMMABLE_BUTTON_20`|`PB_20`|Programmable button 20|
+|`QK_PROGRAMMABLE_BUTTON_21`|`PB_21`|Programmable button 21|
+|`QK_PROGRAMMABLE_BUTTON_22`|`PB_22`|Programmable button 22|
+|`QK_PROGRAMMABLE_BUTTON_23`|`PB_23`|Programmable button 23|
+|`QK_PROGRAMMABLE_BUTTON_24`|`PB_24`|Programmable button 24|
+|`QK_PROGRAMMABLE_BUTTON_25`|`PB_25`|Programmable button 25|
+|`QK_PROGRAMMABLE_BUTTON_26`|`PB_26`|Programmable button 26|
+|`QK_PROGRAMMABLE_BUTTON_27`|`PB_27`|Programmable button 27|
+|`QK_PROGRAMMABLE_BUTTON_28`|`PB_28`|Programmable button 28|
+|`QK_PROGRAMMABLE_BUTTON_29`|`PB_29`|Programmable button 29|
+|`QK_PROGRAMMABLE_BUTTON_30`|`PB_30`|Programmable button 30|
+|`QK_PROGRAMMABLE_BUTTON_31`|`PB_31`|Programmable button 31|
+|`QK_PROGRAMMABLE_BUTTON_32`|`PB_32`|Programmable button 32|
 
 ## Space Cadet :id=space-cadet
 
 See also: [Space Cadet](feature_space_cadet.md)
 
-|Key        |Description                             |
-|-----------|----------------------------------------|
-|`KC_LCPO`  |Left Control when held, `(` when tapped |
-|`KC_RCPC`  |Right Control when held, `)` when tapped|
-|`KC_LSPO`  |Left Shift when held, `(` when tapped   |
-|`KC_RSPC`  |Right Shift when held, `)` when tapped  |
-|`KC_LAPO`  |Left Alt when held, `(` when tapped     |
-|`KC_RAPC`  |Right Alt when held, `)` when tapped    |
-|`KC_SFTENT`|Right Shift when held, Enter when tapped|
+|Key                                           |Aliases  |Description                             |
+|----------------------------------------------|---------|----------------------------------------|
+|`QK_SPACE_CADET_LEFT_CTRL_PARENTHESIS_OPEN`   |`SC_LCPO`|Left Control when held, `(` when tapped |
+|`QK_SPACE_CADET_RIGHT_CTRL_PARENTHESIS_CLOSE` |`SC_RCPC`|Right Control when held, `)` when tapped|
+|`QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN`  |`SC_LSPO`|Left Shift when held, `(` when tapped   |
+|`QK_SPACE_CADET_RIGHT_SHIFT_PARENTHESIS_CLOSE`|`SC_RSPC`|Right Shift when held, `)` when tapped  |
+|`QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN`    |`SC_LAPO`|Left Alt when held, `(` when tapped     |
+|`QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE`  |`SC_RAPC`|Right Alt when held, `)` when tapped    |
+|`QK_SPACE_CADET_RIGHT_SHIFT_ENTER`            |`SC_SENT`|Right Shift when held, Enter when tapped|
 
 ## Swap Hands :id=swap-hands
 

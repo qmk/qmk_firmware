@@ -379,7 +379,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
                 return false;
 #ifdef VELOCIKEY_ENABLE
-            case VLK_TOG:
+            case QK_VELOCIKEY_TOGGLE:
                 velocikey_toggle();
                 return false;
 #endif
@@ -395,13 +395,13 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
 #endif
 #ifndef NO_ACTION_ONESHOT
-            case ONESHOT_TOGGLE:
+            case QK_ONE_SHOT_TOGGLE:
                 oneshot_toggle();
                 break;
-            case ONESHOT_ENABLE:
+            case QK_ONE_SHOT_ON:
                 oneshot_enable();
                 break;
-            case ONESHOT_DISABLE:
+            case QK_ONE_SHOT_OFF:
                 oneshot_disable();
                 break;
 #endif

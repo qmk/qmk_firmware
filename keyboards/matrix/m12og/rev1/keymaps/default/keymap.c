@@ -38,7 +38,7 @@ bool led_update_user(led_t led_state) {
     static uint8_t caps_state = 0;
     if (caps_state != led_state.caps_lock) {
         if (led_state.caps_lock) {
-            rgblight_sethsv_noeeprom_cyan();
+            rgblight_sethsv_noeeprom(HSV_CYAN);
             rgblight_mode_noeeprom(1);
         } else {
             rgblight_sethsv_noeeprom(5, 255, 255);

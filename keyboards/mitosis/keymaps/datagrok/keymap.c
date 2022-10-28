@@ -42,7 +42,7 @@ enum mitosis_keycodes
 // The weird /*,*/ comments are a hack to get slightly better automatic
 // tabulation in my editor.
 
-// We use Space Cadet KC_RSPC to get _ on right shift. See config.h for details.
+// We use Space Cadet SC_RSPC to get _ on right shift. See config.h for details.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_xQ] = LAYOUT(
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_A,    KC_S,       KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,     KC_SCLN,
       KC_Z,    KC_X,       KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_QUOT,
       /*,      */ KC_LGUI, KC_LCTL, MO(_xS), KC_BSPC,        KC_SPC,  MO(_xS), KC_RCTL, KC_RGUI,
-      /*,      */ KC_INT4, KC_LALT, MO(_xN), LSFT_T(KC_TAB), KC_RSPC, MO(_xN), KC_RALT, KC_INT5),
+      /*,      */ KC_INT4, KC_LALT, MO(_xN), LSFT_T(KC_TAB), SC_RSPC, MO(_xN), KC_RALT, KC_INT5),
   [_xC] = LAYOUT(
       KC_Q,    KC_W,       KC_F,    KC_P,    KC_G,           KC_J,    KC_L,    KC_U,    KC_Y,     KC_SCLN,
       KC_A,    KC_R,       KC_S,    KC_T,    KC_D,           KC_H,    KC_N,    KC_E,    KC_I,     KC_O,
