@@ -247,6 +247,16 @@ See also: [Audio](feature_audio.md)
 |`MU_TOG`        |         |Toggles Music Mode                |
 |`MU_MOD`        |         |Cycles through the music modes    |
 
+## Autocorrect :id=autocorrect
+
+See also: [Autocorrect](feature_autocorrect.md)
+
+|Key                    |Aliases  |Description                                   |
+|-----------------------|---------|----------------------------------------------|
+|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
+|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
+|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
+
 ## Backlighting :id=backlighting
 
 See also: [Backlighting](feature_backlight.md)
