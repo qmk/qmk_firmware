@@ -165,12 +165,12 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     mods |= get_oneshot_mods();
 #endif
 
-    if ((keycode >= AUTOCORRECT_ON && keycode <= AUTOCORRECT_TOGGLE) && record->event.pressed) {
-        if (keycode == AUTOCORRECT_ON) {
+    if ((keycode >= QK_AUTOCORRECT_ON && keycode <= QK_AUTOCORRECT_TOGGLE) && record->event.pressed) {
+        if (keycode == QK_AUTOCORRECT_ON) {
             autocorrect_enable();
-        } else if (keycode == AUTOCORRECT_OFF) {
+        } else if (keycode == QK_AUTOCORRECT_OFF) {
             autocorrect_disable();
-        } else if (keycode == AUTOCORRECT_TOGGLE) {
+        } else if (keycode == QK_AUTOCORRECT_TOGGLE) {
             autocorrect_toggle();
         } else {
             return true;

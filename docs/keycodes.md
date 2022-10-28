@@ -260,6 +260,16 @@ See also: [Auto Shift](feature_auto_shift.md)
 |`QK_AUTO_SHIFT_OFF`   |`AS_OFF` |Turns off the Auto Shift Function           |
 |`QK_AUTO_SHIFT_TOGGLE`|`AS_TOGG`|Toggles the state of the Auto Shift feature |
 
+## Autocorrect :id=autocorrect
+
+See also: [Autocorrect](feature_autocorrect.md)
+
+|Key                    |Aliases  |Description                                   |
+|-----------------------|---------|----------------------------------------------|
+|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
+|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
+|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
+
 ## Backlighting :id=backlighting
 
 See also: [Backlighting](feature_backlight.md)
