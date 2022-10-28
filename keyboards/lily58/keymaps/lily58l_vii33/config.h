@@ -28,9 +28,10 @@ use define EE_HANDS at flashing time*/
 #define EE_HANDS
 
 
-#define TAPPING_TERM 170  // mod tap hold time (shift) in ms, default 200
+#define TAPPING_TERM 220  // mod tap hold time (shift) in ms, default 200
 #define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_FORCE_HOLD   // activate the hold function instead, when holding a dual-role key after having tapped it. 
+#define TAPPING_FORCE_HOLD   // activate the hold function instead, when holding a dual-role key after
+// having tapped it. 
 //No more accidental repeats of mod-tap letters when typing quickly!
 // The downside is that it removes the possibility of auto-repeating the letter/tapping function of the mod-tap.
 // BUT The good news is that there exists a per-key variant of this configuration option: TAPPING_FORCE_HOLD_PER_KEY

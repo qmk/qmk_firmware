@@ -5,4 +5,10 @@
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
+extern bool isSneaking;
+extern bool isJumping;
+extern bool isBarking;
+extern bool showedJump;
+
+
 #endif

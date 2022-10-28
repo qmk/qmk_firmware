@@ -16,7 +16,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#include QMK_KEYBOARD_H
+
 #include "enums.h"
 #include "oled.h"
 #include "process_record_user.h"
@@ -53,30 +53,10 @@ extern uint8_t is_master;
 #define WINSCNS SGUI(KC_S)          // WIN+SHIFT+S
 
 //HOME Row Modifiers
-// Left-hand home row mods
-#define GUI_S LGUI_T(KC_S)
-#define ALT_D LALT_T(KC_D)
-#define CTL_F LCTL_T(KC_F)
-// Right-hand home row mods
-#define CTL_J RCTL_T(KC_J)
-#define ALT_K LALT_T(KC_K)
-#define GUI_L RGUI_T(KC_L)
 
 
-// Custom Keycodes / Keys  https://docs.qmk.fm/#/custom_quantum_functions?id=defining-a-new-keycode
-enum custom_keycodes {
-    CC_AE = SAFE_RANGE,
-    CC_OE,
-    CC_UE,
-    CC_BckDel,
-    CC_SLH,
-    CC_QUOT,
-    CC_APHO,
-    CC_SCOLN,
-    CC_COLN,
-    CC_EXLM,
-    CC_SAVRGB,
-};
+
+
 
 // Animation Speeds
 //const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
@@ -134,11 +114,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ),
 
 [_QWERTY] = LAYOUT(
-  KC_ESC,   KC_1,   KC_2,   KC_3,    KC_4,    KC_5,                            KC_6,   KC_7,  KC_8,      KC_9,    KC_0,    CC_BckDel, 
-  KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,                            KC_Z,   KC_U,  KC_I,      KC_O,    KC_P,    CC_UE, 
-  CC_QUOT,  KC_A,   GUI_S,  ALT_D,   CTL_F,   KC_G,                            KC_H,   CTL_J, ALT_K,     GUI_L,   CC_OE,   CC_AE, 
-  CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,     KC_B,  KC_MUTE,        _______, KC_N,   KC_M,  CC_SCOLN,  CC_COLN, CC_EXLM, KC_MINS, 
-                            CC_SLH,  MOD,     LOWER, RSFT_T(KC_SPC), RSFT_T(KC_SPC),  UPPER,  KC_DEL,    KC_BSPC
+  KC_ESC,   KC_1,   KC_2,   KC_3,    KC_4,   KC_5,                        KC_6,   KC_7,  KC_8,      KC_9,    KC_0,    CC_BckDel, 
+  KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,   KC_T,                        KC_Z,   KC_U,  KC_I,      KC_O,    KC_P,    CC_UE, 
+  CC_QUOT,  KC_A,   GUI_S,  ALT_D,   CTL_F,  KC_G,                        KC_H,   CTL_J, ALT_K,     GUI_L,   CC_OE,   CC_AE, 
+  CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,   KC_B,  KC_MUTE,    _______,  KC_N,   KC_M,  CC_SCOLN,  CC_COLN, CC_EXLM, KC_MINS, 
+                            CC_SLH,  MOD,    LOWER, SHFT_SP,    SHFT_SP,  UPPER,  KC_DEL,    KC_BSPC
 ),
 
 

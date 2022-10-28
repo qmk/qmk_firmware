@@ -7,3 +7,6 @@ WPM_ENABLE = yes
 
 SRC += oled.c   
 SRC += process_record_user.c
+
+
+#  CONSOLE_ENABLE = yes  # To Debug via the qmk toolkit

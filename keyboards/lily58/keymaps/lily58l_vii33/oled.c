@@ -88,7 +88,7 @@ void render_keylock_status(led_t led_state) {
 }
 
 void render_mod_status(uint8_t modifiers) {
-    oled_write_ln_P(PSTR("Mods"), false);
+    // oled_write_ln_P(PSTR("Mods"), false);
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
     oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
@@ -97,22 +97,19 @@ void render_mod_status(uint8_t modifiers) {
 }
 
 void render_status_main(void) {
-    // Show keyboard layout
     render_default_layer_state();
-    // Add a empty line
-    oled_write_P(PSTR("-----"), false);
-    // Show host keyboard led status
+    oled_write_P(PSTR("-----"), false);   // Add a empty line
+    
     render_keylock_status(host_keyboard_led_state());
-    // Add a empty line
     oled_write_P(PSTR("-----"), false);
-    // Show modifier status
+    
     render_mod_status(get_mods());
-    // Add a empty line
     oled_write_P(PSTR("-----"), false);
+
     render_keylogger_status();
 
-    oled_write_P(PSTR("WPM: "), false);
-    oled_write(get_u8_str(get_current_wpm(), '0'), false);
+    //oled_write_P(PSTR("WPM: "), false);
+    //oled_write(get_u8_str(get_current_wpm(), '0'), false);
 }
 
 
@@ -133,10 +130,6 @@ bool oled_task_user(void) {
 
 
   if (is_keyboard_master()) {
-    // TEST - to delete
-    //oled_write_char('A', false);
-    //oled_write_ln("123", false);
-
     render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     render_luna(0, 13);
   } else {
@@ -147,7 +140,7 @@ bool oled_task_user(void) {
 }
 
 
-// LUNA PET START 
+/* LUNA PET START  */
 
 /* settings */
 #    define MIN_WALK_SPEED      10
@@ -163,6 +156,7 @@ uint32_t anim_sleep = 0;
 uint8_t current_frame = 0;
 bool isSneaking = false;
 bool isJumping  = false;
+bool isBarking  = false;
 bool showedJump = true;
 
 /* logic */
@@ -223,22 +217,20 @@ void render_luna(int LUNA_X, int LUNA_Y) {    // chunk position on LED
 
 
     /* this fixes the screen on and off bug */
+    /* comment: worked only partially, I added screen on to process_record instead */
     if (current_wpm > 0) {
         //oled_on();
-       // tap_code(KC_A);
         anim_sleep = timer_read32();
     } else if ( timer_elapsed32(anim_sleep) > OLED_TIMEOUT && is_oled_on() ) {
         oled_off();
-       // tap_code(KC_B);
        return;
     }
 
     /* animation timer */
     if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
         anim_timer = timer_read32();
-        
-        
-                /* jump */
+                
+            /* jump */
         if (isJumping || !showedJump) {
             /* clear */
             oled_set_cursor(LUNA_X, LUNA_Y + 2);
@@ -260,7 +252,7 @@ void render_luna(int LUNA_X, int LUNA_Y) {    // chunk position on LED
         current_frame = (current_frame + 1) % 2;
 
         /* current status */
-        if (led_usb_state.caps_lock) {
+        if (isBarking) {
             oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
 
         } else if (isSneaking) {
@@ -278,16 +270,16 @@ void render_luna(int LUNA_X, int LUNA_Y) {    // chunk position on LED
     }
 }
 
-/* KEYBOARD PET END */
+/* LUNA PET END */
 
 
 // Logo Renders
 
 /* 32 * 32 logo */
 void render_logo(void) {
-    static const char PROGMEM hell_logo[] = {0x00, 0x80, 0xc0, 0xc0, 0x60, 0x60, 0x30, 0x30, 0x18, 0x1c, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x80, 0xe0, 0x78, 0x1e, 0x06, 0x00, 0x0c, 0x1c, 0x18, 0x30, 0x30, 0x60, 0x60, 0xc0, 0xc0, 0x80, 0x00, 0x01, 0x03, 0x07, 0x06, 0x0c, 0x0c, 0x18, 0x18, 0x30, 0x70, 0x60, 0x00, 0xc0, 0xf0, 0x3c, 0x0f, 0x03, 0x00, 0x00, 0x00, 0x00, 0x60, 0x70, 0x30, 0x18, 0x18, 0x0c, 0x0c, 0x06, 0x07, 0x03, 0x01, 0x00, 0xf8, 0xf8, 0x80, 0x80, 0x80, 0xf8, 0xf8, 0x00, 0x80, 0xc0, 0xc0, 0x40, 0xc0, 0xc0, 0x80, 0x00, 0xf8, 0xf8, 0x00, 0xf8, 0xf8, 0x00, 0x08, 0x38, 0x08, 0x00, 0x38, 0x08, 0x30, 0x08, 0x38, 0x00, 0x1f, 0x1f, 0x01, 0x01, 0x01, 0x1f, 0x1f, 0x00, 0x0f, 0x1f, 0x1a, 0x12, 0x1a, 0x1b, 0x0b, 0x00, 0x1f, 0x1f, 0x00, 0x1f, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    // static const char PROGMEM hell_logo[] = {0x00, 0x80, 0xc0, 0xc0, 0x60, 0x60, 0x30, 0x30, 0x18, 0x1c, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x80, 0xe0, 0x78, 0x1e, 0x06, 0x00, 0x0c, 0x1c, 0x18, 0x30, 0x30, 0x60, 0x60, 0xc0, 0xc0, 0x80, 0x00, 0x01, 0x03, 0x07, 0x06, 0x0c, 0x0c, 0x18, 0x18, 0x30, 0x70, 0x60, 0x00, 0xc0, 0xf0, 0x3c, 0x0f, 0x03, 0x00, 0x00, 0x00, 0x00, 0x60, 0x70, 0x30, 0x18, 0x18, 0x0c, 0x0c, 0x06, 0x07, 0x03, 0x01, 0x00, 0xf8, 0xf8, 0x80, 0x80, 0x80, 0xf8, 0xf8, 0x00, 0x80, 0xc0, 0xc0, 0x40, 0xc0, 0xc0, 0x80, 0x00, 0xf8, 0xf8, 0x00, 0xf8, 0xf8, 0x00, 0x08, 0x38, 0x08, 0x00, 0x38, 0x08, 0x30, 0x08, 0x38, 0x00, 0x1f, 0x1f, 0x01, 0x01, 0x01, 0x1f, 0x1f, 0x00, 0x0f, 0x1f, 0x1a, 0x12, 0x1a, 0x1b, 0x0b, 0x00, 0x1f, 0x1f, 0x00, 0x1f, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-    oled_write_raw_P(hell_logo, sizeof(hell_logo));
+    // oled_write_raw_P(hell_logo, sizeof(hell_logo));
  }
 
 // static void render_lily58_logo(void) {
@@ -333,33 +325,14 @@ void render_logo(void) {
 
 
 void render_mario(void) {
-    static const char PROGMEM mario_logo[] = {
-        0,  0,  0,  0,  0,  0,  0,  0,128,192,224,224,224,224,224,224,240,240,224,240,224,224,224,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,152,252,175, 87,255,255,255,255,131,131,255,255,255,131,131,255,255,255,255,175, 92,248,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  7, 62,127,255,255,243,243,231,103, 39, 39,103,231,227,243,255,255,127, 62, 15,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  0,  0,  0,  0,  0,  0,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,240,208,240,112, 48,176,176,176,176,176, 48,112,240,208,240,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,240,247,247,  0,176,184, 15,239,224,255,255,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 15, 11, 15, 15, 15, 15, 12, 13, 13, 12, 15, 15, 15, 11, 15,  0,  0,  0,  0,  0,  0,  0,  0, 
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,224,240, 88, 72, 72,200,200,200,120,224,224, 96, 96, 96,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 31, 63,160,239,255,248,251,255,255,255,236,227,227, 55,  6,  6,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,240, 24,254,243,193,192,  0, 48, 48,  0,  0,  0, 48, 48,  1,193,209,247, 28,240,  0,  0,  0,  0,  0,  0, 
-        0,  0,  0,  0,  0,  0,  3, 98, 99, 91, 78, 64,124,  4,  7,  1,  1,  1,  7,124, 64, 64, 78,123, 98, 99,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,254,254,  2,  2,254,254,254,254,254,  2,254,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 38, 74,254,  0,  0,  0,  0,  0,  0,  0,  0, 31,251,248, 24, 27, 27,251,251,251,248, 27,248, 24, 24, 24, 24, 24, 24, 24, 56,152,249,250, 31,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,  0,  0,  0,255,255,255,255,  0,255,  0,  0,  0,  0,  0,  0,  0, 73, 36,255,255,  0,  0,  0,  0,  0,
-    };
-    oled_write_raw_P(mario_logo, sizeof(mario_logo));
+    // static const char PROGMEM mario_logo[] = {
+    //     0,  0,  0,  0,  0,  0,  0,  0,128,192,224,224,224,224,224,224,240,240,224,240,224,224,224,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,152,252,175, 87,255,255,255,255,131,131,255,255,255,131,131,255,255,255,255,175, 92,248,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  7, 62,127,255,255,243,243,231,103, 39, 39,103,231,227,243,255,255,127, 62, 15,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  0,  0,  0,  0,  0,  0,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    //     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,240,208,240,112, 48,176,176,176,176,176, 48,112,240,208,240,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,240,247,247,  0,176,184, 15,239,224,255,255,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 15, 11, 15, 15, 15, 15, 12, 13, 13, 12, 15, 15, 15, 11, 15,  0,  0,  0,  0,  0,  0,  0,  0, 
+    //     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,224,240, 88, 72, 72,200,200,200,120,224,224, 96, 96, 96,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 31, 63,160,239,255,248,251,255,255,255,236,227,227, 55,  6,  6,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,240, 24,254,243,193,192,  0, 48, 48,  0,  0,  0, 48, 48,  1,193,209,247, 28,240,  0,  0,  0,  0,  0,  0, 
+    //     0,  0,  0,  0,  0,  0,  3, 98, 99, 91, 78, 64,124,  4,  7,  1,  1,  1,  7,124, 64, 64, 78,123, 98, 99,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,254,254,  2,  2,254,254,254,254,254,  2,254,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 38, 74,254,  0,  0,  0,  0,  0,  0,  0,  0, 31,251,248, 24, 27, 27,251,251,251,248, 27,248, 24, 24, 24, 24, 24, 24, 24, 56,152,249,250, 31,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,  0,  0,  0,255,255,255,255,  0,255,  0,  0,  0,  0,  0,  0,  0, 73, 36,255,255,  0,  0,  0,  0,  0,
+    // };
+    // oled_write_raw_P(mario_logo, sizeof(mario_logo));
 }
-
-
-// static void print_logo_narrow(void) {
-//     render_logo();
-
-//     /* wpm counter */
-//     uint8_t n = get_current_wpm();
-//     char    wpm_str[4];
-//     oled_set_cursor(0, 14);
-//     wpm_str[3] = '\0';
-//     wpm_str[2] = '0' + n % 10;
-//     wpm_str[1] = '0' + (n /= 10) % 10;
-//     wpm_str[0] = '0' + n / 10;
-//     oled_write(wpm_str, false);
-
-//     oled_set_cursor(0, 15);
-//     oled_write(" wpm", false);
-// }
-
 
 
 #endif // OLED_ENABLE
