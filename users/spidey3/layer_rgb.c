@@ -85,12 +85,12 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [ACK_OFFSET + ACK_MEH]    = _meh_layer,
     [ACK_OFFSET + ACK_HUH]    = _huh_layer,
 
-    [UNICODE_OFFSET + UNICODE_MODE_MACOS]  = _uc_mac_layer,
-    [UNICODE_OFFSET + UNICODE_MODE_LINUX]  = _none,
-    [UNICODE_OFFSET + UNICODE_MODE_WINDOWS]  = _none,
-    [UNICODE_OFFSET + UNICODE_MODE_BSD]  = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_MACOS]      = _uc_mac_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_LINUX]      = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_WINDOWS]    = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_BSD]        = _none,
     [UNICODE_OFFSET + UNICODE_MODE_WINCOMPOSE] = _uc_winc_layer,
-    [UNICODE_OFFSET + UC_EMACS] = _uc_emacs_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_EMACS]      = _uc_emacs_layer,
 
     [UNICODE_OFFSET + UC__COUNT] = NULL
 };

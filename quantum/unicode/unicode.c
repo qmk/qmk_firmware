@@ -133,7 +133,7 @@ static void unicode_play_song(uint8_t mode) {
             break;
 #    endif
 #    ifdef UNICODE_SONG_EMACS
-        case UC_EMACS:
+        case UNICODE_MODE_EMACS:
             PLAY_SONG(song_emacs);
             break;
 #    endif
@@ -237,7 +237,7 @@ __attribute__((weak)) void unicode_input_start(void) {
             tap_code(UNICODE_KEY_WINC);
             tap_code(KC_U);
             break;
-        case UC_EMACS:
+        case UNICODE_MODE_EMACS:
             // The usual way to type unicode in emacs is C-x-8 <RET> then the unicode number in hex
             tap_code16(LCTL(KC_X));
             tap_code16(KC_8);
@@ -268,7 +268,7 @@ __attribute__((weak)) void unicode_input_finish(void) {
         case UNICODE_MODE_WINCOMPOSE:
             tap_code(KC_ENTER);
             break;
-        case UC_EMACS:
+        case UNICODE_MODE_EMACS:
             tap_code16(KC_ENTER);
             break;
     }
@@ -296,7 +296,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
                 tap_code(KC_NUM_LOCK);
             }
             break;
-        case UC_EMACS:
+        case UNICODE_MODE_EMACS:
             tap_code16(LCTL(KC_G)); // C-g cancels
             break;
     }
