@@ -16,13 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-enum Layer_name {
-    DEFAULT,
-    FUNCTIONS,
-    EMPTY1,
-    EMPTY2
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Default Layer
