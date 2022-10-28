@@ -15,10 +15,6 @@
         "nkro": false,
         "rgb_matrix": true
     },
-    "matrix_size": {
-        "rows": 3,
-        "cols": 4
-    },
     "matrix_pins": {
         "direct": [
             ["A9", "B3", "B9", "NO_PIN"],
@@ -49,7 +45,6 @@
     },
     "rgb_matrix": {
         "driver": "WS2812",
-        "count": 28,
         "layout": [
             { "flags": 2, "x": 36, "y": 3 },
             { "flags": 2, "x": 86, "y": 2 },
