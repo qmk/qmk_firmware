@@ -28,6 +28,9 @@
         "num_lock": "GP2",
         "on_state": 0
     },
+    "build": {
+        "debounce_type": "asym_eager_defer_pk",
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
