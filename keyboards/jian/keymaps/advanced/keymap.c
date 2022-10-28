@@ -212,9 +212,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_symmetric(
-  QK_BOOT, DB_TOGG, KC_ASUP, CH_WMN,  CH_CMK,  CH_QWE,  CH_DVK,
-           KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,
-           BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, ISO,     THUMB_ALT,
+  QK_BOOT, DB_TOGG, AS_UP,   CH_WMN,  CH_CMK,  CH_QWE,  CH_DVK,
+           AS_RPT,  AS_TOGG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,
+           BL_ADJ,  AS_DOWN, XXXXXXX, XXXXXXX, ISO,     THUMB_ALT,
                                       _______, SW_TG,   _______
 ),
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
