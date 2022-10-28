@@ -18,18 +18,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Greg Mathews
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 7
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-#define MASTER_LEFT

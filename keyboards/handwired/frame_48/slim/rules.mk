@@ -1,5 +1,0 @@
-# MCU name
-MCU = atmega32u4
-BOOTLOADER = caterina
-ENCODER_MAP_ENABLE = yes
-CONVERT_TO=kb2040

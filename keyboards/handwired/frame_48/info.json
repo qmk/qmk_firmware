@@ -1,11 +1,14 @@
 {
     "keyboard_name": "Frame 48",
     "url": "https://github.com/gregsqueeb/Frame-48",
+    "manufacturer": "Greg Mathews",
     "maintainer": "Greg Mathews",
     "usb": {
         "vid": "0x64E6",
-        "pid": "0xF448"
+        "pid": "0xF448",
+        "device_version": "1.0.0"
     },
+    "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT_frame_48": {
             "layout": [
