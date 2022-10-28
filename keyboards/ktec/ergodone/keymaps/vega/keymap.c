@@ -659,7 +659,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_NO,KC_NO,KC_NO,
        // right hand
        TO(BASE), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_LINX,
-       KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_M_WI,
+       KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_WIN,
                 KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
        KC_NO, KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
                          KC_NO,KC_NO,  KC_NO,    KC_NO,  KC_NO,
