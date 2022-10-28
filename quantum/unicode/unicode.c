@@ -123,7 +123,7 @@ static void unicode_play_song(uint8_t mode) {
             break;
 #    endif
 #    ifdef UNICODE_SONG_BSD
-        case UC_BSD:
+        case UNICODE_MODE_BSD:
             PLAY_SONG(song_bsd);
             break;
 #    endif

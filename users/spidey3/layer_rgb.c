@@ -63,7 +63,7 @@ const rgblight_segment_t PROGMEM _huh_layer[]    = RGBLIGHT_LAYER_SEGMENTS(CORNE
 const rgblight_segment_t PROGMEM _uc_mac_layer[]  = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_PURPLE));
 // No indicator for UNICODE_MODE_LINUX
 // UNICODE_MODE_WINDOWS disabled in config.h
-// UC_BSD not implemented
+// UNICODE_MODE_BSD not implemented
 const rgblight_segment_t PROGMEM _uc_winc_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_CYAN));
 const rgblight_segment_t PROGMEM _uc_emacs_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_GREEN));
 
@@ -88,7 +88,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [UNICODE_OFFSET + UNICODE_MODE_MACOS]  = _uc_mac_layer,
     [UNICODE_OFFSET + UNICODE_MODE_LINUX]  = _none,
     [UNICODE_OFFSET + UNICODE_MODE_WINDOWS]  = _none,
-    [UNICODE_OFFSET + UC_BSD]  = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_BSD]  = _none,
     [UNICODE_OFFSET + UC_WINC] = _uc_winc_layer,
     [UNICODE_OFFSET + UC_EMACS] = _uc_emacs_layer,
 
