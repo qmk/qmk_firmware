@@ -21,12 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 
 #    include "ergodox_ez.h"
-bool  i2c_rgblight = true;
-extern bool         i2c_initialized;
+bool        i2c_rgblight = true;
+extern bool i2c_initialized;
+#    ifndef ERGODOX_RGBLIGHT_TIMEOUT
+#        define ERGODOX_RGBLIGHT_TIMEOUT 5
+#    endif
 
 void rgblight_call_driver(LED_TYPE *led, uint8_t led_num) {
     if (i2c_initialized && !mcp23018_status && i2c_rgblight) {
-        if (i2c_start(0x84, ERGODOX_EZ_I2C_TIMEOUT)) {
+        if (i2c_start(0x84, ERGODOX_RGBLIGHT_TIMEOUT)) {
             i2c_rgblight = false;
             i2c_stop();
         } else {
@@ -44,11 +47,11 @@ void rgblight_call_driver(LED_TYPE *led, uint8_t led_num) {
 #    endif
             {
                 uint8_t *data = (uint8_t *)(led + i);
-                i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
-                i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
-                i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
+                i2c_write(*data++, ERGODOX_RGBLIGHT_TIMEOUT);
+                i2c_write(*data++, ERGODOX_RGBLIGHT_TIMEOUT);
+                i2c_write(*data++, ERGODOX_RGBLIGHT_TIMEOUT);
 #    ifdef RGBW
-                i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
+                i2c_write(*data++, ERGODOX_RGBLIGHT_TIMEOUT);
 #    endif
             }
             i2c_stop();

@@ -102,7 +102,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 #endif
 #ifdef RGBLIGHT_ENABLE
                 i2c_rgblight = true; // re-enable rgb light
-                rgblight_init();
+                rgblight_set();
 #endif
             }
         }
