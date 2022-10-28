@@ -125,7 +125,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
-#define AUTO_CTN AUTOCORRECT_TOGGLE
+#define AUTO_CTN QK_AUTOCORRECT_TOGGLE
 /*
 Custom Keycodes for Diablo 3 layer
 But since TD() doesn't work when tap dance is disabled

@@ -22,7 +22,7 @@ AUTOCORRECT_ENABLE = yes
 
 Additionally, you will need a library for autocorrection.  A small sample library is included by default, so that you can get up and running right away, but you can provide a customized library.
 
-By default, autocorrect is disabled.  To enable it, you need to use the `AUTOCORRECT_TOGGLE` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enabled it again.
+By default, autocorrect is disabled.  To enable it, you need to use the `AC_TOGG` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enabled it again.
 
 ## Customizing autocorrect library :id=customizing-autocorrect-library
 
@@ -94,15 +94,15 @@ Occasionally you might actually want to type a typo (for instance, while editing
 
 This works because the autocorrection implementation doesn’t understand hotkeys, so it resets itself whenever a modifier other than shift is held.
 
-Additionally, you can use the `AUTOCORRECT_TOGGLE` keycode to toggle the on/off status for Autocorrect.
+Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for Autocorrect.
 
 ### Keycodes :id=keycodes
 
-|Keycode              | Short keycode | Description                                    |
-|---------------------|---------------|------------------------------------------------|
-|`AUTOCORRECT_ON`     | `CRT_ON`      | Turns on the Autocorrect feature.              |
-|`AUTOCORRECT_OFF`    | `CRT_OFF`     | Turns off the Autocorrect feature.             |
-|`AUTOCORRECT_TOGGLE` | `CRT_TOG`     | Toggles the status of the Autocorrect feature. |
+|Keycode                |Aliases  |Description                                   |
+|-----------------------|---------|----------------------------------------------|
+|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
+|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
+|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
 
 ## User Callback Functions
 
