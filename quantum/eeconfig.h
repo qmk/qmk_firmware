@@ -145,12 +145,12 @@ void eeconfig_update_user_datablock(const void *data);
 
 // Any "checked" debounce variant used requires implementation of:
 //    -- bool eeconfig_check_valid_##name(void)
-//    -- void eeconfig_post_write_##name(void)
+//    -- void eeconfig_post_flush_##name(void)
 #define EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config)          \
     static uint8_t dirty_##name = false;                                \
                                                                         \
     bool eeconfig_check_valid_##name(void);                             \
-    void eeconfig_post_write_##name(void);                              \
+    void eeconfig_post_flush_##name(void);                              \
                                                                         \
     static inline void eeconfig_init_##name(void) {                     \
         dirty_##name = true;                                            \
@@ -162,7 +162,7 @@ void eeconfig_update_user_datablock(const void *data);
     static inline void eeconfig_flush_##name(bool force) {              \
         if (force || dirty_##name) {                                    \
             eeprom_update_block(&config, offset, sizeof(config));       \
-            eeconfig_post_write_##name();                               \
+            eeconfig_post_flush_##name();                               \
             dirty_##name = false;                                       \
         }                                                               \
     }                                                                   \
@@ -189,4 +189,4 @@ void eeconfig_update_user_datablock(const void *data);
     bool eeconfig_check_valid_##name(void) {               \
         return true;                                       \
     }                                                      \
-    void eeconfig_post_write_##name(void) {}
+    void eeconfig_post_flush_##name(void) {}
