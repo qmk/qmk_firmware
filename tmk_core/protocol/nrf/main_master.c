@@ -116,6 +116,9 @@ void main_tasks(void* context) {
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_ANIMATIONS)
     rgblight_task();
 #endif
+#ifdef OLED_ENABLE
+    oled_task();
+#endif
   }
   else
   {

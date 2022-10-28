@@ -87,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef QWIIC_ENABLE
 #   include "qwiic.h"
 #endif
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     #include "oled_driver.h"
 #endif
 #ifdef VELOCIKEY_ENABLE
@@ -224,7 +224,7 @@ MATRIX_LOOP_END:
     qwiic_task();
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     oled_task();
 #ifndef OLED_DISABLE_TIMEOUT
     // Wake up oled if user is using those fabulous keys!
