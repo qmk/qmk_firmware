@@ -105,12 +105,12 @@ enum quantum_keycodes {
     QK_GRAVE_ESCAPE, // 5C16
 
     // Auto Shift
-    KC_ASUP,  // 5C17
-    KC_ASDN,  // 5C18
-    KC_ASRP,  // 5C19
-    KC_ASTG,  // 5C1A
-    KC_ASON,  // 5C1B
-    KC_ASOFF, // 5C1C
+    QK_AUTO_SHIFT_UP,     // 5C17
+    QK_AUTO_SHIFT_DOWN,   // 5C18
+    QK_AUTO_SHIFT_REPORT, // 5C19
+    QK_AUTO_SHIFT_TOGGLE, // 5C1A
+    QK_AUTO_SHIFT_ON,     // 5C1B
+    QK_AUTO_SHIFT_OFF,    // 5C1C
 
     // Audio
     AU_ON,  // 5C1D
@@ -843,6 +843,14 @@ enum quantum_keycodes {
 #define UC_M_BS UNICODE_MODE_BSD
 #define UC_M_WC UNICODE_MODE_WINC
 #define UC_M_EM UNICODE_MODE_EMACS
+
+// Auto Shift
+#define AS_UP QK_AUTO_SHIFT_UP
+#define AS_DOWN QK_AUTO_SHIFT_DOWN
+#define AS_RPT QK_AUTO_SHIFT_REPORT
+#define AS_TOGG QK_AUTO_SHIFT_TOGGLE
+#define AS_ON QK_AUTO_SHIFT_ON
+#define AS_OFF QK_AUTO_SHIFT_OFF
 
 // Leader key
 #define QK_LEAD QK_LEADER

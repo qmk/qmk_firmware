@@ -375,24 +375,24 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         }
 
         switch (keycode) {
-            case KC_ASTG:
+            case AS_TOGG:
                 autoshift_toggle();
                 break;
-            case KC_ASON:
+            case AS_ON:
                 autoshift_enable();
                 break;
-            case KC_ASOFF:
+            case AS_OFF:
                 autoshift_disable();
                 break;
 
 #    ifndef AUTO_SHIFT_NO_SETUP
-            case KC_ASUP:
+            case AS_UP:
                 autoshift_timeout += 5;
                 break;
-            case KC_ASDN:
+            case AS_DOWN:
                 autoshift_timeout -= 5;
                 break;
-            case KC_ASRP:
+            case AS_RPT:
                 autoshift_timer_report();
                 break;
 #    endif
