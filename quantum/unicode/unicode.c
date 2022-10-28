@@ -46,7 +46,7 @@
 #endif
 
 // Comma-delimited, ordered list of input modes selected for use (e.g. in cycle)
-// Example: #define UNICODE_SELECTED_MODES UC_WINC, UNICODE_MODE_LINUX
+// Example: #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_LINUX
 #ifndef UNICODE_SELECTED_MODES
 #    define UNICODE_SELECTED_MODES -1
 #endif
@@ -128,7 +128,7 @@ static void unicode_play_song(uint8_t mode) {
             break;
 #    endif
 #    ifdef UNICODE_SONG_WINC
-        case UC_WINC:
+        case UNICODE_MODE_WINCOMPOSE:
             PLAY_SONG(song_winc);
             break;
 #    endif
@@ -233,7 +233,7 @@ __attribute__((weak)) void unicode_input_start(void) {
             wait_ms(UNICODE_TYPE_DELAY);
             tap_code(KC_KP_PLUS);
             break;
-        case UC_WINC:
+        case UNICODE_MODE_WINCOMPOSE:
             tap_code(UNICODE_KEY_WINC);
             tap_code(KC_U);
             break;
@@ -265,7 +265,7 @@ __attribute__((weak)) void unicode_input_finish(void) {
                 tap_code(KC_NUM_LOCK);
             }
             break;
-        case UC_WINC:
+        case UNICODE_MODE_WINCOMPOSE:
             tap_code(KC_ENTER);
             break;
         case UC_EMACS:
@@ -287,7 +287,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
                 tap_code(KC_CAPS_LOCK);
             }
             break;
-        case UC_WINC:
+        case UNICODE_MODE_WINCOMPOSE:
             tap_code(KC_ESCAPE);
             break;
         case UNICODE_MODE_WINDOWS:
@@ -328,7 +328,7 @@ void register_hex(uint16_t hex) {
 
 void register_hex32(uint32_t hex) {
     bool first_digit        = true;
-    bool needs_leading_zero = (unicode_config.input_mode == UC_WINC);
+    bool needs_leading_zero = (unicode_config.input_mode == UNICODE_MODE_WINCOMPOSE);
     for (int i = 7; i >= 0; i--) {
         // Work out the digit we're going to transmit
         uint8_t digit = ((hex >> (i * 4)) & 0xF);

@@ -18,7 +18,7 @@ You can change it permanently tapping 2 times the KeyOne to select the next mode
 - UNICODE_MODE_LINUX
 - UNICODE_MODE_MACOS
 - UNICODE_MODE_WINDOWS
-- UC_WINC
+- UNICODE_MODE_WINCOMPOSE
 
 # Keymap
 To add more functionality to this Minimal Keyboard, 

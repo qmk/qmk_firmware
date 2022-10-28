@@ -285,7 +285,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case OS_WIN:
-      set_unicode_input_mode(UC_WINC);
+      set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
       return false;
       break;
     case OS_MAC:

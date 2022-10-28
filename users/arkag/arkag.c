@@ -194,7 +194,7 @@ void set_os (uint8_t os, bool update) {
     underglow = (Color){ 213, 255, 255 };
     break;
   case OS_WIN:
-    set_unicode_input_mode(UC_WINC);
+    set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
     underglow = (Color){ 128, 255, 255 };
     break;
   case OS_NIX:

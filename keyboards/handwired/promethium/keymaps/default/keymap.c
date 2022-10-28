@@ -610,7 +610,7 @@ void led_set_unicode_input_mode(void) {
       rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
       break;
     case UNICODE_MODE_WINDOWS:
-    case UC_WINC:
+    case UNICODE_MODE_WINCOMPOSE:
       rgbsps_set(LED_IND_WINDOWS, THEME_COLOR_WINDOWS);
       break;
   }
@@ -1206,7 +1206,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case WIN:
-      set_unicode_input_mode(UC_WINC);
+      set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif

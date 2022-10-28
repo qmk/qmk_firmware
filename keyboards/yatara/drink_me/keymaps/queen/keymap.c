@@ -43,7 +43,7 @@ void td_heart_winc (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_unicode(0x2665); // ♥
     } else {
-        set_unicode_input_mode(UC_WINC);
+        set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
     }
     reset_tap_dance(state);
 }
