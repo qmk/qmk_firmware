@@ -16,6 +16,7 @@
 
 #include "pila87_mod.h"
 
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     { 75, NO_LED,     76,     77,     78,     79,     80,     81,     82,     83,     84,     85,     86,     87,     88,     89,     90 },
     { 74,     73,     72,     71,     70,     69,     68,     67,     66,     65,     64,     63,     62,     61,     60,     59,     58 },
