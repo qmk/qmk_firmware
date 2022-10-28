@@ -92,7 +92,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [UNICODE_OFFSET + UNICODE_MODE_WINCOMPOSE] = _uc_winc_layer,
     [UNICODE_OFFSET + UNICODE_MODE_EMACS]      = _uc_emacs_layer,
 
-    [UNICODE_OFFSET + UC__COUNT] = NULL
+    [UNICODE_OFFSET + UNICODE_MODE_COUNT] = NULL
 };
 
 // clang-format on
@@ -113,7 +113,7 @@ void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
 }
 
 void do_rgb_unicode(uint8_t uc_mode) {
-    for (uint8_t i = 0; i < UC__COUNT; i++) {
+    for (uint8_t i = 0; i < UNICODE_MODE_COUNT; i++) {
         bool is_on = i == uc_mode;
         rgblight_set_layer_state(UNICODE_OFFSET + i, is_on);
     }
