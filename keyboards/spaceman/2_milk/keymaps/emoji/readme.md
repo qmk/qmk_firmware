@@ -17,7 +17,7 @@ You can change it permanently tapping 2 times the KeyOne to select the next mode
 ## Unicode Mode List
 - UNICODE_MODE_LINUX
 - UNICODE_MODE_MACOS
-- UC_WIN
+- UNICODE_MODE_WINDOWS
 - UC_WINC
 
 # Keymap

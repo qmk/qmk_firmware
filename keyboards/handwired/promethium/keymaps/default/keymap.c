@@ -609,7 +609,7 @@ void led_set_unicode_input_mode(void) {
     case UNICODE_MODE_MACOS:
       rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
       break;
-    case UC_WIN:
+    case UNICODE_MODE_WINDOWS:
     case UC_WINC:
       rgbsps_set(LED_IND_WINDOWS, THEME_COLOR_WINDOWS);
       break;

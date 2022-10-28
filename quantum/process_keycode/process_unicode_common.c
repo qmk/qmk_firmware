@@ -44,7 +44,7 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
                 set_unicode_input_mode(UNICODE_MODE_LINUX);
                 break;
             case QK_UNICODE_MODE_WINDOWS:
-                set_unicode_input_mode(UC_WIN);
+                set_unicode_input_mode(UNICODE_MODE_WINDOWS);
                 break;
             case QK_UNICODE_MODE_BSD:
                 set_unicode_input_mode(UC_BSD);

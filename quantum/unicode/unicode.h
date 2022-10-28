@@ -32,7 +32,7 @@ extern unicode_config_t unicode_config;
 enum unicode_input_modes {
     UNICODE_MODE_MACOS,   // macOS using Unicode Hex Input
     UNICODE_MODE_LINUX,   // Linux using IBus
-    UC_WIN,   // Windows using EnableHexNumpad
+    UNICODE_MODE_WINDOWS,   // Windows using EnableHexNumpad
     UC_BSD,   // BSD (not implemented)
     UC_WINC,  // Windows using WinCompose (https://github.com/samhocevar/wincompose)
     UC_EMACS, // Emacs is an operating system in search of a good text editor

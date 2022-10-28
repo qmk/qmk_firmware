@@ -33,7 +33,7 @@ void td_club_win (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_unicode(0x2663); // ♣
     } else {
-        set_unicode_input_mode(UC_WIN);
+        set_unicode_input_mode(UNICODE_MODE_WINDOWS);
     }
     reset_tap_dance(state);
 }

@@ -118,7 +118,7 @@ static void unicode_play_song(uint8_t mode) {
             break;
 #    endif
 #    ifdef UNICODE_SONG_WIN
-        case UC_WIN:
+        case UNICODE_MODE_WINDOWS:
             PLAY_SONG(song_win);
             break;
 #    endif
@@ -224,7 +224,7 @@ __attribute__((weak)) void unicode_input_start(void) {
         case UNICODE_MODE_LINUX:
             tap_code16(UNICODE_KEY_LNX);
             break;
-        case UC_WIN:
+        case UNICODE_MODE_WINDOWS:
             // For increased reliability, use numpad keys for inputting digits
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
@@ -259,7 +259,7 @@ __attribute__((weak)) void unicode_input_finish(void) {
                 tap_code(KC_CAPS_LOCK);
             }
             break;
-        case UC_WIN:
+        case UNICODE_MODE_WINDOWS:
             unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
@@ -290,7 +290,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
         case UC_WINC:
             tap_code(KC_ESCAPE);
             break;
-        case UC_WIN:
+        case UNICODE_MODE_WINDOWS:
             unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
@@ -307,7 +307,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
 // clang-format off
 
 static void send_nibble_wrapper(uint8_t digit) {
-    if (unicode_config.input_mode == UC_WIN) {
+    if (unicode_config.input_mode == UNICODE_MODE_WINDOWS) {
         uint8_t kc = digit < 10
                    ? KC_KP_1 + (10 + digit - 1) % 10
                    : KC_A + (digit - 10);
@@ -352,7 +352,7 @@ void register_hex32(uint32_t hex) {
 }
 
 void register_unicode(uint32_t code_point) {
-    if (code_point > 0x10FFFF || (code_point > 0xFFFF && unicode_config.input_mode == UC_WIN)) {
+    if (code_point > 0x10FFFF || (code_point > 0xFFFF && unicode_config.input_mode == UNICODE_MODE_WINDOWS)) {
         // Code point out of range, do nothing
         return;
     }
