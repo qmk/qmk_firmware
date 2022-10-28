@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_MOD,  RGB_HUD, RGB_HUI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  UC_NEXT,
   RGB_RMOD, RGB_SAD, RGB_SAI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_M_WC,
   _______,  RGB_SPD, RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_M_LN,
-  _______,  SHRUG,   TFLIP,    DPOINT,   STRUT,    _______,  _______,  _______,   _______, TG_NUMP,   _______,  UC_M_MA
+  _______,  SHRUG,   TFLIP,    DPOINT,   STRUT,    _______,  _______,  _______,   _______, TG_NUMP,  _______,  UC_MAC
 ),
 
 /* Numpad
