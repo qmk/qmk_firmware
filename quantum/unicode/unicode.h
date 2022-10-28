@@ -30,7 +30,7 @@ typedef union {
 extern unicode_config_t unicode_config;
 
 enum unicode_input_modes {
-    UC_MAC,   // macOS using Unicode Hex Input
+    UNICODE_MODE_MACOS,   // macOS using Unicode Hex Input
     UC_LNX,   // Linux using IBus
     UC_WIN,   // Windows using EnableHexNumpad
     UC_BSD,   // BSD (not implemented)

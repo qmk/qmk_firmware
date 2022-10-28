@@ -75,7 +75,7 @@ void switch_mode(uint8_t mode) {
 #ifdef UNICODEMAP_ENABLE
     switch (mode) {
         case MAC_UNI:
-            set_unicode_input_mode(UC_MAC);
+            set_unicode_input_mode(UNICODE_MODE_MACOS);
             break;
         case WINDOWS_UNI:
             set_unicode_input_mode(UC_WINC);

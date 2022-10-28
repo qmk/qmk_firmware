@@ -85,7 +85,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [ACK_OFFSET + ACK_MEH]    = _meh_layer,
     [ACK_OFFSET + ACK_HUH]    = _huh_layer,
 
-    [UNICODE_OFFSET + UC_MAC]  = _uc_mac_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_MACOS]  = _uc_mac_layer,
     [UNICODE_OFFSET + UC_LNX]  = _none,
     [UNICODE_OFFSET + UC_WIN]  = _none,
     [UNICODE_OFFSET + UC_BSD]  = _none,

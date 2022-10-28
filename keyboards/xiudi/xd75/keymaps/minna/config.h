@@ -4,4 +4,4 @@
 #pragma once
 
 // place overrides here
-#define UNICODE_SELECTED_MODES UC_WINC, UC_LNX, UC_MAC
+#define UNICODE_SELECTED_MODES UC_WINC, UC_LNX, UNICODE_MODE_MACOS

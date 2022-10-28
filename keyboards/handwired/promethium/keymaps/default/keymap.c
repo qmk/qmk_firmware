@@ -606,7 +606,7 @@ void led_set_unicode_input_mode(void) {
     case UC_LNX:
       rgbsps_set(LED_IND_LINUX, THEME_COLOR_LINUX);
       break;
-    case UC_MAC:
+    case UNICODE_MODE_MACOS:
       rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
       break;
     case UC_WIN:
@@ -1213,7 +1213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case OSX:
-      set_unicode_input_mode(UC_MAC);
+      set_unicode_input_mode(UNICODE_MODE_MACOS);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif

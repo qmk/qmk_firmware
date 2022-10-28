@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 2
 
 #define UNICODE_SELECTED_MODES UC_LNX
-//#define UNICODE_SELECTED_MODES UC_LNX, UC_MAC, UC_WINC
+//#define UNICODE_SELECTED_MODES UC_LNX, UNICODE_MODE_MACOS, UC_WINC
 
 #ifdef WPM_ENABLE
 #define WPM_SAMPLE_SECONDS 10

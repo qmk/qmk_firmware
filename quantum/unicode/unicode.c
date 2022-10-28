@@ -108,7 +108,7 @@ static float song_emacs[][2] = UNICODE_SONG_EMACS;
 static void unicode_play_song(uint8_t mode) {
     switch (mode) {
 #    ifdef UNICODE_SONG_MAC
-        case UC_MAC:
+        case UNICODE_MODE_MACOS:
             PLAY_SONG(song_mac);
             break;
 #    endif
@@ -218,7 +218,7 @@ __attribute__((weak)) void unicode_input_start(void) {
     clear_weak_mods();
 
     switch (unicode_config.input_mode) {
-        case UC_MAC:
+        case UNICODE_MODE_MACOS:
             register_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
@@ -250,7 +250,7 @@ __attribute__((weak)) void unicode_input_start(void) {
 
 __attribute__((weak)) void unicode_input_finish(void) {
     switch (unicode_config.input_mode) {
-        case UC_MAC:
+        case UNICODE_MODE_MACOS:
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
@@ -278,7 +278,7 @@ __attribute__((weak)) void unicode_input_finish(void) {
 
 __attribute__((weak)) void unicode_input_cancel(void) {
     switch (unicode_config.input_mode) {
-        case UC_MAC:
+        case UNICODE_MODE_MACOS:
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
@@ -358,7 +358,7 @@ void register_unicode(uint32_t code_point) {
     }
 
     unicode_input_start();
-    if (code_point > 0xFFFF && unicode_config.input_mode == UC_MAC) {
+    if (code_point > 0xFFFF && unicode_config.input_mode == UNICODE_MODE_MACOS) {
         // Convert code point to UTF-16 surrogate pair on macOS
         code_point -= 0x10000;
         uint32_t lo = code_point & 0x3FF, hi = (code_point & 0xFFC00) >> 10;

@@ -23,7 +23,7 @@ void td_diamond_osx (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_unicode(0x2666); // ♦
     } else {
-        set_unicode_input_mode(UC_MAC);
+        set_unicode_input_mode(UNICODE_MODE_MACOS);
     }
     reset_tap_dance(state);
 }

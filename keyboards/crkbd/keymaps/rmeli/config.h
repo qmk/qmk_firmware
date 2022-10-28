@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 
-#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
+#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS, UC_LNX
 
 #define AUTO_SHIFT_REPEAT
 

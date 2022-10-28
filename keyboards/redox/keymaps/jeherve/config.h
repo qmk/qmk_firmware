@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SLEEP
 
 /* Set Unicode mode by default */
-#define UNICODE_SELECTED_MODES UC_MAC
+#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS
 
 /* Custom startup sound */
 #ifdef AUDIO_ENABLE

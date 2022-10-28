@@ -91,7 +91,7 @@
 /*
  * UNICODE options
  */
-#define UNICODE_SELECTED_MODES UC_WINC, UC_LNX, UC_MAC  // Define the methods used for in/outputting unicode
+#define UNICODE_SELECTED_MODES UC_WINC, UC_LNX, UNICODE_MODE_MACOS  // Define the methods used for in/outputting unicode
 
 /*
  * TAP-DANCE options
