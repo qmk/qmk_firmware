@@ -13,7 +13,7 @@ void td_spade_lnx (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_unicode(0x2660); // ♠
     } else {
-        set_unicode_input_mode(UC_LNX);
+        set_unicode_input_mode(UNICODE_MODE_LINUX);
     }
     reset_tap_dance(state);
 }

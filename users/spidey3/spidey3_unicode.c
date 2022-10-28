@@ -24,5 +24,5 @@ const uint32_t PROGMEM unicode_map[] = {
 
 void eeconfig_init_user_unicode(void) {
     // Default to Linux style
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 }

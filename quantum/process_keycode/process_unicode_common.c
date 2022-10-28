@@ -41,7 +41,7 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
                 set_unicode_input_mode(UNICODE_MODE_MACOS);
                 break;
             case QK_UNICODE_MODE_LINUX:
-                set_unicode_input_mode(UC_LNX);
+                set_unicode_input_mode(UNICODE_MODE_LINUX);
                 break;
             case QK_UNICODE_MODE_WINDOWS:
                 set_unicode_input_mode(UC_WIN);

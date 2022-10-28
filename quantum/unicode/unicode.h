@@ -31,7 +31,7 @@ extern unicode_config_t unicode_config;
 
 enum unicode_input_modes {
     UNICODE_MODE_MACOS,   // macOS using Unicode Hex Input
-    UC_LNX,   // Linux using IBus
+    UNICODE_MODE_LINUX,   // Linux using IBus
     UC_WIN,   // Windows using EnableHexNumpad
     UC_BSD,   // BSD (not implemented)
     UC_WINC,  // Windows using WinCompose (https://github.com/samhocevar/wincompose)

@@ -81,7 +81,7 @@ void switch_mode(uint8_t mode) {
             set_unicode_input_mode(UC_WINC);
             break;
         case LINUX_UNI:
-            set_unicode_input_mode(UC_LNX);
+            set_unicode_input_mode(UNICODE_MODE_LINUX);
             break;
     }
 #endif

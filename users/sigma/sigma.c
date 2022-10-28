@@ -70,7 +70,7 @@ void set_os(uint8_t os) {
     set_unicode_input_mode(UNICODE_MODE_MACOS);
     break;
   case _OS_LINUX:
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
     break;
   case _OS_WINDOWS:
     set_unicode_input_mode(UC_WIN);

@@ -281,7 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     /* os switcher */
     case OS_LIN:
-      set_unicode_input_mode(UC_LNX);
+      set_unicode_input_mode(UNICODE_MODE_LINUX);
       return false;
       break;
     case OS_WIN:
@@ -298,5 +298,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user() {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 }

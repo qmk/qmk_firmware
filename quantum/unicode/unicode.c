@@ -46,7 +46,7 @@
 #endif
 
 // Comma-delimited, ordered list of input modes selected for use (e.g. in cycle)
-// Example: #define UNICODE_SELECTED_MODES UC_WINC, UC_LNX
+// Example: #define UNICODE_SELECTED_MODES UC_WINC, UNICODE_MODE_LINUX
 #ifndef UNICODE_SELECTED_MODES
 #    define UNICODE_SELECTED_MODES -1
 #endif
@@ -113,7 +113,7 @@ static void unicode_play_song(uint8_t mode) {
             break;
 #    endif
 #    ifdef UNICODE_SONG_LNX
-        case UC_LNX:
+        case UNICODE_MODE_LINUX:
             PLAY_SONG(song_lnx);
             break;
 #    endif
@@ -209,7 +209,7 @@ __attribute__((weak)) void unicode_input_start(void) {
     // Need to do this before we mess around with the mods, or else
     // UNICODE_KEY_LNX (which is usually Ctrl-Shift-U) might not work
     // correctly in the shifted case.
-    if (unicode_config.input_mode == UC_LNX && unicode_saved_led_state.caps_lock) {
+    if (unicode_config.input_mode == UNICODE_MODE_LINUX && unicode_saved_led_state.caps_lock) {
         tap_code(KC_CAPS_LOCK);
     }
 
@@ -221,7 +221,7 @@ __attribute__((weak)) void unicode_input_start(void) {
         case UNICODE_MODE_MACOS:
             register_code(UNICODE_KEY_MAC);
             break;
-        case UC_LNX:
+        case UNICODE_MODE_LINUX:
             tap_code16(UNICODE_KEY_LNX);
             break;
         case UC_WIN:
@@ -253,7 +253,7 @@ __attribute__((weak)) void unicode_input_finish(void) {
         case UNICODE_MODE_MACOS:
             unregister_code(UNICODE_KEY_MAC);
             break;
-        case UC_LNX:
+        case UNICODE_MODE_LINUX:
             tap_code(KC_SPACE);
             if (unicode_saved_led_state.caps_lock) {
                 tap_code(KC_CAPS_LOCK);
@@ -281,7 +281,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
         case UNICODE_MODE_MACOS:
             unregister_code(UNICODE_KEY_MAC);
             break;
-        case UC_LNX:
+        case UNICODE_MODE_LINUX:
             tap_code(KC_ESCAPE);
             if (unicode_saved_led_state.caps_lock) {
                 tap_code(KC_CAPS_LOCK);
