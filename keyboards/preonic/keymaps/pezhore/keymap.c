@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FN] = LAYOUT_preonic_grid(
   RGB_TOG,  RGB_VAD, RGB_VAI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  POOP,
   RGB_MOD,  RGB_HUD, RGB_HUI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  UC_NEXT,
-  RGB_RMOD, RGB_SAD, RGB_SAI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_M_WC,
+  RGB_RMOD, RGB_SAD, RGB_SAI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_WINC,
   _______,  RGB_SPD, RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_LINX,
   _______,  SHRUG,   TFLIP,    DPOINT,   STRUT,    _______,  _______,  _______,   _______, TG_NUMP,  _______,  UC_MAC
 ),
