@@ -839,15 +839,16 @@ See also: [Swap Hands](feature_swap_hands.md)
 
 See also: [Unicode Support](feature_unicode.md)
 
-|Key                   |Aliases  |Description                                                     |
-|----------------------|---------|----------------------------------------------------------------|
-|`UC(c)`               |         |Send Unicode code point `c`, up to `0x7FFF`                     |
-|`X(i)`                |         |Send Unicode code point at index `i` in `unicode_map`           |
-|`XP(i, j)`            |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
-|`UNICODE_MODE_FORWARD`|`UC_MOD` |Cycle through selected input modes                              |
-|`UNICODE_MODE_REVERSE`|`UC_RMOD`|Cycle through selected input modes in reverse                   |
-|`UNICODE_MODE_MAC`    |`UC_M_MA`|Switch to macOS input                                           |
-|`UNICODE_MODE_LNX`    |`UC_M_LN`|Switch to Linux input                                           |
-|`UNICODE_MODE_WIN`    |`UC_M_WI`|Switch to Windows input                                         |
-|`UNICODE_MODE_BSD`    |`UC_M_BS`|Switch to BSD input (not implemented)                           |
-|`UNICODE_MODE_WINC`   |`UC_M_WC`|Switch to Windows input using WinCompose                        |
+|Key                         |Aliases  |Description                                                     |
+|----------------------------|---------|----------------------------------------------------------------|
+|`UC(c)`                     |         |Send Unicode code point `c`, up to `0x7FFF`                     |
+|`X(i)`                      |         |Send Unicode code point at index `i` in `unicode_map`           |
+|`XP(i, j)`                  |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
+|`QK_UNICODE_MODE_NEXT`      |`UC_NEXT`|Cycle through selected input modes                              |
+|`QK_UNICODE_MODE_PREVIOUS`  |`UC_PREV`|Cycle through selected input modes in reverse                   |
+|`QK_UNICODE_MODE_MACOS`     |`UC_MAC` |Switch to macOS input                                           |
+|`QK_UNICODE_MODE_LINUX`     |`UC_LINX`|Switch to Linux input                                           |
+|`QK_UNICODE_MODE_WINDOWS`   |`UC_WIN` |Switch to Windows input                                         |
+|`QK_UNICODE_MODE_BSD`       |`UC_BSD` |Switch to BSD input (not implemented)                           |
+|`QK_UNICODE_MODE_WINCOMPOSE`|`UC_WINC`|Switch to Windows input using WinCompose                        |
+|`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|Switch to emacs (`C-x-8 RET`)                                   |
