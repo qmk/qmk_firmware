@@ -37,7 +37,7 @@ enum unicode_input_modes {
     UNICODE_MODE_WINCOMPOSE, // Windows using WinCompose (https://github.com/samhocevar/wincompose)
     UNICODE_MODE_EMACS,      // Emacs is an operating system in search of a good text editor
 
-    UNICODE_MODE_COUNT       // Number of available input modes (always leave at the end)
+    UNICODE_MODE_COUNT // Number of available input modes (always leave at the end)
 };
 
 void    unicode_input_mode_init(void);
