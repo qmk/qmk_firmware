@@ -55,13 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
   //|        |        |        |        |        |        |                          |        |   7    |    8   |    9   |    *   |    /   |
-     KC_ASUP, KC_ASON, KC_ASRP,  XXXXXXX, XXXXXXX, XXXXXXX,                           XXXXXXX,   KC_P7,   KC_P8,   KC_P9,  KC_PAST, KC_PSLS,
+     AS_UP,   AS_ON,   AS_RPT,   XXXXXXX, XXXXXXX, XXXXXXX,                           XXXXXXX,   KC_P7,   KC_P8,   KC_P9,  KC_PAST, KC_PSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
   //|        |        |        |        |        |        |                          |        |    4   |    5   |    6   |    +   |    -    |
-     KC_ASDN, KC_ASOFF, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                            XXXXXXX,  KC_P4,   KC_P5,   KC_P6,  KC_PPLS, KC_PMNS,
+     AS_DOWN, AS_OFF,   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                            XXXXXXX,  KC_P4,   KC_P5,   KC_P6,  KC_PPLS, KC_PMNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
   //|        |        |        |        |        |        |                          |        |    1   |    2   |    3   |        |        |
-     XXXXXXX, KC_ASTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX,  KC_P1,   KC_P2,   KC_P3,  XXXXXXX, XXXXXXX,
+     XXXXXXX, AS_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX,  KC_P1,   KC_P2,   KC_P3,  XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //| LOWER  |        |        |        |        |        |  ESC   |        | ALT    |        |   0    |    .   | ENTER  |   =    |        |
       KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,         KC_TRNS,  XXXXXXX, KC_P0,   KC_PDOT, KC_PENT, KC_PEQL, XXXXXXX,

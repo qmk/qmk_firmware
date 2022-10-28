@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______,  _______,                   _______,                   _______, _______,          _______, _______, _______  \
 	),
 	[_FNC] = LAYOUT( // fuck it edition
-		RCTL(KC_ESC),  KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,         KC_F9,        KC_F10,        KC_F11,        KC_F12,        KC_ASTG,       \
+		RCTL(KC_ESC),  KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,         KC_F9,        KC_F10,        KC_F11,        KC_F12,        AS_TOGG,       \
 		RCTL(KC_TAB),  RCTL(KC_Q), RCTL(KC_W), RCTL(KC_E), RCTL(KC_R), RCTL(KC_T), RCTL(KC_Y), RCTL(KC_U), RCTL(KC_I),    RCTL(KC_O),   RCTL(KC_P),    RCTL(KC_LBRC), RCTL(KC_RBRC), RCTL(KC_BSLS), \
 		RCTL(KC_CAPS), RCTL(KC_A), RCTL(KC_S), RCTL(KC_D), RCTL(KC_F), RCTL(KC_G), RCTL(KC_H), RCTL(KC_J), RCTL(KC_K),    RCTL(KC_L),   RCTL(KC_SCLN), RCTL(KC_QUOT), RCTL(KC_ENT),                 \
 		RCTL(KC_LSFT), RCTL(KC_Z), RCTL(KC_X), RCTL(KC_C), RCTL(KC_V), REBOOT,     RCTL(KC_N), RCTL(KC_M), RCTL(KC_COMM), RCTL(KC_DOT), RCTL(KC_SLSH),                KC_VOLU, RCTL(KC_DEL),        \
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	/*
 	[_FNC] = LAYOUT(
-		_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_ASTG, \
+		_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  AS_TOGG, \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          \
 		_______, _______, _______, _______, _______, REBOOT,  _______, _______, _______, _______, RCTL(KC_SLSH),    KC_VOLU, RCTL(KC_DEL), \
@@ -205,7 +205,7 @@ bool rgb_matrix_indicators_user(void) {
 			rgb_matrix_set_color(43, 0xFF, 0x00, 0x40); // ctrl+slash
 
 			if (this_led & (1 << !autoshift_enabled)) {
-				rgb_matrix_set_color(0, 0xFF, 0x00, 0x00); // KC_ASTG
+				rgb_matrix_set_color(0, 0xFF, 0x00, 0x00); // AS_TOGG
 			} else {
 				rgb_matrix_set_color(0, 0xFF, 0xFF, 0x00);
 			}
