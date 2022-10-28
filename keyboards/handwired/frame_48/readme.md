@@ -1,5 +1,5 @@
 # Frame 48
-
+![frame](https://i.imgur.com/GnOZPsu.jpg)
 
 
 A short description of the keyboard/project
@@ -9,7 +9,7 @@ A short description of the keyboard/project
 
 Make example for this keyboard (after setting up your build environment):
 
-    make CONVERT_TO=kb2040 handwired/frame_48:default
+    make handwired/frame_48:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
