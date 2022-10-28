@@ -37,22 +37,22 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
             case QK_UNICODE_MODE_PREVIOUS:
                 cycle_unicode_input_mode(shifted ? +1 : -1);
                 break;
-            case UNICODE_MODE_MAC:
+            case QK_UNICODE_MODE_MACOS:
                 set_unicode_input_mode(UC_MAC);
                 break;
-            case UNICODE_MODE_LNX:
+            case QK_UNICODE_MODE_LINUX:
                 set_unicode_input_mode(UC_LNX);
                 break;
-            case UNICODE_MODE_WIN:
+            case QK_UNICODE_MODE_WINDOWS:
                 set_unicode_input_mode(UC_WIN);
                 break;
-            case UNICODE_MODE_BSD:
+            case QK_UNICODE_MODE_BSD:
                 set_unicode_input_mode(UC_BSD);
                 break;
-            case UNICODE_MODE_WINC:
+            case QK_UNICODE_MODE_WINCOMPOSE:
                 set_unicode_input_mode(UC_WINC);
                 break;
-            case UNICODE_MODE_EMACS:
+            case QK_UNICODE_MODE_EMACS:
                 set_unicode_input_mode(UC_EMACS);
                 break;
         }
