@@ -10,11 +10,11 @@
 * Hardware Design: [link](https://github.com/TweetyDaBird/Lotus58)
 
 
-### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of RGB configuration. 
+#### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of RGB configuration. 
 
-* Full RGB - Uses 58 RGB LEDs under the keys. 
-* RGB Glow - Uses 12 RGB LEDs to create a nice glow effect between the plates. 
-* No RGB - 
+* RGB Full - Uses the 58 RGB LEDs under the keys, and is configured with RGB and a few effects. 
+* RGB Glow - Uses the 12 RGB LEDs underneath the PCB to create a nice glow effect between the plates. 
+* RGB None - Not configured with RGB.  
 
 
 Make example for this keyboard (after setting up your build environment):
