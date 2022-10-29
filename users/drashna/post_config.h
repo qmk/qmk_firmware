@@ -43,6 +43,7 @@
 #            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #        endif
 #    endif
+#    undef RGB_MATRIX_STARTUP_MODE
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
 #endif
 
