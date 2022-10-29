@@ -4,15 +4,6 @@
 /* expand macro test command
 gcc --include <test_config.h> -DCPP_EXPAND_TEST -E -C matrix_read_cols_on_row.c 2>/tmp/err | sed '1,/^..-expand-start-/d' | cat - /tmp/err | less
 */
-#ifdef DIRECT_PIN
-#    error DIRECT_PIN is not yet supported.
-#endif
-#ifdef DIODE_DIRECTION
-#    if DIODE_DIRECTION == ROW2COL
-#        error DIODE_DIRECTION == ROW2COL is not yet supported.
-#    endif
-#endif
-
 #ifdef DEBUG_UART_LOG
 #    pragma message "DEBUG_UART_LOG on"
 #else
@@ -138,6 +129,14 @@ enum DEVICE_NAME {
 #    ifdef SPLIT_KEYBOARD
 //  import: volatile bool isLeftHand
 #        include "split_common/split_util.h"
+#    endif
+#    ifdef DIRECT_PIN
+#        error DIRECT_PIN is not yet supported.
+#    endif
+#    ifdef DIODE_DIRECTION
+#        if DIODE_DIRECTION == ROW2COL
+#            error DIODE_DIRECTION == ROW2COL is not yet supported.
+#        endif
 #    endif
 #endif // CPP_EXPAND_TEST
 #include "cpp_map.h"
