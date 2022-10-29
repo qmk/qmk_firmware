@@ -1,6 +1,6 @@
 # Pumpkin Pad
 
-![pumpkin-pad](https://i.imgur.com/jFkl9rw.jpg)
+![pumpkin-pad](https://i.imgur.com/jFkl9rwh.jpg)
 
 A 60% PCB
 
