@@ -9,6 +9,14 @@
 * Hardware Availability: [Lectronz Store](https://lectronz.com/stores/tweetys-wild-thinking)
 * Hardware Design: [link](https://github.com/TweetyDaBird/Lotus58)
 
+
+### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of RGB configuration. 
+
+* Full RGB - Uses 58 RGB LEDs under the keys. 
+* RGB Glow - Uses 12 RGB LEDs to create a nice glow effect between the plates. 
+* No RGB - 
+
+
 Make example for this keyboard (after setting up your build environment):
 
     make tweetydabird/lotus58:default
