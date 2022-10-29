@@ -161,7 +161,7 @@ _______, _______ , _______, _______, _______  ,                                 
 _______, _______ , _______    , _______, _______  , _______, _______,      _______, _______           , _______            , _______          , _______        , _______            , _______,
 _______, RESET   , WEBUSB_PAIR, XXXXXXX, XXXXXXX  , XXXXXXX, _______,      _______, RGB_TOG           , RGB_MOD            , RGB_HUI          , RGB_SAI        , RGB_VAI            , _______,
 _______, KC_LCTRL, KC_LALT    , KC_LGUI, KC_LSHIFT, XXXXXXX,                        XXXXXXX           , KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_MEDIA_NEXT_TRACK, _______,
-_______, XXXXXXX , XXXXXXX    , XXXXXXX, XXXXXXX  , XXXXXXX, _______,      _______, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP   , RGB_HUD          , RGB_SAD        , RGB_VAD            , _______,
+_______, VRSN    , XXXXXXX    , XXXXXXX, XXXXXXX  , XXXXXXX, _______,      _______, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP   , RGB_HUD          , RGB_SAD        , RGB_VAD            , _______,
 _______, _______ , _______    , _______, _______  ,                                                     KC_AUDIO_MUTE      , _______          , _______        , _______            , _______,
 
                                                     XXXXXXX, XXXXXXX,      _______, _______           ,
