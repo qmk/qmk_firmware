@@ -244,7 +244,30 @@ void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
     rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
-};
+}
+
+// void caps_word_set_user(bool active) {
+//   if (active) {
+//     ergodox_right_led_2_on();
+//   } else {
+//     uint8_t layer = get_highest_layer(layer_state);
+//     if (layer != 2) {
+//         ergodox_right_led_2_off();
+//     }
+//   }
+// }
+
+void matrix_scan_user() {
+    if (is_caps_word_on()) {
+        ergodox_right_led_2_on();
+    }
+    else {
+        uint8_t layer = get_highest_layer(layer_state);
+        if (layer != 2) {
+            ergodox_right_led_2_off();
+        }        
+    }
+}
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     raw_hid_send(data, length);

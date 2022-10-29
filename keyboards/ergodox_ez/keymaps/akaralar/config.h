@@ -15,3 +15,9 @@
 
 #define CAPS_LOCK_STATUS
 #define RGB_MATRIX_STARTUP_SPD 60
+
+// Activate Caps Word by pressing both shift keys
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+// Turn off Caps Word after 3 seconds.
+#define CAPS_WORD_IDLE_TIMEOUT 2000  
