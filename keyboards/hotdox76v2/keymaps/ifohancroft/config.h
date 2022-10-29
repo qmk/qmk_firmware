@@ -16,6 +16,7 @@
 #pragma once
 
 // place overrides here
+#define FORCE_NKRO
 #ifdef TAPPING_TOGGLE
 #    undef TAPPING_TOGGLE
 #endif
