@@ -9,3 +9,5 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
+
+DEFAULT_FOLDER = mechlovin/hex6c/rev1
