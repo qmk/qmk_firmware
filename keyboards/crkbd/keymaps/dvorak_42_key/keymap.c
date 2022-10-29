@@ -158,11 +158,11 @@ KC_TRNS, RCTL(LSFT(KC_TAB)), RCTL(KC_TAB), WINDOWS10_WORKSPACE_LEFT, WINDOWS10_W
 
   [SHORTCUTS] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                             ,-----------------------------------------------------.
-    KC_F1,    KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                                MEH(KC_I), MEH(KC_J), MEH(KC_K), MEH(KC_L), MEH(KC_M), MEH(KC_N),
+    KC_F1,    KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                                MEH(KC_F1), MEH(KC_F2), MEH(KC_F3), MEH(KC_F4), MEH(KC_F5), MEH(KC_F6),
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
-    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                               MEH(KC_O), MEH(KC_P), MEH(KC_Q), MEH(KC_R), MEH(KC_S), MEH(KC_T),
+    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                               MEH(KC_F7), MEH(KC_F8), MEH(KC_F9), MEH(KC_F10), MEH(KC_F11), MEH(KC_F12),
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
-TG(RGB_CONTROL), OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,            MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X), MEH(KC_Y), MEH(KC_Z),
+TG(RGB_CONTROL), OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,    HYPR(KC_F1), HYPR(KC_F2), HYPR(KC_F3), HYPR(KC_F4), HYPR(KC_F5), HYPR(KC_F6),
   //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
                                         KC_TRNS,  KC_TRNS, KC_TRNS,                 TG(BASE_IOS), TO(SHORTCUTS), TO(BASE)
                                       //`--------------------------'             `--------------------------'
