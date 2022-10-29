@@ -78,7 +78,8 @@ AVRDUDE_PROGRAMMER ?= avrdude
 define EXEC_AVRDUDE
 	list_devices() { \
 		if $(GREP) -q -s icrosoft /proc/version; then \
-		    powershell.exe 'Get-CimInstance -Class Win32_SerialPort | Select-Object DeviceID' 2>/dev/null | sed -e "s/\r//g" | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | sort; \
+			powershell.exe 'Get-CimInstance -Class Win32_SerialPort | Select -ExpandProperty "DeviceID"'
+ 2>/dev/null | sed -e "s/\r//g" | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | sort; \
 		elif [ "`uname`" = "FreeBSD" ]; then \
 			ls /dev/tty* | grep -v '\.lock$$' | grep -v '\.init$$'; \
 		else \
