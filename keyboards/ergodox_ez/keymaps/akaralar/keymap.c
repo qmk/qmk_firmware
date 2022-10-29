@@ -25,10 +25,8 @@ enum layers {
     MDIA,  // media keys layer
     NUMB,  // numbers layer
     CODE,  // code symbols layer
-    FUNC,
-    FUND,  // Fn keys layer
-    BTTN,  // one handed usage layer
-    WNDW,  // easy mac window and app navigation
+    FUNC,  // Function keys layer
+    SPAN,  // Spanish accented letters layer
 };
 
 #define KC_MAC_UNDO LGUI(KC_Z)
@@ -56,15 +54,20 @@ enum C_keycodes {
     VRSN = SAFE_RANGE,
 #endif
     RGB_SLD,
-    BASE_LAYER,
-    NAV_LAYER,
-    MOUSE_LAYER,
-    MEDIA_LAYER,
-    NUM_LAYER,
-    CODE_LAYER,
-    FN_LAYER,
-    BUTTON_LAYER,
-    WINDOW_LAYER,
+    ST_MACRO_0,
+    ST_MACRO_1,
+    ST_MACRO_2,
+    ST_MACRO_3,
+    ST_MACRO_4,
+    ST_MACRO_5,
+    ST_MACRO_6,
+    ST_MACRO_7,
+    ST_MACRO_8,
+    ST_MACRO_9,
+    ST_MACRO_10,
+    ST_MACRO_11,
+    ST_MACRO_12,
+    ST_MACRO_13,
 };
 
 #define C_E MEH_T(KC_E)
@@ -83,9 +86,12 @@ enum C_keycodes {
 #define C_K MT(MOD_RGUI, KC_K)
 #define C_J MT(MOD_RSFT, KC_J)
 
-#define C_MOOM LALT(LCTL(LSFT(KC_GRAVE)))
-#define C_ALFRED LGUI(KC_SPACE)
 #define C_REDO LGUI(LSFT(KC_Z))
+
+#define C_MOOM LALT(LCTL(LSFT(KC_GRAVE)))
+#define C_NAV_ALFD LGUI(LCTL(KC_SLASH))
+#define C_ACT_ALFD RGUI(RCTL(KC_BSLASH))
+#define C_1PASS LALT(LGUI(KC_BSLASH))
 
 #define C_L1 LT(1, KC_SPACE)
 #define C_L2 LT(2, KC_TAB)
@@ -93,7 +99,13 @@ enum C_keycodes {
 #define C_L4 LT(4, KC_BSPACE)
 #define C_L5 LT(5, KC_ENTER)
 #define C_L6 LT(6, KC_DELETE)
-#define C_L9 LM(9, MOD_LGUI)
+#define C_L7 MO(7)
+
+#define C_MCR_ST DYN_REC_STOP
+#define C_MCR_1R DYN_REC_START1
+#define C_MCR_2R DYN_REC_START2
+#define C_MCR_1P DYN_MACRO_PLAY1
+#define C_MCR_2P DYN_MACRO_PLAY2
 
 // clang-format off
 
@@ -128,17 +140,17 @@ _______, C_A    , C_S    , C_D    , C_F    , KC_G   ,                        KC_
 _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , _______,      _______, KC_N   , KC_M   , KC_COMMA, KC_DOT , KC_SLASH, _______,
 _______, _______, _______, _______, C_L3   ,                                          C_L6   , _______ , _______, _______ , _______,
 
-                                             TT(8)  , _______,      _______, _______,
+                                             _______, _______,      _______, _______,
                                                       _______,      _______,
-                                    C_L1   , C_L2   , KC_F24 ,      C_L9   , C_L5   , C_L4
+                                    C_L1   , C_L2   , KC_F24 ,      C_L7   , C_L5   , C_L4
 ),
 
 [NAVI] = LAYOUT_ergodox_pretty(
-_______, _______    , _______   , _______    , _______     , _______ , _______,      _______, _______  , _______     , _______    , _______   , _______    , _______,
-_______, XXXXXXX    , XXXXXXX   , KC_MEH     , KC_HYPR     , C_MOOM  , _______,      _______, KC_PGUP  , KC_HOME     , KC_UP      , KC_END    , KC_INSERT  , _______,
-_______, KC_LCTRL   , KC_LALT   , KC_LGUI    , KC_LSHIFT   , C_ALFRED,                        KC_PGDOWN, KC_LEFT     , KC_DOWN    , KC_RIGHT  , KC_CAPSLOCK, _______,
-_______, KC_MAC_UNDO, KC_MAC_CUT, KC_MAC_COPY, KC_MAC_PASTE, C_REDO  , _______,      _______, C_REDO   , KC_MAC_PASTE, KC_MAC_COPY, KC_MAC_CUT, KC_MAC_UNDO, _______,
-_______, _______    , _______   , _______    , XXXXXXX     ,                                             KC_DELETE   , _______    , _______   , _______    , _______,
+_______, _______    , _______   , _______    , _______     , _______, _______,      _______, _______  , _______     , _______    , _______   , _______    , _______,
+_______, C_NAV_ALFD , C_ACT_ALFD, KC_MEH     , KC_HYPR     , C_MOOM , _______,      _______, KC_PGUP  , KC_HOME     , KC_UP      , KC_END    , KC_INSERT  , _______,
+_______, KC_LCTRL   , KC_LALT   , KC_LGUI    , KC_LSHIFT   , C_1PASS,                        KC_PGDOWN, KC_LEFT     , KC_DOWN    , KC_RIGHT  , KC_CAPSLOCK, _______,
+_______, KC_MAC_UNDO, KC_MAC_CUT, KC_MAC_COPY, KC_MAC_PASTE, C_REDO , _______,      _______, C_REDO   , KC_MAC_PASTE, KC_MAC_COPY, KC_MAC_CUT, KC_MAC_UNDO, _______,
+_______, _______    , _______   , _______    , XXXXXXX     ,                                            KC_DELETE   , _______    , _______   , _______    , _______,
 
                                                              XXXXXXX , XXXXXXX,      _______, _______  ,
                                                                        _______,      _______,
@@ -158,11 +170,11 @@ _______, _______ , _______, _______, _______  ,                                 
 ),
 
 [MDIA] = LAYOUT_ergodox_pretty(
-_______, _______ , _______    , _______, _______  , _______, _______,      _______, _______           , _______            , _______          , _______        , _______            , _______,
-_______, RESET   , WEBUSB_PAIR, XXXXXXX, XXXXXXX  , XXXXXXX, _______,      _______, RGB_TOG           , RGB_MOD            , RGB_HUI          , RGB_SAI        , RGB_VAI            , _______,
-_______, KC_LCTRL, KC_LALT    , KC_LGUI, KC_LSHIFT, XXXXXXX,                        XXXXXXX           , KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_MEDIA_NEXT_TRACK, _______,
-_______, VRSN    , XXXXXXX    , XXXXXXX, XXXXXXX  , XXXXXXX, _______,      _______, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP   , RGB_HUD          , RGB_SAD        , RGB_VAD            , _______,
-_______, _______ , _______    , _______, _______  ,                                                     KC_AUDIO_MUTE      , _______          , _______        , _______            , _______,
+_______, _______ , _______    , _______, _______  , _______ , _______,      _______, _______           , _______            , _______          , _______        , _______            , _______,
+_______, RESET   , WEBUSB_PAIR, XXXXXXX, C_MCR_1P , C_MCR_2P, _______,      _______, RGB_TOG           , KC_BRIGHTNESS_UP   , RGB_HUI          , RGB_SAI        , RGB_VAI            , _______,
+_______, KC_LCTRL, KC_LALT    , KC_LGUI, KC_LSHIFT, C_MCR_ST,                        TOGGLE_LAYER_COLOR, KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_MEDIA_NEXT_TRACK, _______,
+_______, VRSN    , XXXXXXX    , XXXXXXX, C_MCR_1R , C_MCR_2R, _______,      _______, RGB_MOD           , KC_BRIGHTNESS_DOWN , RGB_HUD          , RGB_SAD        , RGB_VAD            , _______,
+_______, _______ , _______    , _______, _______  ,                                                      KC_AUDIO_MUTE      , _______          , _______        , _______            , _______,
 
                                                     XXXXXXX, XXXXXXX,      _______, _______           ,
                                                              _______,      _______,
@@ -182,22 +194,22 @@ _______, _______    , _______, _______, KC_0,                                   
 ),
 
 [CODE] = LAYOUT_ergodox_pretty(
-_______, _______ , _______  , _______, _______ , _______ , _______,      _______, _______ , _______    , _______    , _______  , _______ , _______,
-_______, KC_TILD , KC_PIPE  , KC_LABK, KC_RABK , KC_PLUS , _______,      _______, KC_ASTR , KC_LCBR    , KC_RCBR    , KC_COLN  , KC_DQUO , _______,
-_______, KC_GRAVE, KC_BSLASH, KC_LPRN, KC_RPRN , KC_MINUS,                        KC_SLASH, KC_LBRACKET, KC_RBRACKET, KC_SCOLON, KC_QUOTE, _______,
-_______, KC_EXLM , KC_AT    , KC_HASH, KC_DLR  , KC_PERC , _______,      _______, KC_CIRC , KC_AMPR    , KC_COMMA   , KC_DOT   , KC_QUES , _______,
-_______, _______ , _______  , _______, KC_UNDS ,                                            XXXXXXX    , _______    , _______  , _______ , _______,
+_______, _______  , _______ , _______, _______ , _______ , _______,      _______, _______ , _______    , _______    , _______  , _______ , _______,
+_______, KC_SCOLON, KC_PLUS , KC_LABK, KC_RABK , KC_PIPE , _______,      _______, KC_QUOTE, KC_RBRACKET, KC_LBRACKET, KC_ASTR  , KC_TILD , _______,
+_______, KC_COLN  , KC_MINUS, KC_LPRN, KC_RPRN , KC_GRAVE,                        KC_DQUO , KC_RCBR    , KC_LCBR    , KC_SLASH , KC_COMMA, _______,
+_______, KC_AT    , KC_UNDS , KC_DLR , KC_EXLM , KC_PERC , _______,      _______, KC_AMPR , KC_QUES    , KC_EQUAL   , KC_BSLASH, KC_CIRC , _______,
+_______, _______  , _______ , _______, KC_HASH ,                                            XXXXXXX    , _______    , _______  , _______ , _______,
 
                                                  XXXXXXX , XXXXXXX,      _______, _______ ,
                                                            _______,      _______,
-                                       KC_SPACE, KC_EQUAL, XXXXXXX,      _______, _______ , XXXXXXX
+                                       _______ , KC_DOT  , XXXXXXX,      _______, _______ , XXXXXXX
 ),
 
 [FUNC] = LAYOUT_ergodox_pretty(
 _______, _______, _______, _______, _______  , _______, _______,      _______, _______, _______  , _______, _______, _______ , _______,
 _______, KC_F12 , KC_F7  , KC_F8  , KC_F9    , XXXXXXX, _______,      _______, XXXXXXX, XXXXXXX  , XXXXXXX, XXXXXXX, XXXXXXX , _______,
-_______, KC_F11 , KC_F4  , KC_F5  , KC_F6    , XXXXXXX,                        XXXXXXX, KC_RSHIFT, KC_RGUI, KC_RALT, KC_RCTRL, _______,
-_______, KC_F10 , KC_F1  , KC_F2  , KC_F3    , XXXXXXX, _______,      _______, XXXXXXX, OSL(7)   , XXXXXXX, XXXXXXX, XXXXXXX , _______,
+_______, KC_F11 , KC_F4  , KC_F5  , KC_F6    , XXXXXXX,                        XXXXXXX, KC_RSHIFT, KC_RGUI, KC_LALT, KC_RCTRL, _______,
+_______, KC_F10 , KC_F1  , KC_F2  , KC_F3    , XXXXXXX, _______,      _______, XXXXXXX, XXXXXXX  , XXXXXXX, XXXXXXX, XXXXXXX , _______,
 _______, _______, _______, _______, KC_ESCAPE,                                          _______  , _______, _______, _______ , _______,
 
                                                XXXXXXX, XXXXXXX,      _______, _______,
@@ -205,61 +217,182 @@ _______, _______, _______, _______, KC_ESCAPE,                                  
                                     KC_SPACE , KC_TAB , XXXXXXX,      _______, XXXXXXX, XXXXXXX
 ),
 
-[FUND] = LAYOUT_ergodox_pretty(
-_______, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
-_______, KC_F24 , KC_F19 , KC_F20 , KC_F21 , _______, _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-_______, KC_F23 , KC_F16 , KC_F17 , KC_F18 , _______,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-_______, KC_F22 , KC_F13 , KC_F14 , KC_F15 , _______, _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-_______, _______, _______, _______, _______,                                          _______, _______, _______, _______, _______,
+[SPAN] = LAYOUT_ergodox_pretty(
+_______, _______, _______, _______   , _______   , _______   , _______,      _______, _______   , _______    , _______    , _______, _______, _______,
+_______, XXXXXXX, XXXXXXX, ST_MACRO_0, ST_MACRO_1, _______   , _______,      _______, XXXXXXX   , ST_MACRO_7 , ST_MACRO_8 , XXXXXXX, XXXXXXX, _______,
+_______, XXXXXXX, XXXXXXX, ST_MACRO_2, ST_MACRO_3, ST_MACRO_4,                        ST_MACRO_9, ST_MACRO_10, ST_MACRO_11, XXXXXXX, XXXXXXX, _______,
+_______, XXXXXXX, XXXXXXX, ST_MACRO_5, ST_MACRO_6, _______   , _______,      _______, XXXXXXX   , ST_MACRO_12, ST_MACRO_13, XXXXXXX, XXXXXXX, _______,
+_______, _______, _______, _______   , XXXXXXX   ,                                                XXXXXXX    , _______    , _______, _______, _______,
 
-                                             _______, _______,      _______, _______,
+                                             XXXXXXX, XXXXXXX,      _______, _______,
                                                       _______,      _______,
-                                    _______, _______, _______,      _______, XXXXXXX, XXXXXXX
-),
-
-[BTTN] = LAYOUT_ergodox_pretty(
-_______, _______     , _______        , _______       , _______        , _______       , _______,      _______, _______   , _______     , _______    , _______   , _______    , _______,
-_______, KC_MAC_UNDO , KC_MAC_CUT     , KC_MAC_COPY   , KC_MAC_PASTE   , C_REDO        , _______,      _______, C_REDO    , KC_MAC_PASTE, KC_MAC_COPY, KC_MAC_CUT, KC_MAC_UNDO, _______,
-_______, KC_LCTRL    , KC_LALT        , KC_LGUI       , KC_LSHIFT      , XXXXXXX       ,                        XXXXXXX   , KC_RSHIFT   , KC_RGUI    , KC_RALT   , KC_RCTRL   , _______,
-_______, DYN_REC_STOP, DYN_MACRO_PLAY2, DYN_REC_START2, DYN_MACRO_PLAY1, DYN_REC_START1, _______,      _______, C_REDO    , KC_MAC_PASTE, KC_MAC_COPY, KC_MAC_CUT, KC_MAC_UNDO, _______,
-_______, _______     , _______        , _______       , KC_MS_BTN1     ,                                                    _______     , _______    , _______   , _______    , _______,
-
-                                                                         _______       , XXXXXXX,      _______, _______   ,
-                                                                                         _______,      _______,
-                                                        KC_MS_BTN3     , KC_MS_BTN2    , XXXXXXX,      _______, KC_MS_BTN1, KC_MS_BTN3
-),
-
-[WNDW] = LAYOUT_ergodox_pretty(
-_______, _______, _______ , _______, _______  , _______, _______,      _______, _______, _______, _______, _______, _______, _______,
-_______, KC_Q   , KC_GRAVE, KC_TAB , XXXXXXX  , XXXXXXX, _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-_______, XXXXXXX, XXXXXXX , XXXXXXX, KC_LSHIFT, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-_______, XXXXXXX, XXXXXXX , XXXXXXX, XXXXXXX  , XXXXXXX, _______,      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-_______, _______, _______ , _______, XXXXXXX  ,                                          XXXXXXX, _______, _______, _______, _______,
-
-                                                XXXXXXX, XXXXXXX,      _______, _______,
-                                                         _______,      _______,
-                                     XXXXXXX  , XXXXXXX, _______,      _______, XXXXXXX, XXXXXXX
+                                    XXXXXXX, XXXXXXX, XXXXXXX,      _______, XXXXXXX, XXXXXXX
 )
 };
 
 // clang-format on
 
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable();
+}
+
+const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+    [0] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {6,255,255}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+    [1] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {0,0,0}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {163,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+    [2] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {122,255,255}, {122,255,255}, {122,255,255}, {122,255,255}, {0,0,0}, {122,255,255}, {122,255,255}, {122,255,255}, {122,255,255}, {0,0,0}, {122,255,255}, {122,255,255}, {122,255,255}, {122,255,255}, {122,255,255}, {122,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {122,255,255}, {122,255,255}, {122,255,255}, {122,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+        [3] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {119,244,100}, {41,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {41,255,255}, {41,255,255}, {0,0,0}, {0,0,0}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {0,0,0}, {0,0,0}, {41,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+    [4] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,245,245}, {0,245,245}, {0,0,0}, {0,0,0}, {0,0,0}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,0,0}, {0,0,0}, {0,245,245}, {0,245,245}, {0,245,245}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+    [5] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+    [6] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {211,218,204}, {211,218,204}, {211,218,204}, {211,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {211,218,204}, {211,218,204}, {211,218,204}, {211,218,204}, {0,0,0}, {211,218,204}, {211,218,204}, {211,218,204}, {211,218,204}, {0,0,0}, {211,218,204}, {211,218,204}, {211,218,204}, {211,218,204}, {211,218,204}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+    [7] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {45,255,255}, {45,255,255}, {0,0,0}, {0,0,0}, {45,255,255}, {45,255,255}, {45,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {45,255,255}, {45,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {45,255,255}, {45,255,255}, {0,0,0}, {0,0,0}, {45,255,255}, {45,255,255}, {45,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {45,255,255}, {45,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+};
+
+void set_layer_color(int layer) {
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    HSV hsv = {
+      .h = pgm_read_byte(&ledmap[layer][i][0]),
+      .s = pgm_read_byte(&ledmap[layer][i][1]),
+      .v = pgm_read_byte(&ledmap[layer][i][2]),
+    };
+    if (!hsv.h && !hsv.s && !hsv.v) {
+        rgb_matrix_set_color( i, 0, 0, 0 );
+    } else {
+        RGB rgb = hsv_to_rgb( hsv );
+        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+    }
+  }
+}
+
+void rgb_matrix_indicators_user(void) {
+  if (keyboard_config.disable_layer_led) { return; }
+  switch (biton32(layer_state)) {
+    case 0:
+      set_layer_color(0);
+      break;
+    case 1:
+      set_layer_color(1);
+      break;
+    case 2:
+      set_layer_color(2);
+      break;
+    case 3:
+      set_layer_color(3);
+      break;
+    case 4:
+      set_layer_color(4);
+      break;
+    case 5:
+      set_layer_color(5);
+      break;
+    case 6:
+      set_layer_color(6);
+      break;
+    case 7:
+      set_layer_color(7);
+      break;
+   default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case VRSN:
+    switch (keycode) {
+        case ST_MACRO_0:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_TAP(X_A));
+            }
+            break;
+        case ST_MACRO_1:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_TAP(X_E));
+            }
+            break;
+        case ST_MACRO_2:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_TAP(X_I));
+            }
+            break;
+        case ST_MACRO_3:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_TAP(X_O));
+            }
+            break;
+        case ST_MACRO_4:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_N)) SS_DELAY(100) SS_TAP(X_N));
+            }
+            break;
+        case ST_MACRO_5:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_U)) SS_DELAY(100) SS_TAP(X_U));
+            }
+            break;
+        case ST_MACRO_6:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_TAP(X_U));
+            }
+            break;
+        case ST_MACRO_7:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_RSFT(SS_TAP(X_E)));
+            }
+            break;
+        case ST_MACRO_8:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_RSFT(SS_TAP(X_A)));
+            }
+            break;
+        case ST_MACRO_9:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_N)) SS_DELAY(100) SS_LSFT(SS_TAP(X_N)));
+            }
+            break;
+        case ST_MACRO_10:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_LSFT(SS_TAP(X_O)));
+            }
+            break;
+        case ST_MACRO_11:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_LSFT(SS_TAP(X_I)));
+            }
+            break;
+        case ST_MACRO_12:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_E)) SS_DELAY(100) SS_LSFT(SS_TAP(X_U)));
+            }
+            break;
+        case ST_MACRO_13:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_U)) SS_DELAY(100) SS_LSFT(SS_TAP(X_U)));
+            }
+            break;
+        case RGB_SLD:
+            if (record->event.pressed) {
+                rgblight_mode(1);
+            }
+          return false;
+        case VRSN:
+            if (record->event.pressed) {
                 SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
                 return false;
-        }
+            }
     }
+
     return true;
 }
 
-void keyboard_post_init_user(void) {
-#ifdef RGBLIGHT_COLOR_LAYER_0
-    rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-#endif
-}
 
 void matrix_scan_user() {
     led_t led_state = host_keyboard_led_state();
@@ -267,7 +400,7 @@ void matrix_scan_user() {
         ergodox_right_led_3_on();
     } else {
         uint8_t layer = get_highest_layer(layer_state);
-        if (layer != 3) {
+        if (layer != 3 && layer != 5 && layer != 6 && layer != 7) {
             ergodox_right_led_3_off();
         }
     }
@@ -276,7 +409,7 @@ void matrix_scan_user() {
         ergodox_right_led_2_on();
     } else {
         uint8_t layer = get_highest_layer(layer_state);
-        if (layer != 2) {
+        if (layer != 2 && layer != 4 && layer != 6 && layer != 7) {
             ergodox_right_led_2_off();
         }        
     }
@@ -294,65 +427,31 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
-        case 0:
-#ifdef RGBLIGHT_COLOR_LAYER_0
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-#endif
-            break;
         case 1:
             ergodox_right_led_1_on();
-#ifdef RGBLIGHT_COLOR_LAYER_1
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
-#endif
             break;
         case 2:
             ergodox_right_led_2_on();
-#ifdef RGBLIGHT_COLOR_LAYER_2
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
-#endif
             break;
         case 3:
             ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_3
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
-#endif
             break;
         case 4:
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
-#ifdef RGBLIGHT_COLOR_LAYER_4
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
-#endif
             break;
         case 5:
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_5
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
-#endif
             break;
         case 6:
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_6
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
-#endif
             break;
         case 7:
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_7
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_7);
-#endif
-            break;
-        case 8:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_8
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_8);
-#endif
             break;
         default:
             break;
