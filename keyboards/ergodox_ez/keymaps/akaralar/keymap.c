@@ -246,18 +246,18 @@ void keyboard_post_init_user(void) {
 #endif
 }
 
-// void caps_word_set_user(bool active) {
-//   if (active) {
-//     ergodox_right_led_2_on();
-//   } else {
-//     uint8_t layer = get_highest_layer(layer_state);
-//     if (layer != 2) {
-//         ergodox_right_led_2_off();
-//     }
-//   }
-// }
-
 void matrix_scan_user() {
+    led_t led_state = host_keyboard_led_state();
+    if (led_state.caps_lock) {
+        ergodox_right_led_3_on();
+    }
+    else {
+        uint8_t layer = get_highest_layer(layer_state);
+        if (layer != 3) {
+            ergodox_right_led_3_off();
+        }
+    }
+
     if (is_caps_word_on()) {
         ergodox_right_led_2_on();
     }
