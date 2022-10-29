@@ -32,6 +32,9 @@ ifeq ($(strip $(KEYBOARD)), handwired/tractyl_manuform/5x6_right/teensy2pp)
     AUTOCORRECTION_ENABLE        = no
     CAPS_WORD_ENABLE             = yes
 endif
+ifeq ($(strip $(KEYBOARD)), handwired/tractyl_manuform/5x6_right/f411)
+    BOOTLOADER = tinyuf2
+endif
 # DEBOUNCE_TYPE = sym_eager_pk
 
 OLED_DRIVER = custom

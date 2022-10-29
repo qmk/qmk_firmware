@@ -1,7 +1,13 @@
 {
     "keyboard_name": "barracuda",
+    "manufacturer": "knaruo",
     "url": "https://github.com/knaruo/barracuda",
     "maintainer": "knaruo",
+    "usb": {
+        "vid": "0x6B6E",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_3x11": {
             "layout": [

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "VCL65 Solder",
+    "keyboard_name": "VCL65",
+    "manufacturer": "VCL x SawnsProjects",
     "url": "",
     "maintainer": "MaiTheSan",
+    "usb": {
+        "vid": "0x5350",
+        "pid": "0x1727",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

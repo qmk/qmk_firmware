@@ -266,12 +266,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			RGB_SAD, BL_ON,    COLEMAK,          \
 			RGB_SAI, RGB_TOG,  DVORAK,  _______, \
 			RGB_HUD, RGB_MOD,  KC_VOLD, _______, \
-			RGB_HUI, RGB_RMOD, KC_VOLU, RESET),
+			RGB_HUI, RGB_RMOD, KC_VOLU, QK_BOOT),
 };
 
 // Makes sure to update the good tri-layer if a layer changes
 layer_state_t layer_state_set_user(layer_state_t state) {
-	switch (biton32(default_layer_state)) {
+	switch (get_highest_layer(default_layer_state)) {
 		case _QWERTY_LAYER:
 			state = update_tri_layer_state(state, _RAISE_LAYER, _QWERTY_LOWER_LAYER, _ALTER_LAYER);
 			break;
@@ -289,8 +289,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // Makes the tri-layer
-uint32_t default_layer_state_set_kb(uint32_t state) {
-	switch (biton32(state)) {
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
+	switch (get_highest_layer(state)) {
 		case _QWERTY_LAYER:
 			state = update_tri_layer_state(state, _RAISE_LAYER, _QWERTZ_LOWER_LAYER, _ALTER_LAYER);
 			state = update_tri_layer_state(state, _RAISE_LAYER, _COLEMA_LOWER_LAYER, _ALTER_LAYER);

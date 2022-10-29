@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "xox70hot",
+    "keyboard_name": "XOX 70 Hotswap",
+    "manufacturer": "Mokey",
     "url": "",
     "maintainer": "rhmokey",
+    "usb": {
+        "vid": "0x6653",
+        "pid": "0x3371",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_nofrow_ansi_tsangan"
     },

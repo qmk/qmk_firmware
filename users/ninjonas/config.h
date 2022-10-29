@@ -2,6 +2,7 @@
     #undef TAPPING_TERM
     #define TAPPING_TERM 200
 #endif
+#define TAPPING_TERM_PER_KEY
 
 // Mouse Settings: Smoothing out mouse movement on keypress
 #ifndef MOUSEKEY_INTERVAL

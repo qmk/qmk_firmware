@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0x1600
-#define DEVICE_VER      0x0001
-#define MANUFACTURER CannonKeys
-#define PRODUCT Instant60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

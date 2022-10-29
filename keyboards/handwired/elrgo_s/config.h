@@ -30,13 +30,6 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 
 #define DIODE_DIRECTION COL2ROW
 
-/* USB Device descriptor parameter */
-#define PRODUCT         Elrgo S
-#define MANUFACTURER    Eloren
-#define VENDOR_ID       0x454C
-#define PRODUCT_ID      0x3436
-#define DEVICE_VER      0x0001
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 

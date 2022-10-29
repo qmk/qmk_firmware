@@ -1,7 +1,13 @@
 {
     "keyboard_name": "KNIGHT_PLUS",
+    "manufacturer": "X-BOWS",
     "url": "",
     "maintainer": "xbows-qmk",
+    "usb": {
+        "vid": "0x5842",
+        "pid": "0x4B50",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

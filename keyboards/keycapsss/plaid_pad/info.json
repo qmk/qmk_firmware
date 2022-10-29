@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "Plaid-Pad",
+    "manufacturer": "Keycapsss",
     "url": "https://keycapsss.com/diy-kits/104/plaid-pad-4x4-numpad",
     "maintainer": "BenRoe",
+    "usb": {
+        "vid": "0x7983",
+        "pid": "0x5050"
+    },
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

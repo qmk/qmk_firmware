@@ -1,6 +1,11 @@
 {
-    "keyboard_name": "IBM Model M PC/3270 122 key",
+    "keyboard_name": "Model M PC/3270 122 key",
+    "manufacturer": "IBM",
     "maintainer": "jmaynard",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x3270"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

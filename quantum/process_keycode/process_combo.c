@@ -88,8 +88,6 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 
 #define INCREMENT_MOD(i) i = (i + 1) % COMBO_BUFFER_LENGTH
 
-#define COMBO_KEY_POS ((keypos_t){.col = 254, .row = 254})
-
 #ifndef EXTRA_SHORT_COMBOS
 /* flags are their own elements in combo_t struct. */
 #    define COMBO_ACTIVE(combo) (combo->active)
@@ -140,12 +138,7 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 static inline void release_combo(uint16_t combo_index, combo_t *combo) {
     if (combo->keycode) {
         keyrecord_t record = {
-            .event =
-                {
-                    .key     = COMBO_KEY_POS,
-                    .time    = timer_read() | 1,
-                    .pressed = false,
-                },
+            .event   = MAKE_KEYEVENT(KEYLOC_COMBO, KEYLOC_COMBO, false),
             .keycode = combo->keycode,
         };
 #ifndef NO_ACTION_TAPPING
@@ -234,7 +227,16 @@ static inline void dump_key_buffer(void) {
 #endif
         }
         record->event.time = 0;
+
+#if defined(CAPS_WORD_ENABLE) && defined(AUTO_SHIFT_ENABLE)
+        // Edge case: preserve the weak Left Shift mod if both Caps Word and
+        // Auto Shift are on. Caps Word capitalizes by setting the weak Left
+        // Shift mod during the press event, but Auto Shift doesn't send the
+        // key until it receives the release event.
+        del_weak_mods((is_caps_word_on() && get_autoshift_state()) ? ~MOD_BIT(KC_LSFT) : 0xff);
+#else
         clear_weak_mods();
+#endif // defined(CAPS_WORD_ENABLE) && defined(AUTO_SHIFT_ENABLE)
 
 #if TAP_CODE_DELAY > 0
         // only delay once and for a non-tapping key
@@ -325,7 +327,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
         if (ALL_COMBO_KEYS_ARE_DOWN(state, key_count)) {
             // this in the end executes the combo when the key_buffer is dumped.
             record->keycode   = combo->keycode;
-            record->event.key = COMBO_KEY_POS;
+            record->event.key = MAKE_KEYPOS(KEYLOC_COMBO, KEYLOC_COMBO);
 
             qrecord->combo_index = combo_index;
             ACTIVATE_COMBO(combo);

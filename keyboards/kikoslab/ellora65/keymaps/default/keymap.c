@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F17 ,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,                
     KC_F18 ,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS, 
     KC_F19 ,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS, 
-    KC_F20 ,   KC_TRNS,   KC_TRNS,   KC_TRNS,              KC_TRNS,              RESET  ,              KC_TRNS,              KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS
+    KC_F20 ,   KC_TRNS,   KC_TRNS,   KC_TRNS,              KC_TRNS,              QK_BOOT  ,              KC_TRNS,              KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS
   )
 };
 

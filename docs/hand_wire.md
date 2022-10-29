@@ -177,20 +177,25 @@ From here, you should have a working keyboard once you program a firmware.
 
 Simple firmware can be created easily using the [Keyboard Firmware Builder](https://kbfirmware.com/) website.  Recreate your layout using [Keyboard Layout Editor](https://www.keyboard-layout-editor.com), import it and recreate the matrix (if not already done as part of [planning the matrix](#planning-the-matrix).
 
-Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, and the .zip of source files can be modified for advanced functionality and compiled locally using the method described in [Building Your First Firmware](newbs_building_firmware?id=build-your-firmware).
+Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, or for advanced functionality, compiled locally after [Setting up Your Environment](newbs_getting_started.md).
 
-The source given by Keyboard Firmware Builder is QMK, but is based on a version of QMK from early 2017. To compile the code from your .zip file in a modern version of QMK Firmware, you'll need to open the .zip and follow these instructions:
+The source given by Keyboard Firmware Builder is QMK, but is based on a version of QMK from early 2017. To compile the firmware in a modern version of QMK Firmware, you'll need to export via the `Save Configuration` button, then run:
 
-1. Extract the `kb` folder to `qmk_firmware/keyboards/handwired/`.
-2. Open the extracted `kb` folder, then proceed to the `keymaps/default/` folder, and open `keymap.c`.
-3. Locate and delete the `action_get_macro` code block:
-   ```
-    const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-        ...
-        return MACRO_NONE;
-    }
-   ```
-4. Save and close `keymap.c`.
+    qmk import-kbfirmware /path/to/export.json
+
+For example:
+
+```
+$ qmk import-kbfirmware ~/Downloads/gh62.json 
+Ψ Importing gh62.json.
+
+⚠ Support here is basic - Consider using 'qmk new-keyboard' instead
+Ψ Imported a new keyboard named gh62.
+Ψ To start working on things, `cd` into keyboards/gh62,
+Ψ or open the directory in your preferred text editor.
+Ψ And build with qmk compile -kb gh62 -km default.
+```
+
 
 ## Flashing the Firmware
 

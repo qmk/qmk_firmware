@@ -26,7 +26,7 @@ void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count >= (sizeof(diablo_times) / sizeof(uint8_t))) {
         diablo_timer[diablo_keys->index].key_interval = 0;
         reset_tap_dance(state);
-    } else {  // else set the interval (tapdance count starts at 1, array starts at 0, so offset by one)
+    } else { // else set the interval (tapdance count starts at 1, array starts at 0, so offset by one)
         diablo_timer[diablo_keys->index].key_interval = diablo_times[state->count - 1];
     }
 }

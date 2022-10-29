@@ -17,3 +17,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 LTO_ENABLE = yes            # Link-time opt
+
+DEFAULT_FOLDER = 0_sixty/base

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "pizza65",
+    "manufacturer": "pizzakeyboards",
     "url": "www.keyboards.pizza",
     "maintainer": "mm0nte",
+    "usb": {
+        "vid": "0x504B",
+        "pid": "0x707A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

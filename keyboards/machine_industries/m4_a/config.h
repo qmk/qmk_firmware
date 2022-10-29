@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5241 // "RA"
-#define PRODUCT_ID   0x004A // 4-A
-#define DEVICE_VER   0x0001
-#define MANUFACTURER RAMA WORKS
-#define PRODUCT      M4-A
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 2
@@ -28,7 +21,6 @@
  */
 #define MATRIX_ROW_PINS { C7, C6 }
 #define MATRIX_COL_PINS { F6, F7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL

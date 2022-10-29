@@ -12,7 +12,7 @@ from pygments.token import Token
 from pygments import lex
 
 import qmk.path
-from qmk.keyboard import find_keyboard_from_dir, rules_mk
+from qmk.keyboard import find_keyboard_from_dir, rules_mk, keyboard_folder
 from qmk.errors import CppError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
@@ -357,7 +357,7 @@ def locate_keymap(keyboard, keymap):
     checked_dirs = ''
     keymap_path = ''
 
-    for dir in keyboard.split('/'):
+    for dir in keyboard_folder(keyboard).split('/'):
         if checked_dirs:
             checked_dirs = '/'.join((checked_dirs, dir))
         else:

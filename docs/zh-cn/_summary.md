@@ -91,7 +91,6 @@
     * [换手](zh-cn/feature_swap_hands.md)
     * [一键多用](zh-cn/feature_tap_dance.md)
     * [点按配置](zh-cn/tap_hold.md)
-    * [终端](zh-cn/feature_terminal.md)
     * [Unicode](zh-cn/feature_unicode.md)
     * [用户空间](zh-cn/feature_userspace.md)
     * [WPM计算](zh-cn/feature_wpm.md)
@@ -146,7 +145,7 @@
       * [EEPROM驱动](zh-cn/eeprom_driver.md)
       * [串口驱动](zh-cn/serial_driver.md)
       * [UART驱动](zh-cn/uart_driver.md)
-    * [操控GPIO](zh-cn/internals_gpio_control.md)
+    * [操控GPIO](zh-cn/gpio_control.md)
     * [键盘开发指引](zh-cn/hardware_keyboard_guidelines.md)
 
   * Python开发
@@ -182,12 +181,12 @@
     * [了解QMK](zh-cn/understanding_qmk.md)
 
   * QMK内部细节 (编辑中)
-    * [定义](zh-cn/internals_defines.md)
-    * [输入回调的注册](zh-cn/internals_input_callback_reg.md)
-    * [Midi设备](zh-cn/internals_midi_device.md)
-    * [Midi设备驱动流程](zh-cn/internals_midi_device_setup_process.md)
-    * [Midi辅助功能](zh-cn/internals_midi_util.md)
-    * [发送函数](zh-cn/internals_send_functions.md)
-    * [Sysex工具](zh-cn/internals_sysex_tools.md)
+    * [定义](zh-cn/internals/defines.md)
+    * [输入回调的注册](zh-cn/internals/input_callback_reg.md)
+    * [Midi设备](zh-cn/internals/midi_device.md)
+    * [Midi设备驱动流程](zh-cn/internals/midi_device_setup_process.md)
+    * [Midi辅助功能](zh-cn/internals/midi_util.md)
+    * [发送函数](zh-cn/internals/send_functions.md)
+    * [Sysex工具](zh-cn/internals/sysex_tools.md)
     
 <!--fromen:20211014-12:00(GMT+8) commit 04cf161aa01fd433b5dae69d9fd31569ed5dca59-->

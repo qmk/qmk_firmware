@@ -1,8 +1,13 @@
 {
     "keyboard_name": "OceanBreeze",
+    "manufacturer": "AfternoonLabs",
     "url": "afternoonlabs.com",
-    "productId": "0x0003",
     "maintainer": "afternoonlabs",
+    "usb": {
+        "vid": "0x616C",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

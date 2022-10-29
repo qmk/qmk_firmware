@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { F6 }
 #define MATRIX_COL_PINS { F4, D7 }
-#define UNUSED_PINS
 
 // LED on kbmount base board is on B7
 #define LED_CAPS_LOCK_PIN B7 // onboard LED for testing

@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xE8BA
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Salicylic_Acid
-#define PRODUCT         naked48
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 12
