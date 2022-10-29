@@ -154,15 +154,15 @@ _______, _______ , _______    , _______, _______  ,                             
 ),
 
 [NUMB] = LAYOUT_ergodox_pretty(
-_______, _______    , _______, _______, _______, _______    , _______,      _______, _______, _______  , _______, _______, _______ , _______,
-_______, KC_LBRACKET, KC_7   , KC_8   , KC_9   , KC_RBRACKET, _______,      _______, XXXXXXX, KC_HYPR  , KC_MEH , XXXXXXX, XXXXXXX , _______,
-_______, KC_SCOLON  , KC_4   , KC_5   , KC_6   , KC_EQUAL   ,                        XXXXXXX, KC_RSHIFT, KC_RGUI, KC_RALT, KC_RCTRL, _______,
-_______, KC_GRAVE   , KC_1   , KC_2   , KC_3   , KC_BSLASH  , _______,      _______, XXXXXXX, XXXXXXX  , XXXXXXX, XXXXXXX, XXXXXXX , _______,
-_______, _______    , _______, _______, KC_DOT ,                                              XXXXXXX  , _______, _______, _______ , _______,
+_______, _______    , _______, _______, _______, _______    , _______,      _______, _______, _______  , _______ , _______, _______ , _______,
+_______, KC_LBRACKET, KC_7   , KC_8   , KC_9   , KC_RBRACKET, _______,      _______, XXXXXXX, KC_HYPR  , KC_MEH  , XXXXXXX, XXXXXXX , _______,
+_______, KC_SCOLON  , KC_4   , KC_5   , KC_6   , KC_EQUAL   ,                        XXXXXXX, KC_RSHIFT, KC_RGUI , KC_RALT, KC_RCTRL, _______,
+_______, KC_GRAVE   , KC_1   , KC_2   , KC_3   , KC_BSLASH  , _______,      _______, XXXXXXX, XXXXXXX  , KC_COMMA, KC_DOT , KC_SLASH, _______,
+_______, _______    , _______, _______, KC_0,                                                 XXXXXXX  , _______ , _______, _______ , _______,
 
                                                  XXXXXXX    , XXXXXXX,      _______, _______,
                                                               _______,      _______,
-                                        KC_0   , KC_MINUS   , XXXXXXX,      _______, XXXXXXX, _______
+                                        _______, KC_MINUS   , XXXXXXX,      _______, XXXXXXX, _______
 ),
 
 [CODE] = LAYOUT_ergodox_pretty(
