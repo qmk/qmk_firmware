@@ -255,7 +255,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// Runs just one time when the keyboard initializes.
 void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
     rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
@@ -266,8 +265,7 @@ void matrix_scan_user() {
     led_t led_state = host_keyboard_led_state();
     if (led_state.caps_lock) {
         ergodox_right_led_3_on();
-    }
-    else {
+    } else {
         uint8_t layer = get_highest_layer(layer_state);
         if (layer != 3) {
             ergodox_right_led_3_off();
@@ -276,8 +274,7 @@ void matrix_scan_user() {
 
     if (is_caps_word_on()) {
         ergodox_right_led_2_on();
-    }
-    else {
+    } else {
         uint8_t layer = get_highest_layer(layer_state);
         if (layer != 2) {
             ergodox_right_led_2_off();
@@ -289,7 +286,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     raw_hid_send(data, length);
 }
 
-// Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
     ergodox_board_led_off();
     ergodox_right_led_1_off();
