@@ -122,49 +122,7 @@ enum custom_keycodes {
 // visual studio code shortcuts
 // ============================
 
-#define VS_FILE             MEH(KC_F1) // workbench.action.quickOpen
-#define VS_COMMANDS         MEH(KC_F2) // workbench.action.showCommands
-
-#define VS_LINE             MEH(KC_F3) // workbench.action.gotoLine
-#define VS_SYMBOLEDITOR     MEH(KC_F4) // workbench.action.gotoSymbol
-#define VS_DEFINITION       MEH(KC_F5) // editor.action.revealDefinition
-#define VS_IMPLEMENTATION   MEH(KC_F6) // editor.action.goToImplementation
-#define VS_REFERENCES       MEH(KC_F7) // editor.action.goToReferences
-#define VS_BACK             MEH(KC_F8) // workbench.action.navigateBack
-#define VS_BRACKET          MEH(KC_F9) // editor.action.jumpToBracket
-#define VS_TABLEFT          MEH(KC_F10) // workbench.action.previousEditor
-#define VS_TABRIGHT         MEH(KC_F11) // workbench.action.nextEditor
-#define VS_CLOSETAB         MEH(KC_F12) // workbench.action.closeActiveEditor
-
-#define VS_GROUP_1          HYPR(KC_F1) // workbench.action.focusFirstEditorGroup
-#define VS_GROUP_2          HYPR(KC_F2) // workbench.action.focusSecondEditorGroup
-
-#define VS_CMT_BLOCK        HYPR(KC_F3) // editor.action.blockComment
-#define VS_CMT_LINE         HYPR(KC_F4) // editor.action.commentLine
-#define VS_DEL_LINE         HYPR(KC_F5) // editor.action.deleteLines
-#define VS_COPYLINEDOWN     HYPR(KC_F6) // editor.action.copyLinesDownAction
-
-// visual studio bookmark commands
-#define VS_BM_PREV          HYPR(KC_F7) // bookmarks.jumpToPrevious
-#define VS_BM_NEXT          HYPR(KC_F8) // bookmarks.jumpToNext
-#define VS_BM_TOGGLE        HYPR(KC_F9) // bookmarks.toggle
-#define VS_BM_CLEARALL      HYPR(KC_F10) // bookmarks.clearFromAllFiles
-#define VS_BM_LIST          HYPR(KC_F11) // bookmarks.list
-#define VS_BM_LISTALL       HYPR(KC_F12) // bookmarks.listFromAllFiles
-#define VS_JUMPY            HYPR(KC_A) // extension.jumpy-word
-
-// visual studio code navigation shortcuts
-#define VS_FOCUS_EDITOR     HYPR(KC_B) // workbench.action.focusActiveEditorGroup
-#define VS_FOCUS_TERMINAL   HYPR(KC_C) // workbench.action.terminal.focus
-#define VS_TOGGLE_TERMINAL  HYPR(KC_D) // workbench.action.terminal.toggleTerminal
-
-// line editing
-#define VS_DEL_LEFT         HYPR(KC_E) // deleteAllLeft
-#define VS_DEL_RIGHT        HYPR(KC_F) // deleteAllRight
-
-// search operations
-#define VS_FIND_FILES       HYPR(KC_G) // workbench.action.findInFiles
-
+#include "vscode_macros.h"
 
 // unused vscode shortcuts
 // #define VS_BM_LIST LCTL(LALT(KC_L))
