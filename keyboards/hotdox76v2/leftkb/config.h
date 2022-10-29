@@ -1,4 +1,4 @@
-/* Copyright 2022 IFo Hancroft
+/* Copyright 2021 JasonRen(biu)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +15,4 @@
  */
 #pragma once
 
-// place overrides here
-#ifdef TAPPING_TOGGLE
-#    undef TAPPING_TOGGLE
-#endif
-#define TAPPING_TOGGLE 3
+#define I_AM_LEFT

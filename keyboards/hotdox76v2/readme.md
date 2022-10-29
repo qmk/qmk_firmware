@@ -1,25 +1,24 @@
-# hotdox76
+hotdox76 version 2.0
+===
 
-*An Ergodox style keyboard with per key RGB.*
+A split keyboard with rgb (keys) and oleds.
+This keyboard uses 32u4 with 16mhz HSE as MCU.
 
-* Keyboard Maintainer: [Drashna Jael're](https://github.com/Drashna Jael're)
-* Hardware Supported: Hotdox 76v2
-* Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
+Keyboard Maintainer: https://github.com/jiaxin96
+
+Hardware Supported: hotdox76_V2
+
+Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hotdox76v2:default
+for left part:
 
-Flashing example for this keyboard:
+    make yandrstudio/wired/hotdox76v2/leftkb:default
+    
+for right part:
 
-    make hotdox76v2:default:flash
+    make yandrstudio/wired/hotdox76v2/rightkb:default
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Bootloader
-
-Enter the bootloader in 3 ways:
-
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
