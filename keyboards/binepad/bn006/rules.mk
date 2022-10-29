@@ -3,6 +3,3 @@
 
 EPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = embedded_flash
-
-RGB_MATRIX_ENABLE = yes 
-RGB_MATRIX_DRIVER = WS2812
