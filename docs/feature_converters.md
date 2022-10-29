@@ -157,8 +157,6 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 #define B0 PAL_LINE(GPIOA, 9)
 ```
 
-No peripherals are enabled by default at this time, but example code to enable SPI, I2C, PWM, and Serial communications can be found [here](/keyboards/custommk/bonsai_c4_template).
-
 ## Elite-C
 
 If a board currently supported in QMK uses an [Elite-C](https://keeb.io/products/elite-c-low-profile-version-usb-c-pro-micro-replacement-atmega32u4), the supported alternative controllers are:
