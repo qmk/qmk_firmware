@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Sinc Rev. 2",
     "usb": {
-        "pid": "0x2267",
-        "device_version": "2.0.0"
+        "pid": "0x2367",
+        "device_version": "2.1.0"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
