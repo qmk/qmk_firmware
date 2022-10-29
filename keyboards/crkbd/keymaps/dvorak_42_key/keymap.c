@@ -132,11 +132,13 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, VS_BM_CLEARALL,                    
                                       //`--------------------------'  `--------------------------'
   ),
 
+  // chrome OS keyboard shortcuts: https://support.google.com/chromebook/answer/183101?hl=en
+  // search key == windows key
   [BROWSER_CONTROL] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                                     ,-----------------------------------------------------.
 KC_TRNS, KC_TRNS, KC_BTN3, KC_MS_U, KC_BTN1, KC_BTN2,                                       KC_UP, KC_PGUP, KC_PGDN, KC_MS_WH_UP, KC_TRNS, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                                     |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,                                       KC_DOWN, RCTL(KC_PGUP), RCTL(KC_PGDN), KC_MS_WH_DOWN, LALT(KC_LEFT), KC_TRNS,
+  CO_WS_LEFT, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,                                       KC_DOWN, RCTL(KC_PGUP), RCTL(KC_PGDN), KC_MS_WH_DOWN, LALT(KC_LEFT), CO_WS_RIGHT,
   //|--------+--------+--------+--------+--------+--------|                                     |--------+--------+--------+--------+--------+--------|
 KC_TRNS, RCTL(LSFT(KC_TAB)), RCTL(KC_TAB), WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT, WINDOWS10_TASK_VIEW, KC_TRNS, RCTL(KC_1),   RCTL(KC_9), KC_F6, KC_F5, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------+--------|

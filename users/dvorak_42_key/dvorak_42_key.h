@@ -96,6 +96,11 @@ enum custom_keycodes {
 // ===================
 #define NP_DUPE_LINE LCTL(KC_D)
 
+// ChromeOS shortcuts
+// ==================
+#define CO_WS_LEFT RGUI(KC_LBRACKET)
+#define CO_WS_RIGHT RGUI(KC_RBRACKET)
+
 
 // Android Studio shortcuts
 #define AS_TABLEFT LALT(KC_LEFT)
