@@ -55,15 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] =   {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [1] =   {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [2] =   {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [3] =   {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}
+};
 #endif
+
+
