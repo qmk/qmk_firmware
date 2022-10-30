@@ -23,7 +23,7 @@
 #define PRODUCT_ID 0xA100
 #define DEVICE_VER 0x0000
 #define MANUFACTURER EnviousDesign
-#define PRODUCT TKL Prototype
+#define PRODUCT_TKL_Prototype
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -47,7 +47,6 @@
     { GP20, GP21, GP22, GP26, GP27, GP28 }
 #define MATRIX_COL_PINS \
     { GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP13, GP14, GP15, GP19, GP18, GP17, GP16 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

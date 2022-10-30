@@ -23,7 +23,7 @@
 #define PRODUCT_ID 0xA200
 #define DEVICE_VER 0x0001
 #define MANUFACTURER EnviousDesign
-#define PRODUCT EnvKB 65M
+#define PRODUCT EnvKB_65M
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -48,7 +48,6 @@
     { GP21, GP20, GP19, GP18, GP17 }
 #define MATRIX_COL_PINS \
     { GP0, GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP13, GP14, GP15, GP16 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

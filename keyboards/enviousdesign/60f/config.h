@@ -24,7 +24,7 @@
 #define PRODUCT_ID 0xA400
 #define DEVICE_VER 0x0001
 #define MANUFACTURER EnviousDesign
-#define PRODUCT 60F 1.0
+#define PRODUCT 60FV1
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -44,7 +44,6 @@
     { GP11, GP12, GP13, GP14, GP15 }
 #define MATRIX_COL_PINS \
     { GP10, GP9, GP8, GP7, GP6, GP5, GP16, GP17, GP18, GP19, GP20, GP21, GP22, GP26, GP27 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

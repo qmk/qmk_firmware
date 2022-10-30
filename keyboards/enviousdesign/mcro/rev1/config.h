@@ -23,7 +23,7 @@
 #define PRODUCT_ID 0xA300
 #define DEVICE_VER 0x0011
 #define MANUFACTURER EnviousDesign
-#define PRODUCT MCRO 1.0
+#define PRODUCT MCROV1
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -44,7 +44,6 @@
     { GP4, GP11, GP15 }
 #define MATRIX_COL_PINS \
     { GP18, GP19, GP20, GP21 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
