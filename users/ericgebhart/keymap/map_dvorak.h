@@ -17,6 +17,9 @@
 #ifdef DVORAK_LAYER_ENABLE
 B_LAYER(LANG_N(_DVORAK), ___10_NUMBERS___, ___DVORAK___),
 #endif
+#ifdef DVORAK_RLC_IU_LAYER_ENABLE
+  B_LAYER(LANG_N(_DVORAK_RLC_IU), ___10_NUMBERS___, ___DVORAK_RLC_IU___),
+#endif
 #ifdef BOO_LAYER_ENABLE
   B_LAYER(LANG_N(_BOO), ___10_NUMBERS___, ___BOO___),
 #endif

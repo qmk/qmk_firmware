@@ -16,6 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 // Keymap helpers
+void process_combo_event(uint16_t combo_index, bool pressed);
+
 
 // define reference layers per layer.
 #define REF_LAYER(LAYER, REF_LAYER)             \
@@ -82,8 +84,8 @@ combo_t key_combos[] = {
 #define COMB BLANK
 #define SUBS A_ACTI
 #define TOGG A_TOGG
-void process_combo_event(uint16_t combo_index, bool pressed) {
 
+void process_combo_event(uint16_t combo_index, bool pressed) {
 #if defined( CONSOLE_ENABLE) && defined(CONSOLE_KEY_LOGGER_ENABLE)
   if (pressed) {
     combo_t *combo = &key_combos[combo_index];
@@ -103,16 +105,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
   }
 #endif
-
   switch (combo_index) {
 #include "combos.def"
-}
+  }
 
-    // Allow user overrides per keymap
+  // Allow user overrides per keymap
 #if __has_include("inject.h")
 # include "inject.h"
 #endif
 }
+
 #undef COMB
 #undef SUBS
 #undef TOGG

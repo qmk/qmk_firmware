@@ -40,9 +40,6 @@ typedef struct {
 #define SMLM(key, mod, ...)  // to replace mod_lock..
 #define COND_KEYS_END 0
 
-#define SML(sk, sa, st, stype)                                          \
-  { .keys = &(sk)[0], .keycode = (sa), .thing = (st), .smart_lock_type = stype}
-
 #define CONCATENATE_SA(a, ...) a ## __VA_ARGS__
 #define CONCATENATE_S(a, ...) a ## __VA_ARGS__
 #define CAT_S(a, ...) CONCATENATE_S(a, __VA_ARGS__)
@@ -54,13 +51,14 @@ typedef struct {
 #define S_ENUM(kc, layer, ...) CAT_S(sml__, kc),
 // create a const array of the condkeys for each SML
 #define S_DATA(kc, thing, ...) MK_ARRAY(kc) = {__VA_ARGS__, COND_KEYS_END};
-#define S_DATA(kc, thing, ...) MK_ARRAY(kc) = {__VA_ARGS__, COND_KEYS_END};
 
-// create a list of smart_lock structs.
+// create a list of smart_lock structs. Two names, one for mod one for layer to be concise.
 #define S_SMART_LOCK(kc, layer, ...) {false, MK_SKEY(kc), kc, layer, sml_layer},
-#define M_SMART_LOCK(kc, mod, ...)   {false, MK_SKEY(kc), kc, mod, sml_mod},
+#define M_SMART_LOCK(kc, mod, ...)   {false, MK_SKEY(kc), kc, mod,   sml_mod},
 
-#define K_SMLM(key, mod...) [MK_SKEY(key)] = SML(MK_SKEY(key), key, mod, sml_mod),
+#define SML(sk, sa, st, stype)                                          \
+  { .keys = &(sk)[0], .keycode = (sa), .thing = (st), .smart_lock_type = stype}
+#define K_SMLM(key, mod...)   [MK_SKEY(key)] = SML(MK_SKEY(key), key, mod, sml_mod),
 #define K_SMLL(key, layer...) [MK_SKEY(key)] = SML(MK_SKEY(key), key, layer, sml_layer),
 
 // Set everything up
@@ -75,6 +73,7 @@ typedef struct {
 #define SMLL S_ENUM
 #define SMLM S_ENUM
 
+// find how many
 enum smart_locks {
 #include "smart_lock.def"
   SML_LENGTH

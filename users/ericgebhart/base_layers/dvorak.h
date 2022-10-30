@@ -26,6 +26,15 @@
            _A,       _O,      _E,     _U,  _I,   _D, _H, _T, _N, _S,    \
            TL_SCLN,  _Q,      _J,     _K,  _X,   _B, _M, _W, _V, _Z)
 
+#define CARTE_DVORAK_RLC_IU                     \
+  carte_de_map(" ',.py fgrlc ",                 \
+               " aoeiu dhtns ",                 \
+               " ;qjkx bmwvz ")
+
+#define ___DVORAK_RLC_IU___                                             \
+  LANG_MAP(TL_QUOT,  TL_COMM, TL_DOT, _P,  _Y,   _F, _G, _R, _L, _C,    \
+           _A,       _O,      _E,     _I,  _U,   _D, _H, _T, _N, _S,    \
+           TL_SCLN,  _Q,      _J,     _K,  _X,   _B, _M, _W, _V, _Z)
 
 #define CARTE_BOO                               \
   carte_de_map("  ,.ucv  qfdly",                \

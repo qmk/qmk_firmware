@@ -29,6 +29,9 @@ void oled_render_default_layer_state(void) {
 #ifdef DVORAK_LAYER_ENABLE
     WRITE_STR_LAYER(_DVORAK, "Dvorak")
 #endif
+#ifdef DVORAK_RLC_IU_LAYER_ENABLE
+      WRITE_STR_LAYER(_DVORAK_RLC_IU_, "Dvorak-rlc")
+#endif
 #ifdef BOO_LAYER_ENABLE
       WRITE_STR_LAYER(_BOO, "Boo")
 #endif
@@ -132,6 +135,9 @@ void oled_render_default_layer_state(void) {
 #endif
 #ifdef APT_LAYER_ENABLE
       WRITE_STR_LAYER(_APT, "Apt")
+#endif
+#ifdef CANARY_LAYER_ENABLE
+      WRITE_STR_LAYER(_CANARY, "Canary")
 #endif
 
 #ifdef MALTRON_LAYER_ENABLE
