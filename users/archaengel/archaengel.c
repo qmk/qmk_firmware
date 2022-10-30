@@ -72,7 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
-        case KC_ESC:
+        case LA_SYM:
+        case LA_NAV:
             return true;
         default:
             return false;
