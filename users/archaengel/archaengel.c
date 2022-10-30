@@ -16,6 +16,7 @@
 
 enum layers {
     DEF,
+    EXT,
     SYM,
     NAV,
     NUM,
@@ -40,6 +41,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             LA_NAV, KC_LSFT,   KC_SPC, LA_SYM
             ),
 
+    [EXT] = LAYOUT_archaengel(
+                KC_Q,     KC_W,   KC_F,     KC_P,   KC_B,      KC_J,   KC_L, KC_U,    KC_Y,   KC_QUOT,
+                KC_A,     KC_R,   KC_S,     KC_T,   KC_G,      KC_M,   KC_N, KC_E,    KC_I,   KC_O,
+                KC_Z,     KC_X,   KC_C,     KC_D,   KC_V,      KC_K,   KC_H, KC_COMM, KC_DOT, KC_SLSH,
+                                            LA_NAV, KC_LSFT,   KC_SPC, LA_SYM
+            ),
+
     [SYM] = LAYOUT_archaengel(
                 KC_ESC,  KC_LBRC, KC_LCBR, KC_LPRN, KC_TILD,   KC_CIRC, KC_RPRN, KC_RCBR, KC_RBRC, KC_GRV,
                 KC_MINS, KC_ASTR, KC_EQL,  KC_UNDS, KC_DLR,    KC_HASH, OS_CMD,  OS_CTRL, OS_ALT,  OS_SHFT,
@@ -56,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NUM] = LAYOUT_archaengel(
                 KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,   KC_8,    KC_9,    KC_0,
-                OS_SHFT, OS_ALT,  OS_CTRL, OS_CMD,  KC_F11,     KC_F12,  OS_CMD, OS_CTRL, OS_ALT,  OS_SHFT,
+                OS_SHFT, OS_ALT,  OS_CTRL, OS_CMD,  DF(DEF),    DF(EXT), OS_CMD, OS_CTRL, OS_ALT,  OS_SHFT,
                 KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,
                                            _______, _______,    _______, _______
             ),
