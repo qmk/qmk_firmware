@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAAF
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Y&R
-#define PRODUCT         nz64
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

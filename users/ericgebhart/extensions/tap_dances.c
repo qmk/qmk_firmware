@@ -66,7 +66,7 @@ static void switch_default_layer(uint8_t layer) {
 
 // so the keyboard remembers which layer it's in after power disconnect.
 /*
-  uint32_t default_layer_state_set_kb(uint32_t state) {
+  layer_state_t default_layer_state_set_kb(layer_state_t state) {
   eeconfig_update_default_layer(state);
   return state;
   }

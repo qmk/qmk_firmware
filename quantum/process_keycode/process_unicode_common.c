@@ -117,6 +117,12 @@ __attribute__((weak)) void unicode_input_start(void) {
             tap_code(UNICODE_KEY_WINC);
             tap_code(KC_U);
             break;
+        case UC_EMACS:
+            // The usual way to type unicode in emacs is C-x-8 <RET> then the unicode number in hex
+            tap_code16(LCTL(KC_X));
+            tap_code16(KC_8);
+            tap_code16(KC_ENTER);
+            break;
     }
 
     wait_ms(UNICODE_TYPE_DELAY);
@@ -142,6 +148,9 @@ __attribute__((weak)) void unicode_input_finish(void) {
         case UC_WINC:
             tap_code(KC_ENTER);
             break;
+        case UC_EMACS:
+            tap_code16(KC_ENTER);
+            break;
     }
 
     set_mods(unicode_saved_mods); // Reregister previously set mods
@@ -166,6 +175,9 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             if (!unicode_saved_num_lock) {
                 tap_code(KC_NUM_LOCK);
             }
+            break;
+        case UC_EMACS:
+            tap_code16(LCTL(KC_G)); // C-g cancels
             break;
     }
 
@@ -299,14 +311,30 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
                 cycle_unicode_input_mode(shifted ? +1 : -1);
                 audio_helper();
                 break;
-
-            case UNICODE_MODE_MAC ... UNICODE_MODE_WINC: {
-                // Keycodes and input modes follow the same ordering
-                uint8_t delta = keycode - UNICODE_MODE_MAC;
-                set_unicode_input_mode(UC_MAC + delta);
+            case UNICODE_MODE_MAC:
+                set_unicode_input_mode(UC_MAC);
                 audio_helper();
                 break;
-            }
+            case UNICODE_MODE_LNX:
+                set_unicode_input_mode(UC_LNX);
+                audio_helper();
+                break;
+            case UNICODE_MODE_WIN:
+                set_unicode_input_mode(UC_WIN);
+                audio_helper();
+                break;
+            case UNICODE_MODE_BSD:
+                set_unicode_input_mode(UC_BSD);
+                audio_helper();
+                break;
+            case UNICODE_MODE_WINC:
+                set_unicode_input_mode(UC_WINC);
+                audio_helper();
+                break;
+            case UNICODE_MODE_EMACS:
+                set_unicode_input_mode(UC_EMACS);
+                audio_helper();
+                break;
         }
     }
 

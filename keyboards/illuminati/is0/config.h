@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA103
-#define PRODUCT_ID      0x0012
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Illuminati Works
-#define PRODUCT         iS0
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D2 }
 #define MATRIX_COL_PINS { D0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

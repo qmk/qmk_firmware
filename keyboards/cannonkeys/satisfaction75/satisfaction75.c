@@ -240,7 +240,7 @@ void read_host_led_state(void) {
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
   state = layer_state_set_user(state);
-  layer = biton32(state);
+  layer = get_highest_layer(state);
   oled_request_wakeup();
   return state;
 }
@@ -348,9 +348,9 @@ void custom_config_load(){
 // Called from matrix_init_kb() if not VIA_ENABLE
 void via_init_kb(void)
 {
-  // If the EEPROM has the magic, the data is good.
-  // OK to load from EEPROM.
-  if (via_eeprom_is_valid()) {
+  // This checks both an EEPROM reset (from bootmagic lite, keycodes)
+  // and also firmware build date (from via_eeprom_is_valid())
+  if (eeconfig_is_enabled()) {
     custom_config_load();
   } else	{
 #ifdef DYNAMIC_KEYMAP_ENABLE

@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Function (Lower + Raise)
      * ,-----------------------------------------------------------------------------------------------------------------------.
-     * | RESET| LCA_T(F1)  | LCA_T(F2) | LCA_T(F3) | LCA_T(F4) | LCA_T(F5) | LCA_T(F6) | LCA_T(F7) |      |      |      |      |
+     * | QK_BOOT| LCA_T(F1)  | LCA_T(F2) | LCA_T(F3) | LCA_T(F4) | LCA_T(F5) | LCA_T(F6) | LCA_T(F7) |      |      |      |      |
      * |------+------------+-----------+-----------+-----------+-----------+-----------+-----------+------+------+------+------+
      * |      |            |           |           |           | QWERTY    | DVORAK    | COLEMAK   |      |      |      |      |
      * |------+------------+-----------+-----------+-----------+-----------+-----------+-----------+------+------+------+------+
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------------------------------------------'
      */
 
-    [_FUNCTION] = LAYOUT_planck_mit(RESET, LCA_T(KC_F1), LCA_T(KC_F2), LCA_T(KC_F3), LCA_T(KC_F4), LCA_T(KC_F5), LCA_T(KC_F6), LCA_T(KC_F7), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QWERTY, DVORAK, COLEMAK, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LED, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)};
+    [_FUNCTION] = LAYOUT_planck_mit(QK_BOOT, LCA_T(KC_F1), LCA_T(KC_F2), LCA_T(KC_F3), LCA_T(KC_F4), LCA_T(KC_F5), LCA_T(KC_F6), LCA_T(KC_F7), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QWERTY, DVORAK, COLEMAK, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LED, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)};
 
 // constants to toggle LED behavior
 
@@ -129,7 +129,7 @@ layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_laye
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     switch (layer) {
         case _LOWER:

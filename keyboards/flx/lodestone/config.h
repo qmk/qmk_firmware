@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4658 //FX
-#define PRODUCT_ID      0x4C53 //LS
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    FLX
-#define PRODUCT         Lodestone
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS { B3, B7, F0, F1, F4 }
 #define MATRIX_COL_PINS { B2, F5, F6, D0, D1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

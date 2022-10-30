@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Ergodicity",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "Keebio",
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x125F",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -219,6 +219,9 @@ def get_drives():
             tmp = rootpath + "/" + os.environ["USER"]
             if os.path.isdir(tmp):
                 rootpath = tmp
+            tmp = "/run" + rootpath + "/" + os.environ["USER"]
+            if os.path.isdir(tmp):
+                rootpath = tmp
         for d in os.listdir(rootpath):
             drives.append(os.path.join(rootpath, d))
 

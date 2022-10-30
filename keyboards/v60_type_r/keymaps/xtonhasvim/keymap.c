@@ -104,7 +104,7 @@ void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void set_state_leds(void) {
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
   case _MOVE:
     rgbflag(C_BLU);
     break;
@@ -192,4 +192,3 @@ void suspend_wakeup_init_user(void)
   backlight_set(backlight_config.level);
   rgblight_set();
 }
-

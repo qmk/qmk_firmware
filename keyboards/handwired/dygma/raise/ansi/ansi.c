@@ -28,7 +28,7 @@ const uint8_t led_map[DRIVER_LED_TOTAL] = {
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 0xff, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 68, 69,
 
   // right side - 36 keys includes LP
-  0 + LPH, 1 + LPH, 2 + LPH, 3 + LPH, 4 + LPH, 5 + LPH, 6 + LPH, 15 + LPH, 8 + LPH, 9 + LPH, 10 + LPH, 11 + LPH, 12 + LPH, 13 + LPH, 14 + LPH, 7 + LPH, 16 + LPH, 17 + LPH, 18 + LPH, 19 + LPH,
+  0 + LPH, 1 + LPH, 2 + LPH, 3 + LPH, 4 + LPH, 5 + LPH, 6 + LPH, 7 + LPH, 8 + LPH, 9 + LPH, 10 + LPH, 11 + LPH, 12 + LPH, 13 + LPH, 14 + LPH, 15 + LPH, 16 + LPH, 17 + LPH, 18 + LPH, 19 + LPH,
   20 + LPH, 21 + LPH, 22 + LPH, 23 + LPH, 24 + LPH, 25 + LPH, 26 + LPH, 27 + LPH, 28 + LPH, 29 + LPH, 30 + LPH, 31 + LPH, 32 + LPH, 33 + LPH, 68 + LPH, 69 + LPH,
 
   // left under glow - 30
@@ -50,11 +50,11 @@ led_config_t g_led_config = { {
     { 26 , 27 , 28 , 29 , 30 , NO_LED , 31     , 32     } ,
 
     // right hand
-    { NO_LED   , 6 + LHK  , 5 + LHK  , 4 + LHK  , 3 + LHK  , 2 + LHK  , 1 + LHK  , 0 + LHK  } ,
-    { 14 + LHK , 13 + LHK , 12 + LHK , 11 + LHK , 10 + LHK , 9 + LHK  , 8 + LHK  , 7 + LHK  } ,
-    { NO_LED   , 21 + LHK , 20 + LHK , 19 + LHK , 18 + LHK , 17 + LHK , 16 + LHK , 15 + LHK } ,
-    { NO_LED   , NO_LED   , 27 + LHK , 26 + LHK , 25 + LHK , 24 + LHK , 23 + LHK , 22 + LHK } ,
-    { 35 + LHK , 34 + LHK , 33 + LHK , 32 + LHK , 31 + LHK , 30 + LHK , 29 + LHK , 28 + LHK }
+    { 33  , 34  , 35  , 36  , 37 , 38  , 39     , NO_LED } ,
+    { 40 ,  41 ,  42 ,  43 ,  44 , 45  , 46     , 47     } ,
+    { 48 ,  49 ,  50 ,  51 ,  52 , 53  , 54     , NO_LED } ,
+    { 55 ,  56 ,  57 ,  58 ,  59 , 60 ,  NO_LED ,  NO_LED    } ,
+    { 61 ,  62 ,  63 ,  64 ,  65 , 66 ,  67 ,  68 }
   }, {
     // generated from the svg image of the keyboard, see create-led-config.js
     {82, 3}, {88, 3}, {94, 3}, {100, 3}, {106, 3}, {112, 3}, {118, 3}, {84, 10}, {91, 10}, {97, 10}, {103, 10}, {109, 10},
@@ -72,7 +72,7 @@ led_config_t g_led_config = { {
     {173, 63}, {177, 59}, {178, 49}, {179, 40}, {179, 31}, {177, 25}, {175, 20}, {175, 15}, {123, 54}
   }, {
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    0, 
+    0,
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,

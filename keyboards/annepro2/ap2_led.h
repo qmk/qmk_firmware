@@ -86,6 +86,11 @@ void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uin
 void ap2_led_set_foreground_color(uint8_t red, uint8_t green, uint8_t blue);
 void ap2_led_reset_foreground_color(void);
 
+void ap2_led_sticky_set_key(uint8_t row, uint8_t col, ap2_led_t color);
+void ap2_led_unset_sticky_key(uint8_t row, uint8_t col);
+void ap2_led_unset_sticky_row(uint8_t row);
+void ap2_led_unset_sticky_all(void);
+
 typedef struct {
     uint8_t amount_of_profiles;
     uint8_t current_profile;

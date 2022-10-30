@@ -17,5 +17,3 @@ BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
-
-LAYOUTS = 65_ansi_blocker_split_bs 65_iso_blocker_split_bs 65_ansi_blocker_tsangan

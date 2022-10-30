@@ -84,7 +84,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 const char *read_logo(void);
 bool oled_task_user(void){
-    switch (biton32(layer_state)){
+    switch (get_highest_layer(layer_state)){
         case _DVORAK:
             oled_write_ln_P(PSTR("DVRK"), false);
             break;

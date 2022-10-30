@@ -54,17 +54,21 @@ endef
 
 # TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
 #       within the emulated eeprom via dfu-util or another tool
-ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-left))
+ifneq (,$(filter $(MAKECMDGOALS), dfu-util-split-left uf2-split-left))
     OPT_DEFS += -DINIT_EE_HANDS_LEFT
 endif
 
-ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-right))
+ifneq (,$(filter $(MAKECMDGOALS), dfu-util-split-right uf2-split-right))
     OPT_DEFS += -DINIT_EE_HANDS_RIGHT
 endif
 
 dfu-util-split-left: dfu-util
 
 dfu-util-split-right: dfu-util
+
+uf2-split-left: flash
+
+uf2-split-right: flash
 
 ST_LINK_CLI ?= st-link_cli
 ST_LINK_ARGS ?=
@@ -96,13 +100,15 @@ endef
 teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
 	$(call EXEC_TEENSY)
 
-
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	$(SILENT) || printf "Flashing for bootloader: $(BLUE)$(BOOTLOADER)$(NO_COLOR)\n"
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)),kiibohd)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(BOOTLOADER)),tinyuf2)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_UF2_UTIL_DEPLOY)
+else ifeq ($(strip $(BOOTLOADER)),rp2040)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_UF2_UTIL_DEPLOY)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)

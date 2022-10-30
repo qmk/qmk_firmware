@@ -138,6 +138,24 @@ void ap2_led_reset_foreground_color() {
     ap2_led_mask_set_mono(color);
 }
 
+void ap2_led_sticky_set_key(uint8_t row, uint8_t col, ap2_led_t color) {
+    uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha};
+    proto_tx(CMD_LED_STICKY_SET_KEY, payload, sizeof(payload), 1);
+}
+
+void ap2_led_unset_sticky_key(uint8_t row, uint8_t col) {
+    uint8_t payload[] = {row, col};
+    proto_tx(CMD_LED_STICKY_UNSET_KEY, payload, sizeof(payload), 1);
+}
+
+void ap2_led_unset_sticky_row(uint8_t row) {
+    uint8_t payload[] = {row};
+    proto_tx(CMD_LED_STICKY_UNSET_ROW, payload, sizeof(payload), 1);
+}
+void ap2_led_unset_sticky_all(void) {
+    proto_tx(CMD_LED_STICKY_UNSET_ALL, NULL, 0, 1);
+}
+
 /*
  * Currently keypresses are unified with other messages, still with single 1
  * byte payload. Transfer is normally fast enough for that to not be a problem -

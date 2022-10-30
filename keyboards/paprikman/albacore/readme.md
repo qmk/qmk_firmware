@@ -21,6 +21,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Bootloader
 
 There are several ways to enter the bootloader:
-* **Using keycode**: Press the `RESET` key (if mapped)
+* **Using keycode**: Press the `QK_BOOT` key (if mapped)
 * **Bootmagic reset**: Hold the left bottom key (default mod key) and plug the usb cable
 * **Physical reset**: In the top right corner of the bottom part of the pcb you will find two pads. Shorten them with tweezers and plug the usb cable, then release. It is also possible to shorten these pads while the macropad is already connected (shorten and hold for a couple of seconds, then release).

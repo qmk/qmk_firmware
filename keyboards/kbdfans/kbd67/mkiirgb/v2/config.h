@@ -1,10 +1,5 @@
 #pragma once
 #include "config_common.h"
-#define VENDOR_ID       0x4B42 // KB
-#define PRODUCT_ID      0x1225
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KBDfans
-#define PRODUCT         kbd67mkiirgb v2
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

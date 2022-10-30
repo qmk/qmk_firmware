@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xAC11
-#define PRODUCT_ID 0x5369 // For Shark+1
-#define DEVICE_VER 0x0002
-#define MANUFACTURER AcheronProject
-#define PRODUCT SharkPCB rev. Beta
-
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 
@@ -46,8 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 5
 #define BACKLIGHT_ON_STATE 1
-
-#define STM32_HSECLK 8000000
 
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 24

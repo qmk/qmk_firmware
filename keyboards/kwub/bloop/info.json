@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Bloop65",
+    "manufacturer": "Kwub",
     "url": "https://geekhack.org/index.php?topic=110483.0",
     "maintainer": "Kwub",
+    "usb": {
+        "vid": "0x6B77",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_625": {
             "layout": [

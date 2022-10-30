@@ -1,5 +1,11 @@
 {
-    "keyboard_name": "Ducky One 2 Mini",
+    "keyboard_name": "One 2 Mini",
+    "manufacturer": "Ducky",
+    "usb": {
+        "vid": "0x0416",
+        "pid": "0x0123",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_iso": "LAYOUT_60_iso"
     },

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MOMOKA_ERGO", 
-    "url": "", 
-    "maintainer": "StefanGrindelwald", 
+    "keyboard_name": "Momoka Ergo",
+    "manufacturer": "StefanGrindelwald",
+    "url": "",
+    "maintainer": "StefanGrindelwald",
+    "usb": {
+        "vid": "0x4F4D",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
