@@ -2,7 +2,7 @@
 
 This is my personal layout which is a slight modification on the Miryoku 
 layout. It's still in flux, there will be a proper readme here once I'm
-satisfied with all the layers. Check the images below or [see it in the Oryx\nConfigurator](https://configure.zsa.io/ergodox-ez/layouts/yBAgx/latest/0)  
+satisfied with all the layers. Check the images below or [see it in the Oryx Configurator](https://configure.zsa.io/ergodox-ez/layouts/yBAgx/latest/0)  
 
 <details><summary>Base Layer</summary>
 
