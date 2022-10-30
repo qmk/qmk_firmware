@@ -7,6 +7,3 @@ BOARDINC = $(CHIBIOS)/os/hal/boards/ST_NUCLEO64_F411RE
 # Shared variables
 ALLCSRC += $(BOARDSRC)
 ALLINC  += $(BOARDINC)
-
-FLASH_DRIVER ?= spi
-EEPROM_DRIVER ?= spi

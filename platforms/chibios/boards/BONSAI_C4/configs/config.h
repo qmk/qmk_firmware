@@ -23,27 +23,37 @@
 #endif
 
 // FRAM configuration
-#define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN PAL_LINE(GPIOA, 0)
-#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 8 // 96MHz / 8 = 12MHz; max supported by MB85R64 is 20MHz
-#define EXTERNAL_EEPROM_BYTE_COUNT 8192
-#define EXTERNAL_EEPROM_PAGE_SIZE 64 // does not matter for FRAM, just sets the RAM buffer size in STM32F chip
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
+#ifndef EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN
+#    define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN PAL_LINE(GPIOA, 0)
+#    define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 8 // 96MHz / 8 = 12MHz; max supported by MB85R64 is 20MHz
+#    define EXTERNAL_EEPROM_BYTE_COUNT 8192
+#    define EXTERNAL_EEPROM_PAGE_SIZE 64 // does not matter for FRAM, just sets the RAM buffer size in STM32F chip
+#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
+#endif
 
 // External flash configuration
-#define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN PAL_LINE(GPIOB, 12)
-#define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 1  // 96MHz; max supported by W25Q128JV is 133MHz
-#define EXTERNAL_FLASH_BYTE_COUNT (16 * 1024 * 1024)  //128Mbit or 16MByte
-#define EXTERNAL_FLASH_PAGE_SIZE 256
-#define EXTERNAL_FLASH_SPI_TIMEOUT 200000 //datasheet max is 200 seconds for flash chip erase
+#ifndef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
+#    define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN PAL_LINE(GPIOB, 12)
+#    define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 1  // 96MHz; max supported by W25Q128JV is 133MHz
+#    define EXTERNAL_FLASH_BYTE_COUNT (16 * 1024 * 1024)  //128Mbit or 16MByte
+#    define EXTERNAL_FLASH_PAGE_SIZE 256
+#    define EXTERNAL_FLASH_SPI_TIMEOUT 200000 //datasheet max is 200 seconds for flash chip erase
+#endif
 
 // SPI Configuration (needed for FRAM and FLASH)
-#define SPI_DRIVER SPID1
-#define SPI_SCK_PIN  PAL_LINE(GPIOB, 3)
-#define SPI_SCK_PAL_MODE 5
-#define SPI_MOSI_PIN PAL_LINE(GPIOB, 5)
-#define SPI_MOSI_PAL_MODE 5
-#define SPI_MISO_PIN PAL_LINE(GPIOB, 4)
-#define SPI_MISO_PAL_MODE 5
+#ifndef SPI_DRIVER
+#    define SPI_DRIVER SPID1
+#endif
+#ifndef SPI_SCK_PIN
+#    define SPI_SCK_PIN PAL_LINE(GPIOB, 3)
+#endif
+#ifndef SPI_MOSI_PIN
+#    define SPI_MOSI_PIN PAL_LINE(GPIOB, 5)
+#endif
+#ifndef SPI_MISO_PIN
+#    define SPI_MISO_PIN PAL_LINE(GPIOB, 4)
+#endif
+
 
 // I2C Configuration
 #ifdef CONVERT_TO_BONSAI_C4
@@ -55,8 +65,8 @@
 #    endif
 #endif
 
-/* WS2812-style LED control on pin A10 */
-#ifdef WS2812_DRIVER_REQUIRED
+// WS2812-style LED control on pin A10
+#ifdef WS2812_DRIVER_PWM
 #    ifndef RGB_DI_PIN
 #        define RGB_DI_PIN PAL_LINE(GPIOA, 10)
 #    endif
