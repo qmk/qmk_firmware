@@ -4,6 +4,11 @@
 // Pull the actual keymap code so that we can inspect stuff from it
 #include KEYMAP_C
 
+// Allow for keymap or userspace rules.mk to specify an alternate location for the keymap array
+#ifdef INTROSPECTION_KEYMAP_C
+#    include INTROSPECTION_KEYMAP_C
+#endif // INTROSPECTION_KEYMAP_C
+
 #include "keymap_introspection.h"
 
 #define NUM_KEYMAP_LAYERS ((uint8_t)(sizeof(keymaps) / ((MATRIX_ROWS) * (MATRIX_COLS) * sizeof(uint16_t))))
@@ -11,6 +16,8 @@
 uint8_t keymap_layer_count(void) {
     return NUM_KEYMAP_LAYERS;
 }
+
+_Static_assert(NUM_KEYMAP_LAYERS <= MAX_LAYER, "Number of keymap layers exceeds maximum set by LAYER_STATE_(8|16|32)BIT");
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 

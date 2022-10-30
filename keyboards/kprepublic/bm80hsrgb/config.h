@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4B50 //KP
-#define PRODUCT_ID   0xEF83
-#define DEVICE_VER   0x0001
-#define MANUFACTURER KPRepublic
-#define PRODUCT      BM80HSRGB
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B3, B2, B1, B0, C6, C7 }
 #define MATRIX_COL_PINS { F0, F1, F4, D7, D6, D4, D5, D3, D2, F5, F6, F7, D1, D0, B4, B5, B6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

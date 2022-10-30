@@ -199,6 +199,7 @@ endif
 ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_TINYUF2
     BOOTLOADER_TYPE = tinyuf2
+    FIRMWARE_FORMAT = uf2
 endif
 ifeq ($(strip $(BOOTLOADER)), rp2040)
     OPT_DEFS += -DBOOTLOADER_RP2040

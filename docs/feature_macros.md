@@ -349,7 +349,7 @@ If the keycode is `KC_CAPS`, it waits `TAP_HOLD_CAPS_DELAY` milliseconds instead
 
 Like `tap_code(<kc>)`, but with a `delay` parameter for specifying arbitrary intervals before sending the unregister event.
 
-#### `register_code16(<kc>);`, `unregister_code16(<kc>);` and `tap_code16(<kc>);`
+#### `register_code16(<kc>);`, `unregister_code16(<kc>);`, `tap_code16(<kc>);` and `tap_code16_delay(<kc>, <delay>);`
 
 These functions work similar to their regular counterparts, but allow you to use modded keycodes (with Shift, Alt, Control, and/or GUI applied to them).
 
@@ -374,7 +374,7 @@ This will clear all keys besides the mods currently pressed.
 This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows.
 
 ```c
-bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
 uint16_t alt_tab_timer = 0;     // we will be using them soon.
 
 enum custom_keycodes {          // Make sure have the awesome keycode ready

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "qk65",
+    "keyboard_name": "QK65 Solder",
+    "manufacturer": "qwertykeys",
     "url": "",
     "maintainer": "qwertykeys",
+    "usb": {
+        "vid": "0x4F53",
+        "pid": "0x5153",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_solder": "LAYOUT_all",
         "LAYOUT_iso": "LAYOUT_65_iso_blocker"

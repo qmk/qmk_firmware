@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x414C
-#define PRODUCT_ID      0x6075
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
@@ -41,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*                        0    1    2    3    4    5    6    7    8    9   10  11  12  13  14*/
 #define MATRIX_ROW_PINS { C7, B3, B1, B0, D3, D2 }
 #define MATRIX_COL_PINS { B2, D4, F0, C6, F1, D7, F4, E6, F5, B4, F6, B5, F7, B6 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_B { B7 }
 #define ENCODERS_PAD_A { D6 }

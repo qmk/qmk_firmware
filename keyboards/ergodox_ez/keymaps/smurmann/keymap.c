@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA] = LAYOUT_ergodox(
        // left hand
           VRSN,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
-         RESET,_______,KC_BTN1,KC_MS_U,KC_BTN2,_______,_______,
+         QK_BOOT,_______,KC_BTN1,KC_MS_U,KC_BTN2,_______,_______,
        _______,_______,KC_MS_L,KC_MS_D,KC_MS_R,_______,
        _______,_______,KC_ACL0,KC_ACL1,KC_ACL2,_______,_______,
         _______,_______,_______,_______,_______,

@@ -236,7 +236,7 @@ endif
 # that the same keymap may be used on multiple keyboards.
 #
 # We grab the most top-level include file that we can. That file should
-# use #ifdef statements to include all the neccesary subfolder includes,
+# use #ifdef statements to include all the necessary subfolder includes,
 # as described here:
 #
 #    https://docs.qmk.fm/#/feature_layouts?id=tips-for-making-layouts-keyboard-agnostic
@@ -399,6 +399,12 @@ ifneq ("$(KEYMAP_H)","")
 endif
 
 OPT_DEFS += -DKEYMAP_C=\"$(KEYMAP_C)\"
+
+# If a keymap or userspace places their keymap array in another file instead, allow for it to be included
+# !!NOTE!! -- For this to work, the source file cannot be part of $(SRC), so users should not add it via `SRC += <file>`
+ifneq ($(strip $(INTROSPECTION_KEYMAP_C)),)
+OPT_DEFS += -DINTROSPECTION_KEYMAP_C=\"$(strip $(INTROSPECTION_KEYMAP_C))\"
+endif
 
 # project specific files
 SRC += \

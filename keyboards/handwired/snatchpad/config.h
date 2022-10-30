@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x6662
-#define PRODUCT_ID   0x7370
-#define DEVICE_VER   0x0001
-#define MANUFACTURER xia0
-#define PRODUCT      snatchpad
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
@@ -28,7 +21,6 @@
  */
 #define MATRIX_ROW_PINS { F4, F5, F6 }
 #define MATRIX_COL_PINS { B1, B3, B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

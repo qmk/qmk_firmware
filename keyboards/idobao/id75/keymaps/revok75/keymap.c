@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* .--------------------------------------------------------------------------------------------------------------------------------------.
 	* | ESC    | F1     | F2     | F3     | F4     | F5     | F6    | F7     | F8     | F9     | F10    | VOLDN   | VOLUP  | MUTE   | DEL    |
 	* |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
-	* | TAB    | -      | WIN    | -      | -      | RGB_TOG| -     | -      | OPTION  | RESET  | -      | [      | ]     | -       | -      |
+	* | TAB    | -      | WIN    | -      | -      | RGB_TOG| -     | -      | OPTION  | QK_BOOT  | -      | [      | ]     | -       | -      |
 	* |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
 	* | CAP LK | MAC    | RAINBOW| PLAIN  | -      | -      | -     | -      | -      | -      | ;      | '       | ENTER |  ENTER  | REF    |
 	* |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  	[_FN] = LAYOUT_ortho_5x15( /* OSLAYOUT + NUMPAD + MEDIA + LIGHTING */
   	KC_TRNS, KC_F1,     KC_F2,						 KC_F3,    		   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_VOLD, KC_VOLU, KC_MUTE, KC_DEL, \
-  	KC_TRNS, KC_NO,     DF(_QW_W),    		 KC_NO,    		   KC_NO,   RGB_TOG, KC_NO,   KC_NO,   KC_RALT, RESET,   KC_NO,   KC_LBRC, KC_RBRC, KC_TRNS, KC_TRNS, \
+  	KC_TRNS, KC_NO,     DF(_QW_W),    		 KC_NO,    		   KC_NO,   RGB_TOG, KC_NO,   KC_NO,   KC_RALT, QK_BOOT, KC_NO,   KC_LBRC, KC_RBRC, KC_TRNS, KC_TRNS, \
   	KC_TRNS, DF(_QW_M), RGB_MODE_RAINBOW,  RGB_MODE_PLAIN, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
   	KC_TRNS, RGB_VAI,   RGB_VAD,  				 RGB_HUI,  		   RGB_HUD, RGB_SAI, RGB_SAD, KC_NO,   KC_NO,   KC_DOT,  KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_TRNS, \
   	KC_TRNS, KC_TRNS,   KC_TRNS,  				 KC_TRNS,  		   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_END,	 KC_PGDN \

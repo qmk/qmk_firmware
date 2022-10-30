@@ -1,4 +1,4 @@
-/* Copyright 2018-2021 James Young (@noroadsleft)
+/* Copyright 2018-2022 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,13 +101,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MA] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DM_REC1, DM_REC2, _______,
         _______, _______, _______, G_PUSH,  _______, _______, _______, _______, _______, _______, _______, DM_PLY1, DM_PLY2, DM_RSTP,
-        _______, _______, _______, G_FTCH,  _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, G_FTCH,  G_PWD,   _______, _______, _______, _______, _______, _______, _______,          _______,
         _______,          _______, _______, _______, _______, G_BRCH,  _______, _______, _______, _______, _______,          _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, _______
     ),
 
     [_SY] = LAYOUT_60_ansi(
-        TG(_SY), TO(_DV), TO(_QW), TO(_CM), TG(_Q2), XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, DEBUG,   XXXXXXX, VRSN,    XXXXXXX,
+        TG(_SY), TO(_DV), TO(_QW), TO(_CM), TG(_Q2), XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX, DB_TOGG, XXXXXXX, VRSN,    XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         XXXXXXX,          XXXXXXX, XXXXXXX, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,

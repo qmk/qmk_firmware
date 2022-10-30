@@ -1,7 +1,13 @@
 {
     "keyboard_name": "foundation",
+    "manufacturer": "protozoa.studio",
     "url": "",
     "maintainer": "wavtype",
+    "usb": {
+        "vid": "0x03A7",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ansi_split_bs",
         "LAYOUT_tkl_ansi_7u": "LAYOUT_ansi_tsangan_split_bs",

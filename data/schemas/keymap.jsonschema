@@ -31,7 +31,7 @@
                             "properties": {
                                 "action": {
                                     "type": "string",
-                                    "enum": ['beep', 'delay', 'down', 'tap', 'up']
+                                    "enum": ["beep", "delay", "down", "tap", "up"]
                                 },
                                 "keycodes": {
                                     "type": "array",

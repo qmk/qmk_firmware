@@ -1,7 +1,13 @@
 {
     "keyboard_name": "pluto12",
+    "manufacturer": "psuieee",
     "url": "https://github.com/psuieee/pluto12",
     "maintainer": "wymcg",
+    "usb": {
+        "vid": "0x4747",
+        "pid": "0x7012",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

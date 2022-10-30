@@ -4,7 +4,7 @@
 
 Carpalx layout (also known as QGMLWBY) is an optimized alternative keyboard layout.
 Learn more about it at:
-[http://mkweb.bcgsc.ca/carpalx/?popular_alternatives]()
+[http://mkweb.bcgsc.ca/carpalx/?popular_alternatives](http://mkweb.bcgsc.ca/carpalx/?popular_alternatives)
 
 The layout also includes a QWERTY layer to help with the transition.
  - Scroll Lock: QWERTY layer

@@ -264,7 +264,7 @@ define PARSE_KEYMAP
     # The rest of the rule is the target
     # Remove the leading ":" from the target, as it acts as a separator
     MAKE_TARGET := $$(patsubst :%,%,$$(RULE))
-    # We need to generate an unique indentifer to append to the COMMANDS list
+    # We need to generate an unique identifier to append to the COMMANDS list
     CURRENT_KB_UNDER := $$(subst /,_,$$(CURRENT_KB))
     COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB_UNDER)_KEYMAP_$$(CURRENT_KM)
     # If we are compiling a keyboard without a subproject, we want to display just the name
@@ -429,8 +429,14 @@ lib/%:
 
 .PHONY: git-submodule
 git-submodule:
+	[ -e lib/ugfx ] && rm -rf lib/ugfx || true
+	[ -e lib/pico-sdk ] && rm -rf lib/pico-sdk || true
+	[ -e lib/chibios-contrib/ext/mcux-sdk ] && rm -rf lib/chibios-contrib/ext/mcux-sdk || true
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress
+
+.PHONY: git-submodules
+git-submodules: git-submodule
 
 .PHONY: list-keyboards
 list-keyboards:

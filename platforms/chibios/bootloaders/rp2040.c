@@ -43,9 +43,8 @@ void __late_init(void) {
     if (magic_location != magic_token) {
         magic_location = magic_token;
         // ChibiOS is not initialized at this point, so sleeping is only
-        // possible via busy waiting. The internal timer peripheral is running
-        // at this point with a precision of 1us.
-        chSysPolledDelayX(MS2RTC(1 * MHZ, RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT));
+        // possible via busy waiting.
+        wait_us(RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT * 1000U);
         magic_location = 0;
         return;
     }

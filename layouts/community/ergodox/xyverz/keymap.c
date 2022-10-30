@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MEDIA] = LAYOUT_ergodox(
         // left hand
-        KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   RESET,
+        KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   QK_BOOT,
         _______, _______, _______, _______, _______, _______, _______,
         _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,
         KC_CAPS, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, _______,

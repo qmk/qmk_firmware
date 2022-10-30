@@ -15,7 +15,7 @@
                         "properties": {
                             "pin_a": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                             "pin_b": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"} 
+                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                         }
                     }
                 }
@@ -34,7 +34,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "proton_c", "bluepill", "blackpill_f401", "blackpill_f411"]
+            "enum": ["promicro", "elite_c", "proton_c", "kb2040", "promicro_rp2040", "blok", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4"]
         },
         "pin_compatible": {
             "type": "string",
@@ -76,7 +76,7 @@
                     "type": "string",
                     "enum": ["BluefruitLE", "RN42"]
                 },
-                "lto": {"type": "boolean"},
+                "lto": {"type": "boolean"}
             }
         },
         "board": {
@@ -86,7 +86,29 @@
         },
         "bootloader": {
             "type": "string",
-            "enum": ["atmel-dfu", "bootloadhid", "bootloadHID", "custom", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "md-boot", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "gd32v-dfu", "wb32-dfu", "unknown", "usbasploader", "USBasp", "tinyuf2", "rp2040"],
+            "enum": [
+                "atmel-dfu",
+                "bootloadhid",
+                "bootloadHID",
+                "caterina",
+                "custom",
+                "gd32v-dfu",
+                "halfkay",
+                "kiibohd",
+                "lufa-dfu",
+                "lufa-ms",
+                "md-boot",
+                "qmk-dfu",
+                "qmk-hid",
+                "rp2040",
+                "stm32-dfu",
+                "stm32duino",
+                "tinyuf2",
+                "unknown",
+                "usbasploader",
+                "USBasp",
+                "wb32-dfu"
+            ]
         },
         "bootloader_instructions": {
             "type": "string",
@@ -98,13 +120,13 @@
             "properties": {
                 "debounce_type": {
                     "type": "string",
-                    "enum": ["custom", "eager_pk", "eager_pr", "sym_defer_pk", "sym_defer_pr", "sym_eager_pk"]
+                    "enum": ["asym_eager_defer_pk", "custom", "sym_defer_g", "sym_defer_pk", "sym_defer_pr", "sym_eager_pk", "sym_eager_pr"]
                 },
                 "firmware_format": {
                     "type": "string",
                     "enum": ["bin", "hex", "uf2"]
                 },
-                "lto": {"type": "boolean"},
+                "lto": {"type": "boolean"}
             }
         },
         "diode_direction": {
@@ -119,8 +141,8 @@
                 "enabled": {"type": "boolean"},
                 "both_shifts_turns_on": {"type": "boolean"},
                 "double_tap_shift_turns_on": {"type": "boolean"},
-                "idle_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-            },
+                "idle_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+            }
         },
         "combo": {
             "type": "object",
@@ -221,18 +243,17 @@
                     "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
                 },
                 "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
         },
         "mouse_key": {
             "type": "object",
             "properties": {
                 "enabled": {"type": "boolean"},
-                "delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
-                "interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
-                "max_speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
-                "time_to_max": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                "delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "max_speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "time_to_max": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "wheel_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
             }
         },
@@ -459,7 +480,7 @@
                 "retro_per_key": {"type": "boolean"},
                 "term": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "term_per_key": {"type": "boolean"},
-                "toggle": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "toggle": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         },
         "usb": {
@@ -483,7 +504,7 @@
                     }
                 },
                 "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "wait_for": {"type": "boolean"},
+                "wait_for": {"type": "boolean"}
             }
         },
         "qmk": {
@@ -492,7 +513,7 @@
             "properties": {
                 "keys_per_scan": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "tap_keycode_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         },
         "qmk_lufa_bootloader": {

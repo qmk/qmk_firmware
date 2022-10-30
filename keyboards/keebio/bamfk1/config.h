@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xCB10
-#define PRODUCT_ID   0x1111
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Keebio
-#define PRODUCT      BAMFK-1
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4

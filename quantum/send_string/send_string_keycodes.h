@@ -419,6 +419,7 @@
 #define SS_LSFT(string) SS_DOWN(X_LSFT) string SS_UP(X_LSFT)
 #define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
 #define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
+#define SS_LOPT(string) SS_LALT(string)
 #define SS_LCMD(string) SS_LGUI(string)
 #define SS_LWIN(string) SS_LGUI(string)
 
@@ -427,6 +428,7 @@
 #define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
 #define SS_RGUI(string) SS_DOWN(X_RGUI) string SS_UP(X_RGUI)
 #define SS_ALGR(string) SS_RALT(string)
+#define SS_ROPT(string) SS_RALT(string)
 #define SS_RCMD(string) SS_RGUI(string)
 #define SS_RWIN(string) SS_RGUI(string)
 

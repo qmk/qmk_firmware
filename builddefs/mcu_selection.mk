@@ -348,7 +348,8 @@ ifneq ($(findstring STM32F401, $(MCU)),)
   #   or <keyboard_dir>/ld/
   ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     MCU_LDSCRIPT ?= STM32F401xC_tinyuf2
-    FIRMWARE_FORMAT ?= uf2
+    EEPROM_DRIVER ?= wear_leveling
+    WEAR_LEVELING_DRIVER ?= legacy
   else
     MCU_LDSCRIPT ?= STM32F401xC
   endif
@@ -359,7 +360,7 @@ ifneq ($(findstring STM32F401, $(MCU)),)
 
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= BLACKPILL_STM32_F401
+  BOARD ?= GENERIC_STM32_F401XC
 
   USE_FPU ?= yes
 
@@ -464,7 +465,8 @@ ifneq ($(findstring STM32F411, $(MCU)),)
   #   or <keyboard_dir>/ld/
   ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     MCU_LDSCRIPT ?= STM32F411xE_tinyuf2
-    FIRMWARE_FORMAT ?= uf2
+    EEPROM_DRIVER ?= wear_leveling
+    WEAR_LEVELING_DRIVER ?= legacy
   else
     MCU_LDSCRIPT ?= STM32F411xE
   endif
@@ -475,7 +477,7 @@ ifneq ($(findstring STM32F411, $(MCU)),)
 
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= BLACKPILL_STM32_F411
+  BOARD ?= GENERIC_STM32_F411XE
 
   USE_FPU ?= yes
 

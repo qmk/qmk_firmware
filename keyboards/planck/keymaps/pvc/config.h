@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef KEYBOARD_planck_light
 #define MATRIX_ROW_PINS { D0, D5, B5, B6 }
 #define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
-#define UNUSED_PINS
 #endif
 
 /*

@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 LAYOUT_ergodox(
-         RESET, KC_TRNS,        KC_TRNS,     KC_TRNS,        KC_TRNS, KC_TRNS,    KC_TRNS,
+         QK_BOOT, KC_TRNS,        KC_TRNS,     KC_TRNS,        KC_TRNS, KC_TRNS,    KC_TRNS,
        KC_TRNS, KC_TRNS,        LGUI(KC_W),  LGUI(KC_E),     KC_BTN1, LGUI(KC_T), KC_TRNS,
        KC_TRNS, LGUI(KC_A),     LGUI(KC_S),  LGUI(KC_D),     KC_MS_D, KC_MS_R,
        KC_TRNS, KC_TRNS,        KC_TRNS,     KC_TRNS,        KC_TRNS, KC_TRNS,    KC_TRNS,

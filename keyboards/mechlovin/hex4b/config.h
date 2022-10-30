@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0x0675 //Hex-75
-#define MANUFACTURER Mechlovin Studio
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "BM65HSRGB_ISO",
+    "keyboard_name": "BM65HSRGB ISO",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x0653",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_iso_blocker": {
             "layout": [

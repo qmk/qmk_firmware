@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         M(1),            KC_A,          KC_S,          KC_D,            KC_F,     KC_G,
         KC_LSFT,         KC_Z,          KC_X,          KC_C,            KC_V,     KC_B,              KC_DOWN,
         KC_LALT,         KC_1,          KC_1,          KC_1,            KC_LEFT,
-                                                                        RESET,    KC_VOLU,
+                                                                        QK_BOOT,  KC_VOLU,
                                                                         KC_VOLD,
                                                                         LT(SYMB, KC_SPC),  TG(MDIA), KC_MUTE,
         // right hand

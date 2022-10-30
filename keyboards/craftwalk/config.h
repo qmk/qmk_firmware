@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x2E8F
-#define DEVICE_VER 0x0001
-#define MANUFACTURER sotoba
-#define PRODUCT craftwalk
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 7
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F6, B3, B5 }
 #define MATRIX_COL_PINS { B1, F7, F5, F4, B2, E6, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
