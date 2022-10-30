@@ -46,6 +46,8 @@
 // 2022/03/28 added. This might solve the "no left side communication via TRRS" issue.
 // #define SPLIT_USB_DETECT
 // SPLIT_USB_DETECT was not necessary since it is "Enabled by default on ChibiOS/ARM."
+/* (RP2040) Speedup boot sequence by avoiding to use SPLIT_USB_DETECT */
+#define USB_VBUS_PIN GP24
 
 //#define BACKLIGHT_PIN B7
 //#define BACKLIGHT_LEVELS 3
