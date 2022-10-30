@@ -1,3 +1,4 @@
+KEYBOARD_LOCAL_OPTIONS_MK := $(dir $(lastword $(MAKEFILE_LIST)))../../local_options.mk
 include $(strip $(KEYBOARD_LOCAL_OPTIONS_MK))
 
 ifneq ($(filter yes,$(MATRIX_DEBUG_SCAN) $(MATRIX_DEBUG_DELAY)),)
