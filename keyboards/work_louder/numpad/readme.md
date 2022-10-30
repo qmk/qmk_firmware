@@ -1,12 +1,12 @@
-# work_louder/numpad
+# Work Louder Num Pad
 
-![work_louder/numpad](imgur.com image replace me!)
+![work_louder/numpad](https://worklouder.cc/wp-content/uploads/2022/08/Numpad-WP.png)
 
-*A short description of the keyboard/project*
+*An ATmega32u4 based 4x4 number pad with per key and underglow RGB*
 
-* Keyboard Maintainer: [Drashna Jael're](https://github.com/Drashna Jael're)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Drashna Jael're](https://github.com/drashna)
+* Hardware Supported: An ATmega32u4 based 4x4 number pad with per key and underglow RGB
+* Hardware Availability: [Work Louder](https://shop.worklouder.cc/)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -23,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button on the back of the PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
