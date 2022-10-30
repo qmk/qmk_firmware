@@ -143,6 +143,9 @@ Next, you will have to flash the EEPROM files once for the correct hand to the c
 * ARM controllers with a DFU compatible bootloader (e.g. Proton-C):
   * `:dfu-util-split-left`
   * `:dfu-util-split-right`
+* ARM controllers with a UF2 compatible bootloader:
+  * `:uf2-split-left`
+  * `:uf2-split-right`
 
 Example:
 
@@ -367,7 +370,7 @@ There are some settings that you may need to configure, based on how the hardwar
 #define MATRIX_COL_PINS_RIGHT { <col pins> }
 ```
 
-This allows you to specify a different set of pins for the matrix on the right side.  This is useful if you have a board with differently-shaped halves that requires a different configuration (such as Keebio's Quefrency).
+This allows you to specify a different set of pins for the matrix on the right side.  This is useful if you have a board with differently-shaped halves that requires a different configuration (such as Keebio's Quefrency). The number of pins in the right and left matrices must be the same, if you have a board with a different number of rows or columns on one side, pad out the extra spaces with `NO_PIN` and make sure you add the unused rows or columns to your matrix.
 
 ```c
 #define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }

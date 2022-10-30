@@ -4,7 +4,6 @@
     "maintainer": "skullydazed",
     "bootloader": "atmel-dfu",
     "debounce": 5,
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,

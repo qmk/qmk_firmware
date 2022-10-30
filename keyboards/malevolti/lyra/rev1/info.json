@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "lyra",
+    "keyboard_name": "Lyra",
+    "manufacturer": "Dom",
     "url": "",
     "maintainer": "malevolti",
+    "usb": {
+        "vid": "0x4443",
+        "pid": "0x4C43",
+        "device_version": "30.3.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x7033
-#define PRODUCT_ID      0x4749
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    P3D Store
-#define PRODUCT         Barleycorn SMD
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 18
@@ -43,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* A Custom matrix.c is used to poll the port expander C6 shows that the pins are hardwired there */
 #define MATRIX_ROW_PINS { F5, F4, F1, F0, F6 }
 #define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, C6, C7, D5, D5, D5, D5, D5, D5, D5, D5, D5, D5 }
-#define UNUSED_PINS
 #define PORT_EXPANDER_ADDRESS 0x20
 
 #define RGB_DI_PIN E6

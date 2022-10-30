@@ -20,16 +20,7 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-// clang-format off
-#define VENDOR_ID       0x3297
-#define PRODUCT_ID      0x1969
-#define MANUFACTURER    ZSA Technology Labs
-#define PRODUCT         Moonlander Mark I
-#define DEVICE_VER      0x0001
 #define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
-
-// clang-format on
 
 /* key matrix size */
 #define MATRIX_ROWS 12

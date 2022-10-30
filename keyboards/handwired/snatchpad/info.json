@@ -1,7 +1,13 @@
 {
     "keyboard_name": "snatchpad",
+    "manufacturer": "xia0",
     "url": "",
     "maintainer": "xia0",
+    "usb": {
+        "vid": "0x6662",
+        "pid": "0x7370",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

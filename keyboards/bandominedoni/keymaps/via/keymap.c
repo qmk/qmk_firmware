@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "version.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -28,6 +29,10 @@ enum layer_names {
     _FN
 };
 
+enum custom_keycodes {
+    VERSION = USER00
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_OPEN] = LAYOUT(
                   MI_Gs_1, MI_As_1, MI_Cs_2, MI_F_2, MI_Gs_3,
@@ -37,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MI_D_1, MI_B_1, MI_G_3, MI_A_3, MI_Ds_3, MI_Fs_2, MI_Ds_1, MI_C_1,
 
      MO_SWAP,    MI_B_5, MI_Gs_5, MI_G_5, MI_F_5,     FN_MUTE,
-         MI_Cs_3, MI_A_5, MI_Fs_5, MI_E_5, MI_Ds_5, KC_VOLD, KC_VOLU,
+         MI_Cs_3, MI_A_5, MI_Fs_5, MI_E_5, MI_Ds_5,
         MI_C_3, MI_D_3, MI_G_3, MI_As_4, MI_C_5, MI_D_5,
      TG_SWAP, MI_B_2, MI_E_3, MI_Cs_4, MI_Fs_3, MI_A_3, MI_C_4, MI_E_4,
        MI_A_2, MI_F_3, MI_As_3, MI_Gs_3, MI_B_3, MI_D_4, MI_Gs_4, MI_B_4,
@@ -52,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MI_E_1, MI_E_2, MI_Fs_3, MI_Gs_3, MI_B_3, MI_F_2, MI_Cs_1, MI_F_1,
 
      MO_SWAP,    MI_A_5, MI_Gs_5, MI_Fs_5, MI_F_5,     FN_MUTE,
-         MI_C_3, MI_G_5, MI_As_4, MI_C_5, MI_Ds_5, KC_VOLD, KC_VOLU,
+         MI_C_3, MI_G_5, MI_As_4, MI_C_5, MI_Ds_5,
         MI_D_3, MI_Cs_3, MI_Gs_3, MI_As_3, MI_C_4, MI_D_5,
      TG_SWAP, MI_B_2, MI_Fs_3, MI_Fs_4, MI_G_3, MI_B_3, MI_D_4, MI_G_4,
        MI_A_2, MI_F_3, MI_E_3, MI_A_3, MI_Cs_4, MI_E_4, MI_A_4, MI_Cs_5,
@@ -67,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______, _______, _______, _______, _______, _______, _______, _______,
 
      _______,        _______, _______, _______, _______,         _______,
-                  _______, _______, _______, _______, _______, _______, _______,
+                  _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, _______, _______,
      _______, _______, _______, _______, _______, _______, _______, _______,
             _______, _______, _______, _______, _______, _______, _______, _______,
@@ -82,13 +87,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
      _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
-                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD,
-                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EEP_RST, RGB_TOG
     )
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_OPEN]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_CLOSE]    = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_MISC]     = { ENCODER_CCW_CW(_______, _______) },
+    [_FN]       = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+};
+#endif
 
 void my_init(void){
     //  Set octave to MI_OCT_0
@@ -115,10 +129,21 @@ void keyboard_post_init_user(void) {
     my_init();
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            break;
+    }
+    return true;
+}
+
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {
     if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
-        uint8_t layer = biton32(layer_state);
+        uint8_t layer = get_highest_layer(layer_state);
         switch (layer) {
             case _CLOSE:
                 // rgb_matrix_set_color(pgm_read_byte(&convert_led_location2number[11]),  RGB_RED);         //  RGB_TOG  <- too heavy.

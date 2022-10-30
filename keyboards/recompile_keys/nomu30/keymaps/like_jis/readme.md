@@ -53,7 +53,7 @@ At first, Move to Lower layer with long push. After that Adjust key with long pu
 
   [_ADJUST] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------------------.
-                   RESET,   RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
+                   QK_BOOT, RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        _______,  RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x636F
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    evancook.audio
-#define PRODUCT         sleepingdinosaur
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
@@ -39,4 +32,3 @@
 
 #define MATRIX_ROW_PINS {D1, D0, D4, C6, D7}
 #define MATRIX_COL_PINS {B3, B1, F7, F6, F5, F4}
-#define UNUSED_PINS

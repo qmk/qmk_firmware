@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "croxsplit44",
+    "keyboard_name": "splitcustom44",
+    "manufacturer": "Samux6146",
     "url": "",
     "maintainer": "Samux6146",
+    "usb": {
+        "vid": "0xB62C",
+        "pid": "0x6146",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

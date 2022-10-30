@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0xEA78
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         OmronTKL
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS {D0,D1,D2,D3,D4,B7}
 #define MATRIX_COL_PINS {F0,C7,F1,C6,F4,B6,F5,B5,F6,B4,F7,D7,D6,D5,B3,B1,B2}
-#define UNUSED_PINS {E6,B0}
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

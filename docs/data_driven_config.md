@@ -22,7 +22,7 @@ You will then need to add support for your new configuration to `info.json`. The
 
 1. Add it to the schema in `data/schemas/keyboards.jsonschema`
 1. Add a mapping in `data/maps`
-1. (optional and discoraged) Add code to extract/generate it to:
+1. (optional and discouraged) Add code to extract/generate it to:
   * `lib/python/qmk/info.py`
   * `lib/python/qmk/cli/generate/config_h.py`
   * `lib/python/qmk/cli/generate/rules_mk.py`

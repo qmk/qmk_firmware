@@ -19,15 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x574C
-#define PRODUCT_ID   0x1DF8
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Work Louder
-#define PRODUCT      Loop Pad
-
 /* key matrix size */
-#define MATRIX_ROWS 2
+#define MATRIX_ROWS 1
 #define MATRIX_COLS 12
 
 /*
@@ -41,9 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS \
-    { F5, NO_PIN }
+    { F5 }
 #define MATRIX_COL_PINS { B3, B2, B1, D6, D7, B4, B5, B6, C6, C7, F7, F6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -60,7 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_BREATHING
 
 #define RGBLIGHT_DI_PIN E6
-#    define RGBLED_NUM 24
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
@@ -202,8 +193,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { D0, D2, D5 }
 #define ENCODERS_PAD_B { D1, D3, D4 }
-
-#define ENCODERS 3
-
-#define ENCODERS_CW_KEY  { { 0, 1 }, { 2, 1 }, { 4, 1 } }
-#define ENCODERS_CCW_KEY { { 1, 1 }, { 3, 1 }, { 5, 1 } }

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "reviung61",
+    "manufacturer": "gtips",
     "url": "",
     "maintainer": "gtips",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x7C1A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

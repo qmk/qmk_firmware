@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [FUNCTION] = LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   KC_INS,  KC_HOME, KC_PGUP, KC_PSCR, \
                                                                                                                                            KC_DEL,  KC_END,  KC_PGDN, KC_SLCK, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   KC_NLCK, KC_PSLS, KC_PAST, KC_PAUS, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, KC_NLCK, KC_PSLS, KC_PAST, KC_PAUS, \
     _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, DVORAK,  _______, _______, _______, _______,          KC_P7,   KC_P8,   KC_P9,   KC_PMNS, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, _______,          KC_P4,   KC_P5,   KC_P6,   KC_PPLS, \
     _______, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_STEP, _______, _______,      KC_UP,       KC_P1,   KC_P2,   KC_P3,   XXXXXXX, \

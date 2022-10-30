@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x5447  //TG
-#define PRODUCT_ID 0x9100 //910
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Quadcube
-#define PRODUCT TGR-910
-
 #define RGBLED_NUM 19
 
 #define MATRIX_ROWS 7
@@ -33,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                         0   1   2   3   4   5   6   7   8   9   A   B   C   D
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6 }
 #define MATRIX_COL_PINS { D7, C2, C3, C4, C5, C6, C7, A7, A6, A5, A4, A3, A1, A0 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5

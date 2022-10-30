@@ -6,5 +6,4 @@
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4 }
 #define BACKLIGHT_PIN B6 // change the backlight pin that has since changed in Rev 3
 #define DIODE_DIRECTION ROW2COL
-#define DEVICE_VER      0x0300
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 4

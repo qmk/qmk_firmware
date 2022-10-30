@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    LFKeyboards
-#define PRODUCT         Mini1800
-
 #define DIODE_DIRECTION COL2ROW
 
 /* Matrix config */
@@ -32,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define MATRIX_COLS 19
     #define MATRIX_ROW_PINS {D7, E1, F2, F0, F1}
     #define MATRIX_COL_PINS {E6, E0, A3, A4, A5, A6, A7, C7, C5, C4, C3, C2, C1, C0, D6, A2, A1, A0, F3}
-    #define UNUSED_PINS {}
     #define RGBLED_NUM 26     // Number of LEDs
 
 #define AUDIO_VOICES

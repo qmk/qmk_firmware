@@ -30,8 +30,13 @@
 #    define PHASE_CHANNEL MSKPHASE_12CHANNEL
 #endif
 
+#ifndef CKLED2001_CURRENT_TUNE
+#    define CKLED2001_CURRENT_TUNE \
+        { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
+#endif
+
 // Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20];
+uint8_t g_twi_transfer_buffer[65];
 
 // These buffers match the CKLED2001 PWM registers.
 // The control buffers match the PG0 LED On/Off registers.
@@ -67,27 +72,26 @@ bool CKLED2001_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 bool CKLED2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assumes PG1 is already selected.
     // If any of the transactions fails function returns false.
-    // Transmit PWM registers in 12 transfers of 16 bytes.
-    // g_twi_transfer_buffer[] is 20 bytes
+    // Transmit PWM registers in 3 transfers of 64 bytes.
 
-    // Iterate over the pwm_buffer contents at 16 byte intervals.
-    for (int i = 0; i < 192; i += 16) {
+    // Iterate over the pwm_buffer contents at 64 byte intervals.
+    for (uint8_t i = 0; i < 192; i += 64) {
         g_twi_transfer_buffer[0] = i;
-        // Copy the data from i to i+15.
+        // Copy the data from i to i+63.
         // Device will auto-increment register for data after the first byte
         // Thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer.
-        for (int j = 0; j < 16; j++) {
+        for (uint8_t j = 0; j < 64; j++) {
             g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
         }
 
 #if CKLED2001_PERSISTENCE > 0
         for (uint8_t i = 0; i < CKLED2001_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, CKLED2001_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 65, CKLED2001_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, CKLED2001_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 65, CKLED2001_TIMEOUT) != 0) {
             return false;
         }
 #endif
@@ -123,18 +127,10 @@ void CKLED2001_init(uint8_t addr) {
     }
 
     // Set CURRENT PAGE (Page 4)
+    uint8_t current_tuen_reg_list[LED_CURRENT_TUNE_LENGTH] = CKLED2001_CURRENT_TUNE;
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, CURRENT_TUNE_PAGE);
     for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
-        switch (i) {
-            case 2:
-            case 5:
-            case 8:
-            case 11:
-                CKLED2001_write_register(addr, i, 0xA0);
-                break;
-            default:
-                CKLED2001_write_register(addr, i, 0xFF);
-        }
+        CKLED2001_write_register(addr, i, current_tuen_reg_list[i]);
     }
 
     // Enable LEDs ON/OFF
@@ -220,14 +216,14 @@ void CKLED2001_update_led_control_registers(uint8_t addr, uint8_t index) {
     g_led_control_registers_update_required[index] = false;
 }
 
-void CKLED2001_return_normal(uint8_t addr) {
+void CKLED2001_sw_return_normal(uint8_t addr) {
     // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
     // Setting LED driver to normal mode
     CKLED2001_write_register(addr, CONFIGURATION_REG, MSKSW_NORMAL_MODE);
 }
 
-void CKLED2001_shutdown(uint8_t addr) {
+void CKLED2001_sw_shutdown(uint8_t addr) {
     // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
     // Setting LED driver to shutdown mode

@@ -16,13 +16,6 @@
 
 #include "config_common.h" 
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0003
-#define DEVICE_VER      0x0004
-#define MANUFACTURER    Kingly-Keys
-#define PRODUCT         SOAP
-
  /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4
@@ -33,7 +26,6 @@
  /* key matrix pins */
 #define MATRIX_ROW_PINS { C7, C6 }
 #define MATRIX_COL_PINS { F4, F1, F0, D5 }
-#define UNUSED_PINS
 
  /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

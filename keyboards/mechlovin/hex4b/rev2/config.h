@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER   0x0002
-#define PRODUCT      Hex-4B Rev.2
-
-
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -38,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { A4, B12, B13, B14, B15, A1 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A5, A3, C13, B7, B6, B5, B4, B3 }
-#define UNUSED_PINS
 
 #define LED_NUM_LOCK_PIN C15
 #define LED_CAPS_LOCK_PIN B9

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Katana60 rev2",
+    "manufacturer": "RominRonin CandyKeys",
     "url": "https://candykeys.com/product/katana60-pcb-V2",
     "maintainer": "rominronin",
+    "usb": {
+        "vid": "0x7272",
+        "pid": "0xF03B",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_7u_a": {
             "layout": [

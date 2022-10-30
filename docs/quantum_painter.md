@@ -24,8 +24,10 @@ Hardware supported:
 | GC9A01        | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = gc9a01_spi`  |
 | ILI9163       | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ili9163_spi` |
 | ILI9341       | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ili9341_spi` |
+| ILI9488       | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ili9488_spi` |
 | SSD1351       | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ssd1351_spi` |
 | ST7789        | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = st7789_spi`  |
+| ST7735        | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = st7735_spi`  |
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
@@ -654,6 +656,30 @@ The maximum number of displays can be configured by changing the following in yo
 #define ILI9341_NUM_DEVICES 3
 ```
 
+### ILI9488 :id=qp-driver-ili9488
+
+Enabling support for the ILI9488 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS = ili9488_spi
+```
+
+Creating a ILI9488 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_ili9488_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_ili9488_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define ILI9488_NUM_DEVICES 3
+```
+
 ### SSD1351 :id=qp-driver-ssd1351
 
 Enabling support for the SSD1351 in Quantum Painter is done by adding the following to `rules.mk`:
@@ -703,3 +729,29 @@ The maximum number of displays can be configured by changing the following in yo
 ```
 
 !> Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+
+### ST7735 :id=qp-driver-st7735
+
+Enabling support for the ST7735 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS = st7735_spi
+```
+
+Creating a ST7735 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_st7735_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_st7735_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define ST7735_NUM_DEVICES 3
+```
+
+!> Some ST7735 devices are known to have different drawing offsets -- despite being a 132x162 pixel display controller internally, some display panels are only 80x160, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.

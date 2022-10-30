@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x7BFF
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         Solheim68
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS {E6,B0,B1,B2,B3}
 #define MATRIX_COL_PINS {F0,F1,F4,F5,F6,F7,C7,C6,B6,B5,B4,D7,D6,D4,D5,D3}
-#define UNUSED_PINS {B7,D0,D1,D2}
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

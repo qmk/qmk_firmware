@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// commands - both thumbs
 	[_COMMAND] = LAYOUT(
 	//,-----------------------------------------------------.                    ,-----------------------------------------------------.
-	      RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, 						 KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_NO,
+	      QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, 						 KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_NO,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	    RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,   DF(1),   DF(0), 					 C(G(KC_LEFT)),   KC_NO,   KC_NO,   C(G(KC_RGHT)),   KC_NO,   KC_NO,
 	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// layer switcher
 	[_SWITCH] = LAYOUT(
 	//,-----------------------------------------------------.                    ,-----------------------------------------------------.
-	      TO(0),   TO(1),   TO(2),   TO(3),   TO(4),   TO(5), 					     KC_NO,   TO(7),   KC_NO,   KC_NO,   KC_NO,   RESET,
+	      TO(0),   TO(1),   TO(2),   TO(3),   TO(4),   TO(5), 					     KC_NO,   TO(7),   KC_NO,   KC_NO,   KC_NO,   QK_BOOT,
 	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	      KC_NO,   KC_NO, KC_BRIU,   KC_NO,   KC_NO,   KC_NO, 						 KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, EEP_RST,
 	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -263,9 +263,6 @@ bool led_update_user(led_t led_state) {
 }
 */
 
-
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
@@ -319,27 +316,15 @@ void oled_render_layer_state(void) {
         oled_write_ln_P(PSTR("Layer: Layer Switch"),false);
         break;
       default:
+#if defined (LAYER_STATE_32BIT)
         snprintf(string, sizeof(string), "%ld",layer_state);
+#else
+        snprintf(string, sizeof(string), "%d",layer_state);
+#endif
         oled_write_P(PSTR("Layer: Undef-"),false);
         oled_write_ln(string, false);
     }
- }
-
-/*
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (has_usb()) {
-    // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    //matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    //matrix_write_ln(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
-  } else {
-    matrix_write(matrix, read_logo());
-  }
 }
-*/
 
 char keylog_str[24] = {};
 const char code_to_name[60] = {
@@ -393,7 +378,7 @@ void oled_render_logo(void) {
 }
 
 bool oled_task_user(void) {
-    if (is_master) {
+    if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {

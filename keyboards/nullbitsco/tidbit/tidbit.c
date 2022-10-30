@@ -127,7 +127,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case RESET:
+        case QK_BOOT:
             if (record->event.pressed) {
                 set_bitc_LED(LED_DIM);
                 rgblight_disable_noeeprom();
