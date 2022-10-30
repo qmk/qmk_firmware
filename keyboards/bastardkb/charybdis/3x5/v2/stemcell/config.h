@@ -58,6 +58,6 @@
 
 /* PMW3360 settings. */
 #define A1 PAL_LINE(GPIOA, 1)
-#define PMW33XX_CS_PIN A1
+#define POINTING_DEVICE_CS_PIN A1
 #define PMW3360_CS_MODE 3
 #define PMW3360_CS_DIVISOR 64

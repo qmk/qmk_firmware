@@ -48,11 +48,11 @@
 #ifdef SPLINKY_BETA_PINOUT
 #    define SPI_SCK_PIN GP18
 #    define SPI_MOSI_PIN GP19
-#    define PMW33XX_CS_PIN GP14
+#    define POINTING_DEVICE_CS_PIN GP14
 #else
 #    define SPI_SCK_PIN GP22
 #    define SPI_MOSI_PIN GP23
-#    define PMW33XX_CS_PIN GP16
+#    define POINTING_DEVICE_CS_PIN GP16
 #endif // SPLINKY_BETA_PINOUT
 
 /* Reset. */

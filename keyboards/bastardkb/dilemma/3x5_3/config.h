@@ -17,8 +17,6 @@
 
 #pragma once
 
-#include "dilemma/config.h"
-
 /* Key matrix configuration. */
 #define MATRIX_ROW_PINS \
     { GP4, GP5, GP27, GP26 }
@@ -44,11 +42,11 @@
 #define SPI_SCK_PIN GP22
 #define SPI_MOSI_PIN GP23
 #define SPI_MISO_PIN GP20
-#define CIRQUE_PINNACLE_SPI_CS_PIN GP21
+#define POINTING_DEVICE_CS_PIN GP21
 
 /* OLED over i2c. */
 #define I2C1_CLOCK_SPEED 400000
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
 #define OLED_DISPLAY_HEIGHT 128
 
 /* Reset. */
