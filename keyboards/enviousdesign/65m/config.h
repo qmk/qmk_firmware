@@ -22,8 +22,8 @@
 #define VENDOR_ID 0xE739
 #define PRODUCT_ID 0xA200
 #define DEVICE_VER 0x0001
-#define MANUFACTURER EnviousDesign
-#define PRODUCT EnvKB_65M
+#define MANUFACTURER "EnviousDesign"
+#define PRODUCT "EnvKB 65M"
 
 /* key matrix size */
 #define MATRIX_ROWS 5

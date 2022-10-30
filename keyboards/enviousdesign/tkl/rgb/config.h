@@ -23,8 +23,8 @@
 #define VENDOR_ID 0xE739
 #define PRODUCT_ID 0xA400
 #define DEVICE_VER 0x0001
-#define MANUFACTURER EnviousDesign
-#define PRODUCT ALT_Delirium_RGB
+#define MANUFACTURER "EnviousDesign"
+#define PRODUCT "Alt Delirium RGB TKL"
 
 /* key matrix size */
 #define MATRIX_ROWS 6

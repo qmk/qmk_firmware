@@ -23,8 +23,8 @@
 #define VENDOR_ID 0xE739
 #define PRODUCT_ID 0xA400
 #define DEVICE_VER 0x0001
-#define MANUFACTURER EnviousDesign
-#define PRODUCT 60FV1
+#define MANUFACTURER "EnviousDesign"
+#define PRODUCT "60F 1.0"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
