@@ -18,6 +18,7 @@
 
 #include_next "mcuconf.h"
 
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_v1_elitec)
 #undef STM32_PWM_USE_ADVANCED
 #define STM32_PWM_USE_ADVANCED TRUE
 
@@ -38,3 +39,4 @@
 
 #undef STM32_ST_USE_TIMER
 #define STM32_ST_USE_TIMER 5
+#endif

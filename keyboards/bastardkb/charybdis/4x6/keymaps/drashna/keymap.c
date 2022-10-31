@@ -122,7 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void matrix_init_keymap(void) {
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
     setPinInputHigh(A0);
+#endif
 #ifdef RGB_MATRIX_ENABLE
      g_led_config.flags[53] = g_led_config.flags[54] = g_led_config.flags[55] =
         g_led_config.flags[0] = g_led_config.flags[1] = g_led_config.flags[2] = g_led_config.flags[3] =
@@ -132,9 +134,11 @@ void matrix_init_keymap(void) {
 }
 
 void matrix_scan_keymap(void) {
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
     if (!readPin(A0)) {
         reset_keyboard();
     }
+#endif
 }
 
 #ifdef USB_VBUS_PIN
@@ -145,12 +149,13 @@ bool usb_vbus_state(void) {
 }
 #endif
 
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     for (int32_t i = 0; i < 40; i++) {
         __asm__ volatile("nop" ::: "memory");
     }
 }
-
+#endif
 
 #ifdef SWAP_HANDS_ENABLE
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
