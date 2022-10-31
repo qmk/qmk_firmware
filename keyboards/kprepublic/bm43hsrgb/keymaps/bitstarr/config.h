@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define UNICODE_SELECTED_MODES UC_WINC, UC_WIN, UC_LNX, UC_MAC
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_WINDOWS, UNICODE_MODE_LINUX, UNICODE_MODE_MACOS
 #define UNICODE_CYCLE_PERSIST false
 
 #ifdef RGB_DI_PIN

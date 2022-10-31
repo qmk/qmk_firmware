@@ -255,7 +255,7 @@ void plover_lookup(void) {
 }
 
 void matrix_init_user(void) {
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {

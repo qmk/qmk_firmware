@@ -413,7 +413,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
     * `-----------------------------------------------------------------------------------'
     */
     [_TABULA] = LAYOUT_planck_mit(                                                                                                   //
-        KC_ESC, KC_ALTF4, VK_TOGG, PRINT_WPM_KEY, WAKE_ANI_TOG, WAKE_AUD_TOG, KC_REDO, UC_MOD, UC_M_WC, CG_TOGG, AG_TOGG, KC_DLINE,  //
+        KC_ESC, KC_ALTF4, VK_TOGG, PRINT_WPM_KEY, WAKE_ANI_TOG, WAKE_AUD_TOG, KC_REDO, UC_NEXT, UC_WINC, CG_TOGG, AG_TOGG, KC_DLINE,  //
         KC_NXTAB, KC_SLCTALL, KC_SAVE, KC_TRNS, KC_FIND, SH_TG, SH_TG, IRONY, KC_LCUT, KC_LCOPY, KC_TRNS, KC_KILL,                   //
         KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, TG(_MOUSY), KC_TRNS, KC_HOME, KC_END, SC_SENT,              //
         TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, SC_LSPO, ALT_TAB, SC_RSPC, KC_PRVWD, KC_BRID, KC_BRIU, KC_NXTWD),
@@ -430,7 +430,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
      */
 
     [_MOUSY] = LAYOUT_planck_mit(                                                                                                  //
-        KC_ESC, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, UC_MOD, UC_M_WC, CG_TOGG, AG_TOGG, KC_BSPC,  //
+        KC_ESC, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, UC_NEXT, UC_WINC, CG_TOGG, AG_TOGG, KC_BSPC,  //
         KC_TAB, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, IRONY, VK_TOGG, KC_TRNS, KC_TRNS, KC_TRNS,                   //
         KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, KC_TRNS, KC_HOME, KC_BTN3, KC_END, SC_SENT,               //
         TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, KC_BTN1, ALT_TAB, KC_BTN2, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R)};
