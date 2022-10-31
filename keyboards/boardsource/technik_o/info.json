@@ -22,7 +22,7 @@
     "pid": "0x0079",
     "vid": "0x4273"
   },
-  "rgb_matrix": { 
+  "rgb_matrix": {
     "layout": [
       { "flags": 2, "x": 220, "y": 17 },
       { "flags": 2, "x": 172, "y": 17 },
