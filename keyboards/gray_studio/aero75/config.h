@@ -5,6 +5,12 @@
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x4753
+#define PRODUCT_ID      0x3075
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Graystudio
+#define PRODUCT         Aero 75
 
 /* key matrix size */
 #define MATRIX_ROWS 6
