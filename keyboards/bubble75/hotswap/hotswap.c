@@ -15,7 +15,6 @@
  */
 
 #include "hotswap.h"
-#include "rgb_matrix_types.h"
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
   {
