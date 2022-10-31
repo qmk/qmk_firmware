@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Set the unicode input mode for using UC.
 void matrix_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 }
 
 // Processing all the key pressed.

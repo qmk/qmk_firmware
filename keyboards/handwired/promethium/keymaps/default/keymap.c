@@ -603,14 +603,14 @@ void led_set_unicode_input_mode(void) {
   rgbsps_set(LED_IND_WINDOWS, COLOR_BLANK);
 
   switch (get_unicode_input_mode()) {
-    case UC_LNX:
+    case UNICODE_MODE_LINUX:
       rgbsps_set(LED_IND_LINUX, THEME_COLOR_LINUX);
       break;
-    case UC_MAC:
+    case UNICODE_MODE_MACOS:
       rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
       break;
-    case UC_WIN:
-    case UC_WINC:
+    case UNICODE_MODE_WINDOWS:
+    case UNICODE_MODE_WINCOMPOSE:
       rgbsps_set(LED_IND_WINDOWS, THEME_COLOR_WINDOWS);
       break;
   }
@@ -1199,21 +1199,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // OS switchers
     case LINUX:
-      set_unicode_input_mode(UC_LNX);
+      set_unicode_input_mode(UNICODE_MODE_LINUX);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
       return false;
       break;
     case WIN:
-      set_unicode_input_mode(UC_WINC);
+      set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
       return false;
       break;
     case OSX:
-      set_unicode_input_mode(UC_MAC);
+      set_unicode_input_mode(UNICODE_MODE_MACOS);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
@@ -1278,7 +1278,7 @@ void set_output_user(uint8_t output) {
 void matrix_init_user() {
   wait_ms(500); // give time for usb to initialize
 
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 
 #ifdef RGBSPS_ENABLE
   led_init();

@@ -16,7 +16,7 @@
 #define MINUS   UC(0x2212)
 
 void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 }
 
 enum layers {
