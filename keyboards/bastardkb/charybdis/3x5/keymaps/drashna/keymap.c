@@ -83,6 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+#if defined(KEYBOARD_bastardkb_charybdis_3x5_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill)
 void matrix_init_keyemap(void) { setPinInputHigh(A0); }
 
 void matrix_scan_keymap(void) {
@@ -104,3 +105,4 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
         __asm__ volatile("nop" ::: "memory");
     }
 }
+#endif
