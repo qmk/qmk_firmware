@@ -6,6 +6,7 @@
     "usb": {
         "vid": "0x4242",
         "pid": "0x5A4C",
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT": {
