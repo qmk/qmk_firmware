@@ -59,8 +59,8 @@
 #define CIRQUE_PINNACLE_SPI_CS_PIN A3
 
 /* encoder pins */
-#define ENCODERS_PAD_A { B0, B3, B9 }
-#define ENCODERS_PAD_B { A2, A15, B8 }
+#define ENCODERS_PAD_B { B0, B3, B9, C15 }
+#define ENCODERS_PAD_A { A2, A15, B8, C14 }
 
 /* encoder resolution */
 #define ENCODER_RESOLUTION 4

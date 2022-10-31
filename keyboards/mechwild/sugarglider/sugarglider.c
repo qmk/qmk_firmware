@@ -94,6 +94,13 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
                 tap_code(KC_PGDN);
             }
         break;
+        case 3:
+            if (clockwise) {
+                tap_code(KC_WH_U);
+            } else {
+                tap_code(KC_WH_D);
+            }
+        break;
     }
     return true;
 }
