@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Graystudio
 #define PRODUCT         Space65R3
-#define DESCRIPTION     Graystudio Space65R3
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -27,7 +26,6 @@
 */
 #define MATRIX_ROW_PINS { A6, B12, A2, A0, A1 }
 #define MATRIX_COL_PINS { A3, A5, A4, B9, B8, B7, B6, B5, B4, B3, A15, B0, A8, B15, B14, B13 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -46,7 +44,7 @@
 #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 // /*== all animations enable ==*/
-#define RGBLIGHT_ANIMATIONS
+
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 // /*== or choose animations ==*/
 //   #define RGBLIGHT_EFFECT_BREATHING
