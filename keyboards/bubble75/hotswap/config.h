@@ -14,16 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4242
-#define PRODUCT_ID      0x5A4C
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    PHL
-#define PRODUCT         BUBBLE 75
+
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -71,6 +67,7 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_TIMEOUT 0
 #define RGB_DISABLE_AFTER_TIMEOUT 0
+
 #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
