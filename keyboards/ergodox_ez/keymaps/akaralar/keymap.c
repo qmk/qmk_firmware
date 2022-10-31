@@ -232,9 +232,12 @@ _______, _______, _______, _______   , XXXXXXX   ,                              
 
 // clang-format on
 
+/*  This part is related to RGB matrix and fails to compile if the board has 
+    RGB matrix disabled */
+#ifdef RGB_MATRIX_ENABLE
 void keyboard_post_init_user(void) {
     rgb_matrix_enable();
-}
+}    
 
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [0] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {8,255,255}, {0,0,0}, {0,0,0}, {0,0,0} },
@@ -305,6 +308,8 @@ void rgb_matrix_indicators_user(void) {
     break;
   }
 }
+
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -380,7 +385,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_SLD:
             if (record->event.pressed) {
+#ifdef RGB_MATRIX_ENABLE
                 rgblight_mode(1);
+#endif
             }
           return false;
         case VRSN:
