@@ -1,3 +1,5 @@
+// Copyright 2022 Yizhen Liu (@edwardslau)
+// SPDX-License-Identifier: GPL-2.0
 #pragma once
 #include "quantum.h"
 #define LAYOUT_all( \
