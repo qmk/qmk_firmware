@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Conone 65",
+    "manufacturer": "Kindakeyboards",
     "url": "https://kindakeyboards.be/conone65",
     "maintainer": "evyd13",
-    "width": 16, 
-    "height": 5, 
+    "usb": {
+        "vid": "0x9133",
+        "pid": "0x6AAB",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -48,7 +48,7 @@ void dance_LAYER_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-[ADJ]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer 
+[ADJ]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer
 [LBCB] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
 [RBCB] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
 [EQPL] = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),   // Plus sign on a single-tap, equal sign on a double-tap
@@ -92,7 +92,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define NKROTG  MAGIC_TOGGLE_NKRO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* 
+/*
 Colemak
 (Defauit layer; keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -138,7 +138,7 @@ QWERTY
                                                ENTNS,   KC_BSPC,    KC_ENT,  DELNS
 ),
 
-/* 
+/*
 Number/symbol layer
 (Multiple characters: single-tap for first, double-tap for second)
  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -241,7 +241,7 @@ Numpad layer
 Adjust layer
 (Enter/Number + Delete/Number2 to access; Numpad is a toggle)
  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
- |        | Colemak| Qwerty |        |        |        |                    | Numpad |        |        |        |        |  RESET |
+ |        | Colemak| Qwerty |        |        |        |                    | Numpad |        |        |        |        |  QK_BOOT |
  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  |        |        |        |        |        |        |                    |        |NKRO Tog|        |        |        |        |
  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -253,7 +253,7 @@ Adjust layer
                                               `-----------------'  `-----------------'
 */
 [_ADJUST] = LAYOUT(
-  _______, COLEMAK,  QWERTY, _______, _______, _______,                      NUMPAD,  _______, _______, _______, _______, RESET,
+  _______, COLEMAK,  QWERTY, _______, _______, _______,                      NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______, _______,                      _______, NKROTG,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
@@ -261,7 +261,7 @@ Adjust layer
 ),
 
 [_ADJUST2] = LAYOUT(
-  _______, COLEMAK,  QWERTY, _______, _______, _______,                      NUMPAD,  _______, _______, _______, _______, RESET,
+  _______, COLEMAK,  QWERTY, _______, _______, _______,                      NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______, _______,                      _______, NKROTG,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
@@ -270,7 +270,7 @@ Adjust layer
 
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _NUMBERS, _NUMBERS2, _ADJUST);
 }
 

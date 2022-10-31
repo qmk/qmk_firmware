@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Split Tester",
+    "manufacturer": "Keebio",
     "url": "",
     "maintainer": "nooges",
-    "width": 2,
-    "height": 1,
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x1111",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

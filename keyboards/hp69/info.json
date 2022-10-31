@@ -1,9 +1,13 @@
 {
     "keyboard_name": "hp69",
+    "manufacturer": "Desiboards",
     "url": "",
     "maintainer": "Ananya Kirti",
-    "width": 17.25,
-    "height": 5,
+    "usb": {
+        "vid": "0x416B",
+        "pid": "0x0001",
+        "device_version": "0.1.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

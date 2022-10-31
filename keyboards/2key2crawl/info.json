@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "2Key2CrawlPad",
+    "keyboard_name": "2Key2Crawl",
+    "manufacturer": "WoodKeys.click",
     "url": "",
     "maintainer": "qmk",
-    "width": 6.5,
-    "height": 2,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6090",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

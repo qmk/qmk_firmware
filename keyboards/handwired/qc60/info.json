@@ -1,12 +1,15 @@
 {
   "keyboard_name": "QC60",
+  "manufacturer": "PeiorisBoards",
   "url": "",
   "maintainer": "coarse",
-  "width": 16,
-  "height": 5,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0C60",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
-      "key_count": 67,
       "layout": [
         {"label":"L00", "x":0, "y":0},
         {"label":"L01", "x":1, "y":0},
@@ -88,7 +91,6 @@
     },
 
     "LAYOUT_ansi_default": {
-      "key_count": 64,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"1", "x":1, "y":0},
@@ -167,7 +169,6 @@
     },
 
     "LAYOUT_ansi_alt": {
-      "key_count": 63,
       "layout": [
         {"label":"L00", "x":0, "y":0},
         {"label":"L01", "x":1, "y":0},
@@ -245,7 +246,6 @@
     },
 
     "LAYOUT_iso_default": {
-      "key_count": 65,
       "layout": [
         {"label":"L00", "x":0, "y":0},
         {"label":"L01", "x":1, "y":0},
@@ -325,7 +325,6 @@
     },
 
     "LAYOUT_iso_alt": {
-      "key_count": 64,
       "layout": [
         {"label":"L00", "x":0, "y":0},
         {"label":"L01", "x":1, "y":0},
@@ -404,7 +403,6 @@
     },
 
     "LAYOUT_hhkb_default": {
-      "key_count": 63,
       "layout": [
         {"label":"L00", "x":0, "y":0},
         {"label":"L01", "x":1, "y":0},
@@ -482,7 +480,6 @@
     },
 
     "LAYOUT_hhkb_split_lshift": {
-      "key_count": 64,
       "layout": [
         {"label":"L00", "x":0, "y":0},
         {"label":"L01", "x":1, "y":0},
@@ -561,7 +558,6 @@
     },
 
     "LAYOUT_wkl_default": {
-      "key_count": 61,
       "layout": [
         {"label":"L00", "x":0, "y":0},
         {"label":"L01", "x":1, "y":0},

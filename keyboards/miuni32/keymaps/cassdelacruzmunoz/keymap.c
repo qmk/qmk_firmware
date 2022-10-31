@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   /* Level 4: F-keys and Media Layer
      * ,---------------------------------------------------------------------------------------.
-     * | RESET |  MUTE |  VOLU |  MPLY |  TRNS |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |
+     * | QK_BOOT |  MUTE |  VOLU |  MPLY |  TRNS |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |
      * |---------------------------------------------------------------------------------------|
      * |  LGUI |  MPRV |  VOLD |  MNXT |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS | TG(4) |
      * |---------------------------------------------------------------------------------------|
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      */
   [4] = LAYOUT(
-    RESET,   KC_MUTE, KC_VOLU, KC_MPLY, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4,  KC_F5,  KC_F6,
+    QK_BOOT, KC_MUTE, KC_VOLU, KC_MPLY, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4,  KC_F5,  KC_F6,
     KC_LGUI, KC_MPRV, KC_VOLD, KC_MNXT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,  TG(4),
     KC_NO,   KC_NO,   KC_NO,   KC_NO,          KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12
   ),

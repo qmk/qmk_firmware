@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFFFE
-#define PRODUCT_ID      0x4155
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    OddForge
-#define PRODUCT         VE.A
-
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15

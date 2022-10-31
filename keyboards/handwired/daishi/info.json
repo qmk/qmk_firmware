@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Daishi",
+    "manufacturer": "MetaMechs",
     "url": "",
     "maintainer": "Croktopus",
-    "width": 19.5,
-    "height": 7.75,
+    "usb": {
+        "vid": "0x6D6D",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

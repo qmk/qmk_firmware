@@ -25,7 +25,7 @@ The `layouts/default/` and `layouts/community/` are two examples of layout "repo
 
 Each layout folder is named (`[a-z0-9_]`) after the physical aspects of the layout, in the most generic way possible, and contains a `readme.md` with the layout to be defined by the keyboard:
 
-```md
+```markdown
 # 60_ansi
 
    LAYOUT_60_ansi

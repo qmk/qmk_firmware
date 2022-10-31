@@ -1,9 +1,16 @@
 {
-    "keyboard_name": "Draytronics DAISY",
+    "keyboard_name": "DAISY",
+    "manufacturer": "Draytronics",
     "url": "https://www.draytronics.co.uk/daisy",
     "maintainer": "ghostseven",
-    "width": 4,
-    "height": 3,
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x4441",
+        "device_version": "1.0.0"
+    },
+    "layout_aliases": {
+        "LAYOUT_daisy": "LAYOUT"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -18,7 +25,7 @@
                 {"label":"", "x":0, "y":2},
                 {"label":"", "x":1, "y":2},
                 {"label":"", "x":2, "y":2},
-                {"label":"", "x":3, "y":1, "h":2}
+                {"label":"", "x":3, "y":2}
             ]
         }
     }

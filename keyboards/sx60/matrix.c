@@ -42,17 +42,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
 #    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
-#    define matrix_bitpop(i)       bitpop(matrix[i])
 #    define ROW_SHIFTER ((uint8_t)1)
 #elif (MATRIX_COLS <= 16)
 #    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
 #    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
-#    define matrix_bitpop(i)       bitpop16(matrix[i])
 #    define ROW_SHIFTER ((uint16_t)1)
 #elif (MATRIX_COLS <= 32)
 #    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
 #    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
-#    define matrix_bitpop(i)       bitpop32(matrix[i])
 #    define ROW_SHIFTER  ((uint32_t)1)
 #endif
 
@@ -172,14 +169,6 @@ uint8_t matrix_scan(void)
     return 1;
 }
 
-bool matrix_is_modified(void)
-{
-#if (DEBOUNCE > 0)
-    if (debouncing) return false;
-#endif
-    return true;
-}
-
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
@@ -209,15 +198,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += matrix_bitpop(i);
-    }
-    return count;
-}
-
 static void init_cols(void)
 {
     for(uint8_t x = 0; x < ATMEGA_COLS; x++) {
@@ -243,15 +223,11 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         /* if there was an error */
         return 0;
     } else {
-        uint16_t data = 0;
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);             if (mcp23018_status) goto out;
-        mcp23018_status = i2c_start(I2C_ADDR_READ);     if (mcp23018_status) goto out;
-        data = i2c_readNak();
-        data = ~data;
-    out:
-        i2c_stop();
-        current_matrix[current_row] |= (data << 8);
+        uint8_t data = 0;
+        mcp23018_status = i2c_readReg(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+        if (!mcp23018_status) {
+            current_matrix[current_row] |= (~((uint16_t)data) << 8);
+        }
     }
 
     /* For each col... */
@@ -278,11 +254,8 @@ static void select_row(uint8_t row)
         /* set active row low  : 0
            set active row output : 1
            set other rows hi-Z : 1 */
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOB);            if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0xFF & ~(1<<abs(row-4))); if (mcp23018_status) goto out;
-    out:
-        i2c_stop();
+        uint8_t port = 0xFF & ~(1<<abs(row-4));
+        mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOB, &port, 1, I2C_TIMEOUT);
     }
 
     uint8_t pin = row_pins[row];

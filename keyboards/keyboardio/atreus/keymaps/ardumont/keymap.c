@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LW] = LAYOUT( /* [> LOWER <] */
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8, KC_F9,  KC_F10,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F11,                    KC_F12,  KC_NO,   KC_NO, KC_NO,  KC_NO ,
-    KC_NO,   KC_NO,   KC_NO,   DEBUG,   RESET,   EEP_RST, _______, KC_NO,   KC_NO,   KC_NO, KC_NO,  KC_NO ,
+    KC_NO,   KC_NO,   KC_NO,   DEBUG,   QK_BOOT, EEP_RST, _______, KC_NO,   KC_NO,   KC_NO, KC_NO,  KC_NO ,
     _______, _______, _______, _______, _______, FN2,     FN2,     _______, _______, KC_NO, KC_ESC, _______
   )
 };
@@ -97,14 +97,19 @@ bool substitute_keycode(uint16_t keycode, keyrecord_t *record, uint8_t mod_state
             // Do not let QMK process the keycode further
             return false;
         } else {
-            // In case substitude_keycode is still being sent even after the release of
-            // the key
+            // In case substitude_keycode is still even after release of the key
             if (key_registered) {
                 unregister_code(substitute_keycode);
                 key_registered = false;
                 // Do not let QMK process the keycode further
                 return false;
             }
+        }
+    } else { // ctrl got released
+        // In case substitude_keycode is still sent after release of the ctrl key
+        if (key_registered) {
+            unregister_code(substitute_keycode);
+            key_registered = false;
         }
     }
     // Else, let QMK process the keycode as usual

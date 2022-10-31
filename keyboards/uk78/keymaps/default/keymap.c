@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_FL1] = LAYOUT_all(
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_INS,  KC_NLCK, _______, _______, _______,
-    _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, BL_DEC,  BL_INC,  _______, KC_MUTE, KC_MUTE, KC_VOLU, _______, _______, _______, _______,
     _______, _______, _______,                            BL_TOGG,                            _______, _______, _______, _______, KC_VOLD, _______, _______, _______, _______
@@ -75,48 +75,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
 void led_set_user(uint8_t usb_led) {
-
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-
-  } else {
-
-  }
-
   if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    DDRA |= (1 << 3);
-    PORTA |= (1 << 3);
+    setPinOutput(A3);
+    writePinHigh(A3);
   } else {
-    DDRA &= ~(1 << 3);
-    PORTA &= ~(1 << 3);
-  }
-
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_KANA)) {
-
-  } else {
-
+    setPinInput(A3);
+    writePinLow(A3);
   }
 }

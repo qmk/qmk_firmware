@@ -1,11 +1,15 @@
 {
     "keyboard_name": "Nue",
+    "manufacturer": "Studio Kestra",
     "url": "https://studiokestra.ca/nue",
     "maintainer": "Studio Kestra",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x7C10",
+        "pid": "0x0701",
+        "device_version": "0.0.1"
+    },
     "layouts": {
-        "LAYOUT":  {
+        "LAYOUT_all":  {
             "layout": [
                 {"x":0, "y":0}, 
                 {"x":1, "y":0}, 

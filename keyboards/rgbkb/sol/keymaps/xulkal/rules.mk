@@ -9,7 +9,7 @@ FULLHAND_ENABLE         = no        # Enables the additional 24 Full Hand LEDs
 SF_ENABLE               = no        # Enables the additional 38 Starfighter LEDs
 
 # Misc
-OLED_DRIVER_ENABLE      = yes       # Enable the OLED Driver
+OLED_ENABLE     = yes       # Enable the OLED Driver
 
 # Not using the encoder for rev1
 ifeq ($(strip $(KEYBOARD)), rgbkb/sol/rev1)

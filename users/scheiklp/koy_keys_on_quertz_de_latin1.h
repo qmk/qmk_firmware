@@ -61,3 +61,4 @@ Additionally, there are some common chars that we dit not yet define:
 #define N_COPY LCTL(KC_C) // CTRL+C
 #define N_CUT LCTL(KC_X) // CTRL+X
 #define N_UNDO LCTL(N_Z) // CTRL+Z
+#define N_ACUT KC_EQL  // ´

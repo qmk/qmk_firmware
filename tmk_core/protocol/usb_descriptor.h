@@ -47,6 +47,9 @@
 
 #ifdef PROTOCOL_CHIBIOS
 #    include <hal.h>
+#    if STM32_USB_USE_OTG1 == TRUE
+#        define USB_ENDPOINTS_ARE_REORDERABLE
+#    endif
 #endif
 
 /*
@@ -135,6 +138,13 @@ typedef struct {
     USB_HID_Descriptor_HID_t   Joystick_HID;
     USB_Descriptor_Endpoint_t  Joystick_INEndpoint;
 #endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+    // Digitizer HID Interface
+    USB_Descriptor_Interface_t Digitizer_Interface;
+    USB_HID_Descriptor_HID_t   Digitizer_HID;
+    USB_Descriptor_Endpoint_t  Digitizer_INEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 /*
@@ -180,6 +190,10 @@ enum usb_interfaces {
 #if defined(JOYSTICK_ENABLE)
     JOYSTICK_INTERFACE,
 #endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+    DIGITIZER_INTERFACE,
+#endif
     TOTAL_INTERFACES
 };
 
@@ -189,7 +203,7 @@ enum usb_interfaces {
  * Endpoint numbers
  */
 enum usb_endpoints {
-    __unused_epnum__ = NEXT_EPNUM,  // Endpoint numbering starts at 1
+    __unused_epnum__ = NEXT_EPNUM, // Endpoint numbering starts at 1
 
 #ifndef KEYBOARD_SHARED_EP
     KEYBOARD_IN_EPNUM = NEXT_EPNUM,
@@ -205,7 +219,7 @@ enum usb_endpoints {
 
 #ifdef RAW_ENABLE
     RAW_IN_EPNUM = NEXT_EPNUM,
-#    if STM32_USB_USE_OTG1
+#    ifdef USB_ENDPOINTS_ARE_REORDERABLE
 #        define RAW_OUT_EPNUM RAW_IN_EPNUM
 #    else
     RAW_OUT_EPNUM         = NEXT_EPNUM,
@@ -223,10 +237,10 @@ enum usb_endpoints {
 // ChibiOS has enough memory and descriptor to actually enable the endpoint
 // It could use the same endpoint numbers, as that's supported by ChibiOS
 // But the QMK code currently assumes that the endpoint numbers are different
-#        if STM32_USB_USE_OTG1
+#        ifdef USB_ENDPOINTS_ARE_REORDERABLE
 #            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #        else
-    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
+    CONSOLE_OUT_EPNUM   = NEXT_EPNUM,
 #        endif
 #    else
 #        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
@@ -235,7 +249,7 @@ enum usb_endpoints {
 
 #ifdef MIDI_ENABLE
     MIDI_STREAM_IN_EPNUM = NEXT_EPNUM,
-#    if STM32_USB_USE_OTG1
+#    ifdef USB_ENDPOINTS_ARE_REORDERABLE
 #        define MIDI_STREAM_OUT_EPNUM MIDI_STREAM_IN_EPNUM
 #    else
     MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
@@ -245,7 +259,7 @@ enum usb_endpoints {
 #ifdef VIRTSER_ENABLE
     CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
     CDC_IN_EPNUM           = NEXT_EPNUM,
-#    if STM32_USB_USE_OTG1
+#    ifdef USB_ENDPOINTS_ARE_REORDERABLE
 #        define CDC_OUT_EPNUM CDC_IN_EPNUM
 #    else
     CDC_OUT_EPNUM         = NEXT_EPNUM,
@@ -253,10 +267,23 @@ enum usb_endpoints {
 #endif
 #ifdef JOYSTICK_ENABLE
     JOYSTICK_IN_EPNUM = NEXT_EPNUM,
-#    if STM32_USB_USE_OTG1
+#    ifdef USB_ENDPOINTS_ARE_REORDERABLE
     JOYSTICK_OUT_EPNUM = JOYSTICK_IN_EPNUM,
 #    else
     JOYSTICK_OUT_EPNUM    = NEXT_EPNUM,
+#    endif
+#endif
+
+#ifdef DIGITIZER_ENABLE
+#    if !defined(DIGITIZER_SHARED_EP)
+    DIGITIZER_IN_EPNUM = NEXT_EPNUM,
+#        ifdef USB_ENDPOINTS_ARE_REORDERABLE
+    DIGITIZER_OUT_EPNUM = DIGITIZER_IN_EPNUM,
+#        else
+    DIGITIZER_OUT_EPNUM = NEXT_EPNUM,
+#        endif
+#    else
+#        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
 #    endif
 #endif
 };
@@ -284,5 +311,6 @@ enum usb_endpoints {
 #define CDC_NOTIFICATION_EPSIZE 8
 #define CDC_EPSIZE 16
 #define JOYSTICK_EPSIZE 8
+#define DIGITIZER_EPSIZE 8
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);

@@ -1,8 +1,8 @@
 # Vagrant クイックスタート
 
 <!---
-  original document: 0.9.10:docs/getting_started_vagrant.md
-  git diff 0.9.10 HEAD -- docs/getting_started_vagrant.md | cat
+  original document: 0.12.43:docs/getting_started_vagrant.md
+  git diff 0.12.43 HEAD -- docs/getting_started_vagrant.md | cat
 -->
 
 このプロジェクトは、プライマリオペレーティングシステムに大きな変更を加えることなくキーボードの新しいファームウェアを非常に簡単に構築することができる `Vagrantfile` を含みます。これは、あなたがプロジェクトをクローンしビルドを実行した時に、ビルドのために Vagrantfile を使っている他のユーザと全く同じ環境を持つことも保証します。これにより、人々はあなたが遭遇した問題の解決をより簡単に行えるようになります。
@@ -12,16 +12,16 @@
 このリポジトリ内の `Vagrantfile` を使うには、[Vagrant](https://www.vagrantup.com/) およびサポートされるプロバイダがインストールされている必要があります:
 
 * [VirtualBox](https://www.virtualbox.org/) (バージョン 5.0.12 以降)
-   * 'Vagrant を使うために最もアクセスしやすいプラットフォーム' として販売
+   * 「Vagrant を使うために最もアクセスしやすいプラットフォーム」とうたわれています。
 * [VMware Workstation](https://www.vmware.com/products/workstation) および [Vagrant VMware プラグイン](https://www.vagrantup.com/vmware)
    * (有料) VMware プラグインには、ライセンスされた VMware Workstation/Fusion のコピーが必要です。
 * [Docker](https://www.docker.com/)
 
-Vagrant 以外に、適切なプロバイダがインストールされ、その後におそらくコンピュータを再起動すると、このプロジェクトをチェックアウトしたフォルダ内の任意の場所で 'vagrant up' を単純に実行することができ、このプロジェクトをビルドするのに必要な全てのツールが含まれる環境(仮想マシンあるいはコンテナ)が開始されます。Vagrant をうまく始めるためのヒントの投稿がありますが、それ以外に、以下のビルドドキュメントを参照することもできます。
+Vagrant 以外に、適切なプロバイダがインストールされ、その後におそらくコンピュータを再起動すると、このプロジェクトをチェックアウトしたフォルダ内の任意の場所で 'vagrant up' を単純に実行することができ、このプロジェクトをビルドするのに必要な全てのツールが含まれる環境(仮想マシンあるいはコンテナ)が開始されます。Vagrant 起動時にうまく始めるためのヒントが表示されますが、それ以外に、以下のビルドドキュメントを参照することもできます。
 
 ## ファームウェアの書き込み
 
-ファームウェアを書き込む"簡単"な方法は、ホスト OS からツールを使うことです:
+ファームウェアを書き込む「簡単な」方法は、ホスト OS からツールを使うことです:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox) (推奨)
 * [Teensy ローダー](https://www.pjrc.com/teensy/loader.html)
@@ -29,7 +29,7 @@ Vagrant 以外に、適切なプロバイダがインストールされ、その
 コマンドラインでプログラムしたい場合は、Vagranfile の ['modifyvm'] 行のコメントを解除して Linux への USB パススルーを有効にし、dfu-util/dfu-programmer のようなコマンドラインツールを使ってプログラムすることができます。あるいは Teensy CLI バージョンをインストールすることができます。
 
 ## Vagrantfile の概要
-開発環境は QMK Docker イメージ、`qmkfm/base_container` を実行するように設定されています。これはシステム間の予測可能性が保証されるだけでなく、CI 環境もミラーされます。
+開発環境は QMK Docker イメージ、`qmkfm/qmk_cli` を実行するように設定されています。これはシステム間の予測可能性が保証されるだけでなく、CI 環境もミラーされます。
 
 ## FAQ
 

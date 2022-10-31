@@ -1,12 +1,15 @@
 {
     "keyboard_name": "DecadePad",
+    "manufacturer": "ReverseStudio",
     "url": "",
     "maintainer": "huajijam",
-    "width": 6,
-    "height": 4,
+    "usb": {
+        "vid": "0x5253",
+        "pid": "0x4450",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x4": {
-            "key_count": 21,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

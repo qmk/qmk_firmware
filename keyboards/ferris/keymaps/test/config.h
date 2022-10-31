@@ -18,3 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define DEBUG_MATRIX_SCAN_RATE
+
+// Underglow configuration
+#ifdef RGBLIGHT_ENABLE
+  #define RGBLIGHT_ANIMATIONS
+  #define RGBLIGHT_HUE_STEP 8
+  #define RGBLIGHT_SAT_STEP 8
+  #define RGBLIGHT_VAL_STEP 8
+#endif

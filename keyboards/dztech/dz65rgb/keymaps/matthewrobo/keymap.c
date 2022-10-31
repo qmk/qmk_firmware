@@ -91,7 +91,7 @@ void rgb_matrix_indicators_user(void)
 	uint8_t this_led = host_keyboard_leds();
 
 	if (!g_suspend_state && rgb_matrix_config.enable) {
-		switch (biton32(layer_state)) {
+		switch (get_highest_layer(layer_state)) {
 		case _NAV:
 			if (IS_LED_ON(this_led, USB_LED_NUM_LOCK)) {
 				rgb_matrix_set_color(17, 0xFF, 0x00, 0x00);

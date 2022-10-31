@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Jay Greco
+Copyright 2021 Jay Greco
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,14 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6E61
-#define PRODUCT_ID      0x6062
-
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    nullbits
-#define PRODUCT         SCRAMBLE
 
 /* key matrix size */
 #define MATRIX_ROWS 2
