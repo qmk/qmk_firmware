@@ -1,13 +1,12 @@
 // Copyright 2022 luantty2 (@luantty2)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
-#ifdef FADER_ENABLE
-#    include "fader.h"
-#endif
-#include "debug_list.h"
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names { _BASE, _FN };
+enum layer_names {
+    _BASE,
+    _FN,
+};
 
 enum keycodes { 
     DEVICE_INFO = USER00,

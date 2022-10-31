@@ -1,5 +1,6 @@
 // Copyright 2022 luantty2 (@luantty2)
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-2.0-or-later 
+#include QMK_KEYBOARD_H
 #ifdef FADER_ENABLE
 #    include "fader.h"
 #endif
