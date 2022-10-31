@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [Matt Chan](https://github.com/mattchan)
 * Hardware Supported: Kegen G-Boy
-* Hardware Availability: Unfortunately, there is no site for this, and the Kegen Discord is ghost town.
+* Hardware Availability: Unfortunately, there is no site for this, and the Kegen Discord is no longer active. The group buy runners appear to have disappeared after round two units were delivered.
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -25,4 +25,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

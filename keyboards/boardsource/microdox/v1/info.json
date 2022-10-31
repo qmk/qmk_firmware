@@ -2,7 +2,7 @@
   "features": {
     "rgblight": true
   },
-    "matrix_pins": {
+  "matrix_pins": {
     "cols": ["F4", "F5", "F6", "F7", "B1"],
     "rows": ["B2", "B6", "B4", "B5"]
   },
@@ -12,7 +12,7 @@
   "split": {
     "soft_serial_pin": "D2"
   },
-    "rgblight": {
+  "rgblight": {
     "pin": "D3",
     "sleep": true,
     "led_count": 12,
