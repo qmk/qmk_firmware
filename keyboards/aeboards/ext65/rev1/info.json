@@ -7,7 +7,7 @@
         "pid": "0xAE65",
         "device_version": "0.0.1"
     },
-    "diode_direction": "ROW2COL",
+    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["B2", "B3", "B1", "B0", "F7", "F0", "F1", "F4", "F5", "F6"],
         "rows": ["C6", "C7", "B5", "B6", "D7", "B4", "D4", "D6", "B7", "E6"]
