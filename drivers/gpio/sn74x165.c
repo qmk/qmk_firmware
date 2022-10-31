@@ -23,15 +23,15 @@
 spi_status_t res;
 
 void sn74x165_init(void) {
-    setPinOutput(SN74X165_LATCH_PIN);
-    writePinHigh(SN74X165_LATCH_PIN);
+    setPinOutput(SN74X165_PL_PIN);
+    writePinHigh(SN74X165_PL_PIN);
     spi_init();
 }
 
 bool sn74x165_spi_receive(uint8_t* out) {
-    writePinLow(SN74X165_LATCH_PIN);
+    writePinLow(SN74X165_PL_PIN);
     wait_us(30);
-    writePinHigh(SN74X165_LATCH_PIN);
+    writePinHigh(SN74X165_PL_PIN);
 
     if (!spi_start(SN74X165_SPI_SLAVE_SELECT_PIN, SN74X165_SPI_LSBFIRST, SN74X165_SPI_MODE, SN74X165_SPI_CLOCK_DIVISOR)) {
         dprint("sn74x165 spi can't start \n");

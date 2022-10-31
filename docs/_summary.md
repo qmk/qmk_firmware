@@ -147,6 +147,7 @@
     * [Drivers](hardware_drivers.md)
       * [ADC Driver](adc_driver.md)
       * [Audio Driver](audio_driver.md)
+      * [GPIO Driver](gpio_driver.md)
       * [I2C Driver](i2c_driver.md)
       * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)

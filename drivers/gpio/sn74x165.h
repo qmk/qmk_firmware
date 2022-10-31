@@ -38,7 +38,7 @@
     The latch pin of the SN74X165.
     This needs to be a normal GPIO pin_t value, such as B15.
 */
-#ifndef SN74X165_LATCH_PIN
+#ifndef SN74X165_PL_PIN
 #    error "No latch pin defined -- missing SN74X165_LATCH_PIN"
 #endif
 
