@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Evolv75", 
+    "manufacturer": "NathanAlpha",
     "url": "", 
     "maintainer": "qmk", 
+    "usb": {
+        "vid": "0x7865",
+        "pid": "0x0E75",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_evolv_ansi": {
             "layout": [

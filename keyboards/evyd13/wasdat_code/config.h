@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0xB00E
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         Wasdat Code
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
@@ -41,21 +34,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
 */
 #define MATRIX_ROW_PINS { E6, C7, C6, B6, B5, B4, D7, D6 }
-#define MATRIX_COL_PINS { }
-#define UNUSED_PINS
+#define MATRIX_COL_PINS { F7, F5, F6, F1, F4, F0, NO_PIN, D5, D3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN } // Columns 6 and 9-15 controlled by demux
 
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
+#define SN74X138_ADDRESS_PINS { D2, D1, D0 }
+#define SN74X138_E3_PIN D4
 
 // For QMK DFU
 #define QMK_ESC_OUTPUT E6
 #define QMK_ESC_INPUT F0
 #define QMK_LED B1
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-//#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
 #define LED_NUM_LOCK_PIN B3
 #define LED_CAPS_LOCK_PIN B1
@@ -148,8 +135,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 2

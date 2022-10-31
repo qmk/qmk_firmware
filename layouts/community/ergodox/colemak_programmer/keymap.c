@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |symbol|N-Lock| End   |       | PgDn |       |      |
  *                                 `---------------------'       `---------------------'
  */
-[0] = LAYOUT_ergodox(  // layer 0 : default 
+[0] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_GRV,     KC_1,       KC_2,       KC_3,       KC_4,        KC_5,        KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,        KC_G,        TG(3),
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[1] = LAYOUT_ergodox(  // layer 1: QWERTY layer (games) 
+[1] = LAYOUT_ergodox(  // layer 1: QWERTY layer (games)
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS,        KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_TRNS,
        KC_TRNS,        KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRNS,    KC_TRNS,
                                    KC_TRNS,
        KC_TRNS,        KC_TRNS,    KC_TRNS,
-       
+
     // right hand
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS,        KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_TRNS,
@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 4: Numlock
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | RESET  |      |      |      |P-SCRE|S-LOCK|PAUSE |           |NLOCK | CALC |  =   |  /   |  *   |      |        |
+ * | QK_BOOT  |      |      |      |P-SCRE|S-LOCK|PAUSE |           |NLOCK | CALC |  =   |  /   |  *   |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      | Vol+ |  7   |  8   |  9   |  -   |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -202,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [4] = LAYOUT_ergodox(
-       RESET,          KC_LSFT,    KC_LSFT,    KC_SYSREQ,  KC_PSCR,    KC_SLCK,    KC_PAUSE,
+       QK_BOOT,        KC_LSFT,    KC_LSFT,    KC_SYSREQ,  KC_PSCR,    KC_SLCK,    KC_PAUSE,
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_HYPR,
@@ -243,7 +243,7 @@ void matrix_scan_user(void) {
     //bit 1: default layer 1 - QWERTY
     if (default_layer_state & (1UL << 1)) ergodox_right_led_1_on();
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     //layer 2 : Symbols (& Fs)
     //if (layer == 2) ergodox_right_led_2_on();

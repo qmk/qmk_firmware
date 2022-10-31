@@ -2,6 +2,7 @@
  * Copyright 2017 Jack Humbert
  * Copyright 2018 Yiancar
  * Copyright 2019 Clueboard
+ * Copyright 2021 Leo Deng
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +27,14 @@
 
 #ifdef IS31FL3731
 #    include "is31fl3731-simple.h"
+#elif defined(IS31FLCOMMON)
+#    include "is31flcommon.h"
+#endif
+#ifdef IS31FL3733
+#    include "is31fl3733-simple.h"
+#endif
+#ifdef CKLED2001
+#    include "ckled2001-simple.h"
 #endif
 
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
@@ -152,6 +161,7 @@ void        led_matrix_decrease_speed(void);
 void        led_matrix_decrease_speed_noeeprom(void);
 led_flags_t led_matrix_get_flags(void);
 void        led_matrix_set_flags(led_flags_t flags);
+void        led_matrix_set_flags_noeeprom(led_flags_t flags);
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */

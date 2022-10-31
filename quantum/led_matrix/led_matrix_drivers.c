@@ -25,7 +25,7 @@
  * in their own files.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733)
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FLCOMMON) || defined(CKLED2001)
 #    include "i2c_master.h"
 
 static void init(void) {
@@ -66,6 +66,34 @@ static void init(void) {
 #                endif
 #            endif
 #        endif
+
+#    elif defined(IS31FLCOMMON)
+    IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
+#        if defined(LED_DRIVER_ADDR_2)
+    IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);
+#            if defined(LED_DRIVER_ADDR_3)
+    IS31FL_common_init(DRIVER_ADDR_3, ISSI_SSR_3);
+#                if defined(LED_DRIVER_ADDR_4)
+    IS31FL_common_init(DRIVER_ADDR_4, ISSI_SSR_4);
+#                endif
+#            endif
+#        endif
+#    elif defined(CKLED2001)
+#        if defined(LED_DRIVER_SHUTDOWN_PIN)
+    setPinOutput(LED_DRIVER_SHUTDOWN_PIN);
+    writePinHigh(LED_DRIVER_SHUTDOWN_PIN);
+#        endif
+
+    CKLED2001_init(DRIVER_ADDR_1);
+#        if defined(DRIVER_ADDR_2)
+    CKLED2001_init(DRIVER_ADDR_2);
+#            if defined(DRIVER_ADDR_3)
+    CKLED2001_init(DRIVER_ADDR_3);
+#                if defined(DRIVER_ADDR_4)
+    CKLED2001_init(DRIVER_ADDR_4);
+#                endif
+#            endif
+#        endif
 #    endif
 
     for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
@@ -73,6 +101,10 @@ static void init(void) {
         IS31FL3731_set_led_control_register(index, true);
 #    elif defined(IS31FL3733)
         IS31FL3733_set_led_control_register(index, true);
+#    elif defined(IS31FLCOMMON)
+        IS31FL_simple_set_scaling_buffer(index, true);
+#    elif defined(CKLED2001)
+        CKLED2001_set_led_control_register(index, true);
 #    endif
     }
 
@@ -97,6 +129,32 @@ static void init(void) {
     IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_3, 2);
 #                if defined(LED_DRIVER_ADDR_4)
     IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+
+#    elif defined(IS31FLCOMMON)
+#        ifdef ISSI_MANUAL_SCALING
+    IS31FL_set_manual_scaling_buffer();
+#        endif
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_1, 0);
+#        if defined(LED_DRIVER_ADDR_2)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_2, 1);
+#            if defined(LED_DRIVER_ADDR_3)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_3, 2);
+#                if defined(LED_DRIVER_ADDR_4)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+#    elif defined(CKLED2001)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_4, 3);
 #                endif
 #            endif
 #        endif
@@ -143,6 +201,47 @@ const led_matrix_driver_t led_matrix_driver = {
     .flush = flush,
     .set_value = IS31FL3733_set_value,
     .set_value_all = IS31FL3733_set_value_all,
+};
+
+#    elif defined(IS31FLCOMMON)
+static void flush(void) {
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_1, 0);
+#        if defined(LED_DRIVER_ADDR_2)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_2, 1);
+#            if defined(LED_DRIVER_ADDR_3)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_3, 2);
+#                if defined(LED_DRIVER_ADDR_4)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+}
+
+const led_matrix_driver_t led_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_value = IS31FL_simple_set_brightness,
+    .set_value_all = IS31FL_simple_set_brigntness_all,
+};
+#    elif defined(CKLED2001)
+static void flush(void) {
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+}
+
+const led_matrix_driver_t led_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_value = CKLED2001_set_value,
+    .set_value_all = CKLED2001_set_value_all,
 };
 #    endif
 #endif

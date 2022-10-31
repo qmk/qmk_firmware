@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Gami Studio Lex60",
+    "keyboard_name": "Lex60",
+    "manufacturer": "Evyd13",
     "url": "",
     "maintainer": "GamiStudio",
+    "usb": {
+        "vid": "0x7353",
+        "pid": "0x0160",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

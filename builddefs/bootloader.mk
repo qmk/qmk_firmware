@@ -30,6 +30,7 @@
 #     bootloadhid  HIDBootFlash compatible (ATmega32A)
 #     usbasploader USBaspLoader (ATmega328P)
 # ARM:
+#     halfkay      PJRC Teensy
 #     kiibohd      Input:Club Kiibohd bootloader (only used on their boards)
 #     stm32duino   STM32Duino (STM32F103x8)
 #     stm32-dfu    STM32 USB DFU in ROM
@@ -37,12 +38,23 @@
 # RISC-V:
 #     gd32v-dfu    GD32V USB DFU in ROM
 #
+# If you need to provide your own implementation, you can set inside `rules.mk`
+# `BOOTLOADER = custom` -- you'll need to provide your own implementations. See
+# the respective file under `platforms/<PLATFORM>/bootloaders/custom.c` to see
+# which functions may be overridden.
+#
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
 
+ifeq ($(strip $(BOOTLOADER)), custom)
+    OPT_DEFS += -DBOOTLOADER_CUSTOM
+    BOOTLOADER_TYPE = custom
+endif
 ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
     OPT_DEFS += -DBOOTLOADER_ATMEL_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_TYPE = dfu
+
     ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE = 4096
     endif
@@ -53,6 +65,8 @@ endif
 ifeq ($(strip $(BOOTLOADER)), lufa-dfu)
     OPT_DEFS += -DBOOTLOADER_LUFA_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_TYPE = dfu
+
     ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE ?= 4096
     endif
@@ -63,6 +77,8 @@ endif
 ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
     OPT_DEFS += -DBOOTLOADER_QMK_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_TYPE = dfu
+
     ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE ?= 4096
     endif
@@ -73,31 +89,49 @@ endif
 ifeq ($(strip $(BOOTLOADER)), qmk-hid)
     OPT_DEFS += -DBOOTLOADER_QMK_HID
     OPT_DEFS += -DBOOTLOADER_HID
+    BOOTLOADER_TYPE = dfu
+
     BOOTLOADER_SIZE ?= 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
+    BOOTLOADER_TYPE = halfkay
+
+    # Teensy 2.0
     ifeq ($(strip $(MCU)), atmega32u4)
         BOOTLOADER_SIZE = 512
     endif
+    # Teensy 2.0++
     ifeq ($(strip $(MCU)), at90usb1286)
         BOOTLOADER_SIZE = 1024
+    endif
+    # Teensy LC, 3.0, 3.1/2, 3.5, 3.6
+    ifneq (,$(filter $(MCU_ORIG), MKL26Z64 MK20DX128 MK20DX256 MK64FX512 MK66FX1M0))
+        FIRMWARE_FORMAT = hex
     endif
 endif
 ifeq ($(strip $(BOOTLOADER)), caterina)
     OPT_DEFS += -DBOOTLOADER_CATERINA
+    BOOTLOADER_TYPE = caterina
+
     BOOTLOADER_SIZE = 4096
 endif
 ifneq (,$(filter $(BOOTLOADER), bootloadhid bootloadHID))
     OPT_DEFS += -DBOOTLOADER_BOOTLOADHID
+    BOOTLOADER_TYPE = bootloadhid
+
     BOOTLOADER_SIZE = 4096
 endif
 ifneq (,$(filter $(BOOTLOADER), usbasploader USBasp))
     OPT_DEFS += -DBOOTLOADER_USBASP
+    BOOTLOADER_TYPE = usbasploader
+
     BOOTLOADER_SIZE = 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), lufa-ms)
     OPT_DEFS += -DBOOTLOADER_MS
+    BOOTLOADER_TYPE = dfu
+
     BOOTLOADER_SIZE ?= 8192
     FIRMWARE_FORMAT = bin
 cpfirmware: lufa_warning
@@ -115,6 +149,7 @@ endif
 
 ifeq ($(strip $(BOOTLOADER)), stm32-dfu)
     OPT_DEFS += -DBOOTLOADER_STM32_DFU
+    BOOTLOADER_TYPE = stm32_dfu
 
     # Options to pass to dfu-util when flashing
     DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
@@ -122,6 +157,7 @@ ifeq ($(strip $(BOOTLOADER)), stm32-dfu)
 endif
 ifeq ($(strip $(BOOTLOADER)), apm32-dfu)
     OPT_DEFS += -DBOOTLOADER_APM32_DFU
+    BOOTLOADER_TYPE = stm32_dfu
 
     # Options to pass to dfu-util when flashing
     DFU_ARGS ?= -d 314B:0106 -a 0 -s 0x08000000:leave
@@ -129,6 +165,7 @@ ifeq ($(strip $(BOOTLOADER)), apm32-dfu)
 endif
 ifeq ($(strip $(BOOTLOADER)), gd32v-dfu)
     OPT_DEFS += -DBOOTLOADER_GD32V_DFU
+    BOOTLOADER_TYPE = gd32v_dfu
 
     # Options to pass to dfu-util when flashing
     DFU_ARGS ?= -d 28E9:0189 -a 0 -s 0x08000000:leave
@@ -136,6 +173,8 @@ ifeq ($(strip $(BOOTLOADER)), gd32v-dfu)
 endif
 ifeq ($(strip $(BOOTLOADER)), kiibohd)
     OPT_DEFS += -DBOOTLOADER_KIIBOHD
+    BOOTLOADER_TYPE = kiibohd
+
     ifeq ($(strip $(MCU_ORIG)), MK20DX128)
         MCU_LDSCRIPT = MK20DX128BLDR4
     endif
@@ -151,8 +190,7 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
     OPT_DEFS += -DBOOTLOADER_STM32DUINO
     MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
     BOARD = STM32_F103_STM32DUINO
-    # STM32F103 does NOT have an USB bootloader in ROM (only serial), so setting anything here does not make much sense
-    STM32_BOOTLOADER_ADDRESS = 0x80000000
+    BOOTLOADER_TYPE = stm32duino
 
     # Options to pass to dfu-util when flashing
     DFU_ARGS = -d 1EAF:0003 -a 2 -R
@@ -160,4 +198,26 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
 endif
 ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_TINYUF2
+    BOOTLOADER_TYPE = tinyuf2
+    FIRMWARE_FORMAT = uf2
+endif
+ifeq ($(strip $(BOOTLOADER)), rp2040)
+    OPT_DEFS += -DBOOTLOADER_RP2040
+    BOOTLOADER_TYPE = rp2040
+endif
+ifeq ($(strip $(BOOTLOADER)), halfkay)
+    OPT_DEFS += -DBOOTLOADER_HALFKAY
+    BOOTLOADER_TYPE = halfkay
+endif
+ifeq ($(strip $(BOOTLOADER)), md-boot)
+    OPT_DEFS += -DBOOTLOADER_MD_BOOT
+    BOOTLOADER_TYPE = md_boot
+endif
+ifeq ($(strip $(BOOTLOADER)), wb32-dfu)
+    OPT_DEFS += -DBOOTLOADER_WB32_DFU
+    BOOTLOADER_TYPE = wb32_dfu
+endif
+
+ifeq ($(strip $(BOOTLOADER_TYPE)),)
+    $(call CATASTROPHIC_ERROR,Invalid BOOTLOADER,No bootloader specified. Please set an appropriate 'BOOTLOADER' in your keyboard's 'rules.mk' file.)
 endif

@@ -40,7 +40,7 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
 
 ### Selecting Your Host Keyboard Layout
 
-If you type in a language other than English, or use a non-QWERTY layout like Colemak, Dvorak, or Workman, you may have set your computer's input language to match this layout. This presents a challenge when creating macros- you may need to type different keys to get the same letters! To address this you can add the `host_language` key to your keymap.json, like so:
+If you type in a language other than English, or use a non-QWERTY layout like Colemak, Dvorak, or Workman, you may have set your computer's input language to match this layout. This presents a challenge when creating macros - you may need to type different keys to get the same letters! To address this you can add the `host_language` key to your `keymap.json`, like so:
 
 ```json
 {
@@ -75,7 +75,7 @@ The current list of available languages is:
 
 ### Macro Basics
 
-Each macro is an array consisting of strings and objects (dictionaries.) Strings are typed to your computer while objects allow you to control how your macro is typed out.
+Each macro is an array consisting of strings and objects (dictionaries). Strings are typed to your computer while objects allow you to control how your macro is typed out.
 
 #### Object Format
 
@@ -105,6 +105,8 @@ Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` 
 ## Using Macros in C Keymaps
 
 ### `SEND_STRING()` & `process_record_user`
+
+See also: [Send String](feature_send_string.md)
 
 Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
@@ -347,7 +349,7 @@ If the keycode is `KC_CAPS`, it waits `TAP_HOLD_CAPS_DELAY` milliseconds instead
 
 Like `tap_code(<kc>)`, but with a `delay` parameter for specifying arbitrary intervals before sending the unregister event.
 
-#### `register_code16(<kc>);`, `unregister_code16(<kc>);` and `tap_code16(<kc>);`
+#### `register_code16(<kc>);`, `unregister_code16(<kc>);`, `tap_code16(<kc>);` and `tap_code16_delay(<kc>, <delay>);`
 
 These functions work similar to their regular counterparts, but allow you to use modded keycodes (with Shift, Alt, Control, and/or GUI applied to them).
 
@@ -372,7 +374,7 @@ This will clear all keys besides the mods currently pressed.
 This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows.
 
 ```c
-bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
 uint16_t alt_tab_timer = 0;     // we will be using them soon.
 
 enum custom_keycodes {          // Make sure have the awesome keycode ready

@@ -30,6 +30,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_FN] = LAYOUT_ortho_3x3(
         RGB_TOG,    RGB_MODE_REVERSE,    RGB_MODE_FORWARD,
         _______,    RGB_MODE_BREATHE,    RGB_MODE_RAINBOW,
-        _______,    _______,             RESET
+        _______,    _______,             QK_BOOT
     )
 };

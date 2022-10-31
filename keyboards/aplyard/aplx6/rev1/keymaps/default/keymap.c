@@ -26,13 +26,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*  | | Pro  |	|-----|-----|-----| |
 	*  | | Micro|   --------------------|
 	*  | |      |	|-----|-----|-----| |
-	*  | '------'	|MyPC | PgD	|RESET| |
+	*  | '------'	|MyPC | PgD	|QK_BOOT| |
 	*  |  |||||| 	|-----|-----|-----| |
 	*  '--------------------------------'
 	*/
   
   [_FN] = LAYOUT( 
     KC_CALC, KC_PGUP, _______,
-    KC_MYCM, KC_PGDN, RESET
+    KC_MYCM, KC_PGDN, QK_BOOT
   )
 };

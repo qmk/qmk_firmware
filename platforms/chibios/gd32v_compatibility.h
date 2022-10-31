@@ -35,7 +35,9 @@
 #define STM32_DMA_STREAM_ID(peripheral, channel) GD32_DMA_STREAM_ID(peripheral - 1, channel - 1)
 #define STM32_DMA_CR_DIR_M2P GD32_DMA_CTL_DIR_M2P
 #define STM32_DMA_CR_PSIZE_WORD GD32_DMA_CTL_PWIDTH_WORD
+#define STM32_DMA_CR_PSIZE_HWORD GD32_DMA_CTL_PWIDTH_HWORD
 #define STM32_DMA_CR_MSIZE_WORD GD32_DMA_CTL_MWIDTH_WORD
+#define STM32_DMA_CR_MSIZE_BYTE GD32_DMA_CTL_MWIDTH_BYTE
 #define STM32_DMA_CR_MINC GD32_DMA_CTL_MNAGA
 #define STM32_DMA_CR_CIRC GD32_DMA_CTL_CMEN
 #define STM32_DMA_CR_PL GD32_DMA_CTL_PRIO
@@ -97,10 +99,10 @@
 /* Serial USART redefines. */
 #if HAL_USE_SERIAL
 #    if !defined(SERIAL_USART_CR1)
-#        define SERIAL_USART_CR1 (USART_CTL0_PCEN | USART_CTL0_PM | USART_CTL0_WL)  // parity enable, odd parity, 9 bit length
+#        define SERIAL_USART_CR1 (USART_CTL0_PCEN | USART_CTL0_PM | USART_CTL0_WL) // parity enable, odd parity, 9 bit length
 #    endif
 #    if !defined(SERIAL_USART_CR2)
-#        define SERIAL_USART_CR2 (USART_CTL1_STB_1)  // 2 stop bits
+#        define SERIAL_USART_CR2 (USART_CTL1_STB_1) // 2 stop bits
 #    endif
 #    if !defined(SERIAL_USART_CR3)
 #        define SERIAL_USART_CR3 0x0

@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7668 // LD for LinDesign
-#define PRODUCT_ID      0xB075 // For BOX75
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Lin Design
-#define PRODUCT         BOX75
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -66,5 +59,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

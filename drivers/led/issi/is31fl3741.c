@@ -42,16 +42,16 @@
 #define ISSI_INTERRUPTSTATUSREGISTER 0xF1
 #define ISSI_IDREGISTER 0xFC
 
-#define ISSI_PAGE_PWM0 0x00       // PG0
-#define ISSI_PAGE_PWM1 0x01       // PG1
-#define ISSI_PAGE_SCALING_0 0x02  // PG2
-#define ISSI_PAGE_SCALING_1 0x03  // PG3
-#define ISSI_PAGE_FUNCTION 0x04   // PG4
+#define ISSI_PAGE_PWM0 0x00      // PG0
+#define ISSI_PAGE_PWM1 0x01      // PG1
+#define ISSI_PAGE_SCALING_0 0x02 // PG2
+#define ISSI_PAGE_SCALING_1 0x03 // PG3
+#define ISSI_PAGE_FUNCTION 0x04  // PG4
 
-#define ISSI_REG_CONFIGURATION 0x00  // PG4
-#define ISSI_REG_GLOBALCURRENT 0x01  // PG4
-#define ISSI_REG_PULLDOWNUP 0x02     // PG4
-#define ISSI_REG_RESET 0x3F          // PG4
+#define ISSI_REG_CONFIGURATION 0x00 // PG4
+#define ISSI_REG_GLOBALCURRENT 0x01 // PG4
+#define ISSI_REG_PULLDOWNUP 0x02    // PG4
+#define ISSI_REG_RESET 0x3F         // PG4
 
 #ifndef ISSI_TIMEOUT
 #    define ISSI_TIMEOUT 100
@@ -67,6 +67,10 @@
 
 #ifndef ISSI_CSPULLUP
 #    define ISSI_CSPULLUP PUR_32KR
+#endif
+
+#ifndef ISSI_GLOBALCURRENT
+#    define ISSI_GLOBALCURRENT 0xFF
 #endif
 
 #define ISSI_MAX_LEDS 351
@@ -163,7 +167,7 @@ void IS31FL3741_init(uint8_t addr) {
     IS31FL3741_write_register(addr, ISSI_REG_CONFIGURATION, 0x01);
 
     // Set Golbal Current Control Register
-    IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
+    IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
     // Set Pull up & Down for SWx CSy
     IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, ((ISSI_CSPULLUP << 4) | ISSI_SWPULLUP));
 

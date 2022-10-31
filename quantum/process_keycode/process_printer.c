@@ -16,16 +16,19 @@
 
 #include "process_printer.h"
 #include "action_util.h"
+#include "uart.h"
 
 bool    printing_enabled = false;
 uint8_t character_shift  = 0;
 
 void enable_printing(void) {
     printing_enabled = true;
-    serial_init();
+    uart_init(19200);
 }
 
-void disable_printing(void) { printing_enabled = false; }
+void disable_printing(void) {
+    printing_enabled = false;
+}
 
 uint8_t shifted_numbers[10] = {0x21, 0x40, 0x23, 0x24, 0x25, 0x5E, 0x26, 0x2A, 0x28, 0x29};
 
@@ -35,12 +38,13 @@ uint8_t shifted_numbers[10] = {0x21, 0x40, 0x23, 0x24, 0x25, 0x5E, 0x26, 0x2A, 0
 
 void print_char(char c) {
     USB_Disable();
-    serial_send(c);
+    uart_write(c);
     USB_Init();
 }
 
 void print_string(char c[]) {
-    for (uint8_t i = 0; i < strlen(c); i++) print_char(c[i]);
+    for (uint8_t i = 0; i < strlen(c); i++)
+        print_char(c[i]);
 }
 
 void print_box_string(const char text[]) {

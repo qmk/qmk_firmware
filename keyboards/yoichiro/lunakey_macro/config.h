@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5954  // "YT" - Yoichiro Tanaka
-#define PRODUCT_ID   0x0002
-#define DEVICE_VER   0x0001
-#define MANUFACTURER yoichiro
-#define PRODUCT      Lunakey Macro
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { E6, B4, B5 }
 #define MATRIX_COL_PINS { B6, B2, B3, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -148,10 +140,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

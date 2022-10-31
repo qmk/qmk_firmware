@@ -731,7 +731,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 -------------------------------------------------
  */
 	LAYOUT_ortho_4x12(
-		KC_TRNS, KC_NO, KC_MPLY, KC_VOLU, KC_VOLU, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RESET, KC_PWR,
+		KC_TRNS, KC_NO, KC_MPLY, KC_VOLU, KC_VOLU, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, KC_PWR,
 		KC_TRNS, KC_NO, KC_MPRV, KC_MUTE, KC_MNXT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_SLEP,
 		KC_TRNS, MO(5), KC_NO, KC_VOLD, KC_VOLD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 		TG(5), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS

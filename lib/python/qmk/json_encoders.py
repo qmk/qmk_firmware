@@ -75,8 +75,8 @@ class InfoJSONEncoder(QMKJSONEncoder):
         """Encode info.json dictionaries.
         """
         if obj:
-            if self.indentation_level == 4:
-                # These are part of a layout, put them on a single line.
+            if set(("x", "y")).issubset(obj.keys()):
+                # These are part of a layout/led_config, put them on a single line.
                 return "{ " + ", ".join(f"{self.encode(key)}: {self.encode(element)}" for key, element in sorted(obj.items())) + " }"
 
             else:
@@ -146,7 +146,13 @@ class KeymapJSONEncoder(QMKJSONEncoder):
                 if key == 'JSON_NEWLINE':
                     layer.append([])
                 else:
-                    layer[-1].append(f'"{key}"')
+                    if isinstance(key, dict):
+                        # We have a macro
+
+                        # TODO: Add proper support for nicely formatting keymap.json macros
+                        layer[-1].append(f'{self.encode(key)}')
+                    else:
+                        layer[-1].append(f'"{key}"')
 
             layer = [f"{self.indent_str*indent_level}{', '.join(row)}" for row in layer]
 

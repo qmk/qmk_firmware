@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x3265
-#define PRODUCT_ID 0x0002
-#define DEVICE_VER 0x0001
-#define MANUFACTURER yushakobo
-#define PRODUCT quick7
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
@@ -49,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { D1, F5 }
 #define ENCODERS_PAD_B { D0, F6 }
 
-#define UNUSED_PINS
 
 
 
@@ -136,12 +128,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#ifndef LTO_ENABLE
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
-#endif
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

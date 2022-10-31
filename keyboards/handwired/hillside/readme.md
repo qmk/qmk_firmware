@@ -1,29 +1,14 @@
 # Hillside
 
-![hillside](https://imgur.com/XW0rX13.png)
+![hillside](https://imgur.com/4POduewh.png)
 
 [Hillside](https://github.com/mmccoyd/hillside)
- is a split ergonomic keyboard
- with 3x6+4+2 choc-spaced keys with aggressive column stagger,
- a longer thumb arc and a breakoff outer-pinky column.
+ is a small family of split ergonomic keyboards.
+Inside this directory is support for the two smaller models, 
+  the 52 and 48.
 
 * Keyboard Maintainer: [Michael McCoyd](https://github.com/mmccoyd)
-* Hardware Supported: ProMicro/Elite-C and compatible
-* Hardware Availability: https://github.com/mmccoyd/hillside
-
-Make example for this keyboard (after setting up your build environment):
-
-    make handwired/hillside/0_1:default
-
-Flashing example for this keyboard:
-
-    make handwired/hillside/0_1:default:flash
-
-## Bootloader
-
-Enter the bootloader by either:
-
-* **Physical reset button**: Briefly press the button on the front of the PCB.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+* Hardware Supported:
+    * [Hillside 52](https://github.com/qmk/qmk_firmware/blob/master/keyboards/handwired/hillside/52): ProMicro/Elite-C and compatible
+    * [Hillside 48](https://github.com/qmk/qmk_firmware/blob/master/keyboards/handwired/hillside/48): ProMicro/Elite-C and compatible
+* Hardware Availability: [https://github.com/mmccoyd/hillside](https://github.com/mmccoyd/hillside)

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x9906
-#define PRODUCT_ID 0x0000
-#define DEVICE_VER 0x0001
-#define MANUFACTURER delikeeb
-#define PRODUCT Flatbread60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F6, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS { F4, F5, B5, B4, E6, D7, C6, D4, D0, D1, D2, D3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -116,7 +108,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

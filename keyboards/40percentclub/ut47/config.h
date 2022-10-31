@@ -19,20 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4025
-#define PRODUCT_ID      0x7574 //"ut"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    40percent.club
-#define PRODUCT         ut47
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 
 #define MATRIX_ROW_PINS { D1, D0, D4, C6 }
 #define MATRIX_COL_PINS { D7, E6, B4, B5, B6, B2, B3, B1, F7, F6, F5, F4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

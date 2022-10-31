@@ -1,5 +1,6 @@
 {
     "keyboard_name": "dyz60",
+    "manufacturer": "dyz",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/dyz60",
     "maintainer": "dayatz",
     "diode_direction": "COL2ROW",
@@ -20,7 +21,7 @@
     "usb": {
         "vid": "0xD772",
         "pid": "0x000A",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_all": {

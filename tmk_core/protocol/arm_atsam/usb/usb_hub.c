@@ -27,7 +27,7 @@ uint8_t usb_extra_state;
 uint8_t usb_extra_manual;
 uint8_t usb_gcr_auto;
 
-#endif  // MD_BOOTLOADER
+#endif // MD_BOOTLOADER
 
 uint16_t adc_extra;
 
@@ -51,10 +51,10 @@ void USB_Hub_init(void) {
     pmclk->APBBMASK.bit.USB_    = 1;
 
     // setup port pins for D-, D+, and SOF_1KHZ
-    pport->Group[0].PMUX[12].reg          = 0x77;  // PA24, PA25, function column H for USB D-, D+
+    pport->Group[0].PMUX[12].reg          = 0x77; // PA24, PA25, function column H for USB D-, D+
     pport->Group[0].PINCFG[24].bit.PMUXEN = 1;
     pport->Group[0].PINCFG[25].bit.PMUXEN = 1;
-    pport->Group[1].PMUX[11].bit.PMUXE    = 7;  // PB22, function column H for USB SOF_1KHz output
+    pport->Group[1].PMUX[11].bit.PMUXE    = 7; // PB22, function column H for USB SOF_1KHz output
     pport->Group[1].PINCFG[22].bit.PMUXEN = 1;
 
     // configure and enable DFLL for USB clock recovery mode at 48MHz
@@ -78,7 +78,7 @@ void USB_Hub_init(void) {
         DBGC(DC_USB2422_INIT_OSC_SYNC_DFLLCTRLB_4);
     }
     posc->DFLLCTRLB.bit.CCDIS = 1;
-    posc->DFLLMUL.bit.MUL     = 0xBB80;  // 4800 x 1KHz
+    posc->DFLLMUL.bit.MUL     = 0xBB80; // 4800 x 1KHz
     while (posc->DFLLSYNC.bit.DFLLMUL) {
         DBGC(DC_USB2422_INIT_OSC_SYNC_DFLLMUL);
     }
@@ -99,7 +99,7 @@ void USB_Hub_init(void) {
     pusb->DEVICE.PADCAL.bit.TRANSP = (USB_FUSES_TRANSP_ADDR >> USB_FUSES_TRANSP_Pos) & USB_FUSES_TRANSP_Msk;
     pusb->DEVICE.PADCAL.bit.TRIM   = (USB_FUSES_TRIM_ADDR >> USB_FUSES_TRIM_Pos) & USB_FUSES_TRIM_Msk;
     // device mode, enabled
-    pusb->DEVICE.CTRLB.bit.SPDCONF = 0;  // full speed
+    pusb->DEVICE.CTRLB.bit.SPDCONF = 0; // full speed
     pusb->DEVICE.CTRLA.bit.MODE    = 0;
     pusb->DEVICE.CTRLA.bit.ENABLE  = 1;
     while (pusb->DEVICE.SYNCBUSY.bit.ENABLE) {
@@ -111,8 +111,8 @@ void USB_Hub_init(void) {
 
     USB2422_init();
 
-    sr_exp_data.bit.HUB_CONNECT = 1;  // connect signal
-    sr_exp_data.bit.HUB_RESET_N = 1;  // reset high
+    sr_exp_data.bit.HUB_CONNECT = 1; // connect signal
+    sr_exp_data.bit.HUB_RESET_N = 1; // reset high
     SR_EXP_WriteData();
 
     wait_us(100);
@@ -122,7 +122,7 @@ void USB_Hub_init(void) {
     usb_extra_manual = 0;
     usb_gcr_auto     = 1;
 
-#endif  // MD_BOOTLOADER
+#endif // MD_BOOTLOADER
 
     DBGC(DC_USB2422_INIT_COMPLETE);
 }
@@ -131,10 +131,10 @@ void USB_reset(void) {
     DBGC(DC_USB_RESET_BEGIN);
 
     // pulse reset for at least 1 usec
-    sr_exp_data.bit.HUB_RESET_N = 0;  // reset low
+    sr_exp_data.bit.HUB_RESET_N = 0; // reset low
     SR_EXP_WriteData();
     wait_us(2);
-    sr_exp_data.bit.HUB_RESET_N = 1;  // reset high to run
+    sr_exp_data.bit.HUB_RESET_N = 1; // reset high to run
     SR_EXP_WriteData();
 
     DBGC(DC_USB_RESET_COMPLETE);
@@ -150,7 +150,9 @@ void USB_configure(void) {
     DBGC(DC_USB_CONFIGURE_COMPLETE);
 }
 
-uint16_t USB_active(void) { return USB2422_active(); }
+uint16_t USB_active(void) {
+    return USB2422_active();
+}
 
 void USB_set_host_by_voltage(void) {
     // UP is upstream device (HOST)
@@ -162,13 +164,13 @@ void USB_set_host_by_voltage(void) {
     usb_host_port = USB_HOST_PORT_UNKNOWN;
 #ifndef MD_BOOTLOADER
     usb_extra_state = USB_EXTRA_STATE_UNKNOWN;
-#endif                             // MD_BOOTLOADER
-    sr_exp_data.bit.SRC_1    = 1;  // USBC-1 available for test
-    sr_exp_data.bit.SRC_2    = 1;  // USBC-2 available for test
-    sr_exp_data.bit.E_UP_N   = 1;  // HOST disable
-    sr_exp_data.bit.E_DN1_N  = 1;  // EXTRA disable
-    sr_exp_data.bit.E_VBUS_1 = 0;  // USBC-1 disable full power I/O
-    sr_exp_data.bit.E_VBUS_2 = 0;  // USBC-2 disable full power I/O
+#endif                            // MD_BOOTLOADER
+    sr_exp_data.bit.SRC_1    = 1; // USBC-1 available for test
+    sr_exp_data.bit.SRC_2    = 1; // USBC-2 available for test
+    sr_exp_data.bit.E_UP_N   = 1; // HOST disable
+    sr_exp_data.bit.E_DN1_N  = 1; // EXTRA disable
+    sr_exp_data.bit.E_VBUS_1 = 0; // USBC-1 disable full power I/O
+    sr_exp_data.bit.E_VBUS_2 = 0; // USBC-2 disable full power I/O
 
     SR_EXP_WriteData();
 
@@ -185,33 +187,33 @@ void USB_set_host_by_voltage(void) {
     v_con_2_boot = v_con_2;
 
     if (v_con_1 > v_con_2) {
-        sr_exp_data.bit.S_UP  = 0;  // HOST to USBC-1
-        sr_exp_data.bit.S_DN1 = 1;  // EXTRA to USBC-2
-        sr_exp_data.bit.SRC_1 = 1;  // HOST on USBC-1
-        sr_exp_data.bit.SRC_2 = 0;  // EXTRA available on USBC-2
+        sr_exp_data.bit.S_UP  = 0; // HOST to USBC-1
+        sr_exp_data.bit.S_DN1 = 1; // EXTRA to USBC-2
+        sr_exp_data.bit.SRC_1 = 1; // HOST on USBC-1
+        sr_exp_data.bit.SRC_2 = 0; // EXTRA available on USBC-2
 
-        sr_exp_data.bit.E_VBUS_1 = 1;  // USBC-1 enable full power I/O
-        sr_exp_data.bit.E_VBUS_2 = 0;  // USBC-2 disable full power I/O
+        sr_exp_data.bit.E_VBUS_1 = 1; // USBC-1 enable full power I/O
+        sr_exp_data.bit.E_VBUS_2 = 0; // USBC-2 disable full power I/O
 
         SR_EXP_WriteData();
 
-        sr_exp_data.bit.E_UP_N = 0;  // HOST enable
+        sr_exp_data.bit.E_UP_N = 0; // HOST enable
 
         SR_EXP_WriteData();
 
         usb_host_port = USB_HOST_PORT_1;
     } else {
-        sr_exp_data.bit.S_UP  = 1;  // EXTRA to USBC-1
-        sr_exp_data.bit.S_DN1 = 0;  // HOST to USBC-2
-        sr_exp_data.bit.SRC_1 = 0;  // EXTRA available on USBC-1
-        sr_exp_data.bit.SRC_2 = 1;  // HOST on USBC-2
+        sr_exp_data.bit.S_UP  = 1; // EXTRA to USBC-1
+        sr_exp_data.bit.S_DN1 = 0; // HOST to USBC-2
+        sr_exp_data.bit.SRC_1 = 0; // EXTRA available on USBC-1
+        sr_exp_data.bit.SRC_2 = 1; // HOST on USBC-2
 
-        sr_exp_data.bit.E_VBUS_1 = 0;  // USBC-1 disable full power I/O
-        sr_exp_data.bit.E_VBUS_2 = 1;  // USBC-2 enable full power I/O
+        sr_exp_data.bit.E_VBUS_1 = 0; // USBC-1 disable full power I/O
+        sr_exp_data.bit.E_VBUS_2 = 1; // USBC-2 enable full power I/O
 
         SR_EXP_WriteData();
 
-        sr_exp_data.bit.E_UP_N = 0;  // HOST enable
+        sr_exp_data.bit.E_UP_N = 0; // HOST enable
 
         SR_EXP_WriteData();
 
@@ -220,7 +222,7 @@ void USB_set_host_by_voltage(void) {
 
 #ifndef MD_BOOTLOADER
     usb_extra_state = USB_EXTRA_STATE_DISABLED;
-#endif  // MD_BOOTLOADER
+#endif // MD_BOOTLOADER
 
     USB_reset();
     USB_configure();
@@ -241,7 +243,7 @@ uint8_t USB_Hub_Port_Detect_Init(void) {
     while (!USB_active()) {
         tmod = timer_read64() % PORT_DETECT_RETRY_INTERVAL;
 
-        if (v_con_1 > v_con_2)  // Values updated from USB_set_host_by_voltage();
+        if (v_con_1 > v_con_2) // Values updated from USB_set_host_by_voltage();
         {
             // 1 flash for port 1 detected
             if (tmod > 500 && tmod < 600) {
@@ -249,7 +251,7 @@ uint8_t USB_Hub_Port_Detect_Init(void) {
             } else {
                 DBG_LED_OFF;
             }
-        } else if (v_con_2 > v_con_1)  // Values updated from USB_set_host_by_voltage();
+        } else if (v_con_2 > v_con_1) // Values updated from USB_set_host_by_voltage();
         {
             // 2 flash for port 2 detected
             if (tmod > 500 && tmod < 600) {
@@ -321,7 +323,7 @@ void USB_HandleExtraDevice(void) {
         // Detect unplug and reset state to disabled
         if (adc_extra > USB_EXTRA_ADC_THRESHOLD) usb_extra_state = USB_EXTRA_STATE_DISABLED;
 
-        return;  // Return even if unplug detected
+        return; // Return even if unplug detected
     }
 
     if (usb_extra_manual) {
@@ -337,4 +339,4 @@ void USB_HandleExtraDevice(void) {
         USB_ExtraSetState(USB_EXTRA_STATE_DISABLED);
 }
 
-#endif  // MD_BOOTLOADER
+#endif // MD_BOOTLOADER

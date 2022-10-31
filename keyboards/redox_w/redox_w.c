@@ -1,10 +1,15 @@
 #include "redox_w.h"
 
 void led_init(void) {
-	DDRD  |= (1<<1);
-	PORTD |= (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(F4);
+    setPinOutput(F5);
+    
+    writePinHigh(D0);
+    writePinHigh(D1);
+    writePinHigh(F4);
+    writePinHigh(F5);
 }
 
 
