@@ -48,6 +48,6 @@ satisfied with all the layers. Check the images below or [see it in the Oryx Con
 
 <details><summary>Spanish accented characters layer</summary>
 
-<img src="https://i.imgur.com/j3ZIMLZ.png" height="600">
+<img src="https://i.imgur.com/j3ZIMLZ.png">
 
 </details>
