@@ -13,11 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <quantum.h>
-#include <i2c_master.h>
-#include <rgb_matrix.h>
-#include "drivers/led/issi/is31fl3731.h"
 #include "rev1.h"
+#include "i2c_master.h"
+#include "drivers/led/issi/is31fl3731.h"
 
 #ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
@@ -104,7 +102,6 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {1, C8_16,  C7_16,  C6_16}  //D17
 };
 
-__attribute__ ((weak))
 led_config_t g_led_config = { {
     {   0+17,   0+16,   0+15,   0+14,   0+13,   0+12,   0+11,   0+10,   0+ 9,  18+ 0,  18+ 1,  18+ 2,  18+ 3,  18+ 4,  18+ 6 },
     {   0+ 7,   0+ 6,   0+ 5,   0+ 4,   0+ 3,   0+ 2,   0+ 1,   0+ 0,  18+ 9,  18+10,  18+11,  18+12,  18+13,  18+14,  18+ 7 },
