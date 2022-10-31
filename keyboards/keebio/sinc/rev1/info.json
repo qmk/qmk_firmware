@@ -1,9 +1,11 @@
 {
     "keyboard_name": "Sinc Rev. 1",
     "usb": {
-        "pid": "0x1267",
-        "device_version": "1.0.0"
+        "pid": "0x1367",
+        "device_version": "1.1.0"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
@@ -51,7 +53,16 @@
         "led_count" : 16,
         "split_count": [8, 8],
         "animations": {
-            "all": true,
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     }
 }
