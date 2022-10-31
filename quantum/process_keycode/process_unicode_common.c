@@ -31,29 +31,29 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         switch (keycode) {
-            case UNICODE_MODE_FORWARD:
+            case QK_UNICODE_MODE_NEXT:
                 cycle_unicode_input_mode(shifted ? -1 : +1);
                 break;
-            case UNICODE_MODE_REVERSE:
+            case QK_UNICODE_MODE_PREVIOUS:
                 cycle_unicode_input_mode(shifted ? +1 : -1);
                 break;
-            case UNICODE_MODE_MAC:
-                set_unicode_input_mode(UC_MAC);
+            case QK_UNICODE_MODE_MACOS:
+                set_unicode_input_mode(UNICODE_MODE_MACOS);
                 break;
-            case UNICODE_MODE_LNX:
-                set_unicode_input_mode(UC_LNX);
+            case QK_UNICODE_MODE_LINUX:
+                set_unicode_input_mode(UNICODE_MODE_LINUX);
                 break;
-            case UNICODE_MODE_WIN:
-                set_unicode_input_mode(UC_WIN);
+            case QK_UNICODE_MODE_WINDOWS:
+                set_unicode_input_mode(UNICODE_MODE_WINDOWS);
                 break;
-            case UNICODE_MODE_BSD:
-                set_unicode_input_mode(UC_BSD);
+            case QK_UNICODE_MODE_BSD:
+                set_unicode_input_mode(UNICODE_MODE_BSD);
                 break;
-            case UNICODE_MODE_WINC:
-                set_unicode_input_mode(UC_WINC);
+            case QK_UNICODE_MODE_WINCOMPOSE:
+                set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
                 break;
-            case UNICODE_MODE_EMACS:
-                set_unicode_input_mode(UC_EMACS);
+            case QK_UNICODE_MODE_EMACS:
+                set_unicode_input_mode(UNICODE_MODE_EMACS);
                 break;
         }
     }

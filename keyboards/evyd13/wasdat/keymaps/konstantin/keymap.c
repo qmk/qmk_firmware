@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_FN] = LAYOUT_tkl_iso(
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, NUMPAD,  KC_MUTE,
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  CLEAR,   KC_MPLY, KC_MSTP, KC_VOLU,
-        KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, UC_MOD,  _______, _______, _______, _______, _______,          KC_MPRV, KC_MNXT, KC_VOLD,
+        KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, UC_NEXT, _______, _______, _______, _______, _______,          KC_MPRV, KC_MNXT, KC_VOLD,
         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, KC_ACL0, KC_ACL2, KC_WH_L, KC_WH_R, _______, _______, KC_APP,  _______, _______, _______,          _______,          KC_PGUP,
         _______, DST_P_R, DST_N_A,                            KC_WH_D,                            _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END

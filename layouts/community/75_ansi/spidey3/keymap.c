@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_BOOT,    SPI_NORMAL, SPI_WIDE,   SPI_SCRIPT, SPI_BLOCKS, SPI_CIRCLE, SPI_SQUARE, SPI_PARENS, SPI_FRAKTR, SPI_BOLD,   SPI_MATH,   XXXXXXX,    SPI_GFLOCK, KC_SLEP,    CH_SUSP,    KC_PWR,
         EE_CLR,     X(SAD),     X(MEH),     X(HAPPY),   X(ANGRY),   X(THUMBDN), X(THUMBUP), X(SPIDER),  X_BUL,      X(LOL),     X(SURPRISE),X_DASH,     XXXXXXX,                KC_PAUS,    KC_SCRL,
         XXXXXXX,    RGB_TOG,    RGB_MOD,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    RGB_VAD,    RGB_VAI,    SPI_GLO,    VK_TOGG,    XXXXXXX,    XXXXXXX,                XXXXXXX,    KC_BRIU,
-        XXXXXXX,    RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_TW,   UC_M_LN,    XXXXXXX,    XXXXXXX,                            XXXXXXX,    KC_BRID,
-        _______,    XXXXXXX,    UC_M_EM,    UC_M_WC,    UC_MOD,     NK_TOGG,    TG(_NUMPAD),UC_M_MA,    X(LARR),    X(RARR),    DB_TOGG,    _______,                            KC_VOLU,    KC_MUTE,
+        XXXXXXX,    RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_TW,   UC_LINX,    XXXXXXX,    XXXXXXX,                            XXXXXXX,    KC_BRID,
+        _______,    XXXXXXX,    UC_EMAC,    UC_WINC,    UC_NEXT,    NK_TOGG,    TG(_NUMPAD),UC_MAC,     X(LARR),    X(RARR),    DB_TOGG,    _______,                            KC_VOLU,    KC_MUTE,
         _______,    _______,    _______,                                    KC_MPLY,                                            KC_ASST,    _______,    KC_CPNL,    KC_MPRV,    KC_VOLD,    KC_MNXT
     )
 };

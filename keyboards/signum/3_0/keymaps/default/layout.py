@@ -398,7 +398,7 @@ qmk_dict = {
     "_sp_swp": "SHT(KC_SPC)",
     # Unicode support (via X()) included implicitly
     # Switching Unicode Input Modes
-    "UC_win": "UC_M_WC", "UC_lnx": "UC_M_LN", "UC_mac": "UC_M_MA",
+    "UC_win": "UC_WINC", "UC_lnx": "UC_LINX", "UC_mac": "UC_MAC",
 
     # custom keys
     "altF4": "LALT(KC_F4)",

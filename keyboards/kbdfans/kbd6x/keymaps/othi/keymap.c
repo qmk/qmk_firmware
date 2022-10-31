@@ -27,7 +27,7 @@
 
 //Unicode keymaps
 void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 }
 #define DE_ADIA     UC(0x00E4)
 #define DE_SS       UC(0x00DF)
