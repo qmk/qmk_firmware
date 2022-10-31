@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
 #pragma once
-#define USE_SERIAL
 #define MASTER_LEFT
 
 // Layers

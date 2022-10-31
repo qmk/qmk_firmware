@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_Q,   KC_D,    KC_R,    KC_W,     KC_B,                            KC_J,     KC_F,     KC_U,    KC_P,   KC_SCLN, KC_BSPC,
   KC_TAB,  KC_A,   KC_S,    KC_H,    KC_T,     KC_G,                            KC_Y,     KC_N,     KC_E,    KC_O,   KC_I,    KC_QUOT,
   KC_LSFT, KC_Z,   KC_X,    KC_M,    KC_C,     KC_V,     XXXXXXX,      KC_MUTE, KC_K,     KC_L,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-                   KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_ENT,       KC_SPC,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
+                   KC_LGUI, KC_LALT, KC_LCTL,  KC_LOWER, KC_ENT,       KC_SPC,  KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
 /*
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,                           KC_Y,       KC_U,     KC_I,    KC_O,   KC_P,    KC_BSPC,
   KC_TAB,  KC_A,   KC_S,    KC_D,    KC_F,     KC_G,                           KC_H,       KC_J,     KC_K,    KC_L,   KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,     XXXXXXX,     KC_MUTE, KC_N,       KC_M,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-                   KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
+                   KC_LGUI, KC_LALT, KC_LCTL,  KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
 /* MIDI
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, KC_ASTG,
+  _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, AS_TOGG,
   _______, _______, _______, _______, _______, _______,                         _______, _______, KC_UP,   _______, _______, KC_DEL,
   _______, _______, _______, _______, _______, _______,                         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_WORKMAN,
   _______, _______, _______, KC_MIDI, _______, _______, _______,       _______, _______, _______, KC_HOME, KC_END,  _______, KC_QWERTY,

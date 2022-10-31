@@ -70,71 +70,44 @@ When the ADC reads 900 or higher, the returned axis value will be -127, whereas 
 
 In this example, the first axis will be read from the `A4` pin while `B0` is set high and `A7` is set low, using `analogReadPin()`, whereas the second axis will not be read.
 
-In order to give a value to the second axis, you can do so in any customizable entry point: as an action, in `process_record_user()` or in `matrix_scan_user()`, or even in `joystick_task()` which is called even when no key has been pressed.
-You assign a value by writing to `joystick_status.axes[axis_index]` a signed 8-bit value (ranging from -127 to 127). Then it is necessary to assign the flag `JS_UPDATED` to `joystick_status.status` in order for an updated HID report to be sent.
+#### Virtual Axes
 
-The following example writes two axes based on keypad presses, with `KC_P5` as a precision modifier:
+To give a value to virtual axes, call `joystick_set_axis(axis, value)`.
+
+The following example adjusts two virtual axes (X and Y) based on keypad presses, with `KC_P5` as a precision modifier:
 
 ```c
-#ifdef ANALOG_JOYSTICK_ENABLE
-static uint8_t precision_val = 70;
-static uint8_t axesFlags = 0;
-enum axes {
-    Precision = 1,
-    Axis1High = 2,
-    Axis1Low = 4,
-    Axis2High = 8,
-    Axis2Low = 16
+joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+    [0] = JOYSTICK_AXIS_VIRTUAL, // x
+    [1] = JOYSTICK_AXIS_VIRTUAL  // y
 };
-#endif
+
+static bool precision = false;
+static uint16_t precision_mod = 64;
+static uint16_t axis_val = 127;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
-#ifdef ANALOG_JOYSTICK_ENABLE
-        // virtual joystick
-#    if JOYSTICK_AXES_COUNT > 1
+    int16_t precision_val = axis_val;
+    if (precision) {
+        precision_val -= precision_mod;
+    }
+
+    switch (keycode) {
         case KC_P8:
-            if (record->event.pressed) {
-                axesFlags |= Axis2Low;
-            } else {
-                axesFlags &= ~Axis2Low;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
+            joystick_set_axis(1, record->event.pressed ? -precision_val : 0);
+            return false;
         case KC_P2:
-            if (record->event.pressed) {
-                axesFlags |= Axis2High;
-            } else {
-                axesFlags &= ~Axis2High;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
-#    endif
+            joystick_set_axis(1, record->event.pressed ? precision_val : 0);
+            return false;
         case KC_P4:
-            if (record->event.pressed) {
-                axesFlags |= Axis1Low;
-            } else {
-                axesFlags &= ~Axis1Low;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
+            joystick_set_axis(0, record->event.pressed ? -precision_val : 0);
+            return false;
         case KC_P6:
-            if (record->event.pressed) {
-                axesFlags |= Axis1High;
-            } else {
-                axesFlags &= ~Axis1High;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
+            joystick_set_axis(0, record->event.pressed ? precision_val : 0);
+            return false;
         case KC_P5:
-            if (record->event.pressed) {
-                axesFlags |= Precision;
-            } else {
-                axesFlags &= ~Precision;
-            }
-            joystick_status.status |= JS_UPDATED;
-            break;
-#endif
+            precision = record->event.pressed;
+            return false;
     }
     return true;
 }
@@ -146,9 +119,41 @@ By default, the resolution of each axis is 8 bit, giving a range of -127 to +127
 
 Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MCUs.
 
-### Triggering Joystick Buttons
+### Keycodes
 
-Joystick buttons are normal Quantum keycodes, defined as `JS_BUTTON0` to `JS_BUTTON31`, depending on the number of buttons you have configured.
-To trigger a joystick button, just add the corresponding keycode to your keymap.
+|Key                    |Aliases|Description|
+|-----------------------|-------|-----------|
+|`QK_JOYSTICK_BUTTON_0` |`JS_0` |Button 0   |
+|`QK_JOYSTICK_BUTTON_1` |`JS_1` |Button 1   |
+|`QK_JOYSTICK_BUTTON_2` |`JS_2` |Button 2   |
+|`QK_JOYSTICK_BUTTON_3` |`JS_3` |Button 3   |
+|`QK_JOYSTICK_BUTTON_4` |`JS_4` |Button 4   |
+|`QK_JOYSTICK_BUTTON_5` |`JS_5` |Button 5   |
+|`QK_JOYSTICK_BUTTON_6` |`JS_6` |Button 6   |
+|`QK_JOYSTICK_BUTTON_7` |`JS_7` |Button 7   |
+|`QK_JOYSTICK_BUTTON_8` |`JS_8` |Button 8   |
+|`QK_JOYSTICK_BUTTON_9` |`JS_9` |Button 9   |
+|`QK_JOYSTICK_BUTTON_10`|`JS_10`|Button 10  |
+|`QK_JOYSTICK_BUTTON_11`|`JS_11`|Button 11  |
+|`QK_JOYSTICK_BUTTON_12`|`JS_12`|Button 12  |
+|`QK_JOYSTICK_BUTTON_13`|`JS_13`|Button 13  |
+|`QK_JOYSTICK_BUTTON_14`|`JS_14`|Button 14  |
+|`QK_JOYSTICK_BUTTON_15`|`JS_15`|Button 15  |
+|`QK_JOYSTICK_BUTTON_16`|`JS_16`|Button 16  |
+|`QK_JOYSTICK_BUTTON_17`|`JS_17`|Button 17  |
+|`QK_JOYSTICK_BUTTON_18`|`JS_18`|Button 18  |
+|`QK_JOYSTICK_BUTTON_19`|`JS_19`|Button 19  |
+|`QK_JOYSTICK_BUTTON_20`|`JS_20`|Button 20  |
+|`QK_JOYSTICK_BUTTON_21`|`JS_21`|Button 21  |
+|`QK_JOYSTICK_BUTTON_22`|`JS_22`|Button 22  |
+|`QK_JOYSTICK_BUTTON_23`|`JS_23`|Button 23  |
+|`QK_JOYSTICK_BUTTON_24`|`JS_24`|Button 24  |
+|`QK_JOYSTICK_BUTTON_25`|`JS_25`|Button 25  |
+|`QK_JOYSTICK_BUTTON_26`|`JS_26`|Button 26  |
+|`QK_JOYSTICK_BUTTON_27`|`JS_27`|Button 27  |
+|`QK_JOYSTICK_BUTTON_28`|`JS_28`|Button 28  |
+|`QK_JOYSTICK_BUTTON_29`|`JS_29`|Button 29  |
+|`QK_JOYSTICK_BUTTON_30`|`JS_30`|Button 30  |
+|`QK_JOYSTICK_BUTTON_31`|`JS_31`|Button 31  |
 
 You can also trigger joystick buttons in code with `register_joystick_button(button)` and `unregister_joystick_button(button)`, where `button` is the 0-based button index (0 = button 1).

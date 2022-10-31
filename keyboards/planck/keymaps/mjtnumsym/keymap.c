@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  _______ , RESET,   _______, _______, _______, _______, _______, _______, _______, KC_PAUS, KC_PSCR, KC_DEL ,
+  _______ , QK_BOOT, _______, _______, _______, _______, _______, _______, _______, KC_PAUS, KC_PSCR, KC_DEL ,
   _______ , _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, MACSLEEP,  PLOVER, _______,
   _______ , MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
   BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -225,11 +225,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MACSLEEP:
       if (record->event.pressed) {
-          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_POWER);
+          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_PWR);
           register_code(KC_RSFT);
           register_code(KC_RCTL);
-          register_code(KC_POWER);
-          unregister_code(KC_POWER);
+          register_code(KC_PWR);
+          unregister_code(KC_PWR);
           unregister_code(KC_RCTL);
           unregister_code(KC_RSFT);
       }

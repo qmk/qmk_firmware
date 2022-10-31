@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6166  // af
-#define PRODUCT_ID 0x0010
-#define DEVICE_VER 0x0001
-#define MANUFACTURER elagil
-#define PRODUCT Polilla
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12

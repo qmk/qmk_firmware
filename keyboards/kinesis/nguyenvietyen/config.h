@@ -1,9 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0x6060
-#define DEVICE_VER 0x0003
-
 /* key matrix size */
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 8

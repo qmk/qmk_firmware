@@ -31,7 +31,6 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 3
 
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_LED_PROCESS_LIMIT 4
@@ -40,7 +39,7 @@
 #define DRIVER_ADDR_1 0b0110000
 #define DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 61
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0
 
 // For full list of effects, see:

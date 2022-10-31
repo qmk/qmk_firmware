@@ -50,7 +50,7 @@ enum combos {
 
 const uint16_t PROGMEM slashDown_combo[] = {KC_SLSH, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM slashUp_combo[] = {KC_SLSH, KC_UP, COMBO_END};
-const uint16_t PROGMEM raltBackspace_combo[] = {KC_RALT, KC_BSPACE, COMBO_END};
+const uint16_t PROGMEM raltBackspace_combo[] = {KC_RALT, KC_BSPC, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [SLSHDN_PGDN] = COMBO(slashDown_combo, KC_PGDN),

@@ -5,16 +5,12 @@
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT_ortho_1x1(JS_BUTTON0)
+    LAYOUT_ortho_1x1(JS_0)
 };
 
 void matrix_scan_user() {
     int16_t val = (((uint32_t)timer_read() % 5000 - 2500) * 255) / 5000;
-
-    if (val != joystick_status.axes[1]) {
-        joystick_status.axes[1] = val;
-        joystick_status.status |= JS_UPDATED;
-    }
+    joystick_set_axis(1, val);
 }
 
 // Joystick config

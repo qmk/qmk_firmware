@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 4: Numlock
  *
  * ,--------------------------------------------------.         ,--------------------------------------------------.
- * | POWER  |SLEEP |      |MOUSE3|      |      | RESET|         |RESET |SCROL | NUML |  /   |  *   |  -   |        |
+ * | POWER  |SLEEP |      |MOUSE3|      |      | QK_BOOT|         |QK_BOOT |SCROL | NUML |  /   |  *   |  -   |        |
  * |--------+------+------+------+------+-------------|         |------+------+------+------+------+------+--------|
  * |        |      |MOUSE1|MOUSEU|MOUSE2|SCROLU|      |         |      |      |  7   |  8   |  9   |  +   | ACCEL0 |
  * |--------+------+------+------+------+------|      |         |      |------+------+------+------+------+--------|
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               `--------------------'        `--------------------'
  */
   [4] = LAYOUT_ergodox(
-	KC_PWR,		KC_SLEP,	KC_TRNS,	KC_BTN3,	KC_TRNS,	KC_TRNS,	RESET,
+	KC_PWR,		KC_SLEP,	KC_TRNS,	KC_BTN3,	KC_TRNS,	KC_TRNS,	QK_BOOT,
 	KC_TRNS,	KC_TRNS,	KC_BTN1,	KC_MS_U,	KC_BTN2,	KC_WH_U,	KC_TRNS,
 	KC_TRNS,	KC_TRNS,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_D,
 	KC_TRNS,	KC_TRNS,	KC_ACL0,	KC_ACL1,	KC_ACL2,	KC_TRNS,	KC_TRNS,
@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 																			KC_MUTE,
 													KC_TRNS,	KC_TRNS,	KC_MYCM,
 
-	RESET,		KC_SLCK,	KC_NLCK,	KC_SLSH,	KC_ASTR,	KC_MINS,	KC_TRNS,
+	QK_BOOT,	KC_SCRL,	KC_NUM,		KC_SLSH,	KC_ASTR,	KC_MINS,	KC_TRNS,
 	KC_TRNS,	KC_TRNS,	KC_7,		KC_8,		KC_9,		KC_PLUS,	KC_ACL2,
 				KC_TRNS,	KC_4,		KC_5,		KC_6,		KC_PLUS,	KC_ACL1,
 	KC_TRNS,	KC_TRNS,	KC_1,		KC_2,		KC_3,		KC_ENT,		KC_ACL0,
@@ -243,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 							KC_LEFT,	KC_DOWN,	KC_RGHT,	KC_COMM,	TO(0),
 	KC_LALT,	KC_LCTL,
 	KC_PGUP,
-	KC_PGDOWN,	KC_BSPC,	KC_DEL
+	KC_PGDN,	KC_BSPC,	KC_DEL
   ),
 };
 

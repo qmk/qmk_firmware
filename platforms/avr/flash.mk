@@ -168,7 +168,8 @@ endef
 hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_HID_LUFA)
 
-flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+flash: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(SILENT) || printf "Flashing for bootloader: $(BLUE)$(BOOTLOADER)$(NO_COLOR)\n"
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)), caterina)
@@ -177,9 +178,9 @@ else ifeq ($(strip $(BOOTLOADER)), halfkay)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU)
-else ifneq (,$(filter $(BOOTLOADER), usbasploader USBasp))
+else ifeq ($(strip $(BOOTLOADER)), usbasploader)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_USBASP)
-else ifneq (,$(filter $(BOOTLOADER), bootloadhid bootloadHID))
+else ifeq ($(strip $(BOOTLOADER)), bootloadhid)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_BOOTLOADHID)
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HID_LUFA)

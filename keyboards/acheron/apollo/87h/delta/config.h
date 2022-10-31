@@ -38,14 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define EEPROM_I2C_24LC256
-//#define I2C1_CLOCK_SPEED 400000
-//#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
-
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 #define RGB_DI_PIN B15
-#define DRIVER_LED_TOTAL 87
+#define RGB_MATRIX_LED_COUNT 87
 
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
 #define WS2812_PWM_DRIVER PWMD1

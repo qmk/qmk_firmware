@@ -1,7 +1,13 @@
 {
     "keyboard_name": "GMMK V2 96 ISO",
+    "manufacturer": "Glorious",
     "url": "http://www.pcgamingrace.com",
     "maintainer": "GloriousThrall",
+    "usb": {
+        "vid": "0x320F",
+        "pid": "0x505A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

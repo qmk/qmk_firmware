@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * │Ctrl│Alt │Gui │        Space           │RAI│LOW│CAP│ ← │ ↓ │ → │
  * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
  */
-#define ____65_QWERTY______________ROW1    KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV
+#define ____65_QWERTY______________ROW1    QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV
 #define ____65_QWERTY______________ROW2    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL
 #define ____65_QWERTY______________ROW3    RAISE,   KC_A,    KC_S,    KC_D,    KC_F,    G_LWR,   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP
 #define ____65_QWERTY______________ROW4    KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN
@@ -91,8 +91,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define ____65_LOWER_______________ROW1    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ZZZZZ,   _______, _______
 #define ____65_LOWER_______________ROW2    _______, U_FRACT, U_ITALI, U_MONOS, U_NORML, U_SANSI, U_SANSN, U_SCRPT, _______, _______, KC_PSCR, _______, _______, _______, _______
-#define ____65_LOWER_______________ROW3    _______, _______, KC_SLCK, KC_PAUS, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______
-#define ____65_LOWER_______________ROW4    _______,          ZALGO  , _______, KC_CAPS, VRSN,    _______, KC_NLCK, _______, _______, _______, _______, _______, _______, _______
+#define ____65_LOWER_______________ROW3    _______, _______, KC_SCRL, KC_PAUS, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______
+#define ____65_LOWER_______________ROW4    _______,          ZALGO  , _______, KC_CAPS, VRSN,    _______, KC_NUM,  _______, _______, _______, _______, _______, _______, _______
 #define ____65_LOWER_______________ROW5    _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
 
 /* _ADJUST
@@ -110,12 +110,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define ____65_ADJUST______________ROW1    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______
 #define ____65_ADJUST______________ROW2    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______
-#define ____65_ADJUST______________ROW3    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          EEP_RST, _______
+#define ____65_ADJUST______________ROW3    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          EE_CLR,  _______
 #define ____65_ADJUST______________ROW4    _______,          _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, UC_MOD,  _______, _______
 #define ____65_ADJUST______________ROW5    _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
 
 #define ____65_ADJUST__________RGB_ROW2    _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, _______, _______, RESET,   _______
-#define ____65_ADJUST__________RGB_ROW3    _______, RGB_M_P, RGB_M_B, _______, _______, _______, _______, _______, _______, _______, _______, _______,          EEP_RST, _______
+#define ____65_ADJUST__________RGB_ROW3    _______, RGB_M_P, RGB_M_B, _______, _______, _______, _______, _______, _______, _______, _______, _______,          EE_CLR,  _______
 
 #define ____65_ADJUST___________BL_ROW2    _______, BL_TOGG, BL_BRTG, BL_STEP, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______
 

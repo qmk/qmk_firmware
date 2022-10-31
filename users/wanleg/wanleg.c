@@ -129,7 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		  #if defined(RGBLIGHT_ENABLE)
 		  rgblight_enable_noeeprom(); // enables Rgb, without saving settings
 		  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-		  rgblight_sethsv_noeeprom_red();
+		  rgblight_sethsv_noeeprom(HSV_RED);
 		  #endif
       }
       return true; // Let QMK send the press/release events as normal

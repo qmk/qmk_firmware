@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT( \
-    _______, RESET,   _______, _______, _______,   _______, _______,    DYN_REC_START1,  DYN_REC_START2,  _______,  KC_PSCR, _______, _______, \
+    _______, QK_BOOT, _______, _______, _______,   _______, _______,    DYN_REC_START1,  DYN_REC_START2,  _______,  KC_PSCR, _______, _______, \
     _______, _______, _______, _______, USEFNMODS, _______, _______,    DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, MACSLEEP, _______,          _______, \
     _______, _______, _______, _______, _______,   _______, USENUMMODS, _______,         _______,         _______,  _______,          _______, \
     XXXXXXX, _______, _______, XXXXXXX,            XXXXXXX,             _______,                          XXXXXXX, __MOD__,  __MOD__, XXXXXXX  \
@@ -104,11 +104,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case MACSLEEP:
         if (record->event.pressed)
         {
-            // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_POWER);
+            // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_PWR);
             register_code(KC_RSFT);
             register_code(KC_RCTL);
-            register_code(KC_POWER);
-            unregister_code(KC_POWER);
+            register_code(KC_PWR);
+            unregister_code(KC_PWR);
             unregister_code(KC_RCTL);
             unregister_code(KC_RSFT);
         }

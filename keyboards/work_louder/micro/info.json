@@ -22,7 +22,16 @@
     "processor": "atmega32u4",
     "rgblight": {
         "animations": {
-          "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         },
         "brightness_steps": 8,
         "hue_steps": 8,
@@ -30,7 +39,7 @@
         "max_brightness": 255,
         "saturation_steps": 8
     },
-    "url": "",
+    "url": "https://worklouder.cc/",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xE6E3",

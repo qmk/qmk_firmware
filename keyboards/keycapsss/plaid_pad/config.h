@@ -18,11 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7983
-#define PRODUCT_ID 0x5050 // "PP"
-#define MANUFACTURER Keycapsss
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4

@@ -215,7 +215,7 @@ static uint8_t key_separator_col = _KEY01;  //  (_KEY01 .. _KEY37).     By defau
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-            FN_MUTE,         MI_SUS,                             KC_VOLD, KC_VOLU,
+            FN_MUTE,         MI_SUS,
             MI_BENDU,
         SHIFT_L, SHIFT_R,    MI_C_2, MI_D_2, MI_E_2,  MI_Fs_2, MI_Ab_2, MI_Bb_2, MI_C_3, MI_D_3, MI_E_3, MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5,
             MI_BENDD,           MI_Db_2, MI_Eb_2, MI_F_2,  MI_G_2,  MI_A_2,  MI_B_2, MI_Db_3, MI_Eb_3, MI_F_3,  MI_G_3, MI_A_3,  MI_B_3, MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4
@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* 1 octave on the left side is ch2, others are ch1 (normal) */
     [_SEPALEFTOCT] = LAYOUT(
-            _______,          _______,                             _______, _______,
+            _______,          _______,
             _______,
         SHIFT_L, SHIFT_R,     YM_C_2, YM_D_2, YM_E_2,  YM_Fs_2, YM_Ab_2, YM_Bb_2,     MI_C_3, MI_D_3, MI_E_3, MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5,
             _______,             YM_Db_2, YM_Eb_2, YM_F_2,  YM_G_2,  YM_A_2,  YM_B_2,     MI_Db_3, MI_Eb_3, MI_F_3,  MI_G_3, MI_A_3,  MI_B_3, MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Half ch2, half ch1 (normal) */
     [_SEPAHALF] = LAYOUT(
-            _______,           _______,                             _______, _______,
+            _______,           _______,
             _______,
         SHIFT_L, SHIFT_R,      YM_C_2, YM_D_2, YM_E_2,  YM_Fs_2, YM_Ab_2, YM_Bb_2, YM_C_3, YM_D_3, YM_E_3,       MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5,
             _______,               YM_Db_2, YM_Eb_2, YM_F_2,  YM_G_2,  YM_A_2,  YM_B_2, YM_Db_3, YM_Eb_3, YM_F_3,    MI_G_3, MI_A_3,  MI_B_3, MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4
@@ -239,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* 2 octave on the left side is ch2, others are ch1 (normal) */
     [_SEPARIGHTOCT] = LAYOUT(
-            _______,           _______,                             _______, _______,
+            _______,           _______,
             _______,
         SHIFT_L, SHIFT_R,      YM_C_2, YM_D_2, YM_E_2,  YM_Fs_2, YM_Ab_2, YM_Bb_2, YM_C_3, YM_D_3, YM_E_3, YM_Fs_3, YM_Ab_3, YM_Bb_3,      MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5,
             _______,               YM_Db_2, YM_Eb_2, YM_F_2,  YM_G_2,  YM_A_2,  YM_B_2, YM_Db_3, YM_Eb_3, YM_F_3,  YM_G_3, YM_A_3,  YM_B_3,     MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4
@@ -247,7 +247,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* TRANS   This layer must locate 1 layer below _FN layer. */
     [_TRANS] = LAYOUT(
-            _______,           _______,                             _______, _______,
+            _______,           _______,
             _______,
         MI_TRNSD, MI_TRNSU,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
             _______,               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -255,7 +255,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Flip Base    SFIFTUP and SHIFT_L are swapped. */
     [_FLIPBASE] = LAYOUT(
-            FN_MUTE,          MI_SUS,                             KC_VOLD, KC_VOLU,
+            FN_MUTE,          MI_SUS,
             MI_BENDU,
         SHIFT_L, SHIFT_R,     MI_C_5, MI_Bb_4, MI_Ab_4,  MI_Fs_4, MI_E_4, MI_D_4, MI_C_4, MI_Bb_3, MI_Ab_3, MI_Fs_3, MI_E_3, MI_D_3, MI_C_3,  MI_Bb_2,  MI_Ab_2, MI_Fs_2, MI_E_2, MI_D_2, MI_C_2,
             MI_BENDD,           MI_B_4, MI_A_4, MI_G_4,  MI_F_4,  MI_Eb_4,  MI_Db_4, MI_B_3, MI_A_3, MI_G_3,  MI_F_3, MI_Eb_3,  MI_Db_3, MI_B_2, MI_A_2, MI_G_2,  MI_F_2,  MI_Eb_2,  MI_Db_2
@@ -263,19 +263,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Flip Trans   This layer must locate 1 layer above _FLIPBASE layer.  MI_TRNSU and MI_TRNSD are swapped. */
     [_FLIPTRANS] = LAYOUT(
-            _______,          _______,                             _______, _______,
+            _______,          _______,
             _______,
         MI_TRNSU, MI_TRNSD,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
             _______,               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
     [_FN] =  LAYOUT(
-            _______,          XXXXXXX,                             RGB_RMOD, RGB_MOD,
+            _______,          XXXXXXX,
             MI_VELU,
         MI_OCTD, MI_OCTU,     B_BASE,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_LEFT, XXXXXXX, XXXXXXX, B_CENTER, XXXXXXX, XXXXXXX, B_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, XXXXXXX, B_FLIP,
-            MI_VELD,               TGLINTR, TGLTRNS, TGLCHGR, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EEP_RST, TGLINDI, RGB_TOG
+            MI_VELD,               TGLINTR, TGLTRNS, TGLCHGR, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EE_CLR, TGLINDI, RGB_TOG
     )
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE]         = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_SEPALEFTOCT]  = { ENCODER_CCW_CW(_______, _______)  },
+    [_SEPAHALF]     = { ENCODER_CCW_CW(_______, _______)  },
+    [_SEPARIGHTOCT] = { ENCODER_CCW_CW(_______, _______)  },
+    [_TRANS]        = { ENCODER_CCW_CW(_______, _______)  },
+    [_FLIPBASE]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_FLIPTRANS]    = { ENCODER_CCW_CW(_______, _______)  },
+    [_FN]           = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+};
+#endif
+
 
 // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
 void my_init(void){
@@ -580,7 +594,7 @@ void set_led_scale_indicator(uint8_t r, uint8_t g, uint8_t b) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     // uint32_t mode = rgblight_get_mode();
 
     if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
@@ -680,5 +694,6 @@ void rgb_matrix_indicators_user(void) {
                 break;
         }
     }
+    return false;
 }
 #endif  // RGB_MATRIX_ENABLE

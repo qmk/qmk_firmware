@@ -65,7 +65,7 @@
  * `----------------------------------' `----------------------------------'
  */
  // NOTE: The "BACKLIT" keycode is planck specific
-#define __ADJUST_L1________________________________ RESET,   DEBUG,   XXXXXXX, TERM_ON, TERM_OFF
+#define __ADJUST_L1________________________________ RESET,   DB_TOGG, XXXXXXX, XXXXXXX, XXXXXXX
 #define __ADJUST_L2________________________________ RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD
 #define __ADJUST_L3________________________________ XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX
 

@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   KC_H,          KC_N,          KC_E,     KC_I,            KC_O,             KC_QUOT,
   KC_RCBR,        RALT_T(KC_K),  KC_M,          KC_COMM,  LGUI_T(KC_DOT),  RCTL_T(KC_SLSH),  KC_RSFT,
                                  KC_LEFT,       KC_DOWN,  KC_UP,           KC_RGHT,          KC_DEL,
-  KC_INS,  KC_SLCK,
+  KC_INS,  KC_SCRL,
   KC_PGUP,
   KC_PGDN, KC_SPC, MO(LAYER_RNUM)
 ),
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   S(KC_H),       S(KC_N),       S(KC_E),    S(KC_I),    S(KC_O),     S(KC_QUOT),
   KC_RCBR,        S(KC_K),       S(KC_M),       S(KC_COMM), S(KC_DOT),  S(KC_SLSH),  KC_RSFT,
                                  S(KC_LEFT),    S(KC_DOWN), S(KC_UP),   S(KC_RGHT),  S(KC_DEL),
-  S(KC_INS),  S(KC_SLCK),
+  S(KC_INS),  S(KC_SCRL),
   S(KC_PGUP),
   S(KC_PGDN), S(KC_SPC), KC_CAPS
 ),

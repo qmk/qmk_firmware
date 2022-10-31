@@ -179,9 +179,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Special functions: _SP
  *
  *     ,-------------------------------------------.                            ,-------------------------------------------.
- *     |        |QWERTY|      |      | RESET|      |                            |      |      |      |      |      |        |
+ *     |        |QWERTY|      |      | QK_BOOT|      |                            |      |      |      |      |      |        |
  *     |--------+------+------+------+------+------|                            |------+------+------+------+------+--------|
- *     |        |      |      | DEBUG|      |      |                            |      |      |      |      |      |        |
+ *     |        |      |      | Debug|      |      |                            |      |      |      |      |      |        |
  *     |--------+------+------+------+------+------|                            |------+------+------+------+------+--------|
  *     |        |      |      |COLEMK|      |      |                            |      |      |      |      |      |        |
  *     `------------------------⫟------⫟------⫟------⫟------.         ,-----⫟------⫟------⫟------⫟-------------------------'
@@ -191,9 +191,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_SP] = LAYOUT_split_3x6_4(
    //,-----------------------------------------------------.                            ,-----------------------------------------------------.
-       XXXXXXX,   QWERT, XXXXXXX, XXXXXXX,   RESET, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX,   QWERT, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
-       XXXXXXX, XXXXXXX, XXXXXXX,   DEBUG, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
        XXXXXXX, XXXXXXX, XXXXXXX,   COLEM, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    //|--------+--------+-----------⫟--------⫟--------⫟--------⫟--------.   .--------⫟--------⫟--------⫟--------⫟-----------+--------+--------|

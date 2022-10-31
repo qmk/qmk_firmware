@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x16C0
-#define PRODUCT_ID 0x27DB
-#define DEVICE_VER 0x0001
-#define MANUFACTURER IBM/Purdea Andrei
-#define PRODUCT IBM Model M (4th generation)
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
 /* key matrix size */

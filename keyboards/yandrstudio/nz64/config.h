@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAAF
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Y&R
-#define PRODUCT         nz64
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -44,7 +37,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_DI_PIN A7
 #   define RGBLED_NUM 82
-#   define DRIVER_LED_TOTAL RGBLED_NUM
+#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2
@@ -112,7 +105,7 @@
 #ifdef RGBLIGHT_ENABLE
 #   define RGB_DI_PIN A7
 #   define RGBLED_NUM 82
-#   define DRIVER_LED_TOTAL RGBLED_NUM
+#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2

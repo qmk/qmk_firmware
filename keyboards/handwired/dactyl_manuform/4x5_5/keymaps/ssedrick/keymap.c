@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LCBR, KC_RCBR,                                              KC_QUOT, KC_GRV,
                                    SH_ESC,                             KC_ENT,
                                    KC_LGUI, KC_TAB,           KC_RSFT, KC_SPC,
-                                   RAISE,   KC_LCTRL,         KC_BSPC, LOWER
+                                   RAISE,   KC_LCTL,          KC_BSPC, LOWER
     ),
    
     /* Colemak
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LCBR, KC_RCBR,                                              KC_QUOT, KC_GRV,
                                    SH_ESC,                             KC_ENT,
                                    KC_LGUI, KC_TAB,           KC_RSFT, KC_SPC,
-                                   RAISE,   KC_LCTRL,         KC_BSPC, LOWER
+                                   RAISE,   KC_LCTL,          KC_BSPC, LOWER
     ),
     /*  RAISE
      * ,----------------------------------,                  ,----------------------------------,
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------|                  |------+------+------+------+------|
      * |   (  |   )  |   [  |   ]  |   =  |                  |   _  |   4  |   5  |   6  |   ;  |
      * |------+------+------+------+------|                  |------+------+------+------+------|
-     * | RESET| BOOT |      |      |      |                  |      |   1  |   2  |   3  |      |
+     * | QK_BOOT| BOOT |      |      |      |                  |      |   1  |   2  |   3  |      |
      * |------+------+------+-------------|                  |------+------+------+------+------,
      *        |MAC_LC|      |                                              |   0  |   .  |
      *        '-------------+------,                                ,------|-------------'

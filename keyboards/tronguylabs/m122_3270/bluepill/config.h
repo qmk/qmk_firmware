@@ -24,6 +24,3 @@
 // rows are inputs). Note that every usable I/O pin is used.
 #define MATRIX_COL_PINS { B1, B10, B11, B12, B13, B14, B15, A8, B0, A10, A7, A6, A15, B3, B4, B5, B6, B7, B8, B9 }
 #define MATRIX_ROW_PINS { C13, C14, C15, A1, A2, A3, A4, A5 }
-
-// The BluePill version is version 3
-#define DEVICE_VER      0x0003

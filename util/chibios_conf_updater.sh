@@ -12,11 +12,14 @@ umask 022
 #   wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
 #   sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 #   sudo apt-get update && sudo apt-get install adoptopenjdk-8-hotspot
-
+#
+# For Fedora 36-ish distros:
+#  # Prep yum repository from https://adoptium.net/installation/linux/
+#  sudo dnf install -y ant temurin-8-jdk
+#  export JAVA_HOME=/usr/lib/jvm/temurin-8-jdk
 
 sinfo() { echo "$@" >&2 ; }
 shead() { sinfo "" ; sinfo "---------------------------------" ; sinfo "-- $@" ; sinfo "---------------------------------" ; }
-havecmd()  { command command type "${1}" >/dev/null 2>&1 || return 1 ; }
 
 this_script="$(realpath "${BASH_SOURCE[0]}")"
 script_dir="$(realpath "$(dirname "$this_script")")"
@@ -31,7 +34,7 @@ build_fmpp() {
         || { mkdir "$script_dir/fmpp" && tar xf "$script_dir/fmpp.tar.gz" -C "$script_dir/fmpp" --strip-components=1 ; }
     pushd "$script_dir/fmpp" >/dev/null 2>&1
     sed -e "s#bootclasspath.path=.*#bootclasspath.path=$(find /usr/lib/jvm -name 'rt.jar' | sort | tail -n1)#g" \
-        -e "s#ant.jar.path=.*#ant.jar.path=$(find /usr/share/java -name 'ant-1*.jar' | sort | tail -n1)#g" \
+        -e "s#ant.jar.path=.*#ant.jar.path=$(find /usr/share/java -name 'ant-1*.jar' -or -name 'ant.jar' | sort | tail -n1)#g" \
         build.properties.sample > build.properties
     sed -e 's#source="1.5"#source="1.8"#g' \
         -e 's#target="1.5"#target="1.8"#g' \
@@ -98,7 +101,8 @@ upgrade_mcuconf_files() {
     popd >/dev/null 2>&1
 }
 
-havecmd fmpp || build_fmpp
+hash -r
+[[ -n "$(which fmpp 2>/dev/null)" ]] || build_fmpp
 
 upgrade_mcuconf_files
 upgrade_chconf_files

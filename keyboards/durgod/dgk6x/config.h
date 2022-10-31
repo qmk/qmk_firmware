@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xD60D
-#define MANUFACTURER    Hoksi Technology
-
 #define WAIT_US_TIMER           GPTD3
 
 /* COL2ROW, ROW2COL*/
@@ -66,7 +62,7 @@
 #define DRIVER_ADDR_2 0b1010011
 
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* I2C Alternate function settings */
 #define I2C1_SCL_PAL_MODE 1

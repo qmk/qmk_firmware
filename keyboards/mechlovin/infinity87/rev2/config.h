@@ -16,10 +16,6 @@
 
 #pragma once
 
-#define PRODUCT_ID  0x8702
-#define DEVICE_VER  0x0001
-#define PRODUCT     Infinity87 rev.2
-
 /*
  * Keyboard Matrix Assignments
  *

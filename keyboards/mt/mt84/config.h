@@ -52,7 +52,7 @@
     #define DRIVER_COUNT 2
 	#define DRIVER_1_LED_TOTAL 44
 	#define DRIVER_2_LED_TOTAL 40
-	#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+	#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
  // RGB Matrix Animation modes. Explicitly enabled
  // For full list of effects, see:
@@ -107,7 +107,6 @@
 
 #define RGB_DI_PIN B0
 #ifdef RGB_DI_PIN
- //    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #    define RGBLIGHT_EFFECT_BREATHING

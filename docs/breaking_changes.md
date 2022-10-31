@@ -8,6 +8,7 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## What has been included in past Breaking Changes?
 
+* [2022 Aug 27](ChangeLog/20220827.md)
 * [2022 May 28](ChangeLog/20220528.md)
 * [2022 Feb 26](ChangeLog/20220226.md)
 * [2021 Nov 27](ChangeLog/20211127.md)
@@ -22,18 +23,18 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for August 27, 2022.
+The next Breaking Change is scheduled for November 26, 2022.
 
 ### Important Dates
 
-* 2022 May 28 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2022 Jul 31 - `develop` closed to new PR's.
-* 2022 Jul 31 - Call for testers.
-* 2022 Aug 13 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2022 Aug 20 - `develop` is locked, only critical bugfix PR's merged.
-* 2022 Aug 25 - `master` is locked, no PR's merged.
-* 2022 Aug 27 - Merge `develop` to `master`.
-* 2022 Aug 27 - `master` is unlocked. PR's can be merged again.
+* 2022 Aug 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2022 Oct 29 - `develop` closed to new PR's.
+* 2022 Oct 29 - Call for testers.
+* 2022 Nov 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2022 Nov 19 - `develop` is locked, only critical bugfix PR's merged.
+* 2022 Nov 24 - `master` is locked, no PR's merged.
+* 2022 Nov 26 - Merge `develop` to `master`.
+* 2022 Nov 26 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
@@ -44,7 +45,7 @@ If you want your breaking change to be included in this round you need to create
 Criteria for acceptance:
 
 * The PR is complete and ready to merge
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20220827`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20221126`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PR's ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
@@ -110,7 +111,7 @@ This happens immediately after the previous `develop` branch is merged to `maste
     * `git pull --ff-only`
     * `git merge --no-ff master`
     * Edit `readme.md`
-        * Add a big notice at the top that this is a testing branch.
+        * Add a big notice at the top that this is a testing branch. See previous revisions of the `develop` branch.
         * Include a link to this document
     * `git commit -m 'Branch point for <DATE> Breaking Change'`
     * `git tag breakpoint_<YYYY>_<MM>_<DD>`
@@ -121,14 +122,18 @@ This happens immediately after the previous `develop` branch is merged to `maste
     * Validate each submodule SHA1 matches the qmk fork, e.g. for ChibiOS:
         * Go to [qmk/ChibiOS](https://github.com/qmk/ChibiOS)
         * Compare the commit hash in the above output to the commit hash in the repository
-        * If there's a mismatch:
+        * If there's a mismatch, that repository needs to have its `master` branch updated to match (otherwise Configurator won't work):
             * `cd lib/chibios`
             * `git fetch --all`
             * `git checkout master`
             * `git reset --hard <commit hash>`
             * `git push origin master --force-with-lease`
 
+* Announce that both `master` and `develop` are now unlocked -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
+    * `@Breaking Changes Updates -- Hey folks, develop has now been merged into master -- newest batch of changes are now available for everyone to use!`
+
 * (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)
+
 
 ### Set up Discord events for the next cycle
 

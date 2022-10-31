@@ -119,8 +119,6 @@ The following input modes are available:
 
   !> Using the _Unicode Hex Input_ input source may disable some Option-based shortcuts, such as Option+Left and Option+Right.
 
-  !> `UC_OSX` is a deprecated alias of `UC_MAC` that will be removed in future versions of QMK. All new keymaps should use `UC_MAC`.
-
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
@@ -205,6 +203,17 @@ The functions for starting and finishing Unicode input on your platform can be o
 * `void unicode_input_finish(void)` – This is called to exit Unicode input mode, for example by pressing Space or releasing the Alt key.
 
 You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
+
+### Input Mode Callbacks
+
+There are callbacks functions available that are called whenever the unicode input mode changes. The new input mode is passed to the function.
+
+|Callback                                           |Description                                          |
+|---------------------------------------------------|-----------------------------------------------------|
+| `unicode_input_mode_set_kb(uint8_t input_mode)`   | Callback for unicode input mode set, for keyboard.  |
+| `unicode_input_mode_set_user(uint8_t input_mode)` | Callback for unicode input mode set, for users.     |
+
+This feature can be used, for instance, to implement LED indicators for the current unicode input mode.
 
 ### Input Key Configuration
 

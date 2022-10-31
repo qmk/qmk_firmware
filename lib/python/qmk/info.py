@@ -110,14 +110,7 @@ def info_json(keyboard):
 def _extract_features(info_data, rules):
     """Find all the features enabled in rules.mk.
     """
-    # Special handling for bootmagic which also supports a "lite" mode.
-    if rules.get('BOOTMAGIC_ENABLE') == 'lite':
-        rules['BOOTMAGIC_LITE_ENABLE'] = 'on'
-        del rules['BOOTMAGIC_ENABLE']
-    if rules.get('BOOTMAGIC_ENABLE') == 'full':
-        rules['BOOTMAGIC_ENABLE'] = 'on'
-
-    # Process the rest of the rules as booleans
+    # Process booleans rules
     for key, value in rules.items():
         if key.endswith('_ENABLE'):
             key = '_'.join(key.split('_')[:-1]).lower()
@@ -377,7 +370,7 @@ def _extract_split_right_pins(info_data, config_c):
     direct_pins = config_c.get('DIRECT_PINS_RIGHT', '').replace(' ', '')[1:-1]
 
     if row_pins or col_pins or direct_pins:
-        if info_data.get('split', {}).get('matrix_pins', {}).get('right') in info_data:
+        if info_data.get('split', {}).get('matrix_pins', {}).get('right', None):
             _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
 
         if 'split' not in info_data:
@@ -444,19 +437,6 @@ def _extract_matrix_info(info_data, config_c):
     return info_data
 
 
-# TODO: kill off usb.device_ver in favor of usb.device_version
-def _extract_device_version(info_data):
-    if info_data.get('usb'):
-        if info_data['usb'].get('device_version') and not info_data['usb'].get('device_ver'):
-            (major, minor, revision) = info_data['usb']['device_version'].split('.', 3)
-            info_data['usb']['device_ver'] = f'0x{major.zfill(2)}{minor}{revision}'
-        if not info_data['usb'].get('device_version') and info_data['usb'].get('device_ver'):
-            major = int(info_data['usb']['device_ver'][2:4])
-            minor = int(info_data['usb']['device_ver'][4])
-            revision = int(info_data['usb']['device_ver'][5])
-            info_data['usb']['device_version'] = f'{major}.{minor}.{revision}'
-
-
 def _config_to_json(key_type, config_value):
     """Convert config value using spec
     """
@@ -486,7 +466,7 @@ def _config_to_json(key_type, config_value):
         return int(config_value)
 
     elif key_type == 'str':
-        return config_value.strip('"')
+        return config_value.strip('"').replace('\\"', '"').replace('\\\\', '\\')
 
     elif key_type == 'bcd_version':
         major = int(config_value[2:4])
@@ -542,7 +522,6 @@ def _extract_config_h(info_data, config_c):
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
     _extract_split_encoders(info_data, config_c)
-    _extract_device_version(info_data)
 
     return info_data
 
@@ -634,20 +613,24 @@ def _extract_led_config(info_data, keyboard):
     cols = info_data['matrix_size']['cols']
     rows = info_data['matrix_size']['rows']
 
-    # Assume what feature owns g_led_config
-    feature = "rgb_matrix"
-    if info_data.get("features", {}).get("led_matrix", False):
+    # Determine what feature owns g_led_config
+    features = info_data.get("features", {})
+    feature = None
+    if features.get("rgb_matrix", False):
+        feature = "rgb_matrix"
+    elif features.get("led_matrix", False):
         feature = "led_matrix"
 
-    # Process
-    for file in find_keyboard_c(keyboard):
-        try:
-            ret = find_led_config(file, cols, rows)
-            if ret:
-                info_data[feature] = info_data.get(feature, {})
-                info_data[feature]["layout"] = ret
-        except Exception as e:
-            _log_warning(info_data, f'led_config: {file.name}: {e}')
+    if feature:
+        # Process
+        for file in find_keyboard_c(keyboard):
+            try:
+                ret = find_led_config(file, cols, rows)
+                if ret:
+                    info_data[feature] = info_data.get(feature, {})
+                    info_data[feature]["layout"] = ret
+            except Exception as e:
+                _log_warning(info_data, f'led_config: {file.name}: {e}')
 
     return info_data
 
@@ -762,9 +745,6 @@ def arm_processor_rules(info_data, rules):
     info_data['processor_type'] = 'arm'
     info_data['protocol'] = 'ChibiOS'
 
-    if 'bootloader' not in info_data:
-        info_data['bootloader'] = 'unknown'
-
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
     elif 'MCU_SERIES' in rules:
@@ -781,9 +761,6 @@ def avr_processor_rules(info_data, rules):
     info_data['processor_type'] = 'avr'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
     info_data['protocol'] = 'V-USB' if rules.get('MCU') in VUSB_PROCESSORS else 'LUFA'
-
-    if 'bootloader' not in info_data:
-        info_data['bootloader'] = 'atmel-dfu'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
     # info_data['protocol'] = 'V-USB' if rules.get('PROTOCOL') == 'VUSB' else 'LUFA'

@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B4B // "KK"
-#define PRODUCT_ID      0x1225
-#define DEVICE_VER      0x0011
-#define MANUFACTURER    Kingly-Keys
-#define PRODUCT         The Ave.
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 13

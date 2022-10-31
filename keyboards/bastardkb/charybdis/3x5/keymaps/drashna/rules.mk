@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F411
+BOARD = BLACKPILL_STM32_F411
 
 # Bootloader selection
 # BOOTLOADER = stm32-dfu
@@ -22,6 +23,6 @@ MOUSEKEY_ENABLE = yes
 NKRO_ENABLE = yes
 CONSOLE_ENABLE = yes
 
-AUTOCORRECTION_ENABLE = yes
+AUTOCORRECT_ENABLE = yes
 
 DEBOUNCE_TYPE = asym_eager_defer_pk

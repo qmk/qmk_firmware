@@ -1,12 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1120
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DZ60RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -31,7 +24,6 @@
 #define DEBOUNCE 3
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
@@ -88,5 +80,5 @@
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 63
+#    define RGB_MATRIX_LED_COUNT 63
 #endif

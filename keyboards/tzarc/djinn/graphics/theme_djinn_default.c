@@ -89,8 +89,8 @@ void keyboard_post_init_display(void) {
 
 //----------------------------------------------------------
 // UI Drawing
-void draw_ui_user(void) {
-    bool            hue_redraw = false;
+void draw_ui_user(bool force_redraw) {
+    bool            hue_redraw = force_redraw;
     static uint16_t last_hue   = 0xFFFF;
 #if defined(RGB_MATRIX_ENABLE)
     uint16_t curr_hue = rgb_matrix_get_hue();

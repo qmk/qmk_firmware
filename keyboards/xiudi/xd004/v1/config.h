@@ -25,14 +25,6 @@ where some things are disabled to save space as well.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID  0x7844 // "XD"
-#define PRODUCT_ID 0x0404
-#define DEVICE_VER 0x0001
-// Note: unsure about manufacturer
-#define MANUFACTURER XIUDI
-#define PRODUCT XD004 v1
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 4

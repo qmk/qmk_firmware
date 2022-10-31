@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0001
-#define VENDOR_ID 0x320F
-#define MANUFACTURER Glorious
-
-#define PRODUCT GMMK 2 96
-
 /* key matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 8
@@ -68,7 +61,7 @@
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 54
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

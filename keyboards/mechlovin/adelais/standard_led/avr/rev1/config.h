@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define PRODUCT_ID   0xAD04
-#define PRODUCT      Adelais AVR
 /*
  * Keyboard Matrix Assignments
  *

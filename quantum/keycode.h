@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IS_SPECIAL(code) ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
 #define IS_SYSTEM(code) (KC_PWR <= (code) && (code) <= KC_WAKE)
-#define IS_CONSUMER(code) (KC_MUTE <= (code) && (code) <= KC_BRID)
+#define IS_CONSUMER(code) (KC_MUTE <= (code) && (code) <= KC_ASST)
 
 #define IS_MOUSEKEY(code) (KC_MS_UP <= (code) && (code) <= KC_MS_ACCEL2)
 #define IS_MOUSEKEY_MOVE(code) (KC_MS_UP <= (code) && (code) <= KC_MS_RIGHT)
@@ -205,6 +205,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_MRWD KC_MEDIA_REWIND
 #define KC_BRIU KC_BRIGHTNESS_UP
 #define KC_BRID KC_BRIGHTNESS_DOWN
+#define KC_CPNL KC_CONTROL_PANEL
+#define KC_ASST KC_ASSISTANT
 
 /* System Specific */
 #define KC_BRMU KC_PAUSE
@@ -502,7 +504,9 @@ enum internal_special_keycodes {
     KC_MEDIA_FAST_FORWARD,
     KC_MEDIA_REWIND,
     KC_BRIGHTNESS_UP,
-    KC_BRIGHTNESS_DOWN
+    KC_BRIGHTNESS_DOWN,
+    KC_CONTROL_PANEL,
+    KC_ASSISTANT // 0xC0
 };
 
 enum mouse_keys {
@@ -510,11 +514,11 @@ enum mouse_keys {
 #ifdef VIA_ENABLE
     KC_MS_UP = 0xF0,
 #else
-    KC_MS_UP = 0xED,
+    KC_MS_UP = 0xCD,
 #endif
     KC_MS_DOWN,
     KC_MS_LEFT,
-    KC_MS_RIGHT, // 0xF0
+    KC_MS_RIGHT,
     KC_MS_BTN1,
     KC_MS_BTN2,
     KC_MS_BTN3,
@@ -539,7 +543,5 @@ enum mouse_keys {
     /* Acceleration */
     KC_MS_ACCEL0,
     KC_MS_ACCEL1,
-    KC_MS_ACCEL2 // 0xFF
+    KC_MS_ACCEL2 // 0xDF, or 0xFF if via enabled
 };
-
-#include "keycode_legacy.h"

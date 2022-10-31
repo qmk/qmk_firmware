@@ -195,6 +195,8 @@ _Static_assert(KC_MFFD                == 0x00BB, "");
 _Static_assert(KC_MRWD                == 0x00BC, "");
 _Static_assert(KC_BRIU                == 0x00BD, "");
 _Static_assert(KC_BRID                == 0x00BE, "");
+_Static_assert(KC_CPNL                == 0x00BF, "");
+_Static_assert(KC_ASST                == 0x00C0, "");
 
 _Static_assert(KC_LEFT_CTRL           == 0x00E0, "");
 _Static_assert(KC_LEFT_SHIFT          == 0x00E1, "");
@@ -294,14 +296,14 @@ _Static_assert(RGB_M_X                == 0x5CD3, "");
 _Static_assert(RGB_M_G                == 0x5CD4, "");
 _Static_assert(RGB_M_T                == 0x5CD5, "");
 
-_Static_assert(KC_LSPO                == 0x5CD7, "");
-_Static_assert(KC_RSPC                == 0x5CD8, "");
-_Static_assert(KC_SFTENT              == 0x5CD9, "");
+_Static_assert(SC_LSPO                == 0x5CD7, "");
+_Static_assert(SC_RSPC                == 0x5CD8, "");
+_Static_assert(SC_SENT                == 0x5CD9, "");
 
-_Static_assert(KC_LCPO                == 0x5CF3, "");
-_Static_assert(KC_RCPC                == 0x5CF4, "");
-_Static_assert(KC_LAPO                == 0x5CF5, "");
-_Static_assert(KC_RAPC                == 0x5CF6, "");
+_Static_assert(SC_LCPO                == 0x5CF3, "");
+_Static_assert(SC_RCPC                == 0x5CF4, "");
+_Static_assert(SC_LAPO                == 0x5CF5, "");
+_Static_assert(SC_RAPC                == 0x5CF6, "");
 
 _Static_assert(FN_MO13                == 0x5F10, "");
 _Static_assert(FN_MO23                == 0x5F11, "");

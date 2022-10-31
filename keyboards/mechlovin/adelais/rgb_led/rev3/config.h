@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT_ID   0xAEC3
-#define PRODUCT      Adelais En Ciel Rev3
-
 #define MATRIX_ROW_PINS { A4, A3, C13, A1, A2}
 #define MATRIX_COL_PINS { B10, B11, B2, B1, B0, A6, A5, A10, A9, A15, B3, B4, B5, B8, B9 }
 
@@ -54,12 +51,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 0b1110110 AD <-> SDA
 #define DRIVER_ADDR_1 0b0110010
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 66
+#define RGB_MATRIX_LED_COUNT 66
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended

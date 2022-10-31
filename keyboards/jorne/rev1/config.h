@@ -2,14 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4753
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    joric
-#define PRODUCT         Jorne Keyboard
-
 /* key matrix size */
 /* Rows are doubled up */
 #define MATRIX_ROWS 8

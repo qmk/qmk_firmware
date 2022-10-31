@@ -10,6 +10,12 @@
             "bootloader": "atmel-dfu",
             "pin_compatible": "promicro"
         },
+        "elite_pi": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040",
+            "pin_compatible": "promicro"
+        },
         "proton_c": {
             "processor": "STM32F303",
             "bootloader": "stm32-dfu",
@@ -59,6 +65,12 @@
             "processor": "STM32F411",
             "bootloader": "tinyuf2",
             "board": "STEMCELL",
+            "pin_compatible": "promicro"
+        },
+        "bonsai_c4": {
+            "processor": "STM32F411",
+            "bootloader": "stm32-dfu",
+            "board": "GENERIC_STM32_F411XE",
             "pin_compatible": "promicro"
         }
     }

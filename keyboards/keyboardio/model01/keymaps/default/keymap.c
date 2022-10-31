@@ -103,10 +103,11 @@ static void set_numpad_colours(int on, void (*write)(int, uint8_t, uint8_t, uint
 /* the RGB matrix effects will overwrite the numpad indicator.
  * this handy mechanism allows to override the matrix effects.
  */
-void rgb_matrix_indicators_user(void) {
-  if (layer_state & (1<<NUM)) {
-    set_numpad_colours(1, &rgb_matrix_set_color);
-  }
+bool rgb_matrix_indicators_user(void) {
+    if (layer_state & (1 << NUM)) {
+        set_numpad_colours(1, &rgb_matrix_set_color);
+    }
+    return false;
 }
 #else   /* no RGB matrix support */
 

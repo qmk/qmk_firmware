@@ -48,10 +48,10 @@
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
 #   define ________________________ADJUST_L2________________________ RGBRST  , XXXXXXX , RGB_SPI , RGB_SAI , RGB_HUI , RGB_VAI
-#   define ________________________ADJUST_L3________________________ EEP_RST , XXXXXXX , RGB_SPD , RGB_SAD , RGB_HUD , RGB_VAD
+#   define ________________________ADJUST_L3________________________ EE_CLR  , XXXXXXX , RGB_SPD , RGB_SAD , RGB_HUD , RGB_VAD
 #else                                                                                                                
 #   define ________________________ADJUST_L2________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
-#   define ________________________ADJUST_L3________________________ EEP_RST , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
+#   define ________________________ADJUST_L3________________________ EE_CLR  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)

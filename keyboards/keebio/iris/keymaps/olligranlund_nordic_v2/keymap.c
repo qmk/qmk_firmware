@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
 	 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                			KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_EQL,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	   KC_TRNS,  KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_PGUP, KC_UP, KC_PGDOWN, KC_TRNS, KC_RBRC,
+	   KC_TRNS,  KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_PGUP, KC_UP, KC_PGDN,   KC_TRNS, KC_RBRC,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
 	   KC_TRNS, KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, KC_TRNS,                     		KC_TRNS, KC_LEFT,  KC_DOWN, KC_RGHT, KC_TRNS, KC_BSLS,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤

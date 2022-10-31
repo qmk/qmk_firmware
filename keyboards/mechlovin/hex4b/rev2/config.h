@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER   0x0002
-#define PRODUCT      Hex-4B Rev.2
-
-
-
 /*
  * Keyboard Matrix Assignments
  *
