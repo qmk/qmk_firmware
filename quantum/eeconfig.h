@@ -51,8 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_RGB_MATRIX_EXTENDED (uint16_t *)32
 
 // Size of EEPROM being used, other code can refer to this for available EEPROM
-// TODO: Reduce?
-#define EECONFIG_SIZE 35
+#define EECONFIG_SIZE 34
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
 #define EECONFIG_DEBUG_MATRIX (1 << 1)
