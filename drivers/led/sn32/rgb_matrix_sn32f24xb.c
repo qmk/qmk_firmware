@@ -287,7 +287,9 @@ static void shared_matrix_rgb_disable_pwm(void) {
 static void shared_matrix_rgb_disable_leds(void) {
     // Disable LED outputs on RGB channel pins
     for (uint8_t x = 0; x < LED_MATRIX_ROWS_HW; x++) {
-        writePinLow(led_row_pins[x]);
+        ATOMIC_BLOCK_FORCEON{
+            writePinLow(led_row_pins[x]);
+        }
     }
 }
 
@@ -360,7 +362,11 @@ static void rgb_callback(PWMDriver *pwmp) {
     }
 #endif // DIODE_DIRECTION == COL2ROW
     update_pwm_channels(pwmp);
-    if (enable_pwm) writePinHigh(led_row_pins[current_row]);
+    if (enable_pwm) {
+        ATOMIC_BLOCK_FORCEON {
+            writePinHigh(led_row_pins[current_row]);
+        }
+    }
     chSysLockFromISR();
     // Advance the timer to just before the wrap-around, that will start a new PWM cycle
     pwm_lld_change_counter(pwmp, 0xFFFF);
@@ -371,8 +377,10 @@ static void rgb_callback(PWMDriver *pwmp) {
 
 void SN32F24xB_init(void) {
     for (uint8_t x = 0; x < LED_MATRIX_ROWS_HW; x++) {
-        setPinOutput(led_row_pins[x]);
-        writePinLow(led_row_pins[x]);
+        ATOMIC_BLOCK_FORCEON {
+            setPinOutput(led_row_pins[x]);
+            writePinLow(led_row_pins[x]);
+        }
     }
     // Determine which PWM channels we need to control
     rgb_ch_ctrl(&pwmcfg);
