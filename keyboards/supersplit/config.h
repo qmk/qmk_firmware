@@ -35,10 +35,3 @@
 
 #define SOFT_SERIAL_PIN D2
 #define MASTER_LEFT
-
-
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 6
-
-#define MATRIX_ROW_PINS { D1, D0, D4, C6, D7, E6 }
-#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6 }
