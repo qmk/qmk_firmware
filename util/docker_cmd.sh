@@ -41,7 +41,7 @@ if [ ! "$(uname)" = "Linux" ] && [ "$RUNTIME" = "docker" ] && ! docker-machine a
     errcho "See http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos"
     exit 3
 else
-    usb_args="--privileged -v /dev:/dev"
+    usb_args="-v /dev:/dev"
 fi
 dir=$(pwd -W 2>/dev/null) || dir=$PWD  # Use Windows path if on Windows
 
@@ -51,6 +51,7 @@ fi
 
 # Run container and build firmware
 "$RUNTIME" run --rm -it \
+	--privileged \
 	$usb_args \
 	$uid_arg \
 	-w /qmk_firmware \
