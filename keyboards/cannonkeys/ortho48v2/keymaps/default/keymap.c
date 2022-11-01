@@ -21,9 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _BASE 0
-#define _RAISE 1
-#define _LOWER 2
+enum custom_layers {
+    _BASE,
+    _RAISE,
+    _LOWER,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
