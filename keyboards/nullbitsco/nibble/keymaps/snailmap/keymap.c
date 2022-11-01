@@ -16,73 +16,82 @@
 
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-    KC_CUST = SAFE_RANGE,
-};
-
+// clang-format off
 enum layer_names {
-    _MA,
-    _L1,
-    _L2,
-    _L3
+  _BASE,
+  _VIA1,
+  _VIA2,
+  _VIA3
 };
 
-// NOTE: Default keymap layers were designed for ANSI split-space layout  http://www.keyboard-layout-editor.com/#/gists/f28bd5ff4e62f69e89896df3a59671c6
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MA] = LAYOUT_ansi(
-                   KC_ESC,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,       KC_0,          KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,
-        KC_MUTE,   KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,       KC_P,          KC_LBRC, KC_RBRC, KC_BSLS, LCTL(KC_F),
-        KC_CAPS,   MO(_L2),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,       KC_SCLN,       KC_QUOT,          KC_ENT,  KC_CALC,
-        TG(_L2),   KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,     KC_SLSH,       KC_RSFT,          KC_UP,   KC_WHOM,
-        MO(_L3),   KC_LCTL,    KC_LGUI, KC_LALT,                   KC_SPC,                    MO(_L1), LCTL(KC_C), LCTL(KC_V),    KC_LEFT,          KC_DOWN, KC_RGHT
-    ),
-    [_L1] = LAYOUT_ansi(
-                   KC_GRAVE,   _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______, _______, _______, _______,
-        RGB_TOG,   _______,    _______, _______, _______, _______, _______, _______, KC_PGUP, KC_UP,   _______,    _______,       _______, _______, _______, _______,
-        _______,   LCTL(KC_Z), KC_LCTL, KC_LSFT, _______, _______, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,   KC_END,        _______,          _______, _______,
-        _______,   _______,    _______, _______, _______, _______, _______, _______, KC_PGDN, _______, _______,    LCTL(KC_SLSH), _______,          _______, _______,
-        _______,   _______,    _______, _______,                   _______,                   _______, LCTL(KC_X), _______,       _______,          _______, _______
-    ),
-    [_L2] = LAYOUT_ansi(
-                   KC_GRAVE,   _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______, _______, _______, _______,
-        RGB_TOG,   _______,    _______, _______, _______, _______, _______, KC_PAST, KC_7,    KC_8,    KC_9,       _______,       _______, _______, _______, _______,
-        _______,   _______,    _______, _______, _______, _______, _______, KC_PPLS, KC_4,    KC_5,    KC_6,       _______,       _______,          _______, _______,
-        _______,   _______,    _______, _______, _______, _______, _______, KC_PMNS, KC_1,    KC_2,    KC_3,       _______,       _______,          _______, _______,
-        _______,   _______,    _______, _______,                   KC_0,                      KC_PSLS, _______,    _______,       _______,          _______, _______
-    ),
-    [_L3] = LAYOUT_ansi(
-                 _______,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,      KC_F10,        KC_F11,  KC_F12,  _______, _______,
-        RGB_TOG, _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______, _______, _______, _______,
-        _______, _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______,          _______, _______,
-        KC_SYRQ, _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______,          _______, _______,
-        _______, _______,    _______, _______,                   _______,                   _______, _______,    _______,       _______,          _______, _______
-    )
+  [_BASE] = LAYOUT_all(
+              QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
+    KC_F13,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
+    KC_F14,   KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP,
+    KC_F15,   KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN,
+    KC_F16,   KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                  MO(_VIA1), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+  ),
+
+  [_VIA1] = LAYOUT_all(
+              QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, _______,  KC_END,
+    RGB_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______,                            _______,                   _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT
+  ),
+
+  [_VIA2] = LAYOUT_all(
+              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
+  ),
+
+  [_VIA3] = LAYOUT_all(
+              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
+  ),
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+  [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+  [_VIA1] = { ENCODER_CCW_CW(KC_NO, KC_NO)     },
+  [_VIA2] = { ENCODER_CCW_CW(KC_NO, KC_NO)     },
+  [_VIA3] = { ENCODER_CCW_CW(KC_NO, KC_NO)     }
+};
+#endif
+// clang-format on
 
 #ifdef OLED_ENABLE
 /*===========================================    OLED CONFIGURATION    ===========================================*/
-bool  oled_horizontal   = true;         // OLED rotation  (true = horizontal,  false = vertical)
-bool  ansi_layout       = true;         // ANSI or ISO layout  (true = ANSI,  false = ISO)
-bool  split_space       = true;         // Split spacebar  (true = split spacebar,  false = 6.25u or 7u spacebar)
-bool  three_mods_left   = true;         // Left mods layout  (true = 3x 1.25u keys,  false = 2x 1.5u keys)
-bool  three_mods_right  = false;        // Right mods layout  (true = 3x 1u keys,  false = 2x 1.5u keys)
-bool  graph_direction   = true;         // Graph movement  (true = right to left,  false = left to right)
-float graph_top_wpm     = 100.0;        // Minimum WPM required to reach the top of the graph
-int   graph_refresh     = 1000;         // In milliseconds, determines the graph-line frequency
-int   icon_med_wpm      = 50;           // WPM required to display the medium snail
-int   icon_fast_wpm     = 72;           // WPM required to display the fast snail
+bool  oled_horizontal  = true;  // OLED rotation  (true = horizontal,  false = vertical)
+bool  ansi_layout      = true;  // ANSI or ISO layout  (true = ANSI,  false = ISO)
+bool  split_space      = true;  // Split spacebar  (true = split spacebar,  false = 6.25u or 7u spacebar)
+bool  three_mods_left  = true;  // Left mods layout  (true = 3x 1.25u keys,  false = 2x 1.5u keys)
+bool  three_mods_right = false; // Right mods layout  (true = 3x 1u keys,  false = 2x 1.5u keys)
+bool  graph_direction  = true;  // Graph movement  (true = right to left,  false = left to right)
+float graph_top_wpm    = 100.0; // Minimum WPM required to reach the top of the graph
+int   graph_refresh    = 1000;  // In milliseconds, determines the graph-line frequency
+int   icon_med_wpm     = 50;    // WPM required to display the medium snail
+int   icon_fast_wpm    = 72;    // WPM required to display the fast snail
 // Layer names:  Should be exactly 5 characters in length if vertical display, or 6 characters if horizontal
-#define MA_LAYER_NAME     "QWERTY"      // Layer _MA name
-#define L1_LAYER_NAME     "ARROWS"      // Layer _L1 name
-#define L2_LAYER_NAME     "NUMPAD"      // Layer _L2 name
-#define L3_LAYER_NAME     "FUNCTN"      // Layer _L3 name
+#    define MA_LAYER_NAME "QWERTY" // Layer _BASE name
+#    define L1_LAYER_NAME "ARROWS" // Layer _VIA1 name
+#    define L2_LAYER_NAME "NUMPAD" // Layer _VIA2 name
+#    define L3_LAYER_NAME "FUNCTN" // Layer _VIA3 name
 /*================================================================================================================*/
-bool  first_loop  = true;
-int   timer       = 0;
-int   wpm_limit   = 20;
-int   max_wpm     = -1;
-int   wpm_icon    = -1;
-int   graph_lines[64];
+bool first_loop = true;
+int  timer      = 0;
+int  wpm_limit  = 20;
+int  max_wpm    = -1;
+int  wpm_icon   = -1;
+int  graph_lines[64];
 
 // Set OLED rotation
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -282,7 +291,7 @@ static void render_keymap(uint8_t key_row, uint8_t key_col, bool onoff) {
     }
     // Draw left and right walls (vertical for 5px)
     for (int y = 0; y < 5; y++) {
-        write_pixel(left,  top + y, onoff);
+        write_pixel(left, top + y, onoff);
         write_pixel(right, top + y, onoff);
     }
     // Special case 2 - Draw right spacebar on split-space layout
@@ -295,35 +304,35 @@ static void render_keymap(uint8_t key_row, uint8_t key_col, bool onoff) {
         }
         for (int y = 0; y < 5; y++) {
             write_pixel(start, top + y, onoff);
-            write_pixel(stop,  top + y, onoff);
+            write_pixel(stop, top + y, onoff);
         }
     }
 }
 
 // Write active layer name
 static void render_layer_state(void) {
-  if (oled_horizontal) {
-    oled_set_cursor(0, 0);
-  } else {
-    oled_set_cursor(0, 15);
-  }
-  switch (get_highest_layer(layer_state)) {
-  case _MA:
-      oled_write_P(PSTR(MA_LAYER_NAME), false);
-      break;
-  case _L1:
-      oled_write_P(PSTR(L1_LAYER_NAME), false);
-      break;
-  case _L2:
-      oled_write_P(PSTR(L2_LAYER_NAME), false);
-      break;
-  case _L3:
-      oled_write_P(PSTR(L3_LAYER_NAME), false);
-      break;
-  default:
-      oled_write("ERROR", false);
-      break;
-  }
+    if (oled_horizontal) {
+        oled_set_cursor(0, 0);
+    } else {
+        oled_set_cursor(0, 15);
+    }
+    switch (get_highest_layer(layer_state)) {
+        case _BASE:
+            oled_write_P(PSTR(MA_LAYER_NAME), false);
+            break;
+        case _VIA1:
+            oled_write_P(PSTR(L1_LAYER_NAME), false);
+            break;
+        case _VIA2:
+            oled_write_P(PSTR(L2_LAYER_NAME), false);
+            break;
+        case _VIA3:
+            oled_write_P(PSTR(L3_LAYER_NAME), false);
+            break;
+        default:
+            oled_write("ERROR", false);
+            break;
+    }
 }
 
 // Update WPM counters
@@ -344,7 +353,7 @@ static void render_wpm_counters(int current_wpm) {
     oled_write(wpm_counter, false);
 
     if (current_wpm > max_wpm) {
-        max_wpm = current_wpm;
+        max_wpm   = current_wpm;
         wpm_limit = max_wpm + 20;
         oled_set_cursor(0, cursorposition_max);
         oled_write(wpm_counter, false);
@@ -413,7 +422,7 @@ static void render_wpm_graph(int current_wpm) {
     // Draw all graph lines (left to right, bottom to top)
     int draw_count, arrpos;
     for (int x = 1; x <= 127; x += 2) {
-        arrpos = x / 2;
+        arrpos     = x / 2;
         draw_count = graph_lines[arrpos];
         for (int y = 31; y >= 25; y--) {
             if (draw_count > 0) {
@@ -462,13 +471,10 @@ bool oled_task_user(void) {
 
 // Called by QMK during key processing
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Forwards keystrokes from an external input device over UART/TRRS
-    process_record_remote_kb(keycode, record);
-
-    #ifdef OLED_ENABLE
+#ifdef OLED_ENABLE
     // Toggle pixels surrounding key
     render_keymap(record->event.key.row, record->event.key.col, record->event.pressed);
-    #endif
+#endif
 
     return true;
 }
@@ -476,10 +482,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Rotary encoder - RGB and OLED settings
 void change_RGB(bool clockwise) {
     // While on any layer except default:       // Rotary         = RGB Mode
-    bool shift = get_mods() & MOD_MASK_SHIFT;   // Rotary + Shift = OLED Brightness
-    bool ctrl = get_mods() & MOD_MASK_CTRL;     // Rotary + Ctrl  = RGB Brightness
-    bool gui = get_mods() & MOD_MASK_GUI;       // Rotary + Gui   = RGB Saturation
-    bool alt = get_mods() & MOD_MASK_ALT;       // Rotary + Alt   = RGB Hue
+    bool shift = get_mods() & MOD_MASK_SHIFT; // Rotary + Shift = OLED Brightness
+    bool ctrl  = get_mods() & MOD_MASK_CTRL;  // Rotary + Ctrl  = RGB Brightness
+    bool gui   = get_mods() & MOD_MASK_GUI;   // Rotary + Gui   = RGB Saturation
+    bool alt   = get_mods() & MOD_MASK_ALT;   // Rotary + Alt   = RGB Hue
 
     if (clockwise) {
         if (shift) {
@@ -530,14 +536,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         change_RGB(clockwise);
     }
     return true;
-}
-
-// Initialize remote keyboard, if connected
-void matrix_init_user(void) {
-    matrix_init_remote_kb();
-}
-
-// Scan and parse keystrokes from remote keyboard, if connected
-void matrix_scan_user(void) {
-    matrix_scan_remote_kb();
 }

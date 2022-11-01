@@ -15,13 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
+// clang-format off
 enum layer_names {
   _MA,
   _FN
-};
-
-enum custom_keycodes {
-  KC_CUST = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -33,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F16, KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                    MO(_FN), KC_RALT, KC_RCTL, KC_LEFT,          KC_DOWN, KC_RGHT
   ),
   [_FN] = LAYOUT_ansi(
-               QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, _______,  KC_END,
+             QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, _______,  KC_END,
     RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
@@ -41,45 +38,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Send keystrokes to host keyboard, if connected (see readme)
-  process_record_remote_kb(keycode, record);
-  switch(keycode) {
-    case KC_CUST: //custom macro
-      if (record->event.pressed) {
-      }
-    break;
-
-    case RM_1: //remote macro 1
-      if (record->event.pressed) {
-      }
-    break;
-
-    case RM_2: //remote macro 2
-      if (record->event.pressed) {
-      }
-    break;
-
-    case RM_3: //remote macro 3
-      if (record->event.pressed) {
-      }
-    break;
-
-    case RM_4: //remote macro 4
-      if (record->event.pressed) {
-      }
-    break;
-
-  }
-return true;
-}
+// clang-format on
 
 // RGB config, for changing RGB settings on non-VIA firmwares
 void change_RGB(bool clockwise) {
     bool shift = get_mods() & MOD_MASK_SHIFT;
-    bool alt = get_mods() & MOD_MASK_ALT;
-    bool ctrl = get_mods() & MOD_MASK_CTRL;
+    bool alt   = get_mods() & MOD_MASK_ALT;
+    bool ctrl  = get_mods() & MOD_MASK_CTRL;
 
     if (clockwise) {
         if (alt) {
@@ -92,8 +57,8 @@ void change_RGB(bool clockwise) {
             rgblight_step();
         }
 
-  } else {
-      if (alt) {
+    } else {
+        if (alt) {
             rgblight_decrease_hue();
         } else if (ctrl) {
             rgblight_decrease_val();
@@ -106,26 +71,15 @@ void change_RGB(bool clockwise) {
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (layer_state_is(1)) {
-    //change RGB settings
-    change_RGB(clockwise);
-  }
-  else {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-  } else {
-      tap_code(KC_VOLD);
+    if (layer_state_is(1)) {
+        // change RGB settings
+        change_RGB(clockwise);
+    } else {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
     }
-  }
     return true;
-}
-
-void matrix_init_user(void) {
-  // Initialize remote keyboard, if connected (see readme)
-  matrix_init_remote_kb();
-}
-
-void matrix_scan_user(void) {
-  // Scan and parse keystrokes from remote keyboard, if connected (see readme)
-  matrix_scan_remote_kb();
 }

@@ -18,3 +18,4 @@
 #include "quantum.h"
 #include "common/remote_kb.h"
 #include "common/bitc_led.h"
+#include "big_led.h"

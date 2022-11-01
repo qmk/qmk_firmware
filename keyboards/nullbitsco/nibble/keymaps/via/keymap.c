@@ -15,29 +15,29 @@
  */
 #include QMK_KEYBOARD_H
 
-enum layer_names {
-  _BASE,
-  _VIA1,
-  _VIA2,
-  _VIA3
-};
-
 #define KC_DISC_MUTE KC_F23
 #define KC_DISC_DEAF KC_F24
+
+// clang-format off
+enum layer_names {
+    _BASE,
+    _VIA1,
+    _VIA2,
+    _VIA3
+};
 
 enum custom_keycodes {
   PROG = QK_KB_0,
   DISC_MUTE,
   DISC_DEAF,
-  SUPER_ALT_TAB,
-  _NUM_CUST_KCS,
+  SUPER_ALT_TAB
 };
 
 // Macro variables
-bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
-bool muted = false;
-bool deafened = false;
+bool     is_alt_tab_active = false;
+uint16_t alt_tab_timer     = 0;
+bool     muted             = false;
+bool     deafened          = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_all(
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_VIA1] = LAYOUT_all(
-              QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,  KC_END,
+              QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, _______,  KC_END,
     RGB_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -71,94 +71,76 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______,  _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
   ),
-
 };
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+  [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+  [_VIA1] = { ENCODER_CCW_CW(KC_NO, KC_NO)     },
+  [_VIA2] = { ENCODER_CCW_CW(KC_NO, KC_NO)     },
+  [_VIA3] = { ENCODER_CCW_CW(KC_NO, KC_NO)     }
+};
+#endif
+// clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Send keystrokes to host keyboard, if connected (see readme)
-  process_record_remote_kb(keycode, record);
-  switch(keycode) {
-    case PROG:
-      if (record->event.pressed) {
-        rgblight_disable_noeeprom();
-        bootloader_jump();
-      }
-    break;
+    switch (keycode) {
+        case DISC_MUTE:
+            if (record->event.pressed) {
+                tap_code(KC_DISC_MUTE);
+                if (!rgblight_is_enabled()) break;
 
-    case DISC_MUTE:
-      if (record->event.pressed) {
-        tap_code(KC_DISC_MUTE);
-        if (!rgblight_is_enabled()) break;
+                if (muted) {
+                    rgblight_enable_noeeprom();
+                } else {
+                    rgblight_timer_disable();
+                    uint8_t val = rgblight_get_val();
+                    rgblight_sethsv_range(255, 255, val, 0, 1);
+                }
+                muted = !muted;
+            }
+            break;
 
-        if (muted) {
-          rgblight_enable_noeeprom();
-        } else {
-          rgblight_timer_disable();
-          uint8_t val = rgblight_get_val();
-          rgblight_sethsv_range(255, 255, val, 0, 1);
-        }
-        muted = !muted;
-      }
-    break;
+        case DISC_DEAF:
+            if (record->event.pressed) {
+                tap_code(KC_DISC_DEAF);
+                if (!rgblight_is_enabled()) break;
 
-    case DISC_DEAF:
-      if (record->event.pressed) {
-        tap_code(KC_DISC_DEAF);
-        if (!rgblight_is_enabled()) break;
+                if (deafened) {
+                    rgblight_enable_noeeprom();
+                } else {
+                    rgblight_timer_disable();
+                    uint8_t val = rgblight_get_val();
+                    rgblight_sethsv_range(255, 255, val, 0, RGBLED_NUM - 1);
+                }
+                deafened = !deafened;
+            }
+            break;
 
-        if (deafened) {
-          rgblight_enable_noeeprom();
-        } else {
-          rgblight_timer_disable();
-          uint8_t val = rgblight_get_val();
-          rgblight_sethsv_range(255, 255, val, 0, RGBLED_NUM-1);
-        }
-        deafened = !deafened;
-      }
-    break;
+        case SUPER_ALT_TAB:
+            if (record->event.pressed) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                alt_tab_timer = timer_read();
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
 
-    case SUPER_ALT_TAB:
-      if (record->event.pressed) {
-        if (!is_alt_tab_active) {
-          is_alt_tab_active = true;
-          register_code(KC_LALT);
-        }
-        alt_tab_timer = timer_read();
-        register_code(KC_TAB);
-      } else {
-        unregister_code(KC_TAB);
-      }
-      break;
-
-    default:
-    break;
-  }
-return true;
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  // Encoder is mapped to volume functions by default
-  if (clockwise) {
-    tap_code(KC_VOLU);
-  } else {
-    tap_code(KC_VOLD);
-  }
+        default:
+            break;
+    }
     return true;
 }
 
-void matrix_init_user(void) {
-  // Initialize remote keyboard, if connected (see readme)
-  matrix_init_remote_kb();
-}
-
 void matrix_scan_user(void) {
-  // Scan and parse keystrokes from remote keyboard, if connected (see readme)
-  matrix_scan_remote_kb();
-  if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1000) {
-      unregister_code(KC_LALT);
-      is_alt_tab_active = false;
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 1000) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+        }
     }
-  }
 }

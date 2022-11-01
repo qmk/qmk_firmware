@@ -20,8 +20,15 @@
 // #define KEYBOARD_HOST // Force host mode
 // #define KEYBOARD_REMOTE // Force remote mode
 
-// Workaround for freezing after MacOS sleep
-#define NO_USB_STARTUP_CHECK
+// Workarounds for sleep/wake issues
+#define USB_SUSPEND_WAKEUP_DELAY 250
+
+// NOTE: There is a bug in AVR deep sleep, which
+// causes the MCU to stop responding in some cases.
+// Disabling the watchdog prevents the MCU from entering 
+// power down, while still turning off LEDs, audio, etc.
+// See qmk_firmware/issues/20087 for background
+#undef WDT_vect
 
 /* key matrix size */
 #define MATRIX_ROWS 5
