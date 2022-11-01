@@ -87,7 +87,7 @@ def generate_api(cli):
 
     # Generate data for the global files
     keyboard_list = sorted(kb_all)
-    keyboard_aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+    keyboard_aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
     keyboard_metadata = {
         'last_updated': current_datetime(),
         'keyboards': keyboard_list,
