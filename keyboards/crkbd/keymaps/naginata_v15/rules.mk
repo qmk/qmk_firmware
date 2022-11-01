@@ -40,6 +40,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
         # ./lib/host_led_state_reader.c \
         # ./lib/timelogger.c
 
-SRC +=    naginata_v15.c
-
 EXTRAFLAGS += -flto

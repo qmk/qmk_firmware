@@ -30,6 +30,9 @@ OLEDが有効な場合には左側のOLEDには、
 
 ```make crkbd/rev1/common:naginata_v15:flash```
 
+薙刀式のコードは次に集約しました。
+https://github.com/eswai/qmk_firmware/tree/master/users/naginata_v15
+
 ## キーボードの切り替え操作
 
 以下の機能を動的に切り替えることができます。
