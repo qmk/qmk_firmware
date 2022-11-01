@@ -2,8 +2,8 @@
 
 Brutal v2 1800 Keyboard
 
-* Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)  
-* Hardware Supported: RP2040  
+* Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
+* Hardware Supported: RP2040
 * Hardware Availability: [CannonKeys](https://cannonkeys.com)
 
 
