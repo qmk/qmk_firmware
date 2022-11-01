@@ -51,13 +51,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_LED_MATRIX_EXTENDED (uint16_t *)32
 #define EECONFIG_RGB_MATRIX_EXTENDED (uint16_t *)32
 
-// TODO: Combine these into a single word and single block of EEPROM
-#define EECONFIG_KEYMAP_UPPER_BYTE (uint8_t *)34
-
-#define EECONFIG_KEYMAP_HASH (uint32_t *)35
+#define EECONFIG_KEYMAP_HASH (uint32_t *)34
 
 // Size of EEPROM being used, other code can refer to this for available EEPROM
-#define EECONFIG_SIZE 39
+#define EECONFIG_SIZE 38
+
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
 #define EECONFIG_DEBUG_MATRIX (1 << 1)
@@ -73,8 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_KEYMAP_SWAP_GRAVE_ESC (1 << 5)
 #define EECONFIG_KEYMAP_SWAP_BACKSLASH_BACKSPACE (1 << 6)
 #define EECONFIG_KEYMAP_NKRO (1 << 7)
-
-#define EECONFIG_KEYMAP_LOWER_BYTE EECONFIG_KEYMAP
 
 bool eeconfig_is_enabled(void);
 bool eeconfig_is_disabled(void);
