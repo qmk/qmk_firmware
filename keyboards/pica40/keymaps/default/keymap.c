@@ -1,0 +1,200 @@
+// Copyright 2022 zzeneg (@zzeneg)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include QMK_KEYBOARD_H
+#include "quantum.h"
+
+enum layer_number {
+    _QWERTY = 0,
+    _GAME,
+    _NAV,
+    _NUMBER,
+    _SYMBOL,
+    _FUNC
+};
+
+// Left-hand home row mods
+#define HOME_A LGUI_T(KC_A)
+#define HOME_S LALT_T(KC_S)
+#define HOME_D LCTL_T(KC_D)
+#define HOME_F LSFT_T(KC_F)
+
+// Right-hand home row mods
+#define HOME_J RSFT_T(KC_J)
+#define HOME_K RCTL_T(KC_K)
+#define HOME_L LALT_T(KC_L)
+#define HOME_SCLN RGUI_T(KC_SCLN)
+
+// bottom mods
+#define SYM_SPC LT(_SYMBOL, KC_SPC)
+#define NUM_TAB LT(_NUMBER, KC_TAB)
+#define FUNC_ESC LT(_FUNC, KC_ESC)
+#define FUNC_ENT LT(_FUNC, KC_ENT)
+#define NAV_BSPC LT(_NAV, KC_BSPC)
+#define RALT_DEL RALT_T(KC_DEL)
+
+// game layer mods
+#define LALT_EQL LALT_T(KC_EQL)
+#define LSFT_MINS LSFT_T(KC_MINS)
+#define LCTL_ESC LCTL_T(KC_ESC)
+#define LGUI_QUOT LGUI_T(KC_QUOT)
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* QWERTY
+    *        .----------------------------------.                    ,----------------------------------.
+    *        |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |
+    * .------+------+------+------+------+------|                    |------+------+------+------+------+------.
+    * |  =   |   A  |   S  |   D  |   F  |   G  |                    |   H  |   J  |   K  |   L  |   ;  |  '   |
+    * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+    * |  -   |   Z  |   X  |   C  |   V  |   B  |-------.    .-------|   N  |   M  |   ,  |   .  |   /  |  `   |
+    * `-----------------------------------------/       /    \       \-----------------------------------------'
+    *                         | Esc  | Tab  |  / Space /      \ Enter \  | Bsps | Del  |
+    *                         |_FUNC | _NUM | /_SYMBOL/        \ _FUNC \ | _NAV | RAlt |
+    *                         `-------------''-------'          '-------''-------------'
+    */
+    [_QWERTY] = LAYOUT(
+                 KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+        KC_EQL,  HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G,                KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_SCLN, KC_QUOT,
+        KC_MINS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,   KC_GRV,
+                                      FUNC_ESC, NUM_TAB, SYM_SPC,     FUNC_ENT, NAV_BSPC, RALT_DEL
+    ),
+
+    [_GAME] = LAYOUT(
+                   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+        LALT_EQL,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, LGUI_QUOT,
+        LSFT_MINS, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,               KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TG(_GAME),
+                                       LCTL_ESC, NUM_TAB, SYM_SPC,    FUNC_ENT, NAV_BSPC, RALT_DEL
+    ),
+
+    [_NAV] = LAYOUT(
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,       XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,
+        XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,             LALT(KC_UP),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_INS,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             LALT(KC_DOWN), KC_HOME, KC_END,  KC_APP,  XXXXXXX, XXXXXXX,
+                                       XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, KC_TRNS, XXXXXXX
+    ),
+
+    [_NUMBER] = LAYOUT(
+                 KC_BSLS, KC_7,    KC_8,    KC_9,    KC_0,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LCTL, KC_COMM, KC_4,    KC_5,    KC_6,    KC_LBRC,             XXXXXXX, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, XXXXXXX,
+        KC_DEL,  KC_DOT,  KC_1,    KC_2,    KC_3,    KC_RBRC,             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                      KC_GRV, KC_TRNS, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX
+    ),
+
+    [_SYMBOL] = LAYOUT(
+                 LSFT(KC_BSLS), LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0),               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LCTL, LSFT(KC_COMM), LSFT(KC_4), LSFT(KC_5), LSFT(KC_6), LSFT(KC_LBRC),            XXXXXXX, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, XXXXXXX,
+        KC_BSPC, LSFT(KC_DOT),  LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_RBRC),            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                                    LSFT(KC_GRV), TG(_GAME), KC_TRNS,     XXXXXXX, XXXXXXX, XXXXXXX
+    ),
+
+    [_FUNC] = LAYOUT(
+                 KC_F12, KC_F7,   KC_F8,   KC_F9,   KC_PSCR,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LCTL, KC_F11, KC_F4,   KC_F5,   KC_F6,   KC_PAUS,            XXXXXXX, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, XXXXXXX,
+        KC_ENT,  KC_F10, KC_F1,   KC_F2,   KC_F3,   KC_CAPS,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                     KC_TRNS, KC_MNXT, KC_MPLY,     KC_TRNS, XXXXXXX, XXXXXXX
+    )
+};
+
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SYM_SPC:
+        case NAV_BSPC:
+        case RALT_DEL:
+            return false;
+        default:
+            return true;
+    }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HOME_A:
+        case HOME_SCLN:
+            return TAPPING_TERM + 80;
+        case HOME_S:
+        case HOME_L:
+            return TAPPING_TERM + 50;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (get_highest_layer(layer_state) == _QWERTY || get_highest_layer(layer_state) == _GAME) {
+        tap_code(clockwise ? KC_VOLU : KC_VOLD);
+    } else {
+        tap_code(clockwise ? KC_MNXT : KC_MPRV);
+    }
+    return true;
+}
+
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
+
+const rgblight_segment_t PROGMEM game_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_ORANGE});
+const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_PURPLE});
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(game_layer, capslock_layer);
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(1, led_state.caps_lock);
+    return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, _GAME));
+    return state;
+}
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = rgb_layers;
+}
+
+#endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
+
+#ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
+
+void render_layer(void) {
+    switch (get_highest_layer(layer_state)) {
+        case _NUMBER:
+            oled_write_ln_P(PSTR("NMBR"), false);
+            break;
+        case _SYMBOL:
+            oled_write_ln_P(PSTR("SMBL"), false);
+            break;
+        case _NAV:
+            oled_write_ln_P(PSTR("NAV"), false);
+            break;
+        case _FUNC:
+            oled_write_ln_P(PSTR("FUNC"), false);
+            break;
+        case _GAME:
+            oled_write_ln_P(PSTR("GAME"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR(" "), false);
+            break;
+    }
+}
+
+void render_mods(uint8_t modifiers) {
+    oled_write_ln_P((modifiers & MOD_MASK_CTRL) ? PSTR("Ctrl") : PSTR(" "), false);
+    oled_write_ln_P((modifiers & MOD_MASK_ALT) ? PSTR("Alt") : PSTR(" "), false);
+    oled_write_ln_P((modifiers & MOD_MASK_SHIFT) ? PSTR("Shift") : PSTR(" "), false);
+    oled_write_ln_P((modifiers & MOD_MASK_GUI) ? PSTR("GUI") : PSTR(" "), false);
+}
+
+bool oled_task_user(void) {
+    oled_write_ln_P(PSTR(" "), false);
+    oled_write_ln_P(PSTR(" "), false);
+    oled_write_ln_P(PSTR(" "), false);
+    oled_write_ln_P(PSTR(" "), false);
+    render_layer();
+    render_mods(get_mods());
+    return false;
+}
+
+#endif // OLED_ENABLE
+
