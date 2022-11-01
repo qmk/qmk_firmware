@@ -280,7 +280,7 @@ static void shared_matrix_rgb_enable(void) {
 static void shared_matrix_rgb_disable_pwm(void) {
     // Disable PWM outputs on column pins
     for (uint8_t y = 0; y < LED_MATRIX_COLS; y++) {
-        pwmDisableChannelI(&PWMD1, chan_col_order[y]);
+        pwmDisableChannel(&PWMD1, chan_col_order[y]);
     }
 }
 
@@ -309,13 +309,13 @@ static void update_pwm_channels(PWMDriver *pwmp) {
         // Update matching RGB channel PWM configuration
         switch (current_row % LED_MATRIX_ROW_CHANNELS) {
             case 0:
-                if (enable_pwm) pwmEnableChannelI(pwmp, chan_col_order[col_idx], led_state[led_index].b);
+                if (enable_pwm) pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].b);
                 break;
             case 1:
-                if (enable_pwm) pwmEnableChannelI(pwmp, chan_col_order[col_idx], led_state[led_index].g);
+                if (enable_pwm) pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].g);
                 break;
             case 2:
-                if (enable_pwm) pwmEnableChannelI(pwmp, chan_col_order[col_idx], led_state[led_index].r);
+                if (enable_pwm) pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].r);
                 break;
             default:;
         }
@@ -327,9 +327,8 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 #endif // DIODE_DIRECTION == ROW2COL
 }
 static void rgb_callback(PWMDriver *pwmp) {
-    chSysLockFromISR();
     // Disable the interrupt
-    pwmDisablePeriodicNotificationI(pwmp);
+    pwmDisablePeriodicNotification(pwmp);
     // Advance to the next LED RGB channels
     current_row++;
     if (current_row >= LED_MATRIX_ROWS_HW) current_row = 0;
@@ -362,6 +361,7 @@ static void rgb_callback(PWMDriver *pwmp) {
 #endif // DIODE_DIRECTION == COL2ROW
     update_pwm_channels(pwmp);
     if (enable_pwm) writePinHigh(led_row_pins[current_row]);
+    chSysLockFromISR();
     // Advance the timer to just before the wrap-around, that will start a new PWM cycle
     pwm_lld_change_counter(pwmp, 0xFFFF);
     // Enable the interrupt
