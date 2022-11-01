@@ -247,7 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         }
                         break;
 
-                    case UNICODE_MODE_WINDOWS
+                    case UNICODE_MODE_WINDOWS:
                     case UNICODE_MODE_WINCOMPOSE:
                         if ((mods | osm) & MOD_MASK_ALT) {
                             // Window screenshot
