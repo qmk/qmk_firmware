@@ -71,7 +71,9 @@ bool xap_respond_get_config_blob_chunk(xap_token_t token, const void *data, size
     xap_route_qmk_config_blob_chunk_t ret = {0};
 
     bool get_config_blob_chunk(uint16_t offset, uint8_t * data, uint8_t data_len);
-    get_config_blob_chunk(offset, (uint8_t *)&ret, sizeof(ret));
+    if (!get_config_blob_chunk(offset, (uint8_t *)&ret, sizeof(ret))) {
+        return false;
+    }
 
     return xap_respond_data(token, &ret, sizeof(ret));
 }
