@@ -21,8 +21,9 @@
 // #define KEYBOARD_HOST // Force host mode
 // #define KEYBOARD_REMOTE // Force remote mode
 
-// Workaround for freezing after MacOS sleep
-#define NO_USB_STARTUP_CHECK
+// Sleep mode workarounds
+#define USB_SUSPEND_WAKEUP_DELAY 250
+#define NO_SUSPEND_POWER_DOWN
 
 /* key matrix size */
 #define MATRIX_ROWS 5

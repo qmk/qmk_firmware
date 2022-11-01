@@ -16,48 +16,55 @@
 
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-    KC_CUST = SAFE_RANGE,
-};
-
 enum layer_names {
-    _MA,
-    _L1,
-    _L2,
-    _L3
+  _BASE,
+  _VIA1,
+  _VIA2,
+  _VIA3
 };
 
-// NOTE: Default keymap layers were designed for ANSI split-space layout  http://www.keyboard-layout-editor.com/#/gists/f28bd5ff4e62f69e89896df3a59671c6
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MA] = LAYOUT_ansi(
-                   KC_ESC,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,       KC_0,          KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,
-        KC_MUTE,   KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,       KC_P,          KC_LBRC, KC_RBRC, KC_BSLS, LCTL(KC_F),
-        KC_CAPS,   MO(_L2),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,       KC_SCLN,       KC_QUOT,          KC_ENT,  KC_CALC,
-        TG(_L2),   KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,     KC_SLSH,       KC_RSFT,          KC_UP,   KC_WHOM,
-        MO(_L3),   KC_LCTL,    KC_LGUI, KC_LALT,                   KC_SPC,                    MO(_L1), LCTL(KC_C), LCTL(KC_V),    KC_LEFT,          KC_DOWN, KC_RGHT
-    ),
-    [_L1] = LAYOUT_ansi(
-                   KC_GRAVE,   _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______, _______, _______, _______,
-        RGB_TOG,   _______,    _______, _______, _______, _______, _______, _______, KC_PGUP, KC_UP,   _______,    _______,       _______, _______, _______, _______,
-        _______,   LCTL(KC_Z), KC_LCTL, KC_LSFT, _______, _______, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,   KC_END,        _______,          _______, _______,
-        _______,   _______,    _______, _______, _______, _______, _______, _______, KC_PGDN, _______, _______,    LCTL(KC_SLSH), _______,          _______, _______,
-        _______,   _______,    _______, _______,                   _______,                   _______, LCTL(KC_X), _______,       _______,          _______, _______
-    ),
-    [_L2] = LAYOUT_ansi(
-                   KC_GRAVE,   _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______, _______, _______, _______,
-        RGB_TOG,   _______,    _______, _______, _______, _______, _______, KC_PAST, KC_7,    KC_8,    KC_9,       _______,       _______, _______, _______, _______,
-        _______,   _______,    _______, _______, _______, _______, _______, KC_PPLS, KC_4,    KC_5,    KC_6,       _______,       _______,          _______, _______,
-        _______,   _______,    _______, _______, _______, _______, _______, KC_PMNS, KC_1,    KC_2,    KC_3,       _______,       _______,          _______, _______,
-        _______,   _______,    _______, _______,                   KC_0,                      KC_PSLS, _______,    _______,       _______,          _______, _______
-    ),
-    [_L3] = LAYOUT_ansi(
-                   _______,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,      KC_F10,        KC_F11,  KC_F12,  _______, _______,
-        RGB_TOG,   _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______, _______, _______, _______,
-        _______,   _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______,          _______, _______,
-        KC_SYSREQ, _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______,          _______, _______,
-        _______,   _______,    _______, _______,                   _______,                   _______, _______,    _______,       _______,          _______, _______
-    )
+  [_BASE] = LAYOUT_all(
+              KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
+    KC_F13,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
+    KC_F14,   KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP,
+    KC_F15,   KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN,
+    KC_F16,   KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                  MO(_VIA1), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+  ),
+
+  [_VIA1] = LAYOUT_all(
+              QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, _______,  KC_END,
+    RGB_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______,                            _______,                   _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT
+  ),
+
+  [_VIA2] = LAYOUT_all(
+              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
+  ),
+
+  [_VIA3] = LAYOUT_all(
+              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,  _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
+  ),
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+  [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+  [_VIA1] = { ENCODER_CCW_CW(KC_NO, KC_NO)     },
+  [_VIA2] = { ENCODER_CCW_CW(KC_NO, KC_NO)     },
+  [_VIA3] = { ENCODER_CCW_CW(KC_NO, KC_NO)     }
+};
+#endif
 
 #ifdef OLED_ENABLE
 /*===========================================    OLED CONFIGURATION    ===========================================*/
@@ -72,10 +79,10 @@ int   graph_refresh     = 1000;         // In milliseconds, determines the graph
 int   icon_med_wpm      = 50;           // WPM required to display the medium snail
 int   icon_fast_wpm     = 72;           // WPM required to display the fast snail
 // Layer names:  Should be exactly 5 characters in length if vertical display, or 6 characters if horizontal
-#define MA_LAYER_NAME     "QWERTY"      // Layer _MA name
-#define L1_LAYER_NAME     "ARROWS"      // Layer _L1 name
-#define L2_LAYER_NAME     "NUMPAD"      // Layer _L2 name
-#define L3_LAYER_NAME     "FUNCTN"      // Layer _L3 name
+#define MA_LAYER_NAME     "QWERTY"      // Layer _BASE name
+#define L1_LAYER_NAME     "ARROWS"      // Layer _VIA1 name
+#define L2_LAYER_NAME     "NUMPAD"      // Layer _VIA2 name
+#define L3_LAYER_NAME     "FUNCTN"      // Layer _VIA3 name
 /*================================================================================================================*/
 bool  first_loop  = true;
 int   timer       = 0;
@@ -308,16 +315,16 @@ static void render_layer_state(void) {
     oled_set_cursor(0, 15);
   }
   switch (get_highest_layer(layer_state)) {
-  case _MA:
+  case _BASE:
       oled_write_P(PSTR(MA_LAYER_NAME), false);
       break;
-  case _L1:
+  case _VIA1:
       oled_write_P(PSTR(L1_LAYER_NAME), false);
       break;
-  case _L2:
+  case _VIA2:
       oled_write_P(PSTR(L2_LAYER_NAME), false);
       break;
-  case _L3:
+  case _VIA3:
       oled_write_P(PSTR(L3_LAYER_NAME), false);
       break;
   default:
@@ -462,9 +469,6 @@ bool oled_task_user(void) {
 
 // Called by QMK during key processing
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Forwards keystrokes from an external input device over UART/TRRS
-    process_record_remote_kb(keycode, record);
-
     #ifdef OLED_ENABLE
     // Toggle pixels surrounding key
     render_keymap(record->event.key.row, record->event.key.col, record->event.pressed);
@@ -530,14 +534,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         change_RGB(clockwise);
     }
     return true;
-}
-
-// Initialize remote keyboard, if connected
-void matrix_init_user(void) {
-    matrix_init_remote_kb();
-}
-
-// Scan and parse keystrokes from remote keyboard, if connected
-void matrix_scan_user(void) {
-    matrix_scan_remote_kb();
 }

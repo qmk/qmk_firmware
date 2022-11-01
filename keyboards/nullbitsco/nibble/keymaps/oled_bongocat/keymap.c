@@ -29,11 +29,9 @@ enum layer_names {
 #define KC_DISC_DEAF KC_F24
 
 enum custom_keycodes {
-  PROG = USER00,
-  DISC_MUTE,
+  DISC_MUTE = USER00,
   DISC_DEAF,
   SUPER_ALT_TAB,
-  _NUM_CUST_KCS,
 };
 
 // Macro variables
@@ -74,17 +72,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______,  _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
   ),
-
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+  [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+  [_VIA1] = { ENCODER_CCW_CW(KC_NO, KC_NO)     },
+  [_VIA2] = { ENCODER_CCW_CW(KC_NO, KC_NO)     },
+  [_VIA3] = { ENCODER_CCW_CW(KC_NO, KC_NO)     }
+};
+#endif
 
 #ifdef OLED_ENABLE
 #define IDLE_FRAME_DURATION 200 // Idle animation iteration rate in ms
@@ -191,16 +188,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #endif
 
     switch(keycode) {
-        case PROG:
-          if (record->event.pressed) {
-            rgblight_disable_noeeprom();
-            #ifdef OLED_ENABLE
-            oled_off();
-            #endif
-            bootloader_jump();
-          }
-        break;
-
         case DISC_MUTE:
           if (record->event.pressed) {
             tap_code(KC_DISC_MUTE);
