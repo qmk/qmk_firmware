@@ -15,13 +15,14 @@
 #define NAV TO(_NAV)
 #define HOME TO(_ISRT)
 #define NUM TO(_NUM)
-#define COC TO(_COC)
+#define MEDIA TO(_MEDIA)
 #define MEH_SPC MT(MOD_MEH,KC_SPC)
 #define BSP_DWRD LT(0,KC_BSPC)
 #define LT_UP LT(0,KC_UP)
 #define LT_LEFT LT(0,KC_LEFT)
 #define SWAPPWIN_TAB LT(0,KC_TAB)
 #define ENT_BTN2 LT(0,KC_ENT)
+#define BIG_F LT(0,CT_F)
 /* Home row mods */
 #define HOME_R LALT_T(KC_R)
 #define HOME_T LCTL_T(KC_T)
@@ -35,7 +36,7 @@ enum planck_layers {
   _FUNCTION,
   _NAV,
   _NUM,
-  _COC
+  _MEDIA
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
@@ -138,17 +139,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_NAV] = LAYOUT_ortho_4x12(
-    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   COC,
+    KC_NO,  KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO, KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,   MEDIA,
     KC_ESC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_BTN4, LT_LEFT, KC_DOWN, KC_RGHT, KC_BTN5, KC_ENT,
     KC_NO,  SW_APP,  SW_WIN,  KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_NO,
     KC_NO,  KC_NO,   KC_NO,   KC_BTN3, KC_BTN1, HOME,  KC_NO,   KC_BTN2, KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
   
-  [_COC] = LAYOUT_ortho_4x12(
-    KC_WH_U, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     LT(0,CT_F), KC_U,    KC_COMM, KC_QUOT, KC_ESC,
-    KC_WH_D, KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,     HOME_E,  KC_A,    KC_O,    ENT_BTN2,
-    KC_BTN1, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,       KC_SLSH, KC_DOT,  KC_X,    SW_APP,
-    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MEH_SPC, HOME,   FUNCTION, BSP_DWRD,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  /* MEDIA
+   * ,-----------------------------------------------------------------------------------.
+   * |ScrlUp|   Y  |   C  |   L  |   M  |   K  |   Z  |   F  |   U  |   ,  |   '  | Esc  |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * |ScrlDn|   I  |   S  |   R  |   T  |   G  |   P  |   N  |   E  |   A  |   O  |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Btn1 |   Q  |   V  |   W  |   D  |   J  |   B  |   H  |   /  |   .  |   X  |SwApp |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * |MsLeft|MsDwn | MsUp |MsRght|Space | Home | Func | Bksp | Left | Down |  Up  |Right |
+   * `-----------------------------------------------------------------------------------'
+   */
+
+  [_MEDIA] = LAYOUT_ortho_4x12(
+    KC_WH_U, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     BIG_F,    KC_U,    KC_COMM, KC_QUOT, KC_ESC,
+    KC_WH_D, KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    ENT_BTN2,
+    KC_BTN1, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    SW_APP,
+    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MEH_SPC, HOME,   FUNCTION, BSP_DWRD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     )
 
 };
@@ -197,12 +210,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     uint16_t mod = is_mac_the_default() ? KC_LGUI : KC_LALT;
     update_swapper(&sw_app_active, mod, KC_TAB, SW_APP, keycode, record);
   }
+  update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
 
   if (!process_custom_shift_keys(keycode, record)) { return false; }
   if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
-  case LT(0,CT_F):
+  case BIG_F:
     if (record->tap.count && isPressed) {
       tap_code16(KC_F);
     } else if (isHeld) {
@@ -215,19 +229,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       return false;
     }
     return true;
-  case SWAPPWIN_TAB:
-    if (isHeld) {
-      /* process_record_user(SW_APP, record); */
-      return false;
-    } else if (is_shift_held()) {
-      process_record_user(SW_WIN, record);
-      return false;
-    }
-    return true;
-  case SW_WIN:
-    // Only applicable on mac
-    if (is_mac_the_default()) SEND_STRING(SS_LGUI(SS_TAP(X_GRV)));
-    return false;
   case LT_LEFT:
     // Guard close returning true if the key is tapped,
     // meaning the rest of the code will only run when the
