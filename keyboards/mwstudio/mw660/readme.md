@@ -1,6 +1,6 @@
 # MW660
 
-![MW660](https://i.imgur.com/kJx0mpi.png)
+![MW660](https://i.imgur.com/kJx0mpih.png)
 
 Support STM32F103 keyboard.
 
