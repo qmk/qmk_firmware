@@ -2,7 +2,7 @@
 
 ![lotus58](https://i.imgur.com/WWgpp0Sh.jpeg)
 
-* Lotus 58 Glow is a fully programmable 58-key split, ortho-columnar keyboard with a 4x6 main matrix and 4+1 thumb-keys per hand. Optional support for one OLED screen per hand/side showing information such as active layer, CapsLock/NumLock etc. as well as one Rotary Encoder per hand, with optional placement.*
+* Lotus 58 Glow is a fully programmable 58-key split, ortho-columnar keyboard with a 4x6 main matrix and 4+1 thumb-keys per hand. Optional support for one OLED screen per hand/side showing information such as active layer, CapsLock/NumLock etc. as well as one Rotary Encoder per hand, with optional placement.
 
 * Keyboard Maintainer: [TweetyDaBird](https://github.com/TweetyDaBird)
 * Hardware Supported: *Lotus 58 Glow v1.11 - 1.24 PCB, Pro Micro or pin-compatible*
