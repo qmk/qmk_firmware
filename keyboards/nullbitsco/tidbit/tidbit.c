@@ -16,20 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-typedef struct PACKED {
-    uint8_t r;
-    uint8_t c;
-} encodermap_t;
-
-// Map encoders to their respective virtual matrix entry
-// Allows for encoder control using VIA
-const encodermap_t encoder_map[4][2] = {
-    {{1, 0}, {1, 1}},  // Encoder 1 matrix location
-    {{2, 0}, {2, 1}},  // Encoder 2 matrix location
-    {{3, 0}, {3, 1}},  // Encoder 3 matrix location
-    {{4, 0}, {4, 1}},  // Encoder 4 matrix location
-};
-
 bool numlock_set = false;
 
 #ifdef OLED_ENABLE
@@ -84,24 +70,6 @@ bool oled_task_kb(void) {
 
 #endif
 
-static void process_encoder_matrix(encodermap_t pos) {
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = true, .time = (timer_read() | 1) /* time should not be 0 */
-    });
-#if TAP_CODE_DELAY > 0
-    wait_ms(TAP_CODE_DELAY);
-#endif
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = false, .time = (timer_read() | 1) /* time should not be 0 */
-    });
-}
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
-    process_encoder_matrix(encoder_map[index][clockwise ? 0 : 1]);
-    return false;
-}
-
 // Use Bit-C LED to show NUM LOCK status
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
@@ -154,4 +122,30 @@ void matrix_init_kb(void) {
 void matrix_scan_kb(void) {
     matrix_scan_remote_kb();
     matrix_scan_user();
+}
+
+// Workaround for sleep issues
+void suspend_power_down_kb(void) {
+    suspend_power_down_user();
+
+    // Turn off Bit-C LED and big LED
+    set_bitc_LED(LED_OFF);
+
+    // Turn off underglow
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_suspend();
+#endif
+    // Turn off OLED
+#ifdef OLED_ENABLE
+    oled_off();
+#endif
+}
+
+void suspend_wakeup_init_kb(void) {
+    suspend_wakeup_init_user();
+
+    // Wake up underglow
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_wakeup();
+#endif
 }

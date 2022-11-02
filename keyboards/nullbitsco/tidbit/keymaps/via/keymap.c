@@ -24,36 +24,59 @@ enum layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
-                            KC_PSLS, KC_PAST, KC_PMNS, 
-  KC_VOLD, KC_VOLU, KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
-  KC_TRNS, KC_TRNS, KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
-  KC_TRNS, KC_TRNS, KC_P1, KC_P2,   KC_P3,   KC_PENT, 
-  KC_TRNS, KC_TRNS, KC_P0, KC_P0,   KC_PDOT, KC_PENT  
-  ),
+    [_BASE] = LAYOUT(
+           KC_PSLS, KC_PAST, KC_PMNS, 
+    KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
+    KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
+    KC_P1, KC_P2,   KC_P3,   KC_PENT, 
+    KC_P0, KC_P0,   KC_PDOT, KC_PENT  
+    ),
 
-  [_VIA1] = LAYOUT(
-                  ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___  
-  ),
+    [_VIA1] = LAYOUT(
+         ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___  
+    ),
 
-  [_VIA2] = LAYOUT(
-                  ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___
-  ),
+    [_VIA2] = LAYOUT(
+         ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___  
+    ),
 
-  [_VIA3] = LAYOUT(
-                  ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___
-  ),
+    [_VIA3] = LAYOUT(
+         ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___  
+    ),
 };
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+                ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+                ENCODER_CCW_CW(KC_PGDN, KC_PGUP),
+                ENCODER_CCW_CW(KC_DOWN, KC_UP) },
+
+    [_VIA1] = { ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO) },
+
+    [_VIA2] = { ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO) },
+                
+    [_VIA3] = { ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO) },
+};
+#endif

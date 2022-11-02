@@ -25,37 +25,61 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LAY0] = LAYOUT(
-                            KC_PSLS, KC_PAST, KC_PMNS, 
-    KC_VOLD, KC_VOLU, KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
-    KC_TRNS, KC_TRNS, KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
-    KC_TRNS, KC_TRNS, KC_P1, KC_P2,   KC_P3,   KC_PENT, 
-    KC_TRNS, KC_TRNS, KC_P0, KC_P0,   KC_PDOT, KC_PENT  
+           KC_PSLS, KC_PAST, KC_PMNS, 
+    KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
+    KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
+    KC_P1, KC_P2,   KC_P3,   KC_PENT, 
+    KC_P0, KC_P0,   KC_PDOT, KC_PENT  
     ),
 
     [_LAY1] = LAYOUT(
-                    ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___  
+         ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___  
     ),
 
     [_LAY2] = LAYOUT(
-                    ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___
+         ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___  
     ),
 
     [_LAY3] = LAYOUT(
-                    ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___
+         ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___  
     ),
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_LAY0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+                ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+                ENCODER_CCW_CW(KC_PGDN, KC_PGUP),
+                ENCODER_CCW_CW(KC_DOWN, KC_UP) },
+
+    [_LAY1] = { ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO) },
+
+    [_LAY2] = { ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO) },
+                
+    [_LAY3] = { ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO)  ,
+                ENCODER_CCW_CW(KC_NO,   KC_NO) },
+};
+#endif
 
 #ifdef OLED_ENABLE
 /*===========================================    OLED CONFIGURATION    ===========================================*/
@@ -135,24 +159,24 @@ static void write_pixel(uint8_t x, uint8_t y, bool onoff) {
 
 // Write active layer name
 static void render_layer_state(void) {
-  oled_set_cursor(0, 15);
-  switch (get_highest_layer(layer_state)) {
-  case _LAY0:
-      oled_write_P(PSTR(MA_LAYER_NAME), false);
-      break;
-  case _LAY1:
-      oled_write_P(PSTR(L1_LAYER_NAME), false);
-      break;
-  case _LAY2:
-      oled_write_P(PSTR(L2_LAYER_NAME), false);
-      break;
-  case _LAY3:
-      oled_write_P(PSTR(L3_LAYER_NAME), false);
-      break;
-  default:
-      oled_write("ERROR", false);
-      break;
-  }
+    oled_set_cursor(0, 15);
+    switch (get_highest_layer(layer_state)) {
+    case _LAY0:
+        oled_write_P(PSTR(MA_LAYER_NAME), false);
+        break;
+    case _LAY1:
+        oled_write_P(PSTR(L1_LAYER_NAME), false);
+        break;
+    case _LAY2:
+        oled_write_P(PSTR(L2_LAYER_NAME), false);
+        break;
+    case _LAY3:
+        oled_write_P(PSTR(L3_LAYER_NAME), false);
+        break;
+    default:
+        oled_write("ERROR", false);
+        break;
+    }
 }
 
 // Update WPM counters

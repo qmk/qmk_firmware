@@ -22,16 +22,16 @@
 #include "common/bitc_led.h"
 
 #define LAYOUT( \
-                      K01, K02, K03, \
-    E1CCW, E1CW, K10, K11, K12, K13, \
-    E2CCW, E2CW, K20, K21, K22, K23, \
-    E3CCW, E3CW, K30, K31, K32, K33, \
-    E4CCW, E4CW, K40, K41, K42, K43  \
+         K01, K02, K03, \
+    K10, K11, K12, K13, \
+    K20, K21, K22, K23, \
+    K30, K31, K32, K33, \
+    K40, K41, K42, K43  \
 ) \
 { \
-    { ___,   ___,  ___, K01, K02, K03 }, \
-    { E1CCW, E1CW, K10, K11, K12, K13 }, \
-    { E2CCW, E2CW, K20, K21, K22, K23 }, \
-    { E3CCW, E3CW, K30, K31, K32, K33 }, \
-    { E4CCW, E4CW, K40, K41, K42, K43 }  \
+    { ___, K01, K02, K03 }, \
+    { K10, K11, K12, K13 }, \
+    { K20, K21, K22, K23 }, \
+    { K30, K31, K32, K33 }, \
+    { K40, K41, K42, K43 }  \
 }

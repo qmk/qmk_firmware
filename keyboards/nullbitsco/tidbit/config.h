@@ -20,16 +20,17 @@
 /* Used to set remote for remote KB if VUSB detect doesn't work. */
 // #define KEYBOARD_REMOTE
 
-// Workaround for freezing after MacOS sleep
-#define USB_SUSPEND_WAKEUP_DELAY 200
+// Sleep mode workarounds
+#define USB_SUSPEND_WAKEUP_DELAY 250
+#define NO_SUSPEND_POWER_DOWN
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 6
+#define MATRIX_COLS 4
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B1, E6, D7, C6, D4 }
-#define MATRIX_COL_PINS { NO_PIN, NO_PIN, F4, F5, F6, F7 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -47,6 +48,7 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
+#define RGBLIGHT_SLEEP
 
 /* Optional encoder pins */
 // Encoders are defined in order. 1: B2 & B3, 2: B4 & B5, 3: D0 & D1, 4: D2 & D3

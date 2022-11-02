@@ -23,18 +23,47 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
-                            KC_PSLS, KC_PAST, KC_PMNS, 
-    KC_VOLD, KC_VOLU, KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
-    KC_MPRV, KC_MNXT, KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
-    KC_LEFT, KC_RGHT, KC_P1, KC_P2,   KC_P3,   KC_PENT, 
-    KC_TRNS, KC_TRNS, KC_P0, KC_P0,   KC_PDOT, KC_PENT  
+           KC_PSLS, KC_PAST, KC_PMNS, 
+    KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
+    KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
+    KC_P1, KC_P2,   KC_P3,   KC_PENT, 
+    KC_P0, KC_P0,   KC_PDOT, KC_PENT  
     ),
 
     [_FUNC] = LAYOUT(
-                    ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___, 
-    ___, ___, ___, ___, ___, ___  
+         ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___, 
+    ___, ___, ___, ___  
     ),
 };
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, 10);
+        } else {
+            tap_code_delay(KC_VOLD, 10);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code_delay(KC_MNXT, 10);
+        } else {
+            tap_code_delay(KC_MPRV, 10);
+        }
+    } else if (index == 2) {
+        if (clockwise) {
+            tap_code_delay(KC_PGUP, 10);
+        } else {
+            tap_code_delay(KC_PGDN, 10);
+        }
+    } else if (index == 3) {
+        if (clockwise) {
+            tap_code_delay(KC_UP, 10);
+        } else {
+            tap_code_delay(KC_DOWN, 10);
+        }
+    }
+    return true;
+}
