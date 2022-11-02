@@ -69,7 +69,6 @@ static const pin_t    led_row_pins[LED_MATRIX_ROWS_HW] = LED_MATRIX_ROW_PINS; //
 static const pin_t    led_col_pins[LED_MATRIX_COLS]    = LED_MATRIX_COL_PINS;
 static RGB            led_state[RGB_MATRIX_LED_COUNT];     // led state buffer
 static RGB            led_state_buf[RGB_MATRIX_LED_COUNT]; // led state buffer
-bool                  enable_pwm = false;
 #ifdef UNDERGLOW_RBG // handle underglow with flipped B,G channels
 static const uint8_t underglow_leds[UNDERGLOW_LEDS] = UNDERGLOW_IDX;
 #endif
@@ -294,6 +293,7 @@ static void shared_matrix_rgb_disable_leds(void) {
 }
 
 static void update_pwm_channels(PWMDriver *pwmp) {
+    bool enable_pwm_output = false;
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for (uint8_t col_idx = 0; col_idx < LED_MATRIX_COLS; col_idx++, row_shifter <<= 1) {
 #if (DIODE_DIRECTION == ROW2COL)
@@ -305,21 +305,27 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 #endif // DIODE_DIRECTION == ROW2COL
         uint8_t led_index = g_led_config.matrix_co[row_idx][col_idx];
         // Check if we need to enable RGB output
-        if (led_state[led_index].b != 0) enable_pwm |= true;
-        if (led_state[led_index].g != 0) enable_pwm |= true;
-        if (led_state[led_index].r != 0) enable_pwm |= true;
+        if (led_state[led_index].b != 0) enable_pwm_output |= true;
+        if (led_state[led_index].g != 0) enable_pwm_output |= true;
+        if (led_state[led_index].r != 0) enable_pwm_output |= true;
         // Update matching RGB channel PWM configuration
         switch (current_row % LED_MATRIX_ROW_CHANNELS) {
             case 0:
-                if (enable_pwm) pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].b);
+                pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].b);
                 break;
             case 1:
-                if (enable_pwm) pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].g);
+                pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].g);
                 break;
             case 2:
-                if (enable_pwm) pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].r);
+                pwmEnableChannel(pwmp, chan_col_order[col_idx], led_state[led_index].r);
                 break;
             default:;
+        }
+    }
+    // Enable RGB output
+    if (enable_pwm_output) {
+        ATOMIC_BLOCK_FORCEON {
+            writePinHigh(led_row_pins[current_row]);
         }
     }
 #if (DIODE_DIRECTION == ROW2COL)
@@ -362,11 +368,6 @@ static void rgb_callback(PWMDriver *pwmp) {
     }
 #endif // DIODE_DIRECTION == COL2ROW
     update_pwm_channels(pwmp);
-    if (enable_pwm) {
-        ATOMIC_BLOCK_FORCEON {
-            writePinHigh(led_row_pins[current_row]);
-        }
-    }
     chSysLockFromISR();
     // Advance the timer to just before the wrap-around, that will start a new PWM cycle
     pwm_lld_change_counter(pwmp, 0xFFFF);
