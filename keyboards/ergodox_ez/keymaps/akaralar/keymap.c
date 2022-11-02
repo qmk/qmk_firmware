@@ -152,9 +152,9 @@ _______, KC_LCTRL   , KC_LALT   , KC_LGUI    , KC_LSHIFT   , C_1PASS,           
 _______, KC_MAC_UNDO, KC_MAC_CUT, KC_MAC_COPY, KC_MAC_PASTE, C_REDO , _______,      _______, C_REDO   , KC_MAC_PASTE, KC_MAC_COPY, KC_MAC_CUT, KC_MAC_UNDO, _______,
 _______, _______    , _______   , _______    , XXXXXXX     ,                                            KC_DELETE   , _______    , _______   , _______    , _______,
 
-                                                             XXXXXXX , XXXXXXX,      _______, _______  ,
-                                                                       _______,      _______,
-                                               _______     , XXXXXXX , XXXXXXX,      _______, KC_ENTER , KC_BSPACE
+                                                             XXXXXXX, XXXXXXX,      _______, _______  ,
+                                                                      _______,      _______,
+                                               _______     , XXXXXXX, XXXXXXX,      _______, KC_ENTER , KC_BSPACE
 ),
 
 [MOUS] = LAYOUT_ergodox_pretty(
@@ -176,9 +176,9 @@ _______, KC_LCTRL, KC_LALT    , KC_LGUI, KC_LSHIFT, C_MCR_ST,                   
 _______, VRSN    , XXXXXXX    , XXXXXXX, C_MCR_1R , C_MCR_2R, _______,      _______, RGB_MOD           , KC_BRIGHTNESS_DOWN , RGB_HUD          , RGB_SAD        , RGB_VAD            , _______,
 _______, _______ , _______    , _______, _______  ,                                                      KC_AUDIO_MUTE      , _______          , _______        , _______            , _______,
 
-                                                    XXXXXXX, XXXXXXX,      _______, _______           ,
-                                                             _______,      _______,
-                                         XXXXXXX  , XXXXXXX, XXXXXXX,      _______, KC_MEDIA_STOP     , KC_MEDIA_PLAY_PAUSE
+                                                    XXXXXXX , XXXXXXX,      _______, _______           ,
+                                                              _______,      _______,
+                                         XXXXXXX  , XXXXXXX , XXXXXXX,      _______, KC_MEDIA_STOP     , KC_MEDIA_PLAY_PAUSE
 ),
 
 [NUMB] = LAYOUT_ergodox_pretty(
@@ -224,9 +224,9 @@ _______, XXXXXXX, XXXXXXX, ST_MACRO_2, ST_MACRO_3, ST_MACRO_4,                  
 _______, XXXXXXX, XXXXXXX, ST_MACRO_5, ST_MACRO_6, _______   , _______,      _______, XXXXXXX   , ST_MACRO_12, ST_MACRO_13, XXXXXXX, XXXXXXX, _______,
 _______, _______, _______, _______   , XXXXXXX   ,                                                XXXXXXX    , _______    , _______, _______, _______,
 
-                                             XXXXXXX, XXXXXXX,      _______, _______,
-                                                      _______,      _______,
-                                    XXXXXXX, XXXXXXX, XXXXXXX,      _______, XXXXXXX, XXXXXXX
+                                                   XXXXXXX   , XXXXXXX,      _______, _______   ,
+                                                               _______,      _______,
+                                          XXXXXXX, XXXXXXX   , XXXXXXX,      _______, XXXXXXX   , XXXXXXX
 )
 };
 
