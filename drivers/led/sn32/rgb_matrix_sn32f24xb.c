@@ -69,7 +69,7 @@ static const pin_t    led_row_pins[LED_MATRIX_ROWS_HW] = LED_MATRIX_ROW_PINS; //
 static const pin_t    led_col_pins[LED_MATRIX_COLS]    = LED_MATRIX_COL_PINS;
 static RGB            led_state[RGB_MATRIX_LED_COUNT];     // led state buffer
 static RGB            led_state_buf[RGB_MATRIX_LED_COUNT]; // led state buffer
-#ifdef UNDERGLOW_RBG // handle underglow with flipped B,G channels
+#ifdef UNDERGLOW_RBG                                       // handle underglow with flipped B,G channels
 static const uint8_t underglow_leds[UNDERGLOW_LEDS] = UNDERGLOW_IDX;
 #endif
 
@@ -286,15 +286,15 @@ static void shared_matrix_rgb_disable_pwm(void) {
 static void shared_matrix_rgb_disable_leds(void) {
     // Disable LED outputs on RGB channel pins
     for (uint8_t x = 0; x < LED_MATRIX_ROWS_HW; x++) {
-        ATOMIC_BLOCK_FORCEON{
+        ATOMIC_BLOCK_FORCEON {
             writePinLow(led_row_pins[x]);
         }
     }
 }
 
 static void update_pwm_channels(PWMDriver *pwmp) {
-    bool enable_pwm_output = false;
-    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+    bool         enable_pwm_output = false;
+    matrix_row_t row_shifter       = MATRIX_ROW_SHIFTER;
     for (uint8_t col_idx = 0; col_idx < LED_MATRIX_COLS; col_idx++, row_shifter <<= 1) {
 #if (DIODE_DIRECTION == ROW2COL)
         // Scan the key matrix column
