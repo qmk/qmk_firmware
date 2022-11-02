@@ -96,7 +96,7 @@ thread_reference_t tx_thread     = NULL;
 
 #define BUFFER_SIZE 32
 static input_buffers_queue_t pio_rx_queue;
-static uint8_t               pio_rx_buffer[(BUFFER_SIZE * (sizeof(uint32_t) + sizeof(size_t)))];
+static __attribute__((aligned(4))) uint8_t pio_rx_buffer[BQ_BUFFER_SIZE(BUFFER_SIZE, sizeof(uint32_t))];
 
 uint8_t ps2_error = PS2_ERR_NONE;
 
