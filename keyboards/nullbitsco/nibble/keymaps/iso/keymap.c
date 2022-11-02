@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
+// clang-format off
 enum layer_names {
   _MA,
   _FN
@@ -37,12 +38,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
+// clang-format on
 
 // RGB config, for changing RGB settings on non-VIA firmwares
 void change_RGB(bool clockwise) {
     bool shift = get_mods() & MOD_MASK_SHIFT;
-    bool alt = get_mods() & MOD_MASK_ALT;
-    bool ctrl = get_mods() & MOD_MASK_CTRL;
+    bool alt   = get_mods() & MOD_MASK_ALT;
+    bool ctrl  = get_mods() & MOD_MASK_CTRL;
 
     if (clockwise) {
         if (alt) {
@@ -55,8 +57,8 @@ void change_RGB(bool clockwise) {
             rgblight_step();
         }
 
-  } else {
-      if (alt) {
+    } else {
+        if (alt) {
             rgblight_decrease_hue();
         } else if (ctrl) {
             rgblight_decrease_val();
@@ -69,16 +71,15 @@ void change_RGB(bool clockwise) {
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (layer_state_is(1)) {
-    //change RGB settings
-    change_RGB(clockwise);
-  }
-  else {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-  } else {
-      tap_code(KC_VOLD);
+    if (layer_state_is(1)) {
+        // change RGB settings
+        change_RGB(clockwise);
+    } else {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
     }
-  }
     return true;
 }

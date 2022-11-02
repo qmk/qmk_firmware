@@ -32,10 +32,10 @@ void matrix_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    #ifdef CONSOLE_ENABLE
+#ifdef CONSOLE_ENABLE
     debug_enable = true;
     debug_matrix = true;
-    #endif
+#endif
     keyboard_post_init_user();
 }
 
@@ -45,10 +45,10 @@ void matrix_scan_kb(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // If console is enabled, it will print the matrix position and status of each key pressed
-    #ifdef CONSOLE_ENABLE
+// If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
     dprintf("kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time);
-    #endif
+#endif
 
     process_record_remote_kb(keycode, record);
     if (!process_record_user(keycode, record)) return false;
@@ -58,13 +58,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 set_big_LED_rgb(LED_OFF, LED_OFF, LED_OFF);
                 set_bitc_LED(LED_DIM);
-                #ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
                 rgblight_disable_noeeprom();
-                #endif
-                #ifdef OLED_ENABLE
+#endif
+#ifdef OLED_ENABLE
                 oled_off();
-                #endif
-                bootloader_jump();  // jump to bootloader
+#endif
+                bootloader_jump(); // jump to bootloader
             }
             return false;
 
@@ -84,13 +84,13 @@ void suspend_power_down_kb(void) {
     set_big_LED_rgb(LED_OFF, LED_OFF, LED_OFF);
 
     // Turn off underglow
-#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_suspend();
-#    endif
+#endif
     // Turn off OLED
-#    ifdef OLED_ENABLE
+#ifdef OLED_ENABLE
     oled_off();
-#    endif
+#endif
 }
 
 void suspend_wakeup_init_kb(void) {

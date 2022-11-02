@@ -18,20 +18,21 @@
 #include QMK_KEYBOARD_H
 #include "animation_frames.h"
 
-enum layer_names {
-  _BASE,
-  _VIA1,
-  _VIA2,
-  _VIA3
-};
-
 #define KC_DISC_MUTE KC_F23
 #define KC_DISC_DEAF KC_F24
 
+// clang-format off
+enum layer_names {
+    _BASE,
+    _VIA1,
+    _VIA2,
+    _VIA3
+};
+
 enum custom_keycodes {
-  DISC_MUTE = USER00,
-  DISC_DEAF,
-  SUPER_ALT_TAB,
+    DISC_MUTE = USER00,
+    DISC_DEAF,
+    SUPER_ALT_TAB,
 };
 
 // Macro variables
@@ -82,11 +83,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
   [_VIA3] = { ENCODER_CCW_CW(KC_NO, KC_NO)     }
 };
 #endif
+// clang-format on
 
 #ifdef OLED_ENABLE
-#define IDLE_FRAME_DURATION 200 // Idle animation iteration rate in ms
+#    define IDLE_FRAME_DURATION 200 // Idle animation iteration rate in ms
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
 
 uint32_t anim_timer         = 0;
 uint32_t anim_sleep         = 0;
@@ -95,17 +99,16 @@ uint8_t  current_idle_frame = 0;
 bool tap_anim        = false;
 bool tap_anim_toggle = false;
 
-
 // Decompress and write a precompressed bitmap frame to the OLED.
 // Documentation and python compression script available at:
 // https://github.com/nullbitsco/squeez-o
-#ifdef USE_OLED_BITMAP_COMPRESSION
+#    ifdef USE_OLED_BITMAP_COMPRESSION
 static void oled_write_compressed_P(const char* input_block_map, const char* input_block_list) {
     uint16_t block_index = 0;
-    for (uint16_t i=0; i<NUM_OLED_BYTES; i++) {
-        uint8_t bit = i%8;
-        uint8_t map_index = i/8;
-        uint8_t _block_map = (uint8_t)pgm_read_byte_near(input_block_map + map_index);
+    for (uint16_t i = 0; i < NUM_OLED_BYTES; i++) {
+        uint8_t bit          = i % 8;
+        uint8_t map_index    = i / 8;
+        uint8_t _block_map   = (uint8_t)pgm_read_byte_near(input_block_map + map_index);
         uint8_t nonzero_byte = (_block_map & (1 << bit));
         if (nonzero_byte) {
             const char data = (const char)pgm_read_byte_near(input_block_list + block_index++);
@@ -116,31 +119,31 @@ static void oled_write_compressed_P(const char* input_block_map, const char* inp
         }
     }
 }
-#endif
+#    endif
 
 static void render_anim(void) {
     // Idle animation
     void animation_phase(void) {
         if (!tap_anim) {
             current_idle_frame = (current_idle_frame + 1) % NUM_IDLE_FRAMES;
-            uint8_t idx = abs((NUM_IDLE_FRAMES - 1) - current_idle_frame);
-            #ifdef USE_OLED_BITMAP_COMPRESSION
+            uint8_t idx        = abs((NUM_IDLE_FRAMES - 1) - current_idle_frame);
+#    ifdef USE_OLED_BITMAP_COMPRESSION
             oled_write_compressed_P(idle_block_map[idx], idle_frames[idx]);
-            #else
+#    else
             oled_write_raw_P(idle_frames[idx], NUM_OLED_BYTES);
-            #endif
+#    endif
         }
     }
 
     // Idle behaviour
-    if (get_current_wpm() != 000) {  // prevent sleep
+    if (get_current_wpm() != 000) { // prevent sleep
         oled_on();
         if (timer_elapsed32(anim_timer) > IDLE_FRAME_DURATION) {
             anim_timer = timer_read32();
             animation_phase();
         }
         anim_sleep = timer_read32();
-    } else {  // Turn off screen when timer threshold elapsed or reset time since last input
+    } else { // Turn off screen when timer threshold elapsed or reset time since last input
         if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
             oled_off();
         } else {
@@ -157,11 +160,11 @@ bool oled_task_user(void) {
     oled_set_cursor(0, 14);
 
     uint8_t n = get_current_wpm();
-    char wpm_counter[6];
+    char    wpm_counter[6];
     wpm_counter[5] = '\0';
     wpm_counter[4] = '0' + n % 10;
     wpm_counter[3] = '0' + (n /= 10) % 10;
-    wpm_counter[2] = '0' + n / 10 ;
+    wpm_counter[2] = '0' + n / 10;
     wpm_counter[1] = '0';
     wpm_counter[0] = '>';
     oled_write_ln(wpm_counter, false);
@@ -171,80 +174,80 @@ bool oled_task_user(void) {
 #endif
 
 // Animate tap
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef OLED_ENABLE
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+#ifdef OLED_ENABLE
     // Check if non-mod
     if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
         if (record->event.pressed) {
             // Display tap frames
             tap_anim_toggle = !tap_anim_toggle;
-            #ifdef USE_OLED_BITMAP_COMPRESSION
+#    ifdef USE_OLED_BITMAP_COMPRESSION
             oled_write_compressed_P(tap_block_map[tap_anim_toggle], tap_frames[tap_anim_toggle]);
-            #else
+#    else
             oled_write_raw_P(tap_frames[tap_anim_toggle], NUM_OLED_BYTES);
-            #endif
+#    endif
         }
     }
-    #endif
+#endif
 
-    switch(keycode) {
+    switch (keycode) {
         case DISC_MUTE:
-          if (record->event.pressed) {
-            tap_code(KC_DISC_MUTE);
-            if (!rgblight_is_enabled()) break;
+            if (record->event.pressed) {
+                tap_code(KC_DISC_MUTE);
+                if (!rgblight_is_enabled()) break;
 
-            if (muted) {
-              rgblight_enable_noeeprom();
-            } else {
-              rgblight_timer_disable();
-              uint8_t val = rgblight_get_val();
-              rgblight_sethsv_range(255, 255, val, 0, 1);
+                if (muted) {
+                    rgblight_enable_noeeprom();
+                } else {
+                    rgblight_timer_disable();
+                    uint8_t val = rgblight_get_val();
+                    rgblight_sethsv_range(255, 255, val, 0, 1);
+                }
+                muted = !muted;
             }
-            muted = !muted;
-          }
-        break;
+            break;
 
         case DISC_DEAF:
-          if (record->event.pressed) {
-            tap_code(KC_DISC_DEAF);
-            if (!rgblight_is_enabled()) break;
+            if (record->event.pressed) {
+                tap_code(KC_DISC_DEAF);
+                if (!rgblight_is_enabled()) break;
 
-            if (deafened) {
-              rgblight_enable_noeeprom();
-            } else {
-              rgblight_timer_disable();
-              uint8_t val = rgblight_get_val();
-              rgblight_sethsv_range(255, 255, val, 0, RGBLED_NUM-1);
+                if (deafened) {
+                    rgblight_enable_noeeprom();
+                } else {
+                    rgblight_timer_disable();
+                    uint8_t val = rgblight_get_val();
+                    rgblight_sethsv_range(255, 255, val, 0, RGBLED_NUM - 1);
+                }
+                deafened = !deafened;
             }
-            deafened = !deafened;
-          }
-        break;
+            break;
 
         case SUPER_ALT_TAB:
-          if (record->event.pressed) {
-            if (!is_alt_tab_active) {
-              is_alt_tab_active = true;
-              register_code(KC_LALT);
+            if (record->event.pressed) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                alt_tab_timer = timer_read();
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
             }
-            alt_tab_timer = timer_read();
-            register_code(KC_TAB);
-          } else {
-            unregister_code(KC_TAB);
-          }
-          break;
+            break;
 
         default:
-        break;
+            break;
     }
 
     return true;
 }
 
 void matrix_scan_user(void) {
-  if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1000) {
-      unregister_code(KC_LALT);
-      is_alt_tab_active = false;
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 1000) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+        }
     }
-  }
 }

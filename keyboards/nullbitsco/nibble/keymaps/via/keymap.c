@@ -15,27 +15,28 @@
  */
 #include QMK_KEYBOARD_H
 
-enum layer_names {
-  _BASE,
-  _VIA1,
-  _VIA2,
-  _VIA3
-};
-
 #define KC_DISC_MUTE KC_F23
 #define KC_DISC_DEAF KC_F24
 
+// clang-format off
+enum layer_names {
+    _BASE,
+    _VIA1,
+    _VIA2,
+    _VIA3
+};
+
 enum custom_keycodes {
-  DISC_MUTE = USER00,
-  DISC_DEAF,
-  SUPER_ALT_TAB
+    DISC_MUTE = USER00,
+    DISC_DEAF,
+    SUPER_ALT_TAB
 };
 
 // Macro variables
-bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
-bool muted = false;
-bool deafened = false;
+bool     is_alt_tab_active = false;
+uint16_t alt_tab_timer     = 0;
+bool     muted             = false;
+bool     deafened          = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_all(
@@ -79,65 +80,66 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
   [_VIA3] = { ENCODER_CCW_CW(KC_NO, KC_NO)     }
 };
 #endif
+// clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case DISC_MUTE:
-      if (record->event.pressed) {
-        tap_code(KC_DISC_MUTE);
-        if (!rgblight_is_enabled()) break;
+    switch (keycode) {
+        case DISC_MUTE:
+            if (record->event.pressed) {
+                tap_code(KC_DISC_MUTE);
+                if (!rgblight_is_enabled()) break;
 
-        if (muted) {
-          rgblight_enable_noeeprom();
-        } else {
-          rgblight_timer_disable();
-          uint8_t val = rgblight_get_val();
-          rgblight_sethsv_range(255, 255, val, 0, 1);
-        }
-        muted = !muted;
-      }
-    break;
+                if (muted) {
+                    rgblight_enable_noeeprom();
+                } else {
+                    rgblight_timer_disable();
+                    uint8_t val = rgblight_get_val();
+                    rgblight_sethsv_range(255, 255, val, 0, 1);
+                }
+                muted = !muted;
+            }
+            break;
 
-    case DISC_DEAF:
-      if (record->event.pressed) {
-        tap_code(KC_DISC_DEAF);
-        if (!rgblight_is_enabled()) break;
+        case DISC_DEAF:
+            if (record->event.pressed) {
+                tap_code(KC_DISC_DEAF);
+                if (!rgblight_is_enabled()) break;
 
-        if (deafened) {
-          rgblight_enable_noeeprom();
-        } else {
-          rgblight_timer_disable();
-          uint8_t val = rgblight_get_val();
-          rgblight_sethsv_range(255, 255, val, 0, RGBLED_NUM-1);
-        }
-        deafened = !deafened;
-      }
-    break;
+                if (deafened) {
+                    rgblight_enable_noeeprom();
+                } else {
+                    rgblight_timer_disable();
+                    uint8_t val = rgblight_get_val();
+                    rgblight_sethsv_range(255, 255, val, 0, RGBLED_NUM - 1);
+                }
+                deafened = !deafened;
+            }
+            break;
 
-    case SUPER_ALT_TAB:
-      if (record->event.pressed) {
-        if (!is_alt_tab_active) {
-          is_alt_tab_active = true;
-          register_code(KC_LALT);
-        }
-        alt_tab_timer = timer_read();
-        register_code(KC_TAB);
-      } else {
-        unregister_code(KC_TAB);
-      }
-      break;
+        case SUPER_ALT_TAB:
+            if (record->event.pressed) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                alt_tab_timer = timer_read();
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
 
-    default:
-    break;
-  }
-return true;
+        default:
+            break;
+    }
+    return true;
 }
 
 void matrix_scan_user(void) {
-  if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1000) {
-      unregister_code(KC_LALT);
-      is_alt_tab_active = false;
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 1000) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+        }
     }
-  }
 }

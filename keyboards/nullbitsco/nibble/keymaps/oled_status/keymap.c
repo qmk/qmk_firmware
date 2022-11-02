@@ -19,14 +19,14 @@
 #    include "oled_display.h"
 #endif
 
+// clang-format off
 enum layer_names {
-  _BASE,
-  _VIA1,
-  _VIA2,
-  _VIA3
+    _BASE,
+    _VIA1,
+    _VIA2,
+    _VIA3
 };
 
-// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_all(
               KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
@@ -60,7 +60,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
   ),
 };
-// clang-format on
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -70,6 +69,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
   [_VIA3] = { ENCODER_CCW_CW(KC_NO, KC_NO)     }
 };
 #endif
+// clang-format on
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

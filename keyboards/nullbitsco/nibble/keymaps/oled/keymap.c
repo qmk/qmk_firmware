@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
+// clang-format off
 enum layer_names {
   _MA,
   _FN
@@ -78,6 +79,7 @@ static void render_logo(void) {
     // Host Keyboard Layer Status
     oled_write_raw_P(nibble_logo, sizeof(nibble_logo));
 }
+// clang-format on
 
 bool oled_task_user(void) {
     render_logo();

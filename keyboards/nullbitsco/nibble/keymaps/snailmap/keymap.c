@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
+// clang-format off
 enum layer_names {
   _BASE,
   _VIA1,
@@ -65,31 +66,32 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
   [_VIA3] = { ENCODER_CCW_CW(KC_NO, KC_NO)     }
 };
 #endif
+// clang-format on
 
 #ifdef OLED_ENABLE
 /*===========================================    OLED CONFIGURATION    ===========================================*/
-bool  oled_horizontal   = true;         // OLED rotation  (true = horizontal,  false = vertical)
-bool  ansi_layout       = true;         // ANSI or ISO layout  (true = ANSI,  false = ISO)
-bool  split_space       = true;         // Split spacebar  (true = split spacebar,  false = 6.25u or 7u spacebar)
-bool  three_mods_left   = true;         // Left mods layout  (true = 3x 1.25u keys,  false = 2x 1.5u keys)
-bool  three_mods_right  = false;        // Right mods layout  (true = 3x 1u keys,  false = 2x 1.5u keys)
-bool  graph_direction   = true;         // Graph movement  (true = right to left,  false = left to right)
-float graph_top_wpm     = 100.0;        // Minimum WPM required to reach the top of the graph
-int   graph_refresh     = 1000;         // In milliseconds, determines the graph-line frequency
-int   icon_med_wpm      = 50;           // WPM required to display the medium snail
-int   icon_fast_wpm     = 72;           // WPM required to display the fast snail
+bool  oled_horizontal  = true;  // OLED rotation  (true = horizontal,  false = vertical)
+bool  ansi_layout      = true;  // ANSI or ISO layout  (true = ANSI,  false = ISO)
+bool  split_space      = true;  // Split spacebar  (true = split spacebar,  false = 6.25u or 7u spacebar)
+bool  three_mods_left  = true;  // Left mods layout  (true = 3x 1.25u keys,  false = 2x 1.5u keys)
+bool  three_mods_right = false; // Right mods layout  (true = 3x 1u keys,  false = 2x 1.5u keys)
+bool  graph_direction  = true;  // Graph movement  (true = right to left,  false = left to right)
+float graph_top_wpm    = 100.0; // Minimum WPM required to reach the top of the graph
+int   graph_refresh    = 1000;  // In milliseconds, determines the graph-line frequency
+int   icon_med_wpm     = 50;    // WPM required to display the medium snail
+int   icon_fast_wpm    = 72;    // WPM required to display the fast snail
 // Layer names:  Should be exactly 5 characters in length if vertical display, or 6 characters if horizontal
-#define MA_LAYER_NAME     "QWERTY"      // Layer _BASE name
-#define L1_LAYER_NAME     "ARROWS"      // Layer _VIA1 name
-#define L2_LAYER_NAME     "NUMPAD"      // Layer _VIA2 name
-#define L3_LAYER_NAME     "FUNCTN"      // Layer _VIA3 name
+#    define MA_LAYER_NAME "QWERTY" // Layer _BASE name
+#    define L1_LAYER_NAME "ARROWS" // Layer _VIA1 name
+#    define L2_LAYER_NAME "NUMPAD" // Layer _VIA2 name
+#    define L3_LAYER_NAME "FUNCTN" // Layer _VIA3 name
 /*================================================================================================================*/
-bool  first_loop  = true;
-int   timer       = 0;
-int   wpm_limit   = 20;
-int   max_wpm     = -1;
-int   wpm_icon    = -1;
-int   graph_lines[64];
+bool first_loop = true;
+int  timer      = 0;
+int  wpm_limit  = 20;
+int  max_wpm    = -1;
+int  wpm_icon   = -1;
+int  graph_lines[64];
 
 // Set OLED rotation
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -289,7 +291,7 @@ static void render_keymap(uint8_t key_row, uint8_t key_col, bool onoff) {
     }
     // Draw left and right walls (vertical for 5px)
     for (int y = 0; y < 5; y++) {
-        write_pixel(left,  top + y, onoff);
+        write_pixel(left, top + y, onoff);
         write_pixel(right, top + y, onoff);
     }
     // Special case 2 - Draw right spacebar on split-space layout
@@ -302,35 +304,35 @@ static void render_keymap(uint8_t key_row, uint8_t key_col, bool onoff) {
         }
         for (int y = 0; y < 5; y++) {
             write_pixel(start, top + y, onoff);
-            write_pixel(stop,  top + y, onoff);
+            write_pixel(stop, top + y, onoff);
         }
     }
 }
 
 // Write active layer name
 static void render_layer_state(void) {
-  if (oled_horizontal) {
-    oled_set_cursor(0, 0);
-  } else {
-    oled_set_cursor(0, 15);
-  }
-  switch (get_highest_layer(layer_state)) {
-  case _BASE:
-      oled_write_P(PSTR(MA_LAYER_NAME), false);
-      break;
-  case _VIA1:
-      oled_write_P(PSTR(L1_LAYER_NAME), false);
-      break;
-  case _VIA2:
-      oled_write_P(PSTR(L2_LAYER_NAME), false);
-      break;
-  case _VIA3:
-      oled_write_P(PSTR(L3_LAYER_NAME), false);
-      break;
-  default:
-      oled_write("ERROR", false);
-      break;
-  }
+    if (oled_horizontal) {
+        oled_set_cursor(0, 0);
+    } else {
+        oled_set_cursor(0, 15);
+    }
+    switch (get_highest_layer(layer_state)) {
+        case _BASE:
+            oled_write_P(PSTR(MA_LAYER_NAME), false);
+            break;
+        case _VIA1:
+            oled_write_P(PSTR(L1_LAYER_NAME), false);
+            break;
+        case _VIA2:
+            oled_write_P(PSTR(L2_LAYER_NAME), false);
+            break;
+        case _VIA3:
+            oled_write_P(PSTR(L3_LAYER_NAME), false);
+            break;
+        default:
+            oled_write("ERROR", false);
+            break;
+    }
 }
 
 // Update WPM counters
@@ -351,7 +353,7 @@ static void render_wpm_counters(int current_wpm) {
     oled_write(wpm_counter, false);
 
     if (current_wpm > max_wpm) {
-        max_wpm = current_wpm;
+        max_wpm   = current_wpm;
         wpm_limit = max_wpm + 20;
         oled_set_cursor(0, cursorposition_max);
         oled_write(wpm_counter, false);
@@ -420,7 +422,7 @@ static void render_wpm_graph(int current_wpm) {
     // Draw all graph lines (left to right, bottom to top)
     int draw_count, arrpos;
     for (int x = 1; x <= 127; x += 2) {
-        arrpos = x / 2;
+        arrpos     = x / 2;
         draw_count = graph_lines[arrpos];
         for (int y = 31; y >= 25; y--) {
             if (draw_count > 0) {
@@ -469,10 +471,10 @@ bool oled_task_user(void) {
 
 // Called by QMK during key processing
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef OLED_ENABLE
+#ifdef OLED_ENABLE
     // Toggle pixels surrounding key
     render_keymap(record->event.key.row, record->event.key.col, record->event.pressed);
-    #endif
+#endif
 
     return true;
 }
@@ -480,10 +482,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Rotary encoder - RGB and OLED settings
 void change_RGB(bool clockwise) {
     // While on any layer except default:       // Rotary         = RGB Mode
-    bool shift = get_mods() & MOD_MASK_SHIFT;   // Rotary + Shift = OLED Brightness
-    bool ctrl = get_mods() & MOD_MASK_CTRL;     // Rotary + Ctrl  = RGB Brightness
-    bool gui = get_mods() & MOD_MASK_GUI;       // Rotary + Gui   = RGB Saturation
-    bool alt = get_mods() & MOD_MASK_ALT;       // Rotary + Alt   = RGB Hue
+    bool shift = get_mods() & MOD_MASK_SHIFT; // Rotary + Shift = OLED Brightness
+    bool ctrl  = get_mods() & MOD_MASK_CTRL;  // Rotary + Ctrl  = RGB Brightness
+    bool gui   = get_mods() & MOD_MASK_GUI;   // Rotary + Gui   = RGB Saturation
+    bool alt   = get_mods() & MOD_MASK_ALT;   // Rotary + Alt   = RGB Hue
 
     if (clockwise) {
         if (shift) {
