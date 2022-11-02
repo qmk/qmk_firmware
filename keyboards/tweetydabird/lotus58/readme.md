@@ -7,7 +7,7 @@
 * Keyboard Maintainer: [TweetyDaBird](https://github.com/TweetyDaBird)
 * Hardware Supported: *Lotus 58 Glow v1.11 - 1.24 PCB, Pro Micro or pin-compatible*
 * Hardware Availability: [Lectronz Store](https://lectronz.com/stores/tweetys-wild-thinking)
-* Hardware Design: [link](https://github.com/TweetyDaBird/Lotus58)
+* Hardware Design: [GitHub](https://github.com/TweetyDaBird/Lotus58)
 
 
 #### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of RGB configuration. 
