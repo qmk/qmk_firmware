@@ -10,5 +10,7 @@ extern bool isJumping;
 extern bool isBarking;
 extern bool showedJump;
 
+//uint32_t anim_sleep_timer;
+
 
 #endif

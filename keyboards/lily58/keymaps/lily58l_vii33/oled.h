@@ -5,7 +5,7 @@
 
 //static void render_lily58_logo(void);
 void render_luna(int LUNA_X, int LUNA_Y);
-//void render_logo(void);
+void render_logo(void);
 void render_mario(void);
 
 

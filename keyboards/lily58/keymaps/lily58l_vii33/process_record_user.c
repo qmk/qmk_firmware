@@ -6,17 +6,16 @@
 extern void add_keylog(uint16_t keycode);
 
 uint8_t mods_state;
+//uint32_t anim_sleep_timer = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   
-  oled_on();
-
-  mods_state = get_mods();    // Store the current modifier state in the variable for later reference
-
-  if (record->event.pressed) {
-    add_keylog(keycode);    // For OLED Key Printer
+  if (is_oled_on() == false) {
+    oled_on();
   }
 
+  //anim_sleep_timer = timer_read32();  // Reset animation timer on each keystroke
+  
   // Dont' process keys further on key release (not needed for now)
   if (record->event.pressed == false) { 
     /* Luna pet start */
@@ -27,6 +26,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
   }  
   
+
+  mods_state = get_mods();    // Store the current modifier state in the variable for later reference
+
+  if (record->event.pressed) {
+    // add_keylog(keycode);    // For OLED Key Printer
+  }
+
+  
   switch (keycode) 
   {
     /* Luna pet start */
@@ -34,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       isJumping  = true;
       showedJump = false;
       break;
-      
+
     case CTL_F:  
       isSneaking = true;
       break;
