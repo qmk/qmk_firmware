@@ -58,6 +58,7 @@
 #        define WS2812_LED_TOTAL 6
 #    endif
 #    define DRIVER_LED_TOTAL (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
+#    define RGB_MATRIX_LED_COUNT (DRIVER_LED_TOTAL)
 
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
