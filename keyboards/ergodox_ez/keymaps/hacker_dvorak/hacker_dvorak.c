@@ -7,13 +7,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //  ESCAPE                 |                         |                         |                         |                         |                         |     START RECORDING     //
         //                         |                         |                         |                         |                         |                         |                         //
-                   KC_ESC,                 TD(GRV_TILD),             TD(AT_DLR),              TD(LCBR_LABK),            TD(LPRN_LBRC),            TD(EXLM_QUES),           DYN_REC_START1,     //
+                   KC_ESC,                 TD(GRV_TILD),             TD(AT_DLR),              TD(LCBR_LABK),            TD(LPRN_LBRC),            TD(EXLM_QUES),           DM_REC1,            //
         //                         |                       ~ |                       $ |                       < |                       [ |                       ? |                         //
         //                         |            TAP DANCE: ` |            TAP DANCE: @              TAP DANCE: { |            TAP DANCE: ( |            TAP DANCE: ! |     DYNAMIC MARCO 1     //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //  TAB                    |      MOD TAP: ALT+SHIFT |       MOD TAP: CTRL+ALT |     MOD TAP: CTRL+SHIFT | P                       | Y                       |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                   KC_TAB,                TD(NONE_LEAD),            TD(QUOT_DQUO),           TD(DOT_COMM),               LCG_T(KC_P),              LAG_T(KC_Y),            DYN_MACRO_PLAY1,    //
+                   KC_TAB,                TD(NONE_LEAD),            TD(QUOT_DQUO),           TD(DOT_COMM),               LCG_T(KC_P),              LAG_T(KC_Y),            DM_PLY1,            //
         //                         |                    LEAD |                       " |                       , |                         |                         |                         //
         //                         |         TAP DANCE: NONE |            TAP DANCE: ' |            TAP DANCE: . |       MOD TAP: CTRL+GUI |        MOD TAP: ALT+GUI |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------|   PLAY DYNAMIC MACRO 1  //
@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------|  META                   //
         //          STOP RECORDING |  MOD TAP: GUI+SHIFT+ALT | Q                       | J                       | K                       | X                       |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_REC_STOP,             TD(SCLN_COLN),            LCAG_T(KC_Q),             TD(J_MED_MEH),            TD(K_NUM_HYP),            LCSG_T(KC_X),                KC_LGUI,        //
+                DM_RSTP,                  TD(SCLN_COLN),            LCAG_T(KC_Q),             TD(J_MED_MEH),            TD(K_NUM_HYP),            LCSG_T(KC_X),                KC_LGUI,        //
         //                         |                       : |                         |                         |                         |                         |                         //
         //           DYNAMIC MACRO |            TAP DANCE: ; |      MOD TAP: SHIFT+GUI |  M TAP DANCE: MEDIA/MEH |  M TAP DANCE: ATM/HYPER |  MOD TAP: CTL+SHIFT+GUI |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
@@ -63,13 +63,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_REC_START2,           TD(APMR_PIPE),            TD(RPRN_RBRC),            TD(RCBR_RABK),            TD(HASH_PERC),            TD(ASTR_CIRC),               XXXXXXX,        //
+                DM_REC2,                   TD(APMR_PIPE),            TD(RPRN_RBRC),            TD(RCBR_RABK),            TD(HASH_PERC),            TD(ASTR_CIRC),               XXXXXXX,        //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_MACRO_PLAY2,           LAG_T(KC_F),              LCG_T(KC_G),             C_S_T(KC_C),                LCA_T(KC_R),             LAS_T(KC_L),             TD(SLSH_BSLS),     //
+                DM_PLY2,                   LAG_T(KC_F),              LCG_T(KC_G),             C_S_T(KC_C),                LCA_T(KC_R),             LAS_T(KC_L),             TD(SLSH_BSLS),     //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
