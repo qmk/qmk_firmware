@@ -1,0 +1,34 @@
+{
+    "manufacturer": "Jere",
+    "keyboard_name": "keypadi",
+    "maintainer": "Jekkuu",
+    "bootloader": "caterina",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+
+    "processor": "atmega32u4",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT_ortho_1x4": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [1, 0], "x": 1, "y": 0 },
+                { "matrix": [2, 0], "x": 2, "y": 0 },
+                { "matrix": [3, 0], "x": 3, "y": 0 }
+      
+            ]
+        }
+    }
+}
