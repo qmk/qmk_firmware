@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //  TAB                    |      MOD TAP: ALT+SHIFT |       MOD TAP: CTRL+ALT |     MOD TAP: CTRL+SHIFT | P                       | Y                       |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                   KC_TAB,                TD(NONE_LEAD),            TD(QUOT_DQUO),           TD(DOT_COMM),               LCG_T(KC_P),              LAG_T(KC_Y),            DYN_MACRO_PLAY1,    //
+                   KC_TAB,                TD(NONE_LEAD),            TD(QUOT_DQUO),           TD(DOT_COMM),               LCG_T(KC_P),              LAG_T(KC_Y),            DM_PLY1,            //
         //                         |                    LEAD |                       " |                       , |                         |                         |                         //
         //                         |         TAP DANCE: NONE |            TAP DANCE: ' |            TAP DANCE: . |       MOD TAP: CTRL+GUI |        MOD TAP: ALT+GUI |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------|   PLAY DYNAMIC MACRO 1  //

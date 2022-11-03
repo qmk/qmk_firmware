@@ -43,7 +43,7 @@ void macro_tog_key( qk_tap_dance_state_t *state, void *user_data ) {
   uint16_t action = DYN_REC_STOP;
 
   if ( state->count == 1 ) {
-    action = DYN_MACRO_PLAY1;
+    action = QK_DYNAMIC_MACRO_PLAY_1;
   }
   else if ( state->count == 2 ) {
     action = DYN_REC_STOP;

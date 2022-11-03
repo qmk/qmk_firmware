@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                        KC_TRNS,   KC_TRNS,
                                                            DM_REC1,
-                                        KC_TRNS, KC_TRNS, DYN_MACRO_PLAY1,
+                                        KC_TRNS, KC_TRNS, DM_PLY1,
   /* right hand */
   KC_TRNS, KC_TRNS,    KC_ASTR, KC_LPRN,  KC_RPRN,  KC_MINS,  KC_TRNS,
   KC_EQL,  M_LAMBDA,   KC_7,    KC_8,     KC_9,     KC_PLUS,  KC_TRNS,
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                        KC_TRNS,   KC_TRNS,
                                                            DM_REC1,
-                                        KC_TRNS, KC_TRNS, DYN_MACRO_PLAY1,
+                                        KC_TRNS, KC_TRNS, DM_PLY1,
   /* right hand */
   TG(1),          KC_AMPR,       KC_ASTR,       KC_LPRN,    KC_RPRN,    S(KC_MINS),  S(KC_BSPC),
   KC_UNDS,        S(KC_J),       S(KC_L),       S(KC_U),    S(KC_Y),    S(KC_SCLN),  S(KC_BSLS),

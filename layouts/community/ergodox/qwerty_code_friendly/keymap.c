@@ -284,7 +284,7 @@ enum custom_keycodes {
    /* avoid ifdef's in keymap */
 #  define DM_REC1 KC_TRNS
 #  define DM_REC2 KC_TRNS
-#  define DYN_MACRO_PLAY1 KC_TRNS
+#  define DM_PLY1 KC_TRNS
 #  define DYN_MACRO_PLAY2 KC_TRNS
 #  define DYN_REC_STOP KC_TRNS
 #endif
@@ -392,7 +392,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M_BRACKET_IN_ANG, M_BRACKET_IN_BRC,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                                DM_REC1,          DM_REC2,
-                              K80(L1K0),       K80(L1K1),        DYN_MACRO_PLAY1,
+                              K80(L1K0),       K80(L1K1),        DM_PLY1,
                               DYN_REC_STOP,    KC_TRNS,          DYN_MACRO_PLAY2,
   /* right hand */
   M_BRACKET_OUT_CBR, KC_TRNS,           KC_NUM,  KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS,  KC_TRNS,

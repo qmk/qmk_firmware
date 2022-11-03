@@ -113,7 +113,7 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
     is_macro1_recording = false;
     layer_state_set_user(current_layer_state);
   } else if (state->count == 1) {
-    keycode = DYN_MACRO_PLAY1;
+    keycode = DM_PLY1;
   } else {
     keycode = DM_REC1;
     is_macro1_recording = true;

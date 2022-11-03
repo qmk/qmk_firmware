@@ -46,7 +46,7 @@
 // "MMENU" is a macro for "CMD+SPC" (aka Spotlight/Alfred)
 #define MMENU LGUI(KC_SPC)
 #define _____ KC_TRNS
-#define MM_0 DYN_MACRO_PLAY1
+#define MM_0 DM_PLY1
 #define MM_1 DYN_MACRO_PLAY2
 
 // tap-hold settings
@@ -221,7 +221,7 @@ bool did_record_m1 = false;
 bool did_record_m2 = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool try_dynamic_macro = true;
-    if ((keycode == DYN_MACRO_PLAY1 && !did_record_m1) || (keycode == DYN_MACRO_PLAY2 && !did_record_m2)) {
+    if ((keycode == QK_DYNAMIC_MACRO_PLAY_1 && !did_record_m1) || (keycode == DYN_MACRO_PLAY2 && !did_record_m2)) {
         try_dynamic_macro = false;
     }
     else if (keycode == DM_CLEAR) {
@@ -231,7 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (try_dynamic_macro && !process_record_dynamic_macro(keycode, record)) {
-        if (keycode == DYN_MACRO_PLAY1) {
+        if (keycode == QK_DYNAMIC_MACRO_PLAY_1) {
                 did_record_m1 = true;
         }
 
@@ -250,7 +250,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-    case DYN_MACRO_PLAY1:
+    case QK_DYNAMIC_MACRO_PLAY_1:
         SEND_STRING(SENDSTRING_MM0);
         return false;
     case DYN_MACRO_PLAY2:
