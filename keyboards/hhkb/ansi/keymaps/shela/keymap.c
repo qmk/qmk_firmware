@@ -50,8 +50,8 @@ enum custom_keycodes {
 /* Additional custom keycodes */
 #define MO_HHKB MO(_HHKB)
 #define LT_SPFN LT(_SPACE_FN, KC_SPC)
-#define DM_STA1 DYN_REC_START1
-#define DM_PLY1 DYN_MACRO_PLAY1
+#define DM_STA1 DM_REC1
+#define DM_PLY1 DM_PLY1
 
 /* User settings structure for the EEPROM */
 typedef union {

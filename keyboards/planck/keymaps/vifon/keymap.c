@@ -82,8 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_LGUI, KC_LALT, _______,           _______,           _______, _______, _______, _______, _______
         ),
     [_DYN] = LAYOUT_planck_mit( /* special */
-        KM_HOLD,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______,    _______, _______, KC_APP,  KC_INS,  _______, KC_PSCR, KC_PAUS,
-        QK_LOCK,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______,    _______, _______, _______, _______, KC_CAPS, KC_SCRL, KC_NUM,
+        KM_HOLD,  DM_REC1, DM_PLY1, _______, _______,    _______, _______, KC_APP,  KC_INS,  _______, KC_PSCR, KC_PAUS,
+        QK_LOCK,  DM_REC2, DM_PLY2, _______, _______,    _______, _______, _______, _______, KC_CAPS, KC_SCRL, KC_NUM,
         KM_SHLK,  _______,        _______,         _______, _______,    _______, _______, _______, _______, _______, _______, _______,
         _______,  _______,        _______,         _______, KM_PP_GAME,      DF(_QW),     DF(_PP), _______, _______, _______, _______
         ),
@@ -103,7 +103,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t key_timer;
     static uint8_t ignore_up_events = 0;
 
-    uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
+    uint16_t macro_kc = (keycode == MO(_DYN) ? DM_RSTP : keycode);
     if (!process_record_dynamic_macro(macro_kc, record)) {
         return false;
     }
