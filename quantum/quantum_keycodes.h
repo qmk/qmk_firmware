@@ -425,7 +425,7 @@ enum quantum_keycodes {
 
     // Dynamic Macros
     QK_DYNAMIC_MACRO_RECORD_START_1, // 5D04
-    DYN_REC_START2,  // 5D05
+    QK_DYNAMIC_MACRO_RECORD_START_2, // 5D05
     DYN_REC_STOP,    // 5D06
     DYN_MACRO_PLAY1, // 5D07
     DYN_MACRO_PLAY2, // 5D08
@@ -907,7 +907,7 @@ enum quantum_keycodes {
 
 // Dynamic Macros aliases
 #define DM_REC1 QK_DYNAMIC_MACRO_RECORD_START_1
-#define DM_REC2 DYN_REC_START2
+#define DM_REC2 QK_DYNAMIC_MACRO_RECORD_START_2
 #define DM_RSTP DYN_REC_STOP
 #define DM_PLY1 DYN_MACRO_PLAY1
 #define DM_PLY2 DYN_MACRO_PLAY2

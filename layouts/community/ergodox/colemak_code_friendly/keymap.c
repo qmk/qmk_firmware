@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ENT,  M_NOT_EQL,  KC_1,    KC_2,     KC_3,     KC_TRNS,  KC_TRNS,
                        KC_0,    KC_COMM,  KC_DOT,   KC_TRNS,  KC_TRNS,
   KC_TRNS, DYN_REC_STOP,
-  DYN_REC_START2,
+  DM_REC2,
   DYN_MACRO_PLAY2, KC_TRNS, KC_TRNS
 ),
 /* Keymap 2: Left side -> LAYER_NUM,                             Right side -> Shift + LAYER_BASE
@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ENT,  M_NOT_EQL,   KC_1,    KC_2,     KC_3,     KC_TRNS,  KC_TRNS,
                         KC_0,    KC_COMM,  KC_DOT,   KC_TRNS,  KC_TRNS,
   KC_TRNS, DYN_REC_STOP,
-  DYN_REC_START2,
+  DM_REC2,
   DYN_MACRO_PLAY2, KC_TRNS, KC_TRNS
 ),
 };
@@ -207,7 +207,7 @@ static bool process_record_dynamic_macro_wrapper(uint16_t keycode, keyrecord_t *
   switch (keycode) {
     /* detect dynamic macro recording state */
     case QK_DYNAMIC_MACRO_RECORD_START_1:
-    case DYN_REC_START2:
+    case QK_DYNAMIC_MACRO_RECORD_START_2:
       if (record->event.pressed) {
         recording_dynamic_macro = true;
       }
