@@ -53,18 +53,13 @@ enum userspace_layers {
 #define OSM_CTL OSM(MOD_LCTL)
 #define OSM_SFT OSM(MOD_LSFT)
 
-//#define CTL_BSP CTL_T(KC_BSPC)
-//#define SFT_SPC SFT_T(KC_SPC)
 #define SFT_BSP SFT_T(KC_BSPC)
 #define CTL_SPC CTL_T(KC_SPC)
-//#define CTL_Z CTL_T(KC_Z)
-//#define CTL_SLS CTL_T(KC_SLSH)
 
 #define CTL_W CTL_T(KC_W)
 #define CTL_Y CTL_T(KC_Y)
 #define SFT_Z SFT_T(KC_Z)
 #define SFT_SLS SFT_T(KC_SLSH)
-//#define SFT_QUO SFT_T(KC_QUOT)
 #define MOV_SPC LT(LMOV, KC_SPC)
 
 enum custom_keycodes {
@@ -82,7 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   SFT_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               KC_LGUI,OSL(LNUM), MOV_SPC,    SFT_BSP,OSL(LSYM), KC_LALT
+                                               //KC_LGUI,OSL(LNUM), MOV_SPC,    SFT_BSP,OSL(LSYM), KC_LALT
+                                               KC_LGUI, MO(LNUM), MOV_SPC,    SFT_BSP, MO(LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
@@ -93,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, TO(LCMK), CTL_SPC,    KC_LSFT,  _______, _______
+                                               _______, TO(LCMK), CTL_SPC,    TO(LCMK),  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
@@ -210,7 +206,7 @@ enum combo_keys {
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM combo_wf[] = {CTL_W, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_wf[] = {CTL_W, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_reset[] = {KC_PSCR, KC_NO, COMBO_END};
 const uint16_t PROGMEM combo_uy[] = {KC_U, CTL_Y, COMBO_END};
