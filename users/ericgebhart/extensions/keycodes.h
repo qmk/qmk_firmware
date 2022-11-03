@@ -483,7 +483,8 @@ enum {
 #define ___X___ XXX
 #define ___X2___ XXX, XXX
 #define ___X3___ ___X2___, XXX
-#define ___X5___ ___X3___, XXX, XXX
+#define ___X4___ ___X3___, XXX
+#define ___X5___ ___X4___, XXX
 #define ___X6___ ___X5___, XXX
 #define ___X12___ ___X6___, ___X6___
 #define ___X15___ ___X5___, ___X5___,  ___X5___
