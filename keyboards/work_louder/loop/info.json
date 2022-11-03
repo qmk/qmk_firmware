@@ -5,8 +5,7 @@
     "maintainer": "Work Louder",
     "usb": {
         "vid": "0x574C",
-        "pid": "0x1DF9",
-        "device_version": "0.0.1"
+        "pid": "0x1DF9"
     },
     "layouts": {
         "LAYOUT": {

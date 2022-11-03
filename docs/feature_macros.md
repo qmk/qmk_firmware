@@ -374,7 +374,7 @@ This will clear all keys besides the mods currently pressed.
 This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows.
 
 ```c
-bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
 uint16_t alt_tab_timer = 0;     // we will be using them soon.
 
 enum custom_keycodes {          // Make sure have the awesome keycode ready

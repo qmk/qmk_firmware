@@ -248,13 +248,11 @@
  * Encoder options
  */
 #ifdef ENCODER_ENABLE
-#   define ENCODERS_PAD_A { C7 }  // dummy
-#   define ENCODERS_PAD_B { B7 }  // dummy
+#   define ENCODERS_PAD_A { }
+#   define ENCODERS_PAD_B { }
+#   define ENCODER_RESOLUTIONS { }
 #   define ENCODERS_PAD_A_RIGHT { F5 }
 #   define ENCODERS_PAD_B_RIGHT { F4 }
-#   define ENCODER_RESOLUTION 4
+#   define ENCODER_RESOLUTIONS_RIGHT { 4 }
 #   define TAP_CODE_DELAY 10
-#   define ENCODERS 2
-#   define ENCODERS_CW_KEY  { {4, 5}, {6, 5} }
-#   define ENCODERS_CCW_KEY { {3, 5}, {5, 5} }
 #endif  // ENCODER_ENABLE
