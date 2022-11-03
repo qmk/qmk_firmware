@@ -35,10 +35,10 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("-Base\n"), false);
             break;
         case 1:
-            oled_write_P(PSTR("-Func\n"), false);
+            oled_write_P(PSTR("-Num \n"), false);
             break;
         case 2:
-            oled_write_P(PSTR("-Num \n"), false);
+            oled_write_P(PSTR("-Func\n"), false);
             break;
         case 3:
             oled_write_P(PSTR("-Sys \n"), false);
