@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   [LAYER_FN] = LAYOUT(
-    GOTO_CM, GOTO_QW, KC_NO, KC_NO, KC_NO, KC_NO, DYN_REC_START1, DYN_REC_START2, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    GOTO_CM, GOTO_QW, KC_NO, KC_NO, KC_NO, KC_NO, DM_REC1, DYN_REC_START2, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -239,7 +239,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 did_record_m2 = true;
         }
 
-        if (keycode == DYN_REC_START1 || keycode == DYN_REC_START2) {
+        if (keycode == QK_DYNAMIC_MACRO_RECORD_START_1 || keycode == DYN_REC_START2) {
                 layer_move(LAYER_RECORD);
         }
         else if (keycode == DYN_REC_STOP) {

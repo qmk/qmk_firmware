@@ -50,7 +50,7 @@ void macro_tog_key( qk_tap_dance_state_t *state, void *user_data ) {
     kr.event.pressed = true;
   }
   else if ( state->count == 3 ) {
-    action = DYN_REC_START1;
+    action = QK_DYNAMIC_MACRO_RECORD_START_1;
   }
 
   process_record_dynamic_macro( action, &kr );

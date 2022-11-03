@@ -7,7 +7,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //  ESCAPE                 |                         |                         |                         |                         |                         |     START RECORDING     //
         //                         |                         |                         |                         |                         |                         |                         //
-                   KC_ESC,                 TD(GRV_TILD),             TD(AT_DLR),              TD(LCBR_LABK),            TD(LPRN_LBRC),            TD(EXLM_QUES),           DYN_REC_START1,     //
+                   KC_ESC,                 TD(GRV_TILD),             TD(AT_DLR),              TD(LCBR_LABK),            TD(LPRN_LBRC),            TD(EXLM_QUES),           DM_REC1,            //
         //                         |                       ~ |                       $ |                       < |                       [ |                       ? |                         //
         //                         |            TAP DANCE: ` |            TAP DANCE: @              TAP DANCE: { |            TAP DANCE: ( |            TAP DANCE: ! |     DYNAMIC MARCO 1     //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//

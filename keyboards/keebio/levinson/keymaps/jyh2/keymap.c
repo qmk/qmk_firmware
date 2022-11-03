@@ -31,7 +31,7 @@ enum custom_keycodes {
 
 #include "dynamic_macro.h"
 
-#define DREC_1  DYN_REC_START1
+#define DREC_1  DM_REC1
 #define DREC_2  DYN_REC_START2
 #define DPLAY_1 DYN_MACRO_PLAY1
 #define DPLAY_2 DYN_MACRO_PLAY2

@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ONESHOT] = LAYOUT_planck_grid(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DM_REC1, DYN_REC_START2,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -224,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // uint16_t macro_kc = (keycode == ONESHOT ? DYN_REC_STOP : keycode);
     if (!process_record_dynamic_macro(keycode, record)) {
         switch(keycode) {
-          case DYN_REC_START1:
+          case QK_DYNAMIC_MACRO_RECORD_START_1:
           case DYN_REC_START2:
 #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_dyn_macro_rec);

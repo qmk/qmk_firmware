@@ -424,7 +424,7 @@ enum quantum_keycodes {
     MAGIC_EE_HANDS_RIGHT,   // 5D03
 
     // Dynamic Macros
-    DYN_REC_START1,  // 5D04
+    QK_DYNAMIC_MACRO_RECORD_START_1, // 5D04
     DYN_REC_START2,  // 5D05
     DYN_REC_STOP,    // 5D06
     DYN_MACRO_PLAY1, // 5D07
@@ -906,7 +906,7 @@ enum quantum_keycodes {
 #define MIDI_CHANNEL_MAX MI_CH16
 
 // Dynamic Macros aliases
-#define DM_REC1 DYN_REC_START1
+#define DM_REC1 QK_DYNAMIC_MACRO_RECORD_START_1
 #define DM_REC2 DYN_REC_START2
 #define DM_RSTP DYN_REC_STOP
 #define DM_PLY1 DYN_MACRO_PLAY1

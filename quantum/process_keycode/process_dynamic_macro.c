@@ -212,7 +212,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
         /* No macro recording in progress. */
         if (!record->event.pressed) {
             switch (keycode) {
-                case DYN_REC_START1:
+                case QK_DYNAMIC_MACRO_RECORD_START_1:
                     dynamic_macro_record_start(&macro_pointer, macro_buffer);
                     macro_id = 1;
                     return false;
@@ -231,7 +231,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
     } else {
         /* A macro is being recorded right now. */
         switch (keycode) {
-            case DYN_REC_START1:
+            case QK_DYNAMIC_MACRO_RECORD_START_1:
             case DYN_REC_START2:
             case DYN_REC_STOP:
                 /* Stop the macro recording. */

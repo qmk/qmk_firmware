@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
 */
 
-#define MacRec1 DYN_REC_START1
+#define MacRec1 DM_REC1
 #define MacRec2 DYN_REC_START2
 #define MacPla1 DYN_MACRO_PLAY1
 #define MacPla2 DYN_MACRO_PLAY2

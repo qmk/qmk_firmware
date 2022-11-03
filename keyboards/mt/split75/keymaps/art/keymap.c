@@ -73,7 +73,7 @@ KC_VOLD,KC_VOLU, KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,      
 KC_MPRV,KC_MNXT, KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
 KC_HOME,KC_END,  KC_CAPS,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,KC_ENTER,         KC_PGUP,
 DYN_MACRO_PLAY1,KC_MUTE,KC_LSFT,KC_Z,KC_X,KC_C,  KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, LT(GIT,KC_SLSH),                     KC_RSFT,  KC_UP,   KC_PGDN,
-DYN_REC_STOP,DYN_REC_START1,KC_LCTL, KC_LGUI, KC_LALT, LT(MEDIA,KC_SPC), LT(COMBOS,KC_BSPC),       LT(NAV,KC_APP), LT(LAYOUT_CHG, KC_ENTER),KC_RALT,KC_RCTL,   KC_LEFT,  KC_DOWN, KC_RIGHT
+DYN_REC_STOP,DM_REC1,KC_LCTL, KC_LGUI, KC_LALT, LT(MEDIA,KC_SPC), LT(COMBOS,KC_BSPC),       LT(NAV,KC_APP), LT(LAYOUT_CHG, KC_ENTER),KC_RALT,KC_RCTL,   KC_LEFT,  KC_DOWN, KC_RIGHT
   ),
 
   /* Base          ,-----------------------------------------.     ,-----------------------------------------------------.
