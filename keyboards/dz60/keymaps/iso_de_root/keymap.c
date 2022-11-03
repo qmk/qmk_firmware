@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define MacRec1 DM_REC1
 #define MacRec2 DM_REC2
 #define MacPla1 DM_PLY1
-#define MacPla2 DYN_MACRO_PLAY2
+#define MacPla2 DM_PLY2
 #define MacStop DYN_REC_STOP
 
   [DEF] = LAYOUT_60_iso_5x1u_split_rshift(

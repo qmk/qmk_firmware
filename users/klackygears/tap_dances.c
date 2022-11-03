@@ -27,7 +27,7 @@ void macroTogKey2(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1)
   {
     kr.event.pressed = false;
-    process_record_dynamic_macro( DYN_MACRO_PLAY2, &kr );
+    process_record_dynamic_macro( DM_PLY2, &kr );
   }
   else if (state->count == 2)
   {

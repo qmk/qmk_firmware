@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_0,    KC_COMM,  KC_DOT,   KC_TRNS,  KC_TRNS,
   KC_TRNS, DYN_REC_STOP,
   DM_REC2,
-  DYN_MACRO_PLAY2, KC_TRNS, KC_TRNS
+  DM_PLY2, KC_TRNS, KC_TRNS
 ),
 /* Keymap 2: Left side -> LAYER_NUM,                             Right side -> Shift + LAYER_BASE
  *
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_0,    KC_COMM,  KC_DOT,   KC_TRNS,  KC_TRNS,
   KC_TRNS, DYN_REC_STOP,
   DM_REC2,
-  DYN_MACRO_PLAY2, KC_TRNS, KC_TRNS
+  DM_PLY2, KC_TRNS, KC_TRNS
 ),
 };
 

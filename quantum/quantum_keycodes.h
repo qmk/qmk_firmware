@@ -428,7 +428,7 @@ enum quantum_keycodes {
     QK_DYNAMIC_MACRO_RECORD_START_2, // 5D05
     DYN_REC_STOP,    // 5D06
     QK_DYNAMIC_MACRO_PLAY_1, // 5D07
-    DYN_MACRO_PLAY2, // 5D08
+    QK_DYNAMIC_MACRO_PLAY_2, // 5D08
 
     // Joystick
     QK_JOYSTICK_BUTTON_0,  // 5D09
@@ -910,7 +910,7 @@ enum quantum_keycodes {
 #define DM_REC2 QK_DYNAMIC_MACRO_RECORD_START_2
 #define DM_RSTP DYN_REC_STOP
 #define DM_PLY1 QK_DYNAMIC_MACRO_PLAY_1
-#define DM_PLY2 DYN_MACRO_PLAY2
+#define DM_PLY2 QK_DYNAMIC_MACRO_PLAY_2
 
 // Joystick aliases
 #define JS_0 QK_JOYSTICK_BUTTON_0

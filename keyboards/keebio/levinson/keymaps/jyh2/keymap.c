@@ -34,7 +34,7 @@ enum custom_keycodes {
 #define DREC_1  DM_REC1
 #define DREC_2  DM_REC2
 #define DPLAY_1 DM_PLY1
-#define DPLAY_2 DYN_MACRO_PLAY2
+#define DPLAY_2 DM_PLY2
 #define DSTOP   DYN_REC_STOP
 
 

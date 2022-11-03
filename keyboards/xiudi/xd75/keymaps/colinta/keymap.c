@@ -47,7 +47,7 @@
 #define MMENU LGUI(KC_SPC)
 #define _____ KC_TRNS
 #define MM_0 DM_PLY1
-#define MM_1 DYN_MACRO_PLAY2
+#define MM_1 DM_PLY2
 
 // tap-hold settings
 #define LONGPRESS_DELAY 250
@@ -221,7 +221,7 @@ bool did_record_m1 = false;
 bool did_record_m2 = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool try_dynamic_macro = true;
-    if ((keycode == QK_DYNAMIC_MACRO_PLAY_1 && !did_record_m1) || (keycode == DYN_MACRO_PLAY2 && !did_record_m2)) {
+    if ((keycode == QK_DYNAMIC_MACRO_PLAY_1 && !did_record_m1) || (keycode == QK_DYNAMIC_MACRO_PLAY_2 && !did_record_m2)) {
         try_dynamic_macro = false;
     }
     else if (keycode == DM_CLEAR) {
@@ -235,7 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 did_record_m1 = true;
         }
 
-        if (keycode == DYN_MACRO_PLAY2) {
+        if (keycode == QK_DYNAMIC_MACRO_PLAY_2) {
                 did_record_m2 = true;
         }
 
@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QK_DYNAMIC_MACRO_PLAY_1:
         SEND_STRING(SENDSTRING_MM0);
         return false;
-    case DYN_MACRO_PLAY2:
+    case QK_DYNAMIC_MACRO_PLAY_2:
         SEND_STRING(SENDSTRING_MM1);
         return false;
     case MM_2:

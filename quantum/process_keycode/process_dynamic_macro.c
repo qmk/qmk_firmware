@@ -223,7 +223,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                 case QK_DYNAMIC_MACRO_PLAY_1:
                     dynamic_macro_play(macro_buffer, macro_end, +1);
                     return false;
-                case DYN_MACRO_PLAY2:
+                case QK_DYNAMIC_MACRO_PLAY_2:
                     dynamic_macro_play(r_macro_buffer, r_macro_end, -1);
                     return false;
             }
@@ -251,7 +251,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                 return false;
 #ifdef DYNAMIC_MACRO_NO_NESTING
             case QK_DYNAMIC_MACRO_PLAY_1:
-            case DYN_MACRO_PLAY2:
+            case QK_DYNAMIC_MACRO_PLAY_2:
                 dprintln("dynamic macro: ignoring macro play key while recording");
                 return false;
 #endif

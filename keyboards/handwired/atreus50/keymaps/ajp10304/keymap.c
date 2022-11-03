@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT(
   M_CUSTOM, QK_BOOT, QWERTY,  _______, _______, DM_REC1,                    DM_REC2,  _______,             _______,           _______,              _______,  KC_DEL  ,
-  KC_CAPS,  _______, _______, _______, _______, DM_PLY1,                   DYN_MACRO_PLAY2, KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  QWERTY  ,
+  KC_CAPS,  _______, _______, _______, _______, DM_PLY1,                    DM_PLY2, KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  QWERTY  ,
   TG(_MAC), _______, _______, _______, _______, DYN_REC_STOP,                      DYN_REC_STOP,    KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_MEDIA_NEXT_TRACK,  _______,  COLEMAK ,
   _______,  _______, _______, _______, _______, _______,         _______, _______, _______,         _______,             _______,           _______,              _______,  _______
 ),

@@ -10,7 +10,7 @@
             DM_REC2,
             DYN_REC_STOP,
             DM_PLY1,
-            DYN_MACRO_PLAY2,
+            DM_PLY2,
         };
         #define QMK_KEYBOARD_H "rev3.h"
     #endif
@@ -259,7 +259,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, XXXXXXX,  KC_AMPR, KC_ASTR, KC_LCBR, KC_RCBR, KC_DEL,
         KC_CAPS, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15, XXXXXXX,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, XXXXXXX,
         _______, KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, XXXXXXX,  KC_NUHS, KC_NUBS, DM_REC1, DM_REC2, DYN_REC_STOP,
-        KC_LCTL, KC_LALT, KC_LGUI, _______, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT,  __LYB__, DM_PLY1, DYN_MACRO_PLAY2, LLSWIT
+        KC_LCTL, KC_LALT, KC_LGUI, _______, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT,  __LYB__, DM_PLY1, DM_PLY2, LLSWIT
     ),
 
     /* Adjust (Lower + Raise)
@@ -323,7 +323,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_DEL,
         KC_CAPS,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DM_REC1,  DM_REC2,  DYN_REC_STOP,
-        KC_LCTL,  KC_LALT,  KC_LGUI,  KC_DEL,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,   DM_PLY1,  DYN_MACRO_PLAY2,  LLSWIT
+        KC_LCTL,  KC_LALT,  KC_LGUI,  KC_DEL,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,   DM_PLY1,  DM_PLY2,  LLSWIT
     ),
 
     /* Numeric Pad
