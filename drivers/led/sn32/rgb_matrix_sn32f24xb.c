@@ -23,6 +23,9 @@
 #    define MATRIX_IO_DELAY 30
 #endif
 
+#if !defined(PWM_OUTPUT_ACTIVE_LEVEL)
+#    define PWM_OUTPUT_ACTIVE_LEVEL PWM_OUTPUT_ACTIVE_LOW
+#endif
 /*
     COLS key / led
     SS8050 transistors NPN driven low
@@ -96,177 +99,19 @@ static PWMConfig pwmcfg = {
 
 static void rgb_ch_ctrl(PWMConfig *cfg) {
     /* Enable PWM function, IOs and select the PWM modes for the LED column pins */
-    for (uint8_t i = 0; i < LED_MATRIX_COLS; i++) {
-        switch (led_col_pins[i]) {
-            // Intentional fall-through for the PWM B-pin mapping
-            case B8:
-                cfg->channels[0].pfpamsk = 1;
-            case A0:
-                cfg->channels[0].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 0;
-                break;
-
-            case B9:
-                cfg->channels[1].pfpamsk = 1;
-            case A1:
-                cfg->channels[1].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 1;
-                break;
-
-            case B10:
-                cfg->channels[2].pfpamsk = 1;
-            case A2:
-                cfg->channels[2].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 2;
-                break;
-
-            case B11:
-                cfg->channels[3].pfpamsk = 1;
-            case A3:
-                cfg->channels[3].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 3;
-                break;
-
-            case B12:
-                cfg->channels[4].pfpamsk = 1;
-            case A4:
-                cfg->channels[4].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 4;
-                break;
-
-            case B13:
-                cfg->channels[5].pfpamsk = 1;
-            case A5:
-                cfg->channels[5].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 5;
-                break;
-
-            case B14:
-                cfg->channels[6].pfpamsk = 1;
-            case A6:
-                cfg->channels[6].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 6;
-                break;
-
-            case B15:
-                cfg->channels[7].pfpamsk = 1;
-            case A7:
-                cfg->channels[7].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 7;
-                break;
-
-            case C0:
-                cfg->channels[8].pfpamsk = 1;
-            case A8:
-                cfg->channels[8].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 8;
-                break;
-
-            case C1:
-                cfg->channels[9].pfpamsk = 1;
-            case A9:
-                cfg->channels[9].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]     = 9;
-                break;
-
-            case C2:
-                cfg->channels[10].pfpamsk = 1;
-            case A10:
-                cfg->channels[10].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 10;
-                break;
-
-            case C3:
-                cfg->channels[11].pfpamsk = 1;
-            case A11:
-                cfg->channels[11].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 11;
-                break;
-
-            case C4:
-                cfg->channels[12].pfpamsk = 1;
-            case A12:
-                cfg->channels[12].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 12;
-                break;
-
-            case C5:
-                cfg->channels[13].pfpamsk = 1;
-            case A13:
-                cfg->channels[13].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 13;
-                break;
-
-            case C6:
-                cfg->channels[14].pfpamsk = 1;
-            case A14:
-                cfg->channels[14].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 14;
-                break;
-
-            case C7:
-                cfg->channels[15].pfpamsk = 1;
-            case A15:
-                cfg->channels[15].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 15;
-                break;
-
-            case C8:
-                cfg->channels[16].pfpamsk = 1;
-            case B0:
-                cfg->channels[16].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 16;
-                break;
-
-            case C9:
-                cfg->channels[17].pfpamsk = 1;
-            case B1:
-                cfg->channels[17].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 17;
-                break;
-
-            case C10:
-                cfg->channels[18].pfpamsk = 1;
-            case B2:
-                cfg->channels[18].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 18;
-                break;
-
-            case C11:
-                cfg->channels[19].pfpamsk = 1;
-            case B3:
-                cfg->channels[19].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 19;
-                break;
-
-            case C12:
-                cfg->channels[20].pfpamsk = 1;
-            case B4:
-                cfg->channels[20].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 20;
-                break;
-
-            case C13:
-                cfg->channels[21].pfpamsk = 1;
-            case B5:
-                cfg->channels[21].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 21;
-                break;
-
-            case C14:
-                cfg->channels[22].pfpamsk = 1;
-            case B6:
-                cfg->channels[22].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 22;
-                break;
-
-            case C15:
-                cfg->channels[23].pfpamsk = 1;
-            case B7:
-                cfg->channels[23].mode = PWM_OUTPUT_ACTIVE_LOW;
-                chan_col_order[i]      = 23;
-                break;
-        }
+    for(uint8_t i = 0; i < LED_MATRIX_COLS; i++) {
+        // Only P0.0 to P2.15 can be used as pwm output
+        if (led_col_pins[i] > C15) continue;
+        /* We use a tricky here, accordint to pfpa table of sn32f240b datasheet,
+           pwm channel and pfpa of pin Px.y can be calculated as below:
+             channel = (x*16+y)%24
+             pfpa = 1, when (x*16+y)>23
+        */
+        uint8_t pio_value             = ((uint32_t)(PAL_PORT(led_col_pins[i])) - (uint32_t)(PAL_PORT(A0))) / ((uint32_t)(PAL_PORT(B0)) - (uint32_t)(PAL_PORT(A0))) * 16 + PAL_PAD(led_col_pins[i]);
+        uint8_t ch_idx                = pio_value % 24;
+        chan_col_order[i]             = ch_idx;
+        cfg->channels[ch_idx].pfpamsk = pio_value > 23;
+        cfg->channels[ch_idx].mode    = PWM_OUTPUT_ACTIVE_LEVEL;
     }
 }
 static void rgb_callback(PWMDriver *pwmp);
