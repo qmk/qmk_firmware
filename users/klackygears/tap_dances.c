@@ -12,7 +12,7 @@ void macroTogKey(qk_tap_dance_state_t *state, void *user_data) {
   else if (state->count == 2)
   {
     kr.event.pressed = true;
-    process_record_dynamic_macro( DYN_REC_STOP, &kr );
+    process_record_dynamic_macro( DM_RSTP, &kr );
   }
   else if (state->count == 3)
   {
@@ -32,7 +32,7 @@ void macroTogKey2(qk_tap_dance_state_t *state, void *user_data) {
   else if (state->count == 2)
   {
     kr.event.pressed = true;
-    process_record_dynamic_macro( DYN_REC_STOP, &kr );
+    process_record_dynamic_macro( DM_RSTP, &kr );
   }
   else if (state->count == 3)
   {

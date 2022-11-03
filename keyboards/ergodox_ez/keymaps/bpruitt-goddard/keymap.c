@@ -109,7 +109,7 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
   keyrecord_t record;
   dprintf("macro_tap_dance_fn %d\n", state->count);
   if (is_macro1_recording) {
-    keycode = DYN_REC_STOP;
+    keycode = DM_RSTP;
     is_macro1_recording = false;
     layer_state_set_user(current_layer_state);
   } else if (state->count == 1) {

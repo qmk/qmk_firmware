@@ -286,7 +286,7 @@ enum custom_keycodes {
 #  define DM_REC2 KC_TRNS
 #  define DM_PLY1 KC_TRNS
 #  define DM_PLY2 KC_TRNS
-#  define DYN_REC_STOP KC_TRNS
+#  define DM_RSTP KC_TRNS
 #endif
 
 #ifdef CFQ_USE_MOMENTARY_LAYER_KEYS
@@ -393,7 +393,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                                DM_REC1,          DM_REC2,
                               K80(L1K0),       K80(L1K1),        DM_PLY1,
-                              DYN_REC_STOP,    KC_TRNS,          DM_PLY2,
+                              DM_RSTP,         KC_TRNS,          DM_PLY2,
   /* right hand */
   M_BRACKET_OUT_CBR, KC_TRNS,           KC_NUM,  KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS,  KC_TRNS,
   M_BRACKET_OUT_PRN, M_ARROW_LEQL,      KC_KP_7, KC_KP_8,     KC_KP_9,        KC_KP_PLUS,  KC_TRNS,

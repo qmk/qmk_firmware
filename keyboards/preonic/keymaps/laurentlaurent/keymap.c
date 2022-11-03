@@ -8,7 +8,7 @@
         enum dynamic_macro_keycodes {
             DM_REC1 = DYNAMIC_MACRO_RANGE,
             DM_REC2,
-            DYN_REC_STOP,
+            DM_RSTP,
             DM_PLY1,
             DM_PLY2,
         };
@@ -258,7 +258,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_SCRL,  KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
         KC_TAB,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, XXXXXXX,  KC_AMPR, KC_ASTR, KC_LCBR, KC_RCBR, KC_DEL,
         KC_CAPS, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15, XXXXXXX,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, XXXXXXX,
-        _______, KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, XXXXXXX,  KC_NUHS, KC_NUBS, DM_REC1, DM_REC2, DYN_REC_STOP,
+        _______, KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, XXXXXXX,  KC_NUHS, KC_NUBS, DM_REC1, DM_REC2, DM_RSTP,
         KC_LCTL, KC_LALT, KC_LGUI, _______, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT,  __LYB__, DM_PLY1, DM_PLY2, LLSWIT
     ),
 
@@ -322,7 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,   _______,  _______,  _______,  _______,  KC_SCRL,  _______,  _______,  _______,  _______,  _______,  _______,
         KC_TAB,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_DEL,
         KC_CAPS,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DM_REC1,  DM_REC2,  DYN_REC_STOP,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DM_REC1,  DM_REC2,  DM_RSTP,
         KC_LCTL,  KC_LALT,  KC_LGUI,  KC_DEL,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,   DM_PLY1,  DM_PLY2,  LLSWIT
     ),
 
@@ -419,7 +419,7 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Play sound on Macro stop
 #ifdef AUDIO_ENABLE
         switch (keycode) {
-            case DYN_REC_STOP:
+            case QK_DYNAMIC_MACRO_RECORD_STOP:
                 if (record->event.pressed) {
                     PLAY_SONG(tone_macro_record_stop);
                 }

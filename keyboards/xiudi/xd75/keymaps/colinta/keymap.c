@@ -114,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   [LAYER_RECORD] = LAYOUT(
-    _____, _____, _____, _____, _____, _____, DYN_REC_STOP, DYN_REC_STOP, _____, _____, _____, _____, _____, _____, _____,
-    _____, _____, _____, _____, _____, _____, DYN_REC_STOP, DYN_REC_STOP, _____, _____, _____, _____, _____, _____, _____,
+    _____, _____, _____, _____, _____, _____, DM_RSTP, DM_RSTP, _____, _____, _____, _____, _____, _____, _____,
+    _____, _____, _____, _____, _____, _____, DM_RSTP, DM_RSTP, _____, _____, _____, _____, _____, _____, _____,
     _____, _____, _____, _____, _____, _____,    _____,        _____,     _____, _____, _____, _____, _____, _____, _____,
     _____, _____, _____, _____, _____, _____,    _____,        _____,     _____, _____, _____, _____, _____, _____, _____,
     _____, _____, _____, _____, _____, _____,    _____,        _____,     _____, _____, _____, _____, _____, _____, _____
@@ -242,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (keycode == QK_DYNAMIC_MACRO_RECORD_START_1 || keycode == QK_DYNAMIC_MACRO_RECORD_START_2) {
                 layer_move(LAYER_RECORD);
         }
-        else if (keycode == DYN_REC_STOP) {
+        else if (keycode == QK_DYNAMIC_MACRO_RECORD_STOP) {
                 layer_move(LAYER_COLEMAK);
         }
 

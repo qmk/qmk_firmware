@@ -91,7 +91,7 @@ static bool singular_key = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-    uint16_t macro_kc = (keycode == MO(_ADJUST) ? DYN_REC_STOP : keycode);
+    uint16_t macro_kc = (keycode == MO(_ADJUST) ? DM_RSTP : keycode);
     if (!process_record_dynamic_macro(macro_kc, record))
     {
         return false;

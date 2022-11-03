@@ -129,7 +129,7 @@ void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_poin
     dynamic_macro_led_blink();
 
     /* Do not save the keys being held when stopping the recording,
-     * i.e. the keys used to access the layer DYN_REC_STOP is on.
+     * i.e. the keys used to access the layer DM_RSTP is on.
      */
     while (macro_pointer != macro_buffer && (macro_pointer - direction)->event.pressed) {
         dprintln("dynamic macro: trimming a trailing key-down event");
@@ -221,7 +221,7 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
     } else {
         /* A macro is being recorded right now. */
         switch (keycode) {
-            case DYN_REC_STOP:
+            case QK_DYNAMIC_MACRO_RECORD_STOP:
                 /* Stop the macro recording. */
                 if (record->event.pressed) { /* Ignore the initial release
                                               * just after the recoding

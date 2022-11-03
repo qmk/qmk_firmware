@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------|  META                   //
         //          STOP RECORDING |  MOD TAP: GUI+SHIFT+ALT | Q                       | J                       | K                       | X                       |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_REC_STOP,             TD(SCLN_COLN),            LCAG_T(KC_Q),             TD(J_MED_MEH),            TD(K_NUM_HYP),            LCSG_T(KC_X),                KC_LGUI,        //
+                DM_RSTP,                  TD(SCLN_COLN),            LCAG_T(KC_Q),             TD(J_MED_MEH),            TD(K_NUM_HYP),            LCSG_T(KC_X),                KC_LGUI,        //
         //                         |                       : |                         |                         |                         |                         |                         //
         //           DYNAMIC MACRO |            TAP DANCE: ; |      MOD TAP: SHIFT+GUI |  M TAP DANCE: MEDIA/MEH |  M TAP DANCE: ATM/HYPER |  MOD TAP: CTL+SHIFT+GUI |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//

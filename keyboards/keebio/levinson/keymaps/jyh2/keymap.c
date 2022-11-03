@@ -35,7 +35,7 @@ enum custom_keycodes {
 #define DREC_2  DM_REC2
 #define DPLAY_1 DM_PLY1
 #define DPLAY_2 DM_PLY2
-#define DSTOP   DYN_REC_STOP
+#define DSTOP   DM_RSTP
 
 
 // Mod Tap Definitions

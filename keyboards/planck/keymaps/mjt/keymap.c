@@ -151,7 +151,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
+  uint16_t macro_kc = (keycode == MO(_DYN) ? DM_RSTP : keycode);
   if (!process_record_dynamic_macro(macro_kc, record)) {
     return false;
   }

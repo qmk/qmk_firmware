@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            M_POINER,   KC_4,    KC_5,     KC_6,     KC_0,     KC_TRNS,
   KC_ENT,  M_NOT_EQL,  KC_1,    KC_2,     KC_3,     KC_TRNS,  KC_TRNS,
                        KC_0,    KC_COMM,  KC_DOT,   KC_TRNS,  KC_TRNS,
-  KC_TRNS, DYN_REC_STOP,
+  KC_TRNS, DM_RSTP,
   DM_REC2,
   DM_PLY2, KC_TRNS, KC_TRNS
 ),
@@ -195,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            M_POINER,    KC_4,    KC_5,     KC_6,     KC_0,     KC_TRNS,
   KC_ENT,  M_NOT_EQL,   KC_1,    KC_2,     KC_3,     KC_TRNS,  KC_TRNS,
                         KC_0,    KC_COMM,  KC_DOT,   KC_TRNS,  KC_TRNS,
-  KC_TRNS, DYN_REC_STOP,
+  KC_TRNS, DM_RSTP,
   DM_REC2,
   DM_PLY2, KC_TRNS, KC_TRNS
 ),
@@ -212,7 +212,7 @@ static bool process_record_dynamic_macro_wrapper(uint16_t keycode, keyrecord_t *
         recording_dynamic_macro = true;
       }
       break;
-    case DYN_REC_STOP:
+    case QK_DYNAMIC_MACRO_RECORD_STOP:
       if (record->event.pressed) {
         recording_dynamic_macro = false;
       }

@@ -8,7 +8,7 @@ enum custom_keycodes {
 #include "dynamic_macro.h"
 
 #define KC_REC DM_REC1
-#define KC_DONE DYN_REC_STOP
+#define KC_DONE DM_RSTP
 #define KC_PLAY DM_PLY1
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

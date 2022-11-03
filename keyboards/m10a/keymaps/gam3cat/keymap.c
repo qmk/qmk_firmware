@@ -31,7 +31,7 @@ extern backlight_config_t backlight_config;
 #define KC_DMR2 DM_REC2
 #define KC_DMP1 DM_PLY1
 #define KC_DMP2 DM_PLY2
-#define KC_DMRS DYN_REC_STOP
+#define KC_DMRS DM_RSTP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*## Layout Config:

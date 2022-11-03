@@ -79,11 +79,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MACSLEEP, KC_HOME, KC_END, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGDN, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, DYN_REC_STOP, KC_TRNS, KC_TRNS)};
+        KC_TRNS, KC_TRNS, DM_RSTP, KC_TRNS, KC_TRNS)};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-    uint16_t macro_kc = (keycode == MO(DYN) ? DYN_REC_STOP : keycode);
+    uint16_t macro_kc = (keycode == MO(DYN) ? DM_RSTP : keycode);
     if (!process_dynamic_macro(macro_kc, record))
     {
         return false;
