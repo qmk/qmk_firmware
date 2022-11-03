@@ -306,13 +306,13 @@ See also: [Caps Word](feature_caps_word.md)
 
 See also: [Dynamic Macros](feature_dynamic_macros.md)
 
-|Key              |Aliases  |Description                                       |
-|-----------------|---------|--------------------------------------------------|
-|`DYN_REC_START1` |`DM_REC1`|Start recording Macro 1                           |
-|`DYN_REC_START2` |`DM_REC2`|Start recording Macro 2                           |
-|`DYN_MACRO_PLAY1`|`DM_PLY1`|Replay Macro 1                                    |
-|`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
-|`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
+|Key                              |Aliases  |Description                                       |
+|---------------------------------|---------|--------------------------------------------------|
+|`QK_DYNAMIC_MACRO_RECORD_START_1`|`DM_REC1`|Start recording Macro 1                           |
+|`QK_DYNAMIC_MACRO_RECORD_START_2`|`DM_REC2`|Start recording Macro 2                           |
+|`QK_DYNAMIC_MACRO_PLAY_1`        |`DM_PLY1`|Replay Macro 1                                    |
+|`QK_DYNAMIC_MACRO_PLAY_2`        |`DM_PLY2`|Replay Macro 2                                    |
+|`QK_DYNAMIC_MACRO_RECORD_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
 ## Grave Escape :id=grave-escape
 
