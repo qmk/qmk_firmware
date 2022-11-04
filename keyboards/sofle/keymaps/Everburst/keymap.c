@@ -4,7 +4,7 @@ enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _COLEMAK_DH, 
     _QWERTY,
-    _GAMING,
+    _GAME,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -43,7 +43,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_COLEMAK_DH] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
    KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV,
    KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                          KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
    KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                          KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
@@ -95,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______,  KC_SPC,      KC_ENT, _______, _______, _______, _______ 
 ),
 /* LOWER
@@ -156,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  QK_BOOT,XXXXXXX,KC_QWERTY,KC_COL_DH,TG(_GAMING),XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  QK_BOOT,XXXXXXX,KC_QWERTY,KC_COL_DH,TG(_GAME),XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, CG_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,  
                     _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
