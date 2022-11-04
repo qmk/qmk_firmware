@@ -2,8 +2,6 @@
 
 [Glamour shot](https://i.imgur.com/ONvbIbmh.jpg)
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [bwprobably](https://github.com/bwprobably)
 * Hardware Supported: ProMicro (Atmega32U4), EC11 Rotary Encoder
 * Hardware Availability: [Example Encoder](https://www.amazon.com/dp/B07D3DF8TK/)
