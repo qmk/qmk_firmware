@@ -206,7 +206,7 @@ enum combo_keys {
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM combo_wf[] = {CTL_W, KC_P, COMBO_END};
+const uint16_t PROGMEM combo_wf[] = {CTL_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_reset[] = {KC_PSCR, KC_NO, COMBO_END};
 const uint16_t PROGMEM combo_uy[] = {KC_U, CTL_Y, COMBO_END};
