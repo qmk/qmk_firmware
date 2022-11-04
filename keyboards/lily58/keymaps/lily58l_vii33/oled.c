@@ -88,7 +88,7 @@ void render_keylock_status(led_t led_state) {
   oled_write_P(PSTR("  "), false);
   oled_write_P(PSTR("N"), led_state.num_lock);
   oled_write_P(PSTR("C"), led_state.caps_lock);
-  oled_write_ln_P(PSTR("S"), led_state.scroll_lock);
+  oled_write_P(PSTR("S"), led_state.scroll_lock);
 }
 
 void render_mod_status(uint8_t modifiers) {
@@ -135,7 +135,7 @@ bool oled_task_user(void) {
 
   // fixes screen on and off bug -> Turn on in process_record_user
   if (current_wpm > 0) {
-    oled_on();    // Doesn't work here -> screen flickers
+    oled_on();    // Doesn't work here -> screen flickers?????????
     anim_sleep_timer = timer_read32();
   } 
   else if ( timer_elapsed32(anim_sleep_timer) > OLED_TIMEOUT && is_oled_on() ) {
@@ -166,7 +166,7 @@ bool oled_task_user(void) {
 /* ------ LUNA PET START ------ */
 
 /* settings */
-#    define MIN_WALK_SPEED      10
+#    define MIN_WALK_SPEED      5
 #    define MIN_RUN_SPEED       40
 #    define ANIM_FRAME_DURATION 250  // how long each frame lasts in ms
 #    define ANIM_SIZE           96   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
@@ -174,10 +174,10 @@ bool oled_task_user(void) {
 /* timers */
 uint32_t anim_timer = 0;
 
-bool isSneaking = false;
-bool isJumping  = false;
-bool isBarking  = false;
-bool showedJump = true;
+bool lunaIsSneaking = false;
+bool lunaIsJumping  = false;
+bool lunaIsBarking  = false;
+bool lunaShowedJump = true;
 
 /* logic */
 void render_luna(int LUNA_X, int LUNA_Y) {    // params: chunk position on LED font
@@ -254,14 +254,14 @@ void render_luna(int LUNA_X, int LUNA_Y) {    // params: chunk position on LED f
       anim_timer = timer_read32();
               
       /* jump */
-      if (isJumping || !showedJump) {
+      if (lunaIsJumping || !lunaShowedJump) {
           /* clear */
           oled_set_cursor(LUNA_X, LUNA_Y + 2);
           oled_write("     ", false);
 
           oled_set_cursor(LUNA_X, LUNA_Y - 1);
 
-          showedJump = true;
+          lunaShowedJump = true;
 
       } else {
           /* clear */
@@ -275,10 +275,10 @@ void render_luna(int LUNA_X, int LUNA_Y) {    // params: chunk position on LED f
       current_frame = (current_frame + 1) % 2;
 
       /* current status */
-      if (isBarking) {
+      if (lunaIsBarking) {
           oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
 
-      } else if (isSneaking) {
+      } else if (lunaIsSneaking) {
           oled_write_raw_P(sneak[abs(1 - current_frame)], ANIM_SIZE);
 
       } else if (current_wpm <= MIN_WALK_SPEED) {

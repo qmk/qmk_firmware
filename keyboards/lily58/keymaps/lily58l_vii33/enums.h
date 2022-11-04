@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+/* Global enum and define file for all c files */
+
 enum layers {
     _QWERTY,    //0
     _LOWER,     //1
@@ -8,7 +10,7 @@ enum layers {
     _GAME       //4
 };
 
-// Custom Keycodes / Keys  https://docs.qmk.fm/#/custom_quantum_functions?id=defining-a-new-keycode
+
 enum custom_keycodes {
     CC_AE = SAFE_RANGE,
     CC_OE,
@@ -32,6 +34,5 @@ enum custom_keycodes {
 #define CTL_J RCTL_T(KC_J)
 #define ALT_K LALT_T(KC_K)
 #define GUI_L RGUI_T(KC_L)
-
 
 #define SHFT_SP RSFT_T(KC_SPC)
