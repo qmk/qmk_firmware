@@ -86,3 +86,7 @@
 #        define WS2812_DMA_CHANNEL 6
 #    endif
 #endif
+
+#ifndef USB_VBUS_PIN
+#    define USB_VBUS_PIN PAL_LINE(GPIOA, 9)
+#endif
