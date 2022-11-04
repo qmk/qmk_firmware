@@ -17,6 +17,7 @@
 #include "send_string.h"
 
 #include <ctype.h>
+#include <stdlib.h>
 
 #include "quantum_keycodes.h"
 #include "keycode.h"
