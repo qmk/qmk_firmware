@@ -16,7 +16,9 @@
  */
 
 #include "wpm.h"
-
+#include "timer.h"
+#include "keycode.h"
+#include "quantum_keycodes.h"
 #include <math.h>
 
 // WPM Stuff
