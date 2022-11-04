@@ -42,12 +42,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
+  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 40
 #elif RGBLIGHT_FULL_POWER
   #define RGBLIGHT_LIMIT_VAL 255
+  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #else
   #define RGBLIGHT_LIMIT_VAL 120
+  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #endif
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
