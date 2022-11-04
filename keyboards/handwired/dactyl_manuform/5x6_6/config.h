@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 #define MATRIX_ROWS 14
 
-
+#undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN D3
 
 // wiring of each half
