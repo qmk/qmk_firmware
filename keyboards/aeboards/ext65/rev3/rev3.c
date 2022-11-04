@@ -16,19 +16,22 @@
 
 #include "rev3.h"
 
+// Tested and verified working on EXT65 Rev3
+void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
+
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
   // Set our LED pins as output
-  setPinOutput(D1);
+  setPinOutput(LED_LAYERS_PIN);
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
       case 1:
-        writePinHigh(D1);
+        writePinHigh(LED_LAYERS_PIN);
         break;
       default: //  for any other layers, or the default layer
-        writePinLow(D1);
+        writePinLow(LED_LAYERS_PIN);
         break;
       }
     return layer_state_set_user(state);
