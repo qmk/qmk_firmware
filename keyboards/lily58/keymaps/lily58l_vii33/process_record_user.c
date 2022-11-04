@@ -19,9 +19,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Dont' process keys further on key release (not needed for now)
   if (record->event.pressed == false) { 
     /* Luna pet start */
-    isJumping = false;
-    isSneaking = false;
-    isBarking = false;
+    lunaIsJumping = false;
+    lunaIsSneaking = false;
+    lunaIsBarking = false;
     /* Luna pet end */
     return true;
   }  
@@ -36,20 +36,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   
   switch (keycode) 
   {
-    /* Luna pet start */
     case SHFT_SP:
-      isJumping  = true;
-      showedJump = false;
+      lunaIsJumping  = true;
+      lunaShowedJump = false;
       break;
 
     case CTL_F:  
-      isSneaking = true;
+      lunaIsSneaking = true;
       break;
 
     case ALT_D:
-      isBarking = true;
+      lunaIsBarking = true;
       break;
-    /* Luna pet end */
 
     case CC_BckDel:
       if ( mods_state & MOD_MASK_SHIFT ) {  // Shift pressed
@@ -86,18 +84,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CC_APHO:
       if ( mods_state & MOD_MASK_SHIFT ) {  
         del_mods(MOD_MASK_SHIFT);         
-        tap_code(KC_GRV);              //  ` grave 
-        set_mods(mods_state);    
-      }else {                               
         tap_code16(ALGR(KC_QUOT));     //  ´ aigu
+        set_mods(mods_state);
+           
+      }else {                               
+        tap_code(KC_GRV);              //  ` grave 
+        tap_code(KC_SPC);              //  needed bc. of dead key
       }
       break;
 
     case CC_QUOT:
       if ( mods_state & MOD_MASK_SHIFT ) {  
-        SEND_STRING("\"");             // "      
+        del_mods(MOD_MASK_SHIFT);
+        tap_code(KC_QUOT);            // '  
+        tap_code(KC_SPC);              //  needed bc. of dead key
+        set_mods(mods_state);   
       }else {                               
-        tap_code16(LSFT(KC_QUOT));     // '
+        tap_code16(S(KC_QUOT));       // " 
+        tap_code(KC_SPC);              //  needed bc. of dead key
       }
       break;
 

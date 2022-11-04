@@ -26,9 +26,9 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 */
 #define EE_HANDS
 
-
+// Home row modifiers   https://precondition.github.io/home-row-mods
 #define TAPPING_TERM 250      // mod tap hold time (shift) in ms, default 200
-#define IGNORE_MOD_TAP_INTERRUPTsdsdsdsdsdsd
+#define IGNORE_MOD_TAP_INTERRUPT  // important for good home row mods experience
 #define TAPPING_FORCE_HOLD   // activate the hold function instead, when holding a dual-role
 // key after having tapped it. No more accidental repeats of mod-tap letters when typing quickly!
 // The downside is that it removes the possibility of auto-repeating the letter/tapping function of the mod-tap.
@@ -78,7 +78,7 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 
 
 // OLED
-#define OLED_TIMEOUT 10000
+#define OLED_TIMEOUT 15000
 #define OLED_FADE_OUT
 #define OLED_UPDATE_INTERVAL 150  // set oled update interval in ms (default: 0). improves matrix scan rate
 #define OLED_BRIGHTNESS 120
