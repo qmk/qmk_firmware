@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include "eeprom.h"
@@ -23,13 +24,17 @@ void eeconfig_init_via(void);
  * FIXME: needs doc
  */
 __attribute__((weak)) void eeconfig_init_user(void) {
+#if (EECONFIG_USER_DATA_SIZE) == 0
     // Reset user EEPROM value to blank, rather than to a set value
     eeconfig_update_user(0);
+#endif
 }
 
 __attribute__((weak)) void eeconfig_init_kb(void) {
+#if (EECONFIG_KB_DATA_SIZE) == 0
     // Reset Keyboard EEPROM value to blank, rather than to a set value
     eeconfig_update_kb(0);
+#endif
 
     eeconfig_init_user();
 }
@@ -64,6 +69,19 @@ void eeconfig_init_quantum(void) {
     // when a haptic-enabled firmware is loaded onto the keyboard.
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #endif
+
+#if (EECONFIG_KB_DATA_SIZE) > 0
+    eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
+    uint8_t dummy_kb[(EECONFIG_KB_DATA_SIZE)] = {0};
+    eeprom_update_block(EECONFIG_KB_DATABLOCK, dummy_kb, (EECONFIG_KB_DATA_SIZE));
+#endif
+
+#if (EECONFIG_USER_DATA_SIZE) > 0
+    eeprom_update_dword(EECONFIG_USER, (EECONFIG_USER_DATA_VERSION));
+    uint8_t dummy_user[(EECONFIG_USER_DATA_SIZE)] = {0};
+    eeprom_update_block(EECONFIG_USER_DATABLOCK, dummy_user, (EECONFIG_USER_DATA_SIZE));
+#endif
+
 #if defined(VIA_ENABLE)
     // Invalidate VIA eeprom config, and then reset.
     // Just in case if power is lost mid init, this makes sure that it pets
@@ -190,6 +208,7 @@ void eeconfig_update_audio(uint8_t val) {
     eeprom_update_byte(EECONFIG_AUDIO, val);
 }
 
+#if (EECONFIG_KB_DATA_SIZE) == 0
 /** \brief eeconfig read kb
  *
  * FIXME: needs doc
@@ -204,7 +223,9 @@ uint32_t eeconfig_read_kb(void) {
 void eeconfig_update_kb(uint32_t val) {
     eeprom_update_dword(EECONFIG_KEYBOARD, val);
 }
+#endif // (EECONFIG_KB_DATA_SIZE) == 0
 
+#if (EECONFIG_USER_DATA_SIZE) == 0
 /** \brief eeconfig read user
  *
  * FIXME: needs doc
@@ -219,6 +240,7 @@ uint32_t eeconfig_read_user(void) {
 void eeconfig_update_user(uint32_t val) {
     eeprom_update_dword(EECONFIG_USER, val);
 }
+#endif // (EECONFIG_USER_DATA_SIZE) == 0
 
 /** \brief eeconfig read haptic
  *
@@ -249,3 +271,47 @@ bool eeconfig_read_handedness(void) {
 void eeconfig_update_handedness(bool val) {
     eeprom_update_byte(EECONFIG_HANDEDNESS, !!val);
 }
+
+#if (EECONFIG_KB_DATA_SIZE) > 0
+/** \brief eeconfig read keyboard data block
+ *
+ * FIXME: needs doc
+ */
+void eeconfig_read_kb_datablock(void *data) {
+    if (eeprom_read_dword(EECONFIG_KEYBOARD) == (EECONFIG_KB_DATA_VERSION)) {
+        eeprom_read_block(data, EECONFIG_KB_DATABLOCK, (EECONFIG_KB_DATA_SIZE));
+    } else {
+        memset(data, 0, (EECONFIG_KB_DATA_SIZE));
+    }
+}
+/** \brief eeconfig update keyboard data block
+ *
+ * FIXME: needs doc
+ */
+void eeconfig_update_kb_datablock(const void *data) {
+    eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
+    eeprom_update_block(data, EECONFIG_KB_DATABLOCK, (EECONFIG_KB_DATA_SIZE));
+}
+#endif // (EECONFIG_KB_DATA_SIZE) > 0
+
+#if (EECONFIG_USER_DATA_SIZE) > 0
+/** \brief eeconfig read user data block
+ *
+ * FIXME: needs doc
+ */
+void eeconfig_read_user_datablock(void *data) {
+    if (eeprom_read_dword(EECONFIG_USER) == (EECONFIG_USER_DATA_VERSION)) {
+        eeprom_read_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
+    } else {
+        memset(data, 0, (EECONFIG_USER_DATA_SIZE));
+    }
+}
+/** \brief eeconfig update user data block
+ *
+ * FIXME: needs doc
+ */
+void eeconfig_update_user_datablock(const void *data) {
+    eeprom_update_dword(EECONFIG_USER, (EECONFIG_USER_DATA_VERSION));
+    eeprom_update_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
+}
+#endif // (EECONFIG_USER_DATA_SIZE) > 0
