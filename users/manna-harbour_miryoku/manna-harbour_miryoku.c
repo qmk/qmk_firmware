@@ -7,6 +7,9 @@
 
 #include "manna-harbour_miryoku.h"
 
+
+// Additional Features double tap guard
+
 enum {
     U_TD_BOOT,
 #define MIRYOKU_X(LAYER, STRING) U_TD_U_##LAYER,
@@ -36,11 +39,27 @@ MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
 };
 
+
+// keymap
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define MIRYOKU_X(LAYER, STRING) [U_##LAYER] = U_MACRO_VA_ARGS(MIRYOKU_LAYERMAPPING_##LAYER, MIRYOKU_LAYER_##LAYER),
 MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
 };
+
+
+// shift functions
+
+const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CAPSWRD, KC_CAPS);
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &capsword_key_override,
+    NULL
+};
+
+
+// thumb combos
 
 #if defined (MIRYOKU_KLUDGE_THUMBCOMBOS)
 const uint16_t PROGMEM thumbcombos_base_right[] = {LT(U_SYM, KC_ENT), LT(U_NUM, KC_BSPC), COMBO_END};
