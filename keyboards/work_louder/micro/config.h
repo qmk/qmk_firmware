@@ -5,6 +5,10 @@
 
 #include "config_common.h"
 
+
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 4
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -84,6 +88,6 @@
 #define ENCODERS_PAD_B \
     { D6, B1 }
 
-#define WORK_LOUDER_LED_PIN_1 B7
-#define WORK_LOUDER_LED_PIN_2 B6
+#define WORK_LOUDER_LED_PIN_1 B6
+#define WORK_LOUDER_LED_PIN_2 B7
 #define WORK_LOUDER_LED_PIN_3 B5

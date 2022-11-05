@@ -8,26 +8,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPLY, KC_9,    KC_0,    KC_NO,
         KC_5,    KC_6,    KC_7,    KC_8,
         KC_1,    KC_2,    KC_3,    KC_4,
-        TO(1),   KC_DOT,  KC_COMM, USER09
+        USER09,   KC_DOT,  KC_COMM, 0x5011
     ),
     LAYOUT(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        TO(2),   _______, _______, _______
+        _______, _______, _______, 0x5012
 
     ),
     LAYOUT(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        TO(3),   _______, _______, _______
+        _______, _______, _______, 0x5013
     ),
     LAYOUT(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        TO(0),   _______, _______, _______
+        _______, _______, _______, 0x5010
     )
 };
 
@@ -67,6 +67,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set_kb(layer_state);
             }
             break;
+        case 0x5000 ... 0x500F:
+            if (record->event.pressed) {
+                layer_move(keycode - 0x5000);
+            }
+            return false; break;
+        case 0x5010 ... 0x501F:
+            if (record->event.pressed) {
+                layer_move(keycode - 0x5010);
+            }
+            return false; break;
     }
     return true;
 }
