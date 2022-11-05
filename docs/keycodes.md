@@ -718,15 +718,6 @@ See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
 
-## Thermal Printer :id=thermal-printer
-
-See also: [Thermal Printer](feature_thermal_printer.md)
-
-|Key        |Description                             |
-|-----------|----------------------------------------|
-|`PRINT_ON` |Start printing everything the user types|
-|`PRINT_OFF`|Stop printing everything the user types |
-
 ## US ANSI Shifted Symbols :id=us-ansi-shifted-symbols
 
 See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
