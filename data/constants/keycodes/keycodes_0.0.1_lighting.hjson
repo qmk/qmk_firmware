@@ -2,31 +2,54 @@
     "keycodes": {
         "0x7800": {
             "group": "backlight",
-            "key": "BL_ON"
+            "key": "QK_BACKLIGHT_ON",
+            "aliases": [
+                "BL_ON"
+            ]
         },
         "0x7801": {
             "group": "backlight",
-            "key": "BL_OFF"
+            "key": "QK_BACKLIGHT_OFF",
+            "aliases": [
+                "BL_OFF"
+            ]
         },
         "0x7802": {
             "group": "backlight",
-            "key": "BL_DEC"
+            "key": "QK_BACKLIGHT_TOGGLE",
+            "aliases": [
+                "BL_TOGG"
+            ]
         },
         "0x7803": {
             "group": "backlight",
-            "key": "BL_INC"
+            "key": "QK_BACKLIGHT_DECREASE",
+            "aliases": [
+                "BL_DEC",
+                "BL_DOWN"
+            ]
         },
         "0x7804": {
             "group": "backlight",
-            "key": "BL_TOGG"
+            "key": "QK_BACKLIGHT_INCREASE",
+            "aliases": [
+                "BL_INC",
+                "BL_UP"
+            ]
         },
         "0x7805": {
             "group": "backlight",
-            "key": "BL_STEP"
+            "key": "QK_BACKLIGHT_STEP",
+            "aliases": [
+                "BL_STEP"
+            ]
         },
         "0x7806": {
             "group": "backlight",
-            "key": "BL_BRTG"
+            "key": "QK_BACKLIGHT_TOGGLE_BREATHING",
+            "aliases": [
+                "BL_BRTG"
+            ]
         },
 
         "0x7820": {
