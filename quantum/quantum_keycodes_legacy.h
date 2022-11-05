@@ -133,7 +133,7 @@
 #define MU_TOG QK_MUSIC_TOGGLE
 #define MU_MOD QK_MUSIC_MODE_NEXT
 #define MUV_IN QK_AUDIO_VOICE_NEXT
-#define MUV_DE QK_AUDIO_VOICE_PREV
+#define MUV_DE QK_AUDIO_VOICE_PREVIOUS
 
 #define TERM_ON _Static_assert(false, "The Terminal feature has been removed from QMK. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 #define TERM_OFF _Static_assert(false, "The Terminal feature has been removed from QMK.. Please remove use of TERM_ON/TERM_OFF from your keymap.")
