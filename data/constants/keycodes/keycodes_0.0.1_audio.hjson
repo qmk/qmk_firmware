@@ -2,55 +2,64 @@
     "keycodes": {
         "0x7480": {
             "group": "audio",
-            "key": "AU_ON"
+            "key": "QK_AUDIO_ON",
+            "aliases": [
+                "AU_ON"
+            ]
         },
         "0x7481": {
             "group": "audio",
-            "key": "AU_OFF"
+            "key": "QK_AUDIO_OFF",
+            "aliases": [
+                "AU_OFF"
+            ]
         },
         "0x7482": {
             "group": "audio",
-            "key": "AU_TOG"
+            "key": "QK_AUDIO_TOGGLE",
+            "aliases": [
+                "AU_TOGG"
+            ]
         },
 
         "0x748A": {
             "group": "audio",
-            "key": "CLICKY_TOGGLE",
+            "key": "QK_AUDIO_CLICKY_TOGGLE",
             "aliases": [
                 "CK_TOGG"
             ]
         },
         "0x748B": {
             "group": "audio",
-            "key": "CLICKY_ENABLE",
+            "key": "QK_AUDIO_CLICKY_ON",
             "aliases": [
                 "CK_ON"
             ]
         },
         "0x748C": {
             "group": "audio",
-            "key": "CLICKY_DISABLE",
+            "key": "QK_AUDIO_CLICKY_OFF",
             "aliases": [
                 "CK_OFF"
             ]
         },
         "0x748D": {
             "group": "audio",
-            "key": "CLICKY_UP",
+            "key": "QK_AUDIO_CLICKY_UP",
             "aliases": [
                 "CK_UP"
             ]
         },
         "0x748E": {
             "group": "audio",
-            "key": "CLICKY_DOWN",
+            "key": "QK_AUDIO_CLICKY_DOWN",
             "aliases": [
                 "CK_DOWN"
             ]
         },
         "0x748F": {
             "group": "audio",
-            "key": "CLICKY_RESET",
+            "key": "QK_AUDIO_CLICKY_RESET",
             "aliases": [
                 "CK_RST"
             ]
@@ -58,27 +67,46 @@
 
         "0x7490": {
             "group": "audio",
-            "key": "MU_ON"
+            "key": "QK_MUSIC_ON",
+            "aliases": [
+                "MU_ON"
+            ]
         },
         "0x7491": {
             "group": "audio",
-            "key": "MU_OFF"
+            "key": "QK_MUSIC_OFF",
+            "aliases": [
+                "MU_OFF"
+            ]
         },
         "0x7492": {
             "group": "audio",
-            "key": "MU_TOG"
+            "key": "QK_MUSIC_TOGGLE",
+            "aliases": [
+                "MU_TOGG"
+            ]
         },
         "0x7493": {
             "group": "audio",
-            "key": "MU_MOD"
+            "key": "QK_MUSIC_MODE_NEXT",
+            "aliases": [
+                "MU_NEXT"
+            ]
         },
+
         "0x7494": {
             "group": "audio",
-            "key": "MUV_IN"
+            "key": "QK_AUDIO_VOICE_NEXT",
+            "aliases": [
+                "AU_NEXT"
+            ]
         },
         "0x7495": {
             "group": "audio",
-            "key": "MUV_DE"
+            "key": "QK_AUDIO_VOICE_PREVIOUS",
+            "aliases": [
+                "AU_PREV"
+            ]
         }
     }
 }

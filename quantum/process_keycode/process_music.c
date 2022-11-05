@@ -101,17 +101,17 @@ void music_all_notes_off(void) {
 }
 
 bool process_music(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == MU_ON && record->event.pressed) {
+    if (keycode == QK_MUSIC_ON && record->event.pressed) {
         music_on();
         return false;
     }
 
-    if (keycode == MU_OFF && record->event.pressed) {
+    if (keycode == QK_MUSIC_OFF && record->event.pressed) {
         music_off();
         return false;
     }
 
-    if (keycode == MU_TOG && record->event.pressed) {
+    if (keycode == QK_MUSIC_TOGGLE && record->event.pressed) {
         if (music_activated) {
             music_off();
         } else {
@@ -139,7 +139,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (keycode == MU_MOD && record->event.pressed) {
+    if (keycode == QK_MUSIC_MODE_NEXT && record->event.pressed) {
         music_mode_cycle();
         return false;
     }
