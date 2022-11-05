@@ -102,8 +102,10 @@ void cirque_pinnacle_enable_cursor_glide(bool enable);
 /*
  * Configure inertial cursor.
  * @param trigger_px Movement required to trigger cursor glide, set this to non-zero if you have some amount of hover.
+ * @param coef Coefficient of friction used to calculate how quickly glide decays
+ * @param interval Glide report interval, in milliseconds to determine if glide is valid
  */
-void cirque_pinnacle_configure_cursor_glide(float trigger_px);
+void cirque_pinnacle_configure_cursor_glide(float trigger_px, float coef, float interval);
 #endif
 
 /* Process available gestures */

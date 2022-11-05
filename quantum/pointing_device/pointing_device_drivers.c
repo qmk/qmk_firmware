@@ -107,8 +107,10 @@ void cirque_pinnacle_enable_cursor_glide(bool enable) {
     cursor_glide_enable = enable;
 }
 
-void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
+void cirque_pinnacle_configure_cursor_glide(float trigger_px, float coef, float interval) {
     glide.config.trigger_px = trigger_px;
+    glide.config.coef       = coef;
+    glide.config.interval   = interval;
 }
 #    endif
 
