@@ -339,7 +339,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Unicode input mode set to Windows using WinCompose
 void matrix_init_user(void) {
-    set_unicode_input_mode(UC_WINC);
+    set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
 };
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {

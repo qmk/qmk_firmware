@@ -65,7 +65,7 @@ void matrix_scan_user(void) {
     }
     //tableflip (LEADER - TF)
     SEQ_TWO_KEYS(KC_T, KC_F) {
-        set_unicode_input_mode(UC_MAC);
+        set_unicode_input_mode(UNICODE_MODE_MACOS);
         send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
     }
     //screencap (LEADER - SC)
@@ -74,7 +74,7 @@ void matrix_scan_user(void) {
     }
     //screencap (LEADER - TM)
     SEQ_TWO_KEYS(KC_T, KC_M) {
-        set_unicode_input_mode(UC_MAC);
+        set_unicode_input_mode(UNICODE_MODE_MACOS);
         register_unicode(0x2122); // ™
     }
     /*

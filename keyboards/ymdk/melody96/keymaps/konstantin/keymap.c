@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_FN] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, SYSRQ,   KC_SCRL, KC_PAUS, BREAK,   TOP,     BOTTOM,
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, RGB_TOG, DIVIDE,  TIMES,   MINUS,
-        KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, UC_MOD,  _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,            RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
+        KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, UC_NEXT, _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,            RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, _______,                   RGB_HUD, RGB_SAD, RGB_VAD, RGB_SET,
         _______, _______, KC_ACL0, KC_ACL2, KC_WH_L, KC_WH_R, _______, _______, KC_APP,  KC_VOLD, KC_VOLU, KC_MUTE, _______,          KC_PGUP, RGB_M_R, RGB_M_SN,RGB_M_B, XXXXXXX,
         _______, DST_P_R, DST_N_A,                            KC_WH_D,                            _______, XXXXXXX, _______, KC_HOME, KC_PGDN, KC_END,  RGB_RMOD,RGB_MOD, RGB_M_P
