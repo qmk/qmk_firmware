@@ -233,19 +233,23 @@ See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
 See also: [Audio](feature_audio.md)
 
-|Key             |Aliases  |Description                       |
-|----------------|---------|----------------------------------|
-|`AU_ON`         |         |Turns on Audio Feature            |
-|`AU_OFF`        |         |Turns off Audio Feature           |
-|`AU_TOG`        |         |Toggles Audio state               |
-|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
-|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
-|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
-|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
-|`MU_ON`         |         |Turns on Music Mode               |
-|`MU_OFF`        |         |Turns off Music Mode              |
-|`MU_TOG`        |         |Toggles Music Mode                |
-|`MU_MOD`        |         |Cycles through the music modes    |
+|Key                      |Aliases  |Description                                |
+|-------------------------|---------|-------------------------------------------|
+|`QK_AUDIO_ON`            |`AU_ON`  |Turns on Audio Feature                     |
+|`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
+|`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
+|`QK_AUDIO_CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode                  |
+|`QK_AUDIO_CLICKY_ON`     |`CK_ON`  |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks          |
+|`QK_AUDIO_CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks          |
+|`QK_AUDIO_CLICKY_RESET`  |`CK_RST` |Resets frequency to default                |
+|`QK_MUSIC_ON`            |`MU_ON`  |Turns on Music Mode                        |
+|`QK_MUSIC_OFF`           |`MU_OFF` |Turns off Music Mode                       |
+|`QK_MUSIC_TOGGLE`        |`MU_TOGG`|Toggles Music Mode                         |
+|`QK_MUSIC_MODE_NEXT`     |`MU_NEXT`|Cycles through the music modes             |
+|`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|Cycles through the audio voices            |
+|`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|Cycles through the audio voices in reverse |
 
 ## Auto Shift :id=auto-shift
 
