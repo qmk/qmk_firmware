@@ -99,7 +99,7 @@ static PWMConfig pwmcfg = {
 
 static void rgb_ch_ctrl(PWMConfig *cfg) {
     /* Enable PWM function, IOs and select the PWM modes for the LED column pins */
-    for(uint8_t i = 0; i < LED_MATRIX_COLS; i++) {
+    for (uint8_t i = 0; i < LED_MATRIX_COLS; i++) {
         // Only P0.0 to P2.15 can be used as pwm output
         if (led_col_pins[i] > C15) continue;
         /* We use a tricky here, accordint to pfpa table of sn32f240b datasheet,
