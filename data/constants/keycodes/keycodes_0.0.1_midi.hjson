@@ -1,0 +1,670 @@
+{
+    "keycodes": {
+        "0x7100": {
+            "group": "midi",
+            "key": "MI_ON"
+        },
+        "0x7101": {
+            "group": "midi",
+            "key": "MI_OFF"
+        },
+        "0x7102": {
+            "group": "midi",
+            "key": "MI_TOG"
+        },
+        "0x7110": {
+            "group": "midi",
+            "key": "MI_C"
+        },
+        "0x7111": {
+            "group": "midi",
+            "key": "MI_Cs",
+            "aliases": [
+                "MI_Db"
+            ]
+        },
+        "0x7112": {
+            "group": "midi",
+            "key": "MI_D"
+        },
+        "0x7113": {
+            "group": "midi",
+            "key": "MI_Ds",
+            "aliases": [
+                "MI_Eb"
+            ]
+        },
+        "0x7114": {
+            "group": "midi",
+            "key": "MI_E"
+        },
+        "0x7115": {
+            "group": "midi",
+            "key": "MI_F"
+        },
+        "0x7116": {
+            "group": "midi",
+            "key": "MI_Fs",
+            "aliases": [
+                "MI_Gb"
+            ]
+        },
+        "0x7117": {
+            "group": "midi",
+            "key": "MI_G"
+        },
+        "0x7118": {
+            "group": "midi",
+            "key": "MI_Gs",
+            "aliases": [
+                "MI_Ab"
+            ]
+        },
+        "0x7119": {
+            "group": "midi",
+            "key": "MI_A"
+        },
+        "0x711A": {
+            "group": "midi",
+            "key": "MI_As",
+            "aliases": [
+                "MI_Bb"
+            ]
+        },
+        "0x711B": {
+            "group": "midi",
+            "key": "MI_B"
+        },
+        "0x7120": {
+            "group": "midi",
+            "key": "MI_C_1"
+        },
+        "0x7121": {
+            "group": "midi",
+            "key": "MI_Cs_1",
+            "aliases": [
+                "MI_Db_1"
+            ]
+        },
+        "0x7122": {
+            "group": "midi",
+            "key": "MI_D_1"
+        },
+        "0x7123": {
+            "group": "midi",
+            "key": "MI_Ds_1",
+            "aliases": [
+                "MI_Eb_1"
+            ]
+        },
+        "0x7124": {
+            "group": "midi",
+            "key": "MI_E_1"
+        },
+        "0x7125": {
+            "group": "midi",
+            "key": "MI_F_1"
+        },
+        "0x7126": {
+            "group": "midi",
+            "key": "MI_Fs_1",
+            "aliases": [
+                "MI_Gb_1"
+            ]
+        },
+        "0x7127": {
+            "group": "midi",
+            "key": "MI_G_1"
+        },
+        "0x7128": {
+            "group": "midi",
+            "key": "MI_Gs_1",
+            "aliases": [
+                "MI_Ab_1"
+            ]
+        },
+        "0x7129": {
+            "group": "midi",
+            "key": "MI_A_1"
+        },
+        "0x712A": {
+            "group": "midi",
+            "key": "MI_As_1",
+            "aliases": [
+                "MI_Bb_1"
+            ]
+        },
+        "0x712B": {
+            "group": "midi",
+            "key": "MI_B_1"
+        },
+        "0x7130": {
+            "group": "midi",
+            "key": "MI_C_2"
+        },
+        "0x7131": {
+            "group": "midi",
+            "key": "MI_Cs_2",
+            "aliases": [
+                "MI_Db_2"
+            ]
+        },
+        "0x7132": {
+            "group": "midi",
+            "key": "MI_D_2"
+        },
+        "0x7133": {
+            "group": "midi",
+            "key": "MI_Ds_2",
+            "aliases": [
+                "MI_Eb_2"
+            ]
+        },
+        "0x7134": {
+            "group": "midi",
+            "key": "MI_E_2"
+        },
+        "0x7135": {
+            "group": "midi",
+            "key": "MI_F_2"
+        },
+        "0x7136": {
+            "group": "midi",
+            "key": "MI_Fs_2",
+            "aliases": [
+                "MI_Gb_2"
+            ]
+        },
+        "0x7137": {
+            "group": "midi",
+            "key": "MI_G_2"
+        },
+        "0x7138": {
+            "group": "midi",
+            "key": "MI_Gs_2",
+            "aliases": [
+                "MI_Ab_2"
+            ]
+        },
+        "0x7139": {
+            "group": "midi",
+            "key": "MI_A_2"
+        },
+        "0x713A": {
+            "group": "midi",
+            "key": "MI_As_2",
+            "aliases": [
+                "MI_Bb_2"
+            ]
+        },
+        "0x713B": {
+            "group": "midi",
+            "key": "MI_B_2"
+        },
+        "0x7140": {
+            "group": "midi",
+            "key": "MI_C_3"
+        },
+        "0x7141": {
+            "group": "midi",
+            "key": "MI_Cs_3",
+            "aliases": [
+                "MI_Db_3"
+            ]
+        },
+        "0x7142": {
+            "group": "midi",
+            "key": "MI_D_3"
+        },
+        "0x7143": {
+            "group": "midi",
+            "key": "MI_Ds_3",
+            "aliases": [
+                "MI_Eb_3"
+            ]
+        },
+        "0x7144": {
+            "group": "midi",
+            "key": "MI_E_3"
+        },
+        "0x7145": {
+            "group": "midi",
+            "key": "MI_F_3"
+        },
+        "0x7146": {
+            "group": "midi",
+            "key": "MI_Fs_3",
+            "aliases": [
+                "MI_Gb_3"
+            ]
+        },
+        "0x7147": {
+            "group": "midi",
+            "key": "MI_G_3"
+        },
+        "0x7148": {
+            "group": "midi",
+            "key": "MI_Gs_3",
+            "aliases": [
+                "MI_Ab_3"
+            ]
+        },
+        "0x7149": {
+            "group": "midi",
+            "key": "MI_A_3"
+        },
+        "0x714A": {
+            "group": "midi",
+            "key": "MI_As_3",
+            "aliases": [
+                "MI_Bb_3"
+            ]
+        },
+        "0x714B": {
+            "group": "midi",
+            "key": "MI_B_3"
+        },
+        "0x7150": {
+            "group": "midi",
+            "key": "MI_C_4"
+        },
+        "0x7151": {
+            "group": "midi",
+            "key": "MI_Cs_4",
+            "aliases": [
+                "MI_Db_4"
+            ]
+        },
+        "0x7152": {
+            "group": "midi",
+            "key": "MI_D_4"
+        },
+        "0x7153": {
+            "group": "midi",
+            "key": "MI_Ds_4",
+            "aliases": [
+                "MI_Eb_4"
+            ]
+        },
+        "0x7154": {
+            "group": "midi",
+            "key": "MI_E_4"
+        },
+        "0x7155": {
+            "group": "midi",
+            "key": "MI_F_4"
+        },
+        "0x7156": {
+            "group": "midi",
+            "key": "MI_Fs_4",
+            "aliases": [
+                "MI_Gb_4"
+            ]
+        },
+        "0x7157": {
+            "group": "midi",
+            "key": "MI_G_4"
+        },
+        "0x7158": {
+            "group": "midi",
+            "key": "MI_Gs_4",
+            "aliases": [
+                "MI_Ab_4"
+            ]
+        },
+        "0x7159": {
+            "group": "midi",
+            "key": "MI_A_4"
+        },
+        "0x715A": {
+            "group": "midi",
+            "key": "MI_As_4",
+            "aliases": [
+                "MI_Bb_4"
+            ]
+        },
+        "0x715B": {
+            "group": "midi",
+            "key": "MI_B_4"
+        },
+        "0x7160": {
+            "group": "midi",
+            "key": "MI_C_5"
+        },
+        "0x7161": {
+            "group": "midi",
+            "key": "MI_Cs_5",
+            "aliases": [
+                "MI_Db_5"
+            ]
+        },
+        "0x7162": {
+            "group": "midi",
+            "key": "MI_D_5"
+        },
+        "0x7163": {
+            "group": "midi",
+            "key": "MI_Ds_5",
+            "aliases": [
+                "MI_Eb_5"
+            ]
+        },
+        "0x7164": {
+            "group": "midi",
+            "key": "MI_E_5"
+        },
+        "0x7165": {
+            "group": "midi",
+            "key": "MI_F_5"
+        },
+        "0x7166": {
+            "group": "midi",
+            "key": "MI_Fs_5",
+            "aliases": [
+                "MI_Gb_5"
+            ]
+        },
+        "0x7167": {
+            "group": "midi",
+            "key": "MI_G_5"
+        },
+        "0x7168": {
+            "group": "midi",
+            "key": "MI_Gs_5",
+            "aliases": [
+                "MI_Ab_5"
+            ]
+        },
+        "0x7169": {
+            "group": "midi",
+            "key": "MI_A_5"
+        },
+        "0x716A": {
+            "group": "midi",
+            "key": "MI_As_5",
+            "aliases": [
+                "MI_Bb_5"
+            ]
+        },
+        "0x716B": {
+            "group": "midi",
+            "key": "MI_B_5"
+        },
+        "0x7170": {
+            "group": "midi",
+            "key": "MI_OCT_N2"
+        },
+        "0x7171": {
+            "group": "midi",
+            "key": "MI_OCT_N1"
+        },
+        "0x7172": {
+            "group": "midi",
+            "key": "MI_OCT_0"
+        },
+        "0x7173": {
+            "group": "midi",
+            "key": "MI_OCT_1"
+        },
+        "0x7174": {
+            "group": "midi",
+            "key": "MI_OCT_2"
+        },
+        "0x7175": {
+            "group": "midi",
+            "key": "MI_OCT_3"
+        },
+        "0x7176": {
+            "group": "midi",
+            "key": "MI_OCT_4"
+        },
+        "0x7177": {
+            "group": "midi",
+            "key": "MI_OCT_5"
+        },
+        "0x7178": {
+            "group": "midi",
+            "key": "MI_OCT_6"
+        },
+        "0x7179": {
+            "group": "midi",
+            "key": "MI_OCT_7"
+        },
+        "0x717A": {
+            "group": "midi",
+            "key": "MI_OCTD"
+        },
+        "0x717B": {
+            "group": "midi",
+            "key": "MI_OCTU"
+        },
+        "0x7180": {
+            "group": "midi",
+            "key": "MI_TRNS_N6"
+        },
+        "0x7181": {
+            "group": "midi",
+            "key": "MI_TRNS_N5"
+        },
+        "0x7182": {
+            "group": "midi",
+            "key": "MI_TRNS_N4"
+        },
+        "0x7183": {
+            "group": "midi",
+            "key": "MI_TRNS_N3"
+        },
+        "0x7184": {
+            "group": "midi",
+            "key": "MI_TRNS_N2"
+        },
+        "0x7185": {
+            "group": "midi",
+            "key": "MI_TRNS_N1"
+        },
+        "0x7186": {
+            "group": "midi",
+            "key": "MI_TRNS_0"
+        },
+        "0x7187": {
+            "group": "midi",
+            "key": "MI_TRNS_1"
+        },
+        "0x7188": {
+            "group": "midi",
+            "key": "MI_TRNS_2"
+        },
+        "0x7189": {
+            "group": "midi",
+            "key": "MI_TRNS_3"
+        },
+        "0x718A": {
+            "group": "midi",
+            "key": "MI_TRNS_4"
+        },
+        "0x718B": {
+            "group": "midi",
+            "key": "MI_TRNS_5"
+        },
+        "0x718C": {
+            "group": "midi",
+            "key": "MI_TRNS_6"
+        },
+        "0x718D": {
+            "group": "midi",
+            "key": "MI_TRNSD"
+        },
+        "0x718E": {
+            "group": "midi",
+            "key": "MI_TRNSU"
+        },
+        "0x7190": {
+            "group": "midi",
+            "key": "MI_VEL_0"
+        },
+        "0x7191": {
+            "group": "midi",
+            "key": "MI_VEL_1"
+        },
+        "0x7192": {
+            "group": "midi",
+            "key": "MI_VEL_2"
+        },
+        "0x7193": {
+            "group": "midi",
+            "key": "MI_VEL_3"
+        },
+        "0x7194": {
+            "group": "midi",
+            "key": "MI_VEL_4"
+        },
+        "0x7195": {
+            "group": "midi",
+            "key": "MI_VEL_5"
+        },
+        "0x7196": {
+            "group": "midi",
+            "key": "MI_VEL_6"
+        },
+        "0x7197": {
+            "group": "midi",
+            "key": "MI_VEL_7"
+        },
+        "0x7198": {
+            "group": "midi",
+            "key": "MI_VEL_8"
+        },
+        "0x7199": {
+            "group": "midi",
+            "key": "MI_VEL_9"
+        },
+        "0x719A": {
+            "group": "midi",
+            "key": "MI_VEL_10"
+        },
+        "0x719B": {
+            "group": "midi",
+            "key": "MI_VELD"
+        },
+        "0x719C": {
+            "group": "midi",
+            "key": "MI_VELU"
+        },
+        "0x71A0": {
+            "group": "midi",
+            "key": "MI_CH1"
+        },
+        "0x71A1": {
+            "group": "midi",
+            "key": "MI_CH2"
+        },
+        "0x71A2": {
+            "group": "midi",
+            "key": "MI_CH3"
+        },
+        "0x71A3": {
+            "group": "midi",
+            "key": "MI_CH4"
+        },
+        "0x71A4": {
+            "group": "midi",
+            "key": "MI_CH5"
+        },
+        "0x71A5": {
+            "group": "midi",
+            "key": "MI_CH6"
+        },
+        "0x71A6": {
+            "group": "midi",
+            "key": "MI_CH7"
+        },
+        "0x71A7": {
+            "group": "midi",
+            "key": "MI_CH8"
+        },
+        "0x71A8": {
+            "group": "midi",
+            "key": "MI_CH9"
+        },
+        "0x71A9": {
+            "group": "midi",
+            "key": "MI_CH10"
+        },
+        "0x71AA": {
+            "group": "midi",
+            "key": "MI_CH11"
+        },
+        "0x71AB": {
+            "group": "midi",
+            "key": "MI_CH12"
+        },
+        "0x71AC": {
+            "group": "midi",
+            "key": "MI_CH13"
+        },
+        "0x71AD": {
+            "group": "midi",
+            "key": "MI_CH14"
+        },
+        "0x71AE": {
+            "group": "midi",
+            "key": "MI_CH15"
+        },
+        "0x71AF": {
+            "group": "midi",
+            "key": "MI_CH16"
+        },
+        "0x71B0": {
+            "group": "midi",
+            "key": "MI_CHD"
+        },
+        "0x71B1": {
+            "group": "midi",
+            "key": "MI_CHU"
+        },
+        "0x71C0": {
+            "group": "midi",
+            "key": "MI_ALLOFF"
+        },
+        "0x71C1": {
+            "group": "midi",
+            "key": "MI_SUS"
+        },
+        "0x71C2": {
+            "group": "midi",
+            "key": "MI_PORT"
+        },
+        "0x71C3": {
+            "group": "midi",
+            "key": "MI_SOST"
+        },
+        "0x71C4": {
+            "group": "midi",
+            "key": "MI_SOFT"
+        },
+        "0x71C5": {
+            "group": "midi",
+            "key": "MI_LEG"
+        },
+        "0x71C6": {
+            "group": "midi",
+            "key": "MI_MOD"
+        },
+        "0x71C7": {
+            "group": "midi",
+            "key": "MI_MODSD"
+        },
+        "0x71C8": {
+            "group": "midi",
+            "key": "MI_MODSU"
+        },
+        "0x71C9": {
+            "group": "midi",
+            "key": "MI_BENDD"
+        },
+        "0x71CA": {
+            "group": "midi",
+            "key": "MI_BENDU"
+        }
+    }
+}
