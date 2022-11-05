@@ -76,10 +76,10 @@ void render_default_layer_state(void) {
         oled_write_ln_P(PSTR("MOD"), true);
         break;
     case _GAME:
-        oled_write_ln_P(PSTR("GAME"), true);
+        oled_write_P(PSTR("GAME"), true);
         break;
     default:
-        oled_write_ln_P(PSTR("ndef"), true);
+        oled_write_P(PSTR("ndef"), true);
   }
 }
 

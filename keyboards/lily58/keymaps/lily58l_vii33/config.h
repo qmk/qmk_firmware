@@ -27,20 +27,13 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #define EE_HANDS
 
 // Home row modifiers   https://precondition.github.io/home-row-mods
-#define TAPPING_TERM 250      // mod tap hold time (shift) in ms, default 200
+#define TAPPING_TERM 200          // mod tap hold time (shift) in ms, default 200
 #define IGNORE_MOD_TAP_INTERRUPT  // important for good home row mods experience
-#define TAPPING_FORCE_HOLD   // activate the hold function instead, when holding a dual-role
-// key after having tapped it. No more accidental repeats of mod-tap letters when typing quickly!
+#define TAPPING_FORCE_HOLD        // activate the hold function, when holding a dual-role key
+                                  // after having tapped it.No more accidental repeats of mod-tap letters when typing quickly!
 // The downside is that it removes the possibility of auto-repeating the letter/tapping function of the mod-tap.
 // BUT The good news is that there exists a per-key variant of this configuration option: TAPPING_FORCE_HOLD_PER_KEY
 // ->> Just enable it for your home row modifiers
-
-
-//global: PERMISSIVE_HOLD  or  PERMISSIVE_HOLD_PER_KEY  // The tapping term is irrelevant here. 
-//assumption here is that if the user taps another key while holding down one or more mod-tap keys, 
-// he isn’t doing typing rolls and as such desires to trigger a keyboard shortcut instead.
-// ->> since its more permisse it can triggers mods more often. Depending on your typing style, permissive hold might do more harm than good.
-// PERMISSIVE_HOLD generally produces many misfires unless you’re very consistent in your typing style so it is not recommended.
 
 
 #define ENCODER_DIRECTION_FLIP    // Change analog encoder rotation direction -> cw: down / volume louder
@@ -80,7 +73,7 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 
 
 // OLED
-#define OLED_TIMEOUT 15000
+#define OLED_TIMEOUT 120000
 #define OLED_FADE_OUT
 #define OLED_UPDATE_INTERVAL 150  // set oled update interval in ms (default: 0). improves matrix scan rate
 #define OLED_BRIGHTNESS 120
@@ -91,5 +84,5 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 
 // ACTIVATE for Elite C rev3 controller on the slave side
 #define SPLIT_USB_DETECT
-#define NO_USB_STARTUP_CHECK
+// #define NO_USB_STARTUP_CHECK
 

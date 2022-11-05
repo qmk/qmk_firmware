@@ -8,4 +8,4 @@ SRC += oled.c
 SRC += process_record_user.c
 
 
-#  CONSOLE_ENABLE = yes  	# To debug via the qmk toolkit
+#  CONSOLE_ENABLE = yes  	# To debug via the qmk toolkit    
