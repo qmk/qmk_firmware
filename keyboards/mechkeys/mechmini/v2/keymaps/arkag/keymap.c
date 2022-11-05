@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_KEEB] = LAYOUT_2u_space_ortho(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, BL_TOGG, BL_STEP, BL_INC,  BL_DEC,  BL_BRTG, _______, _______, _______, _______, _______, _______,
+    _______, BL_TOGG, BL_STEP, BL_UP,   BL_DOWN, BL_BRTG, _______, _______, _______, _______, _______, _______,
     RGB_M_P, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______,
     QK_BOOT, _______, _______, _______, _______,      _______,     _______, _______, _______, _______, _______),
 

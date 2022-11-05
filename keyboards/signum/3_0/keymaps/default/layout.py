@@ -373,7 +373,7 @@ qmk_dict = {
     "_reset": "QK_BOOT", "_debug": "DB_TOGG", "_eep_re": "EE_CLR",
     # Audio Keys missing
     # Backlighting
-    "Led 0": "BL_TOGG", "Led +": "BL_INC", "Led -": "BL_DEC", "Led ~": "BL_BRTG",
+    "Led 0": "BL_TOGG", "Led +": "BL_UP", "Led -": "BL_DOWN", "Led ~": "BL_BRTG",
     # Bootmagic missing
     # Bluetooth
     "OUT_AUTO": "OUT_AUTO", "OUT_USB": "OUT_USB", "OUT_BT": "OUT_BT",
