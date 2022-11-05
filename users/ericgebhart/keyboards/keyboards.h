@@ -77,7 +77,15 @@
 #endif
 
 // Kinesis
-#ifdef KEYBOARD_kinesis_kint36
+#if defined(KEYBOARD_kinesis_alvicstep)         \
+  || defined(KEYBOARD_kinesis_stapelberg)       \
+  || defined(KEYBOARD_kinesis_kint2pp)          \
+  || defined(KEYBOARD_kinesis_nguyenvietyen)    \
+  || defined(KEYBOARD_kinesis_kint36)           \
+  || defined(KEYBOARD_kinesis_kint41)           \
+  || defined(KEYBOARD_kinesis_kintlc)
+
+#undef LAYOUT_PVARG
 #define LAYOUT_PVARG(...)     LAYOUT_pretty(__VA_ARGS__)
 // Base layers 4x10, so numbers are enabled, and a 3x10 for the keymap.
 // Transient function layers are all 3x10.
