@@ -115,8 +115,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12_2x2u( \
-  BL_INC, X_____X,   X_____X,   X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, \
-  BL_DEC, X_____X, X_____X,  X_____X,   X_____X,  X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, \
+  BL_UP,  X_____X,   X_____X,   X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, \
+  BL_DOWN,X_____X, X_____X,  X_____X,   X_____X,  X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, \
   BL_STEP, X_____X,  X_____X,  X_____X,  X_____X,  X_____X, X_____X,  KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, X_____X, \
   BL_TOGG, TO(_MOUSE), _______, _______, _______,                 _______, _______, _______, TO(_QWERTY), X_____X \
 ),

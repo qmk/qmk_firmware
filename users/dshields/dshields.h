@@ -38,8 +38,8 @@
     #define LGT_TOG BL_TOGG
     #define LGT_MOD BL_STEP
     #define LGT_BRT BL_BRTG
-    #define LGT_INC BL_INC
-    #define LGT_DEC BL_DEC
+    #define LGT_INC BL_UP
+    #define LGT_DEC BL_DOWN
 #endif
 #ifdef KEYBOARD_planck_rev6
     #define LGT_TOG _______
