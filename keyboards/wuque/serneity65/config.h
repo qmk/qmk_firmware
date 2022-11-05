@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x906B
-#define PRODUCT_ID      0x0003
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    wuque
-#define PRODUCT         serneity65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJ] = LAYOUT_all(
         KC_NO,                                                                                                      KC_NO,
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_PSCR,
-        _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, _______, KC_P7,   KC_P8,   KC_P9,   _______, _______,
+        _______, RGB_SAD, RGB_VAI, RGB_SAI, QK_BOOT,   _______, _______, KC_P7,   KC_P8,   KC_P9,   _______, _______,
         _______, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   _______, _______,
         _______, RGB_SPD, _______, RGB_SPI, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______, _______,
         _______, _______, _______, RGB_MOD, _______, _______, _______, KC_P0,   KC_PDOT, KC_NLCK, _QWERTY, _COLEMAK
@@ -75,7 +75,7 @@ bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("RGBKB Pan\n"), false);
     oled_write_P(PSTR("Layer: "), false);
-    uint8_t layer = layer_state ? biton(layer_state) : biton32(default_layer_state);
+    uint8_t layer = get_highest_layer(layer_state|default_layer_state);
     switch (layer) {
         case _QWERTY:
             oled_write_P(PSTR("Default\n"), false);

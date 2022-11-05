@@ -34,7 +34,7 @@ BOOTLOADER = atmel-dfu
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式：
-    * 点击 `RESET` 键码
+    * 点击 `QK_BOOT` 键码
     * 如果PCB上有 `RESET` 键，点击之
     * 快速短接一下RST到GND
 2. 等待操作系统识别到设备
@@ -84,7 +84,7 @@ BOOTLOADER = caterina
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式（进入该模式后只有7秒时间可以刷写；一些型号需要你在750ms内重置两次）：
-    * 点击 `RESET` 键码
+    * 点击 `QK_BOOT` 键码
     * 如果PCB上有 `RESET` 键，点击之
     * 快速短接一下RST到GND
 2. 等待操作系统识别到设备
@@ -117,7 +117,7 @@ BOOTLOADER = halfkay
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式（进入该模式后只有7秒时间可以刷写）：
-    * 点击 `RESET` 键码
+    * 点击 `QK_BOOT` 键码
     * 如果Teensy上或PCB上有 `RESET` 键，点击之
     * 快速短接一下RST到GND
 2. 等待操作系统识别到设备
@@ -144,7 +144,7 @@ BOOTLOADER = usbasploader
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式：
-    * 点击 `RESET` 键码
+    * 点击 `QK_BOOT` 键码
     * 在按住 `BOOT` 按钮时，快速点击一下PCB上的 `RESET`
 2. 等待操作系统识别到设备
 3. 将.hex文件刷写进去
@@ -171,7 +171,7 @@ BOOTLOADER = bootloadhid
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式：
-    * 点击 `RESET` 键码
+    * 点击 `QK_BOOT` 键码
     * 在按住“盐键”（salt key）时插入键盘 - 在PS2AVRGB板上，通常在MCU的A0及B0引脚上有这个按键，否则请查看键盘的使用说明。
 2. 等待操作系统识别到设备
 3. 将.hex文件刷写进去
@@ -212,7 +212,7 @@ BOOTLOADER = qmk-hid
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式：
-    * 点击 `RESET` 键码
+    * 点击 `QK_BOOT` 键码
     * 如果PCB上有 `RESET` 键，点击之
     * 快速短接一下RST到GND
 2. 等待操作系统识别到设备
@@ -242,7 +242,7 @@ BOOTLOADER = stm32-dfu
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式（进入该模式后只有7秒时间可以刷写）：
-    * 点击 `RESET` 键码（对STM32F042设备可能无效）
+    * 点击 `QK_BOOT` 键码（对STM32F042设备可能无效）
     * 如果有重置电路，点击PCB上的 `RESET` 键；有些主控板上可能会有一个开关需要先打开
     * 否则，你需要将 `BOOT0` 接线到VCC（通过 `BOOT0` 按钮或跳线），短接 `RESET` 至GND（通过 `RESET` 按钮或条线），然后断开 `BOOT0` 的接线。
 2. 等待操作系统识别到设备
@@ -252,7 +252,7 @@ BOOTLOADER = stm32-dfu
 ### `make` 构建目标
 
 * `:dfu-util`: 每5秒检测一次直到发现可用的STM32 bootloader设备，然后进行固件刷写。
-* `:dfu-util-split-left` 和 `:dfu-util-split-right`: 同 `:avrdude` 一样会刷写固件，但额外地会设置手性设置到EEPROM中，对于基于Proton-C的分体式键盘这是理想的方法。
+* `:dfu-util-split-left` 和 `:dfu-util-split-right`: 同 `:dfu-util` 一样会刷写固件，但额外地会设置手性设置到EEPROM中，对于基于Proton-C的分体式键盘这是理想的方法。
 * `:st-link-cli`: 通过ST-Link CLI工具集而非dfu-util进行刷写，需要有ST-Link电子狗。
 * `:st-flash`: 通过[STLink工具](https://github.com/stlink-org/stlink)内的 `st-flash` 工具而非dfu-util进行刷写，需要有ST-Link电子狗。
 
@@ -275,7 +275,7 @@ BOOTLOADER = stm32duino
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式（进入该模式后只有7秒时间可以刷写）：
-    * 点击 `RESET` 键码（对STM32F042设备可能无效）
+    * 点击 `QK_BOOT` 键码（对STM32F042设备可能无效）
     * 如果有重置电路，点击PCB上的 `RESET` 键；有些主控板上可能会有一个开关需要先打开
     * 否则，你需要将 `BOOT0` 接线到VCC（通过 `BOOT0` 按钮或跳线），短接 `RESET` 至GND（通过 `RESET` 按钮或条线），然后断开 `BOOT0` 的接线。
 2. 等待操作系统识别到设备
@@ -296,7 +296,7 @@ Input Club出品的键盘使用NXP Kinetis微控制器而非STM32，并使用了
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式：
-    * 点击 `RESET` 键码（有可能只能进入到“安全”bootloader模式，参见[这里](https://github.com/qmk/qmk_firmware/issues/6112)）
+    * 点击 `QK_BOOT` 键码（有可能只能进入到“安全”bootloader模式，参见[这里](https://github.com/qmk/qmk_firmware/issues/6112)）
     * 如果PCB上有 `RESET` 键，点击之
 2. 等待操作系统识别到设备
 3. 将.bin文件刷写进去
@@ -322,7 +322,7 @@ BOOTLOADER = tinyuf2
 刷写过程：
 
 1. 使用如下任一方式进入bootloader模式：
-    * 点击 `RESET` 键码
+    * 点击 `QK_BOOT` 键码
     * 双击PCB上的 `nRST` 键
 2. 等待操作系统识别到设备
 3. 将.uf2文件拷贝到新出现的USB存储设备上

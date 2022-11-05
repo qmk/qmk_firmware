@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xBADD
-#define PRODUCT_ID      0xAA55
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    cest73
-#define PRODUCT         TKM-2021 R1.03
-
 /* key matrix size */
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 10
@@ -34,7 +27,6 @@
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7, C6, C7, D0 }
 /*    column handy ruler: c0  c1  c2  c3  c4  c5  c6  c7  c8  c9 */
 #define MATRIX_COL_PINS { D1, D2, D3, D4, D5, D6, D7, F0, F1, F4 }
-#define UNUSED_PINS { }
 
 //NOTE: if D6 pin shows any issues in exploatation the LED on the Teensy is to be removed
 

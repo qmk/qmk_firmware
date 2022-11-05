@@ -1,4 +1,4 @@
-/* Copyright 2020 Harrison Chan (Xelus)
+/* Copyright 2022 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,10 +15,5 @@
  */
 
 #include "kangaroo.h"
-
-void board_init(void) {
-  SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
-  SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
-}
 
 void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }

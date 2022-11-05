@@ -94,8 +94,8 @@ led_config_t g_led_config = {
         { 1,           2,         3,          4,           5,           6,         7,          8,          9,          10,        11,           12,           13,          14,         15},
         {17,          18,        19,         20,          21,          22,        23,         24,         25,          26,        27,           28,           29,          30,      NO_LED},
         {32,          33,        34,         35,          36,          37,        38,         39,         40,          41,        42,           43,       NO_LED,          44,      NO_LED},
-        {45,        NO_LED,      46,         47,          48,          49,        50,         51,         52,          53,        54,           55,           56,          57,          58},
-        {59,        NO_LED,      60,     NO_LED,          61,      NO_LED,        62,     NO_LED,         63,      NO_LED,        64,       NO_LED,       NO_LED,      NO_LED,          65},
+        {45,           0,        46,         47,          48,          49,        50,         51,         52,          53,        54,           55,           56,          57,          58},
+        {59,          16,        60,         31,          61,      NO_LED,        62,     NO_LED,         63,      NO_LED,        64,       NO_LED,       NO_LED,      NO_LED,          65},
     }, {
         //LED Index to Physical Positon
         {0,0},      { 17,  0},  { 34, 0 },  { 51, 0 },  { 69, 0},   { 86, 0},   {100, 0},   {103, 0},   { 120, 0},  { 138, 0},  { 155, 0},  { 172, 0},  { 189, 0},    {207,  0},   {215,  0},   {224, 0},
@@ -120,47 +120,3 @@ __attribute__((weak)) void rgb_matrix_indicators_user(void) {
 
 
 #endif
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-    #ifdef RGBLIGHT_ENABLE
-        #ifdef RGB_MATRIX_ENABLE
-        case KC_F13: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case KC_F14:
-            rgb_matrix_step();
-            return false;
-        case KC_F15:
-            rgb_matrix_increase_speed();
-            return false;
-        case KC_F16:
-            rgb_matrix_decrease_speed();
-            return false;
-        case KC_F17:
-            rgb_matrix_increase_hue();
-            return false;
-        case KC_F18:
-            rgb_matrix_decrease_hue();
-            return false;
-        case KC_F19:
-            rgb_matrix_increase_sat();
-            return false;
-        case KC_F20:
-            rgb_matrix_decrease_sat();
-            return false;
-        case KC_F21:
-            rgb_matrix_increase_val();
-            return false;
-        case KC_F22:
-            rgb_matrix_decrease_val();
-            return false;
-        #endif
-    #endif
-        default:
-        break;
-    }
-  }
-  return true;
-}

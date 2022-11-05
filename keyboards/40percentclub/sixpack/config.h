@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4025 //"40 %", since 0x3430 is already registered.
-#define PRODUCT_ID      0x5350 // "SP"
-#define DEVICE_VER      0x1001
-#define MANUFACTURER    di0ib
-#define PRODUCT         Six Pack
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
@@ -44,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D4, C6, D7 }, \
     { E6, B4, B5 }  \
 }
-#define UNUSED_PINS { D1, D0, C4, C5, B1, B2, B3 } // TX, RX, SDA, SCL, PB1, PB2, PB3 on expansion connector
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

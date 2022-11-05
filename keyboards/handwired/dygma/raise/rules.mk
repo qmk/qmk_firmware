@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F411
+BOARD = BLACKPILL_STM32_F411
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
@@ -9,10 +10,10 @@ BOOTLOADER = stm32-dfu
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
-EXTRAKEY_ENABLE = no        # Audio control and System control
+EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # USB Nkey Rollover
+NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
@@ -27,6 +28,6 @@ CUSTOM_MATRIX = lite
 RAW_ENABLE = yes
 
 QUANTUM_LIB_SRC += i2c_master.c
-SRC += leds.c matrix.c
+SRC += matrix.c
 
 DEFAULT_FOLDER = handwired/dygma/raise/ansi

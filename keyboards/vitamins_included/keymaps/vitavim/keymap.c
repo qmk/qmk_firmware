@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------'
  */
 [_VIM] =  LAYOUT_ortho_4x12(
-    KC_TAB,         KC_QUOT, KC_B,    KC_W,    KC_E,          KC_D,   KC_Y,         KC_VOLD,       KC_VOLU,       TO(0),   TG(2),         RESET,
+    KC_TAB,         KC_QUOT, KC_B,    KC_W,    KC_E,          KC_D,   KC_Y,         KC_VOLD,       KC_VOLU,       TO(0),   TG(2),         QK_BOOT,
     LCTL_T(KC_ESC), KC_HOME, KC_HOME, KC_PGUP, KC_PGDN,       KC_END, KC_LEFT,      KC_DOWN,       KC_UP,         KC_RGHT, LT(2,KC_SCLN), KC_ENT,
     KC_LSFT,        KC_SCLN, KC_Q,    KC_CIRC, KC_DLR,        KC_X,   RALT(KC_EQL), RCTL(KC_PLUS), RCTL(KC_PMNS), KC_NO,   KC_NO,         KC_TRNS,
     KC_LCTL,        KC_LGUI, KC_LALT, KC_LSFT, LSFT(KC_LCTL), KC_SPC, KC_DEL,       KC_BSPC,       KC_NO,         KC_NO,   KC_NO,         KC_TRNS

@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x594D
-#define PRODUCT_ID      0x5024
-#define DEVICE_VER      0x0406
-#define MANUFACTURER    YMDK
-#define PRODUCT         NP24 U4 RGB6
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4

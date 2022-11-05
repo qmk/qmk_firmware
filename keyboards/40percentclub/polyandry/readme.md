@@ -48,6 +48,6 @@ Enter the bootloader in 3 ways:
 
 *  **Bootmagic reset**: Hold down the top left key of the keyboard (top right or bottom left in horizontal configuration)
 * **Physical reset**: Briefly press the button on the bottom of the microcontroller or, if not present short the pin marked RST to a GND.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

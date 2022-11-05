@@ -27,7 +27,7 @@ void qk_ucis_start(void) {
 
 __attribute__((weak)) void qk_ucis_start_user(void) {
     unicode_input_start();
-    register_hex(0x2328);  // ⌨
+    register_hex(0x2328); // ⌨
     unicode_input_finish();
 }
 

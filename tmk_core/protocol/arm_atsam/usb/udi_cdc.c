@@ -386,7 +386,7 @@ bool udi_cdc_comm_setup(void) {
             switch (udd_g_ctrlreq.req.bRequest) {
                 case USB_REQ_CDC_GET_LINE_CODING:
                     // Get configuration of CDC line
-                    if (sizeof(usb_cdc_line_coding_t) != udd_g_ctrlreq.req.wLength) return false;  // Error for USB host
+                    if (sizeof(usb_cdc_line_coding_t) != udd_g_ctrlreq.req.wLength) return false; // Error for USB host
                     udd_g_ctrlreq.payload      = (uint8_t *)&udi_cdc_line_coding[port];
                     udd_g_ctrlreq.payload_size = sizeof(usb_cdc_line_coding_t);
                     return true;
@@ -400,7 +400,7 @@ bool udi_cdc_comm_setup(void) {
             switch (udd_g_ctrlreq.req.bRequest) {
                 case USB_REQ_CDC_SET_LINE_CODING:
                     // Change configuration of CDC line
-                    if (sizeof(usb_cdc_line_coding_t) != udd_g_ctrlreq.req.wLength) return false;  // Error for USB host
+                    if (sizeof(usb_cdc_line_coding_t) != udd_g_ctrlreq.req.wLength) return false; // Error for USB host
                     udd_g_ctrlreq.callback     = udi_cdc_line_coding_received;
                     udd_g_ctrlreq.payload      = (uint8_t *)&udi_cdc_line_coding[port];
                     udd_g_ctrlreq.payload_size = sizeof(usb_cdc_line_coding_t);
@@ -417,15 +417,15 @@ bool udi_cdc_comm_setup(void) {
             }
         }
     }
-    return false;  // request Not supported
+    return false; // request Not supported
 }
 
 bool udi_cdc_data_setup(void) {
-    return false;  // request Not supported
+    return false; // request Not supported
 }
 
 uint8_t udi_cdc_getsetting(void) {
-    return 0;  // CDC don't have multiple alternate setting
+    return 0; // CDC don't have multiple alternate setting
 }
 
 void udi_cdc_data_sof_notify(void) {
@@ -476,7 +476,7 @@ static void udi_cdc_line_coding_received(void) {
 
 static void udi_cdc_ctrl_state_change(uint8_t port, bool b_set, le16_t bit_mask) {
     udd_ep_id_t ep_comm;
-    uint32_t    irqflags;  // irqflags_t
+    uint32_t    irqflags; // irqflags_t
 
     //#if UDI_CDC_PORT_NB == 1 // To optimize code
     port = 0;
@@ -514,7 +514,7 @@ static void udi_cdc_ctrl_state_change(uint8_t port, bool b_set, le16_t bit_mask)
 }
 
 static void udi_cdc_ctrl_state_notify(uint8_t port, udd_ep_id_t ep) {
-#    if UDI_CDC_PORT_NB == 1  // To optimize code
+#    if UDI_CDC_PORT_NB == 1 // To optimize code
     port = 0;
 #    endif
 
@@ -562,7 +562,7 @@ static void udi_cdc_serial_state_msg_sent(udd_ep_status_t status, iram_size_t n,
 //------- Internal routines to process data transfer
 
 static bool udi_cdc_rx_start(uint8_t port) {
-    uint32_t    irqflags;  // irqflags_t
+    uint32_t    irqflags; // irqflags_t
     uint8_t     buf_sel_trans;
     udd_ep_id_t ep;
 
@@ -685,7 +685,7 @@ static void udi_cdc_data_sent(udd_ep_status_t status, iram_size_t n, udd_ep_id_t
 }
 
 static void udi_cdc_tx_send(uint8_t port) {
-    uint32_t        irqflags;  // irqflags_t
+    uint32_t        irqflags; // irqflags_t
     uint8_t         buf_sel_trans;
     bool            b_short_packet;
     udd_ep_id_t     ep;
@@ -696,15 +696,15 @@ static void udi_cdc_tx_send(uint8_t port) {
     //#endif
 
     if (udi_cdc_tx_trans_ongoing[port]) {
-        return;  // Already on going or wait next SOF to send next data
+        return; // Already on going or wait next SOF to send next data
     }
     if (udd_is_high_speed()) {
         if (udi_cdc_tx_sof_num[port] == udd_get_micro_frame_number()) {
-            return;  // Wait next SOF to send next data
+            return; // Wait next SOF to send next data
         }
     } else {
         if (udi_cdc_tx_sof_num[port] == udd_get_frame_number()) {
-            return;  // Wait next SOF to send next data
+            return; // Wait next SOF to send next data
         }
     }
 
@@ -743,7 +743,7 @@ static void udi_cdc_tx_send(uint8_t port) {
             udi_cdc_tx_sof_num[port] = udd_get_frame_number();
         }
     } else {
-        udi_cdc_tx_sof_num[port] = 0;  // Force next transfer without wait SOF
+        udi_cdc_tx_sof_num[port] = 0; // Force next transfer without wait SOF
     }
 
     /*
@@ -768,28 +768,48 @@ static void udi_cdc_tx_send(uint8_t port) {
 //---------------------------------------------
 //------- Application interface
 
-void udi_cdc_ctrl_signal_dcd(bool b_set) { udi_cdc_ctrl_state_change(0, b_set, CDC_SERIAL_STATE_DCD); }
+void udi_cdc_ctrl_signal_dcd(bool b_set) {
+    udi_cdc_ctrl_state_change(0, b_set, CDC_SERIAL_STATE_DCD);
+}
 
-void udi_cdc_ctrl_signal_dsr(bool b_set) { udi_cdc_ctrl_state_change(0, b_set, CDC_SERIAL_STATE_DSR); }
+void udi_cdc_ctrl_signal_dsr(bool b_set) {
+    udi_cdc_ctrl_state_change(0, b_set, CDC_SERIAL_STATE_DSR);
+}
 
-void udi_cdc_signal_framing_error(void) { udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_FRAMING); }
+void udi_cdc_signal_framing_error(void) {
+    udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_FRAMING);
+}
 
-void udi_cdc_signal_parity_error(void) { udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_PARITY); }
+void udi_cdc_signal_parity_error(void) {
+    udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_PARITY);
+}
 
-void udi_cdc_signal_overrun(void) { udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_OVERRUN); }
+void udi_cdc_signal_overrun(void) {
+    udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_OVERRUN);
+}
 
-void udi_cdc_multi_ctrl_signal_dcd(uint8_t port, bool b_set) { udi_cdc_ctrl_state_change(port, b_set, CDC_SERIAL_STATE_DCD); }
+void udi_cdc_multi_ctrl_signal_dcd(uint8_t port, bool b_set) {
+    udi_cdc_ctrl_state_change(port, b_set, CDC_SERIAL_STATE_DCD);
+}
 
-void udi_cdc_multi_ctrl_signal_dsr(uint8_t port, bool b_set) { udi_cdc_ctrl_state_change(port, b_set, CDC_SERIAL_STATE_DSR); }
+void udi_cdc_multi_ctrl_signal_dsr(uint8_t port, bool b_set) {
+    udi_cdc_ctrl_state_change(port, b_set, CDC_SERIAL_STATE_DSR);
+}
 
-void udi_cdc_multi_signal_framing_error(uint8_t port) { udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_FRAMING); }
+void udi_cdc_multi_signal_framing_error(uint8_t port) {
+    udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_FRAMING);
+}
 
-void udi_cdc_multi_signal_parity_error(uint8_t port) { udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_PARITY); }
+void udi_cdc_multi_signal_parity_error(uint8_t port) {
+    udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_PARITY);
+}
 
-void udi_cdc_multi_signal_overrun(uint8_t port) { udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_OVERRUN); }
+void udi_cdc_multi_signal_overrun(uint8_t port) {
+    udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_OVERRUN);
+}
 
 iram_size_t udi_cdc_multi_get_nb_received_data(uint8_t port) {
-    uint32_t    irqflags;  // irqflags_t
+    uint32_t    irqflags; // irqflags_t
     uint16_t    pos;
     iram_size_t nb_received;
 
@@ -807,14 +827,20 @@ iram_size_t udi_cdc_multi_get_nb_received_data(uint8_t port) {
     return nb_received;
 }
 
-iram_size_t udi_cdc_get_nb_received_data(void) { return udi_cdc_multi_get_nb_received_data(0); }
+iram_size_t udi_cdc_get_nb_received_data(void) {
+    return udi_cdc_multi_get_nb_received_data(0);
+}
 
-bool udi_cdc_multi_is_rx_ready(uint8_t port) { return (udi_cdc_multi_get_nb_received_data(port) > 0); }
+bool udi_cdc_multi_is_rx_ready(uint8_t port) {
+    return (udi_cdc_multi_get_nb_received_data(port) > 0);
+}
 
-bool udi_cdc_is_rx_ready(void) { return udi_cdc_multi_is_rx_ready(0); }
+bool udi_cdc_is_rx_ready(void) {
+    return udi_cdc_multi_is_rx_ready(0);
+}
 
 int udi_cdc_multi_getc(uint8_t port) {
-    uint32_t irqflags;  // irqflags_t
+    uint32_t irqflags; // irqflags_t
     int      rx_data = 0;
     bool     b_databit_9;
     uint16_t pos;
@@ -859,10 +885,12 @@ udi_cdc_getc_process_one_byte:
     return rx_data;
 }
 
-int udi_cdc_getc(void) { return udi_cdc_multi_getc(0); }
+int udi_cdc_getc(void) {
+    return udi_cdc_multi_getc(0);
+}
 
 iram_size_t udi_cdc_multi_read_buf(uint8_t port, void *buf, iram_size_t size) {
-    uint32_t    irqflags;  // irqflags_t
+    uint32_t    irqflags; // irqflags_t
     uint8_t *   ptr_buf = (uint8_t *)buf;
     iram_size_t copy_nb;
     uint16_t    pos;
@@ -912,7 +940,7 @@ static iram_size_t udi_cdc_multi_read_no_polling(uint8_t port, void *buf, iram_s
     iram_size_t nb_avail_data;
     uint16_t    pos;
     uint8_t     buf_sel;
-    uint32_t    irqflags;  // irqflags_t
+    uint32_t    irqflags; // irqflags_t
 
     //#if UDI_CDC_PORT_NB == 1 // To optimize code
     port = 0;
@@ -952,12 +980,16 @@ static iram_size_t udi_cdc_multi_read_no_polling(uint8_t port, void *buf, iram_s
     return (nb_avail_data);
 }
 
-iram_size_t udi_cdc_read_no_polling(void *buf, iram_size_t size) { return udi_cdc_multi_read_no_polling(0, buf, size); }
+iram_size_t udi_cdc_read_no_polling(void *buf, iram_size_t size) {
+    return udi_cdc_multi_read_no_polling(0, buf, size);
+}
 
-iram_size_t udi_cdc_read_buf(void *buf, iram_size_t size) { return udi_cdc_multi_read_buf(0, buf, size); }
+iram_size_t udi_cdc_read_buf(void *buf, iram_size_t size) {
+    return udi_cdc_multi_read_buf(0, buf, size);
+}
 
 iram_size_t udi_cdc_multi_get_free_tx_buffer(uint8_t port) {
-    uint32_t    irqflags;  // irqflags_t
+    uint32_t    irqflags; // irqflags_t
     iram_size_t buf_sel_nb, retval;
     uint8_t     buf_sel;
 
@@ -986,14 +1018,20 @@ iram_size_t udi_cdc_multi_get_free_tx_buffer(uint8_t port) {
     return retval;
 }
 
-iram_size_t udi_cdc_get_free_tx_buffer(void) { return udi_cdc_multi_get_free_tx_buffer(0); }
+iram_size_t udi_cdc_get_free_tx_buffer(void) {
+    return udi_cdc_multi_get_free_tx_buffer(0);
+}
 
-bool udi_cdc_multi_is_tx_ready(uint8_t port) { return (udi_cdc_multi_get_free_tx_buffer(port) != 0); }
+bool udi_cdc_multi_is_tx_ready(uint8_t port) {
+    return (udi_cdc_multi_get_free_tx_buffer(port) != 0);
+}
 
-bool udi_cdc_is_tx_ready(void) { return udi_cdc_multi_is_tx_ready(0); }
+bool udi_cdc_is_tx_ready(void) {
+    return udi_cdc_multi_is_tx_ready(0);
+}
 
 int udi_cdc_multi_putc(uint8_t port, int value) {
-    uint32_t irqflags;  // irqflags_t
+    uint32_t irqflags; // irqflags_t
     bool     b_databit_9;
     uint8_t  buf_sel;
 
@@ -1030,10 +1068,12 @@ udi_cdc_putc_process_one_byte:
     return true;
 }
 
-int udi_cdc_putc(int value) { return udi_cdc_multi_putc(0, value); }
+int udi_cdc_putc(int value) {
+    return udi_cdc_multi_putc(0, value);
+}
 
 iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void *buf, iram_size_t size) {
-    uint32_t    irqflags;  // irqflags_t
+    uint32_t    irqflags; // irqflags_t
     uint8_t     buf_sel;
     uint16_t    buf_nb;
     iram_size_t copy_nb;
@@ -1083,7 +1123,9 @@ udi_cdc_write_buf_loop_wait:
     return 0;
 }
 
-iram_size_t udi_cdc_write_buf(const void *buf, iram_size_t size) { return udi_cdc_multi_write_buf(0, buf, size); }
+iram_size_t udi_cdc_write_buf(const void *buf, iram_size_t size) {
+    return udi_cdc_multi_write_buf(0, buf, size);
+}
 
 #    define MAX_PRINT 256
 #    define CDC_SEND_INTERVAL 2
@@ -1121,10 +1163,10 @@ uint32_t CDC_print(char *printbuf) {
 char printbuf[CDC_PRINTBUF_SIZE];
 
 int CDC_printf(const char *_Format, ...) {
-    va_list va;  // Variable argument list variable
+    va_list va; // Variable argument list variable
     int     result;
 
-    va_start(va, _Format);  // Initialize the variable argument list
+    va_start(va, _Format); // Initialize the variable argument list
     result = vsnprintf(printbuf, CDC_PRINTBUF_SIZE, _Format, va);
     va_end(va);
 
@@ -1146,18 +1188,18 @@ uint32_t CDC_input_buf(inbuf_t inbuf, uint32_t inbuf_size) {
 
     if (RXChar) {
         switch (RXChar) {
-            case '\t':  // tab - repeat last
+            case '\t': // tab - repeat last
                 inbuf.count                = inbuf.lastcount;
                 inbuf.buf[inbuf.count + 1] = 0;
                 CDC_print(inbuf.buf);
                 break;
-            case '\r':  // enter
+            case '\r': // enter
                 inbuf.buf[inbuf.count] = 0;
                 inbuf.lastcount        = inbuf.count;
                 inbuf.count            = 0;
                 entered                = 1;
                 break;
-            case '\b':  // backspace
+            case '\b': // backspace
                 if (inbuf.count > 0) {
                     inbuf.count -= 1;
                     CDC_print("\b \b\0");
@@ -1181,7 +1223,9 @@ uint32_t CDC_input_buf(inbuf_t inbuf, uint32_t inbuf_size) {
     return entered;
 }
 
-uint32_t CDC_input() { return CDC_input_buf(inbuf, CDC_INBUF_SIZE); }
+uint32_t CDC_input() {
+    return CDC_input_buf(inbuf, CDC_INBUF_SIZE);
+}
 
 void CDC_init(void) {
     inbuf.count           = 0;
@@ -1190,19 +1234,27 @@ void CDC_init(void) {
     cdc_tx_send_time_next = timer_read64() + CDC_SEND_INTERVAL;
 }
 
-#else  // CDC line 62
+#else // CDC line 62
 
 char printbuf[CDC_PRINTBUF_SIZE];
 
-void CDC_send(void) { return; }
+void CDC_send(void) {
+    return;
+}
 
-uint32_t CDC_print(char *printbuf) { return 0; }
+uint32_t CDC_print(char *printbuf) {
+    return 0;
+}
 
-int CDC_printf(const char *_Format, ...) { return 0; }
+int CDC_printf(const char *_Format, ...) {
+    return 0;
+}
 
 inbuf_t inbuf;
 
-uint32_t CDC_input(void) { return 0; }
+uint32_t CDC_input(void) {
+    return 0;
+}
 
 void CDC_init(void) {
     inbuf.count     = 0;
@@ -1210,6 +1262,6 @@ void CDC_init(void) {
     printbuf[0]     = 0;
 }
 
-#endif  // CDC line 62
+#endif // CDC line 62
 
 //@}

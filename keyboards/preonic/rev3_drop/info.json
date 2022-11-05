@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "Preonic rev. 3",
-    "url": "https://olkb.com/preonic",
-    "maintainer": "jackhumbert",
+    "keyboard_name": "Preonic",
+    "manufacturer": "Drop",
+    "usb": {
+        "vid": "0x03A8",
+        "pid": "0xA649",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT_preonic_1x2uC": {
             "layout": [

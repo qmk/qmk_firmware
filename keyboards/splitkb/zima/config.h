@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x8D1D
-#define PRODUCT_ID   0xF75B
-#define DEVICE_VER   0x0001
-#define MANUFACTURER splitkb
-#define PRODUCT      Zima
-
 /* key matrix size */
 #define MATRIX_ROWS  4
 #define MATRIX_COLS  3
@@ -39,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { E6, F5, F6 }, \
     { F0, F1, F4 }, \
 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { D7 }

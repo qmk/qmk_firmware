@@ -32,6 +32,8 @@
 #    include "is31fl3737.h"
 #elif defined(IS31FL3741)
 #    include "is31fl3741.h"
+#elif defined(IS31FLCOMMON)
+#    include "is31flcommon.h"
 #elif defined(CKLED2001)
 #    include "ckled2001.h"
 #elif defined(AW20216)
@@ -136,6 +138,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 
 void rgb_matrix_init(void);
 
+void rgb_matrix_reload_from_eeprom(void);
+
 void        rgb_matrix_set_suspend_state(bool state);
 bool        rgb_matrix_get_suspend_state(void);
 void        rgb_matrix_toggle(void);
@@ -178,10 +182,12 @@ void        rgb_matrix_increase_speed_noeeprom(void);
 void        rgb_matrix_decrease_speed(void);
 void        rgb_matrix_decrease_speed_noeeprom(void);
 led_flags_t rgb_matrix_get_flags(void);
+led_flags_t rgb_matrix_get_flags_noeeprom(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 
 #ifndef RGBLIGHT_ENABLE
 #    define eeconfig_update_rgblight_current eeconfig_update_rgb_matrix
+#    define rgblight_reload_from_eeprom rgb_matrix_reload_from_eeprom
 #    define rgblight_toggle rgb_matrix_toggle
 #    define rgblight_toggle_noeeprom rgb_matrix_toggle_noeeprom
 #    define rgblight_enable rgb_matrix_enable

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4025
-#define PRODUCT_ID      0x0A0C
-#define DEVICE_VER      0x0F61
-#define MANUFACTURER    di0ib
-#define PRODUCT         The 6lit Macropad
-
 #define USE_SERIAL
 
 /* serial.c configuration for split keyboard */
@@ -52,7 +45,6 @@
 */
 #define MATRIX_ROW_PINS { D7, E6 }
 #define MATRIX_COL_PINS { F6, F7, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -124,5 +116,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

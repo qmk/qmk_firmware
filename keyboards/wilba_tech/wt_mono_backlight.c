@@ -53,7 +53,6 @@ backlight_config g_config = {
 };
 
 bool g_suspend_state = false;
-uint8_t g_indicator_state = 0;
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
@@ -118,11 +117,6 @@ void backlight_set_suspend_state(bool state)
 	g_suspend_state = state;
 }
 
-void backlight_set_indicator_state(uint8_t state)
-{
-    g_indicator_state = state;
-}
-
 void backlight_set_brightness_all( uint8_t value )
 {
 	IS31FL3736_mono_set_brightness_all( value );
@@ -168,11 +162,40 @@ void backlight_effect_indicators(void)
 #if defined(MONO_BACKLIGHT_WT75_A)
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb = hsv_to_rgb( hsv );
-    // G8, H8, I8 -> (6*8+7) (7*8+7), (8*8+7)
+    // SW7,CS8 = (6*8+7) = 55
+    // SW8,CS8 = (7*8+7) = 63
+    // SW9,CS8 = (8*8+7) = 71
     IS31FL3736_mono_set_brightness(55, rgb.r);
     IS31FL3736_mono_set_brightness(63, rgb.g);
     IS31FL3736_mono_set_brightness(71, rgb.b);
 #endif // MONO_BACKLIGHT_WT75_A
+
+// This pairs with "All Off" already setting zero brightness,
+// and "All On" already setting non-zero brightness.
+#if defined(MONO_BACKLIGHT_WT60_A) || \
+defined(MONO_BACKLIGHT_WT65_A) || \
+defined(MONO_BACKLIGHT_WT65_B) || \
+defined(MONO_BACKLIGHT_WT75_A) || \
+defined(MONO_BACKLIGHT_WT75_B) || \
+defined(MONO_BACKLIGHT_WT75_C) || \
+defined(MONO_BACKLIGHT_WT80_A)
+    if ( host_keyboard_led_state().caps_lock ) {
+        // SW3,CS1 = (2*8+0) = 16
+        IS31FL3736_mono_set_brightness(16, 255);
+    }
+#endif
+#if defined(MONO_BACKLIGHT_WT80_A) 
+    if ( host_keyboard_led_state().scroll_lock ) {
+        // SW7,CS7 = (6*8+6) = 54
+        IS31FL3736_mono_set_brightness(54, 255);
+    }
+#endif
+#if defined(MONO_BACKLIGHT_WT75_C) 
+    if ( host_keyboard_led_state().scroll_lock ) {
+        // SW7,CS8 = (6*8+7) = 55
+        IS31FL3736_mono_set_brightness(55, 255);
+    }
+#endif
 }
 
 ISR(TIMER3_COMPA_vect)

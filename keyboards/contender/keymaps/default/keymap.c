@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Function */
     [_FUNCTION] = LAYOUT(
-                           RESET,       KC_NO,        KC_NO,           KC_NO,
+                           QK_BOOT,       KC_NO,        KC_NO,           KC_NO,
                            KC_NO,       KC_NO,        KC_NO,           KC_NO,
                            KC_NO,       KC_NO,        KC_NO,           KC_NO,
       KC_TRNS,             RGB_RMOD,    RGB_MOD,      KC_NO,           KC_NO,

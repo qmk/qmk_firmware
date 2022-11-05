@@ -18,7 +18,7 @@
 
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #    include "timer.h"
-#endif  // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+#endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 enum charybdis_keymap_layers {
     LAYER_BASE = 0,
@@ -35,17 +35,24 @@ static uint16_t auto_pointer_layer_timer = 0;
 
 #    ifndef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS
 #        define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS 1000
-#    endif  // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS
+#    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS
 
 #    ifndef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
 #        define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD 8
-#    endif  // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
-#endif      // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+#    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
+#endif     // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 #define LOWER MO(LAYER_LOWER)
 #define RAISE MO(LAYER_RAISE)
 #define PT_Z LT(LAYER_POINTER, KC_Z)
 #define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
+
+#ifndef POINTING_DEVICE_ENABLE
+#    define DRGSCRL KC_NO
+#    define DPI_MOD KC_NO
+#    define S_D_MOD KC_NO
+#    define SNIPING KC_NO
+#endif // !POINTING_DEVICE_ENABLE
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -102,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, _______, DRGSCRL, SNIPING, EEP_RST,   RESET,      RESET, EEP_RST, SNIPING, DRGSCRL, _______, XXXXXXX,
+       XXXXXXX, _______, DRGSCRL, SNIPING, EEP_RST, QK_BOOT,    QK_BOOT, EEP_RST, SNIPING, DRGSCRL, _______, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_BTN2, KC_BTN1, KC_BTN3,    KC_BTN3, KC_BTN1,
                                            XXXXXXX, KC_BTN2,    KC_BTN2
@@ -120,33 +127,31 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 #        ifdef RGB_MATRIX_ENABLE
             rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
             rgb_matrix_sethsv_noeeprom(HSV_GREEN);
-#        endif  // RGB_MATRIX_ENABLE
+#        endif // RGB_MATRIX_ENABLE
         }
         auto_pointer_layer_timer = timer_read();
     }
     return mouse_report;
 }
 
-void matrix_scan_kb(void) {
+void matrix_scan_user(void) {
     if (auto_pointer_layer_timer != 0 && TIMER_DIFF_16(timer_read(), auto_pointer_layer_timer) >= CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS) {
         auto_pointer_layer_timer = 0;
         layer_off(LAYER_POINTER);
 #        ifdef RGB_MATRIX_ENABLE
         rgb_matrix_mode_noeeprom(RGB_MATRIX_STARTUP_MODE);
-#        endif  // RGB_MATRIX_ENABLE
+#        endif // RGB_MATRIX_ENABLE
     }
-    matrix_scan_user();
 }
-#    endif  // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+#    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 #    ifdef CHARYBDIS_AUTO_SNIPING_ON_LAYER
-layer_state_t layer_state_set_kb(layer_state_t state) {
-    state = layer_state_set_user(state);
+layer_state_t layer_state_set_user(layer_state_t state) {
     charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, CHARYBDIS_AUTO_SNIPING_ON_LAYER));
     return state;
 }
-#    endif  // CHARYBDIS_AUTO_SNIPING_ON_LAYER
-#endif      // POINTING_DEVICE_ENABLE
+#    endif // CHARYBDIS_AUTO_SNIPING_ON_LAYER
+#endif     // POINTING_DEVICE_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
 // Forward-declare this helper function since it is defined in rgb_matrix.c.
@@ -158,9 +163,9 @@ void shutdown_user(void) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
     rgblight_setrgb_red();
-#endif  // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_color_all(RGB_RED);
     rgb_matrix_update_pwm_buffers();
-#endif  // RGB_MATRIX_ENABLE
+#endif // RGB_MATRIX_ENABLE
 }

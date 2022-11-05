@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x574C
-#define PRODUCT_ID   0xDCD0
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Work Louder
-#define PRODUCT      Work Board
-
 /* key matrix size */
 #define MATRIX_ROWS  4
 #define MATRIX_COLS  13
@@ -44,13 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F0, F1, F4, F5 }
 #define MATRIX_COL_PINS \
     { D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6, E6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION        COL2ROW
 
 #define RGBLIGHT_DI_PIN        D2
-#define RGBLED_NUM             26
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
@@ -132,6 +123,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
+#define RGB_MATRIX_STARTUP_HUE 191 // Sets the default hue value, if none has been set
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -185,25 +180,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 #define ENCODERS_PAD_A \
     { B0 }
 #define ENCODERS_PAD_B \
     { B1 }
-
-#define ENCODERS 1
-
-#define ENCODERS_CW_KEY \
-    {                   \
-        { 12, 1 }       \
-    }
-#define ENCODERS_CCW_KEY \
-    {                    \
-        { 12, 2 }        \
-    }
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

@@ -1,5 +1,6 @@
 {
-    "keyboard_name": "synthesis60",
+    "keyboard_name": "Synthesis60 v2.1",
+    "manufacturer": "dyz",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/synthesis60",
     "maintainer": "dayatz",
     "diode_direction": "COL2ROW",
@@ -35,7 +36,7 @@
     "usb": {
         "vid": "0xD772",
         "pid": "0x0017",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_all": {

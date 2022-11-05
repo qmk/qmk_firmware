@@ -1,7 +1,13 @@
 {
     "keyboard_name": "GameBuddy1_M",
+    "manufacturer": "AlisGraveNil",
     "url": "www.clawboards.xyz",
     "maintainer": "AlisGraveNil",
+    "usb": {
+        "vid": "0x7767",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

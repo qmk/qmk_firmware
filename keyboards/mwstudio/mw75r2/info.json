@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MW75R2",
+    "manufacturer": "MWStudio",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7BA1",
+        "pid": "0x7502",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

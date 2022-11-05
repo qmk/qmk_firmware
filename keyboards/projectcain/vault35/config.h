@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x6060
-#define DEVICE_VER   0x0001
-#define MANUFACTURER projectcain
-#define PRODUCT      vault35
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
@@ -39,10 +32,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B4, D4, B0, C7 }
 #define MATRIX_COL_PINS { B1, D3, F0, F1, F4, F5, F6, F7, C6, B6, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define ENCODERS_PAD_A { D6 }
+#define ENCODERS_PAD_B { D7 }
+#define ENCODER_RESOLUTION 2
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
@@ -139,10 +135,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

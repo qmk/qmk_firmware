@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "analog.h"
 #include <ch.h>
 #include <hal.h>
@@ -101,9 +100,9 @@
 
 // Options are 12, 10, 8, and 6 bit.
 #ifndef ADC_RESOLUTION
-#    ifdef ADC_CFGR_RES_10BITS  // ADCv3, ADCv4
+#    ifdef ADC_CFGR_RES_10BITS // ADCv3, ADCv4
 #        define ADC_RESOLUTION ADC_CFGR_RES_10BITS
-#    else  // ADCv1, ADCv5, or the bodge for ADCv2 above
+#    else // ADCv1, ADCv5, or the bodge for ADCv2 above
 #        define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
 #    endif
 #endif
@@ -123,7 +122,7 @@ static ADCConversionGroup adcConversionGroup = {
     .smpr  = ADC_SAMPLING_RATE,
 #elif defined(USE_ADCV2)
 #    if !defined(STM32F1XX) && !defined(GD32VF103)
-    .cr2   = ADC_CR2_SWSTART,  // F103 seem very unhappy with, F401 seems very unhappy without...
+    .cr2   = ADC_CR2_SWSTART, // F103 seem very unhappy with, F401 seems very unhappy without...
 #    endif
     .smpr2 = ADC_SMPR2_SMP_AN0(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN1(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN2(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN3(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN4(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN5(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN6(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN7(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN8(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN9(ADC_SAMPLING_RATE),
     .smpr1 = ADC_SMPR1_SMP_AN10(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN11(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN12(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN13(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN14(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN15(ADC_SAMPLING_RATE),
