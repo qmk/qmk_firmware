@@ -709,12 +709,10 @@ enum qk_keycode_defines {
     DT_PRNT = 0x7C70,
     DT_UP = 0x7C71,
     DT_DOWN = 0x7C72,
-    PRINT_ON = 0x7C73,
-    PRINT_OFF = 0x7C74,
-    QK_CAPS_WORD_TOGGLE = 0x7C75,
-    QK_AUTOCORRECT_ON = 0x7C76,
-    QK_AUTOCORRECT_OFF = 0x7C77,
-    QK_AUTOCORRECT_TOGGLE = 0x7C78,
+    QK_CAPS_WORD_TOGGLE = 0x7C73,
+    QK_AUTOCORRECT_ON = 0x7C74,
+    QK_AUTOCORRECT_OFF = 0x7C75,
+    QK_AUTOCORRECT_TOGGLE = 0x7C76,
     SAFE_RANGE = 0x7E00,
 
 // Alias
@@ -1112,4 +1110,3 @@ enum qk_keycode_defines {
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= BL_ON && (code) <= BL_BRTG)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
 #define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_AUTOCORRECT_TOGGLE)
-
