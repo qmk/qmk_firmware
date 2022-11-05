@@ -22,8 +22,8 @@ Once enabled, the following keycodes below can be used to change the backlight l
 | `QK_BACKLIGHT_STEP`             | `BL_STEP` | Cycle through backlight levels      |
 | `QK_BACKLIGHT_ON`               | `BL_ON`   | Set the backlight to max brightness |
 | `QK_BACKLIGHT_OFF`              | `BL_OFF`  | Turn the backlight off              |
-| `QK_BACKLIGHT_INCREASE`         | `BL_UP`   | Increase the backlight level        |
-| `QK_BACKLIGHT_DECREASE`         | `BL_DOWN` | Decrease the backlight level        |
+| `QK_BACKLIGHT_UP`               | `BL_UP`   | Increase the backlight level        |
+| `QK_BACKLIGHT_DOWN`             | `BL_DOWN` | Decrease the backlight level        |
 | `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
 ## Functions :id=functions

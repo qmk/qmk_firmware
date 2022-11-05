@@ -23,14 +23,14 @@
         },
         "0x7803": {
             "group": "backlight",
-            "key": "QK_BACKLIGHT_DECREASE",
+            "key": "QK_BACKLIGHT_DOWN",
             "aliases": [
                 "BL_DOWN"
             ]
         },
         "0x7804": {
             "group": "backlight",
-            "key": "QK_BACKLIGHT_INCREASE",
+            "key": "QK_BACKLIGHT_UP",
             "aliases": [
                 "BL_UP"
             ]

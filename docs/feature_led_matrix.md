@@ -227,8 +227,8 @@ All LED matrix keycodes are currently shared with the [Backlight feature](featur
 | `QK_BACKLIGHT_STEP`     | `BL_STEP` | Cycle through modes           |
 | `QK_BACKLIGHT_ON`       | `BL_ON`   | Turn on LED Matrix            |
 | `QK_BACKLIGHT_OFF`      | `BL_OFF`  | Turn off LED Matrix           |
-| `QK_BACKLIGHT_INCREASE` | `BL_UP`   | Increase the brightness level |
-| `QK_BACKLIGHT_DECREASE` | `BL_DOWN` | Decrease the brightness level |
+| `QK_BACKLIGHT_UP`       | `BL_UP`   | Increase the brightness level |
+| `QK_BACKLIGHT_DOWN`     | `BL_DOWN` | Decrease the brightness level |
 
 ## LED Matrix Effects :id=led-matrix-effects
 
