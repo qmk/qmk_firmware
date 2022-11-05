@@ -268,6 +268,20 @@
 #define MI_BENDD QK_MIDI_PITCH_BEND_DOWN
 #define MI_BENDU QK_MIDI_PITCH_BEND_UP
 
+#define HPT_ON QK_HAPTIC_ON
+#define HPT_OFF QK_HAPTIC_OFF
+#define HPT_TOG QK_HAPTIC_TOGGLE
+#define HPT_RST QK_HAPTIC_RESET
+#define HPT_FBK QK_HAPTIC_FEEDBACK_TOGGLE
+#define HPT_BUZ QK_HAPTIC_BUZZ_TOGGLE
+#define HPT_MODI QK_HAPTIC_MODE_NEXT
+#define HPT_MODD QK_HAPTIC_MODE_PREVIOUS
+#define HPT_CONT QK_HAPTIC_CONTINUOUS_TOGGLE
+#define HPT_CONI QK_HAPTIC_CONTINUOUS_UP
+#define HPT_COND QK_HAPTIC_CONTINUOUS_DOWN
+#define HPT_DWLI QK_HAPTIC_DWELL_UP
+#define HPT_DWLD QK_HAPTIC_DWELL_DOWN
+
 #define TERM_ON _Static_assert(false, "The Terminal feature has been removed from QMK. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 #define TERM_OFF _Static_assert(false, "The Terminal feature has been removed from QMK.. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 // #define RESET _Static_assert(false, "The RESET keycode has been removed from QMK.. Please remove use from your keymap.")
