@@ -614,13 +614,13 @@ enum qk_keycode_defines {
     QK_MACRO_29 = 0x771D,
     QK_MACRO_30 = 0x771E,
     QK_MACRO_31 = 0x771F,
-    BL_ON = 0x7800,
-    BL_OFF = 0x7801,
-    BL_DEC = 0x7802,
-    BL_INC = 0x7803,
-    BL_TOGG = 0x7804,
-    BL_STEP = 0x7805,
-    BL_BRTG = 0x7806,
+    QK_BACKLIGHT_ON = 0x7800,
+    QK_BACKLIGHT_OFF = 0x7801,
+    QK_BACKLIGHT_TOGGLE = 0x7802,
+    QK_BACKLIGHT_DOWN = 0x7803,
+    QK_BACKLIGHT_UP = 0x7804,
+    QK_BACKLIGHT_STEP = 0x7805,
+    QK_BACKLIGHT_TOGGLE_BREATHING = 0x7806,
     RGB_TOG = 0x7820,
     RGB_MODE_FORWARD = 0x7821,
     RGB_MODE_REVERSE = 0x7822,
@@ -1039,6 +1039,13 @@ enum qk_keycode_defines {
     MC_29      = QK_MACRO_29,
     MC_30      = QK_MACRO_30,
     MC_31      = QK_MACRO_31,
+    BL_ON      = QK_BACKLIGHT_ON,
+    BL_OFF     = QK_BACKLIGHT_OFF,
+    BL_TOGG    = QK_BACKLIGHT_TOGGLE,
+    BL_DOWN    = QK_BACKLIGHT_DOWN,
+    BL_UP      = QK_BACKLIGHT_UP,
+    BL_STEP    = QK_BACKLIGHT_STEP,
+    BL_BRTG    = QK_BACKLIGHT_TOGGLE_BREATHING,
     RGB_MOD    = RGB_MODE_FORWARD,
     RGB_RMOD   = RGB_MODE_REVERSE,
     RGB_M_P    = RGB_MODE_PLAIN,
@@ -1151,7 +1158,7 @@ enum qk_keycode_defines {
 #define IS_AUDIO_KEYCODE(code) ((code) >= QK_AUDIO_ON && (code) <= QK_AUDIO_VOICE_PREVIOUS)
 #define IS_STENO_KEYCODE(code) ((code) >= QK_STENO_BOLT && (code) <= QK_STENO_COMB_MAX)
 #define IS_MACRO_KEYCODE(code) ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
-#define IS_BACKLIGHT_KEYCODE(code) ((code) >= BL_ON && (code) <= BL_BRTG)
+#define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
 #define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_AUTOCORRECT_TOGGLE)
 
