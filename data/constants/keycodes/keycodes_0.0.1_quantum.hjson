@@ -411,15 +411,24 @@
 
         "0x7C70": {
             "group": "quantum",
-            "key": "DT_PRNT"
+            "key": "QK_DYNAMIC_TAPPING_TERM_PRINT",
+            "aliases": [
+                "DT_PRNT"
+            ]
         },
         "0x7C71": {
             "group": "quantum",
-            "key": "DT_UP"
+            "key": "QK_DYNAMIC_TAPPING_TERM_UP",
+            "aliases": [
+                "DT_UP"
+            ]
         },
         "0x7C72": {
             "group": "quantum",
-            "key": "DT_DOWN"
+            "key": "QK_DYNAMIC_TAPPING_TERM_DOWN",
+            "aliases": [
+                "DT_DOWN"
+            ]
         },
 
         "0x7C73": {

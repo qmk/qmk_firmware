@@ -669,11 +669,11 @@ See also: [Mod-Tap](mod_tap.md)
 
 See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 
-| Key         | Description                                                                                                            |
-|-------------|------------------------------------------------------------------------------------------------------------------------|
-| `DT_PRNT`   | "Dynamic Tapping Term Print": Types the current tapping term, in milliseconds                                          |
-| `DT_UP`     | "Dynamic Tapping Term Up": Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default)   |
-| `DT_DOWN`   | "Dynamic Tapping Term Down": Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
+| Key                           | Aliases | Description                                                                               |
+|-------------------------------|---------|-------------------------------------------------------------------------------------------|
+|`QK_DYNAMIC_TAPPING_TERM_PRINT`|`DT_PRNT`| Types the current tapping term, in milliseconds                                           |
+|`QK_DYNAMIC_TAPPING_TERM_UP`   |`DT_UP`  | Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
+|`QK_DYNAMIC_TAPPING_TERM_DOWN` |`DT_DOWN`| Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
 
 ## RGB Lighting :id=rgb-lighting
 
