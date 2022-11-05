@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                                 KC_RALT,  KC_RGUI,  MO(1),              KC_RCTL,      KC_LEFT, KC_DOWN, KC_RGHT,   KC_P0,       KC_P0,   KC_PDOT, KC_PENT),
 
   [1] = LAYOUT_all(
-    KC_TRNS,            BL_STEP,  BL_TOGG,  BL_DEC,   BL_INC,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS,            BL_STEP,  BL_TOGG,  BL_DOWN,  BL_UP,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  QK_BOOT,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,                                   KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,

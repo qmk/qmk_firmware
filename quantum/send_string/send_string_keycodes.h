@@ -389,48 +389,25 @@
 #define X_ASSISTANT           c0
 
 /* Mouse Buttons (unallocated range in HID spec) */
-#ifdef VIA_ENABLE
-#define X_MS_UP               f0
-#define X_MS_DOWN             f1
-#define X_MS_LEFT             f2
-#define X_MS_RIGHT            f3
-#define X_MS_BTN1             f4
-#define X_MS_BTN2             f5
-#define X_MS_BTN3             f6
-#define X_MS_BTN4             f7
-#define X_MS_BTN5             f8
-#define X_MS_BTN6             f8
-#define X_MS_BTN7             f8
-#define X_MS_BTN8             f8
-#define X_MS_WH_UP            f9
-#define X_MS_WH_DOWN          fa
-#define X_MS_WH_LEFT          fb
-#define X_MS_WH_RIGHT         fc
-#define X_MS_ACCEL0           fd
-#define X_MS_ACCEL1           fe
-#define X_MS_ACCEL2           ff
-#else
-#define X_MS_UP               cd
-#define X_MS_DOWN             ce
-#define X_MS_LEFT             cf
-#define X_MS_RIGHT            d0
-#define X_MS_BTN1             d1
-#define X_MS_BTN2             d2
-#define X_MS_BTN3             d3
-#define X_MS_BTN4             d4
-#define X_MS_BTN5             d5
-#define X_MS_BTN6             d6
-#define X_MS_BTN7             d7
-#define X_MS_BTN8             d8
-#define X_MS_WH_UP            d9
-#define X_MS_WH_DOWN          da
-#define X_MS_WH_LEFT          db
-#define X_MS_WH_RIGHT         dc
-#define X_MS_ACCEL0           dd
-#define X_MS_ACCEL1           de
-#define X_MS_ACCEL2           df
-#endif
-
+#define X_MS_UP              cd
+#define X_MS_DOWN            ce
+#define X_MS_LEFT            cf
+#define X_MS_RIGHT           d0
+#define X_MS_BTN1            d1
+#define X_MS_BTN2            d2
+#define X_MS_BTN3            d3
+#define X_MS_BTN4            d4
+#define X_MS_BTN5            d5
+#define X_MS_BTN6            d6
+#define X_MS_BTN7            d7
+#define X_MS_BTN8            d8
+#define X_MS_WH_UP           d9
+#define X_MS_WH_DOWN         da
+#define X_MS_WH_LEFT         db
+#define X_MS_WH_RIGHT        dc
+#define X_MS_ACCEL0          dd
+#define X_MS_ACCEL1          de
+#define X_MS_ACCEL2          df
 
 // Send string macros
 #define STRINGIZE(z) #z

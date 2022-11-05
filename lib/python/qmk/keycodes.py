@@ -1,11 +1,14 @@
 from pathlib import Path
 
-from qmk.json_schema import deep_update, json_load
+from qmk.json_schema import deep_update, json_load, validate
 
-CONSTANTS_PATH = Path('data/constants/')
+CONSTANTS_PATH = Path('data/constants/keycodes/')
 
 
 def _validate(spec):
+    # first throw it to the jsonschema
+    validate(spec, 'qmk.keycodes.v1')
+
     # no duplicate keycodes
     keycodes = []
     for value in spec['keycodes'].values():

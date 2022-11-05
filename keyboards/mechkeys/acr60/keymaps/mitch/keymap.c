@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* Layer 2: "special effects": RGB lighting, backlighting, bootloader */
   [_SFX] = LAYOUT_mitchsplit(
       ______,  RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_M_X, RGB_M_G,______, ______, ______,  ______, ______,  \
-      ______,  BL_TOGG, BL_STEP, BL_DEC,  BL_INC,  ______,  ______,  ______,  ______, ______, ______, ______,  ______,  QK_BOOT,  \
+      ______,  BL_TOGG, BL_STEP, BL_DOWN, BL_UP,   ______,  ______,  ______,  ______, ______, ______, ______,  ______,  QK_BOOT,  \
       ______,  RGB_TOG, RGB_MOD,______,  ______,  ______,  ______,  ______,  ______, ______, ______, ______,  ______,  \
       ______,  RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ______,  ______, ______, ______, ______,  ______,  \
       ______,  ______,  ______,             ______, ______, ______,                   ______, ______,TO(_DFT),______   \

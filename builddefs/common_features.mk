@@ -518,12 +518,6 @@ ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
 endif
 
-ifeq ($(strip $(PRINTING_ENABLE)), yes)
-    OPT_DEFS += -DPRINTING_ENABLE
-    SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
-    QUANTUM_LIB_SRC += uart.c
-endif
-
 VARIABLE_TRACE ?= no
 ifneq ($(strip $(VARIABLE_TRACE)),no)
     SRC += $(QUANTUM_DIR)/variable_trace.c

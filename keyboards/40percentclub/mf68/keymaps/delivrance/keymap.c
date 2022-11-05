@@ -23,8 +23,8 @@
 #define KC_FN1 MO(_FN)
 #define KC_FN2 LT(_FN, KC_CAPS)
 
-#define KC_BLUP BL_INC   // Backlight increase
-#define KC_BLDN BL_DEC   // Backlight decrease
+#define KC_BLUP BL_UP    // Backlight increase
+#define KC_BLDN BL_DOWN  // Backlight decrease
 #define KC_BLTOG BL_TOGG // Backlight toggle
 #define KC_REC1 DM_REC1  // Record macro 1
 #define KC_PLY1 DM_PLY1  // Play macro 1

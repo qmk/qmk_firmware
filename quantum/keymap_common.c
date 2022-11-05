@@ -109,7 +109,7 @@ action_t action_for_keycode(uint16_t keycode) {
             break;
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:;
             // OSM(mod) - One-shot mod
-            mod         = mod_config(keycode & 0xFF);
+            mod         = mod_config(keycode & 0x1F);
             action.code = ACTION_MODS_ONESHOT(mod);
             break;
 #endif
@@ -118,8 +118,8 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
             break;
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
-            mod          = mod_config(keycode & 0xF);
-            action_layer = (keycode >> 4) & 0xF;
+            mod          = mod_config(keycode & 0x1F);
+            action_layer = (keycode >> 5) & 0xF;
             action.code  = ACTION_LAYER_MODS(action_layer, mod);
             break;
 #endif

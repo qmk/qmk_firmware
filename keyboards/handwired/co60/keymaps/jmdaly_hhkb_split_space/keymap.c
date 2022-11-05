@@ -42,9 +42,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_L3] = LAYOUT_60_hhkb_split_625u_space( /* Function */
     QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_F10,    KC_F11,     KC_F12,   _______, _______,
-    BL_BRTG, BL_TOGG, BL_INC,  BL_DEC, BL_ON, BL_OFF, _______, _______, _______, _______,   _______,   KC_PGUP,    KC_INSERT,  KC_DEL,
+    BL_BRTG, BL_TOGG, BL_UP,   BL_DOWN,BL_ON, BL_OFF, _______, _______, _______, _______,   _______,   KC_PGUP,    KC_INSERT,  KC_DEL,
     _______, RGB_TOG, RGB_MOD, RGB_RMOD, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,  KC_HOME,   KC_END,     _______,
-    _______, BL_DEC,  _______, _______, _______, _______, _______, DF(_L1), DF(_L2), _______,   KC_PGDN,   _______, _______,
+    _______, BL_DOWN, _______, _______, _______, _______, _______, DF(_L1), DF(_L2), _______,   KC_PGDN,   _______, _______,
              _______, _______,          _______,          _______,          _______, _______,   _______,   _______
   )
 };

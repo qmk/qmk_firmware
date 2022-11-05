@@ -233,19 +233,23 @@ See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
 See also: [Audio](feature_audio.md)
 
-|Key             |Aliases  |Description                       |
-|----------------|---------|----------------------------------|
-|`AU_ON`         |         |Turns on Audio Feature            |
-|`AU_OFF`        |         |Turns off Audio Feature           |
-|`AU_TOG`        |         |Toggles Audio state               |
-|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
-|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
-|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
-|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
-|`MU_ON`         |         |Turns on Music Mode               |
-|`MU_OFF`        |         |Turns off Music Mode              |
-|`MU_TOG`        |         |Toggles Music Mode                |
-|`MU_MOD`        |         |Cycles through the music modes    |
+|Key                      |Aliases  |Description                                |
+|-------------------------|---------|-------------------------------------------|
+|`QK_AUDIO_ON`            |`AU_ON`  |Turns on Audio Feature                     |
+|`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
+|`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
+|`QK_AUDIO_CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode                  |
+|`QK_AUDIO_CLICKY_ON`     |`CK_ON`  |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks          |
+|`QK_AUDIO_CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks          |
+|`QK_AUDIO_CLICKY_RESET`  |`CK_RST` |Resets frequency to default                |
+|`QK_MUSIC_ON`            |`MU_ON`  |Turns on Music Mode                        |
+|`QK_MUSIC_OFF`           |`MU_OFF` |Turns off Music Mode                       |
+|`QK_MUSIC_TOGGLE`        |`MU_TOGG`|Toggles Music Mode                         |
+|`QK_MUSIC_MODE_NEXT`     |`MU_NEXT`|Cycles through the music modes             |
+|`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|Cycles through the audio voices            |
+|`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|Cycles through the audio voices in reverse |
 
 ## Auto Shift :id=auto-shift
 
@@ -274,15 +278,15 @@ See also: [Autocorrect](feature_autocorrect.md)
 
 See also: [Backlighting](feature_backlight.md)
 
-|Key      |Description                               |
-|---------|------------------------------------------|
-|`BL_TOGG`|Turn the backlight on or off              |
-|`BL_STEP`|Cycle through backlight levels            |
-|`BL_ON`  |Set the backlight to max brightness       |
-|`BL_OFF` |Turn the backlight off                    |
-|`BL_INC` |Increase the backlight level              |
-|`BL_DEC` |Decrease the backlight level              |
-|`BL_BRTG`|Toggle backlight breathing                |
+| Key                             | Aliases   | Description                         |
+|---------------------------------|-----------|-------------------------------------|
+| `QK_BACKLIGHT_TOGGLE`           | `BL_TOGG` | Turn the backlight on or off        |
+| `QK_BACKLIGHT_STEP`             | `BL_STEP` | Cycle through backlight levels      |
+| `QK_BACKLIGHT_ON`               | `BL_ON`   | Set the backlight to max brightness |
+| `QK_BACKLIGHT_OFF`              | `BL_OFF`  | Turn the backlight off              |
+| `QK_BACKLIGHT_UP`               | `BL_UP`   | Increase the backlight level        |
+| `QK_BACKLIGHT_DOWN`             | `BL_DOWN` | Decrease the backlight level        |
+| `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
 ## Bluetooth :id=bluetooth
 
@@ -669,11 +673,11 @@ See also: [Mod-Tap](mod_tap.md)
 
 See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 
-| Key         | Description                                                                                                            |
-|-------------|------------------------------------------------------------------------------------------------------------------------|
-| `DT_PRNT`   | "Dynamic Tapping Term Print": Types the current tapping term, in milliseconds                                          |
-| `DT_UP`     | "Dynamic Tapping Term Up": Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default)   |
-| `DT_DOWN`   | "Dynamic Tapping Term Down": Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
+| Key                           | Aliases | Description                                                                               |
+|-------------------------------|---------|-------------------------------------------------------------------------------------------|
+|`QK_DYNAMIC_TAPPING_TERM_PRINT`|`DT_PRNT`| Types the current tapping term, in milliseconds                                           |
+|`QK_DYNAMIC_TAPPING_TERM_UP`   |`DT_UP`  | Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
+|`QK_DYNAMIC_TAPPING_TERM_DOWN` |`DT_DOWN`| Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
 
 ## RGB Lighting :id=rgb-lighting
 
@@ -717,15 +721,6 @@ See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 |`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
-
-## Thermal Printer :id=thermal-printer
-
-See also: [Thermal Printer](feature_thermal_printer.md)
-
-|Key        |Description                             |
-|-----------|----------------------------------------|
-|`PRINT_ON` |Start printing everything the user types|
-|`PRINT_OFF`|Stop printing everything the user types |
 
 ## US ANSI Shifted Symbols :id=us-ansi-shifted-symbols
 
