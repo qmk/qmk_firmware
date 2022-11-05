@@ -1,6 +1,6 @@
-#include QMK_KEYBOARD_H
-
 /* Global enum and define file for all c files */
+
+#include QMK_KEYBOARD_H
 
 enum layers {
     _QWERTY,    //0
@@ -23,9 +23,11 @@ enum custom_keycodes {
     CC_COLN,
     CC_EXLM,
     CC_SAVRGB,
+    CC_ALRM,
 };
 
 
+/* HOME Row Modifiers */
 // Left-hand home row mods
 #define GUI_S LGUI_T(KC_S)
 #define ALT_D LALT_T(KC_D)

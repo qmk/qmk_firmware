@@ -36,25 +36,25 @@ extern uint8_t is_master;
 #define GAME  TG(_GAME)
 
 // Key quick names
-#define QC_AT   S(KC_2)     // @
-#define QC_EUR  ALGR(KC_5)  // €
-#define QC_SS   ALGR(KC_S)  // ß
-#define QC_SECT S(ALGR(KC_S))    // §
-#define QC_DEG  S(ALGR(KC_SCLN)) // °
-#define QC_HAT  S(KC_6)  // ^
+#define QC_AT   S(KC_2)           // @
+#define QC_EUR  ALGR(KC_5)        // €
+#define QC_SS   ALGR(KC_S)        // ß
+#define QC_SECT S(ALGR(KC_S))     // §
+#define QC_DEG  S(ALGR(KC_SCLN))  // °
+#define QC_HAT  S(KC_6)           // ^
 
 #define QC_UNDO LCTL(KC_Z)
 #define QC_REDO LCTL(KC_Y)
 #define QC_CTLX LCTL(KC_X)
 #define QC_CTLC LCTL(KC_C)
 #define QC_CTLV LCTL(KC_V)
+
 #define GMESCN  LSFT(KC_F11)
-#define CTALDEL LCTL(LALT(KC_DEL))  // CTRL+ALT+DEL
-#define WINSCNS SGUI(KC_S)          // WIN+SHIFT+S
+#define CTALDEL LCTL(LALT(KC_DEL)) // CTRL+ALT+DEL
+#define WINSCNS SGUI(KC_S)         // WIN+SHIFT+S
 
-//HOME Row Modifiers
-
-
+#define WRDLFT  C(KC_LEFT)         // CTRL+LEFT (Word left)
+#define WRDRGT  C(KC_RIGHT)        // CTRL+RIGHT (Word right)
 
 
 
@@ -105,13 +105,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 
-//  [_QWERTY] = LAYOUT(
-//   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-//   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
-//   KC_LCTRL, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-//   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
-//                              KC_LALT, KC_LGUI,LOWER, KC_SPC,   KC_ENT,   UPPER,   KC_BSPC, KC_RGUI
-// ),
 
 [_QWERTY] = LAYOUT(
   KC_ESC,   KC_1,   KC_2,   KC_3,    KC_4,   KC_5,                        KC_6,   KC_7,    KC_8,     KC_9,    KC_0,    CC_BckDel, 
@@ -122,93 +115,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-/* LOWER
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   -  |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |UPPER |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
-// [_LOWER] = LAYOUT(
-//   _______, _______, _______, _______, _______, _______,                   _______, _______, _______,_______, _______, _______,
-//   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-//   KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
-//   _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-//                              _______, _______, _______, _______, _______,  _______, _______, _______
-// ),
-
 [_LOWER] = LAYOUT(
   _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11, 
-  _______,  XXXXXXX, WINSCNS, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_F12, 
+  _______,  XXXXXXX, WINSCNS, QC_UNDO, QC_REDO, XXXXXXX,                    XXXXXXX, KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_F12, 
   XXXXXXX,  XXXXXXX, KC_RGUI, KC_LALT, KC_LCTL, XXXXXXX,                    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_PGDN, XXXXXXX, 
-  XXXXXXX,  XXXXXXX, QC_CTLX, QC_CTLC, QC_CTLV, _______, _______, _______,  XXXXXXX, KC_BSPC, KC_DEL,  XXXXXXX,  XXXXXXX, KC_PENT, 
-                              _______, _______, _______, _______, _______,  _______, _______, _______
+  XXXXXXX,  XXXXXXX, QC_CTLX, QC_CTLC, QC_CTLV, _______, _______, _______,  XXXXXXX, WRDLFT,  XXXXXXX, WRDRGT,   XXXXXXX, KC_ENT, 
+                              _______, _______, _______, _______, KC_LSFT,  _______, KC_BSPC, _______
 ),
 
-
-/* UPPER
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   +  |   -  |   =  |   [  |   ]  |   \  |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |UPPER |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
-
-// [_UPPER] = LAYOUT(
-//   _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
-//   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-//   KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
-//   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   _______, _______,  KC_PLUS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-//                              _______, _______, _______,  _______, _______,  _______, _______, _______
-// ),
 
 [_UPPER] = LAYOUT(
   _______,  _______,  _______,  _______,  _______,  _______,                     _______,  _______,  _______,  _______, _______, _______, 
   _______,  QC_AT,    KC_TILD,  QC_EUR,   KC_PSCR,  _______,                     KC_PAST,  KC_PPLS,  KC_LCBR,  KC_RCBR, QC_DEG, _______,
-  XXXXXXX,  XXXXXXX,  QC_SS,    QC_UNDO,  QC_REDO,  CTALDEL,                     QC_HAT,   KC_PEQL,  KC_LPRN,  KC_RPRN, KC_LT,   KC_GT, 
+  XXXXXXX,  XXXXXXX,  QC_SS,    QC_UNDO,  QC_REDO,  CTALDEL,                     QC_HAT,   KC_EQL,   KC_LPRN,  KC_RPRN, KC_LT,   KC_GT, 
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, _______, _______,   KC_PSLS,  KC_PMNS,  KC_LBRC,  KC_RBRC, KC_PIPE, KC_PENT,
                                 _______,  _______,  _______, _______, _______,   _______,  _______,  _______
 ),
 
-/* MOD
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      |      |RGB ON| HUE+ | SAT+ | VAL+ |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      | MODE | HUE- | SAT- | VAL- |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |UPPER |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
-//   [_MOD] = LAYOUT(
-//   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-//   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-//   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
-//   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
-//                              _______, _______, _______, _______, _______,  _______, _______, _______
-//   )
 
   [_MOD] = LAYOUT(
   RGB_TOG,  RGB_M_P,  RGB_M_B,  RGB_M_SW, RGB_M_G,  RGB_M_SN,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GAME, 
-  RGB_MOD,  RGB_SAI,  RGB_SPI,  XXXXXXX,  XXXXXXX,  RGB_M_T,                       KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_PEQL,
+  RGB_MOD,  RGB_SAI,  RGB_SPI,  XXXXXXX,  RGB_M_T,  CC_ALRM,                       KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_PEQL,
   XXXXXXX,  RGB_SAD,  RGB_SPD,  XXXXXXX,  XXXXXXX,  XXXXXXX,                       KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PMNS,  KC_PERC, 
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_NUM,   XXXXXXX, CC_SAVRGB,  _______,  KC_P0,    KC_P1,    KC_P2,    KC_P3,    KC_PDOT,  KC_PENT, 
                                  XXXXXXX, _______,  _______, _______,    _______,  _______,  _______, _______

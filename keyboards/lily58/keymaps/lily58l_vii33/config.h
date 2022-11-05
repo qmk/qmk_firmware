@@ -69,6 +69,8 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #  define RGBLIGHT_EFFECT_RGB_TEST
 #  define RGBLIGHT_EFFECT_SNAKE
 #  define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#  undef RGBLIGHT_EFFECT_TWINKLE
+#  undef RGBLIGHT_EFFECT_KNIGHT
 
 // Custom Lightning Layers
 #  define RGBLIGHT_LAYERS
@@ -84,10 +86,10 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #define OLED_BRIGHTNESS 120
 
 
-#define SPLIT_USB_DETECT
 #define SPLIT_WPM_ENABLE    // Sync WPM to slave side
 // #define SPLIT_OLED_ENABLE
 
 // ACTIVATE for Elite C rev3 controller on the slave side
-// #define NO_USB_STARTUP_CHECK
+#define SPLIT_USB_DETECT
+#define NO_USB_STARTUP_CHECK
 

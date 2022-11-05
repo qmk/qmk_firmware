@@ -49,16 +49,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       lunaIsBarking = true;
       break;
 
-    case CC_BckDel:
-      if ( mods_state & MOD_MASK_SHIFT ) {  // Shift pressed
-        del_mods(MOD_MASK_SHIFT);           // cancel the shifts so they are not applied to the keycodes
-        tap_code(KC_DEL);                 
-        set_mods(mods_state);
-      }else {                               // No shift is pressed
-        tap_code(KC_BSPC);
-      }
-      break;
-    
     case CC_AE:
       tap_code16(ALGR(KC_Q));   // tapcode16() allows you to use modifiers!
       break;
@@ -71,6 +61,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       tap_code16(ALGR(KC_Y));   
       break;
         
+    case CC_BckDel:
+      if ( mods_state & MOD_MASK_SHIFT ) {  // Shift pressed
+        del_mods(MOD_MASK_SHIFT);           // cancel the shifts so they are not applied to the keycodes
+        tap_code(KC_DEL);                 
+        set_mods(mods_state);
+      }else {                               // No shift is pressed
+        tap_code(KC_BSPC);
+      }
+      break;
+    
     case CC_SLH:
       if ( mods_state & MOD_MASK_SHIFT ) {  
         del_mods(MOD_MASK_SHIFT);         
@@ -138,12 +138,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if ( mods_state & MOD_MASK_SHIFT ) {   // ( | )
         SEND_STRING("()" SS_TAP(X_LEFT));
       } else {
-        return true;    // continue with normal KC
+        return true;  // continue with normal KC
       }
 
     case CC_SAVRGB:   // Saves color config to eeprom. Used to save eeprom write cycles              
       rgblight_sethsv(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val()); 
       rgblight_set_speed( rgblight_get_speed() );
+      break;
+
+    case CC_ALRM:    // RGB alternate blinking
+      rgblight_mode(RGBLIGHT_MODE_ALTERNATING);
       break;
   }
 
