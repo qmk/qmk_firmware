@@ -123,6 +123,11 @@
 #define KC_RAPC QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE
 #define KC_SFTENT QK_SPACE_CADET_RIGHT_SHIFT_ENTER
 
+#define AU_TOG QK_AUDIO_TOGGLE
+#define MU_TOG QK_MUSIC_TOGGLE
+#define MUV_IN QK_AUDIO_VOICE_NEXT
+#define MUV_DE QK_AUDIO_VOICE_PREV
+
 #define TERM_ON _Static_assert(false, "The Terminal feature has been removed from QMK. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 #define TERM_OFF _Static_assert(false, "The Terminal feature has been removed from QMK.. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 // #define RESET _Static_assert(false, "The RESET keycode has been removed from QMK.. Please remove use from your keymap.")
