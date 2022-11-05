@@ -123,8 +123,8 @@
 #define KC_RAPC QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE
 #define KC_SFTENT QK_SPACE_CADET_RIGHT_SHIFT_ENTER
 
-#define BL_DEC QK_BACKLIGHT_DECREASE
-#define BL_INC QK_BACKLIGHT_INCREASE
+#define BL_DEC QK_BACKLIGHT_DOWN
+#define BL_INC QK_BACKLIGHT_UP
 
 #define TERM_ON _Static_assert(false, "The Terminal feature has been removed from QMK. Please remove use of TERM_ON/TERM_OFF from your keymap.")
 #define TERM_OFF _Static_assert(false, "The Terminal feature has been removed from QMK.. Please remove use of TERM_ON/TERM_OFF from your keymap.")

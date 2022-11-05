@@ -32,10 +32,10 @@ bool process_backlight(uint16_t keycode, keyrecord_t *record) {
             case QK_BACKLIGHT_OFF:
                 led_matrix_disable();
                 return false;
-            case QK_BACKLIGHT_DECREASE:
+            case QK_BACKLIGHT_DOWN:
                 led_matrix_decrease_val();
                 return false;
-            case QK_BACKLIGHT_INCREASE:
+            case QK_BACKLIGHT_UP:
                 led_matrix_increase_val();
                 return false;
             case QK_BACKLIGHT_TOGGLE:
@@ -51,10 +51,10 @@ bool process_backlight(uint16_t keycode, keyrecord_t *record) {
             case QK_BACKLIGHT_OFF:
                 backlight_level(0);
                 return false;
-            case QK_BACKLIGHT_DECREASE:
+            case QK_BACKLIGHT_DOWN:
                 backlight_decrease();
                 return false;
-            case QK_BACKLIGHT_INCREASE:
+            case QK_BACKLIGHT_UP:
                 backlight_increase();
                 return false;
             case QK_BACKLIGHT_TOGGLE:
