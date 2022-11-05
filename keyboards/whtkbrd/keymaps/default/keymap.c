@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "whtkbrd.h"
 
 /* A keyboard layout with only 5 columns, 3-4 rows, and 3 thumb keys. */
 

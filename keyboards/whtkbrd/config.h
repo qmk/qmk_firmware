@@ -21,9 +21,6 @@
 #define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0001
 
-#define MANUFACTURER whtk
-#define PRODUCT whtkbrd
-
 #define MASTER_RIGHT
 
 #define SERIAL_USART_FULL_DUPLEX
