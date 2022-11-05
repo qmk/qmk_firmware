@@ -221,14 +221,14 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 All LED matrix keycodes are currently shared with the [Backlight feature](feature_backlight.md).
 
-| Key                     | Aliases             | Description                   |
-|-------------------------|---------------------|-------------------------------|
-| `QK_BACKLIGHT_TOGGLE`   | `BL_TOGG`           | Toggle LED Matrix on or off   |
-| `QK_BACKLIGHT_STEP`     | `BL_STEP`           | Cycle through modes           |
-| `QK_BACKLIGHT_ON`       | `BL_ON`             | Turn on LED Matrix            |
-| `QK_BACKLIGHT_OFF`      | `BL_OFF`            | Turn off LED Matrix           |
-| `QK_BACKLIGHT_DECREASE` | `BL_INC`, `BL_UP`   | Increase the brightness level |
-| `QK_BACKLIGHT_INCREASE` | `BL_DEC`, `BL_DOWN` | Decrease the brightness level |
+| Key                     | Aliases   | Description                   |
+|-------------------------|-----------|-------------------------------|
+| `QK_BACKLIGHT_TOGGLE`   | `BL_TOGG` | Toggle LED Matrix on or off   |
+| `QK_BACKLIGHT_STEP`     | `BL_STEP` | Cycle through modes           |
+| `QK_BACKLIGHT_ON`       | `BL_ON`   | Turn on LED Matrix            |
+| `QK_BACKLIGHT_OFF`      | `BL_OFF`  | Turn off LED Matrix           |
+| `QK_BACKLIGHT_INCREASE` | `BL_UP`   | Increase the brightness level |
+| `QK_BACKLIGHT_DECREASE` | `BL_DOWN` | Decrease the brightness level |
 
 ## LED Matrix Effects :id=led-matrix-effects
 

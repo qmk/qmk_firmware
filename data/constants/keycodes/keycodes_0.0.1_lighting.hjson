@@ -25,7 +25,6 @@
             "group": "backlight",
             "key": "QK_BACKLIGHT_DECREASE",
             "aliases": [
-                "BL_DEC",
                 "BL_DOWN"
             ]
         },
@@ -33,7 +32,6 @@
             "group": "backlight",
             "key": "QK_BACKLIGHT_INCREASE",
             "aliases": [
-                "BL_INC",
                 "BL_UP"
             ]
         },

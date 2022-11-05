@@ -274,15 +274,15 @@ See also: [Autocorrect](feature_autocorrect.md)
 
 See also: [Backlighting](feature_backlight.md)
 
-| Key                             | Aliases           | Description                         |
-|---------------------------------|---------------------|-------------------------------------|
-| `QK_BACKLIGHT_TOGGLE`           | `BL_TOGG`           | Turn the backlight on or off        |
-| `QK_BACKLIGHT_STEP`             | `BL_STEP`           | Cycle through backlight levels      |
-| `QK_BACKLIGHT_ON`               | `BL_ON`             | Set the backlight to max brightness |
-| `QK_BACKLIGHT_OFF`              | `BL_OFF`            | Turn the backlight off              |
-| `QK_BACKLIGHT_DECREASE`         | `BL_INC`, `BL_UP`   | Increase the backlight level        |
-| `QK_BACKLIGHT_INCREASE`         | `BL_DEC`, `BL_DOWN` | Decrease the backlight level        |
-| `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG`           | Toggle backlight breathing          |
+| Key                             | Aliases   | Description                         |
+|---------------------------------|-----------|-------------------------------------|
+| `QK_BACKLIGHT_TOGGLE`           | `BL_TOGG` | Turn the backlight on or off        |
+| `QK_BACKLIGHT_STEP`             | `BL_STEP` | Cycle through backlight levels      |
+| `QK_BACKLIGHT_ON`               | `BL_ON`   | Set the backlight to max brightness |
+| `QK_BACKLIGHT_OFF`              | `BL_OFF`  | Turn the backlight off              |
+| `QK_BACKLIGHT_INCREASE`         | `BL_UP`   | Increase the backlight level        |
+| `QK_BACKLIGHT_DECREASE`         | `BL_DOWN` | Decrease the backlight level        |
+| `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
 ## Bluetooth :id=bluetooth
 
