@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2021 Jerrell, Jacob <@jjerrell>
- *
+ * 
  * This file is part of qmk_firmware.
- *
+ * 
  * qmk_firmware is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * 
  * qmk_firmware is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with qmk_firmware.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  __________________QWERTY_L1__________________, KC_SLSH,
         KC_LALT, __________________QWERTY_L2__________________, KC_BSLS,
         KC_LSFT, __________________QWERTY_L3__________________,
-        KC_LGUI, QK_MACRO_1, QK_MACRO_2, QK_MACRO_3, QK_MACRO_4, QK_LOCK,
+        KC_LGUI, MACRO_1, MACRO_2, MACRO_3, MACRO_4,   QK_LOCK,
                                     KC_SPC, KC_BTN2, MO(_LOWER)
     ),
     [_GAME_LOWER] = LAYOUT_moonlander_gamepad(
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  __________________QWERTY_L1__________________, KC_SLSH,
         KC_LALT, __________________QWERTY_L2__________________, KC_BSLS,
         KC_LSFT, __________________QWERTY_L3__________________,
-        KC_LGUI, QK_MACRO_5, QK_MACRO_6, QK_MACRO_7, QK_MACRO_8, QK_LOCK,
+        KC_LGUI, MACRO_5, MACRO_6, MACRO_7, MACRO_8,   QK_LOCK,
                                     KC_SPC, KC_BTN2, MO(_LOWER)
     )
 };
