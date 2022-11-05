@@ -39,6 +39,7 @@ Merging branches can be performed automatically at build time for [[#workflow-bu
 
 Any local changes to existing workflow files should be made independently in commits with messages starting ~[miryoku-github]~ so that they can also be automatically excluded in workflow builds.
 
+
 ** Building
 
 
@@ -735,6 +736,19 @@ make torn:manna-harbour_miryoku:flash
 
 ** Additional and Experimental Features
 
+*** Bilateral Combinations
+
+- [[https://github.com/manna-harbour/qmk_firmware/issues/29][Bilateral Combinations]]
+
+
+*** Caps Word
+
+[[https://github.com/qmk/qmk_firmware/blob/master/docs/feature_caps_word.md][Caps Word]] is used in place of ~Caps Lock~.  Combine with ~Shift~ for ~Caps Lock~.
+
+*** Retro Shift
+
+- [[https://github.com/manna-harbour/qmk_firmware/issues/33][Retro Shift]]
+
 
 *** Thumb Combos
 
@@ -742,15 +756,6 @@ make torn:manna-harbour_miryoku:flash
 
 Combo the primary and secondary thumb keys to emulate the tertiary thumb key.  Can be used on keyboards with missing or hard to reach tertiary thumb keys or for compatibility with same.  Requires suitable keycaps to enable the thumb to press both keys simultaneously.
 
-
-*** Bilateral Combinations
-
-- [[https://github.com/manna-harbour/qmk_firmware/issues/29][Bilateral Combinations]]
-
-
-*** Retro Shift
-
-- [[https://github.com/manna-harbour/qmk_firmware/issues/33][Retro Shift]]
 
 
 *** 𝑥MK
@@ -762,6 +767,7 @@ For [[#local-builds][local builds]], merge https://github.com/manna-harbour/qmk_
 For [[#workflow-builds][workflow builds]], use the Build Inputs workflow and build with keyboard ~converter/xmk~ and merge ~manna-harbour/qmk_firmware/xmk~, or use the Build Example 𝑥MK workflow.
 
 Also see [[https://github.com/manna-harbour/miryoku_kmonad][Miryoku KMonad]].
+
 
 ** 
 
