@@ -20,13 +20,13 @@
 #include <hal.h>
 #include "wait.h"
 
-#       define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
+#define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
 extern uint32_t __ram0_end__;
-#       define BOOTLOADER_MAGIC 0xDEADBEEF
-#       define MAGIC_ADDR (unsigned long *)(SYMVAL(__ram0_end__) - 4)
+#define BOOTLOADER_MAGIC 0xDEADBEEF
+#define MAGIC_ADDR (unsigned long *)(SYMVAL(__ram0_end__) - 4)
 
 __attribute__((weak)) void bootloader_jump(void) {
-    *MAGIC_ADDR = BOOTLOADER_MAGIC;  // set magic flag => reset handler will jump into boot loader
+    *MAGIC_ADDR = BOOTLOADER_MAGIC; // set magic flag => reset handler will jump into boot loader
     // Wait for memory to be set before the reset
     wait_us(1);
     NVIC_SystemReset();
@@ -39,7 +39,7 @@ void enter_bootloader_mode_if_requested(void) {
     if (*check == BOOTLOADER_MAGIC) {
         *check = 0;
 
-        void(*recovery)(void) = (void*)SN32_BOOTLOADER_ADDRESS;
+        void (*recovery)(void) = (void *)SN32_BOOTLOADER_ADDRESS;
         recovery();
 
         while (1)
