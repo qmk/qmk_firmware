@@ -16,7 +16,7 @@
         "rgb_matrix": true
     },
     "usb": {
-        "device_version": "4.0.0",
+        "device_version": "1.0.0",
         "pid": "0x1426",
         "vid": "0x445A"
     },
