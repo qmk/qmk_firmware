@@ -45,10 +45,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 /* optical sensor settings */
 #define SCROLL_DIVIDER 12
 #define CPI_1 2000

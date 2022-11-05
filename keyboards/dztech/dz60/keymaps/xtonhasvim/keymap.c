@@ -73,7 +73,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   static uint32_t last_state = 0;
 
   if(last_state != state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _CMD:
       user_led_on();
       break;
@@ -85,5 +85,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
   return state;
 }
-
-

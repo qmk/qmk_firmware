@@ -21,7 +21,7 @@
 #define PRODUCT_ID      0x5052 // "PR"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
-#define PRODUCT         Xelus Pachi RGB Rev 1
+#define PRODUCT         Xelus Pachi RGB Rev1
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -45,8 +45,8 @@
 #define LOCKING_RESYNC_ENABLE
 
 // I2C setup
-#define I2C1_SCL            8
-#define I2C1_SDA            9
+#define I2C1_SCL_PIN        B8
+#define I2C1_SDA_PIN        B9
 #define I2C1_SCL_PAL_MODE   4
 #define I2C1_SDA_PAL_MODE   4
 #define I2C1_TIMINGR_PRESC  0U
@@ -57,6 +57,9 @@
 
 // I2C EEPROM
 #define EEPROM_I2C_24LC64
+
+// More EEPROM for layers
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 
 // RGB Matrix defines
 #define DRIVER_ADDR_1 0b0110000

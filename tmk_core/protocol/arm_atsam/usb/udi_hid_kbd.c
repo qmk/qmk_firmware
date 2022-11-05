@@ -94,42 +94,42 @@ static uint8_t udi_hid_kbd_report_trans[UDI_HID_KBD_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_kbd_report_desc_t udi_hid_kbd_report_desc = {{
-    0x05, 0x01,  // Usage Page (Generic Desktop)
-    0x09, 0x06,  // Usage (Keyboard)
-    0xA1, 0x01,  // Collection (Application)
+    0x05, 0x01, // Usage Page (Generic Desktop)
+    0x09, 0x06, // Usage (Keyboard)
+    0xA1, 0x01, // Collection (Application)
     // Modifiers (8 bits)
-    0x05, 0x07,  //   Usage Page (Keyboard)
-    0x19, 0xE0,  //   Usage Minimum (Keyboard Left Control)
-    0x29, 0xE7,  //   Usage Maximum (Keyboard Right GUI)
-    0x15, 0x00,  //   Logical Minimum (0)
-    0x25, 0x01,  //   Logical Maximum (1)
-    0x95, 0x08,  //   Report Count (8)
-    0x75, 0x01,  //   Report Size (1)
-    0x81, 0x02,  //   Input (Data, Variable, Absolute)
+    0x05, 0x07, //   Usage Page (Keyboard)
+    0x19, 0xE0, //   Usage Minimum (Keyboard Left Control)
+    0x29, 0xE7, //   Usage Maximum (Keyboard Right GUI)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
+    0x95, 0x08, //   Report Count (8)
+    0x75, 0x01, //   Report Size (1)
+    0x81, 0x02, //   Input (Data, Variable, Absolute)
     // Reserved (1 byte)
-    0x81, 0x01,  //   Input (Constant)
+    0x81, 0x01, //   Input (Constant)
     // Keycodes (6 bytes)
-    0x19, 0x00,  //   Usage Minimum (0)
-    0x29, 0xFF,  //   Usage Maximum (255)
-    0x15, 0x00,  //   Logical Minimum (0)
-    0x25, 0xFF,  //   Logical Maximum (255)
-    0x95, 0x06,  //   Report Count (6)
-    0x75, 0x08,  //   Report Size (8)
-    0x81, 0x00,  //   Input (Data, Array, Absolute)
+    0x19, 0x00, //   Usage Minimum (0)
+    0x29, 0xFF, //   Usage Maximum (255)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0xFF, //   Logical Maximum (255)
+    0x95, 0x06, //   Report Count (6)
+    0x75, 0x08, //   Report Size (8)
+    0x81, 0x00, //   Input (Data, Array, Absolute)
 
     // Status LEDs (5 bits)
-    0x05, 0x08,  //   Usage Page (LED)
-    0x19, 0x01,  //   Usage Minimum (Num Lock)
-    0x29, 0x05,  //   Usage Maximum (Kana)
-    0x15, 0x00,  //   Logical Minimum (0)
-    0x25, 0x01,  //   Logical Maximum (1)
-    0x95, 0x05,  //   Report Count (5)
-    0x75, 0x01,  //   Report Size (1)
-    0x91, 0x02,  //   Output (Data, Variable, Absolute)
+    0x05, 0x08, //   Usage Page (LED)
+    0x19, 0x01, //   Usage Minimum (Num Lock)
+    0x29, 0x05, //   Usage Maximum (Kana)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
+    0x95, 0x05, //   Report Count (5)
+    0x75, 0x01, //   Report Size (1)
+    0x91, 0x02, //   Output (Data, Variable, Absolute)
     // LED padding (3 bits)
-    0x95, 0x03,  //   Report Count (3)
-    0x91, 0x01,  //   Output (Constant)
-    0xC0         // End Collection
+    0x95, 0x03, //   Report Count (3)
+    0x91, 0x01, //   Output (Constant)
+    0xC0        // End Collection
 }};
 
 static bool udi_hid_kbd_setreport(void);
@@ -148,11 +148,17 @@ bool udi_hid_kbd_enable(void) {
     return UDI_HID_KBD_ENABLE_EXT();
 }
 
-void udi_hid_kbd_disable(void) { UDI_HID_KBD_DISABLE_EXT(); }
+void udi_hid_kbd_disable(void) {
+    UDI_HID_KBD_DISABLE_EXT();
+}
 
-bool udi_hid_kbd_setup(void) { return udi_hid_setup(&udi_hid_kbd_rate, &udi_hid_kbd_protocol, (uint8_t *)&udi_hid_kbd_report_desc, udi_hid_kbd_setreport); }
+bool udi_hid_kbd_setup(void) {
+    return udi_hid_setup(&udi_hid_kbd_rate, &udi_hid_kbd_protocol, (uint8_t *)&udi_hid_kbd_report_desc, udi_hid_kbd_setreport);
+}
 
-uint8_t udi_hid_kbd_getsetting(void) { return 0; }
+uint8_t udi_hid_kbd_getsetting(void) {
+    return 0;
+}
 
 static bool udi_hid_kbd_setreport(void) {
     if ((USB_HID_REPORT_TYPE_OUTPUT == (udd_g_ctrlreq.req.wValue >> 8)) && (0 == (0xFF & udd_g_ctrlreq.req.wValue)) && (1 == udd_g_ctrlreq.req.wLength)) {
@@ -234,41 +240,41 @@ static uint8_t udi_hid_nkro_report_trans[UDI_HID_NKRO_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_nkro_report_desc_t udi_hid_nkro_report_desc = {{
-    0x05, 0x01,  // Usage Page (Generic Desktop)
-    0x09, 0x06,  // Usage (Keyboard)
-    0xA1, 0x01,  // Collection (Application)
+    0x05, 0x01, // Usage Page (Generic Desktop)
+    0x09, 0x06, // Usage (Keyboard)
+    0xA1, 0x01, // Collection (Application)
 
     // Modifiers (8 bits)
-    0x05, 0x07,  //   Usage Page (Keyboard/Keypad)
-    0x19, 0xE0,  //   Usage Minimum (Keyboard Left Control)
-    0x29, 0xE7,  //   Usage Maximum (Keyboard Right GUI)
-    0x15, 0x00,  //   Logical Minimum (0)
-    0x25, 0x01,  //   Logical Maximum (1)
-    0x95, 0x08,  //   Report Count (8)
-    0x75, 0x01,  //   Report Size (1)
-    0x81, 0x02,  //   Input (Data, Variable, Absolute)
+    0x05, 0x07, //   Usage Page (Keyboard/Keypad)
+    0x19, 0xE0, //   Usage Minimum (Keyboard Left Control)
+    0x29, 0xE7, //   Usage Maximum (Keyboard Right GUI)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
+    0x95, 0x08, //   Report Count (8)
+    0x75, 0x01, //   Report Size (1)
+    0x81, 0x02, //   Input (Data, Variable, Absolute)
     // Keycodes
-    0x05, 0x07,  //   Usage Page (Keyboard/Keypad)
-    0x19, 0x00,  //   Usage Minimum (0)
-    0x29, 0xF7,  //   Usage Maximum (247)
-    0x15, 0x00,  //   Logical Minimum (0)
-    0x25, 0x01,  //   Logical Maximum (1)
-    0x95, 0xF8,  //   Report Count (248)
-    0x75, 0x01,  //   Report Size (1)
-    0x81, 0x02,  //   Input (Data, Variable, Absolute, Bitfield)
+    0x05, 0x07, //   Usage Page (Keyboard/Keypad)
+    0x19, 0x00, //   Usage Minimum (0)
+    0x29, 0xF7, //   Usage Maximum (247)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
+    0x95, 0xF8, //   Report Count (248)
+    0x75, 0x01, //   Report Size (1)
+    0x81, 0x02, //   Input (Data, Variable, Absolute, Bitfield)
 
     // Status LEDs (5 bits)
-    0x05, 0x08,  //   Usage Page (LED)
-    0x19, 0x01,  //   Usage Minimum (Num Lock)
-    0x29, 0x05,  //   Usage Maximum (Kana)
-    0x95, 0x05,  //   Report Count (5)
-    0x75, 0x01,  //   Report Size (1)
-    0x91, 0x02,  //   Output (Data, Variable, Absolute)
+    0x05, 0x08, //   Usage Page (LED)
+    0x19, 0x01, //   Usage Minimum (Num Lock)
+    0x29, 0x05, //   Usage Maximum (Kana)
+    0x95, 0x05, //   Report Count (5)
+    0x75, 0x01, //   Report Size (1)
+    0x91, 0x02, //   Output (Data, Variable, Absolute)
     // LED padding (3 bits)
-    0x95, 0x01,  //   Report Count (1)
-    0x75, 0x03,  //   Report Size (3)
-    0x91, 0x03,  //   Output (Constant)
-    0xC0         // End Collection
+    0x95, 0x01, //   Report Count (1)
+    0x75, 0x03, //   Report Size (3)
+    0x91, 0x03, //   Output (Constant)
+    0xC0        // End Collection
 }};
 
 static bool udi_hid_nkro_setreport(void);
@@ -285,18 +291,24 @@ bool udi_hid_nkro_enable(void) {
     return UDI_HID_NKRO_ENABLE_EXT();
 }
 
-void udi_hid_nkro_disable(void) { UDI_HID_NKRO_DISABLE_EXT(); }
+void udi_hid_nkro_disable(void) {
+    UDI_HID_NKRO_DISABLE_EXT();
+}
 
-bool udi_hid_nkro_setup(void) { return udi_hid_setup(&udi_hid_nkro_rate, &udi_hid_nkro_protocol, (uint8_t *)&udi_hid_nkro_report_desc, udi_hid_nkro_setreport); }
+bool udi_hid_nkro_setup(void) {
+    return udi_hid_setup(&udi_hid_nkro_rate, &udi_hid_nkro_protocol, (uint8_t *)&udi_hid_nkro_report_desc, udi_hid_nkro_setreport);
+}
 
-uint8_t udi_hid_nkro_getsetting(void) { return 0; }
+uint8_t udi_hid_nkro_getsetting(void) {
+    return 0;
+}
 
 // keyboard receives LED report here
 static bool udi_hid_nkro_setreport(void) {
     if ((USB_HID_REPORT_TYPE_OUTPUT == (udd_g_ctrlreq.req.wValue >> 8)) && (0 == (0xFF & udd_g_ctrlreq.req.wValue)) && (1 == udd_g_ctrlreq.req.wLength)) {
         // Report OUT type on report ID 0 from USB Host
         udd_g_ctrlreq.payload      = &udi_hid_nkro_report_set;
-        udd_g_ctrlreq.callback     = udi_hid_nkro_setreport_valid;  // must call routine to transform setreport to LED state
+        udd_g_ctrlreq.callback     = udi_hid_nkro_setreport_valid; // must call routine to transform setreport to LED state
         udd_g_ctrlreq.payload_size = 1;
         return true;
     }
@@ -333,7 +345,7 @@ static void udi_hid_nkro_setreport_valid(void) {
     // UDI_HID_NKRO_CHANGE_LED(udi_hid_nkro_report_set);
 }
 
-#endif  // NKRO_ENABLE
+#endif // NKRO_ENABLE
 
 //********************************************************************************************
 // EXK (extra-keys) SYS-CTRL  Keyboard

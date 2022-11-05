@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "keymap_jis2us.h"
 #include "action_pseudo.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 enum custom_keycodes {
     JIS2US = SAFE_RANGE,  /* JIS2US keycode                       */

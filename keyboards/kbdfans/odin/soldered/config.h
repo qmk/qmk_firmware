@@ -35,8 +35,7 @@
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 15
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN
 #define RGBLED_NUM 4

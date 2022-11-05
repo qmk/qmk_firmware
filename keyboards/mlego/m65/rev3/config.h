@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DEVICE_VER 0x0003
-#define PRODUCT_ID 0x6060
+#define DEVICE_VER 0x0001
+#define PRODUCT_ID 0x6062
 
 #define LED_NUM_LOCK_PIN B12
 #define LED_SCROLL_LOCK_PIN B13
@@ -31,18 +31,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS \
     { A10, A15, B3, B4, B5, B9, B8, B7, A1, A2, A3, A4, B1 }
 
+#ifdef ENCODER_ENABLE
 #define ENCODERS_PAD_A \
     { A0 }
 #define ENCODERS_PAD_B \
     { B6 }
+#define ENCODER_RESOLUTION 4
+#endif
+
+#ifdef RGBLIGHT_ENABLE
 
 #define RGB_DI_PIN B15
-
-#define UNUSED_PINS
 #define RGBLIGHT_LAYERS
-
-#define ENCODER_RESOLUTION 4
-
 #undef RGBLED_NUM
 #define RGBLED_NUM 20
 #define RGBLIGHT_EFFECT_BREATHING
@@ -57,3 +57,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
+#endif
+
+#define UNUSED_PINS
+// you want to comment this if using stm32-dfu as bootloader
+#define FEE_PAGE_BASE_ADDRESS 0x08008000

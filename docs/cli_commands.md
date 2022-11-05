@@ -310,7 +310,7 @@ Any arguments that are not provided will prompt for input. If `-u` is not passed
 **Usage**:
 
 ```
-qmk new-keyboard [-kb KEYBOARD] [-t {avr,ps2avrgb}] -u USERNAME
+qmk new-keyboard [-kb KEYBOARD] [-t {atmega32u4,STM32F303,etc}] [-l {60_ansi,75_iso,etc}] -u USERNAME
 ```
 
 ## `qmk new-keymap`
@@ -333,6 +333,90 @@ This command cleans up the `.build` folder. If `--all` is passed, any .hex or .b
 
 ```
 qmk clean [-a]
+```
+
+## `qmk via2json`
+
+This command an generate a keymap.json from a VIA keymap backup. Both the layers and the macros are converted, enabling users to easily move away from a VIA-enabled firmware without writing any code or reimplementing their keymaps in QMK Configurator.
+
+**Usage**:
+
+```
+qmk via2json -kb KEYBOARD [-l LAYOUT] [-km KEYMAP] [-o OUTPUT] filename
+```
+
+**Example:**
+
+```
+$ qmk via2json -kb ai03/polaris -o polaris_keymap.json polaris_via_backup.json
+Ψ Wrote keymap to /home/you/qmk_firmware/polaris_keymap.json
+```
+
+## `qmk import-keyboard`
+
+This command imports a data-driven `info.json` keyboard into the repo.
+
+**Usage**:
+
+```
+usage: qmk import-keyboard [-h] filename
+```
+
+**Example:**
+
+```
+$ qmk import-keyboard ~/Downloads/forever60.json
+Ψ Importing forever60.json.
+
+Ψ Imported a new keyboard named forever60.
+Ψ To start working on things, `cd` into keyboards/forever60,
+Ψ or open the directory in your preferred text editor.
+Ψ And build with qmk compile -kb forever60 -km default.
+```
+
+## `qmk import-keymap`
+
+This command imports a data-driven `keymap.json` keymap into the repo.
+
+**Usage**:
+
+```
+usage: qmk import-keymap [-h] filename
+```
+
+**Example:**
+
+```
+qmk import-keymap ~/Downloads/asdf2.json
+Ψ Importing asdf2.json.
+
+Ψ Imported a new keymap named asdf2.
+Ψ To start working on things, `cd` into keyboards/takashicompany/dogtag/keymaps/asdf2,
+Ψ or open the directory in your preferred text editor.
+Ψ And build with qmk compile -kb takashicompany/dogtag -km asdf2.
+```
+
+## `qmk import-kbfirmware`
+
+This command creates a new keyboard based on a [Keyboard Firmware Builder](https://kbfirmware.com/) export.
+
+**Usage**:
+
+```
+usage: qmk import-kbfirmware [-h] filename
+```
+
+**Example:**
+
+```
+$ qmk import-kbfirmware ~/Downloads/gh62.json
+Ψ Importing gh62.json.
+
+⚠ Support here is basic - Consider using 'qmk new-keyboard' instead
+Ψ Imported a new keyboard named gh62.
+Ψ To start working on things, `cd` into keyboards/gh62,
+Ψ or open the directory in your preferred text editor.
+Ψ And build with qmk compile -kb gh62 -km default.
 ```
 
 ---
@@ -498,3 +582,16 @@ Run single test:
 
     qmk pytest -t qmk.tests.test_cli_commands.test_c2json
     qmk pytest -t qmk.tests.test_qmk_path
+
+## `qmk painter-convert-graphics`
+
+This command converts images to a format usable by QMK, i.e. the QGF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+
+## `qmk painter-make-font-image`
+
+This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+
+## `qmk painter-convert-font-image`
+
+This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+

@@ -129,7 +129,7 @@ layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_laye
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     switch (layer) {
         case _LOWER:

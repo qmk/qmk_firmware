@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_scan_user(void)
 {
-	uint8_t layer = biton32(layer_state);
+	uint8_t layer = get_highest_layer(layer_state);
 	switch (layer) {
 		case KM_BLOWRAK:
 			ph_caps_led_on();

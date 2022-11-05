@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#include "dactyl_manuform.h"
+#include "quantum.h"
 
 #define XXX KC_NO
 

@@ -94,7 +94,7 @@ void rgb_matrix_indicators_user(void) {
     if (keyboard_config.disable_layer_led) {
         return;
     }
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case 1:
             set_layer_color(0);
             break;

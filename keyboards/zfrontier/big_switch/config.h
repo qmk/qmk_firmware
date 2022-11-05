@@ -51,3 +51,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* long tapping config */
 #define TAPPING_TERM 500
+#define PERMISSIVE_HOLD

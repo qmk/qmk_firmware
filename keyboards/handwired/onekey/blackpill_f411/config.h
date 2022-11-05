@@ -31,3 +31,7 @@
 #define RGB_DI_PIN A1
 
 #define ADC_PIN A0
+
+#define SOLENOID_PIN B12
+#define SOLENOID_PINS { B12, B13, B14, B15 }
+#define SOLENOID_PINS_ACTIVE_STATE { high, high, low }

@@ -181,7 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   uint8_t layer;
-  layer = biton32(layer_state);  // get the current layer
+  layer = get_highest_layer(layer_state);  // get the current layer
 
   //custom layer handling for tri_layer,
   switch (keycode) {
@@ -310,7 +310,7 @@ void music_scale_user(void)
 #endif
 
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   switch (layer) {
   case _QWERTY:

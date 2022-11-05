@@ -176,3 +176,23 @@ To disable the custom keycodes, and reduce binary size, simply add a definition 
 ```c
 #define NO_CHARYBDIS_KEYCODES
 ```
+
+### Configuration Syncing
+
+If you want/need to enable syncing of the charybdis config, such as to read the sniping or drag scroll modes on the other half (such as for displaying the status via rgb matrix, or added on screens, or what not), you can enabled this.  To do so, add this to your `config.h`: 
+
+```c
+#define CHARYBDIS_CONFIG_SYNC
+```
+
+Note that you will need to reflash both sides when enabling this. 
+
+### Enable Large Mouse Reports
+
+By default, the X and Y motion for the pointing device/mouse reports is -127 to 127.  You can definitely hit the limit for that with the sensors.  You can enable support for -32767 to 32767 by adding this to your `config.h`:
+
+```c
+#define MOUSE_EXTENDED_REPORT
+```
+
+Note that you will need to reflash both sides when enabling this.

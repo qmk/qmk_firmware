@@ -35,7 +35,7 @@
     "usb": {
         "vid": "0xD772",
         "pid": "0x0017",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_all": {

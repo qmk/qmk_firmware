@@ -182,7 +182,7 @@ void rgbflag(uint8_t r, uint8_t g, uint8_t b, uint8_t rr, uint8_t gg, uint8_t bb
 
 void set_state_leds(void) {
   if (rgblight_get_mode() == 1) {
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
     case _RAISE:
       rgbflag(C_BLU, C_GRN);
       break;

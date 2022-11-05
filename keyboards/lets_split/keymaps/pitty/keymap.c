@@ -128,7 +128,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 
 void matrix_scan_user(void) {
-   uint8_t layer = biton32(layer_state);
+   uint8_t layer = get_highest_layer(layer_state);
    switch (layer) {
      case _NAV:
          if (RGB_INIT) {} else {

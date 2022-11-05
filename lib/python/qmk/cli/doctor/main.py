@@ -11,7 +11,8 @@ from milc.questions import yesno
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
-from qmk.commands import git_check_repo, git_get_branch, git_get_tag, git_is_dirty, git_get_remotes, git_check_deviation, in_virtualenv
+from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_is_dirty, git_get_remotes, git_check_deviation
+from qmk.commands import in_virtualenv
 
 
 def os_tests():

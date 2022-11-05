@@ -40,7 +40,6 @@
 
 #define SOFT_SERIAL_PIN D0
 
-#define USB_POLLING_INTERVAL_MS 1
 #define MASTER_RIGHT
 
 // RGB matrix support

@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL  ,KC_LALT  ,MO(2)  ,L2_SPC               ,L3_SPC           ,MO(3)  ,RWINALT  ,MO(1)   ,KC_LEFT,KC_DOWN,KC_RGHT 
     ),
 [1] = LAYOUT_all(
-    RESET  ,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_RBRC,KC_DEL       , KC_INS ,
+    QK_BOOT  ,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_RBRC,KC_DEL       , KC_INS ,
     KC_CAPS  ,KC_F11 ,KC_F12 ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX    , KC_HOME,
     _______      ,XXXXXXX,XXXXXXX,KC_PSCR,KC_SLCK,KC_PAUS,KC_INS ,KC_APP ,KC_LGUI,KC_RGUI,XXXXXXX,_______ ,KC_PGUP,KC_END ,
     KC_RCTL  ,_______  ,_______,XXXXXXX              ,XXXXXXX          ,_______,_______  ,_______ ,KC_HOME,KC_PGDN,KC_END  

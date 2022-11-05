@@ -30,9 +30,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN B5
   #define STARTUP_SONG SONG(ONE_UP_SOUND)

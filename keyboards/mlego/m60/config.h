@@ -25,13 +25,12 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
+/* COL2ROW, ROW2COL*/
+#define DIODE_DIRECTION COL2ROW
+
 #define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

@@ -161,7 +161,7 @@ bool iota_gfx_init(void) {
     send_cmd1(DeActivateScroll);
     send_cmd1(DisplayOn);
 
-    send_cmd2(SetContrast, 0);  // Dim
+    send_cmd2(SetContrast, 0); // Dim
 
     clear_display();
 
@@ -226,7 +226,9 @@ void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
     matrix_write_char_inner(matrix, c);
 }
 
-void iota_gfx_write_char(uint8_t c) { matrix_write_char(&display, c); }
+void iota_gfx_write_char(uint8_t c) {
+    matrix_write_char(&display, c);
+}
 
 void matrix_write(struct CharacterMatrix *matrix, const char *data) {
     const char *end = data + strlen(data);
@@ -236,7 +238,9 @@ void matrix_write(struct CharacterMatrix *matrix, const char *data) {
     }
 }
 
-void iota_gfx_write(const char *data) { matrix_write(&display, data); }
+void iota_gfx_write(const char *data) {
+    matrix_write(&display, data);
+}
 
 void matrix_write_P(struct CharacterMatrix *matrix, const char *data) {
     while (true) {
@@ -249,7 +253,9 @@ void matrix_write_P(struct CharacterMatrix *matrix, const char *data) {
     }
 }
 
-void iota_gfx_write_P(const char *data) { matrix_write_P(&display, data); }
+void iota_gfx_write_P(const char *data) {
+    matrix_write_P(&display, data);
+}
 
 void matrix_clear(struct CharacterMatrix *matrix) {
     memset(matrix->display, ' ', sizeof(matrix->display));
@@ -257,7 +263,9 @@ void matrix_clear(struct CharacterMatrix *matrix) {
     matrix->dirty  = true;
 }
 
-void iota_gfx_clear_screen(void) { matrix_clear(&display); }
+void iota_gfx_clear_screen(void) {
+    matrix_clear(&display);
+}
 
 void matrix_render(struct CharacterMatrix *matrix) {
     last_flush = timer_read();
@@ -301,7 +309,9 @@ done:
 #    endif
 }
 
-void iota_gfx_flush(void) { matrix_render(&display); }
+void iota_gfx_flush(void) {
+    matrix_render(&display);
+}
 
 __attribute__((weak)) void iota_gfx_task_user(void) {}
 

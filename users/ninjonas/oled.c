@@ -23,7 +23,7 @@ bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
 
 void render_layout_state(void) {
   oled_write_P(PSTR("Layout: "), false);
-  switch (biton32(default_layer_state)) {
+  switch (get_highest_layer(default_layer_state)) {
       case _COLEMAK:
         oled_write_P(PSTR("Colemak"), false);
         break;

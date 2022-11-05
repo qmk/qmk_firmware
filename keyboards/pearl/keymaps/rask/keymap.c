@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /**
  * Status LED layer indicators courtesy of jetpacktuxedo's firmware
  */
-uint32_t layer_state_set_kb(uint32_t state)
+layer_state_t layer_state_set_kb(layer_state_t state)
 {
     // if we are on layer 1
     if (state & (1<<1)){

@@ -34,8 +34,8 @@ enum {
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_F1_GAME] = ACTION_TAP_DANCE_DUAL_ROLE(KC_F1, GAME),
-  [TD_CAPS_FN] = ACTION_TAP_DANCE_DUAL_ROLE(KC_CAPS, 5)
+  [TD_F1_GAME] = ACTION_TAP_DANCE_LAYER_MOVE(KC_F1, GAME),
+  [TD_CAPS_FN] = ACTION_TAP_DANCE_LAYER_MOVE(KC_CAPS, 5)
 };
 
 enum macro_id {

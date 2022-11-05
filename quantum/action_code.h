@@ -79,19 +79,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 101E|LLLL|1111 0100   One Shot Layer         (0xF4)   [TAP]
  * 101E|LLLL|1111 xxxx   Reserved               (0xF5-FF)
  *   ELLLL: layer 0-31(E: extra bit for layer 16-31)
- *
- * Extensions(11xx)
- * ----------------
- * ACT_MACRO(1100):
- * 1100|opt | id(8)      Macro play?
- * 1100|1111| id(8)      Macro record?
- *
- * 1101|xxxx xxxx xxxx   (reserved)
- * 1110|xxxx xxxx xxxx   (reserved)
- *
- * ACT_FUNCTION(1111):
- * 1111| address(12)     Function?
- * 1111|opt | id(8)      Function?
  */
 enum action_kind_id {
     /* Key Actions */
@@ -111,9 +98,6 @@ enum action_kind_id {
     ACT_LAYER_MODS    = 0b1001,
     ACT_LAYER_TAP     = 0b1010, /* Layer  0-15 */
     ACT_LAYER_TAP_EXT = 0b1011, /* Layer 16-31 */
-    /* Extensions */
-    ACT_MACRO    = 0b1100,
-    ACT_FUNCTION = 0b1111
 };
 
 /** \brief Action Code Struct
@@ -164,11 +148,6 @@ typedef union {
         uint8_t  page : 2;
         uint8_t  kind : 4;
     } usage;
-    struct action_function {
-        uint8_t id : 8;
-        uint8_t opt : 4;
-        uint8_t kind : 4;
-    } func;
     struct action_swap {
         uint8_t code : 8;
         uint8_t opt : 4;
@@ -275,17 +254,6 @@ enum layer_param_tap_op {
 #define ACTION_DEFAULT_LAYER_BIT_XOR(part, bits) ACTION_LAYER_BITOP(OP_BIT_XOR, (part), (bits), 0)
 #define ACTION_DEFAULT_LAYER_BIT_SET(part, bits) ACTION_LAYER_BITOP(OP_BIT_SET, (part), (bits), 0)
 
-/* Macro */
-#define ACTION_MACRO(id) ACTION(ACT_MACRO, (id))
-#define ACTION_MACRO_TAP(id) ACTION(ACT_MACRO, FUNC_TAP << 8 | (id))
-#define ACTION_MACRO_OPT(id, opt) ACTION(ACT_MACRO, (opt) << 8 | (id))
-/* Function */
-enum function_opts {
-    FUNC_TAP = 0x8, /* indciates function is tappable */
-};
-#define ACTION_FUNCTION(id) ACTION(ACT_FUNCTION, (id))
-#define ACTION_FUNCTION_TAP(id) ACTION(ACT_FUNCTION, FUNC_TAP << 8 | (id))
-#define ACTION_FUNCTION_OPT(id, opt) ACTION(ACT_FUNCTION, (opt) << 8 | (id))
 /* OneHand Support */
 enum swap_hands_param_tap_op {
     OP_SH_TOGGLE = 0xF0,

@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "Big Switch Seat",
+    "url": "https://robotcandy.company/",
+    "maintainer": "nooges",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"x": 0, "y": 0, "w": 4, "h": 4}]
+        }
+    }
+}

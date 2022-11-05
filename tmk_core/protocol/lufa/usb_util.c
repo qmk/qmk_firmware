@@ -22,13 +22,15 @@ void usb_disconnect(void) {
     USB_DeviceState = DEVICE_STATE_Unattached;
 }
 
-bool usb_connected_state(void) { return USB_Device_IsAddressSet(); }
+bool usb_connected_state(void) {
+    return USB_Device_IsAddressSet();
+}
 
 #if defined(OTGPADE)
 bool usb_vbus_state(void) {
-    USB_OTGPAD_On();  // enables VBUS pad
+    USB_OTGPAD_On(); // enables VBUS pad
     wait_us(5);
 
-    return USB_VBUS_GetStatus();  // checks state of VBUS
+    return USB_VBUS_GetStatus(); // checks state of VBUS
 }
 #endif

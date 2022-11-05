@@ -1,0 +1,32 @@
+{
+    "manufacturer": "Jean Bernard",
+    "keyboard_name": "ms_sculpt",
+    "maintainer": "jn-bernard",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+	"features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false
+    },
+    "matrix_pins": {
+        "rows": ["B10", "B1", "B0", "A7", "A6", "A5", "A4", "A3"],
+        "cols": ["A2","B8","A0","C15","C14","A14","A13","B7","B6","B5","B4","B3","A15","A10","A8","B15","B14","B12"],
+		"unused": ["B13", "A1", "B9"]
+		"ghost": true,
+		"io_delay": 5
+    },
+    "processor": "STM32F401",
+    "url": "",
+    "usb": {
+		"polling_interval": 1,
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+    }
+}

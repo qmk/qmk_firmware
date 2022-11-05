@@ -4,17 +4,17 @@ If you're using a 60% keyboard, or any other layout with no F-row, you will have
 
 ## Usage
 
-Replace the `KC_GRV` key in your keymap (usually to the left of the `1` key) with `KC_GESC`. Most of the time this key will output `KC_ESC` when pressed. However, when Shift or GUI are held down it will output `KC_GRV` instead.
+Replace the `KC_GRV` key in your keymap (usually to the left of the `1` key) with `QK_GESC`. Most of the time this key will output `KC_ESC` when pressed. However, when Shift or GUI are held down it will output `KC_GRV` instead.
 
 ## What Your OS Sees
 
-If Mary presses GESC on her keyboard, the OS will see an KC_ESC character. Now if Mary holds Shift down and presses GESC it will output `~`, or a shifted backtick. Now if she holds GUI/CMD/WIN, it will output a simple <code>&#96;</code> character.
+If Mary presses `QK_GESC` on her keyboard, the OS will see an KC_ESC character. Now if Mary holds Shift down and presses `QK_GESC` it will output `~`, or a shifted backtick. Now if she holds GUI/CMD/WIN, it will output a simple <code>&#96;</code> character.
 
 ## Keycodes
 
-|Key      |Aliases    |Description                                                       |
-|---------|-----------|------------------------------------------------------------------|
-|`KC_GESC`|`GRAVE_ESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
+|Key              |Aliases  |Description                                                       |
+|-----------------|---------|------------------------------------------------------------------|
+|`QK_GRAVE_ESCAPE`|`QK_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
 
 ### Caveats
 

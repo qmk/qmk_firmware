@@ -36,7 +36,7 @@
 // Last led hit
 #ifndef LED_HITS_TO_REMEMBER
 #    define LED_HITS_TO_REMEMBER 8
-#endif  // LED_HITS_TO_REMEMBER
+#endif // LED_HITS_TO_REMEMBER
 
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
 typedef struct PACKED {
@@ -46,7 +46,7 @@ typedef struct PACKED {
     uint8_t  index[LED_HITS_TO_REMEMBER];
     uint16_t tick[LED_HITS_TO_REMEMBER];
 } last_hit_t;
-#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
+#endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
 typedef enum led_task_states { STARTING, RENDERING, FLUSHING, SYNCING } led_task_states;
 
@@ -87,7 +87,7 @@ typedef union {
         uint8_t     mode : 6;
         uint16_t    reserved;
         uint8_t     val;
-        uint8_t     speed;  // EECONFIG needs to be increased to support this
+        uint8_t     speed; // EECONFIG needs to be increased to support this
         led_flags_t flags;
     };
 } led_eeconfig_t;

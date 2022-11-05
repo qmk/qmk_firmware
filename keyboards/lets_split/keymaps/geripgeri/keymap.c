@@ -255,7 +255,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   writePin(B0, !(state & (1UL << (_NUMPAD))));
 
-  switch(biton32(state)) {
+  switch(get_highest_layer(state)) {
     case _RAISE:
       rgblight_setrgb_at(255, 255, 255, RGBLED_NUM / 2);
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);

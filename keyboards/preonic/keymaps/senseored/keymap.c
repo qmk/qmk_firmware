@@ -367,7 +367,7 @@ bool dip_switch_update_user(uint8_t index, bool active) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 //  if(rgblight_get_mode() == 1) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _QWERTY:
         if(bnumlock) {
             tap_code(KC_NLCK);

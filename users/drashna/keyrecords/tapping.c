@@ -29,10 +29,10 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
     // Do not select the hold action when another key is pressed.
     // return false;
     switch (keycode) {
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-            return true;
+//        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+//            return true;
         default:
-            return false;
+            return true;
     }
 }
 

@@ -54,5 +54,3 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
