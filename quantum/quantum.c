@@ -316,9 +316,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
 #endif
-#ifdef PRINTING_ENABLE
-            process_printer(keycode, record) &&
-#endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
 #endif

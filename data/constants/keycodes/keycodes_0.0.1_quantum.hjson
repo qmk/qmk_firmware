@@ -411,27 +411,27 @@
 
         "0x7C70": {
             "group": "quantum",
-            "key": "DT_PRNT"
+            "key": "QK_DYNAMIC_TAPPING_TERM_PRINT",
+            "aliases": [
+                "DT_PRNT"
+            ]
         },
         "0x7C71": {
             "group": "quantum",
-            "key": "DT_UP"
+            "key": "QK_DYNAMIC_TAPPING_TERM_UP",
+            "aliases": [
+                "DT_UP"
+            ]
         },
         "0x7C72": {
             "group": "quantum",
-            "key": "DT_DOWN"
+            "key": "QK_DYNAMIC_TAPPING_TERM_DOWN",
+            "aliases": [
+                "DT_DOWN"
+            ]
         },
 
         "0x7C73": {
-            "group": "quantum",
-            "key": "PRINT_ON"
-        },
-        "0x7C74": {
-            "group": "quantum",
-            "key": "PRINT_OFF"
-        },
-
-        "0x7C75": {
             "group": "quantum",
             "key": "QK_CAPS_WORD_TOGGLE",
             "aliases": [
@@ -439,21 +439,21 @@
             ]
         },
 
-        "0x7C76": {
+        "0x7C74": {
             "group": "quantum",
             "key": "QK_AUTOCORRECT_ON",
             "aliases": [
                 "AC_ON"
             ]
         },
-        "0x7C77": {
+        "0x7C75": {
             "group": "quantum",
             "key": "QK_AUTOCORRECT_OFF",
             "aliases": [
                 "AC_OFF"
             ]
         },
-        "0x7C78": {
+        "0x7C76": {
             "group": "quantum",
             "key": "QK_AUTOCORRECT_TOGGLE",
             "aliases": [
