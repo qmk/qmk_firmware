@@ -2,15 +2,24 @@
     "keycodes": {
         "0x7100": {
             "group": "midi",
-            "key": "MI_ON"
+            "key": "QK_MIDI_ON",
+            "aliases": [
+                "MI_ON"
+            ]
         },
         "0x7101": {
             "group": "midi",
-            "key": "MI_OFF"
+            "key": "QK_MIDI_OFF",
+            "aliases": [
+                "MI_OFF"
+            ]
         },
         "0x7102": {
             "group": "midi",
-            "key": "MI_TOG"
+            "key": "QK_MIDI_TOGGLE",
+            "aliases": [
+                "MI_TOGG"
+            ]
         },
         "0x7110": {
             "group": "midi",
