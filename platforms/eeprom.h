@@ -59,7 +59,7 @@ void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #    define TOTAL_EEPROM_BYTE_COUNT 4096
 #elif defined(EEPROM_TEST_HARNESS)
-#    ifndef FLASH_STM32_MOCKED
+#    ifndef LEGACY_FLASH_OPS_MOCKED
 // Normal tests
 #        define TOTAL_EEPROM_BYTE_COUNT 32
 #    else

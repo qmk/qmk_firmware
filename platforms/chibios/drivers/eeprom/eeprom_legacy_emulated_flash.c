@@ -23,7 +23,7 @@
 #include "util.h"
 #include "debug.h"
 #include "eeprom_legacy_emulated_flash.h"
-#include "flash_stm32.h"
+#include "legacy_flash_ops.h"
 
 /*
  * We emulate eeprom by writing a snapshot compacted view of eeprom contents,

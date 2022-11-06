@@ -219,7 +219,7 @@ else
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
         COMMON_VPATH += $(DRIVER_PATH)/flash
-        SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c flash_stm32.c
+        SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         # True EEPROM on STM32L0xx, L1xx
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_L0_L1
@@ -276,7 +276,7 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
-      SRC += flash_stm32.c wear_leveling_legacy.c
+      SRC += legacy_flash_ops.c wear_leveling_legacy.c
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
     endif
   endif

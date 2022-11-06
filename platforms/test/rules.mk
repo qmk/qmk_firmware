@@ -1,4 +1,4 @@
-eeprom_legacy_emulated_flash_DEFS  := -DEEPROM_TEST_HARNESS -DFLASH_STM32_MOCKED -DNO_PRINT -DFEE_FLASH_BASE=FlashBuf
+eeprom_legacy_emulated_flash_DEFS  := -DEEPROM_TEST_HARNESS -DLEGACY_FLASH_OPS_MOCKED -DNO_PRINT -DFEE_FLASH_BASE=FlashBuf
 eeprom_legacy_emulated_flash_tiny_DEFS := $(eeprom_legacy_emulated_flash_DEFS) \
 	-DFEE_MCU_FLASH_SIZE=1 \
 	-DMOCK_FLASH_SIZE=1024 \
@@ -19,7 +19,7 @@ eeprom_legacy_emulated_flash_large_INC := $(eeprom_legacy_emulated_flash_INC)
 eeprom_legacy_emulated_flash_SRC := \
 	$(TOP_DIR)/drivers/eeprom/eeprom_driver.c \
 	$(PLATFORM_PATH)/$(PLATFORM_KEY)/eeprom_legacy_emulated_flash_tests.cpp \
-	$(PLATFORM_PATH)/$(PLATFORM_KEY)/flash_stm32_mock.c \
+	$(PLATFORM_PATH)/$(PLATFORM_KEY)/legacy_flash_ops_mock.c \
 	$(PLATFORM_PATH)/chibios/drivers/eeprom/eeprom_legacy_emulated_flash.c
 eeprom_legacy_emulated_flash_tiny_SRC := $(eeprom_legacy_emulated_flash_SRC)
 eeprom_legacy_emulated_flash_large_SRC := $(eeprom_legacy_emulated_flash_SRC)

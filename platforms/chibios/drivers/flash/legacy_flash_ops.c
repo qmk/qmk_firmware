@@ -17,7 +17,7 @@
  */
 
 #include <hal.h>
-#include "flash_stm32.h"
+#include "legacy_flash_ops.h"
 
 #if defined(STM32F1XX)
 #    define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
