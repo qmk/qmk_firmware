@@ -1,6 +1,7 @@
  /* Copyright 2017 F_YUUCHI
   * Copyright 2020 Drashna Jaelre <@drashna>
   * Copyright 2020 Ben Roesner (keycapsss.com)
+  * Copyright 2022 Vii33 (https://github.com/vii33/mecha-keyboard-lily58l)
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -21,12 +22,7 @@
 #include "oled.h"
 #include "process_record_user.h"
 
-//#include "keymap_us_international.h"
-//#include "sendstring_us_international.h"
-
 extern uint8_t is_master;
-
-
 
 
 // Layer quick names
@@ -57,14 +53,12 @@ extern uint8_t is_master;
 #define WRDRGT  C(KC_RIGHT)        // CTRL+RIGHT (Word right)
 
 
-
 // Animation Speeds
 //const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {200, 150, 100};
 
 
 #ifdef RGBLIGHT_LAYERS
-
  // Lightning Layers as status indicators. -> Array of segments
 const rgblight_segment_t PROGMEM mod_indicator[] = RGBLIGHT_LAYER_SEGMENTS(
     {6, 4, HSV_GREEN}   // First segment: Turn on 5 LEDs starting with #4
@@ -89,8 +83,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// TODO UDATE IMAGES
-/* QWERTY  
+/* QWERTY Example
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -151,10 +144,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
 // --------------------------------------------------------------------------------
 
-// Rotary encoder related code
+// Rotary encoder 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {             // Encoder on master side

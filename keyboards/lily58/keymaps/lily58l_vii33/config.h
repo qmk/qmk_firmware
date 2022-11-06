@@ -4,6 +4,7 @@ This is the c configuration file for the keymap
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
 Copyright 2020 Ben Roesner (keycapsss.com)
+Copyright 2022 Vii33 (https://github.com/vii33/mecha-keyboard-lily58l)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -68,7 +69,6 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 // Custom Lightning Layers
 #  define RGBLIGHT_LAYERS
 #  define RGBLIGHT_MAX_LAYERS 2  // Default is 8. Performance impact -> reduced to 2
-
 #endif
 
 
@@ -78,11 +78,12 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #define OLED_UPDATE_INTERVAL 150  // set oled update interval in ms (default: 0). improves matrix scan rate
 #define OLED_BRIGHTNESS 120
 
-
-#define SPLIT_WPM_ENABLE    // Sync WPM to slave side
+// Sync WPM to slave side
+#define SPLIT_WPM_ENABLE    
 // #define SPLIT_OLED_ENABLE
 
-// ACTIVATE for Elite C rev3 controller on the slave side
 #define SPLIT_USB_DETECT
-// #define NO_USB_STARTUP_CHECK
+
+// ACTIVATE for Elite C rev3 controller on the slave side
+//#define NO_USB_STARTUP_CHECK
 

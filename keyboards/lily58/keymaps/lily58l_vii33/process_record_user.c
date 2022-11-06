@@ -1,38 +1,54 @@
+/*
+Process record user file (key pressed callback)
+
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
+Copyright 2020 Ben Roesner (keycapsss.com)
+Copyright 2022 Vii33 (https://github.com/vii33/mecha-keyboard-lily58l)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "process_record_user.h"
 #include "enums.h"
 #include QMK_KEYBOARD_H
 
-
-extern void add_keylog(uint16_t keycode);
-
 uint8_t mods_state;
-//uint32_t anim_sleep_timer = 0;
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   
   if (is_oled_on() == false) {
     oled_on();
   }
-
-  //anim_sleep_timer = timer_read32();  // Reset animation timer on each keystroke
   
-  // Dont' process keys further on key release (not needed for now)
+  // on key release
   if (record->event.pressed == false) { 
     /* Luna pet start */
     lunaIsJumping = false;
     lunaIsSneaking = false;
     lunaIsBarking = false;
     /* Luna pet end */
-    return true;
+    return true;            // Don't process keys further on key release (currently we don't need it)
   }  
   
 
   mods_state = get_mods();    // Store the current modifier state in the variable for later reference
 
-  if (record->event.pressed) {
-    // add_keylog(keycode);    // For OLED Key Printer
-  }
-
+  // if (record->event.pressed) {
+  //   // add_keylog(keycode);    // For OLED Key logger
+  // }
   
   switch (keycode) 
   {
@@ -154,4 +170,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-

@@ -1,12 +1,31 @@
-//#define OLED_ENABLE
+/*
+SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
 
-//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
+Copyright 2020 Ben Roesner (keycapsss.com)
+Copyright 2022 Vii33 (https://github.com/vii33/mecha-keyboard-lily58l)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifdef OLED_ENABLE
-#include "oled.h"
-#include "enums.h"
-#include "process_record_user.h"
+#  include "oled.h"
+#  include "enums.h"
+#  include "process_record_user.h"
 
-int   current_wpm = 0;
+int current_wpm = 0;
 
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -17,6 +36,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     }
 }
 
+/* OLED keylogging was disabled */
 // #define  KEYLOG_LEN 6
 // char     keylog_str[KEYLOG_LEN] = {};
 // uint8_t  keylogs_str_idx        = 0;
@@ -30,7 +50,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 //     'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
 //     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '
 // };
-
 
 // void add_keylog(uint16_t keycode) {
 //   if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
@@ -59,9 +78,10 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 //     oled_write(keylog_str, false);
 // }
 
+
 void render_default_layer_state(void) {
   // oled_write_P(PSTR("Layer"), false);
-  oled_write_P(PSTR(" "), false);
+  // oled_write_P(PSTR(" "), false);
   switch (get_highest_layer(layer_state)) {
     case _QWERTY:
         oled_write_P(PSTR("QRTY"), false);
@@ -130,12 +150,11 @@ uint8_t current_frame = 0;
 uint32_t anim_sleep_timer = 0;
 
 bool oled_task_user(void) {
-
   current_wpm = get_current_wpm();   
 
   // fixes screen on and off bug -> Turn on in process_record_user
   if (current_wpm > 0) {
-    oled_on();    // Doesn't work here -> screen flickers?????????
+    oled_on();    
     anim_sleep_timer = timer_read32();
   } 
   else if ( timer_elapsed32(anim_sleep_timer) > OLED_TIMEOUT && is_oled_on() ) {
@@ -144,7 +163,6 @@ bool oled_task_user(void) {
   }
 
   if (is_oled_on() == true) {     // Render enables screen, so only call it when screen is already on 
-
     // update_log();
     
     if (is_keyboard_master()) { 
@@ -153,9 +171,7 @@ bool oled_task_user(void) {
     } 
     else {
       render_mario();
-      //render_lily58_logo();
     }
-
   }
   
   return false;
@@ -181,18 +197,6 @@ bool lunaShowedJump = true;
 
 /* logic */
 void render_luna(int LUNA_X, int LUNA_Y) {    // params: chunk position on LED font
-
-    // /* this fixes the screen on and off bug */
-    // /* comment: worked only partially, I added screen on to process_record instead */
-    // if (current_wpm > 0) {
-    //     //oled_on();
-    //     anim_sleep_timer = timer_read32();
-    // } else if ( timer_elapsed32(anim_sleep_timer) > OLED_TIMEOUT && is_oled_on() ) {
-    //     oled_off();
-    //     return;
-    // }
-
-
 
     /* Sit */
     static const char PROGMEM sit[2][ANIM_SIZE] = {/* 'sit1', 32x22px */
@@ -292,11 +296,10 @@ void render_luna(int LUNA_X, int LUNA_Y) {    // params: chunk position on LED f
       }
     }
 }
-
 /* ------ LUNA PET END ------ */
 
 
-// This costs a little bit of memory since two times a 512 byte image is rendered.
+// Remders Mario image. This costs a little bit of memory since two times a 512 byte image is rendered.
 void render_mario(void) {
   if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
     anim_timer = timer_read32();
@@ -320,12 +323,12 @@ void render_mario(void) {
 }
 
 
-/* 32 * 8 logo */
+/* vii33 LOGO.  32 * 8 px */
 void render_logo(void) {
-    static const char PROGMEM raw_logo[] = {
+    static const char PROGMEM vii33_logo[] = {
         0, 15, 48, 64, 48, 15,  0, 65,127, 65,  0, 65,127, 65,  0, 34, 65, 73, 73, 54,  0, 34, 65, 73, 73, 54,  0, 96, 24,  6,  1,  0,
     };
-    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+    oled_write_raw_P(vii33_logo, sizeof(vii33_logo));
 }
 
 
@@ -368,8 +371,6 @@ void render_logo(void) {
 
 //     oled_write_raw_P(lily58_logo, sizeof(lily58_logo));
 // }
-
-
 
 #endif // OLED_ENABLE
 
