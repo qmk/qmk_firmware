@@ -48,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TG(_ML), MI_VL1,   MI_VL2,   MI_VL3,    MI_VL4,   MI_VL5,   MI_VL6,   MI_VL7,   MI_VL8,   MI_VL9,   MI_VL10,   XXXXXXX,   XXXXXXX, XXXXXXX,
     MI_CHU,  XXXXXXX,  MI_Cs,    MI_Ds,     XXXXXXX,  MI_Fs,    MI_Gs,    MI_As,    XXXXXXX,  MI_Cs_1,  MI_Ds_1,   XXXXXXX,   XXXXXXX, XXXXXXX,
     MI_MOD,  MI_C,     MI_D,     MI_E,      MI_F,     MI_G,     MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,    MI_F_1,             _______,
-    MI_SUS,            MI_OCTD,  MI_OCTU,   MI_MODSD, MI_MODSU, XXXXXXX,  XXXXXXX,  XXXXXXX,  MI_TRSD,  MI_TRSU,   MI_TR0,             MI_SUS,
-    _______, _______,  _______,                       MI_ALLOFF,                                        _______,   _______,   _______, _______
+    MI_SUST,           MI_OCTD,  MI_OCTU,   MI_MODD,  MI_MODU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MI_TRSD,  MI_TRSU,   MI_TR0,             MI_SUST,
+    _______, _______,  _______,                       MI_AOFF,                                          _______,   _______,   _______, _______
   ),
   #elif defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   /* Keymap _ML: MIDI Layer (Advanced)

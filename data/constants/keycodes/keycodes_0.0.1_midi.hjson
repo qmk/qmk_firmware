@@ -807,47 +807,80 @@
         },
         "0x71C0": {
             "group": "midi",
-            "key": "MI_ALLOFF"
+            "key": "QK_MIDI_ALL_NOTES_OFF",
+            "aliases": [
+                "MI_AOFF"
+            ]
         },
         "0x71C1": {
             "group": "midi",
-            "key": "MI_SUS"
+            "key": "QK_MIDI_SUSTAIN",
+            "aliases": [
+                "MI_SUST"
+            ]
         },
         "0x71C2": {
             "group": "midi",
-            "key": "MI_PORT"
+            "key": "QK_MIDI_PORTAMENTO",
+            "aliases": [
+                "MI_PORT"
+            ]
         },
         "0x71C3": {
             "group": "midi",
-            "key": "MI_SOST"
+            "key": "QK_MIDI_SOSTENUTO",
+            "aliases": [
+                "MI_SOST"
+            ]
         },
         "0x71C4": {
             "group": "midi",
-            "key": "MI_SOFT"
+            "key": "QK_MIDI_SOFT",
+            "aliases": [
+                "MI_SOFT"
+            ]
         },
         "0x71C5": {
             "group": "midi",
-            "key": "MI_LEG"
+            "key": "QK_MIDI_LEGATO",
+            "aliases": [
+                "MI_LEG"
+            ]
         },
         "0x71C6": {
             "group": "midi",
-            "key": "MI_MOD"
+            "key": "QK_MIDI_MODULATION",
+            "aliases": [
+                "MI_MOD"
+            ]
         },
         "0x71C7": {
             "group": "midi",
-            "key": "MI_MODSD"
+            "key": "QK_MODULATION_SPEED_DOWN",
+            "aliases": [
+                "MI_MODD"
+            ]
         },
         "0x71C8": {
             "group": "midi",
-            "key": "MI_MODSU"
+            "key": "QK_MODULATION_SPEED_UP",
+            "aliases": [
+                "MI_MODU"
+            ]
         },
         "0x71C9": {
             "group": "midi",
-            "key": "MI_BENDD"
+            "key": "QK_MIDI_PITCH_BEND_DOWN",
+            "aliases": [
+                "MI_BNDD"
+            ]
         },
         "0x71CA": {
             "group": "midi",
-            "key": "MI_BENDU"
+            "key": "QK_MIDI_PITCH_BEND_UP",
+            "aliases": [
+                "MI_BNDU"
+            ]
         }
     }
 }
