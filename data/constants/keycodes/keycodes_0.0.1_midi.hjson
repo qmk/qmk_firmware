@@ -509,55 +509,94 @@
         },
         "0x7190": {
             "group": "midi",
-            "key": "MI_VEL_0"
+            "key": "QK_MIDI_VELOCITY_0",
+            "aliases": [
+                "MI_VL0"
+            ]
         },
         "0x7191": {
             "group": "midi",
-            "key": "MI_VEL_1"
+            "key": "QK_MIDI_VELOCITY_1",
+            "aliases": [
+                "MI_VL1"
+            ]
         },
         "0x7192": {
             "group": "midi",
-            "key": "MI_VEL_2"
+            "key": "QK_MIDI_VELOCITY_2",
+            "aliases": [
+                "MI_VL2"
+            ]
         },
         "0x7193": {
             "group": "midi",
-            "key": "MI_VEL_3"
+            "key": "QK_MIDI_VELOCITY_3",
+            "aliases": [
+                "MI_VL3"
+            ]
         },
         "0x7194": {
             "group": "midi",
-            "key": "MI_VEL_4"
+            "key": "QK_MIDI_VELOCITY_4",
+            "aliases": [
+                "MI_VL4"
+            ]
         },
         "0x7195": {
             "group": "midi",
-            "key": "MI_VEL_5"
+            "key": "QK_MIDI_VELOCITY_5",
+            "aliases": [
+                "MI_VL5"
+            ]
         },
         "0x7196": {
             "group": "midi",
-            "key": "MI_VEL_6"
+            "key": "QK_MIDI_VELOCITY_6",
+            "aliases": [
+                "MI_VL6"
+            ]
         },
         "0x7197": {
             "group": "midi",
-            "key": "MI_VEL_7"
+            "key": "QK_MIDI_VELOCITY_7",
+            "aliases": [
+                "MI_VL7"
+            ]
         },
         "0x7198": {
             "group": "midi",
-            "key": "MI_VEL_8"
+            "key": "QK_MIDI_VELOCITY_8",
+            "aliases": [
+                "MI_VL8"
+            ]
         },
         "0x7199": {
             "group": "midi",
-            "key": "MI_VEL_9"
+            "key": "QK_MIDI_VELOCITY_9",
+            "aliases": [
+                "MI_VL9"
+            ]
         },
         "0x719A": {
             "group": "midi",
-            "key": "MI_VEL_10"
+            "key": "QK_MIDI_VELOCITY_10",
+            "aliases": [
+                "MI_VL10"
+            ]
         },
         "0x719B": {
             "group": "midi",
-            "key": "MI_VELD"
+            "key": "QK_MIDI_VELOCITY_DOWN",
+            "aliases": [
+                "MI_VELD"
+            ]
         },
         "0x719C": {
             "group": "midi",
-            "key": "MI_VELU"
+            "key": "QK_MIDI_VELOCITY_UP",
+            "aliases": [
+                "MI_VELU"
+            ]
         },
         "0x71A0": {
             "group": "midi",
