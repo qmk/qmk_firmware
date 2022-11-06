@@ -52,7 +52,7 @@ inline uint8_t compute_velocity(uint8_t setting) {
 }
 
 void midi_init(void) {
-    midi_config.octave              = MI_OCT_2 - MIDI_OCTAVE_MIN;
+    midi_config.octave              = QK_MIDI_OCTAVE_2 - MIDI_OCTAVE_MIN;
     midi_config.transpose           = 0;
     midi_config.velocity            = 127;
     midi_config.channel             = 0;
@@ -103,13 +103,13 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
                 dprintf("midi octave %d\n", midi_config.octave);
             }
             return false;
-        case MI_OCTD:
+        case QK_MIDI_OCTAVE_DOWN:
             if (record->event.pressed && midi_config.octave > 0) {
                 midi_config.octave--;
                 dprintf("midi octave %d\n", midi_config.octave);
             }
             return false;
-        case MI_OCTU:
+        case QK_MIDI_OCTAVE_UP:
             if (record->event.pressed && midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN)) {
                 midi_config.octave++;
                 dprintf("midi octave %d\n", midi_config.octave);

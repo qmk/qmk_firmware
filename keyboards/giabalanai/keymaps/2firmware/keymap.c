@@ -30,7 +30,7 @@
 #define ADJ_EIS  LT(_ADJUST,KC_LNG2)
 #define MIS_KAN  LT(_MISC,KC_LNG1)
 
-// Used to set octave to MI_OCT_0
+// Used to set octave to 0
 extern midi_config_t midi_config;
 uint8_t midi_bass_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 
@@ -332,7 +332,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     XXXXXXX,
-      MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EE_CLR, _______,
+      MI_OCN2, MI_OCN1, MI_OC0,  MI_OC1,  MI_OC2,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EE_CLR, _______,
     CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX, RGB_TOG,
       XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH
   )
@@ -428,8 +428,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif  //  RGBLIGHT_ENABLE
 
 void my_init(void){
-    //  Set octave to MI_OCT_0
-    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+    //  Set octave to 0
+    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
 }
@@ -438,7 +438,7 @@ void eeconfig_init_user(void) {
     midi_init();
     my_init();
 
-    // Used to set octave to MI_OCT_0
+    // Used to set octave to 0
     midi_bass_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 
     // UNISON flags

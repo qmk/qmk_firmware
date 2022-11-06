@@ -519,18 +519,18 @@ See also: [MIDI](feature_midi.md)
 |`MI_A_5`                |         |A octave 5                       |
 |`MI_As_5`               |`MI_Bb_5`|A♯/B♭ octave 5                   |
 |`MI_B_5`                |         |B octave 5                       |
-|`MI_OCT_N2`             |         |Set octave to -2                 |
-|`MI_OCT_N1`             |         |Set octave to -1                 |
-|`MI_OCT_0`              |         |Set octave to 0                  |
-|`MI_OCT_1`              |         |Set octave to 1                  |
-|`MI_OCT_2`              |         |Set octave to 2                  |
-|`MI_OCT_3`              |         |Set octave to 3                  |
-|`MI_OCT_4`              |         |Set octave to 4                  |
-|`MI_OCT_5`              |         |Set octave to 5                  |
-|`MI_OCT_6`              |         |Set octave to 6                  |
-|`MI_OCT_7`              |         |Set octave to 7                  |
-|`MI_OCTD`               |         |Move down an octave              |
-|`MI_OCTU`               |         |Move up an octave                |
+|`QK_MIDI_OCTAVE_N2`     |`MI_OCN2`|Set octave to -2                 |
+|`QK_MIDI_OCTAVE_N1`     |`MI_OCN1`|Set octave to -1                 |
+|`QK_MIDI_OCTAVE_0`      |`MI_OC0` |Set octave to 0                  |
+|`QK_MIDI_OCTAVE_1`      |`MI_OC1` |Set octave to 1                  |
+|`QK_MIDI_OCTAVE_2`      |`MI_OC2` |Set octave to 2                  |
+|`QK_MIDI_OCTAVE_3`      |`MI_OC3` |Set octave to 3                  |
+|`QK_MIDI_OCTAVE_4`      |`MI_OC4` |Set octave to 4                  |
+|`QK_MIDI_OCTAVE_5`      |`MI_OC5` |Set octave to 5                  |
+|`QK_MIDI_OCTAVE_6`      |`MI_OC6` |Set octave to 6                  |
+|`QK_MIDI_OCTAVE_7`      |`MI_OC7` |Set octave to 7                  |
+|`QK_MIDI_OCTAVE_DOWN`   |`MI_OCTD`|Move down an octave              |
+|`QK_MIDI_OCTAVE_UP`     |`MI_OCTU`|Move up an octave                |
 |`QK_MIDI_TRANSPOSE_N6`  |`MI_TRN6`|Set transposition to -6 semitones|
 |`QK_MIDI_TRANSPOSE_N5`  |`MI_TRN5`|Set transposition to -5 semitones|
 |`QK_MIDI_TRANSPOSE_N4`  |`MI_TRN4`|Set transposition to -4 semitones|

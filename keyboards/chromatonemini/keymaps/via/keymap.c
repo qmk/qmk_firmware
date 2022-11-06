@@ -54,7 +54,7 @@ enum custom_keycodes {
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE LT(_FN, KC_MUTE)
 
-// Used to set octave to MI_OCT_0
+// Used to set octave to 0
 extern midi_config_t midi_config;
 static bool is_trans_mode = false;     //  By default, shift mode is chosen.
 
@@ -102,8 +102,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
 void my_init(void){
-    //  Set octave to MI_OCT_1
-    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+    //  Set octave to 0
+    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
     default_layer_set(_LS_BASE);

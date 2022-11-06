@@ -401,51 +401,87 @@
         },
         "0x7170": {
             "group": "midi",
-            "key": "MI_OCT_N2"
+            "key": "QK_MIDI_OCTAVE_N2",
+            "aliases": [
+                "MI_OCN2"
+            ]
         },
         "0x7171": {
             "group": "midi",
-            "key": "MI_OCT_N1"
+            "key": "QK_MIDI_OCTAVE_N1",
+            "aliases": [
+                "MI_OCN1"
+            ]
         },
         "0x7172": {
             "group": "midi",
-            "key": "MI_OCT_0"
+            "key": "QK_MIDI_OCTAVE_0",
+            "aliases": [
+                "MI_OC0"
+            ]
         },
         "0x7173": {
             "group": "midi",
-            "key": "MI_OCT_1"
+            "key": "QK_MIDI_OCTAVE_1",
+            "aliases": [
+                "MI_OC1"
+            ]
         },
         "0x7174": {
             "group": "midi",
-            "key": "MI_OCT_2"
+            "key": "QK_MIDI_OCTAVE_2",
+            "aliases": [
+                "MI_OC2"
+            ]
         },
         "0x7175": {
             "group": "midi",
-            "key": "MI_OCT_3"
+            "key": "QK_MIDI_OCTAVE_3",
+            "aliases": [
+                "MI_OC3"
+            ]
         },
         "0x7176": {
             "group": "midi",
-            "key": "MI_OCT_4"
+            "key": "QK_MIDI_OCTAVE_4",
+            "aliases": [
+                "MI_OC4"
+            ]
         },
         "0x7177": {
             "group": "midi",
-            "key": "MI_OCT_5"
+            "key": "QK_MIDI_OCTAVE_5",
+            "aliases": [
+                "MI_OC5"
+            ]
         },
         "0x7178": {
             "group": "midi",
-            "key": "MI_OCT_6"
+            "key": "QK_MIDI_OCTAVE_6",
+            "aliases": [
+                "MI_OC6"
+            ]
         },
         "0x7179": {
             "group": "midi",
-            "key": "MI_OCT_7"
+            "key": "QK_MIDI_OCTAVE_7",
+            "aliases": [
+                "MI_OC7"
+            ]
         },
         "0x717A": {
             "group": "midi",
-            "key": "MI_OCTD"
+            "key": "QK_MIDI_OCTAVE_DOWN",
+            "aliases": [
+                "MI_OCTD"
+            ]
         },
         "0x717B": {
             "group": "midi",
-            "key": "MI_OCTU"
+            "key": "QK_MIDI_OCTAVE_UP",
+            "aliases": [
+                "MI_OCTU"
+            ]
         },
         "0x7180": {
             "group": "midi",
