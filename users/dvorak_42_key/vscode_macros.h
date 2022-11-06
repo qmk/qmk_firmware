@@ -1,7 +1,6 @@
 #pragma once
 #define VS_COMMANDS              MEH(KC_B)       // workbench.action.showCommands
 #define VS_LINE                  MEH(KC_C)       // workbench.action.gotoLine
-#define VS_SYMBOLEDITOR          MEH(KC_D)       // workbench.action.gotoSymbol
 #define VS_DEFINITION            MEH(KC_E)       // editor.action.revealDefinition
 #define VS_IMPLEMENTATION        MEH(KC_F)       // editor.action.goToImplementation
 #define VS_REFERENCES            MEH(KC_G)       // editor.action.goToReferences
@@ -30,3 +29,4 @@
 #define VS_DEL_RIGHT             HYPR(KC_D)      // deleteAllRight
 #define VS_FIND_FILES            HYPR(KC_E)      // workbench.action.findInFiles
 #define VS_FILE                  HYPR(KC_F)      // workbench.action.quickOpen
+#define VS_SYMBOLEDITOR          HYPR(KC_G)      // workbench.action.gotoSymbol
