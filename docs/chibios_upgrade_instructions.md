@@ -51,7 +51,7 @@ ChibiOS and ChibiOS-Contrib need to be updated in tandem -- the latter has a bra
     * `./util/chibios_conf_updater.sh`
 * Build everything
     * `cd $QMK_FIRMWARE`
-    * `qmk multibuild -j4`
+    * `qmk mass-compile -j 4`
     * Make sure there are no errors
 * Push to the repo
     * `git commit -am 'Update ChibiOS to 99.9.9'`
