@@ -170,13 +170,13 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
                 dprintf("midi channel %d\n", midi_config.channel);
             }
             return false;
-        case MI_CHD:
+        case QK_MIDI_CHANNEL_DOWN:
             if (record->event.pressed) {
                 midi_config.channel--;
                 dprintf("midi channel %d\n", midi_config.channel);
             }
             return false;
-        case MI_CHU:
+        case QK_MIDI_CHANNEL_UP:
             if (record->event.pressed) {
                 midi_config.channel++;
                 dprintf("midi channel %d\n", midi_config.channel);

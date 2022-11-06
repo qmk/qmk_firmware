@@ -177,8 +177,8 @@
 #define MIDI_TRANSPOSE_MAX MI_TRNS_6
 #define MIDI_VELOCITY_MIN MI_VEL_0
 #define MIDI_VELOCITY_MAX MI_VEL_10
-#define MIDI_CHANNEL_MIN MI_CH1
-#define MIDI_CHANNEL_MAX MI_CH16
+#define MIDI_CHANNEL_MIN QK_MIDI_CHANNEL_1
+#define MIDI_CHANNEL_MAX QK_MIDI_CHANNEL_16
 
 // TODO: somehow migrate sequencer to DD?
 #include "sequencer.h"

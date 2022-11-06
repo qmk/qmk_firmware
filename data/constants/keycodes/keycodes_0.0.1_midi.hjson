@@ -561,75 +561,129 @@
         },
         "0x71A0": {
             "group": "midi",
-            "key": "MI_CH1"
+            "key": "QK_MIDI_CHANNEL_1",
+            "aliases": [
+                "MI_CH1"
+            ]
         },
         "0x71A1": {
             "group": "midi",
-            "key": "MI_CH2"
+            "key": "QK_MIDI_CHANNEL_2",
+            "aliases": [
+                "MI_CH2"
+            ]
         },
         "0x71A2": {
             "group": "midi",
-            "key": "MI_CH3"
+            "key": "QK_MIDI_CHANNEL_3",
+            "aliases": [
+                "MI_CH3"
+            ]
         },
         "0x71A3": {
             "group": "midi",
-            "key": "MI_CH4"
+            "key": "QK_MIDI_CHANNEL_4",
+            "aliases": [
+                "MI_CH4"
+            ]
         },
         "0x71A4": {
             "group": "midi",
-            "key": "MI_CH5"
+            "key": "QK_MIDI_CHANNEL_5",
+            "aliases": [
+                "MI_CH5"
+            ]
         },
         "0x71A5": {
             "group": "midi",
-            "key": "MI_CH6"
+            "key": "QK_MIDI_CHANNEL_6",
+            "aliases": [
+                "MI_CH6"
+            ]
         },
         "0x71A6": {
             "group": "midi",
-            "key": "MI_CH7"
+            "key": "QK_MIDI_CHANNEL_7",
+            "aliases": [
+                "MI_CH7"
+            ]
         },
         "0x71A7": {
             "group": "midi",
-            "key": "MI_CH8"
+            "key": "QK_MIDI_CHANNEL_8",
+            "aliases": [
+                "MI_CH8"
+            ]
         },
         "0x71A8": {
             "group": "midi",
-            "key": "MI_CH9"
+            "key": "QK_MIDI_CHANNEL_9",
+            "aliases": [
+                "MI_CH9"
+            ]
         },
         "0x71A9": {
             "group": "midi",
-            "key": "MI_CH10"
+            "key": "QK_MIDI_CHANNEL_10",
+            "aliases": [
+                "MI_CH10"
+            ]
         },
         "0x71AA": {
             "group": "midi",
-            "key": "MI_CH11"
+            "key": "QK_MIDI_CHANNEL_11",
+            "aliases": [
+                "MI_CH11"
+            ]
         },
         "0x71AB": {
             "group": "midi",
-            "key": "MI_CH12"
+            "key": "QK_MIDI_CHANNEL_12",
+            "aliases": [
+                "MI_CH12"
+            ]
         },
         "0x71AC": {
             "group": "midi",
-            "key": "MI_CH13"
+            "key": "QK_MIDI_CHANNEL_13",
+            "aliases": [
+                "MI_CH13"
+            ]
         },
         "0x71AD": {
             "group": "midi",
-            "key": "MI_CH14"
+            "key": "QK_MIDI_CHANNEL_14",
+            "aliases": [
+                "MI_CH14"
+            ]
         },
         "0x71AE": {
             "group": "midi",
-            "key": "MI_CH15"
+            "key": "QK_MIDI_CHANNEL_15",
+            "aliases": [
+                "MI_CH15"
+            ]
         },
         "0x71AF": {
             "group": "midi",
-            "key": "MI_CH16"
+            "key": "QK_MIDI_CHANNEL_16",
+            "aliases": [
+                "MI_CH16"
+            ]
         },
         "0x71B0": {
             "group": "midi",
-            "key": "MI_CHD"
+            "key": "QK_MIDI_CHANNEL_DOWN",
+            "aliases": [
+                "MI_CHND"
+            ]
         },
         "0x71B1": {
             "group": "midi",
-            "key": "MI_CHU"
+            "key": "QK_MIDI_CHANNEL_UP",
+            "aliases": [
+                "MI_CHNU"
+            ]
         },
         "0x71C0": {
             "group": "midi",
