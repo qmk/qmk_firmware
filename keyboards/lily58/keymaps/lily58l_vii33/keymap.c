@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  QC_AT,    KC_TILD,  QC_EUR,   KC_PSCR,  _______,                     KC_PAST,  KC_PPLS,  KC_LCBR,  KC_RCBR, QC_DEG, _______,
   XXXXXXX,  XXXXXXX,  QC_SS,    QC_UNDO,  QC_REDO,  CTALDEL,                     QC_HAT,   KC_EQL,   KC_LPRN,  KC_RPRN, KC_LT,   KC_GT, 
   XXXXXXX,  KC_BSPC,  QC_CTLX,  QC_CTLC,  QC_CTLV,  XXXXXXX, _______, _______,   KC_PSLS,  KC_PMNS,  KC_LBRC,  KC_RBRC, KC_PIPE, KC_PENT,
-                                _______,  _______,  _______, _______, _______,   _______,  _______,  _______
+                                _______,  _______,  _______, KC_LSFT, _______,   _______,  KC_BSPC,  KC_DEL
 ),
 
 
