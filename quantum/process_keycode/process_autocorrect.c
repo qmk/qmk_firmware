@@ -91,7 +91,7 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
             } else {
                 *mods |= MOD_RSFT;
             }
-            *keycode &= 0xFF; // Get the basic keycode.
+            *keycode = QK_MODS_GET_BASIC_KEYCODE(*keycode); // Get the basic keycode.
             return true;
 #ifndef NO_ACTION_TAPPING
         // Exclude tap-hold keys when they are held down
@@ -101,13 +101,20 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
             // Exclude Layer Tap, if layers are disabled
             // but action tapping is still enabled.
             return false;
+#    else
+            // Exclude hold keycode
+            if (!record->tap.count) {
+                return false;
+            }
+            *keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(*keycode);
+            break;
 #    endif
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             // Exclude hold keycode
             if (!record->tap.count) {
                 return false;
             }
-            *keycode &= 0xFF;
+            *keycode = QK_MOD_TAP_GET_TAP_KEYCODE(*keycode);
             break;
 #else
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
@@ -119,10 +126,12 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
         // and mask for base keycode when they are tapped.
         case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
 #ifdef SWAP_HANDS_ENABLE
-            if (*keycode >= 0x56F0 || !record->tap.count) {
+            // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TG, SH_TT, ...,
+            // which currently overlap the SH_T(kc) range.
+            if (IS_SWAP_HANDS_KEYCODE(*keycode) || !record->tap.count) {
                 return false;
             }
-            *keycode &= 0xFF;
+            *keycode = QK_SWAP_HANDS_GET_TAP_KEYCODE(*keycode);
             break;
 #else
             // Exclude if disabled

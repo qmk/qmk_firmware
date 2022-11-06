@@ -21,7 +21,7 @@
 bool process_unicode(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (keycode >= QK_UNICODE && keycode <= QK_UNICODE_MAX) {
-            register_unicode(keycode & 0x7FFF);
+            register_unicode(QK_UNICODE_GET_CODE_POINT(keycode));
         }
     }
     return true;
