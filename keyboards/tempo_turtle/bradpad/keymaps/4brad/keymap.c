@@ -137,12 +137,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_Cs, KC_TRNS,  KC_TRNS,  MI_Gs,
         MI_Ds, KC_TRNS,  KC_TRNS,  MI_As,
         MI_F , KC_TRNS,  KC_TRNS,  MI_C ,
-        MI_Fs, MI_TRNSD, MI_TRNSU, MI_Cs,
+        MI_Fs, MI_TRSD,  MI_TRSU,  MI_Cs,
                KC_TRNS,  KC_TRNS),
     [_FLAT] = LAYOUT(
         MI_B , KC_TRNS,  KC_TRNS,  MI_Gb,
         MI_Db, KC_TRNS,  KC_TRNS,  MI_Ab,
         MI_Eb, KC_TRNS,  KC_TRNS,  MI_Bb,
-        MI_E , MI_TRNSD, MI_TRNSU, MI_B,
+        MI_E , MI_TRSD,  MI_TRSU,  MI_B,
                KC_TRNS,  KC_TRNS),
 };

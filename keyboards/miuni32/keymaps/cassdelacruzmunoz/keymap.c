@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [6] = LAYOUT(
     MI_C_1,  MI_E_1,  MI_G_1,   MI_B_1,   MI_D_2,  MI_F_2, MI_A_2, MI_C_3, MI_E_3, MI_G_3, KC_NO,
     MI_D_1,  MI_F_1,  MI_A_1,   MI_C_2,   MI_E_2,  MI_G_2, MI_B_2, MI_D_3, MI_F_3, MI_A_3, TG(6),
-    MI_OCTD, MI_OCTU, MI_TRNSD, MI_TRNSU,          KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
+    MI_OCTD, MI_OCTU, MI_TRSD,  MI_TRSU,           KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
   )
 };
 

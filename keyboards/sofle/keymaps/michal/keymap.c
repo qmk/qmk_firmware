@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MI_ALLOFF, MI_OCT_0, MI_OCT_1, MI_OCT_2, MI_OCT_3, MI_OCT_4,                      MI_OCT_5, MI_OCT_6, MI_OCT_7, _______, _______, MI_TOGG,
   _______,   MI_Gs,    MI_As,    _______,  MI_Cs_1,  MI_Ds_1,                       _______,  MI_Fs_1,  MI_Gs_1,  MI_As_1, _______, _______,
   _______,   MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,                        MI_F_1,   MI_G_1,   MI_A_1,   MI_B_1,  MI_C_2,  KC_WORKMAN,
-  _______,   _______,  _______,  _______,  MI_TRNSD, MI_TRNSU, _______,    _______, MI_BENDD, MI_BENDU, _______,  _______, _______, _______,
+  _______,   _______,  _______,  _______,  MI_TRSD,  MI_TRSU,  _______,    _______, MI_BENDD, MI_BENDU, _______,  _______, _______, _______,
                        _______,  _______,  _______,  MI_SUS,   MI_OCTD,    MI_OCTU, _______,  _______,  _______,  _______
 ),
 

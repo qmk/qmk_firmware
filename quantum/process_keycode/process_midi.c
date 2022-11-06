@@ -117,18 +117,18 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
             return false;
         case MIDI_TRANSPOSE_MIN ... MIDI_TRANSPOSE_MAX:
             if (record->event.pressed) {
-                midi_config.transpose = keycode - MI_TRNS_0;
+                midi_config.transpose = keycode - QK_MIDI_TRANSPOSE_0;
                 dprintf("midi transpose %d\n", midi_config.transpose);
             }
             return false;
-        case MI_TRNSD:
-            if (record->event.pressed && midi_config.transpose > (MIDI_TRANSPOSE_MIN - MI_TRNS_0)) {
+        case QK_MIDI_TRANSPOSE_DOWN:
+            if (record->event.pressed && midi_config.transpose > (MIDI_TRANSPOSE_MIN - QK_MIDI_TRANSPOSE_0)) {
                 midi_config.transpose--;
                 dprintf("midi transpose %d\n", midi_config.transpose);
             }
             return false;
-        case MI_TRNSU:
-            if (record->event.pressed && midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
+        case QK_MIDI_TRANSPOSE_UP:
+            if (record->event.pressed && midi_config.transpose < (MIDI_TRANSPOSE_MAX - QK_MIDI_TRANSPOSE_0)) {
                 const bool positive = midi_config.transpose > 0;
                 midi_config.transpose++;
                 if (positive && midi_config.transpose < 0) midi_config.transpose--;

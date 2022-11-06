@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NATURAL] = LAYOUT(
         MI_C, MI_BENDD, MI_BENDU, MI_G,
         MI_D, MI_VELD,  MI_VELU,  MI_A,
-        MI_E, MI_TRNSD, MI_TRNSU, MI_B,
+        MI_E, MI_TRSD,  MI_TRSU,  MI_B,
         MI_F, MI_OCTD,  MI_OCTU,  MI_C,
              MO(_SHARP), MO(_FLAT)),
     [_SHARP] = LAYOUT(

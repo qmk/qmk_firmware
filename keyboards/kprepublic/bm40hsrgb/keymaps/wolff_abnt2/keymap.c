@@ -123,8 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MIDI] = LAYOUT_planck_mit(
     MI_Cs,   MI_Ds,   _______, MI_Fs,   MI_Gs,   MI_As,   _______, MI_Cs,   MI_Ds,   _______, MI_Fs,   MI_Gs,
     MI_C,    MI_D,    MI_E,    MI_F,    MI_G,    MI_A,    MI_B,    MI_C,    MI_D,    MI_E,    MI_F,    MI_G,
-    MI_BENDU,MI_OCTU, MI_TRNSU,MI_VELU, _______, _______, _______, _______, _______, MI_ON,   MI_CHNU, MI_TOG,
-    MI_BENDD,MI_OCTD, MI_TRNSD,MI_VELD, MYNAV,       MI_SUS,       MYNUM, _______,   MI_OFF,  MI_CHND, MI_ALLOFF
+    MI_BENDU,MI_OCTU, MI_TRSU, MI_VELU, _______, _______, _______, _______, _______, MI_ON,   MI_CHNU, MI_TOG,
+    MI_BENDD,MI_OCTD, MI_TRSD, MI_VELD, MYNAV,       MI_SUS,       MYNUM, _______,   MI_OFF,  MI_CHND, MI_ALLOFF
 )
 };
 

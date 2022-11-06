@@ -449,63 +449,108 @@
         },
         "0x7180": {
             "group": "midi",
-            "key": "MI_TRNS_N6"
+            "key": "QK_MIDI_TRANSPOSE_N6",
+            "aliases": [
+                "MI_TRN6"
+            ]
         },
         "0x7181": {
             "group": "midi",
-            "key": "MI_TRNS_N5"
+            "key": "QK_MIDI_TRANSPOSE_N5",
+            "aliases": [
+                "MI_TRN5"
+            ]
         },
         "0x7182": {
             "group": "midi",
-            "key": "MI_TRNS_N4"
+            "key": "QK_MIDI_TRANSPOSE_N4",
+            "aliases": [
+                "MI_TRN4"
+            ]
         },
         "0x7183": {
             "group": "midi",
-            "key": "MI_TRNS_N3"
+            "key": "QK_MIDI_TRANSPOSE_N3",
+            "aliases": [
+                "MI_TRN3"
+            ]
         },
         "0x7184": {
             "group": "midi",
-            "key": "MI_TRNS_N2"
+            "key": "QK_MIDI_TRANSPOSE_N2",
+            "aliases": [
+                "MI_TRN2"
+            ]
         },
         "0x7185": {
             "group": "midi",
-            "key": "MI_TRNS_N1"
+            "key": "QK_MIDI_TRANSPOSE_N1",
+            "aliases": [
+                "MI_TRN1"
+            ]
         },
         "0x7186": {
             "group": "midi",
-            "key": "MI_TRNS_0"
+            "key": "QK_MIDI_TRANSPOSE_0",
+            "aliases": [
+                "MI_TR0"
+            ]
         },
         "0x7187": {
             "group": "midi",
-            "key": "MI_TRNS_1"
+            "key": "QK_MIDI_TRANSPOSE_1",
+            "aliases": [
+                "MI_TR1"
+            ]
         },
         "0x7188": {
             "group": "midi",
-            "key": "MI_TRNS_2"
+            "key": "QK_MIDI_TRANSPOSE_2",
+            "aliases": [
+                "MI_TR2"
+            ]
         },
         "0x7189": {
             "group": "midi",
-            "key": "MI_TRNS_3"
+            "key": "QK_MIDI_TRANSPOSE_3",
+            "aliases": [
+                "MI_TR3"
+            ]
         },
         "0x718A": {
             "group": "midi",
-            "key": "MI_TRNS_4"
+            "key": "QK_MIDI_TRANSPOSE_4",
+            "aliases": [
+                "MI_TR4"
+            ]
         },
         "0x718B": {
             "group": "midi",
-            "key": "MI_TRNS_5"
+            "key": "QK_MIDI_TRANSPOSE_5",
+            "aliases": [
+                "MI_TR5"
+            ]
         },
         "0x718C": {
             "group": "midi",
-            "key": "MI_TRNS_6"
+            "key": "QK_MIDI_TRANSPOSE_6",
+            "aliases": [
+                "MI_TR6"
+            ]
         },
         "0x718D": {
             "group": "midi",
-            "key": "MI_TRNSD"
+            "key": "QK_MIDI_TRANSPOSE_DOWN",
+            "aliases": [
+                "MI_TRSD"
+            ]
         },
         "0x718E": {
             "group": "midi",
-            "key": "MI_TRNSU"
+            "key": "QK_MIDI_TRANSPOSE_UP",
+            "aliases": [
+                "MI_TRSU"
+            ]
         },
         "0x7190": {
             "group": "midi",
