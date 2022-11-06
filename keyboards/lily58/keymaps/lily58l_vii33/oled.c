@@ -80,26 +80,24 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 
 void render_default_layer_state(void) {
-  // oled_write_P(PSTR("Layer"), false);
-  // oled_write_P(PSTR(" "), false);
   switch (get_highest_layer(layer_state)) {
     case _QWERTY:
-        oled_write_P(PSTR("QRTY"), false);
+        oled_write_P(PSTR("QWRTY"), false);
         break;
     case _LOWER:
-        oled_write_P(PSTR("LOWR"), false);
+        oled_write_P(PSTR("LOWER"), false);
         break;
     case _UPPER:
-        oled_write_P(PSTR("UPPR"), false);
+        oled_write_P(PSTR("UPPER"), false);
         break;
     case _MOD:
         oled_write_ln_P(PSTR("MOD"), true);
         break;
     case _GAME:
-        oled_write_P(PSTR("GAME"), true);
+        oled_write_ln_P(PSTR("GAME"), true);
         break;
     default:
-        oled_write_P(PSTR("ndef"), true);
+        oled_write_ln_P(PSTR("ndef"), true);
   }
 }
 
