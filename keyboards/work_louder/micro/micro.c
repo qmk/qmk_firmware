@@ -114,11 +114,11 @@ void work_louder_micro_led_all_set(uint8_t n) {
     work_louder_micro_led_3_set(n);
 }
 
-void matrix_init_kb(void) {
+void keyboard_post_init_kb(void) {
     TCCR1A = 0b10101001;  // set and configure fast PWM
     TCCR1B = 0b00001001;  // set and configure fast PWM
 
-    matrix_init_user();
+    keyboard_post_init_user();
     work_louder_micro_led_all_off();
 
     wait_ms(500);
