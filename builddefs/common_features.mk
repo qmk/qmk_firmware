@@ -231,8 +231,8 @@ else
         WEAR_LEVELING_DRIVER = rp2040_flash
       else ifneq ($(filter $(MCU_SERIES),KL2x K20x),)
         # Teensy EEPROM implementations
-        OPT_DEFS += -DEEPROM_TEENSY
-        SRC += eeprom_teensy.c
+        OPT_DEFS += -DEEPROM_KINETIS_FLEXRAM
+        SRC += eeprom_kinetis_flexram.c
       else
         # Fall back to transient, i.e. non-persistent
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
