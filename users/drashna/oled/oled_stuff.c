@@ -67,18 +67,22 @@ static const char PROGMEM code_to_name[256] = {
  * @param record keyrecord_t data structure
  */
 void add_keylog(uint16_t keycode, keyrecord_t *record) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
-        if (((keycode & 0xFF) == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
-            memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
-            return;
-        }
-        if (record->tap.count) {
-            keycode &= 0xFF;
-        } else if (keycode > 0xFF) {
-            return;
-        }
+    if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
+        keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+    } else if (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) {
+        keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+    } else if (keycode >= QK_MODS && keycode <= QK_MODS_MAX) {
+        keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
     }
-    if (keycode > 0xFF) {
+
+
+    if ((keycode == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
+        memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
+        return;
+    }
+    if (record->tap.count) {
+        keycode &= 0xFF;
+    } else if (keycode > 0xFF) {
         return;
     }
 
@@ -426,6 +430,7 @@ void render_bootmagic_status(uint8_t col, uint8_t line) {
         oled_write_P(logo[0][0], !is_bootmagic_on);
     }
 #ifndef OLED_DISPLAY_VERBOSE
+    oled_write_P(PSTR(" "), false);
     oled_write_P(logo[1][1], is_bootmagic_on);
     oled_write_P(logo[0][1], !is_bootmagic_on);
 #endif
