@@ -44,8 +44,8 @@ void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #elif defined(EEPROM_TEENSY)
 #    include "eeprom_teensy.h"
 #    define TOTAL_EEPROM_BYTE_COUNT (EEPROM_SIZE)
-#elif defined(EEPROM_STM32_FLASH_EMULATED)
-#    include "eeprom_stm32_defs.h"
+#elif defined(EEPROM_LEGACY_EMULATED_FLASH)
+#    include "eeprom_legacy_emulated_flash_defs.h"
 #    define TOTAL_EEPROM_BYTE_COUNT (FEE_DENSITY_BYTES)
 #elif defined(EEPROM_SAMD)
 #    include "eeprom_samd.h"
@@ -64,7 +64,7 @@ void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #        define TOTAL_EEPROM_BYTE_COUNT 32
 #    else
 // Flash wear-leveling testing
-#        include "eeprom_stm32_tests.h"
+#        include "eeprom_legacy_emulated_flash_tests.h"
 #        define TOTAL_EEPROM_BYTE_COUNT (EEPROM_SIZE)
 #    endif
 #else

@@ -3,6 +3,6 @@
 #pragma once
 
 #include "flash_stm32.h"
-#include "eeprom_stm32.h"
+#include "eeprom_legacy_emulated_flash.h"
 
 #define EEPROM_SIZE (FEE_PAGE_SIZE * FEE_PAGE_COUNT / 2)
