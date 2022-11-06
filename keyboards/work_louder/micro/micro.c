@@ -118,8 +118,8 @@ void matrix_init_kb(void) {
     TCCR1A = 0b10101001;  // set and configure fast PWM
     TCCR1B = 0b00001001;  // set and configure fast PWM
 
+    matrix_init_user();
     work_louder_micro_led_all_off();
-    work_louder_micro_led_all_set(255);
 
     wait_ms(500);
     work_louder_micro_led_1_on();
@@ -134,5 +134,4 @@ void matrix_init_kb(void) {
     wait_ms(100);
     work_louder_micro_led_3_off();
     wait_ms(200);
-    matrix_init_user();
 }
