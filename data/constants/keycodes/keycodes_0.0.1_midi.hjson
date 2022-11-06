@@ -1012,14 +1012,14 @@
         },
         "0x71C7": {
             "group": "midi",
-            "key": "QK_MODULATION_SPEED_DOWN",
+            "key": "QK_MIDI_MODULATION_SPEED_DOWN",
             "aliases": [
                 "MI_MODD"
             ]
         },
         "0x71C8": {
             "group": "midi",
-            "key": "QK_MODULATION_SPEED_UP",
+            "key": "QK_MIDI_MODULATION_SPEED_UP",
             "aliases": [
                 "MI_MODU"
             ]
