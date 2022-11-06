@@ -115,7 +115,7 @@ action_t action_for_keycode(uint16_t keycode) {
 #endif
 #ifndef NO_ACTION_LAYER
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-            action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
+            action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0x1F);
             break;
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
             mod          = mod_config(keycode & 0x1F);

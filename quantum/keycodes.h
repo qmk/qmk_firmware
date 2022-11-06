@@ -50,8 +50,8 @@ enum qk_keycode_ranges {
     QK_ONE_SHOT_LAYER_MAX          = 0x529F,
     QK_ONE_SHOT_MOD                = 0x52A0,
     QK_ONE_SHOT_MOD_MAX            = 0x52BF,
-    QK_LAYER_TAP_TOGGLE            = 0x52C0,
-    QK_LAYER_TAP_TOGGLE_MAX        = 0x52DF,
+    QK_LAYER_TAP_TOGGLE            = 0x5300,
+    QK_LAYER_TAP_TOGGLE_MAX        = 0x531F,
     QK_SWAP_HANDS                  = 0x5600,
     QK_SWAP_HANDS_MAX              = 0x56FF,
     QK_TAP_DANCE                   = 0x5700,
@@ -1161,4 +1161,3 @@ enum qk_keycode_defines {
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
 #define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_AUTOCORRECT_TOGGLE)
-
