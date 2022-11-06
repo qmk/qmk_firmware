@@ -25,9 +25,6 @@ DEBUG_MDELAY | D0/SCL       F5 | COL_2_3_L
              +-----------------+
 ***************************************/
 
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */

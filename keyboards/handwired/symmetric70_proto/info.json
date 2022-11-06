@@ -2,6 +2,7 @@
     "manufacturer": "mtei",
     "url": "",
     "maintainer": "mtei",
+    "diode_direction": "COL2ROW",
     "usb": {
 	"vid": "0xFEED",
 	"pid": "0x2BE5",
