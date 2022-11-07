@@ -23,10 +23,10 @@
 #define VS_BM_LISTALL            MEH(KC_X)       // bookmarks.listFromAllFiles
 #define VS_JUMPY                 MEH(KC_Y)       // extension.jumpy-word
 #define VS_FOCUS_EDITOR          MEH(KC_Z)       // workbench.action.focusActiveEditorGroup
-#define VS_FOCUS_TERMINAL        HYPR(KC_A)      // workbench.action.terminal.focus
-#define VS_TOGGLE_TERMINAL       HYPR(KC_B)      // workbench.action.terminal.toggleTerminal
-#define VS_DEL_LEFT              HYPR(KC_C)      // deleteAllLeft
-#define VS_DEL_RIGHT             HYPR(KC_D)      // deleteAllRight
-#define VS_FIND_FILES            HYPR(KC_E)      // workbench.action.findInFiles
-#define VS_FILE                  HYPR(KC_F)      // workbench.action.quickOpen
-#define VS_SYMBOLEDITOR          HYPR(KC_G)      // workbench.action.gotoSymbol
+#define VS_FOCUS_TERMINAL        MEH(KC_0)       // workbench.action.terminal.focus
+#define VS_TOGGLE_TERMINAL       MEH(KC_1)       // workbench.action.terminal.toggleTerminal
+#define VS_DEL_LEFT              MEH(KC_2)       // deleteAllLeft
+#define VS_DEL_RIGHT             MEH(KC_3)       // deleteAllRight
+#define VS_FIND_FILES            MEH(KC_4)       // workbench.action.findInFiles
+#define VS_FILE                  MEH(KC_5)       // workbench.action.quickOpen
+#define VS_SYMBOLEDITOR          MEH(KC_6)       // workbench.action.gotoSymbol
