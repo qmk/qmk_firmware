@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    zerog
 #define PRODUCT         great sword80
-#define DESCRIPTION     great sword80
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -23,14 +22,10 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* number of backlight levels */
 
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 0
-#endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -43,8 +38,7 @@
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
+
 
 
 #ifdef RGB_DI_PIN
