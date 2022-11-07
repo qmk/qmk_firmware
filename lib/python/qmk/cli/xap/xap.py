@@ -44,7 +44,27 @@ def _load_keycodes(keycode_version):
     spec = load_spec(keycode_version)
 
     # Transform into something more usable - { raw_value : first alias || keycode }
-    return {int(k, 16): v.get('aliases', [v.get('key')])[0] for k, v in spec['keycodes'].items()}
+    ret = {int(k, 16): v.get('aliases', [v.get('key')])[0] for k, v in spec['keycodes'].items()}
+
+    # TODO: handle non static keycodes
+    for k, v in spec['ranges'].items():
+        lo, mask = map(lambda x: int(x, 16), k.split('/'))
+        hi = lo + mask
+        define = v.get("define")
+        for i in range(lo, hi):
+            if i not in ret:
+                if define == 'QK_TO':
+                    layer = i & 0x1F
+                    ret[i] = f'TO({layer})'
+                elif define == 'QK_MOMENTARY':
+                    layer = i & 0x1F
+                    ret[i] = f'MO({layer})'
+                elif define == 'QK_LAYER_TAP':
+                    layer = (((i) >> 8) & 0xF)
+                    keycode = ((i) & 0xFF)
+                    ret[i] = f'LT({layer}, {ret.get(keycode, "???")})'
+
+    return ret
 
 
 def _list_devices():
