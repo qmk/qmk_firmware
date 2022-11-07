@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "isometria_75",
+    "keyboard_name": "isometria 75",
+    "manufacturer": "ebastler",
     "url": "https://github.com/ebastler/isometria-75",
     "maintainer": "ebastler",
+    "usb": {
+        "vid": "0x6562",
+        "pid": "0x1337",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_iso": {
             "layout": [

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "suihankey_split",
+    "keyboard_name": "Suihankey",
+    "manufacturer": "kakunpc",
     "url": "https://kakunpc.booth.pm/",
     "maintainer": "kakunpc",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

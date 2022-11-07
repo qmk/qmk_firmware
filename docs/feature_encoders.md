@@ -54,9 +54,45 @@ If you are using different pinouts for the encoders on each half of a split keyb
 #define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }
 ```
 
+If the `_RIGHT` definitions aren't specified in your `config.h`, then the non-`_RIGHT` versions will be applied to both sides of the split.
+
+Additionally, if one side does not have an encoder, you can specify `{}` for the pins/resolution -- for example, a split keyboard with only a right-side encoder:
+
+```c
+#define ENCODERS_PAD_A { }
+#define ENCODERS_PAD_B { }
+#define ENCODER_RESOLUTIONS { }
+#define ENCODERS_PAD_A_RIGHT { B12 }
+#define ENCODERS_PAD_B_RIGHT { B13 }
+#define ENCODER_RESOLUTIONS_RIGHT { 4 }
+```
+
+## Encoder map :id=encoder-map
+
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
+
+```make
+ENCODER_MAP_ENABLE = yes
+```
+
+Your `keymap.c` will then need an encoder mapping defined (for four layers and two encoders):
+
+```c
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
+    [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
+    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
+};
+#endif
+```
+
+?> This should only be enabled at the keymap level.
+
 ## Callbacks
 
-The callback functions can be inserted into your `<keyboard>.c`:
+When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -91,34 +127,37 @@ Layer conditions can also be used with the callback function like the following:
 
 ```c
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (get_highest_layer(layer_state|default_layer_state) > 0) {
-        if (index == 0) {
-            if (clockwise) {
-                tap_code(KC_WH_D);
-            } else {
-                tap_code(KC_WH_U);
+    switch(get_highest_layer(layer_state|default_layer_state)) {
+        case 0:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_PGDN);
+                } else {
+                    tap_code(KC_PGUP);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                    rgb_matrix_increase_speed();
+                } else {
+                    rgb_matrix_decrease_speed();
+                }
             }
-        } else if (index == 1) {
-            if (clockwise) {
-                tap_code_delay(KC_VOLU, 10);
-            } else {
-                tap_code_delay(KC_VOLD, 10);
+            break;
+        case 1:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_WH_D);
+                } else {
+                    tap_code(KC_WH_U);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                    tap_code_delay(KC_VOLU, 10);
+                } else {
+                    tap_code_delay(KC_VOLD, 10);
+                }
             }
-        }
-    } else {  /* Layer 0 */
-        if (index == 0) {
-            if (clockwise) {
-                tap_code(KC_PGDN);
-            } else {
-                tap_code(KC_PGUP);
-            }
-        } else if (index == 1) {
-            if (clockwise) {
-                rgb_matrix_increase_speed();
-            } else {
-                rgb_matrix_decrease_speed();
-            }
-        }
+            break;
     }
     return false;
 }

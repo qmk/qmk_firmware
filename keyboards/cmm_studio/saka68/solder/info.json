@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "CMM.Studio Saka68 Solder",
+    "keyboard_name": "Saka68 Solder",
+    "manufacturer": "CMM.Studio",
     "url": "",
     "maintainer": "CMMS-Freather",
+    "usb": {
+        "vid": "0x434D",
+        "pid": "0x534B",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_68_ansi"
     },

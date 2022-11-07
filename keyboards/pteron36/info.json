@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Pteron36",
+    "manufacturer": "Harshit Goel",
     "url": "",
     "maintainer": "harshitgoel96",
+    "usb": {
+        "vid": "0x4847",
+        "pid": "0x5054",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

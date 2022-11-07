@@ -64,6 +64,7 @@ enum unicode_input_modes {
     UC_WIN,   // Windows using EnableHexNumpad
     UC_BSD,   // BSD (not implemented)
     UC_WINC,  // Windows using WinCompose (https://github.com/samhocevar/wincompose)
+    UC_EMACS, // Emacs is an operating system in search of a good text editor
     UC__COUNT // Number of available input modes (always leave at the end)
 };
 
@@ -90,7 +91,6 @@ void register_hex(uint16_t hex);
 void register_hex32(uint32_t hex);
 void register_unicode(uint32_t code_point);
 
-void send_unicode_hex_string(const char *str);
 void send_unicode_string(const char *str);
 
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record);

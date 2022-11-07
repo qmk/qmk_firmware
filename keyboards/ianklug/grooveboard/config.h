@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4B4C // "KL" = klug
-#define PRODUCT_ID   0x4742 // "GB" = grooveboard
-#define DEVICE_VER   0x0001
-#define MANUFACTURER ianklug
-#define PRODUCT      grooveboard
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 4
@@ -45,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIRECT_PINS { \
     { F7, F6, D1, D2 } \
 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 //#define DIODE_DIRECTION COL2ROW
@@ -149,5 +141,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
-
-#define QMK_KEYS_PER_SCAN 4

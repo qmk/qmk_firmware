@@ -18,3 +18,6 @@
 [submodule "lib/printf"]
 	path = lib/printf
 	url = https://github.com/qmk/printf
+[submodule "lib/pico-sdk"]
+	path = lib/pico-sdk
+	url = https://github.com/qmk/pico-sdk.git

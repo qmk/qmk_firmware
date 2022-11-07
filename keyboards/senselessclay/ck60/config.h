@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4849 // HI
-#define PRODUCT_ID   0x0601 // 60rgb (1)
-#define DEVICE_VER   0x0000 // rev0
-#define MANUFACTURER senselessclay
-#define PRODUCT      ck60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

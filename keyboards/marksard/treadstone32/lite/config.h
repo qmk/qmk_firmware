@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xDFA5
-#define DEVICE_VER      0x0015
-#define MANUFACTURER    marksard
-#define PRODUCT         treadstone32 lite
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B6, B2, F7, F6, B3, B1, F4, F5 }
 #define MATRIX_COL_PINS { B5, B4, E6, D7, C6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW

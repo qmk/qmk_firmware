@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), MC(KC_W), KC_DELETE,    KC_APP
 ),
 [LY_1101] = LAYOUT_gunp(
-  SANDBOX,   XXXXXXX,    AU_TOG,       KC_LOCK,    RGB_TOG,       RESET,
+  SANDBOX,   XXXXXXX,    AU_TOG,       KC_LOCK,    RGB_TOG,       QK_BOOT,
   KC_WAKE,   KC_CLCK,    USER_NAME,    USER_EMAIL, RGB_MOD,       DEBUG,
   KC_SLEP,   KC_NLCK,    DM_REC1,      DM_PLY1,    XXXXXXX,       EEP_RST,
   KC_PWR,    KC_SLCK,    DM_REC2,      DM_PLY2,    DM_RSTP,       KC_INSERT

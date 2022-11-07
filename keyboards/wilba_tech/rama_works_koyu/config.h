@@ -17,15 +17,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5241 // "RA"
-#define PRODUCT_ID      0x4B59 // "KY"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA WORKS
-#define PRODUCT         RAMA WORKS KOYU
-
-
-
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -33,7 +24,6 @@
 // KOYU PCB pin-out
 #define MATRIX_ROW_PINS { F0, F1, F4, F6, F7 }
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
 
 // IS31FL3731 driver
 #define DRIVER_COUNT 2

@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			   		KC_LCTL,KC_LALT,
 			   		KC_DEL,
               		KC_BSPC, KC_DEL ,TT(_MOUSE) ,
-        KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,TT(_MOUSE) ,TG(_MOUSE)  ,TT(_SYMB), KC_NO, RESET,
+        KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,TT(_MOUSE) ,TG(_MOUSE)  ,TT(_SYMB), KC_NO, QK_BOOT,
 	KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,
 	KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_BSLS,
 	KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    _______,  KC_COLON,  MT(MOD_LGUI,KC_LEFT), LT(_SYMB, KC_RIGHT),
                              _______,  _______,
                                        _______,
-                    _______, _______,  RESET,
+                    _______, _______,  QK_BOOT,
          _______,  _______,  _______,  _______,  _______,  _______, _______, TT(_MOUSE), KC_2,
          _______,  _______,  _______,  _______,  _______,  _______,
          KC_AMPR,  KC_LBRC,  KC_LPRN, KC_RPRN,  KC_UNDS,  _______,
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    _______,  _______,  MT(MOD_LGUI,KC_LEFT), LT(_SYMB, KC_RIGHT),
                              _______,  _______,
                                        _______,
-                    _______, _______,  RESET,
+                    _______, _______,  QK_BOOT,
          _______,  _______,  _______,  _______,  _______,  _______, _______, TT(_MOUSE), KC_2,
          _______,  _______,  _______,  KC_ASTR,  _______,  _______,
          _______,  _______,  KC_PLUS,  KC_MINS,  _______,  _______,
@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              _______,  _______,
                                        _______,
                     _______, _______,  _______,
-         _______,  _______,  _______,  _______,  _______,  _______, _______, TT(_MOUSE),RESET,
+         _______,  _______,  _______,  _______,  _______,  _______, _______, TT(_MOUSE),QK_BOOT,
          KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_ACL2,
          KC_WH_U,  M(A_MUL), KC_MS_U,  M(A_MUR), KC_NO,  KC_ACL1,
          KC_NO,    KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_NO,  KC_ACL0,
@@ -330,7 +330,7 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 
 #ifdef ALVICSTEP_CONFIG_H
- int8_t layer = biton32(layer_state);
+ int8_t layer = get_highest_layer(layer_state);
 
         switch (layer) {
         case 1:
