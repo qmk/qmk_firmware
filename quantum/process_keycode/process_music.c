@@ -120,17 +120,17 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (keycode == MI_ON && record->event.pressed) {
+    if (keycode == QK_MIDI_ON && record->event.pressed) {
         midi_on();
         return false;
     }
 
-    if (keycode == MI_OFF && record->event.pressed) {
+    if (keycode == QK_MIDI_OFF && record->event.pressed) {
         midi_off();
         return false;
     }
 
-    if (keycode == MI_TOG && record->event.pressed) {
+    if (keycode == QK_MIDI_TOGGLE && record->event.pressed) {
         if (midi_activated) {
             midi_off();
         } else {
