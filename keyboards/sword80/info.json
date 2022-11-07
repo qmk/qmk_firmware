@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "grate",
     "layouts": {
-        "LAYOUT_ansi": {
+        "keymap": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},
