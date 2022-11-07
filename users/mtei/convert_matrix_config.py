@@ -208,9 +208,9 @@ def build_port_pin_list_sub(raw_list):
   # p ports
   # example: ports = {("MCU_GPIO", "F0"): [0, 240], ("MCU_GPIO", "B0"): [1, 14]}
   for v in ports.values():
-    v[1] = '0x%02x' % v[1]
+    v[1] = '0x%02xU' % v[1]
   # p ports
-  # example: ports = {("MCU_GPIO", "F0"): [0, "0xf0"], ("MCU_GPIO", "B0"): [1, "0x0e"]}
+  # example: ports = {("MCU_GPIO", "F0"): [0, "0xf0U"], ("MCU_GPIO", "B0"): [1, "0x0eU"]}
   #### build pins list ####
   pins = []
   for pin in raw_list:
@@ -219,9 +219,9 @@ def build_port_pin_list_sub(raw_list):
       port_index = ports[key][0]
     else:
       port_index = "NO_PIN"
-    pins.append([ port_index, '0x%02x' % pin[2], '0x%02x' % pin[3] ])
+    pins.append([ port_index, '0x%02xU' % pin[2], '0x%02xU' % pin[3] ])
   # p pins
-  # example: pins = [[0, "0x10", "0x1"], [0, "0x20", "0x2"], [0, "0x40", "0x4"], [0, "0x80", "0x8"], [1, "0x2", "0x10"], [1, "0x8", "0x20"], [1, "0x4", "0x40"]]
+  # example: pins = [[0, "0x10U", "0x1U"], [0, "0x20U", "0x2U"], [0, "0x40U", "0x4U"], [0, "0x80U", "0x8U"], [1, "0x2U", "0x10U"], [1, "0x8U", "0x20U"], [1, "0x4U", "0x40U"]]
   return [ [ [ port[0][1], port[1][1], port[0][0] ] for port in ports.items() ], pins ]
 
 def print_port(ports):
