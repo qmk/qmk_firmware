@@ -1,0 +1,10 @@
+
+#pragma once
+
+// Typehud configuration
+#define TYPEHUD_FILLGRAPH
+#define TYPEHUD_MATRIX_COLS 4
+#define TYPEHUD_MATRIX_COL_SHIFT -2
+// #define TYPEHUD_MATRIX_ROTATE_90
+// #define TYPEHUD_MATRIX_ROTATE_180
+// #define TYPEHUD_MATRIX_ROTATE_270
