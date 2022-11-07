@@ -214,55 +214,94 @@
 
         "0x7C40": {
             "group": "quantum",
-            "key": "HPT_ON"
+            "key": "QK_HAPTIC_ON",
+            "aliases": [
+                "HF_ON"
+            ]
         },
         "0x7C41": {
             "group": "quantum",
-            "key": "HPT_OFF"
+            "key": "QK_HAPTIC_OFF",
+            "aliases": [
+                "HF_OFF"
+            ]
         },
         "0x7C42": {
             "group": "quantum",
-            "key": "HPT_TOG"
+            "key": "QK_HAPTIC_TOGGLE",
+            "aliases": [
+                "HF_TOGG"
+            ]
         },
         "0x7C43": {
             "group": "quantum",
-            "key": "HPT_RST"
+            "key": "QK_HAPTIC_RESET",
+            "aliases": [
+                "HF_RST"
+            ]
         },
         "0x7C44": {
             "group": "quantum",
-            "key": "HPT_FBK"
+            "key": "QK_HAPTIC_FEEDBACK_TOGGLE",
+            "aliases": [
+                "HF_FDBK"
+            ]
         },
         "0x7C45": {
             "group": "quantum",
-            "key": "HPT_BUZ"
+            "key": "QK_HAPTIC_BUZZ_TOGGLE",
+            "aliases": [
+                "HF_BUZZ"
+            ]
         },
         "0x7C46": {
             "group": "quantum",
-            "key": "HPT_MODI"
+            "key": "QK_HAPTIC_MODE_NEXT",
+            "aliases": [
+                "HF_NEXT"
+            ]
         },
         "0x7C47": {
             "group": "quantum",
-            "key": "HPT_MODD"
+            "key": "QK_HAPTIC_MODE_PREVIOUS",
+            "aliases": [
+                "HF_PREV"
+            ]
         },
         "0x7C48": {
             "group": "quantum",
-            "key": "HPT_CONT"
+            "key": "QK_HAPTIC_CONTINUOUS_TOGGLE",
+            "aliases": [
+                "HF_CONT"
+            ]
         },
         "0x7C49": {
             "group": "quantum",
-            "key": "HPT_CONI"
+            "key": "QK_HAPTIC_CONTINUOUS_UP",
+            "aliases": [
+                "HF_CONU"
+            ]
         },
         "0x7C4A": {
             "group": "quantum",
-            "key": "HPT_COND"
+            "key": "QK_HAPTIC_CONTINUOUS_DOWN",
+            "aliases": [
+                "HF_COND"
+            ]
         },
         "0x7C4B": {
             "group": "quantum",
-            "key": "HPT_DWLI"
+            "key": "QK_HAPTIC_DWELL_UP",
+            "aliases": [
+                "HF_DWLU"
+            ]
         },
         "0x7C4C": {
             "group": "quantum",
-            "key": "HPT_DWLD"
+            "key": "QK_HAPTIC_DWELL_DOWN",
+            "aliases": [
+                "HF_DWLD"
+            ]
         },
 
         "0x7C50": {
