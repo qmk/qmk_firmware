@@ -10,7 +10,12 @@
 #    endif
 #endif
 
+#if PAL_IOPORTS_WIDTH == 16
 typedef uint16_t port_data_t;
+#endif
+#if PAL_IOPORTS_WIDTH == 32
+typedef uint32_t port_data_t;
+#endif
 
 #define readPort(pin) palReadPort(PAL_PORT(pin))
 
