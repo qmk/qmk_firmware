@@ -245,7 +245,7 @@ __attribute__((weak)) void via_custom_value_command(uint8_t *data, uint8_t lengt
         via_qmk_rgb_matrix_command(data, length);
         return;
     }
-#endif // RGBLIGHT_ENABL
+#endif // RGBLIGHT_ENABLE
 
 #if defined(AUDIO_ENABLE)
     if (*channel_id == id_qmk_audio_channel) {
@@ -254,7 +254,7 @@ __attribute__((weak)) void via_custom_value_command(uint8_t *data, uint8_t lengt
     }
 #endif // AUDIO_ENABLE
 
-    *channel_id = *channel_id; // force use of variable
+    (void)channel_id; // force use of variable
 
     // If we haven't returned before here, then let the keyboard level code
     // handle this, if it is overridden, otherwise by default, this will
@@ -666,7 +666,7 @@ void via_qmk_rgb_matrix_get_value(uint8_t *data) {
     uint8_t *value_data = &(data[1]);
 
     switch (*value_id) {
-        case id_qmk_rgblight_brightness: {
+        case id_qmk_rgb_matrix_brightness: {
             value_data[0] = ((uint16_t)rgb_matrix_get_val() * UINT8_MAX) / RGB_MATRIX_MAXIMUM_BRIGHTNESS;
             break;
         }
@@ -691,7 +691,7 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
-        case id_qmk_rgblight_brightness: {
+        case id_qmk_rgb_matrix_brightness: {
             rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), scale8(value_data[0], RGB_MATRIX_MAXIMUM_BRIGHTNESS));
             break;
         }
