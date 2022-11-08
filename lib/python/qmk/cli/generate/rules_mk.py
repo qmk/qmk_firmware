@@ -62,7 +62,7 @@ def generate_rules_mk(cli):
         cli.subcommands['generate-rules-mk'].print_help()
         return False
 
-    info_rules_map = json_load(Path('data/mappings/info_rules.json'))
+    info_rules_map = json_load(Path('data/mappings/info_rules.hjson'))
     rules_mk_lines = [GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE]
 
     # Iterate through the info_rules map to generate basic rules

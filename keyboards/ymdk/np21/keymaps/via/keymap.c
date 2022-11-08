@@ -28,10 +28,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_ortho_6x4(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        _______, BL_ON,   _______, BL_INC,
-        _______, BL_TOGG, _______, BL_INC,
-        _______, BL_OFF,  _______, BL_DEC,
-        BL_BRTG, _______, _______, BL_DEC
+        _______, BL_ON,   _______, BL_UP, 
+        _______, BL_TOGG, _______, BL_UP, 
+        _______, BL_OFF,  _______, BL_DOWN,
+        BL_BRTG, _______, _______, BL_DOWN
     ),
     [2] = LAYOUT_ortho_6x4(
         _______, _______, _______, _______,

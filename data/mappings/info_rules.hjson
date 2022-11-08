@@ -1,15 +1,15 @@
-# This file maps keys between `rules.mk` and `info.json`. It is used by QMK
-# to correctly and consistently map back and forth between the two systems.
+// This file maps keys between `rules.mk` and `info.json`. It is used by QMK
+// to correctly and consistently map back and forth between the two systems.
 {
-    # Format:
-    # <rules.mk key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
-    # value_type: one of "array", "array.int", "bool", "int", "list", "hex", "mapping", "str", "raw"
-    # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
-    # to_c: Default `true`. Set to `false` to exclude this mapping from rules.mk
-    # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
-    # deprecated: Default `false`. Set to `true` to turn on warning when a value exists
-    # invalid: Default `false`. Set to `true` to generate errors when a value exists
-    # replace_with: use with a key marked deprecated or invalid to designate a replacement
+    // Format:
+    // <rules.mk key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
+    // value_type: one of "array", "array.int", "bool", "int", "list", "hex", "mapping", "str", "raw"
+    // to_json: Default `true`. Set to `false` to exclude this mapping from info.json
+    // to_c: Default `true`. Set to `false` to exclude this mapping from rules.mk
+    // warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    // deprecated: Default `false`. Set to `true` to turn on warning when a value exists
+    // invalid: Default `false`. Set to `true` to generate errors when a value exists
+    // replace_with: use with a key marked deprecated or invalid to designate a replacement
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
     "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
@@ -37,7 +37,7 @@
     "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
     "PS2_DRIVER": {"info_key": "ps2.driver"},
 
-    # Items we want flagged in lint
+    // Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true}

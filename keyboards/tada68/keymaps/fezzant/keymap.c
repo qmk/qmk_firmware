@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = LAYOUT_ansi(
   _______, KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_PAUSE ,  \
-  _______,_______,_______,_______,_______,_______,_______,_______,_______,BL_BRTG,BL_DEC,BL_TOGG, BL_INC, KC_MAIL,TG(_NUM), \
+  _______,_______,_______,_______,_______,_______,_______,_______,_______,BL_BRTG,BL_DOWN,BL_TOGG, BL_UP,  KC_MAIL,TG(_NUM), \
   XXXXXXX,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_APPLICATION,        _______,KC_PGUP, \
   _______,_______,_______,_______,_______,_______, _______,_______,_______,_______,_______,KC_BTN1, KC_MS_U, KC_PGDN, \
   MAGIC_UNNO_GUI,MAGIC_NO_GUI,_______,                 _______,               _______,_______,_______,KC_MPRV,KC_MSTP, KC_MNXT),

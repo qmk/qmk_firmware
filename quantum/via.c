@@ -30,7 +30,6 @@
 #include "dynamic_keymap.h"
 #include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
-#include "via_ensure_keycode.h"
 
 #if defined(RGB_MATRIX_ENABLE)
 #    include <lib/lib8tion/lib8tion.h>

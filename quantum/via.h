@@ -135,13 +135,8 @@ enum via_qmk_audio_value {
     id_qmk_audio_clicky_enable = 2,
 };
 
-// Can't use SAFE_RANGE here, it might change if someone adds
-// new values to enum quantum_keycodes.
-// Need to keep checking 0x5F10 is still in the safe range.
-// TODO: merge this into quantum_keycodes
-// Backlight keycodes are in range 0x5F00-0x5F0F
 enum via_keycodes {
-    FN_MO13 = 0x5F10,
+    FN_MO13 = QK_MACRO,
     FN_MO23,
     MACRO00,
     MACRO01,
@@ -162,7 +157,7 @@ enum via_keycodes {
 };
 
 enum user_keycodes {
-    USER00 = 0x5F80,
+    USER00 = QK_USER,
     USER01,
     USER02,
     USER03,

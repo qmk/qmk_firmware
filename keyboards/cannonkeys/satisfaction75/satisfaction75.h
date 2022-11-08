@@ -25,7 +25,7 @@ typedef union {
 
 // Start these at the USER code range in VIA
 enum my_keycodes {
-  ENC_PRESS = 0x5F80,
+  ENC_PRESS = USER00,
   CLOCK_SET,
   OLED_TOGG
 };
