@@ -1,4 +1,4 @@
-# Debug version matrix.c(0.17.0), matrix_extension_74hc157.c and matrix_read_cols_on_row.c
+# Debug version matrix.c(0.18.0), matrix_extension_74hc157.c and matrix_read_cols_on_row.c
 
 This directory is provided for testing and performance evaluation of [`users/mtei/matrix_read_cols_on_row.c`](../../../../users/mtei/readme_matrix_read_cols_on_row.md)  using symmetric70_proto.
 

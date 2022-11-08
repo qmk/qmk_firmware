@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// This file is based from 0.17.0:quantum/matrix.c
+// This file is based from 0.18.0:quantum/matrix.c
 //    * Add MATRIX_DEBUG_SCAN_START, MATRIX_DEBUG_SCAN_END
 //    * Add MATRIX_DEBUG_DELAY_START, MATRIX_DEBUG_DELAY_START
 
@@ -367,16 +367,17 @@ uint8_t matrix_scan(void) {
 
 #ifdef SPLIT_KEYBOARD
     MATRIX_DEBUG_SCAN_START();
-    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
+    bool changed_debounce = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
     MATRIX_DEBUG_SCAN_END();
     MATRIX_DEBUG_WAIT(1);
 
     MATRIX_DEBUG_SCAN_START();
-    changed = (changed || matrix_post_scan());
+    bool changed_post_scan = matrix_post_scan();
+    changed = (changed_debounce || changed_post_scan);
     MATRIX_DEBUG_SCAN_END();
 #else
     MATRIX_DEBUG_SCAN_START();
-    debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
+    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
     MATRIX_DEBUG_SCAN_END();
     MATRIX_DEBUG_WAIT(1);
 
