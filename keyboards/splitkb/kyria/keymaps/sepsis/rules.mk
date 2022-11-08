@@ -1,5 +1,11 @@
+LTO_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306   # Enables the use of OLED displays
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
-#POINTING_DEVICE_DRIVER = pimoroni_trackball
+POINTING_DEVICE_DRIVER = pimoroni_trackball
+MOUSEKEY_ENABLE = yes
+#Save space
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+EXTRAKEY_ENABLE = no
