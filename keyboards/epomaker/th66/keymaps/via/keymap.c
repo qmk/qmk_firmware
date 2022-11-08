@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 };
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     if (siri_timer_buffer && sync_timer_elapsed32(siri_timer_buffer) > 500) {
         siri_timer_buffer = 0;
         unregister_code(KC_LGUI);
