@@ -5,11 +5,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		CAPS_WORD,	KC_Q,			KC_W,			KC_F,			KC_P,			KC_B,	/**/	KC_J,	KC_L,			KC_U, 			KC_Y, 			KC_QUOT, 		KC_NO, 
 		KC_NO,		LGUI_T(KC_A),	LALT_T(KC_R),	LCTL_T(KC_S),	LSFT_T(KC_T),	KC_G,	/**/	KC_M,	RSFT_T(KC_N),	RCTL_T(KC_E),	RALT_T(KC_I),	RGUI_T(KC_O),	KC_SCLN,
 		KC_NO, 		KC_Z,		 	KC_X,			KC_C,			KC_D,			KC_V,	/**/	KC_K,	KC_H,			KC_COMM,		KC_DOT,			KC_SLSH,		KC_PSCR,
-											LT(3, KC_DEL),	LT(1, KC_TAB),	LT(2, KC_ESC),	/**/	LT(4, KC_ENT),	KC_SPC,		KC_BSPC
+											LT(3, KC_DEL),	LT(1, KC_TAB),	LT(2, KC_ESC),	/**/	LT(4, KC_ENT),	LT(5, KC_SPC),		KC_BSPC
 	),
 	[1] = LAYOUT_split_3x6_3(
 		KC_NO, 		UC(0x00F9),	UC(0x00E0),	UC(0x00E8),	UC(0x00EC),	UC(0x00F2),	/**/		KC_NO,		KC_LBRC, 	KC_RBRC,	KC_LCBR,	KC_RCBR,	KC_NO,
-	  	KC_NO, 		KC_LGUI,	KC_LALT,	KC_LCTL,	KC_LSFT,	KC_NO,		/**/		KC_CAPS,	KC_LEFT, 	KC_DOWN,	KC_UP,		KC_RGHT,	KC_NO,
+	  	KC_NO, 		KC_LGUI,	KC_LALT,	KC_LCTL,	KC_LSFT,	KC_NO,		/**/		KC_LEFT, 	KC_DOWN,	KC_UP,		KC_RGHT,	KC_CAPS,	KC_NO,
 	    KC_NO, 		UC(0x00D9),	UC(0x00C0),	UC(0x00C8),	UC(0x00CC),	UC(0x00D2),	/**/		KC_INS,		KC_HOME, 	KC_PGDN,	KC_PGUP,	KC_END,		KC_NO,
 											KC_NO, 		KC_NO,		KC_NO,		/**/		KC_LPRN,	KC_SPC,		KC_RPRN
 	),
@@ -26,9 +26,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 											KC_NO,		KC_NO,		KC_NO,		/**/		KC_NO,		KC_NO,		KC_NO
 		),
 	[4] = LAYOUT_split_3x6_3(
-		QK_BOOT,	KC_NO,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		/**/		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+		QK_BOOT,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		/**/		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 		KC_NO,		KC_NO,		KC_NO,		KC_NO,		UC(0x30C4),	KC_NO,		/**/		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		/**/		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+											KC_NO,		KC_NO,		KC_NO,		/**/		KC_NO,		KC_NO,		KC_NO
+		),
+	[5] = LAYOUT_split_3x6_3(
+		QK_BOOT,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		/**/		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+		KC_NO,		KC_NO,		KC_BTN2,	KC_BTN3,	KC_BTN1,	KC_NO,		/**/		KC_MS_L,	KC_MS_D,	KC_MS_U,	KC_MS_R,	KC_NO,		KC_NO,
+		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		/**/		KC_WH_L,	KC_WH_D,	KC_WH_U,	KC_WH_R,	KC_NO,		KC_NO,
 											KC_NO,		KC_NO,		KC_NO,		/**/		KC_NO,		KC_NO,		KC_NO
 		)
 };
