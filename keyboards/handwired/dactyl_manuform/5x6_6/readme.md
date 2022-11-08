@@ -9,11 +9,11 @@ The [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curv
 
 Make example for this keyboard (after setting up your build environment):
 
-qmk compile -kb handwired/dactyl_manuform/5x6_6 -km defaul
+    make handwired/dactyl_manuform/5x6_6:default
 
 Flashing example for this keyboard:
 
-qmk flash -kb handwired/dactyl_manuform/5x6_6 -km defaul
+    make handwired/dactyl_manuform/5x6_6:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
