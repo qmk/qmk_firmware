@@ -376,7 +376,7 @@ qmk_dict = {
     "Led 0": "BL_TOGG", "Led +": "BL_UP", "Led -": "BL_DOWN", "Led ~": "BL_BRTG",
     # Bootmagic missing
     # Bluetooth
-    "OUT_AUTO": "OUT_AUTO", "OUT_USB": "OUT_USB", "OUT_BT": "OUT_BT",
+    "OU_AUTO": "OU_AUTO", "OU_USB": "OU_USB", "OU_BT": "OU_BT",
     # Layer Switching missing, Lx -> MO(x), Tx -> TG(x)
     "qwertz": "DF(0)", "neo": "DF(2)",
     # Mouse Keys
