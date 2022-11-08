@@ -52,3 +52,4 @@
 #define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT    // Prevent normal rollover on alphas from accidentally triggering mods.
 #define PERMISSIVE_HOLD
+#define UNICODE_SELECTED_MODES UC_LNX   // For unicode character
