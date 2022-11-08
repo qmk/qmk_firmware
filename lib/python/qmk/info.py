@@ -70,7 +70,10 @@ def info_json(keyboard):
     info_data = _matrix_size(info_data)
 
     # Merge in data from <keyboard.c>
-    info_data = _extract_led_config(info_data, str(keyboard))
+    try:
+        info_data = _extract_led_config(info_data, str(keyboard))
+    except KeyError as e:
+        _log_error(info_data, 'Unable to extract LED config!')
 
     # Validate against the jsonschema
     try:
