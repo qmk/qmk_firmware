@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "drivers/led/issi/is31fl3733.h"
+#include "drivers/issi/is31fl3733.h"
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint16_t ledTimer;
 
-static uint8_t R = 0;  /* First led*/
-static uint8_t G = 0;  /* Second led*/
-static uint8_t B = 0;  /* Third led*/
+uint8_t R = 0;  /* First led*/
+uint8_t G = 0;  /* Second led*/
+uint8_t B = 0;  /* Third led*/
 
 /* Boot animation parameters */
 

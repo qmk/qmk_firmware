@@ -21,6 +21,7 @@
 extern rgblight_config_t rgblight_config;
 #elif defined(RGB_MATRIX_ENABLE)
 extern rgb_config_t rgb_matrix_config;
+extern bool g_suspend_state;
 extern led_config_t g_led_config;
 #endif
 

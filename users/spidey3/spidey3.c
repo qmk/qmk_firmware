@@ -3,9 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-_Pragma("GCC diagnostic ignored \"-Wformat\"");
-_Pragma("GCC diagnostic ignored \"-Wformat-extra-args\"");
-
 #include "spidey3.h"
 #include "version.h"
 #include <stdlib.h>

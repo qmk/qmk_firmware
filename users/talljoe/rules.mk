@@ -14,5 +14,3 @@ CONSOLE_ENABLE=no
 COMMAND_ENABLE=no
 DYNAMIC_KEYMAP_ENABLE=no
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
-
-INTROSPECTION_KEYMAP_C = talljoe_keymap.c

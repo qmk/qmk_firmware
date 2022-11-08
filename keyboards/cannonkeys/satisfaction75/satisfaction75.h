@@ -32,9 +32,9 @@ enum my_keycodes {
 
 enum s75_custom_value_id {
   id_encoder_modes = 1,
-  id_oled_default_mode = 2,
-  id_encoder_custom = 3,
-  id_oled_mode = 4
+  id_oled_default_mode,
+  id_encoder_custom,
+  id_oled_mode
 };
 
 enum encoder_modes {
