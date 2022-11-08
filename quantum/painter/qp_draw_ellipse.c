@@ -1,5 +1,6 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
 // Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2022 Pablo Martinez (@elpekenin)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
@@ -67,13 +68,29 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
         return false;
     }
 
-    int16_t aa = ((int16_t)sizex) * ((int16_t)sizex);
-    int16_t bb = ((int16_t)sizey) * ((int16_t)sizey);
-    int16_t fa = 4 * ((int16_t)aa);
-    int16_t fb = 4 * ((int16_t)bb);
+    // Algorithm adapted from https://www.geeksforgeeks.org/midpoint-ellipse-drawing-algorithm/
 
-    int16_t dx = 0;
-    int16_t dy = ((int16_t)sizey);
+    // Works a lot worse if sizey<sizex, so flip them if needed and  keep trap of the change in order to flip offsets too
+    bool flipped = false;
+    if (sizey > sizex) {
+        flipped = true;
+        uint16_t temp = sizex;
+        sizex = sizey;
+        sizey = temp;
+    }
+
+    // Compute x^2 and y^2 as they are used all over the place
+    int32_t xx = ((int16_t)sizex) * ((int16_t)sizex);
+    int32_t yy = ((int16_t)sizey) * ((int16_t)sizey);
+
+    int16_t offsetx = 0;
+    int16_t offsety = (int16_t) sizey;
+
+    int32_t dx = 0;
+    int32_t dy = 2 * xx * offsety;
+
+    bool temp_ret = true;
+    bool ret = true;
 
     qp_internal_fill_pixdata(device, QP_MAX(sizex, sizey), hue, sat, val);
 
@@ -82,32 +99,58 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
         return false;
     }
 
-    bool ret = true;
-    for (int16_t delta = (2 * bb) + (aa * (1 - (2 * sizey))); bb * dx <= aa * dy; dx++) {
-        if (!qp_ellipse_helper_impl(device, x, y, dx, dy, filled)) {
+    // Simplified (and aproximated) form of the formula for region 1
+    //      in original code `sizey` would've been `(sizey-0.25)`
+    int32_t d1 = yy - xx * sizey;
+    while(dx < dy) {
+        // Draw current point
+        if (!flipped) {
+            temp_ret = qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
+        } else {
+            temp_ret = qp_ellipse_helper_impl(device, x, y, offsety, offsetx, filled);
+        }
+        // Check returned value
+        if (!temp_ret) {
             ret = false;
             break;
         }
-        if (delta >= 0) {
-            delta += fa * (1 - dy);
-            dy--;
+
+        // Compute next point, simplified version of the if/else in original code
+        offsetx += 1;
+        dx += 2 * yy;
+        if (d1 >= 0) {
+            offsety -= 1;
+            dy -= 2 * xx;
+            d1 -= dy;
         }
-        delta += bb * (4 * dx + 6);
+        d1 += dx + yy;
     }
 
-    dx = sizex;
-    dy = 0;
+    // Simplified (and aproximated) form of the formula for region 2
+    //      in original code 1st parenthesis would have and extra `+0.25`
+    //                       2nd one would have and extra `+1`
+    // Note: xx could be factored out from some terms
+    int32_t d2 = yy * (xx + sizex) + xx * (yy - 2*sizey) - xx * yy;
+    while(offsety >= 0) {
+        if (!flipped) {
+            temp_ret = qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
+        } else {
+            temp_ret = qp_ellipse_helper_impl(device, x, y, offsety, offsetx, filled);
+        }
 
-    for (int16_t delta = (2 * aa) + (bb * (1 - (2 * sizex))); aa * dy <= bb * dx; dy++) {
-        if (!qp_ellipse_helper_impl(device, x, y, dx, dy, filled)) {
+        if (!temp_ret) {
             ret = false;
             break;
         }
-        if (delta >= 0) {
-            delta += fb * (1 - dx);
-            dx--;
+
+        offsety -= 1;
+        dy -= 2 * xx;
+        if (d2 <= 0) {
+            offsetx += 1;
+            dx += 2 * yy;
+            d2 += dx;
         }
-        delta += aa * (4 * dy + 6);
+        d2 += xx - dy;
     }
 
     qp_dprintf("qp_ellipse: %s\n", ret ? "ok" : "fail");
