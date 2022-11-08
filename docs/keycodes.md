@@ -292,11 +292,11 @@ See also: [Backlighting](feature_backlight.md)
 
 See also: [Bluetooth](feature_bluetooth.md)
 
-|Key       |Description                                   |
-|----------|----------------------------------------------|
-|`OUT_AUTO`|Automatically switch between USB and Bluetooth|
-|`OUT_USB` |USB only                                      |
-|`OUT_BT`  |Bluetooth only                                |
+|Key                  |Aliases  |Description                                   |
+|---------------------|---------|----------------------------------------------|
+|`QK_OUTPUT_AUTO`     |`OU_AUTO`|Automatically switch between USB and Bluetooth|
+|`QK_OUTPUT_USB`      |`OU_USB` |USB only                                      |
+|`QK_OUTPUT_BLUETOOTH`|`OU_BT`  |Bluetooth only                                |
 
 ## Caps Word :id=caps-word
 
