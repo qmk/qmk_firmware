@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Latin American Spanish layouts
-
 #pragma once
 
 #include "keymap_spanish_latam.h"
@@ -74,31 +72,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  SP_1,    SP_2,    SP_3,    SP_4,    SP_5,    SP_6,    SP_QUOT,
+    KC_SPC,  ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_QUOT,
     // (     )        *        +        ,        -        .        /
-    SP_8,    SP_9,    SP_PLUS, SP_PLUS, SP_COMM, SP_MINS, SP_DOT,  SP_7,
+    ES_8,    ES_9,    ES_PLUS, ES_PLUS, ES_COMM, ES_MINS, ES_DOT,  ES_7,
     // 0     1        2        3        4        5        6        7
-    SP_0,    SP_1,    SP_2,    SP_3,    SP_4,    SP_5,    SP_6,    SP_7,
+    ES_0,    ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_7,
     // 8     9        :        ;        <        =        >        ?
-    SP_8,    SP_9,    SP_COLN, SP_SCLN, SP_LABK, SP_0,    SP_LABK, SP_QUES,
+    ES_8,    ES_9,    ES_COLN, ES_SCLN, ES_LABK, ES_0,    ES_LABK, ES_QUES,
     // @     A        B        C        D        E        F        G
-    SP_Q,    SP_A,    SP_B,    SP_C,    SP_D,    SP_E,    SP_F,    SP_G,
+    ES_Q,    ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
     // H     I        J        K        L        M        N        O
-    SP_H,    SP_I,    SP_J,    SP_K,    SP_L,    SP_M,    SP_N,    SP_O,
+    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
     // P     Q        R        S        T        U        V        W
-    SP_P,    SP_Q,    SP_R,    SP_S,    SP_T,    SP_U,    SP_V,    SP_W,
+    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
     // X     Y        Z        [        \        ]        ^        _
-    SP_X,    SP_Y,    SP_Z,    SP_LCBR, SP_QUOT, SP_RCBR, SP_LCBR, SP_MINS,
+    ES_X,    ES_Y,    ES_Z,    ES_LCBR, ES_QUOT, ES_RCBR, ES_LCBR, ES_MINS,
     // `     a        b        c        d        e        f        g
-    SP_RCBR, SP_A,    SP_B,    SP_C,    SP_D,    SP_E,    SP_F,    SP_G,
+    ES_RCBR, ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
     // h     i        j        k        l        m        n        o
-    SP_H,    SP_I,    SP_J,    SP_K,    SP_L,    SP_M,    SP_N,    SP_O,
+    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
     // p     q        r        s        t        u        v        w
-    SP_P,    SP_Q,    SP_R,    SP_S,    SP_T,    SP_U,    SP_V,    SP_W,
+    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
     // x     y        z        {        |        }        ~        DEL
-    SP_X,    SP_Y,    SP_Z,    SP_LCBR, SP_PIPE, SP_RCBR, SP_PLUS, KC_DEL
+    ES_X,    ES_Y,    ES_Z,    ES_LCBR, ES_PIPE, ES_RCBR, ES_PLUS, KC_DEL
 };
-
-
-
-    

@@ -19,7 +19,7 @@
 #include "keymap.h"
 
 // clang-format off
-//Spanish Latinamerican sort
+
 /*
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
  * │ | │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ' │ ¿ │       │
@@ -34,57 +34,57 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define SP_PIPE KC_GRV  // |
-#define SP_1    KC_1    // 1
-#define SP_2    KC_2    // 2
-#define SP_3    KC_3    // 3
-#define SP_4    KC_4    // 4
-#define SP_5    KC_5    // 5
-#define SP_6    KC_6    // 6
-#define SP_7    KC_7    // 7
-#define SP_8    KC_8    // 8
-#define SP_9    KC_9    // 9
-#define SP_0    KC_0    // 0
-#define SP_QUOT KC_MINS // '
-#define SP_IQUE KC_EQL  // ¿
+#define ES_PIPE KC_GRV  // |
+#define ES_1    KC_1    // 1
+#define ES_2    KC_2    // 2
+#define ES_3    KC_3    // 3
+#define ES_4    KC_4    // 4
+#define ES_5    KC_5    // 5
+#define ES_6    KC_6    // 6
+#define ES_7    KC_7    // 7
+#define ES_8    KC_8    // 8
+#define ES_9    KC_9    // 9
+#define ES_0    KC_0    // 0
+#define ES_QUOT KC_MINS // '
+#define ES_IQUE KC_EQL  // ¿
 // Row 2
-#define SP_Q    KC_Q    // Q
-#define SP_W    KC_W    // W
-#define SP_E    KC_E    // E
-#define SP_R    KC_R    // R
-#define SP_T    KC_T    // T
-#define SP_Y    KC_Y    // Y
-#define SP_U    KC_U    // U
-#define SP_I    KC_I    // I
-#define SP_O    KC_O    // O
-#define SP_P    KC_P    // P
-#define SP_ACUT KC_LBRC // ´ (dead)
-#define SP_PLUS KC_RBRC // +
+#define ES_Q    KC_Q    // Q
+#define ES_W    KC_W    // W
+#define ES_E    KC_E    // E
+#define ES_R    KC_R    // R
+#define ES_T    KC_T    // T
+#define ES_Y    KC_Y    // Y
+#define ES_U    KC_U    // U
+#define ES_I    KC_I    // I
+#define ES_O    KC_O    // O
+#define ES_P    KC_P    // P
+#define ES_ACUT KC_LBRC // ´ (dead)
+#define ES_PLUS KC_RBRC // +
 // Row 3
-#define SP_A    KC_A    // A
-#define SP_S    KC_S    // S
-#define SP_D    KC_D    // D
-#define SP_F    KC_F    // F
-#define SP_G    KC_G    // G
-#define SP_H    KC_H    // H
-#define SP_J    KC_J    // J
-#define SP_K    KC_K    // K
-#define SP_L    KC_L    // L
-#define SP_NTIL KC_SCLN // Ñ
-#define SP_LCBR KC_QUOT // { (dead)
-#define SP_RCBR KC_NUHS // }
+#define ES_A    KC_A    // A
+#define ES_S    KC_S    // S
+#define ES_D    KC_D    // D
+#define ES_F    KC_F    // F
+#define ES_G    KC_G    // G
+#define ES_H    KC_H    // H
+#define ES_J    KC_J    // J
+#define ES_K    KC_K    // K
+#define ES_L    KC_L    // L
+#define ES_NTIL KC_SCLN // Ñ
+#define ES_LCBR KC_QUOT // { (dead)
+#define ES_RCBR KC_NUHS // }
 // Row 4
-#define SP_LABK KC_NUBS // <
-#define SP_Z    KC_Z    // Z
-#define SP_X    KC_X    // X
-#define SP_C    KC_C    // C
-#define SP_V    KC_V    // V
-#define SP_B    KC_B    // B
-#define SP_N    KC_N    // N
-#define SP_M    KC_M    // M
-#define SP_COMM KC_COMM // ,
-#define SP_DOT  KC_DOT  // .
-#define SP_MINS KC_SLSH // -
+#define ES_LABK KC_NUBS // <
+#define ES_Z    KC_Z    // Z
+#define ES_X    KC_X    // X
+#define ES_C    KC_C    // C
+#define ES_V    KC_V    // V
+#define ES_B    KC_B    // B
+#define ES_N    KC_N    // N
+#define ES_M    KC_M    // M
+#define ES_COMM KC_COMM // ,
+#define ES_DOT  KC_DOT  // .
+#define ES_MINS KC_SLSH // -
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -100,30 +100,30 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define SP_MORD S(SP_PIPE) // °
-#define SP_EXLM S(SP_1)    // !
-#define SP_DQUO S(SP_2)    // "
-#define SP_HASH S(SP_3)    // #
-#define SP_DLR  S(SP_4)    // $
-#define SP_PERC S(SP_5)    // %
-#define SP_AMPR S(SP_6)    // &
-#define SP_SLSH S(SP_7)    // /
-#define SP_LPRN S(SP_8)    // (
-#define SP_RPRN S(SP_9)    // )
-#define SP_EQL  S(SP_0)    // =
-#define SP_QUES S(SP_QUOT) // ?
-#define SP_IEXL S(SP_IQUE) // ¡
+#define ES_MORD S(ES_PIPE) // °
+#define ES_EXLM S(ES_1)    // !
+#define ES_DQUO S(ES_2)    // "
+#define ES_HASH S(ES_3)    // #
+#define ES_DLR  S(ES_4)    // $
+#define ES_PERC S(ES_5)    // %
+#define ES_AMPR S(ES_6)    // &
+#define ES_SLSH S(ES_7)    // /
+#define ES_LPRN S(ES_8)    // (
+#define ES_RPRN S(ES_9)    // )
+#define ES_EQL  S(ES_0)    // =
+#define ES_QUES S(ES_QUOT) // ?
+#define ES_IEXL S(ES_IQUE) // ¡
 // Row 2
-#define SP_DIAE S(SP_ACUT) // ¨ (dead)
-#define SP_ASTR S(SP_PLUS) // *
+#define ES_DIAE S(ES_ACUT) // ¨ (dead)
+#define ES_ASTR S(ES_PLUS) // *
 // Row 3
-#define SP_LBRC S(SP_LCBR) // [
-#define SP_RBRC S(SP_RCBR) // ]
+#define ES_LBRC S(ES_LCBR) // [
+#define ES_RBRC S(ES_RCBR) // ]
 // Row 4
-#define SP_RABK S(SP_LABK) // >
-#define SP_SCLN S(KC_COMM) // ;
-#define SP_COLN S(KC_DOT)  // :
-#define SP_UNDS S(SP_MINS) // _
+#define ES_RABK S(ES_LABK) // >
+#define ES_SCLN S(KC_COMM) // ;
+#define ES_COLN S(KC_DOT)  // :
+#define ES_UNDS S(ES_MINS) // _
 
 /* AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -139,11 +139,11 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define SP_NOT  ALGR(SP_PIPE) // ¬
-#define SP_BSLS ALGR(SP_QUOT) // (backslash)
+#define ES_NOT  ALGR(ES_PIPE) // ¬
+#define ES_BSLS ALGR(ES_QUOT) // (backslash)
 // Row 2
-#define SP_AT   ALGR(SP_Q)    // @
-#define SP_TILD ALGR(SP_PLUS) // ~
+#define ES_AT   ALGR(ES_Q)    // @
+#define ES_TILD ALGR(ES_PLUS) // ~
 // Row 3
-#define SP_CIRC ALGR(SP_LCBR) // ^ (dead)
-#define SP_GRV  ALGR(SP_RCBR) // ` (dead)
+#define ES_CIRC ALGR(ES_LCBR) // ^ (dead)
+#define ES_GRV  ALGR(ES_RCBR) // ` (dead)
