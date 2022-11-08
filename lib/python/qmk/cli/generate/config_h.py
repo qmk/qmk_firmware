@@ -70,7 +70,7 @@ def generate_matrix_size(kb_info_json, config_h_lines):
 def generate_config_items(kb_info_json, config_h_lines):
     """Iterate through the info_config map to generate basic config values.
     """
-    info_config_map = json_load(Path('data/mappings/info_config.json'))
+    info_config_map = json_load(Path('data/mappings/info_config.hjson'))
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']

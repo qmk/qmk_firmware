@@ -1,15 +1,15 @@
-# This file maps keys between `config.h` and `info.json`. It is used by QMK
-# to correctly and consistently map back and forth between the two systems.
+// This file maps keys between `config.h` and `info.json`. It is used by QMK
+// to correctly and consistently map back and forth between the two systems.
 {
-    # Format:
-    # <config.h key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
-    # value_type: one of "array", "array.int", "bool", "int", "hex", "list", "mapping", "str", "raw"
-    # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
-    # to_c: Default `true`. Set to `false` to exclude this mapping from config.h
-    # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
-    # deprecated: Default `false`. Set to `true` to turn on warning when a value exists
-    # invalid: Default `false`. Set to `true` to generate errors when a value exists
-    # replace_with: use with a key marked deprecated or invalid to designate a replacement
+    // Format:
+    // <config.h key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
+    // value_type: one of "array", "array.int", "bool", "int", "hex", "list", "mapping", "str", "raw"
+    // to_json: Default `true`. Set to `false` to exclude this mapping from info.json
+    // to_c: Default `true`. Set to `false` to exclude this mapping from config.h
+    // warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    // deprecated: Default `false`. Set to `true` to turn on warning when a value exists
+    // invalid: Default `false`. Set to `true` to generate errors when a value exists
+    // replace_with: use with a key marked deprecated or invalid to designate a replacement
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},
@@ -118,7 +118,7 @@
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
 
-    # Items we want flagged in lint
+    // Items we want flagged in lint
     "NO_ACTION_MACRO": {"info_key": "_invalid.no_action_macro", "invalid": true},
     "NO_ACTION_FUNCTION": {"info_key": "_invalid.no_action_function", "invalid": true},
     "DESCRIPTION": {"info_key": "_invalid.usb_description", "invalid": true},
