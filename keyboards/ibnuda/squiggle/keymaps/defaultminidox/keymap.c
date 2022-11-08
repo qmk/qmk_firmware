@@ -77,7 +77,7 @@ enum {
 #define DNTAB  LCTL(LSFT(KC_PGDN))
 #define NXTWIN LALT(KC_TAB)
 #define PRVWIN LALT(LSFT(KC_TAB))
-#define CALDL  LCTL(LALT(KC_DELT))
+#define CALDL  LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
 #define EXPLR  LGUI(KC_E)
 #define LCKGUI LGUI(KC_L)
@@ -112,7 +112,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [E_R]           = COMBO(e_r_combo, KC_UNDS),
     [Z_X]           = COMBO(z_x_combo, KC_ENT),
     [C_X]           = COMBO(x_c_combo, LCTL(KC_W)),
-    [C_V]           = COMBO(c_v_combo, KC_DELT),
+    [C_V]           = COMBO(c_v_combo, KC_DEL),
 
     // right hand combinations.
     [P_O]           = COMBO(p_o_combo,       KC_BSPC),
@@ -120,7 +120,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [U_I]           = COMBO(u_i_combo,       KC_MINS),
     [SLASH_DOT]     = COMBO(slash_dot_combo, KC_PIPE),
     [DOT_COMMA]     = COMBO(dot_comma_combo, KC_APP),
-    [COMMA_M]       = COMBO(comma_m_combo,   KC_DELT),
+    [COMMA_M]       = COMBO(comma_m_combo,   KC_DEL),
 
     // both hand combinations.
     [SLASH_Z]       = COMBO(z_slash_combo, KC_HOME),

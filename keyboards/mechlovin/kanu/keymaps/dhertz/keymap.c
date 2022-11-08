@@ -46,16 +46,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_teal();
+    rgblight_sethsv(HSV_TEAL);
 }
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case 1:
-            rgblight_sethsv_noeeprom_magenta();
+            rgblight_sethsv_noeeprom(HSV_MAGENTA);
             break;
         default: //  for any other layers, or the default layer
-            rgblight_sethsv_noeeprom_teal();
+            rgblight_sethsv_noeeprom(HSV_TEAL);
             break;
     }
     return state;

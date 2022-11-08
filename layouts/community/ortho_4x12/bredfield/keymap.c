@@ -21,7 +21,7 @@ enum layer_names {
 #define L_KEYBD MO(_KEYBOARD_LAYER)
 #define SCL_NAV LT(_NAVIGATION_LAYER, KC_SCLN)
 #define SFT_MIN MT(MOD_RSFT, KC_MINS)
-#define SFT_ENT KC_SFTENT
+#define SFT_ENT SC_SENT
 
 // GUI chords
 #define GUI_1 LGUI(KC_1)
@@ -157,9 +157,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Keyboard
  * ,--------------------------------------------------------------------------------+--------+-----------------.
- * |        |        |        |        |        |        |        |        |        |        |        | QK_BOOT  |
+ * |        |        |        |        |        |        |        |        |        |        |        |  Boot  |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |        |        |        |        |        | DEBUG  |
+ * |        |        |        |        |        |        |        |        |        |        |        | Debug  |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------------------------+--------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+--------|
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_KEYBOARD_LAYER] = LAYOUT_ortho_4x12(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DEBUG,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______
 ),

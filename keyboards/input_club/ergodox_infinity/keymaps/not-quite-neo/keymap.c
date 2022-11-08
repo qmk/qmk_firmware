@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [L01] = LAYOUT_ergodox_wrapper(
   KC_TAB,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,
-  KC_ESC,                 L01_LEFT_01,                 KC_LEAD,
+  KC_ESC,                 L01_LEFT_01,                 QK_LEAD,
   MO(L03),                L01_LEFT_02,
   KC_LSFT,                L01_LEFT_03,                 MO(LFN),
   KC_LCTL, KC_LGUI,KC_LALT, MO(L05), MO(L04),
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      KC_SPACE,KC_LSFT, KC_PGDN,
   //--
   XXXXXXX,  KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_LEAD,                L01_RIGHT_01,                 KC_ENTER,
+  QK_LEAD,                L01_RIGHT_01,                 KC_ENTER,
                           L01_RIGHT_02,                 MO(L03),
   MO(LFN),                L01_RIGHT_03,                 KC_RSFT,
                     MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTL,
@@ -258,7 +258,7 @@ L06 -> <TBD>: UNSPECIFIED
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 };
 
 

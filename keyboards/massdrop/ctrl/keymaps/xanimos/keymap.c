@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //   CAPS       A        S        D        F        G        H        J        K        L        ;        '      ENTER
         KC_CAPS,  KC_A  ,  KC_S  ,  KC_D  ,  KC_F  ,  KC_G  ,  KC_H  ,  KC_J  ,  KC_K  ,  KC_L  , KC_SCLN, KC_QUOT, KC_ENT ,
     //   SHIFT      Z        X        C        V        B        N        M        ,        .        /      RSHIFT                               UP
-        KC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,  KC_N  ,  KC_M  , KC_COMM, KC_DOT , KC_SLSH, KC_RSPC,                             KC_UP ,
+        SC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,  KC_N  ,  KC_M  , KC_COMM, KC_DOT , KC_SLSH, SC_RSPC,                             KC_UP ,
     //   CTRL      GUI      ALT                       SPACE                               RALT     MENU     RGUI     RCTRL             LEFT     DOWN     RIGHT
        KC_LCTL,  KC_LGUI, KC_LALT,                    KC_SPC,                   TD(TD_FN_SWITCH), KC_RALT, KC_RGUI, KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),

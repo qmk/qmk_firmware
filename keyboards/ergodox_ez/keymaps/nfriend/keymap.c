@@ -996,7 +996,7 @@ bool suspended = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case EEP_RST:
+        case QK_CLEAR_EEPROM:
             if (record->event.pressed) {
                 eeconfig_init();
             }

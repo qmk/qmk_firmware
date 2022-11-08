@@ -64,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,                 _______
   ),
   [_DYN] = LAYOUT_numpad_4x4( /* DYNAMIC MACRO */
-    DYN_REC_START1,  DYN_REC_START2,  _______, _______, \
+    DM_REC1,  DM_REC2,  _______, _______, \
     _______,         _______,         _______, \
-    DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______, \
+    DM_PLY1, DM_PLY2, _______, _______, \
     _______,                          _______
   ),
 };

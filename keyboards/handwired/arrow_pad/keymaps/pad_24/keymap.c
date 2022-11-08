@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_BSPC, KC_PENT, KC_DEL,  M_SHFCT  ),
 
 [LAYER_FUNCTION] = LAYOUT(
-  BL_TOGG, BL_INC,  BL_DEC,  _______,
+  BL_TOGG, BL_UP,   BL_DOWN, _______,
   TG(1),   _______, _______, _______,
   _______, _______, _______, _______,
   _______, _______, _______, _______,

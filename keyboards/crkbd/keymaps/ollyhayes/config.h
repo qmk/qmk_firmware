@@ -25,7 +25,7 @@
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
-#define UNICODE_SELECTED_MODES UC_LNX
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses

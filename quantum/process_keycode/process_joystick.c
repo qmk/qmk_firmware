@@ -19,11 +19,11 @@
 
 bool process_joystick(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case JS_BUTTON0 ... JS_BUTTON_MAX:
+        case QK_JOYSTICK ... QK_JOYSTICK_MAX:
             if (record->event.pressed) {
-                register_joystick_button(keycode - JS_BUTTON0);
+                register_joystick_button(keycode - QK_JOYSTICK);
             } else {
-                unregister_joystick_button(keycode - JS_BUTTON0);
+                unregister_joystick_button(keycode - QK_JOYSTICK);
             }
             return false;
     }

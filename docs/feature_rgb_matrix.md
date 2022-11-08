@@ -164,7 +164,7 @@ There is basic support for addressable RGB matrix lighting with the I2C IS31FL37
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3737
 ```
-You can use between 1 and 2 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_2` define for second IC if not present on your keyboard.
+You can use between 1 and 4 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
 
 Configure the hardware via your `config.h`:
 
@@ -180,6 +180,8 @@ Configure the hardware via your `config.h`:
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
 | `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
+| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
+| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
 
 The IS31FL3737 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`ISSI_SWPULLUP`/`ISSI_CSPULLUP` are given the value of`PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
@@ -233,7 +235,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1` for now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
 
 ---
 ### IS31FLCOMMON :id=is31flcommon
@@ -560,7 +562,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
     RGB_MATRIX_CYCLE_OUT_IN,        // Full gradient scrolling out to in
     RGB_MATRIX_CYCLE_OUT_IN_DUAL,   // Full dual gradients scrolling out to in
-    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,  // Full gradent Chevron shapped scrolling left to right
+    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,  // Full gradient Chevron shapped scrolling left to right
     RGB_MATRIX_CYCLE_PINWHEEL,      // Full gradient spinning pinwheel around center of keyboard
     RGB_MATRIX_CYCLE_SPIRAL,        // Full gradient spinning spiral around center of keyboard
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard

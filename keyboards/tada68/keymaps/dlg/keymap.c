@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = LAYOUT_ansi(
   MAGIC_UNSWAP_GRAVE_ESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12, KC_DEL,   MAGIC_SWAP_GRAVE_ESC, \
-  _______, BL_TOGG, BL_DEC,  BL_INC , _______, _______, _______, _______, TG(_MAC),_______,  KC_PSCR, _______, _______, _______, KC_INS, \
+  _______, BL_TOGG, BL_DOWN, BL_UP  , _______, _______, _______, _______, TG(_MAC),_______,  KC_PSCR, _______, _______, _______, KC_INS, \
   _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,     _______,      KC_HOME, \
   _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU,  _______, _______,     KC_PGUP,      KC_END , \
   _______, _______, _______,                 _______,                     _______, _______,  _______, KC_HOME,     KC_PGDN,      KC_END ),

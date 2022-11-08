@@ -367,7 +367,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
            LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN,                     KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,TG(_MOUSE),                    EEP_RST, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
+            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,TG(_MOUSE),                     EE_CLR, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,     VVV,     VVV,        VVV,    TG(4),    VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
