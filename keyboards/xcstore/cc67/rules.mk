@@ -2,7 +2,6 @@ SRC += matrix.c
 
 # MCU name
 MCU = STM32F401
-BOARD = GENERIC_STM32_F401XC
 
 # Bootloader selection
 BOOTLOADER = tinyuf2
@@ -24,7 +23,7 @@ AUDIO_ENABLE = no           # Audio output
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
 # Custom matrix
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes
