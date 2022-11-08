@@ -4,7 +4,7 @@
 #pragma once
 
 #ifdef CANCEL_BOOST
-#    define PRODUCT      BASE_PRODUCT cancel boost
+#    define PRODUCT      BASE_PRODUCT normal(non boost)
 #    define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
 #    define MATRIX_COL_PINS { F4,F4,F5,F5, F6,F6,F7,F7,  B6,B6,B2,B2, B3,B3,B1,B1 }
 #    define MATRIX_MUL_SEL  {  0, 1, 0, 1,  0, 1, 0, 1,   1, 0, 1, 0,  1, 0, 1, 0 }
