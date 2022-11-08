@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,           KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,           KC_DEL,
         KC_UNDS,         KC_MINS, KC_PLUS, KC_EQL,  KC_COLN,  KC_GRV,   KC_MRWD, KC_MPLY, KC_MFFD, KC_NO,           KC_TAB,
         KC_LCBR,         KC_LPRN, KC_RPRN, KC_RCBR, KC_PIPE,  KC_ESC,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT,         KC_QUOT,
-        LSFT_T(KC_LBRC), KC_QUOT, KC_DQUO, KC_RBRC, KC_SCLN,  KC_TILDE, KC_VOLD, KC_MUTE, KC_VOLU, RSFT_T(KC_BSLS), KC_ENT,
+        LSFT_T(KC_LBRC), KC_QUOT, KC_DQUO, KC_RBRC, KC_SCLN,  KC_TILD, KC_VOLD, KC_MUTE, KC_VOLU, RSFT_T(KC_BSLS), KC_ENT,
         KC_LCTL,         KC_LGUI, KC_LALT,          KC_SPC,                      KC_TRNS, KC_TRNS, KC_ESC,          KC_CAPS
     ),
     [2] = LAYOUT_ortho_4x11_8(
