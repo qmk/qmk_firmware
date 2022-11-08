@@ -18,5 +18,5 @@ Flashing example for this keyboard:
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 Enter the bootloader in 2 ways:
-    **Physical reset button**: Briefly press the reset button on the botton of the case, or bridge the reset and ground pins momentarilly on the pro micro
-    **Keycode in layout**: Press the key mapped to RESET (by default hold down MO(1) and press the left most key in row 5 on the left hand half of the keyboard)
+**Physical reset button**: Briefly press the reset button on the bottom of the case, or bridge the reset and ground pins momentarily on the pro micro
+**Keycode in layout**: Press the key mapped to `QK_BOOT` (by default hold down `MO(1)` and press the left most key in row 5 on the left hand half of the keyboard)
