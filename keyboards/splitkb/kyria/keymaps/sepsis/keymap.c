@@ -17,8 +17,6 @@
 
 enum layers {
     _QWERTY = 0,
-    _DVORAK,
-    _COLEMAK_DH,
     _NAV,
     _SYM,
     _FUNCTION,
@@ -138,9 +136,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      |QWERTY|      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |Dvorak|      |      |                              | TOG  | SAI  | HUI  | VAI  | MOD  |        |
+ * |        |      |      |Dvorak|      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |Colmak|      |      |      |      |  |      |      |      | SAD  | HUD  | VAD  | RMOD |        |
+ * |        |      |      |Colmak|      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -196,19 +194,13 @@ bool oled_task_user(void) {
         // clang-format on
 
         oled_write_P(qmk_logo, false);
-        oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+        oled_write_P(PSTR("Kyria rev2.0\n\n"), false);
 
         // Host Keyboard Layer Status
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _QWERTY:
                 oled_write_P(PSTR("QWERTY\n"), false);
-                break;
-            case _DVORAK:
-                oled_write_P(PSTR("Dvorak\n"), false);
-                break;
-            case _COLEMAK_DH:
-                oled_write_P(PSTR("Colemak-DH\n"), false);
                 break;
             case _NAV:
                 oled_write_P(PSTR("Nav\n"), false);
@@ -250,7 +242,23 @@ bool oled_task_user(void) {
 }
 #endif
 
-/* void keyboard_post_init_user(void) {
-    pointing_device_set_cpi(6400);
-} */
+ void keyboard_post_init_user(void) {
+    //pimoroni_trackball_set_rgbw(0,0,0,0);
+    //pointing_device_set_cpi(9000);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _QWERTY:
+        //pimoroni_trackball_set_rgbw(45,0,147,0);
+        break;
+    case _SYM:
+        //pimoroni_trackball_set_rgbw(0,80,0,0);
+        break;
+    case _NAV:
+        //pimoroni_trackball_set_rgbw(80,0,0,10);
+        break;
+    }
+  return state;
+}
 
