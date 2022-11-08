@@ -17,7 +17,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_all(
-      KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, 
+      KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
       KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_ENT,
       LSFT_T(KC_GRV), KC_SLSH, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT,
       KC_LCTL, KC_LGUI, KC_LALT, LT(1, KC_SPC), MO(2), LT(1, KC_SPC), KC_RALT, KC_RGUI, KC_RCTL, KC_MPLY, KC_MUTE ),
@@ -29,9 +29,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   	  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MUTE ),
 
   [2] = LAYOUT_all(
-      KC_TRNS, RGB_SAI, RGB_SAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO  , KC_UP, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, RGB_TOG, RGB_MOD, RGB_RMOD,KC_TRNS, KC_TRNS, KC_NO  , KC_LEFT, KC_DOWN, KC_RIGHT, KC_TRNS, KC_TRNS,
-      KC_TRNS, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_UP,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO  , KC_UP, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS, KC_TRNS,  KC_NO  , KC_LEFT, KC_DOWN, KC_RIGHT, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_UP,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RIGHT, KC_TRNS, KC_TRNS )
 };
 
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  * The index parameter tells you which encoder was turned. If you only have
  * one encoder, the index will always be zero.
- * 
+ *
  * The clockwise parameter tells you the direction of the encoder. It'll be
  * true when you turned the encoder clockwise, and false otherwise.
  */
@@ -55,12 +55,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
   /* You can copy the code and change the index for every encoder you have. Most
      keyboards will only have two, so this piece of code will suffice. */
-  } else if (index == 1) { /* Second encoder */
-     if (clockwise) {
-         tap_code(KC_MPRV);
-     } else {
-         tap_code(KC_MNXT);
-     }
   }
   return false;
 }
