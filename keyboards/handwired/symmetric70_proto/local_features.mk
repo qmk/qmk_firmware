@@ -53,14 +53,8 @@ ifeq ($(strip $(DEBUG_CONFIG)),yes)
     OPT_DEFS += -DDEBUG_CONFIG
 endif
 
-ifeq ($(strip $(MATRIX_COMMON_DELAY)),yes)
-    # use matrix_output_unselect_delay() in matrix_common.c
-    OPT_DEFS += -DMATRIX_IO_DELAY_DEFAULT
-endif
-
 $(info -)
 $(info -  DEBUG_MATRIX_SCAN_RATE_ENABLE = $(DEBUG_MATRIX_SCAN_RATE_ENABLE))
 $(info -  CONSOLE_ENABLE      = $(CONSOLE_ENABLE))
 $(info -  MDELAY              = $(MDELAY))
-$(info -  MATRIX_COMMON_DELAY = $(MATRIX_COMMON_DELAY))
 $(info -  OPT_DEFS            = $(OPT_DEFS))

@@ -43,9 +43,6 @@ ifneq ($(strip $(MTEST)),)
     ifeq ($(strip $1),mdelay0)
         MDELAY = 0
     endif
-    ifeq ($(strip $1),common_delay)
-        MATRIX_COMMON_DELAY = yes
-    endif
     ifeq ($(strip $1),adaptive_delay)
         ADAPTIVE_DELAY = yes
     endif
