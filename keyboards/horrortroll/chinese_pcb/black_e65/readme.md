@@ -1,9 +1,10 @@
 # Black E6.5
 
-A chinese PCB clone of Exclusive E6.5.
+A Exclusive E6.5 clone keyboard made by Chinese maker, which controlled by an ATMEGA32U4 chipset. The keyboard features per-key backlight, RGB underglow.
 
 * Keyboard Maintainer: [HorrorTroll](https://github.com/HorrorTroll)
-* Hardware Supported: Atmega32u4
+* Hardware Supported: ATMEGA32U4
+* Hardware Availability: Unknown
 
 Make example for this keyboard (after setting up your build environment):
 
