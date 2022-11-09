@@ -8,7 +8,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPLY, KC_9,    KC_0,    KC_NO,
         KC_5,    KC_6,    KC_7,    KC_8,
         KC_1,    KC_2,    KC_3,    KC_4,
-        USER09,   KC_DOT,  KC_COMM, 0x5011
+        RGB_TOG,   KC_DOT,  KC_COMM, 0x5011
     ),
     LAYOUT(
         _______, _______, _______, _______,
@@ -88,7 +88,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void eeconfig_init_user(void) {
     work_louder_config.raw = 0;
-    work_louder_config.led_level = 4;
+    work_louder_config.led_level = 1;
     eeconfig_update_user(work_louder_config.raw);
 }
 
