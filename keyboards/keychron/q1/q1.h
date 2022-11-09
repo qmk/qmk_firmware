@@ -24,4 +24,6 @@
 #    include "ansi_encoder.h"
 #elif defined(KEYBOARD_keychron_q1_iso)
 #    include "iso.h"
+#elif defined(KEYBOARD_keychron_q1_iso_encoder)
+#    include "iso_encoder.h"
 #endif
