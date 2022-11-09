@@ -86,7 +86,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, VS_BM_CLEARALL,                    
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
     KC_TILD,   KC_EXLM, KC_AT,   KC_HASH, KC_DLR, KC_PERC,                        KC_PLUS,   KC_7,  KC_8,   KC_9,  KC_ASTR,  KC_PIPE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- KC_GRAVE,  KC_LPRN, KC_RPRN, KC_LBRACKET, KC_RBRACKET, KC_UNDS,                  KC_MINS,   KC_4,  KC_5,   KC_6,  KC_SLSH,  KC_BSLS,
+ KC_GRAVE,  KC_LPRN, KC_RPRN, KC_LBRACKET, KC_RBRACKET, KC_UNDS,                KC_KP_MINUS, KC_4,  KC_5,   KC_6,  KC_SLSH,  KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  KC_CIRC,  KC_COLN,  KC_DQUO,   KC_LCBR,   KC_RCBR,     KC_AMPR,                  KC_EQUAL,  KC_1,  KC_2,   KC_3,  KC_QUES,  KC_DOT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -157,6 +157,10 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 
 void oled_render_layer_state(void) {
+  if(is_caps_word_on()) {
+      oled_write_ln_P(PSTR("CAPS WORD"), false);
+      return;
+  }
   DISPLAY_LAYER_NAME(SHORTCUTS, "SHORTCUTS");
   DISPLAY_LAYER_NAME(VSCODE, "VSCODE");
   DISPLAY_LAYER_NAME(COMBINED, "SYMBOLS");
