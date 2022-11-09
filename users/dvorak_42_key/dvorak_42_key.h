@@ -6,20 +6,16 @@
 // ======
 
 #define BASE             0 // base dvorak layer
-#define BASE_IOS         1 // base dvorak layer, for ipad / IOS
-#define KEYNAV           2 // arrow navigation (right hand)
-#define KEYNAV_IOS       3 // arrow navigation (right hand)
-#define KEYSEL           4 // arrow navigation + shift (allow text selection)
-#define KEYSEL_IOS       5 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV        6 // bash shortcuts
-#define SHELL_SCREEN     7 // linux screen shortcuts
-#define BROWSER_CONTROL  8 // control browser and mouse
-#define BROWSER_CONTROL_IOS 9 // control browser and mouse
-#define COMBINED            10 // combined numbers and symbols layer
-#define ANDROID_STUDIO     11 // android studio specific layer
-#define VSCODE             12 // visual studio code specific layer
-#define SHORTCUTS          13 // shortcuts to be intercepted by autohotkey
-#define RGB_CONTROL        14 // control RGB effects
+#define KEYNAV           1 // arrow navigation (right hand)
+#define KEYSEL           2 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV        3 // bash shortcuts
+#define SHELL_SCREEN     4 // linux screen shortcuts
+#define BROWSER_CONTROL  5 // control browser and mouse
+#define COMBINED         6 // combined numbers and symbols layer
+#define ANDROID_STUDIO   7 // android studio specific layer
+#define VSCODE           8 // visual studio code specific layer
+#define SHORTCUTS        9 // shortcuts to be intercepted by autohotkey
+#define RGB_CONTROL      10 // control RGB effects
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here

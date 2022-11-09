@@ -20,18 +20,6 @@ OSM(MOD_LSFT),KC_SCOLON, KC_Q,  KC_J,    KC_K,   KC_X,                          
 
   ),
 
-  [BASE_IOS] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(KC_BSPC),
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                        MO(BROWSER_CONTROL_IOS),  KC_TRNS, MO(KEYNAV_IOS),     KC_TRNS, KC_TRNS, KC_TRNS
-                                      //`--------------------------'  `--------------------------'
-  ),
-
   [KEYNAV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
 KC_ESC, RCTL(KC_ENTER), RCTL(KC_K), RCTL(KC_Z), RCTL(KC_S), RCTL(KC_N),          KC_TRNS, KC_HOME, KC_UP, KC_END, KC_PGUP, KC_DELETE,
@@ -39,21 +27,6 @@ KC_ESC, RCTL(KC_ENTER), RCTL(KC_K), RCTL(KC_Z), RCTL(KC_S), RCTL(KC_N),         
 KC_TRNS, MO(KEYSEL), KC_TRNS, RSFT(KC_TAB), KC_TAB, RCTL(KC_F),         LCTL(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LCTL(KC_RIGHT), KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 KC_TRNS, RCTL(KC_P), RCTL(KC_O),  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,               KC_TRNS, RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), KC_PGDOWN, RCTL(KC_DELETE),
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-  // https://medium.com/macoclock/best-text-editing-keyboard-shortcuts-for-ipad-41e8234a4c42
-  // alt == option
-  // gui/win == command
-  [KEYNAV_IOS] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-    KC_ESC,   KC_TRNS, KC_TRNS, RGUI(KC_Z),RCTL(KC_S), KC_TRNS,                KC_TRNS, RGUI(KC_LEFT), KC_UP, RGUI(KC_RIGHT), KC_PGUP, KC_DELETE,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_TRNS,MO(KEYSEL_IOS), KC_TRNS, KC_TRNS, KC_TRNS, RGUI(KC_F),           LALT(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LALT(KC_RIGHT), LALT(KC_DELETE),
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     KC_TRNS, RGUI(KC_C), RGUI(KC_X), RGUI(KC_V), KC_PGDOWN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                         KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
@@ -72,17 +45,6 @@ KC_TRNS, RCTL(KC_P), RCTL(KC_O),  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,         
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [KEYSEL_IOS] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, RSFT(RGUI(KC_LEFT)), RSFT(KC_UP), RSFT(RGUI(KC_RIGHT)), RSFT(KC_PGUP), KC_TRNS,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         RSFT(LALT(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(LALT(KC_RIGHT)), KC_TRNS,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                KC_TRNS, RGUI(KC_C), RGUI(KC_X), RGUI(KC_V), RSFT(KC_PGDN), KC_TRNS,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-                                      //`--------------------------'  `--------------------------'
-  ),
 
   [SHELL_NAV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                              ,-----------------------------------------------------.
@@ -146,17 +108,6 @@ KC_TRNS, RCTL(LSFT(KC_TAB)), RCTL(KC_TAB), WINDOWS10_WORKSPACE_LEFT, WINDOWS10_W
                                       //`--------------------------'                   `--------------------------'
   ),
 
-  [BROWSER_CONTROL_IOS] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                             ,-----------------------------------------------------.
-      KC_TRNS, KC_TRNS, KC_BTN3, KC_MS_U, KC_BTN1, KC_BTN2,                               KC_UP, KC_PGUP, KC_PGDN, KC_MS_WH_UP, KC_TRNS, KC_TRNS,
-  //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,                             KC_DOWN, RGUI(LALT(KC_LEFT)), RGUI(LALT(KC_RIGHT)), KC_MS_WH_DOWN, LALT(KC_LEFT), KC_TRNS,
-  //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
-    KC_TRNS, KC_TRNS, IOS_SHOW_SLIDEOVER, IOS_APP_PREV, IOS_APP_NEXT, IOS_APP_LIST,     KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, RGUI(KC_L), KC_TRNS,
-  //|--------+--------+--------+--------+--------+--------+--------|          |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,             RGUI(KC_W), RGUI(KC_T), KC_TRNS
-                                      //`--------------------------'          `--------------------------'
-  ),
 
   [SHORTCUTS] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                             ,-----------------------------------------------------.
@@ -166,7 +117,7 @@ KC_TRNS, RCTL(LSFT(KC_TAB)), RCTL(KC_TAB), WINDOWS10_WORKSPACE_LEFT, WINDOWS10_W
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
 TG(RGB_CONTROL), OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,    MEH(KC_F13), MEH(KC_F14), MEH(KC_F15), MEH(KC_F16), MEH(KC_F17), MEH(KC_F18),
   //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_TRNS,  KC_TRNS, KC_TRNS,                 TG(BASE_IOS), TO(SHORTCUTS), TO(BASE)
+                                        KC_TRNS,  KC_TRNS, KC_TRNS,                 KC_TRNS, TO(SHORTCUTS), TO(BASE)
                                       //`--------------------------'             `--------------------------'
   ),
 
@@ -222,15 +173,11 @@ void oled_render_layer_state(void) {
   DISPLAY_LAYER_NAME(SHORTCUTS, "SHORTCUTS");
   DISPLAY_LAYER_NAME(VSCODE, "VSCODE");
   DISPLAY_LAYER_NAME(COMBINED, "SYMBOLS");
-  DISPLAY_LAYER_NAME(BROWSER_CONTROL_IOS, "BROWSER IOS");
   DISPLAY_LAYER_NAME(BROWSER_CONTROL, "BROWSER");
   DISPLAY_LAYER_NAME(SHELL_SCREEN, "SHELL SCREEN");
   DISPLAY_LAYER_NAME(SHELL_NAV, "SHELL NAV");
-  DISPLAY_LAYER_NAME(KEYSEL_IOS, "KEYSEL IOS");
   DISPLAY_LAYER_NAME(KEYSEL, "KEYSEL");
-  DISPLAY_LAYER_NAME(KEYNAV_IOS, "KEYNAV IOS");
   DISPLAY_LAYER_NAME(KEYNAV, "KEYNAV");
-  DISPLAY_LAYER_NAME(BASE_IOS, "BASE IOS");
   DISPLAY_LAYER_NAME(BASE, "BASE");
 
 }
