@@ -80,19 +80,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WINDOWS10_TASK_VIEW:
             SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
             break;
-        // IOS shortcuts
-        case IOS_APP_PREV:
-            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_LEFT) SS_UP(X_CAPS));
-            break;
-        case IOS_APP_NEXT:
-            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_RIGHT) SS_UP(X_CAPS));
-            break;            
-        case IOS_APP_LIST:
-            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_UP) SS_UP(X_CAPS));
-            break;                        
-        case IOS_SHOW_SLIDEOVER:
-            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_BSLS) SS_UP(X_CAPS));
-            break;                                    
         // linux screen shortcuts
         case SCREEN_TAB_LEFT:
             SEND_STRING(SS_LCTL("a") "p");

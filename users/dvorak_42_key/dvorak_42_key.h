@@ -76,11 +76,6 @@ enum custom_keycodes {
   WINDOWS10_WORKSPACE_RIGHT,
   WINDOWS10_TASK_VIEW,
 
-  // these macros assume that caps lock is mapped to globe in iOS preferences
-  IOS_APP_PREV,
-  IOS_APP_NEXT,
-  IOS_APP_LIST,
-  IOS_SHOW_SLIDEOVER,
 };
 
 
