@@ -4,7 +4,7 @@
 #pragma once
 
 // OS-specific stuff
-//#define UNICODE_SELECTED_MODES UC_MAC
+//#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS
 
 /* Select hand configuration */
 //#define MASTER_LEFT

@@ -117,7 +117,7 @@ void terrazzo_scroll_pixel(bool clockwise) {
         terrazzo_led_index = terrazzo_led_index - 1;
     }
 
-    if (terrazzo_led_index >= DRIVER_LED_TOTAL) {
+    if (terrazzo_led_index >= LED_MATRIX_LED_COUNT) {
         terrazzo_led_index = 0;
     } else if (terrazzo_led_index <= 0 ) {
         terrazzo_led_index = LED_MATRIX_LED_COUNT - 1;

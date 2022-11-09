@@ -369,5 +369,5 @@ void matrix_scan_user(void) {
 }
 
 void matrix_init_user(void) {
-    set_unicode_input_mode(UC_MAC);
+    set_unicode_input_mode(UNICODE_MODE_MACOS);
 }

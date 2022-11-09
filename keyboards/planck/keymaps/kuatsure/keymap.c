@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KT_MTAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
     KT_CESC, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
     KT_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT,
-    KC_MPLY, KC_LEAD, KC_LALT, KC_LGUI, LOWER,     RAISE, KC_SPC, KC_SPC,     KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
+    KC_MPLY, QK_LEAD, KC_LALT, KC_LGUI, LOWER,     RAISE, KC_SPC, KC_SPC,     KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
 /* Lower
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | MAKE | FLSH |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | QK_BOOT| DEBUG|      |      |Aud on|AudOff| Game |Mouse |      |      |      |
+ * |      | Boot | Debug|      |      |Aud on|AudOff| Game |Mouse |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      | VRSN |      |      |MusMod|Mus on|MusOff|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_grid_wrapper(
     _______, KB_MAKE, KB_FLSH, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
-    _______, QK_BOOT, DEBUG,   _______, _______, AU_ON,   AU_OFF,  GAME,    MOUSE,   _______, _______, _______,
+    _______, QK_BOOT, DB_TOGG, _______, _______, AU_ON,   AU_OFF,  GAME,    MOUSE,   _______, _______, _______,
     _______, KB_VRSN, _______, _______, MU_MOD,  MU_ON,   MU_OFF,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),

@@ -150,8 +150,8 @@ def test_json2c():
 def test_json2c_macros():
     result = check_subcommand("json2c", 'keyboards/handwired/pytest/macro/keymaps/default/keymap.json')
     check_returncode(result)
-    assert 'LAYOUT_ortho_1x1(MACRO_0)' in result.stdout
-    assert 'case MACRO_0:' in result.stdout
+    assert 'LAYOUT_ortho_1x1(QK_MACRO_0)' in result.stdout
+    assert 'case QK_MACRO_0:' in result.stdout
     assert 'SEND_STRING("Hello, World!"SS_TAP(X_ENTER));' in result.stdout
 
 

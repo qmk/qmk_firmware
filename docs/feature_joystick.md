@@ -119,9 +119,41 @@ By default, the resolution of each axis is 8 bit, giving a range of -127 to +127
 
 Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MCUs.
 
-### Triggering Joystick Buttons
+### Keycodes
 
-Joystick buttons are normal Quantum keycodes, defined as `JS_BUTTON0` to `JS_BUTTON31`, depending on the number of buttons you have configured.
-To trigger a joystick button, just add the corresponding keycode to your keymap.
+|Key                    |Aliases|Description|
+|-----------------------|-------|-----------|
+|`QK_JOYSTICK_BUTTON_0` |`JS_0` |Button 0   |
+|`QK_JOYSTICK_BUTTON_1` |`JS_1` |Button 1   |
+|`QK_JOYSTICK_BUTTON_2` |`JS_2` |Button 2   |
+|`QK_JOYSTICK_BUTTON_3` |`JS_3` |Button 3   |
+|`QK_JOYSTICK_BUTTON_4` |`JS_4` |Button 4   |
+|`QK_JOYSTICK_BUTTON_5` |`JS_5` |Button 5   |
+|`QK_JOYSTICK_BUTTON_6` |`JS_6` |Button 6   |
+|`QK_JOYSTICK_BUTTON_7` |`JS_7` |Button 7   |
+|`QK_JOYSTICK_BUTTON_8` |`JS_8` |Button 8   |
+|`QK_JOYSTICK_BUTTON_9` |`JS_9` |Button 9   |
+|`QK_JOYSTICK_BUTTON_10`|`JS_10`|Button 10  |
+|`QK_JOYSTICK_BUTTON_11`|`JS_11`|Button 11  |
+|`QK_JOYSTICK_BUTTON_12`|`JS_12`|Button 12  |
+|`QK_JOYSTICK_BUTTON_13`|`JS_13`|Button 13  |
+|`QK_JOYSTICK_BUTTON_14`|`JS_14`|Button 14  |
+|`QK_JOYSTICK_BUTTON_15`|`JS_15`|Button 15  |
+|`QK_JOYSTICK_BUTTON_16`|`JS_16`|Button 16  |
+|`QK_JOYSTICK_BUTTON_17`|`JS_17`|Button 17  |
+|`QK_JOYSTICK_BUTTON_18`|`JS_18`|Button 18  |
+|`QK_JOYSTICK_BUTTON_19`|`JS_19`|Button 19  |
+|`QK_JOYSTICK_BUTTON_20`|`JS_20`|Button 20  |
+|`QK_JOYSTICK_BUTTON_21`|`JS_21`|Button 21  |
+|`QK_JOYSTICK_BUTTON_22`|`JS_22`|Button 22  |
+|`QK_JOYSTICK_BUTTON_23`|`JS_23`|Button 23  |
+|`QK_JOYSTICK_BUTTON_24`|`JS_24`|Button 24  |
+|`QK_JOYSTICK_BUTTON_25`|`JS_25`|Button 25  |
+|`QK_JOYSTICK_BUTTON_26`|`JS_26`|Button 26  |
+|`QK_JOYSTICK_BUTTON_27`|`JS_27`|Button 27  |
+|`QK_JOYSTICK_BUTTON_28`|`JS_28`|Button 28  |
+|`QK_JOYSTICK_BUTTON_29`|`JS_29`|Button 29  |
+|`QK_JOYSTICK_BUTTON_30`|`JS_30`|Button 30  |
+|`QK_JOYSTICK_BUTTON_31`|`JS_31`|Button 31  |
 
 You can also trigger joystick buttons in code with `register_joystick_button(button)` and `unregister_joystick_button(button)`, where `button` is the 0-based button index (0 = button 1).

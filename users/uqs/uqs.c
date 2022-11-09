@@ -502,10 +502,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /*
  * Obsoleted by making tmux understand Ctrl-(Shift)-Tab natively.
     case TM_NEXT:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("a") "n");
+        if (record->event.pressed) SEND_STRING(SS_LCTL("a") "n");
         break;
     case TM_PREV:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("a") "p");
+        if (record->event.pressed) SEND_STRING(SS_LCTL("a") "p");
         break;
 */
         // TODO: use key overrides to turn, e.g. Win+Ctrl-Tab into VIM_NEXT.
@@ -517,16 +517,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_G) SS_LSFT("t"));
         break;
     case WIN_LEFT:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("w") SS_TAP(X_H));
+        if (record->event.pressed) SEND_STRING(SS_LCTL("w") SS_TAP(X_H));
         break;
     case WIN_DN:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("w") SS_TAP(X_J));
+        if (record->event.pressed) SEND_STRING(SS_LCTL("w") SS_TAP(X_J));
         break;
     case WIN_UP:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("w") SS_TAP(X_K));
+        if (record->event.pressed) SEND_STRING(SS_LCTL("w") SS_TAP(X_K));
         break;
     case WIN_RGHT:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("w") SS_TAP(X_L));
+        if (record->event.pressed) SEND_STRING(SS_LCTL("w") SS_TAP(X_L));
         break;
     }
 
@@ -560,13 +560,13 @@ void matrix_scan_user(void) {
     }
     // tableflip (LEADER - TF)
     SEQ_TWO_KEYS(KC_T, KC_F) {
-      //set_unicode_input_mode(UC_LNX);
+      //set_unicode_input_mode(UNICODE_MODE_LINUX);
       //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
       send_unicode_string("(╯°□°）╯︵ ┻━┻");
     }
     // untableflip
     SEQ_THREE_KEYS(KC_U, KC_T, KC_F) {
-      //set_unicode_input_mode(UC_LNX);
+      //set_unicode_input_mode(UNICODE_MODE_LINUX);
       //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
       send_unicode_string("┬─┬ノ( º _ ºノ)");
     }

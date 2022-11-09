@@ -159,7 +159,6 @@ A configuration example for the STM32F103C8 would be:
 //halconf.h:
 #define HAL_USE_PWM                 TRUE
 #define HAL_USE_PAL                 TRUE
-#define HAL_USE_GPT                 TRUE
 #include_next <halconf.h>
 ```
 
@@ -168,8 +167,6 @@ A configuration example for the STM32F103C8 would be:
 #include_next <mcuconf.h>
 #undef STM32_PWM_USE_TIM1
 #define STM32_PWM_USE_TIM1                  TRUE
-#undef STM32_GPT_USE_TIM4
-#define STM32_GPT_USE_TIM4                  TRUE
 ```
 
 If we now target pin A8, looking through the data-sheet of the STM32F103C8, for the timers and alternate functions
@@ -184,7 +181,6 @@ with all this information, the configuration would contain these lines:
 #define AUDIO_PIN A8
 #define AUDIO_PWM_DRIVER PWMD1
 #define AUDIO_PWM_CHANNEL 1
-#define AUDIO_STATE_TIMER GPTD4
 ```
 
 ChibiOS uses GPIOv1 for the F103, which only knows of one alternate function.
@@ -207,14 +203,14 @@ You can also change the timer used for software PWM by defining the driver.  For
 
 While not an exhaustive list, the following table provides the scenarios that have been partially validated:
 
-|                          | DAC basic          | DAC additive       | PWM hardware       | PWM software       |
-|--------------------------|--------------------|--------------------|--------------------|--------------------|
+|                          |     DAC basic      |    DAC additive    |    PWM hardware    |    PWM software    |
+| ------------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
 | Atmega32U4               | :o:                | :o:                | :heavy_check_mark: | :o:                |
+| RP2040                   | :x:                | :x:                | :heavy_check_mark: | ?                  |
 | STM32F103C8 (bluepill)   | :x:                | :x:                | :heavy_check_mark: | :heavy_check_mark: |
 | STM32F303CCT6 (proton-c) | :heavy_check_mark: | :heavy_check_mark: | ?                  | :heavy_check_mark: |
 | STM32F405VG              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | L0xx                     | :x: (no Tim8)      | ?                  | ?                  | ?                  |
-
 
 :heavy_check_mark: : works and was tested  
 :o: : does not apply  

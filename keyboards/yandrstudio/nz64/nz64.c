@@ -58,7 +58,7 @@ led_config_t g_led_config = {
 };
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_kb(led_min, led_max)) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
     }
     if (rgb_matrix_is_enabled()) {

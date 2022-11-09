@@ -61,9 +61,9 @@ const rgblight_segment_t PROGMEM _huh_layer[]    = RGBLIGHT_LAYER_SEGMENTS(CORNE
 
 #define UNICODE_OFFSET 12
 const rgblight_segment_t PROGMEM _uc_mac_layer[]  = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_PURPLE));
-// No indicator for UC_LNX
-// UC_WIN disabled in config.h
-// UC_BSD not implemented
+// No indicator for UNICODE_MODE_LINUX
+// UNICODE_MODE_WINDOWS disabled in config.h
+// UNICODE_MODE_BSD not implemented
 const rgblight_segment_t PROGMEM _uc_winc_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_CYAN));
 const rgblight_segment_t PROGMEM _uc_emacs_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_GREEN));
 
@@ -85,14 +85,14 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [ACK_OFFSET + ACK_MEH]    = _meh_layer,
     [ACK_OFFSET + ACK_HUH]    = _huh_layer,
 
-    [UNICODE_OFFSET + UC_MAC]  = _uc_mac_layer,
-    [UNICODE_OFFSET + UC_LNX]  = _none,
-    [UNICODE_OFFSET + UC_WIN]  = _none,
-    [UNICODE_OFFSET + UC_BSD]  = _none,
-    [UNICODE_OFFSET + UC_WINC] = _uc_winc_layer,
-    [UNICODE_OFFSET + UC_EMACS] = _uc_emacs_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_MACOS]      = _uc_mac_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_LINUX]      = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_WINDOWS]    = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_BSD]        = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_WINCOMPOSE] = _uc_winc_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_EMACS]      = _uc_emacs_layer,
 
-    [UNICODE_OFFSET + UC__COUNT] = NULL
+    [UNICODE_OFFSET + UNICODE_MODE_COUNT] = NULL
 };
 
 // clang-format on
@@ -113,7 +113,7 @@ void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
 }
 
 void do_rgb_unicode(uint8_t uc_mode) {
-    for (uint8_t i = 0; i < UC__COUNT; i++) {
+    for (uint8_t i = 0; i < UNICODE_MODE_COUNT; i++) {
         bool is_on = i == uc_mode;
         rgblight_set_layer_state(UNICODE_OFFSET + i, is_on);
     }
@@ -444,7 +444,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Acks follow...
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             if (debug_matrix || debug_keyboard)
                 rgb_layer_ack(ACK_HUH);
             else if (debug_enable)
@@ -470,7 +470,7 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
 
 #ifdef VELOCIKEY_ENABLE
-        case VLK_TOG:
+        case QK_VELOCIKEY_TOGGLE:
             rgb_layer_ack_yn(velocikey_enabled());
             break;
 #endif

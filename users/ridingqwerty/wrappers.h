@@ -81,7 +81,7 @@
 #define ________________FKEYROW_R1_________________        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 #define ________________EDITOR_L1__________________        KC_GRV,  _______, KC_END,  _______, KC_F5  
-#define ________________EDITOR_L2__________________        KC_HOME, _______, KC_DELT, _______, _______
+#define ________________EDITOR_L2__________________        KC_HOME, _______, KC_DEL,  _______, _______
 #if defined(TAP_DANCE_ENABLE)
 #define ________________EDITOR_L3__________________        _______, KC_VOLD, KC_VOLU, CCCV,    TD_BRC
 #else
@@ -93,12 +93,12 @@
 #define ________________EDITOR_R3__________________        KC_PGDN, _______, _______, _______, KC_BSLS
 
 
-#define ________________DEBUG_L1___________________        DEBUG,   _______, _______, RNGWORD, SARCASM
+#define ________________DEBUG_L1___________________        DB_TOGG, _______, _______, RNGWORD, SARCASM
 #define ________________DEBUG_L2___________________        GREEK,   RUSSIAN, HIRAGAN, RUNES,   _______
 #define ________________DEBUG_L3___________________        _______, _______, _______, VERSION, _______
 
 #define ________________DEBUG_R1___________________        VPRWAVE, STRAYA,  _______, TESTING, _______
-#define ________________DEBUG_R2___________________        _______, _______, EEP_RST, RESET,   MAKE
+#define ________________DEBUG_R2___________________        _______, _______, EE_CLR,  RESET,   MAKE
 #define ________________DEBUG_R3___________________        QWERTY,  DVORAK,  COLEMAK, _______, _______
 
 

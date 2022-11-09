@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_RIGHT] = LAYOUT_planck_grid(
     KC_TRNS,          RALT(LSFT(KC_RBRC)), KC_RBRC,          KC_EQL ,          LSFT(KC_EQL),     RALT(KC_RBRC), RALT(KC_NUHS), KC_HOME, KC_UP,   KC_END , KC_INS , KC_PGUP,
     KC_TRNS,          RALT(KC_2),          RALT(KC_4),       RALT(LSFT(KC_0)), LSFT(KC_6),       LSFT(KC_3),    LSFT(KC_5),    KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  KC_PGDN,
-    KC_RCTRL,         KC_TRNS,             RALT(LSFT(KC_2)), RALT(LSFT(KC_4)), RALT(LSFT(KC_3)), RALT(KC_6),    RALT(KC_5),    KC_MPLY, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
+    KC_RCTL,          KC_TRNS,             RALT(LSFT(KC_2)), RALT(LSFT(KC_4)), RALT(LSFT(KC_3)), RALT(KC_6),    RALT(KC_5),    KC_MPLY, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
     RALT(LSFT(KC_5)), KC_TRNS,             KC_TRNS,          KC_TRNS,          KC_TRNS,          KC_TRNS,       KC_TRNS,       KC_TRNS, KC_TRNS,  KC_VOLD, KC_VOLU, KC_MUTE
 ),
 
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
  [_RIGHTER] = LAYOUT_planck_grid(
-    KC_TRNS, QK_BOOT, DEBUG,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_WH_L, KC_MS_U, KC_WH_R, KC_BTN2, KC_WH_U,
+    KC_TRNS, QK_BOOT, DB_TOGG, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_WH_L, KC_MS_U, KC_WH_R, KC_BTN2, KC_WH_U,
     KC_TRNS, KC_BTN4, KC_BTN3, KC_BTN2, KC_BTN1, KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_WH_D,
     KC_TRNS, KC_TRNS, MU_MOD,  MU_ON,   MU_OFF,  KC_NO, KC_NO, KC_BTN1, KC_BTN2, KC_BTN3, KC_TRNS, KC_TRNS,
     KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_BRID, KC_BRIU, KC_NO

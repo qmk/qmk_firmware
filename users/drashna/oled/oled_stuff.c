@@ -375,14 +375,14 @@ void render_mod_status(uint8_t modifiers, uint8_t col, uint8_t line) {
 #endif
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
 #if defined(OLED_DISPLAY_VERBOSE)
-    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_LSHIFT)));
+    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_LSFT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_LGUI)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_LALT)));
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_LCTL)));
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_RCTL)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_RALT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_RGUI)));
-    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSHIFT)));
+    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSFT)));
 #else
     oled_write_P(mod_status[0], (modifiers & MOD_MASK_SHIFT));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_MASK_GUI));

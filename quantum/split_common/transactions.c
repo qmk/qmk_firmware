@@ -623,7 +623,7 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 }
 
 #    define TRANSACTIONS_ST7565_MASTER() TRANSACTION_HANDLER_MASTER(st7565)
-#    define TRANSACTIONS_ST7565_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(st7565)
+#    define TRANSACTIONS_ST7565_SLAVE() TRANSACTION_HANDLER_SLAVE(st7565)
 #    define TRANSACTIONS_ST7565_REGISTRATIONS [PUT_ST7565] = trans_initiator2target_initializer(current_st7565_state),
 
 #else // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
@@ -719,6 +719,36 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 ////////////////////////////////////////////////////
+// WATCHDOG
+
+#if defined(SPLIT_WATCHDOG_ENABLE)
+
+static bool watchdog_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    bool okay = true;
+    if (!split_watchdog_check()) {
+        okay = transport_write(PUT_WATCHDOG, &okay, sizeof(okay));
+        split_watchdog_update(okay);
+    }
+    return okay;
+}
+
+static void watchdog_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    split_watchdog_update(split_shmem->watchdog_pinged);
+}
+
+#    define TRANSACTIONS_WATCHDOG_MASTER() TRANSACTION_HANDLER_MASTER(watchdog)
+#    define TRANSACTIONS_WATCHDOG_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(watchdog)
+#    define TRANSACTIONS_WATCHDOG_REGISTRATIONS [PUT_WATCHDOG] = trans_initiator2target_initializer(watchdog_pinged),
+
+#else // defined(SPLIT_WATCHDOG_ENABLE)
+
+#    define TRANSACTIONS_WATCHDOG_MASTER()
+#    define TRANSACTIONS_WATCHDOG_SLAVE()
+#    define TRANSACTIONS_WATCHDOG_REGISTRATIONS
+
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
+
+////////////////////////////////////////////////////
 
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     // Set defaults
@@ -744,6 +774,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_OLED_REGISTRATIONS
     TRANSACTIONS_ST7565_REGISTRATIONS
     TRANSACTIONS_POINTING_REGISTRATIONS
+    TRANSACTIONS_WATCHDOG_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -770,6 +801,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_OLED_MASTER();
     TRANSACTIONS_ST7565_MASTER();
     TRANSACTIONS_POINTING_MASTER();
+    TRANSACTIONS_WATCHDOG_MASTER();
     return true;
 }
 
@@ -789,6 +821,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_OLED_SLAVE();
     TRANSACTIONS_ST7565_SLAVE();
     TRANSACTIONS_POINTING_SLAVE();
+    TRANSACTIONS_WATCHDOG_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

@@ -195,7 +195,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define COMBO_MUST_HOLD_MODS`
-  * Flag for enabling extending timeout on Combos containing modifers
+  * Flag for enabling extending timeout on Combos containing modifiers
 * `#define COMBO_MOD_TERM 200`
   * Allows for extending COMBO_TERM for mod keys while mid-combo.
 * `#define COMBO_MUST_HOLD_PER_COMBO`
@@ -325,6 +325,13 @@ There are a few different ways to set handedness for split keyboards (listed in 
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
   * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+  
+* `#define SPLIT_WATCHDOG_ENABLE`
+  * Reboot slave if no communication from master within timeout.
+  * Helps resolve issue where both sides detect as slave using `SPLIT_USB_DETECT`
+
+* `#define SPLIT_WATCHDOG_TIMEOUT 3000`
+  * Maximum slave timeout when waiting for communication from master when using `SPLIT_WATCHDOG_ENABLE`
 
 * `#define FORCED_SYNC_THROTTLE_MS 100`
   * Deadline for synchronizing data from master to slave when using the QMK-provided split transport.

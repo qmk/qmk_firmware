@@ -54,8 +54,10 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
 #    endif // LEADER_NO_TIMEOUT
             {
 #    ifndef LEADER_KEY_STRICT_KEY_PROCESSING
-                if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-                    keycode = keycode & 0xFF;
+                if (IS_QK_MOD_TAP(keycode)) {
+                    keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+                } else if (IS_QK_LAYER_TAP(keycode)) {
+                    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
                 }
 #    endif // LEADER_KEY_STRICT_KEY_PROCESSING
                 if (leader_sequence_size < ARRAY_SIZE(leader_sequence)) {
@@ -72,7 +74,7 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
         } else {
-            if (keycode == KC_LEAD) {
+            if (keycode == QK_LEADER) {
                 qk_leader_start();
             }
         }

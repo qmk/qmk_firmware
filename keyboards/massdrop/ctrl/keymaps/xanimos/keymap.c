@@ -44,7 +44,7 @@ static const char * sendstring_commands[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_KL] = LAYOUT(
     //    ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10     F11      F12              PRINT    SCLCK    PAUSE
-        KC_ESC ,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 ,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 ,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12,          KC_PSCR, KC_SLCK,RCS(KC_M),
+        KC_ESC ,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 ,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 ,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12,          KC_PSCR, KC_SCRL,RCS(KC_M),
     //     ~        1        2        3        4        5        6        7        8        9        0        -        =      BCKSP     INS      HOME     PGUP
         KC_GRV ,  KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,  KC_6  ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  , KC_MINS,  KC_EQL, KC_BSPC, KC_INS , KC_HOME, KC_PGUP,
     //    TAB       Q        W        E        R        T        Y        U        I        O        P        [        ]        \       DEL      END      PGDN
@@ -52,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //   CAPS       A        S        D        F        G        H        J        K        L        ;        '      ENTER
         KC_CAPS,  KC_A  ,  KC_S  ,  KC_D  ,  KC_F  ,  KC_G  ,  KC_H  ,  KC_J  ,  KC_K  ,  KC_L  , KC_SCLN, KC_QUOT, KC_ENT ,
     //   SHIFT      Z        X        C        V        B        N        M        ,        .        /      RSHIFT                               UP
-        KC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,  KC_N  ,  KC_M  , KC_COMM, KC_DOT , KC_SLSH, KC_RSPC,                             KC_UP ,
+        SC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,  KC_N  ,  KC_M  , KC_COMM, KC_DOT , KC_SLSH, SC_RSPC,                             KC_UP ,
     //   CTRL      GUI      ALT                       SPACE                               RALT     MENU     RGUI     RCTRL             LEFT     DOWN     RIGHT
-       KC_LCTRL, KC_LGUI, KC_LALT,                    KC_SPC,                   TD(TD_FN_SWITCH), KC_RALT, KC_RGUI, KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
+       KC_LCTL,  KC_LGUI, KC_LALT,                    KC_SPC,                   TD(TD_FN_SWITCH), KC_RALT, KC_RGUI, KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FL] = LAYOUT(
     //    ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10     F11      F12              PRINT    SCLCK    PAUSE
@@ -274,7 +274,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // ======================================================== CUSTOM KEYCOADS BELOW ========================================================
             case COPY_ALL:
                 // Selects all and text and copy
-                SEND_STRING(SS_LCTRL("ac"));
+                SEND_STRING(SS_LCTL("ac"));
                 return false;
             case ROUT_TG:
                 // Toggle idle LED timeout on or off
