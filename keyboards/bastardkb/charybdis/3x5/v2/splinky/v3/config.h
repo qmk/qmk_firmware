@@ -25,3 +25,11 @@
 #define SPI_SCK_PIN GP22
 #define SPI_MOSI_PIN GP23
 #define POINTING_DEVICE_CS_PIN GP16
+
+/* Handedness. */
+#define MASTER_RIGHT
+
+// To use the handedness pin, resistors need to be installed on the adapter PCB.
+// If so, uncomment the following code, and undefine MASTER_RIGHT above.
+// #define SPLIT_HAND_PIN GP15
+// #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
