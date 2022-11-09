@@ -55,7 +55,10 @@ led_config_t g_led_config = {
     } 
 };
 
-__attribute__((weak)) void led_matrix_indicators_kb(void) {
+bool led_matrix_indicators_kb(void) {
+    if (!led_matrix_indicators_user()) {
+    	return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         led_matrix_set_value(31, 0xFF);
     }
