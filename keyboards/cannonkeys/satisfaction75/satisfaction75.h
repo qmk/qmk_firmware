@@ -30,8 +30,8 @@ enum my_keycodes {
   OLED_TOGG
 };
 
-enum s75_keyboard_value_id {
-  id_encoder_modes = 0x80,
+enum s75_custom_value_id {
+  id_encoder_modes = 1,
   id_oled_default_mode,
   id_encoder_custom,
   id_oled_mode
