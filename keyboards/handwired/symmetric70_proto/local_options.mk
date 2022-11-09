@@ -43,18 +43,6 @@ ifneq ($(strip $(MTEST)),)
     ifeq ($(strip $1),mdelay0)
         MDELAY = 0
     endif
-    ifeq ($(strip $1),adaptive_delay)
-        ADAPTIVE_DELAY = yes
-    endif
-    ifeq ($(strip $1),adaptive_delay2)
-        ADAPTIVE_DELAY2 = yes
-    endif
-    ifeq ($(strip $1),adaptive_delay_fast)
-        ADAPTIVE_DELAY_FAST = yes
-    endif
-    ifeq ($(strip $1),always_delay)
-        ALWAYS_DELAY = yes
-    endif
     ifeq ($(filter mdelay_type=%,$1),mdelay_type=ipullup)
         CUSTOM_MATRIX_DELAY = input-pullup
     endif

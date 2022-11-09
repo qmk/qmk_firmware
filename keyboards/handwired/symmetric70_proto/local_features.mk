@@ -5,22 +5,6 @@ ifneq ($(strip $(MDELAY)),)
     OPT_DEFS += -DMATRIX_IO_DELAY=$(strip $(MDELAY))
 endif
 
-ifeq ($(strip $(ADAPTIVE_DELAY)),yes)
-    OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE
-endif
-
-ifeq ($(strip $(ADAPTIVE_DELAY2)),yes)
-    OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE2
-endif
-
-ifeq ($(strip $(ADAPTIVE_DELAY_FAST)),yes)
-    OPT_DEFS += -DMATRIX_IO_DELAY_ADAPTIVE_FAST
-endif
-
-ifeq ($(strip $(ALWAYS_DELAY)),yes)
-    OPT_DEFS += -DMATRIX_IO_DELAY_ALWAYS
-endif
-
 ifeq ($(strip $(MATRIX_DEBUG_DELAY)),yes)
     OPT_DEFS += -DMATRIX_DEBUG_DELAY
     DEBUG_CONFIG = yes
