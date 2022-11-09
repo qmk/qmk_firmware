@@ -5,9 +5,9 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(
-                                    JS_BUTTON0,JS_BUTTON1,JS_BUTTON2,JS_BUTTON3,JS_BUTTON4,JS_BUTTON5,JS_BUTTON6,
-          KC_NO,   JS_BUTTON7,  KC_NO,
-                                    JS_BUTTON0,JS_BUTTON1,JS_BUTTON2,JS_BUTTON3,JS_BUTTON4,JS_BUTTON5,JS_BUTTON6
+                                    JS_0,JS_1,JS_2,JS_3,JS_4,JS_5,JS_6,
+          KC_NO,   JS_7,  KC_NO,
+                                    JS_0,JS_1,JS_2,JS_3,JS_4,JS_5,JS_6
     )
 };
 

@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FN_1] = LAYOUT_all(
                                                                                                                        KC_MUTE,
-    	  KC_GESC,          _______, _______, _______, DE_LCBR, DE_RCBR, _______, DE_UDIA, KC_UP,    DE_ODIA, DE_QUES, KC_DEL,
+    	  QK_GESC,          _______, _______, _______, DE_LCBR, DE_RCBR, _______, DE_UDIA, KC_UP,    DE_ODIA, DE_QUES, KC_DEL,
     	  _______,          DE_ADIA, DE_SS,   _______, DE_LPRN, DE_RPRN, _______, KC_LEFT, KC_DOWN, KC_RIGHT, DE_HASH, _______,
     	  _______, _______, DE_CIRC, DE_ACUT, _______, DE_LBRC, DE_RBRC, KC_HOME, KC_END,  DE_QUOT,  DE_DQUO,          DE_EQL,
     	  _______,   _______, _______,    MO(FN_MOUSE),   MO(FN_MOUSE),       MO(FN_MOUSE),          DE_BSLS, DE_SLSH,         DE_TILD ),

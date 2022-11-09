@@ -67,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MEDIA_EJECT, BR_DOWN, BR_UP, BL_TOGG, RGB_TOG, _______, _______, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_NO, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, KC_NO,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_BRTG, BL_INC, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, RGB_MODE_REVERSE, BL_DEC, RGB_MODE_FORWARD),
+    _______, KC_NO,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_BRTG, BL_UP,  _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, RGB_MODE_REVERSE, BL_DOWN,RGB_MODE_FORWARD),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

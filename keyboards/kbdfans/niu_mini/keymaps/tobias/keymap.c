@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-  TO(_GAMEMODE), QK_BOOT, DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, WRKMOD,
+  TO(_GAMEMODE), QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, WRKMOD,
     _______, BL_TOGG, BL_STEP, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, RGB_TOG, RGB_HUI, RGB_HUD, RGB_MOD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, RGB_MODE_FORWARD,
   _______, _______, _______, _______, _______, _______, _______, _______,  _______, RGB_M_P,  RGB_M_R, TO(_QWERTY)
@@ -238,7 +238,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
             case TBMACRO:
-                SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSHIFT) SS_TAP(X_HOME) SS_UP(X_LSHIFT) SS_TAP(X_DELETE));
+                SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE));
                 return false;
             case DGRMCRO:
                 if(!bnumlock) {

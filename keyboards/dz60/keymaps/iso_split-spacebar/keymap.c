@@ -39,16 +39,16 @@
 #define RGB_XMS RGB_M_X   //rgb christmas
 //
 #define RGB_BL_MODE    rgblight_mode_noeeprom(3)              //rgb mode for BL layer
-#define RGB_BL_LIGHT   rgblight_sethsv_noeeprom_turquoise()   //rgb light for BL layer
+#define RGB_BL_LIGHT   rgblight_sethsv_noeeprom(HSV_TURQUOISE)   //rgb light for BL layer
 //
 #define RGB_FL_MODE    rgblight_mode_noeeprom(1)             //rgb mode for FL layer
-#define RGB_FL_LIGHT   rgblight_sethsv_noeeprom_orange()      //rgb light for FL layer
+#define RGB_FL_LIGHT   rgblight_sethsv_noeeprom(HSV_ORANGE)      //rgb light for FL layer
 //
 #define RGB_NL_MODE    rgblight_mode_noeeprom(12)             //rgb mode for NL layer
-#define RGB_NL_LIGHT   rgblight_sethsv_noeeprom_turquoise()       //rgb light for NL layer
+#define RGB_NL_LIGHT   rgblight_sethsv_noeeprom(HSV_TURQUOISE)       //rgb light for NL layer
 //
 #define RGB_RL_MODE    rgblight_mode_noeeprom(22)             //rgb mode for RL layer
-#define RGB_RL_LIGHT   rgblight_sethsv_noeeprom_red()         //rgb light for RL layer
+#define RGB_RL_LIGHT   rgblight_sethsv_noeeprom(HSV_RED)         //rgb light for RL layer
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    TG(RL),    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   QK_BOOT,
         _______,   RGB_TOG,   RGB_MOD,   RGB_HUI,   RGB_HUD,   _______,   _______,   RGB_SAI,   RGB_SAD,   RGB_VAI,   RGB_VAD,   _______,   _______,
         _______,   RGB_STA,   RGB_BRE,   RGB_RAI,   RGB_SWI,   _______,   _______,   RGB_SNA,   RGB_KNI,   RGB_GRA,   RGB_XMS,   _______,   _______,   _______,
-        _______,   BL_DEC,    BL_TOGG,   BL_INC,    BL_STEP,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
+        _______,   BL_DOWN,   BL_TOGG,   BL_UP,     BL_STEP,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
         _______,   _______,   _______,   _______,   MO(FL),    _______,   _______,   _______,   TO(BL),    _______),
 
 

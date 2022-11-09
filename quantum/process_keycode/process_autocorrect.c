@@ -73,8 +73,13 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
         case KC_LSFT:
         case KC_RSFT:
         case KC_CAPS:
-        case QK_TO ... QK_ONE_SHOT_LAYER_MAX:
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_MOD_MAX:
+        case QK_TO ... QK_TO_MAX:
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+        case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+        case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
             return false;
 
@@ -86,7 +91,7 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
             } else {
                 *mods |= MOD_RSFT;
             }
-            *keycode &= 0xFF; // Get the basic keycode.
+            *keycode = QK_MODS_GET_BASIC_KEYCODE(*keycode); // Get the basic keycode.
             return true;
 #ifndef NO_ACTION_TAPPING
         // Exclude tap-hold keys when they are held down
@@ -96,13 +101,20 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
             // Exclude Layer Tap, if layers are disabled
             // but action tapping is still enabled.
             return false;
+#    else
+            // Exclude hold keycode
+            if (!record->tap.count) {
+                return false;
+            }
+            *keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(*keycode);
+            break;
 #    endif
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             // Exclude hold keycode
             if (!record->tap.count) {
                 return false;
             }
-            *keycode &= 0xFF;
+            *keycode = QK_MOD_TAP_GET_TAP_KEYCODE(*keycode);
             break;
 #else
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
@@ -114,10 +126,12 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
         // and mask for base keycode when they are tapped.
         case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
 #ifdef SWAP_HANDS_ENABLE
-            if (*keycode >= 0x56F0 || !record->tap.count) {
+            // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TG, SH_TT, ...,
+            // which currently overlap the SH_T(kc) range.
+            if (IS_SWAP_HANDS_KEYCODE(*keycode) || !record->tap.count) {
                 return false;
             }
-            *keycode &= 0xFF;
+            *keycode = QK_SWAP_HANDS_GET_TAP_KEYCODE(*keycode);
             break;
 #else
             // Exclude if disabled
@@ -160,12 +174,12 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     mods |= get_oneshot_mods();
 #endif
 
-    if ((keycode >= AUTOCORRECT_ON && keycode <= AUTOCORRECT_TOGGLE) && record->event.pressed) {
-        if (keycode == AUTOCORRECT_ON) {
+    if ((keycode >= QK_AUTOCORRECT_ON && keycode <= QK_AUTOCORRECT_TOGGLE) && record->event.pressed) {
+        if (keycode == QK_AUTOCORRECT_ON) {
             autocorrect_enable();
-        } else if (keycode == AUTOCORRECT_OFF) {
+        } else if (keycode == QK_AUTOCORRECT_OFF) {
             autocorrect_disable();
-        } else if (keycode == AUTOCORRECT_TOGGLE) {
+        } else if (keycode == QK_AUTOCORRECT_TOGGLE) {
             autocorrect_toggle();
         } else {
             return true;

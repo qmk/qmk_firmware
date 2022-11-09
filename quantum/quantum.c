@@ -225,7 +225,7 @@ bool process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, true);
 
     // This is how you use actions here
-    // if (keycode == KC_LEAD) {
+    // if (keycode == QK_LEADER) {
     //   action_t action;
     //   action.code = ACTION_DEFAULT_LAYER_SET(0);
     //   process_action(record, action);
@@ -316,9 +316,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
 #endif
-#ifdef PRINTING_ENABLE
-            process_printer(keycode, record) &&
-#endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
 #endif
@@ -379,7 +376,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
                 return false;
 #ifdef VELOCIKEY_ENABLE
-            case VLK_TOG:
+            case QK_VELOCIKEY_TOGGLE:
                 velocikey_toggle();
                 return false;
 #endif
@@ -395,13 +392,13 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
 #endif
 #ifndef NO_ACTION_ONESHOT
-            case ONESHOT_TOGGLE:
+            case QK_ONE_SHOT_TOGGLE:
                 oneshot_toggle();
                 break;
-            case ONESHOT_ENABLE:
+            case QK_ONE_SHOT_ON:
                 oneshot_enable();
                 break;
-            case ONESHOT_DISABLE:
+            case QK_ONE_SHOT_OFF:
                 oneshot_disable();
                 break;
 #endif

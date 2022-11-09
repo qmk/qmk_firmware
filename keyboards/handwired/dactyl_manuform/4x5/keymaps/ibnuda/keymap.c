@@ -7,7 +7,7 @@
 #define MIN KC_MINS
 #define SLS KC_SLSH
 #define CTL KC_LCTL
-#define DEL KC_DELT
+#define DEL KC_DEL
 #define QUE KC_QUES
 #define ___ KC_NO
 

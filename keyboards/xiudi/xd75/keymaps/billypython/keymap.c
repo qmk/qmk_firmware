@@ -16,7 +16,7 @@
 #define MINUS   UC(0x2212)
 
 void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 }
 
 enum layers {
@@ -34,7 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case CLEAR:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+      SEND_STRING(SS_LCTL("a") SS_TAP(X_DELETE));
     }
     return false;
 

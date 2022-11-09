@@ -23,8 +23,8 @@
 #define KC_FN1 MO(_FN)
 #define KC_FN2 LT(_FN, KC_CAPS)
 
-#define KC_BLUP BL_INC   // Backlight increase
-#define KC_BLDN BL_DEC   // Backlight decrease
+#define KC_BLUP BL_UP    // Backlight increase
+#define KC_BLDN BL_DOWN  // Backlight decrease
 #define KC_BLTOG BL_TOGG // Backlight toggle
 #define KC_REC1 DM_REC1  // Record macro 1
 #define KC_PLY1 DM_PLY1  // Play macro 1
@@ -53,7 +53,7 @@ enum {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_68_ansi( /* Default layer
    ┏━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━━━━━┓ ┏━━━━┳━━━━┓ */
-    KC_GESC, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  , KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,KC_EQL ,  KC_BSPC  ,  KC_INS ,KC_PGUP, /*
+    QK_GESC, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  , KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,KC_EQL ,  KC_BSPC  ,  KC_INS ,KC_PGUP, /*
    ┣━━━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━━━━━┫ ┣━━━━╋━━━━┫ */
      KC_TAB  , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  , KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_LBRC,KC_RBRC, KC_BSLS ,  KC_DEL ,KC_PGDN, /*
    ┣━━━━━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━━━━━━┫ ┗━━━━┻━━━━┛ */

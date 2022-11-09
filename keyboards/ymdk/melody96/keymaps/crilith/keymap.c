@@ -7,9 +7,9 @@ enum custom_keycodes {
 
 #include "dynamic_macro.h"
 
-#define KC_REC DYN_REC_START1
-#define KC_DONE DYN_REC_STOP
-#define KC_PLAY DYN_MACRO_PLAY1
+#define KC_REC DM_REC1
+#define KC_DONE DM_RSTP
+#define KC_PLAY DM_PLY1
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CALC, _______, _______, _______,
     _______, RGB_TOG, _______, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______,          _______, _______, _______, KC_TAB,
     BL_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, KC_TAB,
-    _______, _______, _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, BL_DOWN, BL_TOGG, BL_UP,   _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
     _______, _______, _______,                            KC_PLAY,                            _______, KC_REC,  KC_DONE, _______, _______, _______, _______, _______, _______),
 };
 

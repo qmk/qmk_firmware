@@ -125,7 +125,7 @@ CHOREOGRAPH(TD_RGHT,
             /* Send a complex macro: C-x C-s Mod-t up.  (Save in
              * Emacs, switch to terminal and recall previous command,
              * hopefully a compile command.) */
-            SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_X) SS_TAP(X_S) SS_UP(X_LCTRL)
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X) SS_TAP(X_S) SS_UP(X_LCTL)
                         SS_DOWN(X_LGUI) SS_TAP(X_T) SS_UP(X_LGUI) SS_TAP(X_UP)),
             layer_invert(1));
 
@@ -134,9 +134,9 @@ CHOREOGRAPH(TD_RGHT,
  * just sends C-x. */
 
 CHOREOGRAPH(TD_C_X,
-            SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_X)),
-            SEND_STRING(SS_UP(X_LCTRL)),
-            SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_X) SS_UP(X_LCTRL)),);
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X)),
+            SEND_STRING(SS_UP(X_LCTL)),
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL)),);
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     STEPS(TD_LEFT), STEPS(TD_RGHT), STEPS(TD_C_X)

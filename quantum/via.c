@@ -50,7 +50,6 @@
 #include "dynamic_keymap.h"
 #include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
-#include "via_ensure_keycode.h"
 
 // Forward declare some helpers.
 #if defined(VIA_QMK_BACKLIGHT_ENABLE)

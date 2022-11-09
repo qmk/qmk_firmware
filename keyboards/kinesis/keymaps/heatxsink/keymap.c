@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,
         KC_TAB ,_______,_______,_______,_______,_______,
         HCTLESC,_______,_______,_______,_______,_______,
-        KC_LSPO,_______,_______,_______,_______,_______,
+        SC_LSPO,_______,_______,_______,_______,_______,
                 KC_GRV ,LAYERS ,KC_LEFT,KC_RGHT,
         // LTHUMB
                 KC_LALT,KC_LCTL,
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,
         _______,_______,_______,_______,_______,KC_BSLS,
         _______,_______,_______,_______,_______,KC_QUOT,
-        _______,_______,_______,_______,_______,KC_RSPC,
+        _______,_______,_______,_______,_______,SC_RSPC,
                 KC_UP  ,KC_DOWN,KC_LBRC,KC_RBRC,
         // RTHUMB
         KC_RCTL,KC_LGUI,

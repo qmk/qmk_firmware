@@ -167,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-             QK_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, QK_BOOT,
+             QK_MAKE, _______, _______, _______, _______, _______, UC_NEXT,                 KC_NUKE, _________________ADJUST_R1_________________, QK_BOOT,
              VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _________________ADJUST_R1_________________, EE_CLR,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
              KEYLOCK, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG_MODS,
