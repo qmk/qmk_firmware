@@ -13,7 +13,6 @@
          "debug": false,
          "mousekey": false,
          "encoder": true,
-         "oled_driver": true,
          "oled": true
     },
     "matrix_pins": {
