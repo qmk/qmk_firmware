@@ -128,13 +128,8 @@
 #    define TAPPING_TERM 175
 #endif
 
-#ifndef SECURE_UNLOCK_SEQUENCE
-#    define SECURE_UNLOCK_SEQUENCE    \
-        {                             \
-            {2, 1}, {2, 2}, {2, 3}, { \
-                2, 4                  \
-            }                         \
-        }
+#if (__has_include("../../../qmk_secrets/config.h") && !defined(NO_SECRETS))
+#    include "../../../qmk_secrets/config.h"
 #endif
 
 #if defined(SPLIT_KEYBOARD) && defined(PROTOCOL_CHIBIOS) && !defined(USB_SUSPEND_WAKEUP_DELAY)
