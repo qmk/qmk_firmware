@@ -1,3 +1,8 @@
+VPATH += users/mtei/$(PLATFORM_PATH)
+VPATH += users/mtei/$(PLATFORM_PATH)/$(PLATFORM_KEY)
+
+SRC += users/mtei/matrix_output_delay.c
+
 KEYBOARD_LOCAL_OPTIONS_MK := $(dir $(lastword $(MAKEFILE_LIST)))../../local_options.mk
 include $(strip $(KEYBOARD_LOCAL_OPTIONS_MK))
 
