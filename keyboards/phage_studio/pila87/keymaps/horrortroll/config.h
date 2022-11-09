@@ -16,6 +16,9 @@
 
 #pragma once
 
+/* Forcing to use NKRO instead 6KRO */
+#define FORCE_NKRO
+
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2
 
 #ifdef RGB_MATRIX_ENABLE
