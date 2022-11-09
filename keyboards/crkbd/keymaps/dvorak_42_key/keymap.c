@@ -26,7 +26,7 @@ KC_ESC, RCTL(KC_ENTER), RCTL(KC_K), RCTL(KC_Z), RCTL(KC_S), RCTL(KC_N),         
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 KC_TRNS, MO(KEYSEL), KC_TRNS, RSFT(KC_TAB), KC_TAB, RCTL(KC_F),         LCTL(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LCTL(KC_RIGHT), KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-KC_TRNS, RCTL(KC_P), RCTL(KC_O),  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,               KC_TRNS, RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), KC_PGDOWN, RCTL(KC_DELETE),
+KC_TRNS, RCTL(KC_P), RCTL(KC_O),  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,     KC_TRNS, RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), KC_PGDOWN, RCTL(KC_DELETE),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                         KC_TRNS,  KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
