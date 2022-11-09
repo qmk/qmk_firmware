@@ -18,18 +18,6 @@
 
 #pragma once
 
-
-#undef VENDOR_ID
-#define VENDOR_ID       0x3297
-#undef PRODUCT_ID
-#define PRODUCT_ID      0xC6CE
-#undef MANUFACTURER
-#define MANUFACTURER    ZSA Technology Labs
-#undef PRODUCT
-#define PRODUCT         Planck EZ
-#define DEVICE_VER 0x0000
-
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -181,4 +169,3 @@
 #define MOUSEKEY_WHEEL_INTERVAL     MOUSEKEY_INTERVAL
 #define MOUSEKEY_WHEEL_MAX_SPEED    MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_WHEEL_TIME_TO_MAX  MOUSEKEY_TIME_TO_MAX
-
