@@ -4,30 +4,29 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(
-        KC_MPLY, KC_9,    KC_0,    KC_NO,
-        KC_5,    KC_6,    KC_7,    KC_8,
-        KC_1,    KC_2,    KC_3,    KC_4,
-        RGB_TOG,   KC_DOT,  KC_COMM, 0x5011
+    [0] = LAYOUT(
+        KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        RGB_TOG, XXXXXXX, XXXXXXX, 0x5011
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, 0x5012
-
+    [1] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, 0x5012
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, 0x5013
+    [2] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, 0x5013
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, 0x5010
+    [3] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        USER00,  USER01,  USER03,  USER05,
+        XXXXXXX, USER02,  USER04,  USER06,
+        XXXXXXX, XXXXXXX, XXXXXXX, 0x5010
     )
 };
 
