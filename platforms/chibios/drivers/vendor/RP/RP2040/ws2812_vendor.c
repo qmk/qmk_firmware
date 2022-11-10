@@ -242,7 +242,7 @@ bool ws2812_init(void) {
 }
 
 static inline void sync_ws2812_transfer(void) {
-    if (chSemWaitTimeout(&TRANSFER_COUNTER, TIME_MS2I(RGBLED_NUM)) == MSG_TIMEOUT) {
+    if (chSemWaitTimeout(&TRANSFER_COUNTER, TIME_MS2I(WS2812_LED_COUNT)) == MSG_TIMEOUT) {
         // Abort the synchronization if we have to wait longer than the total
         // count of LEDs in milliseconds. This is safely much longer than it
         // would take to push all the data out.
