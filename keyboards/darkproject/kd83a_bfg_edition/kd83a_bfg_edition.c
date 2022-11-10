@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
+const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |     R location
@@ -156,7 +156,7 @@ led_config_t g_led_config = {
     { 132,   0}, //  11, kb0, F11
     { 143,   0}, //  12, kc0, F12
     { 154,   0}, //  13, kd0, Printscreen
-    { 165,   0}, //  14, k56, Del
+    { 165,   0}, //  14, k56, Home
    
     {  11,  11}, //  15, k01, `
     {  22,  11}, //  16, k11, 1
@@ -172,7 +172,7 @@ led_config_t g_led_config = {
     { 132,  11}, //  26, kb1, -
     { 143,  11}, //  27, kc1, =
     { 154,  11}, //  28, kd1, Backspace
-    { 165,  11}, //  29, k16, Home
+    { 165,  11}, //  29, k16, Ins
   
     {  11,  22}, //  30, k02, Tab
     {  22,  22}, //  31, k12, Q
@@ -188,7 +188,7 @@ led_config_t g_led_config = {
     { 132,  22}, //  41, kb2, [
     { 143,  22}, //  42, kc2, ]
     { 154,  22}, //  43, kd3, "\\"
-    { 165,  22}, //  44, k06, End
+    { 165,  22}, //  44, k06, Del
 
     {  11,  33}, //  45, k03, Caps Lock
     {  22,  33}, //  46, k13, A
