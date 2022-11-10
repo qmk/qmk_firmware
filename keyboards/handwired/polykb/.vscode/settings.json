@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "gfx_used_fonts.h": "c"
+        "gfx_used_fonts.h": "c",
+        "shift_reg.h": "c"
     }
 }

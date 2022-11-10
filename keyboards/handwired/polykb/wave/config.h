@@ -67,16 +67,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM       72
 #define DRIVER_LED_TOTAL RGBLED_NUM
 #define RGB_MATRIX_SPLIT { 36, 36 }
-#define SPLIT_TRANSPORT_MIRROR
+//#define SPLIT_TRANSPORT_MIRROR
 
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_DISABLE_TIMEOUT 62000
+//#define RGB_DISABLE_WHEN_USB_SUSPENDED
+//#define RGB_DISABLE_TIMEOUT 62000
 
 #define NUM_SHIFT_REGISTERS 5
 
-//Split keyboard
+// Split keyboard
+// https://docs.qmk.fm/#/feature_split_keyboard?id=split-keyboard
 #define SERIAL_USART_TX_PIN GP5
-#define SERIAL_PIO_USE_PIO1
+//#define SERIAL_PIO_USE_PIO1
 //#define SPLIT_USB_DETECT
+//#define SPLIT_USB_TIMEOUT 2000
+//#define SPLIT_USB_TIMEOUT_POLL 10
 #define EE_HANDS
+#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
+//#define SPLIT_WPM_ENABLE
+#define SPLIT_OLED_ENABLE
+#define SPLIT_TRANSACTION_IDS_USER USER_SYNC_POLY_DATA
+
+//see also https://docs.qmk.fm/#/feature_pointing_device?id=split-keyboard-configuration
+//#define SPLIT_POINTING_ENABLE

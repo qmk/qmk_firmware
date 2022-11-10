@@ -28,11 +28,12 @@
 
 #undef HAL_USE_SPI
 #define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+//#define SPI_USE_WAIT TRUE
+//#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
 
 //#undef HAL_USE_PWM
 //#define HAL_USE_PWM TRUE
+#define SERIAL_PIO_USE_PIO1
 
 //for split keyboard setup
-#define PAL_USE_CALLBACKS TRUE
+//#define PAL_USE_CALLBACKS TRUE

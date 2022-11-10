@@ -5,19 +5,9 @@
 #include "base/shift_reg.h"
 #include "base/spi_helper.h"
 
-static uint32_t timer = 0;
-static int32_t last_update = 0;
-static bool splash_shown = false;
-
-uint16_t currentLayer = 0;
-
 static uint16_t last_key = 0;
-static bool     diplays_on = false;
-static deferred_token displays_task_user_token;
-
-static uint8_t global_contrast;
-
-static bool is_master_side = false;
+static bool     displays_are_on = false;
+static deferred_token remove_splash_task_token;
 
 #ifdef OLED_ENABLE
 
@@ -45,7 +35,7 @@ bool oled_task_user(void) {
         rgb_matrix_get_mode(), (char)(DEVICE_VER >> 8), (char)DEVICE_VER);
     oled_write(buffer, false);
 
-    snprintf(buffer, sizeof(buffer), "\n%s", is_master_side ? "MASTER" : "SLAVE");
+    snprintf(buffer, sizeof(buffer), "\n%s", is_keyboard_master() ? "MASTER" : "SLAVE");
     oled_write(buffer, false);
 
     oled_set_cursor(0, 4);
@@ -66,90 +56,23 @@ void select_all_displays(void) {
     sr_shift_out_buffer_latch(all, NUM_SHIFT_REGISTERS);
 }
 
-void set_displays(enum diplay_state state, uint8_t contrast) {
-    select_all_displays();
-    if (state != DISPLAYS_SET_CONTRAST) {
-        bool enable = state != DISPLAYS_OFF;
-        kdisp_enable(enable);
-        diplays_on = enable;
-        #ifdef OLED_ENABLE
-        if(enable) oled_on(); else  oled_off();
-        #endif
-        uprintf("All displays %s\n", enable ? "on" : "off");
-    }
-    if (state == DISPLAYS_ON_SET_CONTRAST || state == DISPLAYS_SET_CONTRAST) {
-        global_contrast = contrast;
-        kdisp_set_contrast(contrast);
-        #ifdef OLED_ENABLE
-        oled_set_brightness(contrast);
-        #endif
-    }
-}
-
-#define FULL_BRIGHT 49
-
-void inc_brightness(void) {
-    if(global_contrast<FULL_BRIGHT) {
-        global_contrast+=4;
-    }
-    if(global_contrast>FULL_BRIGHT) {
-        global_contrast = FULL_BRIGHT;
-    }
-    set_displays(DISPLAYS_SET_CONTRAST, global_contrast);
-}
-
-void dec_brightness(void) {
-    if(global_contrast>=6) {
-        global_contrast-=4;
-    }
-    set_displays(DISPLAYS_SET_CONTRAST, global_contrast);
-}
-
-#define FADE_TRANSITION_TIME 5000
-#define FADE_OUT_TIME 60000
-
-uint32_t displays_task_user(uint32_t trigger_time, void* cb_arg) {
-    uint32_t totalTime = timer_elapsed32(timer);
-    uint32_t elapsed_time_since_update = totalTime - last_update;
-
-    if (elapsed_time_since_update > FADE_OUT_TIME && diplays_on) {
-        int32_t contrast = ((FADE_TRANSITION_TIME - (elapsed_time_since_update - FADE_OUT_TIME)) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
-
-        set_displays(contrast < 1 ? DISPLAYS_OFF : DISPLAYS_SET_CONTRAST, (uint8_t)contrast);
-    }
-
-    if(!splash_shown) {
-        if(totalTime > 500) {
-            force_layer_switch();
-            splash_shown = true;
-        }
-    }
-
-    return 100;
+uint32_t remove_splash_task(uint32_t trigger_time, void* cb_arg) {
+    update_displays();
+    return 0;
 }
 
 //disable first keypress if the displays are turned off
 bool display_wakeup(keyrecord_t* record) {
-    if (!diplays_on) {
-        select_all_displays();
+    if (!displays_are_on) {
         if (!record->event.pressed) {
             set_displays(DISPLAYS_ON, 0);
         } else {
             set_displays(DISPLAYS_SET_CONTRAST, FULL_BRIGHT);
         }
-        update_performed();
         return false;
     }
     return true;
 }
-
-
-#ifndef CUSTOM_PROCESS_RECORD_USER
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    return display_wakeup(record);
-}
-#endif
-
 
 void clear_all_displays(void) {
     select_all_displays();
@@ -163,32 +86,6 @@ void early_hardware_init_post(void) {
     spi_hw_setup();
 }
 
-void process_layer_switch_user(uint16_t new_layer);
-
-void force_layer_switch(void) {
-    process_layer_switch_user(currentLayer);
-}
-
-void set_layer(uint16_t new_layer) {
-    currentLayer = new_layer;
-    process_layer_switch_user(currentLayer);
-}
-
-void next_layer(int8_t num_layers) {
-    currentLayer = (currentLayer+1) % num_layers;
-    force_layer_switch();
-}
-
-void prev_layer(int8_t num_layers) {
-    if(currentLayer==0) {
-        currentLayer = num_layers-1;
-    } else {
-    currentLayer--;
-    }
-    currentLayer = currentLayer % num_layers;
-
-    force_layer_switch();
-}
 
 void keyboard_post_init_user(void) {
     //rgb_matrix_set_color_all(0, 4, 4);
@@ -202,33 +99,20 @@ void keyboard_post_init_user(void) {
 
     kdisp_init(NUM_SHIFT_REGISTERS, true);
 
-    displays_task_user_token = defer_exec(100, displays_task_user, NULL);
+    remove_splash_task_token = defer_exec(600, remove_splash_task, NULL);
 
     set_displays(DISPLAYS_ON_SET_CONTRAST, FULL_BRIGHT);
     show_splash_screen();
 
-    is_master_side = is_keyboard_master();
     uprintf("Poly Keyboard ready.");
 }
 
-bool is_master(void) {
-    return is_master_side;
+bool displays_on(void) {
+    return displays_are_on;
 }
 
-// uint8_t keycode_to_disp_index(uint16_t keycode) {
-//    for(uint8_t row =0; row < MATRIX_ROWS; ++row) {
-//        for(uint8_t col =0; col < MATRIX_COLS; ++col) {
-//            if(keymaps[currentLayer][row][col]==keycode) {
-//                return LAYOUT_TO_INDEX(row, col);
-//            }
-//        }
-//    }
-
-//     return 255;
-// }
-
-void update_performed(void) {
-    last_update = timer_elapsed32(timer);
+void set_displays_on(bool on) {
+    displays_are_on = on;
 }
 
 void set_last_key(uint16_t keycode) {

@@ -27,13 +27,9 @@
 #    include "wave.h"
 #endif
 
-//uint8_t keycode_to_disp_index(uint16_t keycode);
-
-bool is_master(void);
-
-// key updates
-
-void update_performed(void);
+#define FULL_BRIGHT 49
+#define FADE_TRANSITION_TIME 5000
+#define FADE_OUT_TIME 60000
 
 enum diplay_state {
     DISPLAYS_ON,
@@ -50,7 +46,7 @@ void dec_brightness(void);
 
 void set_displays(enum diplay_state state, uint8_t contrast);
 
-//uint8_t select_display(uint8_t row, uint8_t col);
+void request_disp_refresh(void);
 
 bool display_wakeup(keyrecord_t* record);
 
@@ -58,14 +54,10 @@ void show_splash_screen(void);
 
 void clear_all_displays(void);
 
+void update_displays(void);
+
+void set_displays_on(bool on);
+
+bool displays_on(void);
+
 void set_last_key(uint16_t keycode);
-
-//layer helpers
-
-void force_layer_switch(void);
-
-void set_layer(uint16_t new_layer);
-
-void next_layer(int8_t num_layers);
-
-void prev_layer(int8_t num_layers);

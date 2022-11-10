@@ -39,9 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_END	126
 #define OLED_FONT_H "fonts/base_font.h"
 #define OLED_BRIGHTNESS 60
-#define OLED_FADE_OUT
-#define OLED_FADE_OUT_INTERVAL 1
-
+#define OLED_TIMEOUT 0
 
 #define MOUSEKEY_MOVE_DELTA	2
 

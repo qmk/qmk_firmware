@@ -8,9 +8,11 @@
 
 #include "quantum/quantum_keycodes.h"
 
+#include <transactions.h>
+
 #include "lang/lang_lut.h"
 
-static enum lang_layer current_lang = 
+static enum lang_layer g_lang = 
     /*[[[cog
     import cog
     import os
@@ -31,8 +33,7 @@ static enum lang_layer current_lang =
     LANG_EN;
     //[[[end]]]
 
-enum kb_layers { _LAYER0 = 0,  _LAYER1 = 1, _LAYER2 = 2, //, _LAYER3 = 3, _LAYER4 = 4, _LAYER5 = 5, _LAYER6 = 6, _LAYER7 = 7,
-                 NUM_LAYERS = 2 };
+enum kb_layers { _BASE_LAYER = 0,  _UTIL_LAYER = 1, _LANG_LAYER = 2 };
 
 enum my_keycodes {
   KC_NXTL = SAFE_RANGE,
@@ -65,6 +66,99 @@ enum my_keycodes {
   //[[[end]]]
 };
 
+static bool g_refresh_needed = false;
+static uint8_t g_contrast = FULL_BRIGHT;
+
+typedef struct _poly_state_t {
+    led_t led_state;
+    uint8_t mod_state;
+    layer_state_t layer_state;
+    uint8_t contrast;
+    uint8_t lang;
+} poly_state_t;
+
+poly_state_t g_state;
+
+static int32_t last_update;
+void update_performed(void) {
+    last_update = timer_read32();
+}
+
+
+void request_disp_refresh(void) {
+    g_refresh_needed = true;
+}
+
+typedef struct _poly_sync_t {
+    uint8_t lang;
+    uint8_t contrast;
+} poly_sync_t;
+
+
+void user_sync_poly_data_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    if(in_buflen!=0 && in_data!=NULL) {
+        g_lang = ((poly_sync_t*)in_data)->lang;
+        g_contrast = ((poly_sync_t*)in_data)->contrast;
+        request_disp_refresh();
+    } 
+}
+
+
+void sync_and_refresh_displays(void);
+
+void sync_and_refresh_displays(void) {
+    if(is_keyboard_master()) {
+        if (g_lang!=g_state.lang || g_contrast!=g_state.contrast) {
+            poly_sync_t send = {g_lang, g_contrast};
+            if(transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(send), &send)) {
+                g_state.contrast = g_contrast;
+                g_state.lang = g_lang;
+                dprint("poly state sync done!\n");
+            } else {
+                dprint("poly state sync failed!\n");
+            }
+        }
+    } else if(g_state.contrast!=g_contrast) {
+        set_displays(g_contrast < 1 ? DISPLAYS_OFF : DISPLAYS_SET_CONTRAST, (uint8_t)g_contrast);
+        g_state.contrast=g_contrast;
+    }
+
+    led_t led_state = host_keyboard_led_state();
+    uint8_t mod_state = get_mods();
+
+    if(led_state.raw!=g_state.led_state.raw || mod_state!=g_state.mod_state || layer_state!=g_state.layer_state) {
+        g_state.led_state = host_keyboard_led_state();
+        g_state.mod_state = get_mods();
+        g_state.layer_state = layer_state;
+        g_refresh_needed = false;
+        update_displays();
+    } else if(g_refresh_needed) {
+        g_refresh_needed = false;
+        update_displays();
+    }
+
+}
+
+void housekeeping_task_user(void) {
+    sync_and_refresh_displays();
+    
+    //turn off displays
+    uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
+
+    if (is_keyboard_master() && elapsed_time_since_update > FADE_OUT_TIME && displays_on()) {
+        int32_t contrast = ((FADE_TRANSITION_TIME - (elapsed_time_since_update - FADE_OUT_TIME)) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
+
+        set_displays(contrast < 1 ? DISPLAYS_OFF : DISPLAYS_SET_CONTRAST, (uint8_t)contrast);
+        dprint("setting contrast!\n");
+        if(contrast<1) {
+            dprint("turning displays off!\n");
+        }
+    }
+}
+
+
+
+/*
 static bool encUpHigh, encDownHigh;
 
 uint8_t encoder_read_state_kb(uint8_t index) {
@@ -76,7 +170,9 @@ void encoder_init_state_kb(uint8_t index) {
     encUpHigh = true;
     encDownHigh = true;
 }
+*/
 
+/*
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (!clockwise) {
         //prev_layer(NUM_LAYERS);
@@ -95,14 +191,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     //update_performed();
     return true;
 }
+*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_LAYER0] = SPLIT_LAYOUT(
+    [_BASE_LAYER] = SPLIT_LAYOUT(
         KC_GRAVE,       KC_1,       KC_2,        KC_3,       KC_4,       KC_5,       KC_MINUS,    /*no key*/KC_NO,    
         KC_TAB,         KC_Q,       KC_W,        KC_E,       KC_R,       KC_T,       KC_LBRC,   KC_ENC_UP,          
         KC_CAPSLOCK,    KC_A,       KC_S,        KC_D,       KC_F,       KC_G,       KC_SCLN,   KC_ENC_DOWN,        
         KC_LSHIFT,      KC_Z,       KC_X,        KC_C,       KC_V,       KC_B,       KC_ESC,     KC_MS_BTN1,/*enc*/  
-        KC_LCTL,        KC_LALT,    KC_LANG,     KC_APP,     KC_LWIN,    KC_SPACE,   KC_END,     KC_HOME,            
+        KC_LCTL,        KC_LALT,    KC_LANG,     KC_APP,     KC_LWIN,    KC_SPACE,   KC_END,     KC_NXTL,//KC_HOME,            
         
 /*!key*/KC_NO,          KC_EQUAL,   KC_6,        KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC, 
         KC_ENC_UP,      KC_RBRC,    KC_Y,        KC_U,       KC_I,       KC_O,       KC_P,       KC_BSLS,    
@@ -111,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ENT,         KC_LEFT,    KC_DOWN,     KC_RIGHT,   KC_LNG1,    KC_RWIN,    KC_NXTL,    KC_RCTL
         ),
 
-    [_LAYER1] = SPLIT_LAYOUT(
+    [_UTIL_LAYER] = SPLIT_LAYOUT(
         KC_NO,          KC_NO,      KC_SAVE_EE,  KC_NO,      KC_NO,      KC_MPRV,    KC_NXTL,    /*no key*/KC_NO,    
         RGB_PREV,       KC_VOLU,    DB_TOGG,     KC_DARKER,  KC_NO,      KC_MPLY,    KC_NO,      KC_ENC_UP,          
         RGB_TOGGLE,     KC_MUTE,    EE_CLR,      KC_CONTRAST,KC_RST_DSP, KC_MSTP,    KC_NO,      KC_ENC_DOWN,        
@@ -125,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO
         ),
 
-    [_LAYER2] = SPLIT_LAYOUT(
+    [_LANG_LAYER] = SPLIT_LAYOUT(
         KC_LEAD,        KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      /*no key*/KC_NO,    
         KC_NO,          KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_NO,      KC_NO,      KC_NO,      KC_ENC_UP,          
         KC_NO,          KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_ENC_DOWN,        
@@ -164,7 +261,7 @@ led_config_t g_led_config = {{// Key Matrix to LED Index
                                  4, 4, 4, 4, 4, 4, 4, 4
                              }};
 
-void process_layer_switch_user(uint16_t new_layer);
+//void process_layer_switch_user(uint16_t new_layer);
 
 struct diplay_info {
     uint8_t bitmask[NUM_SHIFT_REGISTERS];
@@ -361,7 +458,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u"Save\r\v\tEE";
         //case KC_NEXT_LANG: return u"Next";
             /*{
-                switch((current_lang + 1) % NUM_LANG) {
+                switch((g_lang + 1) % NUM_LANG) {
                     case LANG_DE: return u"Nxt D";
                     case LANG_KO: return u"Nxt K";
                     case LANG_JA: return u"Nxt J";
@@ -373,18 +470,18 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         /*[[[cog
             for lang in languages:
                 short = lang.split("_")[1]
-                cog.outl(f'case KC_{lang}: return current_lang=={lang} ? u"[{short}]" : u" {short}";')
+                cog.outl(f'case KC_{lang}: return g_lang=={lang} ? u"[{short}]" : u" {short}";')
         ]]]*/
-        case KC_LANG_EN: return current_lang==LANG_EN ? u"[EN]" : u" EN";
-        case KC_LANG_DE: return current_lang==LANG_DE ? u"[DE]" : u" DE";
-        case KC_LANG_FR: return current_lang==LANG_FR ? u"[FR]" : u" FR";
-        case KC_LANG_ES: return current_lang==LANG_ES ? u"[ES]" : u" ES";
-        case KC_LANG_PT: return current_lang==LANG_PT ? u"[PT]" : u" PT";
-        case KC_LANG_IT: return current_lang==LANG_IT ? u"[IT]" : u" IT";
-        case KC_LANG_TR: return current_lang==LANG_TR ? u"[TR]" : u" TR";
-        case KC_LANG_KO: return current_lang==LANG_KO ? u"[KO]" : u" KO";
-        case KC_LANG_JA: return current_lang==LANG_JA ? u"[JA]" : u" JA";
-        case KC_LANG_AR: return current_lang==LANG_AR ? u"[AR]" : u" AR";
+        case KC_LANG_EN: return g_lang==LANG_EN ? u"[EN]" : u" EN";
+        case KC_LANG_DE: return g_lang==LANG_DE ? u"[DE]" : u" DE";
+        case KC_LANG_FR: return g_lang==LANG_FR ? u"[FR]" : u" FR";
+        case KC_LANG_ES: return g_lang==LANG_ES ? u"[ES]" : u" ES";
+        case KC_LANG_PT: return g_lang==LANG_PT ? u"[PT]" : u" PT";
+        case KC_LANG_IT: return g_lang==LANG_IT ? u"[IT]" : u" IT";
+        case KC_LANG_TR: return g_lang==LANG_TR ? u"[TR]" : u" TR";
+        case KC_LANG_KO: return g_lang==LANG_KO ? u"[KO]" : u" KO";
+        case KC_LANG_JA: return g_lang==LANG_JA ? u"[JA]" : u" JA";
+        case KC_LANG_AR: return g_lang==LANG_AR ? u"[AR]" : u" AR";
         //[[[end]]]
         case KC_LNG1:
             return u"Han/Y";
@@ -393,7 +490,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         default:
             {
                 bool shift = ((get_mods() & MOD_MASK_SHIFT)!=0);
-                const uint16_t* text = translate_keycode(current_lang, keycode, shift, state.caps_lock);
+                const uint16_t* text = translate_keycode(g_lang, keycode, shift, state.caps_lock);
                 if(text!=NULL) {
                     return text;
                 }
@@ -403,17 +500,21 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     return u"[?]";
 }
 
-void process_layer_switch_user(uint16_t new_layer) {
-    layer_move(new_layer);
+void update_displays(void) {
+    uint8_t layer = get_highest_layer(layer_state);
+    if(layer>_LANG_LAYER) {
+        layer = _BASE_LAYER;
+    }
+
     led_t state = host_keyboard_led_state();
-    uint8_t offset = is_master() ? MATRIX_ROWS_PER_SIDE : 0;
+    uint8_t offset = is_keyboard_master() ? MATRIX_ROWS_PER_SIDE : 0;
 
     // keypos_t key;
     for (uint8_t r = 0; r < MATRIX_ROWS_PER_SIDE; ++r) {
         for (uint8_t c = 0; c < MATRIX_COLS; ++c) {
             //key.col           = c;
             //key.row           = r;
-            uint16_t keycode  = keymaps[new_layer][r+offset][c];
+            uint16_t keycode  = keymaps[layer][r+offset][c];
             uint8_t  disp_idx = LAYOUT_TO_INDEX(r, c);
 
             if (disp_idx != 255) {
@@ -459,12 +560,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
                 display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
                 break;
+                /*
             case KC_ENC_DOWN:
                 encDownHigh = !encDownHigh;
                 break;
             case KC_ENC_UP:
                 encUpHigh = !encUpHigh;
                 break;
+                */
         }
     }
 
@@ -476,8 +579,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     const uint8_t* bitmask = key_display[disp_idx].bitmask;
     sr_shift_out_buffer_latch(bitmask, sizeof(key_display->bitmask));
     
-    if((is_master() && record->event.key.row >= MATRIX_ROWS_PER_SIDE) ||
-       (!is_master() && record->event.key.row < MATRIX_ROWS_PER_SIDE) ) {
+    if((is_keyboard_master() && record->event.key.row >= MATRIX_ROWS_PER_SIDE) ||
+       (!is_keyboard_master() && record->event.key.row < MATRIX_ROWS_PER_SIDE) ) {
         if (record->event.pressed) {
             set_last_key(keycode);
             if (disp_idx != 255) {
@@ -491,21 +594,26 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
 
     if(keycode==KC_CAPSLOCK) {
-        force_layer_switch();
+        request_disp_refresh();
     }
 
     if(!record->event.pressed) {
         switch(keycode) {
             case RGB_TOGGLE:
                 rgb_matrix_toggle_noeeprom();
-                force_layer_switch();
+                request_disp_refresh();
                 break;
             case KC_RIGHT_SHIFT:
             case KC_LEFT_SHIFT:
-                force_layer_switch();
+                request_disp_refresh();
                 break;
             case KC_NXTL:
-                next_layer(NUM_LAYERS);
+                if(IS_LAYER_ON(_UTIL_LAYER)) {
+                    layer_off(_UTIL_LAYER);
+                } else {
+                    layer_on(_UTIL_LAYER);
+                }
+                //request_disp_refresh();
                 break;
             case RGB_NEXT:
                 rgb_matrix_step_noeeprom();
@@ -531,27 +639,28 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 kdisp_init(NUM_SHIFT_REGISTERS, true);
                 break;
             /*case KC_NEXT_LANG:
-                current_lang = (current_lang + 1) % NUM_LANG;
-                process_layer_switch_user(_LAYER0);
+                g_lang = (g_lang + 1) % NUM_LANG;
+                process_layer_switch_user(_BASE_LAYER);
                 break;*/
             /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: current_lang = {lang}; process_layer_switch_user(_LAYER0); break;')
+                cog.outl(f'case KC_{lang}: g_lang = {lang}; process_layer_switch_user(_BASE_LAYER); break;')
             ]]]*/
-            case KC_LANG_EN: current_lang = LANG_EN; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_DE: current_lang = LANG_DE; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_FR: current_lang = LANG_FR; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_ES: current_lang = LANG_ES; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_PT: current_lang = LANG_PT; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_IT: current_lang = LANG_IT; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_TR: current_lang = LANG_TR; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_KO: current_lang = LANG_KO; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_JA: current_lang = LANG_JA; process_layer_switch_user(_LAYER0); break;
-            case KC_LANG_AR: current_lang = LANG_AR; process_layer_switch_user(_LAYER0); break;
+            case KC_LANG_EN: g_lang = LANG_EN; layer_off(_LANG_LAYER); break;
+            case KC_LANG_DE: g_lang = LANG_DE; layer_off(_LANG_LAYER); break;
+            case KC_LANG_FR: g_lang = LANG_FR; layer_off(_LANG_LAYER); break;
+            case KC_LANG_ES: g_lang = LANG_ES; layer_off(_LANG_LAYER); break;
+            case KC_LANG_PT: g_lang = LANG_PT; layer_off(_LANG_LAYER); break;
+            case KC_LANG_IT: g_lang = LANG_IT; layer_off(_LANG_LAYER); break;
+            case KC_LANG_TR: g_lang = LANG_TR; layer_off(_LANG_LAYER); break;
+            case KC_LANG_KO: g_lang = LANG_KO; layer_off(_LANG_LAYER); break;
+            case KC_LANG_JA: g_lang = LANG_JA; layer_off(_LANG_LAYER); break;
+            case KC_LANG_AR: g_lang = LANG_AR; layer_off(_LANG_LAYER); break;
             //[[[end]]]
             case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
             case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
-                process_layer_switch_user(_LAYER0);
+                //request_disp_refresh();
+                layer_off(_LANG_LAYER);
                 break;
 
             /*case KC_ENC_DOWN:
@@ -568,15 +677,16 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         {
         case KC_RIGHT_SHIFT:
         case KC_LEFT_SHIFT:
-            force_layer_switch();
+            request_disp_refresh();
             break;
         case KC_LANG:
-            if(biton32(layer_state)==_LAYER2) {
-                current_lang = (current_lang + 1) % NUM_LANG;
-                process_layer_switch_user(_LAYER0);
+            if(IS_LAYER_ON(_LANG_LAYER)) {
+                g_lang = (g_lang + 1) % NUM_LANG;
+                layer_off(_LANG_LAYER);
             } else {
-                process_layer_switch_user(_LAYER2);
+                layer_on(_LANG_LAYER);
             }
+            //request_disp_refresh();
             break;
         default:
             break;
@@ -590,18 +700,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
    update_performed();
 };
 
-// uint8_t select_display(uint8_t row, uint8_t col) {
-//     if(is_master()) {
-//         col -= MATRIX_COLS;
-//     }
-
-//     uint8_t  disp_idx = LAYOUT_TO_INDEX(row, col);
-//     if (disp_idx != 255) {
-//         sr_shift_out_buffer_latch(key_display[disp_idx].bitmask, sizeof(key_display->bitmask));
-//     }
-//     return disp_idx;
-// }
-
 void show_splash_screen(void) {
     clear_all_displays();
     /*display_message(1, 1, u"POLY", &FreeSansBold24pt7b);
@@ -611,8 +709,50 @@ void show_splash_screen(void) {
     display_message(2, 2, u"KB", &FreeSansBold24pt7b);
 }
 
-#ifdef OLED_ENABLE
-void keyboard_pre_init_user(void) {
-    setPinInputHigh(I2C1_SDA_PIN);
+
+void set_displays(enum diplay_state state, uint8_t contrast) {
+    select_all_displays();
+    g_contrast = contrast;
+    if (state != DISPLAYS_SET_CONTRAST) {
+        bool enable = state != DISPLAYS_OFF;
+        kdisp_enable(enable);
+        set_displays_on(enable);
+        #ifdef OLED_ENABLE
+        if(enable) oled_on(); else  oled_off();
+        #endif
+        uprintf("All displays %s\n", enable ? "on" : "off");
+    }
+    if (state == DISPLAYS_ON_SET_CONTRAST || state == DISPLAYS_SET_CONTRAST) {
+        kdisp_set_contrast(contrast);
+        #ifdef OLED_ENABLE
+        oled_set_brightness(contrast);
+        #endif
+        uprintf("Setting contrast to %d\n", contrast);
+    }
 }
+
+void inc_brightness(void) {
+    if(g_contrast<FULL_BRIGHT) {
+        g_contrast+=4;
+    }
+    if(g_contrast>FULL_BRIGHT) {
+        g_contrast = FULL_BRIGHT;
+    }
+    set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
+}
+
+void dec_brightness(void) {
+    if(g_contrast>=6) {
+        g_contrast-=4;
+    }
+    set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
+}
+
+
+void keyboard_pre_init_user(void) {
+#ifdef OLED_ENABLE
+    setPinInputHigh(I2C1_SDA_PIN);
 #endif
+    transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
+}
+
