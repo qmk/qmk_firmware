@@ -1,0 +1,12 @@
+{
+    "bootloader": "rp2040",
+    "processor": "RP2040",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false
+    }
+}
