@@ -610,12 +610,12 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     DEBUG_PIN_ON();
     select_output(current_row);
     matrix_output_select_delay();
-    MATRIX_DEBUG_SCAN_END();
+    //MATRIX_DEBUG_SCAN_END();
     read_all_pins(port_buffer);
     unselect_output(current_row);
     DEBUG_PIN_OFF();
     key_pressed = mask_and_adjust_pins(port_buffer);
-    MATRIX_DEBUG_SCAN_START();
+    //MATRIX_DEBUG_SCAN_START();
     if (key_pressed) {
         current_row_value = build_line(port_buffer);
     }
