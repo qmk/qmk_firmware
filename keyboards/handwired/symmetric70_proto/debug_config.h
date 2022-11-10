@@ -5,7 +5,6 @@
  */
 #pragma once
 #ifndef __ASSEMBLER__
-#include <gpio.h>
 
 #define _GET_ITEM_1(_1, ...) _1
 #define _GET_ITEM_2(_1,_2, ...) _2
