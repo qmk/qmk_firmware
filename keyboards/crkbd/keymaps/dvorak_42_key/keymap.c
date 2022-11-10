@@ -157,7 +157,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 
 void oled_render_layer_state(void) {
-  // if caps word is enabled, show that
+  // if caps word is enabled, show
   if(is_caps_word_on()) {
       oled_write_ln_P(PSTR("CAPS WORD"), false);
       return;
@@ -206,9 +206,6 @@ const rgblight_segment_t PROGMEM rgb_layer_pink[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, RGBLED_NUM, HSV_PINK}
 );
 
-const rgblight_segment_t PROGMEM rgb_layer_azure[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_AZURE}
-);
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -218,7 +215,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_layer_red,
     rgb_layer_orange,
     rgb_layer_yellow,
-    rgb_layer_green
+    rgb_layer_green,
+    rgb_layer_pink
 );
 
 void keyboard_post_init_user(void) {
@@ -245,8 +243,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     
     rgblight_set_layer_state(6, layer_state_cmp(state, VSCODE));
     
-    
     return state;
+}
+
+void caps_word_set_user(bool active) {
+    // will enable/disable rgb layer 7 based on whether caps word is active
+    rgblight_set_layer_state(7, active);
 }
 
 void render_bootmagic_status(bool status) {
