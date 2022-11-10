@@ -17,8 +17,7 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
-| Pro Micro (16MHz) | 588.7 us      | 1539 scans/sec (649.9us) |
-| Pro Micro (16MHz) | ???.? us      | ???? scans/sec (???.?us) |
+| Pro Micro (16MHz) | 588.5 us      | 1612 scans/sec (620us) |
 | Proton C (72MHz)  | 253.9 us      | 3794 scans/sec (263.5us) |
 
 ### With fast `matrix_read_cols_on_rows() in users/mtei/`
@@ -27,8 +26,7 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 | MCU               | execution time of `matrix_scan()` | matrix scan rate |
 |-------------------|---------------|----------------|
-| Pro Micro (16MHz) | 92.25 us      |  6536 scans/sec (153us)  |
-| Pro Micro (16MHz) | ??.?? us      |  ???? scans/sec (???us)  |
+| Pro Micro (16MHz) | 92 us         |  8064 scans/sec (124us)  |
 | Proton C (72MHz)  | 57.07 us      | 14995 scans/sec (66.69us)|
 
 ## Configuration
@@ -64,12 +62,12 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 #### Default setting (without fast `matrix_read_cols_on_rows()`)
  - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/promicro/normal:default:flash`
 
-<img width="80%" alt="sym70_normal_promicro" src="https://user-images.githubusercontent.com/2170248/179529297-80b0a96f-0f7b-4822-811b-4a13055088af.png">
+<img width="80%" alt="sym70_promicro_normal" src="https://user-images.githubusercontent.com/2170248/201068411-7159393b-25ad-4c07-8893-25873f09ccc4.png">
 
 #### Default setting (with fast `matrix_read_cols_on_rows()`)
  - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/promicro/boost:default:flash`
 
-<img width="80%" alt="sym70_fastread_promicro" src="https://user-images.githubusercontent.com/2170248/179529392-8a5693da-b8a7-4368-bf74-ffa58556ba1e.png">
+<img width="80%" alt="sym70_promicro_boost" src="https://user-images.githubusercontent.com/2170248/201068474-6878803b-82a3-48fe-b0ba-5837df78328e.png">
 
 ### Proton C (STM32F303 72MHz)
 #### Default setting (without fast `matrix_read_cols_on_rows()`)
