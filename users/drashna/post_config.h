@@ -135,3 +135,8 @@
 #if defined(SPLIT_KEYBOARD) && defined(PROTOCOL_CHIBIOS) && !defined(USB_SUSPEND_WAKEUP_DELAY)
 #    define USB_SUSPEND_WAKEUP_DELAY 200
 #endif
+
+#ifdef XAP_ENABLE
+#    undef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 12
+#endif
