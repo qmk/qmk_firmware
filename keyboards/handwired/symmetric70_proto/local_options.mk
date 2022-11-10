@@ -19,8 +19,6 @@
 #   MTEST=mdelay_type=ipullup
 #   MTEST=mdelay_type=time
 #   MTEST=mdelay_type=adaptive
-# for symmetric70_proto/{promicro|proton_c}/boost
-#   CANCEL_BOOST=yes
 
 ifneq ($(strip $(MTEST)),)
   define KEYBOARD_OPTION_PARSE
