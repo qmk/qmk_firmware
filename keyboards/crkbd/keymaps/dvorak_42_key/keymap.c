@@ -157,6 +157,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 
 void oled_render_layer_state(void) {
+  // if caps word is enabled, show that
   if(is_caps_word_on()) {
       oled_write_ln_P(PSTR("CAPS WORD"), false);
       return;
