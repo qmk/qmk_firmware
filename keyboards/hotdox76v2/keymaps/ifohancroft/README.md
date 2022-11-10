@@ -12,7 +12,7 @@ This keymap also does the following:
 - Forces NKRO on
 - Enables:
     - The Command Feature
-    - Via
+    - VIA
     - The Swap Hands feature
 - Disables:
     - Mouse Key
