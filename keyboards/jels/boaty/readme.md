@@ -1,6 +1,6 @@
 # Boaty
 
-![Boaty](https://i.imgur.com/6LEaYxS.jpg)
+![Boaty](https://i.imgur.com/6LEaYxSh.jpg)
 
 * Keyboard Maintainer: [jels](https://github.com/JoahNelson)
 * Hardware Supported: Boaty
