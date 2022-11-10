@@ -17,3 +17,4 @@ This keymap also does the following:
 - Disables:
     - Mouse Key
     - Extra Key
+    - RGB Matrix
