@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MCRO 1.0", 
-    "url": "http://envious.design", 
-    "maintainer": "Envious.Design", 
+  "keyboard_name": "MCRO",
+  "manufacturer": "Envious.Design",
+  "url": "http://envious.design",
+  "maintainer": "Envious.Design",
+  "usb": {
+    "vid": "0xE739",
+    "pid": "0xA300",
+    "device_version": "1.0.0"
+  },
     "layouts": {
         "LAYOUT": {
             "layout": [{"label":"F13", "x":0, "y":0}, {"label":"F14", "x":1, "y":0}, {"label":"F15", "x":2, "y":0}, {"label":"F16", "x":3, "y":0}, {"label":"F17", "x":0, "y":1.25}, {"label":"F18", "x":1, "y":1.25}, {"label":"F19", "x":2, "y":1.25}, {"label":"F20", "x":3, "y":1.25}, {"label":"F21", "x":0, "y":2.5}, {"label":"F22", "x":1, "y":2.5}, {"label":"F23", "x":2, "y":2.5}, {"label":"F24", "x":3, "y":2.5}]

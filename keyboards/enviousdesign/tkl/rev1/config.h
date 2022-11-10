@@ -148,14 +148,3 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
-
-//#define I2C1_SDA_PIN GP0
-//#define I2C1_SCL_PIN GP1
-//#define I2C_DRIVER I2CD1

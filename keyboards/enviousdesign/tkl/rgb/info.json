@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Delirium RGB",
-    "maintainer": "Envious.Design",
-    "url": "http://envious.design",
+  "keyboard_name": "Alt Delirium RGB",
+  "manufacturer": "Envious.Design",
+  "url": "http://envious.design",
+  "maintainer": "Envious.Design",
+  "usb": {
+    "vid": "0xE739",
+    "pid": "0xA400",
+    "device_version": "1.0.0"
+  },
     "layouts": {
         "LAYOUT": {
             "layout": [
