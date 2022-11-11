@@ -181,7 +181,7 @@ ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
     include $(QUANTUM_DIR)/painter/rules.mk
 endif
 
-VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling
+VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling legacy_stm32_flash
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
   $(call CATASTROPHIC_ERROR,Invalid EEPROM_DRIVER,EEPROM_DRIVER="$(EEPROM_DRIVER)" is not a valid EEPROM driver)
@@ -208,6 +208,12 @@ else
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
     QUANTUM_LIB_SRC += spi_master.c
     SRC += eeprom_driver.c eeprom_spi.c
+  else ifeq ($(strip $(EEPROM_DRIVER)), legacy_stm32_flash)
+    # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
+    COMMON_VPATH += $(DRIVER_PATH)/flash
+    SRC += eeprom_driver.c eeprom_stm32.c flash_stm32.c
   else ifeq ($(strip $(EEPROM_DRIVER)), transient)
     # Transient EEPROM implementation -- no data storage but provides runtime area for it
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
@@ -218,20 +224,25 @@ else
     ifeq ($(PLATFORM),AVR)
       # Automatically provided by avr-libc, nothing required
     else ifeq ($(PLATFORM),CHIBIOS)
-      ifneq ($(filter STM32F3xx_% STM32F1xx_% %_STM32F401xC %_STM32F401xE %_STM32F405xG %_STM32F411xE %_STM32F072xB %_STM32F042x6 %_GD32VF103xB %_GD32VF103x8, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
-        # Emulated EEPROM
+      ifneq ($(filter %_STM32F072xB %_STM32F042x6, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
+        # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
         COMMON_VPATH += $(DRIVER_PATH)/flash
         SRC += eeprom_driver.c eeprom_stm32.c flash_stm32.c
+      else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G4xx WB32F3G71xx WB32FQ95xx GD32VF103),)
+        # Wear-leveling EEPROM implementation, backed by MCU flash
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+        SRC += eeprom_driver.c eeprom_wear_leveling.c
+        WEAR_LEVELING_DRIVER = embedded_flash
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         # True EEPROM on STM32L0xx, L1xx
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_L0_L1
         SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
       else ifneq ($(filter $(MCU_SERIES),RP2040),)
-		# Wear-leveling EEPROM implementation, backed by RP2040 flash
-		OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
-		SRC += eeprom_driver.c eeprom_wear_leveling.c
+        # Wear-leveling EEPROM implementation, backed by RP2040 flash
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+        SRC += eeprom_driver.c eeprom_wear_leveling.c
         WEAR_LEVELING_DRIVER = rp2040_flash
       else ifneq ($(filter $(MCU_SERIES),KL2x K20x),)
         # Teensy EEPROM implementations
