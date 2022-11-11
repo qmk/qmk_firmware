@@ -1,7 +1,7 @@
 # Lily58L by vii33
 <img src="https://i.postimg.cc/3JsQJJV0/lily58l-logo-vii33.jpg" width="900">
 
-Heavily modified keymap for better ergonomics compared to the original keymap by [BenRoe](https://github.com/BenRoe) from [Keycapsss.com](https://keycapsss.com).
+Heavily modified keymap for better ergonomics compared to the original keymap by [BenRoe](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58/keymaps/lily58l) from [Keycapsss.com](https://keycapsss.com).
 
 For further explanation see [github.com/vii33](https://github.com/vii33/mecha-keyboard-lily58l).
 
