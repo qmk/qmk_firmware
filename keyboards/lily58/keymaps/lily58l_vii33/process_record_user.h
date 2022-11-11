@@ -21,8 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#ifndef PROCESS_RECORD_USER_H
-#define PROCESS_RECORD_USER_H
+#pragma once
 
 #include QMK_KEYBOARD_H
 
@@ -34,5 +33,3 @@ extern bool lunaIsBarking;
 extern bool lunaShowedJump;
 
 extern void add_keylog(uint16_t keycode);
-
-#endif

@@ -134,23 +134,22 @@ void render_kb_status(void) {
 
   // render_keylogger_status();
 
-  // Write words per minute counter         
+  /* Write words per minute counter */
   // oled_write_P(PSTR("WPM: "), false);
   // oled_write(get_u8_str(get_current_wpm(), '0'), false);
 }
 
 
 
-// ------------------------------
-// Callback for OLED update cycle
-// ------------------------------
+/* Callback for OLED update cycle */
+/* ------------------------------ */
 uint8_t current_frame = 0;
 uint32_t anim_sleep_timer = 0;
 
 bool oled_task_user(void) {
   current_wpm = get_current_wpm();   
 
-  // fixes screen on and off bug -> Turn on in process_record_user
+  /* fixes screen on and off bug -> Turn on in process_record_user */
   if (current_wpm > 0) {
     oled_on();    
     anim_sleep_timer = timer_read32();
@@ -174,7 +173,7 @@ bool oled_task_user(void) {
   
   return false;
 }
-// ------------------------------
+/* ------------------------------ */
 
 
 /* ------ LUNA PET START ------ */
@@ -297,7 +296,7 @@ void render_luna(int LUNA_X, int LUNA_Y) {    // params: chunk position on LED f
 /* ------ LUNA PET END ------ */
 
 
-// Remders Mario image. This costs a little bit of memory since two times a 512 byte image is rendered.
+/* Remders Mario image. This costs a little bit of memory since two times a 512 byte image is rendered. */
 void render_mario(void) {
   if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
     anim_timer = timer_read32();

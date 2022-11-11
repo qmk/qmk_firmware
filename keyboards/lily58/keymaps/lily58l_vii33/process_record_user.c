@@ -33,7 +33,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     oled_on();
   }
   
-  // on key release
+  /* on key release */
   if (record->event.pressed == false) { 
     /* Luna pet start */
     lunaIsJumping = false;

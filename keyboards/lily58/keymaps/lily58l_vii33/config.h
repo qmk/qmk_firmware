@@ -27,14 +27,14 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 */
 #define EE_HANDS
 
-// Home row modifiers   https://precondition.github.io/home-row-mods
+/* Home row modifiers   https://precondition.github.io/home-row-mods */
 #define TAPPING_TERM 200          // mod tap hold time (shift) in ms, default 200
 #define IGNORE_MOD_TAP_INTERRUPT  // important for good home row mods experience
 #define TAPPING_FORCE_HOLD        // activate the hold function, when holding a dual-role key
-                                  // after having tapped it.No more accidental repeats of mod-tap letters when typing quickly!
-// The downside is that it removes the possibility of auto-repeating the letter/tapping function of the mod-tap.
-// BUT The good news is that there exists a per-key variant of this configuration option: TAPPING_FORCE_HOLD_PER_KEY
-// ->> Just enable it for your home row modifiers
+                                  // after having tapped it. No more accidental repeats of mod-tap letters when typing quickly!
+                                  // The downside is that it removes the possibility of auto-repeating the letter/tapping function of the mod-tap.
+                                  // BUT The good news is that there exists a per-key variant of this configuration option: TAPPING_FORCE_HOLD_PER_KEY
+                                  // ->> Just enable it for your home row modifiers
 
 
 #define ENCODER_DIRECTION_FLIP    // Change analog encoder rotation direction -> cw: down / volume louder
@@ -66,24 +66,24 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #  undef RGBLIGHT_EFFECT_TWINKLE
 #  undef RGBLIGHT_EFFECT_KNIGHT
 
-// Custom Lightning Layers
+/* Custom Lightning Layers */
 #  define RGBLIGHT_LAYERS
 #  define RGBLIGHT_MAX_LAYERS 2  // Default is 8. Performance impact -> reduced to 2
 #endif
 
 
-// OLED
+/* OLED */
 #define OLED_TIMEOUT 120000
 // #define OLED_FADE_OUT
 #define OLED_UPDATE_INTERVAL 100  // set oled update interval in ms (default: 0). improves matrix scan rate
 #define OLED_BRIGHTNESS 120
 
-// Sync WPM to slave side
+/* Sync WPM to slave side */
 #define SPLIT_WPM_ENABLE    
 // #define SPLIT_OLED_ENABLE
 
 #define SPLIT_USB_DETECT
 
-// ACTIVATE for Elite C rev3 controller on the slave side
+/* ACTIVATE for Elite C rev3 controller on the slave side */
 // #define NO_USB_STARTUP_CHECK
 

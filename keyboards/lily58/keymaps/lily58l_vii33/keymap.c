@@ -25,13 +25,13 @@
 extern uint8_t is_master;
 
 
-// Layer quick names
+/* Layer quick names */
 #define LOWER MO(_LOWER)
 #define UPPER MO(_UPPER)
 #define MOD   MO(_MOD)
 #define GAME  TG(_GAME)
 
-// Key quick names
+/* Key quick names */
 #define QC_AT   S(KC_2)           // @
 #define QC_EUR  ALGR(KC_5)        // €
 #define QC_SS   ALGR(KC_S)        // ß
@@ -55,13 +55,13 @@ extern uint8_t is_master;
 #define WRDRGT  C(KC_RIGHT)        // CTRL+RIGHT (Word right)
 
 
-// Animation Speeds
+/* Animation Speeds */
 //const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {200, 150, 100};
 
 
 #ifdef RGBLIGHT_LAYERS
- // Lightning Layers as status indicators. -> Array of segments
+/* Lightning Layers as status indicators. -> Array of segments */
 const rgblight_segment_t PROGMEM mod_indicator[] = RGBLIGHT_LAYER_SEGMENTS(
     {6, 4, HSV_GREEN}   // First segment: Turn on 5 LEDs starting with #4
 );
@@ -74,9 +74,9 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;    // Enable the LED layers
 }
 
-// Callback when layer changes
+/* Callback when layer changes */
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Set my_rgb_layer 0 when comparison is true (here: _MOD Layer active)
+    /* Set my_rgb_layer 0 when comparison is true (here: _MOD Layer active) */
     rgblight_set_layer_state(0, layer_state_cmp(state, _MOD));
     return state;
 }
@@ -146,9 +146,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// --------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------------- */
 
-// Rotary encoder 
+/* Rotary encoder */
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {             // Encoder on master side
@@ -160,32 +160,28 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else {
                 rgblight_decrease_sat_noeeprom();
             }
-        }
-        else {
+        } else {
             if (clockwise) {
                 rgblight_increase_hue_noeeprom();
             } else {
                 rgblight_decrease_hue_noeeprom();
             }
         }
-    }
-    else {                          // _QWERTY LAYER and others
+    } else {                          // _QWERTY LAYER and others
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
     }
-  }
-  else if (index == 1) {        // Encoder on slave side
+  } else if (index == 1) {        // Encoder on slave side
     if(IS_LAYER_ON(_LOWER)) {       // _LOWER LAYER
       if (clockwise) {
         tap_code(KC_PGDN);
       } else {
         tap_code(KC_PGUP);
       }
-    }
-    else if (IS_LAYER_ON(_MOD))     // _MOD LAYER
+    } else if (IS_LAYER_ON(_MOD))     // _MOD LAYER
     {
         if ( get_mods() & MOD_MASK_SHIFT ) {
             if (clockwise) {
@@ -200,8 +196,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 rgblight_decrease_val_noeeprom();
             }
         }
-    }
-    else {                          // _QWERTY LAYER and others
+    } else {                          // _QWERTY LAYER and others
       if (clockwise) {
           tap_code(KC_DOWN);
       } else {

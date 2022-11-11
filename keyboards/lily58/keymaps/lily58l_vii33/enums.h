@@ -49,11 +49,11 @@ enum custom_keycodes {
 
 
 /* HOME Row Modifiers */
-// Left-hand home row mods
+/* Left-hand home row mods */
 #define GUI_S LGUI_T(KC_S)
 #define ALT_D LALT_T(KC_D)
 #define CTL_F LCTL_T(KC_F)
-// Right-hand home row mods
+/* Right-hand home row mods */
 #define CTL_J RCTL_T(KC_J)
 #define ALT_K LALT_T(KC_K)
 #define GUI_L RGUI_T(KC_L)
