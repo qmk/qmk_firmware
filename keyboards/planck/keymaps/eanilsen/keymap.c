@@ -90,21 +90,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* NUM
    * ,-----------------------------------------------------------------------------------.
-   * | ---  |   /  |   1  |   2  |   3  |   +  | ---  | ---  | ---  | ---  | ---  | Del  |
+   * | ---  |   /  |   1  |   2  |   3  |   +  | ---  | ---  | ---  |   ,  | ---  | Del  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Esc  |   0  |   4  |   5  |   6  |   -  | ---  | ---  | ---  | ---  | ---  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|   *  |   7  |   8  |   9  |   =  | ---  | ---  | ---  | ---  | ---  |Shift |
+   * | Shift|   *  |   7  |   8  |   9  |   =  | ---  | ---  | ---  |   .  | ---  |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | ---  | Ctrl | Alt  | GUI  |Space | Home | ---  |Bkspc | ---  | ---  | ---  | ---  |
    * `-----------------------------------------------------------------------------------'
    */
 
   [_NUM] = LAYOUT_ortho_4x12(
-    KC_NO,  KC_SLSH, KC_1,    KC_2,    KC_3,   KC_PLUS, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_DEL,
-    KC_ESC, KC_0,    KC_4,    KC_5,    KC_6,   KC_MINS, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_ENT,
-    KC_NO,  KC_ASTR, KC_7,    KC_8,    KC_9,   KC_EQL,  KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_RSFT,
-    KC_NO,  KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,    KC_NO, KC_BSPC, KC_NO, KC_NO, KC_NO, KC_NO
+    KC_NO,  KC_SLSH, KC_1,    KC_2,    KC_3,   KC_PLUS, KC_NO, KC_NO,   KC_NO, KC_COMM,  KC_NO, KC_DEL,
+    KC_ESC, KC_0,    KC_4,    KC_5,    KC_6,   KC_MINS, KC_NO, KC_NO,   KC_NO, KC_NO,    KC_NO, KC_ENT,
+    KC_NO,  KC_ASTR, KC_7,    KC_8,    KC_9,   KC_EQL,  KC_NO, KC_NO,   KC_NO, KC_DOT,   KC_NO, KC_RSFT,
+    KC_NO,  KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,    KC_NO, KC_BSPC, KC_NO, KC_NO,    KC_NO, KC_NO
     ),
 
   /* FUNCTION
@@ -185,14 +185,19 @@ void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_p
 {
   if (is_pressed) {
     const uint8_t mods = get_mods();
-    del_mods(MOD_MASK_SHIFT);
-    del_oneshot_mods(MOD_MASK_SHIFT);
+
     if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
     else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
-    if (is_shift_held()) tap_code16(shifted_keycode);
-    else tap_code16(keycode);
+
+    if (is_shift_held()) {
+      del_mods(MOD_MASK_SHIFT);
+      del_oneshot_mods(MOD_MASK_SHIFT);
+      tap_code16(shifted_keycode); 
+    } else tap_code16(keycode);
+
     if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
     else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
+
     set_mods(mods);
   }
 }
