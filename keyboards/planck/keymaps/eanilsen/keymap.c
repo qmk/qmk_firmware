@@ -24,10 +24,12 @@
 #define ENT_BTN2 LT(0,KC_ENT)
 #define BIG_F LT(0,CT_F)
 /* Home row mods */
+#define HOME_S LGUI_T(KC_S)
 #define HOME_R LALT_T(KC_R)
 #define HOME_T LCTL_T(KC_T)
 #define HOME_N RCTL_T(KC_N)
 #define HOME_E RALT_T(KC_E)
+#define HOME_A RGUI_T(KC_A)
 
 
 enum planck_layers {
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ISRT] = LAYOUT_ortho_4x12(
     KC_TAB,  KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_DEL,
-    KC_ESC,  KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    KC_ENT,
+    KC_ESC,  KC_I,    HOME_S,  HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  HOME_A,  KC_O,    KC_ENT,
     KC_LSFT, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
     CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI, MEH_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
     ),
@@ -346,6 +348,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
   case HOME_N:
     return TAPPING_TERM + 200;
   case HOME_E:
+    return TAPPING_TERM + 200;
+  case HOME_S:
+    return TAPPING_TERM + 200;
+  case HOME_A:
     return TAPPING_TERM + 200;
   case LT_UP:
     return TAPPING_TERM + 200;
