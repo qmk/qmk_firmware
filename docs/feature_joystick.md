@@ -1,4 +1,4 @@
-## Joystick
+# Joystick :id=joystick
 
 The keyboard can be made to be recognized as a joystick HID device by the operating system.
 
@@ -11,13 +11,20 @@ The joystick feature provides two services:
 Both services can be used without the other, depending on whether you just want to read a device but not send gamepad reports (for volume control for instance)
 or send gamepad reports based on values computed by the keyboard.
 
-### Analog Input
+## Usage :id=usage
 
-To use analog input you must first enable it in `rules.mk`:
+Add the following to your `rules.mk`:
 
 ```make
 JOYSTICK_ENABLE = yes
-JOYSTICK_DRIVER = analog # or 'digital'
+```
+
+### Analog Input
+
+By default the joystick driver is `analog`, but you can change this with:
+
+```make
+JOYSTICK_DRIVER = digital
 ```
 
 An analog device such as a potentiometer found on a gamepad's analog axes is based on a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider).
@@ -34,7 +41,7 @@ By default, two axes and eight buttons are defined. This can be changed in your 
 // Max 32
 #define JOYSTICK_BUTTON_COUNT 16
 // Max 6: X, Y, Z, Rx, Ry, Rz
-#define JOYSTICK_AXIS_COUNT 3
+#define JOYSTICK_AXES_COUNT 3
 ```
 
 When defining axes for your joystick, you have to provide a definition array. You can do this from your keymap.c file.
@@ -60,7 +67,7 @@ For instance, an axes configuration can be defined in the following way:
 
 ```c
 //joystick config
-joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
+joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
     [0] = JOYSTICK_AXIS_IN_OUT_GROUND(A4, B0, A7, 900, 575, 285),
     [1] = JOYSTICK_AXIS_VIRTUAL
 };
@@ -77,7 +84,7 @@ To give a value to virtual axes, call `joystick_set_axis(axis, value)`.
 The following example adjusts two virtual axes (X and Y) based on keypad presses, with `KC_P5` as a precision modifier:
 
 ```c
-joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
+joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
     [0] = JOYSTICK_AXIS_VIRTUAL, // x
     [1] = JOYSTICK_AXIS_VIRTUAL  // y
 };
@@ -115,7 +122,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ### Axis Resolution
 
-By default, the resolution of each axis is 8 bit, giving a range of -127 to +127. If you need higher precision, you can increase it by defining eg. `JOYSTICK_AXIS_RESOLUTION 12` in your `config.h`. The resolution must be between 8 and 16.
+By default, the resolution of each axis is 8 bit, giving a range of -127 to +127. If you need higher precision, you can increase it by defining eg. `JOYSTICK_AXES_RESOLUTION 12` in your `config.h`. The resolution must be between 8 and 16.
 
 Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MCUs.
 
@@ -156,4 +163,92 @@ Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MC
 |`QK_JOYSTICK_BUTTON_30`|`JS_30`|Button 30  |
 |`QK_JOYSTICK_BUTTON_31`|`JS_31`|Button 31  |
 
-You can also trigger joystick buttons in code with `register_joystick_button(button)` and `unregister_joystick_button(button)`, where `button` is the 0-based button index (0 = button 1).
+## API :id=api
+
+### `struct joystick_t` :id=api-joystick-t
+
+Contains the state of the joystick.
+
+#### Members :id=api-joystick-t-members
+
+ - `uint8_t buttons[]`  
+   A bit-packed array containing the joystick button states. The size is calculated as `(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1`.
+ - `int16_t axes[]`  
+   An array of analog values for each defined axis.
+ - `bool dirty`  
+   Whether the current state needs to be sent to the host.
+
+---
+
+### `struct joystick_config_t` :id=api-joystick-config-t
+
+Describes a single axis.
+
+#### Members :id=api-joystick-config-t-members
+
+ - `pin_t output_pin`  
+   A pin to set as output high when reading the analog value, or `JS_VIRTUAL_AXIS`.
+ - `pin_t input_pin`  
+   The pin to read the analog value from, or `JS_VIRTUAL_AXIS`.
+ - `pin_t ground_pin`  
+   A pin to set as output low when reading the analog value, or `JS_VIRTUAL_AXIS`.
+ - `uint16_t min_digit`  
+   The minimum analog value.
+ - `uint16_t mid_digit`  
+   The resting or midpoint analog value.
+ - `uint16_t max_digit`  
+   The maximum analog value.
+
+---
+
+### `void joystick_flush(void)` :id=api-joystick-flush
+
+Send the joystick report to the host, if it has been marked as dirty.
+
+---
+
+### `void register_joystick_button(uint8_t button)` :id=api-register-joystick-button
+
+Set the state of a button, and flush the report.
+
+#### Arguments :id=api-register-joystick-button-arguments
+
+ - `uint8_t button`  
+   The index of the button to press, from 0 to 31.
+
+---
+
+### `void register_joystick_button(uint8_t button)` :id=api-unregister-joystick-button
+
+Reset the state of a button, and flush the report.
+
+#### Arguments :id=api-unregister-joystick-button-arguments
+
+ - `uint8_t button`  
+   The index of the button to release, from 0 to 31.
+
+---
+
+### `int16_t joystick_read_axis(uint8_t axis)` :id=api-joystick-read-axis
+
+Sample and process the analog value of the given axis.
+
+#### Arguments :id=api-joystick-read-axis-arguments
+
+ - `uint8_t axis`  
+   The axis to read.
+
+#### Return Value :id=api-joystick-read-axis-return
+
+A signed 16-bit integer, where 0 is the resting or mid point.
+
+### `void joystick_set_axis(uint8_t axis, int16_t value)` :id=api-joystick-set-axis
+
+Set the value of the given axis.
+
+#### Arguments :id=api-joystick-set-axis-arguments
+
+ - `uint8_t axis`  
+   The axis to set the value of.
+ - `int16_t value`  
+   The value to set.
