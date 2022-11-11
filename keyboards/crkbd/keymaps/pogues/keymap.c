@@ -77,7 +77,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   SFT_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               //KC_LGUI,OSL(LNUM), MOV_SPC,    SFT_BSP,OSL(LSYM), KC_LALT
                                                KC_LGUI, MO(LNUM), MOV_SPC,    SFT_BSP, MO(LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
@@ -85,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           TO(LCMK), MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
+              KC_NO, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, TO(LCMK), CTL_SPC,    TO(LCMK),  _______, _______
+                                               _______, _______, CTL_SPC,     _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
@@ -100,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, _______,  _______,     KC_0,  TO(LCMK), _______
+                                              _______, _______,  _______,     KC_0,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
@@ -111,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK),   KC_SPC,     KC_F10, TO(LCMK), _______
+                                              _______, _______,   KC_SPC,     _______, _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV] = LAYOUT_split_3x6_3(
@@ -122,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                      KC_PSCR,  KC_TAB, KC_PGDN, KC_PGUP,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK),   KC_SPC,     KC_LSFT, TO(LCMK), _______
+                                              _______, TO(LCMK), _______,     _______,   KC_NO, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMSE] = LAYOUT_split_3x6_3(
@@ -135,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                                 _______,TO(LCMK),  KC_SPC,   KC_BTN1,  KC_BTN2, KC_BTN3
                                             //`--------------------------'  `--------------------------'
-    )
+    ),
 };
 
 
@@ -197,42 +196,37 @@ enum combo_keys {
     NUM_12_ENT,  // same as H, on num layer
     JY_CTLBSP,
 
-    // both hands
-    FU_LMOV,
-    WY_LFUN,
-    PL_LMSE,
+    // both hands, not using pl / fu any more due to typing mishits
+    // moved movement (fu) to left thumb hold and function to tri state
+    WY_LMSE,
 
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM combo_wf[] = {CTL_W, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {CTL_W, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_reset[] = {KC_PSCR, KC_NO, COMBO_END};
-const uint16_t PROGMEM combo_uy[] = {KC_U, CTL_Y, COMBO_END};
-const uint16_t PROGMEM combo_89[] = {KC_8, KC_9, COMBO_END};
-const uint16_t PROGMEM combo_hcom[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM combo_12[] = {KC_1, KC_2, COMBO_END};
-const uint16_t PROGMEM combo_jy[] = {KC_J, CTL_Y, COMBO_END};
-const uint16_t PROGMEM combo_fu[] = {KC_F, KC_U, COMBO_END};
-const uint16_t PROGMEM combo_wy[] = {CTL_W, CTL_Y, COMBO_END};
-const uint16_t PROGMEM combo_pl[] = {KC_P, KC_L, COMBO_END};
+const uint16_t PROGMEM combo_del[] = {KC_U, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_num_del[] = {KC_8, KC_9, COMBO_END};
+const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM combo_num_ent[] = {KC_1, KC_2, COMBO_END};
+const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_mouse[] = {CTL_W, CTL_Y, COMBO_END};
 
 combo_t key_combos[] = {
-    [WF_ESC] = COMBO(combo_wf, KC_ESC),
-    [CD_TAB] = COMBO(combo_cd, KC_TAB),
+    [WF_ESC] = COMBO(combo_esc, KC_ESC),
+    [CD_TAB] = COMBO(combo_tab, KC_TAB),
 
     [RESET_COMBO] = COMBO(combo_reset, RESET),
 
-    [UY_DEL] = COMBO(combo_uy, KC_DEL),
-    [NUM_89_DEL] = COMBO(combo_89, KC_DEL),
-    [HCOM_ENT] = COMBO(combo_hcom, KC_ENT),
-    [NUM_12_ENT] = COMBO(combo_12, KC_ENT),
-    [JY_CTLBSP] = COMBO(combo_jy, LCTL(KC_BSPC)),
+    [UY_DEL] = COMBO(combo_del, KC_DEL),
+    [NUM_89_DEL] = COMBO(combo_num_del, KC_DEL),
+    [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
+    [NUM_12_ENT] = COMBO(combo_num_ent, KC_ENT),
+    [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
 
-    [FU_LMOV] = COMBO(combo_fu, TO(LMOV)),
-    [WY_LFUN] = COMBO(combo_wy, TO(LFUN)),
-    [PL_LMSE] = COMBO(combo_pl, TO(LMSE)),
+    [WY_LMSE] = COMBO(combo_mouse, TO(LMSE)),
 };
 
 /******************************************************************************
@@ -532,6 +526,9 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    // check the tristate layer and update
+    state = update_tri_layer_state(state, LNUM, LSYM, LFUN);
+
     // set the led status to indicate layer
     rgblight_set_layer_state(1, layer_state_cmp(state, LCMK));
     rgblight_set_layer_state(2, layer_state_cmp(state, LSYM));

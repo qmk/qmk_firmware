@@ -49,8 +49,13 @@ class SVG:
 keycode_blank = 'NO'
 transparent_keycodes = ('_______', 'KC_TRNS')
 
+_LAYERS = ('LSYM', 'LNUM')
+_LAYER_KEYS = (('TD', 'TD_'), ('TT', ''), ('OSL', ''), ('MO', ''))
+def _layer_keys(l):
+    return [f'{m}({p}{l})' for (m, p) in _LAYER_KEYS]
+
 annotation_keycodes = {
-    'layer': ['TD(TD_LSYM)', 'TD(TD_LNUM)', 'TT(LSYM)', 'TT(LNUM)', 'OSL(LSYM)', 'OSL(LNUM)'],
+    'layer': [f'{m}({p}{l})' for (m, p) in _LAYER_KEYS for l in _LAYERS],
     'one-shot': ['OSM_ALT', 'OSM_GUI', 'OSM_CTL', 'OSM_SFT'],
     'held': []
 }
@@ -213,10 +218,13 @@ LAYER_DISPLAY_NAMES = {
 }
 
 LAYER_HELD_KEYCODES = {  # indicate which keys are held to get to a layer
-    'LSYM': ['TD(TD_LSYM)', 'TT(LSYM)', 'OSL(LSYM)'],
-    'LNUM': ['TD(TD_LNUM)', 'TT(LNUM)', 'OSL(LSYM)'],
-    'LMOV': ['TD(TD_LSYM', 'TD(TD_LNUM)'],  # this assumes tristate layer
+    'LSYM': [f'{m}({p}LSYM)' for (m, p) in _LAYER_KEYS],
+    'LNUM': [f'{m}({p}LNUM)' for (m, p) in _LAYER_KEYS],
+    'LMOV': [f'{m}({p}LMOV)' for (m, p) in _LAYER_KEYS],
+    'LFUN': [f'{m}({p}{l})' for (m, p) in _LAYER_KEYS for l in _LAYERS],
+    'LMOV': ['MOV_SPC'],
 }
+
 MODS_HELD_KEYCODES = {
     # indicate which keys are dual role tap/mods
     # here we list the mods key, the tap is defined in key_names
@@ -341,12 +349,6 @@ key_names = {
     "ALT_TAB": "&#8997;&#8677;",
     "OSM_GUI": "&#8984;",
     "KC_LGUI": "&#8984;",
-    "TD(TD_LNUM)": "Num",
-    "TD(TD_LSYM)": "Sym",
-    "TT(LSYM)": "Sym",
-    "TT(LNUM)": "Num",
-    "OSL(LSYM)": "Sym",
-    "OSL(LNUM)": "Num",
     "SFT_SPC": "&#9251;",
     "CTL_SPC": "&#9251;",
     "MOV_SPC": "&#9251;",
@@ -365,13 +367,27 @@ key_names = {
     "MY_COMP": "Compose",
     "TO(LCMK)": "To CMK",
     "TO(LQWE)": "To QWE",
+    "KC_MS_U": "&#8607;",
+    "KC_MS_D": "&#8609;",
+    "KC_MS_L": "&#8606;",
+    "KC_MS_R": "&#8608;",
+    "KC_WH_D": "&#8635;",
+    "KC_WH_U": "&#8634;",
 }
+
+key_names.update(
+    {k: 'Sym' for k in _layer_keys('LSYM')}
+)
+
+key_names.update(
+    {k: 'Num' for k in _layer_keys('LNUM')}
+)
 
 
 def extract_layer_data(args):
     """extract the layer data from the keymap file specified in the args.
 
-    returns an oredered dict of the layer name (as it appears in the keymap.c)to the data.
+    returns an oredered dict of the layer name (as it appears in the keymap.c) to the data.
     """
     with open(args.keymap, 'r') as keymapfile:
         keymap_c = keymapfile.read()
@@ -419,10 +435,12 @@ def calculate_layer_dimensions(args, keymap):
 
     return width, height
 
+
 def _layer_y_offset(layer_index, layer_height):
     # note that the last layer spacing was not originally included.. if you change this work on _svg_layer_height too
     y = SVG.diagram_inset + layer_index * (layer_height + SVG.layer_title_height + SVG.layer_title_spacing + SVG.layer_spacing)
     return y
+
 
 def _svg_layer_height(num_layers, layer_height):
     """the height of the layer part of the svg."""
@@ -432,12 +450,14 @@ def _svg_layer_height(num_layers, layer_height):
     svg_height = SVG.diagram_inset + _layer_y_offset(num_layers, layer_height)
     return svg_height
 
+
 def _svg_height(num_layers, layer_height, num_compose, num_compose_groups):
     """the total height of the svg"""
     svg_height = _svg_layer_height(num_layers, layer_height)
     # now add in the compose mappings
     svg_height += num_compose * (SVG.key_spacing + SVG.key_height) + 2 * num_compose_groups * (SVG.layer_title_spacing + SVG.layer_title_height)
     return svg_height
+
 
 def create_svg_header(layer_width, layer_height, num_layers, num_compose, num_compose_groups):
     svg_height = _svg_height(num_layers, layer_height, num_compose, num_compose_groups)
@@ -463,6 +483,7 @@ def valid_keys_in_row(row):
     # we strip out XXXXXXX records as they show keys not present, rather than
     # KC_NO which is a present key with no action
     return list(filter(lambda x: x != 'XXXXXXX', row))
+
 
 def calculate_num_cols(layer_data):
     max_cols = 0
