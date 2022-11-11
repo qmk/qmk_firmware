@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "day_off",
+    "keyboard_name": "DayOff",
+    "manufacturer": "NixKeyboards",
     "url": "nixkeyboards.com",
     "maintainer": "Schrobie",
+    "usb": {
+        "vid": "0x6E6B",
+        "pid": "0x444F",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
