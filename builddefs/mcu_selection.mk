@@ -516,6 +516,9 @@ ifneq ($(findstring STM32F446, $(MCU)),)
 
   # Bootloader address for STM32 DFU
   STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
+
+  # Default as no chibios efl config
+  EEPROM_DRIVER ?= transient
 endif
 
 ifneq ($(findstring STM32G431, $(MCU)),)
