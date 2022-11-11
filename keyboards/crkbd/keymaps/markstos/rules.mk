@@ -5,7 +5,7 @@
 EXTRAKEY_ENABLE = yes
 
 # markstos: smaller file size, little down-side
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
 # markstos: for combos!
 COMBO_ENABLE = yes
