@@ -44,18 +44,22 @@ void joystick_flush(void) {
 }
 
 void register_joystick_button(uint8_t button) {
+    if (button >= JOYSTICK_BUTTON_COUNT) return;
     joystick_state.buttons[button / 8] |= 1 << (button % 8);
     joystick_state.dirty = true;
     joystick_flush();
 }
 
 void unregister_joystick_button(uint8_t button) {
+    if (button >= JOYSTICK_BUTTON_COUNT) return;
     joystick_state.buttons[button / 8] &= ~(1 << (button % 8));
     joystick_state.dirty = true;
     joystick_flush();
 }
 
 int16_t joystick_read_axis(uint8_t axis) {
+    if (axis >= JOYSTICK_AXIS_COUNT) return;
+
     // disable pull-up resistor
     writePinLow(joystick_axes[axis].input_pin);
 
@@ -121,6 +125,8 @@ void joystick_read_axes() {
 }
 
 void joystick_set_axis(uint8_t axis, int16_t value) {
+    if (axis >= JOYSTICK_AXIS_COUNT) return;
+
     if (value != joystick_state.axes[axis]) {
         joystick_state.axes[axis] = value;
         joystick_state.dirty = true;
