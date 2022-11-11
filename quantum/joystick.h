@@ -16,7 +16,9 @@
 
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
+
 #include "gpio.h"
 
 #ifndef JOYSTICK_BUTTON_COUNT
@@ -70,19 +72,13 @@ typedef struct {
 
 extern joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT];
 
-enum joystick_status {
-    JS_INITIALIZED = 1,
-    JS_UPDATED,
-};
-
 typedef struct {
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
-
     int16_t axes[JOYSTICK_AXIS_COUNT];
-    uint8_t status : 2;
+    bool    dirty;
 } joystick_t;
 
-extern joystick_t joystick_status;
+extern joystick_t joystick_state;
 
 void joystick_task(void);
 void joystick_flush(void);
