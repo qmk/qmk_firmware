@@ -3,7 +3,7 @@
     "keyboard_name": "litl",
     "url": "https://github.com/mohoyt/litl",
     "maintainer": "mohoyt",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "ROW2COL",
     "features": {
          "bootmagic": false,
@@ -19,11 +19,10 @@
          "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
          "rows": ["B4", "B5", "D4", "C6", "D7", "E6", "F5", "F4"]
      },
-    "processor": "atmega32u4",
     "usb": {
          "device_version": "1.0.0",
          "pid": "0x5353",
-         "vid": "0x1729"
+         "vid": "0x8086"
      },
     "layouts": {
         "LAYOUT_all": {
