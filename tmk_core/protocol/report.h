@@ -234,11 +234,11 @@ typedef struct {
 } __attribute__((packed)) report_digitizer_t;
 
 typedef struct {
-#if JOYSTICK_AXES_COUNT > 0
-#    if JOYSTICK_AXES_RESOLUTION > 8
-    int16_t axes[JOYSTICK_AXES_COUNT];
+#if JOYSTICK_AXIS_COUNT > 0
+#    if JOYSTICK_AXIS_RESOLUTION > 8
+    int16_t axes[JOYSTICK_AXIS_COUNT];
 #    else
-    int8_t axes[JOYSTICK_AXES_COUNT];
+    int8_t axes[JOYSTICK_AXIS_COUNT];
 #    endif
 #endif
 

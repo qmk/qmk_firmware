@@ -23,7 +23,7 @@
 joystick_t joystick_status = {
     .buttons = {0},
     .axes = {
-#if JOYSTICK_AXES_COUNT > 0
+#if JOYSTICK_AXIS_COUNT > 0
         0
 #endif
     },
@@ -32,7 +32,7 @@ joystick_t joystick_status = {
 // clang-format on
 
 // array defining the reading of analog values for each axis
-__attribute__((weak)) joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {};
+__attribute__((weak)) joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {};
 
 __attribute__((weak)) void joystick_task(void) {
     joystick_read_axes();
@@ -109,8 +109,8 @@ int16_t joystick_read_axis(uint8_t axis) {
 }
 
 void joystick_read_axes() {
-#if JOYSTICK_AXES_COUNT > 0
-    for (int i = 0; i < JOYSTICK_AXES_COUNT; ++i) {
+#if JOYSTICK_AXIS_COUNT > 0
+    for (int i = 0; i < JOYSTICK_AXIS_COUNT; ++i) {
         if (joystick_axes[i].input_pin == JS_VIRTUAL_AXIS) {
             continue;
         }

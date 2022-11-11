@@ -34,7 +34,7 @@ By default, two axes and eight buttons are defined. This can be changed in your 
 // Max 32
 #define JOYSTICK_BUTTON_COUNT 16
 // Max 6: X, Y, Z, Rx, Ry, Rz
-#define JOYSTICK_AXES_COUNT 3
+#define JOYSTICK_AXIS_COUNT 3
 ```
 
 When defining axes for your joystick, you have to provide a definition array. You can do this from your keymap.c file.
@@ -60,7 +60,7 @@ For instance, an axes configuration can be defined in the following way:
 
 ```c
 //joystick config
-joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     [0] = JOYSTICK_AXIS_IN_OUT_GROUND(A4, B0, A7, 900, 575, 285),
     [1] = JOYSTICK_AXIS_VIRTUAL
 };
@@ -77,7 +77,7 @@ To give a value to virtual axes, call `joystick_set_axis(axis, value)`.
 The following example adjusts two virtual axes (X and Y) based on keypad presses, with `KC_P5` as a precision modifier:
 
 ```c
-joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     [0] = JOYSTICK_AXIS_VIRTUAL, // x
     [1] = JOYSTICK_AXIS_VIRTUAL  // y
 };
@@ -115,7 +115,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ### Axis Resolution
 
-By default, the resolution of each axis is 8 bit, giving a range of -127 to +127. If you need higher precision, you can increase it by defining eg. `JOYSTICK_AXES_RESOLUTION 12` in your `config.h`. The resolution must be between 8 and 16.
+By default, the resolution of each axis is 8 bit, giving a range of -127 to +127. If you need higher precision, you can increase it by defining eg. `JOYSTICK_AXIS_RESOLUTION 12` in your `config.h`. The resolution must be between 8 and 16.
 
 Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MCUs.
 

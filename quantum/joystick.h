@@ -25,23 +25,23 @@
 #    error Joystick feature only supports up to 32 buttons
 #endif
 
-#ifndef JOYSTICK_AXES_COUNT
-#    define JOYSTICK_AXES_COUNT 4
-#elif JOYSTICK_AXES_COUNT > 6
+#ifndef JOYSTICK_AXIS_COUNT
+#    define JOYSTICK_AXIS_COUNT 2
+#elif JOYSTICK_AXIS_COUNT > 6
 #    error Joystick feature only supports up to 6 axes
 #endif
 
-#if JOYSTICK_AXES_COUNT == 0 && JOYSTICK_BUTTON_COUNT == 0
+#if JOYSTICK_AXIS_COUNT == 0 && JOYSTICK_BUTTON_COUNT == 0
 #    error Joystick feature requires at least one axis or button
 #endif
 
-#ifndef JOYSTICK_AXES_RESOLUTION
-#    define JOYSTICK_AXES_RESOLUTION 8
-#elif JOYSTICK_AXES_RESOLUTION < 8 || JOYSTICK_AXES_RESOLUTION > 16
-#    error JOYSTICK_AXES_RESOLUTION must be between 8 and 16
+#ifndef JOYSTICK_AXIS_RESOLUTION
+#    define JOYSTICK_AXIS_RESOLUTION 8
+#elif JOYSTICK_AXIS_RESOLUTION < 8 || JOYSTICK_AXIS_RESOLUTION > 16
+#    error JOYSTICK_AXIS_RESOLUTION must be between 8 and 16
 #endif
 
-#define JOYSTICK_RESOLUTION ((1L << (JOYSTICK_AXES_RESOLUTION - 1)) - 1)
+#define JOYSTICK_RESOLUTION ((1L << (JOYSTICK_AXIS_RESOLUTION - 1)) - 1)
 
 // configure on input_pin of the joystick_axes array entry to JS_VIRTUAL_AXIS
 // to prevent it from being read from the ADC. This allows outputing forged axis value.
@@ -68,7 +68,7 @@ typedef struct {
     uint16_t max_digit;
 } joystick_config_t;
 
-extern joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT];
+extern joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT];
 
 enum joystick_status {
     JS_INITIALIZED = 1,
@@ -78,7 +78,7 @@ enum joystick_status {
 typedef struct {
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 
-    int16_t axes[JOYSTICK_AXES_COUNT];
+    int16_t axes[JOYSTICK_AXIS_COUNT];
     uint8_t status : 2;
 } joystick_t;
 
