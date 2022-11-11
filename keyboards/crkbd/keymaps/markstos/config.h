@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define SSD1306OLED
 
-#define USE_SERIAL_PD2
 
 // By default, when holding a dual-function key shortly after tapping it, the
 // tapped key will begin repeating. This is handy for fast typists when typing
