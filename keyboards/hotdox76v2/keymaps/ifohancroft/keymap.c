@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                     _______,  _______,            _______,  _______,
                                                                               _______,            _______,
-                                                          _______,  KC_PENT,  KC_PGUP,            KC_PGDN,  _______,  _______   
+                                                          KC_PGUP,  KC_PENT,  _______,            _______,  _______,  KC_PGDN   
     ),
 
     /* Empty Layer */
