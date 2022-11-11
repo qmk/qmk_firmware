@@ -87,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 	[_MAC] = LAYOUT(
-	KC_GRV,	KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_EQL,			KC_NO,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_MINUS,
-	KC_TAB,	KC_Q,	KC_W,	KC_E,	KC_R,	KC_T,	KC_MINS,			KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	KC_BSLS,
-	MEHESC,	KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	KC_LBRC,			KC_PGUP,	KC_H,	KC_J,	KC_K,	KC_L,	KC_SCLN,	KC_QUOT,
-	KC_LSFT,	KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	KC_LCBR,			KC_PGDN,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
+	KC_GRV,	KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_ESC,			KC_NO,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_MINUS,
+	KC_TAB,	KC_Q,	KC_W,	KC_E,	KC_R,	KC_T,	KC_GRV,			KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	MT(MOD_LALT, KC_BSLS),
+	MEHESC,	KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	KC_LBRC,			KC_VOLU,	KC_H,	KC_J,	KC_K,	KC_L,	KC_SCLN,	KC_QUOT,
+	KC_LSFT,	KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	KC_LCBR,			KC_VOLD,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
 
 	KC_LCTL,	LBRC,	RBRC,	MO(_SYM),		MO(_NAV),
 	CMD_T(KC_BSPC),	MT(MOD_LALT, KC_SPC),	MT(MOD_LCTL, KC_ENT),
@@ -108,9 +108,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
-	CTL_T(KC_BSPC),	MT(MOD_LCTL, KC_SPC), MT(MOD_LALT, KC_ENT),
-	_______,	KC_APP,	_______,
-	_______,	_______,	_______,	_______,	_______,
+		CTL_T(KC_BSPC),	MT(MOD_LCTL, KC_SPC), MT(MOD_LALT, KC_ENT),
+																	_______,	KC_LGUI,	_______,
+																					_______,	_______,	KC_UNDERSCORE,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,										 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,														_______,	_______,	_______,	_______,	_______
@@ -119,24 +119,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_NAV] = LAYOUT(
 	C(KC_GRV),	KC_F1,		KC_F2,		KC_F3,	KC_F4,		KC_F5,		KC_F11,					_______,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_DEL,
 	C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,	A(KC_RGHT),	A(KC_DEL),	KC_F12,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
-	KC_MEH,		G(KC_LEFT),	KC_LEFT,		KC_DOWN,	KC_RGHT,		G(KC_RGHT),	KC_RPRN,					KC_VOLU,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,		KC_HOME,		G(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_VOLD,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
-	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN3,	KC_BTN2,	KC_BTN1,	_______,	_______,	_______,	_______,	_______,
+	KC_MEH,		G(KC_LEFT),	KC_LEFT,		KC_DOWN,	KC_RGHT,		G(KC_RGHT),	KC_RPRN,					KC_PGUP,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
+	KC_LSFT,		KC_HOME,		G(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_PGDN,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
+	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN2,	KC_BTN3,	KC_BTN1,	KC_APP,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,										 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,														_______,	_______,	_______,	_______,	_______
 	),
 
 	[_GAME] = LAYOUT(
-	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	KC_BSPC,
-	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	MEHESC,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	KC_ESC,					_______,	_______,	_______,	_______,	_______,	_______,	KC_BSPC,
+	_______,	_______,	_______,	_______,	_______,	_______,	KC_GRV,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	MEHESC,	_______,	_______,	_______,	_______,	_______,	_______,					KC_GRV,	_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,					KC_ESC,	_______,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
 	KC_SPC,	MT(MOD_LCTL, KC_BSPC), MT(MOD_LALT, KC_SPC),
-	KC_ENT,	KC_LCTL,	KC_SPC,
-	_______,	_______,	_______,	_______,	_______,
+																			KC_ENT,	KC_ESC,	KC_SPC,
+																							_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,										 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,														_______,	_______,	_______,	_______,	_______
@@ -159,8 +159,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_WINNAV] = LAYOUT(
 	KC_GRV,		KC_F1,		KC_F2,		KC_F3,	KC_F4,		KC_F5,		KC_F11,					_______,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_DEL,
 	C(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,	C(KC_RGHT),	C(KC_DEL),	KC_F12,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
-	KC_MEH,		KC_HOME,		KC_LEFT,		KC_DOWN,	KC_RGHT,		KC_END,		KC_RPRN,					KC_VOLU,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,		KC_HOME,		C(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_VOLD,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
+	KC_MEH,		KC_HOME,		KC_LEFT,		KC_DOWN,	KC_RGHT,		KC_END,		KC_RPRN,					KC_PGUP,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
+	KC_LSFT,		KC_HOME,		C(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_PGDN,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
 	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN3,	KC_BTN2,	KC_BTN1,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,										 _______,	_______,	_______,	_______,	_______,	_______,
@@ -173,10 +173,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______,	MEH(KC_Q),	MEH(KC_W),	MEH(KC_E),	MEH(KC_R),	MEH(KC_T),	_______,						_______,	MEH(KC_Y),	MEH(KC_U),	MEH(KC_I),	MEH(KC_O),	MEH(KC_P),	_______,
 	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	_______,						KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	_______,
 	_______,	MEH(KC_Z),	MEH(KC_X),	MEH(KC_C),	MEH(KC_V),	MEH(KC_B),	_______,						KC_VOLD,	MEH(KC_N),	MEH(KC_M),	MEH(KC_COMM),	MEH(KC_DOT),	MEH(KC_SLSH),	_______,
-	_______,	_______,		RGB_RMOD,		RGB_TOG,		RGB_MOD,
-	TO(_GAME),		TO(_WIN),		TO(_MAC),
-	KC_MNXT,	KC_MPRV, 		KC_MPLY,
-	TO(_MAC),	TO(_WIN),		TO(_GAME),		TO(_SYM),		_______,
+	_______,	_______,		RGB_RMOD,		RGB_TOG,		RGB_MOD, 		TOG(_WIN),	TOG(_GAME),	TO(_MAC),
+																																														KC_MNXT,	KC_MPRV,	KC_MPLY,
+																																																												TO(_MAC),	TO(_WIN),		TO(_GAME),		TO(_SYM),		_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,										 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,														_______,	_______,	_______,	_______,		_______
@@ -246,7 +245,7 @@ void render_layer_status(void) {
 }
 
 
-enum combo_events { RST, TOGWIN, TOGGAME, SEL_WORD, SEL_LINE, WINTGSYM, TGSYM, CTRLALTDEL, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, QIN, QNM, EML, QP, WINDELWD, COMBO_LENGTH };
+enum combo_events { RST, TOGWIN, TOGGAME, MUTE, SEL_WORD, SEL_LINE, WINTGSYM, TGSYM, CTRLALTDEL, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, QIN, QNM, EML, QP, WINDELWD, COMBO_LENGTH };
 uint16_t COMBO_LEN = COMBO_LENGTH;  // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM asdf_combo[]       = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
@@ -255,6 +254,7 @@ const uint16_t PROGMEM uiop_combo[]       = {KC_U, KC_I, KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM jklsemi_combo[]    = {KC_J, KC_K, KC_L, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM thumbs_combo[]     = {MT(MOD_LALT, KC_SPC), MT(MOD_LCTL, KC_ENT), COMBO_END};
 const uint16_t PROGMEM win_thumbs_combo[] = {MT(MOD_LCTL, KC_SPC), MT(MOD_LALT, KC_ENT), COMBO_END};
+const uint16_t PROGMEM mute_combo[] = {KC_VOLU,KC_VOLD, COMBO_END};
 
 const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
@@ -271,10 +271,20 @@ const uint16_t PROGMEM qnm_combo[]   = {KC_Q, KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM qin_combo[]   = {KC_Q, KC_I, KC_N, COMBO_END};
 const uint16_t PROGMEM eml_combo[]   = {KC_E, KC_M, KC_L, COMBO_END};
 
-// const uint16_t PROGMEM togwin_combo[] = {KC_9, KC_2, COMBO_END};
-// const uint16_t PROGMEM toggame_combo[] = {KC_0, KC_1, COMBO_END};
+const uint16_t PROGMEM togwin_combo[] = {KC_9, KC_2, COMBO_END};
+const uint16_t PROGMEM toggame_combo[] = {KC_0, KC_1, COMBO_END};
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+	   case MT(MOD_LALT, KC_BSLS):
+		  return TAPPING_TERM + 500;
+	   default:
+		  return TAPPING_TERM;
+    }
+}
 
 combo_t key_combos[] = {
+
 
     // 2 key combos
     [CUT]      = COMBO_ACTION(zx_combo),
@@ -285,9 +295,10 @@ combo_t key_combos[] = {
     [TGSYM]    = COMBO_ACTION(thumbs_combo),
     [WINTGSYM] = COMBO_ACTION(win_thumbs_combo),
     [RST]      = COMBO_ACTION(gravminus_combo),
+    [MUTE] = COMBO_ACTION(mute_combo),
 
-//     [TOGGAME]  = COMBO_ACTION(toggame_combo),
-//     [TOGWIN]   = COMBO_ACTION(togwin_combo),
+    [TOGGAME]  = COMBO_ACTION(toggame_combo),
+    [TOGWIN]   = COMBO_ACTION(togwin_combo),
 
     // 3 key combos
     [SEL_WORD] = COMBO_ACTION(xcv_combo),
@@ -307,86 +318,91 @@ combo_t key_combos[] = {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     if (layer_state_is(0)) {
-        switch (combo_index) {
-            case DELWD:
-                if (pressed) {
-                    tap_code16(A(KC_BSPC));
-                }
-                break;
-            case CUT:
-                if (pressed) {
-                    tap_code16(G(KC_X));
-                }
-                break;
-            case CPY:
-                if (pressed) {
-                    tap_code16(G(KC_C));
-                }
-                break;
-            case PST:
-                if (pressed) {
-                    tap_code16(G(KC_V));
-                }
-                break;
-            case SEL_LINE:
-                if (pressed) {
-                    SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LGUI));
-                }
-                break;
-            case SEL_WORD:
-                if (pressed) {
-                    SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LALT));
-                }
-        }
+	   switch (combo_index) {
+		  case DELWD:
+			 if (pressed) {
+				tap_code16(A(KC_BSPC));
+			 }
+			 break;
+		  case CUT:
+			 if (pressed) {
+				tap_code16(G(KC_X));
+			 }
+			 break;
+		  case CPY:
+			 if (pressed) {
+				tap_code16(G(KC_C));
+			 }
+			 break;
+		  case PST:
+			 if (pressed) {
+				tap_code16(G(KC_V));
+			 }
+			 break;
+		  case SEL_LINE:
+			 if (pressed) {
+				SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LGUI));
+			 }
+			 break;
+		  case SEL_WORD:
+			 if (pressed) {
+				SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LALT));
+			 }
+	   }
     }
     if (layer_state_is(1)) {
-        switch (combo_index) {
-            case DELWD:
-                if (pressed) {
-                    tap_code16(C(KC_BSPC));
-                }
-                break;
-            case CUT:
-                if (pressed) {
-                    tap_code16(C(KC_X));
-                }
-                break;
-            case CPY:
-                if (pressed) {
-                    tap_code16(C(KC_C));
-                }
-                break;
-            case PST:
-                if (pressed) {
-                    tap_code16(C(KC_V));
-                }
-                break;
-            case WINTGSYM:
-                if (pressed) {
-                    layer_invert(3);
-                }
-                break;
+	   switch (combo_index) {
+		  case DELWD:
+			 if (pressed) {
+				tap_code16(C(KC_BSPC));
+			 }
+			 break;
+		  case CUT:
+			 if (pressed) {
+				tap_code16(C(KC_X));
+			 }
+			 break;
+		  case CPY:
+			 if (pressed) {
+				tap_code16(C(KC_C));
+			 }
+			 break;
+		  case PST:
+			 if (pressed) {
+				tap_code16(C(KC_V));
+			 }
+			 break;
+		  case WINTGSYM:
+			 if (pressed) {
+				layer_invert(_SYM);
+			 }
+			 break;
 			case SEL_LINE:
-                if (pressed) {
-                    SEND_STRING( SS_TAP(X_HOME) SS_DOWN(X_LSFT) SS_TAP(X_END) SS_UP(X_LSFT));
-                }
-                break;
-            case SEL_WORD:
-                if (pressed) {
-                    SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LCTL));
-                }
-        }
+			 if (pressed) {
+				SEND_STRING( SS_TAP(X_HOME) SS_DOWN(X_LSFT) SS_TAP(X_END) SS_UP(X_LSFT));
+			 }
+			 break;
+		  case SEL_WORD:
+			 if (pressed) {
+				SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LCTL));
+			 }
+	   }
     }
     switch (combo_index) {
+	case MUTE:
+		if (pressed) {
+			tap_code(KC_MUTE);
+		}
+		break;
 	case TGSYM:
 		if (pressed) {layer_invert(_SYM);}
-	break;
-        case RST:
-            if (pressed) {
-                reset_keyboard();
-            }
-            break;
-	   case QNM:
+		break;
+	case RST:
+		  if (pressed) {
+			 reset_keyboard();
+		  }
+		  break;
+	case QNM:
 		  if (pressed) {
 			 SEND_STRING("Felix Sargent");
 		  }
@@ -397,25 +413,25 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 		  }
 		  break;
 
-        case CAL:
-            if (pressed) {
-                SEND_STRING("https://felixsargent.com/calendar");
-            }
-            break;
-        case EML:
-            if (pressed) {
-                SEND_STRING("felix.sargent@gmail.com");
-            }
-            break;
-        case QP:
-            if (pressed) {
-                SEND_STRING("4158606970");
-            }
-            break;
-        case CTRLALTDEL:
-            if (pressed) {
-                tap_code16(C(A(KC_DEL)));
-            }
-            break;
+	case CAL:
+		  if (pressed) {
+			 SEND_STRING("https://felixsargent.com/calendar");
+		  }
+		  break;
+	   case EML:
+		  if (pressed) {
+			 SEND_STRING("felix.sargent@gmail.com");
+		  }
+		  break;
+	   case QP:
+		  if (pressed) {
+			 SEND_STRING("4158606970");
+		  }
+		  break;
+	   case CTRLALTDEL:
+		  if (pressed) {
+			 tap_code16(C(A(KC_DEL)));
+		  }
+		  break;
     }
 }
