@@ -1,7 +1,6 @@
 
 "properties"{
     "keyboard_name": "Aero 75", 
-    "keyboard_folder": "qmk_firmware/keyboards/graystudio",
     "url": "https://graystudio.site/en/aero75/", 
     "maintainer": "edwardslau", 
     "manufacturer":"GrayStudio",
