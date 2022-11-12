@@ -7,13 +7,14 @@ For further explanation see [github.com/vii33](https://github.com/vii33/mecha-ke
 
 ## Changes
 - Added [Luna](https://youtu.be/HgIQRazCAjo), the interactive dog, and Mario World screen.
-- changed encoder direction (clockwise should be **louder**/**scroll down** :) )
+- Changed encoder direction (clockwise should be **louder**/**scroll down** :) )
 - Re-did Lower and Upper Layer completely to be more sensible and reduce the number of cross-hand keystrokes, e.g. 
   - F-keys are now in the same place as number keys
   - Brackets are easily reachable with the right hand
   - Numpad resembles real numpad layout
 - Added mod-taps for `Shift` <-> `Space`
 - Added home [row modifiers](https://precondition.github.io/home-row-mods) for `Ctrl`, `Alt`, `Win`
+- Reduced LED brightness as default value is sometimes too much for the controller (Imo)
 - Optimized one-hand use with left hand on keyboard and right hand on mouse (Delete, Enter, Cut, Copy...)
 - Added 'Game' Layer without special functions
 - Included German special keys
