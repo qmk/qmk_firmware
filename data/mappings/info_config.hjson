@@ -61,6 +61,7 @@
     "ONESHOT_TAP_TOGGLE": {"info_key": "oneshot.tap_toggle", "value_type": "int"},
     "PERMISSIVE_HOLD": {"info_key": "tapping.permissive_hold", "value_type": "bool"},
     "PERMISSIVE_HOLD_PER_KEY": {"info_key": "tapping.permissive_hold_per_key", "value_type": "bool"},
+    "PRESSED_KEY_PIN_STATE": {"info_key": "pressed_key.pin_state", "value_type": "int"},
     "PS2_CLOCK_PIN": {"info_key": "ps2.clock_pin"},
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},
     "RETRO_TAPPING": {"info_key": "tapping.retro", "value_type": "bool"},

@@ -100,6 +100,16 @@ Finally, you can specify the direction your diodes point. This can be `COL2ROW` 
     "diode_direction": "ROW2COL",
 ```
 
+## Configuration Options
+
+To invert the keypress logic, configure `pressed_key.pin_state`:
+
+```json
+    "pressed_key.pin_state": 1,
+```
+
+This configures state of the GPIO pins when the key is pressed - `1` for high, `0` for low. Default value is `0`.
+
 #### Direct Pin Matrix
 To configure a keyboard where each switch is connected to a separate pin and ground instead of sharing row and column pins, use `matrix_pins.direct`. The mapping defines the pins of each switch in rows and columns, from left to right. The size of the `matrix_pins.direct` array infers the size of the matrix. Use `NO_PIN` to fill in blank spaces. Overrides the behaviour of `diode_direction`, `matrix_pins.cols` and `matrix_pins.rows`.
 
