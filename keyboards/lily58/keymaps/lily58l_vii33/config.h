@@ -66,6 +66,9 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #  undef RGBLIGHT_EFFECT_TWINKLE
 #  undef RGBLIGHT_EFFECT_KNIGHT
 
+#  undef RGBLIGHT_LIMIT_VAL
+#  define RGBLIGHT_LIMIT_VAL 100
+
 /* Custom Lightning Layers */
 #  define RGBLIGHT_LAYERS
 #  define RGBLIGHT_MAX_LAYERS 2  // Default is 8. Performance impact -> reduced to 2
