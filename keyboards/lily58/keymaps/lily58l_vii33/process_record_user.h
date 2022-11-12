@@ -32,4 +32,5 @@ extern bool lunaIsJumping;
 extern bool lunaIsBarking;
 extern bool lunaShowedJump;
 
-extern void add_keylog(uint16_t keycode);
+/* Logging of key taps is not used for now */
+// extern void add_keylog(uint16_t keycode);

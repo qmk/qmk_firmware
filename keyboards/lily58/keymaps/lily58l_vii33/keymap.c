@@ -18,6 +18,7 @@
   */
 
 
+#include QMK_KEYBOARD_H
 #include "enums.h"
 #include "oled.h"
 #include "process_record_user.h"
