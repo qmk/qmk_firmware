@@ -13,7 +13,7 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["GPIO2", "GPIO3", "GPIO10", "GPIO11" , "GPIO12" , "GPIO13" , "GPIO14 , "GPIO15" , "GPIO20" ]
+        "cols": ["GPIO2", "GPIO3", "GPIO10", "GPIO11" , "GPIO12" , "GPIO13" , "GPIO14" , "GPIO15" , "GPIO20" ]
         "rows": ["GPIO4", "GPIO5", "GPIO6", "GPIO7" , "GPIO8" , "GPIO9"]
     },
     "processor": "RP2040",
