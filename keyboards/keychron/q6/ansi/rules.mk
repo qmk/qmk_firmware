@@ -5,7 +5,7 @@ MCU = STM32L432
 BOOTLOADER = stm32-dfu
 
 # Build Options
-#   change yes to no to disable.
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
