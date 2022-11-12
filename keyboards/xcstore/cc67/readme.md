@@ -21,7 +21,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Due to using PA10 as GPIO, built-in STM32 DFU from USB doesn't working normally. So before using this QMK firmware, you need to do these thing below:
 
 * Grab an ST-Link and hook up into SWD from PCB
-* Download this: [TinyUF2 binary](https://github.com/HorrorTroll/tinyuf2/blob/stm32f401_8mhz/ports/stm32f4/build/stm32f401ce_discovery/tinyuf2-stm32f401ce_discovery.bin)
+* Download this: [TinyUF2 binary](https://github.com/HorrorTroll/tinyuf2/blob/stm32f401/ports/stm32f4/build/stm32f401ce_discovery/tinyuf2-stm32f401ce_discovery.bin)
 * Using any flash tool that support ST-Link. Connect ST-Link, then do full chip erase and then flash TinyUF2 binary
 * Wait for it done and disconnect ST-Link.
 * Then plug USB from PCB to PC, now it should pop up a new disk drive.
