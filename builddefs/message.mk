@@ -63,6 +63,7 @@ MSG_COMPILING_CXX = Compiling:
 MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
+MSG_GENERATING = Generating:
 MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR) Some git submodules are out of date.\n\
 Please consider running $(BOLD)make git-submodule$(NO_COLOR).\n\n
 MSG_SUBMODULE_MODIFIED = $(WARN_COLOR)WARNING:$(NO_COLOR) Some git submodules are modified.\n\
