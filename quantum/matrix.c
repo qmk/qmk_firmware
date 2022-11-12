@@ -96,13 +96,8 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
-    if (pin != NO_PIN) {
-        if (readPin(pin) == PRESSED_KEY_PIN_STATE) {
-            return 0;
-        }
-    } else {
-        return 1;
-    }
+    if ((pin == NO_PIN) || (readPin(pin) != PRESSED_KEY_PIN_STATE)) return 1;
+    if (readPin(pin) == PRESSED_KEY_PIN_STATE) return 0;
 }
 
 // matrix code
