@@ -46,6 +46,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_MUTABLE_COL const
 #endif
 
+#ifndef PRESSED_KEY_PIN_STATE
+#    define PRESSED_KEY_PIN_STATE 0
+#endif
+
 #ifdef DIRECT_PINS
 static SPLIT_MUTABLE pin_t direct_pins[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
@@ -93,7 +97,9 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return readPin(pin);
+        if (readPin(pin) == PRESSED_KEY_PIN_STATE) {
+            return 0;
+        }
     } else {
         return 1;
     }
@@ -122,7 +128,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         pin_t pin = direct_pins[current_row][col_index];
         if (pin != NO_PIN) {
-            current_row_value |= readPin(pin) ? 0 : row_shifter;
+            current_row_value |= readMatrixPin(pin) ? 0 : row_shifter;
         }
     }
 
