@@ -6,7 +6,7 @@
     "usb": {
     	"vid": "0x4753",
     	"pid": "0x3075",
-    	"device_version": "0.01",
+    	"device_version": "0.0.1",
     },
     "layouts": {
         "LAYOUT_all": {
