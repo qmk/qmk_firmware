@@ -207,6 +207,10 @@ extern layer_state_t layer_state;
 #    include "joystick.h"
 #endif
 
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
+#endif
+
 #ifdef XAP_ENABLE
 #    include "xap.h"
 #endif
