@@ -25,8 +25,9 @@
  #define MASTER_LEFT
  #define SPLIT_WPM_ENABLE
 
- #define OLED_TIMEOUT 120000
-#define OLED_BRIGHTNESS 120
+
+ #define OLED_BRIGHTNESS 75
+ #define OLED_TIMEOUT 0
  // #define EE_HANDS
 
  #define TAPPING_FORCE_HOLD

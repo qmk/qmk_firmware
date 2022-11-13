@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | CAPS |      |  lft |  dwn |  rt  |      |-------.    ,-------|      |      |      |      |      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      | CALC |      | BACK |-------|    |-------| NEXT | MUTE | VOLU | VOLD |      |   |  |
+ * |      |      |      | CALC |      | BACK |-------|    |-------| NEXT | MUTE | VOLD | VOLU |      |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |       |     | /       /       \ PLAY \  |      |       |      |
  *                   |      |       |     |/       /         \ PAUSE\ |      |       |      |
@@ -76,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FN] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
-  KC_F12,  _______, _______,   KC_UP,  _______,  _______,                   _______, _______, _______, CG_TOGG, _______, _______,
+  KC_F12,  _______, _______,   KC_UP,  _______,  _______,                   _______, _______, _______, CG_TOGG, KC_PSCR, _______,
   KC_CAPS, _______, KC_LEFT, KC_DOWN,  KC_RIGHT, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, KC_PIPE,
-                             _______,  _______,  _______, _______, _______,  KC_DEL, _______, _______
+  _______, _______, _______, KC_CALC,  _______,  KC_MPRV, _______, _______, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_PIPE,
+                             _______,  _______,  _______, _______, KC_MPLY, _______, _______, _______
 ) // ,
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -166,6 +166,7 @@ uint8_t current_frame = 0;
 int   current_wpm = 0;
 led_t led_usb_state;
 
+bool isBarking = false;
 bool isSneaking = false;
 bool isJumping  = false;
 bool showedJump = true;
@@ -243,12 +244,14 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
 
             oled_set_cursor(LUNA_X, LUNA_Y);
         }
-
         /* switch frame */
         current_frame = (current_frame + 1) % 2;
 
         /* current status */
         if (led_usb_state.caps_lock) {
+            oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
+
+        } else if (isBarking) {
             oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
 
         } else if (isSneaking) {
@@ -271,13 +274,6 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         animate_luna();
     }
 
-    /* this fixes the screen on and off bug */
-    if (current_wpm > 0) {
-        oled_on();
-        anim_sleep = timer_read32();
-    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-        oled_off();
-    }
 }
 
 /* KEYBOARD PET END */
@@ -286,6 +282,9 @@ char wpm_str[16];
 
 
 bool oled_task_user(void) {
+    if (!is_oled_on()) {
+        oled_on();
+    }
     current_wpm   = get_current_wpm();
     led_usb_state = host_keyboard_led_state();
     if (is_keyboard_master()) {
@@ -335,6 +334,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 isSneaking = true;
             } else {
                 isSneaking = false;
+            }
+            break;
+        case KC_LSFT:
+        case KC_RSFT:
+            if (record->event.pressed) {
+                isBarking = true;
+            } else {
+                isBarking = false;
             }
             break;
         case KC_SPC:
