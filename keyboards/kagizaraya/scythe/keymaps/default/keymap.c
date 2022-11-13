@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_HAPPY] = LAYOUT(
   KC_PWR,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,      _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-  KC_CAPS, KC_F10,  KC_F12,  BL_TOGG, _______, BL_INC , BL_DEC ,      _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP,   KC_INS,
+  KC_CAPS, KC_F10,  KC_F12,  BL_TOGG, _______, BL_UP  , BL_DOWN,      _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP,   KC_INS,
   _______, KC_VOLD, KC_VOLU, KC_MUTE, RGB_HUI, RGB_SAI, RGB_VAI,      KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, _______,
   _______, RGB_TOG, RGB_MOD, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD,      KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN,  _______, _______, _______,
                              _______, _______, _______, _______,      _______, _______, _______, _______

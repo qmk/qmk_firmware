@@ -316,9 +316,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
 #endif
-#ifdef PRINTING_ENABLE
-            process_printer(keycode, record) &&
-#endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
 #endif
@@ -384,13 +381,13 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
 #endif
 #ifdef BLUETOOTH_ENABLE
-            case OUT_AUTO:
+            case QK_OUTPUT_AUTO:
                 set_output(OUTPUT_AUTO);
                 return false;
-            case OUT_USB:
+            case QK_OUTPUT_USB:
                 set_output(OUTPUT_USB);
                 return false;
-            case OUT_BT:
+            case QK_OUTPUT_BLUETOOTH:
                 set_output(OUTPUT_BLUETOOTH);
                 return false;
 #endif

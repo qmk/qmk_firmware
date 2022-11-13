@@ -161,8 +161,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MEDIA] = LAYOUT_planck_grid(
 	XXXXXXX, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, XXXXXXX,
-	XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,
-	KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP,
+	XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DM_PLY1, DM_PLY2,
+	KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DM_RSTP,
 	ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY 
 ),
 
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ONESHOT] = LAYOUT_planck_grid(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DM_REC1, DM_REC2,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -221,16 +221,16 @@ void press_key(uint16_t key) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // uint16_t macro_kc = (keycode == ONESHOT ? DYN_REC_STOP : keycode);
+    // uint16_t macro_kc = (keycode == ONESHOT ? DM_RSTP : keycode);
     if (!process_record_dynamic_macro(keycode, record)) {
         switch(keycode) {
-          case DYN_REC_START1:
-          case DYN_REC_START2:
+          case QK_DYNAMIC_MACRO_RECORD_START_1:
+          case QK_DYNAMIC_MACRO_RECORD_START_2:
 #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_dyn_macro_rec);
 #endif
               break;
-          case DYN_REC_STOP:
+          case QK_DYNAMIC_MACRO_RECORD_STOP:
 #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_dyn_macro_stop);
 #endif

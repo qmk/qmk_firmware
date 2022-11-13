@@ -15,6 +15,8 @@
  */
 
 #include "sequencer.h"
+#include "debug.h"
+#include "timer.h"
 
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"

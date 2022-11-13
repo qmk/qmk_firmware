@@ -45,8 +45,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* Define RGB */
-#define RGBLED_NUM 126
-#define RGB_MATRIX_LED_COUNT 126
+#define RGBLED_NUM 86
+#define RGB_MATRIX_LED_COUNT 86
 #define RGB_DI_PIN D2
 
 #ifdef RGB_MATRIX_ENABLE

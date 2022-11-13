@@ -46,7 +46,7 @@
 #endif
 
 // Comma-delimited, ordered list of input modes selected for use (e.g. in cycle)
-// Example: #define UNICODE_SELECTED_MODES UC_WINC, UC_LNX
+// Example: #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_LINUX
 #ifndef UNICODE_SELECTED_MODES
 #    define UNICODE_SELECTED_MODES -1
 #endif
@@ -108,32 +108,32 @@ static float song_emacs[][2] = UNICODE_SONG_EMACS;
 static void unicode_play_song(uint8_t mode) {
     switch (mode) {
 #    ifdef UNICODE_SONG_MAC
-        case UC_MAC:
+        case UNICODE_MODE_MACOS:
             PLAY_SONG(song_mac);
             break;
 #    endif
 #    ifdef UNICODE_SONG_LNX
-        case UC_LNX:
+        case UNICODE_MODE_LINUX:
             PLAY_SONG(song_lnx);
             break;
 #    endif
 #    ifdef UNICODE_SONG_WIN
-        case UC_WIN:
+        case UNICODE_MODE_WINDOWS:
             PLAY_SONG(song_win);
             break;
 #    endif
 #    ifdef UNICODE_SONG_BSD
-        case UC_BSD:
+        case UNICODE_MODE_BSD:
             PLAY_SONG(song_bsd);
             break;
 #    endif
 #    ifdef UNICODE_SONG_WINC
-        case UC_WINC:
+        case UNICODE_MODE_WINCOMPOSE:
             PLAY_SONG(song_winc);
             break;
 #    endif
 #    ifdef UNICODE_SONG_EMACS
-        case UC_EMACS:
+        case UNICODE_MODE_EMACS:
             PLAY_SONG(song_emacs);
             break;
 #    endif
@@ -209,7 +209,7 @@ __attribute__((weak)) void unicode_input_start(void) {
     // Need to do this before we mess around with the mods, or else
     // UNICODE_KEY_LNX (which is usually Ctrl-Shift-U) might not work
     // correctly in the shifted case.
-    if (unicode_config.input_mode == UC_LNX && unicode_saved_led_state.caps_lock) {
+    if (unicode_config.input_mode == UNICODE_MODE_LINUX && unicode_saved_led_state.caps_lock) {
         tap_code(KC_CAPS_LOCK);
     }
 
@@ -218,13 +218,13 @@ __attribute__((weak)) void unicode_input_start(void) {
     clear_weak_mods();
 
     switch (unicode_config.input_mode) {
-        case UC_MAC:
+        case UNICODE_MODE_MACOS:
             register_code(UNICODE_KEY_MAC);
             break;
-        case UC_LNX:
+        case UNICODE_MODE_LINUX:
             tap_code16(UNICODE_KEY_LNX);
             break;
-        case UC_WIN:
+        case UNICODE_MODE_WINDOWS:
             // For increased reliability, use numpad keys for inputting digits
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
@@ -233,11 +233,11 @@ __attribute__((weak)) void unicode_input_start(void) {
             wait_ms(UNICODE_TYPE_DELAY);
             tap_code(KC_KP_PLUS);
             break;
-        case UC_WINC:
+        case UNICODE_MODE_WINCOMPOSE:
             tap_code(UNICODE_KEY_WINC);
             tap_code(KC_U);
             break;
-        case UC_EMACS:
+        case UNICODE_MODE_EMACS:
             // The usual way to type unicode in emacs is C-x-8 <RET> then the unicode number in hex
             tap_code16(LCTL(KC_X));
             tap_code16(KC_8);
@@ -250,25 +250,25 @@ __attribute__((weak)) void unicode_input_start(void) {
 
 __attribute__((weak)) void unicode_input_finish(void) {
     switch (unicode_config.input_mode) {
-        case UC_MAC:
+        case UNICODE_MODE_MACOS:
             unregister_code(UNICODE_KEY_MAC);
             break;
-        case UC_LNX:
+        case UNICODE_MODE_LINUX:
             tap_code(KC_SPACE);
             if (unicode_saved_led_state.caps_lock) {
                 tap_code(KC_CAPS_LOCK);
             }
             break;
-        case UC_WIN:
+        case UNICODE_MODE_WINDOWS:
             unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
             }
             break;
-        case UC_WINC:
+        case UNICODE_MODE_WINCOMPOSE:
             tap_code(KC_ENTER);
             break;
-        case UC_EMACS:
+        case UNICODE_MODE_EMACS:
             tap_code16(KC_ENTER);
             break;
     }
@@ -278,25 +278,25 @@ __attribute__((weak)) void unicode_input_finish(void) {
 
 __attribute__((weak)) void unicode_input_cancel(void) {
     switch (unicode_config.input_mode) {
-        case UC_MAC:
+        case UNICODE_MODE_MACOS:
             unregister_code(UNICODE_KEY_MAC);
             break;
-        case UC_LNX:
+        case UNICODE_MODE_LINUX:
             tap_code(KC_ESCAPE);
             if (unicode_saved_led_state.caps_lock) {
                 tap_code(KC_CAPS_LOCK);
             }
             break;
-        case UC_WINC:
+        case UNICODE_MODE_WINCOMPOSE:
             tap_code(KC_ESCAPE);
             break;
-        case UC_WIN:
+        case UNICODE_MODE_WINDOWS:
             unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
             }
             break;
-        case UC_EMACS:
+        case UNICODE_MODE_EMACS:
             tap_code16(LCTL(KC_G)); // C-g cancels
             break;
     }
@@ -307,7 +307,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
 // clang-format off
 
 static void send_nibble_wrapper(uint8_t digit) {
-    if (unicode_config.input_mode == UC_WIN) {
+    if (unicode_config.input_mode == UNICODE_MODE_WINDOWS) {
         uint8_t kc = digit < 10
                    ? KC_KP_1 + (10 + digit - 1) % 10
                    : KC_A + (digit - 10);
@@ -328,7 +328,7 @@ void register_hex(uint16_t hex) {
 
 void register_hex32(uint32_t hex) {
     bool first_digit        = true;
-    bool needs_leading_zero = (unicode_config.input_mode == UC_WINC);
+    bool needs_leading_zero = (unicode_config.input_mode == UNICODE_MODE_WINCOMPOSE);
     for (int i = 7; i >= 0; i--) {
         // Work out the digit we're going to transmit
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
@@ -352,13 +352,13 @@ void register_hex32(uint32_t hex) {
 }
 
 void register_unicode(uint32_t code_point) {
-    if (code_point > 0x10FFFF || (code_point > 0xFFFF && unicode_config.input_mode == UC_WIN)) {
+    if (code_point > 0x10FFFF || (code_point > 0xFFFF && unicode_config.input_mode == UNICODE_MODE_WINDOWS)) {
         // Code point out of range, do nothing
         return;
     }
 
     unicode_input_start();
-    if (code_point > 0xFFFF && unicode_config.input_mode == UC_MAC) {
+    if (code_point > 0xFFFF && unicode_config.input_mode == UNICODE_MODE_MACOS) {
         // Convert code point to UTF-16 surrogate pair on macOS
         code_point -= 0x10000;
         uint32_t lo = code_point & 0x3FF, hi = (code_point & 0xFFC00) >> 10;

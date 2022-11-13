@@ -224,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // to determine what Print Screen key should do. The
                 // idea here is to make it consistent across hosts.
                 switch (get_unicode_input_mode()) {
-                    case UC_MAC:
+                    case UNICODE_MODE_MACOS:
                         if ((mods | osm) & MOD_MASK_ALT) {
                             // Window screenshot
                             clear_mods();
@@ -247,8 +247,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         }
                         break;
 
-                    case UC_WIN:
-                    case UC_WINC:
+                    case UNICODE_MODE_WINDOWS:
+                    case UNICODE_MODE_WINCOMPOSE:
                         if ((mods | osm) & MOD_MASK_ALT) {
                             // Window screenshot
                             // Alt+PrintScreen should work as is

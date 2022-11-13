@@ -25,7 +25,7 @@ enum layer_names {
 #define KC_DISC_MUTE KC_F23
 #define KC_DISC_DEAF KC_F24
 #define NUM_CUST_KEYCODES (_NUM_CUST_KCS - SAFE_RANGE)
-#define VIA_KEYCODE_RANGE 0x5F80
+#define VIA_KEYCODE_RANGE USER00
 
 enum custom_keycodes {
   PROG = SAFE_RANGE,

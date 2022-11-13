@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_LOWER] = LAYOUT_ortho_5x15(
-    _______ , _______ , _______ , _______ , _______ , _______ , BL_TOGG , BL_DEC  , BL_INC  , _______ , _______ , _______ , _______ , _______ , _______,
+    _______ , _______ , _______ , _______ , _______ , _______ , BL_TOGG , BL_DOWN , BL_UP   , _______ , _______ , _______ , _______ , _______ , _______,
     _______ , KC_WH_L , KC_BTN1 , KC_MS_U , KC_BTN2 , KC_WH_U , BL_STEP , RGB_TOG , RGB_MOD , _______ , _______ , _______ , _______ , _______ , _______,
     _______ , KC_WH_R , KC_MS_L , KC_MS_D , KC_MS_R , KC_WH_D , RGB_HUI , RGB_HUD , RGB_SAI , _______ , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , _______,
     _______ , _______ , _______ , _______ , _______ , _______ , RGB_SAD , RGB_VAI , RGB_VAD , _______ , _______ , _______ , _______ , _______ , _______,
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_LINVERT] = LAYOUT_ortho_5x15(
-    _______ , _______ , _______ , _______ , _______ , _______ , BL_TOGG , BL_DEC  , BL_INC  , _______ , _______ , _______ , _______ , _______ , _______,
+    _______ , _______ , _______ , _______ , _______ , _______ , BL_TOGG , BL_DOWN , BL_UP   , _______ , _______ , _______ , _______ , _______ , _______,
     _______ , _______ , _______ , _______ , _______ , _______ , BL_STEP , RGB_TOG , RGB_MOD , KC_WH_U , KC_BTN1 , KC_MS_U , KC_BTN2 , KC_WH_L , _______,
     _______ , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , _______ , RGB_SAI , RGB_HUI , RGB_HUD , KC_WH_D , KC_MS_L , KC_MS_D , KC_MS_R , KC_WH_R , _______,
     _______ , _______ , _______ , _______ , _______ , _______ , RGB_SAD , RGB_VAI , RGB_VAD , _______ , _______ , _______ , _______ , _______ , _______,
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
   _delay_ms(20); // Gets rid of tick
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 }
 
 /* Template for future layers

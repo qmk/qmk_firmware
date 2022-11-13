@@ -67,13 +67,13 @@ void set_os(uint8_t os) {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
   switch (os) {
   case _OS_MACOS:
-    set_unicode_input_mode(UC_MAC);
+    set_unicode_input_mode(UNICODE_MODE_MACOS);
     break;
   case _OS_LINUX:
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
     break;
   case _OS_WINDOWS:
-    set_unicode_input_mode(UC_WIN);
+    set_unicode_input_mode(UNICODE_MODE_WINDOWS);
     break;
   }
 #endif

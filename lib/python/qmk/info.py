@@ -483,7 +483,7 @@ def _extract_config_h(info_data, config_c):
     """
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_config_map = json_load(Path('data/mappings/info_config.json'))
+    info_config_map = json_load(Path('data/mappings/info_config.hjson'))
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
@@ -529,7 +529,7 @@ def _extract_config_h(info_data, config_c):
 def _process_defaults(info_data):
     """Process any additional defaults based on currently discovered information
     """
-    defaults_map = json_load(Path('data/mappings/defaults.json'))
+    defaults_map = json_load(Path('data/mappings/defaults.hjson'))
     for default_type in defaults_map.keys():
         thing_map = defaults_map[default_type]
         if default_type in info_data:
@@ -555,7 +555,7 @@ def _extract_rules_mk(info_data, rules):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_rules_map = json_load(Path('data/mappings/info_rules.json'))
+    info_rules_map = json_load(Path('data/mappings/info_rules.hjson'))
 
     for rules_key, info_dict in info_rules_map.items():
         info_key = info_dict['info_key']

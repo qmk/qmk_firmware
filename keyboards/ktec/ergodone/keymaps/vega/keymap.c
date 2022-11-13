@@ -649,8 +649,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [FNLR] = LAYOUT_ergodox(
        // left hand
-       UC_M_LN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
-       UC_M_WC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
+       UC_LINX,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
+       UC_WINC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
        TO(TINY),KC_F21, KC_F22, KC_F23,KC_F24, MAGIC_TOGGLE_NKRO,
        TO(FULL),KC_PAUSE,KC_PSCR,KC_SCRL,KC_NO,KC_NO,KC_NO,
           EE_CLR,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
@@ -658,8 +658,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_NO,
                                KC_NO,KC_NO,KC_NO,
        // right hand
-       TO(BASE), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_M_LN,
-       KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_M_WI,
+       TO(BASE), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_LINX,
+       KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_WIN,
                 KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
        KC_NO, KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
                          KC_NO,KC_NO,  KC_NO,    KC_NO,  KC_NO,

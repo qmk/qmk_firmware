@@ -31,8 +31,8 @@ enum custom_keycodes {
 #define KC_CTRA LCTL(KC_A)
 #define KC_CTRE LCTL(KC_E)
 #define KC_BLTG BL_TOGG
-#define KC_BLUP BL_INC
-#define KC_BLDN BL_DEC
+#define KC_BLUP BL_UP
+#define KC_BLDN BL_DOWN
 #define KC_BLBR BL_BRTG
 
 #ifdef RGBLIGHT_ENABLE

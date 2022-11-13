@@ -67,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_FN] = LAYOUT_60_ansi_split_bs_rshift( /* Layer 2 */
       KC_GRAVE , KC_F1   , KC_F2   , KC_F3   , KC_F4          , KC_F5           , KC_F6        , KC_F7    , KC_F8   , KC_F9    , KC_F10  , KC_F11  , KC_F12       , KC_INS , KC_DEL , \
-      KC_CAPS  , KC_VOLD , KC_MUTE , KC_VOLU , DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_REC_STOP , KC_PGUP  , KC_HOME , ______   , KC_PSCR , KC_UP   , ______       , KC_DEL , \
+      KC_CAPS  , KC_VOLD , KC_MUTE , KC_VOLU , DM_REC1        , DM_PLY1         , DM_RSTP      , KC_PGUP  , KC_HOME , ______   , KC_PSCR , KC_UP   , ______       , KC_DEL , \
       KC_LCTL  , KC_END  , ______  , KC_PGDN , ______         , ______          , KC_LEFT      , KC_DOWN  , KC_UP   , KC_RIGHT , KC_LEFT , KC_RGHT , KC_ENT       , \
-      KC_LSFT  , KC_MPRV , KC_MPLY , KC_MNXT , BL_DEC         , BL_TOGG         , BL_INC       , ______   , ______  , ______   , KC_DOWN , KC_RSFT , TO(_DEFAULT) , \
+      KC_LSFT  , KC_MPRV , KC_MPLY , KC_MNXT , BL_DOWN        , BL_TOGG         , BL_UP        , ______   , ______  , ______   , KC_DOWN , KC_RSFT , TO(_DEFAULT) , \
       ______   , ______  , KC_LALT , KC_SPC  , KC_RALT        , QK_BOOT           , ______       , ______ \
       ),
 

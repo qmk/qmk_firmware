@@ -214,7 +214,7 @@ def parse_configurator_json(configurator_file):
         exit(1)
 
     orig_keyboard = user_keymap['keyboard']
-    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
     if orig_keyboard in aliases:
         if 'target' in aliases[orig_keyboard]:

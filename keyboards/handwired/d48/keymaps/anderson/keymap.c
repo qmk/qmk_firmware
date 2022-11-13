@@ -133,7 +133,7 @@ void keyboard_post_init_user(void) {
 }
 
 void eeconfig_init_user(void) {
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 }
 
 void matrix_init_user(void) {

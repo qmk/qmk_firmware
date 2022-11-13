@@ -1,4 +1,4 @@
-// Copyright 2022 Stefan Kerkmann
+// Copyright 2022 Stefan Kerkmann (@KarlK90)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
@@ -17,53 +17,156 @@ static const PIO pio = pio0;
 #endif
 
 #if !defined(RP_DMA_PRIORITY_WS2812)
-#    define RP_DMA_PRIORITY_WS2812 12
+#    define RP_DMA_PRIORITY_WS2812 3
 #endif
-
-static int state_machine = -1;
-
-#define WS2812_WRAP_TARGET 0
-#define WS2812_WRAP 3
-
-#define WS2812_T1 2
-#define WS2812_T2 5
-#define WS2812_T3 3
 
 #if defined(WS2812_EXTERNAL_PULLUP)
-
 #    pragma message "The GPIOs of the RP2040 are NOT 5V tolerant! Make sure to NOT apply any voltage over 3.3V to the RGB data pin."
-
-// clang-format off
-static const uint16_t ws2812_program_instructions[] = {
-            //     .wrap_target
-    0x7221, //  0: out    x, 1            side 1 [2]
-    0x0123, //  1: jmp    !x, 3           side 0 [1]
-    0x0400, //  2: jmp    0               side 0 [4]
-    0xb442, //  3: nop                    side 1 [4]
-            //     .wrap
-};
-
-#else
-
-static const uint16_t ws2812_program_instructions[] = {
-             //     .wrap_target
-    0x6221,  //  0: out    x, 1            side 0 [2]
-    0x1123,  //  1: jmp    !x, 3           side 1 [1]
-    0x1400,  //  2: jmp    0               side 1 [4]
-    0xa442,  //  3: nop                    side 0 [4]
-             //     .wrap
-};
-// clang-format on
 #endif
+
+/*================== WS2812 PIO TIMINGS =================*/
+
+// WS2812_T1L rounded to 50ns intervals and split into two wait timings
+#define PIO_T1L (WS2812_T1L / 50)
+#define PIO_T1L_A (MAX(CEILING(PIO_T1L, 2) - 1, 0))
+#define PIO_T1L_B (MAX(PIO_T1L / 2 - 1, 0))
+
+// WS2812_T0L rounded to 50ns intervals
+#define PIO_T0L (MAX(WS2812_T0L / 50 - PIO_T1L, 0))
+#define PIO_T0L_A (MAX(PIO_T0L - 1, 0))
+
+// WS2812_T0H rounded to 50ns intervals
+#define PIO_T0H (WS2812_T0H / 50)
+#define PIO_T0H_A MAX(PIO_T0H - 1, 0)
+
+// WS2812_T1H rounded to 50ns intervals and split into two wait timings
+#define PIO_T1H (MAX(WS2812_T1H / 50 - PIO_T0H, 0))
+#define PIO_T1H_A (MAX((CEILING(PIO_T1H, 2) - 1), 0))
+#define PIO_T1H_B (MAX((PIO_T1H / 2) - 1, 0))
+
+#if (WS2812_T0L % 50) != 0
+#    pragma message "WS2812_T0L is not given in an 50ns interval, it will be rounded to the next 50ns"
+#endif
+
+#if (WS2812_T0H % 50) != 0
+#    pragma message "WS2812_T0H is not given in an 50ns interval, it will be rounded to the next 50ns"
+#endif
+
+#if (WS2812_T1L % 50) != 0
+#    pragma message "WS2812_T0L is not given in an 50ns interval, it will be rounded to the next 50ns"
+#endif
+
+#if (WS2812_T1H % 50) != 0
+#    pragma message "WS2812_T0H is not given in an 50ns interval, it will be rounded to the next 50ns"
+#endif
+
+#if WS2812_T0L < WS2812_T1L
+#    error WS2812_T0L is shorter than WS2812_T1L, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T1H < WS2812_T0H
+#    error WS2812_T1H is shorter than WS2812_T0H, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T0L > (850 + WS2812_T1L)
+#    error WS2812_T0L is longer than 850ns + WS2812_T1L, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T0H > 850
+#    error WS2812_T0H is longer than 850ns, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T1H > (1700 + WS2812_T0H)
+#    error WS2812_T1H is longer than 1700ns + WS2812_T0H, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T1L > 1700
+#    error WS2812_T1L is longer than 1700ns, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T0L < (50 + WS2812_T1L)
+#    error WS2812_T0L is shorter than 50ns + WS2812_T1L, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T0H < 50
+#    error WS2812_T0H is shorter than 50ns, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T1H < (100 + WS2812_T0H)
+#    error WS2812_T1H is longer than 100ns + WS2812_T0H, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+#if WS2812_T1L < 100
+#    error WS2812_T1L is longer than 1700ns, this is impossible to express in the RP2040 PIO driver. Please correct your timings.
+#endif
+
+/**
+ * @brief Helper macro to binary patch the delay part of an per-compiled PIO
+ * opcode.
+ */
+#define PIO_DELAY(delay, opcode) (((delay & 0xF) << 8U) | opcode)
+
+#define WS2812_WRAP_TARGET 0
+#define WS2812_WRAP 5
+
+static const uint16_t ws2812_program_instructions[] = {
+    //     .wrap_target
+    PIO_DELAY(PIO_T1L_A, 0x6021), //  0: out    x, 1            side 0  // T1L (max. 1700ns)
+    PIO_DELAY(PIO_T1L_B, 0xa042), //  1: nop                    side 0  // T1L
+    PIO_DELAY(PIO_T0H_A, 0x1025), //  2: jmp    !x, 5           side 1  // T0H (max. 850ns)
+    PIO_DELAY(PIO_T1H_A, 0xb042), //  3: nop                    side 1  // T1H (max. 1700ns + T0H)
+    PIO_DELAY(PIO_T1H_B, 0x1000), //  4: jmp    0               side 1  // T1H
+    PIO_DELAY(PIO_T0L_A, 0xa042), //  5: nop                    side 0  // T0L (max. 850ns + T1L)
+    //     .wrap
+};
 
 static const pio_program_t ws2812_program = {
     .instructions = ws2812_program_instructions,
-    .length       = 4,
+    .length       = ARRAY_SIZE(ws2812_program_instructions),
     .origin       = -1,
 };
 
 static uint32_t                WS2812_BUFFER[WS2812_LED_COUNT];
 static const rp_dma_channel_t* WS2812_DMA_CHANNEL;
+static uint32_t                RP_DMA_MODE_WS2812;
+static int                     STATE_MACHINE = -1;
+
+static SEMAPHORE_DECL(TRANSFER_COUNTER, 1);
+static rtcnt_t LAST_TRANSFER;
+
+/**
+ * @brief Convert RGBW value into WS2812 compatible 32-bit data word.
+ */
+__always_inline static uint32_t rgbw8888_to_u32(uint8_t red, uint8_t green, uint8_t blue, uint8_t white) {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
+    return ((uint32_t)green << 24) | ((uint32_t)red << 16) | ((uint32_t)blue << 8) | ((uint32_t)white);
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    return ((uint32_t)red << 24) | ((uint32_t)green << 16) | ((uint32_t)blue << 8) | ((uint32_t)white);
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+    return ((uint32_t)blue << 24) | ((uint32_t)green << 16) | ((uint32_t)red << 8) | ((uint32_t)white);
+#endif
+}
+
+static void ws2812_dma_callback(void* p, uint32_t ct) {
+    // We assume that there is at least one frame left in the OSR even if the TX
+    // FIFO is already empty.
+    rtcnt_t time_to_completion = (pio_sm_get_tx_fifo_level(pio, STATE_MACHINE) + 1) * MAX(WS2812_T1H + WS2812_T1L, WS2812_T0H + WS2812_T0L);
+
+#if defined(RGBW)
+    time_to_completion *= 32;
+#else
+    time_to_completion *= 24;
+#endif
+
+    // Convert from ns to us
+    time_to_completion /= 1000;
+
+    LAST_TRANSFER = chSysGetRealtimeCounterX() + time_to_completion + WS2812_TRST_US;
+
+    osalSysLockFromISR();
+    chSemSignalI(&TRANSFER_COUNTER);
+    osalSysUnlockFromISR();
+}
 
 bool ws2812_init(void) {
     uint pio_idx = pio_get_index(pio);
@@ -73,20 +176,23 @@ bool ws2812_init(void) {
     // clang-format off
     iomode_t rgb_pin_mode = PAL_RP_PAD_SLEWFAST |
                             PAL_RP_GPIO_OE |
+#if defined(WS2812_EXTERNAL_PULLUP)
+                            PAL_RP_IOCTRL_OEOVER_DRVINVPERI |
+#endif
                             (pio_idx == 0 ? PAL_MODE_ALTERNATE_PIO0 : PAL_MODE_ALTERNATE_PIO1);
     // clang-format on
 
     palSetLineMode(RGB_DI_PIN, rgb_pin_mode);
 
-    state_machine = pio_claim_unused_sm(pio, true);
-    if (state_machine < 0) {
+    STATE_MACHINE = pio_claim_unused_sm(pio, true);
+    if (STATE_MACHINE < 0) {
         dprintln("ERROR: Failed to acquire state machine for WS2812 output!");
         return false;
     }
 
     uint offset = pio_add_program(pio, &ws2812_program);
 
-    pio_sm_set_consecutive_pindirs(pio, state_machine, RGB_DI_PIN, 1, true);
+    pio_sm_set_consecutive_pindirs(pio, STATE_MACHINE, RGB_DI_PIN, 1, true);
 
     pio_sm_config config = pio_get_default_sm_config();
     sm_config_set_wrap(&config, offset + WS2812_WRAP_TARGET, offset + WS2812_WRAP);
@@ -113,57 +219,44 @@ bool ws2812_init(void) {
     sm_config_set_out_shift(&config, false, true, 24);
 #endif
 
-    int   cycles_per_bit = WS2812_T1 + WS2812_T2 + WS2812_T3;
-    float div            = clock_get_hz(clk_sys) / (800.0f * KHZ * cycles_per_bit);
+    // Every instruction takes 50ns to execute with a clock speed of 20 MHz,
+    // giving the WS2812 PIO driver its time resolution
+    float div = clock_get_hz(clk_sys) / (20.0f * MHZ);
     sm_config_set_clkdiv(&config, div);
 
-    pio_sm_init(pio, state_machine, offset, &config);
-    pio_sm_set_enabled(pio, state_machine, true);
+    pio_sm_init(pio, STATE_MACHINE, offset, &config);
+    pio_sm_set_enabled(pio, STATE_MACHINE, true);
 
-    WS2812_DMA_CHANNEL = dmaChannelAlloc(RP_DMA_CHANNEL_ID_ANY, RP_DMA_PRIORITY_WS2812, NULL, NULL);
+    WS2812_DMA_CHANNEL = dmaChannelAlloc(RP_DMA_CHANNEL_ID_ANY, RP_DMA_PRIORITY_WS2812, (rp_dmaisr_t)ws2812_dma_callback, NULL);
+    dmaChannelEnableInterruptX(WS2812_DMA_CHANNEL);
+    dmaChannelSetDestinationX(WS2812_DMA_CHANNEL, (uint32_t)&pio->txf[STATE_MACHINE]);
 
     // clang-format off
-    uint32_t mode = DMA_CTRL_TRIG_INCR_READ |
-                    DMA_CTRL_TRIG_DATA_SIZE_WORD |
-                    DMA_CTRL_TRIG_IRQ_QUIET |
-                    DMA_CTRL_TRIG_TREQ_SEL(pio_idx == 0 ? state_machine : state_machine + 8);
+    RP_DMA_MODE_WS2812 = DMA_CTRL_TRIG_INCR_READ |
+                         DMA_CTRL_TRIG_DATA_SIZE_WORD |
+                         DMA_CTRL_TRIG_TREQ_SEL(pio == pio0 ? STATE_MACHINE : STATE_MACHINE + 8) |
+                         DMA_CTRL_TRIG_PRIORITY(RP_DMA_PRIORITY_WS2812);
     // clang-format on
 
-    dmaChannelSetModeX(WS2812_DMA_CHANNEL, mode);
-    dmaChannelSetDestinationX(WS2812_DMA_CHANNEL, (uint32_t)&pio->txf[state_machine]);
     return true;
 }
 
-/**
- * @brief Convert RGBW value into WS2812 compatible 32-bit data word.
- */
-__always_inline static uint32_t rgbw8888_to_u32(uint8_t red, uint8_t green, uint8_t blue, uint8_t white) {
-#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
-    return ((uint32_t)green << 24) | ((uint32_t)red << 16) | ((uint32_t)blue << 8) | ((uint32_t)white);
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
-    return ((uint32_t)red << 24) | ((uint32_t)green << 16) | ((uint32_t)blue << 8) | ((uint32_t)white);
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
-    return ((uint32_t)blue << 24) | ((uint32_t)green << 16) | ((uint32_t)red << 8) | ((uint32_t)white);
-#endif
-}
-
 static inline void sync_ws2812_transfer(void) {
-    if (unlikely(dmaChannelIsBusyX(WS2812_DMA_CHANNEL) || !pio_sm_is_tx_fifo_empty(pio, state_machine))) {
-        fast_timer_t start = timer_read_fast();
-        do {
-            // Abort the synchronization if we have to wait longer than the total
-            // count of LEDs in millisecounds. This is safely much longer than it
-            // would take to push all the data out.
-            if (unlikely(timer_elapsed_fast(start) > WS2812_LED_COUNT)) {
-                dprintln("ERROR: WS2812 DMA transfer has stalled, aborting!");
-                dmaChannelDisableX(WS2812_DMA_CHANNEL);
-                return;
-            }
-
-        } while (dmaChannelIsBusyX(WS2812_DMA_CHANNEL) || !pio_sm_is_tx_fifo_empty(pio, state_machine));
-        // We wait for the WS2812 chain to reset after all data has been pushed
-        // out.
+    if (chSemWaitTimeout(&TRANSFER_COUNTER, TIME_MS2I(WS2812_LED_COUNT)) == MSG_TIMEOUT) {
+        // Abort the synchronization if we have to wait longer than the total
+        // count of LEDs in milliseconds. This is safely much longer than it
+        // would take to push all the data out.
+        dprintln("ERROR: WS2812 DMA transfer has stalled, aborting!");
+        dmaChannelDisableX(WS2812_DMA_CHANNEL);
+        pio_sm_clear_fifos(pio, STATE_MACHINE);
+        pio_sm_restart(pio, STATE_MACHINE);
+        chSemReset(&TRANSFER_COUNTER, 0);
         wait_us(WS2812_TRST_US);
+        return;
+    }
+
+    // Busy wait until last transfer has finished
+    while (unlikely(!timer_expired32(chSysGetRealtimeCounterX(), LAST_TRANSFER))) {
     }
 }
 
@@ -185,5 +278,6 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
 
     dmaChannelSetSourceX(WS2812_DMA_CHANNEL, (uint32_t)WS2812_BUFFER);
     dmaChannelSetCounterX(WS2812_DMA_CHANNEL, leds);
+    dmaChannelSetModeX(WS2812_DMA_CHANNEL, RP_DMA_MODE_WS2812);
     dmaChannelEnableX(WS2812_DMA_CHANNEL);
 }

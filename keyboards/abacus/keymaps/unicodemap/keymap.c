@@ -130,7 +130,7 @@ bool dip_switch_update_user(uint8_t index, bool active) {
 
 
 void matrix_init_user(void) {
-    set_unicode_input_mode(UC_WINC);
+    set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

@@ -301,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef UNICODE_ENABLE
     case UNIWIN:
         if(record->event.pressed){
-            set_unicode_input_mode(UC_WIN);
+            set_unicode_input_mode(UNICODE_MODE_WINDOWS);
             #ifdef AUDIO_ENABLE
               PLAY_SONG(uniwin);
             #endif
@@ -310,7 +310,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case UNILIN:
         if(record->event.pressed){
-            set_unicode_input_mode(UC_LNX);
+            set_unicode_input_mode(UNICODE_MODE_LINUX);
             #ifdef AUDIO_ENABLE
               PLAY_SONG(unilin);
             #endif
