@@ -637,20 +637,20 @@ static uint8_t udi_hid_raw_report_recv[UDI_HID_RAW_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_raw_report_desc_t udi_hid_raw_report_desc = {{
-    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
-    0x09, RAW_USAGE_ID,        // Usage (Vendor Defined)
-    0xA1, 0x01,        // Collection (Application)
-    0x75, 0x08,        //   Report Size (8)
-    0x15, 0x00,        //   Logical Minimum (0)
-    0x25, 0xFF,        //   Logical Maximum (255)
+    0x06, HID_VALUE_16(RAW_USAGE_PAGE),  // Usage Page (Vendor Defined)
+    0x09, RAW_USAGE_ID,                  // Usage (Vendor Defined)
+    0xA1, 0x01,                          // Collection (Application)
+    0x75, 0x08,                          //   Report Size (8)
+    0x15, 0x00,                          //   Logical Minimum (0)
+    0x25, 0xFF,                          //   Logical Maximum (255)
     // Data to host
-    0x09, 0x62,        //     Usage (Vendor Defined)
-    0x95, RAW_EPSIZE,  //     Report Count
-    0x81, 0x02,        //     Input (Data, Variable, Absolute)
+    0x09, 0x62,        //   Usage (Vendor Defined)
+    0x95, RAW_EPSIZE,  //   Report Count
+    0x81, 0x02,        //   Input (Data, Variable, Absolute)
     // Data from host
-    0x09, 0x63,        //     Usage (Vendor Defined)
-    0x95, RAW_EPSIZE,  //     Report Count
-    0x91, 0x02,        //     Output (Data, Variable, Absolute)
+    0x09, 0x63,        //   Usage (Vendor Defined)
+    0x95, RAW_EPSIZE,  //   Report Count
+    0x91, 0x02,        //   Output (Data, Variable, Absolute)
     0xC0               // End Collection
 }};
 

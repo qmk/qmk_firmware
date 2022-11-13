@@ -589,9 +589,9 @@ const PROGMEM uchar shared_hid_report[] = {
 
 #ifdef RAW_ENABLE
 const PROGMEM uchar raw_hid_report[] = {
-    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI, // Usage Page (Vendor Defined)
-    0x09, RAW_USAGE_ID,                         // Usage (Vendor Defined)
-    0xA1, 0x01,                                 // Collection (Application)
+    0x06, HID_VALUE_16(RAW_USAGE_PAGE), // Usage Page (Vendor Defined)
+    0x09, RAW_USAGE_ID,                 // Usage (Vendor Defined)
+    0xA1, 0x01,                         // Collection (Application)
     // Data to host
     0x09, 0x62,            //   Usage (Vendor Defined)
     0x15, 0x00,            //   Logical Minimum (0)
