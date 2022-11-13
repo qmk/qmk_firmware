@@ -299,8 +299,13 @@ bool oled_task_user(void) {
         oled_write_ln_P(PSTR("Lair:"), false);
         oled_set_cursor(1, 5);
         oled_write(read_layer_state(), false);
-        oled_set_cursor(0, 8);
-        oled_write("CPSLK", led_usb_state.caps_lock);
+        if (led_usb_state.caps_lock) {
+            oled_set_cursor(0, 8);
+            oled_write(" CAP ", true);
+        } else {
+            oled_set_cursor(0, 8);
+            oled_write("      ", false);
+        }
         render_luna(0, 13);
     } else {
         render_bongocat();
