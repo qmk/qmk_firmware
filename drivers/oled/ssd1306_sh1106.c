@@ -300,9 +300,9 @@ void oled_render(void) {
     // Turn on display if it is off
     oled_on();
 
-    uint8_t update_start = 0;
-    uint8_t dirty_count  = 0;
-    while (oled_dirty && dirty_count++ < OLED_UPDATE_PROCESS_LIMIT) { // render all dirty blocks (up to the configured limit)
+    uint8_t update_start  = 0;
+    uint8_t num_processed = 0;
+    while (oled_dirty && num_processed++ < OLED_UPDATE_PROCESS_LIMIT) { // render all dirty blocks (up to the configured limit)
         // Find next dirty block
         while (!(oled_dirty & ((OLED_BLOCK_TYPE)1 << update_start))) {
             ++update_start;
