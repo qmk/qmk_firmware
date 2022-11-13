@@ -1,6 +1,6 @@
+// Copyright 2022 Mark Stosberg (@markstos)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
-
-// markstos defines
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
