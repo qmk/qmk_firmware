@@ -50,7 +50,7 @@
 #    error JOYSTICK_AXIS_RESOLUTION must be between 8 and 16
 #endif
 
-#define JOYSTICK_RESOLUTION ((1L << (JOYSTICK_AXIS_RESOLUTION - 1)) - 1)
+#define JOYSTICK_MAX_VALUE ((1L << (JOYSTICK_AXIS_RESOLUTION - 1)) - 1)
 
 // configure on input_pin of the joystick_axes array entry to JS_VIRTUAL_AXIS
 // to prevent it from being read from the ADC. This allows outputing forged axis value.

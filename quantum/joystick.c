@@ -95,17 +95,17 @@ int16_t joystick_read_axis(uint8_t axis) {
     // test the converted value against the lower range
     int32_t ref        = joystick_axes[axis].mid_digit;
     int32_t range      = joystick_axes[axis].min_digit;
-    int32_t ranged_val = ((axis_val - ref) * -JOYSTICK_RESOLUTION) / (range - ref);
+    int32_t ranged_val = ((axis_val - ref) * -JOYSTICK_MAX_VALUE) / (range - ref);
 
     if (ranged_val > 0) {
         // the value is in the higher range
         range      = joystick_axes[axis].max_digit;
-        ranged_val = ((axis_val - ref) * JOYSTICK_RESOLUTION) / (range - ref);
+        ranged_val = ((axis_val - ref) * JOYSTICK_MAX_VALUE) / (range - ref);
     }
 
     // clamp the result in the valid range
-    ranged_val = ranged_val < -JOYSTICK_RESOLUTION ? -JOYSTICK_RESOLUTION : ranged_val;
-    ranged_val = ranged_val > JOYSTICK_RESOLUTION ? JOYSTICK_RESOLUTION : ranged_val;
+    ranged_val = ranged_val < -JOYSTICK_MAX_VALUE ? -JOYSTICK_MAX_VALUE : ranged_val;
+    ranged_val = ranged_val > JOYSTICK_MAX_VALUE ? JOYSTICK_MAX_VALUE : ranged_val;
 
     return ranged_val;
 }
