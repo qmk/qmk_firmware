@@ -590,7 +590,6 @@
                     "right": {
                         "type": "object",
                         "additionalProperties": false,
-                        "type": "object",
                         "properties": {
                             "side": {
                                 "type": "string",
