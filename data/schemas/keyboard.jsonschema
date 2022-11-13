@@ -363,48 +363,6 @@
                 }
             }
         },
-        "pointing_device": {
-            "type": "object",
-            "properties": {
-                "enabled": {"type": "boolean"},
-                "driver": {"type": "string"},
-                "auto_mouse":  {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {"type": "boolean"},
-                        "default_layer": {"type":  "qmk.definitions.v1#/unsigned_int_8"},
-                        "time": {"type":  "qmk.definitions.v1#/unsigned_int"},
-                        "delay": {"type":  "qmk.definitions.v1#/unsigned_int"},
-                        "debounce": {"type":  "qmk.definitions.v1#/unsigned_int"}
-                    }
-                }
-                "pins": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "motion": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                        "cs": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                        "sdio": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                        "sclk": {"$ref": "qmk.definitions.v1#/mcu_pin"}
-                    }
-                },
-                "throttle": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "invert_x": {"type": "boolean"},
-                "invert_y": {"type": "boolean"},
-                "gestures": {
-                    "type": "object",
-                    "properties": {
-                        "cursor_glide": {"type": "boolean"},
-                        "scroll": {"type": "boolean"}
-                    }
-                },
-                "rotation": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "enum": [0, 90, 180, 270]
-                }
-            }
-        },
         "rgb_matrix": {
             "type": "object",
             "properties": {
@@ -586,25 +544,6 @@
                     "type": "string",
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
                 },
-                "pointing_device": {
-                    "right": {
-                        "type": "object",
-                        "additionalProperties": false,
-                        "properties": {
-                            "side": {
-                                "type": "string",
-                                "enum": ["left", "right", "combined"]
-                            },
-                            "invert_x": {"type": "boolean"},
-                            "invert_y": {"type": "boolean"},
-                            "rotation": {
-                                "type": "integer",
-                                "minimum": 0,
-                                "enum": [0, 90, 180, 270]
-                            }
-                        }
-                    }
-                },
                 "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "soft_serial_speed": {
                     "type": "integer",
@@ -621,7 +560,6 @@
                         },
                         "sync_matrix_state": {"type": "boolean"},
                         "sync_modifiers": {"type": "boolean"},
-                        "sync_pointing": {"type": "boolean"},
                         "watchdog": {"type": "boolean"},
                         "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
