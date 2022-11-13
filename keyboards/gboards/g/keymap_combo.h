@@ -96,3 +96,8 @@ uint16_t combo_ref_from_layer(uint8_t layer){
 #endif
   }
 }
+
+#undef COMB
+#undef SUBS
+#undef TOGG
+#undef COMBO_REF_LAYER
