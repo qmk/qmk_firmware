@@ -1,7 +1,20 @@
 {
-  "keyboard_name": "0xCB Static",
+  "keyboard_name": "Static",
+  "manufacturer": "0xCB",
   "url": "https://0xCB.dev",
   "maintainer": "Conor-Burns",
+  "usb": {
+    "vid": "0xCB00",
+    "pid": "0xA455",
+    "device_version": "0.0.1"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D0", "pin_b": "D1"}
+    ]
+  },
+  "processor": "atmega328p",
+  "bootloader": "usbasploader",
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"
   },

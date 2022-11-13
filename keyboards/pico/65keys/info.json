@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Pico Keyboard",
+    "manufacturer": "Kumao Kobo",
     "url": "https://github.com/kumaokobo/pico-keyboard/",
     "maintainer": "Kumao Kobo",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x9692",
+        "device_version": "1.0.0"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

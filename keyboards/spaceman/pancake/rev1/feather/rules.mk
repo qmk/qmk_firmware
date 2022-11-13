@@ -1,11 +1,5 @@
-# MCU name
-MCU = atmega32u4
-
 # Processor frequency
 F_CPU = 8000000
-
-# Bootloader selection
-BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
@@ -20,9 +14,7 @@ BACKLIGHT_ENABLE  = no  # Custom backlighting code is used, so this should not b
 AUDIO_ENABLE  = no # This can be enabled if a speaker is connected to the expansion port. Not compatible with RGBLIGHT below
 RGBLIGHT_ENABLE  = no # This can be enabled if a ws2812 strip is connected to the expansion port.
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = AdafruitBLE
-
-LAYOUTS = ortho_4x12 planck_mit
+BLUETOOTH_DRIVER = BluefruitLE
 
 # Disable unsupported hardware
 RGBLIGHT_SUPPORTED = no

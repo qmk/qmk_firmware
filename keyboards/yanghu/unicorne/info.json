@@ -1,9 +1,24 @@
 {
   "keyboard_name": "Unicorne",
+  "manufacturer": "yanghu",
   "url": "https://github.com/yanghu/unicorne",
   "maintainer": "yanghu",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0204",
+    "device_version": "0.0.1"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B10", "pin_b": "B12"},
+      {"pin_a": "B2", "pin_b": "B0"}
+    ]
+  },
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_split_3x6_4"
+  },
   "layouts": {
-    "LAYOUT_unicorne": {
+    "LAYOUT_split_3x6_4": {
       "layout": [
         {"label":"Tab", "x":0, "y":0.8},
         {"label":"Q", "x":1, "y":0.8},
@@ -59,4 +74,4 @@
       ]
     }
   }
-} 
+}

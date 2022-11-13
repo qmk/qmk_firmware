@@ -1,7 +1,23 @@
 {
     "keyboard_name": "duckboard",
+    "manufacturer": "doodboard",
     "url": "https://doodboard.xyz/",
     "maintainer": "doodboard",
+    "usb": {
+        "vid": "0x4442",
+        "pid": "0x6462",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F6", "pin_b": "F5", "resolution": 2}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

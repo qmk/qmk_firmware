@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Adelais En Ciel Rev2",
+    "usb": {
+        "pid": "0xAEC2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A4", "pin_b": "A3"}
+        ]
+    },
+    "processor": "STM32F303",
+    "board": "QMK_PROTON_C",
+    "bootloader": "stm32-dfu",
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "C15",
+        "scroll_lock": "B9"
+    }
+}

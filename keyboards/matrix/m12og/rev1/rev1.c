@@ -20,6 +20,11 @@ void board_init(void) {
     writePinLow(A8);
 }
 
+void bootloader_jump(void) {
+    // This board doesn't use the standard DFU bootloader, and no information is available regarding how to enter bootloader mode. All we can do here is reset.
+    NVIC_SystemReset();
+}
+
 void keyboard_post_init_kb(void) {
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(5, 255, 255);

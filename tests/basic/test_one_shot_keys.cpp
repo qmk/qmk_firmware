@@ -31,17 +31,17 @@ TEST_F(OneShot, OSMWithoutAdditionalKeypressDoesNothing) {
     set_keymap({osm_key});
 
     /* Press and release OSM key*/
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     osm_key.press();
     run_one_scan_loop();
     osm_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* OSM are added when an actual report is send */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(osm_key.report_code)));
+    EXPECT_REPORT(driver, (osm_key.report_code));
     send_keyboard_report();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Make unit-test pass */
     clear_oneshot_mods();
@@ -57,24 +57,24 @@ TEST_P(OneShotParametrizedTestFixture, OSMExpiredDoesNothing) {
     set_keymap({osm_key, regular_key});
 
     /* Press and release OSM */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     osm_key.press();
     run_one_scan_loop();
     osm_key.release();
     idle_for(ONESHOT_TIMEOUT);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(regular_key.report_code))).Times(1);
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 #endif
@@ -87,24 +87,24 @@ TEST_P(OneShotParametrizedTestFixture, OSMWithAdditionalKeypress) {
     set_keymap({osm_key, regular_key});
 
     /* Press and release OSM */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     osm_key.press();
     run_one_scan_loop();
     osm_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(osm_key.report_code, regular_key.report_code))).Times(1);
+    EXPECT_REPORT(driver, (osm_key.report_code, regular_key.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_P(OneShotParametrizedTestFixture, OSMAsRegularModifierWithAdditionalKeypress) {
@@ -117,29 +117,29 @@ TEST_P(OneShotParametrizedTestFixture, OSMAsRegularModifierWithAdditionalKeypres
     set_keymap({osm_key, regular_key});
 
     /* Press OSM */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     osm_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release OSM */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(regular_key.report_code, osm_key.report_code))).Times(1);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_REPORT(driver, (regular_key.report_code, osm_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
     osm_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // clang-format off
@@ -169,29 +169,27 @@ TEST_F(OneShot, OSLWithAdditionalKeypress) {
     set_keymap({osl_key, regular_key});
 
     /* Press OSL key */
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
+    EXPECT_NO_REPORT(driver);
     osl_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release OSL key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(2);
+    EXPECT_NO_REPORT(driver);
     osl_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(regular_key.report_code))).Times(2);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_NO_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5054
-#define PRODUCT_ID      0xBB91
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Phase Studio
-#define PRODUCT         Titan 65 (hotswap)
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -45,7 +33,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN E6
-#define DRIVER_LED_TOTAL 67
+#define RGB_MATRIX_LED_COUNT 67
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255

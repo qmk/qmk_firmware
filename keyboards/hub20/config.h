@@ -18,32 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6A6A  // JJ
-#define PRODUCT_ID      0x4414  // H20
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Josh Johnson
-#define PRODUCT         Hub20
-
-/* key matrix */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 4
-
 #define MATRIX_ROW_PINS { A13, B14, A10, A0, A2, A1 }
 #define MATRIX_COL_PINS { A6, A7, B7, B6 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* Rotary Encoder Things */
-// #define ENCODER_DIRECTION_FLIP
-#define ENCODERS_PAD_A { B12, A8 }
-#define ENCODERS_PAD_B { B13, A9 }
-
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 27
 
-#define DRIVER_LED_TOTAL 27
+#define RGB_MATRIX_LED_COUNT 27
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 27
 #endif
@@ -100,9 +84,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Tap delay for tap vs hold */
 #define TAPPING_TERM 200
 
@@ -113,7 +94,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

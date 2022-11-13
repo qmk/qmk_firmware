@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xB07D
-#define DEVICE_VER 0x0001
-#define MANUFACTURER LifeIsOnTheWire
-#define PRODUCT PostageBoard
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 3
 
 /*
  * Keyboard Matrix Assignments
@@ -42,19 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B6 }
 #define MATRIX_COL_PINS { B7, C6, C7 }
-#define UNUSED_PINS { D4, D6, D7, B4, B5, D5, D3, D2, D1, D0, B2, B3, F0, F1, F4, F5, F6, F7, E6, B0, B1 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

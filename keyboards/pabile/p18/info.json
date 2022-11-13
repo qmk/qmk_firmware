@@ -1,7 +1,21 @@
 {
-    "keyboard_name": "Pabile 18", 
+    "keyboard_name": "P18 Macro Pad", 
+    "manufacturer": "Pabile",
     "url": "https://pabileonline.blogspot.com/", 
     "maintainer": "Pabile", 
+    "usb": {
+        "vid": "0x6666",
+        "pid": "0x6668",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "F4"},
+            {"pin_a": "F6", "pin_b": "F5"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -19,20 +19,32 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Setting Handedness
 
-Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands are:
+Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands for Pro micros are:
 
     make ferris/sweep:default:avrdude-split-left
     make ferris/sweep:default:avrdude-split-right
 
+For Elite-C or compatible controllers using `DFU` bootloader, add the line `BOOTLOADER = atmel-dfu` into the user keymap `rules.mk` file and use the following make commands:
+
+    make ferris/sweep:default:dfu-split-left
+    make ferris/sweep:default:dfu-split-right
+
 [QMK Toolbox](http://qmk.fm/toolbox) can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
+
+### RP2040 Controllers
+
+Pro Micro RP2040 controllers are supported with [QMK Converters](https://docs.qmk.fm/#/feature_converters). The make command example with handedness setting for Adafruit's KB2040 are:
+
+    make CONVERT_TO=kb2040 ferris/sweep:default:uf2-split-left
+    make CONVERT_TO=kb2040 ferris/sweep:default:uf2-split-right
 
 ## Bootloader
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the top left key on the left half (or the top right right key on the right half) and plug in the controller on that side.
+* **Bootmagic reset**: Hold down the top left key on the left half (or the top right key on the right half) and plug in the controller on that side.
 * **Physical reset button**: Briefly press the reset button soldered on the PCB.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is configured.
 
 ## Swapped Pins
 
@@ -53,3 +65,4 @@ If you printed one of the PCB variant with swapped letters `Q` and `B` / `P` and
     { B5, B4, NO_PIN, NO_PIN, NO_PIN } \
 }
 ```
+

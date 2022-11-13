@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "30wer", 
-    "url": "", 
-    "maintainer": "qmk", 
+    "keyboard_name": "30wer",
+    "manufacturer": "8o7wer",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x1234",
+        "pid": "0x5678",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

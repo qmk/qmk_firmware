@@ -1,7 +1,21 @@
 {
-    "keyboard_name": "QVEX Lynepad",
+    "keyboard_name": "Lynepad",
+    "manufacturer": "QVEX",
     "url": "https://www.tindie.com/products/qvex_tech/qvex-lynepad-macro-keypad/",
     "maintainer": "KemoNine",
+    "usb": {
+      "vid": "0x5156",
+      "pid": "0x4C50",
+      "device_version": "0.0.1"
+    },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "D0", "pin_b": "D1"},
+        {"pin_a": "B5", "pin_b": "D6"},
+      ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
       "LAYOUT": {
         "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}, {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}]

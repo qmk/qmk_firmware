@@ -1,7 +1,16 @@
 {
-    "keyboard_name": "40percent.club 4x4",
+    "keyboard_name": "The 4x4 Keyboard",
+    "manufacturer": "di0ib",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4025",
+        "pid": "0x0A0C",
+        "device_version": "44.4.4"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_4x4", "ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

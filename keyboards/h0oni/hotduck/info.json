@@ -1,7 +1,15 @@
 {
     "keyboard_name": "hotDuck", 
+    "manufacturer": "h0oni",
     "url": "", 
     "maintainer": "h0oni", 
+    "usb": {
+        "vid": "0x4D53",
+        "pid": "0x6844",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"Esc", "x":0, "y":0}, 

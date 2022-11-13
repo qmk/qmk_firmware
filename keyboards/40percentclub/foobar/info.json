@@ -1,7 +1,19 @@
 {
-    "keyboard_name": "foobar",
+    "keyboard_name": "The foobar Keyboard",
+    "manufacturer": "di0ib",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4025",
+        "pid": "0x0F00",
+        "device_version": "1.0.0"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_3x10"],
     "layouts": {
         "LAYOUT_ortho_3x5": {
             "layout": [

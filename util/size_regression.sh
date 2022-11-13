@@ -11,6 +11,8 @@ dest_ref="develop"
 ignore_ref="master"
 unset skip_zero
 
+export SIZE_REGRESSION_EXECUTING=1
+
 function usage() {
     echo "Usage: $(basename "$0") [-h] [-j <jobs>] [-s <source>] [-d <dest>] [-n] planck/rev6:default"
     echo "    -h           : Shows this usage page."
@@ -23,8 +25,23 @@ function usage() {
 }
 
 if [[ ${#} -eq 0 ]]; then
-   usage
+    usage
+    exit 0
 fi
+
+unset cleanup_completed
+_internal_cleanup() {
+    if [[ -z "${cleanup_completed:-}" ]] ; then
+        echo
+        echo
+        echo 'Your git repository is in an indeterminate state!' >&2
+        echo 'Make sure you swap to your intended branch.' >&2
+        echo
+        unset SIZE_REGRESSION_EXECUTING
+    fi
+    cleanup_completed=1
+}
+trap _internal_cleanup EXIT HUP INT
 
 while getopts "hj:s:d:i:n" opt "$@" ; do
     case "$opt" in
@@ -42,6 +59,15 @@ done
 shift $((OPTIND-1))
 keyboard_target=$1
 
+# Helper for resetting submodule existence
+fixup_submodules() {
+    [ -e lib/ugfx ] && rm -rf lib/ugfx
+    [ -e lib/pico-sdk ] && rm -rf lib/pico-sdk
+    [ -e lib/chibios-contrib/ext/mcux-sdk ] && rm -rf lib/chibios-contrib/ext/mcux-sdk
+    [ -e lib/lvgl ] && rm -rf lib/lvgl
+    make git-submodule
+}
+
 last_size=0
 last_line=""
 function build_executor() {
@@ -49,7 +75,9 @@ function build_executor() {
         revision=$(echo $line | cut -d' ' -f1)
 
         make distclean >/dev/null 2>&1
-        git checkout $revision >/dev/null 2>&1 || { echo "Failed to check out revision ${revision}" >&2 ; exit 1 ; }
+
+        git checkout -f $revision >/dev/null 2>&1 || { echo "Failed to check out revision ${revision}" >&2 ; exit 1 ; }
+        fixup_submodules >/dev/null 2>&1
         make -j${job_count} $keyboard_target >/dev/null 2>&1 || true
         file_size=$(arm-none-eabi-size .build/*.elf 2>/dev/null | awk '/elf/ {print $1}' 2>/dev/null || true)
 
@@ -58,7 +86,7 @@ function build_executor() {
 
         if [[ -n "$last_line" ]] ; then
             size_delta=$(( $last_size - $file_size ))
-            if { [[ -n "${skip_zero:-}" ]] && [[ $size_delta -ne 0 ]] ; } || [[ $file_size -eq 0 ]] ; then
+            if { [[ -n "${skip_zero:-}" ]] && [[ $size_delta -ne 0 ]] ; } || [[ -z "${skip_zero:-}" ]] || [[ $file_size -eq 0 ]] ; then
                 printf "Size: %8d, delta: %+6d -- %s\n" "$last_size" "$size_delta" "$last_line"
             fi
         fi

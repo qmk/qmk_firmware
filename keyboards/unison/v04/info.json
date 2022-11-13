@@ -1,7 +1,27 @@
 {
     "keyboard_name": "Unison",
+    "manufacturer": "jpskenn",
     "url": "https://github.com/jpskenn/Unison",
     "maintainer": "jpskenn",
+    "usb": {
+        "vid": "0xB9DD",
+        "pid": "0x176A",
+        "device_version": "0.4.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B0", "pin_b": "B1"},
+            {"pin_a": "D2", "pin_b": "D3"},
+            {"pin_a": "D5", "pin_b": "D4"},
+            {"pin_a": "D6", "pin_b": "D7"},
+            {"pin_a": "B4", "pin_b": "B5"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [5, 0]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

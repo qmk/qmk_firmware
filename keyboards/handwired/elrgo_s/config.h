@@ -17,11 +17,6 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 
 #pragma once
 
-#include "config_common.h"
-
-// Rows are doubled-up for splits
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
 
 // Wiring of each half
 #define MATRIX_ROW_PINS { B1, B3, B2, B6 }
@@ -29,20 +24,6 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 // Reversed sort
 
 #define DIODE_DIRECTION COL2ROW
-
-/* USB Device descriptor parameter */
-#define PRODUCT         Elrgo S
-#define MANUFACTURER    Eloren
-#define VENDOR_ID       0x454C
-#define PRODUCT_ID      0x3436
-#define DEVICE_VER      0x0001
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
 
 /* disable debug print */
 // #define NO_DEBUG
@@ -54,5 +35,3 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

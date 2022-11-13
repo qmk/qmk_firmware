@@ -4,6 +4,9 @@ MCU = STM32F103
 MCU_LDSCRIPT = jm60_bootloader
 BOARD = ST_NUCLEO64_F103RB
 
+# Bootloader selection
+BOOTLOADER = custom
+
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +22,3 @@ AUDIO_ENABLE = no           # Audio output
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
-
-LAYOUTS = 60_ansi

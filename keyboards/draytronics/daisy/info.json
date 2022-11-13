@@ -1,7 +1,21 @@
 {
-    "keyboard_name": "Draytronics DAISY",
+    "keyboard_name": "DAISY",
+    "manufacturer": "Draytronics",
     "url": "https://www.draytronics.co.uk/daisy",
     "maintainer": "ghostseven",
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x4441",
+        "device_version": "1.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B2"},
+            {"pin_a": "D0", "pin_b": "D1"}
+        ]
+    },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layout_aliases": {
         "LAYOUT_daisy": "LAYOUT"
     },

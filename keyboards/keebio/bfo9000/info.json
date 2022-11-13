@@ -1,7 +1,18 @@
 {
-    "keyboard_name": "Keebio BFO-9000",
+    "keyboard_name": "BFO-9000",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "Keebio",
+    "usb": {
+      "vid": "0xCB10",
+      "pid": "0x1169",
+      "device_version": "1.0.0"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
       "LAYOUT": {
         "layout": [

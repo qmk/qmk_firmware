@@ -1,7 +1,15 @@
 {
-  "keyboard_name": "Keyboard converter for IBM terminal keyboard",
+  "keyboard_name": "IBM Terminal to USB Keyboard Converter",
+  "manufacturer": "QMK",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6535",
+    "device_version": "1.0.0"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

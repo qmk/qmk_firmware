@@ -20,20 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4A53
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
-#define MANUFACTURER klackygears
-#define PRODUCT Brain
 
 #define SPLIT_USB_DETECT
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 
 // wiring of each half
 
@@ -54,11 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_MAX_SPEED 7
 #define MOUSEKEY_WHEEL_DELAY 0
 
-/* Set 0 if debouncing isn't needed */
-
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
 #define EE_HANDS
 
 //#define SPLIT_HAND_PIN B7
@@ -96,15 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
-//#define PREVENT_STUCK_MODIFIERS
 //#define TAPPING_TERM 150
 //#define IGNORE_MOD_TAP_INTERRUPT
-//#define TAPPING_FORCE_HOLD
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 6
-#define BOOTMAGIC_LITE_ROW_RIGHT 5
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+//#define QUICK_TAP_TERM 0

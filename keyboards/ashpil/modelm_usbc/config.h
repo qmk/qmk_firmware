@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ashpil
-#define PRODUCT         IBM Model M 101/102
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -42,14 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { C7, C6, C5, C4, C3, C2, C1, C0 }
 #define MATRIX_COL_PINS { E6, E7, F0, F1, F2, F3, F4, F5, F6, F7, A0, A1, A2, A3, A4, A5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed (5 is default) */
-#define DEBOUNCE 5
-
 
 /*
  * Feature disable options
@@ -66,9 +49,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 2

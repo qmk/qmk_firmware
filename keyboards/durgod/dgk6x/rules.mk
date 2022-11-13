@@ -1,9 +1,3 @@
-# MCU name
-# Actually F070, but close enough
-MCU = STM32F072
-
-BOARD = DURGOD_STM32_F070
-
 # Do not put the microcontroller into power saving mode
 NO_SUSPEND_POWER_DOWN = yes
 

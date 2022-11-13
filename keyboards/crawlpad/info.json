@@ -1,7 +1,16 @@
 {
   "keyboard_name": "Crawlpad",
+  "manufacturer": "WoodKeys.Click",
   "url": "",
   "maintainer": "colemarkham",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6070",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["ortho_4x4"],
   "layouts": {
     "LAYOUT_ortho_4x4": {
       "layout": [

@@ -1,7 +1,23 @@
 {
     "keyboard_name": "Sol",
+    "manufacturer": "RGBKB",
     "url": "",
     "maintainer": "Legonut",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3060",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D6"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

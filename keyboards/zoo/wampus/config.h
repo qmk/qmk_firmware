@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x0200
-#define PRODUCT_ID   0xE600
-#define DEVICE_VER   0x0001
-#define MANUFACTURER zoo.haus
-#define PRODUCT      Wampus
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -42,26 +30,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C13, C14, A5, A4, A3 }
 #define MATRIX_COL_PINS { A10, A9, A8, B12, A15, A13, A7, A2, A1, A0, F1, F0, B3, B4, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_NUM_LOCK_PIN B0
-#define LED_CAPS_LOCK_PIN B8
-#define LED_SCROLL_LOCK_PIN B9
-
-// In-switch LED defines
-#define BACKLIGHT_PIN           A6
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_BREATHING
 
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE      1
 
 // RGB Underglow WS2812 Matrix defines
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 20
 // SPI RGB Driver
@@ -80,14 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_TIMINGR_SCLH 	3U
 #define I2C1_TIMINGR_SCLL   9U
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "RART4X4",
+    "keyboard_name": "RARTLITE",
+    "manufacturer": "Alabahuy",
     "url": "",
     "maintainer": "Alabahuy",
+    "usb": {
+        "vid": "0x414C",
+        "pid": "0x4040",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "F5",
+        "num_lock": "F6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_right_numpad": {
             "layout": [

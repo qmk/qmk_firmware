@@ -1,7 +1,15 @@
 {
-  "keyboard_name": "RAMA WORKS M6-A",
+  "keyboard_name": "M6-A",
+  "manufacturer": "RAMA WORKS",
   "url": "http://rama.works",
   "maintainer": "Wilba",
+  "usb": {
+    "vid": "0x5241",
+    "pid": "0x006A",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

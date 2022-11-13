@@ -1,10 +1,26 @@
 {
     "keyboard_name": "1up60hte",
+    "manufacturer": "1upkeyboards",
     "url": "https://www.1upkeyboards.com/shop/controllers/1up-rgb-60-pcb-hte/",
     "maintainer": "1upkeyboards",
+    "usb": {
+        "vid": "0x6F75",
+        "pid": "0x6874",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "indicators": {
+        "caps_lock": "B6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_tsangan": "LAYOUT_60_tsangan_hhkb"
     },
+    "community_layouts": ["60_hhkb", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [

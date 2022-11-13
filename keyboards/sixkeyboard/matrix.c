@@ -85,7 +85,7 @@ void matrix_init(void)
         matrix_stage[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 
 }
 
@@ -109,14 +109,9 @@ uint8_t matrix_scan(void)
         debouncing = false;
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
-}
-
-bool matrix_is_modified(void)
-{
-    return true;
 }
 
 inline
@@ -134,13 +129,3 @@ matrix_row_t matrix_get_row(uint8_t row)
 void matrix_print(void)
 {
 }
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
-}
-

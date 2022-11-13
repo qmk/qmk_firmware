@@ -5,6 +5,9 @@ SRC += config_led.c
 ARM_ATSAM = SAMD51J18A
 MCU = cortex-m4
 
+# Bootloader selection
+BOOTLOADER = md-boot
+
 # Build Options
 #   change yes to no to disable
 #
@@ -24,5 +27,3 @@ AUTO_SHIFT_ENABLE = no      # Auto Shift
 # Custom RGB matrix handling
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = custom
-
-LAYOUTS = 65_ansi_blocker

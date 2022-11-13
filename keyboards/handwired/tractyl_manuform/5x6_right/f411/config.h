@@ -18,16 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT Tractyl Manuform(5x6) BlackPill
-
 // wiring of each half
 #define MATRIX_COL_PINS \
     { A15, B3, B4, B5, B6, B7 }
 #define MATRIX_ROW_PINS \
     { B12, B13, B14, B15, A8, A10 }
-
-#define UNUSED_PINS \
-    { C15 }
 
 #define DIODE_DIRECTION     COL2ROW
 
@@ -43,12 +38,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
 #define WS2812_DMA_STREAM   STM32_DMA1_STREAM7  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #define WS2812_DMA_CHANNEL  3                   // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_PWM_TARGET_PERIOD 800000
+
 
 #define RGBLED_NUM          52
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT \
     { 26, 26 }
-#define RGBLIGHT_LIMIT_VAL 150
 
 #define DEBUG_LED_PIN      C13
 
@@ -57,7 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PWM_DRIVER   PWMD3
 #define AUDIO_PWM_CHANNEL  4
 #define AUDIO_PWM_PAL_MODE 2
-#define AUDIO_STATE_TIMER  GPTD4
 
 /* serial.c configuration for split keyboard */
 #define SERIAL_USART_FULL_DUPLEX  // Enable full duplex operation mode.
@@ -67,6 +62,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_RX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
+#define SERIAL_USART_SPEED       921600
+
+#define CRC8_USE_TABLE
+#define CRC8_OPTIMIZE_SPEED
 
 /* i2c config for oleds */
 #define I2C_DRIVER        I2CD1
@@ -74,16 +73,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PIN      B9
 #define I2C1_SCL_PAL_MODE 4
 #define I2C1_SDA_PAL_MODE 4
-// #define I2C1_CLOCK_SPEED  400000
-/* For Legacy Compatibility: */
-#define I2C1_SCL 8
-#define I2C1_SDA 9
-
-/* encoder config */
-#define ENCODERS_PAD_A \
-    { A13 }
-#define ENCODERS_PAD_B \
-    { A14 }
+#define I2C1_CLOCK_SPEED  400000
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
 
 /* spi config for eeprom and pmw3360 sensor */
 #define SPI_DRIVER                           SPID1
@@ -97,16 +88,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* eeprom config */
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
-// #define EXTERNAL_EEPROM_BYTE_COUNT           8196
-// #define EXTERNAL_EEPROM_PAGE_SIZE            32
-// #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
-// #define DEBUG_EEPROM_OUTPUT
-
-#ifdef EEPROM_SPI
-#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8195
-#endif
 
 /* pmw3360 config  */
-#define PMW3360_CS_PIN                       B0
-#define PMW3360_SPI_MODE                     3
-#define PMW3360_SPI_DIVISOR                  64
+#define PMW33XX_CS_PIN                       B0

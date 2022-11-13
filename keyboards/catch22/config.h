@@ -16,29 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xCA22
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    rockydbull
-#define PRODUCT         Catch22 Hotswap Macropad
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 5
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B6, B2, B3, B1, F7 }
 #define MATRIX_COL_PINS { B5, B4, E6, D7, C6 }
-#define UNUSED_PINS { }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-// #define DEBOUNCE 0
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -47,6 +31,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN F6
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 6
 #endif

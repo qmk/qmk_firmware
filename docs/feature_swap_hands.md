@@ -19,15 +19,34 @@ Note that the array indices are reversed same as the matrix and the values are o
 
 ## Swap Keycodes
 
-|Key        |Description                                                              |
-|-----------|-------------------------------------------------------------------------|
-|`SH_T(key)`|Sends `key` with a tap; momentary swap when held.                        |
-|`SH_ON`    |Turns on swapping and leaves it on.                                      |
-|`SH_OFF`   |Turn off swapping and leaves it off. Good for returning to a known state.|
-|`SH_MON`   |Swaps hands when pressed, returns to normal when released (momentary).   |
-|`SH_MOFF`  |Momentarily turns off swap.                                              |
-|`SH_TG`    |Toggles swap on and off with every key press.                            |
-|`SH_TT`    |Momentary swap when held, toggles with repeated taps (see below).        |
-|`SH_OS`    |One shot swap hands: toggles while pressed or until next key press.      |
+|Key                          |Aliases  |Description                                         |
+|-----------------------------|---------|----------------------------------------------------|
+|`SH_T(kc)`                   |         |Momentary swap when held, `kc` when tapped          |
+|`QK_SWAP_HANDS_ON`           |`SH_ON`  |Turn on hand swap                                   |
+|`QK_SWAP_HANDS_OFF`          |`SH_OFF` |Turn off hand swap                                  |
+|`QK_SWAP_HANDS_MOMENTARY_ON` |`SH_MON` |Turn on hand swap while held                        |
+|`QK_SWAP_HANDS_MOMENTARY_OFF`|`SH_MOFF`|Turn off hand swap while held                       |
+|`QK_SWAP_HANDS_TOGGLE`       |`SH_TOGG`|Toggle hand swap                                    |
+|`QK_SWAP_HANDS_TAP_TOGGLE`   |`SH_TT`  |Momentary swap when held, toggle when tapped        |
+|`QK_SWAP_HANDS_ONE_SHOT`     |`SH_OS`  |Turn on hand swap while held or until next key press|
 
-`SH_TT` swap-hands tap-toggle key is similar to [layer tap-toggle](feature_layers.md?id=switching-and-toggling-layers). Tapping repeatedly (5 taps by default) will toggle swap-hands on or off, like `SH_TG`. Tap-toggle count can be changed by defining a value for `TAPPING_TOGGLE`.
+`SH_TT` swap-hands tap-toggle key is similar to [layer tap-toggle](feature_layers.md?id=switching-and-toggling-layers). Tapping repeatedly (5 taps by default) will toggle swap-hands on or off, like `SH_TOGG`. Tap-toggle count can be changed by defining a value for `TAPPING_TOGGLE`.
+
+## Encoder Mapping
+
+When using an encoder mapping, it's also able to handle swapping encoders between sides, too.
+
+Encoder indexes are defined as left-to-right, and the extent of the array needs to match the number of encoders on the keyboard.
+
+As an example, if a split keyboard has a single encoder per side, you can swap the order by using the following code in your keymap:
+```c
+#if defined(SWAP_HANDS_ENABLE) && defined(ENCODER_MAP_ENABLE)
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 1, 0 };
+#endif
+```
+
+### Functions :id=functions
+
+| Function             | Description                                 |
+|----------------------|---------------------------------------------|
+| `is_swap_hands_on()` | Returns true if Swap-Hands is currently on. |

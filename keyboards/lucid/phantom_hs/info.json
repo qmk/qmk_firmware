@@ -1,7 +1,19 @@
 {
     "keyboard_name": "Phantom",
+    "manufacturer": "Lucid",
     "url": "http://www.lucidkb.com",
     "maintainer": "Lucid",
+    "usb": {
+        "vid": "0x7667",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "C7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

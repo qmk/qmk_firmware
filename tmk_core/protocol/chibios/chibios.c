@@ -58,12 +58,10 @@
 uint8_t keyboard_leds(void);
 void    send_keyboard(report_keyboard_t *report);
 void    send_mouse(report_mouse_t *report);
-void    send_system(uint16_t data);
-void    send_consumer(uint16_t data);
-void    send_digitizer(report_digitizer_t *report);
+void    send_extra(report_extra_t *report);
 
 /* host struct */
-host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
+host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);
@@ -106,7 +104,7 @@ __attribute__((weak)) void early_hardware_init_pre(void) {
 #if EARLY_INIT_PERFORM_BOOTLOADER_JUMP
     void enter_bootloader_mode_if_requested(void);
     enter_bootloader_mode_if_requested();
-#endif  // EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+#endif // EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 }
 
 __attribute__((weak)) void early_hardware_init_post(void) {}
@@ -175,7 +173,9 @@ void protocol_pre_init(void) {
     print("USB configured.\n");
 }
 
-void protocol_post_init(void) { host_set_driver(driver); }
+void protocol_post_init(void) {
+    host_set_driver(driver);
+}
 
 void protocol_pre_task(void) {
     usb_event_queue_task();
@@ -185,7 +185,7 @@ void protocol_pre_task(void) {
         print("[s]");
         while (USB_DRIVER.state == USB_SUSPENDED) {
             /* Do this in the suspended state */
-            suspend_power_down();  // on AVR this deep sleeps for 15ms
+            suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
             if (suspend_wakeup_condition()) {
                 usbWakeupHost(&USB_DRIVER);

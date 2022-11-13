@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "YMDK_SP64",
+    "keyboard_name": "SP64",
+    "manufacturer": "YMDK",
     "url": "",
     "maintainer": "walston",
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x5364",
+        "device_version": "2.0.0"
+    },
+    "indicators": {
+        "caps_lock": "D1",
+        "num_lock": "D0",
+        "scroll_lock": "D6"
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -17,28 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Eye Oh Designs
-#define PRODUCT sprh
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-#define ENCODERS_PAD_A {D0}
-#define ENCODERS_PAD_B {D1}
-#define ENCODER_RESOLUTION 2
-
-
 #define MATRIX_ROW_PINS { B3, B7, D2, D5, D3 }
 #define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, C6, B6, B5, B4, D7, D6, F7, D4 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

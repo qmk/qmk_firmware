@@ -16,9 +16,8 @@
 
 #pragma once
 
-#define PRODUCT_ID  0x8702
-#define DEVICE_VER  0x0001
-#define PRODUCT     Infinity87 rev.2
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 17
 
 /*
  * Keyboard Matrix Assignments
@@ -31,22 +30,9 @@
  *
 */
 #define MATRIX_ROW_PINS { D5, D2, D4, D3, D0, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-#define USB_POLLING_INTERVAL_MS 1
-
-
-#define LED_NUM_LOCK_PIN D7
-#define LED_CAPS_LOCK_PIN D6
-#define LED_SCROLL_LOCK_PIN B4
-#define LED_PIN_ON_STATE 1
-
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_BREATHING
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN E2
@@ -66,13 +52,4 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

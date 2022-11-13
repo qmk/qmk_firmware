@@ -14,26 +14,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <iomanip>
 #include <iostream>
 #include "test_logger.hpp"
+#include "timer.h"
 
 TestLogger test_logger;
 
 TestLogger& TestLogger::info() {
     *this << "[ INFO     ] ";
-    return *this;
+    return this->timestamp();
 }
 
 TestLogger& TestLogger::trace() {
     *this << "[ TRACE    ] ";
-    return *this;
+    return this->timestamp();
 }
 
 TestLogger& TestLogger::error() {
     *this << "[ ERROR    ] ";
-    return *this;
+    return this->timestamp();
 }
 
-void TestLogger::reset() { this->m_log.str(""); };
+TestLogger& TestLogger::timestamp() {
+    *this << std::setw(6) << timer_read32() << " ";
+    return *this;
+}
+void TestLogger::reset() {
+    this->m_log.str("");
+};
 
-void TestLogger::print_log() { std::cerr << this->m_log.str(); }
+void TestLogger::print_header() {
+    std::cerr << "[ LEVEL    ] [TIME] [EVENT]" << std::endl;
+}
+
+void TestLogger::print_log() {
+    std::cerr << this->m_log.str();
+}

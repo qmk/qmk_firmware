@@ -1,7 +1,19 @@
 {
-  "keyboard_name": "Planck rev 4",
+  "keyboard_name": "Planck",
+  "manufacturer": "OLKB",
   "url": "https://olkb.com/planck",
   "maintainer": "jackhumbert",
+  "usb": {
+    "vid": "0x03A8",
+    "pid": "0xAE01",
+    "device_version": "0.0.4"
+  },
+  "backlight": {
+    "pin": "B7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_planck_1x2uC": {
       "layout": [

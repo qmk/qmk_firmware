@@ -1,7 +1,19 @@
 {
-    "keyboard_name": "ikki68_aurora",
+    "keyboard_name": "ikki68 Aurora",
+    "manufacturer": "wuque studio",
     "url": "https://ikki68.com/",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x706B",
+        "pid": "0x0011",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "F7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [

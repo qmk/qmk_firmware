@@ -15,23 +15,24 @@
  */
 
 #include "process_ucis.h"
+#include "unicode.h"
+#include "keycode.h"
+#include "wait.h"
 
-qk_ucis_state_t qk_ucis_state;
+ucis_state_t ucis_state;
 
-void qk_ucis_start(void) {
-    qk_ucis_state.count       = 0;
-    qk_ucis_state.in_progress = true;
+void ucis_start(void) {
+    ucis_state.count       = 0;
+    ucis_state.in_progress = true;
 
-    qk_ucis_start_user();
+    ucis_start_user();
 }
 
-__attribute__((weak)) void qk_ucis_start_user(void) {
-    unicode_input_start();
-    register_hex(0x2328);  // ⌨
-    unicode_input_finish();
+__attribute__((weak)) void ucis_start_user(void) {
+    register_unicode(0x2328); // ⌨
 }
 
-__attribute__((weak)) void qk_ucis_success(uint8_t symbol_index) {}
+__attribute__((weak)) void ucis_success(uint8_t symbol_index) {}
 
 static bool is_uni_seq(char *seq) {
     uint8_t i;
@@ -42,66 +43,60 @@ static bool is_uni_seq(char *seq) {
         } else {
             keycode = seq[i] - 'a' + KC_A;
         }
-        if (i > qk_ucis_state.count || qk_ucis_state.codes[i] != keycode) {
+        if (i > ucis_state.count || ucis_state.codes[i] != keycode) {
             return false;
         }
     }
-    return qk_ucis_state.codes[i] == KC_ENTER || qk_ucis_state.codes[i] == KC_SPACE;
+    return ucis_state.codes[i] == KC_ENTER || ucis_state.codes[i] == KC_SPACE;
 }
 
-__attribute__((weak)) void qk_ucis_symbol_fallback(void) {
-    for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
-        uint8_t keycode = qk_ucis_state.codes[i];
-        register_code(keycode);
-        unregister_code(keycode);
-        wait_ms(UNICODE_TYPE_DELAY);
+__attribute__((weak)) void ucis_symbol_fallback(void) {
+    for (uint8_t i = 0; i < ucis_state.count - 1; i++) {
+        tap_code(ucis_state.codes[i]);
     }
 }
 
-__attribute__((weak)) void qk_ucis_cancel(void) {}
+__attribute__((weak)) void ucis_cancel(void) {}
 
 void register_ucis(const uint32_t *code_points) {
     for (int i = 0; i < UCIS_MAX_CODE_POINTS && code_points[i]; i++) {
         register_unicode(code_points[i]);
-        wait_ms(UNICODE_TYPE_DELAY);
     }
 }
 
 bool process_ucis(uint16_t keycode, keyrecord_t *record) {
-    if (!qk_ucis_state.in_progress || !record->event.pressed) {
+    if (!ucis_state.in_progress || !record->event.pressed) {
         return true;
     }
 
     bool special = keycode == KC_SPACE || keycode == KC_ENTER || keycode == KC_ESCAPE || keycode == KC_BACKSPACE;
-    if (qk_ucis_state.count >= UCIS_MAX_SYMBOL_LENGTH && !special) {
+    if (ucis_state.count >= UCIS_MAX_SYMBOL_LENGTH && !special) {
         return false;
     }
 
-    qk_ucis_state.codes[qk_ucis_state.count] = keycode;
-    qk_ucis_state.count++;
+    ucis_state.codes[ucis_state.count] = keycode;
+    ucis_state.count++;
 
     switch (keycode) {
         case KC_BACKSPACE:
-            if (qk_ucis_state.count >= 2) {
-                qk_ucis_state.count -= 2;
+            if (ucis_state.count >= 2) {
+                ucis_state.count -= 2;
                 return true;
             } else {
-                qk_ucis_state.count--;
+                ucis_state.count--;
                 return false;
             }
 
         case KC_SPACE:
         case KC_ENTER:
         case KC_ESCAPE:
-            for (uint8_t i = 0; i < qk_ucis_state.count; i++) {
-                register_code(KC_BACKSPACE);
-                unregister_code(KC_BACKSPACE);
-                wait_ms(UNICODE_TYPE_DELAY);
+            for (uint8_t i = 0; i < ucis_state.count; i++) {
+                tap_code(KC_BACKSPACE);
             }
 
             if (keycode == KC_ESCAPE) {
-                qk_ucis_state.in_progress = false;
-                qk_ucis_cancel();
+                ucis_state.in_progress = false;
+                ucis_cancel();
                 return false;
             }
 
@@ -115,12 +110,12 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             if (symbol_found) {
-                qk_ucis_success(i);
+                ucis_success(i);
             } else {
-                qk_ucis_symbol_fallback();
+                ucis_symbol_fallback();
             }
 
-            qk_ucis_state.in_progress = false;
+            ucis_state.in_progress = false;
             return false;
 
         default:

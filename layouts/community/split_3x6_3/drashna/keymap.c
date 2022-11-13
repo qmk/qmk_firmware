@@ -16,7 +16,9 @@
 
 #include "drashna.h"
 
-enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
+enum crkbd_keycodes {
+    RGBRST = USER_SAFE_RANGE,
+};
 
 /*
  * The `LAYOUT_crkbd_base` macro is a template to allow the use of identical
@@ -79,51 +81,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_RAISE] = LAYOUT_split_3x6_3_wrapper( \
+  [_RAISE] = LAYOUT_split_3x6_3_wrapper(
     _______, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
     _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, KC_BSLS,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_ADJUST] = LAYOUT_split_3x6_3_wrapper( \
-    KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
-    VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EEP_RST,
+  [_ADJUST] = LAYOUT_split_3x6_3_wrapper(
+    QK_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, QK_BOOT,
+    VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EE_CLR,
     KEYLOCK, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,
-                                     HPT_TOG, KC_NUKE, _______,        _______, TG_MODS, HPT_FBK
+                                     QK_RBT, KC_NUKE, _______,        _______, TG_MODS, AUTO_CTN
   )
 };
 // clang-format on
 
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_270; }
+oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
 
 #    ifdef CONVERT_TO_PROTON_C
 // WPM-responsive animation stuff here
 #        define SLEEP_FRAMES 2
-#        define SLEEP_SPEED  10  // below this wpm value your animation will idle
+#        define SLEEP_SPEED 10 // below this wpm value your animation will idle
 
-#        define WAKE_FRAMES  2  // uncomment if >1
+#        define WAKE_FRAMES 2 // uncomment if >1
 
-#        define KAKI_FRAMES  3
-#        define KAKI_SPEED   40  // above this wpm value typing animation to triggere
+#        define KAKI_FRAMES 3
+#        define KAKI_SPEED 40 // above this wpm value typing animation to triggere
 
 #        define RTOGI_FRAMES 2
-//#define LTOGI_FRAMES 2
+// #define LTOGI_FRAMES 2
 
-//#define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
-// #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
-#        define ANIM_SIZE    512  // number of bytes in array, minimize for adequate firmware size, max is 1024
+// #define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
+//  #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
+#        define ANIM_SIZE 512 // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 uint32_t anim_timer          = 0;
 uint32_t anim_frame_duration = 500;
 uint8_t  current_sleep_frame = 0;
-uint8_t  current_wake_frame  = 0;  // uncomment if WAKE_FRAMES >1
+uint8_t  current_wake_frame  = 0; // uncomment if WAKE_FRAMES >1
 uint8_t  current_kaki_frame  = 0;
-uint8_t  current_rtogi_frame = 0;
+#        ifdef SWAP_HANDS_ENABLE
+uint8_t current_rtogi_frame = 0;
+#        endif
 // uint8_t current_ltogi_frame = 0;
 // clang-format off
-void render_kitty(void) {
+void render_small_kitty(void) {
     // Images credit j-inc(/James Incandenza) and pixelbenny. Credit to obosob for initial animation approach.
     static const char PROGMEM sleep[SLEEP_FRAMES][ANIM_SIZE] = {{
                                                                     // 'sleep1', 32x32px
@@ -171,6 +177,7 @@ void render_kitty(void) {
                                                                     0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0d, 0x8d, 0x55, 0x50, 0x94, 0xf0, 0x10, 0x0a, 0x0e, 0x1d, 0x95, 0x24, 0x24, 0x27, 0x13, 0xe1, 0x01, 0x01, 0x01, 0x01, 0x02, 0xfc, 0x00, 0x00, 0x00, 0x00,
                                                                     0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x1f, 0x14, 0x14, 0x10, 0x10, 0x11, 0x1f, 0x10, 0x10, 0x18, 0x0f, 0x18, 0x10, 0x10, 0x1f, 0x19, 0x18, 0x1c, 0x14, 0x14, 0x17, 0x14, 0x14, 0x14, 0x14, 0x08,
                                                                 }};
+#ifdef SWAP_HANDS_ENABLE
     static const char PROGMEM rtogi[KAKI_FRAMES][ANIM_SIZE]  = {{
                                                                     // 'rtogi1', 32x32px
                                                                     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0x20, 0x10, 0x10, 0x08, 0x04, 0x02, 0x01, 0x0f, 0x90, 0x10, 0x20, 0xf0, 0xf8, 0xf8,
@@ -184,15 +191,20 @@ void render_kitty(void) {
                                                                     0x0f, 0x11, 0x22, 0x44, 0x48, 0x4c, 0x43, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xc0, 0x80, 0x80, 0xc0, 0xe1, 0xfe, 0xb8, 0x88, 0x0c, 0x04, 0x06, 0x06, 0x06, 0x0e, 0x0e, 0x06, 0x01,
                                                                     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x06, 0x04, 0x04, 0x04, 0x04, 0x05, 0x04, 0x04, 0x04, 0x07, 0x07, 0x07, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
                                                                 }};
-
+#endif
     // assumes 1 frame prep stage
+#ifdef SWAP_HANDS_ENABLE
     extern bool swap_hands;
+#endif
     void        animation_phase(void) {
+#ifdef SWAP_HANDS_ENABLE
         if (swap_hands) {
             anim_frame_duration = 300;
             current_rtogi_frame = (current_rtogi_frame + 1) % RTOGI_FRAMES;
             oled_write_raw_P(rtogi[abs((RTOGI_FRAMES - 1) - current_rtogi_frame)], ANIM_SIZE);
-        } else {
+        } else
+#endif
+        {
             if (get_current_wpm() <= SLEEP_SPEED) {
                 anim_frame_duration = 500;
                 current_sleep_frame = (current_sleep_frame + 1) % SLEEP_FRAMES;
@@ -228,10 +240,9 @@ void render_kitty(void) {
 }
 
 void oled_driver_render_logo_right(void) {
-    render_kitty();
+    render_small_kitty();
 
-    oled_set_cursor(0, 4);
-    render_default_layer_state();
+    render_default_layer_state(0, 4);
 }
 #    endif
 #endif
@@ -265,7 +276,7 @@ void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t le
     }
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
@@ -291,5 +302,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
         check_default_layer(0, LED_FLAG_MODIFIER, led_min, led_max);
     }
+    return false;
 }
 #endif

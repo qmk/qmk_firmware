@@ -17,18 +17,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    	0x494B // "IB" for idb Keyboards
-#define PRODUCT_ID  	0x0001 // idb 60
-#define DEVICE_VER   	0x0001
-#define MANUFACTURER    idb Keyboards
-#define PRODUCT         idb 60
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
 
 /*
  * Keyboard Matrix Assignments
@@ -42,45 +30,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { C2, D0, D1, D2, D3, D4, D5, D6, B0, B1 }
 #define MATRIX_COL_PINS { B2, B3, B4, C6, B6, B7, C7, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - see https://docs.qmk.fm/#/feature_debounce_type for more information */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
 
 /*
  * Feature disable options
@@ -97,5 +54,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

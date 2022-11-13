@@ -34,16 +34,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define OLED_DISPLAY_HEIGHT 64
 #    endif
 #    ifndef OLED_MATRIX_SIZE
-#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)  // 1024 (compile time mathed)
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 1024 (compile time mathed)
 #    endif
 #    ifndef OLED_BLOCK_TYPE
 #        define OLED_BLOCK_TYPE uint16_t
 #    endif
 #    ifndef OLED_BLOCK_COUNT
-#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)  // 32 (compile time mathed)
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 32 (compile time mathed)
 #    endif
 #    ifndef OLED_BLOCK_SIZE
-#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)  // 32 (compile time mathed)
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
 #    endif
 #    ifndef OLED_COM_PINS
 #        define OLED_COM_PINS COM_PINS_ALT
@@ -68,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
 // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
 // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
-#else  // defined(OLED_DISPLAY_128X64)
+#else // defined(OLED_DISPLAY_128X64)
 // Default 128x32
 #    ifndef OLED_DISPLAY_WIDTH
 #        define OLED_DISPLAY_WIDTH 128
@@ -77,16 +77,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define OLED_DISPLAY_HEIGHT 32
 #    endif
 #    ifndef OLED_MATRIX_SIZE
-#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)  // 512 (compile time mathed)
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 512 (compile time mathed)
 #    endif
 #    ifndef OLED_BLOCK_TYPE
-#        define OLED_BLOCK_TYPE uint16_t  // Type to use for segmenting the oled display for smart rendering, use unsigned types only
+#        define OLED_BLOCK_TYPE uint16_t // Type to use for segmenting the oled display for smart rendering, use unsigned types only
 #    endif
 #    ifndef OLED_BLOCK_COUNT
-#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)  // 16 (compile time mathed)
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 16 (compile time mathed)
 #    endif
 #    ifndef OLED_BLOCK_SIZE
-#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)  // 32 (compile time mathed)
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
 #    endif
 #    ifndef OLED_COM_PINS
 #        define OLED_COM_PINS COM_PINS_SEQ
@@ -105,7 +105,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
 // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
 // #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
-#endif  // defined(OLED_DISPLAY_CUSTOM)
+#endif // defined(OLED_DISPLAY_CUSTOM)
 
 #if !defined(OLED_IC)
 #    define OLED_IC OLED_IC_SSD1306
@@ -170,6 +170,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_UPDATE_INTERVAL 50
 #endif
 
+#if !defined(OLED_UPDATE_PROCESS_LIMIT)
+#    define OLED_UPDATE_PROCESS_LIMIT 1
+#endif
+
 typedef struct __attribute__((__packed__)) {
     uint8_t *current_element;
     uint16_t remaining_element_count;
@@ -180,7 +184,7 @@ typedef enum {
     OLED_ROTATION_0   = 0,
     OLED_ROTATION_90  = 1,
     OLED_ROTATION_180 = 2,
-    OLED_ROTATION_270 = 3,  // OLED_ROTATION_90 | OLED_ROTATION_180
+    OLED_ROTATION_270 = 3, // OLED_ROTATION_90 | OLED_ROTATION_180
 } oled_rotation_t;
 
 // Initialize the oled display, rotating the rendered output based on the define passed in.
@@ -260,9 +264,9 @@ void oled_write_ln_P(const char *data, bool invert);
 void oled_write_raw_P(const char *data, uint16_t size);
 #else
 #    define oled_write_P(data, invert) oled_write(data, invert)
-#    define oled_write_ln_P(data, invert) oled_write(data, invert)
+#    define oled_write_ln_P(data, invert) oled_write_ln(data, invert)
 #    define oled_write_raw_P(data, size) oled_write_raw(data, size)
-#endif  // defined(__AVR__)
+#endif // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on

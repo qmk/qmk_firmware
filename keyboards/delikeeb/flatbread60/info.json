@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "flatbread60",
+    "keyboard_name": "Flatbread60",
+    "manufacturer": "delikeeb",
     "url": "",
     "maintainer": "noclew",
+    "usb": {
+        "vid": "0x9906",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

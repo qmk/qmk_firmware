@@ -18,7 +18,7 @@
 uint16_t layer_timer;
 
 enum layer_keycodes {
-  TG_LAYER = USER00
+  TG_LAYER = QK_KB_0
 };
 
 uint8_t get_hold_layer(void) {
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TG_LAYER, KC_F4, KC_F5, KC_F6
   ),
   [3] = LAYOUT(
-      LCTL(KC_PSCR), KC_NLCK, KC_SLCK,
+      LCTL(KC_PSCR), KC_NUM, KC_SCRL,
     KC_NO, _______, _______, _______
   ),
 };

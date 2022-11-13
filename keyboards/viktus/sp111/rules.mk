@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -22,5 +16,6 @@ LTO_ENABLE = yes            # Smaller (and slightly faster) firmware
 # custom matrix setup
 CUSTOM_MATRIX = lite
 
+VPATH += drivers/gpio
 SRC += mcp23018.c matrix.c
 QUANTUM_LIB_SRC += i2c_master.c

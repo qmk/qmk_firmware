@@ -115,13 +115,15 @@ void         channel_1_set_frequency(float freq) {
     channel_1_frequency = freq;
 
     channel_1_stop();
-    if (freq <= 0.0)  // a pause/rest has freq=0
+    if (freq <= 0.0) // a pause/rest has freq=0
         return;
 
     gpt6cfg1.frequency = 2 * freq * AUDIO_DAC_BUFFER_SIZE;
     channel_1_start();
 }
-float channel_1_get_frequency(void) { return channel_1_frequency; }
+float channel_1_get_frequency(void) {
+    return channel_1_frequency;
+}
 
 void channel_2_start(void) {
     gptStart(&GPTD7, &gpt7cfg1);
@@ -140,13 +142,15 @@ void         channel_2_set_frequency(float freq) {
     channel_2_frequency = freq;
 
     channel_2_stop();
-    if (freq <= 0.0)  // a pause/rest has freq=0
+    if (freq <= 0.0) // a pause/rest has freq=0
         return;
 
     gpt7cfg1.frequency = 2 * freq * AUDIO_DAC_BUFFER_SIZE;
     channel_2_start();
 }
-float channel_2_get_frequency(void) { return channel_2_frequency; }
+float channel_2_get_frequency(void) {
+    return channel_2_frequency;
+}
 
 static void gpt_audio_state_cb(GPTDriver *gptp) {
     if (audio_update_state()) {
@@ -155,8 +159,8 @@ static void gpt_audio_state_cb(GPTDriver *gptp) {
         channel_1_set_frequency(audio_get_processed_frequency(0));
         channel_2_set_frequency(audio_get_processed_frequency(0));
 
-#else  // two separate audio outputs/speakers
-       // primary speaker on A4, optional secondary on A5
+#else // two separate audio outputs/speakers
+      // primary speaker on A4, optional secondary on A5
         if (AUDIO_PIN == A4) {
             channel_1_set_frequency(audio_get_processed_frequency(0));
             if (AUDIO_PIN_ALT == A5) {
@@ -183,7 +187,7 @@ static void gpt_audio_state_cb(GPTDriver *gptp) {
     }
 }
 
-void audio_driver_initialize() {
+void audio_driver_initialize(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
         dacStart(&DACD1, &dac_conf_ch1);

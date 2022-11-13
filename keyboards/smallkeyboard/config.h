@@ -17,17 +17,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#include "config_common.h"
-#define VENDOR_ID       0x7A71 // "zq" = zhouqiong19840119
-#define PRODUCT_ID      0x736B // "sk" = smallkeyboard
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    zhouqiong19840119
-#define PRODUCT         smallkeyboard
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
 
 /*
  * Keyboard Matrix Assignments
@@ -41,20 +30,11 @@
  */
 #define MATRIX_ROW_PINS {C7, C6 }
 #define MATRIX_COL_PINS {F7, F6, F5}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
-/* disable these deprecated features by default */
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -84,7 +64,7 @@
 #define ENABLE_RGB_MATRIX_HUE_BREATHING
 #define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #define ENABLE_RGB_MATRIX_HUE_WAVE
-// #define ENABLE_RGB_MATRIX_FRACTAL
+// #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
 
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
@@ -113,14 +93,5 @@
 #define DRIVER_ADDR_1 0b1110100
 
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 6
+#define RGB_MATRIX_LED_COUNT 6
 #endif
-//#define RGB_DI_PIN B7
-//#ifdef RGB_DI_PIN
-//#define RGBLIGHT_ANIMATIONS
-//#define RGBLED_NUM 8
-//#define RGBLIGHT_HUE_STEP 5
-//#define RGBLIGHT_SAT_STEP 5
-//#define RGBLIGHT_VAL_STEP 5
-//#define RGBLIGHT_SLEEP
-//#endif

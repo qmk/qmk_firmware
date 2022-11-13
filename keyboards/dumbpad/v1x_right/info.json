@@ -1,8 +1,17 @@
 {
-    "keyboard_name": "dumbpad/v1x_right",
-    "keyboard_folder": "dumbpad/v1x_right",
-    "url": "https://www.github.com/imchipwood/dumbpad",
-    "maintainer": "imchipwood",
+    "usb": {
+        "device_version": "0.1.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "B2"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [3, 4]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

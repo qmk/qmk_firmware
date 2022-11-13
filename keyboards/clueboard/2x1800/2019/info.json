@@ -2,7 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 2x1800 2019",
   "maintainer": "skullydazed",
-  "debounce": 5,
   "processor": "at90usb1286",
   "bootloader": "halfkay",
   "diode_direction": "ROW2COL",
@@ -24,9 +23,17 @@
     "rows": ["C0", "C1", "C2", "C3", "C7", "F7", "B1", "F2", "F3", "F4", "F5", "F6", "C6"]
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x23A0",
     "vid": "0xC1ED"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "A5", "pin_b": "A6"},
+      {"pin_a": "A4", "pin_b": "A7"},
+      {"pin_a": "A2", "pin_b": "A3"},
+      {"pin_a": "A1", "pin_b": "A0"}
+    ]
   },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"

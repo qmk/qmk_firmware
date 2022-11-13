@@ -1,7 +1,25 @@
 {
     "keyboard_name": "XD84 Pro",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7844",
+        "pid": "0x8450",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "F5",
+        "levels": 10,
+        "on_state": 0
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["75_ansi", "75_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xADAD
-#define PRODUCT_ID   0xFB60
-#define DEVICE_VER   0x0001
-#define MANUFACTURER KnoblesseOblige
-#define PRODUCT      Freebird60
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -42,13 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F5, F4, F1, F0, F6 }
 #define MATRIX_COL_PINS { F7, C7, C6, B6, B5, B4, D7, D6, D4, D0, D1, D2, D3, D5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

@@ -1,7 +1,21 @@
 {
   "keyboard_name": "Tragicforce 68",
+  "manufacturer": "Keebio",
   "url": "https://keeb.io",
   "maintainer": "Keebio",
+  "usb": {
+    "vid": "0xCB10",
+    "pid": "0x0510",
+    "device_version": "1.0.1"
+  },
+  "backlight": {
+    "pin": "B5",
+    "levels": 7,
+    "breathing": true
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "community_layouts": ["68_ansi"],
   "layouts": {
     "LAYOUT_68_ansi": {
       "layout": [

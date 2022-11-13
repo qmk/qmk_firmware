@@ -344,7 +344,7 @@ static void USB2422_write_block(void) {
 
 // ***************************************************************
 
-void USB2422_init() {
+void USB2422_init(void) {
 #ifdef USB2422_RESET_PIN
     setPinOutput(USB2422_RESET_PIN);
 #endif
@@ -352,10 +352,10 @@ void USB2422_init() {
     setPinInput(USB2422_ACTIVE_PIN);
 #endif
 
-    i2c_init();  // IC2 clk must be high at USB2422 reset release time to signal SMB configuration
+    i2c_init(); // IC2 clk must be high at USB2422 reset release time to signal SMB configuration
 }
 
-void USB2422_configure() {
+void USB2422_configure(void) {
     static const char SERNAME[] = "Unavailable";
 
     memset(&config, 0, sizeof(Usb2422_t));
@@ -363,14 +363,14 @@ void USB2422_configure() {
     // configure Usb2422 registers
     config.VID.reg               = USB2422_VENDOR_ID;
     config.PID.reg               = USB2422_PRODUCT_ID;
-    config.DID.reg               = USB2422_DEVICE_VER;  // BCD format, eg 01.01
-    config.CFG1.bit.SELF_BUS_PWR = 1;                   // self powered for now
-    config.CFG1.bit.HS_DISABLE   = 1;                   // full or high speed
+    config.DID.reg               = USB2422_DEVICE_VER; // BCD format, eg 01.01
+    config.CFG1.bit.SELF_BUS_PWR = 1;                  // self powered for now
+    config.CFG1.bit.HS_DISABLE   = 1;                  // full or high speed
     // config.CFG2.bit.COMPOUND = 0; // compound device
-    config.CFG3.bit.STRING_EN = 1;  // strings enabled
+    config.CFG3.bit.STRING_EN = 1; // strings enabled
     // config.NRD.bit.PORT2_NR = 0; // MCU is non-removable
-    config.MAXPB.reg = 20;  // 0mA
-    config.HCMCB.reg = 20;  // 0mA
+    config.MAXPB.reg = 20; // 0mA
+    config.HCMCB.reg = 20; // 0mA
     config.MFRSL.reg = sizeof(USB2422_MANUFACTURER);
     config.PRDSL.reg = sizeof(USB2422_PRODUCT);
     config.SERSL.reg = sizeof(SERNAME);
@@ -385,7 +385,7 @@ void USB2422_configure() {
     USB2422_write_block();
 }
 
-void USB2422_reset() {
+void USB2422_reset(void) {
 #ifdef USB2422_RESET_PIN
     writePinLow(USB2422_RESET_PIN);
     wait_us(2);
@@ -393,7 +393,7 @@ void USB2422_reset() {
 #endif
 }
 
-bool USB2422_active() {
+bool USB2422_active(void) {
 #ifdef USB2422_ACTIVE_PIN
     return readPin(USB2422_ACTIVE_PIN);
 #else

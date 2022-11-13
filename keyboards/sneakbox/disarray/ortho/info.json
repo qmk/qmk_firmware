@@ -1,9 +1,28 @@
 {
   "keyboard_name": "Disarray (Ortholinear)",
+  "manufacturer": "Sneakbox",
   "url": "https://sneakbox.com",
   "maintainer": "mujimanic",
+  "usb": {
+    "vid": "0x5342",
+    "pid": "0x0003",
+    "device_version": "0.0.1"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B3", "pin_b": "B2", "resolution": 1}
+    ]
+  },
+  "indicators": {
+    "num_lock": "B1"
+  },
+  "bootmagic": {
+    "matrix": [1, 0]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
-      "LAYOUT_all": {
+      "LAYOUT": {
           "layout": [
               {"y":0, "x":0},
               {"y":1, "x":0},{"y":1, "x":1},{"y":1, "x":2},{"y":1, "x":3},{"y":1, "x":4},{"y":1, "x":5},{"y":1, "x":6},{"y":1, "x":7},{"y":1, "x":8},{"y":1, "x":9},{"y":1, "x":10},{"y":1, "x":11},{"y":1, "x":12},{"y":1, "x":13},{"y":1, "x":14},{"y":1, "x":15},

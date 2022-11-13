@@ -1,7 +1,25 @@
 {
     "keyboard_name": "RARTLAND", 
+    "manufacturer": "Alabahuy",
     "url": " ", 
     "maintainer": "Alabahuy", 
+    "usb": {
+        "vid": "0x414C",
+        "pid": "0x6065",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D5", "pin_b": "C2", "resolution": 2}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "A0",
+        "on_state": 0
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
+    "community_layouts": ["65_ansi", "65_iso"],
     "layouts": {
         "LAYOUT_all": {
           "layout": [

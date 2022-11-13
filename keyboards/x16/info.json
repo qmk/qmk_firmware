@@ -1,7 +1,19 @@
 {
     "keyboard_name": "x16",
+    "manufacturer": "yinxianwei",
     "url": "",
     "maintainer": "yinxianwei",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x016A",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B5",
+        "levels": 5
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

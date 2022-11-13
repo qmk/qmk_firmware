@@ -15,29 +15,14 @@
  */
 #pragma once
 
-#include "config_common.h"
 
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x1228
-#define DEVICE_VER   0x0001
-#define MANUFACTURER X-BOWS
-#define PRODUCT      NUMPAD
-
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 4
 #define MATRIX_ROW_PINS { B5, B4, C6, B6, D7, B3 }
 #define MATRIX_COL_PINS { D4, D6, B2, B1 }
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 3
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
-#    define RGB_DISABLE_AFTER_TIMEOUT 0          // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED       // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
@@ -47,7 +32,7 @@
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
 #    define ENABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
 #    define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL     // Single hue spinning spiral fades brightness
 #    define ENABLE_RGB_MATRIX_CYCLE_ALL           // Full keyboard solid hue cycling through full gradient
@@ -69,5 +54,5 @@
 
 #    define DRIVER_ADDR_1 0b1110111
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 22
+#    define RGB_MATRIX_LED_COUNT 22
 #endif

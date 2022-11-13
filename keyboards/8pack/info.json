@@ -1,19 +1,22 @@
 {
   "keyboard_name": "8-Pack",
+  "manufacturer": "Charles Garcia",
   "url": "https://github.com/cgarcia2097/8-Pack",
   "maintainer": "Charles Garcia",
-  "layouts": {
-    "LAYOUT": {
-      "layout": [
-        {"x":0, "y":0},
-        {"x":1, "y":0},
-        {"x":2, "y":0},
-        {"x":3, "y":0},
-        {"x":0, "y":1},
-        {"x":1, "y":1},
-        {"x":2, "y":1},
-        {"x":3, "y":1}
-      ]
-    }
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x2171"
+  },
+  "backlight": {
+    "pins": ["D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5"],
+    "levels": 8
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "matrix_pins": {
+    "direct": [
+      ["F4", "F5", "F6", "F7"],
+      ["B1", "B3", "B2", "B6"]
+    ]
   }
 }

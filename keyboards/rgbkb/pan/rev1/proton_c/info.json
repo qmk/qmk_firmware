@@ -1,0 +1,11 @@
+{
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B14", "pin_b": "B15"},
+            {"pin_a": "B11", "pin_b": "B12"}
+        ]
+    }
+}

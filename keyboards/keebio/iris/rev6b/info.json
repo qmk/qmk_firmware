@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Iris Rev. 6b",
+    "usb": {
+        "pid": "0x6456",
+        "device_version": "6.2.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B2"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

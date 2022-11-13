@@ -16,39 +16,20 @@
 
 #pragma once
 
-#include "config_common.h"
-
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7BA1
-#define PRODUCT_ID      0x7501
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MWStudio
-#define PRODUCT         MW75
-
-/* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B7, D0, D1, D2, D3, D5, B0}
 #define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, C6, C7, F7, F6, F5, F4, F1, F0, E6 }
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 #define RGB_DI_PIN B3
 #define RGBLIGHT_SLEEP
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define DRIVER_LED_TOTAL 97
+#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define RGB_MATRIX_LED_COUNT 97
 #define RGBLED_NUM 97
 #define RGB_MATRIX_KEYPRESSES
 
@@ -78,7 +59,7 @@
 #define ENABLE_RGB_MATRIX_HUE_BREATHING
 #define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #define ENABLE_RGB_MATRIX_HUE_WAVE
-#define ENABLE_RGB_MATRIX_FRACTAL
+#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
 
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
@@ -100,6 +81,3 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B2 }

@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "suit80",
+    "keyboard_name": "Suit80 ISO",
+    "manufacturer": "OwLab",
     "url": "",
     "maintainer": "Owlab",
+    "usb": {
+        "vid": "0x4F53",
+        "pid": "0x5349",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

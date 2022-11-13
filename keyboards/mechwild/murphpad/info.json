@@ -1,7 +1,24 @@
 {
-    "keyboard_name": "MechWild MurphPad",
+    "keyboard_name": "MurphPad",
+    "manufacturer": "MechWild",
     "url": "mechwild.com",
     "maintainer": "Kyle McCreery",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x1705",
+        "device_version": "3.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E6", "pin_b": "B4"},
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

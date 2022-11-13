@@ -152,7 +152,7 @@ extern uint8_t note_timbre;
 #ifdef AUDIO1_PIN_SET
 static float channel_1_frequency = 0.0f;
 void         channel_1_set_frequency(float freq) {
-    if (freq == 0.0f)  // a pause/rest is a valid "note" with freq=0
+    if (freq == 0.0f) // a pause/rest is a valid "note" with freq=0
     {
         // disable the output, but keep the pwm-ISR going (with the previous
         // frequency) so the audio-state keeps getting updated
@@ -160,7 +160,7 @@ void         channel_1_set_frequency(float freq) {
         AUDIO1_TCCRxA &= ~(_BV(AUDIO1_COMxy1) | _BV(AUDIO1_COMxy0));
         return;
     } else {
-        AUDIO1_TCCRxA |= _BV(AUDIO1_COMxy1);  // enable output, PWM mode
+        AUDIO1_TCCRxA |= _BV(AUDIO1_COMxy1); // enable output, PWM mode
     }
 
     channel_1_frequency = freq;
@@ -202,7 +202,9 @@ void         channel_2_set_frequency(float freq) {
     AUDIO2_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre / 100);
 }
 
-float channel_2_get_frequency(void) { return channel_2_frequency; }
+float channel_2_get_frequency(void) {
+    return channel_2_frequency;
+}
 
 void channel_2_start(void) {
     AUDIO2_TIMSKx |= _BV(AUDIO2_OCIExy);
@@ -215,7 +217,7 @@ void channel_2_stop(void) {
 }
 #endif
 
-void audio_driver_initialize() {
+void audio_driver_initialize(void) {
 #ifdef AUDIO1_PIN_SET
     channel_1_stop();
     setPinOutput(AUDIO1_PIN);
@@ -256,7 +258,7 @@ void audio_driver_initialize() {
 #endif
 }
 
-void audio_driver_stop() {
+void audio_driver_stop(void) {
 #ifdef AUDIO1_PIN_SET
     channel_1_stop();
 #endif

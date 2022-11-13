@@ -1,7 +1,24 @@
 {
     "keyboard_name": "frankie_macropad",
+    "manufacturer": "Eric Wood",
     "url": "https://github.com/eric-wood/macro-pad",
     "maintainer": "eric-wood",
+    "usb": {
+        "vid": "0xF00D",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [2, 0]
+    },
+    "processor": "atmega16u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

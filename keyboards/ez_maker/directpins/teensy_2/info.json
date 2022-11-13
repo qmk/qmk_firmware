@@ -4,8 +4,6 @@
     "maintainer": "skullydazed",
     "processor": "atmega32u4",
     "bootloader": "halfkay",
-    "debounce": 5,
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -28,7 +26,7 @@
         ]
     },
     "usb": {
-        "device_ver": "0x0001",
+        "device_version": "0.0.1",
         "pid": "0x2322",
         "vid": "0xFEED"
     },

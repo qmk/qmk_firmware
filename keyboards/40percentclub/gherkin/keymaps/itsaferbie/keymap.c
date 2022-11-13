@@ -105,7 +105,7 @@ void matrix_scan_user(void) {
   #ifdef RGBLIGHT_ENABLE
 
   static uint8_t old_layer = 255;
-  uint8_t new_layer = biton32(layer_state);
+  uint8_t new_layer = get_highest_layer(layer_state);
 
   // Color of the Icons.
   if (old_layer != new_layer) {
@@ -137,7 +137,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		switch(keycode) {
 			case MACRO_0:
         // Save for Web Macro.
-				SEND_STRING(SS_LSFT(SS_LALT(SS_LCTRL("s"))));
+				SEND_STRING(SS_LSFT(SS_LALT(SS_LCTL("s"))));
 				return false;
 		}
 	}

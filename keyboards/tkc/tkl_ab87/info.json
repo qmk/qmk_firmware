@@ -1,7 +1,23 @@
 {
-    "keyboard_name": "TKC TKL A/B87", 
+    "keyboard_name": "TKL A/B87", 
+    "manufacturer": "TKC",
     "url": "", 
     "maintainer": "TerryMathews", 
+    "usb": {
+    	"vid": "0x544B",
+    	"pid": "0x0007",
+    	"device_version": "0.0.1"
+    },
+    "backlight": {
+    	"pin": "B7",
+    	"breathing": true
+    },
+    "indicators": {
+    	"caps_lock": "F1",
+    	"scroll_lock": "F0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

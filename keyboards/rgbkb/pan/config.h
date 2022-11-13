@@ -16,22 +16,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID       0x5247  // "RG" - RGBKB
-#define PRODUCT_ID      0x8C9C  // Pan
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    RGBKB
-#define PRODUCT         Pan
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 13
-
-#define ENCODER_RESOLUTION 4
 #define RGBLED_NUM 64
-#define RGBLIGHT_ANIMATIONS
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -87,6 +83,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

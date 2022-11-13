@@ -108,7 +108,7 @@ void uart_write(uint8_t data) {
     // return immediately to avoid deadlock when interrupt is disabled(called from ISR)
     if (tx_buffer_tail == i && (SREG & (1 << SREG_I)) == 0) return;
     while (tx_buffer_tail == i)
-        ;  // wait until space in buffer
+        ; // wait until space in buffer
     // cli();
     tx_buffer[i]   = data;
     tx_buffer_head = i;
@@ -121,7 +121,7 @@ uint8_t uart_read(void) {
     uint8_t data, i;
 
     while (rx_buffer_head == rx_buffer_tail)
-        ;  // wait for character
+        ; // wait for character
     i = rx_buffer_tail + 1;
     if (i >= RX_BUFFER_SIZE) i = 0;
     data           = rx_buffer[i];

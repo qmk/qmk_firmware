@@ -16,18 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6166  // af
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0002
-#define MANUFACTURER elagil
-#define PRODUCT Murciélago
-
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 6
 
 /* split options, use EEPROM for side detection */
 #define EE_HANDS
@@ -48,23 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS_RIGHT { B3, B7, D4, B6, C6, C7 }
 #define MATRIX_COL_PINS_RIGHT { D6, D7, D3, B2, B1, B0 }
 
-#define ENCODERS_PAD_A { F0 }
-#define ENCODERS_PAD_B { F1 }
-#define ENCODERS_PAD_A_RIGHT { F6 }
-#define ENCODERS_PAD_B_RIGHT { F7 }
-
-#define UNUSED_PINS
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN E6
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -86,11 +59,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Irene",
+    "manufacturer": "Andrei Collado",
     "url": "",
     "maintainer": "Andrei Collado",
+    "usb": {
+        "vid": "0x1434",
+        "pid": "0x3000",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

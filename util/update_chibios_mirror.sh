@@ -4,13 +4,13 @@
 # Configuration
 
 # The ChibiOS branches to mirror
-chibios_branches="trunk stable_20.3.x stable_21.6.x"
+chibios_branches="trunk stable_20.3.x stable_21.11.x"
 
 # The ChibiOS tags to mirror
-chibios_tags="ver20.3.1 ver20.3.2 ver20.3.3 ver20.3.4 ver21.6.0"
+chibios_tags="ver20.3.1 ver20.3.2 ver20.3.3 ver20.3.4 ver21.11.1 ver21.11.2 ver21.11.3"
 
 # The ChibiOS-Contrib branches to mirror
-contrib_branches="chibios-20.3.x chibios-21.6.x"
+contrib_branches="chibios-20.3.x chibios-21.11.x"
 
 ################################
 # Actions
@@ -32,7 +32,7 @@ contrib_git_config=$(realpath "$contrib_git_location/config")
 cd "$chibios_dir"
 
 if [[ -z "$(cat "$chibios_git_config" | grep '\[svn-remote "svn"\]')" ]] ; then
-    git svn init --stdlayout --prefix='svn/' http://svn.osdn.net/svnroot/chibios/
+    git svn init --stdlayout --prefix='svn/' https://svn.code.sf.net/p/chibios/code/
 fi
 
 if [[ -z "$(cat "$chibios_git_config" | grep '\[remote "qmk"\]')" ]] ; then
@@ -88,5 +88,5 @@ echo "Updating ChibiOS-Contrib branches..."
 for branch in $contrib_branches ; do
     echo "Creating branch 'mirror/$branch' from 'upstream/$branch'..."
     git branch -f mirror/$branch upstream/$branch \
-        && git push qmk mirror/$branch
+        && git push qmk mirror/$branch || true # Allow for nonexistent ChibiOS-Contrib branches -- they'll turn up eventually.
 done

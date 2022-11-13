@@ -1,7 +1,18 @@
 {
-    "keyboard_name": "Mode SixtyFive S",
+    "keyboard_name": "SixtyFive S",
+    "manufacturer": "Mode",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x00DE",
+        "pid": "0x6583",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "C8"
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

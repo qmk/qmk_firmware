@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xE86A
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Salmon Cat Studio
-#define PRODUCT         Aozora
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 17
 
 /*
  * Keyboard Matrix Assignments

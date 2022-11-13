@@ -1,8 +1,18 @@
 {
-    "keyboard_name": "dumbpad/v0x_dualencoder",
-    "keyboard_folder": "dumbpad/v0x_dualencoder",
-    "url": "https://www.github.com/imchipwood/dumbpad",
-    "maintainer": "imchipwood",
+    "usb": {
+        "device_version": "0.0.6"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C6", "pin_b": "D4"},
+            {"pin_a": "D0", "pin_b": "D1"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [3, 0]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

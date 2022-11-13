@@ -1,6 +1,20 @@
 {
-    "keyboard_name": "NIBBLE 65%",
+    "keyboard_name": "NIBBLE",
+    "manufacturer": "nullbits",
     "url": "https://nullbits.co/nibble/",
+    "usb": {
+        "vid": "0x6E61",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B4"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 10,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

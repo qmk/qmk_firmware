@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x69CC
-#define PRODUCT_ID   0x6BF6
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Kevin M.
-#define PRODUCT      Ludmila Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -42,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F0, C7, F7 }
 #define MATRIX_COL_PINS { F4, F1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -50,8 +41,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D1
 #define RGBLED_NUM 4
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_ANIMATIONS
-
-// Encoder
-#define ENCODERS_PAD_A { F6 }
-#define ENCODERS_PAD_B { F5 }
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE

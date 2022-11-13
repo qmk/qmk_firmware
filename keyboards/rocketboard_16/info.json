@@ -1,7 +1,22 @@
 {
     "keyboard_name": "Rocketboard-16",
+    "manufacturer": "Rocketboard",
     "url": "",
     "maintainer": "fl3tching101",
+    "usb": {
+        "vid": "0xB034",
+        "pid": "0xFF16",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A0", "pin_b": "A1"},
+            {"pin_a": "A2", "pin_b": "A3"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [4, 1]
+    },
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT"
     },

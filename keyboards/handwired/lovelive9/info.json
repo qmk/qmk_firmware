@@ -1,7 +1,18 @@
 {
     "keyboard_name": "lovelive9",
+    "manufacturer": "numazu Keyboards",
     "url": "https://github.com/ginjake",
     "maintainer": "ginjake",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0007",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "breathing_period": 2
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

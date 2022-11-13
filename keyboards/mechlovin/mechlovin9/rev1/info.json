@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Mechlovin9",
+    "usb": {
+        "pid": "0x6509",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B8",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B9"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C"
+}

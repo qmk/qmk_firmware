@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +13,6 @@ AUDIO_ENABLE = no           # Audio output
 
 # Add trackball support
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = custom
 SRC += adns.c
 QUANTUM_LIB_SRC += spi_master.c

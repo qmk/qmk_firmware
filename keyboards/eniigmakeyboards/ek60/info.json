@@ -1,7 +1,16 @@
 {
-    "keyboard_name": "ek60",
+    "keyboard_name": "EK60",
+    "manufacturer": "Eniigma Keyboards",
     "url": "",
     "maintainer": "adamws",
+    "usb": {
+        "vid": "0x454B",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi", "60_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout":[

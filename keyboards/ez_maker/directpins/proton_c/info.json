@@ -2,9 +2,9 @@
     "manufacturer": "Zach White",
     "keyboard_name": "DirectPins Proton C",
     "maintainer": "skullydazed",
-    "debounce": 5,
     "processor": "STM32F303",
     "board": "QMK_PROTON_C",
+    "bootloader": "stm32-dfu",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -31,7 +31,7 @@
         ]
     },
     "usb": {
-        "device_ver": "0x0001",
+        "device_version": "0.0.1",
         "pid": "0x2321",
         "vid": "0xFEED"
     },

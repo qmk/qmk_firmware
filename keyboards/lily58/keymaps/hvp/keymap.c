@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(3,KC_ESC),   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, 
   LT(_NAVI,KC_TAB),   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, 
   KC_LSFT, KC_A,   KC_S,    KC_D,    LT(4,KC_F),    LT(3,KC_G),                     KC_H,    KC_J,    KC_K,    KC_L,     TD(TD1), TD(TD2),
-  KC_LCTRL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, MT(MOD_LSFT,KC_BSPC),  MT(MOD_LSFT,KC_ENTER),  KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3),  MT(MOD_RSFT,KC_ENT),
+  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, MT(MOD_LSFT,KC_BSPC),  MT(MOD_LSFT,KC_ENTER),  KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3),  MT(MOD_RSFT,KC_ENT),
                              KC_LALT, KC_LGUI, LOWER,LT(1,KC_SPC),   LT(2,KC_SPC),   RAISE,   KC_RALT, KC_RGUI
 ),
 [_RAISE] = LAYOUT( /* Right */
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  RGB_TOG, RGB_MOD, RGB_RMOD, _______, _______,                   _______, KC_7, KC_8, KC_9, KC_0, _______, 
   _______, RGB_M_P, RGB_HUD, RGB_HUI, _______, _______,                   _______, KC_4, KC_5, KC_6, _______, _______, 
   KC_PSCR, _______, RGB_SAD, RGB_SAI, _______, _______,                   KC_0, KC_1, KC_2, KC_3, _______, _______, 
-  RESET, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  QK_BOOT, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                              _______, KC_VOLD, KC_MPRV, KC_MSTP, KC_MPLY,  KC_MNXT, KC_VOLU, _______ 
   )
 };

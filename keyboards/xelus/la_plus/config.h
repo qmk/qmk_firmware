@@ -16,29 +16,13 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0x4C50 // LP
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         MechaMaker La+
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0, B1, F0, F4, F5 }
 #define MATRIX_COL_PINS { E6, D5, B2, B3, D3, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -50,11 +34,11 @@
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN F1
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 32
+#define RGB_MATRIX_LED_COUNT 32
 
-#define RGB_MATRIX_STARTUP_VAL 80
+#define RGB_MATRIX_DEFAULT_VAL 80
 #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -82,7 +66,7 @@
 #define ENABLE_RGB_MATRIX_HUE_BREATHING
 #define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #define ENABLE_RGB_MATRIX_HUE_WAVE
-#define ENABLE_RGB_MATRIX_FRACTAL
+#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
 
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP

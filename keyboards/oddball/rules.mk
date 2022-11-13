@@ -1,6 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
 # Build Options
 #   change yes to no to disable
 #
@@ -16,5 +13,6 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = adns9800
 
 DEFAULT_FOLDER = oddball/v1

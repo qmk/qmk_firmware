@@ -42,13 +42,13 @@
 #define ISSI_REG_PICTUREFRAME 0x01
 
 // Not defined in the datasheet -- See AN for IC
-#define ISSI_REG_GHOST_IMAGE_PREVENTION 0xC2  // Set bit 4 to enable de-ghosting
+#define ISSI_REG_GHOST_IMAGE_PREVENTION 0xC2 // Set bit 4 to enable de-ghosting
 
 #define ISSI_REG_SHUTDOWN 0x0A
 #define ISSI_REG_AUDIOSYNC 0x06
 
 #define ISSI_COMMANDREGISTER 0xFD
-#define ISSI_BANK_FUNCTIONREG 0x0B  // helpfully called 'page nine'
+#define ISSI_BANK_FUNCTIONREG 0x0B // helpfully called 'page nine'
 
 #ifndef ISSI_TIMEOUT
 #    define ISSI_TIMEOUT 100
@@ -148,7 +148,7 @@ void IS31FL3731_init(uint8_t addr) {
 
     // enable software shutdown
     IS31FL3731_write_register(addr, ISSI_REG_SHUTDOWN, 0x00);
-#ifdef ISSI_3731_DEGHOST  // set to enable de-ghosting of the array
+#ifdef ISSI_3731_DEGHOST // set to enable de-ghosting of the array
     IS31FL3731_write_register(addr, ISSI_REG_GHOST_IMAGE_PREVENTION, 0x10);
 #endif
 
@@ -194,7 +194,7 @@ void IS31FL3731_init(uint8_t addr) {
 
 void IS31FL3731_set_value(int index, uint8_t value) {
     is31_led led;
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
@@ -204,7 +204,7 @@ void IS31FL3731_set_value(int index, uint8_t value) {
 }
 
 void IS31FL3731_set_value_all(uint8_t value) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
         IS31FL3731_set_value(i, value);
     }
 }

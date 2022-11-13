@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2023 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,63 @@
 
 #include "quantum.h"
 
+#ifdef VIA_ENABLE
+// custom ID codes
+enum via_indicator_value {
+    id_caps_lock_enable = 1,
+    id_caps_lock_brightness,
+    id_caps_lock_color,
+    id_caps_lock_key,
+    id_caps_lock_override,
+    id_num_lock_enable,
+    id_num_lock_brightness,
+    id_num_lock_color,
+    id_num_lock_key,
+    id_num_lock_override,
+    id_scroll_lock_enable,
+    id_scroll_lock_brightness,
+    id_scroll_lock_color,
+    id_scroll_lock_key,
+    id_scroll_lock_override,
+    id_layer_indicator_enable,
+    id_layer_indicator_brightness,
+    id_layer_indicator_color,
+    id_layer_indicator_key,
+    id_layer_indicator_override
+};
+
+// struct to save things
+typedef struct {
+    bool enable_caps_lock:1;            // |
+    bool enable_num_lock:1;             // |
+    bool enable_scroll_lock:1;          // |
+    bool enable_layer_indicator:1;      // |
+    bool caps_override_bl:1;            // |
+    bool num_override_bl:1;             // |
+    bool scroll_override_bl:1;          // |
+    bool layer_override_bl:1;           // 1 byte
+    HSV caps_lock_indicator;    // 3 bytes
+    HSV num_lock_indicator;     // 3 bytes
+    HSV scroll_lock_indicator;  // 3 bytes
+    HSV layer_indicator;        // 3 bytes
+    uint8_t caps_lock_key;      // 1 byte
+    uint8_t num_lock_key;       // 1 byte
+    uint8_t scroll_lock_key;    // 1 byte
+    uint8_t layer_indicator_key;// 1 byte
+} indicator_settings_config;
+// total 17 bytes
+
+// function declaration
+void indicator_config_set_value( uint8_t *data );
+void indicator_config_get_value( uint8_t *data );
+void indicator_config_save ( void );
+void _set_color(HSV *color, uint8_t *data);
+void _get_color(HSV *color, uint8_t *data);
+#endif
+
 #define _____ KC_NO
 
-#define LAYOUT_ansi_tsangan( \
+#define LAYOUT_tkl_ansi_tsangan( \
     K0000,        K0001, K0101, K0002, K0102, K0003, K0103, K0004, K0104, K0005, K0105, K0006, K0106, K0007, K0107, K0008, \
     K0200, K0300, K0201, K0301, K0202, K0302, K0203, K0303, K0204, K0304, K0205, K0305, K0206, K0306, K0207, K0307, K0208, \
     K0400, K0500, K0401, K0501, K0402, K0502, K0403, K0503, K0404, K0504, K0405, K0505, K0406, K0506, K0407, K0507, K0408, \

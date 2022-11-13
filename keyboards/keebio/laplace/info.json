@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Laplace", 
+    "manufacturer": "Keebio",
     "url": "https://keeb.io", 
     "maintainer": "nooges", 
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x1147",
+        "device_version": "1.0.0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

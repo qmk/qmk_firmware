@@ -2,9 +2,9 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 66% HotSwap Gen1",
   "maintainer": "skullydazed",
-  "debounce": 5,
   "processor": "STM32F303",
   "board": "QMK_PROTON_C",
+  "bootloader": "stm32-dfu",
   "diode_direction": "COL2ROW",
   "features": {
     "audio": true,
@@ -24,7 +24,7 @@
     "rows": ["B11", "A6", "A3", "A2", "A1", "B5", "B6", "C15", "C14", "C13"]
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2391",
     "vid": "0xC1ED"
   },

@@ -1,7 +1,18 @@
 {
-    "keyboard_name": "wm1",
+    "keyboard_name": "wm1 hotswap",
+    "manufacturer": "Heliar",
     "url": "",
     "maintainer": "heliar",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xD070",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

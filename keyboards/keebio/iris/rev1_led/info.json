@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "Iris Rev. 1",
+    "usb": {
+        "pid": "0x1256",
+        "device_version": "1.1.0"
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 5
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
+}

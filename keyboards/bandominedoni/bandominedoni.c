@@ -20,17 +20,17 @@
 
 led_config_t g_led_config = {
     {
-        {     75,     46,     45,     44,     43,     42, NO_LED }, \
-        {     47,     48,     49,     50,     51,     52,     53 }, \
-        {     60,     59,     58,     57,     56,     55,     54 }, \
-        {     61,     62,     63,     64,     65,     66,     67 }, \
-        {     74,     73,     72,     71,     70,     69,     68 }, \
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }, \
-        {      7,      6,      4,      3,      2,      1,      5}, \
-        {      8,      9,     10,     11,     12,     13,      0 }, \
-        {     19,     18,     17,     16,     15,     14,     41 }, \
-        {     20,     21,     22,     23,     24,     25,     40 }, \
-        {     30,     29,     28,     27,     26,     39,     38 }, \
+        {     75,     46,     45,     44,     43,     42, NO_LED },
+        {     47,     48,     49,     50,     51,     52,     53 },
+        {     60,     59,     58,     57,     56,     55,     54 },
+        {     61,     62,     63,     64,     65,     66,     67 },
+        {     74,     73,     72,     71,     70,     69,     68 },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        {      7,      6,      4,      3,      2,      1,      5},
+        {      8,      9,     10,     11,     12,     13,      0 },
+        {     19,     18,     17,     16,     15,     14,     41 },
+        {     20,     21,     22,     23,     24,     25,     40 },
+        {     30,     29,     28,     27,     26,     39,     38 },
         {     31,     32,     33,     34,     35,     36,     37 }
     }, {
         { 145,  6 }, { 157,  5 }, { 153, 14 }, { 149, 22 }, { 145, 32 }, { 136, 35 }, { 139, 48 }, { 134, 61 },
@@ -117,35 +117,3 @@ static enum { UNKNOWN, LEFT, RIGHT } hand_side = UNKNOWN;
         return (hand_side == LEFT);
     }
 }
-
-#ifdef ENCODER_ENABLE
-const uint16_t rt_matrix[2][2] = {
-    {5, 5}, {5, 6}
-};
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (index == 1) { /* An encoder on the right side */
-        keypos_t key;
-        int cw = 0;
-        cw = clockwise ? 1 : 0;
-        key.row = rt_matrix[cw][0];
-        key.col = rt_matrix[cw][1];
-        uint8_t layer = layer_switch_get_layer(key);
-        uint16_t keycode = keymap_key_to_keycode(layer, key);
-        keyrecord_t record;
-        record.event.key = key;
-
-        if (keycode < MI_ON){
-            tap_code16(keycode);
-        } else {
-            record.event.pressed = true;
-            process_midi(keycode, &record);
-            wait_ms(TAP_CODE_DELAY);
-            record.event.pressed = false;
-            process_midi(keycode, &record);
-        }
-
-    }
-    return true;
-}
-#endif  // ENCODER_ENABLE

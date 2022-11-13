@@ -17,7 +17,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "pointing_device.h"
 
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
 #    include "5x6_right.h"
@@ -25,28 +24,92 @@
 #    include "4x6_right.h"
 #endif
 
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t dpi_config;
-    };
-} keyboard_config_t;
-
-extern keyboard_config_t keyboard_config;
-
-enum ploopy_keycodes {
-    DPI_CONFIG = SAFE_RANGE,
-    KEYMAP_SAFE_RANGE,
+enum charybdis_keycodes {
+    POINTER_DEFAULT_DPI_FORWARD = QK_KB_0,
+    POINTER_DEFAULT_DPI_REVERSE,
+    POINTER_SNIPING_DPI_FORWARD,
+    POINTER_SNIPING_DPI_REVERSE,
+    SNIPING_MODE,
+    SNIPING_MODE_TOGGLE,
+    DRAGSCROLL_MODE,
+    DRAGSCROLL_MODE_TOGGLE,
 };
+#        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
+#        define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
+#        define S_D_MOD POINTER_SNIPING_DPI_FORWARD
+#        define S_D_RMOD POINTER_SNIPING_DPI_REVERSE
+#        define SNIPING SNIPING_MODE
+#        define SNP_TOG SNIPING_MODE_TOGGLE
+#        define DRGSCRL DRAGSCROLL_MODE
+#        define DRG_TOG DRAGSCROLL_MODE_TOGGLE
 
-typedef struct {
-    uint16_t device_cpi;
-} kb_config_data_t;
+#ifdef POINTING_DEVICE_ENABLE
+/** \brief Return the current DPI value for the pointer's default mode. */
+uint16_t charybdis_get_pointer_default_dpi(void);
 
-void trackball_set_cpi(uint16_t cpi);
+/**
+ * \brief Update the pointer's default DPI to the next or previous step.
+ *
+ * Increases the DPI value if `forward` is `true`, decreases it otherwise.
+ * The increment/decrement steps are equal to CHARYBDIS_DEFAULT_DPI_CONFIG_STEP.
+ *
+ * The new value is persisted in EEPROM.
+ */
+void charybdis_cycle_pointer_default_dpi(bool forward);
+
+/**
+ * \brief Same as `charybdis_cycle_pointer_default_dpi`, but do not write to
+ * EEPROM.
+ *
+ * This means that reseting the board will revert the value to the last
+ * persisted one.
+ */
+void charybdis_cycle_pointer_default_dpi_noeeprom(bool forward);
+
+/** \brief Return the current DPI value for the pointer's sniper-mode. */
+uint16_t charybdis_get_pointer_sniping_dpi(void);
+
+/**
+ * \brief Update the pointer's sniper-mode DPI to the next or previous step.
+ *
+ * Increases the DPI value if `forward` is `true`, decreases it otherwise.
+ * The increment/decrement steps are equal to CHARYBDIS_SNIPING_DPI_CONFIG_STEP.
+ *
+ * The new value is persisted in EEPROM.
+ */
+void charybdis_cycle_pointer_sniping_dpi(bool forward);
+
+/**
+ * \brief Same as `charybdis_cycle_pointer_sniping_dpi`, but do not write to
+ * EEPROM.
+ *
+ * This means that reseting the board will revert the value to the last
+ * persisted one.
+ */
+void charybdis_cycle_pointer_sniping_dpi_noeeprom(bool forward);
+
+/** \brief Whether sniper-mode is enabled. */
+bool charybdis_get_pointer_sniping_enabled(void);
+
+/**
+ * \brief Enable/disable sniper mode.
+ *
+ * When sniper mode is enabled the dpi is reduced to slow down the pointer for
+ * more accurate movements.
+ */
+void charybdis_set_pointer_sniping_enabled(bool enable);
+
+/** \brief Whether drag-scroll is enabled. */
+bool charybdis_get_pointer_dragscroll_enabled(void);
+
+/**
+ * \brief Enable/disable drag-scroll mode.
+ *
+ * When drag-scroll mode is enabled, horizontal and vertical pointer movements
+ * are translated into horizontal and vertical scroll movements.
+ */
+void charybdis_set_pointer_dragscroll_enabled(bool enable);
+#endif  // POINTING_DEVICE_ENABLE
+
 void matrix_init_sub_kb(void);
 void matrix_scan_sub_kb(void);
-
-void keyboard_pre_init_sync(void);
-void keyboard_post_init_sync(void);
-void housekeeping_task_sync(void);

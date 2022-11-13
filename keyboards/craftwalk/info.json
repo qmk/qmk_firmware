@@ -1,7 +1,15 @@
 {
     "keyboard_name": "craftwalk",
+    "manufacturer": "sotoba",
     "url": "https://github.com/sotoba/craftwalk",
     "maintainer": "sotoba",
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0x2E8F",
+      "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
