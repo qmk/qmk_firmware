@@ -335,22 +335,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SS:
         if (record->event.pressed) {
             if (keymap_config.swap_lctl_lgui) { // mac action
-                register_mods(mod_config(MOD_LCTL))
-                register_mods(mod_config(MOD_LSFT))
-                register_code(KC_5)
+                register_mods(mod_config(MOD_LCTL));
+                register_mods(mod_config(MOD_LSFT));
+                register_code(KC_5);
             } else { // windows action
-                register_mods(mod_config(MOD_LGUI))
-                register_mods(mod_config(MOD_LSFT))
-                register_code(KC_S)
+                register_mods(mod_config(MOD_LGUI));
+                register_mods(mod_config(MOD_LSFT));
+                register_code(KC_S);
         } else {
             if (keymap_config.swap_lctl_lgui) { // mac action
-                unregister_mods(mod_config(MOD_LCTL))
-                unregister_mods(mod_config(MOD_LSFT))
-                unregister_code(KC_5)
+                unregister_mods(mod_config(MOD_LCTL));
+                unregister_mods(mod_config(MOD_LSFT));
+                unregister_code(KC_5);
             } else { // windows action
-                unregister_mods(mod_config(MOD_LGUI))
-                unregister_mods(mod_config(MOD_LSFT))
-                unregister_code(KC_S)
+                unregister_mods(mod_config(MOD_LGUI));
+                unregister_mods(mod_config(MOD_LSFT));
+                unregister_code(KC_S);
             }
         }
         return false;
@@ -360,13 +360,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (keymap_config.swap_lctl_lgui) { // mac action
                 // TODO: setup macbook calculator action
             } else { // windows action
-                register_code(KC_CALC)
+                register_code(KC_CALC);
             }
         } else {
             if (keymap_config.swap_lctl_lgui) { // mac action
                 // TODO: setup macbook calculator action
             } else { // windows action
-                unregister_code(KC_CALC)
+                unregister_code(KC_CALC);
             }
         }
         return false;
