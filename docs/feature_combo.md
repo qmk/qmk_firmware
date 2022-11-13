@@ -350,8 +350,8 @@ is not set, all other layers will reference themselves.
 
     uint8_t combo_ref_from_layer(uint8_t layer){
     switch (get_highest_layer(layer_state)){
-      case _dvorak: return _qwerty;
-      case _nav: return _nav;
+      case _DVORAK: return _QWERTY;
+      case _NAV: return _NAV;
       default: return layer;
       }
     }
