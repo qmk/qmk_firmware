@@ -41,6 +41,9 @@
     "angel64": {
         "target": "angel64/alpha"
     },
+    "ashpil/modelm_usbc": {
+        "target": "modelm/ashpil_usbc"
+    },
     "at101_blackheart": {
         "target": "viktus/at101_bh"
     },
@@ -112,6 +115,15 @@
     },
     "cmm_studio/saka68": {
         "target": "cmm_studio/saka68/solder"
+    },
+    "converter/modelm101": {
+        "target": "modelm/teensypp"
+    },
+    "converter/modelm101_teensy2": {
+        "target": "modelm/teensy2"
+    },
+    "converter/modelm_ssk": {
+        "target": "modelm/teensypp_ssk"
     },
     "cospad": {
         "target": "kprepublic/cospad"
@@ -202,6 +214,9 @@
     },
     "handwired/ferris": {
         "target": "ferris/0_1"
+    },
+    "handwired/ibm122m": {
+        "target": "modelm/ibm122m"
     },
     "handwired/p1800fl": {
         "target": "team0110/p1800fl"
@@ -418,6 +433,9 @@
     },
     "montsinger/rebound": {
         "target": "montsinger/rebound/rev1"
+    },
+    "mschwingen/modelm": {
+        "target": "mschwingen/modelm"
     },
     "noxary/268_2": {
         "layouts": {
@@ -1293,6 +1311,9 @@
     },
     "ymdk_np21": {
         "target": "ymdk/np21"
+    },
+    "yugo_m/model_m_101": {
+        "target": "modelm/yugo_m"
     },
     "yurei": {
         "target": "kkatano/yurei"
