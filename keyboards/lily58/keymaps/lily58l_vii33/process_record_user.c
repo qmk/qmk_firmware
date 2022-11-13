@@ -156,7 +156,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         return true;  // continue with normal KC
       }
-
+      
+    #ifdef RGBLIGHT_ENABLE
     case CC_SAVRGB:   // Saves color config to eeprom. Used to save eeprom write cycles              
       rgblight_sethsv(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val()); 
       rgblight_set_speed( rgblight_get_speed() );
@@ -165,6 +166,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CC_ALRM:    // RGB alternate blinking
       rgblight_mode(RGBLIGHT_MODE_ALTERNATING);
       break;
+    #endif
   }
 
 
