@@ -342,7 +342,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_mods(mod_config(MOD_LGUI));
                 register_mods(mod_config(MOD_LSFT));
                 register_code(KC_S);
-        } else {
+            }
+        }
+        else {
             if (keymap_config.swap_lctl_lgui) { // mac action
                 unregister_mods(mod_config(MOD_LCTL));
                 unregister_mods(mod_config(MOD_LSFT));
