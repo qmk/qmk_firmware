@@ -85,7 +85,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 #undef COMBO_REF_LAYER
 #define COMBO_REF_LAYER REF_LAYER
 
-uint16_t combo_ref_from_layer(uint8_t layer){
+uint8_t combo_ref_from_layer(uint8_t layer){
   switch (get_highest_layer(layer_state)){
 #include "combos.def"
 
