@@ -1,7 +1,10 @@
 // Keymap helpers
 // define reference layers per layer.
-#define REF_LAYER(LAYER, REF_LAYER)             \
+#define REF_LAYER_FOR_LAYER(LAYER, REF_LAYER)   \
   case LAYER: return REF_LAYER;
+
+#define DEF_REF_LAYER(LAYER)     \
+  default: return LAYER;
 
 #define K_ENUM(name, key, ...) name,
 #define K_DATA(name, key, ...) const uint16_t PROGMEM cmb_##name[] = {__VA_ARGS__, COMBO_END};
@@ -21,6 +24,9 @@
         break;
 
 #define BLANK(...)
+#define COMBO_REF_LAYER BLANK
+#define DEFAULT_REF_LAYER BLANK
+
 // Generate data needed for combos/actions
 // Create Enum
 #undef COMB
@@ -82,22 +88,20 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 #define SUBS BLANK
 #define TOGG BLANK
 
+#undef DEFAULT_REF_LAYER
 #undef COMBO_REF_LAYER
-#define COMBO_REF_LAYER REF_LAYER
+#define COMBO_REF_LAYER REF_LAYER_FOR_LAYER
+#define DEFAULT_REF_LAYER DEF_REF_LAYER
 
-uint8_t combo_ref_from_layer(uint8_t layer){
-  switch (get_highest_layer(layer_state)){
+uint8_t combo_ref_from_layer(uint8_t current_layer){
+  switch (current_layer){
 #include "combos.def"
-
-#ifdef COMBO_REF_DEFAULT
-  default: return COMBO_REF_DEFAULT;
-#else
-  default: return layer;
-#endif
   }
+return current_layer;
 }
 
 #undef COMB
 #undef SUBS
 #undef TOGG
 #undef COMBO_REF_LAYER
+#undef DEFAULT_REF_LAYER

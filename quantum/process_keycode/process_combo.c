@@ -557,13 +557,9 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #else
 
     uint8_t highest_layer = get_highest_layer(layer_state);
-#    ifdef COMBO_REF_DEFAULT
-    layer = combo_ref_from_layer(COMBO_REF_DEFAULT);
-#    else
-    layer = combo_ref_from_layer(highest_layer);
-#    endif
+    layer =     combo_ref_from_layer(highest_layer);
     if (layer != highest_layer) {
-        keycode = keymap_key_to_keycode(layer, record->event.key);
+      keycode = keymap_key_to_keycode(layer, record->event.key);
     }
 #endif
 
