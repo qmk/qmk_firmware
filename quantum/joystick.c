@@ -59,7 +59,7 @@ void unregister_joystick_button(uint8_t button) {
 }
 
 int16_t joystick_read_axis(uint8_t axis) {
-    if (axis >= JOYSTICK_AXIS_COUNT) return;
+    if (axis >= JOYSTICK_AXIS_COUNT) return 0;
 
     // disable pull-up resistor
     writePinLow(joystick_axes[axis].input_pin);
