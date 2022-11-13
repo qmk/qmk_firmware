@@ -33,9 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Caps locks LED index default is 0 (LED1 on PCB) */
 #define CAPS_LOCK_LED_INDEX 0
 
-/* Whether or not to enable the underglow LEDs (specific to this keyboard) */
-#define ENABLE_UNDERGLOW
-
 /* Enable RGB MATRIX effects */
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
