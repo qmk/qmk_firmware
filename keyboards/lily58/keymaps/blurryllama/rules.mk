@@ -1,10 +1,3 @@
-
-OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
-ENCODER_ENABLE = yes
-CONSOLE_ENABLE = yes
-EXTRAKEY_ENABLE = yes
-
 WPM_ENABLE = yes
 LTO_ENABLE = yes
 
@@ -12,7 +5,6 @@ LTO_ENABLE = yes
  SRC +=  ./lib/rgb_state_reader.c \
          ./lib/layer_state_reader.c \
          ./lib/logo_reader.c \
-         ./lib/keylogger.c \
          oled/bongocat.c \
          # ./lib/mode_icon_reader.c \
          # ./lib/host_led_state_reader.c \
