@@ -9,7 +9,6 @@ A gasket 65% keyboard by [aeboards](https://aeboards.com/)
 Make example for this keyboard (after setting up your build environment):
 
     make aeboards/constellation/rev3:default
-    make aeboards/constellation/rev3:via
 
 Reset your keyboard in 3 ways:
 * Software reset on Fn + Backspace
