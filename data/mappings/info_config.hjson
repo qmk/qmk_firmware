@@ -51,6 +51,7 @@
     "LED_MATRIX_SPD_STEP": {"info_key": "led_matrix.speed_steps", "value_type": "int"},
     "MANUFACTURER": {"info_key": "manufacturer", "value_type": "str"},
     "MATRIX_HAS_GHOST": {"info_key": "matrix_pins.ghost", "value_type": "bool"},
+    "MATRIX_INPUT_PRESSED_STATE": {"info_key": "matrix_pins.input_pressed_state", "value_type": "int"},
     "MATRIX_IO_DELAY": {"info_key": "matrix_pins.io_delay", "value_type": "int"},
     "MOUSEKEY_DELAY": {"info_key": "mousekey.delay", "value_type": "int"},
     "MOUSEKEY_INTERVAL": {"info_key": "mousekey.interval", "value_type": "int"},

@@ -46,8 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_MUTABLE_COL const
 #endif
 
-#ifndef PRESSED_KEY_PIN_STATE
-#    define PRESSED_KEY_PIN_STATE 0
+#ifndef MATRIX_INPUT_PRESSED_STATE
+#    define MATRIX_INPUT_PRESSED_STATE 0
 #endif
 
 #ifdef DIRECT_PINS
@@ -97,7 +97,7 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return (readPin(pin) == PRESSED_KEY_PIN_STATE) ? 0 : 1;
+        return (readPin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
     } else {
         return 1;
     }
