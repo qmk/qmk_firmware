@@ -164,6 +164,9 @@ void host_joystick_send(joystick_t *joystick) {
     if (!driver) return;
 
     report_joystick_t report = {
+#    ifdef JOYSTICK_SHARED_EP
+        .report_id = REPORT_ID_JOYSTICK,
+#    endif
 #    if JOYSTICK_AXIS_COUNT > 0
         .axes =
             {

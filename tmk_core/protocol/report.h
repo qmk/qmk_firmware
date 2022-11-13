@@ -234,6 +234,9 @@ typedef struct {
 } __attribute__((packed)) report_digitizer_t;
 
 typedef struct {
+#ifdef JOYSTICK_SHARED_EP
+    uint8_t report_id;
+#endif
 #if JOYSTICK_AXIS_COUNT > 0
 #    if JOYSTICK_AXIS_RESOLUTION > 8
     int16_t axes[JOYSTICK_AXIS_COUNT];
