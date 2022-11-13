@@ -125,7 +125,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         pin_t pin = direct_pins[current_row][col_index];
-            current_row_value |= readMatrixPin(pin) ? 0 : row_shifter;
+        current_row_value |= readMatrixPin(pin) ? 0 : row_shifter;
     }
 
     // Update the matrix
