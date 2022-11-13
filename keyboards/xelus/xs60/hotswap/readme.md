@@ -10,7 +10,6 @@ Make example for this keyboard (after setting up your build environment):
     make xelus/xs60/hotswap:default
 
 Reset your keyboard in 3 ways:
-* Software reset on Fn + Backspace
 * Bootmagic reset: hold down the top left key (usually ESC) and plugin the keyboard
 * Physical reset button: on the back of the PCB, there should be a small golden button you can press
 

@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2022 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,25 +15,6 @@
  */
 
 #pragma once
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5845 // "XE"
-#define PRODUCT_ID      0x5861 // "XS60" + 1 - HS
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Xelus XS60
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B4, B3, A15, A14, A7 }
-#define MATRIX_COL_PINS { B0, B1, A8, A9, B5, A6, C14, C15, A0, A5, A4, A3, A2, A1 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
