@@ -26,6 +26,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 
 bool led_update_kb(led_t led_state) {
+    if (!led_update_user(led_state)) { return false; }
     rgblight_set_layer_state(0, led_state.caps_lock);
     return true;
 }
