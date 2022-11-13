@@ -3,26 +3,26 @@
 
 Heavily modified keymap for better ergonomics compared to the original keymap by [BenRoe](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58/keymaps/lily58l) from [Keycapsss.com](https://keycapsss.com).
 
-For further explanation see [github.com/vii33](https://github.com/vii33/mecha-keyboard-lily58l).
+> For further explanation and full keymap see [github.com/vii33](https://github.com/vii33/mecha-keyboard-lily58l).
 
 ## Changes
 - Added [Luna](https://youtu.be/HgIQRazCAjo), the interactive dog, and Mario World screen.
-- Changed encoder direction (clockwise should be **louder**/**scroll down** :) )
 - Re-did Lower and Upper Layer completely to be more sensible and reduce the number of cross-hand keystrokes, e.g. 
   - F-keys are now in the same place as number keys
-  - Brackets are easily reachable with the right hand
+  - All brackets are easily reachable with the right hand (developers)
   - Numpad resembles real numpad layout
 - Added mod-taps for `Shift` <-> `Space`
 - Added home [row modifiers](https://precondition.github.io/home-row-mods) for `Ctrl`, `Alt`, `Win`
+- Changed encoder direction (clockwise should be **louder**/**scroll down** :) )
 - Reduced LED brightness as default value is sometimes too much for the controller (Imo)
 - Optimized one-hand use with left hand on keyboard and right hand on mouse (Delete, Enter, Cut, Copy...)
-- Added 'Game' Layer without special functions
-- Included German special keys
-- Added possibility to adjust RGB colors & brightness with encoders
-- Added specific keys to start RGB animations
+- Added 'Game' Layer without special mod keys
+- Included German special characters
+- Added possibility to adjust RGB colors & brightness with encoders (turn walkt through color wheel)
+- Added keys to start the individual RGB animations (breathing, snake, ...)
 - Updated legacy LED animation `#defines`
 - Reduced OLED refresh rate to improve matrix scan rate
-- Included Words-per-minute metric counter (used for luna)
+- Included words-per-minute metric counter (used for luna)
 - more stuff...
 
 
