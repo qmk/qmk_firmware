@@ -36,6 +36,9 @@
         "levels": 15,
         "pin": "GP12"
     },
+    "community_layouts": [
+        "ortho_4x12"
+    ],
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [
