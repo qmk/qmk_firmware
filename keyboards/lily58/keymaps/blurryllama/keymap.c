@@ -30,6 +30,8 @@ enum custom_layers {
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   FN,
+  SS,
+  CALC,
 //   RAISE,
 //   FN2,
 };
@@ -76,9 +78,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FN] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
-  KC_F12,  _______, _______,   KC_UP,  _______,  _______,                   _______, _______, _______, CG_TOGG, KC_PSCR, _______,
+  KC_F12,  _______, _______,   KC_UP,  _______,  _______,                   _______, _______, _______, CG_TOGG,      SS, _______,
   KC_CAPS, _______, KC_LEFT, KC_DOWN,  KC_RIGHT, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, KC_CALC,  _______,  KC_MPRV, _______, _______, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_PIPE,
+  _______, _______, _______,    CALC,  _______,  KC_MPRV, _______, _______, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_PIPE,
                              _______,  _______,  _______, _______, KC_MPLY, _______, _______, _______
 ) // ,
 /* RAISE
@@ -294,7 +296,6 @@ bool oled_task_user(void) {
         } else {
           oled_write_raw_P(windows_logo, sizeof(windows_logo));
         }
-
         oled_set_cursor(0, 3);
         oled_write_ln_P(PSTR("Lair:"), false);
         oled_set_cursor(1, 5);
@@ -331,34 +332,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case SS:
+        if (record->event.pressed) {
+            if (keymap_config.swap_lctl_lgui) { // mac action
+                register_mods(mod_config(MOD_LCTL))
+                register_mods(mod_config(MOD_LSFT))
+                register_code(KC_5)
+            } else { // windows action
+                register_mods(mod_config(MOD_LGUI))
+                register_mods(mod_config(MOD_LSFT))
+                register_code(KC_S)
+        } else {
+            if (keymap_config.swap_lctl_lgui) { // mac action
+                unregister_mods(mod_config(MOD_LCTL))
+                unregister_mods(mod_config(MOD_LSFT))
+                unregister_code(KC_5)
+            } else { // windows action
+                unregister_mods(mod_config(MOD_LGUI))
+                unregister_mods(mod_config(MOD_LSFT))
+                unregister_code(KC_S)
+            }
+        }
+        return false;
+        break;
+    case CALC:
+        if (record->event.pressed) {
+            if (keymap_config.swap_lctl_lgui) { // mac action
+                // TODO: setup macbook calculator action
+            } else { // windows action
+                register_code(KC_CALC)
+            }
+        } else {
+            if (keymap_config.swap_lctl_lgui) { // mac action
+                // TODO: setup macbook calculator action
+            } else { // windows action
+                unregister_code(KC_CALC)
+            }
+        }
+        return false;
+        break;
         /* KEYBOARD PET STATUS START */
-
-        case KC_LCTL:
-        case KC_RCTL:
-            if (record->event.pressed) {
-                isSneaking = true;
-            } else {
-                isSneaking = false;
-            }
-            break;
-        case KC_LSFT:
-        case KC_RSFT:
-            if (record->event.pressed) {
-                isBarking = true;
-            } else {
-                isBarking = false;
-            }
-            break;
-        case KC_SPC:
-            if (record->event.pressed) {
-                isJumping  = true;
-                showedJump = false;
-            } else {
-                isJumping = false;
-            }
-            break;
-
+    case KC_LCTL:
+    case KC_RCTL:
+        if (record->event.pressed) {
+            isSneaking = true;
+        } else {
+            isSneaking = false;
+        }
+        break;
+    case KC_LSFT:
+    case KC_RSFT:
+        if (record->event.pressed) {
+            isBarking = true;
+        } else {
+            isBarking = false;
+        }
+        break;
+    case KC_SPC:
+        if (record->event.pressed) {
+            isJumping  = true;
+            showedJump = false;
+        } else {
+            isJumping = false;
+        }
+        break;
             /* KEYBOARD PET STATUS END */
-  }
+    }
   return true;
 }
