@@ -27,6 +27,13 @@ enum my_tapdances {
 enum layer_names {
     _DF_MAC,
     _WIN,
-    _NAV_AND_UNI1, //with keycodes piggybacking of off layer data to use proper modifiers
+    _NAV_FN1,   //with keycodes piggybacking of off layer data to use proper modifiers
     _KEYB
 };
+
+ enum my_keycodes {
+     CK_BWRD = SAFE_RANGE,
+     CK_HOME,
+     CK_END,
+     CK_WCMD,
+ };
