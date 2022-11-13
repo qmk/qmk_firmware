@@ -542,22 +542,22 @@ const PROGMEM uchar shared_hid_report[] = {
     0x85, REPORT_ID_JOYSTICK, //   Report ID
     0xA1, 0x00,               //   Collection (Physical)
 #    if JOYSTICK_AXIS_COUNT > 0
-    0x05, 0x01,               //     Usage Page (Generic Desktop)
-    0x09, 0x30,               //     Usage (X)
+    0x05, 0x01, //     Usage Page (Generic Desktop)
+    0x09, 0x30, //     Usage (X)
 #        if JOYSTICK_AXIS_COUNT > 1
-    0x09, 0x31,               //     Usage (Y)
+    0x09, 0x31, //     Usage (Y)
 #        endif
 #        if JOYSTICK_AXIS_COUNT > 2
-    0x09, 0x32,               //     Usage (Z)
+    0x09, 0x32, //     Usage (Z)
 #        endif
 #        if JOYSTICK_AXIS_COUNT > 3
-    0x09, 0x33,               //     Usage (Rx)
+    0x09, 0x33, //     Usage (Rx)
 #        endif
 #        if JOYSTICK_AXIS_COUNT > 4
-    0x09, 0x34,               //     Usage (Ry)
+    0x09, 0x34, //     Usage (Ry)
 #        endif
 #        if JOYSTICK_AXIS_COUNT > 5
-    0x09, 0x35,               //     Usage (Rz)
+    0x09, 0x35, //     Usage (Rz)
 #        endif
 #        if JOYSTICK_AXIS_RESOLUTION == 8
     0x15, -JOYSTICK_MAX_VALUE, //     Logical Minimum
@@ -565,8 +565,8 @@ const PROGMEM uchar shared_hid_report[] = {
     0x95, JOYSTICK_AXIS_COUNT, //     Report Count
     0x75, 0x08,                //     Report Size (8)
 #        else
-    0x16, HID_VALUE_16(-JOYSTICK_MAX_VALUE)  //     Logical Minimum
-    0x26, HID_VALUE_16(JOYSTICK_MAX_VALUE)   //     Logical Maximum
+    0x16, HID_VALUE_16(-JOYSTICK_MAX_VALUE), //     Logical Minimum
+    0x26, HID_VALUE_16(JOYSTICK_MAX_VALUE),  //     Logical Maximum
     0x95, JOYSTICK_AXIS_COUNT,               //     Report Count
     0x75, 0x10,                              //     Report Size (16)
 #        endif

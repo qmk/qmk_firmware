@@ -21,11 +21,12 @@
 
 joystick_t joystick_state = {
     .buttons = {0},
-    .axes = {
+    .axes =
+        {
 #if JOYSTICK_AXIS_COUNT > 0
-        0
+            0
 #endif
-    },
+        },
     .dirty = false,
 };
 
@@ -129,6 +130,6 @@ void joystick_set_axis(uint8_t axis, int16_t value) {
 
     if (value != joystick_state.axes[axis]) {
         joystick_state.axes[axis] = value;
-        joystick_state.dirty = true;
+        joystick_state.dirty      = true;
     }
 }
