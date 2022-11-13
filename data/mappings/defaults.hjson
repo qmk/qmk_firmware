@@ -70,7 +70,7 @@
         "bonsai_c4": {
             "processor": "STM32F411",
             "bootloader": "stm32-dfu",
-            "board": "GENERIC_STM32_F411XE",
+            "board": "BONSAI_C4",
             "pin_compatible": "promicro"
         }
     }
