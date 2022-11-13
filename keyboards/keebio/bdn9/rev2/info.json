@@ -3,5 +3,63 @@
     "usb": {
         "pid": "0x2133",
         "device_version": "2.0.0"
-    }
+    },
+    "qmk": {
+        "tap_keycode_delay": 10,
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "debounce": 5,
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "console": true,
+        "command": true,
+        "extrakey": true,
+        "rgblight": false,
+        "backlight": false,
+        "rgb_matrix": true,
+    },
+    "matrix_pins": {
+        "direct": [
+            ["B12", "B5", "B6"],
+            ["B14", "B4", "B7"],
+            ["A3", "F1", "F0"],
+        ]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            { "pin_a": "A8", "pin_b": "A4"},
+            { "pin_a": "B3", "pin_b": "A15"},
+            { "pin_a": "A10", "pin_b": "A9"},
+        ]
+    },
+    "rgblight": {
+        "pin": "B15",
+        "led_count": 11,
+        "sleep": true,
+        "hue_steps": 8,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "animations": {
+            "all": true,
+        }
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
+            {"flags": 4, "matrix": [0, 1], "x": 112, "y": 0},
+            {"flags": 4, "matrix": [0, 2], "x": 224, "y": 0},
+            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 32},
+            {"flags": 4, "matrix": [1, 1], "x": 112, "y": 32},
+            {"flags": 4, "matrix": [1, 2], "x": 224, "y": 32},
+            {"flags": 4, "matrix": [2, 0], "x": 0, "y": 64},
+            {"flags": 4, "matrix": [2, 1], "x": 112, "y": 64},
+            {"flags": 4, "matrix": [2, 2], "x": 224, "y": 64},
+            {"flags": 2, "x": 56, "y": 64},
+            {"flags": 2, "x": 168, "y": 64},
+        ]
+    },
 }
