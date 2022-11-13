@@ -1,5 +1,6 @@
 #include "mechmerlin.h"
 #include "version.h"
+
 #define TAP_CODE_DELAY 10
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
