@@ -36,6 +36,8 @@
     "PS2_ENABLE": {"info_key": "ps2.enabled", "value_type": "bool"},
     "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
     "PS2_DRIVER": {"info_key": "ps2.driver"},
+    "POINTING_DEVICE_ENABLE": {"info_key": "pointing_device.enabled", "value_type": "bool"},
+    "POINTING_DEVICE_DRIVER": {"info_key": "pointing_device.driver"},
 
     // Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
