@@ -1,5 +1,5 @@
 /*
-Copyright 2021-2022 Rocco Meli <@RMeli>
+Copyright 2015 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,16 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "keyrecords/wrappers.h"
+#define BACKLIGHT_PWM_DRIVER    PWMD3
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PAL_MODE      1
 
-#ifdef UNICODEMAP_ENABLE
-#    include "keyrecords/unicode.h"
-#endif
-
-#ifdef OLED_ENABLE
-#    include "oled/oled.h"
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-#    include "keyrecords/tap_dances.h"
-#endif
+#define WS2812_SPI SPID2
+#define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13
