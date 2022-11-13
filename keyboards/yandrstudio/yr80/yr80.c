@@ -32,6 +32,7 @@ bool led_update_kb(led_t led_state) {
 
 void keyboard_post_init_kb(void) {
     rgblight_layers = my_rgb_layers;
+    keyboard_post_init_user();
 }
 
 #endif
