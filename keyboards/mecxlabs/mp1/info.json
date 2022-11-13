@@ -10,8 +10,11 @@
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
         "encoder": true
-        "mouse_key": true
     },
     "encoder": {
         "rotary": [
@@ -26,7 +29,7 @@
         ]
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ortho_3x3": {
             "layout": [
                 { "matrix": [0, 0], "x": 0.0, "y": 0.0 },
                 { "matrix": [0, 1], "x": 1.0, "y": 0.0 },
