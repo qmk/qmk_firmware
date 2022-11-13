@@ -30,7 +30,7 @@ extern uint16_t COMBO_LEN;
 __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
 
 #ifndef COMBO_ONLY_FROM_LAYER
-__attribute__((weak)) uint16_t combo_ref_from_layer(uint8_t layer) {
+__attribute__((weak)) uint8_t combo_ref_from_layer(uint8_t layer) {
     return layer;
 }
 #endif
