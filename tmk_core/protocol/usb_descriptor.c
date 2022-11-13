@@ -237,7 +237,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #        endif
 #    endif
         HID_RI_END_COLLECTION(0),
-    HID_RI_END_COLLECTION(0)
+    HID_RI_END_COLLECTION(0),
 #    ifndef JOYSTICK_SHARED_EP
 };
 #    endif
