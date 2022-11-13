@@ -96,8 +96,11 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
-    if ((pin == NO_PIN) || (readPin(pin) != PRESSED_KEY_PIN_STATE)) return 1;
-    if (readPin(pin) == PRESSED_KEY_PIN_STATE) return 0;
+    if (pin != NO_PIN) {
+        return (readPin(pin) == PRESSED_KEY_PIN_STATE) ? 0 : 1;
+    } else {
+        return 1;
+    }
 }
 
 // matrix code
@@ -122,9 +125,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         pin_t pin = direct_pins[current_row][col_index];
-        if (pin != NO_PIN) {
             current_row_value |= readMatrixPin(pin) ? 0 : row_shifter;
-        }
     }
 
     // Update the matrix
