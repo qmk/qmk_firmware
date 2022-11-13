@@ -34,7 +34,7 @@
 // External flash configuration
 #ifndef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
 #    define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN PAL_LINE(GPIOB, 12)
-#    define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 1  // 96MHz; max supported by W25Q128JV is 133MHz
+#    define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 2  // 48MHz; max supported by W25Q128JV is 133MHz
 #    define EXTERNAL_FLASH_BYTE_COUNT (16 * 1024 * 1024)  //128Mbit or 16MByte
 #    define EXTERNAL_FLASH_PAGE_SIZE 256
 #    define EXTERNAL_FLASH_SPI_TIMEOUT 200000 //datasheet max is 200 seconds for flash chip erase
