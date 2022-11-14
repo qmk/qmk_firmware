@@ -65,7 +65,7 @@
 #endif
 
 #ifndef SD_CR2
-#    define SD1_CR2 0
+#    define SD_CR2 0
 #endif
 
 #ifndef SD_CR3
