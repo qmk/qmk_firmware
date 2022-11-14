@@ -44,6 +44,7 @@
 >This is a base layer for typing.
 
 <br />
+
 ### LEFTFN MO(FN)
 
 |         | _A_ | _B_ | _C_ | _D_ | _E_ | _F_ | _G_ | _H_ | _I_ | _J_ | _K_ | _L_ |
