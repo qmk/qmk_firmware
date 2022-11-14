@@ -10,15 +10,12 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": true,
+        "console": false,
         "command": false,
-        "nkro": true,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false
+        "nkro": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
