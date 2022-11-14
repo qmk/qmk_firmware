@@ -12,9 +12,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* wiring of each half */
-#undef MATRIX_ROW_PINS
 #define MATRIX_ROW_PINS { GP4, GP5, GP6, GP7, GP8 }
-#undef MATRIX_COL_PINS
 #define MATRIX_COL_PINS { GP9, GP10, GP11, GP12, GP13, GP14, GP15 }
 
 /* Handness */
@@ -29,13 +27,11 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 /* Serial comunication for split keyboards */
-#undef SOFT_SERIAL_PIN
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 
 /* RGB pin */
-#undef RGB_DI_PIN
 #define RGB_DI_PIN GP23
 /* Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral */
 #define WS2812_PIO_USE_PIO1 
@@ -44,13 +40,9 @@
 #define RGBLED_NUM 14    
 
 /* LCD Configuration */
-#undef  SPI_DRIVER
 #define SPI_DRIVER   SPID0
-#undef  SPI_SCK_PIN
 #define SPI_SCK_PIN	 GP18
-#undef  SPI_MISO_PIN
 #define SPI_MISO_PIN GP20
-#undef  SPI_MOSI_PIN
 #define SPI_MOSI_PIN GP19
 
 #define LCD_RST_PIN GP16

@@ -26,10 +26,8 @@ RGB_MATRIX_ENABLE = no
 # Diplays backlight pwm
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
-BACKLIGHT_SUPPORTED = yes
 #Quantum painter
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_LOAD_FONTS_TO_RAM = TRUE
 # Words per minute counter 
 WPM_ENABLE = yes
 
@@ -43,5 +41,3 @@ AUDIO_ENABLE = no           				# Audio output
 LTO_ENABLE = yes            				# link time optimizations
 TAP_DANCE_ENABLE = no				
 DEBOUNCE_TYPE = asym_eager_defer_pk			
-
-DEFAULT_FOLDER = neodox

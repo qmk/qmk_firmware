@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "neodox.h"
 #include "quantum.h"
 
 

@@ -3,9 +3,6 @@
 #pragma once
 #include_next <mcuconf.h>
 
-#define RP2040_MCUCONF
-
-
 /* Used for tft display */
 #undef RP_SPI_USE_SPI0
 #define RP_SPI_USE_SPI0         TRUE
