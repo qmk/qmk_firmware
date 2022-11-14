@@ -32,12 +32,12 @@
 #    define SD_RX_PIN A10
 #endif
 
-//CTS currently not implemented
+// CTS currently not implemented
 #ifndef SD_CTS_PIN
 #    define SD_CTS_PIN A11
 #endif
 
-//RTS currently not implemented
+// RTS currently not implemented
 #ifndef SD_RTS_PIN
 #    define SD_RTS_PIN A12
 #endif
