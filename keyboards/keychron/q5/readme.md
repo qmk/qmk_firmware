@@ -8,11 +8,11 @@ A customizable 96% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q5/ansi:default
+  make keychron/q5/ansi:default
 
 Flashing example for this keyboard:
 
-    make keychron/q5/ansi:default:flash
+  make keychron/q5/ansi:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
