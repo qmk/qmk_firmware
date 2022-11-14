@@ -54,6 +54,9 @@
         ]
     ],
     "config": {
+        // Support for OLED, RGB, and encoders is already enabled
+        // by default on the revision level, but we repeat it here
+        // to make clear that you can disable them to save space.
         "features": {
             "oled": true,
             "rgb_matrix": true,

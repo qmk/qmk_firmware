@@ -100,26 +100,28 @@ Where is the keymap.c?
 
 The keymap.c file is not published to the repository. It is generated from `keymap.json` by the build system.
 
-This avoids duplicating information and allow users to edit their keymap from the qmk configurator web interface.
+This avoids duplicating information and allow users to edit their keymap from the QMK Configurator web interface.
 
 How do I edit and update the keymap?
 ------------------------------------
 
-The `keymap.json` file is generated from the qmk configurator interface and formatted for better readability in the context of the Ferris keyboard.
+The `keymap.json` file is generated from the QMK Configurator interface and formatted for better readability in the context of the Ferris keyboard.
 
 To edit it, you may:
 * Edit it directly from a text editor.
-* Edit it from the qmk configurator.
+* Edit it from the QMK Configurator.
 
 If you decide to use the latter workflow, here are the steps to follow:
 
-* From the qmk configurator, hit the "import QMK keymap json file" button (it has a drawing with an up arrow on it).
+* From the [QMK Configurator](https://config.qmk.fm/#/splitkb/aurora/sweep/rev1/LAYOUT_split_3x5_2), hit the "import QMK keymap json file" button (it has a drawing with an up arrow on it).
 * Browse to the location of your keymap (for example, `<your qmk repo>/keyboards/splitkb/aurora/sweep/keymaps/default/keymap.json`)
 * Perform any modification to the keymap in the web UI
 * Export the keymap to your downloads folder, by hitting the "Export QMK keymap json file" button (it has a drawing with a down arrow on it)
 * Replace your original keymap with the one you just downloaded
 
-I want to do more than the configurator supports!
+_**Note:** At the time of writing (the 24th of October 2022), not every feature used in the default keymap is supported by the QMK Configurator. You cannot yet upload the default `keymap.json` due to a file format mismatch - use the "Load Default" button to load the default keymap instead. Additionally, custom configuration options are still being worked on: if your keymap depends on them, please compile your firmware offline for now._
+
+I want to do more than the JSON format supports!
 -------------------------------------------------
 
 While the `json` format is easy to use, it does lack certain functionality - most notably custom OLED or encoder behaviour.
