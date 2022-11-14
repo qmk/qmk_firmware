@@ -24,82 +24,68 @@
 #    define SERIAL_DRIVER SD1
 #endif
 
-#ifndef SD1_TX_PIN
-#    define SD1_TX_PIN A9
+#ifndef SD_TX_PIN
+#    define SD_TX_PIN A9
 #endif
 
-#ifndef SD1_RX_PIN
-#    define SD1_RX_PIN A10
+#ifndef SD_RX_PIN
+#    define SD_RX_PIN A10
 #endif
 
-#ifndef SD1_CTS_PIN
-#    define SD1_CTS_PIN A11
+//CTS currently not implemented
+#ifndef SD_CTS_PIN
+#    define SD_CTS_PIN A11
 #endif
 
-#ifndef SD1_RTS_PIN
-#    define SD1_RTS_PIN A12
+//RTS currently not implemented
+#ifndef SD_RTS_PIN
+#    define SD_RTS_PIN A12
 #endif
 
-#ifdef USE_GPIOV1
-#    ifndef SD1_TX_PAL_MODE
-#        define SD1_TX_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#if !defined(USE_GPIOV1)
+#    ifndef SD_TX_PAL_MODE
+#        define SD_TX_PAL_MODE 7
 #    endif
 
-#    ifndef SD1_RX_PAL_MODE
-#        define SD1_RX_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#    ifndef SD_RX_PAL_MODE
+#        define SD_RX_PAL_MODE 7
 #    endif
 
-#    ifndef SD1_CTS_PAL_MODE
-#        define SD1_CTS_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#    ifndef SD_CTS_PAL_MODE
+#        define SD_CTS_PAL_MODE 7
 #    endif
 
-#    ifndef SD1_RTS_PAL_MODE
-#        define SD1_RTS_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
-#    endif
-#else
-#    ifndef SD1_TX_PAL_MODE
-#        define SD1_TX_PAL_MODE 7
-#    endif
-
-#    ifndef SD1_RX_PAL_MODE
-#        define SD1_RX_PAL_MODE 7
-#    endif
-
-#    ifndef SD1_CTS_PAL_MODE
-#        define SD1_CTS_PAL_MODE 7
-#    endif
-
-#    ifndef SD1_RTS_PAL_MODE
-#        define SD1_RTS_PAL_MODE 7
+#    ifndef SD_RTS_PAL_MODE
+#        define SD_RTS_PAL_MODE 7
 #    endif
 #endif
 
-#ifndef SD1_CR1
-#    define SD1_CR1 0
+#ifndef SD_CR1
+#    define SD_CR1 0
 #endif
 
-#ifndef SD1_CR2
+#ifndef SD_CR2
 #    define SD1_CR2 0
 #endif
 
-#ifndef SD1_CR3
-#    define SD1_CR3 0
+#ifndef SD_CR3
+#    define SD_CR3 0
 #endif
 
-#ifndef SD1_WRDLEN
-#    define SD1_WRDLEN 3
+#ifndef SD_WRDLEN
+#    define SD_WRDLEN 3
 #endif
 
-#ifndef SD1_STPBIT
-#    define SD1_STPBIT 0
+#ifndef SD_STPBIT
+#    define SD_STPBIT 0
 #endif
 
-#ifndef SD1_PARITY
-#    define SD1_PARITY 0
+#ifndef SD_PARITY
+#    define SD_PARITY 0
 #endif
 
-#ifndef SD1_ATFLCT
-#    define SD1_ATFLCT 0
+#ifndef SD_ATFLCT
+#    define SD_ATFLCT 0
 #endif
 
 void uart_init(uint32_t baud);
