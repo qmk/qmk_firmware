@@ -2,7 +2,7 @@
     "keyboard_name": "sword80",
     "url": "",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"label": "K00 (D0,D7)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01 (D0,B4)", "matrix": [0, 1], "x": 1.25, "y": 0},
