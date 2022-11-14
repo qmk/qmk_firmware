@@ -21,9 +21,9 @@
 #if defined(MCU_KINETIS)
 static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE};
 #elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
-static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE, SD_WRDLEN, SD_STPBIT, SD_PARITY, SD_ATFLCT};
+static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE, SD1_WRDLEN, SD1_STPBIT, SD1_PARITY, SD1_ATFLCT};
 #else
-static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE, SD_CR1, SD_CR2, SD_CR3};
+static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE, SD1_CR1, SD1_CR2, SD1_CR3};
 #endif
 
 void uart_init(uint32_t baud) {
@@ -39,11 +39,11 @@ void uart_init(uint32_t baud) {
 #endif
 
 #if defined(USE_GPIOV1)
-        palSetLineMode(SD_TX_PIN, PAL_MODE_ALTERNATE_PUSHPULL);
-        palSetLineMode(SD_RX_PIN, PAL_MODE_INPUT);
+        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE_PUSHPULL);
+        palSetLineMode(SD1_RX_PIN, PAL_MODE_INPUT);
 #else
-        palSetLineMode(SD_TX_PIN, PAL_MODE_ALTERNATE(SD_TX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
-        palSetLineMode(SD_RX_PIN, PAL_MODE_ALTERNATE(SD_RX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE(SD1_TX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
 #endif
         sdStart(&SERIAL_DRIVER, &serialConfig);
     }
