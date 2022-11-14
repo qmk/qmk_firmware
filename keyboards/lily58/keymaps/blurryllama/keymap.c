@@ -43,23 +43,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  =   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
+ * |   `  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |LCTRL |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |  \   |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |  `   | LAlt | LGUI | /Space  /       \Enter \  |BackSP|  DEL  |FN    |
+ *                   | LAlt | LGUI |  TAB | /Space  /       \Enter \  |BackSP|  DEL  |FN    |
  *                   |      |      |      |/       /         \      \ |      |       |      |
  *                   `----------------------------'           '------''--------------------'
  */
 
  [_QWERTY] = LAYOUT(
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
-  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
+  KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
   KC_LCTRL, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSLS,
-                           KC_GRV, KC_LALT, KC_LGUI,  KC_SPC,   KC_ENT,  KC_BSPC, KC_DEL, FN
+                           KC_LALT, KC_LGUI, KC_TAB,  KC_SPC,   KC_ENT,  KC_BSPC, KC_DEL, FN
 ),
 /* FN
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | CAPS |      |  lft |  dwn |  rt  |      |-------.    ,-------|      |      |      |      |      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      | CALC |      | BACK |-------|    |-------| NEXT | MUTE | VOLD | VOLU |      |   |  |
+ * |      |      |      | CALC |      | BACK |-------|    |-------| NEXT | MUTE | VOLD | VOLU |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |       |     | /       /       \ PLAY \  |      |       |      |
  *                   |      |       |     |/       /         \ PAUSE\ |      |       |      |
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,   KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   KC_F12,  _______, _______,   KC_UP,  _______,  _______,                   _______, _______, _______, CG_TOGG,      SS, _______,
   KC_CAPS, _______, KC_LEFT, KC_DOWN,  KC_RIGHT, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______,    CALC,  _______,  KC_MPRV, _______, _______, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_PIPE,
+  _______, _______, _______,    CALC,  _______,  KC_MPRV, _______, _______, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
                              _______,  _______,  _______, _______, KC_MPLY, _______, _______, _______
 ) // ,
 /* RAISE
@@ -140,9 +140,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-// When you add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
-
 static const char PROGMEM windows_logo[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xbc, 0xbc, 0xbe, 0xbe, 0x00, 0xbe, 0xbe, 0xbf, 0xbf, 0xbf, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x07, 0x0f, 0x0f, 0x00, 0x0f, 0x0f, 0x1f, 0x1f, 0x1f, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 static const char PROGMEM mac_logo[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xf0, 0xf8, 0xf8, 0xf8, 0xf0, 0xf6, 0xfb, 0xfb, 0x38, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x07, 0x0f, 0x1f, 0x1f, 0x0f, 0x0f, 0x1f, 0x1f, 0x0f, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -172,6 +169,11 @@ bool isBarking = false;
 bool isSneaking = false;
 bool isJumping  = false;
 bool showedJump = true;
+bool isShft = false;
+bool isCtrl = false;
+bool isAlt = false;
+bool isGui = false;
+bool isFun = false;
 
 /* logic */
 static void render_luna(int LUNA_X, int LUNA_Y) {
@@ -296,15 +298,61 @@ bool oled_task_user(void) {
         } else {
           oled_write_raw_P(windows_logo, sizeof(windows_logo));
         }
-        oled_set_cursor(0, 3);
-        oled_write_ln_P(PSTR("Lair:"), false);
-        oled_set_cursor(1, 5);
-        oled_write(read_layer_state(), false);
-        if (led_usb_state.caps_lock) {
-            oled_set_cursor(0, 8);
-            oled_write(" CAP ", true);
+        if (isShft) {
+            oled_set_cursor(1, 3);
+            oled_write("SHFT", false);
         } else {
-            oled_set_cursor(0, 8);
+            oled_set_cursor(1, 3);
+            oled_write("    ", false);
+        }
+        if (isCtrl) {
+            if (keymap_config.swap_lctl_lgui) {
+                oled_set_cursor(1, 4);
+                oled_write(" CMD", false);
+            } else {
+                oled_set_cursor(1, 4);
+                oled_write("CTRL", false);
+            }
+        } else {
+            oled_set_cursor(1, 4);
+            oled_write("    ", false);
+        }
+        if (isAlt) {
+            if (keymap_config.swap_lctl_lgui) {
+                oled_set_cursor(1, 5);
+                oled_write(" OPT", false);
+            } else {
+                oled_set_cursor(1, 5);
+                oled_write(" ALT", false);
+            }
+        } else {
+            oled_set_cursor(1, 5);
+            oled_write("    ", false);
+        }
+        if (isGui) {
+            if (keymap_config.swap_lctl_lgui) {
+                oled_set_cursor(1, 6);
+                oled_write("CTRL", false);
+            } else {
+                oled_set_cursor(1, 6);
+                oled_write(" WIN", false);
+            }
+        } else {
+            oled_set_cursor(1, 6);
+            oled_write("    ", false);
+        }
+        if (isFun) {
+            oled_set_cursor(1, 7);
+            oled_write("  Fn", false);
+        } else {
+            oled_set_cursor(1, 7);
+            oled_write("    ", false);
+        }
+        if (led_usb_state.caps_lock) {
+            oled_set_cursor(1, 9);
+            oled_write("CAPS", true);
+        } else {
+            oled_set_cursor(0, 9);
             oled_write("      ", false);
         }
         render_luna(0, 13);
@@ -326,8 +374,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case FN:
       if (record->event.pressed) {
+        isFun = true;
         layer_on(_FN);
       } else {
+        isFun = false;
         layer_off(_FN);
       }
       return false;
@@ -381,17 +431,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LCTL:
     case KC_RCTL:
         if (record->event.pressed) {
+            isCtrl = true;
             isSneaking = true;
         } else {
+            isCtrl = false;
             isSneaking = false;
         }
         break;
     case KC_LSFT:
     case KC_RSFT:
         if (record->event.pressed) {
+            isShft = true;
             isBarking = true;
         } else {
+            isShft = false;
             isBarking = false;
+        }
+        break;
+    case KC_LALT:
+    case KC_RALT:
+        if (record->event.pressed) {
+            isAlt = true;
+        } else {
+            isAlt = false;
+        }
+      break;
+    case KC_LGUI:
+    case KC_RGUI:
+        if (record->event.pressed) {
+            isGui = true;
+        } else {
+            isGui = false;
         }
         break;
     case KC_SPC:
