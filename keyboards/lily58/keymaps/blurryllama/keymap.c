@@ -360,13 +360,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CALC:
         if (record->event.pressed) {
             if (keymap_config.swap_lctl_lgui) { // mac action
-                // TODO: setup macbook calculator action
+                register_mods(mod_config(MOD_LGUI));
+                register_mods(mod_config(MOD_LALT));
+                register_code(KC_C);
             } else { // windows action
                 register_code(KC_CALC);
             }
         } else {
             if (keymap_config.swap_lctl_lgui) { // mac action
-                // TODO: setup macbook calculator action
+                unregister_mods(mod_config(MOD_LGUI));
+                unregister_mods(mod_config(MOD_LALT));
+                unregister_code(KC_C);
             } else { // windows action
                 unregister_code(KC_CALC);
             }
