@@ -35,6 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "raw_hid.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 #if defined(CONSOLE_ENABLE)
 #    define RBUF_SIZE 128
 #    include "ring_buffer.h"
@@ -570,6 +574,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x95, JOYSTICK_AXIS_COUNT,               //     Report Count
     0x75, 0x10,                              //     Report Size (16)
 #        endif
+    0x81, 0x02, //     Input (Data, Variable, Absolute)
 #    endif
 
 #    if JOYSTICK_BUTTON_COUNT > 0
