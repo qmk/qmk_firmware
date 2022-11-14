@@ -121,6 +121,54 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 ```
 
+### Example: Keycode to cycle through layers
+
+This example shows how to implement a custom keycode to cycle through a range on layers.
+
+```c
+// Define the keycode, `SAFE_RANGE` avoids collisions with existing keycodes
+enum keycodes {
+  KC_CYCLE_LAYERS = SAFE_RANGE,
+};
+
+#define LAYER_CYCLE_START 0 //1st layer on the cycle
+#define LAYER_CYCLE_END   4 //last layer on the cycle
+
+// Add the behaviour of this new keycode
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_CYCLE_LAYERS:
+      //our logic will happen on presses, nothing is done on releases
+      if (!record->event.pressed) { 
+        //already handled the keycode, let QMK know it so no further code is run uselessly
+        return false;
+      }
+
+      uint8_t current_layer = get_highest_layer(layer_state);
+
+      // Check if we are within the range, if not quit
+      if (curent_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
+        return false;
+      }
+
+      // If we are in range, turn next layer on without affecting other layers, so we don't break `KC_TRNS`
+      if (current_layer < LAYER_CYCLE_END) {
+          layer_on(current_layer+1);
+          return false;
+      }
+
+      // Getting here means we are on the last layer of the cycle
+      layer_move(LAYER_CYCLE_START); //move to starting layer, ie turn OFF all other layers (default one is always ON, tho)
+      return false;
+
+    default: //don't affect other keycodes
+      return true; //returning true means QMK will handle the keycode
+  }
+}
+
+// Place this new keycode wherever you want
+```
+
 Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.
 
 Outside of `layer_state_set_*` functions, you can use the `IS_LAYER_ON(layer)` and `IS_LAYER_OFF(layer)` macros to check global layer state.
