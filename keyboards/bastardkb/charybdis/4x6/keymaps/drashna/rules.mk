@@ -1,9 +1,6 @@
 
-ifeq ($(strip $(KEYBOARD)), bastardkb/charybdis/4x6/v1/elitec)
+ifeq ($(strip $(KEYBOARD)), bastardkb/charybdis/4x6/blackpill)
     # MCU name
-    MCU = STM32F411
-    BOARD = BLACKPILL_STM32_F411
-
     # Bootloader selection
     BOOTLOADER := tinyuf2
 
@@ -11,9 +8,6 @@ ifeq ($(strip $(KEYBOARD)), bastardkb/charybdis/4x6/v1/elitec)
     AUDIO_SUPPORTED       = yes # is set to no in kb, needs to be forcibly enabled
     AUDIO_DRIVER          = pwm_hardware
 
-    EEPROM_DRIVER         = spi
-    WS2812_DRIVER         = pwm
-    SERIAL_DRIVER         = usart
     BACKLIGHT_DRIVER      = pwm
 
     OVERLOAD_FEATURES = yes
