@@ -98,7 +98,7 @@
 #define ________________DEBUG_L3___________________        _______, _______, _______, VERSION, _______
 
 #define ________________DEBUG_R1___________________        VPRWAVE, STRAYA,  _______, TESTING, _______
-#define ________________DEBUG_R2___________________        _______, _______, EE_CLR,  RESET,   MAKE
+#define ________________DEBUG_R2___________________        _______, _______, EE_CLR,  QK_BOOT, MAKE
 #define ________________DEBUG_R3___________________        QWERTY,  DVORAK,  COLEMAK, _______, _______
 
 
