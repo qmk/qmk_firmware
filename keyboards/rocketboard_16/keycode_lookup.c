@@ -287,7 +287,7 @@ lookup_table_t lookup_table[333] =
  {"KC_LT", KC_LT},
  {"KC_GT", KC_GT},
  {"KC_QUES", KC_QUES},
- {"RESET", QK_BOOT},
+ {"QK_BOOT", QK_BOOT},
  {"DB_TOGG", DB_TOGG},
  {"MAGIC_TOGGLE_NKRO", MAGIC_TOGGLE_NKRO},
  {"QK_GESC", QK_GESC},

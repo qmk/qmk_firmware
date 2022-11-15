@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Layer 1, Space-modifiers: Basic keys
   LAYOUT_diag_4x14(
-    RESET,            KC_EXEC, KC_HELP, KC_MENU, KC_SLCT, KC_STOP,      KC_BTN2, KC_INT1, KC_MINS, KC_EQL,  KC_INT3, SFT_LBR, KC_TRNS,
+    QK_BOOT,          KC_EXEC, KC_HELP, KC_MENU, KC_SLCT, KC_STOP,      KC_BTN2, KC_INT1, KC_MINS, KC_EQL,  KC_INT3, SFT_LBR, KC_TRNS,
     KC_TRNS,          KC_AGIN, KC_FIND, KC_PGUP, KC_PGDN, KC_F19,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,  SFT_7,   SFT_2,
     KC_TRNS, KC_TRNS, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, KC_APP,       KC_BSPC, KC_DEL,  KC_RBRC, KC_BSLS, KC_HOME,          KC_END,
     KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,               RCT_IN7, RGU_IN8, KC_TRNS, KC_INT2, KC_INT4,          MU_MOD
