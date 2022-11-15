@@ -319,7 +319,7 @@
 #define __________________RAISE_R3___________________   KC_AT,   KC_QUOT, KC_DQUO, KC_PLUS, KC_CIRC
 
 // Adjust
-#define __________________ADJUST_L1__________________   KC_MAKE, DB_TOGG, RESET,   XXXXXXX, XXXXXXX
+#define __________________ADJUST_L1__________________   KC_MAKE, DB_TOGG, QK_BOOT, XXXXXXX, XXXXXXX
 #define __________________ADJUST_L2__________________   KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MNXT
 #define __________________ADJUST_L3__________________   KC_VRSN, AU_ON,   AU_OFF,  CG_SWAP, CG_NORM
 

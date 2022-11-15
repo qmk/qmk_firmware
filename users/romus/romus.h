@@ -231,7 +231,7 @@ enum {
  * |Musir|     |     |     |     |Vol +||Vol -| Prev| Stop|TogMu| Next|     |
  * `------------------------------------------------------------------------' */
 #define SETTINGS \
-    BL_STEP,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UNI_LI, UNI_WN, KC_WAKE,_______,RGB_HUD,RGB_HUI,RESET  , \
+    BL_STEP,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UNI_LI, UNI_WN, KC_WAKE,_______,RGB_HUD,RGB_HUI,QK_BOOT, \
     _______,KC_F5,  KC_F6,  KC_F7,  KC_F8,  _______,KC_MUTE,_______,RGB_TOG,RGB_SAD,RGB_SAI,_______, \
     K_GAMES,KC_F9,  KC_F10, KC_F11, KC_F12, KC_MUTE,_______,KC_PSCR,RGB_MOD,RGB_VAD,RGB_VAI,_______, \
     MU_TOG, _______,_______,_______,_______,KC_VOLU,KC_VOLD,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT,_______
