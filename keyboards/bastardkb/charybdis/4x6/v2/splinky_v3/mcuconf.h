@@ -17,11 +17,7 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_COL_PINS \
-    { GP28, GP15, GP6, GP7, GP8 }
+#include_next "mcuconf.h"
 
-/* SPI & PMW3360 settings. */
-#define SPI_SCK_PIN GP18
-#define SPI_MOSI_PIN GP19
-#define POINTING_DEVICE_CS_PIN GP14
+#undef RP_SPI_USE_SPI0
+#define RP_SPI_USE_SPI0 TRUE
