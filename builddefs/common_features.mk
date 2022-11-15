@@ -271,7 +271,7 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
       POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), rp2040_flash)
       SRC += wear_leveling_rp2040_flash.c
-      POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
+      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
       SRC += flash_stm32.c wear_leveling_legacy.c
