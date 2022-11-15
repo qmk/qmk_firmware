@@ -30,7 +30,6 @@
 
 #    define RGB_DI_PIN A7
 #    define RGBLED_NUM 4
-#    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGBLIGHT_LIMIT_VAL 180
 
 #    define RGBLIGHT_EFFECT_BREATHING
