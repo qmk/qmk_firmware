@@ -1,10 +1,11 @@
 # model_f_labs/f62
 
-![model_f_labs/f62](https://www.modelfkeyboards.com/wp-content/uploads/2019/11/F62-F77-new.jpg)
+![model_f_labs/f62](https://www.modelfkeyboards.com/wp-content/uploads/2015/12/2019-12-16_00-36-09.jpg)
 
 A short description of the keyboard/project
 
 * Keyboard Maintainer: [Purdea Andrei](https://github.com/purdeaandrei)
+* Build Maintainer: Matthew J Wolf
 * Hardware Supported: Supports the brand new Model F reproductions from https://www.modelfkeyboards.com/, using the smaller xwhatsit controller developed by wcass.
 * Hardware Availability: https://www.modelfkeyboards.com/
 
