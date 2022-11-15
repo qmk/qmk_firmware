@@ -6,7 +6,7 @@
     "usb": {
         "vid": "0x3434",
         "pid": "0x0140",
-        "device_version": "1.0.5"
+        "device_version": "1.0.0"
     },
     "layouts": {
         "LAYOUT_ansi_61": {
