@@ -92,11 +92,10 @@ These keycodes allow the processing to fall through to lower layers in search of
 
 For this example we will walk through an [older version of the default Clueboard 66% keymap](https://github.com/qmk/qmk_firmware/blob/ca01d94005f67ec4fa9528353481faa622d949ae/keyboards/clueboard/keymaps/default/keymap.c). You'll find it helpful to open that file in another browser window so you can look at everything in context.
 
-There are 3 main sections of a `keymap.c` file you'll want to concern yourself with:
+There are 2 main sections of a `keymap.c` file you'll want to concern yourself with:
 
 * [The Definitions](#definitions)
 * [The Layer/Keymap Datastructure](#layers-and-keymaps)
-* [Custom Functions](#custom-functions), if any
 
 ### Definitions
 
