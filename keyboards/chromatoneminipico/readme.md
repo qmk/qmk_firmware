@@ -1,6 +1,6 @@
 # chromatoneminipico
 
-![chromatoneminipico](https://i.imgur.com/SuXzf9Dh.jpg)
+![chromatoneminipico](https://i.imgur.com/P3XHb0Ph.jpg)
 
 chromatoneminipico keyboard is a simple-design Chromatone mini MIDI keyboard that covers 3 octaves (37 notes).
 
