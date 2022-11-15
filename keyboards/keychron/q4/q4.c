@@ -71,5 +71,6 @@ __attribute__((weak)) void rgb_matrix_indicators_advanced_user(uint8_t led_min, 
            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 0, 0, 0);
         }
     }
+    
 }
 #endif // CAPS_LOCK_LED_INDEX
