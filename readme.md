@@ -16,7 +16,7 @@ The docs are powered by [Docsify](https://docsify.js.org/) and hosted on [GitHub
 
 You can request changes by making a fork and opening a [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "Edit this page" link at the bottom of any page.
 
-## Supported Keyboards
+## Supported Keyboard
 
 * [Planck](/keyboards/planck/)
 * [Preonic](/keyboards/preonic/)
