@@ -496,19 +496,32 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
+/* Define below to set C_SYSTEM layer as default. */
+// #define C_SYSTEM_DEFAULT_MODE
+/* Define below to tone down the LED appearance.  */
+// #define LED_STANDARD_MODE
 // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
 void my_init(void){
     //  Set octave to MI_OCT_1
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
+
     default_layer_set(_LS_BASE);
+#ifdef C_SYSTEM_DEFAULT_MODE
+    layer_state_set(_LS_CSYSTEM);
+#else
     layer_state_set(_LS_BASE);
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
+    led_indicator_enable = false;
+#   ifdef LED_STANDARD_MODE
+    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
+#   else
     //  party mode (for LED soldering test. Enable rainbow color effect, and disable led_indicator to check all LEDs)
     rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-    led_indicator_enable = false;
+#   endif
 #endif  // RGB_MATRIX_ENABLE
 }
 
@@ -1031,21 +1044,30 @@ void rgb_matrix_indicators_user(void) {
                 set_led_c_indicator(_BSYSTEM, TRANS_LAYER_COLOR);
                 break;
 
+            case _LS_ACCORDIONBASS:
+                // indicate C location
+                if (led_indicator_enable) {  //  turn on indicators when enabled.
+                    rgb_matrix_set_color(led_single_col_indicator[_KEY13][_MID37], BASE_LAYER_COLOR);         //  C
+                    rgb_matrix_set_color(led_single_col_indicator[_KEY37][_MID37], BASE_LAYER_COLOR);         //  C
+                }
+                break;
+
             case _LS_FN ... _LS_MAX:  //  When Mute Button is long-pressed, the previous layers are still active.
                 for (i = 1; i < 5; i++) {
                     rgb_matrix_set_color(i, RGB_DARKSPRINGGREEN);  //  up(1) down(4) left(3) right(2)  keys
                 }
-                rgb_matrix_set_color(led_single_col_indicator[_KEY02][0], RGB_DARKSPRINGGREEN);   //  TGLTRNS
-                rgb_matrix_set_color(led_single_col_indicator[_KEY04][0], RGB_DARKSPRINGGREEN);   //  TGLINTR
-                rgb_matrix_set_color(led_single_col_indicator[_KEY06][0], RGB_DARKSPRINGGREEN);   //  TGLCHGR
+                rgb_matrix_set_color(led_single_col_indicator[_KEY02][_BTM37], RGB_DARKSPRINGGREEN);   //  TGLINTR
+                rgb_matrix_set_color(led_single_col_indicator[_KEY04][_BTM37], RGB_DARKSPRINGGREEN);   //  TGLTRNS
+                rgb_matrix_set_color(led_single_col_indicator[_KEY06][_BTM37], RGB_DARKSPRINGGREEN);   //  TGLCHGR
 
-                rgb_matrix_set_color(led_single_col_indicator[_KEY31][1], RGB_DARKCORAL);         //  QWERTY
-                rgb_matrix_set_color(led_single_col_indicator[_KEY05][1], RGB_DARKCORAL);         //  CSYSTEM
-                rgb_matrix_set_color(led_single_col_indicator[_KEY09][1], RGB_DARKCORAL);         //  BSYSTEM
+                rgb_matrix_set_color(led_single_col_indicator[_KEY05][_MID37], RGB_DARKCORAL);         //  CSYSTEM
+                rgb_matrix_set_color(led_single_col_indicator[_KEY09][_MID37], RGB_DARKCORAL);         //  BSYSTEM
+                rgb_matrix_set_color(led_single_col_indicator[_KEY31][_MID37], RGB_DARKCORAL);         //  QWERTY
 
-                rgb_matrix_set_color(led_single_col_indicator[_KEY05][0], RGB_DARKTURQUOISE);     //  TGLBASS
-                rgb_matrix_set_color(led_single_col_indicator[_KEY07][0], RGB_DARKCORAL);         //  ACCOBAS
-                rgb_matrix_set_color(led_single_col_indicator[_KEY09][0], RGB_DARKTURQUOISE);     //  TGLMICH
+                rgb_matrix_set_color(led_single_col_indicator[_KEY05][_BTM37], RGB_DARKTURQUOISE);     //  TGLBASS
+                rgb_matrix_set_color(led_single_col_indicator[_KEY07][_BTM37], RGB_DARKCORAL);         //  ACCOBAS
+                rgb_matrix_set_color(led_single_col_indicator[_KEY09][_BTM37], RGB_DARKTURQUOISE);     //  TGLMICH
+                rgb_matrix_set_color(led_single_col_indicator[_KEY33][_BTM37], RGB_DARKGOLD);          //  VERSION
 
                 for (i = 0; i < 3; i++) {
                     rgb_matrix_set_color(led_single_col_indicator[_KEY01][i], BASE_LAYER_COLOR);   //  B_BASE
@@ -1061,7 +1083,7 @@ void rgb_matrix_indicators_user(void) {
 
                 for (i = _KEY12; i < _KEY37; i+=2){  //  even numbers from _KEY12 to _KEY36 are LED related settings.
                     // turn on the bottom row only to keep the visibility of the RGB MATRIX effects.
-                    rgb_matrix_set_color(led_single_col_indicator[i][0], RGB_DARKSPRINGGREEN);  //       //  LED related settings.
+                    rgb_matrix_set_color(led_single_col_indicator[i][_BTM37], RGB_DARKSPRINGGREEN);  //       //  LED related settings.
                 }
                 break;
         }

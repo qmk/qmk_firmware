@@ -58,28 +58,30 @@ extern const uint8_t led_single_col_indicator[37][3];
 extern const uint8_t led_c_indicator[2][12][10];
 
 //  default base layer color
-#define BASE_LAYER_COLOR  RGB_DARKGOLDENROD
+#   define BASE_LAYER_COLOR  RGB_DARKGOLDENROD
 
 //  border color
-#define FLIP_BORDER_COLOR RGB_DARKRED
+#   define FLIP_BORDER_COLOR RGB_DARKRED
 
 // flip entirely
-#define FLIPB_LAYER_COLOR RGB_DARKYELLOW
+#   define FLIPB_LAYER_COLOR RGB_DARKYELLOW
 
 //  channel separation group
-#define SEPALEFT_LAYER_COLOR RGB_DARKGREEN
-#define SEPAHALF_LAYER_COLOR RGB_DARKGREEN
-#define SEPARIGHT_LAYER_COLOR RGB_DARKGREEN
+#   define SEPALEFT_LAYER_COLOR RGB_DARKGREEN
+#   define SEPAHALF_LAYER_COLOR RGB_DARKGREEN
+#   define SEPARIGHT_LAYER_COLOR RGB_DARKGREEN
 
 //  Trans group
-#define TRANS_LAYER_COLOR RGB_DARKORANGE
-#define SEPALEFT_T_LAYER_COLOR RGB_DARKORANGE
-#define SEPAHALF_T_LAYER_COLOR RGB_DARKORANGE
-#define SEPARIGHT_T_LAYER_COLOR RGB_DARKORANGE
-#define FLIPT_LAYER_COLOR RGB_DARKORANGE
+#   define TRANS_LAYER_COLOR RGB_DARKORANGE
+#   define SEPALEFT_T_LAYER_COLOR RGB_DARKORANGE
+#   define SEPAHALF_T_LAYER_COLOR RGB_DARKORANGE
+#   define SEPARIGHT_T_LAYER_COLOR RGB_DARKORANGE
+#   define FLIPT_LAYER_COLOR RGB_DARKORANGE
+#endif  //  RGB_MATRIX_ENABLE
 
 // Defines names for use in _FN layer to specify which column to be used to turn on the LEDs.
-// use this with led_single_col_indicator[37][3], ex. led_single_col_indicator[_FN_C2][0].
+// use this with led_single_col_indicator[37][3], ex. led_single_col_indicator[_KEY01][_BTM37].
+// Also used with select_layer_state_set();
 enum my_key_names {
     _KEY01= 0,
     _KEY02,
@@ -119,7 +121,14 @@ enum my_key_names {
     _KEY36,
     _KEY37,
 };
-#endif  //  RGB_MATRIX_ENABLE
+
+// Defines names used in the second index of led_single_col_indicator[37][3].
+// Ex. led_single_col_indicator[_KEY01][_BTM37].
+enum my_led37_layer_names {
+    _BTM37= 0,      // bottom 37 LEDs
+    _MID37,         // middle 37 LEDs
+    _TOP37          // TOP 37 LEDs
+};
 
 extern MidiDevice midi_device;
 void my_process_midi4Bass(uint8_t channel, keyrecord_t *record,
