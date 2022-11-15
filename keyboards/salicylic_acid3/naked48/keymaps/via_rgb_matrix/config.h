@@ -39,7 +39,7 @@
   #define RGB_MATRIX_STARTUP_HUE 0 // Sets the default hue value, if none has been set
   #define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
   #define RGB_MATRIX_STARTUP_VAL 50 // Sets the default brightness value, if none has been set
-  #define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
+  #define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
 //  #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
 //  #define RGB_MATRIX_SPLIT { X, Y }     // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                                         // If RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR

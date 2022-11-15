@@ -51,22 +51,22 @@
 
 //Teal and Blue
 //#define RGB_MATRIX_STARTUP_HUE 127 			// Default boot color
-//#define RGB_MATRIX_STARTUP_SPD 47 			// Used to determine the color for the modifiers
+//#define RGB_MATRIX_DEFAULT_SPD 47 			// Used to determine the color for the modifiers
 
 //Teal and Blue
 //#define RGB_MATRIX_STARTUP_HUE 120 			// Default boot color
-//#define RGB_MATRIX_STARTUP_SPD 50 			//Used to determine the color for the modifiers
+//#define RGB_MATRIX_DEFAULT_SPD 50 			//Used to determine the color for the modifiers
 
 
 //QMK HSV is based on 255 value wheel rather than 360
 
 //Cyan and Yellow
 //#define RGB_MATRIX_STARTUP_HUE 127 			// Default boot color
-//#define RGB_MATRIX_STARTUP_SPD 177
+//#define RGB_MATRIX_DEFAULT_SPD 177
 
 //Cyan and Green
 //#define RGB_MATRIX_STARTUP_HUE 127 			// Default boot color
-//#define RGB_MATRIX_STARTUP_SPD 215
+//#define RGB_MATRIX_DEFAULT_SPD 215
 
 // #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 

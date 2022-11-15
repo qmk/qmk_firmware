@@ -29,7 +29,7 @@
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 // Slow swirl at startup.
-#    define RGB_MATRIX_STARTUP_SPD 32
+#    define RGB_MATRIX_DEFAULT_SPD 32
 
 // Startup values.
 #    define RGB_MATRIX_STARTUP_HUE 0

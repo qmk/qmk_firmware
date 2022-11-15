@@ -142,7 +142,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
             .s = RGB_MATRIX_STARTUP_SAT,
             .v = RGB_MATRIX_STARTUP_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 1
@@ -154,7 +154,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
             .s = RGB_MATRIX_STARTUP_SAT,
             .v = RGB_MATRIX_STARTUP_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 2
@@ -166,7 +166,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
             .s = RGB_MATRIX_STARTUP_SAT,
             .v = RGB_MATRIX_STARTUP_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 3
@@ -178,7 +178,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
             .s = RGB_MATRIX_STARTUP_SAT,
             .v = RGB_MATRIX_STARTUP_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
 };

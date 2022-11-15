@@ -18,7 +18,7 @@
 #	define RGB_MATRIX_STARTUP_HUE 10
 #	define RGB_MATRIX_STARTUP_SAT 255
 #	define RGB_MATRIX_STARTUP_VAL 200
-#	define RGB_MATRIX_STARTUP_SPD 75
+#	define RGB_MATRIX_DEFAULT_SPD 75
 /* Active RBG Modes */
 /* #	undef ENABLE_RGB_MATRIX_TYPING_HEATMAP   		// How hot is your WPM! */
 /* #	undef ENABLE_RGB_MATRIX_SPLASH           		// Full gradient & value pulse away from a single key hit then fades value out */
