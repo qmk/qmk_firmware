@@ -39,8 +39,8 @@ void uart_init(uint32_t baud) {
 #endif
 
 #if defined(USE_GPIOV1)
-        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE_PUSHPULL);
-        palSetLineMode(SD1_RX_PIN, PAL_MODE_INPUT);
+        palSetLineMode(SD1_TX_PIN, SD1_TX_PAL_MODE);
+        palSetLineMode(SD1_RX_PIN, SD1_RX_PAL_MODE);
 #else
         palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE(SD1_TX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
         palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
