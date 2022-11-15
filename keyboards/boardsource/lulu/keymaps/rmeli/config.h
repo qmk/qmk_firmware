@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
-#    define RGB_MATRIX_STARTUP_HUE 10
+#    define RGB_MATRIX_DEFAULT_HUE 10
 #    define RGB_MATRIX_STARTUP_SAT 255
 #    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 // Disable RGB Matrix effects (from lulu/config.h)

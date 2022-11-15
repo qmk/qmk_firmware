@@ -138,7 +138,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_DEFAULT_MODE,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
+            .h = RGB_MATRIX_DEFAULT_HUE,
             .s = RGB_MATRIX_STARTUP_SAT,
             .v = RGB_MATRIX_STARTUP_VAL,
         },
@@ -150,7 +150,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
+            .h = RGB_MATRIX_DEFAULT_HUE,
             .s = RGB_MATRIX_STARTUP_SAT,
             .v = RGB_MATRIX_STARTUP_VAL,
         },
@@ -162,7 +162,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
+            .h = RGB_MATRIX_DEFAULT_HUE,
             .s = RGB_MATRIX_STARTUP_SAT,
             .v = RGB_MATRIX_STARTUP_VAL,
         },
@@ -174,7 +174,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
+            .h = RGB_MATRIX_DEFAULT_HUE,
             .s = RGB_MATRIX_STARTUP_SAT,
             .v = RGB_MATRIX_STARTUP_VAL,
         },
