@@ -68,7 +68,7 @@
 //#define RGB_MATRIX_DEFAULT_HUE 127 			// Default boot color
 //#define RGB_MATRIX_DEFAULT_SPD 215
 
-// #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+// #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE  	// Sets the default mode, if none has been set
 #define RGB_MATRIX_DEFAULT_HUE 180  //purple  alphas with green background when pressed.

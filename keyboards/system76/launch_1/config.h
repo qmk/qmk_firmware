@@ -54,7 +54,7 @@
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Sets the default mode, if none has been set
 #    define RGB_MATRIX_DEFAULT_HUE 142                                 // Sets the default hue value, if none has been set
 #    define RGB_MATRIX_DEFAULT_SAT 255                                 // Sets the default saturation value, if none has been set
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
 #    define RGB_MATRIX_DEFAULT_SPD 127                                 // Sets the default animation speed, if none has been set
 #    define RGB_MATRIX_DISABLE_KEYCODES                                // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
 

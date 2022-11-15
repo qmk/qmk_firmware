@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 #    define RGB_MATRIX_DEFAULT_HUE 10
 #    define RGB_MATRIX_DEFAULT_SAT 255
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #endif
 
 // https://github.com/qmk/qmk_firmware/blob/develop/docs/squeezing_avr.md

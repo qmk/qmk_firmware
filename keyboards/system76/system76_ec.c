@@ -140,7 +140,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .hsv = {
             .h = RGB_MATRIX_DEFAULT_HUE,
             .s = RGB_MATRIX_DEFAULT_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
         .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
@@ -152,7 +152,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .hsv = {
             .h = RGB_MATRIX_DEFAULT_HUE,
             .s = RGB_MATRIX_DEFAULT_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
         .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
@@ -164,7 +164,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .hsv = {
             .h = RGB_MATRIX_DEFAULT_HUE,
             .s = RGB_MATRIX_DEFAULT_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
         .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
@@ -176,7 +176,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .hsv = {
             .h = RGB_MATRIX_DEFAULT_HUE,
             .s = RGB_MATRIX_DEFAULT_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
         .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
