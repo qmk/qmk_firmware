@@ -44,7 +44,7 @@
 #define ________________________SYMBOL_R2________________________ XXXXXXX , KC_LCBR , KC_RCBR , KC_LBRC , KC_RBRC , KC_PLUS
 
 
-#define ________________________ADJUST_L1________________________ RESET   , XXXXXXX , KC_PWR  , KC_WAKE , KC_SLEP , XXXXXXX
+#define ________________________ADJUST_L1________________________ QK_BOOT , XXXXXXX , KC_PWR  , KC_WAKE , KC_SLEP , XXXXXXX
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
 #   define ________________________ADJUST_L2________________________ RGBRST  , XXXXXXX , RGB_SPI , RGB_SAI , RGB_HUI , RGB_VAI
