@@ -126,13 +126,6 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
         config_h_lines.append(generate_define(f'ENCODER_RESOLUTIONS{postfix}', f'{{ {", ".join(map(str,resolutions))} }}'))
 
 
-def generate_pointing_device_config(pointing_device_json, config_h_lines, postfix=''):
-
-    rotation = pointing_device_json.get('rotation', 0)
-
-    generate_define(f'POINTING_DEVICE_ROTATION_{rotation}{postfix}')
-
-
 def generate_split_config(kb_info_json, config_h_lines):
     """Generate the config.h lines for split boards."""
     if 'primary' in kb_info_json['split']:
@@ -162,9 +155,6 @@ def generate_split_config(kb_info_json, config_h_lines):
 
     if 'right' in kb_info_json['split'].get('encoder', {}):
         generate_encoder_config(kb_info_json['split']['encoder']['right'], config_h_lines, '_RIGHT')
-
-    if 'right' in kb_info_json['split'].get('pointing_device', {}):
-        generate_pointing_device_config(kb_info_json['split']['pointing_device']['right'], config_h_lines, '_RIGHT')
 
 
 def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
@@ -216,9 +206,6 @@ def generate_config_h(cli):
 
     if 'rgblight' in kb_info_json:
         generate_led_animations_config(kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_')
-
-    if 'pointing_device' in kb_info_json:
-        generate_pointing_device_config(kb_info_json['pointing_device'], config_h_lines)
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)
