@@ -163,27 +163,38 @@ static bool encoder_update(uint8_t index, uint8_t state) {
     index += thisHand;
 #endif
     encoder_pulses[i] += encoder_LUT[state & 0xF];
+
+#ifdef ENCODER_DEFAULT_POS
+    if ((encoder_pulses[i] >= resolution) || (encoder_pulses[i] <= -resolution) || ((state & 0x3) == ENCODER_DEFAULT_POS)) {
+        if (encoder_pulses[i] >= 1) {
+#else
     if (encoder_pulses[i] >= resolution) {
-        encoder_value[index]++;
-        changed = true;
+#endif
+
+            encoder_value[index]++;
+            changed = true;
 #ifdef ENCODER_MAP_ENABLE
-        encoder_exec_mapping(index, ENCODER_COUNTER_CLOCKWISE);
+            encoder_exec_mapping(index, ENCODER_COUNTER_CLOCKWISE);
 #else  // ENCODER_MAP_ENABLE
         encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
 #endif // ENCODER_MAP_ENABLE
-    }
+        }
+
+#ifdef ENCODER_DEFAULT_POS
+        if (encoder_pulses[i] <= -1) {
+#else
     if (encoder_pulses[i] <= -resolution) { // direction is arbitrary here, but this clockwise
-        encoder_value[index]--;
-        changed = true;
+#endif
+            encoder_value[index]--;
+            changed = true;
 #ifdef ENCODER_MAP_ENABLE
-        encoder_exec_mapping(index, ENCODER_CLOCKWISE);
+            encoder_exec_mapping(index, ENCODER_CLOCKWISE);
 #else  // ENCODER_MAP_ENABLE
         encoder_update_kb(index, ENCODER_CLOCKWISE);
 #endif // ENCODER_MAP_ENABLE
-    }
-    encoder_pulses[i] %= resolution;
+        }
+        encoder_pulses[i] %= resolution;
 #ifdef ENCODER_DEFAULT_POS
-    if ((state & 0x3) == ENCODER_DEFAULT_POS) {
         encoder_pulses[i] = 0;
     }
 #endif

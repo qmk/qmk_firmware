@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------'             `-----------------------------------------'             `-----------------------------------------'
    */
     [_ADJUST] = LAYOUT_extended(
-      _______, RESET,   _______, _______, _______, _______,           _______, QWERTY,  COLEMAK, DVORAK,  _______, KC_INS,        KC_P7,   KC_P8,   KC_P9,  KC_PPLS, KC_NLCK, KC_ESC,
+      _______, QK_BOOT, _______, _______, _______, _______,           _______, QWERTY,  COLEMAK, DVORAK,  _______, KC_INS,        KC_P7,   KC_P8,   KC_P9,  KC_PPLS, KC_NLCK, KC_ESC,
       KC_CAPS, _______, _______, _______, _______, AG_NORM,           AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SLCK, KC_PAUS,       KC_P4,   KC_P5,   KC_P6,  _______, KC_PSLS, KC_TAB,
       _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______,       KC_P1,   KC_P2,   KC_P3,  KC_PENT, KC_PAST, KC_PEQL,
       _______, _______, _______, _______, _______, _______,           _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,        KC_P0,   _______, KC_PDOT,_______, KC_PMNS, KC_BSPC

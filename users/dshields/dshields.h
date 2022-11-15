@@ -17,6 +17,14 @@
 #define MT_SPC  SFT_T(KC_SPC)
 #define MT_BSPC SFT_T(KC_BSPC)
 #define MT_ESC  LGUI_T(KC_ESC)
+#define MT_A    LGUI_T(KC_A)
+#define MT_S    LALT_T(KC_S)
+#define MT_D    LSFT_T(KC_D)
+#define MT_F    LCTL_T(KC_F)
+#define MT_J    RCTL_T(KC_J)
+#define MT_K    RSFT_T(KC_K)
+#define MT_L    RALT_T(KC_L)
+#define MT_SCLN RGUI_T(KC_SCLN)
 
 // LED/RGB controls
 #ifdef KEYBOARD_planck_light

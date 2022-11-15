@@ -15,18 +15,11 @@
  */
 #include "config_common.h"
 
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x0102
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         ODIN_RGB
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 20
 
 #define MATRIX_ROW_PINS { A10, A9, A8, B14, B13, A2 }
 #define MATRIX_COL_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B12, A15, B3, B4, B5, B6, B7, B8, C13, C14, C15, A0}
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "BIOI G60",
+    "manufacturer": "Basic IO Instruments",
     "url": "https://scottywei.github.io/bioi-g60ble/",
     "maintainer": "scottywei",
+    "usb": {
+        "vid": "0x8101",
+        "pid": "0x6080",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x9133
-#define PRODUCT_ID   0x6AAB
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Kindakeyboards
-#define PRODUCT      Conone 65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS {D5,D3,E6,D1,D2}
 #define MATRIX_COL_PINS {B7,F7,D4,D6,D7,B4,B5,B6,C6,C7,F6,F5,F4,F1,F0,D0}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -1,7 +1,13 @@
 {
-    "maintainer": "germ",
     "keyboard_name": "Gergo",
+    "manufacturer": "g Heavy Industries",
     "url": "http://gboards.ca",
+    "maintainer": "germ",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1307",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_gergo": {
             "layout": [

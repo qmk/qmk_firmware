@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D4B
-#define PRODUCT_ID      0x6063
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mss Studio
-#define PRODUCT         M63 RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -42,9 +35,6 @@
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
 
 #ifdef RGB_MATRIX_ENABLE
     #define DRIVER_LED_TOTAL 75

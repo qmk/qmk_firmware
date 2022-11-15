@@ -1,7 +1,13 @@
 {
     "keyboard_name": "cyclops",
+    "manufacturer": "westfoxtrot",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x21FF",
+        "pid": "0x0A66",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

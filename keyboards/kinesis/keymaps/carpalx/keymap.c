@@ -18,7 +18,7 @@ extern keymap_config_t keymap_config;
         |  L0  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8   |
         `---------------------------------------------------------------'
         ,---------------------------------------------------------------.
-        |  F9  |  F10 |  F11 |  F12 | PSCR |  L1  |  L2  |  L2  | RESET |
+        |  F9  |  F10 |  F11 |  F12 | PSCR |  L1  |  L2  |  L2  | QK_BOOT |
         `---------------------------------------------------------------'
 
         L0 Carpalx layer:
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_BSPC,  KC_ESC,  MO(_KP),
 
            // Right Hand
-           KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, TO(_QW), TO(_KP), TO(_KP),  RESET,
+           KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, TO(_QW), TO(_KP), TO(_KP),  QK_BOOT,
            KC_0,    KC_8,    KC_6,    KC_4,    KC_2,    KC_MINS,
            KC_B,    KC_Y,    KC_U,    KC_V,    KC_SCLN, KC_EQL,
            KC_I,    KC_A,    KC_E,    KC_O,    KC_H,    KC_QUOT,

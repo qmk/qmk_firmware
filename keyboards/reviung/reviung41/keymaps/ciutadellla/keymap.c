@@ -247,12 +247,12 @@
     * |-------+-------+-------+---------+-------+---------+     +------+------+------+------+------+-------|
     * |       |       |       |         |       |         |     | M_L  | M_D  | M_I  | M_R  |      | SLEEP |
     * |-------+-------+-------+---------+-------+---------+     +------+------+------+------+------+-------|
-    * |       |       |       |         | SCRLFT| SCRRGHT |     | M_B1 |  M_B2|  M0  |  M2  |      | RESET |
+    * |       |       |       |         | SCRLFT| SCRRGHT |     | M_B1 |  M_B2|  M0  |  M2  |      | QK_BOOT |
     * |-------+-------+-------+---------+-------+---------+     +------+------+------+------+------+-------|
     *                                   | ____ | ____ |    BSPC   | ____  | ____ |
     *                                   +-------------/            \--------------+
     */
-     [_MOVE] = LAYOUT_reviung41(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2, LOCK_OSX, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL0, SLEEP_OSX, KC_F13, KC_F14, KC_F15, KC_F16, KC_C_LF, KC_C_RT, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+     [_MOVE] = LAYOUT_reviung41(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2, LOCK_OSX, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL0, SLEEP_OSX, KC_F13, KC_F14, KC_F15, KC_F16, KC_C_LF, KC_C_RT, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
      /* _ADJUST 4
     * ,----------------------------------------+         +---------------------------------------------------.
     * |  😃  |   😅 |  🤣  |  😉  |  😇  |  🥰  |          | RGBUP | HUEUP  | RGB_MOD |  BRIU  | PLAY  | VOLU |

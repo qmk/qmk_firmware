@@ -49,7 +49,6 @@
 #include "action_util.h"
 #include "action_tapping.h"
 #include "print.h"
-#include "send_string.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -141,12 +140,6 @@ extern layer_state_t layer_state;
 #    include "process_key_lock.h"
 #endif
 
-#ifdef TERMINAL_ENABLE
-#    include "process_terminal.h"
-#else
-#    include "process_terminal_nop.h"
-#endif
-
 #ifdef SPACE_CADET_ENABLE
 #    include "process_space_cadet.h"
 #endif
@@ -173,6 +166,10 @@ extern layer_state_t layer_state;
 
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
+#endif
+
+#ifdef SEND_STRING_ENABLE
+#    include "send_string.h"
 #endif
 
 #ifdef HAPTIC_ENABLE
@@ -267,6 +264,7 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
+void tap_code16_delay(uint16_t code, uint16_t delay);
 
 const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
 const char *get_u8_str(uint8_t curr_num, char curr_pad);

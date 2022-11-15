@@ -4,13 +4,6 @@
 
 #define KEYBOARD_PCB_REV 11
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0666
-#define DEVICE_VER      0x1337
-#define MANUFACTURER    Henrik O. Sørensen
-#define PRODUCT         Omnikey(-ish) Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 23
@@ -29,11 +22,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-/* number of backlight levels */
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 0
-#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

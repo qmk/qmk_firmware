@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Rooboard65",
+    "manufacturer": "FJLabs",
     "url": "https://www.fjlaboratories.com/",
     "maintainer": "FJLabs",
+    "usb": {
+        "vid": "0x36B6",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

@@ -52,7 +52,7 @@ void autocorrect_enable(void) {
  */
 void autocorrect_disable(void) {
     userspace_config.autocorrection = false;
-    typo_buffer_size                 = 0;
+    typo_buffer_size                = 0;
     eeconfig_update_user(userspace_config.raw);
 }
 
@@ -62,7 +62,7 @@ void autocorrect_disable(void) {
  */
 void autocorrect_toggle(void) {
     userspace_config.autocorrection = !userspace_config.autocorrection;
-    typo_buffer_size                 = 0;
+    typo_buffer_size                = 0;
     eeconfig_update_user(userspace_config.raw);
 }
 
@@ -98,15 +98,15 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
             }
             *keycode &= 0xFF; // Get the basic keycode.
             return true;
-#ifndef NO_ACTION_TAPPING
+#    ifndef NO_ACTION_TAPPING
         // Exclude tap-hold keys when they are held down
         // and mask for base keycode when they are tapped.
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-#    ifdef NO_ACTION_LAYER
+#        ifdef NO_ACTION_LAYER
             // Exclude Layer Tap, if layers are disabled
             // but action tapping is still enabled.
             return false;
-#    endif
+#        endif
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             // Exclude hold keycode
             if (!record->tap.count) {
@@ -114,25 +114,25 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
             }
             *keycode &= 0xFF;
             break;
-#else
+#    else
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             // Exclude if disabled
             return false;
-#endif
+#    endif
         // Exclude swap hands keys when they are held down
         // and mask for base keycode when they are tapped.
         case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
-#ifdef SWAP_HANDS_ENABLE
+#    ifdef SWAP_HANDS_ENABLE
             if (*keycode >= 0x56F0 || !record->tap.count) {
                 return false;
             }
             *keycode &= 0xFF;
             break;
-#else
+#    else
             // Exclude if disabled
             return false;
-#endif
+#    endif
     }
 
     // Disable autocorrect while a mod other than shift is active.
@@ -166,9 +166,9 @@ __attribute__((weak)) bool apply_autocorrect(uint8_t backspaces, const char *str
  */
 bool process_autocorrection(uint16_t keycode, keyrecord_t *record) {
     uint8_t mods = get_mods();
-#ifndef NO_ACTION_ONESHOT
+#    ifndef NO_ACTION_ONESHOT
     mods |= get_oneshot_mods();
-#endif
+#    endif
 
     if ((keycode >= AUTOCORRECT_ON && keycode <= AUTOCORRECT_TOGGLE) && record->event.pressed) {
         if (keycode == AUTOCORRECT_ON) {

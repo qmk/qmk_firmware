@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7273 // rs
-#define PRODUCT_ID   0x0064 // 100
-#define DEVICE_VER   0x0001 // rev 1
-#define MANUFACTURER ryanskidmore
-#define PRODUCT      rsKeys100
-
 /* Key Matrix Sizes */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 24

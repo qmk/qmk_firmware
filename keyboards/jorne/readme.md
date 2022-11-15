@@ -14,7 +14,7 @@ Jorne is essentially [Corne](https://github.com/foostan/crkbd) but with an extra
 Enter the bootloader in 2 ways:
 
 * **Physical reset button**: Briefly press the reset button on the PCB
-* **Keycode in layout**: Press the key mapped to `RESET`
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`
 
 ## Make 
 

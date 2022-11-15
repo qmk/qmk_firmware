@@ -72,7 +72,7 @@
             "KC_LPRN",
             "KC_RPRN",
             "KC_BSPC",
-            "RESET",
+            "QK_BOOT",
             "KC_1",
             "KC_2",
             "KC_3",

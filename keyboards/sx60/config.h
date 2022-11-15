@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5154 // "QT"
-#define PRODUCT_ID      0x0010
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Quantrik
-#define PRODUCT         SX60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -36,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // MCP23018 pinout:
 // Rows: B4, B3, B2, B1, B0
 // Cols: A0, A1, A2, A3, A4, A5, A6, A7
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -16,12 +16,15 @@
  */
 #pragma once
 
+#undef PRODUCT
+#define PRODUCT "Charybdis (4x6) Blackpill"
+
 #undef MATRIX_COL_PINS
 #define MATRIX_COL_PINS \
-    { B0, B1, B10, B3, B4, B5 }
+    { B0, B1, B12, B3, B4, B5 }
 #undef MATRIX_COL_PINS_RIGHT
 #define MATRIX_COL_PINS_RIGHT \
-    { B0, B1, B10, B3, B4, B5 }
+    { B0, B1, B12, B3, B4, B5 }
 
 #undef MATRIX_ROW_PINS
 #define MATRIX_ROW_PINS \
@@ -30,8 +33,11 @@
 #define MATRIX_ROW_PINS_RIGHT \
     { B15, A2, B8, A8, B9 }
 
+
 #define DIODE_DIRECTION ROW2COL
 #define SPLIT_HAND_PIN A3
+#undef MASTER_RIGHT
+#define USB_VBUS_PIN B10
 
 #undef RGB_DI_PIN
 #define RGB_DI_PIN A1
@@ -46,6 +52,15 @@
 
 #define DEBUG_LED_PIN     C13
 
+#define AUDIO_PIN          B7
+#define AUDIO_PWM_DRIVER   PWMD4
+#define AUDIO_PWM_CHANNEL  2
+#define AUDIO_PWM_PAL_MODE 2
+#define AUDIO_STATE_TIMER  GPTD3
+#define AUDIO_INIT_DELAY
+#define AUDIO_ENABLE_TONE_MULTIPLEXING
+#define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 10
+
 #undef SOFT_SERIAL_PIN
 // #define SERIAL_USART_FULL_DUPLEX  // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN      A9
@@ -54,12 +69,8 @@
 // #define SERIAL_USART_TX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 // #define SERIAL_USART_RX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 // #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
-// // #define SERIAL_USART_PIN_SWAP // swap RX and TX pins on master
-// // To use the highest possible baudrate (3.75Mbit/s) uncomment the following
-// // line, this can result in dropped communications so lower the speed if there
-// // are many timeouts.
-// // #define SERIAL_USART_SPEED (STM32_PCLK2 >> 4)
-#define SERIAL_USART_SPEED       921600
+// #define SERIAL_USART_SPEED       921600
+#define SERIAL_USART_SPEED (1.5 * 1024 * 1024)
 
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
@@ -76,10 +87,11 @@
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
 
-#undef PMW3360_CS_PIN
-#define PMW3360_CS_PIN                       B14
-#define PMW3360_CS_MODE 3
-#define PMW3360_CS_DIVISOR 64
+#undef PMW33XX_CS_PIN
+#define PMW33XX_CS_PIN                       A15  // b14
+#define PMW33XX_LIFTOFF_DISTANCE 0b1111
+#undef ROTATIONAL_TRANSFORM_ANGLE
+#define ROTATIONAL_TRANSFORM_ANGLE -65
 
 #define CHARYBDIS_MINIMUM_DEFAULT_DPI     1200
 #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400
@@ -90,3 +102,14 @@
 
 #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+
+#define CHARYBDIS_CONFIG_SYNC
+
+#define BOOTMAGIC_LITE_ROW    0
+#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_ROW_RIGHT    5
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+#define BOOTMAGIC_LITE_EEPROM_ROW    1
+#define BOOTMAGIC_LITE_EEPROM_COLUMN 0
+#define BOOTMAGIC_LITE_EEPROM_ROW_RIGHT    1
+#define BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT 0

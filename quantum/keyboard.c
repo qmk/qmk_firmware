@@ -212,6 +212,12 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata) {
     return false;
 }
 
+#else
+
+static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata) {
+    return false;
+}
+
 #endif
 
 /** \brief matrix_setup
@@ -381,11 +387,8 @@ void keyboard_init(void) {
 #ifdef ENCODER_ENABLE
     encoder_init();
 #endif
-#ifdef STENO_ENABLE
+#ifdef STENO_ENABLE_ALL
     steno_init();
-#endif
-#ifdef POINTING_DEVICE_ENABLE
-    pointing_device_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
@@ -402,6 +405,10 @@ void keyboard_init(void) {
 #endif
 #ifdef SPLIT_KEYBOARD
     split_post_init();
+#endif
+#ifdef POINTING_DEVICE_ENABLE
+    // init after split init
+    pointing_device_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -425,64 +432,74 @@ void switch_events(uint8_t row, uint8_t col, bool pressed) {
 #endif
 }
 
-/** \brief Perform scan of keyboard matrix
- *
- * Any detected changes in state are sent out as part of the processing
+/**
+ * @brief Generates a tick event at a maximum rate of 1KHz that drives the
+ * internal QMK state machine.
  */
-bool matrix_scan_task(void) {
-    static matrix_row_t matrix_prev[MATRIX_ROWS];
-    matrix_row_t        matrix_row    = 0;
-    matrix_row_t        matrix_change = 0;
-#ifdef QMK_KEYS_PER_SCAN
-    uint8_t keys_processed = 0;
-#endif
-
-    uint8_t matrix_changed = matrix_scan();
-    if (matrix_changed) last_matrix_activity_trigger();
-
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        matrix_row    = matrix_get_row(r);
-        matrix_change = matrix_row ^ matrix_prev[r];
-        if (matrix_change) {
-#ifdef MATRIX_HAS_GHOST
-            if (has_ghost_in_row(r, matrix_row)) {
-                continue;
-            }
-#endif
-            if (debug_matrix) matrix_print();
-            matrix_row_t col_mask = 1;
-            for (uint8_t c = 0; c < MATRIX_COLS; c++, col_mask <<= 1) {
-                if (matrix_change & col_mask) {
-                    if (should_process_keypress()) {
-                        action_exec((keyevent_t){
-                            .key = (keypos_t){.row = r, .col = c}, .pressed = (matrix_row & col_mask), .time = (timer_read() | 1) /* time should not be 0 */
-                        });
-                    }
-                    // record a processed key
-                    matrix_prev[r] ^= col_mask;
-
-                    switch_events(r, c, (matrix_row & col_mask));
-
-#ifdef QMK_KEYS_PER_SCAN
-                    // only jump out if we have processed "enough" keys.
-                    if (++keys_processed >= QMK_KEYS_PER_SCAN)
-#endif
-                        // process a key per task call
-                        goto MATRIX_LOOP_END;
-                }
-            }
-        }
-    }
-    // call with pseudo tick event when no real key event.
-#ifdef QMK_KEYS_PER_SCAN
-    // we can get here with some keys processed now.
-    if (!keys_processed)
-#endif
+static inline void generate_tick_event(void) {
+    static uint16_t last_tick = 0;
+    const uint16_t  now       = timer_read();
+    if (TIMER_DIFF_16(now, last_tick) != 0) {
         action_exec(TICK_EVENT);
+        last_tick = now;
+    }
+}
 
-MATRIX_LOOP_END:
+/**
+ * @brief This task scans the keyboards matrix and processes any key presses
+ * that occur.
+ *
+ * @return true Matrix did change
+ * @return false Matrix didn't change
+ */
+static bool matrix_task(void) {
+    static matrix_row_t matrix_previous[MATRIX_ROWS];
+
+    matrix_scan();
+
+    bool matrix_changed = false;
+    for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
+        matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
+    }
 
     matrix_scan_perf_task();
+
+    // Short-circuit the complete matrix processing if it is not necessary
+    if (!matrix_changed) {
+        generate_tick_event();
+        return matrix_changed;
+    }
+
+    if (debug_config.matrix) {
+        matrix_print();
+    }
+
+    const bool process_keypress = should_process_keypress();
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        const matrix_row_t current_row = matrix_get_row(row);
+        const matrix_row_t row_changes = current_row ^ matrix_previous[row];
+
+        if (!row_changes || has_ghost_in_row(row, current_row)) {
+            continue;
+        }
+
+        matrix_row_t col_mask = 1;
+        for (uint8_t col = 0; col < MATRIX_COLS; col++, col_mask <<= 1) {
+            if (row_changes & col_mask) {
+                const bool key_pressed = current_row & col_mask;
+
+                if (process_keypress) {
+                    action_exec(MAKE_KEYEVENT(row, col, key_pressed));
+                }
+
+                switch_events(row, col, key_pressed);
+            }
+        }
+
+        matrix_previous[row] = current_row;
+    }
+
     return matrix_changed;
 }
 
@@ -561,20 +578,12 @@ void quantum_task(void) {
 #endif
 }
 
-/** \brief Keyboard task: Do keyboard routine jobs
- *
- * Do routine keyboard jobs:
- *
- * * scan matrix
- * * handle mouse movements
- * * handle midi commands
- * * light LEDs
- *
- * This is repeatedly called as fast as possible.
- */
+/** \brief Main task that is repeatedly called as fast as possible. */
 void keyboard_task(void) {
-    bool matrix_changed = matrix_scan_task();
-    (void)matrix_changed;
+    const bool matrix_changed = matrix_task();
+    if (matrix_changed) {
+        last_matrix_activity_trigger();
+    }
 
     quantum_task();
 
@@ -596,8 +605,10 @@ void keyboard_task(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-    bool encoders_changed = encoder_read();
-    if (encoders_changed) last_encoder_activity_trigger();
+    const bool encoders_changed = encoder_read();
+    if (encoders_changed) {
+        last_encoder_activity_trigger();
+    }
 #endif
 
 #ifdef OLED_ENABLE

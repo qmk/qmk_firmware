@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5241 // "RA"
-#define PRODUCT_ID      0x006B // 6-B
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA WORKS
-#define PRODUCT         RAMA WORKS M6-B
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 6
@@ -40,7 +33,6 @@
 */
 #define MATRIX_ROW_PINS { E6 }
 #define MATRIX_COL_PINS { D4, B5, F4, D7, C6, F6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

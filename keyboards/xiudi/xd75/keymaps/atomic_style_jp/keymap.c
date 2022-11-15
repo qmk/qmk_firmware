@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR,
    KC_CAPS, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_ACL0, KC_ACL2, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, _______, _______, _______,
    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_TOGG, BL_INC,  BL_DEC,   _______,KC_WH_U, KC_MS_U, KC_WH_D,
-   RESET  , DF(_QW), DF(_EASY_QW), _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
+   QK_BOOT, DF(_QW), DF(_EASY_QW), _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
 	 ),
  [_CURSOR] = LAYOUT(
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,   KC_JYEN,  KC_BSPC,
