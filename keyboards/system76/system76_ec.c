@@ -136,7 +136,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     // Layer 0
     {
         .enable = 1,
-        .mode = RGB_MATRIX_STARTUP_MODE,
+        .mode = RGB_MATRIX_DEFAULT_MODE,
         .hsv = {
             .h = RGB_MATRIX_STARTUP_HUE,
             .s = RGB_MATRIX_STARTUP_SAT,
