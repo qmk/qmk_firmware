@@ -1,6 +1,6 @@
 # Jabberwocky Gen. 2
 
-![Jabberwocky v2 CNC Edition](https://i.imgur.com/xfpl9H2.jpg)
+![Jabberwocky v2 CNC Edition](https://i.imgur.com/xfpl9H2h.jpg)
 
 A full-size, columnar-staggered, Alice-style keyboard. Specifically, this firmware is for the second generation (v2) of Jabberwocky PCBs, all of which use the same MCU (Atmega 32u4) and firmware.
 
