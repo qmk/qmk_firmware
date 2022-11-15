@@ -120,7 +120,7 @@
             "properties": {
                 "debounce_type": {
                     "type": "string",
-                    "enum": ["custom", "eager_pk", "eager_pr", "sym_defer_pk", "sym_defer_pr", "sym_eager_pk"]
+                    "enum": ["asym_eager_defer_pk", "custom", "sym_defer_g", "sym_defer_pk", "sym_defer_pr", "sym_eager_pk", "sym_eager_pr"]
                 },
                 "firmware_format": {
                     "type": "string",

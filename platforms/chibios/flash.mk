@@ -100,8 +100,8 @@ endef
 teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
 	$(call EXEC_TEENSY)
 
-
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	$(SILENT) || printf "Flashing for bootloader: $(BLUE)$(BOOTLOADER)$(NO_COLOR)\n"
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)),kiibohd)

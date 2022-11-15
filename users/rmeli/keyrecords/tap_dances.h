@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+
 #include QMK_KEYBOARD_H
 
 // https://beta.docs.qmk.fm/using-qmk/software-features/feature_tap_dance#example-4-quad-function-tap-dance-id-example-4
@@ -26,9 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Tap dance enums
 enum {
-    TD_LSPO_CAPS,  // Tap once for (, hold once for LSFT, tap twice for CAPS
-    TD_RSPC_CAPS,  // Tap once for ), hold once for RSFT, tap twice for CAPS
-    TD_ESC_DEL,    // Tap once for KC_ESC, twice for KC_DEL
+    TD_LSPO_CAPS, // Tap once for (, hold once for LSFT, tap twice for CAPS
+    TD_RSPC_CAPS, // Tap once for ), hold once for RSFT, tap twice for CAPS
+    TD_ESC_DEL,   // Tap once for KC_ESC, twice for KC_DEL
 };
 
 // Rename tap dances for keymap with shortcuts

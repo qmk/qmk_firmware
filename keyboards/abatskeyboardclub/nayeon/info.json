@@ -16,7 +16,7 @@
         "nkro": false
     },
     "usb": {
-        "vid": "0x4B47",
+        "vid": "0xABA7",
         "pid": "0x0001",
         "device_version": "2.0.0"
     },

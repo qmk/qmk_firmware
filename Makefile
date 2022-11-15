@@ -264,7 +264,7 @@ define PARSE_KEYMAP
     # The rest of the rule is the target
     # Remove the leading ":" from the target, as it acts as a separator
     MAKE_TARGET := $$(patsubst :%,%,$$(RULE))
-    # We need to generate an unique indentifer to append to the COMMANDS list
+    # We need to generate an unique identifier to append to the COMMANDS list
     CURRENT_KB_UNDER := $$(subst /,_,$$(CURRENT_KB))
     COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB_UNDER)_KEYMAP_$$(CURRENT_KM)
     # If we are compiling a keyboard without a subproject, we want to display just the name
