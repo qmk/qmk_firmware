@@ -318,7 +318,7 @@ bool eeconfig_is_user_datablock_valid(void) {
  * FIXME: needs doc
  */
 void eeconfig_read_user_datablock(void *data) {
-    if (eeconfig_is_user_datablock_enabled()) {
+    if (eeconfig_is_user_datablock_valid()) {
         eeprom_read_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
     } else {
         memset(data, 0, (EECONFIG_USER_DATA_SIZE));
