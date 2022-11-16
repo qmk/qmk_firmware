@@ -52,6 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define LED_FN A10
+#define LED_CAPS_LOCK_PIN A10
 
 #define BACKLIGHT_LEVELS 5
