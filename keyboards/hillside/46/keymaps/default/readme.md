@@ -76,7 +76,7 @@ If you are coming from a traditional keyboard,
 This default layout tries to simplify that adjustment by keeping things in the expected spots when possible.
 
 Yet this layout is only a decent compromise and is not optimal for each user.
-The online configurator makes it easy to tweak this layout to your needs.
+The online [configurator](https://config.qmk.fm/#/hillside/46/LAYOUT) makes it easy to tweak this layout to your needs.
 You can add additional layers or completely switch around what these do.
 
 A good metaphor is to think of your keymap as a bonsai tree that you tweak slightly over time

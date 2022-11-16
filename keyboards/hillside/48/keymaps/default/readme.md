@@ -1,8 +1,9 @@
-# Default Keymap
+# Hillside 48 Default Keymap
 
 For easier initial use, this keymap follows the layout of more standard keyboards where possible. It is a starting point for you to tweak over time to suit your preferences better. You can easily customize it with the [QMK configurator](https://config.qmk.fm/#/hillside/48/LAYOUT).
 
 Some of its key features are:
+
 - Numbers and symbols along the top row of their layers for familiarity.
 - Comfortable combination of modifier and function or symbol on the non-base layers
   using modifiers on the home row of the symbol and number/function layers.
@@ -97,20 +98,21 @@ Simultaneously holding down the Sym and Nav/Edit keys enables keys to adjust key
 ## Make it Yours
 
 If you are coming from a traditional keyboard,
-  with a row-staggered layout and a large set of physical keys,
+  with a large set of physical keys,
   learning to use a column staggered (ergo) and layer-based keyboard,
   which uses layers instead of finger reaches to access numbers, symbols and functions,
   will be an adjustment for your muscle memory and your mental keyboard map.
 This default layout tries to simplify that adjustment by keeping things in the expected spots when possible.
 
 Yet this layout is only a decent compromise and is not optimal for each user.
-The online configurator makes it easy to tweak this layout to your needs.
+The online [configurator](https://config.qmk.fm/#/hillside/48/LAYOUT) makes it easy to tweak this layout to your needs.
 You can add additional layers or completely switch around what these do.
 
 A good metaphor is to think of your keymap as a bonsai tree that you tweak slightly over time
   in response to ideas of how it might serve you better.
-
+  
 Some changes you might consider making:
+
 - If you are on a mac, switch the editing keys from ctrl-x to cmd-x.
 - Change the shift keys to one-shot shift keys,
   where pressing and releasing them shifts the next key pressed.
@@ -122,6 +124,7 @@ Some changes you might consider making:
   You would still be able to hold it down instead.
 
 Here are some other keymaps for inspiration and ideas:
+
 - The [Ferris default](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ferris/keymaps/default) uses more advanced features as it has far fewer keys.
 - The [Miryoku](https://github.com/manna-harbour/miryoku/tree/master/docs/reference) keymap ensures that all modifiers are comfortably available with each character key.
 - The [Kyria default](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/default) has different keymap choices and a couple more keys.
@@ -130,12 +133,11 @@ Here are some other keymaps for inspiration and ideas:
 
 ## Why no keymap.c
 
-The online configurator provides a straightforward visual way to work with a simple layout
-  and uses a .json keymap format.
-So this default ```keymap.json``` was created with the online configurator
-  and formatted for easier reading and editing.
+The online configurator provides a straightforward visual way
+   to work with a simple layout and uses a .json keymap format.
+So this default ```keymap.json``` was created with the online configurator.
 
-If you wish, you can edit the ```keymap.json``` directly in a text editor, optionally use the below ```json2hill48.py``` to restore the spacing, and then compile and flash it.
+If you wish, you can edit the ```keymap.json``` directly in a text editor,  compile it and flash it.
 
 Or, you can use the graphical configurator to edit the keymap. To do that:
 
@@ -143,17 +145,21 @@ Or, you can use the graphical configurator to edit the keymap. To do that:
 - Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/hillside/48/keymaps/default/keymap.json```
 - Make the changes you wish to the layout
 - Save the keymap using the green down arrow button.
-- Copy those changes back into your QMK repository and reformat for easy reading using the format script:
-```
-./keyboards/hillside/48/keymaps/json2hill48.py \
-    --input <Your download directory>/default.json \
-    > ./keyboards/hillside/48/keymaps/default/keymap.json
-```
-   You may need to make that script executable with ```chmod +x```. After your keymap is safely copied and formatted, you may want to remove the keymap from your download directory so later downloads will automatically receive the same file name.
+- Move the downloaded keymap back into your QMK repository 
+     at the same location as above.
+- Rename it back to keymap.json
+- Compile and flash the firmware.
 
-After either method of editing, compile and flash the keymap as usual.
-
-You can combine a .json based keymap with more advanced features specified in .c files
-  with a bit more complexity.
+You can combine a .json based keymap with more advanced features
+  specified in .c files with a bit more complexity.
 For example, see
-[pierrec83's Kyria map](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/pierrec83).
+ [pierrec83's Kyria map](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/pierrec83).
+ 
+### Pretty Printing
+ 
+The QMK configurator's .json download has only one key per line,
+so it is hard to visualize the keymap if editing manually.
+If you want, the Hillside git repo has a pretty-printing script for the keymap.json file.
+ 
+As with anything downloaded from the internet, you should take some steps to assure yourself that the script will not harm your computer nor steal your data. The script is short, so reading it should at least convince you it is rearranging and printing the keymap provided, not reading your banking data.
+See the [Hillside wiki](https://github.com/mmccoyd/hillside/wiki) for the script.
