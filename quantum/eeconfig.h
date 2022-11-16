@@ -134,13 +134,17 @@ bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
+bool eeconfig_is_kb_datablock_valid(void);
 void eeconfig_read_kb_datablock(void *data);
 void eeconfig_update_kb_datablock(const void *data);
+void eeconfig_init_kb_datablock(void);
 #endif // (EECONFIG_KB_DATA_SIZE) > 0
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
+bool eeconfig_is_user_datablock_valid(void);
 void eeconfig_read_user_datablock(void *data);
 void eeconfig_update_user_datablock(const void *data);
+void eeconfig_init_user_datablock(void);
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
 
 // Any "checked" debounce variant used requires implementation of:
