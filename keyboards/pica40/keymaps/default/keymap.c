@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_BSLS, KC_7,    KC_8,    KC_9,    KC_0,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_LCTL, KC_COMM, KC_4,    KC_5,    KC_6,    KC_LBRC,             XXXXXXX, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, XXXXXXX,
         KC_DEL,  KC_DOT,  KC_1,    KC_2,    KC_3,    KC_RBRC,             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                      KC_GRV, KC_TRNS, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX
+                                      KC_SPC, KC_TRNS, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [_SYMBOL] = LAYOUT(
@@ -97,6 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        // allow multiple space, backspace, delete
         case SYM_SPC:
         case NAV_BSPC:
         case RALT_DEL:
@@ -107,13 +108,21 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    // different tapping term for different fingers
     switch (keycode) {
+        // pinkies
         case HOME_A:
         case HOME_SCLN:
-            return TAPPING_TERM + 80;
+            return TAPPING_TERM + 70;
+        // ring
         case HOME_S:
         case HOME_L:
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 40;
+        // middle
+        case HOME_D:
+        case HOME_K:
+            return TAPPING_TERM + 20;
+        // index and thumb
         default:
             return TAPPING_TERM;
     }
@@ -132,7 +141,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 const rgblight_segment_t PROGMEM game_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_ORANGE});
 const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_PURPLE});
-const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(game_layer, capslock_layer);
+const rgblight_segment_t PROGMEM capslockword_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_MAGENTA});
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(game_layer, capslock_layer, capslockword_layer);
 
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(1, led_state.caps_lock);
@@ -142,6 +152,10 @@ bool led_update_user(led_t led_state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _GAME));
     return state;
+}
+
+void caps_word_set_user(bool active) {
+    rgblight_set_layer_state(2, active);
 }
 
 void keyboard_post_init_user(void) {
@@ -187,6 +201,7 @@ void render_mods(uint8_t modifiers) {
 }
 
 bool oled_task_user(void) {
+    // display's top is hidden by cover
     oled_write_ln_P(PSTR(" "), false);
     oled_write_ln_P(PSTR(" "), false);
     oled_write_ln_P(PSTR(" "), false);

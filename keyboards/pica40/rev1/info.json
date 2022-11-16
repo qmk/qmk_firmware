@@ -10,7 +10,7 @@
         "bootmagic": false,
         "command": false,
         "console": false,
-        "mousekey": false,
+        "mousekey": true,
         "extrakey": true,
         "encoder": true,
         "oled": true,
