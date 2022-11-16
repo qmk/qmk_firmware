@@ -34,10 +34,10 @@
 /* RGB pin */
 #define RGB_DI_PIN GP23
 /* Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral */
-#define WS2812_PIO_USE_PIO1 
+#define WS2812_PIO_USE_PIO1
 
 /* Number of LEDs */
-#define RGBLED_NUM 14    
+#define RGBLED_NUM 14
 
 /* LCD Configuration */
 #define SPI_DRIVER   SPID0
@@ -68,6 +68,12 @@
 /* Set USB polling rate to 1000 Hz */
 #define USB_POLLING_INTERVAL_MS 1
 
+/* sets the number of milliseconds to pause after sending a wakeup packet.
+*  Disabled by default, you might want to set this to 200 (or higher) if the
+*  keyboard does not wake up properly after suspending.
+*/
+#define USB_SUSPEND_WAKEUP_DELAY 200
+
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -79,7 +85,6 @@
 
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_HUE_STEP  8
 #    define RGBLIGHT_SAT_STEP  8
 #    define RGBLIGHT_VAL_STEP  8
@@ -96,7 +101,7 @@
     #endif
 #endif
 
-/* #define SPLIT_TRANSPORT_MIRROR */
+#define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_WPM_ENABLE
