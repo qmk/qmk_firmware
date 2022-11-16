@@ -38,6 +38,6 @@ CONSOLE_ENABLE = no         				# Console for debug
 COMMAND_ENABLE = yes        				# Commands for debug and configuration
 NKRO_ENABLE = no            				# Enable N-Key Rollover
 AUDIO_ENABLE = no           				# Audio output
-LTO_ENABLE = no            				# link time optimizations
+LTO_ENABLE = no            				    # link time optimizations if enabled it gives me problem at startup (rp2040)
 TAP_DANCE_ENABLE = no
 DEBOUNCE_TYPE = asym_eager_defer_pk

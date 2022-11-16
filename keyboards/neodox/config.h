@@ -107,7 +107,11 @@
 #define SPLIT_WPM_ENABLE
 
 #define SPLIT_WATCHDOG_ENABLE
+
+/*
+was necessary until LTO was disabled in rules.mk
 #define SPLIT_WATCHDOG_TIMEOUT 15000
+*/
 
 
 
