@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     //FN Layer
     [_FL] = LAYOUT_all(
-		KC_TILD, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, RESET, 
+		KC_TILD, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, QK_BOOT, 
 		_______, _______, KC_HOME, KC_UP, KC_END, KC_PGUP, _______, NK_TOGG, KC_PSCR, KC_SLCK, KC_PAUS, _______, BL_STEP, BL_TOGG, 
 		_______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, KC_INS, KC_HOME, KC_PGUP, KC_BSPC, _______, _______, _______, 
 		_______, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_VAD, RGB_VAI, _______, KC_DEL, KC_END, KC_PGDN, _______, _______, _______, _______, 

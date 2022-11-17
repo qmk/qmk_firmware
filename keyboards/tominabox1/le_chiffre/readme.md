@@ -2,7 +2,7 @@
 
 ![Le Chiffre](https://i.imgur.com/X1WsUmdl.png)
 
-Le Chiffre (ironically, "the number" in French is a 30% keyboard designed by tominabox1.  The purpose of the board is to provide a platform for MX and Choc ergo in one package for when ones wrists need a break. The board supports an RGB LED strip with DI on port F0. The board is also fitted with support for run-of-the-mill .91" OLED and EC11 rotary encoder.  
+Le Chiffre (ironically, "the number" in French) is a 30% keyboard designed by tominabox1.  The purpose of the board is to provide a platform for MX and Choc ergo in one package for when ones wrists need a break. The board supports an RGB LED strip with DI on port F0. The board is also fitted with support for run-of-the-mill .91" OLED and EC11 rotary encoder.  
 
 There are 3 PCB revisions: Rev 1 (Original), Rev 2 (P3D version sold with the Le Chiffre Plus), and HE (Hotswap Edition from Checkerboards.xyz).
 

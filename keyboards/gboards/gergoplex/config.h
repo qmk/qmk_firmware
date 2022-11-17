@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F6, F5, F4, F1 }
 #define MATRIX_COL_PINS { B1, B2, B3, D2, D3 }
-#define UNUSED_PINS
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))

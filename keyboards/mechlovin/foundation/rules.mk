@@ -18,4 +18,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes
 AUDIO_ENABLE = no           # Audio output
-ENCODER_MAP_ENABLE = yes

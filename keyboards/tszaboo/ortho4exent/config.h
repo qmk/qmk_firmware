@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B0, B1, D4, D7, B4 }
 /*                         0   1   2   3   4   5   6   7   8   9  10  11  12  13  14*/
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, D6, D5, D3, D2, D1, B7, B3, B2 }
-#define UNUSED_PINS
 #define LED_CAPS_LOCK_PIN E6
 
 /* COL2ROW, ROW2COL*/

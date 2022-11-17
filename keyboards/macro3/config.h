@@ -19,7 +19,6 @@
 #define ENCODERS_PAD_A { D2, F7 }
 #define ENCODERS_PAD_B { D3, F6 }
 
-#define UNUSED_PINS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

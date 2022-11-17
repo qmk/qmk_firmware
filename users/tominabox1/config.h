@@ -3,8 +3,6 @@
 // Tapping term settings
 #define TAPPING_TERM_PER_KEY
 #define TAP_HOLD_CAPS_DELAY 350
-#define BOOTMAGIC_KEY_SALT KC_BSPACE
-#define BOOTMAGIC_KEY_EEPROM_CLEAR KC_Q
 
 // OLED settings
 #define OLED_FONT_H "users/tominabox1/doug.c"

@@ -68,7 +68,7 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
         {"PLAY",    KC_MEDIA_PLAY_PAUSE},
-        {"FLASH",   RESET},   // firmware flash mode
+        {"FLASH",   QK_BOOT},   // firmware flash mode
 };
 
 #define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
@@ -93,7 +93,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
-            selectedkey_rec.keycode == RESET ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle RESET code
+            selectedkey_rec.keycode == QK_BOOT ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle QK_BOOT code
         } else {
             // when keycode is released
         }

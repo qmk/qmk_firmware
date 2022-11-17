@@ -7,8 +7,6 @@
 #define SPLIT_USB_DETECT
 
 // #define RGB_LAYER_ENABLE
-#undef USE_I2C
-#undef SSD1306OLED
 
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD

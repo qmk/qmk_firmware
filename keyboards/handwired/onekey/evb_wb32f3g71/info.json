@@ -1,3 +1,9 @@
 {
-    "keyboard_name": "Onekey WB32F3G71 Eval"
+    "keyboard_name": "Onekey WB32F3G71 Eval",
+    "processor": "WB32F3G71",
+    "bootloader": "wb32-dfu",
+    "matrix_pins": {
+        "cols": ["B12"],
+        "rows": ["B13"]
+    }
 }

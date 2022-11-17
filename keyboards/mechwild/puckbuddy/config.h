@@ -9,14 +9,6 @@
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
 
-#ifdef UF2_BUILD
-#define EXTERNAL_EEPROM_BYTE_COUNT 2048
-#define EXTERNAL_EEPROM_PAGE_SIZE 128
-#define EXTERNAL_EEPROM_ADDRESS_SIZE 1
-#define EXTERNAL_EEPROM_WRITE_TIME 0
-#define FEE_PAGE_BASE_ADDRESS 0x08008000
-#endif
-
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 

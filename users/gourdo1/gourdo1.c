@@ -412,7 +412,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         } else unregister_code16(keycode);
         break;
 
-        // Double Zero    
+        // Double Zero
     case KC_00:
         if (record -> event.pressed) {
             // when keycode KC_00 is pressed

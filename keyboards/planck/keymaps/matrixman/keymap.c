@@ -32,21 +32,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
     // accessed via the left nav-layer key, includes a F10 where the right nav-layer key was
 [_NAV_L] = LAYOUT_planck_grid(
-   KC_TRNS,    KC_F2,    KC_F3,      KC_F4,         KC_F5,    RESET,      BL_STEP,    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10
+   KC_TRNS,    KC_F2,    KC_F3,      KC_F4,         KC_F5,    QK_BOOT,    BL_STEP,    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10
   ,KC_BTN1,  KC_MS_L,    KC_MS_U,    KC_MS_D,       KC_MS_R,  KC_PSCREEN, KC_PAUSE,   KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    KC_F11
   ,KC_BTN2,  KC_BTN4,    KC_MS_WH_UP,KC_MS_WH_DOWN, KC_BTN5,  KC_TRNS,    KC_TRNS,    KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     KC_F12
   ,KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,       KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS
 ),
     // accessed via the right nav-layer key, includes a F1 where the left nav-layer key was
 [_NAV_R] = LAYOUT_planck_grid(
-   KC_F1,    KC_F2,      KC_F3,      KC_F4,         KC_F5,    RESET,      BL_STEP,    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_TRNS
+   KC_F1,    KC_F2,      KC_F3,      KC_F4,         KC_F5,    QK_BOOT,    BL_STEP,    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_TRNS
   ,KC_BTN1,  KC_MS_L,    KC_MS_U,    KC_MS_D,       KC_MS_R,  KC_PSCREEN, KC_PAUSE,   KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    KC_F11
   ,KC_BTN2,  KC_BTN4,    KC_MS_WH_UP,KC_MS_WH_DOWN, KC_BTN5,  KC_TRNS,    KC_TRNS,    KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     KC_F12
   ,KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,       KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS
 ),
     // accessed via the lower alt keys, moves tab and delete to make alt+tab and ctrl+alt+del feel more standard
 [_NAV_ALT] = LAYOUT_planck_grid(
-   KC_F1,    KC_F2,      KC_F3,      KC_F4,         KC_F5,    RESET,      BL_STEP,    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_DELETE
+   KC_F1,    KC_F2,      KC_F3,      KC_F4,         KC_F5,    QK_BOOT,    BL_STEP,    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_DELETE
   ,KC_TAB,   KC_MS_L,    KC_MS_U,    KC_MS_D,       KC_MS_R,  KC_PSCREEN, KC_PAUSE,   KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    KC_F11
   ,KC_BTN2,  KC_BTN4,    KC_MS_WH_UP,KC_MS_WH_DOWN, KC_BTN5,  KC_TRNS,    KC_TRNS,    KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     KC_F12
   ,KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,       KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS

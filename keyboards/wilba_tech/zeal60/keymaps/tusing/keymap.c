@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Layer 2: Zeal60 and backlight configuration. (Get here quickly by pressing Caps+Enter from Layer 1.)
 // This is a persistent layer. Get back to the default layer by pressing enter.
     [2] = {
-        {RESET,   EF_DEC,  EF_INC,  BR_DEC,  BR_INC,  ES_DEC,  ES_INC,  _______, _______, _______, _______, _______, _______, _______},
+        {QK_BOOT, EF_DEC,  EF_INC,  BR_DEC,  BR_INC,  ES_DEC,  ES_INC,  _______, _______, _______, _______, _______, _______, _______},
         {_______, H1_DEC,  H1_INC,  S1_DEC,  S1_INC,  _______, _______, _______, _______, _______, _______, _______, _______, _______},
         {_______, H2_DEC,  H2_INC,  S2_DEC,  S2_INC,  _______, _______, _______, _______, _______, _______, _______, TO(0)  ,   _x_  },
         {RGB_MOD,   _x_  , RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, _______, _______,   _x_  },

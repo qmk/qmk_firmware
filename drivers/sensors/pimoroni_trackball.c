@@ -95,16 +95,3 @@ int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_di
     uint16_t magnitude = (scale * offset * offset * precision) >> 7;
     return isnegative ? -(int16_t)(magnitude) : (int16_t)(magnitude);
 }
-
-void pimoroni_trackball_adapt_values(int8_t* mouse, int16_t* offset) {
-    if (*offset > 127) {
-        *mouse = 127;
-        *offset -= 127;
-    } else if (*offset < -127) {
-        *mouse = -127;
-        *offset += 127;
-    } else {
-        *mouse  = *offset;
-        *offset = 0;
-    }
-}

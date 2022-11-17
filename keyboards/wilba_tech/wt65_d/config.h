@@ -11,7 +11,6 @@
 // Keyboard Matrix Assignments
 #define MATRIX_ROW_PINS { E6, F0, F4, F6, F7 }
 #define MATRIX_COL_PINS { F5, D5, D3, D2, B7, B0, B3, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
 // Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed

@@ -37,8 +37,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { E6, C6, F4, B2, D4 }
 #define MATRIX_COL_PINS { F5, F6, F7, C7, B0, B7, B5, D5, B4, D7, D6, D1, D0, B3 }
 
-//#define QMK_KEYS_PER_SCAN 4
-
 /* Backlight Setup */
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 12

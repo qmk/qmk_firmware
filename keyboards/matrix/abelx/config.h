@@ -78,7 +78,6 @@
 #define COL15_MASK 0x04
 #define COL16_MASK 0x02
 
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE    5

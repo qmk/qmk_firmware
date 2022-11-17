@@ -28,7 +28,6 @@
 #define ENCODERS_PAD_A { F7 }
 #define ENCODERS_PAD_B { F6 }
 #define ENCODER_RESOLUTION 4
-#define UNUSED_PINS
 
 /* RGB Light Configuration */
 
