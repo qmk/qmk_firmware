@@ -1,6 +1,6 @@
 # Piantor
 
-![Piantor](https://i.imgur.com/xIF754Q.jpg)
+![Piantor](https://i.imgur.com/xIF754Qh.jpg)
 
 Piantor is a Cantor fork with Raspberry Pi Pico, hybrid hotswap socket and soldered-in switches support, and a breakable column.
 
