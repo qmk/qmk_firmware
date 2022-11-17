@@ -24,6 +24,7 @@
 #    define secure_get_status() SECURE_UNLOCKED
 #    define secure_request_unlock()
 #    define secure_lock()
+#    define secure_is_unlocked() false
 #endif
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
