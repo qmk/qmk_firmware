@@ -20,8 +20,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0001",
+        "vid": "0x4842"
     },
     "layouts": {
         "LAYOUT_all": {
