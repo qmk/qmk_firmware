@@ -10,7 +10,7 @@ A customizable 75% keyboard.
 Enter the bootloader in 3 ways:
 
 * Bootmagic reset: Hold down the left top key then plug in the USB cable.
-* Physical reset button: Double tap the reset button.
+* Physical reset button: Hold down the reset button then plug in the USB cable.
 * Keycode in layout: Press the key mapped to QK_BOOT if it is available.
 
 ## Making firmware
