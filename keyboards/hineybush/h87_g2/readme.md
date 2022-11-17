@@ -1,12 +1,12 @@
-# hineybush/h87_g2
+# h87_g2
 
-![hineybush/h87_g2](imgur.com image replace me!)
+![h87_g2](imgur.com image replace me!)
 
-Second generation of the h87 PCB. Now running on an STM32F072.
+New generation of the h87 keyboard PCB platform with an STM32 microcontroller.
 
 * Keyboard Maintainer: [Josh Hinnebusch](https://github.com/hineybush)
-* Hardware Supported: h87g2 series
-* Hardware Availability: hiney.cc
+* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -24,4 +24,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
