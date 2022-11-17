@@ -46,10 +46,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: QWERTY
  *
- * Inspiration: 
- *  
+ * Inspiration:
+ *
  * https://github.com/serebrov/qmk_firmware/blob/custom/keyboards/kyria/keymaps/kyria-mini/keymap.c
- * 
+ *
  * Notes:
  * - F & J enables CAPSWORD, disables after 5 seconds
  * - Left thumb CTRL and SHIFT are one shot
@@ -57,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * - ESC can be accessed by NAV and G
  * - BKSP is accessed by NAV and Enter
  * - Tab is accessed by tapping SYM layer
- * - FUN layer is accessed by holding NAV and SYM layers at the same time  
- * 
+ * - FUN layer is accessed by holding NAV and SYM layers at the same time
+ *
  * ,----------------------------------.                       ,----------------------------------.
  * |   Q  |   W  |   E  |   R  |   T  |                       |   Y  |   U  |   I  |   O  |   P  |
  * |------+------+------+------+------|                       |------+------+------+------+------|
@@ -71,19 +71,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                     `---------------------'         `--------------------'
  */
     [_QWERTY] = LAYOUT_split_3x5_3(
-      KC_Q  ,  KC_W  ,  KC_E  ,   KC_R ,   KC_T ,                           KC_Y,  KC_U ,  KC_I ,   KC_O ,   KC_P , 
-      KC_A  ,  KC_S  ,  KC_D  ,   KC_F ,   KC_G ,                           KC_H,  KC_J ,  KC_K ,   KC_L , KC_ENT , 
-      KC_Z  ,  KC_X  ,  KC_C  ,   KC_V ,   KC_B ,                           KC_N, KC_M  ,KC_COMM, KC_DOT , KC_SLSH, 
+      KC_Q  ,  KC_W  ,  KC_E  ,   KC_R ,   KC_T ,                           KC_Y,  KC_U ,  KC_I ,   KC_O ,   KC_P ,
+      KC_A  ,  KC_S  ,  KC_D  ,   KC_F ,   KC_G ,                           KC_H,  KC_J ,  KC_K ,   KC_L , KC_ENT ,
+      KC_Z  ,  KC_X  ,  KC_C  ,   KC_V ,   KC_B ,                           KC_N, KC_M  ,KC_COMM, KC_DOT , KC_SLSH,
                                 OS_CTRL, OS_SHFT, LA_NAV ,       LA_SYM , KC_SPC, OS_GUI
     ),
-    
+
 /*
  * Sym Layer: Numbers and symbols
  *
  * Notes:
  * - Symbols are grouped together and shifted symbols from middle row are on bottom row
  * - Exception is angle brackets
- * 
+ *
  * ,----------------------------------.                       ,----------------------------------.
  * |  1 ! |  2 @ |  3 # |  4 $ |  5 % |                       |  6 ^ |  7 & |  8 * |  9 ( |  0 ) |
  * |------+------+------+------+------|                       |------+------+------+------+------|
@@ -99,25 +99,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                          KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 ,
       KC_GRV , KC_LPRN, KC_RPRN, KC_QUOT, KC_EQL ,                        KC_BSLS, KC_MINS, KC_LBRC, KC_RBRC, KC_SCLN,
       KC_TILD, KC_LABK, KC_RABK, KC_DQUO, KC_PLUS,                        KC_PIPE, KC_UNDS, KC_LCBR, KC_RCBR, KC_COLN,
-                                 _______, _______, _______,      _______, _______, _______ 
+                                 _______, _______, _______,      _______, _______, _______
     ),
 
 /*
- * Nav Layer: Navigation, editing
+ * Nav Layer: Navigation, Media
  *
- * Notes: 
+ * Notes:
  * - Vim style navigation keys
- * - Cut, Copy, Paste on X, C, V
+ * - Volume and Media Keys
  * - BKSP on Enter
  * - DEL on /
  * - Esc on G
- * 
+ *
  * ,----------------------------------.                       ,----------------------------------.
  * |      |      |      |      |      |                       | Home | PgDn | PgUp | End  |PrtScr|
  * |------+------+------+------+------|                       |------+------+------+------+------|
  * |  GUI |  Alt | Ctrl | Shift| Esc  |                       |   ←  |  ↓   |   ↑  |   →  | Bksp |
  * |------+------+------+------+------+                       +------+------+------+------+------|
- * |      | Cut  | Copy | Paste|NumLck|                       |      |      |      |      |Delete|
+ * |      | Vol- | Mute | Vol+ |NumLck|                       | MPrev| MPlay| MStop| MNext|Delete|
  * `-------------+------+------+------+------.         ,------+------+------+------+-------------'
  *                      |      |      |      |         |      |      |      |
  *                      |      |      |      |         |      |      |      |
@@ -126,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NAV] = LAYOUT_split_3x5_3(
        _______, _______, _______, _______, _______,                       KC_HOME, KC_PGDN, KC_PGUP,  KC_END, KC_PSCR,
        OS_GUI , OS_ALT , OS_CTRL, OS_SHFT,  KC_ESC,                       KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_BSPC,
-       _______, C(KC_X), C(KC_C), C(KC_V),  KC_NUM,                       _______, _______, _______, _______, KC_DEL ,
-                                  _______, _______, _______,     _______, _______, _______ 
+       _______, KC_VOLD, KC_MUTE, KC_VOLU,  KC_NUM,                       KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_DEL ,
+                                  _______, _______, _______,     _______, _______, _______
     ),
 
 /*
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|                       |------+------+------+------+------|
  * |  F5  |  F6  |  F7  |  F8  |      |                       |      | Shift| Ctrl |  Alt |  GUI |
  * |------+------+------+------+------+                       +------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |      |                       |      |      |      |      |      |
+ * |  F1  |  F2  |  F3  |  F4  |      |                       |      |      | BriUp| BriDn|      |
  * `-------------+------+------+------+------.         ,------+------+------+------+-------------'
  *                      |      |      |      |         |      |      |      |
  *                      |      |      |      |         |      |      |      |
@@ -147,8 +147,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [FUN] = LAYOUT_split_3x5_3(
        KC_F9 ,  KC_F10,  KC_F11,  KC_F12, _______,                       _______, _______, _______, _______, _______,
        KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                       _______, OS_SHFT, OS_CTRL, OS_ALT , OS_GUI ,
-       KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______,                       _______, _______, _______, _______, _______,
-                                 _______, _______, _______,     _______, _______, _______ 
+       KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______,                       _______, _______, KC_BRIU, KC_BRID, _______,
+                                 _______, _______, _______,     _______, _______, _______
     ),
 
 };
@@ -332,22 +332,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_caps_word(keycode, record)) { return false; }
   // Your macros ...
   update_oneshot(
-      &os_shft_state, KC_LSFT, OS_SHFT, 
+      &os_shft_state, KC_LSFT, OS_SHFT,
       keycode, record
     );
 
   update_oneshot(
-      &os_ctrl_state, KC_LCTL, OS_CTRL, 
+      &os_ctrl_state, KC_LCTL, OS_CTRL,
       keycode, record
     );
 
   update_oneshot(
-      &os_alt_state, KC_LALT, OS_ALT, 
+      &os_alt_state, KC_LALT, OS_ALT,
       keycode, record
     );
 
   update_oneshot(
-      &os_cmd_state, KC_LGUI, OS_GUI, 
+      &os_cmd_state, KC_LGUI, OS_GUI,
       keycode, record
     );
   if (record->event.pressed) {
