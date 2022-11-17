@@ -46,55 +46,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NUM] = LAYOUT(
 /*
  * ,-----------------------------------------.     ,-----------------------------------.
- * |     |     /  1  /  2  /  3  /  :  /  (  /     \  -  \  =  \ Up  \  0  \  .  |Bspc |
+ * |     |     /  1  /  2  /  3  /  :  /  (  /     \  -  \  =  \     \  0  \  .  |Bspc |
  * |-----------------------------------------/     \-----------------------------------|
- * |     |     /  4  /  5  /  6  /  .  /  )  /     \     \Left \Right\     \     |     |
+ * |     |     /  4  /  5  /  6  /  .  /  )  /     \Left \Down \ Up  \Right\     |     |
  * |-----------------------------------------'     \-----------------------------------|
- * |     |     /  7  /  8  /  9  /  0  /           \     \     \Down \     \     |     |
+ * |     |     /  7  /  8  /  9  /  0  /           \     \     \     \     \     |     |
  * `-----------------------------------'           \-----------------------------------|
  *    |     |  /     /     /  -  /  -  /           \     \     \     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_COLON, KC_LPRN,   KC_MINS, KC_EQL,  KC_UP,    KC_0,    KC_DOT,  KC_BSPC,
-        _______, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_DOT,   KC_RPRN,   XXXXXXX, KC_LEFT, KC_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_0,                XXXXXXX, XXXXXXX, KC_DOWN,  XXXXXXX, XXXXXXX, _______,
-        _______,          _______, _______, KC_MINS, KC_MINS,             _______, _______, _______,  _______, XXXXXXX, XXXXXXX
+        _______, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_COLON, KC_LPRN,   KC_MINS, KC_EQL,  XXXXXXX,  KC_0,    KC_DOT,  KC_BSPC,
+        _______, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_DOT,   KC_RPRN,   KC_LEFT, KC_DOWN, KC_UP,    KC_RIGHT,XXXXXXX, XXXXXXX,
+        _______, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_0,                XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
+        _______,          _______, _______, KC_MINS, KC_MINS,             _______, _______, _______,  XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [SYM] = LAYOUT(
 /*
  * ,-----------------------------------------.     ,-----------------------------------.
- * |     |     /  !  /  @  /  #  /     /  (  /     \  _  \  +  \PgUp \     \     |Bspc |
+ * |     |     /  !  /  @  /  #  /     /  (  /     \  _  \  +  \     \     \     |Bspc |
  * |-----------------------------------------/     \-----------------------------------|
- * |     |     /  $  /  %  /  ^  /     /  )  /     \     \Home \ End \     \     |     |
+ * |     |     /  $  /  %  /  ^  /     /  )  /     \Home \PgDn \PgUp \ End \     |     |
  * |-----------------------------------------'     \-----------------------------------|
- * |     |     /  &  /  *  /  (  /  )  /           \     \     \PgDn \     \     |     |
+ * |     |     /  &  /  *  /  (  /  )  /           \     \     \     \     \     |     |
  * `-----------------------------------'           \-----------------------------------|
  *    |     |  /     /     /     /     /           \  -  \  -  \     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, XXXXXXX, S(KC_1), S(KC_2), S(KC_3), XXXXXXX, KC_LPRN,   S(KC_MINS), S(KC_EQL), KC_PGUP, XXXXXXX, XXXXXXX, KC_BSPC,
-        _______, XXXXXXX, S(KC_4), S(KC_5), S(KC_6), XXXXXXX, KC_RPRN,   XXXXXXX,    KC_HOME,   KC_END,  XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, XXXXXXX, S(KC_7), S(KC_8), S(KC_9), S(KC_0),            XXXXXXX,    XXXXXXX,   KC_PGDN, XXXXXXX, XXXXXXX, _______,
-        _______,          _______, _______, _______, _______,            KC_MINS,    KC_MINS,   _______, _______, XXXXXXX, XXXXXXX
+        _______, XXXXXXX, S(KC_1), S(KC_2), S(KC_3), XXXXXXX, KC_LPRN,   S(KC_MINS), S(KC_EQL), XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
+        _______, XXXXXXX, S(KC_4), S(KC_5), S(KC_6), XXXXXXX, KC_RPRN,   KC_HOME,    KC_PGDN,   KC_PGUP, KC_END,  XXXXXXX, XXXXXXX,
+        _______, XXXXXXX, S(KC_7), S(KC_8), S(KC_9), S(KC_0),            XXXXXXX,    XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______,          _______, _______, _______, _______,            KC_MINS,    KC_MINS,   _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [FUNC] = LAYOUT(
 /*
  * ,-----------------------------------------.     ,-----------------------------------.
- * |     |     / F1  / F2  / F3  /     /MPrev/     \     \     \VolUp\     \MPlay| Del |
+ * |     |     / F1  / F2  / F3  /     /MPrev/     \     \     \     \     \MPlay| Del |
  * |-----------------------------------------/     \-----------------------------------|
- * |CapsL|LEDEn/ F4  / F5  / F6  /     /MNext/     \     \VMute\VMute\     \     |     |
+ * |CapsL|LEDEn/ F4  / F5  / F6  /     /MNext/     \     \VolDn\VolUp\     \     |     |
  * |-----------------------------------------'     \-----------------------------------|
- * |     |     / F7  / F8  / F9  /     /           \     \     \VolDn\     \     |     |
+ * |     |     / F7  / F8  / F9  /     /           \     \     \VMute\     \     |     |
  * `-----------------------------------'           \-----------------------------------|
  *    |Bootl|  / F10 / F11 / F12 /MPlay/           \MPlay\     \     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   XXXXXXX, KC_MPRV,   XXXXXXX, XXXXXXX, KC_VOLU, XXXXXXX, KC_MPLY, KC_DEL,
-        KC_CAPS, LED_EN,  KC_F4,   KC_F5,   KC_F6,   XXXXXXX, KC_MNXT,   XXXXXXX, KC_MUTE, KC_MUTE, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   XXXXXXX,            XXXXXXX, XXXXXXX, KC_VOLD, XXXXXXX, XXXXXXX, _______,
-        QK_BOOT,          KC_F10,  KC_F11,  KC_F12,  KC_MPLY,            KC_MPLY, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX
+        _______, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   XXXXXXX, KC_MPRV,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPLY, KC_DEL,
+        KC_CAPS, LED_EN,  KC_F4,   KC_F5,   KC_F6,   XXXXXXX, KC_MNXT,   XXXXXXX, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   XXXXXXX,            XXXXXXX, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX, _______,
+        QK_BOOT,          KC_F10,  KC_F11,  KC_F12,  KC_MPLY,            KC_MPLY, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 };
 
