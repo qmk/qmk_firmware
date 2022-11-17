@@ -29,6 +29,7 @@
 #    define XAP_SUBSYSTEM_VERSION_USER 0
 #endif
 
+void xap_respond_success(xap_token_t token);
 void xap_respond_failure(xap_token_t token, xap_response_flags_t response_flags);
 bool xap_respond_u32(xap_token_t token, uint32_t value);
 bool xap_respond_data(xap_token_t token, const void *data, size_t length);
