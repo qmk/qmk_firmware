@@ -45,19 +45,21 @@ enum layers {
 // Tap dance declarations
 enum {
     TD_PAST_PSLS,
-    TD_PMNS_PPLS,
     TD_PASTE_COPY
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_PAST_PSLS]  = ACTION_TAP_DANCE_DOUBLE(KC_PAST,    KC_PSLS),
-    [TD_PMNS_PPLS]  = ACTION_TAP_DANCE_DOUBLE(KC_PMNS,    KC_PPLS),
     [TD_PASTE_COPY] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_V), LCTL(KC_C))
 };
 
 // Custom shift implementation
 const custom_shift_key_t custom_shift_keys[] = {
-    {LT(NUMPAD, KC_LNG1), KC_LNG2},
+    {KC_LNG1, KC_LNG2},
+    {KC_LT, KC_COMM},
+    {KC_GT, KC_DOT},
+    {KC_LCBR, KC_LBRC},
+    {KC_RCBR, KC_RBRC}
 };
 
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
@@ -80,50 +82,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  ESC |KOR/HN|  Win |  Alt |LEFTFN|    Space    |RFN/- |   =  |Delete|   \  | Enter|
+ * |  Esc |KOR/HN|  Win |  Alt |LEFTFN|    Space    |RFN/- |   =  |Delete|   \  | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_ALPHA] = LAYOUT_planck_mit(
-    KC_TAB,  KC_Q,                KC_W,    KC_E,    KC_R,   KC_T, KC_Y, KC_U, KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_LCTL, KC_A,                KC_S,    KC_D,    KC_F,   KC_G, KC_H, KC_J, KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,                KC_X,    KC_C,    KC_V,   KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    KC_ESC,  LT(NUMPAD, KC_LNG1), KC_LGUI, KC_LALT, LEFTFN,   KC_SPC,         LT(RIGHTFN, KC_MINS), KC_EQL,  KC_DEL,  KC_BSLS, KC_PENT
+    KC_TAB,              KC_Q,    KC_W,    KC_E,    KC_R,   KC_T, KC_Y, KC_U,                 KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_LCTL,             KC_A,    KC_S,    KC_D,    KC_F,   KC_G, KC_H, KC_J,                 KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_LSFT,             KC_Z,    KC_X,    KC_C,    KC_V,   KC_B, KC_N, KC_M,                 KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+    LT(NUMPAD, KC_ESC),  KC_LNG1, KC_LGUI, KC_LALT, LEFTFN,   KC_SPC,   LT(RIGHTFN, KC_MINS), KC_EQL,  KC_DEL,  KC_BSLS, KC_PENT
 ),
 
 /* LEFTFN
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Left | Down | Up   |Right |Ctrl+/|PrntSc|   [  |   ]  |   )  |   :  |  "   |
+ * | Ctrl | Left | Down | Up   |Right |Ctrl+/|PrntSc|   {  |   }  |   )  |   :  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   [  |  ]   | Home | End  | PGUP | PGDN |   (  |   ,  |   .  |   /  |Return|
+ * | Shift|   [  |  ]   | Home | End  | PGUP | PGDN |   (  |   <  |   >  |   /  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  RGB | Caps | Ins  | Alt  | Trns |    Space    |   _  |   +  |Delete|   |  | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_LEFTFN] = LAYOUT_planck_mit(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_PSCR, KC_LBRC, KC_RBRC, KC_RPRN, KC_COLN, KC_DQUO,
-    KC_LSFT, KC_LBRC, KC_RBRC, KC_HOME, KC_END,   KC_PGUP,       KC_PGDN, KC_LPRN, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+    KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_PSCR, KC_LCBR, KC_RCBR, KC_RPRN, KC_COLN, KC_DQUO,
+    KC_LSFT, KC_LBRC, KC_RBRC, KC_HOME, KC_END,   KC_PGUP,       KC_PGDN, KC_LPRN, KC_LT,   KC_GT,   KC_SLSH, KC_ENT,
     RGB,     KC_CAPS, KC_INS,  KC_LALT, KC_TRNS,        KC_SPC,           KC_UNDS, KC_PLUS, KC_DEL,  KC_PIPE, KC_PENT
 ),
 
 /* NUMPAD
  * ,-----------------------------------------------------------------------------------.
- * |      | NumLk|   7  |   8  |   9  | *or/ |      |      |      |      |      | Bksp |
+ * | *or/ |   7  |   8  |   9  | NumLk|      |      |      |      |      |      | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  Alt |   4  |   5  |   6  |Return|      |      |      |      | Shift|      |
+ * |  Alt |   4  |   5  |   6  |Return|      |      |      |      |      | Shift|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | -or+ |   1  |   2  |   3  | Bksp |      |      |   ,  |   .  | Ctrl |Return|
+ * |   -  |   1  |   2  |   3  | Bksp |      |      |      |   ,  |   .  | Ctrl |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Trns |   ,  |   .  |   0  |     Space   | MOBA | FPS1 | FPS2 | STRAT|ARROWS|
+ * | Trns |   ,  |   +  |   .  |   0  |    Space    | MOBA | FPS1 | FPS2 | STRAT|ARROWS|
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_mit(
-    KC_NO, KC_NUM,           KC_P7,   KC_P8,   KC_P9, TD(TD_PAST_PSLS), KC_NO, KC_NO, KC_NO,   KC_NO,  KC_NO,   KC_BSPC,
-    KC_NO, KC_LALT,          KC_P4,   KC_P5,   KC_P6, KC_ENT,           KC_NO, KC_NO, KC_NO,   KC_NO,  KC_LSFT, KC_NO,
-    KC_NO, TD(TD_PMNS_PPLS), KC_P1,   KC_P2,   KC_P3, KC_BSPC,          KC_NO, KC_NO, KC_COMM, KC_DOT, KC_LCTL, KC_ENT,
-    KC_NO, KC_TRNS,          KC_COMM, KC_PDOT, KC_P0,           KC_SPC,        MOBA,  FPS1,    FPS2,   STRAT,   ARROWS
+    TD(TD_PAST_PSLS), KC_P7,   KC_P8,   KC_P9,   KC_NUM,  KC_NO,     KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_NO,     KC_BSPC,
+    KC_LALT,          KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_NO,     KC_NO, KC_NO,  KC_NO,   KC_NO,     KC_LSFT,   KC_NO,
+    KC_PMNS,          KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_NO,     KC_NO, KC_NO,  KC_COMM, KC_DOT,    KC_LCTL,   KC_ENT,
+    KC_TRNS,          KC_COMM, KC_PPLS, KC_PDOT, KC_P0,       KC_SPC,       MOBA, FPS1,    FPS2, STRAT, ARROWS
 ),
 
 /* RIGHTFN
@@ -307,7 +309,7 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(43, green[0],  green[1],  green[2]);
             break;
         case _FPS2:
-            rgb_matrix_set_color(44, yellow[0], yellow[1], yellow[2]);
+            rgb_matrix_set_color(44, green[0],  green[1],  green[2]);
             break;
         case _STRAT:
             rgb_matrix_set_color(45, green[0],  green[1],  green[2]);
@@ -326,7 +328,7 @@ void rgb_matrix_indicators_user(void) {
     led_t led_state = host_keyboard_led_state();
     //Capslock led
     if (led_state.caps_lock) {
-        rgb_matrix_set_color(12, green[0], green[1], green[2]);
+        rgb_matrix_set_color(0,  green[0], green[1], green[2]);
     }
     //Numlock led
     if (led_state.num_lock) {

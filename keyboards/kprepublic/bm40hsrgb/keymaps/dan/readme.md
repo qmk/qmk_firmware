@@ -11,7 +11,7 @@
 <br />
 
 ### BM40 LED INDEX
-**_Numlock (11) Capslock (12) Scroll lock (23)_**
+**_Numlock ( 11 ) Capslock ( 0 or 12 ) Scroll lock ( 23 )_**
 
 |         |  _A_ |  _B_ |  _C_ |  _D_ |  _E_ |  _F_ |  _G_ |  _H_ |  _I_ |  _J_ |  _K_ |  _L_ |
 |---------|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -40,7 +40,7 @@
 | **_1_** | TAB |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  | BSP |
 | **_2_** | CTL |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |
 | **_3_** | SFT |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | RET |
-| **_4_** | &nbsp;ESC | KOR | WIN | &nbsp;&nbsp;ALT | &nbsp;&nbsp;&nbsp;FN | &nbsp;SPC | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- | &nbsp;&nbsp;&nbsp;&nbsp;= | DEL | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\ | ENT |
+| **_4_** | &nbsp;Esc | KOR | WIN | &nbsp;&nbsp;ALT | &nbsp;&nbsp;&nbsp;FN | &nbsp;SPC | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- | &nbsp;&nbsp;&nbsp;&nbsp;= | DEL | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\ | ENT |
 >This is a base layer for typing.
 
 <br />
@@ -69,16 +69,15 @@
 
 <br />
 
-### NUMPAD LNG1
+### NUMPAD MO(Esc)
 
 |         | _A_ | _B_ | _C_ | _D_ | _E_ | _F_ | _G_ | _H_ | _I_ | _J_ | _K_ | _L_ |
 |---------|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|
-| **_1_** |     | NUM |  7  |  8  |  9  | *or/|     |     |     |     |     | BSP |
-| **_2_** |     | ALT |  4  |  5  |  6  | RET |     |     |     |     | SFT |     |
-| **_3_** |     | -or+|  1  |  2  |  3  | BSP |     |     |  ,  |  .  | CTL | RET |
-| **_4_** |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| TRN |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;. | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 | &nbsp;SPC |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;LY1 | &nbsp;&nbsp;LY2 | &nbsp;LY3 | &nbsp;LY4 | &nbsp;LY5 |
+| **_1_** | *or/|  7  |  8  |  9  | NUM |     |     |     |     |     |     | BSP |
+| **_2_** | ALT |  4  |  5  |  6  | RET |     |     |     |     |     |     |     |
+| **_3_** |  -  |  1  |  2  |  3  | BSP |     |     |     |     |     |     | RET |
+| **_4_** | TRN | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;, | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;. | &nbsp;&nbsp;&nbsp;0 | SPC | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;LY1 | &nbsp;LY2 | &nbsp;LY3 | &nbsp;LY4 | &nbsp;LY5 |
 >This layer is the numpad.
-
 <br />
 
 There are other dedicated layers for gaming that are not included here.  
@@ -86,7 +85,7 @@ If you are interested, check out keymap.c!
 
 <br />
 
-## BUILD EXAMPLES
+## PHOTOS
 
 ![](https://imgur.com/ABblRwp.jpg)
 > * Case: SM Keyboards Planck/Niu Mini Acrylic Case
