@@ -119,19 +119,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //     [3] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
 // };
 // #endif
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 2) {
-        if (clockwise) {
-            tap_code(KC_UP);
-        } else {
-            tap_code(KC_DOWN);
-        }
-    }
-    return false;
-}
+
+#if defined(ENCODER_MAP_ENABLE)
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+        /* Left Hand */                                                     /* Right Hand */
+        /* Switch between tabs. (Control + Tab). */                         /* Switch between open apps on Mac. (Command + Tab + timer logic) */
+        [_QWERTY] = {
+                        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+                        ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_UP, KC_DOWN)
+                    },
+        /* Scrolls left & right. (Shift + Mouse Wheel Up). */               /* Scrolls up and down. (Page Down & Page Up - mouse wheel scroll incraments are too small) */
+        [_LOWER] =  {
+                        ENCODER_CCW_CW(RGB_HUI, RGB_HUD),ENCODER_CCW_CW(RGB_HUI, RGB_HUD),
+                        ENCODER_CCW_CW(KC_LEFT, KC_RIGHT), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)
+                    },
+        /* Selects adjacent words. (Command + Shift + Right Arrow). */      /* Jumps to end/start of line. Hold shift to select. (Gui + arrow). */
+        [_RAISE] =  {
+                        ENCODER_CCW_CW(RGB_SAI, RGB_SAD),ENCODER_CCW_CW(RGB_SAI, RGB_SAD),
+                        ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_PGUP, KC_PGDN)
+                    },
+        /* Scroll through RGB Modes */                                      /* Right & left arrow */
+        [_ADJUST] = {
+                        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+                        ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_UP, KC_DOWN)
+                    },
+    };
+#endif
+
+// bool encoder_update_user(uint8_t index, bool clockwise) {
+//      if (index == 0) {
+//         // Base layer (you can also use the enums in `enum layer_names` instead of 0, 1, 2, etc.)
+//         if (layer_state_is(0)) {
+//             if (clockwise) {
+//                 tap_code(KC_VOLU);
+//             } else {
+//                 tap_code(KC_VOLD);
+//             }
+//         // } else if (layer_state_is(_LOWER)) {
+//         //     if (clockwise) {
+//         //         tap_code(KC_MPRV);
+//         //     } else {
+//         //         tap_code(KC_MNXT);
+//         //     }
+//         // } else if  (layer_state_is(_RAISE)) {
+//         //     if (clockwise) {
+//         //         tap_code(KC_MPRV);
+//         //     } else {
+//         //         tap_code(KC_MNXT);
+//         // }
+//     }
+//     else if (index == 2) {
+//         if (layer_state_is(0)) {
+//             if (clockwise) {
+//                 tap_code(KC_UP);
+//             } else {
+//                 tap_code(KC_DOWN);
+//             }
+//         } else if (layer_state_is(1)) {
+//             if (clockwise) {
+//                 tap_code(KC_LEFT);
+//             } else {
+//                 tap_code(KC_RIGHT);
+//             }
+//         } //else if  (layer_state_is(_RAISE)) {
+//         //     if (clockwise) {
+//         //         tap_code(KC_MPRV);
+//         //     } else {
+//         //         tap_code(KC_MNXT);
+//         //     }
+//         // }
+//     }
+//     return false;
+// }
