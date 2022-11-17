@@ -40,6 +40,7 @@
 #define _GAMING 8
 
 #define MICMUTE LALT(KC_M)
+#define LOW_OSS LT(_LOWER, KC_F24)
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
 #define MTLCTL_F5 MT(MOD_LCTL, KC_F5)
@@ -55,7 +56,7 @@
 #define MTRCTLQUO MT(MOD_RCTL, KC_QUOT)
 #define MTTAB MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_TAB)
 #define MTESC MT(MOD_LCTL | MOD_LGUI | MOD_LALT | MOD_LSHFT, KC_ESC)
-#define LWR_DEL LT(_RAISE, KC_DEL)
+#define RSE_DEL LT(_RAISE, KC_DEL)
 #define FN_A LT(_FN, KC_A)
 #define FN_R LT(_FN, KC_R)
 #define MTPLAY MT(MOD_RALT, KC_MPLY)
@@ -152,10 +153,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
-    MTESC,   KC_Q,     KC_W,     KC_E,    KC_R,               KC_T,   KC_Y,   KC_U,     KC_I,      KC_O,   KC_P,    KC_BSPC,
-    MTTAB,   FN_A,     KC_S,     KC_D,    KC_F,               KC_G,   KC_H,   KC_J,     KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,               KC_B,   KC_N,   KC_M,     KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F24), KC_SPC, KC_SPC, RSE_DEL,  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    MTESC,   KC_Q,     KC_W,     KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,     KC_I,      KC_O,   KC_P,    KC_BSPC,
+    MTTAB,   FN_A,     KC_S,     KC_D,    KC_F,    KC_G,   KC_H,   KC_J,     KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,    KC_B,   KC_N,   KC_M,     KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LOW_OSS, KC_SPC, KC_SPC, RSE_DEL,  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
   ),
 
  /* MIT Layout (HANDSDOWNNEU Modded)
@@ -171,10 +172,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_HANDSDOWN] = LAYOUT_planck_grid( /* HANDS DOWN GOLD */
-    MTESC,   KC_W,     KC_F,     KC_M,    KC_P,               KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
-    MTTAB,   FN_R,     KC_S,     KC_N,    KC_T,               KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,               KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F24), KC_SPC, KC_SPC,   RSE_DEL,  MTLALT_PL, KC_NO,    KC_NO,   KC_NO
+    MTESC,   KC_W,     KC_F,     KC_M,    KC_P,    KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
+    MTTAB,   FN_R,     KC_S,     KC_N,    KC_T,    KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,    KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LOW_OSS, KC_SPC, KC_SPC,   RSE_DEL,  MTLALT_PL, KC_NO,    KC_NO,   KC_NO
  ),
 
  /* MIT Layout (COLEMAK-DH)
@@ -190,10 +191,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
-    MTESC,   KC_Q,     KC_W,     KC_F,    KC_P,               KC_B,   KC_J,   KC_L,    KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
-    MTTAB,   FN_A,     KC_R,     KC_S,    KC_T,               KC_G,   KC_M,   KC_N,    KC_E,      KC_I,   KC_O,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,               KC_V,   KC_K,   KC_H,    KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F24), KC_SPC, KC_SPC, RSE_DEL, MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    MTESC,   KC_Q,     KC_W,     KC_F,    KC_P,    KC_B,   KC_J,   KC_L,    KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
+    MTTAB,   FN_A,     KC_R,     KC_S,    KC_T,    KC_G,   KC_M,   KC_N,    KC_E,      KC_I,   KC_O,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,    KC_V,   KC_K,   KC_H,    KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LOW_OSS, KC_SPC, KC_SPC, RSE_DEL, MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
 /* MIT Layout (RAISE)
@@ -404,33 +405,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case BRACES:  // Types (), or {}, and puts cursor between braces.
-      if (record->event.pressed) {
-        clear_mods();  // Temporarily disable mods.
-        clear_oneshot_mods();
-        if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          SEND_STRING("<>");
-        } else {
-          SEND_STRING("()");
+        if (record->event.pressed) {
+            clear_mods();  // Temporarily disable mods.
+            clear_oneshot_mods();
+            if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+            SEND_STRING("()");
+            } else {
+            SEND_STRING("<>");
+            }
+            tap_code(KC_LEFT);  // Move cursor between braces.
+            set_mods(mods);  // Restore mods.
         }
-        tap_code(KC_LEFT);  // Move cursor between braces.
-        set_mods(mods);  // Restore mods.
-      }
-      return false;
-      break;
-    case BRACES2:  // Types [], or <>, and puts cursor between braces.
-      if (record->event.pressed) {
-        clear_mods();  // Temporarily disable mods.
-        clear_oneshot_mods();
-        if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          SEND_STRING("{}");
-        } else {
-          SEND_STRING("[]");
+        return false;
+        break;
+      case BRACES2:  // Types [], or <>, and puts cursor between braces.
+        if (record->event.pressed) {
+            clear_mods();  // Temporarily disable mods.
+            clear_oneshot_mods();
+            if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+            SEND_STRING("{}");
+            } else {
+            SEND_STRING("[]");
+            }
+            tap_code(KC_LEFT);  // Move cursor between braces.
+            set_mods(mods);  // Restore mods.
         }
-        tap_code(KC_LEFT);  // Move cursor between braces.
-        set_mods(mods);  // Restore mods.
-      }
-      return false;
-      break;
+        return false;
+        break;
     case ARROW:  // Arrow macro, types -> or =>.
       if (record->event.pressed) {
         if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {  // Is shift held?
@@ -468,6 +469,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
       }
       break;
+    case SELWLEFT:
+        if (record->event.pressed){
+          tap_code16(LCTL(LSFT(KC_LEFT)));
+        }
+        break;
+        case SELWRIGHT:
+        if (record->event.pressed){
+          tap_code16(LCTL(LSFT(KC_RGHT)));
+        }
+        break;
   }
   return true;
 };

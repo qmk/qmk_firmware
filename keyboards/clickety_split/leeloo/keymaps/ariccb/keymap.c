@@ -411,7 +411,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-      case CTRL_TAB:  // Types [], or <>, and puts cursor between braces.
+      case CTRL_TAB:
         if (record->event.pressed) {
           ctrl_tabtimer = timer_read_fast();
           if(!ctrl_tabbing) {
@@ -438,7 +438,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
         case SELWRIGHT:
         if (record->event.pressed){
-          tap_code16(LCTL(LSFT(KC_RGHT)));
           tap_code16(LCTL(LSFT(KC_RGHT)));
         }
         break;
