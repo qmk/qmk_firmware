@@ -78,19 +78,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [FUNC] = LAYOUT(
 /*
  * ,-----------------------------------------.     ,-----------------------------------.
- * |     |     / F1  / F2  / F3  /     /     /     \     \     \VolUp\     \     | Del |
+ * |     |     / F1  / F2  / F3  /     /MPrev/     \     \     \VolUp\     \MPlay| Del |
  * |-----------------------------------------/     \-----------------------------------|
- * |CapsL|LEDEn/ F4  / F5  / F6  /     /     /     \     \MPrev\MNext\     \     |     |
+ * |CapsL|LEDEn/ F4  / F5  / F6  /     /MNext/     \     \VMute\VMute\     \     |     |
  * |-----------------------------------------'     \-----------------------------------|
- * |     |     / F7  / F8  / F9  /     /           \     \VMute\VolDn\     \     |     |
+ * |     |     / F7  / F8  / F9  /     /           \     \     \VolDn\     \     |     |
  * `-----------------------------------'           \-----------------------------------|
- *    |Bootl|  / F10 / F11 / F12 /MPlay/           \MPlay\MPlay\     \     \     |     |
+ *    |Bootl|  / F10 / F11 / F12 /MPlay/           \MPlay\     \     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, KC_VOLU, XXXXXXX, XXXXXXX, KC_DEL,
-        KC_CAPS, LED_EN,  KC_F4,   KC_F5,   KC_F6,   XXXXXXX, XXXXXXX,   XXXXXXX, KC_MPRV, KC_MNXT, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   XXXXXXX,            XXXXXXX, KC_MUTE, KC_VOLD, XXXXXXX, XXXXXXX, _______,
-        QK_BOOT,          KC_F10,  KC_F11,  KC_F12,  KC_MPLY,            KC_MPLY, KC_MPLY, _______, _______, XXXXXXX, XXXXXXX
+        _______, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   XXXXXXX, KC_MPRV,   XXXXXXX, XXXXXXX, KC_VOLU, XXXXXXX, KC_MPLY, KC_DEL,
+        KC_CAPS, LED_EN,  KC_F4,   KC_F5,   KC_F6,   XXXXXXX, KC_MNXT,   XXXXXXX, KC_MUTE, KC_MUTE, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   XXXXXXX,            XXXXXXX, XXXXXXX, KC_VOLD, XXXXXXX, XXXXXXX, _______,
+        QK_BOOT,          KC_F10,  KC_F11,  KC_F12,  KC_MPLY,            KC_MPLY, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX
     ),
 };
 
