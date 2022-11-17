@@ -73,8 +73,8 @@ void matrix_init(void) {
   PORTC |= _BV(7);
 
   i2c_init();
-  i2c_set_keyscan_interval(LEFT, 2);
-  i2c_set_keyscan_interval(RIGHT, 2);
+  i2c_set_keyscan_interval(LEFT, DEBOUNCE);
+  i2c_set_keyscan_interval(RIGHT, DEBOUNCE);
   memset(rows, 0, sizeof(rows));
 
   matrix_init_quantum();

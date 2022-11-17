@@ -23,8 +23,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
 
-/* The scanners already debounce for us */
-#define DEBOUNCE 0
+/*
+ * The scanners debounce for us
+ * but they can still be pretty bouncy, so make it configurable.
+ * NOTE: This does NOT use QMK's debounce algorithms.
+ * This only sets the i2c scanning interval...
+ * ... which is a primitive but mostly effective form of debouncing.
+ */
+#ifndef DEBOUNCE
+#define DEBOUNCE 2
+#endif
 
 /* RGB matrix constants */
 #define RGB_MATRIX_LED_COUNT 64
