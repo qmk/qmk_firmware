@@ -88,7 +88,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, K_4,  J_4,  L_4 },
     { 0, K_3,  J_3,  L_3 },
     { 0, K_2,  J_2,  L_2 },
-    { 0, K_1,  J_1,  L_1 },    
+    { 0, K_1,  J_1,  L_1 },
     { 0, K_6,  J_6,  L_6 },
     { 0, K_5,  J_5,  L_5 },
 };
