@@ -18,6 +18,10 @@ enum custom_keycodes { LED_EN = SAFE_RANGE };
 #define LTN_SPC LT(NUM, KC_SPC)
 #define LTF_TAB LT(FUNC, KC_TAB)
 
+#define SH_SLSH LT(0, KC_SLSH)
+#define SH_BSLS LT(0, KC_BSLS)
+#define SH_GRV  LT(0, KC_GRV)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -30,13 +34,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------'     \-----------------------------------|
  * |LShft|  Z  /  X  /  C  /  V  /  B  /           \  B  \  N  \  M  \  ,  \  .  |ShEnt|
  * `-----------------------------------'           \-----------------------------------|
- *    |LCtrl|  /LGUI /LAlt /SpLSy/SpLSy/           \SpLNu\SpLNu\RAlt \  /  \  \  |  `  |
+ *    |LCtrl|  /LGUI /LAlt /SpLSy/SpLSy/           \SpLNu\SpLNu\RAlt \  /? \  \| |  `~ |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
         LTF_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_RBRC,   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,               KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SFTENT,
-        KC_LCTL,          KC_LGUI, KC_LALT, LTS_SPC, LTS_SPC,            LTN_SPC, LTN_SPC, KC_RALT, KC_SLSH, KC_BSLS, KC_GRV
+        KC_LCTL,          KC_LGUI, KC_LALT, LTS_SPC, LTS_SPC,            LTN_SPC, LTN_SPC, KC_RALT, SH_SLSH, SH_BSLS, SH_GRV
     ),
 
     [NUM] = LAYOUT(
@@ -94,6 +98,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+// Force hold on the tap-hold keys was not helpful, so commented out for now.
+// TAPPING_FORCE_HOLD_PER_KEY seems to be enabled by default for the Lain.
+/*
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SH_SLSH:
+        case SH_BSLS:
+        case SH_GRV:
+            return true;
+        default:
+            return false;
+    }
+}
+*/
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LED_EN:
@@ -101,6 +120,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 lain_enable_leds_toggle();
             }
             return false;
+
+	// Return shifted version of some awkwardly-positioned keys
+	// in the bottom-right corner, when held down,
+	// to make them easier to use. Based on examples from:
+	// <https://github.com/qmk/qmk_firmware/blob/master/docs/mod_tap.md#changing-hold-function>
+        case SH_SLSH:
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(S(KC_SLSH));
+                return false;
+            }
+	    break; // Fall through to regular processing.
+
+        case SH_BSLS:
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(S(KC_BSLS));
+                return false;
+            }
+	    break; // Fall through to regular processing.
+
+        case SH_GRV:
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(S(KC_GRV));
+                return false;
+            }
+	    break; // Fall through to regular processing.
+
         default:
             break;
     }
