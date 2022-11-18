@@ -175,6 +175,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.        
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
+
 void tap_dance_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
