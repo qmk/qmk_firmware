@@ -1,4 +1,5 @@
 CONVERT_TO = stemcell
+STMC_US = yes
 
 # Build Options
 #   change yes to no to disable
