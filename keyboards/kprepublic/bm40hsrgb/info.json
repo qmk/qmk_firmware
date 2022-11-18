@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "BM40 Hotswap RGB",
-    "manufacturer": "KPRepublic",
+    "keyboard_name": "bm40hsrgb",
+    "manufacturer": "kprepublic",
     "url": "",
     "maintainer": "qmk",
     "usb": {
