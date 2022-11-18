@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_DEBUG (uint8_t *)2
 #define EECONFIG_DEFAULT_LAYER (uint8_t *)3
 #define EECONFIG_KEYMAP (uint16_t *)4
-#define EECONFIG_MOUSEKEY_ACCEL (uint8_t *)5
 #define EECONFIG_BACKLIGHT (uint8_t *)6
 #define EECONFIG_AUDIO (uint8_t *)7
 #define EECONFIG_RGBLIGHT (uint32_t *)8
