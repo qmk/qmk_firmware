@@ -143,8 +143,6 @@ def generate_api(cli):
 
     # Feature specific handling
     _resolve_keycode_specs(v1_dir)
-
-    # Feature specific handling
     _resolve_xap_specs(v1_dir / 'xap')
 
     # Write the global JSON files
