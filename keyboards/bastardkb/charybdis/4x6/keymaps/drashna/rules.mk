@@ -19,8 +19,13 @@ endif
 ifeq ($(strip $(KEYBOARD)), bastardkb/charybdis/4x6/v2/splinky)
     OVERLOAD_FEATURES = yes
 endif
-ifeq ($(strip $(KEYBOARD)), bastardkb/charybdis/4x6/blackpill)
-    OVERLOAD_FEATURES = yes
+ifeq ($(strip $(KEYBOARD)), bastardkb/charybdis/4x6/v1/elitec)
+    CUSTOM_UNICODE_ENABLE = no
+    CUSTOM_POINTING_DEVICE = no
+    CUSTOM_SPLIT_TRANSPORT_SYNC = no
+    LTO_ENABLE = yes
+    BOOTLOADER = qmk-hid
+    BOOTLOADER_SIZE = 512
 endif
 
 ifeq ($(strip $(OVERLOAD_FEATURES)), yes)

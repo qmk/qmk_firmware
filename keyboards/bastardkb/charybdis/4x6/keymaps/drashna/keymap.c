@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void matrix_init_keymap(void) {
-#if defined(KEYBOARD_bastardkb_charybdis_4x6_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
     setPinInputHigh(A0);
 #endif
 #ifdef RGB_MATRIX_ENABLE
@@ -134,7 +134,7 @@ void matrix_init_keymap(void) {
 }
 
 void matrix_scan_keymap(void) {
-#if defined(KEYBOARD_bastardkb_charybdis_4x6_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
     if (!readPin(A0)) {
         reset_keyboard();
     }
@@ -149,7 +149,7 @@ bool usb_vbus_state(void) {
 }
 #endif
 
-#if defined(KEYBOARD_bastardkb_charybdis_4x6_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     for (int32_t i = 0; i < 40; i++) {
         __asm__ volatile("nop" ::: "memory");
