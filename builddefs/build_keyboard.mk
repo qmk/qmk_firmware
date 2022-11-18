@@ -1,4 +1,4 @@
-    # Determine what keyboard we are building and setup the build environment.
+# Determine what keyboard we are building and setup the build environment.
 #
 # We support folders up to 5 levels deep below `keyboards/`. This file is
 # responsible for determining which folder is being used and doing the
