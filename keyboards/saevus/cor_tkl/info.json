@@ -3,6 +3,12 @@
     "manufacturer": "saevus",
     "url": "",
     "maintainer": "ramonimbao",
+    "community_layouts": [
+      "tkl_f13_ansi",
+      "tkl_f13_ansi_split_bs_rshift",
+      "tkl_f13_iso",
+      "tkl_f13_iso_split_bs_rshift"
+    ],
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi",
         "LAYOUT_iso": "LAYOUT_tkl_f13_iso"
@@ -13,17 +19,23 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": false
+        "nkro": false,
+        "rgb_matrix": true
     },
     "usb": {
         "vid": "0x5001",
         "pid": "0x0003",
         "device_version": "1.0.0"
     },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["GP29", "GP28", "GP27", "GP26", "GP25", "GP24", "GP23", "GP22", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP12", "GP11", "GP5"],
         "rows": ["GP0", "GP1", "GP2", "GP21", "GP3", "GP4"]
+    },
+    "rgb_matrix": {
+      "driver": "WS2812"
     },
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {

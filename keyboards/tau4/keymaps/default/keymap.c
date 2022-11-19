@@ -85,8 +85,10 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 
     // Uncomment for debug mode
-    /* debug_enable=true;
-    debug_matrix=true; */
+    //debug_enable=true;
+    //debug_matrix=true;
+    //debug_keyboard=true;
+    //debug_mouse=true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -101,47 +103,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    return true;
-}
-
-
-#ifdef OLED_ENABLE
-
-static void render_status(void) {
-    oled_write_P(PSTR("Tau.4 v1.0\n\n"), false);
-    oled_write_P(PSTR("Layer:\n"), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Default  "), false);
-            break;
-        case _NUMPAD:
-            oled_write_P(PSTR("Numpad   "), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower    "), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise    "), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adjust   "), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undefined"), false);
-    }
-}
-
-bool oled_task_user(void) {
-    render_status();
-    return false;
-}
+#ifdef ENCODER_MAP_ENABLE
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+        [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+        [_NUMPAD] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+        [_LOWER] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+        [_RAISE] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+        [_ADJUST] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    };
 #endif

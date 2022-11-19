@@ -2,7 +2,17 @@
 
 QMK is nearly infinitely configurable. Wherever possible we err on the side of allowing users to customize their keyboard, even at the expense of code size. That level of flexibility makes for a daunting configuration experience, however.
 
-There are two main types of configuration files in QMK- `config.h` and `rules.mk`. These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:
+There are three main types of configuration files in QMK:
+
+* `config.h`, which contains various preprocessor directives (`#define`, `#ifdef`)
+* `rules.mk`, which contains additional variables
+* `info.json`, which is utilized for [data-driven configuration](https://docs.qmk.fm/#/data_driven_config)
+
+This page will only discuss the first two types, `config.h` and `rules.mk`.
+
+?> While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](https://docs.qmk.fm/#/reference_info_json) page for more details.
+
+These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:
 
 * QMK Default
 * Keyboard
@@ -185,7 +195,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define COMBO_MUST_HOLD_MODS`
-  * Flag for enabling extending timeout on Combos containing modifers
+  * Flag for enabling extending timeout on Combos containing modifiers
 * `#define COMBO_MOD_TERM 200`
   * Allows for extending COMBO_TERM for mod keys while mid-combo.
 * `#define COMBO_MUST_HOLD_PER_COMBO`
@@ -197,7 +207,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define COMBO_NO_TIMER`
   * Disable the combo timer completely for relaxed combos.
 * `#define TAP_CODE_DELAY 100`
-  * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
+  * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds and defaults to `0`.
 * `#define TAP_HOLD_CAPS_DELAY 80`
   * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPS_LOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 * `#define KEY_OVERRIDE_REPEAT_DELAY 500`

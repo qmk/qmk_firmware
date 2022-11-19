@@ -31,3 +31,5 @@ SPLIT_KEYBOARD = yes
 
 SERIAL_DRIVER = vendor
 WS2812_DRIVER = vendor
+
+DEFAULT_FOLDER = bastardkb/scylla/v2/splinky/v3

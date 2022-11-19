@@ -1,12 +1,12 @@
 # `info.json`
 
-This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. You can also set metadata here.
+The information contained in `info.json` is combined with the `config.h` and `rules.mk` files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the [QMK API](https://github.com/qmk/qmk_api), and contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard.
 
-You can create `info.json` files at every level under `qmk_firmware/keyboards/<name>` to specify this metadata. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` specifies more specific information about Clueboard 66%.
+You can create `info.json` files at every level under `qmk_firmware/keyboards/<name>`. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` specifies more specific information about Clueboard 66%.
 
 ## `info.json` Format
 
-The `info.json` file is a JSON formatted dictionary with the following keys available to be set. You do not have to set all of them, merely the keys that apply to your keyboard.
+The `info.json` file is a JSON formatted dictionary. The first six keys noted here must be defined in `info.json`, or your keyboard will not be accepted into the QMK repository.
 
 * `keyboard_name`
     * A free-form text string describing the keyboard.
@@ -20,6 +20,11 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
 * `maintainer`
     * GitHub username of the maintainer, or `qmk` for community maintained boards.
     * Example: `skullydazed`
+* `usb`
+    * Configure USB VID, PID, and device version. See the [USB](#USB) section for more detail.
+
+There are many more optional keys, some of which are described below. Others may be found by examining `data/schemas`.
+
 * `debounce`
     * The amount of time in milliseconds to wait for debounce to happen.
     * Default: `5`
@@ -33,8 +38,6 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
     * Configure the pins corresponding to columns and rows, or direct pins. See the [Matrix Pins](#matrix-pins) section for more detail.
 * `rgblight`
     * Configure the [RGB Lighting feature](feature_rgblight.md). See the [RGB Lighting](#rgb-lighting) section for more detail.
-* `usb`
-    * Configure USB VID, PID, and other parameters. See the [USB](#USB) section for more detail.
 
 ### Layout Format
 
@@ -45,7 +48,7 @@ Within our `info.json` file the `layouts` portion of the dictionary contains sev
 
 ### Key Dictionary Format
 
-Each Key Dictionary in a layout describes the physical properties of a key. If you are familiar with the Raw Code for <https://keyboard-layout-editor.com> you will find many of the concepts the same. We re-use the same key names and layout choices wherever possible, but unlike keyboard-layout-editor each key is stateless, inheriting no properties from the keys that came before it.
+Each Key Dictionary in a layout describes the physical properties of a key. If you are familiar with the Raw Data for <https://keyboard-layout-editor.com> you will find many of the concepts the same. We re-use the same key names and layout choices wherever possible, but unlike keyboard-layout-editor each key is stateless, inheriting no properties from the keys that came before it.
 
 All key positions and rotations are specified in relation to the top-left corner of the keyboard, and the top-left corner of each key.
 
@@ -91,6 +94,8 @@ Direct pins are when you connect one side of the switch to GND and the other sid
 
 When specifying direct pins you need to arrange them in nested arrays. The outer array consists of rows, while the inner array uses text strings to identify the pins used in each row. You can use `null` to indicate an empty spot in the matrix.
 
+Notice that when using direct pins, `diode_direction` is left undefined.
+
 Example:
 
 ```json
@@ -112,6 +117,14 @@ Example:
 
 This section controls basic 2-pin LEDs, which typically pass through keyswitches and are soldered into the PCB, or are placed in PCB sockets.
 ### Backlight
+
+Enable by setting
+
+```json
+    "features": {
+        "backlight": true
+    }
+```
 
 * `breathing`
     * Enable backlight breathing, if supported
@@ -145,6 +158,13 @@ Used for indicating Num Lock, Caps Lock, and Scroll Lock. May be soldered in-swi
     * The pin that controls the `Caps Lock` LED
 * `scroll_lock`
     * The pin that controls the `Scroll Lock` LED
+* `compose`
+    * The pin that controls the `Compose` LED
+* `kana`
+    * The pin that controls the `Kana` LED
+* `on_state`
+    * The state of the indicator pins when the LED is "on" - `1` for high, `0` for low
+    * Default: `1`
 
 Example:
 
@@ -177,8 +197,9 @@ The following items can be set. Not every value is required.
     * Set to `true` to enable synchronization functionality between split halves
 * `split_count`
     * For split keyboards, the number of LEDs on each side
+    * Example `[ 10 , 10 ]`
 * `max_brightness`
-    * (0-255) What the maxmimum brightness (value) level is
+    * What the maximum brightness (value) level is (0-255)
 * `hue_steps`
     * How many steps of adjustment to have for hue
 * `saturation_steps`
@@ -197,7 +218,8 @@ Example:
         "saturation_steps": 17,
         "brightness_steps": 17,
         "animations": {
-            "all": true
+            "knight": true,
+            "rainbow_swirl": true
         }
     }
 }
@@ -242,6 +264,14 @@ The device version is a BCD (binary coded decimal) value, in the format `MMmr`, 
 ### Encoders
 
 This section controls the basic [rotary encoder](feature_encoders.md) support.
+
+Enable by setting
+
+```json
+    "features": {
+        "encoder": true
+    }
+```
 
 The following items can be set. Not every value is required.
 
