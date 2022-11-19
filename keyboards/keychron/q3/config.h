@@ -57,6 +57,9 @@
 /* Ignore atomic blocks as they are unnecessary on this MCU */
 #define IGNORE_ATOMIC_BLOCK
 
+/* Drive high instead of pull high to unselect */
+#define MATRIX_UNSELECT_DRIVE_HIGH
+
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

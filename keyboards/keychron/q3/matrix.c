@@ -33,6 +33,18 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 #define ROWS_PER_HAND (MATRIX_ROWS)
 
+static inline void writePinLow_atomic(pin_t pin) {
+    ATOMIC_BLOCK_FORCEON {
+        writePinLow(pin);
+    }
+}
+
+static inline void writePinHigh_atomic(pin_t pin) {
+    ATOMIC_BLOCK_FORCEON {
+        writePinHigh(pin);
+    }
+}
+
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         setPinOutput(pin);
@@ -94,7 +106,11 @@ static bool select_col(uint8_t col) {
     pin_t pin = col_pins[col];
 
     if (pin != NO_PIN) {
+#ifdef MATRIX_UNSELECT_DRIVE_HIGH
+        writePinLow_atomic(pin);
+#else
         setPinOutput_writeLow(pin);
+#endif
         return true;
     } else {
         if (col == 8) {
@@ -112,7 +128,7 @@ static void unselect_col(uint8_t col) {
 
     if (pin != NO_PIN) {
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
-        setPinOutput_writeHigh(pin);
+        writePinHigh_atomic(pin);
 #else
         setPinInputHigh_atomic(pin);
 #endif
@@ -129,7 +145,7 @@ static void unselect_cols(void) {
 
         if (pin != NO_PIN) {
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
-            setPinOutput_writeHigh(pin);
+            writePinHigh_atomic(pin);
 #else
             setPinInputHigh_atomic(pin);
 #endif
@@ -141,6 +157,13 @@ static void unselect_cols(void) {
 }
 
 static void matrix_init_pins(void) {
+#ifdef MATRIX_UNSELECT_DRIVE_HIGH
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        if (col_pins[x] != NO_PIN) {
+            setPinOutput(col_pins[x]);
+        }
+    }
+#endif
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
