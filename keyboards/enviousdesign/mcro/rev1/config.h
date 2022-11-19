@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-//#define VENDOR_ID 0xE739
-//#define PRODUCT_ID 0xA300
-//#define DEVICE_VER 0x0011
-//#define MANUFACTURER "EnviousDesign"
-//#define PRODUCT "MCRO 1.0"
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4

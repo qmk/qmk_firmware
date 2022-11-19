@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xE739
-#define PRODUCT_ID 0xA100
-#define DEVICE_VER 0x0000
-#define MANUFACTURER "EnviousDesign"
-#define PRODUCT "TKL Prototype"
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18

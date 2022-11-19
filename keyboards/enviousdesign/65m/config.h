@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xE739
-#define PRODUCT_ID 0xA200
-#define DEVICE_VER 0x0001
-#define MANUFACTURER "EnviousDesign"
-#define PRODUCT "EnvKB 65M"
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17
