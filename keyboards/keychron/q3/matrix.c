@@ -165,9 +165,6 @@ static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t curre
             // Pin LO, set col bit
             current_matrix[row_index] |= row_shifter;
             key_pressed = true;
-        } else {
-            // Pin HI, clear col bit
-            current_matrix[row_index] &= ~row_shifter;
         }
     }
 
