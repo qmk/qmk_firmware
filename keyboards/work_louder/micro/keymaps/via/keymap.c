@@ -8,25 +8,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        RGB_TOG, XXXXXXX, XXXXXXX, 0x5011
+        RGB_TOG, XXXXXXX, XXXXXXX, TO(1)
     ),
     [1] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, 0x5012
+        XXXXXXX, XXXXXXX, XXXXXXX, TO(2)
     ),
     [2] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, 0x5013
+        XXXXXXX, XXXXXXX, XXXXXXX, TO(3)
     ),
     [3] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         USER00,  USER01,  USER03,  USER05,
         XXXXXXX, USER02,  USER04,  USER06,
-        XXXXXXX, XXXXXXX, XXXXXXX, 0x5010
+        XXXXXXX, XXXXXXX, XXXXXXX, TO(0)
     )
 };
 
@@ -62,16 +62,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set_kb(layer_state);
             }
             break;
-        case 0x5000 ... 0x500F:
-            if (record->event.pressed) {
-                layer_move(keycode - 0x5000);
-            }
-            return false; break;
-        case 0x5010 ... 0x501F:
-            if (record->event.pressed) {
-                layer_move(keycode - 0x5010);
-            }
-            return false; break;
     }
     return true;
 }
@@ -98,4 +88,76 @@ void keyboard_post_init_user(void) {
 
 void suspend_wakeup_init_user(void) {
     layer_state_set_user(layer_state);
+}
+
+
+enum via_indicator_value {
+    id_wl_brightness = 1,
+    id_wl_layer,
+};
+
+void wl_config_set_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_wl_brightness:
+            work_louder_config.led_level = (uint8_t)*value_data;
+            work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+            layer_state_set_kb(layer_state);
+            break;
+        case id_wl_layer:
+            layer_move(*value_data);
+            break;
+    }
+}
+
+void wl_config_get_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_wl_brightness:
+            *value_data = work_louder_config.led_level;
+            break;
+        case id_wl_layer:
+            *value_data = get_highest_layer(layer_state);
+            break;
+    }
+}
+
+void wl_config_save(void) {
+    eeconfig_update_user(work_louder_config.raw);
+}
+
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t *command_id        = &(data[0]);
+    uint8_t *channel_id        = &(data[1]);
+    uint8_t *value_id_and_data = &(data[2]);
+
+    if (*channel_id == id_custom_channel) {
+        switch (*command_id) {
+            case id_custom_set_value: {
+                wl_config_set_value(value_id_and_data);
+                break;
+            }
+            case id_custom_get_value: {
+                wl_config_get_value(value_id_and_data);
+                break;
+            }
+            case id_custom_save: {
+                wl_config_save();
+                break;
+            }
+            default: {
+                // Unhandled message.
+                *command_id = id_unhandled;
+                break;
+            }
+        }
+        return;
+    }
+    *command_id = id_unhandled;
 }
