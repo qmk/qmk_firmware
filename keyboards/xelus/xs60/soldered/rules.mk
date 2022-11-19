@@ -18,6 +18,9 @@ AUDIO_ENABLE = no           # Audio output
 
 EEPROM_DRIVER = i2c
 
+RGBLIGHT_ENABLE = yes
+WS2812_DRIVER = bitbang
+
 LTO_ENABLE = yes
 OPT = 2
 
