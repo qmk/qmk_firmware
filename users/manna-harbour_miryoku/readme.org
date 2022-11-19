@@ -417,6 +417,21 @@ make planck/rev6:manna-harbour_miryoku:flash FORCE_LAYOUT=planck_mit # planck re
 #+END_SRC
 
 
+
+**** split_3x5_2
+
+[[#thumb-combos][Thumb combos]] are enabled automatically for this layout.
+
+Keyboards supporting this layout: a_dux, alt34/rev1, bastardkb/dilemma, cradio, ferris/0_1, ferris/0_2, ferris/sweep
+
+Example build command lines:
+
+#+BEGIN_SRC sh :tangle no
+make ferris/0_2:manna-harbour_miryoku:flash # ferris/0_2
+make ferris/sweep:manna-harbour_miryoku:flash # ferris/sweep
+#+END_SRC
+
+
 **** split_3x5_3
 
 Keyboards supporting this layout: arch_36, boardsource/microdox, centromere, crkbd, eek, miniaxe, minidox/rev1, pteron36, squiggle/rev1, suihankey/split/rev1.
@@ -519,18 +534,6 @@ To build for this keyboard,
 
 #+BEGIN_SRC sh :tangle no
 make ergotravel:manna-harbour_miryoku:flash
-#+END_SRC
-
-
-**** ferris
-
-[[#thumb-combos][Thumb combos]] are enabled automatically for this keyboard.
-
-To build for this keyboard,
-
-#+BEGIN_SRC sh :tangle no
-make ferris/0_2:manna-harbour_miryoku:flash # 0_2
-make ferris/sweep:manna-harbour_miryoku:flash # sweep
 #+END_SRC
 
 
