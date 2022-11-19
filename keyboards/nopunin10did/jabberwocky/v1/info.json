@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Jabberwocky",
     "manufacturer": "NoPunIn10Did",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/railroad",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/jabberwocky/v1",
     "maintainer": "NoPunIn10Did",
     "usb": {
         "vid": "0x4E50",
@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "layouts": {
-        "LAYOUT_rh_any": {
+        "LAYOUT_rh": {
             "layout": [
                 {"x":0.75,   "y":0.25,  "label":"Esc"},
                 {"x":2.25,   "y":0.25,  "label":"F1"},
