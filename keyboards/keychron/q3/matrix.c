@@ -25,10 +25,10 @@
 #define LATCH_PIN B0
 
 #ifdef MATRIX_ROW_PINS
-static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 #endif // MATRIX_ROW_PINS
 #ifdef MATRIX_COL_PINS
-static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif // MATRIX_COL_PINS
 
 #define ROWS_PER_HAND (MATRIX_ROWS)
@@ -55,14 +55,6 @@ static inline void setPinOutput_writeLow(pin_t pin) {
 static inline void setPinInputHigh_atomic(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         setPinInputHigh(pin);
-    }
-}
-
-static inline uint8_t readMatrixPin(pin_t pin) {
-    if (pin != NO_PIN) {
-        return readPin(pin);
-    } else {
-        return 1;
     }
 }
 
@@ -183,9 +175,26 @@ static void matrix_init_pins(void) {
     }
 }
 
+#if PAL_IOPORTS_WIDTH == 8
+typedef uint8_t ioport_t;
+#elif PAL_IOPORTS_WIDTH == 16
+typedef uint16_t ioport_t;
+#elif PAL_IOPORTS_WIDTH == 32
+typedef uint32_t ioport_t;
+#else
+typedef ioportmask_t ioport_t;
+#endif
+
+#define read_pin_port_required(prev_index, pin) \
+    ((uint8_t)(prev_index) == (uint8_t)-1 || row_pins[(prev_index)] == NO_PIN || PAL_PORT(pin) != PAL_PORT(row_pins[(prev_index)]))
+
+#define read_pin_port(pin) ((ioport_t)palReadPort(PAL_PORT((pin))))
+
+#define is_pin_set(val, pin) (((val) & (1U << PAL_PAD((pin)))) != 0)
+
 static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter) {
     bool key_pressed = false;
-    bool pins[ROWS_PER_HAND];
+    ioport_t ports[ROWS_PER_HAND];
 
     // Select col
     if (!select_col(current_col)) { // select col
@@ -194,17 +203,29 @@ static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t curre
     matrix_output_select_delay();
 
     // Read all required pins
+#pragma GCC unroll 65534
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
-        pins[row_index] = readMatrixPin(row_pins[row_index]) == 0;
+        const pin_t pin = row_pins[row_index];
+        if (pin == NO_PIN)
+            continue;
+        // Only read port if we need to
+        if (read_pin_port_required(row_index - 1, pin))
+            ports[row_index] = read_pin_port(pin);
+        else
+            ports[row_index] = ports[row_index - 1];
     }
 
     // Unselect col
     unselect_col(current_col);
 
     // For each row...
+#pragma GCC unroll 65534
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
         // Check row pin state
-        if (pins[row_index]) {
+        const pin_t pin = row_pins[row_index];
+        if (pin == NO_PIN)
+            continue;
+        if (!is_pin_set(ports[row_index], pin)) {
             // Pin LO, set col bit
             current_matrix[row_index] |= row_shifter;
             key_pressed = true;
