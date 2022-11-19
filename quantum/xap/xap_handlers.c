@@ -24,7 +24,6 @@
 #    define secure_get_status() SECURE_UNLOCKED
 #    define secure_request_unlock()
 #    define secure_lock()
-#    define secure_is_unlocked() false
 #endif
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
@@ -33,8 +32,9 @@
 #    define keymap_max_layer_count() keymap_layer_count()
 #endif
 
-void xap_respond_success(xap_token_t token) {
+bool xap_respond_success(xap_token_t token) {
     xap_send(token, XAP_RESPONSE_FLAG_SUCCESS, NULL, 0);
+    return true;
 }
 
 void xap_respond_failure(xap_token_t token, xap_response_flags_t response_flags) {
@@ -55,10 +55,6 @@ bool xap_respond_data_P(xap_token_t token, const void *data, size_t length) {
 bool xap_respond_u32(xap_token_t token, uint32_t value) {
     xap_send(token, XAP_RESPONSE_FLAG_SUCCESS, &value, sizeof(value));
     return true;
-}
-
-uint32_t xap_route_qmk_ffffffffffffffff_getter(void) {
-    return 0x12345678;
 }
 
 bool xap_respond_get_config_blob_chunk(xap_token_t token, const void *data, size_t length) {
@@ -86,12 +82,12 @@ bool xap_respond_secure_status(xap_token_t token, const void *data, size_t lengt
 
 bool xap_respond_secure_unlock(xap_token_t token, const void *data, size_t length) {
     secure_request_unlock();
-    return xap_respond_data(token, NULL, 0);
+    return xap_respond_success(token);
 }
 
 bool xap_respond_secure_lock(xap_token_t token, const void *data, size_t length) {
     secure_lock();
-    return xap_respond_data(token, NULL, 0);
+    return xap_respond_success(token);
 }
 
 #ifdef BOOTLOADER_JUMP_SUPPORTED
@@ -172,8 +168,7 @@ bool xap_respond_dynamic_keymap_set_keycode(xap_token_t token, const void *data,
     }
 
     dynamic_keymap_set_keycode(arg->layer, arg->row, arg->column, arg->keycode);
-    xap_respond_success(token);
-    return true;
+    return xap_respond_success(token);
 }
 #endif
 
@@ -190,8 +185,7 @@ bool xap_respond_dynamic_encoder_set_keycode(xap_token_t token, const void *data
     }
 
     dynamic_keymap_set_encoder(arg->layer, arg->encoder, arg->clockwise, arg->keycode);
-    xap_respond_success(token);
-    return true;
+    return xap_respond_success(token);
 }
 #endif
 
@@ -233,15 +227,13 @@ bool xap_respond_set_backlight_config(xap_token_t token, const void *data, size_
     }
 #    endif
 
-    xap_respond_success(token);
-    return true;
+    return xap_respond_success(token);
 }
 
 bool xap_respond_save_backlight_config(xap_token_t token, const void *data, size_t length) {
     eeconfig_update_backlight_current();
 
-    xap_respond_success(token);
-    return true;
+    return xap_respond_success(token);
 }
 #endif
 
@@ -287,15 +279,13 @@ bool xap_respond_set_rgblight_config(xap_token_t token, const void *data, size_t
     rgblight_sethsv_noeeprom(arg->hue, arg->sat, arg->val);
     rgblight_set_speed_noeeprom(arg->speed);
 
-    xap_respond_success(token);
-    return true;
+    return xap_respond_success(token);
 }
 
 bool xap_respond_save_rgblight_config(xap_token_t token, const void *data, size_t length) {
     eeconfig_update_rgblight_current();
 
-    xap_respond_success(token);
-    return true;
+    return xap_respond_success(token);
 }
 #endif
 
@@ -343,14 +333,12 @@ bool xap_respond_set_rgb_matrix_config(xap_token_t token, const void *data, size
     rgb_matrix_set_speed_noeeprom(arg->speed);
     rgb_matrix_set_flags_noeeprom(arg->flags);
 
-    xap_respond_success(token);
-    return true;
+    return xap_respond_success(token);
 }
 
 bool xap_respond_save_rgb_matrix_config(xap_token_t token, const void *data, size_t length) {
     eeconfig_update_rgb_matrix();
 
-    xap_respond_success(token);
-    return true;
+    return xap_respond_success(token);
 }
 #endif
