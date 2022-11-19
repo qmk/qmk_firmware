@@ -37,7 +37,7 @@
 #define WS2812_PIO_USE_PIO1
 
 /* Number of LEDs */
-#define RGBLED_NUM 14
+#define RGBLED_NUM 15
 
 /* LCD Configuration */
 #define SPI_DRIVER   SPID0

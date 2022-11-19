@@ -282,6 +282,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_kb(void) {
 
+
+    rgblight_enable_noeeprom();
+    rgblight_sethsv_noeeprom(128, 240, 240);
+    rgblight_mode_noeeprom(1);
+
 #ifdef QUANTUM_PAINTER_ENABLE
     // Initialise the display
     logo = qp_load_image_mem(gfx_logo);
@@ -298,8 +303,6 @@ void keyboard_post_init_kb(void) {
         qp_drawimage(lcd, 5, 10, logo);
 
         // Turn on the LCD backlight
-        rgblight_enable();
-        rgblight_sethsv_noeeprom(128, 240, 240);
         backlight_level(5);
         backlight_enable();
 
