@@ -185,6 +185,7 @@ static void matrix_init_pins(void) {
 
 static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter) {
     bool key_pressed = false;
+    bool pins[ROWS_PER_HAND];
 
     // Select col
     if (!select_col(current_col)) { // select col
@@ -192,18 +193,24 @@ static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t curre
     }
     matrix_output_select_delay();
 
+    // Read all required pins
+    for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
+        pins[row_index] = readMatrixPin(row_pins[row_index]) == 0;
+    }
+
+    // Unselect col
+    unselect_col(current_col);
+
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
         // Check row pin state
-        if (readMatrixPin(row_pins[row_index]) == 0) {
+        if (pins[row_index]) {
             // Pin LO, set col bit
             current_matrix[row_index] |= row_shifter;
             key_pressed = true;
         }
     }
 
-    // Unselect col
-    unselect_col(current_col);
     matrix_output_unselect_delay(current_col, key_pressed); // wait for all Row signals to go HIGH
 }
 
