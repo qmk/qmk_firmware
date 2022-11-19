@@ -52,13 +52,6 @@ static inline void setPinOutput_writeLow(pin_t pin) {
     }
 }
 
-static inline void setPinOutput_writeHigh(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinHigh(pin);
-    }
-}
-
 static inline void setPinInputHigh_atomic(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         setPinInputHigh(pin);
@@ -73,33 +66,51 @@ static inline uint8_t readMatrixPin(pin_t pin) {
     }
 }
 
+// At 3.6V input, three nops (37.5ns) should be enough for all signals
+#define small_delay() __asm__ __volatile__ ("nop;nop;nop;\n\t":::"memory")
+#define compiler_barrier() __asm__ __volatile__ ("":::"memory")
+
 static void shiftOut(uint8_t dataOut) {
-    for (uint8_t i = 0; i < 8; i++) {
-        if (dataOut & 0x1) {
-            setPinOutput_writeHigh(DATA_PIN);
-        } else {
-            setPinOutput_writeLow(DATA_PIN);
+    ATOMIC_BLOCK_FORCEON {
+        for (uint8_t i = 0; i < 8; i++) {
+            compiler_barrier();
+            if (dataOut & 0x1) {
+                writePinHigh(DATA_PIN);
+            } else {
+                writePinLow(DATA_PIN);
+            }
+            dataOut = dataOut >> 1;
+            compiler_barrier();
+            writePinHigh(CLOCK_PIN);
+            small_delay();
+            writePinLow(CLOCK_PIN);
         }
-        dataOut = dataOut >> 1;
-        setPinOutput_writeHigh(CLOCK_PIN);
-        setPinOutput_writeLow(CLOCK_PIN);
+        compiler_barrier();
+        writePinHigh(LATCH_PIN);
+        small_delay();
+        writePinLow(LATCH_PIN);
+        compiler_barrier();
     }
-    setPinOutput_writeHigh(LATCH_PIN);
-    setPinOutput_writeLow(LATCH_PIN);
 }
 
 static void shiftout_single(uint8_t data) {
-    if (data & 0x1) {
-        setPinOutput_writeHigh(DATA_PIN);
-    } else {
-        setPinOutput_writeLow(DATA_PIN);
+    ATOMIC_BLOCK_FORCEON {
+        compiler_barrier();
+        if (data & 0x1) {
+            writePinHigh(DATA_PIN);
+        } else {
+            writePinLow(DATA_PIN);
+        }
+        compiler_barrier();
+        writePinHigh(CLOCK_PIN);
+        small_delay();
+        writePinLow(CLOCK_PIN);
+        compiler_barrier();
+        writePinHigh(LATCH_PIN);
+        small_delay();
+        writePinLow(LATCH_PIN);
+        compiler_barrier();
     }
-
-    setPinOutput_writeHigh(CLOCK_PIN);
-    setPinOutput_writeLow(CLOCK_PIN);
-
-    setPinOutput_writeHigh(LATCH_PIN);
-    setPinOutput_writeLow(LATCH_PIN);
 }
 
 static bool select_col(uint8_t col) {
@@ -157,6 +168,9 @@ static void unselect_cols(void) {
 }
 
 static void matrix_init_pins(void) {
+    setPinOutput(DATA_PIN);
+    setPinOutput(CLOCK_PIN);
+    setPinOutput(LATCH_PIN);
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
