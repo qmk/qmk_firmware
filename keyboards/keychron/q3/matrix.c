@@ -183,6 +183,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     // Set col, read rows
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+#pragma GCC unroll 65534
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++, row_shifter <<= 1) {
         matrix_read_rows_on_col(curr_matrix, current_col, row_shifter);
     }
