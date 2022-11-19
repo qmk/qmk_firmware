@@ -19,6 +19,7 @@
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
+#define MATRIX_IO_DELAY 2
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
