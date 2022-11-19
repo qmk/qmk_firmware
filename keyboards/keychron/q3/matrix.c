@@ -187,8 +187,19 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         matrix_read_rows_on_col(curr_matrix, current_col, row_shifter);
     }
 
-    bool changed = memcmp(current_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
-    if (changed) memcpy(current_matrix, curr_matrix, sizeof(curr_matrix));
+    matrix_row_t changed = 0;
+#pragma GCC unroll 65534
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+        matrix_row_t i = curr_matrix[current_row];
+        i ^= current_matrix[current_row];
+        changed |= i;
+    }
 
+    if (changed) {
+#pragma GCC unroll 65534
+        for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+            current_matrix[current_row] = curr_matrix[current_row];
+        }
+    }
     return changed;
 }
