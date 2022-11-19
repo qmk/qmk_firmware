@@ -22,7 +22,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "backlight": true
+        "backlight": true,
+        "encoder": true
     },
     "encoder": {
         "rotary": [
