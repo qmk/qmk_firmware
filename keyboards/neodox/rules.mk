@@ -18,7 +18,7 @@ SPLIT_KEYBOARD = yes
 #   change yes to no to disable
 #
 
-RGBLIGHT_ENABLE = yes   					# Enable keyboard RGB underglow
+RGBLIGHT_ENABLE = no   					# Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = no
 
 #TFT options
