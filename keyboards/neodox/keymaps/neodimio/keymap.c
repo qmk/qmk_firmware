@@ -44,6 +44,7 @@ enum custom_keycodes {
     FD_VAL
 };
 
+#ifdef RGBLIGHT_ENABLE
 // limit time to reach fade_rgb.end
 #define FADE_TIME_OPTIONS_NUMBER 10
 uint8_t fade_time_option_index = 2;
@@ -70,6 +71,7 @@ typedef struct {
 
 fade_rgb_t fade_rgb; // fader: current RGB, end RGB, step RGB
 HSV fade_hsv;        // current HSV
+#endif
 
 // #define SPLIT_USB_TIMEOUT 10000
 
@@ -282,10 +284,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_kb(void) {
 
-
+#ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(128, 240, 240);
     rgblight_mode_noeeprom(1);
+#endif
 
 #ifdef QUANTUM_PAINTER_ENABLE
     // Initialise the display
@@ -988,7 +991,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             case ASC_MINOR:
                 SEND_STRING("<");
             	return false;
-
+#ifdef RGBLIGHT_ENABLE
             case FD_TIME:
                 if(++fade_time_option_index>=FADE_TIME_OPTIONS_NUMBER)
                     fade_time_option_index = 0;
@@ -1015,6 +1018,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 else if(fade_default_hsv.v == 15)
                         fade_default_hsv.v = 0;
                 return false;
+#endif
         }
     }
     return true;
@@ -1209,10 +1213,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif
 
 void matrix_scan_user(){ // called every 1ms
+#ifdef RGBLIGHT_ENABLE
     fade_rgb_scan();
+#endif
 }
 
 void keyboard_pre_init_user(){
+
+#ifdef RGBLIGHT_ENABLE
     fade_init();
     fade_goto(RGB_WHITE);
+#endif
 }
