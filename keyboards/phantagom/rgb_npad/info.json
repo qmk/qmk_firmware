@@ -6,7 +6,6 @@
     "productId": "0x0002",
     "matrix": { "rows": 6, "cols": 4 },
     "url": "",
-    "lighting": "qmk_rgblight",
     "maintainer": "Phantagom",
     "usb": {
         "vid": "0xF8E8",
