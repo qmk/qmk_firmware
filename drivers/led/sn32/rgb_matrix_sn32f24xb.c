@@ -26,7 +26,14 @@
 #if !defined(PWM_OUTPUT_ACTIVE_LEVEL)
 #    define PWM_OUTPUT_ACTIVE_LEVEL PWM_OUTPUT_ACTIVE_LOW
 #endif
+
+#if !defined(RGB_OUTPUT_ACTIVE_LEVEL)
+#    define RGB_OUTPUT_ACTIVE_LEVEL RGB_OUTPUT_ACTIVE_HIGH
+#endif
+
 /*
+    Default configuration example
+
     COLS key / led
     SS8050 transistors NPN driven low
     base      - GPIO
@@ -63,7 +70,7 @@ static uint8_t        chan_col_order[LED_MATRIX_COLS] = {0};    // track the cha
 static uint8_t        current_row                     = 0;      // LED row scan counter
 static uint8_t        current_key_row                         = 0;      // key row scan counter
 #elif (DIODE_DIRECTION == ROW2COL)
-#define MATRIX_UNSELECT_DRIVE_HIGH
+/* make sure to `#define MATRIX_UNSELECT_DRIVE_HIGH` in this configuration*/
 static uint8_t        chan_row_order[LED_MATRIX_ROWS_HW] = {0};    // track the channel row order
 static uint8_t        current_key_col                         = 0;      // key col scan counter
 static matrix_row_t row_shifter       = MATRIX_ROW_SHIFTER;
@@ -152,9 +159,9 @@ static void shared_matrix_rgb_disable_output(void) {
     // Disable LED outputs on RGB channel pins
     for (uint8_t x = 0; x < LED_MATRIX_ROWS_HW; x++) {
         ATOMIC_BLOCK_FORCEON {
-#if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
+#if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
             writePinLow(led_row_pins[x]);
-#elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
+#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
             writePinHigh(led_row_pins[x]);
 #endif
         }
@@ -211,9 +218,9 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     // Enable RGB output
     if (enable_pwm_output) {
         ATOMIC_BLOCK_FORCEON {
-#if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
+#if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
             writePinHigh(led_row_pins[current_row]);
-#elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
+#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
             writePinLow(led_row_pins[current_row]);
 #endif
         }
@@ -225,9 +232,9 @@ static void shared_matrix_rgb_disable_output(void) {
     // Disable LED outputs on RGB channel pins
     for (uint8_t x = 0; x < LED_MATRIX_COLS; x++) {
         ATOMIC_BLOCK_FORCEON {
-#if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
+#if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
             writePinLow(led_col_pins[x]);
-#elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
+#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
             writePinHigh(led_col_pins[x]);
 #endif
         }
@@ -271,16 +278,16 @@ static void update_pwm_channels(PWMDriver *pwmp) {
         if (led_state[led_index].g != 0) enable_pwm_output |= true;
         if (led_state[led_index].r != 0) enable_pwm_output |= true;
         // Update matching RGB channel PWM configuration
-        pwmEnableChannelI(pwmp,chan_row_order[(current_key_row*3)+0],led_state[led_index].g);
-        pwmEnableChannelI(pwmp,chan_row_order[(current_key_row*3)+1],led_state[led_index].b);
-        pwmEnableChannelI(pwmp,chan_row_order[(current_key_row*3)+2],led_state[led_index].r);
+        pwmEnableChannelI(pwmp,chan_row_order[(current_key_row*LED_MATRIX_ROW_CHANNELS)+0],led_state[led_index].g);
+        pwmEnableChannelI(pwmp,chan_row_order[(current_key_row*LED_MATRIX_ROW_CHANNELS)+1],led_state[led_index].b);
+        pwmEnableChannelI(pwmp,chan_row_order[(current_key_row*LED_MATRIX_ROW_CHANNELS)+2],led_state[led_index].r);
     }
     // Enable RGB output
     if (enable_pwm_output) {
         ATOMIC_BLOCK_FORCEON {
-#if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
+#if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
             writePinHigh(led_col_pins[current_key_col]);
-#elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
+#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
             writePinLow(led_col_pins[current_key_col]);
 #endif
         }
