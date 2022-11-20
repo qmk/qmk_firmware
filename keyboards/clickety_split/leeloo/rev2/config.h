@@ -17,14 +17,33 @@
 
 #pragma once
 
-#ifdef TAPPING_TERM
-    #undef TAPPING_TERM
+#include "config_common.h"
 
-    #define IGNORE_MOD_TAP_INTERRUPT
-    #define TAPPING_FORCE_HOLD
-    #define TAPPING_TERM 150
+/* key matrix size */
+// Rows are doubled-up
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 6
+
+/* encoder support */
+#define ENCODERS_PAD_A { F5 }
+#define ENCODERS_PAD_B { F4 }
+#define ENCODERS_PAD_A_RIGHT { F4 }
+#define ENCODERS_PAD_B_RIGHT { F5 }
+
+#define RGB_DI_PIN       D3
+#define DRIVER_LED_TOTAL 74
+
+#ifdef RGBLIGHT_ENABLE
+#    define RGBLED_SPLIT \
+        { 37, 37 }
+#    define RGBLIGHT_SPLIT
 #endif
 
-// If rotary encoders are used, and they require more or less resolution/sensitivity
-// you may try increasing or decreasing the value.
-// #define ENCODER_RESOLUTION 2
+/* RGB matrix support */
+#ifdef RGB_MATRIX_ENABLE
+#    define SPLIT_TRANSPORT_MIRROR
+#    define RGB_MATRIX_SPLIT \
+        { 37, 37 }
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 115
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#endif
