@@ -1,4 +1,4 @@
-/* Copyright 2020 Harrison Chan (Xelus)
+/* Copyright 2022 JasonRen(biu)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,4 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config_common.h"
+#pragma once
+
+#include_next "board.h"
+
+#undef STM32_HSECLK
+#define STM32_HSECLK 16000000
+
+#undef VAL_GPIOCCRH
+#define VAL_GPIOCCRH 0x88888888
+
+#undef VAL_GPIOBCRH
+#define VAL_GPIOBCRH 0x88888888
