@@ -29,10 +29,6 @@ uint8_t mods_state;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   
-  if (is_oled_on() == false) {
-    oled_on();
-  }
-  
   /* on key release */
   if (record->event.pressed == false) { 
     /* Luna pet start */
@@ -57,10 +53,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       lunaShowedJump = false;
       break;
 
+    case CTL_J:
     case CTL_F:  
       lunaIsSneaking = true;
       break;
 
+    case ALT_K:
     case ALT_D:
       lunaIsBarking = true;
       break;
@@ -70,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case CC_OE:
-      tap_code16(ALGR(KC_P));   
+      tap_code16(ALGR(KC_P));  
       break;
 
     case CC_UE:
