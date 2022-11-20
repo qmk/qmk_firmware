@@ -58,16 +58,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* Indicator leds */
-#define LOCK_LIGHTS     TRUE
-#define DISPLAY_LAYERS  TRUE
-#define CAPS_PIN        B1
-#define NUM_PIN         B12
-#define SCROLL_PIN      B13
-#define LAYER_1         B14
-#define LAYER_2         B15
-#define LAYER_3         B0
-#define LAYER_4         B9
-#define LAYER_5         A9
+#define LED_CAPS_LOCK_PIN   B1
+#define LED_NUM_LOCK_PIN    B12
+#define LED_SCROLL_LOCK_PIN B13
+#define LAYER_1             B14
+#define LAYER_2             B15
+#define LAYER_3             B0
+#define LAYER_4             B9
+#define LAYER_5             A9
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
