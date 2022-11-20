@@ -2,8 +2,6 @@
     "name": "rgb_npad",
     "keyboard_name": "rgb_npad",
     "manufacturer": "Phantagom",
-    "vendorId": "0xF8E8",
-    "productId": "0x0002",
     "matrix": { "rows": 6, "cols": 4 },
     "url": "",
     "maintainer": "Phantagom",
