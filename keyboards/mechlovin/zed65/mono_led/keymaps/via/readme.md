@@ -1,1 +1,1 @@
-# The VIA keymap for retro66
+# The VIA keymap for Zed65-MonoLED
