@@ -1,4 +1,4 @@
-/* Copyright 2020 Harrison Chan (Xelus)
+/* Copyright 2018 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,4 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config_common.h"
+#pragma once
+
+// Locks
+#define LED_NUM_LOCK_PIN F5
+#define LED_CAPS_LOCK_PIN F4
+#define LED_SCROLL_LOCK_PIN F1
+#define LED_LAYERS_PIN F0
