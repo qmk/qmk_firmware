@@ -1,6 +1,6 @@
 # RGB_NPAD
 
-![RGB_NPAD](https://kruyt.org/images/2022/09/rgb-numpad.jpg)
+![RGB_NPAD](https://i.imgur.com/EuGAMye.jpeg)
 
 A marco numpad with oled display, with a RP2040.
 
