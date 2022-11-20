@@ -50,47 +50,27 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 }
 /* Set indicator leds to indicate which layer is active */
 void setLayerLed(layer_state_t state){
-    switch(get_highest_layer(state)){
-        case 0 :
-            writePin(LAYER_1, 1);
-            writePin(LAYER_2, 0);
-            writePin(LAYER_3, 0);
-            writePin(LAYER_4, 0);
-            writePin(LAYER_5, 0);
+    writePinLow(LAYER_1);
+    writePinLow(LAYER_2);
+    writePinLow(LAYER_3);
+    writePinLow(LAYER_4);
+    writePinLow(LAYER_5);
+    switch (get_highest_layer(state)) {
+        case 0:
+            writePinHigh(LAYER_1);
             break;
-        case 1 :
-            writePin(LAYER_1, 0);
-            writePin(LAYER_2, 1);
-            writePin(LAYER_3, 0);
-            writePin(LAYER_4, 0);
-            writePin(LAYER_5, 0);
+        case 1:
+            writePinHigh(LAYER_2);
             break;
-        case 2 :
-            writePin(LAYER_1, 0);
-            writePin(LAYER_2, 0);
-            writePin(LAYER_3, 1);
-            writePin(LAYER_4, 0);
-            writePin(LAYER_5, 0);
+        case 2:
+            writePinHigh(LAYER_3);
             break;
-        case 3 :
-            writePin(LAYER_1, 0);
-            writePin(LAYER_2, 0);
-            writePin(LAYER_3, 0);
-            writePin(LAYER_4, 1);
-            writePin(LAYER_5, 0);
+        case 3:
+            writePinHigh(LAYER_4);
             break;
-        case 4 :
-            writePin(LAYER_1, 0);
-            writePin(LAYER_2, 0);
-            writePin(LAYER_3, 0);
-            writePin(LAYER_4, 0);
-            writePin(LAYER_5, 1);
+        case 4:
+            writePinHigh(LAYER_5);
             break;
-        default :
-            writePin(LAYER_1, 0);
-            writePin(LAYER_2, 0);
-            writePin(LAYER_3, 0);
-            writePin(LAYER_4, 0);
-            writePin(LAYER_5, 0);
     }
+}
 }
