@@ -106,15 +106,10 @@ branch and pull request below.
 Actually, at the moment, the fix is in my ericgebhart branch, since I accidently
 pushed it.  I'll remedy that soon.
 
-A more current version of my QMK user can probably be found here in
-the _ericgebhart_ branch [of my QMK repo ](https://github.com/EricGebhart/qmk_firmware/tree/ericgebhart/users/ericgebhart)
+A more current version of my QMK user can be found here in
+A sparse tree [of my QMK User Space ](https://github.com/EricGebhart/MyQMK/users/ericgebhart)
 
-**happening soon**
-The unrealized plan is to have my dev branch here. 
-The version with the PR and look through to my _ericgebhart_ branch can be found here in
-my [dev repo.](https://github.com/EricGebhart/qmk_firmware/tree/ericgebhart_dev/users/ericgebhart)
-which includes my [pull request for fully functioning multi-reference combos which
-can found here.](https://github.com/qmk/qmk_firmware/pull/16699)
+For full multi-lingual combo functionality you will need my [pull request for fully functioning multi-reference combos which can found here.](https://github.com/qmk/qmk_firmware/pull/16699)
 
 Things which effect the thinking.
   * No mouse. 
@@ -703,6 +698,7 @@ Here is a list of some of the base layers..
     * Capewell-Dvorak
     * Ahei
     * Boo
+    * Dvorak RLC-UI
  * Beakl
     * 15
     * 19
@@ -739,6 +735,7 @@ Here is a list of some of the base layers..
     * Mtgap
     * Ctgap
     * Apt
+    * Canary
  * Others
     * Maltron
     * Eucalyn

@@ -20,9 +20,9 @@
 
 // The only 3x12 layout. The rest are 3x10.
 #define CARTE_HD_NEU                            \
-  carte_de_map( "  Nwfmpv  /.q\"'z",            \
-                "  Trsntb  ,aeihj",             \
-                "  Axcldg  -uoykK")
+  carte_de_map( "  wfmpv  /.q\"'z",            \
+                "  rsntb  ,aeihj",             \
+                "  xcldg  -uoykK")
 
 #define ___HD_NEU___                                                    \
   LANG_MAP(_SML_NAV,   _W, _F, _M, _P, _V , TL_SLSH, TL_DOT, _Q, TL_DQUO, TL_QUOT, _Z, \
@@ -66,8 +66,8 @@
 // no z or q, use combos.
 #define CARTE_HD_TITANIUM                       \
   carte_de_map("  jgmpv  ;./\"' ",              \
-               "  rsndb  ,aeih ",               \
-               "  xflcw  -uoyk  r")
+               "  csntw  ,aeih ",               \
+               "  xfldb  -uoyk  r")
 
 #define ___HD_TITANIUM___                                               \
   LANG_MAP(_J, _G, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
@@ -90,35 +90,35 @@
 
 #define CARTE_HD_PLATINUM                       \
   carte_de_map( "jghpv   ;./'\"",               \
-                "rsntb   ,aeci",                \
+                "rsntb   ,aeic",                \
                 "xfmdk   -uowy  l")
 /* l   ␣   */
 
 #define ___HD_PLATINUM___                                               \
   LANG_MAP(_J, _G, _H, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
-           _R, _S, _N, _T, _B,  TL_COMM, _A, _E, _C, _I,                \
+           _R, _S, _N, _T, _B,  TL_COMM, _A, _E, _I, _C,                \
            _X, _F, _M, _D, _K,  TL_MINS, _U, _O, _W, _Y)
 
 #define CARTE_HD_SILVER                         \
-  carte_de_map("jfmpv   ;./'\"",                \
-               "rshtb   ,aeci",                 \
-               "xgldk   -uowy  n")
+  carte_de_map("jgmpv   ;./'\"",                \
+               "rshtb   ,aeic",                 \
+               "xfldk   -uowy  n")
 /* n   ␣   */
 
 #define ___HD_SILVER___                                 \
-  LANG_MAP(_J, _F, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
-           _R, _S, _H, _T, _B,  TL_COMM, _A, _E, _C, _I,                \
-           _X, _G, _L, _D, _K,  TL_MINS, _U, _O, _W, _Y)
+  LANG_MAP(_J, _G, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
+           _R, _S, _H, _T, _B,  TL_COMM, _A, _E, _I, _C,                \
+           _X, _F, _L, _D, _K,  TL_MINS, _U, _O, _W, _Y)
 
 #define CARTE_HD_BRONZE                         \
   carte_de_map("jgmpv   ;./'\"",                \
-               "rsntb   ,aeci",                 \
+               "rsntb   ,aeic",                 \
                "xfldk   -uowy  h")
 /* h   ␣   */
 
 #define ___HD_BRONZE___                                 \
   LANG_MAP(_J, _G , _M, _P, _V , TL_SCLN, TL_DOT, TL_SLSH , TL_QUOT, TL_DQUO, \
-           _R, _S, _N, _T, _B , TL_COMM, _A, _E, _C, _I,                \
+           _R, _S, _N, _T, _B , TL_COMM, _A, _E, _I, _C,                \
            _X, _F, _L, _D, _K , TL_MINS, _U, _O, _W, _Y)
 
 #define CARTE_HD_ELAN                          \

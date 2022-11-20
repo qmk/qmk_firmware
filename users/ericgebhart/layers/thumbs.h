@@ -27,8 +27,10 @@
 
 #define ___4_THUMBS_1___  ___X___, KC_HOME, KC_PGUP, OSL(LN_TOPROWS)
 #define ___6_THUMBS_2___  KC_LSFT,    KC_BKTAB, KC_END,  KC_PGDN, KC_TAB, KC_RSFT
+#define ___6_THUMBS_2_CB___  KC_LSFT,    KC_BKTAB, KC_END,  KC_PGDN, KC_TAB, KC_RSFT
 
 #define ___6_THUMBS_2a___ BSPC_SYMB, ESC_TOPR, ESC_TOPR, ENT_NAV, ENT_NAV, SPC_TOPR
+#define ___6_THUMBS_2a_CB___ BSPC_SYMB, ESC_TOPR, ESC_TOPR, ENT_NAV, ENT_NAV, SPC_TOPR
 
 
 // This has become the default center group of thumbs for all
@@ -175,36 +177,72 @@
 // I_regex   -> I_SYMB
 // ENT_edit  -> ENT_NAV
 
-// consolidated for kinesis, ergodox, and dactyl
-//for the ergodox and kinesis.
-#define ___12_DOX_ALL_THUMBS___                 \
-  ___THUMBS_1___,                               \
-    ___THUMBS_2___,                             \
-    ___6_ERGO_THUMBS___
+/* // consolidated for kinesis, ergodox, and dactyl */
+/* //for the ergodox and kinesis. */
+/* #define ___12_DOX_ALL_THUMBS___                 \ */
+/*   ___4___,                                      \ */
+/*     ___2___,                                    \ */
+/*     ___6___ */
+
+#define ___12_DOX_ALL_THUMBS___ ___12___
+
+/* ___THUMBS_1___,                             \ */
+/* ___xTHUMBS_2___,                            \ */
+/* ___6_ERGO_THUMBS___ */
+
+#define ___12_DOX_ALL_THUMBS_EN___ ___12_DOX_ALL_THUMBS___
+#define ___12_DOX_ALL_THUMBS_BP___ ___12_DOX_ALL_THUMBS___
 
 #define ___16_ALL_THUMBS___                     \
   ___4_THUMBS_1___,                             \
     ___6_THUMBS_2___,                           \
     ___6_ERGO_THUMBS___
 
+#define ___16_ALL_THUMBS_EN___ ___16_ALL_THUMBS___
+#define ___16_ALL_THUMBS_BP___ ___16_ALL_THUMBS___
 #define ___16_ALL_THUMBSa___                    \
   ___4_THUMBS_1___,                             \
     ___6_THUMBS_2a___,                          \
     ___6_ERGO_THUMBS___
 
+#define ___16_ALL_THUMBSa_EN___ ___16_ALL_THUMBSa___
+#define ___16_ALL_THUMBSa_BP___ ___16_ALL_THUMBSa___
+
+
 // For the Kyria
 #define ___4_THUMBS_def___       OS_LALT, OS_LCTL, SML_NAV, OS_LSFT
 #define ___10_ERGO_THUMBS_def___ _X_, _X_, ___6_ERGO_THUMBS___, _X_, _X_
-//#define ___10_ERGO_THUMBS_def___ _X_, _X_, _6_xs, _X_, _X_
 
-#define _6_xs _X_, _X_,_X_,_X_,_X_,_X_
+#define ___4_THUMBS_EN___ ___4_THUMBS_def___
+#define ___4_THUMBS_BP___ ___4_THUMBS_def___
+#define ___10_ERGO_THUMBS_EN___ ___10_ERGO_THUMBS_def___
+#define ___10_ERGO_THUMBS_BP___ ___10_ERGO_THUMBS_def___
+
 // combo reference layer thumbs for the kyria.
 // for the kyria, note the odd numbering...a 0 row, and a,b,c,d for the extras
 // on either side of the central 6 thumbs.
-#define ___4_THUMBS_COMBO___       CB_0TH1,   CB_0TH2, CB_0TH3, CB_0TH4
-#define ___10_ERGO_THUMBS_COMBO___ CB_THA,    CB_THB,  ___6_ERGO_THUMBS___, CB_THC, CB_THD
-#define ___4_THUMBS_COMBO2___       CB2_0TH1, CB2_0TH2, CB2_0TH3, CB2_0TH4
-#define ___10_ERGO_THUMBS_COMBO2___ CB2_THA,  CB2_THB, ___6_ERGO_THUMBS___, CB2_THC, CB2_THD
+#define ___2_THUMBS_CB___       CB_1TH1,   CB_1TH2
+#define ___4_THUMBS_CB___       CB_0TH1,   CB_0TH2, CB_0TH3, CB_0TH4
+#define ___6_THUMBS_CB___       CB_1TH1,   CB_1TH2, CB_1TH3, CB_1TH4, CB_1TH5, CB_1TH6
+#define ___10_ERGO_THUMBS_CB___ CB_THA,    CB_THB,      \
+    ___6_ERGO_THUMBS___, CB_THC, CB_THD
+#define ___12_ERGO_THUMBS_CB___ ___2_THUMBS_CB___,              \
+    CB_THA,    CB_THB,  ___6_ERGO_THUMBS___, CB_THC, CB_THD
+#define ___12_DOX_ALL_THUMBS_CB___ ___4_THUMBS_CB___, ___2_THUMBS_CB___, ___6_ERGO_THUMBS___
+#define ___16_DOX_ALL_THUMBS_CB___ ___4_THUMBS_CB___, ___6_THUMBS_2_CB___, ___6_ERGO_THUMBS___
+#define ___16_DOX_ALL_THUMBSa_CB___ ___4_THUMBS_CB___, ___6_THUMBS_2a_CB___, ___6_ERGO_THUMBS___
+
+
+#define ___2_THUMBS_CB2___       CB2_1TH1, CB2_1TH2
+#define ___4_THUMBS_CB2___       CB2_0TH1, CB2_0TH2, CB2_0TH3, CB2_0TH4
+#define ___6_THUMBS_CB2___       CB2_1TH1, CB2_1TH2, CB2_1TH3, CB2_1TH4, CB2_1TH5, CB2_1TH6
+#define ___10_ERGO_THUMBS_CB2___ CB2_THA,  CB2_THB,     \
+    ___6_ERGO_THUMBS___, CB2_THC, CB2_THD
+#define ___12_ERGO_THUMBS_CB2___ ___2_THUMBS_CB2___,      \
+    CB2_THA,  CB2_THB, ___6_ERGO_THUMBS___, CB2_THC, CB2_THD
+#define ___12_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___2_THUMBS_CB2___, ___6_ERGO_THUMBS___
+#define ___16_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2_CB2___, ___6_ERGO_THUMBS___
+#define ___16_DOX_ALL_THUMBSa_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2a_CB2___, ___6_ERGO_THUMBS___
 
 // Basically give the same 4 top thumbs and bottom outer 4 thumbs for everyone.
 // Could be different for every one, but the core 6 is enough for now I think.

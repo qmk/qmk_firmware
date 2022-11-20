@@ -56,10 +56,12 @@
 #define COMBO_HOLD_TERM 150
 #define TAP_CODE_DELAY 5  // for send string with delay
 
+// change the behavior of Mod taps for HRMs.
+// #define GLOBAL_QUICK_TAP
 
-/* Control switches for my keymaps. */
-/* if needed, this goes in the keyboard's config.h */
-/* Alternately, fix the number row in the layout template. */
+ /* Control switches for my keymaps. */
+ /* if needed, this goes in the keyboard's config.h */
+ /* Alternately, fix the number row in the layout template. */
 /* #define BASE_NUMBER_ROW    // turn on 4 row base templates. */
 
 // Extensions, turn them on and off.
@@ -154,6 +156,7 @@
 
 // dvorak and relatives
 #define DVORAK_LAYER_ENABLE
+//#define DVORAK_RLC_IU_LAYER_ENABLE
 //#define CAPEWELL_DVORAK_LAYER_ENABLE
 //#define AHEI_LAYER_ENABLE
 //#define BOO_LAYER_ENABLE
@@ -201,9 +204,10 @@
 //#define MTGAP_LAYER_ENABLE
 //#define CTGAP_LAYER_ENABLE
 //#define APT_LAYER_ENABLE
+//#define CANARY_LAYER_ENABLE
 
 // Hands down
-//#define HD_NEU_NARROW_LAYER_ENABLE
+#define HD_NEU_NARROW_LAYER_ENABLE
 //#define HD_REF_LAYER_ENABLE
 //#define HD_DASH_LAYER_ENABLE
 //#define HD_ELAN_LAYER_ENABLE

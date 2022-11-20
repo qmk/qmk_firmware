@@ -251,23 +251,107 @@
 #define ___2_MIDDLE_2___ ___MIDDLE_L2___,    ___MIDDLE_R2___
 #define ___2_MIDDLE_3___ ___MIDDLE_L3___,    ___MIDDLE_R3___
 
-/********************************************************************/
+// 2 keys in the middle of a 14x matrix  - For viterbi and ergodox.
+#define ___3_MIDDLE_T_EN___ ___3_MIDDLE_T___
+#define ___3_MIDDLE_1_EN___ ___3_MIDDLE_1___
+#define ___3_MIDDLE_2_EN___ ___3_MIDDLE_2___
+#define ___3_MIDDLE_3_EN___ ___3_MIDDLE_3___
+
+#define ___2_MIDDLE_T_EN___ ___2_MIDDLE_T___
+#define ___2_MIDDLE_1_EN___ ___2_MIDDLE_1___
+#define ___2_MIDDLE_2_EN___ ___2_MIDDLE_2___
+#define ___2_MIDDLE_3_EN___ ___2_MIDDLE_3___
+
+#define ___3_MIDDLE_T_BP___ ___3_MIDDLE_T___
+#define ___3_MIDDLE_1_BP___ ___3_MIDDLE_1___
+#define ___3_MIDDLE_2_BP___ ___3_MIDDLE_2___
+#define ___3_MIDDLE_3_BP___ ___3_MIDDLE_3___
+
+#define ___2_MIDDLE_T_BP___ ___2_MIDDLE_T___
+#define ___2_MIDDLE_1_BP___ ___2_MIDDLE_1___
+#define ___2_MIDDLE_2_BP___ ___2_MIDDLE_2___
+#define ___2_MIDDLE_3_BP___ ___2_MIDDLE_3___
+
+#define ___2_MIDDLE_T_CB___ CB_0M1, CB_0M2
+#define ___2_MIDDLE_1_CB___ CB_1M1, CB_1M2
+#define ___2_MIDDLE_2_CB___ CB_2M1, CB_2M2
+#define ___2_MIDDLE_3_CB___ CB_3M1, CB_3M2
+#define ___2_MIDDLE_4_CB___ CB_4M1, CB_4M2
+
+#define ___3_MIDDLE_T_CB___ CB_0M1, CB_0M2, CB_0M3
+#define ___3_MIDDLE_1_CB___ CB_1M1, CB_1M2, CB_1M3
+#define ___3_MIDDLE_2_CB___ CB_2M1, CB_2M2, CB_2M3
+#define ___3_MIDDLE_3_CB___ CB_3M1, CB_3M2, CB_3M3
+#define ___3_MIDDLE_4_CB___ CB_4M1, CB_4M2, CB_4M3
+
+#define ___4_MIDDLE_4_CB___ CB_4M1, CB_4M2, CB_4M3, CB_4M4
+#define ___5_MIDDLE_4_CB___ CB_4M1, CB_4M2, CB_4M3, CB_4M4, CB_4M5
+
+#define ___2_MIDDLE_T_CB2___ CB2_0M1, CB2_0M2
+#define ___2_MIDDLE_1_CB2___ CB2_1M1, CB2_1M2
+#define ___2_MIDDLE_2_CB2___ CB2_2M1, CB2_2M2
+#define ___2_MIDDLE_3_CB2___ CB2_3M1, CB2_3M2
+#define ___2_MIDDLE_4_CB2___ CB2_4M1, CB2_4M2
+
+#define ___3_MIDDLE_T_CB2___ CB2_0M1, CB2_0M2, CB2_0M3
+#define ___3_MIDDLE_1_CB2___ CB2_1M1, CB2_1M2, CB2_1M3
+#define ___3_MIDDLE_2_CB2___ CB2_2M1, CB2_2M2, CB2_2M3
+#define ___3_MIDDLE_3_CB2___ CB2_3M1, CB2_3M2, CB2_3M3
+#define ___3_MIDDLE_4_CB2___ CB2_4M1, CB2_4M2, CB2_4M3
+
+#define ___4_MIDDLE_4_CB2___ CB2_4M1, CB2_4M2, CB2_4M3, CB2_4M4
+#define ___5_MIDDLE_4_CB2___ CB2_4M1, CB2_4M2, CB2_4M3, CB2_4M4, CB2_4M5
+
+#define ___4_LEFT_4_CB___  CB_4L1, CB_4L2, CB_4L3, CB_4L4
+#define ___4_RIGHT_4_CB___ CB_4R1, CB_4R2, CB_4R3, CB_4R4
+
+#define ___4_LEFT_4_CB2___ CB2_4L1, CB2_4L2, CB2_4L3, CB2_4L4
+#define ___4_RIGHT_4_CB2___ CB2_4R1, CB2_4R2, CB2_4R3, CB2_4R4
+
+#define ___5_LEFT_4_CB___  CB_4L1, CB_4L2, CB_4L3, CB_4L4, CB_4L5
+#define ___5_RIGHT_4_CB___ CB_4R1, CB_4R2, CB_4R3, CB_4R4, CB_4R5
+
+#define ___5_LEFT_4_CB2___ CB2_4L1, CB2_4L2, CB2_4L3, CB2_4L4, CB2_4L5
+#define ___5_RIGHT_4_CB2___ CB2_4R1, CB2_4R2, CB2_4R3, CB2_4R4, CB2_4R5
+
+#define ___13_BOTTOM_CB___ ___5_LEFT_4_CB___,    \
+    ___3_MIDDLE_4_CB___,                         \
+    ___5_RIGHT_4_CB___
+
+#define ___12_BOTTOM_CB___ ___5_LEFT_4_CB___,    \
+    ___2_MIDDLE_4_CB___,                         \
+    ___5_RIGHT_4_CB___
+
+#define ___13_BOTTOM_CB2___ ___5_LEFT_4_CB2___,  \
+    ___3_MIDDLE_4_CB2___,                        \
+    ___5_RIGHT_4_CB2___
+
+#define ___12_BOTTOM_CB2___ ___5_LEFT_4_CB2___,  \
+    ___2_MIDDLE_4_CB2___,                 \
+    ___5_RIGHT_4_CB2___
+
 /* BOTTOMS, sorta like THUMBS                                       */
 /********************************************************************/
 // for xd75 or other layouts with a center column.
 // #define ___5_MIDDLE_THUMBS___ CTL_BSPC,    ALT_DEL,     XMONAD_ESC,  ALT_ENT,   CTL_SPC
 #define ___5_MIDDLE_THUMBS___ ALT_DEL, BSPC_TOPR, ESC_SYMB, ENT_NAV, SPC_TOPR
 
-// for a last, 4th thumb row. for rebound.
-// backtab, home end, ----, pgup, pgdn, tab ?
+  // for a last, 4th thumb row. for rebound.
+  // backtab, home end, ----, pgup, pgdn, tab ?
 #define ___13_BOTTOM___                                           \
   KC_BKTAB, HOME_END, KC_TAB, TT(_NAV), BSPC_SYMB, ESC_TOPR,      \
     OSL(_LAYERS),                                               \
     ENT_NAV, SPC_TOPR, KC_LEFT, KC_PGUP, KC_PGDN, KC_RIGHT
 
+#define ___13_BOTTOM_EN___ ___13_BOTTOM___
+#define ___13_BOTTOM_BP___ ___13_BOTTOM___
+
 #define ___12_BOTTOM___                                         \
   KC_BKTAB, HOME_END, KC_TAB, TT(_NAV), BSPC_SYMB, ESC_TOPR,    \
     ENT_NAV, SPC_TOPR, KC_LEFT, KC_PGUP, KC_PGDN, KC_RIGHT
+
+#define ___12_BOTTOM_EN___ ___12_BOTTOM___
+#define ___12_BOTTOM_BP___ ___12_BOTTOM___
 
 // becomes the upper thumbs, the real 4th row if we throw away
 // the number row at the top.
@@ -285,8 +369,14 @@
 #define ___5_BOTTOM_LEFT___  ___X2___,  KC_INS,  KC_LEFT, KC_RIGHT
 #define ___5_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLASH, ___X2___
 
+#define ___5_BOTTOM_LEFT_EN___  ___5_BOTTOM_LEFT___
+#define ___5_BOTTOM_RIGHT_EN___  ___5_BOTTOM_RIGHT___
+
 #define ___4_BOTTOM_LEFT___  LCTL(KC_V),  KC_INS,  KC_LEFT,   KC_RIGHT
 #define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, KC_BSLASH, LCTL(KC_C)
+
+#define ___4_BOTTOM_LEFT_EN___  ___4___ //___4_BOTTOM_LEFT___
+#define ___4_BOTTOM_RIGHT_EN___  ___4___ //___4_BOTTOM_RIGHT___
 
 // the bottom rows  for keyboards on bepo.
 // bepo on bepo - not enough space to go around....
@@ -296,19 +386,35 @@
 #define ___4_BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_EACU,  KC_LEFT, KC_RIGHT
 #define ___4_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN, BP_BSLS,  BP_CCED
 
-// for dvorak and beakl on bepo
+// for combo ref layers for kinesis, dactyl and kinesis.
 #define ___5_BOTTOM_LEFT_FR___  ___X3___,  KC_LEFT, KC_RIGHT
 #define ___5_BOTTOM_RIGHT_FR___ KC_UP,  KC_DOWN,  BP_BSLS, ___X2___
 
+#define ___4_BOTTOM_LEFT_CB___ ___4_LEFT_4_CB___
+#define ___4_BOTTOM_RIGHT_CB___ ___4_RIGHT_4_CB___
+
+#define ___4_BOTTOM_LEFT_CB2___ ___4_LEFT_4_CB2___
+#define ___4_BOTTOM_RIGHT_CB2___ ___4_RIGHT_4_CB2___
+
+#define ___5_BOTTOM_LEFT_CB___ ___5_LEFT_4_CB___
+#define ___5_BOTTOM_RIGHT_CB___ ___5_RIGHT_4_CB___
+
+#define ___5_BOTTOM_LEFT_CB2___ ___5_LEFT_4_CB2___
+#define ___5_BOTTOM_RIGHT_CB2___ ___5_RIGHT_4_CB2___
 
 // basically a 5th row in a 5x matrix. but maybe a 4th if there isnt a number row.
 // need an en, because we a have a BP and we used it directly in the layout.
 #define ___15_BOTTOM_EN___  ___5_BOTTOM_LEFT___,    ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT___
 #define ___15_BOTTOM_FR___  ___5_BOTTOM_LEFT_FR___, ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT_FR___
 #define ___15_BOTTOM_BP___  ___5_BOTTOM_LEFT_BP___, ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT_BP___
+#define ___15_BOTTOM_CB___  ___5_LEFT_4_CB___,    ___5_MIDDLE_4_CB___, ___5_RIGHT_4_CB___
+#define ___15_BOTTOM_CB2___  ___5_LEFT_4_CB2___,    ___5_MIDDLE_4_CB2___, ___5_RIGHT_4_CB2___
 
-    // need an en, because we a have a BP and we used it directly in the layout.
+// need an en, because we a have a BP and we used it directly in the layout.
 #define ___14_BOTTOM_EN___    ___5_BOTTOM_LEFT___,    ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT___
 #define ___14_BOTTOM_FR___ ___5_BOTTOM_LEFT_FR___, ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT_FR___
 #define ___14_BOTTOM_BP___ ___5_BOTTOM_LEFT_BP___, ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT_BP___
+#define ___14_BOTTOM_CB___ ___5_LEFT_4_CB___, ___4_MIDDLE_4_CB___, ___5_RIGHT_4_CB___
+#define ___14_BOTTOM_CB2___ ___5_LEFT_4_CB2___, ___4_MIDDLE_4_CB2___, ___5_RIGHT_4_CB2___
+
 #define ___14_THUMBS_BOTTOM___   ___X4___, ___6_ERGO_THUMBS___, ___X4___

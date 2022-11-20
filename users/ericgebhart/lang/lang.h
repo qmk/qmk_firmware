@@ -74,6 +74,8 @@
 
 // Give the right map chunk suffix by LANG_IS
 #define LANG_MAPSFX CAT(CAT(LANG_IS, _), MAPSFX)
+#define COMBO_MAPSFX _CB___
+#define COMBO2_MAPSFX _CB2___
 #define BEPO_MAPSFX _BP___
 #define EN_MAPSFX _EN___
 #define US_INT_MAPSFX _EN___

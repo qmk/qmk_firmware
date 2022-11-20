@@ -47,7 +47,7 @@
 void update_smart_lock(uint16_t keycode);
 
 
-inline void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   if (record->event.pressed) {
     tap_taplong_timer = timer_read();
   } else {
@@ -59,7 +59,7 @@ inline void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   }
 }
 
-inline void tap_sml(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+void tap_sml(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   if (record->event.pressed) {
     tap_taplong_timer = timer_read();
   } else {
@@ -73,7 +73,7 @@ inline void tap_sml(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
 
 /* for (){}[]""''<>``. tap for open. Hold for open and close, ending inbetween. */
 /* Assumes a one character length.                                              */
-inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   if (record->event.pressed) {
     tap_taplong_timer = timer_read();
   }else{
@@ -103,7 +103,7 @@ inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
 }
 
 // open and open close for dead keys.
-inline void open_openclose_not_dead(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+void open_openclose_not_dead(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   if (record->event.pressed) {
     tap_taplong_timer = timer_read();
   }else{

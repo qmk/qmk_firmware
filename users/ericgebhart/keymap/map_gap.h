@@ -25,3 +25,7 @@ B_LAYER(LANG_N(_MTGAP), ___10_NUMBERS___, ___MTGAP___),
 #ifdef APT_LAYER_ENABLE
   B_LAYER(LANG_N(_APT), ___10_NUMBERS___, ___APT___),
 #endif
+
+#ifdef CANARY_LAYER_ENABLE
+  B_LAYER(LANG_N(_CANARY), ___10_NUMBERS___, ___CANARY___),
+#endif

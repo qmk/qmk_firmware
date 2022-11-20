@@ -15,7 +15,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifdef DVORAK_LAYER_ENABLE
-      LANG_N(_DVORAK),
+    LANG_N(_DVORAK),
+#endif
+#ifdef DVORAK_RLC_IU_LAYER_ENABLE
+      LANG_N(_DVORAK_RLC_IU_),
 #endif
 #ifdef BOO_LAYER_ENABLE
         LANG_N(_BOO),
@@ -125,6 +128,9 @@
 #endif
 #ifdef APT_LAYER_ENABLE
         LANG_N(_APT),
+#endif
+#ifdef CANARY_LAYER_ENABLE
+        LANG_N(_CANARY),
 #endif
 
 

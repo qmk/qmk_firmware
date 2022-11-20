@@ -14,6 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include USERSPACE_H
 
 #include "extensions.h"
@@ -30,17 +31,23 @@
 #include "key_overrides.h"
 #include "console_key_logger.h"
 
+// should make header files maybe. being lazy.
 void process_not_dead(uint16_t keycode, keyrecord_t *record);
 bool process_alt_shift_user(uint16_t keycode, keyrecord_t *record);
 void process_send_strs(uint16_t keycode, keyrecord_t *record);
+//bool process_alt_local_key(uint16_t keycode, keyrecord_t* record);
+bool process_global_quick_tap(uint16_t keycode, keyrecord_t *record);
 
 // call this from the top of process records before the switch.
 
 bool process_extensions(uint16_t keycode, keyrecord_t *record){
   if (!process_locales(keycode, record)) { return false; }
 
+#ifdef GLOBAL_QUICK_TAP_ENABLE
+  if (!process_global_quick_tap(keycode, record)) {return false; }
+#endif
 #ifdef CAPS_WORD_ENABLE
-  if (!process_caps_word(keycode, record)) { return false; }
+ if (!process_caps_word(keycode, record)) { return false; }
 #endif
 #ifdef ALT_LOCAL_ENABLE
   if (!process_alt_local_key(keycode, record)) { return false; }

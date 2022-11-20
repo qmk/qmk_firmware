@@ -145,19 +145,19 @@
                   K36, K37, K38, K39, K3A)                        \
   LVARG_5x15(                                                     \
              MOD_ROW(ROW0L)(K01, K02, K03, K04, K05),                   \
-             ___3_MIDDLE_T___,                                          \
+             MAP_CHUNK(___3_MIDDLE_T),                               \
              MOD_ROW(ROW0R)(K06, K07, K08, K09, K0A),                   \
                                                                         \
              MOD_ROW(ROW1L)(K11, K12, K13, K14, K15),                   \
-             ___3_MIDDLE_1___,                                          \
+             MAP_CHUNK(___3_MIDDLE_1),                                \
              MOD_ROW(ROW1R)(K16, K17, K18, K19, K1A),                   \
                                                                         \
              MOD_ROW(ROW2L)(K21, K22, K23, K24, K25),                   \
-             ___3_MIDDLE_2___,                                          \
+             MAP_CHUNK(___3_MIDDLE_2),                                \
              MOD_ROW(ROW2R)(K26, K27, K28, K29, K2A),                   \
                                                                         \
              MOD_ROW(ROW3L)(K31, K32, K33, K34, K35),                   \
-             ___3_MIDDLE_3___,                                          \
+             MAP_CHUNK(___3_MIDDLE_3),                                  \
              MOD_ROW(ROW3R)(K36, K37, K38, K39, K3A),                   \
              MAP_CHUNK(___15_BOTTOM)                                    \
                                                                   )
@@ -173,16 +173,16 @@
                     K37, K38, K39, K3A, K3B, K3C)                  \
   LVARG_5x15(                                                           \
              MOD_ROW(ROW0L)(K01, K02, K03, K04, K05, K06),              \
-             ___3_MIDDLE_T___,                                          \
+             MAP_CHUNK(___3_MIDDLE_T),                               \
              MOD_ROW(ROW0R)(K07, K08, K09, K0A, K0B, K0C),              \
              MOD_ROW(ROW1L)(K11, K12, K13, K14, K15, K16),              \
-             ___3_MIDDLE_1___,                                          \
+             MAP_CHUNK(___3_MIDDLE_1),                                  \
              MOD_ROW(ROW1R)(K17, K18, K19, K1A, K1B, K1C),              \
              MOD_ROW(ROW2L)(K21, K22, K23, K24, K25, K26),              \
-             ___3_MIDDLE_2___,                                          \
+             MAP_CHUNK(___3_MIDDLE_2),                                  \
              MOD_ROW(ROW2R)(K27, K28, K29, K2A, K2B, K2C),              \
              MOD_ROW(ROW3L)(K31, K32, K33, K34, K35, K36),              \
-             ___3_MIDDLE_3___,                                          \
+             MAP_CHUNK(___3_MIDDLE_3),                                  \
              MOD_ROW(ROW3R)(K37, K38, K39, K3A, K3B, K3C),              \
              MAP_CHUNK(___15_BOTTOM)                                    \
                                                                         )
@@ -227,19 +227,19 @@
                         K36, K37, K38, K39, K3A)                        \
   LVARG_5x14(                                                           \
              MOD_ROW(ROW0L)(K01, K02, K03, K04, K05),                   \
-             ___2_MIDDLE_T___,                                          \
+             MAP_CHUNK(___2_MIDDLE_T),                                  \
              MOD_ROW(ROW0R)(K06, K07, K08, K09, K0A),                   \
-                                                                        \
+                                                                       \
              MOD_ROW(ROW1L)(K11, K12, K13, K14, K15),                   \
-             ___2_MIDDLE_1___,                                          \
+             MAP_CHUNK(___2_MIDDLE_1),                                  \
              MOD_ROW(ROW1R)(K16, K17, K18, K19, K1A),                   \
                                                                         \
              MOD_ROW(ROW2L)(K21, K22, K23, K24, K25),                   \
-             ___2_MIDDLE_2___,                                          \
+             MAP_CHUNK(___2_MIDDLE_2),              \
              MOD_ROW(ROW2R)(K26, K27, K28, K29, K2A),                   \
                                                                         \
              MOD_ROW(ROW3L)(K31, K32, K33, K34, K35),                   \
-             ___2_MIDDLE_3___,                                          \
+             MAP_CHUNK(___2_MIDDLE_3),    \
              MOD_ROW(ROW3R)(K36, K37, K38, K39, K3A),                   \
              MAP_CHUNK(___14_BOTTOM)                                    \
                                                                         )
@@ -254,17 +254,17 @@
                     K37, K38, K39, K3A, K3B, K3C)       \
   LVARG_5x15(                                           \
     MOD_ROW(ROW0L)(K01, K02, K03, K04, K05, K06),         \
-    ___2_MIDDLE_T___,                                     \
+    MAP_CHUNK(___2_MIDDLE_T),                             \
     MOD_ROW(ROW0R)(K07, K08, K09, K0A, K0B, K0C),       \
     MOD_ROW(ROW1L)(K11, K12, K13, K14, K15, K16),       \
-    ___2_MIDDLE_1___,                                   \
+    MAP_CHUNK(___2_MIDDLE_1),                                           \
     MOD_ROW(ROW1R)(K17, K18, K19, K1A, K1B, K1C),       \
     MOD_ROW(ROW2L)(K21, K22, K23, K24, K25, K26),       \
-    ___2_MIDDLE_2___,                                   \
+    MAP_CHUNK(___2_MIDDLE_2),                           \
     MOD_ROW(ROW2R)(K27, K28, K29, K2A, K2B, K2C),       \
     MOD_ROW(ROW3L)(K31, K32, K33, K34, K35, K36),       \
-    ___2_MIDDLE_3___,                                   \
-    MOD_ROW(ROW3R)(K37, K38, K39, K3A, K3B, K3C),       \
+    MAP_CHUNK(___2_MIDDLE_3),                                   \
+    MOD_ROW(ROW3R)(K37, K38, K39, K3A, K3B, K3C),               \
     MAP_CHUNK(___14_BOTTOM)                                     \
                                                         )
 
@@ -407,7 +407,7 @@
 // each side.  - 4x6_4_6.
 // Then a giant row up top, 9 keys on each side, for function keys.
 #define Base_4x6_4_6(                                                   \
-                     K01, K02, K03, K04, K05,                           \
+                     K01, K02, K03, K04, K05, \
                      K06, K07, K08, K09, K0A,                           \
                      K11, K12, K13, K14, K15,                           \
                      K16, K17, K18, K19, K1A,                           \
@@ -417,19 +417,20 @@
                      K36, K37, K38, K39, K3A                            \
                                                                         ) \
   LAYOUT_PVARG(                                                         \
-               ___KINTFUNC_L___, ___KINTFUNC_R___,                      \
-    MOD_CORE_4x5(K01, K02, K03, K04, K05,                               \
-                 K06, K07, K08, K09, K0A,                               \
-                 K11, K12, K13, K14, K15,                               \
-                 K16, K17, K18, K19, K1A,                               \
-                 K21, K22, K23, K24, K25,                               \
-                 K26, K27, K28, K29, K2A,                               \
-                 K31, K32, K33, K34, K35,                               \
-                 K36, K37, K38, K39, K3A                                \
-                 ),                                                     \
-               ___4_BOTTOM_LEFT___, ___4_BOTTOM_RIGHT___,               \
-                ___12_DOX_ALL_THUMBS___                                \
-                 )
+               ___KINTFUNC_L___, ___KINTFUNC_R___, \
+               MOD_CORE_4x5(K01, K02, K03, K04, K05,                    \
+                            K06, K07, K08, K09, K0A,                    \
+                            K11, K12, K13, K14, K15,                    \
+                            K16, K17, K18, K19, K1A,                    \
+                            K21, K22, K23, K24, K25,                    \
+                            K26, K27, K28, K29, K2A,                    \
+                            K31, K32, K33, K34, K35,                    \
+                            K36, K37, K38, K39, K3A),                   \
+               MAP_CHUNK(___4_BOTTOM_LEFT),                             \
+               MAP_CHUNK(___4_BOTTOM_RIGHT),                            \
+               MAP_CHUNK(___12_DOX_ALL_THUMBS)                          \
+                                                                        )
+
 
 #define Base_4x6_4_6t6(                                                 \
                        K01, K02, K03, K04, K05, K06,                    \
@@ -448,10 +449,11 @@
                             K17, K18, K19, K1A, K1B, K1C,              \
                             K21, K22, K23, K24, K25, K26,              \
                             K27, K28, K29, K2A, K2B, K2C,             \
-K31, K32, K33, K34, K35, K36,                \
-                           K37, K38, K39, K3A, K3B, K3C),               \
-              ___4_BOTTOM_LEFT___, ___4_BOTTOM_RIGHT___,                \
-              ___12_DOX_ALL_THUMBS___                                   \
+                            K31, K32, K33, K34, K35, K36,               \
+                            K37, K38, K39, K3A, K3B, K3C),              \
+                MAP_CHUNK(___4_BOTTOM_LEFT),                            \
+                MAP_CHUNK(___4_BOTTOM_RIGHT),                           \
+                MAP_CHUNK(___12_DOX_ALL_THUMBS)                         \
                                                                         )
 
 #define Transient_4x6_4_6(                                         \
@@ -462,18 +464,20 @@ K31, K32, K33, K34, K35, K36,                \
                           K21, K22, K23, K24, K25,                 \
                           K27, K28, K29, K2A, K2B                 \
                                                                        ) \
-  LAYOUT_PVARG(                                                         \
-               ___KINTFUNC_L___, ___KINTFUNC_R___,                      \
-               ___12___,                                                \
-               ___, K01, K02, K03, K04, K05,                            \
-               K07, K08, K09, K0A, K0B, ___,                            \
-               ___, K11, K12, K13, K14, K15,                            \
-               K17, K18, K19, K1A, K1B, ___,                           \
-               ___, K21, K22, K23, K24, K25,                           \
-               K27, K28, K29, K2A, K2B, ___,                           \
-               ___4___, ___4___,                                        \
-               ___12_DOX_ALL_THUMBS___                                  \
+                LAYOUT_PVARG(                                           \
+            ___12___, ___6___,                                                  \
+            ___12___,                                                   \
+            ___, K01, K02, K03, K04, K05,                               \
+            K07, K08, K09, K0A, K0B, ___,                               \
+            ___, K11, K12, K13, K14, K15,                               \
+            K17, K18, K19, K1A, K1B, ___,                               \
+            ___, K21, K22, K23, K24, K25,                               \
+            K27, K28, K29, K2A, K2B, ___,                               \
+            ___4___, ___4___,                                           \
+            MAP_CHUNK(___12_DOX_ALL_THUMBS)                             \
                                                                         )
+
+/* ___KINTFUNC_L___, ___KINTFUNC_R___,                      \ */
 
 /* This keyboard is a split, 4x6 + a row of 5 and a thumb cluster of 8. */
 /* So We need Base_4x6_5_8 As a layout template to add mods, and fill */
@@ -507,8 +511,8 @@ K31, K32, K33, K34, K35, K36,                \
                K31, K32, K33, K34, K35,                           \
                K36, K37, K38, K39, K3A                            \
                ),                                                       \
-  ___5_BOTTOM_LEFT___, ___5_BOTTOM_RIGHT___,                            \
-  ___16_ALL_THUMBSa___                                                  \
+  MAP_CHUNK(___5_BOTTOM_LEFT), MAP_CHUNK(___5_BOTTOM_RIGHT),            \
+  MAP_CHUNK(___16_ALL_THUMBSa)                                          \
                                                                         )
 
 #define Base_4x6_5_8t6(                                                 \
@@ -530,8 +534,8 @@ K31, K32, K33, K34, K35, K36,                \
                             K27, K28, K29, K2A, K2B, K2C,               \
                             K31, K32, K33, K34, K35, K36,               \
                             K37, K38, K39, K3A, K3B, K3C),              \
-               ___5_BOTTOM_LEFT___, ___5_BOTTOM_RIGHT___,               \
-               ___16_ALL_THUMBSa___                                     \
+               MAP_CHUNK(___5_BOTTOM_LEFT), MAP_CHUNK(___5_BOTTOM_RIGHT), \
+               MAP_CHUNK(___16_ALL_THUMBSa)                             \
                                                                         )
 
 
@@ -555,7 +559,7 @@ K31, K32, K33, K34, K35, K36,                \
                ___, K21, K22, K23, K24, K25,                            \
                K26, K27, K28, K29, K2A, ___,                       \
                ___5___, ___5___,                                        \
-               ___16_ALL_THUMBSa___                                     \
+               MAP_CHUNK(___16_ALL_THUMBSa)                          \
                                                                         )
 
 /********************************************************************/
@@ -576,45 +580,46 @@ K31, K32, K33, K34, K35, K36,                \
                                                                         ) \
   LVARG_edox(                                                           \
              MOD_ROW(ROW0L)(K01, K02, K03, K04, K05),                   \
-             ___2_MIDDLE_1___,                                          \
-             MOD_ROW(ROW0R)(K06, K07, K08, K09, K0A),                   \
+               MAP_CHUNK(___2_MIDDLE_1),                                \
+               MOD_ROW(ROW0R)(K06, K07, K08, K09, K0A),                 \
                                                                         \
              MOD_ROW(ROW1L)(K11, K12, K13, K14, K15),                   \
-             ___2_MIDDLE_2___,                                          \
-             MOD_ROW(ROW1R)(K16, K17, K18, K19, K1A),                   \
+               MAP_CHUNK(___2_MIDDLE_2),                                \
+               MOD_ROW(ROW1R)(K16, K17, K18, K19, K1A),                 \
                                                                         \
              MOD_ROW(ROW2L)(K21, K22, K23, K24, K25),                   \
              MOD_ROW(ROW2R)(K26, K27, K28, K29, K2A),                   \
                                                                         \
              MOD_ROW(ROW3L)(K31, K32, K33, K34, K35),                   \
-             ___2_MIDDLE_3___,                                          \
+             MAP_CHUNK(___2_MIDDLE_3),                                  \
              MOD_ROW(ROW3R)(K36, K37, K38, K39, K3A),                   \
-             ___5_BOTTOM_LEFT___,   ___5_BOTTOM_RIGHT___,               \
-             ___12_DOX_ALL_THUMBS___                                    \
+             MAP_CHUNK(___5_BOTTOM_LEFT), MAP_CHUNK(___5_BOTTOM_RIGHT), \
+             MAP_CHUNK(___12_DOX_ALL_THUMBS)                           \
                                                                         )
 
 #define Base_doxt6(                                                     \
-                   K01, K02, K03, K04, K05, K06,                        \
+                   K01, K02, K03, K04, K05, K06, \
                    K07, K08, K09, K0A, K0B, K0C,                        \
                    K11, K12, K13, K14, K15, K16,                        \
-                   K17, K18, K19, K1A, K1B, K1C,                    \
-                   K21, K22, K23, K24, K25, K26,                    \
+                   K17, K18, K19, K1A, K1B, K1C,                        \
+                   K21, K22, K23, K24, K25, K26,                        \
                    K27, K28, K29, K2A, K2B, K2C,                        \
                    K31, K32, K33, K34, K35, K36,                        \
                    K37, K38, K39, K3A, K3B, K3C)                        \
   LVARG_edox(MOD_ROW(ROW0L)(K01, K02, K03, K04, K05, K06),              \
-             ___2_MIDDLE_1___,                                          \
+             MAP_CHUNK(___2_MIDDLE_1),                                  \
              MOD_ROW(ROW0R)(K07, K08, K09, K0A, K0B, K0C),              \
              MOD_ROW(ROW1L)(K11, K12, K13, K14, K15, K16),              \
-             ___2_MIDDLE_2___,                                          \
+             MAP_CHUNK(___2_MIDDLE_2),                                  \
              MOD_ROW(ROW1R)(K17, K18, K19, K1A, K1B, K1C),              \
              MOD_ROW(ROW2L)(K21, K22, K23, K24, K25, K26),              \
              MOD_ROW(ROW2R)(K27, K28, K29, K2A, K2B, K2C),              \
              MOD_ROW(ROW3L)(K31, K32, K33, K34, K35, K36),              \
-             ___2_MIDDLE_3___,                                          \
+             MAP_CHUNK(___2_MIDDLE_3),                                  \
              MOD_ROW(ROW3R)(K37, K38, K39, K3A, K3B, K3C),              \
-             ___5_BOTTOM_LEFT___,   ___5_BOTTOM_RIGHT___,               \
-             ___12_DOX_ALL_THUMBS___)
+             MAP_CHUNK(___5_BOTTOM_LEFT),                              \
+             MAP_CHUNK(___5_BOTTOM_RIGHT),                             \
+             MAP_CHUNK(___12_DOX_ALL_THUMBS))
 
 #define Transient_dox(                                                  \
                       K01, K02, K03, K04, K05,                          \
@@ -634,7 +639,7 @@ K31, K32, K33, K34, K35, K36,                \
              ___2___,                                                   \
              K27, K28, K29, K2A, K2B, ___,                              \
              ___5___, ___5___,                                          \
-             ___12_DOX_ALL_THUMBS___                                    \
+             MAP_CHUNK(___12_DOX_ALL_THUMBS)                            \
                                                                         )
 
 
@@ -645,10 +650,10 @@ K31, K32, K33, K34, K35, K36,                \
 #define Base_rebound(                                                   \
                      K01, K02, K03, K04, K05,                           \
                      K06, K07, K08, K09, K0A,                           \
-                          K11, K12, K13, K14, K15,                       \
-                        K16, K17, K18, K19, K1A,                        \
-                        K21, K22, K23, K24, K25,                        \
-                        K26, K27, K28, K29, K2A                         \
+                     K11, K12, K13, K14, K15,                           \
+                     K16, K17, K18, K19, K1A,                           \
+                     K21, K22, K23, K24, K25,                           \
+                     K26, K27, K28, K29, K2A                            \
                                                                         ) \
   LVARG_rebound(                                                        \
                 MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),                \
@@ -661,7 +666,7 @@ K31, K32, K33, K34, K35, K36,                \
                 MOD_ROW(ROW3L)(K21, K22, K23, K24, K25),                \
                 MO_ADJUST,                                              \
                 MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A),                \
-                ___13_BOTTOM___                                         \
+                MAP_CHUNK(___13_BOTTOM)                                 \
                                                                         )
 #define Base_reboundt6(                                                 \
                        K01, K02, K03, K04, K05, K06,                    \
@@ -673,14 +678,14 @@ K31, K32, K33, K34, K35, K36,                \
                                                                         ) \
   LVARG_rebound(                                                        \
                 MOD_ROW(ROW1L)(K01, K02, K03, K04, K05, K06),           \
-          MOD_ROW(ROW1R)(K07, K08, K09, K0A, K0B, K0C),                 \
-          MOD_ROW(ROW2L)(K11, K12, K13, K14, K15, K16),                 \
-          KC_CCCV,                                                      \
-             MOD_ROW(ROW2R)(K17, K18, K19, K1A, K1B, K1C),              \
-             MOD_ROW(ROW3L)(K21, K22, K23, K24, K25, K26),              \
-             MO_ADJUST,                                                 \
-             MOD_ROW(ROW3R)(K27, K28, K29, K2A, K2B, K2C),              \
-             ___13_BOTTOM___                                            \
+                MOD_ROW(ROW1R)(K07, K08, K09, K0A, K0B, K0C),           \
+                MOD_ROW(ROW2L)(K11, K12, K13, K14, K15, K16),           \
+                KC_CCCV,                                                \
+                MOD_ROW(ROW2R)(K17, K18, K19, K1A, K1B, K1C),           \
+                MOD_ROW(ROW3L)(K21, K22, K23, K24, K25, K26),           \
+                MO_ADJUST,                                              \
+                MOD_ROW(ROW3R)(K27, K28, K29, K2A, K2B, K2C),              \
+                MAP_CHUNK(___13_BOTTOM)                                 \
                                                                         )
 
 #define Rebound_transient(                                              \
@@ -700,7 +705,7 @@ K31, K32, K33, K34, K35, K36,                \
                 ___, K21, K22, K23, K24, K25,                           \
                 ___,                                                    \
                 K27, K28, K29, K2A, K2B, ___,                           \
-                ___, ___13_BOTTOM___                                    \
+                MAP_CHUNK(___13_BOTTOM)                            \
                                                                         )
 
 /********************************************************************/
@@ -708,7 +713,7 @@ K31, K32, K33, K34, K35, K36,                \
 /* Row. Followed by 5 thumb keys on each side. 7 thumb keys total.  */
 /********************************************************************/
 #define Base_2x6_8_5(                                                   \
-                     K01, K02, K03, K04, K05,                           \
+                     K01, K02, K03, K04, K05, \
                      K06, K07, K08, K09, K0A,                           \
                      K11, K12, K13, K14, K15,                           \
                      K16, K17, K18, K19, K1A,                           \
@@ -722,9 +727,9 @@ K31, K32, K33, K34, K35, K36,                \
               MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),                  \
                                                                         \
               MOD_ROW(ROW3L)(K21, K22, K23, K24, K25),                  \
-              ___4_THUMBS___,                                           \
+              MAP_CHUNK(___4_THUMBS),                                   \
               MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A),                  \
-              ___10_ERGO_THUMBS___                                      \
+              MAP_CHUNK(___10_ERGO_THUMBS)                              \
                                                                         )
 
 #define Base_2x6_8_5t6(                                                \
@@ -740,10 +745,10 @@ K31, K32, K33, K34, K35, K36,                \
               MOD_ROW(ROW2L)(K11, K12, K13, K14, K15, K16),            \
               MOD_ROW(ROW2R)(K17, K18, K19, K1A, K1B, K1C),            \
               MOD_ROW(ROW3L)(K21, K22, K23, K24, K25, K26),            \
-              ___4_THUMBS___,                                           \
-              MOD_ROW(ROW3R)(K27, K28, K29, K2A, K2B, K2C),            \
-              ___10_ERGO_THUMBS___                                      \
-                                                                        )
+              MAP_CHUNK(___4_THUMBS),                                   \
+              MOD_ROW(ROW3R)(K27, K28, K29, K2A, K2B, K2C),             \
+              MAP_CHUNK(___10_ERGO_THUMBS)                              \
+              )
 
 // All we really need is to add the see through thumbs to the end.
 #define Transient_2x6_8_5(                                              \
@@ -762,5 +767,5 @@ K31, K32, K33, K34, K35, K36,                \
               ___, K21, K22, K23, K24, K25,                             \
               ___4___,                                                \
               K27, K28, K29, K2A, K2B, ___,                           \
-              ___10_ERGO_THUMBS___                                    \
-              )
+              MAP_CHUNK(___10_ERGO_THUMBS)                             \
+                                                                        )

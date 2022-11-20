@@ -50,6 +50,9 @@ void oled_render_layer_map(void) {
 #ifdef DVORAK_LAYER_ENABLE
         SHOW_MAP(_DVORAK)
 #endif
+#ifdef DVORAK_RLC_IU_LAYER_ENABLE
+        SHOW_MAP(_DVORAK_RLC_IU)
+#endif
 #ifdef BOO_LAYER_ENABLE
         SHOW_MAP(_BOO)
 #endif
@@ -98,6 +101,10 @@ void oled_render_layer_map(void) {
 
 #ifdef APT_LAYER_ENABLE
         SHOW_MAP(_APT)
+#endif
+
+#ifdef CANARY_LAYER_ENABLE
+        SHOW_MAP(_CANARY)
 #endif
 
 

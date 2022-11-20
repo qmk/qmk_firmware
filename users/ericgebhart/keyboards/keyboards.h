@@ -50,9 +50,6 @@
 #define BASEt6 Base_5x15t6
 #define TRANS Transient_5x15
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
-
-// tell the keymap we want to specify number rows.
-// 4x10 input instead 3x10.
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
 
@@ -62,9 +59,6 @@
 #define BASEt6 Base_5x14t6
 #define TRANS Transient_5x14
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
-
-// tell the keymap we want to specify number rows.
-// 4x10 input instead 3x10.
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
 
@@ -77,7 +71,15 @@
 #endif
 
 // Kinesis
-#ifdef KEYBOARD_kinesis_kint36
+#if defined(KEYBOARD_kinesis_alvicstep)         \
+  || defined(KEYBOARD_kinesis_stapelberg)       \
+  || defined(KEYBOARD_kinesis_kint2pp)          \
+  || defined(KEYBOARD_kinesis_nguyenvietyen)    \
+  || defined(KEYBOARD_kinesis_kint36)           \
+  || defined(KEYBOARD_kinesis_kint41)           \
+  || defined(KEYBOARD_kinesis_kintlc)
+
+#undef LAYOUT_PVARG
 #define LAYOUT_PVARG(...)     LAYOUT_pretty(__VA_ARGS__)
 // Base layers 4x10, so numbers are enabled, and a 3x10 for the keymap.
 // Transient function layers are all 3x10.
@@ -85,9 +87,6 @@
 #define BASEt6 Base_4x6_4_6t6
 #define TRANS Transient_4x6_4_6
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
-
-// tell the keymap we want to specify number rows.
-// 4x10 input instead 3x10.
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
 
@@ -100,8 +99,5 @@
 #define BASEt6 Base_4x6_5_8t6
 #define TRANS Transient_4x6_5_8
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
-
-// tell the keymap we want to specify number rows.
-// 4x10 input instead 3x10.
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
