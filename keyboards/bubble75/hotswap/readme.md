@@ -1,11 +1,11 @@
 # Bubble 75
 
-![image](https://user-images.githubusercontent.com/31980883/198159649-718a85f7-5d49-47b6-a46e-fa8c656d27c3.png)
+![image](https://i.imgur.com/9J01bYH.png)
 
 
 A compact exploded F-Row 75% made by Velocifire.
 
-* Keyboard Maintainer: [@d-floe](https://github.com/d-floe)
+* Keyboard Maintainer:
 * Hardware Supported: Bubble75 Hotswap
 * Hardware Availability: [velocifiretech.com](https://www.velocifiretech.com/collections/keyboards/products/bubble-75-premium-keyboard-kit?variant=39743137939574)
 

@@ -38,7 +38,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
 /* prevent stuck modifiers */
 
 #define BOOTMAGIC_LITE_ROW 0
@@ -71,10 +70,4 @@
 #define RGB_MATRIX_STARTUP_SAT 255
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #define RGB_MATRIX_STARTUP_SPD 127
-#endif
-/* VIA */
-//#ifdef VIA_ENABLE
-//#define DYNAMIC_KEYMAP_LAYER_COUNT 2
-//#endif
-
 #endif
