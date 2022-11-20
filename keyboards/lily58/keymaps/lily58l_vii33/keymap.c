@@ -64,7 +64,7 @@ const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {200, 150, 100};
 #ifdef RGBLIGHT_LAYERS
 /* Lightning Layers as status indicators. -> Array of segments */
 const rgblight_segment_t PROGMEM mod_indicator[] = RGBLIGHT_LAYER_SEGMENTS(
-    {6, 4, HSV_GREEN}   // First segment: Turn on 5 LEDs starting with #4
+    {6, 4, HSV_GREEN}   // First segment: Turn on 5 LEDs starting with #4~~
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
   KC_ESC,   KC_1,   KC_2,   KC_3,    KC_4,   KC_5,                          KC_6,   KC_7,    KC_8,     KC_9,    KC_0,    KC_MINS, 
   KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,   KC_T,                          KC_Z,   KC_U,    KC_I,     KC_O,    KC_P,    CC_UE, 
-  CC_QUOT,  KC_A,   GUI_S,  ALT_D,   CTL_F,  KC_G,                          KC_H,   CTL_J,   ALT_K,    GUI_L,   CC_OE,   CC_AE, 
+  CC_QUOT,  KC_A,   GUI_S,  ALT_D,   CTL_F,  KC_G,                           KC_H,   CTL_J,   ALT_K,    GUI_L,   CC_OE,   CC_AE, 
   CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,   KC_B,  KC_MUTE,      _______,  KC_N,   KC_M,    CC_SCOLN, CC_COLN, CC_EXLM, KC_ENTER, 
                             CC_SLH,  MOD,    LOWER, SHFT_SP,      SHFT_SP,  UPPER,  KC_BSPC, KC_DEL
 ),
@@ -113,9 +113,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT(
   _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11, 
-  _______,  XXXXXXX, WINSCNS, QC_UNDO, QC_REDO, XXXXXXX,                      XXXXXXX, WRDLFT,  KC_UP,   WRDRGT,   KC_PGUP, KC_F12, 
-  XXXXXXX,  KC_DEL,  KC_RGUI, KC_LALT, KC_LCTL, KC_LSFT,                      XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_PGDN, XXXXXXX, 
-  XXXXXXX,  KC_BSPC, QC_CTLX, QC_CTLC, QC_CTLV, KC_ENTER, _______,  _______,  XXXXXXX, KC_HOME, KC_BSPC, KC_END,   XXXXXXX, KC_ENT, 
+  _______,  XXXXXXX, WINSCNS, QC_UNDO, QC_REDO, KC_ENTER,                     XXXXXXX, WRDLFT,  KC_UP,   WRDRGT,   KC_PGUP, KC_F12, 
+  XXXXXXX,  KC_DEL,  KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,                      XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_PGDN, XXXXXXX, 
+  XXXXXXX,  KC_BSPC, QC_CTLX, QC_CTLC, QC_CTLV, XXXXXXX, _______,   _______,  XXXXXXX, KC_HOME, KC_BSPC, KC_END,   XXXXXXX, KC_ENT, 
                               _______, _______, _______, _______,   KC_LSFT,  _______, KC_BSPC, KC_DEL
 ),
 
@@ -138,14 +138,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
   [_GAME] = LAYOUT(
-    KC_ESC,  KC_1,  KC_2,  KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,   KC_0,     GAME, 
-    KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,    KC_T,                       KC_Z,    KC_U,    KC_I,    KC_O,   KC_P,     KC_PGUP, 
-    KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                       KC_H,    KC_J,    KC_K,    KC_L,   KC_SLASH, KC_PGDN, 
-    KC_LCTL, KC_Y,  KC_X,  KC_C,    KC_V,    KC_B,   GMESCN,     KC_F12, KC_N,    KC_M,    KC_LEFT, KC_UP,  KC_RIGHT, KC_DOWN, 
-                           KC_CAPS, KC_LALT, KC_SPC, KC_SPC,     KC_ENT, KC_P0,   KC_DEL,  KC_DOT
+    KC_ESC,  KC_1,  KC_2,  KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,     KC_8,    KC_9,   KC_0,     GAME, 
+    KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,    KC_T,                          KC_Z,    KC_U,     KC_I,    KC_O,   KC_P,     KC_PGUP, 
+    KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,     KC_K,    KC_L,   KC_F6,    KC_PGDN, 
+    KC_LCTL, KC_Y,  KC_X,  KC_C,    KC_V,    KC_B,   GMESCN,        KC_F12, KC_N,    KC_M,     KC_LEFT, KC_UP,  KC_RIGHT, KC_DOWN, 
+                           KC_CAPS, KC_LALT, KC_SPC, KC_SPC,        KC_ENT, KC_F7,   KC_BSPC,  KC_DEL
 )
 
 };
+
+/* -------------------------------------------------------------------------------- */
+
+/* Different tapping timings */
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_S:
+        case GUI_L:
+            return TAPPING_TERM + 150;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 /* -------------------------------------------------------------------------------- */
 

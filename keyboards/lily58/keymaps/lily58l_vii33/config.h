@@ -28,7 +28,8 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #define EE_HANDS
 
 /* Home row modifiers   https://precondition.github.io/home-row-mods */
-#define TAPPING_TERM 200          // mod tap hold time (shift) in ms, default 200
+#define TAPPING_TERM 210          // mod tap hold time (shift) in ms, default 200
+#define TAPPING_TERM_PER_KEY
 #define IGNORE_MOD_TAP_INTERRUPT  // important for good home row mods experience
 #define TAPPING_FORCE_HOLD        // activate the hold function, when holding a dual-role key
                                   // after having tapped it. No more accidental repeats of mod-tap letters when typing quickly!
@@ -60,7 +61,6 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #  define RGBLIGHT_EFFECT_ALTERNATING  
 #  define RGBLIGHT_EFFECT_BREATHING
 #  define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#  define RGBLIGHT_EFFECT_RGB_TEST
 #  define RGBLIGHT_EFFECT_SNAKE
 #  define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #  undef RGBLIGHT_EFFECT_TWINKLE
@@ -71,7 +71,7 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 
 /* Custom Lightning Layers */
 #  define RGBLIGHT_LAYERS
-#  define RGBLIGHT_MAX_LAYERS 2  // Default is 8. Performance impact -> reduced to 2
+#  define RGBLIGHT_MAX_LAYERS 1  // Default is 8. Performance impact -> reduced 
 #endif
 
 
@@ -83,10 +83,10 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 
 /* Sync WPM to slave side */
 #define SPLIT_WPM_ENABLE    
-// #define SPLIT_OLED_ENABLE
+//#define SPLIT_OLED_ENABLE
 
-#define SPLIT_USB_DETECT
 
 /* ACTIVATE for Elite C rev3 controller on the slave side */
+// #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK
 
