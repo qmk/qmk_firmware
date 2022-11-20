@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Boaty",
-    "manufacurer": "Jels",
+    "manufacturer": "Jels",
     "usb": {
         "vid": "0x6A6B",
         "pid": "0x000B",
