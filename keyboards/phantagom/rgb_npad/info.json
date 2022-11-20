@@ -2,7 +2,6 @@
     "name": "rgb_npad",
     "keyboard_name": "rgb_npad",
     "manufacturer": "Phantagom",
-    "matrix": { "rows": 6, "cols": 4 },
     "url": "",
     "maintainer": "Phantagom",
     "usb": {
