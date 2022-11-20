@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xAC11
-#define PRODUCT_ID 0x6584 // AT fot Athena
-#define DEVICE_VER 0x0001 
-#define MANUFACTURER AcheronProject
-#define PRODUCT Athena
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
 
@@ -47,8 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 5
 #define BACKLIGHT_ON_STATE 0
-
-#define STM32_HSECLK 8000000
 
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 34

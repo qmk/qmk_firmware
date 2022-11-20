@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Iris Rev. 6b",
+    "usb": {
+        "pid": "0x6456",
+        "device_version": "6.2.0"
+    }
+}

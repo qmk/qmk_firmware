@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  _______,     RESET,   _______, _______, _______, AG_NORM,   AG_SWAP, _______, _______,    HRVL,  HRESET,  HMENU,
+  _______,     QK_BOOT, _______, _______, _______, AG_NORM,   AG_SWAP, _______, _______,    HRVL,  HRESET,  HMENU,
    KC_PWR,   KC_EJCT,       CUT,    COPY,   PASTE, KC_PSCR, KC_SYSREQ, KC_CAPS, KC_MRWD, KC_MFFD, KC_MUTE, KC_MSTP,
      DVRK, TO(_NMPD), TO(_MVMT),    SDRK, _______, _______,   _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,
   BACKLIT,   BACKTOG,   _______, _______, _______, _______,   _______, _______, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT

@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              * `-----------------------------------------------------------------------------------'
              */
 
-          RESET,   _______, _______, _______,          _______,          LALT(LCTL(KC_7)), LALT(LCTL(KC_8)), _______,          _______,           _______, LALT(LCTL(KC_L)), _______,
+          QK_BOOT, _______, _______, _______,          _______,          LALT(LCTL(KC_7)), LALT(LCTL(KC_8)), _______,          _______,           _______, LALT(LCTL(KC_L)), _______,
           _______, _______, _______, _______,          _______,          LALT(LCTL(KC_U)), LALT(LCTL(KC_I)), LALT(LCTL(KC_H)), _______,           _______, _______,          _______,
           _______, _______, _______, LALT(LCTL(KC_J)), LALT(LCTL(KC_K)), _______,          _______,          _______,          _______,           _______, _______,          LALT(LCTL(KC_ENTER)),
           TO(0),   TO(4),   _______, _______,          _______,          _______,          KC_NO,            _______,          KC_AUDIO_VOL_DOWN, KC_F14,  KC_F15,           KC_AUDIO_VOL_UP
@@ -168,7 +168,7 @@ void set_layer_color(int layer) {
 
 void rgb_matrix_indicators_user(void) {
   if (g_suspend_state || disable_layer_color) { return; }
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case 0:
       set_layer_color(0);
       break;
@@ -276,7 +276,7 @@ bool music_mask_user(uint16_t keycode) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     palClearPad(GPIOB, 8);
     palClearPad(GPIOB, 9);
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case _LOWER:
             palSetPad(GPIOB, 9);

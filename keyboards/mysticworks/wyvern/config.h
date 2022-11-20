@@ -25,7 +25,6 @@
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS {D0,D1,D5,D3,F7,F6,F5,F4,F1,F0}
 #define MATRIX_COL_PINS {E6,B0,D4,D6,D7,B4,B5,B6,C6,C7}
-#define UNUSED_PINS {B7,D2}
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* SYMS
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |  F1  |  F2  |  F3  |  F4  | F5   |                    |      |      |   {  |   }  |      | RESET|
+ * |      |  F1  |  F2  |  F3  |  F4  | F5   |                    |      |      |   {  |   }  |      | QK_BOOT|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | TRNS |  F6  |  F7  |  F8  |  F9  | F10  |                    |      |      |   (  |   )  |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_SYMS] = LAYOUT(
-  XXXXXXX, KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,                      XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, RESET,
+  XXXXXXX, KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,                      XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, QK_BOOT,
   _______, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,                     XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX,
   _______, KC_F11,     KC_F12,     KC_F13,     KC_F14,     KC_F15,                     XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
   _______, LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), KC_F20,  _______,  _______, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   XXXXXXX, XXXXXXX,

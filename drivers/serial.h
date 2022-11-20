@@ -27,3 +27,13 @@ void soft_serial_initiator_init(void);
 void soft_serial_target_init(void);
 
 bool soft_serial_transaction(int sstd_index);
+
+#ifdef SERIAL_DEBUG
+#    include <debug.h>
+#    include <print.h>
+#    define serial_dprintf(...) dprintf(__VA_ARGS__)
+#else
+#    define serial_dprintf(...) \
+        do {                    \
+        } while (0)
+#endif

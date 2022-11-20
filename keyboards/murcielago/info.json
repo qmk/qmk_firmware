@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Murciélago",
+  "manufacturer": "elagil",
   "url": "",
   "maintainer": "elagil",
+  "usb": {
+    "vid": "0x6166",
+    "pid": "0x0001",
+    "device_version": "0.0.2"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [ 

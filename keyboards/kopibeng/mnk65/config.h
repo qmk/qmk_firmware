@@ -32,11 +32,12 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { F0, F1, F4, B7, B3 }
-#define MATRIX_COL_PINS { D0, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6, F5 }
+
+#define MATRIX_ROW_PINS { B3, D0, F6, F4, F1 }
+#define MATRIX_COL_PINS { B7, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1, F5 }
 #define UNUSED_PINS
 
-#define LED_CAPS_LOCK_PIN D1
+#define LED_CAPS_LOCK_PIN F0
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

@@ -245,11 +245,11 @@ void keyboard_post_init_user_keymap(void) {
 }
 
 // light up leds based on the layer
-uint32_t layer_state_set_user_keymap(uint32_t state) {
+layer_state_t layer_state_set_user_keymap(layer_state_t state) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case LR_SYSCTL:
             ergodox_right_led_3_on();  // blue
             break;
@@ -306,7 +306,7 @@ uint32_t layer_state_set_user_keymap(uint32_t state) {
 
 // SYSCTL on first tap, MOUSE ON second tap
 // void layers_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
-//   uint8_t layer = biton32(layer_state);
+//   uint8_t layer = get_highest_layer(layer_state);
 
 //   switch(state->count) {
 //   case 1:

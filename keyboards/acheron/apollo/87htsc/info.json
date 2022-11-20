@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "AcheronProject Apollo87H-T-SC",
+    "keyboard_name": "Apollo87H-T-SC",
+    "manufacturer": "AcheronProject",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x4150",
+        "pid": "0x8776",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi_tsangan": {
             "layout": [

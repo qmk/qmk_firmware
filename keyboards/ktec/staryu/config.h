@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { NO_PIN, D0,     D1 }, \
     { D4,     D3,     D2 }, \
 }
-#define UNUSED_PINS
 
 #define RGB_DI_PIN C6
 #define RGBLED_NUM 1     // Number of LEDs

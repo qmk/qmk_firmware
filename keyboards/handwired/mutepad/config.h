@@ -23,7 +23,6 @@
     { F6 }
 #define MATRIX_COL_PINS \
     { B1, B3, B2, B6 }
-#define UNUSED_PINS
 
 /* encoder support */
 #define ENCODERS_PAD_A \

@@ -19,6 +19,8 @@
 
 #if defined(KEYBOARD_xelus_rs60_rev1)
     #include "rev1.h"
-#elif defined(KEYBOARD_xelus_rs60_rev2)
-    #include "rev2.h"
+#elif defined(KEYBOARD_xelus_rs60_rev2_0)
+    #include "rev2_0.h"
+#elif defined(KEYBOARD_xelus_rs60_rev2_1)
+    #include "rev2_1.h"
 #endif

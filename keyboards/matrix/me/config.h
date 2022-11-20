@@ -22,7 +22,6 @@
 #define MATRIX_COLS 15
 #define MATRIX_ROW_PINS {D3, D5, D4, D6, B5, B4}
 #define MATRIX_COL_PINS {B7, B3, B2, B1, B0, F0, F1, F4, F5, F6, F7, C7, C6, B6, D7}
-#define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

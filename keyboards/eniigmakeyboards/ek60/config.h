@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { B2, B1, B0, F0, B4 }
 #define MATRIX_COL_PINS { F7, C6, F6, B6, F5, F4, B5, F1, E6, D0, D7, D5, D1, D3, D2 }
-#define UNUSED_PINS { B3, B7, C7, D4, D6 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

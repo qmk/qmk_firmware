@@ -1,7 +1,13 @@
 {
     "keyboard_name": "rb18",
+    "manufacturer": "ryanbaekr",
     "url": "",
     "maintainer": "ryanbaekr",
+    "usb": {
+        "vid": "0x7262",
+        "pid": "0x0018",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

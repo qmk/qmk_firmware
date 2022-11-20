@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "Tractyl Manuform 4x6",
+    "keyboard_name": "Tractyl Manuform (4x6)",
     "url": "",
     "maintainer": "drashna",
+    "usb": {
+        "pid": "0x3537",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_4x6_right": {
             "layout": [

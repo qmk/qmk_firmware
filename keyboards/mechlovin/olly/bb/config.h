@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS {D6, A5, A4, A3, A6}
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_BREATHING

@@ -3,12 +3,6 @@
 
 #pragma once
 
-#define VENDOR_ID       0xCEE2
-#define PRODUCT_ID      0x1001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    vitvlkv
-#define PRODUCT         Chocofly
-
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
 

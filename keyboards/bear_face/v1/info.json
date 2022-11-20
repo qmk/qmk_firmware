@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "bear_face",
-    "url": "https://github.com/chemicalwill/bear_face_pcb",
-    "maintainer": "chemicalwill",
+    "usb": {
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT_83_ansi": {
             "layout": [

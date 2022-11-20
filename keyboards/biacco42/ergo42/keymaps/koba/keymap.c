@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------'   `------------------------------------------------'
    */
   [_FUNC] = LAYOUT( \
-    RESET,   KC_INS,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, _______, \
+    QK_BOOT, KC_INS,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, _______, \
     _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, WIN,      JP_ASTR, KC_SLSH, KC_HOME, KC_PGUP, XXXXXXX, XXXXXXX, _______, \
     KC_CAPS, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MACOS,    JP_PLUS, KC_MINS, KC_END,  KC_PGDN, XXXXXXX, KC_VOLU, _______, \
     _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_MPLY  \

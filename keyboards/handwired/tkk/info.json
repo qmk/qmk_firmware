@@ -1,0 +1,42 @@
+{
+    "manufacturer": "Joe Fass",
+    "keyboard_name": "tkk",
+    "maintainer": "jfass",
+    "bootloader": "halfkay",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "direct": [
+		["B0", "B1", "B2", "B3", "B7", "D0", "D1", "D2", "D3", "C6"]
+	]
+    },
+    "processor": "atmega32u4",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 1], "x": 1, "y": 0 },
+                { "matrix": [0, 2], "x": 2, "y": 0 },
+                { "matrix": [0, 3], "x": 3, "y": 0 },
+                { "matrix": [0, 4], "x": 4, "y": 0 },
+                { "matrix": [0, 5], "x": 5, "y": 0 },
+                { "matrix": [0, 6], "x": 6, "y": 0 },
+                { "matrix": [0, 7], "x": 7, "y": 0 },
+                { "matrix": [0, 8], "x": 8, "y": 0 },
+                { "matrix": [0, 9], "x": 9, "y": 0 }
+            ]
+        }
+    }
+}

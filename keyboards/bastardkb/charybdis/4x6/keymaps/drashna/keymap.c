@@ -26,8 +26,8 @@
      KC_ESC,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, UC_CLUE, \
      SH_TT,   K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A,     SH_TT, \
      LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
-     OS_LSFT,CTL_T(K21),ALT_T(K22),GUI_T(K23),K24,K25,                K26,K27,RGUI_T(K28),RALT_T(K29),RCTL_T(K2A), OS_RSFT, \
-                           SFT_T(KC_GRV), UC_IRNY, OS_LGUI,    TT(_MOUSE),  KC_ENT, \
+     OS_LSFT,CTL_T(K21),  K22,  K23,     K24,     K25,                K26,K27,RGUI_T(K28),RALT_T(K29),RCTL_T(K2A), OS_RSFT, \
+                           SFT_T(KC_GRV), OS_LALT, OS_LGUI,    TT(_MOUSE),  KC_ENT, \
                                            KC_SPC, BK_LWER,     DL_RAIS \
     )
 

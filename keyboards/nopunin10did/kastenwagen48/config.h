@@ -25,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS     { B4, B5, B7, D5, C7, F1, F0, B6 }
 #define MATRIX_COL_PINS     { F4, F5, F6, F7, B1, B3, B2, E6 }
-#define UNUSED_PINS
 
 /* Indicator LEDs */
 #define LED_INDICATOR_TOP   B0

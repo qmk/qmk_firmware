@@ -28,6 +28,8 @@
 #endif
 #include <string.h>
 
+bool is_oled_enabled = true;
+
 extern bool host_driver_disabled;
 
 uint32_t        oled_timer                        = 0;
@@ -850,7 +852,7 @@ void render_status_right(void) {
     render_layer_state(1, 2);
     render_mod_status(get_mods() | get_oneshot_mods(), 1, 5);
 #if !defined(OLED_DISPLAY_VERBOSE) && defined(WPM_ENABLE) && !defined(STM32F303xC)
-    render_wpm(2);
+    render_wpm(2, 7, 1);
 #endif
     render_keylock_status(host_keyboard_led_state(), 1, 6);
 }
@@ -929,16 +931,14 @@ __attribute__((weak)) bool oled_task_keymap(void) {
 }
 
 bool oled_task_user(void) {
-    if (is_keyboard_master()) {
 #ifndef OLED_DISPLAY_TEST
-        if (timer_elapsed32(oled_timer) > 60000) {
-            oled_off();
-            return false;
-        } else
+    if (!is_oled_enabled) {
+        oled_off();
+        return false;
+    } else
 #endif
-        {
-            oled_on();
-        }
+    {
+        oled_on();
     }
 
     if (!oled_task_keymap()) {
@@ -989,4 +989,10 @@ bool oled_task_user(void) {
 #endif
 
     return false;
+}
+
+extern bool oled_initialized;
+
+__attribute__((weak)) void matrix_scan_oled(void) {
+    is_oled_enabled = !(timer_elapsed32(oled_timer) > 60000);
 }

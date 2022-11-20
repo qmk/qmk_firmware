@@ -1,7 +1,13 @@
 {
     "keyboard_name": "quick17",
+    "manufacturer": "yushakobo",
     "url": "https://shop.yushakobo.jp/products/quick17",
     "maintainer": "yushakobo",
+    "usb": {
+        "vid": "0x3265",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

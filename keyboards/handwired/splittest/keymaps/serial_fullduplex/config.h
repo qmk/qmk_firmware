@@ -3,6 +3,4 @@
 
 #pragma once
 
-#include "config_common.h"
-
 #define SPLIT_SERIAL_FULLDUPLEX

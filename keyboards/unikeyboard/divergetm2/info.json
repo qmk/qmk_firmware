@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "UniKeyboard Diverge TM 2",
+    "keyboard_name": "Diverge TM 2",
+    "manufacturer": "UniKeyboard",
     "url": "",
     "maintainer": "islandman93, xton",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1256",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

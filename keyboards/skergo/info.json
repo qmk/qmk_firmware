@@ -1,7 +1,13 @@
 {
     "keyboard_name": "SKErgo",
+    "manufacturer": "Keyzio",
     "url": "https://keyz.io",
     "maintainer": "kevinzhao-tech",
+    "usb": {
+        "vid": "0x4B49",
+        "pid": "0x534B",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_split_bs"
     },
