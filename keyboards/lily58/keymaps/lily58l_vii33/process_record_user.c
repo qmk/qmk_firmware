@@ -68,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case CC_OE:
-      tap_code16(ALGR(KC_P));  
+      tap_code16(ALGR(KC_P));
       break;
 
     case CC_UE:
