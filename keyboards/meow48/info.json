@@ -9,7 +9,7 @@
         "vid": "0xF048"
            },
     "layouts": {
-            "LAYOUT_48": {
+            "LAYOUT": {
                 "layout": [
                 { "label":"ESC", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label":"Q", "matrix": [1, 0], "x": 1, "y": 0 },

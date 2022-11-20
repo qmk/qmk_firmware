@@ -14,13 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#include "meow48.h"
+#include "quantum.h"
+
+#ifdef OLED_ENABLE
  
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
-
-#ifdef OLED_ENABLE
 
 bool oled_task_kb(void) {
     
