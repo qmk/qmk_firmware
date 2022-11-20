@@ -1,7 +1,3 @@
-# meow48
-
-![meow48](imgur.com image replace me!)
-
 *"Meow48" is a keyboard with a narrow pitch of 40%(48keys) exclusively for Kailh Choc.
 
 * Keyboard Maintainer: [tsubuan145](https://github.com/tsubuan145)

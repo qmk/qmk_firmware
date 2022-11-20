@@ -39,7 +39,7 @@
      [1] = LAYOUT(
         KC_NO,  LSFT(1),    LSFT(2),    LSFT(3),    LSFT(4),    LSFT(5),    LSFT(6),    LSFT(7),    LSFT(8),    LSFT(9),  KC_LBRC, KC_CIRC, KC_BSPC,
         KC_NO,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,          KC_ENT,
-        KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PLUS, KC_JYEN, KC_RO,         KC_RSFT,
+        KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PLUS, KC_INT3, KC_INT1,       KC_RSFT,
         KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,  KC_DEL,  KC_LEFT, KC_UP, KC_DOWN, KC_RGHT
     ),
     
