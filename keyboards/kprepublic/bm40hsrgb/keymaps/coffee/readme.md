@@ -16,7 +16,7 @@ The secondary layer ( `_SUB` ) is for syntax, F keys, and number keys
 ```
 grv |   1   |  2   |  3    | 4    | 5    | 6   | 7    | 8    | 9    | 0  | del
     |   F1  |  F2  |  F3   | F4   | F5   | F6  | -    | =    | [    | ]  | pgup
- _  |   F7  |  F8  |  F9   | F10  | F11  | F12 |      |      |      | \  | pgdn
+ _  |   F7  |  F8  |  F9   | F10  | F11  | F12 |      | home | end  | \  | pgdn
  _  |   _   |      |  _    | _    |      _     | _    |      |      |    |
 ```
 
