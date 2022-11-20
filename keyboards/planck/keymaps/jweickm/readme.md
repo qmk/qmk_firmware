@@ -101,9 +101,9 @@ Navigation layer on space.
 * ,-----------------------------------------------------------------------------------.
 * | A-SFT| RESET| Debug|RGBTOG|RGBMOD|RGBHUI|RGBHUD|RGBSAI|RGBSAD|RGBVAI|RGBVAD| DE_SW|
 * |------+------+------+------+------+------+------+------+------+------+------+------|
-* | A-GRV|EEPRST|MU_MOD| AU_ON|AU_OFF|AGNORM|AGSWAP|!HRWCM| !WCM | A-GRV| !LANG| !GAME|
+* | A-GRV|EEPRST|MUNEXT| AU_ON|AU_OFF|AGNORM|AGSWAP|!HRWCM| !WCM | A-GRV| !LANG| !GAME|
 * |------+------+------+------+------+------+------+------+------+------+------+------|
-* | ____ |MUV_DE|MUV_IN| MU_ON|MU_OFF| MI_ON|MI_OFF| Vol- | MPLY | Vol+ | ____ | ____ |
+* | ____ |AUPREV|AUNEXT| MU_ON|MU_OFF| MI_ON|MI_OFF| Vol- | MPLY | Vol+ | ____ | ____ |
 * |------+------+------+------+------+------+------+------+------+------+------+------|
 * | ____ | ____ | ____ | ____ | ____ |     ____    | ____ | ____ | ____ | ____ |EEPRST|
 * `-----------------------------------------------------------------------------------'
