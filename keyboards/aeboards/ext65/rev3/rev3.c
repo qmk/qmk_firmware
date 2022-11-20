@@ -1,4 +1,4 @@
-/* Copyright 2018 Jason Williams (Wilba)
+/* Copyright 2022 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,26 +14,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "rev3.h"
 
-#include "config_common.h"
+// Tested and verified working on EXT65 Rev3
+void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 10
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
+  // Set our LED pins as output
+  setPinOutput(LED_LAYERS_PIN);
+}
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { C6, C7, B5, B6, D7, B4, D4, D6, B7, E6 }
-#define MATRIX_COL_PINS { B2, B3, B1, B0, F7, F0, F1, F4, F5, F6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+      case 1:
+        writePinHigh(LED_LAYERS_PIN);
+        break;
+      default: //  for any other layers, or the default layer
+        writePinLow(LED_LAYERS_PIN);
+        break;
+      }
+    return layer_state_set_user(state);
+}
