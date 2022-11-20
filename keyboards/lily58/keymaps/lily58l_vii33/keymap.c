@@ -64,7 +64,7 @@ const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {200, 150, 100};
 #ifdef RGBLIGHT_LAYERS
 /* Lightning Layers as status indicators. -> Array of segments */
 const rgblight_segment_t PROGMEM mod_indicator[] = RGBLIGHT_LAYER_SEGMENTS(
-    {6, 4, HSV_GREEN}   // First segment: Turn on 5 LEDs starting with #4~~
+    {6, 4, HSV_GREEN}   // First segment: Turn on 5 LEDs starting with #4
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
