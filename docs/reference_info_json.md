@@ -132,8 +132,15 @@ Enable by setting
     * The length of one backlight “breath” in seconds
 * `levels`
     * The number of brightness levels (maximum 31, excluding off)
+* `max_brightness`
+    * The maximum duty cycle of the backlight LED(s) (0-255)
 * `pin`
     * The pin that controls the backlight LED(s)
+* `pins`
+    * Array of pins that controls the backlight LED(s) (See [Multiple Backlight Pins](feature_backlight.md#multiple-backlight-pins))
+* `on_state`
+    * The state of the indicator pins when the LED is "on" - `1` for high, `0` for low
+    * Default: `1`
 
 Example:
 
