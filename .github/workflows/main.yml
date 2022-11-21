@@ -116,7 +116,7 @@ jobs:
         run: |
           cp *manna-harbour_miryoku* "${{ steps.inputs.outputs.artifact_dir }}"
       - name: Archive artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.inputs.outputs.artifact_build_name }}
           path: ${{ steps.inputs.outputs.artifact_dir }}
