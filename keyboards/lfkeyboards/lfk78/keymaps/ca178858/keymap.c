@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------'  `------------------------------------------------------'    `-------------'
      */
     [VANILLA] = LAYOUT_split_rshift(
-        KC_VOLD, KC_VOLU, KC_GESC,         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,       KC_BSPC,            LALT(KC_F5), KC_PGUP,
+        KC_VOLD, KC_VOLU, QK_GESC,         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,       KC_BSPC,            LALT(KC_F5), KC_PGUP,
         KC_F3,   KC_F4,   KC_TAB,          KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,      KC_BSLS,            KC_DEL,      KC_PGDN,
         KC_F5,   KC_F6,   TD(TD_ESC_FUNC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,               KC_ENT,
         KC_F7,   KC_F8,   KC_LSFT,         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,      MO(CS_GO),          KC_UP,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [CS_GO] = LAYOUT_split_rshift(
-        _______, _______, KC_GESC,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            F(0),        _______,
+        _______, _______, QK_GESC,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            F(0),        _______,
         _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            _______,     _______,
         _______, _______, KC_LCTL,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,               _______,
         _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                          _______,
@@ -97,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------'  `------------------------------------------------------'  `--------------'
      */
     [SETTINGS] = LAYOUT_split_rshift(
-        XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,       BL_TOGG,            RGB_TOG,     RGB_VAI,
-        XXXXXXX, XXXXXXX, DEBUG,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,            RGB_MOD,     RGB_VAD,
-        XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,               RESET,
+        XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DOWN, BL_UP,        BL_TOGG,            RGB_TOG,     RGB_VAI,
+        XXXXXXX, XXXXXXX, DB_TOGG,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,            RGB_MOD,     RGB_VAD,
+        XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,               QK_BOOT,
         XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,      XXXXXXX,            RGB_HUI,
         XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX,                 RGB_SAD, RGB_HUD, RGB_SAI
     )

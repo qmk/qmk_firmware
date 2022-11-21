@@ -11,8 +11,8 @@ from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, rules_mk
+from qmk.info import info_json, keymap_json
 from qmk.keymap import locate_keymap
-from qmk.info import info_json
 from qmk.path import is_keyboard
 
 UNICODE_SUPPORT = sys.stdout.encoding.lower().startswith('utf')
@@ -135,7 +135,7 @@ def print_parsed_rules_mk(keyboard_name):
 
 
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
-@cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
+@cli.argument('-km', '--keymap', help='Keymap to show info for (Optional).')
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
@@ -161,8 +161,15 @@ def info(cli):
         print_parsed_rules_mk(cli.config.info.keyboard)
         return False
 
+    # default keymap stored in config file should be ignored
+    if cli.config_source.info.keymap == 'config_file':
+        cli.config_source.info.keymap = None
+
     # Build the info.json file
-    kb_info_json = info_json(cli.config.info.keyboard)
+    if cli.config.info.keymap:
+        kb_info_json = keymap_json(cli.config.info.keyboard, cli.config.info.keymap)
+    else:
+        kb_info_json = info_json(cli.config.info.keyboard)
 
     # Output in the requested format
     if cli.args.format == 'json':
@@ -178,11 +185,12 @@ def info(cli):
         cli.log.error('Unknown format: %s', cli.args.format)
         return False
 
+    # Output requested extras
     if cli.config.info.layouts:
         show_layouts(kb_info_json, title_caps)
 
     if cli.config.info.matrix:
         show_matrix(kb_info_json, title_caps)
 
-    if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
+    if cli.config.info.keymap:
         show_keymap(kb_info_json, title_caps)

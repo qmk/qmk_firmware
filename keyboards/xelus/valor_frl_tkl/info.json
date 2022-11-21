@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "Xelus Valor FRL TKL",
+    "manufacturer": "Xelus",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x5845",
+        "pid": "0x4654"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

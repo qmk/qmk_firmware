@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Moon",
+    "manufacturer": "EVE",
     "url": "https://geekhack.org/index.php?topic=90379.0",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xFCB8",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

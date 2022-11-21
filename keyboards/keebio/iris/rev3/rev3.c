@@ -17,6 +17,9 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0,3}, {1,3}, {2,3}, {3,3}, {4,3}, {5,3}},
     {{0,4}, {1,4}, {2,4}, {3,4}, {4,4}, {5,4}},
 };
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
+#    endif
 #endif
 
 void eeconfig_init_kb(void) {
@@ -27,7 +30,7 @@ void eeconfig_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable(); // Enable RGB by default
     rgblight_sethsv(0, 255, 255);  // Set default HSV - red hue, full saturation, full brightness
-#ifdef RGBLIGHT_ANIMATIONS
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2); // set to RGB_RAINBOW_SWIRL by default
 #endif
 #endif

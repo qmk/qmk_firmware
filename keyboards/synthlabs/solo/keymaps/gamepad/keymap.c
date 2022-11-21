@@ -3,13 +3,11 @@
 
 #include QMK_KEYBOARD_H
 
-#include "joystick.h"
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(
-                                    JS_BUTTON0,JS_BUTTON1,JS_BUTTON2,JS_BUTTON3,JS_BUTTON4,JS_BUTTON5,JS_BUTTON6,
-          KC_NO,   JS_BUTTON7,  KC_NO,
-                                    JS_BUTTON0,JS_BUTTON1,JS_BUTTON2,JS_BUTTON3,JS_BUTTON4,JS_BUTTON5,JS_BUTTON6
+                                    JS_0,JS_1,JS_2,JS_3,JS_4,JS_5,JS_6,
+          KC_NO,   JS_7,  KC_NO,
+                                    JS_0,JS_1,JS_2,JS_3,JS_4,JS_5,JS_6
     )
 };
 
@@ -24,11 +22,8 @@ joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     joystick_position += (clockwise ? 2 : -2) * (full_joystick_value / pulses_per_revolution);  // +2 and -2 are used, since +1.0 and -1.0 axis output refers to positions at half of a full rotation
+    joystick_set_axis(0, joystick_position);
 
-    if (joystick_position != joystick_status.axes[0]) {
-        joystick_status.axes[0] = joystick_position;
-        joystick_status.status |= JS_UPDATED;
-    }
     return true;
 }
 

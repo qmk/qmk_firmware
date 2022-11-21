@@ -1,7 +1,10 @@
 {
     "keyboard_name": "The Bastard Keyboard",
     "url": "https://bastardkb.com/",
-    "maintainer": "Quentin Lebastard",
+    "usb": {
+        "pid": "0x1828",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_4x6_5": {
             "layout": [

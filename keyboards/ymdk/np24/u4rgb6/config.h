@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x594D
-#define PRODUCT_ID      0x5024
-#define DEVICE_VER      0x0406
-#define MANUFACTURER    YMDK
-#define PRODUCT         NP24 U4 RGB6
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -51,5 +44,14 @@
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
 # define RGBLED_NUM 6
-# define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #endif

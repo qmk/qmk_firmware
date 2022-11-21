@@ -18,17 +18,6 @@
 
 #pragma once
 
-#undef VENDOR_ID
-#define VENDOR_ID       0x3297
-#undef PRODUCT_ID
-#define PRODUCT_ID      0xC6CE
-#undef MANUFACTURER
-#define MANUFACTURER    ZSA Technology Labs
-#undef PRODUCT
-#define PRODUCT         Planck EZ
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0000
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -120,7 +109,7 @@
 #define DRIVER_ADDR_1 0b1010000
 
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 47
+#define RGB_MATRIX_LED_COUNT 47
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

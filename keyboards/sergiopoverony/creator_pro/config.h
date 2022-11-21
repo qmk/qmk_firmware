@@ -17,14 +17,6 @@
 #pragma once
 #include "config_common.h"
 
-/* vid pid  */
-#define VENDOR_ID       0x8B1E 
-#define PRODUCT_ID      0x0C00
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SergioPoverony
-#define PRODUCT         Creator Pro
-
-	
 /* key matrix size pins */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 9
@@ -45,5 +37,4 @@
 #define ENCODERS_PAD_B { D3 }
 #define ENCODER_RESOLUTION 1
 
-#define UNUSED_PINS
 

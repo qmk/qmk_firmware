@@ -224,11 +224,9 @@ void console_task(void) {
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_system(uint16_t data);
-static void    send_consumer(uint16_t data);
-static void    send_programmable_button(uint32_t data);
+static void    send_extra(report_extra_t *report);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 host_driver_t *vusb_driver(void) {
     return &driver;
@@ -269,31 +267,11 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
+static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-static void send_extra(uint8_t report_id, uint16_t data) {
-    static uint8_t  last_id   = 0;
-    static uint16_t last_data = 0;
-    if ((report_id == last_id) && (data == last_data)) return;
-    last_id   = report_id;
-    last_data = data;
-
-    static report_extra_t report;
-    report = (report_extra_t){.report_id = report_id, .usage = data};
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report_extra_t));
+        usbSetInterruptShared((void *)report, sizeof(report_extra_t));
     }
-}
-#endif
-
-static void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
-#endif
-}
-
-static void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_CONSUMER, data);
 #endif
 }
 
@@ -305,16 +283,10 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
-static void send_programmable_button(uint32_t data) {
+void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    static report_programmable_button_t report = {
-        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
-    };
-
-    report.usage = data;
-
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report));
+        usbSetInterruptShared((void *)report, sizeof(report_programmable_button_t));
     }
 #endif
 }
@@ -482,14 +454,28 @@ const PROGMEM uchar shared_hid_report[] = {
     0x75, 0x01, //     Report Size (1)
     0x81, 0x02, //     Input (Data, Variable, Absolute)
 
-    // X/Y position (2 bytes)
+#    ifdef MOUSE_EXTENDED_REPORT
+    // Boot protocol XY ignored in Report protocol
+    0x95, 0x02, //     Report Count (2)
+    0x75, 0x08, //     Report Size (8)
+    0x81, 0x03, //     Input (Constant)
+#    endif
+
+    // X/Y position (2 or 4 bytes)
     0x05, 0x01, //     Usage Page (Generic Desktop)
     0x09, 0x30, //     Usage (X)
     0x09, 0x31, //     Usage (Y)
+#    ifndef MOUSE_EXTENDED_REPORT
     0x15, 0x81, //     Logical Minimum (-127)
     0x25, 0x7F, //     Logical Maximum (127)
     0x95, 0x02, //     Report Count (2)
     0x75, 0x08, //     Report Size (8)
+#    else
+    0x16, 0x01, 0x80, // Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, // Logical Maximum (32767)
+    0x95, 0x02,       // Report Count (2)
+    0x75, 0x10,       // Report Size (16)
+#    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
     // Vertical wheel (1 byte)
@@ -546,32 +532,30 @@ const PROGMEM uchar shared_hid_report[] = {
     0x09, 0x01,                // Usage (Digitizer)
     0xA1, 0x01,                // Collection (Application)
     0x85, REPORT_ID_DIGITIZER, //   Report ID
-    0x09, 0x22,                //   Usage (Finger)
+    0x09, 0x20,                //   Usage (Stylus)
     0xA1, 0x00,                //   Collection (Physical)
-    // Tip Switch (1 bit)
+    // In Range, Tip Switch & Barrel Switch (3 bits)
+    0x09, 0x32, //     Usage (In Range)
     0x09, 0x42, //     Usage (Tip Switch)
+    0x09, 0x44, //     Usage (Barrel Switch)
     0x15, 0x00, //     Logical Minimum
     0x25, 0x01, //     Logical Maximum
-    0x95, 0x01, //     Report Count (1)
-    0x75, 0x01, //     Report Size (16)
+    0x95, 0x03, //     Report Count (3)
+    0x75, 0x01, //     Report Size (1)
     0x81, 0x02, //     Input (Data, Variable, Absolute)
-    // In Range (1 bit)
-    0x09, 0x32, //     Usage (In Range)
-    0x81, 0x02, //     Input (Data, Variable, Absolute)
-    // Padding (6 bits)
-    0x95, 0x06, //     Report Count (6)
+    // Padding (5 bits)
+    0x95, 0x05, //     Report Count (5)
     0x81, 0x03, //     Input (Constant)
 
     // X/Y Position (4 bytes)
     0x05, 0x01,       //     Usage Page (Generic Desktop)
+    0x09, 0x30,       //     Usage (X)
+    0x09, 0x31,       //     Usage (Y)
     0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
-    0x95, 0x01,       //     Report Count (1)
+    0x95, 0x02,       //     Report Count (2)
     0x75, 0x10,       //     Report Size (16)
     0x65, 0x33,       //     Unit (Inch, English Linear)
     0x55, 0x0E,       //     Unit Exponent (-2)
-    0x09, 0x30,       //     Usage (X)
-    0x81, 0x02,       //     Input (Data, Variable, Absolute)
-    0x09, 0x31,       //     Usage (Y)
     0x81, 0x02,       //     Input (Data, Variable, Absolute)
     0xC0,             //   End Collection
     0xC0,             // End Collection
@@ -658,7 +642,7 @@ const PROGMEM uchar console_hid_report[] = {
 // clang-format off
 const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
     .header = {
-        .bLength         = USB_STRING_LEN(1),
+        .bLength         = 4,
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = {0x0409} // US English
@@ -666,24 +650,24 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorManufacturer = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1),
+        .bLength         = sizeof(USBSTR(MANUFACTURER)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(MANUFACTURER)
+    .bString             = USBSTR(MANUFACTURER)
 };
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorProduct = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1),
+        .bLength         = sizeof(USBSTR(PRODUCT)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(PRODUCT)
+    .bString             = USBSTR(PRODUCT)
 };
 
 #if defined(SERIAL_NUMBER)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(SERIAL_NUMBER) - 1),
+        .bLength         = sizeof(USBSTR(SERIAL_NUMBER)),
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = USBSTR(SERIAL_NUMBER)

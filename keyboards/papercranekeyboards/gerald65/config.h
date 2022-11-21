@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5012 // 
-#define PRODUCT_ID   0x1501 // '21 keyboard 1
-#define DEVICE_VER   0x0001
-#define MANUFACTURER PaperCraneKeyboards
-#define PRODUCT      gerald65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -28,7 +21,6 @@
  */
 #define MATRIX_ROW_PINS { B7, D6, E6, B4, B5 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, D7, D4, D3, D2, D1, D0, B6, C6, C7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -56,9 +48,6 @@
 //#    define RGBLIGHT_VAL_STEP 8
 //#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 //#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 //#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

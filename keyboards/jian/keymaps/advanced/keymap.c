@@ -205,22 +205,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_RAISE] = LAYOUT(
-  _______, KC_NLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS,      KC_VOLU, KC_HOME, KC_PSCR, KC_PGUP, KC_SLCK, KC_CAPS, _______,
+  _______, KC_NUM,  KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS,      KC_VOLU, KC_HOME, KC_PSCR, KC_PGUP, KC_SCRL, KC_CAPS, _______,
            EQL_LCT, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS,      KC_MUTE, KC_LEFT, KC_UP,   KC_RGHT, KC_INS,  APP_RCT,
            _______, KC_P0,   KC_P1,   KC_P2,   KC_P3,   KC_PCMM,      KC_VOLD, KC_END,  KC_DOWN, KC_PGDN, KC_PAUS, _______,
                                       _______, _______, _______,      _______, _______, _______
 ),
 
 [_ADJUST] = LAYOUT_symmetric(
-  RESET,   DEBUG,   KC_ASUP, CH_WMN,  CH_CMK,  CH_QWE,  CH_DVK,
-           KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,
-           BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, ISO,     THUMB_ALT,
+  QK_BOOT, DB_TOGG, AS_UP,   CH_WMN,  CH_CMK,  CH_QWE,  CH_DVK,
+           AS_RPT,  AS_TOGG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,
+           BL_ADJ,  AS_DOWN, XXXXXXX, XXXXXXX, ISO,     THUMB_ALT,
                                       _______, SW_TG,   _______
 ),
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
 [_BCKLT_ADJ] = LAYOUT_symmetric(
-  XXXXXXX, XXXXXXX, XXXXXXX, BL_INC,  RGB_VAI, RGB_HUD, RGB_HUI,
-           XXXXXXX, XXXXXXX, BL_DEC,  RGB_VAD, RGB_SAD, RGB_SAI,
+  XXXXXXX, XXXXXXX, XXXXXXX, BL_UP,   RGB_VAI, RGB_HUD, RGB_HUI,
+           XXXXXXX, XXXXXXX, BL_DOWN, RGB_VAD, RGB_SAD, RGB_SAI,
            BL_ADJ,  BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,
                                       _______, _______, _______
 ),

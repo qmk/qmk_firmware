@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4646 // FF
-#define PRODUCT_ID   0x0002
-#define DEVICE_VER   0x0001
-#define MANUFACTURER FootFingers
-#define PRODUCT      Puca
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5
                     //    0 , 1 , 2 , 3 , 4 , 5

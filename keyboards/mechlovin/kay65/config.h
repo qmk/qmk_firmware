@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0x6502
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Team Mechlovin
-#define PRODUCTION   Kay65 Rev. 1
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
@@ -55,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LED_SCROLL_LOCK_PIN B2
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
+#define LED_PIN_ON_STATE 0
 
 //#define BACKLIGHT_PIN B7
 //#define BACKLIGHT_LEVELS 3
@@ -68,9 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

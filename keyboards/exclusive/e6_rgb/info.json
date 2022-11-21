@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "e6_rgb",
+    "keyboard_name": "E6 RGB",
+    "manufacturer": "astro",
     "url": "",
     "maintainer": "yulei",
+    "usb": {
+        "vid": "0x4154",
+        "pid": "0x4536",
+        "device_version": "0.6.2"
+    },
     "layout_aliases": {
         "LAYOUT_60_wkl_split_bs": "LAYOUT_60_tsangan_hhkb"
     },

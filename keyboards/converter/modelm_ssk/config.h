@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    tiltowait
-#define PRODUCT         IBM Model M Space-Saving Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_COL_PINS { C7, C6, C5, C4, C3, C2, C1, C0, E1, E0, D7, D5, D4, D3, D2, D1 }
 #define MATRIX_ROW_PINS { F0, F1, F2, F3, F4, F5, F6, F7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
