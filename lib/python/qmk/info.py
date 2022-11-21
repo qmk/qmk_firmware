@@ -451,7 +451,7 @@ def _config_to_json(key_type, config_value):
         if array_type == 'int':
             return list(map(int, config_value.split(',')))
         else:
-            return config_value.split(',')
+            return list(map(str.strip, config_value.split(',')))
 
     elif key_type == 'bool':
         return config_value in true_values
