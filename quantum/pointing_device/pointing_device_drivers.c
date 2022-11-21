@@ -17,6 +17,7 @@
  */
 
 #include "pointing_device.h"
+#include "pointing_device_internal.h"
 #include "debug.h"
 #include "wait.h"
 #include "timer.h"
@@ -32,10 +33,7 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
     report_adns5050_t data = adns5050_read_burst();
 
     if (data.dx != 0 || data.dy != 0) {
-#    ifdef CONSOLE_ENABLE
-        if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
-#    endif
-
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
         mouse_report.x = (mouse_xy_report_t)data.dx;
         mouse_report.y = (mouse_xy_report_t)data.dy;
     }
@@ -76,9 +74,7 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     report_analog_joystick_t data = analog_joystick_read();
 
-#    ifdef CONSOLE_ENABLE
-    if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
-#    endif
+    pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 
     mouse_report.x = data.x;
     mouse_report.y = data.y;
@@ -117,12 +113,24 @@ void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
 #    endif
 
 #    if CIRQUE_PINNACLE_POSITION_MODE
+
+#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+static bool is_touch_down;
+
+bool auto_mouse_activation(report_mouse_t mouse_report) {
+    return is_touch_down || mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0 || mouse_report.buttons;
+}
+#        endif
+
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t   touchData = cirque_pinnacle_read_data();
     mouse_xy_report_t report_x = 0, report_y = 0;
     static uint16_t   x = 0, y = 0;
+#        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
+    mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+#        endif
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
-    cursor_glide_t    glide_report = {0};
+    cursor_glide_t glide_report = {0};
 
     if (cursor_glide_enable) {
         glide_report = cursor_glide_check(&glide);
@@ -140,10 +148,12 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         return mouse_report;
     }
 
-#        if CONSOLE_ENABLE
-    if (debug_mouse && touchData.touchDown) {
-        dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
+    if (touchData.touchDown) {
+        pd_dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
     }
+
+#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    is_touch_down = touchData.touchDown;
 #        endif
 
     // Scale coordinates to arbitrary X, Y resolution
@@ -227,9 +237,7 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
     report_paw3204_t data = paw3204_read();
     if (data.isMotion) {
-#    ifdef CONSOLE_ENABLE
-        dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
-#    endif
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 
         mouse_report.x = data.x;
         mouse_report.y = data.y;
@@ -245,28 +253,21 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 
-mouse_xy_report_t pimoroni_trackball_adapt_values(clamp_range_t* offset) {
-    if (*offset > XY_REPORT_MAX) {
-        *offset -= XY_REPORT_MAX;
-        return (mouse_xy_report_t)XY_REPORT_MAX;
-    } else if (*offset < XY_REPORT_MIN) {
-        *offset += XY_REPORT_MAX;
-        return (mouse_xy_report_t)XY_REPORT_MIN;
-    } else {
-        mouse_xy_report_t temp_return = *offset;
-        *offset                       = 0;
-        return temp_return;
-    }
-}
-
+#    include "print.h"
 report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
-    static uint16_t      debounce      = 0;
-    static uint8_t       error_count   = 0;
-    pimoroni_data_t      pimoroni_data = {0};
-    static clamp_range_t x_offset = 0, y_offset = 0;
+    static uint16_t debounce    = 0;
+    static uint8_t  error_count = 0;
+
+    static fast_timer_t began_motion, last_motion, last_read, last_read_elapsed, last_fast_motion = 0;
+    static bool         in_motion   = false;
+    bool                fast_motion = false;
+
+    pimoroni_data_t pimoroni_data = {0};
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
-        i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
+        i2c_status_t status = pimoroni_trackball_read(&pimoroni_data);
+        last_read_elapsed   = timer_elapsed_fast(last_read);
+        last_read           = timer_read_fast();
 
         if (status == I2C_STATUS_SUCCESS) {
             error_count = 0;
@@ -274,10 +275,70 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
             if (!(pimoroni_data.click & 128)) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
                 if (!debounce) {
-                    x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_SCALE);
-                    y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_SCALE);
-                    mouse_report.x = pimoroni_trackball_adapt_values(&x_offset);
-                    mouse_report.y = pimoroni_trackball_adapt_values(&y_offset);
+                    if (pimoroni_data.left || pimoroni_data.right || pimoroni_data.up || pimoroni_data.down) {
+                        last_motion = last_read;
+                        if (!in_motion) {
+                            in_motion = true;
+                        }
+                    } else {
+                        if (timer_elapsed_fast(last_motion) > PIMORONI_TRACKBALL_RESET_DELAY) {
+                            in_motion = false;
+                            began_motion += last_read_elapsed * 4;
+                            if (began_motion > last_read) {
+                                began_motion = last_read;
+                            }
+                        }
+                    }
+
+                    if (in_motion) {
+                        mouse_report.x = CONSTRAIN_HID((int8_t)pimoroni_data.left - pimoroni_data.right);
+                        mouse_report.y = CONSTRAIN_HID((int8_t)pimoroni_data.up - pimoroni_data.down);
+                        if (mouse_report.x > 2 || mouse_report.y > 2 || mouse_report.x < -2 || mouse_report.y < -2) {
+                            fast_motion      = true;
+                            last_fast_motion = last_read;
+                        }
+                        fast_timer_t elapsed_time = timer_elapsed_fast(began_motion);
+                        if (!fast_motion && timer_elapsed_fast(last_fast_motion) > PIMORONI_TRACKBALL_LIFTOFF_DELAY) {
+                            began_motion += last_read_elapsed * 2;
+                            began_motion = began_motion > last_read ? last_read : began_motion;
+                            elapsed_time = timer_elapsed_fast(began_motion);
+                        }
+                        if (elapsed_time > PIMORONI_TRACKBALL_TIME_TO_MAX) {
+                            began_motion += elapsed_time - PIMORONI_TRACKBALL_TIME_TO_MAX;
+                        }
+#    ifndef PIMORONI_TRACKBALL_USE_FLOAT
+                        uint32_t speed_modifier = pimoroni_trackball_get_max_speed() * ((elapsed_time << 8) / PIMORONI_TRACKBALL_TIME_TO_MAX);
+                        if (speed_modifier < 256) {
+                            speed_modifier = 256;
+                        }
+                        bool x_neg = mouse_report.x < 0;
+                        bool y_neg = mouse_report.y < 0;
+                        if (x_neg) {
+                            mouse_report.x = -mouse_report.x;
+                        }
+                        if (y_neg) {
+                            mouse_report.y = -mouse_report.y;
+                        }
+                        uint16_t x_amount = (mouse_report.x * speed_modifier) >> 8;
+                        uint16_t y_amount = (mouse_report.y * speed_modifier) >> 8;
+                        mouse_report.x    = CONSTRAIN_HID_XY((int32_t)x_amount);
+                        mouse_report.y    = CONSTRAIN_HID_XY((int32_t)y_amount);
+                        if (x_neg) {
+                            mouse_report.x = -mouse_report.x;
+                        }
+                        if (y_neg) {
+                            mouse_report.y = -mouse_report.y;
+                        }
+#    else
+                        float speed_modifier = pimoroni_trackball_get_max_speed() * ((float)elapsed_time / PIMORONI_TRACKBALL_TIME_TO_MAX);
+
+                        if (speed_modifier == 0) {
+                            speed_modifier = 1;
+                        }
+                        mouse_report.x = CONSTRAIN_HID_XY(mouse_report.x * speed_modifier);
+                        mouse_report.y = CONSTRAIN_HID_XY(mouse_report.y * speed_modifier);
+#    endif // PIMORONI_TRACKBALL_USE_FLOAT
+                    }
                 } else {
                     debounce--;
                 }
@@ -329,7 +390,7 @@ report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report) {
 
     if (!in_motion) {
         in_motion = true;
-        dprintf("PWM3360 (0): starting motion\n");
+        pd_dprintf("PWM3360 (0): starting motion\n");
     }
 
     mouse_report.x = CONSTRAIN_HID_XY(report.delta_x);

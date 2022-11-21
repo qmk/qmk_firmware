@@ -14,10 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "pointing_device_internal.h"
 #include "pimoroni_trackball.h"
-#include "i2c_master.h"
-#include "print.h"
-#include "debug.h"
 #include "timer.h"
 
 // clang-format off
@@ -31,10 +30,15 @@
 #define PIMORONI_TRACKBALL_REG_DOWN    0x07
 // clang-format on
 
-static uint16_t precision = 128;
+static uint8_t      max_speed        = 10;
+static i2c_status_t last_read_status = I2C_STATUS_SUCCESS;
+
+uint8_t pimoroni_trackball_get_max_speed(void) {
+    return max_speed;
+}
 
 uint16_t pimoroni_trackball_get_cpi(void) {
-    return (precision * 125);
+    return (max_speed * 320);
 }
 /**
  * @brief Sets the scaling value for pimoroni trackball
@@ -42,56 +46,45 @@ uint16_t pimoroni_trackball_get_cpi(void) {
  * Sets a scaling value for pimoroni trackball to allow runtime adjustment. This isn't used by the sensor and is an
  * approximation so the functions are consistent across drivers.
  *
- * NOTE: This rounds down to the nearest number divisable by 125 that's a positive integer, values below 125 are clamped to 125.
+ * NOTE: This clamps cpi to between 320 and 32000. Default 3200.
  *
  * @param cpi uint16_t
  */
 void pimoroni_trackball_set_cpi(uint16_t cpi) {
-    if (cpi < 249) {
-        precision = 1;
+    if (cpi < 320) {
+        max_speed = 1;
+    } else if (cpi > 32000) {
+        max_speed = 100;
     } else {
-        precision = (cpi - (cpi % 125)) / 125;
+        max_speed = (cpi - (cpi % 320)) / 320;
     }
 }
 
 void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
-    uint8_t                              data[4] = {r, g, b, w};
-    __attribute__((unused)) i2c_status_t status  = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
-
-#ifdef CONSOLE_ENABLE
-    if (debug_mouse) dprintf("Trackball RGBW i2c_status_t: %d\n", status);
-#endif
+    uint8_t data[4] = {r, g, b, w};
+    if (last_read_status == I2C_STATUS_SUCCESS) {
+        __attribute__((unused)) i2c_status_t status = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
+        pd_dprintf("Trackball RGBW i2c_status_t: %d\n", status);
+    } else {
+        pd_dprintf("Trackball RGBW last read not successful.");
+    }
 }
 
-i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
-    i2c_status_t status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
-#ifdef CONSOLE_ENABLE
-    if (debug_mouse) {
-        static uint16_t d_timer;
-        if (timer_elapsed(d_timer) > PIMORONI_TRACKBALL_DEBUG_INTERVAL) {
-            dprintf("Trackball READ i2c_status_t: %d L: %d R: %d Up: %d D: %d SW: %d\n", status, data->left, data->right, data->up, data->down, data->click);
-            d_timer = timer_read();
-        }
+i2c_status_t pimoroni_trackball_read(pimoroni_data_t* data) {
+    last_read_status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
+
+#ifdef POINTING_DEVICE_DEBUG
+    static uint16_t d_timer;
+    if (timer_elapsed(d_timer) > PIMORONI_TRACKBALL_DEBUG_INTERVAL) {
+        pd_dprintf("Trackball READ i2c_status_t: %d L: %d R: %d Up: %d D: %d SW: %d\n", last_read_status, data->left, data->right, data->up, data->down, data->click);
+        d_timer = timer_read();
     }
 #endif
 
-    return status;
+    return last_read_status;
 }
 
 __attribute__((weak)) void pimoroni_trackball_device_init(void) {
     i2c_init();
-    pimoroni_trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
-}
-
-int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
-    uint8_t offset     = 0;
-    bool    isnegative = false;
-    if (negative_dir > positive_dir) {
-        offset     = negative_dir - positive_dir;
-        isnegative = true;
-    } else {
-        offset = positive_dir - negative_dir;
-    }
-    uint16_t magnitude = (scale * offset * offset * precision) >> 7;
-    return isnegative ? -(int16_t)(magnitude) : (int16_t)(magnitude);
+    pimoroni_trackball_set_rgbw(0x00, 0x00, 0x00, 0xff);
 }

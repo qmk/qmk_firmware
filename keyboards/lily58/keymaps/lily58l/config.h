@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* Select hand configuration */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+// #define MASTER_LEFT
+ #define MASTER_RIGHT
 // #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_SLEEP //  the RGB lighting will be switched off when the host goes to sleep
 #endif
 
-// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-// #define SPLIT_USB_DETECT
-// #define NO_USB_STARTUP_CHECK
+#define POINTING_DEVICE_ROTATION_180 
+#define PIMORONI_TRACKBALL_SCALE 20
+#define SPLIT_WPM_ENABLE
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
