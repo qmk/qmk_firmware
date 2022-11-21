@@ -4,12 +4,12 @@
 
 ![PCB](https://i.imgur.com/UfzVHcjh.jpeg)
 
-*Reverse engineered PCB definition of daskeyboard 4 (Professional)*
+Reverse engineered PCB definition of daskeyboard 4 (Professional)
 
 * Keyboard Maintainer: [Commander1024](https://github.com/Commander1024)
-* Hardware Supported: *The PCB, rotary encoder, LEDs*
-* Hardware Availability: *https://www.daskeyboard.com/de/daskeyboard-4-professional/*
-* Microcontroller used: *https://stm32-base.org/boards/STM32F401CEU6-WeAct-Black-Pill-V3.0.html*
+* Hardware Supported: The PCB, rotary encoder, LEDs
+* Hardware Availability: https://www.daskeyboard.com/de/daskeyboard-4-professional/
+* Microcontroller used: https://stm32-base.org/boards/STM32F401CEU6-WeAct-Black-Pill-V3.0.html
 
 I used a WeAct Black Pill V3.0 featuring the STM32F401CEU6 processor to replace the keyboard's destroyed controller. This keyboard definition can also be easily adopted to use any other microcontroller compatible with QMK and with sufficient I/O ports.
 
