@@ -39,7 +39,8 @@
 // https://docs.qmk.fm/#/feature_rgblight?id=lighting-layers
 #define RGBLIGHT_LAYERS
 // https://docs.qmk.fm/#/feature_rgblight?id=configuration
-#define RGBLIGHT_LIMIT_VAL 192
+// see info.json in the v1 folder
+//#define RGBLIGHT_LIMIT_VAL 192
 
 // https://docs.qmk.fm/#/feature_mouse_keys?id=accelerated-mode
 /* #define MOUSEKEY_INTERVAL 16 */

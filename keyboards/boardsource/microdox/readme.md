@@ -24,6 +24,6 @@ flash each side independently with the trrs cable disconnected.
 press the reset button on the side of the keyboard you are flashing while it is connected via usb-c and then run the following to flash.
 
 ```sh
-make boardsource/microdox:chadhs:dfu-split-left
-make boardsource/microdox:chadhs:dfu-split-right
+make boardsource/microdox/v1:chadhs:dfu-split-left
+make boardsource/microdox/v1:chadhs:dfu-split-right
 ```
