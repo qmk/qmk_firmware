@@ -40,6 +40,7 @@ extern volatile bool isLeftHand;
 
 static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_B;
+static bool  encoder_external_update[NUM_ENCODERS]     = {false};
 
 #ifdef ENCODER_RESOLUTIONS
 static uint8_t encoder_resolutions[NUM_ENCODERS] = ENCODER_RESOLUTIONS;
@@ -225,6 +226,7 @@ bool encoder_read(void) {
             encoder_state[i] <<= 2;
             encoder_state[i] |= new_status;
             changed |= encoder_update(i, encoder_state[i]);
+            encoder_external_update[i] = false;
         }
     }
     return changed;
@@ -269,8 +271,11 @@ void encoder_update_raw(uint8_t *slave_state) {
 }
 #endif
 
-void encoder_insert_state(uint8_t index) {
-    encoder_state[index] <<= 2;
-    encoder_state[index] |= (readPin(encoders_pad_a[index]) << 0) | (readPin(encoders_pad_b[index]) << 1);
-    encoder_pulses[index] += encoder_LUT[encoder_state[index] & 0xF];
+void encoder_insert_state(void) {
+    for (uint8_t i = 0; i < thisCount; i++) {
+        encoder_state[i] <<= 2;
+        encoder_state[i] |= (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+        encoder_pulses[i] += encoder_LUT[encoder_state[i] & 0xF];
+        encoder_external_update[i] = true;
+    }
 }
