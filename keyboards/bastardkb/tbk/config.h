@@ -1,4 +1,4 @@
-/* 
+/**
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,6 @@
  */
 
 #pragma once
-#include "config_common.h"
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
