@@ -1,7 +1,5 @@
 # KBDMINI
 
-![KBDMINI](imgur.com image replace me!)
-
 * Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)
 * Hardware Supported: KBDMINI
 * Hardware Availability: [KBDFans](https://kbdfans.cn/)

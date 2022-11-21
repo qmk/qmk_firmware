@@ -1,8 +1,12 @@
 {
   "keyboard_name": "downbubble",
+  "manufacturer": "Flehrad",
   "maintainer": "flehrad",
-  "width": 22.75,
-  "height": 6,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_standard": {
       "layout": [

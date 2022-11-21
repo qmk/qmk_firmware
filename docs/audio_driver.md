@@ -57,14 +57,14 @@ This driver needs one Timer per enabled/used DAC channel, to trigger conversion;
 
 Additionally, in the board config, you'll want to make changes to enable the DACs, GPT for Timers 6, 7 and 8:
 
-``` c
+```c
 //halconf.h:
 #define HAL_USE_DAC                 TRUE
 #define HAL_USE_GPT                 TRUE
 #include_next <halconf.h>
 ```
 
-``` c
+```c
 // mcuconf.h:
 #include_next <mcuconf.h>
 #undef STM32_DAC_USE_DAC1_CH1
@@ -93,14 +93,14 @@ only needs one timer (GPTD6, Tim6) to trigger the DAC unit to do a conversion; t
 
 Additionally, in the board config, you'll want to make changes to enable the DACs, GPT for Timer 6:
 
-``` c
+```c
 //halconf.h:
 #define HAL_USE_DAC                 TRUE
 #define HAL_USE_GPT                 TRUE
 #include_next <halconf.h>
 ```
 
-``` c
+```c
 // mcuconf.h:
 #include_next <mcuconf.h>
 #undef STM32_DAC_USE_DAC1_CH1
@@ -113,15 +113,17 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 
 ### DAC Config
 
-| Define                           | Defaults                   | Description                                                --------------------------------------------------------------------------------------------- |
+| Define                           | Defaults                   | Description                                                                                                                                                           |
+| -------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `AUDIO_DAC_SAMPLE_MAX`           | `4095U`                    | Highest value allowed. Lower value means lower volume. And 4095U is the upper limit, since this is limited to a 12 bit value. Only effects non-pregenerated samples.  |
-| `AUDIO_DAC_OFF_VALUE`            | `AUDIO_DAC_SAMPLE_MAX / 2` | The value of the DAC when notplaying anything. Some setups may require a high (`AUDIO_DAC_SAMPLE_MAX`) or low (`0`) value here.                                        |
+| `AUDIO_DAC_OFF_VALUE`            | `AUDIO_DAC_SAMPLE_MAX / 2` | The value of the DAC when notplaying anything. Some setups may require a high (`AUDIO_DAC_SAMPLE_MAX`) or low (`0`) value here.                                       |
 | `AUDIO_MAX_SIMULTANEOUS_TONES`   | __see next table__         | The number of tones that can be played simultaneously.  A value that is too high may freeze the controller or glitch out when too many tones are being played.        |
-| `AUDIO_DAC_SAMPLE_RATE`          | __see next table__         | Effective bit rate of the DAC (in hertz), higher limits simultaneous tones, and lower sacrifices quality.                                                          |
+| `AUDIO_DAC_SAMPLE_RATE`          | __see next table__         | Effective bit rate of the DAC (in hertz), higher limits simultaneous tones, and lower sacrifices quality.                                                             |
 
 There are a number of predefined quality settings that you can use, with "sane minimum" being the default.  You can use custom values by simply defining the sample rate and number of simultaneous tones, instead of using one of the listed presets. 
 
 | Define                            | Sample Rate | Simultaneous tones  |
+| --------------------------------- | ----------- | ------------------- |
 | `AUDIO_DAC_QUALITY_VERY_LOW`      | `11025U`    | `8`                 |
 | `AUDIO_DAC_QUALITY_LOW`           | `22040U`    | `4`                 |
 | `AUDIO_DAC_QUALITY_HIGH`          | `44100U`    | `2`                 |
@@ -153,7 +155,7 @@ This driver uses the ChibiOS-PWM system to produce a square-wave on specific out
 The hardware directly toggles the pin via its alternate function. See your MCU's data-sheet for which pin can be driven by what timer - looking for TIMx_CHy and the corresponding alternate function.
 
 A configuration example for the STM32F103C8 would be:
-``` c
+```c
 //halconf.h:
 #define HAL_USE_PWM                 TRUE
 #define HAL_USE_PAL                 TRUE
@@ -161,7 +163,7 @@ A configuration example for the STM32F103C8 would be:
 #include_next <halconf.h>
 ```
 
-``` c
+```c
 // mcuconf.h:
 #include_next <mcuconf.h>
 #undef STM32_PWM_USE_TIM1
@@ -177,7 +179,7 @@ If we now target pin A8, looking through the data-sheet of the STM32F103C8, for 
 - TIM1_CH4 = PA11
 
 with all this information, the configuration would contain these lines:
-``` c
+```c
 //config.h:
 #define AUDIO_PIN A8
 #define AUDIO_PWM_DRIVER PWMD1

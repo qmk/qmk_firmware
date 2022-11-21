@@ -13,10 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef EP96_H
-#define EP96_H
+
+#pragma once
 
 #include "quantum.h"
+
+#define XXX KC_NO
 
 /* This a shortcut to help you visually see your layout.
  *
@@ -26,22 +28,19 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define xxxx KC_NO
 
 #define LAYOUT( \
-    K000, K001, K002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012, k013, k014, k015, k016, k017, k018, \
-    K100, K101, K102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112,       k114, k115, k116, k117, k118, \
-    K200,       K202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212, k213,       k215, k216, k217,       \
-    K300,       K302, k303, k304, k305, k306, k307, k308, k309, k310, k311, k312, k313, k314, k315, k316, k317, k318, \
-    K400, K401, K402, k403, k404, k405, k406, k407, k408, k409, k410, k411,       k413, k414, k415, k416, k417,       \
-    K500, K501, K502,                   k506,                         k511, k512, k513, k514, k515, k516, k517, k518) \
-{ \
-    {K000, K001, K002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012, k013, k014, k015, k016, k017, k018}, \
-    {K100, K101, K102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112, xxxx, k114, k115, k116, k117, k118}, \
-    {K200, xxxx, K202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212, k213, xxxx, k215, k216, k217, xxxx}, \
-    {K300, xxxx, K302, k303, k304, k305, k306, k307, k308, k309, k310, k311, k312, k313, k314, k315, k316, k317, k318}, \
-    {K400, K401, K402, k403, k404, k405, k406, k407, k408, k409, k410, k411, xxxx, k413, k414, k415, k416, k417, xxxx}, \
-    {K500, K501, K502, xxxx, xxxx, xxxx, k506, xxxx, xxxx, xxxx, xxxx, k511, k512, k513, k514, k515, k516, k517, k518}  \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, k0G, k0H, k0I, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C,      k1E, k1F, k1G, k1H, k1I, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D,      k2F, k2G, k2H, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, k3G, k3H, k3I, \
+    k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B,      k4D, k4E, k4F, k4G, k4H, \
+    k50, k51, k52,                k56,                     k5B, k5C, k5D, k5E, k5F, k5G, k5H, k5I \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, k0G, k0H, k0I }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, XXX, k1E, k1F, k1G, k1H, k1I }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, XXX, k2F, k2G, k2H, XXX }, \
+    { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, k3G, k3H, k3I }, \
+    { k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, XXX, k4D, k4E, k4F, k4G, k4H, XXX }, \
+    { k50, k51, k52, XXX, XXX, XXX, k56, XXX, XXX, XXX, XXX, k5B, k5C, k5D, k5E, k5F, k5G, k5H, k5I } \
 }
-
-#endif

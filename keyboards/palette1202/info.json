@@ -1,12 +1,15 @@
 {
   "keyboard_name": "Palette1202",
+  "manufacturer": "niltea",
   "url": "https://github.com/niltea/Palette1202",
   "maintainer": "niltea",
-  "width": 5,
-  "height": 3.5,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1202",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
-      "key_count": 14,
       "layout": [
         { "label":"Tab",     "x": 0, "y": 0.75 },
         { "label":"GUI + A", "x": 1, "y": 0.25 },

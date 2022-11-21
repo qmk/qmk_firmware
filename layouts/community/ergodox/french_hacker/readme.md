@@ -1,30 +1,27 @@
 # French hacker layout
 
-## Introduction
-
 [Colemak Mod-DH](https://colemakmods.github.io/mod-dh/) layout for
 users keeping an `azerty` layout configuration on their OS.
 
+## Introduction
+
 This keymap is for users keeping their operating systems configured with
-`azerty` - for typing passwords or in their native languages - but who
-wants a Colemak Mod-DH layout on their mechanical.
+`azerty` - for typing passwords in their native languages, or for their laptop
+keyboard - but who wants a Colemak Mod-DH layout on their mechanical keyboard.
 
 The symbols layers was done after analysing various programming
 languages sources codes and should be close to optimal for typing
-confort.
+confort, see the link at the end of the README.
 
-Special macros for [Qubes OS](https://www.qubes-os.org/) are included.
+The design is done to minimize the usage of the pinky fingers and reduces stress
+on the hands, thus Alt and Ctrl keys are accessible for both hands.
 
-There is an accented characters layer for infrequent typing of french
-accents.
+## Flashing the firmware
 
-Special macros for [Qubes OS](https://www.qubes-os.org/) are included.
-
-## Build
-
-    cd keyboards/ergodox
-    make french_hacker
+```
+qmk flash -kb ergodox_ez -km french_hacker
+```
 
 ## Design explanations
 
-See my [blog post](http://dialectical-computing.de/blog/blog/2017/01/29/a-better-coder-layout-for-the-ergodox-ez-keyboard/).
+See my [blog post](http://www.dialectical-computing.de/blog/blog/2017/01/29/a-better-coder-layout-for-the-ergodox-ez-keyboard/).

@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "s80 wkl",
+    "keyboard_name": "s8",
+    "manufacturer": "Sam",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.5,
+    "usb": {
+        "vid": "0x534D",
+        "pid": "0x3830",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

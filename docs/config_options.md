@@ -2,7 +2,17 @@
 
 QMK is nearly infinitely configurable. Wherever possible we err on the side of allowing users to customize their keyboard, even at the expense of code size. That level of flexibility makes for a daunting configuration experience, however.
 
-There are two main types of configuration files in QMK- `config.h` and `rules.mk`. These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:
+There are three main types of configuration files in QMK:
+
+* `config.h`, which contains various preprocessor directives (`#define`, `#ifdef`)
+* `rules.mk`, which contains additional variables
+* `info.json`, which is utilized for [data-driven configuration](https://docs.qmk.fm/#/data_driven_config)
+
+This page will only discuss the first two types, `config.h` and `rules.mk`.
+
+?> While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](https://docs.qmk.fm/#/reference_info_json) page for more details.
+
+These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:
 
 * QMK Default
 * Keyboard
@@ -51,14 +61,16 @@ This is a C header file that is one of the first things included, and will persi
   * the number of columns in your keyboard's matrix
 * `#define MATRIX_ROW_PINS { D0, D5, B5, B6 }`
   * pins of the rows, from top to bottom
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 * `#define MATRIX_IO_DELAY 30`
   * the delay in microseconds when between changing matrix pin state and reading values
-* `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
-  * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
   * define is matrix has ghost (unlikely)
+* `#define MATRIX_UNSELECT_DRIVE_HIGH`
+  * On un-select of matrix pins, rather than setting pins to input-high, sets them to output-high.
 * `#define DIODE_DIRECTION COL2ROW`
   * COL2ROW or ROW2COL - how your matrix is configured. COL2ROW means the black mark on your diode is facing to the rows, and between the switch and the rows.
 * `#define DIRECT_PINS { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
@@ -103,8 +115,10 @@ This is a C header file that is one of the first things included, and will persi
   * sets the maximum power (in mA) over USB for the device (default: 500)
 * `#define USB_POLLING_INTERVAL_MS 10`
   * sets the USB polling rate in milliseconds for the keyboard, mouse, and shared (NKRO/media keys) interfaces
-* `#define USB_SUSPEND_WAKEUP_DELAY 200`
-  * set the number of milliseconde to pause after sending a wakeup packet
+* `#define USB_SUSPEND_WAKEUP_DELAY 0`
+  * sets the number of milliseconds to pause after sending a wakeup packet.
+    Disabled by default, you might want to set this to 200 (or higher) if the
+    keyboard does not wake up properly after suspending.
 * `#define F_SCL 100000L`
   * sets the I2C clock rate speed for keyboards using I2C. The default is `400000L`, except for keyboards using `split_common`, where the default is `100000L`.
 
@@ -122,15 +136,13 @@ If you define these options you will disable the associated feature, which can s
   * disable tap dance and other tapping features
 * `#define NO_ACTION_ONESHOT`
   * disable one-shot modifiers
-* `#define NO_ACTION_MACRO`
-  * disable old-style macro handling using `MACRO()`, `action_get_macro()` _(deprecated)_
-* `#define NO_ACTION_FUNCTION`
-  * disable old-style function handling using `fn_actions`, `action_function()` _(deprecated)_
 
 ## Features That Can Be Enabled
 
 If you define these options you will enable the associated feature, which may increase your code size.
 
+* `#define ENABLE_COMPILE_KEYCODE`
+  * Enables the `QK_MAKE` keycode
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`
@@ -139,7 +151,7 @@ If you define these options you will enable the associated feature, which may in
 ## Behaviors That Can Be Configured
 
 * `#define TAPPING_TERM 200`
-  * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+  * how long before a key press becomes a hold
 * `#define TAPPING_TERM_PER_KEY`
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
@@ -172,40 +184,45 @@ If you define these options you will enable the associated feature, which may in
   * sets the timer for leader key chords to run on each key press rather than overall
 * `#define LEADER_KEY_STRICT_KEY_PROCESSING`
   * Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify `MT(MOD_CTL, KC_A)` if you want to use `KC_A`.
+* `#define MOUSE_EXTENDED_REPORT`
+  * Enables support for extended reports (-32767 to 32767, instead of -127 to 127), which may allow for smoother reporting, and prevent maxing out of the reports. Applies to both Pointing Device and Mousekeys.
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define QMK_KEYS_PER_SCAN 4`
-  * Allows sending more than one key per scan. By default, only one key event gets
-    sent via `process_record()` per scan. This has little impact on most typing, but
-    if you're doing a lot of chords, or your scan rate is slow to begin with, you can
-    have some delay in processing key events. Each press and release is a separate
-    event. For a keyboard with 1ms or so scan times, even a very fast typist isn't
-    going to produce the 500 keystrokes a second needed to actually get more than a
-    few ms of delay from this. But if you're doing chording on something with 3-4ms
-    scan times? You probably want this.
 * `#define COMBO_COUNT 2`
-  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
+  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature. Or leave it undefined and programmatically set the count.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
+* `#define COMBO_MUST_HOLD_MODS`
+  * Flag for enabling extending timeout on Combos containing modifiers
+* `#define COMBO_MOD_TERM 200`
+  * Allows for extending COMBO_TERM for mod keys while mid-combo.
+* `#define COMBO_MUST_HOLD_PER_COMBO`
+  * Flag to enable per-combo COMBO_TERM extension and `get_combo_must_hold()` function
+* `#define COMBO_TERM_PER_COMBO`
+  * Flag to enable per-combo COMBO_TERM extension and `get_combo_term()` function
+* `#define COMBO_STRICT_TIMER`
+  * Only start the combo timer on the first key press instead of on all key presses.
+* `#define COMBO_NO_TIMER`
+  * Disable the combo timer completely for relaxed combos.
 * `#define TAP_CODE_DELAY 100`
-  * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
+  * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds and defaults to `0`.
 * `#define TAP_HOLD_CAPS_DELAY 80`
-  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
+  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPS_LOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
+* `#define KEY_OVERRIDE_REPEAT_DELAY 500`
+  * Sets the key repeat interval for [key overrides](feature_key_overrides.md).
 
 ## RGB Light Configuration
 
 * `#define RGB_DI_PIN D7`
   * pin the DI on the WS2812 is hooked-up to
-* `#define RGBLIGHT_ANIMATIONS`
-  * run RGB animations
 * `#define RGBLIGHT_LAYERS`
   * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 * `#define RGBLIGHT_MAX_LAYERS`
   * Defaults to 8. Can be expanded up to 32 if more [lighting layers](feature_rgblight.md?id=lighting-layers) are needed.
   * Note: Increasing the maximum will increase the firmware size and slow sync on split keyboards.
-* `#define RGBLIGHT_LAYER_BLINK` 
+* `#define RGBLIGHT_LAYER_BLINK`
   * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
   * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
@@ -272,7 +289,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 ### Other Options
 
 * `#define USE_I2C`
-  * For using I2C instead of Serial (defaults to serial)
+  * For using I2C instead of Serial (default is serial; serial transport is supported on ARM -- I2C is AVR-only)
 
 * `#define SOFT_SERIAL_PIN D0`
   * When using serial, define this. `D0` or `D1`,`D2`,`D3`,`E6`.
@@ -280,6 +297,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 
 * `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
   * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.
@@ -300,13 +318,41 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_USB_DETECT`
   * Detect (with timeout) USB connection when delegating master/slave
   * Default behavior for ARM
-  * Required for AVR Teensy
+  * Required for AVR Teensy (without hardware mods)
 
 * `#define SPLIT_USB_TIMEOUT 2000`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
   * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+* `#define FORCED_SYNC_THROTTLE_MS 100`
+  * Deadline for synchronizing data from master to slave when using the QMK-provided split transport.
+
+* `#define SPLIT_TRANSPORT_MIRROR`
+  * Mirrors the master-side matrix on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_LAYER_STATE_ENABLE`
+  * Ensures the current layer state is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_LED_STATE_ENABLE`
+  * Ensures the current host indicator state (caps/num/scroll) is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_MODS_ENABLE`
+  * Ensures the current modifier state (normal, weak, and oneshot) is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_WPM_ENABLE`
+  * Ensures the current WPM is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_OLED_ENABLE`
+  * Syncs the on/off state of the OLED between the halves.
+
+* `#define SPLIT_ST7565_ENABLE`
+  * Syncs the on/off state of the ST7565 screen between the halves.
+
+* `#define SPLIT_TRANSACTION_IDS_KB .....`
+* `#define SPLIT_TRANSACTION_IDS_USER .....`
+  * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](feature_split_keyboard.md#custom-data-sync) for more information.
 
 # The `rules.mk` File
 
@@ -321,8 +367,8 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 * `SRC`
   * Used to add files to the compilation/linking list.
 * `LIB_SRC`
-  * Used to add files as a library to the compilation/linking list.  
-    The files specified by `LIB_SRC` is linked after the files specified by `SRC`.  
+  * Used to add files as a library to the compilation/linking list.
+    The files specified by `LIB_SRC` is linked after the files specified by `SRC`.
     For example, if you specify:
     ```
     SRC += a.c
@@ -338,7 +384,6 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * A list of [layouts](feature_layouts.md) this keyboard supports.
 * `LTO_ENABLE`
   * Enables Link Time Optimization (LTO) when compiling the keyboard.  This makes the process take longer, but it can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).
-However, this will automatically disable the legacy TMK Macros and Functions features, as these break when LTO is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`.  (Note: This does not affect QMK [Macros](feature_macros.md) and [Layers](feature_layers.md).)
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
@@ -352,15 +397,17 @@ However, this will automatically disable the legacy TMK Macros and Functions fea
   * `qmk-dfu`
   * `halfkay`
   * `caterina`
-  * `bootloadHID`
-  * `USBasp`
+  * `bootloadhid`
+  * `usbasploader`
 
 ## Feature Options :id=feature-options
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
+* `MAGIC_ENABLE`
+  * MAGIC actions (BOOTMAGIC without the boot)
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration
+  * Enable Bootmagic Lite
 * `MOUSEKEY_ENABLE`
   * Mouse keys
 * `EXTRAKEY_ENABLE`
@@ -373,8 +420,12 @@ Use these to enable or disable building certain features. The more you have enab
   * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+* `RING_BUFFERED_6KRO_REPORT_ENABLE`
+  * USB 6-Key Rollover - Instead of stopping any new input once 6 keys are pressed, the oldest key is released and the new key is pressed.
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
+* `KEY_OVERRIDE_ENABLE`
+  * Enable the key override feature
 * `RGBLIGHT_ENABLE`
   * Enable keyboard underlight functionality
 * `LEADER_ENABLE`
@@ -383,8 +434,8 @@ Use these to enable or disable building certain features. The more you have enab
   * MIDI controls
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH`
-  * Current options are AdafruitBLE, RN42
+* `BLUETOOTH_ENABLE`
+  * Current options are BluefruitLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`
@@ -395,6 +446,10 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `DEFERRED_EXEC_ENABLE`
+  * Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions.md#deferred-execution) for more information.
+* `DYNAMIC_TAPPING_TERM_ENABLE`
+  * Allows to configure the global tapping term on the fly.
 
 ## USB Endpoint Limitations
 

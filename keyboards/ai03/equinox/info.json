@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Equinox", 
+    "manufacturer": "ai03 Design Studio",
     "url": "", 
     "maintainer": "ai03", 
-    "width": 13, 
-    "height": 4, 
+    "usb": {
+    	"vid": "0xA103",
+    	"pid": "0x0004",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

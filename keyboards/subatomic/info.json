@@ -1,12 +1,15 @@
 {
   "keyboard_name": "Subatomic",
+  "manufacturer": "OLKB",
   "url": "",
   "maintainer": "qmk",
-  "width": 14,
-  "height": 5,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6063",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_ortho_5x14": {
-      "key_count": 70,
       "layout": [
         {"label":"k00", "x":0, "y":0},
         {"label":"k01", "x":1, "y":0},
@@ -82,7 +85,6 @@
     },
 
     "LAYOUT_ortho_5x14_1x2uC": {
-      "key_count": 69,
       "layout": [
         {"label":"k00", "x":0, "y":0},
         {"label":"k01", "x":1, "y":0},
@@ -157,7 +159,6 @@
     },
 
     "LAYOUT_ortho_5x14_2x2u": {
-      "key_count": 68,
       "layout": [
         {"label":"k00", "x":0, "y":0},
         {"label":"k01", "x":1, "y":0},

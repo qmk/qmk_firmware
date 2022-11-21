@@ -6,4 +6,4 @@ LTO_ENABLE = yes
 MOUSEKEY_ENABLE = yes     # Allow mapping of mouse control keys
 EXTRAKEY_ENABLE = yes     # Allow audio & system control keys
 COMMAND_ENABLE = yes      # Commands for debug and configuration
-NKRO_ENABLE = yes         # Support USB N-key roll over.
+NKRO_ENABLE = yes

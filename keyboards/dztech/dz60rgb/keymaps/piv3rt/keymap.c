@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_RGB] = LAYOUT(
         _______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,  KC_DEL,
-        _______, RGB_TOG,  _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_MOD, _______,  _______,  _______, RESET,
+        _______, RGB_TOG,  _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_MOD, _______,  _______,  _______, QK_BOOT,
         _______, _______,  _______, _______, _______, RGB_PCY, _______, _______, RGB_SPI, RGB_SPD, _______,  _______,           EEP_RST,
         _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  RGB_000, _______,
         _______, _______,  _______,                            RGB_RST,                   _______, _______,  KC_PWR,   AMDREC,  AMDREP
@@ -93,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void reset_leds(void) {
     current_profile = OFF;
-    rgblight_enable();
-    rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgb_matrix_enable();
+    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
     rgb_matrix_sethsv(0x6a, 0x33, 0xff);
 }
 

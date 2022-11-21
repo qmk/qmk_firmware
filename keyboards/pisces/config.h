@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x6B6E
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER knaruo
-#define PRODUCT      pisces
-
 #define USE_SERIAL
 
 /* serial.c configuration for split keyboard */
@@ -52,7 +45,6 @@
  */
 #define MATRIX_ROW_PINS { C4, B0, C7 }
 #define MATRIX_COL_PINS { B1, B2, B3, B4, B5, B6, B7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -64,7 +56,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

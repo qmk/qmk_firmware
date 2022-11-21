@@ -18,7 +18,7 @@ from qmk.keymap import keymap_completer
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
-@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")
+@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('Compile a QMK Firmware.')
@@ -32,8 +32,9 @@ def compile(cli):
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
-        command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
-        cli.run(command, capture_output=False, stdin=DEVNULL)
+        if cli.config.compile.keyboard and cli.config.compile.keymap:
+            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
+            cli.run(command, capture_output=False, stdin=DEVNULL)
 
     # Build the environment vars
     envs = {}

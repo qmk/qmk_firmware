@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x1B1E
-#define DEVICE_VER 0x0001
-#define MANUFACTURER mangoiv
-#define PRODUCT draculad
-
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
 
@@ -39,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #define OLED_DISPLAY_128X64
   #define OLED_TIMEOUT 30000
 #endif
@@ -61,7 +55,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A {B2 , B4}
 #define ENCODERS_PAD_B {B6 , B5}
 
-#define ENCODER_RESOLUTIONS { 4, 4, 4, 1}
-#define UNUSED_PINS
+#define ENCODER_RESOLUTIONS { 4, 4 }
+#define ENCODER_RESOLUTIONS_RIGHT { 4, 1 }
 
 #define EE_HANDS
+
+#define LAYER_STATE_8BIT

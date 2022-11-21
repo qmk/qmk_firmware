@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ACTUATION_POINT_H
-#define ACTUATION_POINT_H
+#pragma once
 
 #include <stdint.h>
 
@@ -28,5 +27,3 @@ void actuation_point_down(void);
 
 // be careful with this.
 void adjust_actuation_point(int offset);
-
-#endif

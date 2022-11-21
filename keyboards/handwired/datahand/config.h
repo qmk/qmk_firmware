@@ -17,14 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-/* Taken from the DataHand PS/2-USB adaptor. */
-#define VENDOR_ID       0x13BA
-#define PRODUCT_ID      0x0017
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DataHand
-#define PRODUCT         DataHand
-
 /* key matrix size */
 #define MATRIX_ROWS 13
 #define MATRIX_COLS 4

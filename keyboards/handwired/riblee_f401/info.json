@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "Handwired Preonic (Blackpill F401)",
+    "keyboard_name": "Handwired F401",
+    "manufacturer": "Riblee",
     "url": "",
     "maintainer": "riblee",
-    "width": 12,
-    "height": 5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x002A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

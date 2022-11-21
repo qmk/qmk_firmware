@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x594D // "YM"
-#define PRODUCT_ID      0x4440 // "D" + 40
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    YMDK
-#define PRODUCT         YMD40 v2
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -44,7 +37,7 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B6
+#define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 

@@ -41,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 4. In your `rules.mk` to make it easier to turn the animation on/off, add
 ```makefile
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+ifeq ($(strip $(OLED_ENABLE)), yes)
     #... your code here...
 
     ifdef OCEAN_DREAM_ENABLE
@@ -59,7 +59,8 @@ endif
 
 You're done! Now you can enable **Ocean Dream** by simply turning on the OLED feature
 ```makefile
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 ```
 
 And if you want to disable it without turning off the OLED Driver you can simply set 

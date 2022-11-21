@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
   if (!is_keyboard_master()) {
@@ -130,7 +130,8 @@ void oled_render_amsterdam_flag(void) {
     oled_write_raw_P(amsterdam_flag, sizeof(amsterdam_flag));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     oled_render_amsterdam_flag();
+    return false;
 }
-#endif // OLED_DRIVER_ENABLE
+#endif // OLED_ENABLE

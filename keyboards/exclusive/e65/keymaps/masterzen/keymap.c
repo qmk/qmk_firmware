@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LALT, KC_LGUI,                  _______,                             KC_LGUI, KC_RALT, _______, _______, _______),
 
     [_ADJUST] = LAYOUT_65_ansi_blocker_splitbs(
-        RESET,   LAY_LIN, LAY_OSX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MO(_ADJUST),
+        QK_BOOT, LAY_LIN, LAY_OSX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MO(_ADJUST),
         BL_TOGG, BL_DEC, BL_INC, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_VAI, _______,
@@ -94,7 +94,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     if (state == BASE && edit == true) {
         temp_config.hue  = rgblight_get_hue();
         temp_config.sat  = rgblight_get_sat();
@@ -102,7 +102,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         edit = false;
     }
 
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _ADJUST:
             temp_config.mode = rgblight_get_mode();
             rgblight_mode_noeeprom(1);

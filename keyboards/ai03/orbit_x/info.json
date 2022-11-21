@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "Orbit-X", 
+    "keyboard_name": "OrbitX", 
+    "manufacturer": "ai03 Design Studio",
     "url": "", 
     "maintainer": "ai03", 
-    "width": 13.5, 
-    "height": 4.38, 
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0014",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

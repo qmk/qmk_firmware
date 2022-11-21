@@ -1,12 +1,15 @@
 {
   "keyboard_name": "TKC1800",
+  "manufacturer": "The Key Company",
   "url": "",
   "maintainer": "qmk",
-  "width": 19.5,
-  "height": 7.25,
+  "usb": {
+    "vid": "0x544B",
+    "pid": "0x0001",
+    "device_version": "0.0.3"
+  },
   "layouts": {
     "LAYOUT": {
-      "key_count": 107,
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "F1", "x": 1.25, "y": 0 },

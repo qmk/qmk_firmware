@@ -119,10 +119,6 @@ uint8_t matrix_scan(void) {
   return 0;
 }
 
-bool matrix_is_modified(void) {
-  return true;
-}
-
 inline
 bool matrix_is_on(uint8_t row, uint8_t col) {
   return (matrix[row] & (1 << col));

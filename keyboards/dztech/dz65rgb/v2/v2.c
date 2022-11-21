@@ -16,7 +16,7 @@
 #include "v2.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, C8_8,  C7_8,  C6_8 },
     { 0, C9_8,  C7_7,  C6_7 },
     { 0, C9_7,  C8_7,  C6_6 },

@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Southpaw66",
+    "manufacturer": "rpiguy9907",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x9907",
+        "pid": "0x5366",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
 

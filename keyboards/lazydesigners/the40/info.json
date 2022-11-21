@@ -1,9 +1,13 @@
 {
     "keyboard_name": "THE40",
+    "manufacturer": "LAZYDESIGNERS",
     "url": "http://lazydesigners.cn",
     "maintainer": "LAZYDESIGNERS",
-    "width": 12,
-    "height": 4,
+    "usb": {
+        "vid": "0x4C44",
+        "pid": "0x0042",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -9,9 +9,12 @@
 
 現在のところ、`rules.mk` で触覚フィードバック用に以下のオプションを利用可能です:
 
-`HAPTIC_ENABLE += DRV2605L`
+```
+HAPTIC_ENABLE = yes
 
-`HAPTIC_ENABLE += SOLENOID`
+HAPTIC_DRIVER += DRV2605L
+HAPTIC_DRIVER += SOLENOID
+```
 
 ## サポートされる既知のハードウェア
 

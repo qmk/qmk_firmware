@@ -1,12 +1,15 @@
 {
-    "keyboard_name": "Majbritt",
+    "keyboard_name": "Majbritt Rev1",
+    "manufacturer": "SiddersKb",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.75,
-    "height": 5.5,
+    "usb": {
+        "vid": "0x534B",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
-            "key_count": 67,
             "layout": [
                 {"label":"K00 (D0,F0)", "x":0.75, "y":0.25},
                 {"label":"K01 (D0,F1)", "x":1.75, "y":0.25},
