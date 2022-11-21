@@ -52,11 +52,11 @@
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
+/* Use 5 dynamic keymap layers */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
+
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-
-/* Total size of the EEPROM storage in bytes */
-#define TRANSIENT_EEPROM_SIZE 4096
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048
