@@ -576,6 +576,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 #endif
 
+#ifdef MOUSEKEY_ENABLE
+
 static uint32_t       last_mouse_activity = 0;
 static report_mouse_t last_mouse_report   = {0};
 static bool           is_scrolling        = false;
@@ -614,3 +616,5 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     return smooth_mouse_movement(mouse_report);
 }
+
+#endif
