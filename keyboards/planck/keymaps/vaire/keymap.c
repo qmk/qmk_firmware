@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD,    DESK_LEFT,  	WIN_LEFT,       KC_F4,          WIN_RIGHT,      DESK_RIGHT,     DOCS,       	SNAP_LEFT, 	SNAP_UP,     	SNAP_RIGHT,     SNAP_DOWN,      KC_DEL, 
     KC_CAPS,    KC_QUOT,    	KC_LBRC,        KC_LCBR,        KC_LPRN,        KC_BSLS,        KC_SLSH,    	KC_RPRN, 	KC_RCBR,     	KC_RBRC,    	KC_DQUO,        KC_QUOT, 
     KC_PWR,     KC_SLEP,    	KC_WAKE,        KC_HOME,        BL_BRTG,        BL_STEP,        KC_TRNS,    	KC_CALC, 	KC_LT,     	    KC_GT,     	    KC_COLON,   	KC_LSFT, 
-    TO(0),      KC_LCTL,    	KC_LALT,        KC_LGUI,        KC_LALT,        KC_LCTL,        KC_TRNS,    	KC_TRNS, 	AU_TOG,      	MU_TOG,     	MU_MOD,     	LCTL(KC_RGHT)),
+    TO(0),      KC_LCTL,    	KC_LALT,        KC_LGUI,        KC_LALT,        KC_LCTL,        KC_TRNS,    	KC_TRNS, 	AU_TOGG,      	MU_TOGG,     	MU_NEXT,     	LCTL(KC_RGHT)),
 
   LAYOUT_planck_grid(
     TO(0),      KC_LSCR,    	WIN_LEFT,       KC_MS_WH_UP,    WIN_RIGHT,  	KC_TRNS,        KC_TRNS,    	KC_MS_BTN1, 	KC_MS_U,    	KC_MS_BTN2,    	KC_TRNS,        KC_TRNS, 
