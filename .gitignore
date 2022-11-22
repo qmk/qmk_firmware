@@ -67,6 +67,8 @@ CMakeLists.txt
 tags
 
 # Ignore image/font files
+*.bmp
+*.wbmp
 *.gif
 *.jpg
 *.jpeg
