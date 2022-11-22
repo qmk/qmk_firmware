@@ -26,7 +26,6 @@
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define RGB_DI_PIN B10
-#define WS2812_EXTERNAL_PULLUP
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #ifdef RGB_DI_PIN 
