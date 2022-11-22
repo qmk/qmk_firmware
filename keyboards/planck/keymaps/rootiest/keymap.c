@@ -379,17 +379,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
 
     [_FEATURS] = LAYOUT_planck_mit(                                                                                                         //
         LCTL(LALT(KC_DEL)), DO_RESET, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, TD(TD_DEG_DEGF), TD(TD_SMILEY), KC_DEL,  //
-        RGB_VAI, RGB_VAD, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, DF(_BASE), DF(_COLEMAK), DF(_DVORAK), TO(_PLOVER), MY_RGBCON,            //
-        KC_TRNS, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_TRNS, KC_TRNS, CK_ON, CK_OFF, KC_ENTER,                                  //
+        RGB_VAI, RGB_VAD, MU_NEXT, AU_ON, AU_OFF, AG_NORM, AG_SWAP, DF(_BASE), DF(_COLEMAK), DF(_DVORAK), TO(_PLOVER), MY_RGBCON,            //
+        KC_TRNS, AU_PREV, AU_NEXT, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_TRNS, KC_TRNS, CK_ON, CK_OFF, KC_ENTER,                                  //
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(_MOUSY), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     /*
     Special Features Layer [6]
     * ,-----------------------------------------------------------------------------------.
     * |C+A+DL| Reset| Debug|RGBTog|RGBMod| Hue+ | Hue- | Sat+ | Sat- |Unicod| Emoji|Delete|
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |RGBVAI|RGBVAD|MU_MOD| AU_ON|AU_OFF|RALTGU|SALTGU| Base |Colemk|Dvorak|Plover|RGBCON|
+    * |RGBVAI|RGBVAD|MUNEXT| AU_ON|AU_OFF|RALTGU|SALTGU| Base |Colemk|Dvorak|Plover|RGBCON|
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |------|MUV_DE|MUV_IN| MU_ON|MU_OFF| MI_ON|MI_OFF|------|------|CLK-ON|CLKOFF|Enter |
+    * |------|AUPREV|AU_EXT| MU_ON|MU_OFF| MI_ON|MI_OFF|------|------|CLK-ON|CLKOFF|Enter |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * |------|------|------|------|------|    TG(8)    |------|------|------|------|------|
     * `-----------------------------------------------------------------------------------'
@@ -480,9 +480,9 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(m
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (musical_mode) {
         if (clockwise) {
-            tap_code16(MU_MOD);
+            tap_code16(MU_NEXT);
         } else {
-            tap_code16(MU_MOD);
+            tap_code16(MU_NEXT);
         }
     } else {
         if (muse_mode) {
