@@ -32,3 +32,5 @@ LAYOUTS = split_3x6_3
 
 SERIAL_DRIVER = vendor
 WS2812_DRIVER = vendor
+
+DEFAULT_FOLDER = bastardkb/tbkmini/v2/splinky/v3

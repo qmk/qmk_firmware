@@ -331,7 +331,7 @@ void matrix_init_kb(void) {
 // Forward declare RP2040 SDK declaration.
 void gpio_init(uint gpio);
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
     // Ensures that GP26 through GP29 are initialized as digital inputs (as
     // opposed to analog inputs).  These GPIOs are shared with A0 through A3,
     // respectively.  On RP2040-B2 and later, the digital inputs are disabled by
@@ -340,4 +340,6 @@ void keyboard_pre_init_user(void) {
     gpio_init(GP27);
     gpio_init(GP28);
     gpio_init(GP29);
+
+    keyboard_pre_init_user();
 }
