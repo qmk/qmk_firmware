@@ -18,7 +18,7 @@
 
 #include "config_common.h"
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+// #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 /* key matrix size */
 #define MATRIX_ROWS 14
@@ -53,6 +53,8 @@
 /* External spi flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
 #define WEAR_LEVELING_BACKING_SIZE (8 * 1024)
+
+#define LED_CAPS_LOCK_PIN C14
 
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPIDQ
