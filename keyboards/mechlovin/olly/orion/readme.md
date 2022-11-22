@@ -1,20 +1,20 @@
-# infinity875
+# Olly Orion
 
-![infinity875](https://i.imgur.com/qt4YBwSl.jpeg)
+![Olly Orion](https://i.imgur.com/midAJSpl.jpeg)
 
-The Infinity 87.5 is in the popular A87 form factor with Top-sided USB Type-C and supports BOTH the F12 and F13 footprints, so it’s compatible with a number of TKL boards like Geonworks Frog/F1-8x; KFE-CE; Singa Jaguar, among others.
+The Olly Orion is designed as a drop-in replacement PCB for the Duck Orion V2; V2.5 and V3 TKL custom keyboards. 
 
 * Keyboard Maintainer: [Mechlovin' Studio](https://github.com/mechlovin)
-* Hardware Supported: Infinity87.5, Atmega32u4
-* Hardware Availability: [GB](https://geekhack.org/index.php?topic=115251.0), [CBB Planet](https://cbbplanet.com/products/infinity-87-5-pcb), [Mechlovin' Studio](https://mechlovin.studio)
+* Hardware Supported: Olly Orion, APM32F103.
+* Hardware Availability: [Mechlovin' Studio](https://mechlovin.studio), [GB](https://www.reddit.com/r/mechmarket/comments/z1i5g3/gb_mechlovin_olly_orion_octagon_duck_orion/).
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mechlovin/infinity875:default
+    make mechlovin/olly/orion:default
 
 Flashing example for this keyboard:
 
-    make mechlovin/infinity875:default:flash
+    make mechlovin/olly/orion/default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

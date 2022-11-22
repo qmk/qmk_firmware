@@ -1,1 +1,1 @@
-# The VIA keymap for infinity87.5
+# The VIA keymap for Olly Orion

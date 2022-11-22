@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Mechlovin' Studio
+Copyright 2022 Mechlovin' Studio
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #define FEE_PAGE_COUNT 4
