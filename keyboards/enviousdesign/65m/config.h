@@ -22,10 +22,8 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17
 
-#define GPIO_INPUT_PIN_DELAY 100
-
-#define DEBUG_MATRIX_SCAN_RATE
-#define DEBUG_ACTION
+//#define DEBUG_MATRIX_SCAN_RATE
+//#define DEBUG_ACTION
 
 /*
  * KeyMatrix Assignments
