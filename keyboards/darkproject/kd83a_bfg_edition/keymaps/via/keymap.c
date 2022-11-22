@@ -166,18 +166,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool rgb_matrix_indicators_user(void) {
-	if (host_keyboard_led_state().caps_lock) {
-    	setPinInputHigh (C14);
-	}
-	else {
-		setPinInputLow (C14);
-	}
-    	if (IS_LAYER_ON(0)) { 
+// bool rgb_matrix_indicators_user(void) {
+// 	//if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+// 	if (host_keyboard_led_state().caps_lock) {
+//     	setPinInputHigh (C14);
+// 	}
+// 	else {
+// 		setPinInputLow (C14);
+// 	}
+
+    
+// 	if (IS_LAYER_ON(0)) { 
+// 		setPinInputLow (C0);
+// 	}
+
+    
+// 	if (IS_LAYER_ON(1)) {   
+// 		setPinInputHigh (C0); 
+// 	}
+	
+// 	return true;
+// }
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+
+	if (IS_LAYER_ON(0)) { 
 		setPinInputLow (C0);
 	}
+
 	if (IS_LAYER_ON(1)) {   
 		setPinInputHigh (C0); 
 	}
-        return true;
-}
+
+    return state;
+
+};
