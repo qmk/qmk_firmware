@@ -421,7 +421,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_VAI,        RGB_RMOD,       RGB_MOD,        RGB_TOG,        TGLINDI,        XXXXXXX,        XXXXXXX,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,
         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,
-        XXXXXXX,        XXXXXXX,        VERSION,        EEP_RST,
+        XXXXXXX,        XXXXXXX,        VERSION,        EE_CLR,
         XXXXXXX,
         XXXXXXX
     )
@@ -604,7 +604,7 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(33, RGB_DARKSPRINGGREEN);  //  TGLINDI
 
                 rgb_matrix_set_color(52, RGB_DARKGOLD);         //  VESRION
-                rgb_matrix_set_color(53, RGB_DARKPINK);         //  EEP_RST
+                rgb_matrix_set_color(53, RGB_DARKPINK);         //  EE_CLR
                 break;
         }
     }

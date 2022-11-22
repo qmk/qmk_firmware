@@ -21,9 +21,6 @@ Flashing example for this keyboard:
 
     make yellowbrickroad:default:flash
 
-or
-
-    qmk flash -kb yellowbrickroad -km default
 Run this while Raspberry Pi Pico is in bootloader mode.
 ## Bootloader
 
