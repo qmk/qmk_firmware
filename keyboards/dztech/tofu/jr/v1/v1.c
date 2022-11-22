@@ -15,6 +15,7 @@
  */
 
  #include "is31fl3737.h"
+#include "process_unicodemap.c"
 
 #ifdef RGB_MATRIX_ENABLE
 
