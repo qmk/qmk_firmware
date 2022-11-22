@@ -109,12 +109,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case CC_QUOT:
       if ( mods_state & MOD_MASK_SHIFT ) {  
-        del_mods(MOD_MASK_SHIFT);
-        tap_code(KC_QUOT);            // '  
+        tap_code(KC_QUOT);             // " 
         tap_code(KC_SPC);              //  needed bc. of dead key
-        set_mods(mods_state);   
       }else {                               
-        tap_code16(S(KC_QUOT));       // " 
+        tap_code(KC_QUOT);             // '  
         tap_code(KC_SPC);              //  needed bc. of dead key
       }
       break;
