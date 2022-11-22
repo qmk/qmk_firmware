@@ -36,8 +36,8 @@ extern volatile bool isLeftHand;
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE  LT(_FN, KC_MUTE)
 #define SHIF_UP  RSFT_T(KC_UP)
-#define ADJ_EIS  LT(_ADJUST,KC_LANG2)
-#define MIS_KAN  LT(_MISC,KC_LANG1)
+#define ADJ_EIS  LT(_ADJUST,KC_LNG2)
+#define MIS_KAN  LT(_MISC,KC_LNG1)
 
 #define _________________QWERTY_L1_________________ KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________ KC_A,    KC_S,    KC_D,    KC_F,    KC_G
@@ -337,32 +337,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* QWERTY */
   [_QWERTY] = LAYOUT_wrapper(
-    _______, _______, KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
+    _______, _______, QK_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
       _______, _______, KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_DEL,
         _______, _______, KC_CAPS, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_ENT,
           _______, _______, KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_RSFT,
-            _______, _______, KC_LCTL, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LANG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
+            _______, _______, KC_LCTL, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LNG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
 
-               KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,            _______, _______,
+               QK_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,            _______, _______,
              KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_MINS, KC_DEL,               _______,
                KC_LCTL, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_ENT,    _______,
              KC_CAPS, KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_RSFT,              _______,
-    _______,   KC_LCTL, KC_GRV,  KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC, KC_SPC, KC_LANG1,  KC_APP,  KC_RALT, KC_RGUI,  KC_RCTL,           _______, _______
+    _______,   KC_LCTL, KC_GRV,  KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC, KC_SPC, KC_LNG1,  KC_APP,  KC_RALT, KC_RGUI,  KC_RCTL,           _______, _______
   ),
 
   /* COLEMAK */
   [_COLEMAK] = LAYOUT_wrapper(
-    _______, _______, KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
+    _______, _______, QK_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
       _______, _______, KC_TAB,  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, KC_DEL,
         _______, _______, KC_LCTL, _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, KC_ENT,
           _______, _______, KC_LSFT, _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, SHIF_UP,
-            _______, _______, KC_CAPS, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LANG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
+            _______, _______, KC_CAPS, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LNG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
 
-               KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,           _______, _______,
+               QK_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,           _______, _______,
             KC_TAB,  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, KC_MINS, KC_DEL,               _______,
                KC_LCTL, _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, KC_ENT,   _______,
             KC_CAPS, KC_LSFT, _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, KC_RSFT,              _______,
-    _______,   KC_LCTL, KC_GRV,  KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC, KC_SPC, KC_LANG1,  KC_APP,  KC_RALT, KC_RGUI,  KC_RCTL,          _______, _______
+    _______,   KC_LCTL, KC_GRV,  KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC, KC_SPC, KC_LNG1,  KC_APP,  KC_RALT, KC_RGUI,  KC_RCTL,          _______, _______
   ),
 
   /* ADJUST */
@@ -384,14 +384,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Fn */
   [_FN] = LAYOUT(
     _______, _______, CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, CNTBASB, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, RGB_TOG,
-      _______, _______, DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,
+      _______, _______, DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EE_CLR,
         _______, _______, DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,
           _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
                CSYSTEM,   BSYSTEM,   CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B,  CNTBASB, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, RGB_MOD,            _______, _______,
              XXXXXXX, DF_QWER,   TGLBASS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH,                _______,
-               MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EEP_RST,   _______,
+               MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EE_CLR,   _______,
              CSYSTEM, BSYSTEM,   CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B,  CNTBASB, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, RGB_MOD, RGB_TOG,                _______,
     _______,   DF_QWER,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH,            _______, _______
   ),
@@ -490,17 +490,18 @@ void rgb_matrix_indicators_user(void) {
 
                 rgb_matrix_set_color(75,  RGB_DARKWHITE);       //  DF_QWER
                 rgb_matrix_set_color(98,  RGB_DARKWHITE);       //  DF_COLE
-                rgb_matrix_set_color(86,  RGB_DARKPINK);        //  EEP_RST
+                rgb_matrix_set_color(86,  RGB_DARKPINK);        //  EE_CLR
                 rgb_matrix_set_color(87,  RGB_DARKTEAL);        //  TGLMICH
 
                 rgb_matrix_set_color(22, RGB_DARKCORAL);        //  TGLBASS  // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(23, RGB_DARKWHITE);        //  DF_QWER
+                rgb_matrix_set_color(23, RGB_DARKWHITE);        //  DF_QWER  // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(25, RGB_DARKBLUE);         //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(26, RGB_DARKCYAN);         //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(27, RGB_DARKSPRINGGREEN);  //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(28, RGB_DARKGREEN);        //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(29, RGB_DARKCHARTREUSE);   //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(37, RGB_DARKPINK);         //  EEP_RST
+                rgb_matrix_set_color(35, RGB_DARKGOLD);          //  VERSION  // giabalanai and giabalanaipico have different layouts on encoder LED location.
+                rgb_matrix_set_color(36, RGB_DARKPINK);         //  EE_CLR   // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(41, RGB_DARKYELLOW);       //  MI_VELD
                 rgb_matrix_set_color(40, RGB_DARKGREEN);        //  MI_VELU
                 rgb_matrix_set_color(39, RGB_DARKBLUE);         //  RGB_MOD

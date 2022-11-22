@@ -16,9 +16,6 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make giabalanaipico:default:flash
-or
-
-    qmk flash -kb giabalanaipico -km default
 
 Run this while Raspberry Pi Pico is in bootloader mode.
 ## Bootloader
