@@ -11,7 +11,7 @@
   "layout_aliases": {
     "LAYOUT_all_wkl": "LAYOUT_all",
     "LAYOUT_87_wkl": "LAYOUT_tkl_f13_ansi_wkl",
-    "LAYOUT_87_wkl_iso": "LAYOUT_tkl_f13_ansi_wkl_iso",
+    "LAYOUT_87_wkl_iso": "LAYOUT_tkl_f13_iso_wkl",
     "LAYOUT_87_wkl_split_space": "LAYOUT_tkl_f13_ansi_wkl_split_space",
     "LAYOUT_87_wkl_split_bs": "LAYOUT_tkl_f13_ansi_wkl_split_bs",
     "LAYOUT_87_wkl_split_lshift": "LAYOUT_tkl_f13_ansi_wkl_split_lshift",
@@ -211,7 +211,7 @@
         { "label": "\u2192", "x": 17.25, "y": 5.25 }
       ]
     },
-    "LAYOUT_tkl_f13_ansi_wkl_iso": {
+    "LAYOUT_tkl_f13_iso_wkl": {
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "F1", "x": 1.25, "y": 0 },
@@ -281,7 +281,8 @@
         { "label": "\\", "x": 12.75, "y": 3.25, "w": 1 },
         { "label": "ISO", "x": 13.75, "y": 2.25, "w": 1.25, "h": 2 },
 
-        { "label": "Shift", "x": 0, "y": 4.25, "w": 2.25 },
+        { "label": "Shift", "x": 0, "y": 4.25, "w": 1.25 },
+        { "label": "\\", "x": 1.25, "y": 4.25 },
         { "label": "Z", "x": 2.25, "y": 4.25 },
         { "label": "X", "x": 3.25, "y": 4.25 },
         { "label": "C", "x": 4.25, "y": 4.25 },
