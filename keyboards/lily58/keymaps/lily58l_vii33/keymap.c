@@ -122,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_UPPER] = LAYOUT(
   _______,  _______,  _______,  _______,  _______,  _______,                    _______,  _______,  _______,  _______, _______, _______, 
-  _______,  QC_AT,    KC_TILD,  QC_EUR,   KC_PSCR,  _______,                    KC_PAST,  KC_GT,    KC_LCBR,  KC_RCBR, KC_PMNS, _______,
+  _______,  QC_AT,    KC_TILD,  QC_EUR,   KC_PSCR,  _______,                    KC_PAST,  KC_LT,    KC_LCBR,  KC_RCBR, KC_PMNS, _______,
   KC_PIPE,  XXXXXXX,  QC_SS,    QC_UNDO,  QC_REDO,  CTALDEL,                    KC_PSLS,  KC_EQL,   KC_LPRN,  KC_RPRN, KC_PPLS, QC_DQUT, 
-  QC_DEG,   KC_BSPC,  QC_CTLX,  QC_CTLC,  QC_CTLV,  XXXXXXX, _______, _______,  QC_HAT,   KC_LT,    KC_LBRC,  KC_RBRC, QC_AND,  KC_PENT,
+  QC_DEG,   KC_BSPC,  QC_CTLX,  QC_CTLC,  QC_CTLV,  XXXXXXX, _______, _______,  QC_HAT,   KC_GT,    KC_LBRC,  KC_RBRC, QC_AND,  KC_PENT,
                                 _______,  _______,  _______, KC_LSFT, _______,  _______,  _______,  _______
 ),
 
