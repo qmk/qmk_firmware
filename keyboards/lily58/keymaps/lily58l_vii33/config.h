@@ -28,7 +28,7 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #define EE_HANDS
 
 /* Home row modifiers   https://precondition.github.io/home-row-mods */
-#define TAPPING_TERM 210          // mod tap hold time (shift) in ms, default 200
+#define TAPPING_TERM 210          // mod tap hold time in ms, any tap that’s shorter will be a tap, anything longer will be held. Default is 200
 #define TAPPING_TERM_PER_KEY
 #define IGNORE_MOD_TAP_INTERRUPT  // important for good home row mods experience
 #define TAPPING_FORCE_HOLD        // activate the hold function, when holding a dual-role key

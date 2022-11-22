@@ -1,5 +1,5 @@
 # Lily58L by vii33
-<img src="https://i.postimg.cc/3JsQJJV0/lily58l-logo-vii33.jpg" width="900">
+<img src="https://images2.imgbox.com/27/a1/a4wqerGE_o.jpg" width="900" alt="Lily58l keyboard image">
 
 Heavily modified keymap for better ergonomics compared to the original keymap by [BenRoe](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58/keymaps/lily58l) from [Keycapsss.com](https://keycapsss.com).
 

@@ -179,7 +179,7 @@ bool oled_task_user(void) {
 /* ------ LUNA PET START ------ */
 
 /* settings */
-#    define MIN_WALK_SPEED      5
+#    define MIN_WALK_SPEED      1
 #    define MIN_RUN_SPEED       40
 #    define ANIM_FRAME_DURATION 250  // how long each frame lasts in ms
 #    define ANIM_SIZE           96   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
