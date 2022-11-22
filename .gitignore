@@ -72,6 +72,8 @@ tags
 *.jpeg
 *.png
 *.svg
+*.webp
+*.webm
 *.ttf
 *.otf
 
