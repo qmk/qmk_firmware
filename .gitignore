@@ -71,9 +71,14 @@ tags
 *.jpg
 *.jpeg
 *.png
+*.apng
+*.mng
 *.svg
 *.webp
 *.webm
+*.avi
+*.mp4
+*.mpeg
 *.ttf
 *.otf
 
