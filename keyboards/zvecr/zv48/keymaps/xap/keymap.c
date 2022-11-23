@@ -100,3 +100,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
 };
 #endif
+
+void housekeeping_task_user(void) {
+    static uint32_t timer = 0;
+    static uint8_t count = 0;
+    if (timer_elapsed32(timer) > 1000) {
+        timer = timer_read32();
+        count++;
+
+        xap_broadcast(0x03, &count, 1);
+    }
+}

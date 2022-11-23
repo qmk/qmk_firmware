@@ -1138,7 +1138,13 @@ void xap_send_base(uint8_t *data, uint8_t length) {
     if (length != XAP_EPSIZE) {
         return;
     }
-    chnWrite(&drivers.xap_driver.driver, data, length);
+
+    // see console sendchar for timeout details
+    static bool timed_out = false;
+
+    const sysinterval_t timeout = timed_out ? TIME_IMMEDIATE : TIME_MS2I(5);
+    const size_t        result  = chnWriteTimeout(&drivers.xap_driver.driver, data, length, timeout);
+    timed_out                   = (result == 0);
 }
 
 void xap_send(xap_token_t token, xap_response_flags_t response_flags, const void *data, size_t length) {
