@@ -76,6 +76,7 @@ static uint8_t        current_key_row                         = 0;      // key r
 /* make sure to `#define MATRIX_UNSELECT_DRIVE_HIGH` in this configuration*/
 static uint8_t        chan_row_order[LED_MATRIX_ROWS_HW] = {0};    // track the channel row order
 static uint8_t        current_key_col                         = 0;      // key col scan counter
+static uint8_t        last_key_col                         = 0;      // key col scan counter
 static matrix_row_t row_shifter       = MATRIX_ROW_SHIFTER;
 #endif
 extern matrix_row_t   raw_matrix[MATRIX_ROWS];                  // raw values
@@ -246,15 +247,6 @@ static void shared_matrix_rgb_disable_output(void) {
 }
 
 static void update_pwm_channels(PWMDriver *pwmp) {
-    // Advance to the next LED RGB channels
-    uint8_t last_key_col = current_key_col;
-    current_key_col++;
-    row_shifter <<= 1;
-    if (current_key_col >= LED_MATRIX_COLS){
-        current_key_col = 0;
-        row_shifter       = MATRIX_ROW_SHIFTER;
-    }
-
     // Disable LED output before scanning the key matrix
     shared_matrix_rgb_disable_output();
 
@@ -301,6 +293,14 @@ static void update_pwm_channels(PWMDriver *pwmp) {
             writePinLow(led_col_pins[current_key_col]);
 #endif
         }
+    }
+    /* Advance to the next LED RGB channel and get ready for the next pass */
+    last_key_col = current_key_col;
+    current_key_col++;
+    row_shifter <<= 1;
+    if (current_key_col >= LED_MATRIX_COLS){
+        current_key_col = 0;
+        row_shifter       = MATRIX_ROW_SHIFTER;
     }
 }
 #endif // DIODE_DIRECTION == ROW2COL
