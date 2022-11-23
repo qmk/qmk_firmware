@@ -24,7 +24,7 @@ extern "C" {
 
 #include <stdint.h>
 
-#ifdef FLASH_STM32_MOCKED
+#ifdef LEGACY_FLASH_OPS_MOCKED
 extern uint8_t FlashBuf[MOCK_FLASH_SIZE];
 #endif
 
