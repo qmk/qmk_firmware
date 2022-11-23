@@ -27,6 +27,11 @@ def _list_constants(output_folder):
         if name not in ret:
             ret[name] = []
         ret[name].append(version)
+
+    # Ensure content is sorted
+    for name in ret:
+        ret[name] = sorted(ret[name])
+
     return ret
 
 
