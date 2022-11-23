@@ -69,7 +69,7 @@ enum userspace_custom_keycodes {
 
 #define QWERTY KC_QWERTY
 #define COLEMAK KC_CDH
-#define KC_RESET RESET
+#define KC_RESET QK_BOOT
 
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #    define LAYOUT KEYMAP

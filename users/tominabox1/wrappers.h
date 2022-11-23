@@ -49,7 +49,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________FKEY4___________________       KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_TRNS,   KC_NO, KC_NO
 
 // Dimple Adjust layer
-#define ___________________ADJST1__________________       RESET,RGBRST,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
+#define ___________________ADJST1__________________       QK_BOOT,RGBRST,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
 #define ___________________ADJST2__________________       RGB_M_P,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
 #define ___________________ADJST3__________________       RGB_MOD,   RGB_HUI,   RGB_HUD,   RGB_M_SN,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
 #define ___________________ADJST4__________________       RGB_VAD, RGB_TOG, RGB_VAI, KC_NO,   KC_NO,   KC_TRNS,   KC_NO,   KC_NO

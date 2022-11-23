@@ -601,7 +601,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "device_ver": {"$ref": "qmk.definitions.v1#/hex_number_4d"}, # Deprecated
+                "device_ver": {
+                    "$ref": "qmk.definitions.v1#/hex_number_4d",
+                    "$comment": "Deprecated: use device_version instead"
+                },
                 "device_version": {"$ref": "qmk.definitions.v1#/bcd_version"},
                 "force_nkro": {"type": "boolean"},
                 "pid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},

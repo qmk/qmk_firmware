@@ -65,7 +65,7 @@
  * `----------------------------------' `----------------------------------'
  */
  // NOTE: The "BACKLIT" keycode is planck specific
-#define __ADJUST_L1________________________________ RESET,   DB_TOGG, XXXXXXX, XXXXXXX, XXXXXXX
+#define __ADJUST_L1________________________________ QK_BOOT, DB_TOGG, XXXXXXX, XXXXXXX, XXXXXXX
 #define __ADJUST_L2________________________________ RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD
 #define __ADJUST_L3________________________________ XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX
 
@@ -140,19 +140,19 @@
  */
 // Not sure why, but this does not work (possibly due to the lowercase 's'?)
 // #ifdef MIDI_ADVANCED
-// #define __GUITAR_1E_L______________________________ MI_E_1,  MI_F_1,  MI_Fs_1, MI_G_1,  MI_Gs_1
-// #define __GUITAR_2A_L______________________________ MI_A_1,  MI_As_1, MI_B_1,  MI_C_2,  MI_Cs_2
-// #define __GUITAR_3D_L______________________________ MI_D_2,  MI_Ds_2, MI_E_2,  MI_F_2,  MI_Fs_2
-// #define __GUITAR_4G_L______________________________ MI_G_2,  MI_Gs_2, MI_A_2,  MI_As_2, MI_B_2
-// #define __GUITAR_5B_L______________________________ MI_B_2,  MI_C_3,  MI_Cs_3, MI_D_3,  MI_Ds_3
-// #define __GUITAR_6E_L______________________________ MI_E_3,  MI_F_3,  MI_Fs_3, MI_G_3,  MI_Gs_3
+// #define __GUITAR_1E_L______________________________ MI_E1,  MI_F1,  MI_Fs1, MI_G1,  MI_Gs1
+// #define __GUITAR_2A_L______________________________ MI_A1,  MI_As1, MI_B1,  MI_C2,  MI_Cs2
+// #define __GUITAR_3D_L______________________________ MI_D2,  MI_Ds2, MI_E2,  MI_F2,  MI_Fs2
+// #define __GUITAR_4G_L______________________________ MI_G2,  MI_Gs2, MI_A2,  MI_As2, MI_B2
+// #define __GUITAR_5B_L______________________________ MI_B2,  MI_C3,  MI_Cs3, MI_D3,  MI_Ds3
+// #define __GUITAR_6E_L______________________________ MI_E3,  MI_F3,  MI_Fs3, MI_G3,  MI_Gs3
 //
-// #define __GUITAR_1E_R______________________________ MI_A_1,  MI_As_1, MI_B_1,  MI_C_2,  MI_Cs_2
-// #define __GUITAR_2A_R______________________________ MI_D_2,  MI_Ds_2, MI_E_2,  MI_F_2,  MI_Fs_2
-// #define __GUITAR_3D_R______________________________ MI_G_2,  MI_Gs_2, MI_A_2,  MI_As_2, MI_B_2
-// #define __GUITAR_4G_R______________________________ MI_C_3,  MI_Cs_3, MI_D_3,  MI_Ds_3, MI_E_3
-// #define __GUITAR_5B_R______________________________ MI_E_3,  MI_F_3,  MI_Fs_3, MI_G_3,  MI_Gs_3
-// #define __GUITAR_6E_R______________________________ MI_A_3,  MI_As_3, MI_B_3,  MI_C_4,  MI_Cs_4
+// #define __GUITAR_1E_R______________________________ MI_A1,  MI_As1, MI_B1,  MI_C2,  MI_Cs2
+// #define __GUITAR_2A_R______________________________ MI_D2,  MI_Ds2, MI_E2,  MI_F2,  MI_Fs2
+// #define __GUITAR_3D_R______________________________ MI_G2,  MI_Gs2, MI_A2,  MI_As2, MI_B2
+// #define __GUITAR_4G_R______________________________ MI_C3,  MI_Cs3, MI_D3,  MI_Ds3, MI_E3
+// #define __GUITAR_5B_R______________________________ MI_E3,  MI_F3,  MI_Fs3, MI_G3,  MI_Gs3
+// #define __GUITAR_6E_R______________________________ MI_A3,  MI_As3, MI_B3,  MI_C4,  MI_Cs4
 // #endif
 
 

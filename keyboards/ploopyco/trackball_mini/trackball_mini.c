@@ -83,7 +83,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #ifdef MOUSEKEY_ENABLE
     tap_code(clockwise ? KC_WH_U : KC_WH_D);
 #else
-    mouse_report_t mouse_report = pointing_device_get_report();
+    report_mouse_t mouse_report = pointing_device_get_report();
     mouse_report.v = clockwise ? 1 : -1;
     pointing_device_set_report(mouse_report);
     pointing_device_send();

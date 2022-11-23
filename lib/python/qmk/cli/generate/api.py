@@ -27,6 +27,23 @@ def _resolve_keycode_specs(output_folder):
         output_file = output_folder / f'constants/keycodes_{version}.json'
         output_file.write_text(json.dumps(overall, indent=4), encoding='utf-8')
 
+    # Purge files consumed by 'load_spec'
+    shutil.rmtree(output_folder / 'constants/keycodes/')
+
+
+def _filtered_copy(src, dst):
+    src = Path(src)
+    dst = Path(dst)
+
+    if dst.suffix == '.hjson':
+        data = json_load(src)
+
+        dst = dst.with_suffix('.json')
+        dst.write_text(json.dumps(data, indent=4), encoding='utf-8')
+        return dst
+
+    return shutil.copy2(src, dst)
+
 
 def _filtered_keyboard_list():
     """Perform basic filtering of list_keyboards
@@ -58,7 +75,7 @@ def generate_api(cli):
         shutil.rmtree(BUILD_API_PATH)
 
     shutil.copytree(TEMPLATE_PATH, BUILD_API_PATH)
-    shutil.copytree(DATA_PATH, v1_dir)
+    shutil.copytree(DATA_PATH, v1_dir, copy_function=_filtered_copy)
 
     # Filter down when required
     keyboard_list = _filtered_keyboard_list()
@@ -98,7 +115,7 @@ def generate_api(cli):
 
     # Generate data for the global files
     keyboard_list = sorted(kb_all)
-    keyboard_aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+    keyboard_aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
     keyboard_metadata = {
         'last_updated': current_datetime(),
         'keyboards': keyboard_list,

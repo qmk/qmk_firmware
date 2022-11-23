@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, M_AEST,  _______, _______, _______, _______, M_OS   ),
 
   [_KEEB] = LAYOUT_preonic_grid(
-    CK_TOGG, AU_TOG,  MU_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    CK_TOGG, AU_TOGG, MU_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     M_USSR,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, BL_TOGG, BL_STEP, BL_UP,   BL_DOWN, BL_BRTG, _______, _______, _______, _______, _______, _______,
     RGB_M_P, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______,
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
 bool music_mask_user(uint16_t keycode) {
     switch (keycode) {
-    case MU_TOG:
+    case MU_TOGG:
     case SYMBOL:
     case KEEB:
       return false;

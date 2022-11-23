@@ -36,12 +36,12 @@ static host_driver_t ap2_ble_driver = {
 
 static uint8_t ble_mcu_wakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
 
-static uint8_t ble_mcu_start_broadcast[11] = {
-    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x01, 0x00  // Broadcast ID[0-3]
+static uint8_t ble_mcu_start_broadcast[10] = {
+    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x01,  // Broadcast ID[0-3]
 };
 
-static uint8_t ble_mcu_connect[11] = {
-    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x04, 0x00  // Connect ID [0-3]
+static uint8_t ble_mcu_connect[10] = {
+    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x04,  // Connect ID [0-3]
 };
 
 static uint8_t ble_mcu_send_report[10] = {
@@ -76,6 +76,7 @@ void annepro2_ble_broadcast(uint8_t port) {
     // sdPut(&SD1, 0x00);
     sdWrite(&SD1, ble_mcu_start_broadcast, sizeof(ble_mcu_start_broadcast));
     sdPut(&SD1, port);
+    sdPut(&SD1, 0x00);
     static int lastBroadcast = -1;
     if (lastBroadcast == port) {
         annepro2_ble_connect(port);
@@ -89,6 +90,7 @@ void annepro2_ble_connect(uint8_t port) {
     }
     sdWrite(&SD1, ble_mcu_connect, sizeof(ble_mcu_connect));
     sdPut(&SD1, port);
+    sdPut(&SD1, 0x00);
     ap2_ble_swtich_ble_driver();
 }
 

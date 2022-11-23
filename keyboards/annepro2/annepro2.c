@@ -145,22 +145,22 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP2_BT1:
                 annepro2_ble_broadcast(0);
                 /* FIXME: This hardcodes col/row position */
-                ap2_led_blink(0, 1, blue, 8, 50);
+                ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
                 return false;
 
             case KC_AP2_BT2:
                 annepro2_ble_broadcast(1);
-                ap2_led_blink(0, 2, blue, 8, 50);
+                ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
                 return false;
 
             case KC_AP2_BT3:
                 annepro2_ble_broadcast(2);
-                ap2_led_blink(0, 3, blue, 8, 50);
+                ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
                 return false;
 
             case KC_AP2_BT4:
                 annepro2_ble_broadcast(3);
-                ap2_led_blink(0, 4, blue, 8, 50);
+                ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
                 return false;
 
             case KC_AP2_USB:

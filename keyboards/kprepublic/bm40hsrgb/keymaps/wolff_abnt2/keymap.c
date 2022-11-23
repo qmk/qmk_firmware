@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_planck_mit(
     QK_BOOT, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______,
     KC_CAPS, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, QWERTY,  DVORAK,  COLEMAK, WORKMAN, MIDI,
-    _______, MI_ON,   MI_OFF,  MI_TOG,  MU_ON,   MU_OFF,  MU_TOG,  MU_MOD,  AU_ON,   AU_OFF,  _______, _______,
+    _______, MI_ON,   MI_OFF,  MI_TOGG, MU_ON,   MU_OFF,  MU_TOGG, MU_NEXT, AU_ON,   AU_OFF,  _______, _______,
     RGB_TOG, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
 ),
 
@@ -123,8 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MIDI] = LAYOUT_planck_mit(
     MI_Cs,   MI_Ds,   _______, MI_Fs,   MI_Gs,   MI_As,   _______, MI_Cs,   MI_Ds,   _______, MI_Fs,   MI_Gs,
     MI_C,    MI_D,    MI_E,    MI_F,    MI_G,    MI_A,    MI_B,    MI_C,    MI_D,    MI_E,    MI_F,    MI_G,
-    MI_BENDU,MI_OCTU, MI_TRNSU,MI_VELU, _______, _______, _______, _______, _______, MI_ON,   MI_CHU,  MI_TOG,
-    MI_BENDD,MI_OCTD, MI_TRNSD,MI_VELD, MYNAV,       MI_SUS,       MYNUM, _______,   MI_OFF,  MI_CHD,  MI_ALLOFF
+    MI_BNDU, MI_OCTU, MI_TRSU, MI_VELU, _______, _______, _______, _______, _______, MI_ON,   MI_CHNU, MI_TOG,
+    MI_BNDD, MI_OCTD, MI_TRSD, MI_VELD, MYNAV,       MI_SUST,      MYNUM, _______,   MI_OFF,  MI_CHND, MI_AOFF
 )
 };
 

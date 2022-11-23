@@ -30,7 +30,8 @@ enum layer {
 enum custom_keycodes {
   RGBRST = SAFE_RANGE,
   KC_00,
-  ALTAB
+  ALTAB,
+  SALTAB
 };
 #define CALC LT(_CALC,   KC_ESC)
 #define CUSL LT(_CURSOL, KC_TAB)
@@ -71,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_CURSOL] = LAYOUT(
   QK_BOOT ,  KC_F1,   KC_F2,      KC_PGUP, KC_F4,      KC_F5,                              KC_F6,   KC_F7,        KC_UP,   KC_F9,        KC_F10,  QK_BOOT,
   _______, KC_TILD, KC_HOME,    KC_PGDN, KC_END,     KC_LPRN,                            KC_RPRN, KC_LEFT,      KC_DOWN, KC_RGHT,      KC_PIPE, KC_F11,
-  _______, KC_GRV,  C(KC_LEFT), KC_F3,   C(KC_RGHT), S(ALTAB),                           ALTAB,   LCA(KC_LEFT), KC_F8,   LCA(KC_RGHT), KC_BSLS, RGBRST,
+  _______, KC_GRV,  C(KC_LEFT), KC_F3,   C(KC_RGHT), SALTAB,                             ALTAB,   LCA(KC_LEFT), KC_F8,   LCA(KC_RGHT), KC_BSLS, RGBRST,
                                 _______,    _______, C(KC_SPC), MO(_ADJUST),    _______, _______, _______, _______
   ),
 
@@ -109,8 +110,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
   _______, XXXXXXX, XXXXXXX, CK_RST,  XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  XXXXXXX, XXXXXXX, MU_TOG,  CK_UP,   AU_TOG,  XXXXXXX,                      RGB_SPI, RGB_MOD,  RGB_VAI, RGB_SAI, RGB_HUI, XXXXXXX,
-  XXXXXXX, XXXXXXX, MU_MOD,  CK_DOWN, XXXXXXX, XXXXXXX,                      RGB_SPD, RGB_RMOD, RGB_VAD, RGB_SAD, RGB_HUD, XXXXXXX,
+  XXXXXXX, XXXXXXX, MU_TOGG, CK_UP,   AU_TOGG, XXXXXXX,                      RGB_SPI, RGB_MOD,  RGB_VAI, RGB_SAI, RGB_HUI, XXXXXXX,
+  XXXXXXX, XXXXXXX, MU_NEXT, CK_DOWN, XXXXXXX, XXXXXXX,                      RGB_SPD, RGB_RMOD, RGB_VAD, RGB_SAD, RGB_HUD, XXXXXXX,
                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
@@ -163,20 +164,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case S(ALTAB):
+        case SALTAB:
         case ALTAB:
             if (record->event.pressed) {
                 if (!alt_pressed) {
                     alt_pressed = true;
                     register_code(KC_LALT);
                 }
-                if (keycode == S(ALTAB)) {
+                if (keycode == SALTAB) {
                     register_code(KC_LSFT);
                 }
                 register_code(KC_TAB);
             } else {
                 unregister_code(KC_TAB);
-                if (keycode == S(ALTAB)) {
+                if (keycode == SALTAB) {
                     unregister_code(KC_LSFT);
                 }
             }
