@@ -221,7 +221,7 @@ void matrix_init_kb(void) {
 
 #ifdef RGB_MATRIX_ENABLE
     /*
-     * Since K20x is stuck with a 32 byte EEPROM (see tmk_core/common/chibios/eeprom_kinetis_flexram.c),
+     * Since K20x is stuck with a 32 byte EEPROM (see tmk_core/common/chibios/eeprom_teensy.c),
      * and neither led_matrix_eeconfig.speed or .flags fit in this boundary, just force their values to default on boot.
      */
 #    if !defined(RGB_MATRIX_STARTUP_SPD)
