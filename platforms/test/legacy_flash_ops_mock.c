@@ -16,7 +16,7 @@
 
 #include <string.h>
 #include <stdbool.h>
-#include "flash_stm32.h"
+#include "legacy_flash_ops.h"
 
 uint8_t FlashBuf[MOCK_FLASH_SIZE] = {0};
 

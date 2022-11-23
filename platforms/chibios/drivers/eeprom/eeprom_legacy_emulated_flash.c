@@ -22,8 +22,8 @@
 #include <stdbool.h>
 #include "util.h"
 #include "debug.h"
-#include "eeprom_stm32.h"
-#include "flash_stm32.h"
+#include "eeprom_legacy_emulated_flash.h"
+#include "legacy_flash_ops.h"
 
 /*
  * We emulate eeprom by writing a snapshot compacted view of eeprom contents,
@@ -132,7 +132,7 @@
  *
  */
 
-#include "eeprom_stm32_defs.h"
+#include "eeprom_legacy_emulated_flash_defs.h"
 /* These bits are used for optimizing encoding of bytes, 0 and 1 */
 #define FEE_WORD_ENCODING 0x8000
 #define FEE_VALUE_NEXT 0x6000
