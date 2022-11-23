@@ -27,6 +27,9 @@
 #    define PWM_OUTPUT_ACTIVE_LEVEL PWM_OUTPUT_ACTIVE_LOW
 #endif
 
+#define RGB_OUTPUT_ACTIVE_HIGH PWM_OUTPUT_ACTIVE_HIGH
+#define RGB_OUTPUT_ACTIVE_LOW PWM_OUTPUT_ACTIVE_LOW
+
 #if !defined(RGB_OUTPUT_ACTIVE_LEVEL)
 #    define RGB_OUTPUT_ACTIVE_LEVEL RGB_OUTPUT_ACTIVE_HIGH
 #endif
@@ -232,10 +235,11 @@ static void shared_matrix_rgb_disable_output(void) {
     // Disable LED outputs on RGB channel pins
     for (uint8_t x = 0; x < LED_MATRIX_COLS; x++) {
         ATOMIC_BLOCK_FORCEON {
-#if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
-            writePinLow(led_col_pins[x]);
-#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
-            writePinHigh(led_col_pins[x]);
+    // Unselect all columns before scanning the key matrix
+#if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW || defined(MATRIX_UNSELECT_DRIVE_HIGH))
+        writePinHigh(led_col_pins[x]);
+#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
+        writePinLow(led_col_pins[x]);
 #endif
         }
     }
@@ -249,7 +253,7 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     if (current_key_col >= LED_MATRIX_COLS){
         current_key_col = 0;
         row_shifter       = MATRIX_ROW_SHIFTER;
-    } 
+    }
 
     // Disable LED output before scanning the key matrix
     shared_matrix_rgb_disable_output();
@@ -270,6 +274,12 @@ static void update_pwm_channels(PWMDriver *pwmp) {
             matrix_read_rows_on_col(shared_matrix, current_key_col, row_shifter);
         }
     }
+#if ((RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH) && defined(MATRIX_UNSELECT_DRIVE_HIGH))
+    // Disable all RGB columns before turning on PWM in case matrix read unselect high
+    for (uint8_t x = 0; x < LED_MATRIX_COLS; x++) {
+        writePinLow(led_col_pins[x]);
+    }
+#endif
     bool         enable_pwm_output = false;
     for (uint8_t current_key_row = 0; current_key_row < MATRIX_ROWS; current_key_row++) {
         uint8_t led_index = g_led_config.matrix_co[current_key_row][current_key_col];
