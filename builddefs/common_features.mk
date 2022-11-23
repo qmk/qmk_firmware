@@ -226,10 +226,10 @@ else
     else ifeq ($(PLATFORM),CHIBIOS)
       ifneq ($(filter %_STM32F072xB %_STM32F042x6, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
         # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
-        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
         COMMON_VPATH += $(DRIVER_PATH)/flash
-        SRC += eeprom_driver.c eeprom_stm32.c flash_stm32.c
+        SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
       else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G4xx WB32F3G71xx WB32FQ95xx GD32VF103),)
         # Wear-leveling EEPROM implementation, backed by MCU flash
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
@@ -246,8 +246,8 @@ else
         WEAR_LEVELING_DRIVER = rp2040_flash
       else ifneq ($(filter $(MCU_SERIES),KL2x K20x),)
         # Teensy EEPROM implementations
-        OPT_DEFS += -DEEPROM_TEENSY
-        SRC += eeprom_teensy.c
+        OPT_DEFS += -DEEPROM_KINETIS_FLEXRAM
+        SRC += eeprom_kinetis_flexram.c
       else
         # Fall back to transient, i.e. non-persistent
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
@@ -291,7 +291,7 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
-      SRC += flash_stm32.c wear_leveling_legacy.c
+      SRC += legacy_flash_ops.c wear_leveling_legacy.c
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
     endif
   endif

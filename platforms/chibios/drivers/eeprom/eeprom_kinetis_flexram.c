@@ -1,7 +1,7 @@
 #include <ch.h>
 #include <hal.h>
 
-#include "eeprom_teensy.h"
+#include "eeprom_kinetis_flexram.h"
 #include "eeconfig.h"
 
 /*************************************/
