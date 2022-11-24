@@ -5,7 +5,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "customkeys.h"
+#include "features/customkeys.h"
 #include "features/swapper.h"
 #include "features/select_word.h"
 #include "features/custom_shift_keys.h"
@@ -16,7 +16,7 @@
 #define HOME TO(_ISRT)
 #define NUM TO(_NUM)
 #define MEDIA TO(_MEDIA)
-#define MEH_SPC MT(MOD_MEH,KC_SPC)
+#define MOD_SPC GUI_T(KC_SPC) // MEH_T(KC_SPC)
 #define BSP_DWRD LT(0,KC_BSPC)
 #define LT_UP LT(0,KC_UP)
 #define LT_LEFT LT(0,KC_LEFT)
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_DEL,
     KC_ESC,  KC_I,    HOME_S,  HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  HOME_A,  KC_O,    KC_ENT,
     KC_LSFT, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
-    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI, MEH_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
+    CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI, MOD_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
     ),
 
   /* SYMBOL
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_EXLM, KC_LT,   KC_GT,   KC_PLUS, KC_NO, KC_NO, KC_UNDS, KC_PIPE, KC_TILD, KC_PERC, KC_DEL,
     KC_ESC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT, ARROW, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,  KC_ENT,
     KC_LSFT, KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO, KC_NO, KC_MINS, KC_HASH, GRAVE,   KC_CIRC, KC_RSFT,
-    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_NO, HOME,  NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
+    KC_NO,   KC_LCTL, KC_LALT, KC_LGUI, MOD_SPC, KC_NO, HOME,  NUM,     KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 
   /* NUM
@@ -103,10 +103,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_NUM] = LAYOUT_ortho_4x12(
-    KC_NO,  KC_SLSH, KC_1,    KC_2,    KC_3,   KC_PLUS, KC_NO, KC_NO,   KC_NO, KC_COMM,  KC_NO, KC_DEL,
-    KC_ESC, KC_0,    KC_4,    KC_5,    KC_6,   KC_MINS, KC_NO, KC_NO,   KC_NO, KC_NO,    KC_NO, KC_ENT,
-    KC_NO,  KC_ASTR, KC_7,    KC_8,    KC_9,   KC_EQL,  KC_NO, KC_NO,   KC_NO, KC_DOT,   KC_NO, KC_RSFT,
-    KC_NO,  KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,    KC_NO, KC_BSPC, KC_NO, KC_NO,    KC_NO, KC_NO
+    KC_NO,  KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS, KC_NO, KC_NO,   KC_NO, KC_COMM,  KC_NO, KC_DEL,
+    KC_ESC, KC_0,    KC_4,    KC_5,    KC_6,    KC_MINS, KC_NO, KC_NO,   KC_NO, KC_NO,    KC_NO, KC_ENT,
+    KC_NO,  KC_ASTR, KC_7,    KC_8,    KC_9,    KC_EQL,  KC_NO, KC_NO,   KC_NO, KC_DOT,   KC_NO, KC_RSFT,
+    KC_NO,  KC_LCTL, KC_LALT, KC_LGUI, MOD_SPC, HOME,    KC_NO, KC_BSPC, KC_NO, KC_NO,    KC_NO, KC_NO
     ),
 
   /* FUNCTION
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CG_TOGG,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_NO, KC_NO,   KC_NO,   KC_NO,    KC_NO, CT_AE, QK_BOOT,
     KC_NO,     KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_NO, KC_NO,   MW_COPY, MW_PSTE,  CT_AA, CT_OE, KC_NO,
     KC_LSFT,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_NO, KC_NO,   SEL_WRD, SEL_SRCH, KC_NO, KC_NO, KC_RSFT,
-    KC_NO,     KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, HOME,  KC_TRNS, KC_RCTL, KC_NO,    KC_NO, KC_NO, KC_NO
+    KC_NO,     KC_LCTL, KC_LALT, KC_LGUI, MOD_SPC, HOME,  KC_TRNS, KC_RCTL, KC_NO,    KC_NO, KC_NO, KC_NO
     ),
 
   /* NAV
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_WH_U, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     BIG_F,    KC_U,    KC_COMM, KC_QUOT, KC_ESC,
     KC_WH_D, KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    ENT_BTN2,
     KC_BTN1, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    SW_APP,
-    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MEH_SPC, HOME,   FUNCTION, BSP_DWRD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MOD_SPC, HOME,   FUNCTION, BSP_DWRD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     )
 
 };
@@ -355,7 +355,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
     return TAPPING_TERM + 200;
   case LT_UP:
     return TAPPING_TERM + 200;
-  case MEH_SPC:
+  case MOD_SPC:
     return TAPPING_TERM + 60;
   case BSP_DWRD:
     return TAPPING_TERM + 60;
