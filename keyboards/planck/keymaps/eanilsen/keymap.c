@@ -16,7 +16,8 @@
 #define HOME TO(_ISRT)
 #define NUM TO(_NUM)
 #define MEDIA TO(_MEDIA)
-#define MOD_SPC GUI_T(KC_SPC) // MEH_T(KC_SPC)
+/* #define MOD_SPC GUI_T(KC_SPC) // For DWM */
+#define MOD_SPC MEH_T(KC_SPC)
 #define BSP_DWRD LT(0,KC_BSPC)
 #define LT_UP LT(0,KC_UP)
 #define LT_LEFT LT(0,KC_LEFT)
