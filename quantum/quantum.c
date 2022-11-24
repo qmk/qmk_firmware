@@ -452,19 +452,6 @@ void matrix_scan_quantum() {
     matrix_scan_kb();
 }
 
-#ifdef WEBUSB_ENABLE
-__attribute__((weak)) bool webusb_receive_user(uint8_t *data, uint8_t length) {
-    return false;
-}
-__attribute__((weak)) bool webusb_receive_kb(uint8_t *data, uint8_t length) {
-    return webusb_receive_user(data, length);
-}
-
-bool webusb_receive_quantum(uint8_t *data, uint8_t length) {
-    return webusb_receive_kb(data, length);
-}
-#endif
-
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump

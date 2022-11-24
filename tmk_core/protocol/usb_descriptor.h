@@ -51,9 +51,6 @@
 #        define USB_ENDPOINTS_ARE_REORDERABLE
 #    endif
 #endif
-#ifdef WEBUSB_ENABLE
-#     include "webusb_descriptor.h"
-#endif
 
 /*
  * USB descriptor structure
@@ -101,12 +98,6 @@ typedef struct {
     USB_HID_Descriptor_HID_t   Console_HID;
     USB_Descriptor_Endpoint_t  Console_INEndpoint;
     USB_Descriptor_Endpoint_t  Console_OUTEndpoint;
-#endif
-
-#ifdef WEBUSB_ENABLE
-    USB_Descriptor_Interface_t            WebUSB_Interface;
-    USB_Descriptor_Endpoint_t             WebUSB_DataInEndpoint;
-    USB_Descriptor_Endpoint_t             WebUSB_DataOutEndpoint;
 #endif
 
 #ifdef MIDI_ENABLE
@@ -196,10 +187,6 @@ enum usb_interfaces {
     CDI_INTERFACE,
 #endif
 
-#ifdef WEBUSB_ENABLE
-    INTERFACE_ID_WebUSB,
-#endif
-
 #if defined(JOYSTICK_ENABLE)
     JOYSTICK_INTERFACE,
 #endif
@@ -277,13 +264,6 @@ enum usb_endpoints {
 #    else
     CDC_OUT_EPNUM         = NEXT_EPNUM,
 #    endif
-#endif
-
-#ifdef WEBUSB_ENABLE
-    WEBUSB_IN_EPNUM  = NEXT_EPNUM,
-    WEBUSB_OUT_EPNUM = NEXT_EPNUM,
-#    define WEBUSB_IN_EPADDR         (ENDPOINT_DIR_IN  | WEBUSB_IN_EPNUM)
-#    define WEBUSB_OUT_EPADDR        (ENDPOINT_DIR_OUT | WEBUSB_OUT_EPNUM)
 #endif
 
 #ifdef JOYSTICK_ENABLE

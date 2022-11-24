@@ -86,9 +86,6 @@ extern keymap_config_t keymap_config;
 #    include "raw_hid.h"
 #endif
 
-#ifdef WEBUSB_ENABLE
-#    include "webusb.h"
-#endif
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
 #endif
@@ -272,65 +269,6 @@ static void Console_Task(void) {
 
     Endpoint_SelectEndpoint(ep);
 }
-#endif
-
-#ifdef WEBUSB_ENABLE
-void webusb_send(uint8_t *data, uint8_t length) {
-    if (USB_DeviceState != DEVICE_STATE_Configured) {
-        return;
-    }
-
-    Endpoint_SelectEndpoint(WEBUSB_IN_EPNUM);
-
-    if (Endpoint_Write_Stream_LE(data, length, NULL)) {
-        // Stream failed to complete, resetting WEBUSB's state
-        webusb_state.paired  = false;
-        webusb_state.pairing = false;
-    }
-    Endpoint_ClearIN();
-}
-
-static void webusb_task(void) {
-    // Create a temporary buffer to hold the read in data from the host
-    uint8_t data[WEBUSB_EPSIZE];
-    bool    data_read = false;
-
-    // Device must be connected and configured for the task to run
-    if (USB_DeviceState != DEVICE_STATE_Configured) return;
-
-    Endpoint_SelectEndpoint(WEBUSB_OUT_EPNUM);
-
-    // Check to see if a packet has been sent from the host
-    if (Endpoint_IsOUTReceived()) {
-        // Check to see if the packet contains data
-        if (Endpoint_IsReadWriteAllowed()) {
-            /* Read data */
-            Endpoint_Read_Stream_LE(data, sizeof(data), NULL);
-            data_read = true;
-        }
-
-        // Finalize the stream transfer to receive the last packet
-        Endpoint_ClearOUT();
-
-        if (data_read) {
-            webusb_receive(data, sizeof(data));
-        }
-    }
-}
-
-/** Microsoft OS 2.0 Descriptor. This is used by Windows to select the USB driver for the device.
- *
- *  For WebUSB in Chrome, the correct driver is WinUSB, which is selected via CompatibleID.
- *
- *  Additionally, while Chrome is built using libusb, a magic registry key needs to be set containing a GUID for
- *  the device.
- */
-const MS_OS_20_Descriptor_t PROGMEM MS_OS_20_Descriptor = MS_OS_20_DESCRIPTOR;
-
-/** URL descriptor string. This is a UTF-8 string containing a URL excluding the prefix. At least one of these must be
- * 	defined and returned when the Landing Page descriptor index is requested.
- */
-const WebUSB_URL_Descriptor_t PROGMEM WebUSB_LandingPage = WEBUSB_URL_DESCRIPTOR(WEBUSB_LANDING_PAGE_URL);
 #endif
 
 /*******************************************************************************
@@ -544,12 +482,6 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #    endif
 #endif
 
-#ifdef WEBUSB_ENABLE
-    /* Setup Webusb Endpoints */
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(WEBUSB_IN_EPADDR, EP_TYPE_INTERRUPT, WEBUSB_EPSIZE, 1);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(WEBUSB_OUT_EPADDR, EP_TYPE_INTERRUPT, WEBUSB_EPSIZE, 1);
-#endif
-
 #ifdef MIDI_ENABLE
     /* Setup MIDI stream endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
@@ -695,48 +627,6 @@ void EVENT_USB_Device_ControlRequest(void) {
             }
 
             break;
-#ifdef WEBUSB_ENABLE
-        case WEBUSB_VENDOR_CODE:
-            if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE)) {
-                switch (USB_ControlRequest.wIndex) {
-                    case WebUSB_RTYPE_GetURL:
-                        switch (USB_ControlRequest.wValue) {
-                            case WEBUSB_LANDING_PAGE_INDEX:
-                                Endpoint_ClearSETUP();
-                                /* Write the descriptor data to the control endpoint */
-                                Endpoint_Write_Control_PStream_LE(&WebUSB_LandingPage, WebUSB_LandingPage.Header.Size);
-                                /* Release the endpoint after transaction. */
-                                Endpoint_ClearStatusStage();
-                                break;
-                            default: /* Stall transfer on invalid index. */
-                                Endpoint_StallTransaction();
-                                break;
-                        }
-                        break;
-                    default: /* Stall on unknown WebUSB request */
-                        Endpoint_StallTransaction();
-                        break;
-                }
-            }
-
-            break;
-        case MS_OS_20_VENDOR_CODE:
-            if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE)) {
-                switch (USB_ControlRequest.wIndex) {
-                    case MS_OS_20_DESCRIPTOR_INDEX:
-                        Endpoint_ClearSETUP();
-                        /* Write the descriptor data to the control endpoint */
-                        Endpoint_Write_Control_PStream_LE(&MS_OS_20_Descriptor, MS_OS_20_Descriptor.Header.TotalLength);
-                        /* Release the endpoint after transaction. */
-                        Endpoint_ClearStatusStage();
-                        break;
-                    default: /* Stall on unknown MS OS 2.0 request */
-                        Endpoint_StallTransaction();
-                        break;
-                }
-            }
-            break;
-#endif
     }
 
 #ifdef VIRTSER_ENABLE
@@ -1207,10 +1097,6 @@ void protocol_post_task(void) {
 
 #ifdef RAW_ENABLE
     raw_hid_task();
-#endif
-
-#ifdef WEBUSB_ENABLE
-    webusb_task();
 #endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
