@@ -78,7 +78,7 @@ AVRDUDE_PROGRAMMER ?= avrdude
 define EXEC_AVRDUDE
 	list_devices() { \
 		if $(GREP) -q -s icrosoft /proc/version; then \
-		    wmic.exe path Win32_SerialPort get DeviceID 2>/dev/null | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | xargs echo -n | sort; \
+			powershell.exe 'Get-CimInstance -Class Win32_SerialPort | Select -ExpandProperty "DeviceID"' 2>/dev/null | sed -e "s/\r//g" | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | sort; \
 		elif [ "`uname`" = "FreeBSD" ]; then \
 			ls /dev/tty* | grep -v '\.lock$$' | grep -v '\.init$$'; \
 		else \
@@ -168,7 +168,8 @@ endef
 hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_HID_LUFA)
 
-flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+flash: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(SILENT) || printf "Flashing for bootloader: $(BLUE)$(BOOTLOADER)$(NO_COLOR)\n"
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)), caterina)
