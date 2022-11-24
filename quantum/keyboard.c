@@ -90,9 +90,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(CRC_ENABLE)
 #    include "crc.h"
 #endif
-#ifdef DIGITIZER_ENABLE
-#    include "digitizer.h"
-#endif
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
 #endif
@@ -660,10 +657,6 @@ void keyboard_task(void) {
 
 #ifdef JOYSTICK_ENABLE
     joystick_task();
-#endif
-
-#ifdef DIGITIZER_ENABLE
-    digitizer_task();
 #endif
 
 #ifdef BLUETOOTH_ENABLE

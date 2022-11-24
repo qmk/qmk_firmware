@@ -250,39 +250,37 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM DigitizerReport[] = {
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #        define SHARED_REPORT_STARTED
 #    endif
-    HID_RI_USAGE_PAGE(8, 0x0D),      // Digitizers
-    HID_RI_USAGE(8, 0x01),           // Digitizer
-    HID_RI_COLLECTION(8, 0x01),      // Application
+    HID_RI_USAGE_PAGE(8, 0x0D),            // Digitizers
+    HID_RI_USAGE(8, 0x01),                 // Digitizer
+    HID_RI_COLLECTION(8, 0x01),            // Application
 #    ifdef DIGITIZER_SHARED_EP
         HID_RI_REPORT_ID(8, REPORT_ID_DIGITIZER),
 #    endif
-        HID_RI_USAGE(8, 0x20),       // Stylus
-        HID_RI_COLLECTION(8, 0x00),  // Physical
-            // Tip Switch (1 bit)
-            HID_RI_USAGE(8, 0x42),   // Tip Switch
+        HID_RI_USAGE(8, 0x20),             // Stylus
+        HID_RI_COLLECTION(8, 0x00),        // Physical
+            // In Range, Tip Switch & Barrel Switch (3 bits)
+            HID_RI_USAGE(8, 0x32),         // In Range
+            HID_RI_USAGE(8, 0x42),         // Tip Switch
+            HID_RI_USAGE(8, 0x44),         // Barrel Switch
             HID_RI_LOGICAL_MINIMUM(8, 0x00),
             HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, 0x03),
             HID_RI_REPORT_SIZE(8, 0x01),
-            HID_RI_REPORT_COUNT(8, 0x01),
-            HID_RI_INPUT(8, HID_IOF_VARIABLE),
-            // In Range (1 bit)
-            HID_RI_USAGE(8, 0x32),  // In Range
-            HID_RI_INPUT(8, HID_IOF_VARIABLE),
-            // Padding (6 bits)
-            HID_RI_REPORT_COUNT(8, 0x06),
-            HID_RI_INPUT(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+            // Padding (5 bits)
+            HID_RI_REPORT_COUNT(8, 0x05),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
 
             // X/Y Position (4 bytes)
-            HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
+            HID_RI_USAGE_PAGE(8, 0x01),    // Generic Desktop
+            HID_RI_USAGE(8, 0x30),         // X
+            HID_RI_USAGE(8, 0x31),         // Y
             HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
+            HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x10),
-            HID_RI_REPORT_COUNT(8, 0x01),
-            HID_RI_UNIT(8, 0x33),           // Inch, English Linear
-            HID_RI_UNIT_EXPONENT(8, 0x0E),  // -2
-            HID_RI_USAGE(8, 0x30),          // X
-            HID_RI_INPUT(8, HID_IOF_VARIABLE),
-            HID_RI_USAGE(8, 0x31),          // Y
-            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            HID_RI_UNIT(8, 0x33),          // Inch, English Linear
+            HID_RI_UNIT_EXPONENT(8, 0x0E), // -2
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
         HID_RI_END_COLLECTION(0),
     HID_RI_END_COLLECTION(0),
 #    ifndef DIGITIZER_SHARED_EP

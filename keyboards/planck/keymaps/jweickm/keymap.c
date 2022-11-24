@@ -201,17 +201,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------------------------------.
      * | A-SFT| Boot | Debug|RGBTOG|RGBMOD|RGBHUI|RGBHUD|RGBSAI|RGBSAD|RGBVAI|RGBVAD| DE_SW|
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | A-GRV|EEPRST|MU_MOD| AU_ON|AU_OFF|AGNORM|AGSWAP|!HRWCM| !WCM | A-GRV| !LANG| !GAME|
+     * | A-GRV|EEPRST|MUNEXT| AU_ON|AU_OFF|AGNORM|AGSWAP|!HRWCM| !WCM | A-GRV| !LANG| !GAME|
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | ____ |MUV_DE|MUV_IN| MU_ON|MU_OFF| MI_ON|MI_OFF| Vol- | MPLY | Vol+ | ____ | ____ |
+     * | ____ |AU_REV|AUNEXT| MU_ON|MU_OFF| MI_ON|MI_OFF| Vol- | MPLY | Vol+ | ____ | ____ |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * | ____ | ____ | ____ | ____ | ____ |     ____    | ____ | ____ | ____ | ____ |EEPRST|
      * `-----------------------------------------------------------------------------------'
      */
     [_ADJUST] = LAYOUT_planck_grid(
         LALT(KC_LSFT), QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DE_SWITCH, 
-        LALT(KC_GRV), EE_CLR, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, HRWIDECOLEMAK, WIDECOLEMAK, LALT(KC_GRV), LANG_SWITCH, GAMING, 
-        KC_TRNS, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_SVD_BD, KC_MPLY, KC_SVU_BU, KC_TRNS, KC_TRNS,
+        LALT(KC_GRV), EE_CLR, MU_NEXT, AU_ON, AU_OFF, AG_NORM, AG_SWAP, HRWIDECOLEMAK, WIDECOLEMAK, LALT(KC_GRV), LANG_SWITCH, GAMING, 
+        KC_TRNS, AU_PREV, AU_NEXT, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_SVD_BD, KC_MPLY, KC_SVU_BU, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EE_CLR
     ),
 

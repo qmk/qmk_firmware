@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_ADJUST] = LAYOUT_ortho_3x10(
     QK_BOOT,  _______,  _______,  _______,  _______,  QWERTY,   NUMBERS,  SYMBOLS,  PLOVER,    SONGS,
-    MUV_DE,   MUV_IN,   MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
+    AU_PREV,  AU_NEXT,  MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
     BACKLIT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______
   )
 };

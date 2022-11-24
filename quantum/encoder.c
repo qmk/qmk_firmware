@@ -80,6 +80,10 @@ __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
     return encoder_update_user(index, clockwise);
 }
 
+__attribute__((weak)) bool should_process_encoder(void) {
+    return is_keyboard_master();
+}
+
 void encoder_init(void) {
 #ifdef SPLIT_KEYBOARD
     thisHand  = isLeftHand ? 0 : NUM_ENCODERS_LEFT;
@@ -179,8 +183,11 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 
             encoder_value[index]++;
             changed = true;
+#ifdef SPLIT_KEYBOARD
+            if (should_process_encoder())
+#endif // SPLIT_KEYBOARD
 #ifdef ENCODER_MAP_ENABLE
-            encoder_exec_mapping(index, ENCODER_COUNTER_CLOCKWISE);
+                encoder_exec_mapping(index, ENCODER_COUNTER_CLOCKWISE);
 #else  // ENCODER_MAP_ENABLE
         encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
 #endif // ENCODER_MAP_ENABLE
@@ -193,8 +200,11 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 #endif
             encoder_value[index]--;
             changed = true;
+#ifdef SPLIT_KEYBOARD
+            if (should_process_encoder())
+#endif // SPLIT_KEYBOARD
 #ifdef ENCODER_MAP_ENABLE
-            encoder_exec_mapping(index, ENCODER_CLOCKWISE);
+                encoder_exec_mapping(index, ENCODER_CLOCKWISE);
 #else  // ENCODER_MAP_ENABLE
         encoder_update_kb(index, ENCODER_CLOCKWISE);
 #endif // ENCODER_MAP_ENABLE

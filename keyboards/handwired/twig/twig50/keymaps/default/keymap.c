@@ -42,15 +42,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_BSPC,
     KC_LCTL,          KC_A,    KC_S,    KC_D,    LT2_F,   KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    RSF_SCL, LT3_QOT, KC_ENT,
     KC_LSFT, TG4,     KC_Z,    KC_X,    KC_C,    LT3_V,   KC_B,         LT2_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
-    KC_BTN1, KC_BTN2, KC_LALT,          LGU_NCV, LT1_SPC,               RCT_ESC, RGU_ENT, RAL_CNV, KC_INT1, KC_DEL,           MU_TOG
+    KC_BTN1, KC_BTN2, KC_LALT,          LGU_NCV, LT1_SPC,               RCT_ESC, RGU_ENT, RAL_CNV, KC_INT1, KC_DEL,           MU_TOGG
   ),
 
   // Layer 1, Space-modifiers: Basic keys
   LAYOUT_diag_4x14(
-    RESET,            KC_EXEC, KC_HELP, KC_MENU, KC_SLCT, KC_STOP,      KC_BTN2, KC_INT1, KC_MINS, KC_EQL,  KC_INT3, SFT_LBR, KC_TRNS,
+    QK_BOOT,          KC_EXEC, KC_HELP, KC_MENU, KC_SLCT, KC_STOP,      KC_BTN2, KC_INT1, KC_MINS, KC_EQL,  KC_INT3, SFT_LBR, KC_TRNS,
     KC_TRNS,          KC_AGIN, KC_FIND, KC_PGUP, KC_PGDN, KC_F19,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,  SFT_7,   SFT_2,
     KC_TRNS, KC_TRNS, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, KC_APP,       KC_BSPC, KC_DEL,  KC_RBRC, KC_BSLS, KC_HOME,          KC_END,
-    KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,               RCT_IN7, RGU_IN8, KC_TRNS, KC_INT2, KC_INT4,          MU_MOD
+    KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,               RCT_IN7, RGU_IN8, KC_TRNS, KC_INT2, KC_INT4,          MU_NEXT
   ),
 
   // Layer 2, F,N-modifiers: Number keys and symbols
