@@ -15,19 +15,21 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 * Measurement with QMK 0.18.0
 
-| MCU               | execution time of `matrix_scan()` | matrix scan rate |
-|-------------------|---------------|----------------|
-| Pro Micro (16MHz) | 588.5 us      | 1612 scans/sec (620us) |
-| Proton C (72MHz)  | 253.9 us      | 3794 scans/sec (263.5us) |
+| MCU                        | execution time of `matrix_scan()` | matrix scan rate |
+|----------------------------|---------------|--------------------------|
+| Pro Micro (16MHz)          | 579.95 us     | 1634 scans/sec (611.95us)|
+| Proton C (72MHz)           | 253.9 us      | 3793 scans/sec (263.6us) |
+| Raspberry Pi Pico (125MHz) | 181.38 us     | 5262 scans/sec (190us)   |
 
 ### With fast `matrix_read_cols_on_rows() in users/mtei/`
 
 * Measurement with QMK 0.18.0
 
-| MCU               | execution time of `matrix_scan()` | matrix scan rate |
-|-------------------|---------------|----------------|
-| Pro Micro (16MHz) | 92 us         |  8064 scans/sec (124us)  |
-| Proton C (72MHz)  | 57.07 us      | 14995 scans/sec (66.69us)|
+| MCU                        | execution time of `matrix_scan()` | matrix scan rate |
+|----------------------------|---------------|---------------------------|
+| Pro Micro (16MHz)          | 90.9 us       |  8140 scans/sec (122.85us)|
+| Proton C (72MHz)           | 56.94 us      | 15024 scans/sec (66.56us) |
+| Raspberry Pi Pico (125MHz) | 30.03 us      | 26116 scans/sec (38.29us) |
 
 ## Configuration
 
@@ -58,39 +60,52 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
   * `make MTEST=[<other options>...] handwired/symmetric70_proto/promicro/normal:default:flash`
 
 ## Measurement result
-### Pro Micro (ATmega32u4 16Mhz)
+### Pro Micro (ATmega32u4 16MHz)
 #### Default setting (without fast `matrix_read_cols_on_rows()`)
  - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/promicro/normal:default:flash`
 
-<img width="80%" alt="sym70_promicro_normal" src="https://user-images.githubusercontent.com/2170248/201068411-7159393b-25ad-4c07-8893-25873f09ccc4.png">
+<img width="80%" alt="sym70_oc_di_promicro_normal2" src="https://user-images.githubusercontent.com/2170248/204037443-2db56b4a-c482-40e6-a211-95a8fddb625d.png">
+
 
 #### Default setting (with fast `matrix_read_cols_on_rows()`)
  - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/promicro/boost:default:flash`
 
-<img width="80%" alt="sym70_promicro_boost" src="https://user-images.githubusercontent.com/2170248/201068474-6878803b-82a3-48fe-b0ba-5837df78328e.png">
+<img width="80%" alt="sym70_oc_di_promicro_boost2" src="https://user-images.githubusercontent.com/2170248/204037530-f977bb88-0fcf-499f-929a-62e4103ba46c.png">
+<img width="80%" alt="sym70_oc_di_promicro_boost_zoom2" src="https://user-images.githubusercontent.com/2170248/204037578-410b815c-8a99-4c8d-ae56-be54f92d4dd8.png">
 
 ### Proton C (STM32F303 72MHz)
 #### Default setting (without fast `matrix_read_cols_on_rows()`)
  - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/proton_c/normal:default:flash`
 
-<img width="80%" alt="sym70_proton_c_normal" src="https://user-images.githubusercontent.com/2170248/201057666-c80db142-0924-433e-836b-7c658ca25e28.png">
+<img width="80%" alt="sym70_oc_di_proton_c_normal_10k" src="https://user-images.githubusercontent.com/2170248/203856220-c408b005-1dd2-4b96-b233-5dba849afd83.png">
 
 #### Default setting (with fast `matrix_read_cols_on_rows()`)
  - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/proton_c/boost:default:flash`
 
-<img width="80%" alt="sym70_proton_c_boost" src="https://user-images.githubusercontent.com/2170248/201057777-1775adbf-1bbd-49ca-a156-f7b6bf956b54.png">
+<img width="80%" alt="sym70_oc_di_proton_c_boost_10k" src="https://user-images.githubusercontent.com/2170248/203856256-30da3e66-a51f-45e7-ada8-e91658b54be0.png">
 
 ##### Press R0C5, R1C5, R2C5, R3C5, R4C5 keys
 
-<img width="80%" alt="sym70_proton_c_boost_C5" src="https://user-images.githubusercontent.com/2170248/201057876-697be08c-9e47-4325-b9d3-4058f5a4c75f.png">
+<img width="80%" alt="sym70_oc_di_proton_c_boost_10k_zoom2_C5" src="https://user-images.githubusercontent.com/2170248/203856457-2469b3e2-9c52-497a-a5bb-4069bfe29728.png">
 
 ##### Connect a 500pF capacitor between C5 line and GND, Press R0C5, R1C5, R2C5, R3C5, R4C5 keys
 
-<img width="80%" alt="sym70_proton_c_boost_C5_500p_re" src="https://user-images.githubusercontent.com/2170248/201057980-4ef7d52a-6b5b-451f-8026-a3e7f3495723.png">
+<img width="80%" alt="sym70_oc_di_proton_c_boost_10k_zoom2_C5_500pf" src="https://user-images.githubusercontent.com/2170248/203856491-bcbe78be-f87c-4583-83a4-45e82cd39b89.png">
 
  ##### Connect a 1000pF capacitor between C5 line and GND, Press R0C5, R1C5, R2C5, R3C5, R4C5 keys
 
-<img width="80%" alt="sym70_proton_c_boost_C5_1000p" src="https://user-images.githubusercontent.com/2170248/201058046-ceee2a34-ef91-4277-968a-9c40dd198230.png">
+<img width="80%" alt="sym70_oc_di_proton_c_boost_10k_zoom2_C5_1000pf" src="https://user-images.githubusercontent.com/2170248/203856536-e7b90f59-2bb0-4131-ad2c-03e56d1376ae.png">
+
+### Raspberry Pi Pico (RP2040 125MHz)
+#### Default setting (without fast `matrix_read_cols_on_rows()`)
+ - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/rp_pico/normal:default:flash`
+
+<img width="80%" alt="sym70_oc_di_rp_pico_normal_10k" src="https://user-images.githubusercontent.com/2170248/203856051-1a9642ad-9659-4e35-92e5-5c5fe1ee2df1.png">
+
+#### Default setting (with fast `matrix_read_cols_on_rows()`)
+ - `make MTEST=matrix_debug_scan,matrix_debug_delay handwired/symmetric70_proto/pr_pico/boost:default:flash`
+
+<img width="80%" alt="sym70_oc_di_rp_pico_boost_10k_4" src="https://user-images.githubusercontent.com/2170248/204024953-7cbcfb47-053b-4763-b356-40023aa346a5.png">
 
 ## A quick explanation of the code in the fast `matrix_read_cols_on_row.c`
 
