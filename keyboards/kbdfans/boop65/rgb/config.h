@@ -18,28 +18,17 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x1000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         BOOP65RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { F0, F1, F4, E6, C6 }
 #define MATRIX_COL_PINS { F7, F6, F5, C7, B0, B1, B2, B3, B4, D7, D6, D4, D5, D3, D2}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 

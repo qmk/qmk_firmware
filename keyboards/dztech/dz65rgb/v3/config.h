@@ -18,28 +18,18 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1424
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DZ65RGBV3
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { F0, F1, F4, E6, C6 }
 #define MATRIX_COL_PINS { F7, F6, F5, C7, B0, B1, B2, B3, B4, D7, D6, D4, D5, D3, D2}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended

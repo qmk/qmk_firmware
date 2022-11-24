@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "version.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -27,6 +28,9 @@ enum layer_names {
     _FN
 };
 
+enum custom_keycodes {
+    VERSION = SAFE_RANGE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_OPEN] = LAYOUT(
@@ -37,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MI_D_1, MI_B_1, MI_G_3, MI_A_3, MI_Ds_3, MI_Fs_2, MI_Ds_1, MI_C_1,
 
      MO_SWAP,    MI_B_5, MI_Gs_5, MI_G_5, MI_F_5,     FN_MUTE,
-         MI_Cs_3, MI_A_5, MI_Fs_5, MI_E_5, MI_Ds_5, KC_VOLD, KC_VOLU,
+         MI_Cs_3, MI_A_5, MI_Fs_5, MI_E_5, MI_Ds_5,
         MI_C_3, MI_D_3, MI_G_3, MI_As_4, MI_C_5, MI_D_5,
      TG_SWAP, MI_B_2, MI_E_3, MI_Cs_4, MI_Fs_3, MI_A_3, MI_C_4, MI_E_4,
        MI_A_2, MI_F_3, MI_As_3, MI_Gs_3, MI_B_3, MI_D_4, MI_Gs_4, MI_B_4,
@@ -52,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MI_E_1, MI_E_2, MI_Fs_3, MI_Gs_3, MI_B_3, MI_F_2, MI_Cs_1, MI_F_1,
 
      MO_SWAP,    MI_A_5, MI_Gs_5, MI_Fs_5, MI_F_5,     FN_MUTE,
-         MI_C_3, MI_G_5, MI_As_4, MI_C_5, MI_Ds_5, KC_VOLD, KC_VOLU,
+         MI_C_3, MI_G_5, MI_As_4, MI_C_5, MI_Ds_5,
         MI_D_3, MI_Cs_3, MI_Gs_3, MI_As_3, MI_C_4, MI_D_5,
      TG_SWAP, MI_B_2, MI_Fs_3, MI_Fs_4, MI_G_3, MI_B_3, MI_D_4, MI_G_4,
        MI_A_2, MI_F_3, MI_E_3, MI_A_3, MI_Cs_4, MI_E_4, MI_A_4, MI_Cs_5,
@@ -67,13 +71,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
      _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
-                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_OPEN]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_CLOSE]    = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_FN]       = { ENCODER_CCW_CW(_______, _______) },
+};
+#endif
 
 void keyboard_post_init_user(void) {
     //  Set octave to MI_OCT_0
@@ -82,3 +94,14 @@ void keyboard_post_init_user(void) {
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            break;
+    }
+    return true;
+}

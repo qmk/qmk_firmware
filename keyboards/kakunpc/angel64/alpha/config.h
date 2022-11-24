@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0A64
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    kakunpc
-#define PRODUCT         angel64
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6
@@ -36,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
-#define UNUSED_PINS
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
@@ -129,8 +121,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

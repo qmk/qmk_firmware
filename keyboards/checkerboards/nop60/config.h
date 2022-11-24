@@ -19,13 +19,6 @@ Copyright 2021 Nathan Spears
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7070
-#define PRODUCT_ID      0x1416
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nasp
-#define PRODUCT         NOP60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -33,7 +26,6 @@ Copyright 2021 Nathan Spears
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F0, F1, E6, B7, C6 }
 #define MATRIX_COL_PINS { F6, F5, F4, D0, D7, D3, D4, D5, D6, F7, C7, B4, B6, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

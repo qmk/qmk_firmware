@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1209
-#define PRODUCT_ID      0x6969
-#define MANUFACTURER    ibnuda
-#define PRODUCT         squiggle
-
 #define USE_SERIAL
 
 /*
@@ -37,8 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1337
-#define PRODUCT_ID      0x6007
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Maple Computing
-#define PRODUCT         The PCB Ruler
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 6
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { C7 }
 #define MATRIX_COL_PINS { D6, D7, B4, B5, B6, C6}
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -96,8 +88,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_DI_PIN E6     // The pin your RGB strip is wired to
 #define RGBLED_NUM 1      // Number of LEDs

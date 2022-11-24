@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544E // "TN"
-#define PRODUCT_ID      0x7034 // "P4"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    tamanishi
-#define PRODUCT         Pinky4
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
@@ -43,7 +36,6 @@
 // wiring of each half
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -107,8 +99,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

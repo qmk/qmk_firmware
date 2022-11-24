@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4A56
-#define PRODUCT_ID      0x0003
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Maelkk
-#define PRODUCT         Potato 65 Solderable
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F5, F4, F6, F0, D2 }
 #define MATRIX_COL_PINS { D3, D4, D6, D7, B4, B5, B6, F1, B0, B1, B2, B3, B7, D0, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -46,10 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN

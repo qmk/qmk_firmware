@@ -111,7 +111,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------------------------------------------------------------'
      */
     [_FUNC] = LAYOUT( \
-      RESET,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,_______,_______,\
+      QK_BOOT,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,_______,_______,\
       _______,KC_WH_D,KC_BTN2,KC_MS_U,KC_BTN1,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,\
       _______,KC_WH_U,KC_MS_L,KC_MS_D,KC_MS_R,AG_NORM,AG_SWAP,QWERTY, WORKMAN,DVORAK, COLEMAK,_______,_______,_______,        _______,\
       _______,_______,KC_WH_L,KC_BTN3,KC_WH_R,_______,_______,_______,_______,_______,_______,_______,_______,        KC_VOLU,_______,\

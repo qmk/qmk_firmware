@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Cian Johnston
-#define PRODUCT oem_ansi_fullsize
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 22
@@ -49,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { C3, C2, C1, C0, E1, E0, D7, E6, D5, D4, D3, D2, D1, D0, B7, B0, B1, B2, B3, B4, B5, F6 }
 //    C0  C1  C2  C3  C4  C5  C6  C7  C8  C9  CA  CB  CC  CD  CE  CF  CG  CH  CI  CJ  CK  CL
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -149,10 +141,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

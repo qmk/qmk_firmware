@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5255
-#define PRODUCT_ID   0xF40C
-#define DEVICE_VER   0x0001
-#define MANUFACTURER rate
-#define PRODUCT      PistachioPro
-
 #define ENCODERS_PAD_A {D2}
 #define ENCODERS_PAD_B {D3}
 
@@ -35,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { D4, C6, D7, B3, B4, B5 }
 #define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, B6, D6 }
-#define UNUSED_PINS
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -85,10 +77,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0xF4B5
-#define DEVICE_VER   0x0001
-#define MANUFACTURER 3araht
-#define PRODUCT      bandominedoni
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 7
@@ -40,7 +33,6 @@
  */
 #define MATRIX_ROW_PINS { B5, B4, D7, F6, C6, D4 }
 #define MATRIX_COL_PINS { D1, E6, F7, B1, B3, B2, D0 }
-#define UNUSED_PINS
 
 #define MASTER_RIGHT
 #ifndef MASTER_RIGHT
@@ -55,6 +47,8 @@
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
+
+#define SPLIT_USB_DETECT
 
 //#define LED_NUM_LOCK_PIN B0
 //#define LED_CAPS_LOCK_PIN B1
@@ -240,10 +234,6 @@
 // NO_ACTION_ONESHOT -388 bytes
 #define NO_ACTION_ONESHOT
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
@@ -258,13 +248,11 @@
  * Encoder options
  */
 #ifdef ENCODER_ENABLE
-#   define ENCODERS_PAD_A { C7 }  // dummy
-#   define ENCODERS_PAD_B { B7 }  // dummy
+#   define ENCODERS_PAD_A { }
+#   define ENCODERS_PAD_B { }
+#   define ENCODER_RESOLUTIONS { }
 #   define ENCODERS_PAD_A_RIGHT { F5 }
 #   define ENCODERS_PAD_B_RIGHT { F4 }
-#   define ENCODER_RESOLUTION 4
+#   define ENCODER_RESOLUTIONS_RIGHT { 4 }
 #   define TAP_CODE_DELAY 10
-#   define ENCODERS 2
-#   define ENCODERS_CW_KEY  { {4, 5}, {6, 5} }
-#   define ENCODERS_CCW_KEY { {3, 5}, {5, 5} }
 #endif  // ENCODER_ENABLE

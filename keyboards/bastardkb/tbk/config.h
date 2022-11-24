@@ -1,4 +1,4 @@
-/* 
+/**
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,12 +16,6 @@
  */
 
 #pragma once
-#include "config_common.h"
-#define VENDOR_ID 0xA8F8
-#define PRODUCT_ID 0x1828
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Bastard Keyboards
-#define PRODUCT The Bastard Keyboard
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6

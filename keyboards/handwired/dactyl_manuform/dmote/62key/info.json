@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "DMOTE 62-key",
+    "keyboard_name": "DMOTE (62-key)",
+    "manufacturer": "tshort",
     "url": "",
     "maintainer": "veikman",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3632",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_62key": {
             "layout": [

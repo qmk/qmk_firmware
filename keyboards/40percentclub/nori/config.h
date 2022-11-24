@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4025
-#define PRODUCT_ID      0x0A0C
-#define DEVICE_VER      0x0444
-#define MANUFACTURER    di0ib
-#define PRODUCT         The nori Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS { D3, D2, D1, D0 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, D4, C6, D7, E6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -112,5 +104,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

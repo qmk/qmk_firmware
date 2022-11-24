@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID           0x04D8
-#define PRODUCT_ID          0xEED3
-#define DEVICE_VER          0x0101
-
 #define MANUFACTURER        "Massdrop Inc."
 #define PRODUCT             "ALT Keyboard"
 #define SERIAL_NUM          "Unavailable"
@@ -35,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { A00, A01, A02, A03, A04 }
 #define MATRIX_COL_PINS { B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, A05, A06, A07, A10, A11 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -128,8 +123,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_LED_PROCESS_LIMIT 15

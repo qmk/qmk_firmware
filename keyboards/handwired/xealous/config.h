@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define DEBUG_MATRIX_SCAN_RATE //Use this to determine scan-rate.
 #define FORCE_NKRO
 
-#define QMK_KEYS_PER_SCAN 4 //if we press four keys simultaneously, lets process them simultaneously...
 #define DIODE_DIRECTION COL2ROW
 
 

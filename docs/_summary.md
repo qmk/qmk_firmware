@@ -4,6 +4,7 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Getting Help/Support](support.md)
+  * [Building With GitHub Userspace](newbs_building_firmware_workflow.md)
   * [Other Resources](newbs_learn_more_resources.md)
   * [Syllabus](syllabus.md)
 
@@ -75,26 +76,29 @@
 
   * Software Features
     * [Auto Shift](feature_auto_shift.md)
+    * [Caps Word](feature_caps_word.md)
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
+    * [EEPROM](feature_eeprom.md)
     * [Key Lock](feature_key_lock.md)
     * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
-    * [Pointing Device](feature_pointing_device.md)
     * [Raw HID](feature_rawhid.md)
+    * [Secure](feature_secure.md)
+    * [Send String](feature_send_string.md)
     * [Sequencer](feature_sequencer.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
-    * [Terminal](feature_terminal.md)
     * [Unicode](feature_unicode.md)
     * [Userspace](feature_userspace.md)
     * [WPM Calculation](feature_wpm.md)
 
   * Hardware Features
     * Displays
-      * [HD44780 LCD Controller](feature_hd44780.md)
+      * [Quantum Painter](quantum_painter.md)
+      * [HD44780 LCD Driver](feature_hd44780.md)
       * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)
     * Lighting
@@ -105,6 +109,7 @@
     * [Audio](feature_audio.md)
     * [Bluetooth](feature_bluetooth.md)
     * [Bootmagic Lite](feature_bootmagic.md)
+    * [Converters](feature_converters.md)
     * [Custom Matrix](custom_matrix.md)
     * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
@@ -113,7 +118,7 @@
     * [Joystick](feature_joystick.md)
     * [LED Indicators](feature_led_indicators.md)
     * [MIDI](feature_midi.md)
-    * [Proton C Conversion](proton_c_conversion.md)
+    * [Pointing Device](feature_pointing_device.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
     * [Stenography](feature_stenography.md)
@@ -131,7 +136,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20220226.md "QMK v0.16.0 - 2022 Feb 26")
+    * [Most Recent ChangeLog](ChangeLog/20220827.md "QMK v0.18.0 - 2022 Aug 27")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development
@@ -145,9 +150,10 @@
       * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
+      * [Flash Driver](flash_driver.md)
       * ['serial' Driver](serial_driver.md)
       * [UART Driver](uart_driver.md)
-    * [GPIO Controls](internals_gpio_control.md)
+    * [GPIO Controls](gpio_control.md)
     * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
 
   * Python Development
@@ -163,6 +169,9 @@
     * Arm/ChibiOS
       * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
+      * [Raspberry Pi RP2040](platformdev_rp2040.md)
+      * [Proton C](platformdev_proton_c.md)
+      * [WeAct Blackpill F4x1](platformdev_blackpill_f4x1.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)
@@ -183,10 +192,10 @@
     * [Understanding QMK](understanding_qmk.md)
 
   * QMK Internals (In Progress)
-    * [Defines](internals_defines.md)
-    * [Input Callback Reg](internals_input_callback_reg.md)
-    * [Midi Device](internals_midi_device.md)
-    * [Midi Device Setup Process](internals_midi_device_setup_process.md)
-    * [Midi Util](internals_midi_util.md)
-    * [Send Functions](internals_send_functions.md)
-    * [Sysex Tools](internals_sysex_tools.md)
+    * [Defines](internals/defines.md)
+    * [Input Callback Reg](internals/input_callback_reg.md)
+    * [Midi Device](internals/midi_device.md)
+    * [Midi Device Setup Process](internals/midi_device_setup_process.md)
+    * [Midi Util](internals/midi_util.md)
+    * [Send Functions](internals/send_functions.md)
+    * [Sysex Tools](internals/sysex_tools.md)

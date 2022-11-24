@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|   |---|
      * |     |   |   |   |   |   |   |   |   |   |PSc|VDn|VUp|     |   |END|
      * |------------------------------------------------------|    |   `---'
-     * |RESET |   |   |   |   |   |   |PRV|PLY|NXT|STP|   |Mut|    |
+     * |QK_BOOT |   |   |   |   |   |   |PRV|PLY|NXT|STP|   |Mut|    |
      * |---------------------------------------------------------------.
      * |    |   |   |   |   |   |   |   |   |BLB|BLC|Slp|      |   |PUp|
      * |-------------------------------------------------------------------.
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_L1] = LAYOUT_all(
   KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _____, _____,  KC_HOME,
   _____,  _____, _____, _____, _____, _____, _____, _____, _____, _____, KC_PSCR, KC_VOLD, KC_VOLU, KC_MUTE,    KC_END,
-  RESET,  _____, _____, _____, _____, _____, _____, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, _____, _____,
+  QK_BOOT,  _____, _____, _____, _____, _____, _____, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, _____, _____,
   _____, _____, _____, _____, _____, _____, _____, _____, _____, BL_BRTG, BL_STEP, KC_SLEP, _____, _____, KC_PGUP,
   _____, _____, _____,                     _____, _____,                   _____, _____, _____, _____, KC_PGDN, KC_SLCK
 )

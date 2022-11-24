@@ -1,6 +1,12 @@
 {
     "keyboard_name": "AK81_VE",
+    "manufacturer": "Atlantis",
     "maintainer": "fOmey",
+    "usb": {
+        "vid": "0x416B",
+        "pid": "0x0081",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

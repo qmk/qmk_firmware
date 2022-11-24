@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4658 //FX
-#define PRODUCT_ID      0x5647 //VG
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    FLX
-#define PRODUCT         Virgo
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6969
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    WoodKeys.click
-#define PRODUCT         Scarlet Bandana Version IV mark.2
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 17
@@ -50,8 +43,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Disable music mode to keep the firmware size down
 #define NO_MUSIC_MODE
 #endif
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define DEBOUNCE 5

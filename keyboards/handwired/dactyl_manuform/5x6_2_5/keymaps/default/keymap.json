@@ -396,7 +396,7 @@
             "KC_NO",
             "KC_NO",
             "KC_NO",
-            "RESET",
+            "QK_BOOT",
             "KC_PWR",
 
             "KC_TRNS",

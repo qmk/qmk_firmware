@@ -68,7 +68,7 @@ def create_validator(schema):
     schema_store = compile_schema_store()
     resolver = jsonschema.RefResolver.from_schema(schema_store[schema], store=schema_store)
 
-    return jsonschema.Draft7Validator(schema_store[schema], resolver=resolver).validate
+    return jsonschema.Draft202012Validator(schema_store[schema], resolver=resolver).validate
 
 
 def validate(data, schema):

@@ -2,12 +2,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x1234
-#define PRODUCT_ID      0x5678
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    QMK
-#define PRODUCT         TRACKPOINT-DEMO
-
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 3
 
@@ -49,7 +43,6 @@
 
 #define MATRIX_COL_PINS { F1, F4, F5 }
 #define MATRIX_ROW_PINS { F0 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

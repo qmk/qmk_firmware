@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "nano",
-    "url": "",
+    "keyboard_name": "Nano Pad",
+    "manufacturer": "Work Louder",
+    "url": "https://worklouder.cc/",
     "maintainer": "Work Louder",
+    "usb": {
+        "vid": "0x574C",
+        "pid": "0xE6F0",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

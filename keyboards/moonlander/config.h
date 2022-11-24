@@ -20,16 +20,7 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-// clang-format off
-#define VENDOR_ID       0x3297
-#define PRODUCT_ID      0x1969
-#define MANUFACTURER    ZSA Technology Labs
-#define PRODUCT         Moonlander Mark I
-#define DEVICE_VER      0x0001
 #define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
-
-// clang-format on
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -77,8 +68,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110111
@@ -161,7 +150,6 @@
 #    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 16383
 #    define DYNAMIC_KEYMAP_LAYER_COUNT     8
 #endif
-#define VIA_QMK_RGBLIGHT_ENABLE
 
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4

@@ -1,7 +1,13 @@
 {
   "keyboard_name": "smallkeyboard",
+  "manufacturer": "zhouqiong19840119",
   "url": "",
   "maintainer": "zhouqiong19840119",
+  "usb": {
+    "vid": "0x7A71",
+    "pid": "0x736B",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_ortho_2x3": {
       "layout": [

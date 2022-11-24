@@ -18,33 +18,33 @@ Check out the [keyboard build guides](https://docs.bastardkb.com) for the Charyb
 
 ## Building the firmware
 
-### Charybdis (4x6)
+**You must specify the shield version when compiling/flashing the firmware.**
+
+The template is:
+
+```shell
+qmk compile -kb bastardkb/charybdis/{LAYOUT}/{VERSION}/elitec -km {KEYMAP}
+```
+
+See below for populated commands per layout
 
 The `default` keymap is inspired from the original [Dactyl Manuform](../../handwired/dactyl_manuform) layout.
 
-```shell
-qmk compile -kb bastardkb/charybdis/4x6 -km default
-```
+Check out the `via` layout if you're looking for VIA support.
 
-Check out the `via` layout if you're looking for VIA support:
+### Charybdis (4x6)
 
-```shell
-qmk compile -kb bastardkb/charybdis/4x6 -km via
-```
+| Shield Version | default                                                         | via                                                         |
+| -------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
+| v1             | `qmk compile -kb bastardkb/charybdis/4x6/v1/elitec -km default` | `qmk compile -kb bastardkb/charybdis/4x6/v1/elitec -km via` |
+| v2             | `qmk compile -kb bastardkb/charybdis/4x6/v2/elitec -km default` | `qmk compile -kb bastardkb/charybdis/4x6/v2/elitec -km via` |
 
 ### Charybdis (3x5)
 
-The `default` keymap is inspired from the original [Dactyl Manuform](../../handwired/dactyl_manuform) layout.
-
-```shell
-qmk compile -kb bastardkb/charybdis/3x5 -km default
-```
-
-Check out the `via` layout if you're looking for VIA support:
-
-```shell
-qmk compile -kb bastardkb/charybdis/3x5 -km via
-```
+| Shield Version | default                                                         | via                                                         |
+| -------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
+| v1             | `qmk compile -kb bastardkb/charybdis/3x5/v1/elitec -km default` | `qmk compile -kb bastardkb/charybdis/3x5/v1/elitec -km via` |
+| v2             | `qmk compile -kb bastardkb/charybdis/3x5/v2/elitec -km default` | `qmk compile -kb bastardkb/charybdis/3x5/v2/elitec -km via` |
 
 ## Customizing the firmware
 
@@ -73,7 +73,7 @@ Drag-scroll enables scrolling with the trackball. When drag-scroll is enabled, t
 
 Call `charybdis_set_pointer_dragscroll_enabled(bool enable)` to enable/disable drag-scroll.
 
-`charybdis_get_pointer_dragscroll_enabled()` returns whether sniping mode is currently enabled.
+`charybdis_get_pointer_dragscroll_enabled()` returns whether drag-scroll mode is currently enabled.
 
 To invert the horizontal scrolling direction, define `CHARYBDIS_DRAGSCROLL_REVERSE_X`:
 
@@ -112,20 +112,6 @@ This behavior can be further customized with the following defines:
 ```c
 #define CHARYBDIS_MINIMUM_SNIPING_DPI 200
 #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
-```
-
-### Acceleration
-
-By default, the pointer's movements are linear. To enable acceleration, add the following define:
-
-```c
-#define CHARYBDIS_POINTER_ACCELERATION_ENABLE
-```
-
-The acceleration factor can be further tune _via_ the `CHARYBDIS_POINTER_ACCELERATION_FACTOR`:
-
-```c
-#define CHARYBDIS_POINTER_ACCELERATION_FACTOR 24
 ```
 
 ### Custom keycodes
@@ -176,3 +162,23 @@ To disable the custom keycodes, and reduce binary size, simply add a definition 
 ```c
 #define NO_CHARYBDIS_KEYCODES
 ```
+
+### Configuration Syncing
+
+If you want/need to enable syncing of the charybdis config, such as to read the sniping or drag scroll modes on the other half (such as for displaying the status via rgb matrix, or added on screens, or what not), you can enabled this. To do so, add this to your `config.h`:
+
+```c
+#define CHARYBDIS_CONFIG_SYNC
+```
+
+Note that you will need to reflash both sides when enabling this.
+
+### Enable Large Mouse Reports
+
+By default, the X and Y motion for the pointing device/mouse reports is -127 to 127. You can definitely hit the limit for that with the sensors. You can enable support for -32767 to 32767 by adding this to your `config.h`:
+
+```c
+#define MOUSE_EXTENDED_REPORT
+```
+
+Note that you will need to reflash both sides when enabling this.

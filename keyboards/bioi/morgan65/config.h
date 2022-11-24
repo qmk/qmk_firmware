@@ -19,14 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID       0x8101  // 8101 = "BIOI"
-#define PRODUCT_ID      0x6581
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Basic IO Instruments
-#define PRODUCT         BIOI MORGAN65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -44,8 +36,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { E6, C6, F4, B2, D4 }
 #define MATRIX_COL_PINS { F5, F6, F7, C7, B0, B7, B5, D5, B4, D7, D6, D1, D0, B3 }
-
-//#define QMK_KEYS_PER_SCAN 4
 
 /* Backlight Setup */
 #define BACKLIGHT_PIN B6

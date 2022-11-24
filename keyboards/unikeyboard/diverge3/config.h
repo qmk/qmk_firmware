@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1257
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    UniKeyboard
-#define PRODUCT         diverge3
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -110,5 +102,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

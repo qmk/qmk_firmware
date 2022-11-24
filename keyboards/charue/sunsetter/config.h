@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4344 // CD for CharueDesign
-#define PRODUCT_ID      0x5353 // SS for Sunsetter
-#define DEVICE_VER      0x0001 // Revision prototype
-#define MANUFACTURER    CharueDesign
-#define PRODUCT         Sunsetter
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 18

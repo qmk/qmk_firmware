@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B5, B4, E6, D7, C6, D4 }
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4, D3}
-#define UNUSED_PINS
 
 #define USE_I2C
 
@@ -65,7 +64,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* nKey Rollover */
 #define FORCE_NKRO
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

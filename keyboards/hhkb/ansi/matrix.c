@@ -189,14 +189,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
-    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-        count += bitpop16(matrix_get_row(r));
-    }
-    return count;
-}
-
 void matrix_power_up(void) {
     KEY_POWER_ON();
 }

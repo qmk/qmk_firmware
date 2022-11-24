@@ -4,13 +4,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4025 //"40 %", since 0x3430 is already registered.
-#define PRODUCT_ID      0x0A0C
-#define DEVICE_VER      0x4444
-#define MANUFACTURER    di0ib
-#define PRODUCT         The 4x4 Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 16
@@ -27,7 +20,6 @@
 */
 #define MATRIX_ROW_PINS { B2, D1, D0, D4 }
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5, B6, B7, D6, F7, F6, F5, F4, F1, F0, B3, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -90,5 +82,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

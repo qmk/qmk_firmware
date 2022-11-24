@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] =  LAYOUT( \
-  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, KC_DEL, \
+  _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, KC_DEL, \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, KC_LEFT,  KC_DOWN, KC_RGHT, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PERC, KC_GRV, KC_TILD, \
   KC_ASDN, KC_ASUP, KC_ASRP, _______, _______, _______, _______, KC_RBRC, KC_LBRC, KC_MINS, KC_EQL, KC_BSLASH \
@@ -183,7 +183,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
   if (rgb_layer_change) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
       rgblight_set_orange;
       rgblight_mode(5);

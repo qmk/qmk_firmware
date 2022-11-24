@@ -242,15 +242,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
-}
-
 // Remember this means ROWS
 static void  init_cols(void)
 {

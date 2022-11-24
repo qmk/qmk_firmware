@@ -1,7 +1,12 @@
 {
   "keyboard_name": "PaladinPad", 
+  "manufacturer": "KapCave",
   "url": "https://kapcave.com/products/paladinpad-pcb", 
   "maintainer": "nachie", 
+  "usb": {
+    "vid": "0x4B43",
+    "pid": "0x5050"
+  },
   "layouts": {
       "LAYOUT_ortho_5x4": {
           "layout": [

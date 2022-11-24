@@ -21,12 +21,6 @@ Ported to QMK by Techsock <info@techsock.com>
 
 #pragma once
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0110
-#define DEVICE_VER      0x0101
-#define MANUFACTURER    Apple
-#define PRODUCT         M0110(A)
-
 /* matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 8
@@ -41,9 +35,6 @@ Ported to QMK by Techsock <info@techsock.com>
     get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)) || \
     get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTL)) \
 )
-
-/* boot magic key */
-#define BOOTMAGIC_KEY_SALT                      KC_M
 
 /* ports */
 #define M0110_CLOCK_PORT        PORTD

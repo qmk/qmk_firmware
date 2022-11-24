@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5350
-#define PRODUCT_ID      0x0727
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MaiTheSan
-#define PRODUCT         Satxri6key
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
