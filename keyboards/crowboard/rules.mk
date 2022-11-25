@@ -1,4 +1,3 @@
-# This file intentionally left blank
 # MCU name
 MCU = RP2040
 
