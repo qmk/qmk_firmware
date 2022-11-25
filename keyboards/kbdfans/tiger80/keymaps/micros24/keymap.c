@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
 #include QMK_KEYBOARD_H
 
 enum layers {
@@ -45,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		/* RWIN key */
 		case M_CHARSELECT:
 			tap_code(KC_F9);
-			wait_ms(200);
+			wait_ms(100);
 			tap_code(KC_ENT);
 			break;
 		/* RALT key */
