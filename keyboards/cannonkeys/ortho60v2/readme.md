@@ -2,9 +2,9 @@
 
 A 5x12 Ortholinear keyboard powered by an onboard RP2040
 
-* Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan1)  
-* Hardware Supported: RP2040 
-* Hardware Availability: [CannonKeys](https://cannonkeys.com) 
+* Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan1)
+* Hardware Supported: RP2040
+* Hardware Availability: [CannonKeys](https://cannonkeys.com)
 
 Make example for this keyboard (after setting up your build environment):
 
