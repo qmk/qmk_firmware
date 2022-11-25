@@ -6,10 +6,6 @@
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
-enum custom_keycodes {
-    PASS = SAFE_RANGE,
-};
-
 enum crow_layers {
 _QWERTY,
 _LOWER,
