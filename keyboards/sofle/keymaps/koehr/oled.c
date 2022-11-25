@@ -19,6 +19,7 @@
 //Sets up what the OLED screens display.
 
 #ifdef OLED_ENABLE
+#    include QMK_KEYBOARD_H
 
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
@@ -31,21 +32,21 @@ static void render_logo(void) {
 }
 
 static void print_status_narrow(void) {
-    oled_write_P(PSTR("\n\nSoflever2\n\nkoehrv1.5\n\n"), false);
+    oled_write_P(PSTR("\n\nSofle ver2\n\nkoehr v1.5\n\n"), false);
 
     // Print current layer
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_P(PSTR("Base\nlayer"), false);
+            oled_write_P(PSTR("base\nlayer"), false);
             break;
         case 1:
-            oled_write_P(PSTR("Lower"), false);
+            oled_write_P(PSTR("lower\nlayer"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Raise"), false);
+            oled_write_P(PSTR("raise\nlayer"), false);
             break;
         default:
-            oled_write_P(PSTR("UNDEFLAYER"), false);
+            oled_write_P(PSTR("VOID\nLAYER"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
 }

@@ -19,6 +19,7 @@
 //Setting up what encoder rotation does. If your encoder can be pressed as a button, that function can be set in keymap.c.
 
 #ifdef ENCODER_ENABLE
+#    include QMK_KEYBOARD_H
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
 
@@ -48,7 +49,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         break;
     }
 
-    return true;
+    return false;
 }
 
 #endif

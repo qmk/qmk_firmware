@@ -20,8 +20,6 @@
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
-
 #define ENCODER_RESOLUTION 2
 // #define ENCODER_DIRECTION_FLIP
 
