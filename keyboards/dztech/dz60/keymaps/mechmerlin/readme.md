@@ -39,13 +39,13 @@ This is the function layer also known as layer 1. It utiizes the following:
 
 This is the control layer also known as layer 2. It utilizes the following:
 - RGB Controls
-- `RESET` key
+- `QK_BOOT` key
 
 ## Non Standard Keycodes
 ---
-### RESET
+### QK_BOOT
 
-As long `BOOTMAGIC_ENABLE` is set to `yes` in `rules.mk`, the DZ60 can be put into bootloader mode by holding the `Escape` key while plugging in. However sometmes this doesn't work or is troublesome to do, might as well use the `RESET` keycode to accomplish this. 
+As long `BOOTMAGIC_ENABLE` is set to `yes` in `rules.mk`, the DZ60 can be put into bootloader mode by holding the `Escape` key while plugging in. However sometmes this doesn't work or is troublesome to do, might as well use the `QK_BOOT` keycode to accomplish this. 
 
 ### RSFT_T(KC_SLSH)
 
