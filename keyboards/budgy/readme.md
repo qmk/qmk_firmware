@@ -5,7 +5,7 @@
 34 key, diodeless, RP2040 based, budget keyboard.
 
 * Keyboard Maintainer: [KeyboardDweebs](https://github.com/doesntfazer)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: Raspberry Pi Pico
 * Hardware Availability: [Github Page](https://github.com/doesntfazer/Budgy) Buy Directly from [Keyboard Dweebs](https://keyboarddweebs.net/)
 
 Make example for this keyboard (after setting up your build environment):
