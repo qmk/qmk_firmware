@@ -1,13 +1,8 @@
 # Joystick :id=joystick
 
-The keyboard can be made to be recognized as a joystick HID device by the operating system.
+This feature provides game controller input as a joystick device supporting up to 6 axes and 32 buttons. Axes can be read either from an [ADC-capable input pin](adc_driver.md), or can be virtual, so that its value is provided by your code.
 
-The joystick feature provides two services:
- * reading analog input devices (eg. potentiometers)
- * sending gamepad HID reports
-
-Both services can be used without the other, depending on whether you just want to read a device but not send gamepad reports (for volume control for instance)
-or send gamepad reports based on values computed by the keyboard.
+An analog device such as a [potentiometer](https://en.wikipedia.org/wiki/Potentiometer) found on an analog joystick's axes is based on a voltage divider, where adjusting the movable wiper controls the output voltage which can then be read by the microcontroller's ADC.
 
 ## Usage :id=usage
 
@@ -17,74 +12,61 @@ Add the following to your `rules.mk`:
 JOYSTICK_ENABLE = yes
 ```
 
-### Analog Input
-
 By default the joystick driver is `analog`, but you can change this with:
 
 ```make
 JOYSTICK_DRIVER = digital
 ```
 
-An analog device such as a potentiometer found on a gamepad's analog axes is based on a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider).
-It is composed of three connectors linked to the ground, the power input and power output (usually the middle one). The power output holds the voltage that varies based on the position of the cursor,
-which value will be read using your MCU's [ADC](https://en.wikipedia.org/wiki/Analog-to-digital_converter).
-Depending on which pins are already used by your keyboard's matrix, the rest of the circuit can get a little bit more complicated,
-feeding the power input and ground connection through pins and using diodes to avoid bad interactions with the matrix scanning procedures.
+## Configuration :id=configuration
 
-### Configuring the Joystick
-
-By default, two axes and eight buttons are defined. This can be changed in your `config.h`:
+By default, two axes and eight buttons are defined, with a reported resolution of 8 bits (-127 to +127). This can be changed in your `config.h`:
 
 ```c
-// Max 32
+// Min 0, max 32
 #define JOYSTICK_BUTTON_COUNT 16
-// Max 6: X, Y, Z, Rx, Ry, Rz
-#define JOYSTICK_AXES_COUNT 3
+// Min 0, max 6: X, Y, Z, Rx, Ry, Rz
+#define JOYSTICK_AXIS_COUNT 3
+// Min 8, max 16
+#define JOYSTICK_AXIS_RESOLUTION 10
 ```
 
-When defining axes for your joystick, you have to provide a definition array. You can do this from your keymap.c file.
-A joystick will either be read from an input pin that allows the use of the ADC, or can be virtual, so that its value is provided by your code.
-You have to define an array of type ''joystick_config_t'' and of proper size.
+?> You must define at least one button or axis. Also note that the maximum ADC resolution of the supported AVR MCUs is 10-bit, and 12-bit for most STM32 MCUs.
 
-There are three ways for your circuit to work with the ADC, that relies on the use of 1, 2 or 3 pins of the MCU:
- * 1 pin: your analog device is directly connected to your device GND and VCC. The only pin used is the ADC pin of your choice.
- * 2 pins: your analog device is powered through a pin that allows toggling it on or off. The other pin is used to read the input value through the ADC.
- * 3 pins: both the power input and ground are connected to pins that must be set to a proper state before reading and restored afterwards.
+### Axes :id=axes
 
-The configuration of each axis is performed using one of four macros:
- * `JOYSTICK_AXIS_VIRTUAL`: no ADC reading must be performed, that value will be provided by keyboard/keymap-level code
- * `JOYSTICK_AXIS_IN(INPUT_PIN, LOW, REST, HIGH)`: a voltage will be read on the provided pin, which must be an ADC-capable pin.
- * `JOYSTICK_AXIS_IN_OUT(INPUT_PIN, OUTPUT_PIN, LOW, REST, HIGH)`: the provided `OUTPUT_PIN` will be set high before `INPUT_PIN` is read.
- * `JOYSTICK_AXIS_IN_OUT_GROUND(INPUT_PIN, OUTPUT_PIN, GROUND_PIN, LOW, REST, HIGH)`: the `OUTPUT_PIN` will be set high and `GROUND_PIN` will be set low before reading from `INPUT_PIN`.
+When defining axes for your joystick, you must provide a definition array typically in your `keymap.c`.
 
-In any case where an ADC reading takes place (when `INPUT_PIN` is provided), additional `LOW`, `REST` and `HIGH` parameters are used.
-These implement the calibration of the analog device by defining the range of read values that will be mapped to the lowest, resting position and highest possible value for the axis (-127 to 127).
-In practice, you have to provide the lowest/highest raw ADC reading, and the raw reading at resting position, when no deflection is applied. You can provide inverted `LOW` and `HIGH` to invert the axis.
-
-For instance, an axes configuration can be defined in the following way:
+For instance, the below example configures two axes. The X axis is read from the `A4` pin. With the default axis resolution of 8 bits, the range of values between 900 and 575 are scaled to -127 through 0, and values 575 to 285 are scaled to 0 through 127. The Y axis is configured as a virtual axis, and its value is not read from any pin. Instead, the user must update the axis value programmatically.
 
 ```c
-//joystick config
 joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
-    [0] = JOYSTICK_AXIS_IN_OUT_GROUND(A4, B0, A7, 900, 575, 285),
-    [1] = JOYSTICK_AXIS_VIRTUAL
+    JOYSTICK_AXIS_IN(A4, 900, 575, 285),
+    JOYSTICK_AXIS_VIRTUAL
 };
 ```
 
-When the ADC reads 900 or higher, the returned axis value will be -127, whereas it will be 127 when the ADC reads 285 or lower. Zero is returned when 575 is read.
+Axes can be configured using one of the following macros:
 
-In this example, the first axis will be read from the `A4` pin while `B0` is set high and `A7` is set low, using `analogReadPin()`, whereas the second axis will not be read.
+ * `JOYSTICK_AXIS_IN(input_pin, low, rest, high)`  
+   The ADC samples the provided pin. `low`, `high` and `rest` correspond to the minimum, maximum, and resting (or centered) analog values of the axis, respectively.
+ * `JOYSTICK_AXIS_IN_OUT(input_pin, output_pin, low, rest, high)`  
+   Same as `JOYSTICK_AXIS_IN()`, but the provided `output_pin` will be pulled high before `input_pin` is read.
+ * `JOYSTICK_AXIS_IN_OUT_GROUND(input_pin, output_pin, ground_pin, low, rest, high)`  
+   Same as `JOYSTICK_AXIS_IN_OUT()`, but the provided `ground_pin` will be pulled low before reading from `input_pin`.
+ * `JOYSTICK_AXIS_VIRTUAL`  
+   No ADC reading is performed. The value should be provided by user code.
 
-#### Virtual Axes
+The `low` and `high` values can be swapped to effectively invert the axis.
 
-To give a value to virtual axes, call `joystick_set_axis(axis, value)`.
+#### Virtual Axes :id=virtual-axes
 
-The following example adjusts two virtual axes (X and Y) based on keypad presses, with `KC_P5` as a precision modifier:
+The following example adjusts two virtual axes (X and Y) based on keypad presses, with `KC_P0` as a precision modifier:
 
 ```c
 joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
-    [0] = JOYSTICK_AXIS_VIRTUAL, // x
-    [1] = JOYSTICK_AXIS_VIRTUAL  // y
+    JOYSTICK_AXIS_VIRTUAL, // x
+    JOYSTICK_AXIS_VIRTUAL  // y
 };
 
 static bool precision = false;
@@ -110,7 +92,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_P6:
             joystick_set_axis(0, record->event.pressed ? precision_val : 0);
             return false;
-        case KC_P5:
+        case KC_P0:
             precision = record->event.pressed;
             return false;
     }
@@ -118,13 +100,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-### Axis Resolution
-
-By default, the resolution of each axis is 8 bit, giving a range of -127 to +127. If you need higher precision, you can increase it by defining eg. `JOYSTICK_AXES_RESOLUTION 12` in your `config.h`. The resolution must be between 8 and 16.
-
-Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MCUs.
-
-### Keycodes
+## Keycodes :id=keycodes
 
 |Key                    |Aliases|Description|
 |-----------------------|-------|-----------|
