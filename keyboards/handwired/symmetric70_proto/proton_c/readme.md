@@ -1,6 +1,8 @@
 # Proton C version of symmetric70_proto
 
-![symmetric70_proto](https://i.imgur.com/SCtlXOS.jpg)
+![sym70_proton](https://user-images.githubusercontent.com/2170248/204006002-4b9c85b6-e484-44e4-be50-b8f372faa97d.png)
+<img width="40%" alt="sym70_proton_zoom" src=
+"https://user-images.githubusercontent.com/2170248/204006036-9574717d-5916-4214-9961-a9dc370e99c8.png">
 
 A compact 70keys keyboard (prototype) designed by mtei
 

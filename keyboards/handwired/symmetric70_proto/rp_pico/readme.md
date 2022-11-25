@@ -1,6 +1,8 @@
 #  Raspberry Pi Pico version of symmetric70_proto
 
-![symmetric70_proto](https://user-images.githubusercontent.com/2170248/201344543-9499fa47-40f6-40fe-8e4d-aa274a7c9935.png)
+![sym70_pico](https://user-images.githubusercontent.com/2170248/204007204-2196b9ce-c50d-4461-a64a-1e775c2e1cc1.png)
+<img width="45%" alt="sym70_pico_zoom" src="https://user-images.githubusercontent.com/2170248/204007369-5e384096-85c5-49ac-8e3f-18caa0d50fc4.png"> <img width="45%" alt="sym70_pico_zoom2" src="https://user-images.githubusercontent.com/2170248/204007392-fbedcfbe-1f5c-4998-adbd-08e2e82b9a2e.png">
+
 
 A compact 70keys keyboard (prototype) designed by mtei
 

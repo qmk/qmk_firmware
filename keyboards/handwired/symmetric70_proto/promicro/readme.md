@@ -1,7 +1,7 @@
 # Pro Micro version of symmetric70_proto
 
-![symmetric70_proto](https://i.imgur.com/Br4pH9ol.jpg)
-<img width="80%" alt="matrix_74HC157d" src="https://user-images.githubusercontent.com/2170248/115988014-a3943580-a5f2-11eb-9a0a-038f7ea6a8d9.png">
+![sym70_promicro](https://user-images.githubusercontent.com/2170248/204003678-8a9316cb-b9c1-4bf3-a05a-264c31bbc3e1.png)
+<img width="50%" alt="matrix_74HC157d" src="https://user-images.githubusercontent.com/2170248/115988014-a3943580-a5f2-11eb-9a0a-038f7ea6a8d9.png"> <img width="40%" alt="sym70_promicro_zoom" src="https://user-images.githubusercontent.com/2170248/204003760-bf16bc04-c5fa-46d1-bece-a0815189e1fb.png">
 
 A compact 70keys keyboard (prototype) designed by mtei
 
