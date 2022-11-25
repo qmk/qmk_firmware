@@ -18,6 +18,7 @@
 		"nkro": true,
 		"rgblight": true,
 		"encoder": true,
+		"encoder_map": true,
 		"oled": true,
 		"audio": false,
 		"split": true,
