@@ -10,7 +10,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb crowboard -km default
+    make crowboard:default
 
 Flashing example for this keyboard:
 
