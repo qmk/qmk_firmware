@@ -16,8 +16,6 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
 
-#define SERIAL_PIO_USE_PIO0
-
 // #define SERIAL_USART_PIN_SWAP
 
 #define DIRECT_PINS {{GP6,  GP5,  GP4,    GP3,    GP2}, \
