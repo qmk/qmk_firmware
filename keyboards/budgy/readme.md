@@ -1,6 +1,6 @@
 # budgy
 
-![budgy](https://i.imgur.com/6kjxmSM.jpeg)
+![budgy](https://i.imgur.com/6kjxmSMh.jpeg)
 
 34 key, diodeless, RP2040 based, budget keyboard.
 
