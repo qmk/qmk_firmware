@@ -1,6 +1,6 @@
 # crowboard
 
-![crowboard](https://i.imgur.com/Rg7IYPw.jpg)
+![crowboard](https://i.imgur.com/Rg7IYPwh.jpg)
 
 *RP2040 based 36 key keyboard*
 
