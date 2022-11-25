@@ -22,7 +22,7 @@
 #define LT_UP LT(0,KC_UP)
 #define LT_LEFT LT(0,KC_LEFT)
 #define SWAPPWIN_TAB LT(0,KC_TAB)
-#define ENT_BTN2 LT(0,KC_ENT)
+#define MOD_ENT LT(0,KC_ENT)
 #define BIG_F LT(0,CT_F)
 /* Home row mods */
 #define HOME_S LGUI_T(KC_S)
@@ -31,6 +31,7 @@
 #define HOME_N RCTL_T(KC_N)
 #define HOME_E RALT_T(KC_E)
 #define HOME_A RGUI_T(KC_A)
+#define HOME_P LT(_NUM,KC_P)
 
 
 enum planck_layers {
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ISRT] = LAYOUT_ortho_4x12(
     KC_TAB,  KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     KC_F,     KC_U,    KC_COMM, KC_QUOT, KC_DEL,
-    KC_ESC,  KC_I,    HOME_S,  HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  HOME_A,  KC_O,    KC_ENT,
+    KC_ESC,  KC_I,    HOME_S,  HOME_R,  HOME_T,  KC_G,   HOME_P,   HOME_N,   HOME_E,  HOME_A,  KC_O,    KC_ENT,
     KC_LSFT, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    KC_RSFT,
     CAPSWRD, KC_LCTL, KC_LALT, KC_LGUI, MOD_SPC, SYMBOL, FUNCTION, BSP_DWRD, NAV,     KC_LGUI, KC_LEFT, KC_RGHT
     ),
@@ -107,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,  KC_SLSH, KC_1,    KC_2,    KC_3,    KC_PLUS, KC_NO, KC_NO,   KC_NO, KC_COMM,  KC_NO, KC_DEL,
     KC_ESC, KC_0,    KC_4,    KC_5,    KC_6,    KC_MINS, KC_NO, KC_NO,   KC_NO, KC_NO,    KC_NO, KC_ENT,
     KC_NO,  KC_ASTR, KC_7,    KC_8,    KC_9,    KC_EQL,  KC_NO, KC_NO,   KC_NO, KC_DOT,   KC_NO, KC_RSFT,
-    KC_NO,  KC_LCTL, KC_LALT, KC_LGUI, MOD_SPC, HOME,    KC_NO, KC_BSPC, KC_NO, KC_NO,    KC_NO, KC_NO
+    KC_NO,  KC_LCTL, KC_LALT, KC_LGUI, MOD_SPC, HOME,    MEDIA, KC_BSPC, KC_NO, KC_NO,    KC_NO, KC_NO
     ),
 
   /* FUNCTION
@@ -162,9 +163,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MEDIA] = LAYOUT_ortho_4x12(
     KC_WH_U, KC_Y,    KC_C,    KC_L,    KC_M,    KC_K,   KC_Z,     BIG_F,    KC_U,    KC_COMM, KC_QUOT, KC_ESC,
-    KC_WH_D, KC_I,    KC_S,    HOME_R,  HOME_T,  KC_G,   KC_P,     HOME_N,   HOME_E,  KC_A,    KC_O,    ENT_BTN2,
+    KC_WH_D, KC_I,    HOME_S,  HOME_R,  HOME_T,  KC_G,   HOME_P,   HOME_N,   HOME_E,  HOME_A,  KC_O,    MOD_ENT,
     KC_BTN1, KC_Q,    KC_V,    KC_W,    KC_D,    KC_J,   KC_B,     KC_H,     KC_SLSH, KC_DOT,  KC_X,    SW_APP,
-    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MOD_SPC, HOME,   FUNCTION, BSP_DWRD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, MOD_SPC, HOME,   TO(_NUM), BSP_DWRD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     )
 
 };
@@ -231,9 +232,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       tap_code16(S(KC_F));
     }
     return false;
-  case ENT_BTN2:
+  case MOD_ENT:
     if (isHeld) {
-      tap_code16(KC_BTN2);
+      SEND_STRING(SS_TAP(X_BTN2)
+		  SS_DELAY(100)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_DOWN)
+  	          SS_DELAY(10)
+		  SS_TAP(X_ENT)
+  	          SS_DELAY(500)
+		  SS_TAP(X_ENT));
       return false;
     }
     return true;
@@ -347,6 +370,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
   case HOME_T:
     return TAPPING_TERM + 200;
   case HOME_N:
+    return TAPPING_TERM + 200;
+  case HOME_P:
     return TAPPING_TERM + 200;
   case HOME_E:
     return TAPPING_TERM + 200;
