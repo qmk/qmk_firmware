@@ -46,7 +46,7 @@
 #define MTLCTL_F5 MT(MOD_LCTL, KC_F5)
 #define MTLSFT_F6 MT(MOD_LSFT, KC_F6)
 #define MTLALT_F7 MT(MOD_LALT, KC_F7)
-#define MTLALT_PDOT MT(MOD_LALT, KC_DOT)
+#define MTLALT_DOT MT(MOD_LALT, KC_DOT)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTLGUI_X MT(MOD_LGUI, KC_X)
 #define MTLALT_PL MT(MOD_LALT, KC_MPLY)
@@ -55,7 +55,7 @@
 #define MTRSFTBSLS MT(MOD_RSFT, KC_BSLS)
 #define MTRCTLQUO MT(MOD_RCTL, KC_QUOT)
 #define MTTAB MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_TAB)
-#define MTESC MT(MOD_LCTL | MOD_LGUI | MOD_LALT | MOD_LSHFT, KC_ESC)
+#define MTESC MT(MOD_LCTL | MOD_LGUI | MOD_LALT | MOD_LSFT, KC_ESC)
 #define RSE_DEL LT(_RAISE, KC_DEL)
 #define FN_A LT(_FN, KC_A)
 #define FN_R LT(_FN, KC_R)
@@ -67,8 +67,6 @@
 #define KC_PTXT LCTL(LSFT(KC_V))
 #define KC_UNDO LCTL(KC_Z)
 #define KC_REDO LCTL(KC_Y)
-#define QK_BOOT RESET
-#define DB_TOGG DEBUG
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -87,7 +85,9 @@ enum planck_keycodes {
   BRACES2,
   ARROW,
   ALT_TAB,
-  LLOCK
+  LLOCK,
+  SELWRIGHT,
+  SELWLEFT
 };
 
 // // ****UNCOMMENT IF GOING TO USE TAP DANCE FEATURES AGAIN *****
@@ -217,21 +217,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* MIT Layout (LOWER)
- * XZ
- * ,-----------------------------------------------------------------------.
- * |  `  |  !  |  #  |  $  |  [  |  ]  |LLOCK|  7  |  8  |  9  |  :  | Bsp |
- * |-----------------------------------------------------------------------|
- * |S(TAB)| ~  |  ^  |  %  |  (  |  )  |  =  |  4  |  5  |  6  |  -  |  +  |
- * |-----------------------------------------------------------------------|
- * |Shift|  <  |  >  |  &  |  {  |  }  |  @  |  1  |  2  |  3  |  /  |  *  |
+ *
+ * ,----------------------------------------------------------------------.
+ * |  `  |  !  |  #  |  [  |  ]  |  $  |LLOCK|  7  |  8  |  9  |  :  | Bsp |
+ * |----------------------------------------------------------------------|
+ * |S(TAB)| ~  |  ^  |  (  |  )  |  %  |  =  |  4  |  5  |  6  |  -  |  +  |
+ * |----------------------------------------------------------------------|
+ * |Shift|  <  |  >  |  {  |  }  |  &  |  @  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
  * |     |     |    |Ctl,Ent|    |           |  0  |  .  |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
-  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, LLOCK,   KC_7,  KC_8,       KC_9,   KC_COLN, KC_BSPC,
-  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN, KC_EQL,  KC_4,  KC_5,       KC_6,   KC_PMNS, KC_PPLS,
-  KC_TRNS,   KC_LABK, KC_RABK, KC_AMPR, KC_LCBR, KC_RCBR, KC_AT,   KC_1,  KC_2,       KC_3,   KC_PSLS, KC_PAST,
+  KC_GRV,    KC_EXLM, KC_HASH, KC_LBRC, KC_RBRC, KC_DLR,  LLOCK,   KC_7,  KC_8,       KC_9,   KC_COLN, KC_BSPC,
+  S(KC_TAB), KC_TILD, KC_CIRC, KC_LPRN, KC_RPRN, KC_PERC, KC_EQL,  KC_4,  KC_5,       KC_6,   KC_PMNS, KC_PPLS,
+  KC_TRNS,   KC_LABK, KC_RABK, KC_LCBR, KC_RCBR, KC_AMPR, KC_AT,   KC_1,  KC_2,       KC_3,   KC_PSLS, KC_PAST,
   KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, MTLALT_DOT, KC_NO,  KC_NO,   KC_NO
 ),
 
@@ -267,7 +267,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, F9,        F10,        F11,        KC_F12,  KC_MYCM, LLOCK,   KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
+  KC_TRNS, KC_F9,        KC_F10,        KC_F11,        KC_F12,  KC_MYCM, LLOCK,   KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
   KC_TRNS, MTLCTL_F5, MTLSFT_F6,  MTLALT_F7,  KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,  KC_CAPS,
   KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALT_TAB, KC_CALC, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS,
   KC_NO,   KC_NO,     KC_NO,      KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
@@ -288,7 +288,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
   KC_TRNS, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_NO,   LLOCK,     KC_NO,   KC_BTN3, KC_TRNS, RGB_HUI, RGB_TOG,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
   KC_TRNS, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_TRNS, KC_BTN2, RGB_HUD, AU_ON,
-  DEBUG,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, AU_OFF,
+  KC_NO,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, AU_OFF,
   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 )
 };
@@ -474,7 +474,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           tap_code16(LCTL(LSFT(KC_LEFT)));
         }
         break;
-        case SELWRIGHT:
+    case SELWRIGHT:
         if (record->event.pressed){
           tap_code16(LCTL(LSFT(KC_RGHT)));
         }
