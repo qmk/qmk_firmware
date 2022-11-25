@@ -1,4 +1,4 @@
-# Boardsource Michi MCU settings for converting AVR projects
+# Michi MCU settings for converting AVR projects
 MCU := RP2040
 BOARD := QMK_PM2040
 BOOTLOADER := rp2040
