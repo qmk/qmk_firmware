@@ -354,6 +354,9 @@ void keyboard_init(void) {
 #ifdef SPLIT_KEYBOARD
     split_pre_init();
 #endif
+#ifdef ENCODER_ENABLE
+    encoder_init();
+#endif
     matrix_init();
     quantum_init();
 #if defined(CRC_ENABLE)
@@ -373,9 +376,6 @@ void keyboard_init(void) {
 #endif
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
-#endif
-#ifdef ENCODER_ENABLE
-    encoder_init();
 #endif
 #ifdef STENO_ENABLE_ALL
     steno_init();
