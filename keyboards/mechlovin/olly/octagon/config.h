@@ -95,5 +95,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
-#define VIA_QMK_LED_MATRIX_ENABLE
 #endif
