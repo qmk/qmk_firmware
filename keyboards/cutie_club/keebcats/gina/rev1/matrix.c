@@ -2,24 +2,12 @@
 #include <stdbool.h>
 #include "quantum.h"
 #include "i2c_master.h"
+#include "lib/i2c_helpers.h"
 #include "mcp23X17/mcp23X17.h"
 #include "print.h"
 
 static const mcp_gpio_pin row_pins[MATRIX_ROWS] = MCP_ROW_PINS;
 static const mcp_gpio_pin column_pins[MATRIX_COLS] = MCP_COL_PINS;
-
-static void i2c_updateRegBit(uint8_t devaddr, uint8_t register_to_update, uint8_t bit, uint8_t value, uint16_t timeout) {
-    uint8_t register_data;
-    i2c_readReg(MCP_ADDRESS, register_to_update, &register_data, 1, timeout);
-
-    if(value) {
-        register_data |= 1 << bit;
-    } else {
-        register_data &= ~(1 << bit);
-    }
-
-    i2c_writeReg(MCP_ADDRESS, register_to_update, &register_data, 1, timeout);
-}
 
 static void mcp_set_pin_direction(mcp_gpio_pin pin, mcp_gpio_dir dir) {
     uint8_t register_to_update_direction = BANK0_REGISTER_FOR_PIN(pin, IODIR);

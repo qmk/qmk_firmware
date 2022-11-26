@@ -20,3 +20,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 DEFAULT_FOLDER = cutie_club/keebcats/gina/rev1
+SRC += i2c_master.c \
+	   ../lib/i2c_helpers.c
