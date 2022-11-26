@@ -19,45 +19,48 @@
 #include "analog.h"
 #include "wait.h"
 
-// clang-format off
-joystick_t joystick_status = {
+joystick_t joystick_state = {
     .buttons = {0},
-    .axes = {
-#if JOYSTICK_AXES_COUNT > 0
-        0
+    .axes =
+        {
+#if JOYSTICK_AXIS_COUNT > 0
+            0
 #endif
-    },
-    .status = 0
+        },
+    .dirty = false,
 };
-// clang-format on
 
 // array defining the reading of analog values for each axis
-__attribute__((weak)) joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {};
+__attribute__((weak)) joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {};
 
 __attribute__((weak)) void joystick_task(void) {
     joystick_read_axes();
 }
 
 void joystick_flush(void) {
-    if ((joystick_status.status & JS_UPDATED) > 0) {
-        host_joystick_send(&joystick_status);
-        joystick_status.status &= ~JS_UPDATED;
+    if (joystick_state.dirty) {
+        host_joystick_send(&joystick_state);
+        joystick_state.dirty = false;
     }
 }
 
 void register_joystick_button(uint8_t button) {
-    joystick_status.buttons[button / 8] |= 1 << (button % 8);
-    joystick_status.status |= JS_UPDATED;
+    if (button >= JOYSTICK_BUTTON_COUNT) return;
+    joystick_state.buttons[button / 8] |= 1 << (button % 8);
+    joystick_state.dirty = true;
     joystick_flush();
 }
 
 void unregister_joystick_button(uint8_t button) {
-    joystick_status.buttons[button / 8] &= ~(1 << (button % 8));
-    joystick_status.status |= JS_UPDATED;
+    if (button >= JOYSTICK_BUTTON_COUNT) return;
+    joystick_state.buttons[button / 8] &= ~(1 << (button % 8));
+    joystick_state.dirty = true;
     joystick_flush();
 }
 
 int16_t joystick_read_axis(uint8_t axis) {
+    if (axis >= JOYSTICK_AXIS_COUNT) return 0;
+
     // disable pull-up resistor
     writePinLow(joystick_axes[axis].input_pin);
 
@@ -93,24 +96,24 @@ int16_t joystick_read_axis(uint8_t axis) {
     // test the converted value against the lower range
     int32_t ref        = joystick_axes[axis].mid_digit;
     int32_t range      = joystick_axes[axis].min_digit;
-    int32_t ranged_val = ((axis_val - ref) * -JOYSTICK_RESOLUTION) / (range - ref);
+    int32_t ranged_val = ((axis_val - ref) * -JOYSTICK_MAX_VALUE) / (range - ref);
 
     if (ranged_val > 0) {
         // the value is in the higher range
         range      = joystick_axes[axis].max_digit;
-        ranged_val = ((axis_val - ref) * JOYSTICK_RESOLUTION) / (range - ref);
+        ranged_val = ((axis_val - ref) * JOYSTICK_MAX_VALUE) / (range - ref);
     }
 
     // clamp the result in the valid range
-    ranged_val = ranged_val < -JOYSTICK_RESOLUTION ? -JOYSTICK_RESOLUTION : ranged_val;
-    ranged_val = ranged_val > JOYSTICK_RESOLUTION ? JOYSTICK_RESOLUTION : ranged_val;
+    ranged_val = ranged_val < -JOYSTICK_MAX_VALUE ? -JOYSTICK_MAX_VALUE : ranged_val;
+    ranged_val = ranged_val > JOYSTICK_MAX_VALUE ? JOYSTICK_MAX_VALUE : ranged_val;
 
     return ranged_val;
 }
 
 void joystick_read_axes() {
-#if JOYSTICK_AXES_COUNT > 0
-    for (int i = 0; i < JOYSTICK_AXES_COUNT; ++i) {
+#if JOYSTICK_AXIS_COUNT > 0
+    for (int i = 0; i < JOYSTICK_AXIS_COUNT; ++i) {
         if (joystick_axes[i].input_pin == JS_VIRTUAL_AXIS) {
             continue;
         }
@@ -123,8 +126,10 @@ void joystick_read_axes() {
 }
 
 void joystick_set_axis(uint8_t axis, int16_t value) {
-    if (value != joystick_status.axes[axis]) {
-        joystick_status.axes[axis] = value;
-        joystick_status.status |= JS_UPDATED;
+    if (axis >= JOYSTICK_AXIS_COUNT) return;
+
+    if (value != joystick_state.axes[axis]) {
+        joystick_state.axes[axis] = value;
+        joystick_state.dirty      = true;
     }
 }
