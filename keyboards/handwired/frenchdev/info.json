@@ -1,7 +1,12 @@
 {
+  "keyboard_name": "Frenchdev V1",
+  "manufacturer": "Nicolas Poirey",
   "maintainer": "qmk",
-  "width": 20,
-  "height": 9.5,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1307",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

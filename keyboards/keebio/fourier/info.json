@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Fourier", 
+    "manufacturer": "Keebio",
     "url": "https://keeb.io", 
     "maintainer": "nooges", 
-    "width": 14, 
-    "height": 4, 
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x1247",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

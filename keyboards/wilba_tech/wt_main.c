@@ -27,7 +27,7 @@
 #include "via.h"
 
 #ifndef VIA_ENABLE
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #endif
 
@@ -35,9 +35,9 @@
 // Called from matrix_init_kb() if not VIA_ENABLE
 void via_init_kb(void)
 {
-    // If the EEPROM has the magic, the data is good.
-    // OK to load from EEPROM
-    if (via_eeprom_is_valid()) {
+    // This checks both an EEPROM reset (from bootmagic lite, keycodes)
+    // and also firmware build date (from via_eeprom_is_valid())
+    if (eeconfig_is_enabled()) {
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
         backlight_config_load();
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
@@ -89,15 +89,30 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
     process_record_backlight(keycode, record);
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 
-    return process_record_user(keycode, record);
-}
+    switch (keycode) {
+        case FN_MO13:
+            if (record->event.pressed) {
+                layer_on(1);
+                update_tri_layer(1, 2, 3);
+            } else {
+                layer_off(1);
+                update_tri_layer(1, 2, 3);
+            }
+            return false;
+            break;
+        case FN_MO23:
+            if (record->event.pressed) {
+                layer_on(2);
+                update_tri_layer(1, 2, 3);
+            } else {
+                layer_off(2);
+                update_tri_layer(1, 2, 3);
+            }
+            return false;
+            break;
+    }
 
-void led_set_kb(uint8_t usb_led)
-{
-#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    backlight_set_indicator_state(usb_led);
-#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    led_set_user(usb_led);
+    return process_record_user(keycode, record);
 }
 
 void suspend_power_down_kb(void)

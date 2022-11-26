@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5253
-#define PRODUCT_ID      0x4450
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ReverseStudio
-#define PRODUCT         DecadePad
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
@@ -34,13 +26,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* NIU Mini PCB default pin-out */
 #define MATRIX_ROW_PINS { F0, F1, F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { D0, D1, D2, D3 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
+
+#define LED_NUM_LOCK_PIN D4
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 /* Set 0 if debouncing isn't needed */
@@ -76,5 +70,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

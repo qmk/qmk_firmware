@@ -13,7 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 /* Keymap _0: (Base Layer) Default Layer
 
    * .-----.
-   * |PGUP | 
+   * |PGUP |
    * |-----------------.
    * |  7  |  8  |  9  |
    * |-----|-----|-----|
@@ -37,12 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT( 
+    [0] = LAYOUT(
 	    KC_PGUP,
-        KC_KP_7, KC_KP_8, MO(1), 
+        KC_KP_7, KC_KP_8, MO(1),
         KC_P4,   KC_P5,    KC_P6,
         KC_P1,   KC_P2,    KC_P3),
-    [1] = LAYOUT( 
+    [1] = LAYOUT(
         KC_NUMLOCK,
 		RGB_TOG, RGB_MOD, RGB_M_K,
         RGB_SAI, RGB_SAD, RGB_HUI,
@@ -54,18 +54,22 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) { render_logo(); }
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    render_logo();
+    return false;
+}
 #endif
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_PGDN);
         } else {
             tap_code(KC_PGUP);
         }
-  }
+    }
+    return true;
 }
 
 

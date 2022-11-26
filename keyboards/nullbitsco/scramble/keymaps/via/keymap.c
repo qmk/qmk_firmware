@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Jay Greco
+Copyright 2021 Jay Greco
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -52,10 +52,11 @@ void matrix_init_user(void) {
     set_scramble_LED(LED_OFF);
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
     } else {
         tap_code(KC_VOLD);
-    }   
+    }
+    return true;
 }

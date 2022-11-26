@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, RESET,
+     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, QK_BOOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, _______, RGB_VAD, RGB_VAI ,_______ ,                            KC_PSCR, KC_BTN1, KC_BTN2, KC_BTN3, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -134,9 +134,9 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-	
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
 
 	switch (get_highest_layer(layer_state)) {
 	    case _LOWER:
@@ -153,4 +153,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 		    tap_code(KC_PGUP);
 		}
 	}
+    return true;
 }

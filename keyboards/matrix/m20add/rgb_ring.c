@@ -21,7 +21,7 @@
 #include <string.h>
 #include "quantum.h"
 #include "rgblight.h"
-#include "issi/is31fl3731.h"
+#include "drivers/led/issi/is31fl3731.h"
 #include "i2c_master.h"
 
 
@@ -30,7 +30,7 @@
 #endif
 // rgb ring leds setting
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

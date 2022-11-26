@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Chimera65",
+    "manufacturer": "CannonKeys",
     "url": "https://cannonkeys.com",
     "maintainer": "awkannan",
-    "width": 16.5,
-    "height": 5.25,
+    "usb": {
+        "vid": "0xCA04",
+        "pid": "0xC024",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

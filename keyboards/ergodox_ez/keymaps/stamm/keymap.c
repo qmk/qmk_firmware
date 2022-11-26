@@ -24,8 +24,8 @@
 #define KC_PC_CUT LCTL(KC_X)
 #define KC_PC_COPY LCTL(KC_C)
 #define KC_PC_PASTE LCTL(KC_V)
-#define ES_LESS_MAC KC_GRAVE
-#define ES_GRTR_MAC LSFT(KC_GRAVE)
+#define ES_LABK_MAC KC_GRAVE
+#define ES_RABK_MAC LSFT(KC_GRAVE)
 #define ES_BSLS_MAC ALGR(KC_6)
 #define NO_PIPE_ALT KC_GRAVE
 #define NO_BSLS_ALT KC_EQUAL
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  _______,    _______,  _______,   _______,  _______,    _______,
   _______,  _______,    _______,  _______,   _______,  _______,
   _______,  _______,    _______,  _______,   _______,  _______,    _______,
-  RESET,    _______,    _______,  _______,   _______,
+  QK_BOOT,  _______,    _______,  _______,   _______,
                                               _______,  _______,
                                               _______,
                                               _______,  _______,    _______,

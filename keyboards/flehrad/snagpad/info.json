@@ -1,10 +1,13 @@
 {
     "keyboard_name": "Snagpad",
+    "manufacturer": "Flehrad",
     "url": "",
     "maintainer": "Flehrad",
-
-    "width": 4,
-    "height": 5,
+    "usb": {
+        "vid": "0x4443",
+        "pid": "0x5350",
+        "device_version": "0.0.1"
+    },
     "layouts": {
 
         "LAYOUT_ortho_5x4": {

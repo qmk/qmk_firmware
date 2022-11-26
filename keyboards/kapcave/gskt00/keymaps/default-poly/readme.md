@@ -1,0 +1,1 @@
+There was a private run of Polycarbonate cases. This keymap supports the underglow PCBs that shipped out with those, in addition to future underglow pcbs. These PCBs also had encoder support which is reflected in the keymap.

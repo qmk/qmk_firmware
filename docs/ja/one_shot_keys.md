@@ -1,9 +1,9 @@
 # ワンショットキー
 
 <!---
-  original document: 0.9.34:docs/one_shot_keys.md
-  git diff 0.9.34 HEAD -- docs/one_shot_keys.md | cat
--->
+  original document: 0.13.34:docs/one_shot_keys.md
+  git diff 0.13.34 HEAD -- docs/one_shot_keys.md | cat
+--->
 
 ワンショットキーは次のキーが押されるまでアクティブのままになり、そのあと放されるキーです。これにより一度に1つ以上のキーを押すことなく、キーボードの組み合わせを入力することができます。これらのキーは通常「スティッキーキー」あるいは「デッドキー」と呼ばれます。
 
@@ -22,12 +22,15 @@
 
 * `OSM(mod)` - *mod*を一時的に押し続けます。[モッドタップ](ja/mod_tap.md)で示したように、`KC_*` コードでは無く、`MOD_*` キーコードを使わなければなりません。
 * `OSL(layer)` - 一時的に*レイヤー*に切り替えます。
+* `OS_ON` - ワンショットキーをオンにします。
+* `OS_OFF` - ワンショットキーをオフにします。OSM は通常の mod キーのように機能し、OSL は `MO` キーのように機能します。
+* `OS_TOGG` - ワンショットキーの状態を切り替えます。
 
 ワンショットキーをマクロあるいはタップダンスルーチンの一部として有効にしたい場合があります。
 
-ワンショットレイヤーについては、キーを押した時に `set_oneshot_layer(LAYER, ONESHOT_START)` を呼び出し、キーを放した時に `clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED)` を呼び出す必要があります。ワンショットをキャンセルする場合は、`reset_oneshot_layer()` を呼び出してください。
+ワンショットレイヤーについては、キーを押した時に `set_oneshot_layer(LAYER, ONESHOT_START)` を呼び出し、キーを放した時に `clear_oneshot_layer_state(ONESHOT_PRESSED)` を呼び出す必要があります。ワンショットをキャンセルする場合は、`reset_oneshot_layer()` を呼び出してください。
 
-ワンショットモッドについては、設定するためには `set_oneshot_mods(MOD)` を呼び出し、キャンセルするためには `clear_oneshot_mods()` を呼び出す必要があります。
+ワンショットモッドについては、設定するためには `set_oneshot_mods(MOD_BIT(KC_*))` を呼び出し、キャンセルするためには `clear_oneshot_mods()` を呼び出す必要があります。
 
 !> リモートデスクトップ接続で OSM 変換に問題がある場合は、設定を開いて「ローカル リソース」タブに移動し、キーボードセクションでドロップダウンを「このコンピューター」に変更することで修正することができます。これにより問題が修正され、OSM がリモートデスクトップ上で適切に動作するようになります。
 

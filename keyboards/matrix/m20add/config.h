@@ -7,13 +7,6 @@
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID  0x4D58   // MX
-#define PRODUCT_ID 0x20AD   // 8XV2.0 Additional
-#define DEVICE_VER 0x0001
-#define MANUFACTURER MATRIX
-#define PRODUCT 8XV2.0 Additional
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -75,15 +68,14 @@
     DEF_PIN(TCA6424_PORT0, 2), \
     DEF_PIN(TCA6424_PORT0, 1) }
 
-#define UNUSED_PINS
 
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE    5
 
 // i2c setting
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 

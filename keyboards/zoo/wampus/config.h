@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x0200
-#define PRODUCT_ID   0xE600
-#define DEVICE_VER   0x0001
-#define MANUFACTURER zoo.haus
-#define PRODUCT      Wampus
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C13, C14, A5, A4, A3 }
 #define MATRIX_COL_PINS { A10, A9, A8, B12, A15, A13, A7, A2, A1, A0, F1, F0, B3, B4, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -67,6 +59,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // SPI RGB Driver
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13
 
 // OLED defines
 #define OLED_TIMEOUT 60000
@@ -85,7 +79,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

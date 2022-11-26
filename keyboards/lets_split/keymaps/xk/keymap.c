@@ -301,7 +301,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_GRVTABL] =  LAYOUT( \
-    TG(5),LALT(KC_PSCR),    M(4),  KC_PWR,KC_POWER,   RESET,           RESET,    KC_R,    KC_E,    KC_I,LALT(KC_PSCR),TG(3), \
+    TG(5),LALT(KC_PSCR),    M(4),  KC_PWR,KC_POWER,   QK_BOOT,         QK_BOOT,  KC_R,    KC_E,    KC_I,LALT(KC_PSCR),TG(3), \
     TG(1),        TG(6),   TG(7),   TG(9),   TG(3),   TG(2),           TG(2),    KC_S,    KC_U,    KC_B,   TG(6),   TG(1), \
      M(3),        TG(8), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,         KC_MYCM, KC_CALC, XXXXXXX, XXXXXXX,   TG(8),    M(3), \
    TT(15),        TG(6),   TG(7),   TG(9),   TG(3),   TG(2),           TG(2),   TG(3),   TG(9),   TG(7),   TG(6), _______ \

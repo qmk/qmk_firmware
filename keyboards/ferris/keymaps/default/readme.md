@@ -111,7 +111,7 @@ To edit it, you may:
 If you decide to use the latter workflow, here are the steps to follow:
 
 * From the qmk configurator, hit the "import QMK keymap json file" button (it has a drawing with an up arrow on it).
-* Browse to the location of your keymap (for example, `<your qmk repo>/keyboards/handwired/ferris/keymaps/default/keymap.json`)
+* Browse to the location of your keymap (for example, `<your qmk repo>/keyboards/ferris/keymaps/default/keymap.json`)
 * Perform any modification to the keymap in the web UI
 * Export the keymap to your downloads folder, by hitting the "Export QMK keymap json file" button (it has a drawing with a down arrow on it)
 * Override your original keymap with the output of formatting the exported keymap by running a command such as this one from the root of your qmk repo:

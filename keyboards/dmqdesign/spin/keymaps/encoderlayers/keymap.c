@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         switch (currentLayer) {     //break each encoder update into a switch statement for the current layer
             case _BL:
@@ -124,6 +124,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
+    return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) { //This will run every time the layer is updated

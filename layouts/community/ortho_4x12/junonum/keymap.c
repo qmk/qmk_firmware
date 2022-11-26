@@ -27,34 +27,44 @@ enum planck_keycodes {
     DP_OFF
 };
 
-#define SHIFTEN RSFT_T(KC_ENT)
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define SPACEFN LT(_FN1, KC_SPC)
 #define DPADNUM MO(_DPADNUM)
-#define CTRLTAB CTL_T(KC_TAB)
+
+// Homerow mods
+#define MD_A    LALT_T(KC_A)
+#define MD_S    LGUI_T(KC_S)
+#define MD_D    LCTL_T(KC_D)
+#define MD_F    LSFT_T(KC_F)
+
+#define MD_J    RSFT_T(KC_J)
+#define MD_K    RCTL_T(KC_K)
+#define MD_L    RGUI_T(KC_L)
+#define MD_SCLN RALT_T(KC_SCLN)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY] = LAYOUT_ortho_4x12(
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-        CTRLTAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTEN,
-        _______, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
+        KC_TAB,  MD_A,    MD_S,    MD_D,    MD_F,    KC_G,    KC_H,    MD_J,    MD_K,    MD_L,    MD_SCLN, KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+        _______, KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
         ),
 
     [_COLEMAK] = LAYOUT_ortho_4x12(
         KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
-        CTRLTAB, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTEN,
-        _______, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
+        KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+        _______, KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
     ),
 
     [_DVORAK] = LAYOUT_ortho_4x12(
         KC_ESC,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC,
-        CTRLTAB, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_QUOT,
-        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SHIFTEN,
-        _______, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
+        KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_QUOT,
+        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT ,
+        _______, KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
     ),
 
     [_LOWER] = LAYOUT_ortho_4x12(
@@ -67,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RAISE] = LAYOUT_ortho_4x12(
         KC_GRV,  _______, _______, KC_LBRC, KC_RBRC, _______, _______, KC_7,    KC_8,    KC_9,   KC_0,     _______,
         _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, KC_4,    KC_5,    KC_6,   KC_MINUS, KC_BSLS,
-        _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,   KC_EQUAL, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,   KC_EQUAL, KC_ENT,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MPLY
     ),
 
@@ -79,15 +89,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ADJUST] = LAYOUT_ortho_4x12(
-        _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
-        _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK,  PLOVER,  _______,
+        _______, QK_BOOT, DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
+        _______, AG_NORM, MU_MOD,  AU_ON,   AU_OFF,  CG_NORM, CG_SWAP, QWERTY,  COLEMAK,  DVORAK,  PLOVER,  _______,
         _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
     ),
 
     [_FN1] = LAYOUT_ortho_4x12(
-        KC_MENU, DP_ON,   KC_PGDN, KC_UP,   KC_PGUP, KC_INS,  _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, _______,
-        KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_DEL ,
+        KC_APP,  DP_ON,   KC_PGDN, KC_UP,   KC_PGUP, KC_INS,  KC_CAPS, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, _______,
+        _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_DEL ,
         _______, _______, _______, _______, _______, KC_END,  KC_END,  _______, KC_VOLD, KC_VOLU, KC_MUTE, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, DP_ON,   _______, _______, _______
     ),
@@ -97,15 +107,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT ,
-        XXXXXXX, KC_LCTL, KC_LALT, KC_LGUI, DPADNUM, KC_SPC,  KC_SPC,  LOWER,   DP_OFF,  KC_LEFT, KC_DOWN, KC_RGHT
+        XXXXXXX, KC_LCTL, KC_LGUI, KC_LALT, DPADNUM, KC_SPC,  KC_SPC,  DPADNUM, DP_OFF,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     // Extended numeric layer for FPS weapon switching and StarCraft group control
     [_DPADNUM] = LAYOUT_ortho_4x12(
-        KC_LGUI, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    XXXXXXX, XXXXXXX, DP_OFF,  XXXXXXX,
-        KC_LCTL, _______, KC_8,    KC_9,    KC_0,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_SLSH,
-        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
-        _______, _______, _______, _______, DPADNUM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        KC_LGUI, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DP_OFF,  XXXXXXX,
+        KC_LCTL, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX, KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
+        KC_LSFT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_SLSH, XXXXXXX,
+        _______, _______, _______, _______, DPADNUM, XXXXXXX, XXXXXXX, DPADNUM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
@@ -268,7 +278,7 @@ uint16_t muse_counter   = 0;
 uint8_t  muse_offset    = 70;
 uint16_t muse_tempo     = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (muse_mode) {
         if (IS_LAYER_ON(_RAISE)) {
             if (clockwise) {
@@ -290,9 +300,10 @@ void encoder_update(bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
+    return true;
 }
 
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
@@ -317,6 +328,7 @@ void dip_update(uint8_t index, bool active) {
 #endif
             }
     }
+    return true;
 }
 
 void matrix_scan_user(void) {

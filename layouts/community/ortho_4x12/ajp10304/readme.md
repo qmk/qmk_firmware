@@ -1,5 +1,5 @@
 # AJP10304 Ortho 4x12 Layout
-# For Planck, Shark, JJ40 and Atreus50
+# For Planck, Shark, Quark, JJ40 and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
@@ -21,6 +21,15 @@ Refer to the README.md of the keyboard you want to flash.
 | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |  ;:  | Enter|
 | Shft |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |  ,<  |  .>  |  /?  | Shft |
 | Fn   | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | Shift| MENU | Ctrl | Fn2  |
+
+##### Main Colemak-DHm Layer
+
+|      |      |      |     |       |      |       |       |       |      |      |      |
+| ---- |:----:| :---:|:---:|:-----:|:----:|:-----:|:-----:|:-----:|:----:|:----:| ----:|
+| Esc  |   Q  |   W  |  F  |   P   |  B   |   J   |   L   |   U   |  Y   |  ;:  | Bksp |
+| Tab  |   A  |   R  |  S  |   T   |  G   |   M   |   N   |   E   |  I   |  O   | Enter|
+| Shft |   Z  |   X  |  C  |   D   |  V   |   K   |   H   |  ,<   |  .>  |  /?  | Shft |
+| Fn   | Ctrl | Alt  | GUI | Lower | Bksp | Space | Raise | Shift | MENU | Ctrl | Fn2  |
 
 ##### Function Layer
 Activated when `fn` held in the above `qwerty` layer.
@@ -73,12 +82,12 @@ To finish the recording, press STOP. To replay the macro, press either PLAY1 or 
 * MAC: Toggle MAC OS extensions to layers. This allows MLWR to be enabled with LOWER,
 MRSE with RAISE, MFNC with FUNC and MFNC2 with FUNC2 respectively.
 
-|       |      |      |      |      |      |      |      |      |      |      |      |
-| :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ????  | Reset|Qwerty|      |      | REC1 | REC2 |      |      |      |      |  Del |
-| CAPS  |      |      |      |      | PLAY1|PLAY2 | Mute | Vol+ | Play |      |      |
-| MAC   |      |      |      |      | STOP1|STOP2 | Prev | Vol- | Next |      |      |
-|       |      |      |      |      |      |      |      | DYN  |      |      |      |
+|       |      |      |      |      |      |      |      |      |      |      |         |
+| :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|:-------:|
+| ????  | Reset|Qwerty|      |      | REC1 | REC2 |      |      |      |      |   Del   |
+| CAPS  |      |      |      |      | PLAY1|PLAY2 | Mute | Vol+ | Play |      | Qwerty  |
+| MAC   |      |      |      |      | STOP1|STOP2 | Prev | Vol- | Next |      | Colemak |
+|       |      |      |      |      |      |      |      | DYN  |      |      |         |
 
 ##### Function 2 Layer
 Activated when `fn` held in the above `qwerty` layer.
@@ -101,7 +110,7 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      | BTN3 |      |      |      |
+| ESC   |      |      |      |      |      | W_L  | W_UP | BTN3 | W_DWN| W_R  |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |

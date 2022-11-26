@@ -16,7 +16,8 @@ and jeebak & algernon's keymap
 void set_babble_mode(uint8_t id);
 void babble_mode_increment(void);
 void babble_mode_decrement(void);
-void babble_led_user(void);
+void babble_modeswitch_user(uint8_t mode);
+void babble_modeswitch_kb(uint8_t mode);
 
 // manually re-order these if you want to set the order or default.
 enum babble_modes {
@@ -32,19 +33,24 @@ enum babble_modes {
 #    ifdef BABL_VI
     BABL_VI_MODE,
 #    endif
-#    ifdef BABL_LINUX
-    BABL_LINUX_MODE,
-#    endif
 #    ifdef BABL_EMACS
     BABL_EMACS_MODE,
+#    endif
+#    ifdef BABL_NANO
+    BABL_NANO_MODE,
+#    endif
+#    ifdef BABL_KITTY
+    BABL_KITTY_MODE,
 #    endif
 #    ifdef BABL_CHROMEOS
     BABL_CHROMEOS_MODE,
 #    endif
+#    ifdef BABL_LINUX
+    BABL_LINUX_MODE,
+#    endif
     BABL_MODEMAX
 };
 
-// void babble_led_user( uint8_t id)
 
 /// Hacks to make it easier to create sendstring macros
 
@@ -79,6 +85,13 @@ enum babble_modes {
 
 enum babble_keycodes {
     FIRST = BABBLE_START,
+    BABL_MODE_INCREMENT, 
+    BABL_MODE_DECREMENT,
+#   ifdef BABL_MODSWAP
+    BABL_PRIMARY_OS_MOD,
+    BABL_SECONDARY_OS_MOD,
+    BABL_TERTIARY_OS_MOD,
+#   endif 
 #    ifdef BABL_MOVE
     // Movement macros
     // left & right
@@ -171,6 +184,7 @@ enum babble_keycodes {
 #        endif                    // BABL_APP_CELLS
 #        ifdef BABL_APP_EDITOR
     BABL_APP_MULTI_SELECT, /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
+    BABL_APP_SET_MARK, // set editor mark
 #        endif             // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING
     // These aren't useful on most oses.
@@ -197,6 +211,12 @@ enum babble_keycodes {
 #    ifdef BABL_EMACS
     BABL_DO_EMACS,
 #    endif
+#    ifdef BABL_NANO
+    BABL_DO_NANO,
+#    endif
+#    ifdef BABL_KITTY
+    BABL_DO_KITTY,
+#    endif
 #    ifdef BABL_VI
     BABL_DO_VI,
 #    endif
@@ -210,7 +230,7 @@ enum babble_keycodes {
 };
 
 // primary function.
-bool babblePaste(uint16_t keycode);
+bool babblePaste(uint16_t keycode, bool is_pressed);
 
 /****************************************************/
 /* All per-os includes and short mode switch macros*/
@@ -230,6 +250,14 @@ bool babblePaste_linux(uint16_t keycode);
 #        define B_EMACS BABL_DO_EMACS
 bool babblePaste_emacs(uint16_t keycode);
 #    endif
+#    ifdef BABL_NANO
+#        define B_NANO BABL_DO_NANO
+bool babblePaste_nano(uint16_t keycode);
+#    endif
+#    ifdef BABL_KITTY
+#        define B_KITTY BABL_DO_KITTY
+bool babblePaste_kitty(uint16_t keycode);
+#    endif
 #    ifdef BABL_VI
 #        define B_VI BABL_DO_VI
 bool babblePaste_vi(uint16_t keycode);
@@ -243,12 +271,17 @@ bool babblePaste_readmux(uint16_t keycode);
 bool babblePaste_chromeos(uint16_t keycode);
 #    endif
 
-#    define BABL_INC babble_mode_increment();
-#    define BABL_DEC babble_mode_decrement();
 
 /****************************************************
 **    All keyboard macros for Babble Actions
 *****************************************************/
+#       define B_INC BABL_MODE_INCREMENT
+#       define B_DEC BABL_MODE_DECREMENT
+#   ifdef BABL_MODSWAP
+#       define B_1ME BABL_PRIMARY_OS_MOD 
+#       define B_2ME BABL_SECONDARY_OS_MOD
+#       define B_3ME BABL_TERTIARY_OS_MOD
+#   endif
 
 #    ifdef BABL_MOVE
 #        define B_L1C BABL_GO_LEFT_1C
@@ -334,6 +367,7 @@ bool babblePaste_chromeos(uint16_t keycode);
 #        endif  // BABL_APP_CELLS
 #        ifdef BABL_APP_EDITOR
 #            define B_MSEL BABL_APP_MULTI_SELECT
+#            define B_MARK BABL_APP_SET_MARK
 /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
 #        endif  // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING

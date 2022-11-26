@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃L_MOD┃ F1  │ F2  │ F3  │ F4  │ F5  ┃ F6  │ F7  │ F8  │ F9  │ F10 ┃ F11 ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
-       ┃     ┃RESET│DEBUG│     │     │TIME ┃SLEEP│ SEQ │  {  │  }  │PTSCR┃     ┃
+       ┃     ┃QK_BOOT│DEBUG│     │     │TIME ┃SLEEP│ SEQ │  {  │  }  │PTSCR┃     ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃     ┃     │     │     │     │     ┃     │     │     │     │     ┃     ┃
        ┗━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┛
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,
 #endif
                  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
-        _______, RESET,   DEBUG,   _______, _______, KC_SET_TIME,KC_SLEP,KC_SEQ,KC_LCBR, KC_RCBR, KC_PSCR, _______, \
+        _______, QK_BOOT, DEBUG,   _______, _______, KC_SET_TIME,KC_SLEP,KC_SEQ,KC_LCBR, KC_RCBR, KC_PSCR, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
     )
 };
@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         beta_pressed = record->event.pressed;
     }
 
-    if (keycode == RESET) {
+    if (keycode == QK_BOOT) {
         rgblight_setrgb(255, 255, 0);
     }
 #ifdef LIGHTMODE_ENABLE
@@ -229,7 +229,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (!alpha_pressed) {
             tap_code(clockwise ? KC_VOLD : KC_VOLU);
@@ -243,14 +243,15 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(clockwise ? KC_PGUP : KC_PGDN);
         }
     }
+    return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_0;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     /* Host Keyboard Layer Status */
     uint8_t current_layer = get_highest_layer(layer_state);
 
@@ -336,5 +337,6 @@ void oled_task_user(void) {
         }
     }
 
+    return false;
 }
 #endif

@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5058 // "PX"
-#define PRODUCT_ID      0x4250 // "BP"
-#define DEVICE_VER      0x1001
-#define MANUFACTURER    Pixlup
-#define PRODUCT         Blackplum Keeb
-
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8
@@ -16,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C6, B6, B4, B5, D6, D7, D5, D3, D4 }
 #define MATRIX_COL_PINS { D0, D1, D2, F7, F6, F5, F4, F1 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 

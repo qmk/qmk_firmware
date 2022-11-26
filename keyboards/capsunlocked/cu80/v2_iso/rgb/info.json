@@ -1,0 +1,9 @@
+{
+  "keyboard_name": "CU80 v2 ISO RGB",
+  "features": {
+    "rgblight": false
+  },
+  "usb": {
+    "pid": "0x0083"
+  }
+}

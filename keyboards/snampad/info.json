@@ -1,12 +1,15 @@
 {
     "keyboard_name": "snampad",
+    "manufacturer": "Snamellit",
     "url": "",
     "maintainer": "ptillemans",
-    "width": 4,
-    "height": 6,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x4": {
-            "key_count": 21,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"Tab", "x":1, "y":0},

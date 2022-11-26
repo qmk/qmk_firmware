@@ -1,1 +1,2 @@
 VIA_ENABLE = yes
+LEADER_ENABLE = no

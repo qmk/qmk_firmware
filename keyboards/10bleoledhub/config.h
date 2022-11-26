@@ -17,18 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #pragma once
 
 #include "config_common.h"
-#define VENDOR_ID       0x7C88 // "hw" = haierwangwei2005
-#define PRODUCT_ID      0x7C99 // "10b" = 10bleoledhub
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    haierwangwei2005
-#define PRODUCT         10bleoledhub
 
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 3
 #define MATRIX_ROW_PINS { F0, F5, F4, F6 }
 #define MATRIX_COL_PINS { D6, D7, B5 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION ROW2COL
 

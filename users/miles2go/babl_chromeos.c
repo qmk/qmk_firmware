@@ -14,7 +14,7 @@ https://support.google.com/docs/answer/181110?co=GENIE.Platform%3DDesktop&hl=en
 
 #    ifdef BABL_CHROMEOS
 
-bool babblepaste_chromeos(uint16_t keycode) {
+bool babblePaste_chromeos(uint16_t keycode) {
 #        ifdef BABL_MOVE
     BABLM(BABL_GO_LEFT_1C, SS_TAP(X_LEFT));
     BABLM(BABL_GO_RIGHT_1C, SS_TAP(X_RIGHT));

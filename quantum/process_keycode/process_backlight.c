@@ -16,11 +16,35 @@
 
 #include "process_backlight.h"
 
-#include "backlight.h"
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
+#else
+#    include "backlight.h"
+#endif
 
 bool process_backlight(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
+#ifdef LED_MATRIX_ENABLE
+            case BL_ON:
+                led_matrix_enable();
+                return false;
+            case BL_OFF:
+                led_matrix_disable();
+                return false;
+            case BL_DEC:
+                led_matrix_decrease_val();
+                return false;
+            case BL_INC:
+                led_matrix_increase_val();
+                return false;
+            case BL_TOGG:
+                led_matrix_toggle();
+                return false;
+            case BL_STEP:
+                led_matrix_step();
+                return false;
+#else
             case BL_ON:
                 backlight_level(BACKLIGHT_LEVELS);
                 return false;
@@ -39,10 +63,11 @@ bool process_backlight(uint16_t keycode, keyrecord_t *record) {
             case BL_STEP:
                 backlight_step();
                 return false;
-#ifdef BACKLIGHT_BREATHING
+#    ifdef BACKLIGHT_BREATHING
             case BL_BRTG:
                 backlight_toggle_breathing();
                 return false;
+#    endif
 #endif
         }
     }

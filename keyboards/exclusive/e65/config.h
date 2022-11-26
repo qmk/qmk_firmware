@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4558 // "EX"
-#define PRODUCT_ID   0xE605 // E6.5
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Exclusive / E-Team
-#define PRODUCT      E6.5
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -34,10 +27,12 @@
     { B0, B1, B2, B3, B4 }
 #define MATRIX_COL_PINS \
     { C6, C7, D0, D1, D2, D3, D4, D5, D6, D7, F0, F1, F4, F5, F6, F7 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN B6
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7
