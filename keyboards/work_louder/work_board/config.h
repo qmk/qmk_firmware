@@ -124,8 +124,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
-#define RGB_MATRIX_STARTUP_HUE 191 // Sets the default hue value, if none has been set
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_HUE 191 // Sets the default hue value, if none has been set
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

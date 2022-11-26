@@ -75,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_COUNT              38
 #    define RGB_MATRIX_LED_FLUSH_LIMIT    16
-#    define RGB_MATRIX_STARTUP_VAL        150
+#    define RGB_MATRIX_DEFAULT_VAL        150
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #endif
 

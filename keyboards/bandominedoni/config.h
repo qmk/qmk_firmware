@@ -88,7 +88,7 @@
 #   define LED_HITS_TO_REMEMBER 10
 
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-#   define RGB_MATRIX_STARTUP_SPD 127
+#   define RGB_MATRIX_DEFAULT_SPD 127
 // the above brighness setting has no effect on rgb_matrix_set_color().
 // Use darker colors instead.
 /*              RGB darker COLORS             */

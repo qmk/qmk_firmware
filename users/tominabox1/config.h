@@ -45,7 +45,7 @@
   #define RGB_MATRIX_SAT_STEP 8
   #define RGB_MATRIX_VAL_STEP 8
   #define RGB_MATRIX_SPD_STEP 10
-  #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+  #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
   /* Disable the animations you don't want/need.  You will need to disable a good number of these
     because they take up a lot of space.  Disable until you can successfully compile your firmware. */
 // #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
