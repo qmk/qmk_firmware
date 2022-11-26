@@ -33,7 +33,7 @@
 #define RGB_MATRIX_TIMEOUT 90000
 #define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 
  // RGB Matrix Animation modes. Explicitly enabled
  // For full list of effects, see:

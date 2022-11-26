@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // lower maximum brightness to lower power usage and prevent unresponsiveness
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_GRADIENT_LEFT_RIGHT
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
