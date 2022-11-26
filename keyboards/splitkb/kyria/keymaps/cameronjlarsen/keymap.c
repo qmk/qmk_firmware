@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "features/caps_word.h"
 #include "features/oneshot.h"
 
 enum layers {
@@ -46,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: QWERTY
  *
- * Inspiration: 
- *  
+ * Inspiration:
+ *
  * https://github.com/serebrov/qmk_firmware/blob/custom/keyboards/kyria/keymaps/kyria-mini/keymap.c
- * 
+ *
  * Notes:
  * - F & J enables CAPSWORD, disables after 5 seconds
  * - Left thumb CTRL and SHIFT are one shot
@@ -57,8 +56,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * - ESC can be accessed by NAV and G
  * - BKSP is accessed by NAV and Enter
  * - Tab is accessed by tapping SYM layer
- * - FUN layer is accessed by holding NAV and SYM layers at the same time  
- * 
+ * - FUN layer is accessed by holding NAV and SYM layers at the same time
+ *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
@@ -76,14 +75,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX , KC_Z  ,  KC_X  ,  KC_C  ,   KC_V ,   KC_B , KC_LBRC, XXXXXXX,     XXXXXXX,KC_RBRC,   KC_N, KC_M  ,KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
                                 KC_MUTE, XXXXXXX, OS_CTRL, OS_SHFT, LA_NAV ,     LA_SYM , KC_SPC, OS_GUI,XXXXXXX, KC_APP
     ),
-    
+
 /*
  * Sym Layer: Numbers and symbols
  *
  * Notes:
  * - Symbols are grouped together and shifted symbols from middle row are on bottom row
  * - Exception is angle brackets
- * 
+ *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |  1 ! |  2 @ |  3 # |  4 $ |  5 % |                              |  6 ^ |  7 & |  8 * |  9 ( |  0 ) |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
@@ -105,13 +104,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Nav Layer: Navigation, editing
  *
- * Notes: 
+ * Notes:
  * - Vim style navigation keys
  * - Cut, Copy, Paste on X, C, V
  * - BKSP on Enter
  * - DEL on /
  * - Esc on G
- * 
+ *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      |      |      |      |                              | Home | PgDn | PgUp | End  |PrtScr|        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
@@ -190,7 +189,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case CAPS_COMBO:
       if (pressed) {
-        caps_word_set(true);  // Activate Caps Word!
+        caps_word_on();  // Activate Caps Word!
       }
       break;
 
@@ -231,22 +230,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_caps_word(keycode, record)) { return false; }
   // Your macros ...
   update_oneshot(
-      &os_shft_state, KC_LSFT, OS_SHFT, 
+      &os_shft_state, KC_LSFT, OS_SHFT,
       keycode, record
     );
 
   update_oneshot(
-      &os_ctrl_state, KC_LCTL, OS_CTRL, 
+      &os_ctrl_state, KC_LCTL, OS_CTRL,
       keycode, record
     );
 
   update_oneshot(
-      &os_alt_state, KC_LALT, OS_ALT, 
+      &os_alt_state, KC_LALT, OS_ALT,
       keycode, record
     );
 
   update_oneshot(
-      &os_cmd_state, KC_LGUI, OS_GUI, 
+      &os_cmd_state, KC_LGUI, OS_GUI,
       keycode, record
     );
 
@@ -274,7 +273,6 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 void matrix_scan_user(void) {
-  caps_word_task();
   // Other tasks...
 }
 
@@ -319,7 +317,7 @@ bool oled_task_user(void) {
         oled_write_P(led_usb_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
         oled_write_P(led_usb_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
         oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
-        oled_write_P(caps_word_get() ? PSTR("CAPS") : PSTR("       "), false);
+        oled_write_P(is_caps_word_on() ? PSTR("CAPS") : PSTR("       "), false);
     } else {
         // clang-format off
         static const char PROGMEM kyria_logo[] = {
