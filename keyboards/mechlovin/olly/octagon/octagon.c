@@ -81,8 +81,7 @@ bool led_matrix_indicators_kb(void) {
 }
 
 
-__attribute__((weak))
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   // if on layer 1, turn on L1 LED, otherwise off.
     if (get_highest_layer(state) == 0) {
         led_matrix_set_value(90, 0xFF);
