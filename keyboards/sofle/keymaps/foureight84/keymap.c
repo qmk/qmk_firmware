@@ -242,22 +242,26 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 /* OLED Animation KEYBOARD PET START */
 
 /* settings */
-#    define MIN_WALK_SPEED      10
-#    define MIN_RUN_SPEED       40
+#define MIN_WALK_SPEED      10
+#define MIN_RUN_SPEED       40
 
 /* advanced settings */
-#    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
-#    define ANIM_SIZE           96   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
+#define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
+#define ANIM_SIZE           96   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 
 /* timers */
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 
+bool shift_held = false;
+static uint16_t held_shift = 0;
+
+
 /* current frame */
 uint8_t current_frame = 0;
 
 /* status variables */
-int   current_wpm = 0;
+int current_wpm = 0;
 led_t led_usb_state;
 
 bool isSneaking = false;
@@ -372,6 +376,37 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
     } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
         oled_off();
     }
+}
+
+/* 32 * 160 */
+static void render_logo(void) {
+    static const char PROGMEM raw_noobs_logo[] = {
+        255,255,255,255,255,  0,  0,  0,  0,  0,  0,200,248,248, 52,112,112, 96, 96, 96, 96,236,252,236,216,248,240,224,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0, 64,193,195,198,198,188,172,236,204,204,140, 12, 14, 14,  7,  3,  1,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  0,192,193,129,  1,  1,  1, 35, 27, 31, 61, 47, 75,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0, 64,224,240,176,129,128,128,128,128,128,  0,  0,  0, 64,192,128,128,  0,  0,  0, 
+        0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  8, 24, 28, 28, 29, 61, 61, 61, 61, 63, 63, 55, 39,167,231,227,195,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  8, 28, 62,110,110,110, 76,236,236,120,120,112,  8,  1,  1,  1,  0,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  8, 60, 60,108, 76,204,204,204,249,219,243,224,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0, 32,112,240,180,180,188, 56,185,177,179,114,244,224,224,224,192,192,128,  0,  0, 
+        0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,128,232,120, 49, 97, 97,193,195,199,197,205,129,  0,  1,  1,  1,  1,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  0,  1,  3,  3,  3,  3,  3,  1,  1,  3,  3,  3,  4,  0,  0,  0,  0,  0,  0,  0,  0,
+    };
+    oled_write_raw_P(raw_noobs_logo, sizeof(raw_noobs_logo));
+}
+
+
+bool oled_task_user(void) {
+    /* KEYBOARD PET VARIABLES START */
+
+    current_wpm   = get_current_wpm();
+    led_usb_state = host_keyboard_led_state();
+
+    if (is_keyboard_master()) {
+        print_status_narrow();
+    } else {
+        render_logo();
+        oled_set_cursor(0,10);
+        oled_write_P(PSTR("@ "), false);
+        oled_set_cursor(2,10);
+        oled_write(get_u8_str(get_current_wpm(), '0'), false);
+        oled_set_cursor(0, 11);
+        render_luna(0, 13);
+    }
+    return false;
 }
 
 /* OLED Animation KEYBOARD PET END */
@@ -521,59 +556,70 @@ bool oled_task_user(void) {
 
 #endif
 
-/* 32 * 160 */
-static void render_logo(void) {
-    static const char PROGMEM raw_noobs_logo[] = {
-        255,255,255,255,255,  0,  0,  0,  0,  0,  0,200,248,248, 52,112,112, 96, 96, 96, 96,236,252,236,216,248,240,224,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0, 64,193,195,198,198,188,172,236,204,204,140, 12, 14, 14,  7,  3,  1,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  0,192,193,129,  1,  1,  1, 35, 27, 31, 61, 47, 75,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0, 64,224,240,176,129,128,128,128,128,128,  0,  0,  0, 64,192,128,128,  0,  0,  0, 
-        0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  8, 24, 28, 28, 29, 61, 61, 61, 61, 63, 63, 55, 39,167,231,227,195,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  8, 28, 62,110,110,110, 76,236,236,120,120,112,  8,  1,  1,  1,  0,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  8, 60, 60,108, 76,204,204,204,249,219,243,224,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0, 32,112,240,180,180,188, 56,185,177,179,114,244,224,224,224,192,192,128,  0,  0, 
-        0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,128,232,120, 49, 97, 97,193,195,199,197,205,129,  0,  1,  1,  1,  1,  0,  0,  0,  0,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  0,  1,  3,  3,  3,  3,  3,  1,  1,  3,  3,  3,  4,  0,  0,  0,  0,  0,  0,  0,  0,
-    };
-    oled_write_raw_P(raw_noobs_logo, sizeof(raw_noobs_logo));
-}
-
-
-bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        print_status_narrow();
-    } else {
-        render_logo();
-        oled_set_cursor(0,10);
-        oled_write_P(PSTR("@"), false);
-        oled_set_cursor(2,10);
-        oled_write(get_u8_str(get_current_wpm(), '0'), false);
-        oled_set_cursor(0, 11);
-        render_luna(0, 13);
-    }
-    return false;
-}
-
 #endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_RSFT:
+        case KC_LSFT:
+            shift_held = record->event.pressed;
+            held_shift = keycode;
+            break;
+            /* KEYBOARD PET STATUS START */
+        case KC_LCTL:
+        case KC_RCTL:
+            if (record->event.pressed) {
+                isSneaking = true;
+            } else {
+                isSneaking = false;
+            }
+            break;
+        case KC_SPC:
+            if (record->event.pressed) {
+                isJumping  = true;
+                showedJump = false;
+            } else {
+                isJumping = false;
+            }
+            break;
+
+            /* KEYBOARD PET STATUS END */
+    }
+    return true;
+}
 
 
 #ifdef ENCODER_ENABLE
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (get_highest_layer(layer_state)) {
-        case _COLEMAK:
-        case _QWERTY:
-            if (index == 0) {
-                if (clockwise) {
-                    tap_code(KC_VOLD);
-                } else {
-                    tap_code(KC_VOLU);
-                }
+    if (index == 0) {
+        if (clockwise) {
+            if (shift_held) {
+                tap_code(KC_MNXT);
+            } else {
+                tap_code(KC_VOLD);
             }
-        break;
-
-        case _RAISE:
-            if (index == 0) {
-                if (clockwise) {
-                    tap_code(KC_MPRV);
-                } else {
-                    tap_code(KC_MNXT);
-                }
+        } else {
+            if (shift_held) {
+                tap_code(KC_MPRV);
+            } else {
+                tap_code(KC_VOLU);
             }
-        break;
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            if (shift_held) {
+                tap_code(KC_RIGHT);
+            } else {
+                tap_code(KC_DOWN);
+            }
+        } else {
+            if (shift_held) {
+                tap_code(KC_LEFT);
+            } else {
+                tap_code(KC_UP);
+            }
+        }
     }
     return true;
 }
