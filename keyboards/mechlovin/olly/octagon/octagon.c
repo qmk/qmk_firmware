@@ -108,6 +108,5 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     } else {
         led_matrix_set_value(93, 0x00);
     }
-
-    return state;
+    return layer_state_set_user(state);
 }
