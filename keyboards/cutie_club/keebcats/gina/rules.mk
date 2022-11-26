@@ -1,6 +1,3 @@
-SRC += matrix.c \
-	   i2c_master.c
-
 # MCU name
 MCU = atmega32u4
 BOOTLOADER = atmel-dfu
@@ -8,7 +5,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
@@ -22,4 +19,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-CUSTOM_MATRIX = lite
+DEFAULT_FOLDER = cutie_club/keebcats/gina/rev1

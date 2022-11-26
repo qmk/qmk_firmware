@@ -10,7 +10,7 @@ static const mcp_gpio_pin column_pins[MATRIX_COLS] = MCP_COL_PINS;
 
 static void i2c_updateRegBit(uint8_t devaddr, uint8_t register_to_update, uint8_t bit, uint8_t value, uint16_t timeout) {
     uint8_t register_data;
-    i2c_readReg(GPIO_EXPANDER_ADDRESS, register_to_update, &register_data, 1, timeout);
+    i2c_readReg(MCP_ADDRESS, register_to_update, &register_data, 1, timeout);
 
     if(value) {
         register_data |= 1 << bit;
@@ -18,25 +18,25 @@ static void i2c_updateRegBit(uint8_t devaddr, uint8_t register_to_update, uint8_
         register_data &= ~(1 << bit);
     }
 
-    i2c_writeReg(GPIO_EXPANDER_ADDRESS, register_to_update, &register_data, 1, timeout);
+    i2c_writeReg(MCP_ADDRESS, register_to_update, &register_data, 1, timeout);
 }
 
 static void mcp_set_pin_direction(mcp_gpio_pin pin, mcp_gpio_dir dir) {
     uint8_t register_to_update_direction = BANK0_REGISTER_FOR_PIN(pin, IODIR);
 
     mcp_gpio_dir normalized_direction = (dir != INPUT_PULLUP) ? dir : INPUT;
-    i2c_updateRegBit(GPIO_EXPANDER_ADDRESS, register_to_update_direction, GET_PIN_NUMBER(pin), normalized_direction, 20);
+    i2c_updateRegBit(MCP_ADDRESS, register_to_update_direction, GET_PIN_NUMBER(pin), normalized_direction, 20);
 
     if (dir == INPUT_PULLUP) {
         uint8_t register_to_update_pullup = BANK0_REGISTER_FOR_PIN(pin, GPPU);
-        i2c_updateRegBit(GPIO_EXPANDER_ADDRESS, register_to_update_pullup, GET_PIN_NUMBER(pin), normalized_direction, 20);
+        i2c_updateRegBit(MCP_ADDRESS, register_to_update_pullup, GET_PIN_NUMBER(pin), normalized_direction, 20);
     }
 }
 
 mcp_gpio_state mcp_read_pin(mcp_gpio_pin pin) {
     uint8_t register_to_read = BANK0_REGISTER_FOR_PIN(pin, GPIO);
     uint8_t register_data;
-    i2c_readReg(GPIO_EXPANDER_ADDRESS, register_to_read, &register_data, 1, 20);
+    i2c_readReg(MCP_ADDRESS, register_to_read, &register_data, 1, 20);
 
     mcp_gpio_state pin_state = (register_data >> GET_PIN_NUMBER(pin)) & 1;
 
@@ -46,7 +46,7 @@ mcp_gpio_state mcp_read_pin(mcp_gpio_pin pin) {
 static void mcp_write_pin(mcp_gpio_pin pin, mcp_gpio_state state) {
     uint8_t register_to_update = BANK0_REGISTER_FOR_PIN(pin, GPIO);
 
-    i2c_updateRegBit(GPIO_EXPANDER_ADDRESS, register_to_update, GET_PIN_NUMBER(pin), state, 20);
+    i2c_updateRegBit(MCP_ADDRESS, register_to_update, GET_PIN_NUMBER(pin), state, 20);
 }
 
 static bool update_matrix_for_row(uint8_t row, matrix_row_t current_matrix[]) {
