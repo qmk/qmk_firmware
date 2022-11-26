@@ -773,7 +773,7 @@ def avr_processor_rules(info_data, rules):
     """
     info_data['processor_type'] = 'avr'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
-    info_data['protocol'] = 'V-USB' if rules.get('MCU') in VUSB_PROCESSORS else 'LUFA'
+    info_data['protocol'] = 'V-USB' if info_data['processor'] in VUSB_PROCESSORS else 'LUFA'
 
     if 'bootloader' not in info_data:
         info_data['bootloader'] = 'atmel-dfu'
