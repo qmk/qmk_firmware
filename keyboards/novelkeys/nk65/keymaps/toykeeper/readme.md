@@ -11,8 +11,7 @@ Here's my NovelKeys NK65 with blue/white DSA PBT keycaps:
 This is the layout internally, showing all the functions for each key:
 ![TK NK65](http://toykeeper.net/keyboard/qmk/tk-nk65-2022-11-25a.png)
 
-This layout diagram can be edited [here](http://www.keyboard-layout-editor.com/#/gists/565ca8abb5825d160f962226fb9d58b7),
-or by uploading [kle.json] to [KLE](keyboard-layout-editor.com).
+This layout diagram can be edited [here](http://www.keyboard-layout-editor.com/#/gists/565ca8abb5825d160f962226fb9d58b7).
 
 
 ## Core Features

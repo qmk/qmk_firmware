@@ -8,8 +8,8 @@ A relatively straightforward 65% "truefox" layout with some extras.
 This is how the layout looks with all layers combined into a single image:
 ![TK Whitefox](http://toykeeper.net/keyboard/qmk/tk-whitefox-2022-11-25a.png)
 
-This layout diagram can be edited [here](http://www.keyboard-layout-editor.com/#/gists/25056bbe508ab0bb45d8e9688c23a478),
-or by uploading [kle.json] to [KLE](keyboard-layout-editor.com).
+This layout diagram can be edited
+[here](http://www.keyboard-layout-editor.com/#/gists/25056bbe508ab0bb45d8e9688c23a478).
 
 
 ## Core Features

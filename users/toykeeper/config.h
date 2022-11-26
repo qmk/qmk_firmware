@@ -1,3 +1,5 @@
+// Copyright 2022 Selene ToyKeeper
+// SPDX-License-Identifier: GPL-2.0-or-later
 // config.h for ToyKeeper's keymaps
 #pragma once
 

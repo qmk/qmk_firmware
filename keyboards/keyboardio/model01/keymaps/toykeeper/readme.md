@@ -10,8 +10,7 @@ This is the layout internally, showing all the functions for each key:
 ![TK Model01](http://toykeeper.net/keyboard/qmk/tk-keyboardio.2022-11-17a.png)
 
 This layout diagram can be edited
-[here](http://www.keyboard-layout-editor.com/#/gists/0b83353e391f27c7c19f82da0aecc56b),
-or by uploading [kle.json] to [KLE](keyboard-layout-editor.com).
+[here](http://www.keyboard-layout-editor.com/#/gists/0b83353e391f27c7c19f82da0aecc56b).
 
 
 ## Core Features
