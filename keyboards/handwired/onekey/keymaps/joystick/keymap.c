@@ -14,7 +14,7 @@ void matrix_scan_user() {
 }
 
 // Joystick config
-joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     [0] = JOYSTICK_AXIS_IN(ADC_PIN, 0, 512, 1023),
     [1] = JOYSTICK_AXIS_VIRTUAL
 };
