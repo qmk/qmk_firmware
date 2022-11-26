@@ -71,16 +71,16 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #    define LED_MATRIX_SPD_STEP 16
 #endif
 
-#if !defined(LED_MATRIX_STARTUP_MODE)
-#    define LED_MATRIX_STARTUP_MODE LED_MATRIX_SOLID
+#if !defined(LED_MATRIX_DEFAULT_MODE)
+#    define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID
 #endif
 
-#if !defined(LED_MATRIX_STARTUP_VAL)
-#    define LED_MATRIX_STARTUP_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
+#if !defined(LED_MATRIX_DEFAULT_VAL)
+#    define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
 #endif
 
-#if !defined(LED_MATRIX_STARTUP_SPD)
-#    define LED_MATRIX_STARTUP_SPD UINT8_MAX / 2
+#if !defined(LED_MATRIX_DEFAULT_SPD)
+#    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
 // globals
@@ -123,9 +123,9 @@ void eeconfig_update_led_matrix(void) {
 void eeconfig_update_led_matrix_default(void) {
     dprintf("eeconfig_update_led_matrix_default\n");
     led_matrix_eeconfig.enable = 1;
-    led_matrix_eeconfig.mode   = LED_MATRIX_STARTUP_MODE;
-    led_matrix_eeconfig.val    = LED_MATRIX_STARTUP_VAL;
-    led_matrix_eeconfig.speed  = LED_MATRIX_STARTUP_SPD;
+    led_matrix_eeconfig.mode   = LED_MATRIX_DEFAULT_MODE;
+    led_matrix_eeconfig.val    = LED_MATRIX_DEFAULT_VAL;
+    led_matrix_eeconfig.speed  = LED_MATRIX_DEFAULT_SPD;
     led_matrix_eeconfig.flags  = LED_FLAG_ALL;
     eeconfig_flush_led_matrix(true);
 }

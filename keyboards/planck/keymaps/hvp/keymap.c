@@ -72,10 +72,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_planck_grid( /* Tab */
-  _______, _______,  AG_NORM, AG_SWAP, _______, _______, _______, KC_7, KC_8, KC_9, KC_0, _______,
-  _______, _______, MU_MOD, AU_ON, AU_OFF, _______, _______, KC_4, KC_5, KC_6, _______, _______,
-  KC_PSCR, MUV_DE, MUV_IN, MU_ON, MU_OFF, _______, _______,  KC_0, KC_1, KC_2, KC_3, _______,
-  QK_BOOT, _______, _______, _______, MI_ON, MI_OFF, _______, _______, _______, _______, _______, DB_TOGG
+  _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, KC_7,    KC_8,    KC_9,   KC_0,     _______,
+  _______, _______, MU_NEXT, AU_ON,   AU_OFF,  _______, _______, KC_4,    KC_5,    KC_6,   _______,  _______,
+  KC_PSCR, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  _______, _______, KC_0,    KC_1,    KC_2,   KC_3,     _______,
+  QK_BOOT, _______, _______, _______, MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, DB_TOGG
 )};
 
 #ifdef AUDIO_ENABLE

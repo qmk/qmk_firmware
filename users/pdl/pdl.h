@@ -128,7 +128,7 @@ enum userspace_layers {
 
 #define _________________FUNCTN_L1_________________  KC_ESC,  KC_F1,   KC_F2,   KC_F3,   MY_AF4
 #define _________________FUNCTN_L2_________________  KC_APP,  KC_F4,   KC_F5,   KC_F6,   MY_CF5
-#define _________________FUNCTN_L3_________________  RESET,   KC_F7,   KC_F8,   KC_F9,   MY_CF4
+#define _________________FUNCTN_L3_________________  QK_BOOT, KC_F7,   KC_F8,   KC_F9,   MY_CF4
 
 #define _________________FUNCTN_R1_________________  KC_VOLU, KC_F10,  KC_F11,  KC_F12,  KC_INS
 #define _________________FUNCTN_R2_________________  KC_VOLD, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT

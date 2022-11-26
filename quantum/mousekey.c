@@ -129,7 +129,7 @@ static int8_t move_unit(uint8_t axis) {
 
         // x**2 acceleration (quadratic, more precise for short movements)
         int16_t percent = (inertia << 8) / mk_time_to_max;
-        percent         = (percent * percent) >> 8;
+        percent         = ((int32_t)percent * percent) >> 8;
         if (inertia < 0) percent = -percent;
 
         // unit = sign(inertia) + (percent of max speed)

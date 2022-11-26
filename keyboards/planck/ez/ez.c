@@ -328,7 +328,7 @@ bool music_mask_kb(uint16_t keycode) {
     case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
     case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
     case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-    case AU_ON ... MUV_DE:
+    case AU_ON ... AU_PREV:
     case QK_BOOT:
     case QK_CLEAR_EEPROM:
         return false;

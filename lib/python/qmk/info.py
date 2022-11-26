@@ -451,7 +451,7 @@ def _config_to_json(key_type, config_value):
         if array_type == 'int':
             return list(map(int, config_value.split(',')))
         else:
-            return config_value.split(',')
+            return list(map(str.strip, config_value.split(',')))
 
     elif key_type == 'bool':
         return config_value in true_values
@@ -760,7 +760,7 @@ def avr_processor_rules(info_data, rules):
     """
     info_data['processor_type'] = 'avr'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
-    info_data['protocol'] = 'V-USB' if rules.get('MCU') in VUSB_PROCESSORS else 'LUFA'
+    info_data['protocol'] = 'V-USB' if info_data['processor'] in VUSB_PROCESSORS else 'LUFA'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
     # info_data['protocol'] = 'V-USB' if rules.get('PROTOCOL') == 'VUSB' else 'LUFA'
