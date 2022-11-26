@@ -556,7 +556,7 @@ See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 |`RCTL(kc)`|                                  |Hold Right Control and press `kc`                     |
 |`RSFT(kc)`|                                  |Hold Right Shift and press `kc`                       |
 |`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt (AltGr) and press `kc`                 |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`            |Hold Right GUI and press `kc`                         |
+|`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`            |Hold Right GUI and press `kc`                         |
 |`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and Left GUI and press `kc`           |
 |`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`             |
 |`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`         |
