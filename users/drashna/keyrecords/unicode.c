@@ -91,6 +91,45 @@ DEFINE_UNICODE_RANGE_TRANSLATOR(unicode_range_translator_script, 0x1D4EA, 0x1D4D
 DEFINE_UNICODE_RANGE_TRANSLATOR(unicode_range_translator_boxes, 0x1F170, 0x1F170, '0', '1', 0x2002);
 DEFINE_UNICODE_RANGE_TRANSLATOR(unicode_range_translator_regional, 0x1F1E6, 0x1F1E6, '0', '1', 0x2003);
 
+// DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_normal,
+//                               'a', // a
+//                               'b', // b
+//                               'c', // c
+//                               'd', // d
+//                               'e', // e
+//                               'f', // f
+//                               'g', // g
+//                               'h', // h
+//                               'i', // i
+//                               'j', // j
+//                               'k', // k
+//                               'l', // l
+//                               'm', // m
+//                               'n', // n
+//                               'o', // o
+//                               'p', // p
+//                               'q', // q
+//                               'r', // r
+//                               's', // s
+//                               't', // t
+//                               'u', // u
+//                               'v', // v
+//                               'w', // w
+//                               'x', // x
+//                               'y', // y
+//                               'z', // z
+//                               '1', // 1
+//                               '2', // 2
+//                               '3', // 3
+//                               '4', // 4
+//                               '5', // 5
+//                               '6', // 6
+//                               '7', // 7
+//                               '8', // 8
+//                               '9', // 9
+//                               '0'  // 0
+// );
+
 DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_aussie,
                               0x0250, // a
                               'q',    // b
@@ -167,6 +206,45 @@ DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_super,
                               0x2078, // 8
                               0x2079, // 9
                               0x2070  // 0
+);
+
+DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_comic,
+                              0x212B, // a
+                              0x212C, // b
+                              0x2102, // c
+                              0x2145, // d
+                              0x2107, // e
+                              0x2132, // f
+                              0x2141, // g
+                              0x210D, // h
+                              0x2148, // i
+                              0x2111, // j
+                              'k', // k
+                              0x2143, // l
+                              'm', // m
+                              0x2115, // n
+                              0x2134, // o
+                              0x2119, // p
+                              0x211A, // q
+                              0x211B, // r
+                              0x20B7, // s
+                              0x20B8, // t
+                              0x2127, // u
+                              'v', // v
+                              0x20A9, // w
+                              'x', // x
+                              0x213D, // y
+                              'z', // z
+                              '1', // 1
+                              '2', // 2
+                              '3', // 3
+                              '4', // 4
+                              '5', // 5
+                              '6', // 6
+                              '7', // 7
+                              '8', // 8
+                              '9', // 9
+                              '0'  // 0
 );
 
 bool process_record_aussie(uint16_t keycode, keyrecord_t *record) {
@@ -280,7 +358,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 register_unicode(0x203D);
             }
             break;
-        case KC_NOMODE ... KC_SUPER:
+        case KC_NOMODE ... KC_COMIC:
             if (record->event.pressed) {
                 if (typing_mode != keycode - KC_NOMODE) {
                     typing_mode = keycode - KC_NOMODE;
@@ -295,8 +373,11 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 
-    if (((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) && record->tap.count) {
-        keycode &= 0xFF;
+    if (IS_QK_MOD_TAP(keycode) && record->tap.count) {
+        keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+    }
+    if (IS_QK_LAYER_TAP(keycode) && record->tap.count) {
+        keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
     }
 
     if (typing_mode == UCTM_WIDE) {
@@ -322,6 +403,10 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
     } else if (typing_mode == UCTM_SUPER) {
         if (((KC_A <= keycode) && (keycode <= KC_0))) {
             return process_record_glyph_replacement(keycode, record, unicode_lut_translator_super);
+        }
+    } else if (typing_mode == UCTM_COMIC) {
+        if (((KC_A <= keycode) && (keycode <= KC_0))) {
+            return process_record_glyph_replacement(keycode, record, unicode_lut_translator_comic);
         }
     } else if (typing_mode == UCTM_AUSSIE) {
         return process_record_aussie(keycode, record);

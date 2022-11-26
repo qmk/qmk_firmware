@@ -12,6 +12,7 @@ enum unicode_typing_mode {
     UCTM_AUSSIE,
     UCTM_ZALGO,
     UCTM_SUPER,
+    UCTM_COMIC,
 };
 
 extern uint8_t typing_mode;
