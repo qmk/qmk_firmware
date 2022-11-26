@@ -1,6 +1,6 @@
 // The GPLv2 License (GPLv2)
 //
-// Copyright (c) 2022
+// Copyright (c) 2022 Cameron Larsen
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

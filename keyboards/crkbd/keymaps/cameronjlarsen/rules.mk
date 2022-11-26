@@ -1,4 +1,3 @@
-SRC += features/caps_word.c
 SRC += features/oneshot.c
 
 BOOTMAGIC_ENABLE = no
@@ -13,5 +12,6 @@ AUDIO_ENABLE = no
 MIDI_ENABLE = no
 BLUETOOTH_ENABLE = no
 BACKLIGHT_ENABLE = no
+CAPS_WORD_ENABLE = yes
 
 LAYOUTS = split_3x5_3 split_3x6_3

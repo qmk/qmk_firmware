@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-#include "features/caps_word.h"
 #include "features/oneshot.h"
 
 enum layers {
@@ -171,7 +170,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case CAPS_COMBO:
       if (pressed) {
-        caps_word_set(true);  // Activate Caps Word!
+        caps_word_on();  // Activate Caps Word!
       }
       break;
 
@@ -230,7 +229,6 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 void matrix_scan_user(void) {
-  caps_word_task();
   // Other tasks...
 }
 
