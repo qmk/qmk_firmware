@@ -1,0 +1,76 @@
+Undvorak is a layout for people who want to type qwerty on a host which 
+remaps qwerty to dvorak.  It is not meant to be used as-is.
+
+qwerty to dvorak:
+
+  q = '
+  w = ,
+  e = .
+  r = p
+  t = y
+  y = f
+  u = g
+  i = c
+  o = r
+  p = l
+  [ = /
+  ] = =
+  a = a
+  s = o
+  d = e
+  f = u
+  g = i
+  h = d
+  j = h
+  k = t
+  l = n
+  ; = s
+  ' = -
+  z = ;
+  x = q
+  c = j
+  v = k
+  b = x
+  n = b
+  m = m
+  , = w
+  . = v
+  / = z
+
+dvorak to qwerty:
+
+  ' = q
+  , = w
+  . = e
+  p = r
+  y = t
+  f = y
+  g = u
+  c = i
+  r = o
+  l = p
+  / = [
+  = = ]
+  a = a
+  o = s
+  e = d
+  u = f
+  i = g
+  d = h
+  h = j
+  t = k
+  n = l
+  s = ;
+  - = '
+  ; = z
+  q = x
+  j = c
+  k = v
+  x = b
+  b = n
+  m = m
+  w = ,
+  v = .
+  z = /
+  [ = -
+  ] = =

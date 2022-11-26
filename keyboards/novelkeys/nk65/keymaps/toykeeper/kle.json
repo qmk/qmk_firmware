@@ -1,0 +1,800 @@
+[
+  {
+    "backcolor": "#ccc",
+    "name": "NK65",
+    "author": "ToyKeeper",
+    "css": "/* key label grid:\n * 0 1 2\n * 3 4 5\n * 6 7 8\n * 9 10 11 (front edge)\n */\n\n/* primary key label / qwerty layer / Shift layer / front edge of key */\n.main, .keylabel4 div, .keylabel1 div, .keylabel10 div {\n    color: #444;\n}\n\n/* inverted labels on highlight keys */\n.hi {\n    color: #ccc;\n}\n\n/* dvorak / colemak layers */\n.dvorak, .keylabel0 div, .keylabel3 div, .colemak, .keylabel5 div {\n    color: #999;\n    /* text-shadow: 0 0 9px #000; */\n}\n\n/* numpad */\n.num {\n    color: #f00;\n    text-shadow: 0 0 4px #f00;\n}\n\n/* Fn1 layer: lower left */\n.fn1, .keylabel6 div {\n    color: #68d;\n}\n\n/* Fn2 layer: lower right */\n.fn2, .keylabel8 div {\n    color: #5aa;\n}\n\n/* Fn3 layer3: upper right */\n.fn3, .keylabel2 div {\n    color: #497;\n}\n/* Fn3 layer3 on a bright key */\n.fn3hi {\n    color: #497;\n}\n/* Fn3 on front right for number row */\n.keylabel11 div {\n    color: #375;\n}\n\n/* F-Lock */\n.flock {\n    color: #372;\n}\n/* Move a label up a bit */\n.nudge-u {\n    position: relative;\n    top: -4px;\n}\n.nudge-u2 {\n    position: relative;\n    top: -2px;\n}\n/* Move a label right a bit */\n.nudge-r {\n    position: relative;\n    left: 2px;\n}\n\n/* LGUI / Tux penguin */\n.lgui {\n    color: #f8f;\n    /* text-shadow: 0 0 10px #fff; */\n}\n\n.kb-Line-Start-End, .kb-Tab-2 {\n    font-size: 115%;\n}\n\n\n\n\n\n\n/* comment for filler space */\n/* comment for filler space */\n/* comment for filler space */\n/* comment for filler space */\n/* comment for filler space */\n"
+  },
+  [
+    {
+      "c": "#323252",
+      "fa": [
+        9,
+        2,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        4
+      ]
+    },
+    "<span class='lgui'>`</span>\n⇧Esc\n<i class='fn3hi fa fa-flash'></i>\n\n\n\n\n\n<span class='hi'>~</span>\n<b class=\"hi\">Esc</b>",
+    {
+      "c": "#c8c8c8",
+      "a": 0,
+      "fa": [
+        9,
+        2,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\nF1\n<i class='nudge-u nudge-r fa fa-terminal'></i>\n\n\nMyCm\n\n\n!\n<b>1</b>",
+    {
+      "fa": [
+        9,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4
+      ]
+    },
+    "\nF2\n<i class='fa fa-search'></i>\n\n\nWeb\n\n\n@\n<b>2</b>",
+    {
+      "fa": [
+        9,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\nF3\n<i class='fa fa-home'></i>\n\n\nF13\n\n\n#\n<b>3</b>",
+    {
+      "fa": [
+        9,
+        2,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\nF4\n<i class='fa fa-close'></i>\n\n\nF14\n\n\n$\n<b>4</b>",
+    {
+      "fa": [
+        9,
+        2,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\nF5\n<i class='fa fa-level-down'></i>\n\n\nF15\n\n\n%\n<b>5</b>",
+    {
+      "fa": [
+        9,
+        2,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        4
+      ]
+    },
+    "\nF6\n<i class='fa fa-level-up'></i>\n\n\nF16\n\n\n^\n<b>6</b>",
+    {
+      "fa": [
+        9,
+        2,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\nF7\n<i class='fa fa-thumb-tack'></i>\n\n\nF17\n\n\n&\n<b>7</b>",
+    {
+      "fa": [
+        9,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        4
+      ]
+    },
+    "\nF8\n<i class='fa fa-object-ungroup'></i>\n\n\nF18\n\n\n*\n<b>8</b>",
+    {
+      "fa": [
+        9,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4
+      ]
+    },
+    "\nF9\n\n\n\nF19\n\n\n(\n<b>9</b>",
+    "\nF10\n\n\n\nF20\n\n\n)\n<b>0</b>",
+    {
+      "fa": [
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        5
+      ]
+    },
+    "{\nF11\n<i class='fa fa-expand'></i>\n<span class=\"colemak\">;</span>\n\nF21\n[\n:\n<b>_</b>\n<b>-</b>",
+    {
+      "fa": [
+        2,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ]
+    },
+    "}\nF12\n<i class='fa fa-expand'></i>\n\n\nF22\n]\n\n+\n<b>=</b>",
+    {
+      "c": "#323252",
+      "a": 4,
+      "fa": [
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4
+      ],
+      "w": 2
+    },
+    "\nSwap ⌫\n⇧Ins\n\n\n\n\n\n<b class='hi'>|</b>\n<b class='hi'>\\</b>",
+    {
+      "a": 5,
+      "fa": [
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        7
+      ]
+    },
+    "<span class='fn3hi'>Home</span>\n<b class='fn3hi'>Fn2</b>\n\n\n\n\n<i class='fn3 fa fa-star-o'></i>"
+  ],
+  [
+    {
+      "a": 4,
+      "fa": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        7,
+        0,
+        0,
+        6
+      ],
+      "w": 1.5
+    },
+    "\n<i class='fa fa-play'></i> <i class='fa fa-pause'></i>\n<i class='fa fa-info-circle'></i>\n\n\n\n\n\n\n<i class='hi kb kb-Line-Start-End'></i>",
+    {
+      "c": "#c8c8c8",
+      "fa": [
+        4,
+        0,
+        2,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        5
+      ]
+    },
+    "<b>\"</b>\n<i class='fa fa-forward'></i>\n<i class='fn3 fa fa-heart-o'></i>\n\n\n\n<b>'</b>\n\n\n<b>Q</b>",
+    {
+      "fa": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        5
+      ]
+    },
+    "<\n<i class='fa fa-backward'></i>\n<i class='fa fa-heart'></i>\n\n\n\n<b>,</b>\n\n\n<b>W</b>",
+    {
+      "fa": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        5
+      ]
+    },
+    ">\nAny\n<i class='fa fa-lightbulb-o'></i>-\n\n\n\n<b>.</b>\nF\n\n<b>E</b>",
+    {
+      "fa": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5
+      ]
+    },
+    "\n\n<i class='fa fa-lightbulb-o'></i>+\n\n\n\nP\nP\n\n<b>R</b>",
+    "\n\n<i class='fn3 fa fa-bed'></i>\n\n\n\nY\nB\n\n<b>T</b>",
+    "\n\n<i class='fa fa-coffee'></i>\n\n\n\nF\nJ\n\n<b>Y</b>",
+    "\n<i class='fa fa-file'></i> <i class='fa fa-long-arrow-up'></i>\n\n\n\n\nG\nL\n\n<b>U</b>",
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-long-arrow-up'></i>\n\n\n\n\nC\nU\n\n<b>I</b>",
+    "\n<i class='fa fa-file'></i> <i class='fa fa-long-arrow-down'></i>\n\n\n\n\nR\nY\n\n<b>O</b>",
+    {
+      "fa": [
+        0,
+        2,
+        4,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        5
+      ]
+    },
+    "\n\n<b class=\"colemak\">\"</b>\n\n\n\nL\n<b>'</b>\n\n<b>P</b>",
+    {
+      "fa": [
+        0,
+        2,
+        4,
+        0,
+        0,
+        0,
+        0,
+        4,
+        2,
+        2
+      ]
+    },
+    "?\n\n\n\n\n\n<b>/</b>\n\n<b>{</b>\n<b>[</b>",
+    {
+      "fa": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        2,
+        4,
+        2,
+        2
+      ]
+    },
+    "+\n\nIns\n\n\n\n=\n\n<b>}</b>\n<b>]</b>",
+    {
+      "c": "#323252",
+      "fa": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4,
+        2,
+        4
+      ],
+      "w": 1.5
+    },
+    "\n<i class='mss mss-Unicode-DeleteRight-Big-2'></i>\n<i class='mss mss-Unicode-DeleteRight-Big-2'></i>\n\n\n\n\n\n\n<b class='hi'>⌫</b>",
+    {
+      "a": 0,
+      "fa": [
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        2,
+        4,
+        2,
+        0,
+        2
+      ]
+    },
+    "\n\n<i class='fa fa-home'></i>\n\n\n<span class='fn3hi'>F13</span>\n\n\n\n<b class='hi'>Pg <i class='fa fa-long-arrow-up'></i></b>\n<i class='fn1 fa fa-file'></i> <i class='fn2 fa fa-long-arrow-up'></i>"
+  ],
+  [
+    {
+      "a": 4,
+      "fa": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4,
+        2,
+        4,
+        2
+      ],
+      "w": 1.75
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='kb kb-Tab-2'></i>\nA<i class='fa fa-lock'></i>\n<i class='fa fa-mouse-pointer'></i><i class='kb kb-Tab-2'></i>\n\n\n\n\n\n<b class='hi'>Ctrl</b>\n<span class='fn1'>Wa</span><span class='fn2'>rp</span>",
+    {
+      "c": "#c8d0dc",
+      "fa": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        2,
+        4,
+        2,
+        5
+      ]
+    },
+    "<span class='num'>1</span>\n&beta;<i class='kb kb-Multimedia-Play'></i>\nH-\n\n\n\n\n\n\n<b>A</b>",
+    {
+      "fa": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        5
+      ]
+    },
+    "<span class='num'>2</span>\n&beta;<i class='kb kb-Multimedia-Record'></i>\nH+\n\n\n\nO\nR\n\n<b>S</b>",
+    "<span class='num'>3</span>\n\nS-\n\n\n\nE\nS\n\n<b>D</b>",
+    {
+      "n": true
+    },
+    "<span class='num'>4</span>\n<span class=\"dvorak\">I</span>\nS+\n\n\n\nU\nT\n\n<b>F</b>",
+    {
+      "c": "#c8c8c8"
+    },
+    "<span class='num'>5</span>\n<span class=\"dvorak\">U</span>\nIU/UI\n\n\n\nI\n\n\n<b>G</b>",
+    {
+      "fa": [
+        0,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        5
+      ]
+    },
+    "<span class='num'>6</span>\n<i class='fa fa-file'></i> <i class='fa fa-long-arrow-left'></i>\n\n\n\n\nD\nM\n\n<b>H</b>",
+    {
+      "c": "#c8d0dc",
+      "n": true
+    },
+    "<span class='num'>7</span>\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-long-arrow-left'></i>\n\n\n\n\nH\nN\n\n<b>J</b>",
+    "<span class='num'>8</span>\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-long-arrow-down'></i>\n\n\n\n\nT\nE\n\n<b>K</b>",
+    "<span class='num'>9</span>\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-long-arrow-right'></i>\n\n\n\n\nN\nI\n\n<b>L</b>",
+    {
+      "fa": [
+        0,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        4
+      ]
+    },
+    "<span class='num'>0</span>\n<i class='fa fa-file'></i> <i class='fa fa-long-arrow-right'></i>\n\n\n\n\nS\nO\n<b>:</b>\n<b>;</b>",
+    {
+      "c": "#c8c8c8",
+      "fa": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ]
+    },
+    "_\n\n<span class=\"colemak\">_</span>\n\n\n\n-\n-\n<b>\"</b>\n<b>'</b>",
+    {
+      "c": "#323252",
+      "fa": [
+        0,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        9
+      ],
+      "w": 2.25
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i>\n\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i>\n\n\n\n\n\n<i class='hi kb kb-Return-2'></i>",
+    {
+      "a": 0,
+      "fa": [
+        0,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        2
+      ]
+    },
+    "\n\n<i class='fa fa-search'></i>\n\n\n<span class='fn3hi'>Web</span>\n\n\n\n<b class='hi'>Pg <i class='fa fa-long-arrow-down'></i></b>\n<i class='fn1 fa fa-file'></i> <i class='fn2 fa fa-long-arrow-down'></i>"
+  ],
+  [
+    {
+      "a": 4,
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ],
+      "w": 2.25
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i>\nCOLEMAK-DH-TK\n\n\n\n\n\n\n<b class='hi'>⇧ / (</b>",
+    {
+      "c": "#c8c8c8",
+      "fa": [
+        0,
+        0,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ]
+    },
+    "<b>:</b>\n&alpha;<i class='kb kb-Multimedia-Play'></i>\nH-\n\n\n\n<b>;</b>\n\n\n<b>Z</b>",
+    "\n&alpha;<i class='kb kb-Multimedia-Record'></i>\nH+\n\n\n\nQ\n\n\n<b>X</b>",
+    "\n\nS-\n\n\n\nJ\n\n\n<b>C</b>",
+    "\n\nS+\n\n\n\nK\nD\n\n<b>V</b>",
+    {
+      "a": 6,
+      "fa": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5
+      ]
+    },
+    "X\n\nV\n\n\n\n\n\n<b>B</b>",
+    {
+      "a": 4,
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ]
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='kb kb-Tab-2'></i>\nNKRO\n\n\n\nB\nK\n\n<b>N</b>",
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i>\n\n\n\n\n\nH\n\n<b>M</b>",
+    {
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        6
+      ]
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i>\n\n\n\n\nW\n\n<\n<b>,</b>",
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i>\n\n\n\n\nV\n\n>\n<b>.</b>",
+    {
+      "f": 3
+    },
+    "\n\n\n\n\n\nZ\n\n<b>?</b>\n<b>/</b>",
+    {
+      "c": "#323252",
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ],
+      "w": 1.75
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i>\n\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i>\n\n\n\n\n\n<b class='hi'>⇧ / )</b>",
+    {
+      "c": "#c8c8c8",
+      "fa": [
+        0,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        6
+      ]
+    },
+    "\n\n<span class='fn3hi'>Pg <i class='fa fa-long-arrow-up'></i></span>\n\n\n\n\n\n\n<i class='fa fa-arrow-up'></i>\n<i class='fn1 fa fa-mouse-pointer'></i><i class='fn2 fa fa-long-arrow-up'></i>",
+    {
+      "c": "#323252",
+      "a": 0,
+      "fa": [
+        0,
+        2,
+        5,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        2
+      ]
+    },
+    "\n\n<i class='nudge-u fa fa-terminal'></i>\n\n\n<span class='fn3hi'>MyCm</span>\n\n\n\n<b class='hi'>End</b>\n<i class='fn1 fa fa-mouse-pointer'></i><i class='fn1 fa fa-circle-o'></i><i class='fn2 fa fa-circle-o'></i><i class='fn2 fa fa-circle'></i>"
+  ],
+  [
+    {
+      "a": 4,
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        7,
+        2
+      ],
+      "w": 1.25
+    },
+    "\n<i class='nudge-r fa fa-lock'></i><br /><i class='fa fa-hand-pointer-o'></i><br /><i class='fa fa-hand-pointer-o'></i>\nQWERTY\n\n\n\n\n\n\n<b class='fn1'><i class='fa fa-moon-o'></i></b>\n<b class='fn1'>Fn1</b>",
+    {
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        4
+      ],
+      "w": 1.25
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i>\nDVORAK\n\n\n\n\n\n\n<b class='lgui hi'>GUI</b>",
+    {
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        2,
+        5,
+        4
+      ],
+      "w": 1.25
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i>\nUNDVORAK\n\n\n\n\n<b>⌫</b>\n\n<b class='hi'>Alt</b>",
+    {
+      "c": "#c8c8c8",
+      "fa": [
+        0,
+        0,
+        5,
+        1
+      ],
+      "w": 6.25
+    },
+    "\n<i class='mss mss-Unicode-DeleteRight-Big-2'></i>\n<i class='fa fa-lightbulb-o'></i>\n<span class='main'>QMK : NovelKeys NK65 : ToyKeeper</span>",
+    {
+      "c": "#323252",
+      "fa": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\n\n☰\n\n\n\n\n\n\n<b class='hi'>Ctrl</b>\n<i class='hi fa fa-hand-pointer-o'></i><span class='num'>123</span>",
+    {
+      "a": 5,
+      "fa": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        4
+      ]
+    },
+    "\n<span class='hi'><i class='fa fa-hand-pointer-o'></i>Alt</span>\n\n\n\n\n<b class='hi'>GUI</b>",
+    {
+      "fa": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        5
+      ]
+    },
+    "\n<span class='fn2'><i class='fa fa-hand-pointer-o'></i><i class='fa fa-lock'></i></span>\n\n\n\n\n<i class='fn2 nudge-u fa fa-mouse-pointer'></i>",
+    {
+      "c": "#c8c8c8",
+      "a": 4,
+      "fa": [
+        0,
+        0,
+        2,
+        1,
+        0,
+        0,
+        5,
+        0,
+        0,
+        6
+      ]
+    },
+    "\n\n<span class='fn3hi'>Home</span>\n\n\n\n\n\n\n<i class='fa fa-arrow-left'></i>\n<i class='fn1 fa fa-mouse-pointer'></i><i class='fn2 fa fa-long-arrow-left'></i>",
+    "\n\n<span class='fn3hi'>Pg <i class='fa fa-long-arrow-down'></i></span>\n\n\n\n\n\n\n<i class='fa fa-arrow-down'></i>\n<i class='fn1 fa fa-mouse-pointer'></i><i class='fn2 fa fa-long-arrow-down'></i>",
+    "\n\n<span class='fn3hi'>End</span>\n\n\n\n\n\n\n<i class='fa fa-arrow-right'></i>\n<i class='fn1 fa fa-mouse-pointer'></i><i class='fn2 fa fa-long-arrow-right'></i>"
+  ]
+]

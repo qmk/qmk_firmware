@@ -1,0 +1,905 @@
+[
+  {
+    "backcolor": "#181818",
+    "name": "Keyboardio Model01",
+    "author": "ToyKeeper",
+    "radii": "40px 40px 140px 140px",
+    "css": "/* key label grid:\n * 0 1 2\n * 3 4 5\n * 6 7 8\n * 9 10 11 (front edge)\n */\n\n/* primary key label / qwerty layer / Shift layer / front edge of key */\n.main, .keylabel4 div, .keylabel1 div, .keylabel10 div {\n    color: #a7a8ca;\n    /* color: #787999; */\n    /* color: #9c71b7; */\n}\n\n/* inverted labels on highlight keys */\n.hi {\n    color: #a7a8ca;\n}\n\n/* dvorak / colemak layers */\n.dvorak, .keylabel0 div, .keylabel3 div, .colemak, .keylabel5 div {\n    color: #787999;\n    /* text-shadow: 0 0 5px #222; */\n}\n\n/* bottom center */\n/*\n.keylabel7 div {\n    color: #787999;\n}\n*/\n\n/* numpad */\n.num {\n    color: #000;\n    text-shadow: 0 0 9px #f34;\n}\n\n\n/* Fn1 layer: lower left */\n.fn1, .keylabel6 div {\n    color: #e3f;\n}\n\n/* Fn2 layer: lower left */\n.fn2, .keylabel8 div {\n    color: #f36;\n}\n\n/* Fn3 layer3: upper right, front right */\n.fn3, .keylabel2 div, .keylabel11 div, .keylabel7 div {\n    color: #2ca;\n}\n/* Fn3 layer3 on a bright key */\n.fn3hi {\n    color: #3fd;\n}\n\n/* F-Lock */\n.flock {\n    color: #372;\n}\n/* Move labels a bit */\n.nudge-u {\n    position: relative;\n    top: -4px;\n}\n.nudge-u2 {\n    position: relative;\n    top: -2px;\n}\n.nudge-d {\n    position: relative;\n    top: +4px;\n}\n.nudge-r {\n    position: relative;\n    left: 2px;\n}\n\n/* LGUI / Tux penguin */\n.lgui {\n    color: #6af;\n    /* text-shadow: 0 0 5px #000; */\n}\n\n/* LGUI / Tux penguin */\n.shadow {\n    text-shadow: 0 0 7px #000;\n}\n\n.kb-Line-Start-End, .kb-Tab-2 {\n    font-size: 115%;\n}\n\n\n\n\n\n\n\n/* comment for filler space */\n/* comment for filler space */\n/* comment for filler space */\n/* comment for filler space */\n/* comment for filler space */\n"
+  },
+  [
+    {
+      "x": 3,
+      "c": "#422055",
+      "fa": [
+        0,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\nF3\n<i class='fa fa-home'></i>\nF13\n\n\n\n\n#\n<b>3</b>",
+    {
+      "fa": [
+        0,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\nF4\n<i class='fa fa-close'></i>\nF14\n\n\n\n\n$\n<b>4</b>",
+    {
+      "x": 7
+    },
+    "\nF7\n<i class='fa fa-thumb-tack'></i>\nF17\n\n\n\n\n&\n<b>7</b>",
+    {
+      "fa": [
+        0,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        4
+      ]
+    },
+    "\nF8\n<i class='fa fa-object-ungroup'></i>\nF18\n\n\n\n\n*\n<b>8</b>"
+  ],
+  [
+    {
+      "y": -0.95,
+      "x": 6.5,
+      "c": "#cccccc",
+      "a": 7,
+      "fa": [
+        2
+      ],
+      "w": 4,
+      "h": 0.5,
+      "d": true
+    },
+    "QMK : Keyboardio Model01 : ToyKeeper"
+  ],
+  [
+    {
+      "y": -0.9,
+      "x": 2,
+      "c": "#422055",
+      "a": 4,
+      "fa": [
+        2,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4
+      ],
+      "h": 1.1
+    },
+    "\nF2\n<i class='fa fa-search'></i>\nWeb\n\n\n\n\n@\n<b>2</b>",
+    {
+      "x": 11,
+      "h": 1.1
+    },
+    "\nF9\n\nF19\n\n\n\n\n(\n<b>9</b>"
+  ],
+  [
+    {
+      "y": -0.8999999999999999,
+      "x": 5,
+      "fa": [
+        2,
+        2,
+        5,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\nF5\n<i class='fa fa-level-down'></i>\nF15\n\n\n\n\n%\n<b>5</b>",
+    {
+      "x": 5,
+      "fa": [
+        2,
+        2,
+        5,
+        2,
+        0,
+        0,
+        0,
+        0,
+        4,
+        4
+      ]
+    },
+    "\nF6\n<i class='fa fa-level-up'></i>\nF16\n\n\n\n\n^\n<b>6</b>"
+  ],
+  [
+    {
+      "y": -0.85,
+      "x": 1,
+      "fa": [
+        2,
+        2,
+        5,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "h": 1.35
+    },
+    "\nF1\n<i class='nudge-u nudge-r fa fa-terminal'></i>\nMyCm\n\n\n\n\n!\n<b>1</b>",
+    {
+      "x": 13,
+      "fa": [
+        2,
+        2,
+        5,
+        2,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4
+      ],
+      "h": 1.35
+    },
+    "\nF10\n\nF20\n\n\n\n\n)\n<b>0</b>"
+  ],
+  [
+    {
+      "y": -0.8999999999999999,
+      "x": 6,
+      "c": "#252525",
+      "fa": [
+        2,
+        2,
+        5,
+        2,
+        0,
+        0,
+        0,
+        0,
+        2,
+        8,
+        5
+      ],
+      "h": 1.25
+    },
+    "\n\n<span class=\"nudge-u\">&alpha;<i class='kb kb-Multimedia-Record'></i></span>\n\n\n\n\n\n\n<i class='fa fa-terminal'></i>\n<span class=\"fn1\">&alpha;</span><i class='fn2 kb kb-Multimedia-Play'></i>",
+    {
+      "x": 3,
+      "fa": [
+        2,
+        2,
+        5,
+        2,
+        0,
+        0,
+        0,
+        0,
+        2,
+        6,
+        5
+      ],
+      "h": 1.25
+    },
+    "\n\n<span class=\"nudge-u\">&beta;<i class='kb kb-Multimedia-Record'></i></span>\n\n\n\n\n\n\n<i class='fa fa-search'></i>\n<span class=\"fn1\">&beta;</span><i class='fn2 kb kb-Multimedia-Play'></i>"
+  ],
+  [
+    {
+      "y": -0.9,
+      "fa": [
+        9,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        4
+      ],
+      "h": 1.15
+    },
+    "<b class='lgui'>`</b>\n<b>⇧Esc</b>\n<i class='fn3hi fa fa-flash'></i>\n\n\n\n\n\n<b class=\"hi\">~</b>\n<b class=\"hi\">Esc</b>",
+    {
+      "x": 15,
+      "fa": [
+        0,
+        4,
+        4,
+        2,
+        0,
+        0,
+        2,
+        0,
+        2,
+        2
+      ],
+      "h": 1.15
+    },
+    "+\n<b>\\ |</b>\n\n\n\n\n=\n\n<b>}</b>\n<b>]</b>"
+  ],
+  [
+    {
+      "y": -0.6000000000000001,
+      "x": 3,
+      "c": "#422055",
+      "fa": [
+        0,
+        4,
+        2,
+        0,
+        0,
+        0,
+        4,
+        0,
+        2,
+        5
+      ]
+    },
+    ">\n\n<i class='fa fa-flask'></i>\n<i class='fa fa-arrow-up'></i>\n\n\n<b>.</b>\nF\n\n<b>E</b>",
+    {
+      "fa": [
+        0,
+        4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        5
+      ]
+    },
+    "\n\n<i class='fa fa-adjust'></i>\n\n\n\nP\nP\n\n<b>R</b>",
+    {
+      "x": 7,
+      "fa": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        5
+      ]
+    },
+    "\n<i class='fa fa-file'></i> <i class='fa fa-long-arrow-up'></i>\n<i class='fa fa-heart'></i>\n\n\n\nG\nL\n<i class='fn3 fa fa-heart-o'></i>\n<b>U</b>",
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-long-arrow-up'></i>\n<i class='fn3 fa fa-coffee'></i>\n\n\n\nC\nU\n<i class='fn3 fa fa-bed'></i>\n<b>I</b>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 2,
+      "fa": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        4,
+        0,
+        2,
+        5
+      ]
+    },
+    "<\n<i class='fa fa-backward'></i>\n<i class='fa fa-eyedropper'></i>\n\n\n\n<b>,</b>\n\n\n<b>W</b>",
+    {
+      "x": 2,
+      "a": 6,
+      "fa": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        5
+      ]
+    },
+    "Y\n\nB\n\n\n\n\n\n<b>T</b>",
+    {
+      "x": 5
+    },
+    "F\n\nJ\n\n\n\n\n\n<b>Y</b>",
+    {
+      "x": 2,
+      "a": 4,
+      "fa": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ]
+    },
+    "\n<i class='fa fa-file'></i> <i class='fa fa-long-arrow-down'></i>\n<i class='fa fa-lightbulb-o'></i>\n\n\n\nR\nY\n\n<b>O</b>"
+  ],
+  [
+    {
+      "y": -0.5,
+      "c": "#252525",
+      "fa": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        6
+      ]
+    },
+    "\n<i class='fa fa-play'></i> <i class='fa fa-pause'></i>\n<i class='fa fa-info-circle'></i>\n\n\n\n\n\n\n<i class='kb kb-Line-Start-End'></i>",
+    {
+      "c": "#422055",
+      "fa": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        5,
+        5
+      ]
+    },
+    "<b>\"</b>\n<i class='fa fa-forward'></i>\n\n\n\n\n<b>'</b>\n\n\n<b>Q</b>",
+    {
+      "x": 4,
+      "c": "#252525",
+      "fa": [
+        2,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        4,
+        4,
+        5
+      ],
+      "h": 1.5
+    },
+    "{\nF11\n<b class='colemak'>:</b>\nF21\n<span class='fn3'>colemak</span>\n\n[\n<b class=\"colemak\">;</b>\n<b class='nudge-u'>_</b>\n<b>-</b>",
+    {
+      "x": 3,
+      "fa": [
+        2,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        4,
+        5,
+        5
+      ],
+      "h": 1.5
+    },
+    "}\nF12\n\nF22\n<span class='fn3'>! dvorak</span>\n\n]\n\n+\n<b>=</b>",
+    {
+      "x": 4,
+      "c": "#422055"
+    },
+    "\n\n<b class='colemak'>\"</b>\n\n\n\nL\n<b>'</b>\n\n<b>P</b>",
+    {
+      "c": "#252525",
+      "fa": [
+        0,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        4,
+        2,
+        2
+      ]
+    },
+    "?\n\n\n\n\n\n<b>/</b>\n\n<b>{</b>\n<b>[</b>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 3,
+      "c": "#391a49",
+      "fa": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        5
+      ]
+    },
+    "\n\n3\n<i class='fa fa-arrow-down'></i>\n\n\nE\nS\n\n<b>D</b>",
+    {
+      "n": true
+    },
+    "\n\n4\n<i class='fa fa-arrow-right'></i>\n\n\nU\nT\n\n<b>F</b>",
+    {
+      "x": 7,
+      "n": true
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-long-arrow-left'></i>\n7\n\n\n\nH\nN\n\n<b>J</b>",
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-long-arrow-down'></i>\n8\n\n\n\nT\nE\n\n<b>K</b>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 2
+    },
+    "\n\n2\n<i class='fa fa-arrow-left'></i>\n\n\nO\nR\n\n<b>S</b>",
+    {
+      "x": 2,
+      "c": "#422055"
+    },
+    "\n\n5\n\n\n\nI\n\n\n<b>G</b>",
+    {
+      "x": 5
+    },
+    "\n<i class='fa fa-file'></i> <i class='fa fa-long-arrow-left'></i>\n6\n\n\n\nD\nM\n\n<b>H</b>",
+    {
+      "x": 2,
+      "c": "#391a49"
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-long-arrow-right'></i>\n9\n\n\n\nN\nI\n\n<b>L</b>"
+  ],
+  [
+    {
+      "y": -0.5,
+      "c": "#252525",
+      "a": 5
+    },
+    "\n<span class='fn1'>Ho</span><span class='fn2'>me</span>\n\n\n\n\n<b>Pg <i class='fa fa-long-arrow-up'></i></b>",
+    {
+      "c": "#391a49",
+      "a": 4
+    },
+    "\n\n1\n\n\n\n\n\n\n<b>A</b>",
+    {
+      "x": 13,
+      "fa": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        4
+      ]
+    },
+    "\n<i class='fa fa-file'></i> <i class='fa fa-long-arrow-right'></i>\n0\n\n\n\nS\nO\n<b>:</b>\n<b>;</b>",
+    {
+      "c": "#252525",
+      "fa": [
+        4,
+        0,
+        4,
+        0,
+        0,
+        0,
+        4,
+        4,
+        5,
+        5,
+        7
+      ]
+    },
+    "<b class=\"colemak nudge-u\">_</b>\n<i class='nudge-d kb kb-Return-2'></i>\n<b class=\"colemak nudge-u\">_</b>\n<i class='nudge-d kb kb-Return-2'></i>\n\n\n<b>-</b>\n<b>-</b>\n<b>\"</b>\n<b>'</b>\n<i class='nudge-z kb kb-Return-2'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 3,
+      "c": "#422055",
+      "fa": [
+        4,
+        0,
+        4,
+        2,
+        0,
+        0,
+        0,
+        4,
+        5,
+        5
+      ],
+      "h": 1.25
+    },
+    "\n\n\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i>\n\n\nJ\n\n\n<b>C</b>",
+    {
+      "fa": [
+        4,
+        0,
+        4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ]
+    },
+    "\n\n\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i>\n\n\nK\nD\n\n<b>V</b>",
+    {
+      "x": 7,
+      "fa": [
+        4,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ]
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i>\n\n\n\n\n\nH\n\n<b>M</b>",
+    {
+      "fa": [
+        4,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        6
+      ],
+      "h": 1.25
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i>\n\n\n\n\nW\n\n<\n<b>,</b>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 2,
+      "fa": [
+        4,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ],
+      "h": 1.25
+    },
+    "\n\n\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i>\n\n\nQ\n\n\n<b>X</b>",
+    {
+      "x": 2,
+      "a": 6,
+      "fa": [
+        0,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5
+      ]
+    },
+    "X\n\nV\n\n\n\n\n\n<b>B</b>",
+    {
+      "c": "#252525",
+      "a": 5,
+      "fa": [
+        0,
+        4,
+        0,
+        2,
+        0,
+        0,
+        5
+      ],
+      "h": 1.25
+    },
+    "\n<span class='fn1'>I</span><span class='fn2'>ns</span>\n\n\n<span class='fn3'>qwerty</span>\n\n<span class='main'>⇧Ins</span>",
+    {
+      "x": 3,
+      "fa": [
+        0,
+        4,
+        0,
+        2,
+        0,
+        0,
+        7
+      ],
+      "h": 1.25
+    },
+    "\n<span class='fn1'>D</span><span class='fn2'>el</span>\n\n\n<span class='fn3'>dvorak</span>\n\n<i class='fa fa-close'></i>",
+    {
+      "c": "#422055",
+      "a": 4,
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5
+      ]
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='kb kb-Tab-2'></i>\n<b>NKRO</b>\n\n\n\nB\nK\n\n<b>N</b>",
+    {
+      "x": 2,
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        6
+      ],
+      "h": 1.25
+    },
+    "\n<i class='fa fa-mouse-pointer'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle-o'></i><i class='fa fa-circle'></i>\n\n\n\n\nV\n\n>\n<b>.</b>"
+  ],
+  [
+    {
+      "y": -0.5,
+      "c": "#252525",
+      "a": 5,
+      "h": 1.25
+    },
+    "\n<span class='fn1'>E</span><span class='fn2'>nd</span>\n\n\n\n\n<b>Pg <i class='fa fa-long-arrow-down'></i></b>",
+    {
+      "c": "#422055",
+      "a": 4,
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        5
+      ]
+    },
+    "<b>:</b>\n\n\n\n\n\n<b>;</b>\n\n\n<b>Z</b>",
+    {
+      "x": 13,
+      "fa": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\n\n\n\n\n\nZ\n\n<b>?</b>\n<b>/</b>",
+    {
+      "c": "#252525",
+      "a": 5,
+      "f": 3,
+      "h": 1.25
+    },
+    "\n<span class='fn1'>Ho</span><span class='fn2'>me</span>\n\n\n\n\n<b>End</b>"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 4.25,
+      "a": 7,
+      "fa": [
+        4
+      ]
+    },
+    "<b>Ctrl</b>",
+    {
+      "x": 6.5,
+      "a": 4,
+      "fa": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\n\n☰\n\n\n\n\n\n\n<b>Ctrl</b>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 5.25,
+      "c": "#422055"
+    },
+    "\n<i class='mss mss-Unicode-DeleteRight-Big-2'></i>\n\n<i class='mss mss-Unicode-DeleteRight-Big-2'></i>\n\n\n\n\n\n<b>⌫</b>",
+    {
+      "x": 4.5,
+      "a": 7
+    },
+    ""
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 6.25,
+      "c": "#252525",
+      "fa": [
+        5
+      ]
+    },
+    "<b>⇧ / (</b>",
+    {
+      "x": 2.5
+    },
+    "<b>⇧ / )</b>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 7.25,
+      "a": 5,
+      "fa": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\n<span class='main'><i class='fa fa-hand-pointer-o'></i>Alt</span>\n\n\n\n\n<b class='lgui'>GUI</b>",
+    {
+      "x": 0.5
+    },
+    "\n<span class='main'><i class='fa fa-hand-pointer-o'></i>Alt</span>\n\n\n\n\n<b>GUI</b>"
+  ],
+  [
+    {
+      "x": 4.75,
+      "fa": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9
+      ],
+      "w": 1.25,
+      "h": 1.5
+    },
+    "\n<b class='fn1'>Fn1</b>\n\n\n\n\n<b class='fn1'><i class='fa fa-moon-o'></i></b>",
+    {
+      "x": 5,
+      "w": 1.25,
+      "h": 1.5
+    },
+    "\n<b class='fn2'>Fn2</b>\n\n\n\n\n<i class='fn2 fa fa-star-o'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 8,
+      "c": "#000000",
+      "fa": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9
+      ],
+      "h": 1.25,
+      "d": true
+    },
+    "<span class='fn3'></span>\n<b class='fn3'>Fn3</b>\n\n\n\n\n<i class='fn3 nudge-r kb kb-Symbol-YinYang'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 6.25,
+      "c": "#cccccc",
+      "a": 7,
+      "fa": [
+        5
+      ],
+      "w": 2,
+      "h": 0.5,
+      "d": true
+    },
+    "<i class='fn1 fa fa-moon-o'></i> + <i class='fn2 fa fa-star-o'></i> <i class='fa fa-long-arrow-right'></i>",
+    {
+      "x": 0.5,
+      "w": 2,
+      "h": 0.5,
+      "d": true
+    },
+    "<i class='fa fa-long-arrow-left'></i> <i class='fn1 fa fa-moon-o'></i> + <i class='fn2 fa fa-star-o'></i>"
+  ]
+]
