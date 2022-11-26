@@ -187,7 +187,7 @@ static const USBEndpointConfig shared_ep_config = {
 };
 #endif
 
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
 /* joystick endpoint state structure */
 static USBInEndpointState joystick_ep_state;
 
@@ -522,7 +522,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #ifdef SHARED_EP_ENABLE
             usbInitEndpointI(usbp, SHARED_IN_EPNUM, &shared_ep_config);
 #endif
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
             usbInitEndpointI(usbp, JOYSTICK_IN_EPNUM, &joystick_ep_config);
 #endif
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)

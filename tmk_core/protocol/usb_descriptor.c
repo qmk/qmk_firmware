@@ -174,6 +174,75 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    ifndef JOYSTICK_SHARED_EP
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
+#    elif !defined(SHARED_REPORT_STARTED)
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
+#        define SHARED_REPORT_STARTED
+#    endif
+    HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
+    HID_RI_USAGE(8, 0x04),          // Joystick
+    HID_RI_COLLECTION(8, 0x01),     // Application
+#    ifdef JOYSTICK_SHARED_EP
+        HID_RI_REPORT_ID(8, REPORT_ID_JOYSTICK),
+#    endif
+        HID_RI_COLLECTION(8, 0x00), // Physical
+#    if JOYSTICK_AXIS_COUNT > 0
+            HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
+            HID_RI_USAGE(8, 0x30),      // X
+#        if JOYSTICK_AXIS_COUNT > 1
+            HID_RI_USAGE(8, 0x31),      // Y
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 2
+            HID_RI_USAGE(8, 0x32),      // Z
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 3
+            HID_RI_USAGE(8, 0x33),      // Rx
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 4
+            HID_RI_USAGE(8, 0x34),      // Ry
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 5
+            HID_RI_USAGE(8, 0x35),      // Rz
+#        endif
+#        if JOYSTICK_AXIS_RESOLUTION == 8
+            HID_RI_LOGICAL_MINIMUM(8, -JOYSTICK_MAX_VALUE),
+            HID_RI_LOGICAL_MAXIMUM(8, JOYSTICK_MAX_VALUE),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_AXIS_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x08),
+#        else
+            HID_RI_LOGICAL_MINIMUM(16, -JOYSTICK_MAX_VALUE),
+            HID_RI_LOGICAL_MAXIMUM(16, JOYSTICK_MAX_VALUE),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_AXIS_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x10),
+#        endif
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+#    endif
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+            HID_RI_USAGE_PAGE(8, 0x09), // Button
+            HID_RI_USAGE_MINIMUM(8, 0x01),
+            HID_RI_USAGE_MAXIMUM(8, JOYSTICK_BUTTON_COUNT),
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_BUTTON_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+
+#        if (JOYSTICK_BUTTON_COUNT % 8) != 0
+            HID_RI_REPORT_COUNT(8, 8 - (JOYSTICK_BUTTON_COUNT % 8)),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+#        endif
+#    endif
+        HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0),
+#    ifndef JOYSTICK_SHARED_EP
+};
+#    endif
+#endif
+
 #ifdef DIGITIZER_ENABLE
 #    ifndef DIGITIZER_SHARED_EP
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM DigitizerReport[] = {
@@ -381,65 +450,6 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
         HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
     HID_RI_END_COLLECTION(0),
-};
-#endif
-
-#ifdef JOYSTICK_ENABLE
-const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
-    HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
-    HID_RI_USAGE(8, 0x04),          // Joystick
-    HID_RI_COLLECTION(8, 0x01),     // Application
-        HID_RI_COLLECTION(8, 0x00), // Physical
-#    if JOYSTICK_AXES_COUNT > 0
-            HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
-            HID_RI_USAGE(8, 0x30),      // X
-#        if JOYSTICK_AXES_COUNT > 1
-            HID_RI_USAGE(8, 0x31),      // Y
-#        endif
-#        if JOYSTICK_AXES_COUNT > 2
-            HID_RI_USAGE(8, 0x32),      // Z
-#        endif
-#        if JOYSTICK_AXES_COUNT > 3
-            HID_RI_USAGE(8, 0x33),      // Rx
-#        endif
-#        if JOYSTICK_AXES_COUNT > 4
-            HID_RI_USAGE(8, 0x34),      // Ry
-#        endif
-#        if JOYSTICK_AXES_COUNT > 5
-            HID_RI_USAGE(8, 0x35),      // Rz
-#        endif
-#        if JOYSTICK_AXES_RESOLUTION == 8
-            HID_RI_LOGICAL_MINIMUM(8, -JOYSTICK_RESOLUTION),
-            HID_RI_LOGICAL_MAXIMUM(8, JOYSTICK_RESOLUTION),
-            HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
-            HID_RI_REPORT_SIZE(8, 0x08),
-#        else
-            HID_RI_LOGICAL_MINIMUM(16, -JOYSTICK_RESOLUTION),
-            HID_RI_LOGICAL_MAXIMUM(16, JOYSTICK_RESOLUTION),
-            HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
-            HID_RI_REPORT_SIZE(8, 0x10),
-#        endif
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-#    endif
-
-#    if JOYSTICK_BUTTON_COUNT > 0
-            HID_RI_USAGE_PAGE(8, 0x09), // Button
-            HID_RI_USAGE_MINIMUM(8, 0x01),
-            HID_RI_USAGE_MAXIMUM(8, JOYSTICK_BUTTON_COUNT),
-            HID_RI_LOGICAL_MINIMUM(8, 0x00),
-            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-            HID_RI_REPORT_COUNT(8, JOYSTICK_BUTTON_COUNT),
-            HID_RI_REPORT_SIZE(8, 0x01),
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-
-#        if (JOYSTICK_BUTTON_COUNT % 8) != 0
-            HID_RI_REPORT_COUNT(8, 8 - (JOYSTICK_BUTTON_COUNT % 8)),
-            HID_RI_REPORT_SIZE(8, 0x01),
-            HID_RI_INPUT(8, HID_IOF_CONSTANT),
-#        endif
-#    endif
-        HID_RI_END_COLLECTION(0),
-    HID_RI_END_COLLECTION(0)
 };
 #endif
 
@@ -1032,10 +1042,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     },
 #endif
 
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
     /*
      * Joystick
      */
-#ifdef JOYSTICK_ENABLE
     .Joystick_Interface = {
         .Header = {
             .Size               = sizeof(USB_Descriptor_Interface_t),
@@ -1251,7 +1261,7 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 
                     break;
 #endif
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
                 case JOYSTICK_INTERFACE:
                     Address = &ConfigurationDescriptor.Joystick_HID;
                     Size    = sizeof(USB_HID_Descriptor_HID_t);
@@ -1316,7 +1326,7 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 
                     break;
 #endif
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
                 case JOYSTICK_INTERFACE:
                     Address = &JoystickReport;
                     Size    = sizeof(JoystickReport);

@@ -513,7 +513,7 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, CDC_EPSIZE, 1);
 #endif
 
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
     /* Setup joystick endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((JOYSTICK_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, JOYSTICK_EPSIZE, 1);
 #endif

@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLED_NUM 52
     #define RGB_MATRIX_LED_COUNT RGBLED_NUM
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128 // Max brightness of LEDs
-    #define RGB_MATRIX_STARTUP_VAL 64
+    #define RGB_MATRIX_DEFAULT_VAL 64
     #define RGB_MATRIX_HUE_STEP 10
     #define RGB_MATRIX_SAT_STEP 10
     #define RGB_MATRIX_VAL_STEP 10

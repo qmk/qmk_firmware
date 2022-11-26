@@ -310,7 +310,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable();
-    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
+    rgb_matrix_set_speed(RGB_MATRIX_DEFAULT_SPD);
 #endif  // RGB_MATRIX_ENABLE
     my_init(); // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
 }
