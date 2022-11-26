@@ -77,6 +77,7 @@ bool led_matrix_indicators_kb(void) {
     } else {
         led_matrix_set_value(89, 0x00);
     }
+    return true;
 }
 
 
