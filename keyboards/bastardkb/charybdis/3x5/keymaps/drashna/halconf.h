@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#if defined(KEYBOARD_bastardkb_charybdis_3x5_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill)
+#if defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill)
 #    define HAL_USE_PWM TRUE
 #    define HAL_USE_SERIAL TRUE
 #    define HAL_USE_I2C TRUE

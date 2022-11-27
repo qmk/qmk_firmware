@@ -18,7 +18,7 @@
 
 #include_next "mcuconf.h"
 
-#if defined(KEYBOARD_bastardkb_charybdis_3x5_v1_elitec) || defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill)
+#if defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill)
 #    undef STM32_I2C_USE_I2C1
 #    define STM32_I2C_USE_I2C1 TRUE
 

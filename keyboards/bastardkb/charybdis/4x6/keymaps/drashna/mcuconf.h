@@ -18,9 +18,10 @@
 
 #include_next "mcuconf.h"
 
-#undef STM32_PWM_USE_ADVANCED
-#define STM32_PWM_USE_ADVANCED TRUE
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
+#    undef STM32_PWM_USE_ADVANCED
+#    define STM32_PWM_USE_ADVANCED TRUE
 
-
-#undef STM32_PWM_USE_TIM4
-#define STM32_PWM_USE_TIM4 TRUE
+#    undef STM32_PWM_USE_TIM4
+#    define STM32_PWM_USE_TIM4 TRUE
+#endif
