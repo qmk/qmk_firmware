@@ -29,6 +29,7 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 |----------------------------|---------------|---------------------------|
 | Pro Micro (16MHz)          | 90.9 us       |  8140 scans/sec (122.85us)|
 | Proton C (72MHz)           | 56.94 us      | 15024 scans/sec (66.56us) |
+| Proton C (72MH) <br> use opendrain | 19.02 us  | 34941 scans/sec (28.62us) |
 | Raspberry Pi Pico (125MHz) | 30.03 us      | 26116 scans/sec (38.29us) |
 
 ## Configuration
@@ -95,6 +96,12 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
  ##### Connect a 1000pF capacitor between C5 line and GND, Press R0C5, R1C5, R2C5, R3C5, R4C5 keys
 
 <img width="80%" alt="sym70_oc_di_proton_c_boost_10k_zoom2_C5_1000pf" src="https://user-images.githubusercontent.com/2170248/203856536-e7b90f59-2bb0-4131-ad2c-03e56d1376ae.png">
+
+#### Default setting (with fast `matrix_read_cols_on_rows()` and use opendrain)
+
+ - `make MTEST=matrix_debug_scan,matrix_debug_delay,matrix_opendrain handwired/symmetric70_proto/proton_c/boost:default_mac:flash`
+
+<img width="80%" alt="sym70_oc_di_proton_c_boost_opd_10k_zoom" src="https://user-images.githubusercontent.com/2170248/204152225-7566b9de-feba-4320-801e-94dea071342a.png">
 
 ### Raspberry Pi Pico (RP2040 125MHz)
 #### Default setting (without fast `matrix_read_cols_on_rows()`)

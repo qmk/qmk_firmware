@@ -68,6 +68,7 @@ python3 users/mtei/convert_matrix_config.py <config.h or info.json>
    * [`#define SWITCH_MATRIX_OUTPUT_0`](#define-switch_matrix_output_0)
    * [`#define MATRIX_EXTENSION_74HC157`](#define-matrix_extension_74hc157)
    * [`#define MATRIX_SWITCH_LOGIC_IS_ACTIVE_HIGH`](#define-matrix_switch_logic_is_active_high)
+   * [`#define MATRIX_USE_OPENDRAIN_PULLUP`](#define-matrix_use_opendrain_pullup)
    * [For split keyboards with different configurations on the left and right.](#for-split-keyboards-with-different-configurations-on-the-left-and-right)
  * [Delay configuration](#delay-configuration)
    * [`#define MATRIX_IO_DELAY_TYPE ADAPTIVE_TO_INPUT`](#define-matrix_io_delay_type-adaptive_to_input)
@@ -210,6 +211,10 @@ If this macro is defined, MCU_GPIO_74HC157_A and MCU_GPIO_74HC157_B can be speci
 #### `#define MATRIX_SWITCH_LOGIC_IS_ACTIVE_HIGH`
 
 Define this macro when the input pin of the keyswitch is active high.
+
+#### `#define MATRIX_USE_OPENDRAIN_PULLUP`
+
+On un-select of matrix pins, rather than setting pins to input-high, sets them to opendrain-high.
 
 #### For split keyboards with different configurations on the left and right.
 

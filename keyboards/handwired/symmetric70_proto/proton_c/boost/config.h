@@ -5,15 +5,6 @@
 
 // clang-format off
 
-#ifdef MATRIX_USE_OPENDRAIN_PULLUP
-#    ifndef MATRIX_IO_DELAY_TYPE
-#        define MATRIX_IO_DELAY_TYPE ADAPTIVE_TO_INPUT_WITH_TIME
-#    endif
-#    ifndef MATRIX_IO_DELAY
-#        define MATRIX_IO_DELAY 6
-#    endif
-#endif
-
 #ifdef CANCEL_BOOST
 #    define PRODUCT      BASE_PRODUCT normal(non boost)
 #    define MATRIX_COL_PINS { A2, A1, A0, B8, B13, B14, B15, B9, B0, B1, B2, B3, B4, B5, B6, B7 }
