@@ -1,6 +1,6 @@
 # heliotrope
 
-![heliotrope](imgur.com image replace me!)
+![heliotrope](https://github.com/MATTMCCA/Heliotrope/blob/main/Case/test_fit.jpeg)
 
 *A short description of the keyboard/project*
 
