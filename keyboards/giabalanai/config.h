@@ -108,7 +108,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 /* ws2812 RGB MATRIX */
-#   define DRIVER_LED_TOTAL 123
+#   define RGB_MATRIX_LED_COUNT 123
 #   define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 
 //  for all fingers used at once.

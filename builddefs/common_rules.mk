@@ -1,7 +1,7 @@
 # Hey Emacs, this is a -*- makefile -*-
 #----------------------------------------------------------------------------
 
-# Enable vpath seraching for source files only
+# Enable vpath searching for source files only
 # Without this, output files, could be read from the wrong .build directories
 VPATH_SRC := $(VPATH)
 vpath %.c $(VPATH_SRC)
@@ -85,7 +85,7 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 endif
 CXXFLAGS += $(CXXDEFS)
 CXXFLAGS += -O$(OPT)
-# to supress "warning: only initialized variables can be placed into program memory area"
+# to suppress "warning: only initialized variables can be placed into program memory area"
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
@@ -332,6 +332,7 @@ $1/asflags.txt: $1/force
 	echo '$$($1_ASFLAGS)' | cmp -s - $$@ || echo '$$($1_ASFLAGS)' > $$@
 
 $1/compiler.txt: $1/force
+	test -f $$@ || touch $$@
 	$$(CC) --version | cmp -s - $$@ || $$(CC) --version > $$@
 endef
 

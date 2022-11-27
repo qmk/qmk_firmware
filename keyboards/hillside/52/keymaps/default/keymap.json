@@ -1,0 +1,88 @@
+{    "version": 1,
+    "notes": "",
+    "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
+    "keyboard": "hillside/52",
+    "keymap": "default",
+    "layout": "LAYOUT",
+    "layers": [
+        ["KC_GRV"      , "KC_Q"    , "KC_W"   , "KC_E"   , "KC_R"   , "KC_T",
+         "KC_Y"        , "KC_U"    , "KC_I"   , "KC_O"   , "KC_P"   , "KC_BSPC",
+
+         "KC_TAB"      , "KC_A"    , "KC_S"   , "KC_D"   , "KC_F"   , "KC_G",
+         "KC_H"        , "KC_J"    , "KC_K"   , "KC_L"   , "KC_SCLN", "KC_ENT",
+
+         "KC_LSFT"     , "KC_Z"    , "KC_X"   , "KC_C"   , "KC_V"   , "KC_B"         , "KC_QUOT",
+         "KC_SLSH"     , "KC_N"    , "KC_M"   , "KC_COMM", "KC_DOT" , "KC_UP"        , "KC_RSFT",
+
+         "KC_MUTE"     , "KC_ESC"  , "KC_LCTL", "KC_LGUI", "KC_LALT", "OSM(MOD_LSFT)", "MO(3)",
+         "MO(4)"       , "KC_SPC"  , "KC_LALT", "KC_RGUI", "KC_LEFT", "KC_DOWN"      , "KC_RGHT"
+
+        ],
+        ["KC_GRV"      , "KC_QUOT" , "KC_COMM", "KC_DOT" , "KC_P"   , "KC_Y",
+         "KC_F"        , "KC_G"    , "KC_C"   , "KC_R"   , "KC_L"   , "KC_BSPC",
+
+         "KC_TAB"      , "KC_A"    , "KC_O"   , "KC_E"   , "KC_U"   , "KC_I",
+         "KC_D"        , "KC_H"    , "KC_T"   , "KC_N"   , "KC_S"   , "KC_ENT",
+
+         "KC_LSFT"     , "KC_SCLN" , "KC_Q"   , "KC_J"   , "KC_K"   , "KC_X"         , "KC_SLSH",
+         "KC_Z"        , "KC_B"    , "KC_M"   , "KC_W"   , "KC_V"   , "KC_UP"        , "KC_RSFT",
+
+         "KC_MUTE"     , "KC_ESC"  , "KC_LCTL", "KC_LGUI", "KC_LALT", "OSM(MOD_LSFT)", "MO(3)",
+         "MO(4)"       , "KC_SPC"  , "KC_LALT", "KC_RGUI", "KC_LEFT", "KC_DOWN"      , "KC_RGHT"
+
+        ],
+        ["KC_GRV"      , "KC_Q"    , "KC_W"   , "KC_F"   , "KC_P"   , "KC_B",
+         "KC_J"        , "KC_L"    , "KC_U"   , "KC_Y"   , "KC_SCLN", "KC_BSPC",
+
+         "KC_TAB"      , "KC_A"    , "KC_R"   , "KC_S"   , "KC_T"   , "KC_G",
+         "KC_M"        , "KC_N"    , "KC_E"   , "KC_I"   , "KC_O"   , "KC_ENT",
+
+         "KC_LSFT"     , "KC_Z"    , "KC_TRNS", "KC_C"   , "KC_D"   , "KC_V"         , "KC_QUOT",
+         "KC_SLSH"     , "KC_K"    , "KC_H"   , "KC_COMM", "KC_DOT" , "KC_UP"        , "KC_RSFT",
+
+         "KC_MUTE"     , "KC_ESC"  , "KC_LCTL", "KC_LGUI", "KC_LALT", "OSM(MOD_LSFT)", "MO(3)",
+         "MO(4)"       , "KC_SPC"  , "KC_LALT", "KC_RGUI", "KC_LEFT", "KC_DOWN"      , "KC_RGHT"
+
+        ],
+        ["LCTL(KC_C)"  , "KC_1"    , "KC_2"   , "KC_3"   , "KC_4"   , "KC_5",
+         "KC_6"        , "KC_7"    , "KC_8"   , "KC_9"   , "KC_0"   , "KC_TRNS",
+
+         "LCTL(KC_X)"  , "KC_LGUI" , "KC_LALT", "KC_LCTL", "KC_LSFT", "LCTL(KC_V)",
+         "KC_PGUP"     , "KC_LEFT" , "KC_UP"  , "KC_DOWN", "KC_RGHT", "KC_PGDN",
+
+         "KC_TRNS"     , "KC_F1"   , "KC_F2"  , "KC_F3"  , "KC_F4"  , "KC_F5"        , "LCTL(KC_Z)",
+         "LCTL(KC_Y)"  , "KC_F6"   , "KC_F7"  , "KC_F8"  , "KC_F9"  , "KC_F10"       , "KC_TRNS",
+
+         "KC_F11"      , "KC_F12"  , "KC_LCTL", "KC_TRNS", "KC_TRNS", "KC_TRNS"      , "KC_TRNS",
+         "MO(5)"       , "KC_TRNS" , "KC_TRNS", "KC_TRNS", "KC_RCTL", "KC_HOME"      , "KC_END"
+
+        ],
+        ["KC_INS"      , "KC_EXLM" , "KC_AT"  , "KC_HASH", "KC_DLR" , "KC_PERC",
+         "KC_CIRC"     , "KC_AMPR" , "KC_ASTR", "KC_LPRN", "KC_RPRN", "KC_DEL",
+
+         "ANY(CW_TOGG)", "KC_BSLS" , "KC_MINS", "KC_EQL" , "KC_LBRC", "KC_RBRC",
+         "KC_VOLU"     , "KC_RSFT" , "KC_RCTL", "KC_LALT", "KC_RGUI", "KC_TRNS",
+
+         "KC_TRNS"     , "KC_PIPE" , "KC_UNDS", "KC_PLUS", "KC_LCBR", "KC_RCBR"      , "KC_MPLY",
+         "KC_MUTE"     , "KC_VOLD" , "KC_0"   , "KC_1"   , "KC_2"   , "KC_NO"        , "KC_TRNS",
+
+         "KC_NO"       , "KC_NO"   , "KC_LCTL", "KC_TRNS", "KC_TRNS", "KC_TRNS"      , "MO(5)",
+         "KC_TRNS"     , "KC_TRNS" , "KC_TRNS", "KC_TRNS", "KC_RCTL", "KC_APP"       , "OSM(MOD_RALT)"
+
+        ],
+        ["KC_NO"       , "DF(0)"   , "DF(1)"  , "DF(2)"  , "AG_SWAP", "CG_SWAP",
+         "KC_NO"       , "KC_PSCR" , "KC_NO"  , "KC_NO"  , "KC_NO"  , "KC_NO",
+
+         "KC_NO"       , "KC_NO"   , "KC_BRIU", "KC_NO"  , "AG_NORM", "CG_NORM",
+         "RGB_MOD"     , "RGB_VAI" , "RGB_HUI", "RGB_SAI", "KC_NO"  , "KC_NO",
+
+         "QK_BOOT"     , "KC_NO"   , "KC_BRID", "KC_NO"  , "KC_NO"  , "KC_NO"        , "EE_CLR",
+         "RGB_TOG"     , "RGB_RMOD", "RGB_VAD", "RGB_HUD", "RGB_SAD", "KC_NO"        , "KC_NO",
+
+         "KC_NO"       , "KC_NO"   , "KC_NO"  , "KC_NO"  , "KC_NO"  , "KC_NO"        , "KC_TRNS",
+         "KC_TRNS"     , "KC_NO"   , "KC_NO"  , "KC_NO"  , "KC_NO"  , "KC_NO"        , "KC_NO"
+
+        ]
+    ],
+    "author": "@mmccoyd"
+}

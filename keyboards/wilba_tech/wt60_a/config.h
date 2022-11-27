@@ -100,8 +100,8 @@
 // enable the mono backlight
 #define MONO_BACKLIGHT_ENABLED 1
 
-// enable the RGB indicator for WT75-A
-#define MONO_BACKLIGHT_WT75_A
+// enable the specific indicators
+#define MONO_BACKLIGHT_WT60_A
 
 // disable backlight when USB suspended (PC sleep/hibernate/shutdown)
 #define MONO_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0
@@ -121,6 +121,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE

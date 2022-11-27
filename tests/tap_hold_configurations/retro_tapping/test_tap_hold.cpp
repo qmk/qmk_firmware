@@ -42,7 +42,7 @@ TEST_F(RetroTapping, tap_and_hold_mod_tap_hold_key) {
 
     /* Release mod-tap-hold key. */
     /* TODO: Why is LSHIFT send at all? */
-    EXPECT_REPORT(driver, (KC_LSHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_EMPTY_REPORT(driver);
