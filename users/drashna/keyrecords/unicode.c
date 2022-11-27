@@ -417,9 +417,9 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
 }
 
 /**
- * @brief Initialize the default unicode mode on firmware startu
+ * @brief Initialize the default unicode mode on firmware startup
  *
  */
-void matrix_init_unicode(void) {
+void keyboard_post_init_unicode(void) {
     unicode_input_mode_init();
 }

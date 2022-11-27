@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 
-void matrix_init_keymap(void) {
+void keyboard_post_init_keymap(void) {
 #if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
     setPinInputHigh(A0);
 #endif
