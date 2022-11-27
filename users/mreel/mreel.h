@@ -20,20 +20,39 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "wrappers.h"
 
-enum my_tapdances {
-    TD_SHAP,
-};
-
 enum layer_names {
     _DF_MAC,
     _WIN,
     _NAV_FN1,   //with keycodes piggybacking of off layer data to use proper modifiers
     _KEYB
 };
-
+/*
+    Most CK_ CustomKeycodes simply exist to keep the keymap file clean and
+    relay logic for windows/macos to the mreel.c userspace file.
+    This is done so both the keymaps file stay clean, and more importantly,
+    this means that for example CK_BWRD (backspace-word) has only one
+    location in the keymap and can be easily moved.
+*/
  enum my_keycodes {
      CK_BWRD = SAFE_RANGE,
      CK_HOME,
      CK_END,
-     CK_WCMD,
+     CK_VOLU,
+     CK_VOLD,
+     CK_DLFT,
+     CK_DRHT,
+     CK_LWRD,
+     CK_RWRD,
+     UC_UCIS,
+     // unicodemap characters
+     UC_TRMI,   //leave first
+     UC_TRMU,
+     UC_TRMO,
+     UC_TRME,
+     UC_AGRE,
+     UC_AAGE,
+     UC_ACRE,
+     UC_SP23,
+     UC_SMLE,
+     UC_COL     //leave last
  };
