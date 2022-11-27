@@ -101,7 +101,6 @@ void                       suspend_wakeup_init_user(void) {
 // No global matrix scan code, so just run keymap's matrix
 // scan function
 __attribute__((weak)) void matrix_scan_keymap(void) {}
-__attribute__((weak)) void matrix_scan_secret(void) {}
 void                       matrix_scan_user(void) {
     static bool has_ran_yet;
     if (!has_ran_yet) {
@@ -112,9 +111,6 @@ void                       matrix_scan_user(void) {
 #ifdef TAP_DANCE_ENABLE // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
 #endif // TAP_DANCE_ENABLE
-#ifdef CAPS_WORD_ENABLE
-    caps_word_task();
-#endif
 #if defined(CUSTOM_RGB_MATRIX)
     matrix_scan_rgb_matrix();
 #endif
@@ -124,7 +120,6 @@ void                       matrix_scan_user(void) {
 #ifdef CUSTOM_OLED_DRIVER
     matrix_scan_oled();
 #endif
-    matrix_scan_secret();
 
     matrix_scan_keymap();
 }

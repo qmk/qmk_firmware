@@ -122,9 +122,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void keyboard_post_init_keymap(void) {
-#if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
-    setPinInputHigh(A0);
-#endif
 #ifdef RGB_MATRIX_ENABLE
      g_led_config.flags[53] = g_led_config.flags[54] = g_led_config.flags[55] =
         g_led_config.flags[0] = g_led_config.flags[1] = g_led_config.flags[2] = g_led_config.flags[3] =
@@ -133,13 +130,17 @@ void keyboard_post_init_keymap(void) {
 #endif
 }
 
-void matrix_scan_keymap(void) {
 #if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
+void keyboard_pre_init_keymap(void) {
+    setPinInputHigh(A0);
+}
+
+void housekeeping_task_keymap(void) {
     if (!readPin(A0)) {
         reset_keyboard();
     }
-#endif
 }
+#endif
 
 #ifdef USB_VBUS_PIN
 bool usb_vbus_state(void) {

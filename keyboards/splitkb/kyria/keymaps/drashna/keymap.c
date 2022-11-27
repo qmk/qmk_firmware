@@ -158,9 +158,11 @@ const rgblight_segment_t PROGMEM gui_layers[]     = RGBLIGHT_LAYER_SEGMENTS({7, 
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(shift_layers, control_layers, alt_layers, gui_layers);
 
-void keyboard_post_init_keymap(void) { rgblight_layers = my_rgb_layers; }
+void keyboard_post_init_keymap(void) {
+    rgblight_layers = my_rgb_layers;
+}
 
-void matrix_scan_keymap(void) {
+void housekeeping_task_keymap(void) {
     uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
     rgblight_set_layer_state(0, mods & MOD_MASK_SHIFT);
     rgblight_set_layer_state(1, mods & MOD_MASK_CTRL);
