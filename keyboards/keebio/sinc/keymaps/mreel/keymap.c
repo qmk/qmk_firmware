@@ -1,3 +1,26 @@
+/*
+Copyright 2022 Tibo Loete, aka Mister Eel <mistermister1111@hotmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+/*
+TODO:
+- Clean up structure (more files, less cluttered stuff in files)
+- add OS level shortcuts to windows (ctrl+Q -> alt+f4, ctrl+win+Q -> win+L etc)
+*/
+
 #include QMK_KEYBOARD_H
 #include "mreel.h"
 
@@ -47,11 +70,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   */
 };
-
-/*
-TODO:
-- unicode on windows (input mode) (https://docs.qmk.fm/#/feature_layers?id=example-layer_state_set_-implementation)
-*/
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_DF_MAC]=   { ENCODER_CCW_CW(CK_VOLD, CK_VOLU), ENCODER_CCW_CW(CK_DLFT, CK_DRHT)  },

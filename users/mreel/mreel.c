@@ -19,7 +19,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("love", 0x2665),                       // ♥
-    UCIS_SYM("degree", 0x1BC85),                    // 𛲅  Not actual degree symbol (0x00B0), hexcodes ending in 0 don't work on macos...
+    UCIS_SYM("degree", 0x1BC85),                    // 𛲅  Not actual degree symbol (0x00B0), hexcodes ending in 0 don't work on macos….
     UCIS_SYM("deg", 0x1BC85),                       // 𛲅
     UCIS_SYM("delta", 0x0394),                      // Δ
     UCIS_SYM("euro", 0x20AC),                       // €
@@ -173,4 +173,13 @@ void qk_ucis_success(uint8_t symbol_index) {
 
 void qk_ucis_cancel(void) {
     if (!layer_state_is(_WIN)) {tap_code16(C(LOPT(KC_BSLS)));} //switch back to normal input on macos
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (IS_LAYER_ON(_WIN)) {
+        set_unicode_input_mode(UC_WINC);
+    } else {
+        set_unicode_input_mode(UC_MAC);
+    }
+  return state;
 }
