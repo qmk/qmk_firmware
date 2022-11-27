@@ -211,36 +211,7 @@ void oled_render_large_display(bool side) {
         // clang-format on
         oled_write_P(logo, false);
 
-#    ifdef CUSTOM_UNICODE_ENABLE
-        oled_set_cursor(1, 14);
-        oled_write_ln_P(PSTR("Unicode:"), false);
-        switch (typing_mode) {
-            case UCTM_WIDE:
-                oled_write_P(PSTR("        Wide"), false);
-                break;
-            case UCTM_SCRIPT:
-                oled_write_P(PSTR("      Script"), false);
-                break;
-            case UCTM_BLOCKS:
-                oled_write_P(PSTR("      Blocks"), false);
-                break;
-            case UCTM_REGIONAL:
-                oled_write_P(PSTR("    Regional"), false);
-                break;
-            case UCTM_AUSSIE:
-                oled_write_P(PSTR("      Aussie"), false);
-                break;
-            case UCTM_ZALGO:
-                oled_write_P(PSTR("       Zalgo"), false);
-                break;
-            case UCTM_NO_MODE:
-                oled_write_P(PSTR("      Normal"), false);
-                break;
-            default:
-                oled_write_P(PSTR("     Unknown"), false);
-                break;
-        }
-#    endif
+        render_unicode_mode(1, 14);
     }
 }
 #endif

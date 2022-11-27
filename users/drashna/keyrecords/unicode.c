@@ -7,7 +7,18 @@
 #include "unicode.h"
 #include "process_unicode_common.h"
 
-uint8_t typing_mode = UCTM_NO_MODE;
+uint8_t unicode_typing_mode = UCTM_NO_MODE;
+const char unicode_mode_str[UNCODES_MODE_END][13] PROGMEM = {
+    "      Normal\0",
+    "        Wide\0",
+    "      Script\0",
+    "      Blocks\0",
+    "    Regional\0",
+    "      Aussie\0",
+    "       Zalgo\0",
+    "Super Script\0",
+    "       Comic\0",
+};
 
 /**
  * @brief Registers the unicode keystrokes based on desired unicode
@@ -360,10 +371,10 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_NOMODE ... KC_COMIC:
             if (record->event.pressed) {
-                if (typing_mode != keycode - KC_NOMODE) {
-                    typing_mode = keycode - KC_NOMODE;
+                if (unicode_typing_mode != keycode - KC_NOMODE) {
+                    unicode_typing_mode = keycode - KC_NOMODE;
                 } else {
-                    typing_mode = UCTM_NO_MODE;
+                    unicode_typing_mode = UCTM_NO_MODE;
                 }
             }
             break;
@@ -380,19 +391,19 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
         keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
     }
 
-    if (typing_mode == UCTM_WIDE) {
+    if (unicode_typing_mode == UCTM_WIDE) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_wide);
         }
-    } else if (typing_mode == UCTM_SCRIPT) {
+    } else if (unicode_typing_mode == UCTM_SCRIPT) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_script);
         }
-    } else if (typing_mode == UCTM_BLOCKS) {
+    } else if (unicode_typing_mode == UCTM_BLOCKS) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             return process_record_glyph_replacement(keycode, record, unicode_range_translator_boxes);
         }
-    } else if (typing_mode == UCTM_REGIONAL) {
+    } else if (unicode_typing_mode == UCTM_REGIONAL) {
         if (((KC_A <= keycode) && (keycode <= KC_0)) || keycode == KC_SPACE) {
             if (!process_record_glyph_replacement(keycode, record, unicode_range_translator_regional)) {
                 wait_us(500);
@@ -400,17 +411,17 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
         }
-    } else if (typing_mode == UCTM_SUPER) {
+    } else if (unicode_typing_mode == UCTM_SUPER) {
         if (((KC_A <= keycode) && (keycode <= KC_0))) {
             return process_record_glyph_replacement(keycode, record, unicode_lut_translator_super);
         }
-    } else if (typing_mode == UCTM_COMIC) {
+    } else if (unicode_typing_mode == UCTM_COMIC) {
         if (((KC_A <= keycode) && (keycode <= KC_0))) {
             return process_record_glyph_replacement(keycode, record, unicode_lut_translator_comic);
         }
-    } else if (typing_mode == UCTM_AUSSIE) {
+    } else if (unicode_typing_mode == UCTM_AUSSIE) {
         return process_record_aussie(keycode, record);
-    } else if (typing_mode == UCTM_ZALGO) {
+    } else if (unicode_typing_mode == UCTM_ZALGO) {
         return process_record_zalgo(keycode, record);
     }
     return true;
