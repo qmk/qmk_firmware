@@ -23,7 +23,6 @@
     "COMBO_COUNT": {"info_key": "combo.count", "value_type": "int"},
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
     "DEBOUNCE": {"info_key": "debounce", "value_type": "int"},
-    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version"},
     "DIODE_DIRECTION": {"info_key": "diode_direction"},
     "DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.double_tap_shift_turns_on", "value_type": "bool"},
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "bool"},
@@ -51,7 +50,6 @@
     "LED_MATRIX_SAT_STEP": {"info_key": "led_matrix.sat_steps", "value_type": "int"},
     "LED_MATRIX_VAL_STEP": {"info_key": "led_matrix.val_steps", "value_type": "int"},
     "LED_MATRIX_SPD_STEP": {"info_key": "led_matrix.speed_steps", "value_type": "int"},
-    "MANUFACTURER": {"info_key": "manufacturer", "value_type": "str"},
     "MATRIX_HAS_GHOST": {"info_key": "matrix_pins.ghost", "value_type": "bool"},
     "MATRIX_IO_DELAY": {"info_key": "matrix_pins.io_delay", "value_type": "int"},
     "MOUSEKEY_DELAY": {"info_key": "mousekey.delay", "value_type": "int"},
@@ -89,9 +87,6 @@
     "RGB_MATRIX_VAL_STEP": {"info_key": "rgb_matrix.val_steps", "value_type": "int"},
     "RGB_MATRIX_SPD_STEP": {"info_key": "rgb_matrix.speed_steps", "value_type": "int"},
     "RGBW": {"info_key": "rgblight.rgbw", "value_type": "bool"},
-    "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str"},
-    "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex"},
-    "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex"},
     "QMK_ESC_OUTPUT": {"info_key": "qmk_lufa_bootloader.esc_output"},
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
     "QMK_LED": {"info_key": "qmk_lufa_bootloader.led"},
@@ -128,5 +123,12 @@
     "PREVENT_STUCK_MODIFIERS": {"info_key": "_invalid.prevent_stuck_mods", "invalid": true},
     "UNUSED_PINS": {"info_key": "_invalid.unused_pins", "deprecated": true},
     "RGBLIGHT_ANIMATIONS": {"info_key": "rgblight.animations.all", "value_type": "bool", "deprecated": true},
-    "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true}
+    "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
+
+    // USB params, need to mark as failure when specified in config.h, rather than deprecated
+    "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
+    "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.vid` in info.json"},
+    "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true, "replace_with": "`keyboard_name` in info.json"},
+    "MANUFACTURER": {"info_key": "manufacturer", "value_type": "str", "deprecated": true, "replace_with": "`manufacturer` in info.json"},
+    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version", "deprecated": true, "replace_with": "`usb.device_version` in info.json"}
 }
