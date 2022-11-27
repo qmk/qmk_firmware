@@ -1,9 +1,5 @@
 # heliotrope
 
-![heliotrope](https://github.com/MATTMCCA/Heliotrope/blob/main/Case/test_fit.jpeg)
-
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [MATTMCCA](https://github.com/MATTMCCA)
 * Hardware Supported: *https://github.com/MATTMCCA/Heliotrope/*
 * Hardware Availability: *https://github.com/MATTMCCA/Heliotrope/*
