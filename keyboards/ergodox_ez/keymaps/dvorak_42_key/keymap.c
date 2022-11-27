@@ -1,3 +1,6 @@
+// Copyright 2022 LucW (@luc-languagetools)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
