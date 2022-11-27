@@ -1,3 +1,6 @@
+// Copyright 2022 LucW (@luc-languagetools)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 #define VS_COMMANDS              MEH(KC_B)       // workbench.action.showCommands
 #define VS_LINE                  MEH(KC_C)       // workbench.action.gotoLine

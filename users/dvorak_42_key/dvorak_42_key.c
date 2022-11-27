@@ -1,3 +1,6 @@
+// Copyright 2022 LucW (@luc-languagetools)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "dvorak_42_key.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
