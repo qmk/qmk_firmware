@@ -18,8 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef KEYBOARD_bastardkb_charybdis_3x5_v1_elitec
-
+#ifdef KEYBOARD_bastardkb_charybdis_3x5_blackpill
 #    undef PRODUCT
 #    define PRODUCT "Charybdis Nano (Blackpill)"
 
@@ -38,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         { A15, B3, B4, B5, B6 }
 
 #    define USB_VBUS_PIN B10
+#    undef SPLIT_HAND_PIN
 #    define SPLIT_HAND_PIN C14 // high = left, low = right
 
 // WS2812 RGB LED strip input and number of LEDs
@@ -50,6 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define WS2812_PWM_PAL_MODE 1   // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
 #    define WS2812_EXTERNAL_PULLUP
 //#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
+#    undef WS2812_DMA_STREAM
 #    define WS2812_DMA_STREAM STM32_DMA1_STREAM7 // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #    define WS2812_DMA_CHANNEL 3                 // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #    define WS2812_PWM_TARGET_PERIOD 800000
@@ -65,7 +66,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* serial.c configuration for split keyboard */
 #    undef SOFT_SERIAL_PIN
 #    define SERIAL_USART_FULL_DUPLEX // Enable full duplex operation mode.
+#    undef SERIAL_USART_TX_PIN
 #    define SERIAL_USART_TX_PIN A2
+#    undef SERIAL_USART_RX_PIN
 #    define SERIAL_USART_RX_PIN A3
 #    define SERIAL_USART_DRIVER SD2
 #    define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7

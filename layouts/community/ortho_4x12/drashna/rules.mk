@@ -42,3 +42,10 @@ ifeq ($(strip $(KEYBOARD)), planck/ez)
     AUTOCORRECT_ENABLE          = yes
     CAPS_WORD_ENABLE            = yes
 endif
+
+ifeq ($(strip $(MCU)), atmega32u4)
+    BOOTLOADER = qmk-hid
+    BOOTLOADER_SIZE = 512
+    LTO_ENABLE = yes
+    CUSTOM_UNICODE_ENABLE = no
+endif
