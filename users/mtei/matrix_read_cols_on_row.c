@@ -235,6 +235,14 @@ const static port_pin_list_element_t minfo[] = {
 #endif
 };
 
+#ifdef MATRIX_SELECT_IO_DELAY_US
+// To use microsecond delays instead of CPU clock delays,
+// replace the matrix_output_select_delay() function in matrix_common.c with the following function
+void matrix_output_select_delay(void) {
+    wait_us(MATRIX_SELECT_IO_DELAY_US);
+}
+#endif
+
 // clang-format on
 ALWAYS_INLINE
 static void writeOutputPin_Low(pin_t pin) {

@@ -6,9 +6,6 @@
 // clang-format off
 
 #ifdef MATRIX_USE_OPENDRAIN_PULLUP
-#    ifdef GPIO_INPUT_PIN_DELAY_US
-#        define GPIO_INPUT_PIN_DELAY (GPIO_INPUT_PIN_DELAY_US * (CPU_CLOCK / 1000000L))
-#    endif
 #    ifndef MATRIX_IO_DELAY_TYPE
 #        define MATRIX_IO_DELAY_TYPE ADAPTIVE_TO_INPUT_WITH_TIME
 #    endif
