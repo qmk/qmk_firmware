@@ -74,7 +74,7 @@
 #define ___ADJUST_L3___ ___RGB_HUE_SAT_INT_DN___,       KC_RGB_T
 
 #define ___ADJUST_R1___  ___, KC_MAKE, VRSN, MG_NKRO, KC_RESET
-#define ___ADJUST_R2___  EEP_RST, ___PRV_PLAY_NXT_STOP___,
+#define ___ADJUST_R2___  EE_CLR, ___PRV_PLAY_NXT_STOP___,
 #define ___ADJUST_R3___  MG_NKRO, ___VDN_MUTE_VUP___, RGB_IDL
 /********************************************************************************/
 /* The Adjust LAYER Chunks                                                      */

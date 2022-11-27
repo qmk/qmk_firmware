@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT(
   LT4_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
   LT3_ESC, LG_A, LA_S, LS_D, LC_F, LT(4,KC_G), RC_H, RS_J, RA_K, RG_L, TD(TD1), TD(TD2),
-  KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, TD(TD3), KC_SFTENT,
-  KC_LCPO, KC_RPRN, KC_LGUI, KC_LALT, LT2, KC_SPC, LT1, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
+  KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, TD(TD3), SC_SENT,
+  SC_LCPO, KC_RPRN, KC_LGUI, KC_LALT, LT2, KC_SPC, LT1, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
 [1] = LAYOUT( /* Right */
@@ -62,6 +62,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  G(S(KC_1)), G(S(KC_2)), G(S(KC_3)), G(S(KC_4)), G(S(KC_5)), G(S(KC_6)), G(S(KC_7)), G(S(KC_8)), G(S(KC_9)), G(S(KC_0)), _______,
   RGB_TOG, RGB_MOD, RGB_M_P, RGB_HUD, RGB_HUI, _______, _______, _______, _______, _______, _______, _______,
   KC_PSCR, _______, RGB_RMOD, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, _______, KC_CAPS,
-  QK_BOOT, _______, RGB_VAD, RGB_VAI, _______,     _______,      _______, _______, _______, _______, KC_NLCK
+  QK_BOOT, _______, RGB_VAD, RGB_VAI, _______,     _______,      _______, _______, _______, _______, KC_NUM
 ),
 };

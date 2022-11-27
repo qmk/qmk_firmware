@@ -133,7 +133,7 @@ void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         AW20216_set_color(i, red, green, blue);
     }
 }

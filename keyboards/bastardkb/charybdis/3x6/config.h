@@ -32,9 +32,7 @@
 
 /* RGB settings. */
 #ifdef RGB_MATRIX_ENABLE
-#    define RGBLED_NUM 42
-#    define RGBLED_SPLIT \
+#    define RGB_MATRIX_LED_COUNT 42
+#    define RGB_MATRIX_SPLIT \
         { 21, 21 }
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #endif

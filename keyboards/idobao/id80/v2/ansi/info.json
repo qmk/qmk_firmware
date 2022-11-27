@@ -1,6 +1,6 @@
 {
     "keyboard_name": "ID80 ANSI",
     "usb": {
-        "pid": "0x0080",
+        "pid": "0x0080"
     }
 }

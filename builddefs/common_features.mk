@@ -64,6 +64,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
         OPT_DEFS += -DAUDIO_DRIVER_PWM
     endif
     OPT_DEFS += -DAUDIO_ENABLE
+    COMMON_VPATH += $(QUANTUM_PATH)/audio
     MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
@@ -136,6 +137,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         VPATH += $(QUANTUM_DIR)/pointing_device
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device.c
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_drivers.c
+        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_auto_mouse.c
         ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
             SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
             OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
@@ -175,7 +177,7 @@ ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
     include $(QUANTUM_DIR)/painter/rules.mk
 endif
 
-VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling
+VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling legacy_stm32_flash
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
   $(call CATASTROPHIC_ERROR,Invalid EEPROM_DRIVER,EEPROM_DRIVER="$(EEPROM_DRIVER)" is not a valid EEPROM driver)
@@ -202,6 +204,12 @@ else
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
     QUANTUM_LIB_SRC += spi_master.c
     SRC += eeprom_driver.c eeprom_spi.c
+  else ifeq ($(strip $(EEPROM_DRIVER)), legacy_stm32_flash)
+    # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
+    COMMON_VPATH += $(DRIVER_PATH)/flash
+    SRC += eeprom_driver.c eeprom_stm32.c flash_stm32.c
   else ifeq ($(strip $(EEPROM_DRIVER)), transient)
     # Transient EEPROM implementation -- no data storage but provides runtime area for it
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
@@ -212,25 +220,30 @@ else
     ifeq ($(PLATFORM),AVR)
       # Automatically provided by avr-libc, nothing required
     else ifeq ($(PLATFORM),CHIBIOS)
-      ifneq ($(filter STM32F3xx_% STM32F1xx_% %_STM32F401xC %_STM32F401xE %_STM32F405xG %_STM32F411xE %_STM32F072xB %_STM32F042x6 %_GD32VF103xB %_GD32VF103x8, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
-        # Emulated EEPROM
-        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
+      ifneq ($(filter %_STM32F072xB %_STM32F042x6, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
+        # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
         COMMON_VPATH += $(DRIVER_PATH)/flash
-        SRC += eeprom_driver.c eeprom_stm32.c flash_stm32.c
+        SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
+      else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G4xx WB32F3G71xx WB32FQ95xx GD32VF103),)
+        # Wear-leveling EEPROM implementation, backed by MCU flash
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+        SRC += eeprom_driver.c eeprom_wear_leveling.c
+        WEAR_LEVELING_DRIVER = embedded_flash
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         # True EEPROM on STM32L0xx, L1xx
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_L0_L1
         SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
       else ifneq ($(filter $(MCU_SERIES),RP2040),)
-		# Wear-leveling EEPROM implementation, backed by RP2040 flash
-		OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
-		SRC += eeprom_driver.c eeprom_wear_leveling.c
+        # Wear-leveling EEPROM implementation, backed by RP2040 flash
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+        SRC += eeprom_driver.c eeprom_wear_leveling.c
         WEAR_LEVELING_DRIVER = rp2040_flash
       else ifneq ($(filter $(MCU_SERIES),KL2x K20x),)
         # Teensy EEPROM implementations
-        OPT_DEFS += -DEEPROM_TEENSY
-        SRC += eeprom_teensy.c
+        OPT_DEFS += -DEEPROM_KINETIS_FLEXRAM
+        SRC += eeprom_kinetis_flexram.c
       else
         # Fall back to transient, i.e. non-persistent
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
@@ -274,7 +287,7 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
-      SRC += flash_stm32.c wear_leveling_legacy.c
+      SRC += legacy_flash_ops.c wear_leveling_legacy.c
       POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
     endif
   endif
@@ -512,12 +525,6 @@ ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
 endif
 
-ifeq ($(strip $(PRINTING_ENABLE)), yes)
-    OPT_DEFS += -DPRINTING_ENABLE
-    SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
-    QUANTUM_LIB_SRC += uart.c
-endif
-
 VARIABLE_TRACE ?= no
 ifneq ($(strip $(VARIABLE_TRACE)),no)
     SRC += $(QUANTUM_DIR)/variable_trace.c
@@ -537,11 +544,7 @@ endif
 VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
-ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    BACKLIGHT_DRIVER ?= software
-else
-    BACKLIGHT_DRIVER ?= pwm
-endif
+BACKLIGHT_DRIVER ?= pwm
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BACKLIGHT_DRIVER,BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
@@ -773,8 +776,10 @@ endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
     OPT_DEFS += -DUNICODE_COMMON_ENABLE
+    COMMON_VPATH += $(QUANTUM_DIR)/unicode
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c \
-           $(QUANTUM_DIR)/utf8.c
+           $(QUANTUM_DIR)/unicode/unicode.c \
+           $(QUANTUM_DIR)/unicode/utf8.c
 endif
 
 MAGIC_ENABLE ?= yes
@@ -805,31 +810,25 @@ ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
     OPT_DEFS += -DMOUSE_ENABLE
 endif
 
-ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
-    PS2_ENABLE := yes
-    SRC += ps2_busywait.c
-    SRC += ps2_io.c
-    OPT_DEFS += -DPS2_USE_BUSYWAIT
-endif
+VALID_PS2_DRIVER_TYPES := busywait interrupt usart vendor
 
-ifeq ($(strip $(PS2_USE_INT)), yes)
-    PS2_ENABLE := yes
-    SRC += ps2_interrupt.c
-    SRC += ps2_io.c
-    OPT_DEFS += -DPS2_USE_INT
-endif
-
-ifeq ($(strip $(PS2_USE_USART)), yes)
-    PS2_ENABLE := yes
-    SRC += ps2_usart.c
-    SRC += ps2_io.c
-    OPT_DEFS += -DPS2_USE_USART
-endif
-
+PS2_DRIVER ?= busywait
 ifeq ($(strip $(PS2_ENABLE)), yes)
+    ifeq ($(filter $(PS2_DRIVER),$(VALID_PS2_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid PS2_DRIVER,PS2_DRIVER="$(PS2_DRIVER)" is not a valid PS/2 driver)
+    endif
+
+    OPT_DEFS += -DPS2_DRIVER_$(strip $(shell echo $(PS2_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
     COMMON_VPATH += $(DRIVER_PATH)/ps2
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/ps2
     OPT_DEFS += -DPS2_ENABLE
+
+    ifneq ($(strip $(PS2_DRIVER)), vendor)
+        SRC += ps2_io.c
+    endif
+
+    SRC += ps2_$(strip $(PS2_DRIVER)).c
 endif
 
 JOYSTICK_ENABLE ?= no
@@ -885,17 +884,17 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_ENABLE
     NO_USB_STARTUP_CHECK := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
-    SRC += outputselect.c
+    SRC += outputselect.c bluetooth.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
-        OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE
-        SRC += analog.c
+        OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE -DHAL_USE_SPI=TRUE
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
+        QUANTUM_LIB_SRC += analog.c
         QUANTUM_LIB_SRC += spi_master.c
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
-        OPT_DEFS += -DBLUETOOTH_RN42
+        OPT_DEFS += -DBLUETOOTH_RN42 -DHAL_USE_SERIAL=TRUE
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
         QUANTUM_LIB_SRC += uart.c
     endif
