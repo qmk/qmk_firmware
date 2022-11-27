@@ -126,9 +126,9 @@
     "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
 
     // USB params, need to mark as failure when specified in config.h, rather than deprecated
-    "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true},
-    "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex", "deprecated": true},
-    "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true},
-    "MANUFACTURER": {"info_key": "manufacturer", "value_type": "str", "deprecated": true},
-    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version", "deprecated": true}
+    "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
+    "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.vid` in info.json"},
+    "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true, "replace_with": "`keyboard_name` in info.json"},
+    "MANUFACTURER": {"info_key": "manufacturer", "value_type": "str", "deprecated": true, "replace_with": "`manufacturer` in info.json"},
+    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version", "deprecated": true, "replace_with": "`usb.device_version` in info.json"}
 }
