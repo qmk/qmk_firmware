@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_MPLY, KC_MUTE,
                 RGB_MOD,  RGB_HUI, RGB_SAI,   RGB_VAI,
                 RGB_RMOD, RGB_HUD, RGB_SAD,   RGB_VAD,
-                RGB_TOG,  EEP_RST, QK_BOOT,   KC_LSHIFT,
+                RGB_TOG,  EE_CLR,  QK_BOOT,   KC_LSFT,
                 KC_TRNS,  KC_TRNS, KC_TRNS,   KC_TRNS         //Transparent to let you go between layers
         ),
 };
@@ -123,7 +123,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Allow for a preview of changes when modifying RGB
 # if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
   switch (keycode) {
-    case RGB_TOG ... VLK_TOG:
+    case RGB_TOG ... QK_VELOCIKEY_TOGGLE:
       for (uint8_t i = 0; i < RGBLIGHT_MAX_LAYERS; i++) {
         rgblight_set_layer_state(i, false);
       }
@@ -165,5 +165,5 @@ void matrix_scan_user(void) {
 //EEPROM Reset Function
 void eeconfig_init_user(void) {
   rgblight_enable(); // Enable RGB by default
-  rgblight_sethsv_orange();  // Set it to orange by default
+  rgblight_sethsv(HSV_ORANGE);  // Set it to orange by default
 }

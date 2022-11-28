@@ -48,11 +48,11 @@ enum custom_keycodes {
 #define KC_LVAD  RGB_VAD
 #define KC_LMOD  RGB_MOD
 #define KC_CTLTB CTL_T(KC_TAB)
-#define KC_GUIEI GUI_T(KC_LANG2)
-#define KC_ALTKN ALT_T(KC_LANG1)
-#define KC_CTLEN CTL_T(KC_LANG2)    // for Linux and Windows
-#define KC_GUIEN GUI_T(KC_LANG2)    // for Mac
-#define KC_SFTJP SFT_T(KC_LANG1)
+#define KC_GUIEI GUI_T(KC_LNG2)
+#define KC_ALTKN ALT_T(KC_LNG1)
+#define KC_CTLEN CTL_T(KC_LNG2)    // for Linux and Windows
+#define KC_GUIEN GUI_T(KC_LNG2)    // for Mac
+#define KC_SFTJP SFT_T(KC_LNG1)
 #define KC_ALTSP ALT_T(KC_SPACE)
 #define KC_ALTDL ALT_T(KC_DEL)
 

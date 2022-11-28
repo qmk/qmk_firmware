@@ -21,10 +21,10 @@
 #pragma once
 
 #undef MANUFACTURER
-#define MANUFACTURER Dan
+#define MANUFACTURER "Dan"
 
 #undef PRODUCT
-#define PRODUCT Magicforce 68 QMK
+#define PRODUCT "Magicforce 68 QMK"
 
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 20

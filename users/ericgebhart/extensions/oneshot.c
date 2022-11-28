@@ -125,10 +125,10 @@ int8_t update_oneshot_modifiers(uint16_t keycode, keyrecord_t *record, int8_t ke
 // registers/unregisters a mod to the operating system on state change if necessary
 void update_modifier(oneshot_mod osmod, oneshot_state previous_state, oneshot_state current_state) {
     if (previous_state == ONESHOT_STATE_OFF) {
-        register_code(KC_LCTRL + osmod);
+        register_code(KC_LCTL + osmod);
     } else {
         if (current_state == ONESHOT_STATE_OFF) {
-            unregister_code(KC_LCTRL + osmod);
+            unregister_code(KC_LCTL + osmod);
         }
     }
 }

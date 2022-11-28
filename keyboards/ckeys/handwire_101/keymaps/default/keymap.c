@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______,
         _______,  _______, _______, TG(_MUSIC_4_LIFE),
         MU_OFF,   _______, _______, _______,
-        MU_ON,    _______, _______, MU_MOD
+        MU_ON,    _______, _______, MU_NEXT
     ),
     /* MUSIC_4_LIFE
      * ,-----------------------.

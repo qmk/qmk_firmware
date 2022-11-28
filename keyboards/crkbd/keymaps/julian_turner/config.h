@@ -17,7 +17,7 @@
 #pragma once
 
 #undef MANUFACTURER
-#define MANUFACTURER Trner
+#define MANUFACTURER "Trner"
 
 /* Select hand configuration */
 #define MASTER_LEFT

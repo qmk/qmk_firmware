@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_INS,   KC_TRNS,  KC_TRNS,  KC_TRNS,                      KC_TRNS,            KC_TRNS, KC_NO,     KC_HOME,  KC_PGDN,  KC_END
     ),
     [_FN2] = LAYOUT_ansi_47key(
-        KC_NO,    RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI, KC_NO,     KC_NO,    KC_NO,    KC_NO,   KC_PSCR,   KC_SLCK,  KC_PAUS,  KC_NO,
+        KC_NO,    RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI, KC_NO,     KC_NO,    KC_NO,    KC_NO,   KC_PSCR,   KC_SCRL,  KC_PAUS,  KC_NO,
         KC_CAPS,  RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD, KC_NO,     KC_NO,    KC_NO,    KC_NO,   KC_NO,     KC_NO,              KC_NO,
         KC_TRNS,            KC_NO,    KC_NO,    KC_NO,   KC_NO,     KC_NO,    KC_NO,    KC_NO,   KC_NO,     KC_NO,    KC_NO,    KC_NO,
         KC_LCTL,  KC_TRNS,  KC_TRNS,  KC_NO,                        KC_TRNS,            KC_TRNS, KC_TRNS,   KC_NO,    KC_NO,    KC_NO

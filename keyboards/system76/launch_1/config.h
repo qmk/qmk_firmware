@@ -43,21 +43,19 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DI_PIN E2
-#    define DRIVER_LED_TOTAL 84
+#    define RGB_MATRIX_LED_COUNT 84
 #    define RGB_MATRIX_KEYPRESSES                                      // Reacts to keypresses
 // #    define RGB_MATRIX_KEYRELEASES                                     // Reacts to keyreleases (instead of keypresses)
 // #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS                             // Enables framebuffer effects
-#    define RGB_DISABLE_TIMEOUT 0                                      // Number of milliseconds to wait until RGB automatically turns off
-#    define RGB_DISABLE_AFTER_TIMEOUT 0                                // OBSOLETE: Number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED                             // Turns off effects when suspended
 // Limit brightness to support USB-A at 0.5 A
 // TODO: Do this dynamically based on power source
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176                          // Limits maximum brightness of LEDs to 176 out of 255. If not defined, maximum brightness is set to 255
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Sets the default mode, if none has been set
-#    define RGB_MATRIX_STARTUP_HUE 142                                 // Sets the default hue value, if none has been set
-#    define RGB_MATRIX_STARTUP_SAT 255                                 // Sets the default saturation value, if none has been set
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
-#    define RGB_MATRIX_STARTUP_SPD 127                                 // Sets the default animation speed, if none has been set
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Sets the default mode, if none has been set
+#    define RGB_MATRIX_DEFAULT_HUE 142                                 // Sets the default hue value, if none has been set
+#    define RGB_MATRIX_DEFAULT_SAT 255                                 // Sets the default saturation value, if none has been set
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
+#    define RGB_MATRIX_DEFAULT_SPD 127                                 // Sets the default animation speed, if none has been set
 #    define RGB_MATRIX_DISABLE_KEYCODES                                // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
 
 #    define ENABLE_RGB_MATRIX_CYCLE_ALL
