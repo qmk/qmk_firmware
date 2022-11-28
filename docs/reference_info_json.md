@@ -1,6 +1,6 @@
 # `info.json`
 
-The information contained in `info.json` is combined with the `config.h` and `rules.mk` files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the [QMK API](https://github.com/qmk/qmk_api), and contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard.
+The information contained in `info.json` is combined with the `config.h` and `rules.mk` files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the [QMK API](https://github.com/qmk/qmk_api), and contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. Its key/value pairs are ruled by the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file. To learn more about the why and how of the schema file see the [Data Driven Configuration](https://docs.qmk.fm/#/data_driven_config) page.
 
 You can create `info.json` files at every level under `qmk_firmware/keyboards/<name>`. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` specifies more specific information about Clueboard 66%.
 
@@ -22,9 +22,6 @@ The `info.json` file is a JSON formatted dictionary. The first six keys noted he
     * Example: `skullydazed`
 * `usb`
     * Configure USB VID, PID, and device version. See the [USB](#USB) section for more detail.
-
-There are many more optional keys, some of which are described below. Others may be found by examining `data/schemas`.
-
 * `debounce`
     * The amount of time in milliseconds to wait for debounce to happen.
     * Default: `5`
@@ -38,6 +35,9 @@ There are many more optional keys, some of which are described below. Others may
     * Configure the pins corresponding to columns and rows, or direct pins. See the [Matrix Pins](#matrix-pins) section for more detail.
 * `rgblight`
     * Configure the [RGB Lighting feature](feature_rgblight.md). See the [RGB Lighting](#rgb-lighting) section for more detail.
+
+
+?> For all the available keys and their allowed values refer back to the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file.
 
 ### Layout Format
 
@@ -132,8 +132,15 @@ Enable by setting
     * The length of one backlight “breath” in seconds
 * `levels`
     * The number of brightness levels (maximum 31, excluding off)
+* `max_brightness`
+    * The maximum duty cycle of the backlight LED(s) (0-255)
 * `pin`
     * The pin that controls the backlight LED(s)
+* `pins`
+    * Array of pins that controls the backlight LED(s) (See [Multiple Backlight Pins](feature_backlight.md#multiple-backlight-pins))
+* `on_state`
+    * The state of the indicator pins when the LED is "on" - `1` for high, `0` for low
+    * Default: `1`
 
 Example:
 

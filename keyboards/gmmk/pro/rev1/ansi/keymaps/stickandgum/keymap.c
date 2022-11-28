@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT(
         _______, KC_CALC, KC_MYCM, KC_MSEL, KC_MAIL,  KC_WHOM, _______, _______, _______, _______, _______, KC_WAKE, KC_SLEP, KC_PAUS,         _______,
-      LED_TILDE, LED_1,  LED_2,   LED_3,   LED_4,    LED_5,   LED_6,   LED_7,   LED_8,   LED_9,   LED_0,   LED_MINS, LED_EQL,  KC_INS,         KC_SLCK,
+      LED_TILDE, LED_1,  LED_2,   LED_3,   LED_4,    LED_5,   LED_6,   LED_7,   LED_8,   LED_9,   LED_0,   LED_MINS, LED_EQL,  KC_INS,         KC_SCRL,
         _______, RGB_SAI, RGB_VAI, RGB_HUI, RGB_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,         KC_BRIU,
        _______, RGB_RMOD, RGB_VAD, RGB_MOD, RGB_SPI, _______,  _______, _______, _______, QMKBEST, _______, _______,         _______,          KC_BRID,
         _______,          _______, _______, _______, _______,  _______, NK_TOGG, _______, _______, _______, _______,         _______, KC_MPLY, KC_PWR,
@@ -76,7 +76,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     set_mods(mod_state); // Add back in the CTRL key - so ctrl-key will work if ctrl was never released after paging.
   } else if (get_mods() & MOD_MASK_SHIFT) {
     uint8_t mod_state = get_mods();
-    unregister_mods(MOD_MASK_SHIFT);  
+    unregister_mods(MOD_MASK_SHIFT);
     if (clockwise) {
       #ifdef MOUSEKEY_ENABLE   // If using the mouse scroll - make sure MOUSEKEY is enabled
         tap_code(KC_MS_WH_DOWN);
@@ -96,7 +96,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   } else {
     tap_code(KC_VOLD);
   }
-  return true;
+  //return true; //set to return false to counteract enabled encoder in pro.c
+  return false;
 }
 #endif //ENCODER_ENABLE
 
@@ -108,17 +109,17 @@ static void set_rgb_scroll_leds_off(void);
 
 // Called on powerup and is the last _init that is run.
 void keyboard_post_init_user(void) {
-  
+
    int mods[35] = {0,2,3,4,5,11,17,33,49,55,65,95,97,79,94,85,93,96,90,69,92,67,76,80,91,75,86,68,77,81,92,28,34,39,44};
    int j;
-   
+
    /* output each array element's value */
    for (j = 0; j < 35; j++ ) {
       g_led_config.flags[mods[j]] = LED_FLAG_MODIFIER;
    }
 
-  if (!rgb_matrix_is_enabled()) { 
-      rgb_matrix_enable(); 
+  if (!rgb_matrix_is_enabled()) {
+      rgb_matrix_enable();
 #ifdef CONSOLE_ENABLE
       uprintf("ERROR! RGB Matrix Enabled and wrote to EEPROM! -How was the RGB Matrix Disabled?");
 #endif
@@ -205,19 +206,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LED_EQL:
         rgb_matrix_mode(RGB_MATRIX_TYPING_HEATMAP);
         break;
-    #endif //RGB_MATRIX_FRAMEBUFFER_EFFECTS 
+    #endif //RGB_MATRIX_FRAMEBUFFER_EFFECTS
     case QMKBEST:
       if (record->event.pressed) { // when keycode QMKBEST is pressed
           SEND_STRING("QMK rocks");
-        } else { // when keycode QMKBEST key is released 
+        } else { // when keycode QMKBEST key is released
           SEND_STRING("!!");
         }
         break;
-  }   
+  }
  return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         set_rgb_caps_leds_on();
     } else {
@@ -232,6 +233,7 @@ void rgb_matrix_indicators_user(void) {
         set_rgb_scroll_leds_off();
       }
     }
+    return false;
 }
 
 // RGB led number layout, function of the key
@@ -245,7 +247,7 @@ void rgb_matrix_indicators_user(void) {
 //  87, led 07                                                                                                                                                                      88, led 18
 //  91, led 08                                                                                                                                                                      92, led 19
 
-static void set_rgb_caps_leds_on() { 
+static void set_rgb_caps_leds_on() {
         rgb_matrix_set_color(0, 255, 0, 0);       //Escape Key
         rgb_matrix_set_color(3, 255, 0, 0);       //capslock key
         rgb_matrix_set_color(5, 255, 0, 0);       //Left CTRL key
@@ -289,11 +291,11 @@ static void set_rgb_caps_leds_off() {
         rgb_matrix_set_color(92, 0, 0, 0); //Right LED 19
 }
 
-static void set_rgb_scroll_leds_on() { 
+static void set_rgb_scroll_leds_on() {
         rgb_matrix_set_color(72, 255, 255, 255); // Under Rotary (HOME)
 }
 
-static void set_rgb_scroll_leds_off() { 
+static void set_rgb_scroll_leds_off() {
         rgb_matrix_set_color(72, 0, 0, 0); // Under Rotary (HOME)
 }
 

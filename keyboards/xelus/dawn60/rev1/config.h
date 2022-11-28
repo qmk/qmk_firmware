@@ -31,7 +31,7 @@
 
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 64
+#define RGB_MATRIX_LED_COUNT 64
 
 // COL2ROW or ROW2COL
 #define DIODE_DIRECTION COL2ROW
@@ -128,6 +128,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE

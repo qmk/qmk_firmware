@@ -35,3 +35,5 @@ POINTING_DEVICE_DRIVER = pmw3360
 
 SERIAL_DRIVER = vendor
 WS2812_DRIVER = vendor
+
+DEFAULT_FOLDER = bastardkb/charybdis/3x5/v2/splinky/v3
