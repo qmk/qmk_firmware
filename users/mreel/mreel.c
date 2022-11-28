@@ -22,7 +22,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_TAB:
+        case KC_TAB:                                            // Parity features between MacOS and Windows
         case KC_LCTL:
         case KC_Q:
             if (layer_state_is(_WIN)) {
