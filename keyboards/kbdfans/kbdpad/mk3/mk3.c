@@ -48,5 +48,6 @@ bool rgb_matrix_indicators_kb(void) {
     if (host_keyboard_led_state().num_lock) {
         rgb_matrix_set_color(7, 0xFF, 0xFF, 0xFF);
     }
+    return true;
 }
 #endif
