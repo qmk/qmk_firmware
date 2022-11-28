@@ -18,7 +18,7 @@
 #include "rgb_matrix_user.h"
 #include "keymap_user.h"
 
-keypos_t led_index_key_position[DRIVER_LED_TOTAL];
+keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
 
 void rgb_matrix_init_user(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -31,7 +31,7 @@ void rgb_matrix_init_user(void) {
     }
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t current_layer = get_highest_layer(layer_state);
     switch (current_layer) {
         case MAC_BASE:
@@ -50,6 +50,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #endif
             break;
     }
+    return false;
 }
 
 void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue) {

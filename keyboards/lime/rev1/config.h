@@ -40,15 +40,14 @@
 
 /* joystick support */
 #ifdef JOYSTICK_ENABLE
-#   define JOYSTICK_AXES_COUNT 2
+#   define JOYSTICK_AXIS_COUNT 2
 #   define JOYSTICK_BUTTON_COUNT 1
-#   define JOYSTICK_AXES_RESOLUTION 8
+#   define JOYSTICK_AXIS_RESOLUTION 8
 #endif
 
 #define TAP_CODE_DELAY 10
 
 /* communication between sides */
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
 
 #define SPLIT_USB_DETECT
