@@ -92,13 +92,13 @@ void tap_dance_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data)
         if (is_shift) {
             SEND_STRING(SS_LSFT(SS_TAP(X_INSERT)));
         } else {
-            SEND_STRING(SS_LCTRL("v"));
+            SEND_STRING(SS_LCTL("v"));
         }
     } else {
         if (is_shift) {
-            SEND_STRING(SS_LCTRL(SS_TAP(X_INSERT)));
+            SEND_STRING(SS_LCTL(SS_TAP(X_INSERT)));
         } else {
-            SEND_STRING(SS_LCTRL("c"));
+            SEND_STRING(SS_LCTL("c"));
         }
     }
 }
@@ -135,7 +135,7 @@ bool try_handle_macro(uint16_t keycode, keyrecord_t *record) {
             return true;
         case PSCREEN_APP:
             if (record->event.pressed)
-                SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)));
+                SEND_STRING(SS_LALT(SS_TAP(X_PRINT_SCREEN)));
             return true;
 
         default:

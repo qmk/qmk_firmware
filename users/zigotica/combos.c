@@ -25,7 +25,7 @@ const uint16_t PROGMEM caps_combo[] = {KC_C, KC_L, COMBO_END};
 
 combo_t key_combos[] = {
   [EM_EMAIL] = COMBO_ACTION(email_combo),
-  [CL_CAPSL] = COMBO(caps_combo, KC_CAPSLOCK),
+  [CL_CAPSL] = COMBO(caps_combo, KC_CAPS),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {

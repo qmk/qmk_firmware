@@ -129,3 +129,15 @@ void keyboard_post_init_i2c(void) {
     scan_timer = timer_read();
 }
 #endif
+
+#if defined(AUTOCORRECT_ENABLE) && defined(AUDIO_ENABLE)
+#    ifdef USER_SONG_LIST
+float autocorrect_song[][2] = SONG(MARIO_GAMEOVER);
+#    else
+float autocorrect_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
+#    endif
+bool apply_autocorrect(uint8_t backspaces, const char *str) {
+    PLAY_SONG(autocorrect_song);
+    return true;
+}
+#endif

@@ -28,8 +28,8 @@
 #    define DRIVER_COUNT 2
 #endif
 
-#ifndef DRIVER_LED_TOTAL
-#    define DRIVER_LED_TOTAL 96
+#ifndef RGB_MATRIX_LED_COUNT
+#    define RGB_MATRIX_LED_COUNT 96
 #endif
 
 typedef struct is31_led {
@@ -39,7 +39,7 @@ typedef struct is31_led {
     uint8_t b;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL];
+extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
 
 void IS31FL3736_init(uint8_t addr);
 void IS31FL3736_write_register(uint8_t addr, uint8_t reg, uint8_t data);

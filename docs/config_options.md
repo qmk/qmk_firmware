@@ -49,11 +49,11 @@ This is a C header file that is one of the first things included, and will persi
   * defines your VID, and for most DIY projects, can be whatever you want
 * `#define PRODUCT_ID 0x5678`
   * defines your PID, and for most DIY projects, can be whatever you want
-* `#define DEVICE_VER 0`
+* `#define DEVICE_VER 0x0100`
   * defines the device version (often used for revisions)
-* `#define MANUFACTURER Me`
+* `#define MANUFACTURER "Me"`
   * generally who/whatever brand produced the board
-* `#define PRODUCT Board`
+* `#define PRODUCT "Board"`
   * the name of the keyboard
 * `#define MATRIX_ROWS 5`
   * the number of rows in your keyboard's matrix
@@ -325,6 +325,13 @@ There are a few different ways to set handedness for split keyboards (listed in 
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
   * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+  
+* `#define SPLIT_WATCHDOG_ENABLE`
+  * Reboot slave if no communication from master within timeout.
+  * Helps resolve issue where both sides detect as slave using `SPLIT_USB_DETECT`
+
+* `#define SPLIT_WATCHDOG_TIMEOUT 3000`
+  * Maximum slave timeout when waiting for communication from master when using `SPLIT_WATCHDOG_ENABLE`
 
 * `#define FORCED_SYNC_THROTTLE_MS 100`
   * Deadline for synchronizing data from master to slave when using the QMK-provided split transport.

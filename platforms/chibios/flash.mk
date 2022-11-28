@@ -23,6 +23,7 @@ define EXEC_DFU_UTIL
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 endef
 
+WB32_DFU_UPDATER ?= wb32-dfu-updater_cli
 
 define EXEC_WB32_DFU_UPDATER
 	if ! wb32-dfu-updater_cli -l | grep -q "Found DFU"; then \
@@ -34,7 +35,7 @@ define EXEC_WB32_DFU_UPDATER
 		done ;\
 		printf "\n" ;\
 	fi
-	wb32-dfu-updater_cli -D $(BUILD_DIR)/$(TARGET).bin
+	$(WB32_DFU_UPDATER) -D $(BUILD_DIR)/$(TARGET).bin && $(WB32_DFU_UPDATER) -R
 endef
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
