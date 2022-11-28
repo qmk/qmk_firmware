@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define PRODUCT      BASE_PRODUCT fast
+#define PRODUCT      BASE_PRODUCT "fast"
 
 #define MATRIX_OUT_PORTS  (Port_A, MCU_GPIO, A0)
 #define MATRIX_OUT_PINS  \

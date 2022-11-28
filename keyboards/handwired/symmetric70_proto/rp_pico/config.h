@@ -5,7 +5,7 @@
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER   0x0001
-#define BASE_PRODUCT Symmetric70 prototype Raspberry Pi Pico
+#define BASE_PRODUCT "Symmetric70 prototype Raspberry Pi Pico "
 
 /* Raspberry Pi Pico  **************************
                     ====

@@ -6,11 +6,11 @@
 // clang-format off
 
 #ifdef CANCEL_BOOST
-#    define PRODUCT      BASE_PRODUCT normal(non boost)
+#    define PRODUCT      BASE_PRODUCT "normal(non boost)"
 #    define MATRIX_COL_PINS { GP28, GP27, GP26, GP22, GP21, GP20, GP19, GP18,  GP10, GP9, GP8, GP7, GP6, GP3, GP2, GP1 }
 #    define MATRIX_ROW_PINS { GP11, GP12, GP13, GP14, GP15 }
 #else
-#    define PRODUCT      BASE_PRODUCT boost
+#    define PRODUCT      BASE_PRODUCT "boost"
 #endif
 
  /* #define MATRIX_COL_PINS { GP28, GP27, GP26, GP22, GP21, GP20, GP19, GP18, GP10, GP9, GP8, GP7, GP6, GP3, GP2, GP1 } */

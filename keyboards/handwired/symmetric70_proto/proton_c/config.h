@@ -5,7 +5,7 @@
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER   0x0002
-#define BASE_PRODUCT Symmetric70 prototype proton-c
+#define BASE_PRODUCT "Symmetric70 prototype proton-c "
 
 /* Proton-C **************************
                  ====
