@@ -40,7 +40,6 @@ led_config_t g_led_config = { {
 } };
 
 
-__attribute__ ((weak))
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) { 
         return false;
