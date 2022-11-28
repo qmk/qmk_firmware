@@ -1,6 +1,9 @@
 {
     "bootloader": "rp2040",
     "processor": "RP2040",
+    "usb": {
+        "device_version": "0.0.3"
+    },
     "features": {
         "bootmagic": true,
         "command": false,

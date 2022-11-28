@@ -2,6 +2,9 @@
     "bootloader": "stm32-dfu",
     "processor": "STM32F303",
     "board": "QMK_PROTON_C",
+    "usb": {
+        "device_version": "0.0.2"
+    },
     "features": {
         "bootmagic": true,
         "command": false,
