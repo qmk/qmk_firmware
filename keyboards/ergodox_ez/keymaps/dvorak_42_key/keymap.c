@@ -399,8 +399,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
@@ -486,7 +484,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
             return true;
             break;
-<<<<<<< HEAD
         case SHELL_EXPAND_OE_LOGPATTERN:
                 SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTL("x")SS_LSFT("8"));
             break;
@@ -507,27 +504,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case WINDOWS10_TASK_VIEW:
                 SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
                 break;
-=======
-        case WINDOWS10_WORKSPACE_RIGHT:
-            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
-            break;
-        case WINDOWS10_TASK_VIEW:
-            SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
-            break;
-        // IOS shortcuts
-        case IOS_APP_PREV:
-            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_LEFT) SS_UP(X_CAPS));
-            break;
-        case IOS_APP_NEXT:
-            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_RIGHT) SS_UP(X_CAPS));
-            break;            
-        case IOS_APP_LIST:
-            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_UP) SS_UP(X_CAPS));
-            break;                        
-        case IOS_SHOW_SLIDEOVER:
-            SEND_STRING(SS_DOWN(X_CAPS) SS_TAP(X_BSLS) SS_UP(X_CAPS));
-            break;                                    
->>>>>>> move keymap to dvorak_42_key
         // linux screen shortcuts
         case SCREEN_TAB_LEFT:
             SEND_STRING(SS_LCTL("a") "p");
