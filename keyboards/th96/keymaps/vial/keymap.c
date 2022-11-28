@@ -1,7 +1,13 @@
 #include QMK_KEYBOARD_H
+
+
 enum tap{
   TD_CTCPS = 0,
   TD_SLNUM
+};
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_CTCPS] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
+    [TD_SLNUM] = ACTION_TAP_DANCE_DOUBLE(KC_PSLS, KC_NUM)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -24,8 +30,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [2] = LAYOUT_all(
-	    RGB_TOG,  RGB_MOD,RGB_HUI,RGB_SAI,KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,  KC_NO,              KC_NUM,    KC_NO,    KC_TRNS,
-		KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,  KC_NO,              KC_NUM,    KC_NO,
+	    RGB_TOG,  RGB_MOD,RGB_HUI,RGB_SAI,KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,  KC_NO,              KC_NO,    KC_NO,    KC_TRNS,
+		KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,  KC_NO,              KC_NUM,   KC_NO,
 		KC_NO,    KC_MPLY,KC_MPRV,KC_MNXT,KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,  KC_NO,              KC_NO,    KC_NO,    KC_NO,    KC_NO,
 		KC_NO,    KC_MSTP,KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,                      KC_NO,    KC_NO,    KC_NO,    KC_NO,
 		KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,  KC_TRNS, RGB_VAI,                    KC_NO,    KC_NO,    KC_NO,
@@ -64,18 +70,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 };
 
-
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [1] = { ENCODER_CCW_CW(KC_NO, KC_NO)},
-    [2] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [2] = { ENCODER_CCW_CW(KC_WH_D, KC_WH_U)},
     [3] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
 };
 #endif
-
-
-
 
 bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
@@ -89,19 +91,3 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     return true;
 };
 
-
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_CTCPS] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
-    [TD_SLNUM] = ACTION_TAP_DANCE_DOUBLE(KC_PSLS, KC_NUM)
-};
-
-/*
-void keyboard_post_init_user(void) {
-    vial_tap_dance_entry_t td = { KC_LCTL,
-                                  KC_LCTL,
-                                  KC_CAPS,
-                                  KC_LCTL,
-                                  TAPPING_TERM };
-    dynamic_keymap_set_tap_dance(0, &td); // the first value corresponds to the TD(i) slot
-};*/
