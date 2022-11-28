@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "thumbstick.c"
 
 enum layer_names {
     _BASE,
@@ -64,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT_edinburgh41(
-    _______,  KC_NO,     KC_UP,     KC_NO,     KC_NO,      KC_NO,               KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
-    _______,  KC_LEFT,  KC_DOWN,   KC_RIGHT,  KC_NO,   KC_NO,            KC_NO,    UE_UMLAUT,    AE_UMLAUT,    OE_UMLAUT,    SS_UMLAUT,    KC_NO,
+    _______,  KC_NO,     KC_UP,     KC_NO,     KC_NO,         KC_NO,               KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
+    _______,  KC_LEFT,  KC_DOWN,   KC_RIGHT,  KC_NO,   KC_NO,            KC_NO,    UE_UMLAUT,    OE_UMLAUT,    AE_UMLAUT,    SS_UMLAUT,    KC_NO,
     _______,  KC_NO,   KC_NO,  KC_NO,  KC_NO,   KC_NO,            KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,   KC_NO,
                                             _______,   _______,  KC_NO,  _______,  _______
   ),

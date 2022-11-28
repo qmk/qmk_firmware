@@ -15,9 +15,9 @@
  */
 
 // import thumbstick settings from config
-#pragma once
-
-#include "edinburgh41.h"
+#include QMK_KEYBOARD_H
+#include "config.h"
+#include "post_config.h"
 
 bool cursor_mode = false;
 bool scrolling_mode = false;
