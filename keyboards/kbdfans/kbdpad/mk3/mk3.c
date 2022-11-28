@@ -45,9 +45,7 @@ bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) { 
         return false;
     }
-{
-    if (host_keyboard_led_state().num_lock)
-    {
+    if (host_keyboard_led_state().num_lock) {
         rgb_matrix_set_color(7, 0xFF, 0xFF, 0xFF);
     }
 }
