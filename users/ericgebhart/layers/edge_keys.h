@@ -367,13 +367,13 @@
 // all others are handled through macros.
 
 #define ___5_BOTTOM_LEFT___  ___X2___,  KC_INS,  KC_LEFT, KC_RIGHT
-#define ___5_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLASH, ___X2___
+#define ___5_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLS, ___X2___
 
 #define ___5_BOTTOM_LEFT_EN___  ___5_BOTTOM_LEFT___
 #define ___5_BOTTOM_RIGHT_EN___  ___5_BOTTOM_RIGHT___
 
 #define ___4_BOTTOM_LEFT___  LCTL(KC_V),  KC_INS,  KC_LEFT,   KC_RIGHT
-#define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, KC_BSLASH, LCTL(KC_C)
+#define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, KC_BSLS, LCTL(KC_C)
 
 #define ___4_BOTTOM_LEFT_EN___  ___4___ //___4_BOTTOM_LEFT___
 #define ___4_BOTTOM_RIGHT_EN___  ___4___ //___4_BOTTOM_RIGHT___

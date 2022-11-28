@@ -272,10 +272,10 @@ bool led_update_user(led_t led_state) {
 // Define key layout/layers
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                                             // Define all the layers
     [_BASE] = LAYOUT_planck_mit(                                                                           //
-        KC_GESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,                      //
+        QK_GESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,                      //
         LT(_TABULA, KC_TAB), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,       //
-        TD(TD_LSHFT_CAPS), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_SFTENT,  //
-        TD(TD_LCTL_STICKY), KC_LEAD, KC_LGUI, TD(TD_LALT_STICKY), MO(_SYMBLS), KC_SPC, MO(_NUMBRS), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT),
+        TD(TD_LSHFT_CAPS), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, SC_SENT,    //
+        TD(TD_LCTL_STICKY), QK_LEAD, KC_LGUI, TD(TD_LALT_STICKY), MO(_SYMBLS), KC_SPC, MO(_NUMBRS), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT),
     /*
     Base Layer [0]
      * ,-----------------------------------------------------------------------------------.
@@ -290,10 +290,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
     */
 
     [_COLEMAK] = LAYOUT_planck_mit(                                                                        //
-        KC_GESC, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSPC,                   //
+        QK_GESC, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSPC,                   //
         LT(_TABULA, KC_TAB), KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,          //
-        TD(TD_LSHFT_CAPS), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_SFTENT,  //
-        TD(TD_LCTL_STICKY), KC_LEAD, KC_LGUI, TD(TD_LALT_STICKY), MO(_SYMBLS), KC_SPC, MO(_NUMBRS), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT),
+        TD(TD_LSHFT_CAPS), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, SC_SENT,    //
+        TD(TD_LCTL_STICKY), QK_LEAD, KC_LGUI, TD(TD_LALT_STICKY), MO(_SYMBLS), KC_SPC, MO(_NUMBRS), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT),
     /*
     Colemak Layer [1]
      * ,-----------------------------------------------------------------------------------.
@@ -308,10 +308,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
     */
 
     [_DVORAK] = LAYOUT_planck_mit(                                                                    //
-        KC_GESC, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC,         //
+        QK_GESC, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC,         //
         LT(_TABULA, KC_TAB), KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_TRNS, KC_S, KC_SLSH,  //
-        TD(TD_LSHFT_CAPS), KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_SFTENT,  //
-        TD(TD_LCTL_STICKY), KC_LEAD, KC_LGUI, TD(TD_LALT_STICKY), MO(_SYMBLS), KC_SPC, MO(_NUMBRS), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT),
+        TD(TD_LSHFT_CAPS), KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, SC_SENT,    //
+        TD(TD_LCTL_STICKY), QK_LEAD, KC_LGUI, TD(TD_LALT_STICKY), MO(_SYMBLS), KC_SPC, MO(_NUMBRS), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT),
     /* Dvorak Layer [2]
      * ,-----------------------------------------------------------------------------------.
      * |Gr/ESC|   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
@@ -378,18 +378,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
      */
 
     [_FEATURS] = LAYOUT_planck_mit(                                                                                                         //
-        LCTL(LALT(KC_DEL)), DO_RESET, DEBUG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, TD(TD_DEG_DEGF), TD(TD_SMILEY), KC_DEL,  //
-        RGB_VAI, RGB_VAD, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, DF(_BASE), DF(_COLEMAK), DF(_DVORAK), TO(_PLOVER), MY_RGBCON,            //
-        KC_TRNS, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, TERM_ON, TERM_OFF, CK_ON, CK_OFF, KC_ENTER,                                  //
+        LCTL(LALT(KC_DEL)), DO_RESET, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, TD(TD_DEG_DEGF), TD(TD_SMILEY), KC_DEL,  //
+        RGB_VAI, RGB_VAD, MU_NEXT, AU_ON, AU_OFF, AG_NORM, AG_SWAP, DF(_BASE), DF(_COLEMAK), DF(_DVORAK), TO(_PLOVER), MY_RGBCON,            //
+        KC_TRNS, AU_PREV, AU_NEXT, MU_ON, MU_OFF, MI_ON, MI_OFF, KC_TRNS, KC_TRNS, CK_ON, CK_OFF, KC_ENTER,                                  //
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(_MOUSY), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     /*
     Special Features Layer [6]
     * ,-----------------------------------------------------------------------------------.
     * |C+A+DL| Reset| Debug|RGBTog|RGBMod| Hue+ | Hue- | Sat+ | Sat- |Unicod| Emoji|Delete|
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |RGBVAI|RGBVAD|MU_MOD| AU_ON|AU_OFF|RALTGU|SALTGU| Base |Colemk|Dvorak|Plover|RGBCON|
+    * |RGBVAI|RGBVAD|MUNEXT| AU_ON|AU_OFF|RALTGU|SALTGU| Base |Colemk|Dvorak|Plover|RGBCON|
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |------|MUV_DE|MUV_IN| MU_ON|MU_OFF| MI_ON|MI_OFF|TERMON|TRMOFF|CLK-ON|CLKOFF|Enter |
+    * |------|AUPREV|AU_EXT| MU_ON|MU_OFF| MI_ON|MI_OFF|------|------|CLK-ON|CLKOFF|Enter |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * |------|------|------|------|------|    TG(8)    |------|------|------|------|------|
     * `-----------------------------------------------------------------------------------'
@@ -399,7 +399,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
         KC_ESC, KC_HOME, KC_UP, KC_END, KC_PERC, KC_LCBR, KC_RCBR, KC_TAB, KC_P7, KC_P8, KC_P9, KC_BSPC,       //
         KC_TILD, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSLS, KC_LBRC, KC_RBRC, KC_PSLS, KC_P4, KC_P5, KC_P6, KC_PMNS,  //
         KC_LSFT, KC_SLSH, KC_CUT, KC_COPY, KC_PASTE, KC_LT, KC_GT, KC_PAST, KC_P1, KC_P2, KC_P3, KC_PPLS,      //
-        TO(_BASE), KC_LEAD, KC_LGUI, KC_LALT, KC_LCPO, KC_SPC, KC_RCPC, KC_HASH, KC_P0, KC_PDOT, KC_PENT),
+        TO(_BASE), QK_LEAD, KC_LGUI, KC_LALT, SC_LCPO, KC_SPC, SC_RCPC, KC_HASH, KC_P0, KC_PDOT, KC_PENT),
     /*
     Numpad Layer [7]
     * ,-----------------------------------------------------------------------------------.
@@ -413,10 +413,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
     * `-----------------------------------------------------------------------------------'
     */
     [_TABULA] = LAYOUT_planck_mit(                                                                                                   //
-        KC_ESC, KC_ALTF4, VLK_TOG, PRINT_WPM_KEY, WAKE_ANI_TOG, WAKE_AUD_TOG, KC_REDO, UC_MOD, UC_M_WC, CG_TOGG, AG_TOGG, KC_DLINE,  //
+        KC_ESC, KC_ALTF4, VK_TOGG, PRINT_WPM_KEY, WAKE_ANI_TOG, WAKE_AUD_TOG, KC_REDO, UC_NEXT, UC_WINC, CG_TOGG, AG_TOGG, KC_DLINE,  //
         KC_NXTAB, KC_SLCTALL, KC_SAVE, KC_TRNS, KC_FIND, SH_TG, SH_TG, IRONY, KC_LCUT, KC_LCOPY, KC_TRNS, KC_KILL,                   //
-        KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, TG(_MOUSY), KC_TRNS, KC_HOME, KC_END, KC_SFTENT,            //
-        TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, KC_LSPO, ALT_TAB, KC_RSPC, KC_PRVWD, KC_BRID, KC_BRIU, KC_NXTWD),
+        KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, TG(_MOUSY), KC_TRNS, KC_HOME, KC_END, SC_SENT,              //
+        TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, SC_LSPO, ALT_TAB, SC_RSPC, KC_PRVWD, KC_BRID, KC_BRIU, KC_NXTWD),
     /* Tabular Layer [8]
      * ,-----------------------------------------------------------------------------------.
      * |  Esc |Alt+F4|Veloci|  WPM |WakANI|WakAUD|Ctrl+Y|UCMode|UCWinC|CtGUTg|AltGTg| DLine|
@@ -430,9 +430,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
      */
 
     [_MOUSY] = LAYOUT_planck_mit(                                                                                                  //
-        KC_ESC, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, UC_MOD, UC_M_WC, CG_TOGG, AG_TOGG, KC_BSPC,  //
-        KC_TAB, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, IRONY, VLK_TOG, KC_TRNS, KC_TRNS, KC_TRNS,                   //
-        KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, KC_TRNS, KC_HOME, KC_BTN3, KC_END, KC_SFTENT,             //
+        KC_ESC, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, UC_NEXT, UC_WINC, CG_TOGG, AG_TOGG, KC_BSPC,  //
+        KC_TAB, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, IRONY, VK_TOGG, KC_TRNS, KC_TRNS, KC_TRNS,                   //
+        KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, KC_TRNS, KC_HOME, KC_BTN3, KC_END, SC_SENT,               //
         TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, KC_BTN1, ALT_TAB, KC_BTN2, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R)};
 /* MousePad Layer [9]
  * ,-----------------------------------------------------------------------------------.
@@ -480,9 +480,9 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(m
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (musical_mode) {
         if (clockwise) {
-            tap_code16(MU_MOD);
+            tap_code16(MU_NEXT);
         } else {
-            tap_code16(MU_MOD);
+            tap_code16(MU_NEXT);
         }
     } else {
         if (muse_mode) {
@@ -1169,7 +1169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 // Runs *after* a key is pressed
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             // Blink the warning layer when the debug key is pressed
             rgblight_blink_layer_repeat(debug_enable ? 11 : 12, 1500, 3);
 
@@ -1470,7 +1470,7 @@ void scap_finished(qk_tap_dance_state_t* state, void* user_data) {
 
 // Left-Shift->Sticky-Caps tap-dance reset
 void scap_reset(qk_tap_dance_state_t* state, void* user_data) {
-    unregister_code(KC_LSHIFT);
+    unregister_code(KC_LSFT);
     scap_state.state = TD_NONE;
 }
 

@@ -55,13 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //,--------------------------------------------------------------|             |--------------------------------------------------------------.             ,-----------------------------------.
      TG(_MOUSE),TD(TD_ESFL), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                  KC_6,    KC_7,    KC_8,    KC_9,    KC_0, JP_MINS, KC_BSPC,              KC_ESC,   KC_F2,   KC_EQL,  KC_DEL,
     //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------|
-   TG(_BROWSER),  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, JP_LBRC, JP_RBRC,              KC_NLCK,  KC_PSLS, KC_PAST, KC_PMNS,
+   TG(_BROWSER),  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, JP_LBRC, JP_RBRC,              KC_NUM,   KC_PSLS, KC_PAST, KC_PMNS,
     //|--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------|
-                KC_LCTRL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                  KC_H,    KC_J,    KC_K,    KC_L, JP_MINS, JP_BSLS,  KC_ENT,              KC_P7,    KC_P8,   KC_P9,
+                KC_LCTL,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                  KC_H,    KC_J,    KC_K,    KC_L, JP_MINS, JP_BSLS,  KC_ENT,              KC_P7,    KC_P8,   KC_P9,
     //         |--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------|        |
                  KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                  KC_N,    KC_M, JP_COMM,  JP_DOT, JP_SLSH,   KC_UP, KC_RSFT,              KC_P4,    KC_P5,   KC_P6,   KC_PPLS,
     //         |--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------|
-                 KC_ZKHK,  LGUI_T(KC_MHEN), LWR_ENT, KC_BSPC,                         KC_DEL ,RSE_SPC,   ALT_T(KC_HENK), KC_LEFT, KC_DOWN, KC_RGHT,              KC_P1,    KC_P2,   KC_P3,
+                 JP_ZKHK,  LGUI_T(JP_MHEN), LWR_ENT, KC_BSPC,                         KC_DEL ,RSE_SPC,   ALT_T(JP_HENK), KC_LEFT, KC_DOWN, KC_RGHT,              KC_P1,    KC_P2,   KC_P3,
               //`---------------------------------------------------------------------------------------------------------------------------------'             |-----------------+--------|        |
                                                                                                                                                                  LWR_P0,            RSE_DOT, KC_PENT
               //                                                                                                                                                `-----------------------------------'
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //         |--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------|        |
                  JP_CIRC, JP_PERC, JP_AMPR, JP_SCLN, JP_COLN, JP_PIPE,                 KC_P0,   KC_P1,   KC_P2,   KC_P3, JP_PLUS,   KC_UP, KC_RSFT,               KC_LEFT, KC_DOWN, KC_RGHT, KC_PPLS,
     //         |--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------+--------+--------+--------|             |--------+--------+--------+--------|
-                 KC_ZKHK,          _______,            LOWER, _______,               _______,   RAISE,           JP_DOT, KC_LEFT, KC_DOWN, KC_RGHT,               XXXXXXX, KC_DOWN, XXXXXXX,
+                 JP_ZKHK,          _______,            LOWER, _______,               _______,   RAISE,           JP_DOT, KC_LEFT, KC_DOWN, KC_RGHT,               XXXXXXX, KC_DOWN, XXXXXXX,
             //`-----------------------------------------------------------------------------------------------------------------------------------'             |-----------------+--------|        |
                                                                                                                                                                     LOWER,            RAISE, KC_PENT
             //                                                                                                                                                  `-----------------------------------'
