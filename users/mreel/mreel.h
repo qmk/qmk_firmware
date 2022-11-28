@@ -43,6 +43,9 @@ enum layer_names {
      CK_DRHT,
      CK_LWRD,
      CK_RWRD,
+     CK_COMP,
+     CK_FLSH,
+
      UC_UCIS,
      // unicodemap characters
      UC_TRMI,   //leave first
@@ -56,3 +59,4 @@ enum layer_names {
      UC_SMLE,
      UC_COL     //leave last
  };
+

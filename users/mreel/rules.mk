@@ -1,4 +1,7 @@
-SRC += mreel.c
+SRC += mreel.c \
+       custom_keycodes.c \
+	   mac_win_parity.c \
+       unicode.c
 
 UCIS_ENABLE 	   = yes
 CAPS_WORD_ENABLE   = yes

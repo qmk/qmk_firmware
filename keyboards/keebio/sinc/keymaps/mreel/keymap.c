@@ -15,12 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-/*
-TODO:
-- Clean up structure (more files, less cluttered stuff in files)
-- add OS level shortcuts to windows (ctrl+Q -> alt+f4, ctrl+win+Q -> win+L etc)
-*/
-
 #include QMK_KEYBOARD_H
 #include "mreel.h"
 
@@ -56,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____BLANK2_____, _______, ___________________BLANK5__________________, _______, ___________________BLANK5__________________, _______, XXXXXXX, _______, _______,
     _____BLANK2_____, _______, ___________________BLANK5__________________,          ___________________BLANK5__________________, _______, _______, _______, _______,
     _____BLANK2_____, _______, ___________________BLANK5__________________,          ___________________BLANK5__________________, _______,          _______, _______,
-    _____BLANK2_____, _______, ___________________BLANK5__________________,          ___________________BLANK5__________________, _______,          _______, _______,
+    CK_COMP, CK_FLSH, _______, ___________________BLANK5__________________,          ___________________BLANK5__________________, _______,          _______, _______,
     RESET,   _______, _______, _______, _______, _______, XXXXXXX, _______,            _______,  _______,    _______, _______, XXXXXXX,    _______, _______, _______
   ),
   /*
