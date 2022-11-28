@@ -1,6 +1,6 @@
 # Olly Orion
 
-![Olly Orion](https://i.imgur.com/midAJSpl.jpeg)
+![Olly Orion](https://i.imgur.com/midAJSplh.jpeg)
 
 The Olly Orion is designed as a drop-in replacement PCB for the Duck Orion V2; V2.5 and V3 TKL custom keyboards. 
 
