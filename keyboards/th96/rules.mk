@@ -3,9 +3,6 @@ MCU = STM32F401
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
-
-STM32_BOOTLOADER_ADDRESS = 0x1FFF0000
-
 BOOTMAGIC_ENABLE = yes      	# Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes      		# Mouse keys
 EXTRAKEY_ENABLE = yes      		# Audio control and System control
