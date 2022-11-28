@@ -6,7 +6,6 @@ Simple Design for US ANSI international, German and Turkish letters are written 
 
 ```bash
 qmk flash -kb kprepublic/bm40hsrgb -km simchee -bl dfu
-sudo util/docker_build.sh kprepublic/bm40hsrgb:simchee
 ```
 
 # Layout
