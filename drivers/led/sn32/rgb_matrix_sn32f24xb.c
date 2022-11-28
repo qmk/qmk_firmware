@@ -173,11 +173,13 @@ static void shared_matrix_rgb_disable_output(void) {
 static void update_pwm_channels(PWMDriver *pwmp) {
     // Advance to the next LED RGB channels
     current_row++;
-    if (current_row >= LED_MATRIX_ROWS_HW) current_row = 0;
+    /* Check if counter has wrapped around, reset before the next pass */
+    if (current_row == LED_MATRIX_ROWS_HW) current_row = 0;
     uint8_t last_key_row = current_key_row;
     // Advance to the next key matrix row
     if (current_row % LED_MATRIX_ROW_CHANNELS == 2) current_key_row++;
-    if (current_key_row >= LED_MATRIX_ROWS) current_key_row = 0;
+    /* Check if counter has wrapped around, reset before the next pass */
+    if (current_key_row == LED_MATRIX_ROWS) current_key_row = 0;
     // Disable LED output before scanning the key matrix
     shared_matrix_rgb_disable_output();
     // Scan the key matrix row
@@ -291,7 +293,8 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     last_key_col = current_key_col;
     current_key_col++;
     row_shifter <<= 1;
-    if (current_key_col >= LED_MATRIX_COLS){
+    /* Check if counter has wrapped around, reset before the next pass */
+    if (current_key_col == LED_MATRIX_COLS){
         current_key_col = 0;
         row_shifter       = MATRIX_ROW_SHIFTER;
     }
