@@ -19,7 +19,7 @@
 #        error "IGNORE_MOD_TAP_INTERRUPT_PER_KEY has been removed; the code needs to be ported to use HOLD_ON_OTHER_KEY_PRESS_PER_KEY instead."
 #    elif !defined(IGNORE_MOD_TAP_INTERRUPT)
 #        if !defined(PERMISSIVE_HOLD) && !defined(PERMISSIVE_HOLD_PER_KEY) && !defined(HOLD_ON_OTHER_KEY_PRESS) && !defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
-#            pragma message "IGNORE_MOD_TAP_INTERRUPT has been deprecated and will become the new standard behavior of mod-taps in the future. Please use HOLD_ON_OTHER_KEY_PRESS if you want to keep the old behavior of mod-taps."
+#            pragma message "The default behavior of mod-taps will change to mimic IGNORE_MOD_TAP_INTERRUPT in the future.\nIf you wish to keep the old default behavior of mod-taps, please use HOLD_ON_OTHER_KEY_PRESS."
 #        endif
 #    endif
 
