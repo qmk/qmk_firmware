@@ -93,7 +93,6 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, K_5,  J_5,  L_5 },
 };
 
-__attribute__ ((weak))
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
         return false;
@@ -101,5 +100,7 @@ bool rgb_matrix_indicators_kb(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
     }
+    return true;
 }
+
 #endif
