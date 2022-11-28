@@ -162,13 +162,11 @@ static void shared_matrix_rgb_disable_output(void) {
     }
     // Disable LED outputs on RGB channel pins
     for (uint8_t x = 0; x < LED_MATRIX_ROWS_HW; x++) {
-        ATOMIC_BLOCK_FORCEON {
 #if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
-            writePinLow(led_row_pins[x]);
+        writePinLow(led_row_pins[x]);
 #elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
-            writePinHigh(led_row_pins[x]);
+        writePinHigh(led_row_pins[x]);
 #endif
-        }
     }
 }
 
@@ -221,13 +219,11 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     }
     // Enable RGB output
     if (enable_pwm_output) {
-        ATOMIC_BLOCK_FORCEON {
 #if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
-            writePinHigh(led_row_pins[current_row]);
+        writePinHigh(led_row_pins[current_row]);
 #elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
-            writePinLow(led_row_pins[current_row]);
+        writePinLow(led_row_pins[current_row]);
 #endif
-        }
     }
 }
 #elif (DIODE_DIRECTION == ROW2COL)
@@ -235,14 +231,12 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 static void shared_matrix_rgb_disable_output(void) {
     // Disable LED outputs on RGB channel pins
     for (uint8_t x = 0; x < LED_MATRIX_COLS; x++) {
-        ATOMIC_BLOCK_FORCEON {
     // Unselect all columns before scanning the key matrix
 #if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW || defined(MATRIX_UNSELECT_DRIVE_HIGH))
         writePinHigh(led_col_pins[x]);
 #elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
         writePinLow(led_col_pins[x]);
 #endif
-        }
     }
 }
 
@@ -286,11 +280,10 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     }
     // Enable RGB output
     if (enable_pwm_output) {
-        ATOMIC_BLOCK_FORCEON {
 #if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
-            writePinHigh(led_col_pins[current_key_col]);
+        writePinHigh(led_col_pins[current_key_col]);
 #elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
-            writePinLow(led_col_pins[current_key_col]);
+        writePinLow(led_col_pins[current_key_col]);
 #endif
         }
     }
@@ -320,10 +313,8 @@ static void rgb_callback(PWMDriver *pwmp) {
 
 void SN32F24xB_init(void) {
     for (uint8_t x = 0; x < LED_MATRIX_ROWS_HW; x++) {
-        ATOMIC_BLOCK_FORCEON {
-            setPinOutput(led_row_pins[x]);
-            writePinLow(led_row_pins[x]);
-        }
+        setPinOutput(led_row_pins[x]);
+        writePinLow(led_row_pins[x]);
     }
     // Determine which PWM channels we need to control
     rgb_ch_ctrl(&pwmcfg);
