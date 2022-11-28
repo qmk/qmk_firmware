@@ -1,6 +1,3 @@
-RGBLIGHT_ENABLE = yes
-BOOTLOADER = atmel-dfu
-
 # MCU Name
 MCU = atmega32u4
 
