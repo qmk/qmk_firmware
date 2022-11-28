@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_Q,   KC_D,    KC_R,    KC_W,     KC_B,                            KC_J,     KC_F,     KC_U,    KC_P,   KC_SCLN, KC_BSPC,
   KC_TAB,  KC_A,   KC_S,    KC_H,    KC_T,     KC_G,                            KC_Y,     KC_N,     KC_E,    KC_O,   KC_I,    KC_QUOT,
   KC_LSFT, KC_Z,   KC_X,    KC_M,    KC_C,     KC_V,     XXXXXXX,      KC_MUTE, KC_K,     KC_L,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-                   KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_ENT,       KC_SPC,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
+                   KC_LGUI, KC_LALT, KC_LCTL,  KC_LOWER, KC_ENT,       KC_SPC,  KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
 /*
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,                           KC_Y,       KC_U,     KC_I,    KC_O,   KC_P,    KC_BSPC,
   KC_TAB,  KC_A,   KC_S,    KC_D,    KC_F,     KC_G,                           KC_H,       KC_J,     KC_K,    KC_L,   KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,     XXXXXXX,     KC_MUTE, KC_N,       KC_M,     KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-                   KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
+                   KC_LGUI, KC_LALT, KC_LCTL,  KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
 /* MIDI
@@ -86,11 +86,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_MIDI] = LAYOUT(
-  MI_ALLOFF, MI_OCT_0, MI_OCT_1, MI_OCT_2, MI_OCT_3, MI_OCT_4,                      MI_OCT_5, MI_OCT_6, MI_OCT_7, _______, _______, MI_TOG,
-  _______,   MI_Gs,    MI_As,    _______,  MI_Cs_1,  MI_Ds_1,                       _______,  MI_Fs_1,  MI_Gs_1,  MI_As_1, _______, _______,
-  _______,   MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,                        MI_F_1,   MI_G_1,   MI_A_1,   MI_B_1,  MI_C_2,  KC_WORKMAN,
-  _______,   _______,  _______,  _______,  MI_TRNSD, MI_TRNSU, _______,    _______, MI_BENDD, MI_BENDU, _______,  _______, _______, _______,
-                       _______,  _______,  _______,  MI_SUS,   MI_OCTD,    MI_OCTU, _______,  _______,  _______,  _______
+  MI_AOFF,   MI_OC0,   MI_OC1,   MI_OC2,   MI_OC3,   MI_OC4,                        MI_OC5,   MI_OC6,   MI_OC7,   _______, _______, MI_TOGG,
+  _______,   MI_Gs,    MI_As,    _______,  MI_Cs1,   MI_Ds1,                        _______,  MI_Fs1,   MI_Gs1,   MI_As1,  _______, _______,
+  _______,   MI_A,     MI_B,     MI_C1,    MI_D1,    MI_E1,                         MI_F1,    MI_G1,    MI_A1,    MI_B1,   MI_C2,  KC_WORKMAN,
+  _______,   _______,  _______,  _______,  MI_TRSD,  MI_TRSU,  _______,    _______, MI_BNDD,  MI_BNDU,  _______,  _______, _______, _______,
+                       _______,  _______,  _______,  MI_SUST,  MI_OCTD,    MI_OCTU, _______,  _______,  _______,  _______
 ),
 
 /* LOWER
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, KC_ASTG,
+  _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, AS_TOGG,
   _______, _______, _______, _______, _______, _______,                         _______, _______, KC_UP,   _______, _______, KC_DEL,
   _______, _______, _______, _______, _______, _______,                         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_WORKMAN,
   _______, _______, _______, KC_MIDI, _______, _______, _______,       _______, _______, _______, KC_HOME, KC_END,  _______, KC_QWERTY,

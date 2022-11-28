@@ -55,12 +55,11 @@
 
 #define DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 68
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0
 
 #ifdef RGB_MATRIX_ENABLE
 
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 

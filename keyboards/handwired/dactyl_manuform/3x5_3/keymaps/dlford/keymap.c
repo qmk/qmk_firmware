@@ -243,7 +243,7 @@ void dynamic_macro_record_end_user(int8_t direction) {
 }
 
 // Indicators
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock || caps_word_enabled) {
         // Left master
         rgb_matrix_set_color(3, RGB_RED);
@@ -262,6 +262,7 @@ void rgb_matrix_indicators_user(void) {
         // Right master
         rgb_matrix_set_color(23, RGB_GREEN);
     }
+    return false;
 }
 
 // Quantum keys / Abbreviations
@@ -366,7 +367,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
            LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN,                     KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,TG(_MOUSE),                    EEP_RST, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
+            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,TG(_MOUSE),                     EE_CLR, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,     VVV,     VVV,        VVV,    TG(4),    VVV
         //                           |--------+--------+--------|  |--------+--------+--------|

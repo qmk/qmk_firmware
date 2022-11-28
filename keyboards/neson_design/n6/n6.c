@@ -115,7 +115,7 @@ static void self_testing(void)
             }
 
             if (rgb_state.index >= ST_LEFT_END) {
-                for (int i = rgb_state.index - 1; i < DRIVER_LED_TOTAL - rgb_state.index + 1; i++) {
+                for (int i = rgb_state.index - 1; i < RGB_MATRIX_LED_COUNT - rgb_state.index + 1; i++) {
                     IS31FL3731_set_color(i, led.r, led.g, led.b);
                 }
                 if (rgb_state.index == ST_LEFT_END) {
@@ -177,13 +177,13 @@ static void self_testing(void)
         }
         break;
         case ST_STAGE_3:
-            if (rgb_state.index != DRIVER_LED_TOTAL/2) {
+            if (rgb_state.index != RGB_MATRIX_LED_COUNT/2) {
                 IS31FL3731_set_color_all(0, 0, 0);
             }
 
             // light left and right
 
-            if (rgb_state.index == DRIVER_LED_TOTAL/2) {
+            if (rgb_state.index == RGB_MATRIX_LED_COUNT/2) {
                 if (rgb_state.duration) {
                     rgb_state.duration--;
                 } else {
@@ -211,7 +211,7 @@ static void self_testing(void)
     update_ticks();
 }
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -303,7 +303,7 @@ void matrix_init_kb(void)
 #ifdef DRIVER_ADDR_2
     IS31FL3731_init(DRIVER_ADDR_2);
 #endif
-    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
+    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
         IS31FL3731_set_led_control_register(index, true, true, true);
     }
     IS31FL3731_update_led_control_registers(DRIVER_ADDR_1, 0);
@@ -355,10 +355,10 @@ void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
 {
     if (rgb_state.state != NORMAL) return;
 
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         IS31FL3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
     }
-    ws2812_setleds(start_led+DRIVER_LED_TOTAL, 1);
+    ws2812_setleds(start_led+RGB_MATRIX_LED_COUNT, 1);
 }
 
 bool led_update_kb(led_t led_state)
