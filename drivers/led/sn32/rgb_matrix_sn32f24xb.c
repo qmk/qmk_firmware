@@ -71,12 +71,12 @@
 #if (DIODE_DIRECTION == COL2ROW)
 static uint8_t        chan_col_order[LED_MATRIX_COLS] = {0};    // track the channel col order
 static uint8_t        current_row                     = 0;      // LED row scan counter
-static uint8_t        current_key_row                         = 0;      // key row scan counter
+static uint8_t        current_key_row                 = 0;      // key row scan counter
 #elif (DIODE_DIRECTION == ROW2COL)
 /* make sure to `#define MATRIX_UNSELECT_DRIVE_HIGH` in this configuration*/
 static uint8_t        chan_row_order[LED_MATRIX_ROWS_HW] = {0};    // track the channel row order
-static uint8_t        current_key_col                         = 0;      // key col scan counter
-static uint8_t        last_key_col                         = 0;      // key col scan counter
+static uint8_t        current_key_col                    = 0;      // key col scan counter
+static uint8_t        last_key_col                       = 0;      // key col scan counter
 static matrix_row_t row_shifter       = MATRIX_ROW_SHIFTER;
 #endif
 extern matrix_row_t   raw_matrix[MATRIX_ROWS];                  // raw values
