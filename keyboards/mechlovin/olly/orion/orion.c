@@ -25,38 +25,43 @@ void led_init_ports(void) {
 
 }
 
-layer_state_t layer_state_set_user(layer_state_t state)
-{
-  // if on layer 0, turn on B7 LED, otherwise off.
-    if (biton32(state) == 0) {
-        writePinHigh(B7);
-    } else {
-        writePinLow(B7);
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case 0:
+            writePinHigh(B7);
+            writePinLow(B6);
+            writePinLow(B5);
+            writePinLow(B8);
+            writePinLow(B9);
+            break;
+        case 1:
+            writePinHigh(B6);
+            writePinLow(B7);
+            writePinLow(B5);
+            writePinLow(B8);
+            writePinLow(B9);
+            break;
+        case 2:
+            writePinHigh(B5);
+            writePinLow(B7);
+            writePinLow(B6);
+            writePinLow(B8);
+            writePinLow(B9);
+            break;
+        case 3:
+            writePinHigh(B8);
+            writePinLow(B7);
+            writePinLow(B5);
+            writePinLow(B6);
+            writePinLow(B9);
+            break;
+        case 4:
+            writePinHigh(B9);
+            writePinLow(B7);
+            writePinLow(B5);
+            writePinLow(B8);
+            writePinLow(B6);
+            break;
     }
-  // if on layer 1, turn on B6 LED, otherwise off.
-    if (biton32(state) == 1) {
-        writePinHigh(B6);
-    } else {
-        writePinLow(B6);
-    }
-  // if on layer 2, turn on B5 LED, otherwise off.
-    if (biton32(state) == 2) {
-        writePinHigh(B5);
-    } else {
-        writePinLow(B5);
-    }
-  // if on layer 3, turn on B8 LED, otherwise off.
-    if (biton32(state) == 3) {
-        writePinHigh(B8);
-    } else {
-        writePinLow(B8);
-    }
-  // if on layer 4, turn on B9 LED, otherwise off.
-    if (biton32(state) == 4) {
-        writePinHigh(B9);
-    } else {
-        writePinLow(B9);
-    }
-
     return state;
 }
