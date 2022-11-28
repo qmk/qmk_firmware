@@ -2,7 +2,7 @@
     "keyboard_name": "TH96",
     "manufacturer": "Epomaker",
     "url": "",
-    "maintainer": "None",
+    "maintainer": "Nikchi",
     "usb": {
       "vid": "0x3151",
       "pid": "0x4010",
