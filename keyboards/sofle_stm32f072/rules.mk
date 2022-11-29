@@ -8,5 +8,10 @@ BOOTLOADER = stm32-dfu
 DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 
 SPLIT_KEYBOARD = yes
-DEFAULT_FOLDER = sofle/rev1
+DEFAULT_FOLDER = sofle_stm32f072/rev1
 SWAP_HANDS_ENABLE = yes
+
+
+NKRO_ENABLE = yes           # Enable N-Key Rollover
+LTO_ENABLE = yes
+
