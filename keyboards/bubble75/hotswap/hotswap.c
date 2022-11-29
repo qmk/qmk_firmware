@@ -44,7 +44,10 @@ led_config_t g_led_config = {
   }
 };
 
-    void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
         if (host_keyboard_led_state().caps_lock) {  // Capslock = WHITE
             rgb_matrix_set_color(57, 255, 255, 255);
     }
