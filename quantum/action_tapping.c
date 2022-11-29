@@ -25,6 +25,7 @@
 #        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
 #    endif
 #    define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_TAPPING_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
+#    define WITHIN_QUICK_TAP_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_QUICK_TAP_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
 
 #    ifdef DYNAMIC_TAPPING_TERM_ENABLE
 uint16_t g_tapping_term = TAPPING_TERM;
@@ -40,7 +41,6 @@ __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *r
 }
 #    endif
 
-#    define WITHIN_QUICK_TAP_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_QUICK_TAP_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
 #    ifdef QUICK_TAP_TERM_PER_KEY
 __attribute__((weak)) uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     return QUICK_TAP_TERM;
@@ -168,14 +168,6 @@ void action_tapping_process(keyrecord_t record) {
 #        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT true
 #    else
 #        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT false
-#    endif
-
-#    ifdef TAPPING_FORCE_HOLD_PER_KEY
-#        define TAP_GET_TAPPING_FORCE_HOLD get_tapping_force_hold(tapping_keycode, &tapping_key)
-#    elif defined(TAPPING_FORCE_HOLD)
-#        define TAP_GET_TAPPING_FORCE_HOLD true
-#    else
-#        define TAP_GET_TAPPING_FORCE_HOLD false
 #    endif
 
 /** \brief Tapping
