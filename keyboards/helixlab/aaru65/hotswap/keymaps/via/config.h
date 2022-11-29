@@ -3,6 +3,3 @@
 #pragma once
 
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 4
-#ifdef RGB_MATRIX_ENABLE
-#    define VIA_QMK_RGBLIGHT_ENABLE
-#endif

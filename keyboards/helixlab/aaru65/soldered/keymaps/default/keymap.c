@@ -79,7 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case RGB_INDICATOR_HUE_INCREASE:
             if (record->event.pressed) {
-                if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)) {
+                if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)) {
                     rgb_indicator_decrease_hue();
                 } else {
                     rgb_indicator_increase_hue();
@@ -89,7 +89,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case RGB_INDICATOR_SATURATION_INCREASE:
             if (record->event.pressed) {
-                if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)) {
+                if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)) {
                     rgb_indicator_decrease_sat();
                 } else {
                     rgb_indicator_increase_sat();
@@ -99,7 +99,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case RGB_INDICATOR_VAL_INCREASE:
             if (record->event.pressed) {
-                if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)) {
+                if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)) {
                     rgb_indicator_decrease_val();
                 } else {
                     rgb_indicator_increase_val();
@@ -133,7 +133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case FADER_CHANNEL_INCREASE:
             if (record->event.pressed) {
-                if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)) {
+                if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)) {
                     fader_decrease_channel();
                 } else {
                     fader_increase_channel();
@@ -143,7 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case FADER_CC_INCREASE:
             if (record->event.pressed) {
-                if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)) {
+                if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)) {
                     fader_decrease_cc();
                 } else {
                     fader_increase_cc();
