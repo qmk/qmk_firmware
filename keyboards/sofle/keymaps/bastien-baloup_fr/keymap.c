@@ -21,7 +21,7 @@ enum custom_keycodes {
     CL_AGRV = SAFE_RANGE,      // À
     CL_EACU,                   // É
     CL_EGRV,                   // È
-    // UC_ keycodes uses (ctrl+shift+u)+code+enter to input unicode. 
+    // UC_ keycodes uses (ctrl+shift+u)+code+enter to input unicode.
     // I do not use the qmk unicode implementation because it does not uses the right keycodes to input numbers in a french layout.
     UC_PI  ,                   // π
     UC_ELIP                    // …
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_ESC    , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                         KC_Y      , KC_U   , KC_I      , KC_O   , KC_P   , KC_BSPC,
    KC_TAB    , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                         KC_H      , KC_J   , KC_K      , KC_L   , KC_SCLN, KC_QUOT,
    MO(1)     , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , XXXXXXX,       KC_MUTE, KC_N      , KC_M   , KC_COMM   , KC_DOT , KC_SLSH, MO(1)  ,
-                      KC_LGUI, KC_LALT, KC_LCTRL, MO(2)  , KC_ENT,           KC_SPC, MO(3)  , KC_RCTRL, KC_RALT, KC_HYPR
+                      KC_LGUI, KC_LALT, KC_LCTL, MO(2)  , KC_ENT,           KC_SPC, MO(3)  , KC_RCTL, KC_RALT, KC_HYPR
 ),
 // I use a uppercase layer instead of using the Shift key because I find it easier to change the effect of shift+key chords this way.
 /*
