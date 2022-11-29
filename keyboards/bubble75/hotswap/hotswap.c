@@ -48,13 +48,11 @@ bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
         return false;
     }
-        if (host_keyboard_led_state().caps_lock) {  // Capslock = WHITE
-            rgb_matrix_set_color(57, 255, 255, 255);
+    if (host_keyboard_led_state().caps_lock) {  // Capslock = WHITE
+        rgb_matrix_set_color(57, 255, 255, 255);
     }
-    return true;
+   return true;
 }
-
-
 
 
 #endif
