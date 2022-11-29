@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_SUPER, KC_NOMODE,KC_BLOCKS,KC_REGIONAL,TG_GAME,TG_DBLO, QK_BOOT,
         VRSN,    _________________ADJUST_L1_________________,    _________________ADJUST_R1_________________, EE_CLR,
         KEYLOCK, _________________ADJUST_L2_________________,    _________________ADJUST_R2_________________, TG_MODS,
-        UC_MOD,  _________________ADJUST_L3_________________,    _________________ADJUST_R3_________________, KC_MPLY,
+        UC_NEXT, _________________ADJUST_L3_________________,    _________________ADJUST_R3_________________, KC_MPLY,
                                    QK_RBT, AUTO_CTN, _______,    _______, KC_NUKE,
                                            _______, _______,      _______
     )

@@ -23,9 +23,6 @@
 #ifdef AUDIO_CLICKY
 #    include "process_clicky.h"
 #endif
-#if defined(AUTOCORRECTION_ENABLE)
-#    include "keyrecords/autocorrection/autocorrection.h"
-#endif
 #include <string.h>
 
 bool is_oled_enabled = true;
@@ -87,7 +84,7 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
 
     memmove(keylog_str, keylog_str + 1, OLED_KEYLOGGER_LENGTH - 1);
 
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+    if (keycode < ARRAY_SIZE(code_to_name)) {
         keylog_str[(OLED_KEYLOGGER_LENGTH - 1)] = pgm_read_byte(&code_to_name[keycode]);
     }
 
@@ -378,14 +375,14 @@ void render_mod_status(uint8_t modifiers, uint8_t col, uint8_t line) {
 #endif
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
 #if defined(OLED_DISPLAY_VERBOSE)
-    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_LSHIFT)));
+    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_LSFT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_LGUI)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_LALT)));
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_LCTL)));
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_RCTL)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_RALT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_RGUI)));
-    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSHIFT)));
+    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSFT)));
 #else
     oled_write_P(mod_status[0], (modifiers & MOD_MASK_SHIFT));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_MASK_GUI));
@@ -458,10 +455,6 @@ void render_bootmagic_status(uint8_t col, uint8_t line) {
 #endif
 }
 
-#if defined(CUSTOM_POINTING_DEVICE)
-extern bool tap_toggling;
-#endif
-
 void render_user_status(uint8_t col, uint8_t line) {
 #ifdef AUDIO_ENABLE
     bool is_audio_on = false, l_is_clicky_on = false;
@@ -490,9 +483,9 @@ void render_user_status(uint8_t col, uint8_t line) {
 #    if !defined(OLED_DISPLAY_VERBOSE)
     oled_write_P(PSTR(" "), false);
 #    endif
-#elif defined(CUSTOM_POINTING_DEVICE)
+#elif defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
     static const char PROGMEM mouse_lock[3] = {0xF2, 0xF3, 0};
-    oled_write_P(mouse_lock, tap_toggling);
+    oled_write_P(mouse_lock, get_auto_mouse_toggle());
 #endif
 #ifdef AUDIO_ENABLE
     static const char PROGMEM audio_status[2][3] = {{0xE0, 0xE1, 0}, {0xE2, 0xE3, 0}};
@@ -771,8 +764,8 @@ void render_unicode_mode(uint8_t col, uint8_t line) {
 
 uint32_t kitty_animation_phases(uint32_t triger_time, void *cb_arg) {
     static uint32_t anim_frame_duration = 500;
-#ifdef CUSTOM_POINTING_DEVICE
-    if (tap_toggling) {
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+    if (get_auto_mouse_toggle()) {
         animation_frame     = (animation_frame + 1) % OLED_RTOGI_FRAMES;
         animation_type      = 3;
         anim_frame_duration = 300;
