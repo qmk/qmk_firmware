@@ -43,6 +43,7 @@
 #            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #        endif
 #    endif
+#    undef RGB_MATRIX_DEFAULT_MODE
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_REST_MODE
 #endif
 
@@ -128,15 +129,15 @@
 #    define TAPPING_TERM 175
 #endif
 
-#ifndef SECURE_UNLOCK_SEQUENCE
-#    define SECURE_UNLOCK_SEQUENCE    \
-        {                             \
-            {2, 1}, {2, 2}, {2, 3}, { \
-                2, 4                  \
-            }                         \
-        }
+#if (__has_include("../../../qmk_secrets/config.h") && !defined(NO_SECRETS))
+#    include "../../../qmk_secrets/config.h"
 #endif
 
 #if defined(SPLIT_KEYBOARD) && defined(PROTOCOL_CHIBIOS) && !defined(USB_SUSPEND_WAKEUP_DELAY)
 #    define USB_SUSPEND_WAKEUP_DELAY 200
+#endif
+
+#ifdef XAP_ENABLE
+#    undef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 12
 #endif
