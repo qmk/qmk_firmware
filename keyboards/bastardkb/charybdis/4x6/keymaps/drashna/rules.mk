@@ -24,7 +24,7 @@ SERIAL_DRIVER         = usart
 AUDIO_DRIVER          = pwm_hardware
 BACKLIGHT_DRIVER      = pwm
 
-AUTOCORRECTION_ENABLE = yes
+AUTOCORRECT_ENABLE = yes
 CAPS_WORD_ENABLE      = yes
 SWAP_HANDS_ENABLE     = yes
 TAP_DANCE_ENABLE      = yes

@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 //#define RGB_DI_PIN X
 
-//#define RGBLIGHT_ANIMATIONS
 //#define RGBLED_NUM X    // Number of LEDs
 
 

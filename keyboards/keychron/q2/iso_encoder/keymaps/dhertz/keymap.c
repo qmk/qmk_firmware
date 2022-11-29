@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, CMD_SFT_L, KC_TRNS, KC_TRNS, KC_NUBS, KC_TRNS, KC_END,
       KC_TRNS, KC_NUBS, KC_TRNS, KC_TRNS, CMD_ALT_C, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDOWN, KC_END
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END
       ),
 };
 
@@ -67,7 +67,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code_delay(KC_VOLD, 10);
         }
-    } else {  
+    } else {
         if ((get_mods() & MOD_BIT(KC_LCMD)) != MOD_BIT(KC_LCMD)) {
             register_code(KC_LCMD);
             defer_exec(20, cancel_cmd, NULL);
@@ -81,7 +81,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_user(void) {
     switch(get_highest_layer(layer_state|default_layer_state)) {
         case 1:
             rgb_matrix_set_color_all(RGB_BLACK);
@@ -91,4 +91,5 @@ void rgb_matrix_indicators_kb(void) {
             rgb_matrix_set_color_all(RGB_BLACK);
             break;
     }
+    return false;
 }

@@ -42,11 +42,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 `DYNAMIC_TAPPING_TERM_ENABLE` is a feature you can enable in `rules.mk` that lets you use three special keys in your keymap to configure the tapping term on the fly.
 
-| Key         | Description                                                                                                            |
-|-------------|------------------------------------------------------------------------------------------------------------------------|
-| `DT_PRNT`   | "Dynamic Tapping Term Print": Types the current tapping term, in milliseconds                                          |
-| `DT_UP`     | "Dynamic Tapping Term Up": Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default)   |
-| `DT_DOWN`   | "Dynamic Tapping Term Down": Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
+| Key                           | Aliases | Description                                                                               |
+|-------------------------------|---------|-------------------------------------------------------------------------------------------|
+|`QK_DYNAMIC_TAPPING_TERM_PRINT`|`DT_PRNT`| Types the current tapping term, in milliseconds                                           |
+|`QK_DYNAMIC_TAPPING_TERM_UP`   |`DT_UP`  | Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
+|`QK_DYNAMIC_TAPPING_TERM_DOWN` |`DT_DOWN`| Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
 
 Set the tapping term as usual with `#define TAPPING_TERM <value>` in `config.h` and add `DYNAMIC_TAPPING_TERM_ENABLE = yes` in `rules.mk`. Then, place the above three keys somewhere in your keymap and flash the new firmware onto your board.
 
