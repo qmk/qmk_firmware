@@ -53,10 +53,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif  // AUDIO_ENABLE
 
-#undef PRODUCT
 #ifdef KEYBOARD_orthodox_rev1
+#    undef PRODUCT
 #    define PRODUCT "Drashna Hacked Orthodox Rev .1"
 #elif KEYBOARD_orthodox_rev3
+#    undef PRODUCT
 #    define PRODUCT "Drashna Hacked Orthodox Rev .3"
 #endif
 
