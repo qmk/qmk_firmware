@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 1, K_12, J_12, L_12 },
     { 1, K_11, J_11, L_11 },
     { 1, K_10, J_10, L_10 },
