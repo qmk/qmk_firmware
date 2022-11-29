@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_wrapper(
         QK_MAKE, _________________ADJUST_L1_________________,                                       _________________ADJUST_R1_________________, QK_BOOT,
         VRSN,    _________________ADJUST_L2_________________,                                       _________________ADJUST_R2_________________, EE_CLR,
-        UC_MOD,  _________________ADJUST_L3_________________, HPT_TOG, HPT_FBK,   MG_NKRO, UC_MOD,  _________________ADJUST_R3_________________, TG_MODS,
+        UC_NEXT, _________________ADJUST_L3_________________, HF_TOGG, HF_FDBK,   MG_NKRO, UC_NEXT, _________________ADJUST_R3_________________, TG_MODS,
                                    QK_RBT,  _______, KEYLOCK, KC_NUKE, _______,   _______, _______, _______, _______, AUTO_CTN
     ),
 //     [_LAYERINDEX] = LAYOUT_wrapper(

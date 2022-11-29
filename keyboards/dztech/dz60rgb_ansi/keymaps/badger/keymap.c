@@ -52,8 +52,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CONFIG]     = LAYOUT_60_ansi(\
      _______,   KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_DEL, \
-     _______,   NK_ON,    NK_OFF,   EEP_RST,  QK_BOOT,   _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  KC_INS, \
-     _______,   GE_SWAP,  GE_NORM,  DEBUG,    RGB_MOD,   RGB_HUI,  RGB_SAI,  RGB_SPI,  RGB_M_B,  _______,  _______,  RGB_TOG,   _______,  \
+     _______,   NK_ON,    NK_OFF,   EE_CLR,   QK_BOOT,   _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  KC_INS, \
+     _______,   GE_SWAP,  GE_NORM,  DB_TOGG,  RGB_MOD,   RGB_HUI,  RGB_SAI,  RGB_SPI,  RGB_M_B,  _______,  _______,  RGB_TOG,   _______,  \
      _______,   LAG_SWP,  LAG_NRM,  _______,  RGB_RMOD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  RGB_M_K,  _______,  _______,  _______,   \
      _______,   _______,  _______,  _______,  _______,   _______,  _______,  _______)
 };

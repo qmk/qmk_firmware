@@ -5,7 +5,7 @@
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 3
 
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 

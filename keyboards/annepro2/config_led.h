@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-#define DRIVER_LED_TOTAL 61
+#define RGB_MATRIX_LED_COUNT 61
 
 /* Limit animations to 62.5 FPS to avoid tearing. (1/.016 = 62.5 FPS). */
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16

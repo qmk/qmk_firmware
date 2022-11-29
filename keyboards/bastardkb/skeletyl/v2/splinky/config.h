@@ -20,16 +20,6 @@
 /* Key matrix configuration. */
 #define MATRIX_ROW_PINS \
     { GP26, GP5, GP4, GP9 }
-#define MATRIX_COL_PINS \
-    { GP28, GP15, GP6, GP7, GP8 }
-
-/* Handedness. */
-#define MASTER_RIGHT
-
-// To use the handedness pin, resistors need to be installed on the adapter PCB.
-// If so, uncomment the following code, and undefine MASTER_RIGHT above.
-// #define SPLIT_HAND_PIN GP13
-// #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
 
 /* serial.c configuration (for split keyboard). */
 #define SOFT_SERIAL_PIN GP1
