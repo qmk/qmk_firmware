@@ -16,10 +16,6 @@
         "cols": ["GP25", "GP24", "GP23", "GP1", "GP7", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP12"],
         "rows": ["GP29", "GP28", "GP27", "GP26", "GP22"]
     },
-    "matrix_size": {
-        "cols": 15,
-        "rows": 5
-    },
     "rgb_matrix": {
         "driver": "IS31FL3737",
         "layout": [
