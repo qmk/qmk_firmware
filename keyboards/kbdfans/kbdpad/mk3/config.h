@@ -13,20 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
-#include "config_common.h"
-
-#define MATRIX_ROW_PINS { F4, C7, C6, B6, B5, D7 }
-#define MATRIX_COL_PINS { F7, F6, D5, D3 }
-
-#define RGB_DI_PIN F5 // RGB LED pin
-#define RGBLED_NUM 21 // Number of LEDs
-#define DRIVER_LED_TOTAL 21 // Number of LEDs
+ 
+#define RGB_MATRIX_LED_COUNT 21
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #define RGB_MATRIX_KEYPRESSES
-
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #define ENABLE_RGB_MATRIX_BREATHING
@@ -59,4 +50,4 @@
 #define ENABLE_RGB_MATRIX_SPLASH
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
-
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
