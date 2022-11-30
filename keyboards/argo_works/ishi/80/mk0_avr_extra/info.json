@@ -2,9 +2,8 @@
     "manufacturer": "Argo Works",
     "keyboard_name": "Ishi 80 Mk 0",
     "maintainer": "jasonj2232",
-    "bootloader": "caterina",
+    "development_board": "elite_c",
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
     "url": "https://qmk.fm/keyboards/",
     "usb": {
         "device_version": "0.0.1",
@@ -25,7 +24,7 @@
         "rows": ["B3", "B1", "B6", "B2", "F0", "F1", "B5", "B4", "E6"]
     },    
     "layouts": {
-        "LAYOUT_ishi_80": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [1, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 0], "x": 1, "y": 0 },
