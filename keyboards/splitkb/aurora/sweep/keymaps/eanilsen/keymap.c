@@ -16,6 +16,9 @@
 
 #include QMK_KEYBOARD_H
 #include "features/customkeys.h"
+#include "features/swapper.h"
+#include "features/select_word.h"
+#include "features/custom_shift_keys.h"
 
 #define SYMB OSL(_SYMBOL)
 #define FUNC OSL(_FUNCTION)
@@ -33,6 +36,7 @@
 #define HOME_S LGUI_T(KC_S)
 #define HOME_R LALT_T(KC_R)
 #define HOME_T LCTL_T(KC_T)
+#define HOME_G LT(_NAV,KC_G)
 #define HOME_P LT(_NUM,KC_P)
 #define HOME_N RCTL_T(KC_N)
 #define HOME_E RALT_T(KC_E)
@@ -49,12 +53,21 @@ enum layers {
     _MEDIA
 };
 
+const custom_shift_key_t custom_shift_keys[] = {
+  {KC_DOT, KC_EQL},
+  {KC_COMM, KC_EXLM},
+  {KC_QUOT, KC_QUES},
+  {KC_SLSH, KC_BSLS},
+};
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+  sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ISRT] = LAYOUT(
-        KC_Y,   KC_C,   KC_L,   KC_M,    KC_K,     KC_Z,   KC_F,   KC_U,    KC_COMM, KC_QUOT,
-        HOME_I, HOME_S, HOME_R, HOME_T,  KC_G,     HOME_P, HOME_N, HOME_E,  HOME_A,  HOME_O,
-        KC_Q,   KC_V,   KC_W,   KC_D,    KC_J,     KC_B,   KC_H,   KC_SLSH, KC_DOT,  KC_X,
-                                MOD_SPC, SYMB,     FUNC,   MOD_BSP
+        KC_Y,   KC_C,   KC_L,   KC_M,    KC_K,       KC_Z,   KC_F,   KC_U,    KC_COMM, KC_QUOT,
+        HOME_I, HOME_S, HOME_R, HOME_T,  HOME_G,     HOME_P, HOME_N, HOME_E,  HOME_A,  HOME_O,
+        KC_Q,   KC_V,   KC_W,   KC_D,    KC_J,       KC_B,   KC_H,   KC_SLSH, KC_DOT,  KC_X,
+                                MOD_SPC, SYMB,       FUNC,   MOD_BSP
     ),
 
     [_SYMBOL] = LAYOUT(
@@ -65,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FUNCTION] = LAYOUT(
-        CG_TOGG, KC_F1, KC_F2,  KC_F3,   KC_F4,     KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,
+        KC_TAB,  KC_F1, KC_F2,  KC_F3,   KC_F4,     KC_NO, KC_NO,  KC_NO, KC_NO, CG_TOGG,
         KC_ESC,  KC_F5, KC_F6,  KC_F7,   KC_F8,     KC_NO, CT_AE,  CT_OE, CT_AA, KC_ENT,
         CAPSWRD, KC_F9, KC_F10, KC_F11,  KC_F12,    KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,
                                 MOD_SPC, BASE,      KC_NO, NAV
@@ -80,14 +93,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT(
          KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO,    KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,
-         KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,    KC_BTN4, LT_LEFT, KC_DOWN, KC_RGHT, KC_BTN5,
-         SW_APP,  SW_WIN,  KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR,
-                                    KC_BTN1, BASE,     KC_NO,   KC_BTN2
+         KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,    KC_NO,   LT_LEFT, KC_DOWN, KC_RGHT, KC_ENT,
+         SW_APP,  SW_WIN,  KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_BTN4, KC_NO,   KC_BTN5, KC_PSCR,
+                                    KC_BTN1, BASE,     KC_BTN3, KC_BTN2
     )
 };
 
 bool is_mac_the_default(void) { return keymap_config.swap_lctl_lgui; }
 bool is_shift_held(void) { return (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; }
+
+void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool isPressed)
+{
+  uint16_t code = is_mac_the_default() ? mac_code : win_code;
+  if (isPressed) register_code16(code);
+  else unregister_code16(code);
+}
 
 void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_pressed)
 {
@@ -110,13 +130,37 @@ void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_p
   }
 }
 
+bool sw_app_active = false;
+bool sw_win_active = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   bool isPressed = record->event.pressed;
   bool isHeld = !record->tap.count && isPressed;
   const uint8_t mods = get_mods();
 
+  {
+    uint16_t mod = is_mac_the_default() ? KC_LGUI : KC_LALT;
+    update_swapper(&sw_app_active, mod, KC_TAB, SW_APP, keycode, record);
+  }
+  update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
+
+  if (!process_custom_shift_keys(keycode, record)) { return false; }
+  if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
+
   switch (keycode) {
+  case KC_PSCR:
+    send_mac_or_win(G(S(KC_4)), KC_PSCR, isPressed);
+    return false;
+  case SEL_SRCH:
+    if (isPressed) {
+      if (is_mac_the_default()) {
+	SEND_STRING(SS_LGUI("ct") SS_DELAY(100) SS_LGUI("v") SS_TAP(X_ENTER));
+      } else {
+	SEND_STRING(SS_LCTL("ct") SS_DELAY(100) SS_LCTL("v") SS_TAP(X_ENTER));
+      }
+    }
+    return false;
   case LT_LEFT:
     // Guard close returning true if the key is tapped,
     // meaning the rest of the code will only run when the
@@ -190,6 +234,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
   case HOME_O:
     return TAPPING_TERM + 200;
   case HOME_I:
+    return TAPPING_TERM + 200;
+  case HOME_G:
     return TAPPING_TERM + 200;
   case LT_UP:
     return TAPPING_TERM + 200;
