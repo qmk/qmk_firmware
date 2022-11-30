@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [_RAISE] = LAYOUT_reviung33(
     JP_1,    JP_2,    JP_3,    JP_4,    JP_5,    JP_6,    JP_7,    JP_8,    JP_9,    JP_0,
-    JP_MINS, JP_EQL,  JP_LBRC, JP_RBRC, JP_YEN,  KC_RO,   XXXXXXX, JP_GRV,  JP_TILD, JP_COLN,
+    JP_MINS, JP_EQL,  JP_LBRC, JP_RBRC, JP_YEN,  JP_BSLS, XXXXXXX, JP_GRV,  JP_TILD, JP_COLN,
     KC_LSFT, KC_ESC,  KC_RGUI, KC_LALT, JP_DQUO, KC_TAB,  XXXXXXX, KC_RCTL, KC_RALT, KC_RSFT,
     _______,                                KC_DEL,                                  _______
   ),

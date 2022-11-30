@@ -24,7 +24,7 @@
 /* The scanners already debounce for us */
 #define DEBOUNCE 0
 
-#define DRIVER_LED_TOTAL 132
+#define RGB_MATRIX_LED_COUNT 132
 
 #ifdef RGB_MATRIX_ENABLE
 // At the default flush limit of 16ms (~62.5 fps), the matrix scan rate is approximately
