@@ -264,7 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 {24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35},
 {36, 37, 38, 39, 40,   41,   42, 43, 44, 45, 46}
 */
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     uint8_t red[3] = {22, 2, 0};
     uint8_t yellow[3] = {20, 22, 0};
     uint8_t blue[3] = {0, 6, 20};
@@ -324,6 +324,7 @@ void rgb_matrix_indicators_user(void) {
     if (led_state.scroll_lock) {
         rgb_matrix_set_color(23, green[0], green[1], green[2]);
     }
+    return false;
 }
 
 // Turn of RGB Matrix Effect

@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "EVO70", 
-    "url": "https://www.customMK.com", 
-    "maintainer": "customMK", 
+    "keyboard_name": "EVO70",
+    "url": "https://www.customMK.com",
+    "maintainer": "customMK",
     "manufacturer": "customMK",
     "tags": ["70%", "encoder", "underglow", "backlight"],
     "usb": {
@@ -24,7 +24,16 @@
         "saturation_steps": 8,
         "brightness_steps": 4,
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "layouts": {
