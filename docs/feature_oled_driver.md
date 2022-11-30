@@ -80,6 +80,14 @@ static void render_logo(void) {
 
     oled_write_P(qmk_logo, false);
 }
+
+// Then, call this function wherever/whenever you want to display the logo
+// Most likely you'll be the calling it from `oled_task_user`
+bool oled_task_user(void) {
+    ...
+    render_logo();
+    ...
+}
 ```
 
 ?> The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
