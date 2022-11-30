@@ -43,11 +43,11 @@ def _validate(keyboard, info_data):
 
     # Make sure we have at least one layout
     if len(layouts) == 0:
-        _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
+        _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
 
     # Providing only LAYOUT_all "because I define my layouts in a 3rd party tool"
     if len(layouts) == 1 and 'LAYOUT_all' in layouts:
-        _log_warning(info_data, '"LAYOUT_all" is only acceptable when additional layouts are provided.')
+        _log_warning(info_data, '"LAYOUT_all" should be "LAYOUT" unless additional layouts are provided.')
 
     # Extended layout name checks
     name_fragments = keyboard.split('/')
