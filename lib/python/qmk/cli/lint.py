@@ -35,7 +35,7 @@ def _get_code_files(kb, km=None):
     for file in c_source_files([search_path]):
         # Ignore keymaps when only globing keyboard files
         if not km and 'keymaps' in file.parts:
-                continue
+            continue
         code_files.append(file)
 
     return code_files
