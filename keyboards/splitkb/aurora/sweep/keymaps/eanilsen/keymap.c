@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "features/customkeys.h"
 
 #define SYMB OSL(_SYMBOL)
 #define FUNC OSL(_FUNCTION)
@@ -28,17 +29,19 @@
 #define LT_UP LT(0,KC_UP)
 #define LT_LEFT LT(0,KC_LEFT)
 /* Home row mods */
+#define HOME_I LSFT_T(KC_I)
 #define HOME_S LGUI_T(KC_S)
 #define HOME_R LALT_T(KC_R)
 #define HOME_T LCTL_T(KC_T)
+#define HOME_P LT(_NUM,KC_P)
 #define HOME_N RCTL_T(KC_N)
 #define HOME_E RALT_T(KC_E)
 #define HOME_A RGUI_T(KC_A)
-#define HOME_P LT(_NUM,KC_P)
+#define HOME_O RSFT_T(KC_O)
 
 
 enum layers {
-    _ISRT = 0,
+    _ISRT,
     _SYMBOL,
     _FUNCTION,
     _NAV,
@@ -48,52 +51,120 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ISRT] = LAYOUT(
-        KC_Y, KC_C,   KC_L,   KC_M,    KC_K,     KC_Z,   KC_F,   KC_U,    KC_COMM, KC_QUOT,
-        KC_I, HOME_S, HOME_R, HOME_T,  KC_G,     HOME_P, HOME_N, HOME_E,  HOME_A,  KC_O,
-        KC_Q, KC_V,   KC_W,   KC_D,    KC_J,     KC_B,   KC_H,   KC_SLSH, KC_DOT,  KC_X,
-                              MOD_SPC, SYMB,     FUNC,   MOD_BSP
+        KC_Y,   KC_C,   KC_L,   KC_M,    KC_K,     KC_Z,   KC_F,   KC_U,    KC_COMM, KC_QUOT,
+        HOME_I, HOME_S, HOME_R, HOME_T,  KC_G,     HOME_P, HOME_N, HOME_E,  HOME_A,  HOME_O,
+        KC_Q,   KC_V,   KC_W,   KC_D,    KC_J,     KC_B,   KC_H,   KC_SLSH, KC_DOT,  KC_X,
+                                MOD_SPC, SYMB,     FUNC,   MOD_BSP
     ),
+
     [_SYMBOL] = LAYOUT(
-        KC_Y, KC_C,   KC_L,   KC_M,    KC_K,     KC_Z,   KC_F,   KC_U,    KC_COMM, KC_QUOT,
-        KC_I, HOME_S, HOME_R, HOME_T,  KC_G,     HOME_P, HOME_N, HOME_E,  HOME_A,  S(KC_F),
-        KC_Q, KC_V,   KC_W,   KC_D,    KC_J,     KC_B,   KC_H,   KC_SLSH, KC_DOT,  KC_X,
-                              MOD_SPC, SYMB,     FUNC,   MOD_BSP
+        KC_NO,   KC_LT,   KC_GT,   KC_PLUS, KC_NO,     KC_NO, KC_UNDS, KC_PIPE, KC_TILD, KC_PERC,
+        KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT,     ARROW, KC_AMPR, KC_ASTR, KC_DQUO, KC_DLR,
+        KC_COLN, KC_SCLN, KC_LBRC, KC_RBRC, KC_NO,     KC_NO, KC_MINS, KC_HASH, GRAVE,   KC_CIRC,
+                                   MOD_SPC, KC_NO,     BASE,  MOD_BSP
     ),
+
     [_FUNCTION] = LAYOUT(
-        KC_Y, KC_C,   KC_L,   KC_M,    KC_K,     KC_Z,   KC_F,   KC_U,    KC_COMM, KC_QUOT,
-        KC_I, HOME_S, HOME_R, HOME_T,  KC_G,     HOME_P, HOME_N, HOME_E,  HOME_A,  S(KC_F),
-        KC_Q, KC_V,   KC_W,   KC_D,    KC_D,     KC_B,   KC_H,   KC_SLSH, KC_DOT,  QK_BOOT,
-                              MOD_SPC, SYMB,     FUNC,   MOD_BSP
+        CG_TOGG, KC_F1, KC_F2,  KC_F3,   KC_F4,     KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,
+        KC_ESC,  KC_F5, KC_F6,  KC_F7,   KC_F8,     KC_NO, CT_AE,  CT_OE, CT_AA, KC_ENT,
+        CAPSWRD, KC_F9, KC_F10, KC_F11,  KC_F12,    KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,
+                                MOD_SPC, BASE,      KC_NO, NAV
     ),
+
     [_NUM] = LAYOUT(
-        KC_Y, KC_C,   KC_L,   KC_M,    KC_K,     KC_Z,   KC_F,   KC_U,    KC_COMM, KC_QUOT,
-        KC_I, HOME_S, HOME_R, HOME_T,  KC_G,     HOME_P, HOME_N, HOME_E,  HOME_A,  S(KC_F),
-        KC_Q, KC_V,   KC_W,   KC_D,    KC_D,     KC_B,   KC_H,   KC_SLSH, KC_DOT,  KC_X,
-                              MOD_SPC, SYMB,     FUNC,   MOD_BSP
+        KC_SLSH, KC_1, KC_2, KC_3,    KC_PLUS,     KC_NO, KC_NO,   KC_NO, KC_COMM,  KC_NO,
+        KC_0,    KC_4, KC_5, KC_6,    KC_MINS,     KC_NO, KC_NO,   KC_NO, KC_NO,    KC_NO,
+        KC_ASTR, KC_7, KC_8, KC_9,    KC_EQL,      KC_NO, KC_NO,   KC_NO, KC_DOT,   KC_NO,
+                             MOD_SPC, SYMB,        FUNC,  MOD_BSP
     ),
+
     [_NAV] = LAYOUT(
-        KC_Y, KC_C,   KC_L,   KC_M,    KC_K,     KC_Z,   KC_F,   KC_U,    KC_COMM, KC_QUOT,
-        KC_I, HOME_S, HOME_R, HOME_T,  KC_G,     HOME_P, HOME_N, HOME_E,  HOME_A,  S(KC_F),
-        KC_Q, KC_V,   KC_W,   KC_D,    KC_D,     KC_B,   KC_H,   KC_SLSH, KC_DOT,  KC_X,
-                              MOD_SPC, SYMB,     FUNC,   MOD_BSP
+         KC_WH_U, KC_NO,   KC_MS_U, KC_NO,   KC_NO,    KC_MUTE, KC_VOLD, LT_UP,   KC_VOLU, KC_NO,
+         KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,    KC_BTN4, LT_LEFT, KC_DOWN, KC_RGHT, KC_BTN5,
+         SW_APP,  SW_WIN,  KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR,
+                                    KC_BTN1, BASE,     KC_NO,   KC_BTN2
     )
 };
 
 bool is_mac_the_default(void) { return keymap_config.swap_lctl_lgui; }
+bool is_shift_held(void) { return (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; }
+
+void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_pressed)
+{
+  if (is_pressed) {
+    const uint8_t mods = get_mods();
+
+    if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
+    else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
+
+    if (is_shift_held()) {
+      del_mods(MOD_MASK_SHIFT);
+      del_oneshot_mods(MOD_MASK_SHIFT);
+      tap_code16(shifted_keycode); 
+    } else tap_code16(keycode);
+
+    if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
+    else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
+
+    set_mods(mods);
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   bool isPressed = record->event.pressed;
   bool isHeld = !record->tap.count && isPressed;
-  /* const uint8_t mods = get_mods(); */
+  const uint8_t mods = get_mods();
 
   switch (keycode) {
+  case LT_LEFT:
+    // Guard close returning true if the key is tapped,
+    // meaning the rest of the code will only run when the
+    // key is held.
+    if (record->tap.count) return true;
+    if (isHeld) register_code16(KC_BTN1);
+    else unregister_code16(KC_BTN1);
+    return false;
+  case CT_AA:
+    send_norwegian_letter(KC_LBRC, KC_LCBR, isPressed);
+    return false;
+  case CT_OE:
+    send_norwegian_letter(KC_SCLN, KC_COLN, isPressed);
+    return false;
+  case CT_AE:
+    send_norwegian_letter(KC_QUOT, KC_DQUO, isPressed);
+    return false;
   case MOD_BSP:
     if (isHeld) {
       uint16_t code = is_mac_the_default() ? A(KC_BSPC) : C(KC_BSPC);
       tap_code16(code);
       return false;
     }
+    return true;
+  case GRAVE:
+    if (isPressed) {
+      if (is_shift_held()) {
+	del_mods(MOD_MASK_SHIFT);
+	del_oneshot_mods(MOD_MASK_SHIFT);
+	for (uint8_t i = 0; i < 3; i++) tap_code16(KC_GRV);
+	set_mods(mods);
+      } else {
+	tap_code16(KC_GRV);
+      }
+    }
+    return false;
+  case ARROW:
+    if (isPressed) {
+      if (is_shift_held()) {
+	del_mods(MOD_MASK_SHIFT);
+	del_oneshot_mods(MOD_MASK_SHIFT);
+	SEND_STRING("=>");
+	set_mods(mods);
+      } else {
+	SEND_STRING("->");
+      }
+    }
+    return false;
   }
   return true;
 }
@@ -115,6 +186,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
   case HOME_S:
     return TAPPING_TERM + 200;
   case HOME_A:
+    return TAPPING_TERM + 200;
+  case HOME_O:
+    return TAPPING_TERM + 200;
+  case HOME_I:
     return TAPPING_TERM + 200;
   case LT_UP:
     return TAPPING_TERM + 200;
