@@ -18,6 +18,16 @@ from qmk.math import compute
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
 
+# TODO: reduce this list down
+SAFE_LAYOUT_TOKENS = {
+    'ansi',
+    'iso',
+    'wkl',
+    'tkl',
+    'preonic',
+    'planck',
+}
+
 
 def _valid_community_layout(layout):
     """Validate that a declared community list exists
@@ -40,6 +50,7 @@ def _validate(keyboard, info_data):
     layouts = info_data.get('layouts', {})
     layout_aliases = info_data.get('layout_aliases', {})
     community_layouts = info_data.get('community_layouts', [])
+    community_layouts_names = list(map(lambda layout: f'LAYOUT_{layout}', community_layouts))
 
     # Make sure we have at least one layout
     if len(layouts) == 0:
@@ -49,9 +60,10 @@ def _validate(keyboard, info_data):
     if len(layouts) == 1 and 'LAYOUT_all' in layouts:
         _log_warning(info_data, '"LAYOUT_all" should be "LAYOUT" unless additional layouts are provided.')
 
-    # Extended layout name checks
-    name_fragments = keyboard.split('/')
-    for layout in layouts.keys():
+    # Extended layout name checks - ignoring community_layouts and "safe" values
+    name_fragments = set(keyboard.split('/')) - SAFE_LAYOUT_TOKENS
+    potential_layouts = set(layouts.keys()) - set(community_layouts_names)
+    for layout in potential_layouts:
         if any(fragment in layout for fragment in name_fragments):
             _log_warning(info_data, f'Layout "{layout}" should not contain name of keyboard.')
 
@@ -63,8 +75,7 @@ def _validate(keyboard, info_data):
             _log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
 
     # Make sure we supply layout macros for the community layouts we claim to support
-    for layout in community_layouts:
-        layout_name = 'LAYOUT_' + layout
+    for layout_name in community_layouts_names:
         if layout_name not in layouts and layout_name not in layout_aliases:
             _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
 
