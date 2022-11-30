@@ -12,6 +12,7 @@
     // replace_with: use with a key marked deprecated or invalid to designate a replacement
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
+    "BOOTMAGIC_ENABLE": {"info_key": "bootmagic.enabled", "value_type": "bool"},
     "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
     "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
     "DEBOUNCE_TYPE": {"info_key": "build.debounce_type"},

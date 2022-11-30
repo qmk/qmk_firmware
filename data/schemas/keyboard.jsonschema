@@ -135,6 +135,7 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "enabled": {"type": "boolean"},
                 "matrix": {
                     "type": "array",
                     "minItems": 2,
