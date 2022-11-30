@@ -26,7 +26,7 @@ def _valid_community_layout(layout):
 
 
 def _validate(keyboard, info_data):
-    """
+    """Perform various validation on the provided info.json data
     """
     # First validate against the jsonschema
     try:
