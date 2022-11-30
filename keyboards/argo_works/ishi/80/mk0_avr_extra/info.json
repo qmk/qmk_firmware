@@ -3,6 +3,7 @@
     "keyboard_name": "Ishi 80 Mk 0",
     "maintainer": "jasonj2232",
     "development_board": "elite_c",
+    "pin_compatible": "elite_c",
     "diode_direction": "COL2ROW",
     "url": "https://qmk.fm/keyboards/",
     "usb": {
