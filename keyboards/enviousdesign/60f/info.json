@@ -1,6 +1,7 @@
 {
     "keyboard_name": "EnvKB 60F V1", 
     "url": "http://envious.design", 
+	"manufacturer": "Envious.Design", 
     "maintainer": "Envious.Design", 
 	"usb": {
         "vid": "0xE739",

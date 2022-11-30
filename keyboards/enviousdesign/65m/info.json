@@ -1,6 +1,8 @@
 {
     "keyboard_name": "EnvKB 65M",
-    "maintainer": "EnviousDesign",
+    "url": "http://envious.design", 
+	"manufacturer": "Envious.Design", 
+    "maintainer": "Envious.Design", 
     "processor": "RP2040",
     "bootloader": "rp2040",
     "usb": {
