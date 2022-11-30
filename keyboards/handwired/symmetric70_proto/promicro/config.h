@@ -3,9 +3,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define BASE_PRODUCT "Symmetric70 prototype promicro "
-
 /* Pro Micro **************************
                      ====
              +-------====------+
