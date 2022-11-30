@@ -18,9 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <gpio.h>
-#ifndef readPort
-#    include "gpio_extr.h"
-#endif
+#include "gpio_extr.h"
+#    if ! (defined(readPort) && defined(setPortBitInput))
+#        error matrix_read_cols_on_row.c requires readPort() and related macros.
+#    endif
 #include "util.h"
 #include "matrix.h"
 #include "matrix_extr.h"

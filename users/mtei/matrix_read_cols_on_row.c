@@ -115,10 +115,8 @@ enum DEVICE_NAME {
 #    include "matrix.h"
 #    include "atomic_util.h"
 #    include "gpio.h"
-#    ifndef readPort
-#        include "gpio_extr.h"
-#    endif
-#    ifndef readPort
+#    include "gpio_extr.h"
+#    if ! (defined(readPort) && defined(setPortBunchInput))
 #        error matrix_read_cols_on_row.c requires readPort() and related macros.
 #    endif
 #    ifdef setPortBunchOutputOpenDrainPullup
