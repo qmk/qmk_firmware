@@ -20,17 +20,18 @@ enum custom_keycodes {
   RAISE,
 };
 
-// 複合キーを変数に
-#define W_PSCR LGUI(S(KC_S))
+// 複合キーを8文字までの変数に
+#define WIN_PSCR LGUI(S(KC_S))
 #define CAPTURE LGUI(KC_PSCR)
 #define NV_REC LALT(KC_F9)
+
+#define WD_MATH LSA(JP_EQL)
 
 #define LSFT_ENT LSFT(KC_ENT)
 #define LCTL_SPC LCTL(KC_SPC)
 
 #define TO_MC TO(_MINECRAFT)
 #define TO_EU TO(_EUCALYN)
-#define TO_QW TO(_QWERTY)
 
 // レイヤーごとにキーマップを定義
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -74,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_NO,  KC_F11,  KC_F12,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,  W_PSCR,  NV_REC,   KC_NO,\
+        KC_NO,  KC_F11,  KC_F12,   KC_NO, WD_MATH,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,WIN_PSCR,  NV_REC,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,   KC_NO,   KC_NO, JP_CAPS,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   TO_MC,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -255,6 +256,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed){
         tap_code(KC_ESC);
         tap_code(KC_MHEN);
+        tap_code(KC_LANG2);
       }
       return false;
       break;
@@ -268,6 +270,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         if (lower_pressed) {
           tap_code(KC_MHEN);
+          tap_code(KC_LANG2);
         }
         lower_pressed = false;
       }
@@ -283,6 +286,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         if (raise_pressed) {
           tap_code(KC_HENK);
+          tap_code(KC_LANG1);
         }
         raise_pressed = false;
       }
