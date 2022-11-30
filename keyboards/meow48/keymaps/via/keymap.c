@@ -55,33 +55,5 @@
         KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
         KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
         KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,              KC_NO,              KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO
-    ),
-    
-     [4] = LAYOUT(
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,              KC_NO,              KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO
-    ),
-    
-     [5] = LAYOUT(
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,              KC_NO,              KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO
-    ),
-    
-     [6] = LAYOUT(
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,              KC_NO,              KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO
-    ),
-    
-     [7] = LAYOUT(
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,
-        KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,              KC_NO,              KC_NO,    KC_NO,    KC_NO,   KC_NO,  KC_NO
     )
         };
