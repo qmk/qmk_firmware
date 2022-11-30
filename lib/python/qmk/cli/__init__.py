@@ -72,6 +72,7 @@ subcommands = [
     'qmk.cli.list.keymaps',
     'qmk.cli.list.layouts',
     'qmk.cli.kle2json',
+    'qmk.cli.migrate',
     'qmk.cli.multibuild',
     'qmk.cli.new.keyboard',
     'qmk.cli.new.keymap',
