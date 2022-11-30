@@ -1,3 +1,8 @@
+# Git 
+git remote add -t master -m master upstream https://github.com/qmk/qmk_firmware
+git fetch upstream
+
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
