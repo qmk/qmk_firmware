@@ -81,8 +81,6 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-// Then, call this function wherever/whenever you want to display the logo
-// Most likely you'll be the calling it from `oled_task_user`
 bool oled_task_user(void) {
     ...
     render_logo();
