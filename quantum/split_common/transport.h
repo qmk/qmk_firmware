@@ -114,13 +114,13 @@ typedef struct _split_slave_pointing_sync_t {
 } split_slave_pointing_sync_t;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
-#if defined(HAPTIC_ENABLE)
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
 #    include "haptic.h"
 typedef struct _split_slave_haptic_sync_t {
     haptic_config_t haptic_config;
     uint8_t         haptic_play;
 } split_slave_haptic_sync_t;
-#endif // defined(HAPTIC_ENABLE)
+#endif // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 typedef struct _rpc_sync_info_t {

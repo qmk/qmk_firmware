@@ -748,7 +748,7 @@ static void watchdog_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 #endif // defined(SPLIT_WATCHDOG_ENABLE)
 
-#if defined(HAPTIC_ENABLE)
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
 
 uint8_t                split_haptic_play = 0xFF;
 extern haptic_config_t haptic_config;
@@ -782,13 +782,13 @@ static void haptic_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 #    define TRANSACTIONS_HAPTIC_REGISTRATIONS [PUT_HAPTIC] = trans_initiator2target_initializer(haptic_sync),
 // clang-format on
 
-#else // defined(HAPTIC_ENABLE)))
+#else // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
 
 #    define TRANSACTIONS_HAPTIC_MASTER()
 #    define TRANSACTIONS_HAPTIC_SLAVE()
 #    define TRANSACTIONS_HAPTIC_REGISTRATIONS
 
-#endif // !defined(NO_ACTION_LAYER)
+#endif // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
 
 ////////////////////////////////////////////////////
 
