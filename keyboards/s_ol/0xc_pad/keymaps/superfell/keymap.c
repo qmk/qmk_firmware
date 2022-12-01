@@ -19,6 +19,8 @@
 #define _CONTROL 1
 #define _ADJUST 2
 
+#define RGBLIGHT_TIMEOUT 30000 // 30 seconds
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMPAD] = LAYOUT(
@@ -56,4 +58,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
     }
     return state;
+}
+// turn rgb off after some amount of inactivity
+
+static uint16_t key_timer;              // timer to track the last keyboard activity
+static bool     is_rgb_timeout = false; // store if RGB has timed out or not in a boolean
+
+/* Runs at the end of each scan loop, check if RGB timeout has occured */
+void housekeeping_task_user(void) {
+    if (!is_rgb_timeout && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
+        rgblight_disable_noeeprom();
+        is_rgb_timeout = true;
+    }
+}
+
+/* Runs after each key press, check if activity occurred */
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        key_timer = timer_read(); // store time of last refresh
+        if (is_rgb_timeout) {     // only do something if rgb has timed out
+            is_rgb_timeout = false;
+            rgblight_enable_noeeprom();
+        }
+    }
 }
