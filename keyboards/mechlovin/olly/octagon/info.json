@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Octagon",
+    "keyboard_name": "Olly Octagon",
+    "manufacturer": "Mechlovin Studio",
     "url": "",
-    "maintainer": "Mechlovin",
+    "maintainer": "Mechlovin' Studio",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0xD750",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_bs",
         "LAYOUT_all": "LAYOUT_split_bs"

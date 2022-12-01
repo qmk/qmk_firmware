@@ -20,12 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0xD750 
-#define DEVICE_VER   0x0002
-#define PRODUCT      Olly Octagon
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
