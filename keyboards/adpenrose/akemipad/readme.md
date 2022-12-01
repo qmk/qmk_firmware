@@ -2,7 +2,7 @@
 
 ![adpenrose/akemipad](https://i.imgur.com/2q4kJOAl.png)
 
-A numpad powered by a ProMicro, with multiple layout options and support for an encoder, a piezo buzzer, an OLED, and per-key RGB lighting.
+A numpad powered by a ProMicro (currently ATmega based), with multiple layout options and support for an encoder, a piezo buzzer, an OLED, and per-key RGB lighting.
 
 * Keyboard Maintainer: [Arturo Avila](https://github.com/ADPenrose)
 * Hardware Supported: AkemiPad v1 PCB
