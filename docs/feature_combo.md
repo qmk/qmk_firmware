@@ -333,31 +333,26 @@ With `#define COMBO_ONLY_FROM_LAYER 0` in config.h, the combos' keys are always 
 If not using `COMBO_ONLY_FROM_LAYER` it is possible to specify a
 combo reference layer for any layer using the `combo_ref_from_layer` hook. 
 This function receives the default reference layer if set, or the current
-layer otherwise. Alternatively to `COMBO_ONLY_FROM_LAYER`, a combo reference 
-layer can be set using the `combo_ref_from_layer` hook with the following function,
-where _MY_COMBO_REF_LAYER is the name or number of your combo reference layer.
-
-    ```c
-
-    uint8_t combo_ref_from_layer(uint8_t layer){
-      return _MY_COMBO_REF_LAYER;
-    }
-
-    ```
+layer otherwise. A default layer can be set with
+`#define COMBO_REF_DEFAULT _MY_COMBO_REF_LAYER`
 
 If not set, the default selection will be the current layer.
 
-The following `combo_ref_from_layer` function will give a reference
-layer of _QWERTY for the _DVORAK layer and will give the _NAV layer
-as a reference to it's self. All other layers will reference the
-`_MY_COMBO_REF_LAYER`.
+The following `combo_ref_from_layer` function 
+will give a reference layer of _QWERTY for the _DVORAK layer and
+will give the _NAV layer as a reference to it's self. All other layers
+will have the default for their combo reference layer. If the default
+is not set, all other layers will reference themselves.
 
     ```c
+    #define COMBO_REF_DEFAULT _MY_COMBO_REF_LAYER
+    ...
+
     uint8_t combo_ref_from_layer(uint8_t layer){
-    switch (layer)){
+    switch (get_highest_layer(layer_state)){
       case _DVORAK: return _QWERTY;
       case _NAV: return _NAV;
-      default: return _MY_COMBO_REF_LAYER;
+      default: return layer;
       }
     }
 
@@ -382,28 +377,13 @@ First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, in
 
 !> This functionality uses the same `process_combo_event` function as `COMBO_ACTION` macros do, so you cannot use the function yourself in your keymap. Instead, you have to define the `case`s of the `switch` statement by themselves within `inject.h`, which `g/keymap_combo.h` will then include into the function.
 
-If `COMBO_ONLY_FROM_LAYER` is set, the `combo_ref_from_layer` hook is turned off.
-Alternatively the same behavior as `COMBO_ONLY_FROM_LAYER` can be obtained by 
-setting only a `DEFAULT_REF_LAYER` here.
-
-Combo reference layers can be set on a per layer basis with the
-`COMBO_REF_LAYER` macro.  The default combo reference layer can be set
-with `DEFAULT_REF_LAYER`. if not set, the default will be the current
-layer. Defining only a `DEFAULT_REF_LAYER` will provide the same behavior
-as setting `COMBO_ONLY_FROM_LAYER`. If a default is not set, and a layer
-is not matched, the selection will fall through such that the return
-from `combo_ref_from_layer()` will be the currently active layer that
-it was given.
-
 Then, write your combos in `combos.def` file in the following manner:
 
 ```c
-// Alternate reference layers by layer - the combo_ref_from_layer() hook function.
-//               Layer    Reference layer
+// Alternate reference layers by layer
+//               Layer     Reference layer
 COMBO_REF_LAYER(_DVORAK, _QWERTY)  // reference the qwerty layer for dvorak.
-COMBO_REF_LAYER(_NAV,    _NAV)     // explicit reference to self instead of the default.
-// The Default reference layer.
-DEFAULT_REF_LAYER(_MY_COMBO_REF_LAYER) // explicit default reference layer.
+COMBO_REF_LAYER(_NAV, _NAV) // explicit reference to self instead of the default.
 
 //   name     result    chord keys
 COMB(AB_ESC,   KC_ESC,   KC_A, KC_B)
