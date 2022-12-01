@@ -1,1 +1,1 @@
-# This file intentionally left blank
+DEFAULT_FOLDER = pica40/rev2

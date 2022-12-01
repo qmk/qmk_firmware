@@ -4,7 +4,7 @@
 #include "quantum.h"
 #include "rev1.h"
 
-#ifdef RGBLIGHT_ENABLE
+#ifdef PICA40_RGBLIGHT_TIMEOUT
 
 uint16_t check_rgblight_timer = 0;
 uint16_t idle_timer = 0;
@@ -19,7 +19,7 @@ void housekeeping_task_kb(void) {
             counter++;
         }
 
-        if (rgblight_is_enabled() && counter > RGB_TIMEOUT * 6) {
+        if (rgblight_is_enabled() && counter > PICA40_RGBLIGHT_TIMEOUT * 6) {
             counter = 0;
             rgblight_disable_noeeprom();
         }
@@ -60,4 +60,4 @@ void suspend_power_down_kb(void) {
     suspend_power_down_user();
 }
 
-#endif // RGBLIGHT_ENABLE
+#endif // PICA40_RGBLIGHT_TIMEOUT

@@ -3,14 +3,9 @@
 
 #include "rev2.h"
 #include "quantum.h"
-#include "transactions.h"
 #include "gpio.h"
 
-#define PICA40_ENCODER_PIN GP7
-
-#ifndef ENCODER_RESOLUTION
-#    define ENCODER_RESOLUTION 4
-#endif
+#ifdef PICA40_ENCODER_SYNC_ENABLE
 
 typedef struct encoder_sync_data {
     int value;
@@ -26,13 +21,9 @@ void encoder_sync_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t 
     data->value = readPin(PICA40_ENCODER_PIN);
 }
 
-#ifdef RGBLIGHT_ENABLE
+#endif // PICA40_ENCODER_SYNC_ENABLE
 
-#define RGB_POWER_PIN GP11
-
-bool is_layer_active = false;
-bool should_set_rgblight = false;
-uint16_t check_layer_timer = 0;
+#ifdef PICA40_RGBLIGHT_TIMEOUT
 uint16_t check_rgblight_timer = 0;
 uint16_t idle_timer = 0;
 int8_t counter = 0;
@@ -60,26 +51,38 @@ void suspend_power_down_kb(void) {
 
     suspend_power_down_user();
 }
+#endif // PICA40_RGBLIGHT_TIMEOUT
 
-#endif // RGBLIGHT_ENABLE
+#ifdef PICA40_RGBLAYER_SYNC_ENABLE
+uint16_t check_layer_timer = 0;
+bool is_layer_active = false;
+bool should_set_rgblight = false;
+#endif // PICA40_RGBLAYER_SYNC_ENABLE
 
 void keyboard_post_init_kb(void) {
+    setPinOutput(PICA40_RGB_POWER_PIN);
+
+#ifdef PICA40_ENCODER_SYNC_ENABLE
     setPinInputHigh(PICA40_ENCODER_PIN);
     transaction_register_rpc(ENCODER_SYNC, encoder_sync_slave_handler);
+#endif // PICA40_ENCODER_SYNC_ENABLE
 
-#ifdef RGBLIGHT_ENABLE
-    check_layer_timer = timer_read();
-    check_rgblight_timer = timer_read();
+#ifdef PICA40_RGBLIGHT_TIMEOUT
     idle_timer = timer_read();
-    setPinOutput(RGB_POWER_PIN);
+    check_rgblight_timer = timer_read();
     rgblight_enable_noeeprom();
 #endif // RGBLIGHT_ENABLE
+
+#ifdef PICA40_RGBLAYER_SYNC_ENABLE
+    check_layer_timer = timer_read();
+#endif // PICA40_RGBLAYER_SYNC_ENABLE
 
     keyboard_post_init_user();
 }
 
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
+// #ifdef PICA40_ENCODER_SYNC_ENABLE
         encoder_sync_data data = {0};
         if (transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data)) {
             uint8_t new_status = (readPin(PICA40_ENCODER_PIN) << 0) | (data.value << 1);
@@ -101,8 +104,9 @@ void housekeeping_task_kb(void) {
                 encoder_pulses %= ENCODER_RESOLUTION;
             }
         }
+// #endif // PICA40_ENCODER_SYNC_ENABLE
 
-#ifdef RGBLIGHT_ENABLE
+#ifdef PICA40_RGBLIGHT_TIMEOUT
         if (timer_elapsed(check_rgblight_timer) > 1000) {
             check_rgblight_timer = timer_read();
 
@@ -111,15 +115,15 @@ void housekeeping_task_kb(void) {
                 counter++;
             }
 
-            if (rgblight_is_enabled() && counter > RGB_TIMEOUT * 6) {
+            if (rgblight_is_enabled() && counter > PICA40_RGBLIGHT_TIMEOUT * 6) {
                 counter = 0;
                 rgblight_disable_noeeprom();
             }
         }
-#endif // RGBLIGHT_ENABLE
+#endif // PICA40_RGBLIGHT_TIMEOUT
     }
 
-#ifdef RGBLIGHT_LAYERS
+#ifdef PICA40_RGBLAYER_SYNC_ENABLE
     if (timer_elapsed(check_layer_timer) > 100) {
         check_layer_timer = timer_read();
 
@@ -139,13 +143,13 @@ void housekeeping_task_kb(void) {
             should_set_rgblight = true;
 
             if (is_layer_active) {
-                writePinHigh(RGB_POWER_PIN);
+                writePinHigh(PICA40_RGB_POWER_PIN);
             } else {
-                writePinLow(RGB_POWER_PIN);
+                writePinLow(PICA40_RGB_POWER_PIN);
             }
         }
     }
-#endif // RGBLIGHT_LAYERS
+#endif // PICA40_RGBLAYER_SYNC_ENABLE
 
     housekeeping_task_user();
 }

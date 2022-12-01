@@ -9,4 +9,16 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
-#define SPLIT_TRANSACTION_IDS_KB ENCODER_SYNC
+#ifdef RGBLIGHT_ENABLE
+#    define RGBLIGHT_DISABLE_KEYCODES // disable keycodes for RGB Light controls, only status LED is supported
+#    define PICA40_RGBLIGHT_TIMEOUT 5 // turn RGB off after N minutes
+#    ifdef RGBLIGHT_LAYERS
+#        define PICA40_RGBLAYER_SYNC_ENABLE // sync RGB Layer LED status between halves
+#    endif
+#endif
+
+#define PICA40_ENCODER_SYNC_ENABLE // support Pica40 V2 encoder
+
+#ifdef PICA40_ENCODER_SYNC_ENABLE
+#    define SPLIT_TRANSACTION_IDS_KB ENCODER_SYNC
+#endif
