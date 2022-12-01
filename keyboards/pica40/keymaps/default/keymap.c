@@ -184,9 +184,6 @@ void render_layer(void) {
         case _FUNC:
             oled_write_ln_P(PSTR("FUNC"), false);
             break;
-        case _GAME:
-            oled_write_ln_P(PSTR("GAME"), false);
-            break;
         default:
             oled_write_ln_P(PSTR(" "), false);
             break;
@@ -196,7 +193,7 @@ void render_layer(void) {
 void render_mods(uint8_t modifiers) {
     oled_write_ln_P((modifiers & MOD_MASK_CTRL) ? PSTR("Ctrl") : PSTR(" "), false);
     oled_write_ln_P((modifiers & MOD_MASK_ALT) ? PSTR("Alt") : PSTR(" "), false);
-    oled_write_ln_P((modifiers & MOD_MASK_SHIFT) ? PSTR("Shift") : PSTR(" "), false);
+    oled_write_ln_P((modifiers & MOD_MASK_SHIFT) ? PSTR("Shft") : PSTR(" "), false);
     oled_write_ln_P((modifiers & MOD_MASK_GUI) ? PSTR("GUI") : PSTR(" "), false);
 }
 
