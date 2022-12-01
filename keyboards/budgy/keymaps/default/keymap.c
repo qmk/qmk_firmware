@@ -1,4 +1,4 @@
-// Copyright 2021 Your Name (@doesntfazer)
+// Copyright 2021 Keyboard Dweebs (@doesntfazer)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
