@@ -179,7 +179,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     send_norwegian_letter(KC_QUOT, KC_DQUO, isPressed);
     return false;
   case MOD_BSP:
-    if (isHeld) {
+    if (is_shift_held() && isPressed) {
+      clear_mods();
+      tap_code16(KC_DEL);
+      set_mods(mods);
+      return false;
+    } else if (isHeld) {
       uint16_t code = is_mac_the_default() ? A(KC_BSPC) : C(KC_BSPC);
       tap_code16(code);
       return false;
@@ -217,31 +222,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
 {
   switch (keycode) {
-  case HOME_R:
+    // Home row: ISRT
+  case HOME_I: // Left shift
+    return TAPPING_TERM + 60;
+  case HOME_S: // Left GUI
     return TAPPING_TERM + 200;
-  case HOME_T:
+  case HOME_R: // Left alt
     return TAPPING_TERM + 200;
-  case HOME_N:
+  case HOME_T: // Left control
     return TAPPING_TERM + 200;
-  case HOME_P:
+    // Middle row: GP
+  case HOME_G: // Navigation layer tap
+    return TAPPING_TERM + 60;
+  case HOME_P: // Number layer tap
+    return TAPPING_TERM + 60;
+  case HOME_N: // Right control
     return TAPPING_TERM + 200;
-  case HOME_E:
+  case HOME_E: // Right alt
     return TAPPING_TERM + 200;
-  case HOME_S:
+  case HOME_A: // Right GUI
     return TAPPING_TERM + 200;
-  case HOME_A:
-    return TAPPING_TERM + 200;
-  case HOME_O:
-    return TAPPING_TERM + 200;
-  case HOME_I:
-    return TAPPING_TERM + 200;
-  case HOME_G:
-    return TAPPING_TERM + 200;
+  case HOME_O: // Right shift
+    return TAPPING_TERM + 60;
   case LT_UP:
     return TAPPING_TERM + 200;
-  case MOD_SPC:
+  case MOD_SPC: // MEH key
     return TAPPING_TERM + 60;
-  case MOD_BSP:
+  case MOD_BSP: // Delete word
     return TAPPING_TERM + 60;
   default:
     return TAPPING_TERM;
