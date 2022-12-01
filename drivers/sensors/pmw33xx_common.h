@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "quantum.h" //to get is_keyboard_left
 #include <stdint.h>
 #include "spi_master.h"
 #include "util.h"
@@ -78,6 +79,19 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
             { PMW33XX_CS_PIN }
 #    endif
 #endif
+
+// ---------------------------------------------------------------------
+// TODO add enabling/disabling of this stuff
+#if !defined(PMW33XX_CS_PINS_RIGHT)
+#    define PMW33XX_CS_PINS_RIGHT PMW33XX_CS_PINS
+#endif 
+
+#define cs_pins (is_keyboard_left() ? cs_pins_left : cs_pins_right)
+
+#define in_burst (is_keyboard_left() ? in_burst_left : in_burst_right)
+
+#define pmw33xx_number_of_sensors (is_keyboard_left() ? ARRAY_SIZE((pin_t [])PMW33XX_CS_PINS) : ARRAY_SIZE((pin_t [])PMW33XX_CS_PINS_RIGHT))
+// ---------------------------------------------------------------------
 
 #if PMW33XX_CPI > PMW33XX_CPI_MAX || PMW33XX_CPI < PMW33XX_CPI_MIN || (PMW33XX_CPI % PMW33XX_CPI_STEP) != 0U
 #    pragma message "PMW33XX_CPI has to be in the range of " STR(PMW33XX_CPI_MAX) "-" STR(PMW33XX_CPI_MIN) " in increments of " STR(PMW33XX_CPI_STEP) ". But it is " STR(PMW33XX_CPI) "."
