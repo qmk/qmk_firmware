@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ShinoharaTa
-#define PRODUCT         RURA66
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
@@ -61,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 66 // Number of LEDs
 
 #ifdef RGB_MATRIX_ENABLE
-  #define DRIVER_LED_TOTAL RGBLED_NUM
+  #define RGB_MATRIX_LED_COUNT 66
   #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 //  #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 //  #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -154,7 +147,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

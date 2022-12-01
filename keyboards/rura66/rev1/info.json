@@ -1,9 +1,12 @@
 {
   "keyboard_name": "RURA66",
-  "url": "https://github.com/ShinoharaTa/keyboards/Rura66",
   "maintainer": "ShinoharaTa",
-  "width": 16,
-  "height": 5,
+  "url": "https://github.com/ShinoharaTa/keyboards/Rura66",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x3060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
