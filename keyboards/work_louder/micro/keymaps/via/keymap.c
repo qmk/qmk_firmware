@@ -95,3 +95,7 @@ void keyboard_post_init_user(void) {
     work_louder_config.raw = eeconfig_read_user();
     work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
 }
+
+void suspend_wakeup_init_user(void) {
+    layer_state_set_user(layer_state);
+}
