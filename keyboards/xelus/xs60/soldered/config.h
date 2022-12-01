@@ -38,7 +38,6 @@
 #define EEPROM_I2C_24LC64
 
 // More EEPROM for layers
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 
 // RGBLIGHT
 #define RGB_DI_PIN A10
