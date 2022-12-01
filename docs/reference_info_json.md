@@ -333,3 +333,24 @@ Example:
     }
 }
 ```
+
+## Bootmagic
+
+This section configures [Bootmagic Lite](feature_bootmagic.md) support.
+
+The following options can be configured:
+
+|Key      |Description                                                                  |
+|---------|-----------------------------------------------------------------------------|
+|`matrix` | A two item list describing the row and column location for the trigger key. |
+
+Example:
+
+```json
+{
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    },
+}
+```
