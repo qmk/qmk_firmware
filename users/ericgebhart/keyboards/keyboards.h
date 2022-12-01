@@ -50,6 +50,9 @@
 #define BASEt6 Base_5x15t6
 #define TRANS Transient_5x15
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+
+// tell the keymap we want to specify number rows.
+// 4x10 input instead 3x10.
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
 
@@ -59,6 +62,9 @@
 #define BASEt6 Base_5x14t6
 #define TRANS Transient_5x14
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+
+// tell the keymap we want to specify number rows.
+// 4x10 input instead 3x10.
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
 
@@ -87,6 +93,9 @@
 #define BASEt6 Base_4x6_4_6t6
 #define TRANS Transient_4x6_4_6
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+
+// tell the keymap we want to specify number rows.
+// 4x10 input instead 3x10.
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
 
@@ -99,5 +108,8 @@
 #define BASEt6 Base_4x6_5_8t6
 #define TRANS Transient_4x6_5_8
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+
+// tell the keymap we want to specify number rows.
+// 4x10 input instead 3x10.
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
