@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "print.h"
 #include "features/customkeys.h"
 #include "features/swapper.h"
 #include "features/select_word.h"
@@ -81,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_F1, KC_F2,  KC_F3,   KC_F4,     KC_NO, KC_NO,  KC_NO, KC_NO, CG_TOGG,
         KC_ESC,  KC_F5, KC_F6,  KC_F7,   KC_F8,     KC_NO, CT_AE,  CT_OE, CT_AA, KC_ENT,
         CAPSWRD, KC_F9, KC_F10, KC_F11,  KC_F12,    KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,
-                                MOD_SPC, BASE,      KC_NO, NAV
+                                KC_LSFT, BASE,      KC_NO, NAV
     ),
 
     [_NUM] = LAYOUT(
@@ -114,19 +115,20 @@ void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_p
   if (is_pressed) {
     const uint8_t mods = get_mods();
 
+    uprintf("Keycode: %s\nShifted keycode: %s\nMods: %s", keycode, shifted_keycode, mods);
     if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
     else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
 
     if (is_shift_held()) {
+      uprintf("Shift: %s", is_shift_held());
       del_mods(MOD_MASK_SHIFT);
       del_oneshot_mods(MOD_MASK_SHIFT);
       tap_code16(shifted_keycode); 
+      set_mods(mods);
     } else tap_code16(keycode);
 
     if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
     else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
-
-    set_mods(mods);
   }
 }
 
