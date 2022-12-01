@@ -6,7 +6,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xF048",
-        "vid": "0xME0W"
+        "vid": "0xF084"
            },
     "layouts": {
         "LAYOUT": {
