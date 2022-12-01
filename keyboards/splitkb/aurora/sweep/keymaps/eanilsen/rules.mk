@@ -5,8 +5,6 @@ NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: h
 CAPS_WORD_ENABLE = yes
 SEND_STRING_ENABLE = yes
 
-CONSOLE_ENABLE = yes
-
 SRC += features/swapper.c
 SRC += features/select_word.c
 SRC += features/custom_shift_keys.c

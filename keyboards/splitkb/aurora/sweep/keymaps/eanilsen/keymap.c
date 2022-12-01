@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "print.h"
 #include "features/customkeys.h"
 #include "features/swapper.h"
 #include "features/select_word.h"
@@ -26,7 +25,6 @@
 #define NAV TO(_NAV)
 #define BASE TO(_ISRT)
 #define NUM TO(_NUM)
-#define MDIA TO(_MEDIA)
 /* #define MOD_SPC GUI_T(KC_SPC) // For DWM */
 #define MOD_SPC MEH_T(KC_SPC)
 #define MOD_BSP LT(0,KC_BSPC)
@@ -50,8 +48,7 @@ enum layers {
     _SYMBOL,
     _FUNCTION,
     _NAV,
-    _NUM,
-    _MEDIA
+    _NUM
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
@@ -115,12 +112,10 @@ void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_p
   if (is_pressed) {
     const uint8_t mods = get_mods();
 
-    uprintf("Keycode: %s\nShifted keycode: %s\nMods: %s", keycode, shifted_keycode, mods);
     if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
     else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
 
     if (is_shift_held()) {
-      uprintf("Shift: %s", is_shift_held());
       del_mods(MOD_MASK_SHIFT);
       del_oneshot_mods(MOD_MASK_SHIFT);
       tap_code16(shifted_keycode); 
