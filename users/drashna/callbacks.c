@@ -157,6 +157,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
 #endif
     state = layer_state_set_keymap(state);
+
+#ifdef CONSOLE_ENABLE
+    char layer_buffer[16 + 5];
+    format_layer_bitmap_string(layer_buffer, state, default_layer_state);
+    dprintf("layer state: %s\n", layer_buffer);
+#endif
+
     return state;
 }
 

@@ -162,3 +162,24 @@ void oneshot_locked_mods_changed_user(uint8_t mods) {
     }
 }
 #endif
+
+
+void format_layer_bitmap_string(char* buffer, layer_state_t state, layer_state_t default_state) {
+    for (int i = 0; i < 16; i++) {
+        if (i == 0 || i == 4 || i == 8 || i == 12) {
+            *buffer = ' ';
+            ++buffer;
+        }
+
+        uint8_t layer = i;
+        if ((default_state & ((layer_state_t)1 << layer)) != 0) {
+            *buffer = 'D';
+        } else if ((state & ((layer_state_t)1 << layer)) != 0) {
+            *buffer = '1';
+        } else {
+            *buffer = '_';
+        }
+        ++buffer;
+    }
+    *buffer = 0;
+}
