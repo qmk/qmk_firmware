@@ -1,7 +1,8 @@
 {
   "keyboard_name": "RURA66",
-  "maintainer": "ShinoharaTa",
+  "manufacturer": "ShinoharaTa",
   "url": "https://github.com/ShinoharaTa/keyboards/Rura66",
+  "maintainer": "ShinoharaTa",
   "usb": {
     "vid": "0xFEED",
     "pid": "0x3060",
