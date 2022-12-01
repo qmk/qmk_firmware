@@ -48,7 +48,6 @@
         "sleep": true
     },
     "usb": {
-        "device_ver": "0x0001",
         "device_version": "0.0.1",
         "pid": "0x6073",
         "suspend_wakeup_delay": 5000,
