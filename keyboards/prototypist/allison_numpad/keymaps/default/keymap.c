@@ -17,8 +17,8 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_6x4( /* Base */
-    KC_PSCR, KC_SLCK, KC_PAUS, TG(1),
-    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+    KC_PSCR, KC_SCRL, KC_PAUS, TG(1),
+    KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
     KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
     KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
     KC_P1,   KC_P2,   KC_P3,   KC_PENT,
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_ortho_6x4( /* FN1 */
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    BL_TOGG, BL_INC,  BL_DEC,  BL_BRTG,
+    BL_TOGG, BL_UP,   BL_DOWN, BL_BRTG,
     KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS,
     KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
