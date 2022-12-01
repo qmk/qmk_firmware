@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x416B
-#define PRODUCT_ID      0x0081
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Atlantis
-#define PRODUCT         AK81_VE
-
 /* Key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -32,7 +25,6 @@
 /* Key matrix pins */
 #define MATRIX_ROW_PINS { F1, F7, F6, F5, F4, D5 }
 #define MATRIX_COL_PINS { F0, C7, C6, B6, B5, B4, D7, D6, B2, B7, D3, D2, D1, D0, B3 }
-#define UNUSED_PINS
 
 /* Encoder pins */
 #define ENCODERS_PAD_A { E6 }
@@ -65,11 +57,11 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
-#define DRIVER_LED_TOTAL 96
-#define RGB_MATRIX_STARTUP_HUE 170
-#define RGB_MATRIX_STARTUP_SAT 255
+#define RGB_MATRIX_LED_COUNT 96
+#define RGB_MATRIX_DEFAULT_HUE 170
+#define RGB_MATRIX_DEFAULT_SAT 255
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS               // Static dual hue, speed is hue for secondary hue
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN          // Static gradient top to bottom, speed controls how much gradient changes

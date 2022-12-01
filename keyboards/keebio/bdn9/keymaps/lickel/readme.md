@@ -12,6 +12,6 @@
 
 ## Changelog
 
-### 1/17/2022 - 1.0
+### 2022-01-17 - 1.0
 
 - Initial release

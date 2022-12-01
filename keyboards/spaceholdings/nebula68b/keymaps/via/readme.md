@@ -1,4 +1,4 @@
-# The default keymap for Nebula68. VIA support enabled.
+# The default keymap for Nebula68B. VIA support enabled.
 
 ![Layer 0](https://i.imgur.com/dXyRwb1.png)
 

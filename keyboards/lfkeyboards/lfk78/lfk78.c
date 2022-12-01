@@ -2,10 +2,13 @@
 
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
-#include "audio.h"
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"
+
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif
 
 uint16_t click_hz = CLICK_HZ;
 uint16_t click_time = CLICK_MS;
@@ -127,7 +130,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         clicking_notes(click_hz, click_time);
     }
 
-    if (keycode == RESET) {
+    if (keycode == QK_BOOT) {
         reset_keyboard_kb();
     }
 

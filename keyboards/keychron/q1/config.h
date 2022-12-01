@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3434
-#define MANUFACTURER    Keychron
-#define PRODUCT         Keychron Q1
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -47,11 +42,6 @@
 
 /* Disable RGB lighting when PC is in suspend */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-/* Allow VIA to edit lighting */
-#ifdef VIA_ENABLE
-#define VIA_QMK_RGBLIGHT_ENABLE
-#endif
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -101,8 +91,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* Allow VIA to edit lighting */
-#ifdef VIA_ENABLE
-#define VIA_QMK_RGBLIGHT_ENABLE
-#endif

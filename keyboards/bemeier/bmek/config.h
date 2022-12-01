@@ -17,12 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x626D // BeMeier
-#define PRODUCT_ID 0x656B // ErgonomicKeyboard
-#define MANUFACTURER Bemeier
-#define PRODUCT BMEK
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 20 
 

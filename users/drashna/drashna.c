@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
-#ifdef __AVR__
-#    include <avr/wdt.h>
-#endif
 
 userspace_config_t userspace_config;
 
@@ -76,49 +73,92 @@ void tap_code16_nomods(uint16_t kc) {
     set_mods(temp_mod);
 }
 
-/**
- * @brief Run shutdown routine and soft reboot firmware.
- *
- */
+#ifdef I2C_SCANNER_ENABLE
+#    include "i2c_master.h"
+#    include "debug.h"
 
-#ifdef HAPTIC_ENABLE
-#    include "haptic.h"
-#endif
-
-#ifdef AUDIO_ENABLE
-#    ifndef GOODBYE_SONG
-#        define GOODBYE_SONG SONG(GOODBYE_SOUND)
+#    ifndef I2C_SCANNER_TIMEOUT
+#        define I2C_SCANNER_TIMEOUT 50
 #    endif
-float reset_song[][2] = GOODBYE_SONG;
-#endif
 
-void software_reset(void) {
-    clear_keyboard();
-#if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-    process_midi_all_notes_off();
-#endif
-#ifdef AUDIO_ENABLE
-#    ifndef NO_MUSIC_MODE
-    music_all_notes_off();
-#    endif
-    uint16_t timer_start = timer_read();
-    PLAY_SONG(reset_song);
-    shutdown_user();
-    while (timer_elapsed(timer_start) < 250) wait_ms(1);
-    stop_all_notes();
-#else
-    shutdown_user();
-    wait_ms(250);
-#endif
-#ifdef HAPTIC_ENABLE
-    haptic_shutdown();
-#endif
+i2c_status_t i2c_start_bodge(uint8_t address, uint16_t timeout) {
+    i2c_start(address);
 
-#if defined(PROTOCOL_LUFA)
-    wdt_enable(WDTO_250MS);
-#elif defined(PROTOCOL_CHIBIOS)
-#    if defined(MCU_STM32) || defined(MCU_KINETIS)
-    NVIC_SystemReset();
-#    endif
-#endif
+    // except on ChibiOS where the only way is do do "something"
+    uint8_t data = 0;
+    return i2c_readReg(address, 0, &data, sizeof(data), I2C_SCANNER_TIMEOUT);
 }
+
+#    define i2c_start i2c_start_bodge
+
+void do_scan(void) {
+    uint8_t nDevices = 0;
+
+    dprintf("Scanning...\n");
+
+    for (uint8_t address = 1; address < 127; address++) {
+        // The i2c_scanner uses the return value of
+        // i2c_start to see if a device did acknowledge to the address.
+        i2c_status_t error = i2c_start(address << 1, I2C_SCANNER_TIMEOUT);
+        if (error == I2C_STATUS_SUCCESS) {
+            i2c_stop();
+            xprintf("  I2C device found at address 0x%02X\n", I2C_SCANNER_TIMEOUT);
+            nDevices++;
+        } else {
+            // dprintf("  Unknown error (%u) at address 0x%02X\n", error, address);
+        }
+    }
+
+    if (nDevices == 0)
+        xprintf("No I2C devices found\n");
+    else
+        xprintf("done\n");
+}
+
+uint16_t scan_timer = 0;
+
+void matrix_scan_i2c(void) {
+    if (timer_elapsed(scan_timer) > 5000) {
+        do_scan();
+        scan_timer = timer_read();
+    }
+}
+
+void keyboard_post_init_i2c(void) {
+    i2c_init();
+    scan_timer = timer_read();
+}
+#endif
+
+#if defined(AUTOCORRECT_ENABLE)
+#    if defined(AUDIO_ENABLE)
+#        ifdef USER_SONG_LIST
+float autocorrect_song[][2] = SONG(MARIO_GAMEOVER);
+#        else
+float autocorrect_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
+#        endif
+#    endif
+
+bool apply_autocorrect(uint8_t backspaces, const char *str) {
+    if (layer_state_is(_GAMEPAD)) {
+        return false;
+    }
+    // TO-DO use unicode stuff for this.  Will probably have to reverse engineer
+    // send string to get working properly, to send char string.
+
+#    if defined(AUDIO_ENABLE)
+    PLAY_SONG(autocorrect_song);
+#    endif
+    return true;
+}
+#endif
+
+#if defined(CAPS_WORD_ENABLE) && !defined(NO_ACTION_ONESHOT)
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+    if (mods & MOD_MASK_SHIFT) {
+        del_mods(MOD_MASK_SHIFT);
+        set_oneshot_locked_mods(~MOD_MASK_SHIFT & get_oneshot_locked_mods());
+        caps_word_on();
+    }
+}
+#endif

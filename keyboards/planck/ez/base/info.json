@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "Planck EZ",
+    "usb": {
+        "pid": "0xC6CE"
+    }
+}

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "xox70",
+    "keyboard_name": "XOX 70",
+    "manufacturer": "Mokey",
     "url": "",
     "maintainer": "Mokey",
+    "usb": {
+        "vid": "0x6653",
+        "pid": "0x3370",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

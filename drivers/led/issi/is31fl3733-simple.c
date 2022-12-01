@@ -70,6 +70,10 @@
 #    define ISSI_CSPULLUP PUR_0R
 #endif
 
+#ifndef ISSI_GLOBALCURRENT
+#    define ISSI_GLOBALCURRENT 0xFF
+#endif
+
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
 
@@ -182,7 +186,7 @@ void IS31FL3733_init(uint8_t addr, uint8_t sync) {
     // Set de-ghost pull-down resistors (CSx)
     IS31FL3733_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
-    IS31FL3733_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
+    IS31FL3733_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
     // Disable software shutdown.
     IS31FL3733_write_register(addr, ISSI_REG_CONFIGURATION, ((sync & 0b11) << 6) | ((ISSI_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 
@@ -191,7 +195,7 @@ void IS31FL3733_init(uint8_t addr, uint8_t sync) {
 }
 
 void IS31FL3733_set_value(int index, uint8_t value) {
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
         is31_led led = g_is31_leds[index];
 
         g_pwm_buffer[led.driver][led.v]          = value;
@@ -200,7 +204,7 @@ void IS31FL3733_set_value(int index, uint8_t value) {
 }
 
 void IS31FL3733_set_value_all(uint8_t value) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
         IS31FL3733_set_value(i, value);
     }
 }

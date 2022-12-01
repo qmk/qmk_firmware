@@ -69,7 +69,7 @@ def keyboard_folder(keyboard):
 
     This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
     """
-    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
     if keyboard in aliases:
         keyboard = aliases[keyboard].get('target', keyboard)
@@ -103,7 +103,7 @@ def list_keyboards():
     """
     # We avoid pathlib here because this is performance critical code.
     kb_wildcard = os.path.join(base_path, "**", "rules.mk")
-    paths = [path for path in glob(kb_wildcard, recursive=True) if 'keymaps' not in path]
+    paths = [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
 
     return sorted(set(map(resolve_keyboard, map(_find_name, paths))))
 
@@ -218,7 +218,7 @@ def render_key_rect(textpad, x, y, w, h, label, style):
 
     label_blank = ' ' * label_len
     label_border = box_chars['h'] * label_len
-    label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
+    label_middle = label + ' ' * label_leftover
 
     top_line = array('u', box_chars['tl'] + label_border + box_chars['tr'])
     lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
@@ -245,10 +245,10 @@ def render_key_isoenter(textpad, x, y, w, h, label, style):
     if len(label) > label_len:
         label = label[:label_len]
 
-    label_blank = ' ' * (label_len-1)  # noqa: yapf insists there be no whitespace around - and *
+    label_blank = ' ' * (label_len - 1)
     label_border_top = box_chars['h'] * label_len
-    label_border_bottom = box_chars['h'] * (label_len-1)  # noqa
-    label_middle = label + ' '*label_leftover  # noqa
+    label_border_bottom = box_chars['h'] * (label_len - 1)
+    label_middle = label + ' ' * label_leftover
 
     top_line = array('u', box_chars['tl'] + label_border_top + box_chars['tr'])
     lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
@@ -277,10 +277,10 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
     if len(label) > label_len:
         label = label[:label_len]
 
-    label_blank = ' ' * (label_len-3)  # noqa: yapf insists there be no whitespace around - and *
-    label_border_top = box_chars['h'] * (label_len-3)  # noqa
+    label_blank = ' ' * (label_len - 3)
+    label_border_top = box_chars['h'] * (label_len - 3)
     label_border_bottom = box_chars['h'] * label_len
-    label_middle = label + ' '*label_leftover  # noqa
+    label_middle = label + ' ' * label_leftover
 
     top_line = array('u', box_chars['tl'] + label_border_top + box_chars['tr'])
     mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])

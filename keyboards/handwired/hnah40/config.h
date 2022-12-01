@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    HnahKB
-#define PRODUCT         Hnah40
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
@@ -41,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B4, B5, B3, D4 }
 #define MATRIX_COL_PINS { B0, D7, D6, D5, B2, B1, C0, C1, C2, C3, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -52,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
-// #define RGBLIGHT_ANIMATIONS
 // #define RGBLED_NUM 16
 // #define RGBLIGHT_HUE_STEP 8
 // #define RGBLIGHT_SAT_STEP 8

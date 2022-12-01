@@ -103,10 +103,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT_ortho_4x12_wrapper(
-    KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
-    VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
+    QK_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, QK_BOOT,
+    VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EE_CLR,
     TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
-    KEYLOCK, _______, _______, REBOOT,  _______, KC_NUKE, _______, _______, AUTO_CTN,_______, _______, TG_MODS
+    KEYLOCK, _______, _______, QK_RBT,  _______, KC_NUKE, _______, _______, AUTO_CTN,_______, _______, TG_MODS
   )
 
 };
@@ -249,22 +249,11 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return true;
 }
 
-void matrix_init_keymap(void) {
+void keyboard_post_init_keymap(void) {
 #    ifdef KEYBOARD_planck_light
     writePinLow(D6);
 #    endif
     // rgblight_mode(RGB_MATRIX_MULTISPLASH);
-}
-#else  // RGB_MATRIX_INIT
-
-void matrix_init_keymap(void) {
-#    if !defined(CONVERT_TO_PROTON_C) && !defined(KEYBOARD_planck)
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-#    endif
 }
 #endif  // RGB_MATRIX_INIT
 

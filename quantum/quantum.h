@@ -49,7 +49,6 @@
 #include "action_util.h"
 #include "action_tapping.h"
 #include "print.h"
-#include "send_string.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -110,6 +109,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
 #    include "process_unicode_common.h"
 #endif
 
@@ -119,10 +119,6 @@ extern layer_state_t layer_state;
 
 #ifdef TAP_DANCE_ENABLE
 #    include "process_tap_dance.h"
-#endif
-
-#ifdef PRINTING_ENABLE
-#    include "process_printer.h"
 #endif
 
 #ifdef AUTO_SHIFT_ENABLE
@@ -139,12 +135,6 @@ extern layer_state_t layer_state;
 
 #ifdef KEY_LOCK_ENABLE
 #    include "process_key_lock.h"
-#endif
-
-#ifdef TERMINAL_ENABLE
-#    include "process_terminal.h"
-#else
-#    include "process_terminal_nop.h"
 #endif
 
 #ifdef SPACE_CADET_ENABLE
@@ -175,6 +165,10 @@ extern layer_state_t layer_state;
 #    include "hd44780.h"
 #endif
 
+#ifdef SEND_STRING_ENABLE
+#    include "send_string.h"
+#endif
+
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
 #    include "process_haptic.h"
@@ -188,6 +182,10 @@ extern layer_state_t layer_state;
 #    include "st7565.h"
 #endif
 
+#ifdef QUANTUM_PAINTER_ENABLE
+#    include "qp.h"
+#endif
+
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
 #endif
@@ -196,8 +194,21 @@ extern layer_state_t layer_state;
 #    include "process_dynamic_macro.h"
 #endif
 
+#ifdef SECURE_ENABLE
+#    include "secure.h"
+#    include "process_secure.h"
+#endif
+
 #ifdef DYNAMIC_KEYMAP_ENABLE
 #    include "dynamic_keymap.h"
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
 #endif
 
 #ifdef VIA_ENABLE
@@ -218,6 +229,15 @@ extern layer_state_t layer_state;
 
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
+#endif
+
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word.h"
+#    include "process_caps_word.h"
+#endif
+
+#ifdef AUTOCORRECT_ENABLE
+#    include "process_autocorrect.h"
 #endif
 
 // For tri-layer
@@ -241,6 +261,7 @@ void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
 void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
 
 void reset_keyboard(void);
+void soft_reset_keyboard(void);
 
 void startup_user(void);
 void shutdown_user(void);
@@ -248,6 +269,7 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
+void tap_code16_delay(uint16_t code, uint16_t delay);
 
 const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
 const char *get_u8_str(uint8_t curr_num, char curr_pad);

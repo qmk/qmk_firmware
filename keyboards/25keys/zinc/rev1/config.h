@@ -17,18 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEA3B
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    25KEYS
-#define PRODUCT         zinc rev.1
-
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
 /* Use I2C or Serial */
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
 
 /* Select hand configuration */

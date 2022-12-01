@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xB62C
-#define PRODUCT_ID      0x6146
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Samux6146
-#define PRODUCT         splitcustom44
-
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 #define MATRIX_ROW_PINS { D4, D5, D6, D7 }

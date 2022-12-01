@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
      ESC_CTL, KC_A,   KC_O,   KC_E,   KC_U,   KC_I,              KC_D,   KC_H,   KC_T,   KC_N,   KC_S, KC_MINUS,\
   //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
-     KC_LSFT,KC_SCLN, KC_Q,   KC_J,   KC_K,   KC_X,              KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,KC_SFTENT,\
+     KC_LSFT,KC_SCLN, KC_Q,   KC_J,   KC_K,   KC_X,              KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,SC_SENT,\
   //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
                                 KC_LGUI, LOWER, KC_SPC,    KC_BSPC, RAISE,KC_RALT \
                              //`-----------------------'  `----------------------'
@@ -84,7 +84,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 const char *read_logo(void);
 bool oled_task_user(void){
-    switch (biton32(layer_state)){
+    switch (get_highest_layer(layer_state)){
         case _DVORAK:
             oled_write_ln_P(PSTR("DVRK"), false);
             break;

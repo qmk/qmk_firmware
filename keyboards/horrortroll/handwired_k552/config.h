@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7516
-#define PRODUCT_ID      0x5104
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    HorrorTroll
-#define PRODUCT         K552 Kumara
-
 /* Key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -45,9 +38,6 @@
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
 
 /* EEPROM size */
 #define EEPROM_PAGE_SIZE
@@ -72,9 +62,9 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 24
+    #define RGB_MATRIX_LED_COUNT 24
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
     /* RGB Matrix config */
     #define RGB_DI_PIN C14

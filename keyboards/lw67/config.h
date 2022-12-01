@@ -18,14 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C50
-#define PRODUCT_ID      0x9998
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Laneware Peripherals
-#define PRODUCT         LW-67
-
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -33,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { E6, B7, D0, D1, D2 }
 #define MATRIX_COL_PINS { D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6, F5, F4, B0, B1 }
-#define UNUSED_PINS
 
 /*ENCODER*/
 #define ENCODERS_PAD_A { F0 }

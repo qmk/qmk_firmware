@@ -2,16 +2,17 @@
 
 enum layers {
   _QWERTY,
+  _TCURSOR,
   _LOWER,
   _RAISE,
+  _NUMPAD,
+  _ADJUST,
 };
 
+#define TCURSOR TG(_TCURSOR)
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
-
-static bool is_ctl_pressed;
-static bool is_esc_pressed;
-static bool is_bspc_pressed;
+#define NUMPAD  MO(_NUMPAD)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -23,15 +24,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_ENT,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    KC_LCTL,KC_LGUI,KC_LALT,KC_RALT,LOWER,  KC_SPC, KC_SPC, RAISE,  KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
+    KC_LCTL,KC_LGUI,KC_LALT,NUMPAD, LOWER,  KC_SPC, KC_SPC, RAISE,  KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
 // └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 ), 
+
+[_TCURSOR] = LAYOUT_ortho_4x12 (
+// ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_UP,  _______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,KC_SLSH,KC_LEFT,KC_DOWN,KC_RGHT
+// └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+),
 
 [_LOWER] = LAYOUT_ortho_4x12 (
 // ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
     KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   _______,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    _______,KC_VOLD,KC_MUTE,KC_VOLU,DM_PLY1,DM_REC1,DM_RSTP,KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,
+    _______,KC_VOLD,KC_MUTE,KC_VOLU,DM_PLY1,DM_REC1,DM_RSTP,KC_PSCR,KC_SCRL,KC_PAUS,_______,_______,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     _______,KC_MPRV,KC_MPLY,KC_MNXT,DM_PLY2,DM_REC2,KC_INS, KC_APP, _______,_______,_______,_______,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
@@ -50,12 +63,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END
 // └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 ),
+
+[_NUMPAD] = LAYOUT_ortho_4x12 (
+// ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+    _______,KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,_______,_______,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,_______,_______,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,KC_NUM, KC_P1,  KC_P2,  KC_P3,  KC_PSLS,KC_PENT,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,KC_P0,  KC_PDOT,KC_PAST,_______
+// └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+),
+
+[_ADJUST] = LAYOUT_ortho_4x12 (
+// ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+    _______,QK_BOOT,_______,_______,RGB_TOG,RGB_M_P,RGB_M_B,RGB_M_R,RGB_M_SW,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,RGB_SAI,RGB_SAD,_______,_______,RGB_HUI,RGB_HUD,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,RGB_VAI,RGB_VAD,_______,RGB_MOD,RGB_RMOD,TCURSOR,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+// └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+),
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+  state = update_tri_layer_state(state, _NUMPAD, _RAISE, _ADJUST);
   #ifdef JOTANCK_LEDS
-  writePin(JOTANCK_LED1, (get_highest_layer(state) == _LOWER));
-  writePin(JOTANCK_LED2, (get_highest_layer(state) == _RAISE));
+  writePin(JOTANCK_LED2, (IS_LAYER_ON(_TCURSOR)));
   #endif
   return state;
 }
@@ -63,28 +100,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool led_update_user(led_t led_state) {
   // NumLock allways on
   if (!led_state.num_lock) {
-    tap_code(KC_NUMLOCK);
+    tap_code(KC_NUM_LOCK);
   }
+  #ifdef JOTANCK_LEDS
+  writePin(JOTANCK_LED1, led_state.caps_lock);
+  #endif
   return true;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) { 
-    case KC_LCTL:
-      is_ctl_pressed = record->event.pressed;
-      break;
-    case KC_ESC:
-      is_esc_pressed = record->event.pressed;
-      break;
-    case KC_BSPC:
-      is_bspc_pressed = record->event.pressed;
-      break;
-  };
-  return true;
-}
-
-void matrix_scan_user(void) {
-  if (is_ctl_pressed && is_esc_pressed && is_bspc_pressed) {
-    reset_keyboard();
-  }
 }

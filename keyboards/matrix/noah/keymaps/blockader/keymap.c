@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KEY_FORWARD_LAYER(LAYER_WINDOW), LGUI(KC_SPC), LCTL(KC_SPC), KC_ESC, KC_TILD, KC_EXLM, KC_PEQL, KC_PLUS, KC_MINUS, KC_PIPE, KC_COLN, KC_LCBR, KC_RCBR, KEY_CREATE_PREVIOUS_LINE, KEY_FORWARD_LAYER(LAYER_LEGACY_BASE),
         KEY_CUT_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LCTL(KC_E), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_DQUO, KEY_CREATE_NEXT_LINE, KEY_FORWARD_LAYER(LAYER_DESKTOP),
         KC_LSFT, LGUI(KC_Z), KEY_CUT_SELECTION, KC_LPRN, KC_RPRN, KC_UNDS, KC_LBRC, KC_RBRC, KC_LT, KC_GT, KC_QUES, KC_RSFT, KC_NO, LCTL(KC_LEFT),
-        KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KEY_FORWARD_LAYER(LAYER_CONTROL), KC_SPC, KC_RALT, KC_RGUI, KC_NO, RESET, LCTL(KC_RIGHT)),
+        KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KEY_FORWARD_LAYER(LAYER_CONTROL), KC_SPC, KC_RALT, KC_RGUI, KC_NO, QK_BOOT, LCTL(KC_RIGHT)),
     [LAYER_RACE_BASE] = LAYOUT_default_splitspace(
         KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO, KC_NO, KC_NO, KC_NO, KEY_BACK_LAYER,
         KC_NO, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LCBR, KC_RCBR, KC_BSLS, KC_NO,
@@ -296,9 +296,9 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                 case KC_BSPC:
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
-                            unregister_code(KC_LSHIFT);
+                            unregister_code(KC_LSFT);
                             tap_code16(LGUI(KC_X));
-                            register_code(KC_LSHIFT);
+                            register_code(KC_LSFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
                         } else if (layer_control_data.operator== - 1)
@@ -403,9 +403,9 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                 case LGUI(KC_C):
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
-                            unregister_code(KC_LSHIFT);
+                            unregister_code(KC_LSFT);
                             tap_code16(LGUI(KC_C));
-                            register_code(KC_LSHIFT);
+                            register_code(KC_LSFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
                         } else if (layer_control_data.operator== - 1)
@@ -425,9 +425,9 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                 case LGUI(KC_V):
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
-                            unregister_code(KC_LSHIFT);
+                            unregister_code(KC_LSFT);
                             for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LGUI(KC_V));
-                            register_code(KC_LSHIFT);
+                            register_code(KC_LSFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
                         } else {
@@ -628,9 +628,9 @@ bool handle_common_key(uint16_t key, keyrecord_t* record) {
         case KEY_CUT_SELECTION:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_LSFT);
                     tap_code16(LGUI(KC_X));
-                    register_code(KC_LSHIFT);
+                    register_code(KC_LSFT);
                 } else
                     tap_code16(LGUI(KC_X));
             }

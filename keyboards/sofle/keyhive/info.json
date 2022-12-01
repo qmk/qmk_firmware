@@ -1,5 +1,11 @@
 {
     "keyboard_name": "Sofle",
+    "manufacturer": "Keyhive",
+    "usb": {
+        "vid": "0xFC32",
+        "pid": "0x1287",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

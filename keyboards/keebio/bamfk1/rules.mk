@@ -17,5 +17,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes          # Audio output
 ENCODER_ENABLE = yes
+LTO_ENABLE = yes
 
 SRC += encoder_actions.c

@@ -35,10 +35,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_RCTL 
 	),
     [_func] = LAYOUT_60_tsangan_hhkb(
-		RGB_TOG, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, RESET, \
+		RGB_TOG, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, QK_BOOT, \
 		_______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, RGB_SPI, RGB_HUD, RGB_VAI, RGB_HUI, KC_MUTE, KC_VOLD, KC_VOLU, KC_DEL, \
 		_______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, RGB_SPD, RGB_SAD, RGB_VAD, RGB_SAI, KC_BRID, KC_BRIU, _______, \
-		_______, RGB_STA, RGB_BRE, RGB_RAI, RGB_SWI, RGB_SNA, RGB_KNI, RGB_GRA, VLK_TOG, _______, _______, _______, _______, \
+		_______, RGB_STA, RGB_BRE, RGB_RAI, RGB_SWI, RGB_SNA, RGB_KNI, RGB_GRA, VK_TOGG, _______, _______, _______, _______, \
 		_______, _______, _______,                            _______,                            _______, _______, _______
     )
 };

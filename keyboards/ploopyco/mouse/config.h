@@ -20,13 +20,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x5043
-#define PRODUCT_ID 0x4D6F
-#define DEVICE_VER 0x0001
-#define MANUFACTURER PloopyCo
-#define PRODUCT Mouse
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 8
@@ -48,7 +41,7 @@
 
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default
-#define UNUSED_PINS \
+#define UNUSABLE_PINS \
     { B4, D6, F1, F5, F6, F7 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -77,5 +70,5 @@
 
 // #define DEBUG_LED_PIN F7
 
-/* PMW3360 Settings */
-#define PMW3360_CS_PIN B0
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN B0
