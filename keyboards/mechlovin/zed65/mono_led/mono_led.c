@@ -62,4 +62,5 @@ bool led_matrix_indicators_kb(void) {
     if (host_keyboard_led_state().caps_lock) {
         led_matrix_set_value(31, 0xFF);
     }
+    return true;
 }
