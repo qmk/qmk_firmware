@@ -40,10 +40,10 @@
     // Remove predefined values
     #undef RGB_DISABLE_TIMEOUT
     #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #undef RGB_MATRIX_STARTUP_MODE
-    #undef RGB_MATRIX_STARTUP_HUE
-    #undef RGB_MATRIX_STARTUP_SAT
-    #undef RGB_MATRIX_STARTUP_VAL
+    #undef RGB_MATRIX_DEFAULT_MODE
+    #undef RGB_MATRIX_DEFAULT_HUE
+    #undef RGB_MATRIX_DEFAULT_SAT
+    #undef RGB_MATRIX_DEFAULT_VAL
 
     // Redefine values
     // Number of milliseconds to wait until RGB automatically turns off
@@ -51,11 +51,11 @@
     // Limits maximum brightness of LEDs to 120 out of 255
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
     // Sets the default startup mode
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CUSTOM_active_keys
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_active_keys
     // Sets the default hue, saturation & brightness values
-    #define RGB_MATRIX_STARTUP_HUE 0
-    #define RGB_MATRIX_STARTUP_SAT 0
-    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS/3
+    #define RGB_MATRIX_DEFAULT_HUE 0
+    #define RGB_MATRIX_DEFAULT_SAT 0
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS/3
 
     // Disable RGB_MATRIX_ANIMATIONS - Custom definition
     #define DISABLE_RGB_MATRIX_ANIMATIONS
