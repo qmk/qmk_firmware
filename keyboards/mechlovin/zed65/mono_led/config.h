@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SCL_PIN B10
 #define I2C1_SDA_PIN B11
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 70
+#define LED_MATRIX_LED_COUNT 70
 #define LED_MATRIX_KEYPRESSES // reacts to keypresses
 #define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
