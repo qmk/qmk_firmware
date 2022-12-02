@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #pragma once
 
 /* Use I2C or Serial, not both */
@@ -27,4 +26,4 @@
 #define NO_DEBUG
 #define NO_PRINT
 #define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
+#define NO_MUSIC_MODE
