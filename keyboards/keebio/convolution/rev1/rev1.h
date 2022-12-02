@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "ss65xt.h"
+#include "convolution.h"
 #include "quantum.h"
 
 #define LAYOUT_65xt( \

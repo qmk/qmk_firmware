@@ -1,4 +1,4 @@
-/* Copyright 2021 Danny Nguyen <danny@keeb.io>
+/* Copyright 2022 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // RGB Matrix
 #define RGB_DI_PIN GP26
-#define DRIVER_LED_TOTAL 16
-#define RGBLED_NUM 16
+#define RGB_MATRIX_LED_COUNT 16
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES

@@ -1,4 +1,4 @@
-# SS65XT
+# Convolution
 
 A 65XT staggered keyboard made and sold by Keebio. [More info at Keebio](https://keeb.io).
 
@@ -7,11 +7,11 @@ A 65XT staggered keyboard made and sold by Keebio. [More info at Keebio](https:/
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keebio/ss65xt/rev1:default
+    make keebio/convolution/rev1:default
 
 Example of flashing this keyboard:
 
-    make keebio/ss65xt/rev1:default:flash
+    make keebio/convolution/rev1:default:flash
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 

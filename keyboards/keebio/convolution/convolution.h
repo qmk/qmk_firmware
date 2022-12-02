@@ -1,4 +1,4 @@
-/* Copyright 2021 Danny Nguyen <danny@keeb.io>
+/* Copyright 2022 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_keebio_ss65xt_rev1
+#ifdef KEYBOARD_keebio_convolution_rev1
     #include "rev1.h"
 #endif
