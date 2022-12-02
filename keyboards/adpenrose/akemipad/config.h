@@ -42,7 +42,7 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN F4
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 27
+#define RGB_MATRIX_LED_COUNT 27
 #define RGB_MATRIX_CENTER { 60, 77 }
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 175
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
