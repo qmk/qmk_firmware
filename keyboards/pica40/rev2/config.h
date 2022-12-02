@@ -12,9 +12,6 @@
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_DISABLE_KEYCODES // disable keycodes for RGB Light controls, only status LED is supported
 #    define PICA40_RGBLIGHT_TIMEOUT 5 // turn RGB off after N minutes
-#    ifdef RGBLIGHT_LAYERS
-#        define PICA40_RGBLAYER_SYNC_ENABLE // sync RGB Layer LED status between halves
-#    endif
 #endif
 
 #define PICA40_ENCODER_SYNC_ENABLE // support Pica40 V2 encoder

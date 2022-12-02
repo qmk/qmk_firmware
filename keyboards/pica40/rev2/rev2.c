@@ -53,11 +53,11 @@ void suspend_power_down_kb(void) {
 }
 #endif // PICA40_RGBLIGHT_TIMEOUT
 
-#ifdef PICA40_RGBLAYER_SYNC_ENABLE
+#ifdef RGBLIGHT_LAYERS
 uint16_t check_layer_timer = 0;
 bool is_layer_active = false;
 bool should_set_rgblight = false;
-#endif // PICA40_RGBLAYER_SYNC_ENABLE
+#endif // RGBLIGHT_LAYERS
 
 void keyboard_post_init_kb(void) {
     setPinOutput(PICA40_RGB_POWER_PIN);
@@ -73,16 +73,16 @@ void keyboard_post_init_kb(void) {
     rgblight_enable_noeeprom();
 #endif // RGBLIGHT_ENABLE
 
-#ifdef PICA40_RGBLAYER_SYNC_ENABLE
+#ifdef RGBLIGHT_LAYERS
     check_layer_timer = timer_read();
-#endif // PICA40_RGBLAYER_SYNC_ENABLE
+#endif // RGBLIGHT_LAYERS
 
     keyboard_post_init_user();
 }
 
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
-// #ifdef PICA40_ENCODER_SYNC_ENABLE
+#ifdef PICA40_ENCODER_SYNC_ENABLE
         encoder_sync_data data = {0};
         if (transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data)) {
             uint8_t new_status = (readPin(PICA40_ENCODER_PIN) << 0) | (data.value << 1);
@@ -93,18 +93,18 @@ void housekeeping_task_kb(void) {
 
                 if (encoder_pulses >= ENCODER_RESOLUTION) {
                     encoder_value++;
-                    encoder_update_user(0, true);
+                    encoder_update_user(0, false);
                 }
 
                 if (encoder_pulses <= -ENCODER_RESOLUTION) {
                     encoder_value--;
-                    encoder_update_user(0, false);
+                    encoder_update_user(0, true);
                 }
 
                 encoder_pulses %= ENCODER_RESOLUTION;
             }
         }
-// #endif // PICA40_ENCODER_SYNC_ENABLE
+#endif // PICA40_ENCODER_SYNC_ENABLE
 
 #ifdef PICA40_RGBLIGHT_TIMEOUT
         if (timer_elapsed(check_rgblight_timer) > 1000) {
@@ -123,7 +123,7 @@ void housekeeping_task_kb(void) {
 #endif // PICA40_RGBLIGHT_TIMEOUT
     }
 
-#ifdef PICA40_RGBLAYER_SYNC_ENABLE
+#ifdef RGBLIGHT_LAYERS
     if (timer_elapsed(check_layer_timer) > 100) {
         check_layer_timer = timer_read();
 
@@ -149,7 +149,7 @@ void housekeeping_task_kb(void) {
             }
         }
     }
-#endif // PICA40_RGBLAYER_SYNC_ENABLE
+#endif // RGBLIGHT_LAYERS
 
     housekeeping_task_user();
 }
