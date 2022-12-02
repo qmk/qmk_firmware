@@ -13,6 +13,4 @@
 #   ifndef ENCODER_RESOLUTION
 #       define ENCODER_RESOLUTION 4
 #   endif
-
-    bool encoder_update_user(uint8_t index, bool clockwise);
 #endif

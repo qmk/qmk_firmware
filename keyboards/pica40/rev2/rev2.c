@@ -21,6 +21,18 @@ void encoder_sync_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t 
     data->value = readPin(PICA40_ENCODER_PIN);
 }
 
+__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
+    return true;
+}
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
+
+    tap_code(clockwise ? KC_VOLU : KC_VOLD);
+
+    return false;
+}
+
 #endif // PICA40_ENCODER_SYNC_ENABLE
 
 #ifdef PICA40_RGBLIGHT_TIMEOUT
@@ -93,12 +105,12 @@ void housekeeping_task_kb(void) {
 
                 if (encoder_pulses >= ENCODER_RESOLUTION) {
                     encoder_value++;
-                    encoder_update_user(0, false);
+                    encoder_update_kb(0, false);
                 }
 
                 if (encoder_pulses <= -ENCODER_RESOLUTION) {
                     encoder_value--;
-                    encoder_update_user(0, true);
+                    encoder_update_kb(0, true);
                 }
 
                 encoder_pulses %= ENCODER_RESOLUTION;
@@ -153,13 +165,3 @@ void housekeeping_task_kb(void) {
 
     housekeeping_task_user();
 }
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
-
-    tap_code(clockwise ? KC_VOLU : KC_VOLD);
-
-    return false;
-}
-#endif // ENCODER_ENABLE
