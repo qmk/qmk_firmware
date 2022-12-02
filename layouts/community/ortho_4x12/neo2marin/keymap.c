@@ -120,22 +120,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+#if defined(AUDIO_ENABLE)
 float SONG_QWERTZ[][2] = SONG(QWERTY_SOUND);
 float SONG_NEO2[][2]   = SONG(DVORAK_SOUND);
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTZ:
       if (record->event.pressed) {
         default_layer_set(L_QWZ);
-        PLAY_SONG(SONG_QWERTZ);
+        #if defined(AUDIO_ENABLE)
+          PLAY_SONG(SONG_QWERTZ);
+        #endif
       }
       return false;
       
     case NEO2:
       if (record->event.pressed) {
         default_layer_set(L_NEO);
-        PLAY_SONG(SONG_NEO2);
+        #if defined(AUDIO_ENABLE)
+          PLAY_SONG(SONG_NEO2);
+        #endif
       }
       return false;
   }

@@ -23,7 +23,13 @@
 // Tune the tapping term for dual-use `y`/`MOD3` key
 #define TAPPING_TERM 150
 
+#ifndef NO_DEBUG
 #define NO_DEBUG
+#endif
+
+#ifndef NO_PRINT
 #define NO_PRINT
+#endif
+
 #define NO_ACTION_ONESHOT
 #define NO_MUSIC_MODE
