@@ -104,7 +104,7 @@ void via_set_layout_options_kb(uint32_t value) {
 }
 
 /* Turing LEDs on/off depending on the layout selected on VIA */
-void rgb_matrix_indicators_user(void){
+bool rgb_matrix_indicators_user(void){
   if (via_layouts.split_zero && via_layouts.split_enter && via_layouts.split_plus){
     rgb_matrix_set_color(12, 0, 0, 0);
     rgb_matrix_set_color(21, 0, 0, 0);
