@@ -7,7 +7,6 @@
     },
     "features": {
         "console": true,
-        "rgblight": true,
         "backlight": false,
     },
     "layout_aliases": {

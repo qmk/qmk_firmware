@@ -10,8 +10,9 @@
     "diode_direction": "COL2ROW",
     "features": {
         "console": true,
-        "rgblight": true,
+        "rgblight": false,
         "backlight": false,
+        "rgb_matrix": true,
     },
     "matrix_pins": {
         "cols": ["GP0", "GP4", "GP9", "GP8", "GP20", "GP21", "GP23", "GP24", "GP17"],
@@ -24,20 +25,25 @@
             {"pin_a": "GP14", "pin_b": "GP15" }
         ]
     },
-    "rgblight": {
-        "pin": "GP26",
-        "led_count" : 16,
-        "animations": {
-            "alternating": true,
-            "breathing": true,
-            "christmas": true,
-            "knight": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "rgb_test": true,
-            "snake": true,
-            "static_gradient": true,
-            "twinkle": true
-        }
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            { "flags": 2, "x": 12, "y": 13 },
+            { "flags": 2, "x": 40,  "y": 13 },
+            { "flags": 2, "x": 77,  "y": 13 },
+            { "flags": 2, "x": 101,  "y": 13 },
+            { "flags": 2, "x": 126,  "y": 13 },
+            { "flags": 2, "x": 150,  "y": 13 },
+            { "flags": 2, "x": 181,  "y": 13 },
+            { "flags": 2, "x": 212,  "y": 13 },
+            { "flags": 2, "x": 212,  "y": 51 },
+            { "flags": 2, "x": 181,  "y": 51 },
+            { "flags": 2, "x": 149,  "y": 51 },
+            { "flags": 2, "x": 121,  "y": 51 },
+            { "flags": 2, "x": 101,  "y": 51 },
+            { "flags": 2, "x": 75,  "y": 51 },
+            { "flags": 2, "x": 43,  "y": 51 },
+            { "flags": 2, "x": 12,  "y": 51 }
+        ]
     }
 }
