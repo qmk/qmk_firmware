@@ -70,28 +70,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,       XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,
         XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,             LALT(KC_UP),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_INS,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             LALT(KC_DOWN), KC_HOME, KC_END,  KC_APP,  XXXXXXX, XXXXXXX,
-                                       XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, KC_TRNS, XXXXXXX
+                                       XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, _______, XXXXXXX
     ),
 
     [_NUMBER] = LAYOUT(
                  KC_BSLS, KC_7,    KC_8,    KC_9,    KC_0,                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_LCTL, KC_COMM, KC_4,    KC_5,    KC_6,    KC_LBRC,             XXXXXXX, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, XXXXXXX,
-        KC_DEL,  KC_DOT,  KC_1,    KC_2,    KC_3,    KC_RBRC,             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                      KC_SPC, KC_TRNS, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX
+        KC_ENT,  KC_DOT,  KC_1,    KC_2,    KC_3,    KC_RBRC,             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                     KC_BSPC, _______, TG(_GAME),       XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [_SYMBOL] = LAYOUT(
                  LSFT(KC_BSLS), LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0),               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_LCTL, LSFT(KC_COMM), LSFT(KC_4), LSFT(KC_5), LSFT(KC_6), LSFT(KC_LBRC),            XXXXXXX, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, XXXXXXX,
-        KC_BSPC, LSFT(KC_DOT),  LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_RBRC),            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                                    LSFT(KC_GRV), TG(_GAME), KC_TRNS,     XXXXXXX, XXXXXXX, XXXXXXX
+        KC_ENT,  LSFT(KC_DOT),  LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_RBRC),            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                                           XXXXXXX, KC_BSPC, _______,     XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [_FUNC] = LAYOUT(
                  KC_F12, KC_F7,   KC_F8,   KC_F9,   KC_PSCR,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_LCTL, KC_F11, KC_F4,   KC_F5,   KC_F6,   KC_PAUS,            XXXXXXX, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, XXXXXXX,
-        KC_ENT,  KC_F10, KC_F1,   KC_F2,   KC_F3,   KC_CAPS,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                     KC_TRNS, KC_MNXT, KC_MPLY,     KC_TRNS, XXXXXXX, XXXXXXX
+        KC_DEL,  KC_F10, KC_F1,   KC_F2,   KC_F3,   KC_CAPS,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                     _______, KC_MNXT, KC_MPLY,     _______, XXXXXXX, XXXXXXX
     )
 };
 
@@ -129,7 +129,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (get_highest_layer(layer_state) == _GAME) {
+    if (get_highest_layer(layer_state) > _GAME) {
         tap_code(clockwise ? KC_MNXT : KC_MPRV);
         return false;
     }
