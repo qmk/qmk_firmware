@@ -42,6 +42,12 @@ enum custom_keycodes {
 #define RALTTAB RALT(KC_TAB)
 #define ME_MAXM LCTL(LGUI(KC_UP))
 
+#if defined(SWAP_HANDS_ENABLE)
+#define SWAPH SH_MON
+#else
+#define SWAPH KC_TRNS
+#endif
+
 #define ____ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -54,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------|
      KC_LSFT,DE_UDIA,DE_ODIA,DE_ADIA, DE_P  , DE_Z  ,      DE_B  , DE_M  ,DE_COMM, DE_DOT, DE_J  ,KC_RSFT,
   //|-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------|
-     KC_LCTL,KC_LGUI,KC_LALT, SH_MON, MFUN  , MMOV  ,    KC_SPACE, SH_MON, MFUN  , KC_APP, RALTF ,KC_RCTL
+     KC_LCTL,KC_LGUI,KC_LALT, SWAPH , MFUN  , MMOV  ,    KC_SPACE, SWAPH , MFUN  , KC_APP, RALTF ,KC_RCTL
   //`-------+-------+-------+-------+-------+-------'    `-------+-------+-------+-------+-------+-------'
   ),
 
@@ -148,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
+#if defined(BACKLIGHT_ENABLE)
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
   case L_COD:
@@ -164,3 +170,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
   return state;
 }
+#endif
