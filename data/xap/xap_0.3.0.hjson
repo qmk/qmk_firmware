@@ -321,5 +321,76 @@
                 }
             }
         }
+
+        0x07: {
+            type: router
+            name: Audio
+            define: AUDIO
+            description:
+                '''
+                    This subsystem allows for control over the audio subsystem.
+                '''
+            enable_if_preprocessor: defined(AUDIO_ENABLE)
+            routes: {
+                0x01: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        Audio subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_AUDIO_CAPABILITIES
+                }
+
+                0x03: {
+                    type: command
+                    name: Get Config
+                    define: GET_CONFIG
+                    description: Query the current config.
+                    return_type: struct
+                    return_struct_length: 2
+                    return_struct_members: [
+                        {
+                            type: u8
+                            name: enable
+                        },
+                        {
+                            type: u8
+                            name: clicky_enable
+                        },
+                    ]
+                    return_execute: get_audio_config
+                }
+                0x04: {
+                    type: command
+                    name: Set Config
+                    define: SET_CONFIG
+                    description: Set the current config.
+                    request_type: struct
+                    request_struct_length: 2
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: enable
+                        },
+                        {
+                            type: u8
+                            name: clicky_enable
+                        },
+                    ]
+                    return_execute: set_audio_config
+                }
+                0x05: {
+                    type: command
+                    name: Save Config
+                    define: SAVE_CONFIG
+                    description: Save the current config.
+                    return_execute: save_audio_config
+                }
+            }
+        }
     }
 }
