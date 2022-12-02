@@ -23,3 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef KEYBOARD_keebio_sinc_rev2
     #include "rev2.h"
 #endif
+#ifdef KEYBOARD_keebio_sinc_rev3
+    #include "rev3.h"
+#endif

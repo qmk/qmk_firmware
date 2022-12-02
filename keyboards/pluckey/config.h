@@ -46,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION_RIGHT 2
 
 /* communication between sides */
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
