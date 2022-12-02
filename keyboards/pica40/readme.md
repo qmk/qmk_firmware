@@ -1,6 +1,6 @@
 # pica40
 
-![pica40](https://raw.githubusercontent.com/zzeneg/pica40/main/images/full.jpg)
+![pica40](https://i.imgur.com/CKImjAPh.jpg)
 
 A family of 40-key split ortholinear keyboards with rotary encoder.
 

@@ -61,3 +61,43 @@ void suspend_power_down_kb(void) {
 }
 
 #endif // PICA40_RGBLIGHT_TIMEOUT
+
+#ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
+
+void render_mods(uint8_t modifiers) {
+    oled_write_ln_P((modifiers & MOD_MASK_CTRL) ? PSTR("Ctrl") : PSTR(" "), false);
+    oled_write_ln_P((modifiers & MOD_MASK_ALT) ? PSTR("Alt") : PSTR(" "), false);
+    oled_write_ln_P((modifiers & MOD_MASK_SHIFT) ? PSTR("Shft") : PSTR(" "), false);
+    oled_write_ln_P((modifiers & MOD_MASK_GUI) ? PSTR("GUI") : PSTR(" "), false);
+}
+
+bool oled_task_kb(void) {
+    // display's top is hidden by cover
+    oled_write_ln_P(PSTR(" "), false);
+    oled_write_ln_P(PSTR(" "), false);
+    oled_write_ln_P(PSTR(" "), false);
+
+    if (!oled_task_user()) return false;
+
+    render_mods(get_mods());
+
+    return true;
+}
+
+#endif // OLED_ENABLE
+
+#ifdef ENCODER_ENABLE
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
+
+    tap_code(clockwise ? KC_VOLU : KC_VOLD);
+
+    return false;
+}
+
+#endif // ENCODER_ENABLE

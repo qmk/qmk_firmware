@@ -1,1 +1,1 @@
-CAPS_WORD_ENABLE = yes
+# This file intentionally left blank
