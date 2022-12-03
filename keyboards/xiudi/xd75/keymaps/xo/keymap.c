@@ -62,12 +62,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (IS_MOD(keycode)) {
     if (record->event.pressed) {
       switch (keycode) {
-        case KC_LSHIFT:
-        case KC_RSHIFT:
+        case KC_LSFT:
+        case KC_RSFT:
           rgblight_sethsv_noeeprom(HSV_RED);
           break;
-        case KC_LCTRL:
-        case KC_RCTRL:
+        case KC_LCTL:
+        case KC_RCTL:
           rgblight_sethsv_noeeprom(HSV_YELLOW);
           break;
         case KC_LALT:
