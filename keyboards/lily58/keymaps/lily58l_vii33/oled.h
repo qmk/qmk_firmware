@@ -27,4 +27,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void render_luna(int LUNA_X, int LUNA_Y);
 void render_logo(void);
-void render_mario(void);
+void render_right_oled(void);
