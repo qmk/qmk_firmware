@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "odin75.h"
+#include "quantum.h"
 #include "lib/bongocat.h"
 #ifdef OLED_ENABLE
   oled_rotation_t oled_init_user(oled_rotation_t rotation) {
