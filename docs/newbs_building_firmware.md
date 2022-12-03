@@ -30,7 +30,6 @@ Look at the output from that command, you should see something like this:
 
     Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
 
-
 This is the location of your new `keymap.c` file.
 
 ## Open `keymap.c` In Your Favorite Text Editor
