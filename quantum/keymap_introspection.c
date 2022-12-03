@@ -23,7 +23,6 @@ _Static_assert(NUM_KEYMAP_LAYERS <= MAX_LAYER, "Number of keymap layers exceeds 
 _Static_assert(NUM_KEYMAP_LAYERS <= MAX_LAYER, "Number of keymap layers exceeds maximum set by LAYER_STATE_(8|16|32)BIT");
 #endif
 
-
 uint16_t keycode_at_keymap_location_raw(uint8_t layer_num, uint8_t row, uint8_t column) {
     if (layer_num < NUM_KEYMAP_LAYERS && row < MATRIX_ROWS && column < MATRIX_COLS) {
         return pgm_read_word(&keymaps[layer_num][row][column]);
