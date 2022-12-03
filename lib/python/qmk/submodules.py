@@ -40,7 +40,7 @@ def status():
         else:
             raise ValueError('Unknown `git submodule status` sha-1 prefix character: "%s"' % status)
 
-    submodule_logs = cli.run(['git', 'submodule', '-q', 'foreach', 'git --no-pager log --pretty=format:"$sm_path%x01%h%x01%ad%x01%s%x0A" --date=iso -n1'])
+    submodule_logs = cli.run(['git', 'submodule', '-q', 'foreach', 'git --no-pager log --no-show-signature --pretty=format:"$sm_path%x01%h%x01%ad%x01%s%x0A" --date=iso -n1'])
     for log_line in submodule_logs.stdout.split('\n'):
         if not log_line:
             continue
