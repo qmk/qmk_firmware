@@ -40,7 +40,7 @@
 // #define BACKLIGHT_PIN rgb_matrix
 #define RGB_MATRIX_KEYPRESSES
 #define RGBLED_NUM 68
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 // RGB Matrix Animation modes. Explicitly enabled

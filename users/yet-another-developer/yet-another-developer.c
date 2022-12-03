@@ -4,9 +4,9 @@
 userspace_config_t userspace_config;
 
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    #define YAD_UNICODE_MODE UC_WIN
+    #define YAD_UNICODE_MODE UNICODE_MODE_WINDOWS
 #else
-// set to 2 for UC_WIN, set to 4 for UC_WINC
+// set to 2 for UNICODE_MODE_WINDOWS, set to 4 for UNICODE_MODE_WINCOMPOSE
     #define YAD_UNICODE_MODE 2
 #endif
 

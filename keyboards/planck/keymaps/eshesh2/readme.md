@@ -58,7 +58,7 @@ eshesh2's Planck layout with a rotary encoder on the top left of the Planck. It 
     |------+------+------+------+------+------+------+------+------+------+------+------|
     |      |      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |Numpad|      |
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf|      |      |      |
+    |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
     |------+------+------+------+------+------+------+------+------+------+------+------|
     |      |      |      |      |      |             |      |      |      |      |      |
     `-----------------------------------------------------------------------------------'
