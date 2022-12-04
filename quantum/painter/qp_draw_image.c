@@ -25,10 +25,10 @@ typedef struct qgf_image_handle_t {
 static qgf_image_handle_t image_descriptors[QUANTUM_PAINTER_NUM_IMAGES] = {0};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Quantum Painter External API: qp_load_image_mem
+// Helper: load image from stream
 
-painter_image_handle_t qp_load_image_mem(const void *buffer) {
-    qp_dprintf("qp_load_image_mem: entry\n");
+static painter_image_handle_t qp_load_image_internal(bool (*stream_factory)(qgf_image_handle_t *image, void *arg), void *arg) {
+    qp_dprintf("qp_load_image: entry\n");
     qgf_image_handle_t *image = NULL;
 
     // Find a free slot
@@ -41,20 +41,18 @@ painter_image_handle_t qp_load_image_mem(const void *buffer) {
 
     // Drop out if not found
     if (!image) {
-        qp_dprintf("qp_load_image_mem: fail (no free slot)\n");
+        qp_dprintf("qp_load_image: fail (no free slot)\n");
         return NULL;
     }
 
-    // Assume we can read the graphics descriptor
-    image->mem_stream = qp_make_memory_stream((void *)buffer, sizeof(qgf_graphics_descriptor_v1_t));
-
-    // Update the length of the stream to match, and rewind to the start
-    image->mem_stream.length   = qgf_get_total_size(&image->stream);
-    image->mem_stream.position = 0;
+    if (!stream_factory(image, arg)) {
+        qp_dprintf("qp_load_image: fail (could not create stream)\n");
+        return NULL;
+    }
 
     // Now that we know the length, validate the input data
     if (!qgf_validate_stream(&image->stream)) {
-        qp_dprintf("qp_load_image_mem: fail (failed validation)\n");
+        qp_dprintf("qp_load_image: fail (failed validation)\n");
         return NULL;
     }
 
@@ -63,8 +61,28 @@ painter_image_handle_t qp_load_image_mem(const void *buffer) {
 
     // Validation success, we can return the handle
     image->validate_ok = true;
-    qp_dprintf("qp_load_image_mem: ok\n");
+    qp_dprintf("qp_load_image: ok\n");
     return (painter_image_handle_t)image;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_load_image_mem
+
+static inline bool image_mem_stream_factory(qgf_image_handle_t *image, void *arg) {
+    void *buffer = arg;
+
+    // Assume we can read the graphics descriptor
+    image->mem_stream = qp_make_memory_stream((void *)buffer, sizeof(qgf_graphics_descriptor_v1_t));
+
+    // Update the length of the stream to match, and rewind to the start
+    image->mem_stream.length   = qgf_get_total_size(&image->stream);
+    image->mem_stream.position = 0;
+
+    return true;
+}
+
+painter_image_handle_t qp_load_image_mem(const void *buffer) {
+    return qp_load_image_internal(image_mem_stream_factory, (void *)buffer);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,6 +97,7 @@ bool qp_close_image(painter_image_handle_t image) {
 
     // Free up this image for use elsewhere.
     qgf_image->validate_ok = false;
+    qp_stream_close(&qgf_image->stream);
     return true;
 }
 

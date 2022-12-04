@@ -7,9 +7,11 @@
   | Paws 60          | ATMEGA32U4    | 60%          | 0x7516    | 0x5001     | Hotswap                                      |
 
 ## Keyboards Completed has Collaboration with me:
-  | Keyboard name    | MCU           | Layout       | Vendor ID | Product ID | Features                                     |
-  | ---------------- | ------------- | ------------ | --------- | ---------- | -------------------------------------------- |
-  | Lemon40          | ATMEGA32U4    | 40% Alice    | 0x7516    | 0x6000     | Solder, RGB Underglow, OLED 128x32           |
+  | Keyboard name      | MCU           | Layout       | Vendor ID | Product ID | Features                           |
+  | ------------------ | ------------- | ------------ | --------- | ---------- | ---------------------------------- |
+  | Lemon40            | ATMEGA32U4    | 40% Alice    | 0x7516    | 0x6000     | Solder, RGB Underglow, OLED 128x32 |
+  | Caticorn (Solder)  | RP2040        | TKL          | 0x7516    | 0x6001     | Solder                             |
+  | Caticorn (Hotswap) | RP2040        | TKL          | 0x7516    | 0x6002     | Hotswap                            |
 
 ## Keyboard Rewrited by me:
   | Keyboard name                                                                               | MCU           | Layout       | Vendor ID | Product ID | Features                                     |
@@ -27,6 +29,6 @@
 
 ## Contact me if you have any problem
 
-**Discord:** HorrorTroll#0975  
-**Facebook:** https://www.facebook.com/PhamChonChe.Duc/  
+**Discord:** HorrorTroll#0975
+**Facebook:** https://www.facebook.com/PhamChonChe.Duc
 **Email:** sonicvipduc@gmail.com

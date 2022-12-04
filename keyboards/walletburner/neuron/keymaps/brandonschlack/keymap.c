@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
  */
 [_LOWER] = LAYOUT( \
-    KC_DELT, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_HOME, KC_UP,   KC_PGUP, MC_SLPD, \
+    KC_DEL,  KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_HOME, KC_UP,   KC_PGUP, MC_SLPD, \
     _______, KC_MUTE, KC_VOLU, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, KC_LEFT, KC_RGHT,          KC_MPLY, \
     SF_CAPS,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, _______, KC_END,  KC_DOWN, KC_PGDN, _______, \
              _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_ADJUST] = LAYOUT( \
-    QM_MAKE, _______, _______, EEP_RST, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, \
+    QM_MAKE, _______, _______, EE_CLR,  QK_BOOT, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, \
     _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
              _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \

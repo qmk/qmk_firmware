@@ -32,3 +32,5 @@ LAYOUTS = split_3x5_3
 
 SERIAL_DRIVER = vendor
 WS2812_DRIVER = vendor
+
+DEFAULT_FOLDER = bastardkb/skeletyl/v2/splinky/v3
