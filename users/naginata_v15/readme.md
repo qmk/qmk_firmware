@@ -3,15 +3,13 @@
 薙刀式カナ配列による入力をQMKで実現します。薙刀式v15に準拠しています。
 編集モードも実装していますが、
 編集モードでの記号入力方式がOSによって異なるので、
-使用するOS(Windows、MacOS、Linux)によって切り替える必要があります。
+使用するOS(Windows、MacOS、Linux)によって切り替え る必要があります。
 切り替えは再コンパイル不要で、動的に切り替えられます。
-v13uからはnaginata_v14.cとrules.mkを差し替えればアップグレードできます。
 
 ## 薙刀式とは
 
-【薙刀式】v15fix版（仮）
-http://oookaworks.seesaa.net/article/486333027.html
-
+【薙刀式】暫定v15
+http://oookaworks.seesaa.net/article/494282239.html
 ## OSの設定
 
 1. OSのキーボード設定を日本語106キーボードにする。
