@@ -66,7 +66,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 static uint16_t key_timer;              // timer to track the last keyboard activity
 static bool     is_rgb_timeout = false; // store if RGB has timed out or not in a boolean
 
-/* Runs at the end of each scan loop, check if RGB timeout has occured */
+/* Runs at the end of each scan loop, check if RGB timeout has occurred */
 void housekeeping_task_user(void) {
     if (!is_rgb_timeout && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
         rgblight_disable_noeeprom();
