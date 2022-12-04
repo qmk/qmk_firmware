@@ -1,0 +1,8 @@
+{
+    "manufacturer": "Schnoor Typography",
+    "keyboard_name": "bumwings",
+    "maintainer": "tubbytwins",
+    "bootloader": "rp2040",
+    "processor": "RP2040",
+    "url": "https://github.com/tubbytwins/bumwings-kbd",
+}
