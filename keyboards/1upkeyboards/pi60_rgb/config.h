@@ -6,11 +6,9 @@
 #include "config_common.h"
 
 #define RGB_DI_PIN GP19
-#define DRIVER_LED_TOTAL 61
-#define RGBLED_NUM 61
+#define RGB_MATRIX_LED_COUNT 61
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#define RGBLIGHT_LIMIT_VAL 125
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 125
 // RGB Matrix Animation modes. Explicitly enabled
@@ -67,7 +65,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

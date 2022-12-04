@@ -112,7 +112,7 @@ bool oled_task_keymap(void) {
     };
     oled_write_raw_P(header_image, sizeof(header_image));
     oled_set_cursor(7, 0);
-    oled_write_P(PSTR("Rock On"), true);
+    oled_write_P(PSTR("Dilemma"), true);
 
     render_default_layer_state(1, 1);
     render_layer_state(1, 2);
@@ -157,4 +157,20 @@ bool oled_task_keymap(void) {
 
     return false;
 }
+#endif
+
+
+#ifdef SWAP_HANDS_ENABLE
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    /* Left hand, matrix positions */
+    {{0, 4}, {3, 4}, {2, 4}, {5, 4}, {4, 4}},
+    {{0, 5}, {1, 5}, {2, 5}, {3, 5}, {4, 5}},
+    {{0, 6}, {1, 6}, {2, 6}, {3, 6}, {4, 6}},
+    {{0, 7}, {1, 7}, {2, 7}, {3, 7}, {4, 7}},
+    /* Right hand, matrix positions */
+    {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}},
+    {{0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}},
+    {{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}},
+    {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}},
+    };
 #endif

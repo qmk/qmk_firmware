@@ -43,7 +43,7 @@ static bool saturated_solid_multisplash(effect_params_t* params) {
         RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 #   endif   // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
