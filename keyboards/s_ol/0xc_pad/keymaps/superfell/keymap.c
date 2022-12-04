@@ -15,9 +15,11 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _NUMPAD 0
-#define _CONTROL 1
-#define _ADJUST 2
+enum custom_layers {
+    _NUMPAD,
+    _CONTROL,
+    _ADJUST,
+};
 
 #define RGBLIGHT_TIMEOUT 30000 // 30 seconds
 
