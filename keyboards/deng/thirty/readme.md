@@ -1,6 +1,6 @@
 # Thirty
 
-![Thirty](https://i.imgur.com/4g2fcYO.jpeg)
+![Thirty](https://i.imgur.com/4g2fcYOh.jpeg)
 
 A 3x10 toy with plenty of RGB effects.
 
