@@ -16,7 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
-enum layers {QWERTZ, LOWER, RAISE, FN1};
+enum layers {
+	QWERTZ,
+	LOWER,
+	RAISE,
+	FN1,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

@@ -16,8 +16,5 @@
 
 #pragma once
 
-#define BOOTMAGIC_ENABLE = yes
-#define BOOTMAGIC_KEY_SALT KC_V
-#define BOOTMAGIC_KEY_EEPROM_CLEAR KC_Q
 #define NO_MUSIC_MODE
 #define AUDIO_CLICKY
