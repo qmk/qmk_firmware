@@ -137,7 +137,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTZ:
       if (record->event.pressed) {
-        default_layer_set(L_QWZ);
+        default_layer_set(1UL<<L_QWZ);
         #if defined(AUDIO_ENABLE)
           PLAY_SONG(SONG_QWERTZ);
         #endif
@@ -146,7 +146,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       
     case NEO2:
       if (record->event.pressed) {
-        default_layer_set(L_NEO);
+        default_layer_set(1UL<<L_NEO);
         #if defined(AUDIO_ENABLE)
           PLAY_SONG(SONG_NEO2);
         #endif
