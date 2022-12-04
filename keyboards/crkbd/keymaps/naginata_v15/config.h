@@ -1,7 +1,7 @@
 #pragma once
 
-#undef PRODUCT
-#define PRODUCT   Crkbd Naginata Style V15
+// #undef PRODUCT
+// #define PRODUCT   Crkbd Naginata Style V15
 
 #define MASTER_LEFT
 #define USE_SERIAL_PD2
