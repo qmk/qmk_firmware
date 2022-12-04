@@ -290,7 +290,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 #endif
-            //    case BL_UP:
+            //    case BL_INC:
             //    		meira_inc_backlight_level();
             //    	      return false;
             //    		break;

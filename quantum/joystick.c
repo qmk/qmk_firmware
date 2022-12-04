@@ -1,60 +1,39 @@
-/* Copyright 2022
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 #include "joystick.h"
 
-#include "analog.h"
-#include "wait.h"
-
-joystick_t joystick_state = {
+// clang-format off
+joystick_t joystick_status = {
     .buttons = {0},
-    .axes =
-        {
-#if JOYSTICK_AXIS_COUNT > 0
-            0
+    .axes = {
+#if JOYSTICK_AXES_COUNT > 0
+        0
 #endif
-        },
-    .dirty = false,
+    },
+    .status = 0
 };
+// clang-format on
 
 // array defining the reading of analog values for each axis
-__attribute__((weak)) joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {};
+__attribute__((weak)) joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {};
 
-__attribute__((weak)) void joystick_task(void) {
-    joystick_read_axes();
-}
+// to be implemented in the hid protocol library
+void send_joystick_packet(joystick_t *joystick);
 
 void joystick_flush(void) {
-    if (joystick_state.dirty) {
-        host_joystick_send(&joystick_state);
-        joystick_state.dirty = false;
+    if ((joystick_status.status & JS_UPDATED) > 0) {
+        send_joystick_packet(&joystick_status);
+        joystick_status.status &= ~JS_UPDATED;
     }
 }
 
 void register_joystick_button(uint8_t button) {
-    if (button >= JOYSTICK_BUTTON_COUNT) return;
-    joystick_state.buttons[button / 8] |= 1 << (button % 8);
-    joystick_state.dirty = true;
+    joystick_status.buttons[button / 8] |= 1 << (button % 8);
+    joystick_status.status |= JS_UPDATED;
     joystick_flush();
 }
 
 void unregister_joystick_button(uint8_t button) {
-    if (button >= JOYSTICK_BUTTON_COUNT) return;
-    joystick_state.buttons[button / 8] &= ~(1 << (button % 8));
-    joystick_state.dirty = true;
+    joystick_status.buttons[button / 8] &= ~(1 << (button % 8));
+    joystick_status.status |= JS_UPDATED;
     joystick_flush();
 }
 

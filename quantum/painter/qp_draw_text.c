@@ -36,10 +36,10 @@ typedef struct qff_font_handle_t {
 static qff_font_handle_t font_descriptors[QUANTUM_PAINTER_NUM_FONTS] = {0};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Helper: load font from stream
+// Quantum Painter External API: qp_load_font_mem
 
-static painter_font_handle_t qp_load_font_internal(bool (*stream_factory)(qff_font_handle_t *font, void *arg), void *arg) {
-    qp_dprintf("qp_load_font: entry\n");
+painter_font_handle_t qp_load_font_mem(const void *buffer) {
+    qp_dprintf("qp_load_font_mem: entry\n");
     qff_font_handle_t *font = NULL;
 
     // Find a free slot
@@ -52,18 +52,20 @@ static painter_font_handle_t qp_load_font_internal(bool (*stream_factory)(qff_fo
 
     // Drop out if not found
     if (!font) {
-        qp_dprintf("qp_load_font: fail (no free slot)\n");
+        qp_dprintf("qp_load_font_mem: fail (no free slot)\n");
         return NULL;
     }
 
-    if (!stream_factory(font, arg)) {
-        qp_dprintf("qp_load_font: fail (could not create stream)\n");
-        return NULL;
-    }
+    // Assume we can read the graphics descriptor
+    font->mem_stream = qp_make_memory_stream((void *)buffer, sizeof(qff_font_descriptor_v1_t));
+
+    // Update the length of the stream to match, and rewind to the start
+    font->mem_stream.length   = qff_get_total_size(&font->stream);
+    font->mem_stream.position = 0;
 
     // Now that we know the length, validate the input data
     if (!qff_validate_stream(&font->stream)) {
-        qp_dprintf("qp_load_font: fail (failed validation)\n");
+        qp_dprintf("qp_load_font_mem: fail (failed validation)\n");
         return NULL;
     }
 
@@ -74,12 +76,12 @@ static painter_font_handle_t qp_load_font_internal(bool (*stream_factory)(qff_fo
 
     void *ram_buffer = malloc(font->mem_stream.length);
     if (ram_buffer == NULL) {
-        qp_dprintf("qp_load_font: could not allocate enough RAM for font, falling back to original\n");
+        qp_dprintf("qp_load_font_mem: could not allocate enough RAM for font, falling back to original\n");
     } else {
         do {
             // Copy the data into RAM
             if (qp_stream_read(ram_buffer, 1, font->mem_stream.length, &font->mem_stream) != font->mem_stream.length) {
-                qp_dprintf("qp_load_font: could not copy from flash to RAM, falling back to original\n");
+                qp_dprintf("qp_load_font_mem: could not copy from flash to RAM, falling back to original\n");
                 break;
             }
 
@@ -107,28 +109,8 @@ static painter_font_handle_t qp_load_font_internal(bool (*stream_factory)(qff_fo
 
     // Validation success, we can return the handle
     font->validate_ok = true;
-    qp_dprintf("qp_load_font: ok\n");
+    qp_dprintf("qp_load_font_mem: ok\n");
     return (painter_font_handle_t)font;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Quantum Painter External API: qp_load_font_mem
-
-static inline bool font_mem_stream_factory(qff_font_handle_t *font, void *arg) {
-    void *buffer = arg;
-
-    // Assume we can read the graphics descriptor
-    font->mem_stream = qp_make_memory_stream(buffer, sizeof(qff_font_descriptor_v1_t));
-
-    // Update the length of the stream to match, and rewind to the start
-    font->mem_stream.length   = qff_get_total_size(&font->stream);
-    font->mem_stream.position = 0;
-
-    return true;
-}
-
-painter_font_handle_t qp_load_font_mem(const void *buffer) {
-    return qp_load_font_internal(font_mem_stream_factory, (void *)buffer);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,7 +133,6 @@ bool qp_close_font(painter_font_handle_t font) {
 #endif // QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
 
     // Free up this font for use elsewhere.
-    qp_stream_close(&qff_font->stream);
     qff_font->validate_ok = false;
     return true;
 }

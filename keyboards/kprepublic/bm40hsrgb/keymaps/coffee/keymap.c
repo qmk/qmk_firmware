@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
     [_SUB] = LAYOUT_planck_mit(
         KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_DEL,
         XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_MINS, KC_EQL , KC_LBRC, KC_RBRC, KC_PGUP,
-        _______, KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX, KC_HOME, KC_END , KC_BSLS, KC_PGDN,
+        _______, KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, KC_PGDN,
         _______, _______, XXXXXXX, _______, _______,      _______    , _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_CTR] = LAYOUT_planck_mit(
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
 #define LAYER (get_highest_layer(layer_state))
 #define LAYER_SIZE (MATRIX_ROWS * MATRIX_COLS)
 #define CHECK_LED() \
-    if ((i >= RGB_MATRIX_LED_COUNT) \
+    if ((i >= DRIVER_LED_TOTAL) \
     || ((g_led_config.flags[pos] == LED_FLAG_NONE) || (g_led_config.flags[pos] == LED_FLAG_UNDERGLOW))) \
         continue
 
@@ -95,8 +95,8 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
 
     #ifdef UNDERGLOW_DISABLE
     void keyboard_pre_init_user(void) {
-
-        for (int key_id = 0; key_id < RGB_MATRIX_LED_COUNT; key_id++ ) {
+        
+        for (int key_id = 0; key_id < DRIVER_LED_TOTAL; key_id++ ) {
             if (g_led_config.flags[key_id] == LED_FLAG_UNDERGLOW) {
                 g_led_config.flags[key_id] = LED_FLAG_NONE;
             }
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
     }
     #endif
 
-    bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         if (LAYER != _MAIN) {
 
             int DimmedMax = UINT8_MAX - (UINT8_MAX - rgb_matrix_config.hsv.v);
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
             for (uint8_t i = led_min; i <= led_max; i++) {
 
                 uint8_t pos = ((uint8_t*)g_led_config.matrix_co)[i];
-
+                
                 CHECK_LED(); // Check LED before moving on
                 uint16_t KC = pgm_read_word(&((uint16_t*)keymaps)[(LAYER_SIZE * LAYER) + i]);
 
@@ -134,7 +134,6 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
 
             }
         }
-    return false;
     }
 #endif
 

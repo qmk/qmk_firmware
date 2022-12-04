@@ -4,7 +4,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     switch (layer) {
         case DVORAK:
-            rgblight_sethsv_noeeprom(GREEN);
+            rgblight_sethsv_noeeprom_green();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 
             if (PLOVER_MODE) {
@@ -15,7 +15,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case PLOVER:
-            rgblight_sethsv_noeeprom(HSV_RED);
+            rgblight_sethsv_noeeprom_red();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
 
             if (!(PLOVER_MODE)) {
@@ -26,7 +26,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case GAMING:
-            rgblight_sethsv_noeeprom(HSV_RED);
+            rgblight_sethsv_noeeprom_red();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 
             if (PLOVER_MODE) {
@@ -37,7 +37,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case ARROWS:
-            rgblight_sethsv_noeeprom(HSV_BLUE);
+            rgblight_sethsv_noeeprom_blue();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 
             if (PLOVER_MODE) {
@@ -48,7 +48,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case MOUSE:
-            rgblight_sethsv_noeeprom(HSV_BLUE);
+            rgblight_sethsv_noeeprom_blue();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 
             if (PLOVER_MODE) {
@@ -59,7 +59,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case NUMPAD:
-            rgblight_sethsv_noeeprom(HSV_BLUE);
+            rgblight_sethsv_noeeprom_blue();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 
             if (PLOVER_MODE) {
@@ -70,7 +70,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case LAYERS:
-            rgblight_sethsv_noeeprom(HSV_CYAN);
+            rgblight_sethsv_noeeprom_cyan();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 
             if (PLOVER_MODE) {
@@ -81,7 +81,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case MEDIA_FN:
-            rgblight_sethsv_noeeprom(HSV_YELLOW);
+            rgblight_sethsv_noeeprom_yellow();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 
             if (PLOVER_MODE) {
@@ -92,7 +92,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case CHORD:
-            rgblight_sethsv_noeeprom(HSV_MAGENTA);
+            rgblight_sethsv_noeeprom_magenta();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 
             if (PLOVER_MODE) {
@@ -103,7 +103,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case FIRMWARE:
-            rgblight_sethsv_noeeprom(HSV_MAGENTA);
+            rgblight_sethsv_noeeprom_magenta();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 
             if (PLOVER_MODE) {

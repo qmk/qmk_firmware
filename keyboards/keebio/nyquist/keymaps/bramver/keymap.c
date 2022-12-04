@@ -241,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user(void) {
-  set_unicode_input_mode(UNICODE_MODE_LINUX);
+  set_unicode_input_mode(UC_LNX);
 };
 
 
@@ -250,16 +250,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
       case CTRL_Z:
-        SEND_STRING(SS_LCTL("z"));
+        SEND_STRING(SS_LCTRL("z"));
         return false;
       case CTRL_X:
-        SEND_STRING(SS_LCTL("x"));
+        SEND_STRING(SS_LCTRL("x"));
         return false;
       case CTRL_C:
-        SEND_STRING(SS_LCTL("c"));
+        SEND_STRING(SS_LCTRL("c"));
         return false;
       case CTRL_V:
-        SEND_STRING(SS_LCTL("v"));
+        SEND_STRING(SS_LCTRL("v"));
         return false;
     }
   }

@@ -8,7 +8,7 @@
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -63,5 +63,5 @@
 #    define DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 35
 #    define DRIVER_2_LED_TOTAL 32
-#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 #endif

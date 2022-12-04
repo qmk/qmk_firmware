@@ -2,13 +2,14 @@
 
 You can compile a keymap already in the repo or using a QMK Configurator export.
 """
-from argcomplete.completers import FilesCompleter
+from subprocess import DEVNULL
 
+from argcomplete.completers import FilesCompleter
 from milc import cli
 
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json, build_environment
+from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer, locate_keymap
 
@@ -40,16 +41,27 @@ def compile(cli):
 
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
+    if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
+        if cli.config.compile.keyboard and cli.config.compile.keymap:
+            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
+            cli.run(command, capture_output=False, stdin=DEVNULL)
+
     # Build the environment vars
-    envs = build_environment(cli.args.env)
+    envs = {}
+    for env in cli.args.env:
+        if '=' in env:
+            key, value = env.split('=', 1)
+            envs[key] = value
+        else:
+            cli.log.warning('Invalid environment variable: %s', env)
 
     # Determine the compile command
-    commands = []
+    command = None
 
     if cli.args.filename:
         # If a configurator JSON was provided generate a keymap and compile it
         user_keymap = parse_configurator_json(cli.args.filename)
-        commands = [compile_configurator_json(user_keymap, parallel=cli.config.compile.parallel, clean=cli.args.clean, **envs)]
+        command = compile_configurator_json(user_keymap, parallel=cli.config.compile.parallel, **envs)
 
     elif cli.config.compile.keyboard and cli.config.compile.keymap:
         # Generate the make command for a specific keyboard/keymap.
@@ -62,15 +74,21 @@ def compile(cli):
             commands.append(create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean', **envs))
         commands.append(create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, parallel=cli.config.compile.parallel, **envs))
 
-    if not commands:
-        cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
-        cli.print_help()
-        return False
+        elif not cli.config.compile.keyboard:
+            cli.log.error('Could not determine keyboard!')
+        elif not cli.config.compile.keymap:
+            cli.log.error('Could not determine keymap!')
 
-    cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(commands[-1]))
-    if not cli.args.dry_run:
-        cli.echo('\n')
-        for command in commands:
-            ret = cli.run(command, capture_output=False)
-            if ret.returncode:
-                return ret.returncode
+    # Compile the firmware, if we're able to
+    if command:
+        cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
+        if not cli.args.dry_run:
+            cli.echo('\n')
+            # FIXME(skullydazed/anyone): Remove text=False once milc 1.0.11 has had enough time to be installed everywhere.
+            compile = cli.run(command, capture_output=False, text=False)
+            return compile.returncode
+
+    else:
+        cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
+        cli.echo('usage: qmk compile [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [filename]')
+        return False

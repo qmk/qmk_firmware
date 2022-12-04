@@ -43,10 +43,10 @@ void matrix_scan_user(void){
             // Reset moving to 0 so that we don't get multiple attempts to do this
             int num_ticks = ((float)pot_val/max_pot_val)*max_ticks;
             for (int i = 0; i<max_ticks;++i){
-                tap_code(KC_VOLD);
+                tap_code(KC__VOLDOWN);
             }
             for (int i = 0; i<num_ticks;++i){
-                tap_code(KC_VOLU);
+                tap_code(KC__VOLUP);
             }
             moving = false;
         }

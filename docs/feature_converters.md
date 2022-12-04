@@ -56,23 +56,6 @@ Once a converter is enabled, it exposes the `CONVERT_TO_<target_uppercase>` flag
 #endif
 ```
 
-### Pin Compatibility
-
-To ensure compatibility, provide validation, and power future workflows, a keyboard should declare its `pin compatibility`. For legacy reasons, this is currently assumed to be `promicro`.
-
-Currently the following pin compatibility interfaces are defined:
-
-| Pinout     | Notes                             |
-|------------|-----------------------------------|
-| `promicro` | Includes RX/TX LEDs               |
-| `elite_c`  | Includes bottom row pins, no LEDs |
-
-To declare the base for conversions, add this line to your keyboard's `rules.mk`:
-
-```makefile
-PIN_COMPATIBLE = elite_c
-```
-
 ## Pro Micro
 
 If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.com/products/12640) (or compatible board), the supported alternative controllers are:
@@ -137,7 +120,7 @@ The following defaults are based on what has been implemented for [RP2040](platf
 
 ### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi :id=promicro_rp2040 
 
-Currently identical to [Adafruit KB2040](#kb2040).
+Currently identical to  [Adafruit KB2040](#kb2040).
 
 ### STeMCell :id=stemcell
 

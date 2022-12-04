@@ -59,11 +59,11 @@ user_config_t user_config;
 #define NAV_0 LT(_NAV, KC_0)
 #define TAB_NUM LT(_NUMPAD, KC_TAB)
 
-#define EXT_SF LT(_GAMING_EXT, KC_LSFT)
+#define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
 
 // Tap/mod keys
-#define RCTL_BR RCTL_T(KC_RBRC)
-#define LCTL_BR LCTL_T(KC_LBRC)
+#define RCTL_BR RCTL_T(KC_RBRACKET)
+#define LCTL_BR LCTL_T(KC_LBRACKET)
 
 #define SFT_SPC LSFT_T(KC_SPACE)
 #define SFT_ENT RSFT_T(KC_ENTER)
@@ -76,8 +76,8 @@ user_config_t user_config;
 #define WIN_CLS LALT(KC_F4)
 
 // CTRL become parens keys on NAV and NUM layers
-#define LCT_PRN SC_LCPO
-#define RCT_PRN SC_RCPC
+#define LCT_PRN KC_LCPO
+#define RCT_PRN KC_RCPC
 
 // €
 #define KC_EUR ALGR(KC_5)
@@ -324,7 +324,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
     }
 
     RGB rgb = hsv_to_rgb(hsv);
-    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
@@ -342,7 +342,7 @@ void check_default_layer(uint8_t type) {
     }
 }
 
-bool rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_user(void) {
   if (
     user_config.rgb_layer_change && rgb_matrix_config.enable &&
       (!user_config.rgb_matrix_idle_anim || rgb_matrix_get_mode() != user_config.rgb_matrix_idle_mode)
@@ -370,7 +370,6 @@ bool rgb_matrix_indicators_user(void) {
             }
         }
     }
-    return false;
 }
 
 void rgb_matrix_update_current_mode(uint8_t mode, uint8_t speed) {

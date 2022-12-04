@@ -1,0 +1,4 @@
+*.bmp
+splitImages
+templates
+!.gitignore

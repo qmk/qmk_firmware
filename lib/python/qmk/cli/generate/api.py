@@ -94,14 +94,13 @@ def generate_api(cli):
     keyboard_list_file = v1_dir / 'keyboard_list.json'  # A simple list of keyboard targets
     keyboard_aliases_file = v1_dir / 'keyboard_aliases.json'  # A list of historical keyboard names and their new name
     keyboard_metadata_file = v1_dir / 'keyboard_metadata.json'  # All the data configurator/via needs for initialization
-    constants_metadata_file = v1_dir / 'constants_metadata.json'  # Metadata for available constants
     usb_file = v1_dir / 'usb.json'  # A mapping of USB VID/PID -> keyboard target
 
     if BUILD_API_PATH.exists():
         shutil.rmtree(BUILD_API_PATH)
 
     shutil.copytree(TEMPLATE_PATH, BUILD_API_PATH)
-    shutil.copytree(DATA_PATH, v1_dir, copy_function=_filtered_copy)
+    shutil.copytree(DATA_PATH, v1_dir)
 
     # Filter down when required
     keyboard_list = _filtered_keyboard_list()
@@ -161,7 +160,7 @@ def generate_api(cli):
 
     # Generate data for the global files
     keyboard_list = sorted(kb_all)
-    keyboard_aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    keyboard_aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
     keyboard_metadata = {
         'last_updated': current_datetime(),
         'keyboards': keyboard_list,
@@ -169,16 +168,12 @@ def generate_api(cli):
         'usb': usb_list,
     }
 
-    # Feature specific handling
-    _resolve_keycode_specs(v1_dir)
-
     # Write the global JSON files
     keyboard_all_json = json.dumps({'last_updated': current_datetime(), 'keyboards': kb_all}, cls=InfoJSONEncoder)
     usb_json = json.dumps({'last_updated': current_datetime(), 'usb': usb_list}, cls=InfoJSONEncoder)
     keyboard_list_json = json.dumps({'last_updated': current_datetime(), 'keyboards': keyboard_list}, cls=InfoJSONEncoder)
     keyboard_aliases_json = json.dumps({'last_updated': current_datetime(), 'keyboard_aliases': keyboard_aliases}, cls=InfoJSONEncoder)
     keyboard_metadata_json = json.dumps(keyboard_metadata, cls=InfoJSONEncoder)
-    constants_metadata_json = json.dumps({'last_updated': current_datetime(), 'constants': _list_constants(v1_dir)})
 
     if not cli.args.dry_run:
         keyboard_all_file.write_text(keyboard_all_json, encoding='utf-8')

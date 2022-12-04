@@ -144,7 +144,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (user_config.top_rgb_change)
     {
@@ -169,5 +169,4 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
         }
     }
-    return false;
 }

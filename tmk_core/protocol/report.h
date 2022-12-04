@@ -228,30 +228,26 @@ typedef struct {
 #ifdef DIGITIZER_SHARED_EP
     uint8_t report_id;
 #endif
-    bool     in_range : 1;
-    bool     tip : 1;
-    bool     barrel : 1;
-    uint8_t  reserved : 5;
+    uint8_t  tip : 1;
+    uint8_t  inrange : 1;
+    uint8_t  pad2 : 6;
     uint16_t x;
     uint16_t y;
 } __attribute__((packed)) report_digitizer_t;
 
 typedef struct {
-#ifdef JOYSTICK_SHARED_EP
-    uint8_t report_id;
-#endif
-#if JOYSTICK_AXIS_COUNT > 0
-#    if JOYSTICK_AXIS_RESOLUTION > 8
-    int16_t axes[JOYSTICK_AXIS_COUNT];
+#if JOYSTICK_AXES_COUNT > 0
+#    if JOYSTICK_AXES_RESOLUTION > 8
+    int16_t axes[JOYSTICK_AXES_COUNT];
 #    else
-    int8_t axes[JOYSTICK_AXIS_COUNT];
+    int8_t axes[JOYSTICK_AXES_COUNT];
 #    endif
 #endif
 
 #if JOYSTICK_BUTTON_COUNT > 0
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif
-} __attribute__((packed)) report_joystick_t;
+} __attribute__((packed)) joystick_report_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
@@ -298,10 +294,6 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
             return AL_CALCULATOR;
         case KC_MY_COMPUTER:
             return AL_LOCAL_BROWSER;
-        case KC_CONTROL_PANEL:
-            return AL_CONTROL_PANEL;
-        case KC_ASSISTANT:
-            return AL_ASSISTANT;
         case KC_WWW_SEARCH:
             return AC_SEARCH;
         case KC_WWW_HOME:

@@ -137,7 +137,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static bool shifted = false;
   static bool magic = false;
 
-  if (keycode == KC_LSFT || keycode == KC_RSFT) {
+  if (keycode == KC_LSHIFT || keycode == KC_RSHIFT) {
     shifted = record->event.pressed;
   } else if (keycode == MAGIC) {
     magic = record->event.pressed;
@@ -161,7 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void eeconfig_init_user(void) {
-  set_unicode_input_mode(UNICODE_MODE_MACOS);
+  set_unicode_input_mode(UC_OSX);
 }
 
 void matrix_init_user(void) {

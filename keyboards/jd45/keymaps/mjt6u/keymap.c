@@ -91,7 +91,7 @@ static bool singular_key = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-    uint16_t macro_kc = (keycode == MO(_ADJUST) ? DM_RSTP : keycode);
+    uint16_t macro_kc = (keycode == MO(_ADJUST) ? DYN_REC_STOP : keycode);
     if (!process_record_dynamic_macro(macro_kc, record))
     {
         return false;
@@ -104,11 +104,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case MACSLEEP:
         if (record->event.pressed)
         {
-            // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_PWR);
+            // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_POWER);
             register_code(KC_RSFT);
             register_code(KC_RCTL);
-            register_code(KC_PWR);
-            unregister_code(KC_PWR);
+            register_code(KC_POWER);
+            unregister_code(KC_POWER);
             unregister_code(KC_RCTL);
             unregister_code(KC_RSFT);
         }

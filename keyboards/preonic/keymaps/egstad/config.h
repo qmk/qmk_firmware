@@ -35,22 +35,22 @@
 // #define NO_AUTO_SHIFT_ALPHA
 
 // Lower the Auto Shift timeout variable (down)
-// AS_DOWN
+// KC_ASDN	  
 
 // Raise the Auto Shift timeout variable (up)
-// AS_UP
+// KC_ASUP	  
 
 // Report your current Auto Shift timeout value
-// AS_RPT
+// KC_ASRP	  
 
 // Turns on the Auto Shift Function
-// AS_ON
+// KC_ASON	  
 
 // Turns off the Auto Shift Function
-// AS_OFF
+// KC_ASOFF	 
 
 // Toggles the state of the Auto Shift feature
-// AS_TOGG
+// KC_ASTG	  
 
 
 #ifdef AUDIO_ENABLE

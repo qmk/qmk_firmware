@@ -37,7 +37,7 @@ enum custom_keycodes {
 
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_ALAP  LALT_T(KC_APP)
-#define KC_ROSF  RSFT_T(KC_INT1)
+#define KC_ROSF  RSFT_T(KC_RO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_base(
@@ -205,12 +205,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KANJI:
       if (record->event.pressed) {
         if (keymap_config.swap_lalt_lgui == false) {
-          register_code(KC_LNG2);
+          register_code(KC_LANG2);
         } else {
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LNG2);
+        unregister_code(KC_LANG2);
       }
       break;
     #ifdef RGBLIGHT_ENABLE

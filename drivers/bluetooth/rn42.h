@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdint.h>
-
 #include "report.h"
 
 void rn42_init(void);
@@ -24,4 +22,4 @@ void rn42_send_keyboard(report_keyboard_t *report);
 
 void rn42_send_mouse(report_mouse_t *report);
 
-void rn42_send_consumer(uint16_t usage);
+void rn42_send_consumer(uint16_t data);

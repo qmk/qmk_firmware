@@ -32,10 +32,7 @@ led_config_t g_led_config = {{
     LED_FLAG_INDICATOR, LED_FLAG_INDICATOR
 }};
 
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-        return false;
-    }
+void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!host_keyboard_led_state().caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 0);
     }
@@ -43,5 +40,5 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(1, 0, 0, 0);
     }
 
-    return true;
+    rgb_matrix_indicators_advanced_user(led_min, led_max);
 }

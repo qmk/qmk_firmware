@@ -67,13 +67,13 @@ void set_os(uint8_t os) {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
   switch (os) {
   case _OS_MACOS:
-    set_unicode_input_mode(UNICODE_MODE_MACOS);
+    set_unicode_input_mode(UC_OSX);
     break;
   case _OS_LINUX:
-    set_unicode_input_mode(UNICODE_MODE_LINUX);
+    set_unicode_input_mode(UC_LNX);
     break;
   case _OS_WINDOWS:
-    set_unicode_input_mode(UNICODE_MODE_WINDOWS);
+    set_unicode_input_mode(UC_WIN);
     break;
   }
 #endif
@@ -165,7 +165,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTL("x"));
+        SEND_STRING(SS_LCTRL("x"));
       break;
     }
     break;
@@ -183,7 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTL("c"));
+        SEND_STRING(SS_LCTRL("c"));
       break;
     }
     break;
@@ -201,7 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTL("v"));
+        SEND_STRING(SS_LCTRL("v"));
       break;
     }
     break;
@@ -219,7 +219,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTL("z"));
+        SEND_STRING(SS_LCTRL("z"));
       break;
     }
     break;
@@ -237,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     default:
       if (pressed)
-        SEND_STRING(SS_LCTL(SS_LSFT("z")));
+        SEND_STRING(SS_LCTRL(SS_LSFT("z")));
       break;
     }
     break;
@@ -246,7 +246,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (os_target) {
     case _OS_MACOS:
       if (pressed)
-        SEND_STRING(SS_LGUI(SS_LCTL("q")));
+        SEND_STRING(SS_LGUI(SS_LCTRL("q")));
       break;
     case _OS_LINUX:
       pressed ?

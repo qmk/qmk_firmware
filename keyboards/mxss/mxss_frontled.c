@@ -36,7 +36,7 @@ __attribute__ ((weak))
 hs_set caps_color;
 
 __attribute__ ((weak))
-size_t lc_size = ARRAY_SIZE(layer_colors);
+size_t lc_size = sizeof(layer_colors) / sizeof(hs_set);
 
 void fled_init(void) {
     // This checks both an EEPROM reset (from bootmagic lite, keycodes)

@@ -75,13 +75,13 @@ void switch_mode(uint8_t mode) {
 #ifdef UNICODEMAP_ENABLE
     switch (mode) {
         case MAC_UNI:
-            set_unicode_input_mode(UNICODE_MODE_MACOS);
+            set_unicode_input_mode(UC_MAC);
             break;
         case WINDOWS_UNI:
-            set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
+            set_unicode_input_mode(UC_WINC);
             break;
         case LINUX_UNI:
-            set_unicode_input_mode(UNICODE_MODE_LINUX);
+            set_unicode_input_mode(UC_LNX);
             break;
     }
 #endif

@@ -7,7 +7,7 @@ RGB_MATRIX_EFFECT(PIXEL_FLOW)
 
 static bool PIXEL_FLOW(effect_params_t* params) {
     // LED state array
-    static RGB led[RGB_MATRIX_LED_COUNT];
+    static RGB led[DRIVER_LED_TOTAL];
 
     static uint32_t wait_timer = 0;
     if (wait_timer > g_rgb_timer) {

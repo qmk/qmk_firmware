@@ -68,7 +68,7 @@ void add_keylog(uint16_t keycode) {
         keycode = 0;
     }
 
-    if (keycode < ARRAY_SIZE(code_to_name)) {
+    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
         char log_char = pgm_read_byte(&code_to_name[keycode]);
 
         for (uint8_t j = 0; j < OLED_FONT_WIDTH; j++) {

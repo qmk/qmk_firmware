@@ -56,6 +56,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(CUSTOM_POINTING_DEVICE)
           && process_record_pointing(keycode, record)
 #endif
+#ifdef AUTOCORRECTION_ENABLE
+          && process_autocorrection(keycode, record)
+#endif
           && true)) {
         return false;
     }

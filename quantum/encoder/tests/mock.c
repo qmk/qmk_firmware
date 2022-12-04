@@ -34,7 +34,3 @@ bool setPin(pin_t pin, bool val) {
     pins[pin] = val;
     return val;
 }
-
-__attribute__((weak)) bool is_keyboard_master(void) {
-    return true;
-}

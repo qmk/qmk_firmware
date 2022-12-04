@@ -129,7 +129,8 @@ static uint8_t COLOR_PATTERNS[][COLOR_PATTERN_RGB_COUNT][3] = {
         { 66,  66,  66}, { 45,  45,  45}, { 23,  23,  23},
     },
 };
-static const uint8_t COLOR_PATTERNS_COUNT = ARRAY_SIZE(COLOR_PATTERNS);
+static const uint8_t COLOR_PATTERNS_COUNT = (
+        sizeof(COLOR_PATTERNS) / sizeof(COLOR_PATTERNS[0]));
 
 /**
  * trimed down version of `ISSI3733_LED_MAP`:
@@ -383,8 +384,8 @@ void matrix_scan_user(void) {
 };
 
 
-#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT))
-#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTL))
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 
 void register_keystroke(uint16_t keycode){

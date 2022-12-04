@@ -163,8 +163,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_RSFT:   return special_mods(KC_CAPS, record, KC_LSFT);  // Both shifts together -> Caps Lock    // LSFT  pressed first case
     #endif
     #ifdef APP_IS_RALT_RCTRL
-    case KC_RCTL:   return special_mods(KC_APP,  record, KC_RALT);  // RALT + RCTRL -> APP                  // RCTRL pressed first case
-    case KC_RALT:   return special_mods(KC_APP,  record, KC_RCTL);  // RALT + RCTRL -> APP                  // RALT  pressed first case
+    case KC_RCTRL:  return special_mods(KC_APP,  record, KC_RALT);  // RALT + RCTRL -> APP                  // RCTRL pressed first case
+    case KC_RALT:   return special_mods(KC_APP,  record, KC_RCTRL); // RALT + RCTRL -> APP                  // RALT  pressed first case
     #endif
     #ifdef ALT_MINSEQL_IS_ALT_78
     case KC_MINS:  return special_mods(KC_7,  record, KC_RALT); // RALT + MINS -> RALT+7                  // {} in CAN Mult. softawre layout

@@ -1,6 +1,11 @@
 #pragma once
 
 #include "edvorakjp.h"
+/*
+ * enum custom_keycodes {
+ *   KC_LOCK = NEW_SAFE_RANGE,
+ * };
+ */
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 

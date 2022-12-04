@@ -237,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SHFT_CAP:
         if(record->event.pressed){
             key_timer = timer_read();               // if the key is being pressed, we start the timer.
-            register_code(KC_LSFT);
+            register_code(KC_LSHIFT);
         } else {                                    // this means the key was just released (tap or "held down")
             if(timer_elapsed(key_timer) < 152){     // Time in ms, the threshold we pick for counting something as a tap.
                 tap(KC_CAPS);
@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     #endif
                 }
             }
-            unregister_code(KC_LSFT);
+            unregister_code(KC_LSHIFT);
         }
         return false;
         break;
@@ -301,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef UNICODE_ENABLE
     case UNIWIN:
         if(record->event.pressed){
-            set_unicode_input_mode(UNICODE_MODE_WINDOWS);
+            set_unicode_input_mode(UC_WIN);
             #ifdef AUDIO_ENABLE
               PLAY_SONG(uniwin);
             #endif
@@ -310,7 +310,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case UNILIN:
         if(record->event.pressed){
-            set_unicode_input_mode(UNICODE_MODE_LINUX);
+            set_unicode_input_mode(UC_LNX);
             #ifdef AUDIO_ENABLE
               PLAY_SONG(unilin);
             #endif

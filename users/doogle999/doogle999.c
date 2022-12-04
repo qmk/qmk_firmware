@@ -391,9 +391,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
 		if(numpadKeyPressed && !(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)))
 		{
-			add_key(KC_NUM_LOCK);
+			add_key(KC_NLCK);
 			send_keyboard_report();
-			del_key(KC_NUM_LOCK);
+			del_key(KC_NLCK);
 		}
 	}
 

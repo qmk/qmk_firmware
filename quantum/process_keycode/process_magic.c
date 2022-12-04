@@ -142,20 +142,13 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
                     if (keymap_config.swap_ralt_rgui) {
                         PLAY_SONG(ag_swap_song);
-                    } else {
-                        PLAY_SONG(ag_norm_song);
-                    }
 #endif
                     break;
                 case QK_MAGIC_TOGGLE_CTL_GUI:
                     keymap_config.swap_lctl_lgui = !keymap_config.swap_lctl_lgui;
                     keymap_config.swap_rctl_rgui = keymap_config.swap_lctl_lgui;
 #ifdef AUDIO_ENABLE
-                    if (keymap_config.swap_rctl_rgui) {
                         PLAY_SONG(cg_swap_song);
-                    } else {
-                        PLAY_SONG(cg_norm_song);
-                    }
 #endif
                     break;
                 case QK_MAGIC_TOGGLE_BACKSLASH_BACKSPACE:
@@ -182,10 +175,10 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                     break;
             }
 
-            eeconfig_update_keymap(keymap_config.raw);
-            clear_keyboard(); // clear to prevent stuck keys
+                eeconfig_update_keymap(keymap_config.raw);
+                clear_keyboard(); // clear to prevent stuck keys
 
-            return false;
+                return false;
         }
     }
 

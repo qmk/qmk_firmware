@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-//KC_NUBS (\|) is equivalent to ["é] key in Turkish keyboards.
+//KC_NONUS_BSLASH (\|) is equivalent to ["é] key in Turkish keyboards.
 //KC_GRV (~ `) is equivalent to [<>|] key in Turkish keyboards.
 //I've put grave to bottom, and nonUS backslash to top to make it more similar to Turkish layout.  ["é] key is more above than [<>|] key.
 //Default top right button was KC_GRV (~ `) (Grave key) even if it looks like Tilde key.

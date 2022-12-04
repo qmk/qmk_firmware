@@ -1,9 +1,9 @@
 {
-    "manufacturer": "Bastard Keyboards",
     "url": "https://bastardkb.com/charybdis",
+    "manufacturer": "Bastard Keyboards",
     "usb": {
+        "vid": "0xA8F8",
         "pid": "0x1833",
-        "vid": "0xA8F8"
     },
     "layout_aliases": {
         "LAYOUT_charybdis_4x6": "LAYOUT"

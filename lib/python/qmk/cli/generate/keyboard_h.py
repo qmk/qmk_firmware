@@ -1,18 +1,16 @@
 """Used by the make system to generate keyboard.h from info.json.
 """
-from pathlib import Path
-
 from milc import cli
 
-from qmk.path import normpath
 from qmk.info import info_json
 from qmk.commands import dump_lines
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.constants import COL_LETTERS, ROW_LETTERS, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
+from qmk.path import normpath
+from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
-def _generate_layouts(keyboard):
-    """Generates the layouts.h file.
+def would_populate_layout_h(keyboard):
+    """Detect if a given keyboard is doing data driven layouts
     """
     # Build the info.json file
     kb_info_json = info_json(keyboard)
@@ -65,7 +63,6 @@ def _generate_layouts(keyboard):
     return lines
 
 
-@cli.argument('-i', '--include', nargs='?', arg_only=True, help='Optional file to include')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, required=True, help='Keyboard to generate keyboard.h for.')
@@ -73,23 +70,13 @@ def _generate_layouts(keyboard):
 def generate_keyboard_h(cli):
     """Generates the keyboard.h file.
     """
-    keyboard_h = cli.args.include
-    dd_layouts = _generate_layouts(cli.args.keyboard)
-    valid_config = dd_layouts or keyboard_h
+    has_layout_h = would_populate_layout_h(cli.args.keyboard)
 
     # Build the layouts.h file.
     keyboard_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "quantum.h"']
 
-    keyboard_h_lines.append('')
-    keyboard_h_lines.append('// Layout content')
-    if dd_layouts:
-        keyboard_h_lines.extend(dd_layouts)
-    if keyboard_h:
-        keyboard_h_lines.append(f'#include "{Path(keyboard_h).name}"')
-
-    # Protect against poorly configured keyboards
-    if not valid_config:
-        keyboard_h_lines.append('#error("<keyboard>.h is required unless your keyboard uses data-driven configuration. Please rename your keyboard\'s header file to <keyboard>.h")')
+    if not has_layout_h:
+        keyboard_h_lines.append('#error("<keyboard>.h is only optional for data driven keyboards - kb.h == bad times")')
 
     # Show the results
     dump_lines(cli.args.output, keyboard_h_lines, cli.args.quiet)

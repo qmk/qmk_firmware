@@ -29,7 +29,7 @@ enum custom_keycodes {
 taphold_t taphold_config[TAPHOLD_CONFIG_SIZE] = {
     {.key=KC_ALPHA, .mode=TAPHOLD_LAYER, .shortAction=KC_ESC, .longAction=_ALPHA},
     {.key=KC_BETA, .mode=TAPHOLD_LAYER, .shortAction=KC_EQL, .longAction=_BETA},
-    {.key=KC_RCTL, .mode=TAPHOLD_MOD, .shortAction=KC_MINS, .longAction=KC_LCTL},
+    {.key=KC_RCTRL, .mode=TAPHOLD_MOD, .shortAction=KC_MINS, .longAction=KC_LCTRL},
 };
 uint16_t taphold_config_size = TAPHOLD_CONFIG_SIZE;
 uint32_t taphold_timeout = 90;
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃L_MOD┃ F1  │ F2  │ F3  │ F4  │ F5  ┃ F6  │ F7  │ F8  │ F9  │ F10 ┃ F11 ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
-       ┃     ┃Boot │Debug│     │     │TIME ┃SLEEP│ SEQ │  {  │  }  │PTSCR┃     ┃
+       ┃     ┃QK_BOOT│DEBUG│     │     │TIME ┃SLEEP│ SEQ │  {  │  }  │PTSCR┃     ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃     ┃     │     │     │     │     ┃     │     │     │     │     ┃     ┃
        ┗━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┛
@@ -133,7 +133,7 @@ void keyboard_post_init_user(void) {
 }
 
 void eeconfig_init_user(void) {
-    set_unicode_input_mode(UNICODE_MODE_LINUX);
+    set_unicode_input_mode(UC_LNX);
 }
 
 void matrix_init_user(void) {
@@ -185,13 +185,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         (new_time[4]) * 10 + (new_time[5])
                 );
                 for (int i = 0; i < 6; i++) {
-                    tap_code(KC_BACKSPACE);
+                    tap_code(KC_BSPACE);
                 }
             }
         }
     }
 
-    if (keycode == KC_LCTL || keycode == KC_RCTL) {
+    if (keycode == KC_LCTRL || keycode == KC_RCTRL) {
         ctrl_pressed = record->event.pressed;
     } else if (keycode == KC_LALT) {
         alt_pressed = record->event.pressed;
@@ -213,9 +213,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         next_light_mode(layer_colors[_MAIN]);
     }
 #endif
-    if (keycode == KC_LCTL) {
+    if (keycode == KC_LCTRL) {
         /* Some Overlay1_Enable fuckery! */
-        (record->event.pressed ? register_code : unregister_code)(KC_LCTL);
+        (record->event.pressed ? register_code : unregister_code)(KC_LCTRL);
         return false;
     }
     return taphold_process(keycode, record);

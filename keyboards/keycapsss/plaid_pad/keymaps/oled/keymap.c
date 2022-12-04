@@ -164,7 +164,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       case _NAVIGATION:
         // Page Down/Up
         if (clockwise) {
-          tap_code16(KC_PGDN);
+          tap_code16(KC_PGDOWN);
         } else {
           tap_code16(KC_PGUP);
         }

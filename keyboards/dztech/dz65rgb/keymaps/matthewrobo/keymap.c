@@ -172,7 +172,7 @@ bool rgb_matrix_indicators_user(void) {
 			rgb_matrix_set_color(25, 0xFF, 0x40, 0x00);
 
 			if (this_led & (1 << !autoshift_enabled)) {
-				rgb_matrix_set_color(15, 0xFF, 0x00, 0x00); // AS_TOGG
+				rgb_matrix_set_color(15, 0xFF, 0x00, 0x00); // KC_ASTG
 			} else {
 				rgb_matrix_set_color(15, 0xFF, 0xFF, 0x00);
 			}
@@ -207,7 +207,16 @@ bool rgb_matrix_indicators_user(void) {
 		break;
 		}
 	}
-    return false;
+}
+
+void matrix_init_user(void)
+{
+	//user initialization
+}
+
+void matrix_scan_user(void)
+{
+	//user matrix
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record)

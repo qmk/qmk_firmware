@@ -51,12 +51,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 36
 #    define DRIVER_2_LED_TOTAL 31
-#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 #else
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
-#define RGB_MATRIX_LED_COUNT 67
+#define DRIVER_LED_TOTAL 67
 
 #define RGB_BACKLIGHT_ENABLED 1
 
@@ -108,4 +108,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
 
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE
 #endif

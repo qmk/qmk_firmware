@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     _______,     _______,     _______,      QK_BOOT,
                     _______,     _______,     _______,      KC_KP_PLUS,
                     _______,     _______,     _______,      KC_KP_MINUS,
-        QK_LOCK,    _______,     _______,     _______,      KC_EQL
+        KC_LOCK,    _______,     _______,     _______,      KC_EQL
     ),
 };
 

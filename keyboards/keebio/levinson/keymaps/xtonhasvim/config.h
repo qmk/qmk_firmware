@@ -1,5 +1,7 @@
 #pragma once
 
+#define USE_SERIAL
+
 // #define MUSIC_MASK (keycode != KC_NO)
 
 /*

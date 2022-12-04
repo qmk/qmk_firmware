@@ -15,14 +15,14 @@
  */
 
 #include "process_unicode.h"
-#include "unicode.h"
-#include "quantum_keycodes.h"
+#include "action_util.h"
+#include "eeprom.h"
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        if (keycode >= QK_UNICODE && keycode <= QK_UNICODE_MAX) {
-            register_unicode(QK_UNICODE_GET_CODE_POINT(keycode));
-        }
+    if (keycode >= QK_UNICODE && keycode <= QK_UNICODE_MAX && record->event.pressed) {
+        unicode_input_start();
+        register_hex(keycode & 0x7FFF);
+        unicode_input_finish();
     }
     return true;
 }

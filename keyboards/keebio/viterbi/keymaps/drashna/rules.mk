@@ -21,5 +21,4 @@ LAYOUTS = ortho_5x7
 # SRC := $(filter-out split_util.c,$(SRC))
 # SRC += quantum/matrix.c
 
-BOOTLOADER        = qmk-hid
-BOOTLOADER_SIZE   = 512
+BOOTLOADER        = qmk-dfu

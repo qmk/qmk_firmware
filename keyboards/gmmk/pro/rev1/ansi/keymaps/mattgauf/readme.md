@@ -49,4 +49,4 @@
  - Shutdown: `HYPER(F19)`
    - `MG_F17` → `MG_F19`
  - Encoder press, triggers debug output.
-   - `KC_MUTE` → `DB_TOGG`
+   - `KC_MUTE` → `DEBUG`

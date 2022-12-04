@@ -1,4 +1,4 @@
-/* Copyright 2021 QMK
+/* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 
 #define BACKLIGHT_PWM_DRIVER  PWMD5
 #define BACKLIGHT_PWM_CHANNEL 1
-#define BACKLIGHT_PAL_MODE 2
 
 #define ADC_PIN A0
 

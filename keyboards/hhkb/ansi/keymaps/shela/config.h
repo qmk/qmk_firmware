@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "../../config.h"
+
 /* USB Device descriptor parameter */
 #undef VENDOR_ID
 #define VENDOR_ID 0x0853
@@ -24,9 +26,9 @@
 #undef DEVICE_VER
 #define DEVICE_VER 0x0102
 #undef MANUFACTURER
-#define MANUFACTURER "Topre Corporation"
+#define MANUFACTURER Topre Corporation
 #undef PRODUCT
-#define PRODUCT "HHKB Professional"
+#define PRODUCT HHKB Professional
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 210

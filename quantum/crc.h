@@ -16,8 +16,7 @@
 
 #pragma once
 
-#include <stddef.h>
-#include <stdint.h>
+#include "quantum.h"
 
 /**
  * The type of the CRC values.

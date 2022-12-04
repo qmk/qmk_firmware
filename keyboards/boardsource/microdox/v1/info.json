@@ -19,16 +19,7 @@
     "split_count": [6, 6],
     "max_brightness": 150,
     "animations": {
-      "alternating": true,
-      "breathing": true,
-      "christmas": true,
-      "knight": true,
-      "rainbow_mood": true,
-      "rainbow_swirl": true,
-      "rgb_test": true,
-      "snake": true,
-      "static_gradient": true,
-      "twinkle": true
+      "all": true
     }
   }
 }

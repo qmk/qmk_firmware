@@ -18,8 +18,7 @@
 
 #pragma once
 
-#include <stdbool.h>
-#include <stdint.h>
+#include "quantum.h"
 
 bool dip_switch_update_kb(uint8_t index, bool active);
 bool dip_switch_update_user(uint8_t index, bool active);

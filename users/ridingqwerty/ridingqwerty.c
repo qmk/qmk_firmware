@@ -7,7 +7,7 @@ void matrix_init_user(void) {
     matrix_init_keymap();
 
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-    set_unicode_input_mode(UNICODE_MODE_LINUX);
+    set_unicode_input_mode(UC_LNX);
 #endif
 
     //set_single_persistent_default_layer(_QWERTY);

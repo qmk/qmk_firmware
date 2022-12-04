@@ -406,15 +406,15 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
 
     if (key_down) {
         switch (keycode) {
-            case QK_KEY_OVERRIDE_TOGGLE:
+            case KEY_OVERRIDE_TOGGLE:
                 key_override_toggle();
                 return false;
 
-            case QK_KEY_OVERRIDE_ON:
+            case KEY_OVERRIDE_ON:
                 key_override_on();
                 return false;
 
-            case QK_KEY_OVERRIDE_OFF:
+            case KEY_OVERRIDE_OFF:
                 key_override_off();
                 return false;
 

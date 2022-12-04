@@ -103,8 +103,12 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 // Use Bit-C LED to show NUM LOCK status
-void led_update_ports(led_t led_state) {
-    set_bitc_LED(led_state.num_lock ? LED_DIM : LED_OFF);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res) {
+        set_bitc_LED(led_state.num_lock ? LED_DIM : LED_OFF);
+    }
+    return res;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -117,7 +121,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!numlock_set && record->event.pressed) {
         led_t led_state = host_keyboard_led_state();
         if (!led_state.num_lock) {
-            register_code(KC_NUM_LOCK);
+            register_code(KC_NLCK);
         }
         numlock_set = true;
     }

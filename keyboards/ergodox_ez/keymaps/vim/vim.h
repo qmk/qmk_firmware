@@ -94,15 +94,15 @@ void CMD(uint16_t keycode) {
 }
 
 void CTRL(uint16_t keycode) {
-  PRESS(KC_LCTL);
+  PRESS(KC_LCTRL);
     TAP(keycode);
-  RELEASE(KC_LCTL);
+  RELEASE(KC_LCTRL);
 }
 
 void SHIFT(uint16_t keycode) {
-  PRESS(KC_LSFT);
+  PRESS(KC_LSHIFT);
     TAP(keycode);
-  RELEASE(KC_LSFT);
+  RELEASE(KC_LSHIFT);
 }
 
 void ALT(uint16_t keycode) {
@@ -309,9 +309,9 @@ void VIM_YANK_LINE(void) {
   print("\e[31mY\e[0m");
   VIM_LEADER(KC_NO);
   CMD(KC_LEFT);
-  PRESS(KC_LSFT);
+  PRESS(KC_LSHIFT);
     CMD(KC_RIGHT);
-  RELEASE(KC_LSFT);
+  RELEASE(KC_LSHIFT);
   CMD(KC_C);
 }
 
@@ -432,9 +432,9 @@ void VIM_DELETE_WHOLE_LINE(void) {
   print("\e[31md\e[0m");
   VIM_LEADER(KC_NO);
   CMD(KC_LEFT);
-  PRESS(KC_LSFT);
+  PRESS(KC_LSHIFT);
     CMD(KC_RIGHT);
-  RELEASE(KC_LSFT);
+  RELEASE(KC_LSHIFT);
   CMD(KC_X);
 }
 
@@ -464,7 +464,7 @@ void VIM_DELETE_BACK(void) {
   PRESS(KC_LALT);
     SHIFT(KC_LEFT); // select to start of word
     SHIFT(KC_DEL); // delete selection
-  RELEASE(KC_LSFT);
+  RELEASE(KC_LSHIFT);
 }
 
 /**

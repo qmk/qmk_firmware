@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* USB Device descriptor parameter */
+#define MANUFACTURER        "Massdrop Inc."
+#define PRODUCT             "CTRL Keyboard"
 #define SERIAL_NUM          "Unavailable"
 
 #define MATRIX_ROW_PINS { B04, B05, B06, B07, B08, B09, A10, A11, B10, B11, B12 }

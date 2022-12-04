@@ -6,7 +6,7 @@
 #define NO_ACTION_ONESHOT
 #define NO_ACTION_MACRO
 
-#define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
+#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 // Layer the calculator is on
 #define CALC_LAYER 2

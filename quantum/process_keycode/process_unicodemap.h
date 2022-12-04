@@ -16,11 +16,7 @@
 
 #pragma once
 
-#include <stdbool.h>
-#include <stdint.h>
-
-#include "action.h"
-#include "progmem.h"
+#include "process_unicode_common.h"
 
 extern const uint32_t unicode_map[] PROGMEM;
 

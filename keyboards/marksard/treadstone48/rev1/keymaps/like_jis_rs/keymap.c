@@ -44,7 +44,7 @@ enum custom_keycodes {
 #define KC_ALAP  LALT_T(KC_APP)
 
 #define KC_JEQL  LSFT(KC_MINS)
-#define KC_SFUC  LSFT(KC_INT1)
+#define KC_SFUC  LSFT(KC_RO)
 #define KC_RSBR  LSFT(KC_8)
 #define KC_REBR  LSFT(KC_9)
 
@@ -270,12 +270,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KANJI:
       if (record->event.pressed) {
         if (keymap_config.swap_lalt_lgui == false) {
-          register_code(KC_LNG2);
+          register_code(KC_LANG2);
         } else {
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LNG2);
+        unregister_code(KC_LANG2);
       }
       break;
     #ifdef RGBLIGHT_ENABLE

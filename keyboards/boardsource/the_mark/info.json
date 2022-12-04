@@ -28,16 +28,7 @@
     "sleep": true,
     "max_brightness": 200,
     "animations": {
-      "alternating": true,
-      "breathing": true,
-      "christmas": true,
-      "knight": true,
-      "rainbow_mood": true,
-      "rainbow_swirl": true,
-      "rgb_test": true,
-      "snake": true,
-      "static_gradient": true,
-      "twinkle": true
+      "all": true
     }
   },
   "rgb_matrix": {

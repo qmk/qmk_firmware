@@ -1,3 +1,0 @@
-// KEYCODE, Reverseit kc, KC to send, KC to send in reverse, MODs to apply.
-SWAPPER_KEY(SW_WIN, SW_REV, KC_TAB, S(KC_TAB), KC_LALT)
-SWAPPER_KEY(SW_TAB, SW_REV, KC_TAB, S(KC_TAB), KC_LCTL)

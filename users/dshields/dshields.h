@@ -26,29 +26,15 @@
 #define MT_L    RALT_T(KC_L)
 #define MT_SCLN RGUI_T(KC_SCLN)
 
-// layer-tap keys
-#if defined KEYBOARD_planck_light \
-    || defined KEYBOARD_planck_rev3 \
-    || defined KEYBOARD_planck_rev6 \
-    || defined KEYBOARD_keyboardio_atreus
-    #define LT_G    LT(LWR, KC_G)
-    #define LT_H    LT(RSE, KC_H)
-#elif defined KEYBOARD_keyboardio_model01
-    #define LT_G    LT(FUN, KC_G)
-    #define LT_H    LT(FUN, KC_H)
-#else
-    #define LT_G    KC_G
-    #define LT_H    KC_H
-#endif
-
 // LED/RGB controls
-#if defined KEYBOARD_planck_light
+#ifdef KEYBOARD_planck_light
     #define LGT_TOG RGB_TOG
     #define LGT_MOD RGB_MOD
     #define LGT_BRT _______
     #define LGT_INC RGB_HUI
     #define LGT_DEC RGB_HUD
-#elif defined KEYBOARD_planck_rev3
+#endif
+#ifdef KEYBOARD_planck_rev3
     #define LGT_TOG BL_TOGG
     #define LGT_MOD BL_STEP
     #define LGT_BRT BL_BRTG

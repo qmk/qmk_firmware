@@ -2,7 +2,7 @@
 
 The following table shows the current driver status for peripherals on RP2040 MCUs:
 
-|                              System                              |                    Support                     |
+| System                                                           | Support                                        |
 | ---------------------------------------------------------------- | ---------------------------------------------- |
 | [ADC driver](adc_driver.md)                                      | :heavy_check_mark:                             |
 | [Audio](audio_driver.md#pwm-hardware)                            | :heavy_check_mark:                             |

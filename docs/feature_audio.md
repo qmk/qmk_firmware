@@ -161,11 +161,9 @@ It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif
 
 The available keycodes for audio are: 
 
-|Key                      |Aliases  |Description                                |
-|-------------------------|---------|-------------------------------------------|
-|`QK_AUDIO_ON`            |`AU_ON`  |Turns on Audio Feature                     |
-|`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
-|`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
+* `AU_ON` - Turn Audio Feature on
+* `AU_OFF` - Turn Audio Feature off
+* `AU_TOG` - Toggle Audio Feature state
 
 !> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
 
@@ -221,12 +219,6 @@ Aka "audio effects", different ones can be enabled by setting in `config.h` thes
 `#define AUDIO_VOICES` to enable the feature, and `#define AUDIO_VOICE_DEFAULT something` to select a specific effect
 for details see quantum/audio/voices.h and .c
 
-Keycodes available:
-
-|Key                      |Aliases  |Description                                |
-|-------------------------|---------|-------------------------------------------|
-|`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|Cycles through the audio voices            |
-|`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|Cycles through the audio voices in reverse |
 
 ## Music Mode
 
@@ -236,14 +228,10 @@ Recording is experimental due to some memory issues - if you experience some wei
 
 Keycodes available:
 
-|Key                      |Aliases  |Description                                |
-|-------------------------|---------|-------------------------------------------|
-|`QK_MUSIC_ON`            |`MU_ON`  |Turns on Music Mode                        |
-|`QK_MUSIC_OFF`           |`MU_OFF` |Turns off Music Mode                       |
-|`QK_MUSIC_TOGGLE`        |`MU_TOGG`|Toggles Music Mode                         |
-|`QK_MUSIC_MODE_NEXT`     |`MU_NEXT`|Cycles through the music modes             |
-
-Available Modes:
+* `MU_ON` - Turn music mode on
+* `MU_OFF` - Turn music mode off
+* `MU_TOG` - Toggle music mode
+* `MU_MOD` - Cycle through the music modes:
   * `CHROMATIC_MODE` - Chromatic scale, row changes the octave
   * `GUITAR_MODE` - Chromatic scale, but the row changes the string (+5 st)
   * `VIOLIN_MODE` - Chromatic scale, but the row changes the string (+7 st)
@@ -312,16 +300,13 @@ You can look at the [Planck Keyboard](https://github.com/qmk/qmk_firmware/blob/e
 
 This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. And the sounds are slightly different for each keypress, so it doesn't sound like a single long note, if you type rapidly. 
 
-Keycodes available:
+* `CK_TOGG` - Toggles the status (will play sound if enabled)
+* `CK_ON` - Turns on Audio Click (plays sound)
+* `CK_OFF` - Turns off Audio Click (doesn't play sound)
+* `CK_RST` - Resets the frequency to the default state (plays sound at default frequency)
+* `CK_UP` - Increases the frequency of the clicks (plays sound at new frequency)
+* `CK_DOWN` - Decreases the frequency of the clicks (plays sound at new frequency)
 
-|Key                      |Aliases  |Description                                |
-|-------------------------|---------|-------------------------------------------|
-|`QK_AUDIO_CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode                  |
-|`QK_AUDIO_CLICKY_ON`     |`CK_ON`  |Turns on Audio clicky mode                 |
-|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |Turns on Audio clicky mode                 |
-|`QK_AUDIO_CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks          |
-|`QK_AUDIO_CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks          |
-|`QK_AUDIO_CLICKY_RESET`  |`CK_RST` |Resets frequency to default                |
 
 The feature is disabled by default, to save space.  To enable it, add this to your `config.h`:
 
@@ -348,20 +333,16 @@ See [MIDI](feature_midi.md)
 
 ## Audio Keycodes
 
-|Key                      |Aliases  |Description                                |
-|-------------------------|---------|-------------------------------------------|
-|`QK_AUDIO_ON`            |`AU_ON`  |Turns on Audio Feature                     |
-|`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
-|`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
-|`QK_AUDIO_CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode                  |
-|`QK_AUDIO_CLICKY_ON`     |`CK_ON`  |Turns on Audio clicky mode                 |
-|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |Turns on Audio clicky mode                 |
-|`QK_AUDIO_CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks          |
-|`QK_AUDIO_CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks          |
-|`QK_AUDIO_CLICKY_RESET`  |`CK_RST` |Resets frequency to default                |
-|`QK_MUSIC_ON`            |`MU_ON`  |Turns on Music Mode                        |
-|`QK_MUSIC_OFF`           |`MU_OFF` |Turns off Music Mode                       |
-|`QK_MUSIC_TOGGLE`        |`MU_TOGG`|Toggles Music Mode                         |
-|`QK_MUSIC_MODE_NEXT`     |`MU_NEXT`|Cycles through the music modes             |
-|`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|Cycles through the audio voices            |
-|`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|Cycles through the audio voices in reverse |
+|Key             |Aliases  |Description                       |
+|----------------|---------|----------------------------------|
+|`AU_ON`         |         |Audio mode on                     |
+|`AU_OFF`        |         |Audio mode off                    |
+|`AU_TOG`        |         |Toggles Audio mode                |
+|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
+|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
+|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
+|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
+|`MU_ON`         |         |Turns on Music Mode               |
+|`MU_OFF`        |         |Turns off Music Mode              |
+|`MU_TOG`        |         |Toggles Music Mode                |
+|`MU_MOD`        |         |Cycles through the music modes    |

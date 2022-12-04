@@ -51,11 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT(
 		TO(0),
-		CK_TOGG, MU_TOGG),
+		CK_TOGG, MU_TOG),
 
 	LAYOUT(
 		TO(0),
-		QK_BOOT, EE_CLR),
+		QK_BOOT, EEPROM_RESET),
 };
 
 void matrix_init_user(void) {

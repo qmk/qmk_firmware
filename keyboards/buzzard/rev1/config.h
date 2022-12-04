@@ -22,7 +22,7 @@
 #define SPLIT_OLED_ENABLE
 #endif
 
-#ifdef PS2_DRIVER_INTERRUPT
+#ifdef PS2_USE_INT
 #define PS2_CLOCK_PIN   E6
 #define PS2_DATA_PIN    D7
 

@@ -190,15 +190,15 @@ void set_os (uint8_t os, bool update) {
   }
   switch (os) {
   case OS_MAC:
-    set_unicode_input_mode(UNICODE_MODE_MACOS);
+    set_unicode_input_mode(UC_OSX);
     underglow = (Color){ 213, 255, 255 };
     break;
   case OS_WIN:
-    set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
+    set_unicode_input_mode(UC_WINC);
     underglow = (Color){ 128, 255, 255 };
     break;
   case OS_NIX:
-    set_unicode_input_mode(UNICODE_MODE_LINUX);
+    set_unicode_input_mode(UC_LNX);
     underglow = (Color){ 43, 255, 255 };
     break;
   default:
@@ -453,7 +453,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    case KC_BACKSPACE:
+    case KC_BSPACE:
       if (record->event.pressed) {
         state = active;
         velocikey_accelerate();

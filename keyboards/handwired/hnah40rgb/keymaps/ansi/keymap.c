@@ -63,5 +63,4 @@ bool rgb_matrix_indicators_user(void) {
         {
             rgb_matrix_set_color(45, 255, 255, 255);
         }
-    return false;
 }

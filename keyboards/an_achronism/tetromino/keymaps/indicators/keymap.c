@@ -68,7 +68,7 @@ void keyboard_post_init_user(void) {
 };
 
 // Custom RGB indicator behaviour:
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t led_processed_count = 0;
     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
         for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
@@ -115,11 +115,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                                 break;
                             default:
                                 break;
-                        }
+                        }   
                     }
                 }
             }
         }
     }
-    return false;
 }

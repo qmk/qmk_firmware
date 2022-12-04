@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
+#define USE_SERIAL
+
 #define RGBLED_NUM 12
 #define RGBLED_SPLIT {6,6}
 #define RGBLIGHT_LIMIT_VAL 127

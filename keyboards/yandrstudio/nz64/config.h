@@ -29,7 +29,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_DI_PIN A7
 #   define RGBLED_NUM 82
-#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#   define DRIVER_LED_TOTAL RGBLED_NUM
 
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2
@@ -97,7 +97,7 @@
 #ifdef RGBLIGHT_ENABLE
 #   define RGB_DI_PIN A7
 #   define RGBLED_NUM 82
-#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#   define DRIVER_LED_TOTAL RGBLED_NUM
 
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2

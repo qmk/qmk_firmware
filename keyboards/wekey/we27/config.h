@@ -38,15 +38,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN C6
 // The number of LEDs connected
-#define RGB_MATRIX_LED_COUNT 27
+#define DRIVER_LED_TOTAL 27
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#define RGB_MATRIX_DEFAULT_HUE 108 // Sets the default hue value, if none has been set
-#define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
-#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
-#define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
+#define RGB_MATRIX_STARTUP_HUE 108 // Sets the default hue value, if none has been set
+#define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
+#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
+#define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

@@ -55,7 +55,7 @@ int cur_dance(tap_dance_state_t *state) {
 
 void dance_lctl_finished(tap_dance_state_t *state, void *user_data) {
   rbw_led_keys[RBW_LCTL].status = ENABLED;
-  register_code(KC_LCTL);
+  register_code(KC_LCTRL);
 };
 
 void dance_lctl_reset(tap_dance_state_t *state, void *user_data) {
@@ -91,7 +91,7 @@ void dance_lspr_reset(tap_dance_state_t *state, void *user_data) {
 
 void dance_rctl_finished(tap_dance_state_t *state, void *user_data) {
   rbw_led_keys[RBW_RCTL].status = ENABLED;
-  register_code(KC_RCTL);
+  register_code(KC_RCTRL);
 };
 
 void dance_rctl_reset(tap_dance_state_t *state, void *user_data) {

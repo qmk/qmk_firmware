@@ -15,7 +15,7 @@
 #include "process_caps_word.h"
 
 bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
-    if (keycode == QK_CAPS_WORD_TOGGLE) {
+    if (keycode == CAPSWRD) { // Pressing CAPSWRD toggles Caps Word.
         if (record->event.pressed) {
             caps_word_toggle();
         }
@@ -109,7 +109,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
             // * Otherwise stop Caps Word.
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
                 if (record->tap.count == 0) { // Mod-tap key is held.
-                    const uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
+                    const uint8_t mods = (keycode >> 8) & 0x1f;
                     switch (mods) {
                         case MOD_LSFT:
                             keycode = KC_LSFT;
@@ -127,7 +127,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                             return true;
                     }
                 } else {
-                    keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+                    keycode &= 0xff;
                 }
                 break;
 
@@ -137,7 +137,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 if (record->tap.count == 0) {
                     return true;
                 }
-                keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+                keycode &= 0xff;
                 break;
 #endif // NO_ACTION_TAPPING
 
@@ -152,7 +152,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 ) {
                     return true;
                 }
-                keycode = QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode);
+                keycode &= 0xff;
                 break;
 #endif // SWAP_HANDS_ENABLE
         }

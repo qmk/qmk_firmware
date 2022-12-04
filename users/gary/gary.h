@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #pragma once
+#define USE_SERIAL
 #define MASTER_LEFT
 
 // Layers
@@ -16,7 +17,7 @@ enum custom_keycodes {
   RAISE,
 };
 
-#define KC_RST QK_BOOT
+#define KC_RST RESET
 #define KC_ KC_TRNS
 
 #define KC_LOWR MO(_LOWER) // Lower layer

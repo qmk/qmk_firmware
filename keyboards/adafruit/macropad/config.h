@@ -50,7 +50,7 @@
 
      /* RGB Defines */
 #    define RGB_DI_PIN GP19
-#    define RGB_MATRIX_LED_COUNT 12
+#    define DRIVER_LED_TOTAL 12
 #    define RGBLED_NUM 12
 
      /* Enable Framebuffer and keypress effects */

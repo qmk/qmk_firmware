@@ -352,9 +352,21 @@ typedef struct {
 
 // clang-format on
 
+// set report buffer (from host)
+extern uint8_t udi_hid_exk_report_set;
+
 // report buffer
 #    define UDI_HID_EXK_REPORT_SIZE 3
-extern uint8_t udi_hid_exk_report[UDI_HID_EXK_REPORT_SIZE];
+
+typedef union {
+    struct {
+        uint8_t  report_id;
+        uint16_t report_data;
+    } desc;
+    uint8_t raw[UDI_HID_EXK_REPORT_SIZE];
+} udi_hid_exk_report_t;
+
+extern udi_hid_exk_report_t udi_hid_exk_report;
 
 COMPILER_PACK_RESET()
 

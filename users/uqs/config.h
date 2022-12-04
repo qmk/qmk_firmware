@@ -4,6 +4,7 @@
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
+//#    define RGBLIGHT_ANIMATIONS      // disabled to save space
 #    define RGBLIGHT_LAYERS
 #    define RGBLIGHT_MAX_LAYERS 8      // default is 16
 #    define RGBLIGHT_DISABLE_KEYCODES  // RGB_foo keys no longer work, saves 600 bytes
@@ -22,7 +23,7 @@
 #define LEADER_TIMEOUT 400
 #define LEADER_PER_KEY_TIMING
 
-#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
+#define UNICODE_SELECTED_MODES UC_LNX
 
 // make KC_ACL0 et al work when held.
 #define MK_COMBINED

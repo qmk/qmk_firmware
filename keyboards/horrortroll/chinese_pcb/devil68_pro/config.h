@@ -1,4 +1,4 @@
-/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 #pragma once
 
 
-/* Key matrix pins */
+/* key matrix pins */
 #define MATRIX_ROW_PINS { B7, B3, B2, F6, F7 }
 #define MATRIX_COL_PINS { B1, B0, B5, B6, C6, C7, E2, D0, D1, D2, D3, D5, D4, D6, D7, B4 }
 
@@ -28,11 +28,10 @@
 #define FORCE_NKRO
 
 #ifdef RGB_MATRIX_ENABLE
-    #define RGB_MATRIX_LED_COUNT 86
+    #define DRIVER_LED_TOTAL 86
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
-    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
     /* RGB Matrix config */
     #define RGB_DI_PIN E6
@@ -65,12 +64,8 @@
     #define ENABLE_RGB_MATRIX_HUE_PENDULUM
     #define ENABLE_RGB_MATRIX_HUE_WAVE
     #define ENABLE_RGB_MATRIX_PIXEL_RAIN
-    #define ENABLE_RGB_MATRIX_PIXEL_FLOW
     #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-
-    #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-    #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-
+// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE

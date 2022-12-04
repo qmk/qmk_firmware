@@ -84,8 +84,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
             break;
     }
-    //return true; //set to return false to counteract enabled encoder in pro.c
-    return false;
+    return true;
 }
 #endif // ENCODER_ENABLE
 

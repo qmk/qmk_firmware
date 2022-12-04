@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-#define FN_CAPS LT(_FL, KC_CAPS)
+#define FN_CAPS LT(_FL, KC_CAPSLOCK)
 
 // define layers
 #define _QWERTY 0

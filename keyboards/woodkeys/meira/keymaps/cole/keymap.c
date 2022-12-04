@@ -28,6 +28,11 @@ extern rgblight_config_t rgblight_config;
 #define _RAISE 4
 #define _ADJUST 16
 
+
+#ifndef BLUETOOTH_ENABLE
+#define OUT_BT KC_TRNS
+#endif
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,

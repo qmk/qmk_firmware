@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 8
 
 /* RGB matrix constants */
-#define RGB_MATRIX_LED_COUNT 64
+#define DRIVER_LED_TOTAL 64
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

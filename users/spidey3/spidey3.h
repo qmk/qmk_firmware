@@ -6,7 +6,7 @@
 #include QMK_KEYBOARD_H
 
 #ifdef UNICODEMAP_ENABLE
-#    include "spidey3_unicode.h"
+#    include "unicode.h"
 #endif
 
 enum userspace_layers {
@@ -17,7 +17,9 @@ enum userspace_layers {
 };
 
 enum custom_keycodes {
-    CH_SUSP = SAFE_RANGE,  // Suspend
+    CH_CPNL = SAFE_RANGE,  // AL Control Panel
+    CH_ASST,               // AL Context-aware Desktop Assistant
+    CH_SUSP,               // Suspend
 
     SPI_NORMAL,
     SPI_WIDE,
@@ -63,11 +65,6 @@ void          rgb_layer_ack(layer_ack_t n);
 void          rgb_layer_ack_yn(bool yn);
 void          clear_rgb_layers(void);
 void          shutdown_user_rgb(void);
-
-#    if defined(UNICODE_COMMON_ENABLE)
-void unicode_input_mode_set_user_rgb(uint8_t input_mode);
-#    endif
-
 #endif
 
 #ifdef UNICODEMAP_ENABLE

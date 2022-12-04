@@ -95,7 +95,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (clockwise) {
+      tap_code(KC_VOLU);
+    } else {
+      tap_code(KC_VOLD);
+    }
+    return true;
+}
+#endif // ENCODER_ENABLE
+
 #ifdef RGB_MATRIX_ENABLE
+
+#define RGB_CONFIRMATION_BLINKING_TIME 2000 // 2 seconds
 
 /* Renaming those to make the purpose on this keymap clearer */
 #define LED_FLAG_CAPS LED_FLAG_NONE
@@ -107,18 +120,12 @@ static uint16_t effect_started_time = 0;
 static uint8_t r_effect = 0x0, g_effect = 0x0, b_effect = 0x0;
 static void start_effects(void);
 
-/* The interval time in ms */
-#ifndef EFFECTS_TIME
-    #define EFFECTS_TIME 2000
+/* The higher this is, the slower the blinking will be */
+#ifndef TIME_SELECTED_BIT
+    #define TIME_SELECTED_BIT 8
 #endif
-#ifndef EFFECTS_INTERVAL
-    #define EFFECTS_INTERVAL 250
-#endif
-#if EFFECTS_TIME <= 0 || EFFECTS_TIME >= 32767
-    #error "EFFECTS_TIME must be a positive integer smaller than 32767"
-#endif
-#if EFFECTS_INTERVAL <= 0 || EFFECTS_INTERVAL >= 32767
-    #error "EFFECTS_INTERVAL must be a positive integer smaller than 32767"
+#if TIME_SELECTED_BIT < 0 || TIME_SELECTED_BIT >= 16
+    #error "TIME_SELECTED_BIT must be a positive integer smaller than 16"
 #endif
 #define effect_red() r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0
 #define effect_green() r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0
@@ -236,12 +243,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_user() {
     if (effect_started_time > 0) {
         /* Render blinking EFFECTS */
         const uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
-        if (deltaTime <= EFFECTS_TIME) {
-            const uint8_t led_state = ((deltaTime / EFFECTS_INTERVAL) + 1) & 0x01;
+        if (deltaTime <= RGB_CONFIRMATION_BLINKING_TIME) {
+            const uint8_t led_state = ((~deltaTime) >> TIME_SELECTED_BIT) & 0x01;
             const uint8_t val_r = led_state * r_effect;
             const uint8_t val_g = led_state * g_effect;
             const uint8_t val_b = led_state * b_effect;
@@ -249,7 +256,7 @@ bool rgb_matrix_indicators_user(void) {
             if (host_keyboard_led_state().caps_lock) {
                 set_rgb_caps_leds();
             }
-            return false;
+            return;
         } else {
             /* EFFECTS duration is finished */
             effect_started_time = 0;
@@ -272,7 +279,6 @@ bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         set_rgb_caps_leds();
     }
-    return false;
 }
 
 static void start_effects(void) {

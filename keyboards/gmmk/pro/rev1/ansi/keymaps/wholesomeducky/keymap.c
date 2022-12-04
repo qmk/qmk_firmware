@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,          KC_TRNS,
         KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,          KC_INS,
-        KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_PSCR,   KC_SCRL,   KC_PAUS,  KC_TRNS, KC_TRNS,  KC_TRNS,          KC_HOME,
+        KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_PSCR,   KC_SLCK,   KC_PAUS,  KC_TRNS, KC_TRNS,  KC_TRNS,          KC_HOME,
         KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_MPLY,  KC_TRNS,           KC_TRNS,          KC_END,
         KC_TRNS,             KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_MPRV,   KC_MNXT,  QK_BOOT,           KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS,  KC_TRNS,   KC_TRNS,                                    KC_TRNS,                                    KC_TRNS,  KC_TRNS, KC_TRNS,  KC_HOME, KC_TRNS, KC_END
@@ -53,6 +53,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else {
       tap_code(KC_MS_WH_LEFT);
     }
-    //return true; //set to return false to counteract enabled encoder in pro.c
-    return false;
+    return true;
 }

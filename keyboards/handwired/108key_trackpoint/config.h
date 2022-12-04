@@ -1,7 +1,7 @@
 #pragma once
 
 
-#ifdef PS2_DRIVER_USART
+#ifdef PS2_USE_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 

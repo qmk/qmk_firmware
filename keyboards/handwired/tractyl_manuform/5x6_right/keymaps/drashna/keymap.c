@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,                 KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, QK_BOOT,
         VRSN,    _________________ADJUST_L1_________________,                        _________________ADJUST_R1_________________, EE_CLR,
         KEYLOCK, _________________ADJUST_L2_________________,                        _________________ADJUST_R2_________________, TG_MODS,
-        UC_NEXT, _________________ADJUST_L3_________________,                        _________________ADJUST_R3_________________, KC_MPLY,
+        UC_MOD,  _________________ADJUST_L3_________________,                        _________________ADJUST_R3_________________, KC_MPLY,
                    TG(_DIABLOII), AUTO_CTN,                                                            TG_GAME, TG_DBLO,
                                             _______, QK_RBT,                                  KC_NUKE,
                                                      _______, _______,               _______,
@@ -212,7 +212,36 @@ void oled_render_large_display(bool side) {
         // clang-format on
         oled_write_P(logo, false);
 
-        render_unicode_mode(1, 14);
+#    ifdef CUSTOM_UNICODE_ENABLE
+        oled_set_cursor(1, 14);
+        oled_write_ln_P(PSTR("Unicode:"), false);
+        switch (typing_mode) {
+            case UCTM_WIDE:
+                oled_write_P(PSTR("        Wide"), false);
+                break;
+            case UCTM_SCRIPT:
+                oled_write_P(PSTR("      Script"), false);
+                break;
+            case UCTM_BLOCKS:
+                oled_write_P(PSTR("      Blocks"), false);
+                break;
+            case UCTM_REGIONAL:
+                oled_write_P(PSTR("    Regional"), false);
+                break;
+            case UCTM_AUSSIE:
+                oled_write_P(PSTR("      Aussie"), false);
+                break;
+            case UCTM_ZALGO:
+                oled_write_P(PSTR("       Zalgo"), false);
+                break;
+            case UCTM_NO_MODE:
+                oled_write_P(PSTR("      Normal"), false);
+                break;
+            default:
+                oled_write_P(PSTR("     Unknown"), false);
+                break;
+        }
+#    endif
     }
 }
 

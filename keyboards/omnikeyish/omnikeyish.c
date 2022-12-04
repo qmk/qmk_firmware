@@ -17,8 +17,8 @@ void keyboard_post_init_user(void) {
 #endif
 
   /* Send numlock keycode to attempt to force numlock back on. */
-  register_code(KC_NUM_LOCK);
-  unregister_code(KC_NUM_LOCK);
+  register_code(KC_NUMLOCK);
+  unregister_code(KC_NUMLOCK);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

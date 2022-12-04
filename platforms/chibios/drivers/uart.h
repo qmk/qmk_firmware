@@ -28,12 +28,24 @@
 #    define SD1_TX_PIN A9
 #endif
 
+#ifndef SD1_TX_PAL_MODE
+#    define SD1_TX_PAL_MODE 7
+#endif
+
 #ifndef SD1_RX_PIN
 #    define SD1_RX_PIN A10
 #endif
 
+#ifndef SD1_RX_PAL_MODE
+#    define SD1_RX_PAL_MODE 7
+#endif
+
 #ifndef SD1_CTS_PIN
 #    define SD1_CTS_PIN A11
+#endif
+
+#ifndef SD1_CTS_PAL_MODE
+#    define SD1_CTS_PAL_MODE 7
 #endif
 
 #ifndef SD1_RTS_PIN

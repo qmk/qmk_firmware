@@ -1,5 +1,4 @@
-/*
- * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+/* Copyright 2021 customMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +16,7 @@
 
 #pragma once
 
+<<<<<<<< HEAD:keyboards/bastardkb/scylla/v2/splinky_3/config.h
 /* Key matrix configuration. */
 #define MATRIX_ROW_PINS \
     { GP29, GP26, GP5, GP4, GP9 }
@@ -38,3 +38,22 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
+========
+// If you are using I2C (e.g. for OLED), include this line
+#define HAL_USE_I2C TRUE
+
+// If you are using PWM (e.g. for WS2812, backlight, etc.) include this line
+#define HAL_USE_PWM TRUE
+
+// If you are using serial comms for split communications, include these lines
+#define HAL_USE_SERIAL TRUE
+#define SERIAL_BUFFERS_SIZE 256
+
+// If you are using SPI (e.g. for FRAM, flash, etc.) include these lines
+#define HAL_USE_SPI TRUE
+#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+// This enables interrupt-driven mode
+#define SPI_USE_WAIT TRUE
+
+#include_next <halconf.h>
+>>>>>>>> f271c985ce (Revert "Merge branch 'hex6c-rev2' of https://github.com/mechlovin/qmk_firmware into hex6c-rev2"):keyboards/custommk/bonsai_c4_template/halconf.h

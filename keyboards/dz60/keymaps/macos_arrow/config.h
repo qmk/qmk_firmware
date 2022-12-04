@@ -3,7 +3,7 @@
 
 #include "../../config.h"
 
-// Fix QK_GESC conflict with Cmd+Alt+Esc on macos
+// Fix KC_GESC conflict with Cmd+Alt+Esc on macos
 #define GRAVE_ESC_GUI_OVERRIDE
 
 #endif

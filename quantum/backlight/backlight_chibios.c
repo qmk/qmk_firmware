@@ -40,22 +40,16 @@
 #    endif
 #endif
 
-#ifndef BACKLIGHT_PWM_COUNTER_FREQUENCY
-#    define BACKLIGHT_PWM_COUNTER_FREQUENCY 0xFFFF
-#endif
-
-#ifndef BACKLIGHT_PWM_PERIOD
-#    define BACKLIGHT_PWM_PERIOD 256
-#endif
-
-static PWMConfig pwmCFG = {
-    .frequency = BACKLIGHT_PWM_COUNTER_FREQUENCY, /* PWM clock frequency  */
-    .period    = BACKLIGHT_PWM_PERIOD,            /* PWM period in counter ticks. e.g. clock frequency is 10KHz, period is 256 ticks then t_period is 25.6ms */
-};
-
-#ifdef BACKLIGHT_BREATHING
-static virtual_timer_t breathing_vt;
-#endif
+static PWMConfig pwmCFG = {0xFFFF, /* PWM clock frequency  */
+                           256,    /* PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
+                           NULL,   /* Breathing Callback */
+                           {       /* Default all channels to disabled - Channels will be configured durring init */
+                            {PWM_OUTPUT_DISABLED, NULL},
+                            {PWM_OUTPUT_DISABLED, NULL},
+                            {PWM_OUTPUT_DISABLED, NULL},
+                            {PWM_OUTPUT_DISABLED, NULL}},
+                           0, /* HW dependent part.*/
+                           0};
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
@@ -66,11 +60,10 @@ static uint16_t cie_lightness(uint16_t v) {
         // to get a useful result with integer division, we shift left in the expression above
         // and revert what we've done again after squaring.
         y = y * y * y >> 8;
-        if (y > 0xFFFFUL) { // prevent overflow
+        if (y > 0xFFFFUL) // prevent overflow
             return 0xFFFFU;
-        } else {
+        else
             return (uint16_t)y;
-        }
     }
 }
 
@@ -92,7 +85,6 @@ void backlight_init_ports(void) {
     backlight_set(get_backlight_level());
 
 #ifdef BACKLIGHT_BREATHING
-    chVTObjectInit(&breathing_vt);
     if (is_backlight_breathing()) {
         breathing_enable();
     }
@@ -100,9 +92,7 @@ void backlight_init_ports(void) {
 }
 
 void backlight_set(uint8_t level) {
-    if (level > BACKLIGHT_LEVELS) {
-        level = BACKLIGHT_LEVELS;
-    }
+    if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
 
     if (level == 0) {
         // Turn backlight off
@@ -125,19 +115,20 @@ void backlight_task(void) {}
  */
 static const uint8_t breathing_table[BREATHING_STEPS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 17, 20, 24, 28, 32, 36, 41, 46, 51, 57, 63, 70, 76, 83, 91, 98, 106, 113, 121, 129, 138, 146, 154, 162, 170, 178, 185, 193, 200, 207, 213, 220, 225, 231, 235, 240, 244, 247, 250, 252, 253, 254, 255, 254, 253, 252, 250, 247, 244, 240, 235, 231, 225, 220, 213, 207, 200, 193, 185, 178, 170, 162, 154, 146, 138, 129, 121, 113, 106, 98, 91, 83, 76, 70, 63, 57, 51, 46, 41, 36, 32, 28, 24, 20, 17, 15, 12, 10, 8, 6, 5, 4, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-static void breathing_callback(virtual_timer_t *vtp, void *p);
+void breathing_callback(PWMDriver *pwmp);
 
 bool is_breathing(void) {
-    return chVTIsArmed(&breathing_vt);
+    return pwmCFG.callback != NULL;
 }
 
 void breathing_enable(void) {
-    /* Update frequency is 256Hz -> 3906us intervals */
-    chVTSetContinuous(&breathing_vt, TIME_US2I(3906), breathing_callback, NULL);
+    pwmCFG.callback = breathing_callback;
+    pwmEnablePeriodicNotification(&BACKLIGHT_PWM_DRIVER);
 }
 
 void breathing_disable(void) {
-    chVTReset(&breathing_vt);
+    pwmCFG.callback = NULL;
+    pwmDisablePeriodicNotification(&BACKLIGHT_PWM_DRIVER);
 
     // Restore backlight level
     backlight_set(get_backlight_level());
@@ -148,7 +139,7 @@ static inline uint16_t scale_backlight(uint16_t v) {
     return v / BACKLIGHT_LEVELS * get_backlight_level();
 }
 
-static void breathing_callback(virtual_timer_t *vtp, void *p) {
+void breathing_callback(PWMDriver *pwmp) {
     uint8_t  breathing_period = get_breathing_period();
     uint16_t interval         = (uint16_t)breathing_period * 256 / BREATHING_STEPS;
 
@@ -159,7 +150,7 @@ static void breathing_callback(virtual_timer_t *vtp, void *p) {
     uint32_t duty                     = cie_lightness(rescale_limit_val(scale_backlight(breathing_table[index] * 256)));
 
     chSysLockFromISR();
-    pwmEnableChannelI(&BACKLIGHT_PWM_DRIVER, BACKLIGHT_PWM_CHANNEL - 1, PWM_FRACTION_TO_WIDTH(&BACKLIGHT_PWM_DRIVER, 0xFFFF, duty));
+    pwmEnableChannelI(pwmp, BACKLIGHT_PWM_CHANNEL - 1, PWM_FRACTION_TO_WIDTH(&BACKLIGHT_PWM_DRIVER, 0xFFFF, duty));
     chSysUnlockFromISR();
 }
 

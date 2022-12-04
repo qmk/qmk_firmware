@@ -17,9 +17,16 @@
 
 #pragma once
 
+#include "config_common.h"
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+/* #define DEBOUNCE 5 */
+
 #define WS2812_PIO_USE_PIO1
 #define RGBLED_NUM 54
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_SPLIT \
+        { 27, 27 }
 
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE

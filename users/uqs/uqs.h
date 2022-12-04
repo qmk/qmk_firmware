@@ -52,7 +52,7 @@ enum custom_keycodes {
 };
 
 #ifndef LEADER_ENABLE
-#define QK_LEAD KC_NO
+#define KC_LEAD KC_NO
 #endif
 
 // Shorter names

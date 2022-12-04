@@ -50,6 +50,10 @@
 extern keymap_config_t keymap_config;
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -129,16 +133,6 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
         return &desc;
 }
 
-/*
- * USB notification callback that does nothing.  Needed to work around bugs in
- * some USB LLDs that fail to resume the waiting thread when the notification
- * callback pointer is NULL.
- */
-static void dummy_usb_cb(USBDriver *usbp, usbep_t ep) {
-    (void)usbp;
-    (void)ep;
-}
-
 #ifndef KEYBOARD_SHARED_EP
 /* keyboard endpoint state structure */
 static USBInEndpointState kbd_ep_state;
@@ -146,7 +140,7 @@ static USBInEndpointState kbd_ep_state;
 static const USBEndpointConfig kbd_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    dummy_usb_cb,           /* IN notification callback */
+    kbd_in_cb,              /* IN notification callback */
     NULL,                   /* OUT notification callback */
     KEYBOARD_EPSIZE,        /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -164,7 +158,7 @@ static USBInEndpointState mouse_ep_state;
 static const USBEndpointConfig mouse_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    dummy_usb_cb,           /* IN notification callback */
+    mouse_in_cb,            /* IN notification callback */
     NULL,                   /* OUT notification callback */
     MOUSE_EPSIZE,           /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
@@ -182,47 +176,11 @@ static USBInEndpointState shared_ep_state;
 static const USBEndpointConfig shared_ep_config = {
     USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
     NULL,                   /* SETUP packet notification callback */
-    dummy_usb_cb,           /* IN notification callback */
+    shared_in_cb,           /* IN notification callback */
     NULL,                   /* OUT notification callback */
     SHARED_EPSIZE,          /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
     &shared_ep_state,       /* IN Endpoint state */
-    NULL,                   /* OUT endpoint state */
-    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
-};
-#endif
-
-#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
-/* joystick endpoint state structure */
-static USBInEndpointState joystick_ep_state;
-
-/* joystick endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
-static const USBEndpointConfig joystick_ep_config = {
-    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
-    NULL,                   /* SETUP packet notification callback */
-    dummy_usb_cb,           /* IN notification callback */
-    NULL,                   /* OUT notification callback */
-    JOYSTICK_EPSIZE,        /* IN maximum packet size */
-    0,                      /* OUT maximum packet size */
-    &joystick_ep_state,     /* IN Endpoint state */
-    NULL,                   /* OUT endpoint state */
-    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
-};
-#endif
-
-#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
-/* digitizer endpoint state structure */
-static USBInEndpointState digitizer_ep_state;
-
-/* digitizer endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
-static const USBEndpointConfig digitizer_ep_config = {
-    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
-    NULL,                   /* SETUP packet notification callback */
-    dummy_usb_cb,           /* IN notification callback */
-    NULL,                   /* OUT notification callback */
-    DIGITIZER_EPSIZE,       /* IN maximum packet size */
-    0,                      /* OUT maximum packet size */
-    &digitizer_ep_state,    /* IN Endpoint state */
     NULL,                   /* OUT endpoint state */
     usb_lld_endpoint_fields /* USB driver specific endpoint fields */
 };
@@ -370,6 +328,12 @@ typedef struct {
 #ifdef VIRTSER_ENABLE
             usb_driver_config_t serial_driver;
 #endif
+#ifdef JOYSTICK_ENABLE
+            usb_driver_config_t joystick_driver;
+#endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+            usb_driver_config_t digitizer_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -409,6 +373,22 @@ static usb_driver_configs_t drivers = {
 #    define CDC_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define CDC_OUT_MODE USB_EP_MODE_TYPE_BULK
     .serial_driver = QMK_USB_DRIVER_CONFIG(CDC, CDC_NOTIFICATION_EPNUM, false),
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    define JOYSTICK_IN_CAPACITY 4
+#    define JOYSTICK_OUT_CAPACITY 4
+#    define JOYSTICK_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
+#endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+#    define DIGITIZER_IN_CAPACITY 4
+#    define DIGITIZER_OUT_CAPACITY 4
+#    define DIGITIZER_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define DIGITIZER_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .digitizer_driver = QMK_USB_DRIVER_CONFIG(DIGITIZER, 0, false),
 #endif
 };
 
@@ -515,12 +495,6 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #endif
 #ifdef SHARED_EP_ENABLE
             usbInitEndpointI(usbp, SHARED_IN_EPNUM, &shared_ep_config);
-#endif
-#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
-            usbInitEndpointI(usbp, JOYSTICK_IN_EPNUM, &joystick_ep_config);
-#endif
-#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
-            usbInitEndpointI(usbp, DIGITIZER_IN_EPNUM, &digitizer_ep_config);
 #endif
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
 #ifdef USB_ENDPOINTS_ARE_REORDERABLE
@@ -747,6 +721,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 
 /* Start-of-frame callback */
 static void usb_sof_cb(USBDriver *usbp) {
+    kbd_sof_cb(usbp);
     osalSysLockFromISR();
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
         qmkusbSOFHookI(&drivers.array[i].driver);
@@ -790,7 +765,6 @@ void init_usb_driver(USBDriver *usbp) {
      * after a reset.
      */
     usbDisconnectBus(usbp);
-    usbStop(usbp);
     wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
@@ -799,8 +773,8 @@ void init_usb_driver(USBDriver *usbp) {
 }
 
 __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
-    usbDisconnectBus(usbp);
     usbStop(usbp);
+    usbDisconnectBus(usbp);
 
 #if USB_SUSPEND_WAKEUP_DELAY > 0
     // Some hubs, kvm switches, and monitors do
@@ -820,6 +794,21 @@ __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
  *                  Keyboard functions
  * ---------------------------------------------------------
  */
+/* keyboard IN callback hander (a kbd report has made it IN) */
+#ifndef KEYBOARD_SHARED_EP
+void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
+    /* STUB */
+    (void)usbp;
+    (void)ep;
+}
+#endif
+
+/* start-of-frame handler
+ * TODO: i guess it would be better to re-implement using timers,
+ *  so that this is not going to have to be checked every 1ms */
+void kbd_sof_cb(USBDriver *usbp) {
+    (void)usbp;
+}
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
@@ -916,17 +905,35 @@ void send_mouse(report_mouse_t *report) {
 }
 
 /* ---------------------------------------------------------
+ *                   Shared EP functions
+ * ---------------------------------------------------------
+ */
+#ifdef SHARED_EP_ENABLE
+/* shared IN callback hander */
+void shared_in_cb(USBDriver *usbp, usbep_t ep) {
+    /* STUB */
+    (void)usbp;
+    (void)ep;
+}
+#endif
+
+/* ---------------------------------------------------------
  *                   Extrakey functions
  * ---------------------------------------------------------
  */
 
-void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
     send_report(SHARED_IN_EPNUM, report, sizeof(report_extra_t));
 #endif
 }
 
-void send_programmable_button(report_programmable_button_t *report) {
+void send_consumer(uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
+    send_extra(REPORT_ID_CONSUMER, data);
+#endif
+}
+
+void send_programmable_button(uint32_t data) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     send_report(SHARED_IN_EPNUM, report, sizeof(report_programmable_button_t));
 #endif
@@ -1072,6 +1079,63 @@ void virtser_task(void) {
             virtser_recv(buffer[i]);
         }
     } while (numBytesReceived > 0);
+}
+
+#endif
+
+#ifdef JOYSTICK_ENABLE
+
+void send_joystick_packet(joystick_t *joystick) {
+    static joystick_report_t rep;
+    rep = (joystick_report_t) {
+#    if JOYSTICK_AXES_COUNT > 0
+        .axes =
+        { joystick->axes[0],
+
+#        if JOYSTICK_AXES_COUNT >= 2
+          joystick->axes[1],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 3
+          joystick->axes[2],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 4
+          joystick->axes[3],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 5
+          joystick->axes[4],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 6
+          joystick->axes[5],
+#        endif
+        },
+#    endif // JOYSTICK_AXES_COUNT>0
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+        .buttons = {
+            joystick->buttons[0],
+
+#        if JOYSTICK_BUTTON_COUNT > 8
+            joystick->buttons[1],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 16
+            joystick->buttons[2],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 24
+            joystick->buttons[3],
+#        endif
+        }
+#    endif // JOYSTICK_BUTTON_COUNT>0
+    };
+
+    // chnWrite(&drivers.joystick_driver.driver, (uint8_t *)&rep, sizeof(rep));
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    usbStartTransmitI(&USB_DRIVER, JOYSTICK_IN_EPNUM, (uint8_t *)&rep, sizeof(joystick_report_t));
+    osalSysUnlock();
 }
 
 #endif

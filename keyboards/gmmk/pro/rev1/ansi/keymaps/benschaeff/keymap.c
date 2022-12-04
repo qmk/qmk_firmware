@@ -99,7 +99,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     switch(get_highest_layer(layer_state)) {
     // special handling per layer
         case 0:  //layer one
@@ -124,5 +124,4 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         default:
             break;
     }
-    return false;
 }

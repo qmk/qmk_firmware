@@ -65,9 +65,11 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
 #endif
+#ifdef MOUSEKEY_ENABLE
         case KC_MS_UP ... KC_MS_ACCEL2:
             action.code = ACTION_MOUSEKEY(keycode);
             break;
+#endif
         case KC_TRANSPARENT:
             action.code = ACTION_TRANSPARENT;
             break;
@@ -96,29 +98,29 @@ action_t action_for_keycode(uint16_t keycode) {
 #ifndef NO_ACTION_LAYER
         case QK_TO ... QK_TO_MAX:;
             // Layer set "GOTO"
-            action_layer = QK_TO_GET_LAYER(keycode);
+            action_layer = keycode & 0xFF;
             action.code  = ACTION_LAYER_GOTO(action_layer);
             break;
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:;
             // Momentary action_layer
-            action_layer = QK_MOMENTARY_GET_LAYER(keycode);
+            action_layer = keycode & 0xFF;
             action.code  = ACTION_LAYER_MOMENTARY(action_layer);
             break;
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:;
             // Set default action_layer
-            action_layer = QK_DEF_LAYER_GET_LAYER(keycode);
+            action_layer = keycode & 0xFF;
             action.code  = ACTION_DEFAULT_LAYER_SET(action_layer);
             break;
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:;
             // Set toggle
-            action_layer = QK_TOGGLE_LAYER_GET_LAYER(keycode);
+            action_layer = keycode & 0xFF;
             action.code  = ACTION_LAYER_TOGGLE(action_layer);
             break;
 #endif
 #ifndef NO_ACTION_ONESHOT
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:;
             // OSL(action_layer) - One-shot action_layer
-            action_layer = QK_ONE_SHOT_LAYER_GET_LAYER(keycode);
+            action_layer = keycode & 0xFF;
             action.code  = ACTION_LAYER_ONESHOT(action_layer);
             break;
 #endif // NO_ACTION_ONESHOT
@@ -189,13 +191,13 @@ action_t action_for_keycode(uint16_t keycode) {
 // translates key to keycode
 __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
     if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        return keycode_at_keymap_location(layer, key.row, key.col);
+        return pgm_read_word(&keymaps[layer][key.row][key.col]);
     }
 #ifdef ENCODER_MAP_ENABLE
     else if (key.row == KEYLOC_ENCODER_CW && key.col < NUM_ENCODERS) {
-        return keycode_at_encodermap_location(layer, key.col, true);
+        return pgm_read_word(&encoder_map[layer][key.col][0]);
     } else if (key.row == KEYLOC_ENCODER_CCW && key.col < NUM_ENCODERS) {
-        return keycode_at_encodermap_location(layer, key.col, false);
+        return pgm_read_word(&encoder_map[layer][key.col][1]);
     }
 #endif // ENCODER_MAP_ENABLE
     return KC_NO;

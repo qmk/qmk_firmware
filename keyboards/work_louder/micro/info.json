@@ -4,7 +4,7 @@
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
+        "bootmagic": false,
         "command": false,
         "console": false,
         "extrakey": true,

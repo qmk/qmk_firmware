@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,6 +16,7 @@
  */
 
 #pragma once
+#include "config_common.h"
 
 #define DIODE_DIRECTION ROW2COL
 #define MATRIX_ROW_PINS { D7, B5, F7, F6, B6 }

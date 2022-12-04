@@ -11,6 +11,7 @@
 #include "lighting.h"
 #include "debug.h"
 #include "rgblight.h"
+#include "audio.h"
 
 
 extern rgblight_config_t rgblight_config; // Declared in rgblight.c

@@ -91,7 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*/
 };
 
-bool rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_user(void)
+{
 	uint8_t this_led = host_keyboard_leds();
 
 	if (!g_suspend_state && rgb_matrix_config.enable) {
@@ -205,7 +206,7 @@ bool rgb_matrix_indicators_user(void) {
 			rgb_matrix_set_color(43, 0xFF, 0x00, 0x40); // ctrl+slash
 
 			if (this_led & (1 << !autoshift_enabled)) {
-				rgb_matrix_set_color(0, 0xFF, 0x00, 0x00); // AS_TOGG
+				rgb_matrix_set_color(0, 0xFF, 0x00, 0x00); // KC_ASTG
 			} else {
 				rgb_matrix_set_color(0, 0xFF, 0xFF, 0x00);
 			}
@@ -217,7 +218,6 @@ bool rgb_matrix_indicators_user(void) {
 	if (this_led & (1 << USB_LED_CAPS_LOCK)) {
 		rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	}
-    return false;
 }
 
 void matrix_init_user(void)

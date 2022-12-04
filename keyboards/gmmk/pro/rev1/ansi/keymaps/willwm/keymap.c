@@ -69,6 +69,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else {
         tap_code(KC_VOLD);
     }
-    //return true; //set to return false to counteract enabled encoder in pro.c
-    return false;
+    return true;
 }

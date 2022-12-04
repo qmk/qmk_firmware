@@ -43,13 +43,6 @@ LGUI(KC_BSPC),MO(2),LGUI(KC_S),LGUI(KC_C),LGUI(KC_V),LGUI(KC_X),                
       KC_MUTE,KC_TRNS,  KC_NO, KC_LGUI,  KC_TAB,  KC_F21,                    KC_NO,LSFT(KC_LEFT),LSFT(KC_DOWN),LSFT(KC_RGHT),     KC_F20,  KC_F16,
      AS_TOGG, KC_NO,  KC_NO,   KC_NO,  KC_F22,LCTL(KC_U),LGUI(KC_LBRC),LGUI(KC_RBRC),LGUI(KC_N),   KC_NO,LALT(LSFT(KC_LEFT)),LALT(LSFT(KC_RIGHT)),   KC_F17,   KC_F19,
                                   KC_NO,   KC_NO,KC_NO,  KC_NO,    KC_NO, KC_TRNS,     KC_NO,     KC_NO)
-
-};
-
-void matrix_init_user(void) {
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
 

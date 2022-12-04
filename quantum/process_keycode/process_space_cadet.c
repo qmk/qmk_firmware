@@ -122,31 +122,31 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 
 bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN: {
+        case KC_LSPO: {
             perform_space_cadet(record, keycode, LSPO_KEYS);
             return false;
         }
-        case QK_SPACE_CADET_RIGHT_SHIFT_PARENTHESIS_CLOSE: {
+        case KC_RSPC: {
             perform_space_cadet(record, keycode, RSPC_KEYS);
             return false;
         }
-        case QK_SPACE_CADET_LEFT_CTRL_PARENTHESIS_OPEN: {
+        case KC_LCPO: {
             perform_space_cadet(record, keycode, LCPO_KEYS);
             return false;
         }
-        case QK_SPACE_CADET_RIGHT_CTRL_PARENTHESIS_CLOSE: {
+        case KC_RCPC: {
             perform_space_cadet(record, keycode, RCPC_KEYS);
             return false;
         }
-        case QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN: {
+        case KC_LAPO: {
             perform_space_cadet(record, keycode, LAPO_KEYS);
             return false;
         }
-        case QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE: {
+        case KC_RAPC: {
             perform_space_cadet(record, keycode, RAPC_KEYS);
             return false;
         }
-        case QK_SPACE_CADET_RIGHT_SHIFT_ENTER: {
+        case KC_SFTENT: {
             perform_space_cadet(record, keycode, SFTENT_KEYS);
             return false;
         }

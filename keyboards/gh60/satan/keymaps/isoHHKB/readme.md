@@ -52,7 +52,7 @@ Where:
 - `BTG` is `BL_TOGG` (toggles key backlighting)
 - `INC` increases backlighting brightness
 - `DEC` decreases backlighting brightness
-- `PSR` is `KC_PSCR`
+- `PSR` is `KC_PSCREEN`
 - `RGB` is `RGB_TOG`
 - `FRW` jumps to next RGB mode
 - `BRT` activates RGB breathing mode directly

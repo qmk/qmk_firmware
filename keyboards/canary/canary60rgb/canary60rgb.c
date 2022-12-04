@@ -16,7 +16,7 @@
  #include "canary60rgb.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, J_14, K_14,  L_14 },
     { 0, J_13, K_13,  L_13 },
     { 0, J_12, K_12,  L_12 },
@@ -108,13 +108,10 @@ led_config_t g_led_config = {
     }
 };
 
-bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_indicators_user()) {
-        return false;
-    }
+__attribute__ ((weak))
+void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
     }
-    return true;
 }
 #endif

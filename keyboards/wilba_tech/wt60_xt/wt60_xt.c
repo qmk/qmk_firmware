@@ -26,7 +26,6 @@ float tone_numlk_on[][2]   = SONG(NUM_LOCK_ON_SOUND);
 float tone_numlk_off[][2]  = SONG(NUM_LOCK_OFF_SOUND);
 float tone_scroll_on[][2]  = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_scroll_off[][2] = SONG(SCROLL_LOCK_OFF_SOUND);
-float tone_device_indication[][2] = SONG(FANTASIE_IMPROMPTU);
 
 #endif
 
@@ -95,10 +94,4 @@ bool led_update_kb(led_t led_state) {
 #endif // AUDIO_ENABLE
 
     return true;
-}
-
-void via_set_device_indication(uint8_t value) {
-    if ( value == 0 ) {
-        PLAY_SONG(tone_device_indication);
-    }
 }

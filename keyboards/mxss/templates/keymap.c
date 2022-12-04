@@ -27,7 +27,7 @@ hs_set layer_colors[4] = {
     [2] = {.hue = 36,    .sat = 255},  // Color for Layer 2
     [3] = {.hue = 185,   .sat = 255},  // Color for Layer 3
 };
-size_t lc_size = ARRAY_SIZE(layer_colors);
+size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __KEYMAP_GOES_HERE__

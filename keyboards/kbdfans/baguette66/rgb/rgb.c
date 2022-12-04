@@ -32,19 +32,17 @@ led_config_t g_led_config = { {
 }, {
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,  
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
     4, 4, 4, 4, 4, 1, 1, 1
 } };
 
-bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_indicators_user()) {
-        return false;
-    }
+__attribute__ ((weak))
+void rgb_matrix_indicators_user(void)
+{
     if (host_keyboard_led_state().caps_lock)
     {
         rgb_matrix_set_color(31, 0xFF, 0xFF, 0xFF);
     }
-    return true;
 }
 #endif

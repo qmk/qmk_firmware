@@ -26,45 +26,45 @@ bool process_backlight(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
 #ifdef LED_MATRIX_ENABLE
-            case QK_BACKLIGHT_ON:
+            case BL_ON:
                 led_matrix_enable();
                 return false;
-            case QK_BACKLIGHT_OFF:
+            case BL_OFF:
                 led_matrix_disable();
                 return false;
-            case QK_BACKLIGHT_DOWN:
+            case BL_DEC:
                 led_matrix_decrease_val();
                 return false;
-            case QK_BACKLIGHT_UP:
+            case BL_INC:
                 led_matrix_increase_val();
                 return false;
-            case QK_BACKLIGHT_TOGGLE:
+            case BL_TOGG:
                 led_matrix_toggle();
                 return false;
-            case QK_BACKLIGHT_STEP:
+            case BL_STEP:
                 led_matrix_step();
                 return false;
 #else
-            case QK_BACKLIGHT_ON:
+            case BL_ON:
                 backlight_level(BACKLIGHT_LEVELS);
                 return false;
-            case QK_BACKLIGHT_OFF:
+            case BL_OFF:
                 backlight_level(0);
                 return false;
-            case QK_BACKLIGHT_DOWN:
+            case BL_DEC:
                 backlight_decrease();
                 return false;
-            case QK_BACKLIGHT_UP:
+            case BL_INC:
                 backlight_increase();
                 return false;
-            case QK_BACKLIGHT_TOGGLE:
+            case BL_TOGG:
                 backlight_toggle();
                 return false;
-            case QK_BACKLIGHT_STEP:
+            case BL_STEP:
                 backlight_step();
                 return false;
 #    ifdef BACKLIGHT_BREATHING
-            case QK_BACKLIGHT_TOGGLE_BREATHING:
+            case BL_BRTG:
                 backlight_toggle_breathing();
                 return false;
 #    endif

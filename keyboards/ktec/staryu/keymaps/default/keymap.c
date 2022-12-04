@@ -78,26 +78,26 @@ void eeconfig_init_user(void) {
 
 void keyboard_post_init_user(void) {
   //layer_state_set_user is not called for inital state - set it here
-  rgblight_sethsv_noeeprom(HSV_WHITE);
+  rgblight_sethsv_noeeprom_white();
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case _LAYER1:
-        rgblight_sethsv_noeeprom(HSV_CYAN);
+        rgblight_sethsv_noeeprom_cyan();
         break;
     case _LAYER2:
-        rgblight_sethsv_noeeprom(HSV_MAGENTA);
+        rgblight_sethsv_noeeprom_magenta();
         break;
     case _LAYER3:
-        rgblight_sethsv_noeeprom(HSV_RED);
+        rgblight_sethsv_noeeprom_red();
         break;
     case _LAYER4:
-        rgblight_sethsv_noeeprom(HSV_ORANGE);
+        rgblight_sethsv_noeeprom_orange();
         break;
     case _LAYER0:
     default: //  for any other layers, or the default layer
-        rgblight_sethsv_noeeprom(HSV_WHITE);
+        rgblight_sethsv_noeeprom_white();
         break;
     }
   return state;

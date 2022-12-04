@@ -86,36 +86,36 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
   if (userspace_config.rgb_layer_change) {
     switch (get_highest_layer(state)) {  // _RAISE, _LOWER and _ADJUST use a custom color and the breathing effect
       case _RAISE:
-        rgblight_sethsv_noeeprom(HSV_GREEN);
+        rgblight_sethsv_noeeprom_green();
         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
         break;
       case _LOWER:
-        rgblight_sethsv_noeeprom(HSV_RED);
+        rgblight_sethsv_noeeprom_red();
         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
         break;
       case _ADJUST:
-        rgblight_sethsv_noeeprom(HSV_WHITE);
+        rgblight_sethsv_noeeprom_white();
         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 2);
         break;
       default:  // Use a solid color for normal layers
         switch (get_highest_layer(default_layer_state)) {
           case _QWERTY:
-            rgblight_sethsv_noeeprom(HSV_MAGENTA);
+            rgblight_sethsv_noeeprom_magenta();
             break;
           case _COLEMAK:
-            rgblight_sethsv_noeeprom(HSV_GREEN);
+            rgblight_sethsv_noeeprom_green();
             break;
           case _DVORAK:
-            rgblight_sethsv_noeeprom(HSV_BLUE);
+            rgblight_sethsv_noeeprom_blue();
             break;
           case _WORKMAN:
-            rgblight_sethsv_noeeprom(HSV_GOLDENROD);
+            rgblight_sethsv_noeeprom_goldenrod();
             break;
           case _PLOVER:
-            rgblight_sethsv_noeeprom(HSV_PINK);
+            rgblight_sethsv_noeeprom_pink();
             break;
           default:
-            rgblight_sethsv_noeeprom(HSV_WHITE);
+            rgblight_sethsv_noeeprom_white();
             break;
         }
         get_highest_layer(state) == _MODS ? rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING) : rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);  // if _MODS layer is on, then breath to denote it

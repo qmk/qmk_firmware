@@ -14,15 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "send_string.h"
-
 #include <ctype.h>
-#include <stdlib.h>
 
-#include "quantum_keycodes.h"
-#include "keycode.h"
-#include "action.h"
-#include "wait.h"
+#include "quantum.h"
+
+#include "send_string.h"
 
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
 #    include "audio.h"

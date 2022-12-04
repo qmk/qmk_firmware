@@ -109,7 +109,7 @@ enum {
 #define DNTAB  LCTL(LSFT(KC_PGDN))
 #define NXTWIN LALT(KC_TAB)
 #define PRVWIN LALT(LSFT(KC_TAB))
-#define CALDL  LCTL(LALT(KC_DEL))
+#define CALDL  LCTL(LALT(KC_DELT))
 #define TSKMGR LCTL(LSFT(KC_ESC))
 #define EXPLR  LGUI(KC_E)
 #define LCKGUI LGUI(KC_L)

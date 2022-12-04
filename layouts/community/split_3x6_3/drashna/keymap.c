@@ -242,7 +242,8 @@ void render_small_kitty(void) {
 void oled_driver_render_logo_right(void) {
     render_small_kitty();
 
-    render_default_layer_state(0, 4);
+    oled_set_cursor(0, 4);
+    render_default_layer_state();
 }
 #    endif
 #endif

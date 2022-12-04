@@ -41,7 +41,7 @@ static void default_layer_state_set(layer_state_t state) {
     ac_dprintf("\n");
 #if defined(STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods(); // To avoid stuck keys
-#elif defined(SEMI_STRICT_LAYER_RELEASE)
+#else
     clear_keyboard_but_mods_and_keys(); // Don't reset held keys
 #endif
 }
@@ -121,7 +121,7 @@ void layer_state_set(layer_state_t state) {
     ac_dprintf("\n");
 #    if defined(STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods(); // To avoid stuck keys
-#    elif defined(SEMI_STRICT_LAYER_RELEASE)
+#    else
     clear_keyboard_but_mods_and_keys(); // Don't reset held keys
 #    endif
 }

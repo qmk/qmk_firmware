@@ -144,7 +144,7 @@ uint16_t handle_encoder_ccw(void){
       mapped_code = KC_WH_U;
       break;
     case ENC_MODE_BACKLIGHT:
-      // mapped_code = BL_DOWN;
+      // mapped_code = BL_DEC;
       if(kb_backlight_config.level != 0){
         kb_backlight_config.level = kb_backlight_config.level - 1;
       }

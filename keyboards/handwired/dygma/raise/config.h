@@ -21,7 +21,7 @@
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
 
-#define RGB_MATRIX_LED_COUNT 132
+#define DRIVER_LED_TOTAL 132
 
 #ifdef RGB_MATRIX_ENABLE
 // At the default flush limit of 16ms (~62.5 fps), the matrix scan rate is approximately

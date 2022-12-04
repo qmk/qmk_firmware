@@ -112,6 +112,6 @@ bool rgb_matrix_indicators_user(void) {
     } else if (!HAS_ANY_FLAGS(rgb_matrix_get_flags(), LED_FLAG_KEYS)){
         rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, 0, 0, 0);
     }
-    return false;
 }
 #endif
+

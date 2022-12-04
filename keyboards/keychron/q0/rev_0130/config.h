@@ -26,7 +26,7 @@
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 21
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_CENTER { 56, 16 }
 

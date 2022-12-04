@@ -15,5 +15,8 @@
  */
 #pragma once
 
+// RGB Matrix
+#define VIA_QMK_RGBLIGHT_ENABLE
+
 // More layers
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8

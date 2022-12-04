@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FNL1] = LAYOUT_preonic_grid(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   TBMACRO, KC_MPRV, KC_MPLY, KC_MNXT,  ALT_F4, KC_CAPS,  KC_ESC, KC_PGUP,   KC_UP, KC_PGDN, KC_PSCR, KC_BSPC,
-  TT(_FNL1), _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NUM, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______,  KC_DEL,
+  TT(_FNL1), _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NLCK, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______,  KC_DEL,
   KC_LSFT,    CTLZ,    CTLX,    CTLC,    CTLV, _______,  KC_END, _______, _______, _______, LSFT(KC_MINS), _______,
   _______, _______, CTALDEL, _______, _______, _______, _______, _______, _______, _______, LSFT(KC_1), _______
 ),
@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FNL3] = LAYOUT_preonic_grid(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   TBMACRO, KC_MPRV, KC_MPLY, KC_MNXT,  ALT_F4, KC_CAPS,  KC_ESC, KC_PGUP,   KC_UP, KC_PGDN, KC_PSCR, KC_BSPC,
-  _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NUM,  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______,  KC_DEL,
+  _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NLCK, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______,  KC_DEL,
   KC_LSFT, _______, _______, _______, _______, _______,  KC_END, _______, _______, _______, LSFT(KC_MINS), _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, LSFT(KC_1), _______
 ),
@@ -261,11 +261,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
             case TBMACRO:
-                SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE));
+                SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSHIFT) SS_TAP(X_HOME) SS_UP(X_LSHIFT) SS_TAP(X_DELETE));
                 return false;
             case DGRMCRO:
                 if(!bnumlock) {
-                    tap_code(KC_NUM_LOCK);
+                    tap_code(KC_NLCK);
                     bnumlock = true;
                 }
                 //SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P7) SS_TAP(X_P6) SS_UP(X_LALT));
@@ -273,7 +273,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
 
             if(bnumlock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code(KC_NLCK);
                 bnumlock = false;
                 }
             case WRKMOD:
@@ -370,35 +370,35 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _QWERTY:
         if(bnumlock) {
-            tap_code(KC_NUM_LOCK);
+            tap_code(KC_NLCK);
         }
         break;
     case _LOWER:
         if(!bnumlock) {
-            tap_code(KC_NUM_LOCK);
+            tap_code(KC_NLCK);
         }
 
         break;
     case _ADJUST:
         if(bnumlock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code(KC_NLCK);
         }
         break;
     case _RAISE:
         if(bnumlock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code(KC_NLCK);
         }
         break;
     case _FNL1:
         if(bnumlock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code(KC_NLCK);
         }
         break;
     case _GAMEMODE:
         break;
     default: //  for any other layers, or the default layer
         if(bnumlock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code(KC_NLCK);
         }
 
         break;

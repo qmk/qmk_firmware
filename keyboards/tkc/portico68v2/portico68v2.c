@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "portico68v2.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS18_SW1, CS17_SW1, CS16_SW1}, /* RGB1 */
     {0, CS18_SW2, CS17_SW2, CS16_SW2}, /* RGB2 */
     {0, CS18_SW3, CS17_SW3, CS16_SW3}, /* RGB3 */
@@ -128,10 +128,7 @@ led_config_t g_led_config = {
     }
 };
 
-bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_indicators_user()) {
-        return false;
-    }
+void rgb_matrix_indicators_kb(void) {
     if (host_keyboard_led_state().caps_lock) {
         for (uint8_t i = 0; i < DRIVER_1_LED_TOTAL; i++) {
             rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
@@ -144,6 +141,5 @@ bool rgb_matrix_indicators_kb(void) {
             }
         }
     }
-    return true;
 }
 #endif

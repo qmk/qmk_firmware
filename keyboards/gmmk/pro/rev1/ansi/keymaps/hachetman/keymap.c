@@ -83,8 +83,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else {
       tap_code(KC_VOLD);
     }
-    //return true; //set to return false to counteract enabled encoder in pro.c
-    return false;
+    return true;
 }
 #endif // ENCODER_ENABLE
 
@@ -258,7 +257,6 @@ bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         set_rgb_caps_leds();
     }
-    return false;
 }
 
 #if RGB_CONFIRMATION_BLINKING_TIME > 0

@@ -48,7 +48,7 @@ enum {
 // Layers
 #define LT2_TAB LT(L_RAISE, KC_TAB)     // Tap for tab, hold for RAISE
 #define LT2_ENT LT(L_RAISE, KC_ENT)     // Tap for enter, hold for RAISE
-#define LT1_BSP LT(L_LOWER, KC_BSPC)    // Tap for backspace, hold for LOWER
+#define LT1_BSP LT(L_LOWER, KC_BSPACE)  // Tap for backspace, hold for LOWER
 #define LT1_SPC LT(L_LOWER, KC_SPC)     // Tap for space, hold for LOWER
 
 // Modifiers

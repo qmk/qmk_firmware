@@ -47,7 +47,7 @@ ADJUST
   |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
   | Shift |       |       |       |       |       |       |   |XXXXXXX| M-PLAY|M-MUTE |VOL_DWN|VOL_UP |PREV_TR|NEXT_TR|
   |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
-  | Debug |XXXXXXX|XXXXXXX|       |       |XXXXXXX|XXXXXXX|   |XXXXXXX|XXXXXXX|       | Left  | Down  |   Up  | Right |
+  | DEBUG |XXXXXXX|XXXXXXX|       |       |XXXXXXX|XXXXXXX|   |XXXXXXX|XXXXXXX|       | Left  | Down  |   Up  | Right |
   `-------------------------------------------------------'   `-------------------------------------------------------'
 
 GAME

@@ -16,6 +16,7 @@
 
 #include "dp60.h"
 
+#include "rgblight_list.h"
 #include "rgblight.h"
 
 
@@ -79,10 +80,14 @@ void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
     indicator_write(start_led + (RGBLED_NUM - RGB_INDICATOR_NUM), RGB_INDICATOR_NUM);
 }
 
-void led_update_ports(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.caps_lock);
-    rgblight_set_layer_state(1, led_state.scroll_lock);
-    rgblight_set_layer_state(2, led_state.num_lock);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res) {
+        rgblight_set_layer_state(0, led_state.caps_lock);
+        rgblight_set_layer_state(1, led_state.scroll_lock);
+        rgblight_set_layer_state(2, led_state.num_lock);
+    }
+    return res;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

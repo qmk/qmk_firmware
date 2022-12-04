@@ -52,4 +52,5 @@ enum userspace_layers {
 enum custom_keycodes {
     CLMK_DH = SAFE_RANGE,
     QWERTY,
+    CAPSWRD,
 };

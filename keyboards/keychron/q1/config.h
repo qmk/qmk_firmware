@@ -36,6 +36,11 @@
 /* Disable RGB lighting when PC is in suspend */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
+/* Allow VIA to edit lighting */
+#ifdef VIA_ENABLE
+#define VIA_QMK_RGBLIGHT_ENABLE
+#endif
+
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -84,3 +89,8 @@
 // #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+/* Allow VIA to edit lighting */
+#ifdef VIA_ENABLE
+#define VIA_QMK_RGBLIGHT_ENABLE
+#endif

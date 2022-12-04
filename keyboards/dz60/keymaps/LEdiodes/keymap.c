@@ -27,8 +27,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Keymap _L0: (Layer 0 - Base Layer) This is the default layer
  * This layer has a key set to MO(_L1) which means when held down Layer 1 will become active, If Layer 1 does not have anything set for tat key is will revert to uing the key set at layer 0.
  * LT(_L1, KC_1) means that when the "1" key is long touched then it will activate the layer _L1 key(F1) but if the key is just tapped it will activate the "1" key.
- * QK_GESC = Escape when tapped, ` when pressed with Shift or GUI
- * SC_LSPO = Left Shift when held, ( when tapped
+ * KC_GESC = Escape when tapped, ` when pressed with Shift or GUI
+ * KC_LSPO = Left Shift when held, ( when tapped
  * TD(LT(_L3,KC_SPACE)) = This is a test... hoping it will tap dance if double tapped it does enter if single tap it does space if long hold down it does _L3(Layer 3).
  * LT(_L3,KC_SPACE) = if tapped it does space, is long touch it does _L3(Layer 3)
  * BL_TOGG = Toggles the LEDs.

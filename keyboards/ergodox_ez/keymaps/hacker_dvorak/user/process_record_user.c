@@ -9,7 +9,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case KC_CAPS_LOCK:
+        case KC_CLCK:
             if (record->event.pressed) {
                 if (!(CAPS_LOCK)) {
                     ergodox_right_led_1_on();
@@ -22,7 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             return true;
 
-        case KC_NUM_LOCK:
+        case KC_NLCK:
             if (record->event.pressed) {
                 if (!(NUM_LOCK)) {
                     ergodox_right_led_2_on();
@@ -35,7 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             return true;
 
-        case KC_SCROLL_LOCK:
+        case KC_SLCK:
             if (record->event.pressed) {
                 if (!(SCROLL_LOCK)) {
                     ergodox_right_led_3_on();
@@ -65,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MY_OTHER_MACRO:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTL("ac")); // selects all and copies
+                SEND_STRING(SS_LCTRL("ac")); // selects all and copies
                 return false;
             }
 

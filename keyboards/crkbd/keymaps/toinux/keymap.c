@@ -243,7 +243,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case FUN:
             if  (!host_keyboard_led_state().num_lock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code(KC_NUMLOCK);
             }
         return true;
         break;

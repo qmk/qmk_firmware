@@ -5,16 +5,7 @@
 
 // because layouts seem to not be respecting config.h order atm
 #ifdef RGBLIGHT_ENABLE
-#    undef RGBLIGHT_EFFECT_BREATHING
-#    undef RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    undef RGBLIGHT_EFFECT_SNAKE
-#    undef RGBLIGHT_EFFECT_KNIGHT
-#    undef RGBLIGHT_EFFECT_CHRISTMAS
-#    undef RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    undef RGBLIGHT_EFFECT_RGB_TEST
-#    undef RGBLIGHT_EFFECT_ALTERNATING
-#    undef RGBLIGHT_EFFECT_TWINKLE
+#    undef RGBLIGHT_ANIMATIONS
 #    if defined(__AVR__) && (!defined(__AVR_AT90USB1286__) && !defined(RGBLIGHT_ALL_ANIMATIONS))
 #        define RGBLIGHT_EFFECT_BREATHING
 #        define RGBLIGHT_EFFECT_SNAKE
@@ -43,8 +34,7 @@
 #            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #        endif
 #    endif
-#    undef RGB_MATRIX_DEFAULT_MODE
-#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_REST_MODE
+#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
 #endif
 
 #ifdef MOUSEKEY_ENABLE

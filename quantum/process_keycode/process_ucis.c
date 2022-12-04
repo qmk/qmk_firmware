@@ -15,9 +15,6 @@
  */
 
 #include "process_ucis.h"
-#include "unicode.h"
-#include "keycode.h"
-#include "wait.h"
 
 ucis_state_t ucis_state;
 
@@ -61,6 +58,7 @@ __attribute__((weak)) void ucis_cancel(void) {}
 void register_ucis(const uint32_t *code_points) {
     for (int i = 0; i < UCIS_MAX_CODE_POINTS && code_points[i]; i++) {
         register_unicode(code_points[i]);
+        wait_ms(UNICODE_TYPE_DELAY);
     }
 }
 

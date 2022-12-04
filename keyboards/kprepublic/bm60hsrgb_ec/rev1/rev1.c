@@ -48,14 +48,11 @@ led_config_t g_led_config = { {
     2, 2, 2, 2, 2, 2
 } };
 
-bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_indicators_user()) {
-        return false;
-    }
+__attribute__ ((weak))
+void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(28, 0xFF, 0xFF, 0xFF);
     }
-    return true;
 }
 
 #ifdef ENCODER_ENABLE

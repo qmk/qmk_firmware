@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rev_a.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, K_2,  J_2,  L_2 }, //D402
     { 0, K_3,  J_3,  L_3 }, //D403
     { 0, K_4,  J_4,  L_4 }, //D404
@@ -114,11 +114,7 @@ led_config_t g_led_config = {
     }
 };
 
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-        return false;
-    }
-
+__attribute__((weak)) void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock && CAPS_LOCK_ENABLE) {
         for (uint8_t i = led_min; i <= led_max; i++) {
             if (g_led_config.flags[i] & CAPS_LED_GROUP) {
@@ -126,7 +122,5 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
-
-    return true;
 }
 #endif

@@ -71,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 
         _______, _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,   _______, _______, _______, _______,
-        _______, _______,   _______, _______, _______, EE_CLR,  QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,   _______, _______, _______, _______,
-        _______, _______,   _______, _______, _______, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______,                     _______,            _______, _______, _______, _______,
+        _______, _______,   _______, _______, _______, EEP_RST, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,   _______, _______, _______, _______,
+        _______, _______,   _______, _______, _______, DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, _______,                     _______,            _______, _______, _______, _______,
         _______, _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______,   _______, _______, _______, _______,
         _______, _______,   _______, _______,                                              _______,                            _______, _______,                     _______,            _______,          _______
     )
@@ -85,10 +85,10 @@ bool right_alt_down = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_LSFT:
+        case KC_LSHIFT:
             left_shift_down = record->event.pressed;
             break;
-        case KC_RSFT:
+        case KC_RSHIFT:
             right_shift_down = record->event.pressed;
             break;
         case KC_LALT:
@@ -126,7 +126,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {    // This assumes that the Linux Compose has been set to Scroll Lock
                 if (record->event.pressed) {
-                    tap_code16(KC_SCRL);
+                    tap_code16(KC_SLCK);
                     SEND_STRING("c/");
                 }
             }
@@ -194,17 +194,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case JM_NSLC:
             if (left_shift_down || right_shift_down) {
                 if (record->event.pressed) {
-                    register_code(KC_NUM_LOCK);
+                    register_code(KC_NLCK);
                 }
                 else {
-                    unregister_code(KC_NUM_LOCK);
+                    unregister_code(KC_NLCK);
                 }
             } else {
                 if (record->event.pressed) {
-                    register_code(KC_SCRL);
+                    register_code(KC_SLCK);
                 }
                 else {
-                    unregister_code(KC_SCRL);
+                    unregister_code(KC_SLCK);
                 }
             }
             return false;

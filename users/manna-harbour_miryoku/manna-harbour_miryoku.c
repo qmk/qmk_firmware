@@ -48,19 +48,6 @@ MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
 };
 
-
-// shift functions
-
-const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CW_TOGG, KC_CAPS);
-
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &capsword_key_override,
-    NULL
-};
-
-
-// thumb combos
-
 #if defined (MIRYOKU_KLUDGE_THUMBCOMBOS)
 const uint16_t PROGMEM thumbcombos_base_right[] = {LT(U_SYM, KC_ENT), LT(U_NUM, KC_BSPC), COMBO_END};
 const uint16_t PROGMEM thumbcombos_base_left[] = {LT(U_NAV, KC_SPC), LT(U_MOUSE, KC_TAB), COMBO_END};
