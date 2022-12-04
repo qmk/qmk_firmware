@@ -152,7 +152,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   
 
 #define DISPLAY_LAYER_NAME(LAYER_NAME, LAYER_STRING) \
-  if(biton32(layer_state) == LAYER_NAME) { \
+  if(get_highest_layer(layer_state) == LAYER_NAME) { \
       oled_write_ln_P(PSTR(LAYER_STRING), false); \
       return;\
   }\
