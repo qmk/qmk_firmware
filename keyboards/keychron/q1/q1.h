@@ -24,4 +24,6 @@
 #    include "rev_0101.h"
 #elif defined(KEYBOARD_keychron_q1_rev_0102)
 #    include "rev_0102.h"
+#elif defined(KEYBOARD_keychron_q1_iso_encoder)
+#    include "iso_encoder.h"
 #endif

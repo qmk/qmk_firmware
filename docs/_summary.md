@@ -171,7 +171,7 @@
       * [Early initialization](platformdev_chibios_earlyinit.md)
       * [Raspberry Pi RP2040](platformdev_rp2040.md)
       * [Proton C](platformdev_proton_c.md)
-      * [WeAct Blackpill F411](platformdev_blackpill_f411.md)
+      * [WeAct Blackpill F4x1](platformdev_blackpill_f4x1.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)
