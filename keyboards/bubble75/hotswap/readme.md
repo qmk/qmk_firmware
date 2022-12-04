@@ -1,6 +1,6 @@
 # Bubble 75
 
-![image](https://i.imgur.com/9J01bYH.png)
+![image](https://i.imgur.com/9J01bYHh.png)
 
 
 A compact exploded F-Row 75% made by Velocifire.
