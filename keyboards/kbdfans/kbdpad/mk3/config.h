@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
+#pragma once
+
 #define RGB_MATRIX_LED_COUNT 21
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16
