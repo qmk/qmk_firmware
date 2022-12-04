@@ -5,7 +5,6 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "dvorak_42_key.h"
-#include "rgblight.h"
 
 // to build: qmk compile -kb crkbd -km dvorak_42_key
 
