@@ -17,7 +17,6 @@
 #include QMK_KEYBOARD_H
 #include "features/customkeys.h"
 #include "features/swapper.h"
-#include "features/select_word.h"
 #include "features/custom_shift_keys.h"
 
 #define SYMB OSL(_SYMBOL)
@@ -25,8 +24,8 @@
 #define NAV TO(_NAV)
 #define BASE TO(_ISRT)
 #define NUM TO(_NUM)
-/* #define MOD_SPC GUI_T(KC_SPC) // For DWM */
-#define MOD_SPC MEH_T(KC_SPC)
+#define MOD_SPC GUI_T(KC_SPC) // For DWM
+/* #define MOD_SPC MEH_T(KC_SPC) */
 #define MOD_BSP LT(0,KC_BSPC)
 #define LT_UP LT(0,KC_UP)
 #define LT_LEFT LT(0,KC_LEFT)
@@ -107,11 +106,9 @@ void send_mac_or_win(uint16_t mac_code, uint16_t win_code, bool isPressed)
   else unregister_code16(code);
 }
 
-void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_pressed)
+void send_norwegian_letter(uint16_t keycode, uint16_t shifted_keycode, bool is_pressed, uint8_t mods)
 {
   if (is_pressed) {
-    const uint8_t mods = get_mods();
-
     if (is_mac_the_default()) SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)) SS_DELAY(100));
     else SEND_STRING(SS_LCTL(SS_TAP(X_LSFT)) SS_DELAY(100));
 
@@ -143,7 +140,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   update_swapper(&sw_win_active, KC_LGUI, KC_GRV, SW_WIN, keycode, record);
 
   if (!process_custom_shift_keys(keycode, record)) { return false; }
-  if (!process_select_word(keycode, record, SEL_WRD, is_mac_the_default())) { return false; }
 
   switch (keycode) {
   case KC_PSCR:
@@ -167,13 +163,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     else unregister_code16(KC_BTN1);
     return false;
   case CT_AA:
-    send_norwegian_letter(KC_LBRC, KC_LCBR, isPressed);
+    send_norwegian_letter(KC_LBRC, KC_LCBR, isPressed, mods);
     return false;
   case CT_OE:
-    send_norwegian_letter(KC_SCLN, KC_COLN, isPressed);
+    send_norwegian_letter(KC_SCLN, KC_COLN, isPressed, mods);
     return false;
   case CT_AE:
-    send_norwegian_letter(KC_QUOT, KC_DQUO, isPressed);
+    send_norwegian_letter(KC_QUOT, KC_DQUO, isPressed, mods);
     return false;
   case MOD_BSP:
     if (is_shift_held() && isPressed) {
