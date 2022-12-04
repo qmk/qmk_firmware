@@ -1,6 +1,3 @@
-![0xC.pad Layout Image](https://i.imgur.com/pk4G33B.png)
-​
-
 # 0xC.pad Layout
 
 ​
