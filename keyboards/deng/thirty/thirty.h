@@ -17,7 +17,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT( \
+#define LAYOUT_ortho_3x10( \
     K00, K01, K02, K03, K04, K34, K33, K32, K31, K30, \
     K10, K11, K12, K13, K14, K44, K43, K42, K41, K40, \
     K20, K21, K22, K23, K24, K54, K53, K52, K51, K50  \
