@@ -37,6 +37,7 @@
 #endif
 
 #ifdef AUDIO_ENABLE
+#    include "song_list.h"
 #    define AUDIO_CLICKY
 #    define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 
