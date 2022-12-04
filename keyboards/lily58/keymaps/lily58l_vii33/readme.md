@@ -1,12 +1,12 @@
 # Lily58L by vii33
-<img src="https://images2.imgbox.com/27/a1/a4wqerGE_o.jpg" width="900" alt="Lily58l keyboard image">
+<img src="https://images2.imgbox.com/00/5d/Xx4Zji9L_o.jpg" width="900" alt="Lily58l keyboard image">
 
-Heavily modified keymap for better ergonomics compared to the original keymap by [BenRoe](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58/keymaps/lily58l) from [Keycapsss.com](https://keycapsss.com).
+Lily58l keyboard design by [BenRoe](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58/keymaps/lily58l) with a heavily modified keymap for better ergonomics compared to the original.
 
-> For further explanation and full keymap see [github.com/vii33](https://github.com/vii33/mecha-keyboard-lily58l).
+> For further explanation and full keymap see [https://github.com/vii33/mecha-keyboard-lily58l](https://github.com/vii33/mecha-keyboard-lily58l).
 
 ## Changes
-- Added [Luna](https://youtu.be/HgIQRazCAjo), the interactive dog, and Mario World screen.
+- Added [Luna](https://youtu.be/HgIQRazCAjo), the interactive keyboard dog.
 - Re-did Lower and Upper Layer completely to be more sensible and reduce the number of cross-hand keystrokes, e.g. 
   - F-keys are now in the same place as number keys
   - All brackets are easily reachable with the right hand (developers)
@@ -14,15 +14,15 @@ Heavily modified keymap for better ergonomics compared to the original keymap by
 - Added mod-taps for `Shift` <-> `Space`
 - Added home [row modifiers](https://precondition.github.io/home-row-mods) for `Ctrl`, `Alt`, `Win`
 - Changed encoder direction (clockwise should be **louder**/**scroll down** :) )
-- Reduced LED brightness as default value is sometimes too much for the controller (Imo)
+- Reduced LED brightness as default value is sometimes too much for the controller (imo)
 - Optimized one-hand use with left hand on keyboard and right hand on mouse (Delete, Enter, Cut, Copy...)
 - Added 'Game' Layer without special mod keys
 - Included German special characters
-- Added possibility to adjust RGB colors & brightness with encoders (turn walkt through color wheel)
-- Added keys to start the individual RGB animations (breathing, snake, ...)
-- Updated legacy LED animation `#defines`
+- Added possibility to adjust RGB colors & brightness with encoders (turn walks through the color wheel)
+- Added keys to start the predefined RGB animations (breathing, snake, ...)
+- Refactored legacy LED #defines
 - Reduced OLED refresh rate to improve matrix scan rate
-- Included words-per-minute metric counter (used for luna)
+- Included words-per-minute metric counter (used for Luna)
 - more stuff...
 
 

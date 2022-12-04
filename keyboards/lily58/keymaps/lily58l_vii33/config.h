@@ -79,7 +79,7 @@ qmk flash -kb lily58/light -km lily58l_vii33 -bl dfu-split-left
 #define OLED_TIMEOUT 120000
 // #define OLED_FADE_OUT
 #define OLED_UPDATE_INTERVAL 100  // set oled update interval in ms (default: 0). improves matrix scan rate
-#define OLED_BRIGHTNESS 120
+#define OLED_BRIGHTNESS 130
 
 /* Sync WPM to slave side */
 #define SPLIT_WPM_ENABLE    
