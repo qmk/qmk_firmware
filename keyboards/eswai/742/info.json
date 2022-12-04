@@ -1,19 +1,9 @@
 {
     "keyboard_name": "742",
-    "url": "",
-    "maintainer": "eswai",
-    "width": 3,
-    "height": 2,
-    "layouts": {
-        "LAYOUT": {
-            "layout": [
-                {"label": "k00", "x": 0, "y": 0},
-                {"label": "k01", "x": 1, "y": 0},
-                {"label": "k02", "x": 2, "y": 0},
-
-                {"label": "k10", "x": 0, "y": 1, "w": 1.5},
-                {"label": "k12", "x": 1.5, "y": 1, "w": 1.5}
-            ]
-        }
+    "manufacturer": "eswai",
+    "usb": {
+        "vid": "0xE2A1",
+        "pid": "0x0742",
+        "device_version": "0.0.1"
     }
 }

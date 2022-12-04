@@ -51,11 +51,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //   KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , C(KC_V)  , C(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , 
   //   KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
   //   ),
+  // 
+  // [_MAC] = LAYOUT(
+  //   KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, G(KC_X)  , G(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , 
+  //   CMD_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , G(KC_C)  , G(KC_S) ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , 
+  //   KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , G(KC_V)  , G(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT , 
+  //   KC_LCTL       ,KC_LALT,KC_LCTL,KC_LCMD,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
+  //   ),
 
   [_MAC] = LAYOUT(
-    KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, G(KC_X)  , G(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , \
-    CMD_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , G(KC_C)  , G(KC_S) ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , \
-    KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , G(KC_V)  , G(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , \
+    KC_TAB        ,KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q   , G(KC_X)  , G(KC_Z) ,KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P    ,KC_QUOT , \
+    CMD_T(KC_ESC) ,KC_W   ,KC_I   ,KC_S    ,KC_A   ,KC_G   , G(KC_C)  , G(KC_S) ,KC_Y   ,KC_E   ,KC_T   ,KC_H   ,KC_B    ,KC_SCLN , \
+    KC_LSFT       ,KC_Z   ,KC_X   ,KC_V    ,KC_L   ,KC_C   , G(KC_V)  , G(KC_Y) ,KC_M   ,KC_O   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT , \
     KC_LCTL       ,KC_LALT,KC_LCTL,KC_LCMD,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
     ),
 
@@ -70,18 +77,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ ,XXXXXXX ,XXXXXXX ,KC_COLN ,KC_SCLN ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_SLSH ,KC_7   ,KC_8   ,KC_9   ,KC_MINS ,KC_DEL , \
     _______ ,XXXXXXX ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LT   ,XXXXXXX ,XXXXXXX ,KC_ASTR ,KC_4   ,KC_5   ,KC_6   ,KC_PLUS ,_______, \
     _______ ,XXXXXXX ,KC_RBRC ,KC_RCBR ,KC_RPRN ,KC_GT   ,XXXXXXX ,XXXXXXX ,KC_0    ,KC_1   ,KC_2   ,KC_3   ,KC_EQL  ,_______, \
-    RESET   ,_______ ,_______ ,_______ ,_______ ,_______,                   KANAON  ,_______,_______,_______,_______ ,_______
+    QK_BOOT ,_______ ,_______ ,_______ ,_______ ,_______,                   KANAON  ,_______,_______,_______,_______ ,_______
   ),
 
   [_RAISE] = LAYOUT(
     _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,XXXXXXX,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_HOME   ,KC_UP     ,KC_END    ,XXXXXXX   ,KC_DEL    , \
-    _______   ,KC_CIRC   ,KC_AMPR   ,KC_QUES   ,KC_PERC   ,KC_JYEN,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
-    _______   ,KC_GRV    ,KC_PIPE   ,KC_EXLM   ,KC_UNDS   ,LALT(KC_JYEN),   XXXXXXX, XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   , \
+    _______   ,KC_CIRC   ,KC_AMPR   ,KC_QUES   ,KC_PERC   ,KC_INT3,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
+    _______   ,KC_GRV    ,KC_PIPE   ,KC_EXLM   ,KC_UNDS   ,LALT(KC_INT3),XXXXXXX, XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   , \
     _______   ,_______   ,_______   ,_______   ,_______   ,EISUON      ,           _______        ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
   [_ADJUST] = LAYOUT(
-    _______,EEP_RST,RESET,  KC_F1   ,KC_F2  ,KC_F3   ,KC_F4,  NG_TAYO,NGSW_WIN,XXXXXXX,XXXXXXX,RESET  ,XXXXXXX,_______, \
+    _______,EE_CLR ,QK_BOOT,KC_F1   ,KC_F2  ,KC_F3   ,KC_F4,  NG_TAYO,NGSW_WIN,XXXXXXX,XXXXXXX,QK_BOOT,XXXXXXX,_______, \
     _______,XXXXXXX,KC_SLEP,KC_F5   ,KC_F6  ,KC_F7   ,KC_F8,  NG_KOTI,NGSW_MAC,NG_MLV ,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
     _______,XXXXXXX,KC_WAKE,KC_F9   ,KC_F10 ,KC_F11  ,KC_F12, NG_SHOS,NGSW_LNX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
     _______,_______,_______,_______,_______,     XXXXXXX,        XXXXXXX,_______,_______,_______,_______,_______
@@ -139,8 +146,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void matrix_init_user(void) {
   // 薙刀式
-  uint16_t ngonkeys[] = {KC_J, KC_E};
-  uint16_t ngoffkeys[] = {KC_I, KC_G};
+  uint16_t ngonkeys[] = {KC_Y, KC_E};
+  uint16_t ngoffkeys[] = {KC_A, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
 
