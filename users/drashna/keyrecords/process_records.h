@@ -45,6 +45,7 @@ enum userspace_custom_keycodes {
     KC_AUSSIE,
     KC_ZALGO,
     KC_SUPER,
+    KC_COMIC,
     KC_ACCEL,
     NEW_SAFE_RANGE // use "NEWPLACEHOLDER for keymap specific codes
 };

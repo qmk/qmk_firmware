@@ -15,11 +15,6 @@ My [Ergodox EZ Keymap](https://github.com/qmk/qmk_firmware/blob/master/layouts/c
 You can see a list of these files in [callbacks.c](callbacks.c), or a shortend list here 
 
 ```c
-__attribute__((weak)) void matrix_init_keymap(void) {}
-void                       matrix_init_user(void) {
-    matrix_init_keymap();
-}
-
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void                       keyboard_post_init_user(void) {
     keyboard_post_init_keymap();

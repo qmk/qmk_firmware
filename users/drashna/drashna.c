@@ -130,14 +130,35 @@ void keyboard_post_init_i2c(void) {
 }
 #endif
 
-#if defined(AUTOCORRECT_ENABLE) && defined(AUDIO_ENABLE)
-#    ifdef USER_SONG_LIST
+#if defined(AUTOCORRECT_ENABLE)
+#    if defined(AUDIO_ENABLE)
+#        ifdef USER_SONG_LIST
 float autocorrect_song[][2] = SONG(MARIO_GAMEOVER);
-#    else
+#        else
 float autocorrect_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
+#        endif
 #    endif
+
 bool apply_autocorrect(uint8_t backspaces, const char *str) {
+    if (layer_state_is(_GAMEPAD)) {
+        return false;
+    }
+    // TO-DO use unicode stuff for this.  Will probably have to reverse engineer
+    // send string to get working properly, to send char string.
+
+#    if defined(AUDIO_ENABLE)
     PLAY_SONG(autocorrect_song);
+#    endif
     return true;
+}
+#endif
+
+#if defined(CAPS_WORD_ENABLE) && !defined(NO_ACTION_ONESHOT)
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+    if (mods & MOD_MASK_SHIFT) {
+        del_mods(MOD_MASK_SHIFT);
+        set_oneshot_locked_mods(~MOD_MASK_SHIFT & get_oneshot_locked_mods());
+        caps_word_on();
+    }
 }
 #endif

@@ -14,7 +14,3 @@ INDICATOR_LIGHTS            = no
 RGBLIGHT_STARTUP_ANIMATION  = no
 CUSTOM_UNICODE_ENABLE       = no
 CUSTOM_SPLIT_TRANSPORT_SYNC = no
-
-ifneq ($(strip $(KEYBOARD)), keebio/iris/rev6)
-   RGBLIGHT_ENABLE    = yes
-endif
