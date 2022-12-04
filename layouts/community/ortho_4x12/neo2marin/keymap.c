@@ -23,12 +23,14 @@ enum custom_keycodes {
   QWERTZ,
 };
 
-#define L_NEO    0 // NEO2
-#define L_QWZ    1 // QWERTZ
-#define L_COD    2 // NEO2 Layer 3 (Coding)
-#define L_COD_AT 3 // NEO2 Layer 3 (Coding with AT)
-#define L_MOV    4 // NEO2 Layer 4 (Movements)
-#define L_FUN    5 // Function and media keys
+enum custom_layers {
+  L_NEO,    // NEO2
+  L_QWZ,    // QWERTZ
+  L_COD,    // NEO2 Layer 3 (Coding layer using right MOD3)
+  L_COD_AT, // NEO2 Layer 3 (Coding layer using left MOD3, with @)
+  L_MOV,    // NEO2 Layer 4 (Movements)
+  L_FUN,    // Function and media keys
+};
 
 #define MCOD MO(L_COD)
 #define MCODAT MO(L_COD_AT)
