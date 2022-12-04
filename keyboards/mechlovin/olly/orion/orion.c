@@ -26,42 +26,10 @@ void led_init_ports(void) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        case 0:
-            writePinHigh(B7);
-            writePinLow(B6);
-            writePinLow(B5);
-            writePinLow(B8);
-            writePinLow(B9);
-            break;
-        case 1:
-            writePinHigh(B6);
-            writePinLow(B7);
-            writePinLow(B5);
-            writePinLow(B8);
-            writePinLow(B9);
-            break;
-        case 2:
-            writePinHigh(B5);
-            writePinLow(B7);
-            writePinLow(B6);
-            writePinLow(B8);
-            writePinLow(B9);
-            break;
-        case 3:
-            writePinHigh(B8);
-            writePinLow(B7);
-            writePinLow(B5);
-            writePinLow(B6);
-            writePinLow(B9);
-            break;
-        case 4:
-            writePinHigh(B9);
-            writePinLow(B7);
-            writePinLow(B5);
-            writePinLow(B8);
-            writePinLow(B6);
-            break;
-    }
+    writePin(B7, layer_state_cmp(state, 0));
+    writePin(B6, layer_state_cmp(state, 1));
+    writePin(B5, layer_state_cmp(state, 2));
+    writePin(B8, layer_state_cmp(state, 3));
+    writePin(B9, layer_state_cmp(state, 4));
     return state;
 }
