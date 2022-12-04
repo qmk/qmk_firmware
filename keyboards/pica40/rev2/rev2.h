@@ -7,9 +7,12 @@
 #define PICA40_RGB_POWER_PIN GP11
 
 // enable custom encoder functionality for Pica40
-#ifdef PICA40_ENCODER_SYNC_ENABLE
+#ifdef ENCODER_ENABLE
+#   include "encoder.h"
 #   include "transactions.h"
-#   define PICA40_ENCODER_PIN GP7
+#   ifndef ENCODER_MAP_KEY_DELAY
+#       define ENCODER_MAP_KEY_DELAY 2
+#   endif
 #   ifndef ENCODER_RESOLUTION
 #       define ENCODER_RESOLUTION 4
 #   endif

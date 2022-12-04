@@ -5,20 +5,24 @@
 #include "quantum.h"
 #include "gpio.h"
 
-#ifdef PICA40_ENCODER_SYNC_ENABLE
+#ifdef ENCODER_ENABLE // code based on encoder.c
 
-typedef struct encoder_sync_data {
-    int value;
-} encoder_sync_data;
+static const pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+static const pin_t encoders_pad_b[] = ENCODERS_PAD_B;
 
 static int8_t  encoder_LUT[]  = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 static uint8_t encoder_state  = 3;
 static int8_t  encoder_pulses = 0;
 static uint8_t encoder_value  = 0;
 
+typedef struct encoder_sync_data {
+    int value;
+} encoder_sync_data;
+
+// custom handler that returns encoder B pin status from slave side
 void encoder_sync_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
     encoder_sync_data *data = (encoder_sync_data *)out_data;
-    data->value = readPin(PICA40_ENCODER_PIN);
+    data->value = readPin(encoders_pad_b[0]);
 }
 
 __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
@@ -33,7 +37,67 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return false;
 }
 
-#endif // PICA40_ENCODER_SYNC_ENABLE
+#ifdef ENCODER_MAP_ENABLE
+static void encoder_exec_mapping(uint8_t index, bool clockwise) {
+    action_exec(clockwise ? ENCODER_CW_EVENT(index, true) : ENCODER_CCW_EVENT(index, true));
+    wait_ms(ENCODER_MAP_KEY_DELAY);
+    action_exec(clockwise ? ENCODER_CW_EVENT(index, false) : ENCODER_CCW_EVENT(index, false));
+    wait_ms(ENCODER_MAP_KEY_DELAY);
+}
+#endif // ENCODER_MAP_ENABLE
+
+void encoder_init(void) {
+    setPinInputHigh(encoders_pad_a[0]);
+    setPinInputHigh(encoders_pad_b[0]);
+    wait_us(100);
+    transaction_register_rpc(ENCODER_SYNC, encoder_sync_slave_handler);
+}
+
+bool encoder_read(void) {
+    // ignore if running on slave side
+    if (!is_keyboard_master()) return false;
+
+    bool changed = false;
+    encoder_sync_data data = {0};
+    // request pin B status from slave side
+    if (transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data)) {
+        uint8_t new_status = (readPin(encoders_pad_a[0]) << 0) | (data.value << 1);
+        if ((encoder_state & 0x3) != new_status) {
+            encoder_state <<= 2;
+            encoder_state |= new_status;
+            encoder_pulses += encoder_LUT[encoder_state & 0xF];
+
+            if (encoder_pulses >= ENCODER_RESOLUTION) {
+                encoder_value++;
+                changed = true;
+#ifdef ENCODER_MAP_ENABLE
+                encoder_exec_mapping(0, false);
+#else  // ENCODER_MAP_ENABLE
+                encoder_update_kb(0, false);
+#endif // ENCODER_MAP_ENABLE
+            }
+
+            if (encoder_pulses <= -ENCODER_RESOLUTION) {
+                encoder_value--;
+                changed = true;
+#ifdef ENCODER_MAP_ENABLE
+                encoder_exec_mapping(0, true);
+#else  // ENCODER_MAP_ENABLE
+                encoder_update_kb(0, true);
+#endif // ENCODER_MAP_ENABLE
+            }
+
+            encoder_pulses %= ENCODER_RESOLUTION;
+        }
+    }
+    return changed;
+}
+
+// do not use standard split encoder transactions
+void encoder_state_raw(uint8_t *slave_state) {}
+void encoder_update_raw(uint8_t *slave_state) {}
+
+#endif // ENCODER_ENABLE
 
 #ifdef PICA40_RGBLIGHT_TIMEOUT
 uint16_t check_rgblight_timer = 0;
@@ -74,11 +138,6 @@ bool should_set_rgblight = false;
 void keyboard_post_init_kb(void) {
     setPinOutput(PICA40_RGB_POWER_PIN);
 
-#ifdef PICA40_ENCODER_SYNC_ENABLE
-    setPinInputHigh(PICA40_ENCODER_PIN);
-    transaction_register_rpc(ENCODER_SYNC, encoder_sync_slave_handler);
-#endif // PICA40_ENCODER_SYNC_ENABLE
-
 #ifdef PICA40_RGBLIGHT_TIMEOUT
     idle_timer = timer_read();
     check_rgblight_timer = timer_read();
@@ -93,32 +152,8 @@ void keyboard_post_init_kb(void) {
 }
 
 void housekeeping_task_kb(void) {
-    if (is_keyboard_master()) {
-#ifdef PICA40_ENCODER_SYNC_ENABLE
-        encoder_sync_data data = {0};
-        if (transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data)) {
-            uint8_t new_status = (readPin(PICA40_ENCODER_PIN) << 0) | (data.value << 1);
-            if ((encoder_state & 0x3) != new_status) {
-                encoder_state <<= 2;
-                encoder_state |= new_status;
-                encoder_pulses += encoder_LUT[encoder_state & 0xF];
-
-                if (encoder_pulses >= ENCODER_RESOLUTION) {
-                    encoder_value++;
-                    encoder_update_kb(0, false);
-                }
-
-                if (encoder_pulses <= -ENCODER_RESOLUTION) {
-                    encoder_value--;
-                    encoder_update_kb(0, true);
-                }
-
-                encoder_pulses %= ENCODER_RESOLUTION;
-            }
-        }
-#endif // PICA40_ENCODER_SYNC_ENABLE
-
 #ifdef PICA40_RGBLIGHT_TIMEOUT
+    if (is_keyboard_master()) {
         if (timer_elapsed(check_rgblight_timer) > 1000) {
             check_rgblight_timer = timer_read();
 
@@ -132,8 +167,8 @@ void housekeeping_task_kb(void) {
                 rgblight_disable_noeeprom();
             }
         }
-#endif // PICA40_RGBLIGHT_TIMEOUT
     }
+#endif // PICA40_RGBLIGHT_TIMEOUT
 
 #ifdef RGBLIGHT_LAYERS
     if (timer_elapsed(check_layer_timer) > 100) {

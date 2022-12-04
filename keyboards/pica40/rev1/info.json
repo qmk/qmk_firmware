@@ -7,7 +7,7 @@
         "rows": ["B1", "B3", "B2", "B6", "F4", "F5", "F6", "F7"]
     },
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "command": false,
         "console": false,
         "mousekey": true,

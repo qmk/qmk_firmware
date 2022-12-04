@@ -13,11 +13,12 @@
         "on_state": 0
     },
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "command": false,
         "console": false,
-        "mousekey": false,
+        "mousekey": true,
         "extrakey": true,
+        "encoder": true,
         "rgblight": true,
         "nkro": true
     },
@@ -31,7 +32,15 @@
         }
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "encoder": {
+            "right": {
+                "rotary": []
+            }
+        }
+    },
+    "encoder": {
+        "rotary": [{ "pin_a": "GP7", "pin_b": "GP7" }]
     },
     "usb": {
         "device_version": "1.0.0",

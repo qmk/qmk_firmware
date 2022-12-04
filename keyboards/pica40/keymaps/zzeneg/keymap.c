@@ -128,13 +128,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (get_highest_layer(layer_state) > _GAME) {
-        tap_code(clockwise ? KC_MNXT : KC_MPRV);
-        return false;
-    }
-    return true;
-}
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QWERTY] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_GAME] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_NAV] =  { ENCODER_CCW_CW(KC_MPRV, KC_MNXT)  },
+    [_NUMBER] =  { ENCODER_CCW_CW(KC_MPRV, KC_MNXT)  },
+    [_SYMBOL] =  { ENCODER_CCW_CW(KC_MPRV, KC_MNXT)  },
+    [_FUNC] =  { ENCODER_CCW_CW(KC_MPRV, KC_MNXT)  }
+};
+#endif // ENCODER_MAP_ENABLE
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 

@@ -14,8 +14,6 @@
 #    define PICA40_RGBLIGHT_TIMEOUT 5 // turn RGB off after N minutes
 #endif
 
-#define PICA40_ENCODER_SYNC_ENABLE // support Pica40 V2 encoder
-
-#ifdef PICA40_ENCODER_SYNC_ENABLE
-#    define SPLIT_TRANSACTION_IDS_KB ENCODER_SYNC
+#ifdef ENCODER_ENABLE
+#   define SPLIT_TRANSACTION_IDS_KB ENCODER_SYNC
 #endif
