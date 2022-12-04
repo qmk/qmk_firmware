@@ -38,10 +38,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
-
 #define FORCE_NKRO
 
 /* WS2812 RGB */
