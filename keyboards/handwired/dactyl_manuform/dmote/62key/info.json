@@ -3,6 +3,8 @@
     "manufacturer": "tshort",
     "url": "",
     "maintainer": "veikman",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "usb": {
         "vid": "0x444D",
         "pid": "0x3632",

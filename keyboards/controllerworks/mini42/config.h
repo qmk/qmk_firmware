@@ -17,16 +17,9 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-/* #define DEBOUNCE 5 */
-
 #define WS2812_PIO_USE_PIO1
 #define RGBLED_NUM 54
-#define DRIVER_LED_TOTAL RGBLED_NUM
-#define RGB_MATRIX_SPLIT \
-        { 27, 27 }
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
@@ -50,20 +43,3 @@
 /* Top right key on right half */
 #define BOOTMAGIC_LITE_ROW_RIGHT    0
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 0
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
-
