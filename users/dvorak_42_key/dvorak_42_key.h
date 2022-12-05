@@ -8,16 +8,18 @@
 // LAYERS
 // ======
 
-#define BASE             0 // base dvorak layer
-#define KEYNAV           1 // arrow navigation (right hand)
-#define KEYSEL           2 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV        3 // bash shortcuts
-#define SHELL_SCREEN     4 // linux screen shortcuts
-#define BROWSER_CONTROL  5 // control browser and mouse
-#define COMBINED         6 // combined numbers and symbols layer
-#define ANDROID_STUDIO   7 // android studio specific layer
-#define VSCODE           8 // visual studio code specific layer
-#define SHORTCUTS        9 // shortcuts to be intercepted by autohotkey
+enum layer_names {
+    BASE,            // base dvorak layer
+    KEYNAV,          // arrow navigation (right hand)
+    KEYSEL,          // arrow navigation + shift (allow text selection)
+    SHELL_NAV,       // bash shortcuts
+    SHELL_SCREEN,    // linux screen shortcuts
+    BROWSER_CONTROL, // control browser and mouse
+    COMBINED,        // combined numbers and symbols layer
+    ANDROID_STUDIO,  // android studio specific layer
+    VSCODE,          // visual studio code specific layer
+    SHORTCUTS,       // shortcuts to be intercepted by autohotkey
+};
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
