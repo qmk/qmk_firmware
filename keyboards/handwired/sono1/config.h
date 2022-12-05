@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x515A // "QZ"
-#define PRODUCT_ID   0x5331 // "S1"
-#define DEVICE_VER   0x0001
-#define MANUFACTURER ASKeyboard
-#define PRODUCT      Sono1
-
 /* key matrix size */
 #define MATRIX_ROWS 15
 #define MATRIX_COLS 8

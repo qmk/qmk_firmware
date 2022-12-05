@@ -20,8 +20,6 @@
 // debounce settings
 // remove these after getting a new keyboard
 // #define DEBOUNCE 50
-// #define QMK_KEYS_PER_SCAN 4
-
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -219,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
       OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(VSCODE_NAV),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
-      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
+      OSL(SHELL_SCREEN), KC_SCLN,       KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
       MEH(KC_0),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
 
       // left thumb cluster
@@ -232,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MEH(KC_1), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
                  KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
       MEH(KC_2), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_8),
-      KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_9),
+      KC_BSPC,   RCTL(KC_BSPC), KC_CAPS, OSM(MOD_LSFT),MEH(KC_9),
 
       // right thumb cluster
       MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_6),KC_ENTER,KC_SPACE
@@ -254,7 +252,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,         MEH(KC_G),
     KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,         MEH(KC_H),
             LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),  MEH(KC_I),
-    KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
+    KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDN,         MEH(KC_J),
                            KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), MEH(KC_K),
 
     // right thumb cluster
@@ -269,7 +267,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
            KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
                    // bottom row
-                   RESET,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                   QK_BOOT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                            // thumb cluster
                                            KC_TRNS,KC_TRNS,
                                                    KC_TRNS,
@@ -451,7 +449,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // left hand
     KC_NO,  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS,
     KC_TRNS,KC_EXLM, KC_AT,      KC_HASH,     KC_DLR,      KC_PERC, KC_TRNS,
-    KC_TRNS,KC_LPRN, KC_RPRN,    KC_LBRACKET, KC_RBRACKET, KC_UNDS,
+    KC_TRNS,KC_LPRN, KC_RPRN,    KC_LBRC,     KC_RBRC,     KC_UNDS,
     KC_TRNS,KC_COLN, KC_DQUO,    KC_LCBR,     KC_RCBR,     KC_AMPR, KC_TRNS,
     // bottom row
     KC_TRNS,KC_TRNS, KC_TILD,    KC_GRAVE,    KC_CIRC,
@@ -594,21 +592,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
             break;
         case SHELL_EXPAND_OE_LOGPATTERN:
-                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
+                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTL("x")SS_LSFT("8"));
             break;
         case SHELL_EXPAND_OE_TRANPATTERN:
-                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
+                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTL("x")SS_LSFT("8"));
             break;
             case SHELL_DUMPTLOG:
                 SEND_STRING(" | dumptlog - ");
                 return true;
                 break;
             case WINDOWS10_WORKSPACE_LEFT:
-                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+                SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_LEFT))));
                 return true;
                 break;
             case WINDOWS10_WORKSPACE_RIGHT:
-                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+                SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_RIGHT))));
                 break;
             case WINDOWS10_TASK_VIEW:
                 SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
@@ -680,33 +678,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case SCREEN_READREG_1:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("readreg 1\n");
             break;
         case SCREEN_READREG_2:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("readreg 2\n");
             break;
         case SCREEN_READREG_3:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("readreg 3\n");
             break;
 
         case SCREEN_PASTEREG_1:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("paste 1\n");
             break;
         case SCREEN_PASTEREG_2:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("paste 2\n");
             break;
         case SCREEN_PASTEREG_3:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("paste 3\n");
             break;
     }
@@ -725,7 +723,7 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_2_off();

@@ -1,7 +1,13 @@
 {
   "keyboard_name": "XD87",
+  "manufacturer": "KPrepublic",
   "url": "https://kprepublic.com/products/hot-swappable-xd87-hs-xd87-custom-mechanical-keyboard-kit80-supports-tkg-tools-support-underglow-rgb-pcb-programmed-gh80-kle",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x7844",
+    "pid": "0x8787",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_all": {
       "layout": [

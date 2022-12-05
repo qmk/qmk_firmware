@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x5332
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         NEBULA12B
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 3
@@ -75,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB options */
 
 #define RGB_DI_PIN D5
-#define DRIVER_LED_TOTAL 16
+#define RGB_MATRIX_LED_COUNT 16
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES

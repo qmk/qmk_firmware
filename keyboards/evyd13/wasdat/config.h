@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D6, D4, F6, F7, F4, F5, F0, F1 }
 #define MATRIX_COL_PINS { C7, B6, C6, B4, B5, D7, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, D3, B7, B3 } // Columns 6-12 controlled by demux
-#define UNUSED_PINS
 
 #define SN74X138_ADDRESS_PINS { D2, D1, D0 }
 

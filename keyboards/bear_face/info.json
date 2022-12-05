@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "bear_face",
+    "manufacturer": "chemicalwill",
+    "url": "https://github.com/chemicalwill/bear_face_pcb",
+    "maintainer": "chemicalwill",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x09F5"
+    }
+}

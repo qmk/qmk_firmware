@@ -1,7 +1,13 @@
 {
     "keyboard_name": "latinpadble",
+    "manufacturer": "haierwangwei2005",
     "url": "https://github.com/latincompass/2-RotaryEncoder-pad",
     "maintainer": "haierwangwei2005",
+    "usb": {
+        "vid": "0x7C88",
+        "pid": "0x7C98",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_pad": {
             "layout": [

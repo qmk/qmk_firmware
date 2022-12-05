@@ -162,8 +162,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, ____z_____z_____z_____z,KC_SPC, ____z_____z_____z,____z_____z_____z_____z, _______
    ),
   /* Lower */
-#define XXXX__PAUS__SLCK___INS__XXXX   XXXXXXX, KC_PAUS, KC_SLCK, KC_INS,  XXXXXXX
-#define XXXX___INS__SLCK__PAUS__XXXX   XXXXXXX, KC_INS,  KC_SLCK, KC_PAUS, XXXXXXX
+#define XXXX__PAUS__SLCK___INS__XXXX   XXXXXXX, KC_PAUS, KC_SCRL, KC_INS,  XXXXXXX
+#define XXXX___INS__SLCK__PAUS__XXXX   XXXXXXX, KC_INS,  KC_SCRL, KC_PAUS, XXXXXXX
 #define HOME__XXXX____UP___DEL__PGUP   KC_HOME, XXXXXXX, KC_UP,   KC_DEL,  KC_PGUP
 #define PGUP___DEL____UP__XXXX__HOME   KC_PGUP, KC_DEL,  KC_UP,   XXXXXXX, KC_HOME
 #define END___LEFT__DOWN__RGHT__PGDN   kc5( END,  LEFT,  DOWN,    RGHT,    PGDN )
@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_ADJUST] =  LAYOUT( \
-    XXXXXXX, RESET,   RGBRST,  RGB_TOG,   AU_ON, AG_SWAP,          AG_SWAP, XXXXXXX, QWERTY,  EUCALYN, COLEMAK,  DVORAK, \
+    XXXXXXX, QK_BOOT, RGBRST,  RGB_TOG,   AU_ON, AG_SWAP,          AG_SWAP, XXXXXXX, QWERTY,  EUCALYN, COLEMAK,  DVORAK, \
     RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD,  AU_OFF, AG_NORM,          AG_NORM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ___,___, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______ \
@@ -242,7 +242,7 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 static int current_default_layer;
 
-uint32_t default_layer_state_set_kb(uint32_t state) {
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
     // 1<<_QWERTY  - 1 == 1 - 1 == _QWERTY (=0)
     // 1<<_COLEMAK - 1 == 2 - 1 == _COLEMAK (=1)
     current_default_layer = state - 1;
@@ -302,24 +302,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case xEISU:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       return false;
       break;
     case xKANA:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
+          register_code(KC_LNG1);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG1);
+        unregister_code(KC_LNG1);
       }
       return false;
       break;

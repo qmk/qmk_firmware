@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Sofle",
+    "manufacturer": "JosefAdamcik",
     "url": "https://github.com/josefadamcik/SofleKeyboard",
     "maintainer": "Josef Adamcik <josef.adamcik@gmail.com>",
+    "usb": {
+        "vid": "0xFC32",
+        "pid": "0x0287",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x4451
-#define DEVICE_VER 0x0001
-#define PRODUCT    DQz11N1G Controller Replacement
-
 /* Matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 19
@@ -37,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Column read via SPI (shift register) */
 /* #define MATRIX_COL_PINS { } */
-#define UNUSED_PINS
 
 #define LED_CAPS_LOCK_PIN F7 /* A0 */
 #define LED_NUM_LOCK_PIN F5 /*A2 */

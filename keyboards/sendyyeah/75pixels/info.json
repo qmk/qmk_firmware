@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "beVi",
+    "keyboard_name": "75 Pixels",
+    "manufacturer": "sendyyeah",
     "url": "https://github.com/sendyyeah/bevi",
     "maintainer": "sendyyeah",
+    "usb": {
+        "vid": "0x5359",
+        "pid": "0x3735",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x15": {
             "layout": [

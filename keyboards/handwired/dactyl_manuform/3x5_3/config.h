@@ -18,18 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define PRODUCT_ID      0x3536
-#define DEVICE_VER      0x0003
-#ifdef MANUFACTURER
- #undef MANUFACTURER
-#endif
-#define MANUFACTURER    DLFord
-#define PRODUCT         Dactyl Minidox (3x5+3)
-
-// Communication
-// #define USE_I2C
-#define USE_SERIAL
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -43,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN D3
-#define DRIVER_LED_TOTAL 36
+#define RGB_MATRIX_LED_COUNT 36
 #define RGB_MATRIX_SPLIT { 18, 18 }
 #define RGB_MATRIX_CENTER { 133, 54 }
 

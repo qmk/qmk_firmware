@@ -23,4 +23,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 2 ways:
 
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available. In default layout (if you flashed it already once) it is the top-right button.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available. In default layout (if you flashed it already once) it is the top-right button.

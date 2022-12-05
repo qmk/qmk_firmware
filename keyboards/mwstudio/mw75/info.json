@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MW75",
+    "manufacturer": "MWStudio",
     "url": "",
     "maintainer": "TW59420",
+    "usb": {
+        "vid": "0x7BA1",
+        "pid": "0x7501",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,26 +1,13 @@
 # KB16-01
 
-![KB16-01](https://i.imgur.com/lpq47ELh.png)
+#### This keyboard have 2 revision, so before you need to write your own firmware code. Please read it carefully, or you could accident bricked your keeb after that.
 
-A macropad that have 16-key keyboard made by DOIO, which controlled by an Atmega32u4 chipset. The keyboard features per-key RGB, 3 encoder and an OLED screen for displaying useful information.
+- **Revision 1**: Using ATMEGA32U4.
 
-* Keyboard Maintainer: [HorrorTroll](https://github.com/HorrorTroll)
-* Hardware Supported: Atmega32u4
+When you try to go bootloader mode, QMK Toolbox will showing this message `Atmel DFU device connected (libusb0): Atmel Corp. ATmega32U4 (03EB:2FF4:0000)`. So please compile Revision 1 and flash after that.
 
-Make example for this keyboard (after setting up your build environment):
+Oh, and one more thing. As for the Bongo Cat on OLED screen, due to small flash size that ATMEGA32U4 support. It need to be disable Mouse key support.
 
-    make doio/kb16/rev1:default
+- **Revision 2**: Using APM32F103CBT6 (clone STM32F103CBT6).
 
-Flashing example for this keyboard:
-
-    make doio/kb16/rev1:default:flash
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
-
-## Bootloader
-
-Enter the bootloader in 3 ways:
-
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (1! key) and plug in the keyboard
-* **Physical reset button**: Short press the button under Spacebar keycap to enter the Bootloader and flash the firmware
-* **Keycode in layout**: Press the key mapped to RESET if it is available
+When you try to go bootloader mode, QMK Toolbox will showing this message `STM32Duino device connected: LeafLabs Maple 003 (1EAF:0003:0201)`. So please compile Revision 2 and flash after that.

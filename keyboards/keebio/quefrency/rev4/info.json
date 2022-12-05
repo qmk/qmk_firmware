@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Quefrency rev4",
+    "keyboard_name": "Quefrency Rev. 4",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x4357",
+        "device_version": "4.1.0"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60"
     },

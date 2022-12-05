@@ -16,14 +16,10 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0113
-#define DEVICE_VER      0x0100
-
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 34
 #define DRIVER_2_LED_TOTAL 34
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* Encoder used pins */
 #define ENCODERS_PAD_A { A10 }

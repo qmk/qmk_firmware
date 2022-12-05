@@ -45,9 +45,9 @@ static void default_layer_state_set(layer_state_t state) {
     default_layer_state = state;
     default_layer_debug();
     debug("\n");
-#ifdef STRICT_LAYER_RELEASE
+#if defined(STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods(); // To avoid stuck keys
-#else
+#elif defined(SEMI_STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods_and_keys(); // Don't reset held keys
 #endif
 }
@@ -71,21 +71,21 @@ void default_layer_set(layer_state_t state) {
 #ifndef NO_ACTION_LAYER
 /** \brief Default Layer Or
  *
- * Turns on the default layer based on matching bits between specifed layer and existing layer state
+ * Turns on the default layer based on matching bits between specified layer and existing layer state
  */
 void default_layer_or(layer_state_t state) {
     default_layer_state_set(default_layer_state | state);
 }
 /** \brief Default Layer And
  *
- * Turns on default layer based on matching enabled bits between specifed layer and existing layer state
+ * Turns on default layer based on matching enabled bits between specified layer and existing layer state
  */
 void default_layer_and(layer_state_t state) {
     default_layer_state_set(default_layer_state & state);
 }
 /** \brief Default Layer Xor
  *
- * Turns on default layer based on non-matching bits between specifed layer and existing layer state
+ * Turns on default layer based on non-matching bits between specified layer and existing layer state
  */
 void default_layer_xor(layer_state_t state) {
     default_layer_state_set(default_layer_state ^ state);
@@ -115,7 +115,7 @@ __attribute__((weak)) layer_state_t layer_state_set_kb(layer_state_t state) {
 
 /** \brief Layer state set
  *
- * Sets the layer to match the specifed state (a bitmask)
+ * Sets the layer to match the specified state (a bitmask)
  */
 void layer_state_set(layer_state_t state) {
     state = layer_state_set_kb(state);
@@ -125,9 +125,9 @@ void layer_state_set(layer_state_t state) {
     layer_state = state;
     layer_debug();
     dprintln();
-#    ifdef STRICT_LAYER_RELEASE
+#    if defined(STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods(); // To avoid stuck keys
-#    else
+#    elif defined(SEMI_STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods_and_keys(); // Don't reset held keys
 #    endif
 }
@@ -193,21 +193,21 @@ void layer_invert(uint8_t layer) {
 
 /** \brief Layer or
  *
- * Turns on layers based on matching bits between specifed layer and existing layer state
+ * Turns on layers based on matching bits between specified layer and existing layer state
  */
 void layer_or(layer_state_t state) {
     layer_state_set(layer_state | state);
 }
 /** \brief Layer and
  *
- * Turns on layers based on matching enabled bits between specifed layer and existing layer state
+ * Turns on layers based on matching enabled bits between specified layer and existing layer state
  */
 void layer_and(layer_state_t state) {
     layer_state_set(layer_state & state);
 }
 /** \brief Layer xor
  *
- * Turns on layers based on non-matching bits between specifed layer and existing layer state
+ * Turns on layers based on non-matching bits between specified layer and existing layer state
  */
 void layer_xor(layer_state_t state) {
     layer_state_set(layer_state ^ state);

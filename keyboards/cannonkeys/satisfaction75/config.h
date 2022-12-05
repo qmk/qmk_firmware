@@ -17,18 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Ensure we jump to bootloader if the RESET keycode was pressed */
+/* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 /* LSE clock */
 #define STM32_LSECLK 32768
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0x57F5
-#define DEVICE_VER      0x0001
-#define MANUFACTURER CannonKeys
-#define PRODUCT Satisfaction75
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -88,9 +81,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 1 for OLED default mode (1 byte)
 // 6 for 3x custom encoder settings, left, right, and press (18 bytes)
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 21
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
 
 /*
  * Feature disable options

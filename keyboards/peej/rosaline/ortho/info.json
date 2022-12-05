@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "Rosaline",
+  "keyboard_name": "Rosaline Ortho",
+  "manufacturer": "Peej",
   "url": "https://github.com/peej/rosaline-keyboard",
   "maintainer": "Peej",
+  "usb": {
+    "vid": "0x706A",
+    "pid": "0x0003",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_ortho_4x15": {
       "layout": [
