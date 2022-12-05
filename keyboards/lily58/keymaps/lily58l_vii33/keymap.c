@@ -23,7 +23,6 @@
 #include "oled.h"
 #include "process_record_user.h"
 
-extern uint8_t is_master;
 
 
 /* Layer quick names */
