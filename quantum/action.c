@@ -293,18 +293,55 @@ void process_record_handler(keyrecord_t *record) {
     process_action(record, action);
 }
 
-#if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-void register_button(bool pressed, enum mouse_buttons button) {
-#    ifdef PS2_MOUSE_ENABLE
-    tp_buttons = pressed ? tp_buttons | button : tp_buttons & ~button;
+/**
+ * @brief handles all the messy mouse stuff
+ *
+ * Handles all the edgecases and special stuff that is needed for coexistense
+ * of the multiple mouse subsystems.
+ *
+ * @param mouse_keycode[in] uint8_t mouse keycode
+ * @param pressed[in] bool
+ */
+
+void register_mouse(uint8_t mouse_keycode, bool pressed) {
+#ifdef MOUSEKEY_ENABLE
+    // if mousekeys is enabled, let it do the brunt of the work
+    if (pressed) {
+        mousekey_on(mouse_keycode);
+    } else {
+        mousekey_off(mouse_keycode);
+    }
+    // should mousekeys send report, or does something else handle this?
+    switch (mouse_keycode) {
+#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
+        case KC_MS_BTN1 ... KC_MS_BTN8:
+            // let pointing device handle the buttons
+            // expand if/when it handles more of the code
+#        if defined(POINTING_DEVICE_ENABLE)
+            pointing_device_keycode_handler(mouse_keycode, pressed);
+#        endif
+            break;
 #    endif
-#    ifdef POINTING_DEVICE_ENABLE
-    report_mouse_t currentReport = pointing_device_get_report();
-    currentReport.buttons        = pressed ? currentReport.buttons | button : currentReport.buttons & ~button;
-    pointing_device_set_report(currentReport);
-#    endif
-}
+        default:
+            mousekey_send();
+            break;
+    }
+#elif defined(POINTING_DEVICE_ENABLE)
+    // if mousekeys isn't enabled, and pointing device is enabled, then
+    // let pointing device do all the heavy lifting, then
+    if IS_MOUSEKEY (mouse_keycode) {
+        pointing_device_keycode_handler(mouse_keycode, pressed);
+    }
 #endif
+
+#ifdef PS2_MOUSE_ENABLE
+    // make sure that ps2 mouse has button report synced
+    if (KC_MS_BTN1 <= mouse_keycode && mouse_keycode <= KC_MS_BTN3) {
+        uint8_t tmp_button_msk = MOUSE_BTN_MASK(mouse_keycode - KC_MS_BTN1);
+        tp_buttons             = pressed ? tp_buttons | tmp_button_msk : tp_buttons & ~tmp_button_msk;
+    }
+#endif
+}
 
 /** \brief Take an action and processes it.
  *
@@ -403,9 +440,9 @@ void process_action(keyrecord_t *record, action_t action) {
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 dprint("MODS_TAP: Toggling oneshot");
+                                register_mods(mods);
                                 clear_oneshot_mods();
                                 set_oneshot_locked_mods(mods | get_oneshot_locked_mods());
-                                register_mods(mods);
 #        endif
                             } else {
                                 register_mods(mods | get_oneshot_mods());
@@ -418,16 +455,16 @@ void process_action(keyrecord_t *record, action_t action) {
                                 // Retain Oneshot mods
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                                 if (mods & get_mods()) {
+                                    unregister_mods(mods);
                                     clear_oneshot_mods();
                                     set_oneshot_locked_mods(~mods & get_oneshot_locked_mods());
-                                    unregister_mods(mods);
                                 }
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 // Toggle Oneshot Layer
 #        endif
                             } else {
-                                clear_oneshot_mods();
                                 unregister_mods(mods);
+                                clear_oneshot_mods();
                             }
                         }
                     }
@@ -490,46 +527,18 @@ void process_action(keyrecord_t *record, action_t action) {
         case ACT_USAGE:
             switch (action.usage.page) {
                 case PAGE_SYSTEM:
-                    if (event.pressed) {
-                        host_system_send(action.usage.code);
-                    } else {
-                        host_system_send(0);
-                    }
+                    host_system_send(event.pressed ? action.usage.code : 0);
                     break;
                 case PAGE_CONSUMER:
-                    if (event.pressed) {
-                        host_consumer_send(action.usage.code);
-                    } else {
-                        host_consumer_send(0);
-                    }
+                    host_consumer_send(event.pressed ? action.usage.code : 0);
                     break;
             }
             break;
 #endif
-#ifdef MOUSEKEY_ENABLE
         /* Mouse key */
         case ACT_MOUSEKEY:
-            if (event.pressed) {
-                mousekey_on(action.key.code);
-            } else {
-                mousekey_off(action.key.code);
-            }
-            switch (action.key.code) {
-#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-#        ifdef POINTING_DEVICE_ENABLE
-                case KC_MS_BTN1 ... KC_MS_BTN8:
-#        else
-                case KC_MS_BTN1 ... KC_MS_BTN3:
-#        endif
-                    register_button(event.pressed, MOUSE_BTN_MASK(action.key.code - KC_MS_BTN1));
-                    break;
-#    endif
-                default:
-                    mousekey_send();
-                    break;
-            }
+            register_mouse(action.key.code, event.pressed);
             break;
-#endif
 #ifndef NO_ACTION_LAYER
         case ACT_LAYER:
             if (action.layer_bitop.on == 0) {
@@ -835,21 +844,20 @@ void process_action(keyrecord_t *record, action_t action) {
 __attribute__((weak)) void register_code(uint8_t code) {
     if (code == KC_NO) {
         return;
-    }
+
 #ifdef LOCKING_SUPPORT_ENABLE
-    else if (KC_LOCKING_CAPS_LOCK == code) {
+    } else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is on
         if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) return;
 #    endif
         add_key(KC_CAPS_LOCK);
         send_keyboard_report();
-        wait_ms(100);
+        wait_ms(TAP_HOLD_CAPS_DELAY);
         del_key(KC_CAPS_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_NUM_LOCK == code) {
+    } else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) return;
 #    endif
@@ -858,9 +866,8 @@ __attribute__((weak)) void register_code(uint8_t code) {
         wait_ms(100);
         del_key(KC_NUM_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_SCROLL_LOCK == code) {
+    } else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK)) return;
 #    endif
@@ -869,10 +876,9 @@ __attribute__((weak)) void register_code(uint8_t code) {
         wait_ms(100);
         del_key(KC_SCROLL_LOCK);
         send_keyboard_report();
-    }
 #endif
 
-    else if IS_KEY (code) {
+    } else if IS_KEY (code) {
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
@@ -905,20 +911,17 @@ __attribute__((weak)) void register_code(uint8_t code) {
     } else if IS_MOD (code) {
         add_mods(MOD_BIT(code));
         send_keyboard_report();
-    }
+
 #ifdef EXTRAKEY_ENABLE
-    else if IS_SYSTEM (code) {
+    } else if IS_SYSTEM (code) {
         host_system_send(KEYCODE2SYSTEM(code));
     } else if IS_CONSUMER (code) {
         host_consumer_send(KEYCODE2CONSUMER(code));
-    }
 #endif
-#ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY (code) {
-        mousekey_on(code);
-        mousekey_send();
+
+    } else if IS_MOUSEKEY (code) {
+        register_mouse(code, true);
     }
-#endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
@@ -928,9 +931,9 @@ __attribute__((weak)) void register_code(uint8_t code) {
 __attribute__((weak)) void unregister_code(uint8_t code) {
     if (code == KC_NO) {
         return;
-    }
+
 #ifdef LOCKING_SUPPORT_ENABLE
-    else if (KC_LOCKING_CAPS_LOCK == code) {
+    } else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is off
         if (!(host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK))) return;
@@ -939,9 +942,8 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
         del_key(KC_CAPS_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_NUM_LOCK == code) {
+    } else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) return;
 #    endif
@@ -949,9 +951,8 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
         del_key(KC_NUM_LOCK);
         send_keyboard_report();
-    }
 
-    else if (KC_LOCKING_SCROLL_LOCK == code) {
+    } else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (!(host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK))) return;
 #    endif
@@ -959,26 +960,25 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
         del_key(KC_SCROLL_LOCK);
         send_keyboard_report();
-    }
 #endif
 
-    else if IS_KEY (code) {
+    } else if IS_KEY (code) {
         del_key(code);
         send_keyboard_report();
     } else if IS_MOD (code) {
         del_mods(MOD_BIT(code));
         send_keyboard_report();
+
+#ifdef EXTRAKEY_ENABLE
     } else if IS_SYSTEM (code) {
         host_system_send(0);
     } else if IS_CONSUMER (code) {
         host_consumer_send(0);
-    }
-#ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY (code) {
-        mousekey_off(code);
-        mousekey_send();
-    }
 #endif
+
+    } else if IS_MOUSEKEY (code) {
+        register_mouse(code, false);
+    }
 }
 
 /** \brief Tap a keycode with a delay.
@@ -1081,7 +1081,6 @@ void clear_keyboard_but_mods_and_keys() {
 #endif
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     programmable_button_clear();
-    programmable_button_send();
 #endif
 }
 
@@ -1089,16 +1088,11 @@ void clear_keyboard_but_mods_and_keys() {
  *
  * FIXME: Needs documentation.
  */
-bool is_tap_key(keypos_t key) {
-    action_t action = layer_switch_get_action(key);
-    return is_tap_action(action);
-}
-
-/** \brief Utilities for actions. (FIXME: Needs better description)
- *
- * FIXME: Needs documentation.
- */
 bool is_tap_record(keyrecord_t *record) {
+    if (IS_NOEVENT(record->event)) {
+        return false;
+    }
+
 #ifdef COMBO_ENABLE
     action_t action;
     if (record->keycode) {

@@ -77,29 +77,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] = LAYOUT(
-        KC_SLEP,  KC_MYCM,  KC_WHOM,  KC_CALC,  KC_MSEL,  KC_MPRV,  KC_MNXT,  KC_MPLY,  KC_MSTP,  KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,  KC_INS,             _______, 
-        RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_HUD,  RGB_HUI,  _______,            RGB_M_P, 
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TO(_MO2), RGB_SAD,  RGB_SAI,  RESET,              RGB_M_B, 
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_RMOD, RGB_MOD,            _______,            RGB_M_R, 
-        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  RGB_VAI,  RGB_M_SW, 
+        KC_SLEP,  KC_MYCM,  KC_WHOM,  KC_CALC,  KC_MSEL,  KC_MPRV,  KC_MNXT,  KC_MPLY,  KC_MSTP,  KC_PSCR,  KC_SCRL,  KC_PAUS,  _______,  KC_INS,             _______,
+        RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_HUD,  RGB_HUI,  _______,            RGB_M_P,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TO(_MO2), RGB_SAD,  RGB_SAI,  QK_BOOT,            RGB_M_B,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_RMOD, RGB_MOD,            _______,            RGB_M_R,
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  RGB_VAI,  RGB_M_SW,
         _______,  KC_WINLK, _______,                                _______,                                _______,  _______,  _______,  RGB_SPD,  RGB_VAD,  RGB_SPI
     ),
 
     [_MO2] = LAYOUT(
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______, 
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______, 
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______, 
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______, 
-        _______,             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______, 
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
+        _______,             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,
         _______,   _______,  _______,                                _______,                                _______,  TG(_MO2), _______,  _______,  _______,  _______
     ),
 
    [_MO3] = LAYOUT(
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______, 
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______, 
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______, 
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______, 
-        _______,             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______, 
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
+        _______,             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,
         _______,   _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______
     ),
 
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				}
 			}
 			break;
-			
+
 			case _BASE:
 			default:
 			if ( clockwise ) {
@@ -136,9 +136,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			} else {
 				tap_code(KC_VOLD);
 			}
-			break;			
+			break;
 		}
-        return true;
+        //return true; //set to return false to counteract enabled encoder in pro.c
+        return false;
     }
 #endif
 
@@ -149,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		ball[i].up = false;
 		ball[i].y = 0;
 		ball[i].x = rand() % 16;
-		
+
 		// Set initial ball state
 		if (ball[i].x < 8) {
 			ball[i].left = false;
@@ -157,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			ball[i].x -= 4;
 			ball[i].left = true;
 		}
-		
+
 		// 1/4 chance of being an enemy ball after level 6
 		if (level_number > 3) {
 			ball[i].enemy = ((rand() % 4) == 0);
@@ -172,14 +173,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		}
 		damage_timer = timer_read();
 		damage_count = 10;
-		
+
 		// Reset board
 		init_ball(0);
 		ball[1].on = false;
 	}
 
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
-    void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 		switch(get_highest_layer(layer_state)) {
 			case _FN1:
 			// Light up FN layer keys
@@ -189,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				rgb_value.g = 0x00;
 				rgb_value.b = 0x00;
 			}
-			
+
 			if (rgb_value.r == 0xff && rgb_value.g < 0xff) {
 				if (rgb_value.b > 0) { --rgb_value.b; }
 				else { ++rgb_value.g; }
@@ -200,29 +201,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				if (rgb_value.g > 0) { --rgb_value.g; }
 				else { ++rgb_value.r; }
 			}
-			
-            for (uint8_t i=0; i<sizeof(LED_RGB)/sizeof(LED_RGB[0]); i++) {
+
+            for (uint8_t i=0; i<ARRAY_SIZE(LED_RGB); i++) {
                 rgb_matrix_set_color(LED_RGB[i], rgb_value.r, rgb_value.g, rgb_value.b);
             }
-			
-            for (uint8_t i=0; i<sizeof(LED_WHITE)/sizeof(LED_WHITE[0]); i++) {
+
+            for (uint8_t i=0; i<ARRAY_SIZE(LED_WHITE); i++) {
                 rgb_matrix_set_color(LED_WHITE[i], RGB_WHITE);
             }
 
-            for (uint8_t i=0; i<sizeof(LED_GREEN)/sizeof(LED_GREEN[0]); i++) {
+            for (uint8_t i=0; i<ARRAY_SIZE(LED_GREEN); i++) {
                 rgb_matrix_set_color(LED_GREEN[i], RGB_GREEN);
             }
-			
+
 			rgb_matrix_set_color(LED_ESC,  RGB_RED);
-			
+
 			rgb_matrix_set_color(LED_LWIN, RGB_BLUE);
 			break;
-			
+
 			case _MO2:
 			// Paddle game
 			if (!game_start) {
 				srand((unsigned int)timer_read());
-				
+
 				// Store user light settings
 				last_hsv = rgb_matrix_get_hsv();
 				rgb_matrix_sethsv_noeeprom(0, 0, 0);
@@ -230,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				rgb_value.r = 0xff;
 				rgb_value.g = 0x00;
 				rgb_value.b = 0x00;
-				
+
 				paddle_pos_full = 8;
 				paddle_lives = 4;
 				bounce_count = 0;
@@ -243,17 +244,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 				game_start = true;
 			}
-			
+
 			// Set level indicator
 			if (level_number < 12) {
 				rgb_matrix_set_color(GAME_R0[level_number], RGB_BLUE);
 			}
-			
+
 			// Set life bar
 			for (uint8_t i=0; i < paddle_lives ; i++) {
 				rgb_matrix_set_color(GAME_LIVES[i], RGB_GREEN);
 			}
-			
+
 			uint8_t paddle_pos = paddle_pos_full >> 1;
 
 			if (damage_count > 0) {
@@ -270,14 +271,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				if (damage_count == 0) {
 					ball_timer = timer_read();
 				}
-				
+
 
 			} else if (paddle_lives == 0) {
 				// Game over
-				for (uint8_t i=0; i<sizeof(LED_GAME_OVER)/sizeof(LED_GAME_OVER[0]); i++) {
+				for (uint8_t i=0; i<ARRAY_SIZE(LED_GAME_OVER); i++) {
 					rgb_matrix_set_color(LED_GAME_OVER[i], RGB_RED);
 				}
-			
+
 			} else if (level_number >= 12) {
 				// You win
 				if (rgb_value.r == 0xff && rgb_value.g < 0xff) {
@@ -290,7 +291,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 					if (rgb_value.g > 0) { --rgb_value.g; }
 					else { ++rgb_value.r; }
 				}
-				
+
 				for (uint8_t i=0; i < 3 ; i++) {
 					rgb_matrix_set_color(GAME_PADDLE[paddle_pos + i], rgb_value.r, rgb_value.g, rgb_value.b);
 				}
@@ -298,15 +299,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				rgb_matrix_set_color(GAME_SMILE1[paddle_pos + 3], rgb_value.r, rgb_value.g, rgb_value.b);
 				rgb_matrix_set_color(GAME_SMILE2[paddle_pos], rgb_value.r, rgb_value.g, rgb_value.b);
 				rgb_matrix_set_color(GAME_SMILE2[paddle_pos + 3], rgb_value.r, rgb_value.g, rgb_value.b);
-			
+
 			} else {
 				// normal game loop
-				
+
 				// Set paddle position
 				for (uint8_t i=0; i < 3 ; i++) {
 					rgb_matrix_set_color(GAME_PADDLE[paddle_pos + i], RGB_GREEN);
 				}
-				
+
 				// Ball movement logic happens at intervals
 				if (timer_elapsed(ball_timer) > GAME_TIMER[level_number]) {
 					for (int i=0; i<2; ++i) {
@@ -331,7 +332,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 								if (ball[i].y > 4) {
 									// Remove a life if ball isn't returned and isn't enemy
 									if (!ball[i].enemy) {
-										hurt_paddle(); 
+										hurt_paddle();
 										i = 2;
 									} else {
 										ball[i].on = false;
@@ -351,7 +352,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 					}
 					ball_timer = timer_read();
 				}
-				
+
 				// Other ball stuff
 				for (int i=0; i<2; ++i) {
 					if (ball[i].on) {
@@ -410,12 +411,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 							break;
 						}
 					}
-				}				
+				}
 			}
 
-			
+
 			break;
-			
+
 			default:
 			fn_active = false;
 			if (game_start) {
@@ -423,7 +424,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				game_start = false;
 				rgb_matrix_sethsv_noeeprom(last_hsv.h, last_hsv.s, last_hsv.v);
 			}
-			break;			
+			break;
 		}
 
         if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
@@ -439,12 +440,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
             rgb_matrix_set_color(LED_CAPS, RGB_WHITE);
             if (caps_flash_on) {
-				for (uint8_t i=0; i<sizeof(LED_SIDE_LEFT)/sizeof(LED_SIDE_LEFT[0]); i++) {
+				for (uint8_t i=0; i<ARRAY_SIZE(LED_SIDE_LEFT); i++) {
 					rgb_matrix_set_color(LED_SIDE_LEFT[i], RGB_RED);
 					rgb_matrix_set_color(LED_SIDE_RIGHT[i], RGB_RED);
 				}
 			} else {
-				for (uint8_t i=0; i<sizeof(LED_SIDE_LEFT)/sizeof(LED_SIDE_LEFT[0]); i++) {
+				for (uint8_t i=0; i<ARRAY_SIZE(LED_SIDE_LEFT); i++) {
 					rgb_matrix_set_color(LED_SIDE_LEFT[i], 0, 0, 0);
 					rgb_matrix_set_color(LED_SIDE_RIGHT[i], 0, 0, 0);
 				}
@@ -458,6 +459,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         if (keymap_config.no_gui) {
             rgb_matrix_set_color(LED_LWIN, RGB_RED);  //light up Win key when disabled
         }
+    return false;
     }
 
 #endif

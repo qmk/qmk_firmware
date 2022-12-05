@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 #include <stdio.h>
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x3265 //yushakobo
-#define PRODUCT_ID 0x0004 //Helix rev3 4rows
-#define DEVICE_VER 0x0001
-#define MANUFACTURER yushakobo
-#define PRODUCT Helix rev3 4rows
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 7
@@ -43,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -64,13 +56,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 50 // Number of LEDs
 
 #ifdef RGB_MATRIX_ENABLE
-  #define DRIVER_LED_TOTAL RGBLED_NUM
+  #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-// #   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-// #   define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+// #   define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #    define RGB_MATRIX_HUE_STEP 8
@@ -87,9 +78,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_VAL_STEP 8
    #define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
 //   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== all animations enable ==*/
-//   #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
 //   #define RGBLIGHT_EFFECT_BREATHING
    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

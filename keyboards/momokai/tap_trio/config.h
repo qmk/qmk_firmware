@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x69F9   // "69" + "Popular Racing Movie 9"  =  Momokai (?)
-#define PRODUCT_ID   0x0006
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Momokai
-#define PRODUCT      Tap Trio
-
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 6
 
@@ -44,9 +37,6 @@
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 
 
-/*== all animations enable ==*/
-//  #define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
   #define RGBLIGHT_EFFECT_BREATHING
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -65,7 +55,7 @@
 
 
 // #ifdef RGB_DI_PIN
-// #define DRIVER_LED_TOTAL 5
+// #define RGB_MATRIX_LED_COUNT 5
 
 // #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // // #    define RGBLIGHT_LIMIT_VAL 180 // Limit to vendor-recommended value

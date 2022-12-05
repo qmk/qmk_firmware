@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Unison",
+    "manufacturer": "jpskenn",
     "url": "https://github.com/jpskenn/Unison",
     "maintainer": "jpskenn",
+    "usb": {
+        "vid": "0xB9DD",
+        "pid": "0x176A",
+        "device_version": "0.4.0"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

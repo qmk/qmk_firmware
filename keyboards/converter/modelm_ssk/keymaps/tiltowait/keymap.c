@@ -68,14 +68,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         uint8_t shift_mods = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
         set_mods(get_mods() & ~(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) );
 
-        last_num_scroll = KC_NUMLOCK;
+        last_num_scroll = KC_NUM_LOCK;
         register_code(last_num_scroll);
         toggle_numlock_layer(-1);
 
         /* Reset the shift modifiers */
         set_mods(shift_mods);
       } else {
-        last_num_scroll = KC_SCROLLLOCK;
+        last_num_scroll = KC_SCROLL_LOCK;
         register_code(last_num_scroll);
       }
     } else {

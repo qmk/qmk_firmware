@@ -8,7 +8,7 @@ To enable overall Quantum Painter to be built into your firmware, add the follow
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ......
+QUANTUM_PAINTER_DRIVERS += ......
 ```
 
 You will also likely need to select an appropriate driver in `rules.mk`, which is listed below.
@@ -17,15 +17,18 @@ You will also likely need to select an appropriate driver in `rules.mk`, which i
 
 The QMK CLI can be used to convert from normal images such as PNG files or animated GIFs, as well as fonts from TTF files.
 
-Hardware supported:
+Supported devices:
 
-| Display Panel | Panel Type         | Size             | Comms Transport | Driver                                  |
-|---------------|--------------------|------------------|-----------------|-----------------------------------------|
-| GC9A01        | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = gc9a01_spi`  |
-| ILI9163       | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ili9163_spi` |
-| ILI9341       | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ili9341_spi` |
-| SSD1351       | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = ssd1351_spi` |
-| ST7789        | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS = st7789_spi`  |
+| Display Panel  | Panel Type         | Size             | Comms Transport | Driver                                      |
+|----------------|--------------------|------------------|-----------------|---------------------------------------------|
+| GC9A01         | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`     |
+| ILI9163        | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi`    |
+| ILI9341        | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi`    |
+| ILI9488        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi`    |
+| SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi`    |
+| ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`     |
+| ST7789         | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`     |
+| RGB565 Surface | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += rgb565_surface` |
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
@@ -43,17 +46,20 @@ Drivers have their own set of configurable options, and are described in their r
 
 ## Quantum Painter CLI Commands :id=quantum-painter-cli
 
-### `qmk painter-convert-graphics`
+<!-- tabs:start -->
+
+### ** `qmk painter-convert-graphics` **
 
 This command converts images to a format usable by QMK, i.e. the QGF File Format.
 
 **Usage**:
 
 ```
-usage: qmk painter-convert-graphics [-h] [-d] [-r] -f FORMAT [-o OUTPUT] -i INPUT [-v]
+usage: qmk painter-convert-graphics [-h] [-w] [-d] [-r] -f FORMAT [-o OUTPUT] -i INPUT [-v]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
+  -w, --raw             Writes out the QGF file as raw data instead of c/h combo.
   -d, --no-deltas       Disables the use of delta frames when encoding animations.
   -r, --no-rle          Disables the use of RLE when encoding images.
   -f FORMAT, --format FORMAT
@@ -91,7 +97,7 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.h...
 Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.c...
 ```
 
-### `qmk painter-make-font-image`
+### ** `qmk painter-make-font-image` **
 
 This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format.
 
@@ -124,7 +130,7 @@ The `UNICODE_GLYPHS` argument allows for specifying extra unicode glyphs to gene
 $ qmk painter-make-font-image --font NotoSans-ExtraCondensedBold.ttf --size 11 -o noto11.png --unicode-glyphs "ĄȽɂɻɣɈʣ"
 ```
 
-### `qmk painter-convert-font-image`
+### ** `qmk painter-convert-font-image` **
 
 This command converts an intermediate font image to the QFF File Format.
 
@@ -141,10 +147,11 @@ This command expects an image that conforms to the following format:
 **Usage**:
 
 ```
-usage: qmk painter-convert-font-image [-h] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT] [-i INPUT]
+usage: qmk painter-convert-font-image [-h] [-w] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT] [-i INPUT]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
+  -w, --raw             Writes out the QFF file as raw data instead of c/h combo.
   -r, --no-rle          Disable the use of RLE to minimise converted image size.
   -f FORMAT, --format FORMAT
                         Output format, valid types: pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
@@ -168,6 +175,255 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.h...
 Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.c...
 ```
 
+<!-- tabs:end -->
+
+## Quantum Painter Display Drivers :id=quantum-painter-drivers
+
+<!-- tabs:start -->
+
+### ** Common: Standard TFT (SPI + D/C + RST) **
+
+Most TFT display panels use a 5-pin interface -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
+
+For these displays, QMK's `spi_master` must already be correctly configured for the platform you're building for.
+
+The pin assignments for SPI CS, D/C, and RST are specified during device construction.
+
+<!-- tabs:start -->
+
+#### ** GC9A01 **
+
+Enabling support for the GC9A01 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += gc9a01_spi
+```
+
+Creating a GC9A01 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_gc9a01_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define GC9A01_NUM_DEVICES 3
+```
+
+#### ** ILI9163 **
+
+Enabling support for the ILI9163 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += ili9163_spi
+```
+
+Creating a ILI9163 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_ili9163_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define ILI9163_NUM_DEVICES 3
+```
+
+#### ** ILI9341 **
+
+Enabling support for the ILI9341 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += ili9341_spi
+```
+
+Creating a ILI9341 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_ili9341_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_ili9341_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define ILI9341_NUM_DEVICES 3
+```
+
+#### ** ILI9488 **
+
+Enabling support for the ILI9488 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += ili9488_spi
+```
+
+Creating a ILI9488 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_ili9488_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_ili9488_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define ILI9488_NUM_DEVICES 3
+```
+
+#### ** SSD1351 **
+
+Enabling support for the SSD1351 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += ssd1351_spi
+```
+
+Creating a SSD1351 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_ssd1351_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_ssd1351_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define SSD1351_NUM_DEVICES 3
+```
+
+#### ** ST7735 **
+
+Enabling support for the ST7735 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += st7735_spi
+```
+
+Creating a ST7735 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_st7735_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_st7735_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define ST7735_NUM_DEVICES 3
+```
+
+!> Some ST7735 devices are known to have different drawing offsets -- despite being a 132x162 pixel display controller internally, some display panels are only 80x160, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+
+#### ** ST7789 **
+
+Enabling support for the ST7789 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += st7789_spi
+```
+
+Creating a ST7789 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from the `qp_st7789_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define ST7789_NUM_DEVICES 3
+```
+
+!> Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+
+<!-- tabs:end -->
+
+### ** Common: Surfaces **
+
+Quantum Painter has surface drivers which are able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region -- the area that has been drawn to since the last flush -- so that when transferring to the display they can transfer the minimal amount of data to achieve the end result.
+
+!> These generally require significant amounts of RAM, so at large sizes and/or higher bit depths, they may not be usable on all MCUs.
+
+<!-- tabs:start -->
+
+#### ** RGB565 Surface **
+
+Enabling support for RGB565 surfaces in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += rgb565_surface
+```
+
+Creating a RGB565 surface in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_rgb565_make_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+```
+
+The `buffer` is a user-supplied area of memory, and is assumed to be of the size `sizeof(uint16_t) * panel_width * panel_height`.
+
+The device handle returned from the `qp_rgb565_make_surface` function can be used to perform all other drawing operations.
+
+Example:
+
+```c
+static painter_device_t my_surface;
+static uint16_t my_framebuffer[320 * 240]; // Allocate a buffer for a 320x240 RGB565 display
+void keyboard_post_init_kb(void) {
+    my_surface = qp_rgb565_make_surface(320, 240, my_framebuffer);
+    qp_init(my_surface, QP_ROTATION_0);
+}
+```
+
+The maximum number of RGB565 surfaces can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 surfaces:
+#define RGB565_SURFACE_NUM_DEVICES 3
+```
+
+To transfer the contents of the RGB565 surface to another display, the following API can be invoked:
+
+```c
+bool qp_rgb565_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y);
+```
+
+The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws.
+
+?> Calling `qp_flush()` on the surface resets its dirty region. Copying the surface contents to the display also automatically resets the dirty region.
+
+<!-- tabs:end -->
+
+<!-- tabs:end -->
+
 ## Quantum Painter Drawing API :id=quantum-painter-api
 
 All APIs require a `painter_device_t` object as their first parameter -- this object comes from the specific device initialisation, and instructions on creating it can be found in each driver's respective section.
@@ -177,7 +433,9 @@ To use any of the APIs, you need to include `qp.h`:
 #include <qp.h>
 ```
 
-### General Notes :id=quantum-painter-api-general
+<!-- tabs:start -->
+
+### ** General Notes **
 
 The coordinate system used in Quantum Painter generally accepts `left`, `top`, `right`, and `bottom` instead of x/y/width/height, and each coordinate is inclusive of where pixels should be drawn. This is required as some datatypes used by display panels have a maximum value of `255` -- for any value or geometry extent that matches `256`, this would be represented as a `0`, instead.
 
@@ -191,9 +449,11 @@ All color data matches the standard QMK HSV triplet definitions:
 
 ?> Colors used in Quantum Painter are not subject to the RGB lighting CIE curve, if it is enabled.
 
-### Device Control :id=quantum-painter-api-device-control
+### ** Device Control **
 
-#### Display Initialisation :id=quantum-painter-api-init
+<!-- tabs:start -->
+
+#### ** Display Initialisation **
 
 ```c
 bool qp_init(painter_device_t device, painter_rotation_t rotation);
@@ -209,7 +469,7 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-#### Display Power :id=quantum-painter-api-power
+#### ** Display Power **
 
 ```c
 bool qp_power(painter_device_t device, bool power_on);
@@ -240,7 +500,7 @@ void suspend_wakeup_init_user(void) {
 }
 ```
 
-#### Display Clear :id=quantum-painter-api-clear
+#### ** Display Clear **
 
 ```c
 bool qp_clear(painter_device_t device);
@@ -248,7 +508,7 @@ bool qp_clear(painter_device_t device);
 
 The `qp_clear` function clears the display's screen.
 
-#### Display Flush :id=quantum-painter-api-flush
+#### ** Display Flush **
 
 ```c
 bool qp_flush(painter_device_t device);
@@ -270,9 +530,13 @@ void housekeeping_task_user(void) {
 }
 ```
 
-### Drawing Primitives :id=quantum-painter-api-primitives
+<!-- tabs:end -->
 
-#### Set Pixel :id=quantum-painter-api-setpixel
+### ** Drawing Primitives **
+
+<!-- tabs:start -->
+
+#### ** Set Pixel **
 
 ```c
 bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, uint8_t sat, uint8_t val);
@@ -296,7 +560,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-#### Draw Line :id=quantum-painter-api-line
+#### ** Draw Line **
 
 ```c
 bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t hue, uint8_t sat, uint8_t val);
@@ -318,7 +582,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-#### Draw Rect :id=quantum-painter-api-rect
+#### ** Draw Rect **
 
 ```c
 bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -340,7 +604,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-#### Draw Circle :id=quantum-painter-api-circle
+#### ** Draw Circle **
 
 ```c
 bool qp_circle(painter_device_t device, uint16_t x, uint16_t y, uint16_t radius, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -362,7 +626,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-#### Draw Ellipse :id=quantum-painter-api-ellipse
+#### ** Draw Ellipse **
 
 ```c
 bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex, uint16_t sizey, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -384,9 +648,24 @@ void housekeeping_task_user(void) {
 }
 ```
 
-### Image Functions :id=quantum-painter-api-images
+<!-- tabs:end -->
 
-#### Load Image :id=quantum-painter-api-load-image
+### ** Image Functions **
+
+Making an image available for use requires compiling it into your firmware. To do so, assuming you've created `my_image.qgf.c` and `my_image.qgf.h` as per the CLI examples above, you'd add the following to your `rules.mk`:
+
+```make
+SRC += my_image.qgf.c
+```
+
+...and in your `keymap.c`, you'd add to the top of the file:
+```c
+#include "my_image.qgf.h"
+```
+
+<!-- tabs:start -->
+
+#### ** Load Image **
 
 ```c
 painter_image_handle_t qp_load_image_mem(const void *buffer);
@@ -394,7 +673,7 @@ painter_image_handle_t qp_load_image_mem(const void *buffer);
 
 The `qp_load_image_mem` function loads a QGF image from memory or flash.
 
-`qp_load_image_mem` returns a handle to the loaded image, which can then be used to draw to the screen using `qp_drawimage`, `qp_drawimage_recolor`, `qp_animate`, or `qp_animate_recolor`. If an image is no longer required, it can be unloaded by calling `qp_close_image` below. 
+`qp_load_image_mem` returns a handle to the loaded image, which can then be used to draw to the screen using `qp_drawimage`, `qp_drawimage_recolor`, `qp_animate`, or `qp_animate_recolor`. If an image is no longer required, it can be unloaded by calling `qp_close_image` below.
 
 See the [CLI Commands](quantum_painter.md?id=quantum-painter-cli) for instructions on how to convert images to [QGF](quantum_painter_qgf.md).
 
@@ -408,7 +687,7 @@ Image information is available through accessing the handle:
 | Height      | `image->height`      |
 | Frame Count | `image->frame_count` |
 
-#### Unload Image :id=quantum-painter-api-close-image
+#### ** Unload Image **
 
 ```c
 bool qp_close_image(painter_image_handle_t image);
@@ -416,7 +695,7 @@ bool qp_close_image(painter_image_handle_t image);
 
 The `qp_close_image` function releases resources related to the loading of the supplied image.
 
-#### Draw image :id=quantum-painter-api-draw-image
+#### ** Draw image **
 
 ```c
 bool qp_drawimage(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
@@ -436,7 +715,7 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-#### Animate Image :id=quantum-painter-api-animate-image
+#### ** Animate Image **
 
 ```c
 deferred_token qp_animate(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
@@ -461,7 +740,7 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-#### Stop Animation :id=quantum-painter-api-stop-animation
+#### ** Stop Animation **
 
 ```c
 void qp_stop_animation(deferred_token anim_token);
@@ -476,9 +755,24 @@ void housekeeping_task_user(void) {
 }
 ```
 
-### Font Functions :id=quantum-painter-api-fonts
+<!-- tabs:end -->
 
-#### Load Font :id=quantum-painter-api-load-font
+### ** Font Functions **
+
+Making a font available for use requires compiling it into your firmware. To do so, assuming you've created `my_font.qff.c` and `my_font.qff.h` as per the CLI examples above, you'd add the following to your `rules.mk`:
+
+```make
+SRC += noto11.qff.c
+```
+
+...and in your `keymap.c`, you'd add to the top of the file:
+```c
+#include "noto11.qff.h"
+```
+
+<!-- tabs: start -->
+
+#### ** Load Font **
 
 ```c
 painter_font_handle_t qp_load_font_mem(const void *buffer);
@@ -486,7 +780,7 @@ painter_font_handle_t qp_load_font_mem(const void *buffer);
 
 The `qp_load_font_mem` function loads a QFF font from memory or flash.
 
-`qp_load_font_mem` returns a handle to the loaded font, which can then be measured using `qp_textwidth`, or drawn to the screen using `qp_drawtext`, or `qp_drawtext_recolor`. If a font is no longer required, it can be unloaded by calling `qp_close_font` below. 
+`qp_load_font_mem` returns a handle to the loaded font, which can then be measured using `qp_textwidth`, or drawn to the screen using `qp_drawtext`, or `qp_drawtext_recolor`. If a font is no longer required, it can be unloaded by calling `qp_close_font` below.
 
 See the [CLI Commands](quantum_painter.md?id=quantum-painter-cli) for instructions on how to convert TTF fonts to [QFF](quantum_painter_qff.md).
 
@@ -498,7 +792,7 @@ Font information is available through accessing the handle:
 |-------------|----------------------|
 | Line Height | `image->line_height` |
 
-#### Unload Font :id=quantum-painter-api-close-font
+#### ** Unload Font **
 
 ```c
 bool qp_close_font(painter_font_handle_t font);
@@ -506,7 +800,7 @@ bool qp_close_font(painter_font_handle_t font);
 
 The `qp_close_font` function releases resources related to the loading of the supplied font.
 
-#### Measure Text :id=quantum-painter-api-textwidth
+#### ** Measure Text **
 
 ```c
 int16_t qp_textwidth(painter_font_handle_t font, const char *str);
@@ -514,7 +808,7 @@ int16_t qp_textwidth(painter_font_handle_t font, const char *str);
 
 The `qp_textwidth` function allows measurement of how many pixels wide the supplied string would result in, for the given font.
 
-#### Draw Text :id=quantum-painter-api-drawtext
+#### ** Draw Text **
 
 ```c
 int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str);
@@ -527,7 +821,7 @@ The `qp_drawtext` and `qp_drawtext_recolor` functions draw the supplied string t
 // Draw a text message on the bottom-right of the 240x320 display on initialisation
 static painter_font_handle_t my_font;
 void keyboard_post_init_kb(void) {
-    my_font = qp_load_font_mem(font_opensans);
+    my_font = qp_load_font_mem(font_noto11);
     if (my_font != NULL) {
         static const char *text = "Hello from QMK!";
         int16_t width = qp_textwidth(my_font, text);
@@ -536,9 +830,13 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-### Advanced Functions :id=quantum-painter-api-advanced
+<!-- tabs:end -->
 
-#### Get Geometry :id=quantum-painter-api-get-geometry
+### ** Advanced Functions **
+
+<!-- tabs:start -->
+
+#### ** Get Geometry **
 
 ```c
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y);
@@ -546,7 +844,7 @@ void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height,
 
 The `qp_get_geometry` function allows external code to retrieve the current width, height, rotation, and drawing offsets.
 
-#### Set Viewport Offsets :id=quantum-painter-api-set-viewport
+#### ** Set Viewport Offsets **
 
 ```c
 void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_t offset_y);
@@ -554,7 +852,7 @@ void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_
 
 The `qp_set_viewport_offsets` function can be used to offset all subsequent drawing operations. For example, if a display controller is internally 240x320, but the display panel is 240x240 and has a Y offset of 80 pixels, you could invoke `qp_set_viewport_offsets(display, 0, 80);` and the drawing positioning would be corrected.
 
-#### Set Viewport :id=quantum-painter-api-viewport
+#### ** Set Viewport **
 
 ```c
 bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom);
@@ -562,7 +860,7 @@ bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t 
 
 The `qp_viewport` function controls where raw pixel data is written to.
 
-#### Stream Pixel Data :id=quantum-painter-api-pixdata
+#### ** Stream Pixel Data **
 
 ```c
 bool qp_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count);
@@ -572,134 +870,6 @@ The `qp_pixdata` function allows raw pixel data to be streamed to the display. I
 
 !> Under normal circumstances, users will not need to manually call either `qp_viewport` or `qp_pixdata`. These allow for writing of raw pixel information, in the display panel's native format, to the area defined by the viewport.
 
-## Quantum Painter Display Drivers :id=quantum-painter-drivers
+<!-- tabs:end -->
 
-### Common: Standard TFT (SPI + D/C + RST)
-
-Most TFT display panels use a 5-pin interface -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
-
-For these displays, QMK's `spi_master` must already be correctly configured for the platform you're building for.
-
-The pin assignments for SPI CS, D/C, and RST are specified during device construction.
-
-### GC9A01 :id=qp-driver-gc9a01
-
-Enabling support for the GC9A01 in Quantum Painter is done by adding the following to `rules.mk`:
-
-```make
-QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = gc9a01_spi
-```
-
-Creating a GC9A01 device in firmware can then be done with the following API:
-
-```c
-painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-```
-
-The device handle returned from the `qp_gc9a01_make_spi_device` function can be used to perform all other drawing operations.
-
-The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
-
-```c
-// 3 displays:
-#define GC9A01_NUM_DEVICES 3
-```
-
-### ILI9163 :id=qp-driver-ili9163
-
-Enabling support for the ILI9163 in Quantum Painter is done by adding the following to `rules.mk`:
-
-```make
-QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ili9163_spi
-```
-
-Creating a ILI9163 device in firmware can then be done with the following API:
-
-```c
-painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-```
-
-The device handle returned from the `qp_ili9163_make_spi_device` function can be used to perform all other drawing operations.
-
-The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
-
-```c
-// 3 displays:
-#define ILI9163_NUM_DEVICES 3
-```
-
-### ILI9341 :id=qp-driver-ili9341
-
-Enabling support for the ILI9341 in Quantum Painter is done by adding the following to `rules.mk`:
-
-```make
-QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ili9341_spi
-```
-
-Creating a ILI9341 device in firmware can then be done with the following API:
-
-```c
-painter_device_t qp_ili9341_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-```
-
-The device handle returned from the `qp_ili9341_make_spi_device` function can be used to perform all other drawing operations.
-
-The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
-
-```c
-// 3 displays:
-#define ILI9341_NUM_DEVICES 3
-```
-
-### SSD1351 :id=qp-driver-ssd1351
-
-Enabling support for the SSD1351 in Quantum Painter is done by adding the following to `rules.mk`:
-
-```make
-QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = ssd1351_spi
-```
-
-Creating a SSD1351 device in firmware can then be done with the following API:
-
-```c
-painter_device_t qp_ssd1351_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-```
-
-The device handle returned from the `qp_ssd1351_make_spi_device` function can be used to perform all other drawing operations.
-
-The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
-
-```c
-// 3 displays:
-#define SSD1351_NUM_DEVICES 3
-```
-
-### ST7789 :id=qp-driver-st7789
-
-Enabling support for the ST7789 in Quantum Painter is done by adding the following to `rules.mk`:
-
-```make
-QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = st7789_spi
-```
-
-Creating a ST7789 device in firmware can then be done with the following API:
-
-```c
-painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-```
-
-The device handle returned from the `qp_st7789_make_spi_device` function can be used to perform all other drawing operations.
-
-The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
-
-```c
-// 3 displays:
-#define ST7789_NUM_DEVICES 3
-```
-
-!> Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+<!-- tabs:end -->

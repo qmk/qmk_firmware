@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x3265
-#define PRODUCT_ID   0x0008
-#define DEVICE_VER   0x0001
-#define MANUFACTURER yushakobo
-#define PRODUCT      "navpad 1.0 with helix keyboard"
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 7
@@ -80,9 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

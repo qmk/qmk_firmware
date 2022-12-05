@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xC41C
-#define PRODUCT_ID   0x0001
-#define DEVICE_VER   0x0001
-#define MANUFACTURER ChickenMan
-#define PRODUCT      Ciel
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C5, C4, B0, C7, B7 }
 #define MATRIX_COL_PINS { C6, B6, B5, B4, B3, B2, B1, D6, D5, D4, D3, D2, D1, D0, C2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

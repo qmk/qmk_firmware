@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6073
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    WoodKeys.click
-#define PRODUCT         BigSeries Triple Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 3
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0 }
 #define MATRIX_COL_PINS { B4, B3, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -48,7 +40,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 11
 #ifdef RGBLIGHT_LIMIT_VAL
 #undef RGBLIGHT_LIMIT_VAL

@@ -24,7 +24,6 @@
 ap2_led_t       led_mask[KEY_COUNT];
 ap2_led_t       led_colors[KEY_COUNT];
 ap2_led_status_t ap2_led_status;
-uint8_t rgb_row_changed[NUM_ROW];
 
 void led_command_callback(const message_t *msg) {
     switch (msg->command) {
@@ -136,6 +135,24 @@ void ap2_led_reset_foreground_color() {
         .p.alpha = 0,
     };
     ap2_led_mask_set_mono(color);
+}
+
+void ap2_led_sticky_set_key(uint8_t row, uint8_t col, ap2_led_t color) {
+    uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha};
+    proto_tx(CMD_LED_STICKY_SET_KEY, payload, sizeof(payload), 1);
+}
+
+void ap2_led_unset_sticky_key(uint8_t row, uint8_t col) {
+    uint8_t payload[] = {row, col};
+    proto_tx(CMD_LED_STICKY_UNSET_KEY, payload, sizeof(payload), 1);
+}
+
+void ap2_led_unset_sticky_row(uint8_t row) {
+    uint8_t payload[] = {row};
+    proto_tx(CMD_LED_STICKY_UNSET_ROW, payload, sizeof(payload), 1);
+}
+void ap2_led_unset_sticky_all(void) {
+    proto_tx(CMD_LED_STICKY_UNSET_ALL, NULL, 0, 1);
 }
 
 /*

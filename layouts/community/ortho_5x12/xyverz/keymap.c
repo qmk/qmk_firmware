@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,  \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______, \
-  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
+  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, \
   BL_STEP, _______, KC_HOME, KC_END,  _______, KC_DEL,  KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______ \
   ),
 
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,  \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______, \
-  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
+  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, \
   BL_STEP, _______, KC_HOME, KC_END,  _______, KC_DEL,  KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______ \
   ),
 
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_ortho_5x12 ( \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, RGB_M_P, RGB_M_B, RGB_M_R, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
   RGB_TOG, RGB_MOD, RGB_SWR, RGB_M_K, RGB_M_G, RGB_HUI, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MACLOCK \

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Handwired Redragon Vara",
+    "keyboard_name": "Redragon Vara",
+    "manufacturer": "PH",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5048",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [

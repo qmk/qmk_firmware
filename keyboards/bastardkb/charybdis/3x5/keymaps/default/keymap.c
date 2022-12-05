@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include QMK_KEYBOARD_H
 
 enum charybdis_keymap_layers {
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
        KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    KC_PPLS,    KC_4,    KC_5,    KC_6, KC_PMNS,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,   QK_BOOT,    KC_PAST,    KC_1,    KC_2,    KC_3, KC_PSLS,
+       XXXXXXX, XXXXXXX, XXXXXXX, EE_CLR,  QK_BOOT,    KC_PAST,    KC_1,    KC_2,    KC_3, KC_PSLS,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
                          XXXXXXX, XXXXXXX, _______,    XXXXXXX, _______
   //                   ╰───────────────────────────╯ ╰──────────────────╯
@@ -61,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
        KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       KC_HOME, KC_PGUP, KC_PGDN,  KC_END, XXXXXXX,      QK_BOOT, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX,
+       KC_HOME, KC_PGUP, KC_PGDN,  KC_END, XXXXXXX,    QK_BOOT, EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
                          _______, _______, XXXXXXX,    _______, XXXXXXX
   //                   ╰───────────────────────────╯ ╰──────────────────╯

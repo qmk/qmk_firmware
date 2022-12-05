@@ -13,7 +13,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case CLEAR:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+      SEND_STRING(SS_LCTL("a") SS_TAP(X_DELETE));
     }
     return false;
 
@@ -23,7 +23,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 __attribute__((weak))
-uint32_t layer_state_set_keymap(uint32_t state) {
+layer_state_t layer_state_set_keymap(layer_state_t state) {
   return state;
 }
 

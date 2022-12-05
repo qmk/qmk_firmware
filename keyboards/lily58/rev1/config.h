@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEB2D
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    liliums
-#define PRODUCT         Lily58
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
@@ -36,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 
 #define SOFT_SERIAL_PIN D2
-#define SERIAL_USE_MULTI_TRANSACTION
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

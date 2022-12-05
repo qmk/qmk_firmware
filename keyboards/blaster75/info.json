@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Blaster 75", 
+    "manufacturer": "Altain",
     "url": "", 
     "maintainer": "Altain", 
+    "usb": {
+        "vid": "0xA122",
+        "pid": "0xB075",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
