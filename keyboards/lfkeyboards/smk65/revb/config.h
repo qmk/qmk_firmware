@@ -16,20 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C46   // "LF"
-#define PRODUCT_ID      0x565B   // "s65b"
-#define DEVICE_VER      0x0006
-#define MANUFACTURER    LFKeyboards
-#define PRODUCT         SMK65v2
-
 // RevA
 // #define DIODE_DIRECTION COL2ROW
 // #define MATRIX_ROWS 5
 // #define MATRIX_COLS 16
 // #define MATRIX_ROW_PINS {B7, F7, F6, F5, F4}
 // #define MATRIX_COL_PINS {F0, F1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C7, B3, B2, B1, B0}
-// #define UNUSED_PINS {}
 
 // RevB
 #define DIODE_DIRECTION COL2ROW
@@ -37,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 16
 #define MATRIX_ROW_PINS {D6, D7, E0, C3, C4}
 #define MATRIX_COL_PINS {F2, C5, E5, E4, B7, B6, B5, B4, B3, B2, B1, B0, E1, C0, C1, C2}
-#define UNUSED_PINS {}
 #define RGBLED_NUM 20     // Number of LEDs
 
 //RevB only:
@@ -50,7 +41,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN C7  // Have to set it to something to get the ws2812 code to compile
 #define RGBLED_NUM 20     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17

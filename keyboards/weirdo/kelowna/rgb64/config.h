@@ -16,13 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7764
-#define PRODUCT_ID 0x4C64
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Weirdo
-#define PRODUCT kelownaRGB64
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTZ] = LAYOUT_planck_grid(
     SCROLL,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,    DE_Z,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,   KC_G,    KC_H,    KC_J,    KC_K,    KC_L, DE_PLUS,    DE_MINS,
-LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT,   KC_UP,    KC_SFTENT,
+LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT,   KC_UP,    SC_SENT,
     KC_LCTL, KC_LGUI, NUMPD,   KC_LALT, LOWER,  KC_SPC,  KC_SPC,   RAISE,  KC_DEL, KC_LEFT, KC_DOWN,  KC_RGHT
 ),
 
@@ -93,7 +93,7 @@ LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,
  */
 [_NUMPD] = LAYOUT_planck_grid(
  SFT_T(KC_PASTE),KC_P7,   KC_P8, KC_P9,  DE_SLSH, _______, _______, _______, _______, _______, _______,  _______,
-    KC_NLCK,    KC_P4,   KC_P5, KC_P6,  DE_MINS, _______, _______, _______, _______, _______, _______,  _______,
+    KC_NUM,     KC_P4,   KC_P5, KC_P6,  DE_MINS, _______, _______, _______, _______, _______, _______,  _______,
     _______,    KC_P1,   KC_P2, KC_P3,  DE_PLUS, _______, _______, _______, _______, _______, _______,  _______,
  CTL_T(KC_COPY),KC_DOT,  KC_P0, KC_COMM, NUMPD,  KC_ENT,  KC_ENT,  _______, _______, _______, _______,  _______
 ),
@@ -141,16 +141,16 @@ LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |PowOff|      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf|      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
-    KC_POWER,_______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,  _______, _______, _______,
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
+    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+    KC_PWR,  _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
+    _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
 };

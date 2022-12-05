@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x5352 // "SR"
-#define PRODUCT_ID   0x0202 // Second Product Second Version
-#define DEVICE_VER   0x2004 // 2020.12
-#define MANUFACTURER SiRius
-#define PRODUCT      Uni660 V2
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16

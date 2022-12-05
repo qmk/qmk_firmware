@@ -12,6 +12,8 @@
 #    include "kint36.h"
 #elif defined(KEYBOARD_kinesis_kint41)
 #    include "kint41.h"
+#elif defined(KEYBOARD_kinesis_kintlc)
+#    include "kintlc.h"
 #endif
 
 #include "quantum.h"

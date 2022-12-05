@@ -3,7 +3,7 @@
 
 
 // Used for SHIFT_ESC
-#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _FL: Function Layer
    * ,-----------------------------------------------------------.
-   * |   |   |   |   |   |   |   |   |   |   |   |   |   |  RESET|
+   * |   |   |   |   |   |   |   |   |   |   |   |   |   |  QK_BOOT|
    * |-----------------------------------------------------------|
    * |     |   |   |   |   |   |   |   |   |   |   |BL-|BL+|BL   |
    * |-----------------------------------------------------------|
@@ -52,14 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = LAYOUT_60_ansi(
   #ifdef RGBLIGHT_ENABLE
-  KC_GRV, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,RESET,  \
-  _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, BL_DEC,BL_INC, BL_TOGG, \
+  KC_GRV, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,QK_BOOT,  \
+  _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, BL_DOWN,BL_UP,  BL_TOGG, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______, \
   _______,RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD,_______,_______,_______, \
   _______,_______,_______,                 _______,                       _______,_______,_______, _______),
   #else
-  KC_GRV, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,RESET,  \
-  _______,KC_MPRV,KC_MPLY,KC_MNXT,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP, KC_END, BL_DEC, BL_INC,BL_TOGG, \
+  KC_GRV, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,QK_BOOT,  \
+  _______,KC_MPRV,KC_MPLY,KC_MNXT,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP, KC_END, BL_DOWN,BL_UP, BL_TOGG, \
   KC_DEL, KC_VOLD,KC_MUTE,KC_VOLU,_______,_______,_______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,_______,_______, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
   _______,_______,_______,                _______,                        _______,_______,_______,_______),

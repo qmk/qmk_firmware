@@ -4,29 +4,25 @@
 #include "transport_sync.h"
 #include "transactions.h"
 #include <string.h>
-#ifdef __AVR__
-#    include <avr/wdt.h>
-#endif
 
 #ifdef UNICODE_COMMON_ENABLE
 #    include "process_unicode_common.h"
 extern unicode_config_t unicode_config;
+#    include "keyrecords/unicode.h"
 #endif
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
 extern audio_config_t audio_config;
 extern bool           delayed_tasks_run;
 #endif
+#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
+extern bool is_oled_enabled;
+#endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
 extern bool tap_toggling;
 #endif
 #ifdef SWAP_HANDS_ENABLE
 extern bool swap_hands;
-#endif
-
-#if defined(SPLIT_WATCHDOG_TIMEOUT)
-static bool     watchdog_ping_done = false;
-static uint32_t watchdog_timer     = 0;
 #endif
 
 extern userspace_config_t userspace_config;
@@ -53,10 +49,6 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
     }
 }
 
-#if defined(SPLIT_WATCHDOG_TIMEOUT)
-void watchdog_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) { watchdog_ping_done = true; }
-#endif
-
 #ifdef CUSTOM_OLED_DRIVER
 #    include "oled/oled_stuff.h"
 void keylogger_string_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
@@ -74,14 +66,6 @@ void keyboard_post_init_transport_sync(void) {
 #ifdef CUSTOM_OLED_DRIVER
     transaction_register_rpc(RPC_ID_USER_KEYLOG_STR, keylogger_string_sync);
 #endif
-
-#if defined(SPLIT_WATCHDOG_TIMEOUT)
-#    if defined(PROTOCOL_LUFA)
-    wdt_disable();
-#    endif
-    transaction_register_rpc(RPC_ID_USER_WATCHDOG_SYNC, watchdog_handler);
-    watchdog_timer = timer_read32();
-#endif
 }
 
 void user_transport_update(void) {
@@ -92,11 +76,15 @@ void user_transport_update(void) {
         user_state.audio_enable        = is_audio_on();
         user_state.audio_clicky_enable = is_clicky_on();
 #endif
-#if defined(CUSTOM_POINTING_DEVICE)
-        user_state.tap_toggling = tap_toggling;
+#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
+        user_state.is_oled_enabled = is_oled_enabled;
+#endif
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+        user_state.tap_toggling = get_auto_mouse_toggle();
 #endif
 #ifdef UNICODE_COMMON_ENABLE
-        user_state.unicode_mode = unicode_config.input_mode;
+        user_state.unicode_mode        = unicode_config.input_mode;
+        user_state.unicode_typing_mode = unicode_typing_mode;
 #endif
 #ifdef SWAP_HANDS_ENABLE
         user_state.swap_hands = swap_hands;
@@ -110,9 +98,15 @@ void user_transport_update(void) {
         user_state.raw       = transport_user_state;
 #ifdef UNICODE_COMMON_ENABLE
         unicode_config.input_mode = user_state.unicode_mode;
+        unicode_typing_mode       = user_state.unicode_typing_mode;
 #endif
-#if defined(CUSTOM_POINTING_DEVICE)
-        tap_toggling = user_state.tap_toggling;
+#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
+        is_oled_enabled = user_state.is_oled_enabled;
+#endif
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+        if (get_auto_mouse_toggle() != user_state.tap_toggling) {
+            auto_mouse_toggle();
+        }
 #endif
 #ifdef SWAP_HANDS_ENABLE
         swap_hands = user_state.swap_hands;
@@ -206,31 +200,9 @@ void user_transport_sync(void) {
         }
 #endif
     }
-
-#if defined(SPLIT_WATCHDOG_TIMEOUT)
-    if (!watchdog_ping_done) {
-        if (is_keyboard_master()) {
-            if (timer_elapsed32(watchdog_timer) > 100) {
-                uint8_t any_data = 1;
-                if (transaction_rpc_send(RPC_ID_USER_WATCHDOG_SYNC, sizeof(any_data), &any_data)) {
-                    watchdog_ping_done = true;  // successful ping
-                } else {
-                    dprint("Watchdog ping failed!\n");
-                }
-                watchdog_timer = timer_read32();
-            }
-        } else {
-            if (timer_elapsed32(watchdog_timer) > 3500) {
-                software_reset();
-                while (1) {
-                }
-            }
-        }
-    }
-#endif
 }
 
-void housekeeping_task_user(void) {
+void housekeeping_task_transport_sync(void) {
     // Update kb_state so we can send to slave
     user_transport_update();
 

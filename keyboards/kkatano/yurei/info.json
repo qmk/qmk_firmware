@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Yurei",
+    "manufacturer": "Koichi Katano",
     "url": "https://github.com/kkatano/yurei",
     "maintainer": "Koichi Katano",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x5D5E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

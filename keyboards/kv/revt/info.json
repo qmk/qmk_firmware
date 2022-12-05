@@ -1,7 +1,13 @@
 {
     "keyboard_name": "KVT",
+    "manufacturer": "Hybrid",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x6565",
+        "pid": "0x6520",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

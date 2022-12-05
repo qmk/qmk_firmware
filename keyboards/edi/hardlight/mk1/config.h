@@ -1,6 +1,6 @@
 /*
 ©2021 Everywhere Defense Industries / Fate Everywhere <fate@7storm.org>
- 
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xF7E0
-#define PRODUCT_ID      0x2401
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    Everywhere Defense Industries
-#define PRODUCT         Hard Light
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, D4, D6, D7, B4 }
 #define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, B5 }
-#define UNUSED_PINS { B7, D2, D3, D5 }
 
 
 /* COL2ROW, ROW2COL */
@@ -69,7 +61,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 15
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //#define RGBLIGHT_EFFECT_KNIGHT
 //#define RGBLIGHT_EFFECT_TWINKLE

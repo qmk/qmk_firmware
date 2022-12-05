@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Knife66_iso",
+    "keyboard_name": "Knife66 ISO",
+    "manufacturer": "MisterKnife",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xAC11",
+        "pid": "0x4173",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

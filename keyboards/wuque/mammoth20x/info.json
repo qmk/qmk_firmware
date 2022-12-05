@@ -1,7 +1,13 @@
 {
     "keyboard_name": "mammoth20x",
+    "manufacturer": "wuque studio",
     "url": "https://shop.wuquestudio.com/",
     "maintainer": "spbgzh",
+    "usb": {
+        "vid": "0xB06B",
+        "pid": "0x0005",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT"
     },

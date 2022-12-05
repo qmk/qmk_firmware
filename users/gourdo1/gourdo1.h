@@ -1,5 +1,5 @@
 /* Copyright 2021 Jonavin Eng @Jonavin
-   Copyright 2022 gourdo1 <jcblake@outlook.com>
+   Copyright 2022 gourdo1 <gourdo1@outlook.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,39 +17,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// DEFINE MACROS
-#define ARRAYSIZE(arr) sizeof(arr) / sizeof(arr[0])
-
-// LAYERS
+// LAYERS -- Note: to avoid compile problems, make sure total layers matches DYNAMIC_KEYMAP_LAYER_COUNT defined in config.h (where _COLEMAK layer is defined)
 enum custom_user_layers {
     _BASE,
     _FN1,
     _NUMPADMOUSE,
     _MOUSEKEY,
+    #ifdef GAME_ENABLE
+    _GAME
+    #endif //GAME_ENABLE
 };
 
 #define KC_CAD LALT(LCTL(KC_DEL))
+#define LOCKPC LGUI(KC_L)
 #define KC_AF4 LALT(KC_F4)
 #define KC_TASK LCTL(LSFT(KC_ESC))
 #define CT_PGUP RCTL(KC_PGUP)
 #define CT_PGDN RCTL(KC_PGDN)
 #define CT_HOME RCTL(KC_HOME)
 #define CT_END RCTL(KC_END)
-#define KC_SFTUP RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
-#define KC_RAISESPC LT(_MOUSEKEY, KC_SPC) // _MOUSEKEY layer mod when held, space when tapped
-#define KC_LOWERSPC LT(_NUMPADMOUSE, KC_SPC) // _NUMPAD-MOUSE layer mod when held, space when tapped
-#define KC_SHIFTSPC LSFT(KC_SPC)
-#define SWAP_L SGUI(KC_LEFT) // Swap application to left display
-#define SWAP_R SGUI(KC_RGHT) // Swap application to right display
+#define SWAP_L SGUI(KC_LEFT)                 // Swap application to left display
+#define SWAP_R SGUI(KC_RGHT)                 // Swap application to right display
 
 // KEYCODES
 enum custom_user_keycodes {
     KC_00 = SAFE_RANGE,
-        ENCFUNC,
-        KC_WINLCK,     // Toggles Win key on and off
+        ENCFUNC,       // Encoder function
+        CAPSNUM,       // Capslock key function
+        LEFTOFENC,     // Key to the left of the encoder (i.e. F13)
+        BELOWENC,      // Key below encoder
+        PRNCONF,       // Print verbose statuses of all user_config toggles
+        WINLOCK,       // Toggles Windows key on and off
         RGB_TOI,       // Timeout idle time up
         RGB_TOD,       // Timeout idle time down
-        RGB_NITE,      // Turns off all rgb but allow rgb indicators to work
+        RGB_NITE,      // Disables RGB backlighting effects but allows RGB indicators to still work
+
+        TG_CAPS,       // Toggles RGB highlighting of alphas during capslock
+        TG_PAD,        // Toggles RGB highlighting of keys on numpad+mousekeys layer
+        TG_TDCAP,      // Toggles double tap shift for CapsLock
+        TG_DEL,        // Swaps DEL and HOME key locations
+        TG_ENC,        // Toggle Encoder button functionality
+        TG_ESC,        // Toggle ESC double tap for _BASE layer
+        TG_INS,        // Toggle location of INS
+        TG_SPCMOD,     // Toggle disabling of modded-SPACE functions
+        TG_AUTOCR,     // Toggle AutoCorrect
+        TG_ENGCAP,     // Toggle highlighting Non-English letters during CAPSLOCK on ISO boards
 
         YAHOO,         // yahoo.com
         OUTLOOK,       // outlook.com
@@ -66,24 +78,29 @@ enum custom_user_keycodes {
 
         KC_TSTOG,      // Tab Scroll Toggle
 
-        NEW_SAFE_RANGE // new safe range for keymap level custom keycodes
+        NEW_SAFE_RANGE // New safe range for keymap level custom keycodes
 };
 
-#ifdef TD_LSFT_CAPSLOCK_ENABLE
-// Tap Dance Definitions
-enum custom_tapdance {
-    TD_LSFT_CAPSLOCK,
-    TD_LSFT_CAPS_WIN,
-    TD_ESC_BASELYR
-};
-#define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
-#define KC_LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
-#define KC_ESCLYR TD(TD_ESC_BASELYR)
-#else // regular Shift
-#define KC_LSFTCAPS KC_LSFT
-// regular Escape
-#define KC_ESCLYR KC_ESC
-#endif // TD_LSFT_CAPSLOCK_ENABLE
+// Set up boolean variables to track user customizable configuration options
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     rgb_hilite_caps :1;
+    bool     rgb_hilite_numpad :1;
+    bool     esc_double_tap_to_baselyr :1;
+    bool     del_right_home_top :1;
+    bool     double_tap_shift_for_capslock :1;
+    bool     encoder_press_mute_or_media :1;
+    bool     ins_on_shft_bkspc_or_del :1;
+    bool     disable_space_mods :1;
+    bool     autocorrect :1;
+    bool     rgb_english_caps :1;
+  };
+} user_config_t;
+
+user_config_t user_config;
+
+//#define LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
 
 // ENCODER ACTIONS
 #ifdef ENCODER_ENABLE

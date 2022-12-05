@@ -1,7 +1,13 @@
 {
     "keyboard_name": "minim",
+    "manufacturer": "Matthew Dias",
     "url": "https://github.com/matthewdias/minim",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xAAAA",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

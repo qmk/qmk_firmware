@@ -1,7 +1,13 @@
 {
     "keyboard_name": "AddOn",
+    "manufacturer": "Ocean",
     "url": "tokopedia.com/kbdksp",
     "maintainer": "Ocean",
+    "usb": {
+        "vid": "0x9624",
+        "pid": "0x0012",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

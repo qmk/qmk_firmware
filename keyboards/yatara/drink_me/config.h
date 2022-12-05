@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5961 // "Ya" - Yatara
-#define PRODUCT_ID      0x1470
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yatara
-#define PRODUCT         Drink Me
-
 /* Key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 4
@@ -33,4 +26,3 @@
 #define DIRECT_PINS { \
     {B4, B5, B6, B7} \
 }
-#define UNUSED_PINS

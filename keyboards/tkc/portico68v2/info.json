@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "TKC Portico68 v2",
+    "keyboard_name": "Portico68 v2",
+    "manufacturer": "TKC",
     "url": "",
     "maintainer": "TerryMathews",
+    "usb": {
+        "vid": "0x544B",
+        "pid": "0x0012",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

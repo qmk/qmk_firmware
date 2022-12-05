@@ -1,7 +1,13 @@
 {
     "keyboard_name": "sparrow62",
+    "manufacturer": "Atsushi_Morimoto_74th",
     "url": "https://github.com/74th/sparrow62-buildguide",
     "maintainer": "Atsushi Morimoto (@74th)",
+    "usb": {
+        "vid": "0xDA74",
+        "pid": "0x7461",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -20,19 +20,11 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x694E  //'iN'
-#define PRODUCT_ID      0x5336  //'S6'
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    iNETT Studio
-#define PRODUCT         SQUARE.X
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 #define MATRIX_ROW_PINS { F0, F1, F4, B7, D6}
 #define MATRIX_COL_PINS { C7, C6, B6, B5, B4, F7, F6, F5, E6, B0, D2, D4, D5, D3 }
-#define UNUSED_PINS
 #define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -54,7 +46,16 @@
 #define RGBLIGHT_LIMIT_VAL 128
 #define RGBLED_NUM          18
 #define RGB_DI_PIN          D7
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_HUE_STEP   8
 #define RGBLIGHT_SAT_STEP   8
 #define RGBLIGHT_VAL_STEP   8
@@ -65,7 +66,7 @@
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110111
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 #if defined(RGB_MATRIX_ENABLE) && defined(RGBLIGHT_ENABLE)
 #    define RGB_MATRIX_DISABLE_KEYCODES

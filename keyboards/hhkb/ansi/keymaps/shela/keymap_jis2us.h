@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 // clang-format off
 /* Keymap for converting JIS to US */
