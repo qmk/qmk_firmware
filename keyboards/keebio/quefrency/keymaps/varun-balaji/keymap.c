@@ -6,14 +6,15 @@
 // entirely and just use numbers.
 #define _NORMIE 0
 #define _MIRYOKU 1
-#define _L1 2
-#define _L2 3
-#define _L3 4
+#define _APPLE 2
+#define _L1 3
+#define _L2 4
+#define _L3 5
 
 // Mod tap
 // Caps lock is escape when tapped, control when held
 #define ESC_CTL LCTL_T(KC_ESC)
-// Left space is backspace when tapped, gui/super/win when held
+// Left space is backspace when tapped, gui/super/win/command when held
 #define BSP_GUI LGUI_T(KC_BSPC)
 // Right space is space when tapped, shift when held
 #define SPC_SFT LSFT_T(KC_SPC)
@@ -53,12 +54,20 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define ALT_L LALT_T(KC_L)
 #define GUI_SCL RGUI_T(KC_SCLN)
 
+// Additional binds for apple layer
+#define CTL_A LCTL_T(KC_A)
+#define GUI_D LGUI_T(KC_D)
+#define GUI_K RGUI_T(KC_K)
+#define CTL_SCL RCTL_T(KC_SCLN)
+
 
 // Switch default layer
 // Switch to normal layer
 #define SW_NORM DF(_NORMIE)
 // Switch to miryoku layer
 #define SW_MIRY DF(_MIRYOKU)
+// Switch to apple layer
+#define SW_APPL DF(_APPLE)
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -110,6 +119,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //└────────┴────────┴────────┴────────┴─────────────────┘         └─────────────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 
+  [_APPLE] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐         ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬─────────────────┐
+     KC_GESC ,  KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,            KC_6  ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  ,KC_MINS , KC_EQL ,     KC_BSPC     ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┤
+      KC_TAB ,  KC_Q  ,  KC_W  ,  KC_E  ,  KC_R  ,  KC_T  ,            KC_Y  ,  KC_U  ,  KC_I  ,  KC_O  ,  KC_P  ,KC_LBRC ,KC_RBRC ,KC_BSLS , KC_DEL ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┼────────┤
+     ESC_CTL , CTL_A  , ALT_S  , GUI_D  , SFT_F  ,  KC_G  ,            KC_H  , SFT_J  , GUI_K  , ALT_L  ,CTL_SCL ,KC_QUOT ,     KC_ENT      ,KC_PGUP ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┼────────┤
+     SFT_CAP ,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,            KC_N  ,  KC_M  ,KC_COMM , KC_DOT ,KC_SLSH ,KC_RSFT ,_______ , KC_UP  ,KC_PGDN ,
+  //├────────┼────────┼────────┼────────┼────────┴────────┤         ├────────┴────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LCTL ,KC_LGUI ,KC_LALT , TAB_L1 ,     BSP_GUI     ,               SPC_SFT     , ENT_L2 ,KC_RALT ,KC_RGUI ,KC_RCTL ,KC_LEFT ,KC_DOWN ,KC_RGHT  
+  //└────────┴────────┴────────┴────────┴─────────────────┘         └─────────────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+  ),
+
   [_L1] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐         ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬─────────────────┐
       KC_GRV , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,           KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,     _______     ,
@@ -144,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┤
      _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┤         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┼────────┤
-     _______ ,_______ ,_______ ,_______ ,_______ ,SW_NORM ,          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,     _______     ,_______ ,
+     _______ ,SW_APPL ,_______ ,_______ ,_______ ,SW_NORM ,          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,     _______     ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┤         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┼────────┤
      _______ ,_______ ,_______ ,_______ ,_______ , RESET  ,           RESET  ,SW_MIRY ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┴────────┤         ├────────┴────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
