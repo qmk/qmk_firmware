@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "dvorak_42_key.h"
 
-// to build: qmk compile -kb crkbd -km dvorak_42_key
+// to build: qmk compile -kb crkbd/rev1 -km dvorak_42_key
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x6_3(
