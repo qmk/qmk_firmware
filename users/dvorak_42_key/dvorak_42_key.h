@@ -91,8 +91,8 @@ enum custom_keycodes {
 
 // ChromeOS shortcuts
 // ==================
-#define CO_WS_LEFT RGUI(KC_LBRACKET)
-#define CO_WS_RIGHT RGUI(KC_RBRACKET)
+#define CO_WS_LEFT RGUI(KC_LBRC)
+#define CO_WS_RIGHT RGUI(KC_RBRC)
 
 
 // Android Studio shortcuts

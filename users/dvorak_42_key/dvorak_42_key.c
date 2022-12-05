@@ -74,11 +74,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;            
 
         case WINDOWS10_WORKSPACE_LEFT:
-            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+            SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_LEFT))));
             return true;
             break;
         case WINDOWS10_WORKSPACE_RIGHT:
-            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+            SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_RIGHT))));
             break;
         case WINDOWS10_TASK_VIEW:
             SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
@@ -143,33 +143,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;            
         case SCREEN_READREG_1:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("readreg 1\n");
             break;
         case SCREEN_READREG_2:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("readreg 2\n");
             break;
         case SCREEN_READREG_3:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("readreg 3\n");
             break;
 
         case SCREEN_PASTEREG_1:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("paste 1\n");
             break;
         case SCREEN_PASTEREG_2:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("paste 2\n");
             break;
         case SCREEN_PASTEREG_3:
             tap_code16(C(KC_A));
-            tap_code16(S(KC_SCOLON));
+            tap_code16(S(KC_SEMICOLON));
             SEND_STRING("paste 3\n");
             break;
     }
