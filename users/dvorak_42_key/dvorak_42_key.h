@@ -141,46 +141,6 @@ enum custom_keycodes {
 
 
 
-#define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
-        case MACRO_NAME:\
-             if (record->event.pressed) {\
-                return MACRO( D(LCTL), T(A), U(LCTL), T(NUM), END);\
-            }\
-        break;\
-
-#define MACRO_SCREEN_REG(MACRO_NAME,NUM) \
-        case MACRO_NAME:\
-             if (record->event.pressed) {\
-                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),\
-                              T(R),\
-                              T(E),\
-                              T(A),\
-                              T(D),\
-                              T(R),\
-                              T(E),\
-							  T(G),\
-                              T(SPC),\
-							  T(NUM),\
-							  T(ENTER),\
-                             END);\
-            }\
-        break;\
-
-#define MACRO_SCREEN_PASTE(MACRO_NAME,NUM)\
-        case MACRO_NAME:\
-             if (record->event.pressed) {\
-                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),\
-                              T(P),\
-                              T(A),\
-                              T(S),\
-                              T(T),\
-                              T(E),\
-                              T(SPC),\
-							  T(NUM),\
-							  T(ENTER),\
-                             END);\
-            }\
-        break;\
 
 // tap-dance configuration
 // =======================
