@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "rev2.h"
-#include "quantum.h"
-#include "gpio.h"
 
 #ifdef ENCODER_ENABLE // code based on encoder.c
 

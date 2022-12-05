@@ -32,5 +32,8 @@
         "device_version": "1.0.0",
         "pid": "0x0841",
         "vid": "0xFEED"
+    },
+    "build": {
+        "lto": true
     }
 }

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 enum layer_number {
   _QWERTY = 0,
