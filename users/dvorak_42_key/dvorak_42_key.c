@@ -20,27 +20,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SHELL_LS:
             SEND_STRING("ls\n");
-            return true;
             break;
         case SHELL_LSLTR:
             SEND_STRING("ls -ltr\n");
-            return true;
             break;
         case SHELL_LSLA:
             SEND_STRING("ls -la\n");
-            return true;
             break;
         case SHELL_CDPRE:
             SEND_STRING("cd ..\n");
-            return true;
             break;
         case SHELL_LESS:
             SEND_STRING("less ");
-            return true;
             break;
         case SHELL_PLESS:
             SEND_STRING(" | less");
-            return true;
             break;
         case SHELL_PGREP:
             SEND_STRING(" | grep ");
@@ -48,34 +42,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SHELL_TAILF:
             SEND_STRING("tail -f ");
-            return true;
             break;
         case SHELL_SCREENRD:
             SEND_STRING("screen -r -d ");
-            return true;
             break;
         case SHELL_SCREEN_NEW:
             SEND_STRING("screen -S ");
-            return true;
             break;
         case SHELL_SCREEN_LIST:
             SEND_STRING("screen -list\n");
-            return true;
             break;
 
         case SHELL_GIT_DIFF:
             SEND_STRING("git diff\n");
-            return true;
             break;
 
         case SHELL_GIT_STATUS:
             SEND_STRING("git status\n");
-            return true;
             break;            
 
         case WINDOWS10_WORKSPACE_LEFT:
             SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_LEFT))));
-            return true;
             break;
         case WINDOWS10_WORKSPACE_RIGHT:
             SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_RIGHT))));
