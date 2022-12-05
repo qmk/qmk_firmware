@@ -6,10 +6,11 @@
 
 #define _BL 0
 #define QWE 1
-#define OSX 2
-#define SYM 3
-#define MED 4  // media keys
-#define MAX 5
+#define GAM 2
+#define OSX 3
+#define SYM 4
+#define MED 5  // media keys
+#define MAX 6
 
 #define ____ KC_TRNS
 
