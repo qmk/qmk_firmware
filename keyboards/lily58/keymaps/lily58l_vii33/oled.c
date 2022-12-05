@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #  include "enums.h"
 #  include "process_record_user.h"
 
-int current_wpm = 0;
+uint8_t current_wpm = 0;
 
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
