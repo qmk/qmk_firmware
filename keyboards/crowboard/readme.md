@@ -8,6 +8,13 @@
 * Hardware Supported: *Raspberry Pi Pico*
 * Hardware Availability: *keyboarddweebs.net*
 
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Physical reset button**: Hold the button down on the raspberry pi pico while plugging it in. There is no reset button on the pcb.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
 Make example for this keyboard (after setting up your build environment):
 
     make crowboard:default
