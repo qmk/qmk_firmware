@@ -4,12 +4,12 @@
     "url": "bentoboxstudio.xyz",
     "maintainer": "BentoBoxStudio",
     "usb": {
-        "vid": "0x7070",
+        "vid": "0x7071",
         "pid": "0x6331",
         "device_version": "0.0.1"
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
