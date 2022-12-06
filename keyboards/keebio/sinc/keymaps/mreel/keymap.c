@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
 #include "mreel.h"
 
 #define LAYOUT_wrapped(...) LAYOUT_80_with_macro(__VA_ARGS__)
