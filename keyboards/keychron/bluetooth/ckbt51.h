@@ -128,7 +128,7 @@ typedef struct {
 } __attribute__((packed)) module_param_t;
 
 void ckbt51_init(bool wakeup_from_low_power_mode);
-void ckbt51_send_cmd(uint8_t* payload, uint8_t len, bool ack_enable);
+void ckbt51_send_cmd(uint8_t* payload, uint8_t len, bool ack_enable, bool retry);
 
 void ckbt51_send_keyboard(uint8_t* report);
 void ckbt51_send_nkro(uint8_t* report);

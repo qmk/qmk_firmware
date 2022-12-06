@@ -105,7 +105,7 @@ static uint8_t         led_last_enable   = UINT8_MAX;
 static uint8_t         led_last_effect   = UINT8_MAX;
 static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
 static led_task_states led_task_state    = SYNCING;
-#if led_matrix_timeout > 0
+#if LED_MATRIX_TIMEOUT > 0
 static uint32_t led_anykey_timer;
 static uint32_t led_matrix_timeout = LED_MATRIX_TIMEOUT;
 #endif  // LED_MATRIX_TIMEOUT > 0

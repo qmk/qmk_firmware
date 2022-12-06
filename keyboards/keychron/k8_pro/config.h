@@ -31,6 +31,7 @@
 
 /* Turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define LED_DISABLE_WHEN_USB_SUSPENDED
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

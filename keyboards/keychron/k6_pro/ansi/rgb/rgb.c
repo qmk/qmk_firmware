@@ -13,12 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include "quantum.h"
 
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE
-const ckled2001_led g_ckled2001_leds[DRIVER_LED_TOTAL] = {
+const ckled2001_led g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define MANUFACTURER    Keychron
-#define PRODUCT         Keychron K6 Pro
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -35,6 +31,7 @@
 
 /* Turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define LED_DISABLE_WHEN_USB_SUSPENDED
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -47,7 +44,7 @@
 #define LED_CAPS_LOCK_PIN A7
 #define LED_PIN_ON_STATE 1
 
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
 /* Hardware configuration */
 #    define USB_BT_MODE_SELECT_PIN A10
 
@@ -63,9 +60,6 @@
 
 #    define HOST_DEVICES_COUNT 3
 
-#    define HOST_LED_PIN_LIST \
-        { H3, H3, H3 }
-#    define HOST_LED_PIN_ON_STATE 1
 
 #    if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
 

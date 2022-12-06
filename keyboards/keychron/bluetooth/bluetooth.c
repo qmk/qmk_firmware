@@ -50,9 +50,6 @@ uint8_t bluetooth_keyboard_leds(void);
 void    bluetooth_send_keyboard(report_keyboard_t *report);
 void    bluetooth_send_mouse(report_mouse_t *report);
 void    bluetooth_send_extra(report_extra_t         *report);
-void    bluetooth_send_system(uint16_t data);
-void    bluetooth_send_consumer(uint16_t data);
-
 
 /* host struct */
 host_driver_t bluetooth_driver = {bluetooth_keyboard_leds, bluetooth_send_keyboard, bluetooth_send_mouse, bluetooth_send_extra};
@@ -345,9 +342,6 @@ void bluetooth_send_mouse(report_mouse_t *report) {
     }
 }
 
-void bluetooth_send_extra(report_extra_t         *report) {
-}
-
 void bluetooth_send_system(uint16_t data) {
     if (bt_state == BLUETOOTH_CONNECTED) {
         if (bluetooth_transport.send_system) bluetooth_transport.send_system(data);
@@ -373,6 +367,15 @@ void bluetooth_send_consumer(uint16_t data) {
 #endif
     } else if (bt_state != BLUETOOTH_RESET) {
         bluetooth_connect();
+    }
+}
+
+void bluetooth_send_extra(report_extra_t         *report) {
+    if (report->report_id == REPORT_ID_SYSTEM) {
+        bluetooth_send_system(report->usage);
+    }
+    else if (report->report_id == REPORT_ID_CONSUMER) {
+        bluetooth_send_consumer(report->usage);
     }
 }
 

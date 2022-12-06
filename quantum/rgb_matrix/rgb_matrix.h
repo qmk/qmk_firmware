@@ -88,7 +88,7 @@
 #define RGB_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
-#define RGB_MATRIX_TIMEOUT_INFINITE   (UINT32_MAX)
+#define RGB_MATRIX_TIMEOUT_INFINITE  (UINT32_MAX)
 
 enum rgb_matrix_effects {
     RGB_MATRIX_NONE = 0,

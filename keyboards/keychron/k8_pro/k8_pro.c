@@ -299,7 +299,7 @@ void via_command_kb(uint8_t *data, uint8_t length) {
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     switch (data[0]) {
         case RAW_HID_CMD:
-            raw_hid_receive_kb(data, length);
+            via_command_kb(data, length);
             break;
     }
 }
