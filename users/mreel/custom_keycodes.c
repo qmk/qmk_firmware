@@ -56,15 +56,6 @@ bool process_record_custom_key(uint16_t keycode, keyrecord_t *record) {
             tap_code16(layer_state_is(_WIN) ? C(KC_RGHT) : LOPT(KC_RGHT));
             return true;
 
-        case CK_COMP:
-            send_string("qmk compile");
-            tap_code(KC_ENT);
-            return true;
-
-        case CK_FLSH:
-            send_string("qmk flash");
-            tap_code(KC_ENT);
-            return true;
     }
     return true;
 }
