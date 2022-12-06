@@ -239,3 +239,21 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record)
   }
 }
 #endif
+
+#ifdef OLED_ENABLE
+bool oled_task_user(void)
+{
+  oled_write_P(PSTR("     "), false);
+  oled_write_ln_P(PSTR("I"), false);
+  oled_write_P(PSTR("N S\n"), false);
+  oled_write_P(PSTR("S E\n"), false);
+  oled_write_P(PSTR("H N\n"), false);
+  oled_write_P(PSTR("A E\n"), false);
+  oled_write_P(PSTR("L R\n"), false);
+  oled_write_P(PSTR("L E\n"), false);
+  oled_write_P(PSTR("A\n"), false);
+  oled_write_ln_P(PSTR("H"), false);
+
+  return false;
+}
+#endif
