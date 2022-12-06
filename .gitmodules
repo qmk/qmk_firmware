@@ -21,3 +21,9 @@
 [submodule "lib/pico-sdk"]
 	path = lib/pico-sdk
 	url = https://github.com/qmk/pico-sdk.git
+[submodule "/d/github/ariccb_qmk_firmware/qmk_firmware/lib/chibios"]
+	path = /d/github/ariccb_qmk_firmware/qmk_firmware/lib/chibios
+	url = https://github.com/qmk/ChibiOS.git
+[submodule "/d/github/ariccb_qmk_firmware/qmk_firmware/lib/chibios-contrib"]
+	path = /d/github/ariccb_qmk_firmware/qmk_firmware/lib/chibios-contrib
+	url = https://github.com/qmk/ChibiOS-Contrib.git
