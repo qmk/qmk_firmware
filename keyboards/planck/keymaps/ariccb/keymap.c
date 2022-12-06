@@ -43,9 +43,9 @@
 #define LOW_OSS LT(_LOWER, KC_F24)
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
-#define MTLCTL_F5 MT(MOD_LCTL, KC_F5)
-#define MTLSFT_F6 MT(MOD_LSFT, KC_F6)
-#define MTLALT_F7 MT(MOD_LALT, KC_F7)
+#define MTLCTL_F6 MT(MOD_LCTL, KC_F6)
+#define MTLSFT_F7 MT(MOD_LSFT, KC_F7)
+#define MTLALT_F8 MT(MOD_LALT, KC_F8)
 #define MTLALT_DOT MT(MOD_LALT, KC_DOT)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTLGUI_X MT(MOD_LGUI, KC_X)
@@ -248,9 +248,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------'
  */
 [_GAMING] = LAYOUT_planck_grid( /* GAMING */
-  QK_GESC, KC_1,  KC_2,  KC_3,    KC_4,    KC_5,   KC_6,   KC_7,  KC_P8,       KC_9,  KC_0,    EXT_GAMING,
-  KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,    KC_T,   KC_I,   KC_P4, KC_P5,       KC_P6, KC_PMNS, KC_PPLS,
-  KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,   KC_K,   KC_P1, KC_P2,       KC_P3, KC_PSLS, KC_PAST,
+  QK_GESC, KC_1,  KC_2,  KC_3,    KC_4,    KC_5,   KC_6,   KC_7,  KC_P8,      KC_9,  KC_0,    EXT_GAMING,
+  KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,    KC_T,   KC_I,   KC_P4, KC_P5,      KC_P6, KC_PMNS, KC_PPLS,
+  KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,   KC_K,   KC_P1, KC_P2,      KC_P3, KC_PSLS, KC_PAST,
   KC_NO,   KC_NO, KC_NO, KC_LCTL, KC_LALT, KC_SPC, KC_SPC, KC_P0, MTLALT_DOT, KC_NO, KC_NO,   KC_NO
 ),
 
@@ -267,10 +267,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, KC_F9,        KC_F10,        KC_F11,        KC_F12,  KC_MYCM, LLOCK,   KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
-  KC_TRNS, MTLCTL_F5, MTLSFT_F6,  MTLALT_F7,  KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SCRL,  KC_CAPS,
-  KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALT_TAB, KC_CALC, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS,
-  KC_NO,   KC_NO,     KC_NO,      KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
+  KC_TRNS, KC_F9, KC_F10,    KC_F11,    KC_F12,    KC_MYCM, LLOCK,   KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
+  KC_TRNS, KC_F5, MTLCTL_F6, MTLSFT_F7, MTLALT_F8, DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SCRL,  KC_CAPS,
+  KC_TRNS, KC_F1, KC_F2,     KC_F3,     KC_F4,     ALT_TAB, KC_CALC, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS,
+  KC_NO,   KC_NO, KC_NO,     KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
 ),
 
 /* MIT Layout (ADJUST)
