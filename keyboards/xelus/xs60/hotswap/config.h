@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2022 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,17 +15,6 @@
  */
 
 #pragma once
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B4, B3, A15, A14, A7 }
-#define MATRIX_COL_PINS { B0, B1, A8, A9, B5, A6, C14, C15, A0, A5, A4, A3, A2, A1 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -50,3 +39,13 @@
 
 // More EEPROM for layers
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
+
+// RGBLIGHT
+#define RGB_DI_PIN A10
+#define RGBLED_NUM 8            // actually only has 1
+#define RGBLIGHT_LAYERS
+#define WS2812_EXTERNAL_PULLUP
+#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+
+// Bitbang WS2812
+#define NOP_FUDGE 0.4
