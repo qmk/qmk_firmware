@@ -45,8 +45,8 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define LAYER_LOCK_IDLE_TIMEOUT 120000 // Turn off layer lock after 120 seconds
-
-
+//#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+//#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 #define MOUSEKEY_INTERVAL 8            //Time between cursor movements in milliseconds.
                                        //If the refresh rate of your display is 60Hz, you could set it to 16 (1/60). As this raises the cursor speed significantly, you may want to lower MOUSEKEY_MAX_SPEED
