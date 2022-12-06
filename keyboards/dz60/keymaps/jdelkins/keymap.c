@@ -35,10 +35,10 @@ enum {
 
 int ctl_state = 0;
 
-void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_finished(tap_dance_state_t *state, void *user_data) {
     ctl_state = cur_dance(state);
     switch (ctl_state) {
-        case SINGLE_TAP:    qk_leader_start(); break;
+        case SINGLE_TAP:    leader_start(); break;
         case SINGLE_HOLD:   register_code(KC_LCTL); break;
         case DOUBLE_TAP:    tap_code(KC_RCTL); break;
         case DOUBLE_HOLD:   register_code(KC_RCTL); break;
@@ -47,7 +47,7 @@ void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_reset(tap_dance_state_t *state, void *user_data) {
     switch (ctl_state) {
         case SINGLE_HOLD:   unregister_code(KC_LCTL); break;
         case DOUBLE_HOLD:
@@ -56,7 +56,7 @@ void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
     ctl_state = 0;
 }
 
-void g_finished(qk_tap_dance_state_t *state, void *user_data) {
+void g_finished(tap_dance_state_t *state, void *user_data) {
     switch (cur_dance(state)) {
         case SINGLE_TAP:
             tap_code16(C(KC_END));
@@ -69,7 +69,7 @@ void g_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 int kp_state = 0;
 
-void kp_finished(qk_tap_dance_state_t *state, void *user_data) {
+void kp_finished(tap_dance_state_t *state, void *user_data) {
     kp_state = hold_cur_dance(state);
     switch (kp_state) {
         case SINGLE_TAP:
@@ -81,7 +81,7 @@ void kp_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void kp_reset(qk_tap_dance_state_t *state, void *user_data) {
+void kp_reset(tap_dance_state_t *state, void *user_data) {
     switch (kp_state) {
         case SINGLE_HOLD:
         case DOUBLE_HOLD:
@@ -97,7 +97,7 @@ enum {
     TD_KP,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LDCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_finished, ctl_reset),
     [TD_G]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, g_finished, NULL),
     [TD_KP]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, kp_finished, kp_reset),

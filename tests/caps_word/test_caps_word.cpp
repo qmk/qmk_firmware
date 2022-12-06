@@ -505,7 +505,8 @@ class CapsWordDoubleTapShift : public ::testing::WithParamInterface<CapsWordDoub
 TEST_P(CapsWordDoubleTapShift, Activation) {
     TestDriver driver;
     KeymapKey  left_shift(0, 0, 0, GetParam().left_shift_keycode);
-    set_keymap({left_shift});
+    KeymapKey  esc(0, 0, 1, KC_ESCAPE);
+    set_keymap({left_shift, esc});
 
     // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
@@ -524,6 +525,12 @@ TEST_P(CapsWordDoubleTapShift, Activation) {
     EXPECT_EQ(is_caps_word_on(), true);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
+
+    // We have to manually reset the internal state of the caps word state
+    // machine at this point. This due to imperfect test isolation which can't
+    // reset the caps word double shift timer on test case setup.
+    idle_for(CAPS_WORD_IDLE_TIMEOUT);
+    tap_key(esc);
 }
 
 // Double tap doesn't count if another key is pressed between the taps.
@@ -591,6 +598,57 @@ INSTANTIATE_TEST_CASE_P(
         ),
     CapsWordDoubleTapShiftParams::GetName
     );
-// clang-format on
 
+// Tests that holding a OSL keeps caps word active and shifts keys on the layer that need to be shifted.
+TEST_F(CapsWord, IgnoresOSLHold) {
+    TestDriver driver;
+    KeymapKey key_a(0, 0, 0, KC_A);
+    KeymapKey key_osl(0, 1, 0, OSL(1));
+    KeymapKey key_b(1, 0, 0, KC_B);
+    set_keymap({key_a, key_osl, key_b});
+
+    // Allow any number of reports with no keys or only modifiers.
+    // clang-format off
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
+                KeyboardReport(),
+                KeyboardReport(KC_LSFT))))
+        .Times(AnyNumber());
+
+    EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+    caps_word_on();
+
+    key_osl.press();
+    run_one_scan_loop();
+    tap_key(key_b);
+    key_osl.release();
+    run_one_scan_loop();
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+// Tests that tapping a OSL keeps caps word active and shifts keys on the layer that need to be shifted.
+TEST_F(CapsWord, IgnoresOSLTap) {
+    TestDriver driver;
+    KeymapKey key_a(0, 0, 0, KC_A);
+    KeymapKey key_osl(0, 1, 0, OSL(1));
+    KeymapKey key_b(1, 0, 0, KC_B);
+    set_keymap({key_a, key_osl, key_b});
+
+    // Allow any number of reports with no keys or only modifiers.
+    // clang-format off
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
+                KeyboardReport(),
+                KeyboardReport(KC_LSFT))))
+        .Times(AnyNumber());
+
+    EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+    caps_word_on();
+
+    tap_key(key_osl);
+    tap_key(key_b);
+    run_one_scan_loop();
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+// clang-format on
 } // namespace

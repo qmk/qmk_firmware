@@ -23,7 +23,7 @@ enum {
 };
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for LBracket, twice for RBracket
     [TD_LR_BRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
     // Tap once for Single Quote, twice for Double Quote

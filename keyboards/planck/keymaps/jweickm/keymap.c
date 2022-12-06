@@ -290,7 +290,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // define the tap dance functions
-void dance_prn(qk_tap_dance_state_t *state, void *user_data) {
+void dance_prn(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code16(KC_LPRN);
     } else {
@@ -299,7 +299,7 @@ void dance_prn(qk_tap_dance_state_t *state, void *user_data) {
         tap_code(KC_LEFT);
     }
 }
-void dance_brc(qk_tap_dance_state_t *state, void *user_data) {
+void dance_brc(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code(KC_LBRC);
     } else {
@@ -308,7 +308,7 @@ void dance_brc(qk_tap_dance_state_t *state, void *user_data) {
         tap_code(KC_LEFT);
     }
 }
-void dance_cbr(qk_tap_dance_state_t *state, void *user_data) {
+void dance_cbr(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code16(KC_LCBR);
     } else {
@@ -317,7 +317,7 @@ void dance_cbr(qk_tap_dance_state_t *state, void *user_data) {
         tap_code(KC_LEFT);
     }
 }
-void dance_prn_de(qk_tap_dance_state_t *state, void *user_data) {
+void dance_prn_de(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code16(KC_ASTR);
     } else {
@@ -326,7 +326,7 @@ void dance_prn_de(qk_tap_dance_state_t *state, void *user_data) {
         tap_code(KC_LEFT);
     }
 }
-void dance_brc_de(qk_tap_dance_state_t *state, void *user_data) {
+void dance_brc_de(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code16(RALT(KC_8));
     } else {
@@ -335,7 +335,7 @@ void dance_brc_de(qk_tap_dance_state_t *state, void *user_data) {
         tap_code(KC_LEFT);
     }
 }
-void dance_cbr_de(qk_tap_dance_state_t *state, void *user_data) {
+void dance_cbr_de(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code16(RALT(KC_7));
     } else {
@@ -344,7 +344,7 @@ void dance_cbr_de(qk_tap_dance_state_t *state, void *user_data) {
         tap_code(KC_LEFT);
     }
 }
-void vim_gg(qk_tap_dance_state_t *state, void *user_data) {
+void vim_gg(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code16(LCTL(KC_END));
     } else {
@@ -352,7 +352,7 @@ void vim_gg(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // declare tap dance actions here
     [TD_PRN] = ACTION_TAP_DANCE_FN(dance_prn), [TD_BRC] = ACTION_TAP_DANCE_FN(dance_brc), [TD_CBR] = ACTION_TAP_DANCE_FN(dance_cbr), [TD_PRN_DE] = ACTION_TAP_DANCE_FN(dance_prn_de), [TD_BRC_DE] = ACTION_TAP_DANCE_FN(dance_brc_de), [TD_CBR_DE] = ACTION_TAP_DANCE_FN(dance_cbr_de), [TD_VIM_GG] = ACTION_TAP_DANCE_FN(vim_gg)};
 
@@ -1039,30 +1039,30 @@ bool music_mask_user(uint16_t keycode) {
     }
 }
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LSFT_T(KC_S):
-            return true;
+            return 0;
         case RSFT_T(KC_E):
-            return true;
+            return 0;
         case LSFT_T(KC_D):
-            return true;
+            return 0;
         case RSFT_T(KC_K):
-            return true;
+            return 0;
         case LSFT_T(KC_F):
-            return true;
+            return 0;
         case RSFT_T(KC_U):
-            return true;
+            return 0;
         case LT(_RAISE, KC_ENT):
-            return true;
+            return 0;
         case LT(_RAISE_DE, KC_ENT):
-            return true;
+            return 0;
         case LT(_LOWER, KC_BSPC):
-            return true;
+            return 0;
         case LT(_LOWER_DE, KC_BSPC):
-            return true;
+            return 0;
         default:
-            return false;
+            return QUICK_TAP_TERM;
     }
 }
 

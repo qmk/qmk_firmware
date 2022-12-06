@@ -36,7 +36,7 @@ enum {
 };
 
 
-void left_brackets(qk_tap_dance_state_t *state, void *user_data) {
+void left_brackets(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
       if (!state->pressed) {
         register_code16(KC_LPRN);
@@ -50,7 +50,7 @@ void left_brackets(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void left_brackets_reset(qk_tap_dance_state_t *state, void *user_data) {
+void left_brackets_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code16(KC_LPRN);
     } else if (state->count == 2) {
@@ -62,7 +62,7 @@ void left_brackets_reset(qk_tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LCTL);
 }
 
-void right_brackets(qk_tap_dance_state_t *state, void *user_data) {
+void right_brackets(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
       if (!state->pressed) {
         register_code16(KC_RPRN);
@@ -76,7 +76,7 @@ void right_brackets(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void right_brackets_reset(qk_tap_dance_state_t *state, void *user_data) {
+void right_brackets_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code16(KC_RPRN);
     } else if (state->count == 2) {
@@ -104,7 +104,7 @@ enum {
   TRIPLE_SINGLE_TAP = 8, //send three single taps
 };
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed)  return SINGLE_TAP;
     else return SINGLE_HOLD;
@@ -128,7 +128,7 @@ static tap tap_state = {
   .state = 0
 };
 
-void layer_switcher (qk_tap_dance_state_t *state, void *user_data) {
+void layer_switcher (tap_dance_state_t *state, void *user_data) {
   tap_state.state = cur_dance(state);
   switch (tap_state.state) {
     case SINGLE_TAP: register_code(KC_ESC); break;
@@ -145,7 +145,7 @@ void layer_switcher (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void layer_switcher_reset (qk_tap_dance_state_t *state, void *user_data) {
+void layer_switcher_reset (tap_dance_state_t *state, void *user_data) {
   switch (tap_state.state) {
     case SINGLE_TAP: unregister_code(KC_ESC); break;
     case SINGLE_HOLD: unregister_code(KC_ESC); break;
@@ -159,7 +159,7 @@ void layer_switcher_reset (qk_tap_dance_state_t *state, void *user_data) {
   tap_state.state = 0;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // Single tap = Backspace | Double tap = Delete
   [TD_BSPC_DEL] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, KC_DEL),
   // Single tap = ( | Double tap = [ | Triple tap = { | Single hold = KC_LCTL

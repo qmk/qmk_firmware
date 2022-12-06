@@ -15,7 +15,7 @@
  */
 #include "modelm101.h"
 
-void keyboard_pre_init_kb(void) {
+void led_init_ports(void) {
   /* Setting status LEDs pins to output and +5V (off) */
   setPinOutput(B4);
   setPinOutput(B5);
@@ -25,22 +25,12 @@ void keyboard_pre_init_kb(void) {
   writePinHigh(B6);
 }
 
-void led_set_kb(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-    writePinLow(B4);
-  } else {
-    writePinHigh(B4);
+bool led_update_kb(led_t led_state) {
+  bool res = led_update_user(led_state);
+  if(res) {
+    writePin(B4, !led_state.num_lock);
+    writePin(B6, !led_state.caps_lock);
+    writePin(B5, !led_state.scroll_lock);
   }
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    writePinLow(B6);
-  } else {
-    writePinHigh(B6);
-  }
-  if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-    writePinLow(B5);
-  } else {
-    writePinHigh(B5);
-  }
-
-  led_set_user(usb_led);
+  return res;
 }

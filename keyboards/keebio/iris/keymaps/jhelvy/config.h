@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Had to swap the master to get the right-side rotary encoder supported
 #define MASTER_RIGHT
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
 #define AUTO_SHIFT_TIMEOUT 150

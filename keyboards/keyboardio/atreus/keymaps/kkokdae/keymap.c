@@ -92,7 +92,7 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 	}
 }
 
-void dance_hex(qk_tap_dance_state_t *state, void *user_data) {
+void dance_hex(tap_dance_state_t *state, void *user_data) {
   switch(state->count) {
     case 1:
 			SEND_STRING("0x");
@@ -103,7 +103,7 @@ void dance_hex(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_lang(qk_tap_dance_state_t *state, void *user_data) {
+void dance_lang(tap_dance_state_t *state, void *user_data) {
   uint32_t default_layer;
   switch(state->count) {
     case 1:
@@ -121,7 +121,7 @@ void dance_lang(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TdH] = ACTION_TAP_DANCE_FN(dance_hex),
   [TdL] = ACTION_TAP_DANCE_FN(dance_lang)
 };

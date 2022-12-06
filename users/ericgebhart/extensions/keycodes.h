@@ -515,9 +515,9 @@ enum {
 int on_qwerty(void);
 
 #ifdef TAP_DANCES_ENABLE
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 
 //for the x tap dance. Put it here so it can be used in any keymap
-void x_finished (qk_tap_dance_state_t *state, void *user_data);
-void x_reset (qk_tap_dance_state_t *state, void *user_data);
+void x_finished (tap_dance_state_t *state, void *user_data);
+void x_reset (tap_dance_state_t *state, void *user_data);
 #endif

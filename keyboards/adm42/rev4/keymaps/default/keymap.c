@@ -93,34 +93,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-     case RC_QUT:
-        return true;
-     default:
-        return false;
-    }
-}
-
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    // Special if-condition outside the switch because `RC_QUT` overlaps with
+    // the `QK_MOD_TAP ... QK_MOD_TAP_MAX` range.
+    if (keycode == RC_QUT) {
+        return false;
+    }
     switch (keycode) {
-     case LLS_ESC:
-     case LLS_RALT:
-     case LLE_ENT:
-     case LLA_DEL:
+     case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+     case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
         return true;
      default:
         return false;
     }
 }
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
      case LLS_ESC:
      case LLS_RALT:
-        return true;
+        return 0;
      default:
-        return false;
+        return QUICK_TAP_TERM;
     }
 }
 

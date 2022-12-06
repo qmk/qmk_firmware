@@ -1,7 +1,7 @@
 #include "ninjonas.h"
 
 //// BEGIN: Advanced Tap Dances
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
    if (state->count == 1) {
     if (state->interrupted || !state->pressed)  return SINGLE_TAP;
     //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
@@ -34,7 +34,7 @@ static tap copy_paste_app_tap_state = {
   .state = 0
 };
 
-void copy_paste_app_finished (qk_tap_dance_state_t *state, void *user_data) {
+void copy_paste_app_finished (tap_dance_state_t *state, void *user_data) {
   copy_paste_app_tap_state.state = cur_dance(state);
   switch (copy_paste_app_tap_state.state) {
     case SINGLE_TAP: 
@@ -56,7 +56,7 @@ void copy_paste_app_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void copy_paste_app_reset (qk_tap_dance_state_t *state, void *user_data) {
+void copy_paste_app_reset (tap_dance_state_t *state, void *user_data) {
   copy_paste_app_tap_state.state = 0;
 }
 // END: Copy, Paste, Apps
@@ -67,7 +67,7 @@ static tap y_numpad_tap_state = {
   .state = 0
 };
 
-void y_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
+void y_numpad_finished (tap_dance_state_t *state, void *user_data) {
   y_numpad_tap_state.state = cur_dance(state);
   switch (y_numpad_tap_state.state) {
     case SINGLE_TAP: 
@@ -86,7 +86,7 @@ void y_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void y_numpad_reset (qk_tap_dance_state_t *state, void *user_data) {
+void y_numpad_reset (tap_dance_state_t *state, void *user_data) {
   switch (y_numpad_tap_state.state) {
     case SINGLE_HOLD:
       unregister_code16(KC_Y); 
@@ -98,7 +98,7 @@ void y_numpad_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 //// END: Advanced Tap Dances
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_ESC_CAPS]     = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
   [TD_LBRC_BACK]    = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, LGUI(KC_LBRC)),
   [TD_RBRC_FWD]     = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, LGUI(KC_RBRC)),

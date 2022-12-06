@@ -16,12 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <limits.h>
 
-#ifdef DEBUG_ACTION
-#    include "debug.h"
-#else
-#    include "nodebug.h"
-#endif
-
 #include "host.h"
 #include "keycode.h"
 #include "keyboard.h"
@@ -55,8 +49,8 @@ int retro_tapping_counter = 0;
 #    include "process_auto_shift.h"
 #endif
 
-#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     return false;
 }
 #endif
@@ -77,10 +71,10 @@ __attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) {
  */
 void action_exec(keyevent_t event) {
     if (!IS_NOEVENT(event)) {
-        dprint("\n---- action_exec: start -----\n");
-        dprint("EVENT: ");
+        ac_dprintf("\n---- action_exec: start -----\n");
+        ac_dprintf("EVENT: ");
         debug_event(event);
-        dprintln();
+        ac_dprintf("\n");
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
         retro_tapping_counter++;
 #endif
@@ -132,7 +126,7 @@ void action_exec(keyevent_t event) {
         process_record(&record);
     }
     if (!IS_NOEVENT(record.event)) {
-        dprint("processed: ");
+        ac_dprintf("processed: ");
         debug_record(record);
         dprintln();
     }
@@ -280,15 +274,15 @@ void process_record_handler(keyrecord_t *record) {
 #else
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
 #endif
-    dprint("ACTION: ");
+    ac_dprintf("ACTION: ");
     debug_action(action);
 #ifndef NO_ACTION_LAYER
-    dprint(" layer_state: ");
+    ac_dprintf(" layer_state: ");
     layer_debug();
-    dprint(" default_layer_state: ");
+    ac_dprintf(" default_layer_state: ");
     default_layer_debug();
 #endif
-    dprintln();
+    ac_dprintf("\n");
 
     process_action(record, action);
 }
@@ -432,14 +426,14 @@ void process_action(keyrecord_t *record, action_t action) {
                     } else {
                         if (event.pressed) {
                             if (tap_count == 0) {
-                                dprint("MODS_TAP: Oneshot: 0\n");
+                                ac_dprintf("MODS_TAP: Oneshot: 0\n");
                                 register_mods(mods | get_oneshot_mods());
                             } else if (tap_count == 1) {
-                                dprint("MODS_TAP: Oneshot: start\n");
+                                ac_dprintf("MODS_TAP: Oneshot: start\n");
                                 set_oneshot_mods(mods | get_oneshot_mods());
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
-                                dprint("MODS_TAP: Toggling oneshot");
+                                ac_dprintf("MODS_TAP: Toggling oneshot");
                                 register_mods(mods);
                                 clear_oneshot_mods();
                                 set_oneshot_locked_mods(mods | get_oneshot_locked_mods());
@@ -484,29 +478,29 @@ void process_action(keyrecord_t *record, action_t action) {
                 default:
                     if (event.pressed) {
                         if (tap_count > 0) {
-#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
                             if (
-#        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event, false), record) &&
+#        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                                get_hold_on_other_key_press(get_event_keycode(record->event, false), record) &&
 #        endif
                                 record->tap.interrupted) {
-                                dprint("mods_tap: tap: cancel: add_mods\n");
+                                ac_dprintf("mods_tap: tap: cancel: add_mods\n");
                                 // ad hoc: set 0 to cancel tap
                                 record->tap.count = 0;
                                 register_mods(mods);
                             } else
 #    endif
                             {
-                                dprint("MODS_TAP: Tap: register_code\n");
+                                ac_dprintf("MODS_TAP: Tap: register_code\n");
                                 register_code(action.key.code);
                             }
                         } else {
-                            dprint("MODS_TAP: No tap: add_mods\n");
+                            ac_dprintf("MODS_TAP: No tap: add_mods\n");
                             register_mods(mods);
                         }
                     } else {
                         if (tap_count > 0) {
-                            dprint("MODS_TAP: Tap: unregister_code\n");
+                            ac_dprintf("MODS_TAP: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS_LOCK) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
                             } else {
@@ -514,7 +508,7 @@ void process_action(keyrecord_t *record, action_t action) {
                             }
                             unregister_code(action.key.code);
                         } else {
-                            dprint("MODS_TAP: No tap: add_mods\n");
+                            ac_dprintf("MODS_TAP: No tap: add_mods\n");
                             unregister_mods(mods);
                         }
                     }
@@ -666,15 +660,15 @@ void process_action(keyrecord_t *record, action_t action) {
                     /* tap key */
                     if (event.pressed) {
                         if (tap_count > 0) {
-                            dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
+                            ac_dprintf("KEYMAP_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer_tap.code);
                         } else {
-                            dprint("KEYMAP_TAP_KEY: No tap: On on press\n");
+                            ac_dprintf("KEYMAP_TAP_KEY: No tap: On on press\n");
                             layer_on(action.layer_tap.val);
                         }
                     } else {
                         if (tap_count > 0) {
-                            dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
+                            ac_dprintf("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS_LOCK) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
                             } else {
@@ -682,7 +676,7 @@ void process_action(keyrecord_t *record, action_t action) {
                             }
                             unregister_code(action.layer_tap.code);
                         } else {
-                            dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
+                            ac_dprintf("KEYMAP_TAP_KEY: No tap: Off on release\n");
                             layer_off(action.layer_tap.val);
                         }
                     }
@@ -882,32 +876,15 @@ __attribute__((weak)) void register_code(uint8_t code) {
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
-#ifndef NO_ACTION_ONESHOT
-/* TODO: remove
-        if (oneshot_state.mods && !oneshot_state.disabled) {
-            uint8_t tmp_mods = get_mods();
-            add_mods(oneshot_state.mods);
-
-            add_key(code);
-            send_keyboard_report();
-
-            set_mods(tmp_mods);
-            send_keyboard_report();
-            oneshot_cancel();
-        } else
-*/
-#endif
-        {
-            // Force a new key press if the key is already pressed
-            // without this, keys with the same keycode, but different
-            // modifiers will be reported incorrectly, see issue #1708
-            if (is_key_pressed(keyboard_report, code)) {
-                del_key(code);
-                send_keyboard_report();
-            }
-            add_key(code);
+        // Force a new key press if the key is already pressed
+        // without this, keys with the same keycode, but different
+        // modifiers will be reported incorrectly, see issue #1708
+        if (is_key_pressed(keyboard_report, code)) {
+            del_key(code);
             send_keyboard_report();
         }
+        add_key(code);
+        send_keyboard_report();
     } else if IS_MOD (code) {
         add_mods(MOD_BIT(code));
         send_keyboard_report();
@@ -1139,7 +1116,7 @@ bool is_tap_action(action_t action) {
  * FIXME: Needs documentation.
  */
 void debug_event(keyevent_t event) {
-    dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time);
+    ac_dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time);
 }
 /** \brief Debug print (FIXME: Needs better description)
  *
@@ -1148,7 +1125,7 @@ void debug_event(keyevent_t event) {
 void debug_record(keyrecord_t record) {
     debug_event(record.event);
 #ifndef NO_ACTION_TAPPING
-    dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
+    ac_dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
 #endif
 }
 
@@ -1159,41 +1136,41 @@ void debug_record(keyrecord_t record) {
 void debug_action(action_t action) {
     switch (action.kind.id) {
         case ACT_LMODS:
-            dprint("ACT_LMODS");
+            ac_dprintf("ACT_LMODS");
             break;
         case ACT_RMODS:
-            dprint("ACT_RMODS");
+            ac_dprintf("ACT_RMODS");
             break;
         case ACT_LMODS_TAP:
-            dprint("ACT_LMODS_TAP");
+            ac_dprintf("ACT_LMODS_TAP");
             break;
         case ACT_RMODS_TAP:
-            dprint("ACT_RMODS_TAP");
+            ac_dprintf("ACT_RMODS_TAP");
             break;
         case ACT_USAGE:
-            dprint("ACT_USAGE");
+            ac_dprintf("ACT_USAGE");
             break;
         case ACT_MOUSEKEY:
-            dprint("ACT_MOUSEKEY");
+            ac_dprintf("ACT_MOUSEKEY");
             break;
         case ACT_LAYER:
-            dprint("ACT_LAYER");
+            ac_dprintf("ACT_LAYER");
             break;
         case ACT_LAYER_MODS:
-            dprint("ACT_LAYER_MODS");
+            ac_dprintf("ACT_LAYER_MODS");
             break;
         case ACT_LAYER_TAP:
-            dprint("ACT_LAYER_TAP");
+            ac_dprintf("ACT_LAYER_TAP");
             break;
         case ACT_LAYER_TAP_EXT:
-            dprint("ACT_LAYER_TAP_EXT");
+            ac_dprintf("ACT_LAYER_TAP_EXT");
             break;
         case ACT_SWAP_HANDS:
-            dprint("ACT_SWAP_HANDS");
+            ac_dprintf("ACT_SWAP_HANDS");
             break;
         default:
-            dprint("UNKNOWN");
+            ac_dprintf("UNKNOWN");
             break;
     }
-    dprintf("[%X:%02X]", action.kind.param >> 8, action.kind.param & 0xff);
+    ac_dprintf("[%X:%02X]", action.kind.param >> 8, action.kind.param & 0xff);
 }

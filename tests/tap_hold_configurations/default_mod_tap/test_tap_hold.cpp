@@ -66,7 +66,7 @@ TEST_F(DefaultTapHold, tap_regular_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-TEST_F(DefaultTapHold, tap_mod_tap_key_while_mod_tap_key_is_held) {
+TEST_F(DefaultTapHold, tap_a_mod_tap_key_while_another_mod_tap_key_is_held) {
     TestDriver driver;
     InSequence s;
     auto       first_mod_tap_hold_key  = KeymapKey(0, 1, 0, SFT_T(KC_P));
