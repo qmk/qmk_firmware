@@ -68,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_RIGHT))));
             break;
         case WINDOWS10_TASK_VIEW:
-            SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+            tap_code16(G(KC_TAB));
             break;
         // linux screen shortcuts
         case SCREEN_TAB_LEFT:
