@@ -26,6 +26,7 @@ void led_init_ports(void) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
     writePin(B7, layer_state_cmp(state, 0));
     writePin(B6, layer_state_cmp(state, 1));
     writePin(B5, layer_state_cmp(state, 2));
