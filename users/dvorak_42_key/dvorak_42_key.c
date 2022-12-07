@@ -145,9 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case SCREEN_PASTEREG_1:
-            tap_code16(C(KC_A));
-            tap_code16(S(KC_SEMICOLON));
-            SEND_STRING("paste 1\n");
+            SEND_STRING(SS_LCTL("a") ":paste 1\n");
             break;
         case SCREEN_PASTEREG_2:
             SEND_STRING(SS_LCTL("a") ":paste 2\n");
