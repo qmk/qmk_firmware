@@ -5,7 +5,7 @@
 A multi-layout 75% PCB
 
 * Keyboard Maintainer: [DeskDaily](https://github.com/DeskDaily)
-* Hardware Supported: Atmega32u4
+* Hardware Supported: RP2040
 
 Make example for this keyboard (after setting up your build environment):
 
