@@ -19,7 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 
 #define RGB_MATRIX_LED_COUNT 62
-#define DRIVER_LED_TOTAL 62
 #define RGB_DI_PIN D1
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
