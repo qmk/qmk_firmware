@@ -84,7 +84,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTL("a") "d");
             break;
         case SCREEN_RENAME:
-            SEND_STRING(SS_LCTL("a") SS_LSFT("a"));
+            SEND_STRING(SS_LCTL("a") "A");
             break;
         case SCREEN_NUMBER:
             SEND_STRING(SS_LCTL("a") ":number ");
