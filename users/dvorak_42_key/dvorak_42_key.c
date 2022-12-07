@@ -65,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(C(G(KC_LEFT)));
             break;
         case WINDOWS10_WORKSPACE_RIGHT:
-            SEND_STRING(SS_LGUI(SS_LCTL(SS_TAP(X_RIGHT))));
+            tap_code16(C(G(KC_RIGHT)));
             break;
         case WINDOWS10_TASK_VIEW:
             tap_code16(G(KC_TAB));
