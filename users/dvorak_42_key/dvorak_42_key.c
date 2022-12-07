@@ -139,9 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("readreg 2\n");
             break;
         case SCREEN_READREG_3:
-            tap_code16(C(KC_A));
-            tap_code16(S(KC_SEMICOLON));
-            SEND_STRING("readreg 3\n");
+            SEND_STRING(SS_LCTL("a") ":readreg 3\n");
             break;
 
         case SCREEN_PASTEREG_1:
