@@ -39,7 +39,7 @@ The `info.json` file is a JSON formatted dictionary. The first six keys noted he
 
 ?> For all the available keys and their allowed values refer back to the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file.
 
-### Layout Format
+## Layout Format
 
 Within our `info.json` file the `layouts` portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout macros, for example `LAYOUT_ansi` or `LAYOUT_iso`.
 
@@ -68,11 +68,11 @@ All key positions and rotations are specified in relation to the top-left corner
     * A two item list describing the row and column location for this key.
     * Example: `[0, 4]`
 
-### Matrix Pins
+## Matrix Pins
 
 Currently QMK supports connecting switches either directly to GPIO pins or via a switch matrix. At this time you can not combine these, they are mutually exclusive.
 
-#### Switch Matrix
+### Switch Matrix
 
 Most keyboards use a switch matrix to connect keyswitches to the MCU. You can define your pin columns and rows to configure your switch matrix. When defining switch matrices you should also define your `diode_direction`.
 
@@ -88,7 +88,7 @@ Example:
 }
 ```
 
-#### Direct Pins
+### Direct Pins
 
 Direct pins are when you connect one side of the switch to GND and the other side to a GPIO pin on your MCU. No diode is required, but there is a 1:1 mapping between switches and pins.
 
@@ -250,7 +250,7 @@ The following animations can be enabled:
 |`static_gradient`|Enable static gradient mode.          |
 |`twinkle`        |Enable twinkle animation mode.        |
 
-### USB
+## USB
 
 Every USB keyboard needs to have its USB parameters defined. At a minimum you need to set the Vendor ID, Product ID, and device version.
 
@@ -268,7 +268,7 @@ Example:
 
 The device version is a BCD (binary coded decimal) value, in the format `MMmr`, so the below value would look like `0x0100` in the generated code. This also means the maximum valid values for each part are `99.9.9`, despite it being a hexadecimal value under the hood.
 
-### Encoders
+## Encoders
 
 This section controls the basic [rotary encoder](feature_encoders.md) support.
 
@@ -312,7 +312,7 @@ Examples:
 }
 ```
 
-### Secure
+## Secure
 
 The following options can be configured:
 
@@ -331,5 +331,26 @@ Example:
         "unlock_timeout": 5000,
         "idle_timeout": 60000
     }
+}
+```
+
+## Bootmagic
+
+This section configures [Bootmagic Lite](feature_bootmagic.md) support.
+
+The following options can be configured:
+
+|Key      |Description                                                                  |
+|---------|-----------------------------------------------------------------------------|
+|`matrix` | A two item list describing the row and column location for the trigger key. |
+
+Example:
+
+```json
+{
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    },
 }
 ```
