@@ -332,11 +332,16 @@ With `#define COMBO_ONLY_FROM_LAYER 0` in config.h, the combos' keys are always 
 
 If not using `COMBO_ONLY_FROM_LAYER` it is possible to specify a
 combo reference layer for any layer using the `combo_ref_from_layer` hook. 
-This function receives the default reference layer if set, or the current
-layer otherwise. A default layer can be set with
-`#define COMBO_REF_DEFAULT _MY_COMBO_REF_LAYER`
+The combo macros automatically create this function from the `COMBO_REF_LAYER()`
+entries given.
 
-If not set, the default selection will be the current layer.
+This function returns the assigned reference layer for the current layer.
+if there is no match, it returns the  default reference layer if set, 
+or the current layer otherwise. A default layer can be set with
+`DEFAULT_REF_LAYER(_MY_COMBO_REF_LAYER)`
+
+If not set, the default reference layer selection from the automatically generated 
+`combo-ref-from-layer()` will be the current layer.
 
 The following `combo_ref_from_layer` function 
 will give a reference layer of _QWERTY for the _DVORAK layer and
@@ -345,18 +350,28 @@ will have the default for their combo reference layer. If the default
 is not set, all other layers will reference themselves.
 
     ```c
-    #define COMBO_REF_DEFAULT _MY_COMBO_REF_LAYER
+    #define COMBO_REF_DEFAULT _MY_COMBO_LAYER
     ...
 
     uint8_t combo_ref_from_layer(uint8_t layer){
-    switch (get_highest_layer(layer_state)){
-      case _DVORAK: return _QWERTY;
-      case _NAV: return _NAV;
-      default: return layer;
-      }
+        switch (get_highest_layer(layer_state)){
+            case _DVORAK: return _QWERTY;
+            case _NAV: return _NAV;
+            default: return _MY_COMBO_LAYER;
+        }
+        return layer;  // important if default is not in case.
     }
 
     ```
+    
+    The equivalent definition using the combo macros is this: 
+
+    ```c
+    COMBO_REF_LAYER(_DVORAK, _QWERTY)
+    COMBO_REF_LAYER(_NAV, _NAV)
+    DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
+    ```
+    
 
 ## User callbacks
 
