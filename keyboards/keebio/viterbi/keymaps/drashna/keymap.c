@@ -27,7 +27,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMLOCK] = LAYOUT_ortho_5x7(
-      KC_NO,   TG_DBLO, TG_GAME, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,
+      KC_NO,   TG_DBLO, TG_GAME, KC_NUM,  KC_SCRL, KC_COLN, KC_PSLS,
       TT_MDIA, KC_CALC, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PAST,
       KC_HOME, KC_DEL,  KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS,
       KC_END,  KC_UP,   KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_PPLS,
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_MEDIA] = LAYOUT_ortho_5x7(
-      QK_MAKE, QK_BOOT, MU_TOG,  AU_ON,   AU_OFF,  CK_TOGG, RGB_SAD,
+      QK_MAKE, QK_BOOT, MU_TOGG, AU_ON,   AU_OFF,  CK_TOGG, RGB_SAD,
       _______, EE_CLR, KC_RGB_T,RGB_M_P, RGB_M_B, RGB_M_R, RGB_SAI,
       RGB_TOG, RGB_MOD, RGB_RMOD,RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_HUD,
       KC_MPLY, KC_MPRV, KC_MNXT, RGB_M_X, RGB_M_G, RGB_M_P, RGB_HUI,
@@ -73,14 +73,4 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     //  break;
     //}
     return true;
-}
-
-void matrix_init_keymap(void) {
-#ifndef CONVERT_TO_PROTON_C
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-#endif
 }

@@ -91,9 +91,9 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return true;
 }
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
-        return;
+        return false;
     }
 
 #if defined(RGBLIGHT_ENABLE)
@@ -140,11 +140,12 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 break;
         }
     }
+    return false;
 }
 
 __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
     return true;
 }
-void rgb_matrix_indicators_user(void) {
-    rgb_matrix_indicators_keymap();
+bool rgb_matrix_indicators_user(void) {
+    return rgb_matrix_indicators_keymap();
 }

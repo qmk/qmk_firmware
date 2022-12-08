@@ -48,7 +48,6 @@
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 // #    define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-// #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
@@ -58,7 +57,7 @@
 #    define RGB_MATRIX_SAT_STEP 8
 #    define RGB_MATRIX_VAL_STEP 8
 #    define RGB_MATRIX_SPD_STEP 10
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_PINWHEEL  // default mode
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_PINWHEEL  // default mode
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

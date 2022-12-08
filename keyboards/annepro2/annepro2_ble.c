@@ -24,7 +24,7 @@
 /* -------------------- Static Function Prototypes -------------------------- */
 static uint8_t ap2_ble_leds(void);
 static void    ap2_ble_mouse(report_mouse_t *report);
-static void    ap2_ble_extra(uint8_t report_id, uint16_t data);
+static void    ap2_ble_extra(report_extra_t *report);
 static void    ap2_ble_keyboard(report_keyboard_t *report);
 
 static void ap2_ble_swtich_ble_driver(void);
@@ -36,12 +36,12 @@ static host_driver_t ap2_ble_driver = {
 
 static uint8_t ble_mcu_wakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
 
-static uint8_t ble_mcu_start_broadcast[11] = {
-    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x01, 0x00  // Broadcast ID[0-3]
+static uint8_t ble_mcu_start_broadcast[10] = {
+    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x01,  // Broadcast ID[0-3]
 };
 
-static uint8_t ble_mcu_connect[11] = {
-    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x04, 0x00  // Connect ID [0-3]
+static uint8_t ble_mcu_connect[10] = {
+    0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x00, 0x7d, 0x40, 0x04,  // Connect ID [0-3]
 };
 
 static uint8_t ble_mcu_send_report[10] = {
@@ -76,6 +76,7 @@ void annepro2_ble_broadcast(uint8_t port) {
     // sdPut(&SD1, 0x00);
     sdWrite(&SD1, ble_mcu_start_broadcast, sizeof(ble_mcu_start_broadcast));
     sdPut(&SD1, port);
+    sdPut(&SD1, 0x00);
     static int lastBroadcast = -1;
     if (lastBroadcast == port) {
         annepro2_ble_connect(port);
@@ -89,6 +90,7 @@ void annepro2_ble_connect(uint8_t port) {
     }
     sdWrite(&SD1, ble_mcu_connect, sizeof(ble_mcu_connect));
     sdPut(&SD1, port);
+    sdPut(&SD1, 0x00);
     ap2_ble_swtich_ble_driver();
 }
 
@@ -149,11 +151,11 @@ static inline uint16_t CONSUMER2AP2(uint16_t usage) {
     }
 }
 
-static void ap2_ble_extra(uint8_t report_id, uint16_t data) {
-    if (report_id == REPORT_ID_CONSUMER) {
+static void ap2_ble_extra(report_extra_t *report) {
+    if (report->report_id == REPORT_ID_CONSUMER) {
         sdPut(&SD1, 0x0);
         sdWrite(&SD1, ble_mcu_send_consumer_report, sizeof(ble_mcu_send_consumer_report));
-        sdPut(&SD1, CONSUMER2AP2(data));
+        sdPut(&SD1, CONSUMER2AP2(report->usage));
         static const uint8_t dummy[3] = {0};
         sdWrite(&SD1, dummy, sizeof(dummy));
     }

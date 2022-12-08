@@ -55,10 +55,11 @@ This command converts images to a format usable by QMK, i.e. the QGF File Format
 **Usage**:
 
 ```
-usage: qmk painter-convert-graphics [-h] [-d] [-r] -f FORMAT [-o OUTPUT] -i INPUT [-v]
+usage: qmk painter-convert-graphics [-h] [-w] [-d] [-r] -f FORMAT [-o OUTPUT] -i INPUT [-v]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
+  -w, --raw             Writes out the QGF file as raw data instead of c/h combo.
   -d, --no-deltas       Disables the use of delta frames when encoding animations.
   -r, --no-rle          Disables the use of RLE when encoding images.
   -f FORMAT, --format FORMAT
@@ -146,10 +147,11 @@ This command expects an image that conforms to the following format:
 **Usage**:
 
 ```
-usage: qmk painter-convert-font-image [-h] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT] [-i INPUT]
+usage: qmk painter-convert-font-image [-h] [-w] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT] [-i INPUT]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
+  -w, --raw             Writes out the QFF file as raw data instead of c/h combo.
   -r, --no-rle          Disable the use of RLE to minimise converted image size.
   -f FORMAT, --format FORMAT
                         Output format, valid types: pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2

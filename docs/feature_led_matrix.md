@@ -199,7 +199,7 @@ x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
 
-Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout. 
+Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
 
 As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define LED_MATRIX_CENTER { 112, 32 }` in their config.h file with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
@@ -221,14 +221,14 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 All LED matrix keycodes are currently shared with the [Backlight feature](feature_backlight.md).
 
-|Key      |Description                  |
-|---------|-----------------------------|
-|`BL_TOGG`|Toggle LED Matrix on or off  |
-|`BL_STEP`|Cycle through modes          |
-|`BL_ON`  |Turn on LED Matrix           |
-|`BL_OFF` |Turn off LED Matrix          |
-|`BL_INC` |Increase the brightness level|
-|`BL_DEC` |Decrease the brightness level|
+| Key                     | Aliases   | Description                   |
+|-------------------------|-----------|-------------------------------|
+| `QK_BACKLIGHT_TOGGLE`   | `BL_TOGG` | Toggle LED Matrix on or off   |
+| `QK_BACKLIGHT_STEP`     | `BL_STEP` | Cycle through modes           |
+| `QK_BACKLIGHT_ON`       | `BL_ON`   | Turn on LED Matrix            |
+| `QK_BACKLIGHT_OFF`      | `BL_OFF`  | Turn off LED Matrix           |
+| `QK_BACKLIGHT_UP`       | `BL_UP`   | Increase the brightness level |
+| `QK_BACKLIGHT_DOWN`     | `BL_DOWN` | Decrease the brightness level |
 
 ## LED Matrix Effects :id=led-matrix-effects
 
@@ -364,15 +364,14 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 #define LED_MATRIX_KEYPRESSES // reacts to keypresses
 #define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
-#define LED_DISABLE_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
-#define LED_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
+#define LED_MATRIX_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
 #define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define LED_MATRIX_LED_PROCESS_LIMIT (LED_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define LED_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs
-#define LED_MATRIX_STARTUP_MODE LED_MATRIX_SOLID // Sets the default mode, if none has been set
-#define LED_MATRIX_STARTUP_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
-#define LED_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
+#define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID // Sets the default mode, if none has been set
+#define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
+#define LED_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
 #define LED_MATRIX_SPLIT { X, Y }   // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                                     // If LED_MATRIX_KEYPRESSES or LED_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```
@@ -440,10 +439,14 @@ Where `28` is an unused index from `eeconfig.h`.
 
 ### Indicators :id=indicators
 
-If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `led_matrix_indicators_kb` or `led_matrix_indicators_user` function for that: 
+If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `led_matrix_indicators_kb` or `led_matrix_indicators_user` function for that:
 ```c
-void led_matrix_indicators_kb(void) {
+bool led_matrix_indicators_kb(void) {
+    if (!led_matrix_indicators_user()) {
+        return false;
+    }
     led_matrix_set_value(index, value);
+    return true;
 }
 ```
 
@@ -452,5 +455,6 @@ In addition, there are the advanced indicator functions.  These are aimed at tho
 ```c
 void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     LED_MATRIX_INDICATOR_SET_VALUE(index, value);
+    return false;
 }
 ```

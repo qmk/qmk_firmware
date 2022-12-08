@@ -124,26 +124,26 @@ include $(BUILDDEFS_PATH)/build_json.mk
 # Pull in keymap level rules.mk
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     # Look through the possible keymap folders until we find a matching keymap.c
-    ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_5)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_4)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_3)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
+    ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
+        -include $(MAIN_KEYMAP_PATH_1)/rules.mk
+        KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
+        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
     else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
         -include $(MAIN_KEYMAP_PATH_2)/rules.mk
         KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
         KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_1)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
+    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
+        -include $(MAIN_KEYMAP_PATH_3)/rules.mk
+        KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
+        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
+    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
+        -include $(MAIN_KEYMAP_PATH_4)/rules.mk
+        KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
+        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
+    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
+        -include $(MAIN_KEYMAP_PATH_5)/rules.mk
+        KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
+        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
     else ifneq ($(LAYOUTS),)
         # If we haven't found a keymap yet fall back to community layouts
         include $(BUILDDEFS_PATH)/build_layout.mk
@@ -162,7 +162,7 @@ ifneq ("$(wildcard $(KEYMAP_JSON))", "")
     -include $(KEYMAP_PATH)/rules.mk
 
     # Load any rules.mk content from keymap.json
-    INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/src/rules.mk)
+    INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --output $(KEYMAP_OUTPUT)/src/rules.mk $(KEYMAP_JSON))
     include $(INFO_RULES_MK)
 
 # Add rules to generate the keymap files - indentation here is important
@@ -173,7 +173,7 @@ $(KEYMAP_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
 
 $(KEYMAP_OUTPUT)/src/config.h: $(KEYMAP_JSON)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_H))
+	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --output $(KEYMAP_H) $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
 generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
@@ -236,7 +236,7 @@ endif
 # that the same keymap may be used on multiple keyboards.
 #
 # We grab the most top-level include file that we can. That file should
-# use #ifdef statements to include all the neccesary subfolder includes,
+# use #ifdef statements to include all the necessary subfolder includes,
 # as described here:
 #
 #    https://docs.qmk.fm/#/feature_layouts?id=tips-for-making-layouts-keyboard-agnostic
@@ -367,6 +367,10 @@ endif
 
 # Disable features that a keyboard doesn't support
 -include $(BUILDDEFS_PATH)/disable_features.mk
+
+ifneq ("$(CONVERTER)","")
+    -include $(CONVERTER)/post_converter.mk
+endif
 
 # Pull in post_rules.mk files from all our subfolders
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_rules.mk)","")

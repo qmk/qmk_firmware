@@ -121,10 +121,6 @@ extern layer_state_t layer_state;
 #    include "process_tap_dance.h"
 #endif
 
-#ifdef PRINTING_ENABLE
-#    include "process_printer.h"
-#endif
-
 #ifdef AUTO_SHIFT_ENABLE
 #    include "process_auto_shift.h"
 #endif
@@ -209,6 +205,10 @@ extern layer_state_t layer_state;
 
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
+#endif
+
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
 #endif
 
 #ifdef VIA_ENABLE

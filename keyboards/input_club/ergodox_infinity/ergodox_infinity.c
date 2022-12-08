@@ -117,10 +117,10 @@ void matrix_init_kb(void) {
      * Since K20x is stuck with a 32 byte EEPROM (see tmk_core/common/chibios/eeprom_teensy.c),
      * and neither led_matrix_eeconfig.speed or .flags fit in this boundary, just force their values to default on boot.
      */
-#    if !defined(LED_MATRIX_STARTUP_SPD)
-#        define LED_MATRIX_STARTUP_SPD UINT8_MAX / 2
+#    if !defined(LED_MATRIX_DEFAULT_SPD)
+#        define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #    endif
-    led_matrix_set_speed(LED_MATRIX_STARTUP_SPD);
+    led_matrix_set_speed(LED_MATRIX_DEFAULT_SPD);
     led_matrix_set_flags(LED_FLAG_ALL);
 #endif
 

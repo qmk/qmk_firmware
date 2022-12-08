@@ -1,15 +1,16 @@
 """Used by the make system to generate info_config.h from info.json.
 """
 from pathlib import Path
-
 from dotty_dict import dotty
+
+from argcomplete.completers import FilesCompleter
 from milc import cli
 
-from qmk.info import info_json, keymap_json_config
+from qmk.info import info_json
 from qmk.json_schema import json_load
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.commands import dump_lines
-from qmk.path import normpath
+from qmk.commands import dump_lines, parse_configurator_json
+from qmk.path import normpath, FileType
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
@@ -69,7 +70,7 @@ def generate_matrix_size(kb_info_json, config_h_lines):
 def generate_config_items(kb_info_json, config_h_lines):
     """Iterate through the info_config map to generate basic config values.
     """
-    info_config_map = json_load(Path('data/mappings/info_config.json'))
+    info_config_map = json_load(Path('data/mappings/info_config.hjson'))
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
@@ -156,19 +157,30 @@ def generate_split_config(kb_info_json, config_h_lines):
         generate_encoder_config(kb_info_json['split']['encoder']['right'], config_h_lines, '_RIGHT')
 
 
+def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
+    for animation in led_feature_json.get('animations', {}):
+        if led_feature_json['animations'][animation]:
+            config_h_lines.append(generate_define(f'{prefix}{animation.upper()}'))
+
+
+@cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, required=True, help='Keyboard to generate config.h for.')
-@cli.argument('-km', '--keymap', arg_only=True, help='Keymap to generate config.h for.')
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate config.h for.')
 @cli.subcommand('Used by the make system to generate info_config.h from info.json', hidden=True)
 def generate_config_h(cli):
     """Generates the info_config.h file.
     """
     # Determine our keyboard/keymap
-    if cli.args.keymap:
-        kb_info_json = dotty(keymap_json_config(cli.args.keyboard, cli.args.keymap))
-    else:
+    if cli.args.filename:
+        user_keymap = parse_configurator_json(cli.args.filename)
+        kb_info_json = dotty(user_keymap.get('config', {}))
+    elif cli.args.keyboard:
         kb_info_json = dotty(info_json(cli.args.keyboard))
+    else:
+        cli.log.error('You must supply a configurator export or `--keyboard`.')
+        cli.subcommands['generate-config-h'].print_help()
+        return False
 
     # Build the info_config.h file.
     config_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once']
@@ -185,6 +197,15 @@ def generate_config_h(cli):
 
     if 'split' in kb_info_json:
         generate_split_config(kb_info_json, config_h_lines)
+
+    if 'led_matrix' in kb_info_json:
+        generate_led_animations_config(kb_info_json['led_matrix'], config_h_lines, 'ENABLE_LED_MATRIX_')
+
+    if 'rgb_matrix' in kb_info_json:
+        generate_led_animations_config(kb_info_json['rgb_matrix'], config_h_lines, 'ENABLE_RGB_MATRIX_')
+
+    if 'rgblight' in kb_info_json:
+        generate_led_animations_config(kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_')
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)

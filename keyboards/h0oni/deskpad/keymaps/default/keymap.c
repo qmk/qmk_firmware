@@ -97,7 +97,7 @@ void layer_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 void cvxa_finished(qk_tap_dance_state_t *state, void *user_data) {
     cvxa_state.state = cur_dance(state);
-    register_mods(MOD_BIT(KC_LCTRL));
+    register_mods(MOD_BIT(KC_LCTL));
     switch (cvxa_state.state) {
         case TD_SINGLE_TAP: tap_code(KC_V); break;
         case TD_SINGLE_HOLD: tap_code(KC_A); break;
@@ -105,7 +105,7 @@ void cvxa_finished(qk_tap_dance_state_t *state, void *user_data) {
         case TD_DOUBLE_HOLD: tap_code(KC_X); break;
         default: tap_code(KC_V);
     }
-    unregister_mods(MOD_BIT(KC_LCTRL));
+    unregister_mods(MOD_BIT(KC_LCTL));
 }
 
 void cvxa_reset(qk_tap_dance_state_t *state, void *user_data) {

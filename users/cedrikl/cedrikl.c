@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Turn on/off NUM LOCK if current state is different
 void activate_numlock(bool turn_on) {
     if (host_keyboard_led_state().num_lock != turn_on) {
-        tap_code(KC_NUMLOCK);
+        tap_code(KC_NUM_LOCK);
     }
 }
 

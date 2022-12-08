@@ -77,7 +77,7 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CUSTOM_test_mode
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_test_mode
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

@@ -128,7 +128,10 @@ led_config_t g_led_config = {
     }
 };
 
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         for (uint8_t i = 0; i < DRIVER_1_LED_TOTAL; i++) {
             rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
@@ -141,5 +144,6 @@ void rgb_matrix_indicators_kb(void) {
             }
         }
     }
+    return true;
 }
 #endif

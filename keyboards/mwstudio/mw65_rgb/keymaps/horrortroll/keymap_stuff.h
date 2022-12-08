@@ -75,7 +75,7 @@ enum layer_keycodes {
     G_PRE,               //Gradient presets
     REF_G,               //Toggle between linear and reflected gradient
     G_FLIP,              //Flip the gradient colors
-  
+
     //Custom led effect keycode
     RGB_C_E,             //Cycle user effect
 };
@@ -286,7 +286,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     switch (biton32(layer_state)) {
         case _FN:
             rgb_matrix_set_color(16, 0, 0, 0); rgb_matrix_set_color(17, 0, 0, 0); rgb_matrix_set_color(18, 0, 0, 0); rgb_matrix_set_color(21, 0, 0, 0);
@@ -332,4 +332,5 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(52, 0, 0, 0);
         }
     }
+    return false;
 }

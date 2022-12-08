@@ -115,25 +115,20 @@ led_config_t g_led_config = {
     }
 };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
 	if (host_keyboard_led_state().caps_lock) {
 		rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
 	}
-	else { 
+	else {
 		rgb_matrix_set_color(30, 0x00, 0x00, 0x00);
 	}
 	if (!rgb_matrix_is_enabled()) {
 		rgb_matrix_driver.flush();
     }
+    return true;
 }
 #endif
+
