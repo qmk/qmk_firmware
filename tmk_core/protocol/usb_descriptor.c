@@ -45,16 +45,10 @@
 #    include "joystick.h"
 #endif
 
-<<<<<<< guess-os -- Incoming Change
 #ifdef OS_DETECTION_ENABLE
 #    include "os_detection.h"
 #endif
 
-// TODO: wb32 support defines ISO macro which breaks PRODUCT stringification
-#undef ISO
-
-=======
->>>>>>> develop -- Current Change
 // clang-format off
 
 /*
