@@ -1,6 +1,6 @@
-# mila68
+# guide68
 
-![mila68](imgur.com image replace me!)
+![guide68](https://i.imgur.com/u1HeHb9h.jpg)
 
 *A short description of the keyboard/project*
 
@@ -10,11 +10,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mila68:default
+    make salicylic_acid3/guide68:default
 
 Flashing example for this keyboard:
 
-    make mila68:default:flash
+    make salicylic_acid3/guide68:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
