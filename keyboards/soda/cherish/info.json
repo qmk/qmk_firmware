@@ -8,8 +8,11 @@
         "pid": "0xEB52",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_75_ansi": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_75_ansi": {
+        "LAYOUT": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.5, "y":0},
