@@ -242,12 +242,14 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 /* OLED Animation KEYBOARD PET START */
 
 /* settings */
-#define MIN_WALK_SPEED      10
-#define MIN_RUN_SPEED       40
+#define MIN_WALK_SPEED            10
+#define MIN_RUN_SPEED             35
+#define MIN_HOT_WHEEL_SPEED       60
 
 /* advanced settings */
 #define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
 #define ANIM_SIZE           96   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
+#define ANIM_HOT_WHEEL_SIZE 128// number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 
 /* timers */
 uint32_t anim_timer = 0;
@@ -267,6 +269,7 @@ led_t led_usb_state;
 bool isSneaking = false;
 bool isJumping  = false;
 bool showedJump = true;
+bool showHotWheel = false;
 
 /* logic */
 static void render_luna(int LUNA_X, int LUNA_Y) {
@@ -300,6 +303,18 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
                                                    {
                                                        0x00, 0x00, 0x00, 0xe0, 0x10, 0x10, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x78, 0x28, 0x08, 0x10, 0x20, 0x30, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x04, 0x08, 0x10, 0x11, 0xf9, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x10, 0xb0, 0x50, 0x55, 0x20, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x0c, 0x10, 0x20, 0x28, 0x37, 0x02, 0x1e, 0x20, 0x20, 0x18, 0x0c, 0x14, 0x1e, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                                    }};
+
+    /* Transform to HotWheel */
+    static const char PROGMEM hotwheel[2][ANIM_HOT_WHEEL_SIZE] = {/* 'hotwheel1', 32x32px */
+                                                   {
+                                                       0,  0,  0,  0,  0,128,128,128,192, 88,108,104,108,244,148,188,184,128,144,104,114,196,248,224,240,224,  0,  0,  0,  0,  0,  0,  0, 16, 12,118, 55, 63, 15,227,251, 60,142,135,131,143, 31,159,255,125,  3,  3,199,198,222,253,241,201,126,252,224,190,228,  0,  0,  8,254, 27,207,251, 96, 31, 63,255,239,207,131,129, 49,127,247,243,226,134,135,199,227,125, 63,111,240,187,219, 81, 96,  0,  0,  0,  0,  0,  0,  0,  6, 31, 55, 60,110,141, 59, 27, 35, 51,123,115, 91, 59,109, 77, 84, 88,  3,  7,  2,  2,  1,  0,  0,  0,
+                                                   },
+                                                   /* 'hotwheel2', 32x32px */
+                                                   {
+                                                       0,  0,  0,  0, 64, 64,160, 48,240,240,248,112,112,128,144,186,178,164,252, 52,124,120, 32,192,160,192, 32,192,  0,  0,  0,  0,  0,160,240,120,252,223, 26,227,251,253,238,231,227,227,195,129,143,255,127, 63,  7, 14, 30,253,247,198, 30,187,223,140,  0,128,  2,  1,  6,239,119,243,192,223, 63,249,225,193,176,248,252,247, 99,  3, 12,156,158,223,239,126,191, 15,116,127,109, 61, 30,  3,  0,  0,  0,  1,  2, 15, 16, 15,  7,  0, 24, 61, 91,187,123,147,187, 83, 35, 27, 61, 57, 46, 46, 27, 11, 11,  8,  0,  0,  0,  0,
+                                                   }};
+
+
 
     /* Bark */
     static const char PROGMEM bark[2][ANIM_SIZE] = {/* 'bark1', 32x22px */
@@ -358,8 +373,11 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         } else if (current_wpm <= MIN_RUN_SPEED) {
             oled_write_raw_P(walk[abs(1 - current_frame)], ANIM_SIZE);
 
-        } else {
+        } else if (current_wpm <= MIN_HOT_WHEEL_SPEED) {
             oled_write_raw_P(run[abs(1 - current_frame)], ANIM_SIZE);
+
+        } else {
+            oled_write_raw_P(hotwheel[abs(1 - current_frame)], ANIM_SIZE);
         }
     }
 
@@ -566,8 +584,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             held_shift = keycode;
             break;
             /* KEYBOARD PET STATUS START */
-        case KC_LCTL:
         case KC_RCTL:
+            if (record->event.pressed) {
+                isSneaking = true;
+            } else {
+                isSneaking = false;
+            }
+            break;
+        case KC_LCTL:
             if (record->event.pressed) {
                 isSneaking = true;
             } else {
