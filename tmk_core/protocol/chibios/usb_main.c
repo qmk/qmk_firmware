@@ -80,10 +80,10 @@ static void keyboard_idle_timer_cb(void *arg);
 #endif
 
 report_keyboard_t keyboard_report_sent = {{0}};
-report_mouse_t mouse_report_sent = {0};
+report_mouse_t    mouse_report_sent    = {0};
 
 union {
-    uint8_t report_id;
+    uint8_t           report_id;
     report_keyboard_t keyboard;
 #ifdef EXTRAKEY_ENABLE
     report_extra_t extra;
@@ -130,7 +130,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
     uint16_t             wValue  = ((uint16_t)dtype << 8) | dindex;
     uint16_t             wLength = ((uint16_t)usbp->setup[7] << 8) | usbp->setup[6];
     desc.ud_string               = NULL;
-    desc.ud_size                 = get_usb_descriptor(wValue, wIndex, wLength, (const void **const)&desc.ud_string);
+    desc.ud_size                 = get_usb_descriptor(wValue, wIndex, wLength, (const void **const) & desc.ud_string);
     if (desc.ud_string == NULL)
         return NULL;
     else
@@ -653,24 +653,24 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                             case MOUSE_INTERFACE:
                                 usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
                                 return TRUE;
-                                break;    
+                                break;
 #endif
 #ifdef SHARED_EP_ENABLE
                             case SHARED_INTERFACE:
-#   ifdef KEYBOARD_SHARED_EP
+#    ifdef KEYBOARD_SHARED_EP
                                 if (usbp->setup[2] == REPORT_ID_KEYBOARD) {
                                     usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
                                     return TRUE;
                                     break;
                                 }
-#   endif
-#   ifdef MOUSE_SHARED_EP
+#    endif
+#    ifdef MOUSE_SHARED_EP
                                 if (usbp->setup[2] == REPORT_ID_MOUSE) {
                                     usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
                                     return TRUE;
-                                    break;                       
+                                    break;
                                 }
-#   endif
+#    endif
 #endif /* SHARED_EP_ENABLE */
                             default:
                                 universal_report_blank.report_id = usbp->setup[2];
