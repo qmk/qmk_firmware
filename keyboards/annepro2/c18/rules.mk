@@ -44,7 +44,7 @@ MIDI_ENABLE = no
 VIRTSER_ENABLE = no
 COMBO_ENABLE = no
 
-LAYOUTS = 60_ansi
+LAYOUTS = 60_ansi 60_iso
 
 # Anne Pro 2
 SRC = \

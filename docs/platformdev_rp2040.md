@@ -2,10 +2,11 @@
 
 The following table shows the current driver status for peripherals on RP2040 MCUs:
 
-| System                                                           | Support                                        |
+|                              System                              |                    Support                     |
 | ---------------------------------------------------------------- | ---------------------------------------------- |
 | [ADC driver](adc_driver.md)                                      | Support planned (no ETA)                       |
-| [Audio](audio_driver.md)                                         | Support planned (no ETA)                       |
+| [Audio](audio_driver.md#pwm-hardware)                            | :heavy_check_mark:                             |
+| [Backlight](feature_backlight.md)                                | :heavy_check_mark:                             |
 | [I2C driver](i2c_driver.md)                                      | :heavy_check_mark:                             |
 | [SPI driver](spi_driver.md)                                      | :heavy_check_mark:                             |
 | [WS2812 driver](ws2812_driver.md)                                | :heavy_check_mark: using `PIO` driver          |
@@ -58,7 +59,7 @@ The double-tap reset mechanism is an alternate way in QMK to enter the embedded 
 ```c
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U // Specify a optional status led which blinks when entering the bootloader
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17 // Specify a optional status led by GPIO number which blinks when entering the bootloader
 ```
 
 ## Pre-defined RP2040 boards

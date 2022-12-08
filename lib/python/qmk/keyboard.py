@@ -69,7 +69,7 @@ def keyboard_folder(keyboard):
 
     This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
     """
-    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
     if keyboard in aliases:
         keyboard = aliases[keyboard].get('target', keyboard)

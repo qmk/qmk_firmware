@@ -20,7 +20,7 @@ tft_panel_dc_reset_painter_device_t ssd1351_drivers[SSD1351_NUM_DEVICES] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_ssd1351_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_ssd1351_init(painter_device_t device, painter_rotation_t rotation) {
     tft_panel_dc_reset_painter_device_t *driver = (tft_panel_dc_reset_painter_device_t *)device;
 
     // clang-format off

@@ -61,7 +61,7 @@
 #define DEBOUNCE 5
 
 /* Bootmagic lite */
-/* (Press the key bellow the encoder button while plugging the keyboard to enter the bootloader and clear flash) */
+/* (Press the key below the encoder button while plugging the keyboard to enter the bootloader and clear flash) */
 #define BOOTMAGIC_LITE_ROW 1
 #define BOOTMAGIC_LITE_COLUMN 2
 
@@ -78,7 +78,7 @@
 
      /* RGB Defines */
 #    define RGB_DI_PIN GP19
-#    define DRIVER_LED_TOTAL 12
+#    define RGB_MATRIX_LED_COUNT 12
 #    define RGBLED_NUM 12
 
      /* Enable Framebuffer and keypress effects */
