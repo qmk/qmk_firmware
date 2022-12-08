@@ -1,101 +1,257 @@
 #include "r2g.h"
+#include "quantum.h"
 
-#ifdef RGB_MATRIX_ENABLE
+// #ifdef RGB_MATRIX_ENABLE
 
-  // Logical Layout
-  // Columns
-  // Left
-  // 0  1  2  3  4  5
-  //                         ROWS
-  // 05 04 03 02 01 00          0
-  //
-  // 06 07 08 09 10 11          1
-  //
-  // 17 16 15 14 13 12          2
-  //
-  // 18 19 20 21 22 23          3
-  //
-  //    28 27 26 25 24          4
-  //
-  // 29 31 32 33 34 35 36 37    UG
-  //
-  // Right
-  // 0  1  2  3  4  5
-  //                         ROWS
-  // 05 04 03 02 01 00          0
-  //
-  // 06 07 08 09 10 11          1
-  //
-  // 17 16 15 14 13 12          2
-  //
-  // 18 19 20 21 22 23          3
-  //
-  //    28 27 26 25 24          4
-  //
-  // 29 31 32 33 34 35 36 37    UG
-  //
+//   // Logical Layout
+//   // Columns
+//   // Left
+//   // 0  1  2  3  4  5
+//   //                         ROWS
+//   // 05 04 03 02 01 00          0
+//   //
+//   // 06 07 08 09 10 11          1
+//   //
+//   // 17 16 15 14 13 12          2
+//   //
+//   // 18 19 20 21 22 23          3
+//   //
+//   //    28 27 26 25 24          4
+//   //
+//   // 29 31 32 33 34 35 36 37    UG
+//   //
+//   // Right
+//   // 0  1  2  3  4  5
+//   //                         ROWS
+//   // 05 04 03 02 01 00          0
+//   //
+//   // 06 07 08 09 10 11          1
+//   //
+//   // 17 16 15 14 13 12          2
+//   //
+//   // 18 19 20 21 22 23          3
+//   //
+//   //    28 27 26 25 24          4
+//   //
+//   // 29 31 32 33 34 35 36 37    UG
+//   //
 
-  // Physical Layout
-  // Columns
-  // 0  1  2  3  4  5  6  7  8  9  10 11 12 13 14
-  //                                                ROWS
-  // 05 04 03 02 01 00          00 01 02 03 04 05   0       0
-  //
-  // 06 07 08 09 10 11          11 10 09 08 07 06   1       16
-  //
-  // 17 16 15 14 13 12          12 13 14 15 16 17   2       32
-  //
-  // 18 19 20 21 22 23 24    24 23 22 21 20 19 18   3       48
-  //
-  //          28 27 26 25    25 26 27 28            4       64
-  //
-  // 29 30 31 32 33 34 35 36 UG
-  //
-  // 0  16 32 48 64 80 96 112 128 144 160 176 192 208 224
+//   // Physical Layout
+//   // Columns
+//   // 0  1  2  3  4  5  6  7  8  9  10 11 12 13 14
+//   //                                                ROWS
+//   // 05 04 03 02 01 00          00 01 02 03 04 05   0       0
+//   //
+//   // 06 07 08 09 10 11          11 10 09 08 07 06   1       16
+//   //
+//   // 17 16 15 14 13 12          12 13 14 15 16 17   2       32
+//   //
+//   // 18 19 20 21 22 23 24    24 23 22 21 20 19 18   3       48
+//   //
+//   //          28 27 26 25    25 26 27 28            4       64
+//   //
+//   // 29 30 31 32 33 34 35 36 UG
+//   //
+//   // 0  16 32 48 64 80 96 112 128 144 160 176 192 208 224
 
-led_config_t g_led_config = { {
-    {     5,    4,    3,    2,    1,    0 },
-    {     6,    7,    8,    9,   10,   11 },
-    {    17,   16,   15,   14,   13,   12 },
-    {    18,   19,   20,   21,   22,   23 },
-    {NO_LED,   28,   27,   26,   25,   24 },
-    {    42,   41,   40,   39,   38,   37 },
-    {    43,   44,   45,   46,   47,   48 },
-    {    54,   53,   52,   51,   50,   49 },
-    {    55,   56,   57,   58,   59,   60 },
-    {NO_LED,   65,   64,   63,   62,   61 }
-}, {
+// led_config_t g_led_config = { {
+//     {     5,    4,    3,    2,    1,    0 },
+//     {     6,    7,    8,    9,   10,   11 },
+//     {    17,   16,   15,   14,   13,   12 },
+//     {    18,   19,   20,   21,   22,   23 },
+//     {NO_LED,   28,   27,   26,   25,   24 },
+//     {    42,   41,   40,   39,   38,   37 },
+//     {    43,   44,   45,   46,   47,   48 },
+//     {    54,   53,   52,   51,   50,   49 },
+//     {    55,   56,   57,   58,   59,   60 },
+//     {NO_LED,   65,   64,   63,   62,   61 }
+// }, {
 
-    {  80,  0 }, {  64,  0 }, {  48,  0 }, {  32,  0 }, {  16,  0 }, {  0,  0 },
-    {   0, 16 }, {  16, 16 }, {  32, 16 }, {  48, 16 }, {  64, 16 }, { 80, 16 },
-    {  80, 32 }, {  64, 32 }, {  48, 32 }, {  32, 32 }, {  16, 32 }, {  0, 32 },
-    {   0, 48 }, {  16, 48 }, {  32, 48 }, {  48, 48 }, {  64, 48 }, { 80, 48 },
-    {  96, 48 }, {  96, 64 }, {  80, 64 }, {  64, 64 },
+//     {  80,  0 }, {  64,  0 }, {  48,  0 }, {  32,  0 }, {  16,  0 }, {  0,  0 },
+//     {   0, 16 }, {  16, 16 }, {  32, 16 }, {  48, 16 }, {  64, 16 }, { 80, 16 },
+//     {  80, 32 }, {  64, 32 }, {  48, 32 }, {  32, 32 }, {  16, 32 }, {  0, 32 },
+//     {   0, 48 }, {  16, 48 }, {  32, 48 }, {  48, 48 }, {  64, 48 }, { 80, 48 },
+//     {  96, 48 }, {  96, 64 }, {  80, 64 }, {  64, 64 },
 
-    { 96, 64}, {32, 64}, { 0, 64}, { 0 , 32 }, { 16, 0 }, {50,0}, {80,0}, {96,32}
+//     { 96, 64}, {32, 64}, { 0, 64}, { 0 , 32 }, { 16, 0 }, {50,0}, {80,0}, {96,32}
 
-    { 144,  0 }, { 160,  0 }, { 176,  0 }, { 192,  0 }, { 208,  0 }, {224,  0 },
-    { 224, 16 }, { 208, 16 }, { 192, 16 }, { 176, 16 }, { 160, 16 }, {144, 16 },
-    { 144, 32 }, { 160, 32 }, { 176, 32 }, { 192, 32 }, { 208, 32 }, {224, 32 },
-    { 224, 48 }, { 208, 48 }, { 192, 48 }, { 176, 48 }, { 160, 48 }, {144, 48 },
-    { 128, 48 }, { 128, 64 }, { 144, 64 }, { 160, 64 }
+//     { 144,  0 }, { 160,  0 }, { 176,  0 }, { 192,  0 }, { 208,  0 }, {224,  0 },
+//     { 224, 16 }, { 208, 16 }, { 192, 16 }, { 176, 16 }, { 160, 16 }, {144, 16 },
+//     { 144, 32 }, { 160, 32 }, { 176, 32 }, { 192, 32 }, { 208, 32 }, {224, 32 },
+//     { 224, 48 }, { 208, 48 }, { 192, 48 }, { 176, 48 }, { 160, 48 }, {144, 48 },
+//     { 128, 48 }, { 128, 64 }, { 144, 64 }, { 160, 64 }
 
-    { 128, 64}, {192, 64}, { 224, 64}, { 224 , 32 }, { 206, 0 }, {150,0}, {140,0}, {128,32}
+//     { 128, 64}, {192, 64}, { 224, 64}, { 224 , 32 }, { 206, 0 }, {150,0}, {140,0}, {128,32}
 
 
-}, {
-    1, 1, 1, 1, 1, 4,
-    4, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 4,
-    4, 1, 1, 1, 1, 1, 4,
-    4, 4, 4, 4,
-    2, 2, 2, 2, 2, 2, 2, 2,
-    1, 1, 1, 1, 1, 4,
-    4, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 4,
-    4, 1, 1, 1, 1, 1, 4,
-    4, 4, 4, 4,
-    2, 2, 2, 2, 2, 2, 2, 2,
-} };
+// }, {
+//     1, 1, 1, 1, 1, 4,
+//     4, 1, 1, 1, 1, 1,
+//     1, 1, 1, 1, 1, 4,
+//     4, 1, 1, 1, 1, 1, 4,
+//     4, 4, 4, 4,
+//     2, 2, 2, 2, 2, 2, 2, 2,
+//     1, 1, 1, 1, 1, 4,
+//     4, 1, 1, 1, 1, 1,
+//     1, 1, 1, 1, 1, 4,
+//     4, 1, 1, 1, 1, 1, 4,
+//     4, 4, 4, 4,
+//     2, 2, 2, 2, 2, 2, 2, 2,
+// } };
 
-#endif
+// #endif
+
+
+#ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
+    return rotation;
+}
+
+enum Layers{
+  _QWERTY = 0,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
+
+void oled_render_layer_state_r2g(void) {
+    oled_write_P(PSTR("Layer: "), false);
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            oled_write_ln_P(PSTR("Default"), false);
+            break;
+        case _LOWER:
+            oled_write_ln_P(PSTR("Lower"), false);
+            break;
+        case _RAISE:
+            oled_write_ln_P(PSTR("Raise"), false);
+            break;
+        case _ADJUST:
+            oled_write_ln_P(PSTR("Adjust"), false);
+            break;
+    }
+}
+
+//char keylog_str_r2g[24] = {};
+
+const char code_to_name_r2g[60] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
+    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
+
+char key_name_r2g = ' ';
+uint16_t last_keycode_r2g;
+uint8_t last_row_r2g;
+uint8_t last_col_r2g;
+
+void set_keylog_r2g(uint16_t keycode, keyrecord_t *record) {
+    key_name_r2g = ' ';
+    last_keycode_r2g = keycode;
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { last_keycode_r2g = keycode & 0xFF; }
+    if (keycode < 60) {
+      key_name_r2g = code_to_name_r2g[keycode];
+    }
+    last_row_r2g = record->event.key.row;
+    last_col_r2g = record->event.key.col;
+}
+
+const char *depad_str(const char *depad_str, char depad_char) {
+    while (*depad_str == depad_char) ++depad_str;
+    return depad_str;
+}
+
+void oled_render_keylog_r2g(void) {
+    //oled_write(keylog_str_r2g, false);
+    const char *last_row_r2g_str = get_u8_str(last_row_r2g, ' ');
+    oled_write(depad_str(last_row_r2g_str, ' '), false);
+    oled_write_P(PSTR("x"), false);
+    const char *last_col_r2g_str = get_u8_str(last_col_r2g, ' ');
+    oled_write(depad_str(last_col_r2g_str, ' '), false);
+    oled_write_P(PSTR(", k"), false);
+    const char *last_keycode_r2g_str = get_u16_str(last_keycode_r2g, ' ');
+    oled_write(depad_str(last_keycode_r2g_str, ' '), false);
+    oled_write_P(PSTR(":"), false);
+    oled_write_char(key_name_r2g, false);
+}
+
+void render_bootmagic_status_r2g(bool status) {
+    /* Show Ctrl-Gui Swap options */
+    static const char PROGMEM logo[][2][3] = {
+        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
+        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
+    };
+    if (status) {
+        oled_write_ln_P(logo[0][0], false);
+        oled_write_ln_P(logo[0][1], false);
+    } else {
+        oled_write_ln_P(logo[1][0], false);
+        oled_write_ln_P(logo[1][1], false);
+    }
+}
+
+void oled_render_logo_r2g(void) {
+    static const char PROGMEM mb_logo[] = {
+0x00, 0x00, 0x00, 0x00, 0x00, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x0f, 0x0f, 0x0f, 0x0f,
+0x0f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+0xff, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x83, 0x83, 0x83, 0x83, 0x83, 0xff, 0xff,
+0x83, 0x83, 0x83, 0x83, 0xff, 0xff, 0x83, 0x83, 0x83, 0x83, 0x83, 0xff, 0xff, 0x83, 0x83, 0x83,
+0x83, 0xff, 0xff, 0x83, 0x83, 0x83, 0x83, 0x83, 0xff, 0xff, 0xff, 0xff, 0x82, 0x82, 0x82, 0x82,
+0x82, 0xff, 0xff, 0x83, 0x83, 0x83, 0x83, 0xff, 0xff, 0x83, 0x83, 0x83, 0x83, 0x83, 0xff, 0xff,
+0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf8, 0xfc, 0xfc, 0xfc,
+0x9c, 0x9c, 0xfc, 0xfc, 0xf8, 0xf8, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x30, 0x78, 0x7c, 0x3c,
+0x9c, 0xfc, 0xfc, 0xf8, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xf0, 0xf8, 0xf8, 0x3c, 0x3c,
+0x9c, 0xbc, 0xfc, 0xb8, 0xb8, 0xa0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x41, 0x41, 0x41, 0x41, 0x41, 0xff, 0xff,
+0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x41, 0x41, 0x41, 0x41, 0x41, 0xff, 0xff, 0xff, 0xff, 0xff,
+0xff, 0xff, 0xff, 0x41, 0x41, 0x41, 0x41, 0x41, 0xff, 0xff, 0xff, 0xff, 0x41, 0x41, 0x41, 0x41,
+0x41, 0xff, 0xff, 0x7f, 0x7f, 0x7f, 0x7f, 0xff, 0xff, 0x41, 0x41, 0x41, 0x41, 0x41, 0xff, 0xff,
+0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x3f, 0x3f, 0x3f,
+0x03, 0x07, 0x0f, 0x3f, 0x3f, 0x3e, 0x38, 0x20, 0x00, 0x00, 0x00, 0x00, 0x38, 0x3c, 0x3e, 0x3f,
+0x3f, 0x3f, 0x3b, 0x39, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0f, 0x1f, 0x3f, 0x3c, 0x38,
+0x3b, 0x3b, 0x3f, 0x1f, 0x1f, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x7f, 0xff, 0xff, 0xff, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xff, 0xff,
+0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xff, 0xff, 0xff, 0xff, 0xff,
+0xff, 0xff, 0xff, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xff, 0xff, 0xff, 0xff, 0xf0, 0xf0, 0xf0, 0xf0,
+0xf0, 0xff, 0xff, 0xf0, 0xf0, 0xf0, 0xf0, 0xff, 0xff, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xff, 0xff,
+0xff, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+    oled_write_raw_P(mb_logo, sizeof(mb_logo));
+    //oled_set_cursor(oled_max_chars()/2,oled_max_lines()/2);
+    //oled_write_P(PSTR("R2G"), false);
+}
+
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
+    if (is_keyboard_master()) {
+        oled_render_layer_state_r2g();
+        oled_render_keylog_r2g();
+    } else {
+        oled_render_logo_r2g();
+    }
+    return false;
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    set_keylog_r2g(keycode, record);
+  }
+  return process_record_user(keycode, record);
+}
+#endif // OLED_ENABLE

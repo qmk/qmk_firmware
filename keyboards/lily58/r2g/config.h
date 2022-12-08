@@ -31,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 12    // Number of LEDs
 
 /*
  * Feature disable options
@@ -50,6 +47,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
+#define RGB_MATRIX_LED_COUNT 74
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_LED_FLUSH_LIMIT 16
+#define RGB_MATRIX_KEYPRESSES
+#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_BREATHING
