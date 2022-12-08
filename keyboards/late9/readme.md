@@ -20,7 +20,7 @@ Flashing example for this keyboard:
     make late9/rev1:default:flash
 
 
-When asked by the terminal, short with a metal wire the pins on the backside of the board highlighted as `RST` (one is the `QK_BOOT` and the other one is `GROUND`) to enter the bootloader and let the OS detects the device.
+When asked by the terminal, short with a metal wire the pins on the backside of the board highlighted as `RST` (one is the `RESET` and the other one is `GROUND`) to enter the bootloader and let the OS detects the device.
 After installing this firmware you can use Bootmagic to enter the bootloader while plugging in your LATE-9. By default it's the button on the upper-left of the keyboard.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
