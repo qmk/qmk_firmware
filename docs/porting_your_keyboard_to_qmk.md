@@ -94,18 +94,6 @@ The next section of the `info` file deals with your keyboard's matrix. The first
 
 The size of the `matrix_pins.cols` and `matrix_pins.rows` arrays infer the size of the matrix (previously `MATRIX_ROWS` and `MATRIX_COLS`). 
 
-## Configuration Options
-
-To invert the keypress logic, configure `input_pressed_state`:
-
-```json
-    "matrix_pins": {
-        "input_pressed_state": 1,
-},
-```
-
-This configures state of the GPIO pins when the key is pressed - `1` for high, `0` for low. Default value is `0`.
-
 Finally, you can specify the direction your diodes point. This can be `COL2ROW` or `ROW2COL`.
 
 ```json
