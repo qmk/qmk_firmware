@@ -362,13 +362,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case GAME:
       if (record->event.pressed) {
-        if (isGame) {
-            layer_off(_GAME);
-            isGame = false;
+        if (!keymap_config.swap_lctl_lgui) {
+            if (isGame) {
+                layer_off(_GAME);
+                isGame = false;
 
-        } else {
-            layer_on(_GAME);
-            isGame = true;
+            } else {
+                layer_on(_GAME);
+                isGame = true;
+            }
         }
       } 
       return false;
