@@ -3,7 +3,7 @@
 #define REF_LAYER_FOR_LAYER(LAYER, REF_LAYER)   \
   case LAYER: return REF_LAYER;
 
-#define DEF_REF_LAYER(LAYER)              \
+#define DEF_REF_LAYER(LAYER)                    \
   default: return LAYER;
 
 #define K_ENUM(name, key, ...) name,
