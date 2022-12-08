@@ -4,9 +4,22 @@
 
 The following options are currently available for haptic feedback in `rules.mk`:
 
-`HAPTIC_ENABLE += DRV2605L`
+```
+HAPTIC_ENABLE = yes
 
-`HAPTIC_ENABLE += SOLENOID`
+HAPTIC_DRIVER += DRV2605L
+HAPTIC_DRIVER += SOLENOID
+```
+
+The following `config.h` settings are available for all types of haptic feedback:
+
+| Settings                             | Default       | Description                                                                                                   |
+|--------------------------------------|---------------|---------------------------------------------------------------------------------------------------------------|
+|`HAPTIC_ENABLE_PIN`                   | *Not defined* |Configures a pin to enable a boost converter for some haptic solution, often used with solenoid drivers.       |
+|`HAPTIC_ENABLE_PIN_ACTIVE_LOW`        | *Not defined* |If defined then the haptic enable pin is active-low.                                                           |
+|`HAPTIC_ENABLE_STATUS_LED`            | *Not defined* |Configures a pin to reflect the current enabled/disabled status of haptic feedback.                            |
+|`HAPTIC_ENABLE_STATUS_LED_ACTIVE_LOW` | *Not defined* |If defined then the haptic status led will be active-low.                                                      |
+|`HAPTIC_OFF_IN_LOW_POWER`             | `0`           |If set to `1`, haptic feedback is disabled before the device is configured, and while the device is suspended. |
 
 ## Known Supported Hardware
 
@@ -19,39 +32,46 @@ The following options are currently available for haptic feedback in `rules.mk`:
 
 Not all keycodes below will work depending on which haptic mechanism you have chosen.
 
-| Name      | Description                                           |
-|-----------|-------------------------------------------------------|
-|`HPT_ON`   | Turn haptic feedback on                               |
-|`HPT_OFF`  | Turn haptic feedback off                              |
-|`HPT_TOG`  | Toggle haptic feedback on/off                         |
-|`HPT_RST`  | Reset haptic feedback config to default               |
-|`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
-|`HPT_BUZ`  | Toggle solenoid buzz on/off                           |
-|`HPT_MODI` | Go to next DRV2605L waveform                          |
-|`HPT_MODD` | Go to previous DRV2605L waveform                      |
-|`HPT_CONT` | Toggle continuous haptic mode on/off                  |
-|`HPT_CONI` | Increase DRV2605L continous haptic strength           |
-|`HPT_COND` | Decrease DRV2605L continous haptic strength           |
-|`HPT_DWLI` | Increase Solenoid dwell time                          |
-|`HPT_DWLD` | Decrease Solenoid dwell time                          |
+| Key                         | Aliases | Description                                           |
+|-----------------------------|---------|-------------------------------------------------------|
+|`QK_HAPTIC_ON`               |`HF_ON`  | Turn haptic feedback on                               |
+|`QK_HAPTIC_OFF`              |`HF_OFF` | Turn haptic feedback off                              |
+|`QK_HAPTIC_TOGGLE`           |`HF_TOGG`| Toggle haptic feedback on/off                         |
+|`QK_HAPTIC_RESET`            |`HF_RST` | Reset haptic feedback config to default               |
+|`QK_HAPTIC_FEEDBACK_TOGGLE`  |`HF_FDBK`| Toggle feedback to occur on keypress, release or both |
+|`QK_HAPTIC_BUZZ_TOGGLE`      |`HF_BUZZ`| Toggle solenoid buzz on/off                           |
+|`QK_HAPTIC_MODE_NEXT`        |`HF_NEXT`| Go to next DRV2605L waveform                          |
+|`QK_HAPTIC_MODE_PREVIOUS`    |`HF_PREV`| Go to previous DRV2605L waveform                      |
+|`QK_HAPTIC_CONTINUOUS_TOGGLE`|`HF_CONT`| Toggle continuous haptic mode on/off                  |
+|`QK_HAPTIC_CONTINUOUS_UP`    |`HF_CONU`| Increase DRV2605L continous haptic strength           |
+|`QK_HAPTIC_CONTINUOUS_DOWN`  |`HF_COND`| Decrease DRV2605L continous haptic strength           |
+|`QK_HAPTIC_DWELL_UP`         |`HF_DWLU`| Increase Solenoid dwell time                          |
+|`QK_HAPTIC_DWELL_DOWN`       |`HF_DWLD`| Decrease Solenoid dwell time                          |
 
 ### Solenoids
 
-First you will need a build a circuit to drive the solenoid through a mosfet as most MCU will not be able to provide the current needed to drive the coil in the solenoid.
+The solenoid code supports relay switches, and similar hardware, as well as solenoids. 
+
+For a regular solenoid,  you will need a build a circuit to drive the solenoid through a mosfet as most MCU will not be able to provide the current needed to drive the coil in the solenoid.
 
 [Wiring diagram provided by Adafruit](https://cdn-shop.adafruit.com/product-files/412/solenoid_driver.pdf)
 
+For relay switches, the hardware may already contain all of that ciruitry, and just require VCC, GND and a data pin.
 
-| Settings                   | Default              | Description                                           |
-|----------------------------|----------------------|-------------------------------------------------------|
-|`SOLENOID_PIN`              | *Not defined*        |Configures the pin that the Solenoid is connected to.  |
-|`SOLENOID_DEFAULT_DWELL`    | `12` ms              |Configures the default dwell time for the solenoid.    |
-|`SOLENOID_MIN_DWELL`        | `4` ms               |Sets the lower limit for the dwell.                    |
-|`SOLENOID_MAX_DWELL`        | `100` ms             |Sets the upper limit for the dwell.                    |
-|`SOLENOID_DWELL_STEP_SIZE`  | `1` ms               |The step size to use when `HPT_DWL*` keycodes are sent |
-|`SOLENOID_DEFAULT_BUZZ`     | `0` (disabled)       |On HPT_RST buzz is set "on" if this is "1"             |
-|`SOLENOID_BUZZ_ACTUATED`    | `SOLENOID_MIN_DWELL` |Actuated-time when the solenoid is in buzz mode        |
-|`SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` |Non-Actuated-time when the solenoid is in buzz mode    |
+| Settings                   | Default              | Description                                                  |
+|----------------------------|----------------------|--------------------------------------------------------------|
+|`SOLENOID_PIN`              | *Not defined*        |Configures the pin that the switch  is connected to.          |
+|`SOLENOID_PIN_ACTIVE_LOW`   | *Not defined*        |If defined then the switch trigger pin is active low.         |
+|`SOLENOID_PINS`             | *Not defined*        |Configures an array of pins to be used for switch activation. |
+|`SOLENOID_PINS_ACTIVE_LOW`  | *Not defined*        |Allows you to specify how each pin is pulled for activation.  |
+|`SOLENOID_RANDOM_FIRE`      | *Not defined*        |When there are multiple solenoids, will select a random one to fire.|
+|`SOLENOID_DEFAULT_DWELL`    | `12` ms              |Configures the default dwell time for the switch.             |
+|`SOLENOID_MIN_DWELL`        | `4` ms               |Sets the lower limit for the dwell.                           |
+|`SOLENOID_MAX_DWELL`        | `100` ms             |Sets the upper limit for the dwell.                           |
+|`SOLENOID_DWELL_STEP_SIZE`  | `1` ms               |The step size to use when `HF_DWL*` keycodes are sent.        |
+|`SOLENOID_DEFAULT_BUZZ`     | `0` (disabled)       |On `HF_RST` buzz is set "on" if this is "1"                   |
+|`SOLENOID_BUZZ_ACTUATED`    | `SOLENOID_MIN_DWELL` |Actuated-time when the switch is in buzz mode.                |
+|`SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` |Non-Actuated-time when the switch is in buzz mode.            |
 
 * If solenoid buzz is off, then dwell time is how long the "plunger" stays activated. The dwell time changes how the solenoid sounds.
 * If solenoid buzz is on, then dwell time sets the length of the buzz, while `SOLENOID_BUZZ_ACTUATED` and `SOLENOID_BUZZ_NONACTUATED` set the (non-)actuation times withing the buzz period.
@@ -153,12 +173,12 @@ List of waveform sequences from the datasheet:
 ```
 #define DRV_GREETING *sequence name or number*
 ```
-If haptic feedback is enabled, the keyboard will vibrate to a specific sqeuence during startup. That can be selected using the following define:
+If haptic feedback is enabled, the keyboard will vibrate to a specific sequence during startup. That can be selected using the following define:
 
 ```
 #define DRV_MODE_DEFAULT *sequence name or number*
 ```
-This will set what sequence HPT_RST will set as the active mode. If not defined, mode will be set to 1 when HPT_RST is pressed.
+This will set what sequence `HF_RST` will set as the active mode. If not defined, mode will be set to 1 when `HF_RST` is pressed.
 
 ### DRV2605L Continuous Haptic Mode
 
@@ -170,14 +190,12 @@ The Haptic Exclusion is implemented as `__attribute__((weak)) bool get_haptic_en
 ### NO_HAPTIC_MOD
 With the entry of `#define NO_HAPTIC_MOD` in config.h, the following keys will not trigger feedback:
 
-* Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTRL`)
+* Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTL`)
 * `MO()` momentary keys. See also [Layers](feature_layers.md).
+* `LM()` momentary keys with mod active.
 * `LT()` layer tap keys, when held to activate a layer. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered.
 * `TT()` layer tap toggle keys, when held to activate a layer. However when tapped `TAPPING_TOGGLE` times to permanently toggle the layer, on the last tap haptic feedback is still triggered.
 * `MT()` mod tap keys, when held to keep a usual modifier key pressed. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered. See also [Mod-Tap](mod_tap.md).
-
-### NO_HAPTIC_FN
-With the entry of `#define NO_HAPTIC_FN` in config.h, deprecated `fn_actions` type function keys will not trigger a feedback.
 
 ### NO_HAPTIC_ALPHA
 With the entry of `#define NO_HAPTIC_ALPHA` in config.h, none of the alpha keys (A ... Z) will trigger a feedback.

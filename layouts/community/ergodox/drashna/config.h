@@ -28,7 +28,7 @@
 #endif  // RGBLIGHT_ENABLE
 
 #undef PRODUCT
-#define PRODUCT DrashnaDox - Hacked ErgoDox EZ Hybrid Monstrosity
+#define PRODUCT "DrashnaDox - Hacked ErgoDox EZ Hybrid Monstrosity"
 
 #undef DEBOUNCE
 #define DEBOUNCE 20
@@ -45,6 +45,7 @@
 #    endif
 #endif
 
-#define PIMORONI_TRACKBALL_INVERT_X
-#define PIMORONI_TRACKBALL_INVERT_Y
-#define PIMORONI_TRACKBALL_CLICK
+#ifdef TAPPING_TERM
+#    undef TAPPING_TERM
+#endif
+#define TAPPING_TERM 185

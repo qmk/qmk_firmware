@@ -15,14 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include "hal.h"
-#include "timer.h"
-#include "wait.h"
-#include "debug.h"
-#include "matrix.h"
+#include "quantum.h"
+
+typedef uint16_t matrix_col_t;
 
 /*
  *     col: { B11, B10, B2, B1, A7, B0 }
@@ -30,7 +25,7 @@
  */
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_COLS];
+static matrix_col_t matrix_debouncing[MATRIX_COLS];
 static bool         debouncing      = false;
 static uint16_t     debouncing_time = 0;
 
@@ -38,9 +33,13 @@ __attribute__((weak)) void matrix_init_user(void) {}
 
 __attribute__((weak)) void matrix_scan_user(void) {}
 
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+__attribute__((weak)) void matrix_init_kb(void) {
+    matrix_init_user();
+}
 
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+__attribute__((weak)) void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
 
 void matrix_init(void) {
     dprintf("matrix init\n");
@@ -66,7 +65,7 @@ void matrix_init(void) {
     palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLDOWN);
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
+    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_col_t));
 
     matrix_init_quantum();
 }
@@ -74,7 +73,7 @@ void matrix_init(void) {
 uint8_t matrix_scan(void) {
     // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {
-        matrix_row_t data = 0;
+        matrix_col_t data = 0;
 
         // strobe col { B11, B10, B2, B1, A7, B0 }
         switch (col) {
@@ -148,9 +147,13 @@ uint8_t matrix_scan(void) {
     return 1;
 }
 
-bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col)); }
+bool matrix_is_on(uint8_t row, uint8_t col) {
+    return (matrix[row] & (1 << col));
+}
 
-matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
+matrix_row_t matrix_get_row(uint8_t row) {
+    return matrix[row];
+}
 
 void matrix_print(void) {
     dprintf("\nr/c 01234567\n");

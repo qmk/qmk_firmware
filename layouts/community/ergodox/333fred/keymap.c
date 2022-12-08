@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,                                         _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, KC_BTN1, KC_BTN2,                                                           _______, _______, _______, _______, _______,
-                                                             BL_INC,  BL_DEC,      KC_VOLU, _______,
+                                                             BL_UP,   BL_DOWN,     KC_VOLU, _______,
                                                                       BL_TOGG,     KC_VOLD,
                                                     _______, _______, _______,     KC_MPRV, KC_MPLY, KC_MNXT
 ),
@@ -220,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
         KC_LCTL, _______, _______, _______, _______, _______,                                              _______, _______, _______, _______, _______, _______,
         KC_LSFT, KC_Z,    _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
-        KC_ENT,  _______, _______, KC_LOCK, KC_BSPC,                                                                _______, _______, _______, _______, _______,
+        KC_ENT,  _______, _______, QK_LOCK, KC_BSPC,                                                                _______, _______, _______, _______, _______,
                                                               KC_F5,   KC_F6,         LCTL(KC_C), LCTL(KC_V),
                                                                        _______,       KC_UP,
                                                      KC_LALT, KC_SPC,  OSM(SYMB),     KC_DOWN,    _______, _______
@@ -254,7 +254,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_UP,   _______,  _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
         KC_LCTL, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                                              _______, _______, _______, _______, _______, _______,
         KC_LSFT, KC_Z,    _______, _______,  _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
-        KC_ENT,  _______, _______, KC_LOCK,  KC_BSPC,                                                                _______, _______, _______, _______, _______,
+        KC_ENT,  _______, _______, QK_LOCK,  KC_BSPC,                                                                _______, _______, _______, _______, _______,
                                                                KC_F5,   KC_F6,         LCTL(KC_C), LCTL(KC_V),
                                                                         _______,       KC_UP,
                                                       KC_LALT, KC_SPC,  OSM(SYMB),     KC_DOWN,    _______, _______
@@ -272,3 +272,43 @@ void matrix_scan_user(void) {
     ergodox_led_all_on();
 }
 
+#ifdef ST7565_ENABLE
+
+void st7565_task_user(void) {
+    // The colors will need to be ported over to the quantum painter API when
+    // https://github.com/qmk/qmk_firmware/pull/10174 is merged.
+
+    st7565_clear();
+    switch (get_highest_layer(layer_state)) {
+        case BASE:
+            //state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
+            st7565_write_P(PSTR("Default\n"), false);
+            break;
+        case CODEFLOW:
+            //state->target_lcd_color = LCD_COLOR(216, 90, 0xFF);
+            st7565_write_P(PSTR("Code\n"), false);
+            break;
+        case SYMB:
+            //state->target_lcd_color = LCD_COLOR(168, saturation, 0xFF);
+            st7565_write_P(PSTR("Symbol\n"), false);
+            break;
+        case MDIA:
+            //state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
+            st7565_write_P(PSTR("Media\n"), false);
+            break;
+        case VIM:
+            //state->target_lcd_color = LCD_COLOR(140, 100, 60);
+            st7565_write_P(PSTR("Movement\n"), false);
+            break;
+        case GAME:
+            //state->target_lcd_color = LCD_COLOR(0, 255, 60);
+            st7565_write_P(PSTR("Game\n"), false);
+            break;
+        case GAME_ARROW:
+            //state->target_lcd_color = LCD_COLOR(0, 255, 60);
+            st7565_write_P(PSTR("Game Arrow\n"), false);
+            break;
+    }
+}
+
+#endif

@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P1,   KC_P2,   KC_P3
     ),
     [1] = LAYOUT_ortho_4x3( /* Layer 1 */
-        RESET,   _______, XXXXXXX,
+        QK_BOOT, _______, XXXXXXX,
         AU_ON,   AU_OFF,  XXXXXXX,
         CK_TOGG, XXXXXXX, CK_UP,
         CK_RST,  XXXXXXX, CK_DOWN
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_TOG, RGB_MOD, _______,
         RGB_HUI, RGB_SAI, RGB_VAI,
         RGB_HUD, RGB_SAD, RGB_VAD,
-        HPT_TOG, HPT_FBK, HPT_CONT
+        HF_TOGG, HF_FDBK, HF_CONT
     )
 };
 
@@ -78,10 +78,10 @@ void render_user_status(void) {
 
 void keyboard_post_init_user(void) { oled_scroll_set_speed(0); }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_asleep) {
         oled_off();
-        return;
+        return false;;
     }
 
     if (timer_elapsed32(oled_timer) < 30000) {
@@ -131,6 +131,7 @@ void oled_task_user(void) {
             oled_off();
         }
     }
+    return false;
 }
 
 void suspend_power_down_user(void) { is_asleep = true; }

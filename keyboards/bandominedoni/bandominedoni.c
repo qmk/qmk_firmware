@@ -117,35 +117,3 @@ static enum { UNKNOWN, LEFT, RIGHT } hand_side = UNKNOWN;
         return (hand_side == LEFT);
     }
 }
-
-#ifdef ENCODER_ENABLE
-const uint16_t rt_matrix[2][2] = {
-    {5, 5}, {5, 6}
-};
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (index == 1) { /* An encoder on the right side */
-        keypos_t key;
-        int cw = 0;
-        cw = clockwise ? 1 : 0;
-        key.row = rt_matrix[cw][0];
-        key.col = rt_matrix[cw][1];
-        uint8_t layer = layer_switch_get_layer(key);
-        uint16_t keycode = keymap_key_to_keycode(layer, key);
-        keyrecord_t record;
-        record.event.key = key;
-
-        if (keycode < MI_ON){
-            tap_code16(keycode);
-        } else {
-            record.event.pressed = true;
-            process_midi(keycode, &record);
-            wait_ms(TAP_CODE_DELAY);
-            record.event.pressed = false;
-            process_midi(keycode, &record);
-        }
-
-    }
-    return true;
-}
-#endif  // ENCODER_ENABLE

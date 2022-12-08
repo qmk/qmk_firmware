@@ -16,23 +16,22 @@
 
 #include QMK_KEYBOARD_H
 
-enum layer {
-    LAYER_DEFAULT,
-    LAYER_FUNCTION,
-};
+#include "bcat.h"
 
-#define LY_FUNC MO(LAYER_FUNCTION)
-#define KY_LOCK LCA(KC_L) /* Cinnamon lock screen */
+#define KY_LOCK LGUI(KC_L) /* Chrome OS: Lock screen */
+#define KY_MICM LSG(KC_1)  /* Meet Shortcuts: Mute mic */
+#define KY_MICU LSG(KC_2)  /* Meet Shortcuts: Unmute mic */
+#define KY_RHAND LSG(KC_3) /* Meet Shortcuts: Raise/lower hand */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [LAYER_DEFAULT] = LAYOUT(
-        KC_MPLY,  KC_VOLU,  KC_MSTP,
-        KC_MPRV,  KC_VOLD,  KC_MNXT,
-        KY_LOCK,  KC_MUTE,  LY_FUNC
+        KC_MPLY,  KC_VOLU,  KY_RHAND,
+        KY_LOCK,  KC_VOLD,  KY_MICU,
+        LY_FN1,   KC_MUTE,  KY_MICM
     ),
-    [LAYER_FUNCTION] = LAYOUT(
-        EEP_RST,  _______,  RESET,
+    [LAYER_FUNCTION_1] = LAYOUT(
+        EE_CLR,   _______,  QK_BOOT,
         _______,  _______,  _______,
         _______,  _______,  _______
     ),

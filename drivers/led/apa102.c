@@ -20,15 +20,15 @@
 
 #ifndef APA102_NOPS
 #    if defined(__AVR__)
-#        define APA102_NOPS 0  // AVR at 16 MHz already spends 62.5 ns per clock, so no extra delay is needed
+#        define APA102_NOPS 0 // AVR at 16 MHz already spends 62.5 ns per clock, so no extra delay is needed
 #    elif defined(PROTOCOL_CHIBIOS)
 
 #        include "hal.h"
-#        if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX)
-#            define APA102_NOPS (100 / (1000000000L / (STM32_SYSCLK / 4)))  // This calculates how many loops of 4 nops to run to delay 100 ns
+#        if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(GD32VF103)
+#            define APA102_NOPS (100 / (1000000000L / (CPU_CLOCK / 4))) // This calculates how many loops of 4 nops to run to delay 100 ns
 #        else
 #            error("APA102_NOPS configuration required")
-#            define APA102_NOPS 0  // this just pleases the compile so the above error is easier to spot
+#            define APA102_NOPS 0 // this just pleases the compile so the above error is easier to spot
 #        endif
 #    endif
 #endif
@@ -72,7 +72,9 @@ void apa102_setleds(LED_TYPE *start_led, uint16_t num_leds) {
 }
 
 // Overwrite the default rgblight_call_driver to use apa102 driver
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { apa102_setleds(start_led, num_leds); }
+void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
+    apa102_setleds(start_led, num_leds);
+}
 
 void static apa102_init(void) {
     setPinOutput(RGB_DI_PIN);

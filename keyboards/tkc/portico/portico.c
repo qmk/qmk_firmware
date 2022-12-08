@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, C2_1,  C3_1,  C4_1  },
     { 0, C1_1,  C3_2,  C4_2  },
     { 0, C1_2,  C2_2,  C4_3  },
@@ -115,25 +115,20 @@ led_config_t g_led_config = {
     }
 };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
 	if (host_keyboard_led_state().caps_lock) {
 		rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
 	}
-	else { 
+	else {
 		rgb_matrix_set_color(30, 0x00, 0x00, 0x00);
 	}
 	if (!rgb_matrix_is_enabled()) {
 		rgb_matrix_driver.flush();
     }
+    return true;
 }
 #endif
+

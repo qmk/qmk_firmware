@@ -23,7 +23,7 @@ bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
 
 void render_layout_state(void) {
   oled_write_P(PSTR("Layout: "), false);
-  switch (biton32(default_layer_state)) {
+  switch (get_highest_layer(default_layer_state)) {
       case _COLEMAK:
         oled_write_P(PSTR("Colemak"), false);
         break;
@@ -90,10 +90,10 @@ static void render_logo(void) {
   oled_write_P(qmk_logo, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 15000) {
         oled_off();
-        return;
+        return false;
     }
     #ifndef SPLIT_KEYBOARD
     else { oled_on(); }
@@ -106,6 +106,7 @@ void oled_task_user(void) {
         oled_write_P(PSTR("\n"), false);
         oled_scroll_left();
     }
+    return false;
 }
 
 #endif

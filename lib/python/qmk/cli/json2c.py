@@ -1,12 +1,11 @@
 """Generate a keymap.c from a configurator export.
 """
-import json
-
 from argcomplete.completers import FilesCompleter
 from milc import cli
 
 import qmk.keymap
 import qmk.path
+from qmk.commands import parse_configurator_json
 
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
@@ -19,21 +18,15 @@ def json2c(cli):
     This command uses the `qmk.keymap` module to generate a keymap.c from a configurator export. The generated keymap is written to stdout, or to a file if -o is provided.
     """
 
-    try:
-        # Parse the configurator from json file (or stdin)
-        user_keymap = json.load(cli.args.filename)
-
-    except json.decoder.JSONDecodeError as ex:
-        cli.log.error('The JSON input does not appear to be valid.')
-        cli.log.error(ex)
-        return False
+    # Parse the configurator from json file (or stdin)
+    user_keymap = parse_configurator_json(cli.args.filename)
 
     # Environment processing
     if cli.args.output and cli.args.output.name == '-':
         cli.args.output = None
 
     # Generate the keymap
-    keymap_c = qmk.keymap.generate_c(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
+    keymap_c = qmk.keymap.generate_c(user_keymap)
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)

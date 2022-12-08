@@ -20,12 +20,12 @@ One thing to remember, is that you have to append `extern "C"` around all of you
 
 ## Adding Tests for New or Existing Features
 
-If you want to unit test some feature, then take a look at the existing serial_link tests, in the `quantum/serial_link/tests folder`, and follow the steps below to create a similar structure.
+If you want to unit test a feature, take a look at some of the existing tests, for example those in the `quantum/sequencer/tests` folder. Then follow the steps below to create a similar structure.
 
 1. If it doesn't already exist, add a test subfolder to the folder containing the feature.
 2. Create a `testlist.mk` and a `rules.mk` file in that folder.
 3. Include those files from the root folder `testlist.mk`and `build_test.mk` respectively.
-4. Add a new name for your testgroup to the `testlist.mk` file. Each group defined there will be a separate executable. And that's how you can support mocking out different parts. Note that it's worth adding some common prefix, just like it's done for the serial_link tests. The reason for that is that the make command allows substring filtering, so this way you can easily run a subset of the tests.
+4. Add a new name for your testgroup to the `testlist.mk` file. Each group defined there will be a separate executable. And that's how you can support mocking out different parts. Note that it's worth adding some common prefix, just like it's done for the existing tests. The reason for that is that the make command allows substring filtering, so this way you can easily run a subset of the tests.
 5. Define the source files and required options in the `rules.mk` file.
    * `_SRC` for source files
    * `_DEFS` for additional defines
@@ -44,7 +44,7 @@ If there are problems with the tests, you can find the executable in the `./buil
 
 To forward any [debug messages](unit_testing.md#debug-api) to `stderr`, the tests can run with `DEBUG=1`. For example
 
-```console
+```
 make test:all DEBUG=1
 ```
 

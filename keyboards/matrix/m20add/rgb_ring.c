@@ -30,7 +30,7 @@
 #endif
 // rgb ring leds setting
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -373,7 +373,7 @@ void rgb_ring_init(void)
 {
     i2c_init();
     IS31FL3731_init(DRIVER_ADDR_1);
-    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
+    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
         bool enabled = true;
         IS31FL3731_set_led_control_register(index, enabled, enabled, enabled);
     }

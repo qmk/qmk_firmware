@@ -18,9 +18,12 @@
 
 #include "quantum.h"
 
-
-#if   defined(KEYBOARD_keychron_q1_rev_0100)
-#    include "rev_0100.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0102)
-#    include "rev_0102.h"
+#if   defined(KEYBOARD_keychron_q1_ansi)
+#    include "ansi.h"
+#elif defined(KEYBOARD_keychron_q1_ansi_encoder)
+#    include "ansi_encoder.h"
+#elif defined(KEYBOARD_keychron_q1_iso)
+#    include "iso.h"
+#elif defined(KEYBOARD_keychron_q1_iso_encoder)
+#    include "iso_encoder.h"
 #endif

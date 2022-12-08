@@ -11,7 +11,8 @@ from milc.questions import yesno
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
-from qmk.commands import git_check_repo, git_get_branch, git_is_dirty, git_get_remotes, git_check_deviation, in_virtualenv
+from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_get_last_log_entry, git_get_common_ancestor, git_is_dirty, git_get_remotes, git_check_deviation
+from qmk.commands import in_virtualenv
 
 
 def os_tests():
@@ -47,6 +48,11 @@ def git_tests():
         git_branch = git_get_branch()
         if git_branch:
             cli.log.info('Git branch: %s', git_branch)
+
+            repo_version = git_get_tag()
+            if repo_version:
+                cli.log.info('Repo version: %s', repo_version)
+
             git_dirty = git_is_dirty()
             if git_dirty:
                 cli.log.warning('{fg_yellow}Git has unstashed/uncommitted changes.')
@@ -60,8 +66,30 @@ def git_tests():
                 if git_branch in ['master', 'develop'] and git_deviation:
                     cli.log.warning('{fg_yellow}The local "%s" branch contains commits not found in the upstream branch.', git_branch)
                     status = CheckStatus.WARNING
+                for branch in [git_branch, 'upstream/master', 'upstream/develop']:
+                    cli.log.info('- Latest %s: %s', branch, git_get_last_log_entry(branch))
+                for branch in ['upstream/master', 'upstream/develop']:
+                    cli.log.info('- Common ancestor with %s: %s', branch, git_get_common_ancestor(branch, 'HEAD'))
 
     return status
+
+
+def output_submodule_status():
+    """Prints out information related to the submodule status.
+    """
+    cli.log.info('Submodule status:')
+    sub_status = submodules.status()
+    for s in sub_status.keys():
+        sub_info = sub_status[s]
+        if 'name' in sub_info:
+            sub_name = sub_info['name']
+            sub_shorthash = sub_info['shorthash'] if 'shorthash' in sub_info else ''
+            sub_describe = sub_info['describe'] if 'describe' in sub_info else ''
+            sub_last_log_timestamp = sub_info['last_log_timestamp'] if 'last_log_timestamp' in sub_info else ''
+            if sub_last_log_timestamp != '':
+                cli.log.info(f'- {sub_name}: {sub_last_log_timestamp} -- {sub_describe} ({sub_shorthash})')
+            else:
+                cli.log.error(f'- {sub_name}: <<< missing or unknown >>>')
 
 
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
@@ -122,6 +150,8 @@ def doctor(cli):
             status = CheckStatus.ERROR
         elif sub_ok == CheckStatus.WARNING and status == CheckStatus.OK:
             status = CheckStatus.WARNING
+
+    output_submodule_status()
 
     # Report a summary of our findings to the user
     if status == CheckStatus.OK:

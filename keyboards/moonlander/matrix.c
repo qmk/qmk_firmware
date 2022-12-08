@@ -102,9 +102,9 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             print("trying to reset mcp23018\n");
             mcp23018_init();
             if (!mcp23018_initd) {
-                print("left side not responding\n");
+                print("right side not responding\n");
             } else {
-                print("left side attached\n");
+                print("right side attached\n");
 #ifdef RGB_MATRIX_ENABLE
                 rgb_matrix_init();
 #endif
@@ -226,4 +226,8 @@ void matrix_power_up(void) {
         matrix[i] = 0;
     }
 
+}
+
+bool is_transport_connected(void) {
+    return mcp23018_initd;
 }

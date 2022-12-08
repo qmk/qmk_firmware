@@ -6,4 +6,4 @@
 60% Keymap for XD60 with GH60 ANSI layout. Arrow keys mapped to WASD in function layer.
 
 ## Build
-To build the default keymap, simply run `make xd60:supercoffee`.
+To build the default keymap, simply run `make xiudi/xd60:supercoffee`.

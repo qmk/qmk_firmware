@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |EEPRST|      |      |      |                              |      |      |      |      |      | F12    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LSHIFT | TAB  | RESET|      |      |      |      |      |  |      |      | Play |      |      |      |      |        |
+ * | LSHIFT | TAB  | QK_BOOT|      |      |      |      |      |  |      |      | Play |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      | Space|  | MYCM | Prev | Next  |      |      |
  *                        |      |      | Ctrl | LAlt |      |  | Raise|      |      |      |      |
@@ -85,8 +85,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [RAISE] = LAYOUT(
       KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-      KC_NO,   KC_NO,   EEP_RST, KC_NO,   KC_NO,   KC_NO,                                       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F12,
-      KC_LSFT, KC_TAB,  RESET,   KC_NO,   KC_NO,   KC_NO,   _______, _______, _______, _______, KC_MPLY, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      KC_NO,   KC_NO,   EE_CLR,  KC_NO,   KC_NO,   KC_NO,                                       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F12,
+      KC_LSFT, KC_TAB,  QK_BOOT, KC_NO,   KC_NO,   KC_NO,   _______, _______, _______, _______, KC_MPLY, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                  _______, _______, _______, _______, KC_SPC , KC_MPRV, KC_MNXT, _______, _______, _______
     ),
 /*
@@ -231,11 +231,12 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_kyria_logo();
     }
+    return false;
 }
 #endif

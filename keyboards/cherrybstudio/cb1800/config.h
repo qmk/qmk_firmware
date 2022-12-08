@@ -15,13 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4342 // CB
-#define PRODUCT_ID      0x1818
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CherryB.Studio
-#define PRODUCT         CB1800
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 11
@@ -39,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7, C6, C7 }
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D4, D5, D6, D7, F0, F1, F4 }
-//#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -48,15 +40,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN F5
 #define LED_NUM_LOCK_PIN F6
 #define LED_SCROLL_LOCK_PIN F7
-
+#define LED_PIN_ON_STATE 0
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
-#    define RGBLIGHT_ANIMATIONS
-#    define RGBLED_NUM 20 
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE
+#    define RGBLED_NUM 20
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8

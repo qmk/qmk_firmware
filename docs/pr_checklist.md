@@ -8,7 +8,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 - PR should be submitted using a non-`master` branch on the source repository
     - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
-    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](https://docs.qmk.fm/#/newbs_git_using_your_master_branch) page after merging -- (end of this document will contain the contents of the message)
+    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
 - newly-added directories and filenames must be lowercase
     - this rule may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
     - if there is valid justification (i.e. consistency with existing core files etc.) this can be relaxed
@@ -24,7 +24,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
     - no "old-school" or other low-level GPIO/I2C/SPI functions may be used -- must use QMK abstractions unless justifiable (and laziness is not valid justification)
     - timing abstractions should be followed too:
         - `wait_ms()` instead of `_delay_ms()` (remove `#include <util/delay.h>` too)
-        - `timer_read()` and `timer_read32()` etc. -- see [timer.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/timer.h) for the timing APIs
+        - `timer_read()` and `timer_read32()` etc. -- see [timer.h](https://github.com/qmk/qmk_firmware/blob/master/platforms/timer.h) for the timing APIs
     - if you think a new abstraction is useful, you're encouraged to:
         - prototype it in your own keyboard until it's feature-complete
         - discuss it with QMK Collaborators on Discord
@@ -46,23 +46,33 @@ Closed PRs (for inspiration, previous sets of review comments will help you elim
 https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
 - `info.json`
-    - valid URL
-    - valid maintainer
-    - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
+    - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
+    - the mandatory elements for a minimally complete `info.json` at present are:
+        - valid URL
+        - valid maintainer
+        - valid USB VID/PID and device version
+        - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
+        - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
+            - should use standard definitions if applicable
+            - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
 - `readme.md`
-    - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/avr/readme.md)
+    - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
     - valid hardware availability link (unless handwired) -- private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
     - clear instructions on how to reset the board into bootloader mode
     - a picture about the keyboard and preferably about the PCB, too
         - images are not to be placed in the `qmk_firmware` repository
         - images should be uploaded to an external image hosting service, such as [imgur](https://imgur.com/).
+        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. `https://i.imgur.com/vqgE7Ok.jpg` becomes `https://i.imgur.com/vqgE7Okh.jpg`
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
     - no `(-/+size)` comments related to enabling features
     - remove the list of alternate bootloaders if one has been specified
-    - no re-definitions of the default MCU parameters if same value, when compared to the equivalent MCU in [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/quantum/mcu_selection.mk)
+    - no re-definitions of the default MCU parameters if same value, when compared to the equivalent MCU in [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/builddefs/mcu_selection.mk)
+    - no "keymap only" features enabled
+      - `COMBO_ENABLE`
+      - `ENCODER_MAP_ENABLE`
 - keyboard `config.h`
     - don't repeat `MANUFACTURER` in the `PRODUCT` value
     - no `#define DESCRIPTION`
@@ -75,14 +85,15 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - Vial-related files or changes will not be accepted, as they are not used by QMK firmware (no Vial-specific core code has been submitted or merged)
 - `<keyboard>.c`
     - empty `xxxx_xxxx_kb()` or other weak-defined default implemented functions removed
+    - empty `xxxx_xxxx_user()` or other user-level functions are disallowed at the keyboard level and must be moved to keymaps
     - commented-out functions removed too
-    - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](https://docs.qmk.fm/#/custom_quantum_functions?id=keyboard_pre_init_-function-documentation)
-    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](https://docs.qmk.fm/#/custom_matrix?id=lite)
-    - prefer LED indicator [Configuration Options](https://docs.qmk.fm/#/feature_led_indicators?id=configuration-options) to custom `led_update_*()` implementations where possible
+    - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
+    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
+    - prefer LED indicator [Configuration Options](feature_led_indicators.md?id=configuration-options) to custom `led_update_*()` implementations where possible
+    - Encoder support should not require any keyboard-level code, and associated keymaps should now leverage the [Encoder Map](feature_encoders.md?id=encoder-map) feature instead.
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
-    - `LAYOUT` macros should use standard definitions if applicable
-        - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
+    - `LAYOUT` macros should be moved to `info.json`
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
@@ -101,20 +112,31 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
+- Do not include KLE json files in the PR. These have no use within QMK.
+- Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine.
+  - For instance, only `wilba_tech` boards shall include `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine for any and all boards.
+  - Code that needs to be used by multiple boards is a candidate for core code changes, and should be separated out.
 
 Also, specific to ChibiOS:
 - **strong** preference to using existing ChibiOS board definitions.
     - a lot of the time, an equivalent Nucleo board can be used with a different flash size or slightly different model in the same family
         - example: For an STM32L082KZ, given the similarity to an STM32L073RZ, you can use `BOARD = ST_NUCLEO64_L073RZ` in rules.mk
     - QMK is migrating to not having custom board definitions if at all possible, due to the ongoing maintenance burden when upgrading ChibiOS
+- New board definitions must not be embedded in a keyboard PR
+    - See [Core PRs](#core-pr) below for the procedure for adding a new board to QMK
 - if a board definition is unavoidable, `board.c` must have a standard `__early_init()` (as per normal ChibiOS board defs) and an empty `boardInit()`:
-    - see Arm/ChibiOS [early initialization](https://docs.qmk.fm/#/platformdev_chibios_earlyinit?id=board-init)
+    - see Arm/ChibiOS [early initialization](platformdev_chibios_earlyinit.md?id=board-init)
     - `__early_init()` should be replaced by either `early_hardware_init_pre()` or `early_hardware_init_post()` as appropriate
     - `boardInit()` should be migrated to `board_init()`
 
-## Core PRs
+## Core PRs :id=core-pr
 
 - must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
+- any new boards adding support for new hardware now requires a corresponding test board under `keyboards/handwired/onekey`
+    - for new MCUs, a new "child" keyboard should be added that targets your newly-added MCU, so that builds can be verified
+    - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided
+    - if an existing keymap exists that can leverage this functionality this may not be required (e.g. a new RGB driver chip, supported by the `rgb` keymap) -- consult with the QMK Collaborators on Discord to determine if there is sufficient overlap already
+- any features adding `_kb`/`_user` callbacks must return a `bool`, to allow for user override of keyboard-level callbacks.
 - other requirements are at the discretion of QMK collaborators
     - core is a lot more subjective given the breadth of posted changes
 

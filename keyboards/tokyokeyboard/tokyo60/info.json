@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Tokyo60",
+    "manufacturer": "Tokyo Keyboard",
     "url": "https://tokyokeyboard.com/",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5436",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_hhkb": {
             "layout": [{

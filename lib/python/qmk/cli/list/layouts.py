@@ -13,6 +13,11 @@ from qmk.info import info_json
 def list_layouts(cli):
     """List the layouts for a specific keyboard
     """
+    if not cli.config.list_layouts.keyboard:
+        cli.log.error('Missing required arguments: --keyboard')
+        cli.subcommands['list-layouts'].print_help()
+        return False
+
     info_data = info_json(cli.config.list_layouts.keyboard)
     for name in sorted(info_data.get('community_layouts', [])):
         print(name)

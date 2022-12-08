@@ -1,24 +1,20 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
 // because layouts seem to not be respecting config.h order atm
 #ifdef RGBLIGHT_ENABLE
-#    undef RGBLIGHT_ANIMATIONS
+#    undef RGBLIGHT_EFFECT_BREATHING
+#    undef RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    undef RGBLIGHT_EFFECT_SNAKE
+#    undef RGBLIGHT_EFFECT_KNIGHT
+#    undef RGBLIGHT_EFFECT_CHRISTMAS
+#    undef RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    undef RGBLIGHT_EFFECT_RGB_TEST
+#    undef RGBLIGHT_EFFECT_ALTERNATING
+#    undef RGBLIGHT_EFFECT_TWINKLE
 #    if defined(__AVR__) && (!defined(__AVR_AT90USB1286__) && !defined(RGBLIGHT_ALL_ANIMATIONS))
 #        define RGBLIGHT_EFFECT_BREATHING
 #        define RGBLIGHT_EFFECT_SNAKE
@@ -47,13 +43,9 @@
 #            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #        endif
 #    endif
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
+#    undef RGB_MATRIX_DEFAULT_MODE
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_REST_MODE
 #endif
-
-#ifdef QMK_KEYS_PER_SCAN
-#    undef QMK_KEYS_PER_SCAN
-#endif
-#define QMK_KEYS_PER_SCAN 4
 
 #ifdef MOUSEKEY_ENABLE
 // mouse movement config
@@ -131,9 +123,21 @@
 #    endif
 #endif  // MOUSEKEY_ENABLE
 
-#if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
-#    define LAYER_STATE_16BIT
+#define MOUSE_EXTENDED_REPORT
+
+#ifndef TAPPING_TERM
+#    define TAPPING_TERM 175
 #endif
-#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 11
+
+#if (__has_include("../../../qmk_secrets/config.h") && !defined(NO_SECRETS))
+#    include "../../../qmk_secrets/config.h"
+#endif
+
+#if defined(SPLIT_KEYBOARD) && defined(PROTOCOL_CHIBIOS) && !defined(USB_SUSPEND_WAKEUP_DELAY)
+#    define USB_SUSPEND_WAKEUP_DELAY 200
+#endif
+
+#ifdef XAP_ENABLE
+#    undef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 12
 #endif

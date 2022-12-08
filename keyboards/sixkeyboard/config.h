@@ -15,17 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x746B
-#define PRODUCT_ID      0x736B
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    techkeys.us
-#define PRODUCT         sixkeykeyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -33,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 0
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -63,7 +52,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 #define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-#endif

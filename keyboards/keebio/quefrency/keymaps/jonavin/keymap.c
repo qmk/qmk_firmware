@@ -25,14 +25,14 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_65(
-      KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_INS,
+      QK_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_INS,
       KC_PSCR, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC, KC_DEL,
       TT(_LOWER), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
       KC_LSFTCAPS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
       KC_LCTL, KC_LGUI, KC_LALT, LT(_FN1, KC_SPC), KC_SPC, KC_SPC, KC_SPC, KC_RALT, MO(_FN1), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
     [_FN1] = LAYOUT_65(
       KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_F13, KC_CALC, KC_NO,
-      RGB_TOG, RGB_MOD, RGB_VAI, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSCR, KC_SLCK, KC_PAUS, KC_NO, KC_NO, KC_NO, KC_NO, KC_DEL,
+      RGB_TOG, RGB_MOD, RGB_VAI, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSCR, KC_SCRL, KC_PAUS, KC_NO, KC_NO, KC_NO, KC_NO, KC_DEL,
       KC_CAPS, KC_NO, RGB_VAD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_HOME,
       KC_TRNS, KC_NO, RGB_HUI, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, RGB_MOD, KC_END,
       KC_TRNS, KC_WINLCK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_APP, RGB_SPD, RGB_RMOD, RGB_SPI),
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_P0, KC_PMNS, KC_PPLS,   KC_PSLS, KC_PEQL, KC_TRNS,
       KC_TAB, KC_HOME, KC_UP, KC_END, KC_PGUP, KC_NO, KC_NO, KC_P4, KC_P5, KC_P6, KC_NO, KC_NO, KC_NO,   KC_TRNS, KC_TRNS,
       KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_NO,   KC_TAB,  KC_P1,   KC_P2,   KC_P3,   KC_NO,   KC_PAST, KC_PENT, KC_HOME,
-      KC_TRNS, KC_NO,   KC_DEL,  KC_INS,  KC_NO,   KC_NO,   KC_NLCK, KC_P0,   KC_00,   KC_PDOT, KC_PSLS, KC_TRNS, RCTL(KC_PGUP), KC_END,
+      KC_TRNS, KC_NO,   KC_DEL,  KC_INS,  KC_NO,   KC_NO,   KC_NUM,  KC_P0,   KC_00,   KC_PDOT, KC_PSLS, KC_TRNS, RCTL(KC_PGUP), KC_END,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RCTL(KC_LEFT), RCTL(KC_PGDN), RCTL(KC_RIGHT)),
     [_RAISE] = LAYOUT_65(
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -89,6 +89,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     enum custom_rgblight_layers
     {
         _rgbCAPS,
+        _rgbNUMLOCK,
         _rgbWINLOCK,
         _rgbFN,
         _rgbNUMPAD,
@@ -98,7 +99,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     const rgblight_segment_t PROGMEM _rgb_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
         {14, 1, HSV_RED}       // Light 4 LEDs, starting with LED 6
     );
-    const rgblight_segment_t PROGMEM _rgb_winlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    const rgblight_segment_t PROGMEM _rgb_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+        {15, 1, HSV_BLUE}
+    );    const rgblight_segment_t PROGMEM _rgb_winlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
         {13, 1, HSV_PURPLE}       // Light 4 LEDs, starting with LED 6
     );
     const rgblight_segment_t PROGMEM _rgb_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -113,6 +116,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
     const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST(
         _rgb_capslock_layer,
+        _rgb_numlock_layer,
         _rgb_winlock_layer,
         _rgb_fn_layer,
         _rgb_numpad_layer
@@ -120,6 +124,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
     bool led_update_user(led_t led_state) {
         rgblight_set_layer_state(_rgbCAPS, led_state.caps_lock);
+
+        #ifdef INVERT_NUMLOCK_INDICATOR
+            rgblight_set_layer_state(_rgbNUMLOCK, !led_state.num_lock);   // inverse numlock indicator override
+        #else
+            rgblight_set_layer_state(_rgbNUMLOCK, led_state.num_lock);  // normal, light LED when numlock on
+        #endif // INVERT_NUMLOCK_INDICATOR
+
         rgblight_set_layer_state(_rgbWINLOCK, keymap_config.no_gui);
         return true;
     }

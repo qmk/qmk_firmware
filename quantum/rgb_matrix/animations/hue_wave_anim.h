@@ -11,7 +11,9 @@ static HSV HUE_WAVE_math(HSV hsv, uint8_t i, uint8_t time) {
     return hsv;
 }
 
-bool HUE_WAVE(effect_params_t* params) { return effect_runner_i(params, &HUE_WAVE_math); }
+bool HUE_WAVE(effect_params_t* params) {
+    return effect_runner_i(params, &HUE_WAVE_math);
+}
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_HUE_WAVE
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // DISABLE_RGB_HUE_WAVE

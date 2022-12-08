@@ -1,5 +1,6 @@
 {
     "keyboard_name": "dyz_TKL",
+    "manufacturer": "dyz",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/dyz_tkl",
     "maintainer": "dayatz",
     "diode_direction": "COL2ROW",
@@ -11,13 +12,22 @@
         "led_count": 25,
         "pin": "D1",
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "usb": {
         "vid": "0xD772",
         "pid": "0x000C",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -217,7 +227,7 @@
                 {"label":"\u2192", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_f13": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
@@ -411,7 +421,7 @@
                 {"label":"\u2192", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_iso_f13": {
+        "LAYOUT_tkl_f13_iso": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},

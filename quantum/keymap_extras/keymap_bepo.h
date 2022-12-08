@@ -237,4 +237,4 @@
 #define BP_DDAG S(ALGR(BP_H))    // ‡
 #define BP_FORD S(ALGR(BP_F))    // ª
 // Row 5
-#define BP_NNBS S(ALGR(BP_))     //   (narrow non-breaking space)
+#define BP_NNBS S(ALGR(KC_SPC))  //   (narrow non-breaking space)

@@ -109,7 +109,7 @@
 #define USB_PID_ATMEL_UC3_EVK1101_CTRLPANEL_HID_MS 0x2306
 #define USB_PID_ATMEL_UC3_CDC 0x2307
 #define USB_PID_ATMEL_UC3_AUDIO_MICRO 0x2308
-#define USB_PID_ATMEL_UC3_CDC_DEBUG 0x2310  // Virtual Com (debug interface) on EVK11xx
+#define USB_PID_ATMEL_UC3_CDC_DEBUG 0x2310 // Virtual Com (debug interface) on EVK11xx
 #define USB_PID_ATMEL_UC3_AUDIO_SPEAKER_MICRO 0x2311
 #define USB_PID_ATMEL_UC3_CDC_MSC 0x2312
 //! @}
@@ -186,4 +186,4 @@
 
 //! @}
 
-#endif  // _USB_ATMEL_H_
+#endif // _USB_ATMEL_H_

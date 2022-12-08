@@ -10,5 +10,5 @@ bool effect_runner_i(effect_params_t* params, i_f effect_func) {
         LED_MATRIX_TEST_LED_FLAGS();
         led_matrix_set_value(i, effect_func(led_matrix_eeconfig.val, i, time));
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_matrix_check_finished_leds(led_max);
 }
