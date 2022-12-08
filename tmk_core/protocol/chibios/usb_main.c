@@ -115,9 +115,10 @@ uint8_t extra_report_blank[3] = {0};
 static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype, uint8_t dindex, uint16_t wIndex) {
     (void)usbp;
     static USBDescriptor desc;
-    uint16_t             wValue = ((uint16_t)dtype << 8) | dindex;
-    desc.ud_string              = NULL;
-    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const) & desc.ud_string);
+    uint16_t             wValue  = ((uint16_t)dtype << 8) | dindex;
+    uint16_t             wLength = ((uint16_t)usbp->setup[7] << 8) | usbp->setup[6];
+    desc.ud_string               = NULL;
+    desc.ud_size                 = get_usb_descriptor(wValue, wIndex, wLength, (const void **const) & desc.ud_string);
     if (desc.ud_string == NULL)
         return NULL;
     else
@@ -600,7 +601,8 @@ static uint16_t get_hword(uint8_t *p) {
  */
 
 static uint8_t set_report_buf[2] __attribute__((aligned(4)));
-static void    set_led_transfer_cb(USBDriver *usbp) {
+
+static void set_led_transfer_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2) { /* LSB(wLength) */
         uint8_t report_id = set_report_buf[0];
         if ((report_id == REPORT_ID_KEYBOARD) || (report_id == REPORT_ID_NKRO)) {
