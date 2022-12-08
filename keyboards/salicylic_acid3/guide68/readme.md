@@ -2,11 +2,11 @@
 
 ![guide68](https://i.imgur.com/u1HeHb9h.jpg)
 
-*A short description of the keyboard/project*
+This is 68 keys Row-staggered Split keyboard.
 
 * Keyboard Maintainer: [Salicylic-acid3](https://github.com/Salicylic-acid3)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: guide68 PCB, Pro Micro
+* Hardware Availability: [PCB & Case Data](https://github.com/Salicylic-acid3/PCB_Data)
 
 Make example for this keyboard (after setting up your build environment):
 
