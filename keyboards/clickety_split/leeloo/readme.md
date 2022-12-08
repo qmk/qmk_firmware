@@ -1,6 +1,6 @@
 # Clickety Split | Leeloo v2
 
-![Leeloo v2](https://cdn.shopify.com/s/files/1/0599/3460/5491/files/Leeloo_v2-Dark-Mode.jpg?v=1670399064)
+![Leeloo v2](https://cdn.shopify.com/s/files/1/0599/3460/5491/files/Leeloo-v2-Wired.jpg?v=1669873125)
 
 Leeloo v2 is the evolution of Leeloo, which is a 4x6x5m ortholinear split keyboard designed, created, and sold by Clickety Split Ltd.
 
@@ -12,7 +12,9 @@ Leeloo v2 is the evolution of Leeloo, which is a 4x6x5m ortholinear split keyboa
 
 ![Leeloo](https://cdn.shopify.com/s/files/1/0599/3460/5491/files/Leeloo-rev1.0-w.jpg?v=1646798726)
 
-# Sample Build Commands
+The original design and release of Leeloo.
+
+# Sample Build Commands for Leeloo v1 and v2
 
 After setting up the build environment, consider the following Make commands:
 
