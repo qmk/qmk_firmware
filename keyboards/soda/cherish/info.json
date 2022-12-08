@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Cherish-75",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "gezhaoyou",
     "manufacturer": "gezhaoyou",
     "usb": {
         "vid": "0xEB50",
