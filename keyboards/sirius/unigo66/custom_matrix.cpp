@@ -220,6 +220,7 @@ extern "C"
         kbd2.SetReport(0, 0, 2, 0, 1, &usb_led);
         kbd3.SetReport(0, 0, 2, 0, 1, &usb_led);
         kbd4.SetReport(0, 0, 2, 0, 1, &usb_led);
+        led_set_user(usb_led);
         led_update_kb((led_t)usb_led)
     }
 
