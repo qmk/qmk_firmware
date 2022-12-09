@@ -27,8 +27,8 @@
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
 #define KC_CTLTB CTL_T(KC_TAB)
-#define KC_GUIEI GUI_T(KC_LANG2)
-#define KC_ALTKN ALT_T(KC_LANG1)
+#define KC_GUIEI GUI_T(KC_LNG2)
+#define KC_ALTKN ALT_T(KC_LNG1)
 
 #define LAYOUT_wrapper(...)   LAYOUT(__VA_ARGS__)
 
@@ -69,7 +69,7 @@
 #define   _____________________LOWER_R3_______________________ KC_F6,    KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11
 
 /* ------------------------------------------------------------COL1------COL2-----COL3-----COL4-----COL5-----COL6--------- */
-#define   _____________________ADJUST_L1______________________ XXXXXXX,  EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define   _____________________ADJUST_L1______________________ XXXXXXX,  EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
   #define _____________________ADJUST_L2______________________ XXXXXXX,  XXXXXXX, RGB_SPI, RGB_SAI, RGB_HUI, RGB_VAI
   #define _____________________ADJUST_L3______________________ XXXXXXX,  XXXXXXX, RGB_SPD, RGB_SAD, RGB_HUD, RGB_VAD

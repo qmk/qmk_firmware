@@ -36,19 +36,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_FL] = LAYOUT(
   KC_P7 , KC_P8, KC_P9  , KC_VOLU, QK_BOOT  , KC_Q   , KC_W   , KC_E, KC_R   , KC_T  , KC_Y, KC_U   , KC_I   , KC_LBRC, KC_RBRC, KC_INS , KC_BSPC , \
-  KC_P4 , KC_P5, KC_P6  , KC_VOLD, KC_TAB , KC_A   , KC_SLCK, KC_D, KC_F   , KC_G  , KC_H, KC_J   , KC_K   , KC_L   , KC_QUOT,          KC_BSLS , \
-  KC_P1 , KC_P2, KC_P3  , KC_PEQL, KC_LSFT,          KC_Z   , KC_X, KC_CAPS, KC_V  , KC_B, KC_NLCK, KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_PGUP , \
+  KC_P4 , KC_P5, KC_P6  , KC_VOLD, KC_TAB , KC_A   , KC_SCRL, KC_D, KC_F   , KC_G  , KC_H, KC_J   , KC_K   , KC_L   , KC_QUOT,          KC_BSLS , \
+  KC_P1 , KC_P2, KC_P3  , KC_PEQL, KC_LSFT,          KC_Z   , KC_X, KC_CAPS, KC_V  , KC_B, KC_NUM , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_PGUP , \
   KC_END, KC_P0, KC_PDOT, KC_PENT, KC_LCTL, KC_LGUI, KC_LALT,                KC_SPC,       KC_SPC , KC_BSPC, KC_APP , MO(_FL), KC_HOME, KC_PGDN),
   
   [_AL] = LAYOUT(
   KC_P7 , KC_P8, KC_P9  , KC_VOLU, QK_BOOT  , KC_Q   , KC_W   , KC_E, KC_R   , KC_T  , KC_Y, KC_U   , KC_I   , KC_LBRC, KC_RBRC, KC_INS , KC_BSPC , \
-  KC_P4 , KC_P5, KC_P6  , KC_VOLD, KC_TAB , KC_A   , KC_SLCK, KC_D, KC_F   , KC_G  , KC_H, KC_J   , KC_K   , KC_L   , KC_QUOT,          KC_BSLS , \
-  KC_P1 , KC_P2, KC_P3  , KC_PEQL, KC_LSFT,          KC_Z   , KC_X, KC_CAPS, KC_V  , KC_B, KC_NLCK, KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_PGUP , \
+  KC_P4 , KC_P5, KC_P6  , KC_VOLD, KC_TAB , KC_A   , KC_SCRL, KC_D, KC_F   , KC_G  , KC_H, KC_J   , KC_K   , KC_L   , KC_QUOT,          KC_BSLS , \
+  KC_P1 , KC_P2, KC_P3  , KC_PEQL, KC_LSFT,          KC_Z   , KC_X, KC_CAPS, KC_V  , KC_B, KC_NUM , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_PGUP , \
   KC_END, KC_P0, KC_PDOT, KC_PENT, KC_LCTL, KC_LGUI, KC_LALT,                KC_SPC,       KC_SPC , KC_BSPC, KC_APP , MO(_FL), KC_HOME, KC_PGDN),
   
   [_LL] = LAYOUT(
   KC_P7 , KC_P8, KC_P9  , KC_VOLU, QK_BOOT  , KC_Q   , KC_W   , KC_E, KC_R   , KC_T  , KC_Y, KC_U   , KC_I   , KC_LBRC, KC_RBRC, KC_INS , KC_BSPC , \
-  KC_P4 , KC_P5, KC_P6  , KC_VOLD, KC_TAB , KC_A   , KC_SLCK, KC_D, KC_F   , KC_G  , KC_H, KC_J   , KC_K   , KC_L   , KC_QUOT,          KC_BSLS , \
-  KC_P1 , KC_P2, KC_P3  , KC_PEQL, KC_LSFT,          KC_Z   , KC_X, KC_CAPS, KC_V  , KC_B, KC_NLCK, KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_PGUP , \
+  KC_P4 , KC_P5, KC_P6  , KC_VOLD, KC_TAB , KC_A   , KC_SCRL, KC_D, KC_F   , KC_G  , KC_H, KC_J   , KC_K   , KC_L   , KC_QUOT,          KC_BSLS , \
+  KC_P1 , KC_P2, KC_P3  , KC_PEQL, KC_LSFT,          KC_Z   , KC_X, KC_CAPS, KC_V  , KC_B, KC_NUM , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_PGUP , \
   KC_END, KC_P0, KC_PDOT, KC_PENT, KC_LCTL, KC_LGUI, KC_LALT,                KC_SPC,       KC_SPC , KC_BSPC, KC_APP , MO(_FL), KC_HOME, KC_PGDN),
 };

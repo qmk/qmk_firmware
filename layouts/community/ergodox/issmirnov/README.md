@@ -5,7 +5,7 @@
 
 - Shift and Cmd are One Shot Modifiers, so tapping them once will apply them to the next key. When tapped twice they will lock, until tapped again to clear.
 - When switching to other layers, any stuck modifiers are cleared in order to avoid unintended key combos
-- There are a few leader key combinations. Right now, `KC_LEAD` + `s` will open my wiki homepage.
+- There are a few leader key combinations. Right now, `QK_LEAD` + `s` will open my wiki homepage.
 - All transparent keys have been replaced with noops to avoid layer bleeding.
 
 ## Initial Setup

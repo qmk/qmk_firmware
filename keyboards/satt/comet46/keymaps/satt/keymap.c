@@ -38,7 +38,7 @@ enum custom_keycodes {
 #define KC_JHEN JP_HENK  // henkan
 #define KC_JKAN JP_KANA  // katakana/hiragana|ro-mazi
 #define KC_JMKA JP_LANG1 //kana on MacOSX
-#define KC_JMEI KC_LANG2 //eisu on MacOSX
+#define KC_JMEI KC_LNG2  //eisu on MacOSX
 #define KC_JAMP JP_AMPR  // &
 #define KC_JQUO JP_QUOT  // '
 #define KC_JLPR JP_LPRN  // (
