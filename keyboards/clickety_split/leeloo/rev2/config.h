@@ -31,7 +31,7 @@
 #define ENCODERS_PAD_B_RIGHT { F5 }
 
 #define RGB_DI_PIN       D3
-#define DRIVER_LED_TOTAL 74
+#define RGB_MATRIX_LED_COUNT 74
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_SPLIT \
