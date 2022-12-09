@@ -5,10 +5,6 @@
 
 #include "config_common.h"
 
-#pragma once
-
-#include "config_common.h"
-
 // Fix warning - "Attached USB accessory uses too much power."
 #ifndef USB_MAX_POWER_CONSUMPTION
     #define USB_MAX_POWER_CONSUMPTION 100
@@ -18,23 +14,6 @@
 #ifndef USB_SUSPEND_WAKEUP_DELAY
     #define USB_SUSPEND_WAKEUP_DELAY 200
 #endif
-
-// Setup RGB Lighting (Underglow)
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_DISABLE_KEYCODES
-#define RGBLIGHT_DEFAULT_VAL 60
-
-// #define RGB_DI_PIN D1
-// #define RGB_MATRIX_LED_COUNT 12
-// #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
-// #define RGB_MATRIX_DISABLE_KEYCODES
-// #define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-
-// #define RGBLIGHT_DI_PIN D2
-// #define RGBLIGHT_SLEEP /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_GRADIENT + 9
-// #define RGBLIGHT_DEFAULT_HUE 213
 
 // Space optimizations - 01
 #undef LOCKING_SUPPORT_ENABLE
