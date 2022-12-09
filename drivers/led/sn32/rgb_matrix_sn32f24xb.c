@@ -260,6 +260,7 @@ static void update_pwm_channels(PWMDriver *pwmp) {
             default:;
         }
     }
+#endif
     // Enable RGB output
     if (enable_pwm_output) {
 #if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
@@ -341,6 +342,7 @@ static void update_pwm_channels(PWMDriver *pwmp) {
         uint8_t led_channel_r = chan_row_order[(led_row_id+2)];
         led_duty_cycle[(led_row_id+2)] = led_state[led_index].r;
         setPinOutput(led_row_pins[led_channel_r]);
+#endif
     }
     // Enable RGB output
     if (enable_pwm_output) {
@@ -362,7 +364,11 @@ static void rgb_callback(PWMDriver *pwmp) {
         uint8_t led_channel = chan_col_order[pwm_cnt];
         if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[led_channel])) && (led_duty_cycle[led_channel] > 0)) {
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
-                writePinLow(led_col_pins[led_channel]);
+            writePinLow(led_col_pins[led_channel]);
+        }
+        else {
+
+        }
 #    elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
                 writePinHigh(led_col_pins[led_channel]);
 #    endif
