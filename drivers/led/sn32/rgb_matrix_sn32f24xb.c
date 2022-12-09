@@ -259,8 +259,8 @@ static void update_pwm_channels(PWMDriver *pwmp) {
                 break;
             default:;
         }
-    }
 #endif
+    }
     // Enable RGB output
     if (enable_pwm_output) {
 #if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
@@ -358,34 +358,36 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 static void rgb_callback(PWMDriver *pwmp) {
     // Disable the interrupt
     pwmDisablePeriodicNotification(pwmp);
-#if (SN32_PWM_CONTROL == SOFTWARE_PWM)
-#if (DIODE_DIRECTION == COL2ROW)
+#if ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == COL2ROW))
     for (uint8_t pwm_cnt = 0; pwm_cnt < LED_MATRIX_COLS; pwm_cnt++) {
         uint8_t led_channel = chan_col_order[pwm_cnt];
         if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[led_channel])) && (led_duty_cycle[led_channel] > 0)) {
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
             writePinLow(led_col_pins[led_channel]);
-        }
-        else {
-
-        }
+        } else {
+            writePinHigh(led_col_pins[led_channel]);
 #    elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
-                writePinHigh(led_col_pins[led_channel]);
+            writePinHigh(led_col_pins[led_channel]);
+        } else {
+            writePinLow(led_col_pins[led_channel]);
 #    endif
         }
     }
-#elif (DIODE_DIRECTION ==ROW2COL)
+#elif ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == ROW2COL))
     for (uint8_t pwm_cnt = 0; pwm_cnt < LED_MATRIX_ROWS_HW; pwm_cnt++) {
         uint8_t led_channel = chan_row_order[pwm_cnt];
         if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[led_channel])) && (led_duty_cycle[led_channel] > 0)) {
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
-                writePinLow(led_row_pins[led_channel]);
+            writePinLow(led_row_pins[led_channel]);
+        } else {
+            writePinHigh(led_row_pins[led_channel]);
 #    elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
-                writePinHigh(led_row_pins[led_channel]);
+            writePinHigh(led_row_pins[led_channel]);
+        } else {
+            writePinLow(led_row_pins[led_channel]);
 #    endif
         }
     }
-#endif
 #endif
     // Scan the rgb and key matrix
     update_pwm_channels(pwmp);
