@@ -45,5 +45,10 @@
 // Unsure if I like it.
 // #define RETRO_TAPPING
 
-// Most tactile encoders have detents every 4 stages
-#define ENCODER_RESOLUTION 4
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 250
+#define LEADER_NO_TIMEOUT
+
+// Unicode mode for Linux.
+// https://docs.qmk.fm/#/feature_unicode?id=setting-the-input-mode
+#define UNICODE_SELECTED_MODES UC_LNX
