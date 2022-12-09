@@ -12,7 +12,6 @@
       "rows": ["C6", "D7", "E6", "B4", "B5"]
   },
   "split": { "soft_serial_pin": "D2" },
-  "tapping": { "term": 150 },
   "debounce": 5,
   "layouts": {
     "LAYOUT": {
