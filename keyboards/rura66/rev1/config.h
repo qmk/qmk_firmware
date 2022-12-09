@@ -40,42 +40,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Split hand configration */
-#define SPLIT_HAND_MATRIX_GRID D7,B2
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+#define MASTER_LEFT
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
 
-#define BACKLIGHT_PIN D3
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 66 // Number of LEDs
-
-#ifdef RGB_MATRIX_ENABLE
-  #define RGB_MATRIX_LED_COUNT 66
-  #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-//  #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-//  #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-  #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-  #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-//  #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
-//  #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-  #define RGB_MATRIX_HUE_STEP 8
-  #define RGB_MATRIX_SAT_STEP 8
-  #define RGB_MATRIX_VAL_STEP 8
-  #define RGB_MATRIX_SPD_STEP 10
-#endif
-
 #ifdef RGBLIGHT_ENABLE
+  #define RGB_DI_PIN D3
+  #define RGBLED_NUM 66 // Number of LEDs
   #define RGBLIGHT_SPLIT
   #define RGBLED_SPLIT { 33, 33 }
   #define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
+  #define RGBLIGHT_HUE_STEP 8
+  #define RGBLIGHT_SAT_STEP 8
+  #define RGBLIGHT_VAL_STEP 8
+  #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RGB_TEST
 //  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-   /*== all animations enable ==*/
-//  #define RGBLIGHT_ANIMATIONS
-  /*== or choose animations ==*/
+
+  /*== choose animations ==*/
 //  #define RGBLIGHT_EFFECT_BREATHING
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
