@@ -328,16 +328,16 @@ static void update_pwm_channels(PWMDriver *pwmp) {
         if (led_state[led_index].r != 0) enable_pwm_output |= true;
         // Update matching RGB channel PWM configuration
 #if (SN32_PWM_CONTROL == HARDWARE_PWM)
-        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+0)],led_state[led_index].g);
-        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+1)],led_state[led_index].b);
+        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+0)],led_state[led_index].b);
+        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+1)],led_state[led_index].g);
         pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+2)],led_state[led_index].r);
 #elif (SN32_PWM_CONTROL == SOFTWARE_PWM)
-        uint8_t led_channel_g = chan_row_order[(led_row_id+0)];
-        led_duty_cycle[(led_row_id+0)] = led_state[led_index].g;
-        setPinOutput(led_row_pins[led_channel_g]);
-        uint8_t led_channel_b = chan_row_order[(led_row_id+1)];
-        led_duty_cycle[(led_row_id+1)] = led_state[led_index].b;
+        uint8_t led_channel_b = chan_row_order[(led_row_id+0)];
+        led_duty_cycle[(led_row_id+0)] = led_state[led_index].b;
         setPinOutput(led_row_pins[led_channel_b]);
+        uint8_t led_channel_g = chan_row_order[(led_row_id+1)];
+        led_duty_cycle[(led_row_id+1)] = led_state[led_index].g;
+        setPinOutput(led_row_pins[led_channel_g]);
         uint8_t led_channel_r = chan_row_order[(led_row_id+2)];
         led_duty_cycle[(led_row_id+2)] = led_state[led_index].r;
         setPinOutput(led_row_pins[led_channel_r]);
