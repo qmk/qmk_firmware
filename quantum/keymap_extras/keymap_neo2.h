@@ -1,39 +1,33 @@
-/* Copyright 2016 Matthias Schmitt
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
 #include "keymap.h"
-
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ^ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ ` │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ X │ V │ L │ C │ W │ K │ H │ G │ F │ Q │ ß │ ´ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │  L3  │ U │ I │ A │ E │ O │ S │ N │ R │ T │ D │ Y │ L3│    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │L4 │ Ü │ Ö │ Ä │ P │ Z │ B │ M │ , │ . │ J │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │ L4 │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define NE_CIRC KC_GRV  // ^ (dead)
 #define NE_1    KC_1    // 1
 #define NE_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define NE_0    KC_0    // 0
 #define NE_MINS KC_MINS // -
 #define NE_GRV  KC_EQL  // ` (dead)
-// Row 2
 #define NE_X    KC_Q    // X
 #define NE_V    KC_W    // V
 #define NE_L    KC_E    // L
@@ -60,7 +53,6 @@
 #define NE_Q    KC_P    // Q
 #define NE_SS   KC_LBRC // ß
 #define NE_ACUT KC_RBRC // ´ (dead)
-// Row 3
 #define NE_L3L  KC_CAPS // (layer 3)
 #define NE_U    KC_A    // U
 #define NE_I    KC_S    // I
@@ -74,7 +66,6 @@
 #define NE_D    KC_SCLN // D
 #define NE_Y    KC_QUOT // Y
 #define NE_L3R  KC_NUHS // (layer 3)
-// Row 4
 #define NE_L4L  KC_NUBS // (layer 4)
 #define NE_UDIA KC_Z    // Ü
 #define NE_ODIA KC_X    // Ö
@@ -86,5 +77,4 @@
 #define NE_COMM KC_COMM // ,
 #define NE_DOT  KC_DOT  // .
 #define NE_J    KC_SLSH // J
-// Row 5
 #define NE_L4R  KC_ALGR // (layer 4)
