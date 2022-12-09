@@ -287,7 +287,6 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 #elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
         writePinLow(led_col_pins[current_key_col]);
 #endif
-        }
     }
     /* Advance to the next LED RGB channel and get ready for the next pass */
     last_key_col = current_key_col;
