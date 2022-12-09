@@ -2,7 +2,7 @@
 # ENABLE_VIAL = yes
 
 # Disable QMK features
-BOOTMAGIC_ENABLE = no	# Won't use for now
+BOOTMAGIC_ENABLE = yes	# Enable QMK_Boot on plug-in
 DIP_SWITCH_ENABLE = no	# Won't use for now
 COMMAND_ENABLE = no		# Won't use for now
 CONSOLE_ENABLE = no		# Won't use for now
