@@ -1,7 +1,7 @@
 # Enable VIAL support when merged into QMK
 # ENABLE_VIAL = yes
 
-# Disable QMK features
+# Setup QMK features
 BOOTMAGIC_ENABLE = yes	# Enable QMK_Boot on plug-in
 DIP_SWITCH_ENABLE = no	# Won't use for now
 COMMAND_ENABLE = no		# Won't use for now
