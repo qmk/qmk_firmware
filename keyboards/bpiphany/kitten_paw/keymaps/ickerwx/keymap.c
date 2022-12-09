@@ -95,13 +95,13 @@ void matrix_scan_user(void) {
         current_layer_global = layer;
 
         // unset CAPSLOCK and SCROLL LOCK LEDs
-        led_set_kb(host_keyboard_leds() & ~(1<<USB_LED_CAPS_LOCK));
-        led_set_kb(host_keyboard_leds() & ~(1<<USB_LED_SCROLL_LOCK));
+        led_set(host_keyboard_leds() & ~(1<<USB_LED_CAPS_LOCK));
+        led_set(host_keyboard_leds() & ~(1<<USB_LED_SCROLL_LOCK));
         // set SCROLL LOCK LED when the mouse layer is active, CAPS LOCK when PROG layer is active
         if (layer == MOUSE1 || layer == MOUSE2) {
-          led_set_kb(host_keyboard_leds() | (1<<USB_LED_SCROLL_LOCK));
+          led_set(host_keyboard_leds() | (1<<USB_LED_SCROLL_LOCK));
         } else if (layer == PROG1 || layer == PROG2) {
-          led_set_kb(host_keyboard_leds() | (1<<USB_LED_CAPS_LOCK));
+          led_set(host_keyboard_leds() | (1<<USB_LED_CAPS_LOCK));
         }
     }
 }
