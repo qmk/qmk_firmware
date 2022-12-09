@@ -268,6 +268,15 @@ static void update_pwm_channels(PWMDriver *pwmp) {
         writePinLow(led_col_pins[x]);
     }
 #endif
+    /* Advance to the next LED RGB channel and get ready for the next pass */
+    last_key_col = current_key_col;
+    current_key_col++;
+    row_shifter <<= 1;
+    /* Check if counter has wrapped around, reset before the next pass */
+    if (current_key_col == LED_MATRIX_COLS){
+        current_key_col = 0;
+        row_shifter       = MATRIX_ROW_SHIFTER;
+    }
     bool         enable_pwm_output = false;
     for (uint8_t current_key_row = 0; current_key_row < MATRIX_ROWS; current_key_row++) {
         uint8_t led_index = g_led_config.matrix_co[current_key_row][current_key_col];
@@ -287,15 +296,6 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 #elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
         writePinLow(led_col_pins[current_key_col]);
 #endif
-    }
-    /* Advance to the next LED RGB channel and get ready for the next pass */
-    last_key_col = current_key_col;
-    current_key_col++;
-    row_shifter <<= 1;
-    /* Check if counter has wrapped around, reset before the next pass */
-    if (current_key_col == LED_MATRIX_COLS){
-        current_key_col = 0;
-        row_shifter       = MATRIX_ROW_SHIFTER;
     }
 }
 #endif // DIODE_DIRECTION == ROW2COL
