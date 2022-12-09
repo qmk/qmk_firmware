@@ -29,7 +29,7 @@ void dynamic_macro_led_blink(void) {
 
 /* User hooks for Dynamic Macros */
 
-__attribute__((weak)) void dynamic_macro_record_start_user(void) {
+__attribute__((weak)) void dynamic_macro_record_start_user(int8_t direction) {
     dynamic_macro_led_blink();
 }
 
@@ -62,10 +62,10 @@ __attribute__((weak)) bool dynamic_macro_valid_key_user(uint16_t keycode, keyrec
  * @param[out] macro_pointer The new macro buffer iterator.
  * @param[in]  macro_buffer  The macro buffer used to initialize macro_pointer.
  */
-void dynamic_macro_record_start(keyrecord_t **macro_pointer, keyrecord_t *macro_buffer) {
+void dynamic_macro_record_start(keyrecord_t **macro_pointer, keyrecord_t *macro_buffer, int8_t direction) {
     dprintln("dynamic macro recording: started");
 
-    dynamic_macro_record_start_user();
+    dynamic_macro_record_start_user(direction);
 
     clear_keyboard();
     layer_clear();
@@ -213,11 +213,11 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
         if (!record->event.pressed) {
             switch (keycode) {
                 case QK_DYNAMIC_MACRO_RECORD_START_1:
-                    dynamic_macro_record_start(&macro_pointer, macro_buffer);
+                    dynamic_macro_record_start(&macro_pointer, macro_buffer, +1);
                     macro_id = 1;
                     return false;
                 case QK_DYNAMIC_MACRO_RECORD_START_2:
-                    dynamic_macro_record_start(&macro_pointer, r_macro_buffer);
+                    dynamic_macro_record_start(&macro_pointer, r_macro_buffer, -1);
                     macro_id = 2;
                     return false;
                 case QK_DYNAMIC_MACRO_PLAY_1:

@@ -27,7 +27,7 @@ enum layout_names {
     static uint16_t REC = DM_REC1;
     static uint16_t PLY = DM_PLY1;
 
-    void dynamic_macro_record_start_user(void) {
+    void dynamic_macro_record_start_user(int8_t direction) {
         REC = DM_RSTP;
         RECORDING = true;
     }

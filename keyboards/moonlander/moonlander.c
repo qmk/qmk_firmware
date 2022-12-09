@@ -28,7 +28,7 @@ bool is_launching     = false;
 #ifdef DYNAMIC_MACRO_ENABLE
 static bool is_dynamic_recording = false;
 
-void dynamic_macro_record_start_user(void) { is_dynamic_recording = true; }
+void dynamic_macro_record_start_user(int8_t direction) { is_dynamic_recording = true; }
 
 void dynamic_macro_record_end_user(int8_t direction) {
     is_dynamic_recording = false;

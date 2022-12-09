@@ -35,7 +35,7 @@
 
 void dynamic_macro_led_blink(void);
 bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record);
-void dynamic_macro_record_start_user(void);
+void dynamic_macro_record_start_user(int8_t direction);
 void dynamic_macro_play_user(int8_t direction);
 void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record);
 void dynamic_macro_record_end_user(int8_t direction);

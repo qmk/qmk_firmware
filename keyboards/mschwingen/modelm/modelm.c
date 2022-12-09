@@ -204,7 +204,7 @@ void update_layer_leds(void) {
 
 #endif
 
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     isRecording++;
     blink_cycle_timer = timer_read();
 }
