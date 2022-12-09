@@ -204,7 +204,7 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     if (current_key_row == LED_MATRIX_ROWS) current_key_row = 0;
     // Disable LED output before scanning the key matrix
     shared_matrix_rgb_disable_output();
-    // Scan the key matrix row
+    // Scan the key matrix row<
     static uint8_t first_scanned_row;
     if (!matrix_scanned) {
         if (!matrix_locked) {
@@ -369,7 +369,6 @@ static void rgb_callback(PWMDriver *pwmp) {
     }
 #elif ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == ROW2COL))
     for (uint8_t pwm_cnt = 0; pwm_cnt < LED_MATRIX_ROWS_HW; pwm_cnt++) {
-        uint8_t led_channel = chan_row_order[pwm_cnt];
         if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[pwm_cnt])) && (led_duty_cycle[pwm_cnt] > 0)) {
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
             writePinLow(led_row_pins[pwm_cnt]);
