@@ -25,7 +25,7 @@
 #endif
 #include <string.h>
 
-bool is_oled_enabled = true;
+bool is_oled_enabled = true, is_oled_locked = false;
 
 extern bool host_driver_disabled;
 
@@ -967,5 +967,5 @@ bool oled_task_user(void) {
 extern bool oled_initialized;
 
 __attribute__((weak)) void housekeeping_task_oled(void) {
-    is_oled_enabled = !(timer_elapsed32(oled_timer) > 60000);
+    is_oled_enabled = is_oled_locked ? true : !(timer_elapsed32(oled_timer) > 60000);
 }

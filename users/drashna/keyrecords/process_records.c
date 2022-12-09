@@ -195,6 +195,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         }
+        case OLED_LOCK:
+#if defined(OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
+            extern bool is_oled_locked;
+            if (record->event.pressed) {
+                is_oled_locked = !is_oled_locked;
+                if (is_oled_locked) {
+                    oled_on();
+                }
+            }
+#endif
+            break;
     }
     return true;
 }
