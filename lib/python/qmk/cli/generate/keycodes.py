@@ -8,6 +8,24 @@ from qmk.path import normpath
 from qmk.keycodes import load_spec
 
 
+def _render_key(key):
+    width = 7
+    if 'S(' in key:
+        width += len('S()')
+    if 'A(' in key:
+        width += len('A()')
+    if 'RCTL(' in key:
+        width += len('RCTL()')
+    if 'ALGR(' in key:
+        width += len('ALGR()')
+    return key.ljust(width)
+
+
+def _render_label(label):
+    label = label.replace("\\", "(backslash)")
+    return label
+
+
 def _generate_ranges(lines, keycodes):
     lines.append('')
     lines.append('enum qk_keycode_ranges {')
@@ -67,6 +85,22 @@ def _generate_helpers(lines, keycodes):
         lines.append(f'#define IS_{ group.upper() }_KEYCODE(code) ((code) >= {lo} && (code) <= {hi})')
 
 
+def _generate_aliases(lines, keycodes):
+    lines.append('')
+    lines.append('// Aliases')
+    for key, value in keycodes["aliases"].items():
+        define = _render_key(value.get("key"))
+        val = _render_key(key)
+        label = _render_label(value.get("label"))
+
+        lines.append(f'#define {define} {val} // {label}')
+
+    lines.append('')
+    for key, value in keycodes["aliases"].items():
+        for alias in value.get("aliases", []):
+            lines.append(f'#define {alias} {value.get("key")}')
+
+
 @cli.argument('-v', '--version', arg_only=True, required=True, help='Version of keycodes to generate.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -83,6 +117,26 @@ def generate_keycodes(cli):
     _generate_ranges(keycodes_h_lines, keycodes)
     _generate_defines(keycodes_h_lines, keycodes)
     _generate_helpers(keycodes_h_lines, keycodes)
+
+    # Show the results
+    dump_lines(cli.args.output, keycodes_h_lines, cli.args.quiet)
+
+
+@cli.argument('-v', '--version', arg_only=True, required=True, help='Version of keycodes to generate.')
+@cli.argument('-l', '--lang', arg_only=True, required=True, help='Language of keycodes to generate.')
+@cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.subcommand('Used by the make system to generate keymap_{lang}.h from keycodes_{lang}_{version}.json', hidden=True)
+def generate_keycode_extras(cli):
+    """Generates the header file.
+    """
+
+    # Build the header file.
+    keycodes_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "keymap.h"', '// clang-format off']
+
+    keycodes = load_spec(cli.args.version, cli.args.lang)
+
+    _generate_aliases(keycodes_h_lines, keycodes)
 
     # Show the results
     dump_lines(cli.args.output, keycodes_h_lines, cli.args.quiet)
