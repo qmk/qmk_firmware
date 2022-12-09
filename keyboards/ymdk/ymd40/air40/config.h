@@ -39,11 +39,9 @@
 
 #define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 51
-#ifdef RGB_DI_PIN
-#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#    define RGBLIGHT_LIMIT_VAL 130 // Limit to vendor-recommended value
-#endif
 #ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130 // Limit to vendor-recommended value
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130 // Limit to vendor-recommended value
 // RGB Matrix Animation modes. Explicitly enabled
