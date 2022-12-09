@@ -179,8 +179,7 @@ static void shared_matrix_rgb_disable_output(void) {
 #if (SN32_PWM_CONTROL == HARDWARE_PWM)
         pwmDisableChannel(&PWMD1, chan_col_order[y]);
 #elif (SN32_PWM_CONTROL == SOFTWARE_PWM)
-        uint8_t led_col = chan_col_order[y];
-        setPinInput(led_col_pins[led_col]);
+        setPinInput(led_col_pins[y]);
 #endif
     }
     // Disable LED outputs on RGB channel pins
@@ -243,19 +242,18 @@ static void update_pwm_channels(PWMDriver *pwmp) {
             default:;
         }
 #elif (SN32_PWM_CONTROL == SOFTWARE_PWM)
-        uint8_t led_col = chan_col_order[current_key_col];
         switch (current_row % LED_MATRIX_ROW_CHANNELS) {
             case 0:
                 led_duty_cycle[current_key_col] = led_state[led_index].b;
-                setPinOutput(led_col_pins[led_col]);
+                setPinOutput(led_col_pins[current_key_col]);
                 break;
             case 1:
                 led_duty_cycle[current_key_col] = led_state[led_index].g;
-                setPinOutput(led_col_pins[led_col]);
+                setPinOutput(led_col_pins[current_key_col]);
                 break;
             case 2:
                 led_duty_cycle[current_key_col] = led_state[led_index].r;
-                setPinOutput(led_col_pins[led_col]);
+                setPinOutput(led_col_pins[current_key_col]);
                 break;
             default:;
         }
@@ -333,15 +331,12 @@ static void update_pwm_channels(PWMDriver *pwmp) {
         pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+1)],led_state[led_index].g);
         pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+2)],led_state[led_index].r);
 #elif (SN32_PWM_CONTROL == SOFTWARE_PWM)
-        uint8_t led_channel_b = chan_row_order[(led_row_id+0)];
         led_duty_cycle[(led_row_id+0)] = led_state[led_index].b;
-        setPinOutput(led_row_pins[led_channel_b]);
-        uint8_t led_channel_g = chan_row_order[(led_row_id+1)];
+        setPinOutput(led_row_pins[led_row_id+0]);
         led_duty_cycle[(led_row_id+1)] = led_state[led_index].g;
-        setPinOutput(led_row_pins[led_channel_g]);
-        uint8_t led_channel_r = chan_row_order[(led_row_id+2)];
+        setPinOutput(led_row_pins[led_row_id+1]);
         led_duty_cycle[(led_row_id+2)] = led_state[led_index].r;
-        setPinOutput(led_row_pins[led_channel_r]);
+        setPinOutput(led_row_pins[led_row_id+2]);
 #endif
     }
     // Enable RGB output
@@ -360,31 +355,30 @@ static void rgb_callback(PWMDriver *pwmp) {
     pwmDisablePeriodicNotification(pwmp);
 #if ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == COL2ROW))
     for (uint8_t pwm_cnt = 0; pwm_cnt < LED_MATRIX_COLS; pwm_cnt++) {
-        uint8_t led_channel = chan_col_order[pwm_cnt];
-        if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[led_channel])) && (led_duty_cycle[led_channel] > 0)) {
+        if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[pwm_cnt])) && (led_duty_cycle[pwm_cnt] > 0)) {
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
-            writePinLow(led_col_pins[led_channel]);
+            writePinLow(led_col_pins[pwm_cnt]);
         } else {
-            writePinHigh(led_col_pins[led_channel]);
+            writePinHigh(led_col_pins[pwm_cnt]);
 #    elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
-            writePinHigh(led_col_pins[led_channel]);
+            writePinHigh(led_col_pins[pwm_cnt]);
         } else {
-            writePinLow(led_col_pins[led_channel]);
+            writePinLow(led_col_pins[pwm_cnt]);
 #    endif
         }
     }
 #elif ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == ROW2COL))
     for (uint8_t pwm_cnt = 0; pwm_cnt < LED_MATRIX_ROWS_HW; pwm_cnt++) {
         uint8_t led_channel = chan_row_order[pwm_cnt];
-        if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[led_channel])) && (led_duty_cycle[led_channel] > 0)) {
+        if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[pwm_cnt])) && (led_duty_cycle[pwm_cnt] > 0)) {
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
-            writePinLow(led_row_pins[led_channel]);
+            writePinLow(led_row_pins[pwm_cnt]);
         } else {
-            writePinHigh(led_row_pins[led_channel]);
+            writePinHigh(led_row_pins[pwm_cnt]);
 #    elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
-            writePinHigh(led_row_pins[led_channel]);
+            writePinHigh(led_row_pins[pwm_cnt]);
         } else {
-            writePinLow(led_row_pins[led_channel]);
+            writePinLow(led_row_pins[pwm_cnt]);
 #    endif
         }
     }
