@@ -11,7 +11,7 @@
 
 #ifdef TAP_DANCE_ENABLE
 #    include "keyrecords/tap_dances.h"
-#endif  // TAP_DANCE_ENABLE
+#endif // TAP_DANCE_ENABLE
 #if defined(RGBLIGHT_ENABLE)
 #    include "rgb/rgb_stuff.h"
 #endif

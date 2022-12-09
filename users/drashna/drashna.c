@@ -139,7 +139,7 @@ float autocorrect_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #        endif
 #    endif
 
-bool apply_autocorrect(uint8_t backspaces, const char *str) {
+bool apply_autocorrect(uint8_t backspaces, const char* str) {
     if (layer_state_is(_GAMEPAD)) {
         return false;
     }
@@ -162,7 +162,6 @@ void oneshot_locked_mods_changed_user(uint8_t mods) {
     }
 }
 #endif
-
 
 void format_layer_bitmap_string(char* buffer, layer_state_t state, layer_state_t default_state) {
     for (int i = 0; i < 16; i++) {

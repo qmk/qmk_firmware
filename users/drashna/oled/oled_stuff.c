@@ -75,7 +75,6 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
         keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
     }
 
-
     if ((keycode == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
         memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
         return;
@@ -638,10 +637,10 @@ void render_pointing_dpi_status(uint16_t cpi, uint8_t padding, uint8_t col, uint
 #define OLED_KAKI_SPEED 40 // above this wpm value typing animation to triggere
 
 #define OLED_RTOGI_FRAMES 2
-//#define OLED_LTOGI_FRAMES 2
+// #define OLED_LTOGI_FRAMES 2
 
-//#define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
-// #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
+// #define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
+//  #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
 #define OLED_ANIM_SIZE 36
 #define OLED_ANIM_ROWS 4
 #define OLED_ANIM_MAX_FRAMES 3

@@ -4,7 +4,7 @@
 #include "drashna.h"
 #include "version.h"
 #ifdef OS_DETECTION_ENABLE
-#include "os_detection.h"
+#    include "os_detection.h"
 #endif
 
 uint16_t copy_paste_timer;

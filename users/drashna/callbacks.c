@@ -33,15 +33,15 @@ uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
     if (is_keyboard_master()) {
         os_type = detected_host_os();
         if (os_type) {
-            bool is_mac = (os_type == OS_MACOS) || (os_type == OS_IOS);
+            bool is_mac                  = (os_type == OS_MACOS) || (os_type == OS_IOS);
             keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
-#ifdef UNICODE_COMMON_ENABLE
+#    ifdef UNICODE_COMMON_ENABLE
             uint8_t mode = is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE;
             if (mode != get_unicode_input_mode()) {
                 set_unicode_input_mode(mode);
             }
-#endif
-       }
+#    endif
+        }
     }
 
     return os_type ? 0 : 500;
@@ -149,25 +149,25 @@ void                       matrix_scan_user(void) {
             case OS_WINDOWS:
                 xprintf("Windows Detected\n");
                 break;
-#if 0
+#    if 0
             case OS_WINDOWS_UNSURE:
                 xprintf("Windows? Detected\n");
                 break;
-#endif
+#    endif
             case OS_MACOS:
                 xprintf("MacOS Detected\n");
                 break;
             case OS_IOS:
                 xprintf("iOS Detected\n");
                 break;
-#if 0
+#    if 0
             case OS_PS5:
                 xprintf("PlayStation 5 Detected\n");
                 break;
             case OS_HANDHELD:
                 xprintf("Nintend Switch/Quest 2 Detected\n");
                 break;
-#endif
+#    endif
         }
         matrix_timer = timer_now;
     }
