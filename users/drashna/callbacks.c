@@ -117,10 +117,6 @@ void                       matrix_scan_user(void) {
 #ifdef I2C_SCANNER_ENABLE
     matrix_scan_i2c();
 #endif
-#ifdef CUSTOM_OLED_DRIVER
-    matrix_scan_oled();
-#endif
-
     matrix_scan_keymap();
 }
 
@@ -237,6 +233,9 @@ __attribute__((weak)) void housekeeping_task_keymap(void) {}
 void housekeeping_task_user(void) {
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
     housekeeping_task_transport_sync();
+#endif
+#ifdef CUSTOM_OLED_DRIVER
+    housekeeping_task_oled();
 #endif
     housekeeping_task_keymap();
 }

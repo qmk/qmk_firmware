@@ -966,6 +966,6 @@ bool oled_task_user(void) {
 
 extern bool oled_initialized;
 
-__attribute__((weak)) void matrix_scan_oled(void) {
+__attribute__((weak)) void housekeeping_task_oled(void) {
     is_oled_enabled = !(timer_elapsed32(oled_timer) > 60000);
 }
