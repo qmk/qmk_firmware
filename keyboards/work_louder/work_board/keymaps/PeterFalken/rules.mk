@@ -14,7 +14,9 @@ RAW_ENABLE = no			# Disable raw HID commands
 RGBLIGHT_ENABLE = no	# Disable RGB underglow
 RGB_MATRIX_ENABLE = no	# Disable RGB key matrix
 SPACE_CADET_ENABLE = no	# Free up space
-# TAP_DANCE_ENABLE = yes
+
+# Update keymap before removing
+TAP_DANCE_ENABLE = yes
 
 # Enable Link Time Optimizations
 LTO_ENABLE = yes

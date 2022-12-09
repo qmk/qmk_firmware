@@ -12,9 +12,12 @@ MAGIC_ENABLE = no		# Won't use for now
 MOUSEKEY_ENABLE = no	# Won't use for now
 RAW_ENABLE = no			# Disable raw HID commands
 RGBLIGHT_ENABLE = no	# Disable RGB underglow
-RGB_MATRIX_ENABLE = no	# Disable RGB key matrix
+RGB_MATRIX_ENABLE = yes	# Disable RGB key matrix
 SPACE_CADET_ENABLE = no	# Free up space
-# TAP_DANCE_ENABLE = yes
 
 # Enable Link Time Optimizations
 LTO_ENABLE = yes
+
+SRC += rgb_functions.c
+
+DEFAULT_FOLDER = work_louder/loop/rev3

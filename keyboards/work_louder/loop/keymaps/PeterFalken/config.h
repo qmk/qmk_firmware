@@ -1,35 +1,22 @@
-/*
-  *  Copyright (C) 2022  Luis Garcia
-  *
-  *  This program is free software: you can redistribute it and/or modify
-  *  it under the terms of the GNU General Public License as published by
-  *  the Free Software Foundation, either version 3 of the License, or
-  *  (at your option) any later version.
-  *
-  *  This program is distributed in the hope that it will be useful,
-  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  *  GNU General Public License for more details.
-  *
-  *  You should have received a copy of the GNU General Public License
-  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  */
+// Copyright 2022 PeterFalken  (@PeterFalken)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
- #pragma once
+#pragma once
 
- #include "config_common.h"
+#include "config_common.h"
 
- // Avoid warning - "Attached USB accessory uses too much power."
- #ifndef USB_MAX_POWER_CONSUMPTION
-     #define USB_MAX_POWER_CONSUMPTION 100
- #endif
+// Fix warning - "Attached USB accessory uses too much power."
+#ifndef USB_MAX_POWER_CONSUMPTION
+    #define USB_MAX_POWER_CONSUMPTION 100
+#endif
 
- // Configuration
- #define RGB_DISABLE_WHEN_USB_SUSPENDED
+// Fix unresponsive on wake from sleep
+#ifndef USB_SUSPEND_WAKEUP_DELAY
+    #define USB_SUSPEND_WAKEUP_DELAY 200
+#endif
 
- // Space optimizations - 01
- #undef LOCKING_SUPPORT_ENABLE
- #undef LOCKING_RESYNC_ENABLE
+#undef RGB_MATRIX_DEFAULT_MODE
+#define RGB_MATRIX_DEFAULT_MODE 0
 
 // Space optimizations - 01
 #undef LOCKING_SUPPORT_ENABLE
