@@ -5,7 +5,7 @@
 
 
 #ifdef I2C_SCANNER_ENABLE
-void matrix_scan_i2c(void);
+void housekeeping_task_i2c_scanner(void);
 void keyboard_post_init_i2c(void);
 #endif
 
@@ -102,21 +102,6 @@ void                       suspend_wakeup_init_user(void) {
 // scan function
 __attribute__((weak)) void matrix_scan_keymap(void) {}
 void                       matrix_scan_user(void) {
-    static bool has_ran_yet;
-    if (!has_ran_yet) {
-        has_ran_yet = true;
-        startup_user();
-    }
-
-#ifdef TAP_DANCE_ENABLE // Run Diablo 3 macro checking code.
-    run_diablo_macro_check();
-#endif // TAP_DANCE_ENABLE
-#if defined(CUSTOM_RGB_MATRIX)
-    matrix_scan_rgb_matrix();
-#endif
-#ifdef I2C_SCANNER_ENABLE
-    matrix_scan_i2c();
-#endif
     matrix_scan_keymap();
 }
 
@@ -231,11 +216,25 @@ void                       matrix_slave_scan_user(void) {
 
 __attribute__((weak)) void housekeeping_task_keymap(void) {}
 void housekeeping_task_user(void) {
-#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
-    housekeeping_task_transport_sync();
+    static bool has_ran_yet;
+    if (!has_ran_yet) {
+        has_ran_yet = true;
+        startup_user();
+    }
+#ifdef TAP_DANCE_ENABLE // Run Diablo 3 macro checking code.
+    run_diablo_macro_check();
+#endif // TAP_DANCE_ENABLE
+#if defined(CUSTOM_RGB_MATRIX)
+    housekeeping_task_rgb_matrix();
+#endif
+#ifdef I2C_SCANNER_ENABLE
+    housekeeping_task_i2c_scanner();
 #endif
 #ifdef CUSTOM_OLED_DRIVER
     housekeeping_task_oled();
+#endif
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    housekeeping_task_transport_sync();
 #endif
     housekeeping_task_keymap();
 }

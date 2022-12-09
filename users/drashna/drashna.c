@@ -117,7 +117,7 @@ void do_scan(void) {
 
 uint16_t scan_timer = 0;
 
-void matrix_scan_i2c(void) {
+void housekeeping_task_i2c_scanner(void) {
     if (timer_elapsed(scan_timer) > 5000) {
         do_scan();
         scan_timer = timer_read();
