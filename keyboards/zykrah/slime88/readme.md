@@ -1,8 +1,8 @@
 # Slime88
 
-![Slime88](https://user-images.githubusercontent.com/23428162/170985512-ec79f498-7476-4ab6-8150-877c67a25f26.png)
+![Slime88](https://i.imgur.com/DYNJZFH.png)
 
-A Hotswap Multi-layout F13 TKL PCB (h88c compatible) powered by RP2040,
+*A Hotswap Multi-layout F13 TKL PCB (h88c compatible) powered by RP2040.*
 
 * Keyboard Maintainer: Zykrah
 * Hardware Supported: Slime88 rev1 PCB
@@ -23,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly short the `RST` and `GND` pads on the SWD header twice, or short the `BOOT` header and plug in keyboard
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
