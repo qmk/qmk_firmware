@@ -29,8 +29,6 @@ enum layer_base {
 
 enum custom_keycodes {
     HELLO = SAFE_RANGE,
-    CH_CPNL,  // AL Control Panel
-    CH_ASST,  // AL Context-aware Desktop Assistant
     CH_SUSP,  // Suspend
 };
 
@@ -40,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         A(S(KC_N)),    HELLO,         CH_SUSP,       TO(_MACRO),
         KC_MPRV,       KC_MPLY,       KC_MNXT,       TO(_NUMPAD),
         C(A(KC_COMM)), KC_F5,         C(A(KC_DOT)),  TO(_RGB),
-        MO(_FN),       CH_ASST,       CH_CPNL),
+        MO(_FN),       KC_ASST,       KC_CPNL),
 
     [_NUMPAD] = LAYOUT(
         KC_KP_7,   KC_KP_8,   KC_KP_9,   KC_TRNS,
@@ -61,8 +59,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_RMOD,  RGB_TOG,   RGB_MOD),
 
     [_FN] = LAYOUT(
-        KC_NO,     DEBUG,     QK_BOOT,   KC_TRNS,
-        KC_NO,     KC_NO,     EEP_RST,   KC_TRNS,
+        KC_NO,     DB_TOGG,   QK_BOOT,   KC_TRNS,
+        KC_NO,     KC_NO,     EE_CLR,    KC_TRNS,
         KC_NO,     KC_NO,     KC_NO,     KC_TRNS,
         KC_TRNS,   KC_NO,     KC_NO),
 };
@@ -111,7 +109,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
 };
 // clang-format off
 
-const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
+const uint8_t PROGMEM _n_rgb_layers = ARRAY_SIZE(_rgb_layers) - 1;
 
 void clear_rgb_layers(void) {
     dprint("clear_rgb_layers()\n");
@@ -181,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             // Re-implement this here, but fix the persistence!
-            case DEBUG:
+            case QK_DEBUG_TOGGLE:
                 if (!debug_enable) {
                     debug_enable = 1;
                 } else if (!debug_keyboard) {
@@ -199,18 +197,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
 
                 // clang-format off
-            case CH_CPNL: host_consumer_send(AL_CONTROL_PANEL); return false;
-            case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
             case HELLO:   SEND_STRING("Hello, world!"); return true;
                 // clang-format on
-        }
-    } else {
-        switch (keycode) {
-            case CH_CPNL:
-            case CH_ASST:
-                host_consumer_send(0);
-                return false;
         }
     }
 
@@ -221,7 +210,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Acks follow...
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             rgb_layer_ack_yn(debug_enable);
             break;
         case RGB_TOG:
