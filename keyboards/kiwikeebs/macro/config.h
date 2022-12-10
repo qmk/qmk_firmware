@@ -106,3 +106,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+
+//Define OLED Offsets
+
+#define OLED_DISPLAY_CUSTOM
+#define OLED_DISPLAY_WIDTH 64
+#define OLED_DISPLAY_HEIGHT 48
+#define OLED_COLUMN_OFFSET 32
+#define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#define OLED_BLOCK_TYPE uint32_t
+#define OLED_BLOCK_COUNT 24
+#define OLED_BLOCK_SIZE 16 //(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#define OLED_COM_PINS COM_PINS_ALT
+#define OLED_SOURCE_MAP { 0, 8 }
+#define OLED_TARGET_MAP { 8, 0 }
+//#define OLED_SOURCE_MAP { 32, 40, 48, 56 }
+//#define OLED_TARGET_MAP { 24, 16, 8, 0 }
+
