@@ -52,3 +52,8 @@
 #define BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT 7
 
 #define SERIAL_USART_SPEED       921600
+
+#if defined(KEYBOARD_splitkb_kyria_rev1_proton_c)
+#    define WEAR_LEVELING_BACKING_SIZE 16384
+#    define WEAR_LEVELING_LOGICAL_SIZE 8192
+#endif
