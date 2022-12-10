@@ -213,7 +213,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // Turn on/off NUM LOCK if current state is different
 void activate_numlock(bool turn_on) {
     if (IS_HOST_LED_ON(USB_LED_NUM_LOCK) != turn_on) {
-        tap_code(KC_NUMLOCK);
+        tap_code(KC_NUM_LOCK);
     }
 }
 

@@ -12,7 +12,7 @@
         "console": true,
         "rgblight": false,
         "backlight": false,
-        "rgb_matrix": true,
+        "rgb_matrix": true
     },
     "split": {
         "enabled": true,
@@ -27,8 +27,8 @@
             "right":{
                 "cols": ["GP29", "GP28", "GP27", "GP7", "GP2", "GP3", "GP11", "GP12", "GP13"],
                 "rows": ["GP16", "GP19", "GP17", "GP9", "GP8", "GP26"]
-            },
-        },
+            }
+        }
     },
     "matrix_pins": {
         "cols": ["GP29", "GP28", "GP27", "GP7", "GP2", "GP3", "GP11", "GP12", "GP13"],
@@ -40,16 +40,9 @@
             {"pin_a": "GP21", "pin_b": "GP20" }
         ]
     },
-    "rgblight": {
-       "pin": "GP18",
-       "led_count": 113,
-       "max_brightness": 120,
-       "sleep": true,
-       "split": true,
-       "split_count": [56, 57]
-    },
     "rgb_matrix": {
         "driver": "WS2812",
+        "split_count": [56, 57],
         "layout": [
             { "flags": 4, "matrix": [5, 2], "x": 30,  "y": 0 },
             { "flags": 2, "x": 42, "y": 6 },
@@ -178,5 +171,5 @@
             { "flags": 4, "matrix": [10, 7], "x": 224, "y": 64 },
             { "flags": 2, "x": 224, "y": 55 }
           ]
-    },
+    }
 }

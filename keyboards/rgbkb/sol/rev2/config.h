@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
 #endif
 
-#define DRIVER_LED_TOTAL  RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT  RGBLED_NUM
 
 #define RGB_MATRIX_CENTER { 112, 37 }
 
