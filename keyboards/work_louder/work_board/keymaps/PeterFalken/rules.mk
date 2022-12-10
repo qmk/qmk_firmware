@@ -3,9 +3,10 @@
 
 # Setup QMK features
 BOOTMAGIC_ENABLE = yes	# Enable QMK_Boot on plug-in
-DIP_SWITCH_ENABLE = no	# Won't use for now
+CAPS_WORD_ENABLE = yes	# Enable Caps Word
 COMMAND_ENABLE = no		# Won't use for now
 CONSOLE_ENABLE = no		# Won't use for now
+DIP_SWITCH_ENABLE = no	# Won't use for now
 ENCODER_ENABLE = yes	# Enable both encoders
 GRAVE_ESC_ENABLE = no	# Not needed
 MAGIC_ENABLE = no		# Won't use for now
