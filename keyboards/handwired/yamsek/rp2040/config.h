@@ -1,3 +1,6 @@
+// Copyright 2022 Johannes Schneider (@JohSchneider)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include "config_common.h"
@@ -15,4 +18,3 @@
 #define I2C1_SDA_PAL_MODE (PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_PUE | PAL_RP_PAD_SLEWFAST)
 // removing 'PAL_RP_PAD_DRIVE4' which the portexpander in the left keyboard half doesn't like
 // alternative solution would be to add a 100pF ceramic-capacitor between SCL and GND
-

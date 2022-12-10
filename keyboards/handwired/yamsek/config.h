@@ -8,8 +8,8 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    No-oNe
-#define PRODUCT         YaMseK
+#define MANUFACTURER    "No-oNe"
+#define PRODUCT         "YaMseK"
 //#define DESCRIPTION     Yet-another-Modular-split-ergonomic-Keyboard
 
 /* key matrix size */
