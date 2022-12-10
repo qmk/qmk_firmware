@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS * 7/8
 
 /* The number of LEDs connected */
-#define DRIVER_LED_TOTAL 30
-#define RGBLED_NUM 30
 #define RGB_MATRIX_LED_COUNT 30
 
 /* Enable RGB MATRIX effects */
