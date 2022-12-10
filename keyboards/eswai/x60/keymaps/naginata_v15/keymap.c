@@ -74,15 +74,15 @@ CTL_T(KC_ESC) ,KC_A     ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,KC_H    ,KC_J    ,K
 //            ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
 	    XXXXXXX ,KC_F1    ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12  ,KC_PSCR ,KC_INS  , \
       XXXXXXX ,KC_TILD  ,KC_AT   ,KC_HASH ,KC_DLR  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_HOME ,KC_UP   ,KC_END  ,KC_DEL  ,KC_PIPE , \
-      XXXXXXX ,KC_CIRC  ,KC_AMPR ,KC_QUES ,KC_PERC ,KC_JYEN ,XXXXXXX ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX ,XXXXXXX , \
-      XXXXXXX ,KC_GRV   ,KC_PIPE ,KC_EXLM ,KC_UNDS ,LALT(KC_JYEN),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX ,KC_PGUP ,XXXXXXX , \
+      XXXXXXX ,KC_CIRC  ,KC_AMPR ,KC_QUES ,KC_PERC ,KC_INT3  ,XXXXXXX ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX ,XXXXXXX , \
+      XXXXXXX ,KC_GRV   ,KC_PIPE ,KC_EXLM ,KC_UNDS ,LALT(KC_INT3),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX ,KC_PGUP ,XXXXXXX , \
 	    _______ ,_______   ,_______          ,_______          ,_______         ,_______          ,_______ ,XXXXXXX ,KC_PGDN ,XXXXXXX
   ),
 
   [_ADJUST] = LAYOUT(
 //            ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
 	    XXXXXXX ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX , \
-      XXXXXXX ,EEP_RST  ,RESET   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,NG_TAYO ,NGSW_WIN,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX , \
+      XXXXXXX ,EE_CLR   ,QK_BOOT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,NG_TAYO ,NGSW_WIN,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX , \
       XXXXXXX ,XXXXXXX  ,KC_SLEP ,XXXXXXX ,XXXXXXX ,XXXXXXX ,NG_KOTI ,NGSW_MAC,NG_MLV  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX , \
       XXXXXXX ,XXXXXXX  ,KC_WAKE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,NG_SHOS ,NGSW_LNX,XXXXXXX ,DF(_BASE),DF(_QWERTY),XXXXXXX, XXXXXXX, XXXXXXX, \
 		  _______ ,_______  ,_______          ,_______          ,_______          ,_______          ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX
