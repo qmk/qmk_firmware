@@ -26,8 +26,8 @@ enum layer_number {
 #define KC_G_BS LGUI_T(KC_BSPC)
 #define KC_L_SPC LT(_LOWER, KC_SPC)
 #define KC_R_ENT LT(_RAISE, KC_ENT)
-#define KC_S_JA LSFT_T(KC_LANG1)
-#define KC_S_EN LSFT_T(KC_LANG2)
+#define KC_S_JA LSFT_T(KC_LNG1)
+#define KC_S_EN LSFT_T(KC_LNG2)
 #define KC_A_DEL ALT_T(KC_DEL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

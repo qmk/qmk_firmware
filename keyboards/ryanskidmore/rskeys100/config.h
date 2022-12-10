@@ -31,7 +31,7 @@
 /* RGB Data Pin */
 #define RGB_DI_PIN C7
 /* The number of RGB LEDs connected */
-#define DRIVER_LED_TOTAL 118
+#define RGB_MATRIX_LED_COUNT 105
 /* Set the maximum brightness to 110 to avoid going over 500 mA.
  * At full brightness with all three indicator LEDs on, the power draw is about 450 mA. */
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 110
@@ -39,7 +39,7 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 /* Enable the cycle left right animation and set it as the startup mode */
 #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

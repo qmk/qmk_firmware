@@ -87,43 +87,43 @@ __attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t 
 bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case HPT_ON:
+            case QK_HAPTIC_ON:
                 haptic_enable();
                 break;
-            case HPT_OFF:
+            case QK_HAPTIC_OFF:
                 haptic_disable();
                 break;
-            case HPT_TOG:
+            case QK_HAPTIC_TOGGLE:
                 haptic_toggle();
                 break;
-            case HPT_RST:
+            case QK_HAPTIC_RESET:
                 haptic_reset();
                 break;
-            case HPT_FBK:
+            case QK_HAPTIC_FEEDBACK_TOGGLE:
                 haptic_feedback_toggle();
                 break;
-            case HPT_BUZ:
+            case QK_HAPTIC_BUZZ_TOGGLE:
                 haptic_buzz_toggle();
                 break;
-            case HPT_MODI:
+            case QK_HAPTIC_MODE_NEXT:
                 haptic_mode_increase();
                 break;
-            case HPT_MODD:
+            case QK_HAPTIC_MODE_PREVIOUS:
                 haptic_mode_decrease();
                 break;
-            case HPT_DWLI:
+            case QK_HAPTIC_DWELL_UP:
                 haptic_dwell_increase();
                 break;
-            case HPT_DWLD:
+            case QK_HAPTIC_DWELL_DOWN:
                 haptic_dwell_decrease();
                 break;
-            case HPT_CONT:
+            case QK_HAPTIC_CONTINUOUS_TOGGLE:
                 haptic_toggle_continuous();
                 break;
-            case HPT_CONI:
+            case QK_HAPTIC_CONTINUOUS_UP:
                 haptic_cont_increase();
                 break;
-            case HPT_COND:
+            case QK_HAPTIC_CONTINUOUS_DOWN:
                 haptic_cont_decrease();
                 break;
         }

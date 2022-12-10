@@ -33,10 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 62
+#define RGB_MATRIX_LED_COUNT 62
 #define ISSI_PWM_FREQUENCY 0b010
 
-#define RGB_MATRIX_STARTUP_VAL 80
+#define RGB_MATRIX_DEFAULT_VAL 80
 #define RGB_MATRIX_KEYPRESSES
 
 // RGB Matrix Animation modes. Explicitly enabled
