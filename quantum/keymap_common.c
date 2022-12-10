@@ -77,7 +77,7 @@ action_t action_for_keycode(uint16_t keycode) {
 #ifdef MAGIC_ENFORCE_HANDLING
             action.code = ACTION_MODS_KEY(mod_config(QK_MODS_GET_MODS(keycode)), keycode_config(QK_MODS_GET_BASIC_KEYCODE(keycode))); // adds modifier to key
 #else                                                                                                                                 // MAGIC_ENFORCE_HANDLING
-            action.code = ACTION_MODS_KEY(QK_MODS_GET_MODS(keycode), QK_MODS_GET_BASIC_KEYCODE(keycode))); // adds modifier to key
+            action.code = ACTION_MODS_KEY(QK_MODS_GET_MODS(keycode), QK_MODS_GET_BASIC_KEYCODE(keycode)); // adds modifier to key
 #endif                                                                                                                                // MAGIC_ENFORCE_HANDLING
             break;
 #ifndef NO_ACTION_LAYER
