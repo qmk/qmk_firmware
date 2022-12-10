@@ -84,6 +84,10 @@ enum serial_transaction_id {
     PUT_POINTING_CPI,
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+#if defined(SPLIT_WATCHDOG_ENABLE)
+    PUT_WATCHDOG,
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     PUT_RPC_INFO,
     PUT_RPC_REQ_DATA,
