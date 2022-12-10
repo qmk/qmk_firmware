@@ -28,7 +28,7 @@
     },
     "url": "https://github.com/zykrah/fuyu",
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0.0, "y": 0.0 },
                 { "matrix": [0, 2], "x": 2.0, "y": 0.0 },
