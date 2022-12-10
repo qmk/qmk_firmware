@@ -76,9 +76,9 @@ action_t action_for_keycode(uint16_t keycode) {
         // Split it up
 #ifdef LEGACY_MAGIC_HANDLING
             action.code = ACTION_MODS_KEY(QK_MODS_GET_MODS(keycode), QK_MODS_GET_BASIC_KEYCODE(keycode)); // adds modifier to key
-#else                                                                                                                                 // LEGACY_MAGIC_HANDLING
+#else                                                                                                     // LEGACY_MAGIC_HANDLING
             action.code = ACTION_MODS_KEY(mod_config(QK_MODS_GET_MODS(keycode)), keycode_config(QK_MODS_GET_BASIC_KEYCODE(keycode))); // adds modifier to key
-#endif                                                                                                                                // LEGACY_MAGIC_HANDLING
+#endif                                                                                                    // LEGACY_MAGIC_HANDLING
             break;
 #ifndef NO_ACTION_LAYER
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
