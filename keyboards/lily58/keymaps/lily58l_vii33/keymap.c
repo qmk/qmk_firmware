@@ -28,7 +28,7 @@
 /* Layer quick names */
 #define LOWER MO(_LOWER)
 #define UPPER MO(_UPPER)
-#define MOD   MO(_MOD)
+#define MOD   TT(_MOD)
 #define GAME  TG(_GAME)
 
 /* Key quick names */
@@ -102,20 +102,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_QWERTY] = LAYOUT(
-  KC_ESC,   KC_1,   KC_2,   KC_3,    KC_4,   KC_5,                           KC_6,    KC_7,   KC_8,     KC_9,    KC_0,    KC_MINS, 
-  KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,   KC_T,                           KC_Z,    KC_U,   KC_I,     KC_O,    KC_P,    CC_UE, 
-  CC_QUOT,  KC_A,   GUI_S,  ALT_D,   CTL_F,  KC_G,                           KC_H,    CTL_J,  ALT_K,    GUI_L,   CC_OE,   CC_AE, 
-  CC_APHO,  KC_Y,   KC_X,   KC_C,    KC_V,   KC_B,  KC_MUTE,       _______,  KC_N,    KC_M,   CC_SCOLN, CC_COLN, CC_EXLM, KC_ENTER, 
-                            CC_SLH,  MOD,    LOWER, SHFT_SP,       SHFT_SP,  KC_BSPC, UPPER,  KC_DEL
+  KC_ESC,   KC_1,   KC_2,  KC_3,     KC_4,   KC_5,                           KC_6,    KC_7,   KC_8,     KC_9,    KC_0,    KC_MINS, 
+  KC_TAB,   KC_Q,   KC_W,  KC_E,     KC_R,   KC_T,                           KC_Z,    KC_U,   KC_I,     KC_O,    KC_P,    CC_UE, 
+  CC_QUOT,  KC_A,   GUI_S, ALT_D,    CTL_F,  KC_G,                           KC_H,    CTL_J,  ALT_K,    GUI_L,   CC_OE,   CC_AE, 
+  CC_APHO,  KC_Y,   KC_X,  KC_C,     KC_V,   KC_B,  KC_MUTE,       KC_SPC,   KC_N,    KC_M,   CC_SCOLN, CC_COLN, CC_EXLM, KC_ENTER, 
+                           CC_SLH,   MOD,    LOWER, SHFT_SP,       SHFT_SP,  KC_BSPC, UPPER,  KC_DEL
 ),
 
 
 [_LOWER] = LAYOUT(
   _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                         KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11, 
   _______,  XXXXXXX, WINSCNS, QC_UNDO, QC_REDO, KC_ENTER,                      XXXXXXX, WRDLFT,  KC_UP,   WRDRGT,   KC_PGUP, KC_F12, 
-  XXXXXXX,  KC_DEL,  KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_PGDN, XXXXXXX, 
-  XXXXXXX,  KC_BSPC, QC_CTLX, QC_CTLC, QC_CTLV, XXXXXXX, _______,    _______,  XXXXXXX, KC_HOME, KC_BSPC, KC_END,   XXXXXXX, KC_ENT, 
-                              _______, _______, _______, _______,    KC_LSFT,  _______, _______, _______
+  XXXXXXX,  KC_BSPC, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  KC_PGDN, XXXXXXX, 
+  XXXXXXX,  KC_DEL,  QC_CTLX, QC_CTLC, QC_CTLV, XXXXXXX, _______,    _______,  XXXXXXX, KC_HOME, KC_BSPC, KC_END,   XXXXXXX, KC_ENT, 
+                              _______, _______, _______, _______,    _______,  _______, _______, _______
 ),
 
 
@@ -130,10 +130,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOD] = LAYOUT(
     RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_SW, RGB_M_G, RGB_M_SN,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_COMMA, GAME, 
-    RGB_MOD, RGB_SAI, RGB_SPI, XXXXXXX,  RGB_M_T, CC_ALRM,                       KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_PERC,
-    XXXXXXX, RGB_SAD, RGB_SPD, XXXXXXX,  XXXXXXX, XXXXXXX,                       KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PMNS,  KC_EQL, 
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_NUM,  XXXXXXX, CC_SAVRGB,  _______,  KC_P0,    KC_P1,    KC_P2,    KC_P3,    KC_DOT,   KC_PENT, 
-                               XXXXXXX,  _______, _______, _______,    _______,  _______,  _______,  _______
+    RGB_MOD, XXXXXXX, KC_UP,   XXXXXXX,  RGB_M_T, CC_ALRM,                       KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_PERC,
+    XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, XXXXXXX,                       KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PMNS,  KC_EQL, 
+    XXXXXXX, KC_DEL,  KC_BSPC, XXXXXXX,  KC_NUM,  XXXXXXX, CC_SAVRGB,  _______,  KC_P0,    KC_P1,    KC_P2,    KC_P3,    KC_DOT,   KC_PENT, 
+                               XXXXXXX,  _______, _______, KC_SPC,     _______,  _______,  _______,  _______
 ),
 
   [_GAME] = LAYOUT(
@@ -155,13 +155,31 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case GUI_L:
             return TAPPING_TERM + 150;
         case SHFT_SP:
-            return TAPPING_TERM - 50;
+            return TAPPING_TERM - 60;
+        case MOD:
+            return TAPPING_TERM - 60;
         default:
             return TAPPING_TERM;
     }
 }
 
-/* -------------------------------------------------------------------------------- */
+
+/* Tapping Force Hold done per key. Better than general setting. See also https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md */
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_S:
+        case ALT_D:
+        case CTL_F:
+        case CTL_J:
+        case ALT_K:
+        case GUI_L:
+        case SHFT_SP:
+            return true;
+        default:
+            return false;
+    }
+}
+
 
 /* Rotary encoder */
 #ifdef ENCODER_ENABLE
