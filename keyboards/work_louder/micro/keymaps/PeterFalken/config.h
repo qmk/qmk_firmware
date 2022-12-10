@@ -58,6 +58,10 @@
 /* disable print */
 // #define NO_PRINT
 
-// #define WORK_LOUDER_LED_PIN_1 B7
-// #define WORK_LOUDER_LED_PIN_2 B6
-// #define WORK_LOUDER_LED_PIN_3 B5
+#undef WORK_LOUDER_LED_PIN_1
+#undef WORK_LOUDER_LED_PIN_2
+#undef WORK_LOUDER_LED_PIN_3
+
+#define WORK_LOUDER_LED_PIN_1 B5
+#define WORK_LOUDER_LED_PIN_2 B7
+#define WORK_LOUDER_LED_PIN_3 B6
