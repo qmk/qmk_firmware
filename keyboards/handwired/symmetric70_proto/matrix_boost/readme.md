@@ -1,6 +1,6 @@
 # Debug version matrix.c(0.18.0), matrix_extension_74hc157.c and matrix_read_cols_on_row.c
 
-This directory is provided for testing and performance evaluation of [`users/mtei/matrix_read_cols_on_row.c`](../../../../users/mtei/readme_matrix_read_cols_on_row.md)  using symmetric70_proto.
+This directory is provided for testing and performance evaluation of [`users/mtei/matrix_boost/matrix_read_cols_on_row.c`](../../../../users/mtei/matrix_boost/readme.md)  using symmetric70_proto.
 
 The matrix.c in this directory is 0.18.0:quantum/matrix.c with the following additions:
 
@@ -34,12 +34,12 @@ The matrix_extension_74hc157.c in this directory provides `matrix_read_cols_on_r
 
 ## Configuration
 
-`users/mtei/matrix_read_cols_on_row.c` requires its own non-standard matrix configuration.
-[see Configuration in users/mtei/readme_matrix_read_cols_on_row.md](../../../../users/mtei/readme_matrix_read_cols_on_row.md#configuration)
+`users/mtei/matrix_boost/matrix_read_cols_on_row.c` requires its own non-standard matrix configuration.
+[see Configuration in users/mtei/matrix_boost/readme.md](../../../../users/mtei/matrix_boost/readme.md#configuration)
 
 ## Easy way to configure
 
-[see How to use `matrix_read_cols_on_rows.c` in users/mtei/readme_matrix_read_cols_on_row.md](../../../../users/mtei/readme_matrix_read_cols_on_row.md#how-to-use-matrix_read_cols_on_rowsc-with-an-existing-keyboard)
+[see How to use `matrix_read_cols_on_rows.c` in users/mtei/matrix_boost/readme.md](../../../../users/mtei/matrix_boost/readme.md#how-to-use-matrix_read_cols_on_rowsc-with-an-existing-keyboard)
 
 ## Compile
 

@@ -35,7 +35,7 @@ The matrix_read_cols_on_rows.c in this directory provides a fast version of matr
      ```
 4) Copy files into `keyboards/KEYBOARD/boost`
    ```shell
-   cp users/mtei/matrix_read_cols_on_row.c keyboards/KEYBOARD/boost
+   cp users/mtei/matrix_boost/matrix_read_cols_on_row.c keyboards/KEYBOARD/boost
    cp users/mtei/cpp_map.h keyboards/KEYBOARD/boost
    ```
    * If the MCU is AVR-based, do the following
@@ -262,4 +262,4 @@ The timing chart of the firmware using the normal firmware and fast matrix_read_
 * With fast matrix_read_cols_on_rows().
   <img width="80%" alt="helix-boost" src="https://user-images.githubusercontent.com/2170248/176904404-a78a5b56-65ae-4e8c-a32b-d48a679e8cb5.png">
 
-[See symmetric70_proto/matrix_boost/readme.md for further information on other cases.](../../keyboards/handwired/symmetric70_proto/matrix_boost/readme.md)
+[See symmetric70_proto/matrix_boost/readme.md for further information on other cases.](../../../keyboards/handwired/symmetric70_proto/matrix_boost/readme.md)

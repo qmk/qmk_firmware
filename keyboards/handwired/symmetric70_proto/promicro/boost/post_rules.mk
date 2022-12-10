@@ -14,7 +14,7 @@ ifneq ($(findstring symmetric70_proto/promicro,$(KEYBOARD)),)
         OPT_DEFS += -DCANCEL_BOOST
         SRC += matrix_boost/matrix_extension_74hc157.c
     else
-        SRC += users/mtei/matrix_read_cols_on_row.c
+        SRC += users/mtei/matrix_boost/matrix_read_cols_on_row.c
     endif
 endif
 

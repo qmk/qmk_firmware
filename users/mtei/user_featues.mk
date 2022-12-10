@@ -25,7 +25,7 @@ ifeq ($(strip $(DEBUG_UART)),yes)
 endif
 
 ifeq ($(strip $(MATRIX_OVERRIDE)),yes)
-    SRC += matrix_read_cols_on_row.c
+    SRC += matrix_boost/matrix_read_cols_on_row.c
     OPT_DEFS += -DMATRIX_OVERRIDE # only for users/mtei/debug_config.h
     ifeq ($(strip $(DEBUG_ON_TEST_BENCH)),yes)
         OPT_DEFS += -DDEBUG_ON_TEST_BENCH
