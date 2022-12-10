@@ -12,7 +12,7 @@
 
 ## Changelog
 
-### 2022-11-28 - 1.1
+### 2022-12-09 - 1.1
 
 - Add ENCODER_MAP_ENABLE from default VIA definition
 
