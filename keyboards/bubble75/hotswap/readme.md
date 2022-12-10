@@ -5,7 +5,7 @@
 
 A compact exploded F-Row 75% made by Velocifire.
 
-* Keyboard Maintainer:
+* Keyboard Maintainer: [d-floe](https://github.com/d-floe)
 * Hardware Supported: Bubble75 Hotswap
 * Hardware Availability: [velocifiretech.com](https://www.velocifiretech.com/collections/keyboards/products/bubble-75-premium-keyboard-kit?variant=39743137939574)
 
