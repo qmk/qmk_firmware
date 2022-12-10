@@ -186,8 +186,6 @@ If you define these options you will enable the associated feature, which may in
   * Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify `MT(MOD_CTL, KC_A)` if you want to use `KC_A`.
 * `#define MOUSE_EXTENDED_REPORT`
   * Enables support for extended reports (-32767 to 32767, instead of -127 to 127), which may allow for smoother reporting, and prevent maxing out of the reports. Applies to both Pointing Device and Mousekeys.
-* `#define MAGIC_ENFORCE_HANDLING`
-  * Enables magic configuration handling for advanced keycodes (such as Mod Tap and Layer Tap)
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
@@ -214,6 +212,9 @@ If you define these options you will enable the associated feature, which may in
   * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPS_LOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 * `#define KEY_OVERRIDE_REPEAT_DELAY 500`
   * Sets the key repeat interval for [key overrides](feature_key_overrides.md).
+* `#define LEGACY_MAGIC_HANDLING`
+  * Enables magic configuration handling for advanced keycodes (such as Mod Tap and Layer Tap)
+
 
 ## RGB Light Configuration
 
