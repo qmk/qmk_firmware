@@ -15,6 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming*/
+#define USB_POLLING_INTERVAL_MS 1
+#define QMK_KEYS_PER_SCAN 12
+
 #pragma once
 
 /* Ensure we jump to bootloader if the RESET keycode was pressed */
