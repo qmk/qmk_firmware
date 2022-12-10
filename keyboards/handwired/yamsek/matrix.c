@@ -212,22 +212,6 @@ void matrix_print(void) {
 
 void matrix_init(void) {
 
-// from onakey/i2c_scanner
-    /* TODO: look for "left half", and possibly bail/remember if/that its not connected
-       2017 matrix scan code die dprint
-       2022-08-02 17:43:50 You:YaMseK:1: trying to reset mcp23017
-       2022-08-02 17:43:50 You:YaMseK:1: left side not responding
-       2022-08-02 17:43:50 You:YaMseK:1: trying to reset mcp23017
-       2022-08-02 17:43:50 You:YaMseK:1: left side not responding
-       2022-08-02 17:43:50 You:YaMseK:1: trying to reset mcp23017
-
-    i2c_status_t error = i2c_start(address << 1, TIMEOUT);
-    if (error == I2C_STATUS_SUCCESS) {
-        i2c_stop();
-        dprintf("  I2C device found at address 0x%02X\n", address);
-*/
-
-
     mcp23018_init(I2C_ADDR);
     init_pins_MCU();
     init_pins_MCP23018();
@@ -237,9 +221,7 @@ void matrix_init(void) {
     // This *must* be called for correct keyboard behavior
     matrix_init_quantum();
 
-    dprint("custom matrix_init_done\n");
 #ifdef RGBLIGHT_ENABLE
-//    rgblight_sethsv_at(HSV_GREEN,0);
     if (mcp23018_errors) {
         rgblight_sethsv_at(0, 255,20 ,0); // red
     } else  {
