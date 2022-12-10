@@ -39,8 +39,8 @@
     "url": "https://github.com/MATTMCCA/Heliotrope",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x4466",
+        "vid": "0x3141"
     },
     "layouts": {
         "LAYOUT_60_ansi": {
