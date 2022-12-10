@@ -12,7 +12,7 @@ from qmk.info import info_json
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import json_load
 from qmk.keyboard import find_readme, list_keyboards
-from qmk.keycodes import load_spec, list_versions
+from qmk.keycodes import load_spec, list_versions, list_languages
 from qmk.xap.common import get_xap_definition_files, update_xap_definitions
 
 DATA_PATH = Path('data')
@@ -45,6 +45,13 @@ def _resolve_keycode_specs(output_folder):
 
         output_file = output_folder / f'constants/keycodes_{version}.json'
         output_file.write_text(json.dumps(overall, indent=4), encoding='utf-8')
+
+    for lang in list_languages():
+        for version in list_versions(lang):
+            overall = load_spec(version, lang)
+
+            output_file = output_folder / f'constants/keycodes_{lang}_{version}.json'
+            output_file.write_text(json.dumps(overall, indent=4), encoding='utf-8')
 
     # Purge files consumed by 'load_spec'
     shutil.rmtree(output_folder / 'constants/keycodes/')
