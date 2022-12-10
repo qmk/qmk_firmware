@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
 #endif
 
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         uint8_t b = rgb_matrix_get_val();
         if (b < CAPS_LOCK_VAL_STEP) {
@@ -97,6 +97,7 @@ void rgb_matrix_indicators_kb(void) {
         }
         rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, b, b, b);  // white, with the adjusted brightness
     }
+    return false;
 }
 
 #endif
