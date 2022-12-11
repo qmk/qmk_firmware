@@ -23,16 +23,30 @@ enum planck_layers {
   _ADJUST
 };
 
-enum tap_dances {
-    ENC_TAP,
+// Custom keycode definitions
+enum custom_keycodes {
+  KC_LAUNCHPAD = SAFE_RANGE
 };
 
+// Custom definitions for keys
+#define CK_CW CW_TOGG       // CAPS_WORD for Caps Word feature
+#define CK_SLP KC_SLEP      // System Sleep
+#define CK_M1 C(KC_UP)      // Mission Control - All apps
+#define CK_M2 C(KC_DOWN)    // Mission Control - One apps
+#define CK_LP KC_LAUNCHPAD  // LaunchPad Key
+#define CK_CO G(KC_C)       // COPY = CMD + C
+#define CK_CU G(KC_X)       // CUT = CMD + X
+#define CK_MV LAG(KC_V)     // MOVE = CMD + OPT + V
+#define CK_PA G(KC_V)       // PASTE = CMD + V
+#define CK_UN G(KC_Z)       // UNDO = CMD + Z
+
+// Layer activation
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, TD(ENC_TAP),
+        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, _______,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,
         MO(3),   KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
@@ -61,30 +75,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code(KC_MPLY);
-    } else if (state->count == 2) {
-        register_code(KC_MNXT);
-    } else {
-        register_code(KC_MPRV);
-    }
-}
+// void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
+//     if (state->count == 1) {
+//         register_code(KC_MPLY);
+//     } else if (state->count == 2) {
+//         register_code(KC_MNXT);
+//     } else {
+//         register_code(KC_MPRV);
+//     }
+// }
 
-void dance_enc_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        unregister_code(KC_MPLY);
-    } else if (state->count == 2) {
-        unregister_code(KC_MNXT);
-    } else {
-        unregister_code(KC_MPRV);
-    }
-}
+// void dance_enc_reset(qk_tap_dance_state_t *state, void *user_data) {
+//     if (state->count == 1) {
+//         unregister_code(KC_MPLY);
+//     } else if (state->count == 2) {
+//         unregister_code(KC_MNXT);
+//     } else {
+//         unregister_code(KC_MPRV);
+//     }
+// }
 
-// Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [ENC_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_enc_finished, dance_enc_reset),
-};
+// // Tap Dance definitions
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//     [ENC_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_enc_finished, dance_enc_reset),
+// };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);

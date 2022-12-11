@@ -30,7 +30,7 @@ enum custom_keycodes {
 };
 
 // Custom definitions for keys
-#define CK_CW CAPS_WORD     // CAPS_WORD for Caps Word feature
+#define CK_CW CW_TOGG       // CAPS_WORD for Caps Word feature
 #define CK_SLP KC_SLEP      // System Sleep
 #define CK_M1 C(KC_UP)      // Mission Control - All apps
 #define CK_M2 C(KC_DOWN)    // Mission Control - One apps
