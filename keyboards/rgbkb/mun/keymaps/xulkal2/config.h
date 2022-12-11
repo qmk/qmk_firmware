@@ -10,7 +10,7 @@
 #pragma once
 
 // Xulkal custom stuff
-#undef QUICK_TAP_TERM 0
+#undef QUICK_TAP_TERM
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 175

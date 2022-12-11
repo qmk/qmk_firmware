@@ -15,7 +15,7 @@
 #define TAPPING_TOGGLE 2  // number of taps for a toggle-on-tap
 #define TAPPING_TERM 170  // ms to trigger tap
 // https://precondition.github.io/home-row-mods
-#define TAPPING_FORCE_HOLD  // make tap-then-hold _not_ do key auto repeat
+#define QUICK_TAP_TERM 0  // make tap-then-hold _not_ do key auto repeat
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD  // I don't think this works for me, hence I rolled my own implementation.
 
