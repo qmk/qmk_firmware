@@ -24,6 +24,11 @@
      #define USB_MAX_POWER_CONSUMPTION 100
  #endif
 
+// Fix unresponsive on wake from sleep
+#ifndef USB_SUSPEND_WAKEUP_DELAY
+    #define USB_SUSPEND_WAKEUP_DELAY 200
+#endif
+
  // Configuration
  #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
@@ -67,13 +72,3 @@
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
 #undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-// #define WORK_LOUDER_LED_PIN_1 B7
-// #define WORK_LOUDER_LED_PIN_2 B6
-// #define WORK_LOUDER_LED_PIN_3 B5
