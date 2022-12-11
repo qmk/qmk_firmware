@@ -71,7 +71,14 @@
 #    define I2C_DRIVER I2CD1
 #endif
 
-#ifdef USE_GPIOV1
+#if defined(MCU_RP)
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE (PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_PUE | PAL_RP_PAD_DRIVE4)
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE I2C1_SCL_PAL_MODE
+#    endif
+#elif defined(USE_GPIOV1)
 #    ifndef I2C1_SCL_PAL_MODE
 #        define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
 #    endif

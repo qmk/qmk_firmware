@@ -46,13 +46,6 @@
 
 #    define usb_lld_endpoint_fields
 
-#    ifndef I2C1_SCL_PAL_MODE
-#        define I2C1_SCL_PAL_MODE (PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_PUE | PAL_RP_PAD_DRIVE4)
-#    endif
-#    ifndef I2C1_SDA_PAL_MODE
-#        define I2C1_SDA_PAL_MODE (PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_PUE | PAL_RP_PAD_DRIVE4)
-#    endif
-
 #    define USE_I2CV1_CONTRIB
 #    if !defined(I2C1_CLOCK_SPEED)
 #        define I2C1_CLOCK_SPEED 400000
