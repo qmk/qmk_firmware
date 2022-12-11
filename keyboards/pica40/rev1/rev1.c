@@ -47,17 +47,6 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-void suspend_wakeup_init_kb(void) {
-    rgblight_enable_noeeprom();
-
-    suspend_wakeup_init_user();
-}
-
-void suspend_power_down_kb(void) {
-    rgblight_disable_noeeprom();
-
-    suspend_power_down_user();
-}
 
 #endif // PICA40_RGBLIGHT_TIMEOUT
 
