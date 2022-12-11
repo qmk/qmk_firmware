@@ -1376,11 +1376,11 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t* record) {
             return false;
     }
 }
-// Handles per-key configuration of Tapping Force-Hold
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t* record) {
+// Handles per-key configuration of Quick-Tap
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         default:
-            return false;
+            return QUICK_TAP_TERM;
     }
 }
 // Handles per-key configuration of Permissive-Hold

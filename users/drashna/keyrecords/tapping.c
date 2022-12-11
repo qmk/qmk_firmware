@@ -57,14 +57,14 @@ __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrec
 }
 #endif // IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 
-#ifdef TAPPING_FORCE_HOLD_PER_KEY
-__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+#ifdef QUICK_TAP_TERM_PER_KEY
+__attribute__((weak)) uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         default:
-            return false;
+            return QUICK_TAP_TERM;
     }
 }
-#endif // TAPPING_FORCE_HOLD_PER_KEY
+#endif // QUICK_TAP_TERM_PER_KEY
 
 #ifdef RETRO_TAPPING_PER_KEY
 __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
