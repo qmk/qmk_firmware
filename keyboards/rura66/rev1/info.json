@@ -4,8 +4,8 @@
   "url": "https://github.com/ShinoharaTa/keyboards/tree/master/RURA66",
   "maintainer": "ShinoharaTa",
   "usb": {
-    "vid": "0xFEED",
-    "pid": "0x3060",
+    "vid": "0x7335",
+    "pid": "0x0200",
     "device_version": "0.0.1"
   },
   "layouts": {
