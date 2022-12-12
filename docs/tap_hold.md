@@ -126,7 +126,7 @@ The code which decides between the tap and hold actions of dual-role keys suppor
 
 Note that until the tap-or-hold decision completes (which happens when either the dual-role key is released, or the tapping term has expired, or the extra condition for the selected decision mode is satisfied), key events are delayed and not transmitted to the host immediately.  The default mode gives the most delay (if the dual-role key is held down, this mode always waits for the whole tapping term), and the other modes may give less delay when other keys are pressed, because the hold action may be selected earlier.
 
-### Illustration :id=illustration
+### Comparison :id=comparison
 
 To better illustrate the tap-or-hold decision modes, let us compare the expected output of each decision mode in a handful of tapping scenarios involving a mod-tap key (`LSFT_T(KC_A)`) and a regular key (`KC_B`) with the `TAPPING_TERM` set to 200ms.
 
