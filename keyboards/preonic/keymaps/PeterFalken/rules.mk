@@ -1,6 +1,3 @@
-# Enable VIAL support when merged into QMK
-# ENABLE_VIAL = yes
-
 # Setup QMK features
 BOOTMAGIC_ENABLE = yes	# Enable QMK_Boot on plug-in
 CAPS_WORD_ENABLE = yes	# Enable Caps Word

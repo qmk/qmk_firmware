@@ -28,17 +28,9 @@
     #define USB_SUSPEND_WAKEUP_DELAY 200
 #endif
 
-// Setup RGB Lighting (Underglow)
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_DISABLE_KEYCODES
-#define RGBLIGHT_DEFAULT_VAL 60
-
 // Space optimizations - 01
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
-
-// Space optimizations - 02
-#undef RGBLIGHT_ANIMATIONS
 
 // Default settings
 #ifdef AUDIO_ENABLE
