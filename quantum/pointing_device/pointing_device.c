@@ -287,10 +287,6 @@ __attribute__((weak)) void pointing_device_task(void) {
 #if defined(POINTING_DEVICE_MODES_ENABLE) && !(defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED))
     local_mouse_report = pointing_device_modes_task(local_mouse_report);
 #endif
-    // automatic mouse layer function
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-    pointing_device_task_auto_mouse(local_mouse_report);
-#endif
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
     report_mouse_t mousekey_report = mousekey_get_report();
