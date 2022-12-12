@@ -47,7 +47,7 @@
 
     // Redefine values
     // Number of milliseconds to wait until RGB automatically turns off
-    #define RGB_DISABLE_TIMEOUT 5000
+    #define RGB_MATRIX_TIMEOUT 5000
     // Limits maximum brightness of LEDs to 120 out of 255
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
     // Sets the default startup mode
