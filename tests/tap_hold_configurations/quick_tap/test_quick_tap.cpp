@@ -31,7 +31,7 @@ TEST_F(QuickTap, tap_regular_key_while_mod_tap_key_is_held) {
     TestDriver driver;
     InSequence s;
     auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
-    auto       regular_key      = KeymapKey(0, 2, 0, KC_A);
+    auto       regular_key = KeymapKey(0, 2, 0, KC_A);
 
     set_keymap({mod_tap_key, regular_key});
 
@@ -111,8 +111,8 @@ TEST_F(QuickTap, tap_regular_key_while_layer_tap_key_is_held) {
     TestDriver driver;
     InSequence s;
     auto       layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_P));
-    auto       regular_key        = KeymapKey(0, 2, 0, KC_A);
-    auto       layer_key          = KeymapKey(1, 2, 0, KC_B);
+    auto       regular_key   = KeymapKey(0, 2, 0, KC_A);
+    auto       layer_key     = KeymapKey(1, 2, 0, KC_B);
 
     set_keymap({layer_tap_key, regular_key, layer_key});
 
@@ -215,7 +215,6 @@ TEST_F(QuickTap, tap_key_and_hold_again_before_quick_tap_term) {
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
-
 
 TEST_F(QuickTap, tap_key_and_tap_again_after_quick_tap_term) {
     TestDriver driver;
