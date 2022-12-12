@@ -29,19 +29,14 @@
     #define USB_SUSPEND_WAKEUP_DELAY 200
 #endif
 
- // Configuration
- #define RGB_DISABLE_WHEN_USB_SUSPENDED
-
- // Space optimizations - 01
- #undef LOCKING_SUPPORT_ENABLE
- #undef LOCKING_RESYNC_ENABLE
+// Configuration
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 // Space optimizations - 01
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
 // Space optimizations - 02
-#undef RGBLIGHT_ANIMATIONS
 #undef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

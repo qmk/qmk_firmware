@@ -40,6 +40,30 @@ enum custom_keycodes {
 #define CK_PA G(KC_V)       // PASTE = CMD + V
 #define CK_UN G(KC_Z)       // UNDO = CMD + Z
 
+
+// Process custom keycodes
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // case KC_MISSION_CONTROL:
+    //   if (record->event.pressed) {
+    //     host_consumer_send(0x29F);
+    //   } else {
+    //     host_consumer_send(0);
+    //   }
+    //   return false;  // Skip all further processing of this key
+    case KC_LAUNCHPAD:
+      if (record->event.pressed) {
+        host_consumer_send(0x2A0);
+      } else {
+        host_consumer_send(0);
+      }
+      return false;  // Skip all further processing of this key
+    default:
+      return true;  // Process all other keycodes normally
+  }
+}
+
+
 // Layer activation
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
