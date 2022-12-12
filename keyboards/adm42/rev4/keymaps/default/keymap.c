@@ -114,13 +114,13 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
      case LLS_ESC:
      case LLS_RALT:
-        return true;
+        return 0;
      default:
-        return false;
+        return QUICK_TAP_TERM;
     }
 }
 

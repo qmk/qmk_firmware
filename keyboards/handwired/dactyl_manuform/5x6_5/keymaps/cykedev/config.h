@@ -51,6 +51,6 @@
 #define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 #define FORCE_NKRO

@@ -229,7 +229,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SHFTESC:
         case NUMSPAC:
@@ -249,9 +249,9 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
         case CTL__J:
         case CTL__T:
         case CTL__N:
-            return true;
+            return 0;
         default:
-            return false;
+            return QUICK_TAP_TERM;
     }
 }
 

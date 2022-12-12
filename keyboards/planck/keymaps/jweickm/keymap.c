@@ -1039,30 +1039,30 @@ bool music_mask_user(uint16_t keycode) {
     }
 }
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LSFT_T(KC_S):
-            return true;
+            return 0;
         case RSFT_T(KC_E):
-            return true;
+            return 0;
         case LSFT_T(KC_D):
-            return true;
+            return 0;
         case RSFT_T(KC_K):
-            return true;
+            return 0;
         case LSFT_T(KC_F):
-            return true;
+            return 0;
         case RSFT_T(KC_U):
-            return true;
+            return 0;
         case LT(_RAISE, KC_ENT):
-            return true;
+            return 0;
         case LT(_RAISE_DE, KC_ENT):
-            return true;
+            return 0;
         case LT(_LOWER, KC_BSPC):
-            return true;
+            return 0;
         case LT(_LOWER_DE, KC_BSPC):
-            return true;
+            return 0;
         default:
-            return false;
+            return QUICK_TAP_TERM;
     }
 }
 
