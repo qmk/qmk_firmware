@@ -40,6 +40,8 @@ TEST_F(ActionLayer, LayerTapToggleWithToggleWithKeypress) {
     run_one_scan_loop();
     expect_layer_state(0);
 
+    idle_for(QUICK_TAP_TERM + 10);
+
     layer_key.press();
     run_one_scan_loop();
     layer_key.release();

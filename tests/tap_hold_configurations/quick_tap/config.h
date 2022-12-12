@@ -18,4 +18,4 @@
 
 #include "test_common.h"
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 100
