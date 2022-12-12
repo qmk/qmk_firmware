@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
+
 #define MATRIX_ROW_PINS { B13, B14, A8, A1, A0 }
 #define MATRIX_COL_PINS { B11, B12, B10, B2, B1, B0, A7, A6, A5, A4, A3, A2, B3, A15, B5 }
 
@@ -30,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define WS2812_SPI SPID2 // default: SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 0 // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+
+#define LED_CAPS_LOCK_PIN C14
 
 //#define RGB_DI_PIN E2
 //#ifdef RGB_DI_PIN

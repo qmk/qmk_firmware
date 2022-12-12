@@ -17,14 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "quantum.h"
+#include "config_common.h"
 
-#ifdef KEYBOARD_mechlovin_zed65_no_backlight_retro66
-    #include "retro66.h"
-#elif KEYBOARD_mechlovin_zed65_no_backlight_wearhaus66
-    #include "wearhaus66.h"
-#elif KEYBOARD_mechlovin_zed65_no_backlight_cor65
-    #include "cor65.h"
-#elif KEYBOARD_mechlovin_zed65_mono_led
-    #include "mono_led.h"
-#endif
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 16
+
+
+#define MATRIX_ROW_PINS { B12, B13, B14, B15, A1 }
+#define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A6, A5, A4, A3, A2, C13, B7, B6, B5, B4, B3 }
+
+#define LED_CAPS_LOCK_PIN B9
+#define LED_PIN_ON_STATE 0
