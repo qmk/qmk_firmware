@@ -227,7 +227,16 @@ static inline void dump_key_buffer(void) {
 #endif
         }
         record->event.time = 0;
+
+#if defined(CAPS_WORD_ENABLE) && defined(AUTO_SHIFT_ENABLE)
+        // Edge case: preserve the weak Left Shift mod if both Caps Word and
+        // Auto Shift are on. Caps Word capitalizes by setting the weak Left
+        // Shift mod during the press event, but Auto Shift doesn't send the
+        // key until it receives the release event.
+        del_weak_mods((is_caps_word_on() && get_autoshift_state()) ? ~MOD_BIT(KC_LSFT) : 0xff);
+#else
         clear_weak_mods();
+#endif // defined(CAPS_WORD_ENABLE) && defined(AUTO_SHIFT_ENABLE)
 
 #if TAP_CODE_DELAY > 0
         // only delay once and for a non-tapping key
@@ -522,17 +531,17 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     bool is_combo_key          = false;
     bool no_combo_keys_pressed = true;
 
-    if (keycode == CMB_ON && record->event.pressed) {
+    if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
         return true;
     }
 
-    if (keycode == CMB_OFF && record->event.pressed) {
+    if (keycode == QK_COMBO_OFF && record->event.pressed) {
         combo_disable();
         return true;
     }
 
-    if (keycode == CMB_TOG && record->event.pressed) {
+    if (keycode == QK_COMBO_TOGGLE && record->event.pressed) {
         combo_toggle();
         return true;
     }

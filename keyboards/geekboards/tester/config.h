@@ -7,7 +7,6 @@
 
 #define MATRIX_ROW_PINS { B0, D4}
 #define MATRIX_COL_PINS { F7, F6, D2, D3}
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 #define LOCKING_SUPPORT_ENABL
@@ -15,7 +14,6 @@
 
 #define DEBOUNCE 3
 #ifdef RGB_MATRIX_ENABLE
-#define RGB_DISABLE_AFTER_TIMEOUT 0
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled
@@ -72,5 +70,5 @@
 #    define DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 8
 #    define DRIVER_2_LED_TOTAL 0
-#    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 #endif

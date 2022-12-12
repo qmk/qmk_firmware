@@ -22,4 +22,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ECO V1 pin-out */
 #define MATRIX_ROW_PINS { B1, B6, B2, B3 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B5, B4, E6, D7, C6, D4, D0, D1, D2, D3 }
-#define UNUSED_PINS

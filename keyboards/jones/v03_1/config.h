@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Same pins for Jones' custom Round-Robin matrix.
 #define MATRIX_ROW_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
 #define MATRIX_COL_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 // No need to define DIODE_DIRECTION for Jones' custom Round-Robin matrix.
@@ -77,9 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LAYERS
   // #define RGBLIGHT_MAX_LAYERS 2
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
-  /*== all animations enable ==*/
-  // #define RGBLIGHT_ANIMATIONS
-  /*== or choose animations ==*/
   // #define RGBLIGHT_EFFECT_BREATHING
   // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

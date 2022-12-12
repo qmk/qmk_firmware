@@ -412,7 +412,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         } else unregister_code16(keycode);
         break;
 
-        // Double Zero    
+        // Double Zero
     case KC_00:
         if (record -> event.pressed) {
             // when keycode KC_00 is pressed
@@ -593,7 +593,7 @@ bool caps_word_press_user(uint16_t keycode) {
 // Turn on/off NUM LOCK if current state is different
 void activate_numlock(bool turn_on) {
     if (IS_HOST_LED_ON(USB_LED_NUM_LOCK) != turn_on) {
-        tap_code(KC_NUMLOCK);
+        tap_code(KC_NUM_LOCK);
     }
 }
 

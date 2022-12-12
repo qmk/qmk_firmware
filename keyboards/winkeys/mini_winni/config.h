@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix pins */
 #define DIRECT_PINS { { F4, F5, B4, D7 }, { F6, F7, B6, B5 } }
-#define UNUSED_PINS
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

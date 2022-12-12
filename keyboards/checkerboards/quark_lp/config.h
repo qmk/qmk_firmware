@@ -23,7 +23,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C5, C4, C6, C7 }
 #define MATRIX_COL_PINS { B6, B5, B4, B3, B0, D6, D5, D4, D3, D2, D1, D0 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -42,7 +41,7 @@
 #define RGB_DI_PIN C2 // pin the DI on the ws2812 is hooked-up to
 
 #ifdef RGB_MATRIX_ENABLE
-#define DRIVER_LED_TOTAL 51
+#define RGB_MATRIX_LED_COUNT 51
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 125 // limits maximum brightness of LEDs to 125 out of 255. Higher may cause the controller to crash.

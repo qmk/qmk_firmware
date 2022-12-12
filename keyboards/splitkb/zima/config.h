@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { E6, F5, F6 }, \
     { F0, F1, F4 }, \
 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { D7 }

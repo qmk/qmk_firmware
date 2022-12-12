@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* pin-out for PROMICRO */
 #define MATRIX_ROW_PINS { D1, D0, D4, C6 }
 #define MATRIX_COL_PINS { D2, D7, E6, B4, B5 }
-#define UNUSED_PINS
  
 /* Encoder position for PROMICRO */
 #define ENCODERS_PAD_A { B6, F6 }

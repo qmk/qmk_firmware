@@ -21,32 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MASTER_LEFT  // Left side is the master
+#define MASTER_LEFT // Left side is the master
 #define SPLIT_LED_STATE_ENABLE
-
-#define TAPPING_TERM 200
-
-#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
-
-#define AUTO_SHIFT_REPEAT
-
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_LIMIT_VAL 120
-#    define RGBLIGHT_HUE_STEP 10
-#    define RGBLIGHT_SAT_STEP 17
-#    define RGBLIGHT_VAL_STEP 17
-#endif
 
 #ifdef RGB_MATRIX_ENABLE
 // RGB matrix options
-#    define RGB_MATRIX_KEYPRESSES  // enable keypress effects
+#    define RGB_MATRIX_KEYPRESSES // enable keypress effects
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 // Disable unwanted R2G effects (from r2g/config.h)
 #    undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #    undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #    undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-#    undef ENABLE_RGB_MATRIX_BREATHING
+#    define ENABLE_RGB_MATRIX_BREATHING
 #    undef ENABLE_RGB_MATRIX_BAND_SAT
 #    undef ENABLE_RGB_MATRIX_BAND_VAL
 #    undef ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
@@ -57,8 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef ENABLE_RGB_MATRIX_RAINDROPS
 #    undef ENABLE_RGB_MATRIX_HUE_BREATHING
 #    undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-//#   undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
 #    undef ENABLE_RGB_MATRIX_SPLASH
@@ -67,14 +54,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_COLOR
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
 // Default effect
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
-#    define RGB_MATRIX_STARTUP_HUE 10
-#    define RGB_MATRIX_STARTUP_SAT 255
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#    define RGB_MATRIX_DEFAULT_HUE 10
+#    define RGB_MATRIX_DEFAULT_SAT 255
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #endif
 
 // https://github.com/qmk/qmk_firmware/blob/develop/docs/squeezing_avr.md
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 #define NO_MUSIC_MODE
-#define LAYER_STATE_8BIT  // Limit to 8 layers
+#define LAYER_STATE_8BIT // Limit to 8 layers

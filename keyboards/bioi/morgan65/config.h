@@ -37,8 +37,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { E6, C6, F4, B2, D4 }
 #define MATRIX_COL_PINS { F5, F6, F7, C7, B0, B7, B5, D5, B4, D7, D6, D1, D0, B3 }
 
-//#define QMK_KEYS_PER_SCAN 4
-
 /* Backlight Setup */
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 12
@@ -51,7 +49,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB Underglow */
 #define RGB_DI_PIN B1
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 8  // Number of LEDs
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

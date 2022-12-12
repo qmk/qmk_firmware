@@ -174,7 +174,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -316,12 +316,19 @@ led_config_t g_led_config = { {
 #ifdef AUDIO_ENABLE
 bool music_mask_kb(uint16_t keycode) {
     switch (keycode) {
-        case QK_LAYER_TAP ... QK_ONE_SHOT_LAYER_MAX:
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_MOD_MAX:
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+        case QK_TO ... QK_TO_MAX:
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+        case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+        case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-        case AU_ON ... MUV_DE:
-        case RESET:
-        case EEP_RST:
+        case AU_ON ... AU_PREV:
+        case QK_BOOT:
+        case QK_CLEAR_EEPROM:
             return false;
         default:
             return music_mask_user(keycode);
@@ -358,6 +365,7 @@ void keyboard_post_init_kb(void) {
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
 // clang-format off
+__attribute__ ((weak))
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
     58, 59, 60, 61, 62, 63, 64,    65, 66, 67, 68, 69, 70, 71,
     44, 45, 46, 47, 48, 49, 50,    51, 52, 53, 54, 55, 56, 57,
@@ -370,12 +378,8 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 #endif
 
 #ifdef CAPS_LOCK_STATUS
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        ML_LED_6(led_state.caps_lock);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    ML_LED_6(led_state.caps_lock);
 }
 #endif
 

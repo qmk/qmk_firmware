@@ -155,7 +155,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case QK_BOOTLOADER:
+        case QK_BOOT:
             if (record->event.pressed) {
                 rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
             }

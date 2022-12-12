@@ -105,7 +105,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 ## Effects and Animations
 
 Not only can this lighting be whatever color you want,
-if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a number of animation modes at your disposal:
+if `RGBLIGHT_EFFECT_xxxx` is defined, you also have a number of animation modes at your disposal:
 
 |Mode number symbol           |Additional number  |Description                            |
 |-----------------------------|-------------------|---------------------------------------|
@@ -125,13 +125,14 @@ Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstrat
 
 Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
+
 ### Effect and Animation Toggles
 
 Use these defines to add or remove animations from the firmware. When you are running low on flash space, it can be helpful to disable animations you are not using.
 
 |Define                              |Default      |Description                                                              |
 |------------------------------------|-------------|-------------------------------------------------------------------------|
-|`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.                                   |
+|`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.  (deprecated)                     |
 |`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode.                                       |
 |`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
 |`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|Enable christmas animation mode.                                         |
@@ -142,6 +143,8 @@ Use these defines to add or remove animations from the firmware. When you are ru
 |`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
 |`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
 |`RGBLIGHT_EFFECT_TWINKLE`           |*Not defined*|Enable twinkle animation mode.                                           |
+
+!> `RGBLIGHT_ANIMATIONS` is being deprecated and animation modes should be explicitly defined.
 
 ### Effect and Animation Settings
 
@@ -162,14 +165,12 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
-  1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
-  1. Selectively add the animations you want to enable. The following would enable two animations and save about 4KiB:
+  1. Selectively disable the animations you want to enable. The following would enable two animations and save about 4KiB:
 
 ```diff
  #undef RGBLED_NUM
--#define RGBLIGHT_ANIMATIONS
-+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
++#undef RGBLIGHT_EFFECT_STATIC_GRADIENT
++#undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
  #define RGBLED_NUM 12
  #define RGBLIGHT_HUE_STEP 8
  #define RGBLIGHT_SAT_STEP 8
@@ -301,7 +302,7 @@ void keyboard_post_init_user(void) {
 // after the flag has been flipped...
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             rgblight_blink_layer(debug_enable ? 0 : 1, 500);
             break;
 
@@ -318,13 +319,13 @@ You can also use `rgblight_blink_layer_repeat` to specify the amount of times th
 ```c
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             rgblight_blink_layer_repeat(debug_enable ? 0 : 1, 200, 3);
             break;
     }
 }
 ```
-would turn the layer 0 (or 1) on and off again three times when `DEBUG` is pressed.
+would turn the layer 0 (or 1) on and off again three times when `DB_TOGG` is pressed.
 
 Blinking accumulates layers so if multiple layers are set blinking at the same time they will all blink for the duration and repeat times of the last layer to be blinked.
 To stop these other layers from blinking use `rgblight_unblink_layer` or `rgblight_unblink_all_but_layer`:

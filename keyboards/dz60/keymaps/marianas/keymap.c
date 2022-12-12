@@ -43,8 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [FN_LAYER]=
     LAYOUT_60_ansi(
       KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
-      KC_CAPSLOCK, KC_MPRV, KC_MPLY, KC_MNXT, LWIN(KC_R), ____, KC_CALC, KC_PGUP, KC_UP, KC_PGDN, KC_PSCR, KC_SLCK, KC_BRK, ____,
+      KC_CAPS, KC_MPRV, KC_MPLY, KC_MNXT, LWIN(KC_R), ____, KC_CALC, KC_PGUP, KC_UP, KC_PGDN, KC_PSCR, KC_SCRL, KC_BRK, ____,
       ____, KC_VOLD, KC_MUTE, KC_VOLU, ____, ____, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_INS, KC_DEL, ____,
       ____, RGB_HUI, RGB_SAI, RGB_SAD, ____,  ____, KC_END, QWRTY, GAME, NAVS, ____, ____,
-      ____, ____, ____, _________________, ____, KC_HYPR, KC_MEH, RESET)
+      ____, ____, ____, _________________, ____, KC_HYPR, KC_MEH, QK_BOOT)
 };

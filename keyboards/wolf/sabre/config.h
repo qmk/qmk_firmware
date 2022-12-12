@@ -37,7 +37,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Checked with Eagle Schematic
 #define MATRIX_ROW_PINS { D0, D1, F1, F0, B5, B6, C7, C6, F6, F7, F4, F5 }
 #define MATRIX_COL_PINS { D2, D3, D5, D4, D6, D7, B4, B2, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -47,5 +46,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B7
 
+#define LED_PIN_ON_STATE 0
 #define LED_CAPS_LOCK_PIN B3
 #define LED_SCROLL_LOCK_PIN B0

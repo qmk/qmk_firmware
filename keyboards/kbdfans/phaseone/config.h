@@ -22,7 +22,6 @@
 #define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4 }
 #define MATRIX_COL_PINS { B5, C6, C7, F7, F6, F5, F4, F1, E6, B7, D0, D1, D2, D3, D5 }
-#define UNUSED_PINS
 #define LED_NUM_LOCK_PIN D7
 #define LED_CAPS_LOCK_PIN D6
 #define LED_PIN_ON_STATE 0

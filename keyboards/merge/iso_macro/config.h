@@ -24,7 +24,6 @@
 
 #define MATRIX_ROW_PINS { F4, F5, F6}
 #define MATRIX_COL_PINS { B4, B5, B6}
-#define UNUSED_PINS
 #define BACKLIGHT_PIN B7
 
 /* COL2ROW or ROW2COL */

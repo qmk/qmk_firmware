@@ -17,5 +17,5 @@
 
 #ifdef KEYBOARD_ergodox_ez
 #undef   PRODUCT
-#define  PRODUCT  ErgoDox EZ - Modified by <@jjerrell>
+#define  PRODUCT  "ErgoDox EZ - Modified by <@jjerrell>"
 #endif

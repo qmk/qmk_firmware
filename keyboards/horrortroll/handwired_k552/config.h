@@ -39,9 +39,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
-
 /* EEPROM size */
 #define EEPROM_PAGE_SIZE
 #define FEE_PAGE_SIZE 0x800
@@ -65,9 +62,9 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 24
+    #define RGB_MATRIX_LED_COUNT 24
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
     /* RGB Matrix config */
     #define RGB_DI_PIN C14

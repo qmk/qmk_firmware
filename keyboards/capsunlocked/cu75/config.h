@@ -24,11 +24,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 16
 #define MATRIX_ROW_PINS {F1, B7, B3, D2, D3, B2}
 #define MATRIX_COL_PINS {F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, B1, B0, F0}
-#define UNUSED_PINS {}
 
 #define RGB_DI_PIN C7  // Have to set it to something to get the ws2812 code to compile
 #define RGBLED_NUM 24     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17

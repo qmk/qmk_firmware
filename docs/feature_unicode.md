@@ -112,30 +112,28 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UC_MAC`**: macOS built-in Unicode hex input. Supports code points up to `0x10FFFF` (all possible code points).
+* **`UNICODE_MODE_MACOS`**: macOS built-in Unicode hex input. Supports code points up to `0x10FFFF` (all possible code points).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_MAC`](#input-key-configuration) with a different keycode.
 
   !> Using the _Unicode Hex Input_ input source may disable some Option-based shortcuts, such as Option+Left and Option+Right.
 
-  !> `UC_OSX` is a deprecated alias of `UC_MAC` that will be removed in future versions of QMK. All new keymaps should use `UC_MAC`.
-
-* **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
+* **`UNICODE_MODE_LINUX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
   By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with a different keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
 
   Users who wish support in non-GTK apps without IBus may need to resort to a more indirect method, such as creating a custom keyboard layout ([more on this method](#custom-linux-layout)).
-  
-* **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
+
+* **`UNICODE_MODE_WINDOWS`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
   To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Reboot afterwards.
-  This mode is not recommended because of reliability and compatibility issues; use the `UC_WINC` mode instead.
+  This mode is not recommended because of reliability and compatibility issues; use the `UNICODE_MODE_WINCOMPOSE` mode instead.
 
-* **`UC_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
+* **`UNICODE_MODE_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
 
-* **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.9.0, supports code points up to `0x10FFFF` (all possible code points).
+* **`UNICODE_MODE_WINCOMPOSE`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.9.0, supports code points up to `0x10FFFF` (all possible code points).
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. This mode works reliably under all version of Windows supported by the app.
   By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with a different keycode.
@@ -146,15 +144,15 @@ The following input modes are available:
 To set your desired input mode, add the following define to your `config.h`:
 
 ```c
-#define UNICODE_SELECTED_MODES UC_LNX
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 ```
 
-This example sets the board's default input mode to `UC_LNX`. You can replace this with `UC_MAC`, `UC_WINC`, or any of the other modes listed [above](#input-modes). The board will automatically use the selected mode on startup, unless you manually switch to another mode (see [below](#keycodes)).
+This example sets the board's default input mode to `UNICODE_MODE_LINUX`. You can replace this with `UNICODE_MODE_MACOS`, `UNICODE_MODE_WINCOMPOSE`, or any of the other modes listed [above](#input-modes). The board will automatically use the selected mode on startup, unless you manually switch to another mode (see [below](#keycodes)).
 
-You can also select multiple input modes, which allows you to easily cycle through them using the `UC_MOD`/`UC_RMOD` keycodes.
+You can also select multiple input modes, which allows you to easily cycle through them using the `UC_NEXT`/`UC_PREV` keycodes.
 
 ```c
-#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC
+#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS, UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE
 ```
 
 Note that the values are separated by commas. The board will remember the last used input mode and will continue using it on next power-up. You can disable this and force it to always start with the first mode in the list by adding `#define UNICODE_CYCLE_PERSIST false` to your `config.h`.
@@ -163,17 +161,18 @@ Note that the values are separated by commas. The board will remember the last u
 
 You can switch the input mode at any time by using the following keycodes. Adding these to your keymap allows you to quickly switch to a specific input mode, including modes not listed in `UNICODE_SELECTED_MODES`.
 
-|Keycode               |Alias    |Input Mode  |Description                                                                  |
-|----------------------|---------|------------|-----------------------------------------------------------------------------|
-|`UNICODE_MODE_FORWARD`|`UC_MOD` |Next in list|Cycle through selected modes, reverse direction when Shift is held           |
-|`UNICODE_MODE_REVERSE`|`UC_RMOD`|Prev in list|Cycle through selected modes in reverse, forward direction when Shift is held|
-|`UNICODE_MODE_MAC`    |`UC_M_MA`|`UC_MAC`    |Switch to macOS input                                                        |
-|`UNICODE_MODE_LNX`    |`UC_M_LN`|`UC_LNX`    |Switch to Linux input                                                        |
-|`UNICODE_MODE_WIN`    |`UC_M_WI`|`UC_WIN`    |Switch to Windows input                                                      |
-|`UNICODE_MODE_BSD`    |`UC_M_BS`|`UC_BSD`    |Switch to BSD input _(not implemented)_                                      |
-|`UNICODE_MODE_WINC`   |`UC_M_WC`|`UC_WINC`   |Switch to Windows input using WinCompose                                     |
+|Keycode                     |Alias    |Input Mode               |Description                                                                  |
+|----------------------------|---------|-------------------------|-----------------------------------------------------------------------------|
+|`QK_UNICODE_MODE_NEXT`      |`UC_NEXT`|Next in list             |Cycle through selected modes, reverse direction when Shift is held           |
+|`QK_UNICODE_MODE_PREVIOUS`  |`UC_PREV`|Prev in list             |Cycle through selected modes in reverse, forward direction when Shift is held|
+|`QK_UNICODE_MODE_MACOS`     |`UC_MAC` |`UNICODE_MODE_MACOS`     |Switch to macOS input                                                        |
+|`QK_UNICODE_MODE_LINUX`     |`UC_LINX`|`UNICODE_MODE_LINUX`     |Switch to Linux input                                                        |
+|`QK_UNICODE_MODE_WINDOWS`   |`UC_WIN` |`UNICODE_MODE_WINDOWS`   |Switch to Windows input                                                      |
+|`QK_UNICODE_MODE_BSD`       |`UC_BSD` |`UNICODE_MODE_BSD`       |Switch to BSD input _(not implemented)_                                      |
+|`QK_UNICODE_MODE_WINCOMPOSE`|`UC_WINC`|`UNICODE_MODE_WINCOMPOSE`|Switch to Windows input using WinCompose                                     |
+|`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|`UNICODE_MODE_EMACS`     |Switch to emacs (`C-x-8 RET`)                                                |
 
-You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`).
+You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UNICODE_MODE_LINUX`).
 
 ?> Using `UNICODE_SELECTED_MODES` is preferable to calling `set_unicode_input_mode()` in `matrix_init_user()` or similar functions, since it's better integrated into the Unicode system and has the added benefit of avoiding unnecessary writes to EEPROM.
 
@@ -204,6 +203,17 @@ The functions for starting and finishing Unicode input on your platform can be o
 * `void unicode_input_finish(void)` – This is called to exit Unicode input mode, for example by pressing Space or releasing the Alt key.
 
 You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
+
+### Input Mode Callbacks
+
+There are callbacks functions available that are called whenever the unicode input mode changes. The new input mode is passed to the function.
+
+|Callback                                           |Description                                          |
+|---------------------------------------------------|-----------------------------------------------------|
+| `unicode_input_mode_set_kb(uint8_t input_mode)`   | Callback for unicode input mode set, for keyboard.  |
+| `unicode_input_mode_set_user(uint8_t input_mode)` | Callback for unicode input mode set, for users.     |
+
+This feature can be used, for instance, to implement LED indicators for the current unicode input mode.
 
 ### Input Key Configuration
 

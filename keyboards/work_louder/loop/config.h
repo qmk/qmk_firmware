@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS \
     { F5 }
 #define MATRIX_COL_PINS { B3, B2, B1, D6, D7, B4, B5, B6, C6, C7, F7, F6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -53,7 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_BREATHING
 
 #define RGBLIGHT_DI_PIN E6
-#    define RGBLED_NUM 24
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
@@ -81,10 +79,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#endif
 
 #define RGB_DI_PIN F1
-#define DRIVER_LED_TOTAL 9
+#define RGB_MATRIX_LED_COUNT 9
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_DISABLE_KEYCODES
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 // RGB Matrix Animation modes. Explicitly enabled

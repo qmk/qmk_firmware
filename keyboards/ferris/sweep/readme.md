@@ -31,6 +31,13 @@ For Elite-C or compatible controllers using `DFU` bootloader, add the line `BOOT
 
 [QMK Toolbox](http://qmk.fm/toolbox) can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
+### RP2040 Controllers
+
+Pro Micro RP2040 controllers are supported with [QMK Converters](https://docs.qmk.fm/#/feature_converters). The make command example with handedness setting for Adafruit's KB2040 are:
+
+    make CONVERT_TO=kb2040 ferris/sweep:default:uf2-split-left
+    make CONVERT_TO=kb2040 ferris/sweep:default:uf2-split-right
+
 ## Bootloader
 
 Enter the bootloader in 3 ways:

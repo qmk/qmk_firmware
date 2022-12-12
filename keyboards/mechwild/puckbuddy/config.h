@@ -9,14 +9,6 @@
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
 
-#ifdef UF2_BUILD
-#define EXTERNAL_EEPROM_BYTE_COUNT 2048
-#define EXTERNAL_EEPROM_PAGE_SIZE 128
-#define EXTERNAL_EEPROM_ADDRESS_SIZE 1
-#define EXTERNAL_EEPROM_WRITE_TIME 0
-#define FEE_PAGE_BASE_ADDRESS 0x08008000
-#endif
-
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
@@ -47,7 +39,6 @@
  */
 #define MATRIX_ROW_PINS { B12, B13, B14, B15 }
 #define MATRIX_COL_PINS { B10, A8, B4, B5 }
-#define UNUSED_PINS
 
 /* spi config */
 #define SPI_DRIVER SPID1

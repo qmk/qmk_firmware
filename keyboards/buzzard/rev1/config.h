@@ -13,7 +13,6 @@
     { F4, F5, F6, F7 }
 #define MATRIX_COL_PINS \
     { B1, B3, B2, B6, B5, B4}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -36,7 +35,7 @@
 #define SPLIT_OLED_ENABLE
 #endif
 
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 #define PS2_CLOCK_PIN   E6
 #define PS2_DATA_PIN    D7
 

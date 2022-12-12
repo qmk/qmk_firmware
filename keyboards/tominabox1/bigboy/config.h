@@ -24,7 +24,6 @@
     { B7, B2, B3 } \
 }
 
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { C6 }
 #define ENCODERS_PAD_B { B6 }
