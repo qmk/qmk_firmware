@@ -130,7 +130,7 @@ Note that until the tap-or-hold decision completes (which happens when either th
 
 To better illustrate the tap-or-hold decision modes, let us compare the expected output of each decision mode in a handful of tapping scenarios involving a mod-tap key (`LSFT_T(KC_A)`) and a regular key (`KC_B`) with the `TAPPING_TERM` set to 200ms.
 
-By default, mod-taps behave like `HOLD_ON_OTHER_KEY_PRESS`, while layer-taps behave like "Ignore Interrupt" out of the box. If you want "Ignore Interrupt"-like behaviour for mod-taps, you must enable `IGNORE_MOD_TAP_INTERRUPT`.
+By default, mod-taps behave like `HOLD_ON_OTHER_KEY_PRESS`, while layer-taps behave like "Ignore Interrupt" out of the box. If you want "Ignore Interrupt"-like behaviour for mod-taps, you must enable `IGNORE_MOD_TAP_INTERRUPT`, or return `false` in the `get_hold_on_other_key_press` function for all mod-taps.
 
 Note: "`kc` held" in the "Physical key event" column means that the key wasn't physically released yet at this point in time.
 
@@ -423,6 +423,8 @@ For more granular control of this feature, you can add the following to your `co
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 ```
 
+?> This option affects *all* dual-role keys.
+
 You can then add the following function to your keymap:
 
 ```c
@@ -440,7 +442,9 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Keep in mind that the `keycode` argument of the `get_hold_on_other_key_press` function can be any dual-role key; it is not limited to mod-taps.
+Note that you must return `false` in `get_hold_on_other_key_press` in order to apply `IGNORE_MOD_TAP_INTERRUPT` for a certain mod-tap key.
+
+?> `IGNORE_MOD_TAP_INTERRUPT[_PER_KEY]` is being progressively phased out to align the (default) behavior and configuration of mod-taps with the rest of dual-role keys.
 
 ## Quick Tap Term
 
