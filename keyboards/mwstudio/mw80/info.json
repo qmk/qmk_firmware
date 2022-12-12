@@ -47,8 +47,8 @@
         ]
     },
     "usb": {
-        "pid": "0x7BA1",
-        "vid": "0x8001",
+        "pid": "0x8001",
+        "vid": "0x7BA1",
         "device_version": "1.0.0"
     },
     "layouts": {
