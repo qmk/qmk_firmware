@@ -21,14 +21,9 @@
 #include <string.h>
 
 #include "quantum.h"
-#include "rgb_matrix.h"
 #ifdef SYSTEM76_EC
-#include "action.h"
-#include "dynamic_keymap.h"
-#include "matrix.h"
 #include "raw_hid.h"
 #include "version.h"
-#include "wait.h"
 
 enum Command {
     CMD_PROBE         = 1,  // Probe for System76 EC protocol
@@ -172,11 +167,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
-        .hsv = {
-            .h = RGB_MATRIX_DEFAULT_HUE,
-            .s = RGB_MATRIX_DEFAULT_SAT,
-            .v = RGB_MATRIX_DEFAULT_VAL,
-        },
+        .hsv = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL},
         .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
@@ -186,11 +177,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
-        .hsv = {
-            .h = RGB_MATRIX_DEFAULT_HUE,
-            .s = RGB_MATRIX_DEFAULT_SAT,
-            .v = RGB_MATRIX_DEFAULT_VAL,
-        },
+        .hsv = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL},
         .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
