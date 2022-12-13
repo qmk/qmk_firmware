@@ -204,7 +204,11 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     if (current_row == LED_MATRIX_ROWS_HW) current_row = 0;
     uint8_t last_key_row = current_key_row;
     // Advance to the next key matrix row
+#if (SN32_PWM_CONTROL == HARDWARE_PWM)
     if (current_row % LED_MATRIX_ROW_CHANNELS == 2) current_key_row++;
+#elif (SN32_PWM_CONTROL == SOFTWARE_PWM)
+    if (current_row % LED_MATRIX_ROW_CHANNELS == 0) current_key_row++;
+#endif
     /* Check if counter has wrapped around, reset before the next pass */
     if (current_key_row == LED_MATRIX_ROWS) current_key_row = 0;
     // Disable LED output before scanning the key matrix
