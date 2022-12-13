@@ -13,20 +13,28 @@ Q1 Version 1 is based on the MCU ATmega32u4 and Q1 Version 2 is based on the MCU
 Make example for this keyboard (after setting up your build environment):
 - For Q1 Version 1 you can use the following commands:
 
-    `make keychron/q1/ansi_atmega32u4:default`
+    ```
+    make keychron/q1/ansi_atmega32u4:default
+    ```
 
 - For Q1 Version 2 you can use the following commands:
 
-    `make keychron/q1/ansi_stm32l432:default`
+    ```
+    make keychron/q1/ansi_stm32l432:default
+    ```
 
 Flashing example for this keyboard:
 - For Q1 Version 1 you can use the following commands:
 
-    `make keychron/q1/ansi_atmega32u4:default:flash`
+    ```
+    make keychron/q1/ansi_atmega32u4:default:flash
+    ```
 
 - For Q1 Version 2 you can use the following commands:
 
-    `make keychron/q1/ansi_stm32l432:default:flash`
+    ```
+    make keychron/q1/ansi_stm32l432:default:flash
+    ```
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
