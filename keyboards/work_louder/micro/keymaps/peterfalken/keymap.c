@@ -19,6 +19,9 @@ enum wl_micro_layers {
 //     LED_LEVEL = SAFE_RANGE,
 // };
 
+#define CK_UNDO G(KC_Z)       // UNDO = CMD + Z
+#define CK_REDO LSG(KC_Z)     // REDO = CMD + SHIFT + Z
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L0] = LAYOUT(
         KC_MPLY, KC_9,    KC_0,    KC_NO,
@@ -70,14 +73,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t led_level : 3;
-    };
-} work_louder_config_t;
+// typedef union {
+//     uint32_t raw;
+//     struct {
+//         uint8_t led_level : 3;
+//     };
+// } work_louder_config_t;
 
-work_louder_config_t work_louder_config;
+// work_louder_config_t work_louder_config;
 
 // bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //     switch (keycode) {
@@ -98,7 +101,11 @@ work_louder_config_t work_louder_config;
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(C(KC_Z), C(KC_Y))  },
+    { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(CK_UNDO, CK_REDO)  },
+    { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
+    { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
+    { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
+    { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
     { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
     { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
     { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
@@ -110,20 +117,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Get highest layer as number
     int layer = get_highest_layer(state);
     // Toggle leds based on binary layer number [2 1 3]
-    layer & 0x01 ? work_louder_micro_led_1_on(): work_louder_micro_led_1_off();
-    layer & 0x02 ? work_louder_micro_led_2_on(): work_louder_micro_led_2_off();
-    layer & 0x04 ? work_louder_micro_led_3_on(): work_louder_micro_led_3_off();
+    layer & 0x02 ? work_louder_micro_led_1_on(): work_louder_micro_led_1_off();
+    layer & 0x04 ? work_louder_micro_led_2_on(): work_louder_micro_led_2_off();
+    layer & 0x01 ? work_louder_micro_led_3_on(): work_louder_micro_led_3_off();
 
     return state;
 }
 
-void eeconfig_init_user(void) {
-    work_louder_config.raw = 0;
-    work_louder_config.led_level = 1;
-    eeconfig_update_user(work_louder_config.raw);
-}
+// void eeconfig_init_user(void) {
+//     work_louder_config.raw = 0;
+//     work_louder_config.led_level = 1;
+//     eeconfig_update_user(work_louder_config.raw);
+// }
 
-void matrix_init_user(void) {
-    work_louder_config.raw = eeconfig_read_user();
-    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
-}
+// void matrix_init_user(void) {
+//     work_louder_config.raw = eeconfig_read_user();
+//     work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+// }

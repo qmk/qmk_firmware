@@ -46,17 +46,3 @@
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
 #undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-#undef WORK_LOUDER_LED_PIN_1
-#undef WORK_LOUDER_LED_PIN_2
-#undef WORK_LOUDER_LED_PIN_3
-
-#define WORK_LOUDER_LED_PIN_1 B5
-#define WORK_LOUDER_LED_PIN_2 B7
-#define WORK_LOUDER_LED_PIN_3 B6
