@@ -17,6 +17,11 @@
 #    define RGB_MATRIX_SPD_STEP 16
 #endif
 
+#if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
+#    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif
+
 #define ROWS_PER_HAND (MATRIX_ROWS)
 
 #if !defined(MATRIX_IO_DELAY)
@@ -96,7 +101,7 @@ extern matrix_row_t   matrix[MATRIX_ROWS];                      // debounced val
 static matrix_row_t   shared_matrix[MATRIX_ROWS];               // scan values
 static volatile bool  matrix_locked                    = false; // matrix update check
 static volatile bool  matrix_scanned                   = false;
-static const uint32_t periodticks                      = 256;
+static const uint32_t periodticks                      = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
 static const uint32_t freq                             = (RGB_MATRIX_HUE_STEP * RGB_MATRIX_SAT_STEP * RGB_MATRIX_VAL_STEP * RGB_MATRIX_SPD_STEP * RGB_MATRIX_LED_PROCESS_LIMIT);
 static const pin_t    led_row_pins[LED_MATRIX_ROWS_HW] = LED_MATRIX_ROW_PINS; // We expect a R,B,G order here
 static const pin_t    led_col_pins[LED_MATRIX_COLS]    = LED_MATRIX_COL_PINS;
@@ -349,7 +354,7 @@ static void rgb_callback(PWMDriver *pwmp) {
     pwmDisablePeriodicNotification(pwmp);
 #if ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == COL2ROW))
     for (uint8_t pwm_cnt = 0; pwm_cnt < LED_MATRIX_COLS; pwm_cnt++) {
-        if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[pwm_cnt])) && (led_duty_cycle[pwm_cnt] > 0)) {
+        if (((uint16_t)(pwmp->ct->TC)<= ((uint16_t)(led_duty_cycle[pwm_cnt]+ periodticks))) && (led_duty_cycle[pwm_cnt] > 0)) {
             setPinOutput(led_col_pins[pwm_cnt]);
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
             writePinLow(led_col_pins[pwm_cnt]);
