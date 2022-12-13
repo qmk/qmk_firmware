@@ -3,7 +3,7 @@
 ![Keychron Q1](https://cdn.shopify.com/s/files/1/0059/0630/1017/t/5/assets/pf-c4a2d4d8--KeychronQ1QMKCustomMechanicalKeyboard7.jpeg?v=1628820823)
 
 A customizable 75% keyboard.
-Q1 Version 2 is based on the MCU STM32L432KBU6 while Q1 Version 1 based on the MCU  ATmega32u4.
+Q1 Version 1 is based on the MCU ATmega32u4 and Q1 Version 2 is based on the MCU STM32L432KBU6.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q1
