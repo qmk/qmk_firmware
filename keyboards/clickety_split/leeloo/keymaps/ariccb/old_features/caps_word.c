@@ -16,6 +16,8 @@
 // For full documentation, see
 // https://getreuer.info/posts/keyboards/caps-word
 
+#include <stdio.h>
+#include QMK_KEYBOARD_H
 #include "caps_word.h"
 
 static bool caps_word_active = false;

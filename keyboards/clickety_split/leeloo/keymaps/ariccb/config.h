@@ -39,12 +39,25 @@
 // #define TAPPING_TERM 150
 // #define IGNORE_MOD_TAP_INTERRUPT
 
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif  //!NO_DEBUG
+
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif //!NO_PRINT
+
 #define LAYER_LOCK_IDLE_TIMEOUT 120000 // Turn off layer lock after 120 seconds
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 #define MOUSEKEY_INTERVAL 8            //Time between cursor movements in milliseconds.
                                        //If the refresh rate of your display is 60Hz, you could set it to 16 (1/60). As this raises the cursor speed significantly, you may want to lower MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_MAX_SPEED 13          //Maximum cursor speed at which acceleration stops
-#define MOUSEKEY_TIME_TO_MAX 200      //Time until maximum scroll speed is reached
+#define MOUSEKEY_TIME_TO_MAX 120       //Time until maximum scroll speed is reached
 #define MOUSEKEY_DELAY 0               //Delay between pressing a movement key and cursor movement
 #define MOUSEKEY_MOVE_DELTA 4          //Step size
 #define MOUSEKEY_WHEEL_DELAY 0         //Delay between pressing a movement key and wheel scroll movement
@@ -59,25 +72,4 @@
 
 
 #define ENCODER_RESOLUTIONS {2}
-
-// #ifdef PS2_USE_INT
-//     #define PS2_CLOCK_PORT  PORTD
-//     #define PS2_CLOCK_PIN   PIND
-//     #define PS2_CLOCK_DDR   DDRD
-//     #define PS2_CLOCK_BIT   0
-//     #define PS2_DATA_PORT   PORTD
-//     #define PS2_DATA_PIN    PIND
-//     #define PS2_DATA_DDR    DDRD
-//     #define PS2_DATA_BIT    1
-//
-//     #define PS2_INT_INIT() do { EICRA |= ((1<<ISC01) | (0<<ISC00)); } while (0)
-//     #define PS2_INT_ON() do { EIMSK |= (1<<INT0); } while (0)
-//     #define PS2_INT_OFF() do { EIMSK &= ~(1<<INT0); } while (0)
-//     #define PS2_INT_VECT INT0_vect
-//
-//     #define PS2_MOUSE_ROTATE 90
-//
-//     #define PS2_MOUSE_X_MULTIPLIER 3
-//     #define PS2_MOUSE_Y_MULTIPLIER 3
-//     #define PS2_MOUSE_V_MULTIPLIER 1
-// #endif
+#define DISABLE_LEADER

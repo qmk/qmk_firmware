@@ -16,16 +16,22 @@ AK_SND_ONLY_START(KC_J) // fixes JU stretch
   R_SND(KC_L, KC_U)
 AK_SND_ONLY_START(KC_S) // fixes SC bigram
   R_SND(KC_V, KC_C)
-  AK_SND_ONLY_START(KC_C) // fixes CS bigram
+AK_SND_ONLY_START(KC_C) // fixes CS bigram
   R_SND(KC_X, KC_S)
-AK_SND_ONLY_START(KC_P)   // fixes PT bigram
-  R_SND(KC_F, KC_T)
+// AK_SND_ONLY_START(KC_P)   // fixes PT bigram
+//   R_SND(KC_F, KC_T)
+AK_BOTH_START(KC_P, KC_P) // The first letter is the key. Second letter is what the default output is if none of the conditions are met
+  R_BTH(KC_W, KC_P, KC_D) // fixes PD bigram
+  R_BTH(KC_F, KC_P, KC_T) // fixes PT bigram
+  R_FST(KC_SPC, KC_P)     //fixes p being lowercase after ending the word
 AK_SND_ONLY_START(KC_F)   // fixes FS bigram
   R_SND(KC_W, KC_S)
 AK_SND_ONLY_START(KC_E)   // fixes E, bigram
   R_SND(KC_SLSH, KC_COMM)
-AK_SND_ONLY_START(KC_W)   // fixes WR bigram wrong
+AK_SND_ONLY_START(KC_W)   // fixes WR bigram
   R_SND(KC_P, KC_R)
+AK_SND_ONLY_START(KC_B)   // fixes BD bigram
+  R_SND(KC_W, KC_D)
 AK_SND_ONLY_START(KC_PMNS)  // allows (-0) -> (- ) aka dash zero will make dash space
   R_SND(KC_0, KC_SPC)
 AK_SND_ONLY_START(KC_EQL)  // allows (=0) -> (= ) aka equals zero will make equals space
@@ -36,10 +42,11 @@ AK_SND_ONLY_START(KC_PSLS)  // allows (/0) -> (/ ) aka backslash zero will make 
   R_SND(KC_0, KC_SPC)
 AK_SND_ONLY_START(KC_PAST)  // allows (*0) -> (* ) aka asterisk zero will make asterisk space
   R_SND(KC_0, KC_SPC)
-AK_BOTH_START(KC_U, KC_U)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
-  R_BTH(KC_Y, KC_U, KC_E)     // fixes UE bigram
-  R_BTH(KC_SCLN, KC_U, KC_Y)  // allows quickly typing UY now that UY->UE
-  R_FST(KC_SPC, KC_U)
-AK_BOTH_START(KC_D, KC_D)     // The first letter is the key. Second letter is what the default output is if none of the conditions are met
-  R_BTH(KC_X, KC_D, KC_G)     // fixes DG bigram
-  R_BTH(KC_Z, KC_D, KC_B)     // fixes DB bigram
+AK_BOTH_START(KC_U, KC_U)   // The first letter is the key. Second letter is what the default output is if none of the conditions are met
+  R_SND(KC_Y, KC_E)         // fixes UE bigram
+  R_SND(KC_SCLN, KC_Y)      // allows quickly typing UY now that UY->UE
+  R_FST(KC_SPC, KC_U)       //fixes u being lowercase after ending the word
+AK_BOTH_START(KC_D, KC_D)   // The first letter is the key. Second letter is what the default output is if none of the conditions are met
+  R_SND(KC_X, KC_G)         // fixes DG bigram
+  R_SND(KC_Z, KC_B)         // fixes DB bigram
+  R_FST(KC_SPC, KC_D)        // fixes d being lowercase after ending the word MILk MILk MILkSEScE ScENE
