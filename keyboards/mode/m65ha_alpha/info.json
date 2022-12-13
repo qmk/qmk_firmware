@@ -8,8 +8,11 @@
     "pid": "0x6566",
     "device_version": "0.6.5"
   },
+  "layout_aliases": {
+    "LAYOUT_all": "LAYOUT_65_ansi_blocker"
+  },
   "layouts": {
-      "LAYOUT_all": {
+      "LAYOUT_65_ansi_blocker": {
           "layout": [
               { "label": "K00", "x": 0, "y": 0 },
               { "label": "K01", "x": 1, "y": 0 },
