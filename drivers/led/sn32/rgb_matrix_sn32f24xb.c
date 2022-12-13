@@ -209,7 +209,7 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     if (current_key_row == LED_MATRIX_ROWS) current_key_row = 0;
     // Disable LED output before scanning the key matrix
     shared_matrix_rgb_disable_output();
-    // Scan the key matrix row<
+    // Scan the key matrix row
     static uint8_t first_scanned_row;
     if (!matrix_scanned) {
         if (!matrix_locked) {
@@ -228,6 +228,7 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     bool         enable_pwm_output = false;
     for (uint8_t current_key_col = 0; current_key_col < LED_MATRIX_COLS; current_key_col++) {
         uint8_t led_index = g_led_config.matrix_co[current_key_row][current_key_col];
+        if(led_index > RGB_MATRIX_LED_COUNT) continue;
         // Check if we need to enable RGB output
         if (led_state[led_index].b != 0) enable_pwm_output |= true;
         if (led_state[led_index].g != 0) enable_pwm_output |= true;
@@ -322,6 +323,7 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     bool         enable_pwm_output = false;
     for (uint8_t current_key_row = 0; current_key_row < MATRIX_ROWS; current_key_row++) {
         uint8_t led_index = g_led_config.matrix_co[current_key_row][current_key_col];
+        if(led_index > RGB_MATRIX_LED_COUNT) continue;
         uint8_t led_row_id = (current_key_row*LED_MATRIX_ROW_CHANNELS);
         // Check if we need to enable RGB output
         if (led_state[led_index].b != 0) enable_pwm_output |= true;
