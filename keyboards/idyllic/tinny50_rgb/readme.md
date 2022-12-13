@@ -2,7 +2,7 @@
 
 ![Tinny50 RGB Edition](https://i.imgur.com/TMig65zh.jpg)
 
-*A 50% RGB PCB designed for the Idyllic Tinny50.*
+A 50% RGB PCB designed for the Idyllic Tinny50.
 
 * Keyboard Maintainer: Zykrah
 * Hardware Supported: Tinny50 RGB Edition PCB
