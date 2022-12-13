@@ -169,8 +169,6 @@ If you define these options you will enable the associated feature, which may in
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
   * See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
-* `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
-  * enables handling for per key `IGNORE_MOD_TAP_INTERRUPT` settings
 * `#define QUICK_TAP_TERM 100`
   * tap-then-hold timing to use a dual role key to repeat keycode
   * See [Quick Tap Term](tap_hold.md#quick-tap-term)
@@ -178,6 +176,11 @@ If you define these options you will enable the associated feature, which may in
   * Defaults to `TAPPING_TERM` if not defined
 * `#define QUICK_TAP_TERM_PER_KEY`
   * enables handling for per key `QUICK_TAP_TERM` settings
+* `#define HOLD_ON_OTHER_KEY_PRESS`
+  * selects the hold action of a dual-role key as soon as the tap of the dual-role key is interrupted by the press of another key.
+  * See "[hold on other key press](tap_hold.md#hold-on-other-key-press)" for details
+* `#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY`
+  * enables handling for per key `HOLD_ON_OTHER_KEY_PRESS` settings
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
     * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.

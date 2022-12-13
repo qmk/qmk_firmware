@@ -96,9 +96,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SY_SPC:
+            return false;
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             return true;
         default:
             return false;

@@ -1369,9 +1369,11 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t* record) {
             return false;
     }
 }
-// Handles per-key configuration of Mod-Tap-Interrupt
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t* record) {
+// Handles per-key configuration of Hold-on-Other-Key-Press
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            return true;
         default:
             return false;
     }

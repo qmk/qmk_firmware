@@ -255,7 +255,7 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case ALT__A:
         case ALTSCLN:
@@ -272,7 +272,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
         case CTL__J:
         case CTL__T:
         case CTL__N:
-            return true;
+            return false;
         default:
             return false;
     }

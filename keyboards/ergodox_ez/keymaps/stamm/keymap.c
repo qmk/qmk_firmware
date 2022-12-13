@@ -206,7 +206,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       return TAPPING_TERM;
   }
 }
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case E_NUMBERS:
     case R_MOUSE:
@@ -219,7 +219,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     case RCTL_T(KC_L):
     case RSFT_T(KC_SEMICOLON):
     case ARROWS:
-      return true;
+      return false;
     default:
       return false;
   }

@@ -15,6 +15,14 @@
 
 #ifndef NO_ACTION_TAPPING
 
+#    if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+#        error "IGNORE_MOD_TAP_INTERRUPT_PER_KEY has been removed; the code needs to be ported to use HOLD_ON_OTHER_KEY_PRESS_PER_KEY instead."
+#    elif !defined(IGNORE_MOD_TAP_INTERRUPT)
+#        if !defined(PERMISSIVE_HOLD) && !defined(PERMISSIVE_HOLD_PER_KEY) && !defined(HOLD_ON_OTHER_KEY_PRESS) && !defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#            pragma message "The default behavior of mod-taps will change to mimic IGNORE_MOD_TAP_INTERRUPT in the future.\nIf you wish to keep the old default behavior of mod-taps, please use HOLD_ON_OTHER_KEY_PRESS."
+#        endif
+#    endif
+
 #    define IS_TAPPING() !IS_NOEVENT(tapping_key.event)
 #    define IS_TAPPING_PRESSED() (IS_TAPPING() && tapping_key.event.pressed)
 #    define IS_TAPPING_RELEASED() (IS_TAPPING() && !tapping_key.event.pressed)
@@ -162,9 +170,7 @@ void action_tapping_process(keyrecord_t record) {
 #        define TAP_GET_HOLD_ON_OTHER_KEY_PRESS false
 #    endif
 
-#    ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-#        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT get_ignore_mod_tap_interrupt(tapping_keycode, &tapping_key)
-#    elif defined(IGNORE_MOD_TAP_INTERRUPT)
+#    if defined(IGNORE_MOD_TAP_INTERRUPT)
 #        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT true
 #    else
 #        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT false
@@ -216,7 +222,7 @@ bool process_tapping(keyrecord_t *keyp) {
                             // Rolled over the two keys.
                             (tapping_key.tap.interrupted == true && (
                                 (TAP_IS_LT && TAP_GET_HOLD_ON_OTHER_KEY_PRESS) ||
-                                (TAP_IS_MT && !TAP_GET_IGNORE_MOD_TAP_INTERRUPT)
+                                (TAP_IS_MT && TAP_GET_HOLD_ON_OTHER_KEY_PRESS)
                                 )
                             )
                             // Makes Retro Shift ignore [IGNORE_MOD_TAP_INTERRUPT's
