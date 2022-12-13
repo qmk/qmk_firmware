@@ -791,22 +791,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ```
 
 ### Settings
-| Define                         | Description                                                                               |  Range  |      Units    |                  Default |
-| ------------------------------ | ----------------------------------------------------------------------------------------- | :-----: | :-----------: | -----------------------: |
-| `POINTING_DEVICE_MODES_ENABLE` | Enables pointing device pointing device modes feature                                     |  `NA`   |    `None`     |            _Not defined_ |
-| `POINTING_DEVICE_INVERT_V`     | Inverts stored v axis accumulation (affects all modes)                                    |  `NA`   |    `None`     |            _Not defined_ |
-| `POINTING_DEVICE_INVERT_H`     | Inverts stored h axis accumulation (affects all modes)                                    |  `NA`   |    `None`     |            _Not defined_ |
-| `POINTING_MODE_DEFAULT`        | Default pointing device mode                                                              | `0-255` |    `None`     |                `PM_NONE` |
-| `POINTING_TAP_DELAY`           | Delay between key presses in `pointing_tap_codes` in ms                                   | `0-255` |     `ms`      |                      `0` |
-| `POINTING_MODE_MAP_COUNT`      | Number of modes defined in `pointing_device_mode_maps`                                    | `0-255` |    `None`     |                      `0` |
-| `POINTING_DEFAULT_DIVISOR`     | Default divisor for all modes that do not have a defined divisor                          | `1-255` |   `Varies`    |                     `64` |
-| `POINTING_HISTORY_DIVISOR`     | Accumulated stored h/v per key tap in `PM_HISTORY` mode                                   | `1-255` | `(h\|v)/tap`  |                     `64` |
-| `POINTING_VOLUME_DIVISOR`      | Accumulated stored h/v per key tap in `PM_VOLUME` mode                                    | `1-255` | `(h\|v)/tap`  |                     `64` |
-| `POINTING_CARET_DIVISOR`       | Accumulated stored h/v per key tap in `PM_CARET` mode                                     | `1-255` | `(h\|v)/tap`  |                     `32` |
-| `POINTING_CARET_DIVISOR_V`     | Stored v per tap in `PM_CARET` (_overrides_ `POINTING_CARET_DIVISOR` _Recommended:_ `32`) | `1-255` |   `(v)/tap`   | `POINTING_CARET_DIVISOR` |
-| `POINTING_CARET_DIVISOR_H`     | Stored h per tap in `PM_CARET` (_overrides_ `POINTING_CARET_DIVISOR` _Recommended:_ `16`) | `1-255` |   `(h)/tap`   | `POINTING_CARET_DIVISOR` |
-| `POINTING_PRECISION_DIVISOR`   | Pointing device x/y movement per output x/y in `PM_PRECISION` mode                        | `1-255` | `(x\|y)/dot`  |                      `2` |
-| `POINTING_DRAG_DIVISOR`        | Pointing device x/y movement per h/v axis tick in `PM_DRAG` mode                          | `1-255` | `(x\|y)/dot`  |                      `4` |
+| Define                           | Description                                                                                          |  Range  |      Units    |                  Default |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------- | :-----: | :-----------: | -----------------------: |
+| `POINTING_DEVICE_MODES_ENABLE`   | Enables pointing device pointing device modes feature                                                |  `NA`   |    `None`     |            _Not defined_ |
+| `POINTING_DEVICE_MODES_INVERT_X` | Inverts stored y axis accumulation (affects all modes)                                               |  `NA`   |    `None`     |            _Not defined_ |
+| `POINTING_DEVICE_MODES_INVERT_Y` | Inverts stored x axis accumulation (affects all modes)                                               |  `NA`   |    `None`     |            _Not defined_ |
+| `POINTING_MODE_DEFAULT`          | Default pointing device mode                                                                         | `0-255` |    `None`     |                `PM_NONE` |
+| `POINTING_TAP_DELAY`             | Delay between key presses in `pointing_tap_codes` in ms                                              | `0-255` |     `ms`      |                      `0` |
+| `POINTING_MODE_MAP_COUNT`        | Number of modes defined in `pointing_device_mode_maps`                                               | `0-255` |    `None`     |                      `0` |
+| `POINTING_MODE_MAP_START`        | Starting MODE ID of pointing mode maps                                                               | `0-255` |    `None`     |          `PM_SAFE_RANGE` |
+| `POINTING_DEFAULT_DIVISOR`       | Default divisor for all modes that do not have a defined divisor                                     | `1-255` |   `Varies`    |                     `64` |
+| `POINTING_HISTORY_DIVISOR`       | Accumulated stored x/y per key tap in `PM_HISTORY` mode                                              | `1-255` | `(x\|y)/tap`  |                     `64` |
+| `POINTING_VOLUME_DIVISOR`        | Accumulated stored x/y per key tap in `PM_VOLUME` mode                                               | `1-255` | `(x\|y)/tap`  |                     `64` |
+| `POINTING_CARET_DIVISOR`         | Accumulated stored x/y per key tap in `PM_CARET` mode                                                | `1-255` | `(x\|y)/tap`  |                     `32` |
+| `POINTING_CARET_DIVISOR_V`       | Stored x per horizontal tap in `PM_CARET` (_overrides_ `POINTING_CARET_DIVISOR` _Recommended:_ `32`) | `1-255` |   `(y)/tap`   | `POINTING_CARET_DIVISOR` |
+| `POINTING_CARET_DIVISOR_H`       | Stored y per vertical tap in `PM_CARET` (_overrides_ `POINTING_CARET_DIVISOR` _Recommended:_ `16`)   | `1-255` |   `(x)/tap`   | `POINTING_CARET_DIVISOR` |
+| `POINTING_PRECISION_DIVISOR`     | Pointing device x/y movement per output x/y in `PM_PRECISION` mode                        | `1-255` | `(x\|y)/dot`  |                      `2` |
+| `POINTING_DRAG_DIVISOR`          | Pointing device x/y movement per h/v axis tick in `PM_DRAG` mode                          | `1-255` | `(x\|y)/dot`  |                      `4` |
    
 ***Notes:***  
 1. it is recommended that generally powers of 2 are used for divisors **(e.g. 1, 2, 4, 8, 16, 32, 64, 128*)** as they should optimize better (_less code space and faster to compute_), but **any positive integer of 255 or less** will work.   

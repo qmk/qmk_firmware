@@ -149,15 +149,15 @@ uint8_t get_toggled_pointing_mode_id(void) {
  * @return updated mouse_report report_mouse_t
  */
 __attribute__((weak)) report_mouse_t pointing_modes_axes_conv(pointing_mode_t pointing_mode, report_mouse_t mouse_report) {
-#    ifdef POINTING_DEVICE_INVERT_H
-    pointing_mode.h -= mouse_report.x;
+#    ifdef POINTING_DEVICE_MODES_INVERT_X
+    pointing_mode.x -= mouse_report.x;
 #    else
-    pointing_mode.h += mouse_report.x;
+    pointing_mode.x += mouse_report.x;
 #    endif
-#    ifdef POINTING_DEVICE_INVERT_V
-    pointing_mode.v -= mouse_report.y;
+#    ifdef POINTING_DEVICE_MODES_INVERT_Y
+    pointing_mode.y -= mouse_report.y;
 #    else
-    pointing_mode.v += mouse_report.y;
+    pointing_mode.y += mouse_report.y;
 #    endif
     set_pointing_mode(pointing_mode);
     mouse_report.x = 0;
@@ -175,14 +175,14 @@ __attribute__((weak)) report_mouse_t pointing_modes_axes_conv(pointing_mode_t po
  * @return direction uint8_t
  */
 static uint8_t get_pointing_device_direction(void) {
-    if (abs(pointing_mode_context.mode.h) > abs(pointing_mode_context.mode.v)) {
-        if (pointing_mode_context.mode.h > 0) {
+    if (abs(pointing_mode_context.mode.x) > abs(pointing_mode_context.mode.y)) {
+        if (pointing_mode_context.mode.x > 0) {
             return PD_RIGHT;
         } else {
             return PD_LEFT;
         }
     } else {
-        if (pointing_mode_context.mode.v > 0) {
+        if (pointing_mode_context.mode.y > 0) {
             return PD_UP;
         } else {
             return PD_DOWN;
@@ -284,16 +284,16 @@ void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint
 
     switch (pointing_mode_context.mode.direction) {
         case PD_DOWN ... PD_UP:
-            count = pointing_mode_context.mode.v / (int16_t)pointing_mode_context.mode.divisor;
+            count = pointing_mode_context.mode.y / (int16_t)pointing_mode_context.mode.divisor;
             if (!count) return;
-            pointing_mode_context.mode.v -= count * (int16_t)pointing_mode_context.mode.divisor;
-            pointing_mode_context.mode.h = 0;
+            pointing_mode_context.mode.y -= count * (int16_t)pointing_mode_context.mode.divisor;
+            pointing_mode_context.mode.x = 0;
             break;
         case PD_LEFT ... PD_RIGHT:
-            count = pointing_mode_context.mode.h / (int16_t)pointing_mode_context.mode.divisor;
+            count = pointing_mode_context.mode.x / (int16_t)pointing_mode_context.mode.divisor;
             if (!count) return;
-            pointing_mode_context.mode.h -= count * (int16_t)pointing_mode_context.mode.divisor;
-            pointing_mode_context.mode.v = 0;
+            pointing_mode_context.mode.x -= count * (int16_t)pointing_mode_context.mode.divisor;
+            pointing_mode_context.mode.y = 0;
             break;
     }
     // skip if no key (but allow for axes update)
@@ -339,54 +339,55 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
         return mouse_report;
     }
 #    if (POINTING_MODE_MAP_COUNT > 0)
-    if (pointing_mode.id <= (POINTING_MODE_MAP_COUNT - 1)) {
+    if (pointing_mode.id <= (POINTING_MODE_MAP_COUNT - 1 + POINTING_MODE_MAP_START)) {
         pointing_tap_codes(POINTING_MODE_MAP(pointing_mode.id));
         return mouse_report;
     }
 #    endif
     switch (pointing_mode.id) {
+        // drag scroll mode (sets mouse axes to mouse_report h & v with divisor)
+        case PM_DRAG:
+            mouse_report.h = pointing_mode.x / (int16_t)pointing_mode.divisor;
+            mouse_report.v = pointing_mode.y / (int16_t)pointing_mode.divisor;
+            pointing_mode.x -= mouse_report.h * (int16_t)pointing_mode.divisor;
+            pointing_mode.y -= mouse_report.v * (int16_t)pointing_mode.divisor;
+            set_pointing_mode(pointing_mode);
+            break;
+
+        // precision mode  (reduce x y sensitivity temporarily)
+        case PM_PRECISION:
+#    ifdef POINTING_DEVICE_MODES_INVERT_X
+            mouse_report.x -= pointing_mode.x / (int16_t)pointing_mode.divisor;
+            pointing_mode.x += mouse_report.x * (int16_t)pointing_mode.divisor;
+#    else
+            mouse_report.x += pointing_mode.x / (int16_t)pointing_mode.divisor;
+            pointing_mode.x -= mouse_report.x * (int16_t)pointing_mode.divisor;
+#    endif
+#    ifdef POINTING_DEVICE_MODES_INVERT_Y
+            mouse_report.y -= pointing_mode.y / (int16_t)pointing_mode.divisor;
+            pointing_mode.y += mouse_report.y * (int16_t)pointing_mode.divisor;
+#    else
+            mouse_report.y += pointing_mode.y / (int16_t)pointing_mode.divisor;
+            pointing_mode.y -= mouse_report.y * (int16_t)pointing_mode.divisor;
+#    endif
+            set_pointing_mode(pointing_mode);
+            break;
+        // caret mode (uses arrow keys to move cursor)
+        case PM_CARET:
+            pointing_tap_codes(KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT);
+            break;
+
         // history scroll mode (will scroll through undo/redo history)
         case PM_HISTORY:
             pointing_tap_codes(C(KC_Z), KC_NO, KC_NO, C(KC_Y));
             break;
+
 #    ifdef EXTRAKEY_ENABLE
         // volume scroll mode (adjusts audio volume)
         case PM_VOLUME:
             pointing_tap_codes(KC_NO, KC_VOLD, KC_VOLU, KC_NO);
             break;
 #    endif
-        // caret mode (uses arrow keys to move cursor)
-        case PM_CARET:
-            pointing_tap_codes(KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT);
-            break;
-
-        // precision mode  (reduce x y sensitivity temporarily)
-        case PM_PRECISION:
-#    ifdef POINTING_DEVICE_INVERT_H
-            mouse_report.x -= pointing_mode.h / (int16_t)pointing_mode.divisor;
-            pointing_mode.h += mouse_report.x * (int16_t)pointing_mode.divisor;
-#    else
-            mouse_report.x += pointing_mode.h / (int16_t)pointing_mode.divisor;
-            pointing_mode.h -= mouse_report.x * (int16_t)pointing_mode.divisor;
-#    endif
-#    ifdef POINTING_DEVICE_INVERT_V
-            mouse_report.y -= pointing_mode.v / (int16_t)pointing_mode.divisor;
-            pointing_mode.v += mouse_report.y * (int16_t)pointing_mode.divisor;
-#    else
-            mouse_report.y += pointing_mode.v / (int16_t)pointing_mode.divisor;
-            pointing_mode.v -= mouse_report.y * (int16_t)pointing_mode.divisor;
-#    endif
-            set_pointing_mode(pointing_mode);
-            break;
-
-        // drag scroll mode (sets mouse axes to mouse_report h & v with divisor)
-        case PM_DRAG:
-            mouse_report.h = pointing_mode.h / (int16_t)pointing_mode.divisor;
-            mouse_report.v = pointing_mode.v / (int16_t)pointing_mode.divisor;
-            pointing_mode.h -= mouse_report.h * (int16_t)pointing_mode.divisor;
-            pointing_mode.v -= mouse_report.v * (int16_t)pointing_mode.divisor;
-            set_pointing_mode(pointing_mode);
-            break;
     }
     return mouse_report;
 }

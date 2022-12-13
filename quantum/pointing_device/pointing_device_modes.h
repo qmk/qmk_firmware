@@ -68,11 +68,13 @@
 
 /* error checking */
 #if (POINTING_DEFAULT_DIVISOR == 0)
-#    error "ERROR: DEFAULT DIVISOR is set to zero! set to non zero value"
+#    pragma message "DEFAULT_DIVISOR must be non zero value"
+#    error DEFAULT_DIVISOR set to zero
 #endif
 /* check valid keycode range */
 #if (!((POINTING_MODE_COUNT - 1) & (~POINTING_MODE_COUNT)))
-#    error "!!ERROR: number of keycodes for QK_POINTING_MODE incorrect, must be a power of 2!!"
+#    pragma message "Total number of keycodes in QK_POINTING_MODE range must be a power of 2"
+#    error QK_POINTING_MODE keycode range is not a power of two
 #endif
 
 /* keycode setup */
@@ -80,27 +82,6 @@
 #define POINTING_MODE_MO_MAX (POINTING_MODE_MO + POINTING_MODE_COUNT - 1)
 #define POINTING_MODE_TG (POINTING_MODE_MO_MAX + 1)
 #define POINTING_MODE_TG_MAX QK_POINTING_MODE_MAX
-
-/* Default Pointing device pointing modes */
-enum pointing_device_mode_list {
-    // Built in pointing modes OVERWRITABLE
-    PM_HISTORY = POINTING_MODE_COUNT - 6,
-    PM_VOLUME,
-    PM_CARET,
-    PM_PRECISION,
-    PM_DRAG,
-    // null pointing mode NOT OVERWRITABLE
-    PM_NONE = POINTING_MODE_COUNT - 1,
-    // safe range for custom modes
-    PM_SAFE_RANGE
-};
-
-/* pointing mode aliases */
-#define PM_PRE PM_PRECISION
-#define PM_HST PM_HISTORY
-#define PM_VOL PM_VOLUME
-#define PM_CRT PM_CARET
-#define PM_DRG PM_DRAG
 
 /* enum of directions */
 enum { PD_DOWN = 0, PD_UP, PD_LEFT, PD_RIGHT };
@@ -111,8 +92,8 @@ typedef struct {
     uint8_t id;
     uint8_t divisor;
     uint8_t direction;
-    int16_t h;
-    int16_t v;
+    int16_t x;
+    int16_t y;
 } pointing_mode_t;
 
 /* context structure to track additional data */
@@ -167,6 +148,11 @@ bool           process_pointing_mode_records(uint16_t keyrecord, keyrecord_t* re
 #    define POINTING_MODE_MAP_COUNT 0
 #endif
 #if (POINTING_MODE_MAP_COUNT > 0)
+#    ifndef EXTRAKEY_ENABLE
+#        define POINTING_MODE_MAP_START PM_VOLUME
+#    else
+#        define POINTING_MODE_MAP_START PM_SAFE_RANGE
+#    endif
 #    define POINTING_MODE_LAYOUT(Y_POS, X_NEG, X_POS, Y_NEG) \
         { X_NEG, Y_NEG, Y_POS, X_POS }
 
