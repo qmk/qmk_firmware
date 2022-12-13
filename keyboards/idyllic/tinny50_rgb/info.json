@@ -3,7 +3,7 @@
     "maintainer": "Zykrah",
     "manufacturer": "Idyllic",
     "processor": "RP2040",
-    "bootloader": "rp2040",             
+    "bootloader": "rp2040",
     "usb": {
         "vid": "0x7A79",
         "pid": "0x5450",
