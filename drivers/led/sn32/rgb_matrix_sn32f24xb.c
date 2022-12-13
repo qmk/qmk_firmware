@@ -360,7 +360,7 @@ static void rgb_callback(PWMDriver *pwmp) {
     pwmDisablePeriodicNotification(pwmp);
 #if ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == COL2ROW))
     for (uint8_t pwm_cnt = 0; pwm_cnt < LED_MATRIX_COLS; pwm_cnt++) {
-        if (((uint16_t)(pwmp->ct->TC)<= ((uint16_t)(led_duty_cycle[pwm_cnt]+ periodticks))) && (led_duty_cycle[pwm_cnt] > 0)) {
+        if (((uint16_t)(pwmp->ct->TC)< ((uint16_t)(led_duty_cycle[pwm_cnt]+ periodticks))) && (led_duty_cycle[pwm_cnt] > 0)) {
             setPinOutput(led_col_pins[pwm_cnt]);
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
             writePinLow(led_col_pins[pwm_cnt]);
@@ -375,7 +375,7 @@ static void rgb_callback(PWMDriver *pwmp) {
     }
 #elif ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == ROW2COL))
     for (uint8_t pwm_cnt = 0; pwm_cnt < LED_MATRIX_ROWS_HW; pwm_cnt++) {
-        if (((uint8_t)(pwmp->ct->TC)<= (led_duty_cycle[pwm_cnt])) && (led_duty_cycle[pwm_cnt] > 0)) {
+        if (((uint16_t)(pwmp->ct->TC)< ((uint16_t)(led_duty_cycle[pwm_cnt]+ periodticks))) && (led_duty_cycle[pwm_cnt] > 0)) {
             setPinOutput(led_row_pins[pwm_cnt]);
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
             writePinLow(led_row_pins[pwm_cnt]);
