@@ -1,6 +1,6 @@
 # FUYU
 
-![FUYU](https://i.imgur.com/uWB5EqJ.png)
+![FUYU](https://i.imgur.com/uWB5EqJh.png)
 
 A F12 TKL H87-Compat Type-C PCB for the Geon F1-8K
 
