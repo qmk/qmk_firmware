@@ -1,6 +1,6 @@
 # Slime88
 
-![Slime88](https://i.imgur.com/DYNJZFH.png)
+![Slime88](https://i.imgur.com/DYNJZFHh.png)
 
 *A Hotswap Multi-layout F13 TKL PCB (h88c compatible) powered by RP2040.*
 
