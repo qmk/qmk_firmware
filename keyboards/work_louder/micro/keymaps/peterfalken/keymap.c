@@ -3,6 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
+
 enum wl_micro_layers {
     _L0,
     _L1,
@@ -15,8 +16,8 @@ enum wl_micro_layers {
 };
 
 // Shorter custom keycodes
-#define CK_UNDO G(KC_Z)       // UNDO = CMD + Z
-#define CK_REDO LSG(KC_Z)     // REDO = CMD + SHIFT + Z
+#define CK_UNDO LGUI(KC_Z)      // UNDO = CMD + Z
+#define CK_REDO SGUI(KC_Z)     // REDO = CMD + SHIFT + Z
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L0] = LAYOUT(
@@ -69,6 +70,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t led_level : 3;
+    };
+} work_louder_config_t;
+
+work_louder_config_t work_louder_config;
+
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//     switch (keycode) {
+//         case LED_LEVEL:
+//             if (record->event.pressed) {
+//                 work_louder_config.led_level++;
+//                 if (work_louder_config.led_level > 4) {
+//                     work_louder_config.led_level = 0;
+//                 }
+//                 work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+//                 eeconfig_update_user(work_louder_config.raw);
+//                 layer_state_set_kb(layer_state);
+//             }
+//             break;
+//     }
+//     return true;
+// }
+
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(CK_UNDO, CK_REDO)  },
@@ -86,10 +113,21 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Get highest layer as number
     int layer = get_highest_layer(state);
-    // Toggle leds based on binary layer number [2 1 3]
+    // Toggle leds based on binary layer number [2  3]
     layer & 0x02 ? work_louder_micro_led_1_on(): work_louder_micro_led_1_off();
     layer & 0x04 ? work_louder_micro_led_2_on(): work_louder_micro_led_2_off();
     layer & 0x01 ? work_louder_micro_led_3_on(): work_louder_micro_led_3_off();
 
     return state;
+}
+
+void eeconfig_init_user(void) {
+    work_louder_config.raw = 0;
+    work_louder_config.led_level = 1;
+    eeconfig_update_user(work_louder_config.raw);
+}
+
+void matrix_init_user(void) {
+    work_louder_config.raw = eeconfig_read_user();
+    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
 }
