@@ -2,10 +2,10 @@
 
 ![cosmo65](https://imgur.com/Aav54LWh.png)
 
-*A 65% stacked acrylic keyboard with a unique space-themed look.*
+A 65% stacked acrylic keyboard with a unique space-themed look.
 
 * Keyboard Maintainer: [Bento Box Studio](https://github.com/BentoBoxStudio)
-* Hardware Supported: *Supports the cosmo65 keyboard*
+* Hardware Supported: Supports the cosmo65 keyboard
 * Hardware Availability: [BentoBoxStudio](https://bentoboxstudio.xyz)
 
 Make example for this keyboard (after setting up your build environment):
