@@ -2,7 +2,7 @@
 
 ![Slime88](https://i.imgur.com/DYNJZFHh.png)
 
-*A Hotswap Multi-layout F13 TKL PCB (h88c compatible) powered by RP2040.*
+A Hotswap Multi-layout F13 TKL PCB (h88c compatible) powered by RP2040.
 
 * Keyboard Maintainer: Zykrah
 * Hardware Supported: Slime88 rev1 PCB
