@@ -339,8 +339,8 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
         return mouse_report;
     }
 #    if (POINTING_MODE_MAP_COUNT > 0)
-    if (pointing_mode.id <= (POINTING_MODE_MAP_COUNT - 1 + POINTING_MODE_MAP_START)) {
-        pointing_tap_codes(POINTING_MODE_MAP(pointing_mode.id));
+    if (pointing_mode.id >= POINTING_MODE_MAP_START && pointing_mode.id <= (POINTING_MODE_MAP_START + POINTING_MODE_MAP_COUNT - 1)) {
+        pointing_tap_codes(POINTING_MODE_MAP(pointing_mode.id - POINTING_MODE_MAP_START));
         return mouse_report;
     }
 #    endif
