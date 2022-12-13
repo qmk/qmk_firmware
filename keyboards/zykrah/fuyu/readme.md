@@ -2,7 +2,7 @@
 
 ![FUYU](https://i.imgur.com/uWB5EqJ.png)
 
-*A F12 TKL H87-Compat Type-C PCB for the Geon F1-8K*
+A F12 TKL H87-Compat Type-C PCB for the Geon F1-8K
 
 * Keyboard Maintainer: [Zykrah](https://github.com/zykrah)
 * Hardware Supported: Fuyu rev1 PCB
