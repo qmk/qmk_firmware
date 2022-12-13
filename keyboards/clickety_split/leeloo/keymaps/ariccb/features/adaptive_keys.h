@@ -33,7 +33,12 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     #define AK_BOTH_START(key, def_key) \
                         default:                        \
                             return_state = true;       \
-                            tap_code(first);         \
+                            if(is_caps_word_on()){      \
+                                add_weak_mods(MOD_BIT(KC_LSFT));\
+                                 tap_code(first);\
+                            } else {\
+                                tap_code(first);\
+                            }         \
                     }                           \
                     break;                      \
                 case key:                       \
@@ -114,7 +119,12 @@ void matrix_scan_user(void) {
 #undef AK_BOTH_START
 #define AK_BOTH_START(key, default_key)    \
   case key:                                \
-    tap_code(default_key);                 \
+    if(is_caps_word_on()){\
+        add_weak_mods(MOD_BIT(KC_LSFT));\
+        tap_code(default_key);\
+    } else {\
+        tap_code(default_key); \
+    }                \
     break;
 
 #include "adaptive_keys.def"
@@ -136,8 +146,8 @@ void matrix_scan_user(void) {
     }
 }
 
+#undef AK_BOTH_START
+#undef AK_SND_ONLY_START
 #undef R_BTH
 #undef R_FST
 #undef R_SND
-#undef AK_SND_ONLY_START
-#undef AK_BOTH_START

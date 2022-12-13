@@ -49,4 +49,4 @@ AK_BOTH_START(KC_U, KC_U)   // The first letter is the key. Second letter is wha
 AK_BOTH_START(KC_D, KC_D)   // The first letter is the key. Second letter is what the default output is if none of the conditions are met
   R_SND(KC_X, KC_G)         // fixes DG bigram
   R_SND(KC_Z, KC_B)         // fixes DB bigram
-  R_FST(KC_SPC, KC_D)        // fixes d being lowercase after ending the word MILk MILk MILkSEScE ScENE
+  R_FST(KC_SPC, KC_D)       // fixes d being lowercase after ending the word MILk MILk MILkSEScE ScENE
