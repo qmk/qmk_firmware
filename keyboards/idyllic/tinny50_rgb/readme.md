@@ -1,6 +1,6 @@
 # Tinny50 RGB Edition
 
-![Tinny50 RGB Edition](https://i.imgur.com/TMig65z.jpg)
+![Tinny50 RGB Edition](https://i.imgur.com/TMig65zh.jpg)
 
 *A 50% RGB PCB designed for the Idyllic Tinny50.*
 
