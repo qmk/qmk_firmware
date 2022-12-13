@@ -239,7 +239,7 @@ enum pointing_device_mode_list {
     // safe range for custom modes with built in keycodes
     PM_SAFE_RANGE,
     // safe range for custom modes requiring custom activation/new keycodes
-    PM_SAFE_RANGE_ADV = QK_POINTING_MODE_MAX + 1
+    PM_SAFE_RANGE_ADV = QK_POINTING_MODE_MAX - QK_POINTING_MODE + 1
 };
 
 // pointing mode aliases

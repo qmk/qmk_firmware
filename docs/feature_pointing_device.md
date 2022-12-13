@@ -506,9 +506,9 @@ If you are having issues with pointing device drivers debug messages can be enab
 ---
 # Automatic Mouse Layer :id=pointing-device-auto-mouse
 
-When using a pointing device combined with a keyboard the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active (_in motion, mouse button pressed etc._) and deactivate the target layer after a set time.   
+When using a pointing device combined with a keyboard the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active _(in motion, mouse button pressed etc.)_ and deactivate the target layer after a set time.   
 
-Additionally if any key that is defined as a mouse key is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key release. When a non-mouse key is pressed then the layer is deactivated early (_with some exceptions see below_).  Mod, mod tap, and one shot mod keys are ignored (_i.e. don't hold or activate layer but do not deactivate the layer either_) when sending a modifier keycode (_e.g. hold for mod tap_) allowing for mod keys to be used with the mouse without activating the target layer when typing.
+Additionally if any key that is defined as a mouse key is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key release. When a non-mouse key is pressed then the layer is deactivated early _(with some exceptions see below)_.  Mod, mod tap, and one shot mod keys are ignored _(i.e. don't hold or activate layer but do not deactivate the layer either)_ when sending a modifier keycode _(e.g. hold for mod tap)_ allowing for mod keys to be used with the mouse without activating the target layer when typing.
 
 All of the standard layer keys (tap toggling, toggle, toggle on, one_shot, layer tap, layer mod) that activate the current target layer are uniquely handled to ensure they behave as expected _(see layer key table below)_. The target layer that can be changed at any point during by calling the `set_auto_mouse_layer(<new_target_layer>);` function.
 
@@ -619,7 +619,7 @@ _NOTE: Generally it would be preferable to use the `is_mouse_record_*` functions
 
 ### Advanced control examples   
 
-#### Disable auto mouse on certain layers  
+#### Disable auto mouse on certain layers:  
 
 The auto mouse feature can be disabled any time and this can be helpful if you want to disable the auto mouse feature under certain circumstances such as when particular layers are active. One issue however is the handling of the target layer, it needs to be removed appropriately **before** disabling auto mouse _(see notes under control functions above)_. The following function would disable the auto_mouse feature whenever the layers `_LAYER5` through `_LAYER7` are active as the top most layer _(ignoring target layer)_.   
 
@@ -668,7 +668,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 ```
 
-### Use custom keys to control auto mouse 
+### Use custom keys to control auto mouse: 
 
 Custom key records could also be created that control the auto mouse feature.   
 The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on such as the layer code above.   
@@ -697,9 +697,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 ```
 
+
 ## Customize Target Layer Activation
 
-Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every time `pointing_device_task` is called when inactive and every `AUTO_MOUSE_DEBOUNCE` ms when active, and will evaluate pointing device level conditions that trigger target layer activation. When it returns true, the target layer will be activated barring the usual exceptions (_e.g. delay time has not expired_).   
+Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every time `pointing_device_task` is called when inactive and every `AUTO_MOUSE_DEBOUNCE` ms when active, and will evaluate pointing device level conditions that trigger target layer activation. When it returns true, the target layer will be activated barring the usual exceptions _(e.g. delay time has not expired)_.   
 
 By default it will return true if any of the `mouse_report` axes `x`,`y`,`h`,`v` are non zero, or if there is any mouse buttons active in `mouse_report`.
 _Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement all of the default conditions, currently this only works for the master side of split keyboards._
@@ -738,7 +739,7 @@ In general the following two functions must be implemented in appropriate locati
 
 Inspired by the work of previous trackball users that added features such as drag scroll, caret scroll, and sniping modes to their keyboards, this framework allows for easy setup and inclusion of different pointing device modes that when active will change the behaviour of a pointing device by taking it's x/y outputs and changing them into something else such as h/v for drag scrolling, key presses such as arrow keys for caret scrolling, and even just adjusting the x/y values before output.  When a pointing device mode is active it accumulates x and y outputs from a pointing device and stores it into internal x & y values, halting normal mouse x and y output (_modes can re-enable and/or modify mouse output_), these internally stored x and y values are then divided by a defined divisor resulting the modified output (_key taps, h/v, modified mouse x/y etc._). The dividing factors can be used to control sensitivity in each mode as adjusting cpi may not always be desired/possible.   
 
-The framework supports up to **15** custom modes natively through the `PM_MO(<pointing mode>)` and `PM_TG(<pointing mode>)` keycode macros which act as momentary and toggle keys for `<pointing mode>` respectively, similarly to the layer keys of the same type.  5 of the 15 modes are already used by built in modes, however these can easily be overwritten if needed.  There is an additional Null mode `PM_NONE` (_Default pointing device output_) that cannot be overwritten.  More modes beyond this (_mode id's > 16_) can be added but they will require the addition of custom keycodes to activate the modes as `PM_MO(<pm>)` and `PM_TG(<pm>)` macros only support up to mode id 15.  New custom modes can be added through either adding keycode maps to the `pointing_device_mode_maps` array or through the through user/kb callbacks functions (_see advanced use below_). 
+The framework supports up to **15** custom modes natively through the `PM_MO(<pointing mode>)` and `PM_TG(<pointing mode>)` keycode macros which act as momentary and toggle keys for `<pointing mode>` respectively, similarly to the layer keys of the same type.  5 of the 15 modes are already used by built in modes, however these can easily be overwritten if needed.  There is an additional Null mode `PM_NONE` (_Default pointing device output_) that cannot be overwritten.  More modes beyond this (_mode id's > 16_) can be added but they will require the addition of custom keycodes to activate the modes as the `PM_MO(<pm>)` and `PM_TG(<pm>)` macros only support up to mode id 15.  New custom modes can be added through either adding keycode maps to the `pointing_device_mode_maps` array or through the through user/kb callbacks functions (_see advanced use below_). 
 
 ## Basic Use
    
@@ -753,7 +754,7 @@ On a keyboard that has a pointing device (_i.e._ `POINTING_DEVICE_ENABLED` _is d
 ###  Activating Pointing Device Modes
 The first 15 pointing device modes can easily be activated by keypress by adding the following macros to a keymap by using the following keycode macros:  
 
-#### Keycode Macros (_for the first 15 modes and _`PM_NONE`_ only_)
+#### Keycode Macros (_for _`PM_NONE`_ and the first 15 modes only_)
 | Keycode Macro  | Description                                                                                                           |
 | -------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `PM_MO(<pm>)`  | Momentary key for pointing mode `<pm>` (i.e active while key pressed deactivate on release)                           |
@@ -773,8 +774,8 @@ Pointing device modes activated by toggle type functions/macros have their mode 
 | `PM_CARET`            | `PM_CRT`  |     3   | Taps arrow keys based on pointing input  `x->(<-, ->)` `y->(^, v)`                                                                                          |
 | `PM_HISTORY`          | `PM_HST`  |     4   | x movement of pointing device to undo and redo macros  `x->(C(KC_Z)), C(KC_Y)`  `y->ignored`                                                                |
 | `PM_VOLUME`           | `PM_VOL`  |     5   | y movement of pointing device to media volume up/down (requires `EXTRAKEY_ENABLED`) `x->ignored` `y->(KC_VOLU, KC_VOLD)`                                    |
-| `PM_SAFE_RANGE`       |  _None_   |     6   | First mode id available in the range supported by key macros `PM_MO()` and `PM_TG()` (_Not an actual built in mode, start new custom modes/mode maps here_) |
-| `PM_SAFE_RANGE_ADV`   |  _None_   |    16   | Start of modes that will require the addition of code to activate them (_new keycodes, on layers etc._)                                                     |
+| `PM_SAFE_RANGE`       |  _None_   |     6   | Start of free mode id range supported by the `PM_MO()` and `PM_TG()` key macros (_start new custom modes/mode maps here_)                                   |
+| `PM_SAFE_RANGE_ADV`   |  _None_   |    16   | Start of mode id range that will require the addition of code to activate them (_new keycodes, on layers etc._)                                             |
    
 ***Notes:***   
 -***These modes can all be overwritten with the exception of `PM_NONE`.***   
@@ -1097,9 +1098,9 @@ static bool APP_ALT; // flag to track alt key activation for APP scrolling
 // add custom pointing device mode
 enum my_kb_pointing_modes {
     // start at the end of basic range
-    PM_BROW = PM_SAFE_RANGE,   // [mode id: 16]
-    PM_CUR_ACCEL,              // [mode id: 17]
-    PM_APP_2,                  // [mode id: 18]
+    PM_BROW = PM_SAFE_RANGE_ADV, // [mode id: 16]
+    PM_CUR_ACCEL,                // [mode id: 17]
+    PM_APP_2,                    // [mode id: 18]
     // good practice to allow users to expand further
     KB_PM_SAFE_RANGE
 };
