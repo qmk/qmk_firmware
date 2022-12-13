@@ -42,21 +42,6 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 }
 #endif // HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
-#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    // Do not force the mod-tap key press to be handled as a modifier
-    // if any other key was pressed while the mod-tap key is held down.
-    // return true;
-    // Force the mod-tap key press to be handled as a modifier if any
-    // other key was pressed while the mod-tap key is held down.
-    // return false;
-    switch (keycode) {
-        default:
-            return true;
-    }
-}
-#endif // IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-
 #ifdef QUICK_TAP_TERM_PER_KEY
 __attribute__((weak)) uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

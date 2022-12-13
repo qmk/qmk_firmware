@@ -81,7 +81,6 @@
 #endif // !ONESHOT_TIMEOUT
 
 #if defined(PER_KEY_TAPPING)
-#    define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 #    define PERMISSIVE_HOLD_PER_KEY
 #    define QUICK_TAP_TERM_PER_KEY
 #    define HOLD_ON_OTHER_KEY

@@ -55,8 +55,8 @@ int retro_tapping_counter = 0;
 #    include "process_auto_shift.h"
 #endif
 
-#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     return false;
 }
 #endif
@@ -484,10 +484,10 @@ void process_action(keyrecord_t *record, action_t action) {
                 default:
                     if (event.pressed) {
                         if (tap_count > 0) {
-#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
                             if (
-#        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event, false), record) &&
+#        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                                get_hold_on_other_key_press(get_event_keycode(record->event, false), record) &&
 #        endif
                                 record->tap.interrupted) {
                                 dprint("mods_tap: tap: cancel: add_mods\n");
