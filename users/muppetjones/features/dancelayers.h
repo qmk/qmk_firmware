@@ -51,7 +51,7 @@ typedef struct {
  * @param A tap dance state struct.
  * @return A struct.
  */
-td_state_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(tap_dance_state_t *state);
 
 // Functions associated with individual tap dances
 
@@ -63,7 +63,7 @@ td_state_t cur_dance(qk_tap_dance_state_t *state);
  * @param user_data Pointer to user data.
  * @return None.
  */
-void td_layer_finished(qk_tap_dance_state_t *state, void *user_data);
+void td_layer_finished(tap_dance_state_t *state, void *user_data);
 
 /* @brief Reset tap dance actions.
  *
@@ -73,10 +73,10 @@ void td_layer_finished(qk_tap_dance_state_t *state, void *user_data);
  * @param user_data Pointer to user data.
  * @return None.
  */
-void td_layer_reset(qk_tap_dance_state_t *state, void *user_data);
+void td_layer_reset(tap_dance_state_t *state, void *user_data);
 
 /* Define tap dance actions.
  */
 __attribute__((weak))
-qk_tap_dance_action_t tap_dance_actions[1] = {[TD_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_layer_finished, td_layer_reset, 275)};
+tap_dance_action_t tap_dance_actions[1] = {[TD_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_layer_finished, td_layer_reset, 275)};
 #endif

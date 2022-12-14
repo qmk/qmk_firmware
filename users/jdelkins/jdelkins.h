@@ -128,7 +128,7 @@ enum {
     TRIPLE_HOLD = 7
 };
 
-int cur_dance(qk_tap_dance_state_t *state);      // prefer tap
-int hold_cur_dance(qk_tap_dance_state_t *state); // prefer hold
+int cur_dance(tap_dance_state_t *state);      // prefer tap
+int hold_cur_dance(tap_dance_state_t *state); // prefer hold
 
 #endif // TAP_DANCE_ENABLE

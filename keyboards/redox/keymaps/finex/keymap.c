@@ -47,7 +47,7 @@ enum tap_dance{
 };
 
 // Semicolon to Colon
-void dance_scln_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_scln_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_SCLN);
   } else {
@@ -55,7 +55,7 @@ void dance_scln_finished (qk_tap_dance_state_t *state, void *user_data) {
     register_code (KC_SCLN);
   }
 }
-void dance_scln_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_scln_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_SCLN);
   } else {
@@ -65,7 +65,7 @@ void dance_scln_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Square braket to curly bracket (left)
-void dance_lbrc_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_lbrc_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_LBRC);
   } else {
@@ -73,7 +73,7 @@ void dance_lbrc_finished (qk_tap_dance_state_t *state, void *user_data) {
     register_code (KC_LBRC);
   }
 }
-void dance_lbrc_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_lbrc_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LBRC);
   } else {
@@ -83,7 +83,7 @@ void dance_lbrc_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Square braket to curly bracket (right)
-void dance_rbrc_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_rbrc_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_RBRC);
   } else {
@@ -91,7 +91,7 @@ void dance_rbrc_finished (qk_tap_dance_state_t *state, void *user_data) {
     register_code (KC_RBRC);
   }
 }
-void dance_rbrc_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_rbrc_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_RBRC);
   } else {
@@ -102,7 +102,7 @@ void dance_rbrc_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SCLN]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_scln_finished, dance_scln_reset),
   [TD_LBRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lbrc_finished, dance_lbrc_reset),
   [TD_RBRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rbrc_finished, dance_rbrc_reset)

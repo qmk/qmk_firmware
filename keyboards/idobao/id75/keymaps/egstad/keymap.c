@@ -61,7 +61,7 @@ enum {
 };
 
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // Tap once for Left Brace, twice for Right Brace
   [TD_BRC]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
   //Tap once for Minus, twice for Equal

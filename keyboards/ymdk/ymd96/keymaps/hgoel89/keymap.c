@@ -20,7 +20,7 @@ enum {
   TD_H_E = 0
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_H_E] = ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END)
 };
 #define ______ KC_TRNS

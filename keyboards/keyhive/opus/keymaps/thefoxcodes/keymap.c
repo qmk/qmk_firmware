@@ -89,6 +89,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_PLAY_DO_NOT_DISTURB] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_F6)
 };

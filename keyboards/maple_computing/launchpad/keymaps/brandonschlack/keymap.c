@@ -41,7 +41,7 @@ enum launchpad_dances {
     TD_REDR_H
 };
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_SHLD_LGHT] = ACTION_TAP_DANCE_TRIGGER_LAYER(SINGLE_HOLD, _LIGHT),
     [TD_SHLD_ADJT] = ACTION_TAP_DANCE_TRIGGER_LAYER(SINGLE_HOLD, _ADJUST),
     [TD_REDR_H] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_R)

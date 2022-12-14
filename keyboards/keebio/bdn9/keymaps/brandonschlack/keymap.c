@@ -57,7 +57,7 @@ enum bdn9_dances {
     TD_DTAP_ADJT
 };
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_DTAP_ADIO] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _AUDIO),
     [TD_DTAP_LGHT] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _LIGHT),
     [TD_DTAP_ADJT] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _ADJUST),

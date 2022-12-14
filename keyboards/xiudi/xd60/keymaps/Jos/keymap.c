@@ -83,7 +83,7 @@ typedef struct {
   bool sticky;
 } td_ta_state_t;
 
-static void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_ta_finished (tap_dance_state_t *state, void *user_data) {
   td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
 //  if (td_ta->sticky) {
@@ -105,7 +105,7 @@ static void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_d
 }
 
 // Added this one to make it more reactive on keyup
-static void ang_tap_dance_ta_each (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_ta_each (tap_dance_state_t *state, void *user_data) {
   td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
   if (!td_ta->layer_toggle) {   // Braces added for clarity
@@ -114,7 +114,7 @@ static void ang_tap_dance_ta_each (qk_tap_dance_state_t *state, void *user_data)
 }
 
 
-static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_ta_reset (tap_dance_state_t *state, void *user_data) {
   td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
   if (!td_ta->layer_toggle) {   // Braces added for clarity
@@ -125,7 +125,7 @@ static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data
 }
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
    [0]  = {
      .fn = { ang_tap_dance_ta_each, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
      .user_data = (void *)&((td_ta_state_t) { false, false })
