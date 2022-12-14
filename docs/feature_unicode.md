@@ -112,28 +112,28 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UNICODE_MODE_MACOS`**: macOS built-in Unicode hex input. Supports code points up to `0x10FFFF` (all possible code points).
+* **`UC_MAC`**: macOS built-in Unicode hex input. Supports code points up to `0x10FFFF` (all possible code points).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_MAC`](#input-key-configuration) with a different keycode.
 
   !> Using the _Unicode Hex Input_ input source may disable some Option-based shortcuts, such as Option+Left and Option+Right.
 
-* **`UNICODE_MODE_LINUX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
+* **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
   By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with a different keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
 
   Users who wish support in non-GTK apps without IBus may need to resort to a more indirect method, such as creating a custom keyboard layout ([more on this method](#custom-linux-layout)).
 
-* **`UNICODE_MODE_WINDOWS`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
+* **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
   To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Reboot afterwards.
-  This mode is not recommended because of reliability and compatibility issues; use the `UNICODE_MODE_WINCOMPOSE` mode instead.
+  This mode is not recommended because of reliability and compatibility issues; use the `UC_WINC` mode instead.
 
-* **`UNICODE_MODE_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
+* **`UC_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
 
-* **`UNICODE_MODE_WINCOMPOSE`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.9.0, supports code points up to `0x10FFFF` (all possible code points).
+* **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.9.0, supports code points up to `0x10FFFF` (all possible code points).
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. This mode works reliably under all version of Windows supported by the app.
   By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with a different keycode.
@@ -144,15 +144,15 @@ The following input modes are available:
 To set your desired input mode, add the following define to your `config.h`:
 
 ```c
-#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
+#define UNICODE_SELECTED_MODES UC_LNX
 ```
 
-This example sets the board's default input mode to `UNICODE_MODE_LINUX`. You can replace this with `UNICODE_MODE_MACOS`, `UNICODE_MODE_WINCOMPOSE`, or any of the other modes listed [above](#input-modes). The board will automatically use the selected mode on startup, unless you manually switch to another mode (see [below](#keycodes)).
+This example sets the board's default input mode to `UC_LNX`. You can replace this with `UC_MAC`, `UC_WINC`, or any of the other modes listed [above](#input-modes). The board will automatically use the selected mode on startup, unless you manually switch to another mode (see [below](#keycodes)).
 
 You can also select multiple input modes, which allows you to easily cycle through them using the `UC_NEXT`/`UC_PREV` keycodes.
 
 ```c
-#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS, UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE
+#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC
 ```
 
 Note that the values are separated by commas. The board will remember the last used input mode and will continue using it on next power-up. You can disable this and force it to always start with the first mode in the list by adding `#define UNICODE_CYCLE_PERSIST false` to your `config.h`.
