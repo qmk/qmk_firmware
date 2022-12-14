@@ -1,6 +1,6 @@
 #include "tap_dances.h"
 
-void td_parenthesis (qk_tap_dance_state_t *state, void *user_data) {
+void td_parenthesis (tap_dance_state_t *state, void *user_data) {
    if (state->count == 1) {
 //        SEND_STRING ("\(");
         tap_code(KC_QUOT);
@@ -24,7 +24,7 @@ void td_parenthesis (qk_tap_dance_state_t *state, void *user_data) {
    }
 }
 
-void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
+void safe_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count >= 3) {
     // Reset the keyboard if you tap the key more than three times
     reset_keyboard();

@@ -106,7 +106,7 @@ typedef struct
   videck_tap_dance_trigger_t trigger;
 } videck_tap_dance_tuple_t;
 
-static void videck_tap_dance_finished (qk_tap_dance_state_t *state, void *user_data) {
+static void videck_tap_dance_finished (tap_dance_state_t *state, void *user_data) {
   videck_tap_dance_tuple_t *const tuple = (videck_tap_dance_tuple_t *)user_data;
 
   if (state->count == 1) {
@@ -116,7 +116,7 @@ static void videck_tap_dance_finished (qk_tap_dance_state_t *state, void *user_d
   }
 }
 
-static void videck_tap_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
+static void videck_tap_dance_reset (tap_dance_state_t *state, void *user_data) {
   videck_tap_dance_tuple_t *const tuple = (videck_tap_dance_tuple_t *)user_data;
 
   if (state->count == 1) {

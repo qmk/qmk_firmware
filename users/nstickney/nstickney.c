@@ -16,7 +16,7 @@
 #include "nstickney.h"
 
 // Tap Dancing
-void dance_layer(qk_tap_dance_state_t *state, void *user_data) {
+void dance_layer(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             tap_code(KC_APP);
@@ -32,7 +32,7 @@ void dance_layer(qk_tap_dance_state_t *state, void *user_data) {
     }
 };
 
-void dance_lock_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_lock_finished(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             register_code(KC_LGUI);
@@ -51,7 +51,7 @@ void dance_lock_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 };
 
-void dance_lock_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_lock_reset(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             unregister_code(KC_LGUI);

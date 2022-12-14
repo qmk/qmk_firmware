@@ -13,7 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "tapdances.h"
 
-void ios_media(qk_tap_dance_state_t *state, void *user_data) {
+void ios_media(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code(KC_MPLY);
     } else if (state->count == 2) {

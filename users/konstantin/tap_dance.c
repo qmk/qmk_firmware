@@ -22,7 +22,7 @@
         .user_data = &(qk_tap_dance_pair_t){ mod1, mod2 },              \
     }
 
-void td_double_mod_each(qk_tap_dance_state_t *state, void *user_data) {
+void td_double_mod_each(tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_pair_t *data = (qk_tap_dance_pair_t *)user_data;
 
     // Single tap → mod1, double tap → mod2, triple tap etc. → mod1+mod2
@@ -36,7 +36,7 @@ void td_double_mod_each(qk_tap_dance_state_t *state, void *user_data) {
     state->weak_mods &= ~(MOD_BIT(data->kc1) | MOD_BIT(data->kc2));
 }
 
-void td_double_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_double_mod_reset(tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_pair_t *data = (qk_tap_dance_pair_t *)user_data;
 
     if (state->count == 1 || state->count >= 3) {
@@ -52,7 +52,7 @@ void td_double_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
         .user_data = &(qk_tap_dance_dual_role_t){ mod, layer },       \
     }
 
-void td_mod_layer_each(qk_tap_dance_state_t *state, void *user_data) {
+void td_mod_layer_each(tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_dual_role_t *data = (qk_tap_dance_dual_role_t *)user_data;
 
     // Single tap → mod, double tap → layer, triple tap etc. → mod+layer
@@ -66,7 +66,7 @@ void td_mod_layer_each(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_mod_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_mod_layer_reset(tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_dual_role_t *data = (qk_tap_dance_dual_role_t *)user_data;
 
     if (state->count == 1 || state->count >= 3) {
@@ -89,7 +89,7 @@ typedef struct {
     bool     started;
 } qk_tap_dance_layer_mod_t;
 
-void td_layer_mod_each(qk_tap_dance_state_t *state, void *user_data) {
+void td_layer_mod_each(tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_layer_mod_t *data = (qk_tap_dance_layer_mod_t *)user_data;
     if (!data->started) {
         data->layer_on = IS_LAYER_ON(data->layer);
@@ -107,7 +107,7 @@ void td_layer_mod_each(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_layer_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_layer_mod_reset(tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_layer_mod_t *data = (qk_tap_dance_layer_mod_t *)user_data;
 
     if ((state->count == 1 || state->count >= 3) && !data->layer_on) {

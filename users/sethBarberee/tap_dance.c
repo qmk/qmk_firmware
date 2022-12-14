@@ -16,7 +16,7 @@
 #include "tap_dance.h"
 
 // Shamelessly stolen from QMK Docs
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed) {
       return SINGLE_TAP;
@@ -44,7 +44,7 @@ tap caps_status = {
 };
 
 
-void dance_ecap_finished (qk_tap_dance_state_t *state, void *user_data){
+void dance_ecap_finished (tap_dance_state_t *state, void *user_data){
     caps_status.state = cur_dance(state);
     switch(caps_status.state){
         case SINGLE_TAP:
@@ -74,7 +74,7 @@ void dance_ecap_finished (qk_tap_dance_state_t *state, void *user_data){
     }
 }
 
-void dance_ecap_reset (qk_tap_dance_state_t *state, void *user_data){
+void dance_ecap_reset (tap_dance_state_t *state, void *user_data){
     if(caps_status.state == SINGLE_HOLD){
         unregister_code(KC_LCTL);
     }

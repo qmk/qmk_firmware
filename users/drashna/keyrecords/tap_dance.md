@@ -82,7 +82,7 @@ The first part of the magic here is the `diablo_tapdance_master` function.  The 
 
 ```c
 // Cycle through the times for the macro, starting at 0, for disabled.
-void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
+void diablo_tapdance_master(tap_dance_state_t *state, void *user_data) {
     diable_keys_t *diablo_keys = (diable_keys_t *)user_data;
     // Sets the keycode based on the index
     diablo_timer[diablo_keys->index].keycode = diablo_keys->keycode;

@@ -79,7 +79,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 }
 #endif //RGB_MATRIX_ENABLE
 
-void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_finished (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code16(S(KC_2));
     } else {
@@ -87,7 +87,7 @@ void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_reset (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code16(S(KC_2));
     } else {

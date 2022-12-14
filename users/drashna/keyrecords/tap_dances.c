@@ -17,7 +17,7 @@ uint8_t diablo_times[] = {0, 1, 3, 5, 10, 30};
  * @param state Main data struction contining information about events
  * @param user_data Local data for the dance. Allows customization to be passed on to function
  */
-void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
+void diablo_tapdance_master(tap_dance_state_t *state, void *user_data) {
     diable_keys_t *diablo_keys = (diable_keys_t *)user_data;
     // Sets the keycode based on the index
     diablo_timer[diablo_keys->index].keycode = diablo_keys->keycode;
