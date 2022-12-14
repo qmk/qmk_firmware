@@ -11,6 +11,7 @@ on:
     - tests/**/*
     - util/**/*
     - platforms/**/*
+    - builddefs/**/*
     - Makefile
     - '*.mk'
 
