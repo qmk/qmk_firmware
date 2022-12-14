@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,  KC_W,  KC_E,   KC_R,  KC_T,                           KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_BSLS,
         KC_ESC,  KC_A,  KC_S,  KC_D,   KC_F,  KC_G,                           KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,  KC_X,  KC_C,   KC_V,  KC_B, KC_MUTE,         XXXXXXX, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT,
-             KC_LGUI, KC_LALT, KC_LCTRL, KC_LOWER, KC_SPC,            KC_SPC, KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI
+             KC_LGUI, KC_LALT, KC_LCTL, KC_LOWER, KC_SPC,            KC_SPC, KC_RAISE, KC_RCTL, KC_RALT, KC_RGUI
     ),
 
     /* LOWER
@@ -70,28 +70,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------.                    ,-----------------------------------------.
      * |      |      |      |      |      |      |                    |      |      |      |      |      | DWord|
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |  `   | Ins  | Pscr | MVUP |      |      |                    |      | PWrd |  Up  | NWrd | DLine| Bspc |
+     * |  `   | Ins  | Pscr | MVUP |      |      |                    |      | PWrd |  Up  | NWrd |      |      |
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * |      |      |      | MVDN |      | Caps |-------.    ,-------|      |   -  |  =   |   [  |  ]   | Bspc |
+     * |      |      |      | MVDN |      | Caps |-------.    ,-------|      |   -  |  =   |   [  |  ]   |      |
      * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
-     * |Shift | Undo |  Cut | Copy | Paste|      |-------|    |-------|      | LStr |      | LEnd |      | Shift|
+     * |      | Undo |  Cut | Copy | Paste|      |-------|    |-------|      | LStr |      | LEnd |      | Shift|
      * `-----------------------------------------/       /     \      \-----------------------------------------'
      *            | LGUI | LAlt | LCTR |LOWER | / PLAY  /       \ PLAY \  |RAISE | RCTR | RAlt | RGUI |
      *            |      |      |      |      |/       /         \      \ |      |      |      |      |
      *            `-----------------------------------'           '------''---------------------------'
      */
     [_RAISE] = LAYOUT(
-        _______, _______, _______, _______,    _______,  _______,                   _______, _______,  _______, _______,  _______,  C(KC_DEL),
-        KC_GRV,  KC_INS,  KC_PSCR, A(KC_UP),   _______,  _______,                   _______, KC_PRVWD, KC_UP,   KC_NXTWD, KC_DLINE, _______,
-        _______, KC_LALT, KC_LCTL, A(KC_DOWN), _______,  KC_CAPS,                   _______, KC_MINS,  KC_EQL,  _______,  _______,  _______,
-        _______, KC_UNDO, KC_CUT,  KC_COPY,    KC_PASTE, _______, _______, _______, _______, KC_LSTRT, _______, KC_LEND,  _______,  _______,
+        _______, _______, _______, _______,    _______,  _______,                   _______, _______,  _______, _______,  _______, C(KC_DEL),
+        KC_GRV,  KC_INS,  KC_PSCR, A(KC_UP),   _______,  _______,                   _______, KC_PRVWD, KC_UP,   KC_NXTWD, _______, _______,
+        _______, KC_LALT, KC_LCTL, A(KC_DOWN), _______,  KC_CAPS,                   _______, KC_MINS,  KC_EQL,  _______,  _______, _______,
+        _______, KC_UNDO, KC_CUT,  KC_COPY,    KC_PASTE, _______, _______, _______, _______, KC_LSTRT, _______, KC_LEND,  _______, _______,
                       _______, _______, _______, _______, KC_MPLY,                KC_MPLY, _______, _______, _______, _______
     ),
     /* ADJUST
      * ,-----------------------------------------.                    ,-----------------------------------------.
      * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-     * | RESET|      |QWERTY|      |      |      |                    |      |      |      |      |      | F12  |
+     * |QK_BOOT|     |QWERTY|      |      |      |                    |      |      |      |      |      | F12  |
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
      * |      |      |MACWIN|      |      |      |-------.    ,-------|      |      |      |      |      |      |
      * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_ADJUST] = LAYOUT(
         _______, KC_F1,   KC_F2,     KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        RESET,   _______, KC_QWERTY, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_F12,
+        QK_BOOT, _______, KC_QWERTY, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_F12,
         _______, _______, CG_TOGG,   _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
         _______, _______, _______,   _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,
                     _______, _______, _______,   _______, KC_MPLY,              KC_MPLY, _______, _______, _______, _______
@@ -144,12 +144,13 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_logo();
-    } else {
         print_status_narrow();
+    } else {
+        render_logo();
     }
+    return false;
 }
 
 #endif
@@ -303,7 +304,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -314,9 +315,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_PGUP);
         } else {
-            tap_code(KC_PGDOWN);
+            tap_code(KC_PGDN);
         }
     }
+    return true;
 }
 
 #endif
