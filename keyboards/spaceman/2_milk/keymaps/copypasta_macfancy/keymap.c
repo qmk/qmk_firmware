@@ -8,7 +8,7 @@ enum tapdance_keycodes {
     TD_KEY_2
 };
 
-void dance_key_one(qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_one(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         /* Copy for Mac. */
         /* Windows & Linux use Ctrl+C: tap_code16(C(KC_C)) */
@@ -26,7 +26,7 @@ void dance_key_one(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_key_two(qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_two(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         /* Paste for Mac. */
         /* Windows & Linux use Ctrl+V: tap_code16(C(KC_V)) */

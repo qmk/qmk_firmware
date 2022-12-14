@@ -12,7 +12,7 @@ enum {
 };
 
 // Tap Dance Functions
-void tri_open(qk_tap_dance_state_t *state, void *user_data) {
+void tri_open(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1) {
 		tap_code16(KC_LPRN);
 	} else if (state->count == 2) {
@@ -22,7 +22,7 @@ void tri_open(qk_tap_dance_state_t *state, void *user_data) {
 	}
 }
 
-void tri_close(qk_tap_dance_state_t *state, void *user_data) {
+void tri_close(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1) {
 		tap_code16(KC_RPRN);
 	} else if (state->count == 2) {
@@ -32,7 +32,7 @@ void tri_close(qk_tap_dance_state_t *state, void *user_data) {
 	}
 }
 
-void dquote(qk_tap_dance_state_t *state, void *user_data) {
+void dquote(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1) {
 		if (state->interrupted)
 			tap_code(KC_QUOT);
@@ -44,7 +44,7 @@ void dquote(qk_tap_dance_state_t *state, void *user_data) {
 	}
 }
 
-void tilded(qk_tap_dance_state_t *state, void *user_data) {
+void tilded(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1) {
 		if (state->interrupted)
 			tap_code16(KC_TILD);

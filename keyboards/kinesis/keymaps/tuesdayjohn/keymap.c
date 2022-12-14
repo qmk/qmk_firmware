@@ -36,13 +36,13 @@ enum {
   PSPA
 };
 
-void dance_LAYER_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LAYER_finished(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
      layer_on(_ADJUST2);
      set_oneshot_layer(_ADJUST2, ONESHOT_START);
   }
 }
-void dance_LAYER_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LAYER_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
      layer_off(_ADJUST2);
      clear_oneshot_layer_state(ONESHOT_PRESSED);

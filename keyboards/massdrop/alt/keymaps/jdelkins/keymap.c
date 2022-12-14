@@ -42,7 +42,7 @@ enum alt_keycodes {
 
 int ctl_state = 0;
 
-void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_finished(tap_dance_state_t *state, void *user_data) {
     ctl_state = cur_dance(state);
     switch(ctl_state) {
         case SINGLE_TAP:    leader_start(); break;
@@ -54,7 +54,7 @@ void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_reset(tap_dance_state_t *state, void *user_data) {
     switch(ctl_state) {
         case SINGLE_HOLD:   unregister_code(KC_LCTL); break;
         case DOUBLE_HOLD:
@@ -63,7 +63,7 @@ void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
     ctl_state = 0;
 }
 
-void g_finished(qk_tap_dance_state_t *state, void *user_data) {
+void g_finished(tap_dance_state_t *state, void *user_data) {
     switch (cur_dance(state)) {
         case SINGLE_TAP:
             tap_code16(C(KC_END));

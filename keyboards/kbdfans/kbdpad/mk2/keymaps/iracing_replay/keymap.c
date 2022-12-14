@@ -51,7 +51,7 @@ void camera_number(uint16_t tens, uint16_t ones) {
     tap_code(KC_ENT);
 }
 
-void cam_up(qk_tap_dance_state_t *state, void *user_data) {
+void cam_up(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:                     
             tap_code(KC_C);             // tap once for next cam
@@ -62,7 +62,7 @@ void cam_up(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void cam_down(qk_tap_dance_state_t *state, void *user_data) {
+void cam_down(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:                     
             tap_code16(LSFT(KC_C));     // tap once for prev cam

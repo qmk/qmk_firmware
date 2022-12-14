@@ -35,7 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_finished(tap_dance_state_t *state, void *user_data) {
    uprintf("Tap Dance count: %u", state->count);
     if (state->count == 1) {
         tap_code(KC_MPLY);

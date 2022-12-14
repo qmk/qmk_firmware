@@ -34,7 +34,7 @@ enum {
   TD_TOGGLE = 0
 };
 
-void dance_toggle (qk_tap_dance_state_t *state, void *user_data) {
+void dance_toggle (tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     println("Double tapped, switching layers");
     if (layer_state_is(LED)) {

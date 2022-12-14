@@ -63,7 +63,7 @@ enum {
 // Shift tapped, then Capitlize next keystroke only.
 // Shift double-tapped, then CAPSLOCK
 // Shift double-tapped again, CAPS UNLOCKED
-void dance_onshot_lsft(qk_tap_dance_state_t *state, void *user_data) {
+void dance_onshot_lsft(tap_dance_state_t *state, void *user_data) {
   switch (state->count) {
     case 1: // =>
       set_oneshot_mods (MOD_LSFT);

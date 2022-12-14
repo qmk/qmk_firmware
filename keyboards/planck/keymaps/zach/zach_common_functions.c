@@ -68,7 +68,7 @@ float unilin[][2]               = SONG(UNICODE_LINUX);
 #ifdef TAP_DANCE_ENABLE
 #define TAPPING_TERM 200
 
-void dance_raise_press(qk_tap_dance_state_t *state, void *user_data){// Called on each tap
+void dance_raise_press(tap_dance_state_t *state, void *user_data){// Called on each tap
   switch(state->count){      // Only turn the layer on once
     case 1:
         layer_off(_UNICODES);
@@ -77,7 +77,7 @@ void dance_raise_press(qk_tap_dance_state_t *state, void *user_data){// Called o
         break;
   }
 };
-void dance_raise_lift(qk_tap_dance_state_t *state, void *user_data){ // Called on release
+void dance_raise_lift(tap_dance_state_t *state, void *user_data){ // Called on release
   switch(state->count){
     case 1:         // Normal action. Turn off layers
         layer_off(_RAISE);
@@ -87,7 +87,7 @@ void dance_raise_lift(qk_tap_dance_state_t *state, void *user_data){ // Called o
   }
 };
 /////////////////////////////////////////////////////////////////////
-void dance_lower_press(qk_tap_dance_state_t *state, void *user_data){// Called on tap
+void dance_lower_press(tap_dance_state_t *state, void *user_data){// Called on tap
   switch(state->count){
     case 1:         // Turn on lower
         layer_off(_UNICODES);
@@ -96,7 +96,7 @@ void dance_lower_press(qk_tap_dance_state_t *state, void *user_data){// Called o
         break;
   }
 };
-void dance_lower_lift(qk_tap_dance_state_t *state, void *user_data){ // Called on release
+void dance_lower_lift(tap_dance_state_t *state, void *user_data){ // Called on release
   switch(state->count){
     case 1:         // Normal action. Turn off layers
         layer_off(_LOWER);
@@ -114,12 +114,12 @@ void dance_lower_lift(qk_tap_dance_state_t *state, void *user_data){ // Called o
   }
 };
 /////////////////////////////////////////////////////////////////////
-void dance_super_press(qk_tap_dance_state_t *state, void *user_data){   // Called on down
+void dance_super_press(tap_dance_state_t *state, void *user_data){   // Called on down
     if(state->count == 1){
         register_code(KC_LGUI);
     }
 }
-void dance_super_done(qk_tap_dance_state_t *state, void *user_data){    // Called on timeout
+void dance_super_done(tap_dance_state_t *state, void *user_data){    // Called on timeout
   switch(state->count){
     case 2:
         register_code(KC_LGUI);
@@ -128,7 +128,7 @@ void dance_super_done(qk_tap_dance_state_t *state, void *user_data){    // Calle
         break;
   }
 }
-void dance_super_lift(qk_tap_dance_state_t *state, void *user_data){        // Called on up
+void dance_super_lift(tap_dance_state_t *state, void *user_data){        // Called on up
     unregister_code(KC_LGUI);
 }
 

@@ -14,7 +14,7 @@ enum {
   TD_DBQT
 };
 
-void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_rst_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     reset_keyboard();
     reset_tap_dance(state);

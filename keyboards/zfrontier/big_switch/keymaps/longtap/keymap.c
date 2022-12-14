@@ -93,7 +93,7 @@ void zf_send_random_string(void) {
     tap_code(KC_ENT);
 }
 
-void dance_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_finished(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             register_code(KC_ENTER);
@@ -107,7 +107,7 @@ void dance_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code(KC_ENTER);
     }

@@ -35,4 +35,4 @@ typedef struct {
     td_state_t state;
 } td_tap_t;
 
-td_state_t current_dance(qk_tap_dance_state_t *state);
+td_state_t current_dance(tap_dance_state_t *state);

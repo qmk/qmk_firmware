@@ -34,7 +34,7 @@ typedef struct {
   int state;
 } tap;
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     //If count = 1, and it has been interrupted - it doesn't matter if it is pressed or not: Send SINGLE_TAP
     if (state->interrupted || state->pressed==0) return SINGLE_TAP;
@@ -58,7 +58,7 @@ static tap se_tap_state = {
   .state = 0
 };
 
-void se_finished (qk_tap_dance_state_t *state, void *user_data) {
+void se_finished (tap_dance_state_t *state, void *user_data) {
   se_tap_state.state = cur_dance(state);
   switch (se_tap_state.state) {
     case SINGLE_TAP: register_code(KC_SPC); break;
@@ -70,7 +70,7 @@ void se_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void se_reset (qk_tap_dance_state_t *state, void *user_data) {
+void se_reset (tap_dance_state_t *state, void *user_data) {
   switch (se_tap_state.state) {
     case SINGLE_TAP: unregister_code(KC_SPC); break;
     case SINGLE_HOLD: unregister_code(KC_ENT); break;

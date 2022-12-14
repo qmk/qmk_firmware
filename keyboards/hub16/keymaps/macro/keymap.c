@@ -25,7 +25,7 @@ enum keyboard_layers{
 };
 
 // Tap Dance Declarations
-void td_ctrl (qk_tap_dance_state_t *state, void *user_data);
+void td_ctrl (tap_dance_state_t *state, void *user_data);
 
 enum tap_dance { CTRL = 0, BASE = 1 };
 
@@ -105,7 +105,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Below works around TD() not running key press through process_record_user.
 // Fixes bug of CTRL layer move key not being wrapped in by modifier on single tap
-void td_ctrl (qk_tap_dance_state_t *state, void *user_data) {
+void td_ctrl (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code(KC_WRAP);
     tap_code(KC_P);

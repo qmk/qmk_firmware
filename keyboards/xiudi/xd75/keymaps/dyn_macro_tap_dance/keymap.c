@@ -34,7 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
-void macro_tog_key( qk_tap_dance_state_t *state, void *user_data ) {
+void macro_tog_key( tap_dance_state_t *state, void *user_data ) {
   if ( state->count > 3 )
     return;
 

@@ -375,7 +375,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void dance_left_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_left_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) { //1 tap, move to line left
     keymap_config.raw = eeconfig_read_keymap();
     if(keymap_config.swap_lctl_lgui){ //Linux
@@ -388,7 +388,7 @@ void dance_left_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_right_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_right_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) { // 1 tap, move line right
        keymap_config.raw = eeconfig_read_keymap();
     if(keymap_config.swap_lctl_lgui){ //Linux

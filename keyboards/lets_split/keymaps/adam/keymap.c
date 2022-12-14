@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef TAP_DANCE_ENABLE
-void tap_1(qk_tap_dance_state_t *state, void *user_data) {
+void tap_1(tap_dance_state_t *state, void *user_data) {
   switch (state->count) {
   case 1:
     register_code (KC_1);

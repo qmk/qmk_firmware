@@ -61,7 +61,7 @@ typedef struct {
     int state;
 } tap;
 
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
     switch (state->count) {
         case 1:
             if (state->interrupted || state->pressed == 0) {
@@ -87,7 +87,7 @@ static tap N ## _state = {                                          \
     .state = 0                                                      \
 };                                                                  \
                                                                     \
-void N ## _finished(qk_tap_dance_state_t *state, void *user_data) { \
+void N ## _finished(tap_dance_state_t *state, void *user_data) { \
     N ## _state.state = cur_dance(state);                           \
     switch (N ## _state.state) {                                    \
         case SINGLE_TAP: case SINGLE_HOLD:                          \
@@ -100,7 +100,7 @@ void N ## _finished(qk_tap_dance_state_t *state, void *user_data) { \
     }                                                               \
 }                                                                   \
                                                                     \
-void N ## _reset(qk_tap_dance_state_t *state, void *user_data) {    \
+void N ## _reset(tap_dance_state_t *state, void *user_data) {    \
     switch (N ## _state.state) {                                    \
         case SINGLE_TAP: case SINGLE_HOLD:                          \
             unregister_code(K0);                                    \

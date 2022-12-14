@@ -63,7 +63,7 @@ static void stop_scrolling(void) {
     }
 }
 
-static void dance_oled_finished(qk_tap_dance_state_t *state, void *user_data) {
+static void dance_oled_finished(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             if (state->pressed) {

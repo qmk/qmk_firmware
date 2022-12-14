@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT(TD(TD_PLAY)),
 };
 
-void tap_dance (qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance (tap_dance_state_t *state, void *user_data) {
   switch (state->count) {
     case 0 ... 1:
       register_code(KC_MEDIA_PLAY_PAUSE);

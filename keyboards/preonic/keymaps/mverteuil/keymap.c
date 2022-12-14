@@ -75,14 +75,14 @@ typedef struct {
     t_tap_state right_brackets;
 } t_tap;
 
-t_tap_state get_tapdance_state(qk_tap_dance_state_t *state);
+t_tap_state get_tapdance_state(tap_dance_state_t *state);
 
-void td_numpad_funcrow_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_numpad_funcrow_reset(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data);
+void td_numpad_funcrow_finished(tap_dance_state_t *state, void *user_data);
+void td_numpad_funcrow_reset(tap_dance_state_t *state, void *user_data);
+void td_brackets_left_finished(tap_dance_state_t *state, void *user_data);
+void td_brackets_left_reset(tap_dance_state_t *state, void *user_data);
+void td_brackets_right_finished(tap_dance_state_t *state, void *user_data);
+void td_brackets_right_reset(tap_dance_state_t *state, void *user_data);
 
 /* Tap Dance Definitions */
 tap_dance_action_t tap_dance_actions[] = {
@@ -300,7 +300,7 @@ float s_functionrow_on[][2]  = LAYER_FUNCROW_ON_SONG;
 float s_functionrow_off[][2] = LAYER_FUNCROW_OFF_SONG;
 float s_numpad_toggle[][2]   = LAYER_NMPAD_SONG;
 
-t_tap_state get_tapdance_state(qk_tap_dance_state_t *state) {
+t_tap_state get_tapdance_state(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) {
             return SINGLE_TAP;
@@ -323,7 +323,7 @@ t_tap_state get_tapdance_state(qk_tap_dance_state_t *state) {
         return TAP_DANCE_NO_MATCH;
 }
 
-void td_numpad_funcrow_finished(qk_tap_dance_state_t *state, void *user_data) {
+void td_numpad_funcrow_finished(tap_dance_state_t *state, void *user_data) {
     qk_tap_state.numpad_funcrow = get_tapdance_state(state);
     switch (qk_tap_state.numpad_funcrow) {
         case SINGLE_TAP ... SINGLE_HOLD:
@@ -347,7 +347,7 @@ void td_numpad_funcrow_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_numpad_funcrow_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_numpad_funcrow_reset(tap_dance_state_t *state, void *user_data) {
     switch (qk_tap_state.numpad_funcrow) {
         case SINGLE_HOLD:
             layer_off(_NUMPAD);
@@ -360,7 +360,7 @@ void td_numpad_funcrow_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data) {
+void td_brackets_left_finished(tap_dance_state_t *state, void *user_data) {
     qk_tap_state.left_brackets = get_tapdance_state(state);
     switch (qk_tap_state.left_brackets) {
         case SINGLE_TAP:
@@ -377,7 +377,7 @@ void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_brackets_left_reset(tap_dance_state_t *state, void *user_data) {
     switch (qk_tap_state.left_brackets) {
         case SINGLE_TAP:
             unregister_code16(KC_LEFT_PAREN);
@@ -394,7 +394,7 @@ void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data) {
     qk_tap_state.left_brackets = 0;
 }
 
-void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data) {
+void td_brackets_right_finished(tap_dance_state_t *state, void *user_data) {
     qk_tap_state.right_brackets = get_tapdance_state(state);
     switch (qk_tap_state.right_brackets) {
         case SINGLE_TAP:
@@ -411,7 +411,7 @@ void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_brackets_right_reset(tap_dance_state_t *state, void *user_data) {
     switch (qk_tap_state.right_brackets) {
         case SINGLE_TAP:
             unregister_code16(KC_RIGHT_PAREN);

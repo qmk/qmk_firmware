@@ -49,42 +49,42 @@ void send_french_unicode_char(uint8_t count, uint32_t once, uint32_t twice)
 	register_unicode(twice);
 }
 
-void dance_a_q(qk_tap_dance_state_t *state, void *user_data)
+void dance_a_q(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_A_GRAVE, FR_L_QUOTE);
 }
 
-void dance_e_q(qk_tap_dance_state_t *state, void *user_data)
+void dance_e_q(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_E_AIGU, FR_R_QUOTE);
 }
 
-void dance_e_u(qk_tap_dance_state_t *state, void *user_data)
+void dance_e_u(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_E_GRAVE, FR_U_GRAVE);
 }
 
-void dance_e_e(qk_tap_dance_state_t *state, void *user_data)
+void dance_e_e(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_E_HAT, FR_E_UMLAUT);
 }
 
-void dance_a_y(qk_tap_dance_state_t *state, void *user_data)
+void dance_a_y(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_A_HAT, FR_Y_UMLAUT);
 }
 
-void dance_i_i(qk_tap_dance_state_t *state, void *user_data)
+void dance_i_i(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_I_HAT, FR_I_UMLAUT);
 }
 
-void dance_o_c(qk_tap_dance_state_t *state, void *user_data)
+void dance_o_c(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_O_HAT, FR_C_CIRCUM);
 }
 
-void dance_u_u(qk_tap_dance_state_t *state, void *user_data)
+void dance_u_u(tap_dance_state_t *state, void *user_data)
 {
     send_french_unicode_char(state->count, FR_U_HAT, FR_U_UMLAUT);
 }

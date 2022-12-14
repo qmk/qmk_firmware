@@ -26,7 +26,7 @@ enum {
     TD_ESC_WINDOWS_EMOJI
 };
 
-void td_esc_spotlight_emoji (qk_tap_dance_state_t *state, void *user_data) {
+void td_esc_spotlight_emoji (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code(KC_ESC);
     } else if (state->count == 2) {
@@ -36,7 +36,7 @@ void td_esc_spotlight_emoji (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_esc_windows_emoji (qk_tap_dance_state_t *state, void *user_data) {
+void td_esc_windows_emoji (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code(KC_ESC);
     } else if (state->count == 2) {

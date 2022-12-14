@@ -155,25 +155,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 /* tap dance time */
-void tdexample1(qk_tap_dance_state_t *state, void *user_data) {
+void tdexample1(tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     SEND_STRING(EXAMPLESTRING1);
     reset_tap_dance (state);
   }
 }
-void tdexample2(qk_tap_dance_state_t *state, void *user_data) {
+void tdexample2(tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     SEND_STRING(EXAMPLESTRING2);
     reset_tap_dance (state);
   }
 }
-void tdexample3(qk_tap_dance_state_t *state, void *user_data) {
+void tdexample3(tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     SEND_STRING(EXAMPLESTRING3);
     reset_tap_dance (state);
   }
 }
-void tdexample4(qk_tap_dance_state_t *state, void *user_data) {
+void tdexample4(tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     SEND_STRING(EXAMPLESTRING4);
     reset_tap_dance (state);

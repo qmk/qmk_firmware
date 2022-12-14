@@ -163,7 +163,7 @@
  #define TD_CTRL_LANG TD(_TD_CTRL_LANG)
  #define TD_SCLN_NTILDE TD(_TD_SCLN_NTILDE) //TP with costum keycodes has to be a funtion
 
- void td_scln_ntilde(qk_tap_dance_state_t *state, void *user_data) {
+ void td_scln_ntilde(tap_dance_state_t *state, void *user_data) {
       if (state->count == 1) {
          register_code(KC_SCLN);
          unregister_code(KC_SCLN);

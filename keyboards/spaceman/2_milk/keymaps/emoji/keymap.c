@@ -5,7 +5,7 @@ enum tapdance_keycodes {
     TD_KEY_2,
 };
 
-void dance_key_one (qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_one (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         send_unicode_string("¯\\_(ツ)_/¯");
         tap_code(KC_ENTER);
@@ -16,7 +16,7 @@ void dance_key_one (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_key_two (qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_two (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         send_unicode_string("ಠ_ಠ");
         tap_code(KC_ENTER);

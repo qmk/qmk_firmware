@@ -5,11 +5,11 @@ enum {
     TD_BL = 0
 };
 
-void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_finished(tap_dance_state_t *state, void *user_data) {
     // noop
 }
 
-void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_reset(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             // single tap - step through backlight

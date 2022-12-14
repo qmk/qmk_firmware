@@ -9,7 +9,7 @@ enum {
     CT_CLN, // Reverses colon and semicolon and triggers semicolon on tap dance.
 };
 
-void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code16(KC_COLN);
     } else {
@@ -17,7 +17,7 @@ void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code16(KC_COLN);
     } else {
