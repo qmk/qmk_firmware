@@ -505,7 +505,8 @@ class CapsWordDoubleTapShift : public ::testing::WithParamInterface<CapsWordDoub
 TEST_P(CapsWordDoubleTapShift, Activation) {
     TestDriver driver;
     KeymapKey  left_shift(0, 0, 0, GetParam().left_shift_keycode);
-    set_keymap({left_shift});
+    KeymapKey  esc(0, 0, 1, KC_ESCAPE);
+    set_keymap({left_shift, esc});
 
     // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
@@ -524,6 +525,12 @@ TEST_P(CapsWordDoubleTapShift, Activation) {
     EXPECT_EQ(is_caps_word_on(), true);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
+
+    // We have to manually reset the internal state of the caps word state
+    // machine at this point. This due to imperfect test isolation which can't
+    // reset the caps word double shift timer on test case setup.
+    idle_for(CAPS_WORD_IDLE_TIMEOUT);
+    tap_key(esc);
 }
 
 // Double tap doesn't count if another key is pressed between the taps.
