@@ -17,7 +17,7 @@ void none_lead_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
 
         case DOUBLE_TAP:
-            qk_leader_start();
+            leader_start();
             break;
     }
 }
