@@ -43,7 +43,7 @@ enum lt_app_state {
 
 static enum lt_app_state saved_lt_app_state;
 
-static enum lt_app_state get_lt_app_state(qk_tap_dance_state_t *state) {
+static enum lt_app_state get_lt_app_state(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (!state->pressed) {
             return LTA_SINGLE_TAP;
@@ -57,7 +57,7 @@ static enum lt_app_state get_lt_app_state(qk_tap_dance_state_t *state) {
     }
 }
 
-static void lt_app_finished(qk_tap_dance_state_t *state, void *user_data) {
+static void lt_app_finished(tap_dance_state_t *state, void *user_data) {
     saved_lt_app_state = get_lt_app_state(state);
     switch (saved_lt_app_state) {
         case LTA_NONE:
@@ -74,7 +74,7 @@ static void lt_app_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-static void lt_app_reset(qk_tap_dance_state_t *state, void *user_data) {
+static void lt_app_reset(tap_dance_state_t *state, void *user_data) {
     switch (saved_lt_app_state) {
         case LTA_NONE:
             break;
