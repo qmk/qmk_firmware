@@ -20,9 +20,9 @@ enum {
   ALT_L1 = 0
 };
 
-int cur_dance (qk_tap_dance_state_t *state);
-void alt_finished (qk_tap_dance_state_t *state, void *user_data);
-void alt_reset (qk_tap_dance_state_t *state, void *user_data);
+int cur_dance (tap_dance_state_t *state);
+void alt_finished (tap_dance_state_t *state, void *user_data);
+void alt_reset (tap_dance_state_t *state, void *user_data);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->pressed) return SINGLE_HOLD;
     else return SINGLE_TAP;
@@ -65,7 +65,7 @@ static tap alttap_state = {
   .state = 0
 };
 
-void alt_finished (qk_tap_dance_state_t *state, void *user_data) {
+void alt_finished (tap_dance_state_t *state, void *user_data) {
   alttap_state.state = cur_dance(state);
   switch (alttap_state.state) {
     case SINGLE_TAP: set_oneshot_layer(1, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
@@ -75,7 +75,7 @@ void alt_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void alt_reset (qk_tap_dance_state_t *state, void *user_data) {
+void alt_reset (tap_dance_state_t *state, void *user_data) {
   switch (alttap_state.state) {
     case SINGLE_TAP: break;
     case SINGLE_HOLD: unregister_code(KC_LALT); break;
@@ -85,7 +85,7 @@ void alt_reset (qk_tap_dance_state_t *state, void *user_data) {
   alttap_state.state = 0;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [ALT_L1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset)
 };
 

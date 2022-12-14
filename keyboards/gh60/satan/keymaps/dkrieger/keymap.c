@@ -21,7 +21,7 @@ typedef struct {
   int state;
 } tap;
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->interrupted == false || state->pressed) {
     if (state->count < 2) return SINGLE_HOLD;
     if (state->count < 3) return DOUBLE_HOLD;
@@ -36,7 +36,7 @@ static tap fn_tap_state = {
   .state = 0
 };
 
-void fn_finished (qk_tap_dance_state_t *state, void *user_data) {
+void fn_finished (tap_dance_state_t *state, void *user_data) {
   fn_tap_state.state = cur_dance(state);
   switch (fn_tap_state.state) {
     /* case SINGLE_HOLD: register_code(MO(_FN)); break; */
@@ -46,7 +46,7 @@ void fn_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void fn_reset (qk_tap_dance_state_t *state, void *user_data) {
+void fn_reset (tap_dance_state_t *state, void *user_data) {
   switch (fn_tap_state.state) {
     case SINGLE_HOLD: layer_off(_FN); break;
     case DOUBLE_HOLD: layer_off(_MOUSE); layer_off(_MOUSESHIFT); break;
@@ -54,7 +54,7 @@ void fn_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [SUPER_FN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fn_finished, fn_reset)
 };
 

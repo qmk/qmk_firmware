@@ -21,7 +21,7 @@ enum {
 };
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for 1, twice for Grave
   [G1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_GRV),
   //Tap once for [, twice for ]

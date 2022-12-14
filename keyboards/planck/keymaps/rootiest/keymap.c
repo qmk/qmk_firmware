@@ -243,15 +243,15 @@ bool did_leader_succeed;
 LEADER_EXTERNS();
 
 // Tap-Dance stuffs, initializing functions that are coded further below
-td_state_t cur_dance(qk_tap_dance_state_t* state);
-void       sml_finished(qk_tap_dance_state_t* state, void* user_data);
-void       sml_reset(qk_tap_dance_state_t* state, void* user_data);
-void       scap_finished(qk_tap_dance_state_t* state, void* user_data);
-void       scap_reset(qk_tap_dance_state_t* state, void* user_data);
-void       slctl_finished(qk_tap_dance_state_t* state, void* user_data);
-void       slctl_reset(qk_tap_dance_state_t* state, void* user_data);
-void       slalt_finished(qk_tap_dance_state_t* state, void* user_data);
-void       slalt_reset(qk_tap_dance_state_t* state, void* user_data);
+td_state_t cur_dance(tap_dance_state_t* state);
+void       sml_finished(tap_dance_state_t* state, void* user_data);
+void       sml_reset(tap_dance_state_t* state, void* user_data);
+void       scap_finished(tap_dance_state_t* state, void* user_data);
+void       scap_reset(tap_dance_state_t* state, void* user_data);
+void       slctl_finished(tap_dance_state_t* state, void* user_data);
+void       slctl_reset(tap_dance_state_t* state, void* user_data);
+void       slalt_finished(tap_dance_state_t* state, void* user_data);
+void       slalt_reset(tap_dance_state_t* state, void* user_data);
 bool       lctl_sticky = false;
 bool       lalt_sticky = false;
 
@@ -1325,7 +1325,7 @@ void rgb_wakeup_sequence(void) {
 }
 
 // Spits out some unicode special characters in response to a tap-dance
-void send_degree_symbol(qk_tap_dance_state_t* state, void* user_data) {
+void send_degree_symbol(tap_dance_state_t* state, void* user_data) {
     switch (state->count) {
         case 4:
             // ℃
@@ -1416,7 +1416,7 @@ void leader_end_user(void) {
 }
 
 // Monitors and labels the current state of any tap-dances
-td_state_t cur_dance(qk_tap_dance_state_t* state) {
+td_state_t cur_dance(tap_dance_state_t* state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
         // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
@@ -1446,7 +1446,7 @@ static td_tap_t slctl_state = {.is_press_action = true, .state = TD_NONE};
 static td_tap_t slalt_state = {.is_press_action = true, .state = TD_NONE};
 
 // Left-Shift->Sticky-Caps tap-dance finished
-void scap_finished(qk_tap_dance_state_t* state, void* user_data) {
+void scap_finished(tap_dance_state_t* state, void* user_data) {
     scap_state.state = cur_dance(state);
     switch (scap_state.state) {
         case TD_SINGLE_HOLD:
@@ -1471,13 +1471,13 @@ void scap_finished(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Left-Shift->Sticky-Caps tap-dance reset
-void scap_reset(qk_tap_dance_state_t* state, void* user_data) {
+void scap_reset(tap_dance_state_t* state, void* user_data) {
     unregister_code(KC_LSFT);
     scap_state.state = TD_NONE;
 }
 
 // Sticky-Left-Control tap-dance finished
-void slctl_finished(qk_tap_dance_state_t* state, void* user_data) {
+void slctl_finished(tap_dance_state_t* state, void* user_data) {
     slctl_state.state = cur_dance(state);
     switch (slctl_state.state) {
         case TD_SINGLE_HOLD:
@@ -1507,7 +1507,7 @@ void slctl_finished(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Sticky-Left-Control tap-dance reset
-void slctl_reset(qk_tap_dance_state_t* state, void* user_data) {
+void slctl_reset(tap_dance_state_t* state, void* user_data) {
     if (!lctl_sticky) {
         unregister_code(KC_LCTL);
         slctl_state.state = TD_NONE;
@@ -1517,7 +1517,7 @@ void slctl_reset(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Sticky-Left-Alt tap-dance finished
-void slalt_finished(qk_tap_dance_state_t* state, void* user_data) {
+void slalt_finished(tap_dance_state_t* state, void* user_data) {
     slalt_state.state = cur_dance(state);
     switch (slalt_state.state) {
         case TD_SINGLE_HOLD:
@@ -1547,7 +1547,7 @@ void slalt_finished(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Sticky-Left-Alt tap-dance reset
-void slalt_reset(qk_tap_dance_state_t* state, void* user_data) {
+void slalt_reset(tap_dance_state_t* state, void* user_data) {
     if (!lalt_sticky) {
         unregister_code(KC_LALT);
         slalt_state.state = TD_NONE;
@@ -1557,7 +1557,7 @@ void slalt_reset(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Smiley key tap-dance finished
-void sml_finished(qk_tap_dance_state_t* state, void* user_data) {
+void sml_finished(tap_dance_state_t* state, void* user_data) {
     sml_state.state = cur_dance(state);
     switch (sml_state.state) {
         default:
@@ -1653,10 +1653,10 @@ void sml_finished(qk_tap_dance_state_t* state, void* user_data) {
             break;
     }
 }
-void sml_reset(qk_tap_dance_state_t* state, void* user_data) { sml_state.state = TD_NONE; }
+void sml_reset(tap_dance_state_t* state, void* user_data) { sml_state.state = TD_NONE; }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for °, twice for ℉, thrice for ℃
     [TD_DEG_DEGF]    = ACTION_TAP_DANCE_FN(send_degree_symbol),                          //
     [TD_LSHFT_CAPS]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, scap_finished, scap_reset),    //

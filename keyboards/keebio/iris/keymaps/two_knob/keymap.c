@@ -53,7 +53,7 @@ enum tapdances {
  *
  * To use this in the configurator, enter the name 'TD_FIVE_ENTER' in the "Any" key.
  */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for 5, twice for Enter. */
     [_TD_FIVE_ENTER] = ACTION_TAP_DANCE_DOUBLE(KC_5, KC_ENT),
 };

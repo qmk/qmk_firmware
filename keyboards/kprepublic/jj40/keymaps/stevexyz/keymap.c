@@ -57,7 +57,7 @@ enum {
   TD_O_GRAVE,
   TD_U_GRAVE,
 };
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_P_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_BSPC),
   [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
   [TD_A_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_TAB),

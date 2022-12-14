@@ -15,7 +15,7 @@ enum {
 };
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_WIN_LOCK]  = ACTION_TAP_DANCE_DOUBLE(MAGIC_NO_GUI, MAGIC_UNNO_GUI)
 };
 

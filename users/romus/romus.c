@@ -42,7 +42,7 @@ float tone_windows[][2] = SONG(UNICODE_WINDOWS);
 |*-----TAP-DANCE-----*|
 \*-------------------*/
 #ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Shift on double tap of semicolon
     [SCL] = ACTION_TAP_DANCE_DOUBLE( KC_SCLN, KC_COLN )
 };
