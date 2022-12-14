@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@
 #    define LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 /* Turn off backlight on low brightness to save power */
 #    define LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
-
 
 #    define DIM_CAPS_LOCK
 #    define CAPS_LOCK_INDEX    46

@@ -590,7 +590,7 @@ void ckbt51_task(void) {
         for (int i = 0; i < len - 2; i++) checksum += buf[i];
 
         if ((checksum & 0xff) == buf[len - 2] && ((checksum >> 8) & 0xff) == buf[len - 1]) {
-            ckbt51_event_handler(buf[0], buf + 1, len - 2, sn);
+            ckbt51_event_handler(buf[0], buf + 1, len - 3, sn);
         } else {
             // TODO: Error handle
         }

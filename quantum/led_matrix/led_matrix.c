@@ -64,7 +64,7 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #endif
 
 #if !defined(LED_MATRIX_VAL_STEP)
-#    define LED_MATRIX_VAL_STEP 8
+#    define LED_MATRIX_VAL_STEP 16
 #endif
 
 #if !defined(LED_MATRIX_SPD_STEP)
