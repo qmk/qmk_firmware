@@ -4,8 +4,8 @@ extern bool onMac;
 
 
 #define ACTION_TAP_DANCE_DOUBLE_SAFE(kc1, kc2) { \
-    .fn = { NULL, qk_tap_dance_pair_finished_safe, qk_tap_dance_pair_reset_safe }, \
-    .user_data = (void *)&((qk_tap_dance_pair_t) { kc1, kc2 }),  \
+    .fn = { NULL, tap_dance_pair_finished_safe, tap_dance_pair_reset_safe }, \
+    .user_data = (void *)&((tap_dance_pair_t) { kc1, kc2 }),  \
   }
 
 #ifdef QUAD_DANCE
@@ -48,8 +48,8 @@ enum tap_dance {
   _TD_CUT,
   _TD_PASTE,
 };
-void qk_tap_dance_pair_finished_safe(tap_dance_state_t *state, void *user_data);
-void qk_tap_dance_pair_reset_safe(tap_dance_state_t *state, void *user_data);
+void tap_dance_pair_finished_safe(tap_dance_state_t *state, void *user_data);
+void tap_dance_pair_reset_safe(tap_dance_state_t *state, void *user_data);
 void td_copy_cut (tap_dance_state_t *state, void *user_data);
 void td_paste(tap_dance_state_t *state, void *user_data);
 int cur_dance (tap_dance_state_t *state);

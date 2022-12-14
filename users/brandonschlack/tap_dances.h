@@ -41,11 +41,11 @@ typedef struct {
     uint8_t  trigger;
     uint8_t  layer;
     uint8_t  state;
-} qk_tap_dance_trigger_layer_t;
+} tap_dance_trigger_layer_t;
 
 #define ACTION_TAP_DANCE_TRIGGER_LAYER(trigger, layer) { \
     .fn = { NULL, td_trigger_layer_finished, td_trigger_layer_reset }, \
-    .user_data = (void *)&((qk_tap_dance_trigger_layer_t) { trigger, layer, 0 }), \
+    .user_data = (void *)&((tap_dance_trigger_layer_t) { trigger, layer, 0 }), \
 }
 
 void td_trigger_layer_finished (tap_dance_state_t *state, void *user_data);

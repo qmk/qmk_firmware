@@ -36,7 +36,7 @@ __attribute__ ((weak))
 void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) { };
 
 void td_trigger_layer_finished (tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_trigger_layer_t *data = (qk_tap_dance_trigger_layer_t *)user_data;
+    tap_dance_trigger_layer_t *data = (tap_dance_trigger_layer_t *)user_data;
     data->state = cur_dance(state);
 
     if (data->state == data->trigger) {
@@ -47,7 +47,7 @@ void td_trigger_layer_finished (tap_dance_state_t *state, void *user_data) {
 
 }
 void td_trigger_layer_reset (tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_trigger_layer_t *data = (qk_tap_dance_trigger_layer_t *)user_data;
+    tap_dance_trigger_layer_t *data = (tap_dance_trigger_layer_t *)user_data;
     if (data->state == data->trigger) {
         switch (data->trigger) {
             case SINGLE_HOLD:
@@ -64,7 +64,7 @@ void td_trigger_layer_reset (tap_dance_state_t *state, void *user_data) {
 
 /* Tap Dance: Layer Mod. Toggles Layer when tapped, Mod when held. */
 void td_layer_mod_each(tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_dual_role_t *data = (qk_tap_dance_dual_role_t *)user_data;
+    tap_dance_dual_role_t *data = (tap_dance_dual_role_t *)user_data;
 
     // Single tap → toggle layer, Single hold → mod
     if (state->pressed) {
@@ -75,7 +75,7 @@ void td_layer_mod_each(tap_dance_state_t *state, void *user_data) {
 }
 
 void td_layer_mod_finished(tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_dual_role_t *data = (qk_tap_dance_dual_role_t *)user_data;
+    tap_dance_dual_role_t *data = (tap_dance_dual_role_t *)user_data;
 
     if (state->count == 1 && !state->pressed) {
         layer_invert(data->layer);
@@ -83,7 +83,7 @@ void td_layer_mod_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void td_layer_mod_reset(tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_dual_role_t *data = (qk_tap_dance_dual_role_t *)user_data;
+    tap_dance_dual_role_t *data = (tap_dance_dual_role_t *)user_data;
 
     if (state->count == 1) {
         unregister_code(data->kc);

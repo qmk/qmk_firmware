@@ -30,8 +30,8 @@ int cur_dance(tap_dance_state_t *state)
 # endif
 
 // Slightly better tap dance double: interruption sends double single and any number over double sends the single that number of times
-void qk_tap_dance_pair_finished_safe(tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+void tap_dance_pair_finished_safe(tap_dance_state_t *state, void *user_data) {
+  tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
   int count = state->count;
   if (state->count == 2) {
     if (state->interrupted){
@@ -47,8 +47,8 @@ void qk_tap_dance_pair_finished_safe(tap_dance_state_t *state, void *user_data) 
   }
 }
 
-void qk_tap_dance_pair_reset_safe(tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+void tap_dance_pair_reset_safe(tap_dance_state_t *state, void *user_data) {
+  tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
   if (state->count == 2) {
     unregister_code16 (pair->kc2);
     return;
