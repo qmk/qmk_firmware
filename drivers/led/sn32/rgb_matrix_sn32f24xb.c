@@ -254,13 +254,13 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 #elif (SN32_PWM_CONTROL == SOFTWARE_PWM)
         switch (current_row % LED_MATRIX_ROW_CHANNELS) {
             case 0:
-                led_duty_cycle[current_key_col] = led_state[led_index].b;
+                led_duty_cycle[current_key_col] = led_state[led_index].r;
                 break;
             case 1:
-                led_duty_cycle[current_key_col] = led_state[led_index].g;
+                led_duty_cycle[current_key_col] = led_state[led_index].b;
                 break;
             case 2:
-                led_duty_cycle[current_key_col] = led_state[led_index].r;
+                led_duty_cycle[current_key_col] = led_state[led_index].g;
                 break;
             default:;
         }
@@ -335,13 +335,13 @@ static void update_pwm_channels(PWMDriver *pwmp) {
         if (led_state[led_index].r != 0) enable_pwm_output |= true;
         // Update matching RGB channel PWM configuration
 #if (SN32_PWM_CONTROL == HARDWARE_PWM)
-        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+0)],led_state[led_index].b);
-        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+1)],led_state[led_index].g);
-        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+2)],led_state[led_index].r);
+        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+0)],led_state[led_index].r);
+        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+1)],led_state[led_index].b);
+        pwmEnableChannelI(pwmp,chan_row_order[(led_row_id+2)],led_state[led_index].g);
 #elif (SN32_PWM_CONTROL == SOFTWARE_PWM)
-        led_duty_cycle[(led_row_id+0)] = led_state[led_index].b;
-        led_duty_cycle[(led_row_id+1)] = led_state[led_index].g;
-        led_duty_cycle[(led_row_id+2)] = led_state[led_index].r;
+        led_duty_cycle[(led_row_id+0)] = led_state[led_index].r;
+        led_duty_cycle[(led_row_id+1)] = led_state[led_index].b;
+        led_duty_cycle[(led_row_id+2)] = led_state[led_index].g;
 #endif
     }
     // Enable RGB output
