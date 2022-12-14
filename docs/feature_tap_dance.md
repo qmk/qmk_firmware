@@ -356,8 +356,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 And then simply use `TD(X_CTL)` anywhere in your keymap.
 
-If you want to implement this in your userspace, then you may want to check out how [DanielGGordon](https://github.com/qmk/qmk_firmware/tree/master/users/gordon) has implemented this in their userspace.
-
 > In this configuration "hold" takes place **after** tap dance timeout. To achieve instant hold, remove `state->interrupted` checks in conditions. As a result you may use comfortable longer tapping periods to have more time for taps and not to wait too long for holds (try starting with doubled `TAPPING_TERM`).
 
 #### Example 5: Using tap dance for advanced mod-tap and layer-tap keys :id=example-5
