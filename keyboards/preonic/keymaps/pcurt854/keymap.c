@@ -469,13 +469,13 @@ void matrix_scan_user(void) {
   }
 }
 
-void leader_start(void) {
+void leader_start_user(void) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_start_song);
 #endif
 }
 
-void leader_end(void) {
+void leader_end_user(void) {
   if (did_leader_succeed) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_succeed_song);

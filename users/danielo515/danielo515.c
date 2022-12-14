@@ -7,9 +7,9 @@ bool onMac = true;
 LEADER_EXTERNS();
 #    ifdef RGBLIGHT_ENABLE
 
-void leader_start() { rgblight_setrgb_range(5, 100, 199, 10, 15); };
+void leader_start_user() { rgblight_setrgb_range(5, 100, 199, 10, 15); };
 
-void leader_end() { rgblight_setrgb_range(200, 200, 255, 10, 15); };
+void leader_end_user() { rgblight_setrgb_range(200, 200, 255, 10, 15); };
 #    endif
 
 void matrix_scan_user(void) {

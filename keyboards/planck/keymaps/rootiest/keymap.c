@@ -1397,13 +1397,13 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t* record) {
  * by playing sound at different stages of the leader chord
  */
 // Called when you tap the Leader key
-void leader_start(void) {
+void leader_start_user(void) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_started);
 #endif
 }
 // Called when either the leader sequence is completed, or the leader timeout is hit
-void leader_end(void) {
+void leader_end_user(void) {
     if (did_leader_succeed) {
 #ifdef AUDIO_ENABLE
         PLAY_SONG(leader_succeed);

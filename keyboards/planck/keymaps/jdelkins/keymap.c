@@ -43,7 +43,7 @@ int ctl_state = 0;
 void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     ctl_state = cur_dance(state);
     switch (ctl_state) {
-        case SINGLE_TAP:    qk_leader_start(); break;
+        case SINGLE_TAP:    leader_start(); break;
         case SINGLE_HOLD:   register_code(KC_LCTL); break;
         case DOUBLE_TAP:    tap_code(KC_RCTL); break;
         case DOUBLE_HOLD:   register_code(KC_RCTL); break;
