@@ -5,13 +5,13 @@ on:
     branches:
     - master
     paths:
-    - quantum/**/*
-    - tmk_core/**/*
-    - drivers/**/*
-    - tests/**/*
-    - util/**/*
-    - platforms/**/*
     - builddefs/**/*
+    - drivers/**/*
+    - platforms/**/*
+    - quantum/**/*
+    - tests/**/*
+    - tmk_core/**/*
+    - util/**/*
     - Makefile
     - '*.mk'
 
