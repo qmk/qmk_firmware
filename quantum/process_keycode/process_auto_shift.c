@@ -405,7 +405,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #       elif defined(IGNORE_MOD_TAP_INTERRUPT)
             const bool is_hold_on_interrupt = false;
 #       else
-            const bool is_hold_on_interrupt = IS_MT(keycode);
+            const bool is_hold_on_interrupt = IS_QK_MOD_TAP(keycode);
 #       endif
 #   endif
         if (IS_RETRO(keycode)
