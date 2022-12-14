@@ -241,13 +241,13 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 #if (SN32_PWM_CONTROL == HARDWARE_PWM)
         switch (current_row % LED_MATRIX_ROW_CHANNELS) {
             case 0:
-                pwmEnableChannel(pwmp, chan_col_order[current_key_col], led_state[led_index].r);
-                break;
-            case 1:
                 pwmEnableChannel(pwmp, chan_col_order[current_key_col], led_state[led_index].b);
                 break;
-            case 2:
+            case 1:
                 pwmEnableChannel(pwmp, chan_col_order[current_key_col], led_state[led_index].g);
+                break;
+            case 2:
+                pwmEnableChannel(pwmp, chan_col_order[current_key_col], led_state[led_index].r);
                 break;
             default:;
         }
