@@ -263,4 +263,4 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_PGDN, KC_LEFT, KC
 			  KC_TRNS, KC_TRNS, KC_TRNS,	                        KC_TRNS, KC_TRNS, KC_TRNS)
 };
 // Don't fuck with this, thanks.
-size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
+size_t keymapsCount  = ARRAY_SIZE(keymaps);

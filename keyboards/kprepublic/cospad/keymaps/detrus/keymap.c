@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_E,    KC_D,    KC_C,              \
 			KC_W,    KC_S,    KC_X,    KC_SPACE, \
 			KC_Q,    KC_A,    KC_Z,    MO(_RAISE_LAYER),\
-			KC_GESC, KC_TAB,  KC_LSFT, KC_LCTRL),
+			QK_GESC, KC_TAB,  KC_LSFT, KC_LCTL),
 	[_QWERTY_LOWER_LAYER] = LAYOUT_gamepad_6x4(
 			KC_P,    KC_SCLN, KC_SLSH, KC_LALT,  \
 			KC_O,    KC_L,    KC_DOT,  _______,  \
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_E,    KC_D,    KC_C,              \
 			KC_W,    KC_S,    KC_X,    KC_SPACE, \
 			KC_Q,    KC_A,    KC_Y,    MO(_RAISE_LAYER),\
-			KC_GESC, KC_TAB,  KC_LSFT, KC_LCTRL),
+			QK_GESC, KC_TAB,  KC_LSFT, KC_LCTL),
 	[_QWERTZ_LOWER_LAYER] = LAYOUT_gamepad_6x4(
 			KC_P,    KC_SCLN, KC_SLSH, KC_LALT,  \
 			KC_O,    KC_L,    KC_DOT,  _______,  \
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_E,    KC_S,     KC_C,              \
 			KC_W,    KC_R,     KC_X,    KC_SPACE, \
 			KC_Q,    KC_A,     KC_Z,    MO(_RAISE_LAYER),\
-			KC_GESC, KC_TAB,   KC_LSFT, KC_LCTRL),
+			QK_GESC, KC_TAB,   KC_LSFT, KC_LCTL),
 	[_COLEMA_LOWER_LAYER] = LAYOUT_gamepad_6x4(
 			KC_SCLN, KC_O,     KC_SLSH, _______,  \
 			KC_Y,    KC_I,     KC_DOT,  _______,  \
@@ -208,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_DOT,  KC_E,    KC_J,               \
 			KC_COMM, KC_O,    KC_A,    KC_SPACE,  \
 			KC_QUOT, KC_A,    KC_SCLN, MO(_RAISE_LAYER),\
-			KC_GESC, KC_TAB,  KC_LSFT, KC_LCTRL),
+			QK_GESC, KC_TAB,  KC_LSFT, KC_LCTL),
 	[_DVORAK_LOWER_LAYER] = LAYOUT_gamepad_6x4(
 			KC_L,    KC_S,    KC_Z,    KC_LALT, \
 			KC_R,    KC_N,    KC_V,    _______, \

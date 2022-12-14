@@ -3,6 +3,7 @@
   "keyboard_name": "Clueboard 66% rev3",
   "maintainer": "skullydazed",
   "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "debounce": 5,
   "diode_direction": "COL2ROW",
   "features": {
@@ -28,7 +29,16 @@
   },
   "rgblight": {
     "animations": {
-      "all": true
+      "alternating": true,
+      "breathing": true,
+      "christmas": true,
+      "knight": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "rgb_test": true,
+      "snake": true,
+      "static_gradient": true,
+      "twinkle": true
     },
     "brightness_steps": 17,
     "hue_steps": 32,

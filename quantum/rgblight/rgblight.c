@@ -16,7 +16,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-#include "wait.h"
 #include "progmem.h"
 #include "sync_timer.h"
 #include "rgblight.h"
@@ -128,6 +127,8 @@ LED_TYPE led[RGBLED_NUM];
 
 #ifdef RGBLIGHT_LAYERS
 rgblight_segment_t const *const *rgblight_layers = NULL;
+
+static bool deferred_set_layer_state = false;
 #endif
 
 rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
@@ -410,7 +411,6 @@ void rgblight_disable(void) {
     dprintf("rgblight disable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
     rgblight_timer_disable();
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
-    wait_ms(50);
     rgblight_set();
 }
 
@@ -419,7 +419,6 @@ void rgblight_disable_noeeprom(void) {
     dprintf("rgblight disable [NOEEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
     rgblight_timer_disable();
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
-    wait_ms(50);
     rgblight_set();
 }
 
@@ -526,10 +525,19 @@ void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
 
 void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
     if (rgblight_config.enable) {
+#ifdef RGBLIGHT_SPLIT
+        if (rgblight_config.hue != hue || rgblight_config.sat != sat || rgblight_config.val != val) {
+            RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
+        }
+#endif
         rgblight_status.base_mode = mode_base_table[rgblight_config.mode];
         if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
             // same static color
             LED_TYPE tmp_led;
+#ifdef RGBLIGHT_LAYERS_RETAIN_VAL
+            // needed for rgblight_layers_write() to get the new val, since it reads rgblight_config.val
+            rgblight_config.val = val;
+#endif
             sethsv(hue, sat, val, &tmp_led);
             rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
         } else {
@@ -571,15 +579,14 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
                     dprintf("rgblight rainbow set hsv: %d,%d,%d,%u\n", i, _hue, direction, range);
                     sethsv(_hue, sat, val, (LED_TYPE *)&led[i + rgblight_ranges.effect_start_pos]);
                 }
+#    ifdef RGBLIGHT_LAYERS_RETAIN_VAL
+                // needed for rgblight_layers_write() to get the new val, since it reads rgblight_config.val
+                rgblight_config.val = val;
+#    endif
                 rgblight_set();
             }
 #endif
         }
-#ifdef RGBLIGHT_SPLIT
-        if (rgblight_config.hue != hue || rgblight_config.sat != sat || rgblight_config.val != val) {
-            RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
-        }
-#endif
         rgblight_config.hue = hue;
         rgblight_config.sat = sat;
         rgblight_config.val = val;
@@ -704,7 +711,6 @@ void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8
 #endif
     }
     rgblight_set();
-    wait_ms(1);
 }
 
 void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
@@ -744,17 +750,13 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
         rgblight_status.enabled_layer_mask &= ~mask;
     }
     RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
-    // Static modes don't have a ticker running to update the LEDs
-    if (rgblight_status.timer_enabled == false) {
-        rgblight_mode_noeeprom(rgblight_config.mode);
-    }
 
-#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-    // If not enabled, then nothing else will actually set the LEDs...
-    if (!rgblight_config.enable) {
-        rgblight_set();
-    }
-#    endif
+    // Calling rgblight_set() here (directly or indirectly) could
+    // potentially cause timing issues when there are multiple
+    // successive calls to rgblight_set_layer_state(). Instead,
+    // set a flag and do it the next time rgblight_task() runs.
+
+    deferred_set_layer_state = true;
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
@@ -1150,8 +1152,26 @@ void rgblight_task(void) {
         }
     }
 
-#    ifdef RGBLIGHT_LAYER_BLINK
+#    ifdef RGBLIGHT_LAYERS
+#        ifdef RGBLIGHT_LAYER_BLINK
     rgblight_blink_layer_repeat_helper();
+#        endif
+
+    if (deferred_set_layer_state) {
+        deferred_set_layer_state = false;
+
+        // Static modes don't have a ticker running to update the LEDs
+        if (rgblight_status.timer_enabled == false) {
+            rgblight_mode_noeeprom(rgblight_config.mode);
+        }
+
+#        ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+        // If not enabled, then nothing else will actually set the LEDs...
+        if (!rgblight_config.enable) {
+            rgblight_set();
+        }
+#        endif
+    }
 #    endif
 }
 

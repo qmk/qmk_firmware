@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             QK_BOOT, ____, ____, ____, ____, ____, ____, LGUI(KC_L), ____, ____, ____, KC_VOLU,
             ____, ____, LGUI(KC_R), ____, ____, ____, ____, ____, ____, ____, ____, KC_VOLD,
             ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, KC_PGUP, KC_MUTE,
-            ____, ____, ____, ____, KC_TAB, KC_DEL, ____, ____, ____, KC_HOME, KC_PGDOWN, KC_END)
+            ____, ____, ____, ____, KC_TAB, KC_DEL, ____, ____, ____, KC_HOME, KC_PGDN, KC_END)
 
 };
 
