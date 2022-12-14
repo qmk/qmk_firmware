@@ -26,7 +26,7 @@ void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // All tap dance functions would go here.
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
 };
 

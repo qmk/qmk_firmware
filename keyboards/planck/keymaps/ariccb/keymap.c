@@ -316,7 +316,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 //     }
 // }
 
-// qk_tap_dance_action_t tap_dance_actions[] = {
+// tap_dance_action_t tap_dance_actions[] = {
 //  [0] = ACTION_TAP_DANCE_FN (dance_media),
 // };
 
@@ -378,7 +378,7 @@ void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Associate our tap dance key with its functionality
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [UNDS_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, usl_finished, usl_reset)
 };
 

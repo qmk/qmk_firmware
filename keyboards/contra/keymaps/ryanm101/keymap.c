@@ -246,7 +246,7 @@ void cmd_sft_slash_pipe_up (qk_tap_dance_state_t *state, void *user_data) {
 }
 
  //All tap dance functions would go here. Only showing this one.
- qk_tap_dance_action_t tap_dance_actions[] = {
+ tap_dance_action_t tap_dance_actions[] = {
    [CLN] = ACTION_TAP_DANCE_DOUBLE (KC_SCLN, S(KC_SCLN ))
    ,[QUOT] = ACTION_TAP_DANCE_DOUBLE (KC_QUOT, S(KC_2))
    ,[CAD_CAE] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, NULL, cmd_dance )

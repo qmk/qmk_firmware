@@ -154,7 +154,7 @@ void scln_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
 // ====================================================================//
 
 // Associate tap dance with defined functionality
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Extended space cadet shift left: Hold - Shift, One - (, Two - {, Three - [
     [ESPC_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, espc_l_finished, espc_l_reset),
     // Extended space cadet shift right: Hold - Shift, One - ), Two - }, Three - ]

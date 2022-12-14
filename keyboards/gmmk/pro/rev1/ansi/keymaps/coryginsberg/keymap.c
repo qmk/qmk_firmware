@@ -29,7 +29,7 @@ void dance_media(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for shift, twice for Caps Lock
     [0] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [1] = ACTION_TAP_DANCE_FN(dance_media)};

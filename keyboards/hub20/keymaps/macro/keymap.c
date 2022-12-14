@@ -32,7 +32,7 @@ enum tap_dance {
     BASE = 1
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for standard key, twice to toggle layers
     [CTRL] = ACTION_TAP_DANCE_FN(td_ctrl),
     [BASE] = ACTION_TAP_DANCE_LAYER_MOVE(_______, _BASE)

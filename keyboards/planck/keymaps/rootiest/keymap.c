@@ -1656,7 +1656,7 @@ void sml_finished(qk_tap_dance_state_t* state, void* user_data) {
 void sml_reset(qk_tap_dance_state_t* state, void* user_data) { sml_state.state = TD_NONE; }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for °, twice for ℉, thrice for ℃
     [TD_DEG_DEGF]    = ACTION_TAP_DANCE_FN(send_degree_symbol),                          //
     [TD_LSHFT_CAPS]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, scap_finished, scap_reset),    //

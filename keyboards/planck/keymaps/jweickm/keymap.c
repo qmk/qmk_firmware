@@ -352,7 +352,7 @@ void vim_gg(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // declare tap dance actions here
     [TD_PRN] = ACTION_TAP_DANCE_FN(dance_prn), [TD_BRC] = ACTION_TAP_DANCE_FN(dance_brc), [TD_CBR] = ACTION_TAP_DANCE_FN(dance_cbr), [TD_PRN_DE] = ACTION_TAP_DANCE_FN(dance_prn_de), [TD_BRC_DE] = ACTION_TAP_DANCE_FN(dance_brc_de), [TD_CBR_DE] = ACTION_TAP_DANCE_FN(dance_cbr_de), [TD_VIM_GG] = ACTION_TAP_DANCE_FN(vim_gg)};
 

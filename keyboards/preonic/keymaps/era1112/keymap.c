@@ -202,7 +202,7 @@ enum custom_keycodes {
 
 static bool blinky = false;         // Track blinky behavior on/off for keycode
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_2_CAPSLOCK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, twoCapsLock_finished, twoCapsLock_reset)
 };
 

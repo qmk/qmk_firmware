@@ -60,7 +60,7 @@ enum {
   MCROTOG_ = 0
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [MCROTOG_]  = ACTION_TAP_DANCE_FN( macro_tog_key )
 };
 

@@ -74,7 +74,7 @@ void cam_down(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_CAR] = ACTION_TAP_DANCE_DOUBLE(
         LSFT(KC_V),                 // tap once for prev car
         LCTL(KC_V)                  // tap twice for my car

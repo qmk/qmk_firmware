@@ -125,7 +125,7 @@ static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data
 }
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
    [0]  = {
      .fn = { ang_tap_dance_ta_each, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
      .user_data = (void *)&((td_ta_state_t) { false, false })

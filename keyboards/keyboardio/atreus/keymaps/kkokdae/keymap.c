@@ -121,7 +121,7 @@ void dance_lang(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TdH] = ACTION_TAP_DANCE_FN(dance_hex),
   [TdL] = ACTION_TAP_DANCE_FN(dance_lang)
 };

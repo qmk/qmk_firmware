@@ -386,7 +386,7 @@ void altto11_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [CTRL_TO12] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrlto12_finished, ctrlto12_reset),
   [SHIFT_TO13] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftto13_finished, shiftto13_reset),
   [ALT_TO11] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altto11_finished, altto11_reset),

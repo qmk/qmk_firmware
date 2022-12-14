@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Tapdance definitions. Tap Dance F Keys.
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_F1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_F1),
   [TD_F2] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_F2),
   [TD_F3] = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_F3),

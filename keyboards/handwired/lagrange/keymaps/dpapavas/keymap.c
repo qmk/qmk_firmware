@@ -138,7 +138,7 @@ CHOREOGRAPH(TD_C_X,
             SEND_STRING(SS_UP(X_LCTL)),
             SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL)),);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     STEPS(TD_LEFT), STEPS(TD_RGHT), STEPS(TD_C_X)
 };
 

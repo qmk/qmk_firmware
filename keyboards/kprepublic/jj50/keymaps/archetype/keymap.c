@@ -159,7 +159,7 @@ void layer_switcher_reset (qk_tap_dance_state_t *state, void *user_data) {
   tap_state.state = 0;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // Single tap = Backspace | Double tap = Delete
   [TD_BSPC_DEL] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, KC_DEL),
   // Single tap = ( | Double tap = [ | Triple tap = { | Single hold = KC_LCTL

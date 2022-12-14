@@ -115,7 +115,7 @@ void lesc_reset (qk_tap_dance_state_t *state, void *user_data) {
   update_led_state_c();
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [LESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lesc_finished, lesc_reset)
 };
 

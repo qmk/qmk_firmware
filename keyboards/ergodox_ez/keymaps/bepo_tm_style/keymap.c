@@ -219,7 +219,7 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // The definition of the tap dance actions:
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // This Tap dance plays the macro 1 on TAP and records it on double tap.
   [TAP_MACRO] = ACTION_TAP_DANCE_FN(macro_tapdance_fn),
 };

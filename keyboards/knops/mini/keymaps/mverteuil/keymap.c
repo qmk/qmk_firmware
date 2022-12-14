@@ -47,7 +47,7 @@ enum mini_layers {
 
 enum { TD_SPEC = 0 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for spectacles macro, hold for layer toggle */
     [TD_SPEC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_spectacles_finish, td_spectacles_reset),
 };

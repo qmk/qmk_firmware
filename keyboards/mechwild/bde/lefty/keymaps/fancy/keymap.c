@@ -113,7 +113,7 @@ void left_enter_reset(qk_tap_dance_state_t *state, void *user_data) {
     left_enter_tap_state.state = 0;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [left_enter] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, left_enter_finished, left_enter_reset)
 };
 

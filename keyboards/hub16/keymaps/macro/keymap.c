@@ -29,7 +29,7 @@ void td_ctrl (qk_tap_dance_state_t *state, void *user_data);
 
 enum tap_dance { CTRL = 0, BASE = 1 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for standard key on base layer, twice to toggle to control layer
     [CTRL] = ACTION_TAP_DANCE_FN(td_ctrl),
     [BASE] = ACTION_TAP_DANCE_LAYER_MOVE(_______, _BASE)};

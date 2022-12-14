@@ -47,7 +47,7 @@ void td_esc_windows_emoji (qk_tap_dance_state_t *state, void *user_data) {
 };
 
  // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_SPOTLIGHT_EMOJI] = ACTION_TAP_DANCE_FN(td_esc_spotlight_emoji),
     [TD_ESC_WINDOWS_EMOJI] = ACTION_TAP_DANCE_FN(td_esc_windows_emoji)
 };

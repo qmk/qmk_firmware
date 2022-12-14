@@ -146,7 +146,7 @@ enum {
   TD_RBRC_RGUI_RCBR
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // Tap once for Alt, twice for Shift
   [TD_ALT_SHIFT] = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_RSFT),
   [TD_QUOT_LEAN_MINS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, quote_finished, quote_reset),

@@ -452,7 +452,7 @@ void caps_reset(qk_tap_dance_state_t *state, void *user_data)
 
 // ................................................................... Tap Dance
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, caps, caps_reset)
  ,[_COLN] = ACTION_TAP_DANCE_FN         (colon)
  ,[_COMM] = ACTION_TAP_DANCE_FN         (comma)

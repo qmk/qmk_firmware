@@ -134,7 +134,7 @@ td_state_t td_current       (qk_tap_dance_state_t *state);
 void       td_kc_ly_finished(qk_tap_dance_state_t *state, void *user_data);
 void       td_kc_ly_reset   (qk_tap_dance_state_t *state, void *user_data);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TAB] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_CAPS),
     [ESC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
                                               &((td_user_data_t) { KC_ESC, { _NAVIGATION, _QWERTY_ES, _QWERTY_ES }})),

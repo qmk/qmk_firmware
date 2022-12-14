@@ -55,7 +55,7 @@ void tilded(qk_tap_dance_state_t *state, void *user_data) {
 	}
 } 
   
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
 	[OP_QT] = ACTION_TAP_DANCE_FN(tri_open),
 	[CL_QT] = ACTION_TAP_DANCE_FN(tri_close),
 	[TD_DQ] = ACTION_TAP_DANCE_FN(dquote),

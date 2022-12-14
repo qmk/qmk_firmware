@@ -406,6 +406,6 @@ void fn_tap_reset(qk_tap_dance_state_t *state, void *user_data) {
     fn_tap_state.state = TD_NONE;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_FN_SWITCH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fn_tap_finished, fn_tap_reset)
 };

@@ -113,7 +113,7 @@ void cvxa_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_CUT_REDO] = ACTION_TAP_DANCE_DOUBLE(C(KC_Z), S(C(KC_Z))),
     [TD_PLAY_PAUSE_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE),
     [TD_MNXT_RIGHT] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_RIGHT),

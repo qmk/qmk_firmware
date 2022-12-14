@@ -233,7 +233,7 @@ void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LBRC),
   [RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RBRC),
   [FB]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slash_finished, NULL),

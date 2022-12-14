@@ -335,7 +335,7 @@ void o_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [U] = ACTION_TAP_DANCE_FN(u_finished),
   [O] = ACTION_TAP_DANCE_FN(o_finished),
   [NEXTPREV] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_MPRV),

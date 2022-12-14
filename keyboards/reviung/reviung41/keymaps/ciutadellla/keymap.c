@@ -174,7 +174,7 @@
  }
 
  // Tap Dance Definitions
- qk_tap_dance_action_t tap_dance_actions[] = {
+ tap_dance_action_t tap_dance_actions[] = {
      [_TD_TAB_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_ESC),
      [_TD_BSPC_WDEL] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),
      [_TD_SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),

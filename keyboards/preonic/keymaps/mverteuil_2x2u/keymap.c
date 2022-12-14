@@ -86,7 +86,7 @@ void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data);
 void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data);
 
 /* Tap Dance Definitions */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for left parenthesis, twice for left bracket, thrice for left brace */
     [TD_BRACKETS_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_brackets_left_finished, td_brackets_left_reset),
     /* Tap once for right parenthesis, twice for right bracket, thrice for right brace */

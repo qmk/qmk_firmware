@@ -134,7 +134,7 @@ my_dance_combo_1(rcg, KC_RCTL, KC_RGUI)
 my_dance_combo_3(lsh, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI)
 my_dance_combo_3(rsh, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI)
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LCTL_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lca_finished, lca_reset),
     [TD_RCTL_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rca_finished, rca_reset),
     [TD_LGUI_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lga_finished, lga_reset),

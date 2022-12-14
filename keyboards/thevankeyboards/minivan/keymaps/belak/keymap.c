@@ -34,7 +34,7 @@ enum belak_td {
 void mod_tap_fn(qk_tap_dance_state_t *state, void *user_data);
 void mod_reset_fn(qk_tap_dance_state_t *state, void *user_data);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [BE_TD_GUI] = ACTION_TAP_DANCE_MOD_TAP(KC_LGUI),
     [BE_TD_CTL] = ACTION_TAP_DANCE_MOD_TAP(KC_LCTL),
     [BE_TD_ALT] = ACTION_TAP_DANCE_MOD_TAP(KC_LALT),

@@ -90,7 +90,7 @@ void dance_u_u(qk_tap_dance_state_t *state, void *user_data)
 }
 
 /* Define the tap dance actions for the french characters */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [A_Q] = ACTION_TAP_DANCE_FN(dance_a_q),
     [E_Q] = ACTION_TAP_DANCE_FN(dance_e_q),
     [E_U] = ACTION_TAP_DANCE_FN(dance_e_u),

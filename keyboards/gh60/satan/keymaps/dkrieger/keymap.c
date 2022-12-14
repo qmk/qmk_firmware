@@ -54,7 +54,7 @@ void fn_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [SUPER_FN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fn_finished, fn_reset)
 };
 

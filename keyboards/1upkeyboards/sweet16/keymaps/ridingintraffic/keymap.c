@@ -180,7 +180,7 @@ void tdexample4(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_EXAMPLE1] = ACTION_TAP_DANCE_FN(tdexample1),
     [TD_EXAMPLE2] = ACTION_TAP_DANCE_FN(tdexample2),
     [TD_EXAMPLE3] = ACTION_TAP_DANCE_FN(tdexample3),

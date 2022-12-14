@@ -105,7 +105,7 @@ void tap_esc_func_reset(qk_tap_dance_state_t *state, void *user_data) {
     layer_off(FUNC);
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_FUNC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_esc_func_finished, tap_esc_func_reset),
 };
 

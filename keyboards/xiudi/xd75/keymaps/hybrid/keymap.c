@@ -234,7 +234,7 @@ void dance_dot (qk_tap_dance_state_t *state, void *user_data) {
     tap_code (KC_NUM_LOCK);
   }
 }
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_A] = ACTION_TAP_DANCE_FN(dance_a_accent),
   [TD_E] = ACTION_TAP_DANCE_FN(dance_e_accent),
   [TD_I] = ACTION_TAP_DANCE_FN(dance_i_accent),
