@@ -18,7 +18,6 @@
 
 #include "config_common.h"
 
-// #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 /* key matrix size */
 #define MATRIX_ROWS 14
