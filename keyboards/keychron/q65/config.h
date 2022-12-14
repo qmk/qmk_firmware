@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
