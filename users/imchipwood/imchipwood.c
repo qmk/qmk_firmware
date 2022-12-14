@@ -127,7 +127,7 @@ void altf7_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [ALT_F2]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altf2_finished, altf2_reset),
     [CTL_F5]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctlf5_finished, ctlf5_reset),
     [ALT_F7]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altf7_finished, altf7_reset),

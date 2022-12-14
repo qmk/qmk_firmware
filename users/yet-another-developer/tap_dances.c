@@ -32,7 +32,7 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_RESET] = ACTION_TAP_DANCE_FN(safe_reset),
   [TD_NUM1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_4),
   [TD_NUM2] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_5),

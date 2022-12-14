@@ -78,5 +78,5 @@ void td_layer_reset(qk_tap_dance_state_t *state, void *user_data);
 /* Define tap dance actions.
  */
 __attribute__((weak))
-qk_tap_dance_action_t tap_dance_actions[1] = {[TD_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_layer_finished, td_layer_reset, 275)};
+tap_dance_action_t tap_dance_actions[1] = {[TD_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_layer_finished, td_layer_reset, 275)};
 #endif

@@ -90,7 +90,7 @@ void dance_5_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // simple tap dance
     [TD1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_1_finished, dance_1_reset),
 

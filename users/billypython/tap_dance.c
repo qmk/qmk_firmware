@@ -28,6 +28,6 @@ void td_double_mods_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_RSF_RCT] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RSFT, KC_RCTL),
 };

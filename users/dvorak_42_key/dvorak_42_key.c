@@ -5,7 +5,7 @@
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // tap dance processing
-    qk_tap_dance_action_t *action;
+    tap_dance_action_t *action;
     switch (keycode) {
         case TD(TD_DEL_WORD_DEL):  // list all tap dance keycodes with tap-hold configurations
             action = &tap_dance_actions[TD_INDEX(keycode)];
@@ -196,7 +196,7 @@ void tap_dance_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
     // [TD_BSPC_CTL_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, RCTL(KC_BSPC)),
     // [TD_BSPC_CTL_BSPC_IOS] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),

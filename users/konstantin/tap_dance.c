@@ -120,7 +120,7 @@ void td_layer_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
     data->started = false;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_DST_A_R] = ACTION_TAP_DANCE_DOUBLE(DST_ADD, DST_REM),
 
     [TD_RAL_RGU] = ACTION_TAP_DANCE_DOUBLE_MOD(KC_RALT, KC_RGUI),

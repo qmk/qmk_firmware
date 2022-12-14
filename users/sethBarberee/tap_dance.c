@@ -82,7 +82,7 @@ void dance_ecap_reset (qk_tap_dance_state_t *state, void *user_data){
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_ECAP]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ecap_finished, dance_ecap_reset),
 // Other declarations would go here, separated by commas, if you have them

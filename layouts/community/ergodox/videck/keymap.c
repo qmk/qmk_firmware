@@ -139,7 +139,7 @@ static void videck_caps_trigger (const uint16_t kc) {
     .user_data = (void *)&((videck_tap_dance_tuple_t) { kc1, kc2, double_trigger }),  \
   }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_L] = ACTION_TAP_DANCE_DOUBLE_TRIGGER(KC_LSFT, KC_CAPS, videck_caps_trigger),
   [TD_R] = ACTION_TAP_DANCE_DOUBLE_TRIGGER(KC_RSFT, KC_CAPS, videck_caps_trigger)
 };

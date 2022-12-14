@@ -49,7 +49,7 @@ void belak_td_each(qk_tap_dance_state_t *state, void *user_data);
 void belak_td_finished(qk_tap_dance_state_t *state, void *user_data);
 void belak_td_reset(qk_tap_dance_state_t *state, void *user_data);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LAYER_TOGGLE] = ACTION_TAP_DANCE_FN_ADVANCED(belak_td_each, belak_td_finished, belak_td_reset),
 };
 

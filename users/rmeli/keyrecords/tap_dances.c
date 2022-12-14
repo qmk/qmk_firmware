@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Tap dances definitions
 // Need to needs to be defined in a .c file to avoid a linker error (multiple definitions)
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LSPO_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LSPO_CAPS_finished, LSPO_CAPS_reset),
     [TD_RSPC_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RSPC_CAPS_finished, RSPC_CAPS_reset),
     [TD_ESC_DEL]   = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_DEL),

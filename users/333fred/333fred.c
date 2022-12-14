@@ -103,7 +103,7 @@ void tap_dance_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data)
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_SYM_VIM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_sym_vim_finished, tap_dance_sym_vim_reset),
     [TD_COPY_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_copy_paste_finished, NULL)
 };

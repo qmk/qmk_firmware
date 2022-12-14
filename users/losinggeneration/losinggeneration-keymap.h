@@ -76,7 +76,7 @@ void dance_adj_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_CTL_CTLALT] = ACTION_TAP_DANCE_FN_ADVANCED(dance_ctl_ctlalt_each, NULL, dance_ctl_ctlalt_reset),
   [TD_LGUI_RGUI]  = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_RGUI),
   [TD_LALT_RALT]  = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_RALT),

@@ -128,7 +128,7 @@ void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
 	}
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
 	[SSHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_SSHT_finished, dance_SSHT_reset),
 	[LBRC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LBRC_finished, dance_LBRC_reset),
 	[SCLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_SCLN_finished, dance_SCLN_reset),

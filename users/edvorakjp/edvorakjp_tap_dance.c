@@ -63,7 +63,7 @@ void td_raise_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_status.raise = NONE;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_EDVORAKJP_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lower_finished, td_lower_reset),
     [TD_EDVORAKJP_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_raise_finished, td_raise_reset),
 };

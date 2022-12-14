@@ -248,7 +248,7 @@ void BSW_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 //Tap Dance Definitions
 //THIS SECTION HAS TO BE AT THE END OF THE TAP DANCE SECTION
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 // Other declarations would go here, separated by commas, if you have them
  ,[TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC)

@@ -58,7 +58,7 @@ void qk_tap_dance_pair_reset_safe(qk_tap_dance_state_t *state, void *user_data) 
 
 //**************** Tap dance functions *********************//
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [COPY_CUT] = ACTION_TAP_DANCE_FN(td_copy_cut),
     [PASTE_DANCE] = ACTION_TAP_DANCE_FN(td_paste),
     [_TD_F1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_F1),

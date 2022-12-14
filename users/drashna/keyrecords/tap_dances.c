@@ -40,7 +40,7 @@ void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
 // clang-format on
 
 // Tap Dance Definitions, sets the index and the keycode.
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // tap once to disable, and more to enable timed micros
     [TD_D3_1] = ACTION_TAP_DANCE_DIABLO(0, KC_1),
     [TD_D3_2] = ACTION_TAP_DANCE_DIABLO(1, KC_2),

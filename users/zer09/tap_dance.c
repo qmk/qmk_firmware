@@ -1,7 +1,7 @@
 #include "tap_dance.h"
 #include "lights.h"
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [DA_LCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lctl_finished,
                                              dance_lctl_reset),
     [DA_LSPR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lspr_finished,

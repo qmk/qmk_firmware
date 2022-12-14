@@ -2,7 +2,7 @@
 
 #include "tapdances.h"
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [SHCAP]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, caps, shift_reset)
    ,[TDGUI]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftgui, gui_reset)
    ,[TDGUI2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guictl, ubermod_reset)

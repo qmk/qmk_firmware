@@ -92,7 +92,7 @@ void pg_lsft_reset(qk_tap_dance_state_t *state, void *user_data) {
 #    endif
 #endif
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+dance_action_t tap_dance_actions[] = {
 #ifdef TAP_DANCE_LALT_GIT
     [TD_LALT_GIT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lalt_finished, lalt_reset),
 #endif

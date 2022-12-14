@@ -162,7 +162,7 @@ void rgb_toggle(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_PSTI] = ACTION_TAP_DANCE_FN(pstinsrt),
     [TD_PTSP] = ACTION_TAP_DANCE_FN(pstspecial),
     [TD_FNDR] = ACTION_TAP_DANCE_FN(findreplace),
