@@ -1,0 +1,7 @@
+DEBOUNCE_TYPE = asym_eager_defer_pk 
+
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3733
+RGB_MATRIX_CUSTOM_KB = yes
+
+DEFAULT_FOLDER = /teleport/native/iso
