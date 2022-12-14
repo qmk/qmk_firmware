@@ -16,6 +16,11 @@ Make example for this keyboard (after setting up your build environment):
     qmk compile -kb teleport/native/iso -km default
     qmk compile -kb teleport/native/ansi -km default
 
+If you want the default keymap with all features present on the board when sold, pick the `perfmode` keymaps instead:
+
+    qmk compile -kb teleport/native/iso -km perfmode
+    qmk compile -kb teleport/native/ansi -km perfmode
+
 Flash example for this keyboard:
 
     qmk flash -kb teleport/native/iso -km default

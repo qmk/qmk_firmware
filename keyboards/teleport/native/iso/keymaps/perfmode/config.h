@@ -14,5 +14,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0002
+/* Use 5 dynamic keymap layers */
+#undef DYNAMIC_KEYMAP_LAYER_COUNT
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
+
+/* Increase eeprom size to allow for 5 layers */
+#define WEAR_LEVELING_BACKING_SIZE 16384
+#define WEAR_LEVELING_LOGICAL_SIZE 4096
