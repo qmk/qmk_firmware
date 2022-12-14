@@ -43,7 +43,7 @@ typedef struct {
         qk_tap_dance_user_fn_t on_reset;
     } fn;
     void *user_data;
-} qk_tap_dance_action_t;
+} tap_dance_action_t;
 
 typedef struct {
     uint16_t kc1;
@@ -73,9 +73,9 @@ typedef struct {
 
 #    define TD(n) (QK_TAP_DANCE | TD_INDEX(n))
 #    define TD_INDEX(code) ((code)&0xFF)
-#    define TAP_DANCE_KEYCODE(state) TD(((qk_tap_dance_action_t *)state) - tap_dance_actions)
+#    define TAP_DANCE_KEYCODE(state) TD(((tap_dance_action_t *)state) - tap_dance_actions)
 
-extern qk_tap_dance_action_t tap_dance_actions[];
+extern tap_dance_action_t tap_dance_actions[];
 
 void reset_tap_dance(qk_tap_dance_state_t *state);
 

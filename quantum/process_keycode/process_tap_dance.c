@@ -78,7 +78,7 @@ static inline void _process_tap_dance_action_fn(qk_tap_dance_state_t *state, voi
     }
 }
 
-static inline void process_tap_dance_action_on_each_tap(qk_tap_dance_action_t *action) {
+static inline void process_tap_dance_action_on_each_tap(tap_dance_action_t *action) {
     action->state.count++;
     action->state.weak_mods = get_mods();
     action->state.weak_mods |= get_weak_mods();
@@ -88,7 +88,7 @@ static inline void process_tap_dance_action_on_each_tap(qk_tap_dance_action_t *a
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap);
 }
 
-static inline void process_tap_dance_action_on_reset(qk_tap_dance_action_t *action) {
+static inline void process_tap_dance_action_on_reset(tap_dance_action_t *action) {
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_reset);
     del_weak_mods(action->state.weak_mods);
 #ifndef NO_ACTION_ONESHOT
@@ -98,7 +98,7 @@ static inline void process_tap_dance_action_on_reset(qk_tap_dance_action_t *acti
     action->state = (const qk_tap_dance_state_t){0};
 }
 
-static inline void process_tap_dance_action_on_dance_finished(qk_tap_dance_action_t *action) {
+static inline void process_tap_dance_action_on_dance_finished(tap_dance_action_t *action) {
     if (!action->state.finished) {
         action->state.finished = true;
         add_weak_mods(action->state.weak_mods);
@@ -116,7 +116,7 @@ static inline void process_tap_dance_action_on_dance_finished(qk_tap_dance_actio
 }
 
 bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
-    qk_tap_dance_action_t *action;
+    tap_dance_action_t *action;
 
     if (!record->event.pressed) return false;
 
@@ -139,7 +139,7 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
-    qk_tap_dance_action_t *action;
+    tap_dance_action_t *action;
 
     switch (keycode) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
@@ -163,7 +163,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 void tap_dance_task() {
-    qk_tap_dance_action_t *action;
+    tap_dance_action_t *action;
 
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
@@ -175,5 +175,5 @@ void tap_dance_task() {
 
 void reset_tap_dance(qk_tap_dance_state_t *state) {
     active_td = 0;
-    process_tap_dance_action_on_reset((qk_tap_dance_action_t *)state);
+    process_tap_dance_action_on_reset((tap_dance_action_t *)state);
 }
