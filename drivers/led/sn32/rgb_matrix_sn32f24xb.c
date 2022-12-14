@@ -255,6 +255,16 @@ static void update_pwm_channels(PWMDriver *pwmp) {
         switch (current_row % LED_MATRIX_ROW_CHANNELS) {
             case 0:
                 led_duty_cycle[current_key_col] = led_state[led_index].r;
+#if defined(EVISION_BOTCHED_RED_CHANNEL) // some keyboards have a 151k resistor value tied to the R channel instead of a 10k, as the rest.
+            /* Boost the output for that channel maximizing the current draw by disabling other sinks */
+#if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
+                writePinLow(current_row +1);
+                writePinLow(current_row +2);
+#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
+                writePinHigh(current_row +1);
+                writePinHigh(current_row +2);
+#endif
+#endif
                 break;
             case 1:
                 led_duty_cycle[current_key_col] = led_state[led_index].b;
