@@ -32,5 +32,5 @@
 #define B6 21U
 
 // LEDs
-#define D5 12U
-#define B0 13U
+#define D5 10U // back pad
+#define B0 11U // back pad

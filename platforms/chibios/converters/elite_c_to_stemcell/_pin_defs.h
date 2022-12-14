@@ -32,7 +32,7 @@
 #define B5 PAL_LINE(GPIOB, 9)
 
 // Right side (front)
-//      RAW
+#define B0 PAL_LINE(GPIOA, 9) // unconnected pin
 //      GND
 //      RESET
 //      VCC

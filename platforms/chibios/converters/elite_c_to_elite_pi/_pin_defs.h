@@ -18,7 +18,7 @@
 #define B5 9U
 
 // Right side (front)
-//      RAW
+#define B0 11U // back pad
 //      GND
 //      RESET
 //      VCC
