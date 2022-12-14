@@ -52,7 +52,7 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
 #ifdef CUSTOM_OLED_DRIVER
 #    include "oled/oled_stuff.h"
 void keylogger_string_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
-    if (initiator2target_buffer_size == OLED_KEYLOGGER_LENGTH) {
+    if (initiator2target_buffer_size == (OLED_KEYLOGGER_LENGTH+1)) {
         memcpy(&keylog_str, initiator2target_buffer, initiator2target_buffer_size);
     }
 }
@@ -122,7 +122,7 @@ void user_transport_sync(void) {
         static uint32_t last_config = 0, last_sync[4], last_user_state = 0;
         bool            needs_sync = false;
 #ifdef CUSTOM_OLED_DRIVER
-        static char keylog_temp[OLED_KEYLOGGER_LENGTH] = {0};
+        static char keylog_temp[OLED_KEYLOGGER_LENGTH+1] = {0};
 #endif
 
         // Check if the state values are different
@@ -183,9 +183,9 @@ void user_transport_sync(void) {
 
 #ifdef CUSTOM_OLED_DRIVER
         // Check if the state values are different
-        if (memcmp(&keylog_str, &keylog_temp, OLED_KEYLOGGER_LENGTH)) {
+        if (memcmp(&keylog_str, &keylog_temp, OLED_KEYLOGGER_LENGTH+1)) {
             needs_sync = true;
-            memcpy(&keylog_temp, &keylog_str, OLED_KEYLOGGER_LENGTH);
+            memcpy(&keylog_temp, &keylog_str, OLED_KEYLOGGER_LENGTH+1);
         }
         if (timer_elapsed32(last_sync[3]) > 250) {
             needs_sync = true;
@@ -193,7 +193,7 @@ void user_transport_sync(void) {
 
         // Perform the sync if requested
         if (needs_sync) {
-            if (transaction_rpc_send(RPC_ID_USER_KEYLOG_STR, OLED_KEYLOGGER_LENGTH, &keylog_str)) {
+            if (transaction_rpc_send(RPC_ID_USER_KEYLOG_STR, OLED_KEYLOGGER_LENGTH+1, &keylog_str)) {
                 last_sync[3] = timer_read32();
             }
             needs_sync = false;

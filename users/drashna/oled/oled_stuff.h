@@ -148,7 +148,7 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
 #    define OLED_RENDER_WPM_COUNTER "WPM: "
 #endif
 
-extern char keylog_str[OLED_KEYLOGGER_LENGTH];
+extern char keylog_str[];
 
 #ifndef OLED_WPM_GRAPH_MAX_WPM
 #    define OLED_WPM_GRAPH_MAX_WPM 120
