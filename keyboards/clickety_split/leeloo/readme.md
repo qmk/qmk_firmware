@@ -1,6 +1,6 @@
 # Clickety Split | Leeloo v2
 
-![Leeloo v2](https://imgur.com/swPHS0B)
+![Leeloo v2](https://i.imgur.com/swPHS0B.jpg)
 
 Leeloo v2 is the evolution of Leeloo, which is a 4x6x5m ortholinear split keyboard designed, created, and sold by Clickety Split Ltd.
 
@@ -10,7 +10,7 @@ Leeloo v2 is the evolution of Leeloo, which is a 4x6x5m ortholinear split keyboa
 
 # Leeloo
 
-![Leeloo](https://imgur.com/x1ew17D)
+![Leeloo](https://i.imgur.com/x1ew17D.jpg)
 
 The original design and release of Leeloo.
 
