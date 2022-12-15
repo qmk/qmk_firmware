@@ -40,10 +40,10 @@ enum {
 
 int ctl_state = 0;
 
-void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_finished(tap_dance_state_t *state, void *user_data) {
     ctl_state = cur_dance(state);
     switch (ctl_state) {
-        case SINGLE_TAP:    qk_leader_start(); break;
+        case SINGLE_TAP:    leader_start(); break;
         case SINGLE_HOLD:   register_code(KC_LCTL); break;
         case DOUBLE_TAP:    tap_code(KC_RCTL); break;
         case DOUBLE_HOLD:   register_code(KC_RCTL); break;
@@ -52,7 +52,7 @@ void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_reset(tap_dance_state_t *state, void *user_data) {
     switch (ctl_state) {
         case SINGLE_HOLD:   unregister_code(KC_LCTL); break;
         case DOUBLE_HOLD:
@@ -61,7 +61,7 @@ void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
     ctl_state = 0;
 }
 
-void g_finished(qk_tap_dance_state_t *state, void *user_data) {
+void g_finished(tap_dance_state_t *state, void *user_data) {
     switch (cur_dance(state)) {
         case SINGLE_TAP:
             tap_code16(C(KC_END));
@@ -74,7 +74,7 @@ void g_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 int kp_state = 0;
 
-void kp_finished(qk_tap_dance_state_t *state, void *user_data) {
+void kp_finished(tap_dance_state_t *state, void *user_data) {
     kp_state = hold_cur_dance(state);
     switch (kp_state) {
         case SINGLE_HOLD: layer_on(_KP);  break;
@@ -82,7 +82,7 @@ void kp_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void kp_reset(qk_tap_dance_state_t *state, void *user_data) {
+void kp_reset(tap_dance_state_t *state, void *user_data) {
     switch (kp_state) {
         case SINGLE_HOLD: layer_off(_KP);  break;
         case DOUBLE_HOLD: layer_off(_RPT); break;
@@ -96,7 +96,7 @@ enum {
     TD_KP
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LDCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_finished, ctl_reset),
     [TD_G]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, g_finished, NULL),
     [TD_KP]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, kp_finished, kp_reset),
@@ -145,10 +145,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_KP] = LAYOUT(
-    KC_ESC,     KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,  KC_F14,   KC_7,    KC_8,    KC_9,    KC_MINS, KC_EQL,
-    _______,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX,  KC_4,    KC_5,    KC_6,    KC_ASTR, _______,
-    KC_NUMLOCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX,  KC_1,    KC_2,    KC_3,    KC_SLSH, _______,
-    _______,    _______, _______, _______,     _______,          _______,       KC_0,    KC_DOT,  KC_PLUS, KC_END
+    KC_ESC,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,  KC_F14,   KC_7,    KC_8,    KC_9,    KC_MINS, KC_EQL,
+    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX,  KC_4,    KC_5,    KC_6,    KC_ASTR, _______,
+    KC_NUM,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX,  KC_1,    KC_2,    KC_3,    KC_SLSH, _______,
+    _______, _______, _______, _______,     _______,          _______,       KC_0,    KC_DOT,  KC_PLUS, KC_END
 ),
 
 [_LOWER] = LAYOUT(
@@ -159,16 +159,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT(
-    _______, QK_BOOT, DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL,
-    KC_RCTL, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, TG(_KP), KC_BRID, KC_BRIU, KC_MUTE,
+    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL,
+    KC_RCTL, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, TG(_KP), KC_BRID, KC_BRIU, KC_MUTE,
     _______, RGB_TOG, KB_MAKE, KB_FLSH, KB_VRSN, KB_BOOT, _______, TG_SYS,  _______, _______, _______, KC_MPLY,
     KC_RCTL, _______, _______, _______,      _______,          _______,     KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
 )
 
 /* [_ADJUST] = LAYOUT( */
-/*     _______, QK_BOOT, DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL , */
-/*     _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK,  PLOVER,  _______, */
-/*     _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______, */
+/*     _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL , */
+/*     _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______, */
+/*     _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, */
 /*     _______, _______, _______, _______,      _______,          _______,     _______, _______, _______,  _______ */
 /* ) */
 

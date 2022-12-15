@@ -45,11 +45,11 @@ enum belak_td {
     TD_LAYER_TOGGLE = 0,
 };
 
-void belak_td_each(qk_tap_dance_state_t *state, void *user_data);
-void belak_td_finished(qk_tap_dance_state_t *state, void *user_data);
-void belak_td_reset(qk_tap_dance_state_t *state, void *user_data);
+void belak_td_each(tap_dance_state_t *state, void *user_data);
+void belak_td_finished(tap_dance_state_t *state, void *user_data);
+void belak_td_reset(tap_dance_state_t *state, void *user_data);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LAYER_TOGGLE] = ACTION_TAP_DANCE_FN_ADVANCED(belak_td_each, belak_td_finished, belak_td_reset),
 };
 
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,
         CTL_T(KC_BSLS), KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_LGUI,
-        LTOGGLE,        KC_LCTRL,     KC_LEFT,KC_RGHT,KC_LALT,
+        LTOGGLE,        KC_LCTL,      KC_LEFT,KC_RGHT,KC_LALT,
                                                      MO(NUMP),KC_INS,
                                                               KC_HOME,
                                  CTL_T(KC_BSPC),GUI_T(KC_DEL),KC_END,
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RBRC,     KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_MINS,
                      KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
         KC_RGUI,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,
-                             KC_RALT,KC_UP,  KC_DOWN,KC_RCTRL,         LTOGGLE,
+                             KC_RALT,KC_UP,  KC_DOWN,KC_RCTL,          LTOGGLE,
         KC_GRV,      MO(SYMB),
         KC_PGUP,
         KC_PGDN,     GUI_T(KC_ENT), CTL_T(KC_SPC)
@@ -332,7 +332,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void belak_td_each(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_each(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
     case 1:
         td_led_override = 1;
@@ -345,7 +345,7 @@ void belak_td_each(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void belak_td_finished(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_finished(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
     case 1:
         layer_on(SYMB);
@@ -357,6 +357,6 @@ void belak_td_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_led_override = 0;
 }
 
-void belak_td_reset(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_reset(tap_dance_state_t *state, void *user_data) {
     td_led_override = 0;
 }

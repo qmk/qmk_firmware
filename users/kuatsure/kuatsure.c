@@ -1,7 +1,7 @@
 #include "kuatsure.h"
 #include "version.h"
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LT),
   [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_GT),
   [TD_SLSH] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_BSLS),
@@ -124,7 +124,7 @@ void matrix_scan_user(void) {
     }
 
     // TMUX - shift to last pane and zoom
-    SEQ_ONE_KEY(KC_SCOLON) {
+    SEQ_ONE_KEY(KC_SEMICOLON) {
       tmux_prefix();
       SEND_STRING(";");
       tmux_pane_zoom();

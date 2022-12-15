@@ -29,7 +29,7 @@
 // Not yet available in `info.json`
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
-#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #    define SPLIT_TRANSPORT_MIRROR
 #endif

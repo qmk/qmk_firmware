@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-void dance_media(qk_tap_dance_state_t *state, void *user_data) {
+void dance_media(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         tap_code(KC_MPLY);
     } else if (state->count == 2) {
@@ -29,7 +29,7 @@ void dance_media(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for shift, twice for Caps Lock
     [0] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [1] = ACTION_TAP_DANCE_FN(dance_media)};
@@ -107,5 +107,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   else {
     tap_code(KC_VOLD);
   }
-  return true;
+  //return true; //set to return false to counteract enabled encoder in pro.c
+  return false;
 }

@@ -61,7 +61,7 @@ enum {
 };
 
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // Tap once for Left Brace, twice for Right Brace
   [TD_BRC]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
   //Tap once for Minus, twice for Equal
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_FN] = LAYOUT_ortho_5x15( /* FUNCTION */
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
     _______, _______, _______, _______, _______, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, _______, _______, _______, \
-    KC_ASTG, _______, _______, _______, _______, _______, RGB_SAD, RGB_SAI, _______, _______, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, _______, \
+    AS_TOGG, _______, _______, _______, _______, _______, RGB_SAD, RGB_SAI, _______, _______, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, _______, \
     RGB_TOG, _______, _______, _______, _______, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, \
     QK_BOOT, _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, KC_MPLY, KC_MRWD, KC_VOLU, KC_VOLD, KC_MFFD  \
  ),

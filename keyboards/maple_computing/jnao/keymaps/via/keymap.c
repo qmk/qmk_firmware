@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   LALT(KC_F4), KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   TSKMGR,  _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, CALTDEL,
   _______, _______, _______, AU_ON,   AU_OFF,      AG_NORM, AG_SWAP, QWERTY,  _______, _______, _______, _______,
-  _______,  MUV_DE, MUV_IN,  MU_ON,   MU_OFF,      MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+  _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,      MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, QK_BOOT
 )
 };

@@ -2,10 +2,11 @@
 
 The following table shows the current driver status for peripherals on RP2040 MCUs:
 
-| System                                                           | Support                                        |
+|                              System                              |                    Support                     |
 | ---------------------------------------------------------------- | ---------------------------------------------- |
 | [ADC driver](adc_driver.md)                                      | Support planned (no ETA)                       |
-| [Audio](audio_driver.md)                                         | Support planned (no ETA)                       |
+| [Audio](audio_driver.md#pwm-hardware)                            | :heavy_check_mark:                             |
+| [Backlight](feature_backlight.md)                                | :heavy_check_mark:                             |
 | [I2C driver](i2c_driver.md)                                      | :heavy_check_mark:                             |
 | [SPI driver](spi_driver.md)                                      | :heavy_check_mark:                             |
 | [WS2812 driver](ws2812_driver.md)                                | :heavy_check_mark: using `PIO` driver          |
@@ -37,8 +38,8 @@ QMK RP2040 support builds upon ChibiOS and thus follows their convention for act
 
 | RP2040 Peripheral | `mcuconf.h` values | `I2C_DRIVER` |
 | ----------------- | ------------------ | ------------ |
-| `I2C0`            | `RP_I2C_USE_I2C0`  | `I2CD1`      |
-| `I2C1`            | `RP_I2C_USE_I2C1`  | `I2CD2`      |
+| `I2C0`            | `RP_I2C_USE_I2C0`  | `I2CD0`      |
+| `I2C1`            | `RP_I2C_USE_I2C1`  | `I2CD1`      |
 
 To configure the I2C driver please read the [ChibiOS/ARM](i2c_driver.md#arm-configuration) section.
 
@@ -73,7 +74,7 @@ This is the default board that is chosen, unless any other RP2040 board is selec
 | Driver configuration define                                                | Value                                |
 | -------------------------------------------------------------------------- | ------------------------------------ |
 | **I2C driver**                                                             |                                      |
-| `I2C_DRIVER`                                                               | `I2CD2`                              |
+| `I2C_DRIVER`                                                               | `I2CD1`                              |
 | `I2C1_SDA_PIN`                                                             | `GP2`                                |
 | `I2C1_SCL_PIN`                                                             | `GP3`                                |
 | **SPI driver**                                                             |                                      |

@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 int RGB_current_mode;
 int RGB_current_hue;
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [SFT_CAP] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   [LFT_HOM] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_HOME),
   [DWN_PDN] = ACTION_TAP_DANCE_DOUBLE(KC_DOWN, KC_PGDN),

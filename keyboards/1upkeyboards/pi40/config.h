@@ -11,7 +11,7 @@
 #    define OLED_DISPLAY_128X32
 #define I2C1_SCL_PIN        GP17
 #define I2C1_SDA_PIN        GP16
-#define I2C_DRIVER I2CD1
+#define I2C_DRIVER I2CD0
 #define OLED_BRIGHTNESS 128
 #define OLED_FONT_H "keyboards/1upkeyboards/pi40/lib/glcdfont.c"
 #endif
@@ -29,7 +29,7 @@
 #define ENCODERS_PAD_B { GP13 }
 
 #define RGB_DI_PIN GP0
-#define DRIVER_LED_TOTAL 47
+#define RGB_MATRIX_LED_COUNT 47
 #define RGBLED_NUM 47
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS  

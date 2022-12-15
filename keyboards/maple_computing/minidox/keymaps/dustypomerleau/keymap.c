@@ -40,17 +40,17 @@ typedef enum {
 } td_state_t;
 
 static td_state_t td_state;
-int cur_dance (qk_tap_dance_state_t *state);
-void altlp_finished (qk_tap_dance_state_t *state, void *user_data);
-void altlp_reset (qk_tap_dance_state_t *state, void *user_data);
-void ctlrcb_finished (qk_tap_dance_state_t *state, void *user_data);
-void ctlrcb_reset (qk_tap_dance_state_t *state, void *user_data);
-void guirp_finished (qk_tap_dance_state_t *state, void *user_data);
-void guirp_reset (qk_tap_dance_state_t *state, void *user_data);
-void sftlcb_finished (qk_tap_dance_state_t *state, void *user_data);
-void sftlcb_reset (qk_tap_dance_state_t *state, void *user_data);
-void sftpls_finished (qk_tap_dance_state_t *state, void *user_data);
-void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
+int cur_dance (tap_dance_state_t *state);
+void altlp_finished (tap_dance_state_t *state, void *user_data);
+void altlp_reset (tap_dance_state_t *state, void *user_data);
+void ctlrcb_finished (tap_dance_state_t *state, void *user_data);
+void ctlrcb_reset (tap_dance_state_t *state, void *user_data);
+void guirp_finished (tap_dance_state_t *state, void *user_data);
+void guirp_reset (tap_dance_state_t *state, void *user_data);
+void sftlcb_finished (tap_dance_state_t *state, void *user_data);
+void sftlcb_reset (tap_dance_state_t *state, void *user_data);
+void sftpls_finished (tap_dance_state_t *state, void *user_data);
+void sftpls_reset (tap_dance_state_t *state, void *user_data);
 
 #define ALT_2 LALT_T(KC_2)
 #define ALT_3 LALT_T(KC_3)
@@ -96,8 +96,8 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 #define SFT_QOT LSFT_T(KC_QUOT)
 #define SYM_OS OSL(_SYM)
 #define SYS_Z LT(_SYS, KC_Z)
-#define VOL_DN S(LALT(KC__VOLDOWN))
-#define VOL_UP S(LALT(KC__VOLUP))
+#define VOL_DN S(LALT(KC_VOLD))
+#define VOL_UP S(LALT(KC_VOLU))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * If you use QWERTY + the Vanilla numbers primarily, change NUMLK_E to NUMLK_N here.
  *
  * ,----------------------------------.           ,----------------------------------.
- * | QK_BOOT|DEBUG |QWERTY|CMKDHM|      |           |      | VOL--| VOL++|BRITE-|BRITE+|
+ * | Boot |Debug |QWERTY|CMKDHM|      |           |      | VOL--| VOL++|BRITE-|BRITE+|
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | SHIFT| CTRL |  ALT |  GUI |NAV LK|           | POWER| VOL- | VOL+ | MUTE | MPLY |
  * |------+------+------+------+------|           |------+------+------+------+------|
@@ -162,10 +162,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_SYS] = LAYOUT( \
-  QK_BOOT, DEBUG,   QWERTY,  CMK_DHM, _______,       _______,  KC_VOLD, KC_VOLU, KC_BRID,  KC_BRIU, \
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_POWER, VOL_DN,  VOL_UP,  KC__MUTE, KC_MPLY, \
-  _______, _______, AU_OFF,  AU_ON,   _______,       _______,  NUMLK_E, KC_MRWD, KC_MFFD,  _______, \
-                    _______, _______, _______,       _______,  _______, _______                     \
+  QK_BOOT, DB_TOGG, QWERTY,  CMK_DHM, _______,       _______,  KC_VOLD, KC_VOLU, KC_BRID, KC_BRIU, \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_PWR,   VOL_DN,  VOL_UP,  KC_MUTE, KC_MPLY, \
+  _______, _______, AU_OFF,  AU_ON,   _______,       _______,  NUMLK_E, KC_MRWD, KC_MFFD, _______, \
+                    _______, _______, _______,       _______,  _______, _______                    \
 ),
 
 /* Navigation + mouse keys
@@ -276,7 +276,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 };
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed) return SINGLE_TAP;
     else return SINGLE_HOLD;
@@ -285,7 +285,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else return 3;
 }
 
-void altlp_finished (qk_tap_dance_state_t *state, void *user_data) {
+void altlp_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -300,7 +300,7 @@ void altlp_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void altlp_reset (qk_tap_dance_state_t *state, void *user_data) {
+void altlp_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_LPRN);
@@ -313,7 +313,7 @@ void altlp_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ctlrcb_finished (qk_tap_dance_state_t *state, void *user_data) {
+void ctlrcb_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -328,7 +328,7 @@ void ctlrcb_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ctlrcb_reset (qk_tap_dance_state_t *state, void *user_data) {
+void ctlrcb_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_RCBR);
@@ -341,7 +341,7 @@ void ctlrcb_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void guirp_finished (qk_tap_dance_state_t *state, void *user_data) {
+void guirp_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -356,7 +356,7 @@ void guirp_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void guirp_reset (qk_tap_dance_state_t *state, void *user_data) {
+void guirp_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_RPRN);
@@ -369,7 +369,7 @@ void guirp_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void sftlcb_finished (qk_tap_dance_state_t *state, void *user_data) {
+void sftlcb_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -384,7 +384,7 @@ void sftlcb_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void sftlcb_reset (qk_tap_dance_state_t *state, void *user_data) {
+void sftlcb_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_LCBR);
@@ -397,7 +397,7 @@ void sftlcb_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void sftpls_finished (qk_tap_dance_state_t *state, void *user_data) {
+void sftpls_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -412,7 +412,7 @@ void sftpls_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void sftpls_reset (qk_tap_dance_state_t *state, void *user_data) {
+void sftpls_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_PLUS);
@@ -425,7 +425,7 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [ALT_LP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altlp_finished, altlp_reset),
   [CTL_RCB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctlrcb_finished, ctlrcb_reset),
   [GUI_RP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guirp_finished, guirp_reset),

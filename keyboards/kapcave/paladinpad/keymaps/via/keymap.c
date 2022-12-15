@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS,
         RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, QK_BOOT,   KC_NLCK),
+		KC_TRNS, KC_TRNS, QK_BOOT,   KC_NUM),
     
     /* FUNCTION */
     [_FN2] = LAYOUT_ortho_5x4(
