@@ -14,6 +14,7 @@
 #    error "PS/2 data setting is required in config.h"
 #endif
 
+#ifdef PAL_MODE_OUTPUT_OPENDRAIN
 /*
  * Clock
  */
@@ -53,3 +54,42 @@ bool data_in(void) {
     palSetLineMode(PS2_DATA_PIN, PAL_MODE_INPUT);
     return palReadLine(PS2_DATA_PIN);
 }
+#else
+/*
+ * Clock
+ */
+void clock_init(void) {}
+
+void clock_lo(void) {
+    palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_OUTPUT_PUSHPULL);
+    palWriteLine(PS2_CLOCK_PIN, PAL_LOW);
+}
+
+void clock_hi(void) {
+    palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_INPUT);
+}
+
+bool clock_in(void) {
+    palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_INPUT);
+    return palReadLine(PS2_CLOCK_PIN);
+}
+
+/*
+ * Data
+ */
+void data_init(void) {}
+
+void data_lo(void) {
+    palSetLineMode(PS2_DATA_PIN, PAL_MODE_OUTPUT_PUSHPULL);
+    palWriteLine(PS2_DATA_PIN, PAL_LOW);
+}
+
+void data_hi(void) {
+    palSetLineMode(PS2_DATA_PIN, PAL_MODE_INPUT);
+}
+
+bool data_in(void) {
+    palSetLineMode(PS2_DATA_PIN, PAL_MODE_INPUT);
+    return palReadLine(PS2_DATA_PIN);
+}
+#endif
