@@ -22,6 +22,7 @@ void keyboard_post_init_user(void) {
     writePinHigh(B9);
 }
 
+#ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
  *   driver
@@ -120,3 +121,4 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {1, F_15, E_15, D_15},
     {1, F_16, E_16, D_16}
 };
+#endif

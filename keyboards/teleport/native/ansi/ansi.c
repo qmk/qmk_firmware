@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     // Key Matrix to LED Index, LED 61 omitted on ANSI
     { 0,      2,      4,      6,      8,      10,     12,     14     }, \
@@ -47,3 +48,4 @@ led_config_t g_led_config = { {
     1, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1, 4, 1,
     1, 9, 1,          4,          1, 1, 1, 4, 4, 4,
 } };
+#endif
