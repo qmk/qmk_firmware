@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
 #include "matrix.h"
 #include "quantum.h"
 
-// Pin connected to DS of 74HC595
-#define DATA_PIN C15
-// Pin connected to SH_CP of 74HC595
-#define CLOCK_PIN A1
-// Pin connected to ST_CP of 74HC595
-#define LATCH_PIN A0
+#ifndef PIN_USED_74HC595
+#    define PIN_USED_74HC595 8
+#endif
+#ifndef PIN_START_74HC595
+#    define PIN_START_74HC595 8
+#endif
 
 #ifdef MATRIX_ROW_PINS
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
@@ -32,18 +32,6 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif // MATRIX_COL_PINS
 
 #define ROWS_PER_HAND (MATRIX_ROWS)
-
-#ifndef NO_PIN_NUM
-#    define NO_PIN_NUM 8
-#endif
-
-#ifndef NO_PIN_OFFSET
-#    define NO_PIN_OFFSET 0
-#endif
-
-#ifndef CLR_REG_VAL
-#    define CLR_REG_VAL 0xFF
-#endif
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
@@ -73,32 +61,51 @@ static inline uint8_t readMatrixPin(pin_t pin) {
     }
 }
 
+// At 3.6V input, three nops (37.5ns) should be enough for all signals
+#define small_delay() __asm__ __volatile__("nop;nop;nop;\n\t" ::: "memory")
+#define compiler_barrier() __asm__ __volatile__("" ::: "memory")
+
 static void shiftOut(uint16_t dataOut) {
-    for (uint8_t i = 0; i < NO_PIN_NUM; i++) {
-        if (dataOut & 0x1) {
-            setPinOutput_writeHigh(DATA_PIN);
-        } else {
-            setPinOutput_writeLow(DATA_PIN);
+    ATOMIC_BLOCK_FORCEON {
+        for (uint8_t i = 0; i < PIN_USED_74HC595; i++) {
+            compiler_barrier();
+            if (dataOut & 0x1) {
+                writePinHigh(DATA_PIN_74HC595);
+            } else {
+                writePinLow(DATA_PIN_74HC595);
+            }
+            dataOut = dataOut >> 1;
+            compiler_barrier();
+            writePinHigh(CLOCK_PIN_74HC595);
+            small_delay();
+            writePinLow(CLOCK_PIN_74HC595);
         }
-        dataOut = dataOut >> 1;
-        setPinOutput_writeHigh(CLOCK_PIN);
-        setPinOutput_writeLow(CLOCK_PIN);
+        compiler_barrier();
+        writePinHigh(LATCH_PIN_74HC595);
+        small_delay();
+        writePinLow(LATCH_PIN_74HC595);
+        compiler_barrier();
     }
-    setPinOutput_writeHigh(LATCH_PIN);
-    setPinOutput_writeLow(LATCH_PIN);
 }
 
-static void shiftout_single(uint8_t data) {
-    if (data & 0x1) {
-        setPinOutput_writeHigh(DATA_PIN);
-    } else {
-        setPinOutput_writeLow(DATA_PIN);
+static void shiftOut_single(uint8_t data) {
+    ATOMIC_BLOCK_FORCEON {
+        compiler_barrier();
+        if (data & 0x1) {
+            writePinHigh(DATA_PIN_74HC595);
+        } else {
+            writePinLow(DATA_PIN_74HC595);
+        }
+        compiler_barrier();
+        writePinHigh(CLOCK_PIN_74HC595);
+        small_delay();
+        writePinLow(CLOCK_PIN_74HC595);
+        compiler_barrier();
+        writePinHigh(LATCH_PIN_74HC595);
+        small_delay();
+        writePinLow(LATCH_PIN_74HC595);
+        compiler_barrier();
     }
-    setPinOutput_writeHigh(CLOCK_PIN);
-    setPinOutput_writeLow(CLOCK_PIN);
-
-    setPinOutput_writeHigh(LATCH_PIN);
-    setPinOutput_writeLow(LATCH_PIN);
 }
 
 static bool select_col(uint8_t col) {
@@ -108,10 +115,8 @@ static bool select_col(uint8_t col) {
         setPinOutput_writeLow(pin);
         return true;
     } else {
-        if (col == NO_PIN_START) {
-            shiftout_single(0x00);
-        } else {
-            shiftout_single(0x01);
+        if (col == PIN_START_74HC595) {
+            shiftOut_single(0x00);
         }
         return true;
     }
@@ -128,17 +133,15 @@ static void unselect_col(uint8_t col) {
         setPinInputHigh_atomic(pin);
 #endif
     } else {
-        if (col == (MATRIX_COLS - NO_PIN_OFFSET - 1))
-        setPinOutput_writeHigh(CLOCK_PIN);
-        setPinOutput_writeLow(CLOCK_PIN);
-        setPinOutput_writeHigh(LATCH_PIN);
-        setPinOutput_writeLow(LATCH_PIN);
+        shiftOut_single(0x01);
     }
 }
 
 static void unselect_cols(void) {
+    // unselect column pins
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         pin_t pin = col_pins[x];
+
         if (pin != NO_PIN) {
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
             setPinOutput_writeHigh(pin);
@@ -146,13 +149,23 @@ static void unselect_cols(void) {
             setPinInputHigh_atomic(pin);
 #endif
         }
-        if (x == (MATRIX_COLS - NO_PIN_OFFSET - 1))
-            // unselect shift Register
-            shiftOut(CLR_REG_VAL);
+        if (x == PIN_START_74HC595)
+            // unselect Shift Register
+            shiftOut(0xFFFF);
     }
 }
 
 static void matrix_init_pins(void) {
+    setPinOutput(DATA_PIN_74HC595);
+    setPinOutput(CLOCK_PIN_74HC595);
+    setPinOutput(LATCH_PIN_74HC595);
+#ifdef MATRIX_UNSELECT_DRIVE_HIGH
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        if (col_pins[x] != NO_PIN) {
+            setPinOutput(col_pins[x]);
+        }
+    }
+#endif
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
@@ -169,16 +182,7 @@ static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t curre
         return;                     // skip NO_PIN col
     }
 
-    if (current_col < 10) {
-        matrix_output_select_delay();
-    } else {
-        for (int8_t cycle = 4; cycle > 0; cycle--) {
-            matrix_output_select_delay(); // 0.25us
-            matrix_output_select_delay();
-            matrix_output_select_delay();
-            matrix_output_select_delay();
-        }
-    }
+    matrix_output_select_delay();
 
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {

@@ -19,7 +19,6 @@ AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = CKLED2001
-LTO_ENABLE = yes
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = embedded_flash
 
@@ -29,4 +28,5 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 # custom matrix setup
 CUSTOM_MATRIX = lite
 
+VPATH ?= keyboards/keychron/common
 SRC += matrix.c
