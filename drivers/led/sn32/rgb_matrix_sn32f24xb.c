@@ -263,7 +263,7 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 #if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
                 writePinLow(current_row +1);
                 writePinLow(current_row +2);
-#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
+#elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
                 writePinHigh(current_row +1);
                 writePinHigh(current_row +2);
 #endif
