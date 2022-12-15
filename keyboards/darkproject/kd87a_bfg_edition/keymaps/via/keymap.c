@@ -160,6 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void led_init_ports(void) {
   setPinOutput(C0);
+  setPinOutput(C14);
   setPinOutput(C15);
 };
 
