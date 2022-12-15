@@ -17,6 +17,10 @@
 
 #include "pila87.h"
 
+#include <string.h>
+#include <math.h>
+#include <lib/lib8tion/lib8tion.h>
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     { 75, NO_LED,     76,     77,     78,     79,     80,     81,     82,     83,     84,     85,     86,     87,     88,     89,     90 },
@@ -41,3 +45,21 @@ led_config_t g_led_config = { {
    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8,    4,
 } };
 #endif
+
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
+    HSV      hsv = rgb_matrix_config.hsv;
+    uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
+    hsv.h        = time;
+    RGB      rgb = hsv_to_rgb(hsv);
+
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(40, rgb.r, rgb.g, rgb.b);
+    } else if (!(rgb_matrix_get_flags() & LED_FLAG_INDICATOR)) {
+        rgb_matrix_set_color(40, 0, 0, 0);
+    }
+    return true;
+}

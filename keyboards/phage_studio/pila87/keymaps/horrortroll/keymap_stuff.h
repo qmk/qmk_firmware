@@ -16,7 +16,6 @@
 
 #include <string.h>
 #include <math.h>
-
 #include <lib/lib8tion/lib8tion.h>
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -222,24 +221,16 @@ bool rgb_matrix_indicators_user(void) {
     hsv.h        = time;
     RGB      rgb = hsv_to_rgb(hsv);
 
-    if ((rgb_matrix_get_flags() & LED_FLAG_ALL)) {
-        if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(40, rgb.r, rgb.g, rgb.b);
-        }
-        if (host_keyboard_led_state().scroll_lock) {
-            rgb_matrix_set_color(89, rgb.r, rgb.g, rgb.b);
-        }
-    } else {
-        if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(40, rgb.r, rgb.g, rgb.b);
-        } else {
-            rgb_matrix_set_color(40, 0, 0, 0);
-        }
-        if (host_keyboard_led_state().scroll_lock) {
-            rgb_matrix_set_color(89, rgb.r, rgb.g, rgb.b);
-        } else {
-            rgb_matrix_set_color(89, 0, 0, 0);
-        }
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(40, rgb.r, rgb.g, rgb.b);
+    } else if (!(rgb_matrix_get_flags() & LED_FLAG_INDICATOR)) {
+        rgb_matrix_set_color(40, 0, 0, 0);
+    }
+
+    if (host_keyboard_led_state().scroll_lock) {
+        rgb_matrix_set_color(89, rgb.r, rgb.g, rgb.b);
+    } else if (!(rgb_matrix_get_flags() & LED_FLAG_INDICATOR)) {
+        rgb_matrix_set_color(89, 0, 0, 0);
     }
     return false;
 }
