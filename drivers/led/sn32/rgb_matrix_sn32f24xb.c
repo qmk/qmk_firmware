@@ -391,15 +391,14 @@ static void rgb_callback(PWMDriver *pwmp) {
     for (uint8_t pwm_cnt = 0; pwm_cnt < (LED_MATRIX_ROWS_HW * RGB_MATRIX_HUE_STEP); pwm_cnt++) {
         uint8_t pwm_index = (pwm_cnt % LED_MATRIX_ROWS_HW);
         if (((uint16_t)(pwmp->ct->TC)< ((uint16_t)(led_duty_cycle[pwm_index]+ rgb_brightness))) && (led_duty_cycle[pwm_index] > 0)) {
-            setPinOutput(led_row_pins[pwm_index]);
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
             writePinLow(led_row_pins[pwm_index]);
         } else {
-            setPinInputHigh(led_row_pins[pwm_index]);
+            writePinHigh(led_row_pins[pwm_index]);
 #    elif (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_HIGH)
             writePinHigh(led_row_pins[pwm_index]);
         } else {
-            setPinInputLow(led_row_pins[pwm_index]);
+            writePinLow(led_row_pins[pwm_index]);
 #    endif
         }
     }
