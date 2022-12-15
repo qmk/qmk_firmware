@@ -49,7 +49,7 @@ This is the C configuration file for the keymap
 // Ref: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold 
 #define PERMISSIVE_HOLD
 
-#define COMBO_COUNT 3
+#define COMBO_COUNT 2
 
 // Set the COMBO_TERM so low that I won't type the keys one after each other during normal typing.
 // They would have be held together intentionally to trigger this.
