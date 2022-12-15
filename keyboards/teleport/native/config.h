@@ -108,10 +108,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_TYPING_HEATMAP_SLIM
 #endif
 
-/* Allow VIA to edit lighting */
-#ifdef VIA_ENABLE
-    #define VIA_QMK_RGBLIGHT_ENABLE
-#endif
 
 /* Set HSE clock since it differs from F411 default */
 #define STM32_HSECLK 16000000
