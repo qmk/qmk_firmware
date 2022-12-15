@@ -102,9 +102,6 @@ static matrix_row_t   shared_matrix[MATRIX_ROWS];               // scan values
 static volatile bool  matrix_locked                    = false; // matrix update check
 static volatile bool  matrix_scanned                   = false;
 static const uint32_t periodticks                      = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
-#if (SN32_PWM_CONTROL == SOFTWARE_PWM)
-static uint32_t       rgb_brightness                   = periodticks;
-#endif
 static const uint32_t freq                             = (RGB_MATRIX_HUE_STEP * RGB_MATRIX_SAT_STEP * RGB_MATRIX_VAL_STEP * RGB_MATRIX_SPD_STEP * RGB_MATRIX_LED_PROCESS_LIMIT);
 static const pin_t    led_row_pins[LED_MATRIX_ROWS_HW] = LED_MATRIX_ROW_PINS; // We expect a R,B,G order here
 static const pin_t    led_col_pins[LED_MATRIX_COLS]    = LED_MATRIX_COL_PINS;
@@ -374,7 +371,7 @@ static void rgb_callback(PWMDriver *pwmp) {
 #if ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == COL2ROW))
     for (uint8_t pwm_cnt = 0; pwm_cnt < (LED_MATRIX_COLS * RGB_MATRIX_HUE_STEP); pwm_cnt++) {
         uint8_t pwm_index = (pwm_cnt % LED_MATRIX_COLS);
-        if (((uint16_t)(pwmp->ct->TC)< ((uint16_t)(led_duty_cycle[pwm_index]+ rgb_brightness))) && (led_duty_cycle[pwm_index] > 0)) {
+        if (((uint16_t)(pwmp->ct->TC)< ((uint16_t)(led_duty_cycle[pwm_index]+ periodticks))) && (led_duty_cycle[pwm_index] > 0)) {
             setPinOutput(led_col_pins[pwm_index]);
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
             writePinLow(led_col_pins[pwm_index]);
@@ -390,7 +387,7 @@ static void rgb_callback(PWMDriver *pwmp) {
 #elif ((SN32_PWM_CONTROL == SOFTWARE_PWM) && (DIODE_DIRECTION == ROW2COL))
     for (uint8_t pwm_cnt = 0; pwm_cnt < (LED_MATRIX_ROWS_HW * RGB_MATRIX_HUE_STEP); pwm_cnt++) {
         uint8_t pwm_index = (pwm_cnt % LED_MATRIX_ROWS_HW);
-        if (((uint16_t)(pwmp->ct->TC)< ((uint16_t)(led_duty_cycle[pwm_index]+ rgb_brightness))) && (led_duty_cycle[pwm_index] > 0)) {
+        if (((uint16_t)(pwmp->ct->TC)< ((uint16_t)(led_duty_cycle[pwm_index]+ periodticks))) && (led_duty_cycle[pwm_index] > 0)) {
 #    if (PWM_OUTPUT_ACTIVE_LEVEL == PWM_OUTPUT_ACTIVE_LOW)
             writePinLow(led_row_pins[pwm_index]);
         } else {
@@ -406,13 +403,6 @@ static void rgb_callback(PWMDriver *pwmp) {
     // Scan the rgb and key matrix
     update_pwm_channels(pwmp);
     chSysLockFromISR();
-#if (SN32_PWM_CONTROL == SOFTWARE_PWM)
-    uint32_t val = rgb_matrix_get_val();
-    if(rgb_brightness != val){
-        rgb_brightness = val;
-        pwm_lld_change_period(pwmp,rgb_brightness);
-    }
-#endif
     // Advance the timer to just before the wrap-around, that will start a new PWM cycle
     pwm_lld_change_counter(pwmp, 0xFFFF);
     // Enable the interrupt
