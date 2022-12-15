@@ -10,7 +10,7 @@
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
 * **Physical reset button**: Hold the button down on the raspberry pi pico while plugging it in. There is no reset button on the pcb.
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
