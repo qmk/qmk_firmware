@@ -258,11 +258,11 @@ static void update_pwm_channels(PWMDriver *pwmp) {
 #if defined(EVISION_BOTCHED_RED_CHANNEL) // some keyboards have a 151k resistor value tied to the R channel instead of a 10k, as the rest.
             /* Boost the output for that channel maximizing the current draw by disabling other sinks */
 #if (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH)
-                writePinLow(current_row +1);
-                writePinLow(current_row +2);
+                writePinLow(led_row_pins[current_row +1]);
+                writePinLow(led_row_pins[current_row +2]);
 #elif (RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_LOW)
-                writePinHigh(current_row +1);
-                writePinHigh(current_row +2);
+                writePinHigh(led_row_pins[current_row +1]);
+                writePinHigh(led_row_pins[current_row +2]);
 #endif
 #endif
                 break;
