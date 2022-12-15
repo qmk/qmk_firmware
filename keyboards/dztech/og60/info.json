@@ -26,6 +26,7 @@
         "pid": "0x6071",
         "vid": "0x4B42"
     },
+    "community_layouts": ["60_ansi", "60_hhkb", "60_iso", "60_ansi_tsangan", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
