@@ -233,7 +233,7 @@
                 { "label": "Ctrl", "matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25 }
             ]
         },
-        "LAYOUT_60_tsangan": {
+        "LAYOUT_60_ansi_tsangan": {
             "layout": [
                 { "label": "~", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "!", "matrix": [0, 1], "x": 1, "y": 0 },
@@ -290,8 +290,7 @@
                 { "label": "<", "matrix": [3, 9], "x": 9.25, "y": 3 },
                 { "label": ">", "matrix": [3, 10], "x": 10.25, "y": 3 },
                 { "label": "?", "matrix": [3, 11], "x": 11.25, "y": 3 },
-                { "label": "Shift", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75 },
-                { "label": "Fn", "matrix": [3, 13], "x": 14, "y": 3 },
+                { "label": "Shift", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 2.75 },
 
                 { "label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.5 },
                 { "label": "Win", "matrix": [4, 1], "x": 1.5, "y": 4 },
