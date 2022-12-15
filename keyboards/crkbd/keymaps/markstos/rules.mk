@@ -1,6 +1,3 @@
-# markstos: Attempt to enable Bootmagic
-#BOOTMAGIC_ENABLE = lite
-
 # markstos: enable media keys
 EXTRAKEY_ENABLE = yes
 
