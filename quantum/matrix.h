@@ -44,6 +44,12 @@ uint8_t matrix_cols(void);
 void matrix_setup(void);
 /* intialize matrix for scaning. */
 void matrix_init(void);
+#if !defined(MATRIX_LITE)
+/* read matrix rows on col */
+void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter);
+/* read matrix cols on row */
+void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
+#endif
 /* scan all key states on matrix */
 uint8_t matrix_scan(void);
 /* whether a switch is on */

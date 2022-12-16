@@ -133,11 +133,8 @@ __attribute__((weak)) void matrix_output_unselect_delay(uint8_t line, bool key_p
     matrix_io_delay();
 }
 
-// CUSTOM MATRIX 'LITE'
-__attribute__((weak)) void matrix_init_custom(void) {}
-__attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-    return true;
-}
+void matrix_init_custom(void);
+bool matrix_scan_custom(matrix_row_t current_matrix[]);
 
 #ifdef SPLIT_KEYBOARD
 __attribute__((weak)) void matrix_slave_scan_kb(void) {
@@ -175,7 +172,7 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
     matrix_scan_quantum();
 #endif
 
-    return changed;
+    return (uint8_t)changed;
 }
 
 __attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) {
