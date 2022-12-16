@@ -1,0 +1,53 @@
+{
+    "keyboard_name": "Cepstrum Rev. 1",
+    "usb": {
+        "pid": "0x1557",
+        "device_version": "1.0.0"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "debounce": 5,
+    "diode_direction": "COL2ROW",
+    "features": {
+        "console": true,
+        "rgblight": false,
+        "backlight": false,
+        "rgb_matrix": true
+    },
+    "split": {
+        "enabled": true,
+        "matrix_pins": {
+            "right":{
+                "cols": ["GP29", "GP28", "GP27", "GP2", "GP3", "GP5", "GP6", "GP7", "GP8"],
+                "rows": ["GP26", "GP25", "GP21", "GP20", "GP19"]
+            }
+        }
+    },
+    "matrix_pins": {
+        "cols": ["GP29", "GP28", "GP27", "GP2", "GP3", "GP5", "GP6", "GP7", "GP8"],
+        "rows": ["GP26", "GP25", "GP21", "GP20", "GP19"]
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "split_count": [8, 8],
+        "layout": [
+            { "flags": 2, "x": 42, "y": 6 },
+            { "flags": 2, "x": 67,  "y": 6 },
+            { "flags": 2, "x": 103,  "y": 6 },
+            { "flags": 2, "x": 106, "y": 64 },
+            { "flags": 2, "x": 67, "y": 64 },
+            { "flags": 2, "x": 39, "y": 64 },
+            { "flags": 2, "x": 6, "y": 64 },
+            { "flags": 2, "x": 9, "y": 0 },
+
+            { "flags": 2, "x": 224, "y": 6 },
+            { "flags": 2, "x": 191, "y": 6 },
+            { "flags": 2, "x": 166, "y": 6 },
+            { "flags": 2, "x": 139, "y": 6 },
+            { "flags": 2, "x": 133, "y": 64 },
+            { "flags": 2, "x": 160, "y": 64 },
+            { "flags": 2, "x": 194, "y": 64 },
+            { "flags": 2, "x": 224, "y": 55 }
+          ]
+    }
+}
