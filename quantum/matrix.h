@@ -52,6 +52,8 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #endif
 /* scan all key states on matrix */
 uint8_t matrix_scan(void);
+/* whether matrix tasks are available */
+bool matrix_available(void);
 /* whether a switch is on */
 bool matrix_is_on(uint8_t row, uint8_t col);
 /* matrix state on row */

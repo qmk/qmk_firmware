@@ -249,6 +249,14 @@ __attribute__((weak)) void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
+/** \brief matrix_available
+ *
+ * Override this function if you have a condition where matrix tasks should not be available
+ */
+__attribute__((weak)) bool matrix_available(void) {
+    return true;
+}
+
 /** \brief keyboard_setup
  *
  * FIXME: needs doc
@@ -446,11 +454,17 @@ static inline void generate_tick_event(void) {
  * @return false Matrix didn't change
  */
 static bool matrix_task(void) {
+    bool matrix_changed = false;
+
+    if (!matrix_available()) {
+        generate_tick_event();
+        return matrix_changed;
+    }
+
     static matrix_row_t matrix_previous[MATRIX_ROWS];
 
     matrix_scan();
 
-    bool matrix_changed = false;
     for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
         matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
     }
