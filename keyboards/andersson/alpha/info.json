@@ -1,0 +1,13 @@
+{
+    "keyboard_name": "Andersson Alpha",
+    "processor": "atmega32u4",
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "rows": ["D4", "D5", "D6", "D7"],
+        "cols": ["D21", "D20", "D19", "D18", "D17", "D16"]
+    },
+    "usb": {
+        "vid": "0x1488",
+        "pid": "0x1488"
+    }
+}
