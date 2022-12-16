@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
      */
     [_BASE] = LAYOUT_65_ansi_blocker(
-        KC_GESC,  KC_1,     KC_2,    KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,   KC_EQL,  KC_BSPC,   KC_GRAVE, \
-        KC_TAB,   KC_Q,     KC_W,    KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,   KC_RBRC, KC_BSLASH, KC_DELETE, \
+        QK_GESC,  KC_1,     KC_2,    KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,   KC_EQL,  KC_BSPC,   KC_GRAVE, \
+        KC_TAB,   KC_Q,     KC_W,    KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,   KC_RBRC, KC_BSLS,   KC_DELETE, \
         LT1_C_L,  KC_A,     KC_S,    KC_D,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,            KC_ENT,    KC_PGUP, \
         KC_LSFT,            KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,   KC_RSFT, KC_UP,     KC_PGDN, \
         KC_LCTL,  KC_LALT,           KC_LGUI,                    KC_SPC,                             FN_MO13, FN_MO23,   KC_LEFT, KC_DOWN,   KC_RIGHT),
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN2] = LAYOUT_65_ansi_blocker(
         KC_ESC,   KC_BRID,  KC_BRIU, KC_MCON,  KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD,   KC_VOLU, KC_OUT,    KC_F14, \
         RGB_TOG,  RGB_MOD,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,   KC_PSCR, \
-        XXXXXXX,  RGB_RMOD, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUI, RGB_SAI,            XXXXXXX,   KC_SLCK, \
+        XXXXXXX,  RGB_RMOD, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUI, RGB_SAI,            XXXXXXX,   KC_SCRL, \
         XXXXXXX,            XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUD, RGB_SAD,   XXXXXXX, RGB_VAI,   KC_PAUS, \
         XXXXXXX,  XXXXXXX,           XXXXXXX,                    XXXXXXX,                            XXXXXXX, XXXXXXX,   RGB_SPD, RGB_VAD,   RGB_SPI),
 
@@ -107,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
      */
     [_FN3] = LAYOUT_65_ansi_blocker(
-        QK_BOOT,  MACRO01,  MACRO02, MACRO03, MACRO04, MACRO05, MACRO06, MACRO07, MACRO08, MACRO09, MACRO10, MACRO11,   MACRO12, KC_POWER,  KC_F15, \
+        QK_BOOT,  MACRO01,  MACRO02, MACRO03, MACRO04, MACRO05, MACRO06, MACRO07, MACRO08, MACRO09, MACRO10, MACRO11,   MACRO12, KC_PWR,    KC_F15, \
         XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_SLEP,   XXXXXXX, \
-        XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            DEBUG,     XXXXXXX, \
+        XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            DB_TOGG,   XXXXXXX, \
         XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, KB_VRSN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, MACRO00,   XXXXXXX, \
         XXXXXXX,  XXXXXXX,           XXXXXXX,                   KC_WAKE,                            XXXXXXX, XXXXXXX,   MACRO13, MACRO14,   MACRO15)
 };
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define LED_FLAG_ALPHA_KEY 0x10  // Alpha keys (for Caps Lock)
 #define LED_FLAG_LAYER_IND 0x20  // Layer indicator
 
-const uint8_t g_led_config_new_flags[DRIVER_LED_TOTAL] = {
+const uint8_t g_led_config_new_flags[RGB_MATRIX_LED_COUNT] = {
     // Extended LED Index to Flag
     // ** Remember: on ID67 this is in reverse order
     0x21, 0x01, 0x01, 0x01, 0x01,                   0x04,             0x01,       0x01, 0x21,  // Spc row
@@ -147,18 +147,14 @@ static uint16_t recording_timer;
 
 void keyboard_pre_init_user(void) {
     // override `config.h` flags with new values
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) g_led_config.flags[i] = g_led_config_new_flags[i];
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) g_led_config.flags[i] = g_led_config_new_flags[i];
 }
 
 void keyboard_post_init_user(void) {
     isRGBOff = false;
 }
 
-void rgb_matrix_indicators_user(void) {
-    // do nothing, override base <<weak>> function to disable it
-}
-
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     uint8_t v = MIN( rgblight_get_val() + RGB_BRIGHTER_BY, 0xFF );
     uint8_t current_layer = get_highest_layer(layer_state);
@@ -239,18 +235,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
             break;
     }
-}
-
-/*
- * Sleep mode stuff (untested)
- */
-
-void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
+    return false;
 }
 
 #endif

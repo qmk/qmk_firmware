@@ -213,7 +213,7 @@ TEST_F(DefaultTapHold, tap_and_hold_mod_tap_hold_key) {
     set_keymap({mod_tap_hold_key});
 
     /* Press mod-tap-hold key. */
-    EXPECT_REPORT(driver, (KC_LSHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     mod_tap_hold_key.press();
     idle_for(TAPPING_TERM + 1);
     testing::Mock::VerifyAndClearExpectations(&driver);

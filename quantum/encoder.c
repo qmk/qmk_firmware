@@ -24,7 +24,8 @@
 #include <string.h>
 
 #ifndef ENCODER_MAP_KEY_DELAY
-#    define ENCODER_MAP_KEY_DELAY 2
+#    include "action.h"
+#    define ENCODER_MAP_KEY_DELAY TAP_CODE_DELAY
 #endif
 
 #if !defined(ENCODER_RESOLUTIONS) && !defined(ENCODER_RESOLUTION)
@@ -77,6 +78,10 @@ __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
 
 __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
     return encoder_update_user(index, clockwise);
+}
+
+__attribute__((weak)) bool should_process_encoder(void) {
+    return is_keyboard_master();
 }
 
 void encoder_init(void) {
@@ -143,9 +148,14 @@ void encoder_init(void) {
 static void encoder_exec_mapping(uint8_t index, bool clockwise) {
     // The delays below cater for Windows and its wonderful requirements.
     action_exec(clockwise ? ENCODER_CW_EVENT(index, true) : ENCODER_CCW_EVENT(index, true));
+#    if ENCODER_MAP_KEY_DELAY > 0
     wait_ms(ENCODER_MAP_KEY_DELAY);
+#    endif // ENCODER_MAP_KEY_DELAY > 0
+
     action_exec(clockwise ? ENCODER_CW_EVENT(index, false) : ENCODER_CCW_EVENT(index, false));
+#    if ENCODER_MAP_KEY_DELAY > 0
     wait_ms(ENCODER_MAP_KEY_DELAY);
+#    endif // ENCODER_MAP_KEY_DELAY > 0
 }
 #endif // ENCODER_MAP_ENABLE
 
@@ -173,8 +183,11 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 
             encoder_value[index]++;
             changed = true;
+#ifdef SPLIT_KEYBOARD
+            if (should_process_encoder())
+#endif // SPLIT_KEYBOARD
 #ifdef ENCODER_MAP_ENABLE
-            encoder_exec_mapping(index, ENCODER_COUNTER_CLOCKWISE);
+                encoder_exec_mapping(index, ENCODER_COUNTER_CLOCKWISE);
 #else  // ENCODER_MAP_ENABLE
         encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
 #endif // ENCODER_MAP_ENABLE
@@ -187,8 +200,11 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 #endif
             encoder_value[index]--;
             changed = true;
+#ifdef SPLIT_KEYBOARD
+            if (should_process_encoder())
+#endif // SPLIT_KEYBOARD
 #ifdef ENCODER_MAP_ENABLE
-            encoder_exec_mapping(index, ENCODER_CLOCKWISE);
+                encoder_exec_mapping(index, ENCODER_CLOCKWISE);
 #else  // ENCODER_MAP_ENABLE
         encoder_update_kb(index, ENCODER_CLOCKWISE);
 #endif // ENCODER_MAP_ENABLE

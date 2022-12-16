@@ -28,7 +28,7 @@
 #if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
 
     // The number of LEDs connected
-    #define DRIVER_LED_TOTAL 31
+    #define RGB_MATRIX_LED_COUNT 31
 
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value

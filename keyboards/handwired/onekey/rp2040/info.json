@@ -1,3 +1,15 @@
 {
-    "keyboard_name": "Onekey RP2040"
+    "keyboard_name": "Onekey RP2040",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "cols": ["GP4"],
+        "rows": ["GP5"]
+    },
+    "backlight": {
+        "pin": "GP25"
+    },
+    "rgblight": {
+        "pin": "GP25"
+    }
 }

@@ -80,6 +80,11 @@ static void render_logo(void) {
 
     oled_write_P(qmk_logo, false);
 }
+
+bool oled_task_user(void) {
+    render_logo();
+    return false;
+}
 ```
 
 ?> The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
@@ -259,12 +264,12 @@ void oled_render(void);
 void oled_set_cursor(uint8_t col, uint8_t line);
 
 // Advances the cursor to the next page, writing ' ' if true
-// Wraps to the begining when out of bounds
+// Wraps to the beginning when out of bounds
 void oled_advance_page(bool clearPageRemainder);
 
 // Moves the cursor forward 1 character length
 // Advance page if there is not enough room for the next character
-// Wraps to the begining when out of bounds
+// Wraps to the beginning when out of bounds
 void oled_advance_char(void);
 
 // Writes a single character to the buffer at current cursor position
