@@ -15,3 +15,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "rev_a.h"
+
+void board_init(void) {
+    setPinInputHigh(NEXT_LED_L);
+    setPinInputHigh(NEXT_LED_R);
+}
+
+/* Set indicator leds to indicate lock states */
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        if(led_state.caps_lock){
+            setPinOutput(NEXT_LED_L);
+            setPinOutput(NEXT_LED_R);
+            writePin(NEXT_LED_L, 0);
+            writePin(NEXT_LED_R, 0);
+        }
+        else
+            setPinInputHigh(NEXT_LED_L);
+            setPinInputHigh(NEXT_LED_R);
+    }
+    return res;
+}
