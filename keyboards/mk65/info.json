@@ -36,7 +36,16 @@
         "max_brightness": 255,
         "sleep": true,
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "layouts": {

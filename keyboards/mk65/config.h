@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Encoders */
 
-#define ENCODERS 1
 #define ENCODERS_PAD_A { B1 }
 #define ENCODERS_PAD_B { B2 }
 #define TAP_CODE_DELAY 10
