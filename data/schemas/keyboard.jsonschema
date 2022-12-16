@@ -59,6 +59,9 @@
                 "MK64FX512",
                 "MK66FX1M0",
                 "RP2040",
+                "SN32F248F",
+                "SN32F248BF",
+                "SN32F268F",
                 "STM32F042",
                 "STM32F072",
                 "STM32F103",
@@ -173,7 +176,8 @@
                 "tinyuf2",
                 "unknown",
                 "usbasploader",
-                "wb32-dfu"
+                "wb32-dfu",
+                "sn32-dfu"
             ]
         },
         "bootloader_instructions": {
