@@ -116,11 +116,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 #endif // PICA40_RGBLIGHT_TIMEOUT
 
-#ifdef RGBLIGHT_LAYERS
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 uint16_t check_layer_timer = 0;
 bool is_layer_active = false;
 bool should_set_rgblight = false;
-#endif // RGBLIGHT_LAYERS
+#endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 
 void keyboard_post_init_kb(void) {
     setPinOutput(PICA40_RGB_POWER_PIN);
@@ -131,9 +131,9 @@ void keyboard_post_init_kb(void) {
     rgblight_enable_noeeprom();
 #endif // RGBLIGHT_ENABLE
 
-#ifdef RGBLIGHT_LAYERS
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
     check_layer_timer = timer_read();
-#endif // RGBLIGHT_LAYERS
+#endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 
     keyboard_post_init_user();
 }
@@ -157,7 +157,7 @@ void housekeeping_task_kb(void) {
     }
 #endif // PICA40_RGBLIGHT_TIMEOUT
 
-#ifdef RGBLIGHT_LAYERS
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
     if (timer_elapsed(check_layer_timer) > 100) {
         check_layer_timer = timer_read();
 
@@ -183,7 +183,7 @@ void housekeeping_task_kb(void) {
             }
         }
     }
-#endif // RGBLIGHT_LAYERS
+#endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 
     housekeeping_task_user();
 }
