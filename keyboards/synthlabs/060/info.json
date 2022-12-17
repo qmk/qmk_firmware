@@ -99,7 +99,7 @@
     ]
   },
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_60_ansi": {
         "layout": [
           { "matrix": [0,0], "x":0, "y":0 },
           { "matrix": [0,1], "x":1, "y":0 },
