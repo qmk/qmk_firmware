@@ -4,9 +4,9 @@
   "url": "",
   "maintainer": "Alice",
   "usb": {
-      "vid": "0xD010",
+      "vid": "0xD020",
       "pid": "0x1601",
-      "device_version": "0.0.3"
+      "device_version": "0.0.1"
   },
   "layouts": {
       "LAYOUT": {
