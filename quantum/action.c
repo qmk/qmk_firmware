@@ -70,7 +70,7 @@ __attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) {
  * FIXME: Needs documentation.
  */
 void action_exec(keyevent_t event) {
-    if (!IS_NOEVENT(event)) {
+    if (IS_EVENT(event)) {
         ac_dprintf("\n---- action_exec: start -----\n");
         ac_dprintf("EVENT: ");
         debug_event(event);
@@ -87,7 +87,7 @@ void action_exec(keyevent_t event) {
 
 #ifdef SWAP_HANDS_ENABLE
     // Swap hands handles both keys and encoders, if ENCODER_MAP_ENABLE is defined.
-    if (!IS_NOEVENT(event)) {
+    if (IS_EVENT(event)) {
         process_hand_swap(&event);
     }
 #endif
@@ -125,7 +125,7 @@ void action_exec(keyevent_t event) {
     if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
         process_record(&record);
     }
-    if (!IS_NOEVENT(record.event)) {
+    if (IS_EVENT(record.event)) {
         ac_dprintf("processed: ");
         debug_record(record);
         dprintln();
