@@ -98,10 +98,6 @@
         { "flags": 1, "matrix": [4,13], "x":220, "y":64 }
     ]
   },
-  "rgblight": {
-    "pin": "E6",
-    "sleep": true
-  },
   "layouts": {
     "LAYOUT": {
         "layout": [

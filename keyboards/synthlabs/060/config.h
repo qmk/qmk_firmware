@@ -6,14 +6,12 @@
 #include "config_common.h"
 
 /* Backlighting */
-#define DRIVER_LED_TOTAL 63
-#define RGB_MATRIX_LED_COUNT DRIVER_LED_TOTAL
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#define RGB_MATRIX_LED_COUNT 63
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-#define RGBLIGHT_DI_PIN E6
+#define RGB_DI_PIN E6
 
 // RGB Matrix Animation modes
 // For full list of effects, see:
