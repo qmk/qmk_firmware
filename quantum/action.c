@@ -359,9 +359,9 @@ void process_action(keyrecord_t *record, action_t action) {
     if (is_oneshot_layer_active() && event.pressed &&
         (action.kind.id == ACT_USAGE || !(IS_MOD(action.key.code)
 #    ifndef NO_ACTION_TAPPING
-                                          || action.kind.id == ACT_LMODS_TAP || action.kind.id == ACT_RMODS_TAP
+                                          || (tap_count == 0 && (action.kind.id == ACT_LMODS_TAP || action.kind.id == ACT_RMODS_TAP))
 #    endif
-                                          ))
+                                              ))
 #    ifdef SWAP_HANDS_ENABLE
         && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
 #    endif
