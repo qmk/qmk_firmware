@@ -8,7 +8,7 @@ The Apollo is Acheron Project's family of open-source, freely available tenkeyle
 * Hardware Supported: open-source PCB using the [Joker template](https://acheronproject.com/joker_mcus/joker/). First units were manufactured using STM32F401 microcontroller;
 * Hardware Availability: these PCBs are open-source so you can manufacture them yourself or order them from a factory. See the [project's documentation](https://acheronproject.com/pcbs/apollo/apollo/) for more information.
 
-As of april 7, 2022, Apollo comes in three different layouts:
+As of december 17, 2022, Apollo comes in three different layouts:
 
 - 87H (default ANSI)
 - 87H-T-SC (ANSI with tsangan bottom row and stepped caps);
