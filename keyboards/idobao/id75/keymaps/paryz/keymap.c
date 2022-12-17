@@ -105,7 +105,7 @@ void keyboard_post_init_user(void) {
     g_led_config = custom_led_config;
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         for (int i = 10; i <= 84; i++) {
             if (g_led_config.flags[i] & LED_FLAG_MODIFIER) {
@@ -142,4 +142,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         };
     }
+    return false;
 }
