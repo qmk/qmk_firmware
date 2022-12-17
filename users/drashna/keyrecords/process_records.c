@@ -3,9 +3,6 @@
 
 #include "drashna.h"
 #include "version.h"
-#ifdef AUTOCORRECTION_ENABLE
-#    include "autocorrection/autocorrection.h"
-#endif
 
 uint16_t copy_paste_timer;
 bool     host_driver_disabled = false;
@@ -64,9 +61,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 #if defined(CUSTOM_POINTING_DEVICE)
           && process_record_pointing(keycode, record)
-#endif
-#ifdef AUTOCORRECTION_ENABLE
-          && process_autocorrection(keycode, record)
 #endif
           && true)) {
         return false;

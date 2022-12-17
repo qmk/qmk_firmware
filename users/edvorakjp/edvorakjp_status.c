@@ -42,13 +42,13 @@ void set_japanese_mode(bool new_state) {
     edvorakjp_state.japanese_mode = new_state;
     if (edvorakjp_state.japanese_mode) {
         if (edvorakjp_config.enable_kc_lang) {
-            SEND_STRING(SS_TAP(X_LANG1));
+            SEND_STRING(SS_TAP(X_LNG1));
         } else {
             SEND_STRING(SS_LALT("`"));
         }
     } else {
         if (edvorakjp_config.enable_kc_lang) {
-            SEND_STRING(SS_TAP(X_LANG2));
+            SEND_STRING(SS_TAP(X_LNG2));
         } else {
             SEND_STRING(SS_LALT("`"));
         }

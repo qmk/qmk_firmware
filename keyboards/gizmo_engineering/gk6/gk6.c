@@ -17,7 +17,7 @@
 #include "gk6.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, C1_8, C2_8, C3_8},     //0 led1
     {0, C1_7, C2_7, C3_7},     //1 led2
     {0, C1_6, C2_6, C3_6},     //2 led3

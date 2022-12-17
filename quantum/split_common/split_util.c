@@ -74,6 +74,46 @@ static inline bool usbIsActive(void) {
 }
 #endif
 
+#if defined(SPLIT_WATCHDOG_ENABLE)
+#    if !defined(SPLIT_WATCHDOG_TIMEOUT)
+#        if defined(SPLIT_USB_TIMEOUT)
+#            define SPLIT_WATCHDOG_TIMEOUT (SPLIT_USB_TIMEOUT + 100)
+#        else
+#            define SPLIT_WATCHDOG_TIMEOUT 3000
+#        endif
+#    endif
+#    if defined(SPLIT_USB_DETECT)
+_Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
+#    endif
+_Static_assert(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
+
+static uint32_t split_watchdog_started = 0;
+static bool     split_watchdog_done    = false;
+
+void split_watchdog_init(void) {
+    split_watchdog_started = timer_read32();
+}
+
+void split_watchdog_update(bool done) {
+    split_watchdog_done = done;
+}
+
+bool split_watchdog_check(void) {
+    if (!is_transport_connected()) {
+        split_watchdog_done = false;
+    }
+    return split_watchdog_done;
+}
+
+void split_watchdog_task(void) {
+    if (!split_watchdog_done && !is_keyboard_master()) {
+        if (timer_elapsed32(split_watchdog_started) > SPLIT_WATCHDOG_TIMEOUT) {
+            mcu_reset();
+        }
+    }
+}
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
+
 #ifdef SPLIT_HAND_MATRIX_GRID
 void matrix_io_delay(void);
 
@@ -139,6 +179,20 @@ void split_pre_init(void) {
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
+    // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS within the emulated eeprom via dfu-util or another tool
+#    if defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
+#        if defined(INIT_EE_HANDS_LEFT)
+#            pragma message "Faking EE_HANDS for left hand"
+    const bool should_be_left = true;
+#        else
+#            pragma message "Faking EE_HANDS for right hand"
+    const bool should_be_left = false;
+#        endif
+    bool       is_left        = eeconfig_read_handedness();
+    if (is_left != should_be_left) {
+        eeconfig_update_handedness(should_be_left);
+    }
+#    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
 #endif
     isLeftHand = is_keyboard_left();
 
@@ -165,6 +219,9 @@ void split_pre_init(void) {
 void split_post_init(void) {
     if (!is_keyboard_master()) {
         transport_slave_init();
+#if defined(SPLIT_WATCHDOG_ENABLE)
+        split_watchdog_init();
+#endif
     }
 }
 
