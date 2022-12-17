@@ -1,5 +1,5 @@
-/*
-Copyright 2020 Alabahuy
+/* Copyright 2022 DOIO
+ * Copyright 2022 HorrorTroll <https://github.com/DOIO2022>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
