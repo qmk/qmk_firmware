@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_TIMEOUT 600000
 #endif
 
-#define USE_SERIAL_PD2
-
 // #define FORCE_NKRO
 
 #define QMK_ESC_OUTPUT F4  // usually COL
@@ -131,7 +129,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 
 #undef PRODUCT
-#define PRODUCT Corne Keyboard
+#define PRODUCT "Corne Keyboard"
 
 #define LCPC_KEYS KC_LCTL, KC_LSFT, KC_9
 #define RCPC_KEYS KC_RCTL, KC_RSFT, KC_0
