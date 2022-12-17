@@ -1,6 +1,6 @@
 # Synth Labs 060
 
-<img src="https://i.imgur.com/0EDUgjt.jpg" style="max-height: 800px" alt="Synth Labs 060" />
+![060](https://i.imgur.com/0EDUgjth.jpg)
 
 The 060 Keyboard by Synth Labs in collaboration with keebwerk and 0xCB.
 
