@@ -101,6 +101,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+
+#ifdef RGB_MATRIX_ENABLE
 void keyboard_post_init_user(void) {
     g_led_config = custom_led_config;
 }
@@ -144,3 +146,4 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
     return false;
 }
+#endif
