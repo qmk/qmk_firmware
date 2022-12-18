@@ -1,5 +1,5 @@
 # The default keymap for tsubasa
-![keymap](https://imgur.com/wIRs6Eb)
+![keymap](https://i.imgur.com/wIRs6Ebh.png)
 
 ## Build and Flash
 ```bash
