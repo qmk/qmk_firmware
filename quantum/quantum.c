@@ -132,6 +132,8 @@ __attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t 
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
+__attribute__((weak)) void process_remap_keycode_user(uint16_t *keycode, keyrecord_t *record) {}
+
 void shutdown_quantum(void) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
@@ -242,6 +244,12 @@ bool process_record_quantum(keyrecord_t *record) {
     if (velocikey_enabled() && record->event.pressed) {
         velocikey_accelerate();
     }
+#endif
+
+#ifdef KEY_REMAP_ENABLE
+    // Must run before nearly anything so that callers can modify the
+    // keycode.
+    process_remap_keycode_user(&keycode, record);
 #endif
 
 #ifdef WPM_ENABLE
