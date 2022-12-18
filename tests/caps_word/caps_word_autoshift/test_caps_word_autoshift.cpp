@@ -64,7 +64,7 @@ TEST_F(CapsWord, AutoShiftKeys) {
     tap_key(key_spc);
     tap_key(key_a);
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test Caps Word + Auto Shift where keys A and B are rolled.
@@ -104,7 +104,7 @@ TEST_F(CapsWord, AutoShiftRolledShiftedKeys) {
     run_one_scan_loop();
 
     caps_word_off();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Tests that with tap-hold keys with Retro Shift, letter keys are shifted by
@@ -133,5 +133,5 @@ TEST_F(CapsWord, RetroShiftKeys) {
     tap_key(key_modtap_a);                     // Tap A quickly.
 
     EXPECT_EQ(is_caps_word_on(), true);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
