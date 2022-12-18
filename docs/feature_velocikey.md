@@ -27,3 +27,5 @@ Support for LED breathing effects is planned but not available yet.
 
  ## Configuration
  Velocikey doesn't currently support any configuration via keyboard settings. If you want to adjust something like the speed increase or decay rate, you would need to edit `velocikey.c` and adjust the values there to achieve the kinds of speeds that you like.
+
+!> In order to synchronize the velocikey status and speed between split keyboard sides, define `SPLIT_VELOCIKEY_ENABLE` as described in [the split keyboard documentation](feature_split_keyboard.md).

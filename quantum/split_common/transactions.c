@@ -26,6 +26,9 @@
 #include "transaction_id_define.h"
 #include "split_util.h"
 #include "synchronization_util.h"
+#if defined(SPLIT_VELOCIKEY_ENABLE)
+#    include "velocikey.h"
+#endif // defined(SPLIT_VELOCIKEY_ENABLE)
 
 #define SYNC_TIMER_OFFSET 2
 
@@ -750,6 +753,38 @@ static void watchdog_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 ////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////
+// VELOCIKEY
+
+#if defined(SPLIT_VELOCIKEY_ENABLE)
+
+static bool velocikey_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t  last_update = 0;
+    velocikey_sync_t velocikey_sync;
+    velocikey_sync.enabled = velocikey_enabled();
+    velocikey_sync.speed   = velocikey_get_speed();
+    return send_if_data_mismatch(PUT_VELOCIKEY, &last_update, &velocikey_sync, &split_shmem->velocikey, sizeof(velocikey_sync));
+}
+
+static void velocikey_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    velocikey_set_enabled(split_shmem->velocikey.enabled);
+    velocikey_set_speed(split_shmem->velocikey.speed);
+}
+
+#    define TRANSACTIONS_VELOCIKEY_MASTER() TRANSACTION_HANDLER_MASTER(velocikey)
+#    define TRANSACTIONS_VELOCIKEY_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(velocikey)
+#    define TRANSACTIONS_VELOCIKEY_REGISTRATIONS [PUT_VELOCIKEY] = trans_initiator2target_initializer(velocikey),
+
+#else // defined(SPLIT_VELOCIKEY_ENABLE)
+
+#    define TRANSACTIONS_VELOCIKEY_MASTER()
+#    define TRANSACTIONS_VELOCIKEY_SLAVE()
+#    define TRANSACTIONS_VELOCIKEY_REGISTRATIONS
+
+#endif // defined(SPLIT_VELOCIKEY_ENABLE)
+
+////////////////////////////////////////////////////
+
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     // Set defaults
     [0 ...(NUM_TOTAL_TRANSACTIONS - 1)] = {0, 0, 0, 0, 0},
@@ -775,6 +810,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_ST7565_REGISTRATIONS
     TRANSACTIONS_POINTING_REGISTRATIONS
     TRANSACTIONS_WATCHDOG_REGISTRATIONS
+    TRANSACTIONS_VELOCIKEY_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -802,6 +838,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_ST7565_MASTER();
     TRANSACTIONS_POINTING_MASTER();
     TRANSACTIONS_WATCHDOG_MASTER();
+    TRANSACTIONS_VELOCIKEY_MASTER();
     return true;
 }
 
@@ -822,6 +859,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_ST7565_SLAVE();
     TRANSACTIONS_POINTING_SLAVE();
     TRANSACTIONS_WATCHDOG_SLAVE();
+    TRANSACTIONS_VELOCIKEY_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

@@ -17,6 +17,10 @@ bool velocikey_enabled(void) {
     return eeprom_read_byte(EECONFIG_VELOCIKEY) == 1;
 }
 
+void velocikey_set_enabled(bool value) {
+    eeprom_update_byte(EECONFIG_VELOCIKEY, value ? 1 : 0);
+}
+
 void velocikey_toggle(void) {
     if (velocikey_enabled())
         eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
@@ -43,4 +47,12 @@ void velocikey_decelerate(void) {
 
 uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
     return MAX(minValue, maxValue - (maxValue - minValue) * ((float)typing_speed / TYPING_SPEED_MAX_VALUE));
+}
+
+uint8_t velocikey_get_speed(void) {
+    return typing_speed;
+}
+
+void velocikey_set_speed(uint8_t speed) {
+    typing_speed = speed;
 }

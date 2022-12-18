@@ -286,6 +286,14 @@ This enables transmitting the pointing device status to the master side of the s
 
 !> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
 
+
+```c
+#define SPLIT_VELOCIKEY_ENABLE
+```
+
+This enables transmitting the current [velocikey](feature_velocikey.md) on/off status and speed to the slave side of the split keyboard. The purpose of this feature is to match the effect speed between the split sides.
+
+
 ### Custom data sync between sides :id=custom-data-sync
 
 QMK's split transport allows for arbitrary data transactions at both the keyboard and user levels. This is modelled on a remote procedure call, with the master invoking a function on the slave side, with the ability to send data from master to slave, process it slave side, and send data back from slave to master.

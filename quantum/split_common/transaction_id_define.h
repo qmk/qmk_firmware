@@ -88,6 +88,10 @@ enum serial_transaction_id {
     PUT_WATCHDOG,
 #endif // defined(SPLIT_WATCHDOG_ENABLE)
 
+#if defined(SPLIT_VELOCIKEY_ENABLE)
+    PUT_VELOCIKEY,
+#endif // defined(SPLIT_VELOCIKEY_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     PUT_RPC_INFO,
     PUT_RPC_REQ_DATA,

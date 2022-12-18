@@ -125,6 +125,13 @@ typedef struct _rpc_sync_info_t {
 } rpc_sync_info_t;
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 
+#if defined(SPLIT_VELOCIKEY_ENABLE)
+typedef struct _velocikey_sync_t {
+    bool    enabled;
+    uint8_t speed;
+} velocikey_sync_t;
+#endif // defined(SPLIT_VELOCIKEY_ENABLE)
+
 typedef struct _split_shared_memory_t {
 #ifdef USE_I2C
     int8_t transaction_id;
@@ -191,6 +198,10 @@ typedef struct _split_shared_memory_t {
 #if defined(SPLIT_WATCHDOG_ENABLE)
     bool watchdog_pinged;
 #endif // defined(SPLIT_WATCHDOG_ENABLE)
+
+#if defined(SPLIT_VELOCIKEY_ENABLE)
+    velocikey_sync_t velocikey;
+#endif // defined(SPLIT_VELOCIKEY_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;
