@@ -29,7 +29,7 @@
 #    pragma pack(push, 1)
 #endif
 
-#if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
+#if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES) || defined(LED_MATRIX_KEYHOLD)
 #    define LED_MATRIX_KEYREACTIVE_ENABLED
 #endif
 

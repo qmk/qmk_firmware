@@ -193,7 +193,9 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
     if (!pressed)
 #    elif defined(LED_MATRIX_KEYPRESSES)
     if (pressed)
-#    endif // defined(LED_MATRIX_KEYRELEASES)
+#    elif defined(LED_MATRIX_KEYHOLD)
+    // in this case, execute the following statement unconditionally
+#    endif  // defined(LED_MATRIX_KEYRELEASES)
     {
         led_count = led_matrix_map_row_column_to_led(row, col, led);
     }
@@ -206,15 +208,29 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
         last_hit_buffer.count = LED_HITS_TO_REMEMBER - led_count;
     }
 
-    for (uint8_t i = 0; i < led_count; i++) {
-        uint8_t index                = last_hit_buffer.count;
-        last_hit_buffer.x[index]     = g_led_config.point[led[i]].x;
-        last_hit_buffer.y[index]     = g_led_config.point[led[i]].y;
-        last_hit_buffer.index[index] = led[i];
-        last_hit_buffer.tick[index]  = 0;
-        last_hit_buffer.count++;
+#ifdef LED_MATRIX_KEYHOLD
+    if (pressed) {
+#endif  // LED_MATRIX_KEYHOLD
+    // execute this block unconditionally unless LED_MATRIX_KEYHOLD is set
+        for (uint8_t i = 0; i < led_count; i++) {
+            uint8_t index                = last_hit_buffer.count;
+            last_hit_buffer.x[index]     = g_led_config.point[led[i]].x;
+            last_hit_buffer.y[index]     = g_led_config.point[led[i]].y;
+            last_hit_buffer.index[index] = led[i];
+            last_hit_buffer.tick[index]  = 0;
+            last_hit_buffer.count++;
+        }
+#ifdef LED_MATRIX_KEYHOLD
+    } else {
+        for (uint8_t i = 0; i < last_hit_buffer.count; i++) {
+            for (uint8_t j = 0; j < led_count; j++) {
+                if (last_hit_buffer.index[i] == led[j] && last_hit_buffer.tick[i] == 0)
+                    last_hit_buffer.tick[i] = 1;
+            }
+        }
     }
-#endif // LED_MATRIX_KEYREACTIVE_ENABLED
+#endif  // LED_MATRIX_KEYHOLD
+#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
 #if defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_LED_MATRIX_TYPING_HEATMAP)
     if (led_matrix_eeconfig.mode == LED_MATRIX_TYPING_HEATMAP) {
@@ -257,7 +273,10 @@ static void led_task_timers(void) {
             last_hit_buffer.count--;
             continue;
         }
-        last_hit_buffer.tick[i] += deltaTime;
+#ifdef LED_MATRIX_KEYHOLD
+        if (last_hit_buffer.tick[i] > 0)
+#endif  // LED_MATRIX_KEYHOLD
+            last_hit_buffer.tick[i] += deltaTime;
     }
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 }
