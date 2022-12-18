@@ -60,3 +60,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define ENABLE_RGB_MATRIX_BREATHING
 #   define SPLIT_TRANSPORT_MIRROR
 #endif
+
+#ifdef RGBLIGHT_ENABLE
+#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
+#endif
+
