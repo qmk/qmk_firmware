@@ -66,17 +66,17 @@ TEST_F(ActionLayer, LayerTapToggleWithToggleWithKeypress) {
     run_one_scan_loop();
     expect_layer_state(0);
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     EXPECT_REPORT(driver, (KC_A)).Times(1);
     regular_key.press();
     run_one_scan_loop();
     expect_layer_state(0);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     EXPECT_EMPTY_REPORT(driver).Times(1);
     regular_key.release();
     run_one_scan_loop();
     expect_layer_state(0);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
