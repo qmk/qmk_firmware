@@ -534,9 +534,8 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
 }
 
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
-    uint8_t layer;
-    bool    is_combo_key          = false;
-    bool    no_combo_keys_pressed = true;
+    bool is_combo_key          = false;
+    bool no_combo_keys_pressed = true;
 
     if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
