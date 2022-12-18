@@ -83,8 +83,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #include "i2c.h"
 
-static const uint8_t LPME_ADDR_LIST[] = {I2C_7BIT_ADDR(0x20),
-                                         I2C_7BIT_ADDR(0x74)};
+static const uint8_t LPME_ADDR_LIST[] = {
+    I2C_7BIT_ADDR(0x20),
+    I2C_7BIT_ADDR(0x74),
+    I2C_7BIT_ADDR(0x24),
+};
 
 MSCMD_USER_RESULT usrcmd_lpme_test(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
 {

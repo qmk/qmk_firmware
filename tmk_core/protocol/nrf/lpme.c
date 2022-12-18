@@ -14,8 +14,8 @@
 #include "matrix.h"
 #include "apidef.h"
 
-static const uint8_t LPME_ADDR_LIST[] = {I2C_7BIT_ADDR(0x20),
-                                         I2C_7BIT_ADDR(0x74)};
+static const uint8_t LPME_ADDR_LIST[] = {
+    I2C_7BIT_ADDR(0x20), I2C_7BIT_ADDR(0x74), I2C_7BIT_ADDR(0x24)};
 #define LPME_ADDR_UNKNOWN 0xFF
 
 static const uint8_t lpme_pin_def[24] = {
