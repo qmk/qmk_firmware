@@ -2,6 +2,7 @@
     "keyboard_name": "tsubasa",
     "url": "https://github.com/kuriatsu/TSUBASA",
     "maintainer": "kuriatsu",
+    "manufacturer": "kuriatsu",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
