@@ -8,7 +8,8 @@
         "bootmagic": true,
         "extrakey": true,
         "oled": true,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+        "nkro": true
     },
     "community_layouts": [
         "split_3x6_3"
