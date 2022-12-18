@@ -102,7 +102,7 @@ TEST_P(CapsWord, SingleCombo) {
     EXPECT_TRUE(is_caps_word_on());
     caps_word_off();
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test a longer 4-key combo.
@@ -123,7 +123,7 @@ TEST_P(CapsWord, LongerCombo) {
     EXPECT_TRUE(is_caps_word_on());
     caps_word_off();
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test with two overlapping combos on regular keys:
@@ -161,7 +161,7 @@ TEST_P(CapsWord, ComboRegularKeys) {
     tap_key(key_a);
 
     EXPECT_FALSE(is_caps_word_on());
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test where combo chords involve tap-hold keys:
@@ -194,7 +194,7 @@ TEST_P(CapsWord, ComboModTapKey) {
     EXPECT_TRUE(is_caps_word_on());
     caps_word_off();
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // clang-format off
