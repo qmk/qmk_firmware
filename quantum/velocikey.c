@@ -18,7 +18,7 @@ bool velocikey_enabled(void) {
 }
 
 void velocikey_set_enabled(bool value) {
-    eeprom_update_byte(EECONFIG_VELOCIKEY, value ? 1 : 0);
+    if (value != velocikey_enabled()) eeprom_update_byte(EECONFIG_VELOCIKEY, value ? 1 : 0);
 }
 
 void velocikey_toggle(void) {
