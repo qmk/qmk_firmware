@@ -36,12 +36,4 @@
     4,4,4,4
 } };
 
-void suspend_power_down_kb(void) {
-  rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_kb(void) {
-  rgb_matrix_set_suspend_state(false);
-}
-
 #endif
