@@ -36,11 +36,20 @@
         "max_brightness": 255,
         "sleep": true,
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label": "K00 (B1,C7)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K10 (B2,C7)", "matrix": [1, 0], "x": 1, "y": 0},

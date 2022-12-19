@@ -1,6 +1,6 @@
 # tinyneko
 
-![tinyneko](https://i.imgur.com/hs8RWzL.png)
+![tinyneko](https://i.imgur.com/hs8RWzLh.png)
 
  A 60% PCB Modified for Tinyneko, can fit with all board Eclipse60 fit.
 
