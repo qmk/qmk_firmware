@@ -30,7 +30,7 @@
 #    pragma pack(push, 1)
 #endif
 
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES) || defined(RGB_MATRIX_KEYHOLD)
 #    define RGB_MATRIX_KEYREACTIVE_ENABLED
 #endif
 
