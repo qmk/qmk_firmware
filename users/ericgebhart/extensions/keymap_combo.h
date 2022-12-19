@@ -31,14 +31,14 @@ void process_combo_event(uint16_t combo_index, bool pressed);
 #define A_DATA(name, string, ...) const uint16_t PROGMEM cmb_##name[] = {__VA_ARGS__, COMBO_END};
 #define A_COMB(name, string, ...) [name] = COMBO_ACTION(cmb_##name),
 #define A_ACTI(name, string, ...)               \
-  case name:                                    \
-  if (pressed) SEND_STRING(string);             \
-  break;
+    case name:                                  \
+        if (pressed) SEND_STRING(string);       \
+        break;
 
 #define A_TOGG(name, layer, ...)                \
   case name:                                    \
-  if (pressed) layer_invert(layer);             \
-  break;
+        if (pressed) layer_invert(layer);       \
+        break;
 
 #define BLANK(...)
 // Generate data needed for combos/actions
@@ -52,7 +52,7 @@ void process_combo_event(uint16_t combo_index, bool pressed);
 #define TOGG A_ENUM
 enum combos {
 #include "combos.def"
-  COMBO_LENGTH
+    COMBO_LENGTH
 };
 // Export length to combo module
 uint16_t COMBO_LEN = COMBO_LENGTH;
