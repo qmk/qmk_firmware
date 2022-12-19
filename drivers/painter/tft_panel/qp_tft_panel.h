@@ -59,3 +59,5 @@ bool qp_tft_panel_palette_convert_rgb888(painter_device_t device, int16_t palett
 
 bool qp_tft_panel_append_pixels_rgb565(painter_device_t device, uint8_t *target_buffer, qp_pixel_t *palette, uint32_t pixel_offset, uint32_t pixel_count, uint8_t *palette_indices);
 bool qp_tft_panel_append_pixels_rgb888(painter_device_t device, uint8_t *target_buffer, qp_pixel_t *palette, uint32_t pixel_offset, uint32_t pixel_count, uint8_t *palette_indices);
+
+bool qp_tft_panel_append_pixdata(painter_device_t device, uint8_t *target_buffer, uint32_t pixdata_offset, uint8_t pixdata_byte);
