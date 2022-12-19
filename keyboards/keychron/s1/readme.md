@@ -10,7 +10,9 @@ Make example for this keyboard (after setting up your build environment):
 
 * For RGB backlight version:
 
+```bash
     make keychron/s1/ansi/rgb:default
+```
 
 * For White backlight version:
 
@@ -22,7 +24,9 @@ Flashing example for this keyboard:
 
 * For RGB backlight version:
 
+```bash
     make keychron/s1/ansi/rgb:default:flash
+```
 
 * For White backlight version:
 
