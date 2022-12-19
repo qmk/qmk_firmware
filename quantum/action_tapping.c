@@ -22,9 +22,9 @@
 #    define IS_TAPPING_RELEASED() (IS_TAPPING() && !tapping_key.event.pressed)
 #    define IS_TAPPING_KEY(k) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (k)))
 #    ifndef COMBO_ENABLE
-#        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)))
+#        define IS_TAPPING_RECORD(r) (IS_EVENT(r->event) && IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)))
 #    else
-#        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
+#        define IS_TAPPING_RECORD(r) (IS_EVENT(r->event) && IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
 #    endif
 #    define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_TAPPING_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
 #    define WITHIN_QUICK_TAP_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_QUICK_TAP_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
@@ -304,6 +304,7 @@ bool process_tapping(keyrecord_t *keyp) {
                             .event.key     = tapping_key.event.key,
                             .event.time    = event.time,
                             .event.pressed = false,
+                            .event.type    = tapping_key.event.type,
 #    ifdef COMBO_ENABLE
                             .keycode = tapping_key.keycode,
 #    endif
@@ -350,6 +351,7 @@ bool process_tapping(keyrecord_t *keyp) {
                             .event.key     = tapping_key.event.key,
                             .event.time    = event.time,
                             .event.pressed = false,
+                            .event.type    = tapping_key.event.type,
 #    ifdef COMBO_ENABLE
                             .keycode = tapping_key.keycode,
 #    endif
@@ -499,9 +501,10 @@ void waiting_buffer_scan_tap(void) {
     if (!tapping_key.event.pressed) return;
 
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
-        if (IS_TAPPING_KEY(waiting_buffer[i].event.key) && !waiting_buffer[i].event.pressed && WITHIN_TAPPING_TERM(waiting_buffer[i].event)) {
-            tapping_key.tap.count       = 1;
-            waiting_buffer[i].tap.count = 1;
+        keyrecord_t *candidate = &waiting_buffer[i];
+        if (IS_EVENT(candidate->event) && IS_TAPPING_KEY(candidate->event.key) && !candidate->event.pressed && WITHIN_TAPPING_TERM(candidate->event)) {
+            tapping_key.tap.count = 1;
+            candidate->tap.count  = 1;
             process_record(&tapping_key);
 
             ac_dprintf("waiting_buffer_scan_tap: found at [%u]\n", i);
