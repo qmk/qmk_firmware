@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Stefan Sundin "4pplet" <4pplet@protonmail.com>
+Copyright 2022 Stefan Sundin "4pplet" <4pplet@protonmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,26 +19,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
 
-#define MATRIX_COL_PINS { A0, B1, B0, A4, B5, B4, B3 }
+#define MATRIX_COL_PINS { A0, A3, A4, A7, B5, B4, B3 }
 #define MATRIX_ROW_PINS { A2, A1, B8, A10, C15, A15, B7, B6, C14, C13}
 #define DIODE_DIRECTION COL2ROW
 
 /* In switch leds */
-#define BACKLIGHT_PIN           A3
-#define BACKLIGHT_PWM_DRIVER    PWMD2
-#define BACKLIGHT_PWM_CHANNEL   4
-#define BACKLIGHT_PAL_MODE      2
+#define BACKLIGHT_PIN           A6
+#define BACKLIGHT_PWM_DRIVER    PWMD3
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PAL_MODE      1
+#define BACKLIGHT_LEVELS        6
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD        6
 #define BACKLIGHT_ON_STATE      1
-#define BACKLIGHT_LEVELS        10
-#define BACKLIGHT_BREATHING     TRUE
 
 /* Underglow */
-#define RGB_DI_PIN  A7
-#define WS2812_SPI  SPID1
-#define WS2812_SPI_MOSI_PAL_MODE 0
-#define WS2812_SPI_SCK_PIN A5
-#define WS2812_SPI_SCK_PAL_MODE 0
-#define RGBLED_NUM  16
+#define RGBLED_NUM 16
+#define WS2812_EXTERNAL_PULLUP
+#define RGB_DI_PIN A8
+
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
@@ -59,16 +58,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* Indicator leds */
-#define LOCK_LIGHTS     TRUE
-#define DISPLAY_LAYERS  TRUE
-#define CAPS_PIN        B2
-#define NUM_PIN         B12
-#define SCROLL_PIN      B13
-#define LAYER_1         B14
-#define LAYER_2         B15
-#define LAYER_3         A8
-#define LAYER_4         A9
-#define LAYER_5         B9
+#define LED_CAPS_LOCK_PIN   B1
+#define LED_NUM_LOCK_PIN    B12
+#define LED_SCROLL_LOCK_PIN B13
+#define LAYER_1             B14
+#define LAYER_2             B15
+#define LAYER_3             B0
+#define LAYER_4             B9
+#define LAYER_5             A9
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
