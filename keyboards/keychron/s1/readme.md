@@ -1,6 +1,6 @@
 # Keychron S1
 
-A customizable 75% keyboard including RGB backlight and White backlight versions.
+A customizable 75% keyboard with RGB backlight and White backlight.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron S1
