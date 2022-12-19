@@ -62,12 +62,6 @@ static inline bool IS_COMBOEVENT(const keyevent_t event) {
 static inline bool IS_ENCODEREVENT(const keyevent_t event) {
     return event.type == ENCODER_CW_EVENT || event.type == ENCODER_CCW_EVENT;
 }
-static inline bool IS_PRESSED(const keyevent_t event) {
-    return IS_EVENT(event) && event.pressed;
-}
-static inline bool IS_RELEASED(const keyevent_t event) {
-    return IS_EVENT(event) && !event.pressed;
-}
 
 /* Common keypos_t object factory */
 #define MAKE_KEYPOS(row_num, col_num) ((keypos_t){.row = (row_num), .col = (col_num)})
