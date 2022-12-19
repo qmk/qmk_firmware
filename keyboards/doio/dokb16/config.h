@@ -118,13 +118,6 @@
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-/* VIA */
-// #ifdef VIA_ENABLE
-// #define DYNAMIC_KEYMAP_LAYER_COUNT 2
-// #endif
-
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
