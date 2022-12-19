@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "ASK Rev A",
+    "keyboard_name": "Unextended Standard Rev A",
     "manufacturer": "4pplet",
-    "url": "https://github.com/4pplet/ASK",
+    "url": "https://github.com/4pplet/Unextended",
     "maintainer": "4pplet",
     "usb": {
         "vid": "0x4444",
