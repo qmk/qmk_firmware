@@ -181,28 +181,14 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (IS_LAYER_ON(_RAISE)) {
-        if (clockwise) {
-            tap_code(KC_BRMD);
-        } else {
-            tap_code(KC_BRMU);
-        }
-    // } else if (IS_LAYER_ON(_LOWER)) { // uncomment to get a third function
-    //     if (clockwise) {
-    //         tap_code(KC_VOLD);
-    //     } else {
-    //         tap_code(KC_VOLU);
-    //     }
-    } else {
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
-        }
-    }
-    return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QWERTY_MACOS] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
+    [_LOWER] = { ENCODER_CCW_CW(_______, _______) },
+    [_RAISE] = { ENCODER_CCW_CW(KC_BRMU, KC_BRMD) },
+    [_ADJUST] = { ENCODER_CCW_CW(_______, _______) },
+};
+#endif
 
 
 void matrix_scan_user(void) {
