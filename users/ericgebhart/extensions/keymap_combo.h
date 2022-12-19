@@ -36,7 +36,7 @@ void process_combo_event(uint16_t combo_index, bool pressed);
         break;
 
 #define A_TOGG(name, layer, ...)          \
-  case name:                              \
+    case name:                            \
         if (pressed) layer_invert(layer); \
         break;
 
