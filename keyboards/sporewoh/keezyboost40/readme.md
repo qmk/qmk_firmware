@@ -1,12 +1,8 @@
-# banime40 
-
-![](https://i.imgur.com/sHQyMfEh.jpeg)
-
-A hotswap gasket mount 4x10 that can support multiple layouts.
+# keezyboost40
 
 * Keyboard Maintainer: [sporewoh](https://github.com/ChrisChrisLoLo)
-* Hardware Supported: Open source PCB files, Pro Micro compatible
-* Hardware Availability: PCBs and Case files available [here](https://github.com/ChrisChrisLoLo/banime40)
+* Hardware Supported: Open source PCB file
+* Hardware Availability: PCBs and Case files available [here](https://github.com/ChrisChrisLoLo/keezyboost40)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -15,7 +11,6 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make sporewoh/keezyboost40:default:flash
-
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
