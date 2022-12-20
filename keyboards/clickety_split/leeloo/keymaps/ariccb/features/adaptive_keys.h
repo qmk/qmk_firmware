@@ -5,7 +5,7 @@ static bool     tabbing      = false;
 static bool     ctrl_tabbing = false;
 static uint16_t tabtimer;
 static uint16_t ctrl_tabtimer;
-#define TABBING_TIMER 1600
+#define TABBING_TIMER 800
 
 static uint8_t prior_saved_mods = 0;
 static uint16_t prior_keycode    = KC_NO;

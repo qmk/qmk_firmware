@@ -25,7 +25,6 @@
 #define COMBO_ONLY_FROM_LAYER 0
 #define COMBO_TERM (TAPPING_TERM/5)
 #define ADAPTIVE_TERM 350
-#define IGNORE_MOD_TAP_INTERRUPT
 #define ONESHOT_TIMEOUT 1000  //Time (in ms) before the one shot key is released
 
 #ifdef TAPPING_TERM
@@ -57,7 +56,7 @@
 #define MOUSEKEY_INTERVAL 8            //Time between cursor movements in milliseconds.
                                        //If the refresh rate of your display is 60Hz, you could set it to 16 (1/60). As this raises the cursor speed significantly, you may want to lower MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_MAX_SPEED 13          //Maximum cursor speed at which acceleration stops
-#define MOUSEKEY_TIME_TO_MAX 120       //Time until maximum scroll speed is reached
+#define MOUSEKEY_TIME_TO_MAX 90        //Time until maximum mouse cursor speed is reached
 #define MOUSEKEY_DELAY 0               //Delay between pressing a movement key and cursor movement
 #define MOUSEKEY_MOVE_DELTA 4          //Step size
 #define MOUSEKEY_WHEEL_DELAY 0         //Delay between pressing a movement key and wheel scroll movement

@@ -23,7 +23,9 @@ AK_SND_ONLY_START(KC_C) // fixes CS bigram
 AK_BOTH_START(KC_P, KC_P) // The first letter is the key. Second letter is what the default output is if none of the conditions are met
   R_BTH(KC_W, KC_P, KC_D) // fixes PD bigram
   R_BTH(KC_F, KC_P, KC_T) // fixes PT bigram
-  R_FST(KC_SPC, KC_P)     //fixes p being lowercase after ending the word
+  R_FST(KC_SPC, KC_P)     //fixes p waiting too long after ending the word
+  R_FST(KC_QUES, KC_P)     //fixes p waiting too long after ending the word
+  R_FST(KC_EXLM, KC_P)     //fixes p waiting too long after ending the word
 AK_SND_ONLY_START(KC_F)   // fixes FS bigram
   R_SND(KC_W, KC_S)
 AK_SND_ONLY_START(KC_E)   // fixes E, bigram
@@ -45,8 +47,12 @@ AK_SND_ONLY_START(KC_PAST)  // allows (*0) -> (* ) aka asterisk zero will make a
 AK_BOTH_START(KC_U, KC_U)   // The first letter is the key. Second letter is what the default output is if none of the conditions are met
   R_SND(KC_Y, KC_E)         // fixes UE bigram
   R_SND(KC_SCLN, KC_Y)      // allows quickly typing UY now that UY->UE
-  R_FST(KC_SPC, KC_U)       //fixes u being lowercase after ending the word
+  R_FST(KC_SPC, KC_U)       //fixes u waiting too long after ending the word
+  R_FST(KC_QUES, KC_U)     //fixes d waiting too long after ending the word
+  R_FST(KC_EXLM, KC_U)     //fixes d waiting too long after ending the word
 AK_BOTH_START(KC_D, KC_D)   // The first letter is the key. Second letter is what the default output is if none of the conditions are met
   R_SND(KC_X, KC_G)         // fixes DG bigram
   R_SND(KC_Z, KC_B)         // fixes DB bigram
-  R_FST(KC_SPC, KC_D)       // fixes d being lowercase after ending the word MILk MILk MILkSEScE ScENE
+  R_FST(KC_SPC, KC_D)       // fixes d waiting too long after ending the word
+  R_FST(KC_QUES, KC_D)     //fixes d waiting too long after ending the word
+  R_FST(KC_EXLM, KC_D)     //fixes d waiting too long after ending the word
