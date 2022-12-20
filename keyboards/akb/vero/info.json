@@ -28,7 +28,7 @@
         "vid": "0x4150"
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0.0, "y": 0.0 },
                 { "matrix": [0, 1], "x": 1.0, "y": 0.0 },

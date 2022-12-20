@@ -14,7 +14,7 @@
         "rows": ["B0", "B1", "F0", "F4", "F1"]
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

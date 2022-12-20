@@ -8,7 +8,7 @@
         "vid": "0x4450"
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label":"F1", "x":0, "y":0},
                 {"label":"Tab", "x":1.25, "y":0, "w":1.5},
