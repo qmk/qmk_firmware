@@ -38,7 +38,7 @@
     "main": "pin"
   },
   "layouts": {
-    "LAYOUT_all": {
+    "LAYOUT": {
       "layout": [
         { "matrix": [0, 0], "label": "Esc", "x": 0, "y": 0.88 },
         { "matrix": [0, 1], "label": "1", "x": 1, "y": 0.63 },
