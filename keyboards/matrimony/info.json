@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Matrimony Keyboard",
+    "manufacturer": "Joshua Cheung",
+    "url": "https://www.reddit.com/r/mechmarket/comments/w1ytmc/gb_matrimony_split_keyboard/",
+    "maintainer": "hypanim",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0001",
+        "device_version": "1.0.0"
+    }
+}
