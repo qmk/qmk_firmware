@@ -8,11 +8,8 @@
         "pid": "0xA04B",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT_65_all": "LAYOUT_all"
-    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
