@@ -27,7 +27,7 @@
  * represents the switch matrix.
  */
 
-#define LAYOUT_all( \
+#define LAYOUT( \
                          k_f13, k_f14, k_f15, k_f16, k_f17, k_f18, k_f19, k_f20, k_f21, k_f22, k_f23, k_f24, \
                          k_f1,  k_f2,  k_f3,  k_f4,  k_f5,  k_f6,  k_f7,  k_f8,  k_f9,  k_f10, k_f11, k_f12, \
 k_lb1, k_lb2,    k_tild, k_1, k_2, k_3, k_4, k_5, k_6, k_7, k_8, k_9, k_0, k_minus, k_equals,               k_backspace,   k_ins,   k_home,   k_pgup,   kp_nl,       kp_div, kp_mult, kp_minus,        \
