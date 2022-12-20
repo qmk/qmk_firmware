@@ -13,12 +13,12 @@ static const qp_pixel_t qp_pixel_black = {.hsv888 = {.h = 0, .s = 0, .v = 0}};
 
 bool qp_internal_bpp_capable(uint8_t bits_per_pixel) {
 #if !(QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS)
-    #if !(QUANTUM_PAINTER_SUPPORTS_256_PALETTE)
+#    if !(QUANTUM_PAINTER_SUPPORTS_256_PALETTE)
     if (bits_per_pixel > 4) {
         qp_dprintf("qp_internal_decode_palette: image bpp greater than 4\n");
         return false;
     }
-    #endif
+#    endif
 
     if (bits_per_pixel > 8) {
         qp_dprintf("qp_internal_decode_palette: image bpp greater than 8\n");
@@ -154,7 +154,7 @@ bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg) {
 
     // If we've hit the transmit limit, send out the entire buffer and reset the write position
     if (state->byte_write_pos == state->max_bytes) {
-        struct painter_driver_t *driver = (struct painter_driver_t*)state->device;
+        struct painter_driver_t* driver = (struct painter_driver_t*)state->device;
         if (!driver->driver_vtable->pixdata(state->device, qp_internal_global_pixdata_buffer, state->byte_write_pos * 8 / driver->native_bits_per_pixel)) {
             return false;
         }
