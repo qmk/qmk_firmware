@@ -158,7 +158,6 @@ def convert_requested_format(im, format):
     ncolors = format["num_colors"]
     image_format = format["image_format"]
 
-
     # Work out where we're getting the bytes from
     if image_format == 'IMAGE_FORMAT_GRAYSCALE':
         # Ensure we have a valid number of colors for the palette
@@ -261,7 +260,7 @@ def convert_image_bytes(im, format):
             byte = ((image_bytes_red[x] >> 3 & 0x1F) << 3) + (image_bytes_green[x] >> 5 & 0x07)
             bytearray.append(byte)
             # 3 LSb of green, 5 bits of blue
-            byte = ((image_bytes_green[x] >> 2 & 0x07) << 5) + (image_bytes_blue[x] >> 3 & 0x1F) 
+            byte = ((image_bytes_green[x] >> 2 & 0x07) << 5) + (image_bytes_blue[x] >> 3 & 0x1F)
             bytearray.append(byte)
 
     if image_format == 'IMAGE_FORMAT_RGB888':

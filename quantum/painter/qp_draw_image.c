@@ -262,7 +262,6 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
         return false;
     }
 
-
     bool ret = false;
     if (frame_info->bpp <= 8) {
         // Set up the output state
@@ -280,10 +279,8 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
 
         // Stream the raw pixel data to the display
         uint32_t byte_count = pixel_count * frame_info->bpp / 8;
-        ret = qp_internal_send_bytes(device, byte_count, input_callback, &input_state, qp_internal_byte_appender, &output_state);
+        ret                 = qp_internal_send_bytes(device, byte_count, input_callback, &input_state, qp_internal_byte_appender, &output_state);
     }
-
-
 
     qp_dprintf("qp_drawimage_recolor: %s\n", ret ? "ok" : "fail");
     qp_comms_stop(device);
