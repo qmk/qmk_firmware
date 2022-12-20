@@ -29,7 +29,7 @@
  */
 
 
-#define LAYOUT_all( \
+#define LAYOUT( \
     K10, K11, K01, K02, K12, K13, K03, K04, K14, K15, K05, K06, K16, K17, K07, \
     K30, K31, K21, K22, K32, K33, K23, K24, K34, K35, K25, K26,      K37, K27, \
     K50, K51, K41, K42, K52, K53, K43, K44, K54, K55, K45,      K56, K57, K47, \

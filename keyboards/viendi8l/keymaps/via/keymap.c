@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [0] = LAYOUT_all(
+    [0] = LAYOUT(
         KC_MUTE, KC_PSLS, KC_PAST, KC_BSPC,    QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC,
         KC_PMNS, KC_P7,   KC_P8,   KC_P9,      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         KC_PPLS, KC_P4,   KC_P5,   KC_P6,      LTCAPS,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PENT, KC_P0,   KC_P0,   KC_PDOT,    KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    TG(1),   MO(2),   KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [1] = LAYOUT_all(
+    [1] = LAYOUT(
         KC_MUTE, KC_PSLS, KC_PAST, KC_BSPC,    QK_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_BSPC, KC_BSPC,
         KC_PMNS, KC_P7,   KC_P8,   KC_P9,      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         KC_PPLS, KC_P4,   KC_P5,   KC_P6,      LTCAPS,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PENT, KC_P0,   KC_P0,   KC_PDOT,    KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    TG(1),   MO(2),   KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [2] = LAYOUT_all(
+    [2] = LAYOUT(
         KC_MUTE, KC_F10,  KC_F11,  KC_NUM,     KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX,
         KC_MINS, KC_F7,   KC_F8,   KC_F9,      KC_TAB,  XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  XXXXXXX, KC_PSCR, XXXXXXX, XXXXXXX, KC_DEL,
         KC_EQL,  KC_F4,   KC_F5,   KC_F6,      _______, KC_HOME, KC_PGDN, KC_END,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, KC_CALC, KC_CALC, KC_DEL,     XXXXXXX, GUI_TOG, KC_SLEP,                            XXXXXXX,                   XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
-    [3] = LAYOUT_all(
+    [3] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
