@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-#define LAYOUT_all( \
+#define LAYOUT( \
 	K00, K01, K02, K03, \
 	K10, K11, K12, K13  \
 ) { \
