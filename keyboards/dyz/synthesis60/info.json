@@ -48,7 +48,7 @@
         "device_version": "0.0.1"
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 { "label": "Home", "x": 0, "y": 0 },
                 { "label": "~", "x": 1.25, "y": 0 },
