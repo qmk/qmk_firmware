@@ -20,28 +20,28 @@
 #include "jonavin.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = LAYOUT_all(
+[_BASE] = LAYOUT(
                                                                                                                 KC_MUTE,
     KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     TT(_RAISE),       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFTCAPS, KC_SLSH, KC_Z,  KC_X,  KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,           SC_SENT,
     KC_LCTL, KC_LGUI, KC_LALT,          KC_SPC,  LT(_LOWER,KC_SPC),         KC_SPC,           KC_RALT, MO(_FN1),  KC_RCTL ),
 
-  [_FN1] = LAYOUT_all(
+  [_FN1] = LAYOUT(
                                                                                                                 ENCFUNC,
     KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
     KC_CAPS,          KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SCRL, KC_PAUS, KC_NO,   KC_NO,
     KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NUM,  KC_NO,   KC_NO,   KC_NO,            SC_SENT,
     KC_TRNS, KC_WINLCK, KC_TRNS,        KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS ),
 
-  [_LOWER] = LAYOUT_all(
+  [_LOWER] = LAYOUT(
                                                                                                                 KC_TRNS,
     KC_GRAVE,         KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
     KC_TRNS,          KC_MINS, KC_EQL,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_QUES, KC_SLSH, KC_PIPE, KC_BSLS, KC_TILD,
     KC_TRNS, KC_TRNS, KC_UNDS, KC_PLUS, KC_NO,   KC_NO,   KC_NO,   KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC,          KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS ),
 
-  [_RAISE] = LAYOUT_all(
+  [_RAISE] = LAYOUT(
                                                                                                                 KC_TRNS,
   	KC_TAB,          KC_HOME,  KC_UP,   KC_END,  KC_PGUP, KC_PMNS, KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_P0,  KC_TRNS,
   	TT(_RAISE),      KC_LEFT,  KC_DOWN, KC_RIGHT,KC_PGDN, KC_PSLS, KC_TAB,  KC_P4,   KC_P5,   KC_P6,   KC_PDOT, KC_PEQL,
