@@ -247,7 +247,7 @@ enum led_matrix_effects {
     LED_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
     LED_MATRIX_CYCLE_OUT_IN,        // Full gradient scrolling out to in
     LED_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
-#if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
+#if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES) || defined(LED_MATRIX_KEYHOLD)
     LED_MATRIX_SOLID_REACTIVE_SIMPLE,   // Pulses keys hit then fades out
     LED_MATRIX_SOLID_REACTIVE_WIDE       // Value pulses near a single key hit then fades out
     LED_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Value pulses near multiple key hits then fades out
@@ -295,7 +295,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_SOLID_SPLASH`               |Enables `LED_MATRIX_SOLID_SPLASH`             |
 |`#define ENABLE_LED_MATRIX_SOLID_MULTISPLASH`          |Enables `LED_MATRIX_SOLID_MULTISPLASH`        |
 
-?> These modes also require the `LED_MATRIX_KEYPRESSES` or `LED_MATRIX_KEYRELEASES` define to be available.
+?> These modes also require the `LED_MATRIX_KEYPRESSES`, `LED_MATRIX_KEYRELEASES`, or `LED_MATRIX_KEYHOLD` define to be available.
 
 ## Custom LED Matrix Effects :id=custom-led-matrix-effects
 
@@ -363,6 +363,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 ```c
 #define LED_MATRIX_KEYPRESSES // reacts to keypresses
 #define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+#define LED_MATRIX_KEYHOLD // reacts to keypresses, pausing the rest of the animation until keyrelease
 #define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define LED_MATRIX_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
 #define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
@@ -373,7 +374,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 #define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define LED_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
 #define LED_MATRIX_SPLIT { X, Y }   // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
-                                    // If LED_MATRIX_KEYPRESSES or LED_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+                                    // If LED_MATRIX_KEYPRESSES, LED_MATRIX_KEYRELEASES, or LED_MATRIX_KEYHOLD is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```
 
 ## EEPROM storage :id=eeprom-storage
