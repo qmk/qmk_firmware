@@ -67,7 +67,7 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 #define ENCODER_RESOLUTIONS_RIGHT { 4 }
 ```
 
-Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
+!> Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
 
 ## Encoder map :id=encoder-map
 
