@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#define LAYOUT_all( \
+#define LAYOUT( \
     k00, k01, k11, k02, k12, k03, k13, k04, k14, k05, k15, k06, k16, k07, k18, k08, \
     k20, k30, k21, k31, k22, k32, k23, k33, k24, k34, k25, k35, k26, k36, k27, k37, k28, k38, \
     k40, k50, k41, k51, k42, k52, k43, k53, k44, k54, k45, k55, k46, k56, k47, k48, k58, \
