@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label":"0,0", "x":0, "y":0},
                 {"label":"1,0", "x":1.25, "y":0},

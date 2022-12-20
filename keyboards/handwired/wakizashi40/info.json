@@ -29,11 +29,8 @@
     "pid": "0x7740",
     "device_version": "0.0.1"
   },
-  "layout_aliases": {
-    "LAYOUT": "LAYOUT_all"
-  },
   "layouts": {
-    "LAYOUT_all": {
+    "LAYOUT": {
       "layout": [
         { "label": "TAB", "matrix": [0, 0], "w": 1.5, "x": 0, "y": 0 },
         { "label": "Q", "matrix": [0, 2], "w": 1, "x": 1.5, "y": 0 },
