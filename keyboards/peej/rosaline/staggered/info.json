@@ -8,11 +8,8 @@
         "pid": "0x0003",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT_staggered_40": "LAYOUT_all"
-    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"x":0, "y":0, "w":1.5},
                 {"x":1.5, "y":0},
