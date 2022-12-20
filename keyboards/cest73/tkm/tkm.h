@@ -43,7 +43,7 @@
  */
 // due to a nasty PCB layout bug the R1.03 board has "6" and "7" keyboard coulmns swapped...
 
-#define LAYOUT_all( \
+#define LAYOUT( \
     k00, k10, k01, k11,    k02,      k12, k03, k13, k04, k14, k15, k05, k06, k16, k07, k17, k08,    k18, k09, \
 \
     k20, k30, k21, k31,    k22, k32, k23, k33, k24, k34, k35, k25, k26, k36, k27, k37, k28, k19, k38,    k29, \

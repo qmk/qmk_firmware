@@ -57,7 +57,7 @@
         "on_state": 0
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0.0, "y": 0.0 },
                 { "label": "F1", "matrix": [0, 1], "x": 1.25, "y": 0.0 },
