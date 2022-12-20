@@ -30,7 +30,10 @@ static void render_logo(void) {
 
 
 bool oled_task_kb(void) {
-        render_logo();
-    return false;
+    if (!oled_task_user()) {
+        return false;
+        }
+    render_logo();
+    return true;
 }
 #endif
