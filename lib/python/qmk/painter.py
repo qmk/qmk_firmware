@@ -180,6 +180,12 @@ def convert_requested_format(im, format):
             raise ValueError("Number of colors must be 65536.")
         # If color, convert input to RGB
         im = im.convert("RGB")
+    elif image_format == 'IMAGE_FORMAT_RGB888':
+        # Ensure we have a valid number of colors for the palette
+        if ncolors != 1677216:
+            raise ValueError("Number of colors must be 16777216.")
+        # If color, convert input to RGB
+        im = im.convert("RGB")
 
     return im
 
