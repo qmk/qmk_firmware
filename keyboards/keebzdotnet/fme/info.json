@@ -8,11 +8,8 @@
         "pid": "0x8008",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
-    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label":"k00", "x":0, "y":0},
                 {"label":"k13", "x":1, "y":0},
