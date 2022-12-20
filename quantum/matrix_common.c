@@ -122,7 +122,7 @@ bool matrix_post_scan(void) {
 }
 #endif
 
-/*　`matrix_io_delay ()` exists for backwards compatibility. From now on, use matrix_output_unselect_delay().　*/
+/* `matrix_io_delay ()` exists for backwards compatibility. From now on, use matrix_output_unselect_delay(). */
 __attribute__((weak)) void matrix_io_delay(void) {
     wait_us(MATRIX_IO_DELAY);
 }
@@ -169,10 +169,9 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
     bool changed = matrix_scan_custom(raw_matrix);
 
 #ifdef SPLIT_KEYBOARD
-    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
-    changed = (changed || matrix_post_scan());
+    changed = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed) | matrix_post_scan();
 #else
-    debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
+    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
     matrix_scan_quantum();
 #endif
 

@@ -125,15 +125,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_QWERTY] = LAYOUT(
   //,---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------.
-     TD(TD_DEL_BSPC), KC_BSPACE       , KC_1  , KC_2  , KC_3     , KC_4 ,KC_5,KC_6,KC_7  , KC_8           , KC_9          , KC_0           ,TD(TD_MINS_UNDS),TD(TD_EQL_PLUS) ,
+     TD(TD_DEL_BSPC), KC_BSPC         , KC_1  , KC_2  , KC_3     , KC_4 ,KC_5,KC_6,KC_7  , KC_8           , KC_9          , KC_0           ,TD(TD_MINS_UNDS),TD(TD_EQL_PLUS) ,
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
      KC_HOME        , TD(TD_TAB_TILDE),KC_Q   ,KC_W   ,KC_E      ,KC_R  ,KC_T,KC_Y,KC_U  , KC_I           , KC_O          , KC_P           ,TD(TD_LBRC_LCBR),TD(TD_RBRC_RCBR),
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
-     KC_PGUP        , KC_CAPSLOCK     ,KC_A   ,KC_S   ,KC_D      ,KC_F  ,KC_G,KC_H,KC_J  ,KC_K            , KC_L          ,TD(TD_SCLN_COLN),TD(TD_QUOT_DQT) ,KC_ENT          ,
+     KC_PGUP        , KC_CAPS         ,KC_A   ,KC_S   ,KC_D      ,KC_F  ,KC_G,KC_H,KC_J  ,KC_K            , KC_L          ,TD(TD_SCLN_COLN),TD(TD_QUOT_DQT) ,KC_ENT          ,
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
      KC_PGDN        ,TD(TD_SHIFT_CAPS),KC_Z   ,KC_X   ,KC_C      ,KC_V  ,KC_B,KC_N,KC_M  ,TD(TD_COMM_LABK),TD(TD_DOT_RABK),TD(TD_SLSH_QUES),TD(TD_BSLS_PIPE),KC_RSFT         ,
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
-     KC_END         , KC_LCTRL        ,KC_LGUI,KC_LALT, KC_L1    ,  KC_SPACE ,  KC_SPACE , KC_L2          ,KC_RALT        ,KC_BTN2         ,KC_RCTRL        ,TD(TD_ESC_GRAVE)
+     KC_END         , KC_LCTL         ,KC_LGUI,KC_LALT, KC_L1    ,  KC_SPACE ,  KC_SPACE , KC_L2          ,KC_RALT        ,KC_BTN2         ,KC_RCTL         ,TD(TD_ESC_GRAVE)
   //`---------------+-----------------+-------+-------+----------+------+----+-----------+----------------+---------------+----------------+----------------+----------------'
   ),
 
@@ -178,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT(
   KC_INS,  KC_BSPC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_7,  KC_8,   KC_9,  _______, _______, _______,
   KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_4,  KC_5,   KC_6,  KC_MINS, KC_SLSH, XXXXXXX,
-  KC_SLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_1,  KC_2,   KC_3,  KC_PLUS, KC_ASTR, KC_ENT,
+  KC_SCRL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_1,  KC_2,   KC_3,  KC_PLUS, KC_ASTR, KC_ENT,
   KC_PAUS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_NUHS, KC_NUBS,XXXXXXX,  KC_0,  KC_COMM, KC_DOT,KC_EQL, XXXXXXX, _______,
   LALT(LCTL(KC_DEL)), _______, _______, _______, _______,     _______,           _______,     _______,_______,XXXXXXX, XXXXXXX, XXXXXXX
 ),
@@ -198,9 +198,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT(
   _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-  XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
+  XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
-  XXXXXXX, XXXXXXX, XXXXXXX, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, _______, _______, _______, _______,     _______,            _______,    _______,_______,_______, _______, _______
 )
 

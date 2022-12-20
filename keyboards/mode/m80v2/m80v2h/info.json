@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MODE80V2H", 
+    "keyboard_name": "M80H V2", 
+    "manufacturer": "Mode",
     "url": "https://shop.modedesigns.com/collections/eighty", 
     "maintainer": "Gondolindrim", 
+    "usb": {
+    	"vid": "0x00DE",
+    	"pid": "0x0083",
+    	"device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT_m80v2h": {
             "layout": [

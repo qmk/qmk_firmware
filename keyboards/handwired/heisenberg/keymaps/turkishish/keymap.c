@@ -26,7 +26,7 @@ enum heisenberg_layers {
   _NUMPAD
 };
 
-//KC_NONUS_BSLASH (\|) is equivalent to ["é] key in Turkish keyboards.
+//KC_NUBS (\|) is equivalent to ["é] key in Turkish keyboards.
 //KC_GRV (~ `) is equivalent to [<>|] key in Turkish keyboards.
 // KC_SCLN is Turkish s [şŞ] key
 // KC_QUOT is Turkish i [iİ] key
@@ -44,7 +44,7 @@ enum heisenberg_layers {
 #define BACKTICK RALT(KC_BSLS)
 #define TILDE RALT(KC_RBRC)
 #define NUMBER_SIGN RALT(KC_3)
-#define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
+#define LOCKSCREEN LCTL(LSFT(KC_PWR)) // Screen Lock shortcut for OSX
 
 /* 
 // Unicode Turkish characters, in case it's needed
@@ -97,8 +97,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_mit(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     LT(_NUMPAD, KC_ESC),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    LSFT_T(KC_CAPS), KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT /*KC_ENT*/,
-    LT(_SODA, KC_GRV), KC_LCTL, KC_LALT, KC_LGUI, LT(_LOWER, KC_BSLS), LT(_SPACE, KC_SPC),  LT(_RAISE, KC_NONUS_BSLASH), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
+    LSFT_T(KC_CAPS), KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT /*KC_ENT*/,
+    LT(_SODA, KC_GRV), KC_LCTL, KC_LALT, KC_LGUI, LT(_LOWER, KC_BSLS), LT(_SPACE, KC_SPC),  LT(_RAISE, KC_NUBS), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
 /* Lower
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC,
     KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LBRC, KC_RBRC, KC_EQL,
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DOLLAR_SIGN, CURLY_OPEN, CURLY_CLOSE, KC_GRV, LSFT(KC_GRV),
-    _______, _______, _______, _______, _______,      _______,      _______,   SQUARE_OPEN, SQUARE_CLOSE, LSFT(KC_2), KC_NONUS_BSLASH
+    _______, _______, _______, _______, _______,      _______,      _______,   SQUARE_OPEN, SQUARE_CLOSE, LSFT(KC_2), KC_NUBS
 ),
 
 
@@ -206,10 +206,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit(
-    _______, RESET, EEP_RST, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL,
-    _______, _______, MU_MOD,  AU_ON, AU_OFF, _______, _______, _______,  _______,  _______,  _______,  _______,
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF, _______, _______, _______, _______, _______,  _______,  _______,
-    _______, _______, _______, _______, _______,      _______,     _______, _______,  _______, _______, _______
+    _______, QK_BOOT, EE_CLR,  RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL,
+    _______, _______, MU_NEXT, AU_ON,   AU_OFF,  _______, _______, _______, _______, _______, _______, _______,
+    _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,      _______,     _______, _______, _______, _______, _______
 )
 
 };
@@ -227,6 +227,6 @@ void keyboard_post_init_user(void) {
   //rgblight_config.val    = 255;
   rgblight_enable_noeeprom(); // enables Rgb, without saving settings
   rgblight_sethsv_noeeprom(100, 255, 255); // sets the color to greenish without saving
-  //rgblight_sethsv_noeeprom_turquoise();
+  //rgblight_sethsv_noeeprom(HSV_TURQUOISE);
 
 }

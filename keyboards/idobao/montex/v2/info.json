@@ -1,0 +1,67 @@
+{
+    "manufacturer": "IDOBAO",
+    "keyboard_name": "Montex ID27v2",
+    "maintainer": "IBNobody",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "ROW2COL",
+    "debounce": 5,
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "backlight": false,
+        "rgblight": false
+    },
+    "matrix_pins": {
+        "cols": ["D5", "D3", "D2", "D1", "D0"],
+        "rows": ["D4", "D6", "D7", "B4", "B5", "C6"]
+    },
+    "processor": "atmega32u4",
+    "url": "https://idobao.net/search?type=product&q=montex*",
+    "usb": {
+        "device_version": "2.0.0",
+        "pid": "0x0227",
+        "vid": "0x6964"
+    },
+    "layouts": {
+        "LAYOUT_numpad_6x5": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 1], "x": 1, "y": 0 },
+                { "matrix": [0, 2], "x": 2, "y": 0 },
+                { "matrix": [0, 3], "x": 3, "y": 0 },
+                { "matrix": [0, 4], "x": 4, "y": 0 },
+
+                { "matrix": [1, 0], "x": 0, "y": 1 },
+                { "matrix": [1, 1], "x": 1, "y": 1 },
+                { "matrix": [1, 2], "x": 2, "y": 1 },
+                { "matrix": [1, 3], "x": 3, "y": 1 },
+                { "matrix": [1, 4], "x": 4, "y": 1 },
+
+                { "matrix": [2, 0], "x": 0, "y": 2 },
+                { "matrix": [2, 1], "x": 1, "y": 2 },
+                { "matrix": [2, 2], "x": 2, "y": 2 },
+                { "matrix": [2, 3], "x": 3, "y": 2 },
+                { "matrix": [2, 4], "x": 4, "y": 2, "h": 2 },
+
+                { "matrix": [3, 0], "x": 0, "y": 3 },
+                { "matrix": [3, 1], "x": 1, "y": 3 },
+                { "matrix": [3, 2], "x": 2, "y": 3 },
+                { "matrix": [3, 3], "x": 3, "y": 3 },
+
+                { "matrix": [4, 0], "x": 0, "y": 4 },
+                { "matrix": [4, 1], "x": 1, "y": 4 },
+                { "matrix": [4, 2], "x": 2, "y": 4 },
+                { "matrix": [4, 3], "x": 3, "y": 4 },
+                { "matrix": [5, 3], "x": 4, "y": 4, "h": 2 },
+
+                { "matrix": [5, 0], "x": 0, "y": 5 },
+                { "matrix": [5, 1], "x": 1, "y": 5, "w": 2 },
+                { "matrix": [5, 2], "x": 3, "y": 5 }
+            ]
+        }
+    }
+}

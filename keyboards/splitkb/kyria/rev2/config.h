@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x8D1D
-#define PRODUCT_ID   0x9D9D
-#define DEVICE_VER   0x0002
-#define MANUFACTURER splitkb
-#define PRODUCT      Kyria rev2
-
 /* key matrix size */
 /* Rows are doubled up */
 #define MATRIX_ROWS  8
@@ -38,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D4, C6, D7, E6 }
 #define MATRIX_COL_PINS_RIGHT \
     { B4, B5, B6, B2, B3, B1, F7, F6 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A \
     { F4 }
@@ -100,7 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB matrix support */
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
-#    define DRIVER_LED_TOTAL RGBLED_NUM // Number of LEDs
+#    define RGB_MATRIX_LED_COUNT RGBLED_NUM // Number of LEDs
 #    define RGB_MATRIX_SPLIT { 10, 10 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED

@@ -17,7 +17,6 @@
 #ifdef AUTO_SHIFT_ENABLE
 
 #    include <stdbool.h>
-#    include <stdio.h>
 #    include "process_auto_shift.h"
 
 #    ifndef AUTO_SHIFT_DISABLED_AT_STARTUP
@@ -123,7 +122,12 @@ bool get_autoshift_shift_state(uint16_t keycode) {
 /** \brief Restores the shift key if it was cancelled by Auto Shift */
 static void autoshift_flush_shift(void) {
     autoshift_flags.holding_shift = false;
-    del_weak_mods(MOD_BIT(KC_LSFT));
+#    ifdef CAPS_WORD_ENABLE
+    if (!is_caps_word_on())
+#    endif // CAPS_WORD_ENABLE
+    {
+        del_weak_mods(MOD_BIT(KC_LSFT));
+    }
     if (autoshift_flags.cancelling_lshift) {
         autoshift_flags.cancelling_lshift = false;
         add_mods(MOD_BIT(KC_LSFT));
@@ -182,12 +186,7 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 #            endif
         ) &&
 #        endif
-        TIMER_DIFF_16(now, autoshift_time) <
-#        ifdef TAPPING_TERM_PER_KEY
-        get_tapping_term(autoshift_lastkey, record)
-#        else
-        TAPPING_TERM
-#        endif
+        TIMER_DIFF_16(now, autoshift_time) < GET_TAPPING_TERM(autoshift_lastkey, record)
     ) {
         // clang-format on
         // Allow a tap-then-hold for keyrepeat.
@@ -330,11 +329,14 @@ void autoshift_disable(void) {
 
 #    ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
-    char display[8];
-
-    snprintf(display, 8, "\n%d\n", autoshift_timeout);
-
-    send_string((const char *)display);
+#        ifdef SEND_STRING_ENABLE
+    const char *autoshift_timeout_str = get_u16_str(autoshift_timeout, ' ');
+    // Skip padding spaces
+    while (*autoshift_timeout_str == ' ') {
+        autoshift_timeout_str++;
+    }
+    send_string(autoshift_timeout_str);
+#        endif
 }
 #    endif
 
@@ -373,24 +375,24 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         }
 
         switch (keycode) {
-            case KC_ASTG:
+            case AS_TOGG:
                 autoshift_toggle();
                 break;
-            case KC_ASON:
+            case AS_ON:
                 autoshift_enable();
                 break;
-            case KC_ASOFF:
+            case AS_OFF:
                 autoshift_disable();
                 break;
 
 #    ifndef AUTO_SHIFT_NO_SETUP
-            case KC_ASUP:
+            case AS_UP:
                 autoshift_timeout += 5;
                 break;
-            case KC_ASDN:
+            case AS_DOWN:
                 autoshift_timeout -= 5;
                 break;
-            case KC_ASRP:
+            case AS_RPT:
                 autoshift_timer_report();
                 break;
 #    endif

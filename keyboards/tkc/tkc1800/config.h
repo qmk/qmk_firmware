@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x544B // "TK"
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    The Key Company
-#define PRODUCT         TKC1800
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 19
@@ -37,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Column pin configuration
  */
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, C1, C0, F5, F6, F7 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -53,7 +45,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Underlight configuration
  */
 #define RGB_DI_PIN D7
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 30     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 5
 #define RGBLIGHT_SAT_STEP 10

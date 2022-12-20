@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "DURGOD Galaxy",
+  "keyboard_name": "Galaxy 84 HK gaming x DURGOD (QMK)",
+  "manufacturer": "Hoksi Technology",
   "url": "https://www.amazon.com/Galaxy-75-Modular-Mechanical-Keyboard/dp/B08PDRD8MP",
   "maintainer": "dkjer",
+  "usb": {
+      "vid": "0xD60D",
+      "pid": "0x6A1A",
+      "device_version": "0.0.1"
+  },
     "layouts": {
         "LAYOUT_75_ansi": {
             "layout": [

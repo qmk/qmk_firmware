@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D42 // MB
-#define PRODUCT_ID   0x0015 // 15 keys
-#define DEVICE_VER   0x0103
-#define MANUFACTURER Manyboard
-#define PRODUCT      MB_Macro
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
@@ -32,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3 }
 #define MATRIX_COL_PINS { D4, D5, D6, D7 }
-#define UNUSED_PINS
 
 /*Encoder Pins*/
 #define ENCODERS_PAD_A { C6 }
