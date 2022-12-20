@@ -20,7 +20,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_all( \
+#define LAYOUT( \
          E01,                                                          E02, \
 /*       0    1    2    3    4    5    6    7    8    9    10   11     12 */\
 /* 0 */  K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K10, K11,   K12, \
