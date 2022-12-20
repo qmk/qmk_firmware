@@ -24,7 +24,7 @@
  * The second section defines position of the keys on the switch matrix
  * (where COLUMNS and ROWS crosses). */
 
-#define LAYOUT_all( \
+#define LAYOUT( \
     K5A,      K5B, K5C, K5D, K5E, K5F, K5G, K5H, K5I, K5J, K5K, K5L, K5M,        K5N, K5O, K5P, \
     \
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M, MK1, K4N,   K4O, K4P, K4Q,   K4R, K4S, K4T, K4U, \

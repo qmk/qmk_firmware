@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label":"Esc", "x":0.75, "y":0.25},
                 {"label":"1", "x":1.75, "y":0.25},
