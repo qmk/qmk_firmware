@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 #define RGB_DI_PIN E6
-#define DRIVER_LED_TOTAL 92
+#define RGB_MATRIX_LED_COUNT 92
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16

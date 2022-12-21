@@ -9,7 +9,8 @@
     "mousekey": true,
     "nkro": true,
     "rgb_matrix": true,
-    "oled": true
+    "oled": true,
+    "encoder": true
   },
   "url": "https://boardsource.xyz/projects/60de24d6847112054777bbdd",
   "usb": {
@@ -20,15 +21,18 @@
   "split": {
     "enabled": true
   },
-  "encoder": {
-    "enabled": true
-  },
-  "matrix_size": {
-     "cols": 6,
-     "rows": 10
-  },
   "rgb_matrix": {
     "driver": "WS2812",
+    "split_count": [35, 35],
+    "max_brightness": 150,
+    "animations": {
+      "alphas_mods": true,
+      "gradient_up_down": true,
+      "gradient_left_right": true,
+      "breathing": true,
+      "band_sat": true,
+      "band_val": true
+    },
     "layout": [
       { "flags": 2, "x": 86, "y": 55 },
       { "flags": 2, "x": 51, "y": 55 },
