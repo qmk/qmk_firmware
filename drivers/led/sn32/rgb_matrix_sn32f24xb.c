@@ -232,7 +232,9 @@ static void update_pwm_channels(PWMDriver *pwmp) {
     bool         enable_pwm_output = false;
     for (uint8_t current_key_col = 0; current_key_col < LED_MATRIX_COLS; current_key_col++) {
         uint8_t led_index = g_led_config.matrix_co[current_key_row][current_key_col];
+#if (SN32_PWM_CONTROL == SOFTWARE_PWM)
         if(led_index > RGB_MATRIX_LED_COUNT) continue;
+#endif
         // Check if we need to enable RGB output
         if (led_state[led_index].b != 0) enable_pwm_output |= true;
         if (led_state[led_index].g != 0) enable_pwm_output |= true;
