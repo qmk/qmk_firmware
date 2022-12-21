@@ -1,39 +1,33 @@
-/* Copyright 2015-2016 Jack Humbert
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
 #include "keymap.h"
-
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ² │ & │ é │ " │ ' │ ( │ § │ è │ ! │ ç │ à │ ) │ - │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ A │ Z │ E │ R │ T │ Y │ U │ I │ O │ P │ ^ │ $ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ Q │ S │ D │ F │ G │ H │ J │ K │ L │ M │ ù │ µ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ < │ W │ X │ C │ V │ B │ N │ , │ ; │ : │ = │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define BE_SUP2 KC_GRV  // ²
 #define BE_AMPR KC_1    // &
 #define BE_EACU KC_2    // é
@@ -47,7 +41,6 @@
 #define BE_AGRV KC_0    // à
 #define BE_RPRN KC_MINS // )
 #define BE_MINS KC_EQL  // -
-// Row 2
 #define BE_A    KC_Q    // A
 #define BE_Z    KC_W    // Z
 #define BE_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define BE_P    KC_P    // P
 #define BE_DCIR KC_LBRC // ^ (dead)
 #define BE_DLR  KC_RBRC // $
-// Row 3
 #define BE_Q    KC_A    // Q
 #define BE_S    KC_S    // S
 #define BE_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define BE_M    KC_SCLN // M
 #define BE_UGRV KC_QUOT // ù
 #define BE_MICR KC_NUHS // µ
-// Row 4
 #define BE_LABK KC_NUBS // <
 #define BE_W    KC_Z    // W
 #define BE_X    KC_X    // X
@@ -85,21 +76,6 @@
 #define BE_SCLN KC_COMM // ;
 #define BE_COLN KC_DOT  // :
 #define BE_EQL  KC_SLSH // =
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ³ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ° │ _ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │ ¨ │ * │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │ % │ £ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ > │   │   │   │   │   │   │ ? │ . │ / │ + │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define BE_SUP3 S(BE_SUP2) // ³
 #define BE_1    S(BE_AMPR) // 1
 #define BE_2    S(BE_EACU) // 2
@@ -113,46 +89,25 @@
 #define BE_0    S(BE_AGRV) // 0
 #define BE_DEG  S(BE_RPRN) // °
 #define BE_UNDS S(BE_MINS) // _
-// Row 2
 #define BE_DIAE S(BE_DCIR) // ¨ (dead)
 #define BE_ASTR S(BE_DLR)  // *
-// Row 3
 #define BE_PERC S(BE_UGRV) // %
 #define BE_PND  S(BE_MICR) // £
-// Row 4
 #define BE_RABK S(BE_LABK) // >
 #define BE_QUES S(BE_COMM) // ?
 #define BE_DOT  S(BE_SCLN) // .
 #define BE_SLSH S(BE_COLN) // /
 #define BE_PLUS S(BE_EQL)  // +
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │ | │ @ │ # │   │   │ ^ │   │   │ { │ } │   │   │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │ € │   │   │   │   │   │   │   │ [ │ ] │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │ ´ │ ` │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ \ │   │   │   │   │   │   │   │   │   │ ~ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define BE_PIPE ALGR(BE_AMPR) // |
 #define BE_AT   ALGR(BE_EACU) // @
 #define BE_HASH ALGR(BE_DQUO) // #
 #define BE_CIRC ALGR(BE_SECT) // ^
 #define BE_LCBR ALGR(BE_CCED) // {
 #define BE_RCBR ALGR(BE_AGRV) // }
-// Row 2
 #define BE_EURO ALGR(BE_E)    // €
 #define BE_LBRC ALGR(BE_DCIR) // [
 #define BE_RBRC ALGR(BE_DLR)  // ]
-// Row 3
 #define BE_ACUT ALGR(BE_UGRV) // ´ (dead)
 #define BE_GRV  ALGR(BE_MICR) // ` (dead)
-// Row 4
 #define BE_BSLS ALGR(BE_LABK) // (backslash)
 #define BE_TILD ALGR(BE_EQL)  // ~

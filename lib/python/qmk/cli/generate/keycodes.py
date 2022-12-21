@@ -91,9 +91,10 @@ def _generate_aliases(lines, keycodes):
     for key, value in keycodes["aliases"].items():
         define = _render_key(value.get("key"))
         val = _render_key(key)
-        label = _render_label(value.get("label"))
-
-        lines.append(f'#define {define} {val} // {label}')
+        if 'label' in value:
+            lines.append(f'#define {define} {val} // {_render_label(value.get("label"))}')
+        else:
+            lines.append(f'#define {define} {val}')
 
     lines.append('')
     for key, value in keycodes["aliases"].items():
