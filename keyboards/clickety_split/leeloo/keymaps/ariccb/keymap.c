@@ -72,7 +72,6 @@ enum layer_names {
 #define SUPERHUMAN A(KC_S)
 #define BWSRLEFT A(KC_LEFT)
 #define BWSRRHGT A(KC_RGHT)
-#define BWSRTABSRCH A(KC_A)
 #define ALT_TAB LALT(KC_TAB)
 #define TIDYTABS LCTL(LALT(LGUI(KC_R)))
 
@@ -149,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |S(TAB)|  !   |  %   |  (   |  )   |  =   |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
  * |------+------+------+------+------+------|Volume |                      | Layer |------+------+------+------+------+------|
- * |SHIFT |  $   |  #   |  {   |  }   |  &   | DIAL1 |--> Reset Audio       | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
+ * |SHIFT |  $   |  &   |  {   |  }   |  #   | DIAL1 |--> Reset Audio       | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    Recording Device  |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /     on Button Press    \       \      |     |Expand Selection|
  *                      | APP | ENTER| OSSft/ SPACE/                          \ Space \  0  |  .  | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
@@ -159,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,  KC_F8, KC_F9, KC_F10,  KC_DEL,
   KC_GRV,    KC_TILD, KC_LABK, KC_RABK, KC_RBRC, KC_QUES,                            KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
   S(KC_TAB), KC_EXLM, KC_PERC, KC_LPRN, KC_RPRN, KC_EQL,                             KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
-  KC_LSFT,   KC_DLR,  KC_HASH,  KC_LCBR, KC_RCBR, KC_AMPR, LCTL(KC_0),        LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
+  KC_LSFT,   KC_DLR,  KC_AMPR,  KC_LCBR, KC_RCBR, KC_HASH, LCTL(KC_0),        LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
                                _____, _____, _____, _____,                   KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //
 ),
 
@@ -167,9 +166,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------.                                      .-----------------------------------------.
  * | HYPER|      |      |      |      |DEBUG |                               track  |MBtn 2|      |NumLck|      |      |QWERTY|
  * |------+------+------+------+------+------|                               point  |------+------+------+------+------+------|
- * |      | Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   :  | Bksp |
+ * | Menu | Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   :  | Bksp |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |      | Menu | MsLft| MDown|Mright| Vol+ |-------.                      .-------|ARROW | MbLft|SELWORD|MbRgt|      |   "  |
+ * |      |      | MsLft| MDown|Mright| Vol+ |-------.                      .-------|ARROW | MbLft|SELWORD|MbRgt|      |   "  |
  * |------+------+------+------+------+------|Undo/Redo|                    | Layer |------+------+------+------+------+------|
  * |      | MWLft| MWUp | NWDn |NWRght| Vol- | DIAL1 |-->pins current       | Lock  |  <>  |  []  |   [  |   ]  |   !  |   |  |
  * .-----------------------------------------|-------|   window to all      |-------|-----------------------------------------'
@@ -179,31 +178,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_RAISE] = LAYOUT(
   KC_HYPR, XXXXX, XXXXX,   XXXXX,   XXXXX,   XXXXX,                                    KC_BTN2, XXXXX,   KC_NUM,  XXXXX,   XXXXX,   TG(_QWERTY),
-  _____, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE,                                  _____,   LLOCK,   KC_BTN3, _____,   KC_COLN, KC_BSPC,
-  _____, KC_APP,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                                  ARROW,   KC_BTN1, SELWORD, KC_BTN2, _____,   KC_DQUO,
+  KC_APP, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE,                                  _____,   LLOCK,   KC_BTN3, _____,   KC_COLN, KC_BSPC,
+  _____, _____,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                                  ARROW,   KC_BTN1, SELWORD, KC_BTN2, _____,   KC_DQUO,
   _____, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),             LLOCK,   BRACES,  BRACES2, KC_LBRC, KC_RBRC, KC_EXLM, KC_PIPE,
                              _____, _____, _____, _____,                      KC_BTN1, KC_BTN3, _____,   LCTL(KC_F) // search on page (ctrl f)
 ),
 
 /* MIT Layout (ADJUST)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | HYPER|      |      |      |      |Calc  |                                      |TabUp | Back |TabSrc|Frward|      |SclLok|
+ * | HYPER|      |      |      |      |Calc  |                                      |TabUp | Back |C+A_Up|Frward|      |SclLok|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |      |  F5  |      |      |      |MyComp|                                      |TabDn | Home |  Up  |  End |      |Delete|
+ * |      |  F5  |      |      |      |MyComp|                                      |TabDn | Home |  Up  |  End | PAUSE|Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |      |******| Ctrl | Shift| Alt  |      |--------.                     .-------|SWLeft| Left | Down | Right|SWRigt|CAPSLK|
  * |------+------+------+------+------+------| Virtual|                     | Layer |------+------+------+------+------+------|
- * |      |      |      |      |      |      |Desktop |-->  Next Song       | Lock  | Back |PageUp|AltPDn|PageDn| PAUSE|INSERT|
- * .--------------------------------------  ---|--------|                     |-------|-----------------------------------------'
+ * |      |      |      |      |      |      |Desktop |-->  Next Song       | Lock  | Back |PageUp|C+A_Dn|PageDn|Forwrd|INSERT|
+ * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
  *                      | ALT | CTRL |  Alt  / Next  /                       \       \       |      |Volume|
  *                      | APP | ENTER| Tab  /TidyTab/                         \       \      |      | DIAL2|--> Toggle HDR
  *                      `--------------------------'                           '---------------------------'    on Button Press
  */
   [_ADJUST] = LAYOUT(
-  KC_HYPR, XXXXX, XXXXX,   XXXXX,   XXXXX,   KC_CALC,                           C(KC_PGUP), BWSRLEFT, BWSRTABSRCH,  BWSRRHGT, XXXXX,     KC_SCRL,
-  _____,   KC_F5, _____,   _____,   _____,   KC_MYCM,                           C(KC_PGDN), KC_HOME,  KC_UP,        KC_END,   _____,     KC_DEL,
+  KC_HYPR, XXXXX, XXXXX,   XXXXX,   XXXXX,   KC_CALC,                           C(KC_PGUP), BWSRLEFT, LCA(KC_UP),   BWSRRHGT, XXXXX,     KC_SCRL,
+  _____,   KC_F5, _____,   _____,   _____,   KC_MYCM,                           C(KC_PGDN), KC_HOME,  KC_UP,        KC_END,   KC_PAUSE,     KC_DEL,
   _____,   _____, KC_LCTL, KC_LSFT, KC_LALT, _____,                             SELWLEFT,   KC_LEFT,  KC_DOWN,      KC_RGHT,  SELWRIGHT, KC_CAPS,
-  _____,   _____, _____,   _____,   _____,   _____, KC_MNXT,             _____, BWSRLEFT,   KC_PGUP,  LCA(KC_DOWN), KC_PGDN,  KC_PAUSE,  KC_INS,
+  _____,   _____, _____,   _____,   _____,   _____, KC_MNXT,             _____, BWSRLEFT,   KC_PGUP,  LCA(KC_DOWN), KC_PGDN,  BWSRRHGT,  KC_INS,
                            _____,   _____, ALT_TAB, TIDYTABS,            _____, _____,  _____, G(A(KC_B))
 )
 };

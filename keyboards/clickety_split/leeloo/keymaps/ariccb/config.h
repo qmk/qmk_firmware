@@ -32,7 +32,7 @@
 
     #define IGNORE_MOD_TAP_INTERRUPT
     #define TAPPING_FORCE_HOLD
-    #define TAPPING_TERM 150
+    #define TAPPING_TERM 200
 #endif
 
 // #define TAPPING_TERM 150
@@ -53,21 +53,28 @@
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
-#define MOUSEKEY_INTERVAL 8            //Time between cursor movements in milliseconds.
-                                       //If the refresh rate of your display is 60Hz, you could set it to 16 (1/60). As this raises the cursor speed significantly, you may want to lower MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 13          //Maximum cursor speed at which acceleration stops
-#define MOUSEKEY_TIME_TO_MAX 90        //Time until maximum mouse cursor speed is reached
-#define MOUSEKEY_DELAY 0               //Delay between pressing a movement key and cursor movement
-#define MOUSEKEY_MOVE_DELTA 4          //Step size
-#define MOUSEKEY_WHEEL_DELAY 0         //Delay between pressing a movement key and wheel scroll movement
-#define MOUSEKEY_WHEEL_INTERVAL 60     //Time between wheel movements - setting it too low will make scrolling too fast
-#define MK_KINETIC_SPEED               //Enable kinetic mode, acceleration follows quadratic curve
-#define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 3     //Initial number of movements of the mouse wheel
-#define MOUSEKEY_WHEEL_BASE_MOVEMENTS 35       //Maximum number of movements at which acceleration stops
-//#define MOUSEKEY_WHEEL_MAX_SPEED 10           //Maximum number of scroll steps per scroll action
-//#define MOUSEKEY_WHEEL_TIME_TO_MAX 400        //Time until maximum scroll speed is reached
-#define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 50 //Accelerated wheel movements
-#define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 4 //Decelerated wheel movements
+//for standard non-kinetic mouse-keys mode
+//#define MOUSEKEY_INTERVAL 8                     //Time between cursor movements in milliseconds.
+                                                  //If the refresh rate of your display is 60Hz, you could set it to 16 (1/60). As this raises the cursor speed significantly, you may want to lower MOUSEKEY_MAX_SPEED
+//#define MOUSEKEY_MAX_SPEED 13                   //Maximum cursor speed at which acceleration stops
+//#define MOUSEKEY_TIME_TO_MAX 50                 //Time until maximum mouse cursor speed is reached
+//#define MOUSEKEY_WHEEL_MAX_SPEED 10             //Maximum number of scroll steps per scroll action
+//#define MOUSEKEY_WHEEL_TIME_TO_MAX 400          //Time until maximum scroll speed is reached
+//#define MOUSEKEY_WHEEL_INTERVAL 60              //Time between wheel movements - setting it too low will make scrolling too fast
+//#define MOUSEKEY_WHEEL_DELAY 0                  //Delay between pressing a movement key and wheel scroll movement
+
+#define MK_KINETIC_SPEED                        //Enable kinetic mode, acceleration follows quadratic curve
+#define MOUSEKEY_INTERVAL 8                     //Time between cursor movements in milliseconds.
+#define MOUSEKEY_DELAY 0                        //For Kinetic - Delay between pressing a movement key and cursor movement
+#define MOUSEKEY_MOVE_DELTA 16                  //For Kinetic - Step size for accelerating from initial to base speed
+#define MOUSEKEY_INITIAL_SPEED 100              //For Kinetic - Initial speed of the cursor in pixel per second
+#define MOUSEKEY_BASE_SPEED 1000                //For Kinetic - Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_DECELERATED_SPEED 400          //For Kinetic - Decelerated cursor speed
+#define MOUSEKEY_ACCELERATED_SPEED 3000         //For Kinetic - Accelerated cursor speed
+#define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 16     //Initial number of movements of the mouse wheel
+#define MOUSEKEY_WHEEL_BASE_MOVEMENTS 32        //Maximum number of movements at which acceleration stops
+#define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48 //Accelerated wheel movements
+#define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8  //Decelerated wheel movements
 
 
 #define ENCODER_RESOLUTIONS {2}
