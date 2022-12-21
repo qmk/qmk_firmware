@@ -35,7 +35,7 @@ enum {
 
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+qk_tap_dance_action_t tap_dance_actions_dead30[] = {
   //Tap once for Tab, twice for Escape
   [B_SPACE]  = ACTION_TAP_DANCE_DOUBLE(KC_B, KC_SPC),
   [N_ENTER]  = ACTION_TAP_DANCE_DOUBLE(KC_N, KC_ENT),
@@ -43,7 +43,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [C_LGUI]   = ACTION_TAP_DANCE_DOUBLE(KC_C, KC_LGUI),
   [M_DEL]    = ACTION_TAP_DANCE_DOUBLE(KC_M, KC_DEL),
   [A_CAPS]   = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_CAPS),
-  [Q_TAB_ESC]= ACTION_TAP_DANCE_TRIPLE(KC_Q, KC_TAB, KC_ESC),
+  [Q_TAB_ESC]= ACTION_TAP_DANCE_FN(dance_thrice),
   [COMM_GRV] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_GRAVE),
   [P_BSPC]   = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_BSPC),
   [SCLN_QUOT]= ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_0_QWERTY] = LAYOUT_ortho_4x10_dead30(
         KC_ESC       , XXXXXXX, XXXXXXX   , XXXXXXX  , XXXXXXX    , XXXXXXX    , XXXXXXX  , XXXXXXX     , XXXXXXX, KC_BSPC      ,
         TD(Q_TAB_ESC), KC_W   , KC_E      , KC_R     , KC_T       , KC_Y       , KC_U     , KC_I        , KC_O   , TD(P_BSPC)   ,
-        TD(A_CPS)    , LSFT_S , LT3_D     , LCTL_F   , KC_G       , KC_H       , RCTL_J   , LT5_K       , RSFT_L , TD(SCLN_QUOT),
+        TD(A_CAPS)   , LSFT_S , LT3_D     , LCTL_F   , KC_G       , KC_H       , RCTL_J   , LT5_K       , RSFT_L , TD(SCLN_QUOT),
         KC_Z         , KC_X   , TD(C_LGUI), TD(V_ALT), TD(B_SPACE), TD(N_ENTER), TD(M_DEL), TD(COMM_GRV), KC_DOT , TD(SLSH_BSLS)
     ),
     [_1_SYMBOLS_NUMPAD] = LAYOUT_ortho_4x10_dead30(
@@ -108,3 +108,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______
     )
 };
+
+void dance_thrice(qk_tap_dance_state_t *state, void *user_data) { //KC_Q, KC_TAB, KC_ESC
+    if (state->count == 1) {
+        register_code(KC_Q);
+    } else if (state->count == 2) {
+        register_code(KC_TAB);
+    }else if (state->count == 3) {
+        register_code(KC_ESC);
+    }
+}
