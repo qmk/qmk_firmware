@@ -36,22 +36,19 @@
 enum keyboard_keycodes {
 #ifdef VIA_ENABLE
     LOCK_GUI = USER00,
-#ifdef RGB_MATRIX_ENABLE
-    KC_KEY_UNDER_RGBSW,
-#endif
-    TOG_MACOS_KEYMAP,
-    KC_MISSION_CONTROL,
-    KC_LAUNCHPAD,
-    NEW_SAFE_RANGE = SAFE_RANGE  // Important!
 #else
     LOCK_GUI = SAFE_RANGE,
+#endif
 #ifdef RGB_MATRIX_ENABLE
     KC_KEY_UNDER_RGBSW,
 #endif
     TOG_MACOS_KEYMAP,
     KC_MISSION_CONTROL,
     KC_LAUNCHPAD,
-    NEW_SAFE_RANGE   // Important!
+#ifdef VIA_ENABLE
+    NEW_SAFE_RANGE = SAFE_RANGE
+#else
+    NEW_SAFE_RANGE
 #endif
 };
 
@@ -70,5 +67,9 @@ typedef union {
     uint8_t  underground_rgb_sw : 8;
 } kb_config_t;
 kb_config_t kb_config;
+
+#else
+
+#   define RGB_KG_T  KC_TRNS
 
 #endif

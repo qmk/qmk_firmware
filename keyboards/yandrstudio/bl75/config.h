@@ -26,11 +26,9 @@
 #ifdef RGB_MATRIX_ENABLE
 
 #    define RGB_DI_PIN A7
-#    define RGBLED_NUM 116
-#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 116
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#    define RGBLIGHT_VAL_STEP 5
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_CENTER { 112, 32 }
 #    define RGB_MATRIX_KEYPRESSES
@@ -65,10 +63,10 @@
 #   define ENABLE_RGB_MATRIX_PIXEL_RAIN
 #   define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #   define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
+/* enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined*/
 #   define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #   define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
+/* enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined */
 #   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #   define ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
@@ -82,9 +80,9 @@
 #   define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #   define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#    define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
-#    define WS2812_PWM_CHANNEL 2  // default: 2
-#    define WS2812_DMA_STREAM STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#    define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#    define WS2812_PWM_DRIVER PWMD3
+#    define WS2812_PWM_CHANNEL 2
+#    define WS2812_DMA_STREAM STM32_DMA1_STREAM3
+#    define WS2812_DMA_CHANNEL 3
 
 #endif
