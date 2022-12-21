@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |S(TAB)|  !   |  %   |  (   |  )   |  =   |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
  * |------+------+------+------+------+------|Volume |                      | Layer |------+------+------+------+------+------|
- * |SHIFT |  $   |  &   |  {   |  }   |  #   | DIAL1 |--> Reset Audio       | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
+ * |SHIFT |  #   |  $   |  {   |  }   |  &   | DIAL1 |--> Reset Audio       | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    Recording Device  |-------|-----------------------------------------'
  *                      | ALT | CTRL |  LOW  /      /     on Button Press    \       \      |     |Expand Selection|
  *                      | APP | ENTER| OSSft/ SPACE/                          \ Space \  0  |  .  | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
@@ -158,8 +158,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,  KC_F8, KC_F9, KC_F10,  KC_DEL,
   KC_GRV,    KC_TILD, KC_LABK, KC_RABK, KC_RBRC, KC_QUES,                            KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
   S(KC_TAB), KC_EXLM, KC_PERC, KC_LPRN, KC_RPRN, KC_EQL,                             KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
-  KC_LSFT,   KC_DLR,  KC_AMPR,  KC_LCBR, KC_RCBR, KC_HASH, LCTL(KC_0),        LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
-                               _____, _____, _____, _____,                   KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //
+  KC_LSFT,   KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_AMPR, LCTL(KC_0),        LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
+                               _____,   _____,   _____,   _____,             KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //
 ),
 
 /* MIT Layout (RAISE)
