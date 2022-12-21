@@ -1,63 +1,33 @@
-/* Copyright 2020 Guillaume Gérard
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-/* French AZERTY - AFNOR NF Z71-300
- *
- * A standard for the French keyboard
- *
- * The project was launched at the end of 2015 on the proposal of the General
- * Delegation for the French language and the languages of France (Ministry
- * of Culture), starting from the observation that the current "azerty"
- * keyboards constrain the writing of French, languages regional and European
- * languages with Latin alphabet.
- *
- * For the first time, a standard (NF Z71-300) defines the placement of
- * characters on the French keyboard. It offers two layouts, one of which
- * closely follows the QWERTY keyboard used by most people who write in French.
- *
- * However, it is in many ways superior to the old keyboard:
- *
- * - it contains all the characters required to enter text in French (for example É, œ and ")
- * - it is designed to be more ergonomic and allow faster typing
- * - it includes almost 60 additional characters for entering foreign languages, technical content, etc
- * - however, the characters remain easy to locate thanks to intuitive groupings
- *
- * Source: https://norme-azerty.fr
- */
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
 #include "keymap.h"
-
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ @ │ à │ é │ è │ ê │ ( │ ) │ ‘ │ ’ │ « │ » │ ' │ ^ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ A │ Z │ E │ R │ T │ Y │ U │ I │ O │ P │ - │ + │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ Q │ S │ D │ F │ G │ H │ J │ K │ L │ M │ / │ * │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ < │ W │ X │ C │ V │ B │ N │ . │ , │ : │ ; │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define FR_AT   KC_GRV  // @
 #define FR_AGRV KC_1    // à
 #define FR_EACU KC_2    // é
@@ -71,7 +41,6 @@
 #define FR_RDAQ KC_0    // »
 #define FR_QUOT KC_MINS // '
 #define FR_DCIR KC_EQL  // ^ (dead)
-// Row 2
 #define FR_A    KC_Q    // A
 #define FR_Z    KC_W    // Z
 #define FR_E    KC_E    // E
@@ -84,7 +53,6 @@
 #define FR_P    KC_P    // P
 #define FR_MINS KC_LBRC // -
 #define FR_PLUS KC_RBRC // +
-// Row 3
 #define FR_Q    KC_A    // Q
 #define FR_S    KC_S    // S
 #define FR_D    KC_D    // D
@@ -97,7 +65,6 @@
 #define FR_M    KC_SCLN // M
 #define FR_SLSH KC_QUOT // /
 #define FR_ASTR KC_NUHS // *
-// Row 4
 #define FR_LABK KC_NUBS // <
 #define FR_W    KC_Z    // W
 #define FR_X    KC_X    // X
@@ -109,21 +76,6 @@
 #define FR_COMM KC_COMM // ,
 #define FR_COLN KC_DOT  // :
 #define FR_SCLN KC_SLSH // ;
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ # │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ " │ ¨ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │ – │ ± │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │ \ │ ½ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ > │   │   │   │   │   │   │ ? │ ! │ … │ = │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define FR_HASH S(FR_AT)   // #
 #define FR_1    S(FR_AGRV) // 1
 #define FR_2    S(FR_EACU) // 2
@@ -137,33 +89,15 @@
 #define FR_0    S(FR_RDAQ) // 0
 #define FR_DQUO S(FR_QUOT) // "
 #define FR_DIAE S(FR_DCIR) // ¨ (dead)
-// Row 2
 #define FR_NDSH S(FR_MINS) // –
 #define FR_PLMN S(FR_PLUS) // ±
-// Row 3
 #define FR_BSLS S(FR_SLSH) // (backslash)
 #define FR_HALF S(FR_ASTR) // ½
-// Row 4
 #define FR_RABK S(FR_LABK) // >
 #define FR_QUES S(FR_DOT)  // ?
 #define FR_EXLM S(FR_COMM) // !
 #define FR_ELLP S(FR_COLN) // …
 #define FR_EQL  S(FR_SCLN) // =
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ˘ │ § │ ´ │ ` │ & │ [ │ ] │ ¯ │ _ │ “ │ ” │ ° │ ˇ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ æ │ £ │ € │ ® │ { │ } │ ù │ ˙ │ œ │ % │ − │ † │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ θ │ ß │ $ │ ¤ │ µ │ Eu│   │ ∕ │ | │ ∞ │ ÷ │ × │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ ≤ │ ʒ │ © │ ç │ ¸ │ − │ ~ │ ¿ │ ¡ │ · │ ≃ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define FR_BREV ALGR(FR_AT)   // ˘ (dead)
 #define FR_SECT ALGR(FR_AGRV) // §
 #define FR_ACUT ALGR(FR_EACU) // ´ (dead)
@@ -177,7 +111,6 @@
 #define FR_RDQU ALGR(FR_RDAQ) // ”
 #define FR_DEG  ALGR(FR_QUOT) // °
 #define FR_CARN ALGR(FR_DCIR) // ˇ (dead)
-// Row 2
 #define FR_AE   ALGR(FR_A)    // æ
 #define FR_PND  ALGR(FR_Z)    // £
 #define FR_EURO ALGR(FR_E)    // €
@@ -190,7 +123,6 @@
 #define FR_PERC ALGR(FR_P)    // %
 #define FR_MMNS ALGR(FR_MINS) // −
 #define FR_DAGG ALGR(FR_PLUS) // †
-// Row 3
 #define FR_THET ALGR(FR_Q)    // θ
 #define FR_SS   ALGR(FR_S)    // ß
 #define FR_DLR  ALGR(FR_D)    // $
@@ -202,7 +134,6 @@
 #define FR_INFN ALGR(FR_M)    // ∞
 #define FR_DIV  ALGR(FR_SLSH) // ÷
 #define FR_MUL  ALGR(FR_ASTR) // ×
-// Row 4
 #define FR_LEQL ALGR(FR_LABK) // ≤
 #define FR_EZH  ALGR(FR_W)    // ʒ
 #define FR_COPY ALGR(FR_X)    // ©
@@ -214,40 +145,22 @@
 #define FR_IEXL ALGR(FR_COMM) // ¡
 #define FR_MDDT ALGR(FR_COLN) // ·
 #define FR_AEQL ALGR(FR_SCLN) // ≃
-
-/* Shift+AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ̑  │   │   │   │   │ ˝ │ ̏  │   │ — │ ‹ │ › │ ˚ │   │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │ ™ │   │   │ ̣  │   │ ‰ │ ‑ │ ‡ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │ ˍ │   │   │   │   │ √ │ ¼ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ ≥ │   │   │   │ ˛ │   │   │   │ ̦  │   │ ≠ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
-#define FR_IBRV S(ALGR(FR_AT))   // ̑  (dead)
+#define FR_IBRV S(ALGR(FR_AT))   // ̑ (dead)
 #define FR_DACU S(ALGR(FR_LPRN)) // ˝ (dead)
-#define FR_DGRV S(ALGR(FR_RPRN)) // ̏  (dead)
+#define FR_DGRV S(ALGR(FR_RPRN)) // ̏ (dead)
 #define FR_MDSH S(ALGR(FR_RSQU)) // —
 #define FR_LSAQ S(ALGR(FR_LDAQ)) // ‹
 #define FR_RSAQ S(ALGR(FR_RDAQ)) // ›
 #define FR_RNGA S(ALGR(FR_QUOT)) // ˚ (dead)
-// Row 2
 #define FR_TM   S(ALGR(FR_T))    // ™
-#define FR_DOTB S(ALGR(FR_I))    // ̣  (dead)
+#define FR_DOTB S(ALGR(FR_I))    // ̣ (dead)
 #define FR_PERM S(ALGR(FR_P))    // ‰
 #define FR_NBHY S(ALGR(FR_MINS)) // ‑ (non-breaking hyphen)
 #define FR_DDAG S(ALGR(FR_PLUS)) // ‡
-// Row 3
 #define FR_MACB S(ALGR(FR_H))    // ˍ (dead)
 #define FR_SQRT S(ALGR(FR_SLSH)) // √
 #define FR_QRTR S(ALGR(FR_ASTR)) // ¼
-// Row 4
 #define FR_GEQL S(ALGR(FR_LABK)) // ≥
 #define FR_OGON S(ALGR(FR_V))    // ˛ (dead)
-#define FR_DCMM S(ALGR(FR_COMM)) // ̦  (dead)
+#define FR_DCMM S(ALGR(FR_COMM)) // ̦ (dead)
 #define FR_NEQL S(ALGR(FR_SCLN)) // ≠
