@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "sp60",
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    }
+}
