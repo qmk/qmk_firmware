@@ -55,6 +55,8 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
             - should use standard definitions if applicable
             - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
+            - use of `LAYOUT_all` is only valid when providing additional layout macros
+              - providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling
 - `readme.md`
     - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
