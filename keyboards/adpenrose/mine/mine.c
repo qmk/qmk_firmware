@@ -1,0 +1,4 @@
+// Copyright 2022 Arturo Avila (@Arturo Avila)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "mine.h"
