@@ -51,7 +51,10 @@ def _find_versions(path, prefix):
 def _potential_search_versions(version, lang=None):
     versions = list_versions(lang)
     versions.reverse()
-    return versions[:versions.index(version)+1]
+
+    loc = versions.index(version) + 1
+
+    return versions[:loc]
 
 
 def _search_path(lang=None):
