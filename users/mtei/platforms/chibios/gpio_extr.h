@@ -70,7 +70,16 @@ typedef uint32_t port_data_t;
 
 static inline void _palSetGroupMode_impl(ioportid_t port, ioportmask_t mask, iomode_t mode) {
     iopadid_t pad = 0;
+
+    while (((mask) & 0xff) == 0) {
+        pad += 8;
+        mask = mask >> 8;
+    }
     while (mask != 0) {
+        while (((mask) & 0xf) == 0) {
+            pad += 4;
+            mask = mask >> 4;
+        }
         if ((mask & 1) != 0) {
             palSetPadMode(port, pad, mode);
         }
