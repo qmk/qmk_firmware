@@ -23,6 +23,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode_config.h"
 #include <string.h>
 
+#include "wait.h"
+
+#ifndef KEYBOARD_MOD_PACKET_DELAY
+#define KEYBOARD_MOD_PACKET_DELAY 0
+#endif
+
+#ifndef KEYBOARD_GENERAL_PACKET_DELAY
+#define KEYBOARD_GENERAL_PACKET_DELAY 0
+#endif
+
 extern keymap_config_t keymap_config;
 
 static uint8_t real_mods = 0;
@@ -245,6 +255,12 @@ bool is_oneshot_enabled(void) {
  * FIXME: needs doc
  */
 void send_keyboard_report(void) {
+
+#if ((KEYBOARD_MOD_PACKET_DELAY > 0) || (KEYBOARD_GENERAL_PACKET_DELAY > 0))
+    // Keep track of the state of mods
+    uint8_t old_mods = keyboard_report->mods;
+#endif
+
     keyboard_report->mods = real_mods;
     keyboard_report->mods |= weak_mods;
 
@@ -280,6 +296,18 @@ void send_keyboard_report(void) {
         memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
         host_keyboard_send(keyboard_report);
     }
+#endif
+
+#if (KEYBOARD_MOD_PACKET_DELAY > 0)
+    // If the mods are changing...
+    if (keyboard_report->mods != old_mods) {
+        // Wait for a fixed amount of time to allow the host to process the report
+        wait_ms(KEYBOARD_MOD_PACKET_DELAY);
+    }
+#endif
+#if (KEYBOARD_GENERAL_PACKET_DELAY > 0)
+    // Wait for a fixed amount of time to allow the host to process the report
+    wait_ms(KEYBOARD_GENERAL_PACKET_DELAY);
 #endif
 }
 
