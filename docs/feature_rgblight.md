@@ -165,7 +165,7 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
-  1. Selectively disable the animations you want to enable. The following would enable two animations and save about 4KiB:
+  1. Use `#undef` to selectively disable animations. The following would disable two animations and save about 4KiB:
 
 ```diff
  #undef RGBLED_NUM
