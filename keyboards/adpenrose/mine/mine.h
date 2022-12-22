@@ -15,7 +15,7 @@
  */
 #define XXX KC_NO
 
-#define LAYOUT_100_ansi( \
+#define LAYOUT_1800_alice_ansi( \
                                                                                                        k09, \
     k00, k01, k11, k02, k12, k03, k13,     k93, kA3, k04, k05, k06, k16, kA6, k07,      k17, k08, kA8, k19, \
     k10, kA0, k21, kA1, k22, kA2, k23,     k83, k14, kA4, k15, kA5, k26, k96,           k27, k18, k98, k88, \
@@ -37,7 +37,7 @@
     { kA0, kA1, kA2, kA3, kA4, kA5, kA6, kA7, kA8, XXX } \
 }
 
-#define LAYOUT_100_iso( \
+#define LAYOUT_1800_alice_iso( \
                                                                                                        k09, \
     k00, k01, k11, k02, k12, k03, k13,     k93, kA3, k04, k05, k06, k16, kA6, k07,      k17, k08, kA8, k19, \
     k10, kA0, k21, kA1, k22, kA2, k23,     k83, k14, kA4, k15, kA5, k26, k96,           k27, k18, k98, k88, \

@@ -8,7 +8,7 @@
         "vid": "0x4450"
     },
     "layouts": {
-        "LAYOUT_100_ansi": {
+        "LAYOUT_1800_alice_ansi": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
@@ -111,7 +111,7 @@
                 { "label": "\u2192", "x": 18.75, "y": 5.75 }
             ]
         },
-        "LAYOUT_100_iso": {
+        "LAYOUT_1800_alice_iso": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1.25, "y": 0 },
