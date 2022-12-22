@@ -80,3 +80,7 @@ void __early_init(void) {
 void boardInit(void) {
 
 }
+
+void restart_usb_driver(USBDriver *usbp) {
+  // Do nothing. Restarting the USB driver on these boards breaks it.
+}

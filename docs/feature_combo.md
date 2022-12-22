@@ -105,11 +105,11 @@ It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](
 ## Keycodes
 You can enable, disable and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`
 
-|Keycode   |Description                      |
-|----------|---------------------------------|
-|`CMB_ON`  |Turns on Combo feature           |
-|`CMB_OFF` |Turns off Combo feature          |
-|`CMB_TOG` |Toggles Combo feature on and off |
+|Keycode          |Aliases  |Description                     |
+|-----------------|---------|--------------------------------|
+|`QK_COMBO_ON`    |`CM_ON`  |Turns on Combo feature          |
+|`QK_COMBO_OFF`   |`CM_OFF` |Turns off Combo feature         |
+|`QK_COMBO_TOGGLE`|`CM_TOGG`|Toggles Combo feature on and off|
 
 # Advanced Configuration
 These configuration settings can be set in your `config.h` file.
@@ -255,7 +255,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 ```
 
 ## Variable Length Combos
-If you leave `COMBO_COUNT` undefined in `config.h`, it allows you to programmatically declare the size of the Combo data structure and avoid updating `COMBO_COUNT`. Instead a variable called `COMBO_LEN` has to be set. It can be set with something similar to the following in `keymap.c`: `uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `uint16_t COMBO_LEN = COMBO_LENGTH;` as such:
+If you leave `COMBO_COUNT` undefined in `config.h`, it allows you to programmatically declare the size of the Combo data structure and avoid updating `COMBO_COUNT`. Instead a variable called `COMBO_LEN` has to be set. It can be set with something similar to the following in `keymap.c`: `uint16_t COMBO_LEN = ARRAY_SIZE(key_combos);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `uint16_t COMBO_LEN = COMBO_LENGTH;` as such:
 ```c
 enum myCombos {
     ...,

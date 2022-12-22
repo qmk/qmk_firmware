@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_CS_1] = LAYOUT(
       KC_TAB,       LCTL(KC_A), KC_E,         KC_P,          LCTL(KC_0),
       MO(WIN_CS_2), KC_M,       KC_BSPC,      KC_B,          KC_HYPR,
-                    KC_LSFT,    KC_LCTRL,     LCTL(KC_Z),    KC_SPC
+                    KC_LSFT,    KC_LCTL,      LCTL(KC_Z),    KC_SPC
     ),
     [WIN_CS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          LCTL(KC_GRV),
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_PS_1] = LAYOUT(
       KC_TAB,       LCTL(KC_A), KC_E,         KC_B,          LCTL(KC_1),
       MO(WIN_PS_2), KC_L,       LCTL(KC_DEL), LCTL(KC_QUOT), KC_MEH,
-                    KC_LSFT,    KC_LCTRL,     LCTL(KC_Z),    KC_SPC
+                    KC_LSFT,    KC_LCTL,      LCTL(KC_Z),    KC_SPC
     ),
     [WIN_PS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          KC_ESC,

@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_BSPC,
   KC_TAB,   KC_A,   KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,  KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,      KC_CAPS ,KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-                 KC_LGUI,KC_LALT,KC_LCTRL,KC_LOWER, KC_ENT,      KC_SPC,  KC_RAISE, KC_RCTRL, KC_RALT, KC_PSCR
+                 KC_LGUI,KC_LALT,KC_LCTL,KC_LOWER, KC_ENT,      KC_SPC,  KC_RAISE, KC_RCTL, KC_RALT, KC_PSCR
 ),
 /*
  * QWERTY
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
   KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,       KC_MPLY,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-  KC_LGUI,KC_LALT,KC_LCTRL, KC_LOWER, KC_ENT,      KC_SPC,  KC_RAISE, KC_RCTRL, KC_RALT, KC_PSCR
+  KC_LGUI,KC_LALT,KC_LCTL, KC_LOWER, KC_ENT,      KC_SPC,  KC_RAISE, KC_RCTL, KC_RALT, KC_PSCR
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -137,9 +137,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_GAME] = LAYOUT(
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV,
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
-  KC_LCTRL,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
+  KC_LCTL,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,       KC_MPLY,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-  KC_LGUI,KC_LALT,KC_SPC, KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTRL, KC_RALT, KC_PSCR
+  KC_LGUI,KC_LALT,KC_SPC, KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTL, KC_RALT, KC_PSCR
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -167,7 +167,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 
 bool show_lock = true; // this is used to display the lock icon and disable keypresses when the keyboard is locked
-bool animate = true; // this variable is used to fix the flickering bug
 
 static void render_logo(void) {
     static const char PROGMEM no_qmk[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -230,7 +229,6 @@ static const char PROGMEM mac_logo[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 /* timers */
 uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
 
 /* current frame */
 uint8_t current_frame = 0;
@@ -322,36 +320,36 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
 
         /* current status */
         if (led_usb_state.caps_lock) {
-            oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(bark[current_frame], ANIM_SIZE);
 
         } else if (isSneaking) {
-            oled_write_raw_P(sneak[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(sneak[current_frame], ANIM_SIZE);
 
         } else if (current_wpm <= MIN_WALK_SPEED) {
-            oled_write_raw_P(sit[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(sit[current_frame], ANIM_SIZE);
 
         } else if (current_wpm <= MIN_RUN_SPEED) {
-            oled_write_raw_P(walk[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(walk[current_frame], ANIM_SIZE);
 
         } else {
-            oled_write_raw_P(run[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(run[current_frame], ANIM_SIZE);
         }
     }
 
-    /* animation timer, stops the animation logic when the oled is turned off  */
-    if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION && animate == true) {
+#    if OLED_TIMEOUT > 0
+    /* the animation prevents the normal timeout from occuring */
+    if (last_input_activity_elapsed() > OLED_TIMEOUT && last_led_activity_elapsed() > OLED_TIMEOUT) {
+        oled_off();
+        return;
+    } else {
+        oled_on();
+    }
+#    endif
+
+    /* animation timer  */
+    if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
         anim_timer = timer_read32();
         animate_luna();
-    }
-
-    /* this fixes the screen on and off bug by disabling the animation logic when the oled is off */
-    if (current_wpm > 0) {
-        oled_on();
-        anim_sleep = timer_read32();
-        animate = true;
-    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-        oled_off();
-        animate = false;
     }
 }
 
