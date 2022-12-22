@@ -198,7 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         }
-        case OLED_LOCK:
+        case OLED_LOCK: {
 #if defined(OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
             extern bool is_oled_locked;
             if (record->event.pressed) {
@@ -208,6 +208,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
 #endif
+        }
             break;
 #if defined(OS_DETECTION_ENABLE) && defined(OS_DETECTION_DEBUG_ENABLE)
         case STORE_SETUPS:
