@@ -1,7 +1,8 @@
 {
     "keyboard_name": "Z60 Solder", 
+    "manufacturer": "Quarkeys Stuidio",
     "url": "www.quarkeys.com", 
-    "maintainer": "Quarkeys", 
+    "maintainer": "TommyZ", 
     "usb": {
         "vid": "0x8490",
         "pid": "0x3C01",
@@ -9,8 +10,7 @@
     },
     "layouts": {
         "LAYOUT": {
-            "layout": 
-            [
+            "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"!", "x":1, "y":0}, 
                 {"label":"@", "x":2, "y":0}, 
