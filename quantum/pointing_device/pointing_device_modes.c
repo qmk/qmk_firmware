@@ -20,12 +20,22 @@
 
 /* initialize static functions */
 
-/* duplication of local inline function from pointing_device.c */
-static inline int8_t pointing_device_hv_clamp(mouse_xy_report_t value) {
+/* local inline functions from pointing_device.c */
+static inline int8_t pointing_device_hv_clamp(int16_t value) {
     if (value < INT8_MIN) {
         return INT8_MIN;
     } else if (value > INT8_MAX) {
         return INT8_MAX;
+    } else {
+        return value;
+    }
+}
+
+static inline mouse_xy_report_t pointing_device_xy_clamp(int16_t value) {
+    if (value < XY_REPORT_MIN) {
+        return XY_REPORT_MIN;
+    } else if (value > XY_REPORT_MAX) {
+        return XY_REPORT_MAX;
     } else {
         return value;
     }
@@ -202,13 +212,13 @@ static uint8_t get_pointing_device_direction(void) {
 static uint8_t get_pointing_mode_divisor(void) {
     // allow for user and keyboard overrides
     uint8_t divisor;
-    divisor = get_pointing_mode_divisor_user(pointing_mode_context.mode.id, pointing_mode_context.mode.direction);
+    divisor = get_pointing_mode_divisor_user(get_pointing_mode_id(), pointing_mode_context.mode.direction);
     if (divisor) return divisor;
-    divisor = get_pointing_mode_divisor_kb(pointing_mode_context.mode.id, pointing_mode_context.mode.direction);
+    divisor = get_pointing_mode_divisor_kb(get_pointing_mode_id(), pointing_mode_context.mode.direction);
     if (divisor) return divisor;
 
     // built in mode divisors
-    switch (pointing_mode_context.mode.id) {
+    switch (get_pointing_mode_id()) {
         case PM_HISTORY:
             divisor = POINTING_HISTORY_DIVISOR;
             break;
@@ -229,6 +239,9 @@ static uint8_t get_pointing_mode_divisor(void) {
             divisor = POINTING_DRAG_DIVISOR;
             break;
     }
+    // Modify divisor if precision is toggled
+    if (get_toggled_pointing_mode_id() == PM_PRECISION && !(get_pointing_mode_id() == PM_PRECISION)) divisor *= POINTING_PRECISION_DIVISOR;
+
     // Prevent 0 divisor
     if (!divisor) divisor = POINTING_DEFAULT_DIVISOR;
 
@@ -338,11 +351,6 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
     if (!(process_pointing_mode_user(pointing_mode, &mouse_report) && process_pointing_mode_kb(pointing_mode, &mouse_report))) {
         return mouse_report;
     }
-    // handle allow toggle precision mode to impact other active modes
-    if (pointing_mode.id == PM_PRECISION || pointing_mode_context.config.tg_mode_id == PM_PRECISION) {
-        pointing_mode.x /= (int16_t)pointing_mode.divisor;
-        pointing_mode.y /= (int16_t)pointing_mode.divisor;
-    }
 #    if (POINTING_MODE_MAP_COUNT > 0)
     if (pointing_mode.id >= POINTING_MODE_MAP_START && pointing_mode.id <= (POINTING_MODE_MAP_START + POINTING_MODE_MAP_COUNT - 1)) {
         pointing_tap_codes(POINTING_MODE_MAP(pointing_mode.id - POINTING_MODE_MAP_START));
@@ -354,22 +362,26 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
         case PM_DRAG:
             mouse_report.h = pointing_device_hv_clamp(pointing_mode.x / (int16_t)pointing_mode.divisor);
             mouse_report.v = pointing_device_hv_clamp(pointing_mode.y / (int16_t)pointing_mode.divisor);
-            pointing_mode.x -= mouse_report.h * (int16_t)pointing_mode.divisor;
-            pointing_mode.y -= mouse_report.v * (int16_t)pointing_mode.divisor;
+            pointing_mode.x -= (int16_t)mouse_report.h * (int16_t)pointing_mode.divisor;
+            pointing_mode.y -= (int16_t)mouse_report.v * (int16_t)pointing_mode.divisor;
             set_pointing_mode(pointing_mode);
             break;
 
         // precision mode  (reduce x y sensitivity temporarily)
         case PM_PRECISION:
 #    ifdef POINTING_DEVICE_MODES_INVERT_X
-            mouse_report.x -= pointing_mode.x;
+            mouse_report.x -= pointing_device_xy_clamp(pointing_mode.x / (int16_t)pointing_mode.divisor);
+            pointing_mode.x += mouse_report.x * (int16_t)pointing_mode.divisor;
 #    else
-            mouse_report.x += pointing_mode.x;
+            mouse_report.x += pointing_device_xy_clamp(pointing_mode.x / (int16_t)pointing_mode.divisor);
+            pointing_mode.x -= mouse_report.x * (int16_t)pointing_mode.divisor;
 #    endif
 #    ifdef POINTING_DEVICE_MODES_INVERT_Y
-            mouse_report.y -= pointing_mode.y;
+            mouse_report.y -= pointing_device_xy_clamp(pointing_mode.y / (int16_t)pointing_mode.divisor);
+            pointing_mode.y += mouse_report.y * (int16_t)pointing_mode.divisor;
 #    else
-            mouse_report.y += pointing_mode.y;
+            mouse_report.y += pointing_device_xy_clamp(pointing_mode.y / (int16_t)pointing_mode.divisor);
+            pointing_mode.y -= mouse_report.y * (int16_t)pointing_mode.divisor;
 #    endif
             set_pointing_mode(pointing_mode);
             break;
