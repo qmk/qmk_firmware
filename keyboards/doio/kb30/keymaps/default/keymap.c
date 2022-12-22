@@ -304,12 +304,6 @@ bool oled_task_user(void) {
 }
 #endif
 
-/* Resets via on eep reset - thank you drashna! */
-void eeconfig_init_kb(void) {
-    via_eeprom_set_valid(false);
-    via_init();
-    eeconfig_init_user();
-}
 
 
 
