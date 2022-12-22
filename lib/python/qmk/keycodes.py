@@ -1,42 +1,10 @@
 from pathlib import Path
 
-from qmk.json_schema import deep_update, json_load, validate
+from qmk.json_schema import merge_ordered_dicts, deep_update, json_load, validate
 
 CONSTANTS_PATH = Path('data/constants/')
 KEYCODES_PATH = CONSTANTS_PATH / 'keycodes'
 EXTRAS_PATH = KEYCODES_PATH / 'extras'
-
-
-def _merge_ordered_dicts(dicts):
-    """Merges nested OrderedDict objects resulting from reading a hjson file.
-    Later input dicts overrides earlier dicts for plain values.
-    Arrays will be appended. If the first entry of an array is "!reset!", the contents of the array will be cleared and replaced with RHS.
-    Dictionaries will be recursively merged. If any entry is "!reset!", the contents of the dictionary will be cleared and replaced with RHS.
-    """
-    from typing import OrderedDict
-    result = OrderedDict()
-
-    def add_entry(target, k, v):
-        if k in target and isinstance(v, (OrderedDict, dict)):
-            if "!reset!" in v:
-                target[k] = v
-            else:
-                target[k] = _merge_ordered_dicts([target[k], v])
-            if "!reset!" in target[k]:
-                del target[k]["!reset!"]
-        elif k in target and isinstance(v, list):
-            if v[0] == '!reset!':
-                target[k] = v[1:]
-            else:
-                target[k] = target[k] + v
-        else:
-            target[k] = v
-
-    for d in dicts:
-        for (k, v) in d.items():
-            add_entry(result, k, v)
-
-    return result
 
 
 def _find_versions(path, prefix):
@@ -88,7 +56,7 @@ def _process_files(files):
         for file in category:
             specs.append(json_load(file))
 
-        deep_update(spec, _merge_ordered_dicts(specs))
+        deep_update(spec, merge_ordered_dicts(specs))
 
     return spec
 
