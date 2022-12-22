@@ -76,4 +76,3 @@ def generate_rgb_breathe_table(cli):
 
     # Show the results
     dump_lines(cli.args.output, header_lines, cli.args.quiet)
-
