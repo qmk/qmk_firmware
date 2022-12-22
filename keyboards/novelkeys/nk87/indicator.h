@@ -9,4 +9,4 @@
 #ifdef RGB_MATRIX_ENABLE
 void indicators_update(uint8_t caps, uint8_t fn1, uint8_t fn2);
 
-#endif
+#endif // RGB_MATRIX_ENABLE

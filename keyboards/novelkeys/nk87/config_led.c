@@ -152,4 +152,4 @@ void indicators_update(uint8_t caps, uint8_t fn1, uint8_t fn2) {
     rgb_matrix_set_color(88, 0, 0, fn2);
 }
 
-#endif
+#endif // RGB_MATRIX_ENABLE

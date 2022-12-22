@@ -10,6 +10,9 @@ BOOTLOADER = stm32-dfu
 # backlight effects.
 OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 
+# project specific files
+SRC += config_led.c
+
 # Build Options
 #   change yes to no to disable
 #
@@ -26,10 +29,3 @@ AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes            # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3733	   # Use IS31FL3733 driver
 CIE1931_CURVE = yes
-
-# TODO: https://github.com/qmk/qmk_firmware/blob/master/users/drashna/rules.mk#L14-L16
-SRC += config_led.c
-# # project specific files
-# ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-# 	SRC += config_led.c
-# endif
