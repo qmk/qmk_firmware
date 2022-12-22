@@ -7,6 +7,38 @@ KEYCODES_PATH = CONSTANTS_PATH / 'keycodes'
 EXTRAS_PATH = KEYCODES_PATH / 'extras'
 
 
+def _merge_ordered_dicts(dicts):
+    """Merges nested OrderedDict objects resulting from reading a hjson file.
+    Later input dicts overrides earlier dicts for plain values.
+    Arrays will be appended. If the first entry of an array is "!reset!", the contents of the array will be cleared and replaced with RHS.
+    Dictionaries will be recursively merged. If any entry is "!reset!", the contents of the dictionary will be cleared and replaced with RHS.
+    """
+    from typing import OrderedDict
+    result = OrderedDict()
+
+    def add_entry(target, k, v):
+        if k in target and isinstance(v, (OrderedDict, dict)):
+            if "!reset!" in v:
+                target[k] = v
+            else:
+                target[k] = _merge_ordered_dicts([target[k], v])
+            if "!reset!" in target[k]:
+                del target[k]["!reset!"]
+        elif k in target and isinstance(v, list):
+            if v[0] == '!reset!':
+                target[k] = v[1:]
+            else:
+                target[k] = target[k] + v
+        else:
+            target[k] = v
+
+    for d in dicts:
+        for (k, v) in d.items():
+            add_entry(result, k, v)
+
+    return result
+
+
 def _find_versions(path, prefix):
     ret = []
     for file in path.glob(f'{prefix}_[0-9].[0-9].[0-9].hjson'):
@@ -16,20 +48,10 @@ def _find_versions(path, prefix):
     return ret
 
 
-def _load_fragments(path, prefix, version):
-    file = path / f'{prefix}_{version}.hjson'
-    if not file.exists():
-        raise ValueError(f'Requested keycode spec ({prefix}:{version}) is invalid!')
-
-    # Load base
-    spec = json_load(file)
-
-    # Merge in fragments
-    fragments = path.glob(f'{prefix}_{version}_*.hjson')
-    for file in fragments:
-        deep_update(spec, json_load(file))
-
-    return spec
+def _potential_search_versions(version, lang=None):
+    versions = list_versions(lang)
+    versions.reverse()
+    return versions[:versions.index(version)+1]
 
 
 def _search_path(lang=None):
@@ -38,6 +60,34 @@ def _search_path(lang=None):
 
 def _search_prefix(lang=None):
     return f'keycodes_{lang}' if lang else 'keycodes'
+
+
+def _locate_files(path, prefix, versions):
+    # collate files by fragment "type"
+    files = {'_': []}
+    for version in versions:
+        files['_'].append(path / f'{prefix}_{version}.hjson')
+
+        for file in path.glob(f'{prefix}_{version}_*.hjson'):
+            fragment = file.stem.replace(f'{prefix}_{version}_', '')
+            if fragment not in files:
+                files[fragment] = []
+            files[fragment].append(file)
+
+    return files
+
+
+def _process_files(files):
+    # allow override within types of fragments - but not globally
+    spec = {}
+    for category in files.values():
+        specs = []
+        for file in category:
+            specs.append(json_load(file))
+
+        deep_update(spec, _merge_ordered_dicts(specs))
+
+    return spec
 
 
 def _validate(spec):
@@ -62,9 +112,10 @@ def load_spec(version, lang=None):
 
     path = _search_path(lang)
     prefix = _search_prefix(lang)
+    versions = _potential_search_versions(version, lang)
 
-    # Load base
-    spec = _load_fragments(path, prefix, version)
+    # Load bases + any fragments
+    spec = _process_files(_locate_files(path, prefix, versions))
 
     # Sort?
     spec['keycodes'] = dict(sorted(spec.get('keycodes', {}).items()))
