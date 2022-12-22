@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-int winlockled = 1;
 
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -35,7 +34,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_MC:
             if (record->event.pressed) {
-                host_consumer_send(0x29F);                
+                host_consumer_send(0x29F);
+              
                 //add_weak_mods(MOD_BIT(KC_1));
                 //tap_code16(KC_1);
                 //rgblight_step();
@@ -57,8 +57,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_SIRI: 
             if (record->event.pressed) {
-               // host_consumer_send(0x2A0);
-                host_consumer_send(0xCF);
+
+               host_consumer_send(0xCF);
                // rgblight_step_reverse();
             } else {
                 host_consumer_send(0);
@@ -97,30 +97,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false; /* Skip all further processing of this key */     
         
-        case GUI_TOG:
-            if (record->event.pressed) {    
 
-                if (winlockled == 0) {
-
-                    setPinInputLow(C15);
-                    winlockled = 1;
-
-                } else {
-                    
-                    setPinInputHigh(C15);
-                    winlockled = 0;
-
-                }
-                    
-            } 
-            return true; /* Skip all further processing of this key */  
         
         default:
             return true; /* Process all other keycodes normally */
     }
+};
 
-    
-}
+void housekeeping_task_user(void) {
+    writePin(C15, keymap_config.no_gui);
+};
+
+void keyboard_pre_init_user(void) {
+
+    setPinInputLow(C15);
+    writePin(C15, false);
+    setPinInputLow(C0);
+    writePin(C0, false);
+};
 
 enum custom_layers {
     Win,
@@ -166,37 +160,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// bool rgb_matrix_indicators_user(void) {
-// 	//if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-// 	if (host_keyboard_led_state().caps_lock) {
-//     	setPinInputHigh (C14);
-// 	}
-// 	else {
-// 		setPinInputLow (C14);
-// 	}
+void led_init_ports(void) {
+  setPinOutput(C0);
+  setPinOutput(C14);
+  setPinOutput(C15);
+};
 
-    
-// 	if (IS_LAYER_ON(0)) { 
-// 		setPinInputLow (C0);
-// 	}
-
-    
-// 	if (IS_LAYER_ON(1)) {   
-// 		setPinInputHigh (C0); 
-// 	}
-	
-// 	return true;
-// }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
-	if (IS_LAYER_ON(0)) { 
-		setPinInputLow (C0);
-	}
-
-	if (IS_LAYER_ON(1)) {   
-		setPinInputHigh (C0); 
-	}
+    writePin(C0, layer_state_cmp(state, 1));
 
     return state;
 
