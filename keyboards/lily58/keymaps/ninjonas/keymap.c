@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                    |      |      |      |/       /         \      \ |      |      |      |
  *                    `----------------------------'           '------''--------------------'
  */
-[_LOWER] = LAYOUT_wrapper( \
+[_LOWER] = LAYOUT_wrapper(
 	_____________________FUNC_LEFT______________________,                     _____________________FUNC_RIGHT_____________________, 
 	_____________________LOWER_L1_______________________,                     _____________________LOWER_R1_______________________, 
 	_____________________LOWER_L2_______________________,                     _____________________LOWER_R2_______________________, 
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-[_RAISE] = LAYOUT_wrapper( \
+[_RAISE] = LAYOUT_wrapper(
   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
   XXXXXXX,  XXXXXXX, _____________MOUSE_1______________,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
   XXXXXXX,  XXXXXXX, _____________MOUSE_2______________,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                    |      |      |      |/       /         \      \ |      |      |      |
  *                    `----------------------------'           '------''--------------------'
  */
-[_ADJUST] = LAYOUT_wrapper( \
+[_ADJUST] = LAYOUT_wrapper(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
   _____________________ADJUST_L1______________________,                        _____________________ADJUST_R1______________________, 
   _____________________ADJUST_L2______________________,                        _____________________ADJUST_R2______________________, 
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-[_NUMPAD] = LAYOUT_wrapper( \
+[_NUMPAD] = LAYOUT_wrapper(
   _______,  _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______, 
   _______,  _______, _______, _______, _______, _______,                        _____________________NUMPAD_1_______________________, 
   _______,  _______, _______, _______, _______, _______,                        _____________________NUMPAD_2_______________________, 
@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  *
-[_TEMPLATE] = LAYOUT_wrapper( \
+[_TEMPLATE] = LAYOUT_wrapper(
   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
