@@ -1,8 +1,6 @@
 name: Automatic Approve
 
-permissions:
-  actions: write
-  contents: read
+permissions: {}
 
 on:
   schedule:
