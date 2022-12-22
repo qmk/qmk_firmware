@@ -23,11 +23,13 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
+RGB_MATRIX_ENABLE = yes            # Use RGB matrix
+RGB_MATRIX_DRIVER = IS31FL3733	   # Use IS31FL3733 driver
 CIE1931_CURVE = yes
 
-# project specific files
-SRC =	keyboards/wilba_tech/wt_main.c \
-		keyboards/wilba_tech/wt_rgb_backlight.c \
-		drivers/led/issi/is31fl3733.c \
-		quantum/color.c \
-		i2c_master.c
+# TODO: https://github.com/qmk/qmk_firmware/blob/master/users/drashna/rules.mk#L14-L16
+SRC += config_led.c
+# # project specific files
+# ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+# 	SRC += config_led.c
+# endif

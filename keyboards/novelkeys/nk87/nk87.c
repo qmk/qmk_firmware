@@ -13,46 +13,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef RGB_BACKLIGHT_NK87
-#error RGB_BACKLIGHT_NK87 not defined, recheck config.h
-#endif
 
 #include "nk87.h"
-#include "drivers/led/issi/is31fl3733.h"
+#include "quantum.h"
 
-/* Indicator LEDS are part of the LED driver
- * Top LED is blue only. LED driver 2 RGB 63 Blue channel
- * Middle LED is blue and red. LED driver 2 RGB 63 Red and Green channel
- * Bottom LED is red only LED driver 2 RGB 48 Blue channel.
- */
-uint8_t CAPS = 0;
-uint8_t FN1 = 0;
-uint8_t FN2 = 0;
+#include "indicator.h"
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        if (led_state.caps_lock) {
-            CAPS = 255;
-        } else {
-            CAPS = 0;
-        }
+#ifdef RGB_MATRIX_ENABLE
+
+uint8_t caps = 0;
+uint8_t fn1 = 0;
+uint8_t fn2 = 0;
+
+
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
     }
-    IS31FL3733_set_color( 63+64-1, FN1, FN1, CAPS );
-    IS31FL3733_set_color( 48+64-1, 0, 0, FN2 );
-    return res;
+    if (host_keyboard_led_state().caps_lock) {
+        caps = 255;
+    } else {
+        caps = 0;
+    }
+
+    indicators_update(caps, fn1, fn2);
+
+    return true;
 }
+
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     if (state & (1UL << 1)) {
-        FN1 = 255;
+        fn1 = 255;
     } else {
-        FN1 = 0;
+        fn1 = 0;
     }
     if (state & (1UL << 2)) {
-        FN2 = 255;
+        fn2 = 255;
     } else {
-        FN2 = 0;
+        fn2 = 0;
     }
   return state;
 }
+
+#endif
