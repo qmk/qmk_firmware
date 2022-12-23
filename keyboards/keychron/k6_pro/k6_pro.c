@@ -270,7 +270,7 @@ void battery_calculte_voltage(uint16_t value) {
     battery_set_voltage(voltage);
 }
 
-void via_command_kb(uint8_t *data, uint8_t length) {
+bool via_command_kb(uint8_t *data, uint8_t length) {
     switch (data[0]) {
 #ifdef KC_BLUETOOTH_ENABLE
         case 0xAA:
@@ -282,7 +282,11 @@ void via_command_kb(uint8_t *data, uint8_t length) {
             factory_test_rx(data, length);
             break;
 #endif
+        default:
+            return false;
     }
+
+    return true;
 }
 
 #if !defined(VIA_ENABLE)

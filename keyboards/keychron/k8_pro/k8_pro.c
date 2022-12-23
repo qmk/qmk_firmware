@@ -159,7 +159,7 @@ void keyboard_post_init_kb(void) {
     power_on_indicator_timer_buffer = sync_timer_read32() | 1;
     writePin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
     writePin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
-#ifdef KC_BLUETOOTH_ENABLE
+#    ifdef KC_BLUETOOTH_ENABLE
     writePin(H3, HOST_LED_PIN_ON_STATE);
 #    endif
 
@@ -280,7 +280,7 @@ void battery_calculte_voltage(uint16_t value) {
     battery_set_voltage(voltage);
 }
 
-void via_command_kb(uint8_t *data, uint8_t length) {
+bool via_command_kb(uint8_t *data, uint8_t length) {
     switch (data[0]) {
 #ifdef KC_BLUETOOTH_ENABLE
         case 0xAA:
@@ -292,7 +292,11 @@ void via_command_kb(uint8_t *data, uint8_t length) {
             factory_test_rx(data, length);
             break;
 #endif
+        default:
+            return false;
     }
+
+    return true;
 }
 
 #if !defined(VIA_ENABLE)
