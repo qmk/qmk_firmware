@@ -214,12 +214,12 @@ void rgb_matrix_indicators_user() {
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
     if (effect_started_time > 0) {
         /* Render blinking EFFECTS */
-        uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
+        const uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
         if (deltaTime <= RGB_CONFIRMATION_BLINKING_TIME) {
-            uint8_t led_state = ((~deltaTime) >> TIME_SELECTED_BIT) & 0x01;
-            uint8_t val_r = led_state * r_effect;
-            uint8_t val_g = led_state * g_effect;
-            uint8_t val_b = led_state * b_effect;
+            const uint8_t led_state = ((~deltaTime) >> TIME_SELECTED_BIT) & 0x01;
+            const uint8_t val_r = led_state * r_effect;
+            const uint8_t val_g = led_state * g_effect;
+            const uint8_t val_b = led_state * b_effect;
             rgb_matrix_set_color_all(val_r, val_g, val_b);
             if (host_keyboard_led_state().caps_lock) {
                 set_rgb_caps_leds();
@@ -263,6 +263,17 @@ static void start_effects() {
     }
 }
 #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
+
+// RGB led number layout, function of the key
+
+//  67, led 01   0, ESC    6, F1      12, F2      18, F3   23, F4   28, F5      34, F6   39, F7   44, F8      50, F9   56, F10   61, F11    66, F12    69, Prt       Rotary(Mute)   68, led 12
+//  70, led 02   1, ~      7, 1       13, 2       19, 3    24, 4    29, 5       35, 6    40, 7    45, 8       51, 9    57, 0     62, -_     78, (=+)   85, BackSpc   72, Home       71, led 13
+//  73, led 03   2, Tab    8, Q       14, W       20. E    25, R    30, T       36, Y    41, U    46, I       52, O    58, P     63, [{     89, ]}     93, \|        75, PgUp       74, led 14
+//  76, led 04   3, Caps   9, A       15, S       21, D    26, F    31, G       37, H    42, J    47, K       53, L    59, ;:    64, '"                96, Enter     86, PgDn       77, led 15
+//  80, led 05   4, Sh_L   10, Z      16, X       22, C    27, V    32, B       38, N    43, M    48, ,<      54, .<   60, /?               90, Sh_R   94, Up        82, End        81, led 16
+//  83, led 06   5, Ct_L   11,Win_L   17, Alt_L                     33, SPACE                     49, Alt_R   55, FN             65, Ct_R   95, Left   97, Down      79, Right      84, led 17
+//  87, led 07                                                                                                                                                                      88, led 18
+//  91, led 08                                                                                                                                                                      92, led 19
 
 static void set_rgb_caps_leds() {
     rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1

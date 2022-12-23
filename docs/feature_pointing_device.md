@@ -220,9 +220,11 @@ Additionally, by default, `pointing_device_send()` will only send a report when 
 
 Also, you use the `has_mouse_report_changed(new, old)` function to check to see if the report has changed.
 
-## Example
+## Examples
 
-In the following example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released - because that's a totally useful function.  Listen, this is an example:
+### Custom Mouse Keycode
+
+In this example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released - because that's a totally useful function.
 
 ```c
 case MS_SPECIAL:
@@ -242,3 +244,33 @@ case MS_SPECIAL:
 ```
 
 Recall that the mouse report is set to zero (except the buttons) whenever it is sent, so the scrolling would only occur once in each case.
+
+### Drag Scroll or Mouse Scroll
+
+A very common implementation is to use the mouse movement to scroll instead of moving the cursor on the system.  This uses the `pointing_device_task_user` callback to intercept and modify the mouse report before it's sent to the host system. 
+
+```c
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+};
+
+bool set_scrolling = false;
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = mouse_report.y = 0
+    }
+    return mouse_report;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == DRAG_SCROLL && record->event.pressed) {
+        set_scrolling = !set_scrolling;
+    }
+    return true;
+}
+```
+
+This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  

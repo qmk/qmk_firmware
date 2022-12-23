@@ -344,6 +344,9 @@
     'mechlovin/hannah65/mechlovin9': {
           target: 'mechlovin/mechlovin9/rev1'
     },
+    'mechlovin/hex4b': {
+          target: 'mechlovin/hex4b/rev1'
+    },
     'melgeek/z70ultra': {
           target: 'melgeek/z70ultra/rev1'
     },

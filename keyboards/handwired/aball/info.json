@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "aball",
+    "url": "https://github.com/brickbots/aball/",
+    "maintainer": "@brickbots",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0}
+            ]
+        }
+    }
+}
