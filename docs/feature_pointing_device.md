@@ -921,7 +921,7 @@ The following callbacks can be used to overwrite built in mode divisors or to se
 | `uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction);` | Keymap/user level callback for setting divisor                            |
 
  
-#### Example code of divisor adjustment
+#### Example code of assigning divisors for new modes
 ```c
 // added to keymap.c
 // assuming poinding device enum and maps from example above
@@ -969,36 +969,44 @@ uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction) {
         case PM_BROW:
             // half speed for vertical axis
             divisor = direction < PD_LEFT ? 128 : 64;
+            break;
         
         case PM_RGB_MD_VA:
             // half speed for horizontal axis
             divisor = direction < PD_LEFT ? 64 : 128;
+            break;
         
         case PM_RGB_HU_SA:
             // example of unique divisor for each mode (not actually recommended for this mode (64 would be a good divisor here))
             switch(direction) {
                 case PD_DOWN:
                     divisor = 32;
+                    break;
                 case PD_UP:
                     divisor = 64;
+                    break;
                 case PD_LEFT:
                     divisor = 16;
+                    break;
                 case PD_RIGHT:
                     divisor = 128;
-            }  
+                    break;
+            }
+            break;
             
         case PM_RGB_SPEED:
-            divisor = 64; // could skip adding this if default if POINTING_DEFAULT_DIVISOR is 64
+            divisor = 64;
+            break;
+    }
+    // additional precision mode activated by bool that is set elsewhere (e.g. custom key or based on layer)
+    if(super_precision) {
+        divisor = ((uint16_t)divisor * 4) > 255 ? 255 : (divisor * 4);
     }
     
-    if(super_precision) { // additional precision mode activated by 
-        divisor = (divisor * 4) > 255 ? 255 : (divisor * 4);
-    }
-    
-    return divisor; // returning 0 to let processing of divisors continue
+    return divisor;
 }
 ```
-
+The above alternative method uses a `uint8_t` variable that defaults to zero that is set to the correct divisor and then returned at the end of the function.  This allows for additional modification of the divisor before it is returned such as having a variable that doubles the divisor or could possibly add or subtract a dynamic value.  Zero values should be returned before any addition or subtraction step as otherwise this will overwrite all other divisors.  Additionally any built in modes that are intended to be affected by these modifications should be redefined here as well.
 
 ### Creating Custom pointing mode keycodes
 
@@ -1052,6 +1060,7 @@ bool process_pointing_mode_user(pointing_mode_t pointing_mode, report_mouse_t* m
 }
 
 ```
+
 The above code will create an Application pointing mode that should work on windows and linux allowing for navigation through currently open applications/windows having the alt key held will keep the application/window UI active as long as the `KC_MO_APP` key is held (_after the first pointing device input_).
 
 
@@ -1134,7 +1143,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 ```
 This approach will overwrite any toggled modes upon a layer switch but will allow for momentary mode switching while on other layers returning to toggled mode for that layer once momentary mode is released. This is intended to be used with keys primarily being used for momentary modes and layer mode switches using toggled modes.
-
 
 
 [comment]: # (>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>TODO: ADD Code Example changing pointing modes based on tap_dance)
