@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef KEYBOARD_GENERAL_PACKET_DELAY
-#define KEYBOARD_GENERAL_PACKET_DELAY 0
+#    define KEYBOARD_GENERAL_PACKET_DELAY 0
 #endif
 
 extern keymap_config_t keymap_config;
