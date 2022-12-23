@@ -21,6 +21,6 @@ Flashing example for this keyboard:
 
     make quarkeys/z60/solder:default:flash
 
-**Bootloader:** Press the physical reset button (ECS position of layer 1)
+**Bootloader:** Press the `QK_BOOT` keycode at ESC position of layer 1.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
