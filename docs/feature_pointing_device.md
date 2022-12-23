@@ -770,7 +770,7 @@ Pointing device modes activated by toggle type functions/macros have their mode 
 | :-------------------- | --------- | :-----: | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `PM_NONE`             |  _None_   |     0   | Null pointing mode that will will pass through normal x and y output of pointing device (Cannot be overwritten)                                             |
 | `PM_DRAG`             | `PM_DRG`  |     1   | Change x and y movement of pointing device into h and v axis values  `x->h`  `y->v`                                                                         |
-| `PM_PRECISION`        | `PM_PRE`  |     2   | Reduce x and y movement output of pointing device by the divisor (_similar to "sniping" modes_)                                                             |
+| `PM_PRECISION`        | `PM_PRE`  |     2   | Reduce x and y movement output of pointing device by the divisor which can affect other modes when toggled (_see notes_)                                    |
 | `PM_CARET`            | `PM_CRT`  |     3   | Taps arrow keys based on pointing input  `x->(<-, ->)` `y->(^, v)`                                                                                          |
 | `PM_HISTORY`          | `PM_HST`  |     4   | x movement of pointing device to undo and redo macros  `x->(C(KC_Z)), C(KC_Y)`  `y->ignored`                                                                |
 | `PM_VOLUME`           | `PM_VOL`  |     5   | y movement of pointing device to media volume up/down (requires `EXTRAKEY_ENABLED`) `x->ignored` `y->(KC_VOLU, KC_VOLD)`                                    |
@@ -780,6 +780,7 @@ Pointing device modes activated by toggle type functions/macros have their mode 
 ***Notes:***   
 -***These modes can all be overwritten with the exception of `PM_NONE`.***   
 -***The mode id count starts at 0 (e.g. mode id 15 is the 16th mode) and thus mode mode ids 6-15 are free to be used without overwriting a mode (see adding custom modes below)***
+-***The `PM_PRECISION` mode has additional behaviour when it is the current toggle mode, all modes will have their divisors multiplied by `POINTING_PRECISION_DIVISOR` (see adding divisors for more detail)***
 
 #### Use In A keymap:
 ```c
@@ -957,6 +958,47 @@ uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction) {
 ```
 This code assigns some divisors for some of the modes added in a previous code example showing some of the things that are possible with defining divisors. It could also be possible to make divisors adjust based on global variables such as a dynamic divisor adjustment term (_note that if a divisor of zero is returned it will default to_ `POINTING_DIVISOR_DEFAULT`).
 
+#### Another approach to assigning divisors
+```c
+// added to keymap.c
+// assuming poinding device enum and maps from example above
+uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction) {
+    uint8_t divisor = 0;
+    switch(mode_id) {
+        
+        case PM_BROW:
+            // half speed for vertical axis
+            divisor = direction < PD_LEFT ? 128 : 64;
+        
+        case PM_RGB_MD_VA:
+            // half speed for horizontal axis
+            divisor = direction < PD_LEFT ? 64 : 128;
+        
+        case PM_RGB_HU_SA:
+            // example of unique divisor for each mode (not actually recommended for this mode (64 would be a good divisor here))
+            switch(direction) {
+                case PD_DOWN:
+                    divisor = 32;
+                case PD_UP:
+                    divisor = 64;
+                case PD_LEFT:
+                    divisor = 16;
+                case PD_RIGHT:
+                    divisor = 128;
+            }  
+            
+        case PM_RGB_SPEED:
+            divisor = 64; // could skip adding this if default if POINTING_DEFAULT_DIVISOR is 64
+    }
+    
+    if(super_precision) { // additional precision mode activated by 
+        divisor = (divisor * 4) > 255 ? 255 : (divisor * 4);
+    }
+    
+    return divisor; // returning 0 to let processing of divisors continue
+}
+```
+
 
 ### Creating Custom pointing mode keycodes
 
@@ -1049,7 +1091,31 @@ These variables are tracked outside of the `pointing_mode_t` structure as they a
  
 These can be used to manipulate the current pointing mode id and toggle mode id at any time such as during layer changes, keypresses, tap dance sequences, and anywhere else in code (see examples below).
 
-#### Code example for changing modes on layer changes
+#### Code example for changing modes on layer changes (will keep current toggle mode)
+```c
+// in keymap.c
+// assuming enum and Layout for layers are already defined
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // reset toggle to base pointing mode
+    if (get_toggle_pointing_mode_id() != get_pointing_mode_id()) {
+        set_pointing_mode_id(get_toggle_pointing_mode_id());
+    }
+    switch(get_highest_layer(state)) {
+        case _NAVI:  // Navigation layer
+            set_pointing_mode_id(PM_CARET);
+            break;
+        case _MEDIA: // Media control layer
+            set_pointing_mode_id(PM_VOL);
+            break;
+    }
+    return state;
+}
+```
+
+The above approach will maintain the current toggle mode id and set layer pointing modes as momentary type modes on top of it so that when changing to a different layer or momentary pointing mode key is released the current toggle mode will be re asserted.
+
+
+#### Example that treats toggle modes as a "default" mode that changes depending on layer
 ```c
 // in keymap.c
 // assuming enum and Layout for layers are already defined
@@ -1067,6 +1133,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 ```
+This approach will overwrite any toggled modes upon a layer switch but will allow for momentary mode switching while on other layers returning to toggled mode for that layer once momentary mode is released. This is intended to be used with keys primarily being used for momentary modes and layer mode switches using toggled modes.
+
+
 
 [comment]: # (>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>TODO: ADD Code Example changing pointing modes based on tap_dance)
 

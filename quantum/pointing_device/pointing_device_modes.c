@@ -240,7 +240,9 @@ static uint8_t get_pointing_mode_divisor(void) {
             break;
     }
     // Modify divisor if precision is toggled
-    if (get_toggled_pointing_mode_id() == PM_PRECISION && !(get_pointing_mode_id() == PM_PRECISION)) divisor *= POINTING_PRECISION_DIVISOR;
+    if (get_toggled_pointing_mode_id() == PM_PRECISION && !(get_pointing_mode_id() == PM_PRECISION)) {
+        divisor = ((uint16_t)divisor * POINTING_PRECISION_DIVISOR) > 255 ? 255:(divisor * POINTING_PRECISION_DIVISOR);
+    }
 
     // Prevent 0 divisor
     if (!divisor) divisor = POINTING_DEFAULT_DIVISOR;
