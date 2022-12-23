@@ -15,18 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-const matrix_row_t matrix_mask[MATRIX_ROWS] = {
-    0b1111111111111110,
-    0b1111111111111101,
-    0b1111111111111011,
-    0b1111111111110111,
-    0b1111111111101111,
-    0b1111111111011111,
-    0b1111111110111111,
-    0b1111111101111111,
-    0b1111111011111111,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_63_ansi(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
