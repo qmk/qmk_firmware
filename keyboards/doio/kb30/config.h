@@ -54,7 +54,7 @@
 
 
 /* OLED */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    define OLED_BRIGHTNESS 5
 #    define OLED_TIMEOUT 10000000
 #endif
