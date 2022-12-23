@@ -202,6 +202,7 @@ def new_keyboard(cli):
     if keyboard(kb_name).exists():
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
         return 1
+
     user_name = cli.config.new_keyboard.name if cli.config.new_keyboard.name else prompt_user()
     real_name = cli.args.realname or cli.config.new_keyboard.name if cli.args.realname or cli.config.new_keyboard.name else prompt_name(user_name)
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
