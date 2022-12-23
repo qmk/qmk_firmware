@@ -1,7 +1,6 @@
 # Quarkeys Z60 Keyboard
 
 ![Z60](https://static.wixstatic.com/media/72b918_45f82258186646d4bfa57c9d73ccc9bc~mv2.jpeg)
-![Layout](https://static.wixstatic.com/media/72b918_bb37ec16543545b0aac331d5a7fa977c~mv2.png)
 
 A 60% Gasket keyboard with innovated top enclosure made by Quarkeys, second of out projects.
 
