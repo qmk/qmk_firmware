@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "C39", 
+    "manufacturer": "Maple Computing",
+    "url": "", 
+    "maintainer": "Space Cat", 
+    "usb": {
+        "vid": "0xCA17",
+        "pid": "0xCA39",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"label":"Q", "x":0, "y":0}, {"label":"W", "x":1, "y":0}, {"label":"E", "x":2, "y":0}, {"label":"R", "x":3, "y":0}, {"label":"T", "x":4, "y":0}, {"label":"Back", "x":5, "y":0}, {"label":"Y", "x":6, "y":0}, {"label":"U", "x":7, "y":0}, {"label":"I", "x":8, "y":0}, {"label":"O", "x":9, "y":0}, {"label":"P", "x":10, "y":0}, {"label":"M1", "x":11.25, "y":0}, {"label":"M2", "x":12.25, "y":0}, {"label":"A", "x":0, "y":1}, {"label":"S", "x":1, "y":1}, {"label":"D", "x":2, "y":1}, {"label":"F", "x":3, "y":1}, {"label":"G", "x":4, "y":1}, {"label":"Enter", "x":5, "y":1}, {"label":"H", "x":6, "y":1}, {"label":"J", "x":7, "y":1}, {"label":"K", "x":8, "y":1}, {"label":"L", "x":9, "y":1}, {"label":";", "x":10, "y":1}, {"label":"M3", "x":11.25, "y":1}, {"label":"M4", "x":12.25, "y":1}, {"label":"Z", "x":0, "y":2}, {"label":"X", "x":1, "y":2}, {"label":"C", "x":2, "y":2}, {"label":"V", "x":3, "y":2}, {"label":"B", "x":4, "y":2}, {"label":"Fn", "x":5, "y":2}, {"label":"N", "x":6, "y":2}, {"label":"M", "x":7, "y":2}, {"label":"<", "x":8, "y":2}, {"label":">", "x":9, "y":2}, {"label":"?", "x":10, "y":2}, {"label":"M5", "x":11.25, "y":2}, {"label":"M6", "x":12.25, "y":2}]
+        }
+    }
+}

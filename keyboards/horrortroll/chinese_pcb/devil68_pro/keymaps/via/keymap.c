@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,25 +27,9 @@
 // entirely and just use numbers.
 
 enum layer_names {
-    _BASE = 0,
-    _FN = 1
+    _BASE,
+    _FN,
 };
-
-enum user_rgb_mode {
-    RGB_MODE_ALL,
-    RGB_MODE_KEYLIGHT,
-    RGB_MODE_UNDERGLOW,
-    RGB_MODE_NONE,
-};
-
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t rgb_mode :8;
-    };
-} user_config_t;
-
-user_config_t user_config;
 
 // enum layer_keycodes { };
 
@@ -75,13 +59,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        │    │    │    │                        │   │   │   │   │   │   │
        └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
 */
-    /*  Row:    0        1        2        3        4     5     6       7     8     9        10       11       12       13       14       15     */
+    /*  Row:    0        1        2        3        4        5        6        7        8        9        10       11       12       13       14       15     */
     [_BASE] = LAYOUT_65_ansi(
-                KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4, KC_5, KC_6,   KC_7, KC_8, KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC, KC_GRV,
-                KC_TAB,           KC_Q,    KC_W,    KC_E, KC_R, KC_T,   KC_Y, KC_U, KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
-                KC_CAPS,          KC_A,    KC_S,    KC_D, KC_F, KC_G,   KC_H, KC_J, KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,           KC_PGUP,
-                         KC_LSFT, KC_Z,    KC_X,    KC_C, KC_V, KC_B,   KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_PGDN,
-                KC_LCTL, KC_LGUI,          KC_LALT,             KC_SPC,                      KC_RALT, MO(_FN), KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
+                KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC, KC_GRV,
+                KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
+                KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,           KC_PGUP,
+                         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_PGDN,
+                KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, MO(_FN), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
             ),
 
 /*
@@ -97,37 +81,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        │    │    │    │                        │   │   │App│Spd│Vad│Spi│
        └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
 */
-    /*  Row:    0        1        2        3         4        5        6        7        8        9        10       11       12       13       14     */
+    /*  Row:    0        1        2        3        4        5        6        7        8        9        10       11       12       13       14       15     */
     [_FN]   = LAYOUT_65_ansi(
-                _______, KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           _______, RESET,
-                _______,          _______, KC_UP,   _______,  _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, _______, _______, RGB_HUI, RGB_MOD,
-                _______,          KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, RGB_TOG, _______, _______, _______,          KC_HOME,
-                         _______, _______, _______,  KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,          _______, RGB_VAI, KC_END,
-                _______, _______,          _______,                    _______,                            _______, _______, KC_APP,  RGB_SPD, RGB_VAD, RGB_SPI
+                _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           _______, QK_BOOT,
+                _______,          _______, KC_UP,   _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, _______, _______, RGB_HUI, RGB_MOD,
+                _______,          KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, RGB_TOG, _______, _______, _______,          KC_HOME,
+                         _______, _______, _______, KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,          _______, RGB_VAI, KC_END,
+                _______, _______,          _______,                   _______,                            _______, _______, KC_APP,  RGB_SPD, RGB_VAD, RGB_SPI
             ),
 };
-
-void keyboard_post_init_kb(void) {
-    user_config.raw = eeconfig_read_user();
-    switch (user_config.rgb_mode) {
-        case RGB_MODE_ALL:
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable_noeeprom();
-            break;
-        case RGB_MODE_KEYLIGHT:
-            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        case RGB_MODE_UNDERGLOW:
-            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        case RGB_MODE_NONE:
-            rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-    }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -137,37 +99,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     case LED_FLAG_ALL: {
                         rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
                         rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_KEYLIGHT;
                     }
                     break;
                     case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
                         rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
                         rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_UNDERGLOW;
                     }
                     break;
                     case (LED_FLAG_UNDERGLOW): {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
                         rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_NONE;
                     }
                     break;
                     default: {
                         rgb_matrix_set_flags(LED_FLAG_ALL);
                         rgb_matrix_enable_noeeprom();
-                        user_config.rgb_mode = RGB_MODE_ALL;
                     }
                     break;
                 }
-                eeconfig_update_user(user_config.raw);
             }
             return false;
 	}
-
     return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     HSV      hsv = rgb_matrix_config.hsv;
     uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
     hsv.h        = time;
@@ -184,4 +140,5 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(30, 0, 0, 0);
         }
     }
+    return false;
 }

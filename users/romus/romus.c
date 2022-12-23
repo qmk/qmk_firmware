@@ -59,7 +59,7 @@ __attribute__ ((weak)) void matrix_scan_keymap(void) { }
 __attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-__attribute__ ((weak)) uint32_t layer_state_set_keymap (uint32_t state) {
+__attribute__ ((weak)) layer_state_t layer_state_set_keymap (layer_state_t state) {
     return state;
 }
 __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
@@ -142,7 +142,7 @@ void matrix_init_user (void) {
 
     // Correct unicode
 #ifdef UNICODE_ENABLE
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 #endif
 
     // Make beginning layer DVORAK
@@ -272,7 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(tone_linux);
 #endif
-                set_unicode_input_mode(UC_LNX);
+                set_unicode_input_mode(UNICODE_MODE_LINUX);
             }
             return false;
             break;
@@ -282,7 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(tone_windows);
 #endif
-                set_unicode_input_mode(UC_WIN);
+                set_unicode_input_mode(UNICODE_MODE_WINDOWS);
             }
             return false;
             break;
@@ -551,7 +551,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     state = layer_state_set_keymap (state);
 #ifdef RGBLIGHT_ENABLE
     // Change RGB lighting depending on the last layer activated
-    rgblight_change( biton32(state) );
+    rgblight_change( get_highest_layer(state) );
 #endif
     return state;
 }

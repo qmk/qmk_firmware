@@ -20,10 +20,11 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 PS2_MOUSE_ENABLE = yes
-PS2_USE_INT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 CUSTOM_MATRIX = yes
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = AdafruitBLE
+BLUETOOTH_DRIVER = BluefruitLE
 
 SRC += ws2812.c
 SRC += rgbsps.c

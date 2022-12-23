@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0037
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    joaofbmaia
-#define PRODUCT         6macro
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
@@ -33,22 +26,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* pinout - DON'T CHANGE */
 #define MATRIX_ROW_PINS { B3, B4 }
 #define MATRIX_COL_PINS { B0, B1, B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN D2
 #define RGBLED_NUM 10
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 //   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== all animations enable ==*/
-//   #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

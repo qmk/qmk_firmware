@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // This is a momentary layer: once you let go of caps, you'll be back in layer 1.
     [1] = {
         {KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL },
-        {_______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_INS,  KC_DEL,  _______},
+        {_______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, KC_INS,  KC_DEL,  _______},
         {_______, AUD_PRV, AUD_PLY, AUD_NXT, _______, _______, _______, _______, _______, _______, _______, _______, TO(2)  ,   _x_  },
         {KC_CAPS,   _x_  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _x_  },
         {KC_RCTL, KC_RGUI, KC_RALT,   _x_  ,   _x_  ,   _x_  ,   _x_  , _______,   _x_  ,   _x_  , KC_HOME, KC_PGUP, KC_PGDN,  KC_END}
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Layer 2: Zeal60 and backlight configuration. (Get here quickly by pressing Caps+Enter from Layer 1.)
 // This is a persistent layer. Get back to the default layer by pressing enter.
     [2] = {
-        {RESET,   EF_DEC,  EF_INC,  BR_DEC,  BR_INC,  ES_DEC,  ES_INC,  _______, _______, _______, _______, _______, _______, _______},
+        {QK_BOOT, EF_DEC,  EF_INC,  BR_DEC,  BR_INC,  ES_DEC,  ES_INC,  _______, _______, _______, _______, _______, _______, _______},
         {_______, H1_DEC,  H1_INC,  S1_DEC,  S1_INC,  _______, _______, _______, _______, _______, _______, _______, _______, _______},
         {_______, H2_DEC,  H2_INC,  S2_DEC,  S2_INC,  _______, _______, _______, _______, _______, _______, _______, TO(0)  ,   _x_  },
         {RGB_MOD,   _x_  , RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, _______, _______,   _x_  },

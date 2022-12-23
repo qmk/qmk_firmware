@@ -1,1 +1,0 @@
-# The keymap for krush60 solder layout ansi 7U arrow

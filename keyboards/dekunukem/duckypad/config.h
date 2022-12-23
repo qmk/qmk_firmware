@@ -22,12 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x444E // "DN"
-#define PRODUCT_ID      0x4450 // "DP"
-#define DEVICE_VER      0x0001 // 1.0
-#define MANUFACTURER dekuNukem
-#define PRODUCT duckyPad
-
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 17
 
@@ -35,13 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN A10
 #define RGBLED_NUM 15
-#define DRIVER_LED_TOTAL 15
+#define RGB_MATRIX_LED_COUNT 15
 
 #ifdef RGB_MATRIX_ENABLE
 
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define RGB_MATRIX_STARTUP_HUE 221
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define RGB_MATRIX_DEFAULT_HUE 221
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

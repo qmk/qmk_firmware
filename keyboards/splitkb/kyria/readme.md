@@ -10,12 +10,16 @@ Hardware Availability: [splitkb.com](https://splitkb.com) and partners.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make splitkb/kyria/rev1:default
-    make splitkb/kyria/rev1/proton_c:default
+    make splitkb/kyria/rev2:default
+    make splitkb/kyria/rev2/proton_c:default
 
 Example of flashing this keyboard:
 
-    make splitkb/kyria/rev1:default:flash
+    make splitkb/kyria/rev2:default:flash
+
+Replace "rev2" with "rev1" if you have a Kyria of revision 1.4 or below.
+Not sure what revision yours is? It is printed on the outer lower edge of the PCB!
+As a rule of thumb, all Kyrias sold after January 1st 2022 are revision 2.x.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

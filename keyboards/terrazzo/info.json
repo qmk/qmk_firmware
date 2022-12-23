@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Terrazzo", 
+    "manufacturer": "MsMustard",
     "url": "", 
     "maintainer": "MsMustard", 
+    "usb": {
+        "vid": "0x4D4D",
+        "pid": "0x545A",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

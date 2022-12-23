@@ -18,16 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT Tractyl Manuform(5x6) Proton C
-
 // wiring of each half
 #define MATRIX_COL_PINS \
     { B0, B1, B2, B3, B4, B5 }
 #define MATRIX_ROW_PINS \
     { B10, B11, B12, A14, A13, A15 }
-
-#define UNUSED_PINS \
-    { A0, A2, A7, A8 }
 // B2 used for BOOT1, has internal pull down?
 // A9 has internal pull-down
 // A11 and A12 are used for USB sense.  DO NOT USE.
@@ -99,6 +94,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define DEBUG_EEPROM_OUTPUT
 
 /* pmw3360 config  */
-#define PMW3360_CS_PIN                       B9
-#define PMW3360_SPI_MODE                     3
-#define PMW3360_SPI_DIVISOR                  8
+#define PMW33XX_CS_PIN                       B9
+#define PMW33XX_SPI_DIVISOR                  8

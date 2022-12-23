@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "super16v2",
+    "manufacturer": "1upkeyboards",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+      "vid": "0x6F75",
+      "pid": "0x5517",
+      "device_version": "0.0.1"
+    },
+    "layouts": {
+      "LAYOUT_ortho_4x4": {
+        "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}, {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}, {"x":3, "y":2}, {"x":0, "y":3}, {"x":1, "y":3}, {"x":2, "y":3}, {"x":3, "y":3}]
+      }
+    }
+  }

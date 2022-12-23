@@ -74,7 +74,7 @@ Once both plugins are installed, restart Eclipse as prompted.
 
 ## Build Your Keyboard
 
-We will now change the default make target of the the project from `all` to the
+We will now change the default make target of the project from `all` to the
 specific keyboard and keymap combination we are working on,
 e.g. `kinesis/kint36:stapelberg`. This way, project-wide actions like cleaning
 and building the project will complete quickly, instead of taking a long time or

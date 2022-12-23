@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Dactyl Manuform 6x6 Kinesis Advantage edition",
+    "keyboard_name": "Dactyl-Manuform (6x6+4)",
+    "manufacturer": "tshort",
     "url": "",
     "maintainer": "dmik",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3636",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_6x6_kinesis": {
             "layout": [

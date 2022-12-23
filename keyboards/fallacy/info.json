@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Fallacy", 
+    "manufacturer": "SheuBox",
     "maintainer": "Toraifu", 
+    "usb": {
+        "vid": "0xBF00",
+        "pid": "0xBFFA",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

@@ -1,2 +1,4 @@
-#include "uzu42.h"
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "uzu42.h"

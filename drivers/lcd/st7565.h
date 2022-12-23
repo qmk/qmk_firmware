@@ -29,16 +29,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ST7565_DISPLAY_HEIGHT 32
 #endif
 #ifndef ST7565_MATRIX_SIZE
-#    define ST7565_MATRIX_SIZE (ST7565_DISPLAY_HEIGHT / 8 * ST7565_DISPLAY_WIDTH)  // 1024 (compile time mathed)
+#    define ST7565_MATRIX_SIZE (ST7565_DISPLAY_HEIGHT / 8 * ST7565_DISPLAY_WIDTH) // 1024 (compile time mathed)
 #endif
 #ifndef ST7565_BLOCK_TYPE
 #    define ST7565_BLOCK_TYPE uint16_t
 #endif
 #ifndef ST7565_BLOCK_COUNT
-#    define ST7565_BLOCK_COUNT (sizeof(ST7565_BLOCK_TYPE) * 8)  // 32 (compile time mathed)
+#    define ST7565_BLOCK_COUNT (sizeof(ST7565_BLOCK_TYPE) * 8) // 32 (compile time mathed)
 #endif
 #ifndef ST7565_BLOCK_SIZE
-#    define ST7565_BLOCK_SIZE (ST7565_MATRIX_SIZE / ST7565_BLOCK_COUNT)  // 32 (compile time mathed)
+#    define ST7565_BLOCK_SIZE (ST7565_MATRIX_SIZE / ST7565_BLOCK_COUNT) // 32 (compile time mathed)
 #endif
 
 // the column address corresponding to the first column in the display hardware
@@ -174,7 +174,7 @@ void st7565_write_raw_P(const char *data, uint16_t size);
 #    define st7565_write_P(data, invert) st7565_write(data, invert)
 #    define st7565_write_ln_P(data, invert) st7565_write_ln(data, invert)
 #    define st7565_write_raw_P(data, size) st7565_write_raw(data, size)
-#endif  // defined(__AVR__)
+#endif // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on

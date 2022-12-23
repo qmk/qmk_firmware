@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x6066
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    kbdfans
-#define PRODUCT         kbd67
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -42,12 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B7, D4, B1, B0, B5, B4, D7, D6, B3, F4, F5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
@@ -62,19 +55,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_VAL_STEP 8
   #define RGBLIGHT_LIMIT_VAL 180 /* The maximum brightness level */
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
   #define RGBLIGHT_SLEEP
-/*== or choose animations ==*/
-  // #define RGBLIGHT_EFFECT_BREATHING
-  // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  // #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-  // #define RGBLIGHT_EFFECT_SNAKE
-  // #define RGBLIGHT_EFFECT_KNIGHT
-  // #define RGBLIGHT_EFFECT_CHRISTMAS
-  // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  // #define RGBLIGHT_EFFECT_RGB_TEST
-  // #define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -131,8 +122,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

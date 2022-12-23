@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0007
-#define DEVICE_VER 		0x0001
-#define MANUFACTURER    Bishop Keyboards
-#define PRODUCT         9Key
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* 9Key PCB default pin-out */
 #define MATRIX_ROW_PINS { D1, D0, D4 }
 #define MATRIX_COL_PINS { F4, F5, F6 }
-#define UNUSED_PINS
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7

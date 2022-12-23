@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4558 // EX
-#define PRODUCT_ID   0xE701 // E7-V1
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Exclusive / E-Team
-#define PRODUCT      E7-V1
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -16,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5 }
 #define MATRIX_COL_PINS { B6, D0, D1, D2, D3, D4, D5, D6, D7, C6, C7, F4, F5, F6, F7, F1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -40,7 +32,16 @@
 
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 20
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

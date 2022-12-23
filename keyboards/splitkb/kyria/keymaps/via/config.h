@@ -36,5 +36,3 @@
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_LIMIT_VAL 150
 #endif
-
-#define USB_POLLING_INTERVAL_MS 1

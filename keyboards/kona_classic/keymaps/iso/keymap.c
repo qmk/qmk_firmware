@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#define MODS_SHIFT_GUI_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+#define MODS_SHIFT_GUI_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 #define MODS_GUI_MASK   (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 #define _DEFAULT 0
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F9,   KC_F10,  KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_LALT, KC_RGUI, MO(_FN), KC_RCTL
   ),
   [_FN] = LAYOUT_iso(
-    RGB_TOG, RGB_MOD, KC_TILD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
+    RGB_TOG, RGB_MOD, KC_TILD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     RGB_HUI, RGB_HUD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,

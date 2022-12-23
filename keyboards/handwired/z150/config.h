@@ -19,19 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER ALPS
-#define PRODUCT      Z150
 /* key matrix size */
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 8
 
 #define MATRIX_ROW_PINS { B13, B14, B15, A8, A9, A3, A10, A1, A2, A15, A0 }
 #define MATRIX_COL_PINS { B11, B10, B1, B0, A7, A6, A5, A4 }
-#define UNUSED_PINS
 
 #define NUM_LOCK_LED_PIN B5
 #define SCROLL_LOCK_LED_PIN B4
@@ -82,10 +75,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

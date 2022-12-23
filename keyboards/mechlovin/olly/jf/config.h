@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0xD180
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Mechlovin.Studio
-#define PRODUCT      Olly JF
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 19
@@ -41,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { D5, D6, A5, A4, A3, A6}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -72,3 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 14

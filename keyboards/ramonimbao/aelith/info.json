@@ -1,7 +1,13 @@
 {
     "keyboard_name": "AELITH",
+    "manufacturer": "Ramon Imbao",
     "url": "",
     "maintainer": "Ramon Imbao",
+    "usb": {
+        "vid": "0xB16B",
+        "pid": "0xE460",
+        "device_version": "0.1.2"
+    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

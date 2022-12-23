@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Genesis Rev1", 
+    "manufacturer": "customMK",
     "url": "https://www.customMK.com", 
     "maintainer": "customMK", 
+    "usb": {
+        "vid": "0xF35B",
+        "pid": "0xFAB0",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [{"label":"MO(1)", "x":0, "y":0}, {"label":"/", "x":1, "y":0}, {"label":"*", "x":2, "y":0}, {"label":"Mute", "x":3, "y":0}, {"label":"7", "x":0, "y":1}, {"label":"8", "x":1, "y":1}, {"label":"9", "x":2, "y":1}, {"label":"+", "x":3, "y":1}, {"label":"4", "x":0, "y":2}, {"label":"5", "x":1, "y":2}, {"label":"6", "x":2, "y":2}, {"label":"Pg Up", "x":3, "y":2}, {"label":"1", "x":0, "y":3}, {"label":"2", "x":1, "y":3}, {"label":"3", "x":2, "y":3}, {"label":"Pg Dn", "x":3, "y":3}, {"label":"0", "x":0, "y":4}, {"label":"Spc", "x":1, "y":4}, {"label":".", "x":2, "y":4}, {"label":"Enter", "x":3, "y":4}]

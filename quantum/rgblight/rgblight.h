@@ -119,15 +119,23 @@ enum RGBLIGHT_EFFECT_MODE {
 // sample: #define RGBLIGHT_EFFECT_BREATHE_CENTER   1.85
 
 #ifndef RGBLIGHT_EFFECT_BREATHE_MAX
-#    define RGBLIGHT_EFFECT_BREATHE_MAX 255  // 0-255
+#    define RGBLIGHT_EFFECT_BREATHE_MAX 255 // 0-255
 #endif
 
 #ifndef RGBLIGHT_EFFECT_SNAKE_LENGTH
 #    define RGBLIGHT_EFFECT_SNAKE_LENGTH 4
 #endif
 
+#ifndef RGBLIGHT_EFFECT_SNAKE_INCREMENT
+#    define RGBLIGHT_EFFECT_SNAKE_INCREMENT 1
+#endif
+
 #ifndef RGBLIGHT_EFFECT_KNIGHT_LENGTH
 #    define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
+#endif
+
+#ifndef RGBLIGHT_EFFECT_KNIGHT_INCREMENT
+#    define RGBLIGHT_EFFECT_KNIGHT_INCREMENT 1
 #endif
 
 #ifndef RGBLIGHT_EFFECT_KNIGHT_OFFSET
@@ -173,12 +181,11 @@ enum RGBLIGHT_EFFECT_MODE {
 #include "eeconfig.h"
 #include "ws2812.h"
 #include "color.h"
-#include "rgblight_list.h"
 
 #ifdef RGBLIGHT_LAYERS
 typedef struct {
-    uint8_t index;  // The first LED to light
-    uint8_t count;  // The number of LEDs to light
+    uint8_t index; // The first LED to light
+    uint8_t count; // The number of LEDs to light
     uint8_t hue;
     uint8_t sat;
     uint8_t val;
@@ -217,6 +224,24 @@ extern const rgblight_segment_t *const *rgblight_layers;
 #        define RGBLIGHT_USE_TIMER
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms);
 void rgblight_blink_layer_repeat(uint8_t layer, uint16_t duration_ms, uint8_t times);
+/**
+ * \brief Stop blinking on one layer.
+ *
+ * Stop a layer that is blinking. If the layer is not blinking it will
+ * be unaffected.
+ *
+ * \param layer Layer number to stop blinking.
+ */
+void rgblight_unblink_layer(uint8_t layer);
+/**
+ * \brief Stop blinking all layers except one.
+ *
+ * Stop all layers that are blinking except for one specific layer.
+ * Layers that are not blinking are unaffected.
+ *
+ * \param layer Layer number to keep blinking.
+ */
+void rgblight_unblink_all_but_layer(uint8_t layer);
 #    endif
 
 #endif
@@ -241,7 +266,7 @@ typedef union {
         uint8_t hue : 8;
         uint8_t sat : 8;
         uint8_t val : 8;
-        uint8_t speed : 8;  // EECONFIG needs to be increased to support this
+        uint8_t speed : 8; // EECONFIG needs to be increased to support this
     };
 } rgblight_config_t;
 
@@ -271,7 +296,7 @@ extern rgblight_ranges_t rgblight_ranges;
 
 /* === Utility Functions ===*/
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
-void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);  // without RGBLIGHT_LIMIT_VAL check
+void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1); // without RGBLIGHT_LIMIT_VAL check
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
 
 /* === Low level Functions === */

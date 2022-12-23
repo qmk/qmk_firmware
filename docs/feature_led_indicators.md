@@ -1,6 +1,6 @@
 # LED Indicators
 
-?> This feature requires additional configuration to work on both halves of a split keyboard see [Data sync options](feature_split_keyboard.md#data-sync-options)
+?> LED indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LED_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
 
 QMK provides methods to read 5 of the LEDs defined in the HID spec:
 
@@ -11,13 +11,13 @@ QMK provides methods to read 5 of the LEDs defined in the HID spec:
 * Kana
 
 There are three ways to get the lock LED state:
-* by specifying configuration options within `config.h`
-* by implementing `bool led_update_kb(led_t led_state)` or `_user(led_t led_state)`; or
-* by calling `led_t host_keyboard_led_state()`
+* Configuration options in `config.h`
+* Implement `led_update_*` function
+* Call `led_t host_keyboard_led_state()`
 
-!> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
+!> The `host_keyboard_led_state()` may reflect an updated state before `led_update_user()` is called.
 
-Two more deprecated functions exist that provide the LED state as a `uint8_t`:
+Two deprecated functions that provide the LED state as `uint8_t`:
 
 * `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
 * `uint8_t host_keyboard_leds()`
@@ -37,23 +37,20 @@ To configure the indicators, `#define` these in your `config.h`:
 
 Unless you are designing your own keyboard, you generally should not need to change the above config options.
 
-## `led_update_*()`
+## LED update function
 
-When the configuration options do not provide enough flexibility, the API hooks provided allow custom control of the LED behavior. These functions will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
+When the configuration options do not provide enough flexibility, the following callbacks allow custom control of the LED behavior. These functions will be called when one of those 5 LEDs changes state: 
 
-By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
-return `false` when you would prefer not to run the code in `led_update_kb()`.
+* Keyboard/revision: `bool led_update_kb(led_t led_state)`
+* Keymap: `bool led_update_user(led_t led_state)`
 
-Some examples include:
+Both receives LED state as a struct parameter. Returning `true` in `led_update_user()` will allow the keyboard level code in `led_update_kb()` to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard level function is set up.
 
-  - overriding the LEDs to use them for something else like layer indication
-    - return `false` because you do not want the `_kb()` function to run, as it would override your layer behavior.
-  - play a sound when an LED turns on or off.
-    - return `true` because you want the `_kb` function to run, and this is in addition to the default LED behavior.
+?> This boolean return type of `led_update_user` allows for overriding keyboard LED controls, and is thus recommended over the void `led_set_user` function.
 
-?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
+### Example of keyboard LED update implementation
 
-### Example `led_update_kb()` Implementation
+This is a template indicator function that can be implemented on keyboard level code:
 
 ```c
 bool led_update_kb(led_t led_state) {
@@ -74,9 +71,9 @@ bool led_update_kb(led_t led_state) {
 }
 ```
 
-### Example `led_update_user()` Implementation
+### Example of user LED update implementation
 
-This incomplete example would play a sound if Caps Lock is turned on or off. It returns `true`, because you also want the LEDs to maintain their state.
+This is an incomplete example will play a sound if Caps Lock is turned on or off. It returns `true` to allow keyboard LED function to maintain their state.
 
 ```c
 #ifdef AUDIO_ENABLE
@@ -96,18 +93,24 @@ bool led_update_user(led_t led_state) {
 }
 ```
 
-### `led_update_*` Function Documentation
+## Host keyboard LED state 
 
-* Keyboard/Revision: `bool led_update_kb(led_t led_state)`
-* Keymap: `bool led_update_user(led_t led_state)`
+The `host_keyboard_led_state()` function will report the LED state returned from the host computer as `led_t`. This is useful for reading the LED state outside `led_update_*`. For example, you can get the boolean state of Caps Lock from the host with:
 
-## `host_keyboard_led_state()`
+```c
+bool caps = host_keyboard_led_state().caps_lock;
+```
 
-Call this function to get the last received LED state as a `led_t`. This is useful for reading the LED state outside `led_update_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
+## `led_update_ports()`
+
+This function writes the LED state to the actual hardware. Call it manually
+from your `led_update_*()` callbacks to modify the handling of the standard
+keyboard LEDs.
+For example when repurposing a standard LED indicator as layer indicator.
 
 ## Setting Physical LED State
 
-Some keyboard implementations provide convenience methods for setting the state of the physical LEDs.
+Some keyboard implementations provide convenient methods for setting the state of the physical LEDs.
 
 ### Ergodox Boards
 
