@@ -13,10 +13,6 @@ Make example for this keyboard solder version keymap(after setting up your build
 
     make quarkeys/z60/solder:default
 
-Make example for this keyboard hotswap version keymap:
-
-    make quarkeys/z60/hotswap:default
-
 Flashing example for this keyboard:
 
     make quarkeys/z60/solder:default:flash
