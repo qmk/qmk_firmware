@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version=0_11_2
+version=0_11_3
 
 for keyboard in ble_micro_pro kugel toybox/bmp crkbd_ecwl/bmp keyboard_quantizer/kqb
     do
