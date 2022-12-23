@@ -255,7 +255,6 @@ bool is_oneshot_enabled(void) {
  * FIXME: needs doc
  */
 void send_keyboard_report(void) {
-
 #if ((KEYBOARD_MOD_PACKET_DELAY > 0) || (KEYBOARD_GENERAL_PACKET_DELAY > 0))
     // Keep track of the state of mods
     uint8_t old_mods = keyboard_report->mods;
