@@ -15,63 +15,47 @@
  */
 #include QMK_KEYBOARD_H
 #include <assert.h>
-#include "wt65_xt.h"
 
 // This keymap is designed to make it easy to type in a wide variety of languages, as well as
-// generate mathematical symbols (à la Space Cadet).
+// generate mathematical symbols (à la Space Cadet), without relying on the host OS to do
+// key mappings or handle accents. Why? Because different OS's do this in radically different
+// ways, and don't support all of the features one often needs.
 //
 // LAYER MAGIC (aka, typing in many alphabets)
-//   This keyboard has three "base" layers: QWERTY, GREEK, and CADET. The GREEK and CADET layers
-// are actually full of Unicode points, and so which point they generate depends on things like
-// whether the shift key is down. To handle this, each of those layers is actually *two* layers, one
-// with and one without shift. In our main loop, we manage modifier state detection, as well as
-// layer switch detection, and pick the right layer on the fly.
-//   Layers are selected with a combination of three keys. The "Greek" and "Cadet" keys act like
-// modifiers: When held down, they transiently select the indicated base layer. The "Layer Lock" key
-// locks the value of the base layer at whatever is currently held; so e.g., if you hold Greek +
-// Layer Lock, you'll stay in Greek mode until you hit Layer Lock again without any of the mods
-// held.
-//   TODO: This system of layer selection is nice for math, but it's not very nice for actually
-// typing in multiple languages. It seems like a better plan will be to reserve one key for each
-// base layer -- maybe fn + F(n) -- which can either be held as a modifier or tapped to switch
-// layers. That will open up adding some more languages, like Yiddish, but to do this effectively
-// we'll need to find a good UI with which to show the currently selected layer. Need to check what
-// the melody96 has in the way of outputs (LEDs, sound, etc).
+// 
+//   This keyboard has three sets of "polyglot" layers: GREEK, CADET, and YIDDISH. Each of these
+// is actually a pair of layers, FOO and SHIFTFOO, which are full of Unicode points that let you
+// type in them. (The Greek and Yiddish keymaps selected here are very canted towards use on a
+// QWERTY layout, rather than the "standard" layouts often used for those languages in monolingual
+// environments. This is useful if your keyboard doesn't have legends for all of them, which in
+// most cases it won't. Of course, you could easily add more.)
 //
-// ACCENT MAGIC (aka, typing conveniently in Romance languages)
-//   We want to support easy typing of diacritical marks. We can't rely on the host OS for this,
-// because (e.g.) on MacOS, to make any of the other stuff work, we need to be using the Unicode
-// input method at the OS level, which breaks all the normal accent stuff on that end. So we do it
-// ourselves. Accents can actually be invoked in two different ways: one fast and very compatible,
-// one very versatile but with occasional compatibility problems.
+//   These each have their own layer select key, which can act as a held modifier key (GREEK+s to
+// produce sigma, etc). There's also a "layer lock" key; layer lock + modifier switches you into
+// that layer until you hit "layer lock" again to bounce back to QWERTY.
 //
-//   THE MAIN WAY: You can hit one of the "accent request" key patterns immediately *before* typing
-//   a letter to be accented. It will emit the corresponding accented Unicode. For example, you can
-//   hit fn-e to request an acute accent, followed by i, and it will output í, U+00ED LATIN SMALL
-//   LETTER I WITH ACUTE. These "combined characters" are in Unicode normal form C (NFKC), which is
-//   important because many European websites and apps, in particular, tend to behave very badly
-//   (misunderstanding and/or crashing) when presented with characters in other forms! The catch is
-//   that this only works for the various combinations of letters and accents found in the Latin-1
-//   supplement block of Unicode -- basically, things you need for Western European languages.
+// ACCENT MAGIC
 //
-//   (NB: If you make an accent request followed by a letter which can't take the corresponding
-//   accent, it will output the uncombined form of the accent followed by whatever you typed; so
-//   e.g., if you hit fn-e followed by f, it will output ´f, U+00B4 ACUTE ACCENT followed by an
-//   ordinary f. This is very similar to the default behavior of MacOS.)
+//   We want to support easy typing of diacriticals, again without relying on the host OS. (On
+// MacOS, if you want Unicode to work you have to lose all the normal accent combining keys, and
+// if you're in a multi-OS world, each OS has a totally different input method)
 //
-//   THE FLEXIBLE WAY: If you hit the accent request with a shift -- e.g., fn-shift-e -- it will
-//   instead immediately output the corresponding *combining* Unicode accent mark, which will modify
-//   the *previous* character you typed. For example, if you type i followed by fn-shift-e, it will
-//   generate í. But don't be fooled by visual similarity: unlike the previous example, this one is
-//   an ordinary i followed by U+0301 COMBINING ACUTE ACCENT. It's actually *two symbols*, and this
-//   is Unicode normal form D (NFKD). Unlike NFKC, there are NFKD representations of far more
-//   combinations of letters and accents, and it's easy to add more of these if you need. (The NFKC
-//   representation of such combinations is identical to their NFKD representation)
+//   The real nuance comes from the three different ways Unicode represents these. Many common
+// accent + letter combinations like é have their own dedicated code points (the combined
+// normal form). One can also place a "combining accent mark" after the letter's code point to
+// form the decomposed normal form (NFKD); this often renders the same as the combined form, but
+// many less-sophisticated apps won't realize it's the same thing as the combined form (thus messing
+// up string matching), and if you backspace you need to backspace *twice* to remove the character,
+// because it's literally two characters. Finally, if you want to render just the accent mark as a
+// symbol of its own, that's a *third* code point. If you're simply typing, you don't want to think
+// about any of this!
 //
-//   Programs that try to compare Unicode strings *should* first normalize them by converting them
-//   all into one normal form or another, and there are functions in every programming language to
-//   do this -- e.g., JavaScript's string.normalize() -- but lots of programmers fail to understand
-//   this, and so write code that massively freaks out when it encounters the wrong form.
+//   We thus have a bunch of special keycodes for "accent requests," which live on the FUNCTION
+// layer. Accent requests don't do anything immediate, but when the *next* non-modifier key is hit,
+// we generate a combined code point (if possible), two uncombined points (in cases where combined
+// points don't exist), or the isolated accent followed by the next character typed (in cases where
+// what you typed next isn't a letterform at all, e.g. you hit the space bar). You can also hit
+// shift-<accent request> to just generate the uncombined accent on its own.
 //
 // The current accent request codes are modeled on the ones in MacOS.
 //
@@ -90,18 +74,15 @@
 //   - Add accent support for Hebrew accents.
 //   - Factor the code below so that the data layers are more clearly separated from the code logic,
 //     so that other users of this keymap can easily add whichever alphabets they need without
-//     having to deeply understand the implementation.
+//     having to deeply understand the implementation. Probably something similar to
+//     users/drashna/keyrecords/unicode.c, but I want to see if I can do some preprocessor magic
+//     so that we can actually have the rendered *character* sitting in the code instead of just the
+//     hex code point!
 //
 // PLATFORM MAGIC (aka, working well on both Mac and Windows)
-//   Because I need to switch between devices regularly, we make the switching behavior dynamic and
-// not tied to durable memory. Instead, holding down the PLATFORM_SELECT key for a few hundred msec
-// switches between Mac and Windows modes. (Alas, we have no indicator light to show this) Key
-// differences are:
 //
-// - We have a dedicated F4 key in the left-hand panel in Windows mode
-// - Print Screen does cmd-shift-4 on a Mac 
-// - Unicode generation mode is different
-// - Raise hand and mute generate different key combos
+//   Finally, this keyboard can switch between Mac and Windows modes, changing various macro
+// combinations, the Unicode mode, and the position of the ALT and GUI keys.
 
 
 enum custom_keycodes {
@@ -165,7 +146,7 @@ enum os_modes {
   _MAC = 1,
   _OS_MODES_MAX = 2,
 };
-static int os_mode = _MAC;
+static uint8_t os_mode = _MAC;
 
 // Key types matter for accent handling. If there's a pending accent request and another key is
 // pressed:
@@ -173,9 +154,9 @@ static int os_mode = _MAC;
 // - If it's a modifier key, we do nothing and let the accent request hold until the next keypress.
 // - If it's a special key, we drop the accent request but don't handle it.
 enum key_types {
-  _NORMAL_KEY = 0,
-  _MODIFIER_KEY = 1,
-  _SPECIAL_KEY = 2,
+  _NORMAL_KEY,
+  _MODIFIER_KEY,
+  _SPECIAL_KEY,
 };
 
 // msec to hold the platform key to trigger a switch
@@ -294,7 +275,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, KC_CAGU, XXXXXXX, XXXXXXX, XXXXXXX, KC_CDIA, KC_CCIR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, KC_CCED, XXXXXXX, XXXXXXX, KC_CTIL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,                   XXXXXXX, XXXXXXX,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          XXXXXXX, XXXXXXX, XXXXXXX),
+		KC_TRNS,  KC_TRNS,    KC_RCTL, KC_RGUI, KC_RALT,                            KC_TRNS,                                     KC_TRNS,          XXXXXXX, XXXXXXX, XXXXXXX),
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -438,12 +419,12 @@ int update_layer(
   return current_layer;
 }
 
-void set_os_mode(int new_mode) {
+void set_os_mode(uint8_t new_mode) {
   os_mode = new_mode;
   // NB: We set unicode_config.input_mode directly, rather than calling
   // set_unicode_input_mode, because we don't want to persist this and so we shouldn't put
   // extra load on the EEPROMs.
-  unicode_config.input_mode = (os_mode == _MAC ? UC_MAC : UC_WINC);
+  unicode_config.input_mode = (os_mode == _MAC ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE);
   // Swap LALT and LGUI depending on Mac/Windows.
   keymap_config.swap_lalt_lgui = (os_mode == _MAC);
   // This would be a great moment for some auditory or visual feedback, but this keyboard
