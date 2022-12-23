@@ -1,4 +1,4 @@
-/* Copyright 2022 makirill
+/* Copyright 2022 Kirill Malgichev (@makirill)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

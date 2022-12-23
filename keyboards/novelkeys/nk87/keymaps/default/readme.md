@@ -1,8 +1,8 @@
 # The default keymap for NK87
 
-![Layer 0](https://i.imgur.com/RQvNaqq.png)
+![Layer 0](https://i.imgur.com/RQvNaqqh.png)
 Fn Layer:
-![Layer 1](https://i.imgur.com/5mKCvRb.png)
+![Layer 1](https://i.imgur.com/5mKCvRbh.png)
 
 Default layer is normal ANSI TKL
 
