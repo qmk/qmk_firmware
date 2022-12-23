@@ -1,6 +1,6 @@
 # gl516/xr63gl
 
-![gl516/xr63gl](https://cdn-ak.f.st-hatena.com/images/fotolife/g/gachiham/20221211/20221211132634.jpg)
+![gl516/xr63gl](https://i.imgur.com/zSbrTmIh.jpg)
 
 Layout with only the Arrow key added to the 60% keyboard.
 
