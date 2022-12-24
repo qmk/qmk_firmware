@@ -33,8 +33,10 @@ bool qp_comms_spi_start(painter_device_t device) {
 uint32_t qp_comms_spi_send_data(painter_device_t device, const void *data, uint32_t byte_count) {
     uint32_t       bytes_remaining = byte_count;
     const uint8_t *p               = (const uint8_t *)data;
+    uint32_t       max_msg_length  = 1024;
+
     while (bytes_remaining > 0) {
-        uint32_t bytes_this_loop = bytes_remaining < 1024 ? bytes_remaining : 1024;
+        uint32_t bytes_this_loop = QP_MIN(bytes_remaining, max_msg_length);
         spi_transmit(p, bytes_this_loop);
         p += bytes_this_loop;
         bytes_remaining -= bytes_this_loop;
