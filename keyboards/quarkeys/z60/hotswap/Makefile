@@ -1,3 +1,1 @@
-ifndef MAKEFILE_INCLUDED
-	include ../../Makefile
-endif
+include ../../Makefile
