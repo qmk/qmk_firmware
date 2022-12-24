@@ -6,7 +6,7 @@ Fn Layer:
 
 Default layer is normal ANSI TKL
 
-This keymap uses  [RGB Matrix Lighting](https://github.com/samhocevar-forks/qmk-firmware/blob/master/docs/feature_rgb_matrix.md)
+This keymap uses  [RGB Matrix Lighting](https://docs.qmk.fm/#/feature_rgb_matrix)
 by default. VIA is not supporting configuration of RGB Matrix Lighting effects but there are still options to do the effects configurations:
 - Use `Layer 1` keycodes
 - Create new keymap and set defaults using following options set at `config.h`:
