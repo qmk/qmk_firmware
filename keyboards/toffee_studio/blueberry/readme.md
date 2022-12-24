@@ -1,7 +1,5 @@
 # blueberry
 
-![blueberry]()
-
 A springy, gasket-mounted 65% featuring a seamless wave profile & Blue PVD.
 
 * Keyboard Maintainer: [Toffee Studio](https://github.com/ToffeeStudio)
