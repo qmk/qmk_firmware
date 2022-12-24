@@ -38,8 +38,10 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         oled_timer_reset();
 #endif
         if (enable_acceleration) {
-            x = (mouse_xy_report_t)(x > 0 ? x * x / 16 + x : -x * x / 16 + x);
-            y = (mouse_xy_report_t)(y > 0 ? y * y / 16 + y : -y * y / 16 + y);
+            x = (mouse_xy_report_t)(x > 0 ? pow(4, x) / 2 + x : -pow(4, abs(x)) / 2 + x);
+            y = (mouse_xy_report_t)(y > 0 ? pow(5, y) / 2 + y : -pow(5, abs(y)) / 2 + y);
+//            x = (mouse_xy_report_t)(x > 0 ? x * x / 16 + x : -x * x / 16 + x);
+//            y = (mouse_xy_report_t)(y > 0 ? y * y / 16 + y : -y * y / 16 + y);
         }
         mouse_report.x = x;
         mouse_report.y = y;
