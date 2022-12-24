@@ -65,30 +65,28 @@ uint8_t CAPS = 0;
 uint8_t FN1 = 0;
 uint8_t FN2 = 0;
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        if (led_state.caps_lock) {
-            CAPS = 255;
-        } else {
-            CAPS = 0;
-        }
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
+        CAPS = 255;
+    } else {
+        CAPS = 0;
     }
     IS31FL3733_set_color( 63+64-1, FN1, FN1, CAPS );
     IS31FL3733_set_color( 48+64-1, 0, 0, FN2 );
-    return res;
+    return true;
 }
 
-__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
-    if (state & (1UL << 1)) {
-        FN1 = 255;
-    } else {
-        FN1 = 0;
-    }
-    if (state & (1UL << 2)) {
-        FN2 = 255;
-    } else {
-        FN2 = 0;
-    }
+layer_state_t layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
+    case 1:
+      FN1 = 255;
+      break;
+    case 2:
+      FN2 = 255;
+      break;
+    default:
+      FN1 = 0;
+      FN2 = 0;
+  }
   return state;
 }

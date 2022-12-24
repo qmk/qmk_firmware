@@ -186,17 +186,18 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 }
 
 
-__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
-    if (state & (1UL << 1)) {
-        fn1 = 255;
-    } else {
-        fn1 = 0;
-    }
-    if (state & (1UL << 2)) {
-        fn2 = 255;
-    } else {
-        fn2 = 0;
-    }
+layer_state_t layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
+    case 1:
+      fn1 = 255;
+      break;
+    case 2:
+      fn2 = 255;
+      break;
+    default:
+      fn1 = 0;
+      fn2 = 0;
+  }
   return state;
 }
 
