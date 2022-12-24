@@ -226,7 +226,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_F|B_SCLN               , .kana = "bu"      }, // ぶ
   {.key = B_F|B_P                  , .kana = "be"      }, // べ
   {.key = B_J|B_Z                  , .kana = "bo"      }, // ぼ
-  {.key = B_F|B_L                  , .kana = "vu"      }, // ゔ
+  {.key = B_Q                      , .kana = "vu"      }, // ゔ
 
   // 半濁音
   {.key = B_M|B_C                  , .kana = "pa"      }, // ぱ
