@@ -69,7 +69,7 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 
 ## Encoder map :id=encoder-map
 
-Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your `rules.mk`:
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
 
 ```make
 ENCODER_MAP_ENABLE = yes
@@ -87,6 +87,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 ```
+
+?> This should only be enabled at the keymap level.
+
+Using encoder mapping pumps events through the normal QMK keycode processing pipeline, resulting in a _keydown/keyup_ combination pushed through `process_record_xxxxx()`. To configure the amount of time between the encoder "keyup" and "keydown", you can add the following to your `config.h`:
+
+```c
+#define ENCODER_MAP_KEY_DELAY 10
+```
+
+?> By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
 
 ## Callbacks
 
@@ -119,40 +129,43 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-!> If you return `true`, it will allow the keyboard level code to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard function is set up. 
+!> If you return `true`, it will allow the keyboard level code to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard function is set up.
 
 Layer conditions can also be used with the callback function like the following:
 
 ```c
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (get_highest_layer(layer_state|default_layer_state) > 0) {
-        if (index == 0) {
-            if (clockwise) {
-                tap_code(KC_WH_D);
-            } else {
-                tap_code(KC_WH_U);
+    switch(get_highest_layer(layer_state|default_layer_state)) {
+        case 0:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_PGDN);
+                } else {
+                    tap_code(KC_PGUP);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                    rgb_matrix_increase_speed();
+                } else {
+                    rgb_matrix_decrease_speed();
+                }
             }
-        } else if (index == 1) {
-            if (clockwise) {
-                tap_code_delay(KC_VOLU, 10);
-            } else {
-                tap_code_delay(KC_VOLD, 10);
+            break;
+        case 1:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_WH_D);
+                } else {
+                    tap_code(KC_WH_U);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                    tap_code_delay(KC_VOLU, 10);
+                } else {
+                    tap_code_delay(KC_VOLD, 10);
+                }
             }
-        }
-    } else {  /* Layer 0 */
-        if (index == 0) {
-            if (clockwise) {
-                tap_code(KC_PGDN);
-            } else {
-                tap_code(KC_PGUP);
-            }
-        } else if (index == 1) {
-            if (clockwise) {
-                rgb_matrix_increase_speed();
-            } else {
-                rgb_matrix_decrease_speed();
-            }
-        }
+            break;
     }
     return false;
 }
@@ -169,7 +182,7 @@ The A an B lines of the encoders should be wired directly to the MCU, and the C/
 Multiple encoders may share pins so long as each encoder has a distinct pair of pins when the following conditions are met:
 - using detent encoders
 - pads must be high at the detent stability point which is called 'default position' in QMK
-- no more than two encoders sharing a pin can be turned at the same time 
+- no more than two encoders sharing a pin can be turned at the same time
 
 For example you can support two encoders using only 3 pins like this
 ```
@@ -182,4 +195,4 @@ You could even support three encoders using only three pins (one per encoder) ho
 #define ENCODERS_PAD_A { B1, B1, B2 }
 #define ENCODERS_PAD_B { B2, B3, B3 }
 ```
-Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as rotating Encoder 2 `B2 B3` or `B3 B2` depending on the timing. This may still be a useful configuration depending on your use case 
+Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as rotating Encoder 2 `B2 B3` or `B3 B2` depending on the timing. This may still be a useful configuration depending on your use case

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Lime",
+    "manufacturer": "HellSingCoder",
     "url": "https://github.com/HellSingCoder/LimeKeyboard",
     "maintainer": "HellSingCoder",
+    "usb": {
+        "vid": "0x0666",
+        "pid": "0x2784",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

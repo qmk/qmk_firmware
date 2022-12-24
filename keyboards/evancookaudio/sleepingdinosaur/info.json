@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "evancook.audio sleepingdinosaur",
+    "keyboard_name": "sleepingdinosaur",
+    "manufacturer": "evancook.audio",
     "url": "https://evancook.audio/",
     "maintainer": "evanmcook",
+    "usb": {
+        "vid": "0x636F",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,5 +1,8 @@
 name: Lint Format
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -13,9 +16,13 @@ jobs:
     container: qmkfm/qmk_cli
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
+
+    - name: Disable automatic eol conversion
+      run: |
+        echo "* -text" > .git/info/attributes
 
     - name: Install dependencies
       run: |
@@ -37,7 +44,7 @@ jobs:
         git config user.email 'hello@qmk.fm'
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+      uses: peter-evans/create-pull-request@v4
       if: ${{ github.repository == 'qmk/qmk_firmware'}}
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}

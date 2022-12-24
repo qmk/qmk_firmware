@@ -12,7 +12,7 @@ The function `early_hardware_init_pre` is the earliest possible code that can be
 
 This is executed before RAM gets cleared, and before clocks or GPIOs are configured; for example, ChibiOS delays are not likely to work at this point. After executing this function, RAM on the MCU may be zero'ed. Assigning values to variables during execution of this function may be overwritten.
 
-As such, if you wish to override this API consider limiting use to writing to low-level registers. The default implementation of this function can be configured to jump to bootloader if a `RESET` key was pressed:
+As such, if you wish to override this API consider limiting use to writing to low-level registers. The default implementation of this function can be configured to jump to bootloader if a `QK_BOOT` key was pressed:
 
 | `config.h` override                           | Description                                                                                                                                                                                                                                                                            | Default  |
 |-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
@@ -20,7 +20,7 @@ As such, if you wish to override this API consider limiting use to writing to lo
 | `#define STM32_BOOTLOADER_DUAL_BANK`          | Relevant for dual-bank STM32 MCUs, signifies that a GPIO is to be toggled in order to enter bootloader mode.                                                                                                                                                                           | `FALSE`  |
 | `#define STM32_BOOTLOADER_DUAL_BANK_GPIO`     | Relevant for dual-bank STM32 MCUs, the pin to toggle when attempting to enter bootloader mode, e.g. `B8`                                                                                                                                                                               | `<none>` |
 | `#define STM32_BOOTLOADER_DUAL_BANK_POLARITY` | Relevant for dual-bank STM32 MCUs, the value to set the pin to in order to trigger charging of the RC circuit. e.g. `0` or `1`.                                                                                                                                                        | `0`      |
-| `#define STM32_BOOTLOADER_DUAL_BANK_DELAY`    | Relevant for dual-bank STM32 MCUs, an arbitrary measurement of time to delay before resetting the MCU. Increasing number increases the delay.                                                                                                                                          | `100000` |
+| `#define STM32_BOOTLOADER_DUAL_BANK_DELAY`    | Relevant for dual-bank STM32 MCUs, an arbitrary measurement of time to delay before resetting the MCU. Increasing number increases the delay.                                                                                                                                          | `100`    |
 
 Kinetis MCUs have no configurable options.
 

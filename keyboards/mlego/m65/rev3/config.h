@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DEVICE_VER 0x0001
-#define PRODUCT_ID 0x6062
-
 #define LED_NUM_LOCK_PIN B12
 #define LED_SCROLL_LOCK_PIN B13
 #define LED_CAPS_LOCK_PIN C13
@@ -58,7 +55,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #endif
-
-#define UNUSED_PINS
-// you want to comment this if using stm32-dfu as bootloader
-#define FEE_PAGE_BASE_ADDRESS 0x08008000

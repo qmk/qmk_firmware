@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Keeb68 (PSE)",
+    "keyboard_name": "Keeb68 (Patron Saint Edition)",
+    "manufacturer": "sandwich",
     "url": "",
     "maintainer": "SandwichRising",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

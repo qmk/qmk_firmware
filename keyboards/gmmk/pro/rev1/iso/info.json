@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "GMMK Pro (ISO)",
+    "keyboard_name": "GMMK Pro ISO",
+    "manufacturer": "Glorious",
     "url": "https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black-reservation",
     "maintainer": "GloriousThrall",
+    "usb": {
+        "vid": "0x320F",
+        "pid": "0x5044",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7844   // "XD"
-#define PRODUCT_ID      0x9696
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KPrepublic
-#define PRODUCT         XD96
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
@@ -41,7 +34,6 @@
 */
 //#define MATRIX_ROW_PINS { D0, D5 }
 //#define MATRIX_COL_PINS { F1, F0, B0 }
-//#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 //#define DIODE_DIRECTION COL2ROW
@@ -56,7 +48,16 @@
 
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 16
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LIMIT_VAL 50
 // #ifdef RGB_DI_PIN
 //   #define RGBLIGHT_HUE_STEP 8
@@ -64,18 +65,6 @@
 //   #define RGBLIGHT_VAL_STEP 8
 //   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 //   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== all animations enable ==*/
-//   #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//   #define RGBLIGHT_EFFECT_BREATHING
-//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//   #define RGBLIGHT_EFFECT_SNAKE
-//   #define RGBLIGHT_EFFECT_KNIGHT
-//   #define RGBLIGHT_EFFECT_CHRISTMAS
-//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//   #define RGBLIGHT_EFFECT_RGB_TEST
-//   #define RGBLIGHT_EFFECT_ALTERNATING
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

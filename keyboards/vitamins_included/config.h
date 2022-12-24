@@ -19,10 +19,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 //#define USE_I2C
 
-/* Common USB Device descriptor parameters */
-#define VENDOR_ID       0x1209
-#define PRODUCT_ID      0xBEE5
-#define MANUFACTURER    Duckle29
-#define PRODUCT         Vitamins included
-
 #include "config_common.h"

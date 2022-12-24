@@ -1,5 +1,8 @@
 name: PR Lint Format
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     paths:
@@ -19,7 +22,7 @@ jobs:
     container: qmkfm/qmk_cli
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
 

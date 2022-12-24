@@ -11,7 +11,8 @@
 #include "oled_driver.h"
 #include "rgb_matrix.h"
 
-// for memcpy
+// for memcpy & snprintf
+#include <stdio.h>
 #include <string.h>
 #include <transactions.h>
 

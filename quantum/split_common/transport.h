@@ -116,9 +116,12 @@ typedef struct _split_slave_pointing_sync_t {
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 typedef struct _rpc_sync_info_t {
-    int8_t  transaction_id;
-    uint8_t m2s_length;
-    uint8_t s2m_length;
+    uint8_t checksum;
+    struct {
+        int8_t  transaction_id;
+        uint8_t m2s_length;
+        uint8_t s2m_length;
+    } payload;
 } rpc_sync_info_t;
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 
@@ -184,6 +187,10 @@ typedef struct _split_shared_memory_t {
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
     split_slave_pointing_sync_t pointing;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+#if defined(SPLIT_WATCHDOG_ENABLE)
+    bool watchdog_pinged;
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;

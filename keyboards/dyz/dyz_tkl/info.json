@@ -1,5 +1,6 @@
 {
     "keyboard_name": "dyz_TKL",
+    "manufacturer": "dyz",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/dyz_tkl",
     "maintainer": "dayatz",
     "diode_direction": "COL2ROW",
@@ -11,7 +12,16 @@
         "led_count": 25,
         "pin": "D1",
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "usb": {

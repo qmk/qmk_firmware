@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x736D
-#define PRODUCT_ID   0x000A
-#define DEVICE_VER   0x0001
-#define MANUFACTURER paprikman
-#define PRODUCT      Albacore
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4
@@ -49,8 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B3
 
 #ifdef RGB_MATRIX_ENABLE
-  #define DRIVER_LED_TOTAL 8
-  #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
+  #define RGB_MATRIX_LED_COUNT 8
   #define RGB_DISABLE_WHEN_USB_SUSPENDED
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220
   #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN

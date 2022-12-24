@@ -41,7 +41,7 @@ void add_keylog(uint16_t keycode) {
         keylog_str[i] = keylog_str[i - 1];
     }
 
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+    if (keycode < ARRAY_SIZE(code_to_name)) {
         keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
     }
 

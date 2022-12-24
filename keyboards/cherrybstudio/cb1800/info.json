@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "cb1800",
+    "keyboard_name": "CB1800",
+    "manufacturer": "CherryB.Studio",
     "url": "https://discord.gg/qVwv3gcq83",
     "maintainer": "duongaanh",
+    "usb": {
+        "vid": "0x4342",
+        "pid": "0x1818",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

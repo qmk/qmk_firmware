@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
                             '-------'-------'-----'                 '-----'------'-------'
   */
   [P3] = LAYOUT(
-    KC_ESC,  XXXXXXX, KC_BRK,  KC_PSCR, KC_SLCK,                             KC_LABK, KC_RABK, KC_PLUS, KC_UNDS, KC_EQL,
+    KC_ESC,  XXXXXXX, KC_BRK,  KC_PSCR, KC_SCRL,                             KC_LABK, KC_RABK, KC_PLUS, KC_UNDS, KC_EQL,
     KC_TAB,  XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX,                             KC_LBRC, KC_RBRC, KC_ASTR, KC_MINS, KC_ENT,
     KC_LSFT, KC_LCTL, KC_LALT, KC_DEL,  XXXXXXX,                             KX_AT,   KC_LALT, KC_LCTL, KC_LSFT, _______,
     XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, XXXXXXX, _______,           XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
 
  /* RS: Reset
     .-------.------.-------.-----.-------.                                .------.-------.-----.-------.------.
-    | RESET |      |       |     |       |                                |      |       |     |       |      |
+    | QK_BOOT |      |       |     |       |                                |      |       |     |       |      |
     |-------+------+-------+-----+-------|                                |------+-------+-----+-------+------|
     |       |      |       |     |       |                                |      |       |     |       |      |
     |-------+------+-------+-----+-------|                                |------+-------+-----+-------+------|
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
                            '-----'-------'-----'                    '-----'------'-------'
   */
   [RS] = LAYOUT(
-    RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(BA),  XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

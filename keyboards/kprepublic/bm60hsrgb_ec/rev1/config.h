@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // "KP"
-#define PRODUCT_ID      0xEF9C
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KP Republic
-#define PRODUCT         BM60HSRGB_EC
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -50,7 +43,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN E2
-#define DRIVER_LED_TOTAL 69
+#define RGB_MATRIX_LED_COUNT 69
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 69
     #define RGB_MATRIX_KEYPRESSES
