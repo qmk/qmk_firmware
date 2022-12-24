@@ -10,9 +10,6 @@ BOOTLOADER = stm32-dfu
 # backlight effects.
 OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 
-# project specific files
-SRC += config_led.c
-
 # Build Options
 #   change yes to no to disable
 #
