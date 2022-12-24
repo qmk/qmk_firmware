@@ -8,8 +8,8 @@
 
 ## 薙刀式とは
 
-【薙刀式】暫定v15
-http://oookaworks.seesaa.net/article/494282239.html
+【薙刀式】v15（仮最終候補）
+http://oookaworks.seesaa.net/article/495043083.html
 ## OSの設定
 
 1. OSのキーボード設定を日本語106キーボードにする。
