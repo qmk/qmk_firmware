@@ -101,7 +101,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #ifdef RGB_MATRIX_ENABLE
         case RGB_KG_T:
-            if (rgb_matrix_config.enable && record->event.pressed) {
+            if (rgb_matrix_is_enabled() && record->event.pressed) {
                 kb_config.underground_rgb_sw += 1;
                 kb_config.underground_rgb_sw %= 3;
                 eeconfig_update_kb(kb_config.raw);
