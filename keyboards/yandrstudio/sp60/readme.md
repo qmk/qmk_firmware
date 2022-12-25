@@ -11,13 +11,30 @@ This keyboard use 16mhz HSE and APM32F103 as MCU.
 
 Make example for this keyboard (after setting up your build environment):
 
-For Hotswap Version:
+* For Hotswap Version:
 
-    make yandrstudio/sp60/rev1/f103:default
+```bash
+  make yandrstudio/sp60/rev1:default
+```
 
-For Solder Multi-layout Version:
+* For Solder Multi-layout Version:
 
-    make yandrstudio/sp60/rev2/f103:default
+```bash
+make yandrstudio/sp60/rev2:default
+```
+Flashing example for this keyboard:
+
+* For Hotswap Version:
+
+```bash
+make yandrstudio/sp60/rev1:default
+```
+
+* For Solder Multi-layout Version:
+
+```bash
+make yandrstudio/sp60/rev2:default
+```
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 

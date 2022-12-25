@@ -8,5 +8,8 @@
         "mousekey": true,
         "extrakey": true,
         "nkro": true
+    },
+    "tapping": {
+        "tap_capslock_delay": 200
     }
 }
