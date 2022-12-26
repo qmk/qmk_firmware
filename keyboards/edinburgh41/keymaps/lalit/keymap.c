@@ -31,7 +31,11 @@ enum custom_keycodes {
     AE_UMLAUT = SAFE_RANGE,
     UE_UMLAUT,
     OE_UMLAUT,
-    SS_UMLAUT
+    SS_UMLAUT,
+    THUMBSTICK_RIGHT_TAP,
+    THUMBSTICK_LEFT_TAP,
+    THUMBSTICK_UP_TAP,
+    THUMBSTICK_DOWN_TAP
 };
 
 enum {
@@ -77,7 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+// German Umlaute macro
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
     case AE_UMLAUT:
         if (record->event.pressed) {
@@ -108,3 +114,111 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
+
+// Thumbstick keymap
+
+THUMBSTICK_RIGHT_TAP = KC_RIGHT;
+THUMBSTICK_LEFT_TAP = KC_LEFT;
+THUMBSTICK_UP_TAP = KC_UP;
+THUMBSTICK_DOWN_TAP = KC_DOWN;
+
+// Thumbstick code
+
+bool cursor_mode = false;
+bool scrolling_mode = false;
+bool tapping_mode = false;
+
+// tracks if thumbstick was released
+bool returned_to_zero = true;
+
+// tracks how many times mouse_report.x/y have been read zero in succession
+uint16_t zero_reads = 0;
+
+// set mode depending on layer
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case SCROLLING_LAYER:
+            if (scrolling_mode == false) {
+            scrolling_mode = true;
+            }
+            if (tapping_mode) {
+                tapping_mode = false;
+            }
+            if (cursor_mode) {
+                cursor_mode = false;
+            }
+            break;
+        case TAPPING_LAYER:
+            if (tapping_mode == false) {
+                tapping_mode = true;
+            }
+            if (cursor_mode) {
+                cursor_mode = false;
+            }
+            if (scrolling_mode) {
+                scrolling_mode = false;
+            }
+            break;
+        default:
+            if (scrolling_mode) {
+                scrolling_mode = false;
+            }
+            if (tapping_mode) {
+                tapping_mode = false;
+            }
+            if (cursor_mode == false) {
+                cursor_mode = true;
+            }
+            break;
+    }
+    return state;
+}
+
+// manipulate mouse report based on current mode
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+
+    if (cursor_mode) {
+        mouse_report.x = CURSOR_SPEED * mouse_report.x/100;
+        mouse_report.y = CURSOR_SPEED * mouse_report.y/100;
+    }
+    if (scrolling_mode) {
+        mouse_report.h = SCROLL_SPEED * mouse_report.x/100;
+        mouse_report.v = SCROLL_SPEED * mouse_report.y/100;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+        if ((mouse_report.h != 0) | (mouse_report.v != 0)) {
+            _delay_ms(SCROLL_DELAY_MS);
+        }
+
+    } else if (tapping_mode) {
+        if ((mouse_report.x || mouse_report.y) != 0) {
+            if (returned_to_zero) {
+                if (mouse_report.x > 0) {
+                    tap_code16(THUMBSTICK_RIGHT_TAP);
+                }
+                if (mouse_report.x < 0) {
+                    tap_code16(THUMBSTICK_LEFT_TAP);
+                }
+                if (mouse_report.y > 0) {
+                    tap_code16(THUMBSTICK_DOWN_TAP);
+                }
+                if (mouse_report.y < 0) {
+                    tap_code16(THUMBSTICK_UP_TAP);
+                }
+                returned_to_zero = false;
+            }
+            zero_reads = 0;
+        } else if (zero_reads < 20) {
+            zero_reads++;
+        }
+        if (zero_reads >= 20) {
+            if (returned_to_zero == false) {
+                returned_to_zero = true;
+            }
+        }
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+
+    return mouse_report;
+}
