@@ -170,8 +170,8 @@ uint8_t fn1 = 0;
 uint8_t fn2 = 0;
 
 
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+bool rgb_matrix_indicators_kb() {
+    if (!rgb_matrix_indicators_user()) {
         return false;
     }
     if (host_keyboard_led_state().caps_lock) {
