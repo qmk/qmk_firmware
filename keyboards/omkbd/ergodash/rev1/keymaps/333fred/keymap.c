@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       SIX_TRNS,                                              _______,     _______, SIX_TRNS,
       KC_LCTL,  FOUR_TRNS,                          _______, KC_F6,         _______, SIX_TRNS,
       KC_LSFT,  KC_Z,    FOUR_TRNS,                          KC_F5,         _______, SIX_TRNS,
-      KC_ENT,   _______, KC_LOCK, KC_BSPC, KC_LALT, KC_SPC,  OSM(SYMB),     _______, SIX_TRNS
+      KC_ENT,   _______, QK_LOCK, KC_BSPC, KC_LALT, KC_SPC,  OSM(SYMB),     _______, SIX_TRNS
   ),
 
   [GAME_ARROW] = LAYOUT_wrapper(
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  _______, KC_UP,   _______,  _______, _______, _______,     _______, SIX_TRNS,
       KC_LCTL,  KC_LEFT, KC_DOWN, KC_RGHT,  _______, _______, KC_F6,       _______, SIX_TRNS,
       KC_LSFT,  KC_Z,    FOUR_TRNS,                           KC_F5,       _______, SIX_TRNS,
-      KC_ENT,   _______, KC_LOCK, KC_BSPC, KC_LALT, KC_SPC,  OSM(SYMB),    _______, SIX_TRNS
+      KC_ENT,   _______, QK_LOCK, KC_BSPC, KC_LALT, KC_SPC,  OSM(SYMB),    _______, SIX_TRNS
   )
 };
 

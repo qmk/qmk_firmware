@@ -75,14 +75,14 @@ static const encoder_key PROGMEM encoder_keys[] = {
     {"Teams", "Toggle", "Mic", KC_TEAMS_MUTE},
     {"Teams", "Toggle", "Cam", KC_TEAMS_CAM},
     {"Ctrl", "Alt", "Del", KC_CAD},
-    {"Caps", "Lock", "", KC_CAPSLOCK},
+    {"Caps", "Lock", "", KC_CAPS_LOCK},
     {"Pause", "", "", KC_PAUSE},
     {"PrtScr", "", "", KC_PSCR},
     {"Insert", "", "", KC_INS},
     {"Play", "", "", KC_MEDIA_PLAY_PAUSE}
 };
 
-#define NUMBER_OF_ENCODER_KEYS sizeof(encoder_keys)/sizeof(encoder_keys[0])
+#define NUMBER_OF_ENCODER_KEYS ARRAY_SIZE(encoder_keys)
 
 static uint8_t selected_encoder_key_id = 0;
 static encoder_key selected_encoder_key;
@@ -108,13 +108,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWERT] = LAYOUT_all(
                                                                                                                       KC_ENC,
           TD(TD_TAB_ESC),   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-          LT(1,KC_CAPSLOCK),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_PLUS,          KC_ENT,
+          LT(1,KC_CAPS),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_PLUS,          KC_ENT,
           KC_LSFT, KC_LABK, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,           KC_RSFT,
           KC_LCTL, KC_LGUI, LT(2,KC_LALT),   KC_SPC,  KC_SPC,   KC_SPC,        KC_RALT, MO(2),          KC_RCTL ),
 
     [FN_1] = LAYOUT_all(
                                                                                                                        KC_MUTE,
-    	  KC_GESC,          _______, KC_UP, _______, KC_LCBR, KC_RCBR, _______, _______, KC_UP,    _______, KC_QUES, KC_DEL,
+    	  QK_GESC,          _______, KC_UP, _______, KC_LCBR, KC_RCBR, _______, _______, KC_UP,    _______, KC_QUES, KC_DEL,
     	  _______,          KC_LEFT, KC_DOWN,   KC_RIGHT, KC_LPRN, KC_RPRN, KC_QUES, KC_LEFT, KC_DOWN, KC_LABK, KC_RABK, _______,
     	  _______, KC_BSLS, KC_SLSH, KC_PIPE, _______, KC_LBRC, KC_RBRC, KC_HOME, KC_END,  KC_QUOT,  KC_DQUO,          KC_EQL,
     	  _______,   _______, _______,          _______, _______,          _______,          KC_BSLS, KC_SLSH,         KC_TILD ),
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                set_selected_encoder_key(selected_encoder_key_id);
             }
             if (IS_LAYER_ON(FN_1)) {
-                tap_code16(KC_PGDOWN);
+                tap_code16(KC_PGDN);
             }
             if (IS_LAYER_ON(FN_2)) {
                 tap_code(KC_VOLU);

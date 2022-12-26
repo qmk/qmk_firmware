@@ -22,9 +22,9 @@
      *
      * */
     #ifndef ID63_DISABLE_UNDERGLOW
-        #define DRIVER_LED_TOTAL 75
+        #define RGB_MATRIX_LED_COUNT 75
     #else
-        #define DRIVER_LED_TOTAL (75 - 12)
+        #define RGB_MATRIX_LED_COUNT (75 - 12)
     #endif
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended
