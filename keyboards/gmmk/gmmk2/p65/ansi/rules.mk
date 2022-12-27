@@ -18,6 +18,5 @@ RGBLIGHT_ENABLE = no         # Enable keyboard RGB underglow.
 AUDIO_ENABLE = no            # Audio output.
 RGB_MATRIX_ENABLE = yes      # Enable RGB matrix effects.
 RGB_MATRIX_DRIVER = AW20216  # Enable RGB matrix effects.
-RGB_MATRIX_CUSTOM_USER = yes
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = embedded_flash
