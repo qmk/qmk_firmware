@@ -19,6 +19,7 @@ RGB_MATRIX_EFFECT(HOLOGRAPHICS_UNDERGLOW)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+// This is a side lights only configuration where the solid color is following the current HSV setting.
 static bool SOLID_UNDERGLOW(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
@@ -33,6 +34,7 @@ static bool SOLID_UNDERGLOW(effect_params_t* params) {
     return rgb_matrix_check_finished_leds(led_max);
 }
 
+// This is a side lights only configuration where the color is set to a static gradient.
 static bool HOLOGRAPHICS_UNDERGLOW(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
