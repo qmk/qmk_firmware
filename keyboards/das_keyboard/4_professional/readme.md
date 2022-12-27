@@ -1,27 +1,26 @@
-# metadot/4pro
+# das_keyboard/4_professional
 
-![metadot/4pro](imgur.com image replace me!)
+![das_keyboard/4_professional](https://imgur.com/a/mqhK1UP)
 
-*A short description of the keyboard/project*
+A full-size keyboard with media keys and an encoder made by [Metadot](https://metadot.com/).
 
 * Keyboard Maintainer: [Giuseppe Iannello](https://github.com/giannello)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: only one board found so far
+* Hardware Availability: [Das Keyboard](https://www.daskeyboard.com/daskeyboard-4-professional/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make metadot/4pro:default
+    make das_keyboard/4_professional:default
 
 Flashing example for this keyboard:
 
-    make metadot/4pro:default:flash
+    make das_keyboard/4_professional:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Make sure you have the [nuc123-dfu-bootloader](https://github.com/giannello/nuc123-dfu-bootloader) flashed to your board.
+Enter the bootloader in 1 way:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Physical button**: Hold down the "Suspend" key and plug in the keyboard
