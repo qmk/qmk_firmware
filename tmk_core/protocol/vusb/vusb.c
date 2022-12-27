@@ -307,6 +307,14 @@ void send_programmable_button(report_programmable_button_t *report) {
 #endif
 }
 
+void send_radio(report_radio_t *report) {
+#ifdef EXTRAKEY_ENABLE
+    if (usbInterruptIsReadyShared()) {
+        usbSetInterruptShared((void *)report, sizeof(report_radio_t));
+    }
+#endif
+}
+
 /*------------------------------------------------------------------*
  * Request from host                                                *
  *------------------------------------------------------------------*/
@@ -540,6 +548,20 @@ const PROGMEM uchar shared_hid_report[] = {
     0x75, 0x10,               //   Report Size (16)
     0x81, 0x00,               //   Input (Data, Array, Absolute)
     0xC0,                     // End Collection
+
+    0x05, 0x01,            // Usage Page (Generic Desktop)
+    0x09, 0x0C,            // USAGE (Wireless Radio Controls)
+    0xA1, 0x01,            // COLLECTION (Application)
+    0x85, REPORT_ID_RADIO, //   Report ID (Radio)
+    0x15, 0x00,            //   Logical Minimum (0)
+    0x25, 0x01,            //   Logical Maximum (1)
+    0x09, 0xC6,            //   Usage (Wireless Radio Button)
+    0x95, 0x01,            //   Report Count (1)
+    0x75, 0x01,            //   Report Size (1)
+    0x81, 0x06,            //   Input (Data, Variable, Relative)
+    0x75, 0x07,            //   Report Size (7)
+    0x81, 0x03,            //   INPUT (Constant, Variable, Absolute)
+    0xC0,                  // End Collection
 #endif
 
 #ifdef JOYSTICK_ENABLE

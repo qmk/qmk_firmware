@@ -612,6 +612,12 @@ void send_programmable_button(report_programmable_button_t *report) {
 #endif
 }
 
+void send_radio(report_radio_t *report) {
+#ifdef EXTRAKEY_ENABLE
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_radio_t));
+#endif
+}
+
 void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
     send_report(DIGITIZER_IN_EPNUM, report, sizeof(report_digitizer_t));

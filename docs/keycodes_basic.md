@@ -225,6 +225,7 @@ These keycodes are not part of the Keyboard/Keypad usage page. The `SYSTEM_` key
 |`KC_ASSISTANT`         |`KC_ASST`|Launch Assistant    |
 |`KC_MISSION_CONTROL`   |`KC_MCTL`|Open Mission Control|
 |`KC_LAUNCHPAD`         |`KC_LPAD`|Open Launchpad      |
+|`KC_AIRPLANE_MODE`     |`KC_AIRP`|Toggle Airplane Mode|
 
 ## Number Pad
 

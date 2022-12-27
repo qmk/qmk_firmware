@@ -178,11 +178,14 @@ enum mods_codes {
 enum usage_pages {
     PAGE_SYSTEM,
     PAGE_CONSUMER,
+    PAGE_RADIO,
 };
 
 #define ACTION_USAGE_SYSTEM(id) ACTION(ACT_USAGE, PAGE_SYSTEM << 10 | (id))
 #define ACTION_USAGE_CONSUMER(id) ACTION(ACT_USAGE, PAGE_CONSUMER << 10 | (id))
 #define ACTION_MOUSEKEY(key) ACTION(ACT_MOUSEKEY, key)
+/* Not setting code, defaulting to action.usage.code = 0 */
+#define ACTION_USAGE_RADIO ACTION(ACT_USAGE, PAGE_RADIO << 10)
 
 /** \brief Layer Actions
  */

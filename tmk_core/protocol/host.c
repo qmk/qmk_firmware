@@ -159,6 +159,21 @@ void host_consumer_send(uint16_t usage) {
     (*driver->send_extra)(&report);
 }
 
+void host_radio_send(bool state) {
+    if (!driver) return;
+
+    /* It's a toggle button, state==true means to toggle it.
+     * !state means there's no change. */
+    if (!state) return;
+
+    report_radio_t report = {
+        .report_id = REPORT_ID_RADIO,
+        .state     = (uint8_t)state,
+    };
+    send_radio(&report);
+}
+__attribute__((weak)) void send_radio(report_radio_t *report) {}
+
 #ifdef JOYSTICK_ENABLE
 void host_joystick_send(joystick_t *joystick) {
     if (!driver) return;
