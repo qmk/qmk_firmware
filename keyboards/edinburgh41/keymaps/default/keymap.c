@@ -60,7 +60,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-// Thumbstick code
+// Thumbstick keymap, change KC_XXX to whatever you need
+
+#define THUMBSTICK_RIGHT_TAP KC_RIGHT
+#define THUMBSTICK_LEFT_TAP KC_LEFT
+#define THUMBSTICK_UP_TAP KC_UP
+#define THUMBSTICK_DOWN_TAP KC_DOWN
+
+// Thumbstick code, no customisation needed
 
 bool cursor_mode = false;
 bool scrolling_mode = false;
@@ -114,7 +121,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 // manipulate mouse report based on current mode
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    
+
     if (cursor_mode) {
         mouse_report.x = CURSOR_SPEED * mouse_report.x/100;
         mouse_report.y = CURSOR_SPEED * mouse_report.y/100;
@@ -160,4 +167,3 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
     return mouse_report;
 }
-

@@ -31,11 +31,7 @@ enum custom_keycodes {
     AE_UMLAUT = SAFE_RANGE,
     UE_UMLAUT,
     OE_UMLAUT,
-    SS_UMLAUT,
-    THUMBSTICK_RIGHT_TAP,
-    THUMBSTICK_LEFT_TAP,
-    THUMBSTICK_UP_TAP,
-    THUMBSTICK_DOWN_TAP
+    SS_UMLAUT
 };
 
 enum {
@@ -81,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-// German Umlaute macro
+// German Umlaute macro for Mac US keyboard
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -115,14 +111,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 };
 
-// Thumbstick keymap
+// Thumbstick keymap, change KC_XXX to whatever you need
 
-THUMBSTICK_RIGHT_TAP = KC_RIGHT;
-THUMBSTICK_LEFT_TAP = KC_LEFT;
-THUMBSTICK_UP_TAP = KC_UP;
-THUMBSTICK_DOWN_TAP = KC_DOWN;
+#define THUMBSTICK_RIGHT_TAP KC_RIGHT
+#define THUMBSTICK_LEFT_TAP KC_LEFT
+#define THUMBSTICK_UP_TAP KC_UP
+#define THUMBSTICK_DOWN_TAP KC_DOWN
 
-// Thumbstick code
+// Thumbstick code, no customisation needed
 
 bool cursor_mode = false;
 bool scrolling_mode = false;
