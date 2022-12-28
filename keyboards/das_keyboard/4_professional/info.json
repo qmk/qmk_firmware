@@ -1,15 +1,15 @@
 {
-    "manufacturer": "Giuseppe Iannello",
+    "manufacturer": "Metadot",
     "keyboard_name": "das_keyboard/4_professional",
     "maintainer": "giannello",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
+        "bootmagic": false,
         "command": false,
         "console": false,
-        "extrakey": true,
-        "mousekey": true,
+        "extrakey": false,
+        "mousekey": false,
         "nkro": true
     },
     "matrix_pins": {
@@ -20,8 +20,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0140",
+        "vid": "0x24F0"
     },
     "layouts": {
         "LAYOUT_fullsize_ansi": {
