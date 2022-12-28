@@ -1,12 +1,10 @@
 # reto60
 
-![reto60](imgur.com image replace me!)
+This keyboard is part of a end of engineering degree project, it is a compact 60% format keyboard with a ISO-ES Layout.
 
-*A short description of the keyboard/project*
-
-* Keyboard Maintainer: [Á.García](https://github.com/TactioEarth)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [A.Garcia](https://github.com/TactioEarth)
+* Hardware Supported: Custom made reto60 PCB (ATMega32U4 MCU)
+* Hardware Availability: not available
 
 Make example for this keyboard (after setting up your build environment):
 
