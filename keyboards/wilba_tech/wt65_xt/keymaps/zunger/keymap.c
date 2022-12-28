@@ -385,12 +385,12 @@ bool process_key_after_accent(
 #define NON_LANGUAGE_LAYERS ~(((1UL << _LAST_LANGUAGE_LAYER) - 1) - ((1UL << _FIRST_LANGUAGE_LAYER) - 1))
 
 // Update the current layer state and return the layer we're in.
-int update_layer(
-  int layer_lock,
-  int layer_select_held,
+uint8_t update_layer(
+  uint8_t layer_lock,
+  uint8_t layer_select_held,
   bool shifted
 ) {
-  int current_layer = layer_lock;
+  uint8_t current_layer = layer_lock;
   layer_state_t language_layers = 0;
 
   // If there's a layer select being held right now, then it updates the current layer.
@@ -449,10 +449,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // These are where we remember the values of lock states.
   static bool shift_lock = false;
-  static int layer_lock = _QWERTY;  // The currently locked layer
-  static int next_layer_lock = _QWERTY;  // Used when layer_lock is held
+  static uint8_t layer_lock = _QWERTY;  // The currently locked layer
+  static uint8_t next_layer_lock = _QWERTY;  // Used when layer_lock is held
   // Which layer select key is currently being held down. _QWERTY is equivalent to "none."
-  static int layer_select_held = _QWERTY; 
+  static uint8_t layer_select_held = _QWERTY; 
 
   // When the hold on the platform key started
   static uint16_t platform_hold_start = 0;
@@ -462,7 +462,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // What kind of key we're striking right now, so that we know what to do if any accent requests
   // are hanging around.
-  int key_type = _NORMAL_KEY;
+  uint8_t key_type = _NORMAL_KEY;
 
   // The layer selection and locking logic is:
   // * By default, the current layer is given by saved value layer_lock.
@@ -609,7 +609,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // Step 2: Finalize current_layer and update the QMK layer state.
   const bool shifted = (shift_held != shift_lock);
-  const int current_layer = update_layer(layer_lock, layer_select_held, shifted);
+  const uint8_t current_layer = update_layer(layer_lock, layer_select_held, shifted);
 
   // Step 3: Handle accents.
   bool handled = false;
