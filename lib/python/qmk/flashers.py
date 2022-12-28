@@ -1,3 +1,4 @@
+import platform
 import shutil
 import time
 import os
@@ -64,11 +65,16 @@ def _find_bootloader():
             for vid, pid in BOOTLOADER_VIDS_PIDS[bl]:
                 vid_hex = int(f'0x{vid}', 0)
                 pid_hex = int(f'0x{pid}', 0)
-                with DelayedKeyboardInterrupt():
-                    # PyUSB does not like to be interrupted by Ctrl-C
-                    # therefore we catch the interrupt with a custom handler
-                    # and only process it once pyusb finished
-                    dev = usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
+                if 'microsoft' in platform.uname().release.lower():
+                    # WSL doesnt have access to USB - use powershell instead...?
+                    ret = cli.run(['powershell.exe', '-command', 'Get-PnpDevice -PresentOnly | Select-Object -Property InstanceId'])
+                    dev = f'USB\\VID_{vid.upper()}&PID_{pid.upper()}' in ret.stdout
+                else:
+                    with DelayedKeyboardInterrupt():
+                        # PyUSB does not like to be interrupted by Ctrl-C
+                        # therefore we catch the interrupt with a custom handler
+                        # and only process it once pyusb finished
+                        dev = usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
                 if dev:
                     if bl == 'atmel-dfu':
                         details = _PID_TO_MCU[pid]
