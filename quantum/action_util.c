@@ -272,7 +272,7 @@ void send_keyboard_report(void) {
 
     static report_keyboard_t last_report;
 
-#if defined(REPORT_MODS_SEPARATELY)
+#ifdef REPORT_MODS_SEPARATELY
     if (last_report.mods != keyboard_report->mods) {
         //build a keyboard report that only updates the mods
         report_keyboard_t mod_report;
@@ -284,10 +284,16 @@ void send_keyboard_report(void) {
     }
 #endif
 
-    if (memcmp(&last_report, keyboard_report, sizeof(report_keyboard_t)) != 0) {
+#ifdef PROTOCOL_VUSB
+    host_keyboard_send(keyboard_report);
+    memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
+#else
+    /* Only send the report if there are changes to propagate to the host. */
+    if (memcmp(keyboard_report, &last_report, sizeof(report_keyboard_t)) != 0) {
         host_keyboard_send(keyboard_report);
         memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
     }
+#endif
 }
 
 /** \brief Get mods
