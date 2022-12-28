@@ -57,6 +57,20 @@ def _check_dfu_programmer_version():
         return False
 
 
+def _find_usb_device(vid_hex, pid_hex):
+    # WSL doesnt have access to USB - use powershell instead...?
+    if 'microsoft' in platform.uname().release.lower():
+        ret = cli.run(['powershell.exe', '-command', 'Get-PnpDevice -PresentOnly | Select-Object -Property InstanceId'])
+        if f'USB\\VID_{vid_hex:04X}&PID_{pid_hex:04X}' in ret:
+            return (vid_hex, pid_hex)
+    else:
+        with DelayedKeyboardInterrupt():
+            # PyUSB does not like to be interrupted by Ctrl-C
+            # therefore we catch the interrupt with a custom handler
+            # and only process it once pyusb finished
+            return usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
+
+
 def _find_bootloader():
     # To avoid running forever in the background, only look for bootloaders for 10min
     start_time = time.time()
@@ -65,16 +79,7 @@ def _find_bootloader():
             for vid, pid in BOOTLOADER_VIDS_PIDS[bl]:
                 vid_hex = int(f'0x{vid}', 0)
                 pid_hex = int(f'0x{pid}', 0)
-                if 'microsoft' in platform.uname().release.lower():
-                    # WSL doesnt have access to USB - use powershell instead...?
-                    ret = cli.run(['powershell.exe', '-command', 'Get-PnpDevice -PresentOnly | Select-Object -Property InstanceId'])
-                    dev = f'USB\\VID_{vid.upper()}&PID_{pid.upper()}' in ret.stdout
-                else:
-                    with DelayedKeyboardInterrupt():
-                        # PyUSB does not like to be interrupted by Ctrl-C
-                        # therefore we catch the interrupt with a custom handler
-                        # and only process it once pyusb finished
-                        dev = usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
+                dev = _find_usb_device(vid_hex, pid_hex)
                 if dev:
                     if bl == 'atmel-dfu':
                         details = _PID_TO_MCU[pid]
