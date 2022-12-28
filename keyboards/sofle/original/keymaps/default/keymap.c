@@ -1,3 +1,6 @@
+// Copyright 2020 Josef Adamčík (@josefadamcik)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 enum sofle_layers {

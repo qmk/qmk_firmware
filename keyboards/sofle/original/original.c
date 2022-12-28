@@ -1,3 +1,6 @@
+// Copyright 2020 Josef Adamčík (@josefadamcik)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "original.h"
 
 #ifdef SWAP_HANDS_ENABLE
