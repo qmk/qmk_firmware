@@ -16,7 +16,29 @@
 
 #include "bootloader.h"
 
-__attribute__((weak)) void bootloader_jump(void) {}
-__attribute__((weak)) void mcu_reset(void) {}
+#include <NUC123.h>
+#include <ch.h>
+
+// this is called by `reset_keyboard()`
+__attribute__((weak)) void bootloader_jump(void) {
+    // Unlock the registries
+    UNLOCKREG();
+
+    // Set boot from LDROM
+    FMC->ISPCON |= FMC_ISPCON_BS_Msk;
+
+    NVIC_SystemReset();
+}
+
+// this is called by `soft_reset_keyboard()`
+__attribute__((weak)) void mcu_reset(void) {
+    // Unlock the registries
+    UNLOCKREG();
+
+    // Set boot from APROM
+    FMC->ISPCON &= ~FMC_ISPCON_BS_Msk;
+
+    NVIC_SystemReset();
+}
 
 __attribute__((weak)) void enter_bootloader_mode_if_requested(void) {}
