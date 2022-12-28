@@ -2,7 +2,7 @@
     "manufacturer": "Metadot",
     "keyboard_name": "das_keyboard/4_professional",
     "maintainer": "giannello",
-    "bootloader": "custom",
+    "bootloader": "numicro-dfu",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,

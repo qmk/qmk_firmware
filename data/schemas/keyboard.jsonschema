@@ -188,6 +188,7 @@
                 "lufa-dfu",
                 "lufa-ms",
                 "md-boot",
+                "numicro-dfu",
                 "qmk-dfu",
                 "qmk-hid",
                 "rp2040",
