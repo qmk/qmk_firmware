@@ -2,7 +2,7 @@
 
 Replacement pcb for Cherry G80-3700.
 
-![kt60-M image](https://i.imgur.com/s5NhDAbl.png)
+![kt3700 image](https://i.imgur.com/s5NhDAbl.png)
 
 * Keyboard Maintainer: [keyten](https://github.com/key10iq)
 * Hardware Supported: keyten kt3700
