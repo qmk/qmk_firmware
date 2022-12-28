@@ -656,8 +656,8 @@
  * PD1  - ADC1                      (input pullup).
  * PD2  - ADC2                      (input pullup).
  * PD3  - ADC3                      (output).
- * PD4  - ADC4                      (output).
- * PD5  - ADC5                      (output).
+ * PD4  - ADC4                      (input pullup). -> CHANGED from (output).
+ * PD5  - ADC5                      (input pullup). -> CHANGED from (output).
  * PD6  - PIN6                      (input pullup).
  * PD7  - PIN7                      (input pullup).
  * PD8  - PIN8                      (input pullup).
