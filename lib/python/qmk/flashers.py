@@ -61,7 +61,7 @@ def _find_usb_device(vid_hex, pid_hex):
     # WSL doesnt have access to USB - use powershell instead...?
     if 'microsoft' in platform.uname().release.lower():
         ret = cli.run(['powershell.exe', '-command', 'Get-PnpDevice -PresentOnly | Select-Object -Property InstanceId'])
-        if f'USB\\VID_{vid_hex:04X}&PID_{pid_hex:04X}' in ret:
+        if f'USB\\VID_{vid_hex:04X}&PID_{pid_hex:04X}' in ret.stdout:
             return (vid_hex, pid_hex)
     else:
         with DelayedKeyboardInterrupt():
