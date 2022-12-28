@@ -274,7 +274,7 @@ void send_keyboard_report(void) {
 
 #ifdef REPORT_MODS_SEPARATELY
     if (last_report.mods != keyboard_report->mods) {
-        //build a keyboard report that only updates the mods
+        // Build a keyboard report that only updates the mods
         report_keyboard_t mod_report;
         memcpy(&mod_report, &last_report, sizeof(report_keyboard_t));
         mod_report.mods = keyboard_report->mods;
