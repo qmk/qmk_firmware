@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x414C
-#define PRODUCT_ID      0x6065
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         RARTLAND
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -41,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*                        0    1    2    3    4    5    6    7    8    9   10  11  12  13  14*/
 #define MATRIX_ROW_PINS { B4, A7, A5, A6, C3 }
 #define MATRIX_COL_PINS { B0, A1, B1, A2, B2, A3, B3, A4, C7, C6, D0, C5, D1, C4 }
-#define UNUSED_PINS
 
 #define LED_CAPS_LOCK_PIN A0
 #define LED_PIN_ON_STATE 0
@@ -65,7 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* #define RGB_DI_PIN D7 */
 /* #ifdef RGB_DI_PIN */
-/* #define RGBLIGHT_ANIMATIONS */
 /* #define RGBLED_NUM 11 */
 /* #define RGBLIGHT_HUE_STEP 8 */
 /* #define RGBLIGHT_SAT_STEP 8 */
@@ -73,4 +65,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* #define RGBLIGHT_LIMIT_VAL 240 */
 /* #define RGBLIGHT_SLEEP */
 /* #endif */
-

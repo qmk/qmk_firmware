@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MNT Reform USB Keyboard (Standalone)",
+    "manufacturer": "MNT Research GmbH",
     "url": "https://shop.mntmn.com/products/mnt-reform-usb-keyboard-standalone",
     "maintainer": "cdc-mkb",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1302",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -91,7 +97,7 @@
                 {"label": "PGDOWN",  "x": 10.5, "y": 5},
                 {"label": "LEFT",    "x": 11.5, "y": 5},
                 {"label": "DOWN",    "x": 12.5, "y": 5},
-                {"label": "RIGHT",   "x": 13.5, "y": 5},
+                {"label": "RIGHT",   "x": 13.5, "y": 5}
             ]
         }
     }

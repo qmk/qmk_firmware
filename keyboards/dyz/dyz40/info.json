@@ -1,5 +1,6 @@
 {
     "keyboard_name": "dyz40",
+    "manufacturer": "dyz",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/dyz40",
     "maintainer": "dayatz",
     "diode_direction": "COL2ROW",
@@ -14,13 +15,22 @@
         "saturation_steps": 10,
         "brightness_steps": 10,
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "usb": {
         "vid": "0xD772",
         "pid": "0x000B",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_all": {

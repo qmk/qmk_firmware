@@ -1,5 +1,8 @@
 name: PR Lint keyboards
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     paths:
@@ -12,9 +15,12 @@ jobs:
     container: qmkfm/qmk_cli
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
+
+    - name: Install dependencies
+      run: pip3 install -r requirements-dev.txt
 
     - uses: trilom/file-changes-action@v1.2.4
       id: file_changes

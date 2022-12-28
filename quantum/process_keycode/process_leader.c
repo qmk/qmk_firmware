@@ -51,19 +51,22 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
         if (leading) {
 #    ifndef LEADER_NO_TIMEOUT
             if (timer_elapsed(leader_time) < LEADER_TIMEOUT)
-#    endif  // LEADER_NO_TIMEOUT
+#    endif // LEADER_NO_TIMEOUT
             {
 #    ifndef LEADER_KEY_STRICT_KEY_PROCESSING
-                if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-                    keycode = keycode & 0xFF;
+                if (IS_QK_MOD_TAP(keycode)) {
+                    keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+                } else if (IS_QK_LAYER_TAP(keycode)) {
+                    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
                 }
-#    endif  // LEADER_KEY_STRICT_KEY_PROCESSING
-                if (leader_sequence_size < (sizeof(leader_sequence) / sizeof(leader_sequence[0]))) {
+#    endif // LEADER_KEY_STRICT_KEY_PROCESSING
+                if (leader_sequence_size < ARRAY_SIZE(leader_sequence)) {
                     leader_sequence[leader_sequence_size] = keycode;
                     leader_sequence_size++;
                 } else {
                     leading = false;
                     leader_end();
+                    return true;
                 }
 #    ifdef LEADER_PER_KEY_TIMING
                 leader_time = timer_read();
@@ -71,7 +74,7 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
         } else {
-            if (keycode == KC_LEAD) {
+            if (keycode == QK_LEADER) {
                 qk_leader_start();
             }
         }

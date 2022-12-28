@@ -13,7 +13,7 @@ bool JELLYBEAN_RAINDROPS(effect_params_t* params) {
     if (!params->init) {
         // Change one LED every tick, make sure speed is not 0
         if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 5 == 0) {
-            jellybean_raindrops_set_color(rand() % DRIVER_LED_TOTAL, params);
+            jellybean_raindrops_set_color(rand() % RGB_MATRIX_LED_COUNT, params);
         }
         return false;
     }
@@ -25,5 +25,5 @@ bool JELLYBEAN_RAINDROPS(effect_params_t* params) {
     return rgb_matrix_check_finished_leds(led_max);
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS

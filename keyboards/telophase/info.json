@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Telophase",
+    "manufacturer": "Unknown",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [

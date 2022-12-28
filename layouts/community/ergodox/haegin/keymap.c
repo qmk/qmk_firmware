@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL,              KC_1,               KC_2,            KC_3,     KC_4,            KC_5,               KC_LEFT,
         KC_SLSH,             KC_QUOT,            KC_COMM,         KC_DOT,   KC_P,            KC_Y,               KC_NO,
         CTL_T(KC_ESC),       KC_A,               KC_O,            KC_E,     KC_U,            KC_I,
-        KC_LSPO,             KC_SCLN,            KC_Q,            KC_J,     KC_K,            KC_X,               ALL_T(KC_NO),
+        SC_LSPO,             KC_SCLN,            KC_Q,            KC_J,     KC_K,            KC_X,               ALL_T(KC_NO),
         LT(SYMBOLS,KC_GRV),  KC_QUOT,            KC_SLSH,         KC_LALT,  SFT_T(KC_RGHT),
                                                                                              KC_HOME,            KC_END,
                                                                                                                  KC_PGUP,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RGHT,        KC_6,              KC_7,                KC_8,        KC_9,        KC_0,                LGUI(KC_SPC),
         KC_NO,          KC_F,              KC_G,                KC_C,        KC_R,        KC_L,                LT(MEDIA, KC_BSLS),
                         KC_D,              KC_H,                KC_T,        KC_N,        KC_S,                KC_MINS,
-        MEH_T(KC_NO),   KC_B,              KC_M,                KC_W,        KC_V,        KC_Z,                KC_RSPC,
+        MEH_T(KC_NO),   KC_B,              KC_M,                KC_W,        KC_V,        KC_Z,                SC_RSPC,
                                            ALT_T(KC_UP),        KC_DOWN,     KC_LBRC,     KC_RBRC,             KC_NO,
         KC_PGUP,        CTL_T(KC_ESC),
         KC_PGDN,
@@ -201,7 +201,7 @@ void dance_backspace_ended (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     if (state->pressed) {
       fib_bspc.state = HOLD_CTRL;
-      register_code(KC_LCTRL);
+      register_code(KC_LCTL);
     } else {
       register_code(KC_BSPC);
     }
@@ -210,7 +210,7 @@ void dance_backspace_ended (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_backspace_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (fib_bspc.state) {
-    case HOLD_CTRL: unregister_code(KC_LCTRL); break;
+    case HOLD_CTRL: unregister_code(KC_LCTL); break;
     case BSPC_WORD: unregister_code(KC_BSPC); unregister_code(KC_LALT); break;
     case BSPC_LETTER: unregister_code(KC_BSPC); break;
   }
@@ -226,7 +226,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

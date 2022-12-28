@@ -15,16 +15,55 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "util.h"
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
+
+#include "key_blocks.h"
+#include "layer_number_util.h"
+
+#ifdef ENABLE_COLEMAK
+#    define COLEMAK_Colemak (COLEMAK, " Colemak"),
+#else
+#    define COLEMAK_Colemak
 #endif
-#ifdef CONSOLE_ENABLE
-  #include <print.h>
+#ifdef ENABLE_DVORAK
+#    define DVORAK_Dvorak (DVORAK, " Dvorak"),
+#else
+#    define DVORAK_Dvorak
 #endif
-#include "layer_number.h"
+#ifdef ENABLE_EUCALYN
+#    define EUCALYN_Eucalyn (EUCALYN, " Eucalyn"),
+#else
+#    define EUCALYN_Eucalyn
+#endif
+
+#define LAYER_NAME_LIST \
+    (QWERTY,  " Qwerty"),   \
+    COLEMAK_Colemak         \
+    DVORAK_Dvorak           \
+    EUCALYN_Eucalyn         \
+    (KEYPAD,  " Keypad"),   \
+    (AUX,     ":AUX"),      \
+    (KAUX,    ":00"),       \
+    (LOWER,   ":Func"),     \
+    (RAISE,   ":Extra"),    \
+    (PADFUNC, ":PadFunc"),  \
+    (ADJUST,  ":Adjust")
+
+enum layer_number {
+    // _QWERTY, _COLEMAK, ...
+    MAP(BUILD_LAYER_ENUM_NUMBER, LAYER_NAME_LIST)
+};
+
+#ifdef OLED_ENABLE
+// static const char QWERTY_name[]  PROGMEM = " Qwerty"; ...
+MAP(BUILD_LAYER_NAME_STR, LAYER_NAME_LIST)
+
+const char *layer_names[] = {
+    // [_QWERTY] = QWERTY_name, ...
+    MAP(BUILD_LAYER_NAME_TABLE, LAYER_NAME_LIST)
+};
+#endif
+
+const size_t num_of_layer_names = GET_ITEM_COUNT(LAYER_NAME_LIST);
 
 extern keymap_config_t keymap_config;
 
@@ -52,8 +91,6 @@ enum custom_keycodes {
 #define ____      _______
 #define KC_ADJ    MO(_ADJUST)
 
-#define _1_____2_____3_____4_____5   KC_1, KC_2, KC_3, KC_4, KC_5
-#define _6_____7_____8_____9_____0   KC_6, KC_7, KC_8, KC_9, KC_0
 #define LOWER__LOWER__CAPS__LALT__LGUI__SPC__RABS \
     KC_LOWER, KC_LOWER, KC_CAPS, KC_LALT, KC_LGUI, KC_SPC, LT(_RAISE,KC_BSPC)
 #define RAEN___SPC___RGUI__RALT__APP___LOWER__LOWER  \
@@ -64,12 +101,6 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty */
-#define Q_____W_____E_____R_____T     KC_Q, KC_W, KC_E, KC_R, KC_T
-#define Y_____U_____I_____O_____P     KC_Y, KC_U, KC_I, KC_O, KC_P
-#define A_____S_____D_____F_____G     KC_A, KC_S, KC_D, KC_F, KC_G
-#define H_____J_____K_____L____SCLN   KC_H, KC_J, KC_K, KC_L, KC_SCLN
-#define Z_____X_____C_____V_____B     KC_Z, KC_X, KC_C, KC_V, KC_B
-#define N_____M____COMM__DOT___SLSH   KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
   /* ,-----------------------------------.           ,-----------------------------------.
    * | ESC |  1  |  2  |  3  |  4  |  5  |           |  6  |  7  |  8  |  9  |  0  | BS  |
    * |-----+-----+-----+-----+-----+-----|           |-----+-----+-----+-----+-----+-----|
@@ -91,12 +122,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ),
 
   /* Colemak */
-#define Q_____W_____F_____P_____G     KC_Q, KC_W, KC_F, KC_P, KC_G
-#define J_____L_____U_____Y____SCLN   KC_J, KC_L, KC_U, KC_Y, KC_SCLN
-#define A_____R_____S_____T_____D     KC_A, KC_R, KC_S, KC_T, KC_D
-#define H_____N_____E_____I_____O     KC_H, KC_N, KC_E, KC_I, KC_O
-#define Z_____X_____C_____V_____B     KC_Z, KC_X, KC_C, KC_V, KC_B
-#define K_____M____COMM__DOT___SLSH   KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH
   /* ,-----------------------------------.           ,-----------------------------------.
    * | ESC |  1  |  2  |  3  |  4  |  5  |           |  6  |  7  |  8  |  9  |  0  | BS  |
    * |-----+-----+-----+-----+-----+-----|           |-----+-----+-----+-----+-----+-----|
@@ -109,6 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Lower|Lower|Caps | Alt | GUI |Space|  BS |Enter|Space| GUI | Alt |Menu |Lower|Lower|
    * `-----------------------------------------------------------------------------------'
    */
+#ifdef ENABLE_COLEMAK
   [_COLEMAK] = LAYOUT_wrapper(
     KC_ESC,  _1_____2_____3_____4_____5,               _6_____7_____8_____9_____0,   KC_BSPC,
     KC_TAB,   Q_____W_____F_____P_____G,                J_____L_____U_____Y____SCLN, KC_BSLS,
@@ -116,14 +142,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,  Z_____X_____C_____V_____B,   GRV__QUOT,   K_____M____COMM__DOT___SLSH, KC_RSFT,
      LOWER__LOWER__CAPS__LALT__LGUI__SPC__RABS, RAEN___SPC___RGUI__RALT__APP___LOWER__LOWER
    ),
+#endif
 
   /* Dvorak */
-#define QUOT_COMM___DOT____P_____Y   KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y
-#define  F_____G_____C_____R_____L   KC_F, KC_G, KC_C, KC_R, KC_L
-#define  A_____O_____E_____U_____I   KC_A, KC_O, KC_E, KC_U, KC_I
-#define  D_____H_____T_____N_____S   KC_D, KC_H, KC_T, KC_N, KC_S
-#define SCLN___Q_____J_____K_____X   KC_SCLN, KC_Q, KC_J, KC_K, KC_X
-#define  B_____M_____W_____V_____Z   KC_B, KC_M, KC_W, KC_V, KC_Z
 #define GRV__SLSH KC_GRV,  KC_SLSH
   /* ,-----------------------------------.           ,-----------------------------------.
    * | ESC |  1  |  2  |  3  |  4  |  5  |           |  6  |  7  |  8  |  9  |  0  | BS  |
@@ -137,6 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Lower|Lower|Caps | Alt | GUI |Space|  BS |Enter|Space| GUI | Alt |Menu |Lower|Lower|
    * `-----------------------------------------------------------------------------------'
    */
+#ifdef ENABLE_DVORAK
   [_DVORAK] = LAYOUT_wrapper(
     KC_ESC,  _1_____2_____3_____4_____5,               _6_____7_____8_____9_____0,   KC_BSPC,
     KC_TAB,  QUOT_COMM___DOT____P_____Y,                F_____G_____C_____R_____L,   KC_BSLS,
@@ -144,14 +166,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, SCLN___Q_____J_____K_____X,   GRV__SLSH,   B_____M_____W_____V_____Z,   KC_RSFT,
      LOWER__LOWER__CAPS__LALT__LGUI__SPC__RABS, RAEN___SPC___RGUI__RALT__APP___LOWER__LOWER
    ),
+#endif
 
   /* Eucalyn (http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout) */
-#define Q_____W___COMM___DOT__SCLN   KC_Q, KC_W, KC_COMM, KC_DOT, KC_SCLN
-#define M_____R_____D_____Y_____P    KC_M, KC_R, KC_D, KC_Y, KC_P
-#define A_____O_____E_____I_____U    KC_A, KC_O, KC_E, KC_I, KC_U
-#define G_____T_____K_____S_____N    KC_G, KC_T, KC_K, KC_S, KC_N
-#define Z_____X_____C_____V_____F    KC_Z, KC_X, KC_C, KC_V, KC_F
-#define B_____H_____J_____L____SLSH  KC_B, KC_H, KC_J, KC_L, KC_SLSH
   /* ,-----------------------------------.           ,-----------------------------------.
    * | ESC |  1  |  2  |  3  |  4  |  5  |           |  6  |  7  |  8  |  9  |  0  | BS  |
    * |-----+-----+-----+-----+-----+-----|           |-----+-----+-----+-----+-----+-----|
@@ -164,6 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Lower|Lower|Caps | Alt | GUI |Space|  BS |Enter|Space| GUI | Alt |Menu |Lower|Lower|
    * `-----------------------------------------------------------------------------------'
    */
+#ifdef ENABLE_EUCALYN
   [_EUCALYN] = LAYOUT_wrapper(
     KC_ESC,  _1_____2_____3_____4_____5,               _6_____7_____8_____9_____0,   KC_BSPC,
     KC_TAB,   Q_____W___COMM___DOT__SCLN,               M_____R_____D_____Y_____P,   KC_BSLS,
@@ -171,6 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,  Z_____X_____C_____V_____F,   GRV__QUOT,   B_____H_____J_____L____SLSH, KC_RSFT,
      LOWER__LOWER__CAPS__LALT__LGUI__SPC__RABS, RAEN___SPC___RGUI__RALT__APP___LOWER__LOWER
    ),
+#endif
 
   /* Keypad */
 #define KP_TAB__PSLS_PAST  KC_TAB,  KC_PSLS, KC_PAST
@@ -226,8 +245,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ),
 
   /*  Keypad function layer */
-#define PAUS__SLCK__PSCR              KC_PAUS, KC_SLCK, KC_PSCR
-#define PSCR__SLCK__PAUS              KC_PSCR, KC_SLCK, KC_PAUS
+#define PAUS__SLCK__PSCR              KC_PAUS, KC_SCRL, KC_PSCR
+#define PSCR__SLCK__PAUS              KC_PSCR, KC_SCRL, KC_PAUS
 #define HOME___UP___PGUP              KC_HOME, KC_UP,   KC_PGUP
 #define PGUP___UP___HOME              KC_PGUP, KC_UP,   KC_HOME
 #define DEL____INS__LEFT__DOWN__RGHT  KC_DEL,  KC_INS,  KC_LEFT, KC_DOWN, KC_RGHT
@@ -254,10 +273,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ),
 
   /* Lower */
-#define F1____F2____F3____F4____F5     KC_F1, KC_F2, KC_F3, KC_F4, KC_F5
-#define F6____F7____F8____F9____F10    KC_F6, KC_F7, KC_F8, KC_F9, KC_F10
-#define XXXX__PAUS__SLCK___INS         XXXX, KC_PAUS, KC_SLCK, KC_INS
-#define XXXX___INS__SLCK__PAUS__XXXX   XXXX, KC_INS,  KC_SLCK, KC_PAUS, XXXX
+#define XXXX__PAUS__SLCK___INS         XXXX, KC_PAUS, KC_SCRL, KC_INS
+#define XXXX___INS__SLCK__PAUS__XXXX   XXXX, KC_INS,  KC_SCRL, KC_PAUS, XXXX
 #define ADJ___ADJ                      KC_ADJ,  KC_ADJ
 #define HOME__XXXX___UP____DEL__PGUP   KC_HOME, XXXX, KC_UP, KC_DEL, KC_PGUP
 #define PGUP___DEL___UP___XXXX__HOME   KC_PGUP, KC_DEL,  KC_UP, XXXX, KC_HOME
@@ -326,7 +343,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] =  LAYOUT(
       XXXXXXX, KEYPAD,  DVORAK,  COLEMAK, EUCALYN,  QWERTY,          QWERTY,  EUCALYN, COLEMAK,  DVORAK,  KEYPAD, XXXXXXX,
-      XXXXXXX, RESET,   RGBRST,  RGB_TOG,   AU_ON, AG_SWAP,          AG_SWAP,   AU_ON, RGB_TOG,  RGBRST, XXXXXXX, XXXXXXX,
+      XXXXXXX, QK_BOOT, RGBRST,  RGB_TOG,   AU_ON, AG_SWAP,          AG_SWAP,   AU_ON, RGB_TOG,  RGBRST, XXXXXXX, XXXXXXX,
       RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD,  AU_OFF, AG_NORM,          AG_NORM,  AU_OFF, RGB_MOD, RGB_VAI, RGB_SAI, RGB_HUI,
       RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX,____,____,XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAD, RGB_SAD, RGB_HUD,
       _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,____,____,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______
@@ -362,8 +379,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 int current_default_layer;
 
-uint32_t default_layer_state_set_user(uint32_t state) {
-    current_default_layer = biton32(state);
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    current_default_layer = get_highest_layer(state);
     return state;
 }
 
@@ -391,21 +408,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case COLEMAK:
+#ifdef ENABLE_COLEMAK
       if (record->event.pressed) {
         update_base_layer(_COLEMAK);
       }
+#endif
       return false;
       break;
     case DVORAK:
+#ifdef ENABLE_DVORAK
       if (record->event.pressed) {
         update_base_layer(_DVORAK);
       }
+#endif
       return false;
       break;
     case EUCALYN:
+#ifdef ENABLE_EUCALYN
       if (record->event.pressed) {
         update_base_layer(_EUCALYN);
       }
+#endif
       return false;
       break;
     case KEYPAD:
@@ -423,24 +446,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case xEISU:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       return false;
       break;
     case xKANA:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
+          register_code(KC_LNG1);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG1);
+        unregister_code(KC_LNG1);
       }
       return false;
       break;
@@ -454,8 +477,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
-}
-
-void matrix_init_user(void) {
-    INIT_HELIX_OLED(); /* define in layer_number.h */
 }

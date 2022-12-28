@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Twokey",
+    "manufacturer": "Keys of Kings",
     "url": "",
     "maintainer": "Keys of Kings",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xAE12",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

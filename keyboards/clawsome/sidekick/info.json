@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Sidekick",
+    "manufacturer": "AlisGraveNil",
     "url": "",
     "maintainer": "AlisGraveNil",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xDB9F",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

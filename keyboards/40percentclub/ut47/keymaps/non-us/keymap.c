@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #ifdef LED_ENABLE
-  #include "protocol/serial.h"
+  #include "uart.h"
 #endif
 
 #define LT3_TAB LT(3, KC_TAB)
@@ -108,11 +108,11 @@ LAYOUT( /* Tab */
 //LED keymap functions
  #ifdef LED_ENABLE
 void led_chmode(void) {
-  serial_send(101);
+  uart_write(0x65);
 }
 
 void led_toggle(void) {
-  serial_send(100);
+  uart_write(0x64);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

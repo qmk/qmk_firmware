@@ -16,12 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xAC12
-#define PRODUCT_ID 0x4176
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Pylon
-#define PRODUCT Boston
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 19
@@ -54,10 +48,19 @@
 /* Define RGBLED */
 #define RGB_DI_PIN A5
 #define RGBLED_NUM 1
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LAYERS
 
-//The 3D-printed version of Boston uses APA106 LEDs, which are reversed 
+//The 3D-printed version of Boston uses APA106 LEDs, which are reversed
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
 /* Define encoder */
@@ -88,5 +91,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

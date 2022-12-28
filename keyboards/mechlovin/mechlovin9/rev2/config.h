@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT_ID    0x6509
-#define DEVICE_VER    0x0002
-#define PRODUCT       Mechlovin9 Rev2
-
 /*
  * Keyboard Matrix Assignments
  *

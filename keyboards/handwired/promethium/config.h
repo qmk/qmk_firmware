@@ -19,16 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x17EF  // Lenovo
-//#define PRODUCT_ID    0x6009 // ThinkPad Keyboard with TrackPoint
-//#define PRODUCT_ID    0x6047 // ThinkPad Compact USB Keyboard with TrackPoint
-#define PRODUCT_ID   0x6048  // ThinkPad Compact Bluetooth Keyboard with TrackPoint
-//#define PRODUCT_ID    0x6067 // ThinkPad Pro Docking Station
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Priyadi
-#define PRODUCT      Promethium Keyboard
-
 /* key matrix size */
 #define MATRIX_COLS  6
 #define MATRIX_ROWS  9
@@ -40,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F5, F6, F7, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define TRACKPOINT_PINS \
     { B7, B6, D7 }
-#define UNUSED_PINS
 
 /*
  * Keyboard Matrix Assignments
@@ -105,7 +94,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* key combination for command */
-#define IS_COMMAND()         (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RCTRL)))
+#define IS_COMMAND()         (get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))
 
 
 /*
@@ -123,8 +112,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define PS2_MOUSE_INIT_DELAY 2000
 #define BATTERY_POLL         30000
@@ -223,13 +210,13 @@ enum led_sequence {
 #endif
 
 /* PS/2 mouse */
-#ifdef PS2_USE_BUSYWAIT
+#ifdef PS2_DRIVER_BUSYWAIT
 #    define PS2_CLOCK_PIN  D3
 #    define PS2_DATA_PIN   D2
 #endif
 
 /* PS/2 mouse interrupt version */
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 /* uses INT1 for clock line(ATMega32U4) */
 #    define PS2_CLOCK_PIN  D3
 #    define PS2_DATA_PIN   D2
@@ -250,7 +237,7 @@ enum led_sequence {
 #endif
 
 /* PS/2 mouse USART version */
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 /* XCK for clock line and RXD for data line */
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
