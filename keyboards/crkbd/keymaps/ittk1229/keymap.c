@@ -13,23 +13,18 @@ enum layers {
 
 // マクロキーの定義
 enum custom_keycodes {
-  CTL_SPC = SAFE_RANGE,
-  SFT_ENT,
-  ESC_MHEN,
+  RAISE = SAFE_RANGE,
   LOWER,
-  RAISE,
+  ESC_MHEN,
+  SFT_I,
+  SFT_T,
+  CTL_E,
+  CTL_N
 };
 
 // 複合キーを8文字までの変数に
-#define WIN_PSCR LGUI(S(KC_S))
+// MINECRAFTレイヤーのみ
 #define CAPTURE LGUI(KC_PSCR)
-#define NV_REC LALT(KC_F9)
-
-#define WD_MATH LSA(JP_EQL)
-
-#define LSFT_ENT LSFT(KC_ENT)
-#define LCTL_SPC LCTL(KC_SPC)
-
 #define TO_MC TO(_MINECRAFT)
 #define TO_EU TO(_EUCALYN)
 
@@ -37,13 +32,13 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EUCALYN] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-     ESC_MHEN,    KC_Q,   KC_W,  JP_COMM,  JP_DOT, JP_SCLN,                         KC_M,    KC_R,    KC_D,    KC_Y,    KC_P, JP_MINS,\
+     ESC_MHEN,    KC_Q,    KC_W, JP_COMM,  JP_DOT, JP_SCLN,                         KC_M,    KC_R,    KC_D,    KC_Y,    KC_P, JP_MINS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB,    KC_A,    KC_O,    KC_E,    KC_I,    KC_U,                         KC_G,    KC_T,    KC_N,    KC_S,    KC_B, JP_QUOT,\
+       KC_TAB,    KC_A,    KC_O,   CTL_E,   SFT_I,    KC_U,                         KC_G,   SFT_T,   CTL_N,    KC_S,    KC_B, JP_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_F,                         KC_H,    KC_J,    KC_K,    KC_L, JP_SLSH,  KC_DEL,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER, CTL_SPC,    SFT_ENT,   RAISE, KC_BSPC\
+                                          KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_BSPC\
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -53,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END,   KC_NO,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,   KC_NO,   KC_NO,\
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,   KC_NO,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER, KC_LCTL,    KC_LSFT,   RAISE,LSFT_ENT\
+                                            KC_NO,   LOWER,   KC_NO,      KC_NO,   RAISE,   KC_NO\
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -65,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_NO, JP_AMPR,   JP_AT, JP_PLUS,  JP_EQL,   KC_NO,                      JP_CIRC, JP_LCBR, JP_RCBR,  JP_DLR, JP_EXLM, JP_DQUO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT, JP_PIPE, JP_HASH, JP_ASTR, JP_PERC,   KC_NO,                        KC_NO, JP_LBRC, JP_RBRC, JP_BSLS, JP_QUES,   KC_NO,\
+        KC_NO, JP_PIPE, JP_HASH, JP_ASTR, JP_PERC,   KC_NO,                        KC_NO, JP_LBRC, JP_RBRC, JP_BSLS, JP_QUES,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER, KC_LCTL,    KC_LSFT,   RAISE,   KC_NO\
+                                            KC_NO,   LOWER,   KC_NO,      KC_NO,   RAISE,   KC_NO\
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -75,11 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_NO,  KC_F11,  KC_F12,   KC_NO, WD_MATH,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,WIN_PSCR,  NV_REC,   KC_NO,\
+        KC_NO,  KC_F11,  KC_F12,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT,   KC_NO,   KC_NO, JP_CAPS,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   TO_MC,\
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   TO_MC,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER, KC_LCTL,     KC_LSFT,   RAISE,   KC_NO\
+                                            KC_NO,   LOWER,   KC_NO,      KC_NO,   RAISE,   KC_NO\
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -194,21 +189,37 @@ bool oled_task_user(void) {
 static bool lower_pressed = false;
 static bool raise_pressed = false;
 
-static bool ctl_spc_pressed = false;
-static bool sft_ent_pressed = false;
-static uint16_t  ctl_spc_pressed_time = 0;
-static uint16_t sft_ent_pressed_time = 0;
+
+static bool sft_i_pressed = false;
+static uint16_t sft_i_pressed_time = 0;
+
+static bool sft_t_pressed = false;
+static uint16_t sft_t_pressed_time = 0;
+
+static bool ctl_e_pressed = false;
+static uint16_t ctl_e_pressed_time = 0;
+
+static bool ctl_n_pressed = false;
+static uint16_t ctl_n_pressed_time = 0;
 
 // マウス用に長押しで通常の修飾キーに
 // 逆にスペース、エンターの押しっぱなしができなくなるのか
 void matrix_scan_user(void) {
-  if (ctl_spc_pressed && timer_elapsed(ctl_spc_pressed_time) > TAPPING_TERM) {
-    register_code(KC_LCTL);
-    ctl_spc_pressed = false;
-  }
-  if (sft_ent_pressed && timer_elapsed(sft_ent_pressed_time) > TAPPING_TERM) {
+  if (sft_i_pressed && timer_elapsed(sft_i_pressed_time) > TAPPING_TERM) {
     register_code(KC_LSFT);
-    sft_ent_pressed = false;
+    sft_i_pressed = false;
+  }
+  if (sft_t_pressed && timer_elapsed(sft_t_pressed_time) > TAPPING_TERM) {
+    register_code(KC_LSFT);
+    sft_t_pressed = false;
+  }
+  if (ctl_e_pressed && timer_elapsed(ctl_e_pressed_time) > TAPPING_TERM) {
+    register_code(KC_LCTL);
+    ctl_e_pressed = false;
+  }
+  if (ctl_n_pressed && timer_elapsed(ctl_n_pressed_time) > TAPPING_TERM) {
+    register_code(KC_LCTL);
+    ctl_n_pressed = false;
   }
 };
 
@@ -227,29 +238,21 @@ static void user_mt(keyrecord_t *record, uint16_t modcode, uint16_t keycode, boo
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
-    if (keycode != CTL_SPC) {
-      if (ctl_spc_pressed) {
-        register_code(KC_LCTL);
-      }
-      ctl_spc_pressed = false;
-    }
-    if (keycode != SFT_ENT) {
-      if (sft_ent_pressed) {
-        register_code(KC_LSFT);
-      }
-      sft_ent_pressed = false;
-    }
-  }
-
   switch (keycode) {
-    case CTL_SPC:
-      user_mt(record, KC_LCTL,  KC_SPC, &ctl_spc_pressed, &ctl_spc_pressed_time, true);
+    case SFT_I:
+      user_mt(record, KC_LSFT, KC_I, &sft_i_pressed, &sft_i_pressed_time, true);
       return false;
       break;
-    case SFT_ENT:
-      user_mt(record, KC_LSFT, KC_ENT, &sft_ent_pressed, &sft_ent_pressed_time, true);
+    case SFT_T:
+      user_mt(record, KC_LSFT, KC_T, &sft_t_pressed, &sft_t_pressed_time, true);
+      return false;
+      break;
+    case CTL_E:
+      user_mt(record, KC_LCTL,  KC_E, &ctl_e_pressed, &ctl_e_pressed_time, true);
+      return false;
+      break;
+    case CTL_N:
+      user_mt(record, KC_LCTL,  KC_N, &ctl_n_pressed, &ctl_n_pressed_time, true);
       return false;
       break;
     case ESC_MHEN:
@@ -296,14 +299,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         lower_pressed = false;
         raise_pressed = false;
-        if (ctl_spc_pressed) {
+        if (ctl_e_pressed || ctl_n_pressed) {
           register_code(KC_LCTL);
         }
-        if (sft_ent_pressed) {
+        if (sft_i_pressed || sft_t_pressed) {
           register_code(KC_LSFT);
         }
-        ctl_spc_pressed = false;
-        sft_ent_pressed = false;
+        sft_i_pressed = false;
+        sft_t_pressed = false;
+        ctl_e_pressed = false;
+        ctl_n_pressed = false;
       }
       break;
   }
