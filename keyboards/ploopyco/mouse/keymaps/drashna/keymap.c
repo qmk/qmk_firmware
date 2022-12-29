@@ -26,6 +26,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
+    [1] = { ENCODER_CCW_CW( RGB_HUD, RGB_HUI ) },
+};
+#endif
+
 #ifdef RGBLIGHT_ENABLE
 void eeconkfig_init_user(void) {
     rgblight_enable();
