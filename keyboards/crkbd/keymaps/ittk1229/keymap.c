@@ -15,15 +15,15 @@ enum layers {
 enum custom_keycodes {
   RAISE = SAFE_RANGE,
   LOWER,
-  ESC_MHEN,
-  SFT_I,
-  SFT_T,
-  CTL_E,
-  CTL_N
+  ESC_MHEN
 };
 
 // 複合キーを8文字までの変数に
-// MINECRAFTレイヤーのみ
+#define HOME_E SFT_T(KC_E)
+#define HOME_I CTL_T(KC_I)
+#define HOME_T SFT_T(KC_T)
+#define HOME_N CTL_T(KC_N)
+
 #define CAPTURE LGUI(KC_PSCR)
 #define TO_MC TO(_MINECRAFT)
 #define TO_EU TO(_EUCALYN)
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      ESC_MHEN,    KC_Q,    KC_W, JP_COMM,  JP_DOT, JP_SCLN,                         KC_M,    KC_R,    KC_D,    KC_Y,    KC_P, JP_MINS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB,    KC_A,    KC_O,   CTL_E,   SFT_I,    KC_U,                         KC_G,   SFT_T,   CTL_N,    KC_S,    KC_B, JP_QUOT,\
+       KC_TAB,    KC_A,    KC_O,  HOME_E,  HOME_I,    KC_U,                         KC_G,  HOME_T,  HOME_N,    KC_S,    KC_B, JP_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_F,                         KC_H,    KC_J,    KC_K,    KC_L, JP_SLSH,  KC_DEL,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -189,72 +189,13 @@ bool oled_task_user(void) {
 static bool lower_pressed = false;
 static bool raise_pressed = false;
 
-
-static bool sft_i_pressed = false;
-static uint16_t sft_i_pressed_time = 0;
-
-static bool sft_t_pressed = false;
-static uint16_t sft_t_pressed_time = 0;
-
-static bool ctl_e_pressed = false;
-static uint16_t ctl_e_pressed_time = 0;
-
-static bool ctl_n_pressed = false;
-static uint16_t ctl_n_pressed_time = 0;
-
 // マウス用に長押しで通常の修飾キーに
 // 逆にスペース、エンターの押しっぱなしができなくなるのか
 void matrix_scan_user(void) {
-  if (sft_i_pressed && timer_elapsed(sft_i_pressed_time) > TAPPING_TERM) {
-    register_code(KC_LSFT);
-    sft_i_pressed = false;
-  }
-  if (sft_t_pressed && timer_elapsed(sft_t_pressed_time) > TAPPING_TERM) {
-    register_code(KC_LSFT);
-    sft_t_pressed = false;
-  }
-  if (ctl_e_pressed && timer_elapsed(ctl_e_pressed_time) > TAPPING_TERM) {
-    register_code(KC_LCTL);
-    ctl_e_pressed = false;
-  }
-  if (ctl_n_pressed && timer_elapsed(ctl_n_pressed_time) > TAPPING_TERM) {
-    register_code(KC_LCTL);
-    ctl_n_pressed = false;
-  }
-};
-
-static void user_mt(keyrecord_t *record, uint16_t modcode, uint16_t keycode, bool *modifier_pressed, uint16_t *modifier_pressed_time, bool tapping_term_disable) {
-  if (record->event.pressed) {
-    *modifier_pressed = true;
-    *modifier_pressed_time = record->event.time;
-  } else {
-    if (!*modifier_pressed) unregister_code(modcode);
-    if (*modifier_pressed && (tapping_term_disable || (timer_elapsed(*modifier_pressed_time) < TAPPING_TERM))) {
-      register_code(keycode);
-      unregister_code(keycode);
-    }
-    *modifier_pressed = false;
-  }
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case SFT_I:
-      user_mt(record, KC_LSFT, KC_I, &sft_i_pressed, &sft_i_pressed_time, true);
-      return false;
-      break;
-    case SFT_T:
-      user_mt(record, KC_LSFT, KC_T, &sft_t_pressed, &sft_t_pressed_time, true);
-      return false;
-      break;
-    case CTL_E:
-      user_mt(record, KC_LCTL,  KC_E, &ctl_e_pressed, &ctl_e_pressed_time, true);
-      return false;
-      break;
-    case CTL_N:
-      user_mt(record, KC_LCTL,  KC_N, &ctl_n_pressed, &ctl_n_pressed_time, true);
-      return false;
-      break;
     case ESC_MHEN:
       if (record->event.pressed){
         tap_code(KC_ESC);
@@ -299,16 +240,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         lower_pressed = false;
         raise_pressed = false;
-        if (ctl_e_pressed || ctl_n_pressed) {
-          register_code(KC_LCTL);
-        }
-        if (sft_i_pressed || sft_t_pressed) {
-          register_code(KC_LSFT);
-        }
-        sft_i_pressed = false;
-        sft_t_pressed = false;
-        ctl_e_pressed = false;
-        ctl_n_pressed = false;
       }
       break;
   }
