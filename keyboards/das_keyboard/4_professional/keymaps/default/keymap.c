@@ -36,3 +36,23 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [0] = { ENCODER_CCW_CW(KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP) },
 };
 #endif
+
+#if defined(DIP_SWITCH_ENABLE)
+// Workaround: the keyboard has extra buttons, directly connected to the cpu. As we can't use both them and a matrix,
+// let's configure them as dip switches that send keycodes
+// This must match the order of the pins in DIP_SWITCH_PINS
+// The number of switches is currently hardcoded, can't find a suitable macro/define to get that value from...
+const uint16_t PROGMEM dip_switch_map[][5] = {
+    [0] = { KC_SYSTEM_SLEEP, KC_AUDIO_MUTE, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK },
+};
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+    uint8_t active_layer = biton32(layer_state);
+    if (active) {
+        register_code(dip_switch_map[active_layer][index]);
+    } else {
+        unregister_code(dip_switch_map[active_layer][index]);
+    }
+    return true;
+}
+#endif
