@@ -4,7 +4,7 @@ This keyboard is part of a end of engineering degree project, it is a compact 60
 
 * Keyboard Maintainer: [A.Garcia](https://github.com/TactioEarth)
 * Hardware Supported: Custom made reto60 PCB (ATMega32U4 MCU)
-* Hardware Availability: not available
+* Hardware Availability: DIY Project with atmega32u4, following wiki.ai.03 tutorial, all the components needed are available at JLCPCB.com.
 
 Make example for this keyboard (after setting up your build environment):
 
