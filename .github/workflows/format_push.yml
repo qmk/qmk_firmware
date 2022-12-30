@@ -1,5 +1,8 @@
 name: Lint Format
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
