@@ -17,16 +17,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * template
  * [_L1] = LAYOUT(
- *      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    \
- *      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,        \
- *       _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,        \
- *      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   \
+ *      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+ *      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,
+ *       _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,
+ *      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
  *       _______,_______,_______,        _______,_______,_______,                _______,_______,_______,_______,_______,
  *
  *
- *\
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Keymap _L0: (Layer 0 - Base Layer) This is the default layer
  * This layer has a key set to MO(_L1) which means when held down Layer 1 will become active, If Layer 1 does not have anything set for tat key is will revert to uing the key set at layer 0.
  * LT(_L1, KC_1) means that when the "1" key is long touched then it will activate the layer _L1 key(F1) but if the key is just tapped it will activate the "1" key.
@@ -48,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 [_L0] = LAYOUT(
-      QK_GESC,              LT(_L1, KC_1),LT(_L1, KC_2),LT(_L1, KC_3),LT(_L1, KC_4),LT(_L1, KC_5),LT(_L1, KC_6),LT(_L1, KC_7),LT(_L1, KC_8),LT(_L1, KC_9),LT(_L1, KC_0),LT(_L1, KC_MINS),LT(_L1, KC_EQL),KC_BSPC,  KC_DEL,    \
-      KC_TAB,              KC_Q,    KC_W,    KC_E,     KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC,           KC_BSLS,   \
-      KC_CAPS,             KC_A,    KC_S,    KC_D,     KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,              KC_ENT,    \
-      SC_LSPO,   KC_Z,    KC_X,     KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, KC_UP,    TO(_L1), \
+      QK_GESC,              LT(_L1, KC_1),LT(_L1, KC_2),LT(_L1, KC_3),LT(_L1, KC_4),LT(_L1, KC_5),LT(_L1, KC_6),LT(_L1, KC_7),LT(_L1, KC_8),LT(_L1, KC_9),LT(_L1, KC_0),LT(_L1, KC_MINS),LT(_L1, KC_EQL),KC_BSPC,  KC_DEL,
+      KC_TAB,              KC_Q,    KC_W,    KC_E,     KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC,           KC_BSLS,
+      KC_CAPS,             KC_A,    KC_S,    KC_D,     KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,              KC_ENT,
+      SC_LSPO,   KC_Z,    KC_X,     KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, KC_UP,    TO(_L1),
       KC_LCTL,             KC_LGUI, KC_LALT, LT(_L3,KC_SPACE),BL_TOGG,TD(TD_SPC_ENT),     KC_RGUI, TO(_L2), KC_LEFT,  KC_DOWN,  KC_RIGHT),
 
 /* Keymap _L1: (Layer 1) This is function layer 1
@@ -69,10 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 [_L1] = LAYOUT(
-      QK_BOOT, KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,  KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,  KC_F13,   KC_F14,              \
-      _______, KC_WH_U, KC_UP,   KC_WH_D,  _______, _______,_______,  _______,  _______,  _______,   KC_PSCR, _______,  _______,                      _______,   \
-      _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_HOME, _______,  _______,  _______,   KC_HOME, _______,                        _______,   \
-      _______,           _______,  KC_APP,  BL_STEP,_______,  KC_END,   KC_VOLD,  KC_VOLU,   KC_MUTE, _______,  _______,  _______, KC_PGUP,   _______,   \
+      QK_BOOT, KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,  KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,  KC_F13,   KC_F14,
+      _______, KC_WH_U, KC_UP,   KC_WH_D,  _______, _______,_______,  _______,  _______,  _______,   KC_PSCR, _______,  _______,                      _______,
+      _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_HOME, _______,  _______,  _______,   KC_HOME, _______,                        _______,
+      _______,           _______,  KC_APP,  BL_STEP,_______,  KC_END,   KC_VOLD,  KC_VOLU,   KC_MUTE, _______,  _______,  _______, KC_PGUP,   _______,
       _______, _______, _______,                                _______,_______,_______,                _______, _______,         KC_HOME, KC_PGDN, KC_END),
 
 /* Keymap _L2: (Layer 2) This is function layer 2
@@ -92,10 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 [_L2] = LAYOUT(
-      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,LCA(KC_TAB),    \
-      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        MEH(KC_TAB),        \
-      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,                \
-      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_MS_BTN1,KC_MS_UP,KC_MS_BTN2,   \
+      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,LCA(KC_TAB),
+      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        MEH(KC_TAB),
+      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_MS_BTN1,KC_MS_UP,KC_MS_BTN2,
       _______,_______,_______,        _______,_______,_______,                _______,_______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT)
 
 };

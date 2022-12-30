@@ -112,19 +112,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Ctrl | Alt  | Gui  | Sym  | Num  | OPT  | Ent  |
    * `------------------------------------------------'
    */
-  [_BASE] = LAYOUT_half( \
-      LCTL(KC_Z),    KC_SCLN,       KC_LBRC,       KC_LPRN,   KC_LT,     KC_LCBR,            \
-      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,               \
-      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,               \
-      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC, \
-      OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT  \
+  [_BASE] = LAYOUT_half(
+      LCTL(KC_Z),    KC_SCLN,       KC_LBRC,       KC_LPRN,   KC_LT,     KC_LCBR,
+      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,
+      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,
+      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC,
+      OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT
       ),
-  [_BASE_106] = LAYOUT_half( \
-      LCTL(KC_Z),    JP_SCLN,       JP_LBRC,       JP_LPRN,   JP_LABK,   JP_LCBR,            \
-      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,               \
-      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,               \
-      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC, \
-      OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT  \
+  [_BASE_106] = LAYOUT_half(
+      LCTL(KC_Z),    JP_SCLN,       JP_LBRC,       JP_LPRN,   JP_LABK,   JP_LCBR,
+      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,
+      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,
+      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC,
+      OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT
       ),
 
   /* Opt
@@ -140,19 +140,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |   ,  | DTOP |      |      |
    * `------------------------------------------------'
    */
-  [_OPT] = LAYOUT_half( \
-      KC_ESC,  KC_COLN,KC_RBRC, KC_RPRN,KC_GT,     KC_RCBR,         \
-      EISU,    KC_J,   KC_M,    KC_B,   KC_QUOT,   KC_TAB,          \
-      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,            \
-      _______, KC_X,   KC_G,    KC_W,   KC_MINUS,  KC_DEL,  KC_ESC, \
-      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______ \
+  [_OPT] = LAYOUT_half(
+      KC_ESC,  KC_COLN,KC_RBRC, KC_RPRN,KC_GT,     KC_RCBR,
+      EISU,    KC_J,   KC_M,    KC_B,   KC_QUOT,   KC_TAB,
+      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,
+      _______, KC_X,   KC_G,    KC_W,   KC_MINUS,  KC_DEL,  KC_ESC,
+      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______
       ),
-  [_OPT_106] = LAYOUT_half( \
-      KC_ESC,  JP_COLN,JP_RBRC, JP_RPRN,JP_RABK,   JP_RCBR,         \
-      EISU,    KC_J,   KC_M,    KC_B,   JP_QUOT,   KC_TAB,          \
-      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,            \
-      _______, KC_X,   KC_G,    KC_W,   JP_MINS,   KC_DEL,  KC_ESC, \
-      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______ \
+  [_OPT_106] = LAYOUT_half(
+      KC_ESC,  JP_COLN,JP_RBRC, JP_RPRN,JP_RABK,   JP_RCBR,
+      EISU,    KC_J,   KC_M,    KC_B,   JP_QUOT,   KC_TAB,
+      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,
+      _______, KC_X,   KC_G,    KC_W,   JP_MINS,   KC_DEL,  KC_ESC,
+      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______
       ),
 
   /* Sym
@@ -168,19 +168,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |  PS  |      |   ~  |      |      |
    * `------------------------------------------------'
    */
-  [_SYM] = LAYOUT_half( \
-      KC_INS,  KC_GRV,  _______, KC_PGUP, KC_PGDN, KC_CIRC,          \
-      _______, KC_BSLS, KC_HASH, KC_EQL,  KC_QUES, KC_PERC,          \
-      _______, KC_DLR,  KC_UP,   KC_AT,   KC_EXLM, KC_PIPE,          \
-      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,KC_UNDS, KC_AMPR, _______, \
-      _______, _______, KC_PSCR, _______, KC_TILD, _______, _______  \
+  [_SYM] = LAYOUT_half(
+      KC_INS,  KC_GRV,  _______, KC_PGUP, KC_PGDN, KC_CIRC,
+      _______, KC_BSLS, KC_HASH, KC_EQL,  KC_QUES, KC_PERC,
+      _______, KC_DLR,  KC_UP,   KC_AT,   KC_EXLM, KC_PIPE,
+      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,KC_UNDS, KC_AMPR, _______,
+      _______, _______, KC_PSCR, _______, KC_TILD, _______, _______
       ),
-  [_SYM_106] = LAYOUT_half( \
-      KC_INS,  JP_GRV,  _______, KC_PGUP, KC_PGDN, JP_CIRC,          \
-      _______, JP_BSLS, JP_HASH, JP_EQL,  JP_QUES, JP_PERC,          \
-      _______, JP_DLR,  KC_UP,   JP_AT,   JP_EXLM, JP_PIPE,          \
-      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,JP_UNDS, JP_AMPR, _______, \
-      _______, _______, KC_PSCR, _______, JP_TILD, _______, _______  \
+  [_SYM_106] = LAYOUT_half(
+      KC_INS,  JP_GRV,  _______, KC_PGUP, KC_PGDN, JP_CIRC,
+      _______, JP_BSLS, JP_HASH, JP_EQL,  JP_QUES, JP_PERC,
+      _______, JP_DLR,  KC_UP,   JP_AT,   JP_EXLM, JP_PIPE,
+      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,JP_UNDS, JP_AMPR, _______,
+      _______, _______, KC_PSCR, _______, JP_TILD, _______, _______
       ),
   
   /* Raise
@@ -196,19 +196,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |  .   |  ,   |      |      |      |
    * `------------------------------------------------'
    */
-  [_NUM] = LAYOUT_half( \
-      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,                 \
-      _______,  KC_ASTR, KC_P7,      KC_P8,   KC_P9,   KC_MINS,                 \
-      KC_DOT,   KC_SLSH, KC_P4,      KC_P5,   KC_P6,   KC_PLUS,                 \
-      KC_NUM,   KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______, \
-      _______,  _______, KC_PDOT,    KC_COMM, _______, _______,        _______  \
+  [_NUM] = LAYOUT_half(
+      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,
+      _______,  KC_ASTR, KC_P7,      KC_P8,   KC_P9,   KC_MINS,
+      KC_DOT,   KC_SLSH, KC_P4,      KC_P5,   KC_P6,   KC_PLUS,
+      KC_NUM,   KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______,
+      _______,  _______, KC_PDOT,    KC_COMM, _______, _______,        _______
       ),
-  [_NUM_106] = LAYOUT_half( \
-      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,                 \
-      _______,  JP_ASTR, KC_P7,      KC_P8,   KC_P9,   JP_MINS,                 \
-      KC_DOT,   JP_SLSH, KC_P4,      KC_P5,   KC_P6,   JP_PLUS,                 \
-      KC_NUM,   KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______, \
-      _______,  _______, KC_PDOT,    JP_COMM, _______, _______,        _______  \
+  [_NUM_106] = LAYOUT_half(
+      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,
+      _______,  JP_ASTR, KC_P7,      KC_P8,   KC_P9,   JP_MINS,
+      KC_DOT,   JP_SLSH, KC_P4,      KC_P5,   KC_P6,   JP_PLUS,
+      KC_NUM,   KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______,
+      _______,  _______, KC_PDOT,    JP_COMM, _______, _______,        _______
       ),
   
   /* Func
@@ -224,12 +224,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |RGBOFF|      |      |      |      |      |      |
    * `------------------------------------------------'
    */
-  [_FUNC] = LAYOUT_half( \
-      RGBRST,RGB_HUI, TO_101,  QK_BOOT, MAC,     WIN,               \
-      RGB1,  RGB_VAI, KC_F7,   KC_F8,   KC_F9,   TO_106,            \
-      RGB2,  RGB_VAD, KC_F4,   KC_F5,   KC_F6,   KC_F12,            \
-      RGB3,  KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F11,   _______, \
-      RGBOFF,_______, _______, _______, _______, _______,  _______  \
+  [_FUNC] = LAYOUT_half(
+      RGBRST,RGB_HUI, TO_101,  QK_BOOT, MAC,     WIN,
+      RGB1,  RGB_VAI, KC_F7,   KC_F8,   KC_F9,   TO_106,
+      RGB2,  RGB_VAD, KC_F4,   KC_F5,   KC_F6,   KC_F12,
+      RGB3,  KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F11,   _______,
+      RGBOFF,_______, _______, _______, _______, _______,  _______
       )
 };
 #else

@@ -60,11 +60,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │  Clr │ Sync │
  * └──────┴──────┘
  */
-[_REEDER] = LAYOUT( \
-    CMD_TAB, TD(TD_REDR_H), \
-    KC_P, KC_K, \
-    KC_N, KC_J, \
-    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
+[_REEDER] = LAYOUT(
+    CMD_TAB, TD(TD_REDR_H),
+    KC_P, KC_K,
+    KC_N, KC_J,
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT)
 ),
 
 /* Media
@@ -78,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │ Spce │ Plyr │
  * └──────┴──────┘
  */
-[_MEDIA] = LAYOUT( \
-    KC_MUTE, KC_MPLY, \
-    KC_VOLU, KC_MNXT, \
-    KC_VOLD, KC_MPRV, \
-    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
+[_MEDIA] = LAYOUT(
+    KC_MUTE, KC_MPLY,
+    KC_VOLU, KC_MNXT,
+    KC_VOLD, KC_MPRV,
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT)
 ),
 
 /* Navigation
@@ -96,11 +96,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │LstTab│ClsTab│
  * └──────┴──────┘
  */
-[_NAVI] = LAYOUT( \
-    PRV_TAB, NXT_TAB, \
-    MC_WH_L, MC_WH_U, \
-    MC_WH_R, MC_WH_D, \
-    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
+[_NAVI] = LAYOUT(
+    PRV_TAB, NXT_TAB,
+    MC_WH_L, MC_WH_U,
+    MC_WH_R, MC_WH_D,
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT)
 ),
 
 /* Macro
@@ -114,11 +114,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │   7  │  8   │
  * └──────┴──────┘
  */
-[_KARABINER] = LAYOUT( \
-    KC_P1,     KC_P2, \
-    KC_P3,     KC_P4, \
-    KC_P5,     KC_P6, \
-    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
+[_KARABINER] = LAYOUT(
+    KC_P1,     KC_P2,
+    KC_P3,     KC_P4,
+    KC_P5,     KC_P6,
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT)
 ),
 
 /* Lights
@@ -132,11 +132,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │ XXXX │ Mde+ │
  * └──────┴──────┘
  */
-[_LIGHT] = LAYOUT( \
-    RGB_THM, RGB_HUI, \
-    RGB_SAD, RGB_SAI, \
-    RGB_VAD, RGB_VAI, \
-    XXXXXXX, RGB_MOD \
+[_LIGHT] = LAYOUT(
+    RGB_THM, RGB_HUI,
+    RGB_SAD, RGB_SAI,
+    RGB_VAD, RGB_VAI,
+    XXXXXXX, RGB_MOD
 ),
 
 /* Adjust
@@ -150,11 +150,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │ Lght │ XXXX │
  * └──────┴──────┘
  */
-[_ADJUST] = LAYOUT( \
-    QM_MAKE, QK_BOOT, \
-    DF_REDR, DF_MEDA, \
-    DF_NAVI, DF_KBNR, \
-    TG_LGHT, XXXXXXX \
+[_ADJUST] = LAYOUT(
+    QM_MAKE, QK_BOOT,
+    DF_REDR, DF_MEDA,
+    DF_NAVI, DF_KBNR,
+    TG_LGHT, XXXXXXX
 )
 
 };
