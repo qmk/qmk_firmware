@@ -8,7 +8,6 @@ enum layers {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _MINECRAFT,
 };
 
 // マクロキーの定義
@@ -23,10 +22,6 @@ enum custom_keycodes {
 #define HOME_I CTL_T(KC_I)
 #define HOME_T SFT_T(KC_T)
 #define HOME_N CTL_T(KC_N)
-
-#define CAPTURE LGUI(KC_PSCR)
-#define TO_MC TO(_MINECRAFT)
-#define TO_EU TO(_EUCALYN)
 
 // レイヤーごとにキーマップを定義
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -76,20 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                             KC_NO,   LOWER,   KC_NO,      KC_NO,   RAISE,   KC_NO\
                                       //`--------------------------'  `--------------------------'
-  ),
-
-  [_MINECRAFT] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,   KC_NO,    KC_Q,    KC_W,    KC_E,    KC_T,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB,   KC_NO,    KC_A,    KC_S,    KC_D,    KC_F,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      JP_SLSH,   KC_F1,   KC_F5,  KC_F11,   KC_NO,  CAPTURE,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  TO_EU,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL, KC_LSFT,  KC_SPC,      KC_NO,   KC_NO,   KC_NO\
-                                      //`--------------------------'  `--------------------------'
-  ),
-
+  )
 };
 
 // OLEDの設定
@@ -116,9 +98,6 @@ void oled_render_layer_state(void) {
             break;
         case _ADJUST:
             oled_write_ln_P(PSTR("Adjust"), false);
-            break;
-        case _MINECRAFT:
-            oled_write_ln_P(PSTR("Minecraft"), false);
             break;
     }
 }
