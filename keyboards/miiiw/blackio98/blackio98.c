@@ -40,6 +40,9 @@ static void POWER_EnterSleep(void) {
     NVIC_SystemReset();
 }
 
+extern void ws2812_poweron(void);
+extern void ws2812_poweroff(void);
+
 void keyboard_pre_init_kb() {
 	keyboard_pre_init_user();
 
@@ -73,11 +76,10 @@ void keyboard_post_init_kb(void) {
     sdPutI(&MWPROTO_DRIVER, 0xB4);
     writePinHigh(MWPROTO_WAKEUP_PIN);
 
+    ws2812_poweron();
     loop10hz_token = defer_exec(LOOP_10HZ_PERIOD, loop_10Hz, NULL);
 }
 
-extern void ws2812_poweron(void);
-extern void ws2812_poweroff(void);
 void shutdown_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_suspend_state(true);

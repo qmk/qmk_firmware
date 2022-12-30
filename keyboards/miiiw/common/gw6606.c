@@ -51,11 +51,16 @@
                      "nop\n\tnop\n\tnop\n\tnop\n\t" \
                      "nop\n\tnop\n\tnop\n\tnop\n\t"); \
 }
-#define wait_bit1L() { __asm__ volatile("nop\n\tnop\n\t"); }
+#define wait_bit1L() { \
+    __asm__ volatile("nop\n\tnop\n\tnop\n\tnop\n\t" \
+                     "nop\n\tnop\n\tnop\n\tnop\n\t" \
+                     "nop\n\tnop\n\t"); }
 
-#define wait_bit0H() { __asm__ volatile("nop\n\tnop\n\t"); }
+#define wait_bit0H() { \
+    __asm__ volatile("nop\n\tnop\n\tnop\n\tnop\n\t"); }
 #define wait_bit0L() { \
     __asm__ volatile("nop\n\tnop\n\tnop\n\tnop\n\t" \
+                     "nop\n\tnop\n\tnop\n\tnop\n\t" \
                      "nop\n\tnop\n\tnop\n\tnop\n\t" \
                      "nop\n\tnop\n\tnop\n\tnop\n\t" \
                      "nop\n\tnop\n\tnop\n\tnop\n\t"); \
@@ -153,6 +158,8 @@ void ws2812_poweroff(void) {
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
+    if(!p_setup) return;
+    
     if (!s_init) {
         ws2812_init();
         s_init = true;
