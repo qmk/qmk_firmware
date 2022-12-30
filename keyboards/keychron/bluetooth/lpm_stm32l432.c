@@ -183,7 +183,11 @@ static inline void enter_low_power_mode_prepare(void) {
 }
 
 static inline void lpm_wakeup(void) {
-    stm32_clock_fast_init();
+    if (usb_power_connected())
+        stm32_clock_init();
+    else
+        stm32_clock_fast_init();
+
     if (bluetooth_transport.init) bluetooth_transport.init(true);
 
     chSysLock();
