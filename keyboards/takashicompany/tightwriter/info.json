@@ -10,7 +10,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": [
@@ -36,6 +37,25 @@
         "device_version": "1.0.0",
         "pid": "0x0025",
         "vid": "0x7463"
+    },
+    "rgblight": {
+        "led_count": 10,
+        "pin": "D3",
+        "hue_steps": 10,
+        "saturation_steps": 17,
+        "brightness_steps": 17,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "layouts": {
         "LAYOUT": {
