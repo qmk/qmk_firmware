@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include_next <board.h>
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+#undef STM32F103xB
+#define STM32F103xE
