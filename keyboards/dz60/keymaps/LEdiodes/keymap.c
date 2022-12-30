@@ -30,8 +30,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Keymap _L0: (Layer 0 - Base Layer) This is the default layer
  * This layer has a key set to MO(_L1) which means when held down Layer 1 will become active, If Layer 1 does not have anything set for tat key is will revert to uing the key set at layer 0.
  * LT(_L1, KC_1) means that when the "1" key is long touched then it will activate the layer _L1 key(F1) but if the key is just tapped it will activate the "1" key.
- * KC_GESC = Escape when tapped, ` when pressed with Shift or GUI
- * KC_LSPO = Left Shift when held, ( when tapped
+ * QK_GESC = Escape when tapped, ` when pressed with Shift or GUI
+ * SC_LSPO = Left Shift when held, ( when tapped
  * TD(LT(_L3,KC_SPACE)) = This is a test... hoping it will tap dance if double tapped it does enter if single tap it does space if long hold down it does _L3(Layer 3).
  * LT(_L3,KC_SPACE) = if tapped it does space, is long touch it does _L3(Layer 3)
  * BL_TOGG = Toggles the LEDs.
@@ -48,10 +48,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 [_L0] = LAYOUT(
-      KC_GESC,              LT(_L1, KC_1),LT(_L1, KC_2),LT(_L1, KC_3),LT(_L1, KC_4),LT(_L1, KC_5),LT(_L1, KC_6),LT(_L1, KC_7),LT(_L1, KC_8),LT(_L1, KC_9),LT(_L1, KC_0),LT(_L1, KC_MINS),LT(_L1, KC_EQL),KC_BSPC,  KC_DEL,    \
+      QK_GESC,              LT(_L1, KC_1),LT(_L1, KC_2),LT(_L1, KC_3),LT(_L1, KC_4),LT(_L1, KC_5),LT(_L1, KC_6),LT(_L1, KC_7),LT(_L1, KC_8),LT(_L1, KC_9),LT(_L1, KC_0),LT(_L1, KC_MINS),LT(_L1, KC_EQL),KC_BSPC,  KC_DEL,    \
       KC_TAB,              KC_Q,    KC_W,    KC_E,     KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC,           KC_BSLS,   \
       KC_CAPS,             KC_A,    KC_S,    KC_D,     KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,              KC_ENT,    \
-      KC_LSPO,   KC_Z,    KC_X,     KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, KC_UP,    TO(_L1), \
+      SC_LSPO,   KC_Z,    KC_X,     KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, KC_UP,    TO(_L1), \
       KC_LCTL,             KC_LGUI, KC_LALT, LT(_L3,KC_SPACE),BL_TOGG,TD(TD_SPC_ENT),     KC_RGUI, TO(_L2), KC_LEFT,  KC_DOWN,  KC_RIGHT),
 
 /* Keymap _L1: (Layer 1) This is function layer 1
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_WH_U, KC_UP,   KC_WH_D,  _______, _______,_______,  _______,  _______,  _______,   KC_PSCR, _______,  _______,                      _______,   \
       _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_HOME, _______,  _______,  _______,   KC_HOME, _______,                        _______,   \
       _______,           _______,  KC_APP,  BL_STEP,_______,  KC_END,   KC_VOLD,  KC_VOLU,   KC_MUTE, _______,  _______,  _______, KC_PGUP,   _______,   \
-      _______, _______, _______,                                _______,_______,_______,                _______, _______,         KC_HOME, KC_PGDOWN, KC_END),
+      _______, _______, _______,                                _______,_______,_______,                _______, _______,         KC_HOME, KC_PGDN, KC_END),
 
 /* Keymap _L2: (Layer 2) This is function layer 2
  * This layer is activated while the Fn2 key is being held down.

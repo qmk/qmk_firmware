@@ -20,7 +20,7 @@ tft_panel_dc_reset_painter_device_t ili9341_drivers[ILI9341_NUM_DEVICES] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_ili9341_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_ili9341_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format off
     const uint8_t ili9341_init_sequence[] = {
         // Command,                 Delay,  N, Data[N]

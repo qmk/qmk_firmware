@@ -16,7 +16,7 @@ The bottom button outputs 3 random emojis one by one. The random function takes 
 
 ## Unicode Setup
 
-This keymap's default unicode input mode is `UC_WINC` which requires [WinCompose](https://github.com/samhocevar/wincompose). For other OSes, see [QMK documentation on unicode input modes](https://docs.qmk.fm/#/feature_unicode?id=input-modes).
+This keymap's default unicode input mode is `UNICODE_MODE_WINCOMPOSE` which requires [WinCompose](https://github.com/samhocevar/wincompose). For other OSes, see [QMK documentation on unicode input modes](https://docs.qmk.fm/#/feature_unicode?id=input-modes).
 
 ## Ideas for the future
 

@@ -165,7 +165,7 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
-  1. Selectively disable the animations you want to enable. The following would enable two animations and save about 4KiB:
+  1. Use `#undef` to selectively disable animations. The following would disable two animations and save about 4KiB:
 
 ```diff
  #undef RGBLED_NUM
@@ -302,7 +302,7 @@ void keyboard_post_init_user(void) {
 // after the flag has been flipped...
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             rgblight_blink_layer(debug_enable ? 0 : 1, 500);
             break;
 
@@ -319,13 +319,13 @@ You can also use `rgblight_blink_layer_repeat` to specify the amount of times th
 ```c
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             rgblight_blink_layer_repeat(debug_enable ? 0 : 1, 200, 3);
             break;
     }
 }
 ```
-would turn the layer 0 (or 1) on and off again three times when `DEBUG` is pressed.
+would turn the layer 0 (or 1) on and off again three times when `DB_TOGG` is pressed.
 
 Blinking accumulates layers so if multiple layers are set blinking at the same time they will all blink for the duration and repeat times of the last layer to be blinked.
 To stop these other layers from blinking use `rgblight_unblink_layer` or `rgblight_unblink_all_but_layer`:
