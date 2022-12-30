@@ -28,7 +28,6 @@
  */
 #define MATRIX_ROW_PINS { A7, A6, A5, A4, A3, A2 }
 #define MATRIX_COL_PINS { H0, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15 }
-#define UNUSED_PINS
 
 /* Dip Switch */
 #define POWER_SWITCH_PIN B0
@@ -58,7 +57,7 @@
 #define RGB_EN_PIN A8
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 83
-#define DRIVER_LED_TOTAL 83
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGB_MATRIX_CENTER { 62, 42 }
 
 // PWM RGB Underglow Defines
