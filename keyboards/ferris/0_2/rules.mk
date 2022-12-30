@@ -25,3 +25,5 @@ SRC += matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
 
 LAYOUTS = split_3x5_2
+
+DEFAULT_FOLDER = ferris/0_2/base

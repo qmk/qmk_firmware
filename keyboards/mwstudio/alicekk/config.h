@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7BA1
-#define PRODUCT_ID      0x3201
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MWStudio
-#define PRODUCT         AlickKK
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -48,7 +41,7 @@
 #define RGB_DI_PIN B1
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #define RGBLED_NUM 87
 
 #define RGBLIGHT_EFFECT_BREATHING

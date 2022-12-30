@@ -48,7 +48,7 @@ static inline void st7789_automatic_viewport_offsets(painter_device_t device, pa
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format off
     const uint8_t st7789_init_sequence[] = {
         // Command,                 Delay, N, Data[N]
@@ -90,12 +90,11 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
             .flush           = qp_tft_panel_flush,
             .pixdata         = qp_tft_panel_pixdata,
             .viewport        = qp_tft_panel_viewport,
-            .palette_convert = qp_tft_panel_palette_convert,
-            .append_pixels   = qp_tft_panel_append_pixels,
+            .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
+            .append_pixels   = qp_tft_panel_append_pixels_rgb565,
         },
-    .rgb888_to_native16bit = qp_rgb888_to_rgb565_swapped,
-    .num_window_bytes      = 2,
-    .swap_window_coords    = false,
+    .num_window_bytes   = 2,
+    .swap_window_coords = false,
     .opcodes =
         {
             .display_on         = ST77XX_CMD_DISPLAY_ON,

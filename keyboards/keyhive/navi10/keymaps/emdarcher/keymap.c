@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LEFT,   KC_DOWN,    KC_RIGHT),
     [_FN0] = LAYOUT(/* function layer */
                  KC_TRNS,   KC_PAUS,    KC_VOLU,
-                 KC_ENTER,  KC_SLCK,    KC_VOLD,
+                 KC_ENTER,  KC_SCRL,    KC_VOLD,
                  
                             KC_TRNS,
                  KC_TRNS,   KC_TRNS,    KC_TRNS),
@@ -178,5 +178,5 @@ void tk_reset(qk_tap_dance_state_t *state, void *user_data){
 
 //associate the tap dance key with its functionality
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TAPPY_KEY] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, tk_finished, tk_reset, 275)
+    [TAPPY_KEY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tk_finished, tk_reset)
 };

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "DZ60",
+    "manufacturer": "KBDFans",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x445A",
+        "pid": "0x2260",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

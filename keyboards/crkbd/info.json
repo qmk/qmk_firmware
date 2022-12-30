@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "crkbd rev. 1",
+  "keyboard_name": "Corne",
+  "manufacturer": "foostan",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4653",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_split_3x6_3": {
       "layout": [
@@ -47,13 +53,13 @@
         {"label":"/", "x":13, "y":2.3},
         {"label":"Shift", "x":14, "y":2.3},
 
-        {"label":"GUI / KC_HANJ", "x":4, "y":3.7},
+        {"label":"GUI", "x":4, "y":3.7},
         {"label":"Lower", "x":5, "y":3.7},
         {"label":"Space", "x":6, "y":3.2, "h":1.5},
 
         {"label":"Enter", "x":8, "y":3.2, "h":1.5},
         {"label":"Raise", "x":9, "y":3.7},
-        {"label":"Alt / KC_HAEN", "x":10, "y":3.7}
+        {"label":"Alt", "x":10, "y":3.7}
       ]
     },
     "LAYOUT_split_3x5_3": {
@@ -94,13 +100,13 @@
         {"label":".", "x":11, "y":2.1},
         {"label":"/", "x":12, "y":2.3},
 
-        {"label":"GUI / KC_HANJ", "x":3, "y":3.7},
+        {"label":"GUI", "x":3, "y":3.7},
         {"label":"Lower", "x":4, "y":3.7},
         {"label":"Space", "x":5, "y":3.2, "h":1.5},
 
         {"label":"Enter", "x":7, "y":3.2, "h":1.5},
         {"label":"Raise", "x":8, "y":3.7},
-        {"label":"Alt / KC_HAEN", "x":9, "y":3.7}
+        {"label":"Alt", "x":9, "y":3.7}
       ]
     }
   }

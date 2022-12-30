@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Kepler FC65", 
+    "keyboard_name": "Signature65", 
+    "manufacturer": "Project Keyboard",
     "url": "https://store.projectkeyboard.com", 
     "maintainer": "projectkeyboard", 
+    "usb": {
+        "vid": "0x0159",
+        "pid": "0x0165",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

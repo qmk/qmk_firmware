@@ -1,7 +1,13 @@
 {
     "keyboard_name": "FMe",
+    "manufacturer": "keebzdotnet",
     "url": "",
     "maintainer": "keebzdotnet",
+    "usb": {
+        "vid": "0x4B5A",
+        "pid": "0x8008",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

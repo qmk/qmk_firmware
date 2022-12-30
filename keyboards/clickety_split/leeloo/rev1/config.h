@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4013
-#define PRODUCT_ID      0x2022
-#define DEVICE_VER      0x0013
-#define MANUFACTURER    Clickety Split Ltd
-#define PRODUCT         Leeloo
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // "KP"
-#define PRODUCT_ID      0x0653
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KP Republic
-#define PRODUCT         BM65HSRGB_ISO
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -49,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN E2
-#define DRIVER_LED_TOTAL 74
+#define RGB_MATRIX_LED_COUNT 74
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 74
     #define RGB_MATRIX_KEYPRESSES
@@ -106,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_BAND_SAT
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BAND_SAT
 /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #    define RGBLIGHT_SLEEP 
 /*== all animations enable ==*/

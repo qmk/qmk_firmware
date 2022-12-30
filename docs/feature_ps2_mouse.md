@@ -32,13 +32,14 @@ In rules.mk:
 
 ```make
 PS2_MOUSE_ENABLE = yes
-PS2_USE_BUSYWAIT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = busywait
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_BUSYWAIT
+#ifdef PS2_DRIVER_BUSYWAIT
 #   define PS2_CLOCK_PIN   D1
 #   define PS2_DATA_PIN    D2
 #endif
@@ -52,13 +53,14 @@ In rules.mk:
 
 ```make
 PS2_MOUSE_ENABLE = yes
-PS2_USE_INT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 #define PS2_CLOCK_PIN   D2
 #define PS2_DATA_PIN    D5
 
@@ -84,7 +86,8 @@ In rules.mk:
 
 ```
 PS2_MOUSE_ENABLE = yes
-PS2_USE_INT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 ```
 
 In your keyboard config.h:
@@ -108,13 +111,14 @@ In rules.mk:
 
 ```make
 PS2_MOUSE_ENABLE = yes
-PS2_USE_USART = yes
+PS2_ENABLE = yes
+PS2_DRIVER = usart
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 

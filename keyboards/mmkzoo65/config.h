@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7BA1
-#define PRODUCT_ID      0x6505
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MWStudio
-#define PRODUCT         MMKZOO65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -45,4 +38,3 @@
 
 /* 将USB 轮询速率更改为 1000hz 并为精英游戏每次扫描使用更大的密钥*/
 #define USB_POLLING_INTERVAL_MS  2
-#define QMK_KEYS_PER_SCAN  12

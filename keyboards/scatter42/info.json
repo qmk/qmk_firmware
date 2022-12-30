@@ -1,7 +1,13 @@
 {
     "keyboard_name": "scatter42",
+    "manufacturer": "bbrfkr",
     "url": "https://github.com/bbrfkr/keyboards/tree/master/scatter42",
     "maintainer": "bbrfkr",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3B47",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

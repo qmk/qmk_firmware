@@ -91,7 +91,6 @@
     * [换手](zh-cn/feature_swap_hands.md)
     * [一键多用](zh-cn/feature_tap_dance.md)
     * [点按配置](zh-cn/tap_hold.md)
-    * [终端](zh-cn/feature_terminal.md)
     * [Unicode](zh-cn/feature_unicode.md)
     * [用户空间](zh-cn/feature_userspace.md)
     * [WPM计算](zh-cn/feature_wpm.md)

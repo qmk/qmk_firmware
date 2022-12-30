@@ -196,7 +196,7 @@ void matrix_scan_user(void) {
   }
 }
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _TAPLAND:
         rgblight_setrgb(0, 16, 0); //green
         break;

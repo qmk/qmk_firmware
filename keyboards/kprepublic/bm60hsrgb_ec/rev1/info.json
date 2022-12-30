@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "BM60HSRGB_EC rev1",
+    "keyboard_name": "BM60HSRGB_EC Rev1",
+    "manufacturer": "KP Republic",
     "url": "",
     "maintainer": "peepeetee",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0xEF9C",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

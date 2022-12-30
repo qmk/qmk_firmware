@@ -5,10 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define MANUFACTURER    Synth Labs
-#define PRODUCT         Solo
-
 #define ENCODERS 1
 #define ENCODER_RESOLUTION 4
 #define ENCODERS_PAD_A { B2 }
@@ -19,8 +15,6 @@
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 7
-
-#define QMK_KEYS_PER_SCAN 17
 
 /*
  * Force NKRO
@@ -59,6 +53,6 @@
 #define BOOTMAGIC_LITE_ROW 1
 #define BOOTMAGIC_LITE_COLUMN 1
 
-#define JOYSTICK_BUTTON_COUNT 8
-#define JOYSTICK_AXES_COUNT 1
-#define JOYSTICK_AXES_RESOLUTION 16
+#define JOYSTICK_BUTTON_COUNT 13
+#define JOYSTICK_AXIS_COUNT 1
+#define JOYSTICK_AXIS_RESOLUTION 16

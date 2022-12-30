@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "bm68hsrgb/rev2",
+    "keyboard_name": "BM68HSRGB Rev2",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "bdtc123",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x1131",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
