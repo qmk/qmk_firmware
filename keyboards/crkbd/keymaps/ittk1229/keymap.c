@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,  HOME_A,  HOME_O,  HOME_E,  HOME_I,    KC_U,                         KC_G,  HOME_T,  HOME_N,  HOME_S,  HOME_B, JP_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_NO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_F,                         KC_H,    KC_J,    KC_K,    KC_L, JP_SLSH,  KC_DEL,\
+      JP_CAPS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_F,                         KC_H,    KC_J,    KC_K,    KC_L, JP_SLSH,  KC_DEL,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                             KC_NO,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_BSPC\
                                       //`--------------------------'  `--------------------------'
@@ -227,10 +227,20 @@ void oled_render_layer_state(void) {
 }
 
 void oled_render_type_count(void) {
-    oled_write_P(PSTR("Type count: "), false);
+    oled_write_P(PSTR("Count: "), false);
     char count_str[24];
     snprintf(count_str, sizeof(count_str), "%d", type_count);
     oled_write_ln(count_str, false);
+}
+
+void oled_render_host_led_state(void) {
+    const led_t led_state = host_keyboard_led_state();
+    // oled_write_P(PSTR("NL:"), false);
+    // oled_write_P(led_state.num_lock ? PSTR("on") : PSTR("- "), false);
+    oled_write_P(PSTR("CL:"), false);
+    oled_write_P(led_state.caps_lock ? PSTR("on") : PSTR("- "), false);
+    // oled_write_P(PSTR(" SL:"), false);
+    // oled_write_ln_P(led_state.scroll_lock ? PSTR("on") : PSTR("-"), false);
 }
 
 void oled_render_logo(void) {
@@ -246,6 +256,8 @@ void oled_render_logo(void) {
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
+        oled_render_host_led_state();
+        oled_write_P(PSTR(", "), false);
         oled_render_type_count();
         oled_write_P(PSTR("\n@ittk1229"), false);
     } else {
