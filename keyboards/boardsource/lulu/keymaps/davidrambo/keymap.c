@@ -64,11 +64,6 @@ enum custom_layers {
 #define G_GRV   LGUI(KC_GRV)
 #define SftEnt  SFT_T(KC_ENT)
 
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE,
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
