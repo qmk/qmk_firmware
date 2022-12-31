@@ -23,7 +23,7 @@
 
 数字の入力と移動を行うためのレイヤー
 
--   <kbd>←</kbd>, <kbd>↓</kbd>, <kbd>↑</kbd>, <kbd>→</kbd>と<kbd>Home</ｔ kbd>, <kbd>PageUp</kbd>, <kbd>PageDown</kbd>, <kbd>End</kbd>がそれぞれ横一列に並んでおり、vim ライクに移動ができる
+-   <kbd>←</kbd>, <kbd>↓</kbd>, <kbd>↑</kbd>, <kbd>→</kbd>と<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>PageDown</kbd>, <kbd>End</kbd>がそれぞれ横一列に並んでおり、vim ライクに移動ができる
 
 ### Raise レイヤー
 
