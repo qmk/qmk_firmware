@@ -9,9 +9,6 @@
     "device_version": "0.0.1"
   },
   "indicators": {
-      "caps_lock": "E6"
-  },
-  "indicators": {
     "caps_lock": "E6"
   },
   "layouts": {
