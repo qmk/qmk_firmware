@@ -32,10 +32,6 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* Bootmagic reset */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
