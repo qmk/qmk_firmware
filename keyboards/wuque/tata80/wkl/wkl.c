@@ -15,29 +15,3 @@
  */
 #include "wkl.h"
 
-
-
-void matrix_init_kb(void) {
-
-  setPinOutput(PE6);
-
-  DDRE &= ~(1 << 6); PORTE &= ~(1 << 6);
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-
-    if(res)
-    {
-        if(!led_state.caps_lock)
-        {
-        	DDRE &= ~(1 << 6); PORTE &= ~(1 << 6);
-        }
-        else
-        {
-        	DDRE |= (1 << 6); PORTE|= (1 << 6);
-        }
-    }
-    return res;
-}
-
