@@ -22,8 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xC2AB
 #define PRODUCT_ID      0x3939
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    DPB
-#define PRODUCT         Ferris sweep
+
 
 /* key matrix size */
 #define MATRIX_ROWS 8
