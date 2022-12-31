@@ -270,32 +270,21 @@ void send_keyboard_report(void) {
     keyboard_report->mods |= weak_override_mods;
 #endif
 
-#ifdef PROTOCOL_VUSB
-#   ifdef DOUBLE_REPORT
-    static report_keyboard_t last_report;
-    memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
-#   endif
-
-    host_keyboard_send(keyboard_report);
-
-#   ifdef DOUBLE_REPORT
-    memcpy(keyboard_report, &last_report, sizeof(report_keyboard_t)); // host_keyboard_send() sometimes modifies keyboard_report, so restore it from last_report before sending again
-    host_keyboard_send(keyboard_report);
-#   endif
-#else
     static report_keyboard_t last_report;
 
+#ifndef PROTOCOL_VUSB
     /* Only send the report if there are changes to propagate to the host. */
-    if (memcmp(&last_report, keyboard_report, sizeof(report_keyboard_t)) != 0) {
+    if (memcmp(&last_report, keyboard_report, sizeof(report_keyboard_t)) != 0)
+#endif
+    {
         memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
         host_keyboard_send(keyboard_report);
 
-#   ifdef DOUBLE_REPORT
-        memcpy(keyboard_report, &last_report, sizeof(report_keyboard_t)); // host_keyboard_send() sometimes modifies keyboard_report, so restore it from last_report before sending again
+#ifdef DOUBLE_REPORT
+        memcpy(keyboard_report, &last_report, sizeof(report_keyboard_t)); // host_keyboard_send() sometimes modifies keyboard_report to handle protocol details, so restore the original from last_report
         host_keyboard_send(keyboard_report);
-#   endif
-    }
 #endif
+    }
 }
 
 /** \brief Get mods
