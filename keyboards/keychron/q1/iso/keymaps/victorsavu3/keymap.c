@@ -31,7 +31,7 @@ enum unicode_names {
     SAD,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [GRIN]  = 0x1F600,  // 😀
     [SAD]   = 0x1F61E,  // 😞
 };

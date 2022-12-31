@@ -49,7 +49,7 @@ enum unicode_names {
   UAST
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [USCT]  = 0x00A7, // §
   [ULSB]  = 0x005B, // [
   [URSB]  = 0x005D, // ]

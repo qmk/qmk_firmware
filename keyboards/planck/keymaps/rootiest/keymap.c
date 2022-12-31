@@ -157,7 +157,7 @@ enum custom_keycodes {
 
 // Declare unicode map array
 enum unicode_names { BANG, SNEK };
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     //[UCD_BANG]  = 0x203D,   // ‽
     //[UCD_IRONY] = 0x2E2E,   // ⸮
     [SNEK] = 0x1F40D,  // 🐍
