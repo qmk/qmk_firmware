@@ -104,24 +104,30 @@ uint16_t hsv_distance(uint8_t h, uint8_t s, uint8_t v, HSV hsv) {
 }
 
 bool qp_eink_panel_palette_convert_eink3(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
+    struct eink_panel_dc_reset_painter_device_t *driver = (struct eink_panel_dc_reset_painter_device_t *)device;
+
     for (int16_t i = 0; i < palette_size; ++i) {
         HSV      hsv            = (HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v};
         uint16_t black_distance = hsv_distance(HSV_BLACK, hsv);
         uint16_t red_distance   = hsv_distance(HSV_RED, hsv);
         uint16_t white_distance = hsv_distance(HSV_WHITE, hsv);
 
-        uint8_t  value;
+        // Default to white
+        bool red   = false;
+        bool black = false;
+
         uint16_t min_distance = QP_MIN(black_distance, QP_MIN(red_distance, white_distance));
+
         if (min_distance == black_distance)
-            value = 0b01;
-
+            black = true;
         else if (min_distance == red_distance)
-            value = 0b10;
+            red = true;
 
-        else
-            value = 0b00;
+        if (driver->invert_black) black = !black;
+        if (driver->invert_red) red = !red;
 
-        palette[i].mono = value;
+        // format: 0000 00RB
+        palette[i].mono = (black << 0) | (red << 1);
     }
     return true;
 }

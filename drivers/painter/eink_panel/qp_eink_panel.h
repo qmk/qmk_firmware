@@ -44,6 +44,9 @@ typedef struct eink_panel_dc_reset_painter_device_t {
     uint32_t timeout; // time to wait between flushes to avoid damaging the screen, in ms
     bool     can_flush;
 
+    bool invert_black; // by default, 1=black, 0=white
+    bool invert_red;   // by default, 1=red,   0=black/white
+
     union {
 #ifdef QUANTUM_PAINTER_SPI_ENABLE
         // SPI-based configurables
