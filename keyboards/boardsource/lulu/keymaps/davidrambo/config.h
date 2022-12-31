@@ -27,5 +27,5 @@
 #define TAPPING_FORCE_HOLD
 
 #ifdef RGB_MATRIX_ENABLE
-    #define rgb_disable_when_usb_suspended  // turn off effects when suspended
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #endif
