@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -106,3 +106,4 @@
 #define IE_OACU ALGR(IE_O)    // Ó
 #define IE_AACU ALGR(IE_A)    // Á
 #define IE_ACUT ALGR(IE_QUOT) // ´ (dead)
+

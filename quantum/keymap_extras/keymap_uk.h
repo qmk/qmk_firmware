@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -105,3 +105,4 @@
 #define UK_IACU ALGR(KC_I)    // Í
 #define UK_OACU ALGR(KC_O)    // Ó
 #define UK_AACU ALGR(KC_A)    // Á
+
