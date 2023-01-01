@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -107,3 +107,4 @@
 #define DE_TILD ALGR(DE_PLUS) // ~
 #define DE_PIPE ALGR(DE_LABK) // |
 #define DE_MICR ALGR(DE_M)    // µ
+

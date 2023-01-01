@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -171,3 +171,4 @@
 #define CA_MORD RCTL(S(CA_M))    // º
 #define CA_MUL  RCTL(S(CA_COMM)) // ×
 #define CA_DIV  RCTL(S(CA_DOT))  // ÷
+
