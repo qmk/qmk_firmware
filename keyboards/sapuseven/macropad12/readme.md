@@ -1,6 +1,6 @@
 # macropad
 
-![macropad12](https://i.imgur.com/StqDhH8.png)
+![macropad12](https://i.imgur.com/StqDhH8h.png)
 
 A simple, configurable 12-key MacroPad.
 
