@@ -1,6 +1,6 @@
 # Quarkeys Z67 Keyboard
 
-A 65% Gasket keyboard made by Quarkeys, third of our projects.
+A 65% Gasket keyboard made by Quarkeys Studio, third of our projects.
 
 * Keyboard Maintainer: [Quarkeys Studio](www.quarkeys.com)
 * Hardware Supported: Z67-YUN
