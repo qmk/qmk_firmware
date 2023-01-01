@@ -259,7 +259,7 @@ enum unicode_name {
   PLMIN,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [GRIN] = 0x1F600,
   [TJOY] = 0x1F602,
   [SMILE] = 0x1F601,

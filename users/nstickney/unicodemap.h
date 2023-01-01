@@ -37,7 +37,7 @@ enum {
 	CPL
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
 	[IEX] = 0xA1,   // ¡
 	[SS2] = 0xB2,   // ²
 	[SS3] = 0xB3,   // ³

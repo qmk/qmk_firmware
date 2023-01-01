@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [la]  = 0x03B1 , // α
     [lA]  = 0x0391 , // Α
     [lb]  = 0x03B2 , // β
