@@ -14,10 +14,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "rev2.h"
 
-#if defined(KEYBOARD_atreyu_rev1)
-# include "rev1.h"
-#elif defined(KEYBOARD_atreyu_rev2)
-# include "rev2.h"
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+
+    if (index == 1) {
+      if (clockwise) {
+          tap_code(KC_VOLU);
+      } else {
+          tap_code(KC_VOLD);
+      }
+    }
+    if (index == 0) {
+      if (clockwise) {
+          tap_code(KC_WH_U);
+      } else {
+          tap_code(KC_WH_D);
+      }
+    }
+    return true;
+}
 #endif
