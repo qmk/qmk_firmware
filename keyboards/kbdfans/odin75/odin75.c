@@ -22,6 +22,7 @@
   return OLED_ROTATION_0;
 }
     bool oled_task_kb(void) {
+        if (!oled_task_user()) { return false; }
         led_t led_usb_state = host_keyboard_led_state();
 
         render_bongocat();
