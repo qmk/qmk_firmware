@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from qmk.json_schema import deep_update, json_load, validate
+from qmk.json_schema import merge_ordered_dicts, deep_update, json_load, validate
 
 CONSTANTS_PATH = Path('data/constants/')
 KEYCODES_PATH = CONSTANTS_PATH / 'keycodes'
@@ -16,20 +16,13 @@ def _find_versions(path, prefix):
     return ret
 
 
-def _load_fragments(path, prefix, version):
-    file = path / f'{prefix}_{version}.hjson'
-    if not file.exists():
-        raise ValueError(f'Requested keycode spec ({prefix}:{version}) is invalid!')
+def _potential_search_versions(version, lang=None):
+    versions = list_versions(lang)
+    versions.reverse()
 
-    # Load base
-    spec = json_load(file)
+    loc = versions.index(version) + 1
 
-    # Merge in fragments
-    fragments = path.glob(f'{prefix}_{version}_*.hjson')
-    for file in fragments:
-        deep_update(spec, json_load(file))
-
-    return spec
+    return versions[:loc]
 
 
 def _search_path(lang=None):
@@ -38,6 +31,34 @@ def _search_path(lang=None):
 
 def _search_prefix(lang=None):
     return f'keycodes_{lang}' if lang else 'keycodes'
+
+
+def _locate_files(path, prefix, versions):
+    # collate files by fragment "type"
+    files = {'_': []}
+    for version in versions:
+        files['_'].append(path / f'{prefix}_{version}.hjson')
+
+        for file in path.glob(f'{prefix}_{version}_*.hjson'):
+            fragment = file.stem.replace(f'{prefix}_{version}_', '')
+            if fragment not in files:
+                files[fragment] = []
+            files[fragment].append(file)
+
+    return files
+
+
+def _process_files(files):
+    # allow override within types of fragments - but not globally
+    spec = {}
+    for category in files.values():
+        specs = []
+        for file in category:
+            specs.append(json_load(file))
+
+        deep_update(spec, merge_ordered_dicts(specs))
+
+    return spec
 
 
 def _validate(spec):
@@ -62,9 +83,10 @@ def load_spec(version, lang=None):
 
     path = _search_path(lang)
     prefix = _search_prefix(lang)
+    versions = _potential_search_versions(version, lang)
 
-    # Load base
-    spec = _load_fragments(path, prefix, version)
+    # Load bases + any fragments
+    spec = _process_files(_locate_files(path, prefix, versions))
 
     # Sort?
     spec['keycodes'] = dict(sorted(spec.get('keycodes', {}).items()))
