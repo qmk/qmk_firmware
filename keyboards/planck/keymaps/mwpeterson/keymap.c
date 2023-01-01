@@ -43,7 +43,7 @@ enum unicode_name {
   IBANG // ‽
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [IBANG]      = 0x0203D // ‽
 };
 #endif // UNICODEMAP_ENABLE
