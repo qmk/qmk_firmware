@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -98,3 +98,4 @@
 #define KR_LABK S(KR_COMM) // <
 #define KR_RABK S(KR_DOT)  // >
 #define KR_QUES S(KR_SLSH) // ?
+

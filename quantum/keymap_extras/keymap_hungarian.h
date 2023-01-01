@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -126,3 +126,4 @@
 #define HU_RCBR ALGR(HU_N)    // }
 #define HU_SCLN ALGR(HU_COMM) // ;
 #define HU_ASTR ALGR(HU_MINS) // *
+

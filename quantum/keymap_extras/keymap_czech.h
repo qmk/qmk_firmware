@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -126,3 +126,4 @@
 #define CZ_LABK ALGR(CZ_COMM) // <
 #define CZ_RABK ALGR(CZ_DOT)  // >
 #define CZ_ASTR ALGR(CZ_MINS) // *
+
