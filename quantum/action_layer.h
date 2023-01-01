@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #        define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #    endif
+#    define MAX_LAYER DYNAMIC_KEYMAP_LAYER_COUNT
 #    if DYNAMIC_KEYMAP_LAYER_COUNT <= 8
 #        ifndef LAYER_STATE_8BIT
 #            define LAYER_STATE_8BIT
