@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -98,3 +98,4 @@
 #define DV_CCED S(DV_AGRV) // ç
 #define DV_PIPE S(DV_SCLN) // |
 #define DV_AT   S(DV_COMM) // @
+

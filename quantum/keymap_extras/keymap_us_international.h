@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -141,3 +141,4 @@
 #define US_DEG  S(ALGR(US_SCLN)) // °
 #define US_NDDR S(ALGR(US_ACUT)) // ¨
 #define US_CENT S(ALGR(US_C))    // ¢
+

@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -90,3 +90,4 @@
 #define RU_SLSH S(RU_BSLS) // /
 #define RU_COMM S(RU_DOT)  // ,
 #define RU_RUBL ALGR(RU_8)    // ₽
+
