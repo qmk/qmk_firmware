@@ -18,8 +18,10 @@ Currently the following converters are available:
 | `promicro` | `stemcell`        |
 | `promicro` | `bonsai_c4`       |
 | `promicro` | `elite_pi`        |
+| `promicro` | `helios`          |
 | `elite_c`  | `stemcell`        |
 | `elite_c`  | `elite_pi`        |
+| `elite_c`  | `helios`          |
 
 See below for more in depth information on each converter.
 
@@ -81,6 +83,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [STeMCell](https://github.com/megamind4089/STeMCell)                                     | `stemcell`        |
 | [customMK Bonsai C4](https://shop.custommk.com/products/bonsai-c4-microcontroller-board) | `bonsai_c4`       |
 | [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)         | `elite_pi`        |
+| [0xCB Helios](https://keeb.supply/products/0xcb-helios)                                  | `helios`          |
 
 Converter summary:
 
@@ -94,6 +97,7 @@ Converter summary:
 | `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
 | `bonsai_c4`       | `-e CONVERT_TO=bonsai_c4`       | `CONVERT_TO=bonsai_c4`       | `#ifdef CONVERT_TO_BONSAI_C4`       |
 | `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
+| `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`          |
 
 ### Proton C :id=proton_c
 
@@ -165,6 +169,7 @@ If a board currently supported in QMK uses an [Elite-C](https://keeb.io/products
 |----------------------------------------------------------------------------------|-------------------|
 | [STeMCell](https://github.com/megamind4089/STeMCell)                             | `stemcell`        |
 | [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040) | `elite_pi`        |
+| [0xCB Helios](https://keeb.supply/products/0xcb-helios)                          | `helios`          |
 
 Converter summary:
 
@@ -180,3 +185,11 @@ Currently identical to [STeMCell](#stemcell) with support for the additional bot
 ### Elite-Pi :id=elite_pi
 
 Currently identical to [Adafruit KB2040](#kb2040), with support for the additional bottom row of pins.
+
+### Helios :id=helios
+
+Currently identical to [Adafruit KB2040](#kb2040), apart from D+ and D-, they are moved to the board center and replaced by GP10 and GP11.
+With support for the additional bottom row of pins, 2 extra top pins, a 5V level shifted extra pin (to drive RGB LEDs for example) and a user led (pinout according to the 
+Bastardkb standard).
+
+Please consult the [pinout](https://github.com/0xCB-dev/0xCB-Helios/blob/main/rev1.0/helios.webp) for further reference.
