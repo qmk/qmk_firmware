@@ -49,3 +49,19 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     }
 	return state;
 }
+
+void suspend_power_down_kb(void) {
+    writePinLow(INDICATOR_0);
+    writePinLow(INDICATOR_1);
+    writePinLow(INDICATOR_2);
+
+    suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void) {
+    writePinHigh(INDICATOR_0);
+    writePinHigh(INDICATOR_1);
+    writePinHigh(INDICATOR_2);
+
+    suspend_wakeup_init_user();
+}
