@@ -1,5 +1,8 @@
 name: Update API Data
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
