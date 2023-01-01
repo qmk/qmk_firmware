@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -134,3 +134,4 @@
 #define TR_BRKP S(ALGR(TR_LABK)) // ¦
 #define TR_COPY S(ALGR(TR_V))    // ©
 #define TR_MORD S(ALGR(TR_S))    // º
+

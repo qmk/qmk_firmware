@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -109,3 +109,4 @@
 #define EE_HALF ALGR(EE_QUOT) // ½
 #define EE_PIPE ALGR(EE_LABK) // |
 #define EE_ZCAR ALGR(EE_Z)    // ž
+

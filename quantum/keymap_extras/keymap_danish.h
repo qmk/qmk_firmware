@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -107,3 +107,4 @@
 #define DK_TILD ALGR(DK_DIAE) // ~ (dead)
 #define DK_BSLS ALGR(DK_LABK) // (backslash)
 #define DK_MICR ALGR(DK_M)    // µ
+

@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -65,3 +65,4 @@
 #define NO_TILD ALGR(NO_QUOT)
 #define NO_BSLS ALGR(KC_MINS)
 #define NO_MU   ALGR(KC_M)   
+

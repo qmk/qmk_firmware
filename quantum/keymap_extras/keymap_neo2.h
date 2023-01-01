@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -78,3 +78,4 @@
 #define NE_DOT  KC_DOT  // .
 #define NE_J    KC_SLSH // J
 #define NE_L4R  KC_ALGR // (layer 4)
+

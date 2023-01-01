@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -112,3 +112,4 @@
 #define BR_FORD ALGR(BR_LBRC) // ª
 #define BR_MORD ALGR(BR_RBRC) // º
 #define BR_CRUZ ALGR(BR_C)    // ₢
+
