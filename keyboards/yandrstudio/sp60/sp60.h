@@ -4,13 +4,11 @@
 #pragma once
 
 #include "quantum.h"
+
 #if defined(KEYBOARD_yandrstudio_sp60_rev1)
 #    include "rev1.h"
-#if defined(KEYBOARD_yandrstudio_sp60_rev2)
-#    include "rev2.h"
 #endif
-#if defined(KEYBOARD_yandrstudio_sp60_rev1)
-#    include "rev1.h"
+
 #if defined(KEYBOARD_yandrstudio_sp60_rev2)
 #    include "rev2.h"
 #endif
