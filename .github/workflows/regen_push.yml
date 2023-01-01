@@ -36,7 +36,7 @@ jobs:
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}
         delete-branch: true
-        branch: bugfix/format_${{ env.GITHUB_REF_SLUG }}
+        branch: bugfix/regen_${{ env.GITHUB_REF_SLUG }}
         author: QMK Bot <hello@qmk.fm>
         committer: QMK Bot <hello@qmk.fm>
         commit-message: Regenerate Files
