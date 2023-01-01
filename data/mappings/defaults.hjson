@@ -72,6 +72,12 @@
             "bootloader": "stm32-dfu",
             "board": "BONSAI_C4",
             "pin_compatible": "promicro"
+        },
+        "helios": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040",
+            "pin_compatible": "promicro"
         }
     }
 }
