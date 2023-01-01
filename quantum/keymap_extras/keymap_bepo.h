@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -172,3 +172,4 @@
 #define BP_DDAG S(ALGR(BP_H))    // ‡
 #define BP_FORD S(ALGR(BP_F))    // ª
 #define BP_NNBS S(ALGR(KC_SPC))  // (narrow non-breaking space)
+
