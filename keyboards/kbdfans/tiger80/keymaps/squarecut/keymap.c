@@ -47,6 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void keyboard_post_init_user(void) {
-rgblight_disable();
+void eeconfig_init_user(void) {
+    eeconfig_update_user(0);
+    rgblight_disable();
 }
