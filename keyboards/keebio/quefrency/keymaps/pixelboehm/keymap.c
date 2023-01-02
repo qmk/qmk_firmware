@@ -14,25 +14,48 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
 };
 
+enum unicode_names {
+    UMLAUT_A,
+    UMLAUT_a,
+    UMLAUT_O,
+    UMLAUT_o,
+    UMLAUT_U,
+    UMLAUT_u,
+    SHARP_S,
+    EURO
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [UMLAUT_A]  = 0x00C4,
+    [UMLAUT_a] = 0x00E4,
+    [UMLAUT_O]  = 0x00D6,
+    [UMLAUT_o]  = 0x00F6,
+    [UMLAUT_U]  = 0x00DC,
+    [UMLAUT_u]  = 0x00FC,
+    [SHARP_S]  = 0x00DF,
+    [EURO]    = 0x20AC,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
     KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  _______,  KC_BSPC, \
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
     MO(_FN1), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT, \
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, _______, \
-    KC_LCTL, KC_LALT, KC_LGUI, MO(_FN2),KC_SPC,           MO(_FN1),KC_SPC, KC_RALT, KC_LGUI, _______, MO(_FN2), KC_RCTL
+    KC_LCTL, MO(_FN2), KC_LGUI, KC_LALT, KC_SPC,           MO(_FN1),KC_SPC, KC_RALT, KC_LGUI, _______, MO(_FN2), KC_RCTL
   ),
-
+// LALT(LSFT(KC_2)) this was euro before
+// currently euro does not work
   [_FN1] = LAYOUT(
     KC_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,  KC_DEL, \
-    _______, _______, _______, LALT(LSFT(KC_2)),   _______, _______, _______, LALT(KC_U), _______, LALT(KC_O), _______, _______, _______, _______, \
-    _______, X(UMLAUT_A), LALT(KC_S), _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, _______, _______,\
+    _______, _______, _______, X(EURO),   _______, _______, _______, XP(UMLAUT_u, UMLAUT_U), _______, XP(UMLAUT_o, UMLAUT_O), _______, _______, _______, _______, \
+    _______, XP(UMLAUT_a, UMLAUT_A), X(SHARP_S), _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, _______, _______,\
     _______, KC_GRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______
   ),
   
   [_FN2] = LAYOUT(
-    RESET, DEBUG, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, \
+    RESET, DEBUG, _______, _______, _______, _______, _______, _______, _______,   _______, UNICODE_MODE_LNX, UNICODE_MODE_WINC, UNICODE_MODE_MAC, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, KC_MEDIA_PREV_TRACK, _______, _______, _______, _______, _______, _______,\
     _______, _______, _______, _______, _______, _______, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_MEDIA_PLAY_PAUSE, _______, _______, \

@@ -25,4 +25,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL
 // #define USE_I2C
-#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS
+#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC
+#define UNICODE_CYCLE_PERSIST false
