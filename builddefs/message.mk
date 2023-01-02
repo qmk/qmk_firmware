@@ -102,6 +102,7 @@ MSG_FLASH_ARCH = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's architecture is n
 MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) $(MSG_BOOTLOADER_NOT_FOUND_BASE) Trying again in 5s (Ctrl+C to cancel)\n
 BOOTLOADER_RETRY_TIME ?= 0.5
 MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY = $(MSG_BOOTLOADER_NOT_FOUND_BASE) Trying again every $(BOOTLOADER_RETRY_TIME)s (Ctrl+C to cancel)
+MSG_MISSING_KEYMAP_DIR = $(ERROR_COLOR)ERROR:$(NO_COLOR) keymaps directory is missing!\n\n
 
 define CATASTROPHIC_ERROR
     $(shell printf "\n * %-99s $(ERROR_STRING)\n" "$2" >&2)
