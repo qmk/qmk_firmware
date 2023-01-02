@@ -66,7 +66,6 @@ MSG_CREATING_LIBRARY = Creating library:
 MSG_GENERATING = Generating:
 MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR) Some git submodules are out of date or modified.\n\
 Please consider running $(BOLD)make git-submodule$(NO_COLOR).\n\n
-MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)
 
 define GENERATE_MSG_MAKE_KB
     MSG_MAKE_KB_ACTUAL := Making $$(KB_SP) with keymap $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
