@@ -49,22 +49,28 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 void work_louder_micro_led_1_on(void) {
+    setPinOutput(WORK_LOUDER_LED_PIN_1);
     writePin(WORK_LOUDER_LED_PIN_1, true);
 }
 void work_louder_micro_led_2_on(void) {
+    setPinOutput(WORK_LOUDER_LED_PIN_2);
     writePin(WORK_LOUDER_LED_PIN_2, true);
 }
 void work_louder_micro_led_3_on(void) {
+    setPinOutput(WORK_LOUDER_LED_PIN_3);
     writePin(WORK_LOUDER_LED_PIN_3, true);
 }
 
 void work_louder_micro_led_1_off(void) {
+    setPinInput(WORK_LOUDER_LED_PIN_1);
     writePin(WORK_LOUDER_LED_PIN_1, false);
 }
 void work_louder_micro_led_2_off(void) {
+    setPinInput(WORK_LOUDER_LED_PIN_2);
     writePin(WORK_LOUDER_LED_PIN_2, false);
 }
 void work_louder_micro_led_3_off(void) {
+    setPinInput(WORK_LOUDER_LED_PIN_3);
     writePin(WORK_LOUDER_LED_PIN_3, false);
 }
 
@@ -81,15 +87,15 @@ void work_louder_micro_led_all_off(void) {
 }
 
 void work_louder_micro_led_1_set(uint8_t n) {
-#if WORK_LOUDER_LED_PIN_1 == B7
-    OCR1C = n;
+#if WORK_LOUDER_LED_PIN_1 == B6
+    OCR1B = n;
 #else
     n ? work_louder_micro_led_1_on() : work_louder_micro_led_1_off();
 #endif
 }
 void work_louder_micro_led_2_set(uint8_t n) {
-#if WORK_LOUDER_LED_PIN_2 == B6
-    OCR1B = n;
+#if WORK_LOUDER_LED_PIN_2 == B7
+    OCR1C = n;
 #else
     n ? work_louder_micro_led_2_on() : work_louder_micro_led_2_off();
 #endif
@@ -108,49 +114,16 @@ void work_louder_micro_led_all_set(uint8_t n) {
     work_louder_micro_led_3_set(n);
 }
 
-#ifdef DEFER_EXEC_ENABLE
-uint32_t startup_animation(uint32_t trigger_time, void *cb_arg) {
-    static uint8_t index = 0;
+void keyboard_post_init_kb(void) {
+    TCCR1A = 0b10101001;  // set and configure fast PWM
+    TCCR1B = 0b00001001;  // set and configure fast PWM
 
-    switch (index) {
-        case 0:
-            work_louder_micro_led_1_on();
-            break;
-        case 1:
-            work_louder_micro_led_2_on();
-            break;
-        case 2:
-            work_louder_micro_led_3_on();
-            break;
-        case 3:
-            work_louder_micro_led_1_off();
-            break;
-        case 4:
-            work_louder_micro_led_2_off();
-            break;
-        case 5:
-            work_louder_micro_led_3_off();
-            break;
-        default:
-            return 0;
-    }
-    index++;
-    return 100;
+    keyboard_post_init_user();
 }
-#endif
 
-void matrix_init_kb(void) {
+void work_louder_led_init_animation(void) {
+    work_louder_micro_led_all_off();
 
-    setPinOutput(WORK_LOUDER_LED_PIN_1); // left led
-    writePin(WORK_LOUDER_LED_PIN_1, false);
-    setPinOutput(WORK_LOUDER_LED_PIN_2); // middle led
-    writePin(WORK_LOUDER_LED_PIN_2, false);
-    setPinOutput(WORK_LOUDER_LED_PIN_3); // right led
-    writePin(WORK_LOUDER_LED_PIN_3, false);
-
-#ifdef DEFER_EXEC_ENABLE
-    defer_exec(500, startup_animation, NULL);
-#else
     wait_ms(500);
     work_louder_micro_led_1_on();
     wait_ms(100);
@@ -164,7 +137,15 @@ void matrix_init_kb(void) {
     wait_ms(100);
     work_louder_micro_led_3_off();
     wait_ms(200);
-#endif
-    matrix_init_user();
+}
 
+
+void suspend_power_down_kb(void) {
+    suspend_power_down_user();
+    work_louder_micro_led_all_off();
+}
+
+void suspend_wakeup_init_kb(void) {
+    work_louder_led_init_animation();
+    suspend_wakeup_init_user();
 }
