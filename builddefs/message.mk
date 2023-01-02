@@ -64,6 +64,8 @@ MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
 MSG_GENERATING = Generating:
+MSG_NOT_REPO = $(WARN_COLOR)WARNING:$(NO_COLOR) Target folder is not a git repo.\n\
+Please consider following $(BOLD)https://docs.qmk.fm/\#/newbs_getting_started$(NO_COLOR).\n\n
 MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR) Some git submodules are out of date or modified.\n\
 Please consider running $(BOLD)make git-submodule$(NO_COLOR).\n\n
 MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)

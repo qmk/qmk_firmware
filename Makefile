@@ -19,8 +19,13 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+ifeq ($(shell git rev-parse --is-inside-work-tree 2>/dev/null),)
+    export SKIP_GIT := yes
+    export NOT_REPO := yes
+endif
+
 ifdef SKIP_VERSION
-    SKIP_GIT := yes
+    export SKIP_GIT := yes
 endif
 
 ifndef SUB_IS_SILENT
@@ -394,8 +399,11 @@ endef
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Ensure that $(QMK_BIN) works.
 	if ! $(QMK_BIN) hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; exit 1; fi
-	# Check if the submodules are dirty, and display a warning if they are
+ifdef NOT_REPO
+	printf "$(MSG_NOT_REPO)"
+endif
 ifndef SKIP_GIT
+	# Check if the submodules are dirty, and display a warning if they are
 	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
 	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
 	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
