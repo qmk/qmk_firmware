@@ -68,7 +68,6 @@ MSG_NOT_REPO = $(WARN_COLOR)WARNING:$(NO_COLOR) Target folder is not a git repo,
 Please consider following $(BOLD)https://docs.qmk.fm/\#/newbs_getting_started$(NO_COLOR).\n\n
 MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR) Some git submodules are out of date or modified.\n\
 Please consider running $(BOLD)qmk git-submodule$(NO_COLOR).\n\n
-MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)
 
 define GENERATE_MSG_MAKE_KB
     MSG_MAKE_KB_ACTUAL := Making $$(KB_SP) with keymap $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
