@@ -3,6 +3,8 @@ ifeq ($(strip $(RGB_BACKLIGHT)),yes)
 # Disable RGB Matrix
 RGB_MATRIX_ENABLE = no
 
+CIE1931_CURVE = yes
+
 # project specific files
 SRC =	keyboards/wilba_tech/wt_main.c \
 		keyboards/wilba_tech/wt_rgb_backlight.c \
