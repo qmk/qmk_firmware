@@ -33,7 +33,7 @@ bool qp_internal_decode_palette(painter_device_t device, uint32_t pixel_count, u
     const uint8_t pixels_per_byte  = 8 / bits_per_pixel;
     uint32_t      remaining_pixels = pixel_count; // don't try to derive from byte_count, we may not use an entire byte
     while (remaining_pixels > 0) {
-        uint8_t byteval = input_callback(input_arg);
+        uint16_t byteval = input_callback(input_arg);
         if (byteval < 0) {
             return false;
         }
@@ -68,7 +68,7 @@ bool qp_internal_decode_recolor(painter_device_t device, uint32_t pixel_count, u
 bool qp_internal_send_bytes(painter_device_t device, uint32_t byte_count, qp_internal_byte_input_callback input_callback, void* input_arg, qp_internal_byte_output_callback output_callback, void* output_arg) {
     uint32_t remaining_bytes = byte_count;
     while (remaining_bytes > 0) {
-        uint8_t byteval = input_callback(input_arg);
+        uint16_t byteval = input_callback(input_arg);
         if (byteval < 0) {
             return false;
         }

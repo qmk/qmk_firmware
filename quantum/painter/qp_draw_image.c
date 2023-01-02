@@ -275,11 +275,15 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
         }
     } else {
         // Set up the output state
-        struct qp_internal_byte_output_state output_state = {.device = device, .byte_write_pos = 0, .max_bytes = QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE};
+        struct qp_internal_byte_output_state output_state = {.device = device, .byte_write_pos = 0, .max_bytes = qp_internal_num_pixels_in_buffer(device) * driver->native_bits_per_pixel / 8};
 
         // Stream the raw pixel data to the display
         uint32_t byte_count = pixel_count * frame_info->bpp / 8;
         ret                 = qp_internal_send_bytes(device, byte_count, input_callback, &input_state, qp_internal_byte_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.byte_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.byte_write_pos * 8 / driver->native_bits_per_pixel);
+        }
     }
 
     qp_dprintf("qp_drawimage_recolor: %s\n", ret ? "ok" : "fail");
