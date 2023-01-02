@@ -80,7 +80,7 @@ const uint8_t ascii_to_dead_lut[16] PROGMEM = {
     KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
+    KCLUT_ENTRY(0, 0, 0, 1, 0, 0, 0, 0)
 };
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
