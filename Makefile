@@ -19,8 +19,13 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+ifeq ($(shell git rev-parse --is-inside-work-tree 2>/dev/null),)
+    export SKIP_GIT := yes
+    export NOT_REPO := yes
+endif
+
 ifdef SKIP_VERSION
-    SKIP_GIT := yes
+    export SKIP_GIT := yes
 endif
 
 ifndef SUB_IS_SILENT
@@ -392,8 +397,11 @@ endef
 %:
 	# Ensure that $(QMK_BIN) works.
 	if ! $(QMK_BIN) hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; exit 1; fi
-	# Check if the submodules are dirty, and display a warning if they are
+ifdef NOT_REPO
+	printf "$(MSG_NOT_REPO)"
+endif
 ifndef SKIP_GIT
+	# Check if the submodules are dirty, and display a warning if they are
 	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
 	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
 	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
@@ -428,12 +436,7 @@ lib/%:
 
 .PHONY: git-submodule
 git-submodule:
-	[ -e lib/ugfx ] && rm -rf lib/ugfx || true
-	[ -e lib/pico-sdk ] && rm -rf lib/pico-sdk || true
-	[ -e lib/chibios-contrib/ext/mcux-sdk ] && rm -rf lib/chibios-contrib/ext/mcux-sdk || true
-	[ -e lib/lvgl ] && rm -rf lib/lvgl || true
-	git submodule sync --recursive
-	git submodule update --init --recursive --progress
+	$(QMK_BIN) git-submodule
 
 .PHONY: git-submodules
 git-submodules: git-submodule
