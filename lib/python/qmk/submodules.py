@@ -21,15 +21,17 @@ def status():
     status is None when the submodule doesn't exist, False when it's out of date, and True when it's current
     """
     submodules = {}
+    gitmodule_config = cli.run(['git', 'config', '-f', '.gitmodules', '-l'], timeout=30)
+    for line in gitmodule_config.stdout.splitlines():
+        key, value = line.split('=', maxsplit=2)
+        if key.endswith('.path'):
+            submodules[value] = {'name': value, 'status': None}
+
     git_cmd = cli.run(['git', 'submodule', 'status'], timeout=30)
-
-    for line in git_cmd.stdout.split('\n'):
-        if not line:
-            continue
-
+    for line in git_cmd.stdout.splitlines():
         status = line[0]
         githash, submodule = line[1:].split()[:2]
-        submodules[submodule] = {'name': submodule, 'githash': githash}
+        submodules[submodule]['githash'] = githash
 
         if status == '-':
             submodules[submodule]['status'] = None
@@ -41,10 +43,7 @@ def status():
             raise ValueError('Unknown `git submodule status` sha-1 prefix character: "%s"' % status)
 
     submodule_logs = cli.run(['git', 'submodule', '-q', 'foreach', 'git --no-pager log --no-show-signature --pretty=format:"$sm_path%x01%h%x01%ad%x01%s%x0A" --date=iso -n1'])
-    for log_line in submodule_logs.stdout.split('\n'):
-        if not log_line:
-            continue
-
+    for log_line in submodule_logs.stdout.splitlines():
         r = log_line.split('\x01')
         submodule = r[0]
         submodules[submodule]['shorthash'] = r[1] if len(r) > 1 else ''
@@ -52,10 +51,7 @@ def status():
         submodules[submodule]['last_log_message'] = r[3] if len(r) > 3 else ''
 
     submodule_tags = cli.run(['git', 'submodule', '-q', 'foreach', '\'echo $sm_path `git describe --tags`\''])
-    for log_line in submodule_tags.stdout.split('\n'):
-        if not log_line:
-            continue
-
+    for log_line in submodule_tags.stdout.splitlines():
         r = log_line.split()
         submodule = r[0]
         submodules[submodule]['describe'] = r[1] if len(r) > 1 else ''
