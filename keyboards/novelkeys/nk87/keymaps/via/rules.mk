@@ -5,6 +5,7 @@
 VIA_ENABLE = yes
 
 RGB_MATRIX_ENABLE = no            # Use RGB matrix. This must be set to no for this keymap since it uses RGB_BACKLIGHT_* by default.
+CIE1931_CURVE = yes
 
 # project specific files
 SRC =	keyboards/wilba_tech/wt_main.c \

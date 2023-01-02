@@ -15,7 +15,6 @@
  */
 
 #include "nk87.h"
-#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
