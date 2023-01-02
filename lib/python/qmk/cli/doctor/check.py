@@ -119,10 +119,8 @@ def check_submodules():
     """
     for submodule in submodules.status().values():
         if submodule['status'] is None:
-            cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
             return CheckStatus.ERROR
         elif not submodule['status']:
-            cli.log.warning('Submodule %s is not up to date!', submodule['name'])
             return CheckStatus.WARNING
 
     return CheckStatus.OK
