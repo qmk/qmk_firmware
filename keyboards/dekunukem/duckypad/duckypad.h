@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LAYOUT( \
     k00, k01, k02, \
-    k10, k11, k12, \
-    k20, k21, k22, \
-    k30, k31, k32, \
-    k40, k41, k42, \
-    kDown, kUp \
-) {{k00, k01, k02, k10, k11, k12, k20, k21, k22, k30, k31, k32, k40, k41, k42, kDown, kUp}}
+    k03, k04, k05, \
+    k06, k07, k08, \
+    k09, k010, k011, \
+    k012, k013, k014, \
+    k015, k016 \
+) {{k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k010, k011, k012, k013, k014, k015, k016}}

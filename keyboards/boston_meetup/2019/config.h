@@ -1,8 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x07E3
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -31,7 +28,10 @@
 
 //Audio
 #undef AUDIO_VOICES
-#undef C6_AUDIO
+#undef AUDIO_PIN
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(ONE_UP_SOUND)
@@ -43,16 +43,9 @@
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 #endif
 
-//configure qwiic micro_oled driver for the 128x32 oled
-#ifdef QWIIC_MICRO_OLED_ENABLE
+// configure oled driver for the 128x32 oled
+#define OLED_UPDATE_INTERVAL 33 // ~30fps
 
-#undef I2C_ADDRESS_SA0_1
-#define I2C_ADDRESS_SA0_1 0b0111100
-#define LCDWIDTH      128
-#define LCDHEIGHT     32
-#define micro_oled_rotate_180
-
-#endif
 /*
  * Keyboard Matrix Assignments
  *
@@ -108,31 +101,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-
-#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 /* Haptic Driver initialization settings
  * Feedback Control Settings */
@@ -183,11 +151,20 @@
 #define ZC_DET_TIME 0
 #define AUTO_CAL_TIME 3
 
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 #define RGBLED_NUM 10
 #define RGB_DI_PIN B5
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #define RGB_MATRIX_KEYPRESSES
 

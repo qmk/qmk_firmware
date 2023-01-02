@@ -2,9 +2,11 @@
 
 A 65% hot swap board with blocker and USB Type C port. 
 
-Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: KBD67 Hotswap  
-Hardware Availability: [KBDFans](https://kbdfans.cn/products/coming-soon-kbd67-mechanical-keyboard-diy-kit)
+This PCB was replaced by the hotswap variants of the kbd67mkii
+
+* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
+* Hardware Supported: KBD67 Hotswap
+* Hardware Availability: [KBDFans](https://kbdfans.cn/products/coming-soon-kbd67-mechanical-keyboard-diy-kit)
 
 Make example for this keyboard (after setting up your build environment):
 

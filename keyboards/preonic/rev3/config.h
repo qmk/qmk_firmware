@@ -15,11 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REV3_CONFIG_H
-#define REV3_CONFIG_H
-
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0003
+#pragma once
 
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
@@ -31,7 +27,6 @@
 #undef MATRIX_COL_PINS
 #define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2, A3, A6 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
@@ -40,8 +35,10 @@
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
-// Note: following undef isn't really necessary on STM32, C6_AUDIO is AVR related
-#undef C6_AUDIO
+#undef AUDIO_PIN
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
@@ -87,44 +84,27 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /*
- * MIDI options
+ * WS2812 Underglow Matrix options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-// #define WS2812_LED_N 2
-// #define RGBLED_NUM WS2812_LED_N
-// #define WS2812_TIM_N 2
-// #define WS2812_TIM_CH 2
-// #define PORT_WS2812     GPIOA
-// #define PIN_WS2812      1
-// #define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
-//#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
-//#define WS2812_EXTERNAL_PULLUP
 #define RGB_DI_PIN A1
 #define RGBLED_NUM 9
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+// RGB Matrix support
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
-
-#endif
+#define WS2812_PWM_DRIVER PWMD2
+#define WS2812_PWM_CHANNEL 2
+#define WS2812_PWM_PAL_MODE 1
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
+#define WS2812_DMA_CHANNEL 2

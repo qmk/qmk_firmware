@@ -1,5 +1,10 @@
 # 介绍
 
+<!---
+  original document: 0.15.12:docs/getting_started_introduction.md
+  git diff 0.15.12 HEAD -- docs/getting_started_introduction.md | cat
+-->
+
 本页解释了使用QMK项目所需的基本信息。它假定您能熟练使用Unix shell，但您不熟悉C语言也不熟悉使用make编译。
 
 ## 基本QMK结构
@@ -8,7 +13,7 @@ QMK是[Jun Wako](https://github.com/tmk)的[tmk_keyboard](https://github.com/tmk
 
 ### 用户空间结构
 
-在`users`文件夹里面的目录是每个用户的目录。这个文件夹里面放的是用户们在不同键盘都能用到的代码。详见[用户空间特性](feature_userspace.md) 
+在`users`文件夹里面的目录是每个用户的目录。这个文件夹里面放的是用户们在不同键盘都能用到的代码。详见[用户空间特性](zh-cn/feature_userspace.md) 
 
 ### 键盘项目结构
 
@@ -25,7 +30,7 @@ QMK是[Jun Wako](https://github.com/tmk)的[tmk_keyboard](https://github.com/tmk
 * `config.h`: 配置布局的选项
 * `keymap.c`: 布局的全部代码, 必要文件
 * `rules.mk`: 使能的QMK特性
-* `readme.md`:介绍你的布局,告诉别人怎么使用，附上功能说明。请将图片上传到imgur等图床（译者注：imgur可能已被墙，为了方便国人访问，建议使用国内可以直接访问的图床）。
+* `readme.md`:介绍你的布局,告诉别人怎么使用，附上功能说明。请将图片上传到imgur等图床（译注：imgur可能已被墙，为了方便国人访问，建议使用国内可以直接访问的图床）。
 
 # `config.h` 文件
 

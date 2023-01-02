@@ -1,8 +1,8 @@
 # タップダンス: 1つのキーが3つ、5つまたは100の異なる動作をします
 
 <!---
-  original document: 0.10.33:docs/feature_tap_dance.md
-  git diff 0.10.33 HEAD -- docs/feature_tap_dance.md | cat
+  original document: 0.13.15:docs/feature_tap_dance.md
+  git diff 0.13.15 HEAD -- docs/feature_tap_dance.md | cat
 -->
 
 ## イントロダクション :id=introduction
@@ -22,13 +22,12 @@
 
 `TAPPING_TERM` の時間は、あなたのタップダンスのキーのタップとタップの間の時間として許可された最大の時間で、ミリ秒単位で計測されます。例えば、もし、あなたがこの上にある `#define` ステートメントを使い、1回タップすると `Space` が送信され、2回タップすると `Enter` が送信されるタップダンスキーをセットアップした場合、175ミリ秒以内に2回キーをタップすれば `ENT` だけが送信されるでしょう。もし、1回タップしてから175ミリ秒以上待ってからもう一度タップすると、`SPC SPC` が送信されます。
 
-次に、いくつかのタップダンスのキーを定義するためには、`TD()` マクロを使うのが最も簡単です。これは数字を受け取り、この数字は後で `tap_dance-actions` 配列のインデックスとして使われます。
+次に、いくつかのタップダンスのキーを定義するためには、`TD()` マクロを使うのが最も簡単です。これは数字を受け取り、この数字は後で `tap_dance_actions` 配列のインデックスとして使われます。
 
 その後、`tap_dance_actions` 配列を使って、タップダンスキーを押した時のアクションを定義します。現在は、5つの可能なオプションがあります:
 
 * `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: 1回タップすると `kc1` キーコードを送信し、2回タップすると `kc2` キーコードを送信します。キーを押し続けているときは、適切なキーコードが登録されます: キーを押し続けた場合は `kc1`、一度タップしてから続けてもう一度キーを押してそのまま押し続けたときは、 `kc2` が登録されます。
 * `ACTION_TAP_DANCE_LAYER_MOVE(kc, layer)`: 1回タップすると `kc` キーコードが送信され、2回タップすると `layer` レイヤーに移動します(これは `TO` レイヤーキーコードのように機能します)。
-    * この機能は `ACTION_TAP_DANCE_DUAL_ROLE` と同じですが、機能が明確になるように関数名を変更しました。どちらの関数名でも実行できます。
 * `ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer)`: 1回タップすると `kc` キーコードが送信され、2回タップすると `layer` の状態をトグルします(これは `TG` レイヤーキーコードのように機能します)。
 * `ACTION_TAP_DANCE_FN(fn)`: ユーザーキーマップに定義した指定の関数が呼び出されます。タップダンス実行の回数分タップすると、最後の時点で呼び出されます。
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: タップする度にユーザーキーマップに定義した最初の関数が呼び出されます。タップダンスの実行が終わった時点で2番目の関数が呼び出され、タップダンスの実行をリセットするときに最後の関数が呼び出されます。
@@ -59,7 +58,7 @@
 
 このことは、あなたは再びキーをタップするまでの時間として `TAPPING_TERM` の時間を持っていることを意味します。そのため、あなたは1つの `TAPPING_TERM` の時間内に全てのタップを行う必要はありません。これにより、キーの反応への影響を最小限に抑えながら、より長いタップ回数を可能にします。
 
-次は `matrix_scan_tap_dance()` です。この関数はタップダンスキーのタイムアウトを制御します。
+次は `tap_dance_task()` です。この関数はタップダンスキーのタイムアウトを制御します。
 
 柔軟性のために、タップダンスは、キーコードの組み合わせにも、ユーザー関数にもなることができます。後者は、より高度なタップ回数の制御や、LED を点滅させたり、バックライトをいじったり、等々の制御を可能にします。これは、1つの共用体と、いくつかの賢いマクロによって成し遂げられています。
 
@@ -85,7 +84,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
 };
 
-// キーコードの代わりにタップダンスキーを追加します
+// キーマップにキーコードの代わりにタップダンスの項目を追加します
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ...
     TD(TD_ESC_CAPS)
@@ -215,20 +214,22 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 `keymap.c` ファイルの先頭、つまりキーマップの前に、以下のコードを追加します。
 
 ```c
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP,
+    TD_DOUBLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP, // Send two single taps
+    TD_TRIPLE_TAP,
+    TD_TRIPLE_HOLD
+} td_state_t;
+
 typedef struct {
     bool is_press_action;
-    uint8_t state;
-} tap;
-
-enum {
-    SINGLE_TAP = 1,
-    SINGLE_HOLD,
-    DOUBLE_TAP,
-    DOUBLE_HOLD,
-    DOUBLE_SINGLE_TAP, // シングルタップを2回送信
-    TRIPLE_TAP,
-    TRIPLE_HOLD
-};
+    td_state_t state;
+} td_tap_t;
 
 // タップダンスの列挙型
 enum {
@@ -236,7 +237,7 @@ enum {
     SOME_OTHER_DANCE
 };
 
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(qk_tap_dance_state_t *state);
 
 // xタップダンスのための関数。キーマップで利用できるようにするため、ここに置きます。
 void x_finished(qk_tap_dance_state_t *state, void *user_data);
@@ -273,63 +274,63 @@ void x_reset(qk_tap_dance_state_t *state, void *user_data);
  *   一般的な単語で2回続けて使われる文字でないこと。例えば 'pepper' 中の 'p'。もしタップダンス機能が
  *   文字 'p' に存在する場合、'pepper' という単語は入力するのが非常にいらだたしいものになるでしょう。
  *
- * 3つ目の点については、'DOUBLE_SINGLE_TAP' が存在しますが、これは完全にはテストされていません
+ * 3つ目の点については、'TD_DOUBLE_SINGLE_TAP' が存在しますが、これは完全にはテストされていません
  *
  */
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return SINGLE_TAP;
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
         // キーは割り込まれていませんが、まだ押し続けられています。'HOLD' を送信することを意味します。
-        else return SINGLE_HOLD;
+        else return TD_SINGLE_HOLD;
     } else if (state->count == 2) {
-        // DOUBLE_SINGLE_TAP は "pepper" と入力することと、'pp' と入力したときに実際に
+        // TD_DOUBLE_SINGLE_TAP は "pepper" と入力することと、'pp' と入力したときに実際に
         // ダブルタップしたい場合とを区別するためのものです。
         // この戻り値の推奨されるユースケースは、'ダブルタップ' 動作やマクロではなく、
         // そのキーの2つのキー入力を送信したい場合です。
-        if (state->interrupted) return DOUBLE_SINGLE_TAP;
-        else if (state->pressed) return DOUBLE_HOLD;
-        else return DOUBLE_TAP;
+        if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
+        else if (state->pressed) return TD_DOUBLE_HOLD;
+        else return TD_DOUBLE_TAP;
     }
 
     // 誰も同じ文字を3回入力しようとしていないと仮定します(少なくとも高速には)。
     // タップダンスキーが 'KC_W' で、"www." と高速に入力したい場合、ここに例外を追加して
-    // 'TRIPLE_SINGLE_TAP' を返し、'DOUBLE_SINGLE_TAP' のようにその列挙型を定義する必要があります。
+    // 'TD_TRIPLE_SINGLE_TAP' を返し、'TD_DOUBLE_SINGLE_TAP' のようにその列挙型を定義する必要があります。
     if (state->count == 3) {
-        if (state->interrupted || !state->pressed) return TRIPLE_TAP;
-        else return TRIPLE_HOLD;
-    } else return 8; // マジックナンバー。いつかこのメソッドはより多くの押下に対して機能するよう拡張されるでしょう
+        if (state->interrupted || !state->pressed) return TD_TRIPLE_TAP;
+        else return TD_TRIPLE_HOLD;
+    } else return TD_UNKNOWN;
 }
 
-//'x' タップダンスの 'tap' のインスタンスを生成します。
-static tap xtap_state = {
+//'x' タップダンスの 'td_tap_t' のインスタンスを生成します。
+static td_tap_t xtap_state = {
     .is_press_action = true,
-    .state = 0
+    .state = TD_NONE
 };
 
 void x_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
-        case SINGLE_TAP: register_code(KC_X); break;
-        case SINGLE_HOLD: register_code(KC_LCTRL); break;
-        case DOUBLE_TAP: register_code(KC_ESC); break;
-        case DOUBLE_HOLD: register_code(KC_LALT); break;
+        case TD_SINGLE_TAP: register_code(KC_X); break;
+        case TD_SINGLE_HOLD: register_code(KC_LCTRL); break;
+        case TD_DOUBLE_TAP: register_code(KC_ESC); break;
+        case TD_DOUBLE_HOLD: register_code(KC_LALT); break;
         // 最後の case は高速入力用です。キーが `f` であると仮定します:
         // 例えば、`buffer` という単語を入力するとき、`Esc` ではなく `ff` を送信するようにします。
         // 高速入力時に `ff` と入力するには、次の文字は `TAPPING_TERM` 以内に入力する必要があります。
         // `TAPPING_TERM` はデフォルトでは 200ms です。
-        case DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X);
+        case TD_DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X);
     }
 }
 
 void x_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
-        case SINGLE_TAP: unregister_code(KC_X); break;
-        case SINGLE_HOLD: unregister_code(KC_LCTRL); break;
-        case DOUBLE_TAP: unregister_code(KC_ESC); break;
-        case DOUBLE_HOLD: unregister_code(KC_LALT);
-        case DOUBLE_SINGLE_TAP: unregister_code(KC_X);
+        case TD_SINGLE_TAP: unregister_code(KC_X); break;
+        case TD_SINGLE_HOLD: unregister_code(KC_LCTRL); break;
+        case TD_DOUBLE_TAP: unregister_code(KC_ESC); break;
+        case TD_DOUBLE_HOLD: unregister_code(KC_LALT);
+        case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X);
     }
-    xtap_state.state = 0;
+    xtap_state.state = TD_NONE;
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -338,8 +339,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 ```
 
 これで、キーマップのどこでも簡単に `TD(X_CTL)` マクロが使えます。
-
-もし、この機能をユーザスペースで実現したい場合、 [DanielGGordon](https://github.com/qmk/qmk_firmware/tree/master/users/gordon) がユーザスペースでどのように実装しているか確認してください。
 
 > この設定の "hold" は、タップダンスのタイムアウト（`ACTION_TAP_DANCE_FN_ADVANCED_TIME` 参照）の **後** に起こります。即座に "hold" を得るためには、条件から `state->interrupted` の確認を除きます。結果として、複数回のタップのための時間をより多く持つことで快適な長いタップの期限を使うことができ、そして、"hold" のために長く待たないようにすることができます(2倍の `TAPPING TERM` で開始してみてください)。
 
@@ -357,9 +356,11 @@ enum td_keycodes {
 
 // 必要な数のタップダンス状態を含むタイプを定義します
 typedef enum {
-    SINGLE_TAP,
-    SINGLE_HOLD,
-    DOUBLE_SINGLE_TAP
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP
 } td_state_t;
 
 // タップダンスの状態の型のグローバルインスタンスを作ります
@@ -368,7 +369,7 @@ static td_state_t td_state;
 // タップダンス関数を宣言します:
 
 // 現在のタップダンスの状態を特定するための関数
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(qk_tap_dance_state_t *state);
 
 // それぞれのタップダンスキーコードに適用する `finished` と `reset` 関数
 void altlp_finished(qk_tap_dance_state_t *state, void *user_data);
@@ -379,14 +380,14 @@ void altlp_reset(qk_tap_dance_state_t *state, void *user_data);
 
 ```c
 // 返却するタップダンス状態を特定します
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return SINGLE_TAP;
-        else return SINGLE_HOLD;
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
     }
 
-    if (state->count == 2) return DOUBLE_SINGLE_TAP;
-    else return 3; // 上記で返却する最大の状態の値より大きい任意の数
+    if (state->count == 2) return TD_DOUBLE_SINGLE_TAP;
+    else return TD_UNKNOWN; // 上記で返却する最大の状態の値より大きい任意の数
 }
 
 // 定義する各タップダンスキーコードのとりうる状態を制御します:
@@ -394,13 +395,13 @@ uint8_t cur_dance(qk_tap_dance_state_t *state) {
 void altlp_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
-        case SINGLE_TAP:
+        case TD_SINGLE_TAP:
             register_code16(KC_LPRN);
             break;
-        case SINGLE_HOLD:
+        case TD_SINGLE_HOLD:
             register_mods(MOD_BIT(KC_LALT)); // レイヤータップキーの場合、ここでは `layer_on(_MY_LAYER)` を使います
             break;
-        case DOUBLE_SINGLE_TAP: // タップ時間内に2つの括弧 `((` の入れ子を可能にします
+        case TD_DOUBLE_SINGLE_TAP: // タップ時間内に2つの括弧 `((` の入れ子を可能にします
             tap_code16(KC_LPRN);
             register_code16(KC_LPRN);
     }
@@ -408,13 +409,13 @@ void altlp_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 void altlp_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
-        case SINGLE_TAP:
+        case TD_SINGLE_TAP:
             unregister_code16(KC_LPRN);
             break;
-        case SINGLE_HOLD:
+        case TD_SINGLE_HOLD:
             unregister_mods(MOD_BIT(KC_LALT)); // レイヤータップキーの場合、ここでは `layer_off(_MY_LAYER)` を使います
             break;
-        case DOUBLE_SINGLE_TAP:
+        case TD_DOUBLE_SINGLE_TAP:
             unregister_code16(KC_LPRN);
     }
 }
@@ -431,20 +432,22 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 タップダンスは、MO(layer) と TG(layer) 機能を模倣することにも使用できます。この例では、1回タップすると `KC_QUOT` 、1回押してそのまま押し続けたら `MO(_MY_LAYER)` 、2回タップしたときは `TG(_MY_LAYER)` として機能するキーを設定します。
 
-最初のステップは、あなたの `keymap.c` ファイルの最初のあたりに以下のコードを追加します。
+最初のステップは、あなたの `keymap.c` ファイルの最初のあたりに以下のコードを追加することです。
 
 ```c
+// 必要な数のタップダンス状態のタイプを定義します
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP
+} td_state_t;
+
 typedef struct {
     bool is_press_action;
-    uint8_t state;
-} tap;
-
-// 必要な数のタップダンス状態のタイプを定義します
-enum {
-    SINGLE_TAP = 1,
-    SINGLE_HOLD,
-    DOUBLE_TAP
-};
+    td_state_t state;
+} td_tap_t;
 
 enum {
     QUOT_LAYR, // カスタムタップダンスキー。他のタップダンスキーはこの列挙型に追加します
@@ -453,7 +456,7 @@ enum {
 // タップダンスキーで使われる関数を宣言します
 
 // 全てのタップダンスに関連する関数
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(qk_tap_dance_state_t *state);
 
 // 個別のタップダンスに関連する関数
 void ql_finished(qk_tap_dance_state_t *state, void *user_data);
@@ -464,31 +467,31 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data);
 
 ```c
 // 現在のタップダンスの状態を決定します
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (!state->pressed) return SINGLE_TAP;
-        else return SINGLE_HOLD;
-    } else if (state->count == 2) return DOUBLE_TAP;
-    else return 8;
+        if (!state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    } else if (state->count == 2) return TD_DOUBLE_TAP;
+    else return TD_UNKNOWN;
 }
 
 // この例のタップダンスキーに関連付けられた "tap" 構造体を初期化します
-static tap ql_tap_state = {
+static td_tap_t ql_tap_state = {
     .is_press_action = true,
-    .state = 0
+    .state = TD_NONE
 };
 
 // タップダンスキーの動作をコントロールする関数
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch (ql_tap_state.state) {
-        case SINGLE_TAP:
+        case TD_SINGLE_TAP:
             tap_code(KC_QUOT);
             break;
-        case SINGLE_HOLD:
+        case TD_SINGLE_HOLD:
             layer_on(_MY_LAYER);
             break;
-        case DOUBLE_TAP:
+        case TD_DOUBLE_TAP:
             // レイヤーが既にセットされているか確認します
             if (layer_state_is(_MY_LAYER)) {
                 // レイヤーが既にセットされていたら、オフにします。
@@ -503,10 +506,10 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
     // キーを押し続けていて今離したら、レイヤーをオフに切り替えます。
-    if (ql_tap_state.state == SINGLE_HOLD) {
+    if (ql_tap_state.state == TD_SINGLE_HOLD) {
         layer_off(_MY_LAYER);
     }
-    ql_tap_state.state = 0;
+    ql_tap_state.state = TD_NONE;
 }
 
 // タップダンスキーを機能に関連付けます
@@ -519,7 +522,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 `cur_dance()` と `ql_tap_state` の使い方は、上の例と似ています。
 
-`ql_finished` 関数における `case:SINGLE_TAP` は、上の例と似ています。`SINGLE_HOLD` の case では、`ql_reset()` と連動してタップダンスキーを押している間 `_MY_LAYER` に切り替わり、キーを離した時に `_MY_LAYER` から離れます。これは、`MO(_MY_LAYER)` に似ています。`DOUBLE_TAP` の case では、`_MY_LAYER` がアクティブレイヤーかどうかを確認することによって動きます。そして、その結果に基づいてレイヤーのオン・オフをトグルします。これは `TG(_MY_LAYER)` に似ています。
+`ql_finished` 関数における `case: TD_SINGLE_TAP` は、上の例と似ています。`TD_SINGLE_HOLD` の case では、`ql_reset()` と連動してタップダンスキーを押している間 `_MY_LAYER` に切り替わり、キーを離した時に `_MY_LAYER` から離れます。これは、`MO(_MY_LAYER)` に似ています。`TD_DOUBLE_TAP` の case では、`_MY_LAYER` がアクティブレイヤーかどうかを確認することによって動きます。そして、その結果に基づいてレイヤーのオン・オフをトグルします。これは `TG(_MY_LAYER)` に似ています。
 
 `tap_dance_actions[]` は、上の例に似ています。 `ACTION_TAP_DANCE_FN_ADVANCED()` の代わりに `ACTION_TAP_DANCE_FN_ADVANCED_TIME()` を使ったことに注意してください。
 この理由は、私は、非タップダンスキーを使うにあたり `TAPPING_TERM` が短い(175ミリ秒以内)方が好きなのですが、タップダンスのアクションを確実に完了させるには短すぎるとわかったからです——そのため、ここでは時間を275ミリ秒に増やしています。

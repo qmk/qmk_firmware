@@ -18,7 +18,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_numpad_6x4( /* Base */
                KC_F1   , KC_F2  ,  KC_F3, KC_F4,
-               KC_NUMLOCK, KC_KP_SLASH, KC_KP_ASTERISK , KC_KP_MINUS,
+               KC_NUM, KC_KP_SLASH, KC_KP_ASTERISK , KC_KP_MINUS,
                KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_PLUS,
                KC_KP_4, KC_KP_5, KC_KP_6,
                KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_ENTER,
@@ -26,15 +26,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 };
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

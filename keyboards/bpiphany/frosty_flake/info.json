@@ -1,9 +1,13 @@
 {
   "keyboard_name": "Frosty Flake",
+  "manufacturer": "Bathroom Epiphanies",
   "url": "",
   "maintainer": "qmk",
-  "width": 22.5,
-  "height": 6.5,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

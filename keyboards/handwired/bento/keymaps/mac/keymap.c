@@ -35,13 +35,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * ---- | Shift+CMD+B (Build VS Code) | DFU Mode
     * Shift+CMD+C (FF Console) | Ctrl+Alt+U (Upload PIO) | Ctrl+Alt+S (Serial PIO) */
     [_CODE] = LAYOUT(
-            _______, S(G(KC_B)), RESET,
+            _______, S(G(KC_B)), QK_BOOT,
             G(A(KC_C)), C(A(KC_U)), C(A(KC_S))
     ),
 };
 
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == _ENCODER) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -49,6 +49,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
-
-

@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "nicekey",
+    "manufacturer": "Lukas",
+    "url": "",
+    "maintainer": "spydon",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6464",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0}
+            ]
+        }
+    }
+}

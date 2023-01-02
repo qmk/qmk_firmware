@@ -57,4 +57,4 @@
 
 #include "udi_hid_kbd.h"
 
-#endif  // _UDI_HID_KBD_CONF_H_
+#endif // _UDI_HID_KBD_CONF_H_

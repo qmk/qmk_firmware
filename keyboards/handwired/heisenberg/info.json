@@ -1,13 +1,15 @@
 {
   "keyboard_name": "Heisenberg",
-  "keyboard_folder": "handwired/heisenberg",
+  "manufacturer": "Ardakilic",
   "url": "https://github.com/Ardakilic",
   "maintainer": "Arda Kilicdagi",
-  "width": 12,
-  "height": 4,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_planck_mit": {
-      "key_count": 47,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },

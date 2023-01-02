@@ -1,8 +1,8 @@
 # QMK 開発のための Eclipse セットアップ
 
 <!---
-  original document: 0.9.34:docs/other_eclipse.md
-  git diff 0.9.34 HEAD -- docs/other_eclipse.md | cat
+  original document: 0.12.41:docs/other_eclipse.md
+  git diff 0.12.41 HEAD -- docs/other_eclipse.md | cat
 -->
 
 [Eclipse][1]は Java 開発のために広く使われているオープンソースの [統合開発環境](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) ですが、他の言語および用途のためにカスタマイズできる拡張可能なプラグインシステムがあります。
@@ -28,7 +28,7 @@ Eclipse のような IDE の使用は、プレーンテキストエディタの�
 Eclipse は Java アプリケーションであるため、実行するには Java 8 以降をインストールする必要があります。JRE または JDK を選択できますが、Java 開発を行う場合は後者が役に立ちます。
 
 # Eclipse とプラグインのインストール
-Eclipse は用途に応じて[いくつかのフレーバー](http://www.eclipse.org/downloads/eclipse-packages/)で提供されます。AVR スタックを構成するパッケージは無いため、Eclipse CDT (C/C++ 開発ツール)から始め、必要なプラグインをインストールする必要があります。
+Eclipse は用途に応じて[いくつかのフレーバー](https://www.eclipse.org/downloads/eclipse-packages/)で提供されます。AVR スタックを構成するパッケージは無いため、Eclipse CDT (C/C++ 開発ツール)から始め、必要なプラグインをインストールする必要があります。
 
 ## Eclipse CDT のダウンロードとインストール
 システムに既に Eclipse CDT がある場合は、この手順をスキップできます。ただし、より良いサポートのために最新の状態に保つことをお勧めします。
@@ -37,7 +37,7 @@ Eclipse は用途に応じて[いくつかのフレーバー](http://www.eclipse
 
 インストールは非常に簡単です: [5 Steps to install Eclipse](https://eclipse.org/downloads/eclipse-packages/?show_instructions=TRUE) に従い、ステップ3で **Eclipse IDE for C/C++ Developers** を選択します。
 
-あるいは、直接 [Eclipse IDE for C/C++ Developers をダウンロード](http://www.eclipse.org/downloads/eclipse-packages/)([現在のバージョンへの直接リンク](http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/neonr))し、選択した場所にパッケージを解凍することもできます (これにより `eclipse` フォルダが作成されます)。
+あるいは、直接 [Eclipse IDE for C/C++ Developers をダウンロード](https://www.eclipse.org/downloads/eclipse-packages/)([現在のバージョンへの直接リンク](https://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/neonr))し、選択した場所にパッケージを解凍することもできます (これにより `eclipse` フォルダが作成されます)。
 
 ## 最初の起動
 インストールが完了したら、<kbd>Launch</kbd> ボタンをクリックします。(パッケージを手動で解凍した場合は、Eclipse をインストールしたフォルダを開き、`eclipse` 実行可能ファイルをダブルクリックします)
@@ -49,13 +49,13 @@ Workspace 選択で入力を促された場合は、Eclipse メタデータと�
 ## 必要なプラグインをインストール
 注意: プラグインをインストールするごとに、Eclipse を再起動する必要はありません。全てのプラグインがインストールされたら単に1回再起動します。
 
-### [The AVR Plugin](http://avr-eclipse.sourceforge.net/)
-これは最も重要なプラグインで、Eclipse が AVR C コードを_理解_できるようになります。[更新サイトを使うための指示](http://avr-eclipse.sourceforge.net/wiki/index.php/Plugin_Download#Update_Site)に従い、未署名コンテンツのセキュリティ警告に同意します。
+### [The AVR Plugin](https://avr-eclipse.sourceforge.net/)
+これは最も重要なプラグインで、Eclipse が AVR C コードを_理解_できるようになります。[更新サイトを使うための指示](https://avr-eclipse.sourceforge.net/wiki/index.php/Plugin_Download#Update_Site)に従い、未署名コンテンツのセキュリティ警告に同意します。
 
 ### [ANSI Escape in Console](https://marketplace.eclipse.org/content/ansi-escape-console)
 このプラグインは QMK makefile によって生成された色付きビルド出力を適切に表示するために必要です。
 
-1. <kbd><kbd>Help</kbd> > <kbd>Eclipse Marketplace…</kbd></kbd> を開きます
+1. <kbd>Help</kbd> > <kbd>Eclipse Marketplace…</kbd> を開きます
 2. _ANSI Escape in Console_ を検索します
 3. プラグインの <samp>Install</samp> ボタンをクリックします
 4. 指示に従い、未署名コンテンツのセキュリティ警告に再度同意します。
@@ -64,30 +64,26 @@ Workspace 選択で入力を促された場合は、Eclipse メタデータと�
 
 # QMK 用の Eclipse の設定
 ## プロジェクトのインポート
-1. <kbd><kbd>File</kbd> > <kbd>New</kbd> > <kbd>Makefile Project with Existing Code</kbd></kbd> をクリックします
+1. <kbd>File</kbd> > <kbd>New</kbd> > <kbd>Makefile Project with Existing Code</kbd> をクリックします
 2. 次の画面で:
 * _Existing Code Location_ としてリポジトリをクローンしたディレクトリを選択します。
 * (オプション) プロジェクトに別の名前を付けます¹ 例えば _QMK_ あるいは _Quantum_;
 * _AVR-GCC Toolchain_ を選択します;
 * 残りをそのままにして、<kbd>Finish</kbd> をクリックします
 
-![Eclipse での QMK のインポート](http://i.imgur.com/oHYR1yW.png)
+![Eclipse での QMK のインポート](https://i.imgur.com/oHYR1yW.png)
 
 3. これでプロジェクトがロードされインデックスされます。左側の _Project Explorer_ から、簡単にファイルを参照できます。
 
 ¹ カスタム名でプロジェクトをインポートすると問題が発生するかもしれません。正しく動作しない場合は、デフォルトのプロジェクト名 (つまり、ディレクトリの名前、おそらく `qmk_firmware`) のままにしてみてください。
 
 ## キーボードのビルド
-ここで、プロジェクトをクリーンし、選択したキーマップをビルドする make target を設定します。
 
-1. 画面の右側で、<kbd>Make Target</kbd> タブを選択します
-2. フォルダツリーを選択したキーボードまで展開します。例えば、`qmk_firmware/keyboards/ergodox`
-3. キーボードフォルダを右クリックして、<kbd>New…</kbd> を選択します (あるいはフォルダを選択し、ツリーの上にある <kbd>New Make Target</kbd> アイコンをクリックします)
-4. ビルド target の名前を選択します。例えば、_clean \<your keymap\>_
-5. Make Target: これはコマンドラインからビルドする時に `make` に渡す引数です。target 名がこれらの引数と一致しない場合は、<kbd>Same as target name</kbd> のチェックを外し、正しい引数を入力します。例えば、`clean <your keymap>`
-6. 他のオプションはチェックしたままにして、<kbd>OK</kbd> をクリックします。これで、選択されたキーボードの下に、make target が表示されます。
-7. (オプション) target ツリーの上にある <kbd>Hide Empty Folders</kbd> アイコンボタンを、ビルド target だけが表示されるように切り替えます。
-8. 作成したビルド target をダブルクリックし、ビルドを起動します。
-9. 下部の <kbd>Console</kbd> ビューを選択し、実行中のビルドを眺めます。
+プロジェクトのデフォルトの make 対象を `all` から私たちが取り組んでいる特定のキーボードとキーマップの組み合わせ、例えば `kinesis/kint36:stapelberg` に変更します。このようにすると、プロジェクトのクリーニングやビルドのようなプロジェクト全体のアクションは迅速に完了し、長い時間がかかったり Eclipse が完全にロックしたりすることがなくなります。
+
+1. プロジェクト内の editor タブへフォーカスします
+2. `Project` > `Properties` ウィンドウを開き、`C/C++ Build` リストエントリを選択して、`Behavior` タブに切り替えます。
+3. 有効な全てのビルドのデフォルトの `Make build target` テキストフィールドを、`all` から例えば `kinesis/kint41:stapelberg` に変更します。
+4. `Project` > `Clean...` を選択して、セットアップが動作することを確認します。
 
 [1]: https://en.wikipedia.org/wiki/Eclipse_(software)

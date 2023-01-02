@@ -2,12 +2,8 @@
 
 #ifdef PRODUCT
 #    undef PRODUCT
-#    define PRODUCT Iris Keyboard - pvinis
+#    define PRODUCT "Iris Keyboard - pvinis"
 #endif
-
-// Use I2C or Serial, not both.
-#define USE_SERIAL
-// #define USE_I2C
 
 // Select hand configuration.
 // #define MASTER_LEFT
@@ -16,7 +12,7 @@
 
 // Choose pin to use for audio. C6 is the one iris uses.
 #ifdef AUDIO_ENABLE
-#    define C6_AUDIO
+#    define AUDIO_PIN C6
 #    define STARTUP_SONG SONG(NO_SOUND)  // No startup song.
 #endif
 

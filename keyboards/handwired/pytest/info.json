@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "pytest",
+    "manufacturer": "none",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6465",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

@@ -1,4 +1,4 @@
-/* Copyright 2020 Kyle McCreery 
+/* Copyright 2021 Kyle McCreery 
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the GNU General Public License as published by 
@@ -15,6 +15,3 @@
  */
 
 #pragma once
-
-/* Define custom font */
-#define OLED_FONT_H "keyboards/mechwild/mercutio/lib/mercutiofont.c"

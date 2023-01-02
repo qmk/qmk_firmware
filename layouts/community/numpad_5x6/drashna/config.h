@@ -16,7 +16,6 @@
 
 #pragma once
 
-// #define B6_AUDIO
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
 #    define RGB_DI_PIN B1
@@ -29,7 +28,9 @@
 #    define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #endif  // RGBLIGHT_ENABLE
 
+#define RGBLIGHT_ALL_ANIMATIONS
+
 #if defined(KEYBOARD_primekb_prime_m)
 #    undef PRODUCT
-#    define PRODUCT Drashna Hacked Prime_M Macro Pad
+#    define PRODUCT "Drashna Hacked Prime_M Macro Pad"
 #endif

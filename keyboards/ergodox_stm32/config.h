@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x1308
-#define DEVICE_VER 0x101
-#define MANUFACTURER ErgoDox
-#define PRODUCT ErgoDox STM
-#define DESCRIPTION ErgoDox STM32 Keyboard
-
 #define MATRIX_ROWS 14
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS 6

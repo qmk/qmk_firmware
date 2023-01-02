@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      LALT(KC_F4), KC_F6, KC_F7,  KC_F8,   KC_F9,   KC_F10,                            _______, _______, _______, KC_LPRN, KC_RPRN, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_MUTE, KC_HOME,  KC_UP,   KC_END, KC_PGUP, _______,                            _______, _______, KC_NLCK, KC_LBRC, KC_RBRC, _______,
+     KC_MUTE, KC_HOME,  KC_UP,   KC_END, KC_PGUP, _______,                            _______, _______, KC_NUM , KC_LBRC, KC_RBRC, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,   _______,                           _______, _______, _______, KC_LCBR, KC_RCBR, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -135,7 +135,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -150,4 +150,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
+    return true;
 }

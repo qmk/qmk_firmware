@@ -28,6 +28,9 @@
     border-bottom: 1px solid #777 !important;
 }
 
+.markdown-section p.warn > strong {
+    color: #c8c8c8;
+}
 
 :root {
     --docsifytabs-border-color: #555;
@@ -35,12 +38,4 @@
 
     --docsifytabs-tab-background: #444;
     --docsifytabs-tab-background-active: #3f3f3f;
-}
-
-.docsify-tabs__tab:focus {
-    outline: none !important;
-}
-
-.docsify-tabs__content .anchor {
-    transition: none;
 }

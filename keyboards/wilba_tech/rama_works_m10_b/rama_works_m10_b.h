@@ -13,17 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+#pragma once
 
-#ifndef RAMA_M10_B_H
-#define RAMA_M10_B_H
+#include "quantum.h"
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT(                         \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09 )       \
-    {                                   \
-        {K00, K01, K02, K03, K04, K05, K06, K07, K08, K09}, \
-    }
-#endif // RAMA_M10_B
+#define LAYOUT( \
+    k00, k01, k02, \
+    k03, k04, k05, \
+    k06, k07, k08, \
+            k09 \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09 } \
+}

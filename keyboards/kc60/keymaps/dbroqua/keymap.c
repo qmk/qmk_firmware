@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ______,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS,  \
       ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
       ______,   ______, ______, ______, ______, ______, ______, KC_PSCR,______, ______, ______, ______, ______, ______,   \
-      ______,   ______, BL_TOGG, BL_INC, BL_DEC, ______,KC_MUTE,KC_VOLU,KC_VOLD,______, ______, ______, ______,KC_MPLY,  \
+      ______,   ______, BL_TOGG, BL_UP,  BL_DOWN,______,KC_MUTE,KC_VOLU,KC_VOLD,______, ______, ______, ______,KC_MPLY,  \
       ______,   ______, ______,                 ______,         KC_DEL,         ______, KC_MPRV,    KC_MSTP,    KC_MNXT \
       ),
 
@@ -79,10 +79,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, KC_PGUP,  \
       ______,   ______, ______,                 ______,         ______,                 ______, KC_HOME,KC_PGDN,KC_END \
       ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  return MACRO_NONE;
 };

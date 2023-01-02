@@ -17,18 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Ensure we jump to bootloader if the RESET keycode was pressed */
+/* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 /* LSE clock */
 #define STM32_LSECLK 32768
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xA22A
-#define PRODUCT_ID      0x6600
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AT-AT
-#define PRODUCT         660M
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -65,5 +58,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

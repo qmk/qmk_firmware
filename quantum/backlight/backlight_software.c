@@ -26,15 +26,21 @@ static const uint16_t backlight_duty_table[] = {
     0b1110111011101110,
     0b1111111111111111,
 };
-#define backlight_duty_table_size (sizeof(backlight_duty_table) / sizeof(backlight_duty_table[0]))
+#define backlight_duty_table_size ARRAY_SIZE(backlight_duty_table)
 
 // clang-format on
 
-static uint8_t scale_backlight(uint8_t v) { return v * (backlight_duty_table_size - 1) / BACKLIGHT_LEVELS; }
+static uint8_t scale_backlight(uint8_t v) {
+    return v * (backlight_duty_table_size - 1) / BACKLIGHT_LEVELS;
+}
 
-void backlight_init_ports(void) { backlight_pins_init(); }
+void backlight_init_ports(void) {
+    backlight_pins_init();
+}
 
-void backlight_set(uint8_t level) { s_duty_pattern = backlight_duty_table[scale_backlight(level)]; }
+void backlight_set(uint8_t level) {
+    s_duty_pattern = backlight_duty_table[scale_backlight(level)];
+}
 
 void backlight_task(void) {
     static uint8_t backlight_tick = 0;

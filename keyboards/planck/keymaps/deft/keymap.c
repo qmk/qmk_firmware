@@ -90,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_planck_grid(
      KC_DEL, A(KC_1), A(KC_2), A(KC_3), A(KC_4), S(KC_9), S(KC_0),   KC_P7,   KC_P8,   KC_P9,   KC_P0, _______,
-    _______,  KC_GRV,KC_BSLS,KC_EQL, KC_MINS,S(KC_COMM),S(KC_DOT),   KC_P4,   KC_P5,   KC_P6, KC_PDOT, KC_NLCK,
+    _______,  KC_GRV,KC_BSLS,KC_EQL, KC_MINS,S(KC_COMM),S(KC_DOT),   KC_P4,   KC_P5,   KC_P6, KC_PDOT, KC_NUM,
     _______, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, KC_LBRC, KC_RBRC,   KC_P1,   KC_P2,   KC_P3, KC_PGUP, KC_PEQL,
-    _______, _______, _______, C(KC_V), _______, _______, _______, _______, KC_PENT, KC_HOME,KC_PGDOWN, KC_END
+    _______, _______, _______, C(KC_V), _______, _______, _______, _______, KC_PENT, KC_HOME,KC_PGDN,  KC_END
 ),
 
 /* Raise
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-      RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -133,6 +133,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }

@@ -1,0 +1,65 @@
+name: 'Close stale issues and PRs'
+
+permissions:
+  issues: write
+  pull-requests: write
+
+on:
+  schedule:
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v7
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+          remove-stale-when-updated: true
+          exempt-draft-pr: true
+          ascending: true
+          operations-per-run: 150
+
+          stale-issue-label: stale
+          days-before-issue-stale: 90
+          days-before-issue-close: 30
+          exempt-issue-labels: bug,in progress,on hold,discussion,to do
+
+          stale-issue-message: >
+            This issue has been automatically marked as stale because it has not had activity in the
+            last 90 days. It will be closed in the next 30 days unless it is tagged properly or other activity
+            occurs.
+
+            For maintainers: Please label with `bug`, `in progress`, `on hold`, `discussion` or `to do` to prevent
+            the issue from being re-flagged.
+
+          close-issue-message: >
+            This issue has been automatically closed because it has not had activity in the last 30 days.
+            If this issue is still valid, re-open the issue and let us know.
+
+            // [stale-action-closed]
+
+          stale-pr-label: stale
+          days-before-pr-stale: 45
+          days-before-pr-close: 30
+          exempt-pr-labels: bug,awaiting review,breaking_change,in progress,on hold
+
+          stale-pr-message: >
+            Thank you for your contribution!
+
+            This pull request has been automatically marked as stale because it has not had
+            activity in the last 45 days. It will be closed in 30 days if no further activity occurs.
+            Please feel free to give a status update now, or re-open when it's ready.
+
+            For maintainers: Please label with `bug`, `awaiting review`, `breaking_change`, `in progress`, or `on hold`
+            to prevent the issue from being re-flagged.
+
+          close-pr-message: >
+            Thank you for your contribution!
+
+            This pull request has been automatically closed because it has not had activity in the last 30 days.
+            Please feel free to give a status update now, ping for review, or re-open when it's ready.
+
+            // [stale-action-closed]

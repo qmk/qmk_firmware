@@ -1,9 +1,13 @@
 {
     "keyboard_name": "LeftyNumpad",
+    "manufacturer": "Tom Swartz",
     "url": "https://github.com/tomswartz07",
     "maintainer": "Tom Swartz",
-    "width": 5,
-    "height": 5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xBEEF",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

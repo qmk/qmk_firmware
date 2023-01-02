@@ -1,12 +1,15 @@
 {
     "keyboard_name": "BIOI G60 BLE",
+    "manufacturer": "Basic IO Instruments",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x6583",
+        "pid": "0x6080",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 67,
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "!", "x": 1, "y": 0 },
@@ -78,7 +81,6 @@
             ]
         },
         "LAYOUT_60_ansi": {
-            "key_count": 61,
             "layout": [
                 { "label": "~", "x": 0, "y": 0 },
                 { "label": "!", "x": 1, "y": 0 },
@@ -144,7 +146,6 @@
             ]
         },
         "LAYOUT_60_iso": {
-            "key_count": 62,
             "layout": [
                 { "label": "¬", "x": 0, "y": 0 },
                 { "label": "!", "x": 1, "y": 0 },
@@ -211,7 +212,6 @@
             ]
         },
         "LAYOUT_60_hhkb": {
-            "key_count": 60,
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
@@ -276,7 +276,6 @@
             ]
         },
         "LAYOUT_60_ansi_split_bs_rshift": {
-            "key_count": 63,
             "layout": [
                 { "label": "ESC", "x": 0, "y": 0 },
                 { "label": "!", "x": 1, "y": 0 },
@@ -344,7 +343,6 @@
             ]
         },
         "LAYOUT_60_tsangan_hhkb": {
-            "key_count": 62,
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "!", "x": 1, "y": 0 },
