@@ -326,7 +326,7 @@ const PROGMEM naginata_keymap ngmap[] = {
 
   // 追加
   {.key = B_SHFT            , .kana = " "},
-  {.key = B_V|B_SHFT        , .kana = ","},
+  {.key = B_V|B_SHFT        , .kana = ","SS_TAP(X_ENTER)},
   {.key = B_M|B_SHFT        , .kana = "."SS_TAP(X_ENTER)},
   {.key = B_U               , .kana = SS_TAP(X_BACKSPACE)},
 
