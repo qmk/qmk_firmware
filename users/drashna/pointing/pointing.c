@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "pointing.h"
+#include "math.h"
 
 static uint16_t mouse_debounce_timer = 0;
 bool            enable_acceleration  = false;
