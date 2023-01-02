@@ -32,7 +32,8 @@ enum hid_report_ids {
     REPORT_ID_PROGRAMMABLE_BUTTON,
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
-    REPORT_ID_DIGITIZER
+    REPORT_ID_DIGITIZER,
+    REPORT_ID_MULTIPLIER
 };
 
 /* Mouse buttons */
@@ -207,6 +208,12 @@ typedef int16_t mouse_xy_report_t;
 typedef int8_t mouse_xy_report_t;
 #endif
 
+#ifdef MOUSE_WHEEL_EXTENDED_REPORT
+typedef int16_t mouse_hv_report_t;
+#else
+typedef int8_t mouse_hv_report_t;
+#endif
+
 typedef struct {
 #ifdef MOUSE_SHARED_EP
     uint8_t report_id;
@@ -218,9 +225,23 @@ typedef struct {
 #endif
     mouse_xy_report_t x;
     mouse_xy_report_t y;
-    int8_t            v;
-    int8_t            h;
+    mouse_hv_report_t v;
+    mouse_hv_report_t h;
 } __attribute__((packed)) report_mouse_t;
+
+#ifdef MOUSE_WHEEL_HIRES_ENABLE
+#    ifndef MOUSE_WHEEL_MULTIPLIER
+#        define MOUSE_WHEEL_MULTIPLER 120
+#    endif
+typedef struct {
+    uint8_t report_id;
+    struct {
+        uint8_t v : 2;
+        uint8_t h : 2;
+        uint8_t reserved : 4;
+    } multiplier; 
+} __attribute__((packed)) report_resolution_multiplier_t;
+#endif
 
 typedef struct {
 #ifdef DIGITIZER_SHARED_EP

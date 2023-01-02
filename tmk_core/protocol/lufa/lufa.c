@@ -80,6 +80,13 @@ static uint8_t keyboard_led_state = 0;
 
 static report_keyboard_t keyboard_report_sent;
 
+#ifdef MOUSE_WHEEL_HIRES_ENABLE
+static report_resolution_multiplier_t resolution_multiplier_report = {
+    REPORT_ID_MULTIPLIER,
+    0x00,
+};
+#endif
+
 /* Host driver */
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
@@ -451,8 +458,19 @@ void EVENT_USB_Device_ControlRequest(void) {
                         ReportData = (uint8_t *)&keyboard_report_sent;
                         ReportSize = sizeof(keyboard_report_sent);
                         break;
+#if defined(SHARED_EP_ENABLE) && defined(MOUSE_SHARED_EP)
+                    case SHARED_INTERFACE:
+#else
+                    case MOUSE_INTERFACE:
+#endif
+#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+                        if (USB_ControlRequest.wValue == (0x0300 | REPORT_ID_MULTIPLIER)) {
+                            ReportData = (uint8_t *)&resolution_multiplier_report;
+                            ReportSize = sizeof(resolution_multiplier_report);
+                        }
+#    endif
+                        break;
                 }
-
                 /* Write the report data to the control endpoint */
                 Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
                 Endpoint_ClearOUT();
@@ -465,7 +483,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                 switch (USB_ControlRequest.wIndex) {
                     case KEYBOARD_INTERFACE:
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
-                    case SHARED_INTERFACE:
+                    case SHARED_INTERFACE: 
 #endif
                         Endpoint_ClearSETUP();
 
@@ -473,14 +491,21 @@ void EVENT_USB_Device_ControlRequest(void) {
                             if (USB_DeviceState == DEVICE_STATE_Unattached) return;
                         }
 
-                        if (Endpoint_BytesInEndpoint() == 2) {
-                            uint8_t report_id = Endpoint_Read_8();
-
-                            if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
+                        uint8_t report_id = USB_ControlRequest.wValue & 0xFF;
+                        // Discard report ID byte as we already have it from wValue
+                        if (USB_ControlRequest.wLength == 2) {
+                            Endpoint_Discard_8();
+                        }
+                        switch(report_id) {
+                            case REPORT_ID_KEYBOARD:
+                            case REPORT_ID_NKRO:
                                 keyboard_led_state = Endpoint_Read_8();
-                            }
-                        } else {
-                            keyboard_led_state = Endpoint_Read_8();
+                                break;
+#ifdef MOUSE_WHEEL_HIRES_ENABLE
+                            case REPORT_ID_MULTIPLIER:
+                                resolution_multiplier_report.multiplier = Endpoint_Read_8();
+                                break;
+#endif
                         }
 
                         Endpoint_ClearOUT();
@@ -534,7 +559,6 @@ void EVENT_USB_Device_ControlRequest(void) {
                 Endpoint_ClearIN();
                 Endpoint_ClearStatusStage();
             }
-
             break;
     }
 

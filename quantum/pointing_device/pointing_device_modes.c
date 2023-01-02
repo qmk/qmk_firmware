@@ -330,8 +330,12 @@ mouse_xy_report_t apply_divisor_xy(int16_t value) {
  *
  * @return modified and clamped value int16_t
  */
-int8_t apply_divisor_hv(int16_t value) {
+mouse_hv_report_t apply_divisor_hv(int16_t value) {
+#    ifdef MOUSE_SCROLL_EXTENDED_REPORT
+    return divisor_divide16(value);
+#    else
     return divisor_divide8(value);
+#    endif
 }
 
 /**
@@ -341,7 +345,7 @@ int8_t apply_divisor_hv(int16_t value) {
  *
  * @return modified and clamped value int16_t
  */
-int16_t multiply_divisor_hv(int8_t value) {
+int16_t multiply_divisor_hv(mouse_hv_report_t value) {
     return divisor_multiply16((int16_t)value);
 }
 
