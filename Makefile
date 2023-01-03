@@ -394,21 +394,9 @@ ifdef NOT_REPO
 	printf "$(MSG_NOT_REPO)"
 endif
 ifndef SKIP_GIT
+	$(QMK_BIN) git-submodule --sync
 	# Check if the submodules are dirty, and display a warning if they are
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
-	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
-	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
-	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
-	if [ ! -e lib/pico-sdk ]; then git submodule sync lib/pico-sdk && git submodule update --depth 50 --init lib/pico-sdk; fi
-	if [ ! -e lib/lvgl ]; then git submodule sync lib/lvgl && git submodule update --depth 50 --init lib/lvgl; fi
-	git submodule status --recursive 2>/dev/null | \
-	while IFS= read -r x; do \
-		case "$$x" in \
-			\ *) ;; \
-			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
-		esac \
-	done
+	if ! $(QMK_BIN) git-submodule --check 1> /dev/null 2>&1; then printf "$(MSG_SUBMODULE_DIRTY)"; fi
 endif
 	rm -f $(ERROR_FILE) > /dev/null 2>&1
 	$(eval $(call PARSE_RULE,$@))
