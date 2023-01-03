@@ -1,6 +1,6 @@
 # plop
 
-![plop](https://imgur.com/5zZRGun)
+![plop](https://i.imgur.com/5zZRGunh.png)
 
 *Plop, designed by Rainkeebs is a 12u stagger layout PCB made to drop into ortho "Planck 19mm grid spacing" cases.*
 
