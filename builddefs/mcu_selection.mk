@@ -367,6 +367,10 @@ ifneq ($(findstring STM32F401, $(MCU)),)
 
   # Bootloader address for STM32 DFU
   STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
+
+  # Revert to legacy wear-leveling driver until ChibiOS's EFL driver is fixed with 128kB and 384kB variants.
+  EEPROM_DRIVER ?= wear_leveling
+  WEAR_LEVELING_DRIVER ?= legacy
 endif
 
 ifneq ($(findstring STM32F405, $(MCU)),)
