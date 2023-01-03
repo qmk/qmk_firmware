@@ -1,3 +1,4 @@
+#include <string.h>
 #include "oryx.h"
 #include "eeprom.h"
 
