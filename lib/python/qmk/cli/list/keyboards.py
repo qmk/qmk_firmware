@@ -9,5 +9,5 @@ import qmk.keyboard
 def list_keyboards(cli):
     """List the keyboards currently defined within QMK
     """
-    for keyboard_name in qmk.keyboard.list_keyboards():
+    for keyboard_name in qmk.keyboard.list_keyboards(resolve_defaults=False):
         print(keyboard_name)

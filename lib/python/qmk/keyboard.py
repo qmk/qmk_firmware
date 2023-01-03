@@ -98,14 +98,18 @@ def keyboard_completer(prefix, action, parser, parsed_args):
     return list_keyboards()
 
 
-def list_keyboards():
-    """Returns a list of all keyboards.
+def list_keyboards(resolve_defaults=True):
+    """Returns a list of all keyboards - optionally processing any DEFAULT_FOLDER.
     """
     # We avoid pathlib here because this is performance critical code.
     kb_wildcard = os.path.join(base_path, "**", "rules.mk")
     paths = [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
 
-    return sorted(set(map(resolve_keyboard, map(_find_name, paths))))
+    found = map(_find_name, paths)
+    if resolve_defaults:
+        found = map(resolve_keyboard, found)
+
+    return sorted(set(found))
 
 
 def resolve_keyboard(keyboard):
