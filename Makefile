@@ -153,7 +153,7 @@ define PARSE_RULE
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
-    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell $(QMK_BIN) list-keyboards --resolve_defaults)),true)
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell $(QMK_BIN) list-keyboards --no-resolve-defaults)),true)
         KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     else
@@ -246,7 +246,7 @@ endef
 # if we are going to compile all keyboards, match the rest of the rule
 # for each of them
 define PARSE_ALL_KEYBOARDS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell $(QMK_BIN) list-keyboards --resolve_defaults)))
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell $(QMK_BIN) list-keyboards --no-resolve-defaults)))
 endef
 
 # Prints a list of all known keymaps for the given keyboard
@@ -443,11 +443,11 @@ git-submodules: git-submodule
 
 .PHONY: list-keyboards
 list-keyboards:
-	$(QMK_BIN) list-keyboards --resolve_defaults | tr '\n' ' '
+	$(QMK_BIN) list-keyboards --no-resolve-defaults | tr '\n' ' '
 
 .PHONY: generate-keyboards-file
 generate-keyboards-file:
-	$(QMK_BIN) list-keyboards --resolve_defaults
+	$(QMK_BIN) list-keyboards --no-resolve-defaults
 
 .PHONY: clean
 clean:
