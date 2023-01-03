@@ -15,13 +15,15 @@
  */
 
 #include "quantum.h"
-#include "ckbt51.h"
 #include "raw_hid.h"
-#include "transport.h"
-#include "battery.h"
 #include "via.h"
 #include "indicator.h"
+#ifdef KC_BLUETOOTH_ENABLE
+#include "transport.h"
+#include "battery.h"
 #include "lpm.h"
+#include "ckbt51.h"
+#endif
 
 extern bool bt_factory_reset;
 
@@ -244,10 +246,10 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
         }
         /* Verify checksum */
         if ((checksum & 0xFF) != data[RAW_EPSIZE - 2] || checksum >> 8 != data[RAW_EPSIZE - 1]) return;
-
+#ifdef KC_BLUETOOTH_ENABLE
         uint8_t payload[32];
         uint8_t len = 0;
-
+#endif
         switch (data[1]) {
             case FACTORY_TEST_CMD_BACKLIGHT:
                 backlight_test_mode = data[2];
@@ -262,6 +264,7 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
             case FACTORY_TEST_CMD_JUMP_TO_BL:
                 // if (memcmp(&data[2], "JumpToBootloader", strlen("JumpToBootloader")) == 0) bootloader_jump();
                 break;
+#ifdef KC_BLUETOOTH_ENABLE
             case FACTORY_TEST_CMD_INT_PIN:
                 switch (data[2]) {
                     /* Enalbe/disable test */
@@ -287,6 +290,7 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
                 payload[len++] = readPin(USB_POWER_SENSE_PIN);
                 factory_test_send(payload, len);
                 break;
+#endif
 #ifdef BATTERY_CHARGE_DONE_DETECT_ADC
             case FACTORY_TEST_CMD_CHARGING_ADC:
             case 0xA1:
