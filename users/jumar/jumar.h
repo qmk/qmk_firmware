@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 //Tap Dance Declarations
-enum {
+enum jumar_taps{
   TAB_ESC = 0,
   SFT_CPS,
   X_CUTT,
@@ -43,6 +43,20 @@ enum {
   V_PASTE,
   Z_UNDO,
   Y_REDO,
+  // Dead30
+  B_SPACE,
+  N_ENTER,
+  V_ALT,
+  C_LGUI,
+  M_DEL,
+  A_CAPS,
+  Q_TAB,
+  Q_TAB_ESC,
+  P_BSPC,
+  SCLN_QUOT,
+  SLSH_BSLS,
+  COMM_GRV,
+  N2_N0
 };
 
 #define KC_CUT   LCTL(KC_X)
@@ -80,7 +94,21 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [C_COPY]  = ACTION_TAP_DANCE_DOUBLE(KC_C, KC_COPY),
   [V_PASTE] = ACTION_TAP_DANCE_DOUBLE(KC_V, KC_PASTE),
   [Z_UNDO]  = ACTION_TAP_DANCE_DOUBLE(KC_Z, KC_UNDO),
+  // dead30
   [Y_REDO]  = ACTION_TAP_DANCE_DOUBLE(KC_Y, KC_REDO),
+  [B_SPACE]  = ACTION_TAP_DANCE_DOUBLE(KC_B, KC_SPC),
+  [N_ENTER]  = ACTION_TAP_DANCE_DOUBLE(KC_N, KC_ENT),
+  [V_ALT]    = ACTION_TAP_DANCE_DOUBLE(KC_V, KC_LALT),
+  [C_LGUI]   = ACTION_TAP_DANCE_DOUBLE(KC_C, KC_LGUI),
+  [M_DEL]    = ACTION_TAP_DANCE_DOUBLE(KC_M, KC_DEL),
+  [A_CAPS]   = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_CAPS),
+  //[Q_TAB_ESC]= ACTION_TAP_DANCE_FN(dance_thrice),
+  [Q_TAB]    = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_TAB),
+  [COMM_GRV] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_GRAVE),
+  [P_BSPC]   = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_BSPC),
+  [SCLN_QUOT]= ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
+  [SLSH_BSLS]= ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_BSLS),
+  [N2_N0]    = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_0)
 };
 #ifdef RGBLIGHT_ENABLE
 typedef union {

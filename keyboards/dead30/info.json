@@ -20,9 +20,9 @@
     "processor": "atmega32u4",
     "url": "https://github.com/jumar/Dead30",
     "usb": {
-        "device_version": "1.0.0",
-        "pid": "0xDEAD",
-        "vid": "0xFEED"
+        "device_version": "1.0.1",
+        "pid": "0x0030",
+        "vid": "0xDEAD"
     },
     "layouts": {
         "LAYOUT_ortho_4x10": {

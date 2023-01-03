@@ -5,26 +5,10 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 120
 
-//Tap Dance Declarations
-enum {
-  B_SPACE = 0,
-  N_ENTER,
-  V_ALT,
-  C_LGUI,
-  M_DEL,
-  A_CAPS,
-  Q_TAB_ESC,
-  P_BSPC,
-  SCLN_QUOT,
-  SLSH_BSLS,
-  COMM_GRV,
-  N2_N0
-};
-
-
 #define FN1_SPC     LT(1, KC_SPC)
 #define FN2_BSPC    LT(2, KC_BSPC)
 #define FN3_C       LT(3, KC_C)
+
 #define FN4_V       LT(4, KC_V)
 #define FN5_B       LT(5, KC_B)
 #define CTL_Z       CTL_T(KC_Z)
@@ -33,22 +17,21 @@ enum {
 #define CTL_M       RCTL_T(KC_M)
 #define SFT_ENT     RSFT_T(KC_ENT)
 
-
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions_dead30[] = {
   //Tap once for Tab, twice for Escape
-  [B_SPACE]  = ACTION_TAP_DANCE_DOUBLE(KC_B, KC_SPC),
-  [N_ENTER]  = ACTION_TAP_DANCE_DOUBLE(KC_N, KC_ENT),
-  [V_ALT]    = ACTION_TAP_DANCE_DOUBLE(KC_V, KC_LALT),
-  [C_LGUI]   = ACTION_TAP_DANCE_DOUBLE(KC_C, KC_LGUI),
-  [M_DEL]    = ACTION_TAP_DANCE_DOUBLE(KC_M, KC_DEL),
-  [A_CAPS]   = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_CAPS),
-  [Q_TAB_ESC]= ACTION_TAP_DANCE_FN(dance_thrice),
-  [COMM_GRV] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_GRAVE),
-  [P_BSPC]   = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_BSPC),
-  [SCLN_QUOT]= ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-  [SLSH_BSLS]= ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_BSLS),
-  [N2_N0]    = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_0)
+  //[B_SPACE]  = ACTION_TAP_DANCE_DOUBLE(KC_B, KC_SPC),
+  //[N_ENTER]  = ACTION_TAP_DANCE_DOUBLE(KC_N, KC_ENT),
+  //[V_ALT]    = ACTION_TAP_DANCE_DOUBLE(KC_V, KC_LALT),
+  //[C_LGUI]   = ACTION_TAP_DANCE_DOUBLE(KC_C, KC_LGUI),
+  //[M_DEL]    = ACTION_TAP_DANCE_DOUBLE(KC_M, KC_DEL),
+  //[A_CAPS]   = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_CAPS),
+  //[Q_TAB_ESC]= ACTION_TAP_DANCE_FN(dance_thrice),
+  //[COMM_GRV] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_GRAVE),
+  //[P_BSPC]   = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_BSPC),
+  //[SCLN_QUOT]= ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
+  //[SLSH_BSLS]= ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_BSLS),
+  //[N2_N0]    = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_0)
 };
 
 
@@ -66,10 +49,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [_0_QWERTY] = LAYOUT_ortho_4x10_dead30(
-        KC_ESC       , XXXXXXX, XXXXXXX   , XXXXXXX  , XXXXXXX    , XXXXXXX    , XXXXXXX  , XXXXXXX     , XXXXXXX, KC_BSPC      ,
-        TD(Q_TAB_ESC), KC_W   , KC_E      , KC_R     , KC_T       , KC_Y       , KC_U     , KC_I        , KC_O   , TD(P_BSPC)   ,
-        TD(A_CAPS)   , LSFT_S , LT3_D     , LCTL_F   , KC_G       , KC_H       , RCTL_J   , LT5_K       , RSFT_L , TD(SCLN_QUOT),
-        KC_Z         , KC_X   , TD(C_LGUI), TD(V_ALT), TD(B_SPACE), TD(N_ENTER), TD(M_DEL), TD(COMM_GRV), KC_DOT , TD(SLSH_BSLS)
+        KC_ESC       , XXXXXXX, XXXXXXX   , XXXXXXX  , XXXXXXX    , XXXXXXX    , XXXXXXX        , XXXXXXX     , XXXXXXX, KC_BSPC      ,
+        TD(Q_TAB)    , KC_W   , KC_E      , KC_R     , KC_T       , KC_Y       , KC_U           , KC_I        , KC_O   , TD(P_BSPC)   ,
+        TD(A_CAPS)   , LSFT_S , LT3_D     , LCTL_F   , KC_G       , KC_H       , RCTL_J         , LT5_K       , RSFT_L , TD(SCLN_QUOT),
+        KC_Z         , KC_X   , TD(C_LGUI), TD(V_ALT), TD(B_SPACE), TD(N_ENTER), LT(1,TD(M_DEL)), TD(COMM_GRV), KC_DOT , TD(SLSH_BSLS)
     ),
     [_1_SYMBOLS_NUMPAD] = LAYOUT_ortho_4x10_dead30(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -114,7 +97,7 @@ void dance_thrice(qk_tap_dance_state_t *state, void *user_data) { //KC_Q, KC_TAB
         register_code(KC_Q);
     } else if (state->count == 2) {
         register_code(KC_TAB);
-    }else if (state->count == 3) {
+    } else if (state->count == 3) {
         register_code(KC_ESC);
     }
 }
