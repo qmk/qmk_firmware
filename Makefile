@@ -48,17 +48,10 @@ ON_ERROR := error_occurred=1
 
 BREAK_ON_ERRORS = no
 
-STARTING_MAKEFILE := $(firstword $(MAKEFILE_LIST))
-ROOT_MAKEFILE := $(lastword $(MAKEFILE_LIST))
-ROOT_DIR := $(dir $(ROOT_MAKEFILE))
+ROOT_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 ifeq ($(ROOT_DIR),)
     ROOT_DIR := .
 endif
-ABS_STARTING_MAKEFILE := $(abspath $(STARTING_MAKEFILE))
-ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
-ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
-ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
-STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
 
 include paths.mk
 
