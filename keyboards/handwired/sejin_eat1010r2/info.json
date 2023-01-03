@@ -1,0 +1,33 @@
+{
+    "keyboard_name": "EAT-1010R2", 
+    "manufacturer": "Sejin",
+    "url": "", 
+    "maintainer": "DmNosachev", 
+    "usb": {
+        "vid": "0x515A",
+        "pid": "0x4D4D",
+        "device_version": "0.0.1"
+    },
+	"diode_direction": "COL2ROW",
+	"development_board": "bluepill",
+    "matrix_pins": {
+		"cols": ["B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15", "C13", "C14", "C15", "A0", "A1", "A2", "A3", "A4"],
+        "rows": ["B11", "B12", "B13", "B14", "B15", "A8", "A9", "A10"]
+    },
+	"features": {
+        "audio": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "midi": false,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": false,
+        "unicode": false,
+        "bluetooth": false,
+        "backlight": false,
+        "sleep_led": false
+    },
+	"debounce": 5
+}
