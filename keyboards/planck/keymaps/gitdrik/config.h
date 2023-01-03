@@ -1,4 +1,4 @@
-/* Original code probably copyright 2015-2017 Jack Humbert
+/* Copyright 2015-2021 Jack Humbert
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,18 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Passed along from planck default to Finnish SFS 5966 by gitdrik, 2020. */
+/* Passed along from planck default to Finnish SFS 5966 by gitdrik, 2020-2023. */
 
 #pragma once
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(PLANCK_SOUND)
-    // #define STARTUP_SONG SONG(NO_SOUND)
+#    define STARTUP_SONG SONG(PLANCK_SOUND)
+// #define STARTUP_SONG SONG(NO_SOUND)
 
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
-                                }
+#    define DEFAULT_LAYER_SONGS \
+        { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND) }
 #endif
 
 /*
