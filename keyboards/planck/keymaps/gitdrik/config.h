@@ -19,8 +19,9 @@
 #pragma once
 
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(PLANCK_SOUND)
-// #define STARTUP_SONG SONG(NO_SOUND)
+#    define STARTUP_SONG SONG(NO_SOUND)
+//#    define STARTUP_SONG SONG(PLANCK_SOUND)
+//#    define AUDIO_INIT_DELAY // Get startup_song to actually play
 
 #    define DEFAULT_LAYER_SONGS \
         { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND) }
@@ -49,3 +50,4 @@
 
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
+
