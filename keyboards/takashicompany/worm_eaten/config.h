@@ -7,7 +7,7 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1 }
 
 
-#define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
+#define SOFT_SERIAL_PIN D2
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
@@ -29,27 +29,3 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
-
-/*
-
- "matrix_pins": {
-        "cols": [
-            "F4",
-            "F5",
-            "F6",
-            "F7",
-            "B1",
-            "B3",
-            "B2",
-            "B6",
-            "B5",
-            "B4"
-        ],
-        "rows": [
-            "D4",
-            "C6",
-            "D7",
-            "E6"
-        ]
-    },
-*/
