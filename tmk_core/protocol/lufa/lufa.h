@@ -53,10 +53,6 @@ extern "C" {
 
 extern host_driver_t lufa_driver;
 
-//#ifdef MOUSE_WHEEL_HIRES_ENABLE
-//extern report_resolution_multiplier_t resolution_multiplier_report;
-//#endif
-
 #ifdef __cplusplus
 }
 #endif

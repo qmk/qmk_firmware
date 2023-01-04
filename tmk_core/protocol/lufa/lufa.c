@@ -81,10 +81,7 @@ static uint8_t keyboard_led_state = 0;
 static report_keyboard_t keyboard_report_sent;
 
 #ifdef MOUSE_WHEEL_HIRES_ENABLE
-static report_resolution_multiplier_t resolution_multiplier_report = {
-    REPORT_ID_MULTIPLIER,
-    0x00,
-};
+static uint8_t resolution_multiplier;
 #endif
 
 /* Host driver */
@@ -95,7 +92,7 @@ static void    send_extra(report_extra_t *report);
 host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 void send_report(uint8_t endpoint, void *report, size_t size) {
-    uint8_t timeout = 255;
+    uint8_t timeout = 255; 
 
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
 
@@ -465,8 +462,8 @@ void EVENT_USB_Device_ControlRequest(void) {
 #endif
 #    ifdef MOUSE_WHEEL_HIRES_ENABLE
                         if (USB_ControlRequest.wValue == (0x0300 | REPORT_ID_MULTIPLIER)) {
-                            ReportData = (uint8_t *)&resolution_multiplier_report;
-                            ReportSize = sizeof(resolution_multiplier_report);
+                            ReportData = (uint8_t *)&resolution_multiplier;
+                            ReportSize = sizeof(resolution_multiplier);
                         }
 #    endif
                         break;
@@ -503,7 +500,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                                 break;
 #ifdef MOUSE_WHEEL_HIRES_ENABLE
                             case REPORT_ID_MULTIPLIER:
-                                resolution_multiplier_report.multiplier = Endpoint_Read_8();
+                                resolution_multiplier = Endpoint_Read_8();
                                 break;
 #endif
                         }

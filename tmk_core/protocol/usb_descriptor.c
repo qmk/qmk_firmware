@@ -153,7 +153,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 
-            // Vertical/Horizontal Wheel (2, 4, or 5 bytes)
+            // Vertical/Horizontal Wheel (2 or 4 bytes)
 #    ifdef MOUSE_WHEEL_HIRES_ENABLE
             HID_RI_COLLECTION(8, 0x02),                             // Logical collection
                 // Resolution Multiplier (2 bits)
@@ -171,7 +171,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #        else
                 HID_RI_REPORT_ID(8, 0x00), // reset report ID
 #        endif
-#    endif
+#    endif // MOUSE_WHEEL_HIRES_ENABLE
                 // Vertical wheel (1-2 bytes)
                 HID_RI_USAGE(8, 0x38), // Wheel (V)
 #    ifdef MOUSE_WHEEL_EXTENDED_REPORT
@@ -187,14 +187,14 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
                 HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 #    ifdef MOUSE_WHEEL_HIRES_ENABLE
-            HID_RI_END_COLLECTION(0),
+            HID_RI_END_COLLECTION(0), // Logical
 #    endif
 
             // Horizontal Wheel (1 or 2 bytes)
 #    ifdef MOUSE_WHEEL_HIRES_ENABLE
             HID_RI_COLLECTION(8, 0x02),                               // Logical collection
                 // Resolution Multiplier (2 bits)
-                HID_RI_REPORT(8, REPORT_ID_MULTIPLIER),
+                HID_RI_REPORT_ID(8, REPORT_ID_MULTIPLIER),
                 HID_RI_USAGE(8, 0x48),                                // Resolution Multiplier
                 HID_RI_REPORT_COUNT(8, 0x01),
                 HID_RI_REPORT_SIZE(8, 0x02),
@@ -209,9 +209,9 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #        ifdef MOUSE_SHARED_EP
                 HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #        else
-                HID_RI_REPORT_ID(8, 0x00), // reset report ID
+                HID_RI_REPORT_ID(8, 0x00),  // reset report ID
 #        endif
-#    endif
+#    endif // MOUSE_WHEEL_HIRES_ENABLE
                 HID_RI_USAGE_PAGE(8, 0x0C), // Consumer
                 HID_RI_USAGE(16, 0x0238),   // AC Pan (Horizontal Wheel)
 #    ifdef MOUSE_WHEEL_EXTENDED_REPORT
@@ -227,9 +227,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
                 HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 #    ifdef MOUSE_WHEEL_HIRES_ENABLE
-            HID_RI_END_COLLECTION(0),
+            HID_RI_END_COLLECTION(0), // Logical
 #    endif
-    HID_RI_END_COLLECTION(0),
+        HID_RI_END_COLLECTION(0), // Physical
+    HID_RI_END_COLLECTION(0),     // Application
 #    ifndef MOUSE_SHARED_EP
 };
 #    endif
