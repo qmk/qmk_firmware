@@ -4,8 +4,7 @@ A 65% Gasket keyboard made by Quarkeys Studio, third of our projects.
 
 * Keyboard Maintainer: [Quarkeys Studio](www.quarkeys.com)
 * Hardware Supported: Z67-YUN
-* Hardware Specs: Solder version with throught hole for LEDs
-                  Hotswap version with per-key RGBs, layer & Capslock indicators
+* Hardware Specs: Solder version with throught hole for LEDs, hotswap version with per-key RGBs, layer & Capslock indicators
 
 Make example for this keyboard solder version keymap(after setting up your build environment):
 
