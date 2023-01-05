@@ -86,7 +86,7 @@ enum unicode_names {
     UC_THUMBSUP, // 👎
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [UC_GRINNING_FACE] = 0x1F603,
     [UC_BEAMING_FACE] = 0x1F601,
     [UC_GRINNING_FACE_WITH_SWEAT] = 0x1F605,

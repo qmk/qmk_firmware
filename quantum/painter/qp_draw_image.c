@@ -399,3 +399,15 @@ void qp_internal_animation_tick(void) {
     static uint32_t last_anim_exec = 0;
     deferred_exec_advanced_task(animation_executors, QUANTUM_PAINTER_CONCURRENT_ANIMATIONS, &last_anim_exec);
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter Core API: qp_internal_task
+
+void qp_internal_task(void) {
+    qp_internal_animation_tick();
+#ifdef QUANTUM_PAINTER_LVGL_INTEGRATION_ENABLE
+    // Run LVGL ticks
+    void qp_lvgl_internal_tick(void);
+    qp_lvgl_internal_tick();
+#endif
+}

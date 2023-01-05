@@ -142,7 +142,7 @@ def doctor(cli):
     if sub_ok == CheckStatus.OK:
         cli.log.info('Submodules are up to date.')
     else:
-        if yesno('Would you like to clone the submodules?', default=True):
+        if git_check_repo() and yesno('Would you like to clone the submodules?', default=True):
             submodules.update()
             sub_ok = check_submodules()
 

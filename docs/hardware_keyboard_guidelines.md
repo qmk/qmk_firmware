@@ -188,7 +188,7 @@ The following functions are typically defined in this file:
 * `void matrix_init_kb(void)`
 * `void matrix_scan_kb(void)`
 * `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
-* `void led_set_kb(uint8_t usb_led)`
+* `bool led_update_kb(led_t led_state)`
 
 ### `<keyboard_name.h>`
 
@@ -207,6 +207,8 @@ As an example, if you have a 60% PCB that supports ANSI and ISO you might define
 | LAYOUT_all | default | A layout that supports both ISO and ANSI |
 | LAYOUT_ansi | default_ansi | An ANSI layout |
 | LAYOUT_iso | default_iso | An ISO layout |
+
+?> Providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling.
 
 ## Image/Hardware Files
 

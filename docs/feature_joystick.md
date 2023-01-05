@@ -192,7 +192,7 @@ Set the state of a button, and flush the report.
 
 ---
 
-### `void register_joystick_button(uint8_t button)` :id=api-unregister-joystick-button
+### `void unregister_joystick_button(uint8_t button)` :id=api-unregister-joystick-button
 
 Reset the state of a button, and flush the report.
 

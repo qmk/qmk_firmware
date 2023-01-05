@@ -93,18 +93,18 @@ While, this may be fine for most, if you want to specify the whole keycode (eg, 
 
 ## Customization 
 
-The Leader Key feature has some additional customization to how the Leader Key feature works. It has two functions that can be called at certain parts of the process. Namely `leader_start()` and `leader_end()`.
+The Leader Key feature has some additional customization to how the Leader Key feature works. It has two functions that can be called at certain parts of the process. Namely `leader_start_user()` and `leader_end_user()`.
 
-The `leader_start()` function is called when you tap the `QK_LEAD` key, and the `leader_end()` function is called when either the leader sequence is completed, or the leader timeout is hit. 
+The `leader_start_user()` function is called when you tap the `QK_LEAD` key, and the `leader_end_user()` function is called when either the leader sequence is completed, or the leader timeout is hit. 
 
 You can add these functions to your code (`keymap.c` usually) to add feedback to the Leader sequences (such as beeping or playing music).
 
 ```c
-void leader_start(void) {
+void leader_start_user(void) {
   // sequence started
 }
 
-void leader_end(void) {
+void leader_end_user(void) {
   // sequence ended (no success/failure detection)
 }
 ```
@@ -139,13 +139,13 @@ void matrix_scan_user(void) {
   }
 }
 
-void leader_start(void) {
+void leader_start_user(void) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_start);
 #endif
 }
 
-void leader_end(void) {
+void leader_end_user(void) {
   if (did_leader_succeed) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_succeed);

@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Util is accessed by holding Space. The Util layer contains vimkeys and
  * shortcuts that I find myself needing often.
  */
-[_UTIL] =  LAYOUT_ortho_4x12( \
+[_UTIL] =  LAYOUT_ortho_4x12(
     _______, GUI_1,   GUI_2,   GUI_3,   GUI_4,   GUI_5,   GUI_6,   GUI_7,   GUI_8,   GUI_9,   GUI_0,   _______,
     _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, GO_BACK, GO_FWD,  _______, _______, _______,
