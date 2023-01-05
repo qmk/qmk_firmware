@@ -562,7 +562,8 @@ def _process_defaults(info_data):
         thing_map = defaults_map[default_type]
         if default_type in info_data:
             for key, value in thing_map.get(info_data[default_type], {}).items():
-                info_data[key] = value
+                if key not in info_data:
+                    info_data[key] = value
     return info_data
 
 
