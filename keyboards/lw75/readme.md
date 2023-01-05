@@ -1,6 +1,6 @@
 # LW-75
 
-![LW67](https://i.imgur.com/mcM1TTi.jpg)
+![LW75](https://i.imgur.com/JczcWsmh.jpg)
 
 A 75% Keyboard with a LHS rotary encoder, made and sold by Laneware Peripherals.
 
