@@ -4,30 +4,29 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(
-        KC_MPLY, KC_9,    KC_0,    KC_NO,
-        KC_5,    KC_6,    KC_7,    KC_8,
-        KC_1,    KC_2,    KC_3,    KC_4,
-        TO(1),   KC_DOT,  KC_COMM, USER09
+    [0] = LAYOUT(
+        KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        RGB_TOG, XXXXXXX, XXXXXXX, 0x5011
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        TO(2),   _______, _______, _______
-
+    [1] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, 0x5012
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        TO(3),   _______, _______, _______
+    [2] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, 0x5013
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        TO(0),   _______, _______, _______
+    [3] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        USER00,  USER01,  USER03,  USER05,
+        XXXXXXX, USER02,  USER04,  USER06,
+        XXXXXXX, XXXXXXX, XXXXXXX, 0x5010
     )
 };
 
@@ -51,22 +50,28 @@ typedef union {
 work_louder_config_t work_louder_config;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif
-
     switch (keycode) {
         case USER09:
             if (record->event.pressed) {
                 work_louder_config.led_level++;
                 if (work_louder_config.led_level > 4) {
-                    work_louder_config.led_level = 0;
+                    work_louder_config.led_level = 1;
                 }
                 work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
                 eeconfig_update_user(work_louder_config.raw);
                 layer_state_set_kb(layer_state);
             }
             break;
+        case 0x5000 ... 0x500F:
+            if (record->event.pressed) {
+                layer_move(keycode - 0x5000);
+            }
+            return false; break;
+        case 0x5010 ... 0x501F:
+            if (record->event.pressed) {
+                layer_move(keycode - 0x5010);
+            }
+            return false; break;
     }
     return true;
 }
@@ -86,7 +91,11 @@ void eeconfig_init_user(void) {
     eeconfig_update_user(work_louder_config.raw);
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
     work_louder_config.raw = eeconfig_read_user();
     work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+}
+
+void suspend_wakeup_init_user(void) {
+    layer_state_set_user(layer_state);
 }
