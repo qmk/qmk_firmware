@@ -20,6 +20,7 @@ void eeconfig_init_via(void);
 #elif defined(DYNAMIC_KEYMAP_ENABLE)
 bool dynamic_keymap_is_valid(void);
 void dynamic_keymap_reset(void);
+void dynamic_keymap_macro_reset(void);
 #endif
 
 /** \brief eeconfig enable
@@ -89,6 +90,7 @@ void eeconfig_init_quantum(void) {
     eeconfig_init_via();
 #elif defined(DYNAMIC_KEYMAP_ENABLE)
     dynamic_keymap_reset();
+    dynamic_keymap_macro_reset();
 #endif
 
     eeconfig_init_kb();
