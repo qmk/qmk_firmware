@@ -1,6 +1,5 @@
 /*
-Copyright 2019 @foostan
-Copyright 2020 Drashna Jaelre <@drashna>
+Copyright 2023 Noah Pederson <@chiefnoah>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,16 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
+#include_next <mcuconf.h>
 
-#ifdef KEYBOARD_crkbd_rev1
-#    include "rev1.h"
-#endif
-#ifdef KEYBOARD_crkbd_r2g
-#    include "r2g.h"
-#endif
-#ifdef KEYBOARD_crkbd_blok
-#    include "blok.h"
-#endif
+#undef RP_I2C_USE_I2C0
+#define RP_I2C_USE_I2C0 TRUE
 
-
-#include "quantum.h"
+#undef RP_I2C_USE_I2C1
+#define RP_I2C_USE_I2C1 FALSE
