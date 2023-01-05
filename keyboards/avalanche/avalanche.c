@@ -16,7 +16,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_PGUP);
         } else {
-            tap_code(KC_PGDOWN);
+            tap_code(KC_PGDN);
         }
     }
     return true;

@@ -63,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_RAISE] = LAYOUT_planck_mit(
     _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______, KC_INS,  KC_HOME, KC_PGUP, KC_PSCR, KC_SLCK, KC_PAUS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
-    _______, KC_DEL,  KC_END,  KC_PGDN, KC_NLCK, _______, _______, KC_GRV,  KC_BSLS, _______, _______, _______,
+    _______, KC_INS,  KC_HOME, KC_PGUP, KC_PSCR, KC_SCRL, KC_PAUS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
+    _______, KC_DEL,  KC_END,  KC_PGDN, KC_NUM,  _______, _______, KC_GRV,  KC_BSLS, _______, _______, _______,
     _______, _______, _______, _______, _______,     _______,      _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
   ),
 
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] = LAYOUT_planck_mit(
-    _______, QK_BOOT, DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, KC_POWER,
+    _______, QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, KC_PWR,
     _______, BL_TOGG, BL_STEP, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, RGB_TOG, RGB_HUI, RGB_HUD, RGB_MOD, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______

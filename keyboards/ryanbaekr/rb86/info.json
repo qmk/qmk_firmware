@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "rb86", 
+    "keyboard_name": "rb86",
     "manufacturer": "ryanbaekr",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "ryanbaekr",
     "usb": {
         "vid": "0x7262",
         "pid": "0x0086",

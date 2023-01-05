@@ -13,9 +13,13 @@
 
 #define MOUSEKEY_INTERVAL         20
 #define MOUSEKEY_DELAY            0
+#ifndef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX      40
+#endif
 #define MOUSEKEY_MAX_SPEED        7
+#ifndef MOUSEKEY_WHEEL_DELAY
 #define MOUSEKEY_WHEEL_DELAY      0
+#endif
 
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_BREATHING

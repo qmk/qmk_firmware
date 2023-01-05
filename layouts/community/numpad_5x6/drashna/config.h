@@ -32,5 +32,5 @@
 
 #if defined(KEYBOARD_primekb_prime_m)
 #    undef PRODUCT
-#    define PRODUCT Drashna Hacked Prime_M Macro Pad
+#    define PRODUCT "Drashna Hacked Prime_M Macro Pad"
 #endif
