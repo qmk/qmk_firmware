@@ -5,6 +5,10 @@ TAP_DANCE_ENABLE = yes
 
 SRC += \
 	imgs/big_font.qff.c \
-	imgs/logo.qgf.c
+	imgs/logo.qgf.c \
+	imgs/logo1.qgf.c \
+	imgs/logo2.qgf.c \
+	imgs/logo3.qgf.c\
+	imgs/logo4.qgf.c
 
 EXTRALDFLAGS = -Wl,--defsym,FLASH_LEN=16384k
