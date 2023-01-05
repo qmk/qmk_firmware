@@ -1,4 +1,4 @@
-# Dactyl Manuform (4x5, 5x6, 5x7, 6x6, 6x7)
+# Dactyl Manuform (3x5+3, 4x5, 5x6, 5x6+5, 5x7, 6x6, 6x7, 6x7+fullrows)
 
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
@@ -29,6 +29,12 @@ For more information on customizing keymaps, take a look at the primary document
 
 ## Keymaps
 
+### [Keymaps 3x5_3](/keyboards/handwired/dactyl_manuform/3x5_3/keymaps/)
+
+#### Dlford
+
+QWERTY/Colemak layout with per key RGB and other features
+
 ### [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
 
 #### Default
@@ -52,9 +58,11 @@ A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and th
 Similar layout to 5x6 but with only 5 thumb keys per side instead of 6.
 
 #### Default
+
 QWERTY layout with 7 Layers.
 
 #### Via
+
 Similar to Default but adds support for the [Via](https://www.caniusevia.com/) keymap configurator. Reduces the number of layers to 4 to comply with Via defaults, and remaps
 some keys to accomodate that constraint.
 
@@ -76,11 +84,15 @@ Simple QWERTY layout with 3 Layers.
 
 Simple QWERTY layout with 3 Layers.
 
-### [Keymaps 3x5_3](/keyboards/handwired/dactyl_manuform/3x5_3/keymaps/)
+### [Keymaps 6x7_fullrows](/keyboards/handwired/dactyl_manuform/6x7_fullrows/keymaps/)
 
-#### Dlford
+#### Default
 
-QWERTY/Colemak layout with per key RGB and other features
+Simple QWERTY layout.
+
+#### Zoullx
+
+Programmers Dvorak, Dvorak and Qwerty layouts with per key RGB.
 
 ## Required Hardware
 
