@@ -18,6 +18,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install python reqs
+      run: |
+        python3 -m pip install -r requirements.txt
+
     - name: Run qmk generators
       run: |
         util/regen.sh
