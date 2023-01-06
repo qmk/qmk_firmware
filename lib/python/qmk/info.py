@@ -105,6 +105,14 @@ def _additional_validation(keyboard, info_data):
             if not decl.get("aliases", []):
                 _log_error(info_data, f'Keycode {decl["key"]} has no short form alias')
 
+    # Ensure LED config is somewhat valid
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if feature in info_data and all(key in info_data[feature] for key in ["layout", "led_count"]):
+            layout_count = len(info_data[feature]["layout"])
+            led_count = info_data[feature]["led_count"]
+            if led_count != layout_count:
+                _log_warning(info_data, '%s: mismatch between LED count (%d) and layout items (%d)' % (feature, led_count, layout_count))
+
 
 def _validate(keyboard, info_data):
     """Perform various validation on the provided info.json data
