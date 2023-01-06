@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KB04-01",
     "manufacturer": "DOIO",
-    "url": "",
     "maintainer": "Caffeinism",
     "usb": {
         "vid": "0xD010",
