@@ -3,10 +3,6 @@
 
 #pragma once
 
-// Key matrix size (Rows are doubled-up for split)
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
 // Electrical Wiring Stuff
 #define MATRIX_ROW_PINS \
     { GP8, GP9, GP10, GP11, GP12 }
@@ -16,7 +12,6 @@
 
 // Split Keyboard Stuff
 #define EE_HANDS                 // Sets the keyboard’s handedness using EEPROM
-#define SPLIT_USB_DETECT         // USB Detection to decide which side is "master"
 #define SERIAL_USART_FULL_DUPLEX // Use full duplex communication (TRRS)
 #define SERIAL_USART_TX_PIN GP0  // USART TX pin
 #define SERIAL_USART_RX_PIN GP1  // USART RX pin
@@ -25,9 +20,7 @@
 #ifdef RGB_MATRIX_ENABLE
 
 #    define RGB_DI_PIN GP15 // Pin for RGB logic
-#    define RGBLED_NUM 74   // Number of LEDs
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 74
 #    define RGB_MATRIX_SPLIT \
         { 37, 37 } // 37 LEDs on each side
 

@@ -4,7 +4,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "rev1.h"
 
 typedef union {
     uint32_t raw;

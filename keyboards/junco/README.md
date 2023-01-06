@@ -1,6 +1,6 @@
 # Junco <!-- omit from toc -->
 
-![Junco](https://github.com/Daneski13/Junco/raw/main/img/Junco.webp)
+![Junco](https://i.imgur.com/WzZaIgQ.jpg)
 
 Junco is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layout with an aggressive columnar stagger. It has 5 "thumb" keys on either side, support for 2-4 rotary encoders, and per-key RGB lighting.
 
