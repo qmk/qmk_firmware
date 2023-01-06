@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "KB04-01",
+    "manufacturer": "DOIO",
+    "url": "",
+    "maintainer": "Caffeinism",
+    "usb": {
+        "vid": "0xD010",
+        "pid": "0x0401",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "1!", "x": 0, "y": 0 },
+                { "label": "2@", "x": 1, "y": 0 },
+                { "label": "3#", "x": 2, "y": 0 },
+                { "label": "4$", "x": 3, "y": 0 },
+                { "label": "Encoder", "x": 4.75, "y": 0 }
+            ]
+        }
+    }
+}
