@@ -1,7 +1,8 @@
 {
     "keyboard_name": "KB04-01",
     "manufacturer": "DOIO",
-    "maintainer": "Caffeinism",
+    "url": "https://www.keebmonkey.com/products/megalodon-macro-pad-with-a-knob",
+    "maintainer": "filmstarr",
     "usb": {
         "vid": "0xD010",
         "pid": "0x0401",

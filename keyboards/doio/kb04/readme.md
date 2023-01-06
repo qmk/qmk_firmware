@@ -4,7 +4,7 @@
 
 A macropad that have 4-key keyboard made by DOIO, which controlled by an APM32F103CBT6 chipset. The keyboard features per-key RGB and 1 encoder.
 
-* Keyboard Maintainer: [Caffeinism](https://github.com/Caffeinism)
+* Keyboard Maintainer: [filmstarr](https://github.com/filmstarr)
 * Hardware Supported: APM32F103CBT6
 
 Make example for this keyboard (after setting up your build environment):

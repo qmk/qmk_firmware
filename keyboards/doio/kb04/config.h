@@ -1,5 +1,4 @@
-/* Copyright 2022 DOIO
- * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 filmstarr <https://github.com/filmstarr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,9 +34,6 @@
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-/* Forcing to use NKRO instead 6KRO */
-// #define FORCE_NKRO
 
 /* Encoder pins */
 #define ENCODERS_PAD_A { B5 }

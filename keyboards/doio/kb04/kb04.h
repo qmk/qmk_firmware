@@ -1,5 +1,4 @@
-/* Copyright 2022 DOIO
- * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 filmstarr <https://github.com/filmstarr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,10 +19,10 @@
 #include "quantum.h"
 #include "print.h"
 
-/*                    06 ◯ 05
- * ┌───┬───┬───┬───┐   ┌───┐
- * │00 │01 │02 │03 │   │04 │
- * └───┴───┴───┴───┘   └───┘
+/*                        06 ◯ 05
+ * ┌────┬────┬────┬────┐   ┌────┐
+ * │ 00 │ 01 │ 02 │ 03 │   │ 04 │
+ * └────┴────┴────┴────┘   └────┘
  */
 
 #define LAYOUT(K00, K01, K02, K03, K04) {{ K00, K01, K02, K03, K04 }}
