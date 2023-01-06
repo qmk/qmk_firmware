@@ -99,7 +99,7 @@
 |`KC_LEFT`              |                              |左矢印                                   |✔           |✔            |✔                |
 |`KC_DOWN`              |                              |下矢印                                   |✔           |✔            |✔                |
 |`KC_UP`                |                              |上矢印                                   |✔           |✔            |✔                |
-|`KC_NUMLOCK`           |`KC_NLCK`                     |テンキー Num Lock と Clear              |✔           |✔            |✔                |
+|`KC_NUMLOCK`           |`KC_NUM`                     |テンキー Num Lock と Clear              |✔           |✔            |✔                |
 |`KC_KP_SLASH`          |`KC_PSLS`                     |テンキー `/`                             |✔           |✔            |✔                |
 |`KC_KP_ASTERISK`       |`KC_PAST`                     |テンキー `*`                             |✔           |✔            |✔                |
 |`KC_KP_MINUS`          |`KC_PMNS`                     |テンキー `-`                             |✔           |✔            |✔                |
