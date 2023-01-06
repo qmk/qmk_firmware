@@ -5,7 +5,8 @@
 A macropad that have 4-key keyboard made by DOIO, which controlled by an APM32F103CBT6 chipset. The keyboard features per-key RGB and 1 encoder.
 
 * Keyboard Maintainer: [filmstarr](https://github.com/filmstarr)
-* Hardware Supported: APM32F103CBT6
+* Hardware Supported: DOIO Knob Board - KB04
+* Hardware Availability: [keebmonkey.com](https://www.keebmonkey.com/products/megalodon-macro-pad-with-a-knob)
 
 Make example for this keyboard (after setting up your build environment):
 
