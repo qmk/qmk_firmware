@@ -105,7 +105,7 @@
 |キー               |エイリアス          |説明                                   |
 |-------------------|--------------------|---------------------------------------|
 |`KC_CAPSLOCK`      |`KC_CLCK`, `KC_CAPS`|Caps Lock                              |
-|`KC_SCROLLLOCK`    |`KC_SLCK`, `KC_BRMD`|Scroll Lock, 画面の明るさダウン (macOS)|
+|`KC_SCROLLLOCK`    |`KC_SCRL`, `KC_BRMD`|Scroll Lock, 画面の明るさダウン (macOS)|
 |`KC_NUMLOCK`       |`KC_NUM`           |テンキー Num Lock と Clear             |
 |`KC_LOCKING_CAPS`  |`KC_LCAP`           |Caps Lock のロック                     |
 |`KC_LOCKING_NUM`   |`KC_LNUM`           |Num Lock のロック                      |
