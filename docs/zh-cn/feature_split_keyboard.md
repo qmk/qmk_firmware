@@ -14,14 +14,14 @@ QMK 固件中有一个可供任何主控板使用的通用实现，也有许多�
 
 ## 兼容性一览
 
-| 通信方式                       | AVR                | ARM                |
-|-------------------------------|--------------------|--------------------|
-| ['串行通信'](serial_driver.md) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
-| I2C                           | :heavy_check_mark: |                    |
+| 通信方式                             | AVR                | ARM                |
+|-------------------------------------|--------------------|--------------------|
+| ['串行通信'](zh-cn/serial_driver.md) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
+| I2C                                 | :heavy_check_mark: |                    |
 
 注意：
 
-1. 关于软件和硬件的限制，都在 [串行通信驱动文档](serial_driver.md)中有详细说明.
+1. 关于软件和硬件的限制，都在 [串行通信驱动文档](zh-cn/serial_driver.md)中有详细说明.
 
 ## 硬件配置
 
@@ -153,7 +153,7 @@ SPLIT_TRANSPORT = custom
 make crkbd:default:avrdude-split-left
 ```
 
-?> 使用 `dfu-util` 的 ARM 控制器在设置左右手后需要重置 EEPROM。可以通过`EE_CLR`键码或[Bootmagic Lite](feature_bootmagic.md)完成。使用模拟EEPROM的主控在刷写固件时总是需要左右侧参数。
+?> 使用 `dfu-util` 的 ARM 控制器在设置左右手后需要重置 EEPROM。可以通过`EE_CLR`键码或[Bootmagic Lite](zh-cn/feature_bootmagic.md)完成。使用模拟EEPROM的主控在刷写固件时总是需要左右侧参数。
 
 ?> [QMK Toolbox]() 也可以用来刷入 EEPROM 的左右手设置。将控制器置于 bootloader 模式，选择菜单选项 Tools -> EEPROM -> Set Left/Right Hand。
 
@@ -285,7 +285,7 @@ make crkbd:default:avrdude-split-left
 
 把指向性设备的状态传输到分体式键盘的副侧。这个功能的目的是在副端使用指向性设备。
 
-!> 在[pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration)中概述了`SPLIT_POINTING_ENABLE`的额外必要配置。
+!> 在[pointing device documentation](zh-cn/feature_pointing_device.md?id=split-keyboard-configuration)中概述了`SPLIT_POINTING_ENABLE`的额外必要配置。
 
 ### 双方的自定义数据同步 :id=custom-data-sync
 
