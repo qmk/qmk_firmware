@@ -51,7 +51,7 @@ QMK 固件有一个可供任何主控板使用的通用实现，也有许多主�
 
 把TRS/TRRS线材的3根线接到两侧Pro Micros的GND、VCC和D0/D1/D2/D3（又称PD0/PD1/PD2/PD3）上。
 
-?> 注意，这里使用的引脚实际上是根据下面的 `SOFT_SERIAL_PIN` 设置的。
+?> 注意：这里使用的引脚实际上是根据下面的 `SOFT_SERIAL_PIN` 设置的。
 
 <img alt="sk-pd0-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296488-28e9ad80-ef70-11ea-98be-c40cb48a0319.JPG" width="48%"/>
 <img alt="sk-pd2-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296490-2d15cb00-ef70-11ea-801f-5ace313013e6.JPG" width="48%"/>
