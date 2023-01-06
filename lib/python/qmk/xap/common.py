@@ -56,7 +56,7 @@ def load_lighting_spec(feature, version='latest'):
 
 def _get_jinja2_env(data_templates_xap_subdir: str):
     templates_dir = os.path.join(qmk.constants.QMK_FIRMWARE, 'data', 'templates', 'xap', data_templates_xap_subdir)
-    j2 = Environment(loader=FileSystemLoader(templates_dir), autoescape=select_autoescape())
+    j2 = Environment(loader=FileSystemLoader(templates_dir), autoescape=select_autoescape(), lstrip_blocks=True, trim_blocks=True)
     return j2
 
 

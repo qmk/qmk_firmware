@@ -3,6 +3,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Versions and identifiers
@@ -15,119 +16,119 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Response flag definitions
 
-{% for bit,data in xap.response_flags.bits | dictsort -%}
+{% for bit,data in xap.response_flags.bits | dictsort %}
 #define {{ xap.response_flags.define_prefix }}_{{ data.define | to_snake | upper }} (UINT32_C(1) << ({{ bit }}))
-{% endfor -%}
+{% endfor %}
 #define {{ xap.response_flags.define_prefix }}_FAILED 0x00
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Broadcast message definitions
 
-{% for message_id,data in xap.broadcast_messages.messages | dictsort -%}
+{% for message_id,data in xap.broadcast_messages.messages | dictsort %}
 #define {{ xap.broadcast_messages.define_prefix }}_{{ data.define | to_snake | upper }} {{ message_id }}
-{% if 'return_type' in data -%}
+{% if 'return_type' in data %}
 void {{ xap.broadcast_messages.define_prefix | lower }}_{{ data.define | to_snake | lower }}({{ data.return_type | type_to_c('value') }});
-{% else -%}
+{% else %}
 void {{ xap.broadcast_messages.define_prefix | lower }}_{{ data.define | to_snake | lower }}(const void *data, size_t length);
 {% endif %}
-{% endfor -%}
+{% endfor %}
 #define XAP_BROADCAST_TOKEN 0xFFFF
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Type definitions
 
-{% for name,data in xap.type_definitions | dictsort -%}
-{% if data.type != 'struct' -%}
+{% for name,data in xap.type_definitions | dictsort %}
+{% if data.type != 'struct' %}
 typedef {{ data.type | type_to_c('xap_'+(name|to_snake|lower)+'_t') }};
-{% endif -%}
+{% endif %}
 {% endfor %}
-{%- for name,data in xap.type_definitions | dictsort %}
-{% if data.type == 'struct' -%}
+{% for name,data in xap.type_definitions | dictsort %}
+{% if data.type == 'struct' %}
 typedef struct {
-{%- for member in data.struct_members %}
+{% for member in data.struct_members %}
     {{ member.type | type_to_c(member.name) }};
-{%- endfor %}
+{% endfor %}
 } __attribute__((__packed__)) xap_{{ name | to_snake | lower }}_t{{ data.type | type_to_c_after }};
 _Static_assert(sizeof(xap_{{ name | to_snake | lower }}_t) == {{ data.struct_length }}, "xap_{{ name | to_snake | lower }}_t needs to be {{ data.struct_length }} bytes in size");
-{%- endif -%}
+{% endif %}
 {% endfor %}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Route definitions
 
-{% macro export_route_types(prefix, container) -%}
-{%- if 'routes' in container -%}
-{% for route, data in container.routes | dictsort -%}
-{%- set this_prefix_uc = (prefix + '_' + data.define) | upper -%}
-{%- set this_prefix_lc = this_prefix_uc | lower -%}
+{% macro export_route_types(prefix, container) %}
+{% if 'routes' in container %}
+{% for route, data in container.routes | dictsort %}
+{% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
+{% set this_prefix_lc = this_prefix_uc | lower %}
 
-{% if 'request_struct_members' in data -%}
+{% if 'request_struct_members' in data %}
 typedef struct {
-{%- for member in data.request_struct_members %}
+{% for member in data.request_struct_members %}
     {{ member.type | type_to_c(member.name|lower) }};
-{%- endfor %}
+{% endfor %}
 } __attribute__((__packed__)) {{ this_prefix_lc | to_snake | lower }}_arg_t;
 _Static_assert(sizeof({{ this_prefix_lc | to_snake | lower }}_arg_t) == {{ data.request_struct_length }}, "{{ this_prefix_lc | to_snake | lower }}_arg_t needs to be {{ data.request_struct_length }} bytes in size");
-{% elif 'request_type' in data -%}
+{% elif 'request_type' in data %}
 typedef {{ data.request_type | type_to_c(this_prefix_lc+'_arg_t') }};
-{%- endif -%}
+{% endif %}
 
-{%- if 'return_struct_members' in data -%}
+{% if 'return_struct_members' in data %}
 typedef struct {
-{%- for member in data.return_struct_members %}
+{% for member in data.return_struct_members %}
     {{ member.type | type_to_c(member.name|lower) }};
-{%- endfor %}
+{% endfor %}
 } __attribute__((__packed__)) {{ this_prefix_lc | to_snake | lower }}_t;
 _Static_assert(sizeof({{ this_prefix_lc | to_snake | lower }}_t) == {{ data.return_struct_length }}, "{{ this_prefix_lc | to_snake | lower }}_t needs to be {{ data.return_struct_length }} bytes in size");
-{%- elif 'return_type' in data -%}
-{%- if '[' in data.return_type %}
+{% elif 'return_type' in data %}
+{% if '[' in data.return_type %}
 typedef struct __attribute__((__packed__)) { {{ data.return_type | type_to_c('x') }}; } {{ this_prefix_lc }}_t;
-{%- else -%}
+{% else %}
 typedef {{ data.return_type | type_to_c(this_prefix_lc+'_t') }};
-{%- endif -%}
+{% endif %}
 
-{%- endif %}
+{% endif %}
 {{ export_route_types(this_prefix_lc, data) }}
-{% endfor -%}
-{%- endif -%}
-{%- endmacro -%}
+{% endfor %}
+{% endif %}
+{% endmacro %}
 
 {{ export_route_types('xap_route', xap) }}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Capabilities IDs
 
-{% macro export_route_ids(prefix, container) -%}
-{%- if 'routes' in container -%}
-{% for route, data in container.routes | dictsort -%}
-{%- set this_prefix_uc = (prefix + '_' + data.define) | upper -%}
-{%- set this_prefix_lc = this_prefix_uc | lower -%}
+{% macro export_route_ids(prefix, container) %}
+{% if 'routes' in container %}
+{% for route, data in container.routes | dictsort %}
+{% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
+{% set this_prefix_lc = this_prefix_uc | lower %}
 #define {{ this_prefix_uc }} {{ route }}
 {{ export_route_ids(this_prefix_uc, data) }}
-{%- endfor -%}
-{%- endif -%}
-{%- endmacro -%}
+{% endfor %}
+{% endif %}
+{% endmacro %}
 
 {{ export_route_ids('XAP_ROUTE', xap) }}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Capabilities Masks
 
-{% macro export_route_masks(prefix, container, preprocessor_condition) -%}
-{%- if 'routes' in container -%}
-{% for route, data in container.routes | dictsort -%}
-{%- set this_prefix_uc = (prefix + '_' + data.define) | upper -%}
-{%- set this_prefix_lc = this_prefix_uc | lower -%}
+{% macro export_route_masks(prefix, container, preprocessor_condition) %}
+{% if 'routes' in container %}
+{% for route, data in container.routes | dictsort %}
+{% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
+{% set this_prefix_lc = this_prefix_uc | lower %}
 {% if 'enable_if_preprocessor' in data %}
 {% if preprocessor_condition == 'TRUE' %}
-{%- set condition = "(" + data.enable_if_preprocessor + ")" -%}
+{% set condition = "(" + data.enable_if_preprocessor + ")" %}
 {% else %}
-{%- set condition = "(" + preprocessor_condition + " && (" + data.enable_if_preprocessor + "))" -%}
+{% set condition = "(" + preprocessor_condition + " && (" + data.enable_if_preprocessor + "))" %}
 {% endif %}
 {% else %}
-{%- set condition = preprocessor_condition -%}
+{% set condition = preprocessor_condition %}
 {% endif %}
 {% if condition == 'TRUE' %}
 #define {{ this_prefix_uc }}_MASK (UINT32_C(1) << ({{ this_prefix_uc }}))
@@ -139,28 +140,28 @@ typedef {{ data.return_type | type_to_c(this_prefix_lc+'_t') }};
 #endif  // ({{ condition }})
 {% endif %}
 {{ export_route_masks(this_prefix_uc, data, condition) }}
-{%- endfor -%}
-{%- endif -%}
-{%- endmacro -%}
+{% endfor %}
+{% endif %}
+{% endmacro %}
 
 {{ export_route_masks('XAP_ROUTE', xap, 'TRUE') }}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Capabilities Values
 
-{% macro export_route_capabilities(prefix, container) -%}
-{%- if 'routes' in container -%}
+{% macro export_route_capabilities(prefix, container) %}
+{% if 'routes' in container %}
 #define {{ prefix }}_CAPABILITIES (0 \
-{% for route, data in container.routes | dictsort -%}
-{%- set this_prefix_uc = (prefix + '_' + data.define) | upper -%}
+{% for route, data in container.routes | dictsort %}
+{% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
     | ({{ this_prefix_uc }}_MASK) \
-{% endfor -%}
+{% endfor %}
   )
-{% for route, data in container.routes | dictsort -%}
-{%- set this_prefix_uc = (prefix + '_' + data.define) | upper -%}
+{% for route, data in container.routes | dictsort %}
+{% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
 {{ export_route_capabilities(this_prefix_uc, data) }}
-{% endfor -%}
-{%- endif -%}
-{%- endmacro -%}
+{% endfor %}
+{% endif %}
+{% endmacro %}
 
 {{ export_route_capabilities('XAP_ROUTE', xap) }}
