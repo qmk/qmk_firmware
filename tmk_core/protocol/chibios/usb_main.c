@@ -66,6 +66,9 @@ extern keymap_config_t keymap_config;
 uint8_t                keyboard_idle __attribute__((aligned(2)))     = 0;
 uint8_t                keyboard_protocol __attribute__((aligned(2))) = 1;
 uint8_t                keyboard_led_state                            = 0;
+#ifdef MOUSE_WHEEL_HIRES_ENABLE
+uint8_t                resolution_multiplier                         = 0;
+#endif
 volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
 
@@ -606,6 +609,14 @@ static void set_led_transfer_cb(USBDriver *usbp) {
     }
 }
 
+#ifdef MOUSE_WHEEL_HIRES_ENABLE
+static void set_multiplier_cb(USBDriver *usbp) {
+    if (usbp->setup[6] == 2 && set_report_buf[0] == REPORT_ID_MULTIPLIER) {
+        resolution_multiplier = set_report_buf[1]
+    }
+}
+#endif
+
 /* Callback for SETUP request on the endpoint 0 (control) */
 static bool usb_request_hook_cb(USBDriver *usbp) {
     const USBDescriptor *dp;
@@ -632,9 +643,21 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
                             case MOUSE_INTERFACE:
+#    ifndef MOUSE_WHEEL_HIRES_ENABLE
                                 usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
                                 return TRUE;
                                 break;
+#    else
+                                if (usbp->setup[2] == REPORT_ID_MULTIPLIER) {
+                                    usbSetupTransfer(usbp, (uint8_t *)&resolution_multiplier, sizeof(resolution_multiplier), NULL);
+                                    return TRUE;
+                                    break;
+                                } else {
+                                    usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
+                                    return TRUE;
+                                    break;
+                                }
+#    endif
 #endif
 #ifdef SHARED_EP_ENABLE
                             case SHARED_INTERFACE:
@@ -652,6 +675,13 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                     break;
                                 }
 #    endif
+#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+                                if (usbp->setup[2] == REPORT_ID_MULTIPLIER) {
+                                    usbSetupTransfer(usbp, (uint8_t *)&resolution_multiplier, sizeof(resolution_multiplier), NULL);
+                                    return TRUE;
+                                    break;
+                                }
+#   endif
 #endif /* SHARED_EP_ENABLE */
                             default:
                                 universal_report_blank.report_id = usbp->setup[2];
@@ -683,9 +713,21 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
                             case SHARED_INTERFACE:
 #endif
+#ifndef MOUSE_WHEEL_HIRES_ENABLE
                                 usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
                                 return TRUE;
                                 break;
+#else
+                                if (usbp->setup[2] == REPORT_ID_MULTIPLIER) {
+                                    usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_multiplier_cb);
+                                    return TRUE;
+                                    break;
+                                } else {
+                                    usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
+                                    return TRUE;
+                                    break;
+                                }
+#endif
                         }
                         break;
 

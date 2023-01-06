@@ -218,10 +218,11 @@ typedef int8_t mouse_hv_report_t;
 #    ifndef MOUSE_WHEEL_MULTIPLIER
 #        define MOUSE_WHEEL_MULTIPLIER 120
 #    endif
+extern uint8_t resolution_multiplier;
 #endif
 
 typedef struct {
-#ifdef MOUSE_SHARED_EP
+#if (defined(MOUSE_SHARED_EP) || defined(MOUSE_WHEEL_HIRES_ENABLE))
     uint8_t report_id;
 #endif
     uint8_t buttons;

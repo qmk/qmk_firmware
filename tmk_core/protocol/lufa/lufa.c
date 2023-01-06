@@ -75,14 +75,13 @@ extern keymap_config_t keymap_config;
 
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
-uint8_t        keyboard_protocol  = 1;
-static uint8_t keyboard_led_state = 0;
+uint8_t        keyboard_protocol     = 1;
+static uint8_t keyboard_led_state    = 0;
+#ifdef MOUSE_WHEEL_HIRES_ENABLE
+uint8_t        resolution_multiplier = 0;
+#endif
 
 static report_keyboard_t keyboard_report_sent;
-
-#ifdef MOUSE_WHEEL_HIRES_ENABLE
-static uint8_t resolution_multiplier;
-#endif
 
 /* Host driver */
 static uint8_t keyboard_leds(void);
@@ -269,7 +268,10 @@ void EVENT_USB_Device_Connect(void) {
         USB_Disable();
         USB_Init();
         USB_Device_EnableSOFEvents();
-    }
+    }   
+#ifdef MOUSE_WHEEL_HIRES_ENABLE
+    resolution_multiplier = 0;
+#endif
 }
 
 /** \brief Event USB Device Connect
@@ -462,7 +464,7 @@ void EVENT_USB_Device_ControlRequest(void) {
 #endif
 #    ifdef MOUSE_WHEEL_HIRES_ENABLE
                         if (USB_ControlRequest.wValue == (0x0300 | REPORT_ID_MULTIPLIER)) {
-                            ReportData = (uint8_t *)&resolution_multiplier;
+                            ReportData = &resolution_multiplier;
                             ReportSize = sizeof(resolution_multiplier);
                         }
 #    endif

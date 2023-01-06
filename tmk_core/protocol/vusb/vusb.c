@@ -91,9 +91,8 @@ enum usb_interfaces {
 
 static uint8_t keyboard_led_state = 0;
 static uint8_t vusb_idle_rate     = 0;
-
 #ifdef MOUSE_WHEEL_HIRES_ENABLE
-static uint8_t resolution_multiplier;
+uint8_t resolution_multiplier     = 0;
 #endif
 
 /* Keyboard report send buffer */
@@ -103,13 +102,6 @@ static uint8_t           kbuf_head = 0;
 static uint8_t           kbuf_tail = 0;
 
 static report_keyboard_t keyboard_report_sent;
-
-#ifdef MOUSE_WHEEL_HIRES_ENABLE
-static report_resolution_multiplier_t resolution_multiplier_report = {
-    REPORT_ID_MULTIPLIER,
-    0x00,
-};
-#endif
 
 #define VUSB_TRANSFER_KEYBOARD_MAX_TRIES 10
 
@@ -546,6 +538,10 @@ const PROGMEM uchar shared_hid_report[] = {
 #    endif
     // Wheel (1-2 bytes)
     0x09, 0x38,                   //         Usage (Wheel)
+#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+    0x35, 0x00,                   //         Physical Minimum (0)
+    0x45, 0x00,                   //         Physical Maximum (0) Reset Global Value
+#    endif
 #    ifdef MOUSE_WHEEL_EXTENDED_REPORT
     0x16, 0x01, 0x80,             //         Logical Minimum (-32767)
     0x26, 0xFF, 0x7F,             //         Logical Maximum (32767)
@@ -582,6 +578,10 @@ const PROGMEM uchar shared_hid_report[] = {
 #    endif
     0x05, 0x0C,                   //         Usage Page (Consumer)
     0x0A, 0x38, 0x02,             //         Usage (AC Pan)
+#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+    0x35, 0x00,                   //         Physical Minimum (0)
+    0x45, 0x00,                   //         Physical Maximum (0) Reset Global Value
+#    endif
 #    ifdef MOUSE_WHEEL_EXTENDED_REPORT
     0x16, 0x01, 0x80,             //         Logical Minimum (-32767)
     0x26, 0xFF, 0x7F,             //         Logical Maximum (32767)
