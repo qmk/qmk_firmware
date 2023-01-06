@@ -19,7 +19,6 @@ AUDIO_ENABLE = no           # Audio output
 
 # Additional thing to reduce compiled size
 LTO_ENABLE = yes
-SPACE_CADET_ENABLE = no
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes

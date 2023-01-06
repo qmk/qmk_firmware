@@ -10,15 +10,11 @@ A macropad that have 4-key keyboard made by DOIO, which controlled by an APM32F1
 
 Make example for this keyboard (after setting up your build environment):
 
-    `make doio/kb04:default`
-    or with the qmk cli:
-    `qmk compile -kb doio/kb04 -km default`
+    make doio/kb04:default
 
 Flashing example for this keyboard:
 
-    `make doio/kb04:default:flash`
-    or with the qmk cli:
-    `qmk flash -kb doio/kb04 -km default`
+    make doio/kb04:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
