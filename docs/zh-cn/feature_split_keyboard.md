@@ -1,55 +1,55 @@
-# 分体键盘 
+# 分体式键盘 
 
-QMK 固件的硬件库中存在大量“分体”键盘。它们使用2个主控，其中一侧通过USB连接到电脑，并经过一根 TRRS 音频线（或者类似的线材）使用串行通信或 I<sup>2</sup>C 方式连接到另一侧。
+QMK 固件的硬件库中存在不少“分体”键盘。它们使用2个主控，其中一侧通过USB连接到电脑，并经过一根 TRRS 音频线（或者类似的线材）使用串行通信或 I<sup>2</sup>C 方式连接到另一侧。
 
-分体键盘有很多好处，但需要增加一些设置的工作。
+分体式键盘有很多好处，但需要增加一些额外的设置工作。
 
-QMK 固件有一个可供任何主控板使用的通用实现，也有许多主控板的具体实现。
+QMK 固件中有一个可供任何主控板使用的通用实现，也有许多具体主控板的实现。
 
 在此，我们将主要讨论Let's Split键盘和其他键盘所使用的通用实现。
 
-!> ARM 分体键盘在使用'serial'（串行通信）和'serial_usart'驱动程序时支持大多数QMK子系统。目前不支持I2C slave。
+!> ARM 分体式键盘在使用'serial'（串行通信）和'serial_usart'驱动程序时支持大多数QMK子系统。目前不支持I2C slave。
 
-!> 双方必须使用相同的MCU系列，例如两个Pro Micro-兼容控制器或两个Blackpills。目前还无法混用AVR和ARM主控，因为ARM与AVR使用不同的方法进行串行通信，而且不兼容。此外，Blackpill使用3.3v逻辑，而atmega32u4使用5v逻辑。
+!> 双方必须使用相同系列的MCU，例如两个Pro Micro 兼容控制器或两个Blackpill。目前还无法混用AVR和ARM主控，因为ARM与AVR使用互不兼容的方法进行串行通信。此外，Blackpill使用3.3v逻辑，而atmega32u4使用5v逻辑。
 
 ## 兼容性一览
 
-| 通信方式                      | AVR                | ARM                |
-|------------------------------|--------------------|--------------------|
+| 通信方式                       | AVR                | ARM                |
+|-------------------------------|--------------------|--------------------|
 | ['串行通信'](serial_driver.md) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
-| I2C                          | :heavy_check_mark: |                    |
+| I2C                           | :heavy_check_mark: |                    |
 
-注意:
+注意：
 
 1. 关于软件和硬件的限制，都在 [串行通信驱动文档](serial_driver.md)中有详细说明.
 
 ## 硬件配置
 
-这假定你使用了两个Pro Micro兼容控制器，并使用TRRS音频插口连接两侧。
+这里假定你使用了两个Pro Micro兼容控制器，并使用TRRS音频插口连接两侧。
 
 ### 硬件需求
 
 除了每一侧键盘矩阵的二极管和按键开关外，你还需要2个TRRS插座和1根TRRS线。
 
-你也可以使用任何一种至少有3根线的线缆和插座。
+你也可以使用任何一种至少有3根线芯的线缆和插座。
 
-如果你希望使用 I<sup>2</sup>C 进行通信，你需要一根至少有4根线的线缆和2个 4.7kΩ 上拉电阻.
+如果你希望使用 I<sup>2</sup>C 进行通信，你需要一根至少有4根线芯的线缆和2个 4.7kΩ 上拉电阻.
 
 #### 考虑事项 
 
-最常用的连接是TRRS线和插孔。这些线材提供了4条线且容易获得，因此十分适合在分体式键盘上使用。
+最常用的连接是TRRS线和插孔。这些线材提供了4根线芯且容易获得，因此十分适合在分体式键盘上使用。
 
-但是，由于其中一条线带有VCC，因此线材并不能热插拔。在拔掉和插入TRRS线材之前，你应该始终将主控板与USB断开，否则你可能会使控制器短路，或者更糟。
+但是，其中一条线连接VCC引脚，因此线材并不能热插拔。在拔掉和插入TRRS线材之前，你应该始终将主控板与USB断开，否则你可能会使控制器短路，或者更糟。
 
 另一个选择是使用电话线（如老式的RJ-11/RJ-14电缆）。请确保你使用的是真正支持4条线芯的。 
 
 你还可以使用USB线、SATA线，甚至4根普通的导线，它们都可以用于在主控板之间通信。
 
-!> 使用USB线在主控板之间进行通信也是可行的，但这根连接线可能被误用于连接电脑USB接口，且有可能使键盘短路。所以，并不建议使用USB线来连接分体键盘。 
+!> 使用USB线在主控板之间进行通信也是可行的，但这根连接线可能被误用于连接电脑USB接口，且有可能使键盘短路。所以，并不建议使用USB线来连接分体式键盘。 
 
 ### 串行通信接线
 
-把TRS/TRRS线材的3根线接到两侧Pro Micros的GND、VCC和D0/D1/D2/D3（又称PD0/PD1/PD2/PD3）上。
+把TRS/TRRS线材的3根线接到两侧Pro Micro的GND、VCC和D0/D1/D2/D3（又称PD0/PD1/PD2/PD3）上。
 
 ?> 注意：这里使用的引脚实际上是根据下面的 `SOFT_SERIAL_PIN` 设置的。
 
@@ -60,20 +60,21 @@ QMK 固件有一个可供任何主控板使用的通用实现，也有许多主�
 
 把TRRS线材的4根线接到两侧Pro Micros的GND、VCC、SCL和SDA（又分别称作PD0/Pin 3和PD1/Pin 2）上。
 
-上拉电阻可以放在任何一侧。如果你想独立使用两侧，也可以使用4个电阻，在两侧都接上拉电阻。
+上拉电阻可以放在任何一侧。如果你想独立使用两侧，在两侧都接上拉电阻，一共4个电阻。
+
 请注意，无论放置位置和数量如何，连接系统的总电阻应该在 2.2k-10kΩ 的规格范围内，而4.7kΩ最为“理想”。
 
 <img alt="sk-i2c-connection-mono" src="https://user-images.githubusercontent.com/2170248/92297182-92b98580-ef77-11ea-9d7d-d6033914af43.JPG" width="50%"/>
 
 ## 固件配置
 
-在 `rules.mk` 文件中加入下列内容以激活分体功能: 
+在 `rules.mk` 文件中加入下列内容以激活分体功能： 
 
 ```make
 SPLIT_KEYBOARD = yes
 ```
 
-如果你使用自定义的通信方式，那么你还需要添加：
+如果你使用自定义的通信方式，那么还需要添加：
 
 ```make
 SPLIT_TRANSPORT = custom
@@ -83,15 +84,15 @@ SPLIT_TRANSPORT = custom
 
 默认情况下，固件不知道哪边是哪边；因此需要一些辅助设置。有几种方法可以做到这一点，按优先顺序列出。
 
-#### Handedness by Pin
+#### 通过管脚设置左右手
 
-你可以将固件配置为读取控制器上的一个引脚来确定左右手。要做到这一点，请将以下内容添加到你的 `config.h` 文件：
+固件可以设置为读取主控上的一个引脚来确定左右手。要做到这一点，请将以下内容添加到你的 `config.h` 文件：
 
 ```c
 #define SPLIT_HAND_PIN B7
 ```
 
-这将读取指定的引脚。默认情况下，如果它是高电平，那么控制器就认为它是左手，如果它是低电平，就认为它是右手。
+这将读取指定的引脚。默认情况下，如果它是高电平，那么控制器就认为它是左手；如果它是低电平，就认为它是右手。
 
 可以在 `config.h` 文件中添加以下代码来翻转上述设置：
 
@@ -117,9 +118,9 @@ SPLIT_TRANSPORT = custom
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 ```
 
-请注意，在以前未使用的交叉点上添加一个二极管将随时提醒固件在该点上有一个键被按住。你可以通过定义`MATRIX_MASKED`并在键盘配置中定义`matrix_row_t matrix_mask[MATRIX_ROWS]`数组来指示qmk忽略该交叉点。单个值的每一位（从最低有效位开始）用来告诉qmk是否注意该交叉点的按键。
+请注意，在未使用的交叉点上添加一个二极管将随时提醒固件在该点上有一个键被按住。你可以通过定义`MATRIX_MASKED`并在键盘配置中定义`matrix_row_t matrix_mask[MATRIX_ROWS]`数组来指示qmk忽略该交叉点。单个值的每一位（从最低有效位开始）用来告诉qmk是否注意该交叉点的按键。
 
-虽然`MATRIX_MASKED`不是成功使用`SPLIT_HAND_MATRIX_GRID`的必要条件，但如果没有它，在你连接键盘到电脑之后，你可能会遇到程序卡死的问题。因为矩阵总是报告至少有一个按键。
+虽然`MATRIX_MASKED`不是成功使用`SPLIT_HAND_MATRIX_GRID`的必要条件，但如果没有它，在连接键盘到电脑之后，你可能会遇到程序卡死的问题。因为矩阵总是报告至少有一个按键。
 
 #### 通过EEPROM设置左右手
 
@@ -133,20 +134,20 @@ SPLIT_TRANSPORT = custom
 
 接下来，你需要对EEPROM文件进行一次写入，以便在两侧主控上分别设置左右手。你可以在刷入固件的同时，用下面的bootloader目标手动完成这个工作。
 
-* AVR 主控和 Caterina bootloader (例如 Pro Micro):
+* AVR 主控和 Caterina bootloader (例如 Pro Micro)：
   * `:avrdude-split-left`
   * `:avrdude-split-right`
-* AVR 主控和 Amtel DFU 或 DFU 兼容 bootloader (例如 Elite-C):
+* AVR 主控和 Amtel DFU 或 DFU 兼容 bootloader (例如 Elite-C)：
   * `:dfu-split-left`
   * `:dfu-split-right`
-* ARM 主控和 DFU 兼容 bootloader (例如 Proton-C):
+* ARM 主控和 DFU 兼容 bootloader (例如 Proton-C)：
   * `:dfu-util-split-left`
   * `:dfu-util-split-right`
-* ARM 主控和 UF2 兼容 bootloader:
+* ARM 主控和 UF2 兼容 bootloader：
   * `:uf2-split-left`
   * `:uf2-split-right`
 
-例:
+例：
 
 ```
 make crkbd:default:avrdude-split-left
@@ -154,9 +155,9 @@ make crkbd:default:avrdude-split-left
 
 ?> 使用 `dfu-util` 的 ARM 控制器在设置左右手后需要重置 EEPROM。可以通过`EE_CLR`键码或[Bootmagic Lite](feature_bootmagic.md)完成。使用模拟EEPROM的主控在刷写固件时总是需要左右侧参数。
 
-?> [QMK Toolbox]() 也可以用来刷入 EEPROM 的左右手设置。将控制器置于启动器模式，选择菜单选项 Tools -> EEPROM -> Set Left/Right Hand。
+?> [QMK Toolbox]() 也可以用来刷入 EEPROM 的左右手设置。将控制器置于 bootloader 模式，选择菜单选项 Tools -> EEPROM -> Set Left/Right Hand。
 
-当使用`EE_CLR`键重新初始化EEPROM，或使用`eeconfig_init()`函数时，该设置不会改变。但是，如果你在固件的内置选项之外重置EEPROM（比如刷入一个覆盖`EEPROM`的文件，例如[QMK工具箱]()的 "Reset EEPROM"按钮，你将需要用`EEPROM`文件重新刷写主控。
+当使用`EE_CLR`键重新初始化EEPROM，或使用`eeconfig_init()`函数时，该设置不会改变。但是，如果在固件的内置选项之外重置EEPROM（比如刷入一个覆盖`EEPROM`的文件，例如[QMK工具箱]()的 "Reset EEPROM"按钮，那么需要用`EEPROM`文件重新刷写主控。
 
 你可以在QMK固件库（[这里](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common)）中找到`EEPROM`文件。
 
@@ -168,13 +169,13 @@ make crkbd:default:avrdude-split-left
 #define MASTER_RIGHT
 ```
 
-or 
+或者
 
 ```c
 #define MASTER_LEFT
 ```
 
-如果两者都没有定义，手性默认为`MASTER_LEFT`。
+如果两者都没有定义，则默认为`MASTER_LEFT`。
 
 
 ### 通信设置
@@ -193,7 +194,7 @@ or
 
 这设置了用于串行通信的引脚。如果你不使用串行通信，你应该不需要定义这个。 
 
-但是，如果你在主控班上同时使用串行通信和 I<sup>2</sup>C ，你需要仍需要设置串行通信，并将引脚设置为 D0 或 D1 以外的引脚（因为它们已经被用于 I<sup>2</sup>C 通信）。
+但是，如果你在主控板上同时使用串行通信和 I<sup>2</sup>C ，你仍需要设置串行通信，并将引脚设置为 D0 或 D1 以外的引脚（因为它们已经被用于 I<sup>2</sup>C 通信）。
 
 ```c
 #define SELECT_SOFT_SERIAL_SPEED {#}`
@@ -201,18 +202,18 @@ or
 
 这个值控制着串行的通信速度。如果你在串行通信方面遇到问题，你可以改变这个值。默认值是1，可能的值包括：
 
-* **`0`**: 大约 189kbps (试验)
-* **`1`**: 大约 137kbps (默认)
-* **`2`**: 大约 75kbps
-* **`3`**: 大约 39kbps
-* **`4`**: 大约 26kbps
-* **`5`**: 大约 20kbps
+* **`0`**： 大约 189kbps (试验)
+* **`1`**： 大约 137kbps (默认)
+* **`2`**： 大约 75kbps
+* **`3`**： 大约 39kbps
+* **`4`**： 大约 26kbps
+* **`5`**： 大约 20kbps
 
 ```c
 #define FORCED_SYNC_THROTTLE_MS 100
 ```
 
-设置强制从主侧到从侧进行数据同步前的最大毫秒数。在正常情况下，只要数据发生变化，就会发生同步，为了安全起见，如果自上次同步以来没有检测到任何变化，就会在这个毫秒数之后进行数据传输。
+设置强制从主侧到从侧进行数据同步前的最大毫秒数。在正常情况下只要数据发生变化就会发生同步，为了安全起见，如果自上次同步以来没有检测到任何变化，就会在这个毫秒数之后进行数据传输。
 
 ```c
 #define SPLIT_MAX_CONNECTION_ERRORS 10
@@ -226,9 +227,9 @@ or
 #define SPLIT_CONNECTION_CHECK_TIMEOUT 500
 ```
 
-在通信被标记为断开后（见上面的`SPLIT_MAX_CONNECTION_ERRORS'），主侧应该间隔多长时间再重新尝试与从侧通信（以毫秒为单位）。
+在通信被标记为断开后（见上面的`SPLIT_MAX_CONNECTION_ERRORS`），主侧应该间隔多长时间再重新尝试与从侧通信（以毫秒为单位）。
 
-从上次尝试之后，每过一段时间就允许一次通信尝试。如果该尝试成功，即判断连接正常。
+从上次尝试之后，每过一段时间就允许一次通信尝试。如果该尝试成功，则连接正常。
 
 设置为0可以在断开连接时禁用这种通信。这可以为你节省几个字节的固件大小。
 
@@ -240,7 +241,7 @@ or
 #define SPLIT_TRANSPORT_MIRROR
 ```
 
-将主侧矩阵的情况传输到从侧，以便从侧了解主侧按下了哪些键。这个功能的目的是支持按键事件影响键盘的外观（例如，RGB对按键的反应）。
+将主侧矩阵的情况传输到从侧，以便从侧了解主侧按下了哪些键。这个功能的目的是支持按键事件改变键盘的外观（例如，RGB对按键的反应）。
 
 ```c
 #define SPLIT_LAYER_STATE_ENABLE
@@ -258,7 +259,7 @@ or
 #define SPLIT_MODS_ENABLE
 ```
 
-把修饰键的状态（正常、弱和单发）传输到分体式键盘的副侧。这个功能的目的是支持修改器状态的外观使用（例如在OLED屏幕上显示状态）。
+把修饰键的状态（正常、弱和单发）传输到分体式键盘的副侧。这个功能的目的是支持修饰键改变键盘外观（例如在OLED屏幕上显示状态）。
 
 ```c
 #define SPLIT_WPM_ENABLE
@@ -282,24 +283,24 @@ or
 #define SPLIT_POINTING_ENABLE
 ```
 
-把指向性设备的状态传输到分体式键盘的副侧。这个功能的目的是在从属端使用指向性设备。
+把指向性设备的状态传输到分体式键盘的副侧。这个功能的目的是在副端使用指向性设备。
 
 !> 在[pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration)中概述了`SPLIT_POINTING_ENABLE`的额外必要配置。
 
 ### 双方的自定义数据同步 :id=custom-data-sync
 
-QMK的分体键盘通信允许在键盘和用户层面进行任意的数据传输。这是以远程过程调用实现的：主侧在从侧调用一个函数，能够从主侧向从侧发送数据，在从侧进行处理，并从从侧向主侧发送数据。
+QMK的分体式键盘通信允许在键盘和用户层面进行任意的数据传输。这是以远程过程调用实现的：主侧在从侧调用一个函数，能够自主侧向从侧发送数据，在从侧进行处理，并自从侧向主侧发送数据。
 
-为了利用这一点，键盘或用户/键位表中可以定义一个以逗号分隔的_transaction IDs_列表：
+为了利用这一点，键盘或用户/键位表中可以定义一个以逗号分隔的 _transaction ID_ 列表：
 
 ```c
-// for keyboard-level data sync:
+// 键盘级别数据同步：
 #define SPLIT_TRANSACTION_IDS_KB KEYBOARD_SYNC_A, KEYBOARD_SYNC_B
-// or, for user:
+// 用户级别：
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A, USER_SYNC_B, USER_SYNC_C
 ```
 
-这些 _transaction IDs_ then 需要在通信中配置一个从侧的处理函数。例如：
+这些 _transaction ID_ 需要在通信中配置一个从侧的处理函数。例如：
 
 ```c
 typedef struct _master_to_slave_t {
@@ -342,7 +343,7 @@ void housekeeping_task_user(void) {
 }
 ```
 
-!> 建议两侧之间的任何数据同步发生在主控方的_housekeeping task_期间。这可以确保在发生故障时及时重试。
+!> 建议两侧之间的所有数据同步安排在主控方的 _housekeeping task_ 期间。这可以确保在发生故障时及时重试。
 
 如果只需要单向的数据传输，可以使用下面的辅助方法：
 
@@ -352,12 +353,12 @@ bool transaction_rpc_send(int8_t transaction_id, uint8_t initiator2target_buffer
 bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
 ```
 
-默认情况下，进出的数据被限制为每个最大32字节。如果需要，可以改变这些大小：
+默认情况下，传输的数据被限制为每个最大32字节。如果需要，可以改变这些大小：
 
 ```c
-// Master to slave:
+// 主到副：
 #define RPC_M2S_BUFFER_SIZE 48
-// Slave to master:
+// 副到主：
 #define RPC_S2M_BUFFER_SIZE 48
 ```
 
@@ -370,13 +371,13 @@ bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer
 #define MATRIX_COL_PINS_RIGHT { <col pins> }
 ```
 
-这允许你为右边的矩阵指定一组不同的引脚。如果你的左右手两侧形状不同，需要不同的配置（比如Keebio的Quefrency），你需要设置这个功能。左右矩阵的引脚数量必须相同，如果你的板子一侧的行或列数量不同，请用`NO_PIN`占据多余的空间，并确保将未使用的行或列加入你的矩阵。
+这允许你为右边的矩阵指定一组不同的引脚。如果你的键盘左右手两侧形状不同，需要不同的配置（比如Keebio的Quefrency），你需要设置这个功能。左右矩阵的引脚数量必须相同，如果你一侧的开发板的行或列数量不同，请用`NO_PIN`占据多余的空间，并确保将未使用的行或列加入你的矩阵。
 
 ```c
 #define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }
 ```
 
-这允许你为右侧指定一组不同的直接针脚。
+这允许你为右侧指定一组不同的直连引脚。
 
 ```c
 #define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
@@ -461,6 +462,6 @@ Teensy 开发板缺乏VBUS检测，必须定义`SPLIT_USB_DETECT`。对于Teensy
 
 Nicinabox为Let's Split键盘提供了一份[非常好的详细指南](https://github.com/nicinabox/lets-split-guide)，其中涵盖了你需要知道的大部分内容，包括故障排除信息。
 
-然而，RGB灯部分已经过时了，因为它是在QMK固件中加入RGB Split代码之前很久才写的。取而代之的是，将每个灯条直接连接到控制器上。
+但是，该文档的RGB灯部分已经过时了，因为它是在QMK固件中加入RGB Split代码之前很久才写的。取而代之的是，将每个灯条直接连接到控制器上。
 
 <!-- I may port this information later, but for now ... it's very nice, and covers everything -->
