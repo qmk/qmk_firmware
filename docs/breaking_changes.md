@@ -29,12 +29,12 @@ The next Breaking Change is scheduled for February 26, 2023.
 ### Important Dates
 
 * 2022 Nov 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2022 Jan 29 - `develop` closed to new PR's.
-* 2022 Jan 29 - Call for testers.
-* 2022 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2022 Feb 19 - `develop` is locked, only critical bugfix PR's merged.
-* 2022 Feb 24 - `master` is locked, no PR's merged.
-* 2022 Feb 26 - Merge `develop` to `master`.
+* 2023 Jan 29 - `develop` closed to new PR's.
+* 2023 Jan 29 - Call for testers.
+* 2023 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2023 Feb 19 - `develop` is locked, only critical bugfix PR's merged.
+* 2023 Feb 24 - `master` is locked, no PR's merged.
+* 2023 Feb 26 - Merge `develop` to `master`.
 * 2023 Feb 26 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
