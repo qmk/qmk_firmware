@@ -6,6 +6,8 @@
         "pid": "0x4556",
         "device_version": "0.0.2"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_eagle": "LAYOUT_60_ansi",
         "LAYOUT_viper": "LAYOUT_60_hhkb",

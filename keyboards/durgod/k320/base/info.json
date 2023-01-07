@@ -1,0 +1,5 @@
+{
+    "processor": "STM32F072", // F070
+    "bootloader": "stm32-dfu",
+    "board": "DURGOD_STM32_F070"
+}

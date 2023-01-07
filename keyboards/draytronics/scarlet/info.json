@@ -8,6 +8,8 @@
         "pid": "0x5343",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [
