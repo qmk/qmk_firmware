@@ -1006,6 +1006,16 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 ```
+or this for num-lock:
+```c
+bool rgb_matrix_indicators_user(){
+    led_t led_state = host_keyboard_led_state();
+    if (!led_state.num_lock) {
+        rgb_matrix_set_color(1,RGB_WHITE); // assuming num lock is at led #1 and you want it to be white when num lock is not active
+    }
+    return true; // Does not do anything unless rgb_matrix_indicators_kb uses it (rgb_matrix_indicators_ is blank by default)
+}
+```
 
 !> RGB indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
 
