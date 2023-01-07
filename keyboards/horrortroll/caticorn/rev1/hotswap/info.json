@@ -8,6 +8,8 @@
         "pid": "0x6002",
         "device_version": "0.0.1"
     },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {
             "layout": [
