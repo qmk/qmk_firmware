@@ -29,6 +29,9 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
+/* Use SPI to drive 74HC595 shift register */
+#define DRIVE_SHRIFT_REGISTER_WITH_SPI
+
 /* Turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define LED_DISABLE_WHEN_USB_SUSPENDED
@@ -41,7 +44,7 @@
     { A8 }
 
 /* Caps lock LED Pin */
-#define LED_CAPS_LOCK_PIN A7
+#define LED_CAPS_LOCK_PIN A0
 #define LED_PIN_ON_STATE 1
 
 #ifdef KC_BLUETOOTH_ENABLE

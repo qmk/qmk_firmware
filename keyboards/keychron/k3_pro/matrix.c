@@ -32,7 +32,24 @@ static inline void HC595_delay(uint16_t n) {
     }
 }
 
+#ifdef DRIVE_SHRIFT_REGISTER_WITH_SPI
+// clang-format off
+const SPIConfig hs_spicfg = {
+    .circular = false,
+    .slave = false,
+    .data_cb = NULL,
+    .error_cb = NULL,
+    .ssport = PAL_PORT(HC595_STCP),
+    .sspad = PAL_PAD(HC595_STCP),
+    .cr1 = SPI_CR1_BR_1,
+    .cr2 = SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0 | SPI_CR2_SSOE | SPI_CR2_NSSP
+};
+// clang-format on
+#endif
 static void HC595_output(uint16_t data) {
+#ifdef DRIVE_SHRIFT_REGISTER_WITH_SPI
+    spiSend(&SPID1, 1, &data);
+#else
     uint8_t i;
     uint8_t n = 1;
 
@@ -56,6 +73,7 @@ static void HC595_output(uint16_t data) {
     writePinLow(HC595_STCP);
     HC595_delay(n);
     writePinHigh(HC595_STCP);
+#endif
 }
 
 static inline void setPinOutput_writeLow(pin_t pin) {
@@ -147,11 +165,16 @@ void matrix_init_custom(void) {
             setPinInputHigh_atomic(row_pins[x]);
         }
     }
-
+#ifdef DRIVE_SHRIFT_REGISTER_WITH_SPI
+    palSetPadMode(PAL_PORT(HC595_SHCP), PAL_PAD(HC595_SHCP), PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST); /* SCK */
+    palSetPadMode(PAL_PORT(HC595_DS), PAL_PAD(HC595_DS), PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST);     /* MOSI*/
+    palSetPadMode(PAL_PORT(HC595_STCP), PAL_PAD(HC595_STCP), PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST); /* CS*/
+    spiStart(&SPID1, &hs_spicfg);
+#else
     setPinOutput(HC595_DS);
     setPinOutput(HC595_STCP);
     setPinOutput(HC595_SHCP);
-
+#endif
     unselect_cols();
 }
 
