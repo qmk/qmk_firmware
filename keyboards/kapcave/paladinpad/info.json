@@ -7,6 +7,8 @@
     "vid": "0x4B43",
     "pid": "0x5050"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
       "LAYOUT_ortho_5x4": {
           "layout": [

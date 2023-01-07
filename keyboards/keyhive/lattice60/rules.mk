@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega328p
-
-# Bootloader selection
-BOOTLOADER = usbasploader
-
 # Processor frequency
 F_CPU = 12000000
 
