@@ -10,7 +10,7 @@ QMK 固件中有一个可供任何主控板使用的通用实现，也有许多�
 
 !> ARM 分体式键盘在使用'serial'（串行通信）和'serial_usart'驱动程序时支持大多数QMK子系统。目前不支持I2C slave。
 
-!> 双方必须使用相同系列的MCU，例如两个Pro Micro 兼容控制器或两个Blackpill。目前还无法混用AVR和ARM主控，因为ARM与AVR使用互不兼容的方法进行串行通信。此外，Blackpill使用3.3v逻辑，而atmega32u4使用5v逻辑。
+!> 双方必须使用相同系列的MCU，例如两个Pro Micro 兼容主控或两个Blackpill。目前还无法混用AVR和ARM主控，因为AVR与ARM使用互不兼容的方法进行串行通信。此外，Blackpill使用3.3v逻辑，而atmega32u4使用5v逻辑。
 
 ## 兼容性一览
 
@@ -25,7 +25,7 @@ QMK 固件中有一个可供任何主控板使用的通用实现，也有许多�
 
 ## 硬件配置
 
-这里假定你使用了两个Pro Micro兼容控制器，并使用TRRS音频插口连接两侧。
+这里假定你使用了两个Pro Micro兼容主控，并使用TRRS音频插口连接两侧。
 
 ### 硬件需求
 
@@ -39,7 +39,7 @@ QMK 固件中有一个可供任何主控板使用的通用实现，也有许多�
 
 最常用的连接是TRRS线和插孔。这些线材提供了4根线芯且容易获得，因此十分适合在分体式键盘上使用。
 
-但是，其中一条线连接VCC引脚，因此线材并不能热插拔。在拔掉和插入TRRS线材之前，你应该始终将主控板与USB断开，否则你可能会使控制器短路，或者更糟。
+但是，其中一条线连接VCC引脚，因此线材并不能热插拔。在拔掉和插入TRRS线材之前，你应该始终将主控板与USB断开，否则你可能会使主控短路，或者更糟。
 
 另一个选择是使用电话线（如老式的RJ-11/RJ-14电缆）。请确保你使用的是真正支持4条线芯的。 
 
@@ -92,7 +92,7 @@ SPLIT_TRANSPORT = custom
 #define SPLIT_HAND_PIN B7
 ```
 
-这将读取指定的引脚。默认情况下，如果它是高电平，那么控制器就认为它是左手；如果它是低电平，就认为它是右手。
+这将读取指定的引脚。默认情况下，如果它是高电平，那么主控就认为它是左手；如果它是低电平，就认为它是右手。
 
 可以在 `config.h` 文件中添加以下代码来翻转上述设置：
 
@@ -102,7 +102,7 @@ SPLIT_TRANSPORT = custom
 
 #### 通过矩阵设置左右手
 
-你可以配置固件来读取控制器上的按键矩阵引脚以确定左右手。要做到这一点，请将以下内容添加到你的 `config.h` 文件：
+你可以配置固件来读取主控上的按键矩阵引脚以确定左右手。要做到这一点，请将以下内容添加到你的 `config.h` 文件：
 
 ```c
 #define SPLIT_HAND_MATRIX_GRID D0, F1
@@ -120,11 +120,11 @@ SPLIT_TRANSPORT = custom
 
 请注意，在未使用的交叉点上添加一个二极管将随时提醒固件在该点上有一个键被按住。你可以通过定义`MATRIX_MASKED`并在键盘配置中定义`matrix_row_t matrix_mask[MATRIX_ROWS]`数组来指示qmk忽略该交叉点。单个值的每一位（从最低有效位开始）用来告诉qmk是否注意该交叉点的按键。
 
-虽然`MATRIX_MASKED`不是成功使用`SPLIT_HAND_MATRIX_GRID`的必要条件，但如果没有它，在连接键盘到电脑之后，你可能会遇到程序卡死的问题。因为矩阵总是报告至少有一个按键。
+虽然`MATRIX_MASKED`不是成功使用`SPLIT_HAND_MATRIX_GRID`的必要条件，但如果没有它，在连接键盘到电脑之后，键盘可能会导致电脑程序卡死。因为矩阵总是报告至少有一个按键。
 
 #### 通过EEPROM设置左右手
 
-该方法通过设置持久性存储（`EEPROM`）中的一个标志来设置键盘的左右侧。该标志在控制器第一次启动时被检查，并判断键盘是哪一侧，以及如何确定键盘布局的方向。
+该方法通过设置持久性存储（`EEPROM`）中的一个标志来设置键盘的左右侧。该标志在主控第一次启动时被检查，并判断键盘是哪一侧，以及如何确定键盘布局的方向。
 
 要启用这个方法，请在你的`config.h`文件中添加以下内容。
 
@@ -153,9 +153,9 @@ SPLIT_TRANSPORT = custom
 make crkbd:default:avrdude-split-left
 ```
 
-?> 使用 `dfu-util` 的 ARM 控制器在设置左右手后需要重置 EEPROM。可以通过`EE_CLR`键码或[Bootmagic Lite](zh-cn/feature_bootmagic.md)完成。使用模拟EEPROM的主控在刷写固件时总是需要左右侧参数。
+?> 使用 `dfu-util` 的 ARM 主控在设置左右手后需要重置 EEPROM。可以通过`EE_CLR`键码或[Bootmagic Lite](zh-cn/feature_bootmagic.md)完成。使用模拟EEPROM的主控在刷写固件时总是需要左右侧参数。
 
-?> [QMK Toolbox]() 也可以用来刷入 EEPROM 的左右手设置。将控制器置于 bootloader 模式，选择菜单选项 Tools -> EEPROM -> Set Left/Right Hand。
+?> [QMK Toolbox]() 也可以用来刷入 EEPROM 的左右手设置。将主控置于 bootloader 模式，选择菜单选项 Tools -> EEPROM -> Set Left/Right Hand。
 
 当使用`EE_CLR`键重新初始化EEPROM，或使用`eeconfig_init()`函数时，该设置不会改变。但是，如果在固件的内置选项之外重置EEPROM（比如刷入一个覆盖`EEPROM`的文件，例如[QMK工具箱]()的 "Reset EEPROM"按钮，那么需要用`EEPROM`文件重新刷写主控。
 
@@ -163,7 +163,7 @@ make crkbd:default:avrdude-split-left
 
 #### 通过 `#define` 设置左右手
 
-你可以在编译时设置左右手。要做到这一点，请将以下内容添加到你的 `config.h` 文件：
+你可以在编译时设置左右手。要做到这一点，请将以下内容添加到 `config.h` 文件：
 
 ```c
 #define MASTER_RIGHT
@@ -219,7 +219,7 @@ make crkbd:default:avrdude-split-left
 #define SPLIT_MAX_CONNECTION_ERRORS 10
 ```
 
-设置主侧部件在判断认为没有连接从侧部件之前的最大通信失败次数（每个扫描周期一次）。设置之后，可以在没有连接从侧的情况下使用主侧。
+设置主侧尝试通信（每个扫描周期一次）失败多少次之后判断没有连接从侧。设置之后，可以在没有连接从侧的情况下使用主侧。
 
 设置为0可完全禁用断联检查。
 
@@ -247,13 +247,13 @@ make crkbd:default:avrdude-split-left
 #define SPLIT_LAYER_STATE_ENABLE
 ```
 
-在分体式键盘的两侧之间可以同步层的状态。这个功能的主要目的是支持使用诸如OLED显示当前活动层。
+在分体式键盘的两侧之间同步层的状态。这个功能的主要目的是支持使用诸如OLED显示当前活动层。
 
 ```c
 #define SPLIT_LED_STATE_ENABLE
 ```
 
-在分体式键盘的两侧之间同步主机LED状态（大写锁定、数字锁定等）。这个功能的主要目的是支持使用诸如OLED显示主侧LED状态的功能。
+在分体式键盘的两侧之间同步主机LED状态（Caps Lock、Num Lock等）。这个功能的主要目的是支持使用诸如OLED显示主侧LED状态的功能。
 
 ```c
 #define SPLIT_MODS_ENABLE
@@ -265,7 +265,7 @@ make crkbd:default:avrdude-split-left
 #define SPLIT_WPM_ENABLE
 ```
 
-把当前的WPM传输到分体式键盘的副侧。这个功能的目的是支持WPM的外观使用（例如在OLED屏幕上显示当前值）。
+把当前的WPM传输到分体式键盘的副侧。这个功能的目的是支持WPM影响外观（例如在OLED屏幕上显示当前值）。
 
 ```c
 #define SPLIT_OLED_ENABLE
@@ -291,7 +291,7 @@ make crkbd:default:avrdude-split-left
 
 QMK的分体式键盘通信允许在键盘和用户层面进行任意的数据传输。这是以远程过程调用实现的：主侧在从侧调用一个函数，能够自主侧向从侧发送数据，在从侧进行处理，并自从侧向主侧发送数据。
 
-为了利用这一点，键盘或用户/键位表中可以定义一个以逗号分隔的 _transaction ID_ 列表：
+为了利用这一点，键盘或用户 /keymap 中可以定义一个以逗号分隔的 _transaction ID_ 列表：
 
 ```c
 // 键盘级别数据同步：
@@ -322,7 +322,7 @@ void keyboard_post_init_user(void) {
 }
 ```
 
-然后，主侧可以调用从侧处理程序——为了使正常的键盘功能受到最小的影响，不宜在这里设置任何试图同步数据的键盘或用户级代码。
+然后，主侧可以调用从侧处理程序——为了尽可能降低键盘其他功能的正常使用，不宜在这里设置任何试图同步数据的键盘或用户级代码。
 
 ```c
 void housekeeping_task_user(void) {
@@ -345,7 +345,7 @@ void housekeeping_task_user(void) {
 
 !> 建议两侧之间的所有数据同步安排在主控方的 _housekeeping task_ 期间。这可以确保在发生故障时及时重试。
 
-如果只需要单向的数据传输，可以使用下面的辅助方法：
+如果只需要单方向数据传输，可以使用下面的辅助方法：
 
 ```c
 bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
@@ -396,7 +396,7 @@ bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer
 #define RGBLED_SPLIT { 6, 6 }
 ```
 
-这设置了有多少个LED直接连接到每个控制器。 第一个数字是左边的，第二个数字是右边的。 
+这设置了有多少个LED直接连接到每个主控。 第一个数字是左边的，第二个数字是右边的。 
 
 ?> 这个设置意味着 `RGBLIGHT_SPLIT`已经启用，如果没有启用，将强行启用它。
 
@@ -410,7 +410,7 @@ bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer
 
 在ChibiOS/ARM上默认是启用的。
 
-?> 该设置将影响通过电池供电的能力。
+?> 该设置将导致无法用电池供电。
 
 ```c
 #define SPLIT_USB_TIMEOUT 2000
@@ -420,7 +420,7 @@ bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer
 ```c
 #define SPLIT_USB_TIMEOUT_POLL 10
 ```
-这设置了使用 `SPLIT_USB_DETECT`时，检测主/从侧的轮训频率。
+这设置了使用 `SPLIT_USB_DETECT`时，检测主/从侧的轮询频率。
 
 ```c
 #define SPLIT_WATCHDOG_ENABLE
@@ -444,7 +444,7 @@ bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer
 
 Teensy 开发板缺乏VBUS检测，必须定义`SPLIT_USB_DETECT`。对于Teensy 2.0和Teensy++ 2.0，你可以通过简单的硬件修改来增加VBUS检测，所以你不需要`SPLIT_USB_DETECT`选项。
 
-你只需要几样东西就可以了。
+你只需要几样东西就可以了：
 
 * 一把刀（最好是x-acto刀片）
 * 一个焊台或热风枪焊台
@@ -460,8 +460,8 @@ Teensy 开发板缺乏VBUS检测，必须定义`SPLIT_USB_DETECT`。对于Teensy
 
 ## 其他资源
 
-Nicinabox为Let's Split键盘提供了一份[非常好的详细指南](https://github.com/nicinabox/lets-split-guide)，其中涵盖了你需要知道的大部分内容，包括故障排除信息。
+Nicinabox针对Let's Split键盘提供了一份[非常好的详细指南](https://github.com/nicinabox/lets-split-guide)，其中涵盖了你需要知道的大部分内容，包括故障排除信息。
 
-但是，该文档的RGB灯部分已经过时了，因为它是在QMK固件中加入RGB Split代码之前很久才写的。取而代之的是，将每个灯条直接连接到控制器上。
+但是，该文档的RGB灯部分已经过时了，因为它是在QMK固件中加入RGB Split代码之前很久才写的。取而代之的是将每个灯条直接连接到主控上。
 
 <!-- I may port this information later, but for now ... it's very nice, and covers everything -->
