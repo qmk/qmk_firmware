@@ -8,6 +8,8 @@
         "pid": "0x87C9",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

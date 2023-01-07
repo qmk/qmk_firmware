@@ -8,6 +8,8 @@
         "pid": "0x4558",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

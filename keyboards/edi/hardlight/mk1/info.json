@@ -5,5 +5,7 @@
         "vid": "0xF7E0",
         "pid": "0x2401",
         "device_version": "0.0.1"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }
