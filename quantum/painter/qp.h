@@ -432,6 +432,10 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter Drivers
 
+#ifdef QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+#    include "qp_rgb565_surface.h"
+#endif // QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+
 #ifdef QUANTUM_PAINTER_ILI9163_ENABLE
 #    include "qp_ili9163.h"
 #endif // QUANTUM_PAINTER_ILI9163_ENABLE

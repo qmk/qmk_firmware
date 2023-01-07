@@ -79,7 +79,6 @@ bool                              udi_hid_nkro_send_report(void);
 #ifdef EXTRAKEY_ENABLE
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_exk;
 extern bool                       udi_hid_exk_b_report_valid;
-extern uint8_t                    udi_hid_exk_report_set;
 bool                              udi_hid_exk_send_report(void);
 #endif // EXTRAKEY_ENABLE
 

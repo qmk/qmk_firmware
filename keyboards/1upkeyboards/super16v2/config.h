@@ -62,7 +62,7 @@
 //#define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN B5
-#define DRIVER_LED_TOTAL 20
+#define RGB_MATRIX_LED_COUNT 20
 #ifdef RGB_DI_PIN
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGBLIGHT_LIMIT_VAL 255

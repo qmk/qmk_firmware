@@ -103,10 +103,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     // Cannot use LM(L_RCTRL, MOD_RCTL) because it sends LCtrl instead of RCtrl
     case RCTRL:
         if (record->event.pressed) {
-            register_code(KC_RCTRL);
+            register_code(KC_RCTL);
             layer_on(L_RCTRL);
         } else {
-            unregister_code(KC_RCTRL);
+            unregister_code(KC_RCTL);
             layer_off(L_RCTRL);
         }
         break;

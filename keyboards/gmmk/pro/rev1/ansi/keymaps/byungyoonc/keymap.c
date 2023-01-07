@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT(
         _______, KC_BRID, KC_BRIU, KC_CALC, KC_MSEL, RGB_VAD, RGB_VAI, KC_MRWD, KC_MPLY, KC_MFFD, KC_MUTE, KC_VOLD, KC_VOLU, _______,          _______,
-        _______, KC_SEC1, KC_SEC2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DEBUG,            _______,
+        _______, KC_SEC1, KC_SEC2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DB_TOGG,          _______,
         _______, _______, _______, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
         _______, _______, _______, RGB_SAD, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______,          _______, RGB_HUI, RGB_HUD, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, _______,
@@ -74,7 +74,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(KC_VOLD);
         }
     }
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
 }
 #endif  // ENCODER_ENABLE
 
@@ -110,7 +111,7 @@ static void set_rgb_wlck_leds() {
     rgb_matrix_set_color(92, 0x77, 0xFF, 0x77);  // Right side LED 8
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         set_rgb_caps_leds();
     }
@@ -120,6 +121,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         set_rgb_wlck_leds();
     }
+    return false;
 }
 
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
