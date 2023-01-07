@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Adjust (Lower + Raise)
     * ,-----------------------------------------------------------------------------------.
-    * | Make | Debug|Reset |TermOn|TrmOff|      |      |MusMod|Mus On|MusOff|MidiOn|MidOff|
+    * | Make | Debug|Reset |      |      |      |      |MusMod|Mus On|MusOff|MidiOn|MidOff|
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * | Mute | Vol- | Vol+ | Play | Skip |      |      |Voice-| HUE+ | HUE- | SAT+ | SAT- |
     * |------+------+------+------+------+------+------+------+------+------+------+------|

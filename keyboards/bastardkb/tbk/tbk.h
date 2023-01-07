@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #pragma once
+
+#include "quantum.h"
 
 // clang-format off
 #define LAYOUT_split_4x6_5( \

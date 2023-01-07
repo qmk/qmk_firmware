@@ -45,27 +45,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_TRNS,         KC_TRNS,  KC_TRNS,   			  KC_TRNS,            KC_TRNS,   		  KC_TRNS,  KC_TRNS,  KC_TRNS
 	),
     [_L2] = LAYOUT(
-                 RGB_TOG,         RGB_RMOD, KC_UP,     RGB_MOD,   RGB_HUI,  RGB_VAI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  OUT_USB,  OUT_BT,  KC_TRNS,
+                 RGB_TOG,         RGB_RMOD, KC_UP,     RGB_MOD,   RGB_HUI,  RGB_VAI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  OU_USB,   OU_BT,   KC_TRNS,
                  KC_TRNS,         KC_LEFT,  KC_DOWN,   KC_RGHT,   RGB_HUD,  RGB_VAD,  RGB_SAD,  RGB_SPD,  KC_TRNS,  KC_TRNS,  KC_BSLS,
                  KC_TRNS,         KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                  KC_TRNS,         KC_TRNS,  KC_TRNS,   			  KC_TAB,             KC_TRNS,  		  KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
 };
 
-void rgb_matrix_indicators_user(void)
-{
- 	if (host_keyboard_led_state().caps_lock)
-	{
-		rgb_matrix_set_color(22, 200, 200, 200);
-	}
-	if (IS_LAYER_ON(_L1))
-	{
-		rgb_matrix_set_color(35, 0, 200, 200);
-	}
-	if (IS_LAYER_ON(_L2))
-	{
-		rgb_matrix_set_color(22, 200, 0, 200);
-	}
+bool rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(22, 200, 200, 200);
+    }
+    if (IS_LAYER_ON(_L1)) {
+        rgb_matrix_set_color(35, 0, 200, 200);
+    }
+    if (IS_LAYER_ON(_L2)) {
+        rgb_matrix_set_color(22, 200, 0, 200);
+    }
+    return false;
 }
 
 void keyboard_pre_init_user(void) {

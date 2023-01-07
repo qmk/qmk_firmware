@@ -10,11 +10,11 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
-        "mousekey": true,
+        "mousekey": false,
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": true,
+        "nkro": false,
         "backlight": false,
         "rgblight": false,
         "audio": false

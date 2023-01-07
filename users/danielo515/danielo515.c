@@ -27,17 +27,17 @@ void matrix_scan_user(void) {
         SEQ_ONE_KEY(KC_N) { SEND_STRING(SS_LALT("n") "n"); }
         // ==== MACROS ===
         SEQ_ONE_KEY(KC_G) { SEND_STRING(" | grep "); }
-        SEQ_ONE_KEY(KC_K) { onMac ? SEND_STRING(SS_LCTRL(" ")) : SEND_STRING(SS_LCTRL("f")); }
+        SEQ_ONE_KEY(KC_K) { onMac ? SEND_STRING(SS_LCTL(" ")) : SEND_STRING(SS_LCTL("f")); }
         // vim delete all
         SEQ_TWO_KEYS(KC_D, KC_G) {
             if (onMac) {
                 SEND_STRING(SS_LGUI("a") SS_TAP(X_D));
             } else {
-                SEND_STRING(SS_LCTRL("a") SS_TAP(X_D));
+                SEND_STRING(SS_LCTL("a") SS_TAP(X_D));
             }
         }
         // tripe delete!
-        SEQ_ONE_KEY(KC_BSPACE) { SEND_STRING(SS_TAP(X_BSPACE) SS_TAP(X_BSPACE) SS_TAP(X_BSPACE)); }
+        SEQ_ONE_KEY(KC_BACKSPACE) { SEND_STRING(SS_TAP(X_BACKSPACE) SS_TAP(X_BACKSPACE) SS_TAP(X_BACKSPACE)); }
         SEQ_TWO_KEYS(KC_P, KC_G) { SEND_STRING("ps -ef | grep "); }
         SEQ_TWO_KEYS(KC_J, KC_A) { SEND_STRING("() => {}" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT)); }
         // this is a pain to type
@@ -46,13 +46,13 @@ void matrix_scan_user(void) {
         // ### LAYER CHANGE
         SEQ_ONE_KEY(KC_1) { layer_on(1); }
         // control enter, because yes
-        SEQ_ONE_KEY(KC_H) { SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_ENTER) SS_UP(X_LCTRL)); }
+        SEQ_ONE_KEY(KC_H) { SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_ENTER) SS_UP(X_LCTL)); }
         // paste all
         SEQ_ONE_KEY(KC_P) {
             if (onMac) {
                 SEND_STRING(SS_LGUI("a") SS_LGUI("v"));
             } else {
-                SEND_STRING(SS_LCTRL("a") SS_LCTRL("v"));
+                SEND_STRING(SS_LCTL("a") SS_LCTL("v"));
             }
         }
         SEQ_THREE_KEYS(KC_M, KC_A, KC_C) {
@@ -72,11 +72,11 @@ void matrix_scan_user(void) {
             if (onMac) {
                 SEND_STRING(SS_LGUI("a") SS_LGUI("c"));
             } else {
-                SEND_STRING(SS_LCTRL("a") SS_LCTRL("c"));
+                SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
             }
         }
         // emoji bar
-        SEQ_TWO_KEYS(KC_E, KC_E) { SEND_STRING(SS_DOWN(X_LGUI) SS_LCTRL(" ") SS_UP(X_LGUI)); }
+        SEQ_TWO_KEYS(KC_E, KC_E) { SEND_STRING(SS_DOWN(X_LGUI) SS_LCTL(" ") SS_UP(X_LGUI)); }
 
         SEQ_TWO_KEYS(KC_F, KC_F) { SEND_STRING("ps -ef | grep "); }
         SEQ_TWO_KEYS(KC_H, KC_T) { SEND_STRING("https://"); }

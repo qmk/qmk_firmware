@@ -133,7 +133,7 @@ enum charybdis_keymap_bstiq_layers {
 // Function keys.
 #define LAYOUT_LAYER_FUN                                                                      \
      KC_F12,   KC_F7,   KC_F8,   KC_F9, KC_PSCR, __________________RESET_R__________________, \
-     KC_F11,   KC_F4,   KC_F5,   KC_F6, KC_SLCK, ______________HOME_ROW_GASC_R______________, \
+     KC_F11,   KC_F4,   KC_F5,   KC_F6, KC_SCRL, ______________HOME_ROW_GASC_R______________, \
      KC_F10,   KC_F1,   KC_F2,   KC_F3, KC_PAUS, ______________HOME_ROW_ALGR_R______________,\
                        KC_APP,  KC_SPC,  KC_TAB,    U_NA,    U_NA
 
@@ -215,7 +215,7 @@ void shutdown_user(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_setrgb_red();
+    rgblight_setrgb(RGB_RED);
 #endif // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_color_all(RGB_RED);

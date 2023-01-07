@@ -71,7 +71,7 @@ include $(BUILDDEFS_PATH)/build_full_test.mk
 endif
 
 $(TEST)_SRC += \
-	tests/test_common/main.c \
+	tests/test_common/main.cpp \
 	$(QUANTUM_PATH)/logging/print.c
 
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)

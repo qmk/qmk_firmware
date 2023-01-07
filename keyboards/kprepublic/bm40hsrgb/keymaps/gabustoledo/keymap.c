@@ -1,17 +1,17 @@
 /* Copyright 2021 Gabriel Bustamante Toledo
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
@@ -36,7 +36,7 @@ void set_color(int r, int g, int b){
 	rgb_matrix_set_color(41, r, g, b);
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
 
 	switch (get_highest_layer(layer_state)) {
 		case BASE2:
@@ -53,7 +53,7 @@ void rgb_matrix_indicators_user(void) {
 			break;
 		case SYM:
 			set_color(0, 50, 1.9);
-			break;		
+			break;
 		case NUM:
 			set_color(10, 0, 50);
 			break;
@@ -61,6 +61,7 @@ void rgb_matrix_indicators_user(void) {
 			set_color(50, 0, 0);
 			break;
 	}
+    return false;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -116,10 +117,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[FUN] = LAYOUT_planck_mit(
 		KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    QK_BOOT,
-		KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,   KC_NO,    KC_NO,    KC_NO,    KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,
+		KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SCRL,   KC_NO,    KC_NO,    KC_NO,    KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,
 		KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_ALGR,  KC_NO,
 		KC_NO,   KC_NO,   KC_APP,  KC_SPC,  KC_TAB,         KC_NO,         KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO
 	)
 
 };
-

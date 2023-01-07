@@ -7,17 +7,17 @@ void macroTogKey(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1)
   {
     kr.event.pressed = false;
-    process_record_dynamic_macro( DYN_MACRO_PLAY1, &kr );
+    process_record_dynamic_macro( DM_PLY1, &kr );
   }
   else if (state->count == 2)
   {
     kr.event.pressed = true;
-    process_record_dynamic_macro( DYN_REC_STOP, &kr );
+    process_record_dynamic_macro( DM_RSTP, &kr );
   }
   else if (state->count == 3)
   {
     kr.event.pressed = false;
-    process_record_dynamic_macro( DYN_REC_START1, &kr );
+    process_record_dynamic_macro( QK_DYNAMIC_MACRO_RECORD_START_1, &kr );
   }
 }
 
@@ -27,17 +27,17 @@ void macroTogKey2(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1)
   {
     kr.event.pressed = false;
-    process_record_dynamic_macro( DYN_MACRO_PLAY2, &kr );
+    process_record_dynamic_macro( DM_PLY2, &kr );
   }
   else if (state->count == 2)
   {
     kr.event.pressed = true;
-    process_record_dynamic_macro( DYN_REC_STOP, &kr );
+    process_record_dynamic_macro( DM_RSTP, &kr );
   }
   else if (state->count == 3)
   {
     kr.event.pressed = false;
-    process_record_dynamic_macro( DYN_REC_START2, &kr );
+    process_record_dynamic_macro( DM_REC2, &kr );
   }
 }
 */
