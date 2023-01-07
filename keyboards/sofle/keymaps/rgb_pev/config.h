@@ -63,7 +63,6 @@
     #define LEDS_HF 36
     #define RGBLIGHT_LAYERS
     #define RGBLED_NUM (LEDS_HF*2)
-	#define RGBLED_SPLIT { LEDS_HF, LEDS_HF } // haven't figured out how to use this yet
 
 	//#define RGBLED_NUM 30
     #define RGBLIGHT_LIMIT_VAL 128 //120
