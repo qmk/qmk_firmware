@@ -6,6 +6,9 @@
         "vid": "0xFEED",
         "pid": "0x7812"
     },
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F411",
     "layouts": {
         "LAYOUT": {
             "layout": [
