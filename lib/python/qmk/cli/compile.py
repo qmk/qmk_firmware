@@ -19,7 +19,7 @@ def _is_keymap_target(keyboard, keymap):
 
     if locate_keymap(keyboard, keymap):
         return True
-    
+
     return False
 
 
