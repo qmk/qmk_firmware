@@ -59,9 +59,13 @@
 
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_SPLIT
+
+#define RGB_DI_PIN D3 /* ws2812 RGB LED */
+
 //#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL+1)
 
     #define LEDS_HF 36
+    #define RGBLIGHT_LAYERS
     #define RGBLED_NUM (LEDS_HF*2)
 	//#define RGBLED_SPLIT
 	#define RGBLED_SPLIT { LEDS_HF, LEDS_HF } // haven't figured out how to use this yet
