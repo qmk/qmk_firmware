@@ -1,0 +1,24 @@
+{
+    "promicro": {
+        "bit_c_pro": {},
+        "blok": {},
+        "bonsai_c4": {},
+        "elite_pi": {},
+        "kb2040": {},
+        "promicro_rp2040": {
+            "aliases": [
+                "Frood"
+            ]
+        },
+        "proton_c": {
+            "aliases": [
+                "bonsai_c3"
+            ]
+        },
+        "stemcell": {}
+    },
+    "elite_c": {
+        "elite_pi": {},
+        "stemcell": {}
+    }
+}

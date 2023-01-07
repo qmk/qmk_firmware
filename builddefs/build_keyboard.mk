@@ -368,8 +368,8 @@ endif
 # Disable features that a keyboard doesn't support
 -include $(BUILDDEFS_PATH)/disable_features.mk
 
-ifneq ("$(CONVERTER)","")
-    -include $(CONVERTER)/post_converter.mk
+ifneq ("$(CONVERTER_PATH)","")
+    -include $(CONVERTER_PATH)/post_converter.mk
 endif
 
 # Pull in post_rules.mk files from all our subfolders
