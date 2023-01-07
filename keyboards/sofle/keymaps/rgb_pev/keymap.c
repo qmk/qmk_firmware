@@ -460,7 +460,6 @@ LT(_ALT, KC_ESC),  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     
 
 #ifdef RGBLIGHT_ENABLE
 
-char layer_state_str[70];
 // Now define the array of layers. Later layers take precedence
 
 // QWERTY,
