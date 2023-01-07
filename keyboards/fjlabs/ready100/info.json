@@ -8,6 +8,8 @@
         "pid": "0x1003",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_64key": "LAYOUT_64_ansi"
     },
