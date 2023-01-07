@@ -7,6 +7,8 @@
         "pid": "0x5067",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },
