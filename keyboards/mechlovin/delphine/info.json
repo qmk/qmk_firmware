@@ -6,6 +6,8 @@
     "usb": {
         "vid": "0x4D4C"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [
