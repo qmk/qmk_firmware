@@ -8,6 +8,8 @@
         "pid": "0x3F42",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_ansi_split_bs_rshift"
     },

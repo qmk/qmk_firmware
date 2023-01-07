@@ -8,6 +8,7 @@
         "pid": "0x005B",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
