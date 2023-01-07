@@ -64,10 +64,6 @@
     #define RGBLIGHT_LAYERS
     #define RGBLED_NUM (LEDS_HF*2)
 
-//    #define RGBLIGHT_LIMIT_VAL 128 
-    #define RGBLIGHT_HUE_STEP 10
-    #define RGBLIGHT_SAT_STEP 17
-    #define RGBLIGHT_VAL_STEP 4
 //const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 100, 100};
 #endif
 
