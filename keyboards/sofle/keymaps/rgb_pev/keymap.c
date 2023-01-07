@@ -170,7 +170,7 @@ LT(_ALT, KC_ESC),  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     
   //|------+-------+--------+--------+--------+------|                         |--------+-------+--------+--------+--------+---------|
  KC_GRV,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_BSPC_, KC_GRV,                            KC_LEFT, KC_DOWN,   KC_UP,  KC_RGHT, KC_MINUS, KC_EQL,
   //|------+-------+--------+--------+--------+------        |  ===  |  |  ===  |--------+-------+--------+--------+--------+---------|
- KC_LSFT,   KC_HOME, KC_RALT,  KC_END,  KC_NO, MO(_LCK),   KC_TRNS,      KC_TRNS,  KC_LBRC, KC_RBRC, KC_LCBR,  KC_RCBR,  KC_SLSH  , KC_TRNS,
+ KC_LSFT,   KC_HOME, KC_RALT,  KC_END,  KC_NO, MO(_LCK),   KC_TRNS,      RGB_TOG,  KC_LBRC, KC_RBRC, KC_LCBR,  KC_RCBR,  KC_SLSH  , KC_TRNS,
   //|------+-------+--------+--------+--------+------|  ===  |              |  ===  |--------+-------+--------+--------+--------+---------|
                    KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS
   //            \--------+--------+--------+---------+-------|             |--------+---------+--------+---------+-------/
@@ -196,7 +196,7 @@ LT(_ALT, KC_ESC),  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   KC_CAPS,  KC_NO,  KC_NO,   KC_NO,  KC_SCRL,   KC_NUM,               KC_NO,  KC_NO,   KC_NO,    KC_NO,   KC_NO ,  KC_NO ,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-  KC_TRNS,  KC_PSCR, KC_SCRL,  KC_PAUSE,  KC_NO, MO(_LCK),  KC_TRNS,  KC_TRNS, KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,  KC_TRNS  ,
+  KC_TRNS,  KC_PSCR, KC_SCRL,  KC_PAUSE,  KC_NO, MO(_LCK),  RGB_TOG,  KC_TRNS, KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,  KC_TRNS  ,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_KB),  MO(_KB),    KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS
   //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -209,7 +209,7 @@ LT(_ALT, KC_ESC),  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   KC_NO,  KC_NO,   KC_NO,   KC_NO,  RGB_HUI, RGB_SAI,                     KC_NO,  KC_NO,   KC_NO,    KC_NO,    KC_NO,  KC_NO,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
- KC_TRNS, RGB_MOD,  KC_NO,  KC_NO,  RGB_HUD, RGB_SAD,  KC_TRNS,  KC_TRNS, KC_NO,    KC_NO,   KC_NO,   KC_NO,    KC_NO,  KC_TRNS  ,
+ KC_TRNS, RGB_MOD,  KC_NO,  KC_NO,  RGB_HUD, RGB_SAD,  RGB_M_G,  RGB_M_SW, KC_NO,    KC_NO,   KC_NO,   KC_NO,    KC_NO,  KC_TRNS  ,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
                    KC_TRNS,    KC_TRNS,    KC_TRNS,    SH_TG,      SH_TG,  KC_TRNS,    KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS
   //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -530,7 +530,7 @@ void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
 #ifdef OLED_ENABLE
-    transaction_register_rpc(USER_SYNC_A, user_sync_a_update_keyCntr_on_other_board);
+    transaction_register_rpc(USER_SYNC_KEY_CNTR, user_sync_a_update_keyCntr_on_other_board);
 #endif
 }
 
@@ -539,7 +539,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(record->event.pressed) {
 #ifdef OLED_ENABLE
         keyCntr++;
-        transaction_rpc_send(USER_SYNC_A, sizeof(keyCntr), &keyCntr);
+        transaction_rpc_send(USER_SYNC_KEY_CNTR, sizeof(keyCntr), &keyCntr);
 #endif
     }
     return true;
