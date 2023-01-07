@@ -27,10 +27,6 @@
         ]
     },
     "processor": "atmega32u4",
-    "rgblight": {
-        "pin": "F7",
-        "led_count": 12
-    },
     "rgb_matrix": {
        "driver": "WS2812",
        "layout": [
