@@ -1,6 +1,6 @@
 # cxt_studio
 
-![cxt_studio](https://gist.githubusercontent.com/ColinKinloch/cb49a8b42fcd07445232a26f562f3b9d/raw/ff9ac62884d724811f634c07e44c737a148181cc/cxt_studio.jpg)
+![cxt_studio](https://i.imgur.com/AMCTioSh.jpeg)
 
 3x4 ortho rgb lighting 4 knobs.
 
