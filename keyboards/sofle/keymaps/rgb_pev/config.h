@@ -29,10 +29,6 @@
 
 //#define OLED_UPDATE_INTERVAL 30
 
-#define CUSTOM_FONT
-
-#define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
-
 //#define SPLIT_TRANSACTION_IDS_KB KEYBOARD_SYNC_A, KEYBOARD_SYNC_B
 //#define SPLIT_TRANSPORT_MIRROR
 //#define SPLIT_OLED_ENABLE
