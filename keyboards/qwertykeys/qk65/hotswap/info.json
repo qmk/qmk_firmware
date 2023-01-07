@@ -8,6 +8,8 @@
         "pid": "0x514B",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_hotswap": "LAYOUT_65_ansi_blocker"
     },
