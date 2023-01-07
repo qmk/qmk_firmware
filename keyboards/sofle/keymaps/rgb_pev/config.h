@@ -58,7 +58,6 @@
 	//#define RGBLIGHT_EFFECT_TWINKLE
 
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_SPLIT
 
 #define RGB_DI_PIN D3 /* ws2812 RGB LED */
 
@@ -67,7 +66,6 @@
     #define LEDS_HF 36
     #define RGBLIGHT_LAYERS
     #define RGBLED_NUM (LEDS_HF*2)
-	//#define RGBLED_SPLIT
 	#define RGBLED_SPLIT { LEDS_HF, LEDS_HF } // haven't figured out how to use this yet
 
 	//#define RGBLED_NUM 30
