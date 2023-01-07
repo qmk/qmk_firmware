@@ -868,9 +868,8 @@ bool oled_task_user(void) {
     return false;
 }
 
-void user_sync_a_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
-    keyCntr = *((const uint16_t *)in_data);
-}
+void user_sync_a_update_keyCntr_on_other_board(uint8_t in_buflen, const void* in_data, uint8_t
+        out_buflen, void* out_data) { keyCntr = *((const uint16_t *)in_data); }
 
 #endif
 
@@ -879,7 +878,7 @@ void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
 #ifdef OLED_ENABLE
-    transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler);
+    transaction_register_rpc(USER_SYNC_A, user_sync_a_update_keyCntr_on_other_board);
 #endif
 }
 
@@ -888,7 +887,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(record->event.pressed) {
 #ifdef OLED_ENABLE
         keyCntr++;
-//        transaction_rpc_exec(USER_SYNC_A, 0, &m2s, sizeof(s2m), &s2m)
         transaction_rpc_send(USER_SYNC_A, sizeof(keyCntr), &keyCntr);
 #endif
         keyCodeLast = keycode;
