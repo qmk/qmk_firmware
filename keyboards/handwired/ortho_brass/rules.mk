@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = qmk-dfu
-
 # Build Options
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
