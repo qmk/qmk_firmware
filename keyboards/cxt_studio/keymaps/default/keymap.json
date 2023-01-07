@@ -1,0 +1,22 @@
+{
+    "keyboard": "cxt_studio",
+    "keymap": "default",
+    "layout": "LAYOUT_ortho_4x3_4e",
+    "layers": [
+        /*
+         * ┌───┬───┬───┬───┬───┬───┐
+         * │ 1 │ 2 │ 3 │ 4 │15 │16 │
+         * ├───┼───┼───┼───┼─┬─┴─┬─┘
+         * │ 5 │ 6 │ 7 │ 8 │ │14 │
+         * ├───┼───┼───┼───┤ ├───┤
+         * │ 9 │10 │11 │12 │ │13 │
+         * └───┴───┴───┴───┘ └───┘
+         */
+        [
+            "KC_ESC",     "KC_F11",              "KC_NO",               "KC_MEDIA_STOP",
+            "KC_NO",      "KC_NO",               "KC_MEDIA_REWIND",     "KC_MEDIA_FAST_FORWARD",
+            "KC_NO",      "KC_MEDIA_PLAY_PAUSE", "KC_MEDIA_PREV_TRACK", "KC_MEDIA_NEXT_TRACK",
+            "KC_KB_MUTE", "KC_NO",               "KC_NO",               "RGB_TOG"
+        ]
+    ]
+}
