@@ -5,7 +5,7 @@
     "maintainer": "FJLaboratories",
     "usb": {
         "vid": "0x7074",
-        "pid": "0x0032",
+        "pid": "0x0049",
         "device_version": "0.0.1"
     },
     "layouts": {
