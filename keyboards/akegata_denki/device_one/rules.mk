@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F042
-BOARD = ST_NUCLEO32_F042K6
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
