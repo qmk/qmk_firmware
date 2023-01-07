@@ -464,6 +464,8 @@ LT(_ALT, KC_ESC),  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     
 
 // QWERTY,
 // Light on inner column and underglow
+const uint8_t PROGMEM RGBLED_RAINBOW_SWIRL_INTERVALS[] = {255, 255, 255};
+
 const rgblight_segment_t PROGMEM layer_qwerty_lights[] = RGBLIGHT_LAYER_SEGMENTS(
   SET_UNDERGLOW_INDICAT(HSV_BLUE)
 
