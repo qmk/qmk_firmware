@@ -42,19 +42,6 @@
 #define ENCODER_DIRECTION_FLIP
 
 
-#define RGBLIGHT_SLEEP
-//
-#define RGBLIGHT_LAYERS
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
-
-#ifdef RGB_MATRIX_ENABLE
-#define RGBLED_NUM 36    // Number of LEDs
-#define DRIVER_LED_TOTAL RGBLED_NUM
-#endif
-
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
 
