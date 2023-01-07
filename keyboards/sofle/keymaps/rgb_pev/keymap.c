@@ -881,7 +881,6 @@ void keyboard_post_init_user(void) {
 #ifdef OLED_ENABLE
     transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler);
 #endif
-	rgblight_mode(10);// haven't found a way to set this in a more useful way
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
