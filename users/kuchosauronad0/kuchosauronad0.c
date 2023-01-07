@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 userspace_config_t userspace_config;
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-#  define KUCHOSAURONAD0_UNICODE_MODE UC_WINC
+#  define KUCHOSAURONAD0_UNICODE_MODE UNICODE_MODE_WINCOMPOSE
 #else
-#  define KUCHOSAURONAD0_UNICODE_MODE 2 // set to 2 for UC_WIN, set to 4 for UC_WINC
+#  define KUCHOSAURONAD0_UNICODE_MODE 2 // set to 2 for UNICODE_MODE_WINDOWS, set to 4 for UNICODE_MODE_WINCOMPOSE
 #endif
 
 
@@ -69,7 +69,7 @@ void shutdown_user (void) {
   #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
-    rgblight_setrgb_teal();
+    rgblight_setrgb(RGB_TEAL);
   #endif // RGBLIGHT_ENABLE
   #ifdef RGB_MATRIX_ENABLE
     // uint16_t timer_start = timer_read();

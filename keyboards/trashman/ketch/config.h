@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright 2021 Evan Sailer, Jetpacktuxedo, & QMK Firmware
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,6 +33,15 @@ SOFTWARE.
 #define USB_MAX_POWER_CONSUMPTION 100
 #define RGB_DI_PIN F4
 #define RGBLED_NUM 10
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_SLEEP
 #define NO_USB_STARTUP_CHECK

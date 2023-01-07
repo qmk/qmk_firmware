@@ -76,14 +76,14 @@ static const encoder_key PROGMEM encoder_keys[] = {
     {"Teams", "Toggle", "Mic", KC_TEAMS_MUTE},
     {"Teams", "Toggle", "Cam", KC_TEAMS_CAM},
     {"Ctrl", "Alt", "Del", KC_CAD},
-    {"Caps", "Lock", "", KC_CAPSLOCK},
+    {"Caps", "Lock", "", KC_CAPS_LOCK},
     {"Pause", "", "", KC_PAUSE},
     {"PrtScr", "", "", KC_PSCR},
     {"Insert", "", "", KC_INS},
     {"Play", "", "", KC_MEDIA_PLAY_PAUSE}
 };
 
-#define NUMBER_OF_ENCODER_KEYS sizeof(encoder_keys)/sizeof(encoder_keys[0])
+#define NUMBER_OF_ENCODER_KEYS ARRAY_SIZE(encoder_keys)
 
 static uint8_t selected_encoder_key_id = 0;
 static encoder_key selected_encoder_key;
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FN_1] = LAYOUT_all(
                                                                                                                        KC_MUTE,
-    	  KC_GESC,          _______, _______, _______, DE_LCBR, DE_RCBR, _______, DE_UDIA, KC_UP,    DE_ODIA, DE_QUES, KC_DEL,
+    	  QK_GESC,          _______, _______, _______, DE_LCBR, DE_RCBR, _______, DE_UDIA, KC_UP,    DE_ODIA, DE_QUES, KC_DEL,
     	  _______,          DE_ADIA, DE_SS,   _______, DE_LPRN, DE_RPRN, _______, KC_LEFT, KC_DOWN, KC_RIGHT, DE_HASH, _______,
     	  _______, _______, DE_CIRC, DE_ACUT, _______, DE_LBRC, DE_RBRC, KC_HOME, KC_END,  DE_QUOT,  DE_DQUO,          DE_EQL,
     	  _______,   _______, _______,    MO(FN_MOUSE),   MO(FN_MOUSE),       MO(FN_MOUSE),          DE_BSLS, DE_SLSH,         DE_TILD ),
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                set_selected_encoder_key(selected_encoder_key_id);
             }
             if (IS_LAYER_ON(FN_1)) {
-                tap_code16(KC_PGDOWN);
+                tap_code16(KC_PGDN);
             }
             if (IS_LAYER_ON(FN_2)) {
                 tap_code(KC_VOLU);
