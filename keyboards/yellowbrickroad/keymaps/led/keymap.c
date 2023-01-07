@@ -264,13 +264,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT(
         FN_MUTE,
-        MI_C_1,         MI_Db_1,        MI_D_1,         MI_Eb_1,        MI_E_1,         MI_F_1,         MI_Fs_1,        MI_G_1,         MI_Ab_1,        MI_A_1,         MI_Bb_1,        MI_B_1,
-        MI_C_2,         MI_Db_2,        MI_D_2,         MI_Eb_2,        MI_E_2,         MI_F_2,         MI_Fs_2,        MI_G_2,         MI_Ab_2,        MI_A_2,         MI_Bb_2,        MI_B_2,
-        MI_C_3,         MI_Db_3,        MI_D_3,         MI_Eb_3,        MI_E_3,         MI_F_3,         MI_Fs_3,        MI_G_3,         MI_Ab_3,        MI_A_3,         MI_Bb_3,        MI_B_3,
-        MI_C_4,         MI_Db_4,        MI_D_4,         MI_Eb_4,        MI_E_4,         MI_F_4,         MI_Fs_4,        MI_G_4,         MI_Ab_4,        MI_A_4,         MI_Bb_4,        MI_B_4,
-        MI_C_5,         MI_Db_5,        MI_D_5,         MI_Eb_5,        MI_E_5,
+        MI_C1,         MI_Db1,        MI_D1,         MI_Eb1,        MI_E1,         MI_F1,         MI_Fs1,        MI_G1,         MI_Ab1,        MI_A1,         MI_Bb1,        MI_B1,
+        MI_C2,         MI_Db2,        MI_D2,         MI_Eb2,        MI_E2,         MI_F2,         MI_Fs2,        MI_G2,         MI_Ab2,        MI_A2,         MI_Bb2,        MI_B2,
+        MI_C3,         MI_Db3,        MI_D3,         MI_Eb3,        MI_E3,         MI_F3,         MI_Fs3,        MI_G3,         MI_Ab3,        MI_A3,         MI_Bb3,        MI_B3,
+        MI_C4,         MI_Db4,        MI_D4,         MI_Eb4,        MI_E4,         MI_F4,         MI_Fs4,        MI_G4,         MI_Ab4,        MI_A4,         MI_Bb4,        MI_B4,
+        MI_C5,         MI_Db5,        MI_D5,         MI_Eb5,        MI_E5,
         SHLAYER,
-        MI_SUS
+        MI_SUST
     ),
 
     [_CHORDS] = LAYOUT(
@@ -286,8 +286,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASEANDCHORDS] = LAYOUT(
         _______,
-        MI_C_2,         MI_Db_2,        MI_D_2,         MI_Eb_2,        MI_E_2,         MI_F_2,         MI_Fs_2,        MI_G_2,         MI_Ab_2,        MI_A_2,         MI_Bb_2,       MI_B_2,
-        MI_C_3,         MI_Db_3,        MI_D_3,         MI_Eb_3,        MI_E_3,         MI_F_3,         MI_Fs_3,        MI_G_3,         MI_Ab_3,        MI_A_3,         MI_Bb_3,       MI_B_3,
+        MI_C2,          MI_Db2,         MI_D2,          MI_Eb2,         MI_E2,          MI_F2,          MI_Fs2,         MI_G2,          MI_Ab2,         MI_A2,          MI_Bb2,        MI_B2,
+        MI_C3,          MI_Db3,         MI_D3,          MI_Eb3,         MI_E3,          MI_F3,          MI_Fs3,         MI_G3,          MI_Ab3,         MI_A3,          MI_Bb3,        MI_B3,
         MI_CH_C,        MI_CH_Db,       MI_CH_D,        MI_CH_Eb,       MI_CH_E,        MI_CH_F,        MI_CH_Fs,       MI_CH_G,        MI_CH_Ab,       MI_CH_A,        MI_CH_Bb,      MI_CH_B,
         MI_CH_Cm,       MI_CH_Dbm,      MI_CH_Dm,       MI_CH_Ebm,      MI_CH_Em,       MI_CH_Fm,       MI_CH_Fsm,      MI_CH_Gm,       MI_CH_Abm,      MI_CH_Am,       MI_CH_Bbm,     MI_CH_Bm,
         MI_CH_CDom7,    MI_CH_DbDom7,   MI_CH_DDom7,    MI_CH_EbDom7,   MI_CH_EDom7,
@@ -298,11 +298,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_HEPTATONIC] = LAYOUT(
         _______,
         MI_C,           MI_D,           MI_E,           MI_F,           MI_G,           MI_A,           MI_B,
-        MI_C_1,         MI_D_1,         MI_E_1,         MI_F_1,         MI_G_1,         MI_A_1,         MI_B_1,
-        MI_C_2,         MI_D_2,         MI_E_2,         MI_F_2,         MI_G_2,         MI_A_2,         MI_B_2,
-        MI_C_3,         MI_D_3,         MI_E_3,         MI_F_3,         MI_G_3,         MI_A_3,         MI_B_3,
-        MI_C_4,         MI_D_4,         MI_E_4,         MI_F_4,         MI_G_4,         MI_A_4,         MI_B_4,
-        MI_C_5,         MI_D_5,         MI_E_5,         MI_F_5,         MI_G_5,         MI_A_5,         MI_B_5,
+        MI_C1,          MI_D1,          MI_E1,          MI_F1,          MI_G1,          MI_A1,          MI_B1,
+        MI_C2,          MI_D2,          MI_E2,          MI_F2,          MI_G2,          MI_A2,          MI_B2,
+        MI_C3,          MI_D3,          MI_E3,          MI_F3,          MI_G3,          MI_A3,          MI_B3,
+        MI_C4,          MI_D4,          MI_E4,          MI_F4,          MI_G4,          MI_A4,          MI_B4,
+        MI_C5,          MI_D5,          MI_E5,          MI_F5,          MI_G5,          MI_A5,          MI_B5,
         MI_CH_C,        MI_CH_D,        MI_CH_E,        MI_CH_F,        MI_CH_G,        MI_CH_A,        MI_CH_B,
         MI_CH_Cm,       MI_CH_Dm,       MI_CH_Em,       MI_CH_Fm,
         _______,
@@ -312,11 +312,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_PENTATONIC] = LAYOUT(
         _______,
         MI_C,           MI_D,           MI_E,           MI_G,           MI_A,
-        MI_C_1,         MI_D_1,         MI_E_1,         MI_G_1,         MI_A_1,
-        MI_C_2,         MI_D_2,         MI_E_2,         MI_G_2,         MI_A_2,
-        MI_C_3,         MI_D_3,         MI_E_3,         MI_G_3,         MI_A_3,
-        MI_C_4,         MI_D_4,         MI_E_4,         MI_G_4,         MI_A_4,
-        MI_C_5,         MI_D_5,         MI_E_5,         MI_G_5,         MI_A_5,
+        MI_C1,          MI_D1,          MI_E1,          MI_G1,          MI_A1,
+        MI_C2,          MI_D2,          MI_E2,          MI_G2,          MI_A2,
+        MI_C3,          MI_D3,          MI_E3,          MI_G3,          MI_A3,
+        MI_C4,          MI_D4,          MI_E4,          MI_G4,          MI_A4,
+        MI_C5,          MI_D5,          MI_E5,          MI_G5,          MI_A5,
         MI_CH_C,        MI_CH_D,        MI_CH_E,        MI_CH_G,        MI_CH_A,
         MI_CH_Cr,       MI_CH_Dr,       MI_CH_Er,       MI_CH_Gr,       MI_CH_Ar,
         MI_CH_Cm,       MI_CH_Dm,       MI_CH_Em,       MI_CH_Gm,       MI_CH_Am,
@@ -339,11 +339,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FLIP] = LAYOUT(
         _______,
-        MI_C_5,         MI_B_4,         MI_Bb_4,        MI_A_4,         MI_Ab_4,        MI_G_4,         MI_Fs_4,        MI_F_4,         MI_E_4,         MI_Eb_4,        MI_D_4,         MI_Db_4,
-        MI_C_4,         MI_B_3,         MI_Bb_3,        MI_A_3,         MI_Ab_3,        MI_G_3,         MI_Fs_3,        MI_F_3,         MI_E_3,         MI_Eb_3,        MI_D_3,         MI_Db_3,
-        MI_C_3,         MI_B_2,         MI_Bb_2,        MI_A_2,         MI_Ab_2,        MI_G_2,         MI_Fs_2,        MI_F_2,         MI_E_2,         MI_Eb_2,        MI_D_2,         MI_Db_2,
-        MI_C_2,         MI_B_1,         MI_Bb_1,        MI_A_1,         MI_Ab_1,        MI_G_1,         MI_Fs_1,        MI_F_1,         MI_E_1,         MI_Eb_1,        MI_D_1,         MI_Db_1,
-        MI_C_1,         MI_B,           MI_Bb,          MI_A,           MI_Ab,
+        MI_C5,          MI_B4,          MI_Bb4,         MI_A4,          MI_Ab4,         MI_G4,          MI_Fs4,         MI_F4,          MI_E4,          MI_Eb4,         MI_D4,          MI_Db4,
+        MI_C4,          MI_B3,          MI_Bb3,         MI_A3,          MI_Ab3,         MI_G3,          MI_Fs3,         MI_F3,          MI_E3,          MI_Eb3,         MI_D3,          MI_Db3,
+        MI_C3,          MI_B2,          MI_Bb2,         MI_A2,          MI_Ab2,         MI_G2,          MI_Fs2,         MI_F2,          MI_E2,          MI_Eb2,         MI_D2,          MI_Db2,
+        MI_C2,          MI_B1,          MI_Bb1,         MI_A1,          MI_Ab1,         MI_G1,          MI_Fs1,         MI_F1,          MI_E1,          MI_Eb1,         MI_D1,          MI_Db1,
+        MI_C1,          MI_B,           MI_Bb,          MI_A,           MI_Ab,
         _______,
         _______
     ),
@@ -361,8 +361,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FLIPBASEANDCHORDS] = LAYOUT(
         _______,
-        MI_C_4,         MI_B_3,         MI_Bb_3,        MI_A_3,         MI_Ab_3,        MI_G_3,         MI_Fs_3,        MI_F_3,         MI_E_3,         MI_Eb_3,        MI_D_3,         MI_Db_3,
-        MI_C_3,         MI_B_2,         MI_Bb_2,        MI_A_2,         MI_Ab_2,        MI_G_2,         MI_Fs_2,        MI_F_2,         MI_E_2,         MI_Eb_2,        MI_D_2,         MI_Db_2,
+        MI_C4,          MI_B3,          MI_Bb3,         MI_A3,          MI_Ab3,         MI_G3,          MI_Fs3,         MI_F3,          MI_E3,          MI_Eb3,         MI_D3,          MI_Db3,
+        MI_C3,          MI_B2,          MI_Bb2,         MI_A2,          MI_Ab2,         MI_G2,          MI_Fs2,         MI_F2,          MI_E2,          MI_Eb2,         MI_D2,          MI_Db2,
         MI_CH_Cr,       MI_CH_Br,       MI_CH_Bbr,      MI_CH_Ar,       MI_CH_Abr,      MI_CH_Gr,       MI_CH_Fsr,      MI_CH_Fr,       MI_CH_Er,       MI_CH_Ebr,      MI_CH_Dr,       MI_CH_Dbr,
         MI_CH_C,        MI_CH_B,        MI_CH_Bb,       MI_CH_A,        MI_CH_Ab,       MI_CH_G,        MI_CH_Fs,       MI_CH_F,        MI_CH_E,        MI_CH_Eb,       MI_CH_D,        MI_CH_Db,
         MI_CH_Cm,       MI_CH_Bm,       MI_CH_Bbm,      MI_CH_Am,       MI_CH_Abm,
@@ -372,11 +372,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FLIPHEPTA] = LAYOUT(
         _______,
-        MI_C_5,         MI_B_4,         MI_A_4,         MI_G_4,         MI_F_4,         MI_E_4,         MI_D_4,
-        MI_C_4,         MI_B_3,         MI_A_3,         MI_G_3,         MI_F_3,         MI_E_3,         MI_D_3,
-        MI_C_3,         MI_B_2,         MI_A_2,         MI_G_2,         MI_F_2,         MI_E_2,         MI_D_2,
-        MI_C_2,         MI_B_1,         MI_A_1,         MI_G_1,         MI_F_1,         MI_E_1,         MI_D_1,
-        MI_C_1,         MI_B,           MI_A,           MI_G,           MI_F,           MI_E,           MI_D,
+        MI_C5,          MI_B4,          MI_A4,          MI_G4,          MI_F4,          MI_E4,          MI_D4,
+        MI_C4,          MI_B3,          MI_A3,          MI_G3,          MI_F3,          MI_E3,          MI_D3,
+        MI_C3,          MI_B2,          MI_A2,          MI_G2,          MI_F2,          MI_E2,          MI_D2,
+        MI_C2,          MI_B1,          MI_A1,          MI_G1,          MI_F1,          MI_E1,          MI_D1,
+        MI_C1,          MI_B,           MI_A,           MI_G,           MI_F,           MI_E,           MI_D,
         MI_CH_C,        MI_CH_B,        MI_CH_A,        MI_CH_G,        MI_CH_F,        MI_CH_E,        MI_CH_D,
         MI_CH_Cm,       MI_CH_Bm,       MI_CH_Am,       MI_CH_Gm,       MI_CH_Fm,       MI_CH_Em,       MI_CH_Dm,
         MI_CH_CDom7,    MI_CH_BDom7,    MI_CH_ADom7,    MI_CH_GDom7,
@@ -386,11 +386,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FLIPPENTA] = LAYOUT(
         _______,
-        MI_C_5,         MI_A_4,         MI_G_4,         MI_E_4,         MI_D_4,
-        MI_C_4,         MI_A_3,         MI_G_3,         MI_E_3,         MI_D_3,
-        MI_C_3,         MI_A_2,         MI_G_2,         MI_E_2,         MI_D_2,
-        MI_C_2,         MI_A_1,         MI_G_1,         MI_E_1,         MI_D_1,
-        MI_C_1,         MI_A,           MI_G,           MI_E,           MI_D,
+        MI_C5,          MI_A4,          MI_G4,          MI_E4,          MI_D4,
+        MI_C4,          MI_A3,          MI_G3,          MI_E3,          MI_D3,
+        MI_C3,          MI_A2,          MI_G2,          MI_E2,          MI_D2,
+        MI_C2,          MI_A1,          MI_G1,          MI_E1,          MI_D1,
+        MI_C1,          MI_A,           MI_G,           MI_E,           MI_D,
         MI_CH_C,        MI_CH_A,        MI_CH_G,        MI_CH_E,        MI_CH_D,
         MI_CH_Cr,       MI_CH_Ar,       MI_CH_Gr,       MI_CH_Er,       MI_CH_Dr,
         MI_CH_Cm,       MI_CH_Am,       MI_CH_Gm,       MI_CH_Em,       MI_CH_Dm,
@@ -528,7 +528,7 @@ void set_led_c_indicator(uint8_t scaleID, uint8_t r, uint8_t g, uint8_t b) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     uint8_t i;
 
     if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
@@ -608,6 +608,7 @@ void rgb_matrix_indicators_user(void) {
                 break;
         }
     }
+    return false;
 }
 
 // set_scale_upperlimit() is called from shift_led_indicator_left() and shift_led_indicator_right().
