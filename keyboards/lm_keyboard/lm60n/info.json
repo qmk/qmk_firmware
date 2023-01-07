@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "lm60n",
+    "keyboard_name": "L+M 60N",
+    "manufacturer": "L+M Keyboard",
     "url": "",
     "maintainer": "gkeyboard",
+    "usb": {
+        "vid": "0x4C4D",
+        "pid": "0x4B01",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

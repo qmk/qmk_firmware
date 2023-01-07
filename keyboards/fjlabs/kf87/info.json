@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "KF87 Replacement PCB's",
+    "keyboard_name": "KF87",
+    "manufacturer": "FJLaboratories",
     "url": "http://www.fjlaboratories.com/",
     "maintainer": "FJLabs",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_all": {
             "layout": [

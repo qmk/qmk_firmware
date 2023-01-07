@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "JetVan",
+    "manufacturer": "evangs",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEAE",
+        "pid": "0x8858",
+        "device_version": "0.0.1"
+    }
+}

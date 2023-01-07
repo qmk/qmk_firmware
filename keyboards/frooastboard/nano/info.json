@@ -1,5 +1,6 @@
 {
     "keyboard_name": "Frooastboard Nano",
+    "manufacturer": "frooastside",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/frooastboard/nano",
     "maintainer": "frooastside",
     "debounce": 5,

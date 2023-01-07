@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "YMDK NP21",
+    "keyboard_name": "NP21",
+    "manufacturer": "YMDK",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x5021",
+        "device_version": "2.0.0"
+    },
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

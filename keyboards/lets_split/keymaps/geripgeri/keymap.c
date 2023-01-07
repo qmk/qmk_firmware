@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_ortho_4x12(
   KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_EQL,
   SLIGHTLY, SMILE, JOY, RELAXED, HEART, _______,              KC_HOME, KC_PGUP, _______, KC_LCBR, KC_RCBR, KC_PIPE,
-  SAD, CRY, NETRURAL, SCREAM, THUMBSUP, _______,              KC_END, KC_PGDOWN,_______, KC_LBRC, KC_RBRC, KC_PSCREEN,
+  SAD, CRY, NETRURAL, SCREAM, THUMBSUP, _______,              KC_END, KC_PGDN,  _______, KC_LBRC, KC_RBRC, KC_PSCR,
   _______, _______, _______, _______, _______, KC_INSERT,     KC_DEL, _______,  TD(NEXTPREV), KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'                `-----------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12(
-  RESET,   EEP_RST, _______, RALT(KC_SCLN), _______, _______,       _______, TD(U),  RALT(KC_Z),      TD(O),   _______, _______,
+  QK_BOOT, EE_CLR,  _______, RALT(KC_SCLN), _______, _______,       _______, TD(U),  RALT(KC_Z),      TD(O),   _______, _______,
   _______, RALT(KC_QUOT), _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______
@@ -255,7 +255,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   writePin(B0, !(state & (1UL << (_NUMPAD))));
 
-  switch(biton32(state)) {
+  switch(get_highest_layer(state)) {
     case _RAISE:
       rgblight_setrgb_at(255, 255, 255, RGBLED_NUM / 2);
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);

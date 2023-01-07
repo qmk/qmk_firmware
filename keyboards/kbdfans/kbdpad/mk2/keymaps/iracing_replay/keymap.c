@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P7,          // start
 
     LSFT(KC_B),     // prev sub cam
-    KC_PGDOWN,      // prev driver cam
+    KC_PGDN,        // prev driver cam
     LCTL(KC_P4),    // prev session
     KC_P1,          // end
 

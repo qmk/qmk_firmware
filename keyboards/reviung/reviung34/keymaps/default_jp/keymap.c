@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 enum layer_names {
   _BASE,
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [_RAISE] = LAYOUT_reviung34(
     JP_1,    JP_2,    JP_3,    JP_4,    JP_5,          JP_6,    JP_7,    JP_8,    JP_9,    JP_0,
-    JP_MINS, JP_EQL,  JP_LBRC, JP_RBRC, JP_YEN,        KC_RO,   XXXXXXX, JP_GRV,  JP_TILD, JP_COLN,
+    JP_MINS, JP_EQL,  JP_LBRC, JP_RBRC, JP_YEN,        JP_BSLS, XXXXXXX, JP_GRV,  JP_TILD, JP_COLN,
     KC_LSFT, KC_ESC,  KC_RGUI, KC_LALT, JP_DQUO,       KC_TAB,  XXXXXXX, KC_RCTL, KC_RALT, KC_DEL,
                       _______, _______, _______,            _______
   ),
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_reviung34(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR,
     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    KC_F11,  KC_F12,  KC_CAPS, XXXXXXX, XXXXXXX,       RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_F11,  KC_F12,  KC_CAPS, XXXXXXX, XXXXXXX,       QK_BOOT,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                       _______, _______, _______,            _______
   ),
 };

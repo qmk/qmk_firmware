@@ -19,7 +19,7 @@ if [ $# -gt 1 ]; then
 	exit 1
 fi
 
-# Allow $RUNTIME to be overriden by the user as an environment variable
+# Allow $RUNTIME to be overridden by the user as an environment variable
 # Else check if either docker or podman exit and set them as runtime
 # if none are found error out
 if [ -z "$RUNTIME" ]; then
@@ -36,7 +36,7 @@ if [ -z "$RUNTIME" ]; then
 		exit 2
 	fi
 fi
-	
+
 
 # Determine arguments
 if [ $# -eq 0 ]; then

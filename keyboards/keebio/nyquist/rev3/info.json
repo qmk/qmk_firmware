@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Nyquist Rev. 3",
+    "usb": {
+        "pid": "0x3156",
+        "device_version": "3.0.0"
+    }
+}

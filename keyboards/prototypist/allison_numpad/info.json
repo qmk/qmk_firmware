@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "allison_numpad",
+    "keyboard_name": "Allison Numpad",
+    "manufacturer": "protoTypist",
     "url": "www.yiancar-designs.com",
     "maintainer": "Yiancar",
+    "usb": {
+        "vid": "0x8968",
+        "pid": "0x414E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

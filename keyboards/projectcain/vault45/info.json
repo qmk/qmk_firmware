@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Vault 45",
+    "keyboard_name": "Vault45",
+    "manufacturer": "projectcain",
     "url": "",
     "maintainer": "projectcain",
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0x6060",
+      "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Dystopia",
+    "manufacturer": "Sanctified.Works",
     "url": "",
     "maintainer": "Sanctified",
+    "usb": {
+        "vid": "0x5357",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_bs": {
             "layout": [

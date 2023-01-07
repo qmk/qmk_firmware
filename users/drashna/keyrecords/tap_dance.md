@@ -88,7 +88,7 @@ void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
     diablo_timer[diablo_keys->index].keycode = diablo_keys->keycode;
 
     // if the tapdance is hit more than the number of elemints in the array, reset
-    if (state->count >= (sizeof(diablo_times) / sizeof(uint8_t) ) ) {
+    if (state->count >= ARRAY_SIZE(diablo_times) ) {
         diablo_timer[diablo_keys->index].key_interval = 0;
         reset_tap_dance(state);
     }  else { // else set the interval (tapdance count starts at 1, array starts at 0, so offset by one)

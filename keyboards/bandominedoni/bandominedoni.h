@@ -38,7 +38,7 @@
     l40, l41, l42, l43, l44, l45, l46, l47,  \
     \
     oc,         r00, r01, r02, r03,         fn, \
-             r10, r11, r12, r13, r14,      ccw, cw,\
+             r10, r11, r12, r13, r14, \
            r20, r21, r22, r23, r24, r25, \
     r30, r31, r32, r33, r34, r35, r36, r37, \
       r40, r41, r42, r43, r44, r45, r46, r47, \
@@ -49,7 +49,7 @@
     {   l20,   l21,   l22,   l23,   l24,   l25,   l26 }, \
     {   l30,   l31,   l32,   l33,   l34,   l35,   l36 }, \
     {   l41,   l42,   l43,   l44,   l45,   l46,   l47 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   ccw,    cw }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     {   r50,   r40,   r31,   r20,   r10,   r00,   r30 }, \
     {   r51,   r41,   r32,   r21,   r11,   r01,    oc }, \
     {   r52,   r42,   r33,   r22,   r12,   r02,    fn }, \
@@ -74,8 +74,8 @@
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE  LT(_FN, KC_MUTE)
 #define DF_QWER  DF(_QWERTY)
-#define MIS_EIS  LT(_MISC,KC_LANG2)
-#define MIS_KAN  LT(_MISC,KC_LANG1)
+#define MIS_EIS  LT(_MISC,KC_LNG2)
+#define MIS_KAN  LT(_MISC,KC_LNG1)
 
 
 //  Overriding is_keyboard_left() in qmk_firmware/quantum/split_common/split_util.c to limit the handedness check only once.
@@ -83,6 +83,3 @@
 //          However, It enables to decide the handedness by the HW by adding one condition: "not to press any keys (especially r30) dusing startup."
 bool is_keyboard_left(void);
 
-void encoder_action_unregister(void);
-
-void encoder_action_register(uint8_t index, bool clockwise);

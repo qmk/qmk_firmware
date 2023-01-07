@@ -59,16 +59,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
     ),
 
-    [_MOUSE] = LAYOUT_5x6_right(
-        _______, _______, _______, _______, _______, _______,                        DRGSCRL, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD, SNP_TOG,
-        _______, _______, _______, _______, _______, _______,                        KC_WH_U, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, SNIPING,
-        _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
-                          _______, _______,                                                            _______, _______,
-                                            _______, _______,                                 KC_BTN3,
-                                                     _______, _______,               _______,
-                                                     _______, _______,      _______, _______
-    ),
     [_GAMEPAD] = LAYOUT_5x6_right(
         KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,                           _______, _______, _______, _______, _______, _______,
         KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,                           _______, _______, _______, _______, _______, _______,
@@ -99,6 +89,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_LSFT, _______,                     _______,
                                                KC_LCTL, KC_V,               _______, _______
     ),
+    [_MOUSE] = LAYOUT_5x6_right(
+        _______, _______, _______, _______, _______, _______,                        DRGSCRL, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD, SNP_TOG,
+        _______, _______, _______, _______, _______, _______,                        KC_WH_U, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, SNIPING,
+        _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
+                          _______, _______,                                                            _______, _______,
+                                            _______, _______,                                 KC_BTN3,
+                                                     _______, _______,               _______,
+                                                     _______, _______,      _______, _______
+    ),
     [_LOWER] = LAYOUT_5x6_right_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________,                        _________________FUNC_RIGHT________________, KC_F11,
         _______, _________________LOWER_L1__________________,                        _________________LOWER_R1__________________, _______,
@@ -120,25 +120,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,      _______, _______
     ),
     [_ADJUST] = LAYOUT_5x6_right_wrapper(
-        KC_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,                 KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, KC_RST,
-        VRSN,    _________________ADJUST_L1_________________,                        _________________ADJUST_R1_________________, EEP_RST,
+        QK_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,                 KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, QK_BOOT,
+        VRSN,    _________________ADJUST_L1_________________,                        _________________ADJUST_R1_________________, EE_CLR,
         KEYLOCK, _________________ADJUST_L2_________________,                        _________________ADJUST_R2_________________, TG_MODS,
-        UC_MOD,  _________________ADJUST_L3_________________,                        _________________ADJUST_R3_________________, KC_MPLY,
+        UC_NEXT, _________________ADJUST_L3_________________,                        _________________ADJUST_R3_________________, KC_MPLY,
                    TG(_DIABLOII), AUTO_CTN,                                                            TG_GAME, TG_DBLO,
-                                            _______, REBOOT,                                  KC_NUKE,
+                                            _______, QK_RBT,                                  KC_NUKE,
                                                      _______, _______,               _______,
                                                      _______, _______,      KC_NUKE, _______
     ),
 };
 
-#define BASE_ENCODERS { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } }
 
+#ifdef ENCODER_ENABLE
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_DEFAULT_LAYER_1] = BASE_ENCODERS,
-    [_DEFAULT_LAYER_2] = BASE_ENCODERS,
-    [_DEFAULT_LAYER_3] = BASE_ENCODERS,
-    [_DEFAULT_LAYER_4] = BASE_ENCODERS,
+    [_DEFAULT_LAYER_1] = { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } },
+    [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
+    [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
+    [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
     [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
     [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
     [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
@@ -186,17 +186,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
+#endif
 
 #ifdef OLED_ENABLE
-extern uint16_t typing_mode;
+#    include "keyrecords/unicode.h"
 
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
-void oled_render_large_display(void) {
-    if (is_keyboard_left()) {
-        render_wpm_graph(54, 64);
+void oled_render_large_display(bool side) {
+    if (side) {
+        render_wpm_graph(56, 64);
     } else {
         oled_advance_page(true);
         oled_advance_page(true);
@@ -210,36 +211,7 @@ void oled_render_large_display(void) {
         // clang-format on
         oled_write_P(logo, false);
 
-#    ifdef CUSTOM_UNICODE_ENABLE
-        oled_set_cursor(1, 14);
-        oled_write_ln_P(PSTR("Unicode:"), false);
-        switch (typing_mode) {
-            case KC_WIDE:
-                oled_write_P(PSTR("        Wide"), false);
-                break;
-            case KC_SCRIPT:
-                oled_write_P(PSTR("      Script"), false);
-                break;
-            case KC_BLOCKS:
-                oled_write_P(PSTR("      Blocks"), false);
-                break;
-            case KC_REGIONAL:
-                oled_write_P(PSTR("    Regional"), false);
-                break;
-            case KC_AUSSIE:
-                oled_write_P(PSTR("      Aussie"), false);
-                break;
-            case KC_ZALGO:
-                oled_write_P(PSTR("       Zalgo"), false);
-                break;
-            case KC_NOMODE:
-                oled_write_P(PSTR("      Normal"), false);
-                break;
-            default:
-                oled_write_P(PSTR("     Unknown"), false);
-                break;
-        }
-#    endif
+        render_unicode_mode(1, 14);
     }
 }
 #endif
