@@ -551,7 +551,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
-	rgblight_set_layer_state(0, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state,_QWERTY));
+	rgblight_set_layer_state(0, layer_state_cmp(state, _QWERTY));
 //	rgblight_set_layer_state(7, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state,_COLEMAKDH));
 
 	rgblight_set_layer_state(1, layer_state_cmp(state, _ALT));
