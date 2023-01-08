@@ -23,5 +23,3 @@ ISSI_ENABLE = yes            # If the I2C pullup resistors aren't installed this
 WATCHDOG_ENABLE = no         # Resets keyboard if matrix_scan() isn't run every 250ms
 
 SRC = TWIlib.c issi.c lighting.c
-
-LAYOUTS = numpad_6x4
