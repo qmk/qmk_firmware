@@ -8,6 +8,7 @@
     "pid": "0x4853",
     "device_version": "0.0.2"
   },
+  "community_layouts": ["60_iso"],
   "layouts": {
     "LAYOUT_60_iso": {
       "layout": [
