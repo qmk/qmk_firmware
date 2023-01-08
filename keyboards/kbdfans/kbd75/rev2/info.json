@@ -11,6 +11,7 @@
     "layout_aliases": {
         "LAYOUT_ansi_1u": "LAYOUT_75_ansi"
     },
+    "community_layouts": ["75_ansi", "75_iso"],
     "layouts": {
         "LAYOUT": {
             "layout": [

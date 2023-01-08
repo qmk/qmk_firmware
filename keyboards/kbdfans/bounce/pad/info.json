@@ -7,6 +7,7 @@
         "pid": "0x7002",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [
