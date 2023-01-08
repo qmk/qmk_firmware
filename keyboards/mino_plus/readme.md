@@ -2,7 +2,7 @@
 
 ![mino_plus](https://i.imgur.com/vZJ6kaNh.jpg)
 
-*A short description of the keyboard/project*
+A 65% keyboard, inspried by tetrominos.
 
 * Keyboard Maintainer: [ShandonCodes](https://github.com/ShandonCodes)
 * Hardware Supported: Mino Plus PCB
