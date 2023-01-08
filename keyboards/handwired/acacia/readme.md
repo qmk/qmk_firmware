@@ -7,15 +7,11 @@ A pseudo-split keyboard with 2+4x3+2 vertically staggered keys and 4+1 thumb key
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/acacia
+    make handwired/acacia:default
 
-or
+Flashing example for this keyboard:
 
-    qmk compile -kb handwired/acacia -km default
-
-To clean up:
-
-    qmk clean
+    make handwired/acacia:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 

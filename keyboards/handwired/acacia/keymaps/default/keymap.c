@@ -15,34 +15,21 @@
  */
 #include QMK_KEYBOARD_H
 
-//#define OSM_GUI OSM(MOD_LGUI)
 #define SPC_CTL LCTL_T(KC_SPC)
-//#define SPC_ALT LALT_T(KC_SPC)
-//#define SPC_GUI LGUI_T(KC_SPC)
 #define DEL_GUI LGUI_T(KC_DEL)
 #define DEL_CTL LCTL_T(KC_SPC)
 #define OSM_SFT OSM(MOD_LSFT)
 #define OSM_ALT OSM(MOD_LALT)
-//#define ESC_ALT LALT_T(KC_ESC)
 #define ESC_CTL LCTL_T(KC_ESC)
-//#define BS_ALT LALT_T(KC_BSPC)
-//#define BS_CTL LCTL_T(KC_BSPC)
 #define BS_GUI LGUI_T(KC_BSPC)
-//#define BS_NAV LT(_NAVI_FN, KC_BSPC)
 #define BS_SYM LT(_SYM_NUM, KC_BSPC)
-//#define DEL_SYM LT(_SYM_NUM, KC_DEL)
-//#define DEL_NAV LT(_NAVI_FN, KC_DEL)
 #define SPC_NAV LT(_NAVI_FN, KC_SPC)
 #define OSM_AGR OSM(MOD_RALT)
-//#define OSM_MEH OSM(MOD_MEH)
-//#define OSM_CG OSM(MOD_LCTL|MOD_LGUI)
 
 enum layer_names {
     _QWERTY,
     _NAVI_FN,
-    _SYM_NUM,
-    _MACRO,
-    NUMBER_OF_LAYERS
+    _SYM_NUM
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -63,11 +50,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_QUES, KC_SLSH, KC_LBRC, KC_LCBR, KC_LPRN, KC_PIPE,    KC_0,    KC_4,    KC_5,    KC_6,    KC_MINS, KC_EQL,
              KC_BSLS, KC_RBRC, KC_RCBR, KC_RPRN,                      KC_1,    KC_2,    KC_3,    KC_UNDS,
              KC_VOLD, _______, _______, _______, _______,    _______, _______, SPC_CTL, _______, KC_VOLU, _______
-  ),
-  [_MACRO] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______,                      _______, _______, _______, _______,
-             _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
   )
 };

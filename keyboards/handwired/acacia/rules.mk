@@ -1,14 +1,7 @@
-BOOTMAGIC_ENABLE = yes      # Eg. allow GUI/Ctl swap keys
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = yes        # Console for debug
-VIA_ENABLE = no             # GUI configuration
-COMMAND_ENABLE = yes        # Commands for debug and configuration
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # N-Key Rollover
-BACKLIGHT_ENABLE = no
-RGBLIGHT_ENABLE = no
-RGB_MATRIX_ENABLE = no
-AUDIO_ENABLE = no
-SPLIT_KEYBOARD = no
-OLED_ENABLE = no
 LTO_ENABLE = yes            # Link-time optimisation for smaller code
