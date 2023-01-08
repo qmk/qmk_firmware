@@ -1,6 +1,6 @@
 # mino_plus
 
-![mino_plus](https://i.imgur.com/vZJ6kaN.jpg)
+![mino_plus](https://i.imgur.com/vZJ6kaNh.jpg)
 
 *A short description of the keyboard/project*
 
