@@ -5,5 +5,6 @@
         "vid": "0xF7E0",
         "pid": "0x2408",
         "device_version": "0.0.7"
-    }
+    },
+    "community_layouts": ["ortho_4x16"],
 }

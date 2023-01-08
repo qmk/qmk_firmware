@@ -8,6 +8,7 @@
         "pid": "0x633A",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [
