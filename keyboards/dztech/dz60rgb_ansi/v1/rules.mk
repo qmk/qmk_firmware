@@ -5,8 +5,6 @@ BOARD = QMK_PROTON_C
 # Bootloader selection
 BOOTLOADER = stm32-dfu
 
-LAYOUTS = 60_ansi
-
 # Build Options
 #   change yes to no to disable
 #
