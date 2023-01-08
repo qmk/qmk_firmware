@@ -5,11 +5,7 @@
         "bonsai_c4": {},
         "elite_pi": {},
         "kb2040": {},
-        "promicro_rp2040": {
-            "aliases": [
-                "Frood"
-            ]
-        },
+        "promicro_rp2040": {},
         "proton_c": {
             "aliases": [
                 "bonsai_c3"
