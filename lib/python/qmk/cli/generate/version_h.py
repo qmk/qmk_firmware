@@ -6,7 +6,7 @@ from milc import cli
 
 from qmk.path import normpath
 from qmk.commands import dump_lines
-from qmk.git import git_get_commit_hash, git_is_dirty, git_get_version
+from qmk.git import git_get_commit_hash, git_get_version, git_is_dirty
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 TIME_FMT = '%Y-%m-%d-%H:%M:%S'
