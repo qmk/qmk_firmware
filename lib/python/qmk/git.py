@@ -141,6 +141,6 @@ def git_get_ignored_files(check_dir='.'):
 def git_get_commit_hash():
     output = cli.run(['git', 'rev-parse', '--short', 'HEAD'])
     if output.returncode != 0:
-        print("Unknown")
+        return "Unknown"
 
     return output.stdout.strip()
