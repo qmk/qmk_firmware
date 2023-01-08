@@ -115,7 +115,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_USAGE_PAGE(8, 0x01),            // Generic Desktop
     HID_RI_USAGE(8, 0x02),                 // Mouse
     HID_RI_COLLECTION(8, 0x01),            // Application
-#    if (defined(MOUSE_SHARED_EP) || defined(MOUSE_WHEEL_HIRES_ENABLE))
+#    if (defined(MOUSE_SHARED_EP) || defined(MOUSE_SCROLL_HIRES_ENABLE))
         HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #    endif
         HID_RI_USAGE(8, 0x01),             // Pointer
@@ -154,7 +154,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 
             // Vertical/Horizontal Wheel (2 or 4 bytes)
-#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
             HID_RI_COLLECTION(8, 0x02),                             // Logical collection
                 // Resolution Multiplier (2 bits)
                 HID_RI_REPORT_ID(8, REPORT_ID_MULTIPLIER),
@@ -164,17 +164,17 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_LOGICAL_MINIMUM(8, 0x00),
                 HID_RI_LOGICAL_MAXIMUM(8, 0x01),
                 HID_RI_PHYSICAL_MINIMUM(8, 0x01),                   // Min   1
-                HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_WHEEL_MULTIPLIER), // Max 120
+                HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER), // Max 120
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
                 HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
-#    endif // MOUSE_WHEEL_HIRES_ENABLE
+#    endif // MOUSE_SCROLL_HIRES_ENABLE
                 // Vertical wheel (1-2 bytes)
                 HID_RI_USAGE(8, 0x38), // Wheel (V)
-#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
                 HID_RI_PHYSICAL_MINIMUM(8, 0x00), // Reset Global Value
                 HID_RI_PHYSICAL_MAXIMUM(8, 0x00),
 #    endif
-#    ifdef MOUSE_WHEEL_EXTENDED_REPORT
+#    ifdef MOUSE_SCROLL_EXTENDED_REPORT
                 HID_RI_LOGICAL_MINIMUM(16, -32767),
                 HID_RI_LOGICAL_MAXIMUM(16, 32767),
                 HID_RI_REPORT_COUNT(8, 0x01),
@@ -186,11 +186,11 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_REPORT_SIZE(8, 0x08),
 #    endif
                 HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
-#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
             HID_RI_END_COLLECTION(0), // Logical
 #    endif
             // Horizontal Wheel (1 or 2 bytes)
-#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
             HID_RI_COLLECTION(8, 0x02),                               // Logical collection
                 // Resolution Multiplier (2 bits)
                 HID_RI_REPORT_ID(8, REPORT_ID_MULTIPLIER),
@@ -200,20 +200,20 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_LOGICAL_MINIMUM(8, 0x00),
                 HID_RI_LOGICAL_MAXIMUM(8, 0x01),
                 HID_RI_PHYSICAL_MINIMUM(8, 0x01),                     // Min   1
-                HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_WHEEL_MULTIPLIER),   // Max 120
+                HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER),   // Max 120
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
                 // Padding 4 bits
                 HID_RI_REPORT_SIZE(8, 0x04),
                 HID_RI_FEATURE(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE),
                 HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
-#    endif // MOUSE_WHEEL_HIRES_ENABLE
+#    endif // MOUSE_SCROLL_HIRES_ENABLE
                 HID_RI_USAGE_PAGE(8, 0x0C), // Consumer
                 HID_RI_USAGE(16, 0x0238),   // AC Pan (Horizontal Wheel)
-#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
                 HID_RI_PHYSICAL_MINIMUM(8, 0x00), // Reset Global Value
                 HID_RI_PHYSICAL_MAXIMUM(8, 0x00),
 #    endif
-#    ifdef MOUSE_WHEEL_EXTENDED_REPORT
+#    ifdef MOUSE_SCROLL_EXTENDED_REPORT
                 HID_RI_LOGICAL_MINIMUM(16, -32767),
                 HID_RI_LOGICAL_MAXIMUM(16, 32767),
                 HID_RI_REPORT_COUNT(8, 0x01),
@@ -225,7 +225,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_REPORT_SIZE(8, 0x08),
 #    endif
                 HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
-#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
             HID_RI_END_COLLECTION(0), // Logical
 #    endif
         HID_RI_END_COLLECTION(0),     // Physical

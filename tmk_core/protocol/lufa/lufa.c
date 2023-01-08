@@ -77,7 +77,7 @@ uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol     = 1;
 static uint8_t keyboard_led_state    = 0;
-#ifdef MOUSE_WHEEL_HIRES_ENABLE
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
 uint8_t        resolution_multiplier = 0;
 #endif
 
@@ -269,9 +269,6 @@ void EVENT_USB_Device_Connect(void) {
         USB_Init();
         USB_Device_EnableSOFEvents();
     }   
-#ifdef MOUSE_WHEEL_HIRES_ENABLE
-    resolution_multiplier = 0;
-#endif
 }
 
 /** \brief Event USB Device Connect
@@ -298,6 +295,9 @@ void EVENT_USB_Device_Disconnect(void) {
 void EVENT_USB_Device_Reset(void) {
     print("[R]");
     usb_device_state_set_reset();
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+    resolution_multiplier = 0;
+#endif
 }
 
 /** \brief Event USB Device Connect
@@ -462,7 +462,7 @@ void EVENT_USB_Device_ControlRequest(void) {
 #else
                     case MOUSE_INTERFACE:
 #endif
-#    ifdef MOUSE_WHEEL_HIRES_ENABLE
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
                         if (USB_ControlRequest.wValue == (0x0300 | REPORT_ID_MULTIPLIER)) {
                             ReportData = &resolution_multiplier;
                             ReportSize = sizeof(resolution_multiplier);
@@ -500,7 +500,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                             case REPORT_ID_NKRO:
                                 keyboard_led_state = Endpoint_Read_8();
                                 break;
-#ifdef MOUSE_WHEEL_HIRES_ENABLE
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
                             case REPORT_ID_MULTIPLIER:
                                 resolution_multiplier = Endpoint_Read_8();
                                 break;

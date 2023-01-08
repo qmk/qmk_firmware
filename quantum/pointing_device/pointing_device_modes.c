@@ -481,9 +481,9 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
 
         // drag scroll mode (sets mouse axes to mouse_report h & v with divisor)
         case PM_DRAG:
-#    ifdef MOUSE_WHEEL_HIRES_ENABLE
-            if (resolution_multiplier & 1 << 0) pointing_mode.y *= MAX(MOUSE_WHEEL_MULTIPLIER/pointing_mode.divisor, 1);
-            if (resolution_multiplier & 1 << 2) pointing_mode.x *= MAX(MOUSE_WHEEL_MULTIPLIER/pointing_mode.divisor, 1);
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
+            if (resolution_multiplier & 1 << 0) pointing_mode.y *= MAX(MOUSE_SCROLL_MULTIPLIER/pointing_mode.divisor, 1);
+            if (resolution_multiplier & 1 << 2) pointing_mode.x *= MAX(MOUSE_SCROLL_MULTIPLIER/pointing_mode.divisor, 1);
             if (resolution_multiplier) pointing_mode.divisor = 1;
 #    endif
             mouse_report.h = apply_divisor_hv(pointing_mode.x);

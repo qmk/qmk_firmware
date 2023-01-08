@@ -99,7 +99,7 @@ typedef int32_t clamp_xy_range_t;
 typedef int16_t clamp_xy_range_t;
 #endif
 
-#ifdef MOUSE_WHEEL_EXTENDED_REPORT
+#ifdef MOUSE_SCROLL_EXTENDED_REPORT
 #    define HV_REPORT_MIN INT16_MIN
 #    define HV_REPORT_MAX INT16_MAX
 typedef int32_t clamp_hv_range_t;
