@@ -1,6 +1,7 @@
 {
     "url": "https://github.com/pierrechevalier83/ferris/",
     "maintainer": "@pierrec83",
+    "community_layouts": ["split_3x5_2"],
     "layouts": {
         "LAYOUT_split_3x5_2": {
             "layout": [
