@@ -8,6 +8,7 @@
     "pid": "0x6464",
     "device_version": "0.0.1"
   },
+  "community_layouts": ["ortho_5x15"],
   "layouts": {
     "LAYOUT_ortho_5x15": {
       "layout": [
