@@ -18,5 +18,3 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no    # Enable keyboard underlight functionality
 LEADER_ENABLE = yes
-
-LAYOUTS += 60_ansi 60_ansi_split_bs_rshift 60_iso 60_hhkb
