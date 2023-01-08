@@ -22,5 +22,3 @@ NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged
 RGB_MATRIX_SUPPORTED = yes
 RGBLIGHT_SUPPORTED   = no
 BACKLIGHT_SUPPORTED  = no
-
-LAYOUTS = 65_ansi

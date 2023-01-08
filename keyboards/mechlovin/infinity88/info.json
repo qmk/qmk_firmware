@@ -8,6 +8,7 @@
         "pid": "0x8802",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
