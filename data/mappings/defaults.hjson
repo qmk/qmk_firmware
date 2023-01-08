@@ -38,8 +38,7 @@
         "michi": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_PM2040",
-            "pin_compatible": "promicro"
+            "board": "QMK_PM2040"
         },
         "bit_c_pro": {
             "processor": "RP2040",
