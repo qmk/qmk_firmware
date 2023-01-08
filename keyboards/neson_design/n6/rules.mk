@@ -17,4 +17,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes		# Enable keyboard RGB underglow
 
 QUANTUM_LIB_SRC += i2c_master.c drivers/led/issi/is31fl3731.c
-LAYOUTS = 65_ansi_blocker 65_ansi_blocker_split_bs
