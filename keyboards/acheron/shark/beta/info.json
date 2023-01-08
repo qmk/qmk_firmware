@@ -3,5 +3,6 @@
     "usb": {
         "pid": "0x5369",
         "device_version": "0.0.2"
-    }
+    },
+    "community_layouts": ["ortho_4x12"]
 }
