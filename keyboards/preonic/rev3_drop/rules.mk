@@ -26,5 +26,3 @@ RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 
 SRC += matrix.c
-
-LAYOUTS = ortho_5x12
