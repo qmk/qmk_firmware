@@ -6,7 +6,7 @@ from milc import cli
 
 from qmk.path import normpath
 from qmk.commands import dump_lines
-from qmk.git import git_get_version
+from qmk.git import git_get_commit_hash, git_is_dirty, git_get_version
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 TIME_FMT = '%Y-%m-%d-%H:%M:%S'
@@ -29,10 +29,14 @@ def generate_version_h(cli):
         current_time = strftime(TIME_FMT)
 
     if cli.args.skip_git:
+        git_dirty = ""  # so that it evaluates as False
+        git_commit = "NA"
         git_version = "NA"
         chibios_version = "NA"
         chibios_contrib_version = "NA"
     else:
+        git_dirty = git_is_dirty()
+        git_commit = git_get_commit_hash()
         git_version = git_get_version() or current_time
         chibios_version = git_get_version("chibios", "os") or current_time
         chibios_contrib_version = git_get_version("chibios-contrib", "os") or current_time
@@ -45,6 +49,7 @@ def generate_version_h(cli):
 #define QMK_BUILDDATE "{current_time}"
 #define CHIBIOS_VERSION "{chibios_version}"
 #define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"
+#define GIT_COMMIT "{git_commit}{'*' if git_dirty else ''}"
 """)
 
     # Show the results
