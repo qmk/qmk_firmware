@@ -7,8 +7,6 @@
 #define SPLIT_USB_DETECT
 
 // #define RGB_LAYER_ENABLE
-#undef USE_I2C
-#undef SSD1306OLED
 
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
@@ -54,7 +52,7 @@
 #    define RGB_MATRIX_SAT_STEP 64
 #    define RGB_MATRIX_VAL_STEP 64
 #    define RGB_MATRIX_SPD_STEP 20
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 
 /* Disable the animations you don't want/need.  You will need to disable a good number of these    *
  * because they take up a lot of space.  Disable until you can successfully compile your firmware. */

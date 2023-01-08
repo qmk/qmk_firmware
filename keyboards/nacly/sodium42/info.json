@@ -1,7 +1,13 @@
 {
     "keyboard_name": "sodium42",
+    "manufacturer": "nacly",
     "url": "https://nacly.net",
     "maintainer": "nacly",
+    "usb": {
+        "vid": "0xBEEF",
+        "pid": "0xFED0",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

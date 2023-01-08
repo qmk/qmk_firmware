@@ -1,7 +1,7 @@
 {
-  "keyboard_name": "Bloomer",
-  "url": "https://github.com/cozykeys/bloomer",
-  "maintainer": "pcewing",
+  "usb": {
+    "device_version": "0.0.3"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

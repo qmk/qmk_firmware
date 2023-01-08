@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,  KC_LGUI,  KC_LALT,               SP_LO,                   SP_RA,                KC_LALT,  KC_RGUI,  KC_RCTL
 	),
 	[_LOWER] = LAYOUT_reviung53(
-                        KC_GESC,  KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_PAUS,  KC_SLCK,  KC_PSCR,  _______,
+                        QK_GESC,  KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_PAUS,  KC_SCRL,  KC_PSCR,  _______,
     _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  _______,
     _______,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XXXXXXX,  KC_QUOT,
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_HOME,  KC_END,   KC_PGUP,  KC_PGDN,            KC_SLSH,

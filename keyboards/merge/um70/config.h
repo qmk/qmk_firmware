@@ -16,18 +16,11 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4D65
-#define PRODUCT_ID      0x3222
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Merge
-#define PRODUCT         UM-70
-
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
 
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B7 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, D6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -42,7 +35,7 @@
 #define RGBLED_NUM 83
 #define RGBLED_SPLIT { 39, 44 }
 #ifdef RGB_MATRIX_ENABLE
-#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #endif
 #define RGBLIGHT_SLEEP

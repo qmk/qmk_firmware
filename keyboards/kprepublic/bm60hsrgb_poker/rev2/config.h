@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50
-#define PRODUCT_ID      0x1122
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KP Republic
-#define PRODUCT         BM60V2_poker
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -40,7 +33,6 @@
  */
 #define MATRIX_ROW_PINS { E6, D2, D3, D5, F6 }
 #define MATRIX_COL_PINS { B2, B3, B7, B0, B1, F7, D4, D6, D7, B4, B5, B6, C6, C7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -66,7 +58,6 @@
 #define RGBLIGHT_SAT_STEP   8
 #define RGBLIGHT_VAL_STEP   8
 
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
@@ -141,7 +132,7 @@
 #    define WS2812_LED_TOTAL RGBLED_NUM
 #endif
 
-#define DRIVER_LED_TOTAL (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES

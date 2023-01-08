@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "atmega32U4 board for IBM Model M",
+    "keyboard_name": "IBM Model M 101/102",
+    "manufacturer": "mschwingen",
     "url": "",
     "maintainer": "mschwingen",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x558E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

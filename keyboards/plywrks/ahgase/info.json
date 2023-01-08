@@ -1,9 +1,23 @@
 {
     "keyboard_name": "Ahgase",
+    "manufacturer": "plywrks",
     "url": "",
     "maintainer": "Ramon Imbao (ramonimbao)",
+    "usb": {
+        "vid": "0x706C",
+        "pid": "0x7902",
+        "device_version": "0.0.1"
+    },
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi",
+        "LAYOUT_iso": "LAYOUT_tkl_f13_iso"
+    },
+    "community_layouts": [
+        "tkl_f13_ansi",
+        "tkl_f13_iso"
+    ],
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},
@@ -100,7 +114,7 @@
                 {"x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_tkl_f13_iso": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},

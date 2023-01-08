@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "kbdpad_mk2", 
+    "keyboard_name": "KBDPAD-MKII", 
+    "manufacturer": "KBDfans",
     "url": "https://kb.ai03.me/projects/kbdpad-mkii.html", 
     "maintainer": "ai03", 
+    "usb": {
+    	"vid": "0xA103",
+    	"pid": "0x0006",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

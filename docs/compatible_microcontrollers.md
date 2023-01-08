@@ -62,8 +62,16 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [MK20DX128](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-50-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-based-on-arm-cortex-m4-core:K20_50)
  * [MK20DX256](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-72-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-mcus-based-on-arm-cortex-m4-core:K20_72)
    * PJRC Teensy 3.2
+ * [MK64FX512](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k6x-ethernet/kinetis-k64-120-mhz-256-kb-sram-microcontrollers-mcus-based-on-arm-cortex-m4-core:K64_120)
+   * PJRC Teensy 3.5
  * [MK66FX1M0](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k6x-ethernet/kinetis-k66-180-mhz-dual-high-speed-full-speed-usbs-2mb-flash-microcontrollers-mcus-based-on-arm-cortex-m4-core:K66_180)
    * PJRC Teensy 3.6
+
+### Raspberry Pi
+
+* [RP2040](https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html)
+
+For a detailed overview about the RP2040 support by QMK see the [dedicated RP2040 page](platformdev_rp2040.md).
 
 ## Atmel ATSAM
 

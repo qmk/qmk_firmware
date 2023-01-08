@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Runes Skjöldr",
+    "keyboard_name": "Skjöldr",
+    "manufacturer": "Runes",
     "url": "https://www.runes.id",
     "maintainer": "vicktorhu",
+    "usb": {
+        "vid": "0x726E",
+        "pid": "0x736B",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_ansi_arrow"
     },

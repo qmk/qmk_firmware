@@ -77,7 +77,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_UP,KC_PGDN,KC_PSCR,_______,_______,KC_DEL,  \
         _______,_______,KC_BTN2,_______,_______,_______,KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_INS,_______,_______,     \
         _______,KC_APP,KC_BTN1,KC_CALC,_______,_______,KC_END,_______,_______,_______,_______,_______,KC_NO,         \
-        _______,_______,_______,               _______,         C(A(KC_DEL)),KC_NLCK,_______,_______   \
+        _______,_______,_______,               _______,         C(A(KC_DEL)),KC_NUM,_______,_______   \
     ),
 
     /* media */
@@ -239,7 +239,7 @@ void matrix_scan_user(void) {
     //Turn on layer indicator or page depending on mode
     switch(led_mode_global) {
       case MODE_FLASH: //flash preset page leds then single indicator
-        page = biton32(layer_state) > max_pages ? 7 : biton32(layer_state);
+        page = get_highest_layer(layer_state) > max_pages ? 7 : get_highest_layer(layer_state);
         msg=(page << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
         chThdSleepMilliseconds(500);
@@ -254,7 +254,7 @@ void matrix_scan_user(void) {
         break;
 
       case MODE_PAGE: //display pre-defined led page
-        page = biton32(layer_state) > max_pages ? 7 : biton32(layer_state);
+        page = get_highest_layer(layer_state) > max_pages ? 7 : get_highest_layer(layer_state);
         msg=(page << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
         break;

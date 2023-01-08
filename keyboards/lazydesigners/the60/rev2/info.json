@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "THE60rev2",
+    "keyboard_name": "THE60 rev2",
+    "manufacturer": "LAZYDESIGNERS",
     "url": "http://lazydesigners.cn",
     "maintainer": "LAZYDESIGNERS",
+    "usb": {
+        "vid": "0x4C44",
+        "pid": "0x0062",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

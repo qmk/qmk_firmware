@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4150 //AP for AcheronProject
-#define PRODUCT_ID 0x454D // EL+1 for Elongate revision Delta
-#define DEVICE_VER 0x0002
-#define MANUFACTURER Acheron Project
-#define PRODUCT Elongate
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 

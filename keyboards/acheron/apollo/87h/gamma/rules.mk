@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F411
+BOARD = GENERIC_STM32_F411XE
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
@@ -19,7 +20,6 @@ AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3741
 KEYBOARD_SHARED_EP = yes
-EEPROM_DRIVER = i2c
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE -DDEBUG_EEPROM_OUTPUT=TRUE

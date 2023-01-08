@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Big Series 4-Key",
+    "keyboard_name": "BigSeries 4-Key",
+    "manufacturer": "WoodKeys.click",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6074",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,12 @@
 {
   "keyboard_name": "8-Pack",
+  "manufacturer": "Charles Garcia",
   "url": "https://github.com/cgarcia2097/8-Pack",
   "maintainer": "Charles Garcia",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x2171"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

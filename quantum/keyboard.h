@@ -71,9 +71,15 @@ static inline bool IS_RELEASED(keyevent_t event) {
 
 /* Common keyevent object factory */
 #define MAKE_KEYPOS(row_num, col_num) ((keypos_t){.row = (row_num), .col = (col_num)})
+
+/**
+ * @brief Constructs a key event for a pressed or released key.
+ */
 #define MAKE_KEYEVENT(row_num, col_num, press) ((keyevent_t){.key = MAKE_KEYPOS((row_num), (col_num)), .pressed = (press), .time = (timer_read() | 1)})
 
-/* Tick event */
+/**
+ * @brief Constructs a internal tick event that is used to drive the internal QMK state machine.
+ */
 #define TICK_EVENT MAKE_KEYEVENT(KEYLOC_TICK, KEYLOC_TICK, false)
 
 #ifdef ENCODER_MAP_ENABLE

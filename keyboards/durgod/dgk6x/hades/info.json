@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "DURGOD Hades",
+  "keyboard_name": "DURGOD Hades (QMK)",
+  "manufacturer": "Hoksi Technology",
   "url": "https://www.amazon.com/gp/product/B08562392T",
   "maintainer": "J-Sully",
+  "usb": {
+      "vid": "0xD60D",
+      "pid": "0x4AD3",
+      "device_version": "0.0.1"
+  },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

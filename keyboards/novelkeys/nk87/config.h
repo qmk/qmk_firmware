@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x4E4C
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         NK87
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -119,7 +112,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 128
+#define RGB_MATRIX_LED_COUNT 128
 
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for
@@ -141,6 +134,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 32
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE

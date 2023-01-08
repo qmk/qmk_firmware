@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Phase One",
+    "manufacturer": "KBDFans",
     "url": "",
     "maintainer": "moyi4681",
+    "usb": {
+        "vid": "0x4B42",
+        "pid": "0x0103",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_65_ansi_wkl": "LAYOUT_65_ansi_blocker_tsangan_wkl"
     },

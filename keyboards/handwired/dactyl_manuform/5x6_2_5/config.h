@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define PRODUCT_ID 0x3536
-#define DEVICE_VER 0x0003
-#define PRODUCT    Dactyl-Manuform (5x6+2)
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6

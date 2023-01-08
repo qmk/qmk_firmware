@@ -1,7 +1,12 @@
 {
     "keyboard_name": "YD60MQ",
+    "manufacturer": "YMDK",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x604D"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "reviung34",
+    "manufacturer": "gtips",
     "url": "",
     "maintainer": "gtips",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x4E03",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_reviung34": {
             "layout": [

@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN1] = LAYOUT(
         _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_CALC,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,
-        _______, _______, RGB_VAI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______,                   KC_HOME,
+        _______, _______, RGB_VAI, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______, _______,                   KC_HOME,
         KC_CAPS, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_END,
-        _______, RESET,   RGB_NITE,RGB_HUI, _______, _______, _______, KC_NLCK, _______, RGB_TOD, RGB_TOI, _______,          _______, RGB_MOD, _______,
+        _______, QK_BOOT, RGB_NITE,RGB_HUI, _______, _______, _______, KC_NUM,  _______, RGB_TOD, RGB_TOI, _______,          _______, RGB_MOD, _______,
         _______, KC_WINLCK, _______,                            _______,                          _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
@@ -102,13 +102,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 break;
             }
         }
-        return true;
+        //return true; //set to return false to counteract enabled encoder in pro.c
+        return false;
     }
 #endif // ENCODER_ENABLE && !ENCODER_DEFAULTACTIONS_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
-    void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         if (get_rgb_nightmode()) rgb_matrix_set_color_all(RGB_OFF);
         if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
             rgb_matrix_set_color(LED_L1, RGB_GREEN);
@@ -177,6 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         default:
             break;
         }
+    return false;
     }
 #endif
 

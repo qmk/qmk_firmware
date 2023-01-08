@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x4658
-#define DEVICE_VER   0x0002
-#define MANUFACTURER weteor
-#define PRODUCT      3w6
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 10
@@ -44,11 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS_L { B0, B1, B2, B4}
 #define MATRIX_COL_PINS_L { B3, E6, F7, B6, B5 }
-#define UNUSED_PINS_L { B7, C6, C7, D2, D3, D4, D5, D6, D7, F0, F1, F4, F5, F6 }
 
 #define MATRIX_ROW_PINS_R { P10, P11, P12, P05 }
 #define MATRIX_COL_PINS_R { P06, P13, P14, P01, P00 }
-#define UNUSED_PINS_R { P02, P03, P04, P07, P15, P16, P17 }
 
 
 /* COL2ROW, ROW2COL */

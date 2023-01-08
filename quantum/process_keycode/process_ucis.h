@@ -16,8 +16,10 @@
 
 #pragma once
 
-#include "quantum.h"
-#include "process_unicode_common.h"
+#include <stdbool.h>
+#include <stdint.h>
+
+#include "action.h"
 
 #ifndef UCIS_MAX_SYMBOL_LENGTH
 #    define UCIS_MAX_SYMBOL_LENGTH 32

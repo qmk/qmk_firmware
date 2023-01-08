@@ -35,18 +35,15 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Change larger keys per scan for elite gaming */
-#define QMK_KEYS_PER_SCAN 12
-
 /* Use the custom font */
 #define OLED_FONT_H "lib/glcdfont.c"
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define RGB_DI_PIN E2
-    #define DRIVER_LED_TOTAL 100
+    #define RGB_MATRIX_LED_COUNT 100
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
 
     /* RGB Matrix effect */
