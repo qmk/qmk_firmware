@@ -29,7 +29,7 @@ def generate_version_h(cli):
         current_time = strftime(TIME_FMT)
 
     if cli.args.skip_git:
-        git_dirty = ""  # so that it evaluates as False
+        git_dirty = False
         git_commit = "NA"
         git_version = "NA"
         chibios_version = "NA"
