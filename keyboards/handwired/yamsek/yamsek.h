@@ -4,9 +4,6 @@
 
 #include "quantum.h"
 
-#ifdef RGBLIGHT_ENABLE
-#    include "rgblight.h"
-#endif
 
 #include <gpio.h>
 // defined in the used mainboard/MCU
