@@ -9,3 +9,7 @@ BOARDINC += $(BOARD_PATH)/board
 # Shared variables
 ALLCSRC += $(BOARDSRC)
 ALLINC  += $(BOARDINC)
+
+# Fix for newer gcc's (12+?) with ChibiOS-Contrib having clock init warnings-turned-errors
+CFLAGS += -Wno-error=misleading-indentation
+CXXFLAGS += -Wno-error=misleading-indentation
