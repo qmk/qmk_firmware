@@ -28,7 +28,3 @@ UNICODE_ENABLE = yes        # Enable Unicode Characters/Strings
 # Custom RGB matrix handling
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = custom
-
-#Custom RGB
-RGB_MATRIX_CUSTOM_USER = yes
-
