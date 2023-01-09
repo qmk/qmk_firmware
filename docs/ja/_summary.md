@@ -4,21 +4,24 @@
   * [初めてのファームウェアの構築](ja/newbs_building_firmware.md)
   * [ファームウェアのフラッシュ](ja/newbs_flashing.md)
   * [手助けを得る/サポート](ja/support.md)
+  * [Building With GitHub Userspace](ja/newbs_building_firmware_workflow.md)
   * [他のリソース](ja/newbs_learn_more_resources.md)
   * [シラバス](ja/syllabus.md)
 
 * FAQ
   * [一般的な FAQ](ja/faq_general.md)
   * [QMK のビルド/コンパイル](ja/faq_build.md)
-  * [QMK のデバッグ](ja/faq_debug.md)
   * [QMK のトラブルシューティング](ja/faq_misc.md)
+  * [QMK のデバッグ](ja/faq_debug.md)
   * [キーマップ FAQ](ja/faq_keymap.md)
+  * [Squeezing Space from AVR](ja/squeezing_avr.md)
   * [用語](ja/reference_glossary.md)
 
 * Configurator
   * [概要](ja/newbs_building_firmware_configurator.md)
   * [ステップ・バイ・ステップ](ja/configurator_step_by_step.md)
   * [トラブルシューティング](ja/configurator_troubleshooting.md)
+  * [Architecture](ja/configurator_architecture.md)
   * QMK API
     * [概要](ja/api_overview.md)
     * [API ドキュメント](ja/api_docs.md)
@@ -50,9 +53,6 @@
       * [フォーク](ja/newbs_git_using_your_master_branch.md)
       * [マージの競合の解決](ja/newbs_git_resolving_merge_conflicts.md)
       * [ブランチの修正](ja/newbs_git_resynchronize_a_branch.md)
-    * キーボードを作る
-      * [Hand Wiring ガイド](ja/hand_wire.md)
-      * [ISP 書き込みガイド](ja/isp_flashing_guide.md)
 
   * 単純なキーコード
     * [完全なリスト](ja/keycodes.md)
@@ -60,6 +60,7 @@
     * [言語固有のキーコード](ja/reference_keymap_extras.md)
     * [修飾キー](ja/feature_advanced_keycodes.md)
     * [Quantum キーコード](ja/quantum_keycodes.md)
+    * [Magic キーコード](ja/keycodes_magic.md)
 
   * 高度なキーコード
     * [コマンド](ja/feature_command.md)
@@ -69,18 +70,24 @@
     * [モッドタップ](ja/mod_tap.md)
     * [マクロ](ja/feature_macros.md)
     * [マウスキー](ja/feature_mouse_keys.md)
+    * [Programmable Button](ja/feature_programmable_button.md)
     * [Space Cadet Shift](ja/feature_space_cadet.md)
     * [US ANSI シフトキー](ja/keycodes_us_ansi_shifted.md)
 
   * ソフトウェア機能
     * [自動シフト](ja/feature_auto_shift.md)
+    * [Autocorrect](ja/feature_autocorrect.md)
+    * [Caps Word](ja/feature_caps_word.md)
     * [コンボ](ja/feature_combo.md)
     * [デバウンス API](ja/feature_debounce_type.md)
+    * [EEPROM](ja/feature_eeprom.md)
     * [キーロック](ja/feature_key_lock.md)
+    * [Key Overrides](ja/feature_key_overrides.md)
     * [レイヤー](ja/feature_layers.md)
     * [ワンショットキー](ja/one_shot_keys.md)
-    * [ポインティング デバイス](ja/feature_pointing_device.md)
     * [ロー HID](ja/feature_rawhid.md)
+    * [Secure](ja/feature_secure.md)
+    * [Send String](ja/feature_send_string.md)
     * [シーケンサー](ja/feature_sequencer.md)
     * [スワップハンド](ja/feature_swap_hands.md)
     * [タップダンス](ja/feature_tap_dance.md)
@@ -91,7 +98,9 @@
 
   * ハードウェア機能
     * 表示
+      * [Quantum Painter](ja/quantum_painter.md)
       * [HD44780 LCD コントローラ](ja/feature_hd44780.md)
+      * [ST7565 LCD Driver](ja/feature_st7565.md)
       * [OLED ドライバ](ja/feature_oled_driver.md)
     * 電飾
       * [バックライト](ja/feature_backlight.md)
@@ -101,18 +110,26 @@
     * [オーディオ](ja/feature_audio.md)
     * [Bluetooth](ja/feature_bluetooth.md)
     * [ブートマジック](ja/feature_bootmagic.md)
+    * [Converters](ja/feature_converters.md)
     * [カスタムマトリックス](ja/custom_matrix.md)
+    * [Digitizer](ja/feature_digitizer.md)
     * [DIP スイッチ](ja/feature_dip_switch.md)
     * [エンコーダ](ja/feature_encoders.md)
     * [触覚フィードバック](ja/feature_haptic_feedback.md)
     * [ジョイスティック](ja/feature_joystick.md)
     * [LED インジケータ](ja/feature_led_indicators.md)
-    * [Proton C 変換](ja/proton_c_conversion.md)
+    * [MIDI](ja/feature_midi.md)
+    * [ポインティング デバイス](ja/feature_pointing_device.md)
     * [PS/2 マウス](ja/feature_ps2_mouse.md)
     * [分割キーボード](ja/feature_split_keyboard.md)
     * [速記](ja/feature_stenography.md)
-    * [感熱式プリンタ](ja/feature_thermal_printer.md)
     * [Velocikey](ja/feature_velocikey.md)
+
+  * キーボードを作る
+    * [Easy Maker for One Offs](ja/easy_maker.md)
+    * [Porting Keyboards](ja/porting_your_keyboard_to_qmk.md)
+    * [Hand Wiring ガイド](ja/hand_wire.md)
+    * [ISP 書き込みガイド](ja/isp_flashing_guide.md)
 
 * QMK の開発
   * [PR チェックリスト](ja/pr_checklist.md)
@@ -124,7 +141,6 @@
 
   * C 開発
     * [ARM デバッグ ガイド](ja/arm_debugging.md)
-    * [AVR プロセッサ](ja/hardware_avr.md)
     * [コーディング規約](ja/coding_conventions_c.md)
     * [互換性のあるマイクロコントローラ](ja/compatible_microcontrollers.md)
     * [ドライバ](ja/hardware_drivers.md)
@@ -134,6 +150,7 @@
       * [SPI ドライバ](ja/spi_driver.md)
       * [WS2812 ドライバ](ja/ws2812_driver.md)
       * [EEPROM ドライバ](ja/eeprom_driver.md)
+      * [Flash ドライバ](ja/flash_driver.md)
       * [シリアル ドライバ](ja/serial_driver.md)
       * [UART ドライバ](ja/uart_driver.md)
     * [GPIO 制御](ja/gpio_control.md)
@@ -152,6 +169,9 @@
     * Arm/ChibiOS
       * [MCU の選択](ja/platformdev_selecting_arm_mcu.md)
       * [早期初期化](ja/platformdev_chibios_earlyinit.md)
+      * [Raspberry Pi RP2040](ja/platformdev_rp2040.md)
+      * [Proton C](ja/platformdev_proton_c.md)
+      * [WeAct Blackpill F4x1](ja/platformdev_blackpill_f4x1.md)
 
   * QMK Reference
     * [QMK への貢献](ja/contributing.md)

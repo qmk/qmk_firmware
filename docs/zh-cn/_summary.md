@@ -5,6 +5,7 @@
   * [构建第一个固件](zh-cn/newbs_building_firmware.md)
   * [刷写固件](zh-cn/newbs_flashing.md)
   * [寻求帮助](zh-cn/support.md)
+  * [Building With GitHub Userspace](zh-cn/newbs_building_firmware_workflow.md)
   * [其它资源](zh-cn/newbs_learn_more_resources.md)
   * [QMK大纲](zh-cn/syllabus.md)
 
@@ -38,7 +39,6 @@
   * 导览
     * [功能定制](zh-cn/custom_quantum_functions.md)
     * [利用Zadig安装驱动](zh-cn/driver_installation_zadig.md)
-    * [极简式制作](zh-cn/easy_maker.md)
     * [键映射总览](zh-cn/keymap.md)
     * 开发环境
       * [Docker指南](zh-cn/getting_started_docker.md)
@@ -54,9 +54,6 @@
       * [你自己的副本](zh-cn/newbs_git_using_your_master_branch.md)
       * [冲突合并](zh-cn/newbs_git_resolving_merge_conflicts.md)
       * [基于你的分支修复](zh-cn/newbs_git_resynchronize_a_branch.md)
-    * 键盘组装
-      * [飞线指南](zh-cn/hand_wire.md)
-      * [ISP刷写指南](zh-cn/isp_flashing_guide.md)
 
   * 键码入门
     * [键码汇总](zh-cn/keycodes.md)
@@ -74,19 +71,24 @@
     * [Mod-Tap](zh-cn/mod_tap.md)
     * [宏](zh-cn/feature_macros.md)
     * [鼠标键](zh-cn/feature_mouse_keys.md)
+    * [Programmable Button](zh-cn/feature_programmable_button.md)
     * [Space Cadet Shift](zh-cn/feature_space_cadet.md)
     * [US ANSI上档键值](zh-cn/keycodes_us_ansi_shifted.md)
 
   * 软件特性
     * [自动Shift](zh-cn/feature_auto_shift.md)
+    * [Autocorrect](zh-cn/feature_autocorrect.md)
+    * [Caps Word](zh-cn/feature_caps_word.md)
     * [组合键](zh-cn/feature_combo.md)
     * [防抖API](zh-cn/feature_debounce_type.md)
+    * [EEPROM](zh-cn/feature_eeprom.md)
     * [按键锁定](zh-cn/feature_key_lock.md)
     * [按键重定义](zh-cn/feature_key_overrides.md)
     * [层](zh-cn/feature_layers.md)
     * [粘滞键](zh-cn/one_shot_keys.md)
-    * [光标设备](zh-cn/feature_pointing_device.md)
     * [原生HID](zh-cn/feature_rawhid.md)
+    * [Secure](zh-cn/feature_secure.md)
+    * [Send String](zh-cn/feature_send_string.md)
     * [Sequencer](zh-cn/feature_sequencer.md)
     * [换手](zh-cn/feature_swap_hands.md)
     * [一键多用](zh-cn/feature_tap_dance.md)
@@ -97,6 +99,7 @@
 
   * 硬件特性
     * 显示
+      * [Quantum Painter](zh-cn/quantum_painter.md)
       * [HD44780 LCD控制器](zh-cn/feature_hd44780.md)
       * [ST7565 LCD驱动](zh-cn/feature_st7565.md)
       * [OLED驱动](zh-cn/feature_oled_driver.md)
@@ -108,6 +111,7 @@
     * [音频](zh-cn/feature_audio.md)
     * [蓝牙](zh-cn/feature_bluetooth.md)
     * [Bootmagic Lite](zh-cn/feature_bootmagic.md)
+    * [Converters](zh-cn/feature_converters.md)
     * [自定义矩阵](zh-cn/custom_matrix.md)
     * [Digitizer](zh-cn/feature_digitizer.md)
     * [拨动开关（DIP Switch）](zh-cn/feature_dip_switch.md)
@@ -116,12 +120,17 @@
     * [摇杆](zh-cn/feature_joystick.md)
     * [LED指示](zh-cn/feature_led_indicators.md)
     * [MIDI](zh-cn/feature_midi.md)
-    * [Proton C转换](zh-cn/proton_c_conversion.md)
+    * [光标设备](zh-cn/feature_pointing_device.md)
     * [PS/2鼠标](zh-cn/feature_ps2_mouse.md)
     * [分体式键盘](zh-cn/feature_split_keyboard.md)
     * [速记](zh-cn/feature_stenography.md)
-    * [热敏打印机](zh-cn/feature_thermal_printer.md)
     * [Velocikey](zh-cn/feature_velocikey.md)
+
+  * 键盘组装
+    * [极简式制作](zh-cn/easy_maker.md)
+    * [Porting Keyboards](zh-cn/porting_your_keyboard_to_qmk.md)
+    * [飞线指南](zh-cn/hand_wire.md)
+    * [ISP刷写指南](zh-cn/isp_flashing_guide.md)
 
 * QMK开发
   * [PR Checklist](zh-cn/pr_checklist.md)
@@ -133,7 +142,6 @@
 
   * C语言开发
     * [ARM调试指引](zh-cn/arm_debugging.md)
-    * [AVR处理器](zh-cn/hardware_avr.md)
     * [C编码规范](zh-cn/coding_conventions_c.md)
     * [兼容的微处理器](zh-cn/compatible_microcontrollers.md)
     * [驱动](zh-cn/hardware_drivers.md)
@@ -143,6 +151,7 @@
       * [SPI驱动](zh-cn/spi_driver.md)
       * [WS2812驱动](zh-cn/ws2812_driver.md)
       * [EEPROM驱动](zh-cn/eeprom_driver.md)
+      * [Flash驱动](zh-cn/flash_driver.md)
       * [串口驱动](zh-cn/serial_driver.md)
       * [UART驱动](zh-cn/uart_driver.md)
     * [操控GPIO](zh-cn/gpio_control.md)
@@ -161,6 +170,9 @@
     * Arm/ChibiOS
       * [选择MCU](zh-cn/platformdev_selecting_arm_mcu.md)
       * [启动引导](zh-cn/platformdev_chibios_earlyinit.md)
+      * [Raspberry Pi RP2040](zh-cn/platformdev_rp2040.md)
+      * [Proton C](zh-cn/platformdev_proton_c.md)
+      * [WeAct Blackpill F4x1](zh-cn/platformdev_blackpill_f4x1.md)
 
   * QMK参考信息
     * [参与到QMK](zh-cn/contributing.md)
@@ -188,5 +200,5 @@
     * [Midi辅助功能](zh-cn/internals/midi_util.md)
     * [发送函数](zh-cn/internals/send_functions.md)
     * [Sysex工具](zh-cn/internals/sysex_tools.md)
-    
+
 <!--fromen:20211014-12:00(GMT+8) commit 04cf161aa01fd433b5dae69d9fd31569ed5dca59-->
