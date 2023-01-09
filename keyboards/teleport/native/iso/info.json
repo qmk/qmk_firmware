@@ -2,6 +2,7 @@
     "usb": {
         "pid": "0x0002"
     },
+    "community_layouts": ["75_iso"],
     "layouts": {
         "LAYOUT_75_iso": {
             "layout": [
