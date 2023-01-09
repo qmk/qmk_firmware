@@ -2,7 +2,7 @@
 
 Inspired by Redox from Mattia Dal Ben
 
-**Neodox** project. More information and building instruction [here](todo).
+**Neodox** project.
 
 - Keyboard Maintainer: [MatteoDM](todo)  
 - Hardware Supported: rp2040 ,ws2812b, GC9A01, [handwire 3D printed case](https://www.thingiverse.com/thing:5625196)
