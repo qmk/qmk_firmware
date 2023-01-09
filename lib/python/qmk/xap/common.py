@@ -104,9 +104,6 @@ def _find_km_spec(kb, km):
     keymap_spec = keymap_dir / XAP_SPEC
     userspace_spec = USERSPACE_DIR / username / XAP_SPEC
 
-    print(keymap_spec.exists())
-    print(userspace_spec.exists())
-
     # In the case of both userspace and keymap - keymap wins
     return keymap_spec if keymap_spec.exists() else userspace_spec
 
