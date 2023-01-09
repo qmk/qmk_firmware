@@ -56,6 +56,9 @@
             ]
         }
     },
+    "community_layouts": [
+        "split_3x5_2"
+    ],
     "diode_direction": "ROW2COL",
     "matrix_pins": {
         "rows": ["F6", "F5", "F7", "B1"],
