@@ -88,15 +88,16 @@ def _check_dfu_programmer_version():
 def check_binaries():
     """Iterates through ESSENTIAL_BINARIES and tests them.
     """
-    ok = True
+    ok = CheckStatus.OK
 
     for binary in sorted(ESSENTIAL_BINARIES):
         try:
             if not is_executable(binary):
-                ok = False
+                ok = CheckStatus.ERROR
         except TimeoutExpired:
-            # Something funky happening... ignore as we want to avoid running toolchain install
             cli.log.debug('Timeout checking %s', binary)
+            if ok != CheckStatus.ERROR:
+                ok = CheckStatus.WARNING
 
     return ok
 
