@@ -65,9 +65,6 @@
 #undef DEBOUNCE
 #define DEBOUNCE 5
 
-/* Set USB polling rate to 1000 Hz */
-#define USB_POLLING_INTERVAL_MS 1
-
 /* sets the number of milliseconds to pause after sending a wakeup packet.
 *  Disabled by default, you might want to set this to 200 (or higher) if the
 *  keyboard does not wake up properly after suspending.
