@@ -145,7 +145,7 @@ void keyboard_post_init_user(void) {
 
 enum via_indicator_value {
     id_wl_brightness = 1,
-    id_wl_layer,
+    id_wl_layer, // placeholder
 };
 
 void wl_config_set_value(uint8_t *data) {
@@ -158,9 +158,9 @@ void wl_config_set_value(uint8_t *data) {
             work_louder_config.led_level = (bool)*value_data;
             layer_state_set_kb(layer_state);
             break;
-        case id_wl_layer:
-            layer_move(*value_data);
-            break;
+        // case id_wl_layer:
+        //     layer_move(*value_data);
+        //     break;
     }
 }
 
@@ -173,9 +173,9 @@ void wl_config_get_value(uint8_t *data) {
         case id_wl_brightness:
             *value_data = work_louder_config.led_level;
             break;
-        case id_wl_layer:
-            *value_data = get_highest_layer(layer_state);
-            break;
+        // case id_wl_layer:
+        //     *value_data = get_highest_layer(layer_state);
+        //     break;
     }
 }
 

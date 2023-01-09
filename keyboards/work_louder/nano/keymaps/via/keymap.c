@@ -53,7 +53,7 @@ work_louder_config_t work_louder_config;
 
 enum via_indicator_value {
     id_wl_brightness = 1,
-    id_wl_layer,
+    id_wl_layer, // placeholder
 };
 
 void wl_config_set_value(uint8_t *data) {
@@ -64,9 +64,9 @@ void wl_config_set_value(uint8_t *data) {
     switch (*value_id) {
         case id_wl_brightness:
             break;
-        case id_wl_layer:
-            layer_move(*value_data);
-            break;
+        // case id_wl_layer:
+        //     layer_move(*value_data);
+        //     break;
     }
 }
 
@@ -79,9 +79,9 @@ void wl_config_get_value(uint8_t *data) {
         case id_wl_brightness:
             *value_data = 1;
             break;
-        case id_wl_layer:
-            *value_data = get_highest_layer(layer_state);
-            break;
+        // case id_wl_layer:
+        //     *value_data = get_highest_layer(layer_state);
+        //     break;
     }
 }
 

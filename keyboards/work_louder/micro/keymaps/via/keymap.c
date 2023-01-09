@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (work_louder_config.led_level > 4) {
                     work_louder_config.led_level = 1;
                 }
-                work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+                work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 100 / 4));
                 eeconfig_update_user(work_louder_config.raw);
                 layer_state_set_kb(layer_state);
             }
@@ -83,7 +83,7 @@ void eeconfig_init_user(void) {
 
 void keyboard_post_init_user(void) {
     work_louder_config.raw = eeconfig_read_user();
-    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 100 / 4));
 }
 
 void suspend_wakeup_init_user(void) {
@@ -93,7 +93,7 @@ void suspend_wakeup_init_user(void) {
 
 enum via_indicator_value {
     id_wl_brightness = 1,
-    id_wl_layer,
+    id_wl_layer, // placeholder
 };
 
 void wl_config_set_value(uint8_t *data) {
@@ -104,12 +104,12 @@ void wl_config_set_value(uint8_t *data) {
     switch (*value_id) {
         case id_wl_brightness:
             work_louder_config.led_level = (uint8_t)*value_data;
-            work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+            work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 100 / 4));
             layer_state_set_kb(layer_state);
             break;
-        case id_wl_layer:
-            layer_move(*value_data);
-            break;
+        // case id_wl_layer:
+        //     layer_move(*value_data);
+        //     break;
     }
 }
 
@@ -122,9 +122,9 @@ void wl_config_get_value(uint8_t *data) {
         case id_wl_brightness:
             *value_data = work_louder_config.led_level;
             break;
-        case id_wl_layer:
-            *value_data = get_highest_layer(layer_state);
-            break;
+        // case id_wl_layer:
+        //     *value_data = get_highest_layer(layer_state);
+        //     break;
     }
 }
 
