@@ -98,6 +98,15 @@
         { "flags": 1, "matrix": [4,13], "x":220, "y":64 }
     ]
   },
+  "community_layouts": [
+    "60_ansi",
+    "60_ansi_split_bs_rshift",
+    "60_ansi_tsangan",
+    "60_tsangan_hhkb",
+    "60_iso",
+    "60_iso_split_bs_rshift",
+    "60_iso_tsangan"
+  ],
   "layouts": {
     "LAYOUT_all": {
         "layout": [
