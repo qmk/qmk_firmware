@@ -138,7 +138,7 @@ def git_get_ignored_files(check_dir='.'):
     return invalid.stdout.strip().splitlines()
 
 
-def git_get_commit_hash():
+def git_get_qmk_hash():
     output = cli.run(['git', 'rev-parse', '--short', 'HEAD'])
     if output.returncode != 0:
         return "Unknown"
