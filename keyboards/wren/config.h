@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Walter Hanley
-#define PRODUCT      wren
-
 /* key matrix size */
 // Rows are doubled-up (Bottom set of rows are used for the right half)
 #define MATRIX_ROWS 10
@@ -43,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D3, D2, C6, D4, B5 }
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4, D7, F0 }
-#define UNUSED_PINS
 
 // define encoders
 #define ENCODERS_PAD_A \

@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        | RGB VD | BL TG  | RGB VI |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | FN     | RGB TG |        | MS W L | MS W R |        | RESET  |        | MS 1   | MS 2   | RGB RMD| RGB MD | FN     |        |
+ * |        | FN     | RGB TG |        | MS W L | MS W R |        | QK_BOOT  |        | MS 1   | MS 2   | RGB RMD| RGB MD | FN     |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_WH_U, _______, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, RGB_SAD, _______, RGB_SAI, KC_LBRC, KC_RBRC, KC_UP  , _______ , KC_EQL , KC_BSLS,
   KC_WH_D, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, RGB_VAD, _______, RGB_VAI, KC_MINS, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
   _______, _______, _______, _______, _______, _______, RGB_RMOD,A_BL_TG, RGB_MOD, _______, _______, _______, _______ , _______, _______,
-  _______, TT(_FN), RGB_TOG, _______, KC_WH_L, KC_WH_R, TT(_FN), RESET  , TT(_FN), KC_BTN1, KC_BTN2, _______, _______ , TT(_FN), _______
+  _______, TT(_FN), RGB_TOG, _______, KC_WH_L, KC_WH_R, TT(_FN), QK_BOOT, TT(_FN), KC_BTN1, KC_BTN2, _______, _______ , TT(_FN), _______
  )
 };
 

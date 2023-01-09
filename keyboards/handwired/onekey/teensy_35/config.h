@@ -19,12 +19,6 @@
 // TODO: including this causes "error: expected identifier before '(' token" errors
 //#include "config_common.h"
 
-#define PRODUCT Onekey Teensy 3.5
-
-#define MATRIX_COL_PINS { D5 } // 20/A6
-#define MATRIX_ROW_PINS { B2 } // 19/A5
-#define UNUSED_PINS
-
 // i2c_master defines
 #define I2C1_SCL_PIN B0 // 16/A2 on pinout
 #define I2C1_SDA_PIN B1 // 17/A3 on pinout

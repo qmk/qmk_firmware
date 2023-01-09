@@ -79,14 +79,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_RAISE] = LAYOUT_split_3x6_3_wrapper( \
+  [_RAISE] = LAYOUT_split_3x6_3_wrapper(
     _______, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
     _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, KC_BSLS,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_ADJUST] = LAYOUT_split_3x6_3_wrapper( \
+  [_ADJUST] = LAYOUT_split_3x6_3_wrapper(
     QK_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, QK_BOOT,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EE_CLR,
     KEYLOCK, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,
@@ -238,8 +238,7 @@ void render_small_kitty(void) {
 void oled_driver_render_logo_right(void) {
     render_small_kitty();
 
-    oled_set_cursor(0, 4);
-    render_default_layer_state();
+    render_default_layer_state(0, 4);
 }
 #    endif
 #endif

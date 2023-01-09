@@ -1,16 +1,6 @@
 #pragma once
 
-#include "zen.h"
-
 #include "quantum.h"
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-#endif
-#endif
 
 #define LAYOUT( \
     k00, k01, k02, k03, k04, k05,               k55, k54, k53, k52, k51, k50, \

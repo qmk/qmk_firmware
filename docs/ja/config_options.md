@@ -162,8 +162,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリングコンボ (zx) をすることができるようにします
   * 詳細は [Ignore Mod Tap Interrupt](ja/tap_hold.md#ignore-mod-tap-interrupt) を見てください
-* `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
-  * キーごとの `IGNORE_MOD_TAP_INTERRUPT` 設定の処理を有効にします
 * `#define TAPPING_FORCE_HOLD`
   * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
   * [Tapping Force Hold](ja/tap_hold.md#tapping-force-hold)を見てください
@@ -181,8 +179,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * ワンショットがタイムアウトするまでの時間
 * `#define ONESHOT_TAP_TOGGLE 2`
   * ワンショットトグルが引き起こされるまでのタップ数
-* `#define QMK_KEYS_PER_SCAN 4`
-  * 走査ごとに1つ以上のキーを送信できるようにします。デフォルトでは、走査ごとに `process_record()` 経由で1つのキーイベントのみが送信されます。これはほとんどのタイピングにほとんど影響しませんが、多くのコードを入力しているか、走査レートが最初から遅い場合、キーイベントの処理に多少の遅延が生じる可能性があります。それぞれのプレスとリリースは別のイベントです。スキャン時間が 1ms 程度のキーボードの場合、とても高速なタイピストでさえ、実際にキーボードから数 ms 以上の遅延を発生させるのに必要な 500 キーストロークを1秒間に生成することはないでしょう。しかし、3～4ms の走査時間でコードを入力している場合はどうでしょうか？おそらくこれが必要です。
 * `#define COMBO_COUNT 2`
   * [コンボ](ja/feature_combo.md)機能で使っているコンボの数にこれを設定します。
 * `#define COMBO_TERM 200`

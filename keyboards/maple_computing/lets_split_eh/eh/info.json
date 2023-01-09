@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Let's Split",
+    "keyboard_name": "Lets Split Eh?",
+    "manufacturer": "That-Canadian",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xE401",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

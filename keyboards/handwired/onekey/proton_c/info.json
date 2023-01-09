@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "Onekey Proton-C",
+    "development_board": "proton_c",
+    "matrix_pins": {
+        "cols": ["A2"],
+        "rows": ["A1"]
+    },
+    "backlight": {
+        "pin": "B8"
+    },
+    "rgblight": {
+        "pin": "A0"
+    }
+}

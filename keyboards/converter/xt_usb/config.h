@@ -19,21 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x6512
-#define DEVICE_VER   0x0001
-#define MANUFACTURER QMK
-#define PRODUCT      XT keyboard converter
-
 /* key matrix size */
 #define MATRIX_ROWS 16  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) || \
-    get_mods() == (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RSHIFT)) \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) || \
+    get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RSFT)) \
 )
 
 #define XT_CLOCK_PIN D1

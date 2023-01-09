@@ -9,7 +9,7 @@
         KC_ESC,  K01, K02, K03, K04, K05,      K06, K07, K08, K09, K0A, KC_MINS, \
         MT_TAB,  K11, K12, K13, K14, K15,      K16, K17, K18, K19, K1A, KC_QUOT, \
         OS_LSFT, K21, K22, K23, K24, K25,      K26, K27, K28, K29, K2A, OS_RSFT, \
-                KC_LEAD,OS_LALT, SP_LWER,      ET_RAIS, KC_BSPC, KC_RGUI         \
+                QK_LEAD,OS_LALT, SP_LWER,      ET_RAIS, KC_BSPC, KC_RGUI         \
     )
 #define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
 
@@ -60,16 +60,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______,       _______, _______, _______
     ),
 
-    [_RAISE] = LAYOUT_wrapper( \
+    [_RAISE] = LAYOUT_wrapper(
         _______, _________________RAISE_L1__________________,       _________________RAISE_R1__________________, _______,
         _______, _________________RAISE_L2__________________,       _________________RAISE_R2__________________, KC_BSLS,
         _______, _________________RAISE_L3__________________,       _________________RAISE_R3__________________, _______,
                                    _______, _______, _______,       _______, _______, _______
     ),
 
-    [_ADJUST] = LAYOUT_wrapper( \
+    [_ADJUST] = LAYOUT_wrapper(
         KC_MAKE, _________________ADJUST_L1_________________,       _________________ADJUST_R1_________________, KC_RST,
-        VRSN,    _________________ADJUST_L2_________________,       _________________ADJUST_R2_________________, EEP_RST,
+        VRSN,    _________________ADJUST_L2_________________,       _________________ADJUST_R2_________________, EE_CLR,
         MG_NKRO, _________________ADJUST_L3_________________,       _________________ADJUST_R3_________________, RGB_IDL,
                                    _______, _______, _______,       _______, TG_MODS, _______
     )

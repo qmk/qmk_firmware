@@ -41,7 +41,7 @@
 
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default
-#define UNUSED_PINS \
+#define UNUSABLE_PINS \
     { B4, D6, F1, F5, F6, F7 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

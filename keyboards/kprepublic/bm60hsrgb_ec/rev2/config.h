@@ -36,7 +36,6 @@
  */
 #define MATRIX_ROW_PINS { E6, D2, D3, D5, F6 }
 #define MATRIX_COL_PINS { B2, B3, B7, B0, B1, F7, D4, D6, D7, B4, B5, B6, C6, C7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -63,12 +62,11 @@
 #define RGBLIGHT_SAT_STEP   8
 #define RGBLIGHT_VAL_STEP   8
 
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 63
-#    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#    define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled

@@ -35,4 +35,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 * **Bootmagic reset**: Hold down the top right key on the right side, or the top left key on the left side while plugging in.
 * **Physical reset button**: Briefly press the "USER" button on the BlackPill
-* **Keycode in layout**: Press the key mapped to `RESET`.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`.

@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D4, B6, B5, B4, F7, F6, D7 }
 #define MATRIX_COL_PINS { B1, B2, B3, B7, D0, D1, D2, D3, D5, E6, F0, F1, F4, F5, D6 }
-// #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -57,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B0
 
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL  98
+#define RGB_MATRIX_LED_COUNT  98
 //#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 98
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses

@@ -153,11 +153,11 @@ Example:
 make crkbd:default:avrdude-split-left
 ```
 
-?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md). Controllers using emulated EEPROM will always require handedness parameter when flashing the firmware.
+?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EE_CLR` keycode or [Bootmagic Lite](feature_bootmagic.md). Controllers using emulated EEPROM will always require handedness parameter when flashing the firmware.
 
 ?> [QMK Toolbox]() can also be used to flash EEPROM handedness files. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
-This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
+This setting is not changed when re-initializing the EEPROM using the `EE_CLR` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
 You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common).
 
@@ -285,6 +285,12 @@ This enables transmitting the current ST7565 on/off status to the slave side of 
 This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
 
 !> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
+
+```c
+#define SPLIT_HAPTIC_ENABLE
+```
+
+This enables triggering of haptic feedback on the slave side of the split keyboard. For DRV2605L this will send the mode, but for solenoids it is expected that the desired mode is already set up on the slave.
 
 ### Custom data sync between sides :id=custom-data-sync
 
@@ -421,6 +427,17 @@ This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_
 #define SPLIT_USB_TIMEOUT_POLL 10
 ```
 This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+```c
+#define SPLIT_WATCHDOG_ENABLE
+```
+
+This will enable a software watchdog on any side delegated as slave and will reboot the keyboard if no successful communication occurs within `SPLIT_WATCHDOG_TIMEOUT`. This can be particularly helpful when `SPLIT_USB_DETECT` delegates both sides as slave in some circumstances.
+
+```c
+#define SPLIT_WATCHDOG_TIMEOUT 3000
+```
+This set the maximum slave timeout when waiting for communication from master when using `SPLIT_WATCHDOG_ENABLE`
 
 ## Hardware Considerations and Mods
 

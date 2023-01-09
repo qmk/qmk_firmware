@@ -92,10 +92,9 @@ TEST_F(TapDance, DoubleTapWithMod) {
     key_shift.release();
     key_esc_caps.press();
     EXPECT_REPORT(driver, (KC_LSFT, KC_CAPS));
+    EXPECT_REPORT(driver, (KC_CAPS));
     run_one_scan_loop();
     key_esc_caps.release();
-    EXPECT_REPORT(driver, (KC_LSFT));
-    run_one_scan_loop();
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
 }

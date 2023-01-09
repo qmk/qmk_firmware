@@ -105,7 +105,6 @@ void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
 void clear_keyboard_but_mods_and_keys(void);
 void layer_switch(uint8_t new_layer);
-bool is_tap_key(keypos_t key);
 bool is_tap_record(keyrecord_t *record);
 bool is_tap_action(action_t action);
 
@@ -113,7 +112,19 @@ bool is_tap_action(action_t action);
 void process_record_tap_hint(keyrecord_t *record);
 #endif
 
-/* debug */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Helpers
+
+#ifdef ACTION_DEBUG
+#    include "debug.h"
+#    include "print.h"
+#    define ac_dprintf(...) dprintf(__VA_ARGS__)
+#else
+#    define ac_dprintf(...) \
+        do {                \
+        } while (0)
+#endif
+
 void debug_event(keyevent_t event);
 void debug_record(keyrecord_t record);
 void debug_action(action_t action);

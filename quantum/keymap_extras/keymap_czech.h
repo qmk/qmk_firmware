@@ -1,39 +1,33 @@
-/* Copyright 2020
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
 #include "keymap.h"
-
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ; │ + │ ě │ š │ č │ ř │ ž │ ý │ á │ í │ é │ = │ ´ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ ú │ ) │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ů │ § │ ¨ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ \ │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define CZ_SCLN KC_GRV  // ;
 #define CZ_PLUS KC_1    // +
 #define CZ_ECAR KC_2    // ě
@@ -47,7 +41,6 @@
 #define CZ_EACU KC_0    // é
 #define CZ_EQL  KC_MINS // =
 #define CZ_ACUT KC_EQL  // ´ (dead)
-// Row 2
 #define CZ_Q    KC_Q    // Q
 #define CZ_W    KC_W    // W
 #define CZ_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define CZ_P    KC_P    // P
 #define CZ_UACU KC_LBRC // ú
 #define CZ_RPRN KC_RBRC // )
-// Row 3
 #define CZ_A    KC_A    // A
 #define CZ_S    KC_S    // S
 #define CZ_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define CZ_URNG KC_SCLN // ů
 #define CZ_SECT KC_QUOT // §
 #define CZ_DIAE KC_NUHS // ¨ (dead)
-// Row 4
 #define CZ_BSLS KC_NUBS // (backslash)
 #define CZ_Y    KC_Z    // Y
 #define CZ_X    KC_X    // X
@@ -85,21 +76,6 @@
 #define CZ_COMM KC_COMM // ,
 #define CZ_DOT  KC_DOT  // .
 #define CZ_MINS KC_SLSH // -
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ° │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ % │ ˇ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │ / │ ( │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │ " │ ! │ ' │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ | │   │   │   │   │   │   │   │ ? │ : │ _ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define CZ_RNGA S(CZ_SCLN) // ° (dead)
 #define CZ_1    S(CZ_PLUS) // 1
 #define CZ_2    S(CZ_ECAR) // 2
@@ -111,35 +87,17 @@
 #define CZ_8    S(CZ_AACU) // 8
 #define CZ_9    S(CZ_IACU) // 9
 #define CZ_0    S(CZ_EACU) // 0
-#define CZ_PERC S(CZ_PLUS) // %
+#define CZ_PERC S(CZ_EQL)  // %
 #define CZ_CARN S(CZ_ACUT) // ˇ (dead)
-// Row 2
 #define CZ_SLSH S(CZ_UACU) // /
 #define CZ_LPRN S(CZ_RPRN) // (
-// Row 3
 #define CZ_DQUO S(CZ_URNG) // "
 #define CZ_EXLM S(CZ_SECT) // !
 #define CZ_QUOT S(CZ_DIAE) // '
-// Row 4
 #define CZ_PIPE S(CZ_BSLS) // |
 #define CZ_QUES S(CZ_COMM) // ?
 #define CZ_COLN S(CZ_DOT)  // :
 #define CZ_UNDS S(CZ_MINS) // _
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │ ~ │   │ ^ │ ˘ │   │ ˛ │ ` │ ˙ │   │ ˝ │   │ ¸ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │ € │   │   │   │   │   │   │   │ ÷ │ × │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │ đ │ Đ │ [ │ ] │   │   │ ł │ Ł │ $ │ ß │ ¤ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │ # │ & │ @ │ { │ } │   │ < │ > │ * │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define CZ_TILD ALGR(CZ_PLUS) // ~
 #define CZ_CIRC ALGR(CZ_SCAR) // ^ (dead)
 #define CZ_BREV ALGR(CZ_CCAR) // ˘ (dead)
@@ -148,11 +106,9 @@
 #define CZ_DOTA ALGR(CZ_AACU) // ˙ (dead)
 #define CZ_DACU ALGR(CZ_EACU) // ˝ (dead)
 #define CZ_CEDL ALGR(CZ_ACUT) // ¸ (dead)
-// Row 2
 #define CZ_EURO ALGR(CZ_E)    // €
 #define CZ_DIV  ALGR(CZ_UACU) // ÷
 #define CZ_MUL  ALGR(CZ_RPRN) // ×
-// Row 3
 #define CZ_LDST ALGR(CZ_S)    // đ
 #define CZ_CDST ALGR(CZ_D)    // Đ
 #define CZ_LBRC ALGR(CZ_F)    // [
@@ -162,7 +118,6 @@
 #define CZ_DLR  ALGR(CZ_URNG) // $
 #define CZ_SS   ALGR(CZ_SECT) // ß
 #define CZ_CURR ALGR(CZ_DIAE) // ¤
-// Row 4
 #define CZ_HASH ALGR(CZ_X)    // #
 #define CZ_AMPR ALGR(CZ_C)    // &
 #define CZ_AT   ALGR(CZ_V)    // @
@@ -171,3 +126,4 @@
 #define CZ_LABK ALGR(CZ_COMM) // <
 #define CZ_RABK ALGR(CZ_DOT)  // >
 #define CZ_ASTR ALGR(CZ_MINS) // *
+

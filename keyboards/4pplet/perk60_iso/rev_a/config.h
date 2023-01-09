@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4444
-#define PRODUCT_ID      0x0009
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    4pplet
-#define PRODUCT         Perk60 ISO Rev A
-
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
 
@@ -40,12 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 62
+#define RGB_MATRIX_LED_COUNT 62
 #define ISSI_PWM_FREQUENCY 0b010
 
-#define STM32_HSECLK 8000000
-
-#define RGB_MATRIX_STARTUP_VAL 80
+#define RGB_MATRIX_DEFAULT_VAL 80
 #define RGB_MATRIX_KEYPRESSES
 
 // RGB Matrix Animation modes. Explicitly enabled
