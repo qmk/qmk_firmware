@@ -78,10 +78,13 @@ def check_udev_rules():
 
         # Collect all rules from the config files
         for rule_file in udev_rules:
-            for line in rule_file.read_text(encoding='utf-8').split('\n'):
-                line = line.strip()
-                if not line.startswith("#") and len(line):
-                    current_rules.add(line)
+            try:
+                for line in rule_file.read_text(encoding='utf-8').split('\n'):
+                    line = line.strip()
+                    if not line.startswith("#") and len(line):
+                        current_rules.add(line)
+            except PermissionError:
+                cli.log.debug("Failed to read: %s", rule_file)
 
         # Check if the desired rules are among the currently present rules
         for bootloader, rules in desired_rules.items():
