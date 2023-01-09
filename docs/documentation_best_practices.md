@@ -61,4 +61,4 @@ This page describes my cool feature. You can use my cool feature to make coffee 
 |KC_SUGAR||Order Sugar|
 ```
 
-Place your documentation into `docs/feature_<my_cool_feature>.md`, and add that file to the appropriate place in `docs/_summary.md`. If you have added any keycodes be sure to add them to `docs/keycodes.md` with a link back to your feature page.
+Place your documentation into `docs/feature_<my_cool_feature>.md`. Link that file in the appropriate place in `docs/_summary.md`. Correspondingly link the file in the translated documentation menus `docs/ja/_summary.md` and `docs/zh-cn/_summary.md` as well. If you have added any keycodes be sure to add them to `docs/keycodes.md` with a link back to your feature page.
