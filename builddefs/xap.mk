@@ -20,6 +20,9 @@ endif
 ifneq ("$(wildcard $(KEYMAP_PATH)/xap.hjson)","")
 	XAP_FILES += $(KEYMAP_PATH)/xap.hjson
 endif
+ifneq ("$(wildcard $(USER_NAME)/xap.hjson)","")
+	XAP_FILES += $(USER_NAME)/xap.hjson
+endif
 
 $(KEYMAP_OUTPUT)/src/config_blob_gz.h: $(INFO_JSON_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)

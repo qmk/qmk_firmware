@@ -11,11 +11,13 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 import qmk.constants
 from qmk.git import git_get_version
 from qmk.json_schema import json_load, validate, merge_ordered_dicts
+from qmk.makefile import parse_rules_mk_file
 from qmk.decorators import lru_cache
 from qmk.keymap import locate_keymap
 from qmk.path import keyboard
 from qmk.xap.jinja2_filters import attach_filters
 
+USERSPACE_DIR = Path('users')
 XAP_SPEC = 'xap.hjson'
 
 
@@ -91,7 +93,22 @@ def _find_kb_spec(kb):
 
 
 def _find_km_spec(kb, km):
-    return locate_keymap(kb, km).parent / XAP_SPEC
+    keymap_dir = locate_keymap(kb, km).parent
+    if not keymap_dir.exists():
+        return None
+
+    # Resolve any potential USER_NAME overrides - default back to keymap name
+    keymap_rules_mk = parse_rules_mk_file(keymap_dir / 'rules.mk')
+    username = keymap_rules_mk.get('USER_NAME', km)
+
+    keymap_spec = keymap_dir / XAP_SPEC
+    userspace_spec = USERSPACE_DIR / username / XAP_SPEC
+
+    print(keymap_spec.exists())
+    print(userspace_spec.exists())
+
+    # In the case of both userspace and keymap - keymap wins
+    return keymap_spec if keymap_spec.exists() else userspace_spec
 
 
 def get_xap_definition_files():
