@@ -654,7 +654,7 @@ void td_rbrs_reset(tap_dance_state_t *state, void *user_data){
     td_state_rbrs = TD_NONE;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [_BOOT_TAP]  = ACTION_TAP_DANCE_FN(bootloader),
     [_TD_L_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_l_layers_finished, td_l_layers_reset),
     [_TD_R_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_r_layers_finished, td_r_layers_reset),
