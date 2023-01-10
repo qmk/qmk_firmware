@@ -18,3 +18,5 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
 LAYOUTS = 60_ansi
+
+PIN_COMPATIBLE = promicro
