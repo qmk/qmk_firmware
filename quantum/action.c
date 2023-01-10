@@ -519,7 +519,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     }
                     break;
             }
-#endif
+#endif     // NO_ACTION_TAPPING
         } break;
 #ifdef EXTRAKEY_ENABLE
         /* other HID usage */
@@ -694,10 +694,10 @@ void process_action(keyrecord_t *record, action_t action) {
                     }
 #    else
                     if (event.pressed) {
-                        dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
+                        ac_dprintf("KEYMAP_TAP_KEY: Tap: register_code\n");
                         register_code(action.layer_tap.code);
                     } else {
-                        dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
+                        ac_dprintf("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                         if (action.layer_tap.code == KC_CAPS) {
                             wait_ms(TAP_HOLD_CAPS_DELAY);
                         } else {
