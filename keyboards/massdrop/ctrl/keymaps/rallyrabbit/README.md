@@ -19,6 +19,13 @@ Additionally this changes much of the RGB setup.
 * Added Deep River (unchangeable blue with green saturation that moves)
 * Added Deep River Reverse (unchangeable green with blue saturation that moves)
 
+## To Use
+
+Follow the QMK directions isntalling QMK MSYS.
+* Download the QMK firmware (this repository)
+* Copy config.h and rules.mk to the keyboards/massdrop/ctrl directory
+* Build with "qmk compile -kb massdrop/ctrl -km rallyrabbit"
+
 ## Layers
 
 ### Typing Layer
