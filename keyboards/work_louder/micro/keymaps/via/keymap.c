@@ -78,6 +78,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void eeconfig_init_user(void) {
     work_louder_config.raw = 0;
     work_louder_config.led_level = 1;
+    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 100 / 4));
     eeconfig_update_user(work_louder_config.raw);
 }
 
