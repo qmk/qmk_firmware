@@ -20,5 +20,3 @@ ENCODER_ENABLE = no			# Enable Encoder
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
-
-LAYOUTS = tkl_f13_ansi tkl_f13_ansi_tsangan tkl_f13_iso tkl_f13_iso_tsangan

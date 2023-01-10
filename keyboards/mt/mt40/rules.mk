@@ -18,5 +18,4 @@ AUDIO_ENABLE = no      # Audio output
 RGBLIGHT_ENABLE = yes  # Enable WS2812 RGB underlight. 
 WS2812_DRIVER = i2c
 
-LAYOUTS = planck_mit
 LAYOUTS_HAS_RGB = no

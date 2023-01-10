@@ -20,5 +20,3 @@ LTO_ENABLE = yes            # Use link time optimization
 
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
-
-LAYOUTS = ortho_5x15

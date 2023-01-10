@@ -18,5 +18,3 @@ AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = yes
 SRC += matrix.c
-
-LAYOUTS = fullsize_ansi

@@ -8,6 +8,7 @@
         "pid": "0x0001",
         "device_version": "0.0.2"
     },
+    "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

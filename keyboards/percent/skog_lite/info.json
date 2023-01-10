@@ -8,6 +8,7 @@
         "pid": "0x422D",
         "device_version": "2.0.0"
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

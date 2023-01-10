@@ -19,5 +19,3 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 AUDIO_ENABLE = no           # Audio output
 
 LTO_ENABLE = yes
-
-LAYOUTS = 60_ansi 60_iso

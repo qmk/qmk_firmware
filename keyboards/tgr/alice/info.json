@@ -8,6 +8,7 @@
     "pid": "0x422E",
     "device_version": "2.0.0"
   },
+  "community_layouts": ["alice_split_bs"],
   "layouts": {
     "LAYOUT_alice_split_bs": {
       "layout": [

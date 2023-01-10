@@ -17,5 +17,3 @@ BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no            # Audio output
 BACKLIGHT_DRIVER = software
-
-LAYOUTS = 60_ansi

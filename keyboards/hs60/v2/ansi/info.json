@@ -8,6 +8,7 @@
     "pid": "0x4854",
     "device_version": "0.0.2"
   },
+  "community_layouts": ["60_ansi"],
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

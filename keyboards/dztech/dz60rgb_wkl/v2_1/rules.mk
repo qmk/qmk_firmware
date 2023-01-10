@@ -20,5 +20,3 @@ AUDIO_ENABLE = no              # Audio output
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3733
 LTO_ENABLE = yes
-
-LAYOUTS = 60_tsangan_hhkb

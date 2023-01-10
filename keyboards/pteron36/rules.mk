@@ -19,5 +19,3 @@ AUDIO_ENABLE = no           # Audio output
 OLED_ENABLE = yes           # OLED display
 ENCODER_ENABLE = yes        # Encoder support
 SPLIT_KEYBOARD = yes        # Split enable
-
-LAYOUTS = split_3x5_3

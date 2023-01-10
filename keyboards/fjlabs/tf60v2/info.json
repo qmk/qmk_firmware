@@ -8,6 +8,7 @@
         "pid": "0x1005",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [

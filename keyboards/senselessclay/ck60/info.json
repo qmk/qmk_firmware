@@ -11,6 +11,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_iso"
     },
+    "community_layouts": ["60_iso"],
     "layouts": {
         "LAYOUT_60_iso": {
             "layout": [

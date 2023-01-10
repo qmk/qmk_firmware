@@ -16,6 +16,3 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 LEADER_ENABLE = yes         # Turn on leader support
-
-# Layouts supported by this PCB:
-LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift 60_hhkb

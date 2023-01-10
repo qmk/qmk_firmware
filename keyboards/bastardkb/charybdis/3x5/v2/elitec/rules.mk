@@ -26,7 +26,6 @@ RGB_MATRIX_DRIVER = WS2812
 # Charybdis nano is a split 3x5 keyboard with a maximum of 3 thumb keys (2 on
 # the trackball side).
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x5_3 # Support community layout, in particular Manna-Harbour's Miryoku layout
 
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360

@@ -17,6 +17,4 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
 AUDIO_ENABLE = no            # Audio output
 
-LAYOUTS = 60_ansi 60_iso
-
 DEFAULT_FOLDER = mechlovin/hannah60rgb/rev1

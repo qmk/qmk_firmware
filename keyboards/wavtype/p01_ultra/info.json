@@ -12,6 +12,7 @@
         "LAYOUT_tkl_ansi_7u": "LAYOUT_tkl_ansi_tsangan",
         "LAYOUT_tkl_iso_7u": "LAYOUT_tkl_iso_tsangan"
     },
+    "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift", "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

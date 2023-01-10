@@ -17,8 +17,6 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = no            # USB Nkey Rollover
 
-LAYOUTS = 60_hhkb
-
 # Disable bluetooth until the UART code is merged
 BLUETOOTH_DRIVER = BluefruitLE
 
