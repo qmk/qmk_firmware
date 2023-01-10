@@ -49,6 +49,8 @@ typedef union {
 
 work_louder_config_t work_louder_config;
 
+#define WL_LED_MAX_BRIGHT 75
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case USER09:
@@ -57,7 +59,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (work_louder_config.led_level > 4) {
                     work_louder_config.led_level = 1;
                 }
-                work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 100 / 4));
+                work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * WL_LED_MAX_BRIGHT / 4));
                 eeconfig_update_user(work_louder_config.raw);
                 layer_state_set_kb(layer_state);
             }
@@ -78,13 +80,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void eeconfig_init_user(void) {
     work_louder_config.raw = 0;
     work_louder_config.led_level = 1;
-    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 100 / 4));
+    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * WL_LED_MAX_BRIGHT / 4));
     eeconfig_update_user(work_louder_config.raw);
 }
 
 void keyboard_post_init_user(void) {
     work_louder_config.raw = eeconfig_read_user();
-    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 100 / 4));
+    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * WL_LED_MAX_BRIGHT / 4));
 }
 
 void suspend_wakeup_init_user(void) {
@@ -105,7 +107,7 @@ void wl_config_set_value(uint8_t *data) {
     switch (*value_id) {
         case id_wl_brightness:
             work_louder_config.led_level = (uint8_t)*value_data;
-            work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 100 / 4));
+            work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * WL_LED_MAX_BRIGHT / 4));
             layer_state_set_kb(layer_state);
             break;
         // case id_wl_layer:
