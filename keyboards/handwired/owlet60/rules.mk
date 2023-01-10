@@ -20,5 +20,3 @@ CUSTOM_MATRIX = yes
 OLED_ENABLE = no
 
 SRC += matrix.c
-
-LAYOUTS = alice alice_split_bs

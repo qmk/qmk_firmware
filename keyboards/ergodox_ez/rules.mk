@@ -31,8 +31,6 @@ SRC += matrix.c \
 	   led_i2c.c
 QUANTUM_LIB_SRC += i2c_master.c
 
-LAYOUTS = ergodox
-
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no

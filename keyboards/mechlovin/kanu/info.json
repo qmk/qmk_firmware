@@ -8,6 +8,7 @@
         "pid": "0x4B4E",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["65_ansi_blocker", "65_iso_blocker_split_bs", "65_iso_blocker"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

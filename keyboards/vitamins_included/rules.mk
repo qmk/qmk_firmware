@@ -15,8 +15,6 @@ MOUSEKEY_ENABLE     = no   # Mouse keys
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 RGBLIGHT_ENABLE     = yes  # Enable WS2812 RGB underlight.
 
-LAYOUTS = ortho_4x12
-
 DEFAULT_FOLDER = vitamins_included/rev2
 
 LTO_ENABLE = yes

@@ -27,8 +27,6 @@ WS2812_DRIVER = pwm                # Underglow RGB Driver
 
 CIE1931_CURVE = yes
 
-LAYOUTS = 68_ansi
-
 # project specific files
 SRC +=  keyboards/wilba_tech/wt_main.c \
         keyboards/wilba_tech/wt_rgb_backlight.c \

@@ -24,8 +24,6 @@ RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3731
 RAW_ENABLE = yes
 
-LAYOUTS = 60_ansi 60_iso
-
 # Experimental features for zealcmd please do no enable
 #RAW_ENABLE = yes
 #USE_KEYMAPS_IN_EEPROM = yes

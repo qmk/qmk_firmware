@@ -28,7 +28,5 @@ AUDIO_ENABLE = no           # Audio output
 
 DEFAULT_FOLDER = input_club/infinity60/led
 
-LAYOUTS = 60_ansi_split_bs_rshift
-
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

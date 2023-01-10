@@ -8,6 +8,7 @@
         "pid": "0xB04D",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["60_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

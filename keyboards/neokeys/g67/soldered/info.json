@@ -8,6 +8,7 @@
         "pid": "0x5053",
         "device_version": "1.0.0"
     },
+    "community_layouts": ["65_ansi", "65_ansi_blocker", "65_ansi_blocker_tsangan", "65_iso", "65_iso_blocker"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

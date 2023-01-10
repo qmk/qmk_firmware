@@ -16,7 +16,6 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = planck_mit ortho_4x12
 LAYOUTS_HAS_RGB = no
 
 # Disable unsupported hardware

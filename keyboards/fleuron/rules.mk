@@ -17,5 +17,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 
 RGBLIGHT_ENABLE = yes
-
-#LAYOUTS = ortho_6x16  # Disabled because layouts directory does not have an ortho_6x16 layout set up.

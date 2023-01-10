@@ -16,5 +16,3 @@ NKRO_ENABLE = no            # Enable N-key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-
-LAYOUTS = tkl_f13_ansi_tsangan tkl_f13_ansi_tsangan_split_bs_rshift

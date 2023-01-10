@@ -25,5 +25,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 WS2812_DRIVER = pwm         # Driver for RGB uderglow
 AUDIO_ENABLE = no           # Audio output
-
-LAYOUTS = 65_ansi_blocker

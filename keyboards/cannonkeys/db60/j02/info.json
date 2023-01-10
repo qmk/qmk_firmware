@@ -3,6 +3,7 @@
     "usb": {
         "pid": "0xDB60"
     },
+    "community_layouts": ["60_ansi", "60_tsangan_hhkb", "60_iso"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

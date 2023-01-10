@@ -8,6 +8,7 @@
         "pid": "0xDFA1",
         "device_version": "0.2.0"
     },
+    "community_layouts": ["ortho_4x10"],
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

@@ -18,8 +18,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = yes
 
-LAYOUTS = split_3x5_3
-
 DEBOUNCE_TYPE = sym_eager_pr
 SRC += matrix.c
 QUANTUM_LIB_SRC += i2c_master.c

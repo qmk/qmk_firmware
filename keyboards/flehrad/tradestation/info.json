@@ -8,6 +8,7 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["ortho_4x4"],
     "layouts": {
         "LAYOUT_tradestation": {
             "layout": [

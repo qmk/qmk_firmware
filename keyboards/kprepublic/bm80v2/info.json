@@ -8,6 +8,7 @@
         "pid": "0x1141",
         "device_version": "0.0.2"
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

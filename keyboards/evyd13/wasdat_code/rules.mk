@@ -20,5 +20,3 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 VPATH += drivers/gpio
 SRC += matrix.c sn74x138.c
-
-LAYOUTS = fullsize_ansi fullsize_iso tkl_ansi tkl_iso
