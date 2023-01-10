@@ -19,31 +19,42 @@
 #include "config_common.h"
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 14
 
 /* Keyboard Matrix Assignments */
 // clang-format off
-#define DIRECT_PINS { \
-    { NO_PIN, NO_PIN, GP0  }, \
-    { GP1,    GP2,    GP3  }, \
-    { GP4,    GP5,    GP6  }, \
-    { GP7,    GP8,    GP9  }, \
-    { GP10,   GP11,   GP12 }  \
-}
+// #define DIRECT_PINS { \
+//     { NO_PIN, NO_PIN, GP0  }, \
+//     { GP1,    GP2,    GP3  }, \
+//     { GP4,    GP5,    GP6  }, \
+//     { GP7,    GP8,    GP9  }, \
+//     { GP10,   GP11,   GP12 }  \
+// }
+
+#define DIODE_DIRECTION COL2ROW
+#define MATRIX_ROW_PINS { GP27, GP26, GP21, GP20, GP19, GP18 }
+#define MATRIX_COL_PINS { GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP13, GP14, GP15 }
 // clang-format on
 
+#define DIODE_DIRECTION COL2ROW
+
 /* OLED SPI Defines */
-#define OLED_DISPLAY_128X32
+#ifdef OLED_ENABLE
+#   define OLED_DISPLAY_128X32
+#   define OLED_FONT_H "lib/oledfont.c"
+#   define OLED_FONT_END 255
+// #   define OLED_DISPLAY_ADDRESS 0x78
+#endif
 
 /* I2C Conf */
 #define I2C_DRIVER I2CD1
-#define I2C1_SDA_PIN GP12
-#define I2C1_SCL_PIN GP13
+#define I2C1_SDA_PIN GP16
+#define I2C1_SCL_PIN GP17
 
 /* Encoders */
-#define ENCODERS_PAD_A { GP18 }
-#define ENCODERS_PAD_B { GP17 }
+#define ENCODERS_PAD_A { GP1 }
+#define ENCODERS_PAD_B { GP0 }
 
 #define DEBOUNCE 5
 
@@ -60,9 +71,9 @@
 #ifdef RGB_MATRIX_ENABLE
 
      /* RGB Defines */
-#    define RGB_DI_PIN GP19
-#    define DRIVER_LED_TOTAL 12
-#    define RGBLED_NUM 12
+#    define RGB_DI_PIN GP28
+#    define DRIVER_LED_TOTAL 6
+#    define RGBLED_NUM 6
 
      /* Enable Framebuffer and keypress effects */
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
