@@ -1,19 +1,19 @@
 #include QMK_KEYBOARD_H
 
 enum ctrl_keycodes {
-    U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
-    U_T_AGCR,              //USB Toggle Automatic GCR control
-    DBG_TOG,               //DEBUG Toggle On / Off
-    DBG_MTRX,              //DEBUG Toggle Matrix Prints
-    DBG_KBD,               //DEBUG Toggle Keyboard Prints
-    DBG_MOU,               //DEBUG Toggle Mouse Prints
-    MD_BOOT,               //Restart into bootloader after hold timeout
-    KC_A_AC,               //A with acute accent
-    KC_E_AC,               //E with acute accent
-    KC_I_AC,               //I with acute accent
-    KC_O_AC,               //O with acute accent
-    KC_U_AC,               //U with acute accent
-    KC_AE_C,               //AE character
+    U_T_AUTO = SAFE_RANGE, /* USB Extra Port Toggle Auto Detect / Always Active */
+    U_T_AGCR,              /* USB Toggle Automatic GCR control */
+    DBG_TOG,               /* DEBUG Toggle On / Off */
+    DBG_MTRX,              /* DEBUG Toggle Matrix Prints */
+    DBG_KBD,               /* DEBUG Toggle Keyboard Prints */
+    DBG_MOU,               /* DEBUG Toggle Mouse Prints */
+    MD_BOOT,               /* Restart into bootloader after hold timeout */
+    KC_A_AC,               /* A with acute accent */
+    KC_E_AC,               /* E with acute accent */
+    KC_I_AC,               /* I with acute accent */
+    KC_O_AC,               /* O with acute accent */
+    KC_U_AC,               /* U with acute accent */
+    KC_AE_C,               /* AE character */
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
 void matrix_init_user(void) {
-    // Initialize for the Windows Unicode Set for Special Characters by default
+    /* Initialize for the Windows Unicode Set for Special Characters by default */
     set_unicode_input_mode(UNICODE_MODE_WINDOWS);
 }
 
@@ -202,6 +202,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         default:
-            return true; //Process all other keycodes normally
+            return true; /* Process all other keycodes normally */
     }
 }
