@@ -23,7 +23,6 @@
 #define RGBLIGHT_SLEEP /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_GRADIENT + 9
 #define RGBLIGHT_DEFAULT_HUE 213
-#define RGBLIGHT_LIMIT_VAL 150
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
