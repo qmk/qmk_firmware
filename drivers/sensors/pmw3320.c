@@ -22,7 +22,6 @@
 #include "debug.h"
 #include "gpio.h"
 
-
 void pmw3320_init(void) {
     // Initialize sensor serial pins.
     setPinOutput(PMW3320_SCLK_PIN);
@@ -151,8 +150,10 @@ report_pmw3320_t pmw3320_read_burst(void) {
     uint8_t x = pmw3320_serial_read();
     uint8_t y = pmw3320_serial_read();
 
-    // Burst mode returns a bunch of other shit that we don't really need.
-    // Setting CS to high ends burst mode early.
+    // Probably burst mode may include contents of delta_xy register,
+    // which contain HI parts of x/y deltas, but I had no luck finding it.
+    // Probably it's required to activate 12-bit mode to access this data.
+    // So we end burst mode early to not read unneeded information.
     pmw3320_cs_deselect();
 
     data.dx = convert_twoscomp(x);

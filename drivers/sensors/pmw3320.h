@@ -58,18 +58,17 @@ typedef struct {
 // Mostly taken from ADNS5050 driver.
 // Note that the "serial.h" driver is insufficient, because it does not
 // manually manipulate a serial clock signal.
-void              pmw3320_init(void);
-void              pmw3320_sync(void);
-uint8_t           pmw3320_serial_read(void);
-void              pmw3320_serial_write(uint8_t data);
-uint8_t           pmw3320_read_reg(uint8_t reg_addr);
-void              pmw3320_write_reg(uint8_t reg_addr, uint8_t data);
-report_pmw3320_t  pmw3320_read_burst(void);
-void              pmw3320_set_cpi(uint16_t cpi);
-uint16_t          pmw3320_get_cpi(void);
-int8_t            convert_twoscomp(uint8_t data);
-bool              pmw3320_check_signature(void);
-
+void             pmw3320_init(void);
+void             pmw3320_sync(void);
+uint8_t          pmw3320_serial_read(void);
+void             pmw3320_serial_write(uint8_t data);
+uint8_t          pmw3320_read_reg(uint8_t reg_addr);
+void             pmw3320_write_reg(uint8_t reg_addr, uint8_t data);
+report_pmw3320_t pmw3320_read_burst(void);
+void             pmw3320_set_cpi(uint16_t cpi);
+uint16_t         pmw3320_get_cpi(void);
+int8_t           convert_twoscomp(uint8_t data);
+bool             pmw3320_check_signature(void);
 
 #if !defined(PMW3320_CPI)
 #    define PMW3320_CPI 1000
