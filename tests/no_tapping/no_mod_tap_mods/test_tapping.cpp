@@ -77,7 +77,6 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
 
-
     key_shift_hold_p_tap.press();
     EXPECT_REPORT(driver, (KC_LSFT));
     run_one_scan_loop();
@@ -93,7 +92,6 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
 
     EXPECT_EMPTY_REPORT(driver);
     idle_for(TAPPING_TERM + 1);
-
 
     key_shift_hold_p_tap.press();
     // Shouldn't be called here really
