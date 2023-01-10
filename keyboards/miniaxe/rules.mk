@@ -13,5 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 
 DEBUG_ENABLE = no
 SPLIT_KEYBOARD = yes        # Use shared split_common code
-
-LAYOUTS = split_3x5_3

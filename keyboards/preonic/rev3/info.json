@@ -9,6 +9,7 @@
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
+    "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_preonic_1x2uC": {
             "layout": [

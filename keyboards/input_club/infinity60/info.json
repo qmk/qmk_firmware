@@ -11,6 +11,7 @@
     "processor": "MK20DX128",
     "bootloader": "kiibohd",
     "board": "MCHCK_K20",
+    "community_layouts": ["60_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

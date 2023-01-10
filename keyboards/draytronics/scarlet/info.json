@@ -10,6 +10,7 @@
     },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
+    "community_layouts": ["numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

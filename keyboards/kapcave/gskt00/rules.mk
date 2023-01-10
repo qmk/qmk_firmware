@@ -10,5 +10,3 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
-
-LAYOUTS = 60_ansi_tsangan 60_iso_tsangan

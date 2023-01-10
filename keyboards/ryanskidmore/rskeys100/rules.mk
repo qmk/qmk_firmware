@@ -15,5 +15,3 @@ AUDIO_ENABLE = no            # Audio output
 CUSTOM_MATRIX = lite
 
 SRC += matrix.c
-
-LAYOUTS = fullsize_iso

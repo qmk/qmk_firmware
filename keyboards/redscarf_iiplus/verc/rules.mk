@@ -13,5 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = yes
 SRC += matrix.c
-
-LAYOUTS = 65_ansi

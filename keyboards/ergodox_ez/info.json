@@ -8,6 +8,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "halfkay",
+    "community_layouts": ["ergodox"],
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [

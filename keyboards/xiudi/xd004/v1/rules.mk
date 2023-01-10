@@ -13,5 +13,3 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SPACE_CADET_ENABLE = no
 # Saves about 5% of space:
 LTO_ENABLE = yes
-
-#LAYOUTS = ortho_1x4

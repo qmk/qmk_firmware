@@ -11,6 +11,7 @@
     "processor": "MK20DX256",
     "bootloader": "kiibohd",
     "board": "IC_TEENSY_3_1",
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

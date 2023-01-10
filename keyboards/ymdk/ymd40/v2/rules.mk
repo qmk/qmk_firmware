@@ -14,5 +14,3 @@ AUDIO_ENABLE = no           # Audio output
 KEY_LOCK_ENABLE = no
 
 AUDIO_SUPPORTED = no
-
-LAYOUTS = ortho_4x12

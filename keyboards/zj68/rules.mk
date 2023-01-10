@@ -11,5 +11,3 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no
 
 RGBLIGHT_ENABLE = no
-
-LAYOUTS = 65_ansi

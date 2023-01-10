@@ -12,4 +12,3 @@ AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 SPLIT_KEYBOARD = yes
-LAYOUTS = ortho_5x12 ortho_4x12

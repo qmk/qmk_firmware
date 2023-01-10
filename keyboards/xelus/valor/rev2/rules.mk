@@ -18,5 +18,3 @@ EEPROM_DRIVER = i2c
 
 OPT = 2
 LTO_ENABLE = yes
-
-LAYOUTS = alice_split_bs

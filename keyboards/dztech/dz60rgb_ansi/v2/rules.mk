@@ -1,5 +1,3 @@
-LAYOUTS = 60_ansi
-
 # Build Options
 #   change yes to no to disable
 #

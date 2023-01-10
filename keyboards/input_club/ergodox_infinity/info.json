@@ -9,6 +9,7 @@
     "processor": "MK20DX256",
     "bootloader": "kiibohd",
     "board": "IC_TEENSY_3_1",
+    "community_layouts": ["ergodox"],
     "layouts": {
       "LAYOUT_ergodox": {
         "layout": [

@@ -13,5 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 
 # Enable generic behavior for split boards
 SPLIT_KEYBOARD = yes
-
-LAYOUTS = ortho_3x10

@@ -9,7 +9,8 @@
     "device_version": "0.0.1"
   },
   "processor": "atmega32u2",
-    "bootloader": "atmel-dfu",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["tkl_ansi"],
   "layouts": {
     "LAYOUT": {
       "layout": [

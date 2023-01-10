@@ -11,6 +11,4 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
-LAYOUTS = ortho_5x12
-
 LTO_ENABLE = yes

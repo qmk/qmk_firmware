@@ -10,6 +10,7 @@
   },
   "processor": "atmega328p",
   "bootloader": "usbasploader",
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_plaid_mit": {
       "layout": [

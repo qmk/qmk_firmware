@@ -10,6 +10,7 @@
     },
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "community_layouts": ["tkl_f13_ansi"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {
             "layout": [

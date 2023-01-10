@@ -10,6 +10,7 @@
     },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
+    "community_layouts": ["60_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

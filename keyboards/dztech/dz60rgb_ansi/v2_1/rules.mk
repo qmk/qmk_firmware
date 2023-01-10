@@ -1,7 +1,5 @@
 BOOTLOADER_SIZE = 6144
 
-LAYOUTS = 60_ansi
-
 # Build Options
 #   change yes to no to disable
 #

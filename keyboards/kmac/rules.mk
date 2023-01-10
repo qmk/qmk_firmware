@@ -17,6 +17,3 @@ AUDIO_ENABLE = no           # Audio output
 
 # Project specific files
 SRC += matrix.c
-
-# Supported layouts
-LAYOUTS = tkl_ansi

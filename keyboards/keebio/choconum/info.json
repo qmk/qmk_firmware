@@ -10,6 +10,7 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "community_layouts": ["ortho_5x4", "numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

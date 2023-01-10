@@ -12,5 +12,3 @@ AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = lite
 SRC += 20140521/matrix.c
-
-LAYOUTS = tkl_ansi

@@ -17,5 +17,3 @@ WS2812_DRIVER = bitbang
 
 LTO_ENABLE = yes
 OPT = 2
-
-LAYOUTS = 60_ansi_split_bs_rshift

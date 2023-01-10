@@ -10,6 +10,12 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "community_layouts": [
+        "split_3x5_2"
+    ],
+    "layout_aliases": {
+        "LAYOUT_split_3x5_2": "LAYOUT_reviung34"
+    },
     "layouts": {
         "LAYOUT_reviung34": {
             "layout": [

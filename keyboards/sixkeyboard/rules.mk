@@ -12,4 +12,3 @@ AUDIO_ENABLE = no
 CUSTOM_MATRIX = yes
 
 SRC += matrix.c
-LAYOUTS = ortho_2x3

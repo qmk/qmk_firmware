@@ -13,5 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 ENCODER_ENABLE = yes        # Enable encoder
-
-LAYOUTS = ortho_5x12

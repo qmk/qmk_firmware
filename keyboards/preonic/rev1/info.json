@@ -7,5 +7,6 @@
         "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
-    "bootloader": "atmel-dfu"
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_5x12"]
 }
