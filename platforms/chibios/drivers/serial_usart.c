@@ -77,7 +77,6 @@ inline void serial_transport_driver_clear(void) {
  */
 static inline void usart_driver_start(void) {
     sioStart(serial_driver, &serial_config);
-    sioStartOperation(serial_driver, NULL);
 }
 
 inline void serial_transport_driver_clear(void) {
@@ -123,10 +122,10 @@ inline bool serial_transport_send(const uint8_t* source, const size_t size) {
         return serial_transport_receive(dump, bytes_left);
 #    else
         /* The SIO driver directly accesses the hardware FIFOs of the USART
-         * peripheral. As these are limited in depth, the RX FIFO might have been
-         * overflowed by a large that we just send. Therefore we attempt to read
-         * back all the data we send or until the FIFO runs empty in case it
-         * overflowed and data was truncated. */
+         * peripheral. As these are limited in depth, the RX FIFO might have
+         * been overflowed by a large transaction that we just send. Therefore
+         * we attempt to read back all the data we send or until the FIFO runs
+         * empty in case it overflowed and data was truncated. */
         if (unlikely(sioSynchronizeTXEnd(serial_driver, TIME_MS2I(SERIAL_USART_TIMEOUT)) < MSG_OK)) {
             return false;
         }
