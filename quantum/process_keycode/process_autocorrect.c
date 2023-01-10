@@ -129,10 +129,10 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
             // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TG, SH_TT, ...,
             // which currently overlap the SH_T(kc) range.
             if (IS_SWAP_HANDS_KEYCODE(*keycode)
-#ifndef NO_ACTION_TAPPING
+#    ifndef NO_ACTION_TAPPING
                 || !record->tap.count
-#endif
-                ) {
+#    endif // NO_ACTION_TAPPING
+            ) {
                 return false;
             }
             *keycode = QK_SWAP_HANDS_GET_TAP_KEYCODE(*keycode);

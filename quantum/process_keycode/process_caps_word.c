@@ -146,9 +146,9 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TG, SH_TT, ...,
                 // which currently overlap the SH_T(kc) range.
                 if (IS_SWAP_HANDS_KEYCODE(keycode)
-#ifndef NO_ACTION_TAPPING
-                || record->tap.count == 0
-#endif
+#    ifndef NO_ACTION_TAPPING
+                    || record->tap.count == 0
+#    endif // NO_ACTION_TAPPING
                 ) {
                     return true;
                 }

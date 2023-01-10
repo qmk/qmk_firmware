@@ -519,7 +519,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     }
                     break;
             }
-#endif     // NO_ACTION_TAPPING
+#endif // NO_ACTION_TAPPING
         } break;
 #ifdef EXTRAKEY_ENABLE
         /* other HID usage */
