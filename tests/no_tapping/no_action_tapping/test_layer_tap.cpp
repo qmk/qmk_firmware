@@ -25,7 +25,7 @@ using testing::InSequence;
 
 class Tapping : public TestFixture {};
 
-TEST_F(Tapping, TapA_SHFT_T_KeyReportsKey) {
+TEST_F(Tapping, TapP_Layer_Tap_KeyReportsKey) {
     TestDriver driver;
     InSequence s;
     auto       key_shift_hold_p_tap = KeymapKey(0, 7, 0, LT(1, KC_P));
@@ -39,9 +39,10 @@ TEST_F(Tapping, TapA_SHFT_T_KeyReportsKey) {
     key_shift_hold_p_tap.release();
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(Tapping, HoldA_SHFT_T_KeyReportsShift) {
+TEST_F(Tapping, HoldP_Layer_Tap_KeyReportsKey) {
     TestDriver driver;
     InSequence s;
     auto       mod_tap_hold_key = KeymapKey(0, 7, 0, LT(1, KC_P));
@@ -58,47 +59,5 @@ TEST_F(Tapping, HoldA_SHFT_T_KeyReportsShift) {
     mod_tap_hold_key.release();
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-}
-
-TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
-    // See issue #1478 for more information
-    TestDriver driver;
-    InSequence s;
-    auto       key_shift_hold_p_tap = KeymapKey(0, 7, 0, LT(1, KC_P));
-
-    set_keymap({key_shift_hold_p_tap});
-
-    // Tapping keys does nothing on press
-    key_shift_hold_p_tap.press();
-    EXPECT_REPORT(driver, (KC_P));
-    run_one_scan_loop();
-
-    key_shift_hold_p_tap.release();
-    EXPECT_EMPTY_REPORT(driver);
-    run_one_scan_loop();
-
-    key_shift_hold_p_tap.press();
-    EXPECT_REPORT(driver, (KC_P));
-    run_one_scan_loop();
-
-    key_shift_hold_p_tap.release();
-    EXPECT_EMPTY_REPORT(driver);
-    idle_for(TAPPING_TERM + 1);
-
-    key_shift_hold_p_tap.press();
-    EXPECT_REPORT(driver, (KC_P));
-    run_one_scan_loop();
-    key_shift_hold_p_tap.release();
-
-    EXPECT_EMPTY_REPORT(driver);
-    idle_for(TAPPING_TERM + 1);
-
-    key_shift_hold_p_tap.press();
-    // Shouldn't be called here really
-    EXPECT_REPORT(driver, (KC_P));
-    idle_for(TAPPING_TERM);
-
-    EXPECT_EMPTY_REPORT(driver);
-    key_shift_hold_p_tap.release();
-    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
 }

@@ -39,6 +39,7 @@ TEST_F(Tapping, TapA_SHFT_T_KeyReportsKey) {
     key_shift_hold_p_tap.release();
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Tapping, HoldA_SHFT_T_KeyReportsShift) {
@@ -58,6 +59,7 @@ TEST_F(Tapping, HoldA_SHFT_T_KeyReportsShift) {
     mod_tap_hold_key.release();
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
@@ -101,4 +103,5 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     EXPECT_EMPTY_REPORT(driver);
     key_shift_hold_p_tap.release();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
 }
