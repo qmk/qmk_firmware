@@ -49,83 +49,66 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
 #define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
-void matrix_init_user(void)
-{
+void matrix_init_user(void) {
     // Initialize for the Windows Unicode Set for Special Characters by default
     set_unicode_input_mode(UNICODE_MODE_WINDOWS);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
 
-    switch (keycode)
-    {
+    switch (keycode) {
         case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL)
-            {
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
                 TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
             }
             return false;
 
         case U_T_AGCR:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL)
-            {
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
                 TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
             }
             return false;
 
         case DBG_TOG:
-            if (record->event.pressed)
-            {
+            if (record->event.pressed) {
                 TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
             }
             return false;
 
         case DBG_MTRX:
-            if (record->event.pressed)
-            {
+            if (record->event.pressed) {
                 TOGGLE_FLAG_AND_PRINT(debug_matrix, "Debug matrix");
             }
             return false;
 
         case DBG_KBD:
-            if (record->event.pressed)
-            {
+            if (record->event.pressed) {
                 TOGGLE_FLAG_AND_PRINT(debug_keyboard, "Debug keyboard");
             }
             return false;
 
         case DBG_MOU:
-            if (record->event.pressed)
-            {
+            if (record->event.pressed) {
                 TOGGLE_FLAG_AND_PRINT(debug_mouse, "Debug mouse");
             }
             return false;
 
         case MD_BOOT:
-            if (record->event.pressed)
-            {
+            if (record->event.pressed) {
                 key_timer = timer_read32();
-            }
-            else
-            {
-                if (timer_elapsed32(key_timer) >= 500)
-                {
+            } else {
+                if (timer_elapsed32(key_timer) >= 500) {
                     reset_keyboard();
                 }
             }
             return false;
 
         case KC_A_AC:
-            if (record->event.pressed)
-            {
-                if (MODS_SHIFT)
-                {
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
                     send_unicode_string("Á");
-                }
-                else
-                {
+                } else {
                     send_unicode_string("á");
                 }
             }
@@ -133,28 +116,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 
         case KC_E_AC:
-            if (record->event.pressed)
-            {
-                if (MODS_SHIFT)
-                {
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
                     send_unicode_string("É");
-                }
-                else
-                {
+                } else {
                     send_unicode_string("é");
                 }
             }
             return false;
 
         case KC_I_AC:
-            if (record->event.pressed)
-            {
-                if (MODS_SHIFT)
-                {
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
                     send_unicode_string("Í");
-                }
-                else
-                {
+                } else {
                     send_unicode_string("í");
                 }
             }
@@ -162,14 +137,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 
         case KC_O_AC:
-            if (record->event.pressed)
-            {
-                if (MODS_SHIFT)
-                {
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
                     send_unicode_string("Ó");
-                }
-                else
-                {
+                } else {
                     send_unicode_string("ó");
                 }
             }
@@ -177,38 +148,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 
         case KC_U_AC:
-            if (record->event.pressed)
-            {
-                if (MODS_SHIFT)
-                {
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
                     send_unicode_string("Ú");
-                }
-                else
-                {
+                } else {
                     send_unicode_string("ú");
                 }
             }
             return false;
 
         case KC_AE_C:
-            if (record->event.pressed)
-            {
-                if (MODS_SHIFT)
-                {
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
                     send_unicode_string("Æ");
-                }
-                else
-                {
+                } else {
                     send_unicode_string("æ");
                 }
             }
             return false;
 
         case RGB_TOG:
-            if (record->event.pressed)
-            {
-                switch (rgb_matrix_get_flags())
-                {
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL:
                     {
                         rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);

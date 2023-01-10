@@ -38,34 +38,28 @@ RGB_MATRIX_EFFECT(BAND_SAT_DEEP_RIVER_REVERSE)
 
 //
 // RAINBOW_DIAGONOL is a variation on COOL_DIAGONAL also from HorrorTroll 
-static HSV RAINBOW_DIAGONAL_math(HSV hsv, uint8_t i, uint8_t time)
-{
+static HSV RAINBOW_DIAGONAL_math(HSV hsv, uint8_t i, uint8_t time) {
     hsv.h = (g_led_config.point[i].x / 4) - g_led_config.point[i].y - time;
     return hsv;
 }
 
-bool RAINBOW_DIAGONAL(effect_params_t* params)
-{
+bool RAINBOW_DIAGONAL(effect_params_t* params) {
     return effect_runner_i(params, &RAINBOW_DIAGONAL_math);
 }
 
 //
 // RGB Matrix BAND SAT/VAL
 // Static Green rotation on Blue
-static HSV BAND_SAT_deepriver_math(HSV hsv, uint8_t i, uint8_t time)
-{
+static HSV BAND_SAT_deepriver_math(HSV hsv, uint8_t i, uint8_t time) {
     int16_t v = hsv.v - abs(scale8(g_led_config.point[i].x, 228) + 28 - time) * 8;
 
     // When value is 0, then override from black to desired backgroun color
-    if (v <= 0)
-    {
+    if (v <= 0) {
         // When algorithm would normally set up black (v == 0), let's go back to HSV_BLUE
         hsv.s = 255;
         hsv.v = 255;
         hsv.h = 170;
-    }
-    else
-    {
+    } else {
         // Gradient of Green (HSV_GREEN) when it isn't blue (HSV_BLUE)
         hsv.s = 255;
         hsv.v = scale8(v < 0 ? 0 : v, hsv.v);
@@ -75,8 +69,7 @@ static HSV BAND_SAT_deepriver_math(HSV hsv, uint8_t i, uint8_t time)
     return hsv;
 }
 
-bool BAND_SAT_DEEP_RIVER(effect_params_t *params)
-{
+bool BAND_SAT_DEEP_RIVER(effect_params_t *params) {
     return effect_runner_i(params, &BAND_SAT_deepriver_math);
 }
 
@@ -87,15 +80,12 @@ static HSV BAND_SAT_deepriver_reverse_math(HSV hsv, uint8_t i, uint8_t time) {
     int16_t v = hsv.v - abs(scale8(g_led_config.point[i].x, 228) + 28 - time) * 8;
 
     // When value is 0, then override from black to desired backgroun color
-    if (v <= 0)
-    {
+    if (v <= 0) {
         // When algorithm would normally set up black (v == 0), let's go back to HSV_GREEN
         hsv.s = 255;
         hsv.v = 255;
         hsv.h = 85;
-    }
-    else
-    {
+    } else {
         // Gradient of Blue (HSV_BLUE) when it isn't green (HSV_GREEN)
         hsv.s = 255;
         hsv.v = scale8(v < 0 ? 0 : v, hsv.v);
@@ -105,8 +95,7 @@ static HSV BAND_SAT_deepriver_reverse_math(HSV hsv, uint8_t i, uint8_t time) {
     return hsv;
 }
 
-bool BAND_SAT_DEEP_RIVER_REVERSE(effect_params_t *params)
-{
+bool BAND_SAT_DEEP_RIVER_REVERSE(effect_params_t *params) {
     return effect_runner_i(params, &BAND_SAT_deepriver_reverse_math);
 }
 
