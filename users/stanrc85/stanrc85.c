@@ -81,7 +81,7 @@ void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       break;
     case DOUBLE_TAP: //Lock workstation
-    tap_code16(KC_LOCK);
+    tap_code16(KC_WLCK);
     #if defined(HAS_INDICATORS)
       led_user = 1;
       #if defined(KEYBOARD_sneakbox_aliceclone) || defined(KEYBOARD_mechlovin_adelais_standard_led_arm_rev4_stm32f303)
