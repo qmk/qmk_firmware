@@ -8,6 +8,12 @@ enum ctrl_keycodes {
     DBG_KBD,               //DEBUG Toggle Keyboard Prints
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
+    KC_A_AC,               //A with acute accent
+    KC_E_AC,               //E with acute accent
+    KC_I_AC,               //I with acute accent
+    KC_O_AC,               //O with acute accent
+    KC_U_AC,               //U with acute accent
+    KC_AE_C,               //AE character
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -22,9 +28,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_MUTE, _______, _______,
         KC_NUM,  KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_0, _______, _______, _______,   KC_MPLY, KC_MSTP, KC_VOLU,
-        _______, RGB_SPD, RGB_VAI, RGB_SPI, _______, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD,
-        _______, _______, RGB_VAD, _______, _______, RGB_SAD, _______, _______, _______, _______, _______, _______, _______,
-        _______, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,                              RGB_HUI,
+        _______, _______, _______, KC_E_AC, RGB_SPI, RGB_VAI, RGB_SAI, KC_U_AC, KC_I_AC, KC_O_AC, _______,U_T_AUTO,U_T_AGCR, _______,   KC_MPRV, KC_MNXT, KC_VOLD,
+        _______, KC_A_AC, KC_AE_C, _______, RGB_SPD, RGB_VAD, RGB_SAD, _______, _______, _______, _______, _______, KC_ENT,
+        KC_LSFT, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, KC_RSFT,                              RGB_HUI,
         _______, _______, _______,                   _______,                            _______, _______, _______, _______,           RGB_RMOD, RGB_HUD, RGB_MOD
     ),
     /*
@@ -43,83 +49,194 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
 #define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+void matrix_init_user(void)
+{
+    // Initialize for the Windows Unicode Set for Special Characters by default
+    set_unicode_input_mode(UNICODE_MODE_WINDOWS);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
     static uint32_t key_timer;
 
-    switch (keycode) {
+    switch (keycode)
+    {
         case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL)
+            {
                 TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
             }
             return false;
 
         case U_T_AGCR:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL)
+            {
                 TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
             }
             return false;
 
         case DBG_TOG:
-            if (record->event.pressed) {
+            if (record->event.pressed)
+            {
                 TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
             }
             return false;
 
         case DBG_MTRX:
-            if (record->event.pressed) {
+            if (record->event.pressed)
+            {
                 TOGGLE_FLAG_AND_PRINT(debug_matrix, "Debug matrix");
             }
             return false;
 
         case DBG_KBD:
-            if (record->event.pressed) {
+            if (record->event.pressed)
+            {
                 TOGGLE_FLAG_AND_PRINT(debug_keyboard, "Debug keyboard");
             }
             return false;
 
         case DBG_MOU:
-            if (record->event.pressed) {
+            if (record->event.pressed)
+            {
                 TOGGLE_FLAG_AND_PRINT(debug_mouse, "Debug mouse");
             }
             return false;
 
         case MD_BOOT:
-            if (record->event.pressed) {
+            if (record->event.pressed)
+            {
                 key_timer = timer_read32();
-            } else {
-                if (timer_elapsed32(key_timer) >= 500) {
+            }
+            else
+            {
+                if (timer_elapsed32(key_timer) >= 500)
+                {
                     reset_keyboard();
                 }
             }
             return false;
 
+        case KC_A_AC:
+            if (record->event.pressed)
+            {
+                if (MODS_SHIFT)
+                {
+                    send_unicode_string("Á");
+                }
+                else
+                {
+                    send_unicode_string("á");
+                }
+            }
+            return false;
+
+
+        case KC_E_AC:
+            if (record->event.pressed)
+            {
+                if (MODS_SHIFT)
+                {
+                    send_unicode_string("É");
+                }
+                else
+                {
+                    send_unicode_string("é");
+                }
+            }
+            return false;
+
+        case KC_I_AC:
+            if (record->event.pressed)
+            {
+                if (MODS_SHIFT)
+                {
+                    send_unicode_string("Í");
+                }
+                else
+                {
+                    send_unicode_string("í");
+                }
+            }
+            return false;
+
+
+        case KC_O_AC:
+            if (record->event.pressed)
+            {
+                if (MODS_SHIFT)
+                {
+                    send_unicode_string("Ó");
+                }
+                else
+                {
+                    send_unicode_string("ó");
+                }
+            }
+            return false;
+
+
+        case KC_U_AC:
+            if (record->event.pressed)
+            {
+                if (MODS_SHIFT)
+                {
+                    send_unicode_string("Ú");
+                }
+                else
+                {
+                    send_unicode_string("ú");
+                }
+            }
+            return false;
+
+        case KC_AE_C:
+            if (record->event.pressed)
+            {
+                if (MODS_SHIFT)
+                {
+                    send_unicode_string("Æ");
+                }
+                else
+                {
+                    send_unicode_string("æ");
+                }
+            }
+            return false;
+
         case RGB_TOG:
-            if (record->event.pressed) {
-              switch (rgb_matrix_get_flags()) {
-                case LED_FLAG_ALL: {
-                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
+            if (record->event.pressed)
+            {
+                switch (rgb_matrix_get_flags())
+                {
+                    case LED_FLAG_ALL:
+                    {
+                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
 
-                case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
+                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR):
+                    {
+                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
 
-                case LED_FLAG_UNDERGLOW: {
-                    rgb_matrix_set_flags(LED_FLAG_NONE);
-                    rgb_matrix_disable_noeeprom();
-                  }
-                  break;
+                    case LED_FLAG_UNDERGLOW:
+                    {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_disable_noeeprom();
+                    }
+                    break;
 
-                default: {
-                    rgb_matrix_set_flags(LED_FLAG_ALL);
-                    rgb_matrix_enable_noeeprom();
-                  }
-                  break;
-              }
+                    default:
+                    {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                        rgb_matrix_enable_noeeprom();
+                    }
+                    break;
+                }
             }
             return false;
 

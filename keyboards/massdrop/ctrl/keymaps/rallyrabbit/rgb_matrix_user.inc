@@ -31,6 +31,7 @@ RGB_MATRIX_EFFECT(BAND_SAT_DEEP_RIVER_REVERSE)
 // Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+
 //
 // Blooming Flower was taken from HorrorTroll
 #include "flower_blooming/flower_blooming.c"
