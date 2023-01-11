@@ -365,9 +365,9 @@ bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_re
     
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
 typedef enum {
-    HIRES_V = 0,
-    HIRES_BOTH,
-    HIRES_H = 2
+    HIRES_V    = 1,
+    HIRES_H    = 4,
+    HIRES_BOTH = 5,
 } hires_axis_t;
 void disable_hires_scroll_on_next(hires_axis_t axis);
 void hires_scroll_reset(void);

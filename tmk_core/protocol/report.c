@@ -298,11 +298,11 @@ __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, 
 
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
 void hires_scroll_disable_next(hires_axis_t axis) {
-    resolution_multiplier_stored &= resolution_multiplier;
-    resolution_multiplier        ^= (1 << axis);
+    resolution_multiplier_stored |= resolution_multiplier;
+    resolution_multiplier        &= ~(axis);
 }
 void hires_scroll_reset(void) {
-    resolution_multiplier &= prev_resolution_multiplier;
+    resolution_multiplier |= prev_resolution_multiplier;
 }
 #    endif
 #endif // MOUSE_ENABLE
