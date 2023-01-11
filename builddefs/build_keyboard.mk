@@ -180,13 +180,6 @@ generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
 
 endif
 
-# PLATFORM_KEY should be detected in info.json via key 'processor' (or rules.mk 'MCU')
-ifeq ($(PLATFORM_KEY),)
-    $(call CATASTROPHIC_ERROR,Platform not defined)
-endif
-PLATFORM=$(shell echo $(PLATFORM_KEY) | tr '[:lower:]' '[:upper:]')
-
-
 include $(BUILDDEFS_PATH)/converters.mk
 
 include $(BUILDDEFS_PATH)/mcu_selection.mk
@@ -262,6 +255,24 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_4)/$(KEYBOARD_FOLDER_4).h)","")
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
     FOUND_KEYBOARD_H = $(KEYBOARD_FOLDER_5).h
+endif
+
+# Determine and set parameters based on the keyboard's processor family.
+# We can assume a ChibiOS target When MCU_FAMILY is defined since it's
+# not used for LUFA
+ifdef MCU_FAMILY
+    PLATFORM=CHIBIOS
+    PLATFORM_KEY=chibios
+    FIRMWARE_FORMAT?=bin
+    OPT_DEFS += -DMCU_$(MCU_FAMILY)
+else ifdef ARM_ATSAM
+    PLATFORM=ARM_ATSAM
+    PLATFORM_KEY=arm_atsam
+    FIRMWARE_FORMAT=bin
+else
+    PLATFORM=AVR
+    PLATFORM_KEY=avr
+    FIRMWARE_FORMAT?=hex
 endif
 
 # Find all of the config.h files and add them to our CONFIG_H define.
