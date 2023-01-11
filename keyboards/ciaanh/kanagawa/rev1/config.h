@@ -6,7 +6,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Ciaanh
 #define PRODUCT Kanagawa
-#define DESCRIPTION 75 with features
 
 /* key matrix size */
 #define MATRIX_ROWS 6

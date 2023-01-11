@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *   
 */
     [_BASE] = LAYOUT_84_ansi( 
-          KC_ESC,   KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,              ENCODER, /*KC_MPLY*/  \
+          KC_ESC,   KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,              KC_MPLY,  \
        
           KC_GRV,    KC_1,       KC_2,       KC_3,       KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_BSPC,      KC_DEL,  \
           KC_TAB,    KC_Q,       KC_W,       KC_E,       KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC, KC_BSLS,     KC_HOME,  \
@@ -50,18 +50,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_LSFT,    KC_Z, LT(0,KC_X), LT(0,KC_C), LT(0,KC_V),    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,                KC_UP,           \
          KC_LCTL, KC_LGUI,    KC_LALT,            L_DWN,  KC_SPC,        KC_SPC,    L_UP,       KC_RALT, TO_CODE, KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT   \
     ),
-
-
-    [_CODE] = LAYOUT_84_ansi(
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
-
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,           \
-         XXXXXXX, XXXXXXX, XXXXXXX,       _______, XXXXXXX,       XXXXXXX, _______,       XXXXXXX, TO_BASE, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
-    ),
-
 
     [_LOWER] = LAYOUT_84_ansi(
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
@@ -82,9 +70,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,  \
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,           \
          XXXXXXX, XXXXXXX, XXXXXXX,       _______, XXXXXXX,       XXXXXXX, _______,       XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
-    )
+    ),
 
+    [_CODE] = LAYOUT_84_ansi(
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
 
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,  \
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,           \
+         XXXXXXX, XXXXXXX, XXXXXXX,       _______, XXXXXXX,       XXXXXXX, _______,       XXXXXXX, TO_BASE, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
+    ),
 
 };
 
@@ -106,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     static void render_status(void) {
         // 21 characters per line
-        // 16 cols / 8 rows
+        // 16 cols / 4 rows
 
-        oled_write_P(PSTR("    Kanagawa rev 1.1   "), false);
+        oled_write_P(PSTR("    Kanagawa rev 2.0   "), false);
         //oled_write_ln("", false);
 
         // Host Keyboard Layer Status
@@ -140,10 +136,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 
         oled_write_ln("", false);
-        oled_write_ln("", false);
-        oled_write_ln("", false);
-        oled_write_ln("", false);
-        oled_write_ln("", false);
+        // oled_write_ln("", false);
+        // oled_write_ln("", false);
+        // oled_write_ln("", false);
+        // oled_write_ln("", false);
     }
 
     // static void render_kanagawa_logo(void) {
@@ -196,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case ENCODER:
+    case CUSTOMKEY:
         if (record->event.pressed) {
             if (get_mods() & MOD_MASK_SHIFT) {
                 tap_code16(G(A(KC_K)));
@@ -233,26 +229,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef ENCODER_ENABLE
-    bool encoder_update_user(uint8_t index, bool clockwise) {
-        if (index == 0) {
-            switch (get_highest_layer(layer_state)) {
-                case _CODE:
-                    if (clockwise) {
-                        tap_code(KC_PGDN);
-                    } else {
-                        tap_code(KC_PGUP);
-                    }
-                    break;
-                default:
-                    if (clockwise) {
-                        tap_code(KC_VOLD);
-                    } else {
-                        tap_code(KC_VOLU);
-                    }
-                    break;
-            }
-        }
-        return true;
-    }
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+    [_LOWER] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_UPPER] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_CODE] =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+};
 #endif
+
+// #ifdef ENCODER_ENABLE
+// bool encoder_update_kb(uint8_t index, bool clockwise) {
+//     if (!encoder_update_user(index, clockwise)) { return false; }
+//     if (index == 0) {
+//         if (clockwise) {
+//             tap_code_delay(KC_VOLU, 10);
+//         } else {
+//             tap_code_delay(KC_VOLD, 10);
+//         }
+//     }
+//     return true;
+// }
+// #endif
