@@ -41,6 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION        COL2ROW
 
+#define USB_MAX_POWER_CONSUMPTION 100
+
 #define RGBLIGHT_DI_PIN        D2
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
@@ -55,7 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT
 #define RGBLIGHT_EFFECT_CHRISTMAS
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_TWINKLE
 
 #define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_GRADIENT + 9
@@ -73,6 +74,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_DISABLE_KEYCODES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
+// #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+// #define RGB_MATRIX_KEYPRESSES
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
