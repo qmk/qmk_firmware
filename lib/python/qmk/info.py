@@ -10,7 +10,6 @@ from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
-from qmk.keymap import list_keymaps, locate_keymap
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
@@ -98,10 +97,6 @@ def info_json(keyboard):
         'parse_warnings': [],
         'maintainer': 'qmk',
     }
-
-    # Populate the list of JSON keymaps
-    for keymap in list_keymaps(keyboard, c=False, fullpath=True):
-        info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
     layouts, aliases = _search_keyboard_h(keyboard)
@@ -872,6 +867,9 @@ def find_info_json(keyboard):
 def keymap_json_config(keyboard, keymap):
     """Extract keymap level config
     """
+    # TODO: resolve keymap.py and info.py circular dependencies
+    from qmk.keymap import locate_keymap
+
     keymap_folder = locate_keymap(keyboard, keymap).parent
 
     km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
@@ -881,6 +879,9 @@ def keymap_json_config(keyboard, keymap):
 def keymap_json(keyboard, keymap):
     """Generate the info.json data for a specific keymap.
     """
+    # TODO: resolve keymap.py and info.py circular dependencies
+    from qmk.keymap import locate_keymap
+
     keymap_folder = locate_keymap(keyboard, keymap).parent
 
     # Files to scan
