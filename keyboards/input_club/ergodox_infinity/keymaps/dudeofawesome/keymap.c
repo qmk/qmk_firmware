@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_ergodox(
   // left hand
   KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,  KC_5, KC_ESC,
-  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,  KC_T, KC_LBRACKET,
+  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,  KC_T, KC_LBRC,
   KC_ESC,   KC_A,    KC_S,    KC_D,    KC_F,  KC_G,
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,  KC_B, _______,
   TT(_NUM), KC_LCTL, KC_LALT, KC_LGUI, LOWER,
@@ -52,8 +52,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_DEL,
-  KC_RBRACKET, KC_Y, KC_U,  KC_I,    KC_O,    KC_P,                KC_BSPACE,
-               KC_H, KC_J,  KC_K,    KC_L,    KC_SCOLON,           KC_QUOTE,
+  KC_RBRC,     KC_Y, KC_U,  KC_I,    KC_O,    KC_P,                KC_BSPC,
+               KC_H, KC_J,  KC_K,    KC_L,    KC_SCLN,             KC_QUOTE,
   _______,     KC_N, KC_M,  KC_COMM, KC_DOT,  LT(_MOUSE, KC_SLSH), RSFT_T(KC_ENT),
                      RAISE, KC_LEFT, KC_DOWN, KC_UP,               KC_RIGHT,
 
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_WORKMAN] = LAYOUT_ergodox(
   // left hand
   KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_ESC,
-  KC_TAB,   KC_Q,    KC_D,    KC_R,    KC_W,    KC_B, KC_LBRACKET,
+  KC_TAB,   KC_Q,    KC_D,    KC_R,    KC_W,    KC_B, KC_LBRC,
   KC_ESC,   KC_A,    KC_S,    KC_H,    KC_T,    KC_G,
   KC_LSFT,  KC_Z,    KC_X,    KC_M,    KC_C,    KC_V, _______,
   TT(_NUM), KC_LCTL, KC_LALT, KC_LGUI, LOWER,
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_DEL,
-  KC_RBRACKET, KC_J, KC_F,  KC_U,    KC_P,    KC_SCOLON,           KC_BSPACE,
+  KC_RBRC,     KC_J, KC_F,  KC_U,    KC_P,    KC_SCLN,             KC_BSPC,
                KC_Y, KC_N,  KC_E,    KC_O,    KC_I,                KC_QUOTE,
   _______,     KC_K, KC_L,  KC_COMM, KC_DOT,  LT(_MOUSE, KC_SLSH), RSFT_T(KC_ENT),
                      RAISE, KC_LEFT, KC_DOWN, KC_UP,               KC_RIGHT,
@@ -131,9 +131,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = LAYOUT_ergodox(
   // left hand
   KC_GRV,   KC_1,      KC_2,    KC_3,    KC_4,  KC_5, KC_ESC,
-  KC_TAB,   KC_QUOT,   KC_COMM, KC_DOT,  KC_P,  KC_Y, KC_LBRACKET,
+  KC_TAB,   KC_QUOT,   KC_COMM, KC_DOT,  KC_P,  KC_Y, KC_LBRC,
   KC_ESC,   KC_A,      KC_O,    KC_E,    KC_U,  KC_I,
-  KC_LSFT,  KC_SCOLON, KC_Q,    KC_J,    KC_K,  KC_X, _______,
+  KC_LSFT,  KC_SCLN,   KC_Q,    KC_J,    KC_K,  KC_X, _______,
   TT(_NUM), KC_LCTL,   KC_LALT, KC_LGUI, LOWER,
 
                                                   KC_MPLY,  _______,
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,  KC_DEL,
-  KC_RBRACKET, KC_F, KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPACE,
+  KC_RBRC,     KC_F, KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPC,
                KC_D, KC_H,  KC_T,    KC_N,    KC_S,  LT(MOUSE, KC_SLSH),
   _______,     KC_B, KC_M,  KC_W,    KC_V,    KC_Z,  RSFT_T(KC_ENT),
                      RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT_ergodox(
   // left hand
   KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_ESC,
-  KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_LBRACKET,
+  KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_LBRC,
   KC_ESC,   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, _______,
   TT(_NUM), KC_LCTL, KC_LALT, KC_LGUI, LOWER,
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_DEL,
-  KC_RBRACKET, KC_J, KC_L,  KC_U,    KC_Y,    KC_SCOLON,           KC_BSPACE,
+  KC_RBRC,     KC_J, KC_L,  KC_U,    KC_Y,    KC_SCLN,             KC_BSPC,
                KC_H, KC_N,  KC_E,    KC_I,    KC_O,                KC_QUOTE,
   _______,     KC_K, KC_M,  KC_COMM, KC_DOT,  LT(_MOUSE, KC_SLSH), RSFT_T(KC_ENT),
                      RAISE, KC_LEFT, KC_DOWN, KC_UP,               KC_RIGHT,
@@ -311,7 +311,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ergodox(
   // left hand
   VRSN,    _______, _______, _______, _______, _______, _______,
-  _______, QK_BOOT, DEBUG,   BL_TOGG, BL_STEP, _______, _______,
+  _______, QK_BOOT, DB_TOGG, BL_TOGG, BL_STEP, _______, _______,
   KC_CAPS, _______, _______, _______, _______, AG_NORM,
   _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______,
@@ -322,7 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   _______, _______, _______, _______,  _______, _______, _______,
-  _______, _______, TERM_ON, TERM_OFF, _______, _______, KC_DEL,
+  _______, _______, _______, _______,  _______, _______, KC_DEL,
            AG_SWAP, QWERTY,  WORKMAN,  DVORAK,  COLEMAK, _______,
   _______, _______, _______, _______,  _______, _______, _______,
                     _______, _______,  _______, _______, _______,

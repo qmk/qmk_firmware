@@ -20,8 +20,6 @@
 
 #include "config_common.h"
 
-/* Use I2C or Serial, not both */
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D3	// RX8
 
 /* select keyboard  master board  - I2C or Serial communication master    */
@@ -38,7 +36,7 @@
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4, B5}
 
 #define MATRIX_COL_PINS_RIGHT {F7, F6, F5, F4, B5, B4, E6}
-#define MATRIX_ROW_PINS_RIGHT { D1, D0, D4, C6, D7, D3}    	// TX   
+#define MATRIX_ROW_PINS_RIGHT { D1, D0, D4, C6, D7, D3}    	// TX
 
 
 

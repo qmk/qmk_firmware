@@ -221,6 +221,8 @@ These keycodes are not part of the Keyboard/Keypad usage page. The `SYSTEM_` key
 |`KC_MEDIA_REWIND`      |`KC_MRWD`|Previous Track     |
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`|Brightness Up      |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`|Brightness Down    |
+|`KC_CONTROL_PANEL`     |`KC_CPNL`|Open Control Panel |
+|`KC_ASSISTANT`         |`KC_ASST`|Launch Assistant   |
 
 ## Number Pad
 

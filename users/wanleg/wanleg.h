@@ -169,7 +169,7 @@ enum {
  * | Sft//Cp| CAPS   |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
  * '-----------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,KC_ESC,  RESET,   KC_RSFT, 			KC_WH_D, KC_WH_U, _______, KC_BSLS
+#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,KC_ESC,  QK_BOOT, KC_RSFT, 			KC_WH_D, KC_WH_U, _______, KC_BSLS
 #define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3, 			KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
 #define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
 
@@ -219,7 +219,7 @@ enum {
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------'
  */
-#define ________________SUPRA_Row_0________________   RESET,   KC_TAB,  KC_UP,   _______, KC_INS,  KC_LCTL, KC_RSFT, KC_PGUP, KC_HOME, KC_MINS, KC_EQL,  KC_DEL
+#define ________________SUPRA_Row_0________________   QK_BOOT, KC_TAB,  KC_UP,   _______, KC_INS,  KC_LCTL, KC_RSFT, KC_PGUP, KC_HOME, KC_MINS, KC_EQL,  KC_DEL
 #define ________________SUPRA_Row_1________________   _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PSCR, KC_LSFT, KC_RCTL, KC_PGDN, KC_END,  KC_LBRC, KC_RBRC, KC_BSLS
 #define ________________SUPRA_Row_2________________   _______, KC_PAUS, _______, _______, _______, _______, _______, _______, KC_RGUI, KC_RALT, _______, _______
 #define ________________SUPRA_Row_3________________   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -317,6 +317,6 @@ enum {
  * |  UG_hue-   | UG_hue+   |  UG_sat-  |  UG_sat+  |             |             |     |     |     |QWERTY|
  * '-----------------------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_FN_0________________			BL_BRTG, BL_DEC,  BL_INC,  BL_TOGG, BL_STEP, BL_ON,   _______, _______, _______, _______
+#define _______________Gherkin_FN_0________________			BL_BRTG, BL_DOWN, BL_UP,   BL_TOGG, BL_STEP, BL_ON,   _______, _______, _______, _______
 #define _______________Gherkin_FN_1________________			RGB_M_B, RGB_VAD, RGB_VAI, RGB_TOG, RGB_MOD, _______, _______, _______, _______, _______
 #define _______________Gherkin_FN_2________________			RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, QWERTY

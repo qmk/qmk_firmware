@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PWM_DRIVER PWMD2
 #define AUDIO_PWM_CHANNEL 3
 #define AUDIO_PWM_PAL_MODE 1
-#define AUDIO_STATE_TIMER  GPTD1
 
 #define AUDIO_CLICKY
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f

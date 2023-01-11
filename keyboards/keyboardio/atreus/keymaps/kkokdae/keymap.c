@@ -58,14 +58,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_MRWD, KC_VOLU, KC_VOLD, KC_MFFD, KC_MPLY,                   KC_INS,  KC_F7,   KC_F8,   KC_F9,   KC_CAPS,
       KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_BRIU,                   KC_F12,  KC_F4,   KC_F5,   KC_F6,   TD(TdL),
       KC_HOME, KC_PGUP, KC_PGDN, KC_END,  KC_BRID, _______, _______, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F11,
-      _______, _______, _______, KC_ASTG, _______, _______, _______, DNUMPAD, _______, _______, _______, _______
+      _______, _______, _______, AS_TOGG, _______, _______, _______, DNUMPAD, _______, _______, _______, _______
       ),
 
   [_NUMPAD] = LAYOUT(
       _______, _______, _______, _______, _______,                   S(KC_E), KC_7,    KC_8,    KC_9,    S(KC_F),
       TD(TdL), KC_EQL,  KC_ASTR, KC_PLUS, _______,                   S(KC_C), KC_4,    KC_5,    KC_6,    S(KC_D),
       TD(TdH), KC_DOT,  KC_SLSH, KC_MINS, _______, _______, _______, S(KC_A), KC_1,    KC_2,    KC_3,    S(KC_B),
-      _______, _______, _______, KC_ASTG, _______, _______, _______, _______, KC_0,    _______, _______, _______
+      _______, _______, _______, AS_TOGG, _______, _______, _______, _______, KC_0,    _______, _______, _______
       ),
 
   [_SYMBOL] = LAYOUT(

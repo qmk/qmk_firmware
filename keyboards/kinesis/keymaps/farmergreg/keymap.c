@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[_LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_HOME,
 			KC_BSPC,KC_DEL ,KC_END,
 
-	KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_PSCR ,KC_SLCK  ,KC_PAUS, TG(_KEYPAD), MO(_PROGM),	// I would prefer OSL(_PROGM) but MO emulates what Kinesis does in their firmware.
+	KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_PSCR ,KC_SCRL  ,KC_PAUS, TG(_KEYPAD), MO(_PROGM),	// I would prefer OSL(_PROGM) but MO emulates what Kinesis does in their firmware.
 	KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,
 	KC_J   ,KC_L   ,KC_U   ,KC_Y   ,KC_SCLN,KC_BSLS,
 	KC_H   ,KC_N   ,KC_E   ,KC_I   ,KC_O   ,KC_QUOT,

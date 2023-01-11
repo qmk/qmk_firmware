@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-//                         0    1    2    3    4     5   6   7    8     9   A   B  C   D   E  
+//                         0    1    2    3    4     5   6   7    8     9   A   B  C   D   E
 #define MATRIX_ROW_PINS { C4,  A7,  A6,  A5,  A4 }
 #define MATRIX_COL_PINS { B10, B11, B12, B13, B14, B15, C6, C10, C11, C12, D2, B5, B6, B7, B8 }
 
@@ -36,7 +36,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN A3
 #ifdef RGB_DI_PIN
 #define RGBLED_NUM 18
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8

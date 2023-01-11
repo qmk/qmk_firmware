@@ -80,11 +80,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------------'
      */
     [FUNCTIONS_1] = LAYOUT_60_iso(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,       KC_F8,   KC_F9,   KC_F10,              KC_F11,  KC_F12,          KC_DEL,
-        _______, _______, _______, _______, _______, KC__MUTE, KC_MPRV, KC__VOLDOWN, KC_VOLU, KC_MNXT, KC_MEDIA_PLAY_PAUSE, _______, _______,
-        KC_CAPS, _______, KC_WBAK, _______, _______, KC_WFWD,  KC_LEFT, KC_DOWN,     KC_UP,   KC_RGHT, _______,             _______, _______,         KC_ENT,
-        KC_LSFT, _______, _______, _______, _______, _______,  _______, KC_HOME,     KC_PGDN, KC_PGUP, KC_END,              _______, MO(FUNCTIONS_2),
-        KC_LCTL, KC_LGUI, KC_LALT,                             _______,                                KC_RALT,             KC_RGUI, KC_RCTL,         _______
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,              KC_F11,  KC_F12,          KC_DEL,
+        _______, _______, _______, _______, _______, KC_MUTE, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_MEDIA_PLAY_PAUSE, _______, _______,
+        KC_CAPS, _______, KC_WBAK, _______, _______, KC_WFWD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,             _______, _______,         KC_ENT,
+        KC_LSFT, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,              _______, MO(FUNCTIONS_2),
+        KC_LCTL, KC_LGUI, KC_LALT,                            _______,                            KC_RALT,             KC_RGUI, KC_RCTL,         _______
     ),
 
     /* More Function keys
@@ -144,8 +144,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [SPECIALS] = LAYOUT_60_iso(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAD, RGB_VAI, XXXXXXX,
-        XXXXXXX, XXXXXXX, UC_M_WC, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, UC_M_OS, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG(GAMING), XXXXXXX, XXXXXXX, XXXXXXX, UC_M_LN, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
+        XXXXXXX, XXXXXXX, UC_WINC, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, UC_MAC,  XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG(GAMING), XXXXXXX, XXXXXXX, XXXXXXX, UC_LINX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX,                               XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS
     ),

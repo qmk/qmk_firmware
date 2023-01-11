@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [HHKB] = LAYOUT(
         KC_PWR, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_CAPS, KC_MPLY, KC_MPRV, KC_MNXT, ____, ____, ____, ____, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, ____, KC_BSPC,
+        KC_CAPS, KC_MPLY, KC_MPRV, KC_MNXT, ____, ____, ____, ____, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, ____, KC_BSPC,
         ____, KC_VOLD, KC_VOLU, KC_MUTE, KC_EJCT, ____, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
         ____, ____, ____, ____, ____, ____, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, ____, ____,
         ____, ____, ____, KC_MSTP, ____),
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [UTIL] = LAYOUT(
-        QK_BOOT, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, ____, ____, ____, ____, ____, ____, ____, ____, DF(QWER), DF(COLE), DF(DVOR), DEBUG,
+        QK_BOOT, DM_PLY1, DM_PLY2, ____, ____, ____, ____, ____, ____, ____, ____, DF(QWER), DF(COLE), DF(DVOR), DB_TOGG,
         ____, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, ____, KC_HOME, KC_PGDN, KC_PGUP, KC_END, ____, ____, ____, ____,
         ____, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, ____, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, ____, ____, ____,
         ____, ____, ____, ____, ____, KC_SPC, ____, ____, ____, ____, ____, ____, ____,
@@ -154,9 +154,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [MREC] = LAYOUT(
-        ____, DYN_REC_START1, DYN_REC_START2, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
+        ____, DM_REC1, DM_REC2, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
-        ____, ____, DYN_REC_STOP, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
+        ____, ____, DM_RSTP, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
         ____, ____, ____, ____, ____)
 

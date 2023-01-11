@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#define MO_NLCK LT(1, KC_NLCK) // Numlock on tap, layer change on hold
+#define MO_NLCK LT(1, KC_NUM) // Numlock on tap, layer change on hold
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(

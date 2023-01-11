@@ -7,8 +7,6 @@
 #include "qp_draw.h"
 #include "qp_tft_panel.h"
 
-#define BYTE_SWAP(x) (((((uint16_t)(x)) >> 8) & 0x00FF) | ((((uint16_t)(x)) << 8) & 0xFF00))
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter API implementations
 
@@ -94,7 +92,7 @@ bool qp_tft_panel_palette_convert_rgb565_swapped(painter_device_t device, int16_
     for (int16_t i = 0; i < palette_size; ++i) {
         RGB      rgb      = hsv_to_rgb_nocie((HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
         uint16_t rgb565   = (((uint16_t)rgb.r) >> 3) << 11 | (((uint16_t)rgb.g) >> 2) << 5 | (((uint16_t)rgb.b) >> 3);
-        palette[i].rgb565 = BYTE_SWAP(rgb565);
+        palette[i].rgb565 = __builtin_bswap16(rgb565);
     }
     return true;
 }

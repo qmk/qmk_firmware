@@ -22,11 +22,11 @@
 
 #define _________________SYMB_L1___________________        KC_MINS , KC_AT   , KC_LCBR     , KC_RCBR     , KC_GRV
 #define _________________SYMB_L2___________________        KC_CIRC , KC_UNDS , KC_LPRN     , KC_RPRN     , KC_DLR
-#define _________________SYMB_L3___________________        KC_LABK , KC_RABK , KC_LBRACKET , KC_RBRACKET , KC_TILD
+#define _________________SYMB_L3___________________        KC_LABK , KC_RABK , KC_LBRC     , KC_RBRC     , KC_TILD
 
 #define _________________SYMB_R1___________________        KC_ASTR , KC_EXLM , KC_PIPE     , KC_PERC     , KC_PLUS
 #define _________________SYMB_R2___________________        KC_HASH , KC_EQL  , KC_COLN     , KC_SCLN     , TAP_TOG_LAYER
-#define _________________SYMB_R3___________________        KC_AMPR , KC_QUES , KC_SLASH    , KC_BSLASH   , TG(_NUMP)
+#define _________________SYMB_R3___________________        KC_AMPR , KC_QUES , KC_SLASH    , KC_BSLS     , TG(_NUMP)
 
 
 #define _________________NUMP_L1___________________        KC_NO   , KC_NO         , LGUI(KC_UP)   , XXXXXXX             , XXXXXXX
@@ -40,9 +40,9 @@
 // Note: These are 6x1 blocks, since modifiers are also adjusted.
 #define ______________OVERWATCH_L1_________________       KC_TAB    , KC_Q  , KC_W       , KC_E , KC_R , KC_T
 #define ______________OVERWATCH_L2_________________       KC_LCTL   , KC_A  , KC_S       , KC_D , KC_F , KC_P
-#define ______________OVERWATCH_L3_________________       KC_LSHIFT , KC_Z  , KC_X       , KC_C , KC_V , KC_GRAVE
+#define ______________OVERWATCH_L3_________________       KC_LSFT   , KC_Z  , KC_X       , KC_C , KC_V , KC_GRAVE
 // Ergodox only has 5 keys on bottom row:
-#define ______________OVERWATCH_L4_________________       KC_LCTL   , KC_F9 , KC_PSCREEN , KC_H , KC_R
+#define ______________OVERWATCH_L4_________________       KC_LCTL   , KC_F9 , KC_PSCR , KC_H , KC_R
 
 
 

@@ -1,0 +1,78 @@
+{
+    "keyboard_name": "Pumpkin Pad",
+    "manufacturer": "Laser Ninja",
+    "url": "",
+    "maintainer": "Jels",
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "debounce": 5,
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["A9", "B3", "B9", "NO_PIN"],
+            ["A8", "B12", "A2", "A1"],
+            ["B15", "B14", "B13", "NO_PIN"]
+        ]
+    },
+    "usb": {
+        "vid": "0x6C6E",
+        "pid": "0x7070",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0.5, "y": 0 },
+                { "matrix": [0, 1], "x": 1.5, "y": 0 },
+                { "matrix": [0, 2], "x": 2.5, "y": 0 },
+                { "matrix": [1, 0], "x": 0, "y": 1 },
+                { "matrix": [1, 1], "x": 1, "y": 1 },
+                { "matrix": [1, 2], "x": 2, "y": 1 },
+                { "matrix": [1, 3], "x": 3, "y": 1 },
+                { "matrix": [2, 0], "x": 0.5, "y": 2 },
+                { "matrix": [2, 1], "x": 1.5, "y": 2 },
+                { "matrix": [2, 2], "x": 2.5, "y": 2 }
+            ]
+        }
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            { "flags": 2, "x": 36, "y": 3 },
+            { "flags": 2, "x": 86, "y": 2 },
+            { "flags": 2, "x": 138, "y": 2 },
+            { "flags": 2, "x": 188, "y": 2 },
+            { "flags": 2, "x": 215, "y": 16 },
+            { "flags": 2, "x": 215, "y": 16 },
+            { "flags": 4, "matrix": [0, 2], "x": 167, "y": 17 },
+            { "flags": 4, "matrix": [0, 1], "x": 112, "y": 17 },
+            { "flags": 4, "matrix": [0, 0], "x": 57, "y": 17 },
+            { "flags": 2, "x": 9, "y": 15 },
+            { "flags": 2, "x": 9, "y": 15 },
+            { "flags": 2, "x": 6, "y": 34 },
+            { "flags": 2, "x": 9, "y": 48 },
+            { "flags": 2, "x": 9, "y": 48 },
+            { "flags": 4, "matrix": [1, 0], "x": 29, "y": 38 },
+            { "flags": 4, "matrix": [1, 1], "x": 84, "y": 38 },
+            { "flags": 4, "matrix": [1, 2], "x": 140, "y": 38 },
+            { "flags": 2, "x": 218, "y": 34 },
+            { "flags": 2, "x": 215, "y": 48 },
+            { "flags": 2, "x": 215, "y": 48 },
+            { "flags": 2, "x": 188, "y": 61 },
+            { "flags": 4, "matrix": [2, 2], "x": 167, "y": 59 },
+            { "flags": 2, "x": 138, "y": 61 },
+            { "flags": 4, "matrix": [2, 1], "x": 112, "y": 59 },
+            { "flags": 2, "x": 86, "y": 61 },
+            { "flags": 4, "matrix": [2, 0], "x": 57, "y": 59 },
+            { "flags": 2, "x": 36, "y": 61 }
+        ]
+    }
+}

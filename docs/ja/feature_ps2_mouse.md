@@ -36,13 +36,14 @@ rules.mk で:
 
 ```makefile
 PS2_MOUSE_ENABLE = yes
-PS2_USE_BUSYWAIT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = busywait
 ```
 
 キーボードの config.h で:
 
 ```c
-#ifdef PS2_USE_BUSYWAIT
+#ifdef PS2_DRIVER_BUSYWAIT
 #   define PS2_CLOCK_PIN   D1
 #   define PS2_DATA_PIN    D2
 #endif
@@ -56,13 +57,14 @@ rules.mk で:
 
 ```makefile
 PS2_MOUSE_ENABLE = yes
-PS2_USE_INT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 ```
 
 キーボードの config.h で:
 
 ```c
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 #define PS2_CLOCK_PIN   D2
 #define PS2_DATA_PIN    D5
 
@@ -88,14 +90,14 @@ rules.mk で:
 
 ```makefile
 PS2_MOUSE_ENABLE = yes
-PS2_USE_USART = yes
+PS2_ENABLE = yes
+PS2_DRIVER = usart
 ```
 
 キーボードの config.h で:
 
 ```c
-#ifdef PS2_USE_USART
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 

@@ -1,6 +1,6 @@
 /*
 ©2021 Everywhere Defense Industries / Fate Everywhere <fate@7storm.org>
- 
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,7 +39,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB Underglow */
 #define RGB_DI_PIN A10
 #define RGBLED_NUM 32
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 5
 //#define RGBLIGHT_LIMIT_VAL 200
 

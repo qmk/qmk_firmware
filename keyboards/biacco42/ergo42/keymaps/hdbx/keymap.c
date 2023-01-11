@@ -26,12 +26,12 @@ enum custom_keycodes {
 // Use Dynamic macro
 #include "dynamic_macro.h"
 
-#define KC_LOWR LT(_LOWER, KC_MHEN)    // タップで無変換     ホールドでLower
-#define KC_RASE LT(_RAISE, KC_HENK)    // タップで変換       ホールドでRaise
+#define KC_LOWR LT(_LOWER, JP_MHEN)    // タップで無変換     ホールドでLower
+#define KC_RASE LT(_RAISE, JP_HENK)    // タップで変換       ホールドでRaise
 #define KC_LSLB MT(MOD_LSFT, JP_LBRC)  // タップで[          ホールドで左Shift
 #define KC_RSRB MT(MOD_RSFT, JP_RBRC)  // タップで]          ホールドで右Shift
 #define KC_ALTB MT(MOD_LALT, KC_TAB)   // タップでTAB        ホールドで左Alt
-#define CTL_ZH  CTL_T(KC_ZKHK)         // タップで半角/全角  ホールドで左Control     (Windows)
+#define CTL_ZH  CTL_T(JP_ZKHK)         // タップで半角/全角  ホールドで左Control     (Windows)
 #define WN_CAPS S(KC_CAPS)             // Caps Lock                                  (Windows)
 #define KC_ALPS LALT(KC_PSCR)          // Alt + PrintScreen
 #define LOWER MO(_LOWER)
@@ -121,14 +121,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
    * | Shift |       |       |       |       |       |       |   |XXXXXXX| M-PLAY|M-MUTE |VOL_DWN|VOL_UP |PREV_TR|NEXT_TR|
    * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
-   * | DEBUG |XXXXXXX|XXXXXXX|       |       |XXXXXXX|XXXXXXX|   |XXXXXXX|XXXXXXX|       | Left  | Down  |   Up  | Right |
+   * | Debug |XXXXXXX|XXXXXXX|       |       |XXXXXXX|XXXXXXX|   |XXXXXXX|XXXXXXX|       | Left  | Down  |   Up  | Right |
    * `-------------------------------------------------------'   `-------------------------------------------------------'
    */
   [_ADJUST] = LAYOUT( \
-    RGB_TOG,  MCR1,    MCR2,    MCR3,    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP, KC_BSPC, \
+    RGB_TOG,  MCR1,    MCR2,    MCR3,    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, DM_PLY1, DM_PLY2, DM_REC1, DM_REC2, DM_RSTP, KC_BSPC, \
     QK_BOOT,  RGB_MOD, RGB_M_P, RGB_M_B, RGB_HUI, RGB_SAI, RGB_VAI,   XXXXXXX, XXXXXXX, QWERTY,  GAME,   XXXXXXX, XXXXXXX, XXXXXXX, \
     KC_LSFT,  RGB_M_R, RGB_M_SN,RGB_M_G, RGB_HUD, RGB_SAD, RGB_VAD,   XXXXXXX, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MNXT, \
-    DEBUG,    XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+    DB_TOGG,  XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
   ),
 
 };
@@ -141,7 +141,7 @@ layer_state_t layer_state_set_keymap (layer_state_t state) {
 void matrix_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
   rgblight_enable();
-  rgblight_setrgb_teal();
+  rgblight_setrgb(RGB_TEAL);
 #endif
 }
 
@@ -150,16 +150,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
     switch (get_highest_layer(state)) {
     case _RAISE:
-      rgblight_setrgb_chartreuse(); // RAISE:シャルトリューズ
+      rgblight_setrgb(RGB_CHARTREUSE); // RAISE:シャルトリューズ
       break;
     case _LOWER:
-      rgblight_setrgb_pink(); // LOWER:ピンク
+      rgblight_setrgb(RGB_PINK); // LOWER:ピンク
       break;
     case _ADJUST:
-      rgblight_setrgb_red(); // ADJUST:レッド
+      rgblight_setrgb(RGB_RED); // ADJUST:レッド
       break;
     default: //  for any other layers, or the default layer
-      rgblight_setrgb_teal(); // 他:ティール
+      rgblight_setrgb(RGB_TEAL); // 他:ティール
       break;
     }
 #endif

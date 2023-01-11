@@ -13,7 +13,7 @@ Will require heavy modification for most people.
 
 extern keymap_config_t keymap_config;
 
-#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
 
 enum my_layers {
   _QWERTY,
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_COMMAND] = LAYOUT(
     KC_APP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-   KC_TRNS, KC_PGUP, KC_HOME,   KC_UP,  KC_END, KC_VOLU,                    KC_SLCK,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_TRNS, 
+   KC_TRNS, KC_PGUP, KC_HOME,   KC_UP,  KC_END, KC_VOLU,                    KC_SCRL,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_TRNS, 
    KC_TRNS, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,                    KC_CAPS,   KC_F5,   KC_F6,   KC_F7,   KC_F8, KC_TRNS, 
    KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_TRNS, KC_MUTE, KC_TRNS,  KC_TRNS, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,   KC_F4, KC_TRNS, 
                                  KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS 

@@ -92,11 +92,11 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
 void matrix_wait_for_interrupt(void) {
     // Set up row/col pins and attach callback
-    for (int i = 0; i < sizeof(col_pins) / sizeof(pin_t); ++i) {
+    for (int i = 0; i < ARRAY_SIZE(col_pins); ++i) {
         setPinOutput(col_pins[i]);
         writePinLow(col_pins[i]);
     }
-    for (int i = 0; i < sizeof(row_pins) / sizeof(pin_t); ++i) {
+    for (int i = 0; i < ARRAY_SIZE(row_pins); ++i) {
         setPinInputHigh(row_pins[i]);
         palEnableLineEvent(row_pins[i], PAL_EVENT_MODE_BOTH_EDGES);
     }
@@ -105,12 +105,12 @@ void matrix_wait_for_interrupt(void) {
     __WFI();
 
     // Now that the interrupt has woken us up, reset all the row/col pins back to defaults
-    for (int i = 0; i < sizeof(row_pins) / sizeof(pin_t); ++i) {
+    for (int i = 0; i < ARRAY_SIZE(row_pins); ++i) {
         palDisableLineEvent(row_pins[i]);
         writePinHigh(row_pins[i]);
         setPinInputHigh(row_pins[i]);
     }
-    for (int i = 0; i < sizeof(col_pins) / sizeof(pin_t); ++i) {
+    for (int i = 0; i < ARRAY_SIZE(col_pins); ++i) {
         writePinHigh(col_pins[i]);
         setPinInputHigh(col_pins[i]);
     }

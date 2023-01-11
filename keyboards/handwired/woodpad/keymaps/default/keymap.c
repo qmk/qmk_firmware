@@ -25,7 +25,7 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMLOCK] = LAYOUT_ortho_5x4( /* Base */
-        KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+        KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_P4,   KC_P5,   KC_P6,   KC_PEQL,
         KC_P1,   KC_P2,   KC_P3,   KC_COMM,
@@ -58,7 +58,7 @@ static bool numlock_down = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_NLCK:
+        case KC_NUM:
             if (record->event.pressed) {
                 numlock_down = true;
                 if (IS_LAYER_ON(_ALT)) {

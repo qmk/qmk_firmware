@@ -40,8 +40,8 @@
 #define COLN_CTL CTL_T(KC_SCLN)
 
 #define ______ KC_TRNS
-#define LSHIFT KC_LSHIFT
-#define RSHIFT KC_RSHIFT
+#define LSHIFT KC_LSFT
+#define RSHIFT KC_RSFT
 #define COMMA KC_COMM
 #define SLASH KC_SLSH
 #define SPACE KC_SPC
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //`--------+--------+--------+--------+--------'                      `--------+--------+--------+--------+--------'
 
 //                  ,--------+--------+--------+--------.    ,--------+--------+--------+--------.
-                      LSHIFT ,  SPACE ,   TAB  ,  DEBUG ,       SPACE ,  BKSPC ,  ENTER , RSHIFT
+                      LSHIFT ,  SPACE ,   TAB  ,DB_TOGG ,       SPACE ,  BKSPC ,  ENTER , RSHIFT
 //                  `--------+--------+--------+--------'    `--------+--------+--------+--------'
 ),
 
@@ -378,7 +378,7 @@ bool parse_next(kring_t *pending) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == DEBUG) {
+    if (keycode == QK_DEBUG_TOGGLE) {
         return true;
     }
 

@@ -76,7 +76,7 @@ so there is only one configuration. */
 
 #define LED_DRIVER_ADDR_1 0x74
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 105
+#define LED_MATRIX_LED_COUNT 105
 #define LED_MATRIX_ROWS 15
 #define LED_MATRIX_COLS 7
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 20

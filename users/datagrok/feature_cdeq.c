@@ -27,7 +27,7 @@ bool process_record_cdeq(uint16_t keycode, keyrecord_t *record) {
     return true;
   }
 
-  shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+  shifted = get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
 
   // Keydown. If shift is currently pressed, register its alternate keycode.
   if (record->event.pressed && shifted) {

@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [FUNCTION] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,   QK_BOOT, \
-        _______, _______, KC_CM_W, KC_CM_E, KC_MPRV, KC_MPLY, KC_MNXT, KC_CM_U, KC_CM_I, KC_CM_O, KC_CM_P, KC_PSCR, KC_SLCK, KC_PAUS, \
+        _______, _______, KC_CM_W, KC_CM_E, KC_MPRV, KC_MPLY, KC_MNXT, KC_CM_U, KC_CM_I, KC_CM_O, KC_CM_P, KC_PSCR, KC_SCRL, KC_PAUS, \
         _______, KC_CM_A, KC_CM_S, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, KC_CM_K, KC_CM_L, _______, _______, _______, KC_PENT,          \
         _______, _______, KC_CM_Y, _______, KC_CM_C, MICMUTE, KC_CALC, KC_CM_N, KC_CM_M, _______, _______, _______,          KC_PGUP, KC_GMLK, \
         _______, _______, _______,                            _______,                                     _______, KC_HOME, KC_PGDN, KC_END

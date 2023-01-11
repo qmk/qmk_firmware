@@ -340,8 +340,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 これで、キーマップのどこでも簡単に `TD(X_CTL)` マクロが使えます。
 
-もし、この機能をユーザスペースで実現したい場合、 [DanielGGordon](https://github.com/qmk/qmk_firmware/tree/master/users/gordon) がユーザスペースでどのように実装しているか確認してください。
-
 > この設定の "hold" は、タップダンスのタイムアウト（`ACTION_TAP_DANCE_FN_ADVANCED_TIME` 参照）の **後** に起こります。即座に "hold" を得るためには、条件から `state->interrupted` の確認を除きます。結果として、複数回のタップのための時間をより多く持つことで快適な長いタップの期限を使うことができ、そして、"hold" のために長く待たないようにすることができます(2倍の `TAPPING TERM` で開始してみてください)。
 
 #### 例5: タップダンスを高度なモッドタップとレイヤータップキーに使う :id=example-5

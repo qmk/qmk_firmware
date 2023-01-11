@@ -75,7 +75,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [_TD_F12] = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_F12),
     [_TD_H_ENTER] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_ENT),
     [_TD_CLN] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLON),
-    [_TD_SLASH] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_BSLASH),
+    [_TD_SLASH] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_BACKSLASH),
     // OLD ONES
     [LEFT_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_HOME),
     [RGT_HOME] = ACTION_TAP_DANCE_DOUBLE_SAFE(KC_RGHT, KC_END),
@@ -90,11 +90,11 @@ void td_copy_cut(qk_tap_dance_state_t *state, void *user_data)
 {
   if (state->count == 2)
   {
-    onMac ?  SEND_STRING(SS_LGUI("x")) :   SEND_STRING(SS_LCTRL("x"));
+    onMac ?  SEND_STRING(SS_LGUI("x")) :   SEND_STRING(SS_LCTL("x"));
   }
   else
   {
-    onMac ?  SEND_STRING(SS_LGUI("c")) : SEND_STRING(SS_LCTRL("c"));
+    onMac ?  SEND_STRING(SS_LGUI("c")) : SEND_STRING(SS_LCTL("c"));
   }
   reset_tap_dance(state);
 };
@@ -103,11 +103,11 @@ void td_paste(qk_tap_dance_state_t *state, void *user_data)
 {
   if (state->count == 2)
   {
-    onMac ?  SEND_STRING(SS_DOWN(X_RSHIFT) SS_LGUI("v") SS_UP(X_RSHIFT)) :   SEND_STRING(SS_DOWN(X_RSHIFT) SS_LCTRL("v") SS_UP(X_RSHIFT));
+    onMac ?  SEND_STRING(SS_DOWN(X_RSFT) SS_LGUI("v") SS_UP(X_RSFT)) :   SEND_STRING(SS_DOWN(X_RSFT) SS_LCTL("v") SS_UP(X_RSFT));
   }
   else
   {
-    onMac ?  SEND_STRING(SS_LGUI("v")) : SEND_STRING(SS_LCTRL("v"));
+    onMac ?  SEND_STRING(SS_LGUI("v")) : SEND_STRING(SS_LCTL("v"));
   }
   reset_tap_dance(state);
 };

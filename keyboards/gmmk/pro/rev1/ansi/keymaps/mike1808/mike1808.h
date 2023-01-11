@@ -90,7 +90,7 @@ enum combos {
 
 #define KC_LINX KC_LINUX
 
-#define KC_RESET RESET
+#define KC_RESET QK_BOOT
 #define KC_RST KC_RESET
 
 #define OS_GIT OSL(GIT)

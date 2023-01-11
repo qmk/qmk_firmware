@@ -249,22 +249,11 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return true;
 }
 
-void matrix_init_keymap(void) {
+void keyboard_post_init_keymap(void) {
 #    ifdef KEYBOARD_planck_light
     writePinLow(D6);
 #    endif
     // rgblight_mode(RGB_MATRIX_MULTISPLASH);
-}
-#else  // RGB_MATRIX_INIT
-
-void matrix_init_keymap(void) {
-#    if !defined(CONVERT_TO_PROTON_C) && !defined(KEYBOARD_planck)
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-#    endif
 }
 #endif  // RGB_MATRIX_INIT
 

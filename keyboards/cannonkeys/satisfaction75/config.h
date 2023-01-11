@@ -82,9 +82,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 6 for 3x custom encoder settings, left, right, and press (18 bytes)
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 21
 
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

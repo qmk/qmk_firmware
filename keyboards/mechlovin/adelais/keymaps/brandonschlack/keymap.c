@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_all( \
     KC_MUTE, QM_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  MC_LHPD, MC_SLPD, \
-    KC_MNXT, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, KC_PGUP, KC_HOME, KC_END,  KC_DELT, \
+    KC_MNXT, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, KC_PGUP, KC_HOME, KC_END,  KC_DEL,  \
     KC_MPRV, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, KC_MPRV, KC_MNXT, KC_PGDN, KC_UP,            KC_MPLY, \
              _______, RGB_LYR, RGB_THM, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, _______, RGT_SFT, KC_DOWN, \
              _______,          _______,     _______,      _______,          _______,          _______,                   _______ \
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TG_BASE, QM_MAKE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     TG_REDR, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     TG_MAIL, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, _______, _______, _______, _______,          _______, \
-             _______, RGB_LYR, RGB_THM, _______, EEP_RST, QK_BOOT, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, \
+             _______, RGB_LYR, RGB_THM, _______, EE_CLR,  QK_BOOT, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, \
              _______,          _______,     _______,      _______,          _______,          _______,                   _______ \
 
 )

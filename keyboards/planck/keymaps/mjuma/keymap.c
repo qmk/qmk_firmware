@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_TAB,            KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      KC_Y,      KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_GESC,           KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_H,      KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    QK_GESC,           KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_H,      KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     TD(TD_SHIFT_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      KC_N,      KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MT(MOD_RSFT, KC_ENT),
     KC_LCTL,           FN,      KC_LALT, KC_LGUI, LOWER,   SPACE_FN,  SPACE_FN,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_GAMING] = LAYOUT_planck_grid(
     KC_TAB,            KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      KC_Y,      KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_GESC,           KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_H,      KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    QK_GESC,           KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_H,      KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     TD(TD_SHIFT_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      KC_N,      KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MT(MOD_RSFT, KC_ENT),
     KC_LCTL, FN,       KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,    RAISE,     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
@@ -159,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      |QK_BOOT |DEBUG |      |      |      |      |DMREC1|DMREC2|      |      |      |
+ * |      | Boot |Debug |      |      |      |      |DMREC1|DMREC2|      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |GAMING|      |      |      |      |      |DMPLY1|DMPLY2|Audoff|Aud on|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -169,10 +169,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, QK_BOOT, DEBUG,     _______,   _______,  _______, _______, DM_REC1, DM_REC2,   _______,   _______,   _______,
+    _______, QK_BOOT, DB_TOGG,   _______,   _______,  _______, _______, DM_REC1, DM_REC2,   _______,   _______,   _______,
     _______, TG(_GAMING), ___,   _______,   _______,  _______, _______, DM_PLY1, DM_PLY2,   AU_OFF,    AU_ON,     _______,
-    _______, _______, _______,   _______,   _______,  _______, _______, DM_RSTP, _______,   MU_OFF,    MU_ON,     MU_MOD,
-    _______, _______, _______,   AG_TOGG,   _______,  _______, _______, _______, _______,   MUV_DE,    MUV_IN,    _______
+    _______, _______, _______,   _______,   _______,  _______, _______, DM_RSTP, _______,   MU_OFF,    MU_ON,     MU_NEXT,
+    _______, _______, _______,   AG_TOGG,   _______,  _______, _______, _______, _______,   AU_PREV,   AU_NEXT,    _______
 )
 
 };

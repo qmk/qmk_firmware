@@ -10,6 +10,7 @@ from qmk.keyboard import keyboard_completer, list_keyboards
 from qmk.keymap import locate_keymap, list_keymaps
 from qmk.path import is_keyboard, keyboard
 from qmk.git import git_get_ignored_files
+from qmk.c_parse import c_source_files
 
 
 def _list_defaultish_keymaps(kb):
@@ -23,6 +24,29 @@ def _list_defaultish_keymaps(kb):
             keymaps.add(x)
 
     return keymaps
+
+
+def _get_code_files(kb, km=None):
+    """Return potential keyboard/keymap code files
+    """
+    search_path = locate_keymap(kb, km).parent if km else keyboard(kb)
+
+    code_files = []
+    for file in c_source_files([search_path]):
+        # Ignore keymaps when only globing keyboard files
+        if not km and 'keymaps' in file.parts:
+            continue
+        code_files.append(file)
+
+    return code_files
+
+
+def _has_license(file):
+    """Check file has a license header
+    """
+    # Crude assumption that first line of license header is a comment
+    fline = open(file).readline().rstrip()
+    return fline.startswith(("/*", "//"))
 
 
 def _handle_json_errors(kb, info):
@@ -92,6 +116,11 @@ def keymap_check(kb, km):
         cli.log.error(f'{kb}/{km}: The file "{file}" should not exist!')
         ok = False
 
+    for file in _get_code_files(kb, km):
+        if not _has_license(file):
+            cli.log.error(f'{kb}/{km}: The file "{file}" does not have a license header!')
+            ok = False
+
     return ok
 
 
@@ -118,6 +147,11 @@ def keyboard_check(kb):
             continue
         cli.log.error(f'{kb}: The file "{file}" should not exist!')
         ok = False
+
+    for file in _get_code_files(kb):
+        if not _has_license(file):
+            cli.log.error(f'{kb}: The file "{file}" does not have a license header!')
+            ok = False
 
     return ok
 

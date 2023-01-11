@@ -30,7 +30,7 @@ typedef struct is31_led {
     uint32_t b : 10;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL];
+extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
 
 void IS31FL3741_init(uint8_t addr);
 void IS31FL3741_write_register(uint8_t addr, uint8_t reg, uint8_t data);

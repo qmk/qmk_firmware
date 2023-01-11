@@ -73,7 +73,7 @@ enum alfrdmalr_keycodes {
 #define K1B_ALT    KC_DEL // for 5x12 boards, keep backspace as the top-left key and add delete key
 #define K2B        KC_QUOT
 #define K3B        KC_RSFT
-#define K4B        KC_LEAD
+#define K4B        QK_LEAD
 
 // LAYOUT WRAPPERS =====================================================================
 #if (!defined(LAYOUT) && defined(KEYMAP))
@@ -148,7 +148,7 @@ enum alfrdmalr_keycodes {
 
 // RIGHT
 // - CORE
-#define ____NUMPAD_R1____    KC_NLCK,  KC_7,  KC_8,  KC_9,  KC_MINS
+#define ____NUMPAD_R1____    KC_NUM,   KC_7,  KC_8,  KC_9,  KC_MINS
 #define ____NUMPAD_R2____    KC_SPC,   KC_4,  KC_5,  KC_6,  KC_PLUS
 #define ____NUMPAD_R3____    KC_NO,    KC_1,  KC_2,  KC_3,  KC_SLSH
 
@@ -219,7 +219,7 @@ enum alfrdmalr_keycodes {
 // LEFT
 // - CORE
 #define __NAVIGATION_L1__    KC_NO,    KC_NO,     KC_SPC,   KC_F5,     KC_NO
-#define __NAVIGATION_L2__    KC_LSFT,  KC_LCTRL,  KC_LALT,  KC_LGUI,   KC_NO
+#define __NAVIGATION_L2__    KC_LSFT,  KC_LCTL,   KC_LALT,  KC_LGUI,   KC_NO
 #define __NAVIGATION_L3__    WINUNDO,  WINCUT,    WINCOPY,  WINPASTE,  KC_NO
 
 // - MODS
@@ -268,7 +268,7 @@ enum alfrdmalr_keycodes {
 #define K00_SET    KC_NO
 #define K10_SET    KC_NO
 #define K20_SET    KC_NO
-#define K30_SET    KC_ASTG
+#define K30_SET    AS_TOGG
 #define K40_SET    KC_NO
 
 // RIGHT
@@ -282,5 +282,5 @@ enum alfrdmalr_keycodes {
 #define K0B_SET    KC_NO
 #define K1B_SET    KC_NO
 #define K2B_SET    KC_NO
-#define K3B_SET    KC_ASTG
+#define K3B_SET    AS_TOGG
 #define K4B_SET    KC_NO

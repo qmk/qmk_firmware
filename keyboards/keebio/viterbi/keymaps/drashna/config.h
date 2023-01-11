@@ -31,7 +31,7 @@
 #endif  // RGBLIGHT_ENABLE
 
 #undef PRODUCT
-#define PRODUCT Drashnas Viterbi Macro Pad
+#define PRODUCT "Drashnas Viterbi Macro Pad"
 
 #ifdef AUDIO_ENABLE
 #    define AUDIO_PIN C6

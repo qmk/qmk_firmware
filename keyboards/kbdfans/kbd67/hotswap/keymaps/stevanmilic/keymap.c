@@ -25,7 +25,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case CLEAR:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+            SEND_STRING(SS_LCTL("a") SS_TAP(X_DELETE));
         }
         return false;
 
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
      */
     [L_FN] = LAYOUT(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NLCK, KC_SLCK, KC_PAUS, \
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUM,  KC_SCRL, KC_PAUS, \
         _______, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, _______, _______, _______, _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,   KC_INS,  \
         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, MV_LEFT, KC_DOWN, KC_UP,   MV_RGHT, _______, _______,          _______, TOP,     \
         _______, KC_ACL0, KC_ACL2, KC_WH_L, KC_WH_R, _______, _______, KC_APP,  KC_VOLD, KC_VOLU, KC_MUTE,          _______, KC_PGUP, BOTTOM,  \

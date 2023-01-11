@@ -45,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------------------------------'
    */
   [_ML] = LAYOUT_60_ansi(
-    TG(_ML), MI_VEL_1, MI_VEL_2, MI_VEL_3,  MI_VEL_4, MI_VEL_5, MI_VEL_6, MI_VEL_7, MI_VEL_8, MI_VEL_9, MI_VEL_10, XXXXXXX,   XXXXXXX, XXXXXXX,
-    MI_CHU,  XXXXXXX,  MI_Cs,    MI_Ds,     XXXXXXX,  MI_Fs,    MI_Gs,    MI_As,    XXXXXXX,  MI_Cs_1,  MI_Ds_1,   XXXXXXX,   XXXXXXX, XXXXXXX,
-    MI_MOD,  MI_C,     MI_D,     MI_E,      MI_F,     MI_G,     MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,    MI_F_1,             _______,
-    MI_SUS,            MI_OCTD,  MI_OCTU,   MI_MODSD, MI_MODSU, XXXXXXX,  XXXXXXX,  XXXXXXX,  MI_TRNSD, MI_TRNSU,  MI_TRNS_0,          MI_SUS,
-    _______, _______,  _______,                       MI_ALLOFF,                                        _______,   _______,   _______, _______
+    TG(_ML), MI_VL1,   MI_VL2,   MI_VL3,    MI_VL4,   MI_VL5,   MI_VL6,   MI_VL7,   MI_VL8,   MI_VL9,   MI_VL10,   XXXXXXX,   XXXXXXX, XXXXXXX,
+    MI_CHU,  XXXXXXX,  MI_Cs,    MI_Ds,     XXXXXXX,  MI_Fs,    MI_Gs,    MI_As,    XXXXXXX,  MI_Cs1,  MI_Ds1,   XXXXXXX,   XXXXXXX, XXXXXXX,
+    MI_MOD,  MI_C,     MI_D,     MI_E,      MI_F,     MI_G,     MI_A,     MI_B,     MI_C1,   MI_D1,   MI_E1,    MI_F1,             _______,
+    MI_SUST,           MI_OCTD,  MI_OCTU,   MI_MODD,  MI_MODU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MI_TRSD,  MI_TRSU,   MI_TR0,             MI_SUST,
+    _______, _______,  _______,                       MI_AOFF,                                          _______,   _______,   _______, _______
   ),
   #elif defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   /* Keymap _ML: MIDI Layer (Advanced)

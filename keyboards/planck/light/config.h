@@ -34,7 +34,7 @@
 #define DRIVER_COUNT       2
 #define DRIVER_1_LED_TOTAL 25
 #define DRIVER_2_LED_TOTAL 24
-#define DRIVER_LED_TOTAL   (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT   (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

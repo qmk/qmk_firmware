@@ -1,0 +1,35 @@
+{
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+
+    "matrix_pins": {
+        "rows": ["D7", "E6", "B4", "B5"],
+        "cols": ["F6", "F7", "B1", "B3", "B2", "B6"]
+     },    
+    "diode_direction": "COL2ROW",
+
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0x67C0",
+      "device_version": "0.0.1"
+    },
+
+    "features": {
+        "encoder": true,
+        "extrakey": true,
+        "rgblight": true
+    },
+    "split": {
+        "soft_serial_pin": "D2",
+        "main": "left"
+    },
+
+    "rgblight": {
+        "led_count": 5,
+        "pin": "D3",
+        "split": true,
+        "hue_steps": 8,
+        "saturation_steps": 8,
+        "brightness_steps": 8
+    }
+}

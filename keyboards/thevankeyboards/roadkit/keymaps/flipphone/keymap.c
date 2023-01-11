@@ -60,15 +60,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(_ADJUST, KC_SPACE),  KC_KP_DOT                       \
     ),
   [_ADJUST] = LAYOUT_numpad_4x4( /* Adjustments */
-    KC_NUMLOCK, TG(_FPHNOISY), TG(_FPH), TG(_NUMPAD), \
+    KC_NUM,     TG(_FPHNOISY), TG(_FPH), TG(_NUMPAD), \
     KC_BSPC,    BACKLIT,       KC_DEL,                \
     MACSLEEP,   _______,       _______,  _______,     \
     _______,                   MO(_DYN)               \
   ),
   [_DYN] = LAYOUT_numpad_4x4( /* DYNAMIC MACRO */
-    DYN_REC_START1, DYN_REC_START2, _______, DYN_REC_STOP, \
+    DM_REC1, DM_REC2, _______, DM_RSTP, \
     _______, _______,  _______,                            \
-    DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______,    \
+    DM_PLY1, DM_PLY2, _______, _______,    \
     _______,            _______                            \
   ),
 };
@@ -199,8 +199,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
           register_code(KC_RSFT);
           register_code(KC_RCTL);
-          register_code(KC_POWER);
-          unregister_code(KC_POWER);
+          register_code(KC_PWR);
+          unregister_code(KC_PWR);
           unregister_code(KC_RCTL);
           unregister_code(KC_RSFT);
       }

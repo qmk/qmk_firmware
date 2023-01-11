@@ -1,0 +1,5 @@
+
+NKRO_ENABLE = yes            # Enable N-Key Rollover
+LED_MATRIX_ENABLE = yes
+LED_MATRIX_DRIVER = IS31FL3731
+RGBLIGHT_ENABLE = yes

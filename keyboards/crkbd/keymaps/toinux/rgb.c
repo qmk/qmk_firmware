@@ -24,7 +24,7 @@ static const char nav_leds[] = {38, 43, 44, 46};
 static const char fun_leds[] = {45, 44, 37, 46, 43, 38, 47, 42, 39, 40};
 static const char mouse_leds[] = {11, 16, 17, 19};
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(26, RGB_RED);
     }
@@ -65,4 +65,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
 
     }
+    return false;
 }

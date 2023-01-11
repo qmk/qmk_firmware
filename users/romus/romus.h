@@ -183,8 +183,8 @@ enum {
  * |     |     |     |     |     |     ||     |     |     |     |     |     |
  * `------------------------------------------------------------------------' */
 #define ALTCHAR \
-    KC_GRV,	DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCREEN,		KC_BSLASH,	KC_SLSH, \
-    REDO,	DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,KC_LALT,KC_INS,	KC_END, KC_PGDN,KC_SCROLLLOCK,	CUR_BIT,	KC_MINUS, \
+    KC_GRV,	DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCR,		KC_BSLS,	KC_SLSH, \
+    REDO,	DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,KC_LALT,KC_INS,	KC_END, KC_PGDN,KC_SCRL,	CUR_BIT,	KC_MINUS, \
     UNDO,	CUT,    COPY,   PASTE,	EXIT,	KC_LSFT,_______,_______,_______,_______,		CUR_YEN,	KC_EQUAL,   \
     _______,_______,_______,_______,_______,_______,_______,DBL_SPC,_______,_______,		_______,	_______
 
@@ -199,7 +199,7 @@ enum {
  * | Ctrl| Alt |  /  |  `  | SYM | Spc ||  F5 | Ent |  0  |  <  |  v  |  >  |
  * `------------------------------------------------------------------------' */
 #define GAME \
-    K_GAMES,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_ESC, KC_P7,  KC_P8,  KC_P9,  KC_NLCK,KC_BSPC, \
+    K_GAMES,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_ESC, KC_P7,  KC_P8,  KC_P9,  KC_NUM, KC_BSPC, \
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_F1,  KC_P4,  KC_P5,  KC_P6,  KC_BSLS,KC_ENT , \
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F2,  KC_P1,  KC_P2,  KC_P3,  KC_UP,K_MOUSE, \
     KC_LCTL,KC_LALT,KC_SLSH,KC_GRV,	K_NUMBR,KC_SPC, KC_F5, 	KC_ENT, KC_P0,  KC_LEFT,KC_DOWN,KC_RGHT
@@ -231,7 +231,7 @@ enum {
  * |Musir|     |     |     |     |Vol +||Vol -| Prev| Stop|TogMu| Next|     |
  * `------------------------------------------------------------------------' */
 #define SETTINGS \
-    BL_STEP,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UNI_LI, UNI_WN, KC_WAKE,_______,RGB_HUD,RGB_HUI,RESET  , \
+    BL_STEP,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UNI_LI, UNI_WN, KC_WAKE,_______,RGB_HUD,RGB_HUI,QK_BOOT, \
     _______,KC_F5,  KC_F6,  KC_F7,  KC_F8,  _______,KC_MUTE,_______,RGB_TOG,RGB_SAD,RGB_SAI,_______, \
     K_GAMES,KC_F9,  KC_F10, KC_F11, KC_F12, KC_MUTE,_______,KC_PSCR,RGB_MOD,RGB_VAD,RGB_VAI,_______, \
     MU_TOG, _______,_______,_______,_______,KC_VOLU,KC_VOLD,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT,_______

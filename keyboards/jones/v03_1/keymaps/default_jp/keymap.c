@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,               JP_AT,  JP_LBRC,
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   JP_SCLN, KC_ENT,    JP_COLN,JP_RBRC,
         S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   JP_COMM,JP_DOT, C_SLSH, S_BSLS, KC_UP,  LOWER,
-        KC_MUTE,KC_LALT,KC_LGUI,KC_LANG2,       SP_SFT,         SP_RAI,        KC_LANG1,KC_RGUI,KC_RALT,KC_LEFT,KC_DOWN,KC_RGHT
+        KC_MUTE,KC_LALT,KC_LGUI,KC_LNG2,       SP_SFT,         SP_RAI,        KC_LNG1,KC_RGUI,KC_RALT,KC_LEFT,KC_DOWN,KC_RGHT
     ),
     [_WIN] = LAYOUT_jp(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
@@ -129,8 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT_jp(
         _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,    _______,WIN,    _______,QK_BOOT,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______,
-        _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
+        _______,    _______,WIN,    _______,QK_BOOT,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______,
+        _______,    AU_TOGG,CK_TOGG,MU_TOGG,MU_NEXT,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
         _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     )

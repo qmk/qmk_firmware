@@ -400,8 +400,8 @@ bool storeShiftState(uint16_t keycode, keyrecord_t *record)
   {
     switch (keycode)
     {
-      case KC_LSPO:
-      case KC_RSPC:
+      case SC_LSPO:
+      case SC_RSPC:
         shifted = true;
     }
   }
@@ -410,8 +410,8 @@ bool storeShiftState(uint16_t keycode, keyrecord_t *record)
     switch (keycode)
     {
 
-      case KC_LSPO:
-      case KC_RSPC:
+      case SC_LSPO:
+      case SC_RSPC:
         shifted = false;
         return true;
     }

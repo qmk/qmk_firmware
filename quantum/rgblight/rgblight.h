@@ -181,7 +181,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #include "eeconfig.h"
 #include "ws2812.h"
 #include "color.h"
-#include "rgblight_list.h"
 
 #ifdef RGBLIGHT_LAYERS
 typedef struct {

@@ -140,9 +140,8 @@ void pio_serve_interrupt(void) {
 // strength is chosen because the transmitting side must still be able to drive
 // the signal low. With this configuration the rise times are fast enough and
 // the generated low level with 360mV will generate a logical zero.
-static inline void enter_rx_state(void) {
+static void __no_inline_not_in_flash_func(enter_rx_state)(void) {
     osalSysLock();
-    nvicEnableVector(RP_USBCTRL_IRQ_NUMBER, RP_IRQ_USB0_PRIORITY);
     // Wait for the transmitting state machines FIFO to run empty. At this point
     // the last byte has been pulled from the transmitting state machines FIFO
     // into the output shift register. We have to wait a tiny bit more until
@@ -162,11 +161,8 @@ static inline void enter_rx_state(void) {
     osalSysUnlock();
 }
 
-static inline void leave_rx_state(void) {
+static void __no_inline_not_in_flash_func(leave_rx_state)(void) {
     osalSysLock();
-    // We don't want to be interrupted by frequent (1KHz) USB interrupts while
-    // doing our timing critical sending operation.
-    nvicDisableVector(RP_USBCTRL_IRQ_NUMBER);
     // In Half-duplex operation the tx pin dual-functions as sender and
     // receiver. To not receive the data we will send, we disable the receiving
     // state machine.
@@ -185,12 +181,13 @@ static inline void leave_rx_state(void) {}
 #endif
 
 /**
- * @brief Clear the RX and TX hardware FIFOs of the state machines.
+ * @brief Clear the FIFO of the RX state machine.
  */
 inline void serial_transport_driver_clear(void) {
     osalSysLock();
-    pio_sm_clear_fifos(pio, rx_state_machine);
-    pio_sm_clear_fifos(pio, tx_state_machine);
+    while (!pio_sm_is_rx_fifo_empty(pio, rx_state_machine)) {
+        pio_sm_clear_fifos(pio, rx_state_machine);
+    }
     osalSysUnlock();
 }
 
@@ -198,11 +195,6 @@ static inline msg_t sync_tx(sysinterval_t timeout) {
     msg_t msg = MSG_OK;
     osalSysLock();
     while (pio_sm_is_tx_fifo_full(pio, tx_state_machine)) {
-#if !defined(SERIAL_USART_FULL_DUPLEX)
-        // Enable USB interrupts again, because we might sleep for a long time
-        // here and don't want to be disconnected from the host.
-        nvicEnableVector(RP_USBCTRL_IRQ_NUMBER, RP_IRQ_USB0_PRIORITY);
-#endif
         pio_set_irq0_source_enabled(pio, pis_sm0_tx_fifo_not_full + tx_state_machine, true);
         msg = osalThreadSuspendTimeoutS(&tx_thread, timeout);
         if (msg < MSG_OK) {
@@ -210,10 +202,6 @@ static inline msg_t sync_tx(sysinterval_t timeout) {
             break;
         }
     }
-#if !defined(SERIAL_USART_FULL_DUPLEX)
-    // Entering timing critical territory again.
-    nvicDisableVector(RP_USBCTRL_IRQ_NUMBER);
-#endif
     osalSysUnlock();
     return msg;
 }

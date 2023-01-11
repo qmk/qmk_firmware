@@ -33,14 +33,14 @@ code_set_t EN_SHIFT_CODES [] = {
 const shift_code_t SHIFT_CODES [] = {
 #ifdef LAYER_NO
     {.lang = LAYER_NO,
-     .size = ARR_LEN(NO_SHIFT_CODES),
+     .size = ARRAY_SIZE(NO_SHIFT_CODES),
      .codes = NO_SHIFT_CODES},
 #endif
     {.lang = LAYER_EN,
-     .size = ARR_LEN(EN_SHIFT_CODES),
+     .size = ARRAY_SIZE(EN_SHIFT_CODES),
      .codes = EN_SHIFT_CODES},
 };
-const int SHIFT_CODES_SIZE = ARR_LEN(SHIFT_CODES);
+const int SHIFT_CODES_SIZE = ARRAY_SIZE(SHIFT_CODES);
 #endif
 
 #ifdef LAYER_NO
@@ -72,7 +72,7 @@ const code_set_t EN2NO_CODES [] = {
     {KC_DLR,  NO_DLR},
     {KC_GRV,  NO_GRV}
 };
-const int EN2NO_CODES_SIZE = ARR_LEN(EN2NO_CODES);
+const int EN2NO_CODES_SIZE = ARRAY_SIZE(EN2NO_CODES);
 #endif
 
 // Check if layer is an active default layer

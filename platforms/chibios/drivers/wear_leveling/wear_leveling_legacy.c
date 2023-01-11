@@ -5,7 +5,7 @@
 #include "timer.h"
 #include "wear_leveling.h"
 #include "wear_leveling_internal.h"
-#include "flash_stm32.h"
+#include "legacy_flash_ops.h"
 
 bool backing_store_init(void) {
     bs_dprintf("Init\n");

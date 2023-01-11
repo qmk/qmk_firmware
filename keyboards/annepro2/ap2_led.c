@@ -24,7 +24,6 @@
 ap2_led_t       led_mask[KEY_COUNT];
 ap2_led_t       led_colors[KEY_COUNT];
 ap2_led_status_t ap2_led_status;
-uint8_t rgb_row_changed[NUM_ROW];
 
 void led_command_callback(const message_t *msg) {
     switch (msg->command) {

@@ -94,7 +94,7 @@ encoder_mode_t encoder_modes[] = {
 	// Insert your custom encoder mode here
 };
 
-#define NUM_ENCODER_MODES (sizeof(encoder_modes)/sizeof(encoder_modes[0]))
+#define NUM_ENCODER_MODES ARRAY_SIZE(encoder_modes)
 
 // This counter is used to track what encoder mode is being used at a certain time
 int encoder_mode_count = 0;

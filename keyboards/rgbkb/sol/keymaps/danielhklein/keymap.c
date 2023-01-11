@@ -61,7 +61,7 @@ LAYOUT( \
       KC_TAB,  _00,     _01,      _02,     _03,     _04,     KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,      _09,     KC_ENT,   \
       KC_CAPS, _10,     _11,      _12,     _13,     _14,     KC_LCBR,  KC_RCBR, _15,     _16,     _17,     _18,      _19,     KC_QUOT,  \
       KC_LSFT, _20,     _21,      _22,     _23,     _24,     KC_GRV,   KC_BSLS, _25,     _26,     _27,     _28,      _29,     KC_RSFT,  \
-      KC_LEFT, KC_DOWN, KC_LCTRL, KC_LALT, KC_LGUI, KC_BSPC, FN,       ADJ,     KC_SPC,  KC_RGUI, KC_RALT, KC_RCTRL, KC_UP,   KC_RIGHT, \
+      KC_LEFT, KC_DOWN, KC_LCTL, KC_LALT, KC_LGUI, KC_BSPC, FN,       ADJ,     KC_SPC,  KC_RGUI, KC_RALT, KC_RCTL,  KC_UP,   KC_RIGHT, \
                                                     KC_BSPC, FN,       ADJ,     KC_SPC \
 )
 
@@ -195,7 +195,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
 
   switch (keycode) {
     case QWERTY:

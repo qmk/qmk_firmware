@@ -4,7 +4,7 @@ This page documents the templates you should use when submitting new Keymaps and
 
 ## Keymap `readme.md` Template :id=keyboard-readmemd-template
 
-Most keymaps have an image depicting the layout. You can use [Keyboard Layout Editor](https://keyboard-layout-editor.com) to create an image. Upload it to [Imgur](https://imgur.com) or another hosting service, please do not include images in your Pull Request.
+Most keymaps have an image depicting the layout. You can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to create an image. Upload it to [Imgur](https://imgur.com) or another hosting service, please do not include images in your Pull Request.
 
 Below the image you should write a short description to help people understand your keymap.
 

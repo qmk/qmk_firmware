@@ -1,0 +1,57 @@
+{
+    "keyboard_name": "KB30-01",
+    "manufacturer": "DOIO",
+    "url": "",
+    "maintainer": "Alice",
+    "usb": {
+        "vid": "0xD010",
+        "pid": "0x3001",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"K00", "x":0, "y":0},
+                {"label":"K01", "x":1, "y":0},
+                {"label":"K02", "x":2, "y":0},
+                {"label":"K03", "x":3, "y":0},
+                {"label":"K04", "x":4.25, "y":0},
+                {"label":"K05", "x":5.25, "y":0},
+                {"label":"K06", "x":6.25, "y":0},
+                
+                {"label":"K10", "x":0, "y":1},
+                {"label":"K11", "x":1, "y":1},
+                {"label":"K12", "x":2, "y":1},
+                {"label":"K13", "x":3, "y":1, "h":2},
+                {"label":"K14", "x":4.25, "y":1},
+                {"label":"K15", "x":5.25, "y":1},
+                {"label":"K16", "x":6.25, "y":1},
+
+                {"label":"Encoder 1", "x":8.25, "y":2},
+
+                {"label":"K20", "x":0, "y":2},
+                {"label":"K21", "x":1, "y":2},
+                {"label":"K22", "x":2, "y":2},
+                {"label":"K23", "x":4.25, "y":2},
+                {"label":"K24", "x":5.25, "y":2},
+                {"label":"K25", "x":6.25, "y":2},
+
+                {"label":"Encoder 2", "x":11, "y":2},
+
+                {"label":"K30", "x":0, "y":3},
+                {"label":"K31", "x":1, "y":3},
+                {"label":"K32", "x":2, "y":3},
+                {"label":"K33", "x":4.25, "y":3, "h":2},
+                {"label":"K35", "x":5.25, "y":3},
+
+                {"label":"Encoder 3", "x":9, "y":4},
+
+                {"label":"K40", "x":0, "y":4, "w":2},
+                {"label":"K41", "x":2, "y":4},
+                {"label":"K42", "x":4.25, "y":4},
+                {"label":"K43", "x":5.25, "y":4},
+                {"label":"K44", "x":6.25, "y":4}
+            ]
+        }
+    }
+}

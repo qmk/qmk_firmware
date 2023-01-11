@@ -300,14 +300,14 @@ This will enable you to define three keys temporarily to increase, decrease and 
 
 Map three keys temporarily in your keymap:
 
-| Key Name | Description                                         |
-|----------|-----------------------------------------------------|
-| KC_ASDN  | Lower the Auto Shift timeout variable (down)        |
-| KC_ASUP  | Raise the Auto Shift timeout variable (up)          |
-| KC_ASRP  | Report your current Auto Shift timeout value        |
-| KC_ASON  | Turns on the Auto Shift Function                    |
-| KC_ASOFF | Turns off the Auto Shift Function                   |
-| KC_ASTG  | Toggles the state of the Auto Shift feature         |
+|Keycode               |Aliases  |Description                                 |
+|----------------------|---------|--------------------------------------------|
+|`QK_AUTO_SHIFT_DOWN`  |`AS_DOWN`|Lower the Auto Shift timeout variable (down)|
+|`QK_AUTO_SHIFT_UP`    |`AS_UP`  |Raise the Auto Shift timeout variable (up)  |
+|`QK_AUTO_SHIFT_REPORT`|`AS_RPT` |Report your current Auto Shift timeout value|
+|`QK_AUTO_SHIFT_ON`    |`AS_ON`  |Turns on the Auto Shift Function            |
+|`QK_AUTO_SHIFT_OFF`   |`AS_OFF` |Turns off the Auto Shift Function           |
+|`QK_AUTO_SHIFT_TOGGLE`|`AS_TOGG`|Toggles the state of the Auto Shift feature |
 
 Compile and upload your new firmware.
 
@@ -318,18 +318,18 @@ completely normal and with no intention of shifted keys.
 
 1. Type multiple sentences of alphabetical letters.
 2. Observe any upper case letters.
-3. If there are none, press the key you have mapped to `KC_ASDN` to decrease
+3. If there are none, press the key you have mapped to `AS_DOWN` to decrease
    time Auto Shift timeout value and go back to step 1.
 4. If there are some upper case letters, decide if you need to work on tapping
    those keys with less down time, or if you need to increase the timeout.
 5. If you decide to increase the timeout, press the key you have mapped to
-   `KC_ASUP` and go back to step 1.
+   `AS_UP` and go back to step 1.
 6. Once you are happy with your results, press the key you have mapped to
-   `KC_ASRP`. The keyboard will type by itself the value of your
+   `AS_RPT`. The keyboard will type by itself the value of your
    `AUTO_SHIFT_TIMEOUT`.
 7. Update `AUTO_SHIFT_TIMEOUT` in your `config.h` with the value reported.
 8. Add `AUTO_SHIFT_NO_SETUP` to your `config.h`.
-9. Remove the key bindings `KC_ASDN`, `KC_ASUP` and `KC_ASRP`.
+9. Remove the key bindings `AS_DOWN`, `AS_UP` and `AS_RPT`.
 10. Compile and upload your new firmware.
 
 #### An Example Run
@@ -337,17 +337,17 @@ completely normal and with no intention of shifted keys.
     hello world. my name is john doe. i am a computer programmer playing with
     keyboards right now.
 
-    [PRESS KC_ASDN quite a few times]
+    [PRESS AS_DOWN quite a few times]
 
     heLLo woRLd. mY nAMe is JOHn dOE. i AM A compUTeR proGRaMMER PlAYiNG witH
     KEYboArDS RiGHT NOw.
 
-    [PRESS KC_ASUP a few times]
+    [PRESS AS_UP a few times]
 
     hello world. my name is john Doe. i am a computer programmer playing with
     keyboarDs right now.
 
-    [PRESS KC_ASRP]
+    [PRESS AS_RPT]
 
     115
 

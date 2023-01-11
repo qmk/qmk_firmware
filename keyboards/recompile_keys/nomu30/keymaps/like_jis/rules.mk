@@ -14,7 +14,6 @@ LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
-    # OPT_DEFS += -DRGBLIGHT_ANIMATIONS
     OPT_DEFS += -DLED_ANIMATIONS
 endif
 

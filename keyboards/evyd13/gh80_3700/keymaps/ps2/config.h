@@ -16,7 +16,7 @@
 
 #pragma once
 
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
@@ -51,7 +51,7 @@
 #define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
 #define PS2_USART_RX_VECT       USART1_RX_vect
 #define PS2_MOUSE_ENABLE_SCROLLING
-#define PS2_MOUSE_INIT_DELAY 1000 
+#define PS2_MOUSE_INIT_DELAY 1000
 #define PS2_MOUSE_BTN_LEFT      0
 #define PS2_MOUSE_BTN_RIGHT     1
 #define PS2_MOUSE_BTN_MIDDLE    2

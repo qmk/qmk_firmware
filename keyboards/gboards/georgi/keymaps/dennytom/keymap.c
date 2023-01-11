@@ -163,16 +163,16 @@ bool handle_US_ANSI_shifted_keys(int16_t keycode, bool in) {
             regular_keycode = KC_EQUAL;
             break;
         case KC_LEFT_CURLY_BRACE:
-            regular_keycode = KC_LBRACKET;
+            regular_keycode = KC_LEFT_BRACKET;
             break;
         case KC_RIGHT_CURLY_BRACE:
-            regular_keycode = KC_RBRACKET;
+            regular_keycode = KC_RIGHT_BRACKET;
             break;
         case KC_PIPE:
-            regular_keycode = KC_BSLASH;
+            regular_keycode = KC_BACKSLASH;
             break;
         case KC_COLON:
-            regular_keycode = KC_SCOLON;
+            regular_keycode = KC_SEMICOLON;
             break;
         case KC_DOUBLE_QUOTE:
             regular_keycode = KC_QUOTE;
@@ -593,7 +593,7 @@ const struct Chord chord_11 PROGMEM = {H_TOP10, QWERTY, &state_11, NULL, KC_O, 0
 uint8_t state_12 = IDLE;
 const struct Chord chord_12 PROGMEM = {H_TOP11, QWERTY, &state_12, NULL, KC_P, 0, single_dance};
 uint8_t state_13 = IDLE;
-const struct Chord chord_13 PROGMEM = {H_TOP12, QWERTY, &state_13, NULL, KC_BSLASH, 0, single_dance};
+const struct Chord chord_13 PROGMEM = {H_TOP12, QWERTY, &state_13, NULL, KC_BACKSLASH, 0, single_dance};
 uint8_t state_14 = IDLE;
 const struct Chord chord_14 PROGMEM = {H_TOP1 + H_BOT1, QWERTY, &state_14, NULL, KC_INS, 0, single_dance};
 uint8_t state_15 = IDLE;
@@ -619,7 +619,7 @@ uint8_t state_23 = IDLE;
 uint8_t counter_23 = 0;
 const struct Chord chord_23 PROGMEM = {H_TOP10 + H_BOT10, QWERTY, &state_23, &counter_23, KC_L, KC_RALT, key_key_dance};
 uint8_t state_24 = IDLE;
-const struct Chord chord_24 PROGMEM = {H_TOP11 + H_BOT11, QWERTY, &state_24, NULL, KC_SCOLON, 0, single_dance};
+const struct Chord chord_24 PROGMEM = {H_TOP11 + H_BOT11, QWERTY, &state_24, NULL, KC_SEMICOLON, 0, single_dance};
 uint8_t state_25 = IDLE;
 const struct Chord chord_25 PROGMEM = {H_BOT1, QWERTY, &state_25, NULL, KC_TAB, 0, single_dance};
 uint8_t state_26 = IDLE;

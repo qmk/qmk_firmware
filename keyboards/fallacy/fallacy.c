@@ -29,12 +29,8 @@ void matrix_scan_kb(void) {
  
 /* update LED driver with usb led_state
  */
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        set_fallacy_led(2, led_state.caps_lock);    /* caps */
-        set_fallacy_led(1, led_state.num_lock);     /* num lock */
-        set_fallacy_led(0, led_state.scroll_lock);  /* scroll lock */
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    set_fallacy_led(2, led_state.caps_lock);    /* caps */
+    set_fallacy_led(1, led_state.num_lock);     /* num lock */
+    set_fallacy_led(0, led_state.scroll_lock);  /* scroll lock */
 }

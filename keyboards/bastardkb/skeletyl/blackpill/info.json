@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Skeletyl Blackpill",
     "usb": {
-      "device_version": "1.0.0",
-    },
+        "device_version": "1.0.0"
+    }
 }

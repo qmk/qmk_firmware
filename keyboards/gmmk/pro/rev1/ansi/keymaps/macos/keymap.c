@@ -144,7 +144,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     } else {
       tap_code(KC_VOLD);
     }
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
   }
 #endif //ENCODER_ENABLE
 
@@ -371,7 +372,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 
 
-  void rgb_matrix_indicators_user() {
+  bool rgb_matrix_indicators_user(void) {
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
     if (effect_started_time > 0) {
       /* Render blinking EFFECTS */
@@ -409,6 +410,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     if (host_keyboard_led_state().caps_lock) {
       set_rgb_caps_leds();
     }
+    return false;
   }
 
   #if RGB_CONFIRMATION_BLINKING_TIME > 0

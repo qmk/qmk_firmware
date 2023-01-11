@@ -65,4 +65,4 @@ This is set in `mechmerlin/config.h` so that when the computer goes to sleep, th
 
 ### RGB Underglow Color: Yellow
 
-This is set in `mechmerlin/keymap.c` in the `matrix_init_user` function. The list of available colors can be found in [`quantum/rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/388df5359b913eaf1ce6fb0ef624e430ad010ea5/quantum/rgblight_list.h#L59-L121).
+This is set in `mechmerlin/keymap.c` in the `matrix_init_user` function. The list of available colors can be found in [`quantum/color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h).

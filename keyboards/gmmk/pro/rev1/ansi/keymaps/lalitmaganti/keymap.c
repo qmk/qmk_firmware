@@ -17,15 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-#define L1_NUM1 PROGRAMMABLE_BUTTON_1
-#define L1_NUM2 PROGRAMMABLE_BUTTON_2
-#define L1_NUM3 PROGRAMMABLE_BUTTON_3
-#define L1_NUM4 PROGRAMMABLE_BUTTON_4
-#define L1_NUM5 PROGRAMMABLE_BUTTON_5
-#define L1_NUM6 PROGRAMMABLE_BUTTON_6
-#define L1_NUM7 PROGRAMMABLE_BUTTON_7
-#define L1_NUM8 PROGRAMMABLE_BUTTON_8
-#define L1_NUM9 PROGRAMMABLE_BUTTON_9
+#define L1_NUM1 QK_PROGRAMMABLE_BUTTON_1
+#define L1_NUM2 QK_PROGRAMMABLE_BUTTON_2
+#define L1_NUM3 QK_PROGRAMMABLE_BUTTON_3
+#define L1_NUM4 QK_PROGRAMMABLE_BUTTON_4
+#define L1_NUM5 QK_PROGRAMMABLE_BUTTON_5
+#define L1_NUM6 QK_PROGRAMMABLE_BUTTON_6
+#define L1_NUM7 QK_PROGRAMMABLE_BUTTON_7
+#define L1_NUM8 QK_PROGRAMMABLE_BUTTON_8
+#define L1_NUM9 QK_PROGRAMMABLE_BUTTON_9
 #else
 #define L1_NUM1 _______
 #define L1_NUM2 _______
@@ -80,12 +80,13 @@ static void set_rgb_side_leds() {
     rgb_matrix_set_color(92, RGB_WHITE); // Right side LED 8
 }
 
-void rgb_matrix_indicators_user() {
+bool rgb_matrix_indicators_user() {
     rgb_matrix_set_color_all(0x0, 0x0, 0x0);
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         rgb_matrix_set_color(3, RGB_WHITE); // CAPS
     }
     set_rgb_side_leds();
+    return false;
 }
 
 #endif

@@ -106,7 +106,10 @@ bool via_layout_2u = false;
 void via_set_layout_options_kb(uint32_t value) { via_layout_2u = (bool)value; }
 #    endif  // VIA_ENABLE
 
-__attribute__((weak)) void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
 #    ifdef VIA_ENABLE
     if (via_layout_2u) {
         rgb_matrix_set_color(5, 0, 0, 0);
@@ -118,6 +121,7 @@ __attribute__((weak)) void rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(5, 0, 0, 0);
     rgb_matrix_set_color(7, 0, 0, 0);
 #    endif
+    return true;
 }
 
 void keyboard_pre_init_kb(void) {

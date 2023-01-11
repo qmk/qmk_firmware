@@ -203,7 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case KC_PC1:
             if (record->event.pressed) {
-                tap_code_delay(KC_SLCK, 50);
+                tap_code_delay(KC_SCRL, 50);
                 wait_ms(50);
                 tap_code_delay(KC_1, 50);
                 tap_code(KC_ENT);
@@ -211,7 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case KC_PC2:
             if (record->event.pressed) {
-                tap_code_delay(KC_SLCK, 50);
+                tap_code_delay(KC_SCRL, 50);
                 wait_ms(50);
                 tap_code_delay(KC_2, 50);
                 tap_code(KC_ENT);
@@ -219,7 +219,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case KC_PC3:
             if (record->event.pressed) {
-                tap_code_delay(KC_SLCK, 50);
+                tap_code_delay(KC_SCRL, 50);
                 wait_ms(50);
                 tap_code_delay(KC_3, 50);
                 tap_code(KC_ENT);
@@ -227,7 +227,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case KC_PC4:
             if (record->event.pressed) {
-                tap_code_delay(KC_SLCK, 50);
+                tap_code_delay(KC_SCRL, 50);
                 wait_ms(50);
                 tap_code_delay(KC_4, 50);
                 tap_code(KC_ENT);

@@ -29,7 +29,7 @@
 #define DEBOUNCE 5
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -70,6 +70,6 @@
 #define DRIVER_ADDR_1 0b0110000
 #define DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 87
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180

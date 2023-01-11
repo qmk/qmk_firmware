@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-
-//#define USE_SERIAL
 #define USE_I2C
 
 /* Select hand configuration */
@@ -29,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // #undef RGBLED_NUM
-// #define RGBLIGHT_ANIMATIONS
 // #define RGBLED_NUM 18
 // #define RGBLIGHT_HUE_STEP 8
 // #define RGBLIGHT_SAT_STEP 8

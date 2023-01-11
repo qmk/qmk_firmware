@@ -6,6 +6,15 @@
         "vid": "0x7654",
         "device_version": "0.0.1"
     },
+    "features": {
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "lto": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
 	"LAYOUT_1x2uC": {
             "layout": [

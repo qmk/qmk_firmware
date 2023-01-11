@@ -88,5 +88,5 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________ADJUST_L2_________________        MU_TOG , TG(_GAMING), AU_ON,   AU_OFF,  AG_NORM
 #define _________________ADJUST_L3_________________        RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, _______
 #define _________________ADJUST_R1_________________        _______, _______, _______, _______, _______
-#define _________________ADJUST_R2_________________        RESET,   CG_TOGG, _______, _______, _______
+#define _________________ADJUST_R2_________________        KC_RESET,CG_TOGG, _______, _______, _______
 #define _________________ADJUST_R3_________________        _______, KC_MNXT, KC_VOLU, KC_VOLD, KC_MPLY

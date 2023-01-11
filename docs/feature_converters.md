@@ -17,6 +17,9 @@ Currently the following converters are available:
 | `promicro` | `bit_c_pro`       |
 | `promicro` | `stemcell`        |
 | `promicro` | `bonsai_c4`       |
+| `promicro` | `elite_pi`        |
+| `elite_c`  | `stemcell`        |
+| `elite_c`  | `elite_pi`        |
 
 See below for more in depth information on each converter.
 
@@ -47,6 +50,23 @@ Once a converter is enabled, it exposes the `CONVERT_TO_<target_uppercase>` flag
 #endif
 ```
 
+### Pin Compatibility
+
+To ensure compatibility, provide validation, and power future workflows, a keyboard should declare its `pin compatibility`. For legacy reasons, this is currently assumed to be `promicro`.
+
+Currently the following pin compatibility interfaces are defined:
+
+| Pinout     | Notes                             |
+|------------|-----------------------------------|
+| `promicro` | Includes RX/TX LEDs               |
+| `elite_c`  | Includes bottom row pins, no LEDs |
+
+To declare the base for conversions, add this line to your keyboard's `rules.mk`:
+
+```makefile
+PIN_COMPATIBLE = elite_c
+```
+
 ## Pro Micro
 
 If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.com/products/12640) (or compatible board), the supported alternative controllers are:
@@ -60,6 +80,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [Bit-C PRO](https://nullbits.co/bit-c-pro)                                               | `bit_c_pro`       |
 | [STeMCell](https://github.com/megamind4089/STeMCell)                                     | `stemcell`        |
 | [customMK Bonsai C4](https://shop.custommk.com/products/bonsai-c4-microcontroller-board) | `bonsai_c4`       |
+| [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)         | `elite_pi`        |
 
 Converter summary:
 
@@ -72,6 +93,7 @@ Converter summary:
 | `bit_c_pro`       | `-e CONVERT_TO=bit_c_pro`       | `CONVERT_TO=bit_c_pro`       | `#ifdef CONVERT_TO_BIT_C_PRO`       |
 | `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
 | `bonsai_c4`       | `-e CONVERT_TO=bonsai_c4`       | `CONVERT_TO=bonsai_c4`       | `#ifdef CONVERT_TO_BONSAI_C4`       |
+| `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
 
 ### Proton C :id=proton_c
 
@@ -102,9 +124,9 @@ The following defaults are based on what has been implemented for [RP2040](platf
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
 | [Split keyboards](feature_split_keyboard.md) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
-### SparkFun Pro Micro - RP2040, Blok, and Bit-C PRO :id=promicro_rp2040 
+### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO, and Elite-Pi :id=promicro_rp2040 
 
-Currently identical to  [Adafruit KB2040](#kb2040).
+Currently identical to [Adafruit KB2040](#kb2040).
 
 ### STeMCell :id=stemcell
 
@@ -135,4 +157,26 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 #define B0 PAL_LINE(GPIOA, 9)
 ```
 
-No peripherals are enabled by default at this time, but example code to enable SPI, I2C, PWM, and Serial communications can be found [here](/keyboards/custommk/bonsai_c4_template) 
+## Elite-C
+
+If a board currently supported in QMK uses an [Elite-C](https://keeb.io/products/elite-c-low-profile-version-usb-c-pro-micro-replacement-atmega32u4), the supported alternative controllers are:
+
+| Device                                                                           | Target            |
+|----------------------------------------------------------------------------------|-------------------|
+| [STeMCell](https://github.com/megamind4089/STeMCell)                             | `stemcell`        |
+| [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040) | `elite_pi`        |
+
+Converter summary:
+
+| Target            | Argument                        | `rules.mk`                   | Condition                           |
+|-------------------|---------------------------------|------------------------------|-------------------------------------|
+| `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
+| `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
+
+### STeMCell :id=stemcell_elite
+
+Currently identical to [STeMCell](#stemcell) with support for the additional bottom row of pins.
+
+### Elite-Pi :id=elite_pi
+
+Currently identical to [Adafruit KB2040](#kb2040), with support for the additional bottom row of pins.

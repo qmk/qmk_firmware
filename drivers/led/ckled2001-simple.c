@@ -148,7 +148,7 @@ void CKLED2001_init(uint8_t addr) {
 
 void CKLED2001_set_value(int index, uint8_t value) {
     ckled2001_led led;
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_ckled2001_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.v]          = value;
@@ -157,7 +157,7 @@ void CKLED2001_set_value(int index, uint8_t value) {
 }
 
 void CKLED2001_set_value_all(uint8_t value) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
         CKLED2001_set_value(i, value);
     }
 }

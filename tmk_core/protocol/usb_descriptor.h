@@ -132,7 +132,7 @@ typedef struct {
     USB_Descriptor_Endpoint_t  CDC_DataInEndpoint;
 #endif
 
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
     // Joystick HID Interface
     USB_Descriptor_Interface_t Joystick_Interface;
     USB_HID_Descriptor_HID_t   Joystick_HID;
@@ -187,7 +187,7 @@ enum usb_interfaces {
     CDI_INTERFACE,
 #endif
 
-#if defined(JOYSTICK_ENABLE)
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
     JOYSTICK_INTERFACE,
 #endif
 
@@ -240,7 +240,7 @@ enum usb_endpoints {
 #        ifdef USB_ENDPOINTS_ARE_REORDERABLE
 #            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #        else
-    CONSOLE_OUT_EPNUM   = NEXT_EPNUM,
+    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
 #        endif
 #    else
 #        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
@@ -265,23 +265,18 @@ enum usb_endpoints {
     CDC_OUT_EPNUM         = NEXT_EPNUM,
 #    endif
 #endif
+
 #ifdef JOYSTICK_ENABLE
+#    if !defined(JOYSTICK_SHARED_EP)
     JOYSTICK_IN_EPNUM = NEXT_EPNUM,
-#    ifdef USB_ENDPOINTS_ARE_REORDERABLE
-    JOYSTICK_OUT_EPNUM = JOYSTICK_IN_EPNUM,
 #    else
-    JOYSTICK_OUT_EPNUM    = NEXT_EPNUM,
+#        define JOYSTICK_IN_EPNUM SHARED_IN_EPNUM
 #    endif
 #endif
 
 #ifdef DIGITIZER_ENABLE
 #    if !defined(DIGITIZER_SHARED_EP)
     DIGITIZER_IN_EPNUM = NEXT_EPNUM,
-#        ifdef USB_ENDPOINTS_ARE_REORDERABLE
-    DIGITIZER_OUT_EPNUM = DIGITIZER_IN_EPNUM,
-#        else
-    DIGITIZER_OUT_EPNUM = NEXT_EPNUM,
-#        endif
 #    else
 #        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
 #    endif

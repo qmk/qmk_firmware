@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN E2
-#define DRIVER_LED_TOTAL 69
+#define RGB_MATRIX_LED_COUNT 69
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 69
 #    define RGB_MATRIX_KEYPRESSES

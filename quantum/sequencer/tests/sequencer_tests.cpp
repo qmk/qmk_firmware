@@ -371,14 +371,14 @@ void setUpMatrixScanSequencerTest(void) {
     sequencer_config.resolution = SQ_RES_16;
 
     // Configure the notes for each track
-    sequencer_config.track_notes[0] = MI_C;
-    sequencer_config.track_notes[1] = MI_D;
-    sequencer_config.track_notes[2] = MI_E;
-    sequencer_config.track_notes[3] = MI_F;
-    sequencer_config.track_notes[4] = MI_G;
-    sequencer_config.track_notes[5] = MI_A;
-    sequencer_config.track_notes[6] = MI_B;
-    sequencer_config.track_notes[7] = MI_C;
+    sequencer_config.track_notes[0] = QK_MIDI_NOTE_C_0;
+    sequencer_config.track_notes[1] = QK_MIDI_NOTE_D_0;
+    sequencer_config.track_notes[2] = QK_MIDI_NOTE_E_0;
+    sequencer_config.track_notes[3] = QK_MIDI_NOTE_F_0;
+    sequencer_config.track_notes[4] = QK_MIDI_NOTE_G_0;
+    sequencer_config.track_notes[5] = QK_MIDI_NOTE_A_0;
+    sequencer_config.track_notes[6] = QK_MIDI_NOTE_B_0;
+    sequencer_config.track_notes[7] = QK_MIDI_NOTE_C_0;
 
     // Turn on some steps
     sequencer_config.steps[0] = (1 << 0);
@@ -389,7 +389,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldAttackFirstTrackOfFirstStep) 
     setUpMatrixScanSequencerTest();
 
     sequencer_task();
-    EXPECT_EQ(last_noteon, MI_C);
+    EXPECT_EQ(last_noteon, QK_MIDI_NOTE_C_0);
     EXPECT_EQ(last_noteoff, 0);
 }
 
@@ -499,7 +499,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldReleaseFirstTrackFirstStep) {
 
     sequencer_task();
     EXPECT_EQ(last_noteon, 0);
-    EXPECT_EQ(last_noteoff, MI_C);
+    EXPECT_EQ(last_noteoff, QK_MIDI_NOTE_C_0);
 }
 
 TEST_F(SequencerTest, TestMatrixScanSequencerShouldEnterPausePhaseAfterRelease) {
@@ -565,7 +565,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldProcessSecondTrackOnTime) {
     advance_time(SEQUENCER_TRACK_THROTTLE);
 
     sequencer_task();
-    EXPECT_EQ(last_noteon, MI_D);
+    EXPECT_EQ(last_noteon, QK_MIDI_NOTE_D_0);
     EXPECT_EQ(last_noteoff, 0);
 }
 

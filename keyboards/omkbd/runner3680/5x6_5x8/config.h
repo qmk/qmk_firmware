@@ -61,7 +61,7 @@
 #define RGBLIGHT_LIMIT_VAL 100
 #endif
 #ifdef RGB_MATRIX_ENABLE
-#define DRIVER_LED_TOTAL 70
+#define RGB_MATRIX_LED_COUNT 70
 #define RGB_MATRIX_SPLIT { 30, 40 }    // Number of LEDs
 #endif
 

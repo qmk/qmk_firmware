@@ -118,19 +118,19 @@ TEST_F(CapsWord, DefaultCapsWordPressUserFun) {
     }
 }
 
-// Tests that `CAPSWRD` key toggles Caps Word.
+// Tests that `QK_CAPS_WORD_TOGGLE` key toggles Caps Word.
 TEST_F(CapsWord, CapswrdKey) {
     TestDriver driver;
-    KeymapKey  key_capswrd(0, 0, 0, CAPSWRD);
+    KeymapKey  key_capswrd(0, 0, 0, QK_CAPS_WORD_TOGGLE);
     set_keymap({key_capswrd});
 
     // No keyboard reports should be sent.
     EXPECT_NO_REPORT(driver);
 
-    tap_key(key_capswrd); // Tap the CAPSWRD key.
+    tap_key(key_capswrd); // Tap the QK_CAPS_WORD_TOGGLE key.
     EXPECT_EQ(is_caps_word_on(), true);
 
-    tap_key(key_capswrd); // Tap the CAPSWRD key again.
+    tap_key(key_capswrd); // Tap the QK_CAPS_WORD_TOGGLE key again.
     EXPECT_EQ(is_caps_word_on(), false);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -419,7 +419,7 @@ TEST_P(CapsWordBothShifts, PressLRLR) {
     right_shift.press();
 
     // For mod-tap and Space Cadet keys, wait for the tapping term.
-    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == KC_LSPO) {
+    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN) {
         idle_for(TAPPING_TERM);
     }
 
@@ -456,7 +456,7 @@ TEST_P(CapsWordBothShifts, PressLRRL) {
     run_one_scan_loop();
     right_shift.press();
 
-    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == KC_LSPO) {
+    if (left_shift.code == LSFT_T(KC_A) || left_shift.code == QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN) {
         idle_for(TAPPING_TERM);
     }
     run_one_scan_loop();
@@ -481,7 +481,7 @@ INSTANTIATE_TEST_CASE_P(
         CapsWordBothShiftsParams{
             "OneshotShifts", OSM(MOD_LSFT), OSM(MOD_RSFT)},
         CapsWordBothShiftsParams{
-            "SpaceCadetShifts", KC_LSPO, KC_RSPC},
+            "SpaceCadetShifts", SC_LSPO, SC_RSPC},
         CapsWordBothShiftsParams{
             "ModTapShifts", LSFT_T(KC_A), RSFT_T(KC_B)}
         ),

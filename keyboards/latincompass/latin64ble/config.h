@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define RGB_DI_PIN B7
 
 #define RGBLED_NUM 2
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -38,9 +38,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define RGBLIGHT_VAL_STEP 25
 #define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 20
-#define RGBLIGHT_ANIMATIONS             // Run RGB animations
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 
 #define VIA_HAS_BROKEN_KEYCODES
-
-

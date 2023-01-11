@@ -47,11 +47,11 @@
                 { "label": ".", "x": 11, "y": 2.1 },
                 { "label": "/", "x": 12, "y": 2.3 },
 
-                { "label": "GUI / KC_HANJ", "x": 3, "y": 3.7 },
+                { "label": "GUI", "x": 3, "y": 3.7 },
                 { "label": "Lower", "x": 4, "y": 3.7 },
 
                 { "label": "Raise", "x": 8, "y": 3.7 },
-                { "label": "Alt / KC_HAEN", "x": 9, "y": 3.7 }
+                { "label": "Alt", "x": 9, "y": 3.7 }
             ]
         }
     }

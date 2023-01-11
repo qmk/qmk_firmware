@@ -33,7 +33,7 @@ At first, Move to Lower layer with long push. After that Adjust key with long pu
 
   [_LOWER] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------------------.
-                   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,  KC_MINS,   KC_EQL,  KC_JYEN,  KC_LBRC,  KC_RBRC,  _______,
+                   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,  KC_MINS,   KC_EQL,  KC_INT3,  KC_LBRC,  KC_RBRC,  _______,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        _______,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  XXXXXXX,  XXXXXXX,  KC_SCLN,  KC_QUOT,  KC_BSSF,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
@@ -47,7 +47,7 @@ At first, Move to Lower layer with long push. After that Adjust key with long pu
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_LSFT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       _______,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SLSH,    KC_RO,  _______
+       _______,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SLSH,  KC_INT1,  _______
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------'
   ),
 

@@ -97,12 +97,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_GRAVE, ZENDESK, RUBYMINE,   LGUI(KC_S),   TODO,
                                                           KC_ESCAPE,    KC_HOME,
                                                                         KC_END,
-                                  OSM(MOD_LSFT), LT(NUM,KC_BSPACE),     LT(MKDWN,KC_DELETE),
+                                  OSM(MOD_LSFT), LT(NUM,KC_BSPC),     LT(MKDWN,KC_DELETE),
 
     //right hand
     KC_F7,           KC_F8,     KC_F9,    KC_F10,   KC_F11,        KC_F12,           KC_MINUS,
-    MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLASH,
-                      KC_H,     KC_J, ALT_T(KC_K),  LGUI_T(KC_L),  LT(MEDIA,KC_SCOLON),  ALL_T(KC_QUOTE),
+    MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLS,
+                      KC_H,     KC_J, ALT_T(KC_K),  LGUI_T(KC_L),  LT(MEDIA,KC_SCLN),  ALL_T(KC_QUOTE),
     TD(CT_RBP),       KC_N,     KC_M,     KC_COMMA, ALT_T(KC_DOT), CTL_T(KC_SLASH),  SCMD_T(_______),
                 LSFT(KC_MINUS), _______,  DBLE_ZER0, DBLE_ZER0,   TO(OLD_BASE),
     L_ID_0,         KC_ESCAPE,
@@ -144,12 +144,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_GRAVE, ZENDESK, RUBYMINE, LGUI(KC_S), TODO,
                                                           KC_ESCAPE, KC_HOME,
                                                                      KC_END,
-                                    OSM(MOD_LSFT), LT(NUM,KC_BSPACE),  LT(MKDWN,KC_DELETE),
+                                    OSM(MOD_LSFT), LT(NUM,KC_BSPC),  LT(MKDWN,KC_DELETE),
 
       //right hand
       TD(TD_SNAGIT),    KC_6,     KC_7,     KC_8,     KC_9,          KC_0,             KC_MINUS,
-      MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLASH,
-                        KC_H,     KC_J,     KC_K,     LGUI_T(KC_L),  LT(MEDIA,KC_SCOLON),  ALL_T(KC_QUOTE),
+      MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLS,
+                        KC_H,     KC_J,     KC_K,     LGUI_T(KC_L),  LT(MEDIA,KC_SCLN),  ALL_T(KC_QUOTE),
       TD(CT_RBP),       KC_N,     KC_M,     KC_COMMA, ALT_T(KC_DOT), CTL_T(KC_SLASH),  SCMD_T(_______),
                   LSFT(KC_MINUS), _______,  DBLE_ZER0, DBLE_ZER0,   TO(BASE),
       L_ID_0,         KC_ESCAPE,
@@ -473,7 +473,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING ("Todoist");
           SEND_STRING (SS_TAP(X_ENTER));
         } else {
-          SEND_STRING (SS_LGUI(SS_LCTRL("a"))); //macro to open Todoist new task dialog
+          SEND_STRING (SS_LGUI(SS_LCTL("a"))); //macro to open Todoist new task dialog
         }
       }
       break;

@@ -33,7 +33,6 @@
 
 #    define RGB_DI_PIN A8
 #    define RGBLED_NUM 12
-#    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGBLIGHT_SLEEP
 #    define RGBLIGHT_VAL_STEP 5
 #    define RGBLIGHT_LIMIT_VAL 200

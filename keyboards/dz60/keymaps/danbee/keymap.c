@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     │    │    │    │                        │    │    │    │    │
     └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘*/
   [_L1] = LAYOUT_60_iso( /* Layer 1: Functions */
-    KC_NUBS, KC_BRID, KC_BRIU, _______, _______, BL_DEC,  BL_INC,  KC_MRWD, KC_MPLY, KC_MFFD, KC_MUTE, KC_VOLD, KC_VOLU, KC_DEL,
+    KC_NUBS, KC_BRID, KC_BRIU, _______, _______, BL_DOWN, BL_UP,   KC_MRWD, KC_MPLY, KC_MFFD, KC_MUTE, KC_VOLD, KC_VOLU, KC_DEL,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______, KC_INS,
     _______, _______, _______, _______, _______, _______, BL_TOGG, _______, _______, _______, _______, _______, _______,

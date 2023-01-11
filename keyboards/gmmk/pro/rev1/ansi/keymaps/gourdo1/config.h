@@ -52,11 +52,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 17             // The number of steps to increment the brightness by (default 17)
 
     // Startup values, when none have been set
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE // Sets the default effect mode, if none has been set (was RGB_MATRIX_SOLID_COLOR)
-    #define RGB_MATRIX_STARTUP_HUE 24                         // Sets the default hue value, if none has been set
-    #define RGB_MATRIX_STARTUP_SAT 255                        // Sets the default saturation value, if none has been set
-    #define RGB_MATRIX_STARTUP_VAL 127                        // Sets the default brightness value, if none has been set
-    #define RGB_MATRIX_STARTUP_SPD 127                        // Sets the default animation speed, if none has been set
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE // Sets the default effect mode, if none has been set (was RGB_MATRIX_SOLID_COLOR)
+    #define RGB_MATRIX_DEFAULT_HUE 24                         // Sets the default hue value, if none has been set
+    #define RGB_MATRIX_DEFAULT_SAT 255                        // Sets the default saturation value, if none has been set
+    #define RGB_MATRIX_DEFAULT_VAL 127                        // Sets the default brightness value, if none has been set
+    #define RGB_MATRIX_DEFAULT_SPD 127                        // Sets the default animation speed, if none has been set
 
     // Uncomment any #undef line below to turn OFF any default enabled RGB background effect (enabled in keyboards/gmmk/pro/config.h).
     #undef ENABLE_RGB_MATRIX_ALPHAS_MODS                      // Solid color (seems redundant; seems same as RGB_MATRIX_SOLID_COLOR?)

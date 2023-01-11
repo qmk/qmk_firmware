@@ -83,12 +83,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                SFT_T(KC_SPACE),  ALT_T(KC_Q),      _______
     ),
     [_MOUSE] = LAYOUT_charybdis_4x6(
-        _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,   KC_WH_U, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD, _______,
+        _______, _______, _______, _______, _______, _______,   _______, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD, _______,
+        _______, _______, _______, _______, _______, _______,   KC_WH_U, _______, _______, _______, _______, DRGSCRL,
         _______, _______, _______, _______, _______, _______,   KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, SNIPING,
-        _______, _______, _______, _______, _______, _______,   KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, DRGSCRL, _______,
-                                   _______, SNIPING, SNIPING,    _______, _______,
-                                           _______, _______,      _______
+        _______, _______, _______, _______, _______, _______,   KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
+                                   _______, _______, _______,   _______, _______,
+                                           _______, _______,     _______
     ),
 
     [_LOWER] = LAYOUT_charybdis_4x6_wrapper(
@@ -110,10 +110,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ADJUST] = LAYOUT_charybdis_4x6_wrapper(
-        QK_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_SUPER, KC_NOMODE,KC_BLOCKS,KC_REGIONAL,TG_GAME,TG_DBLO, QK_BOOT,
+        QK_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_SUPER, KC_NOMODE,KC_COMIC,KC_REGIONAL,TG_GAME,TG_DBLO, QK_BOOT,
         VRSN,    _________________ADJUST_L1_________________,    _________________ADJUST_R1_________________, EE_CLR,
         KEYLOCK, _________________ADJUST_L2_________________,    _________________ADJUST_R2_________________, TG_MODS,
-        UC_MOD,  _________________ADJUST_L3_________________,    _________________ADJUST_R3_________________, KC_MPLY,
+        UC_NEXT, _________________ADJUST_L3_________________,    _________________ADJUST_R3_________________, KC_MPLY,
                                    QK_RBT, AUTO_CTN, _______,    _______, KC_NUKE,
                                            _______, _______,      _______
     )
@@ -121,8 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 
-void matrix_init_keymap(void) {
-    setPinInputHigh(A0);
+void keyboard_post_init_keymap(void) {
 #ifdef RGB_MATRIX_ENABLE
      g_led_config.flags[53] = g_led_config.flags[54] = g_led_config.flags[55] =
         g_led_config.flags[0] = g_led_config.flags[1] = g_led_config.flags[2] = g_led_config.flags[3] =
@@ -131,11 +130,17 @@ void matrix_init_keymap(void) {
 #endif
 }
 
-void matrix_scan_keymap(void) {
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
+void keyboard_pre_init_keymap(void) {
+    setPinInputHigh(A0);
+}
+
+void housekeeping_task_keymap(void) {
     if (!readPin(A0)) {
         reset_keyboard();
     }
 }
+#endif
 
 #ifdef USB_VBUS_PIN
 bool usb_vbus_state(void) {
@@ -145,12 +150,13 @@ bool usb_vbus_state(void) {
 }
 #endif
 
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     for (int32_t i = 0; i < 40; i++) {
         __asm__ volatile("nop" ::: "memory");
     }
 }
-
+#endif
 
 #ifdef SWAP_HANDS_ENABLE
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {

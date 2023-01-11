@@ -12,7 +12,7 @@ EXTRAKEY_ENABLE = yes
 VELOCIKEY_ENABLE = yes
 ```
 
-Then, while using your keyboard, you need to also turn it on with the `VLK_TOG` keycode, which toggles the feature on and off.
+Then, while using your keyboard, you need to also turn it on with the `VK_TOGG` keycode, which toggles the feature on and off.
 
 The following light effects will all be controlled by Velocikey when it is enabled:
  - RGB Breathing

@@ -17,7 +17,7 @@
 
 #include "polyandry.h"
 
-#define LAYOUT( \
+#define LAYOUT_ortho_4x3( \
 	K000, K001, K002, \
  	K003, K004, K005, \
 	K006, K007, K008, \

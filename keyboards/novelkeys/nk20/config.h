@@ -75,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_CHANNEL 3
 
 #define RGBLED_NUM 20
-#define DRIVER_LED_TOTAL 20
+#define RGB_MATRIX_LED_COUNT 20
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 210
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES

@@ -1,1 +1,2 @@
-# see common rules.mk
+# This file intentionally left blank
+# see common info.json
