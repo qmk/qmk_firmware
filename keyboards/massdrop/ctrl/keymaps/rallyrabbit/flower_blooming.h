@@ -1,3 +1,8 @@
+/*
+   Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+   SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
 #pragma once
 
 typedef HSV (*flower_blooming_f)(HSV hsv, uint8_t i, uint8_t time);

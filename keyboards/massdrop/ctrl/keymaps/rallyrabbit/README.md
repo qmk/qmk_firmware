@@ -23,17 +23,18 @@ Additionally this changes much of the RGB setup.
 
 Follow the QMK directions isntalling QMK MSYS.
 * Download the QMK firmware (this repository)
-* Copy config.h and rules.mk to the keyboards/massdrop/ctrl directory
+* config.h in the current directory is used to add to the massdrop/ctrl/config.h or remove things added in that file as it is included after that file.
+* rules.mk is used in addition to the massdrop/ctrl/rules.mk and is used to add to or turn off items in the standard rules.mk file
 * Build with "qmk compile -kb massdrop/ctrl -km rallyrabbit"
 
 ## Layers
 
 ### Typing Layer
 
-![Typing Layer](https://user-images.githubusercontent.com/90145104/211661741-6736c4fd-56a2-4dd4-bd81-57c42cc8ab13.png)
+![Typing Layer](https://imgur.com/9oORY9m)
 
 ### "Other" Layer
 
-![Function Layer](https://user-images.githubusercontent.com/90145104/211661742-84ce600c-9921-40ce-ab56-cfd6b733b557.png)
+![Function Layer](https://imgur.com/DVn1ilN)
 
 
