@@ -20,7 +20,6 @@ ifeq ($(strip $(KEYBOARD)), splitkb/kyria/rev1/proton_c)
     ENCODER_MAP_ENABLE     = yes
     AUTOCORRECT_ENABLE     = yes
     CAPS_WORD_ENABLE       = yes
-    OLED_DRIVER            = custom
 else
     LTO_ENABLE             = yes
     BOOTLOADER             = qmk-hid

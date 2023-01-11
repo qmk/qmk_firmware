@@ -126,11 +126,7 @@ void render_oled_title(bool side) {
 }
 
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
-#    ifdef OLED_DRIVER_SH1107
     return OLED_ROTATION_0;
-#    else
-    return OLED_ROTATION_180;
-#    endif
 }
 
 void oled_render_large_display(bool side) {
