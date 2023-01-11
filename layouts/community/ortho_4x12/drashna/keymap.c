@@ -16,18 +16,10 @@
 
 #include "drashna.h"
 
-#ifdef BACKLIGHT_ENABLE
+#define BACKLIT OSM(MOD_LSFT)
 enum planck_keycodes {
-    BACKLIT = NEW_SAFE_RANGE,
-    TH_LVL,
+    TH_LVL = USER_SAFE_RANGE,
 };
-
-#else
-#    define BACKLIT OSM(MOD_LSFT)
-enum planck_keycodes {
-    TH_LVL = NEW_SAFE_RANGE,
-};
-#endif
 
 #ifdef KEYBOARD_planck_ez
 #    define PLNK_1 BK_LWER
@@ -130,18 +122,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-#ifdef BACKLIGHT_ENABLE
-        case BACKLIT:
-            if (record->event.pressed) {
-                register_code(KC_RSFT);
-#    ifdef BACKLIGHT_ENABLE
-                backlight_step();
-#    endif
-            } else {
-                unregister_code(KC_RSFT);
-            }
-            break;
-#endif
 #ifdef KEYBOARD_planck_ez
         case TH_LVL:
             if (record->event.pressed) {

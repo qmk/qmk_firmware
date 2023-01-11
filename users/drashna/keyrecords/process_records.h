@@ -5,7 +5,7 @@
 #include "drashna.h"
 
 enum userspace_custom_keycodes {
-    VRSN = SAFE_RANGE,                       // Prints QMK Firmware and board info
+    VRSN = QK_USER,                          // Prints QMK Firmware and board info
     KC_QWERTY,                               // Sets default layer to QWERTY
     FIRST_DEFAULT_LAYER_KEYCODE = KC_QWERTY, // Sets default layer to QWERTY
     KC_COLEMAK_DH,                           // Sets default layer to COLEMAK
@@ -44,7 +44,7 @@ enum userspace_custom_keycodes {
     STORE_SETUPS,
     PRINT_SETUPS,
 
-    NEW_SAFE_RANGE, // use "NEWPLACEHOLDER for keymap specific codes
+    USER_SAFE_RANGE, // use "NEWPLACEHOLDER for keymap specific codes
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
