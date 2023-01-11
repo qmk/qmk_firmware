@@ -8,6 +8,7 @@
     },
     "url": "",
     "maintainer": "ryanskidmore",
+    "community_layouts": ["fullsize_iso"],
     "layouts": {
         "LAYOUT_fullsize_iso": {
             "layout": [

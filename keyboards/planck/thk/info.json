@@ -12,6 +12,7 @@
     "LAYOUT_planck_grid": "LAYOUT_ortho_4x12",
     "LAYOUT_planck_mit": "LAYOUT_planck_1x2uC"
   },
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_ortho_4x12": {
       "layout": [

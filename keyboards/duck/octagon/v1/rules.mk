@@ -19,6 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = yes
 
 CUSTOM_MATRIX = yes
-SRC += matrix.c \
-
-LAYOUTS = 75_ansi
+SRC += matrix.c

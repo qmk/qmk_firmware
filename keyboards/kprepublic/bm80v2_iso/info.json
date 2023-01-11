@@ -8,6 +8,7 @@
         "pid": "0x1142",
         "device_version": "0.0.2"
     },
+    "community_layouts": ["tkl_iso"],
     "layouts": {
         "LAYOUT_tkl_iso": {
             "layout": [

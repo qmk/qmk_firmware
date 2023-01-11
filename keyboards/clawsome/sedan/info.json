@@ -8,6 +8,7 @@
         "pid": "0x8C78",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

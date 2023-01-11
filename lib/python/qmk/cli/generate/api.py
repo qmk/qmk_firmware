@@ -10,6 +10,7 @@ from qmk.datetime import current_datetime
 from qmk.info import info_json
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import json_load
+from qmk.keymap import list_keymaps
 from qmk.keyboard import find_readme, list_keyboards
 from qmk.keycodes import load_spec, list_versions, list_languages
 
@@ -111,6 +112,11 @@ def generate_api(cli):
     # Generate and write keyboard specific JSON files
     for keyboard_name in keyboard_list:
         kb_all[keyboard_name] = info_json(keyboard_name)
+
+        # Populate the list of JSON keymaps
+        for keymap in list_keymaps(keyboard_name, c=False, fullpath=True):
+            kb_all[keyboard_name]['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
+
         keyboard_dir = v1_dir / 'keyboards' / keyboard_name
         keyboard_info = keyboard_dir / 'info.json'
         keyboard_readme = keyboard_dir / 'readme.md'

@@ -8,6 +8,7 @@
         "pid": "0x1154",
         "device_version": "1.0.0"
     },
+    "community_layouts": ["ortho_5x4", "numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

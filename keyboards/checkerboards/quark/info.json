@@ -8,6 +8,7 @@
         "pid": "0x5340",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["ortho_4x12", "planck_mit"],
     "layouts": {
         "LAYOUT_ortho_5x12_2x225u": {
             "layout": [

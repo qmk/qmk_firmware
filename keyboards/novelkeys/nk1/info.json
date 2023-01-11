@@ -8,6 +8,7 @@
         "pid": "0x4E4D",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["ortho_1x1"],
     "layouts": {
         "LAYOUT_ortho_1x1": {
             "layout": [{"x": 0, "y": 0}]

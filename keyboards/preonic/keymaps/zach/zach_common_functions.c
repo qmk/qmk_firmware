@@ -174,7 +174,7 @@ enum Ext_Unicode{
     CHICK,
     TUMBLER
 };
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [PENGUIN]   = 0x1F427,
     [BOAR]      = 0x1F417,
     [MONKEY]    = 0x1F412,

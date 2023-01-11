@@ -10,7 +10,6 @@ from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
-from qmk.keymap import list_keymaps, locate_keymap
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
@@ -98,10 +97,6 @@ def info_json(keyboard):
         'parse_warnings': [],
         'maintainer': 'qmk',
     }
-
-    # Populate the list of JSON keymaps
-    for keymap in list_keymaps(keyboard, c=False, fullpath=True):
-        info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
     layouts, aliases = _search_keyboard_h(keyboard)
@@ -561,8 +556,16 @@ def _process_defaults(info_data):
     for default_type in defaults_map.keys():
         thing_map = defaults_map[default_type]
         if default_type in info_data:
-            for key, value in thing_map.get(info_data[default_type], {}).items():
-                info_data[key] = value
+            merged_count = 0
+            thing_items = thing_map.get(info_data[default_type], {}).items()
+            for key, value in thing_items:
+                if key not in info_data:
+                    info_data[key] = value
+                    merged_count += 1
+
+            if merged_count == 0 and len(thing_items) > 0:
+                _log_warning(info_data, 'All defaults for \'%s\' were skipped, potential redundant config or misconfiguration detected' % (default_type))
+
     return info_data
 
 
@@ -748,6 +751,7 @@ def arm_processor_rules(info_data, rules):
     """
     info_data['processor_type'] = 'arm'
     info_data['protocol'] = 'ChibiOS'
+    info_data['platform_key'] = 'chibios'
 
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
@@ -755,6 +759,7 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = rules['MCU_SERIES']
     elif 'ARM_ATSAM' in rules:
         info_data['platform'] = 'ARM_ATSAM'
+        info_data['platform_key'] = 'arm_atsam'
 
     return info_data
 
@@ -764,6 +769,7 @@ def avr_processor_rules(info_data, rules):
     """
     info_data['processor_type'] = 'avr'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
+    info_data['platform_key'] = 'avr'
     info_data['protocol'] = 'V-USB' if info_data['processor'] in VUSB_PROCESSORS else 'LUFA'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
@@ -864,6 +870,9 @@ def find_info_json(keyboard):
 def keymap_json_config(keyboard, keymap):
     """Extract keymap level config
     """
+    # TODO: resolve keymap.py and info.py circular dependencies
+    from qmk.keymap import locate_keymap
+
     keymap_folder = locate_keymap(keyboard, keymap).parent
 
     km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
@@ -873,6 +882,9 @@ def keymap_json_config(keyboard, keymap):
 def keymap_json(keyboard, keymap):
     """Generate the info.json data for a specific keymap.
     """
+    # TODO: resolve keymap.py and info.py circular dependencies
+    from qmk.keymap import locate_keymap
+
     keymap_folder = locate_keymap(keyboard, keymap).parent
 
     # Files to scan

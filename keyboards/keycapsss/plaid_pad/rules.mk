@@ -17,6 +17,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = ortho_4x4
-
 DEFAULT_FOLDER = keycapsss/plaid_pad/rev1

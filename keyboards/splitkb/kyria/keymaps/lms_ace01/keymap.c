@@ -136,15 +136,15 @@ void       td_kc_ly_reset   (tap_dance_state_t *state, void *user_data);
 
 tap_dance_action_t tap_dance_actions[] = {
     [TAB] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_CAPS),
-    [ESC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [ESC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) { KC_ESC, { _NAVIGATION, _QWERTY_ES, _QWERTY_ES }})),
-    [SPC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [SPC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) { KC_SPC, { _SYMBOL    , _QWERTY_ES, _QWERTY_ES }})),
-    [ENT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [ENT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) { KC_ENT, { _SYMBOL    , _QWERTY_ES, _QWERTY_ES }})),
-    [LWR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [LWR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) {  KC_NO, { _NAVIGATION, _GIT_CMDS , _QWERTY_ES }})),
-    [RAI] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [RAI] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) {  KC_NO, { _FN_NUMPAD , _GIT_CMDS , _QWERTY_ES }}))
 };
 #endif

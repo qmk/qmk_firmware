@@ -8,6 +8,7 @@
         "pid": "0x422D",
         "device_version": "2.0.0"
     },
+    "community_layouts": ["ortho_6x4", "numpad_6x4"],
     "layouts": {
         "LAYOUT": {
             "layout": [

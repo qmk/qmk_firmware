@@ -17,6 +17,7 @@
         "LAYOUT_tkl_ansi_tsangan_f13_split_back": "LAYOUT_tkl_f13_ansi_tsangan_split_bs",
         "LAYOUT_tkl_ansi_tsangan_f13_split_shift": "LAYOUT_tkl_f13_ansi_tsangan_split_rshift"
     },
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_split_bs_rshift", "tkl_f13_ansi_tsangan"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi_split_bs_rshift": {
             "layout": [

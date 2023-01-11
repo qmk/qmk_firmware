@@ -6,6 +6,7 @@
         "pid": "0xA649",
         "device_version": "0.0.3"
     },
+    "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_preonic_1x2uC": {
             "layout": [

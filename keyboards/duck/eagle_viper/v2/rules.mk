@@ -18,7 +18,5 @@ BACKLIGHT_DRIVER = custom
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = 60_ansi 60_hhkb 60_ansi_split_bs_rshift
-
 CUSTOM_MATRIX = yes
 SRC += indicator_leds.c matrix.c duck_led/duck_led.c
