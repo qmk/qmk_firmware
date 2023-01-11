@@ -751,7 +751,6 @@ def arm_processor_rules(info_data, rules):
     """
     info_data['processor_type'] = 'arm'
     info_data['protocol'] = 'ChibiOS'
-    info_data['platform_key'] = 'chibios'
 
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
@@ -759,7 +758,6 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = rules['MCU_SERIES']
     elif 'ARM_ATSAM' in rules:
         info_data['platform'] = 'ARM_ATSAM'
-        info_data['platform_key'] = 'arm_atsam'
 
     return info_data
 
@@ -769,7 +767,6 @@ def avr_processor_rules(info_data, rules):
     """
     info_data['processor_type'] = 'avr'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
-    info_data['platform_key'] = 'avr'
     info_data['protocol'] = 'V-USB' if info_data['processor'] in VUSB_PROCESSORS else 'LUFA'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:

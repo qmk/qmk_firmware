@@ -36,8 +36,6 @@
 # the respective file under `platforms/<PLATFORM>/bootloaders/custom.c` to see
 # which functions may be overridden.
 
-FIRMWARE_FORMAT?=bin
-
 ifeq ($(strip $(BOOTLOADER)), custom)
     OPT_DEFS += -DBOOTLOADER_CUSTOM
     BOOTLOADER_TYPE = custom

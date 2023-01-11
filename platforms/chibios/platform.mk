@@ -442,9 +442,6 @@ LDFLAGS  += $(SHARED_LDFLAGS) $(SHARED_LDSYMBOLS) $(TOOLCHAIN_LDFLAGS) $(TOOLCHA
 # Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
-# And what flavor of MCU
-OPT_DEFS += -DMCU_$(MCU_FAMILY)
-
 # ChibiOS supports synchronization primitives like a Mutex
 OPT_DEFS += -DPLATFORM_SUPPORTS_SYNCHRONIZATION
 
