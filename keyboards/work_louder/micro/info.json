@@ -22,13 +22,13 @@
     "processor": "atmega32u4",
     "rgblight": {
         "animations": {
-            "alternating": true,
+            "alternating": false,
             "breathing": true,
             "christmas": true,
             "knight": true,
             "rainbow_mood": true,
             "rainbow_swirl": true,
-            "rgb_test": true,
+            "rgb_test": false,
             "snake": true,
             "static_gradient": true,
             "twinkle": true
@@ -36,7 +36,7 @@
         "brightness_steps": 8,
         "hue_steps": 8,
         "led_count": 8,
-        "max_brightness": 255,
+        "max_brightness": 150,
         "saturation_steps": 8
     },
     "url": "https://worklouder.cc/",
