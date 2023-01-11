@@ -66,9 +66,7 @@ extern keymap_config_t keymap_config;
 uint8_t keyboard_idle __attribute__((aligned(2)))     = 0;
 uint8_t keyboard_protocol __attribute__((aligned(2))) = 1;
 uint8_t keyboard_led_state                            = 0;
-#ifdef MOUSE_SCROLL_HIRES_ENABLE
-uint8_t resolution_multiplier = 0;
-#endif
+
 volatile uint16_t      keyboard_idle_count = 0;
 static virtual_timer_t keyboard_idle_timer;
 
@@ -556,8 +554,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 chSysUnlockFromISR();
             }
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
+            /* Reset multiplier on reset */
             resolution_multiplier = 0;
-#endif
+#endif 
             return;
 
         case USB_EVENT_WAKEUP:
@@ -615,7 +614,7 @@ static void set_led_transfer_cb(USBDriver *usbp) {
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
 static void set_multiplier_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2 && set_report_buf[0] == REPORT_ID_MULTIPLIER) {
-        resolution_multiplier = set_report_buf[1]
+        resolution_multiplier = set_report_buf[1];
     }
 }
 #endif
@@ -810,7 +809,7 @@ static const USBConfig usbcfg = {
 /*
  * Initialize the USB driver
  */
-void init_usb_driver(USBDriver *usbp) {
+void init_usb_driver(USBDriver *usbp) {   
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
 #ifdef USB_ENDPOINTS_ARE_REORDERABLE
         QMKUSBDriver *driver                       = &drivers.array[i].driver;
@@ -957,7 +956,13 @@ void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
     mouse_report_sent = *report;
-#endif
+#    ifdef MOUSE_HIRES_SCROLL_ENABLE
+    enable_hires_scroll();
+#    endif
+
+    osalSysUnlock();
+    
+>>>>>>> 44cc989a5f (Fix HID descriptor for Horizontal scroll, add disable function, and various bugfixes)
 }
 
 /* ---------------------------------------------------------

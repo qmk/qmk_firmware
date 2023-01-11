@@ -77,9 +77,6 @@ uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol     = 1;
 static uint8_t keyboard_led_state    = 0;
-#ifdef MOUSE_SCROLL_HIRES_ENABLE
-uint8_t        resolution_multiplier = 0;
-#endif
 
 static report_keyboard_t keyboard_report_sent;
 
@@ -296,8 +293,9 @@ void EVENT_USB_Device_Reset(void) {
     print("[R]");
     usb_device_state_set_reset();
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
+    /* Reset multiplier on reset */
     resolution_multiplier = 0;
-#endif
+#endif 
 }
 
 /** \brief Event USB Device Connect
@@ -610,6 +608,9 @@ static void send_keyboard(report_keyboard_t *report) {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
+#    ifdef MOUSE_HIRES_SCROLL_ENABLE
+    hires_scroll_reset();
+#    endif
 #endif
 }
 
@@ -838,7 +839,11 @@ static void setup_mcu(void) {
 static void setup_usb(void) {
     // Leonardo needs. Without this USB device is not recognized.
     USB_Disable();
-
+    
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+    resolution_multiplier = 0;
+#endif
+    
     USB_Init();
 
     // for Console_Task

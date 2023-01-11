@@ -31,6 +31,11 @@ static int8_t cb_tail  = 0;
 static int8_t cb_count = 0;
 #endif
 
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+static uint8_t prev_resolution_multiplier = 0;
+uint8_t        resolution_multiplier      = 0;
+#endif
+
 /** \brief has_anykey
  *
  * FIXME: Needs doc
@@ -290,4 +295,14 @@ void clear_keys_from_report(report_keyboard_t* keyboard_report) {
 __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report) {
     return memcmp(new_report, old_report, sizeof(report_mouse_t));
 }
-#endif
+
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
+void hires_scroll_disable_next(hires_axis_t axis) {
+    resolution_multiplier_stored &= resolution_multiplier;
+    resolution_multiplier        ^= (1 << axis);
+}
+void hires_scroll_reset(void) {
+    resolution_multiplier &= prev_resolution_multiplier;
+}
+#    endif
+#endif // MOUSE_ENABLE

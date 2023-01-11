@@ -166,6 +166,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_PHYSICAL_MINIMUM(8, 0x01),                   // Min   1
                 HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER), // Max 120
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+    
                 HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #    endif // MOUSE_SCROLL_HIRES_ENABLE
                 // Vertical wheel (1-2 bytes)
@@ -200,11 +201,13 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_LOGICAL_MINIMUM(8, 0x00),
                 HID_RI_LOGICAL_MAXIMUM(8, 0x01),
                 HID_RI_PHYSICAL_MINIMUM(8, 0x01),                     // Min   1
-                HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER),   // Max 120
+                HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER),  // Max 120
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
                 // Padding 4 bits
                 HID_RI_REPORT_SIZE(8, 0x04),
-                HID_RI_FEATURE(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE),
+                HID_RI_REPORT_COUNT(8, 0x01),
+                HID_RI_FEATURE(8, HID_IOF_CONSTANT),
+    
                 HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #    endif // MOUSE_SCROLL_HIRES_ENABLE
                 HID_RI_USAGE_PAGE(8, 0x0C), // Consumer

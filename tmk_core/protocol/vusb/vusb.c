@@ -91,9 +91,6 @@ enum usb_interfaces {
 
 static uint8_t keyboard_led_state = 0;
 static uint8_t vusb_idle_rate     = 0;
-#ifdef MOUSE_SCROLL_HIRES_ENABLE
-uint8_t resolution_multiplier     = 0;
-#endif
 
 /* Keyboard report send buffer */
 #define KBUF_SIZE 16
@@ -274,6 +271,10 @@ static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     if (usbInterruptIsReadyShared()) {
         usbSetInterruptShared((void *)report, sizeof(report_mouse_t));
+#    ifdef MOUSE_HIRES_SCROLL_ENABLE
+        /* re-enable_hires_scroll */
+        enable_hires_scroll();
+#    endif
     }
 #endif
 }
@@ -534,6 +535,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x35, 0x01,                    //         Physical Minimum (1)
     0x45, MOUSE_SCROLL_MULTIPLIER, //         Physical Maximum (MOUSE_SCROLL_MULTIPLIER)
     0xB1, 0x02,                    //         Feature (Data, Variable, Absolute)
+    
     0x85, REPORT_ID_MOUSE,         //         Report ID (MOUSE)
 #    endif
     // Wheel (1-2 bytes)
@@ -573,7 +575,9 @@ const PROGMEM uchar shared_hid_report[] = {
     0xB1, 0x02,                    //         Feature (Data, Variable, Absolute)
     // Padding (4 bits)
     0x75, 0x04,                    //         Report Size (4)
-    0xB1, 0x03,                    //         Feature (Data, Variable, Constant)
+    0x95, 0x01,                    //         Report Count (1)
+    0xB1, 0x03,                    //         Feature (Data, Constant)
+    
     0x85, REPORT_ID_MOUSE,         //         Report ID (MOUSE)
 #    endif
     0x05, 0x0C,                    //         Usage Page (Consumer)

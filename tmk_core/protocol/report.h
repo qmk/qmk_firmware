@@ -23,6 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // clang-format off
 
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+#    ifndef MOUSE_SCROLL_MULTIPLIER
+#        define MOUSE_SCROLL_MULTIPLIER 120
+#    elif (MOUSE_SCROLL_MULTIPLIER > 120 || MOUSE_SCROLL_MULTIPLIER < 1)
+#        error "MOUSE_SCROLL_MULTIPLIER out of bounds must be in range of 1-120"
+#    endif
+# endif
+
 /* HID report IDs */
 enum hid_report_ids {
     REPORT_ID_KEYBOARD = 1,
@@ -215,12 +223,9 @@ typedef int8_t mouse_hv_report_t;
 #endif
 
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
-#    ifndef MOUSE_SCROLL_MULTIPLIER
-#        define MOUSE_SCROLL_MULTIPLIER 120
-#    elif (MOUSE_SCROLL_MULTIPLIER >= 120 || MOUSE_SCROLL_MULTIPLIER < 1)
-#        error "MOUSE_SCROLL_MULTIPLIER out of bounds must be in range of 1-120"
-#    endif
 extern uint8_t resolution_multiplier;
+#    define IS_V_HIRES_ACTIVE (bool)(resolution_multiplier & (0x01 << 0))
+#    define IS_H_HIRES_ACTIVE (bool)(resolution_multiplier & (0x01 << 2))
 #endif
 
 typedef struct {
@@ -356,6 +361,16 @@ void clear_keys_from_report(report_keyboard_t* keyboard_report);
 
 #ifdef MOUSE_ENABLE
 bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report);
+#endif
+    
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+typedef enum {
+    HIRES_V = 0,
+    HIRES_BOTH,
+    HIRES_H = 2
+} hires_axis_t;
+void disable_hires_scroll_on_next(hires_axis_t axis);
+void hires_scroll_reset(void);
 #endif
 
 #ifdef __cplusplus
