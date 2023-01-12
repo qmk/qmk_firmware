@@ -1,0 +1,80 @@
+name: Build qmk_keymap repo
+
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  prep:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+    - name: Checkout userspace
+      uses: actions/checkout@v3
+
+    - name: Configure build targets
+      id: set-matrix
+      run: |
+        data=""
+        delim=""
+        for file in *.json; do
+          data="${data}${delim}{\"file\":\"$file\"}"
+          delim=","
+        done
+        echo "matrix={\"include\":[$data]}" >> $GITHUB_OUTPUT
+
+  build:
+    needs: prep
+    runs-on: ubuntu-latest
+    container: qmkfm/qmk_cli
+
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prep.outputs.matrix) }}
+
+    steps:
+    - name: Checkout QMK
+      uses: actions/checkout@v3
+      with:
+        repository: qmk/qmk_firmware
+        submodules: recursive
+
+    - name: Checkout userspace
+      uses: actions/checkout@v3
+      with:
+        path: users/${{ github.actor }}
+
+    - name: Build firmware
+      run: qmk compile -j=4 "users/${{ github.actor }}/${{ matrix.file }}"
+
+    - name: Archive firmware
+      uses: actions/upload-artifact@v3
+      continue-on-error: true
+      with:
+        name: ${{ matrix.file }}_${{ github.actor }}
+        path: |
+          *.hex
+          *.bin
+          *.uf2
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v3
+
+    - uses: marvinpinto/action-automatic-releases@latest
+      if: always()
+      with:
+        repo_token: "${{ github.token }}"
+        automatic_release_tag: "latest"
+        title: "Latest Firmware"
+        files: |
+          **/*.hex
+          **/*.bin
+          **/*.uf2
