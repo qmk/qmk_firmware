@@ -2,6 +2,17 @@ name: Build qmk_keymap repo
 
 on:
   workflow_call:
+    inputs:
+      qmk_repo:
+        description: 'qmk_firmware repo to build against'
+        default: 'qmk/qmk_firmware'
+        required: false
+        type: string
+      qmk_ref:
+        description: 'qmk_firmware branch to build against'
+        default: 'master'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -40,7 +51,8 @@ jobs:
     - name: Checkout QMK
       uses: actions/checkout@v3
       with:
-        repository: qmk/qmk_firmware
+        repository: ${{ secrets.qmk_repo }}
+        ref:  ${{ secrets.qmk_ref }}
         submodules: recursive
 
     - name: Checkout userspace
