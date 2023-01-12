@@ -28,13 +28,13 @@ static void put_layer_name(uint16_t layer) {
             oled_write_P(PSTR("Qwert"), false);
             break;
         case 1:
-            oled_write_P(PSTR("Yuiop"), false);
-            break;
-        case 2:
             oled_write_P(PSTR("Funct"), false);
             break;
-        case 3:
+        case 2:
             oled_write_P(PSTR("Cntrl"), false);
+            break;
+        case 3:
+            oled_write_P(PSTR("Games"), false);
             break;
         default:
             oled_write_P(PSTR("?????"), false);
@@ -85,7 +85,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     }
-    return rotation;
+    return OLED_ROTATION_270;
+    // return rotation;
 }
 
 bool oled_task_user(void) {
