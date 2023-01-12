@@ -18,11 +18,6 @@
 
 #define DEBOUNCE 5
 
-// bootmagic settings
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 // Underglow LED settings
 
 #define RGB_DI_PIN D0

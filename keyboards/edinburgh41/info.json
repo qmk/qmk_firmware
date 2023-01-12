@@ -11,7 +11,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_edinburgh41": {
+        "LAYOUT": {
             "layout": [
                 {"label":"K00", "x":0, "y":0.54},
                 {"label":"K01", "x":1, "y":0.36},
