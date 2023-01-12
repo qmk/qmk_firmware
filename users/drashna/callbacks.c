@@ -184,10 +184,6 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
     return state;
 }
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) {
-        return state;
-    }
-
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(CUSTOM_POINTING_DEVICE)
     state = layer_state_set_pointing(state);
