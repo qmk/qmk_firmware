@@ -51,8 +51,8 @@ jobs:
     - name: Checkout QMK
       uses: actions/checkout@v3
       with:
-        repository: ${{ secrets.qmk_repo }}
-        ref:  ${{ secrets.qmk_ref }}
+        repository: ${{ inputs.qmk_repo }}
+        ref:  ${{ inputs.qmk_ref }}
         submodules: recursive
 
     - name: Checkout userspace
