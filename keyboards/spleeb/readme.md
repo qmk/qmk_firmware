@@ -1,6 +1,6 @@
 # spleeb
 
-![spleeb](https://i.imgur.com/2rmZa6M.jpg)
+![spleeb](https://i.imgur.com/2rmZa6Mh.jpg)
 
 A 5x7 split keyboard that has support for rotary encoders, an oled and a Ciruqe touchpad
 
