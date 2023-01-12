@@ -67,6 +67,8 @@ Run the following commands in your computer to create a folder with a few templa
 git clone https://github.com/gh-username/qmk_keymap
 ```
 
+?> Use your GitHub personal access token at the password prompt. If you have setup SSH access, replace `https://github.com/gh-username/qmk_keymap.git` with `git@github.com:gh-username/qmk_keymap.git` in the remote origin command above.
+
 ?> For Windows user running MSYS, the above command will create the folder `qmk_keymap/` and its content in the `C:\Users\<windows_username>\qmk_keymap\` path location.
 
 ## Initial Code Commit
@@ -98,10 +100,8 @@ To commit and push them into GitHub, run the following commands:
 cd ~/qmk_keymap
 git add -A
 git commit -m "Initial QMK keymap commit"
-git branch -M main
 git push
 ```
-?> Use your GitHub personal access token at the password prompt. If you have setup SSH access, replace `https://github.com/gh-username/qmk_keymap.git` with `git@github.com:gh-username/qmk_keymap.git` in the remote origin command above.
 
 ### Review workflow output
 
@@ -111,7 +111,9 @@ Files committed to GitHub in the previous step will automatically trigger the wo
 3. Select that workflow to display its run from the last commit.
 4. If there are build errors, review the job log for details.
 
-Successfully compiled firmware will be under the "**Releases**" section, <https://github.com/zvecr/qmk_keymap/releases/tag/latest>.
+### Flashing
+
+Successfully compiled firmware will be under the "**Releases**" section, <https://github.com/qmk/qmk_keymap/releases/tag/latest>.
 
 Download and flash the firmware file into your keyboard using [QMK Toolbox](https://docs.qmk.fm/#/newbs_flashing?id=flashing-your-keyboard-with-qmk-toolbox).
 
