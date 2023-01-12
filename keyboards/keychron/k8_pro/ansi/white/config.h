@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #ifdef LED_MATRIX_ENABLE
 /* LED matrix driver configuration */
 #    define DRIVER_COUNT 1
@@ -64,6 +66,5 @@
 
 /* Set LED driver current */
 #    define CKLED2001_CURRENT_TUNE  { 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60 }
-
 
 #endif

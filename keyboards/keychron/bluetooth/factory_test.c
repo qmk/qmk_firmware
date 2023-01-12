@@ -53,6 +53,7 @@ enum {
     FACTORY_TEST_CMD_INT_PIN,
     FACTORY_TEST_CMD_GET_TRANSPORT,
     FACTORY_TEST_CMD_CHARGING_ADC,
+    FACTORY_TEST_CMD_RADIO_CARRIER,
 };
 
 enum {
@@ -193,6 +194,7 @@ bool led_matrix_indicators_user(void) {
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_user(void) {
     if (factory_reset_ind_state) {
+        backlight_test_mode = BACKLIGHT_TEST_OFF;
         rgb_matrix_set_color_all(factory_reset_ind_state % 2 ? 0 : 255, 0, 0);
     } else if (backlight_test_mode) {
         switch (backlight_test_mode) {
@@ -246,10 +248,12 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
         }
         /* Verify checksum */
         if ((checksum & 0xFF) != data[RAW_EPSIZE - 2] || checksum >> 8 != data[RAW_EPSIZE - 1]) return;
+
 #ifdef KC_BLUETOOTH_ENABLE
         uint8_t payload[32];
         uint8_t len = 0;
 #endif
+
         switch (data[1]) {
             case FACTORY_TEST_CMD_BACKLIGHT:
                 backlight_test_mode = data[2];
@@ -302,12 +306,18 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
                 factory_test_send(payload, len);
                 break;
 #endif
+            case FACTORY_TEST_CMD_RADIO_CARRIER:
+                if (data[2] < 79) ckbt51_radio_test(data[2]);
+                break;
         }
     }
 }
 
 bool dip_switch_update_user(uint8_t index, bool active) {
     if (report_os_sw_state) {
+#ifdef INVERT_OS_SWITCH_STATE
+        active = !active;
+#endif
         uint8_t payload[3] = {FACTORY_TEST_CMD_OS_SWITCH, OS_SWITCH, active};
         factory_test_send(payload, 3);
     }

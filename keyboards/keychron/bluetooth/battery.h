@@ -38,6 +38,14 @@ enum {
 #    define VOLTAGE_MEASURE_INTERVAL 3000
 #endif
 
+#ifndef VOLTAGE_POWER_ON_MEASURE_COUNT
+#    define VOLTAGE_POWER_ON_MEASURE_COUNT 15
+#endif
+
+#ifndef BACKLIGHT_OFF_VOLTAGE_MEASURE_INTERVAL
+#    define BACKLIGHT_OFF_VOLTAGE_MEASURE_INTERVAL 200
+#endif
+
 void battery_init(void);
 void battery_measure(void);
 void     battery_calculte_voltage(uint16_t value);
@@ -47,5 +55,6 @@ uint8_t battery_get_percentage(void);
 void indicator_battery_low_enable(bool enable);
 bool battery_is_empty(void);
 bool battery_is_critical_low(void);
+bool     battery_power_on_sample(void);
 
 void battery_task(void);

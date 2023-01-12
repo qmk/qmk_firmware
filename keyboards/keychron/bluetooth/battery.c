@@ -20,6 +20,8 @@
 #include "transport.h"
 #include "ckbt51.h"
 #include "lpm.h"
+#include "indicator.h"
+#include "rtc_timer.h"
 
 #define BATTERY_EMPTY_COUNT 10
 #define CRITICAL_LOW_COUNT 20
@@ -29,12 +31,14 @@ static uint16_t voltage                  = FULL_VOLTAGE_VALUE;
 static uint8_t  bat_empty                = 0;
 static uint8_t  critical_low             = 0;
 static uint8_t  bat_state;
+static uint8_t  power_on_sample = 0;
 
 void battery_init(void) {
-    bat_monitor_timer_buffer = 0;
     bat_state                = BAT_NOT_CHARGING;
 }
-__attribute__((weak)) void battery_measure(void) {}
+__attribute__((weak)) void battery_measure(void) {
+    ckbt51_read_state_reg(0x05, 0x02);
+}
 
 /* Calculate the voltage */
 __attribute__((weak)) void battery_calculate_voltage(uint16_t value) {}
@@ -71,10 +75,16 @@ bool battery_is_critical_low(void) {
 void battery_check_empty(void) {
     if (voltage < EMPTY_VOLTAGE_VALUE) {
         if (bat_empty <= BATTERY_EMPTY_COUNT) {
-            if (++bat_empty > BATTERY_EMPTY_COUNT) indicator_battery_low_enable(true);
+            if (++bat_empty > BATTERY_EMPTY_COUNT) {
+#ifdef BAT_LOW_LED_PIN
+                indicator_battery_low_enable(true);
+#endif
+#if defined(LOW_BAT_IND_INDEX)
+                indicator_battery_low_backlit_enable(true);
+#endif
+                power_on_sample = VOLTAGE_POWER_ON_MEASURE_COUNT;
+            }
         }
-    } else if (bat_empty <= BATTERY_EMPTY_COUNT) {
-        bat_empty = BATTERY_EMPTY_COUNT;
     }
 }
 
@@ -88,20 +98,43 @@ void battery_check_critical_low(void) {
     }
 }
 
+bool battery_power_on_sample(void) {
+    return power_on_sample < VOLTAGE_POWER_ON_MEASURE_COUNT;
+}
+
 void battery_task(void) {
+    uint32_t t = rtc_timer_elapsed_ms(bat_monitor_timer_buffer);
     if (get_transport() == TRANSPORT_BLUETOOTH && bluetooth_get_state() == BLUETOOTH_CONNECTED) {
-        if (sync_timer_elapsed32(bat_monitor_timer_buffer) > VOLTAGE_MEASURE_INTERVAL) {
+        if ((battery_power_on_sample()
+#if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
+             && !indicator_is_enabled()
+#endif
+             && t > BACKLIGHT_OFF_VOLTAGE_MEASURE_INTERVAL) ||
+            t > VOLTAGE_MEASURE_INTERVAL) {
+
             battery_check_empty();
             battery_check_critical_low();
 
-            bat_monitor_timer_buffer = sync_timer_read32();
+            bat_monitor_timer_buffer = rtc_timer_read_ms();
+            if (bat_monitor_timer_buffer > RTC_MAX_TIME) {
+                bat_monitor_timer_buffer = 0;
+                rtc_timer_clear();
+            }
+
             battery_measure();
+            power_on_sample++;
+            if (power_on_sample > VOLTAGE_POWER_ON_MEASURE_COUNT) power_on_sample = VOLTAGE_POWER_ON_MEASURE_COUNT;
         }
     }
 
     if ((bat_empty || critical_low) && usb_power_connected()) {
         bat_empty    = false;
         critical_low = false;
+#ifdef BAT_LOW_LED_PIN
         indicator_battery_low_enable(false);
+#endif
+#if defined(LOW_BAT_IND_INDEX)
+        indicator_battery_low_backlit_enable(false);
+#endif
     }
 }

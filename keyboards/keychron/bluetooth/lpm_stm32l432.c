@@ -30,6 +30,7 @@
 #include "transport.h"
 #include "battery.h"
 #include "report_buffer.h"
+#include "stm32_bd.inc"
 
 extern pin_t                 row_pins[MATRIX_ROWS];
 extern void                  select_all_cols(void);
@@ -139,15 +140,6 @@ bool lpm_set(pm_t mode) {
 }
 
 static inline void enter_low_power_mode_prepare(void) {
-#if HAL_USE_RTC
-    nvicEnableVector(STM32_EXTI20_NUMBER, 13);
-
-    PWR->CR3 |= PWR_CR3_EIWF;
-
-    RTCWakeup wakeupspec;
-    wakeupspec.wutr = 0x040014;
-    rtcSTM32SetPeriodicWakeup(&RTCD1, &wakeupspec);
-#endif
 
 #if defined(KEEP_USB_CONNECTION_IN_BLUETOOTH_MODE)
     /* Usb unit is actived and running, stop and disconnect first */
@@ -183,10 +175,9 @@ static inline void enter_low_power_mode_prepare(void) {
 }
 
 static inline void lpm_wakeup(void) {
-    if (usb_power_connected())
-        stm32_clock_init();
-    else
-        stm32_clock_fast_init();
+    chSysLock();
+    stm32_clock_fast_init();
+    chSysUnlock();
 
     if (bluetooth_transport.init) bluetooth_transport.init(true);
 
@@ -215,6 +206,7 @@ static inline void lpm_wakeup(void) {
 
 #if defined(KEEP_USB_CONNECTION_IN_BLUETOOTH_MODE)
     if (usb_power_connected()) {
+        hsi48_init();
         /* Remove USB isolation.*/
         //PWR->CR2 |= PWR_CR2_USV; /* PWR_CR2_USV is available on STM32L4x2xx and STM32L4x3xx devices only. */
         usb_power_connect();
@@ -228,12 +220,6 @@ static inline void lpm_wakeup(void) {
     dip_switch_init();
     dip_switch_read(true);
 #endif
-
-#if HAL_USE_RTC
-    rtcSTM32SetPeriodicWakeup(&RTCD1, NULL);
-    nvicDisableVector(STM32_EXTI20_NUMBER);
-#endif
-
 }
 
 /*
@@ -277,50 +263,41 @@ void usb_power_disconnect(void) {
 /*
  * This is a simplified version of stm32_clock_init() by removing unnecessary clock initlization
  * code snippet. The original stm32_clock_init() take about 2ms, but ckbt51 sends data via uart
- * about 200us after wakeup pin is assert, it means that we must get everything ready before
- * uart data coming when wakeup pin interrupt of MCU  is triggerred.
- * Here we reduce clock init time to 100us.
+ * about 200us after wakeup pin is assert, it means that we must get everything ready before data
+ * coming when wakeup pin interrupt of MCU is triggerred.
+ * Here we reduce clock init time to less than 100us.
  */
-inline void stm32_clock_fast_init(void) {
+void stm32_clock_fast_init(void) {
 #if !STM32_NO_INIT
-    /* Core voltage setup.*/
-    PWR->CR1 = STM32_VOS;
-    while ((PWR->SR2 & PWR_SR2_VOSF) != 0) /* Wait until regulator is      */
-        ;                                  /* stable.                      */
+    /* Clocks setup.*/
+    msi_init();   // 6.x us
+    hsi16_init(); // 4.x us
 
-#    if STM32_HSI16_ENABLED  // 10.7us
-    /* HSI activation.*/
-    RCC->CR |= RCC_CR_HSION;
-    while ((RCC->CR & RCC_CR_HSIRDY) == 0)
-        ; /* Wait until HSI16 is stable.  */
+    /* PLLs activation, if required.*/
+    pll_init();
+    pllsai1_init();
+    pllsai2_init();
+/* clang-format off */
+    /* Other clock-related settings (dividers, MCO etc).*/
+  RCC->CFGR = STM32_MCOPRE | STM32_MCOSEL | STM32_STOPWUCK |
+              STM32_PPRE2  | STM32_PPRE1  | STM32_HPRE;
+    /* CCIPR register initialization, note, must take care of the _OFF
+       pseudo settings.*/
+    {
+    uint32_t ccipr = STM32_DFSDMSEL  | STM32_SWPMI1SEL | STM32_ADCSEL    |
+                     STM32_CLK48SEL  | STM32_LPTIM2SEL | STM32_LPTIM1SEL |
+                     STM32_I2C3SEL   | STM32_I2C2SEL   | STM32_I2C1SEL   |
+                     STM32_UART5SEL  | STM32_UART4SEL  | STM32_USART3SEL |
+                     STM32_USART2SEL | STM32_USART1SEL | STM32_LPUART1SEL;
+/* clang-format on */					 
+#    if STM32_SAI2SEL != STM32_SAI2SEL_OFF
+        ccipr |= STM32_SAI2SEL;
 #    endif
-
-#    if STM32_CLOCK_HAS_HSI48  // 13us
-#        if STM32_HSI48_ENABLED
-    /* HSI activation.*/
-    RCC->CRRCR |= RCC_CRRCR_HSI48ON;
-    while ((RCC->CRRCR & RCC_CRRCR_HSI48RDY) == 0)
-        ; /* Wait until HSI48 is stable.  */
-#        endif
+#    if STM32_SAI1SEL != STM32_SAI1SEL_OFF
+        ccipr |= STM32_SAI1SEL;
 #    endif
-
-#    if STM32_ACTIVATE_PLL || STM32_ACTIVATE_PLLSAI1 || STM32_ACTIVATE_PLLSAI2
-        /* PLLM and PLLSRC are common to all PLLs.*/
-#        if defined(STM32L496xx) || defined(STM32L4A6xx)
-    RCC->PLLCFGR = STM32_PLLPDIV | STM32_PLLR | STM32_PLLREN | STM32_PLLQ | STM32_PLLQEN | STM32_PLLP | STM32_PLLPEN | STM32_PLLN | STM32_PLLM | STM32_PLLSRC;
-#        else
-    RCC->PLLCFGR = STM32_PLLR | STM32_PLLREN | STM32_PLLQ | STM32_PLLQEN | STM32_PLLP | STM32_PLLPEN | STM32_PLLN | STM32_PLLM | STM32_PLLSRC;
-#        endif
-#    endif
-
-#    if STM32_ACTIVATE_PLL
-    /* PLL activation.*/
-    RCC->CR |= RCC_CR_PLLON;
-
-    /* Waiting for PLL lock.*/
-    while ((RCC->CR & RCC_CR_PLLRDY) == 0)
-        ;
-#    endif
+        RCC->CCIPR = ccipr;
+    }
 
     /* Set flash WS's for SYSCLK source */
     if (STM32_FLASHBITS > STM32_MSI_FLASHBITS) {
@@ -330,12 +307,12 @@ inline void stm32_clock_fast_init(void) {
     }
 
     /* Switching to the configured SYSCLK source if it is different from MSI.*/
-#        if (STM32_SW != STM32_SW_MSI)
+#    if (STM32_SW != STM32_SW_MSI)
     RCC->CFGR |= STM32_SW; /* Switches on the selected clock source.   */
     /* Wait until SYSCLK is stable.*/
     while ((RCC->CFGR & RCC_CFGR_SWS) != (STM32_SW << 2))
         ;
-#        endif
+#    endif
 
     /* Reduce the flash WS's for SYSCLK source if they are less than MSI WSs */
     if (STM32_FLASHBITS < STM32_MSI_FLASHBITS) {
@@ -344,8 +321,4 @@ inline void stm32_clock_fast_init(void) {
         }
     }
 #endif /* STM32_NO_INIT */
-
-    /* SYSCFG clock enabled here because it is a multi-functional unit shared
-       among multiple drivers.*/
-    rccEnableAPB2(RCC_APB2ENR_SYSCFGEN, true);
 }

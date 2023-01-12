@@ -234,21 +234,6 @@ void bluetooth_pre_task(void) {
         }
     }
 }
-
-void battery_measure(void) {
-#    ifdef LED_MATRIX_ENABLE
-    if (led_matrix_is_enabled()) {
-        ckbt51_read_state_reg(0x05, 0x02);
-        return;
-    }
-#    endif
-#    ifdef RGB_MATRIX_ENABLE
-    if (rgb_matrix_is_enabled()) {
-        ckbt51_read_state_reg(0x05, 0x02);
-        return;
-    }
-#    endif
-}
 #endif
 
 void battery_calculte_voltage(uint16_t value) {

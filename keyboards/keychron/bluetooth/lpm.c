@@ -86,7 +86,7 @@ void lpm_task(void) {
 #ifdef RGB_MATRIX_ENABLE
         && rgb_matrix_is_driver_shutdown()
 #endif
-        && !lpm_any_matrix_action())
+        && !lpm_any_matrix_action() && !battery_power_on_sample())
 
         enter_power_mode(LOW_POWER_MODE);
 }

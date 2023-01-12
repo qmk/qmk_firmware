@@ -20,7 +20,7 @@
 /* LED matrix driver configuration */
 #    define DRIVER_COUNT 1
 #    define DRIVER_ADDR_1 0b1110100
-#    define LED_MATRIX_LED_COUNT 84
+#    define LED_MATRIX_LED_COUNT 68
 
 /* Set to infinit, which is use in USB mode by default */
 #    define LED_MATRIX_TIMEOUT LED_MATRIX_TIMEOUT_INFINITE
@@ -32,6 +32,7 @@
 
 #    define DIM_CAPS_LOCK
 #    define CAPS_LOCK_INDEX    46
+#    define LOW_BAT_IND_INDEX 61
 
 /* LED Matrix Animation modes. Explicitly enabled
  * For full list of effects, see:
