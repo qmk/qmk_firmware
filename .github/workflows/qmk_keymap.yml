@@ -60,6 +60,9 @@ jobs:
       with:
         path: users/${{ github.actor }}
 
+    - name: Install missing dependencies
+      run: pip3 install -r requirements.txt
+
     - name: Build firmware
       run: qmk compile -j=4 "users/${{ github.actor }}/${{ matrix.file }}"
 
@@ -86,6 +89,7 @@ jobs:
         repo_token: "${{ github.token }}"
         automatic_release_tag: "latest"
         title: "Latest Firmware"
+        prerelease: false
         files: |
           **/*.hex
           **/*.bin
