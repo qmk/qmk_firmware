@@ -15,9 +15,37 @@ static const uint16_t PROGMEM encoder_table[NUM_ENCODERS][BOOL_SIZE][BOOL_SIZE] 
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index >= 0 && index < NUM_ENCODERS) {
-    tap_code(encoder_table[index][get_shift_held()][clockwise]);
+  // if (index >= 0 && index < NUM_ENCODERS) {
+  if (get_shift_held()) {
+    if (index == 0) {
+      if (clockwise) {
+        tap_code(KC_MPRV);
+      } else {
+        tap_code(KC_MNXT);
+      }
+    } else if (index == 1) {
+      if (clockwise) {
+        tap_code(KC_LEFT);
+      } else {
+        tap_code(KC_RIGHT);
+      }
+    }
+  } else {
+    if (index == 0) {
+      if (clockwise) {
+        tap_code(KC_VOLD);
+      } else {
+        tap_code(KC_VOLU);
+      }
+    } else if (index == 1) {
+      if (clockwise) {
+        tap_code(KC_UP);
+      } else {
+        tap_code(KC_DOWN);
+      }
+    }
   }
+  // tap_code(encoder_table[index][get_shift_held()][clockwise]);
   return true;
 }
 
