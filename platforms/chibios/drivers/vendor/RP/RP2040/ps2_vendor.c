@@ -62,7 +62,7 @@ static const uint16_t ps2_program_instructions[] = {
     0x00e9, //  7: jmp    !osre, 9
     0x0000, //  8: jmp    0
     0xff81, //  9: set    pindirs, 1             [31]
-    0xe280, // 10: set    pindirs, 0             [2] 
+    0xe280, // 10: set    pindirs, 0             [2]
     0xe082, // 11: set    pindirs, 2
     0x2021, // 12: wait   0 pin, 1
     0xe029, // 13: set    x, 9
@@ -83,11 +83,11 @@ static const struct pio_program ps2_program = {
     .origin       = -1,
 };
 
-static int         state_machine = -1;
+static int                state_machine = -1;
 static thread_reference_t tx_thread     = NULL;
 
 #define BUFFER_SIZE 32
-static input_buffers_queue_t pio_rx_queue;
+static input_buffers_queue_t               pio_rx_queue;
 static __attribute__((aligned(4))) uint8_t pio_rx_buffer[BQ_BUFFER_SIZE(BUFFER_SIZE, sizeof(uint32_t))];
 
 uint8_t ps2_error = PS2_ERR_NONE;
