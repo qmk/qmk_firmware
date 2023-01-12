@@ -121,6 +121,10 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 // clang-format on
 
 #ifdef OLED_ENABLE
+void render_oled_title(bool side) {
+    oled_write_P(side ? PSTR("   Splitkb   ") : PSTR("    Kyria    "), true);
+}
+
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
 #ifdef OLED_DRIVER_SH1107
     return OLED_ROTATION_0;

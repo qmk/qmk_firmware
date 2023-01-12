@@ -801,19 +801,6 @@ void render_mouse_mode(uint8_t col, uint8_t line) {
 }
 
 void render_status_right(void) {
-#if defined(KEYBOARD_handwired_tractyl_manuform)
-    oled_set_cursor(7, 0);
-    oled_write_P(PSTR("Manuform"), true);
-#elif defined(KEYBOARD_bastardkb_charybdis)
-    oled_set_cursor(6, 0);
-    oled_write_P(PSTR("Charybdis"), true);
-#elif defined(KEYBOARD_splitkb_kyria)
-    oled_set_cursor(8, 0);
-    oled_write_P(PSTR("Kyria"), true);
-#else
-    oled_set_cursor(8, 0);
-    oled_write_P(PSTR("Right"), true);
-#endif
 #if defined(OLED_DISPLAY_VERBOSE)
     render_default_layer_state(1, 1);
 #else
@@ -832,23 +819,6 @@ void render_status_right(void) {
 void render_status_left(void) {
 #if defined(OLED_DISPLAY_VERBOSE)
     render_kitty(0, 1);
-
-#    if defined(KEYBOARD_handwired_tractyl_manuform)
-    oled_set_cursor(7, 0);
-    oled_write_P(PSTR("Tractyl"), true);
-#    elif defined(KEYBOARD_bastardkb_charybdis)
-    oled_set_cursor(6, 0);
-    oled_write_P(PSTR("Charybdis"), true);
-#    elif defined(KEYBOARD_splitkb_kyria)
-    oled_set_cursor(7, 0);
-    oled_write_P(PSTR("SplitKB"), true);
-#    elif defined(KEYBOARD_handwired_fingerpunch_rockon)
-    oled_set_cursor(7, 0);
-    oled_write_P(PSTR("Rock On"), true);
-#    else
-    oled_set_cursor(8, 0);
-    oled_write_P(PSTR("Left"), true);
-#    endif
 
 #    if defined(WPM_ENABLE)
     render_wpm(1, 7, 1);
@@ -880,6 +850,11 @@ __attribute__((weak)) void oled_render_large_display(bool side) {
     if (!side) {
         render_unicode_mode(1, 14);
     }
+}
+
+__attribute__((weak)) void render_oled_title(bool side) {
+    oled_write_P(side ? PSTR("     Left    ") : PSTR("    Right    "), true);
+    // oled_write_P(PSTR(    "1234567890123"         "1234567890123"), true);
 }
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
@@ -923,6 +898,9 @@ bool oled_task_user(void) {
         //         0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  3,  7, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,  7,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0
     };
     oled_write_raw_P(header_image, sizeof(header_image));
+
+    oled_set_cursor(4, 0);
+    render_oled_title(is_keyboard_left());
 #endif
 
 #ifndef OLED_DISPLAY_TEST

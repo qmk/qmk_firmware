@@ -214,4 +214,9 @@ void oled_render_large_display(bool side) {
         render_unicode_mode(1, 14);
     }
 }
+
+void render_oled_title(bool side) {
+    oled_write_P(side ? PSTR("   Tractyl   ") : PSTR("   Manuform  "), true);
+}
+
 #endif
