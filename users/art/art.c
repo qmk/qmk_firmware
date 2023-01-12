@@ -236,7 +236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* -------------------------------------------------------------------------
      *                            CUSTOM MACROS
      * ------------------------------------------------------------------------ */
-    
+
     case CTRL_CTV:
       if (record->event.pressed) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
@@ -407,7 +407,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           add_mods(shifted);
           char_to_bspace = 1;
           char_to_del = 2;
-        } 
+        }
 
         if (switch_lang_state) {
           switch_lang();
@@ -423,7 +423,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         send_string_remembering_length("@gmail.com");
       }
-      break;      
+      break;
     case BRACES:
       if (record->event.pressed) {
         uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
@@ -515,7 +515,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         send_string_remembering_length("admin");
       }
       break;
-      
+
     case G_ADD:
       if (record->event.pressed) {
         send_string_remembering_length("git add ");
@@ -536,7 +536,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (!record->event.pressed) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         clear_mods();
-              
+
         press_n_times(15, KC_BACKSPACE);
         send_string_with_translation("heckout ");
         char_to_bspace = 13;
@@ -582,7 +582,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         send_string_remembering_length("git diff ");
       }
-      break;	
+      break;
     case G_FTCH:
       if (record->event.pressed) {
         send_string_remembering_length("git fetch ");
@@ -649,7 +649,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case G_S:
       if (!record->event.pressed) {
         send_string_remembering_length("git s[taSh/How/taTus]");
-        layer_on(GIT_S);			
+        layer_on(GIT_S);
       }
       break;
     case G_SHOW:
@@ -659,7 +659,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         char_to_bspace = 9;
         layer_off(GIT_S);
       }
-      break;			
+      break;
     case G_STSH:
       if (!record->event.pressed) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
@@ -678,7 +678,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         layer_off(GIT_S);
       }
-      break;		
+      break;
     case G_STAT:
       if (!record->event.pressed) {
         press_n_times(16, KC_BACKSPACE);
