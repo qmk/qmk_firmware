@@ -1,6 +1,6 @@
 # Junco <!-- omit from toc -->
 
-![Junco](https://i.imgur.com/WzZaIgQ.jpg)
+![Junco](https://i.imgur.com/WzZaIgQh.jpg)
 
 Junco is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layout with an aggressive columnar stagger. It has 5 "thumb" keys on either side, support for 2-4 rotary encoders, and per-key RGB lighting.
 
@@ -159,4 +159,3 @@ If for some reason your sync isn't working, try setting the flag on the key's re
 
 - You can directly call Junco Sync functions by including the `junco_sync.h` header file in your `keymap.c`.
   - Even after calling `junco_sync_disable()`, you can still manually sync data between the halves by calling Junco Sync functions directly within your `housekeeping_task_user`. `junco.c` can give you some ideas on how to do this.
-- All of the Junco Sync's functions are weakly defined so you can override them if you really want to.

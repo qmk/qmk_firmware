@@ -24,7 +24,7 @@ typedef struct {
     uint16_t keymap_conf; // Current keymap config
 } kb_sync_data_t;
 // Saves common data on master and sends it to slave
-__attribute__((weak)) bool junco_sync(void) {
+bool junco_sync(void) {
     // Count how many times retried
     static uint8_t retries = 0;
     // Allow max retries
@@ -41,7 +41,7 @@ __attribute__((weak)) bool junco_sync(void) {
         return false;
     }
 
-    uint32_t layer = get_highest_layer(default_layer_state);
+    uint8_t layer = get_highest_layer(default_layer_state);
 
     /*
         Save data to eeprom on master
@@ -83,7 +83,7 @@ __attribute__((weak)) bool junco_sync(void) {
     }
 }
 // Slave handler for KB_SYNC
-__attribute__((weak)) void kb_sync_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+void kb_sync_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
     const kb_sync_data_t* m2s = (kb_sync_data_t*)in_data;
 
     /* Save data to eeprom on slave side */
@@ -126,7 +126,7 @@ void _junco_reset_helper(void) {
     soft_reset_keyboard();
 }
 // Reboots the keyboard, optionally clearing EEPROMs
-__attribute__((weak)) void junco_sync_reset(bool* needs_reset, bool* clear_eeprom, bool* failed) {
+void junco_sync_reset(bool* needs_reset, bool* clear_eeprom, bool* failed) {
     // Count how many times retried
     static uint8_t retries = 0;
     // Allow max retries until just reseting the master
@@ -208,7 +208,7 @@ __attribute__((weak)) void junco_sync_reset(bool* needs_reset, bool* clear_eepro
     }
 }
 // Slave handler for KB_SYNC_RESET
-__attribute__((weak)) void kb_sync_reset_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+void kb_sync_reset_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
     const kb_sync_reset_flags_t* m2s = (kb_sync_reset_flags_t*)in_data;
     // Set flags on slave
     kb_sync_reset_flags = *m2s;
@@ -220,7 +220,7 @@ __attribute__((weak)) void kb_sync_reset_slave_handler(uint8_t in_buflen, const 
 typedef struct {
     rgb_config_t config;
 } kb_sync_rgb_data_t;
-__attribute__((weak)) bool junco_sync_rgb(void) {
+bool junco_sync_rgb(void) {
     // Count how many times retried
     static uint8_t retries = 0;
     // Allow max retries
@@ -259,7 +259,7 @@ __attribute__((weak)) bool junco_sync_rgb(void) {
     }
 }
 // Slave handler for KB_SYNC_RGB
-__attribute__((weak)) void kb_sync_rgb_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+void kb_sync_rgb_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
     kb_sync_rgb_data_t* s2m = (kb_sync_rgb_data_t*)out_data;
     // Update the slave's matrix config in EEPROM.
     // The slave and master configs sync on in the core,

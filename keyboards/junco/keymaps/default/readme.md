@@ -26,7 +26,7 @@ On the symbol layer, the right side is a number pad, and the left side contains 
 
 Holding down delete within the symbol layer will take you to the adjust layer.
 
-![Junco's Symbol Layer](https://i.imgur.com/6F35Z4W.png)
+![Junco's Symbol Layer](https://i.imgur.com/6F35Z4Wh.png)
 
 ## Extension Layer
 
@@ -36,7 +36,7 @@ On the extension layer, the right side is the function keys in a number-pad-esqu
 
 Holding down backspace within the extension layer will take you to the adjust layer.
 
-![Junco's Extension Layer](https://i.imgur.com/FETcqkC.png)
+![Junco's Extension Layer](https://i.imgur.com/FETcqkCh.png)
 
 ## Adjust Layer
 
@@ -44,7 +44,7 @@ This layer's theme is adjusting the keyboard's settings, it's accessed by holdin
 
 On the adjust layer, the right side is the keyboard's settings: clear data, reboot, toggle debug mode, enter the bootloader, and change the base layer between QWERTY and [Colemak-DH](#colemak-dh). The left side adjusts the RGB lighting.
 
-![Junco's Adjust Layer](https://i.imgur.com/fRsdlt3.png)
+![Junco's Adjust Layer](https://i.imgur.com/fRsdlt3h.png)
 
 ## Colemak-DH
 
@@ -54,4 +54,4 @@ QWERTY is default when flashing your keyboard, but you can change it to Colemak-
 
 If you've never heard of it, Colemak is a keyboard layout that was designed to be a more ergonomic, modern, efficient, and comfortable replacement to QWERTY. Colemak was designed to place the most common letters in english on the home row along with many of the most common bigrams together (two letters typed in a row). Colemak-DH is a variant of Colemak that moves D and H to beneath the index fingers rather than the home row since most people find it easier and faster to reach the keys that way rather than the middle of the home row.
 
-![Junco's Colemak-DH Layout](https://i.imgur.com/u5iXszJ.png)
+![Junco's Colemak-DH Layout](https://i.imgur.com/u5iXszJh.png)

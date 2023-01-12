@@ -20,23 +20,23 @@ The base layers are the same as the default layout, except the right side's left
 
 QWERTY:
 
-![QWERTY Layer](https://i.imgur.com/vkS9Tce.png)
+![QWERTY Layer](https://i.imgur.com/vkS9Tceh.png)
 
 Colemak-DH:
 
-![Colemak-DH Layer](https://i.imgur.com/5YYgaUA.png)
+![Colemak-DH Layer](https://i.imgur.com/5YYgaUAh.png)
 
 ## Symbol Layer
 
 Symbol layer is identical to the default layout.
 
-![Symbol Layer](https://i.imgur.com/6F35Z4W.png)
+![Symbol Layer](https://i.imgur.com/6F35Z4Wh.png)
 
 ## Extension Layer
 
 Encoders on the right side become undo/redo and scrolling horizontally by word.
 
-![Extension Layer](https://i.imgur.com/0VCStS8.png)
+![Extension Layer](https://i.imgur.com/0VCStS8h.png)
 
 ## Adjust Layer
 
@@ -44,4 +44,4 @@ Pressing "Stick Adj Layer" will "stick" the adjust layer so you can use the rota
 
 "Toggle Base" will toggle between QWERTY and Colemak-DH, toggle OS will toggle between macOS and Windows key-mappings (swapping WIN/Command with Alt/Option by the thumb keys and properly mapping redo/word scrolling), "VIA Sync" will sync the VIA settings between the keyboard halves (there isn't a way to do this automatically), and "Toggle Junco Sync" will disable/enable Junco Sync.
 
-![Adjust layer](https://i.imgur.com/fRsdlt3.png)
+![Adjust layer](https://i.imgur.com/fRsdlt3h.png)
