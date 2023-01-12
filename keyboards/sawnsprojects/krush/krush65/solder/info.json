@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Krush65 Solder",
+    "keyboard_name": "Krush65 - Solder",
+    "manufacturer": "SawnsProjects",
     "url": "",
     "maintainer": "MaiTheSan",
+    "usb": {
+        "vid": "0x5350",
+        "pid": "0x6B31",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_65_ansi_blocker_split_bs_sp"
     },

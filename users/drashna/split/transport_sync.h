@@ -12,16 +12,18 @@ extern char keylog_str[OLED_KEYLOGGER_LENGTH];
 typedef union {
     uint32_t raw;
     struct {
-        bool audio_enable           :1;
-        bool audio_clicky_enable    :1;
-        bool tap_toggling           :1;
-        uint8_t unicode_mode        :3;
-        bool swap_hands             :1;
-        bool host_driver_disabled   :1;
-        uint8_t unicode_typing_mode :3;
+        bool    audio_enable         :1;
+        bool    audio_clicky_enable  :1;
+        bool    tap_toggling         :1;
+        uint8_t unicode_mode         :3;
+        bool    swap_hands           :1;
+        bool    host_driver_disabled :1;
+        uint8_t unicode_typing_mode  :3;
+        bool    is_oled_enabled      :1;
     };
 } user_runtime_config_t;
 
 extern user_runtime_config_t user_state;
 
 void keyboard_post_init_transport_sync(void);
+void housekeeping_task_transport_sync(void);

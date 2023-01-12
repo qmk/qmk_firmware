@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7470      //"tp"
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    tlprt
-#define PRODUCT         NumPad
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
@@ -30,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D7, D4, D6, B4, B5 }
 #define MATRIX_COL_PINS { F6, F5, F7, F4 }
-#define UNUSED_PINS { B0, B1, B2, B3, B6, B7, D0, D1, D2, D3, D5, F0, F1, E6, C6, C7 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

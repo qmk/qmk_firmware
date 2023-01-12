@@ -19,4 +19,3 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 LAYOUTS = split_3x5_2
-DEFAULT_FOLDER = alt34/rev1

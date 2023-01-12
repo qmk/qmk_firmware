@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Gas75",
+    "manufacturer": "ML",
     "url": "https://item.taobao.com/item.htm?ft=t&id=652142230132",
     "maintainer": "ML",
+    "usb": {
+        "vid": "0xC0B0",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

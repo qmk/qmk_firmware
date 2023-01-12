@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Majbritt Rev2",
-    "maintainer": "Sleepdealr",
+    "manufacturer": "SiddersKb",
     "url": "https://sidderskb.co.uk/",
+    "maintainer": "Sleepdealr",
+    "usb": {
+        "vid": "0x534B",
+        "pid": "0x0001",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

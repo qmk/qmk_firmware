@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "O4L 5x12",
+    "keyboard_name": "O4L:5x12",
+    "manufacturer": "Keycapsss",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/keycapsss/o4l_5x12",
     "maintainer": "BenRoe",
+    "usb": {
+        "vid": "0x7983",
+        "pid": "0x0512",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

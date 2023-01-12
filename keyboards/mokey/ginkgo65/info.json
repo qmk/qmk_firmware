@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "ginkgo65",
+    "keyboard_name": "ginkgo 65",
+    "manufacturer": "Mokey",
     "url": "",
     "maintainer": "rhmokey",
+    "usb": {
+        "vid": "0x6653",
+        "pid": "0x3365",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },

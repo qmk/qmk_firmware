@@ -2,11 +2,11 @@
 
 If you've ever used Vim, you know what a Leader key is. If not, you're about to discover a wonderful concept. :) Instead of hitting Alt+Shift+W for example (holding down three keys at the same time), what if you could hit a _sequence_ of keys instead? So you'd hit our special modifier (the Leader key), followed by W and then C (just a rapid succession of keys), and something would happen.
 
-That's what `KC_LEAD` does. Here's an example:
+That's what `QK_LEAD` does. Here's an example:
 
-1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
-2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. This sets the timeout for the `KC_LEAD` key.  Specifically, when you press the `KC_LEAD` key, you only have a certain amount of time to complete the Leader Key sequence.  The `300` here sets that to 300ms, and you can increase this value to give you more time to hit the sequence. But any keys pressed during this timeout are intercepted and not sent, so you may want to keep this value low.  
-   * By default, this timeout is how long after pressing `KC_LEAD` to complete your entire sequence. This may be very low for some people. So you may want to increase this timeout.  Optionally, you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.  This allows you to maintain a low value here, but still be able to use the longer sequences.   To enable this option, add `#define LEADER_PER_KEY_TIMING` to your `config.h`.
+1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `QK_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
+2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. This sets the timeout for the `QK_LEAD` key.  Specifically, when you press the `QK_LEAD` key, you only have a certain amount of time to complete the Leader Key sequence.  The `300` here sets that to 300ms, and you can increase this value to give you more time to hit the sequence. But any keys pressed during this timeout are intercepted and not sent, so you may want to keep this value low.  
+   * By default, this timeout is how long after pressing `QK_LEAD` to complete your entire sequence. This may be very low for some people. So you may want to increase this timeout.  Optionally, you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.  This allows you to maintain a low value here, but still be able to use the longer sequences.   To enable this option, add `#define LEADER_PER_KEY_TIMING` to your `config.h`.
 3. Within your `matrix_scan_user` function, add something like this:
 
 ```c
@@ -95,7 +95,7 @@ While, this may be fine for most, if you want to specify the whole keycode (eg, 
 
 The Leader Key feature has some additional customization to how the Leader Key feature works. It has two functions that can be called at certain parts of the process. Namely `leader_start()` and `leader_end()`.
 
-The `leader_start()` function is called when you tap the `KC_LEAD` key, and the `leader_end()` function is called when either the leader sequence is completed, or the leader timeout is hit. 
+The `leader_start()` function is called when you tap the `QK_LEAD` key, and the `leader_end()` function is called when either the leader sequence is completed, or the leader timeout is hit. 
 
 You can add these functions to your code (`keymap.c` usually) to add feedback to the Leader sequences (such as beeping or playing music).
 
@@ -111,7 +111,7 @@ void leader_end(void) {
 
 ### Example
 
-This example will play the Mario "One Up" sound when you hit `KC_LEAD` to start the Leader Sequence, and will play "All Star" if it completes successfully or "Rick Roll" you if it fails. 
+This example will play the Mario "One Up" sound when you hit `QK_LEAD` to start the Leader Sequence, and will play "All Star" if it completes successfully or "Rick Roll" you if it fails. 
 
 ```c
 bool did_leader_succeed;

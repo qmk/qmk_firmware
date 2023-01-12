@@ -1,7 +1,13 @@
 {
     "keyboard_name": "42",
+    "manufacturer": "nglgzz",
     "url": "",
     "maintainer": "nglgzz",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

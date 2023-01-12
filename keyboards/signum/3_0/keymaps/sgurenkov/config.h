@@ -29,9 +29,6 @@
 // Auto Shift and Retro Shift (Auto Shift for Tap Hold).
 #define AUTO_SHIFT_TIMEOUT TAPPING_TERM
 
-// Recommended for heavy chording.
-#define QMK_KEYS_PER_SCAN 4
-
 // Mouse key speed and acceleration.
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY 0

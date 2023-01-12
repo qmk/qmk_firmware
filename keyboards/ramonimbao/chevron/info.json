@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Chevron",
+    "manufacturer": "Ramon Imbao",
     "url": "",
     "maintainer": "ramonimbao",
+    "usb": {
+        "vid": "0xB16B",
+        "pid": "0xC4EE",
+        "device_version": "0.1.2"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

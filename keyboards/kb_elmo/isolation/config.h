@@ -19,20 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xA68C
-#define PRODUCT_ID   0x4EE6
-#define DEVICE_VER   0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT      ISOlation
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
 
 /* direct key pin */
 #define DIRECT_PINS {{ B0 }}
-#define UNUSED_PINS
 
 /* RGB backlight */
 #define RGB_DI_PIN B2

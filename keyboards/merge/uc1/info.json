@@ -1,7 +1,13 @@
 {
   "keyboard_name": "UC-1",
+  "manufacturer": "Merge",
   "url": "https://mergedesign.store/products/uc-1",
   "maintainer": "duoshock",
+  "usb": {
+    "vid": "0x4D65",
+    "pid": "0x5543",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout":   [

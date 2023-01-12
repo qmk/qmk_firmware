@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT_FN(KC_TAB),   _________________QWERTY_L1_________________,    KC_P7,   KC_P8,   KC_P9,    _________________QWERTY_R1_________________, KC_BSPC, \
   KC_CAPS,  _________________QWERTY_L2_________________,    KC_P4,   KC_P5,   KC_P6,    _________________QWERTY_R2_________________, CTL_ENT, \
   KC_LSFT,  _________________QWERTY_L3_________________,    KC_P1,   KC_P2,   KC_P3,    _________________QWERTY_R3_________________, LT_RAI(KC_MINS), \
-  KC_ESC,   KC_LCTRL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,    KC_P0,   KC_DOT,  KC_EQL,  KC_SPC,   RAISE, KC_RALT, KC_RGUI, KC_APP,  KC_DEL  \
+  KC_ESC,   KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,    KC_P0,   KC_DOT,  KC_EQL,  KC_SPC,   RAISE, KC_RALT, KC_RGUI, KC_APP,  KC_DEL  \
 ),
 
 /* Colemak
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT_wrapper(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PSCR, \
   LT_FN(KC_TAB),   _________________COLEMAK_L1________________, KC_P7,   KC_P8,   KC_P9,    _________________COLEMAK_R1________________, KC_BSPC, \
-  KC_LCTRL, _________________COLEMAK_L2________________, KC_P4,   KC_P5,   KC_P6,    _________________COLEMAK_R2________________, CTL_ENT, \
+  KC_LCTL,  _________________COLEMAK_L2________________, KC_P4,   KC_P5,   KC_P6,    _________________COLEMAK_R2________________, CTL_ENT, \
   KC_LSFT,  _________________COLEMAK_L3________________, KC_P1,   KC_P2,   KC_P3,    _________________COLEMAK_R3________________, LT_RAI(KC_MINS), \
   KC_ESC,   KC_CAPS, KC_LGUI, KC_LALT,  LOWER,   KC_SPC, KC_P0,   KC_DOT,  KC_EQL,   KC_SPC,  RAISE, KC_RALT, KC_RGUI, KC_APP,  KC_DEL  \
   ),
@@ -104,8 +104,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   ________________NUMBER_LEFT________________, KC_6,    _______, _______, _______, KC_7,    KC_8,    KC_9,    KC_0,  KC_PLUS,  KC_BSLS, \
   KC_DEL,  KC_A,    KC_UP,   KC_D,    KC_PSCR,  KC_VOLU, _______, _______, _______, KC_4,  KC_5,  KC_6,  KC_PAST, KC_COLN, KC_QUOT, \
-  _______, KC_LEFT, KC_DOWN, KC_RIGHT,KC__MUTE, KC_VOLD, _______, _______, _______, KC_1,    KC_2,  KC_3,  KC_UP, KC_SLSH,   _______, \
-  _______, _______, _______, _______,  _______, KC_SPC, _______, _______, KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_NLCK   \
+  _______, KC_LEFT, KC_DOWN, KC_RIGHT,KC_MUTE,  KC_VOLD, _______, _______, _______, KC_1,    KC_2,  KC_3,  KC_UP, KC_SLSH,   _______, \
+  _______, _______, _______, _______,  _______, KC_SPC, _______, _______, KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_NUM   \
 ),
 
 /* FN layer on Esc key
@@ -165,10 +165,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_wrapper(
-  _______, HPT_TOG, HPT_FBK, HPT_MODI, HPT_MODD, HPT_RST, _______, _______, _______, _______, _______, EEP_RST, \
-  RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, KC_DEL, \
+  _______, HF_TOGG, HF_FDBK, HF_NEXT, HF_PREV, HF_RST,  _______, _______, _______, _______, _______, EE_CLR, \
+  QK_BOOT, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, KC_DEL, \
   _______, MAGIC_TOGGLE_NKRO, _______, AU_ON,   AU_OFF,  AG_NORM, _______, _______, _______, AG_SWAP, QWERTY,  COLEMAK, _______,  _______,  _______, \
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF, _______, _______, _______,  _______, BL_DEC,  BL_INC,  BL_STEP, BL_TOGG, \
+  _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, BL_DOWN, BL_UP,   BL_STEP, BL_TOGG, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CK_RST,  CK_DOWN, CK_UP,   CK_TOGG\
 )
 

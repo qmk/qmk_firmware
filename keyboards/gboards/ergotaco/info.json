@@ -1,7 +1,13 @@
 {
     "keyboard_name": "ErgoTaco",
+    "manufacturer": "g Heavy Industries",
     "url": "http://gboards.ca",
     "maintainer": "germ",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1337",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

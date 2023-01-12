@@ -58,7 +58,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
             uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
             RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -68,7 +68,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
         default:  // Solid Color
         {
             RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -128,7 +128,7 @@ layer_state_t layer_state_set_keymap (layer_state_t state) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _LOWER:
             break;
         case _RAISE:
@@ -231,7 +231,7 @@ void render_status_main(void) {
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case _BASE:
             oled_write_P(PSTR("Colemak\n"), false);
             break;

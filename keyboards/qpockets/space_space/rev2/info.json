@@ -1,7 +1,13 @@
 {
   "keyboard_name": "space_space",
+  "manufacturer": "qpockets",
   "url": "",
   "maintainer": "qpockets",
+  "usb": {
+  	"vid": "0x7170",
+  	"pid": "0x7373",
+  	"device_version": "30.0.2"
+  },
   "layouts": {
     "LAYOUT_default": {
 	  "layout": [

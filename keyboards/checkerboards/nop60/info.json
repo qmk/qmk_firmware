@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "nop60",
-    "maintainer": "nasp",
+    "keyboard_name": "NOP60",
+    "manufacturer": "Nasp",
     "url": "",
+    "maintainer": "nasp",
+    "usb": {
+        "vid": "0x7070",
+        "pid": "0x1416",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_2x3u": "LAYOUT_60_tsangan_hhkb_split_space",
         "LAYOUT_7u": "LAYOUT_60_tsangan_hhkb"

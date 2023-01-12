@@ -17,6 +17,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-KEY_LOCK_ENABLE = yes       # Enable KC_LOCK support
+KEY_LOCK_ENABLE = yes
 
 LAYOUTS = 65_ansi_blocker

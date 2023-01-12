@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   BP_DLR,    BP_DQUO,  BP_LCBR,    BP_RCBR, BP_LPRN, BP_RPRN,        KC_VOLD, KC_MUTE, KC_VOLU,   BP_PLUS,         BP_MINS, BP_SLSH, BP_ASTR,  BP_EQL,  BP_PERC,
   KC_TAB,    BP_B,     BP_EACU,    BP_P,    BP_O,    BP_EGRV,        KC_KP_7, KC_KP_8, KC_KP_9,   BP_DCIR,         BP_V,    BP_D,    BP_L,     BP_J,    BP_Z,
   KC_ESC,    BP_A,     BP_U,       BP_I,    BP_E,    BP_COMM,        KC_HOME, KC_KP_5, KC_END,    BP_C,            BP_T,    BP_S,    BP_R,     BP_N,    BP_M,
-  KC_LSFT,   BP_W,     BP_Y,       BP_X,    BP_DOT,  BP_K,           KC_PGUP, KC_END,  KC_PGDOWN, BP_QUOT,         BP_Q,    BP_G,    BP_H,     BP_F,    KC_RSFT,
+  KC_LSFT,   BP_W,     BP_Y,       BP_X,    BP_DOT,  BP_K,           KC_PGUP, KC_END,  KC_PGDN,   BP_QUOT,         BP_Q,    BP_G,    BP_H,     BP_F,    KC_RSFT,
   KC_LCTL,   KC_LGUI, KC_RALT,     KC_LGUI, BP_UNDS, LT(_FN,KC_ENT), KC_DEL,  KC_KP_0, KC_BSPC,   LT(_FN,KC_SPC),  BP_UNDS, KC_RALT, KC_RALT,  KC_RGUI, KC_LCTL
  ),
 
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |        |        |        | <      | >      | @      |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        | _      | MO(_FN)|        |        |        |        | MO(_FN)| _      |        |        |        | RESET  |
+ * |        |        |        | _      | MO(_FN)|        |        |        |        | MO(_FN)| _      |        |        |        | QK_BOOT  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, S(BP_DQUO), S(BP_LDAQ), S(BP_RDAQ), S(BP_LPRN), S(BP_RPRN),     _______, _______, _______, S(BP_AT),       S(BP_PLUS), S(BP_MINS), S(BP_SLSH), S(BP_ASTR), S(BP_EQL),
   _______, RALT(BP_B), BP_BSLS,    BP_LBRC,    BP_RBRC,    RALT(BP_P),     _______, _______, _______, _______,        KC_LEFT,    KC_DOWN,     KC_UP  ,     KC_RGHT,    _______,
   _______, BP_BSLS,    _______,    _______,    _______,    _______,        _______, _______, _______, _______,        BP_LABK,    BP_RABK,     BP_AT  ,     _______,    _______,
-  _______, _______,    _______,    _______,    _______,    LT(_FN,KC_ENT), _______, _______, _______, LT(_FN,KC_SPC), _______,    _______,     _______,     _______,    RESET
+  _______, _______,    _______,    _______,    _______,    LT(_FN,KC_ENT), _______, _______, _______, LT(_FN,KC_SPC), _______,    _______,     _______,     _______,    QK_BOOT
  )
 
 };

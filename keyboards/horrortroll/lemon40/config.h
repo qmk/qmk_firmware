@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7516
-#define PRODUCT_ID      0x2434
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    HorrorTroll
-#define PRODUCT         Lemon40
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 7
@@ -44,9 +37,6 @@
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* Larger keys per scan */
-#define QMK_KEYS_PER_SCAN 12
 
 /* RGB light config */
 #ifdef RGBLIGHT_ENABLE

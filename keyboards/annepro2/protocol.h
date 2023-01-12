@@ -55,6 +55,14 @@ enum {
     /* Number of profiles, current profile, on/off state,
        reactive flag, brightness, errors */
     CMD_LED_STATUS = 0x41,
+
+    /* Set sticky key, meaning the key will light up even when LEDs are turned off */
+    CMD_LED_STICKY_SET_KEY = 0x50,
+    CMD_LED_STICKY_SET_ROW = 0x51,
+    CMD_LED_STICKY_SET_MONO = 0x52,
+    CMD_LED_STICKY_UNSET_KEY = 0x53,
+    CMD_LED_STICKY_UNSET_ROW = 0x54,
+    CMD_LED_STICKY_UNSET_ALL = 0x55,
 };
 
 /* 1 ROW * 14 COLS * 4B (RGBX) = 56 + header prefix. */
