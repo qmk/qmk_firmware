@@ -16,7 +16,9 @@
  */
 
 #pragma once
-#define EE_HANDS
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
 #define SPLIT_WPM_ENABLE
 
 #if defined(KEYBOARD_sofle_rev1)
@@ -44,6 +46,7 @@
 #define ENCODERS_PAD_A_RIGHT { F4 }
 #define ENCODERS_PAD_B_RIGHT { F5 }
 #define ENCODER_RESOLUTION 2
+#define ENCODER_DIRECTION_FLIP
 
 // Saving space (thanks michal).
 #define LAYER_STATE_8BIT
