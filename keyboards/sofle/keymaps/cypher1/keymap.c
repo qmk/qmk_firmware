@@ -18,7 +18,6 @@
 #include QMK_KEYBOARD_H
 #define L1_SPC LT(1, KC_SPC)
 #define L2_ENT LT(2, KC_ENT)
-#define L3_ENT LT(3, KC_ENT)
 #define MS_BTN1 KC_MS_BTN1
 #define MS_BTN2 KC_MS_BTN2
 #define MS_BTN3 KC_MS_BTN3
@@ -55,8 +54,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                        KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,
   _______,  XXXXXXX,    KC_UP,  XXXXXXX,  KC_LBRC,  KC_RBRC,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_F12,
   KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,  KC_BSLS,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MINS,   KC_EQL,  _______,  MS_BTN1,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-                      _______,  _______,  _______,    TG(0),  _______,  _______,  _______,  _______,  _______, _______
+  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MINS,   KC_EQL,  _______,  MS_BTN1,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_DEL,
+                      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, _______
 ),
 /* KEYBOARD CONTROL */
 [CNTRL] = LAYOUT(
