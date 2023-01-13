@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
 /* pin-out */
 #define MATRIX_ROW_PINS { B3, B4, B5, D7, E6 }
 #define MATRIX_COL_PINS { D0, B2, D4, B6 }
