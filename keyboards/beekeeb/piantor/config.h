@@ -12,10 +12,6 @@
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 #define DIRECT_PINS { \
     { GP5, GP4, GP11, GP15, GP3, GP2}, \
     { GP22, GP20, GP10, GP14, GP9, GP8}, \
