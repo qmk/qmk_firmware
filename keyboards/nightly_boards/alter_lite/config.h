@@ -16,10 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16	
-
 #define LED_NUM_LOCK_PIN D6
 #define LED_CAPS_LOCK_PIN D7
 #define LED_SCROLL_LOCK_PIN D4

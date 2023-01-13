@@ -19,10 +19,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
 /* Keyboard Matrix Assignments */
 #define DIRECT_PINS { \
     { D4 } \

@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size - encoder is not part of matrix but wired to 2 pins so bodge a fake row/col*/
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 17
-
 /*
  * Keyboard Matrix Assignments
  *
