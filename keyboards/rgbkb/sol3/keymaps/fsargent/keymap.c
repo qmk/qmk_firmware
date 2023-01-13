@@ -164,10 +164,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______,	KC_EQL,	KC_KP_7,	KC_KP_8,	KC_KP_9,	KC_PMNS,	MENU_UP,					KC_NO,	RGB_HUI,	RGB_SAI,	RGB_VAI,	RGB_SPI,	RGB_MOD,	KC_NO,
 	_______,	KC_0,	KC_KP_4,	KC_KP_5,	KC_KP_6,	KC_PPLS,	MENU_BTN,					RGB_MOD,	RGB_HUD,	RGB_SAD,	RGB_VAD,	RGB_SPD,	RGB_RMOD,	KC_NO,
 	_______,	KC_DOT,	KC_KP_1,	KC_KP_2,	KC_KP_3,	KC_PENT,	MENU_DN,					RGB_RMOD,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
-	_______,	KC_NO,		KC_KP_0,	KC_KP_0,	KC_PDOT,
-	_______,	_______,	_______,
-	RGB_TOG,	RGB_RST,	RGB_MOD,
-	RGB_RMOD,	RGB_MOD,	_______,	_______,	_______,
+	_______,	KC_NO,	KC_KP_0,	KC_KP_0,	KC_PDOT,
+											_______,	_______,	_______,
+																			RGB_TOG,	RGB_RST,	RGB_MOD,
+																			RGB_RMOD,	RGB_MOD,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,										_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,														_______,	_______,	_______,	_______,	_______
@@ -473,73 +473,3 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 		  break;
     }
 }
-
-
-#ifdef RGB_MATRIX_ENABLE
-void rgb_show_layer(uint8_t led_min, uint8_t led_max) {
-    switch (get_highest_layer(layer_state)) {
-	   case _MAC:
-	   case _WIN:
-		  return;
-	   default:
-		  break;
-    }
-
-    for (uint8_t i = led_min; i < led_max; i++) {
-	   if (rgb_matrix_led_index_has_pos(i)) {
-		  uint16_t kc  = keycode_at_keymap_location(get_highest_layer(layer_state), led_position[i].row, led_position[i].col);
-		  uint8_t  hue = 0;
-		  uint8_t  val = rgb_matrix_get_val();
-		  switch (get_highest_layer(layer_state)) {
-			 case _GAME:
-				switch (kc) {
-					case KC_W:
-					case KC_A:
-					case KC_S:
-					case KC_D:
-					   continue;
-				    default:
-					   val = 0;
-					   break;
-				}
-				break;
-			 default:
-				switch (kc) {
-					KC_KP_0
-				    case KC_1 ... KC_0:
-					   hue = ((kc - KC_1) * 28) % 255;
-					   break;
-					case KC_KP_1 ... KC_KP_0:
-					   hue = ((kc - KC_KP_1) * 28) % 255;
-					   break;
-				    case KC_F1 ... KC_F12:
-					   hue = 0;
-					   break;
-				    case KC_RIGHT ... KC_UP:
-					   hue = 201;
-					   break;
-				    case KC_MPLY:
-					   hue = 85;
-					   break;
-				    case KC_MNXT:
-					   hue = 43;
-					   break;
-				    default:
-					   val = 0;
-					   break;
-				}
-				break;
-		  }
-		  HSV hsv = {.h = hue, .s = 255, .v = val};
-		  RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
-		  rgb_matrix_set_color(g_led_config.matrix_co[led_position[i].row][led_position[i].col], rgb.r, rgb.g, rgb.b);
-	   }
-    }
-}
-
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    rgb_show_layer(led_min, led_max);
-    rgb_check_blinking(led_min, led_max);
-    return true;
-}
-#endif
