@@ -5,11 +5,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 /* Split */
 #define SPLIT_HAND_MATRIX_GRID B5, F6
 #define MATRIX_MASKED
