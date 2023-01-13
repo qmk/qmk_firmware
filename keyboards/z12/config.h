@@ -21,10 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { B5, B6 }
 #define ENCODERS_PAD_B { B4, B2 }
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 4
-
 /*Keyboard Matrix Assignments */
 
 #define DIRECT_PINS { \
