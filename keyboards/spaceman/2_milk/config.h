@@ -16,10 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 1
-
 /* Milk default pinout */
 #define DIRECT_PINS { \
     {D4}, \

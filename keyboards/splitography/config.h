@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* Key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 

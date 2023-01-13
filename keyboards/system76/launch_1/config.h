@@ -19,10 +19,6 @@
 
 #include "config_common.h"
 
-// Key matrix size
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
-
 /*
  * Key matrix pins
  * ROWS: AVR pins used for rows, top to bottom

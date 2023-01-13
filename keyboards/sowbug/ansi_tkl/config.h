@@ -20,10 +20,6 @@
 
 #include "config_common.h"
 
-// key matrix size
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
 // key matrix pins
 #define MATRIX_ROW_PINS \
     { C14, C15, A0, A1, A2, A3 }
