@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// Key matrix size
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
 // Enable RGB backlight
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D7

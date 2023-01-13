@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
 #define DIRECT_PINS { \
     { B12,    B6, B7    }, \
     { NO_PIN, B5, NO_PIN}  \

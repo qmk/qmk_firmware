@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 18
-
 #define MATRIX_COL_PINS { B0, C15, C14, A7, A5, C13, A4, A2, A1, A0, B9, B8, B7, A3, B6, B4, B3, A15 }
 #define MATRIX_ROW_PINS { B11, B10, B2, F0, B5 }
 #define DIODE_DIRECTION COL2ROW
