@@ -100,15 +100,8 @@ static void print_logo_narrow(void) {
     render_logo();
 
     /* wpm counter */
-    // char wpm_str[5];
-    // wpm_str[4] = '\0';
-    // wpm_str[3] = '0' + current_wpm % 10;
-    // wpm_str[2] = '0' + ( current_wpm /= 10) % 10;
-    // wpm_str[1] = '0' + current_wpm / 10;
-    // wpm_str[0] = ' ';
     oled_set_cursor(0,13);
     char wpm_str[10]; // if not working, maybe moving it to line ~20ish
-    sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
+    oled_write_P(PSTR("      WPM: "), false);
     oled_write(wpm_str, false);
-    // oled_write_P(PSTR("  wpm"), false);
 }
