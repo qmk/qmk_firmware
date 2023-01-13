@@ -89,9 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_MAC] = LAYOUT(
 	LT(_MEH,KC_GRV),	KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	TO(_WIN),			KC_NO,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_MINUS,
-	KC_TAB,	KC_Q,	KC_W,	KC_E,	KC_R,	KC_T,	TO(_GAME),			KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	MT(MOD_LALT, KC_BSLS),
-	MEHESC,	KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	KC_LBRC,			KC_VOLU,	KC_H,	KC_J,	KC_K,	KC_L,	KC_SCLN,	KC_QUOT,
-	KC_LSFT,	KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	KC_LCBR,			KC_VOLD,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
+	KC_TAB,			KC_Q,	KC_W,	KC_E,	KC_R,	KC_T,	TO(_GAME),		KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	KC_BSLS,
+	MEHESC,			KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	KC_LBRC,			KC_VOLU,	KC_H,	KC_J,	KC_K,	KC_L,	KC_SCLN,	KC_QUOT,
+	KC_LSFT,			KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	KC_LCBR,			KC_VOLD,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
 
 	KC_LCTL,	LBRC,	RBRC,	MO(_SYM),		MO(_NAV),
 	CMD_T(KC_BSPC),	MT(MOD_LALT, KC_DEL),	MT(MOD_LCTL, KC_ENT),
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_GAME] = LAYOUT(
-	KC_GRV,	_______,	_______,	_______,	_______,	_______,	TO(_MAC),				_______,	_______,	_______,	_______,	_______,	_______,	KC_BSPC,
+	KC_GRV,	_______,	_______,	_______,	_______,	_______,	TO(_MAC),					_______,	_______,	_______,	_______,	_______,	_______,	KC_BSPC,
 	_______,	_______,	_______,	_______,	_______,	_______,	TO(_WIN),					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	KC_ESC,	_______,	_______,	_______,	_______,	_______,	_______,					KC_ESC,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					KC_GRV,	_______,	_______,	_______,	_______,	_______,	_______,
@@ -162,8 +162,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_SYM] = LAYOUT(
 	KC_GRV,	_______,	KC_NUM,	KC_PSLS,	KC_PAST,	KC_PMNS,	KC_NUM,					KC_NO,	_______,	_______,	_______,	_______,	_______,	RESET,
 	_______,	KC_EQL,	KC_KP_7,	KC_KP_8,	KC_KP_9,	KC_PMNS,	MENU_UP,					KC_NO,	RGB_HUI,	RGB_SAI,	RGB_VAI,	RGB_SPI,	RGB_MOD,	KC_NO,
-	_______,	KC_0,		KC_KP_4,	KC_KP_5,	KC_KP_6,	KC_PPLS,	MENU_BTN,					KC_VOLU,	RGB_HUD,	RGB_SAD,	RGB_VAD,	RGB_SPD,	RGB_RMOD,	KC_NO,
-	_______,	KC_DOT,	KC_KP_1,	KC_KP_2,	KC_KP_3,	KC_PENT,	MENU_DN,					KC_VOLD,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
+	_______,	KC_0,	KC_KP_4,	KC_KP_5,	KC_KP_6,	KC_PPLS,	MENU_BTN,					RGB_MOD,	RGB_HUD,	RGB_SAD,	RGB_VAD,	RGB_SPD,	RGB_RMOD,	KC_NO,
+	_______,	KC_DOT,	KC_KP_1,	KC_KP_2,	KC_KP_3,	KC_PENT,	MENU_DN,					RGB_RMOD,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 	_______,	KC_NO,		KC_KP_0,	KC_KP_0,	KC_PDOT,
 	_______,	_______,	_______,
 	RGB_TOG,	RGB_RST,	RGB_MOD,
@@ -187,9 +187,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MEH]=LAYOUT(
 	_______,	MEH(KC_1),	MEH(KC_2),	MEH(KC_3),	MEH(KC_4),	MEH(KC_5),	_______,						_______,	MEH(KC_6),	MEH(KC_7),	MEH(KC_8),	MEH(KC_9),	MEH(KC_0),	TO(_MAC),
-	_______,	MEH(KC_Q),	MEH(KC_W),	MEH(KC_E),	MEH(KC_R),	MEH(KC_T),	_______,						_______,	MEH(KC_Y),	MEH(KC_U),	MEH(KC_I),	MEH(KC_O),	MEH(KC_P),	_______,
-	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	_______,						KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	_______,
-	_______,	MEH(KC_Z),	MEH(KC_X),	MEH(KC_C),	MEH(KC_V),	MEH(KC_B),	_______,						KC_VOLD,	MEH(KC_N),	MEH(KC_M),	MEH(KC_COMM),	MEH(KC_DOT),	MEH(KC_SLSH),	_______,
+	_______,	MEH(KC_Q),	MEH(KC_W),	MEH(KC_E),	MEH(KC_R),	MEH(KC_T),	_______,						_______,	MEH(KC_Y),	MEH(KC_U),	MEH(KC_I),	MEH(KC_O),	MEH(KC_P),	KC_BSLS,
+	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	_______,						KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	KC_QUOT,
+	_______,	MEH(KC_Z),	MEH(KC_X),	MEH(KC_C),	MEH(KC_V),	MEH(KC_B),	_______,						KC_VOLD,	MEH(KC_N),	MEH(KC_M),	MEH(KC_COMM),	MEH(KC_DOT),	MEH(KC_SLSH),	KC_RSFT,
 	_______,	_______,		RGB_RMOD,		RGB_TOG,		RGB_MOD, 		KC_LGUI, KC_LALT, KC_LCTL,
 																									KC_MNXT,	KC_MPRV,	KC_MPLY,
 																									TO(_MAC),	TO(_WIN),		TO(_GAME),		TO(_SYM),		_______,
