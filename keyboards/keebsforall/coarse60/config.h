@@ -16,10 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 #define MATRIX_COL_PINS { B1, B0, A7, B14, A5, A4, A3, B9, B8, B7, B6, B5, B4, B3, A15 }
 #define MATRIX_ROW_PINS { A9, A10, B12, A2, C13 }
 #define DIODE_DIRECTION COL2ROW

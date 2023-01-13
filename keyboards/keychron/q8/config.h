@@ -19,10 +19,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 /* Key matrix pins */
 #define MATRIX_ROW_PINS \
     { B4, B3, A15, A14, A13 }

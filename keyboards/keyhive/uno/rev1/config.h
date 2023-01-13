@@ -19,10 +19,6 @@
 
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
 /* Uno default pinout */
 #define DIRECT_PINS { \
     { B6 } \

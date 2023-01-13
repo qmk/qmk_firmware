@@ -16,10 +16,6 @@
 
 #include "config_common.h"
 
- /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
 #define ENCODERS_PAD_A { D6 }
 #define ENCODERS_PAD_B { D7 }
 
