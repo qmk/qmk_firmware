@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-/* Notice: HALF of row on the slave side */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 7
-
 /*
  * Keyboard Matrix Assignments
  *

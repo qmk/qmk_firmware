@@ -5,10 +5,6 @@
 
 #include "config_common.h"
 
-// Key matrix size.
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 24
-
 // Key pins (including encoder press switches).
 // The NO_PIN entries are reserved for encoder rotation mappings.
 #define DIRECT_PINS                                                                                                                \
