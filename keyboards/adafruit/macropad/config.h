@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 3
-
 /* Keyboard Matrix Assignments */
 // clang-format off
 #define DIRECT_PINS { \

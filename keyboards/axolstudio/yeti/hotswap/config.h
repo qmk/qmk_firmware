@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 /* Keyboard Matrix Assignments */
 
 #define MATRIX_ROW_PINS { E6, C6, B4, B5, B6 }

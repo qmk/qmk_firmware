@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
 // wiring of each half
 #define MATRIX_ROW_PINS \
     { F4, F5, F6, F7, B1, B6 }
