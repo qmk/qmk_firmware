@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-
-// SWAP FOR PRO MICRO
-// #define MATRIX_ROWS 8
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 6
-
 /* key matrix pins */
 
 // SWAP FOR PRO MICRO

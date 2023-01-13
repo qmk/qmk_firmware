@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2 //Reduced layer count due to memory space considerations
 
 /*

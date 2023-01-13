@@ -18,9 +18,6 @@
 
 #include "config_common.h"
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 7
-
 /*
  * Keyboard Matrix Assignments
  * COLS: AVR pins used for columns, left to right
