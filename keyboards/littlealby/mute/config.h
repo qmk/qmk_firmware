@@ -18,10 +18,6 @@
 
 #define USB_MAX_POWER_CONSUMPTION 100
 
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
 /* Default pinout */
 /* See arduino micro pinout: https://content.arduino.cc/assets/Pinout-Micro_latest.png
  * for pins e.g.
