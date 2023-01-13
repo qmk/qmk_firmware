@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// key matrix size
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 // M60-A PCB default pin-out
 #define MATRIX_ROW_PINS \
     { B0, B1, B2, B10, B11 }

@@ -24,10 +24,6 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 6
-
 /* key matrix pins */
 
 #define MATRIX_ROW_PINS {D1, D0, D4, C6, D7}
