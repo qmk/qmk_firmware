@@ -63,7 +63,7 @@ enum sol_keycodes {
 #define RBRC 		MT(MOD_LGUI, KC_RBRC)
 
 
-#define KIWI 	KC_MINUS
+#define KIWI 	LT(_SYM, KC_MINUS)
 #define CHERRY	KC_EQL
 #define BLUE	MT(MOD_RGUI, KC_UNDERSCORE)
 #define LEMON	MT(MOD_RALT, KC_PPLS)
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_LCTL,	LBRC,	RBRC,	MO(_SYM),		MO(_NAV),
 	CMD_T(KC_BSPC),	MT(MOD_LALT, KC_DEL),	MT(MOD_LCTL, KC_ENT),
 																	KC_ENT,	KC_LCTL,	KC_SPC,
-																					KC_MINUS,	KC_EQL,	BLUE,	LEMON,	KC_RCTL,
+																					KIWI,	KC_EQL,	BLUE,	LEMON,	KC_RCTL,
 
 	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,							 KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,
 	KC_WH_D,	KC_WH_U,	KC_LBRC,	KC_LPRN,	KC_LCBR,											KC_VOLD,	KC_VOLU,	KC_MNXT,	KC_MPLY,	KC_MPRV
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
 	CTL_T(KC_BSPC),	KC_LGUI, MT(MOD_LALT, KC_ENT),
 																	_______,	KC_LGUI,	_______,
-																					_______,	_______,	KC_UNDERSCORE,	_______,	_______,
+																					_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,										 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,														_______,	_______,	_______,	_______,	_______
