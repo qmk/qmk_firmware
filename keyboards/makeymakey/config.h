@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 6
-
 /* Keyboard Matrix Assignments */
 #define DIRECT_PINS { \
     { D6, B4, C7, B1, E6, D7 }, \

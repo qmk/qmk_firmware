@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 // ROWS: Top to bottom, COLS: Left to right
 
 #define MATRIX_ROW_PINS {C2,B4,B5,B6}

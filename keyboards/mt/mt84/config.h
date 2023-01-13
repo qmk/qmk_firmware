@@ -17,10 +17,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
 /*
  * Keyboard Matrix Assignments
  *

@@ -17,9 +17,6 @@
 
 #include "config_common.h"
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 

@@ -10,7 +10,3 @@
 
 #define BOOTMAGIC_LITE_ROW 4
 #define BOOTMAGIC_LITE_COLUMN 13
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 18

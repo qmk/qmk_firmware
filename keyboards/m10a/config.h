@@ -20,10 +20,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 3
-
 /* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { B6, F7, F6, D6 }
 #define MATRIX_COL_PINS { F5, F1, F0 }
