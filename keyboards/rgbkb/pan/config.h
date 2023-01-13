@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 13
-
 #define ENCODER_RESOLUTION 4
 #define RGBLED_NUM 64
 #define RGBLIGHT_EFFECT_BREATHING
