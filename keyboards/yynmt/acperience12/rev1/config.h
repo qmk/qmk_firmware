@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 2
-
 #define DIRECT_PINS { { B5, D0 }, { B4, D1 }, { B3, D2 }, { B2, D3 }, { B1, D4 }, { B0, D5 } }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

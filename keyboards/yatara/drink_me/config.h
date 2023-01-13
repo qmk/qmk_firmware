@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* Key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 4
-
 /* Pinout */
 #define DIRECT_PINS { \
     {B4, B5, B6, B7} \
