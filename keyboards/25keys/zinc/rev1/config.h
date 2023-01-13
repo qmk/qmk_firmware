@@ -28,13 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MASTER_RIGHT
 //#define EE_HANDS
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
 #define MATRIX_ROW_PINS { F6, F7, B1, B3 }
-
-// wiring of each half
-#define MATRIX_COLS 6
 #define MATRIX_COL_PINS { F4, D4, C6, D7, E6, B4 }
 
 #define DIODE_DIRECTION COL2ROW
