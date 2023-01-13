@@ -2,6 +2,7 @@
 
 #define BOOL_SIZE 2
 static const bool get_shift_held(void);
+static const bool get_fn_held(void);
 
 static const uint16_t PROGMEM encoder_table[NUM_ENCODERS][BOOL_SIZE][BOOL_SIZE] = {
   [0] = { // left
@@ -16,7 +17,7 @@ static const uint16_t PROGMEM encoder_table[NUM_ENCODERS][BOOL_SIZE][BOOL_SIZE] 
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   // if (index >= 0 && index < NUM_ENCODERS) {
-  if (get_shift_held()) {
+  if (get_fn_held()) {
     if (index == 0) {
       if (clockwise) {
         tap_code(KC_MPRV);

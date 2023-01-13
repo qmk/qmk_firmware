@@ -18,8 +18,8 @@
 #include QMK_KEYBOARD_H
 #define L1_SPC LT(1, KC_SPC)
 #define L2_BSPC LT(2, KC_BSPC)
-#define MT_LSHN MT(KC_LSFT, KC_ENT)
-#define MT_RSHN MT(KC_RSFT, KC_ENT)
+#define MT_LSHN MT(MOD_LSFT, KC_ENT)
+#define MT_RSHN MT(MOD_RSFT, KC_ENT)
 #define MS_BTN1 KC_MS_BTN1
 #define MS_BTN2 KC_MS_BTN2
 #define MS_BTN3 KC_MS_BTN3
@@ -148,6 +148,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case L1_SPC:
         case KC_SPC:
+            if (record->event.pressed) {
+              fn_held++;
+            } else {
+              fn_held--;
+            }
             update_pet_jump(record->event.pressed);
             break;
     }
