@@ -3,6 +3,8 @@
     "manufacturer": "Jacky",
     "url": "https://qmk.fm/keyboards",
     "maintainer": "qmk",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "usb": {
         "vid": "0xA13B",
         "pid": "0x000A",
