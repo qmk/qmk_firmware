@@ -21,10 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 5
-
 #define DIRECT_PINS { \
     { E6, F7, F6, F5, F4 }, \
     { B1, B3, B2, B6, D3 }, \
