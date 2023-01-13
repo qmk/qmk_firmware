@@ -20,8 +20,6 @@
 
 #include "config_common.h"
 
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 3
 #define MATRIX_ROW_PINS { D0 }
 #define MATRIX_COL_PINS { D1, D2, D3 }
 
