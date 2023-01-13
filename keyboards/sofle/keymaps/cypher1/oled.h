@@ -24,17 +24,17 @@ uint16_t data_in = 0;
 
 static void put_layer_name(uint16_t layer) {
     switch (layer) {
-        case 0:
+        case QWERT:
             oled_write_P(PSTR("Qwert"), false);
             break;
-        case 1:
-            oled_write_P(PSTR("Funct"), false);
-            break;
-        case 2:
-            oled_write_P(PSTR("Cntrl"), false);
-            break;
-        case 3:
+        case GAMES:
             oled_write_P(PSTR("Games"), false);
+            break;
+        case FUNCS:
+            oled_write_P(PSTR("Funcs"), false);
+            break;
+        case CNTRL:
+            oled_write_P(PSTR("Cntrl"), false);
             break;
         default:
             oled_write_P(PSTR("?????"), false);

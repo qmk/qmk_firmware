@@ -16,8 +16,8 @@
   */
 
 #include QMK_KEYBOARD_H
-#define L1_SPC  LT(1, KC_SPC)
-#define L2_BSPC LT(2, KC_BSPC)
+#define L1_SPC LT(2, KC_SPC)
+#define L2_BSPC LT(3, KC_BSPC)
 #define MT_LSHN MT(MOD_LSFT, KC_ENT)
 #define MT_RSHN MT(MOD_RSFT, KC_ENT)
 #define MS_BTN1 KC_MS_BTN1
@@ -30,18 +30,18 @@
 #define MS_LEFT KC_MS_LEFT
 #define MS_RGHT KC_MS_RIGHT
 
+enum LAYERS {
+  QWERT, // All the bells and whistles for coding.
+  GAMES, // Simpler control scheme for games (e.g. space is just space).
+  FUNCS, // Function keys (e.g. screen brightness, media keys).
+  CNTRL, // Controls for the keyboard (e.g. brightness, colours) and mouse (buttons and movement).
+};
+
 #include "state.h"   // Include the global state that the pet looks at.
 #include "luna.h"    // Include the pet you want.
 #include "pet.h"     // Include the pet library.
 #include "oled.h"    // Include the oled (call the pet from here).
 #include "rotary.h" // Include the encoder settings.
-
-enum LAYERS {
-  QWERT, // All the bells and whistles for coding.
-  FUNCS, // Function keys (e.g. screen brightness, media keys).
-  CNTRL, // Controls for the keyboard (e.g. brightness, colours) and mouse (buttons and movement).
-  GAMES, // Simpler control scheme for games (e.g. space is just space).
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERT] = LAYOUT(
@@ -50,6 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_ESC,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                         KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,  KC_QUOT,
   MT_LSHN,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,  KC_MUTE,  MS_BTN1,     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SLSH,  MT_RSHN,
                       KC_LGUI,  KC_LALT, KC_LCTRL,  KC_LGUI,   L1_SPC,  L2_BSPC,  KC_RGUI, KC_RCTRL,  KC_RALT, TG(GAMES)
+),
+[GAMES] = LAYOUT(
+   KC_GRV,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                         KC_6,     KC_7,     KC_8,     KC_9,     KC_0,  KC_MINS,
+   KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                         KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,   KC_EQL,
+   KC_ESC,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                         KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,  KC_QUOT,
+  KC_LSFT,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,  KC_MUTE,  MS_BTN1,     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SLSH,   KC_ENT,
+                      KC_LGUI,  KC_LALT, KC_LCTRL,  KC_LGUI,   KC_SPC,  KC_BSPC,  KC_RGUI, KC_RCTRL,  KC_RALT, TG(GAMES)
 ),
 [FUNCS] = LAYOUT(
   _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                        KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,
@@ -62,15 +69,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LBRC,  KC_RBRC,  XXXXXXX,
   XXXXXXX,  XXXXXXX,    MS_UP,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      MS_W_DN,  MS_W_UP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   XXXXXXX,  MS_LEFT,  MS_DOWN,  MS_RGHT,  XXXXXXX,  XXXXXXX,                      MS_LEFT,  MS_DOWN,    MS_UP,  MS_RGHT,  XXXXXXX,  XXXXXXX,
-  MT_LSHN,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MS_BTN1,  MS_BTN3,  MS_BTN2,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MT_RSHN,
-                      KC_LGUI,  KC_LALT, KC_LCTRL,  KC_LGUI,   L1_SPC,  L2_BSPC,  KC_RGUI, KC_RCTRL,  KC_RALT, TG(GAMES)
-),
-[GAMES] = LAYOUT(
-   KC_GRV,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                         KC_6,     KC_7,     KC_8,     KC_9,     KC_0,  KC_MINS,
-   KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                         KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,   KC_EQL,
-   KC_ESC,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                         KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,  KC_QUOT,
-  KC_LSFT,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,  KC_MUTE,  MS_BTN1,     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SLSH,   KC_ENT,
-                      KC_LGUI,  KC_LALT, KC_LCTRL,  KC_LGUI,   KC_SPC,  KC_BSPC,  KC_RGUI, KC_RCTRL,  KC_RALT, TG(GAMES)
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MS_BTN1,  MS_BTN3,  MS_BTN2,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
 )
 };
 
