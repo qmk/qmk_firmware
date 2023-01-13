@@ -2,10 +2,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 9
-
 /* backlight */
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 3
