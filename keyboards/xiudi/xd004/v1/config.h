@@ -25,10 +25,6 @@ where some things are disabled to save space as well.
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 4
-
 /*
  * Keyboard Matrix Assignments
  *
