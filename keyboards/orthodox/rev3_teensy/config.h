@@ -23,11 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 9
-
 // wiring of each half
 
 //REV.3 TEENSY
