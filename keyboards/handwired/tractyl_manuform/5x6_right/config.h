@@ -20,11 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS                 12
-#define MATRIX_COLS                 6
-
 #define DIODE_DIRECTION             COL2ROW
 
 #define ROTATIONAL_TRANSFORM_ANGLE  -25

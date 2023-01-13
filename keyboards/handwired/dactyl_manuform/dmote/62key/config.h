@@ -2,9 +2,6 @@
 
 #include "config_common.h"
 
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 6
-
 // MCUs are flipped on each side, relative to the shape of the case,
 // but for ease of mounting, the pinout is not flipped with the controller.
 // The same finger on each hand uses a column connected to the pin with the

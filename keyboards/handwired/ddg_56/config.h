@@ -16,10 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { B5, B15, B9, B10, A14 }

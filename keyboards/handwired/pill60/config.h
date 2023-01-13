@@ -17,8 +17,6 @@
 
 #include "config_common.h"
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */

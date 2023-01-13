@@ -2,10 +2,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
 /* define direct pins used */
 #define DIRECT_PINS { { D1,C6,B4}, { D0,D4,D7} }
 

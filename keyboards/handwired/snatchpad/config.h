@@ -5,10 +5,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
 /*
  * Keyboard Matrix Assignments
  *

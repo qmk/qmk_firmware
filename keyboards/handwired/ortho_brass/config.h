@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 /* Handwired pin-out */
 #define MATRIX_ROW_PINS \
     { D3, D2, D1, D0 }
