@@ -19,12 +19,12 @@
 #include "bifbofii.h"
 
 enum userspace_custom_keycodes {
-    KC_QWERTY                   = SAFE_RANGE, // Sets default layer to QWERTY
-    FIRST_DEFAULT_LAYER_KEYCODE = KC_QWERTY,  // Sets default layer to QWERTY
-    KC_COLEMAK,                               // Sets default layer to COLEMAK
-    KC_DVORAK,                                // Sets default layer to DVORAK
-    LAST_DEFAULT_LAYER_KEYCODE = KC_DVORAK,   // Sets default layer to WORKMAN
-    NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
+    KC_QWERTY                   = QK_USER,   // Sets default layer to QWERTY
+    FIRST_DEFAULT_LAYER_KEYCODE = KC_QWERTY, // Sets default layer to QWERTY
+    KC_COLEMAK,                              // Sets default layer to COLEMAK
+    KC_DVORAK,                               // Sets default layer to DVORAK
+    LAST_DEFAULT_LAYER_KEYCODE = KC_DVORAK,  // Sets default layer to WORKMAN
+    NEW_SAFE_RANGE                           // use "NEWPLACEHOLDER for keymap specific codes
 };
 
 // Weakly defined keymap variants of callbacks implemented

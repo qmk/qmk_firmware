@@ -30,9 +30,6 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
     return state;
 }
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) {
-        return state;
-    }
 #ifdef RGBLIGHT_ENABLE
     state = layer_state_set_rgb_light(state);
 #endif
