@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* Define Matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 8
-
 #define BOOTMAGIC_LITE_COLUMN 0
 #define BOOTMAGIC_LITE_ROW 1
 
