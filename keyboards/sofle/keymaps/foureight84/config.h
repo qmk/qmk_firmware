@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #pragma once
 
 #define EE_HANDS
@@ -34,3 +34,14 @@
 
 #define OLED_TIMEOUT 120000
 #define OLED_BRIGHTNESS 120
+
+// sk6812 RGB LED
+#define RGB_DI_PIN D3
+
+#define RGBLED_NUM 58    // Number of LEDs
+#define RGBLED_SPLIT { 29, 29 }
+
+#define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL - 50
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+
