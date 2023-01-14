@@ -16,7 +16,7 @@
   */
 
 #include QMK_KEYBOARD_H
-#define L1_SPC LT(1, KC_SPC)
+#define L1_SPC  LT(1, KC_SPC)
 #define L2_BSPC LT(2, KC_BSPC)
 #define MT_LSHN MT(MOD_LSFT, KC_ENT)
 #define MT_RSHN MT(MOD_RSFT, KC_ENT)
@@ -51,7 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MT_LSHN,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,  KC_MUTE,  MS_BTN1,     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SLSH,  MT_RSHN,
                       KC_LGUI,  KC_LALT, KC_LCTRL,  KC_LGUI,   L1_SPC,  L2_BSPC,  KC_RGUI, KC_RCTRL,  KC_RALT, TG(GAMES)
 ),
-/* FUNCTION */
 [FUNCS] = LAYOUT(
   _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                        KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,
   _______,  XXXXXXX,    KC_UP,  XXXXXXX,  KC_LBRC,  KC_RBRC,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_F12,
@@ -59,7 +58,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MINS,   KC_EQL,  _______,  MS_BTN1,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
                       _______,  _______,  _______,  _______,  _______,   KC_DEL,  _______,  _______,  _______, _______
 ),
-/* KEYBOARD CONTROL */
 [CNTRL] = LAYOUT(
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LBRC,  KC_RBRC,  XXXXXXX,
   XXXXXXX,  XXXXXXX,    MS_UP,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      MS_W_DN,  MS_W_UP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -124,9 +122,6 @@ bool led_update_user(led_t led_state) {
     }
   }
 
-  // if (led_state.caps_lock) {
-    // tap_code(KC_UP);
-  // }
   return true;
 }
 
