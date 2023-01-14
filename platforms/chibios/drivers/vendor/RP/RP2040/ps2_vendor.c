@@ -174,12 +174,7 @@ void ps2_host_init(void) {
 }
 
 static int bit_parity(int x) {
-    x ^= x >> 16;
-    x ^= x >> 8;
-    x ^= x >> 4;
-    x ^= x >> 2;
-    x ^= x >> 1;
-    return (~x) & 1;
+    return !__builtin_parity(x);
 }
 
 uint8_t ps2_host_send(uint8_t data) {
