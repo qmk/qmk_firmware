@@ -21,6 +21,17 @@
                 "items": {"type": "string"}
             }
         },
+        "encoders": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                }
+            }
+        },
         "macros": {
             "type": "array",
             "items": {
