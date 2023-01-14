@@ -43,6 +43,9 @@ enum custom_keycodes {
     KC_MOUSE,
 };
 
+// How long (in milliseconds) to wait between animation steps for each of the "Swirling rainbow" animations
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {30, 20, 3};
+
 // TODO: clear this matrix table `keymaps[][][]`
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*

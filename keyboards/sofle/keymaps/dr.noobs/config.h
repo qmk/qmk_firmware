@@ -18,6 +18,20 @@
 
 #define EE_HANDS
 
+/* disable qmk features to save code size */
+// #define NO_ACTION_TAPPING
+#define NO_ACTION_ONESHOT
+
+/* Tapping Hold */
+#undef TAPPING_TERM
+#define TAPPING_TERM 300
+#define PERMISSIVE_HOLD
+
+/* Auto Shift */
+// #define AUTO_SHIFT_TIMEOUT 150
+// #define NO_AUTO_SHIFT_SPECIAL
+// #define NO_AUTO_SHIFT_NUMERIC
+
 /* clear default encoder def */
 #undef TAP_CODE_DELAY
 
@@ -41,7 +55,7 @@
 #define RGBLED_NUM 58    // Number of LEDs
 #define RGBLED_SPLIT { 29, 29 }
 
-#define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL - 50
+#define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL - 80
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL+4
 
