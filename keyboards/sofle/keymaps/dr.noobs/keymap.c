@@ -190,6 +190,7 @@ static void print_status_narrow(void) {
         oled_write_ln_P(PSTR("WIN"), false);
     }
 
+    // TODO: clear all the layers not in use.
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
             oled_write_ln_P(PSTR("Qwrt"), false);
@@ -201,6 +202,8 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Undef"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
+
+    // TODO: clear all the layers actions not in use.
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
