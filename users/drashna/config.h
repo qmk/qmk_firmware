@@ -11,7 +11,6 @@
 #endif
 #define IS_COMMAND() (((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT)
 
-
 #if defined(SPLIT_KEYBOARD)
 #    include "split/split_config.h"
 #endif
@@ -27,10 +26,14 @@
 #    include "oled/oled_config.h"
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing/pointing_config.h"
+#endif // POINTING_DEVICE_ENABLE
+
 #if defined(WPM_ENABLE)
 // #    define WPM_LAUNCH_CONTROL
-// #    define WPM_ALLOW_COUNT_REGRESSOIN
 // #    define WPM_UNFILTERED
+#    define WPM_ALLOW_COUNT_REGRESSION
 #    define WPM_SAMPLE_SECONDS 10
 #    define WPM_SAMPLE_PERIODS 50
 #    define WPM_ESTIMATED_WORD_SIZE 5
@@ -65,13 +68,6 @@
 #endif // !AUDIO_ENABLE
 
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS
-
-// #define WPM_ESTIMATED_WORD_SIZE 5
-#define WPM_ALLOW_COUNT_REGRESSION
-// #define WPM_UNFILTERED
-// #define WPM_SAMPLE_SECONDS 5
-// #define WPM_SAMPLE_PERIODS 50
-// #define WPM_LAUNCH_CONTROL
 
 #ifndef ONESHOT_TAP_TOGGLE
 #    define ONESHOT_TAP_TOGGLE 2
