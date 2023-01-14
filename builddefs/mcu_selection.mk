@@ -276,7 +276,7 @@ ifneq ($(findstring STM32F103, $(MCU)),)
   # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
   ifeq ($(strip $(BOOTLOADER)), uf2boot)
-    MCU_LDSCRIPT ?= STM32F103x8_uf2boot
+    MCU_LDSCRIPT ?= STM32F103xB_uf2boot
   else
     MCU_LDSCRIPT ?= STM32F103x8
   endif
