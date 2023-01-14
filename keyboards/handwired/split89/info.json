@@ -12,11 +12,11 @@
         "LAYOUT": {
             "layout": [
                     {"label":"Esc",  "matrix": [0, 4],  "x":0 ,  "y":0},
-                    {"label":"F1" ,  "matrix": [0, 5],  "x":1 ,  "y":0},
-                    {"label":"F2" ,  "matrix": [0, 6],  "x":2 ,  "y":0},
-                    {"label":"F3" ,  "matrix": [0, 7],  "x":3 ,  "y":0},
-                    {"label":"F4" ,  "matrix": [0, 8],  "x":4 ,  "y":0},
-                    {"label":"F5" ,  "matrix": [0, 9],  "x":5 ,  "y":0},
+                    {"label":"F1" ,  "matrix": [0, 5],  "x":2 ,  "y":0},
+                    {"label":"F2" ,  "matrix": [0, 6],  "x":3 ,  "y":0},
+                    {"label":"F3" ,  "matrix": [0, 7],  "x":4 ,  "y":0},
+                    {"label":"F4" ,  "matrix": [0, 8],  "x":5 ,  "y":0},
+                    {"label":"F5" ,  "matrix": [0, 9],  "x":6 ,  "y":0},
                     {"label":"F6" ,  "matrix": [6, 0],  "x":10.25 ,  "y":0},
                     {"label":"F7" ,  "matrix": [6, 1],  "x":11.25 ,  "y":0},
                     {"label":"F8" ,  "matrix": [6, 2],  "x":12.25 ,  "y":0},
