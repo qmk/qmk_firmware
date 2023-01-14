@@ -190,7 +190,6 @@ uint8_t ps2_host_send(uint8_t data) {
         frame = frame | (1 << 8);
     }
 
-    uprintf("Sending %X\n", data);
     pio_sm_put(pio, state_machine, frame);
 
     msg_t msg = MSG_OK;
