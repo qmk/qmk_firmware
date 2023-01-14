@@ -43,6 +43,7 @@ enum custom_keycodes {
     KC_MOUSE,
 };
 
+// TODO: clear this matrix table `keymaps[][][]`
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * QWERTY
