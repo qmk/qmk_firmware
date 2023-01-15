@@ -4,7 +4,7 @@ This document describes QMK's Breaking Change process. A Breaking Change is any 
 
 This also includes any keyboard moves within the repository.
 
-The breaking change period is when we will merge PR's that change QMK in dangerous or unexpected ways. There is a built-in period of testing so we are confident that any problems caused are rare or unable to be predicted.
+The breaking change period is when we will merge PRs that change QMK in dangerous or unexpected ways. There is a built-in period of testing so we are confident that any problems caused are rare or unable to be predicted.
 
 Practically, this means QMK merges the `develop` branch into the `master` branch, on a 3-month cadence.
 
