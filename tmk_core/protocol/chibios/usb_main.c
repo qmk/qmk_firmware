@@ -69,11 +69,7 @@ uint8_t                keyboard_led_state                            = 0;
 volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
 
-#if CH_KERNEL_MAJOR >= 7
 static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
-#elif CH_KERNEL_MAJOR <= 6
-static void keyboard_idle_timer_cb(void *arg);
-#endif
 
 report_keyboard_t keyboard_report_sent = {{0}};
 report_mouse_t    mouse_report_sent    = {0};
@@ -827,12 +823,8 @@ __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
-#if CH_KERNEL_MAJOR >= 7
 static void keyboard_idle_timer_cb(struct ch_virtual_timer *timer, void *arg) {
     (void)timer;
-#elif CH_KERNEL_MAJOR <= 6
-static void keyboard_idle_timer_cb(void *arg) {
-#endif
     USBDriver *usbp = (USBDriver *)arg;
 
     osalSysLockFromISR();
