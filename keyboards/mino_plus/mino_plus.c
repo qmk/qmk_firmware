@@ -232,11 +232,11 @@ static void render_status(void) {
     }
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
         return OLED_ROTATION_270; 
 }
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
     render_animation();
     render_status();
 
