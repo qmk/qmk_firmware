@@ -56,9 +56,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
 
 // Thumbstick keymap, change KC_XXX to whatever you need
 
@@ -81,6 +78,7 @@ uint16_t zero_reads = 0;
 
 // set mode depending on layer
 layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
     switch (get_highest_layer(state)) {
         case SCROLLING_LAYER:
             if (scrolling_mode == false) {
