@@ -9,14 +9,18 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 - PR should be submitted using a non-`master` branch on the source repository
     - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
     - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
+- PRs should contain the smallest amount of modifications required for a single change to the codebase
+    - multiple keyboards at the same time is not acceptable
+        - exception: keymaps for a single user targeting multiple keyboards and/or userspace is acceptable
+    - **the smaller the PR, the higher likelihood of a quicker review, higher likelihood of quicker merge, and less chance of conflicts**
 - newly-added directories and filenames must be lowercase
-    - this rule may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
+    - the lowercase requirement may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
     - if there is valid justification (i.e. consistency with existing core files etc.) this can be relaxed
         - a board designer naming their keyboard with uppercase letters is not enough justification
 - valid license headers on all `*.c` and `*.h` source files
     - GPL2/GPL3 recommended for consistency
-    - an example GPL2+ license header may be copied and modified from the bottom of this document
-    - other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged.
+    - an example GPL2+ license header may be copied (and author modified) from the bottom of this document
+    - other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged
     - missing license headers will prevent PR merge due to ambiguity with license compatibility
 - QMK Codebase "best practices" followed
     - this is not an exhaustive list, and will likely get amended as time goes by
@@ -31,6 +35,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
         - refactor it as a separate core change
         - remove your specific copy in your board
 - fix all merge conflicts before opening the PR (in case you need help or advice, reach out to QMK Collaborators on Discord)
+    - PR submitters will need to keep up-to-date with their base branch, resolving conflicts along the way
 
 ## Keymap PRs
 
@@ -45,6 +50,9 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 Closed PRs (for inspiration, previous sets of review comments will help you eliminate ping-pong of your own reviews):
 https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
+- keyboard moves within the repository *must* go through the `develop` branch instead of `master`, so as to ensure compatibility for users
+    - `data/mappings/keyboard_aliases.hjson` must be updated to reflect the move, so users with pre-created configurator keymap.json files continue to detect the correct keyboard
+- PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards -- try `qmk import-kbfirmware` first
 - `info.json`
     - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
     - the mandatory elements for a minimally complete `info.json` at present are:
@@ -55,8 +63,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
             - should use standard definitions if applicable
             - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
-            - use of `LAYOUT_all` is only valid when providing additional layout macros
-              - providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling
+            - use of `LAYOUT_all` is only valid when providing additional layout macros (i.e. the keyboard supports multiple layouts)
+                - providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling
+                    - use `LAYOUT` instead
 - `readme.md`
     - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
