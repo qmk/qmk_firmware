@@ -42,7 +42,7 @@
 #endif
 
 // BODGE to make v2 look like v1,3 and 4
-#ifdef USE_ADCV2
+#if defined(USE_ADCV2) || defined(RP2040)
 #    if !defined(ADC_SMPR_SMP_1P5) && defined(ADC_SAMPLE_3)
 #        define ADC_SMPR_SMP_1P5 ADC_SAMPLE_3
 #        define ADC_SMPR_SMP_7P5 ADC_SAMPLE_15
@@ -100,9 +100,7 @@
 
 // Options are 12, 10, 8, and 6 bit.
 #ifndef ADC_RESOLUTION
-#    if defined(RP2040)
-#        define ADC_RESOLUTION 10
-#    elif defined(ADC_CFGR_RES_10BITS) // ADCv3, ADCv4
+#    ifdef ADC_CFGR_RES_10BITS // ADCv3, ADCv4
 #        define ADC_RESOLUTION ADC_CFGR_RES_10BITS
 #    else // ADCv1, ADCv5, or the bodge for ADCv2 above
 #        define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
