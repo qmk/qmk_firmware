@@ -87,7 +87,7 @@ union {
     report_digitizer_t digitizer;
 #endif
 #ifdef JOYSTICK_ENABLE
-    joystick_report_t joystick;
+    report_joystick_t joystick;
 #endif
 } universal_report_blank = {0};
 
