@@ -1,4 +1,4 @@
-/* Copyright 2023 Saph1s
+/* Copyright 2023 Saph1s @Saph1s
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
