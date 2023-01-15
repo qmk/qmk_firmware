@@ -84,5 +84,5 @@ REGION_ALIAS("HEAP_RAM", ram0);
 /* Generic rules inclusion.*/
 INCLUDE rules.ld
 
-/* TinyUF2 bootloader reset support */
-_board_dfu_dbl_tap = ORIGIN(ram0) + 20k - 4; /* this is based off the linker file for tinyuf2 */
+/* Bootloader reset support */
+_board_magic_reg = ORIGIN(ram0) + 16k; /* this is based off the code within backup.c */

@@ -3,8 +3,12 @@
 
 #include "bootloader.h"
 
+// From mmoskal/uf2-stm32f103's backup.c
 #define MAGIC_BOOT 0x544F4F42UL
-#define MAGIC_REG *(volatile uint32_t*)0x20004000
+
+// defined by linker script
+extern uint32_t _board_magic_reg[];
+#define MAGIC_REG _board_magic_reg[0]
 
 void bootloader_jump(void) {
     MAGIC_REG = MAGIC_BOOT;
@@ -15,4 +19,5 @@ void mcu_reset(void) {
     NVIC_SystemReset();
 }
 
-__attribute__((weak)) void enter_bootloader_mode_if_requested(void) {}
+/* not needed, no two-stage reset */
+void enter_bootloader_mode_if_requested(void) {}
