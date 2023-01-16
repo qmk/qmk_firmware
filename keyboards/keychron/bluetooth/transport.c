@@ -1,3 +1,18 @@
+/* Copyright 2022 @ lokher (https://www.keychron.com)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "quantum.h"
 #include "bluetooth.h"
@@ -10,13 +25,6 @@
 
 #ifndef REINIT_LED_DRIVER
 #    define REINIT_LED_DRIVER 1
-#endif
-
-#ifdef NKRO_ENABLE
-typedef struct {
-    bool usb : 1;
-    bool bluetooth : 1;
-} nkro_t;
 #endif
 
 #if defined(PROTOCOL_CHIBIOS)
@@ -37,8 +45,8 @@ __attribute__((weak)) void bt_transport_enable(bool enable) {
     if (enable) {
         if (host_get_driver() != &bluetooth_driver) {
             host_set_driver(&bluetooth_driver);
-            
-            /* Disconnect and reconnect to sync the bluetooth state 
+
+            /* Disconnect and reconnect to sync the bluetooth state
              * TODO: query bluetooth state to sync
              */
             bluetooth_disconnect();
@@ -55,8 +63,8 @@ __attribute__((weak)) void bt_transport_enable(bool enable) {
     }
 }
 
-/* There is no dedicated pin for USB power on chip such as STM32L432, but USB power 
- * can be connected and disconnected via registers. 
+/* There is no dedicated pin for USB power on chip such as STM32L432, but USB power
+ * can be connected and disconnected via registers.
  * Overwrite these two functions if such chip is used. */
 __attribute__((weak)) void usb_power_connect(void) {}
 __attribute__((weak)) void usb_power_disconnect(void) {}
@@ -180,3 +188,10 @@ void usb_remote_wakeup(void) {
         send_keyboard_report();
     }
 }
+
+#ifdef BLUETOOTH_NKRO_ENABLE
+void keyboard_post_init_user(void) {
+    keymap_config.raw = eeconfig_read_keymap();
+    nkro.bluetooth = keymap_config.nkro;
+}
+#endif

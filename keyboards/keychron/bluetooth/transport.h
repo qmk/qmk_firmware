@@ -22,6 +22,13 @@ typedef enum {
     TRANSPORT_BLUETOOTH,
 } transport_t;
 
+#ifdef NKRO_ENABLE
+typedef struct {
+    bool usb : 1;
+    bool bluetooth : 1;
+} nkro_t;
+#endif
+
 void        set_transport(transport_t new_transport);
 transport_t get_transport(void);
 

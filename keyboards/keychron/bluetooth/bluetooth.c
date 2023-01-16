@@ -30,11 +30,6 @@ extern uint32_t        retry_time_buffer;
 extern uint8_t         retry;
 
 #ifdef NKRO_ENABLE
-typedef struct {
-    bool usb : 1;
-    bool bluetooth : 1;
-} nkro_t;
-
 extern nkro_t nkro;
 #endif
 
@@ -101,7 +96,7 @@ void bluetooth_init(void) {
 #ifdef BLUETOOTH_INT_INPUT_PIN
     setPinInputHigh(BLUETOOTH_INT_INPUT_PIN);
 #endif
- 
+
     lpm_init();
     rtc_timer_init();
 }
@@ -207,7 +202,7 @@ static void bluetooth_enter_connected(uint8_t host_idx) {
 
     clear_keyboard();
 
-    /* Enable NKRO since it may be disabled in pin code entry */ 
+    /* Enable NKRO since it may be disabled in pin code entry */
 #if defined(NKRO_ENABLE) && defined(BLUETOOTH_NKRO_ENABLE)
     keymap_config.nkro = nkro.bluetooth;
 #else
@@ -229,7 +224,7 @@ static void bluetooth_enter_connected(uint8_t host_idx) {
 static void bluetooth_enter_disconnected(uint8_t host_idx) {
     uint8_t previous_state = bt_state;
     bt_state               = BLUETOOTH_DISCONNECTED;
-    
+
     if (previous_state == BLUETOOTH_CONNECTED) {
         lpm_timer_reset();
         indicator_set(BLUETOOTH_SUSPEND, host_idx);
@@ -276,8 +271,8 @@ __attribute__((weak)) void bluetooth_enter_pin_code_entry_kb(void) {}
 __attribute__((weak)) void bluetooth_exit_pin_code_entry_kb(void){};
 
 /*  */
-static void bluetooth_hid_set_protocol(bool report_protocol) { 
-    bluetooth_report_protocol = false; 
+static void bluetooth_hid_set_protocol(bool report_protocol) {
+    bluetooth_report_protocol = false;
 }
 
 uint8_t bluetooth_keyboard_leds(void) {
@@ -338,7 +333,7 @@ void bluetooth_send_keyboard(report_keyboard_t *report) {
             //#endif
         }
 
-    } else if (bt_state != BLUETOOTH_RESET) { 
+    } else if (bt_state != BLUETOOTH_RESET) {
         bluetooth_connect();
     }
 }
@@ -458,6 +453,10 @@ bluetooth_state_t bluetooth_get_state(void) {
 __attribute__((weak)) bool process_record_kb_bt(uint16_t keycode, keyrecord_t *record) { return true;};
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
     if (get_transport() == TRANSPORT_BLUETOOTH) {
         lpm_timer_reset();
 
@@ -472,6 +471,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         }
 #endif
     }
-    process_record_kb_bt(keycode, record);
-    return process_record_user(keycode, record);
+    return process_record_kb_bt(keycode, record);
+    // return process_record_user(keycode, record);
 }
