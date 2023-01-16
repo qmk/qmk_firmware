@@ -133,10 +133,10 @@ RP2040 has only a single ADC (`ADCD1` in ChibiOS); in the QMK API the index for 
 |1      |`GP27`             |
 |2      |`GP28`             |
 |3      |`GP29`             |
-|4      |Temperature sensor¹|
+|4      |Temperature sensor*|
 
 
-<sup>¹ The temperature sensor is disabled by default and needs to be enabled by the RP2040-specific function: `adcRPEnableTS(&ADCD1)`.  The ADC must be initialized before calling that function; an easy way to ensure that is to perform a dummy conversion.</sup>
+<sup>* The temperature sensor is disabled by default and needs to be enabled by the RP2040-specific function: `adcRPEnableTS(&ADCD1)`.  The ADC must be initialized before calling that function; an easy way to ensure that is to perform a dummy conversion.</sup>
 
 ## Functions
 
