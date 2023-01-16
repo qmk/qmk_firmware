@@ -892,7 +892,7 @@ void send_keyboard(report_keyboard_t *report) {
     } else {
 #ifdef NKRO_ENABLE
         if (keymap_config.nkro) {
-            ep = SHARED_IN_EPNUM;
+            ep   = SHARED_IN_EPNUM;
             size = sizeof(struct nkro_report);
         }
 #endif
@@ -902,7 +902,6 @@ void send_keyboard(report_keyboard_t *report) {
 
     keyboard_report_sent = *report;
 }
-
 
 /* ---------------------------------------------------------
  *                     Mouse functions
