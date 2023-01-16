@@ -63,23 +63,14 @@ bool led_update_user(led_t led_state) {
     return true;
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MAC:
-            if (record->event.pressed) {
-                rgblight_mode(6);
-                set_single_persistent_default_layer(_MAC);
-            } else {}
-            break;
-        case WIN:
-            if (record->event.pressed) {
-                rgblight_mode(9);
-                set_single_persistent_default_layer(_WIN);
-            } else {}
-            break;
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    if (get_highest_layer(state) == _MAC) {
+        rgblight_mode_noeeprom(6);
+    } else {
+        rgblight_mode_noeeprom(9);
     }
-    return true;
-};
+    return state;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Win Layer
