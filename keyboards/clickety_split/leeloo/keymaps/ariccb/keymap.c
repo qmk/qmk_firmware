@@ -144,21 +144,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------.                                      .-----------------------------------------.
  * | HYPER|  F1  |  F2  |  F3  |  F4  |  F5  |                                      |  F6  |  F7  |  F8  |  F9  | F10  |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
-*  |  `   |  ~   |  <   |  >   |  ]   |  ?   |                                      |   ^  |   7  |   8  |   9  |   :  | Bsp  |
+*  |  `   |  !   |  <   |  >   |  ]   |  ?   |                                      |   ^  |   7  |   8  |   9  |   :  | Bsp  |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
- * |S(TAB)|  !   |  %   |  (   |  )   |  =   |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
+ * |S(TAB)|  #   |  $   |  (   |  )   |  =   |-------.                      .-------|   =  |   4  |   5  |   6  |   -  |  +   |
  * |------+------+------+------+------+------|Volume |                      | Layer |------+------+------+------+------+------|
- * |SHIFT |  #   |  $   |  {   |  }   |  &   | DIAL1 |--> Reset Audio       | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
+ * |SHIFT |  ~   |  %   |  {   |  }   |  &   | DIAL1 |--> Reset Audio       | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    Recording Device  |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  /      /     on Button Press    \       \      |     |Expand Selection|
+ *                      | ALT | CTRL |  LOW  /      /     on Button Press    \       \      |     |MW L/R|
  *                      | APP | ENTER| OSSft/ SPACE/                          \ Space \  0  |  .  | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
  *                      `-------------------------'                            '-------------------------'
  */
   [_LOWER] = LAYOUT(
   KC_HYPR,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,  KC_F8, KC_F9, KC_F10,  KC_DEL,
-  KC_GRV,    KC_TILD, KC_LABK, KC_RABK, KC_RBRC, KC_QUES,                            KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
-  S(KC_TAB), KC_EXLM, KC_PERC, KC_LPRN, KC_RPRN, KC_EQL,                             KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
-  KC_LSFT,   KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_AMPR, LCTL(KC_0),        LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
+  KC_GRV,    KC_EXLM, KC_LABK, KC_RABK, KC_RBRC, KC_QUES,                            KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
+  S(KC_TAB), KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_EQL,                             KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
+  KC_LSFT,   KC_TILD, KC_PERC, KC_LCBR, KC_RCBR, KC_AMPR, LCTL(KC_0),        LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
                                _____,   _____,   _____,   _____,             KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //
 ),
 
@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------| Virtual|                     | Layer |------+------+------+------+------+------|
  * |      |      |      |      |      |      |Desktop |-->  Next Song       | Lock  | Back |PageUp|C+A_Dn|PageDn|Forwrd|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
- *                      | ALT | CTRL |  Alt  / Next  /                       \       \       |      |Volume|
+ *                      | ALT | CTRL |  Alt  / Next  /                       \       \       |      |Expand Selection in VSCode|
  *                      | APP | ENTER| Tab  /TidyTab/                         \       \      |      | DIAL2|--> Toggle HDR
  *                      `--------------------------'                           '---------------------------'    on Button Press
  */
@@ -314,11 +314,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else if (index == 1) {
         switch (biton32(layer_state)) {
             case _LOWER:
-                // Expand selection in VSCode
+                 // Mouse Wheel Right/Left
                 if (!clockwise) {
-                    tap_code16(LALT(LSFT(KC_LEFT)));
+                    tap_code16(KC_WH_L);
                 } else {
-                    tap_code16(LALT(LSFT(KC_RGHT)));
+                    tap_code16(KC_WH_R);
                 }
                 break;
                 // Change Audio Recording Source on button press (Alt Shift J)
@@ -332,20 +332,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // on button press sends CTRL(KC_F)
                 break;
             case _ADJUST:
-                // Select Whole Word
+                // Expand selection in VSCode
                 if (!clockwise) {
-                    tap_code16(LCTL(LSFT(KC_LEFT)));
+                    tap_code16(LALT(LSFT(KC_LEFT)));
                 } else {
-                    tap_code16(LCTL(LSFT(KC_RGHT)));
+                    tap_code16(LALT(LSFT(KC_RGHT)));
                 }
                 break;
                 // Next song on button press
             default:
-                // Mouse Wheel Right/Left
+               // Select Whole Word
                 if (!clockwise) {
-                    tap_code16(KC_WH_U);
+                    tap_code16(LCTL(LSFT(KC_LEFT)));
                 } else {
-                    tap_code16(KC_WH_D);
+                    tap_code16(LCTL(LSFT(KC_RGHT)));
                 }
                 break;
                 // mute powertoys
@@ -371,9 +371,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             clear_mods();  // Temporarily disable mods.
             clear_oneshot_mods();
             if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-            SEND_STRING("()");
-            } else {
             SEND_STRING("<>");
+            } else {
+            SEND_STRING("()");
             }
             tap_code(KC_LEFT);  // Move cursor between braces.
             set_mods(mods);  // Restore mods.
@@ -406,7 +406,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(LCTL(LSFT(KC_LEFT)));
             set_mods(mods);  // Restore mods.
             } else {
-              SEND_STRING("() => ;");
+              SEND_STRING("() => ");
+              tap_code(KC_LEFT);
+              tap_code(KC_LEFT);
+              tap_code(KC_LEFT);
+              tap_code(KC_LEFT);
               tap_code(KC_LEFT);
               set_mods(mods); // Restore mods.
             }
