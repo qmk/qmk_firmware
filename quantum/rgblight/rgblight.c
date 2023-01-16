@@ -1480,6 +1480,8 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
         return (v * scale) >> 8;
     }
 
+    const uint8_t trigger = scale((uint16_t)0xFF * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY, 127 + rgblight_config.val / 2);
+
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
         HSV *         c = &(t->hsv);
@@ -1498,7 +1500,7 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
             t->life--;
             uint8_t unscaled = frac(breathe_calc(frac(t->life, t->max_life)) - bottom, top - bottom);
             c->v             = scale(rgblight_config.val, unscaled);
-        } else if (rand() < scale((uint16_t)RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY, 127 + rgblight_config.val / 2)) {
+        } else if ((rand() % 0xFF) < trigger) {
             // This LED is off, but was randomly selected to start brightening
             if (random_color) {
                 c->h = rand() % 0xFF;

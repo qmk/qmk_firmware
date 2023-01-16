@@ -16,12 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum planck_layers {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST
-};
+enum planck_layers { _QWERTY, _LOWER, _RAISE, _ADJUST };
 
 enum tap_dances {
     ENC_TAP,
@@ -59,6 +54,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_LOWER]  = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+    [_RAISE]  = { ENCODER_CCW_CW(R_M_RMOD, R_M_MOD) },
+    [_ADJUST] = { ENCODER_CCW_CW(R_M_HUI, R_M_HUD) },
+};
+#endif
+// clang-format on
+
 void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code(KC_MPLY);
@@ -84,11 +89,25 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [ENC_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_enc_finished, dance_enc_reset),
 };
 
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t led_level : 3;
+    };
+} work_louder_config_t;
+
+work_louder_config_t work_louder_config;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == USER09) {
         preprocess_tap_dance(TD(ENC_TAP), record);
         return process_tap_dance(TD(ENC_TAP), record);
+    } else if (keycode == USER10 && record->event.pressed) {
+        work_louder_config.led_level ^= true;
+        eeconfig_update_user(work_louder_config.raw);
+        layer_state_set_kb(layer_state);
     }
+
     return true;
 }
 
@@ -97,26 +116,99 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     writePinLow(B3);
     writePinLow(B7);
 
-    switch (get_highest_layer(state)) {
-        case 1:
-            writePinHigh(B2);
-            break;
-        case 2:
-            writePinHigh(B3);
-            break;
-        case 3:
-            writePinHigh(B7);
-            break;
+    if (work_louder_config.led_level) {
+        switch (get_highest_layer(state)) {
+            case 1:
+                writePinHigh(B2);
+                break;
+            case 2:
+                writePinHigh(B3);
+                break;
+            case 3:
+                writePinHigh(B7);
+                break;
+        }
     }
 
     return state;
 }
 
-#ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LOWER]  = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
-    [_RAISE]  = { ENCODER_CCW_CW(R_M_RMOD, R_M_MOD) },
-    [_ADJUST] = { ENCODER_CCW_CW(R_M_HUI, R_M_HUD) },
+void eeconfig_init_user(void) {
+    work_louder_config.raw       = 0;
+    work_louder_config.led_level = true;
+    eeconfig_update_user(work_louder_config.raw);
+}
+
+void keyboard_post_init_user(void) {
+    work_louder_config.raw = eeconfig_read_user();
+}
+
+enum via_indicator_value {
+    id_wl_brightness = 1,
+    id_wl_layer, // placeholder
 };
-#endif
+
+void wl_config_set_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_wl_brightness:
+            work_louder_config.led_level = (bool)*value_data;
+            layer_state_set_kb(layer_state);
+            break;
+        // case id_wl_layer:
+        //     layer_move(*value_data);
+        //     break;
+    }
+}
+
+void wl_config_get_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_wl_brightness:
+            *value_data = work_louder_config.led_level;
+            break;
+        // case id_wl_layer:
+        //     *value_data = get_highest_layer(layer_state);
+        //     break;
+    }
+}
+
+void wl_config_save(void) {
+    eeconfig_update_user(work_louder_config.raw);
+}
+
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t *command_id        = &(data[0]);
+    uint8_t *channel_id        = &(data[1]);
+    uint8_t *value_id_and_data = &(data[2]);
+
+    if (*channel_id == id_custom_channel) {
+        switch (*command_id) {
+            case id_custom_set_value: {
+                wl_config_set_value(value_id_and_data);
+                break;
+            }
+            case id_custom_get_value: {
+                wl_config_get_value(value_id_and_data);
+                break;
+            }
+            case id_custom_save: {
+                wl_config_save();
+                break;
+            }
+            default: {
+                // Unhandled message.
+                *command_id = id_unhandled;
+                break;
+            }
+        }
+        return;
+    }
+    *command_id = id_unhandled;
+}
