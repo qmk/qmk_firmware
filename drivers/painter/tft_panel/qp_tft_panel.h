@@ -8,6 +8,14 @@
 #    include "qp_comms_spi.h"
 #endif // QUANTUM_PAINTER_SPI_ENABLE
 
+#define TFT_COLOR_BYTE_ORDER_BGR 0
+#define TFT_COLOR_BYTE_ORDER_RGB 1
+
+// Color Stream Byte Order
+#ifndef TFT_COLOR_BYTE_ORDER
+#    define TFT_COLOR_BYTE_ORDER TFT_COLOR_BYTE_ORDER_BGR
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Common TFT panel implementation using D/C, and RST pins.
 

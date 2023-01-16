@@ -52,10 +52,17 @@ __attribute__((weak)) bool qp_ili9341_init(painter_device_t device, painter_rota
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
+#if (TFT_COLOR_BYTE_ORDER == TFT_COLOR_BYTE_ORDER_RGB)
+        [QP_ROTATION_0]   = ILI9XXX_MADCTL_RGB,
+        [QP_ROTATION_90]  = ILI9XXX_MADCTL_RGB | ILI9XXX_MADCTL_MX | ILI9XXX_MADCTL_MV,
+        [QP_ROTATION_180] = ILI9XXX_MADCTL_RGB | ILI9XXX_MADCTL_MX | ILI9XXX_MADCTL_MY,
+        [QP_ROTATION_270] = ILI9XXX_MADCTL_RGB | ILI9XXX_MADCTL_MV | ILI9XXX_MADCTL_MY
+#elif (TFT_COLOR_BYTE_ORDER == TFT_COLOR_BYTE_ORDER_BGR)
         [QP_ROTATION_0]   = ILI9XXX_MADCTL_BGR,
         [QP_ROTATION_90]  = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MX | ILI9XXX_MADCTL_MV,
         [QP_ROTATION_180] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MX | ILI9XXX_MADCTL_MY,
-        [QP_ROTATION_270] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MV | ILI9XXX_MADCTL_MY,
+        [QP_ROTATION_270] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MV | ILI9XXX_MADCTL_MY
+#endif
     };
     qp_comms_command_databyte(device, ILI9XXX_SET_MEM_ACS_CTL, madctl[rotation]);
 

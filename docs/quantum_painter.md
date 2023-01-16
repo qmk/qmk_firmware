@@ -439,6 +439,20 @@ The `surface` is the surface to copy out from. The `display` is the target displ
 
 <!-- tabs:end -->
 
+<!-- tabs:start -->
+
+### Color Byte Order
+
+Most TFT display panels have their color components in a different physical or logical order.
+In this case, you can change the byte order by defining `TFT_COLOR_BYTE_ORDER` as one of the following values:
+
+| Byte order                           | Streaming Order |
+| -------------------------------------| ----------------|
+| `TFT_COLOR_BYTE_ORDER_RGB` (default) |    `[R,G,B]`    |
+| `TFT_COLOR_BYTE_ORDER_BGR`           |    `[B,G,R]`    |
+
+<!-- tabs:end -->
+
 <!-- tabs:end -->
 
 ## Quantum Painter Drawing API :id=quantum-painter-api

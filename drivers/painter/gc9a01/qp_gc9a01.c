@@ -79,10 +79,18 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
+#if (TFT_COLOR_BYTE_ORDER == TFT_COLOR_BYTE_ORDER_RGB)
+        [QP_ROTATION_0]   = GC9A01_MADCTL_RGB,
+        [QP_ROTATION_90]  = GC9A01_MADCTL_RGB | GC9A01_MADCTL_MX | GC9A01_MADCTL_MV,
+        [QP_ROTATION_180] = GC9A01_MADCTL_RGB | GC9A01_MADCTL_MX | GC9A01_MADCTL_MY,
+        [QP_ROTATION_270] = GC9A01_MADCTL_RGB | GC9A01_MADCTL_MV | GC9A01_MADCTL_MY
+#elif (TFT_COLOR_BYTE_ORDER == TFT_COLOR_BYTE_ORDER_BGR)
         [QP_ROTATION_0]   = GC9A01_MADCTL_BGR,
         [QP_ROTATION_90]  = GC9A01_MADCTL_BGR | GC9A01_MADCTL_MX | GC9A01_MADCTL_MV,
         [QP_ROTATION_180] = GC9A01_MADCTL_BGR | GC9A01_MADCTL_MX | GC9A01_MADCTL_MY,
-        [QP_ROTATION_270] = GC9A01_MADCTL_BGR | GC9A01_MADCTL_MV | GC9A01_MADCTL_MY,
+        [QP_ROTATION_270] = GC9A01_MADCTL_BGR | GC9A01_MADCTL_MV | GC9A01_MADCTL_MY
+#endif
+
     };
     qp_comms_command_databyte(device, GC9A01_SET_MEM_ACS_CTL, madctl[rotation]);
 

@@ -91,7 +91,11 @@ bool qp_tft_panel_pixdata(painter_device_t device, const void *pixel_data, uint3
 bool qp_tft_panel_palette_convert_rgb565_swapped(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
     for (int16_t i = 0; i < palette_size; ++i) {
         RGB      rgb      = hsv_to_rgb_nocie((HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
+#if (TFT_COLOR_BYTE_ORDER == TFT_COLOR_BYTE_ORDER_RGB)
+        uint16_t rgb565   = (((uint16_t)rgb.b) >> 3) << 11 | (((uint16_t)rgb.g) >> 2) << 5 | (((uint16_t)rgb.r) >> 3);
+#elif (TFT_COLOR_BYTE_ORDER == TFT_COLOR_BYTE_ORDER_BGR)
         uint16_t rgb565   = (((uint16_t)rgb.r) >> 3) << 11 | (((uint16_t)rgb.g) >> 2) << 5 | (((uint16_t)rgb.b) >> 3);
+#endif
         palette[i].rgb565 = __builtin_bswap16(rgb565);
     }
     return true;

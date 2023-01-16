@@ -48,10 +48,17 @@ __attribute__((weak)) bool qp_ssd1351_init(painter_device_t device, painter_rota
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
+#if (TFT_COLOR_BYTE_ORDER == TFT_COLOR_BYTE_ORDER_RGB)
+        [QP_ROTATION_0]   = SSD1351_MADCTL_RGB | SSD1351_MADCTL_MY,
+        [QP_ROTATION_90]  = SSD1351_MADCTL_RGB | SSD1351_MADCTL_MX | SSD1351_MADCTL_MY | SSD1351_MADCTL_MV,
+        [QP_ROTATION_180] = SSD1351_MADCTL_RGB | SSD1351_MADCTL_MX,
+        [QP_ROTATION_270] = SSD1351_MADCTL_RGB | SSD1351_MADCTL_MV
+#elif (TFT_COLOR_BYTE_ORDER == TFT_COLOR_BYTE_ORDER_BGR)
         [QP_ROTATION_0]   = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MY,
         [QP_ROTATION_90]  = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MX | SSD1351_MADCTL_MY | SSD1351_MADCTL_MV,
         [QP_ROTATION_180] = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MX,
-        [QP_ROTATION_270] = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MV,
+        [QP_ROTATION_270] = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MV
+#endif
     };
     qp_comms_command_databyte(device, SSD1351_SETREMAP, madctl[rotation]);
     qp_comms_command_databyte(device, SSD1351_STARTLINE, (rotation == QP_ROTATION_0 || rotation == QP_ROTATION_90) ? driver->base.panel_height : 0);
