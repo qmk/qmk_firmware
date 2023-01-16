@@ -368,14 +368,14 @@ typedef struct {
 #ifdef RAW_ENABLE
             usb_driver_config_t raw_driver;
 #endif
-#ifdef XAP_ENABLE
-            usb_driver_config_t xap_driver;
-#endif
 #ifdef MIDI_ENABLE
             usb_driver_config_t midi_driver;
 #endif
 #ifdef VIRTSER_ENABLE
             usb_driver_config_t serial_driver;
+#endif
+#ifdef XAP_ENABLE
+            usb_driver_config_t xap_driver;
 #endif
         };
         usb_driver_config_t array[0];
@@ -402,14 +402,6 @@ static usb_driver_configs_t drivers = {
     .raw_driver = QMK_USB_DRIVER_CONFIG(RAW, 0, false),
 #endif
 
-#ifdef XAP_ENABLE
-#    define XAP_IN_CAPACITY 4
-#    define XAP_OUT_CAPACITY 4
-#    define XAP_IN_MODE USB_EP_MODE_TYPE_INTR
-#    define XAP_OUT_MODE USB_EP_MODE_TYPE_INTR
-    .xap_driver = QMK_USB_DRIVER_CONFIG(XAP, 0, false),
-#endif
-
 #ifdef MIDI_ENABLE
 #    define MIDI_STREAM_IN_CAPACITY 4
 #    define MIDI_STREAM_OUT_CAPACITY 4
@@ -424,6 +416,14 @@ static usb_driver_configs_t drivers = {
 #    define CDC_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define CDC_OUT_MODE USB_EP_MODE_TYPE_BULK
     .serial_driver = QMK_USB_DRIVER_CONFIG(CDC, CDC_NOTIFICATION_EPNUM, false),
+#endif
+
+#ifdef XAP_ENABLE
+#    define XAP_IN_CAPACITY 4
+#    define XAP_OUT_CAPACITY 4
+#    define XAP_IN_MODE USB_EP_MODE_TYPE_INTR
+#    define XAP_OUT_MODE USB_EP_MODE_TYPE_INTR
+    .xap_driver = QMK_USB_DRIVER_CONFIG(XAP, 0, false),
 #endif
 };
 

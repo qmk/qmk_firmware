@@ -73,16 +73,16 @@ enum usb_interfaces {
     RAW_INTERFACE = NEXT_INTERFACE,
 #endif
 
-#ifdef XAP_ENABLE
-    XAP_INTERFACE = NEXT_INTERFACE,
-#endif
-
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     SHARED_INTERFACE = NEXT_INTERFACE,
 #endif
 
 #ifdef CONSOLE_ENABLE
     CONSOLE_INTERFACE = NEXT_INTERFACE,
+#endif
+
+#ifdef XAP_ENABLE
+    XAP_INTERFACE = NEXT_INTERFACE,
 #endif
 
     TOTAL_INTERFACES = NEXT_INTERFACE
@@ -789,29 +789,6 @@ const PROGMEM uchar raw_hid_report[] = {
 };
 #endif
 
-#ifdef XAP_ENABLE
-const PROGMEM uchar xap_report[] = {
-    0x06, 0x51, 0xFF, // Usage Page (Vendor Defined)
-    0x09, 0x58,       // Usage (Vendor Defined)
-    0xA1, 0x01,       // Collection (Application)
-    // Data to host
-    0x09, 0x62,            //   Usage (Vendor Defined)
-    0x15, 0x00,            //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
-    0x95, XAP_BUFFER_SIZE, //   Report Count
-    0x75, 0x08,            //   Report Size (8)
-    0x81, 0x02,            //   Input (Data, Variable, Absolute)
-    // Data from host
-    0x09, 0x63,            //   Usage (Vendor Defined)
-    0x15, 0x00,            //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
-    0x95, XAP_BUFFER_SIZE, //   Report Count
-    0x75, 0x08,            //   Report Size (8)
-    0x91, 0x02,            //   Output (Data, Variable, Absolute)
-    0xC0                   // End Collection
-};
-#endif
-
 #if defined(CONSOLE_ENABLE)
 const PROGMEM uchar console_hid_report[] = {
     0x06, 0x31, 0xFF, // Usage Page (Vendor Defined - PJRC Teensy compatible)
@@ -832,6 +809,29 @@ const PROGMEM uchar console_hid_report[] = {
     0x75, 0x08,                //   Report Size (8)
     0x91, 0x02,                //   Output (Data)
     0xC0                       // End Collection
+};
+#endif
+
+#ifdef XAP_ENABLE
+const PROGMEM uchar xap_report[] = {
+    0x06, 0x51, 0xFF, // Usage Page (Vendor Defined)
+    0x09, 0x58,       // Usage (Vendor Defined)
+    0xA1, 0x01,       // Collection (Application)
+    // Data to host
+    0x09, 0x62,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
+    0x95, XAP_BUFFER_SIZE, //   Report Count
+    0x75, 0x08,            //   Report Size (8)
+    0x81, 0x02,            //   Input (Data, Variable, Absolute)
+    // Data from host
+    0x09, 0x63,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
+    0x95, XAP_BUFFER_SIZE, //   Report Count
+    0x75, 0x08,            //   Report Size (8)
+    0x91, 0x02,            //   Output (Data, Variable, Absolute)
+    0xC0                   // End Collection
 };
 #endif
 
@@ -1011,56 +1011,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
     },
 #    endif
 
-#    if defined(XAP_ENABLE)
-    /*
-     * XAP
-     */
-    .xapInterface = {
-        .header = {
-            .bLength         = sizeof(usbInterfaceDescriptor_t),
-            .bDescriptorType = USBDESCR_INTERFACE
-        },
-        .bInterfaceNumber    = XAP_INTERFACE,
-        .bAlternateSetting   = 0x00,
-        .bNumEndpoints       = 2,
-        .bInterfaceClass     = 0x03,
-        .bInterfaceSubClass  = 0x00,
-        .bInterfaceProtocol  = 0x00,
-        .iInterface          = 0x00
-    },
-    .xapHID = {
-        .header = {
-            .bLength         = sizeof(usbHIDDescriptor_t),
-            .bDescriptorType = USBDESCR_HID
-        },
-        .bcdHID              = 0x0101,
-        .bCountryCode        = 0x00,
-        .bNumDescriptors     = 1,
-        .bDescriptorType     = USBDESCR_HID_REPORT,
-        .wDescriptorLength   = sizeof(xap_report)
-    },
-    .xapINEndpoint = {
-        .header = {
-            .bLength         = sizeof(usbEndpointDescriptor_t),
-            .bDescriptorType = USBDESCR_ENDPOINT
-        },
-        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
-        .bmAttributes        = 0x03,
-        .wMaxPacketSize      = XAP_EPSIZE,
-        .bInterval           = USB_POLLING_INTERVAL_MS
-    },
-    .xapOUTEndpoint = {
-        .header = {
-            .bLength         = sizeof(usbEndpointDescriptor_t),
-            .bDescriptorType = USBDESCR_ENDPOINT
-        },
-        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP4_NUMBER),
-        .bmAttributes        = 0x03,
-        .wMaxPacketSize      = XAP_EPSIZE,
-        .bInterval           = USB_POLLING_INTERVAL_MS
-    },
-#    endif
-
 #    ifdef SHARED_EP_ENABLE
     /*
      * Shared
@@ -1157,7 +1107,57 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = CONSOLE_EPSIZE,
         .bInterval           = 0x01
-    }
+    },
+#    endif
+
+#    if defined(XAP_ENABLE)
+    /*
+     * XAP
+     */
+    .xapInterface = {
+        .header = {
+            .bLength         = sizeof(usbInterfaceDescriptor_t),
+            .bDescriptorType = USBDESCR_INTERFACE
+        },
+        .bInterfaceNumber    = XAP_INTERFACE,
+        .bAlternateSetting   = 0x00,
+        .bNumEndpoints       = 2,
+        .bInterfaceClass     = 0x03,
+        .bInterfaceSubClass  = 0x00,
+        .bInterfaceProtocol  = 0x00,
+        .iInterface          = 0x00
+    },
+    .xapHID = {
+        .header = {
+            .bLength         = sizeof(usbHIDDescriptor_t),
+            .bDescriptorType = USBDESCR_HID
+        },
+        .bcdHID              = 0x0101,
+        .bCountryCode        = 0x00,
+        .bNumDescriptors     = 1,
+        .bDescriptorType     = USBDESCR_HID_REPORT,
+        .wDescriptorLength   = sizeof(xap_report)
+    },
+    .xapINEndpoint = {
+        .header = {
+            .bLength         = sizeof(usbEndpointDescriptor_t),
+            .bDescriptorType = USBDESCR_ENDPOINT
+        },
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
+        .bmAttributes        = 0x03,
+        .wMaxPacketSize      = XAP_EPSIZE,
+        .bInterval           = USB_POLLING_INTERVAL_MS
+    },
+    .xapOUTEndpoint = {
+        .header = {
+            .bLength         = sizeof(usbEndpointDescriptor_t),
+            .bDescriptorType = USBDESCR_ENDPOINT
+        },
+        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP4_NUMBER),
+        .bmAttributes        = 0x03,
+        .wMaxPacketSize      = XAP_EPSIZE,
+        .bInterval           = USB_POLLING_INTERVAL_MS
+    },
 #    endif
 };
 
@@ -1216,13 +1216,6 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     break;
 #endif
 
-#if defined(XAP_ENABLE)
-                case XAP_INTERFACE:
-                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.xapHID;
-                    len       = sizeof(usbHIDDescriptor_t);
-                    break;
-#endif
-
 #ifdef SHARED_EP_ENABLE
                 case SHARED_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.sharedHID;
@@ -1233,6 +1226,13 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
 #if defined(CONSOLE_ENABLE)
                 case CONSOLE_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.consoleHID;
+                    len       = sizeof(usbHIDDescriptor_t);
+                    break;
+#endif
+
+#if defined(XAP_ENABLE)
+                case XAP_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.xapHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
@@ -1255,13 +1255,6 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     break;
 #endif
 
-#if defined(XAP_ENABLE)
-                case XAP_INTERFACE:
-                    usbMsgPtr = (usbMsgPtr_t)xap_report;
-                    len       = sizeof(xap_report);
-                    break;
-#endif
-
 #ifdef SHARED_EP_ENABLE
                 case SHARED_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)shared_hid_report;
@@ -1273,6 +1266,13 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                 case CONSOLE_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)console_hid_report;
                     len       = sizeof(console_hid_report);
+                    break;
+#endif
+
+#if defined(XAP_ENABLE)
+                case XAP_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)xap_report;
+                    len       = sizeof(xap_report);
                     break;
 #endif
             }
