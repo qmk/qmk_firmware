@@ -448,8 +448,8 @@ In this case, you can change the byte order by defining `TFT_COLOR_BYTE_ORDER` a
 
 | Byte order                           | Streaming Order |
 | -------------------------------------| ----------------|
-| `TFT_COLOR_BYTE_ORDER_RGB` (default) |    `[R,G,B]`    |
-| `TFT_COLOR_BYTE_ORDER_BGR`           |    `[B,G,R]`    |
+| `TFT_COLOR_BYTE_ORDER_BGR` (default) |    `[B,G,R]`    |
+| `TFT_COLOR_BYTE_ORDER_RGB`           |    `[R,G,B]`    |
 
 <!-- tabs:end -->
 
