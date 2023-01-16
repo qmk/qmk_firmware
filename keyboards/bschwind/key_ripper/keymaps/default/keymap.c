@@ -27,11 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             MO(1),   KC_LCTL, KC_LALT, KC_LGUI,                   KC_SPC,                             KC_RGUI, KC_LEFT, KC_DOWN, KC_RGHT
         ),
     [1] = LAYOUT(
-            KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,              KC_TRNS,   KC_MEDIA_PREV_TRACK,   KC_MEDIA_PLAY_PAUSE,   KC_MEDIA_NEXT_TRACK,   KC_KB_MUTE,  KC_KB_VOLUME_DOWN,  KC_KB_VOLUME_UP,
-            KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,  KC_TRNS,   KC_TRNS,               KC_TRNS,               KC_TRNS,               KC_TRNS,     KC_TRNS,            KC_TRNS,
-            KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,  KC_TRNS,   KC_TRNS,               KC_TRNS,               KC_TRNS,               KC_TRNS,     KC_TRNS,            KC_TRNS,
-            KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,  KC_TRNS,   KC_TRNS,               KC_TRNS,               KC_TRNS,               KC_TRNS,     KC_TRNS,
-            KC_TRNS,             KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,  KC_TRNS,   KC_TRNS,               KC_TRNS,               KC_TRNS,               KC_TRNS,     KC_TRNS,
-            KC_NO,    KC_TRNS,   KC_TRNS,   KC_TRNS,                          KC_TRNS,                                                           KC_TRNS,               KC_TRNS,     KC_TRNS,            KC_TRNS
+            _______, _______, _______, _______, _______, _______,          _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU,
+            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+            _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+            _______, _______, _______, _______,                   _______,                            _______, _______, _______, _______
         )
 };
