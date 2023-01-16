@@ -1,3 +1,7 @@
+/* Copyright 2023 Tom Sennewald (@beelzebubi)
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 #include "nazu.h"
 
 /* Return an integer that corresponds to what kind of tap dance should be executed.
