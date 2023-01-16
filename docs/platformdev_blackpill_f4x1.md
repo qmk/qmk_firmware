@@ -4,7 +4,7 @@ This document applies to the F401- and F411-based Blackpills.
 
 The WeAct Blackpill is a popular choice for handwired boards, as it offers a powerful micro controller, USB Type C, a good number of pins to use, and a large amount of firmware space.  All for a ~$6 USD price tag. 
 
-* [WeAct GitHub for F4x1 Blackpill](https://github.com/WeActTC/MiniSTM32F4x1)
+* [WeAct GitHub for F4x1 Blackpill](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1)
   * Unfortunately, due to supply issues official WeAct F411 based blackpills may not be available.
 
 ![Blackpill F411](https://i.imgur.com/nCgeolTh.png)
