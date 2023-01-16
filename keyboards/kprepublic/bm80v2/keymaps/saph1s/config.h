@@ -18,6 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
     #undef RGB_MATRIX_DEFAULT_MODE
-    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BAND_PINWHEEL_VAL
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif
