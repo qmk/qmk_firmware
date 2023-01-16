@@ -30,9 +30,9 @@ uint8_t mod_state;
  * @return false Stop process keycode and do not send to host
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef OLED_ENABLE
-    process_record_user_oled(keycode, record);
-#endif // OLED_ENABLE
+// #ifdef OLED_ENABLE
+//     process_record_user_oled(keycode, record);
+// #endif // OLED_ENABLE
 
     // Store the current modifier state in the variable for later reference
     mod_state = get_mods();
