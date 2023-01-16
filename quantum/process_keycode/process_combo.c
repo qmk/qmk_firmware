@@ -531,17 +531,17 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     bool is_combo_key          = false;
     bool no_combo_keys_pressed = true;
 
-    if (keycode == CMB_ON && record->event.pressed) {
+    if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
         return true;
     }
 
-    if (keycode == CMB_OFF && record->event.pressed) {
+    if (keycode == QK_COMBO_OFF && record->event.pressed) {
         combo_disable();
         return true;
     }
 
-    if (keycode == CMB_TOG && record->event.pressed) {
+    if (keycode == QK_COMBO_TOGGLE && record->event.pressed) {
         combo_toggle();
         return true;
     }

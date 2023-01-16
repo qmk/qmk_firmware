@@ -3,7 +3,7 @@
 MCU = atmega32u4
 
 # BOOTLOADER for Elite-C
-# BOOTLOADER = atmel-dfu
+BOOTLOADER = atmel-dfu
 # BOOTLOADER for Pro Micro
 # BOOTLOADER = caterina
 

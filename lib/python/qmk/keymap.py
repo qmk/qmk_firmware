@@ -266,7 +266,7 @@ def generate_c(keymap_json):
 
             new_macro = "".join(macro)
             new_macro = new_macro.replace('""', '')
-            macro_txt.append(f'            case MACRO_{i}:')
+            macro_txt.append(f'            case QK_MACRO_{i}:')
             macro_txt.append(f'                SEND_STRING({new_macro});')
             macro_txt.append('                return false;')
 
@@ -412,7 +412,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     rules = rules_mk(keyboard)
     names = set()
 
-    if rules:
+    if rules is not None:
         keyboards_dir = Path('keyboards')
         kb_path = keyboards_dir / keyboard
 
