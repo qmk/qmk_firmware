@@ -126,13 +126,14 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
             driver->base.native_bits_per_pixel = 16; // RGB565
 
             // SPI and other pin configuration
-            driver->base.comms_config                              = &driver->spi_dc_reset_config;
-            driver->spi_dc_reset_config.spi_config.chip_select_pin = chip_select_pin;
-            driver->spi_dc_reset_config.spi_config.divisor         = spi_divisor;
-            driver->spi_dc_reset_config.spi_config.lsb_first       = false;
-            driver->spi_dc_reset_config.spi_config.mode            = spi_mode;
-            driver->spi_dc_reset_config.dc_pin                     = dc_pin;
-            driver->spi_dc_reset_config.reset_pin                  = reset_pin;
+            driver->base.comms_config                                   = &driver->spi_dc_reset_config;
+            driver->spi_dc_reset_config.spi_config.chip_select_pin      = chip_select_pin;
+            driver->spi_dc_reset_config.spi_config.divisor              = spi_divisor;
+            driver->spi_dc_reset_config.spi_config.lsb_first            = false;
+            driver->spi_dc_reset_config.spi_config.mode                 = spi_mode;
+            driver->spi_dc_reset_config.dc_pin                          = dc_pin;
+            driver->spi_dc_reset_config.reset_pin                       = reset_pin;
+            driver->spi_dc_reset_config.command_params_uses_command_pin = false;
 
             if (!qp_internal_register_device((painter_device_t)driver)) {
                 memset(driver, 0, sizeof(tft_panel_dc_reset_painter_device_t));

@@ -65,7 +65,7 @@ _Static_assert(sizeof(qgf_frame_offsets_v1_t) == sizeof(qgf_block_header_v1_t), 
 
 typedef struct QP_PACKED qgf_frame_v1_t {
     qgf_block_header_v1_t header;                 // = { .type_id = 0x02, .neg_type_id = (~0x02), .length = 6 }
-    qp_image_format_t     format : 8;             // Frame format, see qp.h.
+    qp_image_format_t     format : 8;             // Frame format, see qp_internal_formats.h.
     uint8_t               flags;                  // Frame flags, see below.
     painter_compression_t compression_scheme : 8; // Compression scheme, see qp.h.
     uint8_t               transparency_index;     // palette index used for transparent pixels (not yet implemented)
@@ -131,6 +131,6 @@ uint32_t qgf_get_total_size(qp_stream_t *stream);
 bool     qgf_validate_stream(qp_stream_t *stream);
 bool     qgf_validate_block_header(qgf_block_header_v1_t *desc, uint8_t expected_typeid, int32_t expected_length);
 bool     qgf_read_graphics_descriptor(qp_stream_t *stream, uint16_t *image_width, uint16_t *image_height, uint16_t *frame_count, uint32_t *total_bytes);
-bool     qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette);
+bool     qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette, bool *is_panel_native);
 void     qgf_seek_to_frame_descriptor(qp_stream_t *stream, uint16_t frame_number);
-bool     qgf_parse_frame_descriptor(qgf_frame_v1_t *frame_descriptor, uint8_t *bpp, bool *has_palette, bool *is_delta, painter_compression_t *compression_scheme, uint16_t *delay);
+bool     qgf_parse_frame_descriptor(qgf_frame_v1_t *frame_descriptor, uint8_t *bpp, bool *has_palette, bool *is_panel_native, bool *is_delta, painter_compression_t *compression_scheme, uint16_t *delay);
