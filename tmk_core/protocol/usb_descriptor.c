@@ -115,7 +115,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_USAGE_PAGE(8, 0x01),            // Generic Desktop
     HID_RI_USAGE(8, 0x02),                 // Mouse
     HID_RI_COLLECTION(8, 0x01),            // Application
-#    if (defined(MOUSE_SHARED_EP) || defined(MOUSE_SCROLL_HIRES_ENABLE))
+#    if defined(MOUSE_SHARED_EP) || defined(MOUSE_SCROLL_HIRES_ENABLE)
         HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #    endif
         HID_RI_USAGE(8, 0x01),             // Pointer
@@ -155,15 +155,15 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 
             // Vertical/Horizontal Wheel (2 or 4 bytes)
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
-            HID_RI_COLLECTION(8, 0x02),                             // Logical collection
+            HID_RI_COLLECTION(8, 0x02),                              // Logical collection
                 // Resolution Multiplier (2 bits)
                 HID_RI_REPORT_ID(8, REPORT_ID_MULTIPLIER),
-                HID_RI_USAGE(8, 0x48),                              // Resolution Multiplier
+                HID_RI_USAGE(8, 0x48),                               // Resolution Multiplier
                 HID_RI_REPORT_COUNT(8, 0x01),
-                HID_RI_REPORT_SIZE(8, 0x02),
+                HID_RI_REPORT_SIZE(8, 0x04),
                 HID_RI_LOGICAL_MINIMUM(8, 0x00),
-                HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-                HID_RI_PHYSICAL_MINIMUM(8, 0x01),                   // Min   1
+                HID_RI_LOGICAL_MAXIMUM(8, 0x0F),
+                HID_RI_PHYSICAL_MINIMUM(8, 0x01),                    // Min   1
                 HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER), // Max 120
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
     
@@ -197,16 +197,12 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_REPORT_ID(8, REPORT_ID_MULTIPLIER),
                 HID_RI_USAGE(8, 0x48),                                // Resolution Multiplier
                 HID_RI_REPORT_COUNT(8, 0x01),
-                HID_RI_REPORT_SIZE(8, 0x02),
+                HID_RI_REPORT_SIZE(8, 0x04),
                 HID_RI_LOGICAL_MINIMUM(8, 0x00),
-                HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+                HID_RI_LOGICAL_MAXIMUM(8, 0x0F),
                 HID_RI_PHYSICAL_MINIMUM(8, 0x01),                     // Min   1
                 HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER),  // Max 120
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-                // Padding 4 bits
-                HID_RI_REPORT_SIZE(8, 0x04),
-                HID_RI_REPORT_COUNT(8, 0x01),
-                HID_RI_FEATURE(8, HID_IOF_CONSTANT),
     
                 HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #    endif // MOUSE_SCROLL_HIRES_ENABLE

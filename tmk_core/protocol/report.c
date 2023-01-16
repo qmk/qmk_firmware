@@ -32,7 +32,7 @@ static int8_t cb_count = 0;
 #endif
 
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
-static uint8_t prev_resolution_multiplier = 0;
+static uint8_t resolution_multiplier_stored = 0;
 uint8_t        resolution_multiplier      = 0;
 #endif
 
@@ -297,12 +297,12 @@ __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, 
 }
 
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
-void hires_scroll_disable_next(hires_axis_t axis) {
+void hires_scroll_disable_next(uint8_t axis) {
     resolution_multiplier_stored |= resolution_multiplier;
     resolution_multiplier        &= ~(axis);
 }
 void hires_scroll_reset(void) {
-    resolution_multiplier |= prev_resolution_multiplier;
+    resolution_multiplier |= resolution_multiplier_stored;
 }
 #    endif
 #endif // MOUSE_ENABLE

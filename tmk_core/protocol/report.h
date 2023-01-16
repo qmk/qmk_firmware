@@ -29,7 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    elif (MOUSE_SCROLL_MULTIPLIER > 120 || MOUSE_SCROLL_MULTIPLIER < 1)
 #        error "MOUSE_SCROLL_MULTIPLIER out of bounds must be in range of 1-120"
 #    endif
-# endif
+enum {
+    HIRES_V    = 0x0F,
+    HIRES_H    = 0xF0,
+    HIRES_BOTH = HIRES_V | HIRES_H,
+};
+#endif
 
 /* HID report IDs */
 enum hid_report_ids {
@@ -224,12 +229,12 @@ typedef int8_t mouse_hv_report_t;
 
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
 extern uint8_t resolution_multiplier;
-#    define IS_V_HIRES_ACTIVE (bool)(resolution_multiplier & (0x01 << 0))
-#    define IS_H_HIRES_ACTIVE (bool)(resolution_multiplier & (0x01 << 2))
+#    define RESOLUTION_MULTIPLIER_V (resolution_multiplier & HIRES_V)
+#    define RESOLUTION_MULTIPLIER_H (resolution_multiplier & HIRES_H)
 #endif
 
 typedef struct {
-#if (defined(MOUSE_SHARED_EP) || defined(MOUSE_SCROLL_HIRES_ENABLE))
+#if defined(MOUSE_SHARED_EP) || defined(MOUSE_SCROLL_HIRES_ENABLE)
     uint8_t report_id;
 #endif
     uint8_t buttons;
@@ -364,12 +369,7 @@ bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_re
 #endif
     
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
-typedef enum {
-    HIRES_V    = 1,
-    HIRES_H    = 4,
-    HIRES_BOTH = 5,
-} hires_axis_t;
-void disable_hires_scroll_on_next(hires_axis_t axis);
+void disable_hires_scroll_on_next(uint8_t axis);
 void hires_scroll_reset(void);
 #endif
 

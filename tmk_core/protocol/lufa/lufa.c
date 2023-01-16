@@ -450,23 +450,43 @@ void EVENT_USB_Device_ControlRequest(void) {
 
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
+#ifndef KEYBOARD_SHARED_EP
                     case KEYBOARD_INTERFACE:
-                        // TODO: test/check
                         ReportData = (uint8_t *)&keyboard_report_sent;
                         ReportSize = sizeof(keyboard_report_sent);
                         break;
-#if defined(SHARED_EP_ENABLE) && defined(MOUSE_SHARED_EP)
-                    case SHARED_INTERFACE:
-#else
-                    case MOUSE_INTERFACE:
 #endif
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+                    case MOUSE_INTERFACE:
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
-                        if (USB_ControlRequest.wValue == (0x0300 | REPORT_ID_MULTIPLIER)) {
+                        if ((USB_ControlRequest.wValue & 0xff) == REPORT_ID_MULTIPLIER) {
                             ReportData = &resolution_multiplier;
                             ReportSize = sizeof(resolution_multiplier);
+                            break;
                         }
 #    endif
                         break;
+#endif
+#ifdef SHARED_EP_ENABLE
+                    case SHARED_INTERFACE:
+                        {
+                            uint8_t report_id = USB_ControlRequest.wValue & 0xff;
+                            switch(report_id) {
+#    ifdef KEYBOARD_SHARED_EP
+                                case REPORT_ID_KEYBOARD:
+                                    ReportData = (uint8_t *)&keyboard_report_sent;
+                                    ReportSize = sizeof(keyboard_report_sent);
+                                    break;
+#    endif
+#    if defined(MOUSE_ENABLE) && defined(MOUSE_SCROLL_HIRES_ENABLE) && defined(MOUSE_SHARED_EP)
+                                case REPORT_ID_MULTIPLIER:
+                                    ReportData = &resolution_multiplier;
+                                    ReportSize = sizeof(resolution_multiplier);
+                                    break;
+#    endif
+                            }
+                        }
+#endif
                 }
                 /* Write the report data to the control endpoint */
                 Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
@@ -480,7 +500,10 @@ void EVENT_USB_Device_ControlRequest(void) {
                 switch (USB_ControlRequest.wIndex) {
                     case KEYBOARD_INTERFACE:
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
-                    case SHARED_INTERFACE: 
+                    case SHARED_INTERFACE:
+#endif
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+                    case MOUSE_INTERFACE:
 #endif
                         Endpoint_ClearSETUP();
 
@@ -504,7 +527,6 @@ void EVENT_USB_Device_ControlRequest(void) {
                                 break;
 #endif
                         }
-
                         Endpoint_ClearOUT();
                         Endpoint_ClearStatusStage();
                         break;
@@ -839,10 +861,6 @@ static void setup_mcu(void) {
 static void setup_usb(void) {
     // Leonardo needs. Without this USB device is not recognized.
     USB_Disable();
-    
-#ifdef MOUSE_SCROLL_HIRES_ENABLE
-    resolution_multiplier = 0;
-#endif
     
     USB_Init();
 

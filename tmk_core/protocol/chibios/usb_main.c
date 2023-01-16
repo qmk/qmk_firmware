@@ -111,6 +111,7 @@ union {
 #define HID_SET_REPORT 0x09
 #define HID_SET_IDLE 0x0A
 #define HID_SET_PROTOCOL 0x0B
+#define HID_FEATURE_REPORT 0x03
 
 /*
  * Handles the GET_DESCRIPTOR callback
@@ -650,40 +651,40 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                 return TRUE;
                                 break;
 #    else
-                                if (usbp->setup[2] == REPORT_ID_MULTIPLIER) {
-                                    usbSetupTransfer(usbp, (uint8_t *)&resolution_multiplier, sizeof(resolution_multiplier), NULL);
-                                    return TRUE;
-                                    break;
-                                } else {
-                                    usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
-                                    return TRUE;
-                                    break;
+                                switch(usbp->setup[2]) {
+                                    case REPORT_ID_MOUSE:
+                                        usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
+                                        return TRUE;
+                                        break;
+                                    case REPORT_ID_MULTIPLIER:
+                                        usbSetupTransfer(usbp, (uint8_t *)&resolution_multiplier, sizeof(resolution_multiplier), NULL);
+                                        return TRUE;
+                                        break;
                                 }
 #    endif
 #endif
 #ifdef SHARED_EP_ENABLE
                             case SHARED_INTERFACE:
+                                switch(usbp->setup[2]) {
 #    ifdef KEYBOARD_SHARED_EP
-                                if (usbp->setup[2] == REPORT_ID_KEYBOARD) {
-                                    usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
-                                    return TRUE;
-                                    break;
-                                }
+                                    case REPORT_ID_KEYBOARD:
+                                        usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
+                                        return TRUE;
+                                        break;
 #    endif
 #    ifdef MOUSE_SHARED_EP
-                                if (usbp->setup[2] == REPORT_ID_MOUSE) {
-                                    usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
-                                    return TRUE;
-                                    break;
-                                }
+                                    case REPORT_ID_MOUSE:
+                                        usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
+                                        return TRUE;
+                                        break;
+#        ifdef MOUSE_SCROLL_HIRES_ENABLE
+                                    case REPORT_ID_MULTIPLIER:
+                                        usbSetupTransfer(usbp, (uint8_t *)&resolution_multiplier, sizeof(resolution_multiplier), NULL);
+                                        return TRUE;
+                                        break;
+#        endif
 #    endif
-#    ifdef MOUSE_SCROLL_HIRES_ENABLE
-                                if (usbp->setup[2] == REPORT_ID_MULTIPLIER) {
-                                    usbSetupTransfer(usbp, (uint8_t *)&resolution_multiplier, sizeof(resolution_multiplier), NULL);
-                                    return TRUE;
-                                    break;
                                 }
-#    endif
 #endif /* SHARED_EP_ENABLE */
                             default:
                                 universal_report_blank.report_id = usbp->setup[2];
@@ -715,19 +716,23 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
                             case SHARED_INTERFACE:
 #endif
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+                            case MOUSE_INTERFACE:
 #ifndef MOUSE_SCROLL_HIRES_ENABLE
                                 usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
                                 return TRUE;
                                 break;
 #else
-                                if (usbp->setup[2] == REPORT_ID_MULTIPLIER) {
-                                    usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_multiplier_cb);
-                                    return TRUE;
-                                    break;
-                                } else {
-                                    usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
-                                    return TRUE;
-                                    break;
+                                switch(usbp->setup[2]) {   
+                                    case REPORT_ID_MOUSE:
+                                        usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
+                                        return TRUE;
+                                        break;
+                                    case REPORT_ID_MULTIPLIER:
+                                        if(usbp->setup[3] == 0x03)
+                                        usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_multiplier_cb);
+                                        return TRUE;
+                                        break;
                                 }
 #endif
                         }
