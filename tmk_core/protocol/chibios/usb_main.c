@@ -111,7 +111,6 @@ union {
 #define HID_SET_REPORT 0x09
 #define HID_SET_IDLE 0x0A
 #define HID_SET_PROTOCOL 0x0B
-#define HID_FEATURE_REPORT 0x03
 
 /*
  * Handles the GET_DESCRIPTOR callback
@@ -556,7 +555,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             }
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
             /* Reset multiplier on reset */
-            resolution_multiplier = 0;
+            resolution_multiplier_reset();
 #endif 
             return;
 
@@ -615,7 +614,7 @@ static void set_led_transfer_cb(USBDriver *usbp) {
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
 static void set_multiplier_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2 && set_report_buf[0] == REPORT_ID_MULTIPLIER) {
-        resolution_multiplier = set_report_buf[1];
+        mouse_scroll_res_report.multiplier = set_report_buf[1];
     }
 }
 #endif
@@ -657,7 +656,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                         return TRUE;
                                         break;
                                     case REPORT_ID_MULTIPLIER:
-                                        usbSetupTransfer(usbp, (uint8_t *)&resolution_multiplier, sizeof(resolution_multiplier), NULL);
+                                        usbSetupTransfer(usbp, (uint8_t *)&mouse_scroll_res_report, sizeof(report_mouse_scroll_res_t), NULL);
                                         return TRUE;
                                         break;
                                 }
@@ -679,7 +678,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                         break;
 #        ifdef MOUSE_SCROLL_HIRES_ENABLE
                                     case REPORT_ID_MULTIPLIER:
-                                        usbSetupTransfer(usbp, (uint8_t *)&resolution_multiplier, sizeof(resolution_multiplier), NULL);
+                                        usbSetupTransfer(usbp, (uint8_t *)&mouse_scroll_res_report, sizeof(report_mouse_scroll_res_t), NULL);
                                         return TRUE;
                                         break;
 #        endif
@@ -724,7 +723,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                 break;
 #else
                                 switch(usbp->setup[2]) {   
-                                    case REPORT_ID_MOUSE:
+                                    case REPORT_ID_KEYBOARD:
                                         usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
                                         return TRUE;
                                         break;

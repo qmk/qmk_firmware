@@ -23,19 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // clang-format off
 
-#ifdef MOUSE_SCROLL_HIRES_ENABLE
-#    ifndef MOUSE_SCROLL_MULTIPLIER
-#        define MOUSE_SCROLL_MULTIPLIER 120
-#    elif (MOUSE_SCROLL_MULTIPLIER > 120 || MOUSE_SCROLL_MULTIPLIER < 1)
-#        error "MOUSE_SCROLL_MULTIPLIER out of bounds must be in range of 1-120"
-#    endif
-enum {
-    HIRES_V    = 0x0F,
-    HIRES_H    = 0xF0,
-    HIRES_BOTH = HIRES_V | HIRES_H,
-};
-#endif
-
 /* HID report IDs */
 enum hid_report_ids {
     REPORT_ID_KEYBOARD = 1,
@@ -134,6 +121,12 @@ enum desktop_usages {
     SYSTEM_DISPLAY_TOGGLE_INT_EXT = 0xB5
 };
 
+enum mouse_scroll_hires_axes {
+    HIRES_V,
+    HIRES_H,
+    HIRES_BOTH
+};
+
 // clang-format on
 
 #define NKRO_SHARED_EP
@@ -227,11 +220,19 @@ typedef int16_t mouse_hv_report_t;
 typedef int8_t mouse_hv_report_t;
 #endif
 
-#ifdef MOUSE_SCROLL_HIRES_ENABLE
-extern uint8_t resolution_multiplier;
-#    define RESOLUTION_MULTIPLIER_V (resolution_multiplier & HIRES_V)
-#    define RESOLUTION_MULTIPLIER_H (resolution_multiplier & HIRES_H)
-#endif
+typedef union {
+    uint8_t raw[2];
+    struct {
+        uint8_t report_id;
+        union {
+            uint8_t multiplier;
+            struct {
+                uint8_t v : 4;
+                uint8_t h : 4;
+            } axis;
+        };
+    };
+} __attribute__((packed)) report_mouse_scroll_res_t;
 
 typedef struct {
 #if defined(MOUSE_SHARED_EP) || defined(MOUSE_SCROLL_HIRES_ENABLE)
@@ -369,8 +370,23 @@ bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_re
 #endif
     
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
-void disable_hires_scroll_on_next(uint8_t axis);
-void hires_scroll_reset(void);
+extern report_mouse_scroll_res_t mouse_scroll_res_report;
+
+bool set_hires_scroll_multiplier(uint8_t axis, uint8_t value);
+void resolution_multiplier_reset(void);
+
+#    define MOUSE_SCROLL_MULTIPLIER_RESOLUTION (MOUSE_SCROLL_MULTIPLIER_MAX / 15)
+#    define IS_HIRES_V_ACTIVE            (bool)(mouse_scroll_res_report.axis.v)
+#    define IS_HIRES_H_ACTIVE            (bool)(mouse_scroll_res_report.axis.h)
+#    define MOUSE_SCROLL_MULTIPLIER_V    (uint8_t)(mouse_scroll_res_report.axis.v * MOUSE_SCROLL_MULTIPLIER_RESOLUTION)
+#    define MOUSE_SCROLL_MULTIPLIER_H    (uint8_t)(mouse_scroll_res_report.axis.h * MOUSE_SCROLL_MULTIPLIER_RESOLUTION)
+#    define MOUSE_SCROLL_MULTIPLIER_FULL (mouse_scroll_res_report.multiplier)
+    
+#    ifndef MOUSE_SCROLL_MULTIPLIER_MAX
+#        define MOUSE_SCROLL_MULTIPLIER_MAX 120
+#    elif (MOUSE_SCROLL_MULTIPLIER_MAX > 120 || MOUSE_SCROLL_MULTIPLIER_MAX < 1)
+#        error "MOUSE_SCROLL_MULTIPLIER_MAX out of bounds must be in range of 1-120"
+#    endif
 #endif
 
 #ifdef __cplusplus

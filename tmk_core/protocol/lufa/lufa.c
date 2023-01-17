@@ -260,6 +260,10 @@ static void Console_Task(void) {
  */
 void EVENT_USB_Device_Connect(void) {
     print("[C]");
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+    /* Reset multiplier on reset */
+    resolution_multiplier_reset();
+#endif 
     /* For battery powered device */
     if (!USB_IsInitialized) {
         USB_Disable();
@@ -292,10 +296,6 @@ void EVENT_USB_Device_Disconnect(void) {
 void EVENT_USB_Device_Reset(void) {
     print("[R]");
     usb_device_state_set_reset();
-#ifdef MOUSE_SCROLL_HIRES_ENABLE
-    /* Reset multiplier on reset */
-    resolution_multiplier = 0;
-#endif 
 }
 
 /** \brief Event USB Device Connect
@@ -460,8 +460,8 @@ void EVENT_USB_Device_ControlRequest(void) {
                     case MOUSE_INTERFACE:
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
                         if ((USB_ControlRequest.wValue & 0xff) == REPORT_ID_MULTIPLIER) {
-                            ReportData = &resolution_multiplier;
-                            ReportSize = sizeof(resolution_multiplier);
+                            ReportData = (uint8_t *)&mouse_scroll_res_report;
+                            ReportSize = sizeof(report_mouse_scroll_res_t);
                             break;
                         }
 #    endif
@@ -480,8 +480,8 @@ void EVENT_USB_Device_ControlRequest(void) {
 #    endif
 #    if defined(MOUSE_ENABLE) && defined(MOUSE_SCROLL_HIRES_ENABLE) && defined(MOUSE_SHARED_EP)
                                 case REPORT_ID_MULTIPLIER:
-                                    ReportData = &resolution_multiplier;
-                                    ReportSize = sizeof(resolution_multiplier);
+                                    ReportData = (uint8_t *)&mouse_scroll_res_report;
+                                    ReportSize = sizeof(report_mouse_scroll_res_t);
                                     break;
 #    endif
                             }
@@ -513,17 +513,16 @@ void EVENT_USB_Device_ControlRequest(void) {
 
                         uint8_t report_id = USB_ControlRequest.wValue & 0xFF;
                         // Discard report ID byte as we already have it from wValue
-                        if (USB_ControlRequest.wLength == 2) {
-                            Endpoint_Discard_8();
-                        }
+                        if(USB_ControlRequest.wLength > 1) Endpoint_Discard_8();
                         switch(report_id) {
+                                
                             case REPORT_ID_KEYBOARD:
                             case REPORT_ID_NKRO:
                                 keyboard_led_state = Endpoint_Read_8();
                                 break;
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
                             case REPORT_ID_MULTIPLIER:
-                                resolution_multiplier = Endpoint_Read_8();
+                                mouse_scroll_res_report.multiplier = Endpoint_Read_8();
                                 break;
 #endif
                         }
@@ -630,9 +629,6 @@ static void send_keyboard(report_keyboard_t *report) {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
-#    ifdef MOUSE_HIRES_SCROLL_ENABLE
-    hires_scroll_reset();
-#    endif
 #endif
 }
 
