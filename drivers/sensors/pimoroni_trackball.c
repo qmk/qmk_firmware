@@ -31,7 +31,7 @@
 // clang-format on
 
 static uint8_t      max_speed        = 10;
-static i2c_status_t last_read_status = I2C_STATUS_SUCCESS;
+static i2c_status_t last_i2c_status = I2C_STATUS_SUCCESS;
 
 uint8_t pimoroni_trackball_get_max_speed(void) {
     return max_speed;
@@ -62,16 +62,16 @@ void pimoroni_trackball_set_cpi(uint16_t cpi) {
 
 void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t data[4] = {r, g, b, w};
-    if (last_read_status == I2C_STATUS_SUCCESS) {
-        __attribute__((unused)) i2c_status_t status = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
-        pd_dprintf("Trackball RGBW i2c_status_t: %d\n", status);
+    if (last_i2c_status == I2C_STATUS_SUCCESS) {
+        last_i2c_status = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
+        pd_dprintf("Trackball RGBW i2c_status_t: %d\n", last_i2c_status);
     } else {
         pd_dprintf("Trackball RGBW last read not successful.");
     }
 }
 
 i2c_status_t pimoroni_trackball_read(pimoroni_data_t* data) {
-    last_read_status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
+    last_i2c_status = i2c_readReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
 
 #ifdef POINTING_DEVICE_DEBUG
     static uint16_t d_timer;
@@ -81,7 +81,7 @@ i2c_status_t pimoroni_trackball_read(pimoroni_data_t* data) {
     }
 #endif
 
-    return last_read_status;
+    return last_i2c_status;
 }
 
 __attribute__((weak)) void pimoroni_trackball_device_init(void) {
