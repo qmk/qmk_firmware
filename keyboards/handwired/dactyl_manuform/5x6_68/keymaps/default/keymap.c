@@ -1,7 +1,13 @@
+// Copyright 2023 Kostas Pagratis (@kpagratis)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LAYER2 1
+enum custom_layers {
+    _QWERTY,
+    _LAYER2,
+};
+
 #define GUI_J   RGUI_T(KC_J)
 #define GUI_F   LGUI_T(KC_F)
 #define SFT_A   LSFT_T(KC_A)
