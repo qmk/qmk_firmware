@@ -69,14 +69,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  _______,  _______,                                _______,                                _______,  _______,  _______,   _______,  _______)
 };
 
-/* bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(5, 255, 255, 255); // assuming caps lock is at led #5
-    } else {
-        RGB_MATRIX_INDICATOR_SET_COLOR(5, 0, 0, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(30, 255, 255, 255); // caps lock is led #30 for GMMK2 65
     }
     return false;
-} */
+}
 
 /* enum LEDLAYER {
     L0 = 0x1,
