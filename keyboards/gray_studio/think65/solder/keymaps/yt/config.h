@@ -17,4 +17,3 @@
 #pragma once
 
 #define RGBLIGHT_LAYERS
-#define DISABLE_LEADER
