@@ -30,7 +30,7 @@
 #define PIMORONI_TRACKBALL_REG_DOWN    0x07
 // clang-format on
 
-static uint8_t      max_speed        = 10;
+static uint8_t      max_speed       = 10;
 static i2c_status_t last_i2c_status = I2C_STATUS_SUCCESS;
 
 uint8_t pimoroni_trackball_get_max_speed(void) {
