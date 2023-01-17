@@ -58,7 +58,7 @@
 /*
  * ADC driver system settings.
  */
-#define RP_ADC_USE_ADC1                     FALSE
+#define RP_ADC_USE_ADC1                     TRUE
 
 /*
  * SIO driver system settings.
