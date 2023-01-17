@@ -60,7 +60,7 @@ void pimoroni_trackball_set_cpi(uint16_t cpi) {
     }
 }
 
-void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
+i2c_status_t pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t data[4] = {r, g, b, w};
     if (last_i2c_status == I2C_STATUS_SUCCESS) {
         last_i2c_status = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
@@ -68,6 +68,7 @@ void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     } else {
         pd_dprintf("Trackball RGBW last read not successful.");
     }
+    return last_i2c_status;
 }
 
 i2c_status_t pimoroni_trackball_read(pimoroni_data_t* data) {
