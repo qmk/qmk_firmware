@@ -241,10 +241,10 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         // STM32F103x[C-G] in 144-pin packages also have analog inputs on F6...F10, but they are on ADC3, and the
         // ChibiOS ADC driver for STM32F1xx currently supports only ADC1, therefore these pins are not usable.
 #elif defined(RP2040)
-        case GP26: return TO_MUX(0, 0);
-        case GP27: return TO_MUX(1, 0);
-        case GP28: return TO_MUX(2, 0);
-        case GP29: return TO_MUX(3, 0);
+        case 26U: return TO_MUX(0, 0);
+        case 27U: return TO_MUX(1, 0);
+        case 28U: return TO_MUX(2, 0);
+        case 29U: return TO_MUX(3, 0);
 #endif
     }
 
