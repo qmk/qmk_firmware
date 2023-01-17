@@ -960,13 +960,7 @@ void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
     mouse_report_sent = *report;
-#    ifdef MOUSE_HIRES_SCROLL_ENABLE
-    enable_hires_scroll();
-#    endif
-
     osalSysUnlock();
-    
->>>>>>> 44cc989a5f (Fix HID descriptor for Horizontal scroll, add disable function, and various bugfixes)
 }
 
 /* ---------------------------------------------------------
