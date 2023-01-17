@@ -108,6 +108,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CHARYBDIS_MINIMUM_SNIPING_DPI 200
 #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
 
-#define AUTO_MOUSE_DEFAULT_LAYER 3
-#define AUTO_MOUSE_TIME 400
+#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE 3
 
