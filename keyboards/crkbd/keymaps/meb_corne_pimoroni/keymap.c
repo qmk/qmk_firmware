@@ -115,6 +115,11 @@ void pointing_device_init_user(void) {
     set_auto_mouse_enable(true);
 }
 
+void housekeeping_task_user(void) {
+    // i2c_init();
+    pimoroni_trackball_set_rgbw(255,0,0,0);
+}
+
 bool set_scrolling = false;
 int pointer_magnitude = 0;
 int pointer_limit = 25;
