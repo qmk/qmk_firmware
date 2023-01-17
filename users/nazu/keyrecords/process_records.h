@@ -6,7 +6,7 @@
 #include "nazu.h"
 
 enum userspace_custom_keycodes {
-    KC_QWERTY = SAFE_RANGE, // change to QWERTY layer
+    KC_QWERTY = QK_USER,    // change to QWERTY layer
     KC_COLEMAK,             // change to COLEMAK layer
     KC_COLEMAK_DH,          // change to COLEMAK DH layer
     KC_DVORAK,              // change to Dvorak layer

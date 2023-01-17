@@ -18,8 +18,6 @@
 
 #include "nazu.h"
 
-extern uint8_t is_master;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * QWERTY
