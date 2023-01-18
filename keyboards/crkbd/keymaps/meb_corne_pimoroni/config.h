@@ -20,11 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_LEFT
 #define POINTING_DEVICE_ROTATION_90
-#define PIMORONI
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_RIGHT
 #define POINTING_DEVICE_TASK_THROTTLE_MS 8
-#define MOUSE_EXTENDED_REPORT
-#define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+#define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#define AUTO_MOUSE_DEFAULT_LAYER 7
+#define AUTO_MOUSE_TIME 400
+// #define MOUSE_EXTENDED_REPORT
 
 // #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+  

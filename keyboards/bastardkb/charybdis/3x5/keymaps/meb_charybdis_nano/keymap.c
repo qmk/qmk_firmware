@@ -1,0 +1,62 @@
+/**
+ * Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include QMK_KEYBOARD_H
+
+enum layers {
+     BASE,
+     LOWER,
+     RAISE,
+     LAYER_MOUSE
+};
+
+#define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_MOUSE
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+     [BASE] = LAYOUT_charybdis_3x5(
+          KC_Q      , KC_W      , KC_E               , KC_R                 , KC_T                                , KC_Y                  , KC_U         , KC_I      , KC_O      , KC_P      ,
+          KC_A      , KC_S      , KC_D               , KC_F                 , KC_G                                , KC_H                  , KC_J         , KC_K      , KC_L      , KC_QUOT   ,
+          KC_Z      , KC_X      , KC_C               , KC_V                 , KC_B                                , KC_N                  , KC_M         , KC_COMM   , KC_DOT    , KC_SLSH   ,
+                                  MT(MOD_LCTL,KC_ESC), LT(LOWER,KC_ENT)     , MT(MOD_LSFT,KC_DEL)                 , MT(MOD_RSFT,KC_BSPC)  , LT(LOWER,KC_SPC)  
+     ),             
+     [LOWER] = LAYOUT_charybdis_3x5(             
+          KC_TILD    , KC_HOME  , KC_UP              , KC_END               , KC_PLUS                             , KC_7                  , KC_8         , KC_9      ,  KC_LPRN   , KC_RPRN  ,
+          KC_TAB     , KC_LEFT  , KC_DOWN            , KC_RIGHT             , KC_EQL                              , KC_4                  , KC_5         , KC_6      ,  KC_LCBR   , KC_RCBR  ,
+          KC_LSFT    , KC_UNDS  , KC_COLN            , KC_MINS              , KC_MINS                             , KC_1                  , KC_2         , KC_3      ,  KC_LBRC   , KC_RBRC  ,
+                                  KC_TRNS            , MO(RAISE)            , KC_LALT                             , KC_RGUI               , MO(RAISE)        
+     ),                                                                                                      
+     [RAISE] = LAYOUT_charybdis_3x5(                           
+          KC_1      , KC_2      , KC_3               , KC_4                 , KC_5                                , KC_6                  , KC_7         , KC_8      , KC_9      , KC_0      ,
+          KC_EXLM   , KC_AT     , KC_HASH            , KC_DLR               , KC_PERC                             , KC_CIRC               , KC_AMPR      , KC_ASTR   , KC_LPRN   , KC_RPRN   ,
+          KC_F1     , KC_F2     , KC_F3              , KC_F4                , KC_F5                               , KC_F6                 , KC_F7        , KC_F8     , KC_F9     , KC_F10    ,
+                                  KC_CAPS            , KC_MPLY              , KC_TRNS                             , KC_TRNS               , KC_TRNS     
+     ),                                
+     [LAYER_MOUSE] = LAYOUT_charybdis_3x5(                               
+          KC_TRNS   , KC_TRNS   , KC_TRNS            , KC_TRNS              , KC_TRNS                             , KC_TRNS               , KC_TRNS      , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
+          KC_TRNS   , KC_TRNS   , KC_TRNS            , KC_TRNS              , KC_TRNS                             , KC_TRNS               , KC_BTN1      , KC_BTN2   , KC_TRNS   , KC_TRNS   , 
+          KC_TRNS   , KC_TRNS   , KC_TRNS            , KC_TRNS              , KC_TRNS                             , KC_TRNS               , KC_TRNS      , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
+                                  KC_TRNS            , KC_TRNS              , KC_TRNS                             , KC_TRNS               , KC_TRNS     
+    ),     
+};
+
+#if defined(POINTING_DEVICE_ENABLE) && defined(CHARYBDIS_AUTO_SNIPING_ON_LAYER)
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
+    charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, CHARYBDIS_AUTO_SNIPING_ON_LAYER));
+    return state;
+}
+#endif // POINTING_DEVICE_ENABLE && CHARYBDIS_AUTO_SNIPING_ON_LAYER

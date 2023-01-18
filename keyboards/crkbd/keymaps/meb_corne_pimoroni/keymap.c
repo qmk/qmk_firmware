@@ -25,7 +25,8 @@ enum layers {
     NumCharFunc,
     AppNavMacro,
     Gaming,
-    ControlGroups
+    ControlGroups,
+    AutoButtons,
 };
 
 enum custom_keycodes {
@@ -73,10 +74,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_TRNS   , KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC), KC_0      , KC_TRNS  
     ),   
     [NavAppNav] = LAYOUT_split_3x6_3(
-        KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , THIS_LINE_PAIR_PAREN   , RCS(KC_TAB)  , LCTL(KC_TAB)  , KC_HOME          , KC_UP         , KC_END               , KC_BSPC   ,
-        KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , THIS_LINE_PAIR_BRACES  , LALT(KC_LEFT), LALT(KC_RIGHT), KC_LEFT          , KC_DOWN       , KC_RIGHT             , KC_PGUP    ,
-        KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , THIS_LINE_PAIR_BRACKETS, LCTL(KC_PMNS), LCTL(KC_PPLS) , OPEN_TASK_MANAGER, POP_TAB_CHROME, OPEN_FOLDER_IN_CMD   , KC_PGDN   ,
-                                            KC_BTN1   , KC_BTN2   , LT(NumCharFunc,KC_SPC) , KC_TRNS      , KC_TRNS       , KC_TRNS  
+        KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , THIS_LINE_PAIR_PAREN   , RCS(KC_TAB)  , LCTL(KC_TAB)  , KC_HOME   , KC_UP     , KC_END    , KC_BSPC   ,
+        KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , THIS_LINE_PAIR_BRACES  , LALT(KC_LEFT), LALT(KC_RIGHT), KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_PGUP   ,
+        KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , THIS_LINE_PAIR_BRACKETS, LCTL(KC_PMNS), LCTL(KC_PPLS) , LCTL(KC_T), LCTL(KC_N), LCTL(KC_W), KC_PGDN   ,
+                                            KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC) , KC_TRNS      , KC_TRNS       , KC_TRNS  
     ), 
     [NumCharFunc] = LAYOUT_split_3x6_3(
         KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_6      , KC_7      , KC_8      , KC_9      , KC_0      , KC_MINS   , KC_EQL    ,
@@ -101,14 +102,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS   , LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
         KC_TRNS   , LCTL(KC_1), LCTL(KC_2), LCTL(KC_3), LCTL(KC_4), LCTL(KC_5), KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
                                             KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS    
-    ),          
-};
+    ),
+    [AutoButtons] = LAYOUT_split_3x6_3(
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
+                                            KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_BTN1   , KC_BTN2   , KC_TRNS    
+    ),       
+};          
 
-void keyboard_post_init_user(void) {
-    pimoroni_trackball_set_rgbw(0,0,0,100);
+void pointing_device_init_user(void) {
+    set_auto_mouse_enable(true);
+}
+
+void housekeeping_task_user(void) {
+    static i2c_status_t rgbw_status = I2C_STATUS_ERROR;
+    if (rgbw_status != I2C_STATUS_SUCCESS){
+        pimoroni_trackball_set_rgbw(0, 0, 0, 100);
+    }
 }
 
 bool set_scrolling = false;
+int pointer_magnitude = 0;
+int pointer_limit = 25;
+int track_factor = 1;
+
+int calculate_magnitude(int mouse_report_x, int mouse_report_y) {
+    return sqrt(pow(mouse_report_x,2)+pow(mouse_report_y,2));
+}
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (set_scrolling) {
@@ -116,16 +137,19 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         mouse_report.v = -mouse_report.y;
         mouse_report.x = mouse_report.y = 0;
     } else {
-        mouse_report.x = mouse_report.x;
-        mouse_report.y = mouse_report.y;
+        pointer_magnitude = calculate_magnitude(mouse_report.x, mouse_report.y);
+	    track_factor = pointer_magnitude < pointer_limit? pointer_magnitude : pointer_limit;
+        mouse_report.x = track_factor * mouse_report.x;
+        mouse_report.y = track_factor * mouse_report.y;
     }
     return mouse_report;      
 }
  
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
-  switch (keycode){ 
+  switch (keycode){
     case LT(NavNum,KC_SPC):
+    case LT(NavAppNav,KC_SPC):
         if(record->event.pressed){
             set_scrolling = true;
         } else {
@@ -321,7 +345,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             tap_code16(LCTL(KC_K));
             tap_code(KC_O);
         }
-        return false;                          
+        return false;                         
   }  
   return true;
 
