@@ -18,3 +18,12 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+
+// The pin connected to the data pin of the LEDs
+#define RGB_DI_PIN B1
+// The number of LEDs connected
+#define DRIVER_LED_TOTAL 256
+#define RGBLED_NUM 100
+#define RGBLIGHT_DEFAULT_HUE 201
+#define RGBLIGHT_LIMIT_VAL 50
