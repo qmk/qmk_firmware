@@ -100,13 +100,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* pmw3360 config  */
 #    undef PMW33XX_CS_PIN
-#    define PMW33XX_CS_PIN B0
+#    define PMW33XX_CS_PIN B0 
 #endif
 
 #define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
 #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400
 #define CHARYBDIS_MINIMUM_SNIPING_DPI 200
 #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
-
-#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE 3
+#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 

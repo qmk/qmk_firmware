@@ -21,8 +21,10 @@ enum layers {
      BASE,
      LOWER,
      RAISE,
-     AUTO_BUTTONS
+     LAYER_MOUSE
 };
+
+#define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_MOUSE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      [BASE] = LAYOUT_charybdis_3x5(
@@ -43,10 +45,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_F1     , KC_F2     , KC_F3              , KC_F4                , KC_F5                               , KC_F6                 , KC_F7        , KC_F8     , KC_F9     , KC_F10    ,
                                   KC_CAPS            , KC_MPLY              , KC_TRNS                             , KC_TRNS               , KC_TRNS     
      ),                                
-     [AUTO_BUTTONS] = LAYOUT_charybdis_3x5(                               
+     [LAYER_MOUSE] = LAYOUT_charybdis_3x5(                               
           KC_TRNS   , KC_TRNS   , KC_TRNS            , KC_TRNS              , KC_TRNS                             , KC_TRNS               , KC_TRNS      , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
           KC_TRNS   , KC_TRNS   , KC_TRNS            , KC_TRNS              , KC_TRNS                             , KC_TRNS               , KC_BTN1      , KC_BTN2   , KC_TRNS   , KC_TRNS   , 
           KC_TRNS   , KC_TRNS   , KC_TRNS            , KC_TRNS              , KC_TRNS                             , KC_TRNS               , KC_TRNS      , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
                                   KC_TRNS            , KC_TRNS              , KC_TRNS                             , KC_TRNS               , KC_TRNS     
     ),     
 };
+
+#if defined(POINTING_DEVICE_ENABLE) && defined(CHARYBDIS_AUTO_SNIPING_ON_LAYER)
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
+    charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, CHARYBDIS_AUTO_SNIPING_ON_LAYER));
+    return state;
+}
+#endif // POINTING_DEVICE_ENABLE && CHARYBDIS_AUTO_SNIPING_ON_LAYER

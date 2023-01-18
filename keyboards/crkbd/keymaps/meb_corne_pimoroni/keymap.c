@@ -116,8 +116,10 @@ void pointing_device_init_user(void) {
 }
 
 void housekeeping_task_user(void) {
-    // i2c_init();
-    pimoroni_trackball_set_rgbw(255,0,0,0);
+    static i2c_status_t rgbw_status = I2C_STATUS_ERROR;
+    if (rgbw_status != I2C_STATUS_SUCCESS){
+        pimoroni_trackball_set_rgbw(0, 0, 0, 100);
+    }
 }
 
 bool set_scrolling = false;
