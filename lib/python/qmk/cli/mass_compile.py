@@ -59,7 +59,8 @@ def _load_keymap_info(keyboard, keymap):
     arg_only=True,
     action='append',
     default=[],
-    help="Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the format 'features.rgblight=true'. May be passed multiple times, all filters need to match. Value may include wildcards such as '*' and '?'."
+    help=
+    "Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the format 'features.rgblight=true'. May be passed multiple times, all filters need to match. Value may include wildcards such as '*' and '?'."
 )
 @cli.argument('-km', '--keymap', type=str, default='default', help="The keymap name to build. Default is 'default'.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
@@ -105,6 +106,7 @@ def mass_compile(cli):
                     def _make_filter(k, v):
                         expr = fnmatch.translate(v)
                         rule = re.compile(expr, re.IGNORECASE)
+
                         def f(e):
                             lhs = e[2].get(k)
                             lhs = str(False if lhs is None else lhs)
