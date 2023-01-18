@@ -390,7 +390,7 @@ bool oled_task_user(void) {
         // This mode is also forced when the screen update speed test is performed.
         if (!need_update) {
             if (test_mode != TEST_SLOW_UPDATE) {
-                return;
+                return false;
             }
         }
         need_update = false;

@@ -97,3 +97,8 @@ void shutdown_user(void)
     // set the magic number for resetting to the bootloader
     *(uint32_t *)(&(RTCD1.rtc->BKP0R)) = REBOOT_MAGIC;
 }
+
+void bootloader_jump(void) {
+    shutdown_user();
+    NVIC_SystemReset();
+}

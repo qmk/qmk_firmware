@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "6lit",
+    "keyboard_name": "The 6lit Macropad",
+    "manufacturer": "di0ib",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4025",
+        "pid": "0x0F61",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [

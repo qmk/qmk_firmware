@@ -97,7 +97,7 @@ void leader_start(void) {
 #ifdef RGBLIGHT_ENABLE
  rgblight_savebase();
  rgblight_mode_noeeprom(1);
- rgblight_sethsv_noeeprom_goldenrod();
+ rgblight_sethsv_noeeprom(HSV_GOLDENROD);
 #endif
 }
 

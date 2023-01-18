@@ -34,4 +34,4 @@ extern uint16_t v_con_2_boot;
 void ADC0_clock_init(void);
 void ADC0_init(void);
 
-#endif  //_ADC_H_
+#endif //_ADC_H_

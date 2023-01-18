@@ -16,18 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#undef VENDOR_ID
-#define VENDOR_ID 0x1209
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x345C
-#undef DEVICE_VER
-#define DEVICE_VER 0x0001
-#undef MANUFACTURER
-#define MANUFACTURER "https://github.com/stapelberg"
-#undef PRODUCT
-#define PRODUCT "kinT (kint41)"
-
 /* key matrix size */
 #define MATRIX_ROWS 15
 #define MATRIX_COLS 7
@@ -72,7 +60,6 @@
             LINE_PIN6   /* COL_6 */ \
     }
 
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -85,10 +72,6 @@
 #define DEBOUNCE 20
 
 #define IGNORE_MOD_TAP_INTERRUPT
-
-// Reduce input latency by lowering the USB polling interval
-// from its 10ms default to the 125μs minimum that USB 2.x (High Speed) allows:
-#define USB_POLLING_INTERVAL_MS 1
 
 // The Teensy 4.1 consumes about 100 mA of current at its full speed of 600 MHz
 // as per https://www.pjrc.com/store/teensy41.html

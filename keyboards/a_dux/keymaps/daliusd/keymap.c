@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#include "oneshot.h"
+#include "flow.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -25,11 +25,12 @@ enum layers {
     _QWERTY,
     _SYM,
     _NAV,
-    _NUMB,
+    _MISC,
     _TMUX,
     _MOUSE,
-    _MISC,
     _FUNC,
+    _LT_MAC,
+    _LT_LINUX,
 };
 
 enum custom_keycodes {
@@ -41,22 +42,40 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
-  OS_CTRL,
-  OS_ALT,
-  OS_GUI,
-  OS_TMUX,
   OS_MISC,
+  OS_TMUX,
   OS_FUNC,
+  LT_OSLNX,
 };
 
 // Shortcut to make keymap more readable
 
 #define L_NAV       MO(_NAV)
 #define L_SYM       MO(_SYM)
-#define L_MOUSE     TG(_MOUSE)
+#define L_MOUSE     MO(_MOUSE)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
+#define K_VIDEO     (QK_LSFT | QK_LGUI | KC_5)
 
+// flow_config should correspond to following format:
+// * layer keycode
+// * modifier keycode
+const uint16_t flow_config[FLOW_COUNT][2] = {
+    {L_NAV, KC_LALT},
+    {L_NAV, KC_LGUI},
+    {L_NAV, KC_LCTL},
+    {L_SYM, KC_RCTL},
+    {L_SYM, KC_RGUI},
+    {L_SYM, KC_RALT},
+};
+
+const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
+    {OS_MISC, _MISC},
+    {OS_TMUX, _TMUX},
+    {OS_FUNC, _FUNC},
+};
+
+// Unicode characters
 enum unicode_names {
     SNEK,
     EURO,
@@ -96,7 +115,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [LT_S_I] = 0x12f, // į
     [LT_L_I] = 0x12e, // Į
     [LT_S_S] = 0x161, // š
-    [LT_L_S] = 0x160, // Š'
+    [LT_L_S] = 0x160, // Š
     [LT_S_U1] = 0x173, // ų
     [LT_L_U1] = 0x172, // Ų
     [LT_S_U2] = 0x16b, // ū
@@ -110,14 +129,23 @@ const uint32_t PROGMEM unicode_map[] = {
 #define K_SNEK      X(SNEK)
 #define K_EURO      X(EURO)
 #define K_LT_A      XP(LT_S_A, LT_L_A)
+#define K_LT_AU     X(LT_L_A)
 #define K_LT_C      XP(LT_S_C, LT_L_C)
+#define K_LT_CU     X(LT_L_C)
 #define K_LT_E1     XP(LT_S_E1, LT_L_E1)
+#define K_LT_E1U    X(LT_L_E1)
 #define K_LT_E2     XP(LT_S_E2, LT_L_E2)
+#define K_LT_E2U    X(LT_L_E2)
 #define K_LT_I      XP(LT_S_I, LT_L_I)
+#define K_LT_IU     X(LT_L_I)
 #define K_LT_S      XP(LT_S_S, LT_L_S)
+#define K_LT_SU     X(LT_L_S)
 #define K_LT_U1     XP(LT_S_U1, LT_L_U1)
+#define K_LT_U1U    X(LT_L_U1)
 #define K_LT_U2     XP(LT_S_U2, LT_L_U2)
+#define K_LT_U2U    X(LT_L_U2)
 #define K_LT_Z      XP(LT_S_Z, LT_L_Z)
+#define K_LT_ZU     X(LT_L_Z)
 #define K_LT_OB     X(LT_OB)
 #define K_LT_CB     X(LT_CB)
 
@@ -139,35 +167,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LPRN ,KC_RPRN ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_GRV  ,KC_PLUS ,KC_LBRC ,KC_RBRC ,K_LT_OB ,                          KC_MINS ,OS_ALT  ,OS_CTRL ,OS_GUI  ,KC_PIPE ,
+     XXXXXXX ,KC_GRV  ,KC_LBRC ,KC_RBRC ,KC_PLUS ,                          KC_MINS ,KC_PIPE ,KC_RCTL ,KC_RGUI ,KC_RALT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     K_SNEK  ,KC_EQL  ,KC_LCBR ,KC_RCBR ,K_LT_CB ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,K_EURO  ,KC_BSLS ,
+     KC_DEL  ,KC_BSPC ,KC_LCBR ,KC_RCBR ,KC_EQL  ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,OS_MISC ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     _______ ,    _______ ,        _______ ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
   [_NAV] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     KC_TILDE,L_MOUSE ,OS_FUNC ,OS_MISC ,OS_TMUX ,                          K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,
+     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_TAB  ,OS_GUI  ,OS_CTRL ,OS_ALT  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,KC_END  ,
+     KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,KC_PGUP ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_PGDN ,KC_PGUP ,                          KC_HOME ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,
+     KC_LSFT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          OS_FUNC ,L_MOUSE ,KC_COMM ,KC_DOT  ,KC_PGDN ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     XXXXXXX ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
-  [_NUMB] = LAYOUT(
+  [_MISC] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     QK_BOOT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,KC_PSCR ,XXXXXXX ,K_PRINT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,                          XXXXXXX ,OS_ALT  ,OS_CTRL ,OS_GUI  ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,DB_TOGG ,LT_OSLNX,XXXXXXX ,                          KC_MPRV ,KC_MPLY ,KC_MNXT ,XXXXXXX ,K_VIDEO ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_VOLD ,KC_VOLU ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -185,127 +213,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOUSE] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,L_MOUSE ,KC_MS_U ,KC_BTN3 ,KC_WH_U ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,KC_MS_U ,KC_BTN3 ,KC_WH_U ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_WH_D ,                          XXXXXXX ,KC_LALT ,KC_LCTL ,KC_LGUI ,XXXXXXX ,
+     XXXXXXX ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_WH_D ,                          XXXXXXX ,XXXXXXX ,KC_RCTL ,KC_RGUI ,KC_RALT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,KC_ESC  ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     KC_BTN1 ,    KC_BTN2 ,        XXXXXXX ,    XXXXXXX
-  //                                └────────┘   └────────┘       └────────┘   └────────┘
-  ),
-
-  [_MISC] = LAYOUT(
-  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     RESET   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,XXXXXXX ,KC_PSCR ,K_PRINT ,
-  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,DEBUG   ,XXXXXXX ,XXXXXXX ,                          KC_MPRV ,KC_MPLY ,XXXXXXX ,KC_MNXT ,XXXXXXX ,
-  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_VOLD ,KC_VOLU ,XXXXXXX ,XXXXXXX ,UC_MOD  ,
-  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
+                                     KC_BTN1 ,    KC_BTN2 ,        _______ ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
   [_FUNC] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,
+     KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,
+     KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,                          XXXXXXX ,XXXXXXX ,KC_RCTL ,KC_RGUI ,KC_RALT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_F11  ,KC_F12  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     KC_F11  ,KC_F12  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
+  //                                └────────┘   └────────┘       └────────┘   └────────┘
+  ),
+
+  [_LT_MAC] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
+     KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_PLUS ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_EQL  ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
+                                     XXXXXXX ,    XXXXXXX ,        _______ ,    XXXXXXX
+  //                                └────────┘   └────────┘       └────────┘   └────────┘
+  ),
+
+  [_LT_LINUX] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
+     K_LT_AU ,K_LT_CU ,K_LT_E1U,K_LT_E2U,K_LT_IU ,                          K_LT_SU ,K_LT_U1U,K_LT_U2U,K_LT_ZU ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX ,KC_BSPC ,XXXXXXX ,K_SNEK  ,K_LT_OB ,                          K_LT_CB ,K_EURO  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
+                                     XXXXXXX ,    XXXXXXX ,        _______ ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 };
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
 
-bool is_oneshot_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-    case L_SYM:
-    case L_NAV:
-        return true;
-    default:
-        return false;
-    }
-}
-
-bool is_oneshot_layer_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-    case L_SYM:
-    case L_NAV:
-        return true;
-    default:
-        return false;
-    }
-}
-
-bool is_oneshot_ignored_key(uint16_t keycode) {
-    switch (keycode) {
-    case L_SYM:
-    case L_NAV:
-    case OS_CTRL:
-    case OS_ALT:
-    case OS_GUI:
-    case OS_TMUX:
-    case OS_MISC:
-    case KC_LSFT:
-        return true;
-    default:
-        return false;
-    }
-}
-
-bool is_oneshot_mod_key(uint16_t keycode) {
-    switch (keycode) {
-    case OS_CTRL:
-    case OS_ALT:
-    case OS_GUI:
-        return true;
-    default:
-        return false;
-    }
-}
-
-oneshot_state os_ctrl_state = os_up_unqueued;
-oneshot_state os_alt_state = os_up_unqueued;
-oneshot_state os_cmd_state = os_up_unqueued;
-oneshot_state os_tmux_state = os_up_unqueued;
-oneshot_state os_misc_state = os_up_unqueued;
-oneshot_state os_func_state = os_up_unqueued;
+bool lt_os_is_linux = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_oneshot(
-        &os_ctrl_state, KC_LCTL, OS_CTRL,
-        keycode, record
-    );
-    update_oneshot(
-        &os_alt_state, KC_LALT, OS_ALT,
-        keycode, record
-    );
-    update_oneshot(
-        &os_cmd_state, KC_LGUI, OS_GUI,
-        keycode, record
-    );
-
-    bool handled = true;
-    handled = update_oneshot_layer(
-        &os_tmux_state, _TMUX, OS_TMUX,
-        keycode, record
-    ) & handled;
-
-    handled = update_oneshot_layer(
-        &os_misc_state, _MISC, OS_MISC,
-        keycode, record
-    ) & handled;
-
-    handled = update_oneshot_layer(
-        &os_func_state, _FUNC, OS_FUNC,
-        keycode, record
-    ) & handled;
-    if (!handled) return false;
+    if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
 
     switch (keycode) {
         case TM_LEFT:
@@ -340,10 +300,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!record->event.pressed) return true;
             SEND_STRING(TMUX_PREFIX SS_LCTL("u"));
             return false;
+        case LT_OSLNX:
+            if (!record->event.pressed) return true;
+            lt_os_is_linux = !lt_os_is_linux;
+            return false;
     }
     return true;
 }
 
+void matrix_scan_user(void) {
+    flow_matrix_scan();
+}
+
+bool lang_layer_on = false;
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _SYM, _NAV, _NUMB);
+    state = update_tri_layer_state(state, _SYM, _NAV, lt_os_is_linux ? _LT_LINUX : _LT_MAC);
+
+    uint8_t hl = get_highest_layer(state);
+    if (hl == _LT_MAC) {
+        if (!lang_layer_on) {
+            tap_code16(LCTL(KC_SPC));
+            lang_layer_on = true;
+        }
+    } else {
+        if (lang_layer_on) {
+            tap_code16(LCTL(KC_SPC));
+            lang_layer_on = false;
+        }
+    }
+
+    return state;
 }

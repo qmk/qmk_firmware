@@ -247,7 +247,9 @@ void haptic_set_dwell(uint8_t dwell) {
     xprintf("haptic_config.dwell = %u\n", haptic_config.dwell);
 }
 
-uint8_t haptic_get_enable(void) { return haptic_config.enable; }
+uint8_t haptic_get_enable(void) {
+    return haptic_config.enable;
+}
 
 uint8_t haptic_get_mode(void) {
     if (!haptic_config.enable) {
@@ -319,7 +321,7 @@ void haptic_play(void) {
     DRV_pulse(play_eff);
 #endif
 #ifdef SOLENOID_ENABLE
-    solenoid_fire();
+    solenoid_fire_handler();
 #endif
 }
 

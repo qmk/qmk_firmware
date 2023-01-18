@@ -17,6 +17,26 @@
 
 #include <util/delay.h>
 
+// http://ww1.microchip.com/downloads/en/devicedoc/atmel-0856-avr-instruction-set-manual.pdf
+// page 22: Table 4-2. Arithmetic and Logic Instructions
+/*
+    for (uint16_t i = times; i > 0; i--) {
+        __builtin_avr_delay_cycles(1);
+    }
+
+    .L3:  sbiw r24,0  // loop step 1
+          brne .L4    // loop step 2
+          ret
+    .L4:  nop         // __builtin_avr_delay_cycles(1);
+          sbiw r24,1  // loop step 3
+          rjmp .L3    // loop step 4
+*/
+
+#define AVR_sbiw_clocks 2
+#define AVR_rjmp_clocks 2
+#define AVR_brne_clocks 2
+#define AVR_WAIT_LOOP_OVERHEAD (AVR_sbiw_clocks + AVR_brne_clocks + AVR_sbiw_clocks + AVR_rjmp_clocks)
+
 #define wait_ms(ms)                             \
     do {                                        \
         if (__builtin_constant_p(ms)) {         \
@@ -27,15 +47,15 @@
             }                                   \
         }                                       \
     } while (0)
-#define wait_us(us)                             \
-    do {                                        \
-        if (__builtin_constant_p(us)) {         \
-            _delay_us(us);                      \
-        } else {                                \
-            for (uint16_t i = us; i > 0; i--) { \
-                _delay_us(1);                   \
-            }                                   \
-        }                                       \
+#define wait_us(us)                                                                     \
+    do {                                                                                \
+        if (__builtin_constant_p(us)) {                                                 \
+            _delay_us(us);                                                              \
+        } else {                                                                        \
+            for (uint16_t i = us; i > 0; i--) {                                         \
+                __builtin_avr_delay_cycles((F_CPU / 1000000) - AVR_WAIT_LOOP_OVERHEAD); \
+            }                                                                           \
+        }                                                                               \
     } while (0)
 #define wait_cpuclock(n) __builtin_avr_delay_cycles(n)
 #define CPU_CLOCK F_CPU

@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "Kyria",
+    "manufacturer": "splitkb",
     "url": "https://splitkb.com",
     "maintainer": "splitkb.com",
+    "usb": {
+        "vid": "0x8D1D",
+        "pid": "0x9D9D"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

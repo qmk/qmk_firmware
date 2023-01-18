@@ -1,7 +1,13 @@
 {
     "keyboard_name": "10bleoledhub",
+    "manufacturer": "haierwangwei2005",
     "url": "https://github.com/haierwangwei2005/10BLE-OLED-HUB",
     "maintainer": "haierwangwei2005",
+    "usb": {
+        "vid": "0x7C88",
+        "pid": "0x7C99",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

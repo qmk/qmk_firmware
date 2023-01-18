@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x0666
-#define PRODUCT_ID      0x2784
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    HellSingCoder
-#define PRODUCT         Lime
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 12
@@ -47,19 +40,16 @@
 
 /* joystick support */
 #ifdef JOYSTICK_ENABLE
-#   define JOYSTICK_AXES_COUNT 2
+#   define JOYSTICK_AXIS_COUNT 2
 #   define JOYSTICK_BUTTON_COUNT 1
-#   define JOYSTICK_AXES_RESOLUTION 8
+#   define JOYSTICK_AXIS_RESOLUTION 8
 #endif
 
 #define TAP_CODE_DELAY 10
 
 /* communication between sides */
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
 
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 #define SPLIT_USB_DETECT
 
 #ifdef WPM_ENABLE

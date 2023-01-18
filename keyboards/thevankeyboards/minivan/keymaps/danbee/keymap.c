@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     │    │     │    │        │ Pause │    │     │      │
     └────┴─────┴────┴────────┴───────┴────┴─────┴──────┘*/
   [_L2] = LAYOUT( /* LAYER 2 */
-    KC_NUBS, KC_BRID, KC_BRIU, _______, RESET,   _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_EJCT,
+    KC_NUBS, KC_BRID, KC_BRIU, _______, QK_BOOT, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_EJCT,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  _______,
     _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
     _______, _______, _______,                   _______, KC_MPLY,                   _______, _______, _______

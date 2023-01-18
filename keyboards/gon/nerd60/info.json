@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "GON NerD 60",
+    "keyboard_name": "NerD 60",
+    "manufacturer": "GON",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4E45",
+        "pid": "0x3630",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

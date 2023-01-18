@@ -92,11 +92,10 @@ These keycodes allow the processing to fall through to lower layers in search of
 
 For this example we will walk through an [older version of the default Clueboard 66% keymap](https://github.com/qmk/qmk_firmware/blob/ca01d94005f67ec4fa9528353481faa622d949ae/keyboards/clueboard/keymaps/default/keymap.c). You'll find it helpful to open that file in another browser window so you can look at everything in context.
 
-There are 3 main sections of a `keymap.c` file you'll want to concern yourself with:
+There are 2 main sections of a `keymap.c` file you'll want to concern yourself with:
 
 * [The Definitions](#definitions)
 * [The Layer/Keymap Datastructure](#layers-and-keymaps)
-* [Custom Functions](#custom-functions), if any
 
 ### Definitions
 
@@ -132,11 +131,11 @@ The main part of this file is the `keymaps[]` definition. This is where you list
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-After this you'll find a list of LAYOUT() macros. A LAYOUT() is simply a list of keys to define a single layer. Typically you'll have one or more "base layers" (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more "function" layers. Due to the way layers are processed you can't overlay a "lower" layer on top of a "higher" layer.
+After this you'll find the layer definitions. Typically you'll have one or more "base layers" (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more "function" layers. Due to the way layers are processed you can't overlay a "lower" layer on top of a "higher" layer.
 
 `keymaps[][MATRIX_ROWS][MATRIX_COLS]` in QMK holds the 16 bit action code (sometimes referred as the quantum keycode) in it.  For the keycode representing typical keys, its high byte is 0 and its low byte is the USB HID usage ID for keyboard.
 
-> TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.  Some keycode values are reserved to induce execution of certain action codes via the `fn_actions[]` array.
+> TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.
 
 #### Base Layer
 
@@ -148,12 +147,14 @@ Here is an example of the Clueboard's base layer:
       F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_GRV,  KC_BSPC,          KC_PGUP, \
       KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,                   KC_PGDN, \
       KC_CAPS, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,                             \
-      KC_LSFT, KC_NUBS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_RO,    KC_RSFT,          KC_UP,            \
-      KC_LCTL, KC_LGUI, KC_LALT, KC_MHEN,          KC_SPC,KC_SPC,                        KC_HENK,  KC_RALT,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
+      KC_LSFT, KC_NUBS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_INT1,  KC_RSFT,          KC_UP,            \
+      KC_LCTL, KC_LGUI, KC_LALT, KC_INT5,          KC_SPC,KC_SPC,                        KC_INT4,  KC_RALT,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
 
 Some interesting things to note about this:
 
-* From a C source point of view it's only a single array, but we have embedded whitespace to more easily visualize where each key is on the physical device.
+* The layer is defined using the LAYOUT macro, traditionally defined in the keyboard's `.h` file.
+* The LAYOUT macro takes a single list of keycodes, but we have written it in the C source using embedded whitespace and newlines to visualize where each key is on the physical device.
+* The LAYOUT macro hides and handles the mapping to the hardware's key scan matrix.
 * Plain keyboard scancodes are prefixed with KC_, while "special" keys are not.
 * The upper left key activates custom function 0 (`F(0)`)
 * The "Fn" key is defined with `MO(_FL)`, which moves to the `_FL` layer while that key is being held down.

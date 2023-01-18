@@ -1,7 +1,13 @@
 {
     "keyboard_name": "CK4x4",
+    "manufacturer": "QMK",
     "url": "",
     "maintainer": "awkannan",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6464",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

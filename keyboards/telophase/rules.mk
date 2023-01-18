@@ -19,7 +19,8 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 
 # project specific files
-SRC += matrix.c serial_uart.c
+SRC += matrix.c
+QUANTUM_LIB_SRC += uart.c
 
 # Disable unsupported hardware
 RGBLIGHT_SUPPORTED = no

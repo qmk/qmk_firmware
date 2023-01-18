@@ -16,5 +16,6 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = adns9800
 
 DEFAULT_FOLDER = oddball/v1

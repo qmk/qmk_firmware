@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Ace of Spades TKL",
+    "manufacturer": "Ace of Spades",
     "maintainer": "rys",
+    "usb": {
+        "vid": "0x504B",
+        "pid": "0x1000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_iso_wkl": {
             "layout": [

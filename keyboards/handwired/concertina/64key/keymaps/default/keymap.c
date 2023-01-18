@@ -44,9 +44,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_64key(
-                      KC_LSPO, KC_MINS, KC_EQL,                           KC_VOLD, KC_VOLU, KC_RSPC,
-                      KC_LCPO, KC_LGUI, KC_HAEN, KC_ENT,         KC_MUTE, TD(PNX), LAYER_N, KC_RCPC,
-                               KC_LAPO, KC_SPC,  SLQ,            SRQ,     KC_ESC,  KC_RAPC,
+                      SC_LSPO, KC_MINS, KC_EQL,                           KC_VOLD, KC_VOLU, SC_RSPC,
+                      SC_LCPO, KC_LGUI, KC_LNG1, KC_ENT,         KC_MUTE, TD(PNX), LAYER_N, SC_RCPC,
+                               SC_LAPO, KC_SPC,  SLQ,            SRQ,     KC_ESC,  SC_RAPC,
 
                       CM_W,    CM_F,    CM_P,    CM_G,           CM_J,    CM_L,    CM_U,    CM_Y,
     KC_TAB,  CM_Q,    CM_R,    CM_S,    CM_T,    CM_D,           CM_H,    CM_N,    CM_E,    CM_I,    CM_SCLN, KC_BSLS,
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_F2,   KC_F3,   KC_F4,   KC_F5,          KC_F6,   KC_F7,   KC_F8,   KC_F9,
     KC_F12,  KC_F1,   KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_F10,  KC_F11,
     _______, KC_1,    KC_AT,   KC_HASH, KC_DLR,  KC_PERC,        KC_CIRC, KC_AMPR, KC_ASTR, KC_APP,  KC_0,    PASTE,
-    KC_INS,  KC_EXLM, KC_BTN1, KC_BTN3, KC_BTN2,                          KC_MS_L, KC_MS_U, KC_MS_R, KC_PSCR, RESET,
+    KC_INS,  KC_EXLM, KC_BTN1, KC_BTN3, KC_BTN2,                          KC_MS_L, KC_MS_U, KC_MS_R, KC_PSCR, QK_BOOT,
                                LAYER_G,                                            KC_MS_D
 )
 };

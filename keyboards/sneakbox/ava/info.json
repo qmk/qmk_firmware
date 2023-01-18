@@ -1,7 +1,13 @@
 {
   "keyboard_name": "AVA",
+  "manufacturer": "Sneakbox",
   "url": "https://sneakbox.com",
   "maintainer": "mujimanic",
+  "usb": {
+    "vid": "0x5342",
+    "pid": "0x0004",
+    "device_version": "0.0.1"
+  },
   "layout_aliases": {
       "LAYOUT_alice_split_bs": "LAYOUT_ava_split_bs",
       "LAYOUT_alice": "LAYOUT_ava"

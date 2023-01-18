@@ -11,17 +11,10 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.#pragma once 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.#pragma once
  */
 
-#include "config_common.h" 
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0003
-#define DEVICE_VER      0x0004
-#define MANUFACTURER    Kingly-Keys
-#define PRODUCT         SOAP
+#include "config_common.h"
 
  /* key matrix size */
 #define MATRIX_ROWS 2
@@ -33,7 +26,6 @@
  /* key matrix pins */
 #define MATRIX_ROW_PINS { C7, C6 }
 #define MATRIX_COL_PINS { F4, F1, F0, D5 }
-#define UNUSED_PINS
 
  /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -49,5 +41,14 @@
 
 /* ws2812 RGB LED --- DIN Pin Routed to VIA on main PCB marked "RGB" */
 #define RGB_DI_PIN B6
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 3

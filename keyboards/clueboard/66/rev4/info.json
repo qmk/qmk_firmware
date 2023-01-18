@@ -5,6 +5,7 @@
   "debounce": 5,
   "processor": "STM32F303",
   "board": "QMK_PROTON_C",
+  "bootloader": "stm32-dfu",
   "diode_direction": "COL2ROW",
   "features": {
     "audio": true,
@@ -26,7 +27,16 @@
   },
   "rgblight": {
     "animations": {
-      "all": true
+      "alternating": true,
+      "breathing": true,
+      "christmas": true,
+      "knight": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "rgb_test": true,
+      "snake": true,
+      "static_gradient": true,
+      "twinkle": true
     },
     "brightness_steps": 17,
     "hue_steps": 32,
@@ -35,7 +45,7 @@
     "saturation_steps": 17
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2390",
     "vid": "0xC1ED"
   },

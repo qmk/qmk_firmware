@@ -4,6 +4,7 @@
     "maintainer": "skullydazed",
     "debounce": 5,
     "processor": "MK20DX256",
+    "bootloader": "halfkay",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -23,11 +24,11 @@
             ["LINE_PIN9",  null,         "LINE_PIN16"],
             ["LINE_PIN10", null,         "LINE_PIN15"],
             ["LINE_PIN11", null,         "LINE_PIN14"],
-            ["LINE_PIN12", "E30",        "LINE_PIN13"],
+            ["LINE_PIN12", "E30",        "LINE_PIN13"]
         ]
     },
     "usb": {
-        "device_ver": "0x0001",
+        "device_version": "0.0.1",
         "pid": "0x2324",
         "vid": "0xFEED"
     },

@@ -28,6 +28,11 @@ debounce_sym_defer_pk_SRC := $(DEBOUNCE_COMMON_SRC) \
 	$(QUANTUM_PATH)/debounce/sym_defer_pk.c \
 	$(QUANTUM_PATH)/debounce/tests/sym_defer_pk_tests.cpp
 
+debounce_sym_defer_pr_DEFS := $(DEBOUNCE_COMMON_DEFS)
+debounce_sym_defer_pr_SRC := $(DEBOUNCE_COMMON_SRC) \
+	$(QUANTUM_PATH)/debounce/sym_defer_pr.c \
+	$(QUANTUM_PATH)/debounce/tests/sym_defer_pr_tests.cpp
+
 debounce_sym_eager_pk_DEFS := $(DEBOUNCE_COMMON_DEFS)
 debounce_sym_eager_pk_SRC := $(DEBOUNCE_COMMON_SRC) \
 	$(QUANTUM_PATH)/debounce/sym_eager_pk.c \

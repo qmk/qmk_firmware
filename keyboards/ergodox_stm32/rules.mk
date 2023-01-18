@@ -1,11 +1,10 @@
 # MCU name
 MCU = STM32F103
-
 MCU_LDSCRIPT = stm32f103_bootloader
 BOARD = ST_NUCLEO64_F103RB
 
-CFLAGS += "-Wno-error=deprecated"
-EXTRAFLAGS = -O0 -g
+# Bootloader selection
+BOOTLOADER = custom
 
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no	# Mouse keys

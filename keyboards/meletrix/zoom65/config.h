@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x806B
-#define PRODUCT_ID      0x0004
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    meletrix
-#define PRODUCT         zoom65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -42,6 +35,9 @@
 #define ENCODERS_PAD_B { B0 }
 
 #define ENCODERS 1
+
+#define ENCODER_RESOLUTION 2
+
 // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 5, 4 } }
 #define ENCODERS_CCW_KEY { { 3, 4 } }

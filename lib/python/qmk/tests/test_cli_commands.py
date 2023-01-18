@@ -97,13 +97,15 @@ def test_list_keyboards():
 def test_list_keymaps():
     result = check_subcommand('list-keymaps', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
-    assert 'default' and 'default_json' in result.stdout
+    assert 'default' in result.stdout
+    assert 'default_json' in result.stdout
 
 
 def test_list_keymaps_long():
     result = check_subcommand('list-keymaps', '--keyboard', 'handwired/pytest/basic')
     check_returncode(result)
-    assert 'default' and 'default_json' in result.stdout
+    assert 'default' in result.stdout
+    assert 'default_json' in result.stdout
 
 
 def test_list_keymaps_community():
@@ -113,21 +115,24 @@ def test_list_keymaps_community():
 
 
 def test_list_keymaps_kb_only():
-    result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
+    result = check_subcommand('list-keymaps', '-kb', 'contra')
     check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+    assert 'default' in result.stdout
+    assert 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb():
     result = check_subcommand('list-keymaps', '-kb', 'ai03/lunar')
     check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+    assert 'default' in result.stdout
+    assert 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb_rev():
     result = check_subcommand('list-keymaps', '-kb', 'kbdfans/kbd67/mkiirgb/v2')
     check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+    assert 'default' in result.stdout
+    assert 'via' in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
@@ -145,8 +150,8 @@ def test_json2c():
 def test_json2c_macros():
     result = check_subcommand("json2c", 'keyboards/handwired/pytest/macro/keymaps/default/keymap.json')
     check_returncode(result)
-    assert 'LAYOUT_ortho_1x1(MACRO_0)' in result.stdout
-    assert 'case MACRO_0:' in result.stdout
+    assert 'LAYOUT_ortho_1x1(QK_MACRO_0)' in result.stdout
+    assert 'case QK_MACRO_0:' in result.stdout
     assert 'SEND_STRING("Hello, World!"SS_TAP(X_ENTER));' in result.stdout
 
 
@@ -154,6 +159,18 @@ def test_json2c_stdin():
     result = check_subcommand_stdin('keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json', 'json2c', '-')
     check_returncode(result)
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+
+
+def test_json2c_wrong_json():
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/info.json')
+    check_returncode(result, [1])
+    assert 'Invalid JSON keymap' in result.stdout
+
+
+def test_json2c_no_json():
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/pytest.h')
+    check_returncode(result, [1])
+    assert 'Invalid JSON encountered' in result.stdout
 
 
 def test_info():
@@ -232,7 +249,7 @@ def test_clean():
 
 
 def test_generate_api():
-    result = check_subcommand('generate-api', '--dry-run')
+    result = check_subcommand('generate-api', '--dry-run', '--filter', 'handwired/pytest')
     check_returncode(result)
 
 
@@ -246,17 +263,16 @@ def test_generate_rgb_breathe_table():
 def test_generate_config_h():
     result = check_subcommand('generate-config-h', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
-    assert '#   define DEVICE_VER 0x0001' in result.stdout
-    assert '#   define DESCRIPTION handwired/pytest/basic' in result.stdout
-    assert '#   define DIODE_DIRECTION COL2ROW' in result.stdout
-    assert '#   define MANUFACTURER none' in result.stdout
-    assert '#   define PRODUCT pytest' in result.stdout
-    assert '#   define PRODUCT_ID 0x6465' in result.stdout
-    assert '#   define VENDOR_ID 0xFEED' in result.stdout
-    assert '#   define MATRIX_COLS 1' in result.stdout
-    assert '#   define MATRIX_COL_PINS { F4 }' in result.stdout
-    assert '#   define MATRIX_ROWS 1' in result.stdout
-    assert '#   define MATRIX_ROW_PINS { F5 }' in result.stdout
+    assert '#    define DEVICE_VER 0x0001' in result.stdout
+    assert '#    define DIODE_DIRECTION COL2ROW' in result.stdout
+    assert '#    define MANUFACTURER "none"' in result.stdout
+    assert '#    define PRODUCT "pytest"' in result.stdout
+    assert '#    define PRODUCT_ID 0x6465' in result.stdout
+    assert '#    define VENDOR_ID 0xFEED' in result.stdout
+    assert '#    define MATRIX_COLS 1' in result.stdout
+    assert '#    define MATRIX_COL_PINS { F4 }' in result.stdout
+    assert '#    define MATRIX_ROWS 1' in result.stdout
+    assert '#    define MATRIX_ROW_PINS { F5 }' in result.stdout
 
 
 def test_generate_rules_mk():
@@ -270,12 +286,6 @@ def test_generate_version_h():
     result = check_subcommand('generate-version-h')
     check_returncode(result)
     assert '#define QMK_VERSION' in result.stdout
-
-
-def test_generate_layouts():
-    result = check_subcommand('generate-layouts', '-kb', 'handwired/pytest/basic')
-    check_returncode(result)
-    assert '#define LAYOUT_custom(k0A) {' in result.stdout
 
 
 def test_format_json_keyboard():

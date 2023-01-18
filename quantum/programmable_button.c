@@ -22,16 +22,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static uint32_t programmable_button_report = 0;
 
-void programmable_button_clear(void) { programmable_button_report = 0; }
+void programmable_button_clear(void) {
+    programmable_button_report = 0;
+    programmable_button_flush();
+}
 
-void programmable_button_send(void) { host_programmable_button_send(programmable_button_report); }
+void programmable_button_add(uint8_t index) {
+    programmable_button_report |= REPORT_BIT(index);
+}
 
-void programmable_button_on(uint8_t index) { programmable_button_report |= REPORT_BIT(index); }
+void programmable_button_remove(uint8_t index) {
+    programmable_button_report &= ~REPORT_BIT(index);
+}
 
-void programmable_button_off(uint8_t index) { programmable_button_report &= ~REPORT_BIT(index); }
+void programmable_button_register(uint8_t index) {
+    programmable_button_add(index);
+    programmable_button_flush();
+}
 
-bool programmable_button_is_on(uint8_t index) { return !!(programmable_button_report & REPORT_BIT(index)); };
+void programmable_button_unregister(uint8_t index) {
+    programmable_button_remove(index);
+    programmable_button_flush();
+}
 
-uint32_t programmable_button_get_report(void) { return programmable_button_report; };
+bool programmable_button_is_on(uint8_t index) {
+    return !!(programmable_button_report & REPORT_BIT(index));
+}
 
-void programmable_button_set_report(uint32_t report) { programmable_button_report = report; }
+void programmable_button_flush(void) {
+    host_programmable_button_send(programmable_button_report);
+}
+
+uint32_t programmable_button_get_report(void) {
+    return programmable_button_report;
+}
+
+void programmable_button_set_report(uint32_t report) {
+    programmable_button_report = report;
+}

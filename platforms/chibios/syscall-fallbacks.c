@@ -87,9 +87,13 @@ __attribute__((weak, used)) int _kill(int pid, int sig) {
     return -1;
 }
 
-__attribute__((weak, used)) pid_t _getpid(void) { return 1; }
+__attribute__((weak, used)) pid_t _getpid(void) {
+    return 1;
+}
 
-__attribute__((weak, used)) void _fini(void) { return; }
+__attribute__((weak, used)) void _fini(void) {
+    return;
+}
 
 __attribute__((weak, used, noreturn)) void _exit(int i) {
     while (1)

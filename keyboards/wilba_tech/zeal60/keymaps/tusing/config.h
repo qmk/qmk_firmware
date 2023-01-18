@@ -21,7 +21,16 @@
 
 // Set up RGB underglow.
 #define RGB_DI_PIN B0          // The pin your RGB strip is wired to
-#define RGBLIGHT_ANIMATIONS    // Require for fancier stuff (not compatible with audio)
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 35          // Number of LEDs
 #define RGBLIGHT_HUE_STEP 5    // How much each press of rgb_hue changes hue
 #define RGBLIGHT_SAT_STEP 10   // How much each press of rgb_sat changes sat
