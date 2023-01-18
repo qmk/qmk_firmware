@@ -66,13 +66,12 @@ def _handle_json_errors(kb, info):
     return ok
 
 
-def _chibios_conf_includenext_check(path):
+def _chibios_conf_includenext_check(target):
     """Check the ChibiOS conf.h for the correct inclusion of the next conf.h
     """
-    target = Path(path)
     for i, line in enumerate(target.open()):
         if f'#include_next "{target.name}"' in line:
-            return f'Found `#include_next "{target.name}"` on line {i} of {path}, should be `#include_next <{target.name}>` (use angle brackets, not quotes)'
+            return f'Found `#include_next "{target.name}"` on line {i} of {target}, should be `#include_next <{target.name}>` (use angle brackets, not quotes)'
     return None
 
 
