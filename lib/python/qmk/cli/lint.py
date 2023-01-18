@@ -136,7 +136,7 @@ def keymap_check(kb, km):
         if file.name in CHIBIOS_CONF_CHECKS:
             check_error = _chibios_conf_includenext_check(file)
             if check_error is not None:
-                cli.log.error(check_error)
+                cli.log.error(f'{kb}/{km}: {check_error}')
                 ok = False
 
     return ok
@@ -174,7 +174,7 @@ def keyboard_check(kb):
         if file.name in CHIBIOS_CONF_CHECKS:
             check_error = _chibios_conf_includenext_check(file)
             if check_error is not None:
-                cli.log.error(check_error)
+                cli.log.error(f'{kb}: {check_error}')
                 ok = False
 
     return ok
