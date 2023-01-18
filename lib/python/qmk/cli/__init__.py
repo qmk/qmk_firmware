@@ -75,7 +75,6 @@ subcommands = [
     'qmk.cli.list.layouts',
     'qmk.cli.mass_compile',
     'qmk.cli.migrate',
-    'qmk.cli.multibuild',
     'qmk.cli.new.keyboard',
     'qmk.cli.new.keymap',
     'qmk.cli.painter',
