@@ -8,11 +8,16 @@ endif
 # TODO: opt in rather than assume everything uses a pro micro
 PIN_COMPATIBLE ?= promicro
 ifneq ($(CONVERT_TO),)
+    # stash so we can overwrite env provided vars if needed
+    ACTIVE_CONVERTER=$(CONVERT_TO)
+
     # glob to search each platfrorm and/or check for valid converter
     CONVERTER := $(wildcard $(PLATFORM_PATH)/*/converters/$(PIN_COMPATIBLE)_to_$(CONVERT_TO)/)
     ifeq ($(CONVERTER),)
         $(call CATASTROPHIC_ERROR,Converting from '$(PIN_COMPATIBLE)' to '$(CONVERT_TO)' not possible!)
     endif
+
+    -include $(CONVERTER)/pre_converter.mk
 
     TARGET := $(TARGET)_$(CONVERT_TO)
 
@@ -21,6 +26,9 @@ ifneq ($(CONVERT_TO),)
     OPT_DEFS += -DCONVERTER_TARGET=\"$(strip $(CONVERT_TO))\"
     OPT_DEFS += -DCONVERTER_ENABLED
     VPATH += $(CONVERTER)
+
+    # Configure for "alias" - worst case it produces an idential define
+    OPT_DEFS += -DCONVERT_TO_$(strip $(shell echo $(ACTIVE_CONVERTER) | tr '[:lower:]' '[:upper:]'))
 
     # Finally run any converter specific logic
     include $(CONVERTER)/converter.mk
