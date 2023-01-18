@@ -44,7 +44,7 @@
         "command": false,
         "nkro": true,
         "backlight": false,
-        "rgblight": false,
+        "rgblight": true,
         "audio": false,
         "key_lock": false
     },
