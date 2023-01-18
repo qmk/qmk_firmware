@@ -56,7 +56,7 @@ QMK maintains a Homebrew tap and formula which will automatically install the CL
 
 You will need to install Homebrew. Follow the instructions on https://brew.sh.
 
-Note: If you have a silicon chip, e.g. M1, you will need to install a rosetta compatible version of Homebrew. This version does not override the base Homebrew. This can be done by running `arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`. See here: [Rosetta-compatible Homebrew](https://stackoverflow.com/questions/64882584/how-to-run-the-homebrew-installer-under-rosetta-2-on-m1-macbook)
+!> **NOTE:** If you have a silicon chip, e.g. M1, you will need to install a rosetta compatible version of Homebrew. This version does not override the base Homebrew. This can be done by running `arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`. See here: [Rosetta-compatible Homebrew](https://stackoverflow.com/questions/64882584/how-to-run-the-homebrew-installer-under-rosetta-2-on-m1-macbook)
 
 #### Installation
 
