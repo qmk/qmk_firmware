@@ -324,7 +324,7 @@ Flashing sequence:
 
 ## tinyuf2
 
-Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F401/F411 blackpill.
+Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on F303/F401/F411.
 
 The `rules.mk` setting for this bootloader is `tinyuf2`, and can be specified at the keymap or user level.
 
@@ -365,7 +365,7 @@ CLI Flashing sequence:
 
 ## uf2boot
 
-Keyboards may opt into supporting the uf2boot bootloader. This is currently only supported on the F103 bluepill.
+Keyboards may opt into supporting the uf2boot bootloader. This is currently only supported on F103.
 
 The `rules.mk` setting for this bootloader is `uf2boot`, and can be specified at the keymap or user level.
 
