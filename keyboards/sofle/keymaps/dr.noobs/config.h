@@ -46,13 +46,19 @@
 // #define POINTING_DEVICE_RIGHT
 // #define POINTING_DEVICE_TASK_THROTTLE_MS 8
 
+#undef OLED_TIMEOUT
 #define OLED_TIMEOUT 120000
+
+#undef OLED_BRIGHTNESS
 #define OLED_BRIGHTNESS 120
 
 // sk6812 RGB LED
 #define RGB_DI_PIN D3
 
+#undef RBMLED_NUM
 #define RGBLED_NUM 58 // Number of LEDs
+
+#undef RGBLED_SPLIT
 #define RGBLED_SPLIT \
     { 29, 29 }
 
