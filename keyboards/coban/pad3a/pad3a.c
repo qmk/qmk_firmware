@@ -15,3 +15,16 @@
  */
 
 #include "pad3a.h"
+
+#if defined(ENCODER_ENABLE)
+__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code_delay(KC_VOLD, 10);
+        } else {
+            tap_code_delay(KC_VOLU, 10);
+        }
+    }
+    return false;
+}
+#endif
