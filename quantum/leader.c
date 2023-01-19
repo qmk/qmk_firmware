@@ -62,9 +62,9 @@ bool leader_sequence_add(uint16_t keycode) {
 bool leader_sequence_timed_out(void) {
     return leading &&
 #if defined(LEADER_NO_TIMEOUT)
-        leader_sequence_size > 0 &&
+           leader_sequence_size > 0 &&
 #endif
-        timer_elapsed(leader_time) > LEADER_TIMEOUT;
+           timer_elapsed(leader_time) > LEADER_TIMEOUT;
 }
 
 void leader_reset_timer(void) {
@@ -72,11 +72,7 @@ void leader_reset_timer(void) {
 }
 
 bool leader_sequence_is(uint16_t kc1, uint16_t kc2, uint16_t kc3, uint16_t kc4, uint16_t kc5) {
-    return leader_sequence[0] == kc1 &&
-           leader_sequence[1] == kc2 &&
-           leader_sequence[2] == kc3 &&
-           leader_sequence[3] == kc4 &&
-           leader_sequence[4] == kc5;
+    return leader_sequence[0] == kc1 && leader_sequence[1] == kc2 && leader_sequence[2] == kc3 && leader_sequence[3] == kc4 && leader_sequence[4] == kc5;
 }
 
 bool leader_sequence_one_key(uint16_t kc) {

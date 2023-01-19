@@ -662,7 +662,6 @@ void keyboard_task(void) {
     }
 #endif
 
-
 #ifdef JOYSTICK_ENABLE
     joystick_task();
 #endif

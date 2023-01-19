@@ -39,7 +39,7 @@ bool leader_sequence_active(void);
  * Add the given keycode to the sequence buffer. If the buffer is full, the leader sequence is ended.
  *
  * \param keycode The keycode to add.
- * 
+ *
  * \return `true` if the keycode was added.
  */
 bool leader_sequence_add(uint16_t keycode);
@@ -56,55 +56,55 @@ void leader_reset_timer(void);
 
 /**
  * Check the sequence buffer for the given keycode.
- * 
+ *
  * \param kc The keycode to check.
- * 
+ *
  * \return `true` if the sequence buffer matches.
  */
 bool leader_sequence_one_key(uint16_t kc);
 
 /**
  * Check the sequence buffer for the given keycodes.
- * 
+ *
  * \param kc1 The first keycode to check.
  * \param kc2 The second keycode to check.
- * 
+ *
  * \return `true` if the sequence buffer matches.
  */
 bool leader_sequence_two_keys(uint16_t kc1, uint16_t kc2);
 
 /**
  * Check the sequence buffer for the given keycodes.
- * 
+ *
  * \param kc1 The first keycode to check.
  * \param kc2 The second keycode to check.
  * \param kc3 The third keycode to check.
- * 
+ *
  * \return `true` if the sequence buffer matches.
  */
 bool leader_sequence_three_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3);
 
 /**
  * Check the sequence buffer for the given keycodes.
- * 
+ *
  * \param kc1 The first keycode to check.
  * \param kc2 The second keycode to check.
  * \param kc3 The third keycode to check.
  * \param kc4 The fourth keycode to check.
- * 
+ *
  * \return `true` if the sequence buffer matches.
  */
 bool leader_sequence_four_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3, uint16_t kc4);
 
 /**
  * Check the sequence buffer for the given keycodes.
- * 
+ *
  * \param kc1 The first keycode to check.
  * \param kc2 The second keycode to check.
  * \param kc3 The third keycode to check.
  * \param kc4 The fourth keycode to check.
  * \param kc5 The fifth keycode to check.
- * 
+ *
  * \return `true` if the sequence buffer matches.
  */
 bool leader_sequence_five_keys(uint16_t kc1, uint16_t kc2, uint16_t kc3, uint16_t kc4, uint16_t kc5);
