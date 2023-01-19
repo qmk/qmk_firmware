@@ -170,7 +170,7 @@ def release_info(file='/etc/os-release'):
                 if '=' in line:
                     key, value = map(str.strip, line.split('=', 1))
                     if value.startswith('"') and value.endswith('"'):
-                        value=value[1:-1]
+                        value = value[1:-1]
                     ret[key] = value
     except (PermissionError, FileNotFoundError):
         pass
