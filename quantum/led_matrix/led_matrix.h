@@ -181,7 +181,6 @@ bool        led_matrix_is_driver_shutdown(void);
 bool        led_matrix_driver_allow_shutdown(void);
 #endif
 
-
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
     void (*init)(void);

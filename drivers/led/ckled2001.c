@@ -230,6 +230,6 @@ void CKLED2001_sw_shutdown(uint8_t addr) {
     CKLED2001_write_register(addr, CONFIGURATION_REG, MSKSW_SHUT_DOWN_MODE);
     // Write SW Sleep Register
     CKLED2001_write_register(addr, SOFTWARE_SLEEP_REG, MSKSLEEP_ENABLE);
-}    
+}
 
 

@@ -27,5 +27,4 @@ void lpm_timer_reset(void);
 void lpm_timer_stop(void);
 bool usb_power_connected(void);
 void enter_power_mode(pm_t mode);
-
 void lpm_task(void);

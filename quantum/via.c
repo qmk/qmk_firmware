@@ -441,6 +441,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case id_dynamic_keymap_set_encoder: {
             dynamic_keymap_set_encoder(command_data[0], command_data[1], command_data[2] != 0, (command_data[3] << 8) | command_data[4]);
             break;
+        }
 #endif
 #ifdef RAW_HID_CMD
         case RAW_HID_CMD: {
