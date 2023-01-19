@@ -18,10 +18,11 @@
 
 #include "config_common.h"
 
-#define DIRECT_PINS { { GP8, GP7, GP6, NO_PIN, NO_PIN } }
+#define DIRECT_PINS { { GP8, GP7, GP6 } }
 #define ENCODERS_PAD_A { GP4 }
 #define ENCODERS_PAD_B { GP5 }
 #define ENCODER_RESOLUTION 4
+#define ENCODER_DIRECTION_FLIP
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

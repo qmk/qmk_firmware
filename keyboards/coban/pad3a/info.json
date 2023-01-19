@@ -11,15 +11,12 @@
     },
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "matrix": { "rows": 1, "cols": 5 },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"Mute", "x":0, "y":0.25},
-                {"label":"Next", "x":1, "y":0.25},
-                {"label":"CCW",  "x":2, "y":0.25},
-                {"label":"Play", "x":3, "y":0.25},
-                {"label":"CW",   "x":4, "y":0.25}
+                {"label":"Mute", "x":0, "y":0, "matrix": [0, 0]},
+                {"label":"Next", "x":1, "y":0, "matrix": [0, 1]},
+                {"label":"Push", "x":3, "y":0, "matrix": [0, 2]},
             ]
         }
     }
