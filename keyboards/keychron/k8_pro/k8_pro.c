@@ -15,7 +15,7 @@
  */
 
 #include "k8_pro.h"
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
 #    include "ckbt51.h"
 #    include "bluetooth.h"
 #    include "indicator.h"
@@ -47,7 +47,7 @@ key_combination_t key_comb_list[4] = {
     {2, {KC_LWIN, KC_C}}           // Cortana (win)
 };
 
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
 bool firstDisconnect = true;
 bool                   bt_factory_reset = false;
 static virtual_timer_t pairing_key_timer;
@@ -67,7 +67,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     return true;
 }
 
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
 bool process_record_kb_bt(uint16_t keycode, keyrecord_t *record) {
 #else
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -112,7 +112,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 siri_timer_buffer = sync_timer_read32() | 1;
             }
             return false; // Skip all further processing of this key
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
         case BT_HST1 ... BT_HST3:
             if (get_transport() == TRANSPORT_BLUETOOTH) {
                 if (record->event.pressed) {
@@ -143,7 +143,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void keyboard_post_init_kb(void) {
     dip_switch_read(true);
 
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
     /* Currently we don't use this reset pin */
     palSetLineMode(CKBT51_RESET_PIN, PAL_MODE_UNCONNECTED);
 
@@ -159,7 +159,7 @@ void keyboard_post_init_kb(void) {
     power_on_indicator_timer_buffer = sync_timer_read32() | 1;
     writePin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
     writePin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
     writePin(H3, HOST_LED_PIN_ON_STATE);
 #    endif
 
@@ -193,7 +193,7 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
 static void ckbt51_param_init(void) {
     /* Set bluetooth device name */
     ckbt51_set_local_name(STR(PRODUCT));
@@ -262,7 +262,7 @@ void battery_calculte_voltage(uint16_t value) {
             for (uint8_t j = 0; j < 192; j++)
                 totalBuf += g_pwm_buffer[i][j];
         /* We assumpt it is linear relationship*/
-        voltage += (30 * totalBuf / DRIVER_LED_TOTAL / 255);
+        voltage += (30 * totalBuf / LED_MATRIX_LED_COUNT / 255);
     }
 #endif
 #ifdef RGB_MATRIX_ENABLE
@@ -273,16 +273,16 @@ void battery_calculte_voltage(uint16_t value) {
             for (uint8_t j = 0; j < 192; j++)
                 totalBuf += g_pwm_buffer[i][j];
         /* We assumpt it is linear relationship*/
-        uint32_t compensation = 60 * totalBuf / DRIVER_LED_TOTAL / 255 / 3;
+        uint32_t compensation = 60 * totalBuf / RGB_MATRIX_LED_COUNT / 255 / 3;
         voltage += compensation;
     }
 #endif
     battery_set_voltage(voltage);
 }
 
-void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
+void via_command_kb(uint8_t *data, uint8_t length) {
     switch (data[0]) {
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
         case 0xAA:
             ckbt51_dfu_rx(data, length);
             break;

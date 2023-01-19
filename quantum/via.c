@@ -443,12 +443,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
 #endif
-#ifdef RAW_HID_CMD
-        case RAW_HID_CMD: {
-            raw_hid_receive_kb(data, length);
-            return;
-        }
-#endif
         default: {
             // The command ID is not known
             // Return the unhandled state
@@ -696,7 +690,7 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
-        case id_qmk_rgb_matrix_brightness: {
+        case id_qmk_rgblight_brightness: {
 #ifdef RGB_MATRIX_TURN_OFF_VAL
             if (!rgb_matrix_is_enabled() && value_data[0] >= RGB_MATRIX_TURN_OFF_VAL)  {
                 rgb_matrix_toggle_noeeprom();

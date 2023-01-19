@@ -3,9 +3,15 @@
     "url": "https://github.com/Keychron",
     "maintainer": "lokher",
     "usb": {
+<<<<<<< HEAD:keyboards/keychron/k6_pro/ansi/rgb/info.json
     	"vid": "0x3434",
     	"pid": "0x0260",
     	"device_version": "1.0.0"
+=======
+        "vid": "0x7516",
+        "pid": "0x7001",
+        "device_version": "0.0.1"
+>>>>>>> master:keyboards/horrortroll/chinese_pcb/devil68_pro/info.json
     },
     "layouts": {
         "LAYOUT_ansi_68": {

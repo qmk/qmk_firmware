@@ -132,7 +132,7 @@ static rgb_task_states rgb_task_state    = SYNCING;
 #if RGB_MATRIX_TIMEOUT > 0
 static uint32_t rgb_anykey_timer;
 static uint32_t rgb_matrix_timeout = RGB_MATRIX_TIMEOUT;
-#endif // RGB_MATRIX_TIMEOUT > 0
+#endif  // RGB_MATRIX_TIMEOUT > 0
 
 // double buffers
 static uint32_t rgb_timer_buffer;
@@ -427,7 +427,7 @@ static void rgb_task_flush(uint8_t effect) {
         rgb_matrix_driver.exit_shutdown();
         driver_shutdown = false;
     }
-#endif                        
+#endif
     // update pwm buffers
     rgb_matrix_update_pwm_buffers();
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
@@ -435,7 +435,7 @@ static void rgb_task_flush(uint8_t effect) {
     if (effect == RGB_MATRIX_NONE && !driver_shutdown && rgb_matrix_driver_allow_shutdown()) {
         rgb_matrix_driver_shutdown();
     }
-#endif  
+#endif
 
     // next task
     rgb_task_state = SYNCING;
@@ -515,7 +515,7 @@ void rgb_matrix_init(void) {
     rgb_matrix_driver.init();
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
     driver_shutdown = false;
-#endif 
+#endif
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
     g_last_hit_tracker.count = 0;
@@ -813,15 +813,15 @@ void rgb_matrix_set_flags_noeeprom(led_flags_t flags) {
 }
 
 
-#if RGB_DISABLE_TIMEOUT > 0
-void rgb_matrix_disable_timeout_set(uint32_t timeout) { 
-    rgb_disable_timeout = timeout; 
+#if RGB_MATRIX_TIMEOUT > 0
+void rgb_matrix_disable_timeout_set(uint32_t timeout) {
+    rgb_matrix_timeout = timeout;
 }
 void rgb_matrix_disable_time_reset(void){ rgb_anykey_timer = 0; }
 #endif
 
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
-void rgb_matrix_driver_shutdown(void) { 
+void rgb_matrix_driver_shutdown(void) {
     rgb_matrix_driver.shutdown();
     driver_shutdown = true;
 };

@@ -71,7 +71,7 @@ void bat_level_animiation_indicate(void) {
 #ifdef LED_MATRIX_ENABLE
     uint8_t  bat_lvl_led_list[10] = BAT_LEVEL_LED_LIST;
 
-    for (uint8_t i = 0; i <= DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i <= LED_MATRIX_LED_COUNT; i++) {
         led_matrix_set_value(i, 0);
     }
 
@@ -83,7 +83,7 @@ void bat_level_animiation_indicate(void) {
 #ifdef RGB_MATRIX_ENABLE
     uint8_t  bat_lvl_led_list[10] = BAT_LEVEL_LED_LIST;
 
-    for (uint8_t i = 0; i <= DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i <= RGB_MATRIX_LED_COUNT; i++) {
         rgb_matrix_set_color(i, 0, 0, 0);
     }
 

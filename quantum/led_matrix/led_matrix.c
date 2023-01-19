@@ -105,10 +105,10 @@ static uint8_t         led_last_enable   = UINT8_MAX;
 static uint8_t         led_last_effect   = UINT8_MAX;
 static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
 static led_task_states led_task_state    = SYNCING;
-#if LED_MATRIX_TIMEOUT > 0
+#if led_matrix_timeout > 0
 static uint32_t led_anykey_timer;
 static uint32_t led_matrix_timeout = LED_MATRIX_TIMEOUT;
-#endif // LED_MATRIX_TIMEOUT > 0
+#endif  // LED_MATRIX_TIMEOUT > 0
 
 // double buffers
 static uint32_t led_timer_buffer;
@@ -364,17 +364,17 @@ static void led_task_flush(uint8_t effect) {
         led_matrix_driver.exit_shutdown();
         driver_shutdown = false;
     }
-#endif  
+#endif
 
     // update pwm buffers
     led_matrix_update_pwm_buffers();
 
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
     // shutdown if neccesary
-    if (effect == LED_MATRIX_NONE && !driver_shutdown && led_matrix_driver_allow_shutdown()) {  
+    if (effect == LED_MATRIX_NONE && !driver_shutdown && led_matrix_driver_allow_shutdown()) {
         led_matrix_driver_shutdown();
     }
-#endif  
+#endif
 
     // next task
     led_task_state = SYNCING;
@@ -388,7 +388,7 @@ void led_matrix_task(void) {
     bool suspend_backlight = suspend_state ||
 #if LED_MATRIX_TIMEOUT > 0
                              (led_anykey_timer > led_matrix_timeout) ||
-#endif // LED_MATRIX_TIMEOUT > 0
+#endif  // led_matrix_timeout > 0
                              false;
 
     uint8_t effect = suspend_backlight || !led_matrix_eeconfig.enable ? 0 : led_matrix_eeconfig.mode;
@@ -456,7 +456,7 @@ void led_matrix_init(void) {
     led_matrix_driver.init();
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
     driver_shutdown = false;
-#endif 
+#endif
 
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
     g_last_hit_tracker.count = 0;
@@ -702,23 +702,23 @@ void led_matrix_set_flags_noeeprom(led_flags_t flags) {
     led_matrix_set_flags_eeprom_helper(flags, false);
 }
 
-#if LED_DISABLE_TIMEOUT > 0
-void led_matrix_disable_timeout_set(uint32_t timeout) { 
-    led_disable_timeout = timeout; 
+#if LED_MATRIX_TIMEOUT > 0
+void led_matrix_disable_timeout_set(uint32_t timeout) {
+    led_matrix_timeout = timeout;
 }
-void led_matrix_disable_time_reset(void){ 
-    led_anykey_timer = 0; 
+void led_matrix_disable_time_reset(void){
+    led_anykey_timer = 0;
 }
 #endif
 
 #ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
-void led_matrix_driver_shutdown(void) { 
+void led_matrix_driver_shutdown(void) {
     led_matrix_driver.shutdown();
     driver_shutdown = true;
 };
 
-bool led_matrix_is_driver_shutdown(void) { 
-    return driver_shutdown; 
+bool led_matrix_is_driver_shutdown(void) {
+    return driver_shutdown;
 }
 
 __attribute__((weak)) bool led_matrix_driver_allow_shutdown(void) { return true; };

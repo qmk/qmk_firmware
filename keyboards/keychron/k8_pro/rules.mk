@@ -18,7 +18,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = yes       # Enable Bluetooth with
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with
 BLUETOOTH_DRIVER = custom
 AUDIO_ENABLE = no           # Audio output on port C6
 DIP_SWITCH_ENABLE = yes
@@ -27,6 +27,7 @@ RAW_ENABLE = yes
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 OPT_DEFS += -DNO_USB_STARTUP_CHECK -DENABLE_FACTORY_TEST
+OPT_DEFS += -DKC_BLUETOOTH_ENABLE
 
 CUSTOM_MATRIX = lite
 SRC += matrix.c

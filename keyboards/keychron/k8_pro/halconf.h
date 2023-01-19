@@ -18,7 +18,7 @@
 
 #define HAL_USE_I2C TRUE
 
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
 #    define PAL_USE_CALLBACKS TRUE
 #    define HAL_USE_SERIAL TRUE
 #endif

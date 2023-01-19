@@ -17,6 +17,7 @@
 #pragma once
 
 #include "bluetooth_event_type.h"
+#include "action.h"
 
 /* Low power mode */
 #ifndef LOW_POWER_MODE

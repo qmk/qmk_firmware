@@ -78,7 +78,7 @@
 #define LED_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
-#define LED_DISABLE_TIME_INFINITE   (UINT32_MAX)
+#define LED_MATRIX_TIMEOUT_INFINITE   (UINT32_MAX)
 
 enum led_matrix_effects {
     LED_MATRIX_NONE = 0,

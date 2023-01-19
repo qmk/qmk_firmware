@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define MANUFACTURER Keychron
-#define PRODUCT Keychron K8 Pro
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -47,7 +43,7 @@
 #define LED_CAPS_LOCK_PIN A7
 #define LED_PIN_ON_STATE 1
 
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
 /* Hardware configuration */
 #    define USB_BT_MODE_SELECT_PIN A10
 

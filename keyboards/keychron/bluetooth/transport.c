@@ -150,15 +150,15 @@ void transport_changed(transport_t new_transport) {
     reinit_led_drvier();
 #endif
 
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_DISABLE_TIMEOUT)
-#    if (RGB_DISABLE_TIMEOUT > 0)
-    rgb_matrix_disable_timeout_set(RGB_DISABLE_TIME_INFINITE);
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_TIMEOUT)
+#    if (RGB_MATRIX_TIMEOUT > 0)
+    rgb_matrix_disable_timeout_set(RGB_MATRIX_TIMEOUT_INFINITE);
     rgb_matrix_disable_time_reset();
 #    endif
 #endif
-#if defined(LED_MATRIX_ENABLE) && defined(LED_DISABLE_TIMEOUT)
-#    if (LED_DISABLE_TIMEOUT > 0)
-    led_matrix_disable_timeout_set(LED_DISABLE_TIME_INFINITE);
+#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_TIMEOUT)
+#    if (LED_MATRIX_TIMEOUT > 0)
+    led_matrix_disable_timeout_set(LED_MATRIX_TIMEOUT_INFINITE);
     led_matrix_disable_time_reset();
 #    endif
 #endif

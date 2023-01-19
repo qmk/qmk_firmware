@@ -88,7 +88,7 @@
 #define RGB_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
-#define RGB_DISABLE_TIME_INFINITE   (UINT32_MAX)
+#define RGB_MATRIX_TIMEOUT_INFINITE   (UINT32_MAX)
 
 enum rgb_matrix_effects {
     RGB_MATRIX_NONE = 0,
@@ -189,12 +189,11 @@ void        rgb_matrix_decrease_speed_noeeprom(void);
 led_flags_t rgb_matrix_get_flags(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 void        rgb_matrix_set_flags_noeeprom(led_flags_t flags);
-
-#ifdef RGB_DISABLE_TIMEOUT
-#   if RGB_DISABLE_TIMEOUT > 0
+#ifdef RGB_MATRIX_TIMEOUT
+#   if RGB_MATRIX_TIMEOUT > 0
 void        rgb_matrix_disable_timeout_set(uint32_t timeout);
 void        rgb_matrix_disable_time_reset(void);
-#   endif   
+#   endif
 #endif
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 void        rgb_matrix_driver_shutdown(void);

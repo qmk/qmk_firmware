@@ -18,9 +18,12 @@
 
 #define HAL_USE_I2C TRUE
 
+<<<<<<< HEAD:keyboards/keychron/k6_pro/halconf.h
 #ifdef BLUETOOTH_ENABLE
 #    define PAL_USE_CALLBACKS TRUE
 #    define HAL_USE_SERIAL TRUE
 #endif
 
+=======
+>>>>>>> master:keyboards/acheron/apollo/87h/gamma/halconf.h
 #include_next <halconf.h>

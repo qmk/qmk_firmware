@@ -88,7 +88,7 @@ static inline void factory_timer_check(void) {
             if (!rgb_matrix_is_enabled()) rgb_matrix_enable();
             rgb_matrix_init();
 #endif
-#ifdef BLUETOOTH_ENABLE
+#ifdef KC_BLUETOOTH_ENABLE
             ckbt51_factory_reset();
             bt_factory_reset = true;
 #endif
@@ -187,7 +187,7 @@ void led_matrix_indicators_user(void) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (factory_reset_ind_state) {
         rgb_matrix_set_color_all(factory_reset_ind_state % 2 ? 0 : 255, 0, 0);
     } else if (backlight_test_mode) {
@@ -206,6 +206,8 @@ void rgb_matrix_indicators_user(void) {
                 break;
         }
     }
+
+    return false;
 }
 #endif
 
