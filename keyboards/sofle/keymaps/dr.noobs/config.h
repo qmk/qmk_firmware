@@ -55,7 +55,7 @@
 // sk6812 RGB LED
 #define RGB_DI_PIN D3
 
-#undef RBMLED_NUM
+#undef RGBLED_NUM
 #define RGBLED_NUM 58 // Number of LEDs
 
 #undef RGBLED_SPLIT
