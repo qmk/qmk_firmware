@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Fidelity",
+    "manufacturer": "Cutie Club",
+    "url": "",
+    "maintainer": "Cutie Club",
+    "usb": {
+        "vid": "0xFB9C",
+        "pid": "0x4D1B",
+        "device_version": "0.0.1"
+    }
+}

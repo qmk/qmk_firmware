@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFB9C
-#define PRODUCT_ID 0x4D1B
-#define DEVICE_VER 0x0000
-#define MANUFACTURER Cutie Club
-#define PRODUCT Fidelity
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -34,7 +27,6 @@
  */
 #define MATRIX_ROW_PINS { A15, B3, B5, B6, B7 }
 #define MATRIX_COL_PINS { A7, A6, A5, A4, A3, A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
