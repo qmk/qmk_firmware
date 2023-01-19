@@ -174,7 +174,7 @@ Whether the leader sequence is active (and has not timed out, if `LEADER_NO_TIME
 
 ### `bool leader_sequence_add(uint16_t keycode)` :id=api-leader-sequence-add
 
-Add the given keycode to the sequence buffer. If the buffer is full, the leader sequence is ended.
+Add the given keycode to the sequence buffer.
 
 #### Arguments :id=api-leader-sequence-add-arguments
 
@@ -183,7 +183,7 @@ Add the given keycode to the sequence buffer. If the buffer is full, the leader 
 
 #### Return Value :id=api-leader-sequence-add-return
 
-`true` if the keycode was added.
+`true` if the keycode was added, `false` if the buffer is full.
 
 ---
 

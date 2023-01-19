@@ -49,14 +49,14 @@ bool leader_sequence_active(void) {
 }
 
 bool leader_sequence_add(uint16_t keycode) {
-    if (leader_sequence_size < ARRAY_SIZE(leader_sequence)) {
-        leader_sequence[leader_sequence_size] = keycode;
-        leader_sequence_size++;
-        return true;
+    if (leader_sequence_size >= ARRAY_SIZE(leader_sequence)) {
+        return false;
     }
 
-    leader_end();
-    return false;
+    leader_sequence[leader_sequence_size] = keycode;
+    leader_sequence_size++;
+
+    return true;
 }
 
 bool leader_sequence_timed_out(void) {

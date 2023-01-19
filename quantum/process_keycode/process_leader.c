@@ -28,11 +28,16 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
             }
 #endif
 
-            if (!leader_sequence_add(keycode)) return true;
+            if (!leader_sequence_add(keycode)) {
+                leader_end();
+
+                return true;
+            }
 
 #ifdef LEADER_PER_KEY_TIMING
             leader_reset_timer();
 #endif
+
             return false;
         } else if (keycode == QK_LEADER) {
             leader_start();
