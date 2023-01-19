@@ -22,7 +22,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
     - an example GPL2+ license header may be copied (and author modified) from the bottom of this document
     - other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged
     - missing license headers will prevent PR merge due to ambiguity with license compatibility
-        - simple assignment-only `rules.mk` files should not have a license header - where additional logic is used in an `*.mk` file a license header may be appropriate
+        - simple assignment-only `rules.mk` files should not need a license header - where additional logic is used in an `*.mk` file a license header may be appropriate
 - QMK Codebase "best practices" followed
     - this is not an exhaustive list, and will likely get amended as time goes by
     - `#pragma once` instead of `#ifndef` include guards in header files
