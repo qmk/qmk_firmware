@@ -7,7 +7,11 @@ from pathlib import Path
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE, BOOTLOADER_VIDS_PIDS
-from .check import CheckStatus
+from .check import CheckStatus, release_info
+
+
+def _is_wsl():
+    return 'microsoft' in platform.uname().release.lower()
 
 
 def _udev_rule(vid, pid=None, *args):
@@ -130,17 +134,21 @@ def check_modem_manager():
 def os_test_linux():
     """Run the Linux specific tests.
     """
-    # Don't bother with udev on WSL, for now
-    if 'microsoft' in platform.uname().release.lower():
-        cli.log.info("Detected {fg_cyan}Linux (WSL){fg_reset}.")
+    release_id = release_info().get('ID', 'Unknown')
+    plat = 'Linux (WSL)' if _is_wsl() else 'Linux'
 
+    cli.log.info("Detected {fg_cyan}%s{fg_reset} - {fg_green}%s{fg_reset}." % (plat, release_id))
+
+    # Don't bother with udev on WSL, for now
+    if _is_wsl():
         # https://github.com/microsoft/WSL/issues/4197
         if QMK_FIRMWARE.as_posix().startswith("/mnt"):
             cli.log.warning("I/O performance on /mnt may be extremely slow.")
             return CheckStatus.WARNING
 
-        return CheckStatus.OK
     else:
-        cli.log.info("Detected {fg_cyan}Linux{fg_reset}.")
+        rc = check_udev_rules()
+        if rc != CheckStatus.OK:
+            return rc
 
-        return check_udev_rules()
+    return CheckStatus.OK

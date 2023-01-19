@@ -158,3 +158,19 @@ def is_executable(command):
 
     cli.log.error("{fg_red}Can't run `%s %s`", command, version_arg)
     return False
+
+
+def release_info(file='/etc/os-release'):
+    """Parse release info to dict
+    """
+    ret = {}
+    try:
+        with open(file) as f:
+            for line in f:
+                if '=' in line:
+                    key, value = line.split('=', 1)
+                    ret[key.strip()] = value.strip()
+    except PermissionError:
+        pass
+
+    return ret
