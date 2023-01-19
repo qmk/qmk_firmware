@@ -36,11 +36,11 @@ void leader_task(void);
 bool leader_sequence_active(void);
 
 /**
- * Add the given keycode to the sequence buffer. If the buffer is full, the leader sequence is ended.
+ * Add the given keycode to the sequence buffer.
  *
  * \param keycode The keycode to add.
  *
- * \return `true` if the keycode was added.
+ * \return `true` if the keycode was added, `false` if the buffer is full.
  */
 bool leader_sequence_add(uint16_t keycode);
 
