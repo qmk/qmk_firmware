@@ -8,6 +8,7 @@
         "pid": "0xB00E",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["fullsize_ansi", "fullsize_iso", "tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [

@@ -8,6 +8,7 @@
       "pid": "0x5350",
       "device_version": "10.0.1"
     },
+    "community_layouts": ["ortho_2x3"],
     "layouts": {
         "LAYOUT_ortho_2x3": {
           "layout": [

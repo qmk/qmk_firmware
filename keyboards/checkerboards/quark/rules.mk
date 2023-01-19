@@ -23,5 +23,3 @@ ENCODER_ENABLE = yes	    # Enable Rotary Encoders
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no
-
-LAYOUTS = ortho_4x12 planck_mit

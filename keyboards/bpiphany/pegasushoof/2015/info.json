@@ -1,5 +1,6 @@
 {
     "keyboard_name": "Majestouch TKL \\\\w The Pegasus Hoof 2015",
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT": {
             "layout": [

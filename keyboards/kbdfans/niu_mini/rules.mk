@@ -17,7 +17,6 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 
-LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no
 
 # Disable unsupported hardware

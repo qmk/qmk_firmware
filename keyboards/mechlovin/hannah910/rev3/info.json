@@ -8,6 +8,7 @@
         "pid": "0x9103",
         "device_version": "0.0.2"
     },
+    "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

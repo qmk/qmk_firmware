@@ -8,6 +8,7 @@
     "pid": "0x8787",
     "device_version": "0.0.1"
   },
+  "community_layouts": ["tkl_ansi", "tkl_iso"],
   "layouts": {
     "LAYOUT_all": {
       "layout": [

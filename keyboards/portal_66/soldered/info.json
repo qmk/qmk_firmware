@@ -13,6 +13,7 @@
         "LAYOUT_65_tsangan_split_bs": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
         "LAYOUT_65_iso": "LAYOUT_65_iso_blocker"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [

@@ -41,5 +41,3 @@ WPM_ENABLE = yes
 # Wear-levelling driver
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = spi_flash
-
-LAYOUTS = tkl_ansi

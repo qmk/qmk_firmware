@@ -18,7 +18,5 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 WS2812_DRIVER = i2c
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = ortho_4x12 planck_mit
-
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no

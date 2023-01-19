@@ -22,8 +22,6 @@ RGBLIGHT_ENABLE  = no # This can be enabled if a ws2812 strip is connected to th
 BLUETOOTH_ENABLE = yes
 BLUETOOTH_DRIVER = BluefruitLE
 
-LAYOUTS = ortho_4x12 planck_mit
-
 # Disable unsupported hardware
 RGBLIGHT_SUPPORTED = no
 AUDIO_SUPPORTED = no

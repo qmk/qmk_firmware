@@ -8,6 +8,7 @@
     "pid": "0x4F60",
     "device_version": "0.0.1"
   },
+  "community_layouts": ["ortho_5x12"],
   "layouts": {
     "LAYOUT_ortho_5x12": {
       "layout": [

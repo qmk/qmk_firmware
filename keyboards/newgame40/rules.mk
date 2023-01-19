@@ -18,5 +18,3 @@ AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 IOS_DEVICE_ENABLE = no     # connect to IOS Device
-
-LAYOUTS = ortho_4x10

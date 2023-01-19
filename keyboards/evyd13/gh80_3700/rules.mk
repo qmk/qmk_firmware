@@ -16,5 +16,3 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable support for rotary encoders
-
-LAYOUTS = numpad_6x4 ortho_6x4

@@ -124,23 +124,10 @@ endef
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
-    REQUIRE_PLATFORM_KEY :=
     # If the rule starts with all, then continue the parsing from
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
         KEYBOARD_RULE=all
-        $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-avr),true)
-        KEYBOARD_RULE=all
-        REQUIRE_PLATFORM_KEY := avr
-        $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-chibios),true)
-        KEYBOARD_RULE=all
-        REQUIRE_PLATFORM_KEY := chibios
-        $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-arm_atsam),true)
-        KEYBOARD_RULE=all
-        REQUIRE_PLATFORM_KEY := arm_atsam
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
         $$(eval $$(call PARSE_TEST))
@@ -271,7 +258,7 @@ define PARSE_KEYMAP
     # Format it in bold
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
-    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY) QMK_BIN=$$(QMK_BIN)
+    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) QMK_BIN=$$(QMK_BIN)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
@@ -394,21 +381,9 @@ ifdef NOT_REPO
 	printf "$(MSG_NOT_REPO)"
 endif
 ifndef SKIP_GIT
+	$(QMK_BIN) git-submodule --sync
 	# Check if the submodules are dirty, and display a warning if they are
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
-	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
-	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
-	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
-	if [ ! -e lib/pico-sdk ]; then git submodule sync lib/pico-sdk && git submodule update --depth 50 --init lib/pico-sdk; fi
-	if [ ! -e lib/lvgl ]; then git submodule sync lib/lvgl && git submodule update --depth 50 --init lib/lvgl; fi
-	git submodule status --recursive 2>/dev/null | \
-	while IFS= read -r x; do \
-		case "$$x" in \
-			\ *) ;; \
-			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
-		esac \
-	done
+	if ! $(QMK_BIN) git-submodule --check 1> /dev/null 2>&1; then printf "$(MSG_SUBMODULE_DIRTY)"; fi
 endif
 	rm -f $(ERROR_FILE) > /dev/null 2>&1
 	$(eval $(call PARSE_RULE,$@))

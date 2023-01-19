@@ -6,6 +6,7 @@
         "pid": "0xB04D",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["ergodox"],
     "layouts": {
       "LAYOUT_ergodox": {
         "layout": [

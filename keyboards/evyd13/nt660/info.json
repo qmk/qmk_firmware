@@ -8,6 +8,7 @@
         "pid": "0x1F02",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["66_ansi", "66_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

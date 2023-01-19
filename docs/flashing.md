@@ -324,7 +324,7 @@ Flashing sequence:
 
 ## tinyuf2
 
-Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F401/F411 blackpill.
+Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on F303/F401/F411.
 
 The `rules.mk` setting for this bootloader is `tinyuf2`, and can be specified at the keymap or user level.
 
@@ -357,6 +357,47 @@ CLI Flashing sequence:
     * Double-tap the `nRST` button on the PCB.
 2. Wait for the OS to detect the device
 3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/blackpill_f411_tinyuf2 --keymap default`
+4. Wait for the keyboard to become available
+
+### `make` Targets
+
+* `:uf2-split-left` and `:uf2-split-right`: Flashes the firmware but also sets the handedness setting in EEPROM by generating a side specific firmware.
+
+## uf2boot
+
+Keyboards may opt into supporting the uf2boot bootloader. This is currently only supported on F103.
+
+The `rules.mk` setting for this bootloader is `uf2boot`, and can be specified at the keymap or user level.
+
+To ensure compatibility with the uf2boot bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = uf2boot
+```
+
+Compatible flashers:
+
+* Any application able to copy a file from one place to another, such as _macOS Finder_ or _Windows Explorer_.
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `QK_BOOT` keycode
+    * Double-tap the `nRST` button on the PCB.
+2. Wait for the OS to detect the device
+3. Copy the .uf2 file to the new USB disk
+4. Wait for the keyboard to become available
+
+or
+
+CLI Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `QK_BOOT` keycode
+    * Double-tap the `nRST` button on the PCB.
+2. Wait for the OS to detect the device
+3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/bluepill_uf2boot --keymap default`
 4. Wait for the keyboard to become available
 
 ### `make` Targets
