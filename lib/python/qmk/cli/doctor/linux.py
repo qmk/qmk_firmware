@@ -136,9 +136,9 @@ def os_test_linux():
     """
     info = release_info()
     release_id = info.get('PRETTY_NAME', info.get('ID', 'Unknown'))
-    plat = 'Linux (WSL)' if _is_wsl() else 'Linux'
+    plat = 'WSL, ' if _is_wsl() else ''
 
-    cli.log.info("Detected {fg_cyan}%s{fg_reset} - {fg_green}%s{fg_reset}." % (plat, release_id))
+    cli.log.info(f"Detected {{fg_cyan}}Linux ({plat}{release_id}){{fg_reset}}.")
 
     # Don't bother with udev on WSL, for now
     if _is_wsl():
