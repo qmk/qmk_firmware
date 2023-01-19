@@ -1,4 +1,4 @@
-/* Copyright 2021 Cutie Club
+/* Copyright 2023 Cutie Club
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,14 +18,8 @@
 
 #include "quantum.h"
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
+#define ___ KC_NO
+
 #define LAYOUT_all( \
     k00_00, k00_01, k00_02, k00_03, k00_04, k00_05, k00_06, k00_07, k00_08, k00_09, k00_10, k00_11, k00_12, k00_13, k00_14, k00_15, \
     k01_00, k01_01, k01_02, k01_03, k01_04, k01_05, k01_06, k01_07, k01_08, k01_09, k01_10, k01_11, k01_12, k01_13,         k01_15, \
