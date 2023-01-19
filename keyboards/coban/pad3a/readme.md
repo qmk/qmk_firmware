@@ -1,6 +1,6 @@
 # Coban Pad 3A
 
-![Coban Pad 3A](https://i.imgur.com/0afuIuY.png)
+![Coban Pad 3A](https://i.imgur.com/0afuIuYh.png)
 
 Small macro keyboard with 2 hotswapable button and 1 EC11 rotary encoder
 

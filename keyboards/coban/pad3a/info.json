@@ -1,14 +1,16 @@
 {
     "keyboard_name": "Coban Pad 3A",
     "name": "Coban Pad 3A",
+    "url": "https://cobanstationery.com",
+    "maintainer": "Coban Stationery",
+    "manufacturer": "Coban Stationery",
     "usb": {
         "pid": "0xCC3A",
         "vid": "0xCB3A",
         "device_version": "1.1.0"
     },
-    "url": "https://cobanstationery.com",
-    "maintainer": "Coban Stationery",
-    "manufacturer": "Coban Stationery",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "matrix": { "rows": 1, "cols": 5 },
     "layouts": {
         "LAYOUT": {

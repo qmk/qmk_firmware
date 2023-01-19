@@ -18,13 +18,10 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
-
-#define DIRECT_PINS { { GP8, GP7, GP6 } }
+#define DIRECT_PINS { { GP8, GP7, GP6, NO_PIN, NO_PIN } }
 #define ENCODERS_PAD_A { GP4 }
 #define ENCODERS_PAD_B { GP5 }
+#define ENCODER_RESOLUTION 4
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
