@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DEBOUNCE 5
 
-
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
 
 #ifdef OLED_ENABLE

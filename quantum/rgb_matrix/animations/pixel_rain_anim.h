@@ -41,7 +41,7 @@ static bool PIXEL_RAIN(effect_params_t* params) {
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     if (g_rgb_timer > wait_timer) {
-        rain_pixel(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 2);
+        rain_pixel(mod8(random8(), RGB_MATRIX_LED_COUNT), params, random8() & 2);
     }
     return rgb_matrix_check_finished_leds(led_max);
 }

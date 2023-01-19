@@ -14,26 +14,31 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdbool.h>
 
 #ifndef CAPS_WORD_IDLE_TIMEOUT
 #    define CAPS_WORD_IDLE_TIMEOUT 5000 // Default timeout of 5 seconds.
-#endif                                  // CAPS_WORD_IDLE_TIMEOUT
+#endif
 
-#if CAPS_WORD_IDLE_TIMEOUT > 0
 /** @brief Matrix scan task for Caps Word feature */
 void caps_word_task(void);
 
+#if CAPS_WORD_IDLE_TIMEOUT > 0
 /** @brief Resets timer for Caps Word idle timeout. */
 void caps_word_reset_idle_timer(void);
-#else
-static inline void caps_word_task(void) {}
-#endif // CAPS_WORD_IDLE_TIMEOUT > 0
+#endif
 
-void caps_word_on(void);     /**< Activates Caps Word. */
-void caps_word_off(void);    /**< Deactivates Caps Word. */
-void caps_word_toggle(void); /**< Toggles Caps Word. */
-bool is_caps_word_on(void);  /**< Gets whether currently active. */
+/** @brief Activates Caps Word. */
+void caps_word_on(void);
+
+/** @brief Deactivates Caps Word. */
+void caps_word_off(void);
+
+/** @brief Toggles Caps Word. */
+void caps_word_toggle(void);
+
+/** @brief Gets whether currently active. */
+bool is_caps_word_on(void);
 
 /**
  * @brief Caps Word set callback.

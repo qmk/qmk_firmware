@@ -41,7 +41,7 @@ In other cases you should group like options together in an `object`. This is pa
 
 ### Add a mapping
 
-In most cases you can add a simple mapping. These are maintained as JSON files in `data/mappings/info_config.json` and `data/mappings/info_rules.json`, and control mapping for `config.h` and `rules.mk`, respectively. Each mapping is keyed by the `config.h` or `rules.mk` variable, and the value is a hash with the following keys:
+In most cases you can add a simple mapping. These are maintained as JSON files in `data/mappings/info_config.hjson` and `data/mappings/info_rules.hjson`, and control mapping for `config.h` and `rules.mk`, respectively. Each mapping is keyed by the `config.h` or `rules.mk` variable, and the value is a hash with the following keys:
 
 * `info_key`: (required) The location within `info.json` for this value. See below.
 * `value_type`: (optional) Default `raw`. The format for this variable's value. See below.

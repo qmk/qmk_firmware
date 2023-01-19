@@ -127,26 +127,26 @@ enum layer_names {
 
 ```c
 enum custom_keycodes {
-    MACRO_1 = SAFE_RANGE,
-    MACRO_2,
-    MACRO_3
+    CUSTOM_1 = SAFE_RANGE,
+    CUSTOM_2,
+    CUSTOM_3
 };
 ...
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case MACRO_1:
+        case CUSTOM_1:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #1.");
+                SEND_STRING("This is custom keycode #1.");
             }
             return false;
-        case MACRO_2:
+        case CUSTOM_2:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #2.");
+                SEND_STRING("This is custom keycode #2.");
             }
             return false;
-        case MACRO_3:
+        case CUSTOM_3:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #3.");
+                SEND_STRING("This is custom keycode #3.");
             }
             return false;
     }
@@ -158,9 +158,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ```c
 enum keyboard_keycodes {
-    MACRO_1 = SAFE_RANGE,
-    MACRO_2,
-    MACRO_3,
+    CUSTOM_1 = SAFE_RANGE,
+    CUSTOM_2,
+    CUSTOM_3,
     NEW_SAFE_RANGE  // 重要!
 };
 ```
@@ -170,19 +170,19 @@ enum keyboard_keycodes {
 ```c
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case MACRO_1:
+        case CUSTOM_1:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #1.");
+                SEND_STRING("This is custom keycode #1.");
             }
             return false;
-        case MACRO_2:
+        case CUSTOM_2:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #2.");
+                SEND_STRING("This is custom keycode #2.");
             }
             return false;
-        case MACRO_3:
+        case CUSTOM_3:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #3.");
+                SEND_STRING("This is custom keycode #3.");
             }
             return false;
     }

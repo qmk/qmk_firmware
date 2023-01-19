@@ -188,6 +188,10 @@ typedef struct _split_shared_memory_t {
     split_slave_pointing_sync_t pointing;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+#if defined(SPLIT_WATCHDOG_ENABLE)
+    bool watchdog_pinged;
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;
     uint8_t         rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];

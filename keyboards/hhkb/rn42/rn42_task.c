@@ -372,7 +372,7 @@ bool command_extra(uint8_t code)
                 config_mode = false;
             }
             return true;
-        case KC_SCROLLLOCK:
+        case KC_SCROLL_LOCK:
             init_rn42();
             return true;
 #ifdef NKRO_ENABLE
@@ -406,7 +406,7 @@ bool command_console_extra(uint8_t code)
 // convert keycode into ascii charactor
 static uint8_t code2asc(uint8_t code)
 {
-    bool shifted = (get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))) ? true : false;
+    bool shifted = (get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))) ? true : false;
     switch (code) {
         case KC_A: return (shifted ? 'A' : 'a');
         case KC_B: return (shifted ? 'B' : 'b');
@@ -446,16 +446,16 @@ static uint8_t code2asc(uint8_t code)
         case KC_0: return (shifted ? ')' : '0');
         case KC_ENTER: return '\n';
         case KC_ESCAPE: return 0x1B;
-        case KC_BSPACE: return '\b';
+        case KC_BACKSPACE: return '\b';
         case KC_TAB: return '\t';
         case KC_SPACE: return ' ';
         case KC_MINUS: return (shifted ? '_' : '-');
         case KC_EQUAL: return (shifted ? '+' : '=');
-        case KC_LBRACKET: return (shifted ? '{' : '[');
-        case KC_RBRACKET: return (shifted ? '}' : ']');
-        case KC_BSLASH: return (shifted ? '|' : '\\');
+        case KC_LEFT_BRACKET: return (shifted ? '{' : '[');
+        case KC_RIGHT_BRACKET: return (shifted ? '}' : ']');
+        case KC_BACKSLASH: return (shifted ? '|' : '\\');
         case KC_NONUS_HASH: return (shifted ? '|' : '\\');
-        case KC_SCOLON: return (shifted ? ':' : ';');
+        case KC_SEMICOLON: return (shifted ? ':' : ';');
         case KC_QUOTE: return (shifted ? '"' : '\'');
         case KC_GRAVE: return (shifted ? '~' : '`');
         case KC_COMMA: return (shifted ? '<' : ',');

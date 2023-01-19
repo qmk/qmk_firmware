@@ -3,7 +3,7 @@
 
 #define PGMOD LT(_MOD, KC_PGDN)
 #define SPCMOD LT(_MOD, KC_SPACE)
-#define VOLMOD LT(_MOD, KC__MUTE)
+#define VOLMOD LT(_MOD, KC_MUTE)
 
 enum layer_names {
   _BASE,
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├──────────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───────────────────┤ ┌────────┐
      KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,           KC_UP,
   //├──────────┬───────┴──┬─────┴────┬───┴────────┴─────┬───┴────────┴───┬─────┴────────┴┬────────┴────────┼────────┴─┬──────────┬────┬──────┴─┬────────┼────────┐
-     CMDBSP,    ALTDEL,   KC_LCTRL,        KC_SPACE,      SPCMOD,          SPCMOD,        MO(_DEL),         KC_LCTL,    KC_RCTRL,      KC_LEFT, KC_DOWN, KC_RGHT
+     CMDBSP,    ALTDEL,   KC_LCTL,         KC_SPACE,      SPCMOD,          SPCMOD,        MO(_DEL),         KC_LCTL,    KC_RCTL,       KC_LEFT, KC_DOWN, KC_RGHT
   //└──────────┴──────────┴──────────┴──────────────────┴────────────────┴───────────────┴─────────────────┴──────────┴──────────┘    └────────┴────────┴────────┘
   ),
 

@@ -142,7 +142,7 @@ void matrix_init_user (void) {
 
     // Correct unicode
 #ifdef UNICODE_ENABLE
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 #endif
 
     // Make beginning layer DVORAK
@@ -272,7 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(tone_linux);
 #endif
-                set_unicode_input_mode(UC_LNX);
+                set_unicode_input_mode(UNICODE_MODE_LINUX);
             }
             return false;
             break;
@@ -282,7 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(tone_windows);
 #endif
-                set_unicode_input_mode(UC_WIN);
+                set_unicode_input_mode(UNICODE_MODE_WINDOWS);
             }
             return false;
             break;

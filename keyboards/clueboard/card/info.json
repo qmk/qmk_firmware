@@ -4,6 +4,7 @@
   "maintainer": "skullydazed",
   "debounce": 20,
   "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "diode_direction": "ROW2COL",
   "features": {
     "audio": true,

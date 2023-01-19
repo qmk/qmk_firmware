@@ -15,5 +15,4 @@
 
 // RGB configuration
 #define RGB_MATRIX_LED_COUNT 40
-#define RGBLED_NUM 40       // TBD: Once convergence with these defines occurs, remove.
-#define DRIVER_LED_TOTAL 40 // TBD: Once convergence with these defines occurs, remove.
+#define RGBLED_NUM 40
