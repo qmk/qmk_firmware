@@ -3,6 +3,6 @@ Base on OLED animations and keymaps "foureight84" and "helltm". Just keep the VI
 After run the following, the build result `*.hex` file will be in the `./.build` path.
 
 ```
- qmk compile -c -kb sofle -km dr.noobs
+ qmk compile -c -kb sofle -km yeahnoob
 ```
 
