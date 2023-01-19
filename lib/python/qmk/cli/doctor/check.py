@@ -172,7 +172,7 @@ def release_info(file='/etc/os-release'):
                     if value.startswith('"') and value.endswith('"'):
                         value=value[1:-1]
                     ret[key] = value
-    except PermissionError:
+    except (PermissionError, FileNotFoundError):
         pass
 
     return ret
