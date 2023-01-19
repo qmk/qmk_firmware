@@ -134,7 +134,8 @@ def check_modem_manager():
 def os_test_linux():
     """Run the Linux specific tests.
     """
-    release_id = release_info().get('ID', 'Unknown')
+    info = release_info()
+    release_id = info.get('PRETTY_NAME', info.get('ID', 'Unknown'))
     plat = 'Linux (WSL)' if _is_wsl() else 'Linux'
 
     cli.log.info("Detected {fg_cyan}%s{fg_reset} - {fg_green}%s{fg_reset}." % (plat, release_id))

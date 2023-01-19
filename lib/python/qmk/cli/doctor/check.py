@@ -168,8 +168,10 @@ def release_info(file='/etc/os-release'):
         with open(file) as f:
             for line in f:
                 if '=' in line:
-                    key, value = line.split('=', 1)
-                    ret[key.strip()] = value.strip()
+                    key, value = map(str.strip, line.split('=', 1))
+                    if value.startswith('"') and value.endswith('"'):
+                        value=value[1:-1]
+                    ret[key] = value
     except PermissionError:
         pass
 
