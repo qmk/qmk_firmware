@@ -41,7 +41,7 @@ void leader_task(void) {
 }
 
 bool leader_sequence_active(void) {
-#if !defined(LEADER_NO_TIMEOUT)
+#if defined(LEADER_NO_TIMEOUT)
     return leading;
 #else
     return leading && timer_elapsed(leader_time) < LEADER_TIMEOUT;
