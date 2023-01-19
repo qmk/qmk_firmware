@@ -50,9 +50,10 @@ The simpler your PR is, the easier it is for maintainers to review, thus a highe
 Criteria for acceptance:
 
 * The PR is complete and ready to merge
-* GitHub actions on the PR are all green
-    * A "red" QMK CI Build may be disregarded by maintainers if the failures are unrelated to the change proposed in the PR
-    * Other actions must be "green"
+* GitHub checks for the PR are green whenever possible
+    * A "red" check may be disregarded by maintainers if the items flagged are unrelated to the change proposed in the PR
+        * Modifications to existing files should not need to add license headers to pass lint, for instance.
+        * If it's not directly related to your PR's functionality, prefer avoiding making a change.
 
 Strongly suggested:
 

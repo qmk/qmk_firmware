@@ -22,6 +22,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
     - an example GPL2+ license header may be copied (and author modified) from the bottom of this document
     - other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged
     - missing license headers will prevent PR merge due to ambiguity with license compatibility
+        - simple assignment-only `rules.mk` files should not have a license header - where additional logic is used in an `*.mk` file a license header may be appropriate
 - QMK Codebase "best practices" followed
     - this is not an exhaustive list, and will likely get amended as time goes by
     - `#pragma once` instead of `#ifndef` include guards in header files
@@ -42,7 +43,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 - `#include QMK_KEYBOARD_H` preferred to including specific board files
 - prefer layer `enum`s to `#define`s
 - require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
-- terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous
+- terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous and should be removed
 - some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
 ## Keyboard PRs
@@ -63,9 +64,11 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
             - should use standard definitions if applicable
             - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
-            - use of `LAYOUT_all` is only valid when providing additional layout macros (i.e. the keyboard supports multiple layouts)
-                - providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling
-                    - use `LAYOUT` instead
+            - If the keyboard only has a single electrical/switch layout:
+                - use `LAYOUT` as your macro name, unless a community layout already exists
+            - If the keyboard has multiple electrical/switch layouts:
+                - include a `LAYOUT_all` which specifies all possible layout positions in the electrical matrix
+                - use alternate layout names for all other possible layouts, preferring community layout names if an equivalent is available (e.g. `LAYOUT_tkl_ansi`, `LAYOUT_ortho_4x4` etc.)
 - `readme.md`
     - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
@@ -148,6 +151,9 @@ Also, specific to ChibiOS:
     - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided
     - if an existing keymap exists that can leverage this functionality this may not be required (e.g. a new RGB driver chip, supported by the `rgb` keymap) -- consult with the QMK Collaborators on Discord to determine if there is sufficient overlap already
 - any features adding `_kb`/`_user` callbacks must return a `bool`, to allow for user override of keyboard-level callbacks.
+- where relevant, unit tests are strongly recommended -- they boost the confidence level that changes behave correctly
+    - critical areas of the code -- such as the keycode handling pipeline -- will almost certainly require unit tests accompanying them to ensure current and future correctness
+    - you should not be surprised if a QMK collaborator requests unit tests to be included in your PR if it's critical functionality
 - other requirements are at the discretion of QMK collaborators
     - core is a lot more subjective given the breadth of posted changes
 
