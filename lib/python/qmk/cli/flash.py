@@ -11,8 +11,18 @@ import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json, build_environment
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.keymap import keymap_completer
+from qmk.keymap import keymap_completer, locate_keymap
 from qmk.flashers import flasher
+
+
+def _is_keymap_target(keyboard, keymap):
+    if keymap == 'all':
+        return True
+
+    if locate_keymap(keyboard, keymap):
+        return True
+
+    return False
 
 
 def _list_bootloaders():
@@ -98,6 +108,11 @@ def flash(cli):
 
     elif cli.config.flash.keyboard and cli.config.flash.keymap:
         # Generate the make command for a specific keyboard/keymap.
+        if not _is_keymap_target(cli.config.flash.keyboard, cli.config.flash.keymap):
+            cli.log.error('Invalid keymap argument.')
+            cli.print_help()
+            return False
+
         if cli.args.clean:
             commands.append(create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean', **envs))
         commands.append(create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader, parallel=cli.config.flash.parallel, **envs))
