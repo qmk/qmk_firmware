@@ -138,7 +138,7 @@ static void init_rows(void) {
   PORTE |=  0b00000100;
 }
 
-static uint8_t read_rows() {
+static uint8_t read_rows(void) {
   return (PINB&(1<<7) ? (1<<0) : 0) |
     (PIND&(1<<0) ? (1<<1) : 0) |
     (PIND&(1<<1) ? (1<<2) : 0) |
