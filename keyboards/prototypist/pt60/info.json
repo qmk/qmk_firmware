@@ -1,5 +1,5 @@
 {
-    "manufacturer": "Prototypist",
+    "manufacturer": "ProtoTypist",
     "keyboard_name": "PT-60",
     "maintainer": "Anjheos",
     "bootloader": "stm32-dfu",

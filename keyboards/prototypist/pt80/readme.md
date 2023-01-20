@@ -1,26 +1,26 @@
-# prototypist/pt60
+# prototypist/pt80
 
-![prototypist/pt60](imgur.com image replace me!)
+![prototypist/pt80](imgur.com image replace me!)
 
-*Proto[Typist] Keyboards' first ever in-house universal 60% PCB designed by Josh (Anjheos). 
-Features various physical layouts available to fit multiple regional and bottom row layouts.
+*Proto[Typist] Keyboards' first ever in-house universal TKL PCB designed by Josh (Anjheos). 
+Features various physical layouts available to fit multiple regional, F-row and bottom row layouts.
 Default layout is in ISO.*
 
 * Keyboard Maintainer: [Josh @ Prototypist](https://github.com/Anjheos)
-* Hardware Supported: *PT-60J PCB and PT-60C PCB*
+* Hardware Supported: *PT-80J PCB and PT-80C PCB*
 * Hardware Availability: *prototypist.net*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make prototypist/pt60:via
-    make prototypist/pt60:default_ansi
-    make prototypist/pt60:default_iso
+    make prototypist/pt80:via
+    make prototypist/pt80:default_ansi
+    make prototypist/pt80:default_iso
 
 Flashing example for this keyboard:
 
-    make prototypist/pt60:via:flash
-    make prototypist/pt60:default_ansi:flash
-    make prototypist/pt60:default_iso:flash
+    make prototypist/pt80:via:flash
+    make prototypist/pt80:default_ansi:flash
+    make prototypist/pt80:default_iso:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
