@@ -46,8 +46,8 @@
 // "MMENU" is a macro for "CMD+SPC" (aka Spotlight/Alfred)
 #define MMENU LGUI(KC_SPC)
 #define _____ KC_TRNS
-#define MM_0 DYN_MACRO_PLAY1
-#define MM_1 DYN_MACRO_PLAY2
+#define MM_0 DM_PLY1
+#define MM_1 DM_PLY2
 
 // tap-hold settings
 #define LONGPRESS_DELAY 250
@@ -114,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   [LAYER_RECORD] = LAYOUT(
-    _____, _____, _____, _____, _____, _____, DYN_REC_STOP, DYN_REC_STOP, _____, _____, _____, _____, _____, _____, _____,
-    _____, _____, _____, _____, _____, _____, DYN_REC_STOP, DYN_REC_STOP, _____, _____, _____, _____, _____, _____, _____,
+    _____, _____, _____, _____, _____, _____, DM_RSTP, DM_RSTP, _____, _____, _____, _____, _____, _____, _____,
+    _____, _____, _____, _____, _____, _____, DM_RSTP, DM_RSTP, _____, _____, _____, _____, _____, _____, _____,
     _____, _____, _____, _____, _____, _____,    _____,        _____,     _____, _____, _____, _____, _____, _____, _____,
     _____, _____, _____, _____, _____, _____,    _____,        _____,     _____, _____, _____, _____, _____, _____, _____,
     _____, _____, _____, _____, _____, _____,    _____,        _____,     _____, _____, _____, _____, _____, _____, _____
@@ -153,16 +153,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        | RESET  |         DM_CLEAR         |        |        | RESET  |        |        |        |        |
+ * |        |        |        |        | QK_BOOT  |         DM_CLEAR         |        |        | QK_BOOT  |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
   [LAYER_FN] = LAYOUT(
-    GOTO_CM, GOTO_QW, KC_NO, KC_NO, KC_NO, KC_NO, DYN_REC_START1, DYN_REC_START2, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    GOTO_CM, GOTO_QW, KC_NO, KC_NO, KC_NO, KC_NO, DM_REC1, DM_REC2, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO,   KC_NO,   KC_NO, KC_NO, RESET,    KC_NO, DM_CLEAR, KC_NO,             KC_NO, KC_NO, RESET, KC_NO, KC_NO, KC_NO, KC_NO
+    KC_NO,   KC_NO,   KC_NO, KC_NO, QK_BOOT,  KC_NO, DM_CLEAR, KC_NO,             KC_NO, KC_NO, QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO
   )
 };
 
@@ -221,7 +221,7 @@ bool did_record_m1 = false;
 bool did_record_m2 = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool try_dynamic_macro = true;
-    if ((keycode == DYN_MACRO_PLAY1 && !did_record_m1) || (keycode == DYN_MACRO_PLAY2 && !did_record_m2)) {
+    if ((keycode == QK_DYNAMIC_MACRO_PLAY_1 && !did_record_m1) || (keycode == QK_DYNAMIC_MACRO_PLAY_2 && !did_record_m2)) {
         try_dynamic_macro = false;
     }
     else if (keycode == DM_CLEAR) {
@@ -231,18 +231,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (try_dynamic_macro && !process_record_dynamic_macro(keycode, record)) {
-        if (keycode == DYN_MACRO_PLAY1) {
+        if (keycode == QK_DYNAMIC_MACRO_PLAY_1) {
                 did_record_m1 = true;
         }
 
-        if (keycode == DYN_MACRO_PLAY2) {
+        if (keycode == QK_DYNAMIC_MACRO_PLAY_2) {
                 did_record_m2 = true;
         }
 
-        if (keycode == DYN_REC_START1 || keycode == DYN_REC_START2) {
+        if (keycode == QK_DYNAMIC_MACRO_RECORD_START_1 || keycode == QK_DYNAMIC_MACRO_RECORD_START_2) {
                 layer_move(LAYER_RECORD);
         }
-        else if (keycode == DYN_REC_STOP) {
+        else if (keycode == QK_DYNAMIC_MACRO_RECORD_STOP) {
                 layer_move(LAYER_COLEMAK);
         }
 
@@ -250,10 +250,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-    case DYN_MACRO_PLAY1:
+    case QK_DYNAMIC_MACRO_PLAY_1:
         SEND_STRING(SENDSTRING_MM0);
         return false;
-    case DYN_MACRO_PLAY2:
+    case QK_DYNAMIC_MACRO_PLAY_2:
         SEND_STRING(SENDSTRING_MM1);
         return false;
     case MM_2:

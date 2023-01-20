@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3680
-#define PRODUCT_ID      0x5658
-#define DEVICE_VER      0x0005
-#define MANUFACTURER    Omkbd
-#define PRODUCT         runner3680
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
@@ -68,7 +61,7 @@
 #define RGBLIGHT_LIMIT_VAL 100
 #endif
 #ifdef RGB_MATRIX_ENABLE
-#define DRIVER_LED_TOTAL 70
+#define RGB_MATRIX_LED_COUNT 70
 #define RGB_MATRIX_SPLIT { 30, 40 }    // Number of LEDs
 #endif
 

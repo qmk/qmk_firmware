@@ -1,7 +1,13 @@
 {
     "keyboard_name": "rainkeeb",
+    "manufacturer": "rainkeebs",
     "url": "",
     "maintainer": "rain",
+    "usb": {
+        "vid": "0x726B",
+        "pid": "0x726B",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

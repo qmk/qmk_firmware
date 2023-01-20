@@ -19,20 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1337
-#define PRODUCT_ID      0x6017
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Maple Computing
-#define PRODUCT         JNAO Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
 #define MATRIX_ROW_PINS { E6, F0, F5, F6, F7 }
 #define MATRIX_COL_PINS { F1, F4, B1, B2, B3, B7, D1, D2, D4, D6, D7, B4 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN D0
 

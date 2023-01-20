@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "helen80",
+  "keyboard_name": "Helen 80",
+  "manufacturer": "Play Keyboard",
   "url": "",
   "maintainer": "yj7272098",
+  "usb": {
+    "vid": "0x706B",
+    "pid": "0x4845",
+    "device_version": "0.0.1"
+  },
   "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

@@ -3,13 +3,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0x000A
-#define DEVICE_VER      0x0001
-#define MANUFACTURER CannonKeys
-#define PRODUCT Cloudline
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
 

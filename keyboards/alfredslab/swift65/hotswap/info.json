@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "hotswap",
+    "keyboard_name": "Swift65 Hotswap",
+    "manufacturer": "AlfredsLab",
     "url": "https://swiftcables.net/",
     "maintainer": "Spooknik",
+    "usb": {
+        "vid": "0xBBEB",
+        "pid": "0xD4C4",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_7u_space",
         "LAYOUT_all": "LAYOUT_7u_space"

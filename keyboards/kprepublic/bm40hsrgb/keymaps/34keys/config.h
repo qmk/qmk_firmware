@@ -14,9 +14,6 @@
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define TAPPING_FORCE_HOLD
 
-// Recommended for heavy chording.          
-#define QMK_KEYS_PER_SCAN 4
-
 // Mouse key speed and acceleration.
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY          0
@@ -54,6 +51,6 @@
 #    undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 #    undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #    undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
-#    undef RGB_MATRIX_STARTUP_MODE
+#    undef RGB_MATRIX_DEFAULT_MODE
 // #    define RGBLIGHT_HUE_STEP 20
 #endif

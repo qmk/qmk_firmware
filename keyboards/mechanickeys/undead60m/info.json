@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Undead-60M",
+    "keyboard_name": "Undead 60-M",
+    "manufacturer": "MechanicKeys",
     "url": "",
     "maintainer": "jfescobar18",
+    "usb": {
+        "vid": "0x4D4B",
+        "pid": "0x3C4D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

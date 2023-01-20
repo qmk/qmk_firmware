@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6166  // af
-#define PRODUCT_ID 0x0010
-#define DEVICE_VER 0x0001
-#define MANUFACTURER elagil
-#define PRODUCT Polilla
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
@@ -44,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B1, B0, A7, F1, A0 }
 #define MATRIX_COL_PINS { A6, A5, A4, A3, A2, A1, F0, B7, B6, B5, B4, B3 }
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

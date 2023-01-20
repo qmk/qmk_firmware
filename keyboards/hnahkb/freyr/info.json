@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "freyr",
+    "keyboard_name": "Freyr",
+    "manufacturer": "HnahKB",
     "url": "",
     "maintainer": "vuhopkep",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1895",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

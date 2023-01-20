@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // 'KP' kopibeng  
-#define PRODUCT_ID      0x8788 
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    kopibeng
-#define PRODUCT         XT8x
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -57,9 +50,6 @@
     #define RGBLIGHT_VAL_STEP 8
     #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//    #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
      #define RGBLIGHT_EFFECT_BREATHING
      #define RGBLIGHT_EFFECT_RAINBOW_MOOD
      #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

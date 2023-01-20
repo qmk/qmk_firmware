@@ -22,9 +22,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
   [2] = LAYOUT( /* KBP v60-like arrows, media keys, etc */
       KC_GRV,   KC_F1,    KC_F2,    KC_F3,     KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,  KC_DEL,   \
-      KC_TRNS,  KC_TRNS,  KC_UP,    KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_UP,    BL_INC,    BL_DEC,  BL_STEP,  \
+      KC_TRNS,  KC_TRNS,  KC_UP,    KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_UP,    BL_UP,     BL_DOWN, BL_STEP,  \
       KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,   KC_TRNS,  \
       KC_TRNS,  KC_NO,    KC_MPRV,  KC_MPLY,   KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,   KC_TRNS,  \
-      KC_TRNS,  KC_TRNS,  KC_TRNS,                       KC_SPC,                                 KC_NO,    DEBUG,    RESET,     KC_TRNS, KC_NO     \
+      KC_TRNS,  KC_TRNS,  KC_TRNS,                       KC_SPC,                                 KC_NO,    DB_TOGG,  QK_BOOT,   KC_TRNS, KC_NO     \
       ),
 };

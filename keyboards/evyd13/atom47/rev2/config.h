@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x8E66
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Evyd13
-#define PRODUCT         Atom47 rev2
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
@@ -34,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS {B1,B2,B3,B7}
 #define MATRIX_COL_PINS {D7,D5,F0,F1,F4,F6,F7,D4,C7,C6,D6,B5,B4}
-#define UNUSED_PINS
 
 
 /* COL2ROW or ROW2COL */

@@ -73,8 +73,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
 [ONE] = LAYOUT_wrapper(
-      KC_GRV,  _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, RESET,
-      _______, BL_BRTG, BL_DEC,  BL_INC,  BL_TOGG, BL_STEP,  BL_ON,   KC_PGUP, KC_HOME, _______, _______, _______, _______, _______,
+      KC_GRV,  _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
+      _______, BL_BRTG, BL_DOWN, BL_UP,   BL_TOGG, BL_STEP,  BL_ON,   KC_PGUP, KC_HOME, _______, _______, _______, _______, _______,
       _______, RGB_M_B, RGB_VAD, RGB_VAI, RGB_TOG, RGB_MOD,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,
       _______, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______,  _______, KC_PGDN, KC_END,  _______, gGHERKIN,_______, _______,
 	    _______, _______, _______,                   _______,                    _______, _______, _______

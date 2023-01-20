@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Helix rev3 5rows",
+  "manufacturer": "yushakobo",
   "url": "",
   "maintainer": "yushakobo",
+  "usb": {
+    "vid": "0x3265",
+    "pid": "0x0003",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

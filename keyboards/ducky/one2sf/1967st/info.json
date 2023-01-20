@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "Ducky One 2 SF (DKON1967ST)",
+    "keyboard_name": "One 2 SF",
+    "manufacturer": "Ducky",
     "maintainer": "f7urry",
+    "usb": {
+        "vid": "0x445B",
+        "pid": "0x07AF",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

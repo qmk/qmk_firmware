@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Yuri", 
+    "manufacturer": "Ocean",
     "url": "tokopedia.com/strat0s", 
     "maintainer": "Ocean", 
+    "usb": {
+        "vid": "0x9624",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0}, 

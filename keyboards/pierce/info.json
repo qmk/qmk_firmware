@@ -1,7 +1,13 @@
 {
     "keyboard_name": "pierce",
+    "manufacturer": "durken",
     "url": "https://github.com/durken1/pierce",
     "maintainer": "durken1",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

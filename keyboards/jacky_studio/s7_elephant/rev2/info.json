@@ -1,7 +1,13 @@
 {
     "keyboard_name": "S7 Elephant Rev2",
+    "manufacturer": "Jacky",
     "url": "https://geekhack.org/index.php?topic=103148.0",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xA13B",
+        "pid": "0x0008",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

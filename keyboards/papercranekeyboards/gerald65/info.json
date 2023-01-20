@@ -1,7 +1,13 @@
 {
     "keyboard_name": "gerald65",
+    "manufacturer": "PaperCraneKeyboards",
     "url": "",
     "maintainer": "PaperCraneKeyboards",
+    "usb": {
+        "vid": "0x5012",
+        "pid": "0x1501",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

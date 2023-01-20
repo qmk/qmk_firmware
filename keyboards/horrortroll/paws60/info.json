@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Paws 60",
+    "manufacturer": "HorrorTroll",
     "url": "https://github.com/HorrorTroll/KeebProj/tree/default/paws60/pcb/Hotswap",
     "maintainer": "HorrorTroll",
+    "usb": {
+        "vid": "0x7516",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

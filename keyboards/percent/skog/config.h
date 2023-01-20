@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0x5053 /* PS */
-#define PRODUCT_ID      0x422D
-#define DEVICE_VER      0x0200
-
-#define MANUFACTURER    Percent Studios
-#define PRODUCT         Skog TKL
-
 /* matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 14
@@ -36,7 +29,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_SCROLL_LOCK_PIN D6
 
 #define RGBLED_NUM 2
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 5

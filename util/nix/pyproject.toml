@@ -12,13 +12,14 @@ python = "^3.8"
 appdirs = "*"
 argcomplete = "*"
 colorama = "*"
+dotty-dict = "*"
 hid = "*"
 hjson = "*"
 jsonschema = ">=4"
 milc = ">=1.4.2"
 Pygments = "*"
+pyserial = "*"
 pyusb = "*"
-qmk-dotty-dict = "*"
 pillow = "*"
 
 # This dependency is not mentioned in requirements.txt (QMK CLI is not a
@@ -32,6 +33,28 @@ flake8 = "*"
 pep8-naming = "*"
 pyflakes = "*"
 yapf = "*"
+
+# These dependencies are required by the jsonschema >= 4.11.0 build system, but
+# are not detected automatically; they are also not present in the used Nixpkgs
+# snapshot, so need to be obtained through Poetry.
+hatchling = "*"
+hatch-vcs = "*"
+hatch-fancy-pypi-readme = "*"
+
+# The `pytest` module in the used Nixpkgs snapshot has an upper bound on the
+# `pluggy` dependency, which conflicts with the dependency of the `hatchling`
+# module; upgrading the `pytest` module fixes the conflict.
+pytest = "*"
+
+# Building the `tomli` module, which is in the dependency tree of `hatchling`,
+# requires a newer `flit-core` module than found in the used Nixpkgs snapshot.
+flit-core = "*"
+
+# Building `dotty-dict` >= 1.3.1 requires the `poetry-core` module, and the
+# version of that module provided by the used Nixpkgs snapshot cannot be built
+# on Darwin due to the regex compatibility issue in the old Nixpkgs code
+# (https://github.com/NixOS/nix/issues/4758).
+poetry-core = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

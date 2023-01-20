@@ -1,11 +1,17 @@
 {
-    "keyboard_name": "snop60",
+    "keyboard_name": "SNOP60",
+    "manufacturer": "Nasp",
     "url": "www.checkerboards.xyz",
+    "maintainer": "nasp",
+    "usb": {
+        "vid": "0x7070",
+        "pid": "0x2416",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_7u": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
         "LAYOUT_2x3u": "LAYOUT_60_ansi_tsangan_split_bs_rshift_space"
     },
-    "maintainer": "nasp",
     "layouts": {
         "LAYOUT_60_ansi_tsangan_split_bs_rshift_space": {
             "layout": [

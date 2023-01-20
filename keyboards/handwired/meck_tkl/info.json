@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "meck_tkl",
+    "keyboard_name": "Meck TKL",
+    "manufacturer": "gabrielkim13",
     "url": "github.com/gabrielkim13",
     "maintainer": "gabrielkim13",
+    "usb": {
+        "vid": "0x474B",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
