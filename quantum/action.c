@@ -1050,7 +1050,7 @@ void clear_keyboard_but_mods(void) {
  *
  * FIXME: Needs documentation.
  */
-void clear_keyboard_but_mods_and_keys() {
+void clear_keyboard_but_mods_and_keys(void) {
 #ifdef EXTRAKEY_ENABLE
     host_system_send(0);
     host_consumer_send(0);

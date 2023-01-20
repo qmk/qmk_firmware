@@ -222,7 +222,7 @@ void set_layer_led(int layerLedMode) {
     }
 }
 
-void led_init_animation() {
+void led_init_animation(void) {
     for (int i = ALL_LAYERS_OFF; i <= ALL_LAYERS_ON; i++) {
         led_set_layer(i);
     }
