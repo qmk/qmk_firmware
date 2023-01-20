@@ -275,7 +275,11 @@ ifneq ($(findstring STM32F103, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32F103x8
+  ifeq ($(strip $(BOOTLOADER)), uf2boot)
+    MCU_LDSCRIPT ?= STM32F103xB_uf2boot
+  else
+    MCU_LDSCRIPT ?= STM32F103x8
+  endif
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
@@ -309,7 +313,11 @@ ifneq ($(findstring STM32F303, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32F303xC
+  ifeq ($(strip $(BOOTLOADER)), tinyuf2)
+    MCU_LDSCRIPT ?= STM32F303xC_tinyuf2
+  else
+    MCU_LDSCRIPT ?= STM32F303xC
+  endif
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/

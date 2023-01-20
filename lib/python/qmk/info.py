@@ -52,7 +52,7 @@ def _validate(keyboard, info_data):
     community_layouts_names = list(map(lambda layout: f'LAYOUT_{layout}', community_layouts))
 
     # Make sure we have at least one layout
-    if len(layouts) == 0:
+    if len(layouts) == 0 or all(not layout.get('json_layout', False) for layout in layouts.values()):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
 
     # Providing only LAYOUT_all "because I define my layouts in a 3rd party tool"
@@ -107,6 +107,7 @@ def info_json(keyboard):
     for layout_name, layout_json in layouts.items():
         if not layout_name.startswith('LAYOUT_kc'):
             layout_json['c_macro'] = True
+            layout_json['json_layout'] = False
             info_data['layouts'][layout_name] = layout_json
 
     # Merge in the data from info.json, config.h, and rules.mk
@@ -751,6 +752,7 @@ def arm_processor_rules(info_data, rules):
     """
     info_data['processor_type'] = 'arm'
     info_data['protocol'] = 'ChibiOS'
+    info_data['platform_key'] = 'chibios'
 
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
@@ -758,6 +760,7 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = rules['MCU_SERIES']
     elif 'ARM_ATSAM' in rules:
         info_data['platform'] = 'ARM_ATSAM'
+        info_data['platform_key'] = 'arm_atsam'
 
     return info_data
 
@@ -767,6 +770,7 @@ def avr_processor_rules(info_data, rules):
     """
     info_data['processor_type'] = 'avr'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
+    info_data['platform_key'] = 'avr'
     info_data['protocol'] = 'V-USB' if info_data['processor'] in VUSB_PROCESSORS else 'LUFA'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
@@ -821,6 +825,7 @@ def merge_info_jsons(keyboard, info_data):
                     msg = 'Number of keys for %s does not match! info.json specifies %d keys, C macro specifies %d'
                     _log_error(info_data, msg % (layout_name, len(layout['layout']), len(info_data['layouts'][layout_name]['layout'])))
                 else:
+                    info_data['layouts'][layout_name]['json_layout'] = True
                     for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                         existing_key.update(new_key)
             else:
@@ -828,6 +833,7 @@ def merge_info_jsons(keyboard, info_data):
                     _log_error(info_data, f'Layout "{layout_name}" has no "matrix" definition in either "info.json" or "<keyboard>.h"!')
                 else:
                     layout['c_macro'] = False
+                    layout['json_layout'] = True
                     info_data['layouts'][layout_name] = layout
 
         # Update info_data with the new data
