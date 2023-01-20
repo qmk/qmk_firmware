@@ -349,7 +349,7 @@ static void render_animation(void) {
 }
 
 // Draw to OLED
-bool oled_task_user() {
+bool oled_task_user(void) {
     // Caps lock text
     led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0,1);

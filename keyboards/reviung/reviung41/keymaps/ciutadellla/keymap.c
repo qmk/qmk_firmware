@@ -132,7 +132,7 @@
  };
 
 
- void matrix_init_user(){
+ void matrix_init_user(void){
      set_unicode_input_mode(UNICODE_MODE_MACOS);
  }
 
