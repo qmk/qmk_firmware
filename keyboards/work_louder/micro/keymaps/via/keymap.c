@@ -24,8 +24,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [3] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        USER00,  USER01,  USER03,  USER05,
-        XXXXXXX, USER02,  USER04,  USER06,
+        QK_USER_0, QK_USER_1, QK_USER_3, QK_USER_5,
+        XXXXXXX, QK_USER_2, QK_USER_4, QK_USER_6,
         XXXXXXX, XXXXXXX, XXXXXXX, TO(0)
     )
 };
@@ -53,7 +53,7 @@ work_louder_config_t work_louder_config;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case USER09:
+        case QK_USER_9:
             if (record->event.pressed) {
                 work_louder_config.led_level++;
                 if (work_louder_config.led_level > 4) {

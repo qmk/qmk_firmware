@@ -13,7 +13,7 @@ All keyboard specific keycodes are defined in the user_keycodes space, allowing 
 
 ```c
 enum alt_keycodes {
-    U_T_AUTO = USER00,     //USB Extra Port Toggle Auto Detect / Always Active
+    U_T_AUTO = QK_USER_0,  //USB Extra Port Toggle Auto Detect / Always Active
     U_T_AGCR,              //USB Toggle Automatic GCR control
     DBG_TOG,               //DEBUG Toggle On / Off
     DBG_MTRX,              //DEBUG Toggle Matrix Prints

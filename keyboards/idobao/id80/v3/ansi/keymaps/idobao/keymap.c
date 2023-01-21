@@ -29,13 +29,13 @@ enum {
 };
 
 enum {
-    KC_MCON = USER00,  // macOS Open Mission Control
+    KC_MCON = QK_USER_0,  // macOS Open Mission Control
     KC_LPAD,           // macOS Open Launchpad
     #ifdef RGB_MATRIX_ENABLE
     RGB_TPK,           // Toggle Per-Key
     RGB_TUG,           // Toggle Underglow
     #endif  // RGB_MATRIX_ENABLE
-    KB_VRSN = USER09   // debug, type version
+    KB_VRSN = QK_USER_9   // debug, type version
 };
 
 #ifndef RGB_MATRIX_ENABLE

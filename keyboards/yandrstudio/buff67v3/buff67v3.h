@@ -32,11 +32,5 @@
 }
 
 enum keyboard_keycodes {
-#ifdef VIA_ENABLE
-    LOCK_GUI = USER00,
-    NEW_SAFE_RANGE = SAFE_RANGE  // Important!
-#else
-    LOCK_GUI = SAFE_RANGE,
-    NEW_SAFE_RANGE   // Important!
-#endif
+    LOCK_GUI = QK_USER_0,
 };

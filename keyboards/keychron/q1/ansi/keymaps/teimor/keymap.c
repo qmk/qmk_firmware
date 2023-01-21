@@ -23,7 +23,7 @@
 // clang-format off
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = USER00,
+    KC_MISSION_CONTROL = QK_USER_0,
     KC_LAUNCHPAD,
 };
 

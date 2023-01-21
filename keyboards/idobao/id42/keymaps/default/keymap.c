@@ -3,11 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-    FN_MO13 = SAFE_RANGE,
-    FN_MO23,
-};
-
 // more Layer Tap stuff
 #define SPC_FN1 LT(1, KC_SPC)
 #define SPC_FN2 LT(2, KC_SPC)
@@ -86,29 +81,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,          _______,          _______,                   RGB_SPD, RGB_VAD, RGB_SPI
     ),
 };
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case FN_MO13:
-            if (record->event.pressed) {
-                layer_on(1);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(1);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-        case FN_MO23:
-            if (record->event.pressed) {
-                layer_on(2);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(2);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-    }
-    return true;
-}

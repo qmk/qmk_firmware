@@ -23,11 +23,7 @@
 // clang-format off
 
 enum custom_keycodes {
-#ifdef VIA_ENABLE
-    KC_MISSION_CONTROL = USER00,
-#else
-    KC_MISSION_CONTROL = SAFE_RANGE,
-#endif
+    KC_MISSION_CONTROL = QK_USER_0,
     KC_LAUNCHPAD
 };
 

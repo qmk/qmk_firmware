@@ -15,7 +15,7 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-    RMT = USER00,
+    RMT = QK_USER_0,
     RMS,
     RMIH,
     RMDH,

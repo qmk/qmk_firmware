@@ -15,6 +15,7 @@
 
 SPACE_CADET_ENABLE ?= yes
 GRAVE_ESC_ENABLE ?= yes
+TRI_LAYER_ENABLE ?= yes
 
 GENERIC_FEATURES = \
     AUTOCORRECT \
@@ -39,6 +40,7 @@ GENERIC_FEATURES = \
     VELOCIKEY \
     WPM \
     DYNAMIC_TAPPING_TERM \
+    TRI_LAYER \
 
 define HANDLE_GENERIC_FEATURE
     # $$(info "Processing: $1_ENABLE $2.c")

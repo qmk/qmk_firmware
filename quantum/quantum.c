@@ -343,6 +343,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUTOCORRECT_ENABLE
             process_autocorrect(keycode, record) &&
 #endif
+#ifdef TRI_LAYER_ENABLE
+            process_tri_layer(keycode, record) &&
+#endif
             true)) {
         return false;
     }

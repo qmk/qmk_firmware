@@ -26,7 +26,7 @@ enum {
 };
 
 enum {
-    KC_MCON = USER00,  // macOS Open Mission Control
+    KC_MCON = QK_USER_0, // macOS Open Mission Control
     KC_LPAD,           // macOS Open Launchpad
     KB_ARRW,           // toggle right modifiers are arrows feature
     KB_RSFT,           // right shift or up arrow

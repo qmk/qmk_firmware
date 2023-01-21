@@ -9,7 +9,7 @@
 #include "version.h"
 
 enum {
-    KB_VRSN = USER09   // debug, type version
+    KB_VRSN = QK_USER_9   // debug, type version
 };
 
 #define SPC_FN1 LT(1, KC_SPC)

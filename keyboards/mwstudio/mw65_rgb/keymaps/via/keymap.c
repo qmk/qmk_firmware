@@ -26,6 +26,11 @@ typedef union {
 
 user_config_t user_config;
 
+enum custom_keycodes {
+    USER00 = QK_USER,
+    USER01
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT(
