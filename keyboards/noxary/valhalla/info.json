@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Valhalla",
+    "manufacturer": "Noxary",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x4E58",
+        "pid": "0x5648",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

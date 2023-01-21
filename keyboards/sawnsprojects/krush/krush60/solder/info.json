@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Krush60 Solder",
+    "keyboard_name": "Krush60 - Solder",
+    "manufacturer": "SawnsProjects",
     "url": "",
     "maintainer": "MaiTheSan",
+    "usb": {
+        "vid": "0x5350",
+        "pid": "0x6B32",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_60_ansi_arrow_split_bs_7u_spc": "LAYOUT_60_ansi_arrow_tsangan_split_bs",
         "LAYOUT_60_ansi_arrow_7u_spc": "LAYOUT_60_ansi_arrow_tsangan"

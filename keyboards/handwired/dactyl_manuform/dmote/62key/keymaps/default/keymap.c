@@ -17,8 +17,8 @@ enum layer_names {
 #define SLQ     RALT(KC_9)  // Single left-side quotation mark (in Colemak).
 #define SRQ     RALT(KC_0)
 #define EMDASH  RALT(LSFT(KC_MINUS))  // Em dash character (in Colemak).
-#define BK_LCTL CTL_T(KC_LBRACKET)
-#define BK_RCTL RCTL_T(KC_RBRACKET)
+#define BK_LCTL CTL_T(KC_LEFT_BRACKET)
+#define BK_RCTL RCTL_T(KC_RIGHT_BRACKET)
 // TODO: Mod-tap ALT with a curvilinear brace.
 // https://github.com/qmk/qmk_firmware/pull/2055
 
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC, CM_A,    CM_X,    CM_C,    CM_V,    CM_B,
         SLQ,     CM_Z,    KC_HOME, KC_PGUP, KC_END,
                                    KC_PGDN,          KC_ENT,  KC_SPC,
-                                                 KC_LSPO, KC_LGUI, KC_MINS,
+                                                 SC_LSPO, KC_LGUI, KC_MINS,
                                                      BK_LCTL, KC_LALT,
 
                      CM_J,    CM_L,    CM_U,    CM_Y,    KC_MPLY, KC_MUTE,
@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      CM_K,    CM_M,    KC_COMM, KC_DOT,  CM_O,    KC_QUOT,
                               KC_LEFT, KC_UP,   KC_RGHT, KC_SLSH, SRQ,
             KC_DEL,  KC_ESC,           KC_DOWN,
-        KC_EQL,  LAYER_N, KC_RSPC,
+        KC_EQL,  LAYER_N, SC_RSPC,
             KC_RALT, BK_RCTL
     ),
 
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  _______, _______, EMDASH,
                                                      _______, _______,
 
-                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   RESET,   KC_WAKE, // *
+                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   QK_BOOT,   KC_WAKE, // *
                      KC_6,    KC_7,    KC_8,    KC_9,    KC_F10,  KC_F11,
                      KC_CIRC, KC_AMPR, KC_ASTR, KC_APP,  KC_0,    PASTE,
                               KC_MS_L, KC_MS_U, KC_MS_R, KC_PSCR, RGB_TOG,

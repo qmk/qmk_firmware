@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0+
 
 #include QMK_KEYBOARD_H
-#include"keymap_jp.h"
+#include"keymap_japanese.h"
 
 
 enum layer_number {

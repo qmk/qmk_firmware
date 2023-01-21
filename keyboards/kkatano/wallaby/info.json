@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Wallaby",
+    "manufacturer": "Koichi Katano",
     "url": "https://github.com/kkatano/wallaby",
     "maintainer": "Koichi Katano",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x5967",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

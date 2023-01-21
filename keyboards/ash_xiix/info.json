@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "ASH-XIIX",
+    "keyboard_name": "XIIX",
+    "manufacturer": "ASH",
     "url": "config.qmk.fm",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x14BC",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

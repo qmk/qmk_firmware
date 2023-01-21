@@ -1,4 +1,4 @@
-/* Copyright 2020 Thys de Wet 
+/* Copyright 2020 Thys de Wet
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,13 +16,6 @@
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x7811
-#define DEVICE_VER 0x0002
-#define MANUFACTURER TKW
-#define PRODUCT Stoutgat v2 65%
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -44,7 +37,16 @@
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 13
 #define RGBLIGHT_LIMIT_VAL 120
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 4

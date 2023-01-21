@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Friedrich", 
+    "manufacturer": "kb-elmo",
     "url": "https://github.com/MarvFPV/Friedrich",
     "maintainer": "kb-elmo<mail@elmo.space>", 
+    "usb": {
+        "vid": "0x6481",
+        "pid": "0xB4A2",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0},

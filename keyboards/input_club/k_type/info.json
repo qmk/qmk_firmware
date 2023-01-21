@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "K-Type",
+    "keyboard_name": "K-Type (QMK)",
+    "manufacturer": "Input:Club",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x1C11",
+        "pid": "0xB04D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

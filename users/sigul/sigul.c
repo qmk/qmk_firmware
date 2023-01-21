@@ -1,4 +1,4 @@
-#include "keymap_italian_osx_ansi.h"
+#include "keymap_italian_mac_ansi.h"
 #include "sigul.h"
 
 __attribute__ ((weak))
@@ -25,7 +25,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_SCCL:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
           register_code16(IT_COLN);
         } else {
           register_code16(IT_SCLN);
@@ -39,7 +39,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_APDQ:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
           register_code16(IT_DQUO);
         } else {
           register_code16(IT_QUOT);
@@ -53,7 +53,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_CMLS:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
           unregister_code16(KC_LSFT);
           register_code16(IT_LABK);
 	  register_code16(KC_LSFT);
@@ -69,7 +69,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_DTMR:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
           register_code16(IT_RABK);
         } else {
           register_code16(IT_DOT);
@@ -83,7 +83,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_SLQS:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
           register_code16(IT_QUES);
         } else {
           register_code16(IT_SLSH);

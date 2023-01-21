@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN1PAD] = LAYOUT(
 	KC_NO, KC_NO,   KC_NO,
-	KC_NO, KC_NO,   RESET,
+	KC_NO, KC_NO,   QK_BOOT,
 	KC_NO, KC_NO,   KC_MAKE,
 	KC_NO, KC_LSFT, D_LAYR)
 };

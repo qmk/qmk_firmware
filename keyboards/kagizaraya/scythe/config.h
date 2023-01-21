@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3941
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Kagizaraya
-#define PRODUCT         Scythe
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
@@ -41,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, D5 }
 #define MATRIX_COL_PINS { D6, D7, B4, B5, B6, C6, C7 }
-#define UNUSED_PINS
 
 #define SOFT_SERIAL_PIN D0
 
@@ -55,8 +47,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SPLIT 1
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 9 
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+#define RGBLED_NUM 9
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
@@ -122,7 +123,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BOOTMAGIC_LITE_COLUMN 0
 
 /* Serial settings */
-#define USE_SERIAL
 //#define EE_HANDS
 #define I2C_MASTER_LEFT
 //#define I2C_MASTER_RIGHT

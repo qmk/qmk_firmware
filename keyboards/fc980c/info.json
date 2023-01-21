@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "fc980c",
+  "keyboard_name": "FC980C",
+  "manufacturer": "Hasu",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4853",
+    "pid": "0x980C",
+    "device_version": "1.0.0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

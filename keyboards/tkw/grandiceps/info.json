@@ -1,8 +1,11 @@
 {
-    "keyboard_name": "grandiceps",
+    "manufacturer": "tkw",
     "url": "https://github.com/vattern/grandiceps",
     "maintainer": "vattern",
-    "manufacturer": "tkw",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x7812"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

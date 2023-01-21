@@ -3,8 +3,6 @@
 // Tapping term settings
 #define TAPPING_TERM_PER_KEY
 #define TAP_HOLD_CAPS_DELAY 350
-#define BOOTMAGIC_KEY_SALT KC_BSPACE
-#define BOOTMAGIC_KEY_EEPROM_CLEAR KC_Q
 
 // OLED settings
 #define OLED_FONT_H "users/tominabox1/doug.c"
@@ -17,14 +15,23 @@
   #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
     #define RGBLED_NUM 50
-    #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
     #define RGBLIGHT_SLEEP
   #endif // RGBLIGHT_ENABLE
 
   #ifdef RGB_MATRIX_ENABLE
   #undef RGBLED_NUM
   #define RGBLED_NUM 50
-  #define DRIVER_LED_TOTAL RGBLED_NUM
+  #define RGB_MATRIX_LED_COUNT RGBLED_NUM
   #endif // RGBL_MATRIX_ENABLE
 #endif // KEYBOARD_lazydesigners_dimple
 
@@ -38,7 +45,7 @@
   #define RGB_MATRIX_SAT_STEP 8
   #define RGB_MATRIX_VAL_STEP 8
   #define RGB_MATRIX_SPD_STEP 10
-  #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+  #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
   /* Disable the animations you don't want/need.  You will need to disable a good number of these
     because they take up a lot of space.  Disable until you can successfully compile your firmware. */
 // #undef ENABLE_RGB_MATRIX_ALPHAS_MODS

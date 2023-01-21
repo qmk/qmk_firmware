@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E58 //"NX"
-#define PRODUCT_ID      0x0A7C //2684
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Noxary
-#define PRODUCT         268.2_RGB
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -39,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { F6, F5, F4, F0, B6 }
 #define MATRIX_COL_PINS { C6, C7, F7, F1, E6, B2, B1, D6, B4, D7, D4, D5, D3, D2, D1, D0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -53,7 +45,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812b options */
 #define RGB_DI_PIN B5
 #ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 16
 #define RGBLIGHT_HUE_STEP 16
 #define RGBLIGHT_SAT_STEP 16

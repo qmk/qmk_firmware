@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Aplx2",
+    "manufacturer": "Aplyard",
     "url": "",
     "maintainer": "Aplyard",
+    "usb": {
+        "vid": "0xE0E0",
+        "pid": "0x0030",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
