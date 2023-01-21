@@ -296,7 +296,7 @@ bool rgb_matrix_indicators_user(void) {
     return false;
 }
 
-static void start_effects() {
+static void start_effects(void) {
     effect_started_time = sync_timer_read();
     if (!rgb_matrix_is_enabled()) {
         /* Turn it ON, signal the cause (EFFECTS) */
@@ -319,7 +319,7 @@ static void start_effects() {
 //  87, led 07                                                                                                                                                                      88, led 18
 //  91, led 08                                                                                                                                                                      92, led 19
 
-static void set_rgb_caps_leds() {
+static void set_rgb_caps_leds(void) {
     rgb_matrix_set_color(0, 0xFF, 0x0, 0x0); // ESC
     rgb_matrix_set_color(6, 0xFF, 0x0, 0x0); // F1
     rgb_matrix_set_color(12, 0xFF, 0x0, 0x0); // F2

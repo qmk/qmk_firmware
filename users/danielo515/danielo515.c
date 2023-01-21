@@ -4,8 +4,7 @@ bool onMac = true;
 
 //**************** LEADER *********************//
 #ifdef LEADER_ENABLE
-
-void leader_start_user() {
+void leader_start_user(vodi) {
 #    ifdef RGBLIGHT_ENABLE
     rgblight_setrgb_range(5, 100, 199, 10, 15);
 #    endif

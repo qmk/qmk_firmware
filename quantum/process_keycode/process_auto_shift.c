@@ -344,7 +344,7 @@ bool get_autoshift_state(void) {
     return autoshift_flags.enabled;
 }
 
-uint16_t get_generic_autoshift_timeout() {
+uint16_t get_generic_autoshift_timeout(void) {
     return autoshift_timeout;
 }
 __attribute__((weak)) uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
@@ -484,7 +484,7 @@ void retroshift_poll_time(keyevent_t *event) {
     retroshift_time      = timer_read();
 }
 // Used to swap the times of Retro Shifted key and Auto Shift key that interrupted it.
-void retroshift_swap_times() {
+void retroshift_swap_times(void) {
     if (last_retroshift_time != 0 && autoshift_flags.in_progress) {
         uint16_t temp        = retroshift_time;
         retroshift_time      = last_retroshift_time;

@@ -162,7 +162,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void tap_dance_task() {
+void tap_dance_task(void) {
     tap_dance_action_t *action;
 
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;

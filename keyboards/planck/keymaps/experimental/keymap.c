@@ -347,13 +347,13 @@ void matrix_init_user(void) {
 }
 
 #ifdef AUDIO_ENABLE
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);

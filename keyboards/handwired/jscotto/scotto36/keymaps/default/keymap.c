@@ -216,7 +216,7 @@ static void render_animation(void) {
 }
 
 // Draw to OLED
-bool oled_task_user() {
+bool oled_task_user(void) {
     // Render Bongo Cat
     render_animation();
 
