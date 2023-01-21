@@ -140,7 +140,7 @@ void aa_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 // clang-format off
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [AAE] =  ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ae_finished, ae_reset, 250),
-  [OAA] =  ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, aa_finished, aa_reset, 250)
+  [AAE] =  ACTION_TAP_DANCE_FN_ADVANCED(NULL, ae_finished, ae_reset),
+  [OAA] =  ACTION_TAP_DANCE_FN_ADVANCED(NULL, aa_finished, aa_reset)
 };
 // clang-format on

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x444B // Duck ("DK")
-#define PRODUCT_ID      0x4A46 // Jetfire ("JF")
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Duck
-#define PRODUCT         Jetfire
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 20
@@ -37,7 +30,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D6
 // #ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 23
 // #define RGBLIGHT_HUE_STEP 8
 // #define RGBLIGHT_SAT_STEP 8

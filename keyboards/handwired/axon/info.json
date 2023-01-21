@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Axon",
+    "manufacturer": "RobinL",
     "url": "https://github.com/thatfellarobin/axon",
     "maintainer": "Robin L.",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

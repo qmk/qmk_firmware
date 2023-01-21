@@ -1,7 +1,13 @@
 {
     "keyboard_name": "GH80-1800", 
+    "manufacturer": "Evyd13",
     "url": "https://github.com/evyd13/gh80-series/tree/master/GH80-1800", 
     "maintainer": "evyd13", 
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0x8B23",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

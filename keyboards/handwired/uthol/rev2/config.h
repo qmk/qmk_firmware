@@ -19,17 +19,11 @@
 
 #include "config_common.h"
 
-#define DEVICE_VER 0x0002
-#define PRODUCT_ID 0x67F3
-#define PRODUCT UtholTwo
-
 /* Uthol PCB default pin-out */
 #define MATRIX_ROW_PINS { B1, F7, F6, F5, F4 }
 #define MATRIX_COL_PINS { D3, D2, D1, D0, D4, C6, D7, B5, B4, B6, B2, B3 }
-#define UNUSED_PINS
 
 //RGB Stuff
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 39
-#define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_DEFAULT_HUE 201

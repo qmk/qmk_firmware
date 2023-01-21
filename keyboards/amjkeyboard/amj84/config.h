@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x00D8 //A+M+J
-#define PRODUCT_ID   0x6068
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Han Chen
-#define PRODUCT      AMJ84
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -28,7 +21,6 @@
  */
 #define MATRIX_ROW_PINS { D0, F7, F6, F5, F4, D5 }
 #define MATRIX_COL_PINS { F1, F0, E6, C7, C6, B0, D4, B1, B7, B5, B4, D7, D6, B3, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

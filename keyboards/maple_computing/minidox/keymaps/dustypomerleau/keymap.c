@@ -96,8 +96,8 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 #define SFT_QOT LSFT_T(KC_QUOT)
 #define SYM_OS OSL(_SYM)
 #define SYS_Z LT(_SYS, KC_Z)
-#define VOL_DN S(LALT(KC__VOLDOWN))
-#define VOL_UP S(LALT(KC__VOLUP))
+#define VOL_DN S(LALT(KC_VOLD))
+#define VOL_UP S(LALT(KC_VOLU))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * If you use QWERTY + the Vanilla numbers primarily, change NUMLK_E to NUMLK_N here.
  *
  * ,----------------------------------.           ,----------------------------------.
- * | RESET|DEBUG |QWERTY|CMKDHM|      |           |      | VOL--| VOL++|BRITE-|BRITE+|
+ * | Boot |Debug |QWERTY|CMKDHM|      |           |      | VOL--| VOL++|BRITE-|BRITE+|
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | SHIFT| CTRL |  ALT |  GUI |NAV LK|           | POWER| VOL- | VOL+ | MUTE | MPLY |
  * |------+------+------+------+------|           |------+------+------+------+------|
@@ -162,10 +162,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_SYS] = LAYOUT( \
-  RESET,   DEBUG,   QWERTY,  CMK_DHM, _______,       _______,  KC_VOLD, KC_VOLU, KC_BRID,  KC_BRIU, \
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_POWER, VOL_DN,  VOL_UP,  KC__MUTE, KC_MPLY, \
-  _______, _______, AU_OFF,  AU_ON,   _______,       _______,  NUMLK_E, KC_MRWD, KC_MFFD,  _______, \
-                    _______, _______, _______,       _______,  _______, _______                     \
+  QK_BOOT, DB_TOGG, QWERTY,  CMK_DHM, _______,       _______,  KC_VOLD, KC_VOLU, KC_BRID, KC_BRIU, \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_PWR,   VOL_DN,  VOL_UP,  KC_MUTE, KC_MPLY, \
+  _______, _______, AU_OFF,  AU_ON,   _______,       _______,  NUMLK_E, KC_MRWD, KC_MFFD, _______, \
+                    _______, _______, _______,       _______,  _______, _______                    \
 ),
 
 /* Navigation + mouse keys

@@ -18,14 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID       0x4D44 //MD
-#define PRODUCT_ID      0x5257 //RW
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mattia Dal Ben
-#define PRODUCT         Redox_wireless
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x6481
-#define PRODUCT_ID   0xB4A2
-#define DEVICE_VER   0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT      Friedrich
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { F4, F1, F0, F5, D5 }
 #define MATRIX_COL_PINS { F6, F7, E6, B2, B3, D4, D6, D7, B4, C6, B5, B6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

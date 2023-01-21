@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      RAISE, KC_HOME,KC_PGDOWN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      RAISE, KC_HOME, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
     XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,             LOWER,   KC_SPC ,XXXXXXX,     XXXXXXX, KC_SPC ,   RAISE,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX 
   ),
@@ -85,16 +85,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
    * | Raise|      |rgbhui|rgbsai|rgbvai|bl_inc|      |                    |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
-   *|EEP_RST|      |rgbhud|rgbdec|rgbvad|bl_dec||||||||      |      |      ||||||||      |      |      |      |      | Shift|
+   * |EE_CLR|      |rgbhud|rgbdec|rgbvad|bl_dec||||||||      |      |      ||||||||      |      |      |      |      | Shift|
    * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
    * |      |      |      |      |||||||| Lower| Space|      ||||||||      | Space| Raise||||||||      |      |      |      |
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
   [_ADJUST] = LAYOUT(
-      RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, BL_TOGG, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      RAISE, XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI,  BL_INC, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    EEP_RST, XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD,  BL_DEC,           XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
+      RAISE, XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI,  BL_UP,  XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    EE_CLR,  XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD,  BL_DOWN,          XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
     XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,             LOWER,   KC_SPC ,XXXXXXX,     XXXXXXX,  KC_SPC,   RAISE,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 }; 

@@ -1,7 +1,13 @@
 {
   "keyboard_name": "NCC-1701-KB v2",
+  "manufacturer": "The Mad Noodle",
   "url": "instagram.com/the_mad_noodle",
   "maintainer": "The-Mad-Noodle",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1701",
+    "device_version": "0.0.2"
+  },
   "layouts": {
     "LAYOUT_ortho_3x3": {
       "layout": [

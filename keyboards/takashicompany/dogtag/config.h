@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7463 // tc = takashicompany
-#define PRODUCT_ID   0x0018
-#define DEVICE_VER   0x0001
-#define MANUFACTURER takashicompany
-#define PRODUCT      DogTag
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 5
@@ -45,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS_RIGHT { B2, B6, B3 }
 #define MATRIX_COL_PINS_RIGHT { B1, F7, F6, F5, F4 }
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

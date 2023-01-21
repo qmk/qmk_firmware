@@ -17,13 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5241 // "RA"
-#define PRODUCT_ID      0x050A // 50-A
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA WORKS
-#define PRODUCT         RAMA WORKS M50-A
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
@@ -40,7 +33,6 @@
 */
 #define MATRIX_ROW_PINS { F0, F1, F5, F6 }
 #define MATRIX_COL_PINS { F4, B5, C7, C6, B6, B2, B3, B1, B4, D7, D6, D4, D3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -55,7 +47,7 @@
 
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 72
+#define RGB_MATRIX_LED_COUNT 72
 
 // Enable WT RGB backlight
 #define RGB_BACKLIGHT_ENABLED 1
@@ -109,6 +101,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE

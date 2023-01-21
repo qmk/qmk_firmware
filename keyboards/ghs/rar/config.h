@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x0645
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Gone Hacking Studio
-#define PRODUCT GHS.RAR
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 8
@@ -42,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B0, B7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -54,7 +46,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D0
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 17
-    #define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

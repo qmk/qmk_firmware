@@ -125,10 +125,14 @@ void DebounceTest::runDebounce(bool changed) {
     std::copy(std::begin(input_matrix_), std::end(input_matrix_), std::begin(raw_matrix_));
     std::copy(std::begin(output_matrix_), std::end(output_matrix_), std::begin(cooked_matrix_));
 
-    debounce(raw_matrix_, cooked_matrix_, MATRIX_ROWS, changed);
+    bool cooked_changed = debounce(raw_matrix_, cooked_matrix_, MATRIX_ROWS, changed);
 
     if (!std::equal(std::begin(input_matrix_), std::end(input_matrix_), std::begin(raw_matrix_))) {
         FAIL() << "Fatal error: debounce() modified raw matrix at " << strTime() << "\ninput_matrix: changed=" << changed << "\n" << strMatrix(input_matrix_) << "\nraw_matrix:\n" << strMatrix(raw_matrix_);
+    }
+
+    if (std::equal(std::begin(output_matrix_), std::end(output_matrix_), std::begin(cooked_matrix_)) && cooked_changed) {
+        FAIL() << "Fatal error: debounce() did detect a wrong cooked matrix change at " << strTime() << "\noutput_matrix: cooked_changed=" << cooked_changed << "\n" << strMatrix(output_matrix_) << "\ncooked_matrix:\n" << strMatrix(cooked_matrix_);
     }
 }
 

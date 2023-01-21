@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Zeus",
-    "maintainer": "Koobaczech",
+    "manufacturer": "Koobaczech",
     "url": "",
+    "maintainer": "Koobaczech",
+    "usb": {
+        "vid": "0x6963",
+        "pid": "0x6966",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

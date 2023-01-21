@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "Fleuron v1.0", 
+    "keyboard_name": "Fleuron v1", 
+    "manufacturer": "Fleuron",
     "maintainer": "qmk", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_6x16": {
             "layout": [

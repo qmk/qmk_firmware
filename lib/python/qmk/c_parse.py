@@ -216,9 +216,9 @@ def _validate_led_config(matrix, matrix_rows, matrix_indexes, position, position
     if len(matrix) != matrix_rows and len(matrix) != (matrix_rows / 2):
         raise ValueError("Unable to parse g_led_config matrix data")
     if len(position) != len(flags):
-        raise ValueError("Unable to parse g_led_config position data")
+        raise ValueError(f"Number of g_led_config physical positions ({len(position)}) does not match number of flags ({len(flags)})")
     if len(matrix_indexes) and (max(matrix_indexes) >= len(flags)):
-        raise ValueError("OOB within g_led_config matrix data")
+        raise ValueError(f"LED index {max(matrix_indexes)} is OOB in g_led_config - should be < {len(flags)}")
     if not all(isinstance(n, int) for n in matrix_indexes):
         raise ValueError("matrix indexes are not all ints")
     if (len(position_raw) % 2) != 0:
@@ -258,6 +258,9 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
                         position_raw.append(_coerce_led_token(_type, value))
                     if section == 3 and bracket_count == 2:
                         flags.append(_coerce_led_token(_type, value))
+                elif _type in [Token.Comment.Preproc]:
+                    # TODO: Promote to error
+                    return None
 
     # Slightly better intrim format
     matrix = list(_get_chunks(matrix_raw, matrix_cols))

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Draytronics ELISE V2",
+    "keyboard_name": "ELISE",
+    "manufacturer": "Draytronics",
     "url": "https://www.draytronics.co.uk/elisev2",
     "maintainer": "ghostseven",
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x454C",
+        "device_version": "2.0.0"
+    },
     "layout_aliases": {
         "LAYOUT_65_ansi_right_lrg": "LAYOUT_65_ansi_rwkl",
         "LAYOUT_65_ansi_left_lrg": "LAYOUT_65_ansi_lwkl",

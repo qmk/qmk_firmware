@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Chidori",
+    "manufacturer": "Kagizaraya",
     "url": "",
     "maintainer": "ka2hiro",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3942",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,6 +1,12 @@
 {
     "keyboard_name": "EPHS68",
+    "manufacturer": "Elliot Powell",
     "maintainer": "Elliot Powell (u/e11i0t23)",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6868",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

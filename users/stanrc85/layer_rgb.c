@@ -5,7 +5,7 @@ void matrix_init_user(void) {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  switch (biton32(state)) {
+  switch (get_highest_layer(state)) {
     case 0:
       rgblight_setrgb (0xFF, 0x00, 0x00);
       break;
