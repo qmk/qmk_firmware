@@ -16,12 +16,8 @@
 #define TERMINAL LCA(KC_T)
 #define VSCODE LCA(KC_R)
 #define DISCORD LCA(KC_D)
-#define SLACK LCA(KC_S)
 #define SPOTIFY LCA(KC_V)
 #define UNLOCK LCA(KC_DEL)
-#define ONENOTE LCA(KC_E)
-#define VM LCA(KC_U)
-#define INTEG LCA(KC_I)
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -53,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GRV,  KC_NO,   KC_NO,   KC_NO,   KC_BRID, KC_BRIU,                            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_INS,  KC_DEL,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     FUNC,    KC_NO,   KC_NO,   ONENOTE, VSCODE,  TERMINAL,                           THUMB,   KC_NO,   KC_EQL,  KC_MINS, KC_PLUS, KC_BSLS,
+     FUNC,    KC_NO,   KC_NO,   KC_NO,   VSCODE,  TERMINAL,                           THUMB,   KC_NO,   KC_EQL,  KC_MINS, KC_PLUS, KC_BSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     ACTL,    KC_NO,   SLACK,   DISCORD, KC_NO,   KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_HOME, KC_QUOT,
+     ACTL,    KC_NO,   KC_NO,   DISCORD, KC_NO,   KC_NO,                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_HOME, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_CAPS, KC_NO,   KC_NO,   KC_NO,   SPOTIFY, KC_WHOM, KC_NO,            CSFT,    KC_NO,   KC_NO,   KC_NO,   KC_PGUP, KC_PGDN, KC_END,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -67,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     RGB_TOG, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LPRN,                            KC_RPRN, VM,      INTEG,   KC_NO,   KC_NO,   QK_RBT,
+     RGB_TOG, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LPRN,                            KC_RPRN, KC_NO,   KC_NO,   KC_NO,   KC_NO,   QK_BOOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      FILL,    KC_MPRV, KC_MNXT, KC_VOLU, KC_NO,   KC_LBRC,                            KC_RBRC, KC_NO,   KC_NO,   KC_NO,   RGB_VAI, KC_NO,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
