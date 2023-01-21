@@ -65,7 +65,7 @@ bool leader_sequence_timed_out(void) {
 #if defined(LEADER_NO_TIMEOUT)
     return leader_sequence_size > 0 && timer_elapsed(leader_time) > LEADER_TIMEOUT;
 #else
-   return timer_elapsed(leader_time) > LEADER_TIMEOUT;
+    return timer_elapsed(leader_time) > LEADER_TIMEOUT;
 #endif
 }
 
