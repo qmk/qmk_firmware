@@ -1,4 +1,4 @@
-/* Copyright 2022 MATTMCCA (@MATTMCCA)
+/* Copyright 2023 MATTMCCA (@MATTMCCA)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,11 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-	#define WS2812_SPI SPID1 							// default: SPID1
-	#define WS2812_SPI_MOSI_PAL_MODE 5 					// MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+	#define WS2812_SPI SPID1
+	#define WS2812_SPI_MOSI_PAL_MODE 5
+	#define WS2812_SPI_SCK_PIN A6
+    #define WS2812_SPI_SCK_PAL_MODE 5
+	#define WS2812_SPI_USE_CIRCULAR_BUFFER
 
 	#define RGB_DI_PIN A7                               // The pin connected to the data pin of the LEDs    
     #define RGB_MATRIX_LED_COUNT 61                     // The number of LEDs connected
