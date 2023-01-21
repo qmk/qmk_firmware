@@ -168,13 +168,15 @@ End the leader sequence.
 
 ### `bool leader_sequence_active(void)` :id=api-leader-sequence-active
 
-Whether the leader sequence is active (and has not timed out, if `LEADER_NO_TIMEOUT` is defined).
+Whether the leader sequence is active.
 
 ---
 
 ### `bool leader_sequence_add(uint16_t keycode)` :id=api-leader-sequence-add
 
 Add the given keycode to the sequence buffer.
+
+If `LEADER_NO_TIMEOUT` is defined, the timer is reset if the buffer is empty.
 
 #### Arguments :id=api-leader-sequence-add-arguments
 
@@ -189,7 +191,9 @@ Add the given keycode to the sequence buffer.
 
 ### `bool leader_sequence_timed_out(void)` :id=api-leader-sequence-timed-out
 
-Whether the leader sequence is active and has reached the timeout.
+Whether the leader sequence has reached the timeout.
+
+If `LEADER_NO_TIMEOUT` is defined, the buffer must also contain at least one key.
 
 ---
 

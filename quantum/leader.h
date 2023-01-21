@@ -31,12 +31,14 @@ void leader_end(void);
 void leader_task(void);
 
 /**
- * Whether the leader sequence is active (and has not timed out, if `LEADER_NO_TIMEOUT` is defined).
+ * Whether the leader sequence is active.
  */
 bool leader_sequence_active(void);
 
 /**
  * Add the given keycode to the sequence buffer.
+ *
+ * If `LEADER_NO_TIMEOUT` is defined, the timer is reset if the buffer is empty.
  *
  * \param keycode The keycode to add.
  *
@@ -45,7 +47,9 @@ bool leader_sequence_active(void);
 bool leader_sequence_add(uint16_t keycode);
 
 /**
- * Whether the leader sequence is active and has reached the timeout.
+ * Whether the leader sequence has reached the timeout.
+ *
+ * If `LEADER_NO_TIMEOUT` is defined, the buffer must also contain at least one key.
  */
 bool leader_sequence_timed_out(void);
 

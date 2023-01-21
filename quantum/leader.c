@@ -35,23 +35,25 @@ void leader_end(void) {
 }
 
 void leader_task(void) {
-    if (leader_sequence_timed_out()) {
+    if (leader_sequence_active() && leader_sequence_timed_out()) {
         leader_end();
     }
 }
 
 bool leader_sequence_active(void) {
-#if defined(LEADER_NO_TIMEOUT)
     return leading;
-#else
-    return leading && timer_elapsed(leader_time) < LEADER_TIMEOUT;
-#endif
 }
 
 bool leader_sequence_add(uint16_t keycode) {
     if (leader_sequence_size >= ARRAY_SIZE(leader_sequence)) {
         return false;
     }
+
+#if defined(LEADER_NO_TIMEOUT)
+    if (leader_sequence_size == 0) {
+        leader_reset_timer();
+    }
+#endif
 
     leader_sequence[leader_sequence_size] = keycode;
     leader_sequence_size++;
@@ -60,11 +62,11 @@ bool leader_sequence_add(uint16_t keycode) {
 }
 
 bool leader_sequence_timed_out(void) {
-    return leading &&
 #if defined(LEADER_NO_TIMEOUT)
-           leader_sequence_size > 0 &&
+    return leader_sequence_size > 0 && timer_elapsed(leader_time) > LEADER_TIMEOUT;
+#else
+   return timer_elapsed(leader_time) > LEADER_TIMEOUT;
 #endif
-           timer_elapsed(leader_time) > LEADER_TIMEOUT;
 }
 
 void leader_reset_timer(void) {
