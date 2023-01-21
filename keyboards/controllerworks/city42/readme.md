@@ -25,7 +25,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Features
 - Highly integrated design with microcontroller and USB connectors on the main board
 - RP2040 processor by Raspberry Pi Foundation running at 130 MHz with 16MB flash memory
-- CNC milled aluminum case with only 8mm thickness
 - 42 per-key RGB LEDs
 - ESD and over-current protection on USB
 - Reset and boot tactile switches
