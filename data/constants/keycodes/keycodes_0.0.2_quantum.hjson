@@ -1,0 +1,11 @@
+{
+    "keycodes": {
+        "0x7C77": {
+            "group": "quantum",
+            "key": "QK_REPEAT_KEY",
+            "aliases": [
+                "QK_REP"
+            ]
+        }
+    }
+}
