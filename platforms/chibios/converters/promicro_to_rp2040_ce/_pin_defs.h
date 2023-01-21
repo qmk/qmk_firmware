@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -32,5 +32,5 @@
 #define B6 21U
 
 // LEDs
-#define D5 12U
-#define B0 13U
+#define D5 17U // user LED
+#define B0 25U // level shifted pin / RGB
