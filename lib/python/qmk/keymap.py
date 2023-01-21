@@ -300,12 +300,11 @@ def generate_c(keymap_json):
     keymap = '\n'.join(layer_txt)
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
 
-    if keymap_json.get('encoders'):
+    encodermap = ''
+    if 'encoders' in keymap_json:
         encoder_txt = _generate_encodermap_table(keymap_json)
         encodermap = '\n'.join(encoder_txt)
-        new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', encodermap)
-    else:
-        new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', '')
+    new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', encodermap)
 
     if keymap_json.get('macros'):
         macro_txt = _generate_macros_function(keymap_json)
