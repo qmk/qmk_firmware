@@ -258,6 +258,103 @@ TEST_F(RepeatKey, AcrossLayers) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
+// Tests "A(down), Repeat(down), A(up), Repeat(up), Repeat" produces "aaa".
+TEST_F(RepeatKey, RollingToRepeat) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_repeat(0, 1, 0, QK_REP);
+    set_keymap({key_a, key_repeat});
+
+    {
+        InSequence seq;
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_EMPTY_REPORT(driver);
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_EMPTY_REPORT(driver);
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_EMPTY_REPORT(driver);
+    }
+
+    // Perform a rolled press from A to Repeat.
+
+    ExpectProcessRecordUserCalledWith(true, KC_A, 0);
+    key_a.press();
+    run_one_scan_loop();
+    EXPECT_TRUE(process_record_user_was_called_);
+
+    ExpectProcessRecordUserCalledWith(true, KC_A, 1);
+    key_repeat.press(); // Press the Repeat Key.
+    run_one_scan_loop();
+    EXPECT_TRUE(process_record_user_was_called_);
+
+    ExpectProcessRecordUserCalledWith(false, KC_A, 0);
+    key_a.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(process_record_user_was_called_);
+
+    ExpectProcessRecordUserCalledWith(false, KC_A, 1);
+    key_repeat.release(); // Release the Repeat Key.
+    run_one_scan_loop();
+    EXPECT_TRUE(process_record_user_was_called_);
+
+    process_record_user_fun = process_record_user_default;
+    tap_key(key_repeat);
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+// Tests "A, Repeat(down), B(down), Repeat(up), B(up), Repeat" produces "aabb".
+TEST_F(RepeatKey, RollingFromRepeat) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_b(0, 1, 0, KC_B);
+    KeymapKey  key_repeat(0, 2, 0, QK_REP);
+    set_keymap({key_a, key_b, key_repeat});
+
+    {
+        InSequence seq;
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_EMPTY_REPORT(driver);
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_REPORT(driver, (KC_A, KC_B));
+        EXPECT_REPORT(driver, (KC_B));
+        EXPECT_EMPTY_REPORT(driver);
+        EXPECT_REPORT(driver, (KC_B));
+        EXPECT_EMPTY_REPORT(driver);
+    }
+
+    tap_key(key_a);
+
+    // Perform a rolled press from Repeat to B.
+
+    ExpectProcessRecordUserCalledWith(true, KC_A, 1);
+    key_repeat.press(); // Press the Repeat Key.
+    run_one_scan_loop();
+    EXPECT_TRUE(process_record_user_was_called_);
+
+    ExpectProcessRecordUserCalledWith(true, KC_B, 0);
+    key_b.press();
+    run_one_scan_loop();
+    EXPECT_TRUE(process_record_user_was_called_);
+
+    EXPECT_EQ(get_repeat_key_keycode(), KC_B);
+
+    ExpectProcessRecordUserCalledWith(false, KC_A, 1);
+    key_repeat.release(); // Release the Repeat Key.
+    run_one_scan_loop();
+    EXPECT_TRUE(process_record_user_was_called_);
+
+    ExpectProcessRecordUserCalledWith(false, KC_B, 0);
+    key_b.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(process_record_user_was_called_);
+
+    process_record_user_fun = process_record_user_default;
+    tap_key(key_repeat);
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
 // Tests Repeat Key with a modifier, types "AltGr+C, Repeat, Repeat, C".
 TEST_F(RepeatKey, RecallMods) {
     TestDriver driver;
