@@ -24,5 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3  // not enough memory for a 4th layer with VIA
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+
