@@ -74,8 +74,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /* 7 */  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KF7,   KG7,   KH7,   KI7,   KJ7,   KK7,   KL7,   KK7,   KL7,   KO7,   KP7,   KC_NO, KC_NO } \
 }
 
-inline void ph_caps_led_on(void)  { DDRC |=  (1<<6); PORTC &= ~(1<<6); }
-inline void ph_caps_led_off(void) { DDRC &= ~(1<<6); PORTC &= ~(1<<6); }
+inline void ph_caps_led_on(void)  { PORTC &= ~(1<<6); }
+inline void ph_caps_led_off(void) { PORTC |=  (1<<6); }
 
-inline void ph_sclk_led_on(void)  { DDRC |=  (1<<5); PORTC &= ~(1<<5); }
-inline void ph_sclk_led_off(void) { DDRC &= ~(1<<5); PORTC &= ~(1<<5); }
+inline void ph_sclk_led_on(void)  { PORTC &= ~(1<<5); }
+inline void ph_sclk_led_off(void) { PORTC |=  (1<<5); }
