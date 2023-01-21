@@ -1,12 +1,10 @@
 # doio/kb38
 
-![doio/kb38](imgur.com image replace me!)
+QMK for Megalodon DOIO Triple Knob 38% with OLED Screen. 
 
-*A short description of the keyboard/project*
-
-* Keyboard Maintainer: [Katrina](https://github.com/Daggette10)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Katrina](https://github.com/PepperKats)
+* Hardware Supported: Megalodon DOIO Triple Knob 38%
+* Hardware Availability: https://www.keebmonkey.com/products/megalodon-doio-triple-knob-38-keyboard-with-oled-screen
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -14,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make doio/kb38:default:flash
+    qmk flash -kb doio/kb38 -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -22,6 +20,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button on the back of the PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

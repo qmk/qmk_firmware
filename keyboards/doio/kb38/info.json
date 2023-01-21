@@ -2,6 +2,7 @@
     "manufacturer": "Doio",
     "keyboard_name": "doio/kb38",
     "maintainer": "PepperKats",
+    "url":  "https://www.keebmonkey.com/products/megalodon-doio-triple-knob-38-keyboard-with-oled-screen",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -19,7 +20,6 @@
         "rows": ["D5", "D4", "D3", "D2", "B3", "B2"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
