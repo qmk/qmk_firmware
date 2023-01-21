@@ -141,8 +141,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [AUTO_MOUSE] = LAYOUT_charybdis_3x5(
         KC_TRNS             , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS         , KC_TRNS   , KC_TRNS   , KC_TRNS             ,
-        KC_BTN2             , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_BTN1         , KC_BTN2   , KC_TRNS   , KC_BTN1             ,
-        KC_TRNS             , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS         , KC_TRNS   , KC_TRNS   , KC_TRNS             ,
+        KC_TRNS             , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_BTN1         , KC_BTN2   , KC_TRNS   , KC_TRNS             ,
+        KC_BTN2             , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS         , KC_TRNS   , KC_TRNS   , KC_BTN1             ,
                                         KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS
     ),
 };
@@ -152,30 +152,31 @@ void pointing_device_init_user(void) {
 };
 
 bool alt_tabber = false;
-// bool set_scrolling = false;
+bool set_scrolling = false;
 
-// report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-//     if (set_scrolling) {
-//         mouse_report.h = mouse_report.x;
-//         mouse_report.v = -mouse_report.y;
-//         mouse_report.x = mouse_report.y = 0;
-//     } else {
-//         mouse_report.x = mouse_report.x;
-//         mouse_report.y = mouse_report.y;
-//     }
-//     return mouse_report;
-// };
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = -mouse_report.y;
+        mouse_report.x = mouse_report.y = 0;
+    } else {
+        mouse_report.x = mouse_report.x;
+        mouse_report.y = mouse_report.y;
+    }
+    return mouse_report;
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
     switch (keycode){
         case LT(LOWER,KC_ENT):
         case LT(LOWER,KC_SPC):
             if(record->event.pressed){
-                // set_scrolling = true;
-                charybdis_set_pointer_dragscroll_enabled(true);
+                set_scrolling = true;
+                pointing_device_set_cpi(100);
+
             } else {
-                // set_scrolling = false;
-                charybdis_set_pointer_dragscroll_enabled(false);
+                set_scrolling = false;
+                pointing_device_set_cpi(400);
             }
             break;
         case MT(MOD_LALT,KC_DEL):
