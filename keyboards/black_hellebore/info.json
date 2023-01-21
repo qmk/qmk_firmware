@@ -21,8 +21,8 @@
     "url": "https://github.com/MATTMCCA/The-Black-Hellebore",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x4466",
-        "vid": "0x3142"
+        "pid": "0x4467",
+        "vid": "0x3141"
     },
     "rgb_matrix": {		
         "layout": [
