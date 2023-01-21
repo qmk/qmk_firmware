@@ -26,9 +26,11 @@
             "items": {
                 "type": "array",
                 "items": {
-                    "type": "array",
-                    "minItems": 2,
-                    "maxItems": 2,
+                    "type": "object",
+                    "properties": {
+                        "ccw": {"type": "string"},
+                        "cw": {"type": "string"}
+                    }
                 }
             }
         },

@@ -57,7 +57,7 @@ def _generate_encodermap_table(keymap_json):
     for layer_num, layer in enumerate(keymap_json['encoders']):
         if layer_num != 0:
             lines[-1] = lines[-1] + ','
-        encoder_keycode_txt = ', '.join([f'ENCODER_CCW_CW({_strip_any(e[0])}, {_strip_any(e[1])})' for e in layer])
+        encoder_keycode_txt = ', '.join([f'ENCODER_CCW_CW({_strip_any(e["ccw"])}, {_strip_any(e["cw"])})' for e in layer])
         lines.append('\t[%s] = {%s}' % (layer_num, encoder_keycode_txt))
     return lines
 
