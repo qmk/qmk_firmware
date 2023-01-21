@@ -75,15 +75,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FUNC] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, KC_NO,   KC_BSPC,
+     KC_ESC,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     QWERTY,  KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_BTN3,                            KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_NO,   KC_NO,
+     QWERTY,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_BTN3, KC_NO,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_BTN4, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,                              KC_P4,   KC_P5,   KC_P6,   KC_NO,   KC_NO,   KC_NO,
+     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,   KC_NO,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_BTN5, KC_NO,   KC_NO,   KC_NO,   KC_BTN2, KC_NO,   KC_LALT,          KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_NO,   KC_NO,   KC_NO,
+     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LALT,          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_NO,   KC_NO,   KC_BTN1,                   KC_PENT, KC_P0,   KC_PDOT
+                                    KC_NO,   KC_BTN4, KC_BTN1,                   KC_BTN2, KC_BTN5, KC_NO
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 };
