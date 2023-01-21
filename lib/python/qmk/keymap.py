@@ -306,17 +306,16 @@ def generate_c(keymap_json):
         encodermap = '\n'.join(encoder_txt)
     new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', encodermap)
 
-    if keymap_json.get('macros'):
+    macros = ''
+    if 'macros' in keymap_json:
         macro_txt = _generate_macros_function(keymap_json)
         macros = '\n'.join(macro_txt)
-        new_keymap = new_keymap.replace('__MACRO_OUTPUT_GOES_HERE__', macros)
-    else:
-        new_keymap = new_keymap.replace('__MACRO_OUTPUT_GOES_HERE__', '')
+    new_keymap = new_keymap.replace('__MACRO_OUTPUT_GOES_HERE__', macros)
 
-    if keymap_json.get('host_language'):
-        new_keymap = new_keymap.replace('__INCLUDES__', f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n')
-    else:
-        new_keymap = new_keymap.replace('__INCLUDES__', '')
+    hostlang = ''
+    if 'host_language' in keymap_json:
+        hostlang = f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n'
+    new_keymap = new_keymap.replace('__INCLUDES__', hostlang)
 
     return new_keymap
 
