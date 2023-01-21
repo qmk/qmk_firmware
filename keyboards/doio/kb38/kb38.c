@@ -1,9 +1,4 @@
-//Knobs
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_QWERTY] =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-};
-#endif
+#include "quantum.h"
 
 //Display
 static void render_logo(void) {
@@ -19,4 +14,35 @@ static void render_logo(void) {
 bool oled_task_user(void) {
     render_logo();
     return false;
+}
+
+//Knobs
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+
+    if (index == 0) {
+        // Page Up/Down
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    } else if (index == 1) {
+        // Mouse Wheel Up/Down
+        if (clockwise) {
+            tap_code(KC_MS_WH_DOWN);
+        } else {
+            tap_code(KC_MS_WH_UP);
+        }
+    } else if (index == 2) {
+        // Volume Up/Down
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    return true;
 }
