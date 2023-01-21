@@ -17,18 +17,18 @@
     "sleep": true,
     "led_count": 12,
     "split_count": [6, 6],
-    "max_brightness": 192,
+    "max_brightness": 150,
     "animations": {
-      "alternating": true,
-      "breathing": true,
-      "christmas": true,
-      "knight": true,
-      "rainbow_mood": true,
-      "rainbow_swirl": true,
+      "alternating": false,
+      "breathing": false,
+      "christmas": false,
+      "knight": false,
+      "rainbow_mood": false,
+      "rainbow_swirl": false,
       "rgb_test": true,
-      "snake": true,
-      "static_gradient": true,
-      "twinkle": true
+      "snake": false,
+      "static_gradient": false,
+      "twinkle": false
     }
   }
 }

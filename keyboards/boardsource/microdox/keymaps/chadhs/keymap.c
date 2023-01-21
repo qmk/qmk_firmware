@@ -103,22 +103,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  .------.------.------.------.------.            .------.------.------.------.------.
  | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
- |      |      |      |      |      |            |      |      |      |      |      |
+ |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
  |------+------+------+------+------|            |------+------+------+------+------|
  |      |      |      |      |      |            | ←    | ↓    | ↑    | →    |      |
  | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
  |------+------+------+------+------|            |------+------+------+------+------|
  | RGB  |XRGB  |XRGB  |XRGB- |XRGB+ |            | F11  | F12  |      |      | GAME |
- | TGGL | RMOD | MOD  |      |      |            |      |      |      |      |      |
+ | TGGL | RMOD | MOD  |      |      |            | VolD | VolU |      |      |      |
  '------'------'------'------'------'            '------'------'------'------'------'
                   .------.------.------.      .------.------.------.
                   | ↓↓↓  | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  | ↓↓↓  |
                   |      |      |      |      |      |      |      |
                   '------'------'------'      '------'------'------'
 */
-  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,    KC_F8,   KC_F9,    KC_F10,
+  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
   KC_LSFT, KC_LCTL,  KC_LGUI, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_RSFT,
-  RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_F11,  KC_F12,   XXXXXXX, XXXXXXX,  GAME,
+  RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU,  XXXXXXX, XXXXXXX,  GAME,
                      KC_TRNS, KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS,  KC_TRNS
 ),
 
@@ -172,22 +172,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  .------.------.------.------.------.            .------.------.------.------.------.
  | ↓↓↓  |      |      |      | T    |            |      | F7   | F8   | F9   | F10  |
- |      |      |      |      |      |            |      |      |      |      |      |
+ |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
  |------+------+------+------+------|            |------+------+------+------+------|
  | ↓↓↓  |      |      |      | G    |            |      | \ |  | [ {  | ] }  |      |
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
  | ↓↓↓  |      |      |      | B    |            | F11  | F12  |      |      | ↓↓↓  |
- |      |      |      |      |      |            |      |      |      |      |      |
+ |      |      |      |      |      |            | VolD | VolU |      |      |      |
  '------'------'------'------'------'            '------'------'------'------'------'
                   .------.------.------.      .------.------.------.
                   | ↓↓↓  | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  | ↓↓↓  |
                   |      |      |      |      |      |      |      |
                   '------'------'------'      '------'------'------'
 */
-  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_T,         XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,
+  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_T,         XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,
   KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_G,         XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
-  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_TRNS,
+  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_TRNS,
                      KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS
 ),
 

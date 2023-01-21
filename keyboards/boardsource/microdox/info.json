@@ -8,11 +8,11 @@
     "lto": true
   },
   "features": {
-    "bootmagic": true,
+    "bootmagic": false,
     "extrakey": true,
-    "mousekey": true,
+    "mousekey": false,
     "nkro": true,
-    "oled": true
+    "oled": false
   },
   "url": "https://boardsource.xyz/store/5f2e7e4a2902de7151494f92",
   "usb": {
