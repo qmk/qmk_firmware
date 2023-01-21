@@ -32,5 +32,5 @@
 #define B6 21U
 
 // LEDs
-#define D5 17U // user LED
-#define B0 25U // level shifted pin / RGB
+#define D5 12U
+#define B0 13U
