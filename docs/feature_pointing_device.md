@@ -287,8 +287,7 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `MOUSE_EXTENDED_REPORT`                        | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
 | `MOUSE_SCROLL_EXTENDED_REPORT`                 | (Optional) Enables support for extended mouse wheel reports. (-32767 to 32767, instead of just -127 to 127).                     | _not defined_ |
-| `MOUSE_SCROLL_HIRES_ENABLE`                    | (Optional) Enables support for high resolution scrolling. (see notes).                                                           | _not defined_ |
-| `MOUSE_SCROLL_MULTIPLIER`                      | (Optional) Resolution multiplier for high resolution scrolling. (Requires `MOUSE_SCROLL_HIRES_ENABLE` and must be 1 - 120).      | 120           |
+| `MOUSE_SCROLL_HIRES_ENABLE`                    | (Optional) Enables support for high resolution scrolling. (see [hires scroll](#high-resolution-scroll)).                         | _not defined_ |
 | `POINTING_DEVICE_ROTATION_90`                  | (Optional) Rotates the X and Y data by  90 degrees.                                                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_180`                 | (Optional) Rotates the X and Y data by 180 degrees.                                                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_270`                 | (Optional) Rotates the X and Y data by 270 degrees.                                                                              | _not defined_ |
@@ -302,18 +301,48 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 | `POINTING_DEVICE_CS_PIN`                       | (Optional) Provides a default CS pin, useful for supporting multiple sensor configs.                                             | _not defined_ |
 | `POINTING_DEVICE_SDIO_PIN`                     | (Optional) Provides a default SDIO pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
 | `POINTING_DEVICE_SCLK_PIN`                     | (Optional) Provides a default SCLK pin, useful for supporting multiple sensor configs.                                           | _not defined_ |
-
-!> `MOUSE_SCROLL_HIRES_ENABLE` will change scrolling behavior on OS's that support high resolution scrolling (currently Linux 5.15+, and Windows Vista+) this will allow for sub line scrolling in some applications that support the feature. **Scrolling sensitivity will need to be adjusted based on `MOUSE_SCROLL_MULTIPLIER` when high resolution scrolling is active** (Drag scroll mode in pointing device modes does this automatically). Note that high resolution scrolling is activated by the OS during USB initialization so to test if high resolution scrolling is active the global variable `resolution_multiplier` will have the **first** and **third** bits set to `1` for active high resolution scrolling on vertical and horizontal axes respectively.
-
-Most modern widely adopted applications (firefox, Chrome, discord, etc.) fully support high resolution scrolling, and applications that let the OS handle v/h axis inputs and compensate for the expected higher tick count will behave normally just without any benefit from this feature.  However, a few applications that handle scroll input separately from the OS can result in increased sensitivity if they have not updated to handle high resolution scrolling (GIMP, LibreOffice, etc.). 
-
-It is recommended to use the pointing device modes feature for drag scroll along with high resolution scrolling as it will automatically adjust to accommodate once it detects it is active. 
  
 !> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 
 The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_SCLK_PIN` provide a convenient way to define a single pin that can be used for an interchangeable sensor config.  This allows you to have a single config, without defining each device.  Each sensor allows for this to be overridden with their own defines. 
 
 !> Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+
+## High Resolution Scroll
+Adding `#define MOUSE_SCROLL_HIRES_ENABLE` to `config.h` will change horizontal and vertical scrolling behavior on OS's that support high resolution scrolling (_currently Linux 5.15+, and Windows Vista+_) this will allow for sub line scrolling in some applications that support the feature with single pixel scrolling possible at the maximum resolution multiplier (_only in applications that fully support it_).
+
+Most modern widely adopted applications (firefox, Chrome, discord, etc.) fully support high resolution scrolling with pixel scrolling being possible, and applications that let the OS handle v/h axis inputs and compensate for the expected higher tick count with hires scrolling and will behave normally just without any benefit from this feature.  However, a few applications that handle scroll input independently from the OS can result in inconsistent sensitivity if they have not updated to handle high resolution scrolling (e.g. GIMP, LibreOffice on windows). 
+
+It is recommended to use the pointing device modes feature for drag scroll([see here](#pointing-device-modes)) along with high resolution scrolling as it will automatically adjust to accommodate for the current resolution multiplier for the vertical and horizontal scrolling axes. 
+
+### How High resolution Scrolling works
+
+High resolutions scrolling changes the USB HID report to inform the OS that the device supports high resolution scrolling which upon initialization the OS will send a request to the device to set the resolution multiplier for both axes to their maximums.  After the resolution multipliers are set then the OS will request the resolution multiplier with every scrolling report and make the following adjustment for each axis (_v or h_):
+
+$$scroll_{hires\_axes} = \frac{scroll \times 120}{MOUSE\_SCROLL\_MULTIPLIER\_AXIS}$$
+
+and $scroll_{hires}$ is treated as the new input from that device and is intended to be the number of pixels scrolled rather than number of lines scrolled as in normal resolutions scrolling operation so the OS will attempt to adjust for the expected higher scroll input values for applications that do not support per pixel scrolling.
+
+$$lines\_scrolled = \frac{scroll_{hires}}{120}$$
+
+Scrolling sensitivity will need to be adjusted based on the current resolution multiplier when high resolution scrolling is active because of the above behaviour.  Pointing device modes Drag scroll handles this automatically at run time which is why it is recommended.
+
+#### Structure of Resolution Multiplier data
+The resolution multiplier data is a single byte with with 4 bits dedicated to each axis with the 4 least significant bits dedicated to the vertical axis and the 4 most significant bits dedicated to the horizontal axis. This value is originally set during usb initialization and can be changed during runtime.
+
+### Useful C Macros for High Resolution Scrolling
+| C Macro                                        | Description                                                                                             |  Value Range   | data type     |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------| -------------- | :-----------: |
+| `IS_SCROLL_MULTIPLIER_RAW`                     | Raw scroll multiplier value for both axes                                                               | `0x00 - 0xFF`  |   `uint8_t`   |
+| `IS_SCROLL_MULTIPLIER_RAW_H`                   | Raw **vertical** scroll multiplier value (_only uses 4 bits_)                                           | `0x00 - 0x0F`  |   `uint8_t`   |
+| `IS_SCROLL_MULTIPLIER_RAW_V`                   | Raw **horizontal** scroll multiplier value (_only uses 4 bits_)                                         | `0x00 - 0x0F`  |   `uint8_t`   |
+| `MOUSE_SCROLL_MULTIPLIER_V`                    | Current scroll multiplier for the **vertical** axis  (_slower than accessing raw data_)                 | `1-120`        |   `uint8_t`   |
+| `MOUSE_SCROLL_MULTIPLIER_H`                    | Current scroll multiplier for the **horizontal** axis (_slower than accessing raw data_)                | `1-120`        |   `uint8_t`   |
+
+### Useful functions for High Resolution Scrolling
+| Function                                                   | Description                                                                                                | Result type    |
+| ---------------------------------------------------------- | -----------------------------------------------------------------------------------------------------------| :------------: |
+| `set_hires_scroll_multiplier(uint8_t axis, uint8_t value)` | Set the multiplier of axis enum `HIRES_V`, `HIRES_H`, or `HIRES_BOTH` to `value` returns `bool` of success |     `bool`     |
 
 ## Split Keyboard Configuration
 

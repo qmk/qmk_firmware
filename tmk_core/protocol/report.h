@@ -220,20 +220,6 @@ typedef int16_t mouse_hv_report_t;
 typedef int8_t mouse_hv_report_t;
 #endif
 
-typedef union {
-    uint8_t raw[2];
-    struct {
-        uint8_t report_id;
-        union {
-            uint8_t data;
-            struct {
-                uint8_t v : 4;
-                uint8_t h : 4;
-            } multiplier;
-        };
-    };
-} __attribute__((packed)) report_mouse_scroll_res_t;
-
 typedef struct {
 #if defined(MOUSE_SHARED_EP) || defined(MOUSE_SCROLL_HIRES_ENABLE)
     uint8_t report_id;
@@ -248,6 +234,20 @@ typedef struct {
     mouse_hv_report_t v;
     mouse_hv_report_t h;
 } __attribute__((packed)) report_mouse_t;
+
+typedef union {
+    uint8_t raw[2];
+    struct {
+        uint8_t report_id;
+        union {
+            uint8_t data;
+            struct {
+                uint8_t v : 4;
+                uint8_t h : 4;
+            } multiplier;
+        };
+    };
+} __attribute__((packed)) report_mouse_scroll_res_t;
 
 typedef struct {
 #ifdef DIGITIZER_SHARED_EP
@@ -377,9 +377,9 @@ void resolution_multiplier_reset(void);
 
 #    define MOUSE_SCROLL_MULTIPLIER_RESOLUTION 8
 #    define MULTIPLIER_CONVERSION(value) (uint8_t)(((((uint16_t)value * (uint16_t)0x80) >> 8) >> 2) & 0x0F)
-#    define IS_HIRES_V_ACTIVE (bool)(mouse_scroll_res_report.multiplier.v)
-#    define IS_HIRES_H_ACTIVE (bool)(mouse_scroll_res_report.multiplier.h)
-#    define MOUSE_SCROLL_MULTIPLIER_DATA (mouse_scroll_res_report.data)
+#    define MOUSE_SCROLL_MULTIPLIER_RAW (mouse_scroll_res_report.data)
+#    define MOUSE_SCROLL_MULTIPLIER_RAW_V (mouse_scroll_res_report.multiplier.v)
+#    define MOUSE_SCROLL_MULTIPLIER_RAW_H (mouse_scroll_res_report.multiplier.h)
 #    define MOUSE_SCROLL_MULTIPLIER_V (uint8_t)(MAX(mouse_scroll_res_report.multiplier.v * MOUSE_SCROLL_MULTIPLIER_RESOLUTION, 1))
 #    define MOUSE_SCROLL_MULTIPLIER_H (uint8_t)(MAX(mouse_scroll_res_report.multiplier.h * MOUSE_SCROLL_MULTIPLIER_RESOLUTION, 1))
 #endif

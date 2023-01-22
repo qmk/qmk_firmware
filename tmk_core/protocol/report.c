@@ -33,6 +33,7 @@ static int8_t cb_count = 0;
 
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
 report_mouse_scroll_res_t mouse_scroll_res_report = {.report_id = REPORT_ID_MULTIPLIER, .data = 0};
+static uint8_t            max_multiplier;
 #endif
 
 /** \brief has_anykey
@@ -296,12 +297,19 @@ __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, 
 }
 
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
+/**
+ * @brief will set multiplier value to axis
+ *
+ * @param[in] axis uint8_t
+ * @param[in] value uint8_t
+ * @return bool success
+ */
 bool set_hires_scroll_multiplier(uint8_t axis, uint8_t value) {
-    static uint8_t max_multiplier;
-    uint8_t        multiplier_temp = mouse_scroll_res_report.data;
-    max_multiplier |= multiplier_temp;
-
+    // set up temporary variables
+    uint8_t multiplier_temp = mouse_scroll_res_report.data;
     uint8_t set_value = MULTIPLIER_CONVERSION(value);
+    // Add to max multiplier record before any changes
+    max_multiplier |= multiplier_temp;
 
     switch (axis) {
         case HIRES_V:
@@ -322,6 +330,7 @@ bool set_hires_scroll_multiplier(uint8_t axis, uint8_t value) {
 
 void resolution_multiplier_reset(void) {
     mouse_scroll_res_report.data = 0;
+    max_multiplier = 0;
 }
 #    endif // MOUSE_SCROLL_HIRES_ENABLE
 #endif     // MOUSE_ENABLE

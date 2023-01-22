@@ -484,7 +484,7 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
         {
             uint8_t cur_divisor = pointing_mode.divisor;
-            if (IS_HIRES_H_ACTIVE) {
+            if (MOUSE_SCROLL_MULTIPLIER_RAW_H) {
                 uint8_t drag_multiplier = MAX(MOUSE_SCROLL_MULTIPLIER_H / cur_divisor, 1);
                 pointing_mode.x *= (int16_t)drag_multiplier;
                 pointing_mode.divisor = 1;
@@ -496,7 +496,7 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
             pointing_mode_divisor_override(POINTING_DRAG_DIVISOR_V);
 #    endif
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
-            if (IS_HIRES_V_ACTIVE) {
+            if (MOUSE_SCROLL_MULTIPLIER_RAW_V) {
                 uint8_t drag_multiplier = MAX(MOUSE_SCROLL_MULTIPLIER_V / cur_divisor, 1);
                 pointing_mode.y *= (int16_t)drag_multiplier;
                 pointing_mode.divisor = 1;
