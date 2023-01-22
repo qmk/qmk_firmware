@@ -16,8 +16,10 @@
 
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LAYERTWO 1
+enum layers {
+    _QWERTY,
+    _LAYERTWO
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* ┌───┐   ┌───────┐┌───┬───┬───┐┌───┬───┬───┐
@@ -44,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,            KC_PDOT,          KC_LEFT,  KC_DOWN, KC_RGHT,  KC_HOME,    KC_END,    KC_B
     ),
     [_LAYERTWO] = LAYOUT(
-        KC_ESC,           KC_BSPC,          RGB_RMOD, RGB_TOG, RGB_MOD,   KC_A,   QK_REBOOT,   QK_BOOTLOADER,
+        _______,          KC_BSPC,          RGB_RMOD, RGB_TOG, RGB_MOD,   KC_A,   QK_REBOOT,   QK_BOOTLOADER,
         KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, KC_PAUS,  KC_SCRL, KC_PSCR, 
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_INS,   KC_HOME, KC_PGUP, 
         KC_P4,   KC_P5,   KC_P6,            KC_END,   KC_DEL,  KC_PGDN, 
