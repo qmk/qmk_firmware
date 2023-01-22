@@ -65,7 +65,6 @@ void matrix_init(void)
 {
 	/* Column output pins */
 	DDRD  |=  0b01111011;
-  	DDRC  |=  0b01100000; // leds
 	/* Row input pins */
 	DDRC  &= (unsigned char) ~0b00000000;
 	DDRB  &= (unsigned char) ~0b11111111;
