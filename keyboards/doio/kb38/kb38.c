@@ -27,9 +27,10 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     render_logo();
-    return false;
+    return true;
 }
 
 //Knobs
