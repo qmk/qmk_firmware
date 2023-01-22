@@ -1,9 +1,7 @@
 ### FLinguenheld custom aurora sweep keymap
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-
-This keymap has been inspired by [optimot](https://bepo.fr/) which is a French layout.  
+This keymap is inspired by [optimot](https://bepo.fr/) which is a French layout.  
 Nonetheless all French characters are sent in unicode, so it works with the standard US ANSI layout.
 
 It uses the *best* qmk features :
