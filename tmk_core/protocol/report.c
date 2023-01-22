@@ -307,7 +307,7 @@ __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, 
 bool set_hires_scroll_multiplier(uint8_t axis, uint8_t value) {
     // set up temporary variables
     uint8_t multiplier_temp = mouse_scroll_res_report.data;
-    uint8_t set_value = MULTIPLIER_CONVERSION(value);
+    uint8_t set_value       = MULTIPLIER_CONVERSION(value);
     // Add to max multiplier record before any changes
     max_multiplier |= multiplier_temp;
 
@@ -330,7 +330,7 @@ bool set_hires_scroll_multiplier(uint8_t axis, uint8_t value) {
 
 void resolution_multiplier_reset(void) {
     mouse_scroll_res_report.data = 0;
-    max_multiplier = 0;
+    max_multiplier               = 0;
 }
 #    endif // MOUSE_SCROLL_HIRES_ENABLE
 #endif     // MOUSE_ENABLE

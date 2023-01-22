@@ -63,11 +63,10 @@ extern keymap_config_t keymap_config;
 #    define usb_lld_disconnect_bus(usbp)
 #endif
 
-uint8_t keyboard_idle __attribute__((aligned(2)))     = 0;
-uint8_t keyboard_protocol __attribute__((aligned(2))) = 1;
-uint8_t keyboard_led_state                            = 0;
-
-volatile uint16_t      keyboard_idle_count = 0;
+uint8_t                keyboard_idle __attribute__((aligned(2)))     = 0;
+uint8_t                keyboard_protocol __attribute__((aligned(2))) = 1;
+uint8_t                keyboard_led_state                            = 0;
+volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
 
 static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
@@ -123,7 +122,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
     uint16_t             wValue  = ((uint16_t)dtype << 8) | dindex;
     uint16_t             wLength = ((uint16_t)usbp->setup[7] << 8) | usbp->setup[6];
     desc.ud_string               = NULL;
-    desc.ud_size                 = get_usb_descriptor(wValue, wIndex, wLength, (const void **const)&desc.ud_string);
+    desc.ud_size                 = get_usb_descriptor(wValue, wIndex, wLength, (const void **const) &desc.ud_string);
     if (desc.ud_string == NULL)
         return NULL;
     else
