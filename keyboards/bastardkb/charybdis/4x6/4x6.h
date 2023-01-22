@@ -42,3 +42,10 @@
   { KC_NO,   k91, KC_NO,   k93, KC_NO,   k95 },                   \
 }
 // clang-format on
+
+/**
+ * Alias for backward compatibility with some keymaps.
+ *
+ * Prefer using `LAYOUT` for new keymaps.
+ */
+#define LAYOUT_charybdis_4x6 LAYOUT

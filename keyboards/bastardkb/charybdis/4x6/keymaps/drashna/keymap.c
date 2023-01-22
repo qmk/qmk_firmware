@@ -16,13 +16,13 @@
  */
 #include "drashna.h"
 
-#define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
-#define LAYOUT_base( \
+#define LAYOUT_charybdis_4x6_wrapper(...) LAYOUT_charybdis_4x6(__VA_ARGS__)
+#define LAYOUT_charybdis_4x6_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
-  LAYOUT_wrapper( \
+  LAYOUT_charybdis_4x6_wrapper( \
      KC_ESC,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, UC_CLUE, \
      SH_TT,   K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A,     SH_TT, \
      LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
@@ -31,7 +31,7 @@
                                            KC_SPC, BK_LWER,     DL_RAIS \
     )
 
-#define LAYOUT_base_wrapper(...)       LAYOUT_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_charybdis_4x6_base(__VA_ARGS__)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
     ),
 
-    [_GAMEPAD] = LAYOUT(
+    [_GAMEPAD] = LAYOUT_charybdis_4x6(
         KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,       _______, _______, _______, _______, _______, _______,
         KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,       _______, _______, _______, _______, _______, _______,
         KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,       _______, _______, _______, _______, _______, _______,
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_V,    _______, _______,    _______, TG_GAME,
                                            KC_SPC, KC_H,          _______
     ),
-    [_DIABLO] = LAYOUT(
+    [_DIABLO] = LAYOUT_charybdis_4x6(
         KC_ESC,  KC_V,    KC_D,    KC_LALT, KC_NO,   KC_NO,      KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
         KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,       _______, _______, _______, _______, _______, _______,
         KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_G,       _______, _______, _______, _______, _______, _______,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_G,    _______, _______,    TO(_DIABLOII), TG_DBLO,
                                            KC_LSFT, KC_LCTL,      _______
     ),
-    [_DIABLOII] = LAYOUT(
+    [_DIABLOII] = LAYOUT_charybdis_4x6(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_GRV,     _______, _______, _______, _______, _______, _______,
         KC_TAB,  KC_A,    KC_T,    KC_Q,    KC_I,    KC_M,       _______, _______, _______, _______, _______, _______,
         KC_S,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      _______, _______, _______, _______, _______, _______,
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            KC_DIABLO_CLEAR, _______, _______,    _______, TG(_DIABLOII),
                                SFT_T(KC_SPACE),  ALT_T(KC_Q),      _______
     ),
-    [_MOUSE] = LAYOUT(
+    [_MOUSE] = LAYOUT_charybdis_4x6(
         _______, _______, _______, _______, _______, _______,   _______, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD, _______,
         _______, _______, _______, _______, _______, _______,   KC_WH_U, _______, _______, _______, _______, DRGSCRL,
         _______, _______, _______, _______, _______, _______,   KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, SNIPING,
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            _______, _______,     _______
     ),
 
-    [_LOWER] = LAYOUT_wrapper(
+    [_LOWER] = LAYOUT_charybdis_4x6_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________,    _________________FUNC_RIGHT________________, KC_F11,
         _______, _________________LOWER_L1__________________,    _________________LOWER_R1__________________, _______,
         _______, _________________LOWER_L2__________________,    _________________LOWER_R2__________________, KC_PIPE,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            _______, _______,      _______
     ),
 
-    [_RAISE] = LAYOUT_wrapper(
+    [_RAISE] = LAYOUT_charybdis_4x6_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________,    _________________FUNC_RIGHT________________, KC_F11,
         KC_GRV,  _________________RAISE_L1__________________,    _________________RAISE_R1__________________, _______,
         _______, _________________RAISE_L2__________________,    _________________RAISE_R2__________________, KC_BSLS,
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            _______, _______,      _______
     ),
 
-    [_ADJUST] = LAYOUT_wrapper(
+    [_ADJUST] = LAYOUT_charybdis_4x6_wrapper(
         QK_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_SUPER, KC_NOMODE,KC_COMIC,KC_REGIONAL,TG_GAME,TG_DBLO, QK_BOOT,
         VRSN,    _________________ADJUST_L1_________________,    _________________ADJUST_R1_________________, EE_CLR,
         KEYLOCK, _________________ADJUST_L2_________________,    _________________ADJUST_R2_________________, TG_MODS,
