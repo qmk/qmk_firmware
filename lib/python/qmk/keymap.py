@@ -301,19 +301,19 @@ def generate_c(keymap_json):
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
 
     encodermap = ''
-    if 'encoders' in keymap_json:
+    if 'encoders' in keymap_json and keymap_json['encoders'] is not None:
         encoder_txt = _generate_encodermap_table(keymap_json)
         encodermap = '\n'.join(encoder_txt)
     new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', encodermap)
 
     macros = ''
-    if 'macros' in keymap_json:
+    if 'macros' in keymap_json and keymap_json['macros'] is not None:
         macro_txt = _generate_macros_function(keymap_json)
         macros = '\n'.join(macro_txt)
     new_keymap = new_keymap.replace('__MACRO_OUTPUT_GOES_HERE__', macros)
 
     hostlang = ''
-    if 'host_language' in keymap_json:
+    if 'host_language' in keymap_json and keymap_json['host_language'] is not None:
         hostlang = f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n'
     new_keymap = new_keymap.replace('__INCLUDES__', hostlang)
 
