@@ -3,7 +3,7 @@
 
 #pragma once
 
-#ifdef INTEGRATE
+#ifdef INTEGRATED
 	#define MATRIX_ROWS 4
 	#define MATRIX_COLS 10
 	#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B5, B4 }
