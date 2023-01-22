@@ -7,7 +7,6 @@
 Make example for this keyboard (after setting up your build environment):
 
     make black_hellebore:default
-	make black_hellebore:via
 
 Flashing example for this keyboard:
 
