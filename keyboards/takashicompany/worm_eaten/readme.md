@@ -1,4 +1,4 @@
-# takashicompany/worm_eaten
+# Worm Eaten
 
 ![takashicompany/worm_eaten](https://i.imgur.com/8rIFpDR.jpg)
 
@@ -14,8 +14,8 @@ LEDs and OLEDs can also be mounted.
 MX and Choc(v1) keyswitches can be installed.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: PCB
+* Hardware Availability: Pro Micro
 
 Make example for this keyboard (after setting up your build environment):
 
