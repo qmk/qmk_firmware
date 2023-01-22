@@ -164,7 +164,7 @@ static void ws2812_dma_callback(void* p, uint32_t ct) {
     // Convert from ns to us
     time_to_completion /= 1000;
 
-    LAST_TRANSFER = time_us_64() + time_to_completion + WS2812_TRST_US;
+    update_us_since_boot(&LAST_TRANSFER, time_us_64() + time_to_completion + WS2812_TRST_US);
 
     osalSysLockFromISR();
     chSemSignalI(&TRANSFER_COUNTER);
@@ -259,8 +259,7 @@ static inline void sync_ws2812_transfer(void) {
     }
 
     // Busy wait until last transfer has finished
-    while (unlikely(!time_reached(LAST_TRANSFER))) {
-    }
+    busy_wait_until(LAST_TRANSFER);
 }
 
 void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
