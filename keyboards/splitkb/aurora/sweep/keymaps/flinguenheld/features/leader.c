@@ -1,7 +1,7 @@
-// --------------------------------------------------------------------------------
-// Leader -------------------------------------------------------------------------
-
 LEADER_EXTERNS();
+
+/* Display the leader key (Only on the master now :(, this bool has to be sync with the slave) */
+static bool     is_leader_active = false;
 
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
@@ -26,23 +26,23 @@ void matrix_scan_user(void) {
       SEND_STRING("admin01234"); }
 
 
-    // Degree
+    /* Degree */
     SEQ_THREE_KEYS(KC_D, KC_E, KC_G) {
       send_unicode_string("°"); }
 
-    // Copyright / Register
+    /* Copyright / Register */
     SEQ_THREE_KEYS(KC_C, KC_O, KC_P) {
       send_unicode_string("©"); }
     SEQ_THREE_KEYS(KC_R, KC_E, KC_G) {
       send_unicode_string("®"); }
 
-    // Diameter
+    /* Diameter */
     SEQ_THREE_KEYS(KC_D, KC_I, KC_A) {
       send_unicode_string("ø"); }
     SEQ_FOUR_KEYS(KC_D, KC_I, KC_A, KC_M) {
       send_unicode_string("Ø"); }
 
-    // Currency
+    /* Currency */
     SEQ_THREE_KEYS(KC_E, KC_U, KC_R) {
       send_unicode_string("€"); }
     SEQ_THREE_KEYS(KC_P, KC_O, KC_U) {
@@ -52,7 +52,7 @@ void matrix_scan_user(void) {
     SEQ_THREE_KEYS(KC_C, KC_E, KC_N) {
       send_unicode_string("¢"); }
 
-    // Fractions
+    /* Fractions */
     SEQ_THREE_KEYS(KC_F, KC_C, KC_T) {
       send_unicode_string("¼"); }
     SEQ_THREE_KEYS(KC_F, KC_C, KC_G) {
@@ -60,7 +60,7 @@ void matrix_scan_user(void) {
     SEQ_THREE_KEYS(KC_F, KC_H, KC_T) {
       send_unicode_string("¾"); }
 
-    // Maths
+    /* Maths */
     SEQ_THREE_KEYS(KC_M, KC_U, KC_L) {
       send_unicode_string("×"); }
     SEQ_THREE_KEYS(KC_D, KC_I, KC_V) {
@@ -80,7 +80,7 @@ void matrix_scan_user(void) {
     SEQ_TWO_KEYS(KC_RABK, KC_RABK) {
       send_unicode_string("≥"); }
 
-    // Greek
+    /* Greek */
     SEQ_TWO_KEYS(KC_P, KC_I) {
       send_unicode_string("π"); }
     SEQ_THREE_KEYS(KC_P, KC_I, KC_I) {
@@ -91,7 +91,7 @@ void matrix_scan_user(void) {
     SEQ_FOUR_KEYS(KC_O, KC_M, KC_E, KC_G) {
       send_unicode_string("Ω"); }
 
-    // Icons
+    /* Icons */
     SEQ_THREE_KEYS(KC_F, KC_L, KC_A) {
       send_unicode_string("⚡"); }
     SEQ_THREE_KEYS(KC_S, KC_T, KC_A) {
@@ -208,7 +208,7 @@ void matrix_scan_user(void) {
     SEQ_THREE_KEYS(KC_B, KC_I, KC_R) {
       send_unicode_string("🐦"); }
 
-    // Subscript / superscript
+    /* Subscript / superscript */
     SEQ_THREE_KEYS(KC_U, KC_P, KC_F) {
       send_unicode_string("⁰"); }
     SEQ_THREE_KEYS(KC_D, KC_N, KC_F) {
@@ -253,10 +253,7 @@ void matrix_scan_user(void) {
   }
 }
 
-
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// Set a bool for the oled screen
+/* Set a bool for the oled screen */
 void leader_start(void) {
     is_leader_active = true;
 }

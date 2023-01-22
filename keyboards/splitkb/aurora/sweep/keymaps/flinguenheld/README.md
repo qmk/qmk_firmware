@@ -17,6 +17,35 @@ The oled screens are used to display the current layout, the modifier keys and t
 ![oledmouse](https://i.imgur.com/PwkR6P2.png)
 ![oledmodifiers](https://i.imgur.com/on95jx0.png)
 
+#### Install
+
+Clone this repo in the folder :
+
+    ~/qmk_firmware/keyboards/splitkb/aurora/sweep/keymaps/
+
+#### Compile and flash
+
+Change the master in the config.h file :
+
+    // #define MASTER_LEFT
+    #define MASTER_RIGHT
+
+then :
+
+    qmk compile && qmk flash
+
+and :
+
+    Click twice on the flash button and use nautilus for instance to clic on the keyboard.  
+    Don't forget to flash with the double tap bootloader define before soldering.
+
+#### Links
+
+[qmk](https://docs.qmk.fm/#/)  
+[ferris sweep](https://github.com/davidphilipbarr/Sweep)  
+[splitkb](https://splitkb.com)  
+[me](https://github.com/FLinguenheld)
+
 #### Layouts
 
 ![base](https://i.imgur.com/bJBP1ac.png)  

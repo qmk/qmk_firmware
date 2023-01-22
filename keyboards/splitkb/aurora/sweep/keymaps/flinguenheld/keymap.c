@@ -14,13 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
 
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// Layers -----------------------------------------------------------------------------------------------------------------------------------------------
 enum layers {
     _BASE,
     _NUMERIC,
@@ -30,23 +27,10 @@ enum layers {
     _FN,
 };
 
-
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// Timer to shutdown oled screens
-static uint16_t oled_timer = 0;
-static bool     is_key_processed = true;
-
-// Display the leader key (Only on the master now :(, this bool has to be sync with the slave)
-static bool     is_leader_active = false;
-
-
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// Custom keys ------------------------------------------------------------------------------------------------------------------------------------------
 enum custom_keys {
-    UNICODE = SAFE_RANGE, // Shortcut to write a unicode, see numeric layer
+    UNICODE = SAFE_RANGE, // Shortcut to write unicodes, see numeric layer
 
-    // With auto-shift
+    /* See auto-shift */
     CS_E_ACUTE,
 
     CS_A_GRAVE,
@@ -73,18 +57,16 @@ enum custom_keys {
     CS_Y_DIAERESIS,
 };
 
+/* Features */
+#include "features/auto_shift.c"
+#include "features/combo.c"
+#include "features/leader.c"
+#include "features/oled.c"
 
-// --
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    // Restart the timer on all pressed key
-    // The timer value is read by the oled_task_user() function
-    if (record->event.pressed) {
-        oled_timer = timer_read();
-        is_key_processed = true;
-    }
-
-    // Macros
+    /* Macros */
     switch (keycode) {
 
         case UNICODE:
@@ -103,15 +85,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// Features ---------------------------------------------------------------------------------------------------------------------------------------------
-#include "features/auto_shift.c"
-#include "features/combo.c"
-#include "features/leader.c"
-#include "features/oled.c"
-
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// Layouts ----------------------------------------------------------------------------------------------------------------------------------------------
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

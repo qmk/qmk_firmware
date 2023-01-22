@@ -1,8 +1,6 @@
 #include "progmem.h"
 
-// Helidox 8x6 font with QMK Firmware Logo
-// Online editor: http://teripom.x0.com/
-
+/* Online editor: https://joric.github.io/qle/ */
 static const unsigned char PROGMEM font[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0xFC, 0xFE, 0x0E, 0x06, 0xE6, 0xE6,

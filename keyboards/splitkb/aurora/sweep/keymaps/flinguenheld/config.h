@@ -20,51 +20,36 @@
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 
-
-// --------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------
-
-// Flash
+/* Flash */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET              // Activates the double-tap behavior
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
 
-// --------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------
-
-// OLED
+/* OLED */
 #undef OLED_FONT_H
 #define OLED_FONT_H "./font/glcdfont.c"
 
+#define  OLED_TIMEOUT 25000
 #define OLED_BRIGHTNESS 60 // Protect my eyesss
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 #define SPLIT_OLED_ENABLE
 
-// Used in the oled_task_user() function, because the OLED_TIMEOUT doesn't work correctly
-#undef  OLED_TIMEOUT
-#define OLED_KEY_TIMEOUT 25000
-
-// Auto shift ♥
+/* Auto shift ♥ */
 #define AUTO_SHIFT_TIMEOUT 115
 
-// Redefine CTRL + space
-// See space cadet shift
+/* Redefine CTRL + space (See space cadet shift) */
 #define LCPO_KEYS KC_LCTL, KC_TRNS, KC_SPC
 
-// Unicode
+/* Unicode */
 // #define UNICODE_SELECTED_MODES UC_LNX
 #define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 
-// Used for : shift
-#define TAPPING_TERM 115
-
-// leader
+/* leader */
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 280
 #define LEADER_NO_TIMEOUT
 
-
-// Mouse
+/* Mouse */
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
 

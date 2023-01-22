@@ -1,9 +1,5 @@
-// --------------------------------------------------------------------------------
-// Auto shift ---------------------------------------------------------------------
-
-// Only for basis letters
-// Exceptions like Tab or Enter
-
+/* Only for basis letters
+   Exceptions like Tab or Enter */
 bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
@@ -46,19 +42,17 @@ bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-// --------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------
-// Custom auto shift
-// I use this instead of tap dance because double tap is horrible
-// Add here the letter or the custom enum, then add in press_user and press_release the actions
+/* Custom auto shift
+   I use this instead of tap dance because double tap is horrible
+   Add here the letter or the custom enum, then add in press_user and press_release the actions */
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
 
         case KC_BSPC:
-        case KC_LABK:
+        case KC_LABK:  // Easy indent with vim
         case KC_RABK:
 
-        // French
+        /* French */
         case CS_E_ACUTE:
 
         case CS_A_GRAVE:
@@ -106,8 +100,8 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
             if (shifted) { send_unicode_string(">>"); }
             else         { send_unicode_string(">"); } break;
 
-        // French
-        // Release is not necessary with 'send_unicode_string()'
+        /* French
+           Release is not necessary with 'send_unicode_string()' */
         case CS_E_ACUTE:
             if (shifted) { send_unicode_string("É"); }
             else         { send_unicode_string("é"); } break;
@@ -178,7 +172,7 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
             if (shifted) {
                 add_weak_mods(MOD_BIT(KC_LSFT));
             }
-            // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
+            /* & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift */
             register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
@@ -191,9 +185,9 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
             break;
 
         default:
-            // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-            // The IS_RETRO check isn't really necessary here, always using
-            // keycode & 0xFF would be fine.
+            /* & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
+               The IS_RETRO check isn't really necessary here, always using
+               keycode & 0xFF would be fine. */
             unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }

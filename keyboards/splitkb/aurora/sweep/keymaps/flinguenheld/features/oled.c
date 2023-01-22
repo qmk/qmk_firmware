@@ -1,16 +1,8 @@
-// --------------------------------------------------------------------------------
-// Oled display -------------------------------------------------------------------
-
 #include "../font/logos.c"
 
-// --------------------------------------------------
-// --------------------------------------------------
-// Wonderful display !
 void oled_display(void) {
 
-    oled_clear(); // prevents the timeout, I used oled_write_ln to fill lines with spaces
-
-    // Layers
+    /* Layers */
     switch (get_highest_layer(layer_state)) {
 
         case _BASE:
@@ -38,14 +30,14 @@ void oled_display(void) {
             break;
     }
 
-    // Leader --
+    /* Leader */
     if (is_leader_active) {
 
         oled_write_raw_P(qmk_leader, sizeof(qmk_leader));
     }
 
-    // Modifier keys --
-    if (get_mods()){
+    /* Modifier keys */
+    if (get_mods()) {
 
         if (get_mods() & MOD_MASK_CTRL) {
 
@@ -120,29 +112,7 @@ void oled_display(void) {
     }
 };
 
-
-// Add the timeout management here.
-// Because it doesn't work with the OLED_TIMEOUT (the slave doesn't shutdown on power off).
-// This management is only for the master, which will sync the status thanks to the SPLIT_OLED_ENABLE definition.
-
-// The timer is restarted by the process_record_user() function.
-// Set the OLED_KEY_TIMEOUT value in the config.h
 bool oled_task_user(void) {
-
-    if (is_keyboard_master()) {
-        if (is_key_processed && (timer_elapsed(oled_timer) < OLED_KEY_TIMEOUT)) {
-            oled_display();
-        } else {
-            is_key_processed = false;
-            oled_off();
-        }
-    } else {
-        oled_display();
-    }
+    oled_display();
     return false;
-}
-
-// Shut both oled (witout the slave stays on)
-void suspend_power_down_user(void) {
-    oled_off();
 }
