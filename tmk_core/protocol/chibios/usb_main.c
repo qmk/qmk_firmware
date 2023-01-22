@@ -661,7 +661,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                         break;
                                 }
 #    endif
-#endif
+#endif // defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
 #ifdef SHARED_EP_ENABLE
                             case SHARED_INTERFACE:
                                 switch (usbp->setup[2]) {
@@ -738,7 +738,6 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                 }
                                 break;
 #endif
-
                         }
                         break;
 
