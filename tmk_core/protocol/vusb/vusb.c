@@ -382,7 +382,7 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
             if (len == 2 && data[0] == REPORT_ID_MULTIPLIER) {
                 dprintf("SET_RES_MULT: %02X\n", data[1]);
                 mouse_scroll_res_report.data = data[1];
-                last_req.len                       = 0;
+                last_req.len                 = 0;
                 return 1;
             }
             break;

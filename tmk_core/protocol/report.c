@@ -32,7 +32,7 @@ static int8_t cb_count = 0;
 #endif
 
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
-report_mouse_scroll_res_t mouse_scroll_res_report = { .report_id = REPORT_ID_MULTIPLIER, .data = 0 };
+report_mouse_scroll_res_t mouse_scroll_res_report = {.report_id = REPORT_ID_MULTIPLIER, .data = 0};
 #endif
 
 /** \brief has_anykey
@@ -324,4 +324,4 @@ void resolution_multiplier_reset(void) {
     mouse_scroll_res_report.data = 0;
 }
 #    endif // MOUSE_SCROLL_HIRES_ENABLE
-#endif // MOUSE_ENABLE
+#endif     // MOUSE_ENABLE

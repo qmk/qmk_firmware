@@ -376,12 +376,12 @@ bool set_hires_scroll_multiplier(uint8_t axis, uint8_t value);
 void resolution_multiplier_reset(void);
 
 #    define MOUSE_SCROLL_MULTIPLIER_RESOLUTION 8
-#    define MULTIPLIER_CONVERSION(value)       (uint8_t)( ((((uint16_t)value * (uint16_t)0x80) >> 8) >> 2) & 0x0F)
-#    define IS_HIRES_V_ACTIVE                  (bool)(mouse_scroll_res_report.multiplier.v)
-#    define IS_HIRES_H_ACTIVE                  (bool)(mouse_scroll_res_report.multiplier.h)
-#    define MOUSE_SCROLL_MULTIPLIER_DATA       (mouse_scroll_res_report.data)
-#    define MOUSE_SCROLL_MULTIPLIER_V          (uint8_t)(MAX(mouse_scroll_res_report.multiplier.v * MOUSE_SCROLL_MULTIPLIER_RESOLUTION, 1))
-#    define MOUSE_SCROLL_MULTIPLIER_H          (uint8_t)(MAX(mouse_scroll_res_report.multiplier.h * MOUSE_SCROLL_MULTIPLIER_RESOLUTION, 1))
+#    define MULTIPLIER_CONVERSION(value) (uint8_t)(((((uint16_t)value * (uint16_t)0x80) >> 8) >> 2) & 0x0F)
+#    define IS_HIRES_V_ACTIVE (bool)(mouse_scroll_res_report.multiplier.v)
+#    define IS_HIRES_H_ACTIVE (bool)(mouse_scroll_res_report.multiplier.h)
+#    define MOUSE_SCROLL_MULTIPLIER_DATA (mouse_scroll_res_report.data)
+#    define MOUSE_SCROLL_MULTIPLIER_V (uint8_t)(MAX(mouse_scroll_res_report.multiplier.v * MOUSE_SCROLL_MULTIPLIER_RESOLUTION, 1))
+#    define MOUSE_SCROLL_MULTIPLIER_H (uint8_t)(MAX(mouse_scroll_res_report.multiplier.h * MOUSE_SCROLL_MULTIPLIER_RESOLUTION, 1))
 #endif
 
 #ifdef __cplusplus
