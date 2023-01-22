@@ -1,8 +1,17 @@
 # takashicompany/worm_eaten
 
-![takashicompany/worm_eaten](imgur.com image replace me!)
+![takashicompany/worm_eaten](https://i.imgur.com/8rIFpDR.jpg)
 
-*A short description of the keyboard/project*
+Worm Eaten" is a simple design that can be assembled in a variety of ways.
+
+It can be used as a 20-key macro pad, but can also be used as a split keyboard by connecting two units together with a TRRS cable.
+
+Two units can also be soldered together to form a 40-key integrated keyboard.
+
+The PCB can also be modified as a plate to fix the keyswitches.
+
+LEDs and OLEDs can also be mounted.
+MX and Choc(v1) keyswitches can be installed.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
 * Hardware Supported: *The PCBs, controllers supported*
