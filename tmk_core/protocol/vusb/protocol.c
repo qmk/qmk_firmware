@@ -44,7 +44,7 @@ static void initForUsbConnectivity(void) {
     uint8_t i = 0;
 #ifdef MOUSE_SCROLL_HIRES_ENABLE
     /* reset multiplier on initialization */
-    resolution_multiplier = 0;
+    resolution_multiplier_reset();
 #endif
 
     usbInit();
