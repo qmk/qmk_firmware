@@ -1,4 +1,4 @@
-/* Copyright 2020 Ross Montsinger
+/* Copyright 2023 Ross Montsinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,4 +26,6 @@
     #include "rev3.h"
 #elif defined(KEYBOARD_montsinger_rebound_rev4)
     #include "rev4.h"
+#elif defined(KEYBOARD_montsinger_rebound_rev4pi)
+    #include "rev4pi.h"
 #endif
