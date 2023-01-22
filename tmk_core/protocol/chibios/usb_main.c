@@ -961,6 +961,7 @@ void send_mouse(report_mouse_t *report) {
     send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
     mouse_report_sent = *report;
     osalSysUnlock();
+#endif
 }
 
 /* ---------------------------------------------------------

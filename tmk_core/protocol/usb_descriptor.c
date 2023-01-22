@@ -156,24 +156,24 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             // Vertical/Horizontal Wheel (2 - 5 bytes)
             // Vertical wheel (1 - 2.5 bytes)
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
-            HID_RI_COLLECTION(8, 0x02),                              // Logical collection
+            HID_RI_COLLECTION(8, 0x02),                                  // Logical collection
                 // Resolution Multiplier (4 bits)
                 HID_RI_REPORT_ID(8, REPORT_ID_MULTIPLIER),
-                HID_RI_USAGE(8, 0x48),                               // Resolution Multiplier
+                HID_RI_USAGE(8, 0x48),                                   // Resolution Multiplier
                 HID_RI_REPORT_COUNT(8, 0x01),
                 HID_RI_REPORT_SIZE(8, 0x04),
                 HID_RI_LOGICAL_MINIMUM(8, 0x00),
                 HID_RI_LOGICAL_MAXIMUM(8, 0x0F),
-                HID_RI_PHYSICAL_MINIMUM(8, 0x01),                    // Min   1
+                HID_RI_PHYSICAL_MINIMUM(8, 0x01),                        // Min   1
                 HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER_MAX), // Max 120
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-                HID_RI_PHYSICAL_MINIMUM(8, 0x00), // Reset Global Value
+                HID_RI_PHYSICAL_MINIMUM(8, 0x00),                        // Reset Global Value
                 HID_RI_PHYSICAL_MAXIMUM(8, 0x00),
     
                 HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #    endif // MOUSE_SCROLL_HIRES_ENABLE
     
-                HID_RI_USAGE(8, 0x38), // Wheel (V)
+                HID_RI_USAGE(8, 0x38),                                    // Wheel (V)
 #    ifdef MOUSE_SCROLL_EXTENDED_REPORT
                 HID_RI_LOGICAL_MINIMUM(16, -32767),
                 HID_RI_LOGICAL_MAXIMUM(16, 32767),
@@ -187,39 +187,38 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
                 HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
-            HID_RI_END_COLLECTION(0), // Logical
+            HID_RI_END_COLLECTION(0),                                     // Logical
 #    endif
             // Horizontal Wheel (1 - 2.5 bytes)
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
-            HID_RI_COLLECTION(8, 0x02),                               // Logical collection
+            HID_RI_COLLECTION(8, 0x02),                                   // Logical collection
                 // Resolution Multiplier (4 bits)
                 HID_RI_REPORT_ID(8, REPORT_ID_MULTIPLIER),
-                //HID_RI_USAGE_PAGE(8, 0x01),                           // Generic Desktop
-                HID_RI_USAGE(8, 0x48),                                // Resolution Multiplier
-                HID_RI_REPORT_COUNT(8, 0x01),
+                HID_RI_USAGE(8, 0x48),                                    // Resolution Multiplier
+                //HID_RI_REPORT_COUNT(8, 0x01),
                 HID_RI_REPORT_SIZE(8, 0x04),
-                HID_RI_LOGICAL_MINIMUM(8, 0x00),                      // Min   0
-                HID_RI_LOGICAL_MAXIMUM(8, 0x0F),                      // Max  15
-                HID_RI_PHYSICAL_MINIMUM(8, 0x01),                     // Min   1
+                HID_RI_LOGICAL_MINIMUM(8, 0x00),                          // Min   0
+                HID_RI_LOGICAL_MAXIMUM(8, 0x0F),                          // Max  15
+                HID_RI_PHYSICAL_MINIMUM(8, 0x01),                         // Min   1
                 HID_RI_PHYSICAL_MAXIMUM(8, MOUSE_SCROLL_MULTIPLIER_MAX),  // Max 120
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-                HID_RI_PHYSICAL_MINIMUM(8, 0x00), // Reset Global Value
+                HID_RI_PHYSICAL_MINIMUM(8, 0x00),                         // Reset Global Value
                 HID_RI_PHYSICAL_MAXIMUM(8, 0x00),
     
                 HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #    endif // MOUSE_SCROLL_HIRES_ENABLE
-                HID_RI_USAGE_PAGE(8, 0x0C), // Consumer
-                HID_RI_USAGE(16, 0x0238),   // AC Pan (Horizontal Wheel)
+                HID_RI_USAGE_PAGE(8, 0x0C),                               // Consumer
+                HID_RI_USAGE(16, 0x0238),                                 // AC Pan (Horizontal Wheel)
 
 #    ifdef MOUSE_SCROLL_EXTENDED_REPORT
                 HID_RI_LOGICAL_MINIMUM(16, -32767),
                 HID_RI_LOGICAL_MAXIMUM(16, 32767),
-                HID_RI_REPORT_COUNT(8, 0x01),
+                //HID_RI_REPORT_COUNT(8, 0x01),
                 HID_RI_REPORT_SIZE(8, 0x10),
 #    else
                 HID_RI_LOGICAL_MINIMUM(8, -127),
                 HID_RI_LOGICAL_MAXIMUM(8, 127),
-                HID_RI_REPORT_COUNT(8, 0x01),
+                //HID_RI_REPORT_COUNT(8, 0x01),
                 HID_RI_REPORT_SIZE(8, 0x08),
 #    endif
                 HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
