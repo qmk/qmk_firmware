@@ -36,8 +36,10 @@
  *  These options are also useful to firmware size reduction.
  */
 
-/* disable debug print */
-// #define NO_DEBUG
+/* key matrix size */
+// Rows are doubled-up
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 6
 
 /* disable print */
 // #define NO_PRINT
