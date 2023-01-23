@@ -6,13 +6,11 @@
 
   1. fn+pgdown or fn+pgup sends a right control (for virtualbox)
   2. Arrow keys are for media control
-
     * Up and down change volume
     * Left and right change tracks
     * Enter mutes/unmutes (follows the trend of ascending keys being for audio)
     * Pipe/backslash plays/stops (think of it as or/toggle `|`)
   3. RGB control is around the WASD area
-
     * W/S increase/decrease brightness (same trend as media keys)
     * A/D change to the previous/next RBG profile 
     * E changes hue (color), shift can be used to reverse it but it rolls over after 255
