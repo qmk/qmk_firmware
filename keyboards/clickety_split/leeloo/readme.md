@@ -19,8 +19,7 @@ The original design and release of Leeloo.
 After setting up the build environment, consider the following Make commands:
 
     make clickety_split/leeloo/rev1:default
-    make clickety_split/leeloo/rev1:default:flash
-```
+    make clickety_split/leeloo/rev2:default
 
 Leeloo v2:
 ```
