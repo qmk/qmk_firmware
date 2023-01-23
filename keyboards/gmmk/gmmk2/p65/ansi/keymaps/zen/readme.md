@@ -10,6 +10,7 @@
     - Left and right change tracks
     - Enter mutes/unmutes (follows the trend of ascending keys being for audio)
     - Pipe/backslash plays/stops (think of it as or/toggle `|`)
+
   3. RGB control is around the WASD area
     * W/S increase/decrease brightness (same trend as media keys)
     * A/D change to the previous/next RBG profile 
