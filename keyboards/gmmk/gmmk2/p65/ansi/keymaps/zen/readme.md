@@ -60,11 +60,13 @@ The default key is `.` / `>`, think of it as a shell prompt
 [R]andom mode
 
 Inputs:
+
   * [C]ustom RNG algorithm		[Default]
   * [B]uiltin RNG algorithm
   * [1-9999] String size
 
 Outputs:
+
 Note: Most outputs should print to console by defualt, and will type out the data if debug mode is enabled
 
   * [M]ode		:	(Prints the output mode to console)
@@ -74,9 +76,11 @@ Note: Most outputs should print to console by defualt, and will type out the dat
   * [S]eed		:	(Prints the RNG seed)
 
 [D]ebug mode:
+
 Note: Just enterind Leader + D will toggle debug mode
 
 Inputs:
+
   * [1]/[T]rue		:	(Enables debug mode)
   * [0]/[F]rue		:	(Disables debug mode)
   * [M]			:	(Shows the current RGB mode)
