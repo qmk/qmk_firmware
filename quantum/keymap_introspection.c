@@ -34,7 +34,7 @@ uint16_t keycode_at_keymap_location_raw(uint8_t layer_num, uint8_t row, uint8_t 
     if (layer_num < NUM_KEYMAP_LAYERS_RAW && row < MATRIX_ROWS && column < MATRIX_COLS) {
         return pgm_read_word(&keymaps[layer_num][row][column]);
     }
-    return KC_NO;
+    return KC_TRNS;
 }
 
 __attribute__((weak)) uint16_t keycode_at_keymap_location(uint8_t layer_num, uint8_t row, uint8_t column) {
@@ -62,7 +62,7 @@ uint16_t keycode_at_encodermap_location_raw(uint8_t layer_num, uint8_t encoder_i
     if (layer_num < NUM_ENCODERMAP_LAYERS_RAW && encoder_idx < NUM_ENCODERS) {
         return pgm_read_word(&encoder_map[layer_num][encoder_idx][clockwise ? 0 : 1]);
     }
-    return KC_NO;
+    return KC_TRNS;
 }
 
 __attribute__((weak)) uint16_t keycode_at_encodermap_location(uint8_t layer_num, uint8_t encoder_idx, bool clockwise) {
