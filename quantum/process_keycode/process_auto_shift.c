@@ -17,7 +17,6 @@
 #ifdef AUTO_SHIFT_ENABLE
 
 #    include <stdbool.h>
-#    include <stdio.h>
 #    include "process_auto_shift.h"
 
 #    ifndef AUTO_SHIFT_DISABLED_AT_STARTUP
@@ -62,7 +61,9 @@ static struct {
 // clang-format on
 
 /** \brief Called on physical press, returns whether key should be added to Auto Shift */
-__attribute__((weak)) bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) { return false; }
+__attribute__((weak)) bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    return false;
+}
 
 /** \brief Called on physical press, returns whether is Auto Shift key */
 __attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
@@ -82,8 +83,12 @@ __attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *r
 }
 
 /** \brief Called to check whether defines should apply if PER_KEY is set for it */
-__attribute__((weak)) bool get_auto_shift_repeat(uint16_t keycode, keyrecord_t *record) { return true; }
-__attribute__((weak)) bool get_auto_shift_no_auto_repeat(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool get_auto_shift_repeat(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+__attribute__((weak)) bool get_auto_shift_no_auto_repeat(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
 
 /** \brief Called when an Auto Shift key needs to be pressed */
 __attribute__((weak)) void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
@@ -94,7 +99,9 @@ __attribute__((weak)) void autoshift_press_user(uint16_t keycode, bool shifted, 
 }
 
 /** \brief Called when an Auto Shift key needs to be released */
-__attribute__((weak)) void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) { unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode); }
+__attribute__((weak)) void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
+    unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
+}
 
 /** \brief Sets the shift state to use when keyrepeating, required by custom shifts */
 void set_autoshift_shift_state(uint16_t keycode, bool shifted) {
@@ -115,7 +122,12 @@ bool get_autoshift_shift_state(uint16_t keycode) {
 /** \brief Restores the shift key if it was cancelled by Auto Shift */
 static void autoshift_flush_shift(void) {
     autoshift_flags.holding_shift = false;
-    del_weak_mods(MOD_BIT(KC_LSFT));
+#    ifdef CAPS_WORD_ENABLE
+    if (!is_caps_word_on())
+#    endif // CAPS_WORD_ENABLE
+    {
+        del_weak_mods(MOD_BIT(KC_LSFT));
+    }
     if (autoshift_flags.cancelling_lshift) {
         autoshift_flags.cancelling_lshift = false;
         add_mods(MOD_BIT(KC_LSFT));
@@ -174,12 +186,7 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 #            endif
         ) &&
 #        endif
-        TIMER_DIFF_16(now, autoshift_time) <
-#        ifdef TAPPING_TERM_PER_KEY
-        get_tapping_term(autoshift_lastkey, record)
-#        else
-        TAPPING_TERM
-#        endif
+        TIMER_DIFF_16(now, autoshift_time) < GET_TAPPING_TERM(autoshift_lastkey, record)
     ) {
         // clang-format on
         // Allow a tap-then-hold for keyrepeat.
@@ -311,7 +318,9 @@ void autoshift_toggle(void) {
     autoshift_flush_shift();
 }
 
-void autoshift_enable(void) { autoshift_flags.enabled = true; }
+void autoshift_enable(void) {
+    autoshift_flags.enabled = true;
+}
 
 void autoshift_disable(void) {
     autoshift_flags.enabled = false;
@@ -320,20 +329,31 @@ void autoshift_disable(void) {
 
 #    ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
-    char display[8];
-
-    snprintf(display, 8, "\n%d\n", autoshift_timeout);
-
-    send_string((const char *)display);
+#        ifdef SEND_STRING_ENABLE
+    const char *autoshift_timeout_str = get_u16_str(autoshift_timeout, ' ');
+    // Skip padding spaces
+    while (*autoshift_timeout_str == ' ') {
+        autoshift_timeout_str++;
+    }
+    send_string(autoshift_timeout_str);
+#        endif
 }
 #    endif
 
-bool get_autoshift_state(void) { return autoshift_flags.enabled; }
+bool get_autoshift_state(void) {
+    return autoshift_flags.enabled;
+}
 
-uint16_t                       get_generic_autoshift_timeout() { return autoshift_timeout; }
-__attribute__((weak)) uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) { return autoshift_timeout; }
+uint16_t get_generic_autoshift_timeout() {
+    return autoshift_timeout;
+}
+__attribute__((weak)) uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
+    return autoshift_timeout;
+}
 
-void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
+void set_autoshift_timeout(uint16_t timeout) {
+    autoshift_timeout = timeout;
+}
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     // Note that record->event.time isn't reliable, see:
@@ -355,24 +375,24 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         }
 
         switch (keycode) {
-            case KC_ASTG:
+            case AS_TOGG:
                 autoshift_toggle();
                 break;
-            case KC_ASON:
+            case AS_ON:
                 autoshift_enable();
                 break;
-            case KC_ASOFF:
+            case AS_OFF:
                 autoshift_disable();
                 break;
 
 #    ifndef AUTO_SHIFT_NO_SETUP
-            case KC_ASUP:
+            case AS_UP:
                 autoshift_timeout += 5;
                 break;
-            case KC_ASDN:
+            case AS_DOWN:
                 autoshift_timeout -= 5;
                 break;
-            case KC_ASRP:
+            case AS_RPT:
                 autoshift_timer_report();
                 break;
 #    endif

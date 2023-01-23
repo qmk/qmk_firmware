@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#undef DEVICE_VER
-
-#define DEVICE_VER 0x0002
-
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, F3, F2, F1, F0, D7, B7, D0, D1, D2, D3, D4 }
 #define MATRIX_COL_PINS { C6, C5, C4, C3, C2, C1, C0, E1 }
 

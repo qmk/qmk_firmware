@@ -106,7 +106,9 @@ void key_override_toggle(void) {
     }
 }
 
-bool key_override_is_enabled(void) { return enabled; }
+bool key_override_is_enabled(void) {
+    return enabled;
+}
 
 // Returns whether the modifiers that are pressed are such that the override should activate
 static bool key_override_matches_active_modifiers(const key_override_t *override, const uint8_t mods) {
@@ -150,7 +152,7 @@ static void schedule_deferred_register(const uint16_t keycode) {
     } else {
         // Wait a very short time when a modifier event triggers the override to avoid false activations when e.g. a modifier is pressed just before a key is released (with the intention of pairing the modifier with a different key), or a modifier is lifted shortly before the trigger key is lifted. Operating systems by default reject modifier-events that happen very close to a non-modifier event.
         defer_reference_time = timer_read32();
-        defer_delay          = 50;  // 50ms
+        defer_delay          = 50; // 50ms
     }
     deferred_register = keycode;
 }
@@ -174,8 +176,8 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     const uint8_t mod_free_replacement = clear_mods_from(active_override->replacement);
 
-    bool unregister_replacement = mod_free_replacement != KC_NO &&    // KC_NO is never registered
-                                  mod_free_replacement < SAFE_RANGE;  // Custom keycodes are never registered
+    bool unregister_replacement = mod_free_replacement != KC_NO &&   // KC_NO is never registered
+                                  mod_free_replacement < SAFE_RANGE; // Custom keycodes are never registered
 
     // Try firing the custom handler
     if (active_override->custom_action != NULL) {
@@ -195,11 +197,11 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     const uint16_t trigger = active_override->trigger;
 
-    const bool reregister_trigger = allow_reregister &&                                                   // Check if allowed from caller
-                                    (active_override->options & ko_option_no_reregister_trigger) == 0 &&  // Check if override allows
-                                    active_override_trigger_is_down &&                                    // Check if trigger is even down
-                                    trigger != KC_NO &&                                                   // KC_NO is never registered
-                                    trigger < SAFE_RANGE;                                                 // A custom keycode should not be registered
+    const bool reregister_trigger = allow_reregister &&                                                  // Check if allowed from caller
+                                    (active_override->options & ko_option_no_reregister_trigger) == 0 && // Check if override allows
+                                    active_override_trigger_is_down &&                                   // Check if trigger is even down
+                                    trigger != KC_NO &&                                                  // KC_NO is never registered
+                                    trigger < SAFE_RANGE;                                                // A custom keycode should not be registered
 
     // Optionally re-register the trigger if it is still down
     if (reregister_trigger) {
@@ -336,8 +338,8 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
         const uint16_t mod_free_replacement = clear_mods_from(override->replacement);
 
-        bool register_replacement = mod_free_replacement != KC_NO &&    // KC_NO is never registered
-                                    mod_free_replacement < SAFE_RANGE;  // Custom keycodes are never registered
+        bool register_replacement = mod_free_replacement != KC_NO &&   // KC_NO is never registered
+                                    mod_free_replacement < SAFE_RANGE; // Custom keycodes are never registered
 
         // Try firing the custom handler
         if (override->custom_action != NULL) {
@@ -404,15 +406,15 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
 
     if (key_down) {
         switch (keycode) {
-            case KEY_OVERRIDE_TOGGLE:
+            case QK_KEY_OVERRIDE_TOGGLE:
                 key_override_toggle();
                 return false;
 
-            case KEY_OVERRIDE_ON:
+            case QK_KEY_OVERRIDE_ON:
                 key_override_on();
                 return false;
 
-            case KEY_OVERRIDE_OFF:
+            case QK_KEY_OVERRIDE_OFF:
                 key_override_off();
                 return false;
 

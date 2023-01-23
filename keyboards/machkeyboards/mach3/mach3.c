@@ -19,8 +19,8 @@
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
   {  0,  1,  2 },
-  {  7,  6,  5 },
-  {  8,  9, 10 },
+  {  5,  4,  3 },
+  {  6,  7,  8 },
 }, {
   // LED Index to Physical Position
   { 0,  0 },   { 112,  0 },   { 224,  0 },

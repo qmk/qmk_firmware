@@ -4,6 +4,7 @@
   "maintainer": "skullydazed",
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "features": {
     "backlight": true,
     "bootmagic": false,
@@ -22,7 +23,16 @@
   },
   "rgblight": {
     "animations": {
-      "all": true
+      "alternating": true,
+      "breathing": true,
+      "christmas": true,
+      "knight": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "rgb_test": true,
+      "snake": true,
+      "static_gradient": true,
+      "twinkle": true
     },
     "brightness_steps": 17,
     "hue_steps": 10,
@@ -32,7 +42,7 @@
   },
   "url": "",
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2312",
     "vid": "0xC1ED"
   },

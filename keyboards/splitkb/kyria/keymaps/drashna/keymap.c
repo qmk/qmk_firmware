@@ -90,10 +90,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
     ),
     [_ADJUST] = LAYOUT_wrapper(
-        KC_MAKE, _________________ADJUST_L1_________________,                                       _________________ADJUST_R1_________________, KC_RESET,
-        VRSN,    _________________ADJUST_L2_________________,                                       _________________ADJUST_R2_________________, EEP_RST,
-        UC_MOD,  _________________ADJUST_L3_________________, HPT_TOG, HPT_FBK,   MG_NKRO, UC_MOD,  _________________ADJUST_R3_________________, TG_MODS,
-                                   REBOOT,  _______, KEYLOCK, KC_NUKE, _______,   _______, _______, _______, _______, AUTO_CTN
+        QK_MAKE, _________________ADJUST_L1_________________,                                       _________________ADJUST_R1_________________, QK_BOOT,
+        VRSN,    _________________ADJUST_L2_________________,                                       _________________ADJUST_R2_________________, EE_CLR,
+        UC_NEXT, _________________ADJUST_L3_________________, HF_TOGG, HF_FDBK,   MG_NKRO, UC_NEXT, _________________ADJUST_R3_________________, TG_MODS,
+                                   QK_RBT,  _______, KEYLOCK, KC_NUKE, _______,   _______, _______, _______, _______, AUTO_CTN
     ),
 //     [_LAYERINDEX] = LAYOUT_wrapper(
 //       _______, _______, _______, _______, _______, _______,                                       _______, _______, _______, _______, _______, _______,
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   }, { KC_VOLD, KC_VOLU } },
+    [_DEFAULT_LAYER_1] = { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } },
     [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
     [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
     [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
@@ -129,9 +129,9 @@ oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
 #endif
 }
 
-void oled_render_large_display(void) {
-    if (is_keyboard_left()) {
-        render_wpm_graph(54, 64);
+void oled_render_large_display(bool side) {
+    if (side) {
+        render_wpm_graph(56, 64);
     } else {
         static const char PROGMEM kyria_logo[] = {
             0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,192,224,240,112,120, 56, 60, 28, 30, 14, 14, 14,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 14, 14, 14, 30, 28, 60, 56,120,112,240,224,192,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -144,29 +144,9 @@ void oled_render_large_display(void) {
             0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  3,  7, 15, 14, 30, 28, 60, 56,120,112,112,112,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,112,112,112,120, 56, 60, 28, 30, 14, 15,  7,  3,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
         };
         // clang-format on
+        oled_set_cursor(0,7);
         oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
-}
-#endif
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    }
-    return true;
 }
 #endif
 
@@ -178,13 +158,24 @@ const rgblight_segment_t PROGMEM gui_layers[]     = RGBLIGHT_LAYER_SEGMENTS({7, 
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(shift_layers, control_layers, alt_layers, gui_layers);
 
-void keyboard_post_init_keymap(void) { rgblight_layers = my_rgb_layers; }
+void keyboard_post_init_keymap(void) {
+    rgblight_layers = my_rgb_layers;
+}
 
-void matrix_scan_keymap(void) {
+void housekeeping_task_keymap(void) {
     uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
     rgblight_set_layer_state(0, mods & MOD_MASK_SHIFT);
     rgblight_set_layer_state(1, mods & MOD_MASK_CTRL);
     rgblight_set_layer_state(2, mods & MOD_MASK_ALT);
     rgblight_set_layer_state(3, mods & MOD_MASK_GUI);
+}
+#endif
+
+
+#ifdef KEYBOARD_splitkb_kyria_rev1_proton_c
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    for (int32_t i = 0; i < 40; i++) {
+        __asm__ volatile("nop" ::: "memory");
+    }
 }
 #endif

@@ -4,22 +4,25 @@
 
 An ergonomical 40% split keyboard
 
-Keyboard Maintainer: [splitkb.com](https://github.com/splitkb)  
-Hardware Supported: Pro Micro 5V/16MHz and compatible.  
-Hardware Availability: [splitkb.com](https://splitkb.com) and partners.
+* Keyboard Maintainer: [splitkb.com](https://github.com/splitkb)
+* Hardware Supported: Pro Micro 5V/16MHz and compatible.
+* Hardware Availability: [splitkb.com](https://splitkb.com/products/kyria-pcb-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make splitkb/kyria/rev1:default
-    make splitkb/kyria/rev1/proton_c:default
+    make splitkb/kyria/rev3:default
 
 Example of flashing this keyboard:
 
-    make splitkb/kyria/rev1:default:flash
+    make splitkb/kyria/rev3:default:flash
+
+Replace "rev3" with "rev2" if you have a Kyria of revision 2.x, or "rev1" if you have a Kyria of revision 1.4 or below.
+Not sure what revision yours is? It is printed on the outer lower edge of the PCB!
+As a rule of thumb, all Kyrias sold after January 1st 2022 are revision 2.x.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-A build guide for the Kyria can be found at [docs.splitkb.com](https://docs.splitkb.com/hc/en-us/articles/360010552059-Kyria-Build-Guide-Introduction).
+A build guide for the Kyria can be found at [docs.splitkb.com](https://docs.splitkb.com/hc/en-us/categories/360002241559-Build-Guides). For revision 3.x you want to use the [Aurora build guide](https://docs.splitkb.com/hc/en-us/articles/6269789921564-Aurora-Build-Guide-1-Introduction), for revision 2.x and below you want to use the [Kyria-specific guide](https://docs.splitkb.com/hc/en-us/articles/360010552059-Kyria-Build-Guide-Introduction).
 
 ## Proton C Conversion Guide
 

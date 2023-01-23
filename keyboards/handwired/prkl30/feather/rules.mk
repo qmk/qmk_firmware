@@ -22,4 +22,4 @@ AUDIO_ENABLE  = no          # This can be enabled if a speaker is connected to t
 RGBLIGHT_ENABLE  = no       # This can be enabled if a ws2812 strip is connected to the expansion port.
 
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = AdafruitBLE
+BLUETOOTH_DRIVER = BluefruitLE

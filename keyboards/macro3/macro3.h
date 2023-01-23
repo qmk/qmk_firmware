@@ -5,7 +5,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT( \
+#define LAYOUT_ortho_2x4( \
     K00, K01, K02, K03, \
     K10, K11, K12, K13  \
 ) \

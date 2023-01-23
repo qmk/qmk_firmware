@@ -22,7 +22,7 @@ Flashing example for this keyboard:
 
 Press reset button on he keyboard when asked. You can do that in 3 ways:
 * **Physical reset button**: Briefly press the button near the TRRS connector on the PCB - if you haven't installed one, short the pads instead
-* **Keycode in layout**: Press the key mapped to `RESET` (`Lower` + `Raise` + `Esc` on the default layout)
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` (`Lower` + `Raise` + `Esc` on the default layout)
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 
 Disconnect the first half, connect the second one and repeat the process.

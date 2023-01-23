@@ -17,4 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xprintf.h"
 #include "sendchar.h"
 
-void print_set_sendchar(sendchar_func_t func) { xdev_out(func); }
+void print_set_sendchar(sendchar_func_t func) {
+    xdev_out(func);
+}

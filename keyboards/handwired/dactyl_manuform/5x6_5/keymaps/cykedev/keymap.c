@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX, REDO   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     KC_PERC, KC_DLR , KC_HASH, KC_GRV , XXXXXXX, KC_F12 ,
    XXXXXXX, ALL    , CUT    , COPY   , PASTE  , XXXXXXX,                                     KC_CIRC, KC_SLSH, KC_ASTR, KC_TILD, KC_QUES, XXXXXXX,
    _______, UNDO   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, KC_AMPR, KC_PIPE, XXXXXXX, XXXXXXX, _______,
-                     RESET  , XXXXXXX,          _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX,
+                     QK_BOOT, XXXXXXX,          _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX,
                                                          _______, KC_PGUP, KC_PGDN, _______
    ),
   [_LOWER] = LAYOUT_5x6_5(
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX,                                     XXXXXXX, XXXXXXX, KC_UP  , XXXXXXX, XXXXXXX, KC_F12 ,
    KC_INS , KC_EXLM, KC_AT  , KC_LPRN, KC_RPRN, XXXXXXX,                                     XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUES, XXXXXXX,
    _______, XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                     XXXXXXX, XXXXXXX,          _______, _______, _______, _______, _______, _______,          XXXXXXX, RESET  ,
+                     XXXXXXX, XXXXXXX,          _______, _______, _______, _______, _______, _______,          XXXXXXX, QK_BOOT,
                                                          _______, KC_PGUP, KC_PGDN, _______
    ),
   [_ADJUST] = LAYOUT_5x6_5(

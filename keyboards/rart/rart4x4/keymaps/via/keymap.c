@@ -16,14 +16,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_ortho_4x4(
-    KC_NLCK, KC_PSLS, KC_PAST, MO(1),
+    KC_NUM,  KC_PSLS, KC_PAST, MO(1),
     KC_P7,   KC_P8,   KC_P9,   KC_PEQL,
     KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
     KC_P1,   KC_P2,   KC_P3,   KC_PMNS
     ),
 
   [1] = LAYOUT_ortho_4x4(
-    KC_TRNS, RGB_HUI, RGB_HUD,  RESET,
+    KC_TRNS, RGB_HUI, RGB_HUD,  QK_BOOT,
     RGB_SAI, RGB_SAD, KC_MNXT,  KC_MPRV,
     RGB_VAI, RGB_VAD, KC_MSTP,  KC_MPLY,
     KC_COPY, KC_PSTE, KC_MYCM,  RGB_TOG
@@ -44,19 +44,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_WH_U);
-        } else {
-            tap_code(KC_WH_D);
-        }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD), ENCODER_CCW_CW(KC_PGUP, KC_PGDN) },
+    [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) }
+};
+#endif

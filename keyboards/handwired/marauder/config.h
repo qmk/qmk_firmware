@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D52
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    BB-66
-#define PRODUCT         Minshara Marauder
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
@@ -43,8 +36,7 @@
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4, B0 }
 #define DIODE_DIRECTION COL2ROW
 #define LAYER_STATE_8BIT
-#define USB_POLLING_INTERVAL_MS 1 //1000Hz polling rate
-#define QMK_KEYS_PER_SCAN 12 // moar gaming code
+
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 7
@@ -53,16 +45,4 @@
     #define RGBLIGHT_VAL_STEP 8
     #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//    #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//     #define RGBLIGHT_EFFECT_BREATHING
-//     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//     #define RGBLIGHT_EFFECT_SNAKE
-//     #define RGBLIGHT_EFFECT_KNIGHT
-//     #define RGBLIGHT_EFFECT_CHRISTMAS
-//     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//     #define RGBLIGHT_EFFECT_RGB_TEST
-//     #define RGBLIGHT_EFFECT_ALTERNATING
 #endif

@@ -28,4 +28,4 @@ enum {
     TD_D3_3,
     TD_D3_4,
 };
-#endif  // TAP_DANCE_ENABLE
+#endif // TAP_DANCE_ENABLE

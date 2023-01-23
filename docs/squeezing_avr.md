@@ -30,11 +30,24 @@ MAGIC_ENABLE = no
 These features are enabled by default, but may not be needed. Double check to make sure, though. 
 Largest in size is "magic" -- the QMK magic keycodes -- which control things like NKRO toggling, GUI and ALT/CTRL swapping, etc. Disabling it will disable those functions.
 
+If you use `sprintf` or `snprintf` functions you can save around ~400 Bytes by enabling this option.
+```make
+AVR_USE_MINIMAL_PRINTF = yes
+```
+
+This will include smaller implementations from AVRs libc into your Firmware. They are [not fully featured](https://www.nongnu.org/avr-libc/user-manual/group__avr__stdio.html#gaa3b98c0d17b35642c0f3e4649092b9f1), for instance zero padding and field width specifiers are not supported. So if you use `sprintf` or `snprintf` like this:
+```c
+sprintf(wpm_str, "%03d", get_current_wpm());
+snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c");
+```
+
+you will still need the standard implementation.
+
 ## `config.h` Settings
 
 If you've done all of that, and you don't want to disable features like RGB, Audio, OLEDs, etc, there are some additional options that you can add to your config.h that can help.
 
-Starting with Lock Key support. If you have an Cherry MX Lock switch (lucky you!), you don't want to do this. But chances are, you don't. In that case, add this to your `config.h`:
+Starting with Lock Key support. If you have a Cherry MX Lock switch (lucky you!), you don't want to do this. But chances are, you don't. In that case, add this to your `config.h`:
 ```c
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
@@ -147,6 +160,7 @@ For RGB Matrix, these need to be explicitly enabled as well. To disable any that
 #undef ENABLE_RGB_MATRIX_HUE_PENDULUM
 #undef ENABLE_RGB_MATRIX_HUE_WAVE
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
 
 #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
@@ -174,7 +188,11 @@ If you've done all of this, and your firmware is still too large, then it's time
 That said, there are a number of Pro Micro replacements with ARM controllers: 
 * [Proton C](https://qmk.fm/proton-c/) (out of stock)
 * [Bonsai C](https://github.com/customMK/Bonsai-C) (Open Source, DIY/PCBA)
-* [Raspberry Pi 2040](https://www.sparkfun.com/products/18288) (not currently supported, no ETA)
+* [STeMCell](https://github.com/megamind4089/STeMCell) (Open Source, DIY/PCBA)
+* [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)
+* [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)
+* [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)
+* [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)
 
 There are other, non-Pro Micro compatible boards out there. The most popular being:
 * [WeAct Blackpill F411](https://www.aliexpress.com/item/1005001456186625.html) (~$6 USD)

@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _ARM_ATSAM_PROTOCOL_H_
 
 #include "samd51j18a.h"
-#include "md_bootloader.h"
 
 #include "timer.h"
 #include "d51_util.h"
@@ -43,6 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "./usb/udc.h"
 #    include "./usb/udi_cdc.h"
 
-#endif  // MD_BOOTLOADER
+#endif // MD_BOOTLOADER
 
-#endif  //_ARM_ATSAM_PROTOCOL_H_
+#endif //_ARM_ATSAM_PROTOCOL_H_

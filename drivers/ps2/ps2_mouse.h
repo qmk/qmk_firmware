@@ -120,7 +120,7 @@ __attribute__((unused)) static enum ps2_mouse_mode_e {
 enum ps2_mouse_command_e {
     PS2_MOUSE_RESET                  = 0xFF,
     PS2_MOUSE_RESEND                 = 0xFE,
-    PS2_MOSUE_SET_DEFAULTS           = 0xF6,
+    PS2_MOUSE_SET_DEFAULTS           = 0xF6,
     PS2_MOUSE_DISABLE_DATA_REPORTING = 0xF5,
     PS2_MOUSE_ENABLE_DATA_REPORTING  = 0xF4,
     PS2_MOUSE_SET_SAMPLE_RATE        = 0xF3,

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "hex-6C",
+    "keyboard_name": "Hex6C",
+    "manufacturer": "Mechlovin Studio and Hex Keyboard",
     "url": "",
     "maintainer": "Mechlovin' Studio",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x6C01",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

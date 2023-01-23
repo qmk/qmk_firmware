@@ -20,73 +20,157 @@
 #include "haptic.h"
 #include "gpio.h"
 #include "usb_device_state.h"
+#include "util.h"
+#include <stdlib.h>
 
-bool     solenoid_on      = false;
-bool     solenoid_buzzing = false;
-uint16_t solenoid_start   = 0;
-uint8_t  solenoid_dwell   = SOLENOID_DEFAULT_DWELL;
+uint8_t      solenoid_dwell  = SOLENOID_DEFAULT_DWELL;
+static pin_t solenoid_pads[] = SOLENOID_PINS;
+#define NUMBER_OF_SOLENOIDS ARRAY_SIZE(solenoid_pads)
+bool     solenoid_on[NUMBER_OF_SOLENOIDS]      = {false};
+bool     solenoid_buzzing[NUMBER_OF_SOLENOIDS] = {false};
+uint16_t solenoid_start[NUMBER_OF_SOLENOIDS]   = {0};
+#ifdef SOLENOID_PIN_ACTIVE_LOW
+#    define low true
+#    define high false
+#else
+#    define low false
+#    define high true
+#endif
+static bool solenoid_active_state[NUMBER_OF_SOLENOIDS];
 
 extern haptic_config_t haptic_config;
 
-void solenoid_buzz_on(void) { haptic_set_buzz(1); }
-
-void solenoid_buzz_off(void) { haptic_set_buzz(0); }
-
-void solenoid_set_buzz(int buzz) { haptic_set_buzz(buzz); }
-
-void solenoid_set_dwell(uint8_t dwell) { solenoid_dwell = dwell; }
-
-void solenoid_stop(void) {
-    SOLENOID_PIN_WRITE_INACTIVE();
-    solenoid_on      = false;
-    solenoid_buzzing = false;
+void solenoid_buzz_on(void) {
+    haptic_set_buzz(1);
 }
 
-void solenoid_fire(void) {
-    if (!haptic_config.buzz && solenoid_on) return;
-    if (haptic_config.buzz && solenoid_buzzing) return;
-
-    solenoid_on      = true;
-    solenoid_buzzing = true;
-    solenoid_start   = timer_read();
-    SOLENOID_PIN_WRITE_ACTIVE();
+void solenoid_buzz_off(void) {
+    haptic_set_buzz(0);
 }
 
-void solenoid_check(void) {
-    uint16_t elapsed = 0;
+void solenoid_set_buzz(uint8_t buzz) {
+    haptic_set_buzz(buzz);
+}
 
-    if (!solenoid_on) return;
+void solenoid_set_dwell(uint8_t dwell) {
+    solenoid_dwell = dwell;
+}
 
-    elapsed = timer_elapsed(solenoid_start);
+/**
+ * @brief Stops a specific solenoid
+ *
+ * @param index select which solenoid to check/stop
+ */
+void solenoid_stop(uint8_t index) {
+    writePin(solenoid_pads[index], !solenoid_active_state[index]);
+    solenoid_on[index]      = false;
+    solenoid_buzzing[index] = false;
+}
 
-    // Check if it's time to finish this solenoid click cycle
-    if (elapsed > solenoid_dwell) {
-        solenoid_stop();
-        return;
+/**
+ * @brief Fires off a specific solenoid
+ *
+ * @param index Selects which solenoid to fire
+ */
+void solenoid_fire(uint8_t index) {
+    if (!haptic_config.buzz && solenoid_on[index]) return;
+    if (haptic_config.buzz && solenoid_buzzing[index]) return;
+
+    solenoid_on[index]      = true;
+    solenoid_buzzing[index] = true;
+    solenoid_start[index]   = timer_read();
+    writePin(solenoid_pads[index], solenoid_active_state[index]);
+}
+
+/**
+ * @brief Handles selecting a non-active solenoid, and firing it.
+ *
+ */
+void solenoid_fire_handler(void) {
+#ifndef SOLENOID_RANDOM_FIRE
+    if (NUMBER_OF_SOLENOIDS > 1) {
+        uint8_t i = rand() % NUMBER_OF_SOLENOIDS;
+        if (!solenoid_on[i]) {
+            solenoid_fire(i);
+        }
+    } else {
+        solenoid_fire(0);
     }
+#else
+    for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
+        if (!solenoid_on[i]) {
+            solenoid_fire(i);
+            break;
+        }
+    }
+#endif
+}
 
-    // Check whether to buzz the solenoid on and off
-    if (haptic_config.buzz) {
-        if ((elapsed % (SOLENOID_BUZZ_ACTUATED + SOLENOID_BUZZ_NONACTUATED)) < SOLENOID_BUZZ_ACTUATED) {
-            if (!solenoid_buzzing) {
-                solenoid_buzzing = true;
-                SOLENOID_PIN_WRITE_ACTIVE();
-            }
-        } else {
-            if (solenoid_buzzing) {
-                solenoid_buzzing = false;
-                SOLENOID_PIN_WRITE_INACTIVE();
+/**
+ * @brief Checks active solenoid to stop them, and to handle buzz mode
+ *
+ */
+void solenoid_check(void) {
+    uint16_t elapsed[NUMBER_OF_SOLENOIDS] = {0};
+
+    for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
+        if (!solenoid_on[i]) continue;
+
+        elapsed[i] = timer_elapsed(solenoid_start[i]);
+
+        // Check if it's time to finish this solenoid click cycle
+        if (elapsed[i] > solenoid_dwell) {
+            solenoid_stop(i);
+            continue;
+        }
+
+        // Check whether to buzz the solenoid on and off
+        if (haptic_config.buzz) {
+            if ((elapsed[i] % (SOLENOID_BUZZ_ACTUATED + SOLENOID_BUZZ_NONACTUATED)) < SOLENOID_BUZZ_ACTUATED) {
+                if (!solenoid_buzzing[i]) {
+                    solenoid_buzzing[i] = true;
+                    writePin(solenoid_pads[i], solenoid_active_state[i]);
+                }
+            } else {
+                if (solenoid_buzzing[i]) {
+                    solenoid_buzzing[i] = false;
+                    writePin(solenoid_pads[i], !solenoid_active_state[i]);
+                }
             }
         }
     }
 }
 
+/**
+ * @brief Initial configuration for solenoids
+ *
+ */
 void solenoid_setup(void) {
-    SOLENOID_PIN_WRITE_INACTIVE();
-    setPinOutput(SOLENOID_PIN);
-    if ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED)) {
-        solenoid_fire();
+#ifdef SOLENOID_PINS_ACTIVE_STATE
+    bool    state_temp[] = SOLENOID_PINS_ACTIVE_STATE;
+    uint8_t bound_check  = ARRAY_SIZE(state_temp);
+#endif
+
+    for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
+#ifdef SOLENOID_PINS_ACTIVE_STATE
+        solenoid_active_state[i] = (bound_check - i) ? state_temp[i] : high;
+#else
+        solenoid_active_state[i] = high;
+#endif
+        writePin(solenoid_pads[i], !solenoid_active_state[i]);
+        setPinOutput(solenoid_pads[i]);
+        if ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED)) {
+            solenoid_fire(i);
+        }
     }
 }
 
-void solenoid_shutdown(void) { SOLENOID_PIN_WRITE_INACTIVE(); }
+/**
+ * @brief stops solenoids prior to device reboot, to prevent them from being locked on
+ *
+ */
+void solenoid_shutdown(void) {
+    for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
+        writePin(solenoid_pads[i], !solenoid_active_state[i]);
+    }
+}

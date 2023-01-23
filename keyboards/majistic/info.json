@@ -1,7 +1,13 @@
 {
     "keyboard_name": "maJIStic",
+    "manufacturer": "yossiyossy",
     "url": "https://github.com/yossiyossy/maJIStic",
     "maintainer": "yossiyossy",
+    "usb": {
+    	"vid": "0xFEED",
+    	"pid": "0x6E55",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,4 +1,5 @@
-/* Copyright 2021 Chris Broekema (broekema@gmail.com)
+/*
+ * Copyright 2021 Chris Broekema (broekema@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,5 +17,5 @@
 
 #pragma once
 
-#define JOYSTICK_AXES_COUNT 4
+#define JOYSTICK_AXIS_COUNT 4
 #define JOYSTICK_BUTTON_COUNT 4

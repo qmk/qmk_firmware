@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Geekboards 8-keys macropad",
+    "keyboard_name": "Tester",
+    "manufacturer": "Geekboards",
     "url": "",
     "maintainer": "moyi4681",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1319",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -17,7 +17,3 @@
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define MANUFACTURER    CyberGear
-#define PRODUCT         Macro25 (mk-macro-01)

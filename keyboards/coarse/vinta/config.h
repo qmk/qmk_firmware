@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0C61
-#define DEVICE_VER      0x00C6
-#define MANUFACTURER    PeiorisBoards
-#define PRODUCT         Vinta R1
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16

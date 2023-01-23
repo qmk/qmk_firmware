@@ -2,7 +2,7 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_french_osx.h"
+#include "keymap_french_mac_iso.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
@@ -141,7 +141,7 @@ LAYOUT_ergodox(
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

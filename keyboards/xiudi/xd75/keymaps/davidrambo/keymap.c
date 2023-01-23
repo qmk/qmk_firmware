@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
    [_QUD] = LAYOUT_ortho_5x15( /* Roguelike Layer */
    _______, _______, _______, _______, _______, _______, _______,KC_PSLS, KC_PAST, _______, _______, _______, _______, _______, TO(0),
-   KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,   KC_LBRC, KC_BSLS, KC_RBRC, KC_J,   KC_L,   KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
+   QK_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,   KC_LBRC, KC_BSLS, KC_RBRC, KC_J,   KC_L,   KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
    NAV    , KC_A,    KC_R,    KC_S,    KC_T,    KC_D,   KC_PGUP, KC_MPLY, GGRV   , KC_H,   KC_N,   KC_E,    KC_I,    KC_O,    KC_QUOT,
    SftLck , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_PGDN, KC_UP  , ATAB   , KC_K,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SftEnt ,
    KC_DEL , KC_LGUI, KC_LGUI, KC_LALT, KC_LCTL, TO(7),  KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC, MO(4) , KC_RGUI, KC_RALT, KC_RCTL, _______
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, _______, _______, _______, _______, CTAB   , ALEFT  , KC_UP  , ARGHT  , KC_DEL , _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, CTLPGUP, KC_LEFT, KC_DOWN, KC_RGHT, CTLPGDN, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, GTAB   , ABSPC  , KC_HOME, KC_END , GGRV   , _______,
-   RESET  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+   QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
  ),
 
  [_NAVPC] = LAYOUT_ortho_5x15( /* NAVIGATION FOR PC: replaces Alt with Control, GUI with Alt, and browser tab shortcuts*/
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, _______, _______, _______, _______, CTAB   , CLEFT  , KC_UP  , CRGHT  , KC_DEL , _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, CTLPGUP, KC_LEFT, KC_DOWN, KC_RGHT, CTLPGDN, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, ATAB   , CBSPC  , KC_HOME, KC_END , _______, _______,
-   RESET  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+   QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
  ),
     
  [_NAVQUD] = LAYOUT_ortho_5x15( /* NAVIGATION for Mac */

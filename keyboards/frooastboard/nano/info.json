@@ -1,5 +1,6 @@
 {
     "keyboard_name": "Frooastboard Nano",
+    "manufacturer": "frooastside",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/frooastboard/nano",
     "maintainer": "frooastside",
     "debounce": 5,
@@ -37,6 +38,6 @@
     "usb": {
         "vid": "0x4642",
         "pid": "0x6F21",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     }
 }

@@ -9,13 +9,6 @@
         "term": 175
     },
     "matrix_pins": {
-        "unused": [
-            "F1",
-            "F4",
-            "F5",
-            "F6",
-            "F7"
-        ],
         "cols": [
             "B6",
             "B7",
@@ -42,9 +35,9 @@
         ]
     },
     "usb": {
-        "vid": "0xFEED",
+        "vid": "0x1209",
         "pid": "0x4126",
-        "device_ver": "0x0001",
+        "device_version": "0.0.1",
         "polling_interval": 1,
         "shared_endpoint": {
             "keyboard": true

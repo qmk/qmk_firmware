@@ -23,17 +23,17 @@
  */
 #define AWINIC_ID 0b1010 << 4
 
-#define AW_PAGE_FUNCTION 0x00 << 1    // PG0, Function registers
-#define AW_PAGE_PWM 0x01 << 1         // PG1, LED PWM control
-#define AW_PAGE_SCALING 0x02 << 1     // PG2, LED current scaling control
-#define AW_PAGE_PATCHOICE 0x03 << 1   // PG3, Pattern choice?
-#define AW_PAGE_PWMSCALING 0x04 << 1  // PG4, LED PWM + Scaling control?
+#define AW_PAGE_FUNCTION 0x00 << 1   // PG0, Function registers
+#define AW_PAGE_PWM 0x01 << 1        // PG1, LED PWM control
+#define AW_PAGE_SCALING 0x02 << 1    // PG2, LED current scaling control
+#define AW_PAGE_PATCHOICE 0x03 << 1  // PG3, Pattern choice?
+#define AW_PAGE_PWMSCALING 0x04 << 1 // PG4, LED PWM + Scaling control?
 
 #define AW_WRITE 0
 #define AW_READ 1
 
-#define AW_REG_CONFIGURATION 0x00  // PG0
-#define AW_REG_GLOBALCURRENT 0x01  // PG0
+#define AW_REG_CONFIGURATION 0x00 // PG0
+#define AW_REG_GLOBALCURRENT 0x01 // PG0
 
 // Default value of AW_REG_CONFIGURATION
 // D7:D4 = 1011, SWSEL (SW1~SW12 active)
@@ -53,6 +53,10 @@
 #    define AW_GLOBAL_CURRENT_MAX 150
 #endif
 
+#ifndef AW_SPI_MODE
+#    define AW_SPI_MODE 0
+#endif
+
 #ifndef AW_SPI_DIVISOR
 #    define AW_SPI_DIVISOR 4
 #endif
@@ -63,7 +67,7 @@ bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 bool AW20216_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8_t len) {
     static uint8_t s_spi_transfer_buffer[2] = {0};
 
-    if (!spi_start(cs_pin, false, 0, AW_SPI_DIVISOR)) {
+    if (!spi_start(cs_pin, false, AW_SPI_MODE, AW_SPI_DIVISOR)) {
         spi_stop();
         return false;
     }
@@ -129,7 +133,7 @@ void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         AW20216_set_color(i, red, green, blue);
     }
 }

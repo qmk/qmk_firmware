@@ -19,7 +19,7 @@
 ## Keyboard Info
 
 * Keyboard Maintainer: [Drashna Jael're](https://github.com/drashna)
-* Hardware Supported: [Design files](https://gitlab.com/keyboards1/dm_r_track/-/tree/master/boolean), [WeAct BlackPill (F411)](https://github.com/WeActTC/MiniSTM32F4x1), [PMW3360 Optical Sensor](https://www.tindie.com/products/jkicklighter/pmw3360-motion-sensor/)
+* Hardware Supported: [Design files](https://gitlab.com/keyboards1/dm_r_track/-/tree/master/boolean), [WeAct BlackPill (F411)](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1), [PMW3360 Optical Sensor](https://www.tindie.com/products/jkicklighter/pmw3360-motion-sensor/)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -35,4 +35,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 * **Bootmagic reset**: Hold down the top right key on the right side, or the top left key on the left side while plugging in.
 * **Physical reset button**: Briefly press the "USER" button on the BlackPill
-* **Keycode in layout**: Press the key mapped to `RESET`.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`.

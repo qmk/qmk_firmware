@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MTB60",
+    "keyboard_name": "MTB60 Hotswap",
+    "manufacturer": "MTBKeys",
     "url": "mtbkeys.com",
     "maintainer": "kgieselman",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_ansi"
     },

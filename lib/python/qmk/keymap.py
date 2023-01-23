@@ -12,7 +12,7 @@ from pygments.token import Token
 from pygments import lex
 
 import qmk.path
-from qmk.keyboard import find_keyboard_from_dir, rules_mk
+from qmk.keyboard import find_keyboard_from_dir, rules_mk, keyboard_folder
 from qmk.errors import CppError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
@@ -158,7 +158,7 @@ def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
             return True
 
 
-def generate_json(keymap, keyboard, layout, layers):
+def generate_json(keymap, keyboard, layout, layers, macros=None):
     """Returns a `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
@@ -173,11 +173,16 @@ def generate_json(keymap, keyboard, layout, layers):
 
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
+
+        macros
+            A sequence of strings containing macros to implement for this keyboard.
     """
     new_keymap = template_json(keyboard)
     new_keymap['keymap'] = keymap
     new_keymap['layout'] = layout
     new_keymap['layers'] = layers
+    if macros:
+        new_keymap['macros'] = macros
 
     return new_keymap
 
@@ -261,7 +266,7 @@ def generate_c(keymap_json):
 
             new_macro = "".join(macro)
             new_macro = new_macro.replace('""', '')
-            macro_txt.append(f'            case MACRO_{i}:')
+            macro_txt.append(f'            case QK_MACRO_{i}:')
             macro_txt.append(f'                SEND_STRING({new_macro});')
             macro_txt.append('                return false;')
 
@@ -352,7 +357,7 @@ def locate_keymap(keyboard, keymap):
     checked_dirs = ''
     keymap_path = ''
 
-    for dir in keyboard.split('/'):
+    for dir in keyboard_folder(keyboard).split('/'):
         if checked_dirs:
             checked_dirs = '/'.join((checked_dirs, dir))
         else:
@@ -407,7 +412,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     rules = rules_mk(keyboard)
     names = set()
 
-    if rules:
+    if rules is not None:
         keyboards_dir = Path('keyboards')
         kb_path = keyboards_dir / keyboard
 

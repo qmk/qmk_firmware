@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Atom47 rev4", 
+    "manufacturer": "Evyd13",
     "url": "", 
     "maintainer": "evyd13", 
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0x8446",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_space": {
             "layout": [
