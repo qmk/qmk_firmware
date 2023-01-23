@@ -1,4 +1,4 @@
-# GMMK 2 65% Custom layout
+# Zen's Custom GMMK 2 65% layout
 
 ## Main changes:
 
@@ -48,13 +48,45 @@ Likewise for `mcuconf.h`:
 #define WB32_ADC_USE_ADC1 TRUE
 ```
 
-### Added a custom leader mode:
-The leader can be act
+
+## Custom leader
+
+The leader has been customized to take basic commands
+
+The default key is `.` / `>`, think of it as a shell prompt
+
+### Modes:
+
+[R]andom mode
+
+Inputs:
+  * [C]ustom RNG algorithm		[Default]
+  * [B]uiltin RNG algorithm
+  * [1-9999] String size
+
+Outputs:
+Note: Most outputs should print to console by defualt, and will type out the data if debug mode is enabled
+
+  * [M]ode		(Prints the output mode to console)
+  * [L]ength		(Prints the string length to console)
+  * [K]ey interval	(Prints the RNG rekey interval)
+  * [P]rime		(Prints the RNG prime)
+  * [S]eed		(Prints the RNH seed)
+
+[D]ebug mode:
+Note: Just enterind Leader + D will toggle debug mode
+
+Inputs:
+  * [1]/[T]rue		(Enables debug mode)
+  * [0]/[F]rue		(Disables debug mode)
+  * [M]			(Shows the current RGB mode)
+  * [T]			(Shows the current system uptime)
+  * [W]			(Shows the current words per minute)
 
 
+### RGB Mode
 
-
-### RGB
+## RGB Changes
 
 Added custom indicator modes:
   * Caps lock makes the `caps lock`, `underglow keys`, and `c` `a` `p` `s` `l` `o` `c` `k` keys pulse red, with the whole keyboard pulsing red at the peak
@@ -79,4 +111,4 @@ Changed the following config options:
 | `#define RGB_MATRIX_KEYPRESSES`	| Make RGB process individual keypresses	|
 
 
-x
+
