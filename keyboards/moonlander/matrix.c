@@ -87,7 +87,10 @@ void matrix_init_custom(void) {
     setPinInputLow(A7);
     setPinInputLow(B0);
 
+    is_launching = true;
+    #ifndef HALFMOON
     mcp23018_init();
+    #endif
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -216,6 +219,7 @@ void matrix_power_up(void) {
         ML_LED_1(false);
         ML_LED_2(false);
         ML_LED_3(false);
+
         ML_LED_4(false);
         ML_LED_5(false);
         ML_LED_6(false);
