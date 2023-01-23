@@ -1,0 +1,11 @@
+{
+    "manufacturer": "Mode Designs",
+    "keyboard_name": "M256W-S",
+    "url": "",
+    "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x00DE",
+        "pid": "0x5753",
+        "device_version": "0.0.1"
+    }
+}
