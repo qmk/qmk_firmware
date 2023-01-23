@@ -67,27 +67,32 @@ Inputs:
 Outputs:
 Note: Most outputs should print to console by defualt, and will type out the data if debug mode is enabled
 
-  * [M]ode		(Prints the output mode to console)
-  * [L]ength		(Prints the string length to console)
-  * [K]ey interval	(Prints the RNG rekey interval)
-  * [P]rime		(Prints the RNG prime)
-  * [S]eed		(Prints the RNG seed)
+  * [M]ode		:	(Prints the output mode to console)
+  * [L]ength		:	(Prints the string length to console)
+  * [K]ey interval	:	(Prints the RNG rekey interval)
+  * [P]rime		:	(Prints the RNG prime)
+  * [S]eed		:	(Prints the RNG seed)
 
 [D]ebug mode:
 Note: Just enterind Leader + D will toggle debug mode
 
 Inputs:
-  * [1]/[T]rue		(Enables debug mode)
-  * [0]/[F]rue		(Disables debug mode)
-  * [M]			(Shows the current RGB mode)
-  * [T]			(Shows the current system uptime)
-  * [W]			(Shows the current words per minute)
+  * [1]/[T]rue		:	(Enables debug mode)
+  * [0]/[F]rue		:	(Disables debug mode)
+  * [M]			:	(Shows the current RGB mode)
+  * [T]			:	(Shows the current system uptime)
+  * [W]			:	(Shows the current words per minute)
 
 Examples:
+
 `>R64` set the random number string size to 64
+
 `>D` toggles the debug mode
+
 `>D1` enables debugging
+
 `>RB` enables the builtin random mode
+
 `>DW` outputs the words per minute
 
 
