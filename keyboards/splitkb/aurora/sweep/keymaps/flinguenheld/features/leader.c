@@ -1,7 +1,10 @@
+// Copyright 2023 Florent Linguenheld (@FLinguenheld)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 LEADER_EXTERNS();
 
 /* Display the leader key (Only on the master now :(, this bool has to be sync with the slave) */
-static bool     is_leader_active = false;
+// static bool     is_leader_active = false;
 
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {

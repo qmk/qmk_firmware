@@ -1,3 +1,6 @@
+// Copyright 2023 Florent Linguenheld (@FLinguenheld)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 /* How to :
         - Add an entry in the enum
         - Create a new sequence of keys

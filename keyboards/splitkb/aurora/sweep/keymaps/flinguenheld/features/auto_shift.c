@@ -1,3 +1,6 @@
+// Copyright 2023 Florent Linguenheld (@FLinguenheld)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 /* Only for basis letters
    Exceptions like Tab or Enter */
 bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {

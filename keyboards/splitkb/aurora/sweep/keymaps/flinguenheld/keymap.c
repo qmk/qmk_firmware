@@ -1,4 +1,4 @@
-/* Copyright 2023 FLinguenheld
+/* Copyright 2023 Florent Linguenheld (@FLinguenheld)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,51 +17,12 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-
-enum layers {
-    _BASE,
-    _NUMERIC,
-    _ARROWS,
-    _MOUSE,
-    _ADJUST,
-    _FN,
-};
-
-enum custom_keys {
-    UNICODE = SAFE_RANGE, // Shortcut to write unicodes, see numeric layer
-
-    /* See auto-shift */
-    CS_E_ACUTE,
-
-    CS_A_GRAVE,
-    CS_E_GRAVE,
-    CS_I_GRAVE,
-    CS_O_GRAVE,
-    CS_U_GRAVE,
-
-    CS_C_CEDILLA,
-    CS_AE,
-    CS_OE,
-
-    CS_A_CIRCUMFLEX,
-    CS_E_CIRCUMFLEX,
-    CS_I_CIRCUMFLEX,
-    CS_O_CIRCUMFLEX,
-    CS_U_CIRCUMFLEX,
-
-    CS_A_DIAERESIS,
-    CS_E_DIAERESIS,
-    CS_I_DIAERESIS,
-    CS_O_DIAERESIS,
-    CS_U_DIAERESIS,
-    CS_Y_DIAERESIS,
-};
-
-/* Features */
+#include "keycodes.h"
 #include "features/auto_shift.c"
 #include "features/combo.c"
 #include "features/leader.c"
-#include "features/oled.c"
+#include "oled/logos.c"
+#include "oled/oled.c"
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -83,8 +44,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
-
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

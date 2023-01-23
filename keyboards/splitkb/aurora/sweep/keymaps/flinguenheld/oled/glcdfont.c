@@ -1,3 +1,6 @@
+// Copyright 2023 Florent Linguenheld (@FLinguenheld)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "progmem.h"
 
 /* Online editor: https://joric.github.io/qle/ */

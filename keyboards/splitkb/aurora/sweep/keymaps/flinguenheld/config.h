@@ -1,4 +1,4 @@
-/* Copyright 2023 FLinguenheld
+/* Copyright 2023 Florent Linguenheld (@FLinguenheld)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 
 /* OLED */
 #undef OLED_FONT_H
-#define OLED_FONT_H "./font/glcdfont.c"
+#define OLED_FONT_H "./oled/glcdfont.c"
 
 #define  OLED_TIMEOUT 25000
 #define OLED_BRIGHTNESS 60 // Protect my eyesss

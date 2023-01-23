@@ -1,4 +1,5 @@
-#include "../font/logos.c"
+// Copyright 2023 Florent Linguenheld (@FLinguenheld)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 void oled_display(void) {
 
@@ -6,34 +7,33 @@ void oled_display(void) {
     switch (get_highest_layer(layer_state)) {
 
         case _BASE:
-            oled_write_raw_P(qmk_logo, sizeof(qmk_logo));
+            render_qmk_logo();
             break;
 
         case _NUMERIC:
-            oled_write_raw_P(qmk_numeric, sizeof(qmk_numeric));
+            render_qmk_numeric();
             break;
 
         case _MOUSE:
-            oled_write_raw_P(qmk_mouse, sizeof(qmk_mouse));
+            render_qmk_mouse();
             break;
 
         case _ARROWS:
-            oled_write_raw_P(qmk_arrows, sizeof(qmk_arrows));
+            render_qmk_arrows();
             break;
 
         case _ADJUST:
-            oled_write_raw_P(qmk_adjust, sizeof(qmk_adjust));
+            render_qmk_adjust();
             break;
 
         case _FN:
-            oled_write_raw_P(qmk_fn, sizeof(qmk_fn));
+            render_qmk_fn();
             break;
     }
 
     /* Leader */
     if (is_leader_active) {
-
-        oled_write_raw_P(qmk_leader, sizeof(qmk_leader));
+        render_qmk_leader();
     }
 
     /* Modifier keys */
