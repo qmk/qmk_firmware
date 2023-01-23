@@ -15,3 +15,7 @@
  */
 
 #include "m256ws.h"
+
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+    rgblight_disable(); // Enable RGB by default
+}
