@@ -16,7 +16,7 @@
     },
     "diode_direction": "ROW2COL",
     "layouts": {
-        "LAYOUT_5x6_68": {
+        "LAYOUT": {
             "layout": [
                 {"x": 0, "y": 0, "matrix": [0,0]},
                 {"x": 1, "y": 0, "matrix": [0,1]},

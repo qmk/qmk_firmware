@@ -22,7 +22,7 @@ enum custom_layers {
 #define RENAME  LSFT(KC_F6)         //Intellij Refactor Rename
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_5x6_68(
+    [_QWERTY] = LAYOUT(
                  KC_EQL , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,
                  KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,
                  KC_ESC , SFT_A  , CTL_S  , ALT_D  , GUI_F  , KC_G   ,
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_DEL, KC_PGUP, KC_BSPC,
          MO(_LAYER2), KC_PGDN, KC_ENT
     ),
-    [_LAYER2] = LAYOUT_5x6_68(
+    [_LAYER2] = LAYOUT(
                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                  XXXXXXX, IMPORTS, XXXXXXX, USAGES , RENAME , XXXXXXX,
                  XXXXXXX, LINES  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
