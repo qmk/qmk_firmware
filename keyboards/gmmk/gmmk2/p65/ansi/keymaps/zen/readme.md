@@ -58,7 +58,7 @@ The default key is `.` / `>`, think of it as a shell prompt
 
 ### Modes:
 
-[R]andom mode
+#### [R]andom mode
 
 Inputs:
 
@@ -76,7 +76,7 @@ Note: Most outputs should print to console by defualt, and will type out the dat
   * [P]rime		:	(Prints the RNG prime)
   * [S]eed		:	(Prints the RNG seed)
 
-[D]ebug mode:
+#### [D]ebug mode:
 
 Note: Just enterind Leader + D will toggle debug mode
 
@@ -88,7 +88,7 @@ Inputs:
   * [T]			:	(Shows the current system uptime)
   * [W]			:	(Shows the current words per minute)
 
-Examples:
+#### Examples:
 
 `>R64` set the random number string size to 64
 
@@ -100,8 +100,6 @@ Examples:
 
 `>DW` outputs the words per minute
 
-
-### RGB Mode
 
 ## RGB Changes
 
