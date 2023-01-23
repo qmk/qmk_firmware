@@ -19,9 +19,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-// Rows are doubled-up
-
 /* encoder support */
 #define ENCODERS_PAD_A { F5 }
 #define ENCODERS_PAD_B { F4 }
