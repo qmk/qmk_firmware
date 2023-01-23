@@ -167,8 +167,17 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   // Single tap = ) | Double tap = ] | Triple tap = } | Single hold = KC_LALT
   [TD_LALT_RBRC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, right_brackets, right_brackets_reset),
   // Layer Switcher ESC
-  [TD_ESC_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, layer_switcher, layer_switcher_reset, 100),
+  [TD_ESC_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, layer_switcher, layer_switcher_reset),
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(TD_ESC_LAYER):
+            return 100;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

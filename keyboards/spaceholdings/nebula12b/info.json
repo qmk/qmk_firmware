@@ -1,7 +1,13 @@
 {
     "keyboard_name": "NEBULA12B",
+    "manufacturer": "Yiancar-Designs",
     "url": "",
     "maintainer": "yiancar",
+    "usb": {
+        "vid": "0x8968",
+        "pid": "0x5332",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

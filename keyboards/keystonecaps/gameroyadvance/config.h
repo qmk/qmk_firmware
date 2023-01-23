@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B_RIGHT { B2 }
 #define SOFT_SERIAL_PIN D2
 
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -54,10 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-
-
-#define QMK_KEYS_PER_SCAN 12
 
 #define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN

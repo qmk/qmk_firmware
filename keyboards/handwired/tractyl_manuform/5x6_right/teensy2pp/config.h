@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT Tractyl Manuform(5x6) Teensy 2.0 ++
-
 // wiring of each half
 #define MATRIX_COL_PINS \
     { C0, C1, C2, C3, C4, C5 }
@@ -51,5 +49,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B \
     { D4 }
 
-/* PMW3360 Settings */
-#define PMW3360_CS_PIN B0
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN B0

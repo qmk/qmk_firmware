@@ -1,21 +1,7 @@
 # Hey Emacs, this is a -*- makefile -*-
 #----------------------------------------------------------------------------
-# WinAVR Makefile Template written by Eric B. Weddington, Jg Wunsch, et al.
-#
-# Released to the Public Domain
-#
-# Additional material for this makefile was written by:
-# Peter Fleury
-# Tim Henigan
-# Colin O'Flynn
-# Reiner Patommel
-# Markus Pfaff
-# Sander Pool
-# Frederik Rouleau
-# Carlos Lamas
-#
 
-# Enable vpath seraching for source files only
+# Enable vpath searching for source files only
 # Without this, output files, could be read from the wrong .build directories
 VPATH_SRC := $(VPATH)
 vpath %.c $(VPATH_SRC)
@@ -38,36 +24,15 @@ NO_LTO_OBJ := $(filter %.a,$(OBJ))
 
 MASTER_OUTPUT := $(firstword $(OUTPUTS))
 
-
-
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
 # Optimization level, can be [0, 1, 2, 3, s].
-#     0 = turn off optimization. s = optimize for size.
-#     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT ?= s
 
-# Compiler flag to set the C Standard level.
-#     c89   = "ANSI" C
-#     gnu89 = c89 plus GCC extensions
-#     c99   = ISO C99 standard (not yet fully implemented)
-#     gnu99 = c99 plus GCC extensions
-CSTANDARD = -std=gnu99
-
-
-# Place -D or -U options here for C sources
-#CDEFS +=
-
-
-# Place -D or -U options here for ASM sources
-#ADEFS +=
-
-
-# Place -D or -U options here for C++ sources
-#CXXDEFS += -D__STDC_LIMIT_MACROS
-#CXXDEFS += -D__STDC_CONSTANT_MACROS
-#CXXDEFS +=
+# Compiler flag to set the C and C++ language standard level
+CSTANDARD = -std=gnu11
+CXXSTANDARD = -std=gnu++14
 
 # Speed up recompilations by opt-in usage of ccache
 USE_CCACHE ?= no
@@ -75,12 +40,8 @@ ifneq ($(USE_CCACHE),no)
     CC_PREFIX ?= ccache
 endif
 
-#---------------- Compiler Options C ----------------
-#  -g*:          generate debugging information
-#  -O*:          optimization level
-#  -f...:        tuning, see GCC manual and avr-libc documentation
-#  -Wall...:     warning level
-#  -Wa,...:      tell GCC to pass this to the assembler.
+#---------------- C Compiler Options ----------------
+
 ifeq ($(strip $(LTO_ENABLE)), yes)
     ifeq ($(PLATFORM),ARM_ATSAM)
         $(info Enabling LTO on arm_atsam-targeting boards is known to have a high likelihood of failure.)
@@ -111,29 +72,20 @@ CFLAGS += -Wstrict-prototypes
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CFLAGS += -Werror
 endif
-#CFLAGS += -mshort-calls
-#CFLAGS += -fno-unit-at-a-time
-#CFLAGS += -Wundef
-#CFLAGS += -Wunreachable-code
-#CFLAGS += -Wsign-compare
 CFLAGS += $(CSTANDARD)
 
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
 # Fixing of multiple variable definitions must be made.
 CFLAGS += -fcommon
 
-#---------------- Compiler Options C++ ----------------
-#  -g*:          generate debugging information
-#  -O*:          optimization level
-#  -f...:        tuning, see GCC manual and avr-libc documentation
-#  -Wall...:     warning level
-#  -Wa,...:      tell GCC to pass this to the assembler.
+#---------------- C++ Compiler Options ----------------
+
 ifeq ($(strip $(DEBUG_ENABLE)),yes)
   CXXFLAGS += -g$(DEBUG)
 endif
 CXXFLAGS += $(CXXDEFS)
 CXXFLAGS += -O$(OPT)
-# to supress "warning: only initialized variables can be placed into program memory area"
+# to suppress "warning: only initialized variables can be placed into program memory area"
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
@@ -141,57 +93,17 @@ CXXFLAGS += -Wundef
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif
-#CXXFLAGS += -mshort-calls
-#CXXFLAGS += -fno-unit-at-a-time
-#CXXFLAGS += -Wstrict-prototypes
-#CXXFLAGS += -Wunreachable-code
-#CXXFLAGS += -Wsign-compare
-#CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
+
 ASFLAGS += $(ADEFS)
 ifeq ($(VERBOSE_AS_CMD),yes)
 	ASFLAGS += -v
 endif
 
-#---------------- Library Options ----------------
-# Minimalistic printf version
-PRINTF_LIB_MIN = -Wl,-u,vfprintf -lprintf_min
-
-# Floating point printf version (requires MATH_LIB = -lm below)
-PRINTF_LIB_FLOAT = -Wl,-u,vfprintf -lprintf_flt
-
-# If this is left blank, then it will use the Standard printf version.
-PRINTF_LIB =
-#PRINTF_LIB = $(PRINTF_LIB_MIN)
-#PRINTF_LIB = $(PRINTF_LIB_FLOAT)
-
-
-# Minimalistic scanf version
-SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
-
-# Floating point + %[ scanf version (requires MATH_LIB = -lm below)
-SCANF_LIB_FLOAT = -Wl,-u,vfscanf -lscanf_flt
-
-# If this is left blank, then it will use the Standard scanf version.
-SCANF_LIB =
-#SCANF_LIB = $(SCANF_LIB_MIN)
-#SCANF_LIB = $(SCANF_LIB_FLOAT)
-
-
-MATH_LIB = -lm
-CREATE_MAP ?= yes
-
-
 #---------------- Linker Options ----------------
-#  -Wl,...:     tell GCC to pass this to linker.
-#    -Map:      create map file
-#    --cref:    add cross reference to  map file
-#
-# Comennt out "--relax" option to avoid a error such:
-# 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
-#
 
+CREATE_MAP ?= yes
 ifeq ($(CREATE_MAP),yes)
 	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 endif
@@ -201,20 +113,11 @@ endif
 #LDFLAGS += -Wl,--relax
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
-LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
-#LDFLAGS += -T linker_script.x
+LDFLAGS += -lm
 # You can give EXTRALDFLAGS at 'make' command line.
 LDFLAGS += $(EXTRALDFLAGS)
 
 #---------------- Assembler Listings ----------------
-#  -Wa,...:   tell GCC to pass this to the assembler.
-#  -adhlns:   create listing
-#  -gstabs:   have the assembler create line number information; note that
-#             for use in COFF files, additional information about filenames
-#             and function names needs to be present in the assembler source
-#             files -- see avr-libc docs [FIXME: not yet described there]
-#  -listing-cont-lines: Sets the maximum number of continuation lines of hex
-#       dump that will be displayed for a given single line of source input.
 
 ADHLNS_ENABLE ?= no
 ifeq ($(ADHLNS_ENABLE),yes)
@@ -429,6 +332,7 @@ $1/asflags.txt: $1/force
 	echo '$$($1_ASFLAGS)' | cmp -s - $$@ || echo '$$($1_ASFLAGS)' > $$@
 
 $1/compiler.txt: $1/force
+	test -f $$@ || touch $$@
 	$$(CC) --version | cmp -s - $$@ || $$(CC) --version > $$@
 endef
 
@@ -468,6 +372,7 @@ show_path:
 dump_vars: ERROR_IF_EMPTY=""
 dump_vars: ERROR_IF_NONBOOL=""
 dump_vars: ERROR_IF_UNSET=""
+dump_vars: CATASTROPHIC_ERROR=""
 dump_vars:
 	@$(foreach V,$(sort $(.VARIABLES)),$(if $(filter-out environment% default automatic,$(origin $V)),$(info $V=$($V))))
 

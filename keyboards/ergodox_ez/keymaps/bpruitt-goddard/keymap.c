@@ -47,37 +47,37 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
   [BASE] = LAYOUT_ergodox_pretty(
-    KC_DLR,           KC_AMPR,  KC_LBRC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_CIRC,           KC_F4,        KC_EQUAL,KC_ASTR, KC_BSLASH, KC_PLUS, KC_RBRACKET, KC_EXLM,
-    GUI_T(KC_BSLASH), KC_SCOLON,KC_COMMA, KC_DOT,  KC_P,    KC_Y,    KC_PERC,           KC_DELETE,    KC_F,    KC_G,    KC_C,      KC_R,    KC_L,        KC_SLASH,
+    KC_DLR,           KC_AMPR,  KC_LBRC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_CIRC,           KC_F4,        KC_EQUAL,KC_ASTR, KC_BSLS,   KC_PLUS, KC_RBRC,     KC_EXLM,
+    GUI_T(KC_BSLS),   KC_SCLN,  KC_COMMA, KC_DOT,  KC_P,    KC_Y,    KC_PERC,           KC_DELETE,    KC_F,    KC_G,    KC_C,      KC_R,    KC_L,        KC_SLASH,
     MO(NUM),          KC_A,     KC_O,     KC_E,    KC_U,    KC_I,                                     KC_D,    KC_H,    KC_T,      KC_N,    KC_S,        KC_MINUS,
-    KC_LSPO,          KC_QUOTE, KC_Q,     KC_J,    KC_K,    KC_X,    KC_LALT,           TD(TAP_MACRO),KC_B,    KC_M,    KC_W,      KC_V,    KC_Z,        KC_RSPC,
+    SC_LSPO,          KC_QUOTE, KC_Q,     KC_J,    KC_K,    KC_X,    KC_LALT,           TD(TAP_MACRO),KC_B,    KC_M,    KC_W,      KC_V,    KC_Z,        SC_RSPC,
     KC_AT,            KC_HASH,  KC_GRAVE, KC_LEFT, KC_RIGHT,                                                   KC_UP,   KC_DOWN,   KC_HOME, KC_END,      TO(QWERTY),
                                          ALT_T(KC_APPLICATION), ALL_T(KC_NO),           KC_PGUP, KC_LGUI,
-                                                                   KC_BSLASH,           TO(MAC),
-                                          KC_ENTER, KC_TAB, CTL_T(KC_ESCAPE),           CTL_T(KC_ESCAPE), KC_BSPACE,  KC_SPACE),
+                                                                   KC_BSLS,             TO(MAC),
+                                          KC_ENTER, KC_TAB, CTL_T(KC_ESCAPE),           CTL_T(KC_ESCAPE), KC_BSPC,  KC_SPACE),
 
   // Layer 1: function and numpad keys.
   [NUM] = LAYOUT_ergodox_pretty(
     ___,  KC_F1,   KC_F2,    KC_F3,       KC_F4,       KC_F5,      ___,         ___, KC_F6,   KC_F7,  KC_F8,  KC_F9,      KC_F10,       KC_F11,
     ___,  KC_EXLM, KC_COMMA, KC_DOT,      KC_MS_BTN1,  KC_MS_BTN2, ___,         ___, KC_UP,   KC_7,   KC_8,   KC_9,       KC_ASTR,      KC_F12,
     XXX,  ___,     KC_LCBR,  KC_RCBR,     MC_ARROW,    KC_GRAVE,                     KC_DOWN, KC_4,   KC_5,   KC_6,       KC_PLUS,      KC_UNDS,
-    ___,  ___,     KC_CIRC,  KC_LBRACKET, KC_RBRACKET, KC_TILD,    ___,         ___, KC_0,    KC_1,   KC_2,   KC_3,       KC_KP_SLASH,  KC_BSLASH,
+    ___,  ___,     KC_CIRC,  KC_LBRC,     KC_RBRC,     KC_TILD,    ___,         ___, KC_0,    KC_1,   KC_2,   KC_3,       KC_KP_SLASH,  KC_BSLS,
     ___,  ___,     ___,      ___,         ___,                                                ___,    KC_0,   KC_KP_DOT,  KC_EQUAL,     ___,
                                                            ___,    ___,         KC_KP_ASTERISK, KC_KP_SLASH,
                                                                KC_LCTL,         ___,
-                                      KC_KP_PLUS,  KC_KP_MINUS, KC_DLR,         KC_DELETE, KC_BSPACE,  KC_SPACE),
+                                      KC_KP_PLUS,  KC_KP_MINUS, KC_DLR,         KC_DELETE, KC_BSPC,  KC_SPACE),
 
   // Layer 2: QWERTY control.
   [QWERTY] = LAYOUT_ergodox_pretty(
     /* left hand */
     KC_EQUAL,   KC_1,     KC_2,         KC_3,     KC_4,     KC_5,    KC_LEFT,           KC_RIGHT,     KC_6,   KC_7,   KC_8,     KC_9,         KC_0,         KC_MINUS,
-    KC_DELETE,  KC_Q,     KC_W,         KC_E,     KC_R,     KC_T,    KC_Y,              TO(BASE),     KC_Y,   KC_U,   KC_I,     KC_O,         KC_P,         KC_BSLASH,
+    KC_DELETE,  KC_Q,     KC_W,         KC_E,     KC_R,     KC_T,    KC_Y,              TO(BASE),     KC_Y,   KC_U,   KC_I,     KC_O,         KC_P,         KC_BSLS,
     MO(NUM),    KC_A,     KC_S,         KC_D,     KC_F,     KC_G,                                     KC_H,   KC_J,   KC_K,     KC_L,         KC_SCLN,      GUI_T(KC_QUOT),
-    KC_LSFT,    KC_Z,     KC_X,         KC_C,     KC_V,     KC_B, ALT_T(KC_NO),         MEH_T(KC_NO), KC_N,   KC_M,   KC_COMMA, KC_DOT,       KC_SLASH,     KC_RSPC,
-    KC_GRAVE,   KC_QUOTE, LALT(KC_TAB), KC_LEFT,  KC_RIGHT,                                                   KC_UP,  KC_DOWN,  KC_LBRACKET,  KC_RBRACKET,  TO(BASE),
+    KC_LSFT,    KC_Z,     KC_X,         KC_C,     KC_V,     KC_B, ALT_T(KC_NO),         MEH_T(KC_NO), KC_N,   KC_M,   KC_COMMA, KC_DOT,       KC_SLASH,     SC_RSPC,
+    KC_GRAVE,   KC_QUOTE, LALT(KC_TAB), KC_LEFT,  KC_RIGHT,                                                   KC_UP,  KC_DOWN,  KC_LBRC,      KC_RBRC,      TO(BASE),
                                                   ___, KC_LGUI,                         ___, KC_ESCAPE,
                                                        KC_HOME,                         KC_PGUP,
-                                      KC_ENTER, KC_TAB, KC_END,                         KC_PGDOWN, KC_BSPACE, KC_SPACE),
+                                      KC_ENTER, KC_TAB, KC_END,                         KC_PGDN, KC_BSPC, KC_SPACE),
 
     // Layer 3: Mac layer
     [MAC] = LAYOUT_ergodox_pretty(
@@ -98,7 +98,7 @@ static bool is_macro1_recording = false;
 // The current set of active layers (as a bitmask).
 // There is a global 'layer_state' variable but it is set after the call
 // to layer_state_set_user().
-static uint32_t current_layer_state = 0;
+static layer_state_t current_layer_state = 0;
 layer_state_t layer_state_set_user(layer_state_t state);
 
 // Method called at the end of the tap dance on the TAP_MACRO key. That key is
@@ -109,13 +109,13 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
   keyrecord_t record;
   dprintf("macro_tap_dance_fn %d\n", state->count);
   if (is_macro1_recording) {
-    keycode = DYN_REC_STOP;
+    keycode = DM_RSTP;
     is_macro1_recording = false;
     layer_state_set_user(current_layer_state);
   } else if (state->count == 1) {
-    keycode = DYN_MACRO_PLAY1;
+    keycode = DM_PLY1;
   } else {
-    keycode = DYN_REC_START1;
+    keycode = DM_REC1;
     is_macro1_recording = true;
     layer_state_set_user(current_layer_state);
   }

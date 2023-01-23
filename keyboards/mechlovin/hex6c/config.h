@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { A10, B13, B12, B11, C14, C15 }
 #define MATRIX_COL_PINS { A13, A14, A1, A0, C13, B9, B4, B7, B8, B5, B6, A9, A5, A6, A7, B1, B2, B10, B3, B14, B15 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -55,4 +54,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION 4
 
 #define TAP_CODE_DELAY 10
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+
+#define WEAR_LEVELING_BACKING_SIZE 4096
+#define WEAR_LEVELING_LOGICAL_SIZE 2048

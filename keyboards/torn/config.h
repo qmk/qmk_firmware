@@ -19,14 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-/* VID & PID from vusb project, see tmk_core/protocol/vusb/USB-IDs-for-free.txt"*/
-#define VENDOR_ID 0x7274
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0000
-#define MANUFACTURER richard.titmuss
-#define PRODUCT Torn
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -45,7 +37,6 @@
     { D4, D1, D0, D5 }
 #define MATRIX_COL_PINS \
     { B3, B4, B5, B0, D7, D6 }
-#define UNUSED_PINS
 
 #define SECONDARY_ROW_PINS \
     { (1 << 5), (1 << 6), (1 << 7), (1 << 4) }

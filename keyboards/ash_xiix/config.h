@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, D0, D1, D2, D3, D5, D4, D6 }
 #define MATRIX_COL_PINS { F1, F4, F5, F6, B0, B2, B1, B3, B7, C7 }
-#define UNUSED_PINS
 
 #define NUM_LOCK_LED_PIN E6
 #define CAPS_LOCK_LED_PIN F0

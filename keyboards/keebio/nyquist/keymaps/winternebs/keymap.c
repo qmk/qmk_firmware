@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] =  LAYOUT( 
-  RESET,   RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, _______, _______, _______, _______, KC_WH_L, KC_WH_R, _______,
+  QK_BOOT, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, _______, _______, _______, _______, KC_WH_L, KC_WH_R, _______,
   RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, AG_NORM, AG_SWAP, KC_HOME, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, 
   _______, _______, _______, QWERTY,  WORKMAN, _______, KC_END,  KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______,
   _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLU, KC_MPLY, 

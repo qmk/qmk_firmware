@@ -2,13 +2,18 @@
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
-#undef RGBLIGHT_ANIMATIONS
+#undef RGBLIGHT_EFFECT_RAINBOW_MOOD
+#undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#undef RGBLIGHT_EFFECT_SNAKE
+#undef RGBLIGHT_EFFECT_KNIGHT
+#undef RGBLIGHT_EFFECT_CHRISTMAS
+#undef RGBLIGHT_EFFECT_STATIC_GRADIENT
+#undef RGBLIGHT_EFFECT_RGB_TEST
+#undef RGBLIGHT_EFFECT_ALTERNATING
+#undef RGBLIGHT_EFFECT_TWINKLE
+
 #define RGBLIGHT_EFFECT_BREATHING
 #endif // RGBLIGHT_ENABLE
-
-#ifndef QMK_KEYS_PER_SCAN
-#define QMK_KEYS_PER_SCAN 4
-#endif // !QMK_KEYS_PER_SCAN
 
 #undef FORCE_NKRO
 
@@ -37,11 +42,11 @@
 #define BABL_MODSWAP
 #define BABL_MOVE // Uncomment to add basic cursor movement
 #define BABL_OSKEYS // This adds Cut, paste, window movement and common OS shortcuts
-#define BABL_BROWSER // Browser shortcuts, with Chrome/Firefox as the default. 
-// edit the appropriate OS config file to enable Safari, Edge, vimpirator &etc. 
+#define BABL_BROWSER // Browser shortcuts, with Chrome/Firefox as the default.
+// edit the appropriate OS config file to enable Safari, Edge, vimpirator &etc.
 #define BABL_APP // Application specific settings this has sub-options.
 #define BABL_APP_CELLS // spreadsheets and tables
-#define BABL_APP_EDITOR // Fancy editor commands 
+#define BABL_APP_EDITOR // Fancy editor commands
 #define BABL_APP_WINDOWSPLITTING // splitting frames & windows
 
 //All OSes

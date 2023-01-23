@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "Sauce - Mild",
+  "keyboard_name": "Mild",
+  "manufacturer": "Sauce",
   "url": "",
   "maintainer": "Sauce",
+  "usb": {
+    "vid": "0x8367",
+    "pid": "0x7783",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_all": {
       "layout": [

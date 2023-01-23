@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_LOWER] = LAYOUT_ansi_40( \
-    KC_DELT, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_PGUP, KC_HOME, KC_END,  MC_SLPD, \
+    KC_DEL,  KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_PGUP, KC_HOME, KC_END,  MC_SLPD, \
     HY_CAPS, KC_MUTE, KC_VOLU, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, KC_PGDN, KC_UP,            KC_MPLY, \
     _______,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, \
     _______, _______, _______,                            _______,                   _______, _______, _______  \
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_ADJUST] = LAYOUT_ansi_40( \
-    QM_MAKE, _______, _______, EEP_RST, RESET,   _______, _______, _______, _______, _______, _______, _______, \
+    QM_MAKE, _______, _______, EE_CLR,  QK_BOOT, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, \
     _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______,                            _______,                   _______, _______, _______  \

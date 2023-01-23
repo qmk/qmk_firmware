@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5845 // "XE"
-#define PRODUCT_ID      0x5653 // Valor "VR" + 1
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Xelus Valor Rev2
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -32,7 +25,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B11, B10, A3, A1, A2 }
 #define MATRIX_COL_PINS { B2, B1, B0, A7, A6, A5, A4, A13, B7, B6, B5, B4, B3, A15, A14 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -66,7 +58,7 @@
 /* RGB Matrix */
 #define RGB_DI_PIN A9
 #define RGBLED_NUM 28
-#define DRIVER_LED_TOTAL 28
+#define RGB_MATRIX_LED_COUNT 28
 #define NOP_FUDGE 0.4
 
 // RGB PWM
@@ -85,7 +77,7 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CUSTOM_test_mode
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_test_mode
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
