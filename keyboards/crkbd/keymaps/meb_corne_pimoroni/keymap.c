@@ -65,20 +65,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC    , KC_Q      , KC_W      , KC_E      , KC_R          , KC_T             , KC_Y                , KC_U      , KC_I      , KC_O      , KC_P      , KC_BSPC   ,
         KC_TAB    , KC_A      , KC_S      , KC_D      , KC_F          , KC_G             , KC_H                , KC_J      , KC_K      , KC_L      , KC_QUOT   , KC_ENT    ,
         KC_LSFT   , KC_Z      , KC_X      , KC_C      , KC_V          , KC_B             , KC_N                , KC_M      , KC_COMM   , KC_DOT    , KC_SLSH   , KC_RSFT   ,
-                                            KC_LCTL   , LALT_T(KC_DEL), LT(NavNum,KC_SPC), LT(NavAppNav,KC_SPC), KC_RGUI   , MO(AppNavMacro) 
+                                            KC_LCTL   , LALT_T(KC_DEL), LT(NavNum,KC_SPC), LT(NavAppNav,KC_SPC), KC_RGUI   , MO(AppNavMacro)
     ),
     [NavNum] = LAYOUT_split_3x6_3(
         KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , KC_LPRN   , KC_RPRN               , KC_7      , KC_8      , KC_9      , KC_DEL    , KC_BSPC   ,
         KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , KC_LCBR   , KC_RCBR               , KC_4      , KC_5      , KC_6      , KC_SCLN   , KC_ENT    ,
         KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , KC_LBRC   , KC_RBRC               , KC_1      , KC_2      , KC_3      , KC_BSLS   , KC_RSFT   ,
-                                            KC_TRNS   , KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC), KC_0      , KC_TRNS  
-    ),   
+                                            KC_TRNS   , KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC), KC_0      , KC_TRNS
+    ),
     [NavAppNav] = LAYOUT_split_3x6_3(
         KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , THIS_LINE_PAIR_PAREN   , RCS(KC_TAB)  , LCTL(KC_TAB)  , KC_HOME   , KC_UP     , KC_END    , KC_BSPC   ,
         KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , THIS_LINE_PAIR_BRACES  , LALT(KC_LEFT), LALT(KC_RIGHT), KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_PGUP   ,
         KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , THIS_LINE_PAIR_BRACKETS, LCTL(KC_PMNS), LCTL(KC_PPLS) , LCTL(KC_T), LCTL(KC_N), LCTL(KC_W), KC_PGDN   ,
-                                            KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC) , KC_TRNS      , KC_TRNS       , KC_TRNS  
-    ), 
+                                            KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC) , KC_TRNS      , KC_TRNS       , KC_TRNS
+    ),
     [NumCharFunc] = LAYOUT_split_3x6_3(
         KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_6      , KC_7      , KC_8      , KC_9      , KC_0      , KC_MINS   , KC_EQL    ,
         KC_EXLM   , KC_AT     , KC_HASH   , KC_DLR    , KC_PERC   , KC_CIRC   , KC_AMPR   , KC_ASTR   , KC_LPRN   , KC_RPRN   , KC_UNDS   , KC_PLUS   ,
@@ -89,30 +89,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LALT(KC_F4)  , KC_HOME          , KC_UP          , KC_END            , RCS(KC_TAB)  , LCTL(KC_TAB)  , SELECTION_PAIR_PAREN   , ADD_SPACE_DOWN           , REMOVE_CHARACTER_DOWN  , MOVE_LINE_UP       , MOVE_LINE_DOWN       , POP_TAB_VSCODE       ,
         KC_PGUP      , KC_LEFT          , KC_DOWN        , KC_RIGHT          , LALT(KC_LEFT), LALT(KC_RIGHT), SELECTION_PAIR_BRACES  , SELECTION_PAIR_INEQUALITY, SELECTION_BLOCK_COMMENT, SELECTION_DO_END   , SELECTION_PAIR_QUOTES, SELECT_LINE          ,
         KC_PGDN      , OPEN_TASK_MANAGER, POP_TAB_CHROME , OPEN_FOLDER_IN_CMD, LCTL(KC_PMNS), LCTL(KC_PPLS) , SELECTION_PAIR_BRACKETS, SHIFT_CONTROL_LEFT       , SELECT_WORD            , SHIFT_CONTROL_RIGHT, MOVE_MAX_WINDOW_LEFT , MOVE_MAX_WINDOW_RIGHT,
-                                                           KC_TRNS           , KC_TRNS      , KC_TRNS       , TO(Gaming)             , KC_TRNS                  , KC_TRNS      
+                                                           KC_TRNS           , KC_TRNS      , KC_TRNS       , TO(Gaming)             , KC_TRNS                  , KC_TRNS
     ),
     [Gaming] = LAYOUT_split_3x6_3(
         KC_ESC    , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T      , KC_Y             , KC_U      , KC_I      , KC_O      , KC_P      , KC_BSPC   ,
         KC_TAB    , KC_A      , KC_S      , KC_D      , KC_F      , KC_G      , KC_H             , KC_J      , KC_K      , KC_L      , KC_QUOT   , KC_ENT    ,
         KC_LSFT   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B      , KC_N             , KC_M      , KC_COMM   , KC_DOT    , KC_SLSH   , KC_RSFT   ,
-                                            KC_LCTL   , MO(ControlGroups)     , LT(NavNum,KC_SPC), KC_MPLY   , KC_MNXT   , TO(Base) 
-    ),           
+                                            KC_LCTL   , MO(ControlGroups)     , LT(NavNum,KC_SPC), KC_MPLY   , KC_MNXT   , TO(Base)
+    ),
     [ControlGroups] = LAYOUT_split_3x6_3(
-        KC_TRNS   , KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
-        KC_TRNS   , LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
-        KC_TRNS   , LCTL(KC_1), LCTL(KC_2), LCTL(KC_3), LCTL(KC_4), LCTL(KC_5), KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
-                                            KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS    
+        KC_TRNS   , KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   ,
+        KC_TRNS   , LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   ,
+        KC_TRNS   , LCTL(KC_1), LCTL(KC_2), LCTL(KC_3), LCTL(KC_4), LCTL(KC_5), KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   ,
+                                            KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS
     ),
     [AutoButtons] = LAYOUT_split_3x6_3(
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , 
-                                            KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_BTN1   , KC_BTN2   , KC_TRNS    
-    ),       
-};          
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_BTN2   , KC_BTN1   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   ,
+                                            KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS
+    ),
+};
 
 void pointing_device_init_user(void) {
     set_auto_mouse_enable(true);
+    pointing_device_set_cpi(3400);
 }
 
 void housekeeping_task_user(void) {
@@ -142,9 +143,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         mouse_report.x = track_factor * mouse_report.x;
         mouse_report.y = track_factor * mouse_report.y;
     }
-    return mouse_report;      
+    return mouse_report;
 }
- 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
   switch (keycode){
@@ -152,8 +153,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
     case LT(NavAppNav,KC_SPC):
         if(record->event.pressed){
             set_scrolling = true;
+            pointing_device_set_cpi(400);
         } else {
             set_scrolling = false;
+            pointing_device_set_cpi(3400);
         }
         break;
     case ADD_SPACE_DOWN:
@@ -172,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             tap_code(KC_ENT);
             SEND_STRING("END");
         }
-        return false;        
+        return false;
     case SELECTION_PAIR_PAREN:
         if(record->event.pressed){
             tap_code16(LCTL(KC_X));
@@ -188,7 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             tap_code16(LCTL(KC_V));
             SEND_STRING("}");
         }
-        return false;   
+        return false;
     case SELECTION_PAIR_BRACKETS:
         if(record->event.pressed){
             tap_code16(LCTL(KC_X));
@@ -196,7 +199,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             tap_code16(LCTL(KC_V));
             SEND_STRING("]");
         }
-        return false;   
+        return false;
     case SELECTION_PAIR_QUOTES:
         if(record->event.pressed){
             tap_code16(LCTL(KC_X));
@@ -308,7 +311,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             tap_code(KC_ENTER);
             tap_code16(LCTL(KC_V));
         }
-        return false;   
+        return false;
     // case DELETE_WORD:
     //     if(record->event.pressed){
     //         tap_code16(RCS(KC_LEFT));
@@ -324,29 +327,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
         if(record->event.pressed){
             tap_code16(RCS(KC_RIGHT));
         }
-        return false;   
+        return false;
     case MOVE_MAX_WINDOW_LEFT:
         if(record->event.pressed){
             tap_code16(LSG(KC_LEFT));
         }
-        return false;                             
+        return false;
     case MOVE_MAX_WINDOW_RIGHT:
         if(record->event.pressed){
             tap_code16(LSG(KC_RIGHT));
         }
-        return false;  
+        return false;
     case OPEN_TASK_MANAGER:
         if(record->event.pressed){
             tap_code16(RCS(KC_ESC));
         }
-        return false;  
+        return false;
     case POP_TAB_VSCODE:
         if(record->event.pressed){
             tap_code16(LCTL(KC_K));
             tap_code(KC_O);
         }
-        return false;                         
-  }  
+        return false;
+  }
   return true;
 
 }

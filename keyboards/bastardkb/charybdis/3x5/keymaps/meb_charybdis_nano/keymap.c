@@ -125,10 +125,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q                , KC_W    , KC_E               , KC_R            , KC_T               , KC_Y                , KC_U            , KC_I      , KC_O      , KC_P                ,
         A_TAB               , KC_S    , KC_D               , KC_F            , KC_G               , KC_H                , KC_J            , KC_K      , KC_L      , KC_QUOT             ,
         MT(MOD_LSFT,KC_Z)   , KC_X    , KC_C               , KC_V            , KC_B               , KC_N                , KC_M            , KC_COMM   , KC_DOT    , MT(MOD_RSFT,KC_SLSH),
-                                        MT(MOD_LCTL,KC_ESC), LT(LOWER,KC_ENT), MT(MOD_LALT,KC_DEL), MT(MOD_LGUI,KC_BSPC), LT(LOWER,KC_SPC)
+                                        MT(MOD_LCTL,KC_ESC), LT(LOWER,KC_ENT), MT(MOD_LALT,KC_TAB), MT(MOD_LGUI,KC_BSPC), LT(LOWER,KC_SPC)
     ),
     [LOWER] = LAYOUT_charybdis_3x5(
-        KC_HOME             , KC_UP  , KC_END              , KC_PLUS         , KC_LPRN            , KC_RPRN             , KC_7            , KC_8      , KC_9      , KC_TAB              ,
+        KC_HOME             , KC_UP  , KC_END              , KC_PLUS         , KC_LPRN            , KC_RPRN             , KC_7            , KC_8      , KC_9      , KC_DEL              ,
         KC_LEFT             , KC_DOWN, KC_RIGHT            , KC_EQL          , KC_LCBR            , KC_RCBR             , KC_4            , KC_5      , KC_6      , KC_SCLN             ,
         MT(MOD_LSFT,KC_PIPE), KC_UNDS, KC_COLN             , KC_MINS         , KC_LBRC            , KC_RBRC             , KC_1            , KC_2      , KC_3      , MT(MOD_RSFT,KC_BSLS),
                                        KC_TRNS             , MO(RAISE)       , KC_TRNS            , KC_TRNS             , LT(RAISE, KC_0)
@@ -140,15 +140,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_CAPS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS
     ),
     [AUTO_MOUSE] = LAYOUT_charybdis_3x5(
-        KC_TRNS             , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS         , KC_TRNS   , KC_TRNS   , KC_TRNS             ,
+        DPI_DOWN            , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS         , KC_TRNS   , KC_TRNS   , DPI_UP              ,
         KC_TRNS             , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_BTN1         , KC_BTN2   , KC_TRNS   , KC_TRNS             ,
         KC_BTN2             , KC_TRNS , KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS         , KC_TRNS   , KC_TRNS   , KC_BTN1             ,
                                         KC_TRNS            , KC_TRNS         , KC_TRNS            , KC_TRNS             , KC_TRNS
     ),
 };
 
+int base_track_speed = 800;
+int scroll_track_speed = 100;
+
 void pointing_device_init_user(void) {
     set_auto_mouse_enable(true);
+    pointing_device_set_cpi(base_track_speed);
+
 };
 
 bool alt_tabber = false;
@@ -172,14 +177,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
         case LT(LOWER,KC_SPC):
             if(record->event.pressed){
                 set_scrolling = true;
-                pointing_device_set_cpi(100);
+                pointing_device_set_cpi(scroll_track_speed);
 
             } else {
                 set_scrolling = false;
-                pointing_device_set_cpi(400);
+                pointing_device_set_cpi(base_track_speed);
             }
             break;
-        case MT(MOD_LALT,KC_DEL):
+        case MT(MOD_LALT,KC_TAB):
             if(record->event.pressed){
                 alt_tabber = true;
             } else {
