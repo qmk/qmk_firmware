@@ -20,7 +20,6 @@ enum custom_layers {
 #define LINES   LALT(LGUI(KC_L))    //Intellij Reformat Code
 #define USAGES  LALT(KC_F7)         //Intelllj Find Usages
 #define RENAME  LSFT(KC_F6)         //Intellij Refactor Rename
-#define xxxxxxx KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_5x6_68(
@@ -38,23 +37,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT,
                                    KC_DOWN, KC_UP  , KC_LBRC, KC_RBRC,
          KC_DEL, KC_PGUP, KC_BSPC,
-         MO(_LAYER2), KC_PGDN, KC_ENT 
+         MO(_LAYER2), KC_PGDN, KC_ENT
     ),
     [_LAYER2] = LAYOUT_5x6_68(
-                 xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                 xxxxxxx, IMPORTS, xxxxxxx, USAGES , RENAME , xxxxxxx,
-                 xxxxxxx, LINES  , xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                 xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                 xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                                     xxxxxxx, xxxxxxx, xxxxxxx,
-                                                     xxxxxxx, xxxxxxx, xxxxxxx,
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                 XXXXXXX, IMPORTS, XXXXXXX, USAGES , RENAME , XXXXXXX,
+                 XXXXXXX, LINES  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                                     XXXXXXX, XXXXXXX, XXXXXXX,
+                                                     XXXXXXX, XXXXXXX, XXXXXXX,
 
-                 xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, RESET,
-                 xxxxxxx, KC_VOLD, KC_MUTE, KC_VOLU, xxxxxxx, xxxxxxx,
-                 xxxxxxx, KC_MPRV, KC_MPLY, KC_MNXT, xxxxxxx, xxxxxxx,
-                 xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-         xxxxxxx,xxxxxxx, xxxxxxx,
-         xxxxxxx,xxxxxxx, xxxxxxx
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+                 XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+                 XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+         XXXXXXX,XXXXXXX, XXXXXXX,
+         _______,XXXXXXX, XXXXXXX
     )
 };
