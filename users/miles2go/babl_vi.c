@@ -22,10 +22,10 @@ bool babblePaste_vi(uint16_t keycode) {
     BABLM(BABL_GO_END_DOC, IMSFT(X_G));
     BABLM(BABL_GO_NEXT_LINE, "j");
     BABLM(BABL_GO_PREV_LINE, "k");
-    BABLM(BABL_GO_PARA_START, IMSFT(X_LBRACKET));
-    BABLM(BABL_GO_PARA_END, IMSFT(X_RBRACKET));
-    BABLM(BABL_PGDN, SS_LCTRL("f"));
-    BABLM(BABL_PGUP, SS_LCTRL("b"));
+    BABLM(BABL_GO_PARA_START, IMSFT(X_LEFT_BRACKET));
+    BABLM(BABL_GO_PARA_END, IMSFT(X_RIGHT_BRACKET));
+    BABLM(BABL_PGDN, SS_LCTL("f"));
+    BABLM(BABL_PGUP, SS_LCTL("b"));
     BABLM(BABL_DEL_RIGHT_1C, "x");
     BABLM(BABL_DEL_LEFT_WORD, "dge");
     BABLM(BABL_DEL_RIGHT_WORD, "dw");
@@ -35,11 +35,11 @@ bool babblePaste_vi(uint16_t keycode) {
 #        endif
 #        ifdef BABL_OSKEYS
     BABLM(BABL_UNDO, "h");
-    BABLM(BABL_REDO, SS_LCTRL("r"));
+    BABLM(BABL_REDO, SS_LCTL("r"));
     BABLM(BABL_CUT, "x");
     BABLM(BABL_COPY, "y");
     BABLM(BABL_PASTE, "p");
-    BABLM(BABL_SELECT_ALL, IMSFT(X_SCOLON) SS_TAP(X_5) "y");  // wrong but helpful?
+    BABLM(BABL_SELECT_ALL, IMSFT(X_SEMICOLON) SS_TAP(X_5) "y");  // wrong but helpful?
     BABLM(BABL_FIND, SS_TAP(X_SLASH));
     BABLM(BABL_FIND_NEXT, "n");
     BABLM(BABL_FIND_PREV, IMSFT(X_N));
@@ -47,8 +47,8 @@ bool babblePaste_vi(uint16_t keycode) {
     BABLM(BABL_RUNAPP, ":split");                // requires VIM, is vsplit better?
     BABLM(BABL_SWITCH_APP_NEXT, IMCTL(X_DOWN));  // Or Right?
     BABLM(BABL_SWITCH_APP_NEXT, IMCTL(X_UP));    // or Left?
-    BABLM(BABL_CLOSE_APP, IMCTL(X_SCOLON) "q");
-    BABLM(BABL_HELP, SS_LSFT(SS_TAP(X_SCOLON)) "h");  // start search in help
+    BABLM(BABL_CLOSE_APP, IMCTL(X_SEMICOLON) "q");
+    BABLM(BABL_HELP, SS_LSFT(SS_TAP(X_SEMICOLON)) "h");  // start search in help
                                                       // BABLM( BABL_LOCK,		()	); Perhaps VI is not an OS?
                                                       // BABLM( BABL_SCREENCAPTURE,		()	); // capture a buffer?
 #        endif
@@ -65,8 +65,8 @@ bool babblePaste_vi(uint16_t keycode) {
     BABLM(BABL_UNSPLIT_FRAME_VERT, SS_TAP(X_ESCAPE) ":hide");  // debatable.
     BABLM(BABL_SPLIT_FRAME_HORIZONTAL, SS_TAP(X_ESCAPE) ":vsplit");
     BABLM(BABL_UNSPLIT_FRAME_HORIZONTAL, SS_TAP(X_ESCAPE) ":hide");
-    BABLM(BABL_NEXT_FRAME, SS_LCTRL("w") "w");
-    BABLM(BABL_PREV_FRAME, SS_LCTRL("w") SS_LSFT("w"));
+    BABLM(BABL_NEXT_FRAME, SS_LCTL("w") "w");
+    BABLM(BABL_PREV_FRAME, SS_LCTL("w") SS_LSFT("w"));
 #            endif
 #        endif  // app
     // Todo, ring bell, flash light, show user this isn't supported

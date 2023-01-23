@@ -91,5 +91,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* redefine available (emulated) EEPROM as 4 kB rather than the default 1 kB to let VIA use more of the 8 kB of on-chip Flash of the STM32F303 to store 4 layers (since 4 layers * 8 rows * 16 columns * 2 = 1024 bytes but the default max available is 1023 bytes due to ATMEGA32U4 etc. only having 1 kB of EEPROM) */
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
+/* redefine available (emulated) EEPROM as 4 kB rather than the default 2 kB to let VIA use more of the on-chip Flash of the STM32F303 to store 4 layers (since 4 layers * 8 rows * 16 columns * 2 = 1024 bytes but the default max available is 1023 bytes due to ATMEGA32U4 etc. only having 1 kB of EEPROM) */
+#define WEAR_LEVELING_BACKING_SIZE 4096
+#define WEAR_LEVELING_LOGICAL_SIZE 2048

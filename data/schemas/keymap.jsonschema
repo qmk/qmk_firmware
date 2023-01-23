@@ -5,6 +5,10 @@
     "type": "object",
     "properties": {
         "author": {"type": "string"},
+        "converter": {
+            "type": "string",
+            "enum": ["elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "bit_c_pro", "stemcell", "bonsai_c4"]
+        },
         "host_language": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},

@@ -25,8 +25,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_ESC, DK_1   , DK_2    , DK_3   , DK_4    , DK_5  , DK_6  , DK_7  , DK_8   , DK_9   , DK_0   , DK_PLUS, KC_BSPC ,
        KC_TAB, DK_Q   , DK_W    , DK_E   , DK_R    , DK_T  , DK_Y  , DK_U  , DK_I   , DK_O   , DK_P   , DK_ARNG, DK_DIAE ,
       DK_QUOT, DK_A   , DK_S    , DK_D   , DK_F    , DK_G  , DK_H  , DK_J  , DK_K   , DK_L   , DK_AE  , DK_OSTR, KC_ENT  ,
-      KC_LSPO, DK_LABK, DK_Z    , DK_X   , DK_C    , DK_V  , DK_B  , DK_N  , DK_M   , DK_COMM, DK_DOT , KC_UP  , DK_MINS ,
-      KC_LCTL, KC_LGUI, TT(_LWR), KC_LALT, TT(_RSE), KC_SPC, KC_SPC, KC_SPC, KC_RALT, KC_RSPC, KC_LEFT, KC_DOWN, KC_RGHT),
+      SC_LSPO, DK_LABK, DK_Z    , DK_X   , DK_C    , DK_V  , DK_B  , DK_N  , DK_M   , DK_COMM, DK_DOT , KC_UP  , DK_MINS ,
+      KC_LCTL, KC_LGUI, TT(_LWR), KC_LALT, TT(_RSE), KC_SPC, KC_SPC, KC_SPC, KC_RALT, SC_RSPC, KC_LEFT, KC_DOWN, KC_RGHT),
 
   [_LWR] = LAYOUT_ortho_5x13(
        DK_HALF, KC_MUTE, KC_VOLU, KC_VOLD, KC_MPRV, KC_MPLY, KC_MNXT, G(KC_P), KC_SLEP, KC_WAKE, KC_PSCR, KC_DEL , DK_ACUT  ,

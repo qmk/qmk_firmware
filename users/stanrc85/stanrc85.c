@@ -22,13 +22,13 @@ void ctl_copy_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
-      SEND_STRING(SS_LCTRL("c"));
+      SEND_STRING(SS_LCTL("c"));
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_RCTL));
       break;
     case DOUBLE_TAP:
-      SEND_STRING(SS_LCTRL("v"));
+      SEND_STRING(SS_LCTL("v"));
   }
 }
 

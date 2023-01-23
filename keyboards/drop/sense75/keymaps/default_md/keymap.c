@@ -107,7 +107,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(62, RGB_WHITE);
     } else if ((rgb_matrix_get_flags() & (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR)) == 0) {
@@ -133,4 +133,5 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(55, RGB_OFF);
         rgb_matrix_set_color(59, RGB_OFF);
     }
+    return false;
 }

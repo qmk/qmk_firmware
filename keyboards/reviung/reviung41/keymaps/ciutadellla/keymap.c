@@ -133,7 +133,7 @@
 
 
  void matrix_init_user(){
-     set_unicode_input_mode(UC_MAC);
+     set_unicode_input_mode(UNICODE_MODE_MACOS);
  }
 
 
@@ -229,7 +229,7 @@
             // [_RAISE] = LAYOUT_reviung41(
      //     KC_TRNS, KC_P1, KC_P2, KC_P3, KC_P4, KC_P5,                 KC_P6, KC_P7, KC_P8, KC_P9, KC_P0, KC_DEL,
      //     KC_TRNS, KC_LPRN, KC_RPRN, KC_LT, KC_GT, KC_AMPR,           KC_PMNS, KC_PPLS, KC_HASH, KC_PERC, KC_COLN, KC_PEQL,
-     //     KC_TRNS, KC_LCBR, KC_RCBR, KC_SLSH, KC_RO, KC_PIPE,         KC_PSLS, KC_PAST, KC_PCMM, KC_PDOT, KC_HASH, KC_PENT,
+     //     KC_TRNS, KC_LCBR, KC_RCBR, KC_SLSH, KC_INT1, KC_PIPE,       KC_PSLS, KC_PAST, KC_PCMM, KC_PDOT, KC_HASH, KC_PENT,
      //                                     KC_TRNS, MO(3), KC_BSPC, KC_TRNS, KC_TRNS
      // ),
 
