@@ -25,10 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _LOWER 2
 #define _BLANK 3
 
-#define SFT_ESC  SFT_T(KC_ESC)
+#define SFT_ESC SFT_T(KC_ESC)
 #define CTL_BSPC CTL_T(KC_BSPC)
-#define ALT_SPC  ALT_T(KC_SPC)
-#define SFT_ENT  SFT_T(KC_ENT)
+#define ALT_SPC ALT_T(KC_SPC)
+#define SFT_ENT SFT_T(KC_ENT)
 
 #define KC_ML KC_MS_LEFT
 #define KC_MR KC_MS_RIGHT
@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (qwerty)
      * +-----------------------------------------+                             +-----------------------------------------+
@@ -101,6 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______,             _______, _______
     )
 };
+//clang-format on
 
 void persistent_default_layer_set(uint16_t default_layer) {
     eeconfig_update_default_layer(default_layer);
