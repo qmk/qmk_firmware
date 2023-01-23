@@ -15,8 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
-#define KM_QWERTY  0
-#define KM_MEDIA   1
+enum custom_layers {
+    KM_QWERTY,
+    M_MEDIA,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Layer 0: Standard ISO layer */
