@@ -16,7 +16,7 @@ The original design and release of Leeloo.
 
 # Sample Build Commands for Leeloo v1 and v2
 
-After setting up the build environment, consider the following Make commands:
+Make example for this keyboard (after setting up your build environment):
 
     make clickety_split/leeloo/rev1:default
     make clickety_split/leeloo/rev2:default
