@@ -16,3 +16,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,        _______, _______,                            _______,                   _______, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
     )
 };
+
+
+#ifdef RGB_MATRIX_ENABLE
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    uint8_t  layer = get_highest_layer(state);
+    if ((layer > 0) && (layer < 10)) { //Only works for layers 1 - 9 where 0 would be the default layer
+        rgb_matrix_set_color(layer, 0xFF, 0xFF, 0xFF);  //Set the coresponding backlight in the number row on to show layer number
+    }
+    return state;
+}
+#endif
