@@ -65,6 +65,12 @@
 #ifndef POINTING_DRAG_DIVISOR
 #    define POINTING_DRAG_DIVISOR 4
 #endif
+#ifndef POINTING_DRAG_DIVISOR_H
+#    define POINTING_DRAG_DIVISOR_H POINTING_DRAG_DIVISOR
+#endif
+#ifndef POINTING_DRAG_DIVISOR_V
+#    define POINTING_DRAG_DIVISOR_V POINTING_DRAG_DIVISOR
+#endif
 
 /* error checking */
 #if (POINTING_DEFAULT_DIVISOR == 0)
@@ -83,17 +89,17 @@
 #define POINTING_MODE_TG (POINTING_MODE_MO_MAX + 1)
 #define POINTING_MODE_TG_MAX QK_POINTING_MODE_MAX
 
-/* enum of directions */
-enum { PD_DOWN = 0, PD_UP, PD_LEFT, PD_RIGHT };
+/* enum typedefs */
+typedef enum { PD_DOWN = 0, PD_UP, PD_LEFT, PD_RIGHT } pointing_direction_t;
 
 /* local data structures */
 /* pointing mode structure for tracking mode data */
 typedef struct {
-    uint8_t id;
-    uint8_t divisor;
-    uint8_t direction;
-    int16_t x;
-    int16_t y;
+    uint8_t              id;
+    uint8_t              divisor;
+    pointing_direction_t direction;
+    int16_t              x;
+    int16_t              y;
 } pointing_mode_t;
 
 /* context structure to track additional data */
@@ -121,9 +127,13 @@ void pointing_mode_key_momentary(uint8_t mode_id, keyrecord_t* record); // momen
 void pointing_mode_key_toggle(uint8_t mode_id, keyrecord_t* record);    // toggle pointing mode on/off on keypress
 
 /* ----------For custom pointing modes---------------------------------------------------------------------------- */
-void set_pointing_mode(pointing_mode_t pointing_mode);                                          // overwrite local pointing_mode status
-void pointing_mode_update(void);                                                                // update direction & divisor from current mode id, h, v
-void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right); // turn h/v axis values into keycode taps
+void              set_pointing_mode(pointing_mode_t pointing_mode);                                          // overwrite local pointing_mode status
+void              pointing_mode_update(void);                                                                // update direction & divisor from current mode id, x, y
+mouse_xy_report_t apply_divisor_xy(int16_t value);                                                           // divide value by current divisor and limit value to x/y range
+int8_t            apply_divisor_hv(int16_t value);                                                           // divide value by current divisor and limit value to h/v range
+int16_t           multiply_divisor_xy(mouse_xy_report_t value);                                              // multiply mouse x/y value by current divisor
+int16_t           multiply_divisor_hv(int8_t value);                                                         // multiply mouse h/v value by current divisor
+void              pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right); // turn pointing_mode x/y values into keycode taps
 
 /* ----------For multiple pointing devices------------------------------------------------------------------------ */
 #if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
@@ -132,27 +142,24 @@ void pointing_mode_switch_hands(void); // change witch hand is active on pointin
 #endif
 
 /* ----------Callbacks for modifying and adding pointing modes---------------------------------------------------- */
-bool process_pointing_mode_kb(pointing_mode_t pointing_mode, report_mouse_t* mouse_report);
-bool process_pointing_mode_user(pointing_mode_t pointing_mode, report_mouse_t* mouse_report);
+bool process_pointing_mode_kb(pointing_mode_t pointing_mode, report_mouse_t* mouse_report);   // keyboard level
+bool process_pointing_mode_user(pointing_mode_t pointing_mode, report_mouse_t* mouse_report); // user/keymap level
 
-/* ----------Callbacks for adding pointing device mode divisors--------------------------------------------------- */
-uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction);
-uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction);
+/* ----------Callbacks for adding/modifying pointing device mode divisors----------------------------------------- */
+uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, pointing_direction_t direction);   // adding divisors at keyboard level
+uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, pointing_direction_t direction); // adding divisors at user/keymap level
+uint8_t pointing_mode_divisor_postprocess_kb(uint8_t divisor);                           // modifying divisors at keyboard level
+uint8_t pointing_mode_divisor_postprocess_user(uint8_t divisor);                         // modifying divisors at user/keymap level
+void    pointing_mode_divisor_override(uint8_t divisor);                                 // Override current divisor until next update
 
 /* ----------Core functions (only used in custom pointing devices or key processing)------------------------------ */
 report_mouse_t pointing_device_modes_task(report_mouse_t mouse_report);                // intercepts mouse_report (in pointing_device_task_* stack)
 bool           process_pointing_mode_records(uint16_t keyrecord, keyrecord_t* record); // handle processing of built in keyrecords (in process_record stack)
 
 /* ----------Pointing Device mode Mapping------------------------------------------------------------------------- */
-#ifndef POINTING_MODE_MAP_COUNT
+#if (!defined(POINTING_MODE_MAP_COUNT) || POINTING_MODE_MAP_COUNT <= 0)
 #    define POINTING_MODE_MAP_COUNT 0
-#endif
-#if (POINTING_MODE_MAP_COUNT > 0)
-#    ifndef EXTRAKEY_ENABLE
-#        define POINTING_MODE_MAP_START PM_VOLUME
-#    else
-#        define POINTING_MODE_MAP_START PM_SAFE_RANGE
-#    endif
+#else
 #    define POINTING_MODE_LAYOUT(Y_POS, X_NEG, X_POS, Y_NEG) \
         { X_NEG, Y_NEG, Y_POS, X_POS }
 

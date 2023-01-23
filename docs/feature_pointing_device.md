@@ -797,25 +797,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ### Settings
 | Define                           | Description                                                                                        |  Range  |     Units    |                        Default |
 | -------------------------------- | -------------------------------------------------------------------------------------------------- | :-----: | :----------: | -----------------------------: |
-| `POINTING_DEVICE_MODES_ENABLE`   | Enables pointing device pointing device modes feature                                              |  `NA`   |    `None`    |                  _Not defined_ |
-| `POINTING_DEVICE_MODES_INVERT_X` | Inverts stored y axis accumulation (affects all modes)                                             |  `NA`   |    `None`    |                  _Not defined_ |
-| `POINTING_DEVICE_MODES_INVERT_Y` | Inverts stored x axis accumulation (affects all modes)                                             |  `NA`   |    `None`    |                  _Not defined_ |
-| `POINTING_MODE_DEFAULT`          | Default pointing device mode                                                                       | `0-255` |    `None`    |                      `PM_NONE` |
-| `POINTING_TAP_DELAY`             | Delay between key presses in `pointing_tap_codes` in ms                                            | `0-255` |     `ms`     |                            `0` |
-| `POINTING_MODE_MAP_COUNT`        | Number of modes defined in `pointing_device_mode_maps`                                             | `0-255` |    `None`    |                            `0` |
-| `POINTING_MODE_MAP_START`        | Starting mode id of pointing device mode maps                                                      | `1-255` |    `None`    | `PM_SAFE_RANGE` or `PM_VOLUME` |
-| `POINTING_DEFAULT_DIVISOR`       | Default divisor for all modes that do not have a defined divisor                                   | `1-255` |   `Varies`   |                           `64` |
-| `POINTING_HISTORY_DIVISOR`       | Accumulated stored x/y per key tap in `PM_HISTORY` mode                                            | `1-255` | `(x\|y)/tap` |                           `64` |
-| `POINTING_VOLUME_DIVISOR`        | Accumulated stored x/y per key tap in `PM_VOLUME` mode                                             | `1-255` | `(x\|y)/tap` |                           `64` |
-| `POINTING_CARET_DIVISOR`         | Accumulated stored x/y per key tap in `PM_CARET` mode                                              | `1-255` | `(x\|y)/tap` |                           `32` |
-| `POINTING_CARET_DIVISOR_V`       | x value per left/right tap in `PM_CARET`(_overrides_ `POINTING_CARET_DIVISOR` _Recommended:_ `32`) | `1-255` |   `(y)/tap`  |       `POINTING_CARET_DIVISOR` |
-| `POINTING_CARET_DIVISOR_H`       | y value per up/down tap in `PM_CARET`(_overrides_ `POINTING_CARET_DIVISOR` _Recommended:_ `16`)    | `1-255` |   `(x)/tap`  |       `POINTING_CARET_DIVISOR` |
-| `POINTING_PRECISION_DIVISOR`     | Pointing device x/y movement per output x/y in `PM_PRECISION` mode                                 | `1-255` | `(x\|y)/dot` |                            `2` |
-| `POINTING_DRAG_DIVISOR`          | Pointing device x/y movement per h/v axis tick in `PM_DRAG` mode                                   | `1-255` | `(x\|y)/dot` |                            `4` |
+| `POINTING_DEVICE_MODES_ENABLE`   | (Required) Enables pointing device pointing device modes feature                                   |  `NA`   |    `None`    |                  _Not defined_ |
+| `POINTING_DEVICE_MODES_INVERT_X` | (optional) Inverts stored y axis accumulation (affects all modes)                                  |  `NA`   |    `None`    |                  _Not defined_ |
+| `POINTING_DEVICE_MODES_INVERT_Y` | (optional) Inverts stored x axis accumulation (affects all modes)                                  |  `NA`   |    `None`    |                  _Not defined_ |
+| `POINTING_DEVICE_MODES_FASTCALC` | (optional) Enables fast calculations for division operations limiting divisors to base 2           |  `NA`   |    `None`    |                  _Not defined_ |
+| `POINTING_MODE_DEFAULT`          | (optional) Default pointing device mode                                                            | `0-255` |    `None`    |                      `PM_NONE` |
+| `POINTING_TAP_DELAY`             | (optional) Delay between key presses in `pointing_tap_codes` in ms                                 | `0-255` |     `ms`     |                            `0` |
+| `POINTING_MODE_MAP_COUNT`        | (optional) Number of modes defined in `pointing_device_mode_maps`                                  | `0-255` |    `None`    |                            `0` |
+| `POINTING_DEFAULT_DIVISOR`       | (optional) Default divisor for all modes that do not have a defined divisor                        | `1-255` |   `Varies`   |                           `64` |
+| `POINTING_HISTORY_DIVISOR`       | (optional) Accumulated stored x/y per key tap in `PM_HISTORY` mode                                 | `1-255` | `(x\|y)/tap` |                           `64` |
+| `POINTING_VOLUME_DIVISOR`        | (optional) Accumulated stored x/y per key tap in `PM_VOLUME` mode                                  | `1-255` | `(x\|y)/tap` |                           `64` |
+| `POINTING_CARET_DIVISOR`         | (optional) Accumulated stored x/y per key tap in `PM_CARET` mode                                   | `1-255` | `(x\|y)/tap` |                           `32` |
+| `POINTING_CARET_DIVISOR_V`       | (optional) x input per left/right tap in `PM_CARET`(_overrides_ `POINTING_CARET_DIVISOR`)          | `1-255` |   `(y)/tap`  |       `POINTING_CARET_DIVISOR` |
+| `POINTING_CARET_DIVISOR_H`       | (optional) y input per up/down tap in `PM_CARET`(_overrides_ `POINTING_CARET_DIVISOR`)             | `1-255` |   `(x)/tap`  |       `POINTING_CARET_DIVISOR` |
+| `POINTING_PRECISION_DIVISOR`     | (optional) Pointing device x/y movement per output x/y in `PM_PRECISION` mode                      | `1-255` | `(x\|y)/dot` |                            `2` |
+| `POINTING_DRAG_DIVISOR`          | (optional) Pointing device x/y movement per h/v axis tick in `PM_DRAG` mode                        | `1-255` | `(x\|y)/dot` |                            `4` |
+| `POINTING_DRAG_DIVISOR_V`        | (optional) y input per v axis tick in `PM_DRAG`(_overrides_ `POINTING_DRAG_DIVISOR`)               | `1-255` |   `(y)/dot`  |        `POINTING_DRAG_DIVISOR` |
+| `POINTING_DRAG_DIVISOR_H`        | (optional) x input per h axis tick in `PM_DRAG`(_overrides_ `POINTING_DRAG_DIVISOR`)               | `1-255` |   `(x)/dot`  |        `POINTING_DRAG_DIVISOR` |
    
 ***Notes:***  
-1. `POINTING_MODE_MAP_START` will be `PM_SAFE_RANGE` by default if `EXTRAKEY_ENABLED` is defined and will start at `PM_VOLUME` if `EXTRAKEY_ENABLED` is not defined.
-2. it is recommended that generally powers of 2 are used for divisors **(e.g. 1, 2, 4, 8, 16, 32, 64, 128*)** as they should optimize better (_less code space and faster to compute_), but **any positive integer of 255 or less** will work.   
+1. `POINTING_DEVICE_MODES_FASTCALC` will force all divisors to powers of two but will enable fast calculation of division.
+2. it is recommended that generally powers of 2 are used for divisors **(e.g. 1, 2, 4, 8, 16, 32, 64, 128*)**  and using `POINTING_DEVICE_MODES_FASTCALC` as will optimize better, but as long as `POINTING_DEVICE_MODES_FASTCALC` is not used **any positive integer of 255 or less** will work.   
 3. Drag scroll speed will be effected by OS mouse settings (_there are usually separate settings for scroll "wheel" and "wheel tilt"_)   
     - The `POINTING_DRAG_DIVISOR` default value of 8 is based on having mouse settings in the OS set to one line per tick of "mouse wheel" or "wheel tilt" (_the minimum_)   
 4. `POINTING_PRECISION_DIVISOR` default will half cursor speed when active (_divisor of 2_) but a divisor of 4 is fine to use as well but the cursor will be quite a bit slower, however divisors of 8 or greater will likely only work well for high cpi settings.
@@ -913,13 +915,14 @@ For most keycode tapping modes a divisor of `64` works well, which is the defaul
 ***NOTE: if checking `pointing_mode.direction` or `direction` is on either the x or y axis using `direction < PD_LEFT` could be used to return true for the y axis and false for the x axis respectively (see example below)***
    
 #### Callbacks to set pointing device mode divisors
-The following callbacks can be used to overwrite built in mode divisors or to set divisors for new modes. The `get_pointing_mode_divisor` stacks works by checking the functions until a non zero value is reached in order of `user`->`kb`->`built in`->`default_value`.  Returning a divisor of `0` will allow processing to continue on to the next function, However this means that if any of the callback returns a default value other than 0 then that will overwrite the divisors for all modes not defined in the callback functions (such as built in modes).  This allows for overriding built in divisors by users/keymaps and keyboards and overriding keyboard level divisors by users/keymaps so it is possible to give built in modes the same level of divisor customization as new custom modes.
+The following callbacks can be used to overwrite built in mode divisors or to set divisors for new modes. The `get_pointing_mode_divisor` stacks works by checking the functions until a non zero value is reached in order of `user`->`kb`->`built in`->`default_value`.  Returning a divisor of `0` will allow processing to continue on to the next stage, However this means that if any of the get divisor callback functions return a default value other than 0 then that will overwrite all subsequent divisors(such as built in modes).  These functions allows for overriding and modifying built in divisors by users/keymaps and keyboards and overriding keyboard level divisors by users/keymaps so it is possible to give built in modes the same level of divisor customization as new custom modes.
 
-| Callback                                                                      | Description                                                               |
-| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction);`   | Keyboard level callback for setting divisor based on mode id an direction |
-| `uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction);` | Keymap/user level callback for setting divisor                            |
-
+| Callback                                                                              | Description                                                               |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction);`           | Keyboard level callback for setting divisor based on mode id an direction |
+| `uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction);`         | Keymap/user level callback for setting divisor                            |
+| `uint8_t pointing_mode_divisor_postprocess_kb(uint8_t mode_id, uint8_t direction);`   | keyboard level callback for modifying all divisors before being updated   |
+| `uint8_t pointing_mode_divisor_postprocess_user(uint8_t mode_id, uint8_t direction);` | Keymap/user level callback for modifying all divisors                     |
  
 #### Example code of assigning divisors for new modes
 ```c
@@ -1160,11 +1163,17 @@ These callbacks work similar to keycode processing callbacks in that returning f
    
 There are several functions available to assist with the creation of custom modes.  These allow for setting the internal `pointing_mode` values with any changes that have been made, as well as updating divisor and direction after changes.
 
-| Function                                                                                    | Description                                                                                     | Return type |
-| :------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------- | :---------: |
-| `set_pointing_mode(pointing_mode_t pointing_mode)`                                          | Set stored pointing mode state to `pointing_mode`                                               |   _None_    |
-| `pointing_mode_update(void)`                                                                | Update stored direction and divisor based on current mode id and h/v values                     |   _None_    |
-| `pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right)` | Convert stored h/v axis value to key taps depending on direction, 1 key tap per current divisor |   _None_    |
+| Function                                                                                    | Description                                                                                     |  Return type |
+| :------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------- | :----------: |
+| `set_pointing_mode(pointing_mode_t pointing_mode)`                                          | Set stored pointing mode state to `pointing_mode`                                               |    _None_    |
+| `pointing_mode_update(void)`                                                                | Update stored direction and divisor based on current mode id and h/v values                     |    _None_    |
+| `pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right)` | Convert stored h/v axis value to key taps depending on direction, 1 key tap per current divisor |    _None_    |
+| `apply_divisor_xy(int16_t value)`                                                           | divides value by the current divisor clamped to mouse cursor output                             | `mouse_xy_t` |
+| `apply_divisor_hv(int16_t value)`                                                           | divides value by the current divisor clamped to mouse scroll output                             |   `int8_t`   |
+| `multiply_divisor_xy(mouse_xy_report_t value)`                                              | multiplies cursor value by the current divisor clamped to `int16_t` (_to collect the residual_) |   `int16_t`  |
+| `multiply_divisor_hv(int8_t value)`                                                         | multiplies scroll value by the current divisor clamped to `int16_t` (_to collect the residual_) |   `int16_t`  |
+| `multiply_divisor_hv(int8_t value)`                                                         | multiplies scroll value by the current divisor clamped to `int16_t` (_to collect the residual_) |   `int16_t`  |
+  
      
 #### Creating modes using callback functions:
 ```c
@@ -1207,7 +1216,7 @@ uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction) {
     return 0; // continue processing
 }
 
-#define CONSTRAIN_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))
+#define CONSTRAIN_XY(value) (value > REPORT_XY_MAX? REPORT_XY_MAX : value < REPORT_XY_MIN? REPORT_XY_MIN : value)
 
 bool process_pointing_mode_kb(pointing_mode_t pointing_mode, report_mouse_t* mouse_report) {
     switch(pointing_mode.id){
@@ -1221,24 +1230,29 @@ bool process_pointing_mode_kb(pointing_mode_t pointing_mode, report_mouse_t* mou
         
         // Manipulating pointing_mode & mouse_report (cursor speed boost mode example)
         case PM_CUR_ACCEL:
-            // reset mouse_report note tha mouse_report is a pointer in this function's context
+            // reset mouse_report note that mouse_report is a pointer in this function's context
             *mouse_report = pointing_device_get_report();
+            // set up temp variable and context
+            {
+                // add linear boost to cursor x speed
+                mouse_xy_report_t temp_mouse_axis = apply_divisor_xy(pointing_mode.x);
 #ifdef POINTING_DEVICE_INVERT_H
-            // add linear boost to cursor x speed
-            mouse_report->x = CONSTRAIN_XY(mouse_report->x - pointing_mode.x / pointing_mode.divisor);
+                mouse_report->x = CONSTRAIN_XY(mouse_report->x - temp_mouse_axis);
 #else
-            mouse_report->x = CONSTRAIN_XY(mouse_report->x + pointing_mode.x / pointing_mode.divisor);
+                mouse_report->x = CONSTRAIN_XY(mouse_report->x + temp_mouse_axis);
 #endif
-            // collect residuals
-            pointing_mode.x = 0;
-            // add linear boost to cursor y speed
+                // collect residuals
+                pointing_mode.x -= multiply_divisor_xy(temp_mouse_axis);
+                // add linear boost to cursor y speed
+                temp_mouse_axis = apply_divisor_xy(pointing_mode.y);
 #ifdef POINTING_DEVICE_INVERT_V
-            mouse_report->y = CONSTRAIN_XY(mouse_report->y - pointing_mode.y / pointing_mode.divisor);
+                mouse_report->y = CONSTRAIN_XY(mouse_report->y - apply_divisor_xy(pointing_mode.y));
 #else
-            mouse_report->y = CONSTRAIN_XY(mouse_report->y + pointing_mode.y / pointing_mode.divisor);
+                mouse_report->y = CONSTRAIN_XY(mouse_report->y + apply_divisor_xy(pointing_mode.y));
 #endif
-            // collect residuals
-            pointing_mode.y = 0;
+                // collect residuals
+                pointing_mode.y -= multiply_divisor_xy(temp_mouse_axis);
+            }
             // update pointing_mode with residual stored x & y
             set_pointing_mode(pointing_mode);
             // NOTE: mouse_report does not need to be set or sent here as it will be carried forward

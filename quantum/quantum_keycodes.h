@@ -231,13 +231,17 @@
 // Default Pointing device pointing modes
 enum pointing_device_mode_list {
     PM_NONE,
-    PM_DRAG,
     PM_PRECISION,
+    PM_DRAG,
     PM_CARET,
     PM_HISTORY,
     PM_VOLUME,
-    // safe range for custom modes with built in keycodes
+// safe range for custom modes with built in keycodes
+#ifndef EXTRAKEY_ENABLE
+    PM_SAFE_RANGE = PM_VOLUME,
+#else
     PM_SAFE_RANGE,
+#endif
     // safe range for custom modes requiring custom activation/new keycodes
     PM_SAFE_RANGE_ADV = QK_POINTING_MODE_MAX - QK_POINTING_MODE + 1
 };
