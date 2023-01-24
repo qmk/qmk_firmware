@@ -1073,21 +1073,21 @@ There are a number of functions allowing access and control of different aspects
 ### `pointing_mode_t` structure
 The current active pointing mode is controlled by tracking an internal `pointing_mode_t` data structure. The `pointing_mode.direction`, and `pointing_mode.divisor` variables are updated immediately after `pointing_mode.x`, and `pointing_mode.y` at the start of the pointing device modes process before the callback functions are called.  Therefore if the `h`,`v`, or `mode_id` are modified and it is desired to have the direction and divisor reflect the changes they will need to be updated by calling `pointing_mode_update()`.  A few other variables are tracked outside of the pointing mode structure and there are specialized functions to access/modify them. all of these variables are cleared on mode changes/resets (_mode id will be set to tg_mode_id_)
 
-| Variable                  | Description                               | Data type  | Functions to access/modify                      |
-| :------------------------ | :---------------------------------------- | :--------: | :---------------------------------------------- |
-| `pointing_mode.id`        | Id number of current active mode          | `uint8_t`  | `get_pointing_mode_id`, `set_pointing_mode_id`  |
-| `pointing_mode.divisor`   | Divisor of current mode id and direction  | `uint8_t`  | 
-| `pointing_mode.direction` | Direction based on stored x and y values  | `uint8_t`  |
-| `pointing_mode.x`         | Stored horizontal axis value              | `uint16_t` |
-| `pointing_mode.y`         | Stored vertical axis value                | `uint16_t` |
+| Variable                  | Description                               | Data type  | Functions to access/modify outside of mode processing                  |
+| :------------------------ | :---------------------------------------- | :--------: | :--------------------------------------------------------------------- |
+| `pointing_mode.id`        | Id number of current active mode          | `uint8_t`  | `get_pointing_mode_id`, `set_pointing_mode_id`                         |
+| `pointing_mode.divisor`   | Divisor of current mode id and direction  | `uint8_t`  | `get_pointing_mode_divisor_*`, `pointing_mode_divisor_postprocess_*`   |
+| `pointing_mode.direction` | Direction based on stored x and y values  | `uint8_t`  | _Available in_ `get_pointing_mode_divisor_*`                           |
+| `pointing_mode.x`         | Stored horizontal axis value              | `uint16_t` | _None_                                                                 |
+| `pointing_mode.y`         | Stored vertical axis value                | `uint16_t` | _None_                                                                 |
    
 ### Other tracked variables (Not directly accessible use functions)   
 These variables are tracked outside of the `pointing_mode_t` structure as they are not cleared on mode reset/change.
 
-|   Variable   | Description                                                     | Data type  | Functions 
-| :----------: | :-------------------------------------------------------------- | :--------: |
-| `tg_mode_id` | Mode id of last active toggle mode                              | `uint8_t`  |
-|  `is_left`   | if mode is on left pointing device (see split pointing below)   |   `bool`   |
+|   Variable   | Description                                                                                                 | Data type  | Access/Control Functions                                  |
+| :----------: | :---------------------------------------------------------------------------------------------------------- | :--------: | --------------------------------------------------------- |
+| `tg_mode_id` | Mode id of last active toggle mode                                                                          | `uint8_t`  | `toggle_pointing_mode_id`, `get_toggled_pointing_mode_id` |
+|  `is_left`   | if mode is on left pointing device (see [split-pointing](#Functions-when-using-two-pointing-devices) below) |   `bool`   | `is_pointing_mode_on_left`, `pointing_mode_switch_hands`  |
   
 ***NOTE: `is_left` is only available when `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED` are both defined***
 
