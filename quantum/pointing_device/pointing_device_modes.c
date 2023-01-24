@@ -244,7 +244,7 @@ static uint8_t divisor_postprocess(uint8_t divisor) {
 static uint8_t get_pointing_mode_divisor(void) {
     // allow for user and keyboard overrides
     uint8_t divisor = 0;
-    
+
     divisor = get_pointing_mode_divisor_user(get_pointing_mode_id(), pointing_mode_context.mode.direction);
     if (!divisor) {
         divisor = get_pointing_mode_divisor_kb(get_pointing_mode_id(), pointing_mode_context.mode.direction);

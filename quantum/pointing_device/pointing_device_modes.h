@@ -148,9 +148,9 @@ bool process_pointing_mode_user(pointing_mode_t pointing_mode, report_mouse_t* m
 /* ----------Callbacks for adding/modifying pointing device mode divisors----------------------------------------- */
 uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction);   // adding divisors at keyboard level
 uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction); // adding divisors at user/keymap level
-uint8_t pointing_mode_divisor_postprocess_kb(uint8_t divisor);                           // modifying divisors at keyboard level
-uint8_t pointing_mode_divisor_postprocess_user(uint8_t divisor);                         // modifying divisors at user/keymap level
-void    pointing_mode_divisor_override(uint8_t divisor);                                 // Override current divisor until next update
+uint8_t pointing_mode_divisor_postprocess_kb(uint8_t divisor);              // modifying divisors at keyboard level
+uint8_t pointing_mode_divisor_postprocess_user(uint8_t divisor);            // modifying divisors at user/keymap level
+void    pointing_mode_divisor_override(uint8_t divisor);                    // Override current divisor until next update
 
 /* ----------Core functions (only used in custom pointing devices or key processing)------------------------------ */
 report_mouse_t pointing_device_modes_task(report_mouse_t mouse_report);                // intercepts mouse_report (in pointing_device_task_* stack)
