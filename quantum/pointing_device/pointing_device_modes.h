@@ -134,9 +134,9 @@ void pointing_mode_key_toggle(uint8_t mode_id, keyrecord_t* record);    // toggl
 void              set_pointing_mode(pointing_mode_t pointing_mode);                                          // overwrite local pointing_mode status
 void              pointing_mode_update(void);                                                                // update direction & divisor from current mode id, x, y
 mouse_xy_report_t apply_divisor_xy(int16_t value);                                                           // divide value by current divisor and limit value to x/y range
-int8_t            apply_divisor_hv(int16_t value);                                                           // divide value by current divisor and limit value to h/v range
+mouse_hv_report_t apply_divisor_hv(int16_t value);                                                           // divide value by current divisor and limit value to h/v range
 int16_t           multiply_divisor_xy(mouse_xy_report_t value);                                              // multiply mouse x/y value by current divisor
-int16_t           multiply_divisor_hv(int8_t value);                                                         // multiply mouse h/v value by current divisor
+int16_t           multiply_divisor_hv(mouse_hv_report_t value);                                              // multiply mouse h/v value by current divisor
 void              pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right); // turn pointing_mode x/y values into keycode taps
 
 /* ----------For multiple pointing devices------------------------------------------------------------------------ */
