@@ -1085,9 +1085,9 @@ The current active pointing mode is controlled by tracking an internal `pointing
 These variables are tracked outside of the `pointing_mode_t` structure as they are not cleared on mode reset/change.
 
 |   Variable   | Description                                                                                                 | Data type  | Access/Control Functions                                  |
-| :----------: | :---------------------------------------------------------------------------------------------------------- | :--------: | --------------------------------------------------------- |
-| `tg_mode_id` | Mode id of last active toggle mode                                                                          | `uint8_t`  | `toggle_pointing_mode_id`, `get_toggled_pointing_mode_id` |
-|  `is_left`   | if mode is on left pointing device (see [split-pointing](#Functions-when-using-two-pointing-devices) below) |   `bool`   | `is_pointing_mode_on_left`, `pointing_mode_switch_hands`  |
+| :----------: | :------------------------------------------------------------------------------------------ | :--------: | --------------------------------------------------------- |
+| `tg_mode_id` | Mode id of last active toggle mode                                                          | `uint8_t`  | `toggle_pointing_mode_id`, `get_toggled_pointing_mode_id` |
+|  `is_left`   | if mode is on left pointing device (see [split-pointing](#multiple-pointing-devices) below) |   `bool`   | `is_pointing_mode_on_left`, `pointing_mode_switch_hands`  |
   
 ***NOTE: `is_left` is only available when `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED` are both defined***
 
@@ -1311,7 +1311,7 @@ Also there is an ability to modify how pointing device output is converted to st
 -***Additional Note: `pointing_modes_axes_conv` does not need to be overwritten to avoid clearing pointing device x/y***   
 -***!Warning!: changes made to `pointing_mode` within `pointing_modes_axes_conv` must be saved by calling `set_pointing_mode(pointing_mode)` before returning the updated `mouse_report`***
    
-## Multiple pointing devices
+## Multiple Pointing Devices
 If both `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED` are defined then the pointing device modes will use the input from either left or right pointing devices which can set at compile time with `POINTING_MODES_LEFT` and switched at run time using `pointing_mode_switch_hands()`.  Currently pointing device modes does not support control of multiple pointing devices simultaneously, so only one device will be affected by the current active mode with the other giving default output.
 
 #### Relevant Settings
