@@ -90,16 +90,16 @@
 #define POINTING_MODE_TG_MAX QK_POINTING_MODE_MAX
 
 /* enum typedefs */
-typedef enum { PD_DOWN = 0, PD_UP, PD_LEFT, PD_RIGHT } pointing_direction_t;
+enum pointing_device_directions { PD_DOWN = 0, PD_UP, PD_LEFT, PD_RIGHT };
 
 /* local data structures */
 /* pointing mode structure for tracking mode data */
 typedef struct {
-    uint8_t              id;
-    uint8_t              divisor;
-    pointing_direction_t direction;
-    int16_t              x;
-    int16_t              y;
+    uint8_t id;
+    uint8_t divisor;
+    uint8_t direction;
+    int16_t x;
+    int16_t y;
 } pointing_mode_t;
 
 /* context structure to track additional data */
@@ -146,8 +146,8 @@ bool process_pointing_mode_kb(pointing_mode_t pointing_mode, report_mouse_t* mou
 bool process_pointing_mode_user(pointing_mode_t pointing_mode, report_mouse_t* mouse_report); // user/keymap level
 
 /* ----------Callbacks for adding/modifying pointing device mode divisors----------------------------------------- */
-uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, pointing_direction_t direction);   // adding divisors at keyboard level
-uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, pointing_direction_t direction); // adding divisors at user/keymap level
+uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction);   // adding divisors at keyboard level
+uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction); // adding divisors at user/keymap level
 uint8_t pointing_mode_divisor_postprocess_kb(uint8_t divisor);                           // modifying divisors at keyboard level
 uint8_t pointing_mode_divisor_postprocess_user(uint8_t divisor);                         // modifying divisors at user/keymap level
 void    pointing_mode_divisor_override(uint8_t divisor);                                 // Override current divisor until next update

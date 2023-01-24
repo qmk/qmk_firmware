@@ -20,9 +20,10 @@
 
 /* initialize static functions */
 
-static report_mouse_t       process_pointing_mode(pointing_mode_t pointing_mode, report_mouse_t mouse_report);
-static pointing_direction_t get_pointing_device_direction(void);
-static uint8_t              get_pointing_mode_divisor(void);
+static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, report_mouse_t mouse_report);
+static uint8_t        get_pointing_device_direction(void);
+static uint8_t        get_pointing_mode_divisor(void);
+static uint8_t        divisor_postprocess(uint8_t divisor);
 
 // set up context and functions if using two pointing devices
 #    if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
@@ -90,7 +91,7 @@ static inline int16_t multiply_divisor_count(int8_t value) {
  *
  * @return direction uint8_t
  */
-static pointing_direction_t get_pointing_device_direction(void) {
+static uint8_t get_pointing_device_direction(void) {
     if (abs(pointing_mode_context.mode.x) > abs(pointing_mode_context.mode.y)) {
         if (pointing_mode_context.mode.x > 0) {
             return PD_RIGHT;
@@ -151,7 +152,6 @@ void set_pointing_mode_id(uint8_t mode_id) {
     if (pointing_mode_context.mode.id != mode_id) {
         pointing_mode_reset();
         pointing_mode_context.mode.id = mode_id;
-        dprintf("PMID Set: %d\n", mode_id);
     }
 }
 
@@ -165,10 +165,8 @@ void set_pointing_mode_id(uint8_t mode_id) {
 void toggle_pointing_mode_id(uint8_t mode_id) {
     if (pointing_mode_context.config.tg_mode_id == mode_id) {
         pointing_mode_context.config.tg_mode_id = POINTING_MODE_DEFAULT;
-        dprintf("Toggled PMID: %d\n Off", mode_id);
     } else {
         pointing_mode_context.config.tg_mode_id = mode_id;
-        dprintf("Toggled PMID: %d\n On", mode_id);
     }
     if (pointing_mode_context.mode.id != pointing_mode_context.config.tg_mode_id) pointing_mode_reset();
 }
@@ -246,7 +244,8 @@ static uint8_t divisor_postprocess(uint8_t divisor) {
 static uint8_t get_pointing_mode_divisor(void) {
     // allow for user and keyboard overrides
     uint8_t divisor = 0;
-    divisor         = get_pointing_mode_divisor_user(get_pointing_mode_id(), pointing_mode_context.mode.direction);
+    
+    divisor = get_pointing_mode_divisor_user(get_pointing_mode_id(), pointing_mode_context.mode.direction);
     if (!divisor) {
         divisor = get_pointing_mode_divisor_kb(get_pointing_mode_id(), pointing_mode_context.mode.direction);
     }
@@ -609,7 +608,7 @@ __attribute__((weak)) bool process_pointing_mode_kb(pointing_mode_t pointing_mod
  *
  * @return divisor uint8_t
  */
-__attribute__((weak)) uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, pointing_direction_t direction) {
+__attribute__((weak)) uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, uint8_t direction) {
     return 0; // continue processing
 }
 
@@ -624,7 +623,7 @@ __attribute__((weak)) uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, po
  *
  * @return divisor uint8_t
  */
-__attribute__((weak)) uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, pointing_direction_t direction) {
+__attribute__((weak)) uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction) {
     return 0; // continue processing
 }
 
@@ -639,7 +638,7 @@ __attribute__((weak)) uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, poin
  * @return divisor uint8_t
  */
 __attribute__((weak)) uint8_t pointing_mode_divisor_postprocess_kb(uint8_t divisor) {
-    return 0;
+    return divisor;
 }
 
 /**
@@ -654,7 +653,7 @@ __attribute__((weak)) uint8_t pointing_mode_divisor_postprocess_kb(uint8_t divis
  * @return divisor uint8_t
  */
 __attribute__((weak)) uint8_t pointing_mode_divisor_postprocess_user(uint8_t divisor) {
-    return 0;
+    return divisor;
 }
 
 #    if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
