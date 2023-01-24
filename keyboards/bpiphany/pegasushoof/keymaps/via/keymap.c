@@ -17,7 +17,7 @@
 
 enum custom_layers {
     KM_QWERTY,
-    M_MEDIA,
+    KM_MEDIA,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
