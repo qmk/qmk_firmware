@@ -27,7 +27,7 @@ typedef union {
 user_config_t user_config;
 
 enum custom_keycodes {
-    USER00 = QK_USER,
+    USER00 = QK_USER_0,
     USER01
 };
 

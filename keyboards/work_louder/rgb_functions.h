@@ -53,6 +53,7 @@
 #    endif
 #    ifndef RGB_MATRIX_MODE_DEC
 #        define RGB_MATRIX_MODE_DEC QK_USER_2
+#    endif
 #    ifndef RGB_MATRIX_HUE_INC
 #        define RGB_MATRIX_HUE_INC QK_USER_3
 #    endif
