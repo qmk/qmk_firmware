@@ -273,12 +273,12 @@ static uint8_t get_pointing_mode_divisor(void) {
             case PM_HISTORY:
                 divisor = POINTING_HISTORY_DIVISOR;
                 break;
-
-            case PM_VOLUME:
+                
 #    ifdef EXTRAKEY_ENABLE
+            case PM_VOLUME:
                 divisor = POINTING_VOLUME_DIVISOR;
-#    endif
                 break;
+#    endif
         }
     }
     return divisor_postprocess(divisor);
