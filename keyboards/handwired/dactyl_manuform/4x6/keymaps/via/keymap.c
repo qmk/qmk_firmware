@@ -20,10 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
-#define _BASE 0
-#define _RAISE 1
-#define _LOWER 2
-#define _BLANK 3
+enum layers{
+    _BASE,
+    _RAISE,
+    _LOWER,
+    _BLANK
+};
 
 #define SFT_ESC SFT_T(KC_ESC)
 #define CTL_BSPC CTL_T(KC_BSPC)
