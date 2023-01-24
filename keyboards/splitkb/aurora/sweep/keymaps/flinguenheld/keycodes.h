@@ -41,4 +41,4 @@ enum custom_keys {
 };
 
 /* Set in leader.c and use in oled.c to display a logo */
-static bool is_leader_active = false;
+// static bool is_leader_active = false;

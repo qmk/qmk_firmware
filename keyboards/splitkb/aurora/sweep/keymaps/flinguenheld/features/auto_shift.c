@@ -1,6 +1,9 @@
 // Copyright 2023 Florent Linguenheld (@FLinguenheld)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include QMK_KEYBOARD_H
+#include "keycodes.h"
+
 /* Only for basis letters
    Exceptions like Tab or Enter */
 bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {

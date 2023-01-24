@@ -16,13 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-
 #include "keycodes.h"
-#include "features/auto_shift.c"
-#include "features/combo.c"
-#include "features/leader.c"
-#include "oled/logos.c"
-#include "oled/oled.c"
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

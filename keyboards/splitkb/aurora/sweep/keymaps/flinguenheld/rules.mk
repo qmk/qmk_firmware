@@ -2,6 +2,11 @@ LTO_ENABLE = yes
 SPLIT_KEYBOARD = yes
 CONVERT_TO = elite_pi
 
+SRC += features/auto_shift.c
+SRC += features/combo.c
+SRC += features/leader.c
+SRC += oled/oled.c
+
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 

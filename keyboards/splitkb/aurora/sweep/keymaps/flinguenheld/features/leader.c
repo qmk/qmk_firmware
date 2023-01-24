@@ -1,10 +1,9 @@
 // Copyright 2023 Florent Linguenheld (@FLinguenheld)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-LEADER_EXTERNS();
+#include QMK_KEYBOARD_H
 
-/* Display the leader key (Only on the master now :(, this bool has to be sync with the slave) */
-// static bool     is_leader_active = false;
+LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
@@ -253,14 +252,5 @@ void matrix_scan_user(void) {
     SEQ_THREE_KEYS(KC_D, KC_N, KC_L) {
       send_unicode_string("₉"); }
 
-  }
-}
-
-/* Set a bool for the oled screen */
-void leader_start(void) {
-    is_leader_active = true;
-}
-
-void leader_end(void) {
-    is_leader_active = false;
+  };
 }
