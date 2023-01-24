@@ -19,8 +19,6 @@
 #include "config_common.h"
 
 #ifdef RGB_MATRIX_ENABLE
-	
-	#define WS2812_SPI_USE_CIRCULAR_BUFFER
 
 	#define WS2812_PWM_DRIVER PWMD1
 	#define WS2812_PWM_CHANNEL 1
