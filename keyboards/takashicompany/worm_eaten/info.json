@@ -13,7 +13,7 @@
         "nkro": true
     },
     "processor": "atmega32u4",
-    "url": "",
+    "url": "https://github.com/takashicompany/worm_eaten",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0035",
