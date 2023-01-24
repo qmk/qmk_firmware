@@ -18,16 +18,16 @@
 
 #    include "pointing_device_modes.h"
 
-/* initialize static functions */
-
+// initialize static functions
 static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, report_mouse_t mouse_report);
 static uint8_t        get_pointing_device_direction(void);
 static uint8_t        get_pointing_mode_divisor(void);
 static uint8_t        divisor_postprocess(uint8_t divisor);
 
+
 // set up context and functions if using two pointing devices
 #    if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
-/* set up local context for storing current values */
+// set up local context for storing current values
 static context_pointing_mode_t pointing_mode_context = {.config.is_left = POINTING_MODES_LEFT_DEFAULT, .config.tg_mode_id = POINTING_MODE_DEFAULT, .mode.id = POINTING_MODE_DEFAULT, .mode.divisor = POINTING_DEFAULT_DIVISOR};
 #    else
 static context_pointing_mode_t pointing_mode_context = {.config.tg_mode_id = POINTING_MODE_DEFAULT, .mode.id = POINTING_MODE_DEFAULT, .mode.divisor = POINTING_DEFAULT_DIVISOR};
@@ -133,7 +133,6 @@ void set_pointing_mode(pointing_mode_t pointing_mode) {
     // skip if same
     if (!memcmp(&pointing_mode_context.mode, &pointing_mode, sizeof(pointing_mode_t))) return;
     memcpy(&pointing_mode_context.mode, &pointing_mode, sizeof(pointing_mode_t));
-    // dprintf("PM status saved!\n");
     //  Prevent zero divisor
     if (!pointing_mode_context.mode.divisor) {
         pointing_mode_context.mode.divisor = POINTING_DEFAULT_DIVISOR;
@@ -250,7 +249,7 @@ static uint8_t divisor_postprocess(uint8_t divisor) {
 static uint8_t get_pointing_mode_divisor(void) {
     // allow for user and keyboard overrides
     uint8_t divisor = 0;
-
+    
     divisor = get_pointing_mode_divisor_user(get_pointing_mode_id(), pointing_mode_context.mode.direction);
     if (!divisor) {
         divisor = get_pointing_mode_divisor_kb(get_pointing_mode_id(), pointing_mode_context.mode.direction);
@@ -483,7 +482,7 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
         case PM_DRAG:
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
             if (MOUSE_SCROLL_MULTIPLIER_RAW_H) {
-                int8_t drag_multiplier = MAX(apply_divisor_count(MOUSE_SCROLL_MULTIPLIER_H), 1);
+                uint8_t drag_multiplier = MAX(apply_divisor_count(MOUSE_SCROLL_MULTIPLIER_H), 1);
                 pointing_mode.x *= (int16_t)drag_multiplier;
                 pointing_mode_divisor_override(1);
             }
@@ -495,7 +494,7 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
 #    endif
 #    ifdef MOUSE_SCROLL_HIRES_ENABLE
             if (MOUSE_SCROLL_MULTIPLIER_RAW_V) {
-                int8_t drag_multiplier = MAX(apply_divisor_count(MOUSE_SCROLL_MULTIPLIER_V), 1);
+                uint8_t drag_multiplier = MAX(apply_divisor_count(MOUSE_SCROLL_MULTIPLIER_V), 1);
                 pointing_mode.y *= (int16_t)drag_multiplier;
                 pointing_mode_divisor_override(1);
             }
