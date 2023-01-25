@@ -1,0 +1,6 @@
+BOOTLOADER = atmel-dfu  # Elite-C
+
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+VIA_ENABLE = yes
+LTO_ENABLE = yes
