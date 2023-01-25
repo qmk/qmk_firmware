@@ -26,6 +26,7 @@ static int8_t last_repeat_count = 0;
 // nonzero only while a repeated key is being processed.
 static int8_t processing_repeat_count = 0;
 
+/** @brief Updates `last_repeat_count` in direction `dir`. */
 static void update_last_repeat_count(int8_t dir) {
     if (dir * last_repeat_count < 0) {
         last_repeat_count = dir;
@@ -66,6 +67,10 @@ void set_repeat_key_record(uint16_t keycode, keyrecord_t* record) {
 }
 
 void repeat_key_invoke(const keyevent_t* event) {
+    // It is possible (e.g. in rolled presses) that the last key changes while
+    // the Repeat Key is pressed. To prevent stuck keys, it is important to
+    // remember separately what key record was processed on press so that the
+    // the corresponding record is generated on release.
     static keyrecord_t registered_record       = {0};
     static int8_t      registered_repeat_count = 0;
     // Since this function calls process_record(), it may recursively call
@@ -83,7 +88,7 @@ void repeat_key_invoke(const keyevent_t* event) {
         registered_repeat_count = last_repeat_count;
     }
 
-    // Generate an event and plumb it into the event pipeline.
+    // Generate a keyrecord and plumb it into the event pipeline.
     registered_record.event = *event;
     processing_repeat_count = registered_repeat_count;
     process_record(&registered_record);
@@ -105,7 +110,8 @@ void repeat_key_invoke(const keyevent_t* event) {
  *
  * @note The table keycodes and target must be basic keycodes.
  *
- * Given a table of pairs of basic keycodes, finds the pair containing `target`
+ * This helper is used several times below to define reverse keys. Given a table
+ * of pairs of basic keycodes, the function finds the pair containing `target`
  * and returns the other keycode in the pair.
  */
 static uint8_t find_rev_keycode(const uint8_t (*table)[2], uint8_t table_size_bytes, uint8_t target) {
@@ -122,14 +128,20 @@ static uint8_t find_rev_keycode(const uint8_t (*table)[2], uint8_t table_size_by
 uint16_t get_rev_repeat_key_keycode(void) {
     uint16_t keycode     = last_record.keycode;
     uint8_t  mods        = last_mods;
+
+    // Call the user callback first to give it a chance to override the default
+    // reverse key definitions that follow.
     uint16_t rev_keycode = get_rev_repeat_key_keycode_user(keycode, mods);
 
     if (rev_keycode) {
         return rev_keycode;
     }
 
-    // Convert 8-bit mods to the 5-bit format used in keycodes.
-    mods = ((mods & 0xf0) ? 0x10 : 0) | (((mods >> 4) | mods) & 0xf);
+    // Convert 8-bit mods to the 5-bit format used in keycodes. This is lossy:
+    // if left and right handed mods were mixed, they all become right handed.
+    mods = ((mods & 0xf0) ? /* set right hand bit */ 0x10 : 0)
+           // Combine right and left hand mods.
+           | (((mods >> 4) | mods) & 0xf);
 
     switch (keycode) {
         case QK_MODS ... QK_MODS_MAX: // Unpack modifier + basic key.
@@ -246,6 +258,7 @@ void rev_repeat_key_invoke(const keyevent_t* event) {
         };
     }
 
+    // Early return if there is no reverse key defined.
     if (!registered_record.keycode) {
         return;
     }
@@ -255,7 +268,7 @@ void rev_repeat_key_invoke(const keyevent_t* event) {
         registered_repeat_count = last_repeat_count;
     }
 
-    // Generate an event and plumb it into the event pipeline.
+    // Generate a keyrecord and plumb it into the event pipeline.
     registered_record.event = *event;
     processing_repeat_count = registered_repeat_count;
     process_record(&registered_record);

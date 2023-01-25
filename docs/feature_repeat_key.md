@@ -29,7 +29,7 @@ alias `QK_RREP`) on another key.
 
 |Keycode                |Aliases  |Description                          |
 |-----------------------|---------|-------------------------------------|
-|`QK_REPEAT_KEY`        |`QK_REP` |Repeat the last key                  |
+|`QK_REPEAT_KEY`        |`QK_REP` |Repeat the last pressed key          |
 |`QK_REVERSE_REPEAT_KEY`|`QK_RREP`|Perform the reverse of the last key  |
 
 ## Reverse Repeating

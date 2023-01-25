@@ -805,9 +805,10 @@ See also: [Programmable Button](feature_programmable_button.md)
 
 See also: [Repeat Key](feature_repeat_key.md)
 
-|Key            |Aliases |Description                |
-|---------------|--------|---------------------------|
-|`QK_REPEAT_KEY`|`QK_REP`|Repeat the last pressed key|
+|Keycode                |Aliases  |Description                          |
+|-----------------------|---------|-------------------------------------|
+|`QK_REPEAT_KEY`        |`QK_REP` |Repeat the last pressed key          |
+|`QK_REVERSE_REPEAT_KEY`|`QK_RREP`|Perform the reverse of the last key  |
 
 ## Space Cadet :id=space-cadet
 
