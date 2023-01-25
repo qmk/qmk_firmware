@@ -8,8 +8,12 @@
         "pid": "0x0001",
         "device_version": "30.3.1"
     },
+    "layout_aliases": {
+        "LAYOUT_gk6_2x2u": "LAYOUT_2x2u",
+        "LAYOUT_gk6_1x2u": "LAYOUT_1x2u"
+    },
     "layouts": {
-        "LAYOUT_gk6_2x2u": {
+        "LAYOUT_2x2u": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
@@ -143,7 +147,7 @@
                 {"x": 11, "y": 4}
             ]
         },
-        "LAYOUT_gk6_1x2u": {
+        "LAYOUT_1x2u": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},

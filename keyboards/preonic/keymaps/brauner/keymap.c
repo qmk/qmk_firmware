@@ -48,7 +48,6 @@ enum preonic_keycodes {
 #define LT_LOWER_SPC LT(_LOWER,  KC_SPC)
 
 #define LM_COMP_LALT      LM(_COMPOSITOR, MOD_LALT)
-#define LM_COMP_LALT_LSFT LM(_COMPOSITOR, MOD_LALT | MOD_LSFT)
 
 #define KO_LAYER_MASK_EXCEPT(layer) ((~0) & ~(1 << layer))
 
@@ -142,24 +141,24 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Qwerty
-     * ,------------------------------------------------------------------------------------------------------------------------------------.
-     * | Caps Lock    |         1          |  2   |  3   |  4   |  5   |     6     |  7   |  8   |   9  |         0          | Leader       |
-     * |--------------+--------------------+------+------+------+------+-----------+------+------+------+--------------------+--------------|
-     * | Ctrl         |         Q          |  W   |  E   |  R   |  T   |   Y/Copy  | U/Ü  |  I   | O/Ö  |       P/Paste      | Ctrl         |
-     * |--------------+--------------------+------+------+------+------+-----------+------+------+------+--------------------+--------------|
-     * | Shift/Esc    |        A/Ä         | S/ß  |  D   |  F   |  G   |     H     |  J   |  K   |   L  |         '          | Shift/Enter  |
-     * |--------------+--------------------+------+------+------+------+-----------+------+------+------+--------------------+--------------|
-     * |Compositor+Alt|         Z          |X/Cut |  C   |  V   |  B   |     N     |  M   |  ,   |   .  |         /          |Compositor+Alt|
-     * |--------------+--------------------+------+------+------+------+-----------+------+------+------+--------------------+--------------|
-     * |              |Compositor+Alt+Shift|      |      |Raise |Lower |Lower/Space|Raise |      |      |Compositor+Alt+Shift| Manage       |
-     * `------------------------------------------------------------------------------------------------------------------------------------'
+     * ,----------------------------------------------------------------------------------------------------------.
+     * | Caps Lock    |   1   |  2   |  3   |  4   |  5   |     6     |  7   |  8   |   9  |  0    | Leader       |
+     * |--------------+-------+------+------+------+------+-----------+------+------+------+-------+--------------|
+     * | Ctrl         |   Q   |  W   |  E   |  R   |  T   |   Y/Copy  | U/Ü  |  I   | O/Ö  |P/Paste| Ctrl         |
+     * |--------------+-------+------+------+------+------+-----------+------+------+------+-------+--------------|
+     * | Shift/Esc    |  A/Ä  | S/ß  |  D   |  F   |  G   |     H     |  J   |  K   |   L  |  '    | Shift/Enter  |
+     * |--------------+-------+------+------+------+------+-----------+------+------+------+-------+--------------|
+     * | Alt          |   Z   |X/Cut |  C   |  V   |  B   |     N     |  M   |  ,   |   .  |  /    | Alt          |
+     * |--------------+-------+------+------+------+------+-----------+------+------+------+-------+--------------|
+     * | Mouse        |       |      |      |Raise |Lower |Lower/Space|Raise |      |      |       | Manage       |
+     * `----------------------------------------------------------------------------------------------------------'
      */
     [_QWERTY] = LAYOUT_preonic_grid(
-      KC_CAPS,          KC_1,              KC_2,     KC_3,    KC_4,   KC_5,  KC_6,         KC_7,    KC_8,    KC_9,     KC_0,       KC_LEAD,
-      KC_LCTL,          KC_Q,              KC_W,     KC_E,    KC_R,   KC_T,  LT_COPY_Y,    LT_UE_U, KC_I,    LT_OE_O,  LT_PASTE_P, KC_RCTL,
-      MOD_TAP_LSFT_ESC, LT_AE_A,           LT_SZ_S,  KC_D,    KC_F,   KC_G,  KC_H,         KC_J,    KC_K,    KC_L,     KC_QUOT,    MOD_TAP_LSFT_ENT,
-      LM_COMP_LALT,     KC_Z,              LT_CUT_X, KC_C,    KC_V,   KC_B,  KC_N,         KC_M,    KC_COMM, KC_DOT,   KC_SLSH,    LM_COMP_LALT,
-      _______,          LM_COMP_LALT_LSFT, _______,  _______, RAISE,  LOWER, LT_LOWER_SPC, RAISE,   _______,  _______, _______,    MANAGE
+      KC_CAPS,          KC_1,    KC_2,     KC_3,    KC_4,   KC_5,  KC_6,         KC_7,    KC_8,    KC_9,     KC_0,       KC_LEAD,
+      KC_LCTL,          KC_Q,    KC_W,     KC_E,    KC_R,   KC_T,  LT_COPY_Y,    LT_UE_U, KC_I,    LT_OE_O,  LT_PASTE_P, KC_RCTL,
+      MOD_TAP_LSFT_ESC, LT_AE_A, LT_SZ_S,  KC_D,    KC_F,   KC_G,  KC_H,         KC_J,    KC_K,    KC_L,     KC_QUOT,    MOD_TAP_LSFT_ENT,
+      LM_COMP_LALT,     KC_Z,    LT_CUT_X, KC_C,    KC_V,   KC_B,  KC_N,         KC_M,    KC_COMM, KC_DOT,   KC_SLSH,    LM_COMP_LALT,
+      TG(_MOUSE),       _______, _______,  _______, RAISE,  LOWER, LT_LOWER_SPC, RAISE,   _______,  _______, _______,    MANAGE
     ),
     /* Lower
      * ,-----------------------------------------------------------------------------------.
@@ -203,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Mouse
      * ,-------------------------------------------------------------------------------------------------------------------------------------------------------.
-     * | Caps Lock    |       |              |              |              |              |           |           |         |            |      | Leader       |
+     * |              |       |              |              |              |              |           |           |         |            |      |              |
      * |--------------+-------+--------------+--------------+--------------+--------------+-----------+-----------+---------+------------+------+--------------|
      * |              |       |              |              |              |              |Wheel Left |Wheel Down |Wheel Up |Wheel Right |      | Ctrl         |
      * |--------------+-------+--------------+--------------+--------------+--------------+-----------+-----------+---------+------------+------+--------------|
@@ -211,15 +210,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------------+-------+--------------+--------------+--------------+--------------+-----------+-----------+---------+------------+------+--------------|
      * |Compositor+Alt|       |              |              |              |              |           |           |         |            |      |Compositor+Alt|
      * |--------------+-------+--------------+--------------+--------------+--------------+-----------+-----------+---------+------------+------+--------------|
-     * |              |       |              |Accelaration 2|Accelaration 1|Accelaration 0|           |           |         |            |      |              |
+     * |Mouse         |       |              |Accelaration 2|Accelaration 1|Accelaration 0|           |           |         |            |      |              |
      * `-------------------------------------------------------------------------------------------------------------------------------------------------------'
      */
     [_MOUSE] = LAYOUT_preonic_grid(
-      _______, XXXXXXX, XXXXXXX,    XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX,       XXXXXXX,     XXXXXXX,        XXXXXXX, _______,
+      XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX,       XXXXXXX,     XXXXXXX,        XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, XXXXXXX, _______,
       XXXXXXX, XXXXXXX, KC_MS_BTN3, KC_MS_BTN2,   KC_MS_BTN1,   XXXXXXX,      KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_UP,    KC_MS_RIGHT,    XXXXXXX, XXXXXXX,
       _______, XXXXXXX, XXXXXXX,    XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX,       XXXXXXX,     XXXXXXX,        XXXXXXX, _______,
-      XXXXXXX, XXXXXXX, XXXXXXX,    KC_MS_ACCEL2, KC_MS_ACCEL1, KC_MS_ACCEL0, XXXXXXX,       XXXXXXX,       XXXXXXX,     XXXXXXX,        XXXXXXX, XXXXXXX
+      _______, XXXXXXX, XXXXXXX,    KC_MS_ACCEL2, KC_MS_ACCEL1, KC_MS_ACCEL0, XXXXXXX,       XXXXXXX,       XXXXXXX,     XXXXXXX,        XXXXXXX, XXXXXXX
     ),
     /* Manage
      * ,---------------------------------------------------------------------------------------.
@@ -247,7 +246,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * |      |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |      |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * |      |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   '  |Enter |
+     * |Shift |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   '  |Enter |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * |      |   Z  |   X  |   C  |  V   |   B  |   N  |   M  |   ,  |   .  |   /  |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -255,11 +254,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [_COMPOSITOR] = LAYOUT_preonic_grid(
-      XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
-      XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    XXXXXXX,
-      XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT,
-      XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+      XXXXXXX,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
+      XXXXXXX,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    XXXXXXX,
+      _______,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, _______,
+      XXXXXXX,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+      XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
@@ -395,11 +394,6 @@ static inline void leader_bindings(void) {
         /* Support vim-style paste. */
         SEQ_ONE_KEY(KC_P) {
             tap_code16(C(S(KC_V)));
-        }
-
-        /* Toggle mouse layer. */
-        SEQ_ONE_KEY(KC_CAPS) {
-            layer_invert(_MOUSE);
         }
     }
 }

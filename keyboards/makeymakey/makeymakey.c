@@ -108,7 +108,7 @@ void cycle_leds(void) {
     }
 }
 
-void matrix_scan_kb() {
+void matrix_scan_kb(void) {
     cycle_leds();
     matrix_scan_user();
 }

@@ -257,6 +257,9 @@
                     "c_macro": {
                         "type": "boolean"
                     },
+                    "json_layout": {
+                        "type": "boolean"
+                    },
                     "layout": {
                         "type": "array",
                         "items": {

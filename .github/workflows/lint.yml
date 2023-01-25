@@ -39,6 +39,7 @@ jobs:
         QMK_KEYBOARDS=$(qmk list-keyboards)
 
         exit_code=0
+
         for KB in $QMK_KEYBOARDS; do
           KEYBOARD_CHANGES=$(echo "$QMK_CHANGES" | grep -E '^(keyboards/'${KB}'/)')
           if [[ -z "$KEYBOARD_CHANGES" ]]; then
@@ -54,6 +55,16 @@ jobs:
             exit_code=$(($exit_code + $?))
           fi
         done
+
+        qmk format-text ${{ steps.file_changes.outputs.all_changed_files}} || true
+        for file in ${{ steps.file_changes.outputs.all_changed_files}}; do
+          if ! git diff --quiet $file; then
+            echo "File '${file}' Requires Formatting"
+            echo "::error file=${file}::Requires Formatting"
+            exit_code=$(($exit_code + 1))
+          fi
+        done
+
         if [[ $exit_code -gt 255 ]]; then
             exit 255
         fi
