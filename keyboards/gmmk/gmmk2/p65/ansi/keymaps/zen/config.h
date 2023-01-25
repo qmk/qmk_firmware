@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
 
 // Undefine rgb modes enabled for the keyboard but not used

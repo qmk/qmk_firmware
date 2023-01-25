@@ -24,11 +24,11 @@
 #include "lib/lib8tion/lib8tion.h"
 
 // For random
-#include <analog.h> // to read hardware for entropy
-#include <stdlib.h> // for rand() and srand()
 #include <stdio.h> // for sprintf()
+#include <stdlib.h> // for rand() and srand()
 #include <time.h>   // for time()
 #include "hal.h"  // for MCU access
+#include "analog.h" // to read hardware for entropy
 
 // For leader
 #include <process_leader.h> // for leader
@@ -251,8 +251,14 @@ void leader_end(void) {
     dprintf("Leader ending\n");
 }
 
+
+
 // Matrix override for leader
-void matrix_scan_user(void) {
+// void matrix_scan_user(void) {
+// It's better to place this under the housekeeping tasks
+// This function is run at the end of all QMK processing, later that matrix_scan_user
+
+void housekeeping_task_user(void) {
     // Leader code should fall in here
     LEADER_DICTIONARY() {
         leading = false;
