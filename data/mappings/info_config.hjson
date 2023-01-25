@@ -86,6 +86,7 @@
     "MATRIX_IO_DELAY": {"info_key": "matrix_pins.io_delay", "value_type": "int"},
 
     // Mouse Keys
+    "MOUSE_EXTENDED_REPORT": {"info_key": "pointing_device.extended_mouse_report", "value_type": "bool"},
     "MOUSEKEY_DELAY": {"info_key": "mousekey.delay", "value_type": "int"},
     "MOUSEKEY_INTERVAL": {"info_key": "mousekey.interval", "value_type": "int"},
     "MOUSEKEY_MAX_SPEED": {"info_key": "mousekey.max_speed", "value_type": "int"},
