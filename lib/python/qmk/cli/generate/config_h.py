@@ -129,10 +129,8 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
 
 
 def generate_pointing_device_config(pointing_device_json, config_h_lines, postfix=''):
-
     rotation = pointing_device_json.get('rotation', 0)
-
-    generate_define(f'POINTING_DEVICE_ROTATION_{rotation}{postfix}')
+    config_h_lines.append(generate_define(f'POINTING_DEVICE_ROTATION_{rotation}{postfix}'))
 
 
 def generate_split_config(kb_info_json, config_h_lines):
@@ -165,6 +163,9 @@ def generate_split_config(kb_info_json, config_h_lines):
     if 'right' in kb_info_json['split'].get('encoder', {}):
         generate_encoder_config(kb_info_json['split']['encoder']['right'], config_h_lines, '_RIGHT')
 
+    if 'side' in kb_info_json['split'].get('pointing_device', {}):
+        s = kb_info_json['split']['pointing_device']['side']
+        config_h_lines.append(generate_define('POINTING_DEVICE_' + s.upper()))
     if 'right' in kb_info_json['split'].get('pointing_device', {}):
         generate_pointing_device_config(kb_info_json['split']['pointing_device']['right'], config_h_lines, '_RIGHT')
 

@@ -418,21 +418,17 @@
             "properties": {
                 "enabled": {"type": "boolean"},
                 "driver": {"type": "string"},
-                "auto_mouse":  {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {"type": "boolean"},
-                        "default_layer": {"type":  "qmk.definitions.v1#/unsigned_int_8"},
-                        "time": {"type":  "qmk.definitions.v1#/unsigned_int"},
-                        "delay": {"type":  "qmk.definitions.v1#/unsigned_int"},
-                        "debounce": {"type":  "qmk.definitions.v1#/unsigned_int"}
-                    }
-                }
+                "rotation": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "enum": [0, 90, 180, 270]
+                },
                 "pins": {
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
                         "motion": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "motion_active_low": {"type": "boolean"},
                         "cs": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                         "sdio": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                         "sclk": {"$ref": "qmk.definitions.v1#/mcu_pin"}
@@ -448,10 +444,16 @@
                         "scroll": {"type": "boolean"}
                     }
                 },
-                "rotation": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "enum": [0, 90, 180, 270]
+                "extended_mouse_report": {"type": "boolean"},
+                "auto_mouse":  {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "default_layer": {"type":  "qmk.definitions.v1#/unsigned_int_8"},
+                        "time": {"type":  "qmk.definitions.v1#/unsigned_int"},
+                        "delay": {"type":  "qmk.definitions.v1#/unsigned_int"},
+                        "debounce": {"type":  "qmk.definitions.v1#/unsigned_int"}
+                    }
                 }
             }
         },
@@ -655,22 +657,21 @@
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
                 },
                 "pointing_device": {
+                    "side": {
+                        "type": "string",
+                        "enum": ["left", "right", "combined"]
+                    },
                     "right": {
                         "type": "object",
                         "additionalProperties": false,
-                        "type": "object",
                         "properties": {
-                            "side": {
-                                "type": "string",
-                                "enum": ["left", "right", "combined"]
-                            },
-                            "invert_x": {"type": "boolean"},
-                            "invert_y": {"type": "boolean"},
                             "rotation": {
                                 "type": "integer",
                                 "minimum": 0,
                                 "enum": [0, 90, 180, 270]
-                            }
+                            },
+                            "invert_x": {"type": "boolean"},
+                            "invert_y": {"type": "boolean"}
                         }
                     }
                 },

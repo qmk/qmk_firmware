@@ -64,6 +64,7 @@
     "MATRIX_HAS_GHOST": {"info_key": "matrix_pins.ghost", "value_type": "bool"},
     "MATRIX_INPUT_PRESSED_STATE": {"info_key": "matrix_pins.input_pressed_state", "value_type": "int"},
     "MATRIX_IO_DELAY": {"info_key": "matrix_pins.io_delay", "value_type": "int"},
+    "MOUSE_EXTENDED_REPORT": {"info_key": "pointing_device.extended_mouse_report", "value_type": "bool"},
     "MOUSEKEY_DELAY": {"info_key": "mousekey.delay", "value_type": "int"},
     "MOUSEKEY_INTERVAL": {"info_key": "mousekey.interval", "value_type": "int"},
     "MOUSEKEY_MAX_SPEED": {"info_key": "mousekey.max_speed", "value_type": "int"},
