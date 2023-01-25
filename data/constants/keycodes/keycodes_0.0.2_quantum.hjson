@@ -7,5 +7,12 @@
                 "QK_REP"
             ]
         }
+        "0x7C78": {
+            "group": "quantum",
+            "key": "QK_REVERSE_REPEAT_KEY",
+            "aliases": [
+                "QK_RREP"
+            ]
+        }
     }
 }

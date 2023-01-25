@@ -16,5 +16,3 @@
 #pragma once
 
 #include "test_common.h"
-
-#define NO_REVERSE_REPEAT_KEY

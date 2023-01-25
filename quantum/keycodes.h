@@ -714,6 +714,7 @@ enum qk_keycode_defines {
     QK_AUTOCORRECT_OFF = 0x7C75,
     QK_AUTOCORRECT_TOGGLE = 0x7C76,
     QK_REPEAT_KEY = 0x7C77,
+    QK_REVERSE_REPEAT_KEY = 0x7C78,
     SAFE_RANGE = 0x7E00,
 
 // Alias
@@ -1273,6 +1274,7 @@ enum qk_keycode_defines {
     AC_OFF     = QK_AUTOCORRECT_OFF,
     AC_TOGG    = QK_AUTOCORRECT_TOGGLE,
     QK_REP     = QK_REPEAT_KEY,
+    QK_RREP    = QK_REVERSE_REPEAT_KEY,
 };
 
 // Range Helpers
@@ -1322,4 +1324,4 @@ enum qk_keycode_defines {
 #define IS_MACRO_KEYCODE(code) ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
-#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_REPEAT_KEY)
+#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_REVERSE_REPEAT_KEY)

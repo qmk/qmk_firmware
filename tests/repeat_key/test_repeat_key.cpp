@@ -21,11 +21,9 @@
 #include "test_fixture.hpp"
 #include "test_keymap_key.hpp"
 
-using ::testing::_;
 using ::testing::AnyNumber;
 using ::testing::AnyOf;
 using ::testing::InSequence;
-using ::testing::TestParamInfo;
 
 #define FOO_MACRO SAFE_RANGE
 
@@ -52,7 +50,7 @@ class RepeatKey : public TestFixture {
         process_record_user_fun = process_record_user_default;
     }
 
-    void ExpectProcessRecordUserCalledWith(bool expected_press, uint16_t expected_keycode, uint8_t expected_repeat_key_count) {
+    void ExpectProcessRecordUserCalledWith(bool expected_press, uint16_t expected_keycode, int8_t expected_repeat_key_count) {
         process_record_user_was_called_ = false;
         process_record_user_fun         = [=](uint16_t keycode, keyrecord_t* record) {
             EXPECT_EQ(record->event.pressed, expected_press);
@@ -664,7 +662,7 @@ TEST_F(RepeatKey, RepeatKeyInvoke) {
     event.key     = {0, 0};
     event.pressed = true;
     event.time    = timer_read();
-    repeat_key_invoke(event);
+    repeat_key_invoke(&event);
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
 
@@ -672,7 +670,7 @@ TEST_F(RepeatKey, RepeatKeyInvoke) {
     ExpectProcessRecordUserCalledWith(false, KC_S, 1);
     event.pressed = false;
     event.time    = timer_read();
-    repeat_key_invoke(event);
+    repeat_key_invoke(&event);
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
 
