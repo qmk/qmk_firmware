@@ -132,25 +132,22 @@ To enable this method, add the following to your `config.h` file:
 #define EE_HANDS
 ```
 
-Next, you will have to flash the EEPROM files once for the correct hand to the controller on each halve. You can do this manually with the following bootloader targets while flashing the firmware:
+Next, you will have to flash the EEPROM files once for the correct hand to the controller on each halve. You can do this manually with the following bootloader targets using `make <keyboard>:<keymap>:<bootloader>` command to flash:
 
-* AVR controllers with the Caterina bootloader (e.g. Pro Micro):
-  * `:avrdude-split-left`
-  * `:avrdude-split-right`
-* AVR controllers with the stock Amtel DFU or DFU compatible bootloader (e.g. Elite-C):
-  * `:dfu-split-left`
-  * `:dfu-split-right`
-* ARM controllers with a DFU compatible bootloader (e.g. Proton-C):
-  * `:dfu-util-split-left`
-  * `:dfu-util-split-right`
-* ARM controllers with a UF2 compatible bootloader:
-  * `:uf2-split-left`
-  * `:uf2-split-right`
+|Microcontroller Type|Bootloader Parameter|
+|--------------------|--------------------|
+|AVR controllers with Caterina bootloader<br>(e.g. Pro Micro)|`:avrdude-split-left`<br>`:avrdude-split-right`|
+|AVR controllers with the stock Amtel DFU or DFU compatible bootloader<br>(e.g. Elite-C)|`:dfu-split-left`<br>`:dfu-split-right`|
+|ARM controllers with a DFU compatible bootloader<br>(e.g. Proton-C)|`:dfu-util-split-left`<br>`dfu-util-split-right`|
+|ARM controllers with a UF2 compatible bootloader<br>(e.g. RP2040)|`:uf2-split-left`<br>`:uf2-split-right`|
 
-Example:
-
+Example for `crkbd/rev1` keyboard with normal AVR Promicro MCUs, reset the left controller and run:
 ```
-make crkbd:default:avrdude-split-left
+make crkbd/rev1:default:avrdude-split-left
+```
+Reset the right controller and run:
+```
+make crkbd/rev1:default:avrdude-split-right
 ```
 
 ?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EE_CLR` keycode or [Bootmagic Lite](feature_bootmagic.md). Controllers using emulated EEPROM will always require handedness parameter when flashing the firmware.
