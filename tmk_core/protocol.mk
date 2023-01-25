@@ -103,4 +103,4 @@ ifeq ($(strip $(USB_HID_ENABLE)), yes)
 endif
 
 # Search Path
-VPATH += $(TMK_DIR)/protocol
+VPATH += $(TMK_PATH)/protocol

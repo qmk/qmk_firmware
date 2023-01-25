@@ -28,4 +28,4 @@ SRC += $(ARM_ATSAM_DIR)/usb/usb_util.c
 SRC += $(DRIVER_PATH)/usb2422.c
 
 # Search Path
-VPATH += $(TMK_DIR)/$(ARM_ATSAM_DIR)
+VPATH += $(TMK_PATH)/$(ARM_ATSAM_DIR)

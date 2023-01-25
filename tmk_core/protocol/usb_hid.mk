@@ -10,7 +10,7 @@ USB_HOST_SHIELD_SRC = \
 	$(USB_HOST_SHIELD_DIR)/hid.cpp \
 	$(USB_HOST_SHIELD_DIR)/usbhub.cpp \
 	$(USB_HOST_SHIELD_DIR)/parsetools.cpp \
-	$(USB_HOST_SHIELD_DIR)/message.cpp 
+	$(USB_HOST_SHIELD_DIR)/message.cpp
 
 
 
@@ -57,7 +57,7 @@ OPT_DEFS += -DARDUINO=101
 #
 # Search Path
 #
-VPATH += $(TMK_DIR)/$(USB_HID_DIR)
+VPATH += $(TMK_PATH)/$(USB_HID_DIR)
 VPATH += $(USB_HOST_SHIELD_DIR)
 
 # for #include "Arduino.h"
@@ -70,4 +70,4 @@ VPATH += $(ARDUINO_DIR)/variants/leonardo
 #    Windows doesn't know difference between common/print.h and arduino/Print.h.
 #    On Linux no problem.
 #    Change file name common/print.h to console.h ?
-VPATH := $(TMK_DIR)/common $(VPATH)
+VPATH := $(TMK_PATH)/common $(VPATH)

@@ -14,22 +14,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 QUANTUM_SRC += \
-    $(QUANTUM_DIR)/quantum.c \
-    $(QUANTUM_DIR)/bitwise.c \
-    $(QUANTUM_DIR)/led.c \
-    $(QUANTUM_DIR)/action.c \
-    $(QUANTUM_DIR)/action_layer.c \
-    $(QUANTUM_DIR)/action_tapping.c \
-    $(QUANTUM_DIR)/action_util.c \
-    $(QUANTUM_DIR)/eeconfig.c \
-    $(QUANTUM_DIR)/keyboard.c \
-    $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/sync_timer.c \
-    $(QUANTUM_DIR)/logging/debug.c \
-    $(QUANTUM_DIR)/logging/sendchar.c \
+    $(QUANTUM_PATH)/quantum.c \
+    $(QUANTUM_PATH)/bitwise.c \
+    $(QUANTUM_PATH)/led.c \
+    $(QUANTUM_PATH)/action.c \
+    $(QUANTUM_PATH)/action_layer.c \
+    $(QUANTUM_PATH)/action_tapping.c \
+    $(QUANTUM_PATH)/action_util.c \
+    $(QUANTUM_PATH)/eeconfig.c \
+    $(QUANTUM_PATH)/keyboard.c \
+    $(QUANTUM_PATH)/keymap_common.c \
+    $(QUANTUM_PATH)/keycode_config.c \
+    $(QUANTUM_PATH)/sync_timer.c \
+    $(QUANTUM_PATH)/logging/debug.c \
+    $(QUANTUM_PATH)/logging/sendchar.c \
 
-VPATH += $(QUANTUM_DIR)/logging
+VPATH += $(QUANTUM_PATH)/logging
 # Fall back to lib/printf if there is no platform provided print
 ifeq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk)","")
     include $(QUANTUM_PATH)/logging/print.mk
@@ -66,30 +66,30 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
     COMMON_VPATH += $(QUANTUM_PATH)/audio
     MUSIC_ENABLE = yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
-    SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
-    SRC += $(QUANTUM_DIR)/audio/audio.c ## common audio code, hardware agnostic
+    SRC += $(QUANTUM_PATH)/process_keycode/process_audio.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_clicky.c
+    SRC += $(QUANTUM_PATH)/audio/audio.c ## common audio code, hardware agnostic
     SRC += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/audio_$(strip $(AUDIO_DRIVER)).c
-    SRC += $(QUANTUM_DIR)/audio/voices.c
-    SRC += $(QUANTUM_DIR)/audio/luts.c
+    SRC += $(QUANTUM_PATH)/audio/voices.c
+    SRC += $(QUANTUM_PATH)/audio/luts.c
 endif
 
 ifeq ($(strip $(SEQUENCER_ENABLE)), yes)
     OPT_DEFS += -DSEQUENCER_ENABLE
     MUSIC_ENABLE = yes
-    SRC += $(QUANTUM_DIR)/sequencer/sequencer.c
-    SRC += $(QUANTUM_DIR)/process_keycode/process_sequencer.c
+    SRC += $(QUANTUM_PATH)/sequencer/sequencer.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_sequencer.c
 endif
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
     OPT_DEFS += -DMIDI_ENABLE
     MUSIC_ENABLE = yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_midi.c
 endif
 
 MUSIC_ENABLE ?= no
 ifeq ($(MUSIC_ENABLE), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_music.c
 endif
 
 VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
@@ -113,7 +113,7 @@ ifeq ($(strip $(STENO_ENABLE)), yes)
             OPT_DEFS += -DSTENO_ENABLE_BOLT
         endif
 
-        SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+        SRC += $(QUANTUM_PATH)/process_keycode/process_steno.c
     endif
 endif
 
@@ -124,7 +124,7 @@ endif
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     OPT_DEFS += -DMOUSEKEY_ENABLE
     MOUSE_ENABLE := yes
-    SRC += $(QUANTUM_DIR)/mousekey.c
+    SRC += $(QUANTUM_PATH)/mousekey.c
 endif
 
 VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3360 pmw3389 pimoroni_trackball custom
@@ -134,10 +134,10 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     else
         OPT_DEFS += -DPOINTING_DEVICE_ENABLE
         MOUSE_ENABLE := yes
-        VPATH += $(QUANTUM_DIR)/pointing_device
-        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device.c
-        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_drivers.c
-        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_auto_mouse.c
+        VPATH += $(QUANTUM_PATH)/pointing_device
+        SRC += $(QUANTUM_PATH)/pointing_device/pointing_device.c
+        SRC += $(QUANTUM_PATH)/pointing_device/pointing_device_drivers.c
+        SRC += $(QUANTUM_PATH)/pointing_device/pointing_device_auto_mouse.c
         ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
             SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
             OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
@@ -153,13 +153,13 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
             OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
             SRC += drivers/sensors/cirque_pinnacle.c
             SRC += drivers/sensors/cirque_pinnacle_gestures.c
-            SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
+            SRC += $(QUANTUM_PATH)/pointing_device/pointing_device_gestures.c
             QUANTUM_LIB_SRC += i2c_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             SRC += drivers/sensors/cirque_pinnacle.c
             SRC += drivers/sensors/cirque_pinnacle_gestures.c
-            SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
+            SRC += $(QUANTUM_PATH)/pointing_device/pointing_device_gestures.c
             QUANTUM_LIB_SRC += spi_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
@@ -174,7 +174,7 @@ endif
 
 QUANTUM_PAINTER_ENABLE ?= no
 ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
-    include $(QUANTUM_DIR)/painter/rules.mk
+    include $(QUANTUM_PATH)/painter/rules.mk
 endif
 
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling legacy_stm32_flash
@@ -272,7 +272,7 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
     OPT_DEFS += -DWEAR_LEVELING_$(strip $(shell echo $(WEAR_LEVELING_DRIVER) | tr '[:lower:]' '[:upper:]'))
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling
     COMMON_VPATH += $(DRIVER_PATH)/wear_leveling
-    COMMON_VPATH += $(QUANTUM_DIR)/wear_leveling
+    COMMON_VPATH += $(QUANTUM_PATH)/wear_leveling
     SRC += wear_leveling.c
     ifeq ($(strip $(WEAR_LEVELING_DRIVER)), embedded_flash)
       OPT_DEFS += -DHAL_USE_EFL
@@ -322,11 +322,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGBLIGHT_DRIVER,RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
     else
-        COMMON_VPATH += $(QUANTUM_DIR)/rgblight
-        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight/rgblight_post_config.h
+        COMMON_VPATH += $(QUANTUM_PATH)/rgblight
+        POST_CONFIG_H += $(QUANTUM_PATH)/rgblight/rgblight_post_config.h
         OPT_DEFS += -DRGBLIGHT_ENABLE
-        SRC += $(QUANTUM_DIR)/color.c
-        SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
+        SRC += $(QUANTUM_PATH)/color.c
+        SRC += $(QUANTUM_PATH)/rgblight/rgblight.c
         CIE1931_CURVE := yes
         RGB_KEYCODES_ENABLE := yes
     endif
@@ -357,12 +357,12 @@ ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
     OPT_DEFS += -DLIB8_ATTINY
 endif
-    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix
-    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
-    COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
-    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
-    SRC += $(QUANTUM_DIR)/led_matrix/led_matrix.c
-    SRC += $(QUANTUM_DIR)/led_matrix/led_matrix_drivers.c
+    COMMON_VPATH += $(QUANTUM_PATH)/led_matrix
+    COMMON_VPATH += $(QUANTUM_PATH)/led_matrix/animations
+    COMMON_VPATH += $(QUANTUM_PATH)/led_matrix/animations/runners
+    SRC += $(QUANTUM_PATH)/process_keycode/process_backlight.c
+    SRC += $(QUANTUM_PATH)/led_matrix/led_matrix.c
+    SRC += $(QUANTUM_PATH)/led_matrix/led_matrix_drivers.c
     SRC += $(LIB_PATH)/lib8tion/lib8tion.c
     CIE1931_CURVE := yes
 
@@ -422,12 +422,12 @@ ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
     OPT_DEFS += -DLIB8_ATTINY
 endif
-    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix
-    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
-    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
-    SRC += $(QUANTUM_DIR)/color.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
+    COMMON_VPATH += $(QUANTUM_PATH)/rgb_matrix
+    COMMON_VPATH += $(QUANTUM_PATH)/rgb_matrix/animations
+    COMMON_VPATH += $(QUANTUM_PATH)/rgb_matrix/animations/runners
+    SRC += $(QUANTUM_PATH)/color.c
+    SRC += $(QUANTUM_PATH)/rgb_matrix/rgb_matrix.c
+    SRC += $(QUANTUM_PATH)/rgb_matrix/rgb_matrix_drivers.c
     SRC += $(LIB_PATH)/lib8tion/lib8tion.c
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
@@ -522,12 +522,12 @@ endif
 endif
 
 ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_rgb.c
 endif
 
 VARIABLE_TRACE ?= no
 ifneq ($(strip $(VARIABLE_TRACE)),no)
-    SRC += $(QUANTUM_DIR)/variable_trace.c
+    SRC += $(QUANTUM_PATH)/variable_trace.c
     OPT_DEFS += -DNUM_TRACED_VARIABLES=$(strip $(VARIABLE_TRACE))
     ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
         OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
@@ -550,19 +550,19 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid BACKLIGHT_DRIVER,BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
     endif
 
-    COMMON_VPATH += $(QUANTUM_DIR)/backlight
-    SRC += $(QUANTUM_DIR)/backlight/backlight.c
-    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
+    COMMON_VPATH += $(QUANTUM_PATH)/backlight
+    SRC += $(QUANTUM_PATH)/backlight/backlight.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 
     ifeq ($(strip $(BACKLIGHT_DRIVER)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     else
-        SRC += $(QUANTUM_DIR)/backlight/backlight_driver_common.c
+        SRC += $(QUANTUM_PATH)/backlight/backlight_driver_common.c
         ifeq ($(strip $(BACKLIGHT_DRIVER)), pwm)
-            SRC += $(QUANTUM_DIR)/backlight/backlight_$(PLATFORM_KEY).c
+            SRC += $(QUANTUM_PATH)/backlight/backlight_$(PLATFORM_KEY).c
         else
-            SRC += $(QUANTUM_DIR)/backlight/backlight_$(strip $(BACKLIGHT_DRIVER)).c
+            SRC += $(QUANTUM_PATH)/backlight/backlight_$(strip $(BACKLIGHT_DRIVER)).c
         endif
     endif
 endif
@@ -606,14 +606,14 @@ ifeq ($(strip $(CIE1931_CURVE)), yes)
 endif
 
 ifeq ($(strip $(LED_TABLES)), yes)
-    SRC += $(QUANTUM_DIR)/led_tables.c
+    SRC += $(QUANTUM_PATH)/led_tables.c
 endif
 
 ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
-    SRC += $(QUANTUM_DIR)/via.c
+    SRC += $(QUANTUM_PATH)/via.c
     OPT_DEFS += -DVIA_ENABLE
 endif
 
@@ -625,11 +625,11 @@ ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   endif
   ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
       OPT_DEFS += -DBOOTMAGIC_LITE
-      QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
+      QUANTUM_SRC += $(QUANTUM_PATH)/bootmagic/bootmagic_lite.c
   endif
 endif
-COMMON_VPATH += $(QUANTUM_DIR)/bootmagic
-QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/magic.c
+COMMON_VPATH += $(QUANTUM_PATH)/bootmagic
+QUANTUM_SRC += $(QUANTUM_PATH)/bootmagic/magic.c
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
@@ -641,19 +641,19 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 
     # Include common stuff for all non custom matrix users
-    QUANTUM_SRC += $(QUANTUM_DIR)/matrix_common.c
+    QUANTUM_SRC += $(QUANTUM_PATH)/matrix_common.c
 
     # if 'lite' then skip the actual matrix implementation
     ifneq ($(strip $(CUSTOM_MATRIX)), lite)
         # Include the standard or split matrix code if needed
-        QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
+        QUANTUM_SRC += $(QUANTUM_PATH)/matrix.c
     endif
 endif
 
 # Debounce Modules. Set DEBOUNCE_TYPE=custom if including one manually.
 DEBOUNCE_TYPE ?= sym_defer_g
 ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
-    QUANTUM_SRC += $(QUANTUM_DIR)/debounce/$(strip $(DEBOUNCE_TYPE)).c
+    QUANTUM_SRC += $(QUANTUM_PATH)/debounce/$(strip $(DEBOUNCE_TYPE)).c
 endif
 
 
@@ -665,17 +665,17 @@ ifeq ($(filter $(SERIAL_DRIVER),$(VALID_SERIAL_DRIVER_TYPES)),)
 endif
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-    POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
+    POST_CONFIG_H += $(QUANTUM_PATH)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
     CRC_ENABLE := yes
 
     # Include files used by all split keyboards
-    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_SRC += $(QUANTUM_PATH)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
-        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c \
-                       $(QUANTUM_DIR)/split_common/transactions.c
+        QUANTUM_SRC += $(QUANTUM_PATH)/split_common/transport.c \
+                       $(QUANTUM_PATH)/split_common/transactions.c
 
         OPT_DEFS += -DSPLIT_COMMON_TRANSACTIONS
 
@@ -759,44 +759,44 @@ endif
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
     UNICODE_COMMON := yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_ucis.c
 endif
 
 ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
     OPT_DEFS += -DUNICODEMAP_ENABLE
     UNICODE_COMMON := yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_unicodemap.c
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
     OPT_DEFS += -DUNICODE_ENABLE
     UNICODE_COMMON := yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_unicode.c
 endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
     OPT_DEFS += -DUNICODE_COMMON_ENABLE
-    COMMON_VPATH += $(QUANTUM_DIR)/unicode
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c \
-           $(QUANTUM_DIR)/unicode/unicode.c \
-           $(QUANTUM_DIR)/unicode/utf8.c
+    COMMON_VPATH += $(QUANTUM_PATH)/unicode
+    SRC += $(QUANTUM_PATH)/process_keycode/process_unicode_common.c \
+           $(QUANTUM_PATH)/unicode/unicode.c \
+           $(QUANTUM_PATH)/unicode/utf8.c
 endif
 
 MAGIC_ENABLE ?= yes
 ifeq ($(strip $(MAGIC_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_magic.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_magic.c
     OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
 endif
 
 SEND_STRING_ENABLE ?= yes
 ifeq ($(strip $(SEND_STRING_ENABLE)), yes)
     OPT_DEFS += -DSEND_STRING_ENABLE
-    COMMON_VPATH += $(QUANTUM_DIR)/send_string
-    SRC += $(QUANTUM_DIR)/send_string/send_string.c
+    COMMON_VPATH += $(QUANTUM_PATH)/send_string
+    SRC += $(QUANTUM_PATH)/send_string/send_string.c
 endif
 
 ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_auto_shift.c
     OPT_DEFS += -DAUTO_SHIFT_ENABLE
     ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
         OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
@@ -839,8 +839,8 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid JOYSTICK_DRIVER,JOYSTICK_DRIVER="$(JOYSTICK_DRIVER)" is not a valid joystick driver)
     endif
     OPT_DEFS += -DJOYSTICK_ENABLE
-    SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
-    SRC += $(QUANTUM_DIR)/joystick.c
+    SRC += $(QUANTUM_PATH)/process_keycode/process_joystick.c
+    SRC += $(QUANTUM_PATH)/joystick.c
 
     ifeq ($(strip $(JOYSTICK_DRIVER)), analog)
         OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
@@ -901,7 +901,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/encoder.c
+    SRC += $(QUANTUM_PATH)/encoder.c
     OPT_DEFS += -DENCODER_ENABLE
     ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
         OPT_DEFS += -DENCODER_MAP_ENABLE

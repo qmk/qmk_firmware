@@ -19,10 +19,10 @@ AUDIO_ENABLE = no           # Audio output
 SRC += mxss_frontled.c
 
 # Remove the common RGB light code and use my iteration instead
-COMMON_VPATH += $(QUANTUM_DIR)/rgblight
+COMMON_VPATH += $(QUANTUM_PATH)/rgblight
 OPT_DEFS += -DRGBLIGHT_ENABLE
 SRC += rgblight.c
-SRC += $(QUANTUM_DIR)/color.c
+SRC += $(QUANTUM_PATH)/color.c
 WS2812_DRIVER_REQUIRED = yes
 CIE1931_CURVE = yes
 RGB_KEYCODES_ENABLE = yes

@@ -407,9 +407,9 @@ endif
 # project specific files
 SRC += \
     $(KEYBOARD_SRC) \
-    $(QUANTUM_DIR)/keymap_introspection.c \
+    $(QUANTUM_PATH)/keymap_introspection.c \
     $(QUANTUM_SRC) \
-    $(QUANTUM_DIR)/main.c \
+    $(QUANTUM_PATH)/main.c \
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
