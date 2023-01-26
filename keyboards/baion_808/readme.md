@@ -6,6 +6,8 @@ This is a standard TKL layout PCB. It supports VIA.
 * Hardware Supported: A TKL keyboard with STM32F072CB
 * Hardware Availability: https://baionlenja.com 
 
+![Layer 0](https://i.imgur.com/IhbvSZ1.png)
+
 ## Instructions
 
 ### Build
