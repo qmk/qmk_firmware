@@ -1,12 +1,11 @@
 # Repeat Key
 
-The Repeat Key performs the action of the last pressed key. For instance,
-tapping the Repeat Key after tapping the <kbd>Z</kbd> key types another "`z`."
-The Repeat Key is useful for hotkeys, for instance repeating Ctrl+Shift+Right to
-select by word. It can also be useful for typing doubled letters, like the `z`
-in "`dazzle`": a double tap on <kbd>Z</kbd> can instead be a roll from
-<kbd>Z</kbd> to <kbd>Repeat</kbd>, which is potentially faster and more
-comfortable. 
+The Repeat Key performs the action of the last pressed key. Tapping the Repeat
+Key after tapping the <kbd>Z</kbd> key types another "`z`." The Repeat Key is
+useful for hotkeys, like repeating Ctrl + Shift + Right Arrow to select
+by word. It can also be useful for typing doubled letters, like the `z` in
+"`dazzle`": a double tap on <kbd>Z</kbd> can instead be a roll from <kbd>Z</kbd>
+to <kbd>Repeat</kbd>, which is potentially faster and more comfortable. 
 
 Repeat Key remembers mods that were active with the last key press. These mods
 are combined with any additional mods while pressing the Repeat Key. If the last
@@ -34,14 +33,14 @@ alias `QK_RREP`) on another key.
 
 ## Reverse Repeating
 
-This feature includes a complementary Reverse Repeat Key, performing the
-"reverse" of the last pressed key if it is defined. For instance, when the last
-key is the common "select by word" hotkey Ctrl + Shift + Right Arrow, the
-Reverse Repeat Key performs Ctrl + Shift + Left Arrow, which together with the
-Repeat Key enables convenient selection by words in either direction.
+The Reverse Repeat Key performs the "reverse" of the last pressed key if it is
+defined. When the last key is the common "select by word" hotkey Ctrl + Shift +
+Right Arrow, the Reverse Repeat Key performs Ctrl + Shift + Left Arrow, which
+together with the Repeat Key enables convenient selection by words in either
+direction.
 
-Reverse Repeat is enabled with the Repeat Key by default. Optionally, to save
-some firmware space, Reverse Repeat may be disabled by adding in config.h:
+Reverse Repeat is enabled with the Repeat Key by default. Optionally, to reduce
+firmware size, Reverse Repeat may be disabled by adding in config.h:
 
 ```c
 #define NO_REVERSE_REPEAT_KEY
@@ -49,7 +48,8 @@ some firmware space, Reverse Repeat may be disabled by adding in config.h:
 
 The following reverse keys are defined by default. See
 `get_rev_repeat_key_keycode_user()` below for how to change or add to these
-definitions.
+definitions. Where it makes sense, these definitions also include combinations 
+with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 
 **Navigation** 
 
@@ -198,6 +198,30 @@ bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record) {
 This callback is called on every key press. Returning true indicates the key is
 eligible for repeating (or reverse repeating), while false means it is ignored.
 
+Besides checking the keycode, this callback could also make conditions based on
+the current layer state (with `IS_LAYER_ON(layer)`) or mods (`get_mods()`). For
+example, the following ignores keys on layer 2 as well as key combinations
+involving GUI:
+
+```c
+bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record) {
+    if (IS_LAYER_ON(2) || (get_mods() & MOD_MASK_GUI)) {
+        return false;
+    }
+
+    switch (keycode) {
+        // Same as above...
+    }
+
+    return true;
+}
+```
+
+?> See [Layer Functions](feature_layers.md#functions) and [Checking Modifier
+State](feature_advanced_keycodes.md#checking-modifier-state) for further
+details.
+ 
+
 ### Handle how a key is repeated
 
 By default, pressing the Repeat Key will simply behave as if the last key
@@ -242,7 +266,7 @@ described above to define which keycode to use as its reverse. Beyond this,
 `get_repeat_key_count()` may be used in custom handlers to fine-tune behavior
 when reverse repeating.
 
-For instance, the following defines `MY_MACRO` as its own reverse, and specially
+The following example defines `MY_MACRO` as its own reverse, and specially
 handles repeating and reverse repeating:
 
 ```c
