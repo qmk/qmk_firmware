@@ -38,13 +38,6 @@
 }
 
 /**
- * Alias for backward compatibility with some keymaps.
- *
- * Prefer using `LAYOUT` for new keymaps.
- */
-#define LAYOUT_charybdis_3x6 LAYOUT
-
-/**
  * \brief Compatibility layout with the split_3x5_6 community layout.
  *
  * This effectively renders the Charbdis Nano compatible with existing layout
