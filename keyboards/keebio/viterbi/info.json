@@ -5,6 +5,7 @@
     "usb": {
         "vid": "0xCB10"
     },
+    "community_layouts": ["ortho_5x14"],
     "layouts": {
         "LAYOUT": {
             "layout": [

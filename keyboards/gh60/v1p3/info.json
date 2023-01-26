@@ -8,6 +8,7 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["60_ansi", "60_ansi_arrow", "60_ansi_tsangan", "60_hhkb", "64_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -8,6 +8,7 @@
     "pid": "0x1046",
     "device_version": "1.0.0"
   },
+  "community_layouts": ["ortho_4x12"],
   "layouts": {
     "LAYOUT": {
       "layout": [

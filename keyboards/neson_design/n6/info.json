@@ -11,6 +11,7 @@
     "layout_aliases": {
         "LAYOUT_65_ansi_blocker_splitbs": "LAYOUT_65_ansi_blocker_split_bs"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

@@ -4,6 +4,7 @@
         "device_version": "2.0.0",
         "pid": "0x1835"
     },
+    "community_layouts": ["split_3x5_3"],
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

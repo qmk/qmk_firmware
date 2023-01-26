@@ -414,7 +414,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 
   #if RGB_CONFIRMATION_BLINKING_TIME > 0
-  static void start_effects() {
+  static void start_effects(void) {
     effect_started_time = sync_timer_read();
     if (!rgb_matrix_is_enabled()) {
       /* Turn it ON, signal the cause (EFFECTS) */
@@ -427,7 +427,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
   #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
 
-  static void set_rgb_caps_leds() {
+  static void set_rgb_caps_leds(void) {
     rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
     rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
     rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2

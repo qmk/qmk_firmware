@@ -17,8 +17,6 @@ BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
 
-LAYOUTS = ortho_3x10
-
 # Disable unsupported hardware
 RGBLIGHT_SUPPORTED = no
 AUDIO_SUPPORTED = no

@@ -134,7 +134,7 @@ TEST_F(Tapping, TapA_CTL_T_KeyWhileReleasingShift) {
     // Shift is reported
     EXPECT_REPORT(driver, (KC_LSFT));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     mod_tap_hold_key.press();
     // Tapping keys does nothing on press
@@ -145,7 +145,7 @@ TEST_F(Tapping, TapA_CTL_T_KeyWhileReleasingShift) {
     // Releasing shift is delayed while tapping is in progress
     EXPECT_NO_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     mod_tap_hold_key.release();
     // Releasing mod-tap key reports the tap and releases shift
@@ -153,7 +153,7 @@ TEST_F(Tapping, TapA_CTL_T_KeyWhileReleasingShift) {
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Tapping, TapA_CTL_T_KeyWhileReleasingLayer) {
@@ -180,7 +180,7 @@ TEST_F(Tapping, TapA_CTL_T_KeyWhileReleasingLayer) {
     // Releasing layer is delayed while tapping is in progress
     EXPECT_NO_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     mod_tap_hold_key1.release();
     // Releasing mod-tap key reports the tap of the layer 1 key
@@ -188,5 +188,5 @@ TEST_F(Tapping, TapA_CTL_T_KeyWhileReleasingLayer) {
     EXPECT_REPORT(driver, (KC_Q));
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

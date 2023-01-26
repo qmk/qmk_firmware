@@ -45,7 +45,7 @@ To init. the display please read the [Display Initialisation](quantum_painter.md
 ### Quantum Painter LVGL Detach :id=lvgl-api-init
 
 ```c
-void qp_lvgl_detach()
+void qp_lvgl_detach(void)
 ```
 
 The `qp_lvgl_detach` function stops the internal LVGL ticks and releases resources related to it.

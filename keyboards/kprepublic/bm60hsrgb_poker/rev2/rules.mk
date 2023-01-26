@@ -15,7 +15,6 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
-LAYOUTS = 60_ansi
 LTO_ENABLE = yes
 
 # RGB Matrix is required to support per-key LEDs connected to IS31FL3733.

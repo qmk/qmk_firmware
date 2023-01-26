@@ -22,6 +22,7 @@
         "LAYOUT_60_iso_1u_lshift_split_bs_rshift": "LAYOUT_60_iso_split_bs_rshift",
         "LAYOUT_60_iso_1u_lshift_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

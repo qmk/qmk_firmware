@@ -8,6 +8,7 @@
     "pid": "0xA4F9",
     "device_version": "0.0.6"
   },
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_ortho_4x12": {
       "layout": [

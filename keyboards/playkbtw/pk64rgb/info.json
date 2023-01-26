@@ -8,6 +8,7 @@
         "pid": "0x3634",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["64_ansi"],
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [

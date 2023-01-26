@@ -208,6 +208,8 @@ As an example, if you have a 60% PCB that supports ANSI and ISO you might define
 | LAYOUT_ansi | default_ansi | An ANSI layout |
 | LAYOUT_iso | default_iso | An ISO layout |
 
+?> Providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling.
+
 ## Image/Hardware Files
 
 In an effort to keep the repo size down we're no longer accepting binary files of any format, with few exceptions. Hosting them elsewhere (such as <https://imgur.com>) and linking them in the `readme.md` is preferred.

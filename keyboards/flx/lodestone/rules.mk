@@ -16,5 +16,3 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
-
-LAYOUTS = 65_ansi_blocker 65_ansi_blocker_split_bs 65_iso_blocker 65_iso_blocker_split_bs

@@ -18,5 +18,3 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 LTO_ENABLE = yes
-
-LAYOUTS = 66_ansi 66_iso

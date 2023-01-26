@@ -18,5 +18,3 @@ BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 VELOCIKEY_ENABLE = yes
-
-LAYOUTS = alice alice_split_bs

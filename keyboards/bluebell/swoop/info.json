@@ -8,6 +8,7 @@
     "pid": "0x3046",
     "device_version": "1.0.0"
   },
+  "community_layouts": ["split_3x5_3"],
   "layouts": {
     "LAYOUT_split_3x5_3": {
       "layout": [

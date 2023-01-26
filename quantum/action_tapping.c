@@ -17,7 +17,7 @@
 #        endif
 #    endif
 
-#    define IS_TAPPING() !IS_NOEVENT(tapping_key.event)
+#    define IS_TAPPING() IS_EVENT(tapping_key.event)
 #    define IS_TAPPING_PRESSED() (IS_TAPPING() && tapping_key.event.pressed)
 #    define IS_TAPPING_RELEASED() (IS_TAPPING() && !tapping_key.event.pressed)
 #    define IS_TAPPING_KEY(k) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (k)))
@@ -85,7 +85,7 @@ static void debug_waiting_buffer(void);
  */
 void action_tapping_process(keyrecord_t record) {
     if (process_tapping(&record)) {
-        if (!IS_NOEVENT(record.event)) {
+        if (IS_EVENT(record.event)) {
             ac_dprintf("processed: ");
             debug_record(record);
             ac_dprintf("\n");
@@ -101,7 +101,7 @@ void action_tapping_process(keyrecord_t record) {
     }
 
     // process waiting_buffer
-    if (!IS_NOEVENT(record.event) && waiting_buffer_head != waiting_buffer_tail) {
+    if (IS_EVENT(record.event) && waiting_buffer_head != waiting_buffer_tail) {
         ac_dprintf("---- action_exec: process waiting_buffer -----\n");
     }
     for (; waiting_buffer_tail != waiting_buffer_head; waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE) {
@@ -113,7 +113,7 @@ void action_tapping_process(keyrecord_t record) {
             break;
         }
     }
-    if (!IS_NOEVENT(record.event)) {
+    if (IS_EVENT(record.event)) {
         ac_dprintf("\n");
     }
 }
@@ -316,7 +316,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     debug_tapping_key();
                     return true;
                 } else {
-                    if (!IS_NOEVENT(event)) {
+                    if (IS_EVENT(event)) {
                         ac_dprintf("Tapping: key event while last tap(>0).\n");
                     }
                     process_record(keyp);
@@ -362,7 +362,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     debug_tapping_key();
                     return true;
                 } else {
-                    if (!IS_NOEVENT(event)) {
+                    if (IS_EVENT(event)) {
                         ac_dprintf("Tapping: key event while last timeout tap(>0).\n");
                     }
                     process_record(keyp);
@@ -402,7 +402,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     return true;
                 }
             } else {
-                if (!IS_NOEVENT(event)) ac_dprintf("Tapping: other key just after tap.\n");
+                if (IS_EVENT(event)) ac_dprintf("Tapping: other key just after tap.\n");
                 process_record(keyp);
                 return true;
             }

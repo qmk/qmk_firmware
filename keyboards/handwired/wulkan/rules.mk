@@ -17,5 +17,4 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
-LAYOUTS = ortho_4x12
 NO_SUSPEND_POWER_DOWN = yes

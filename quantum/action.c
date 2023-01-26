@@ -70,7 +70,7 @@ __attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) {
  * FIXME: Needs documentation.
  */
 void action_exec(keyevent_t event) {
-    if (!IS_NOEVENT(event)) {
+    if (IS_EVENT(event)) {
         ac_dprintf("\n---- action_exec: start -----\n");
         ac_dprintf("EVENT: ");
         debug_event(event);
@@ -87,7 +87,7 @@ void action_exec(keyevent_t event) {
 
 #ifdef SWAP_HANDS_ENABLE
     // Swap hands handles both keys and encoders, if ENCODER_MAP_ENABLE is defined.
-    if (!IS_NOEVENT(event)) {
+    if (IS_EVENT(event)) {
         process_hand_swap(&event);
     }
 #endif
@@ -125,7 +125,7 @@ void action_exec(keyevent_t event) {
     if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
         process_record(&record);
     }
-    if (!IS_NOEVENT(record.event)) {
+    if (IS_EVENT(record.event)) {
         ac_dprintf("processed: ");
         debug_record(record);
         dprintln();
@@ -350,7 +350,12 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
-    if (is_oneshot_layer_active() && event.pressed && (action.kind.id == ACT_USAGE || !IS_MOD(action.key.code))
+    if (is_oneshot_layer_active() && event.pressed &&
+        (action.kind.id == ACT_USAGE || !(IS_MOD(action.key.code)
+#    ifndef NO_ACTION_TAPPING
+                                          || (tap_count == 0 && (action.kind.id == ACT_LMODS_TAP || action.kind.id == ACT_RMODS_TAP))
+#    endif
+                                              ))
 #    ifdef SWAP_HANDS_ENABLE
         && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
 #    endif
@@ -1045,7 +1050,7 @@ void clear_keyboard_but_mods(void) {
  *
  * FIXME: Needs documentation.
  */
-void clear_keyboard_but_mods_and_keys() {
+void clear_keyboard_but_mods_and_keys(void) {
 #ifdef EXTRAKEY_ENABLE
     host_system_send(0);
     host_consumer_send(0);

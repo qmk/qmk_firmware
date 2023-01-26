@@ -8,6 +8,7 @@
         "pid": "0x0004",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["65_ansi_blocker_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
