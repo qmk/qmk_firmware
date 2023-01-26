@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H 
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _LOWER 1
@@ -35,7 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(record->event.pressed) {
     switch(keycode) {
       case CTLALTD:
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LALT)SS_DOWN(X_DELETE)SS_UP(X_DELETE)SS_UP(X_LALT)SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LALT)SS_DOWN(X_DELETE)SS_UP(X_DELETE)SS_UP(X_LALT)SS_UP(X_LCTL));
         return false;
       case VIMSAVE:
         SEND_STRING(":w");
@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid(
   TABCALC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,    KC_I,     KC_O,    KC_P,    QUOCALC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,   KC_J,    KC_K,     KC_L,    SCOLNAV, KC_ENT ,
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,   KC_M,    KC_COMM,  KC_DOT,  KC_SLSH, KC_RSPC,
-  LBRACK , KC_LCTL, KC_PSCR, KC_LGUI, KC_BSPC, LOWER,  RAISE,  KC_SPC,  KC_RALT,  VIMSAVE, KC_RCTL, RBRACK 
+  SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,   KC_M,    KC_COMM,  KC_DOT,  KC_SLSH, SC_RSPC,
+  LBRACK , KC_LCTL, KC_PSCR, KC_LGUI, KC_BSPC, LOWER,  RAISE,  KC_SPC,  KC_RALT,  VIMSAVE, KC_RCTL, RBRACK
 ),
 
 /* Lower
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid(
   _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,  KC_PLUS, _______,
-  _______, _______, KC_TILD, KC_GRV,  KC_LCTRL, _______, KC_PIPE, _______, KC_UNDS, _______, _______, _______,
+  _______, _______, KC_TILD, KC_GRV,  KC_LCTL,  _______, KC_PIPE, _______, KC_UNDS, _______, _______, _______,
   _______, _______, _______, _______, _______,  _______, KC_TRNS, _______, _______, _______, _______, _______
 ),
 
@@ -159,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------------------------------------------------.
  * |      | Reset|      |RGB_TOG|RGB_MOD|RGB_HUI|RGB_HUD|RGB_SAI|RGB_SAD|RGB_VAI|RGB_VAD|  Del |
  * |------+------+------+-------+-------+-------+-------+-------+-------+-------+-------+------|
- * |      |      |MU_MOD|Aud on |Audoff |AGnorm |AGswap |       |       |       |       |      |
+ * |      |      |MUNEXT|Aud on |Audoff |AGnorm |AGswap |       |       |       |       |      |
  * |------+------+------+-------+-------+-------+-------+-------+-------+-------+-------+------|
  * |      |Voice-|Voice+|Mus on |Musoff |MIDIon |MIDIof |TERMon |TERMof |       |       |      |
  * |------+------+------+-------+-------+-------+-------+-------+-------+-------+-------+------|
@@ -167,10 +167,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  _______, RESET,   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,  _______, _______, _______,
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
-  _______, _______, _______, _______, _______, KC_TRNS, KC_TRNS, _______, _______,  _______, _______, _______
+  _______, QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+  _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
+  _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, KC_TRNS, KC_TRNS, _______, _______, _______, _______, _______
 )
 
 
@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 };
 

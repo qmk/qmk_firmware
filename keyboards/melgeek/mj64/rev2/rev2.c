@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS9_SW1,  CS8_SW1,  CS7_SW1},  /* RGB1 */
     {0, CS9_SW2,  CS8_SW2,  CS7_SW2},  /* RGB2 */
     {0, CS9_SW3,  CS8_SW3,  CS7_SW3},  /* RGB3 */
@@ -56,7 +56,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS18_SW8, CS17_SW8, CS16_SW8}, /* RGB35 */
     {0, CS18_SW9, CS17_SW9, CS16_SW9}, /* RGB36 */
     {0, CS21_SW1, CS20_SW1, CS19_SW1}, /* RGB37 */
-    {1, CS21_SW2, CS20_SW2, CS19_SW2}, /* RGB38 */
+    {0, CS21_SW2, CS20_SW2, CS19_SW2}, /* RGB38 */
     {0, CS21_SW3, CS20_SW3, CS19_SW3}, /* RGB39 */
     {0, CS21_SW4, CS20_SW4, CS19_SW4}, /* RGB40 */
     {0, CS21_SW5, CS20_SW5, CS19_SW5}, /* RGB41 */

@@ -1,0 +1,46 @@
+{
+    "keyboard_name": "Zeuspad",
+    "manufacturer": "Koobaczech",
+    "url": "",
+    "maintainer": "Koobaczech",
+    "usb": {
+        "vid": "0x6963",
+        "pid": "0x6967",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+                {"label":"k00", "x":0, "y":0},
+                {"label":"k01", "x":1, "y":0},
+                {"label":"k02", "x":2, "y":0},
+                {"label":"k03", "x":3, "y":0},
+
+                {"label":"k10", "x":0, "y":1.25},
+                {"label":"k11", "x":1, "y":1.25},
+                {"label":"k12", "x":2, "y":1.25},
+                {"label":"k13", "x":3, "y":1.25},
+
+                {"label":"k20", "x":0, "y":2.25},
+                {"label":"k21", "x":1, "y":2.25},
+                {"label":"k22", "x":2, "y":2.25},
+                {"label":"k23", "x":3, "y":2.25},
+
+                {"label":"k30", "x":0, "y":3.25},
+                {"label":"k31", "x":1, "y":3.25},
+                {"label":"k32", "x":2, "y":3.25},
+                {"label":"k33", "x":3, "y":3.25},
+
+                {"label":"k40", "x":0, "y":4.25},
+                {"label":"k41", "x":1, "y":4.25},
+                {"label":"k42", "x":2, "y":4.25},
+                {"label":"k43", "x":3, "y":4.25},
+
+                {"label":"k50", "x":0, "y":5.25},
+                {"label":"k51", "x":1, "y":5.25},
+                {"label":"k52", "x":2, "y":5.25},
+                {"label":"k53", "x":3, "y":5.25}
+            ]
+        }
+    }
+}

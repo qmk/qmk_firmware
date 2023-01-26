@@ -1,12 +1,15 @@
 {
     "keyboard_name": "YMD09",
+    "manufacturer": "YMDK",
     "url": "https://www.aliexpress.com/item/4000510880374.html",
     "maintainer": "kaeltis",
-    "width": 3,
-    "height": 3,
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x4409",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
-            "key_count": 9,
             "layout": [
                 {"label": "7", "x": 0, "y": 0},
                 {"label": "8", "x": 1, "y": 0},

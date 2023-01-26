@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "CTRL",
+    "keyboard_name": "CTRL Keyboard",
+    "manufacturer": "Massdrop Inc.",
     "url": "https://www.massdrop.com/buy/massdrop-ctrl-mechanical-keyboard",
     "maintainer": "Massdrop",
-    "width": 18.5,
-    "height": 6.5,
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEED2",
+        "device_version": "1.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

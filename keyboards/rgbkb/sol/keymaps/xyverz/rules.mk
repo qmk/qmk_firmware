@@ -2,7 +2,7 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -10,7 +10,6 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RGBLIGHT_ENABLE = yes       # Enable global lighting effects. Do not enable with RGB Matrix
-RGBLIGHT_ANIMATIONS = yes   # LED animations
 LED_MIRRORED = yes          # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
 RGB_MATRIX_ENABLE = no      # Enable per-key coordinate based RGB effects. Do not enable with RGBlight
 RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects. Can be very laggy
@@ -24,7 +23,8 @@ OLED_ENABLE = no            # OLED_ENABLE
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 DEFAULT_FOLDER = rgbkb/sol/rev1
 ENCODER_ENABLE = no
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 
 # Do not edit past here
 

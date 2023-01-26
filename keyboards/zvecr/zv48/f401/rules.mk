@@ -1,5 +1,10 @@
 # MCU name
 MCU = STM32F401
+BOARD = BLACKPILL_STM32_F401
 
-# Address of the bootloader in system memory
-STM32_BOOTLOADER_ADDRESS = 0x1FFF0000
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_MPLY, KC_MUTE,
                 KC_MPRV, KC_MPLY, KC_U,   KC_K,
                 KC_NO,   KC_NO,   KC_ENT, KC_X,
-                KC_NO,   RESET,   LSFT(KC_HASH),   KC_J,
+                KC_NO,   QK_BOOT, LSFT(KC_HASH),   KC_J,
                 TG(5),   KC_TRNS, KC_TRNS,   KC_TRNS         //Transparent to let you go between layers
         ),
 
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_MPLY, KC_MUTE,
                 RGB_MOD,  RGB_HUI, RGB_SAI,   RGB_VAI,
                 RGB_RMOD, RGB_HUD, RGB_SAD,   RGB_VAD,
-                RGB_TOG,  EEP_RST, RESET,     KC_LSHIFT,
+                RGB_TOG,  EE_CLR,  QK_BOOT,   KC_LSFT,
                 KC_TRNS,  KC_TRNS, KC_TRNS,   KC_TRNS         //Transparent to let you go between layers
         ),
 };
@@ -103,7 +103,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
         my_layer5_layer
     );
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
         if (clockwise) {
             tap_code(KC_MPRV);
@@ -117,12 +117,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
     }
+    return true;
 }
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Allow for a preview of changes when modifying RGB
 # if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
   switch (keycode) {
-    case RGB_TOG ... VLK_TOG:
+    case RGB_TOG ... QK_VELOCIKEY_TOGGLE:
       for (uint8_t i = 0; i < RGBLIGHT_MAX_LAYERS; i++) {
         rgblight_set_layer_state(i, false);
       }
@@ -164,5 +165,5 @@ void matrix_scan_user(void) {
 //EEPROM Reset Function
 void eeconfig_init_user(void) {
   rgblight_enable(); // Enable RGB by default
-  rgblight_sethsv_orange();  // Set it to orange by default
+  rgblight_sethsv(HSV_ORANGE);  // Set it to orange by default
 }

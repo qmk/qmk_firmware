@@ -1,6 +1,3 @@
-#ifndef BLE_H
-#define BLE_H
+#pragma once
 
-#include QMK_KEYBOARD_H
-
-#endif
+#include "usb_usb.h"

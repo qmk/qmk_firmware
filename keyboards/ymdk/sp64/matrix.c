@@ -38,6 +38,17 @@ static void matrix_select_row(uint8_t row);
 static uint8_t mcp23018_reset_loop = 0;
 #endif
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 void matrix_init(void)
 {
   // all outputs for rows high
@@ -137,19 +148,10 @@ void matrix_print(void)
 {
   print("\nr/c 0123456789ABCDEF\n");
   for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    phex(row); print(": ");
-    pbin_reverse16(matrix_get_row(row));
+    print_hex8(row); print(": ");
+    print_bin_reverse16(matrix_get_row(row));
     print("\n");
   }
-}
-
-uint8_t matrix_key_count(void)
-{
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += bitpop16(matrix[i]);
-  }
-  return count;
 }
 
 static void matrix_select_row(uint8_t row)

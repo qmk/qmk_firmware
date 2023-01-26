@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Sticc14",
+    "manufacturer": "u/ergorius",
     "url": "",
     "maintainer": "erkhal",
-    "width": 3,
-    "height": 5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

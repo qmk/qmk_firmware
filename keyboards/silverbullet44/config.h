@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x16C0
-#define PRODUCT_ID      0x27DB
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SwanMatch
-#define PRODUCT         SilverBullet44
-#define DESCRIPTION     Metalical Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
@@ -43,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #define MATRIX_COL_PINS { B3, B1, F7, F6, F5, F4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -64,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLED_SPLIT {26, 26}
   #define RGBLED_NUM 52
   #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 52
+    #define RGB_MATRIX_LED_COUNT 52
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 
     #define RGB_MATRIX_HUE_STEP 8
@@ -76,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     #define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_TYPING_HEATMAP
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_TYPING_HEATMAP
   #else
     #define RGBLIGHT_LED_MAP { 0,1,2,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,3,4,5,6, \
                               26,27,28,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,29,30,31,32 }
@@ -85,9 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 8
     #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
   //#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//  #define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -112,7 +100,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B6_AUDIO
+  #define AUDIO_PIN B6
   #define STARTUP_SONG SONG(STARTUP_SOUND)
   #define AUDIO_CLICKY
   #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
@@ -166,59 +154,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define FORCE_NKRO
 
 /*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
-/* key combination for magic key command */
-/* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
-
-/* control how magic key switches layers */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM false
-
-/* override magic key keymap */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-//#define MAGIC_KEY_HELP           H
-//#define MAGIC_KEY_HELP_ALT       SLASH
-//#define MAGIC_KEY_DEBUG          D
-//#define MAGIC_KEY_DEBUG_MATRIX   X
-//#define MAGIC_KEY_DEBUG_KBD      K
-//#define MAGIC_KEY_DEBUG_MOUSE    M
-//#define MAGIC_KEY_VERSION        V
-//#define MAGIC_KEY_STATUS         S
-//#define MAGIC_KEY_CONSOLE        C
-//#define MAGIC_KEY_LAYER0         0
-//#define MAGIC_KEY_LAYER0_ALT     GRAVE
-//#define MAGIC_KEY_LAYER1         1
-//#define MAGIC_KEY_LAYER2         2
-//#define MAGIC_KEY_LAYER3         3
-//#define MAGIC_KEY_LAYER4         4
-//#define MAGIC_KEY_LAYER5         5
-//#define MAGIC_KEY_LAYER6         6
-//#define MAGIC_KEY_LAYER7         7
-//#define MAGIC_KEY_LAYER8         8
-//#define MAGIC_KEY_LAYER9         9
-//#define MAGIC_KEY_BOOTLOADER     B
-//#define MAGIC_KEY_BOOTLOADER_ALT ESC
-//#define MAGIC_KEY_LOCK           CAPS
-//#define MAGIC_KEY_EEPROM         E
-//#define MAGIC_KEY_EEPROM_CLEAR   BSPACE
-//#define MAGIC_KEY_NKRO           N
-//#define MAGIC_KEY_SLEEP_LED      Z
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
@@ -233,33 +168,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

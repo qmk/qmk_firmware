@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Evy Dekkers
+Copyright 2021 Evelien Dekkers
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,18 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV3_CONFIG_H
-#define REV3_CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    Vortex
-#define PRODUCT         Core
-#define DESCRIPTION     Atom47 PCB for the Vortex Core Rev.3
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -36,9 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS {B3,B2,B1,B0}
 #define MATRIX_COL_PINS {B7,F0,F1,F4,F6,D4,D6,D7,B4,B5,C6,C7,F7}
-#define UNUSED_PINS
 
-#define BACKLIGHT_PIN B6
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -51,13 +40,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight configuration
  */
-#define BACKLIGHT_LEVELS 4
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 5
+
+#define LED_CAPS_LOCK_PIN E6
+#define LED_PIN_ON_STATE 0
 
 #define RGB_DI_PIN F5    // The pin the LED strip is connected to
 #define RGBLED_NUM 6     // Number of LEDs in your strip
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define QMK_ESC_OUTPUT B7 // usually COL
-#define QMK_ESC_INPUT B3 // usually ROW
+#define QMK_ESC_INPUT B0 // usually ROW
 #define QMK_LED E6
-
-#endif

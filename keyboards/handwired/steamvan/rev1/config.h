@@ -19,20 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    John M Daly
-#define PRODUCT         SteamVan rev1
-#define DESCRIPTION     An open hardware forty percent PCB
-
-/* Address for jumping to bootloader on STM32 chips. */
-/* It is chip dependent, the correct number can be looked up here:
- * http://www.st.com/web/en/resource/technical/document/application_note/CD00167594.pdf
- */
-#define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -41,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { A6, A5, A4, A3 }
 #define MATRIX_COL_PINS { A9, A8, B15, B14, B13, A10, B9, B6, B5, B4, B3, A15 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -63,10 +48,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 5
 
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 #define RGBLED_NUM 16
 #define RGB_DI_PIN A7
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #define RGB_MATRIX_KEYPRESSES

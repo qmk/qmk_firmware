@@ -1,7 +1,7 @@
 # AutoHotKey Companion
 
 ## Overview
-AutoHotKey Companion Keymap for <a href="https://www.tindie.com/products/joshajohnson/hub16-programmable-macro-keyboard/">Hub16 macropad</a> is designed be a quick and easy way to get started with AutoHotKey and to provide a foundation for customizing your own macropad. I upgraded to the Super16 from a Super16 because it kept the RGB underglow lights for an easy way (RGB) to identify what layer I was on with a quick glance or peripheral vision and added 2 rotary encoders and a USB 2.0 hub with USB-C ports. The F13 to F24 keys were selected as they are rarely used so you won't run into conflicts with existing application shortcuts and AutoHotKey recognizes them without any issues. *Note:* MacOS does not support/recognize F21 to F24 so these would need to be remapped for Mac users. 
+AutoHotKey Companion Keymap for <a href="https://www.tindie.com/products/joshajohnson/hub16-programmable-macro-keyboard/">Hub16 macropad</a> is designed be a quick and easy way to get started with AutoHotKey and to provide a foundation for customizing your own macropad. I upgraded to the Hub16 from a Super16 because it kept the RGB underglow lights for an easy way (RGB) to identify what layer I was on with a quick glance or peripheral vision and added 2 rotary encoders and a USB 2.0 hub with USB-C ports. The F13 to F24 keys were selected as they are rarely used so you won't run into conflicts with existing application shortcuts and AutoHotKey recognizes them without any issues. *Note:* MacOS does not support/recognize F21 to F24 so these would need to be remapped for Mac users. 
 
 Same functionality can be accomplished with other similar applications on the host system like Keyboard Maestro, AutoIt, etc. 
 
@@ -64,7 +64,7 @@ While the first 5 layers are accessible with only 1 key press at most, the 5th (
     
 ## Host Configuration
 
-Once the keymap has been flashed to the Super16, you can download the accompanying AutoHotKey file or create your own and have it start automatically either via a Windows Task or another way. Using AutoHotKey allows adjustment of functionality of the buttons without the need to change your map and reflash the macropad every time.
+Once the keymap has been flashed to the Hub16, you can download the accompanying AutoHotKey file or create your own and have it start automatically either via a Windows Task or another way. Using AutoHotKey allows adjustment of functionality of the buttons without the need to change your map and reflash the macropad every time.
 Starting the AHK file can be done either by:
 * Creating a Windows Task 
 * Adding the AHK to the startup folder

@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "duckypad.h"
 
+#ifdef RGB_MATRIX_ENABLE
+
 led_config_t g_led_config = { {
     { 2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12, NO_LED, NO_LED }
 }, {
@@ -41,6 +43,8 @@ led_config_t g_led_config = { {
 }, {
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
 } };
+
+#endif
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(A0);

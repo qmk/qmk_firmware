@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "LFK78/68 Rev J",
+    "keyboard_name": "LFK78 Rev J",
+    "manufacturer": "LFKeyboards",
     "url": "",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 5,
+    "usb": {
+        "vid": "0x4C46",
+        "pid": "0x3738",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

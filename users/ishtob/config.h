@@ -16,7 +16,6 @@
 //#define LEADER_TIMEOUT 300
 //#define BACKLIGHT_BREATHING
 //#define PERMISSIVE_HOLD
-// #define QMK_KEYS_PER_SCAN 4
 
 //audio clicky
   //#define AUDIO_CLICKY
@@ -26,7 +25,6 @@
 
 /* ws2812 RGB LED
 #define RGB_DI_PIN B5
-#define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
@@ -49,9 +47,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

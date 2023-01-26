@@ -1,12 +1,15 @@
 {
     "keyboard_name": "Key 65 Hotswap",
+    "manufacturer": "Fox Lab",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x464C",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
-            "key_count": 66,
             "layout": [
                 {"label":"K00 (D2,F5)", "x":0, "y":0},
                 {"label":"K01 (D2,F4)", "x":1, "y":0},

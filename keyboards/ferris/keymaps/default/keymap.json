@@ -1,9 +1,9 @@
 {    "version": 1,
     "notes": "My awesome keymap",
     "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
-    "keyboard": "handwired/ferris",
+    "keyboard": "ferris/0_1",
     "keymap": "default",
-    "layout": "LAYOUT",
+    "layout": "LAYOUT_split_3x5_2",
     "layers": [
         ["KC_Q"        , "KC_W"        , "KC_E"           , "KC_R"          , "KC_T",
          "KC_Y"        , "KC_U"        , "KC_I"           , "KC_O"          , "KC_P",
@@ -50,8 +50,8 @@
          "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
          "KC_TRNS"     , "KC_MINS"     , "KC_BSLS"        , "KC_GRV"        , "KC_TRNS",
 
-         "KC_TRNS"     , "KC_TRNS",
-         "KC_TRNS"     , "KC_TRNS"
+         "RGB_RMOD"    , "KC_TRNS",
+         "KC_TRNS"     , "RGB_MOD"
         ],
         ["KC_TRNS"     , "KC_COLN"     , "KC_LT"          , "KC_GT"         , "KC_SCLN",
          "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
@@ -96,7 +96,7 @@
          "DF(1)"       , "KC_LGUI"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
 
          "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_EXLM"       , "KC_TRNS",
-         "DF(0)"       , "KC_TRNS"     , "RALT_T(KC_COMM)", "RCTL_T(KC_DOT)", "RESET",
+         "DF(0)"       , "KC_TRNS"     , "RALT_T(KC_COMM)", "RCTL_T(KC_DOT)", "QK_BOOT",
 
          "KC_TRNS"     , "KC_TAB",
          "KC_NO"       , "KC_TRNS"

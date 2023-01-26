@@ -2,6 +2,11 @@
 #include "dshields.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX)
+            || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)
+            || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+        keycode = keycode & 0xFF;
+    }
     if (keycode == KC_ESC && record->event.pressed) {
         bool rc = true;
         uint8_t mods = 0;
@@ -22,5 +27,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return rc;
     }
     return true;
+}
+
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MT_A:
+        case MT_S:
+        case MT_D:
+        case MT_F:
+        case MT_J:
+        case MT_K:
+        case MT_L:
+        case MT_SCLN:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MT_SPC:
+        case MT_BSPC:
+        case MT_ESC:
+            return true;
+        default:
+            return false;
+    }
 }
 

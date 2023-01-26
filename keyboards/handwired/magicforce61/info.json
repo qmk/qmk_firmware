@@ -1,9 +1,13 @@
 {
-  "keyboard_name": "Magicforce \"61\"",
+  "keyboard_name": "Magicforce 61",
+  "manufacturer": "Hexwire",
   "url": "",
   "maintainer": "qmk",
-  "width": 15,
-  "height": 5,
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
