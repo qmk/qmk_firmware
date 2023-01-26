@@ -4,6 +4,7 @@
 #include "i2c_master.h"
 
 #include "pcal6416a/pcal6416a.h"
+#include "indicator_leds.h"
 
 static const pcal_gpio_pin row_pins[MATRIX_ROWS] = PCAL_ROW_PINS;
 static const pcal_gpio_pin column_pins[MATRIX_COLS] = PCAL_COL_PINS;
@@ -30,6 +31,7 @@ static bool update_matrix_for_row(uint8_t row, matrix_row_t current_matrix[]) {
 void matrix_init_custom(void) {
     i2c_init();
 
+    indicator_leds_init();
     set_pin_array_direction(column_pins, MATRIX_COLS, INPUT_PULLUP);
     set_pin_array_initial_state(row_pins, MATRIX_ROWS, HIGH);
 }
