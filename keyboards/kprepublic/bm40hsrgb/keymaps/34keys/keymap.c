@@ -43,13 +43,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_Numb] = LAYOUT_planck_mit(
       KC_LBRC,        KC_7,     KC_8,          KC_9,        KC_RBRC,    KC_NO, KC_NO,      KC_DEL,      KC_NO,     KC_NO,     KC_NO,       KC_NO,
       KC_SCLN,        KC_4,     KC_5,          KC_6,         KC_EQL,    KC_NO, KC_NO,      KC_ENT,     KC_RSFT,    HOME_K,    HOME_L,     HOME_QU,
-       KC_GRV,        KC_1,     KC_2,          KC_3,        KC_BSLS,    KC_NO, KC_NO,       KC_NO,      KC_NO,     KC_NO,   KC_HAEN,       KC_NO,
+       KC_GRV,        KC_1,     KC_2,          KC_3,        KC_BSLS,    KC_NO, KC_NO,       KC_NO,      KC_NO,     KC_NO,   KR_HAEN,       KC_NO,
         KC_NO,       KC_NO,     KC_NO,         KC_0,        KC_MINS,        KC_NO,        KC_BSPC,      KC_NO,     KC_NO,     KC_NO,       KC_NO
       ),  
   [_Func] = LAYOUT_planck_mit(
       KC_F12,     KC_F7,     KC_F8,           KC_F9,       KC_PSCR,    KC_NO, KC_NO,        QK_BOOT,    KC_NO,     KC_NO,     KC_NO,     KC_NO,
       KC_F11,     KC_F4,     KC_F5,           KC_F6,       KC_SCRL,    KC_NO, KC_NO,      KC_CAPS,     KC_RSFT,    HOME_K,    HOME_L,   HOME_QU,
-      KC_F10,     KC_F1,     KC_F2,           KC_F3,       KC_PAUS,    KC_NO, KC_NO,       KC_INS,      KC_NO,     KC_NO,   KC_HAEN,     KC_NO,
+      KC_F10,     KC_F1,     KC_F2,           KC_F3,       KC_PAUS,    KC_NO, KC_NO,       KC_INS,      KC_NO,     KC_NO,   KR_HAEN,     KC_NO,
       KC_NO,       KC_NO,     KC_NO,          KC_NO,       Lay_SPC,         KC_NO,        KC_BSPC,      KC_NO,     KC_NO,     KC_NO,     KC_NO
       ), 
 };
@@ -87,5 +87,5 @@ enum combos {
 const uint16_t PROGMEM sft_han_combo[] = {LSFT_T(KC_F), LT(_Func,KC_SPC), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [SFT_HAN] = COMBO(sft_han_combo, KC_HAEN),
+  [SFT_HAN] = COMBO(sft_han_combo, KC_LNG1),
 };

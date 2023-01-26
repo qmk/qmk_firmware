@@ -41,5 +41,5 @@ bool effect_rainbow_reactive(effect_params_t* params, rainbow_reactive_f effect_
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
 
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }

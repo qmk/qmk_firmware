@@ -16,8 +16,8 @@ enum layer_number {
 
 // Shortcut to make keymap more readable
 #define LT_AESC LALT_T(KC_ESC)
-#define LT_ALN1 LALT_T(KC_LANG1)
-#define LT_ALN2 LALT_T(KC_LANG2)
+#define LT_ALN1 LALT_T(KC_LNG1)
+#define LT_ALN2 LALT_T(KC_LNG2)
 #define LT_GENT LGUI_T(KC_ENT)
 #define LT_GSPC LGUI_T(KC_SPC)
 #define LT_F1F  LT(_FN1, KC_F)
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐                ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GRV  ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F6   ,                 KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12  ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,KC_DQUO ,KC_QUOT ,KC_HASH ,KC_ASTR ,KC_PLUS ,KC_TILD ,                          KC_LPRN ,KC_RPRN ,KC_PIPE ,KC_ASTR ,KC_TILD ,KC_CIRC ,KC_SLSH ,KC_JYEN ,
+     _______ ,KC_DQUO ,KC_QUOT ,KC_HASH ,KC_ASTR ,KC_PLUS ,KC_TILD ,                          KC_LPRN ,KC_RPRN ,KC_PIPE ,KC_ASTR ,KC_TILD ,KC_CIRC ,KC_SLSH ,KC_INT3 ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┘                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,KC_AT   ,KC_COLN ,KC_GRV  ,_______ ,KC_MINS ,                                   KC_LBRC ,_______ ,KC_DOT  ,KC_SLSH ,KC_MINS ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┘

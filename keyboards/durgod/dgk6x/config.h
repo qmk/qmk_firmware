@@ -62,7 +62,7 @@
 #define DRIVER_ADDR_2 0b1010011
 
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* I2C Alternate function settings */
 #define I2C1_SCL_PAL_MODE 1
@@ -129,8 +129,5 @@
 #    define ENABLE_RGB_MATRIX_MULTISPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-// This allows VIA to control RGB Matrix settings in the 'Lighting' section.
-#define VIA_QMK_RGBLIGHT_ENABLE
 
 #endif /* RGB_MATRIX_ENABLE */

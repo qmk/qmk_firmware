@@ -44,61 +44,16 @@ uint8_t backlight_state_led = 1<<STATE_LED_LAYER_0;
 
 void backlight_toggle_rgb(bool enabled)
 {
+  uint8_t rgb[RGBLED_NUM][3] = { 0 };
+
   if(enabled) {
-    uint8_t rgb[RGBLED_NUM][3] = {
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b}
-    };
-    backlight_set_rgb(rgb);
-  } else {
-    uint8_t rgb[RGBLED_NUM][3] = {
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0}
-    };
-    backlight_set_rgb(rgb);
+    for(uint8_t i = 0; i < RGBLED_NUM; ++i) {
+      rgb[i][0] = backlight_rgb_r;
+      rgb[i][1] = backlight_rgb_g;
+      rgb[i][2] = backlight_rgb_b;
+    }
   }
+  backlight_set_rgb(rgb);
 }
 
 void backlight_set_rgb(uint8_t cfg[RGBLED_NUM][3])
@@ -140,22 +95,25 @@ void backlight_update_state()
   show();
 }
 
-void led_set_kb(uint8_t usb_led)
-{
-  if(usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    backlight_state_led |=   1<<STATE_LED_CAPS_LOCK;
-  } else {
-    backlight_state_led &= ~(1<<STATE_LED_CAPS_LOCK);
-  }
-  if(usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-    backlight_state_led |=   1<<STATE_LED_SCROLL_LOCK;
-  } else {
-    backlight_state_led &= ~(1<<STATE_LED_SCROLL_LOCK);
-  }
-  if(usb_led & (1<<USB_LED_NUM_LOCK)) {
-    backlight_state_led |=   1<<STATE_LED_NUM_LOCK;
-  } else {
-    backlight_state_led &= ~(1<<STATE_LED_NUM_LOCK);
-  }
-  backlight_update_state();
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+      if(led_state.caps_lock) {
+        backlight_state_led |=   1<<STATE_LED_CAPS_LOCK;
+      } else {
+        backlight_state_led &= ~(1<<STATE_LED_CAPS_LOCK);
+      }
+      if(led_state.scroll_lock) {
+        backlight_state_led |=   1<<STATE_LED_SCROLL_LOCK;
+      } else {
+        backlight_state_led &= ~(1<<STATE_LED_SCROLL_LOCK);
+      }
+      if(led_state.num_lock) {
+        backlight_state_led |=   1<<STATE_LED_NUM_LOCK;
+      } else {
+        backlight_state_led &= ~(1<<STATE_LED_NUM_LOCK);
+      }
+      backlight_update_state();
+    }
+    return res;
 }

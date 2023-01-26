@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
   #define RGBLED_NUM 70
 #endif
-#define DRIVER_LED_TOTAL  RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT  RGBLED_NUM
 
 #define RGB_MATRIX_CENTER { 112, 35 }
 

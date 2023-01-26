@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_ADDR_1 0b0110000
 #define DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 82
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0
 #define RGB_MATRIX_CENTER { 116, 32 }
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 175
