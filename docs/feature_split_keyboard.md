@@ -141,7 +141,7 @@ Next, you will have to flash the EEPROM files once for the correct hand to the c
 |ARM controllers with a DFU compatible bootloader<br>(e.g. Proton-C)|`:dfu-util-split-left`<br>`dfu-util-split-right`|
 |ARM controllers with a UF2 compatible bootloader<br>(e.g. RP2040)|`:uf2-split-left`<br>`:uf2-split-right`|
 
-Example for `crkbd/rev1` keyboard with normal AVR Promicro MCUs, reset the left controller and run:
+Example for `crkbd/rev1` keyboard with normal AVR Pro Micro MCUs, reset the left controller and run:
 ```
 make crkbd/rev1:default:avrdude-split-left
 ```
