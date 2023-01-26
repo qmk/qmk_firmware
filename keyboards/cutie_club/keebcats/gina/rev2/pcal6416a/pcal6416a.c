@@ -41,3 +41,22 @@ void pcal_set_pin_direction(pcal_gpio_pin pin, pcal_gpio_dir dir) {
         }
     }
 }
+
+void set_pin_array_direction(const pcal_gpio_pin* pins, int size, pcal_gpio_dir direction) {
+    for(int i = 0; i < size; i++) {
+        pcal_set_pin_direction(pins[i], direction);
+    }
+}
+
+void set_pin_array_state(const pcal_gpio_pin* pins, int size, pcal_gpio_state state) {
+    for(int i = 0; i < size; i++) {
+        pcal_write_pin(pins[i], state);
+    }
+}
+
+void set_pin_array_initial_state(const pcal_gpio_pin* pins, int size, pcal_gpio_state state) {
+    for(int i = 0; i < size; i++) {
+        pcal_write_pin(pins[i], state);
+        pcal_set_pin_direction(pins[i], OUTPUT);
+    }
+}
