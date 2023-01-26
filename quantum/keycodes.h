@@ -732,6 +732,22 @@ enum qk_keycode_defines {
     QK_USER_13 = 0x7F0D,
     QK_USER_14 = 0x7F0E,
     QK_USER_15 = 0x7F0F,
+    QK_USER_16 = 0x7F10,
+    QK_USER_17 = 0x7F11,
+    QK_USER_18 = 0x7F12,
+    QK_USER_19 = 0x7F13,
+    QK_USER_20 = 0x7F14,
+    QK_USER_21 = 0x7F15,
+    QK_USER_22 = 0x7F16,
+    QK_USER_23 = 0x7F17,
+    QK_USER_24 = 0x7F18,
+    QK_USER_25 = 0x7F19,
+    QK_USER_26 = 0x7F1A,
+    QK_USER_27 = 0x7F1B,
+    QK_USER_28 = 0x7F1C,
+    QK_USER_29 = 0x7F1D,
+    QK_USER_30 = 0x7F1E,
+    QK_USER_31 = 0x7F1F,
 
 // Alias
     XXXXXXX    = KC_NO,
@@ -1341,5 +1357,5 @@ enum qk_keycode_defines {
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
 #define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_TRI_LAYER_2_3)
-#define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_15)
+#define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_31)
 
