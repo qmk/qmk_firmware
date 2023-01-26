@@ -54,9 +54,21 @@
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 0
 #endif
 
+#define VIA_EEPROM_CONFIG_END (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.
-#define VIA_PROTOCOL_VERSION 0x0009
+#define VIA_PROTOCOL_VERSION 0x000B
+
+// This is a version number for the firmware for the keyboard.
+// It can be used to ensure the VIA keyboard definition and the firmware
+// have the same version, especially if there are changes to custom values.
+// Define this in config.h to override and bump this number.
+// This is *not* required if the keyboard is only using basic functionality
+// and not using custom values for lighting, rotary encoders, etc.
+#ifndef VIA_FIRMWARE_VERSION
+#    define VIA_FIRMWARE_VERSION 0x00000000
+#endif
 
 enum via_command_id {
     id_get_protocol_version                 = 0x01, // always 0x01
@@ -65,9 +77,9 @@ enum via_command_id {
     id_dynamic_keymap_get_keycode           = 0x04,
     id_dynamic_keymap_set_keycode           = 0x05,
     id_dynamic_keymap_reset                 = 0x06,
-    id_lighting_set_value                   = 0x07,
-    id_lighting_get_value                   = 0x08,
-    id_lighting_save                        = 0x09,
+    id_custom_set_value                     = 0x07,
+    id_custom_get_value                     = 0x08,
+    id_custom_save                          = 0x09,
     id_eeprom_reset                         = 0x0A,
     id_bootloader_jump                      = 0x0B,
     id_dynamic_keymap_macro_get_count       = 0x0C,
@@ -78,34 +90,53 @@ enum via_command_id {
     id_dynamic_keymap_get_layer_count       = 0x11,
     id_dynamic_keymap_get_buffer            = 0x12,
     id_dynamic_keymap_set_buffer            = 0x13,
+    id_dynamic_keymap_get_encoder           = 0x14,
+    id_dynamic_keymap_set_encoder           = 0x15,
     id_unhandled                            = 0xFF,
 };
 
 enum via_keyboard_value_id {
-    id_uptime              = 0x01, //
+    id_uptime              = 0x01,
     id_layout_options      = 0x02,
-    id_switch_matrix_state = 0x03
+    id_switch_matrix_state = 0x03,
+    id_firmware_version    = 0x04,
+    id_device_indication   = 0x05,
 };
 
-enum via_lighting_value {
-    // QMK BACKLIGHT
-    id_qmk_backlight_brightness = 0x09,
-    id_qmk_backlight_effect     = 0x0A,
-
-    // QMK RGBLIGHT
-    id_qmk_rgblight_brightness   = 0x80,
-    id_qmk_rgblight_effect       = 0x81,
-    id_qmk_rgblight_effect_speed = 0x82,
-    id_qmk_rgblight_color        = 0x83,
+enum via_channel_id {
+    id_custom_channel         = 0,
+    id_qmk_backlight_channel  = 1,
+    id_qmk_rgblight_channel   = 2,
+    id_qmk_rgb_matrix_channel = 3,
+    id_qmk_audio_channel      = 4,
 };
 
-// Can't use SAFE_RANGE here, it might change if someone adds
-// new values to enum quantum_keycodes.
-// Need to keep checking 0x5F10 is still in the safe range.
-// TODO: merge this into quantum_keycodes
-// Backlight keycodes are in range 0x5F00-0x5F0F
+enum via_qmk_backlight_value {
+    id_qmk_backlight_brightness = 1,
+    id_qmk_backlight_effect     = 2,
+};
+
+enum via_qmk_rgblight_value {
+    id_qmk_rgblight_brightness   = 1,
+    id_qmk_rgblight_effect       = 2,
+    id_qmk_rgblight_effect_speed = 3,
+    id_qmk_rgblight_color        = 4,
+};
+
+enum via_qmk_rgb_matrix_value {
+    id_qmk_rgb_matrix_brightness   = 1,
+    id_qmk_rgb_matrix_effect       = 2,
+    id_qmk_rgb_matrix_effect_speed = 3,
+    id_qmk_rgb_matrix_color        = 4,
+};
+
+enum via_qmk_audio_value {
+    id_qmk_audio_enable        = 1,
+    id_qmk_audio_clicky_enable = 2,
+};
+
 enum via_keycodes {
-    FN_MO13 = 0x5F10,
+    FN_MO13 = QK_MACRO,
     FN_MO23,
     MACRO00,
     MACRO01,
@@ -126,7 +157,7 @@ enum via_keycodes {
 };
 
 enum user_keycodes {
-    USER00 = 0x5F80,
+    USER00 = QK_USER,
     USER01,
     USER02,
     USER03,
@@ -161,5 +192,39 @@ uint32_t via_get_layout_options(void);
 void     via_set_layout_options(uint32_t value);
 void     via_set_layout_options_kb(uint32_t value);
 
+// Used by VIA to tell a device to flash LEDs (or do something else) when that
+// device becomes the active device being configured, on startup or switching
+// between devices.
+void via_set_device_indication(uint8_t value);
+
 // Called by QMK core to process VIA-specific keycodes.
 bool process_record_via(uint16_t keycode, keyrecord_t *record);
+
+// These are made external so that keyboard level custom value handlers can use them.
+#if defined(BACKLIGHT_ENABLE)
+void via_qmk_backlight_command(uint8_t *data, uint8_t length);
+void via_qmk_backlight_set_value(uint8_t *data);
+void via_qmk_backlight_get_value(uint8_t *data);
+void via_qmk_backlight_save(void);
+#endif
+
+#if defined(RGBLIGHT_ENABLE)
+void via_qmk_rgblight_command(uint8_t *data, uint8_t length);
+void via_qmk_rgblight_set_value(uint8_t *data);
+void via_qmk_rgblight_get_value(uint8_t *data);
+void via_qmk_rgblight_save(void);
+#endif
+
+#if defined(RGB_MATRIX_ENABLE)
+void via_qmk_rgb_matrix_command(uint8_t *data, uint8_t length);
+void via_qmk_rgb_matrix_set_value(uint8_t *data);
+void via_qmk_rgb_matrix_get_value(uint8_t *data);
+void via_qmk_rgb_matrix_save(void);
+#endif
+
+#if defined(AUDIO_ENABLE)
+void via_qmk_audio_command(uint8_t *data, uint8_t length);
+void via_qmk_audio_set_value(uint8_t *data);
+void via_qmk_audio_get_value(uint8_t *data);
+void via_qmk_audio_save(void);
+#endif

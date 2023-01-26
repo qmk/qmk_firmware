@@ -1,7 +1,13 @@
 {
     "keyboard_name": "RART67M",
+    "manufacturer": "Alabahuy",
     "url": "",
     "maintainer": "Alabahuy",
+    "usb": {
+        "vid": "0x414C",
+        "pid": "0x6067",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

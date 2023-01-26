@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Deskpad", 
+    "manufacturer": "Hydrogen",
     "url": "", 
     "maintainer": "Hydrogen BD", 
+    "usb": {
+        "vid": "0x4D53",
+        "pid": "0x4450",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"k1", "x":0, "y":0}, 

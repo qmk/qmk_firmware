@@ -1,5 +1,11 @@
 {
     "keyboard_name": "Eagle/Viper V2",
+    "manufacturer": "Duck",
+    "usb": {
+        "vid": "0x444B",
+        "pid": "0x4556",
+        "device_version": "0.0.2"
+    },
     "layout_aliases": {
         "LAYOUT_eagle": "LAYOUT_60_ansi",
         "LAYOUT_viper": "LAYOUT_60_hhkb",

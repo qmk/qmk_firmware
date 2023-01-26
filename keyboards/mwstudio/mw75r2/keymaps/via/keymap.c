@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[1] = LAYOUT(
       _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, USER00,  USER01,  _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_HUI,
-      RGB_TOG, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_HUD,
+      RGB_TOG, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_HUD,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, RGB_SAI,
       _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_VAI, RGB_SAD,
       _______, _______, _______,                   _______,                                     RGB_MOD, _______, RGB_SPD, RGB_VAD, RGB_SPI
@@ -143,7 +143,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (user_config.top_rgb_change)
     {
@@ -168,4 +168,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
         }
     }
+    return false;
 }

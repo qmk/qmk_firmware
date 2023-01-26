@@ -1,7 +1,13 @@
 {
     "keyboard_name": "grooveboard",
+    "manufacturer": "ianklug",
     "url": "https://github.com/ianklug/grooveboard",
     "maintainer": "ianklug",
+    "usb": {
+        "vid": "0x4B4C",
+        "pid": "0x4742",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

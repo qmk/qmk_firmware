@@ -1,8 +1,13 @@
 {
-    "keyboard_name": "FreebirdNP Pro",
+    "keyboard_name": "Freebird Numpad Pro",
+    "manufacturer": "KeebsForAll",
     "url": "https://keebsforall.com/products/fb-numpad-pro",
     "maintainer": "e11i0t23",
-    "manufacturer": "KeebsForAll",
+    "usb": {
+        "vid": "0x6B66",
+        "pid": "0x1014",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

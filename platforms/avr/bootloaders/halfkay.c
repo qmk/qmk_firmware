@@ -17,6 +17,7 @@
 #include "bootloader.h"
 
 #include <avr/interrupt.h>
+#include <avr/wdt.h>
 #include <util/delay.h>
 
 __attribute__((weak)) void bootloader_jump(void) {
@@ -125,4 +126,13 @@ __attribute__((weak)) void bootloader_jump(void) {
     PORTF  = 0;
     asm volatile("jmp 0x1FC00");
 #endif
+}
+
+__attribute__((weak)) void mcu_reset(void) {
+    // setup watchdog timeout
+    wdt_enable(WDTO_60MS);
+
+    // wait for watchdog timer to trigger
+    while (1) {
+    }
 }

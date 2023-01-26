@@ -1,7 +1,13 @@
 {
     "keyboard_name": "VaneelaEx",
+    "manufacturer": "delikeeb",
     "url": "http://www.keyboard-layout-editor.com/#/gists/f605c1a2cb2fea256161964740bd2a52",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x9906",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ss_6x12": {
             "layout": [

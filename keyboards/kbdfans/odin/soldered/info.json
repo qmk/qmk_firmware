@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "ODIN_SOLDERED",
-    "maintainer": "moyi4681",
+    "keyboard_name": "Odin Soldered",
+    "manufacturer": "KBDFans",
     "url": "",
+    "maintainer": "moyi4681",
+    "usb": {
+        "vid": "0x4B42",
+        "pid": "0x0101",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Balance",
+    "manufacturer": "CannonKeys",
     "url": "https://cannonkeys.com",
     "maintainer": "awkannan",
+    "usb": {
+        "vid": "0xCA04",
+        "pid": "0xBA77",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

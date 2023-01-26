@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x7074 // FJLabs
-#define PRODUCT_ID   0x1004 // tf60ansi
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    FJLabs
-#define PRODUCT         TF60ANSI
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
@@ -44,7 +37,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Checked with Eagle Schematic
 #define MATRIX_ROW_PINS { F0, F1, F4, F5, F6  }
 #define MATRIX_COL_PINS { C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, B3, B2, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_FN1] = LAYOUT( \
     KC_MUTE, QM_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  MC_LHPD, MC_SLPD, \
-    KC_VOLU, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, KC_HOME, KC_UP,   KC_END,  KC_DELT, \
+    KC_VOLU, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, KC_HOME, KC_UP,   KC_END,  KC_DEL,  \
     KC_VOLD, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, KC_MPRV, KC_MNXT, KC_PGDN, KC_UP,            KC_MPLY, \
              _______, RGB_LYR, RGB_THM, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, RGT_SFT, _______, \
              _______,          _______,     _______,      _______,          _______,          _______,                   _______ \

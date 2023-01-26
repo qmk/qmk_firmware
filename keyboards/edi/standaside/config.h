@@ -4,13 +4,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xF7E0
-#define PRODUCT_ID      0x0412
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    Fate Everywhere
-#define PRODUCT         Stand Aside
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
@@ -27,7 +20,6 @@
 */
 #define MATRIX_ROW_PINS { D1, F4, F6, F7, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS { F5, D0, D4, C6, D7, E6, B4, B5 }
-#define UNUSED_PINS {}
 
 
 /* COL2ROW, ROW2COL */
@@ -56,7 +48,17 @@
  */
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 12
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).

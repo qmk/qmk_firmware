@@ -13,26 +13,64 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "digitizer.h"
 
-digitizer_t digitizerReport = {.tipswitch = 0, .inrange = 0, .id = 0, .x = 0, .y = 0, .status = DZ_INITIALIZED};
+digitizer_t digitizer_state = {
+    .in_range = false,
+    .tip      = false,
+    .barrel   = false,
+    .x        = 0,
+    .y        = 0,
+    .dirty    = false,
+};
 
-__attribute__((weak)) void digitizer_send(void) {
-    if (digitizerReport.status & DZ_UPDATED) {
-        host_digitizer_send(&digitizerReport);
-        digitizerReport.status &= ~DZ_UPDATED;
+void digitizer_flush(void) {
+    if (digitizer_state.dirty) {
+        host_digitizer_send(&digitizer_state);
+        digitizer_state.dirty = false;
     }
 }
 
-__attribute__((weak)) void digitizer_task(void) {
-    digitizer_send();
+void digitizer_in_range_on(void) {
+    digitizer_state.in_range = true;
+    digitizer_state.dirty    = true;
+    digitizer_flush();
 }
 
-digitizer_t digitizer_get_report(void) {
-    return digitizerReport;
+void digitizer_in_range_off(void) {
+    digitizer_state.in_range = false;
+    digitizer_state.dirty    = true;
+    digitizer_flush();
 }
 
-void digitizer_set_report(digitizer_t newDigitizerReport) {
-    digitizerReport = newDigitizerReport;
-    digitizerReport.status |= DZ_UPDATED;
+void digitizer_tip_switch_on(void) {
+    digitizer_state.tip   = true;
+    digitizer_state.dirty = true;
+    digitizer_flush();
+}
+
+void digitizer_tip_switch_off(void) {
+    digitizer_state.tip   = false;
+    digitizer_state.dirty = true;
+    digitizer_flush();
+}
+
+void digitizer_barrel_switch_on(void) {
+    digitizer_state.barrel = true;
+    digitizer_state.dirty  = true;
+    digitizer_flush();
+}
+
+void digitizer_barrel_switch_off(void) {
+    digitizer_state.barrel = false;
+    digitizer_state.dirty  = true;
+    digitizer_flush();
+}
+
+void digitizer_set_position(float x, float y) {
+    digitizer_state.x     = x;
+    digitizer_state.y     = y;
+    digitizer_state.dirty = true;
+    digitizer_flush();
 }

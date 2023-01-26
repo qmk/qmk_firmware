@@ -227,3 +227,7 @@ void matrix_power_up(void) {
     }
 
 }
+
+bool is_transport_connected(void) {
+    return mcp23018_initd;
+}

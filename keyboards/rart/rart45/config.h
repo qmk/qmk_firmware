@@ -17,20 +17,12 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x414C
-#define PRODUCT_ID      0x0045
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         Rart45
-
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 6
 
 #define MATRIX_ROW_PINS { D1, C2, C1, B1, D0, C3, C0, D7, B0 }
 #define MATRIX_COL_PINS { D6, D4, B2, B5, B4, B3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

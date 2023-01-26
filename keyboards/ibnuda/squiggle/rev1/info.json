@@ -1,7 +1,13 @@
 {
     "keyboard_name": "squiggle",
+    "manufacturer": "ibnuda",
     "url": "https://github.com/ibnuda/squiggle",
     "maintainer": "Ibnu D. Aji",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x6969",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

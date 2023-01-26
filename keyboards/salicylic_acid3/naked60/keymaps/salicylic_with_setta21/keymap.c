@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 extern keymap_config_t keymap_config;
 
@@ -32,22 +32,22 @@ enum tapdances{
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_ESFL] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _FLOCK),
-  [TD_ESQW] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _QWERTY),
+  [TD_ESFL] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _FLOCK),
+  [TD_ESQW] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _QWERTY),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_with_setta21(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |-----------------------------------------------|
-  TD(TD_ESFL),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,LT(_LOWER, KC_P0),KC_P1,  KC_P4,  KC_P7,KC_NLCK, KC_ESC,
+  TD(TD_ESFL),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,LT(_LOWER, KC_P0),KC_P1,  KC_P4,  KC_P7,KC_NUM,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, JP_LBRC,                 KC_P2,  KC_P5,  KC_P8,KC_PSLS,  KC_F2,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
-     KC_LCTRL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L, JP_MINS, JP_RBRC,LT(_RAISE, KC_PDOT),KC_P3,KC_P6, KC_P9,KC_PAST, JP_EQL,
+     KC_LCTL,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L, JP_MINS, JP_RBRC,LT(_RAISE, KC_PDOT),KC_P3,KC_P6, KC_P9,KC_PAST, JP_EQL,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |---------------+---------------+-------+-------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M, JP_COMM,  JP_DOT, JP_SLSH, JP_BSLS,               KC_PENT,        KC_PPLS,KC_PMNS, KC_DEL,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|      |-----------------------------------------------|
-      KC_LEFT,KC_RIGHT, KC_LGUI, KC_MHEN, LT(_LOWER,KC_ENT),KC_BSPC,  KC_DEL,LT(_RAISE,KC_SPC), KC_HENK, KC_LALT, KC_DOWN,   KC_UP
+      KC_LEFT,KC_RIGHT, KC_LGUI, JP_MHEN, LT(_LOWER,KC_ENT),KC_BSPC,  KC_DEL,LT(_RAISE,KC_SPC), JP_HENK, KC_LALT, KC_DOWN,   KC_UP
           //`------------------------------------------------------------------------------------------------------------'
   ),
 
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |---------------+---------------+-------+-------|
       JP_CIRC, JP_PERC, JP_AMPR, JP_SCLN, JP_COLN, JP_PIPE,                      KC_0,    KC_1,    KC_2,    KC_3, JP_PLUS,  KC_ENT,               KC_PENT,        KC_PPLS,KC_PMNS, KC_DEL,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|      |-----------------------------------------------|
-               _______, _______, _______, KC_ZKHK,MO(_LOWER),_______,_______,MO(_RAISE), JP_DOT,_______, _______, _______
+               _______, _______, _______, JP_ZKHK,MO(_LOWER),_______,_______,MO(_RAISE), JP_DOT,_______, _______, _______
           //`------------------------------------------------------------------------------------------------------------'
   ),
 
@@ -99,11 +99,11 @@ SFT_T(KC_F12),   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                   XX
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,LALT(KC_PSCR),          RGB_VAI,RGB_HUI,RGB_SAI,XXXXXXX,_______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
-     KC_LCTRL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, KC_PSCR,       _______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,
+     KC_LCTL,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, KC_PSCR,       _______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |---------------+---------------+-------+-------|
       KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,LCA(KC_DEL),            RGB_MOD,        RGB_TOG,_______,_______,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|      |-----------------------------------------------|
-               _______, _______, _______, _______, _______,   RESET,   RESET, _______, _______, _______, _______, _______
+               _______, _______, _______, _______, _______,   QK_BOOT, QK_BOOT, _______, _______, _______, _______, _______
           //`------------------------------------------------------------------------------------------------------------'
   )
 };

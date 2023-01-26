@@ -19,37 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3265
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yushakobo
-#define PRODUCT         Helix Beta
-
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 
-/* Use I2C or Serial */
-#define USE_SERIAL
-//#define USE_MATRIX_I2C
-
 /* Soft Serial defines */
 #define SOFT_SERIAL_PIN D2
-#define SERIAL_USE_MULTI_TRANSACTION
 
 /* Select hand configuration */
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
-
-// Helix keyboard OLED support
-//      see ./local_features.mk: OLED_SELECT=local
-#ifdef OLED_LOCAL_ENABLE
-  #define SSD1306OLED
-#endif
 
 #define OLED_UPDATE_INTERVAL 50
 
@@ -95,7 +77,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
 
 // Helix keyboard RGB LED support
-//#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #ifdef RGBLED_BACK
   #if MATRIX_ROWS == 8 // HELIX_ROWS == 4

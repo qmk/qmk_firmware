@@ -53,6 +53,10 @@
 #    define AW_GLOBAL_CURRENT_MAX 150
 #endif
 
+#ifndef AW_SPI_MODE
+#    define AW_SPI_MODE 0
+#endif
+
 #ifndef AW_SPI_DIVISOR
 #    define AW_SPI_DIVISOR 4
 #endif
@@ -63,7 +67,7 @@ bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 bool AW20216_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8_t len) {
     static uint8_t s_spi_transfer_buffer[2] = {0};
 
-    if (!spi_start(cs_pin, false, 0, AW_SPI_DIVISOR)) {
+    if (!spi_start(cs_pin, false, AW_SPI_MODE, AW_SPI_DIVISOR)) {
         spi_stop();
         return false;
     }
@@ -129,7 +133,7 @@ void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         AW20216_set_color(i, red, green, blue);
     }
 }

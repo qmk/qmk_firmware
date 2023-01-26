@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Devil68 Pro",
+    "keyboard_name": "Black E6.5",
+    "manufacturer": "HorrorTroll",
     "url": "",
     "maintainer": "HorrorTroll",
+    "usb": {
+        "vid": "0x7516",
+        "pid": "0x7000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -80,7 +86,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_all_noblocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -157,7 +163,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_noblocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -232,7 +238,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_noblocker_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -308,7 +314,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_noblocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -384,7 +390,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_noblocker_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -461,7 +467,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_all_blocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -538,7 +544,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -613,7 +619,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_blocker_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -689,7 +695,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_blocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -765,7 +771,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_blocker_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -842,7 +848,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_all_7u_noblocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -918,7 +924,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_7u_noblocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -992,7 +998,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_7u_noblocker_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1067,7 +1073,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_7u_noblocker": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1142,7 +1148,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_7u_noblocker_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1218,7 +1224,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_all_7u_wk": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1294,7 +1300,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_7u_wk": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1368,7 +1374,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_7u_wk_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1443,7 +1449,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_7u_wk": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1518,7 +1524,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_7u_wk_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1594,7 +1600,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_all_7u_wkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1669,7 +1675,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_7u_wkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1742,7 +1748,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_7u_wkl_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1816,7 +1822,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_7u_wkl": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1890,7 +1896,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_7u_wkl_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -1965,7 +1971,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_all_7u_hhkb": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -2041,7 +2047,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_7u_hhkb": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -2115,7 +2121,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_7u_hhkb_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -2190,7 +2196,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_7u_hhkb": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
@@ -2265,7 +2271,7 @@
                 {"label":"\u2193", "x":14, "y":4},
                 {"label":"\u2192", "x":15, "y":4}
             ]
-        }
+        },
         "LAYOUT_65_iso_7u_hhkb_splitbs": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},

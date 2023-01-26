@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "geminate60",
+    "keyboard_name": "Geminate60",
+    "manufacturer": "Weirdo",
     "url": "",
     "maintainer": "Weirdo-F",
+    "usb": {
+        "vid": "0x7764",
+        "pid": "0x676D",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

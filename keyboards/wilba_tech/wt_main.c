@@ -35,9 +35,9 @@
 // Called from matrix_init_kb() if not VIA_ENABLE
 void via_init_kb(void)
 {
-    // If the EEPROM has the magic, the data is good.
-    // OK to load from EEPROM
-    if (via_eeprom_is_valid()) {
+    // This checks both an EEPROM reset (from bootmagic lite, keycodes)
+    // and also firmware build date (from via_eeprom_is_valid())
+    if (eeconfig_is_enabled()) {
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
         backlight_config_load();
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
@@ -115,14 +115,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
     return process_record_user(keycode, record);
 }
 
-void led_set_kb(uint8_t usb_led)
-{
-#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    backlight_set_indicator_state(usb_led);
-#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    led_set_user(usb_led);
-}
-
 void suspend_power_down_kb(void)
 {
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
@@ -140,36 +132,45 @@ void suspend_wakeup_init_kb(void)
 // Moving this to the bottom of this source file is a workaround
 // for an intermittent compiler error for Atmel compiler.
 #ifdef VIA_ENABLE
-void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
-    uint8_t *command_id = &(data[0]);
-    uint8_t *command_data = &(data[1]);
-    switch ( *command_id )
-    {
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t *command_id        = &(data[0]);
+    uint8_t *channel_id        = &(data[1]);
+    uint8_t *value_id_and_data = &(data[2]);
+
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-        case id_lighting_set_value:
+    if ( *channel_id == id_custom_channel ) {
+        switch ( *command_id )
         {
-            backlight_config_set_value(command_data);
-            break;
+            case id_custom_set_value:
+            {
+                backlight_config_set_value(value_id_and_data);
+                break;
+            }
+            case id_custom_get_value:
+            {
+                backlight_config_get_value(value_id_and_data);
+                break;
+            }
+            case id_custom_save:
+            {
+                backlight_config_save();
+                break;
+            }
+            default:
+            {
+                // Unhandled message.
+                *command_id = id_unhandled;
+                break;
+            }
         }
-        case id_lighting_get_value:
-        {
-            backlight_config_get_value(command_data);
-            break;
-        }
-        case id_lighting_save:
-        {
-            backlight_config_save();
-            break;
-        }
-#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-        default:
-        {
-            // Unhandled message.
-            *command_id = id_unhandled;
-            *command_data = *command_data; // force use of variable
-            break;
-        }
+        return;
     }
+#else
+        *command_id = id_unhandled;
+        *channel_id = *channel_id; // force use of variable
+        *value_id_and_data = *value_id_and_data; // force use of variable
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+
     // DO NOT call raw_hid_send(data,length) here, let caller do this
 }
 #endif // VIA_ENABLE

@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include "dz64rgb.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, K_14, J_14, L_14 },
     { 0, K_13, J_13, L_13 },
     { 0, K_12, J_12, L_12 },
@@ -64,7 +64,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 
     { 0, B_14, A_14, C_14 },
     { 0, B_13, A_13, C_13 },
-    { 0, B_12, A_12, C_12 },    
+    { 0, B_12, A_12, C_12 },
     { 0, B_11, A_11, C_11 },
     { 0, B_10, A_10, C_10 },
     { 0, B_9,  A_9,  C_9 },
@@ -111,11 +111,13 @@ led_config_t g_led_config = {
 };
 
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
     }
+    return true;
 }
 #endif
-

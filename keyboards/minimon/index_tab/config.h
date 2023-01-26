@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B49
-#define PRODUCT_ID      0x1306
-#define DEVICE_VER      0x0001
-#define PRODUCT         Index Tab
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 13
@@ -31,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D3, B7, B3, B2, B1, B0 }
 #define MATRIX_COL_PINS { F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D2, F1, F0 }
-#define UNUSED_PINS { F4, F5, F6, D1, D0 }
 
 
 /* COL2ROW, ROW2COL*/

@@ -21,7 +21,7 @@ uint32_t tChord			= 0;		// Protects state of cChord
 
 #ifndef STENOLAYERS
 uint32_t stenoLayers[] = { PWR };
-size_t 	 stenoLayerCount = sizeof(stenoLayers)/sizeof(stenoLayers[0]);
+size_t 	 stenoLayerCount = ARRAY_SIZE(stenoLayers);
 #endif
 
 // Mode state

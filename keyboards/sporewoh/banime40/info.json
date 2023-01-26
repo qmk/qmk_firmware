@@ -1,7 +1,13 @@
 {
     "keyboard_name": "banime40", 
+    "manufacturer": "sporewoh",
     "url": "https://github.com/ChrisChrisLoLo/banime40", 
     "maintainer": "sporewoh", 
+    "usb": {
+     	"vid": "0xBEAF",
+     	"pid": "0x0001",
+     	"device_version": "0.0.1"
+     },
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

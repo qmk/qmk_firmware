@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5359
-#define PRODUCT_ID      0x3735
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    sendyyeah
-#define PRODUCT         75 Pixels
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8

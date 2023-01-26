@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x1C11
-#define PRODUCT_ID   0xB04D
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Input:Club
-#define PRODUCT      WhiteFox (QMK)
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 9
@@ -40,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D0, D1, D4, D5, D6, D7, C1, C2 }
 #define MATRIX_COL_PINS { B2, B3, B18, B19, C0, C8, C9, C10, C11 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -65,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LED matrix driver */
 #define LED_DRIVER_ADDR_1 0x74
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 71
+#define LED_MATRIX_LED_COUNT 71
 #define LED_DISABLE_WHEN_USB_SUSPENDED
 
 /* i2c (for LED matrix) */
