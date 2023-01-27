@@ -72,7 +72,7 @@ __attribute__((weak)) bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t
 
 #ifdef SWAP_HANDS_ENABLE
         case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
-            if (keycode > 0x56f0 || record->tap.count == 0) {
+            if (IS_SWAP_HANDS_KEYCODE(keycode) || record->tap.count == 0) {
                 return false;
             }
             break;
