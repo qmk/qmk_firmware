@@ -80,12 +80,12 @@ void matrix_scan_user(void)
 	uint8_t layer = get_highest_layer(layer_state);
 	switch (layer) {
 		case KM_BLOWRAK:
-			ph_caps_led_on();
-			ph_sclk_led_off();
+			writePin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
+			writePin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
 			break;
 		case KM_QWERTY:
-			ph_sclk_led_on();
-			ph_caps_led_off();
+			writePin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
+			writePin(LED_SCROLL_LOCK_PIN, LED_PIN_ON_STATE);
 			break;
 	}
 }
