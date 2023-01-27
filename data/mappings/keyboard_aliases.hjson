@@ -1252,6 +1252,9 @@
     "treadstone48/rev2": {
         "target": "marksard/treadstone48/rev2"
     },
+    "tronguylabs/m122_3270": {
+        "target": "modelm/m122_3270"
+    },
     "ua62": {
         "target": "nacly/ua62"
     },
