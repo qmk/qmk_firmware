@@ -5,5 +5,7 @@
     "usb": {
         "vid": "0x4D4C",
         "device_version": "0.0.1"
-    }
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
 }
