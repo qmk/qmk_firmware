@@ -52,32 +52,24 @@ void moonlander_led_task(void) {
         wait_ms(250);
         ML_LED_3(true);
         wait_ms(250);
-    
-        if (is_transport_connected()) {
-            ML_LED_4(true);
-            wait_ms(250);
-            ML_LED_5(true);
-            wait_ms(250);
-            ML_LED_6(true);
-            wait_ms(250);
-        }
-
+        ML_LED_4(true);
+        wait_ms(250);
+        ML_LED_5(true);
+        wait_ms(250);
+        ML_LED_6(true);
+        wait_ms(250);
         ML_LED_1(false);
         wait_ms(250);
         ML_LED_2(false);
         wait_ms(250);
         ML_LED_3(false);
         wait_ms(250);
-
-        if (is_transport_connected()) {
-            ML_LED_4(false);
-            wait_ms(250);
-            ML_LED_5(false);
-            wait_ms(250);
-            ML_LED_6(false);
-            wait_ms(250);
-        }
-
+        ML_LED_4(false);
+        wait_ms(250);
+        ML_LED_5(false);
+        wait_ms(250);
+        ML_LED_6(false);
+        wait_ms(250);
         is_launching = false;
         layer_state_set_kb(layer_state);
     }
@@ -366,16 +358,6 @@ void keyboard_post_init_kb(void) {
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
 // clang-format off
-#ifdef HALFMOON
-const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_halfmoon(
-    29, 30, 31, 32, 33, 34, 35,
-    22, 23, 24, 25, 26, 27, 28,
-    15, 16, 17, 18, 19, 20, 21,
-     9, 10, 11, 12, 13, 14,
-     4,  5,  6,  7,  8,      3,
-                     0,  1,  2
-);
-#else
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
     58, 59, 60, 61, 62, 63, 64,    65, 66, 67, 68, 69, 70, 71,
     44, 45, 46, 47, 48, 49, 50,    51, 52, 53, 54, 55, 56, 57,
@@ -384,7 +366,6 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
      8,  9, 10, 11, 12,      3,     4,     13, 14, 15, 16, 17,
                      0,  1,  2,     5,  6,  7
 );
-#endif
 // clang-format on
 #endif
 
@@ -414,11 +395,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     ML_LED_1(false);
                     ML_LED_2(false);
                     ML_LED_3(false);
-                    #ifndef HALFMOON
                     ML_LED_4(false);
                     ML_LED_5(false);
                     ML_LED_6(false);
-                    #endif
                 }
             }
             break;
