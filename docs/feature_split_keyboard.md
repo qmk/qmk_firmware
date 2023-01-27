@@ -150,8 +150,6 @@ Reset the right controller and run:
 qmk flash -kb crkbd/rev1 -km default -bl avrdude-split-right
 ```
 
-?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EE_CLR` keycode or [Bootmagic Lite](feature_bootmagic.md). Controllers using emulated EEPROM will always require handedness parameter when flashing the firmware.
-
 ?> [QMK Toolbox]() can also be used to flash EEPROM handedness files. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
 This setting is not changed when re-initializing the EEPROM using the `EE_CLR` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
