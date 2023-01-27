@@ -135,10 +135,10 @@ const rgblight_segment_t PROGMEM my_shift_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // MOD KEY COLOUR LAYERS
 const rgblight_segment_t PROGMEM mod1_notification_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {2, 1, HSV_MAGENTA}
+    {8, 1, HSV_MAGENTA}
 );
 const rgblight_segment_t PROGMEM mod2_notification_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {2, 1, HSV_PURPLE}
+    {1, 1, HSV_PURPLE}
 );
 const rgblight_segment_t PROGMEM mod3_notification_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {2, 1, HSV_AZURE}
