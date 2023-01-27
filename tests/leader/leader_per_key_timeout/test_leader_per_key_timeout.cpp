@@ -1,3 +1,6 @@
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "keyboard_report_util.hpp"
 #include "keycode.h"
 #include "test_common.hpp"
