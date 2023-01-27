@@ -3,8 +3,11 @@
     "usb": {
         "pid": "0x1834"
     },
+    "layout_aliases": {
+        "LAYOUT_charybdis_3x6": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_charybdis_3x6": {
+        "LAYOUT": {
             "layout": [
                 { "label": "L00", "x": 0, "y": 0 },
                 { "label": "L01", "x": 1, "y": 0 },
