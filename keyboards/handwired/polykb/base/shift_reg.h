@@ -24,8 +24,15 @@ void sr_hw_setup(void);
 // Initialize the shift register by pulling SR_NMR_PIN to low for 10 usec
 void sr_init(void);
 
+//shift a single bit and fill with 1/high
+//void sr_shift_once(void);
+
+//shift a single bit and fill with 1/high and pull SR_LATCH_PIN to high
+void sr_shift_once_latch(void);
+
 // Send a single byte to the shift register using SR_CLK_PIN and SR_DATA_PIN
-void sr_shift_out(uint8_t val);
+//void sr_shift_out(uint8_t val);
+void sr_shift_out_0_latch(uint8_t times);
 
 // Send a single byte and pull SR_LATCH_PIN to high for 10 usec to apply the byte to the outputs
 void sr_shift_out_latch(uint8_t val);

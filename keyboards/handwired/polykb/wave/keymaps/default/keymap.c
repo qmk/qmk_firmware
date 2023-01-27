@@ -66,7 +66,7 @@ enum my_keycodes {
   //[[[end]]]
 };
 
-static bool g_refresh_needed = false;
+static enum refresh_mode g_refresh = DONE_ALL;
 static uint8_t g_contrast = FULL_BRIGHT;
 
 typedef struct _poly_state_t {
@@ -80,13 +80,16 @@ typedef struct _poly_state_t {
 poly_state_t g_state;
 
 static int32_t last_update;
+
+bool display_wakeup(keyrecord_t* record);
+
 void update_performed(void) {
     last_update = timer_read32();
 }
 
 
 void request_disp_refresh(void) {
-    g_refresh_needed = true;
+    g_refresh = START_FIRST_HALF;
 }
 
 typedef struct _poly_sync_t {
@@ -95,48 +98,58 @@ typedef struct _poly_sync_t {
 } poly_sync_t;
 
 
-void user_sync_poly_data_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
-    if(in_buflen!=0 && in_data!=NULL) {
+void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
+    if(in_len!=0 && in_data!=NULL) {
         g_lang = ((poly_sync_t*)in_data)->lang;
         g_contrast = ((poly_sync_t*)in_data)->contrast;
-        request_disp_refresh();
     } 
 }
-
-
-void sync_and_refresh_displays(void);
 
 void sync_and_refresh_displays(void) {
     if(is_keyboard_master()) {
         if (g_lang!=g_state.lang || g_contrast!=g_state.contrast) {
             poly_sync_t send = {g_lang, g_contrast};
             if(transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(send), &send)) {
-                g_state.contrast = g_contrast;
                 g_state.lang = g_lang;
-                dprint("poly state sync done!\n");
+                //dprint("poly state sync done!\n");
             } else {
-                dprint("poly state sync failed!\n");
+                //dprint("poly state sync failed!\n");
             }
         }
-    } else if(g_state.contrast!=g_contrast) {
-        set_displays(g_contrast < 1 ? DISPLAYS_OFF : DISPLAYS_SET_CONTRAST, (uint8_t)g_contrast);
+    }
+    
+    if(g_state.contrast!=g_contrast && g_refresh==DONE_ALL) {
+        if(g_contrast < 1) {
+            g_contrast = 0;
+        } 
+        set_displays((uint8_t)g_contrast);
         g_state.contrast=g_contrast;
     }
 
     led_t led_state = host_keyboard_led_state();
     uint8_t mod_state = get_mods();
 
-    if(led_state.raw!=g_state.led_state.raw || mod_state!=g_state.mod_state || layer_state!=g_state.layer_state) {
+    if( led_state.raw!=g_state.led_state.raw ||
+        mod_state!=g_state.mod_state ||
+        layer_state!=g_state.layer_state ||
+        g_state.lang != g_lang) {
+
         g_state.led_state = host_keyboard_led_state();
         g_state.mod_state = get_mods();
         g_state.layer_state = layer_state;
-        g_refresh_needed = false;
-        update_displays();
-    } else if(g_refresh_needed) {
-        g_refresh_needed = false;
-        update_displays();
+        g_state.lang = g_lang;
+        g_refresh = START_FIRST_HALF;
+    } 
+    
+    //split the update cycle
+    if(g_refresh==START_FIRST_HALF) {
+        update_displays(START_FIRST_HALF);
+        g_refresh = START_SECOND_HALF;
+    } else if(g_refresh==START_SECOND_HALF) {
+        update_displays(START_SECOND_HALF);
+        g_refresh = DONE_ALL;
     }
-
+    
 }
 
 void housekeeping_task_user(void) {
@@ -145,14 +158,8 @@ void housekeeping_task_user(void) {
     //turn off displays
     uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
 
-    if (is_keyboard_master() && elapsed_time_since_update > FADE_OUT_TIME && displays_on()) {
-        int32_t contrast = ((FADE_TRANSITION_TIME - (elapsed_time_since_update - FADE_OUT_TIME)) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
-
-        set_displays(contrast < 1 ? DISPLAYS_OFF : DISPLAYS_SET_CONTRAST, (uint8_t)contrast);
-        dprint("setting contrast!\n");
-        if(contrast<1) {
-            dprint("turning displays off!\n");
-        }
+    if (is_keyboard_master() && elapsed_time_since_update > FADE_OUT_TIME && g_contrast>0 && g_contrast<=FULL_BRIGHT) {
+        g_contrast = ((FADE_TRANSITION_TIME - (elapsed_time_since_update - FADE_OUT_TIME)) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
     }
 }
 
@@ -215,11 +222,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_NEXT,       KC_VOLD,    QK_BOOT,     KC_BRIGTHER,KC_NO,      KC_MNXT,    KC_NO,      KC_MS_BTN1,/*enc*/  
         KC_NO,          KC_NO,      QK_MAKE,     QK_RBT,     KC_NO,      KC_NO,      KC_NO,      KC_NO,              
 
-/*!key*/KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
- /*enc*/KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-        KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO
+        KC_NO,          KC_NO,      KC_SAVE_EE,  KC_NO,      KC_NO,      KC_MPRV,    KC_NXTL,    /*no key*/KC_NO,    
+        RGB_PREV,       KC_VOLU,    DB_TOGG,     KC_DARKER,  KC_NO,      KC_MPLY,    KC_NO,      KC_ENC_UP,          
+        RGB_TOGGLE,     KC_MUTE,    EE_CLR,      KC_CONTRAST,KC_RST_DSP, KC_MSTP,    KC_NO,      KC_ENC_DOWN,        
+        RGB_NEXT,       KC_VOLD,    QK_BOOT,     KC_BRIGTHER,KC_NO,      KC_MNXT,    KC_NO,      KC_MS_BTN1,/*enc*/  
+        KC_NO,          KC_NO,      QK_MAKE,     QK_RBT,     KC_NO,      KC_NO,      KC_NO,      KC_NO
         ),
 
     [_LANG_LAYER] = SPLIT_LAYOUT(
@@ -263,7 +270,7 @@ led_config_t g_led_config = {{// Key Matrix to LED Index
 
 //void process_layer_switch_user(uint16_t new_layer);
 
-struct diplay_info {
+struct display_info {
     uint8_t bitmask[NUM_SHIFT_REGISTERS];
 };
 
@@ -273,13 +280,16 @@ struct diplay_info {
 #define BITMASK4(x) .bitmask = {~0, (uint8_t)(~(1<<x)), ~0, ~0, ~0}
 #define BITMASK5(x) .bitmask = {(uint8_t)(~(1<<x)), ~0, ~0, ~0, ~0}
 
-struct diplay_info key_display[] = {
+struct display_info key_display[] = {
         {BITMASK1(0)}, {BITMASK1(1)}, {BITMASK1(2)}, {BITMASK1(3)}, {BITMASK1(4)}, {BITMASK1(5)}, {BITMASK1(6)}, {BITMASK1(7)},
         {BITMASK2(0)}, {BITMASK2(1)}, {BITMASK2(2)}, {BITMASK2(3)}, {BITMASK2(4)}, {BITMASK2(5)}, {BITMASK2(6)}, {BITMASK2(7)},
         {BITMASK3(0)}, {BITMASK3(1)}, {BITMASK3(2)}, {BITMASK3(3)}, {BITMASK3(4)}, {BITMASK3(5)}, {BITMASK3(6)}, {BITMASK3(7)},
         {BITMASK4(0)}, {BITMASK4(1)}, {BITMASK4(2)}, {BITMASK4(3)}, {BITMASK4(4)}, {BITMASK4(5)}, {BITMASK4(6)}, {BITMASK4(7)},
         {BITMASK5(0)}, {BITMASK5(1)}, {BITMASK5(2)}, {BITMASK5(3)}, {BITMASK5(4)}, {BITMASK5(5)}, {BITMASK5(6)}, {BITMASK5(7)}
     };
+
+struct display_info disp_row_0 = {BITMASK1(0)};
+struct display_info disp_row_3 = {BITMASK4(0)};
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
@@ -500,7 +510,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     return u"[?]";
 }
 
-void update_displays(void) {
+void update_displays(enum refresh_mode mode) {
     uint8_t layer = get_highest_layer(layer_state);
     if(layer>_LANG_LAYER) {
         layer = _BASE_LAYER;
@@ -509,21 +519,32 @@ void update_displays(void) {
     led_t state = host_keyboard_led_state();
     uint8_t offset = is_keyboard_master() ? MATRIX_ROWS_PER_SIDE : 0;
 
-    // keypos_t key;
-    for (uint8_t r = 0; r < MATRIX_ROWS_PER_SIDE; ++r) {
+    uint8_t start_row = 0;
+
+    //select first display (and later on shift that 0 till the end)
+    if(mode==START_SECOND_HALF) {
+        sr_shift_out_buffer_latch(disp_row_3.bitmask, sizeof(struct display_info));
+        start_row = 3;
+    } else {
+        sr_shift_out_buffer_latch(disp_row_0.bitmask, sizeof(struct display_info));
+    }
+
+    uint8_t max_rows = mode==START_FIRST_HALF ? 3 : MATRIX_ROWS_PER_SIDE;
+
+    for (uint8_t r = start_row; r < max_rows; ++r) {
         for (uint8_t c = 0; c < MATRIX_COLS; ++c) {
-            //key.col           = c;
-            //key.row           = r;
-            uint16_t keycode  = keymaps[layer][r+offset][c];
             uint8_t  disp_idx = LAYOUT_TO_INDEX(r, c);
 
             if (disp_idx != 255) {
-                const uint16_t* text = keycode_to_disp_text(keycode, state);
-                sr_shift_out_buffer_latch(key_display[disp_idx].bitmask, sizeof(key_display->bitmask));
+                uint16_t keycode  = keymaps[layer][r+offset][c];
+                const uint16_t* text = keycode_to_disp_text(keycode, state); 
                 kdisp_set_buffer(0x00);
                 kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
                 kdisp_send_buffer();
             }
+
+            //since MATRIX_COLS==8 we don't need to shift multiple times at the end of the row
+            sr_shift_once_latch();
         }
     }
 }
@@ -555,7 +576,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
         switch (keycode) {
             case QK_BOOTLOADER:
-                uprintf("Enter Bootloader...");
+                //uprintf("Enter Bootloader...");
                 clear_all_displays();
                 display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
                 display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
@@ -640,11 +661,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 break;
             /*case KC_NEXT_LANG:
                 g_lang = (g_lang + 1) % NUM_LANG;
-                process_layer_switch_user(_BASE_LAYER);
+                layer_off(_LANG_LAYER);
                 break;*/
             /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: g_lang = {lang}; process_layer_switch_user(_BASE_LAYER); break;')
+                cog.outl(f'case KC_{lang}: g_lang = {lang}; layer_off(_LANG_LAYER); break;')
             ]]]*/
             case KC_LANG_EN: g_lang = LANG_EN; layer_off(_LANG_LAYER); break;
             case KC_LANG_DE: g_lang = LANG_DE; layer_off(_LANG_LAYER); break;
@@ -710,9 +731,28 @@ void show_splash_screen(void) {
 }
 
 
-void set_displays(enum diplay_state state, uint8_t contrast) {
+void set_displays(uint8_t contrast) {
     select_all_displays();
-    g_contrast = contrast;
+
+    if(contrast==0)
+    {
+        kdisp_enable(false);
+        //set_displays_on(false);
+        //kdisp_set_contrast(0);
+        #ifdef OLED_ENABLE
+        oled_off();
+        #endif
+    } else {
+        kdisp_enable(true);
+        //set_displays_on(true);
+        kdisp_set_contrast(contrast-1);
+        #ifdef OLED_ENABLE
+        //if(!oled_is_on()) {
+            oled_on();
+        //}
+        #endif
+    }
+    /*
     if (state != DISPLAYS_SET_CONTRAST) {
         bool enable = state != DISPLAYS_OFF;
         kdisp_enable(enable);
@@ -720,15 +760,17 @@ void set_displays(enum diplay_state state, uint8_t contrast) {
         #ifdef OLED_ENABLE
         if(enable) oled_on(); else  oled_off();
         #endif
-        uprintf("All displays %s\n", enable ? "on" : "off");
+        uprintf("%s:All displays %s\n", is_keyboard_master()? "Master" : "Slave", enable ? "on" : "off");
     }
     if (state == DISPLAYS_ON_SET_CONTRAST || state == DISPLAYS_SET_CONTRAST) {
         kdisp_set_contrast(contrast);
         #ifdef OLED_ENABLE
         oled_set_brightness(contrast);
         #endif
-        uprintf("Setting contrast to %d\n", contrast);
+        uprintf("%s:Setting contrast to %d\n", is_keyboard_master()? "Master" : "Slave", contrast);
+        set_displays_on(true);
     }
+    */
 }
 
 void inc_brightness(void) {
@@ -738,14 +780,14 @@ void inc_brightness(void) {
     if(g_contrast>FULL_BRIGHT) {
         g_contrast = FULL_BRIGHT;
     }
-    set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
+    //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
 }
 
 void dec_brightness(void) {
     if(g_contrast>=6) {
         g_contrast-=4;
     }
-    set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
+    //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
 }
 
 
@@ -756,3 +798,19 @@ void keyboard_pre_init_user(void) {
     transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
 }
 
+
+//disable first keypress if the displays are turned off
+bool display_wakeup(keyrecord_t* record) {
+    if (g_contrast==0) {
+        if (record->event.pressed) {
+            //set_displays(DISPLAYS_ON, 0);
+            g_contrast = 1;
+        } else {
+            g_contrast = FULL_BRIGHT;
+            update_performed();
+            //set_displays(DISPLAYS_SET_CONTRAST, FULL_BRIGHT);
+        }
+        return false;
+    }
+    return true;
+}

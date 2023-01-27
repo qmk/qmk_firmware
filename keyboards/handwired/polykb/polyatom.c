@@ -6,7 +6,7 @@
 #include "base/spi_helper.h"
 
 static uint16_t last_key = 0;
-static bool     displays_are_on = false;
+//static bool     displays_are_on = false;
 static deferred_token remove_splash_task_token;
 
 #ifdef OLED_ENABLE
@@ -52,26 +52,12 @@ bool oled_task_user(void) {
 
 void select_all_displays(void) {
     // make sure we are talking to all shift registers
-    uint8_t all[NUM_SHIFT_REGISTERS] = {0,0,0,0,0};
-    sr_shift_out_buffer_latch(all, NUM_SHIFT_REGISTERS);
+    sr_shift_out_0_latch(NUM_SHIFT_REGISTERS);
 }
 
 uint32_t remove_splash_task(uint32_t trigger_time, void* cb_arg) {
-    update_displays();
+    update_displays(DONE_ALL);
     return 0;
-}
-
-//disable first keypress if the displays are turned off
-bool display_wakeup(keyrecord_t* record) {
-    if (!displays_are_on) {
-        if (!record->event.pressed) {
-            set_displays(DISPLAYS_ON, 0);
-        } else {
-            set_displays(DISPLAYS_SET_CONTRAST, FULL_BRIGHT);
-        }
-        return false;
-    }
-    return true;
 }
 
 void clear_all_displays(void) {
@@ -82,7 +68,7 @@ void clear_all_displays(void) {
 }
 
 void early_hardware_init_post(void) {
-    kdisp_hw_setup();
+//    kdisp_hw_setup();
     spi_hw_setup();
 }
 
@@ -97,16 +83,18 @@ void keyboard_post_init_user(void) {
     debug_keyboard = false;
     debug_mouse    = false;
 
+    kdisp_hw_setup();
     kdisp_init(NUM_SHIFT_REGISTERS, true);
 
-    remove_splash_task_token = defer_exec(600, remove_splash_task, NULL);
+    remove_splash_task_token = defer_exec(1500, remove_splash_task, NULL);
 
-    set_displays(DISPLAYS_ON_SET_CONTRAST, FULL_BRIGHT);
+    set_displays(FULL_BRIGHT);
     show_splash_screen();
 
     uprintf("Poly Keyboard ready.");
 }
 
+/*
 bool displays_on(void) {
     return displays_are_on;
 }
@@ -114,6 +102,7 @@ bool displays_on(void) {
 void set_displays_on(bool on) {
     displays_are_on = on;
 }
+*/
 
 void set_last_key(uint16_t keycode) {
     last_key = keycode;

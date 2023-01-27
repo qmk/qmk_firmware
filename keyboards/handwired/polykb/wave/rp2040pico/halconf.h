@@ -35,5 +35,13 @@
 //#define HAL_USE_PWM TRUE
 #define SERIAL_PIO_USE_PIO1
 
+//0	460800 baud
+//1	230400 baud (default)
+//2	115200 baud
+//3	57600 baud
+//4	38400 baud
+//5	19200 baud
+#define SELECT_SOFT_SERIAL_SPEED 2
+
 //for split keyboard setup
 //#define PAL_USE_CALLBACKS TRUE
