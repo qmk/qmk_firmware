@@ -15,6 +15,7 @@ This is a standard TKL layout PCB. It supports VIA.
 Make example for this keyboard (after setting up your build environment):
 
     make baion_808:default
+
 Flashing example for this keyboard:
 
     make baion_808:default:flash
