@@ -8,6 +8,7 @@
         "pid": "0x5341",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

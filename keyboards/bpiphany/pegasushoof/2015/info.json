@@ -7,6 +7,7 @@
         "scroll_lock": "C5",
         "on_state": 0
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT": {
             "layout": [

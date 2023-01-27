@@ -19,5 +19,3 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 BACKLIGHT_DRIVER = software
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-
-LAYOUTS = ortho_5x12

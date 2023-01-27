@@ -19,8 +19,5 @@ SLEEP_LED_ENABLE = yes
 WS2812_DRIVER = spi
 ENCODER_ENABLE = yes
 
-LAYOUTS = ortho_5x15
-
-
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

@@ -18,5 +18,3 @@ AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3731
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
-
-LAYOUTS = 65_ansi_blocker

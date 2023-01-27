@@ -16,6 +16,4 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = alice alice_split_bs
-
 DEFAULT_FOLDER = mechlovin/adelais/standard_led/arm/rev2

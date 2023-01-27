@@ -131,6 +131,22 @@
                 }
             }
         },
+        "bootmagic":{
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "matrix": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            }
+        },
         "board": {
             "type": "string",
             "minLength": 2,
@@ -155,6 +171,7 @@
                 "stm32-dfu",
                 "stm32duino",
                 "tinyuf2",
+                "uf2boot",
                 "unknown",
                 "usbasploader",
                 "wb32-dfu"
@@ -240,6 +257,9 @@
                     "c_macro": {
                         "type": "boolean"
                     },
+                    "json_layout": {
+                        "type": "boolean"
+                    },
                     "layout": {
                         "type": "array",
                         "items": {
@@ -288,6 +308,7 @@
                 "custom": {"type": "boolean"},
                 "custom_lite": {"type": "boolean"},
                 "ghost": {"type": "boolean"},
+                "input_pressed_state": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "io_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "direct": {
                     "type": "array",
@@ -511,6 +532,21 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
+                "bootmagic":{
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "matrix": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "type": "integer",
+                                "minimum": 0
+                            }
+                        }
+                    }
+                },
                 "matrix_grid": {
                     "type": "array",
                     "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
@@ -588,7 +624,6 @@
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},
-                "ignore_mod_tap_interrupt_per_key": {"type": "boolean"},
                 "hold_on_other_key_press": {"type": "boolean"},
                 "hold_on_other_key_press_per_key": {"type": "boolean"},
                 "permissive_hold": {"type": "boolean"},

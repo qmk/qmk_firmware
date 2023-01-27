@@ -8,6 +8,7 @@
     "pid": "0x0A7A",
     "device_version": "0.0.2"
   },
+  "community_layouts": ["65_ansi_blocker"],
   "layouts": {
     "LAYOUT_65_ansi_blocker": {
       "layout": [

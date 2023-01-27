@@ -19,7 +19,5 @@ RGBLIGHT_ENABLE = no        # Use RGB underglow light
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731 # Use RGB matrix
 
-LAYOUTS = 60_ansi 60_hhkb 60_iso 60_ansi_split_bs_rshift
-
 CUSTOM_MATRIX = yes
 SRC += matrix.c

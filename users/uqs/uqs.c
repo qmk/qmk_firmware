@@ -543,7 +543,7 @@ void matrix_scan_user(void) {
 
 #ifdef UCIS_ENABLE
     SEQ_ONE_KEY(KC_U) {
-      qk_ucis_start();
+      ucis_start();
     }
 #endif
     SEQ_ONE_KEY(KC_H) {
@@ -576,7 +576,7 @@ void matrix_scan_user(void) {
 
 #ifdef UCIS_ENABLE
 // 3 codepoints at most, otherwise increase UCIS_MAX_CODE_POINTS
-const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
+const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("poop", 0x1F4A9),                // 💩
     UCIS_SYM("rofl", 0x1F923),                // 🤣
     UCIS_SYM("look", 0x0CA0, 0x005F, 0x0CA0)  // ಠ_ಠ

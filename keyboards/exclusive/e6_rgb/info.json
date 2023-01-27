@@ -11,6 +11,7 @@
     "layout_aliases": {
         "LAYOUT_60_wkl_split_bs": "LAYOUT_60_tsangan_hhkb"
     },
+    "community_layouts": ["60_ansi", "60_hhkb", "60_tsangan_hhkb", "60_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

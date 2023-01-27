@@ -17,7 +17,7 @@
 
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_A] = ACTION_TAP_DANCE_FN(dance_key_a),
     [TD_E] = ACTION_TAP_DANCE_FN(dance_key_e),
     [TD_I] = ACTION_TAP_DANCE_FN(dance_key_i),

@@ -21,5 +21,3 @@ KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+m
 
 HAPTIC_ENABLE = yes
 HAPTIC_DRIVER = SOLENOID
-
-LAYOUTS = fullsize_ansi fullsize_iso

@@ -12,8 +12,9 @@ from pygments.token import Token
 from pygments import lex
 
 import qmk.path
-from qmk.keyboard import find_keyboard_from_dir, rules_mk, keyboard_folder
+from qmk.keyboard import find_keyboard_from_dir, keyboard_folder
 from qmk.errors import CppError
+from qmk.info import info_json
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -374,11 +375,11 @@ def locate_keymap(keyboard, keymap):
         return keymap_path
 
     # Check community layouts as a fallback
-    rules = rules_mk(keyboard)
+    info = info_json(keyboard)
 
-    if "LAYOUTS" in rules:
-        for layout in rules["LAYOUTS"].split():
-            community_layout = Path('layouts/community') / layout / keymap
+    for community_parent in Path('layouts').glob('*/'):
+        for layout in info.get("community_layouts", []):
+            community_layout = community_parent / layout / keymap
             if community_layout.exists():
                 if (community_layout / 'keymap.json').exists():
                     return community_layout / 'keymap.json'
@@ -408,36 +409,35 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     Returns:
         a sorted list of valid keymap names.
     """
-    # parse all the rules.mk files for the keyboard
-    rules = rules_mk(keyboard)
     names = set()
 
-    if rules is not None:
-        keyboards_dir = Path('keyboards')
-        kb_path = keyboards_dir / keyboard
+    keyboards_dir = Path('keyboards')
+    kb_path = keyboards_dir / keyboard
 
-        # walk up the directory tree until keyboards_dir
-        # and collect all directories' name with keymap.c file in it
-        while kb_path != keyboards_dir:
-            keymaps_dir = kb_path / "keymaps"
+    # walk up the directory tree until keyboards_dir
+    # and collect all directories' name with keymap.c file in it
+    while kb_path != keyboards_dir:
+        keymaps_dir = kb_path / "keymaps"
 
-            if keymaps_dir.is_dir():
-                for keymap in keymaps_dir.iterdir():
+        if keymaps_dir.is_dir():
+            for keymap in keymaps_dir.iterdir():
+                if is_keymap_dir(keymap, c, json, additional_files):
+                    keymap = keymap if fullpath else keymap.name
+                    names.add(keymap)
+
+        kb_path = kb_path.parent
+
+    # Check community layouts as a fallback
+    info = info_json(keyboard)
+
+    for community_parent in Path('layouts').glob('*/'):
+        for layout in info.get("community_layouts", []):
+            cl_path = community_parent / layout
+            if cl_path.is_dir():
+                for keymap in cl_path.iterdir():
                     if is_keymap_dir(keymap, c, json, additional_files):
                         keymap = keymap if fullpath else keymap.name
                         names.add(keymap)
-
-            kb_path = kb_path.parent
-
-        # if community layouts are supported, get them
-        if "LAYOUTS" in rules:
-            for layout in rules["LAYOUTS"].split():
-                cl_path = Path('layouts/community') / layout
-                if cl_path.is_dir():
-                    for keymap in cl_path.iterdir():
-                        if is_keymap_dir(keymap, c, json, additional_files):
-                            keymap = keymap if fullpath else keymap.name
-                            names.add(keymap)
 
     return sorted(names)
 

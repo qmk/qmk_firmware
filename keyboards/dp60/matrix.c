@@ -123,7 +123,7 @@ static void init_rows(void)
   setPinInputHigh(D4);
 }
 
-static uint8_t read_rows()
+static uint8_t read_rows(void)
 {
   return ((readPin(E6) ? 0 : (1 << 0)) |
           (readPin(F6) ? 0 : (1 << 1)) |

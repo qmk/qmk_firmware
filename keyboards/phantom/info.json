@@ -8,6 +8,7 @@
         "pid": "0x5B50",
         "device_version": "0.0.3"
     },
+    "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

@@ -206,7 +206,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       return TAPPING_TERM;
   }
 }
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case E_NUMBERS:
     case R_MOUSE:
@@ -219,33 +219,30 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     case RCTL_T(KC_L):
     case RSFT_T(KC_SEMICOLON):
     case ARROWS:
-      return true;
+      return false;
     default:
       return false;
   }
 }
 
-
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LT(_1_NUMBERS, KC_E):
-    case R_MOUSE:
-    case LSFT_T(KC_A):
-    case LCTL_T(KC_S):
-    case LALT_T(KC_D):
-    case LGUI_T(KC_F):
-    case RGUI_T(KC_J):
-    case RALT_T(KC_K):
-    case RCTL_T(KC_L):
-    case RSFT_T(KC_SEMICOLON):
-    case ARROWS:
-      return false;
-    default:
-      return true;
-  }
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(_1_NUMBERS, KC_E):
+        case R_MOUSE:
+        case LSFT_T(KC_A):
+        case LCTL_T(KC_S):
+        case LALT_T(KC_D):
+        case LGUI_T(KC_F):
+        case RGUI_T(KC_J):
+        case RALT_T(KC_K):
+        case RCTL_T(KC_L):
+        case RSFT_T(KC_SEMICOLON):
+        case ARROWS:
+            return QUICK_TAP_TERM;
+        default:
+            return 0;
+    }
 }
-
-
 
 LEADER_EXTERNS();
 

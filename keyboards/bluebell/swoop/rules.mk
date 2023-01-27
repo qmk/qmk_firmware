@@ -15,5 +15,3 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 RGBLIGHT_ENABLE = yes       # Enable underlight
 SPLIT_KEYBOARD = yes
-
-LAYOUTS = split_3x5_3
