@@ -1358,4 +1358,3 @@ enum qk_keycode_defines {
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
 #define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_TRI_LAYER_2_3)
 #define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_31)
-

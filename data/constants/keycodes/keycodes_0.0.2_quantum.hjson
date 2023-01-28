@@ -1,0 +1,18 @@
+{
+    "keycodes": {
+        "0x7C77": {
+            "group": "quantum",
+            "key": "QK_TRI_LAYER_1_3",
+            "aliases": [
+                "FN_MO13"
+            ]
+        },
+        "0x7C78": {
+            "group": "quantum",
+            "key": "QK_TRI_LAYER_2_3",
+            "aliases": [
+                "FN_MO23"
+            ]
+        }
+    }
+}
