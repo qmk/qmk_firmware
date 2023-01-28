@@ -39,10 +39,10 @@ static void print_status_narrow(void) {
         default:
             oled_write("Undef", false);
     }
-    //oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
+
 }
 bool oled_task_user(void) {
         print_status_narrow();
     return false;
 }
-//#endif
+

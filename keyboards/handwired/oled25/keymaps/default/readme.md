@@ -1,1 +1,1 @@
-# The default keymap for OLED25
+# The default keymap for oled25

@@ -1,6 +1,6 @@
 {
     "manufacturer": "asdfire1",
-    "keyboard_name": "OLED25",
+    "keyboard_name": "oled25",
     "maintainer": "asdire1",
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
