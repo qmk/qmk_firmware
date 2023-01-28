@@ -1,6 +1,8 @@
 // Copyright 2023 Florent Linguenheld (@FLinguenheld)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 enum layers {
     _BASE,
     _NUMERIC,
