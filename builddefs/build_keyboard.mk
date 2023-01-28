@@ -182,7 +182,8 @@ endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
-include $(BUILDDEFS_PATH)/mcu_selection.mk
+MCU_ORIG := $(MCU)
+include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
 
 # PLATFORM_KEY should be detected in info.json via key 'processor' (or rules.mk 'MCU')
 ifeq ($(PLATFORM_KEY),)
