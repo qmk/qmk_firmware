@@ -43,10 +43,6 @@
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
 
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
 //#define RGB_DI_PIN E2
 //#ifdef RGB_DI_PIN
 //#    define RGBLED_NUM 16

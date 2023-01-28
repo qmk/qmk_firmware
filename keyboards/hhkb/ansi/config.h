@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM    200
 
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */

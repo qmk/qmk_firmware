@@ -45,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN D0
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_ON_STATE 0
 
@@ -72,8 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

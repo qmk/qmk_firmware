@@ -34,7 +34,6 @@
 #endif
 
 #define BACKLIGHT_PIN B7
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 #define LED_BRIGHTNESS_LO       15

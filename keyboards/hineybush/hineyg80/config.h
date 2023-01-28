@@ -18,8 +18,6 @@
 #define LED_CAPS_LOCK_PIN B6
 #define LED_SCROLL_LOCK_PIN B5
 
-/* number of backlight levels */
-
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3
 #endif

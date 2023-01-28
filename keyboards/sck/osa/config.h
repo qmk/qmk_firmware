@@ -44,10 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
    #define RGB_DI_PIN D4
    #ifdef RGB_DI_PIN
    #define RGBLED_NUM 9
@@ -73,8 +69,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_NUM_LOCK_PIN C7
 #define LED_CAPS_LOCK_PIN C6
 #define LED_SCROLL_LOCK_PIN B6
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
