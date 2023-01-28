@@ -30,10 +30,6 @@
 #define LED_SCROLL_LOCK_PIN B6
 #define LED_PIN_ON_STATE 0
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 

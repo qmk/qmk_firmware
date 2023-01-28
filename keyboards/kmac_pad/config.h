@@ -38,11 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define LED_SCROLL_LOCK_PIN E6
 // #define LED_PIN_ON_STATE 0
 
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
