@@ -239,19 +239,21 @@ For instance supposing `MY_MACRO` is a custom keycode used in the layout:
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-      case MY_MACRO:
-          if (get_repeat_key_count() > 0) { // MY_MACRO is being repeated!
-              if (record->event.pressed) {
-                  SEND_STRING("repeat!");    
-              }
-          } else {                          // MY_MACRO is being used normally.
-              if (record->event.pressed) {  
-                  SEND_STRING("macro");
-              }
-          }
-          return false;
-   
-      // Other macros...
+        case MY_MACRO:
+            if (get_repeat_key_count() > 0) {
+                // MY_MACRO is being repeated!
+                if (record->event.pressed) {
+                    SEND_STRING("repeat!");    
+                }
+            } else {                          
+                // MY_MACRO is being used normally.
+                if (record->event.pressed) {  
+                    SEND_STRING("macro");
+                }
+            }
+            return false;
+     
+        // Other macros...
     }
     return true;
 }
@@ -279,23 +281,23 @@ uint16_t get_rev_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-      case MY_MACRO:
-          if (get_repeat_key_count() > 0) {        // Repeating.
-              if (record->event.pressed) {
-                  SEND_STRING("repeat!");    
-              }
-          } else if (get_repeat_key_count() < 0) { // Reverse repeating.
-              if (record->event.pressed) {
-                  SEND_STRING("reverse!");    
-              }
-          } else {                                 // Used normally.
-              if (record->event.pressed) {  
-                  SEND_STRING("macro");
-              }
-          }
-          return false;
-   
-      // Other macros...
+        case MY_MACRO:
+            if (get_repeat_key_count() > 0) {        // Repeating.
+                if (record->event.pressed) {
+                    SEND_STRING("repeat!");    
+                }
+            } else if (get_repeat_key_count() < 0) { // Reverse repeating.
+                if (record->event.pressed) {
+                    SEND_STRING("reverse!");    
+                }
+            } else {                                 // Used normally.
+                if (record->event.pressed) {  
+                    SEND_STRING("macro");
+                }
+            }
+            return false;
+     
+        // Other macros...
     }
     return true;
 }
