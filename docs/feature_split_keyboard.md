@@ -132,7 +132,7 @@ To enable this method, add the following to your `config.h` file:
 #define EE_HANDS
 ```
 
-Next, you will have to flash the EEPROM files once for the correct hand to the controller on each halve. You can do this manually with the following bootloader targets using `qmk flash -kb <keyboard> -km <keymap> -bl <bootloader>` command to flash:
+Next, you will have to flash the correct handedness option to the controller on each halve. You can do this manually with the following bootloader targets using `qmk flash -kb <keyboard> -km <keymap> -bl <bootloader>` command to flash:
 
 |Microcontroller Type|Bootloader Parameter|
 |--------------------|--------------------|
