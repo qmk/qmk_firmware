@@ -24,7 +24,7 @@ enum layers {
     _LAYER3
 };
 
-enum custom_keycodeas {
+enum custom_keycodes { // Define keycodes for MIDI usage of the volume knob
     A_CW = USER00,
     A_CCW
 };
@@ -84,7 +84,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case A_CW:
             if (record->event.pressed) {
-                midi_send_cc(&midi_device, midi_config.channel, 89, 1);
+                midi_send_cc(&midi_device, midi_config.channel, 89, 1); 
             }
             return true;
         case A_CCW:

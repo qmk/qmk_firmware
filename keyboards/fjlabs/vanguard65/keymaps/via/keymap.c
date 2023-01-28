@@ -108,7 +108,7 @@ void slider(void) {
     uint8_t current_val = analogReadPin(SLIDER_PINA) >>3;
 
     if ( last_val - current_val < -1 || last_val - current_val > 1 ) { 
-        rgb_hue = rgblight_get_hue();
+        rgb_hue = rgblight_get_hue(); // Pull current hue and saturation values since we're just adjusting brightness
         rgb_sat = rgblight_get_sat();
         rgblight_sethsv(rgb_hue, rgb_sat, current_val * 2);
         last_val = current_val;
