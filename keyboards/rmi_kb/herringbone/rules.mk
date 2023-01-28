@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = ramonimbao/herringbone/v1
+DEFAULT_FOLDER = rmi_kb/herringbone/v1

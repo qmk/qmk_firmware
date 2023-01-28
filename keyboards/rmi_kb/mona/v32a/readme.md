@@ -11,10 +11,10 @@ To get to the bootloader, with the USB cable plugged in, press the `RESET` butto
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ramonimbao/mona/v32a:default
+    make rmi_kb/mona/v32a:default
 
 Flashing example for this keyboard:
 
-    make ramonimbao/mona/v32a:default:flash
+    make rmi_kb/mona/v32a:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

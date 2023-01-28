@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = ramonimbao/mona/v1_1
+DEFAULT_FOLDER = rmi_kb/mona/v1_1

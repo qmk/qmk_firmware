@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = ramonimbao/wete/v2
+DEFAULT_FOLDER = rmi_kb/wete/v2

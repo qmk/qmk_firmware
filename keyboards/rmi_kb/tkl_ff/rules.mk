@@ -17,4 +17,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = ramonimbao/tkl_ff/v1
+DEFAULT_FOLDER = rmi_kb/tkl_ff/v1
