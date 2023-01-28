@@ -17,8 +17,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    if (index == 0) {
         if (clockwise) {
             tap_code_delay(KC_VOLU, 10);
         } else {
@@ -31,5 +32,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
-    return false;
+    return true;
 }
