@@ -33,7 +33,6 @@
 #define LED_SCROLL_LOCK_PIN F7
 #define LED_PIN_ON_STATE 0
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 5

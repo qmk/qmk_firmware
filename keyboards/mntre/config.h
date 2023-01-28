@@ -28,8 +28,6 @@
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_CUSTOM_RESOLUTION 0x400
 #define BACKLIGHT_LIMIT_VAL 84
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

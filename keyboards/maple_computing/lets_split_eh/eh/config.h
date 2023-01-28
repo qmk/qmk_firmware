@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B7
 
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 /* ws2812 RGB LED */

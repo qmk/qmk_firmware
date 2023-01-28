@@ -14,7 +14,6 @@
 #endif
 
 //#define LEADER_TIMEOUT 300
-//#define BACKLIGHT_BREATHING
 //#define PERMISSIVE_HOLD
 
 //audio clicky

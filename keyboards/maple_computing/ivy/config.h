@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN D2
 
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 /*
