@@ -1,5 +1,7 @@
-#include QMK_KEYBOARD_H
 
+// Copyright 2022 Antoni Malecki (@asdfire1)
+// SPDX-License-Identifier: GPL-2.0-or-later
+#include QMK_KEYBOARD_H
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -22,7 +24,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 static void print_status_narrow(void) {
-   
 
     /* Print current layer */
     oled_write("LAYER", false);
