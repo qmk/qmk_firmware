@@ -31,7 +31,7 @@
         "vid": "0x5453"
     },
     "layouts": {
-        "LAYOUT_orhto_6x4": {
+        "LAYOUT_numpad_6x4": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
