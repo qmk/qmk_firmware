@@ -82,6 +82,8 @@ enum qk_keycode_ranges {
     QK_USER_MAX                    = 0x7FFF,
     QK_UNICODE                     = 0x8000,
     QK_UNICODE_MAX                 = 0xFFFF,
+    SAFE_RANGE                     = 0x7E00,
+    SAFE_RANGE_MAX                 = 0x7FFF,
 };
 
 enum qk_keycode_defines {
@@ -1338,7 +1340,6 @@ enum qk_keycode_defines {
     AC_TOGG    = QK_AUTOCORRECT_TOGGLE,
     FN_MO13    = QK_TRI_LAYER_1_3,
     FN_MO23    = QK_TRI_LAYER_2_3,
-    SAFE_RANGE = QK_KB_0,
 };
 
 // Range Helpers
@@ -1369,6 +1370,7 @@ enum qk_keycode_defines {
 #define IS_QK_KB(code) ((code) >= QK_KB && (code) <= QK_KB_MAX)
 #define IS_QK_USER(code) ((code) >= QK_USER && (code) <= QK_USER_MAX)
 #define IS_QK_UNICODE(code) ((code) >= QK_UNICODE && (code) <= QK_UNICODE_MAX)
+#define IS_SAFE_RANGE(code) ((code) >= SAFE_RANGE && (code) <= SAFE_RANGE_MAX)
 
 // Group Helpers
 #define IS_INTERNAL_KEYCODE(code) ((code) >= KC_NO && (code) <= KC_TRANSPARENT)

@@ -1,1 +1,7 @@
-{}
+{
+    "ranges": {
+        "0x7E00/0x01FF": {
+            "define": "SAFE_RANGE"
+        }
+    }
+}

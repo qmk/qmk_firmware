@@ -3,9 +3,6 @@
         "0x7E00": {
             "group": "kb",
             "key": "QK_KB_0",
-            "aliases": [
-                "SAFE_RANGE"
-            ]
         },
         "0x7E01": {
             "group": "kb",
