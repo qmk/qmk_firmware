@@ -42,5 +42,5 @@ typedef union {
 } keyboard_config_t;
 
 enum la_plus_keycodes {
-    STARTUP_ANIMATION_CONFIG = QK_USER_0,
+    STARTUP_ANIMATION_CONFIG = QK_KB_0,
 };

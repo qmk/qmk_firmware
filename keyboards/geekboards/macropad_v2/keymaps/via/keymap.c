@@ -20,7 +20,7 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
 enum custom_keycodes {
-  ALT_TAB = QK_USER_0,
+  ALT_TAB = QK_KB_0,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

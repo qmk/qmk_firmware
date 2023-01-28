@@ -32,5 +32,5 @@
 }
 
 enum keyboard_keycodes {
-    LOCK_GUI = QK_USER_0,
+    LOCK_GUI = QK_KB_0,
 };

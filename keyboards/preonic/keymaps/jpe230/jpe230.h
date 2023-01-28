@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 enum jpe230_keycodes {
-  KC_LSRS = QK_USER_0,
+  KC_LSRS = QK_KB_0,
   KC_LERS,
   KC_LSRE
 };

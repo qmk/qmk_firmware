@@ -25,7 +25,7 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    SHILL = QK_USER_0,
+    SHILL = QK_KB_0,
     NUT,
     FRACNO
 };

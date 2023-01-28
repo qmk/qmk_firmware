@@ -22,7 +22,7 @@ bool ID61_process_special_k(uint16_t keycode, keyrecord_t *record, bool arrow_mo
     bool is_raised = get_highest_layer(layer_state|default_layer_state) != 0;
 
     if (record->event.pressed) {
-        set_keycode_raised(keycode - QK_USER_0, is_raised);  // save for key release event
+        set_keycode_raised(keycode - QK_KB_0, is_raised);  // save for key release event
         if (is_raised) {
             // *** Fn keyed ***
             if (arrow_mode) {

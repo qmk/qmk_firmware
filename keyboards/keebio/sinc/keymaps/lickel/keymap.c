@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = QK_USER_0,
+    KC_MISSION_CONTROL = QK_KB_0,
     KC_LAUNCHPAD
 };
 

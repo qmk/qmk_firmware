@@ -37,6 +37,6 @@
 }
 
 enum custom_keycodes {
-    SHIFTSPACE = QK_USER_0,
+    SHIFTSPACE = QK_KB_0,
     QWERTY
 };

@@ -21,7 +21,7 @@
 #include "quantum_keycodes.h"
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = QK_USER_0,
+    KC_MISSION_CONTROL = QK_KB_0,
     KC_LAUNCHPAD,
     KC_LOPTN,
     KC_ROPTN,

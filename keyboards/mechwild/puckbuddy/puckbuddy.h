@@ -40,7 +40,7 @@ extern keyboard_config_t keyboard_config;
 extern uint16_t          dpi_array[];
 
 enum keyboard_keycodes {
-    DPI_UP = QK_USER_0,
+    DPI_UP = QK_KB_0,
     DPI_DN,
     DPI_FINE,
     TAP_UP,

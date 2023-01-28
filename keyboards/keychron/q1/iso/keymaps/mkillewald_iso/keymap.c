@@ -35,7 +35,7 @@ typedef union {
 user_config_t user_config;
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = QK_USER_0,
+    KC_MISSION_CONTROL = QK_KB_0,
     KC_LAUNCHPAD,
     KC_LIGHT_TAB_TOGGLE,
     KC_LIGHT_ALPHAS_TOGGLE,

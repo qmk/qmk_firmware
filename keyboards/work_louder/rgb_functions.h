@@ -46,31 +46,31 @@
 #    endif
 #else
 #    ifndef RGB_MATRIX_TOGGLE
-#        define RGB_MATRIX_TOGGLE QK_USER_0
+#        define RGB_MATRIX_TOGGLE QK_KB_0
 #    endif
 #    ifndef RGB_MATRIX_MODE_INC
-#        define RGB_MATRIX_MODE_INC QK_USER_1
+#        define RGB_MATRIX_MODE_INC QK_KB_1
 #    endif
 #    ifndef RGB_MATRIX_MODE_DEC
-#        define RGB_MATRIX_MODE_DEC QK_USER_2
+#        define RGB_MATRIX_MODE_DEC QK_KB_2
 #    endif
 #    ifndef RGB_MATRIX_HUE_INC
-#        define RGB_MATRIX_HUE_INC QK_USER_3
+#        define RGB_MATRIX_HUE_INC QK_KB_3
 #    endif
 #    ifndef RGB_MATRIX_HUE_DEC
-#        define RGB_MATRIX_HUE_DEC QK_USER_4
+#        define RGB_MATRIX_HUE_DEC QK_KB_4
 #    endif
 #    ifndef RGB_MATRIX_SAT_INC
-#        define RGB_MATRIX_SAT_INC QK_USER_5
+#        define RGB_MATRIX_SAT_INC QK_KB_5
 #    endif
 #    ifndef RGB_MATRIX_SAT_DEC
-#        define RGB_MATRIX_SAT_DEC QK_USER_6
+#        define RGB_MATRIX_SAT_DEC QK_KB_6
 #    endif
 #    ifndef RGB_MATRIX_VAL_INC
-#        define RGB_MATRIX_VAL_INC QK_USER_7
+#        define RGB_MATRIX_VAL_INC QK_KB_7
 #    endif
 #    ifndef RGB_MATRIX_VAL_DEC
-#        define RGB_MATRIX_VAL_DEC QK_USER_8
+#        define RGB_MATRIX_VAL_DEC QK_KB_8
 #    endif
 #endif
 

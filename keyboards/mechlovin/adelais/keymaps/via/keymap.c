@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  BL_TOG = QK_USER_0,
+  BL_TOG = QK_KB_0,
   BL_EFFECT,
   BL_ISPD,
   BL_DSPD,

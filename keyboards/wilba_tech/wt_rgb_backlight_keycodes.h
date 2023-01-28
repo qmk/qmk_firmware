@@ -16,7 +16,7 @@
 #pragma once
 
 enum wt_rgb_backlight_keycodes {
-    BR_INC = QK_USER_0, // brightness increase
+    BR_INC = QK_KB_0, // brightness increase
     BR_DEC,             // brightness decrease
     EF_INC,             // effect increase
     EF_DEC,             // effect decrease

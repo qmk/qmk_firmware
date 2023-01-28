@@ -24,7 +24,7 @@ typedef union {
 #endif  // RGB_MATRIX_ENABLE
 
 enum {
-    KC_MCON = QK_USER_0,  // macOS Open Mission Control
+    KC_MCON = QK_KB_0,  // macOS Open Mission Control
     KC_LPAD,           // macOS Open Launchpad
     #ifdef RGB_MATRIX_ENABLE
     RGB_TPK,           // Toggle Per-Key
@@ -32,7 +32,7 @@ enum {
     RGB_TUG,           // Toggle Underglow
     #endif  // ID67_DISABLE_UNDERGLOW
     #endif  //RGB_MATRIX_ENABLE
-    KB_VRSN = QK_USER_9   // debug, type version
+    KB_VRSN = QK_KB_9   // debug, type version
 };
 
 #ifndef RGB_MATRIX_ENABLE

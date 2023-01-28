@@ -46,7 +46,7 @@ extern keyboard_config_t keyboard_config;
 extern uint16_t          dpi_array[];
 
 enum ploopy_keycodes {
-    DPI_CONFIG = QK_USER_0,
+    DPI_CONFIG = QK_KB_0,
     DRAG_SCROLL,
     PLOOPY_SAFE_RANGE,
 };

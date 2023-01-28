@@ -28,7 +28,7 @@
 #ifndef WINLOCK_DISABLED
 // Define the TGUI key here so it is available in QMK configurator
 enum DGK6X_keycodes {
-    KC_TGUI = QK_USER_0,   // Toggle between GUI Lock or Unlock
+    KC_TGUI = QK_KB_0,   // Toggle between GUI Lock or Unlock
 };
 #endif /* WINLOCK_DISABLED */
 

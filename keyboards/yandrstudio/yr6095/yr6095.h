@@ -59,7 +59,7 @@
 }
 
 enum keyboard_keycodes {
-    LOCK_GUI = QK_USER_0,
+    LOCK_GUI = QK_KB_0,
     TOG_MACOS_KEYMAP,
     KC_MISSION_CONTROL,
     KC_LAUNCHPAD,
