@@ -21,7 +21,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_LAYER0] = LAYOUT_numpad_6x4(
+    [_LAYER0] = LAYOUT_ortho_6x4(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,
         KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
@@ -30,13 +30,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,   KC_PDOT, KC_PDOT, MO(1)
     ),
 
-    [_LAYER1] = LAYOUT_numpad_6x4(
+    [_LAYER1] = LAYOUT_ortho_6x4(
+        QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+        KC_HOME, KC_UP,   KC_PGUP, KC_TRNS,
+        KC_LEFT, KC_TRNS, KC_RGHT, KC_TRNS,
+        KC_END,  KC_DOWN, KC_PGDN, KC_TRNS,
+        KC_INS,  KC_TRNS, KC_DEL,  KC_TRNS
     )
 };
 
