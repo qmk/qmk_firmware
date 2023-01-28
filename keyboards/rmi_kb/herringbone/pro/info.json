@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Herringbone Pro",
-    "manufacturer": "Ramon Imbao",
+    "manufacturer": "RMI-KB",
     "url": "",
-    "maintainer": "Ramon Imbao",
+    "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xB16B",
         "pid": "0x440B",

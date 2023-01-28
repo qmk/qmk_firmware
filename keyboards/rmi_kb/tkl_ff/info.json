@@ -1,8 +1,8 @@
 {
     "keyboard_name": "TKL FF",
-    "manufacturer": "Ramon Imbao",
+    "manufacturer": "RMI-KB",
     "url": "",
-    "maintainer": "Ramon Imbao",
+    "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xB16B",
         "device_version": "0.0.1"
