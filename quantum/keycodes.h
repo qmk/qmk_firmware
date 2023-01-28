@@ -1338,6 +1338,7 @@ enum qk_keycode_defines {
     AC_TOGG    = QK_AUTOCORRECT_TOGGLE,
     FN_MO13    = QK_TRI_LAYER_1_3,
     FN_MO23    = QK_TRI_LAYER_2_3,
+    SAFE_RANGE = QK_KB_0,
 };
 
 // Range Helpers
