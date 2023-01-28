@@ -3,8 +3,7 @@
 
 #include "process_tri_layer.h"
 
-bool process_tri_layer(uint16_t keycode, keyrecord_t *record)
-{
+bool process_tri_layer(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QK_TRI_LAYER_1_3:
             if (record->event.pressed) {
@@ -26,6 +25,6 @@ bool process_tri_layer(uint16_t keycode, keyrecord_t *record)
             }
             return false;
             break;
-        }
+    }
     return true;
 }

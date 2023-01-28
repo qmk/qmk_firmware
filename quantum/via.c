@@ -38,7 +38,7 @@
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
 // EEPROM is invalid and use/save defaults.
 bool via_eeprom_is_valid(void) {
-    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    char   *p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
     uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -49,7 +49,7 @@ bool via_eeprom_is_valid(void) {
 // Sets VIA/keyboard level usage of EEPROM to valid/invalid
 // Keyboard level code (eg. via_init_kb()) should not call this
 void via_eeprom_set_valid(bool valid) {
-    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    char   *p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
     uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -279,20 +279,20 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 }
                 case id_switch_matrix_state: {
                     uint8_t offset = command_data[1];
-                    uint8_t rows = 28 / ((MATRIX_COLS + 7) / 8);
-                    uint8_t i = 2;
+                    uint8_t rows   = 28 / ((MATRIX_COLS + 7) / 8);
+                    uint8_t i      = 2;
                     for (uint8_t row = 0; row < rows && row + offset < MATRIX_ROWS; row++) {
                         matrix_row_t value = matrix_get_row(row + offset);
-#    if (MATRIX_COLS > 24)
+#if (MATRIX_COLS > 24)
                         command_data[i++] = (value >> 24) & 0xFF;
-#    endif
-#    if (MATRIX_COLS > 16)
+#endif
+#if (MATRIX_COLS > 16)
                         command_data[i++] = (value >> 16) & 0xFF;
-#    endif
-#    if (MATRIX_COLS > 8)
+#endif
+#if (MATRIX_COLS > 8)
                         command_data[i++] = (value >> 8) & 0xFF;
-#    endif
-                        command_data[i++] = value & 0xFF;   
+#endif
+                        command_data[i++] = value & 0xFF;
                     }
                     break;
                 }
