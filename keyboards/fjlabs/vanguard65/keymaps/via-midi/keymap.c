@@ -33,9 +33,9 @@ enum custom_keycodeas {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_LAYER1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_LAYER0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LAYER2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LAYER3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LAYER0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
 };
 #endif
 
@@ -100,17 +100,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* MIDI Slider controls */
 uint16_t denoise_level = 16;
 uint8_t last_val = 0;
-uint8_t rgb_hue = 0;
-uint8_t rgb_sat = 0;
 
 void slider(void) {
 
     uint8_t current_val = analogReadPin(SLIDER_PINA) >>3;
 
     if ( last_val - current_val < -1 || last_val - current_val > 1 ) { 
-        rgb_hue = rgblight_get_hue();
-        rgb_sat = rgblight_get_sat();
-        rgblight_sethsv(rgb_hue, rgb_sat, current_val * 2);
+        midi_send_cc(&midi_device, 0, 90, current_val ); // (&midi_device, chan, message, highest control value - (current pin reading) >>resolution)
         last_val = current_val;
     }
 }

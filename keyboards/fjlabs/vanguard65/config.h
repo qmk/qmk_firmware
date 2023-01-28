@@ -54,7 +54,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* Define RGB */
 #define RGB_DI_PIN C7
-#define RGBLED_NUM 4
+#define RGBLED_NUM 36
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -67,6 +67,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LIMIT_VAL 255
 #define RGB_VAL_STEP 12
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 
 /* Define MIDI */
 #define MIDI_ADVANCED
