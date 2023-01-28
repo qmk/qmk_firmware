@@ -1,11 +1,11 @@
 # Repeat Key
 
 The Repeat Key performs the action of the last pressed key. Tapping the Repeat
-Key after tapping the <kbd>Z</kbd> key types another "`z`." The Repeat Key is
-useful for hotkeys, like repeating Ctrl + Shift + Right Arrow to select
-by word. It can also be useful for typing doubled letters, like the `z` in
-"`dazzle`": a double tap on <kbd>Z</kbd> can instead be a roll from <kbd>Z</kbd>
-to <kbd>Repeat</kbd>, which is potentially faster and more comfortable. 
+Key after tapping the <kbd>Z</kbd> key types another "`z`." This is useful for
+typing doubled letters, like the `z` in "`dazzle`": a double tap on <kbd>Z</kbd>
+can instead be a roll from <kbd>Z</kbd> to <kbd>Repeat</kbd>, which is
+potentially faster and more comfortable. The Repeat Key is also useful for
+hotkeys, like repeating Ctrl + Shift + Right Arrow to select by word. 
 
 Repeat Key remembers mods that were active with the last key press. These mods
 are combined with any additional mods while pressing the Repeat Key. If the last
