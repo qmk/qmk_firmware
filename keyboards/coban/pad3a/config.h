@@ -19,9 +19,8 @@
 #include "config_common.h"
 
 #define DIRECT_PINS { { GP8, GP7, GP6 } }
-#define ENCODERS_PAD_A { GP4 }
-#define ENCODERS_PAD_B { GP5 }
-#define ENCODER_DIRECTION_FLIP
+#define ENCODERS_PAD_A { GP5 }
+#define ENCODERS_PAD_B { GP4 }
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
