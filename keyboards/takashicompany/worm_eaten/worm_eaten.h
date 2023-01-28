@@ -5,8 +5,8 @@
 
 #include "quantum.h"
 
-#ifdef INTEGRATED
-    #include "integrated.h"
-#else
+#ifdef SPLIT_KEYBOARD
     #include "split.h"
+#else
+    #include "integrated.h"
 #endif
