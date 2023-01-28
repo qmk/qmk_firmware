@@ -1,6 +1,6 @@
 # Worm Eaten
 
-![takashicompany/worm_eaten](https://i.imgur.com/8rIFpDR.jpg)
+![takashicompany/worm_eaten](https://i.imgur.com/8rIFpDRh.jpg)
 
 Worm Eaten" is a simple design that can be assembled in a variety of ways.
 
