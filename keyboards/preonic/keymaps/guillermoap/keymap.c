@@ -17,20 +17,22 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
-#define _BASE 0
-#define _GAMING 1
-#define _LOWER 2
-#define _RAISE 3
-#define _CONFIG 4
+enum preonic_layers {
+    _BASE,
+    _GAMING,
+    _LOWER,
+    _RAISE,
+    _CONFIG,
+};
 
-enum custom_keycodes {
-  BASE = SAFE_RANGE,
-  GAMING,
-  LOWER,
-  RAISE,
-  CONFIG,
-  CTRL_C,
-  CTRL_Z,
+enum preonic_keycodes {
+    BASE = SAFE_RANGE,
+    GAMING,
+    LOWER,
+    RAISE,
+    CONFIG,
+    CTRL_C,
+    CTRL_Z,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -48,12 +50,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | GUI         |  `   |  Alt |Lower |Enter |Enter |Space |Space |Raise | Left | Down |Right |
  * `------------------------------------------------------------------------------------------'
  */
-[_BASE] = LAYOUT_preonic_grid( \
-  KC_ESC,          KC_1,   KC_2,            KC_3,  KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_TAB,          KC_Q,   KC_W,            KC_E,  KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSLS, \
-  KC_LCTL,         KC_A,   KC_S,            KC_D,  KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  LSFT_T(KC_CAPS), KC_Z,   KC_X,            KC_C,  KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_UP,   KC_SLSH, \
-  KC_LGUI,         KC_GRV, LALT_T(KC_RALT), MO(2), KC_ENT, KC_ENT, KC_SPC, KC_SPC, MO(3),   KC_LEFT, KC_DOWN, KC_RGHT  \
+[_BASE] = LAYOUT_preonic_grid(
+  KC_ESC,          KC_1,   KC_2,            KC_3,  KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,          KC_Q,   KC_W,            KC_E,  KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSLS,
+  KC_LCTL,         KC_A,   KC_S,            KC_D,  KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  LSFT_T(KC_CAPS), KC_Z,   KC_X,            KC_C,  KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_UP,   KC_SLSH,
+  KC_LGUI,         KC_GRV, LALT_T(KC_RALT), MO(2), KC_ENT, KC_ENT, KC_SPC, KC_SPC, MO(3),   KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 /* Gaming
@@ -69,12 +71,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | GUI  |  Alt |Lower |Space |Space |Enter |Enter |Raise | Left | Down |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_GAMING] = LAYOUT_preonic_grid( \
-  KC_ESC,  KC_1,    KC_2,    KC_3,  KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_TAB,  KC_Q,    KC_W,    KC_E,  KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSLS, \
-  KC_GRV,  KC_A,    KC_S,    KC_D,  KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,  KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_UP,   KC_SLSH, \
-  KC_LCTL, KC_LGUI, KC_LALT, MO(2), KC_SPC, KC_SPC, KC_ENT, KC_ENT, MO(3),   KC_LEFT, KC_DOWN, KC_RGHT  \
+[_GAMING] = LAYOUT_preonic_grid(
+  KC_ESC,  KC_1,    KC_2,    KC_3,  KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,  KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSLS,
+  KC_GRV,  KC_A,    KC_S,    KC_D,  KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,  KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_UP,   KC_SLSH,
+  KC_LCTL, KC_LGUI, KC_LALT, MO(2), KC_SPC, KC_SPC, KC_ENT, KC_ENT, MO(3),   KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 /* Lower
@@ -90,12 +92,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |CONFIG|   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_preonic_grid( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLU, KC_MPLY, KC_TRNS, KC_TRNS, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_BSLS, \
-  KC_TRNS, KC_TRNS, KC_MPRV, KC_VOLD, KC_MNXT, KC_TRNS, KC_TRNS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TRNS, \
-  KC_TRNS, CTRL_Z,  KC_TRNS, CTRL_C,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(4),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS  \
+[_LOWER] = LAYOUT_preonic_grid(
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLU, KC_MPLY, KC_TRNS, KC_TRNS, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_BSLS,
+  KC_TRNS, KC_TRNS, KC_MPRV, KC_VOLD, KC_MNXT, KC_TRNS, KC_TRNS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TRNS,
+  KC_TRNS, CTRL_Z,  KC_TRNS, CTRL_C,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(4),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 /* Raise
@@ -111,12 +113,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  GUI |PrntSc|R Alt |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_preonic_grid( \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MINS, KC_EQL,  KC_DEL,  \
-  KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS, KC_TRNS, KC_UP,   KC_LBRC, KC_RBRC, KC_TRNS, \
-  KC_LCTL, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, \
-  KC_RSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_TRNS, \
-  KC_RGUI, KC_PSCR, KC_RALT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS  \
+[_RAISE] = LAYOUT_preonic_grid(
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MINS, KC_EQL,  KC_DEL,
+  KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS, KC_TRNS, KC_UP,   KC_LBRC, KC_RBRC, KC_TRNS,
+  KC_LCTL, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS,
+  KC_RSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_TRNS,
+  KC_RGUI, KC_PSCR, KC_RALT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 /* Config
@@ -132,12 +134,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |   ▽  |
  * `-----------------------------------------------------------------------------------'
  */
-[_CONFIG] = LAYOUT_preonic_grid( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-  KC_TRNS, QK_BOOT, DB_TOGG, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, \
-  KC_TRNS, KC_TRNS, MU_MOD,  AU_ON,   AU_OFF,   CG_NORM, CG_SWAP, DF(0),   DF(1),   KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,   MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS \
+[_CONFIG] = LAYOUT_preonic_grid(
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  KC_TRNS, QK_BOOT, DB_TOGG, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
+  KC_TRNS, KC_TRNS, MU_MOD,  AU_ON,   AU_OFF,   CG_NORM, CG_SWAP, DF(0),   DF(1),   KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,   MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 )
 };
 
@@ -156,32 +158,33 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-  // if (layer_state_is(_BASE)) {
-  //   if (clockwise) {
-  //       tap_code(KC_VOLU);
-  //   } else {
-  //       tap_code(KC_VOLD);
-  //   }
-  // } else if (layer_state_is(_GAMING)) {
-  //   if (clockwise) {
-  //       tap_code(KC_MS_WH_UP);
-  //   } else {
-  //       tap_code(KC_MS_WH_DOWN);
-  //   }
-  // } else if (layer_state_is(_LOWER)) {
-  //   if (clockwise) {
-  //     tap_code16(C(KC_TAB));
-  //   } else {
-  //     tap_code16(C(S(KC_TAB)));
-  //   }
-  // } else if (layer_state_is(_RAISE)) {
-  //   if (clockwise) {
-  //     tap_code(KC_MS_WH_RIGHT);
-  //   } else {
-  //     tap_code(KC_MS_WH_LEFT);
-  //   }
-  // }
-  return false;
+    /* if (layer_state_is(_BASE)) {
+      if (clockwise) {
+          tap_code(KC_VOLU);
+      } else {
+          tap_code(KC_VOLD);
+      }
+    } else if (layer_state_is(_GAMING)) {
+      if (clockwise) {
+          tap_code(KC_MS_WH_UP);
+      } else {
+          tap_code(KC_MS_WH_DOWN);
+      }
+    } else if (layer_state_is(_LOWER)) {
+      if (clockwise) {
+        tap_code16(C(KC_TAB));
+      } else {
+        tap_code16(C(S(KC_TAB)));
+      }
+    } else if (layer_state_is(_RAISE)) {
+      if (clockwise) {
+        tap_code(KC_MS_WH_RIGHT);
+      } else {
+        tap_code(KC_MS_WH_LEFT);
+      }
+    }
+    */
+    return false;
 }
 
 
@@ -190,21 +193,21 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
  * Ctrl + Z
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case CTRL_C:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL("c"));
-      }
-      return false;
-      break;
-    case CTRL_Z:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL("z"));
-      }
-      return false;
-      break;
-  }
-  return true;
+    switch (keycode) {
+        case CTRL_C:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("c"));
+            }
+            return false;
+            break;
+        case CTRL_Z:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("z"));
+            }
+            return false;
+            break;
+    }
+    return true;
 };
 
 /* Default music config
@@ -217,52 +220,52 @@ uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
 bool dip_switch_update_user(uint8_t index, bool active) {
-  switch (index) {
-    case 0:
-      if (active) {
-          layer_on(_CONFIG);
-      } else {
-          layer_off(_CONFIG);
-      }
-      break;
-    case 1:
-      if (active) {
-          muse_mode = true;
-      } else {
-          muse_mode = false;
-      }
-  }
-  return true;
+    switch (index) {
+        case 0:
+            if (active) {
+                layer_on(_CONFIG);
+            } else {
+                layer_off(_CONFIG);
+            }
+            break;
+        case 1:
+            if (active) {
+                muse_mode = true;
+            } else {
+                muse_mode = false;
+            }
+    }
+    return true;
 }
 
 
 void matrix_scan_user(void) {
 #ifdef AUDIO_ENABLE
-  if (muse_mode) {
-    if (muse_counter == 0) {
-      uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
-      if (muse_note != last_muse_note) {
-          stop_note(compute_freq_for_midi_note(last_muse_note));
-          play_note(compute_freq_for_midi_note(muse_note), 0xF);
-          last_muse_note = muse_note;
-      }
+    if (muse_mode) {
+        if (muse_counter == 0) {
+            uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
+            if (muse_note != last_muse_note) {
+                stop_note(compute_freq_for_midi_note(last_muse_note));
+                play_note(compute_freq_for_midi_note(muse_note), 0xF);
+                last_muse_note = muse_note;
+            }
+        }
+        muse_counter = (muse_counter + 1) % muse_tempo;
+    } else {
+        if (muse_counter) {
+            stop_all_notes();
+            muse_counter = 0;
+        }
     }
-    muse_counter = (muse_counter + 1) % muse_tempo;
-  } else {
-    if (muse_counter) {
-        stop_all_notes();
-        muse_counter = 0;
-    }
-  }
 #endif
 }
 
 bool music_mask_user(uint16_t keycode) {
-  switch (keycode) {
-    case RAISE:
-    case LOWER:
-      return false;
-    default:
-      return true;
-  }
+    switch (keycode) {
+        case RAISE:
+        case LOWER:
+            return false;
+        default:
+            return true;
+    }
 }
