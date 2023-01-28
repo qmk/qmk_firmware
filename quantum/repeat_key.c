@@ -126,8 +126,8 @@ static uint8_t find_rev_keycode(const uint8_t (*table)[2], uint8_t table_size_by
 }
 
 uint16_t get_rev_repeat_key_keycode(void) {
-    uint16_t keycode     = last_record.keycode;
-    uint8_t  mods        = last_mods;
+    uint16_t keycode = last_record.keycode;
+    uint8_t  mods    = last_mods;
 
     // Call the user callback first to give it a chance to override the default
     // reverse key definitions that follow.
