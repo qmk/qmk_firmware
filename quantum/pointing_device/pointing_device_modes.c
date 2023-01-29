@@ -60,8 +60,6 @@ static inline int16_t divisor_multiply16(int16_t value) {
 #    else
     return clamp_int_32_to_16(value * (int16_t)pointing_mode_context.mode.divisor);
 #    endif
-
-    return clamp_int_32_to_16(value * (int16_t)pointing_mode_context.mode.divisor);
 }
 
 static inline int8_t divisor_divide8(int16_t value) {

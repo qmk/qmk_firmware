@@ -164,8 +164,8 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_REPORT_SIZE(8, 0x04),
                 HID_RI_LOGICAL_MINIMUM(8, 0x00),
                 HID_RI_LOGICAL_MAXIMUM(8, 0x0F),
-                HID_RI_PHYSICAL_MINIMUM(8, 0x01), // Min   1
-                HID_RI_PHYSICAL_MAXIMUM(8, 0x78), // Max 120
+                HID_RI_PHYSICAL_MINIMUM(8,   1),
+                HID_RI_PHYSICAL_MAXIMUM(8, 120), 
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
                 HID_RI_PHYSICAL_MINIMUM(8, 0x00), // Reset Global Value
                 HID_RI_PHYSICAL_MAXIMUM(8, 0x00),
@@ -198,8 +198,8 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
                 HID_RI_REPORT_SIZE(8, 0x04),
                 HID_RI_LOGICAL_MINIMUM(8, 0x00),  // Min   0
                 HID_RI_LOGICAL_MAXIMUM(8, 0x0F),  // Max  15
-                HID_RI_PHYSICAL_MINIMUM(8, 0x01), // Min   1
-                HID_RI_PHYSICAL_MAXIMUM(8, 0x78), // Max 120
+                HID_RI_PHYSICAL_MINIMUM(8,   1),
+                HID_RI_PHYSICAL_MAXIMUM(8, 120),
                 HID_RI_FEATURE(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
                 HID_RI_PHYSICAL_MINIMUM(8, 0x00), // Reset Global Value
                 HID_RI_PHYSICAL_MAXIMUM(8, 0x00),
