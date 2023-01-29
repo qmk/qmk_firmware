@@ -104,8 +104,8 @@ void keyboard_post_init_kb(void) {
     ap2_led_get_status();
 
     #ifdef RGB_MATRIX_ENABLE
-    ap2_led_enable();
     ap2_led_set_manual_control(1);
+    ap2_led_enable();
     #endif
 
     keyboard_post_init_user();
