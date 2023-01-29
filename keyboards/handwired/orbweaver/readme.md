@@ -40,7 +40,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
 * From the main keymap menu, press the red key in the upper right corner (`QK_BOOT`).
 * Press and release both reset buttons on the top of the RP2040. 
