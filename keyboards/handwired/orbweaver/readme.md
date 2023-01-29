@@ -14,12 +14,6 @@ Updated firmware includes a single multi-layer keymap ("orby") with fixed color 
 for each layer.  The default (base) layer is a menu for other layers, or to put the
 RP2040 in bootloader mode.  
 
-Other keymaps include a utility ("RGBtest") for sequentially toggling all the LEDs
-one by one to insure the correct RGB matrix assignments, and "RGB144" for testing all 
-144 matrix elements and reporting the active LED. The keymap "NoRGB" does not include 
-any writes to the IS31, so can be used to test the key matrix by itself (or on a non-
-RGB Orbweaver). 
-
 Many thanks to bomtarnes, Drashna, Dasky, sigprof, and casuanoob for helpful discussions
 and coding suggestions and snippets.
 
