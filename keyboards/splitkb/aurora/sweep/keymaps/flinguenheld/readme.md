@@ -12,8 +12,8 @@ It uses the *best* qmk features :
 I tried to optimise key positions for neovim and i3wm while limit digrams.  
 The oled screens are used to display the current layout, the modifier keys and the leader key.  
 
-![oledmouse](https://i.imgur.com/PwkR6P2.png)
 ![oledmodifiers](https://i.imgur.com/on95jx0.png)
+![oledmouse](https://i.imgur.com/PwkR6P2.png)
 
 #### Install
 
@@ -54,6 +54,7 @@ and :
 ![fn](https://i.imgur.com/0mgWSta.png)  
 ![combo](https://i.imgur.com/M6SWiAr.png)  
 ![combo2](https://i.imgur.com/J7BHmxN.png)  
+![combo3](https://i.imgur.com/14pjI2R.png)  
 
 #### French
 
