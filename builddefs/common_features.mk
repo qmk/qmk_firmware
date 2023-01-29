@@ -752,11 +752,9 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 
         OPT_DEFS += -DOLED_DRIVER_$(strip $(shell echo $(OLED_DRIVER) | tr '[:lower:]' '[:upper:]'))
         ifeq ($(strip $(OLED_DRIVER)), I2C)
-            SRC += oled_driver_i2c.c
             QUANTUM_LIB_SRC += i2c_master.c
         endif
         ifeq ($(strip $(OLED_DRIVER)), SPI)
-            SRC += oled_driver_spi.c
             QUANTUM_LIB_SRC += spi_master.c
         endif
     endif
