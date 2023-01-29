@@ -1,4 +1,4 @@
-/* Copyright 2021 DZTECH <moyi4681@live.cn>
+/* Copyright 2023 Tobias Minn (0x544D)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
