@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Kuro65",
+    "manufacturer": "Kuro",
+    "usb": {
+        "vid": "0x544D",
+        "pid": "0xC000",
+        "device_version": "1.0.0"
+    }
+}
