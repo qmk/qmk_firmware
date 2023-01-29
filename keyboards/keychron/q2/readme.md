@@ -12,9 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-```bash
-make keychron/q2/ansi:default:flash
-```
+    make keychron/q2/ansi:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
