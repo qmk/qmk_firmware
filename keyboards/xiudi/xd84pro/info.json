@@ -8,6 +8,7 @@
         "pid": "0x8450",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["75_ansi", "75_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

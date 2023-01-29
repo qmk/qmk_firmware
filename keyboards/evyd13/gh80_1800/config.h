@@ -48,10 +48,6 @@
 #define LED_SCROLL_LOCK_PIN D4
 #define LED_PIN_ON_STATE 0
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
 // #define RGB_DI_PIN D0
 // #ifdef RGB_DI_PIN
 //   #define RGBLED_NUM 12

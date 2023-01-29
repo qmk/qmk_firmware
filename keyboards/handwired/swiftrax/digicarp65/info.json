@@ -8,6 +8,7 @@
         "pid": "0xE7F1",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["65_ansi", "65_ansi_split_bs", "65_iso", "65_iso_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

@@ -17,6 +17,4 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_ansi_tsangan 60_hhkb 60_iso 60_iso_split_bs_rshift 60_iso_tsangan
-
 DEFAULT_FOLDER = ymdk/yd60mq/12led

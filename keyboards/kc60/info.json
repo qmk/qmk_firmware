@@ -8,6 +8,7 @@
         "pid": "0x6FFC",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -28,7 +28,6 @@ POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_spi # Assembled version uses SPI.
 
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x5_2
 
 # RP2040-specific options
 PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.

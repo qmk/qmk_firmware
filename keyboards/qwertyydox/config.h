@@ -46,10 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SOFT_SERIAL_PIN D0
 
-// #define BACKLIGHT_PIN E6
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 5
-
 #define RGB_DI_PIN D6
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 12

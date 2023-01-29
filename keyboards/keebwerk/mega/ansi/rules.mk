@@ -25,8 +25,6 @@ NO_USB_STARTUP_CHECK = no   # Disable initialization only when usb is plugged in
 
 CIE1931_CURVE = yes
 
-LAYOUTS = 65_ansi
-
 # project specific files
 SRC +=  keyboards/wilba_tech/wt_main.c \
         keyboards/wilba_tech/wt_rgb_backlight.c \

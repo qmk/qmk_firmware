@@ -8,6 +8,7 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "community_layouts": ["65_ansi", "65_iso"],
   "layouts": {
     "LAYOUT_65_ansi": {
       "layout": [

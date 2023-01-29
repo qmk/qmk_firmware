@@ -7,6 +7,7 @@
         "pid": "0xB04D",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["65_ansi", "65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

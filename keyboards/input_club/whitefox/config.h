@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
 
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 #define LED_BRIGHTNESS_LO 100

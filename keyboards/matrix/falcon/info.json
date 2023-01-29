@@ -8,6 +8,7 @@
         "pid": "0x474E",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["60_hhkb"],
     "layouts": {
         "LAYOUT_60_hhkb": {
             "layout": [

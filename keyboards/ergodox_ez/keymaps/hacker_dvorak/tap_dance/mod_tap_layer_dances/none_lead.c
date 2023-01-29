@@ -4,7 +4,7 @@ static tap none_lead_state = {
     .state           = 0
 };
 
-void none_lead_finished(qk_tap_dance_state_t *state, void *user_data) {
+void none_lead_finished(tap_dance_state_t *state, void *user_data) {
     none_lead_state.state = current_dance(state);
     switch (none_lead_state.state) {
         case SINGLE_TAP:
@@ -17,12 +17,12 @@ void none_lead_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
 
         case DOUBLE_TAP:
-            qk_leader_start();
+            leader_start();
             break;
     }
 }
 
-void none_lead_reset(qk_tap_dance_state_t *state, void *user_data) {
+void none_lead_reset(tap_dance_state_t *state, void *user_data) {
     switch (none_lead_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_NO);

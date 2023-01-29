@@ -39,7 +39,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5
 
 
@@ -48,8 +47,6 @@
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

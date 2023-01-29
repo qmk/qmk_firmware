@@ -48,9 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
 // #define DEBUG_LED_PIN                  D6
 
 #define ROTATIONAL_TRANSFORM_ANGLE     -25

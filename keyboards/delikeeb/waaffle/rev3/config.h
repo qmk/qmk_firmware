@@ -37,10 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
 /*rotary encoder setting*/
 #define ENCODERS_PAD_A { B7, F1 }
 #define ENCODERS_PAD_B { D5, F0 }

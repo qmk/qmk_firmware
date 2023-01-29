@@ -8,6 +8,7 @@
         "pid": "0x1688",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_tsangan", "65_iso_blocker"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

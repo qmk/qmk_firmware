@@ -6,6 +6,7 @@
     "vid": "0x3297",
     "device_version": "0.0.1"
   },
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_planck_1x2uC": {
       "layout": [

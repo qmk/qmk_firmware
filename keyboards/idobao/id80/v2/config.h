@@ -71,7 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_LIMIT_VAL 180 /* The maximum brightness level */
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 
-    // RGBLIGHT_ANIMATIONS
     #define RGBLIGHT_EFFECT_ALTERNATING
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_CHRISTMAS

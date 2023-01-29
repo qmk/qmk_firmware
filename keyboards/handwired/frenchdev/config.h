@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 6
 
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 #define LED_BRIGHTNESS_LO       15

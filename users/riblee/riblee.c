@@ -18,7 +18,7 @@
 #include <string.h>
 
 // Tap Dance functions
-void dance_key_a (qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_a (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         SEND_STRING("a");
         reset_tap_dance(state);
@@ -33,7 +33,7 @@ void dance_key_a (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_key_e (qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_e (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         SEND_STRING("e");
         reset_tap_dance(state);
@@ -48,7 +48,7 @@ void dance_key_e (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_key_i (qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_i (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         SEND_STRING("i");
         reset_tap_dance(state);
@@ -63,7 +63,7 @@ void dance_key_i (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_o (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         SEND_STRING("o");
         reset_tap_dance(state);
@@ -94,7 +94,7 @@ void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
+void dance_key_u (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         SEND_STRING("u");
         reset_tap_dance(state);

@@ -8,6 +8,7 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["numpad_6x5"],
     "layouts": {
         "LAYOUT_numpad_6x5": {
             "layout": [

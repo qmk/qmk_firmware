@@ -20,7 +20,6 @@ BACKLIGHT_DRIVER = pwm
 LTO_ENABLE = no
 ENCODER_ENABLE = yes
 
-LAYOUTS = ortho_4x12
 EEPROM_DRIVER = i2c
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

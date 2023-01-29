@@ -20,5 +20,3 @@ ENCODER_ENABLE = yes        # Rotary encoder
 
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3741
-
-LAYOUTS = 65_ansi_blocker

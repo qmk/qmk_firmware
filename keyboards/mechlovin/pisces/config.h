@@ -41,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN B2
 
 #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN E2

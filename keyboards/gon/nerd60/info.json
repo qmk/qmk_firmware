@@ -8,6 +8,7 @@
         "pid": "0x3630",
         "device_version": "0.0.1"
     },
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

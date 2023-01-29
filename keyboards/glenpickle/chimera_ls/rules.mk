@@ -22,8 +22,6 @@ CUSTOM_MATRIX = lite
 SRC += matrix.c
 QUANTUM_LIB_SRC += uart.c
 
-LAYOUTS = ortho_4x12
-
 # Disable unsupported hardware
 RGBLIGHT_SUPPORTED = no
 AUDIO_SUPPORTED = no

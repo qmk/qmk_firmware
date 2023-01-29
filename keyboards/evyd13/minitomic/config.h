@@ -46,10 +46,6 @@
 #define LED_CAPS_LOCK_PIN C7
 #define LED_PIN_ON_STATE 0
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
 //   #define RGBLED_NUM 16

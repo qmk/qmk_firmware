@@ -61,10 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // for "Generic" Promicro to be detected correctly as lefthand side (slave)
 #define SPLIT_USB_DETECT
 
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 
