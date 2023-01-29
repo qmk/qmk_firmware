@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `----------------------------------------------------------------------------------------------------------'
      */
     [_QWERTY] = LAYOUT_preonic_grid(
-      KC_CAPS,          KC_1,    KC_2,     KC_3,    KC_4,   KC_5,  KC_6,         KC_7,    KC_8,    KC_9,     KC_0,       KC_LEAD,
+      KC_CAPS,          KC_1,    KC_2,     KC_3,    KC_4,   KC_5,  KC_6,         KC_7,    KC_8,    KC_9,     KC_0,       QK_LEAD,
       KC_LCTL,          KC_Q,    KC_W,     KC_E,    KC_R,   KC_T,  LT_COPY_Y,    LT_UE_U, KC_I,    LT_OE_O,  LT_PASTE_P, KC_RCTL,
       MOD_TAP_LSFT_ESC, LT_AE_A, LT_SZ_S,  KC_D,    KC_F,   KC_G,  KC_H,         KC_J,    KC_K,    KC_L,     KC_QUOT,    MOD_TAP_LSFT_ENT,
       LM_COMP_LALT,     KC_Z,    LT_CUT_X, KC_C,    KC_V,   KC_B,  KC_N,         KC_M,    KC_COMM, KC_DOT,   KC_SLSH,    LM_COMP_LALT,
