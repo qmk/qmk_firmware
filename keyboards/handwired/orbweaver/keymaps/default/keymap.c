@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────────┴──────────┘
      */
      
-     [0] = LAYOUT_keypad(
+     [0] = LAYOUT(
         KC_ESC, KC_1, KC_2, KC_3, KC_4,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R,
         KC_CAPS, KC_A, KC_S, KC_D, KC_F,
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────────┴──────────┘
      */
      
-   [1] = LAYOUT_keypad(
+   [1] = LAYOUT(
         KC_0, KC_1, KC_2, KC_3, KC_4,
         KC_I, KC_Q, KC_W, KC_E, KC_R,
         KC_J, KC_A, KC_S, KC_D, KC_F,
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint8_t colormap[][20][3] = {
+static const uint8_t colormap[][20][3] = {
 
 // colors for the default key map in hex RGB values
 	{
