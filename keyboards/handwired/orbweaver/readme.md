@@ -31,7 +31,7 @@ and coding suggestions and snippets.
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb orbweaver -km default
+    qmk compile -kb handwired/orbweaver -km default
 
 Flashing example for this keyboard:
 
