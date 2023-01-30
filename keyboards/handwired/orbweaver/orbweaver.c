@@ -13,24 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 //
-// SPDX-License-Identifier: GPL-2.0-or-later
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
 //The IS31FL3731 configuration in a Razer Orbweaver Chroma was reverse-engineered by 
 //testing all possible Cx_y combinations (144 total), and determining which ones 
 //addressed individual diodes (60 total). These were then placed in order R-G-B, 
