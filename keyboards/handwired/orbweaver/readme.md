@@ -11,16 +11,8 @@ a single I2C Driver with 20 common anode RGB LEDs. I found that the I2C clock sp
 be slowed down to 100 kHz for the IS31 chip to keep up (the default for RP2040 seems to
 be 400 kHz unless specified otherwise).  
 
-The default key map (layer 0) is a "menu" layer with most keys inactive. The only active 
-keys are TO(x), which activate one of several key layers (1, 2, 3, etc). There is also a 
-key assigned to QK_BOOT. The layer selection keys and bootloader key are highlighted 
-different colors using RGB backlighting (the others are dark). There is also a dedicated 
-mode key, defined as TO(0) in every layer, so that the user can return to the menu from
-any of the layers.
-
-The active layers (1, 2, 3, etc) have regular keymaps for numpad, calculator, gaming, etc.
-The user can define the keys and the static RGB colors for these layers by editing
-keymap.c
+The default key map (layer 0) is a generic layer based on the original Razer defaults. 
+You can change or add layers as needed, and change static colors in keymap.c
 
 Many thanks to bomtarnes, Drashna, Dasky, sigprof, and casuanoob for helpful discussions
 and coding suggestions and snippets.
@@ -31,7 +23,7 @@ and coding suggestions and snippets.
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb handwired/orbweaver -km default
+    qmk compile -kb /handwired/orbweaver -km default
 
 Flashing example for this keyboard:
 
@@ -44,5 +36,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 2 ways:
 
-* From the main keymap menu, press the red key in the upper right corner (`QK_BOOT`).
+* Press and hold the upper left hand key on the main keyboard while you plug in the USB.
 * Press and release both reset buttons on the top of the RP2040 inside the modded unit. 
