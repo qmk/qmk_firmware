@@ -21,7 +21,7 @@
 // placed in order R-G-B, sweeping left to right, and then top to bottom.  
 
 #include "config.h"
-#include "orbweaver.h"
+#include QMK_KEYBOARD_H
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -56,10 +56,12 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 led_config_t g_led_config = {
      // Matrix location to LED index
      {
-         { 1, 2, 3, 4, 5 },
+         { 0, 2, 3, 4, 5 },
          { 6, 7, 8, 9, 10 },
          { 11, 12, 13, 14, 15 },
-         { 16, 17, 18, 19, 20 }
+         { 16, 17, 18, 19, 19 },
+         { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+         { NO_LED, NO_LED }
      },
 
      // LED index to physical location
