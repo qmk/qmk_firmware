@@ -42,7 +42,6 @@
 #include "bootmagic.h"
 #include "timer.h"
 #include "sync_timer.h"
-#include "config_common.h"
 #include "gpio.h"
 #include "atomic_util.h"
 #include "led.h"
@@ -75,6 +74,7 @@ extern layer_state_t layer_state;
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
 #    include "process_audio.h"
+#    include "song_list.h"
 #    ifdef AUDIO_CLICKY
 #        include "process_clicky.h"
 #    endif
