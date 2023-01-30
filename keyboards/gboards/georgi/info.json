@@ -10,8 +10,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_georgi": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_georgi": {
+        "LAYOUT": {
             "layout": [
                 {"x": 0, "y": 0.5},
                 {"x": 1, "y": 0.5},

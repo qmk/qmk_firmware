@@ -238,6 +238,14 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 #endif
 
+#ifdef TAP_DANCE_ENABLE
+    if (preprocess_tap_dance(keycode, record)) {
+        // The tap dance might have updated the layer state, therefore the
+        // result of the keycode lookup might change.
+        keycode = get_record_keycode(record, true);
+    }
+#endif
+
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled() && record->event.pressed) {
         velocikey_accelerate();
@@ -247,14 +255,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef WPM_ENABLE
     if (record->event.pressed) {
         update_wpm(keycode);
-    }
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-    if (preprocess_tap_dance(keycode, record)) {
-        // The tap dance might have updated the layer state, therefore the
-        // result of the keycode lookup might change.
-        keycode = get_record_keycode(record, true);
     }
 #endif
 
@@ -454,10 +454,10 @@ void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 // TODO: remove legacy api
-void matrix_init_quantum() {
+void matrix_init_quantum(void) {
     matrix_init_kb();
 }
-void matrix_scan_quantum() {
+void matrix_scan_quantum(void) {
     matrix_scan_kb();
 }
 
@@ -465,9 +465,9 @@ void matrix_scan_quantum() {
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
 
-__attribute__((weak)) void startup_user() {}
+__attribute__((weak)) void startup_user(void) {}
 
-__attribute__((weak)) void shutdown_user() {}
+__attribute__((weak)) void shutdown_user(void) {}
 
 void suspend_power_down_quantum(void) {
     suspend_power_down_kb();

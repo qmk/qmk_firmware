@@ -10,8 +10,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_gergo": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_gergo": {
+        "LAYOUT": {
             "layout": [
                 {
                     "label": "L00",

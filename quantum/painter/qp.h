@@ -64,6 +64,14 @@
 #    define QUANTUM_PAINTER_SUPPORTS_256_PALETTE FALSE
 #endif
 
+#ifndef QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS
+/**
+ * @def This controls whether the native color range is supported. This avoids the use of palettes but each image
+ *      requires more storage space.
+ */
+#    define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS FALSE
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter types
 

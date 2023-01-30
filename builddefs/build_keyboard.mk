@@ -180,16 +180,16 @@ generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
 
 endif
 
+include $(BUILDDEFS_PATH)/converters.mk
+
+MCU_ORIG := $(MCU)
+include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
+
 # PLATFORM_KEY should be detected in info.json via key 'processor' (or rules.mk 'MCU')
 ifeq ($(PLATFORM_KEY),)
     $(call CATASTROPHIC_ERROR,Platform not defined)
 endif
 PLATFORM=$(shell echo $(PLATFORM_KEY) | tr '[:lower:]' '[:upper:]')
-
-
-include $(BUILDDEFS_PATH)/converters.mk
-
-include $(BUILDDEFS_PATH)/mcu_selection.mk
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
@@ -422,13 +422,6 @@ SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
-SKIP_COMPILE := no
-ifneq ($(REQUIRE_PLATFORM_KEY),)
-    ifneq ($(REQUIRE_PLATFORM_KEY),$(PLATFORM_KEY))
-        SKIP_COMPILE := yes
-    endif
-endif
-
 -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/bootloader.mk
 include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
 -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
@@ -468,12 +461,7 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
-ifeq ($(SKIP_COMPILE),no)
 all: build check-size
-else
-all:
-	echo "skipped" >&2
-endif
 
 build: elf cpfirmware
 check-size: build

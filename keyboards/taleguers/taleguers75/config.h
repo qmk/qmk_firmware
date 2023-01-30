@@ -32,8 +32,6 @@
 #define ENCODERS_PAD_A { B6 }
 #define ENCODERS_PAD_B { B5 }
 
-/* number of backlight levels */
-
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3
 #endif
