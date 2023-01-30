@@ -13,10 +13,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 //
-//The IS31FL3731 configuration in a Razer Orbweaver Chroma was reverse-engineered by 
-//testing all possible Cx_y combinations (144 total), and determining which ones 
-//addressed individual diodes (60 total). These were then placed in order R-G-B, 
-//sweeping left to right, and then top to bottom.  
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+// This IS31FL3731 configuration is for a Razer Orbweaver Chroma.  
+// It was reverse-engineered by testing all possible Cx_y combinations (144 total), 
+// and determining which ones addressed individual diodes (60 total). These were then
+// placed in order R-G-B, sweeping left to right, and then top to bottom.  
 
 #include "config.h"
 #include "orbweaver.h"
@@ -51,25 +53,31 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 
 };
 
-// Dummy RGB Matrix config for testing
 led_config_t g_led_config = {
-    // Matrix location to LED index
-    {
-        [0 ... MATRIX_ROWS-1] = {
-            [0 ... MATRIX_COLS-1] = NO_LED
-        }
-    },
+     // Matrix location to LED index
+     {
+         { 1, 2, 3, 4, 5 },
+         { 6, 7, 8, 9, 10 },
+         { 11, 12, 13, 14, 15 },
+         { 16, 17, 18, 19, 20 }
+     },
 
-    // LED index to physical location
-    {
-        [0 ... RGB_MATRIX_LED_COUNT-1] = {0, 0}
-    },
+     // LED index to physical location
+     {
+         {0,0}, {20,0}, {40,0}, {60,0}, {80,0},
+         {0,20}, {20,20}, {40,20}, {60,20}, {80,20},
+         {0,40}, {20,40}, {40,40}, {60,40}, {80,40},
+         {0,60}, {20,60}, {40,60}, {60,60}, {80,60}
+     },
 
-    // LED index to flags
-    {
-        [0 ... RGB_MATRIX_LED_COUNT-1] = 4
-    }
-};
-
-
+     // LED index to flags
+     {
+         4, 4, 4, 4, 4,
+         4, 4, 4, 4, 4,
+         4, 4, 4, 4, 4,
+         4, 4, 4, 4, 4
+     }
+ };
+ 
+ 
 
