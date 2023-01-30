@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLUMNS 5

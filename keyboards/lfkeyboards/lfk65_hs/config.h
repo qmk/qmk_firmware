@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 5

@@ -17,7 +17,6 @@
  */
 
 #pragma once
-#include "config_common.h"
 
 // Key matrix size
 // Rows are doubled-up. Added extra column for rotary encoder VIA mapping.

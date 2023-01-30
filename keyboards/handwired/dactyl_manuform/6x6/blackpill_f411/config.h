@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #undef SOFT_SERIAL_PIN
 

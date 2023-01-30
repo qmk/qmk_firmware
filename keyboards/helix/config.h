@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // GCC include 'config.h" sequence in qmk_firmware/keyboards/helix/
 //   -include keyboards/helix/config.h

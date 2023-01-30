@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
 

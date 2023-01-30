@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define ENCODERS 1
 #define ENCODER_RESOLUTION 4

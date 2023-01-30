@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0

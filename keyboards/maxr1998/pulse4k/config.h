@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Key matrix size */
 #define MATRIX_ROWS 2

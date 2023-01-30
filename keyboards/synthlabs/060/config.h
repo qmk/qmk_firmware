@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Backlighting */
 #define RGB_MATRIX_LED_COUNT 63
