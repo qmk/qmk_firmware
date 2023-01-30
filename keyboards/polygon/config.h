@@ -20,20 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x6959 //
-#define PRODUCT_ID   0x065F //
-#define DEVICE_VER   0x0001 // rev1
-#define MANUFACTURER rotwitt
-#define PRODUCT      polygon
+/*#define VENDOR_ID    0x6959 //*/
+/*#define PRODUCT_ID   0x065F //*/
+/*#define DEVICE_VER   0x0001 // rev1*/
+/*#define MANUFACTURER rotwitt*/
+/*#define PRODUCT      polygon*/
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
-#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D5 }
-
-#define ENCODER_RESOLUTION 4
+/*#define ENCODERS_PAD_A { D3 }*/
+/*#define ENCODERS_PAD_B { D5 }*/
+/*#define ENCODER_RESOLUTION 4*/
 
 /*
  * Keyboard Matrix Assignments
@@ -51,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define UNUSED_PINS {  }
 
 /* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+/*#define DIODE_DIRECTION COL2ROW*/
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -105,10 +104,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
