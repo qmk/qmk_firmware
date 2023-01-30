@@ -17,7 +17,6 @@ Copyright 2022 Nathan Spears
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5

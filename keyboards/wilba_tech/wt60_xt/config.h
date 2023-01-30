@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define AUDIO_PIN C6
 #define AUDIO_CLICKY

@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS \
     { B0, A6, A7, B1, A5 }

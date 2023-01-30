@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 // Key Matrix Size //
 // Rows are Doubled-up

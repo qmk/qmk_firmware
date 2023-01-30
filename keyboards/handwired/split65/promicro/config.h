@@ -16,7 +16,6 @@
 #pragma once
 
 
-#include "config_common.h"
 
 // Matrix Assignments
 #define MATRIX_ROWS 10 //Rows are doubled-up

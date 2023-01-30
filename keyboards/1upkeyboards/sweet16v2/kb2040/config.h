@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10
 #define RGB_DI_PIN GP6

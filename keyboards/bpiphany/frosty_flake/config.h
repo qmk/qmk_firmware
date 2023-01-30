@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /*
  * Frosty Flake Rev. 20140521 made by Bathroom Ephiphanies

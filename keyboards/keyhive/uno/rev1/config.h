@@ -15,7 +15,6 @@
  */
 
 #pragma once
-#include "config_common.h"
 
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 

@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define ENCODERS_PAD_A { B13 }
 #define ENCODERS_PAD_B { B15 }
