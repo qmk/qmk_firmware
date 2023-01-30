@@ -1,6 +1,6 @@
 # Alas
 
-This is a standard TKL layout PCB. It supports VIA.
+This is a standard 60% layout PCB. It supports VIA.
 
 * Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
 * Hardware Supported: A 60% keyboard with STM32F072CB
