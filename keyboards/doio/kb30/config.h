@@ -49,8 +49,6 @@
     { 4, 4, 2 }
 
 // #define QMK_KEYS_PER_SCAN 12
-// #define FORCE_NKRO
-
 
 /* OLED */
 #ifdef OLED_ENABLE

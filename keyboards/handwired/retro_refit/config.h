@@ -43,18 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Force NKRO Mode - If forced on, must be disabled via magic key (default = LShift+RShift+N) */
 #define FORCE_NKRO
 
-/*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
 /* remap magic keys */
 #define MAGIC_KEY_LOCK             BSLS
 
