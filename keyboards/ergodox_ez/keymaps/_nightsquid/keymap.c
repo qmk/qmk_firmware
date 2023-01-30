@@ -25,9 +25,9 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
     KC_GRAVE,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_MS_BTN1,                                     KC_MS_BTN2,     KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
-    KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRANSPARENT,                                 KC_LALT,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLASH,
+    KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRANSPARENT,                                 KC_PGUP,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLASH,
     KC_ESCAPE,      KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                                                           KC_H,           KC_J,           KC_K,           KC_L,           KC_SCOLON,      KC_QUOTE,
-    KC_LSHIFT,      KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_TRANSPARENT,                                 KC_LGUI,        KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RSHIFT,
+    KC_LSHIFT,      KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_TRANSPARENT,                                 KC_PGDOWN,      KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RSHIFT,
     KC_LCTRL,       KC_TRANSPARENT, CTRL_CMD_SPACE, KC_LALT,        KC_LGUI,                                                                                                        XCTABLEFT,      XCTABRIGHT,   KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_EQUAL,
                                                                                                     KC_MS_WH_LEFT,  KC_MS_WH_RIGHT, KC_MS_LEFT,     KC_MS_RIGHT,
                                                                                                                     KC_MS_WH_UP,    KC_MS_UP,
