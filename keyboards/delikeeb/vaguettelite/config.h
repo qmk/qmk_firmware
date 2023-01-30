@@ -80,8 +80,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define GRAVE_ESC_CTRL_OVERRIDE
 
-//#define FORCE_NKRO
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
