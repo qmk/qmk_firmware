@@ -1,4 +1,4 @@
-/* Copyright 2021 Jay Greco
+/* Copyright 2022 Yiancar-Designs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,22 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "baion_808.h"
 
-#pragma once
-
-#include "quantum.h"
-
-#if defined(KEYBOARD_nullbitsco_scramble_v1)
-  #include "v1.h"
-#elif defined(KEYBOARD_nullbitsco_scramble_v2)
-  #include "v2.h"
-#endif
-
-// Layout is the same in all revisions
-#define LAYOUT( \
-    K01, K02, K03, \
-    K11, K12, K13  \
-) { \
-   {K01, K02, K03}, \
-   {K11, K12, K13}, \
+void led_init_ports(void) {
+    // Set our LED pins as open drain outputs
+    palSetLineMode(LED_CAPS_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(LED_SCROLL_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
 }
