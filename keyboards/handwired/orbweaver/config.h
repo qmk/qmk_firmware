@@ -15,25 +15,6 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-// This firmware is for a Razer Orbweaver Chroma keypad, modded to replace the stock MCU
-// with an Elite Pi RP2040 microcontroller. Mod instructions can be found on geekhack
-// https://geekhack.org/index.php?topic=119396.0
-
-// The firmware controls a 6x5 key matrix (4x5 keypad + 6 additional keys
-// on the thumb pad and up to 4 additional keys added by user). It also controls a
-// IS31FL3731 RGB Matrix controller (on the Chroma model) via I2C interface. This requires
-// a single I2C Driver with 20 common anode RGB LEDs. Note the I2C clock speed must be
-// slowed down to 100 kHz for the IS31 chip to keep up.  
-
-// Updated firmware includes a single multi-layer keymap ("orby") with fixed color maps
-// for each layer.  The default (base) layer is a menu for other layers, or to put the
-// RP2040 in bootloader mode.  
-
-// Other keymaps include a utility ("RGBtest") for sequentially toggling all the LEDs
-// one by one to insure the correct RGB matrix assignments, and "RGB144" for testing all 
-// 144 matrix elements and reporting the active LED. The keymap "NoRGB" does not include 
-// any writes to the IS31, so can be used to test the key matrix by itself (or on a non-
-// RGB Orbweaver).
 
 #pragma once
 
