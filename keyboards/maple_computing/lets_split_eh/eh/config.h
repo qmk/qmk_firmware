@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* Let's Split EH? pin-out */
 #define MATRIX_ROW_PINS { B1, B3, D7, B4 }

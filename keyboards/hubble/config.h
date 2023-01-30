@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* rgb */
 #define RGB_DI_PIN D2

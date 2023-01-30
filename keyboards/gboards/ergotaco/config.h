@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Copy and worked on with love from the EZ team
 
 #pragma once
-#include "config_common.h"
 
 #define VERBOSE
 

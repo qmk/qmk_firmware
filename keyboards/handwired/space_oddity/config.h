@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 #define MOUSEKEY_INTERVAL 16
 #define MOUSEKEY_DELAY 0
