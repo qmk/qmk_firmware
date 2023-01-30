@@ -414,7 +414,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
     */
     [_TABULA] = LAYOUT_planck_mit(                                                                                                   //
         KC_ESC, KC_ALTF4, VK_TOGG, PRINT_WPM_KEY, WAKE_ANI_TOG, WAKE_AUD_TOG, KC_REDO, UC_NEXT, UC_WINC, CG_TOGG, AG_TOGG, KC_DLINE,  //
-        KC_NXTAB, KC_SLCTALL, KC_SAVE, KC_TRNS, KC_FIND, SH_TG, SH_TG, IRONY, KC_LCUT, KC_LCOPY, KC_TRNS, KC_KILL,                   //
+        KC_NXTAB, KC_SLCTALL, KC_SAVE, KC_TRNS, KC_FIND, SH_TOGG, SH_TOGG, IRONY, KC_LCUT, KC_LCOPY, KC_TRNS, KC_KILL,                   //
         KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, TG(_MOUSY), KC_TRNS, KC_HOME, KC_END, SC_SENT,              //
         TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, SC_LSPO, ALT_TAB, SC_RSPC, KC_PRVWD, KC_BRID, KC_BRIU, KC_NXTWD),
     /* Tabular Layer [8]
