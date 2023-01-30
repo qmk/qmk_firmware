@@ -23,4 +23,3 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 #endif
-#endif
