@@ -32,7 +32,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_KB_VOLUME_DOWN); // MacOS Volume Down
     }
   }
-    return true;
+    return false;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //button closest to USB is first
