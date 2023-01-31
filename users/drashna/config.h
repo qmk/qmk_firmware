@@ -40,10 +40,12 @@
 #endif
 
 #ifdef AUDIO_ENABLE
-#    include "song_list.h"
 #    define AUDIO_CLICKY
 #    define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 
+#    if __has_include("user_song_list.h")
+#        include "user_song_list.h"
+#    endif
 #    ifdef USER_SONG_LIST
 #        define STARTUP_SONG SONG(RICK_ROLL)
 #        define GOODBYE_SONG SONG(SONIC_RING)
