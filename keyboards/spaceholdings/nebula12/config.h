@@ -49,9 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_TIMINGR_SCLH 3U
 #define I2C1_TIMINGR_SCLL 9U
 
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */

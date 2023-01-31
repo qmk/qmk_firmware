@@ -44,9 +44,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 #define LED_CAPS_LOCK_PIN B2
 #define LED_PIN_ON_STATE 0
 

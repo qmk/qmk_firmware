@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

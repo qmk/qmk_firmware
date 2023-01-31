@@ -48,9 +48,6 @@
 
 #define USB_MAX_POWER_CONSUMPTION 100
 
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
