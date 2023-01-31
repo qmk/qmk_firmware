@@ -29,6 +29,22 @@
 #    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM?_UP"
 #endif
 
+/* Summarize https://www.st.com/resource/en/application_note/an4013-stm32-crossseries-timer-overview-stmicroelectronics.pdf to
+ * figure out if we are using a 32bit timer. This is needed to setup the DMA controller correctly.
+ * Ignore STM32H7XX and STM32U5XX as they are not supported by ChibiOS.
+ */
+#if !defined(STM32F1XX) && !defined(STM32L0XX) && !defined(STM32L1XX)
+#    define WS2812_PWM_TIMER_32BIT_PWMD2 1
+#endif
+#if !defined(STM32F1XX)
+#    define WS2812_PWM_TIMER_32BIT_PWMD5 1
+#endif
+#define WS2812_CONCAT1(a, b) a##b
+#define WS2812_CONCAT(a, b) WS2812_CONCAT1(a, b)
+#if WS2812_CONCAT(WS2812_PWM_TIMER_32BIT_, WS2812_PWM_DRIVER)
+#    define WS2812_PWM_TIMER_32BIT
+#endif
+
 #ifndef WS2812_PWM_COMPLEMENTARY_OUTPUT
 #    define WS2812_PWM_OUTPUT_MODE PWM_OUTPUT_ACTIVE_HIGH
 #else
@@ -89,6 +105,9 @@
  * The duty cycle is calculated for a high period of 350 nS.
  */
 #define WS2812_DUTYCYCLE_0 (WS2812_PWM_FREQUENCY / (1000000000 / 350))
+#if (WS2812_DUTYCYCLE_0 > 255)
+#    error WS2812 PWM driver: High period for a 0 is more than a byte
+#endif
 
 /**
  * @brief   High period for a one, in ticks
@@ -105,6 +124,9 @@
  * This is in the middle of the specifications of the WS2812 and WS2812B.
  */
 #define WS2812_DUTYCYCLE_1 (WS2812_PWM_FREQUENCY / (1000000000 / 800))
+#if (WS2812_DUTYCYCLE_1 > 255)
+#    error WS2812 PWM driver: High period for a 1 is more than a byte
+#endif
 
 /* --- PRIVATE MACROS ------------------------------------------------------- */
 
@@ -247,13 +269,35 @@
 
 /* --- PRIVATE VARIABLES ---------------------------------------------------- */
 
-static uint32_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
+// STM32F2XX, STM32F4XX and STM32F7XX do NOT zero pad DMA transfers of unequal data width. Buffer width must match TIMx CCR.
+// For all other STM32 DMA transfer will automatically zero pad. We only need to set the right peripheral width.
+#if defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32F7XX)
+#    if defined(WS2812_PWM_TIMER_32BIT)
+#        define WS2812_DMA_MEMORY_WIDTH STM32_DMA_CR_MSIZE_WORD
+#        define WS2812_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_WORD
+typedef uint32_t ws2812_buffer_t;
+#    else
+#        define WS2812_DMA_MEMORY_WIDTH STM32_DMA_CR_MSIZE_HWORD
+#        define WS2812_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_HWORD
+typedef uint16_t ws2812_buffer_t;
+#    endif
+#else
+#    define WS2812_DMA_MEMORY_WIDTH STM32_DMA_CR_MSIZE_BYTE
+#    if defined(WS2812_PWM_TIMER_32BIT)
+#        define WS2812_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_WORD
+#    else
+#        define WS2812_DMA_PERIPHERAL_WIDTH STM32_DMA_CR_PSIZE_HWORD
+#    endif
+typedef uint8_t ws2812_buffer_t;
+#endif
+
+static ws2812_buffer_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
 
 /* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
 /*
  * Gedanke: Double-buffer type transactions: double buffer transfers using two memory pointers for
-the memory (while the DMA is reading/writing from/to a buffer, the application can
-write/read to/from the other buffer).
+ * the memory (while the DMA is reading/writing from/to a buffer, the application can
+ * write/read to/from the other buffer).
  */
 
 void ws2812_init(void) {
@@ -284,11 +328,18 @@ void ws2812_init(void) {
 
     // Configure DMA
     // dmaInit(); // Joe added this
+#if defined(WB32F3G71xx) || defined(WB32FQ95xx)
+    dmaStreamAlloc(WS2812_DMA_STREAM - WB32_DMA_STREAM(0), 10, NULL, NULL);
+    dmaStreamSetSource(WS2812_DMA_STREAM, ws2812_frame_buffer);
+    dmaStreamSetDestination(WS2812_DMA_STREAM, &(WS2812_PWM_DRIVER.tim->CCR[WS2812_PWM_CHANNEL - 1])); // Ziel ist der An-Zeit im Cap-Comp-Register
+    dmaStreamSetMode(WS2812_DMA_STREAM, WB32_DMA_CHCFG_HWHIF(WS2812_DMA_CHANNEL) | WB32_DMA_CHCFG_DIR_M2P | WB32_DMA_CHCFG_PSIZE_WORD | WB32_DMA_CHCFG_MSIZE_WORD | WB32_DMA_CHCFG_MINC | WB32_DMA_CHCFG_CIRC | WB32_DMA_CHCFG_TCIE | WB32_DMA_CHCFG_PL(3));
+#else
     dmaStreamAlloc(WS2812_DMA_STREAM - STM32_DMA_STREAM(0), 10, NULL, NULL);
     dmaStreamSetPeripheral(WS2812_DMA_STREAM, &(WS2812_PWM_DRIVER.tim->CCR[WS2812_PWM_CHANNEL - 1])); // Ziel ist der An-Zeit im Cap-Comp-Register
     dmaStreamSetMemory0(WS2812_DMA_STREAM, ws2812_frame_buffer);
+    dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | WS2812_DMA_PERIPHERAL_WIDTH | WS2812_DMA_MEMORY_WIDTH | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
+#endif
     dmaStreamSetTransactionSize(WS2812_DMA_STREAM, WS2812_BIT_N);
-    dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_WORD | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
     // M2P: Memory 2 Periph; PL: Priority Level
 
 #if (STM32_DMA_SUPPORTS_DMAMUX == TRUE)

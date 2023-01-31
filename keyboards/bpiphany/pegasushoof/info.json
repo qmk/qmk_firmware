@@ -1,7 +1,12 @@
 {
-  "keyboard_name": "Pegasus Hoof",
+  "manufacturer": "Filco",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6050",
+    "device_version": "1.0.4"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

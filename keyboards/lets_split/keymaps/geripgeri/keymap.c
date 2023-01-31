@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'                `-----------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12(
-  RESET,   EEP_RST, _______, RALT(KC_SCLN), _______, _______,       _______, TD(U),  RALT(KC_Z),      TD(O),   _______, _______,
+  QK_BOOT, EEP_RST, _______, RALT(KC_SCLN), _______, _______,       _______, TD(U),  RALT(KC_Z),      TD(O),   _______, _______,
   _______, RALT(KC_QUOT), _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______
@@ -255,7 +255,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   writePin(B0, !(state & (1UL << (_NUMPAD))));
 
-  switch(biton32(state)) {
+  switch(get_highest_layer(state)) {
     case _RAISE:
       rgblight_setrgb_at(255, 255, 255, RGBLED_NUM / 2);
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);

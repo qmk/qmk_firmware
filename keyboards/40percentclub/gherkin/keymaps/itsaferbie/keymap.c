@@ -105,7 +105,7 @@ void matrix_scan_user(void) {
   #ifdef RGBLIGHT_ENABLE
 
   static uint8_t old_layer = 255;
-  uint8_t new_layer = biton32(layer_state);
+  uint8_t new_layer = get_highest_layer(layer_state);
 
   // Color of the Icons.
   if (old_layer != new_layer) {

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xDAD3
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    GhostSeven
-#define PRODUCT         Bento Macropad Rev. 1
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3

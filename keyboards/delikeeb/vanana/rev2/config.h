@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER   0x0002
-#define PRODUCT      Vanana rev2
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 10
@@ -37,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D1, C6, E6, B4, B5, F5}
 #define MATRIX_COL_PINS { B3, B1, F7, F6, F4, D2, D3, D0, D4, D7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

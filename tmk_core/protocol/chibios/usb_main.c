@@ -32,6 +32,7 @@
 #include "usb_main.h"
 
 #include "host.h"
+#include "chibios_config.h"
 #include "debug.h"
 #include "suspend.h"
 #ifdef SLEEP_LED_ENABLE
@@ -91,6 +92,13 @@ uint8_t extra_report_blank[3] = {0};
  * ---------------------------------------------------------
  */
 
+/* USB Low Level driver specific endpoint fields */
+#if !defined(usb_lld_endpoint_fields)
+#    define usb_lld_endpoint_fields   \
+        2,        /* IN multiplier */ \
+            NULL, /* SETUP buffer (not a SETUP endpoint) */
+#endif
+
 /* HID specific constants */
 #define HID_GET_REPORT 0x01
 #define HID_GET_IDLE 0x02
@@ -121,16 +129,15 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 static USBInEndpointState kbd_ep_state;
 /* keyboard endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig kbd_ep_config = {
-    USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
-    NULL,                  /* SETUP packet notification callback */
-    kbd_in_cb,             /* IN notification callback */
-    NULL,                  /* OUT notification callback */
-    KEYBOARD_EPSIZE,       /* IN maximum packet size */
-    0,                     /* OUT maximum packet size */
-    &kbd_ep_state,         /* IN Endpoint state */
-    NULL,                  /* OUT endpoint state */
-    2,                     /* IN multiplier */
-    NULL                   /* SETUP buffer (not a SETUP endpoint) */
+    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
+    NULL,                   /* SETUP packet notification callback */
+    kbd_in_cb,              /* IN notification callback */
+    NULL,                   /* OUT notification callback */
+    KEYBOARD_EPSIZE,        /* IN maximum packet size */
+    0,                      /* OUT maximum packet size */
+    &kbd_ep_state,          /* IN Endpoint state */
+    NULL,                   /* OUT endpoint state */
+    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
 };
 #endif
 
@@ -140,16 +147,15 @@ static USBInEndpointState mouse_ep_state;
 
 /* mouse endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig mouse_ep_config = {
-    USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
-    NULL,                  /* SETUP packet notification callback */
-    mouse_in_cb,           /* IN notification callback */
-    NULL,                  /* OUT notification callback */
-    MOUSE_EPSIZE,          /* IN maximum packet size */
-    0,                     /* OUT maximum packet size */
-    &mouse_ep_state,       /* IN Endpoint state */
-    NULL,                  /* OUT endpoint state */
-    2,                     /* IN multiplier */
-    NULL                   /* SETUP buffer (not a SETUP endpoint) */
+    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
+    NULL,                   /* SETUP packet notification callback */
+    mouse_in_cb,            /* IN notification callback */
+    NULL,                   /* OUT notification callback */
+    MOUSE_EPSIZE,           /* IN maximum packet size */
+    0,                      /* OUT maximum packet size */
+    &mouse_ep_state,        /* IN Endpoint state */
+    NULL,                   /* OUT endpoint state */
+    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
 };
 #endif
 
@@ -159,20 +165,19 @@ static USBInEndpointState shared_ep_state;
 
 /* shared endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig shared_ep_config = {
-    USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
-    NULL,                  /* SETUP packet notification callback */
-    shared_in_cb,          /* IN notification callback */
-    NULL,                  /* OUT notification callback */
-    SHARED_EPSIZE,         /* IN maximum packet size */
-    0,                     /* OUT maximum packet size */
-    &shared_ep_state,      /* IN Endpoint state */
-    NULL,                  /* OUT endpoint state */
-    2,                     /* IN multiplier */
-    NULL                   /* SETUP buffer (not a SETUP endpoint) */
+    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
+    NULL,                   /* SETUP packet notification callback */
+    shared_in_cb,           /* IN notification callback */
+    NULL,                   /* OUT notification callback */
+    SHARED_EPSIZE,          /* IN maximum packet size */
+    0,                      /* OUT maximum packet size */
+    &shared_ep_state,       /* IN Endpoint state */
+    NULL,                   /* OUT endpoint state */
+    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
 };
 #endif
 
-#if STM32_USB_USE_OTG1
+#ifdef USB_ENDPOINTS_ARE_REORDERABLE
 typedef struct {
     size_t              queue_capacity_in;
     size_t              queue_capacity_out;
@@ -199,23 +204,22 @@ typedef struct {
 } usb_driver_config_t;
 #endif
 
-#if STM32_USB_USE_OTG1
+#ifdef USB_ENDPOINTS_ARE_REORDERABLE
 /* Reusable initialization structure - see USBEndpointConfig comment at top of file */
 #    define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize)                                                              \
         {                                                                                                                       \
             .queue_capacity_in = stream##_IN_CAPACITY, .queue_capacity_out = stream##_OUT_CAPACITY,                             \
             .inout_ep_config =                                                                                                  \
                 {                                                                                                               \
-                    stream##_IN_MODE,      /* Interrupt EP */                                                                   \
-                    NULL,                  /* SETUP packet notification callback */                                             \
-                    qmkusbDataTransmitted, /* IN notification callback */                                                       \
-                    qmkusbDataReceived,    /* OUT notification callback */                                                      \
-                    stream##_EPSIZE,       /* IN maximum packet size */                                                         \
-                    stream##_EPSIZE,       /* OUT maximum packet size */                                                        \
-                    NULL,                  /* IN Endpoint state */                                                              \
-                    NULL,                  /* OUT endpoint state */                                                             \
-                    2,                     /* IN multiplier */                                                                  \
-                    NULL                   /* SETUP buffer (not a SETUP endpoint) */                                            \
+                    stream##_IN_MODE,       /* Interrupt EP */                                                                  \
+                    NULL,                   /* SETUP packet notification callback */                                            \
+                    qmkusbDataTransmitted,  /* IN notification callback */                                                      \
+                    qmkusbDataReceived,     /* OUT notification callback */                                                     \
+                    stream##_EPSIZE,        /* IN maximum packet size */                                                        \
+                    stream##_EPSIZE,        /* OUT maximum packet size */                                                       \
+                    NULL,                   /* IN Endpoint state */                                                             \
+                    NULL,                   /* OUT endpoint state */                                                            \
+                    usb_lld_endpoint_fields /* USB driver specific endpoint fields */                                           \
                 },                                                                                                              \
             .int_ep_config =                                                                                                    \
                 {                                                                                                               \
@@ -227,8 +231,7 @@ typedef struct {
                     0,                          /* OUT maximum packet size */                                                   \
                     NULL,                       /* IN Endpoint state */                                                         \
                     NULL,                       /* OUT endpoint state */                                                        \
-                    2,                          /* IN multiplier */                                                             \
-                    NULL,                       /* SETUP buffer (not a SETUP endpoint) */                                       \
+                    usb_lld_endpoint_fields     /* USB driver specific endpoint fields */                                       \
                 },                                                                                                              \
             .config = {                                                                                                         \
                 .usbp        = &USB_DRIVER,                                                                                     \
@@ -251,29 +254,27 @@ typedef struct {
             .queue_capacity_in = stream##_IN_CAPACITY, .queue_capacity_out = stream##_OUT_CAPACITY,                             \
             .in_ep_config =                                                                                                     \
                 {                                                                                                               \
-                    stream##_IN_MODE,      /* Interrupt EP */                                                                   \
-                    NULL,                  /* SETUP packet notification callback */                                             \
-                    qmkusbDataTransmitted, /* IN notification callback */                                                       \
-                    NULL,                  /* OUT notification callback */                                                      \
-                    stream##_EPSIZE,       /* IN maximum packet size */                                                         \
-                    0,                     /* OUT maximum packet size */                                                        \
-                    NULL,                  /* IN Endpoint state */                                                              \
-                    NULL,                  /* OUT endpoint state */                                                             \
-                    2,                     /* IN multiplier */                                                                  \
-                    NULL                   /* SETUP buffer (not a SETUP endpoint) */                                            \
+                    stream##_IN_MODE,       /* Interrupt EP */                                                                  \
+                    NULL,                   /* SETUP packet notification callback */                                            \
+                    qmkusbDataTransmitted,  /* IN notification callback */                                                      \
+                    NULL,                   /* OUT notification callback */                                                     \
+                    stream##_EPSIZE,        /* IN maximum packet size */                                                        \
+                    0,                      /* OUT maximum packet size */                                                       \
+                    NULL,                   /* IN Endpoint state */                                                             \
+                    NULL,                   /* OUT endpoint state */                                                            \
+                    usb_lld_endpoint_fields /* USB driver specific endpoint fields */                                           \
                 },                                                                                                              \
             .out_ep_config =                                                                                                    \
                 {                                                                                                               \
-                    stream##_OUT_MODE,  /* Interrupt EP */                                                                      \
-                    NULL,               /* SETUP packet notification callback */                                                \
-                    NULL,               /* IN notification callback */                                                          \
-                    qmkusbDataReceived, /* OUT notification callback */                                                         \
-                    0,                  /* IN maximum packet size */                                                            \
-                    stream##_EPSIZE,    /* OUT maximum packet size */                                                           \
-                    NULL,               /* IN Endpoint state */                                                                 \
-                    NULL,               /* OUT endpoint state */                                                                \
-                    2,                  /* IN multiplier */                                                                     \
-                    NULL,               /* SETUP buffer (not a SETUP endpoint) */                                               \
+                    stream##_OUT_MODE,      /* Interrupt EP */                                                                  \
+                    NULL,                   /* SETUP packet notification callback */                                            \
+                    NULL,                   /* IN notification callback */                                                      \
+                    qmkusbDataReceived,     /* OUT notification callback */                                                     \
+                    0,                      /* IN maximum packet size */                                                        \
+                    stream##_EPSIZE,        /* OUT maximum packet size */                                                       \
+                    NULL,                   /* IN Endpoint state */                                                             \
+                    NULL,                   /* OUT endpoint state */                                                            \
+                    usb_lld_endpoint_fields /* USB driver specific endpoint fields */                                           \
                 },                                                                                                              \
             .int_ep_config =                                                                                                    \
                 {                                                                                                               \
@@ -285,8 +286,7 @@ typedef struct {
                     0,                          /* OUT maximum packet size */                                                   \
                     NULL,                       /* IN Endpoint state */                                                         \
                     NULL,                       /* OUT endpoint state */                                                        \
-                    2,                          /* IN multiplier */                                                             \
-                    NULL,                       /* SETUP buffer (not a SETUP endpoint) */                                       \
+                    usb_lld_endpoint_fields     /* USB driver specific endpoint fields */                                       \
                 },                                                                                                              \
             .config = {                                                                                                         \
                 .usbp        = &USB_DRIVER,                                                                                     \
@@ -488,7 +488,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             usbInitEndpointI(usbp, SHARED_IN_EPNUM, &shared_ep_config);
 #endif
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
-#if STM32_USB_USE_OTG1
+#ifdef USB_ENDPOINTS_ARE_REORDERABLE
                 usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].inout_ep_config);
 #else
                 usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].in_ep_config);
@@ -715,7 +715,7 @@ static const USBConfig usbcfg = {
  */
 void init_usb_driver(USBDriver *usbp) {
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
-#if STM32_USB_USE_OTG1
+#ifdef USB_ENDPOINTS_ARE_REORDERABLE
         QMKUSBDriver *driver                       = &drivers.array[i].driver;
         drivers.array[i].inout_ep_config.in_state  = &drivers.array[i].in_ep_state;
         drivers.array[i].inout_ep_config.out_state = &drivers.array[i].out_ep_state;

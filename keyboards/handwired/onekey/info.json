@@ -1,7 +1,12 @@
 {
-    "keyboard_name": "onekey handwired",
+    "manufacturer": "QMK",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6465",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_1x1": {
             "layout": [

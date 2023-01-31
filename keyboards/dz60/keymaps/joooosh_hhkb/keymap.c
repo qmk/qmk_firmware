@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* FN1 LAYER
  *
  *  ,---------------------------------------------------------------------------------------------------------------------
- * |  KC_GRV | F1   | F2   | F3   | F4    | F5    | F6    | F7   | F8    | F9   | F10   | F11   | F12   | INSERT | RESET |
+ * |  KC_GRV | F1   | F2   | F3   | F4    | F5    | F6    | F7   | F8    | F9   | F10   | F11   | F12   | INSERT | QK_BOOT |
  * |---------------------------------------------------------------------------------------------------------------------+
  * |  RGB_TOG |   _  |   _  |   _   |    _  |    _  |    _  |    _  |  PSCR  |  SLCK  |  PAUS  |  UP   |   _   |   CLR   |
  * |---------------------------------------------------------------------------------------------------------------------+
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------------------------------------------------------------------------------------------------'
  */
 	LAYOUT_60_hhkb(
-		KC_GRV, KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,   KC_F12,    KC_INS,   RESET,
+		KC_GRV, KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,   KC_F12,    KC_INS,   QK_BOOT,
 		RGB_TOG,         _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR, KC_SLCK, KC_PAUS,  KC_UP,     _______,   KC_CLR,
 		KC_CAPS,         KC_VOLD, KC_VOLU,   KC_MUTE,  _______,  _______,  KC_PAST,  KC_PSLS,  KC_HOME, KC_PGUP, KC_LEFT,  KC_RIGHT,  KC_RETURN,
 		_______,         _______,  _______,  _______,  _______,  _______,  KC_PPLS,  KC_PMNS,  KC_END,  KC_PGDN, KC_DOWN,  _______,   _______,

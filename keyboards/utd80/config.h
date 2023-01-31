@@ -25,7 +25,6 @@
 
 #define MATRIX_ROW_PINS { B4, D5, D0, B2, B3, B0 }
 #define MATRIX_COL_PINS { B1, F0, F1, F4, F5, F6, F7, C7, C6, D3, E6, D7, D6, D4, D2, D1 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING

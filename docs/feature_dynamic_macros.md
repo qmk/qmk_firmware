@@ -35,6 +35,7 @@ There are a number of options added that should allow some additional degree of 
 |`DYNAMIC_MACRO_SIZE`        |128             |Sets the amount of memory that Dynamic Macros can use. This is a limited resource, dependent on the controller.  |
 |`DYNAMIC_MACRO_USER_CALL`   |*Not defined*   |Defining this falls back to using the user `keymap.c` file to trigger the macro behavior.                        |
 |`DYNAMIC_MACRO_NO_NESTING`  |*Not Defined*   |Defining this disables the ability to call a macro from another macro (nested macros).                           | 
+|`DYNAMIC_MACRO_DELAY`        |*Not Defined*   |Sets the waiting time (ms unit) when sending each key.                                                           |
 
 
 If the LEDs start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by adding the `DYNAMIC_MACRO_SIZE` define in your `config.h` (default value: 128; please read the comments for it in the header).

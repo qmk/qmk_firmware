@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGUP, _______, \
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_HOME, KC_END,  LALT(KC_LEFT), LALT(KC_RGHT), KC_PGDN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______, _______, _______ \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, _______, _______, _______ \
 ),
 
 /* SYMB
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD, S(KC_1),  S(KC_2), S(KC_3), S(KC_4), S(KC_5), _______, _______, S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), _______, \
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGUP, _______, \
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_HOME, KC_END,  LALT(KC_LEFT), LALT(KC_RGHT), KC_PGDN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______, _______, _______ \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT, _______, _______, _______ \
 ),
 
 /* GAME

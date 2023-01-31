@@ -87,9 +87,9 @@ This is an extension of the accelerated mode. The kinetic mode uses a quadratic 
 |`MK_KINETIC_SPEED`                    |undefined|Enable kinetic mode                                            |
 |`MOUSEKEY_DELAY`                      |5        |Delay between pressing a movement key and cursor movement      |
 |`MOUSEKEY_INTERVAL`                   |10       |Time between cursor movements in milliseconds                  |
-|`MOUSEKEY_MOVE_DELTA`                 |5        |Step size for accelerating from initial to base speed          |
+|`MOUSEKEY_MOVE_DELTA`                 |16       |Step size for accelerating from initial to base speed          |
 |`MOUSEKEY_INITIAL_SPEED`              |100      |Initial speed of the cursor in pixel per second                |
-|`MOUSEKEY_BASE_SPEED`                 |1000     |Maximum cursor speed at which acceleration stops               |
+|`MOUSEKEY_BASE_SPEED`                 |5000     |Maximum cursor speed at which acceleration stops               |
 |`MOUSEKEY_DECELERATED_SPEED`          |400      |Decelerated cursor speed                                       |
 |`MOUSEKEY_ACCELERATED_SPEED`          |3000     |Accelerated cursor speed                                       |
 |`MOUSEKEY_WHEEL_INITIAL_MOVEMENTS`    |16       |Initial number of movements of the mouse wheel                 |
@@ -100,7 +100,7 @@ This is an extension of the accelerated mode. The kinetic mode uses a quadratic 
 Tips:
 
 * The smoothness of the cursor movement depends on the `MOUSEKEY_INTERVAL` setting. The shorter the interval is set the smoother the movement will be.  Setting the value too low makes the cursor unresponsive.  Lower settings are possible if the micro processor is fast enough. For example: At an interval of `8` milliseconds, `125` movements per second will be initiated.  With a base speed of `1000` each movement will move the cursor by `8` pixels.
-* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once for the mouse wheel this would lead to jerky movements. Instead, the mouse wheel operates at step size `1`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
+* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once for the mouse wheel this would lead to jerky movements. Instead, the mouse wheel operates at step size `2`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
 
 ### Constant mode
 

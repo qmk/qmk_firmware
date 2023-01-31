@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS {B1,B3,B2,F5,F4}
 #define MATRIX_COL_PINS {B0,D0,C6,B6,B5,B4,D7,D6,D4,D5,D3,D2,D1,F6,F7}
-#define UNUSED_PINS
 
 /* Uncomment if your encoder doesn't react to every turn or skips */
 //#define ENCODER_RESOLUTION 2

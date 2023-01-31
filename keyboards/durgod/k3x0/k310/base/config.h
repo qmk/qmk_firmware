@@ -17,7 +17,3 @@
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define PRODUCT         DURGOD Taurus K310 (QMK)
-#define DEVICE_VER      0x0001 // Base (no backlight)

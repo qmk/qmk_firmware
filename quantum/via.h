@@ -54,9 +54,11 @@
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 0
 #endif
 
+#define VIA_EEPROM_CONFIG_END (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.
-#define VIA_PROTOCOL_VERSION 0x0009
+#define VIA_PROTOCOL_VERSION 0x000A
 
 enum via_command_id {
     id_get_protocol_version                 = 0x01, // always 0x01
@@ -78,6 +80,8 @@ enum via_command_id {
     id_dynamic_keymap_get_layer_count       = 0x11,
     id_dynamic_keymap_get_buffer            = 0x12,
     id_dynamic_keymap_set_buffer            = 0x13,
+    id_dynamic_keymap_get_encoder           = 0x14,
+    id_dynamic_keymap_set_encoder           = 0x15,
     id_unhandled                            = 0xFF,
 };
 

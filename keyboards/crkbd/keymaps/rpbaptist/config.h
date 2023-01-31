@@ -26,11 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 #ifdef OLED_ENABLE
-#    undef SSD1306OLED
 #    define OLED_TIMEOUT 600000
 #endif
 
-#undef USE_I2C
 #define USE_SERIAL_PD2
 
 // #define FORCE_NKRO

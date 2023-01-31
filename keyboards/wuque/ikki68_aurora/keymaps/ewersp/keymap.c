@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,    KC_END,  KC_VOLU,
         _______, RGB_HUD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_M_P, _______, _______, _______, KC_BRIU, KC_PAUS, KC_PSCR, _______, _______,             KC_MUTE, KC_VOLD,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_SAD, RGB_M_B, _______, _______, _______, KC_BRID, _______, _______,          _______,
-        _______, _______, RGB_TOG, LED_TOG, _______, EEP_RST, RESET,   _______, _______, TG(MAC), TG(ALT), _______, _______, _______,             KC_PGUP,
+        _______, _______, RGB_TOG, LED_TOG, _______, EEP_RST, QK_BOOT, _______, _______, TG(MAC), TG(ALT), _______, _______, _______,             KC_PGUP,
         _______, _______, KC_LALT,          _______,          _______,          _______,          _______, _______, _______,             KC_HOME, KC_PGDN, KC_END
     ),
     [SUPR] = LAYOUT_all(
@@ -191,7 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(user_config.raw);
             }
             return false;
-        case RESET:
+        case QK_BOOT:
             if (record->event.pressed) {
                 key_timer = timer_read32();
             } else {

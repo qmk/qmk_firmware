@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RPRN,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_BSPACE,
         KC_LCBR,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_RCBR,        ALT_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_SLASH,
-        CTL_T(KC_TAB), LSFT(KC_COMMA),LSFT(KC_DOT),KC_PIPE,KC_AMPR, 
+        CTL_T(KC_TAB), LSFT(KC_COMMA),LSFT(KC_DOT),KC_PIPE,KC_AMPR,
                                               LT(1,KC_DOT),  KC_COMM,
                                                               LCTL(KC_C),
                                                GUI_T(KC_ENTER),SFT_T(KC_SPACE),LCTL(KC_V),
@@ -125,81 +125,81 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		case MACRO_PUBLIC:
 			if (record->event.pressed) {
 				return MACRO( T(P), T(U), T(B), T(L), T(I), T(C), T(SPACE),END);
-			} 
+			}
 			break;
 		case MACRO_PRIVATE:
 			if (record->event.pressed) {
 				return MACRO( T(P), T(R), T(I), T(V), T(A), T(T), T(E), T(SPACE),END);
-			} 
+			}
 			break;
 		case MACRO_STATIC:
 			if (record->event.pressed) {
 				return MACRO( T(S), T(T), T(A), T(T), T(I), T(C), T(SPACE), END);
-			} 
+			}
 			break;
 		case MACRO_CONST:
 			if (record->event.pressed) {
 				return MACRO( T(C), T(O), T(N), T(S), T(T), T(SPACE), END);
-			} 
+			}
 			break;
 		case MACRO_VOID:
 			if (record->event.pressed) {
 				return MACRO( T(V), T(O), T(I), T(D), T(SPACE), END);
-			} 
+			}
 			break;
 		case MACRO_VAR:
 			if (record->event.pressed) {
 				return MACRO( T(V), T(A), T(R), T(SPACE), END);
-			} 
+			}
 			break;
 		case MACRO_STRING:
 			if (record->event.pressed) {
 				return MACRO( T(S), T(T), T(R), T(I), T(N), T(G), T(SPACE), END);
-			} 
-			break;		
+			}
+			break;
 		case MACRO_BOOL:
 			if (record->event.pressed) {
 				return MACRO( T(B), T(O), T(O), T(L), T(SPACE), END);
-			} 
-			break;		
+			}
+			break;
 		case MACRO_INT:
 			if (record->event.pressed) {
 				return MACRO( T(I), T(N), T(T), T(SPACE), END);
-			} 
+			}
 			break;
 		case MACRO_FLOAT:
 			if (record->event.pressed) {
 				return MACRO( T(F), T(L), T(O), T(A),T(T),T(SPACE), END);
-			} 
+			}
 			break;
 		case MACRO_RETURN:
 			if (record->event.pressed) {
 				return MACRO( T(R), T(E), T(T), T(U),T(R),T(N), END);
-			} 
+			}
 			break;
 		case MACRO_NULL:
 			if (record->event.pressed) {
 				return MACRO( T(N), T(U), T(L), T(L), END);
-			} 
+			}
 		case MACRO_BREAK:
 			if (record->event.pressed) {
 				return MACRO( T(B), T(R), T(E), T(A), T(K), T(SCOLON), END);
-			} 
+			}
 			break;
 		case MACRO_TODO:
 			if (record->event.pressed) {
 				return MACRO( T(SLASH), T(SLASH), D(LSHIFT) ,T(T), T(O), T(D), T(O),U(LSHIFT), T(SPACE),END);
-			} 
+			}
 			break;
 		case MACRO_NEW:
 			if (record->event.pressed) {
 				return MACRO( T(N), T(E), T(W), T(SPACE), END);
-			} 
+			}
 			break;
 		case MACRO_PARENTHESE:
 			if (record->event.pressed) {
 				return MACRO(  D(LSHIFT),T(9), T(0),U(LSHIFT), T(SCOLON), END);
-			} 
+			}
 			break;
       }
     return MACRO_NONE;
@@ -213,7 +213,7 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

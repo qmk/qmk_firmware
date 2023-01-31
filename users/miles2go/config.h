@@ -6,10 +6,6 @@
 #define RGBLIGHT_EFFECT_BREATHING
 #endif // RGBLIGHT_ENABLE
 
-#ifndef QMK_KEYS_PER_SCAN
-#define QMK_KEYS_PER_SCAN 4
-#endif // !QMK_KEYS_PER_SCAN
-
 #undef FORCE_NKRO
 
 #ifndef TAPPING_TOGGLE

@@ -30,7 +30,7 @@ _______ , ___________________BLANK___________________, _______ , _______ , KC_ES
 
 // Run `./qmk show levinson` from parent dir to see this layer.
 [_NUMP] = LAYOUT_ortho_4x12_wrapper(
-_______ , _________________NUMP_L1___________________ , _________________NUMP_R1___________________ , RESET   ,
+_______ , _________________NUMP_L1___________________ , _________________NUMP_R1___________________ , QK_BOOT,
 _______ , _________________NUMP_L2___________________ , _________________NUMP_R2___________________ , _______ ,
 _______ , _________________NUMP_L3___________________ , _________________NUMP_R3___________________ , _______ ,
 _______ , ___________________BLANK___________________ , _______ , _______ , _______ , _______ , TO(_OVERWATCH) , _______
@@ -91,7 +91,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef RGBLIGHT_ENABLE
     layer_state_set_rgb(state);
   #endif
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
   combo_enable(); // by default, enable combos.
   switch (layer) {
     case 0:

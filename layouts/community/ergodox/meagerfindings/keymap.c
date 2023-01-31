@@ -287,7 +287,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    /* Keymap 5: Arrows
     *
     * ,--------------------------------------------------.           ,--------------------------------------------------.
-    * |  RESET |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+    * |  QK_BOOT |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
     * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
     * |        |      | Opt+L|  Up  |Opt+R |      |      |           |      |      | Opt+L|  Up  |Opt+R |      |        |
     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -312,7 +312,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ARROWS] = LAYOUT_ergodox(
   //left hand
-    RESET,       _______,       _______,       _______,        _______,         _______,       _______,
+    QK_BOOT,     _______,       _______,       _______,        _______,         _______,       _______,
     _______,     _______,        CHRM_L,       KC_UP,           CHRM_R,         _______,       _______,
     _______,LCTL(KC_LEFT),      KC_LEFT,       KC_DOWN,       KC_RIGHT,    LCTL(KC_RIGHT),
     _______,    _______,       _______,       _______,        _______,         _______,       _______,
@@ -538,7 +538,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   ergodox_board_led_off();
   ergodox_right_led_1_off();

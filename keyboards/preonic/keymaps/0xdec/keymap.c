@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | BACK | STOP | RFRSH| FRWRD| MUTE |BL TOG| HOME | PGDN | PGUP | END  |INSERT|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | RESET|      |      |      |      | DEL  |      |      |      |      |      |      |
+ * | QK_BOOT|      |      |      |      | DEL  |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_preonic_grid( \
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,KC_F11 ,KC_F12 ,XXXXXXX,AU_TOG ,KC_VOLU,BL_INC ,COLEMAK,GAME   ,MU_TOG ,KC_MENU,KC_SLCK, \
   KC_CAPS,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT,KC_VOLD,BL_DEC ,KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_PAUS, \
   XXXXXXX,KC_WBAK,KC_WSTP,KC_WREF,KC_WFWD,KC_MUTE,BL_TOGG,KC_HOME,KC_PGDN,KC_PGUP,KC_END ,KC_INS,  \
-  RESET  ,_______,_______,_______,_______,KC_DEL ,_______,_______,_______,_______,_______,_______  \
+  QK_BOOT,_______,_______,_______,_______,KC_DEL ,_______,_______,_______,_______,_______,_______  \
 )
 
 };

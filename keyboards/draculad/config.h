@@ -57,7 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODER_RESOLUTIONS { 4, 4 }
 #define ENCODER_RESOLUTIONS_RIGHT { 4, 1 }
-#define UNUSED_PINS
 
 #define EE_HANDS
 

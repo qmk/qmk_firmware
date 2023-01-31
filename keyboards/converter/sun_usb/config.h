@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3333
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         Sun keyboard converter
-
 /* matrix size */
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 8

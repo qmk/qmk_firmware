@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_PWR,   KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_EJCT,
     _______, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG, RGB_M_T, RGB_MOD, _______, _______, _______, _______, _______, _______,
     KC_CAPS, RGB_HUD, RGB_SAD, RGB_VAD, RGB_M_SW,RGB_M_G, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, _______, _______,
-    _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_K, _______, RESET  , _______, _______, _______, _______, _______, _______,
+    _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_K, _______, QK_BOOT, _______, _______, _______, _______, _______, _______,
     _______, _______, _______,                   _______,                                     _______, _______, _______, _______
   ),
 };

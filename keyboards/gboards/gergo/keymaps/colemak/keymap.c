@@ -146,8 +146,8 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    //uint8_t layer = biton32(layer_state);
-    biton32(layer_state);
+    //uint8_t layer = get_highest_layer(layer_state);
+    get_highest_layer(layer_state);
 };
 
 
@@ -171,4 +171,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
-

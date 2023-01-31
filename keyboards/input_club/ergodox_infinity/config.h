@@ -49,7 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // For some reason, the rows are colums in the schematic, and vice versa
 #define MATRIX_ROW_PINS { B2, B3, B18, B19, C0, C9, C10, C11, D0 }
 #define MATRIX_COL_PINS { D1, D4, D5, D6, D7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL

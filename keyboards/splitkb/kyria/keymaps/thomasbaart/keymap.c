@@ -311,7 +311,7 @@ bool oled_task_user(void) {
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case QWERTY:
                 // History scrubbing. For Adobe products, hold shift while moving
                 // backward to go forward instead.
@@ -336,7 +336,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 1) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case QWERTY:
                 // Scrolling with PageUp and PgDn.
                 if (clockwise) {

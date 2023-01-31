@@ -192,13 +192,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 key_timer = timer_read();
                 register_code(KC_RSFT);
-            } else { 
+            } else {
                 unregister_code(KC_RSFT);
-                if (timer_elapsed(key_timer) < KEY_TAP_SLOW) { 
-                    register_code(KC_RALT); 
-                    register_code(KC_BSLS); 
-                    unregister_code(KC_BSLS); 
-                    unregister_code(KC_RALT); 
+                if (timer_elapsed(key_timer) < KEY_TAP_SLOW) {
+                    register_code(KC_RALT);
+                    register_code(KC_BSLS);
+                    unregister_code(KC_BSLS);
+                    unregister_code(KC_RALT);
                 }
             }
             break;
@@ -207,13 +207,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 key_timer = timer_read();
                 register_code(KC_LALT);
-            } else { 
+            } else {
                 unregister_code(KC_LALT);
-                if (timer_elapsed(key_timer) < KEY_TAP_SLOW) { 
-                    register_code(KC_RALT); 
-                    register_code(KC_LBRACKET); 
-                    unregister_code(KC_LBRACKET); 
-                    unregister_code(KC_RALT); 
+                if (timer_elapsed(key_timer) < KEY_TAP_SLOW) {
+                    register_code(KC_RALT);
+                    register_code(KC_LBRACKET);
+                    unregister_code(KC_LBRACKET);
+                    unregister_code(KC_RALT);
                 }
             }
             break;
@@ -222,13 +222,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 key_timer = timer_read();
                 register_code(KC_LALT);
-            } else { 
+            } else {
                 unregister_code(KC_LALT);
-                if (timer_elapsed(key_timer) < KEY_TAP_SLOW) { 
-                    register_code(KC_RALT); 
-                    register_code(KC_RBRACKET); 
-                    unregister_code(KC_RBRACKET); 
-                    unregister_code(KC_RALT); 
+                if (timer_elapsed(key_timer) < KEY_TAP_SLOW) {
+                    register_code(KC_RALT);
+                    register_code(KC_RBRACKET);
+                    unregister_code(KC_RBRACKET);
+                    unregister_code(KC_RALT);
                 }
             }
             break;
@@ -236,7 +236,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case CAPS: {
             if (record->event.pressed) {
                 register_code(KC_CAPSLOCK);
-            } else { 
+            } else {
                 unregister_code(KC_CAPSLOCK);
             }
             break;
@@ -253,7 +253,7 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
@@ -270,11 +270,10 @@ void matrix_scan_user(void) {
             // none
             break;
     }
-    
+
     // Turn the caps lock led on
     if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
         ergodox_right_led_1_on();
     }
 
 }
-

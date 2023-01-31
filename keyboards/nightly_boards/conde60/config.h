@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B1, B2, F0, F1, F4 }
 #define MATRIX_COL_PINS { B0, B3, B7, B6, C6, C7, F7, F6, F5, D4, D6, D7, B4, B5 }
-#define UNUSED_PINS
 
 #define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN

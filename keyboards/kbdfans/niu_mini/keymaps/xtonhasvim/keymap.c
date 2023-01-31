@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_mit(
-    RGB_MODE_PLAIN,   RESET,       DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______,     KC_DEL,
+    RGB_MODE_PLAIN,   QK_BOOT,     DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______,     KC_DEL,
     RGB_MODE_REVERSE, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,     RGB_VAI,
     RGB_MODE_FORWARD, _______,     _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,     RGB_VAD,
     RGB_TOG,          TO(_QWERTY), _______, _______, _______,     _______,      _______, _______, _______, TO(_QWERTY), X_____X
@@ -187,7 +187,7 @@ void rgbflag(uint8_t r, uint8_t g, uint8_t b, uint8_t rr, uint8_t gg, uint8_t bb
 
 void set_state_leds(void) {
   if (rgblight_get_mode() == 1) {
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
     case _RAISE:
       rgbflag(C_BLU, C_GRN);
       break;

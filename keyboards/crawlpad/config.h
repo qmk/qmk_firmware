@@ -9,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F0, F1, F4, F5 }
 #define MATRIX_COL_PINS { D4, D5, D6, D7 }
-#define UNUSED_PINS
 
 /* Pins for custom per-row LEDs. Should be changed to use named pins. */
 #define LED_ROW_PINS { 8, 9, 10, 11 }

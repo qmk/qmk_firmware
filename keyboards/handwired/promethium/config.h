@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F5, F6, F7, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define TRACKPOINT_PINS \
     { B7, B6, D7 }
-#define UNUSED_PINS
 
 /*
  * Keyboard Matrix Assignments

@@ -99,13 +99,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |Rewind| Vol- | Stop | Play | Vol+ | Skip |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |RESET |      |      |      |      |      |      |      |      |      |      |      |
+ * |QK_BOOT |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
     KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
     KC_NO, KC_NO, KC_NO, KC_MRWD, KC_VOLD, KC_MSTP, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO, KC_NO,
     KC_NO, KC_NO, KC_NO, KC_MRWD, KC_VOLD, KC_MSTP, KC_MPLY, KC_VOLU, KC_MFFD, KC_NO,   KC_NO, KC_NO,
-    RESET, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO
+    QK_BOOT, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO
 ),
 };

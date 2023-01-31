@@ -35,9 +35,9 @@
 // Called from matrix_init_kb() if not VIA_ENABLE
 void via_init_kb(void)
 {
-    // If the EEPROM has the magic, the data is good.
-    // OK to load from EEPROM
-    if (via_eeprom_is_valid()) {
+    // This checks both an EEPROM reset (from bootmagic lite, keycodes)
+    // and also firmware build date (from via_eeprom_is_valid())
+    if (eeconfig_is_enabled()) {
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
         backlight_config_load();
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED

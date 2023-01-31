@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x0002
-#undef PRODUCT
-#define PRODUCT Ferris 0.2 - Bling
-
-
-
 /* LED Drivers */
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110101

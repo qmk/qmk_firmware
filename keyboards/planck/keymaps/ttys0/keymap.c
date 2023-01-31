@@ -128,7 +128,7 @@
 #define move MO(MOVE)
 #define func MO(FUNC)
 
-#define rset RESET
+#define rset QK_BOOT
 #define powr KC_POWER
 
 #define ____ KC_TRNS

@@ -30,8 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_SPLIT
 
-//#define SSD1306OLED
-
 #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
 

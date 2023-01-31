@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // See note in retro_refit.h for an explanation of how this matrix is wired up
 #define MATRIX_ROW_PINS { D4, D7, B4, B5, B6, F7, F6, F5, F4, F1, F0 }
 #define MATRIX_COL_PINS { B0, B1, B2, B3, D2, D3, C7, D5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

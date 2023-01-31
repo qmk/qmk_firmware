@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 3: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | RESET  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * | QK_BOOT  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      | Lclk | MsUp | Rclk |      |      |           |      |      |VolDwn| Mute |VolUp |      |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
-   RESET,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,
+   QK_BOOT,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,
    _______,  _______,  KC_BTN1,  KC_MS_U,  KC_BTN2,  _______,  _______,
    _______,  KC_BTN4,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_BTN5,
    _______,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  KC_BTN3,  _______,
@@ -221,7 +221,7 @@ void matrix_init_user(void){
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4444
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    4pplet
-#define PRODUCT         Steezy60 Rev A
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

@@ -23,12 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         Stowaway converter
-
 // IO pins to serial
 // https://deskthority.net/wiki/Arduino_Pro_Micro for pin lookup
 #define VCC_PIN D1 // pro micro 2

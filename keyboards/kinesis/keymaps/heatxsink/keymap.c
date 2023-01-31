@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_HOME,
         KC_BSPC,KC_DEL ,KC_END ,
         // RHAND
-        KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_PSCR,KC_SLCK,KC_PAUS,KEYPAD ,RESET  ,
+        KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_PSCR,KC_SLCK,KC_PAUS,KEYPAD ,QK_BOOT,
         KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,
         _______,_______,_______,_______,_______,KC_BSLS,
         _______,_______,_______,_______,_______,KC_QUOT,

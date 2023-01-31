@@ -1,8 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x2019
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */

@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B2, B1, B0, C0, D1, D0, D3, D4, D2, C3 }
 /*                        20  21  18    0    1   3   4   5 */
 #define MATRIX_COL_PINS { D5, D6, A4, B16, B17, A1, A2, D7 }
-#define UNUSED_PINS
 
 /* for trackpoint: C1 (22)  C2 (23) */
 

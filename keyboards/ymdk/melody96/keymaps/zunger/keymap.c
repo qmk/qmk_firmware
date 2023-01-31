@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Function layer is mostly for keyboard meta-control operations, but also contains the combining
   // accent marks. These are deliberately placed to match where the analogous controls go on Mac OS.
 	[_FUNCTION] = LAYOUT_hotswap(
-    KC_CGRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, RESET,
+    KC_CGRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, QK_BOOT,
     KC_CGRV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
     _______, _______, _______, KC_CAGU, _______, _______, _______, KC_CDIA, KC_CCIR, _______, _______, _______, _______,          _______, _______, _______, _______,
     _______, _______, _______, UC_M_OS, UC_M_LN, UC_M_WI, UC_M_BS, UC_M_WC, _______, _______, _______, _______,                   _______, _______, _______, _______, _______,

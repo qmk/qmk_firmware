@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { F0 }
 #define MATRIX_COL_PINS { F1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -44,3 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* long tapping config */
 #define TAPPING_TERM 500
+#define PERMISSIVE_HOLD

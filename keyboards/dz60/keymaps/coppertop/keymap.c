@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------------.
  * |     |     |     |     |     |     |     |     |  /  |  *  |  -  |  =  |     |Trns |Trns |
  * |-----------------------------------------------------------------------------------------+
- * |        |     | Prev | Play| Next|     |     |  7  |  8  |  9  |  +  |     |     | RESET |
+ * |        |     | Prev | Play| Next|     |     |  7  |  8  |  9  |  +  |     |     | QK_BOOT |
  * |-----------------------------------------------------------------------------------------+
  * |         |     |Mute | VUp | VDn |     |     |  4  |  5  |  6  |  +  |     |    Trns     |
  * |-----------------------------------------------------------------------------------------+
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_MEDIA] = LAYOUT_directional(
 		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSLS, KC_PAST, KC_PMNS, KC_PEQL, XXXXXXX, _______, _______, 
-		XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, XXXXXXX, XXXXXXX, RESET, 
+		XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, XXXXXXX, XXXXXXX, QK_BOOT, 
 		_______, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, XXXXXXX, _______, 
 		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_PENT, XXXXXXX, XXXXXXX, XXXXXXX, 
 		_______, _______, _______, _______, _______, KC_P0,   KC_PDOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

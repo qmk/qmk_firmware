@@ -69,6 +69,10 @@
 #    define ISSI_CSPULLUP PUR_32KR
 #endif
 
+#ifndef ISSI_GLOBALCURRENT
+#    define ISSI_GLOBALCURRENT 0xFF
+#endif
+
 #define ISSI_MAX_LEDS 351
 
 // Transfer buffer for TWITransmitData()
@@ -163,7 +167,7 @@ void IS31FL3741_init(uint8_t addr) {
     IS31FL3741_write_register(addr, ISSI_REG_CONFIGURATION, 0x01);
 
     // Set Golbal Current Control Register
-    IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
+    IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
     // Set Pull up & Down for SWx CSy
     IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, ((ISSI_CSPULLUP << 4) | ISSI_SWPULLUP));
 

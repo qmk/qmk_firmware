@@ -22,12 +22,14 @@
 #endif
 
 static void tapping_term_report(void) {
+#ifdef SEND_STRING_ENABLE
     const char *tapping_term_str = get_u16_str(g_tapping_term, ' ');
     // Skip padding spaces
     while (*tapping_term_str == ' ') {
         tapping_term_str++;
     }
     send_string(tapping_term_str);
+#endif
 }
 
 bool process_dynamic_tapping_term(uint16_t keycode, keyrecord_t *record) {

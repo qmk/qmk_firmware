@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN1] = LAYOUT_65_ansi_blocker(
         KC_GESC,  KC_F1,    KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,  KC_DEL,    KC_CALC,
-        _______,  RGB_TOG,  RGB_MOD, RGB_HUI,  RGB_HUD, RGB_SAI, RGB_SAD, KC_PSCR, KC_SLCK, KC_PAUS, _______,  _______,  _______, RESET,     KC_HOME,
+        _______,  RGB_TOG,  RGB_MOD, RGB_HUI,  RGB_HUD, RGB_SAI, RGB_SAD, KC_PSCR, KC_SLCK, KC_PAUS, _______,  _______,  _______, QK_BOOT,   KC_HOME,
         KC_CAPS,  RGB_SPI,  RGB_SPD, RGB_VAD,  RGB_VAI, _______, _______, _______, _______, _______, _______,  _______,           EEP_RST,   KC_END,
         KC_LSFT,  RGB_NITE, _______, _______,  _______, _______, KC_NLCK, _______, RGB_TOD, RGB_TOI, KC_MPLY,  _______,           KC_VOLU,   KC_MUTE,
         _______,  KC_WINLCK, _______,                   _______,                            _______, _______,            KC_MPRV, KC_VOLD,   KC_MNXT

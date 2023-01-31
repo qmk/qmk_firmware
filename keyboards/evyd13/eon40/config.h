@@ -34,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS {B7,D5,F5,F6}
 #define MATRIX_COL_PINS {F0,F1,F4,D3,D4,D6,D7,B4,B5,B6,C6,C7}
-#define UNUSED_PINS {B1,B2,B3}
 
 #define ENCODERS_PAD_A { E6, B0, D1 }
 #define ENCODERS_PAD_B { F7, D0, D2 }

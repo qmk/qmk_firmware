@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_BSPC, KC_SPC,  MACCOPY,
 
            // Right Hand
-           KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, QWERTY,  RESET,
+           KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, QWERTY,  QK_BOOT,
            KC_EQL,  KC_RPRN, KC_RCBR, KC_RBRC, KC_ASTR, KC_EXLM,
            KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
            KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,

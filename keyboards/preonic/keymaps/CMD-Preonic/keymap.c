@@ -188,10 +188,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_1x2uC( \
   _______, _______,  QWERTY, COLEMAK,  DVORAK, _______,          _______,        _______, _______, _______, _______, _______, \
-  _______, RESET,   _______, AG_NORM, AG_SWAP, _______,          _______,        _______, _______, _______, _______, KC_DEL,  \
+  _______, QK_BOOT, _______, AG_NORM, AG_SWAP, _______,          _______,        _______, _______, _______, _______, KC_DEL,  \
   _______, _______, _______, AU_ON,   AU_OFF,  MI_ON,            MI_OFF,         QWERTY,  COLEMAK,  DVORAK, _______, _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  KC_SYSTEM_SLEEP,  KC_SYSTEM_WAKE, ARROW,      GAME,  NUMPAD, _______, _______, \
-  _______, _______, _______, _______, _______,              RESET,                _______, _______, _______, _______, _______  \
+  _______, _______, _______, _______, _______,              QK_BOOT,              _______, _______, _______, _______, _______  \
 )
 
 

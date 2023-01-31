@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "DB60v2",
+    "usb": {
+        "pid": "0xDB61"
+    }
+}

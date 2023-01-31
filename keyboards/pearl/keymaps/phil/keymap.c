@@ -57,14 +57,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TG(LIGHT), KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,  KC_TRNS,  KC_TRNS,  KC_TRNS
       ),
   [LIGHT] = LAYOUT_all(
-      RESET, KC_NO,  BL_ON,   BL_INC,  BL_BRTG, RGB_M_P,  RGB_M_B, RGB_MOD,  RGB_HUI,  RGB_SAI, RGB_VAI, KC_NO,  KC_NO,
+      QK_BOOT, KC_NO,  BL_ON,   BL_INC,  BL_BRTG, RGB_M_P,  RGB_M_B, RGB_MOD,  RGB_HUI,  RGB_SAI, RGB_VAI, KC_NO,  KC_NO,
       KC_NO, KC_NO,  BL_TOGG, BL_STEP, KC_NO,   RGB_M_SN, RGB_M_K, RGB_TOG,  RGB_HUD,  RGB_SAD, RGB_VAD, KC_NO,
       KC_NO, KC_NO,  BL_OFF,  BL_DEC,  KC_NO,   KC_NO,    KC_NO,   RGB_RMOD, RGB_M_SW, RGB_M_R, RGB_M_G, KC_NO,
       TG(LIGHT), KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO
       ),
 };
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   if (state & (1<<QWERTY)){
     PORTD &= ~(1 << PD0);
   } else {

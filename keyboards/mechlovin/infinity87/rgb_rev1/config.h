@@ -16,10 +16,6 @@
 
 #pragma once
 
-#define PRODUCT_ID  0x8710
-#define DEVICE_VER  0x0001
-#define PRODUCT     Infinity 87 RGB rev1
-
 #define MATRIX_ROW_PINS { A10, A13, A14, C13, A4, A3 }
 #define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A9, B11, B10, B2, B1, B0, A7, A6, A5, A2, A1, A0 }
 

@@ -406,11 +406,11 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 
 The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
 
-### Deferred Execution :id=deferred-execution
+# Deferred Execution :id=deferred-execution
 
 QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers. To enable this functionality, set `DEFERRED_EXEC_ENABLE = yes` in rules.mk.
 
-#### Deferred executor callbacks
+## Deferred executor callbacks
 
 All _deferred executor callbacks_ have a common function signature and look like:
 
@@ -430,7 +430,7 @@ The return value is the number of milliseconds to use if the function should be 
 
 ?> Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
 
-#### Deferred executor registration
+## Deferred executor registration
 
 Once a callback has been defined, it can be scheduled using the following API:
 
@@ -444,7 +444,7 @@ The third parameter is the `cb_arg` that gets passed to the callback at the poin
 
 The return value is a `deferred_token` that can consequently be used to cancel the deferred executor callback before it's invoked. If a failure occurs, the returned value will be `INVALID_DEFERRED_TOKEN`. Usually this will be as a result of supplying `0` to the delay, or a `NULL` for the callback. The other failure case is if there are too many deferred executions "in flight" -- this can be increased by changing the limit, described below.
 
-#### Extending a deferred execution
+## Extending a deferred execution
 
 The `deferred_token` returned by `defer_exec()` can be used to extend a the duration a pending execution waits before it gets invoked:
 ```c
@@ -452,7 +452,7 @@ The `deferred_token` returned by `defer_exec()` can be used to extend a the dura
 extend_deferred_exec(my_token, 800);
 ```
 
-#### Cancelling a deferred execution
+## Cancelling a deferred execution
 
 The `deferred_token` returned by `defer_exec()` can be used to cancel a pending execution before it gets invoked:
 ```c
@@ -462,7 +462,7 @@ cancel_deferred_exec(my_token);
 
 Once a token has been canceled, it should be considered invalid. Reusing the same token is not supported.
 
-#### Deferred callback limits
+## Deferred callback limits
 
 There are a maximum number of deferred callbacks that can be scheduled, controlled by the value of the define `MAX_DEFERRED_EXECUTORS`.
 

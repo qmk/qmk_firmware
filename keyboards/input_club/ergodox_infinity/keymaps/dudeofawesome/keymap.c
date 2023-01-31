@@ -311,7 +311,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ergodox(
   // left hand
   VRSN,    _______, _______, _______, _______, _______, _______,
-  _______, RESET,   DEBUG,   BL_TOGG, BL_STEP, _______, _______,
+  _______, QK_BOOT, DEBUG,   BL_TOGG, BL_STEP, _______, _______,
   KC_CAPS, _______, _______, _______, _______, AG_NORM,
   _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______,

@@ -98,10 +98,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
 
 /* pmw3360 config  */
-#undef PMW3360_CS_PIN
-#define PMW3360_CS_PIN                       B0
-#define PMW3360_SPI_MODE                     3
-#define PMW3360_SPI_DIVISOR                  64
+#undef PMW33XX_CS_PIN
+#define PMW33XX_CS_PIN                       B0
 
 #define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
 #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400

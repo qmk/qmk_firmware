@@ -64,6 +64,7 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     leading = false;
                     leader_end();
+                    return true;
                 }
 #    ifdef LEADER_PER_KEY_TIMING
                 leader_time = timer_read();

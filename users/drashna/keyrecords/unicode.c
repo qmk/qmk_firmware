@@ -142,7 +142,7 @@ DEFINE_UNICODE_LUT_TRANSLATOR(unicode_lut_translator_super,
                               0x2071, // i
                               0x02B2, // j
                               0x1D4F, // k
-                              0x1D4F, // l
+                              0x02E1, // l
                               0x1D50, // m
                               0x207F, // n
                               0x1D52, // o

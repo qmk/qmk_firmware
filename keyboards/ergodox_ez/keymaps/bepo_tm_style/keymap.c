@@ -190,7 +190,7 @@ static bool is_macro1_recording = false;
 // The current set of active layers (as a bitmask).
 // There is a global 'layer_state' variable but it is set after the call
 // to layer_state_set_user().
-static uint32_t current_layer_state = 0;
+static layer_state_t current_layer_state = 0;
 layer_state_t layer_state_set_user(layer_state_t state);
 
 // Method called at the end of the tap dance on the TAP_MACRO key. That key is

@@ -143,7 +143,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
   if (rgb_layer_change) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _LOWER:
       rgblight_set_purple;
       rgblight_mode(5);

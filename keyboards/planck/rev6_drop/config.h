@@ -17,12 +17,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0xA4F9
-#define DEVICE_VER 0x0006
-#undef MANUFACTURER
-#define MANUFACTURER Drop
-
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
@@ -48,7 +42,6 @@
 #define MATRIX_COL_PINS \
     { B11, B10, B2, B1, A7, B0 }
 
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A \
     { B12 }

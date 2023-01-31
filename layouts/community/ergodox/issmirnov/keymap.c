@@ -61,7 +61,7 @@ TO(0)   , XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
                                                         XXXXXXX  ,
                                             KC_SPACE , KC_BSPACE , KC_DEL ,
 
-KC_EQL  , ___________________XXXXX___________________ , RESET   ,
+KC_EQL  , ___________________XXXXX___________________ , QK_BOOT   ,
 KC_PLUS , _________________NUMP_R1___________________ , XXXXXXX ,
           _________________NUMP_R2___________________ , XXXXXXX                                     ,
 KC_MINS , _________________NUMP_R3___________________ , XXXXXXX ,
@@ -125,7 +125,7 @@ _______, _______, KC_LGUI
 
 // called by QMK during key processing before the actual key event is handled. Useful for macros.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   switch (keycode) {
     case TAP_TOG_LAYER:
       process_tap_tog(_SYMB,record);
@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Runs constantly in the background, in a loop every 100ms or so.
 // Best used for LED status output triggered when user isn't actively typing.
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   if (layer == 0) {
     // Set up LED indicators for stuck modifier keys.
     // https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/report.h#L118
@@ -202,7 +202,7 @@ void matrix_scan_user(void) {
 
 // only runs when when the layer is changed, good for updating LED's and clearing sticky state
 layer_state_t layer_state_set_user(layer_state_t state) {
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
 
   ergodox_board_led_off();
   ergodox_right_led_1_off();

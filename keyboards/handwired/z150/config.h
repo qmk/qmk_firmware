@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { B13, B14, B15, A8, A9, A3, A10, A1, A2, A15, A0 }
 #define MATRIX_COL_PINS { B11, B10, B1, B0, A7, A6, A5, A4 }
-#define UNUSED_PINS
 
 #define NUM_LOCK_LED_PIN B5
 #define SCROLL_LOCK_LED_PIN B4

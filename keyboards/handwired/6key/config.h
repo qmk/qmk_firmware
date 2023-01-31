@@ -25,7 +25,6 @@
 /* pin-out */
 #define MATRIX_ROW_PINS { B4, D0 }
 #define MATRIX_COL_PINS { D3, D2, D1 }
-#define UNUSED_PINS
 
 /* dip switch */
 #define DIP_SWITCH_PINS { C6 }

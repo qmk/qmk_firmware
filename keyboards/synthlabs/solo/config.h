@@ -16,8 +16,6 @@
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 7
 
-#define QMK_KEYS_PER_SCAN 17
-
 /*
  * Force NKRO
  *

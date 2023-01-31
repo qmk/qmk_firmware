@@ -123,7 +123,12 @@ bool get_autoshift_shift_state(uint16_t keycode) {
 /** \brief Restores the shift key if it was cancelled by Auto Shift */
 static void autoshift_flush_shift(void) {
     autoshift_flags.holding_shift = false;
-    del_weak_mods(MOD_BIT(KC_LSFT));
+#    ifdef CAPS_WORD_ENABLE
+    if (!is_caps_word_on())
+#    endif // CAPS_WORD_ENABLE
+    {
+        del_weak_mods(MOD_BIT(KC_LSFT));
+    }
     if (autoshift_flags.cancelling_lshift) {
         autoshift_flags.cancelling_lshift = false;
         add_mods(MOD_BIT(KC_LSFT));
@@ -325,11 +330,13 @@ void autoshift_disable(void) {
 
 #    ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
+#        ifdef SEND_STRING_ENABLE
     char display[8];
 
     snprintf(display, 8, "\n%d\n", autoshift_timeout);
 
     send_string((const char *)display);
+#        endif
 }
 #    endif
 

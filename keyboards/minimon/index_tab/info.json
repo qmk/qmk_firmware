@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Index Tab",
-    "maintainer": "kyrremann",
     "url": "https://github.com/Kyrremann/index-tab",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_6x13"
+    },
+    "usb": {
+        "vid": "0x4B49",
+        "pid": "0x1306",
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_ortho_6x13": {

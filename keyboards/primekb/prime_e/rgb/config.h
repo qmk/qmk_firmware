@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0052
-#define DEVICE_VER      0x0001
-#define PRODUCT         Prime_E RGB
-
 #define RGB_DI_PIN B7
 #define RGBLED_NUM 8
 #define RGBLIGHT_ANIMATIONS

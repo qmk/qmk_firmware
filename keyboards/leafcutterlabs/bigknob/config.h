@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIRECT_PINS {   \
     { B7, D4, D6, F6, F7} \
 }
-#define UNUSED_PINS
 
 /* rotary encoder 1,2,3 closest to usb port is 0*/
 #define ENCODERS_PAD_A { D0}

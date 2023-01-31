@@ -21,12 +21,6 @@
 /* Ensure we jump to bootloader if the RESET keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x574D // WM
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    WestM
-#define PRODUCT         WestM68
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

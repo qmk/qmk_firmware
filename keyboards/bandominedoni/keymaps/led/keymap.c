@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "version.h"
 
 #define DF_COLE  DF(_COLEMAK)
 
@@ -52,6 +53,10 @@ enum layer_names {
      _COLEMAK,
      _MISC,
      _FN
+};
+
+enum custom_keycodes {
+    VERSION = SAFE_RANGE
 };
 
 // Alias layout macros that expand groups of keys.
@@ -142,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RGB_RMOD, RGB_MOD,
-                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD, EEP_RST, RGB_TOG
@@ -177,10 +182,21 @@ void keyboard_post_init_user(void) {
     rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+            }
+            break;
+    }
+    return true;
+}
+
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {
     if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
-        uint8_t layer = biton32(layer_state);
+        uint8_t layer = get_highest_layer(layer_state);
         switch (layer) {
             case _CLOSE:
                 // rgb_matrix_set_color(pgm_read_byte(&convert_led_location2number[11]),  RGB_RED);         //  RGB_TOG  <- too heavy.

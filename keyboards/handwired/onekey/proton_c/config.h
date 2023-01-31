@@ -18,11 +18,8 @@
 
 #include "config_common.h"
 
-#define PRODUCT Onekey Proton-C
-
 #define MATRIX_COL_PINS { A2 }
 #define MATRIX_ROW_PINS { A1 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN         B8
 #define BACKLIGHT_PWM_DRIVER  PWMD4

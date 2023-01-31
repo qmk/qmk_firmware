@@ -36,6 +36,10 @@ ifeq ($(strip $(PROTOCOL)), VUSB)
     NKRO_ENABLE       := no
 endif
 
+ifeq ($(strip $(PER_KEY_TAPPING)), yes)
+    OPT_DEFS += -DPER_KEY_TAPPING
+endif
+
 CUSTOM_UNICODE_ENABLE ?= yes
 ifeq ($(strip $(CUSTOM_UNICODE_ENABLE)), yes)
     UNICODE_ENABLE        := no
@@ -81,6 +85,11 @@ ifdef CONSOLE_ENABLE
     ifeq ($(strip $(KEYLOGGER_ENABLE)), yes)
         OPT_DEFS += -DKEYLOGGER_ENABLE
     endif
+endif
+
+ifeq ($(strip $(I2C_SCANNER_ENABLE)), yes)
+    OPT_DEFS += -DI2C_SCANNER_ENABLE
+    CONSOLE_ENABLE := yes
 endif
 
 CUSTOM_OLED_DRIVER ?= yes

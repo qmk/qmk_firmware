@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x2267
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    Keebio
-#define PRODUCT         Sinc Rev. 2
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 12

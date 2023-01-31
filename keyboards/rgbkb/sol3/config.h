@@ -11,12 +11,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3535
-#define PRODUCT_ID      0x3510
-#define MANUFACTURER    RGBKB
-#define PRODUCT         Sol 3
-
 /* Matrix Configuration - Rows are doubled up */
 #define MATRIX_ROWS 12
 // Last pins reserved for encoder / touch encoder support

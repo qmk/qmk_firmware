@@ -52,16 +52,32 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   // Tap once for CTRL, twice for Caps Lock
   [TD_CTCPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
   [COPA]  = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_C), LCTL(KC_V)),
-  [EMOJIS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(cycleEmojis, NULL, NULL, 800),
-  [ANIMAL] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(cycleAnimals, NULL, NULL, 800),
-  //[SYMBOLS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(cycleSymbols, NULL, NULL, 800),
-  [FOODS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(cycleFoods, NULL, NULL, 800),
-  [ETC] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(cycleEtc, NULL, NULL, 800),
-  //[VEHICLES] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(cycleVehicles, NULL, NULL, 800),
-  //[SUPPLEMENT] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(cycleSupplement, NULL, NULL, 800),
-  [ALLS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(cycleAll, NULL, NULL, 800)
+  [EMOJIS] = ACTION_TAP_DANCE_FN_ADVANCED(cycleEmojis, NULL, NULL),
+  [ANIMAL] = ACTION_TAP_DANCE_FN_ADVANCED(cycleAnimals, NULL, NULL),
+  //[SYMBOLS] = ACTION_TAP_DANCE_FN_ADVANCED(cycleSymbols, NULL, NULL),
+  [FOODS] = ACTION_TAP_DANCE_FN_ADVANCED(cycleFoods, NULL, NULL),
+  [ETC] = ACTION_TAP_DANCE_FN_ADVANCED(cycleEtc, NULL, NULL),
+  //[VEHICLES] = ACTION_TAP_DANCE_FN_ADVANCED(cycleVehicles, NULL, NULL),
+  //[SUPPLEMENT] = ACTION_TAP_DANCE_FN_ADVANCED(cycleSupplement, NULL, NULL),
+  [ALLS] = ACTION_TAP_DANCE_FN_ADVANCED(cycleAll, NULL, NULL)
 // Other declarations would go here, separated by commas, if you have them
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(EMOJIS):
+        case TD(ANIMAL):
+        //case TD(SYMBOLS):
+        case TD(FOODS):
+        case TD(ETC):
+        //case TD(VEHICLES):
+        //case TD(SUPPLEMENT):
+        case TD(ALLS):
+            return 800;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 // macros
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

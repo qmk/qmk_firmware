@@ -2,6 +2,7 @@
 
 // place overrides here
 #define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
 #define LEADER_TIMEOUT 800
 
 #define DISABLE_SPACE_CADET_ROLLOVER

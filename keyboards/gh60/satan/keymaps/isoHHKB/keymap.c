@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _FL: (Function Layer) Second Layer
    * ,-----------------------------------------------------------.
-   * |    |F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|PSR|  RESET|
+   * |    |F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|PSR|  QK_BOOT|
    * |-----------------------------------------------------------|
    * |     |   |VUP|   |   |   |   |   |   |   |   |   |   |     |
    * |-------------------------------------------------------.   |
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------'
    */
   [_FL] = LAYOUT_60_iso_split_rshift(\
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_PSCR, RESET,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_PSCR, QK_BOOT,
     _______, _______, KC_VOLU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     KC_CAPS, KC_MPRV, KC_VOLD, KC_MNXT, _______, _______, RGB_TOG, RGB_MOD, RGB_M_B, RGB_VAI, RGB_VAD, BL_INC,  BL_DEC,  _______,
     _______, _______, _______, _______, KC_CEDL, _______, BL_TOGG, _______, KC_MUTE, _______, _______, _______, _______, _______,

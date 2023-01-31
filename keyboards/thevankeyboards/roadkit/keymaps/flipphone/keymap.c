@@ -147,7 +147,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
     uint8_t layer;
-    layer = biton32(layer_state);
+    layer = get_highest_layer(layer_state);
 
     switch (keycode) {
     case FPH_1 ... FPH_9:

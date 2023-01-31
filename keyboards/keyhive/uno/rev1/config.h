@@ -17,13 +17,6 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xACC8
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Broekhuijsen
-#define PRODUCT         Uno rev1
-
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 // #define RGBLIGHT_ANIMATIONS
 
@@ -35,7 +28,6 @@
 #define DIRECT_PINS { \
     { B6 } \
 }
-#define UNUSED_PINS
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN F6

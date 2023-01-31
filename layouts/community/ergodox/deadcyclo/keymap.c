@@ -90,10 +90,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LALT,  KC_RALT,KC_LEAD,LCTL(LSFT(KC_U)),          LT(SYMB,KC_TILD),
              KC_PGUP,        KC_INS,
              KC_PGDN,
-             KC_RBRC,KC_BSPC, KC_ENT   
+             KC_RBRC,KC_BSPC, KC_ENT
     ),
-/* Keymap 1: Symbol Layer LCTL(LSFT(KC_U))  
- *                                                  
+/* Keymap 1: Symbol Layer LCTL(LSFT(KC_U))
+ *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |   F12  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -192,7 +192,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, I3_RUN, KC_TRNS, KC_TRNS,
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |   ▒  |  ▓   |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      | 
+ *                                 |      |      |      |       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
@@ -218,7 +218,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, I3_RUN, KC_TRNS, KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-/* Keymap 4: Unicode 2 
+/* Keymap 4: Unicode 2
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  ¹   |  ²   |  ³   |  ⁴   |  ⁵   |  ⁶   |           |  ⁶   |  ⁷   |  ⁸   |  ⁹   |  ⁰   |  ℃   |   ™    |
@@ -234,12 +234,12 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, I3_RUN, KC_TRNS, KC_TRNS,
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      | 
+ *                                 |      |      |      |       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// Unicode 2   
+// Unicode 2
 [UNI2] = LAYOUT_ergodox(
 		KC_TRNS, UC(0x00b9), UC(0x00b2), UC(0x00b3), UC(0x2074), UC(0x2075), UC(0x2076),
 		KC_TRNS, UC(0x2081), UC(0x2082), UC(0x2083), UC(0x2084), UC(0x2085), UC(0x2086),
@@ -346,7 +346,7 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

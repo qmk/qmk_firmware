@@ -1,7 +1,5 @@
 #pragma once
 
-extern uint8_t is_master;
-
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "rgb.c"
 #endif

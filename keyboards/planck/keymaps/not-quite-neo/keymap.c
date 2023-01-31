@@ -111,7 +111,7 @@ L06 -> <TBD>: UNSPECIFIED
 
 /* LFN -> MO(FN): FUNCTION
  * ,-----------------------------------------------------------------------------------.
- * | RESET|                                  |                                  | BACKS|
+ * | QK_BOOT|                                  |                                  | BACKS|
  * |------+                                  |                                  +------|
  * |      |             L06_LEFT             |             L06_RIGHT            |INSERT|
  * |------+                                  |                                  +------|
@@ -121,7 +121,7 @@ L06 -> <TBD>: UNSPECIFIED
  * `-----------------------------------------------------------------------------------'
  */
 [LFN] = LAYOUT_planck_grid(
-  RESET,                  L06_LEFT_01,                                 L06_RIGHT_01,                 KC_BSPC,
+  QK_BOOT,                L06_LEFT_01,                                 L06_RIGHT_01,                 KC_BSPC,
   _______,                L06_LEFT_02,                                 L06_RIGHT_02,                 KC_INS,
   _______,                L06_LEFT_03,                                 L06_RIGHT_03,                 KC_DEL,
   MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______, _______, _______, KC_VOLU, KC_VOLD, KC_MUTE, _______, _______
