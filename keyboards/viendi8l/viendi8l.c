@@ -23,13 +23,9 @@ uint8_t caps_color[3] = {0xFF,0xFF,0xFF};
 uint8_t num_color[3] = {0xFF,0xFF,0xFF};
 uint8_t layer_color[3] = {0xFF,0xFF,0xFF};
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        led_state.caps_lock ? rgblight_setrgb_at(caps_color[0], caps_color[1], caps_color[2], 2) : rgblight_setrgb_at(0x00,0x00,0x00,2);
-        led_state.num_lock ? rgblight_setrgb_at(num_color[0], num_color[1], num_color[2], 3) : rgblight_setrgb_at(0x00,0x00,0x00,3);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    led_state.caps_lock ? rgblight_setrgb_at(caps_color[0], caps_color[1], caps_color[2], 2) : rgblight_setrgb_at(0x00,0x00,0x00,2);
+    led_state.num_lock ? rgblight_setrgb_at(num_color[0], num_color[1], num_color[2], 3) : rgblight_setrgb_at(0x00,0x00,0x00,3);
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

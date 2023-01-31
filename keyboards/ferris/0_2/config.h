@@ -24,22 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS_PER_SIDE (MATRIX_COLS / 2)
 
-#define UNUSED_MCU 24
-#define UNUSED_MCP 7
-
 // wiring
 #define MATRIX_ROW_PINS_MCU \
     { B7, B6, B5, A2 }
 #define MATRIX_COL_PINS_MCU \
     { B8, B4, B3, A15, A14 }
-#define UNUSED_PINS_MCU \
-    { A0, A1, A3, A4, A5, A6, A7, A8, A9, A10, A13, B0, B1, B2, B9, B12, B13, B14, B15, C13, C14, C15, F0, F1 }
 #define MATRIX_ROW_PINS_MCP \
     { B0, B1, B2, B3 }
 #define MATRIX_COL_PINS_MCP \
     { A0, A1, A2, A3, A4 }
-#define UNUSED_PINS_MCP \
-    { B4, B5, B6, B7, A5, A6, A7 }
 
 #define MATRIX_ROW_PINS \
     { B7, B6, B5, A2, A0, A0, A0, A0 }

@@ -24,25 +24,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ M7 │ M8 │ M9 │
      * └────┴────┴────┘
      */
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_3x3(
         KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK,
         KC_AUDIO_VOL_UP, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN,
         _______, _______, _______
     ),
 
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_3x3(
         _______, _______, _______,
         _______, _______, _______,
         _______, _______, _______
     ),
 
-    [2] = LAYOUT(
+    [2] = LAYOUT_ortho_3x3(
         _______, _______, _______,
         _______, _______, _______,
         _______, _______, _______
     ),
 
-    [3] = LAYOUT(
+    [3] = LAYOUT_ortho_3x3(
         _______, _______, _______,
         _______, _______, _______,
         _______, _______, _______

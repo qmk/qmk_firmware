@@ -24,4 +24,34 @@
 /* The scanners already debounce for us */
 #define DEBOUNCE 0
 
-#define DRIVER_LED_TOTAL 132
+#define RGB_MATRIX_LED_COUNT 132
+
+#ifdef RGB_MATRIX_ENABLE
+// At the default flush limit of 16ms (~62.5 fps), the matrix scan rate is approximately
+// ~140 scans per second under full load (when changes are being made to the LED state).
+// Such a low scan rate will have impact the keyboard's accuracy for faster typists.
+//
+// With RGB completely disabled, the matrix scan rate is ~660 scans per second, and typing
+// accuracy feels on par with the Dygma Raise Neuron.
+//
+// At 100ms (10 fps), the matrix scan rate is ~355 scans per second under full load, and typing
+// accuracy is reasonably good.
+#define RGB_MATRIX_LED_FLUSH_LIMIT 100
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+//#    define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#endif

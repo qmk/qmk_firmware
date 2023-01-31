@@ -296,9 +296,9 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                 case KC_BSPC:
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
-                            unregister_code(KC_LSHIFT);
+                            unregister_code(KC_LSFT);
                             tap_code16(LGUI(KC_X));
-                            register_code(KC_LSHIFT);
+                            register_code(KC_LSFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
                         } else if (layer_control_data.operator== - 1)
@@ -403,9 +403,9 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                 case LGUI(KC_C):
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
-                            unregister_code(KC_LSHIFT);
+                            unregister_code(KC_LSFT);
                             tap_code16(LGUI(KC_C));
-                            register_code(KC_LSHIFT);
+                            register_code(KC_LSFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
                         } else if (layer_control_data.operator== - 1)
@@ -425,9 +425,9 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                 case LGUI(KC_V):
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
-                            unregister_code(KC_LSHIFT);
+                            unregister_code(KC_LSFT);
                             for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LGUI(KC_V));
-                            register_code(KC_LSHIFT);
+                            register_code(KC_LSFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
                         } else {
@@ -628,9 +628,9 @@ bool handle_common_key(uint16_t key, keyrecord_t* record) {
         case KEY_CUT_SELECTION:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_LSFT);
                     tap_code16(LGUI(KC_X));
-                    register_code(KC_LSHIFT);
+                    register_code(KC_LSFT);
                 } else
                     tap_code16(LGUI(KC_X));
             }
