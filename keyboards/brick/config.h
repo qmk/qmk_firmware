@@ -33,7 +33,7 @@
 
 #define RGB_DI_PIN D2
 #ifdef RGB_DI_PIN
-    #define RGBLIGHT_ANIMATIONS
+    #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLED_NUM 8
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
