@@ -20,7 +20,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
             uint16_t time = scale16by8(g_rgb_timer, speed / 8);
             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
             RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -30,7 +30,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
         default: // Solid Color
         {
             RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -91,9 +91,9 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return true;
 }
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
-        return;
+        return false;
     }
 
 #if defined(RGBLIGHT_ENABLE)
@@ -140,11 +140,12 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 break;
         }
     }
+    return false;
 }
 
 __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
     return true;
 }
-void rgb_matrix_indicators_user(void) {
-    rgb_matrix_indicators_keymap();
+bool rgb_matrix_indicators_user(void) {
+    return rgb_matrix_indicators_keymap();
 }

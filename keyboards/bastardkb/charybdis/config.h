@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "config_common.h"
+
 /* Pointing device configuration. */
 
 // Enable use of pointing device on slave split.
@@ -40,17 +42,16 @@
 #    define RGB_MATRIX_KEYPRESSES
 
 // Startup values.
-#    define RGB_MATRIX_STARTUP_HUE 0
-#    define RGB_MATRIX_STARTUP_SAT 255
-#    define RGB_MATRIX_STARTUP_VAL 64
-#    define RGB_MATRIX_STARTUP_HSV RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL
+#    define RGB_MATRIX_DEFAULT_HUE 0
+#    define RGB_MATRIX_DEFAULT_SAT 255
+#    define RGB_MATRIX_DEFAULT_VAL 64
 
 // Rainbow swirl as startup mode.
 #    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 // Slow swirl at startup.
-#    define RGB_MATRIX_STARTUP_SPD 32
+#    define RGB_MATRIX_DEFAULT_SPD 32
 
 #    ifndef __arm__
 // Disable control of RGB matrix by keycodes (must use firmware implementation

@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT(
   KC_TAB,  KC_Q,   KC_W,    KC_F,    KC_P,   KC_G,                    KC_J,   KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
   CTLESC,  KC_A,   KC_R,    KC_S,    KC_T,   KC_D,                    KC_H,   KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-  KC_LSPO, KC_Z,   KC_X,    KC_C,    KC_V,   KC_B,                    KC_K,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  SC_LSPO, KC_Z,   KC_X,    KC_C,    KC_V,   KC_B,                    KC_K,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
   KC_INS,  KC_GRV, KC_LBRC, KC_RBRC, ALTAPP, SPCFN,                   BSPCFN, KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                              ENTNS, KC_BSPC,  KC_ENT, DELNS
 ),
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
   KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,   KC_T,                    KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   CTLESC,  KC_A,   KC_S,    KC_D,    KC_F,   KC_G,                    KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSPO, KC_Z,   KC_X,    KC_C,    KC_V,   KC_B,                    KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  SC_LSPO, KC_Z,   KC_X,    KC_C,    KC_V,   KC_B,                    KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
   KC_INS,  KC_GRV, KC_LBRC, KC_RBRC, ALTAPP, SPCFN,                   BSPCFN, KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                              ENTNS, KC_BSPC,  KC_ENT, DELNS
 ),
@@ -203,9 +203,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                          `---------------'  `---------------'
 */
 [_NUMPAD] = LAYOUT(
-  _______, KC_P6,   KC_P7,    KC_P8,      KC_P9,     KC_P0,                      KC_NLCK, KC_P7, KC_P8,  KC_P9,   KC_PSLS, _______,
+  _______, KC_P6,   KC_P7,    KC_P8,      KC_P9,     KC_P0,                      KC_NUM,  KC_P7, KC_P8,  KC_P9,   KC_PSLS, _______,
   _______, KC_P1,   KC_P2,    KC_P3,      KC_P4,     KC_P5,                      KC_TAB,  KC_P4, KC_P5,  KC_P6,   KC_PAST, _______,
-  _______, KC_NLCK, KC_PDOT,  TD(PSLPAS), TD(PMNUN), TD(PPLEQ),                  _______, KC_P1, KC_P2,  KC_P3,   KC_PMNS, _______,
+  _______, KC_NUM,  KC_PDOT,  TD(PSLPAS), TD(PMNUN), TD(PPLEQ),                  _______, KC_P1, KC_P2,  KC_P3,   KC_PMNS, _______,
   KC_LPRN, KC_RPRN, TD(LBCB), TD(RBCB),   _______,   _______,                    _______, KC_P0, KC_EQL, KC_PDOT, KC_PPLS, _______,
                                                      _______, _______,  KC_PENT, _______
 ),

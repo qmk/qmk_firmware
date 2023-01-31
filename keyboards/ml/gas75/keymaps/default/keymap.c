@@ -179,7 +179,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(2, 0, 0, 0);
 
     HSV      hsv = rgb_matrix_config.hsv;
@@ -198,4 +198,5 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(2, 0, 0, 0);
         }
     }
+    return false;
 }

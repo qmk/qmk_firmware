@@ -129,20 +129,20 @@ const uint16_t PROGMEM keymaps[_LAYER_MAX][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FUNC] = LAYOUT(
             KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12, KC_DEL, KC_F13,
-            _______, _______, FW_WRD,  KB_EOL,  TG(_RPT), _______,  KB_COPY, KC_PGUP, _______, _______, KB_PASTE, KC_SLCK, _______,        MY_CALC,
+            _______, _______, FW_WRD,  KB_EOL,  TG(_RPT), _______,  KB_COPY, KC_PGUP, _______, _______, KB_PASTE, KC_SCRL, _______,        MY_CALC,
             KC_RCTL, KB_BOL,  _______, KC_PGDN, _______,  TD(TD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,  _______,                 _______,
             _______, _______, KC_DEL,  _______, _______,  BK_WRD,   _______, _______, _______, _______, _______,  _______,                 KC_NO,
             KC_RCTL, MY_RGUI, MY_RALT,     _______,      _______,     _______,                         _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
     ),
     [_KP] = LAYOUT(
-            _______,    _______, _______, _______, _______, _______, _______, _______, KC_KP_ASTERISK, _______,   _______,     _______, _______, _______, _______,
-            KC_NUMLOCK, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, KC_KP_7, KC_KP_8,        KC_KP_9,   KC_KP_MINUS, _______, _______,          _______,
-            _______,    _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, KC_KP_4, KC_KP_5,        KC_KP_6,   KC_KP_PLUS,  _______,                   _______,
-            _______,    _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2,        KC_KP_3,   KC_KP_SLASH, _______,                   TG(_KP),
-            _______,    _______, _______,  _______,     _______,     KC_KP_0,                                     KC_KP_DOT,   _______, _______, _______, _______
+            _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_ASTERISK, _______,   _______,     _______, _______, _______, _______,
+            KC_NUM,  _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, KC_KP_7, KC_KP_8,        KC_KP_9,   KC_KP_MINUS, _______, _______,          _______,
+            _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, KC_KP_4, KC_KP_5,        KC_KP_6,   KC_KP_PLUS,  _______,                   _______,
+            _______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2,        KC_KP_3,   KC_KP_SLASH, _______,                   TG(_KP),
+            _______, _______, _______,  _______,     _______,     KC_KP_0,                                     KC_KP_DOT,   _______, _______, _______, _______
     ),
     [_ADJUST] = LAYOUT(
-            KC_GRV,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_SLCK, KC_F13,
+            KC_GRV,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_SCRL, KC_F13,
             _______, RGB_SPD,  RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, _______, _______, _______, KC_PSCR, KC_BRID, KC_BRIU,         KC_MUTE,
             KC_RCTL, RGB_RMOD, RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, TG(_KP), _______, _______, _______,                  KC_MPLY,
             _______, RGB_TOG,  KB_MAKE, KB_FLSH, KB_VRSN, KB_BOOT, _______, TG_SYS,  _______, _______, _______, _______,                  _______,
