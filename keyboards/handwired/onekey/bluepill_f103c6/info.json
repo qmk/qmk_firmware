@@ -1,3 +1,15 @@
 {
-    "keyboard_name": "Onekey Bluepill STM32F103C6"
+    "keyboard_name": "Onekey Bluepill STM32F103C6",
+    "processor": "STM32F103",
+    "board": "STM32_F103_STM32DUINO",
+    "matrix_pins": {
+        "cols": ["B0"],
+        "rows": ["A7"]
+    },
+    "backlight": {
+        "pin": "A0"
+    },
+    "rgblight": {
+        "pin": "A1"
+    }
 }

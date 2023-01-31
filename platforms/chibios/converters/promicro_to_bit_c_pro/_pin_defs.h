@@ -34,6 +34,3 @@
 // LEDs (Mapped to R and G channel of the Bit-C PRO's RGB led)
 #define D5 16U
 #define B0 17U
-
-// Bit-C LED (mapped to B channel of the Bit-C PRO's RGB led)
-#define F0 18U

@@ -18,10 +18,10 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [0] = LAYOUT(
-        KC_PSCR, MACRO00, MO(1)
+        TG(1),   C(KC_C), C(KC_V)
     ),
     [1] = LAYOUT(
-        QK_BOOT,   MACRO01, _______
+        TG(1)  , G(KC_C), G(KC_V)
     ),
     [2] = LAYOUT(
         _______, _______, _______
@@ -34,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [0] = { ENCODER_CCW_CW(KC_PGDN, KC_PGDN) },
-    [1] = { ENCODER_CCW_CW(_______, _______) },
+    [0] = { ENCODER_CCW_CW(C(KC_Z), C(KC_Y)) },
+    [1] = { ENCODER_CCW_CW(G(KC_Z), G(S(KC_Z))) },
     [2] = { ENCODER_CCW_CW(_______, _______) },
-    [3] = { ENCODER_CCW_CW(_______, _______) },
+    [3] = { ENCODER_CCW_CW(_______, _______) }
 };
 #endif

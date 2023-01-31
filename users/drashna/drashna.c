@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
-#ifdef __AVR__
-#    include <avr/wdt.h>
-#endif
 
 userspace_config_t userspace_config;
 
@@ -133,53 +130,35 @@ void keyboard_post_init_i2c(void) {
 }
 #endif
 
-void bootmagic_lite(void) {
-    bool perform_reset = false;
-    // We need multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-
-    // If the configured key (commonly Esc) is held down on power up,
-    // reset the EEPROM valid state and jump to bootloader.
-    // This isn't very generalized, but we need something that doesn't
-    // rely on user's keymaps in firmware or EEPROM.
-    uint8_t row = BOOTMAGIC_LITE_ROW, col = BOOTMAGIC_LITE_COLUMN;
-#if defined(BOOTMAGIC_LITE_EEPROM_ROW) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN)
-    uint8_t row_e = BOOTMAGIC_LITE_EEPROM_ROW, col_e = BOOTMAGIC_LITE_EEPROM_COLUMN;
-#endif
-
-#if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
-    if (!is_keyboard_left()) {
-        row = BOOTMAGIC_LITE_ROW_RIGHT;
-        col = BOOTMAGIC_LITE_COLUMN_RIGHT;
-#if defined(BOOTMAGIC_LITE_EEPROM_ROW) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN) && defined(BOOTMAGIC_LITE_EEPROM_ROW_RIGHT) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT)
-        row_e = BOOTMAGIC_LITE_EEPROM_ROW_RIGHT;
-        col_e = BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT;
+#if defined(AUTOCORRECT_ENABLE)
+#    if defined(AUDIO_ENABLE)
+#        ifdef USER_SONG_LIST
+float autocorrect_song[][2] = SONG(MARIO_GAMEOVER);
+#        else
+float autocorrect_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
+#        endif
 #    endif
+
+bool apply_autocorrect(uint8_t backspaces, const char *str) {
+    if (layer_state_is(_GAMEPAD)) {
+        return false;
     }
+    // TO-DO use unicode stuff for this.  Will probably have to reverse engineer
+    // send string to get working properly, to send char string.
+
+#    if defined(AUDIO_ENABLE)
+    PLAY_SONG(autocorrect_song);
+#    endif
+    return true;
+}
 #endif
 
-#if defined(BOOTMAGIC_LITE_EEPROM_ROW) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN)
-    if (matrix_get_row(row_e) & (1 << col_e)) {
-        eeconfig_disable();
-        perform_reset = true;
-    }
-#endif
-    if (matrix_get_row(row) & (1 << col)) {
-        perform_reset = true;
-    }
-#ifdef STM32F411xE
-    if (!readPin(A0)) {
-        perform_reset = true;
-    }
-#endif
-
-    if (perform_reset) {
-        bootloader_jump();
+#if defined(CAPS_WORD_ENABLE) && !defined(NO_ACTION_ONESHOT)
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+    if (mods & MOD_MASK_SHIFT) {
+        del_mods(MOD_MASK_SHIFT);
+        set_oneshot_locked_mods(~MOD_MASK_SHIFT & get_oneshot_locked_mods());
+        caps_word_on();
     }
 }
+#endif

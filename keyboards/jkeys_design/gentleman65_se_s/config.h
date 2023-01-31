@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F0, F1, F4, F5, F6 }
 #define MATRIX_COL_PINS { D5, D3, D2, D1, D0, B7, B2, B3, D4, D6, D7, C7, C6, B6, B5, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -49,4 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B1 }
 #define ENCODER_RESOLUTION 4
 
-#define DRIVER_LED_TOTAL 14
+#define RGB_MATRIX_LED_COUNT 14

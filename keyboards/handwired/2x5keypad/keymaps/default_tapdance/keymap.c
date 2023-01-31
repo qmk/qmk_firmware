@@ -135,7 +135,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void)
 {
-    set_unicode_input_mode(UC_WINC);  /* See https://jayliu50.github.io/qmk-cheatsheet/ */
+    set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);  /* See https://jayliu50.github.io/qmk-cheatsheet/ */
 }
 
 

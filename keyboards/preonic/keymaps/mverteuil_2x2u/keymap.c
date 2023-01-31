@@ -96,7 +96,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for single quote, twice for double quote */
     [TD_QUOTE_DOUBLEQUOTE] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DOUBLE_QUOTE),
     /* Tap once for semicolon, twice for colon */
-    [TD_SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCOLON, KC_COLON),
+    [TD_SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SEMICOLON, KC_COLON),
     /* Tap once for slash, twice for question mark */
     [TD_SLASH_QUESTION] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_QUESTION),
     /* Tap once for underscore, twice for minus */
@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------.
  * |AudTog |███████|███████|███████|███████|███████|███████|███████|███████|███████| Debug | Reset |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
- * |Clicky |ClkFrq-|ClkFrq+|███████|███████|███████|███████|███████|███████|███████|TermOn |TermOff|
+ * |Clicky |ClkFrq-|ClkFrq+|███████|███████|███████|███████|███████|███████|███████|███████|███████|
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
  * | Music |Voice- |Voice+ |███████|███████|███████|███████|███████|███████|███████|AGnorm |AGswap |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
@@ -204,10 +204,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_2x2u (
-  AU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUI, RGB_HUD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DEBUG,   QK_BOOT,
-  CK_TOGG, CK_DOWN, CK_UP,   XXXXXXX, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TERM_ON, TERM_OFF,
-  MU_TOG,  MUV_DE,  MUV_IN,  XXXXXXX, RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AG_NORM, AG_SWAP,
-  MI_TOG,  RGB_M_P, RGB_M_B, RGB_M_R,RGB_M_SW,RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, RGB_SPI, KC_LSHIFT,
+  AU_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUI, RGB_HUD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG, QK_BOOT,
+  CK_TOGG, CK_DOWN, CK_UP,   XXXXXXX, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  MU_TOGG, AU_PREV, AU_NEXT, XXXXXXX, RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AG_NORM, AG_SWAP,
+  MI_TOGG, RGB_M_P, RGB_M_B, RGB_M_R,RGB_M_SW,RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, RGB_SPI, KC_LSFT,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     _______,          _______,      XXXXXXX,RGB_RMOD, RGB_SPD, RGB_MOD
 )
 
@@ -303,7 +303,7 @@ void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code16(KC_LEFT_PAREN);
             break;
         case DOUBLE_TAP:
-            register_code(KC_LBRACKET);
+            register_code(KC_LEFT_BRACKET);
             break;
         case TRIPLE_TAP:
             register_code16(KC_LEFT_CURLY_BRACE);
@@ -319,7 +319,7 @@ void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code16(KC_LEFT_PAREN);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_LBRACKET);
+            unregister_code(KC_LEFT_BRACKET);
             break;
         case TRIPLE_TAP:
             unregister_code16(KC_LEFT_CURLY_BRACE);
@@ -337,7 +337,7 @@ void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code16(KC_RIGHT_PAREN);
             break;
         case DOUBLE_TAP:
-            register_code(KC_RBRACKET);
+            register_code(KC_RIGHT_BRACKET);
             break;
         case TRIPLE_TAP:
             register_code16(KC_RIGHT_CURLY_BRACE);
@@ -353,7 +353,7 @@ void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code16(KC_RIGHT_PAREN);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_RBRACKET);
+            unregister_code(KC_RIGHT_BRACKET);
             break;
         case TRIPLE_TAP:
             unregister_code16(KC_RIGHT_CURLY_BRACE);
