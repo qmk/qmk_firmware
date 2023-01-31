@@ -15,4 +15,4 @@
  */
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+#define DYNAMIC_KEYMAP_LAYER_COUNT 2
