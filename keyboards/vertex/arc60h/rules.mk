@@ -13,8 +13,5 @@ AUDIO_ENABLE = no           # Audio output
 SLEEP_LED_ENABLE = yes
 WS2812_DRIVER = spi
 
-DEFAULT_FOLDER = vertex/arc60h
-
-
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
