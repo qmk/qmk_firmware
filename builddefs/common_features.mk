@@ -46,6 +46,7 @@ endif
 
 AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
+    CONFIG_H := $(QUANTUM_PATH)/audio/song_list.h $(CONFIG_H)
     ifeq ($(PLATFORM),CHIBIOS)
         AUDIO_DRIVER ?= dac_basic
         ifeq ($(strip $(AUDIO_DRIVER)), dac_basic)
