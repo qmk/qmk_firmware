@@ -23,12 +23,7 @@ Clone this repo in the folder :
 
 #### Compile and flash
 
-Change the master in the config.h file :
-
-    // #define MASTER_LEFT
-    #define MASTER_RIGHT
-
-then :
+Navigate into the keymap folder and launch this command for both sides :
 
     qmk compile && qmk flash
 
