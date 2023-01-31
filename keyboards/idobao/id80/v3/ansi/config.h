@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* --------------------------------
  * Bootmagic Lite key configuration

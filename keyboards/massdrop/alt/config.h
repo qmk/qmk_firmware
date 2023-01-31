@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define SERIAL_NUM          "Unavailable"
@@ -102,9 +101,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* Force boot in NKRO mode */
-//#define FORCE_NKRO
 
 /*
  * Feature disable options

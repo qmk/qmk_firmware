@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define BOOTMAGIC_LITE_ROW 1
 #define BOOTMAGIC_LITE_COLUMN 0

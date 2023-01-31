@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -39,10 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_NUM_LOCK_PIN D7
 #define LED_CAPS_LOCK_PIN D6
 #define LED_SCROLL_LOCK_PIN B4
-
-// #define BACKLIGHT_PIN F1
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN F1
 #ifdef RGB_DI_PIN

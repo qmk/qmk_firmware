@@ -15,7 +15,6 @@
 */
 
 #pragma once
-#include "config_common.h"
 
 /* Key matrix size */
 /* Rows are doubled up */

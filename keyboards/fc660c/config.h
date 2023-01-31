@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -30,12 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LED_CAPS_LOCK_PIN B6
 #define LED_PIN_ON_STATE 0
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS  1
-
-/* mapping backlight LEDs to correct Pin */
-// #define BACKLIGHT_PIN B7
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE  0

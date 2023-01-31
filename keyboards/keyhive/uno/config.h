@@ -16,6 +16,5 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // See rev1/config.h and rev2/config.h to configure your uno.

@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -25,7 +24,6 @@
 
 #define DEBOUNCE 3
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B5
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3

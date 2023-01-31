@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

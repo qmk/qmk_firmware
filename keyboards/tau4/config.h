@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // Buggy, currently disabled
 /* #define EXTERNAL_EEPROM_I2C_BASE_ADDRESS 0b10100000

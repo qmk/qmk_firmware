@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -12,7 +11,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B5
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 4

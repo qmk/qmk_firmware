@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // Both controllers draw 100 mA or less
 #define USB_MAX_POWER_CONSUMPTION 100

@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 14
@@ -65,7 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 #ifndef LED_BRIGHTNESS_LO

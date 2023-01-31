@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // Rows are doubled-up
@@ -20,9 +19,6 @@
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

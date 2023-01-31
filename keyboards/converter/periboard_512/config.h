@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* matrix properties */
 #define MATRIX_COLS 19

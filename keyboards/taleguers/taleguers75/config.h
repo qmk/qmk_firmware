@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -31,8 +30,6 @@
 
 #define ENCODERS_PAD_A { B6 }
 #define ENCODERS_PAD_B { B5 }
-
-/* number of backlight levels */
 
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3

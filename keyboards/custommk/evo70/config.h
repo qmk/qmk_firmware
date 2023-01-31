@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define OLED_UPDATE_INTERVAL 33
 

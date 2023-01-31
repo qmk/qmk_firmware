@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Define Matrix size */
 #define MATRIX_ROWS 5
