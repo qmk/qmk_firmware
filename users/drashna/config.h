@@ -30,6 +30,10 @@
 #    include "pointing/pointing_config.h"
 #endif // POINTING_DEVICE_ENABLE
 
+#ifdef AUDIO_ENABLE
+#    include "audio_config.h"
+#endif // AUDIO_ENABLE
+
 #if defined(WPM_ENABLE)
 // #    define WPM_LAUNCH_CONTROL
 // #    define WPM_UNFILTERED
@@ -39,35 +43,6 @@
 #    define WPM_ESTIMATED_WORD_SIZE 5
 #endif
 
-#ifdef AUDIO_ENABLE
-#    define AUDIO_CLICKY
-#    define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
-
-#    if __has_include("user_song_list.h")
-#        include "user_song_list.h"
-#    endif
-#    ifdef USER_SONG_LIST
-#        define STARTUP_SONG SONG(RICK_ROLL)
-#        define GOODBYE_SONG SONG(SONIC_RING)
-#        define DEFAULT_LAYER_SONGS \
-            { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND), SONG(OVERWATCH_THEME) }
-#        define UNICODE_SONG_MAC SONG(MARIO_THEME)
-#        define UNICODE_SONG_LNX SONG(MARIO_POWERUP)
-#        define UNICODE_SONG_WIN SONG(MARIO_ONEUP)
-#        define UNICODE_SONG_BSD SONG(RICK_ROLL)
-#        define UNICODE_SONG_WINC SONG(RICK_ROLL)
-#    else
-#        define STARTUP_SONG SONG(STARTUP_SOUND)
-#        define GOODBYE_SONG SONG(GOODBYE_SOUND)
-#        define DEFAULT_LAYER_SONGS \
-            { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND), SONG(WORKMAN_SOUND) }
-#        define UNICODE_SONG_MAC SONG(QWERTY_SOUND)
-#        define UNICODE_SONG_LNX SONG(COLEMAK_SOUND)
-#        define UNICODE_SONG_WIN SONG(DVORAK_SOUND)
-#        define UNICODE_SONG_BSD SONG(WORKMAN_SOUND)
-#        define UNICODE_SONG_WINC SONG(PLOVER_GOODBYE_SOUND)
-#    endif
-#endif // !AUDIO_ENABLE
 
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS
 
