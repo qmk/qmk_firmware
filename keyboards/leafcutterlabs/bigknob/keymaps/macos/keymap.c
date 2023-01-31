@@ -22,11 +22,7 @@
 
 #include QMK_KEYBOARD_H
 
-#define _MAIN 0
-
-enum custom_keycodes{
-  APPLE_SEARCH
-};
+enum layers { _MAIN };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {
@@ -39,25 +35,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case APPLE_SEARCH:
-            if (record->event.pressed) {
-                // when keycode APPLE_SEARCH is pressed
-                register_code(KC_LCMD);  // press the Command key
-                register_code(KC_SPACE);  // press the Space key
-            } else {
-                // when keycode APPLE_SEARCH is released
-                unregister_code(KC_LCMD);  // Release the Command key
-                unregister_code(KC_SPACE);  // release the Space key
-            }
-            break;
-    }
-    return true;
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //button closest to USB is first
   [_MAIN] = LAYOUT(
-     KC_MUTE, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, APPLE_SEARCH, KC_MNXT
+     KC_MUTE, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, G(KC_SPC), KC_MNXT
   )
 };
