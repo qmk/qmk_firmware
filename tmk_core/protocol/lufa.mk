@@ -17,6 +17,10 @@ LUFA_SRC = lufa.c \
 	usb_descriptor.c \
 	$(LUFA_SRC_USB)
 
+ifeq ($(strip $(MIDI_ENABLE)), yes)
+	LUFA_SRC += $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/MIDIClassDevice.c
+endif
+
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
 	LUFA_SRC += $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/CDCClassDevice.c
 endif
