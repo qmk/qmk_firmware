@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "Brick",
+    "manufacturer": "Pauper",
+    "url": "https://p3dstore.com/products/cervello-pcb-only-group-buy",
+    "maintainer": "JunoNgx",
+    "usb": {
+        "vid": "0xFEFE",
+        "pid": "0x0001",
+        "device_version": "1.0.0"
+    }
+}
+  
