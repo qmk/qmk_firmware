@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 #define DRIVER_ADDR_1 0b0110000
-#define DRIVER_ADDR_2 0b0110000 // this is here for compliancy reasons.
 
 #define DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 66
@@ -30,3 +29,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define RGB_MATRIX_CENTER { 108, 30 }
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL

@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
       if (IS_LAYER_ON(1)){
         // Scroll
@@ -50,5 +50,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
       }
     }
+    return false;
 }
 #endif

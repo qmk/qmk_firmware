@@ -1,11 +1,12 @@
 {
     "keyboard_name": "polygon",
+    "manufacturer": "rotwitt",
     "url": "https://www.rotwitt.com",
     "maintainer": "trip-trap",
     "usb": {
+        "device_version": "1.0.0",
         "vid": "0x6959",
-        "pid": "0x065F",
-        "device_version": "1.0.0"
+        "pid": "0x065F"
     },
     "features": {
         "encoder": true
