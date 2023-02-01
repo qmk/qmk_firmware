@@ -1,7 +1,7 @@
 {
     "keyboard_name": "ZED1800-Oreum",
     "usb": {
-        "pid": "0x1802",
+        "pid": "0x1802"
     },
     "layouts": {
         "LAYOUT_all": {
