@@ -7,7 +7,9 @@
         "vid": "0xAA12",
         "pid": "0x0001",
         "device_version": "1.0.0"
-    },
+	},
+	"processor": "atmega32u4",
+	"bootloader": "caterina",
     "layouts": {
         "LAYOUT_split_4x6_5": {
             "layout":
