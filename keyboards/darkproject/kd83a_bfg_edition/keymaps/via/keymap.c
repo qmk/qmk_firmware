@@ -78,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false; /* Skip all further processing of this key */
 
         case KC_SPOT:
-            if (record->event.pressed) {              
+            if (record->event.pressed) {
                host_consumer_send(0x221);
                // rgblight_step_reverse();
             } else {
