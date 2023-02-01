@@ -1,8 +1,7 @@
 # orbweaver
 
 This firmware is for a Razer Orbweaver Chroma keypad, modded to replace the stock MCU
-with an Elite Pi RP2040 microcontroller. Mod instructions can be found on geekhack
-https://geekhack.org/index.php?topic=119396.0
+with an Elite Pi RP2040 microcontroller. Mod instructions can be found on [geekhack](https://geekhack.org/index.php?topic=119396.0).
 
 The firmware controls a 6x5 key matrix (4x5 keypad + 6 additional keys
 on the thumb pad and up to 4 additional keys added by user). It also controls a
@@ -19,16 +18,16 @@ and coding suggestions and snippets.
 
 * Keyboard Maintainer: [a_marmot](https://github.com/a-marmot)
 * Hardware Supported: RP2040 + IS31FL3731
-* Hardware Availability: https://geekhack.org/index.php?topic=119396.0
+* Hardware Availability: [https://geekhack.org/index.php?topic=119396.0](https://geekhack.org/index.php?topic=119396.0)
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb /handwired/orbweaver -km default
+    make handwired/orbweaver:default
 
 Flashing example for this keyboard:
 
-    When placed in bootloader mode, the RP2040 appears as an external flash drive. Just 
-    copy the .uf2 file to the mounted drive.
+    make handwired/orbweaver:default:flash
+    
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
