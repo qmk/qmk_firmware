@@ -1,13 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
-# Build Options
-#   comment out to disable the options.
-#
-# EXTRAFLAGS+=-flto
 LTO_ENABLE = yes
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = no 	# Virtual DIP switch configuration
