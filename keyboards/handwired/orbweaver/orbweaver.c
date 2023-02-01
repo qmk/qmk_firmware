@@ -20,8 +20,7 @@
 // and determining which ones addressed individual diodes (60 total). These were then
 // placed in order R-G-B, sweeping left to right, and then top to bottom.  
 
-#include "config.h"
-#include QMK_KEYBOARD_H
+#include "rgb_matrix.h"
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
