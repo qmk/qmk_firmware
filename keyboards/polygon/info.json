@@ -17,6 +17,7 @@
     },
     "processor": "atmega32u4",
     "diode_direction": "COL2ROW",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_iso": {
             "layout": [

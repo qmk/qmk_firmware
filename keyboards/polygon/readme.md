@@ -16,6 +16,7 @@ or
 
     make polygon/ansi:ansi
 
+
 Flashing example for this keyboard:
 
     make polygon/iso:iso:flash
