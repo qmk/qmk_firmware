@@ -47,7 +47,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_LPAD:
             if (record->event.pressed) {
-                host_consumer_send(0x2A0);              
+                host_consumer_send(0x2A0);
                // rgblight_step_reverse();
             } else {
                 host_consumer_send(0);
