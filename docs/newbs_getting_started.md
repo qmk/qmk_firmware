@@ -162,7 +162,7 @@ Now that your QMK build environment is set up, you can build a firmware for your
 
     qmk compile -kb <keyboard> -km default
 
-For example, to build a firmware for a Clueboard 66% you would use:
+For example, to build a firmware for a Clueboard 66%, from the qmk_firmware/keyboards directory you would use:
 
     qmk compile -kb clueboard/66/rev3 -km default
 
