@@ -10,9 +10,3 @@ NKRO_ENABLE = yes       # USB Nkey Rollover
 RGBLIGHT_ENABLE = yes    # RGB lighting
 ENCODER_ENABLE = yes
 AUDIO_ENABLE = no
-
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
-
-# Extra compatibility with standard Planck's layouts
-LAYOUTS += ortho_4x12
