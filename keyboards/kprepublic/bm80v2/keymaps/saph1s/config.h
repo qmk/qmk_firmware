@@ -1,5 +1,4 @@
-/*
-Copyright 2021 Jay Greco
+/* Copyright 2023 Saph1s @Saph1s
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,18 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
-#define DIRECT_PINS {{D4,D5,B1}, {C3,C2,C1}}
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 10
-
-/* Optional encoder pins */
-#define ENCODERS_PAD_A { D6 }
-#define ENCODERS_PAD_B { D7 }
-#define TAP_CODE_DELAY 10
+#ifdef RGB_MATRIX_ENABLE
+    #undef RGB_MATRIX_DEFAULT_MODE
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED
+#endif

@@ -13,8 +13,7 @@
         "nkro": true
     },
     "indicators": {
-        "caps_lock": "GP28",
-        "on_state": 1
+        "caps_lock": "GP28"
     },
     "matrix_pins": {
         "cols": ["GP2", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP18", "GP19", "GP20", "GP21", "GP22", "GP23"],

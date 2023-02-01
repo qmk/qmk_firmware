@@ -8,8 +8,11 @@
         "pid": "0x5F10",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_rev41lp": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_rev41lp": {
+        "LAYOUT": {
             "layout": [
                 {"label":"K00", "x":0, "y":0.54},
                 {"label":"K01", "x":1, "y":0.36},
