@@ -95,7 +95,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0);
                //rgblight_step_reverse();
             }
-            return false; /* Skip all further processing of this key */     
+            return false; /* Skip all further processing of this key */
         
 
         
