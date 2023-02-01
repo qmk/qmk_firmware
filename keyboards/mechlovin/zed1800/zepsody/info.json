@@ -1,7 +1,7 @@
 {
     "keyboard_name": "ZED1800-Zepsody",
     "usb": {
-        "pid": "0x1801",
+        "pid": "0x1801"
     },
     "layouts": {
         "LAYOUT_all": {
