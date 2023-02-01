@@ -11,6 +11,7 @@
     "layout_aliases": {
         "LAYOUT_reviung39": "LAYOUT"
     },
+    "community_layouts": [ "ortho_4x12", "planck_mit" ],
     "layouts": {
         "LAYOUT": {
             "layout": [
