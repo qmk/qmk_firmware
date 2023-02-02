@@ -1,5 +1,7 @@
 SRC += muse.c
 
+// USER_NAME := junongx
+
 ifeq ($(strip $(KEYBOARD)),$(filter $(strip $(KEYBOARD)), planck/rev2 planck/rev3 planck/rev4 planck/rev5))
   BACKLIGHT_ENABLE = yes
 else
