@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+#include "junonum.h"
+
 enum planck_layers {
     _QWERTY,
     _COLEMAK,
