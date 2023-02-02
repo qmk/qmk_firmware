@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,26 @@
 
 #pragma once
 
-/* key matrix pins */
+/* Key matrix pins */
 #define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A5, A6, A7, B0 }
+#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, C14 }
 
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1110100
+/* Pin connected to DS of 74HC595 */
+#define DATA_PIN_74HC595 C15
+/* Pin connected to SH_CP of 74HC595 */
+#define CLOCK_PIN_74HC595 A1
+/* Pin connected to ST_CP of 74HC595 */
+#define LATCH_PIN_74HC595 A0
+/* Pin used index start of 74HC595 */
+#define PIN_START_74HC595 11
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 21
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+#define DRIVER_1_LED_TOTAL 60
+#define DRIVER_2_LED_TOTAL 48
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-#define RGB_MATRIX_CENTER { 56, 16 }
+/* Enable caps-lock LED*/
+#define CAPS_LOCK_LED_INDEX 61
 
-/* Enable num-lock LED */
-#define NUM_LOCK_LED_INDEX 4
+/* Enable NUM_LOCK_LED_INDEX */
+// #define NUM_LOCK_LED_INDEX 37

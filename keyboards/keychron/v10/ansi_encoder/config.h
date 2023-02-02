@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,23 +16,16 @@
 
 #pragma once
 
-#include "quantum.h"
+/* RGB Matrix Configuration */
+#define DRIVER_1_LED_TOTAL 47
+#define DRIVER_2_LED_TOTAL 41
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-#define XXX KC_NO
+/* Encoder Configuration */
+#define ENCODERS_PAD_A { A10 }
+#define ENCODERS_PAD_B { A8 }
+#define ENCODER_RESOLUTION 4
+#define ENCODER_DEFAULT_POS 0x3
 
-#define LAYOUT_numpad_6x4( \
-       K00, K01, K02, K03, \
-       K10, K11, K12, K13, \
-       K20, K21, K22,      \
-       K30, K31, K32, K23, \
-       K40, K41, K42,      \
-       K50,      K52, K43  \
-) \
-{ \
-    { K00, K01, K02, K03 }, \
-    { K10, K11, K12, K13 }, \
-    { K20, K21, K22, K23 }, \
-    { K30, K31, K32, XXX }, \
-    { K40, K41, K42, K43 }, \
-    { K50, XXX, K52, XXX }, \
-}
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 48

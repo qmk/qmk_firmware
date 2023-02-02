@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,7 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A5, A6, A7, B0 }
+#define HAL_USE_I2C TRUE
+#define PAL_USE_CALLBACKS TRUE
 
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1110100
-
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 21
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
-
-#define RGB_MATRIX_CENTER { 56, 16 }
-
-/* Enable num-lock LED */
-#define NUM_LOCK_LED_INDEX 4
+#include_next <halconf.h>

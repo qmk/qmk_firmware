@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,16 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A5, A6, A7, B0 }
-
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1110100
-
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 21
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+#define DRIVER_1_LED_TOTAL 47
+#define DRIVER_2_LED_TOTAL 42
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-#define RGB_MATRIX_CENTER { 56, 16 }
+/* Encoder Configuration */
+#define ENCODERS_PAD_A { A10 }
+#define ENCODERS_PAD_B { A8 }
+#define ENCODER_RESOLUTION 4
+#define ENCODER_DEFAULT_POS 0x3
 
-/* Enable num-lock LED */
-#define NUM_LOCK_LED_INDEX 4
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 47
