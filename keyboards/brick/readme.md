@@ -1,6 +1,4 @@
-
-Brick
-===
+# Brick
 
 A 40% ortholinear Planck-shaped keyboard with bottom blockers for Cervello. Created by Pauper.
 
