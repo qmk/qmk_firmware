@@ -1,4 +1,4 @@
-#ifdef KEYBOARD_reviung39
+#ifdef KEYBOARD_reviung_reviung39
 
 #define LAYOUT_ortho_4x12( \
     K00, K01, K02, K03, K04, K05,      K30, K31, K32, K33, K34, K35, \
