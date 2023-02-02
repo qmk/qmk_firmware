@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 14
 // ROWS: Top to bottom, COLS: Left to right
 
-#define MATRIX_ROW_PINS {B14,PB15,B6,B5,B4}
+#define MATRIX_ROW_PINS {B14,B15,B6,B5,B4}
 #define MATRIX_COL_PINS {B2,A4,A1,A2,F1,F0,C15,C14,C13,B9,B8,B7,B12,B3}
 
 /* COL2ROW or ROW2COL */
