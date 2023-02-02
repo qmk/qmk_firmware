@@ -2,8 +2,8 @@
 
 A 40% ortholinear Planck-shaped keyboard with bottom blockers for Cervello. Created by Pauper.
 
-Keyboard Maintainer: [Juno Nguyen](https://github.com/JunoNgx)
-Hardware Availability: [P3D Store](https://p3dstore.com/collections/invisibolt-acrylic-cases/products/cervello-invisibolt-acrylic-keyboard-case-and-pcb)
+* Keyboard Maintainer: [Juno Nguyen](https://github.com/JunoNgx)
+* Hardware Availability: [P3D Store](https://p3dstore.com/collections/invisibolt-acrylic-cases/products/cervello-invisibolt-acrylic-keyboard-case-and-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 
