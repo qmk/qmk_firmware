@@ -343,6 +343,7 @@ bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         set_rgb_caps_leds();
     }
+    return false;
 }
 
 static void start_effects() {
