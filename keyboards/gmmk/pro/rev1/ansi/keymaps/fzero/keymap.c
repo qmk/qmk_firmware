@@ -307,7 +307,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // --- RGB SUPPORT FUNCTIONS ---------------------------------------------------
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user() {
+bool rgb_matrix_indicators_user(void) {
     if (effect_started_time > 0) {
         /* Render blinking EFFECTS */
         const uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
