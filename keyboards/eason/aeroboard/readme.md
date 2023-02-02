@@ -1,6 +1,6 @@
 # aeroboard
 
-** A customizable hotswap 70% keyboard.
+A customizable hotswap 70% keyboard.
 
 * Keyboard Maintainer: [EASON](https://github.com/EasonQian1)
 * Hardware Supported: ab70lite
