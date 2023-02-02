@@ -110,9 +110,7 @@ bool qp_lvgl_attach(painter_device_t device) {
     selected_display = device;
 
     uint16_t           panel_width, panel_height, offset_x, offset_y;
-    painter_rotation_t rotation;
-
-    qp_get_geometry(selected_display, &panel_width, &panel_height, &rotation, &offset_x, &offset_y);
+    qp_get_geometry(selected_display, &panel_width, &panel_height, NULL, &offset_x, &offset_y);
 
     panel_width -= offset_x;
     panel_height -= offset_y;
