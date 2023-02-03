@@ -30,8 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #define RGBLED_NUM 4
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
