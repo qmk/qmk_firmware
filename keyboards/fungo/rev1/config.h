@@ -18,7 +18,6 @@
 
 
 
-#include "config_common.h"
 
 #define SOFT_SERIAL_PIN D3	// RX8
 

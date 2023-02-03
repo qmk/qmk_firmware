@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // Key pins (including encoder press switches).
 // The NO_PIN entries are reserved for encoder rotation mappings.

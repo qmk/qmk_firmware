@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0, F6, F5, F4, F1, F0 }
@@ -27,8 +26,6 @@
 
 #define ENCODERS_PAD_A { B6 }
 #define ENCODERS_PAD_B { B5 }
-
-/* number of backlight levels */
 
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3

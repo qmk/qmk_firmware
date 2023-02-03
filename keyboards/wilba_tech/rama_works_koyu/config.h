@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 // KOYU PCB pin-out
 #define MATRIX_ROW_PINS { F0, F1, F4, F6, F7 }

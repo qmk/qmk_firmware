@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* Keyboard Matrix Assignments */
 #define DIRECT_PINS { \
@@ -30,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { D1, F5, F7 }
 
 #define BACKLIGHT_PIN B5
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 7
 
 #define RGB_DI_PIN D3

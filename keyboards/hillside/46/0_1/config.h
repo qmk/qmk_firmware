@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Split */
 #define SPLIT_HAND_MATRIX_GRID B5, F6

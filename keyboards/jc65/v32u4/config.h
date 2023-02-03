@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* QMK JC65 PCB default pin-out */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }

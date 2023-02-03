@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B3, B2, B1, B0, D4 }
@@ -30,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN B6
 #define LED_PIN_ON_STATE 0
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3

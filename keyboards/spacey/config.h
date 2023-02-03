@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define ENCODERS_PAD_A { D0 }
 #define ENCODERS_PAD_B { D1 }
@@ -50,10 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
 
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
 //#define RGB_DI_PIN E2
 //#ifdef RGB_DI_PIN
 //#    define RGBLED_NUM 16
@@ -72,9 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

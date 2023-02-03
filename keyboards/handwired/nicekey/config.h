@@ -17,15 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_COL_PINS { C6 }
 #define MATRIX_ROW_PINS { B6 }
 
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5

@@ -15,7 +15,6 @@
   */ 
 #pragma once
 
-#include "config_common.h"
 
 /* matrix sz handy ruler:  1   2   3   4   5   6   7   8   9  10  11  12 */
 /* key matrix pins */

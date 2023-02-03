@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 //Matrix is 3x5 instead of 3x4, as the 3 encoders are wired into the matrix
 

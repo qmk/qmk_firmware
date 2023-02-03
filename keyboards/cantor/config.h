@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define DIRECT_PINS {{B1, B10, A8, B15, B14, B13}, \
                      {B9, B8, B5, B4, B3, A15}, \

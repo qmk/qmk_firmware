@@ -14,7 +14,6 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS { B1, B2 }
 #define MATRIX_COL_PINS { B3, B4 }

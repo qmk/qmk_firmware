@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /*
  * Keyboard Matrix Assignments
@@ -35,10 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_NUM_LOCK_PIN D7
 #define LED_CAPS_LOCK_PIN D6
 #define LED_SCROLL_LOCK_PIN B4
-
-// #define BACKLIGHT_PIN F1
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN F1
 #ifdef RGB_DI_PIN
@@ -68,9 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

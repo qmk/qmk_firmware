@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F0, B5, B4, D7, D6 }
@@ -33,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 #define MASTER_LEFT
 #define USE_I2C
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /*Bootmagic boot button, set to topmost, leftmost key */
 #define BOOTMAGIC_LITE_ROW	1

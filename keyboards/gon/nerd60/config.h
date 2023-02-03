@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* backlight */
 #define BACKLIGHT_PIN B7

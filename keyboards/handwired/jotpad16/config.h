@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* pro_micro pin-out */
 #define MATRIX_ROW_PINS { B6, B2, D2, D3 }

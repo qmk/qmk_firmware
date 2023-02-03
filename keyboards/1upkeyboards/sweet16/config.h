@@ -1,8 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 10
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

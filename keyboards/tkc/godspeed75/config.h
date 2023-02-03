@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROW_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B10, B11, A9, A10 }
@@ -30,27 +29,6 @@
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
 
 /*
  * Feature disable options

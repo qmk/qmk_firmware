@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Pinout */
 #define DIRECT_PINS { \

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4, B5 }
@@ -25,12 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

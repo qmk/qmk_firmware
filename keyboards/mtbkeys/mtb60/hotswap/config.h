@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pinout */
 #define MATRIX_ROW_PINS { D6, D7, B4, B5, D5 }

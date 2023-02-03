@@ -17,7 +17,6 @@ Copyright 2022 Nathan Spears
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B7, D0, D6, B4, B5 }

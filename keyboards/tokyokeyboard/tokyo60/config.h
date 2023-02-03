@@ -1,8 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* number of backlight levels */
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 6

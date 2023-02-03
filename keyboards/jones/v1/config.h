@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // Same pins for Round-Robin matrix.
 #define MATRIX_ROW_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }

@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Keyboard Matrix Assignments */
 // clang-format off

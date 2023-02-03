@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Keyboard Matrix Assignment s*/
 #define MATRIX_ROW_PINS { B3, B2, F4, F5, F6 }

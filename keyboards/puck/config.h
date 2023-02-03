@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS { D2, D3, C6, C7 }
 #define MATRIX_COL_PINS { B4, D7, D6 }
@@ -11,7 +10,6 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
 /* Locking resynchronize hack */

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* define direct pins used */
 #define DIRECT_PINS { { D1,C6,B4,B5,B2}, { D0,D4,D7,E6,B6} }

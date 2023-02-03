@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 // Wiring of Each Half
 #define DIODE_DIRECTION COL2ROW

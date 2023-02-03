@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 /* Column/Row IO definitions - dualencoder version is true 4x4 */
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }

@@ -18,7 +18,6 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#include "config_common.h"
 
 /*
  * Keyboard Matrix Assignments

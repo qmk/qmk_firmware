@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* m3n3van PCB default pin-out */
 #define MATRIX_ROW_PINS { B5, B6, C6, C7 }

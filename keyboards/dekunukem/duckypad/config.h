@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define DIRECT_PINS {{ B13, B14, B15, A8, A15, B3, B4, B5, B6, B7, C13, C14, C15, F0, F1, A1, A2 }}
 

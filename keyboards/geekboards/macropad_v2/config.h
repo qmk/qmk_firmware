@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "config_common.h"
 
 #define DIRECT_PINS {{B13, B15, B3, B5}, {B12, B14, A13, B7}}
 

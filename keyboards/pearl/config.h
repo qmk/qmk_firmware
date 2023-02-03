@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define LED_NUM_LOCK_PIN D0
 #define LED_CAPS_LOCK_PIN D1

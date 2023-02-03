@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /*
  * Keyboard Matrix Assignments
@@ -39,7 +38,6 @@
 #define DIODE_DIRECTION ROW2COL
 
 #define BACKLIGHT_PIN B6
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 15
 
 #define RGB_DI_PIN E2

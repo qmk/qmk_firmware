@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -85,7 +84,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
-//#define BACKLIGHT_BREATHING //not working with splits right now
 #define BREATHING_PERIOD 6
 #endif
 

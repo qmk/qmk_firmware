@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Handwired pin-out */
 #define MATRIX_ROW_PINS \

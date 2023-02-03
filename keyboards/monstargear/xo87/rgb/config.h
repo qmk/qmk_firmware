@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define BACKLIGHT_PIN F5
 #define MATRIX_ROW_PINS { E6,E7, E3, B0, B1 ,A2}

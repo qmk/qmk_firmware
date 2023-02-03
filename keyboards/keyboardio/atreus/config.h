@@ -16,14 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-//#define BACKLIGHT_LEVELS 3
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 

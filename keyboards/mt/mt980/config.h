@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B7, B3, B2, B1, B0, E6, F0, F1, F4, F5, F6, F7 }
@@ -14,7 +13,6 @@
 #define LED_SCROLL_LOCK_PIN B5
 #define LED_PIN_ON_STATE 0
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3

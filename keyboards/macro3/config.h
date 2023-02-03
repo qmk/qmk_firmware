@@ -4,7 +4,6 @@
  */
 
 #pragma once
-#include "config_common.h"
 
 /* key matrix pins */
 #define DIRECT_PINS {   \

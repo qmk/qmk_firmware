@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS \
     { B0, B1, B2, B3, B4, B5, B6, B7, B8 }
@@ -108,6 +107,3 @@
 
 /* Set debounce time to 5ms */
 #define DEBOUNCE 5
-
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
-// #define FORCE_NKRO

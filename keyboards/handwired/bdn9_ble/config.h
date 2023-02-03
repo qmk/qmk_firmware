@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* Keyboard Matrix Assignments */
 #define DIRECT_PINS { \
@@ -27,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 #define BACKLIGHT_PIN F6
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

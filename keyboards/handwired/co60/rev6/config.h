@@ -16,7 +16,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* ROWS: Top to bottom, COLS: Left to right
 */

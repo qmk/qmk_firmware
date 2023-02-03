@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins 
  * Direct pins is not used because there is not a shared ground position

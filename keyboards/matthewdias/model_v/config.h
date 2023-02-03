@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* model-v PCB default pin-out */
 #define MATRIX_ROW_PINS { D3, D5, D6, D4 }

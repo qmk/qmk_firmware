@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D4, D5 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7 }
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Backlight */
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

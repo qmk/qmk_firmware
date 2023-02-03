@@ -1,7 +1,6 @@
 
 
 #pragma once
-#include "config_common.h"
 
 /* default pin-out */
 #define MATRIX_ROW_PINS { NO_PIN }

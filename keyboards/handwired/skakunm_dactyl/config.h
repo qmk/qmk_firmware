@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // wiring of each half
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }

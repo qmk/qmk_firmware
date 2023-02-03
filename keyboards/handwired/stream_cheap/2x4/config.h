@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* define direct pins used */
 #define DIRECT_PINS                          \

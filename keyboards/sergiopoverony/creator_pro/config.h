@@ -15,7 +15,6 @@
  */
 
 #pragma once
-#include "config_common.h"
 
 #define DIRECT_PINS {   \
     { D1, D4, C6, D7, \

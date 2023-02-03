@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // ROWS: Top to bottom, COLS: Left to right
 
@@ -26,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 6

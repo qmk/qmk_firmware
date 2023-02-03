@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define DIRECT_PINS { \
     { E6, F7, F6, F5, F4 }, \

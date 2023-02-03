@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* pcb default pin-out */
 #define MATRIX_ROW_PINS { E6, B4, B5 }

@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // Wiring pins
 #define MATRIX_ROW_PINS { F7, B1, B3, B2, B4 }

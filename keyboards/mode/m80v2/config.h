@@ -22,9 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
@@ -34,3 +31,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define LED_CAPS_LOCK_PIN A0
+#define LED_PIN_ON_STATE 0

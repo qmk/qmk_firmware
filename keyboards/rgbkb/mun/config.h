@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // Last pins reserved for encoder / touch encoder support
 #define MATRIX_ROW_PINS { A1, A3, B3, A13, B15, NO_PIN, NO_PIN }

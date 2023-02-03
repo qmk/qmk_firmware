@@ -17,7 +17,6 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 
 #pragma once
 
-#include "config_common.h"
 
 // Wiring of each half
 #define MATRIX_ROW_PINS { B1, B3, B2, B6 }

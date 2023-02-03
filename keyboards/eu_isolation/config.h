@@ -14,7 +14,6 @@
 */ 
 #pragma once
 
-#include "config_common.h"
 
 /* NIU Mini PCB default pin-out */
 #define MATRIX_ROW_PINS { D2, D3, F1, F0 }

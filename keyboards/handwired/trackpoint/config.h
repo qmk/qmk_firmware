@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 #ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5

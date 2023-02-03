@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define DEBOUNCE 5
 #define MATRIX_HAS_GHOST

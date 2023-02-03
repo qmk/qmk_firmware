@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D6, D2, D4, D3, D5, D7, C6, B6, F5 }

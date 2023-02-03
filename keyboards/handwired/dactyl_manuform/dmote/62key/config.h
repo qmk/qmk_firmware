@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 // MCUs are flipped on each side, relative to the shape of the case,
 // but for ease of mounting, the pinout is not flipped with the controller.

@@ -181,7 +181,7 @@ static uint8_t layout_conversion_dip_state = 0;
 #define LAYOUT_base_wrapper(...) LAYOUT_base(__VA_ARGS__)
 
 #ifdef SWAP_HANDS_ENABLE
-#define SW_TG SH_TG
+#define SW_TG SH_TOGG
 #else
 #define SW_TG _______
 #endif

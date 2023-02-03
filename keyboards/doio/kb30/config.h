@@ -17,14 +17,10 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS { B3, B4, B9, B8, A5, A6 }
 #define MATRIX_COL_PINS { B14, B13, B12, B0, A7, A9, A8 }
 #define DIODE_DIRECTION COL2ROW // COL2ROW or ROW2COL
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
@@ -46,8 +42,6 @@
     { 4, 4, 2 }
 
 // #define QMK_KEYS_PER_SCAN 12
-// #define FORCE_NKRO
-
 
 /* OLED */
 #ifdef OLED_ENABLE

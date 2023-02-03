@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 /* split options, use EEPROM for side detection */
 #define EE_HANDS

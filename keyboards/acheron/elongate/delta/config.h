@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_COL_PINS { A10, A9, A8, B14, B12, B11, B10, B2, B1, A7, A5, B9, B8, B7, B6 }
 #define MATRIX_ROW_PINS { B3, A15, B0, B4, B5 }
@@ -52,9 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

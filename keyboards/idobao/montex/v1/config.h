@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D4, D6, D7, B4, B5, C6 }
@@ -25,7 +24,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3

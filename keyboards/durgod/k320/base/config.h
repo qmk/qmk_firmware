@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define WAIT_US_TIMER           GPTD3
 

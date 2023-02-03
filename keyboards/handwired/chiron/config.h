@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // Pro Micro Pins          4,  6,  7,  8,  9
 #define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }

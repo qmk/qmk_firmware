@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 #define KEYBOARD_PCB_REV 11
 

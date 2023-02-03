@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#include "config_common.h"
 
 // Keyboard Matrix Assignments
 #define MATRIX_ROW_PINS { E6, F0, F4, F6, F7 }

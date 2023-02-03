@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { B5 }

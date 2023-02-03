@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* default pinout */
 #define MATRIX_ROW_PINS { D5, D3, D2, D1, D0 }

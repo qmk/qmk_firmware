@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A4, A13, A10, C13, C14 }
 #define MATRIX_ROW_PINS { A9, A8, A3, A5 }
@@ -26,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 6
 
 #define GRAVE_ESC_CTRL_OVERRIDE
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5

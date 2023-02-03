@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS { B0, C7, D2, F7, D1, D0 }
 #define MATRIX_COL_PINS { D3, D5, D4, D6, D7, B4, B5, E6, F0, F1, F4, F5, F6, C6, B7, B3 }

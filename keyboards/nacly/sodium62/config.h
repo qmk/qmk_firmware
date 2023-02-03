@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F7, D4, D7, B4, B6 }

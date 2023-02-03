@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS { A0, A1, A2, B11, B6 }
 #define MATRIX_COL_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B10, B12, B13, B14, B15, A8, A9 }
@@ -32,34 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN A14
 #define LED_PIN_ON_STATE 0
 
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-// #define MATRIX_HAS_GHOST
-
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
 // #define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-// #define FORCE_NKRO
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

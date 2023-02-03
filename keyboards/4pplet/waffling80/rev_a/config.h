@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 // ROWS: Top to bottom, COLS: Left to right
 #define MATRIX_ROW_PINS {C4,C5,B4,B3,B1,B0,D6,D5,D3,D4,D1,D2}
@@ -24,9 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

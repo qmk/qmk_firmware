@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // wiring of each half
 #define MATRIX_ROW_PINS { B4, B5, F4, F5, F6 }

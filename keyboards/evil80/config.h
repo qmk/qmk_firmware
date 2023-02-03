@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { F1, F4, F5, F0, B3, B0 }
@@ -8,9 +7,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 #define LED_CAPS_LOCK_PIN B6
 #define LED_SCROLL_LOCK_PIN B7

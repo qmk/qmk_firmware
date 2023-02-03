@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 /*
  * Keyboard Matrix Assignments
@@ -44,9 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic lite */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 4
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

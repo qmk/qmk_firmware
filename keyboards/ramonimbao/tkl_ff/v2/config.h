@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF

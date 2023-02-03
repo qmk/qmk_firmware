@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 //no underglow - prototype
 //#define MATRIX_ROW_PINS { B1, B3, B7, F6, F7 }

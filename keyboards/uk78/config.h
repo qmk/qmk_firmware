@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F3, F2, F1, F0, A0 }
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix pins */
 /* NOTE: With Round-Robin matrix, set same pins for both. */
