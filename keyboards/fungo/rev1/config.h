@@ -52,9 +52,6 @@
 #define MATRIX_IO_DELAY 15  // default  30
 #define TAP_CODE_DELAY  50   // default 0, disabled
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 3
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

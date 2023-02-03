@@ -13,7 +13,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 8
 #define TAPPING_TERM 150
 
 #define FORCE_NKRO

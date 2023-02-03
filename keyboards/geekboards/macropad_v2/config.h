@@ -92,9 +92,6 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define WAIT_FOR_USB
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0

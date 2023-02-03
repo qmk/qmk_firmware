@@ -20,8 +20,6 @@
 // rows are doubled for split
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
-/* The scanners already debounce for us */
-#define DEBOUNCE 0
 
 #define RGB_MATRIX_LED_COUNT 132
 

@@ -25,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIRECT_PINS {{GP6,GP8,GP10}, {GP29,GP28,GP22}}
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 10
-
 /* Optional encoder pins */
 #define ENCODERS_PAD_A { GP24 }
 #define ENCODERS_PAD_B { GP25 }

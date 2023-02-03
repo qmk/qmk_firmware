@@ -8,6 +8,7 @@
         "pid": "0x6965",
         "device_version": "0.0.1"
     },
+    "debounce": 4,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

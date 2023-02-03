@@ -3,5 +3,6 @@
     "usb": {
         "pid": "0x1224",
         "device_version": "0.0.1"
-    }
+    },
+    "debounce": 3
 }

@@ -8,6 +8,7 @@
     "pid": "0x980C",
     "device_version": "1.0.0"
   },
+  "debounce": 0,
   "layouts": {
     "LAYOUT": {
       "layout": [

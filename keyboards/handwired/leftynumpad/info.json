@@ -8,6 +8,7 @@
         "pid": "0xBEEF",
         "device_version": "0.0.1"
     },
+    "debounce": 10,
     "layouts": {
         "LAYOUT": {
             "layout": [

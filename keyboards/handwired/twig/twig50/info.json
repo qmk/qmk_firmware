@@ -8,6 +8,7 @@
       "pid": "0x6060",
       "device_version": "0.2.1"
     },
+    "debounce": 8,
     "layouts": {
       "LAYOUT_diag_4x14": {
         "layout": [
