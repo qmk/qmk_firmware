@@ -15,7 +15,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "process_repeat_key.h"
 
 /**
  * @brief Process handler for Repeat Key feature.
