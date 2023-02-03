@@ -32,8 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* mapping backlight LEDs to correct Pin */
 #define BACKLIGHT_PIN B7
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE  5
 #define TAPPING_TERM      175
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

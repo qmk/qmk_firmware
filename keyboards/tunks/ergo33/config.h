@@ -30,9 +30,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Underglow + top RGB configuration */
 #define RGB_DI_PIN D4
 #define RGBLIGHT_EFFECT_BREATHING
