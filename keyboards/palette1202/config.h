@@ -35,9 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // if you want to reverse encoder direction
 // #define ENCODER_DIRECTION_FLIP
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Register custom font file */
 #ifdef OLED_ENABLE
   #define OLED_FONT_H "lib/glcdfont.c"

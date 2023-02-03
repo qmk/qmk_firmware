@@ -59,9 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Set lower left modifier key as a bootmagic key */
 #define BOOTMAGIC_LITE_ROW 1
 #define BOOTMAGIC_LITE_COLUMN 0
