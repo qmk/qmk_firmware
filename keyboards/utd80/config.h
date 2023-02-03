@@ -37,9 +37,6 @@
 #define LED_CAPS_LOCK_PIN B6
 #define LED_SCROLL_LOCK_PIN B5
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 

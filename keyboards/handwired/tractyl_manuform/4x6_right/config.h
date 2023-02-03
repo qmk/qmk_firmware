@@ -43,10 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_HAND_PIN A6
 
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 // #define DEBUG_LED_PIN                  D6
 
 #define ROTATIONAL_TRANSFORM_ANGLE     -25

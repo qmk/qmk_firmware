@@ -32,9 +32,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 #define BACKLIGHT_LEVELS 6
 
 /* Set 0 if debouncing isn't needed */

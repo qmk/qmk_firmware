@@ -40,9 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 500
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 #ifdef BACKLIGHT_ENABLE
   #define BACKLIGHT_PIN B5
   #define BACKLIGHT_LEVELS 9

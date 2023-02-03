@@ -34,9 +34,6 @@
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 

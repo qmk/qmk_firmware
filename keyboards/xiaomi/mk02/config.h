@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B13, B14, B15, A15, B3, B4, B5, B6, B7, B8, B9, C14, C15, B11, A1, A2, B12 }
 #define DIODE_DIRECTION ROW2COL
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 

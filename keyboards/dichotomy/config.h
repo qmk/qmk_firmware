@@ -22,9 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 #define ONESHOT_TIMEOUT 500
 
 /*
