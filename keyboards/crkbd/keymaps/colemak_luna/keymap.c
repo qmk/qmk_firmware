@@ -374,11 +374,7 @@ bool oled_task_user(void) {
             }
             break;
         case KC_CAPS:
-            if (record->event.pressed) {
-                isBarking = true;
-            } else {
-                isBarking = false;
-            }
+            isBarking = record->event.pressed;
             break;
  
         /* KEYBOARD PET STATUS END */
