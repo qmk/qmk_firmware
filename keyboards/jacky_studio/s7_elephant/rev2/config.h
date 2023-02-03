@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -43,7 +42,6 @@
 #define DIODE_DIRECTION ROW2COL
 
 #define BACKLIGHT_PIN B6
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 15
 
 #define RGB_DI_PIN E2

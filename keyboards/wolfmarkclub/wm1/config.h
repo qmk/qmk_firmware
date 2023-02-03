@@ -27,12 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
-// #define BACKLIGHT_PIN A2
-// #ifdef BACKLIGHT_PIN
-// #define BACKLIGHT_LEVELS 5
-// #endif
-
 #define RGB_DI_PIN A3
 #ifdef RGB_DI_PIN
 #define RGBLED_NUM 18
@@ -52,8 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #endif
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5

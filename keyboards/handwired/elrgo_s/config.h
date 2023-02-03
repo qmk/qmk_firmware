@@ -17,7 +17,6 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 
 #pragma once
 
-#include "config_common.h"
 
 // Rows are doubled-up for splits
 #define MATRIX_ROWS 8

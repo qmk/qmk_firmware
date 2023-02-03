@@ -23,7 +23,6 @@ where some things are disabled to save space as well.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 1

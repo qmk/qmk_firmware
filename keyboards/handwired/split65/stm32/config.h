@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 // Audio
 #define AUDIO_PIN A5

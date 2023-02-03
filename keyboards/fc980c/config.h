@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* Maximum dynamic keymap layers (constrained by EEPROM space) */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
@@ -30,15 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MATRIX_COL_PINS { F5, B1, F0, F1, F4, B3, D7, D6, D4, D5, D3, D2, D1, D0 }
 
 //#define DIODE_DIRECTION
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS  1
-
-/* mapping backlight LEDs to correct Pin */
-// #define BACKLIGHT_PIN B7
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE  0
