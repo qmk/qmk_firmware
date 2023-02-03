@@ -145,15 +145,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     };
 #endif
 
-#ifndef BACKLIGHT_ENABLE
-    layer_state_t layer_state_set_user(layer_state_t state) {
-        return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    }
-
-#else
-    layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+#   ifdef BACKLIGHT_ENABLE
         // LED control, lighting up when Fn layer is activated
-        state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
         switch (get_highest_layer(state)) {
         case _QWERTY:
             backlight_set(0);
@@ -165,9 +160,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             backlight_set(3);
             break;
         }
-        return state;
-    }
-#endif
+#   endif
+
+    return state;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
