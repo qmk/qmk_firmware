@@ -21,9 +21,6 @@
 #define MATRIX_COLS 15
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
