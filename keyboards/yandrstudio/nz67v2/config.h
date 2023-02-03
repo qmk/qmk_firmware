@@ -30,9 +30,6 @@
 
 #define TAP_CODE_DELAY 15
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #ifdef ENCODER_ENABLE
 
 #   define ENCODERS_PAD_A { A9 }
