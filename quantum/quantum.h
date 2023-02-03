@@ -241,6 +241,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef TRI_LAYER_ENABLE
+#    include "tri_layer.h"
 #    include "process_tri_layer.h"
 #endif
 

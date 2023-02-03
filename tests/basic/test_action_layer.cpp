@@ -415,36 +415,36 @@ TEST_F(ActionLayer, TriLayerStateTest) {
     EXPECT_NO_REPORT(driver);
     lower_layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(1));
-    EXPECT_FALSE(layer_state_is(2));
-    EXPECT_FALSE(layer_state_is(3));
+    EXPECT_TRUE(layer_state_is(get_tri_layer_lower_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_raise_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_adjust_layer()));
     VERIFY_AND_CLEAR(driver);
 
     /* Release Lower. */
     EXPECT_NO_REPORT(driver);
     lower_layer_key.release();
     run_one_scan_loop();
-    EXPECT_FALSE(layer_state_is(1));
-    EXPECT_FALSE(layer_state_is(2));
-    EXPECT_FALSE(layer_state_is(3));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_lower_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_raise_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_adjust_layer()));
     VERIFY_AND_CLEAR(driver);
 
     /* Press Raise. */
     EXPECT_NO_REPORT(driver);
     raise_layer_key.press();
     run_one_scan_loop();
-    EXPECT_FALSE(layer_state_is(1));
-    EXPECT_TRUE(layer_state_is(2));
-    EXPECT_FALSE(layer_state_is(3));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_lower_layer()));
+    EXPECT_TRUE(layer_state_is(get_tri_layer_raise_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_adjust_layer()));
     VERIFY_AND_CLEAR(driver);
 
     /* Release Raise. */
     EXPECT_NO_REPORT(driver);
     raise_layer_key.release();
     run_one_scan_loop();
-    EXPECT_FALSE(layer_state_is(1));
-    EXPECT_FALSE(layer_state_is(2));
-    EXPECT_FALSE(layer_state_is(3));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_lower_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_raise_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_adjust_layer()));
     VERIFY_AND_CLEAR(driver);
 
 
@@ -452,27 +452,27 @@ TEST_F(ActionLayer, TriLayerStateTest) {
     EXPECT_NO_REPORT(driver);
     lower_layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(1));
-    EXPECT_FALSE(layer_state_is(2));
-    EXPECT_FALSE(layer_state_is(3));
+    EXPECT_TRUE(layer_state_is(get_tri_layer_lower_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_raise_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_adjust_layer()));
 
     raise_layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(1));
-    EXPECT_TRUE(layer_state_is(2));
-    EXPECT_TRUE(layer_state_is(3));
+    EXPECT_TRUE(layer_state_is(get_tri_layer_lower_layer()));
+    EXPECT_TRUE(layer_state_is(get_tri_layer_raise_layer()));
+    EXPECT_TRUE(layer_state_is(get_tri_layer_adjust_layer()));
 
     raise_layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_is(1));
-    EXPECT_FALSE(layer_state_is(2));
-    EXPECT_FALSE(layer_state_is(3));
+    EXPECT_TRUE(layer_state_is(get_tri_layer_lower_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_raise_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_adjust_layer()));
 
     lower_layer_key.release();
     run_one_scan_loop();
-    EXPECT_FALSE(layer_state_is(1));
-    EXPECT_FALSE(layer_state_is(2));
-    EXPECT_FALSE(layer_state_is(3));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_lower_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_raise_layer()));
+    EXPECT_FALSE(layer_state_is(get_tri_layer_adjust_layer()));
     VERIFY_AND_CLEAR(driver);
 
 }

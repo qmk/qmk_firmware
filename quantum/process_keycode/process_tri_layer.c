@@ -4,37 +4,29 @@
 #include "process_tri_layer.h"
 #include "action_layer.h"
 
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-
-#ifndef TRI_LAYER_LOWER_LAYER
-#    define TRI_LAYER_LOWER_LAYER 1
-#endif
-#ifndef TRI_LAYER_RAISE_LAYER
-#    define TRI_LAYER_RAISE_LAYER 2
-#endif
-#ifndef TRI_LAYER_ADJUST_LAYER
-#    define TRI_LAYER_ADJUST_LAYER 3
-#endif
+extern uint8_t tri_layer_lower_layer;
+extern uint8_t tri_layer_raise_layer;
+extern uint8_t tri_layer_adjust_layer;
 
 bool process_tri_layer(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QK_TRI_LAYER_LOWER:
             if (record->event.pressed) {
-                layer_on(TRI_LAYER_LOWER_LAYER);
-                update_tri_layer(TRI_LAYER_LOWER_LAYER, TRI_LAYER_RAISE_LAYER, TRI_LAYER_ADJUST_LAYER);
+                layer_on(tri_layer_lower_layer);
+                update_tri_layer(tri_layer_lower_layer, tri_layer_raise_layer, tri_layer_adjust_layer);
             } else {
-                layer_off(TRI_LAYER_LOWER_LAYER);
-                update_tri_layer(TRI_LAYER_LOWER_LAYER, TRI_LAYER_RAISE_LAYER, TRI_LAYER_ADJUST_LAYER);
+                layer_off(tri_layer_lower_layer);
+                update_tri_layer(tri_layer_lower_layer, tri_layer_raise_layer, tri_layer_adjust_layer);
             }
             return false;
             break;
         case QK_TRI_LAYER_RAISE:
             if (record->event.pressed) {
-                layer_on(TRI_LAYER_RAISE_LAYER);
-                update_tri_layer(TRI_LAYER_LOWER_LAYER, TRI_LAYER_RAISE_LAYER, TRI_LAYER_ADJUST_LAYER);
+                layer_on(tri_layer_raise_layer);
+                update_tri_layer(tri_layer_lower_layer, tri_layer_raise_layer, tri_layer_adjust_layer);
             } else {
-                layer_off(TRI_LAYER_RAISE_LAYER);
-                update_tri_layer(TRI_LAYER_LOWER_LAYER, TRI_LAYER_RAISE_LAYER, TRI_LAYER_ADJUST_LAYER);
+                layer_off(tri_layer_raise_layer);
+                update_tri_layer(tri_layer_lower_layer, tri_layer_raise_layer, tri_layer_adjust_layer);
             }
             return false;
             break;
