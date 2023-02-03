@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 #define DIRECT_PINS { { GP8, GP7, GP6 } }
 #define ENCODERS_PAD_A { GP5 }
 #define ENCODERS_PAD_B { GP4 }
