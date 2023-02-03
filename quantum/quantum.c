@@ -446,16 +446,6 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
     default_layer_set((layer_state_t)1 << default_layer);
 }
 
-layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
-    layer_state_t mask3  = (layer_state_t)1 << layer3;
-    return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
-}
-
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
-}
-
 // TODO: remove legacy api
 void matrix_init_quantum(void) {
     matrix_init_kb();
