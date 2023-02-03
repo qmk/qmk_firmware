@@ -73,9 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_SPD_STEP 8
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #ifndef OLED_FONT_H
 #   define OLED_FONT_H "keyboards/elephant42/lib/glcdfont.c"
 #endif
