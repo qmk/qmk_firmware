@@ -25,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN B5
 #define LED_SCROLL_LOCK_PIN B6
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Backlight */
 #define BACKLIGHT_PIN C6
 #define BACKLIGHT_LEVELS 3

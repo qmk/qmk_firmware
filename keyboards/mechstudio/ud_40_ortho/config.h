@@ -49,8 +49,5 @@
 #define RGBLIGHT_EFFECT_TWINKLE
  #endif
 
-/* set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define QMK_ESC_OUTPUT F0 // usually COL
 #define QMK_ESC_INPUT B7 // usually ROW

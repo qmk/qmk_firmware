@@ -31,8 +31,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 #define FORCE_NKRO
 
 /* 将USB 轮询速率更改为 1000hz 并为精英游戏每次扫描使用更大的密钥*/

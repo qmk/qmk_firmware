@@ -78,6 +78,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // iOS device need lessthan 100
   #define USB_MAX_POWER_CONSUMPTION 100
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

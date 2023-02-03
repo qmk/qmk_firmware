@@ -23,9 +23,6 @@
 #define MATRIX_COL_PINS {B7, B3, B2, B1, B0, F0, F1, F4, F5, F6, F7, C7, C6, B6, D7}
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

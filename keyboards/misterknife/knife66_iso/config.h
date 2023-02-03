@@ -46,9 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 160
 #endif
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 #define WS2812_PWM_DRIVER PWMD1  // default: PWMD1
 #define WS2812_PWM_CHANNEL 2  // default: 2
 #define WS2812_PWM_PAL_MODE 2  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
