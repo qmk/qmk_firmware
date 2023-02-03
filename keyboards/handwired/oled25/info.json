@@ -23,6 +23,7 @@
         "pid": "0x3546",
         "vid": "0xF095"
     },
+    "community_layouts": ["ortho_5x5"],
     "layouts": {
         "LAYOUT_ortho_5x5": {
             "layout": [
