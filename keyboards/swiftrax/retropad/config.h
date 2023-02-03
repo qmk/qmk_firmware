@@ -51,9 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /*EEPROM for via*/
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
