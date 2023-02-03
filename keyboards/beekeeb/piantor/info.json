@@ -11,7 +11,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "debounce": 5,
     "processor": "RP2040",
     "url": "https://github.com/beekeeb/piantor",
     "usb": {

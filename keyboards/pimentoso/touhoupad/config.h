@@ -40,5 +40,3 @@
   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
-
-#define DEBOUNCE 5

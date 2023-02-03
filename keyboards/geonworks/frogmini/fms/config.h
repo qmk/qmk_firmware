@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 5
-
 #define BACKLIGHT_PIN           A10
 #define BACKLIGHT_PWM_DRIVER    PWMD1
 #define BACKLIGHT_PWM_CHANNEL   3

@@ -38,8 +38,6 @@
 
 #define ENCODER_RESOLUTION 3
 
-#define DEBOUNCE 5
-
 #define LOCKING_SUPPORT_ENABLE
 
 #define RGB_DI_PIN F0

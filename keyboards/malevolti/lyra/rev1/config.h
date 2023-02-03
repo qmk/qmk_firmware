@@ -28,8 +28,5 @@
 
 #define TAPPING_TERM 100
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* communication between sides */
 #define SOFT_SERIAL_PIN D2

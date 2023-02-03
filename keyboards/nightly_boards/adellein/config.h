@@ -64,9 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_CW_KEY  { { 3, 3 } }
 #define ENCODERS_CCW_KEY { { 1, 3 } }
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

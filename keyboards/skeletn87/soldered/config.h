@@ -55,6 +55,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_SLEEP
 #endif
-
-/* Debounce reduces chatter */
-#define DEBOUNCE 5

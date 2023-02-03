@@ -49,9 +49,6 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define BACKLIGHT_PIN F5
 #define BACKLIGHT_LEVELS 10
 #define BACKLIGHT_ON_STATE 0

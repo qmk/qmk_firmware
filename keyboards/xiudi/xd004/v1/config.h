@@ -46,9 +46,6 @@ where some things are disabled to save space as well.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* RGB Underglow
 This will not be used, as RGBLIGHT_ENABLE is set to 'no' in rules.mk
 We do not have enough space in the flash for this at the moment, maybe

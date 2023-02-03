@@ -34,10 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define RGBLED_NUM 4
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-
 #define RGBLIGHT_VAL_STEP 25
 #define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 20

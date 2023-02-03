@@ -25,9 +25,6 @@
 
 #define DIODE_DIRECTION ROW2COL
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

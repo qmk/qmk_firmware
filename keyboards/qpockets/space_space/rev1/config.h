@@ -40,6 +40,4 @@
     { 3, 4 }
 //#define ENCODER_DIRECTION_FLIP
 
-#define DEBOUNCE 7
-
 #define LOCKING_SUPPORT_ENABLE

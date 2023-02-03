@@ -8,6 +8,7 @@
         "pid": "0x4810",
         "device_version": "0.0.1"
     },
+    "debounce": 20,
     "layouts": {
         "LAYOUT": {
             "layout": [

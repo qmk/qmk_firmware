@@ -40,9 +40,6 @@
 #define SERIAL_USART_TX_PAL_MODE 7
 #define SERIAL_USART_TIMEOUT 100
 
-// Debounce to reduce unintended double-presses use 0 if not needed
-#define DEBOUNCE 5
-
 // Feature diable options
 //#define NO_DEBUG
 //#define NO_PRINT

@@ -28,9 +28,6 @@
 #define LED_COMPOSE_PIN F0
 #define LED_PIN_ON_STATE 0
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* don't know if this should be defined at the board or top level. Assuming board 
 #define MOUSEKEY_DELAY          100
 #define MOUSEKEY_INTERVAL       20

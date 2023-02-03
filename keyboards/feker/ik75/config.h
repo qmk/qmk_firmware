@@ -32,9 +32,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #ifdef ENCODER_ENABLE
     /* Encoder pins */
     #define ENCODERS_PAD_A { C6 }

@@ -28,9 +28,6 @@
 #define MATRIX_COL_PINS { B14, B13, B12, B11, B10, B2, B1, B8, B7, B6, B5, B4, B3, A15, A14 }
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

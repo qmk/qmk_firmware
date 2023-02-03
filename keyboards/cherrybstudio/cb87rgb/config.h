@@ -35,10 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define RGB_DI_PIN E6
 #define RGB_MATRIX_LED_COUNT 92
 #define RGB_DISABLE_WHEN_USB_SUSPENDED

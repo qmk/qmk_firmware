@@ -29,6 +29,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* LED config */
 #define LED_CAPS_LOCK_PIN E6
-
-/* Set 0 if debouncing is not needed */
-#define DEBOUNCE 5

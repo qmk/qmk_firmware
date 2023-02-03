@@ -34,9 +34,6 @@
 /* define tapping term */
 #define TAPPING_TERM 100
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* encoder support */
 #define ENCODERS_PAD_A { F5 }
 #define ENCODERS_PAD_B { F4 }
