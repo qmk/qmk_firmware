@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION ROW2COL
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 #define BACKLIGHT_LEVELS 3
 
 /* mapping backlight LEDs to correct Pin */

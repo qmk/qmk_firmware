@@ -50,9 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 #define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `rev2.c`
 
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE        5
 
