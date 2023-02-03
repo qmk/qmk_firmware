@@ -368,11 +368,9 @@ bool oled_task_user(void) {
             }
             break;
         case KC_SPC:
-            if (record->event.pressed) {
-                isJumping = true;
+            isJumping = record->event.pressed;
+            if (isJumping) {
                 showedJump = false;
-            } else {
-                isJumping = false;
             }
             break;
         case KC_CAPS:
