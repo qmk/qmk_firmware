@@ -36,9 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 40

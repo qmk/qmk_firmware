@@ -24,9 +24,6 @@
 #define MATRIX_COL_PINS {A0,B7,B8,B6,A3,A2,A1,B9,A7,A5,A6}
 #define DIODE_DIRECTION ROW2COL
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define FORCE_NKRO
 
 #define RGB_DI_PIN B4

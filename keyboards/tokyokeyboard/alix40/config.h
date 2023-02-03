@@ -28,9 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D7, C6, C7, B5 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, D0, D1, D2, D3, D5, D6 }

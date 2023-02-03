@@ -33,9 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define EE_HANDS
 #define SPLIT_HAND_PIN E6
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define QMK_ESC_OUTPUT D3
 #define QMK_ESC_INPUT B1
 

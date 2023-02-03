@@ -24,8 +24,6 @@
 #define MATRIX_COL_PINS { B12, B13, B14, A8, B9, C13, C14, C15, A1, A2, A3, A4, A5, A6, A7 }
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN

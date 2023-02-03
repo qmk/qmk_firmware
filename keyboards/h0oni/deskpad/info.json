@@ -8,6 +8,7 @@
         "pid": "0x4450",
         "device_version": "0.0.1"
     },
+    "debounce": 3,
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"k1", "x":0, "y":0}, 

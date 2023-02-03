@@ -1,7 +1,6 @@
 {
     "bootloader": "rp2040",
     "processor": "RP2040",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,

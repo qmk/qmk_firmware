@@ -31,8 +31,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE        5
-
 // Encoder support
 #define ENCODERS_PAD_A            { F5 }
 #define ENCODERS_PAD_B            { F4 }

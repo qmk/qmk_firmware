@@ -8,6 +8,7 @@
         "pid": "0x8369",
         "device_version": "0.0.1"
     },
+    "debounce": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

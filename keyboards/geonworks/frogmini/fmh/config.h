@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 5
-
 #define I2C_DRIVER I2CD1
 #define I2C_SCL_PIN B6
 #define I2C_SDA_PIN B7

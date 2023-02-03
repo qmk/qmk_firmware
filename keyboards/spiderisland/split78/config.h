@@ -26,6 +26,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
 
-#define DEBOUNCE 50
-
 #define I2C_START_RETRY_COUNT 1

@@ -3,6 +3,7 @@
     "manufacturer": "shensmobile",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/boardrun/bizarre",
     "maintainer": "QMK Community",
+    "debounce": 10,
     "usb": {
         "vid": "0xCDCD",
         "pid": "0x5339",

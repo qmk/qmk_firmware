@@ -26,9 +26,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define USB_SUSPEND_WAKEUP_DELAY 5000
