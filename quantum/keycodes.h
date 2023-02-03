@@ -713,6 +713,8 @@ enum qk_keycode_defines {
     QK_AUTOCORRECT_ON = 0x7C74,
     QK_AUTOCORRECT_OFF = 0x7C75,
     QK_AUTOCORRECT_TOGGLE = 0x7C76,
+    QK_TRI_LAYER_LOWER = 0x7C77,
+    QK_TRI_LAYER_RAISE = 0x7C78,
     SAFE_RANGE = 0x7E00,
 
 // Alias
@@ -1278,6 +1280,8 @@ enum qk_keycode_defines {
     AC_ON      = QK_AUTOCORRECT_ON,
     AC_OFF     = QK_AUTOCORRECT_OFF,
     AC_TOGG    = QK_AUTOCORRECT_TOGGLE,
+    FN_MO13    = QK_TRI_LAYER_LOWER,
+    FN_MO23    = QK_TRI_LAYER_RAISE,
 };
 
 // Range Helpers
@@ -1327,4 +1331,4 @@ enum qk_keycode_defines {
 #define IS_MACRO_KEYCODE(code) ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
-#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_AUTOCORRECT_TOGGLE)
+#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_TRI_LAYER_RAISE)
