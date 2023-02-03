@@ -20,11 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 //#include <stdio.h>
 
-enum custom_keycodes {
-    KC_BLAYER,
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //COLEMAK
   [0] = LAYOUT_split_3x6_3(
@@ -90,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //ADJUST
   [5] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT,KC_BLAYER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+      QK_BOOT,   TG(1), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -107,17 +102,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* 32 * 32 logo */
 static void render_logo(void) {
-    static const char PROGMEM witcher_logo[] = {
-	0x00, 0x3c, 0x66, 0xce, 0x92, 0x20, 0x60, 0xcc, 0xdc, 0xb0, 0x68, 0xd8, 0xb0, 0x60, 0x58, 0xf8, 
-    0xf8, 0x58, 0x60, 0xb0, 0xd8, 0x68, 0xb0, 0xdc, 0xcc, 0x60, 0x20, 0x92, 0xce, 0x66, 0x3c, 0x00, 
-    0x80, 0xc3, 0xa2, 0xb8, 0xb9, 0x9b, 0x16, 0x0e, 0x19, 0x16, 0x2e, 0x2d, 0x6b, 0xf3, 0xb7, 0x2c, 
-    0x2c, 0xb7, 0xf3, 0x6b, 0x2d, 0x2e, 0x16, 0x19, 0x0e, 0x16, 0x9b, 0xb9, 0xb0, 0xa2, 0xc3, 0x80, 
-    0x00, 0x00, 0x80, 0xe0, 0xf8, 0x7e, 0x3f, 0x1e, 0x0e, 0x86, 0xe2, 0x10, 0x00, 0xf1, 0x6d, 0xc5, 
-    0xc5, 0x6d, 0xf1, 0x00, 0x10, 0xe2, 0x86, 0x0e, 0x1e, 0x3f, 0x7e, 0xf8, 0xe0, 0x80, 0x00, 0x00, 
-    0x00, 0x06, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x3e, 0x0f, 0x03, 0x00, 0x00, 0x03, 0x3c, 0x5b, 
-    0x5b, 0x3c, 0x03, 0x00, 0x00, 0x03, 0x0f, 0x3e, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x06, 0x00
+    static const char PROGMEM hexagram_logo[] = {
+	0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0x70, 0x18, 0x06, 
+    0x06, 0x18, 0x70, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 
+    0x00, 0x00, 0x01, 0x07, 0x1f, 0x32, 0x66, 0xc4, 0x6c, 0x38, 0x1e, 0x37, 0x61, 0xc0, 0x80, 0x80, 
+    0x80, 0x80, 0xc0, 0x61, 0x37, 0x1e, 0x38, 0x6c, 0xc4, 0x66, 0x32, 0x1f, 0x07, 0x01, 0x00, 0x00, 
+    0x00, 0x00, 0x80, 0xe0, 0xf8, 0x4c, 0x66, 0x23, 0x36, 0x1c, 0x78, 0xec, 0x86, 0x03, 0x01, 0x01, 
+    0x01, 0x01, 0x03, 0x86, 0xec, 0x78, 0x1c, 0x36, 0x23, 0x66, 0x4c, 0xf8, 0xe0, 0x80, 0x00, 0x00, 
+    0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x0e, 0x18, 0x60, 
+    0x60, 0x18, 0x0e, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00
 };
-    oled_write_raw_P(witcher_logo, sizeof(witcher_logo));
+    oled_write_raw_P(hexagram_logo, sizeof(hexagram_logo));
 }
 
 
@@ -287,6 +282,27 @@ if (current_wpm > 0) {
     }
 }
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case 0:
+        rgb_matrix_reload_from_eeprom();
+        break;
+    case 1:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
+        rgb_matrix_sethsv_noeeprom(HSV_TEAL);
+        break;
+    case 2:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
+        rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+        break;
+    case 5:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
+        rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
+        break;
+    }
+  return state;
+}
+
 static void print_status_narrow(void) {
    
 
@@ -298,32 +314,21 @@ static void print_status_narrow(void) {
     switch (get_highest_layer(layer_state)) {
         case 0:
             oled_write("Base ", false);
-            rgb_matrix_reload_from_eeprom();
             break;
         case 1:
             oled_write("Game ", false);
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
-                rgb_matrix_sethsv_noeeprom(HSV_TEAL);
             break;
         case 2:
             oled_write("Game2", false);
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
-            rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
             break;
         case 3:
             oled_write("Lower", false);
-            //rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
-            //rgb_matrix_sethsv_noeeprom(HSV_TEAL);
             break;
         case 4:
             oled_write("Raise", false);
-            //rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
-            //rgb_matrix_sethsv_noeeprom(HSV_RED);
             break;
         case 5:
             oled_write("Adj  ", false);
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
-            rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
             break;
         default:
             oled_write("Undef", false);
@@ -374,15 +379,6 @@ bool oled_task_user(void) {
             break;
  
         /* KEYBOARD PET STATUS END */
-        case KC_BLAYER:
-            if (record->event.pressed) {
-            // Do something when pressed
-            layer_invert(0);
-            layer_invert(1);
-            }
-            break;
-    
-    
 }
 
 return true;

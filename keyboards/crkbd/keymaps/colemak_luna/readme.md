@@ -12,6 +12,6 @@ My own keymap with some custom OLED features, Colemak base layer and gaming laye
     - Layer indicator
     - Keyboard pet Luna from @HellSingCoder <https://github.com/HellSingCoder/qmk_firmware/tree/master/keyboards/sofle/keymaps/helltm>
 - Right side
-    - Witcher pixel art logo
+    - Unicursal hexagram pixel art logo
     - WPM counter
 
