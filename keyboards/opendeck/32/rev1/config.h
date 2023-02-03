@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 // Key matrix (TtB, LtR)
 #define MATRIX_ROWS 4

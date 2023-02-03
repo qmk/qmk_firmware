@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // use I2C on AVR
 #define USE_I2C

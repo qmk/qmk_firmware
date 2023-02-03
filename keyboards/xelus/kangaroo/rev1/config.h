@@ -24,9 +24,6 @@
 #define MATRIX_ROW_PINS { A9, A8, B15, B14, B13, B12, A4, A5, A6, A7, B0, B1 }
 #define DIODE_DIRECTION COL2ROW
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 

@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // A11 and A12 dont work. They are reserved for USB. B2 is reserved for BOOT1

@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
 

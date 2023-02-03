@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // Rows are doubled-up
@@ -34,9 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define tapping term */
 #define TAPPING_TERM 120
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 #define AUDIO_PIN C6
 

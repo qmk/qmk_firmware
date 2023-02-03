@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -48,9 +47,6 @@
 #define DEBOUNCE 5
 
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* disable action features */
 //#define NO_ACTION_LAYER

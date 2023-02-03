@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 

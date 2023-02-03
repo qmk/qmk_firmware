@@ -109,14 +109,20 @@ bool qp_lvgl_attach(painter_device_t device) {
 
     selected_display = device;
 
+    uint16_t panel_width, panel_height, offset_x, offset_y;
+    qp_get_geometry(selected_display, &panel_width, &panel_height, NULL, &offset_x, &offset_y);
+
+    panel_width -= offset_x;
+    panel_height -= offset_y;
+
     // Setting up display driver
-    static lv_disp_drv_t disp_drv;            /*Descriptor of a display driver*/
-    lv_disp_drv_init(&disp_drv);              /*Basic initialization*/
-    disp_drv.flush_cb = qp_lvgl_flush;        /*Set your driver function*/
-    disp_drv.draw_buf = &draw_buf;            /*Assign the buffer to the display*/
-    disp_drv.hor_res  = driver->panel_width;  /*Set the horizontal resolution of the display*/
-    disp_drv.ver_res  = driver->panel_height; /*Set the vertical resolution of the display*/
-    lv_disp_drv_register(&disp_drv);          /*Finally register the driver*/
+    static lv_disp_drv_t disp_drv;     /*Descriptor of a display driver*/
+    lv_disp_drv_init(&disp_drv);       /*Basic initialization*/
+    disp_drv.flush_cb = qp_lvgl_flush; /*Set your driver function*/
+    disp_drv.draw_buf = &draw_buf;     /*Assign the buffer to the display*/
+    disp_drv.hor_res  = panel_width;   /*Set the horizontal resolution of the display*/
+    disp_drv.ver_res  = panel_height;  /*Set the vertical resolution of the display*/
+    lv_disp_drv_register(&disp_drv);   /*Finally register the driver*/
 
     return true;
 }
