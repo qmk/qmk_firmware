@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6166  // af
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0002
-#define MANUFACTURER elagil
-#define PRODUCT Murciélago
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6
@@ -53,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A_RIGHT { F6 }
 #define ENCODERS_PAD_B_RIGHT { F7 }
 
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

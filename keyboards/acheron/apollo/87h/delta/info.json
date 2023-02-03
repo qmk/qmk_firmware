@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Apollo87H",
+    "usb": {
+        "pid": "0x8775",
+        "device_version": "0.0.4"
+    }
+}

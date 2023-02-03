@@ -1,7 +1,12 @@
 {
     "keyboard_name": "WestM68",
+    "manufacturer": "WestM",
     "url": "https://github.com/WestMProducts",
     "maintainer": "WestM",
+    "usb": {
+        "vid": "0x574D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

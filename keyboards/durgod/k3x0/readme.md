@@ -4,9 +4,12 @@ This K3X0 code is shared between both the ANSI and ISO variants of both the
 K310 full-sized 104/105-key and K320 TKL 87/88-key keyboards.
 
 * Keyboard Maintainers: [dkjer](https://github.com/dkjer) and [tylert](https://github.com/tylert)
-* Hardware Supported: Durgod Taurus K310 or K320 board with STM32F070RBT6
-* Hardware Availability: K310 https://www.durgod.com/page9?product_id=53&_l=en
-                         and K320 https://www.durgod.com/page9?product_id=47&_l=en
+* Hardware Supported:
+  * [Durgod Taurus K310 with STM32F070RBT6](https://www.durgod.com/page9?product_id=53&_l=en "Taurus K310 Product Page | Durgod.com")
+  * [Durgod Taurus K320 with STM32F070RBT6](https://www.durgod.com/page9?product_id=47&_l=en "Taurus K320 Product Page | Durgod.com")
+* Hardware Availability:
+  * [K310 on Amazon.com](https://www.amazon.com/Durgod-Taurus-K310-Mechanical-Keyboard/dp/B07TXB4XF3)
+  * [K320 on Amazon.com](https://www.amazon.com/Durgod-Taurus-Corona-Mechanical-Keyboard/dp/B078H3WPHM)
 
 ## Instructions
 

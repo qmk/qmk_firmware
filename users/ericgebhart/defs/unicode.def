@@ -1,0 +1,5 @@
+// define keys to send unicode strings.
+ UC_STR(UC_FLIP, "(ノಠ痊ಠ)ノ彡┻━┻")
+ UC_STR(UC_TABL, "┬─┬ノ( º _ ºノ)")
+ UC_STR(UC_SHRG, "¯\\_(ツ)_/¯")
+ UC_STR(UC_DISA, "ಠ_ಠ")

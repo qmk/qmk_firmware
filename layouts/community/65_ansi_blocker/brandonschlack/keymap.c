@@ -51,10 +51,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └────┴────┴────┴────────────────────────┴────┴────┴─┴───┴───┴───┘
  */
 [_FN1] = LAYOUT_65_ansi_blocker( \
-    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DELT, MC_SLPD, \
+    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  MC_SLPD, \
     RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  MC_LHPD, KC_VOLU, \
     RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLD, \
-    _______,          RGB_LYR, RGB_THM, _______, _______, RESET,   _______, QM_MAKE, KC_MPRV, KC_MNXT, KC_MPLY, _______, KC_PGUP, KC_MUTE, \
+    _______,          RGB_LYR, RGB_THM, _______, _______, QK_BOOT, _______, QM_MAKE, KC_MPRV, KC_MNXT, KC_MPLY, _______, KC_PGUP, KC_MUTE, \
     _______, _______, _______,                            _______,                   _______, _______,          KC_HOME, KC_PGDN, KC_END   \
 ),
 /* Blank Layout
@@ -106,12 +106,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, RGB_GREEN);
     } else if (!HAS_ANY_FLAGS(rgb_matrix_get_flags(), LED_FLAG_KEYS)){
         rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, 0, 0, 0);
     }
+    return false;
 }
 #endif
-

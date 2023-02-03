@@ -1,7 +1,12 @@
 {
     "keyboard_name": "navpad 1.0",
+    "manufacturer": "yushakobo",
     "url": "https://shop.yushakobo.jp/products/navpad-10",
     "maintainer": "yushakobo",
+    "usb": {
+        "vid": "0x3265",
+        "pid": "0x0008"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

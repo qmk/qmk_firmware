@@ -15,20 +15,12 @@
  */
 #pragma once
 
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0x5253 // RS60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         RS60
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
 #define MATRIX_ROW_PINS { B3, B7, F0, F4, F1 }
 #define MATRIX_COL_PINS { E6, D5, D3, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4}
-#define UNUSED_PINS
 
 // COL2ROW or ROW2COL
 #define DIODE_DIRECTION COL2ROW

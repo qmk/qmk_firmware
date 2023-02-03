@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4150 // AP for AcheronProject
-#define PRODUCT_ID      0x8775 // For 87H + 3 (revision Delta)
-#define DEVICE_VER      0x0004 // Revision Delta
-#define MANUFACTURER    AcheronProject
-#define PRODUCT         Apollo87H
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -45,16 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define EEPROM_I2C_24LC256
-//#define I2C1_CLOCK_SPEED 400000
-//#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
-
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-#define STM32_HSECLK 8000000
-
 #define RGB_DI_PIN B15
-#define DRIVER_LED_TOTAL 87
+#define RGB_MATRIX_LED_COUNT 87
 
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
 #define WS2812_PWM_DRIVER PWMD1
@@ -63,11 +50,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_STREAM STM32_DMA2_STREAM5
 #define WS2812_DMA_CHANNEL 6
 
-#define RGB_MATRIX_STARTUP_VAL 60
+#define RGB_MATRIX_DEFAULT_VAL 60
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { E6, D7, C6 }
 #define MATRIX_COL_PINS { D1, D0, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -46,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
-// #define RGBLIGHT_ANIMATIONS
 // #define RGBLED_NUM 16
 // #define RGBLIGHT_HUE_STEP 8
 // #define RGBLIGHT_SAT_STEP 8

@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* The last three NO_PIN are dummies to make the same size as MATRIX_ROW_PINS_RIGHT. */
 #define MATRIX_COL_PINS { C6, B4, B3, B2, B1, B0, NO_PIN, NO_PIN, NO_PIN }
 #define MATRIX_COL_PINS_RIGHT { C7, B7, B6, B5, B4, B3, B2, C6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

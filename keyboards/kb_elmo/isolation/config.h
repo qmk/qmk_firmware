@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* direct key pin */
 #define DIRECT_PINS {{ B0 }}
-#define UNUSED_PINS
 
 /* RGB backlight */
 #define RGB_DI_PIN B2

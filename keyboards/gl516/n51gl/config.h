@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { D1, D0, D4, C6 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { D7 }
 #define ENCODERS_PAD_B { E6 }

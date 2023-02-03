@@ -71,22 +71,32 @@
  * RGB options
  */
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_SLEEP                    // Allows rgb to sleep when the host/keyboard does
-#    define RGBLIGHT_ANIMATIONS               // Enable using rgb animations
-#    define RGBLIGHT_LAYERS                   // Enable indicating layers using layered rgb assignments
-#    define RGBLIGHT_LAYER_BLINK              // Allows rgb layers to be blinked (activate for a set amount of time)
-#    define RGBLIGHT_MAX_LAYERS 32            // Overides the default (8) max number of rgb layers
-#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF  // Allows rgb layers to work even when rgb is toggled off
+#    define RGBLIGHT_SLEEP // Allows rgb to sleep when the host/keyboard does
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE
+#    define RGBLIGHT_LAYERS                  // Enable indicating layers using layered rgb assignments
+#    define RGBLIGHT_LAYER_BLINK             // Allows rgb layers to be blinked (activate for a set amount of time)
+#    define RGBLIGHT_MAX_LAYERS 32           // Overides the default (8) max number of rgb layers
+#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Allows rgb layers to work even when rgb is toggled off
 #endif
 
 /*
  * UNICODE options
  */
-#define UNICODE_SELECTED_MODES UC_WINC, UC_LNX, UC_MAC  // Define the methods used for in/outputting unicode
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_LINUX, UNICODE_MODE_MACOS  // Define the methods used for in/outputting unicode
 
 /*
  * TAP-DANCE options
  */
+#define TAPPING_TERM_PER_KEY // Control Tap-Dance time individually by key
 #define TAPPING_TERM 250     // Default time allowed before resetting a Tap-Dance combo
 #define ONESHOT_TAP_TOGGLE 5 /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000 /* Time (in ms) before the one shot key is released */

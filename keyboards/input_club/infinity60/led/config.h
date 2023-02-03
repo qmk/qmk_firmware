@@ -20,4 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Keyboard Matrix Assignments
 #define MATRIX_ROW_PINS { D1, D2, D3, D4, D5, D6, D7 }
 #define MATRIX_COL_PINS { C0, C1, C2, C3, C4, C5, C6, C7, D0 }
-#define UNUSED_PINS
