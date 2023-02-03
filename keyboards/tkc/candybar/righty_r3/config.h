@@ -24,10 +24,6 @@
 #define MATRIX_ROW_PINS { F6, F7, D0, D2 }
 #define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, C6, C7, D5, B1, B3, B2, B0, F0, F1, F4, F5 }
 
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -28,10 +28,6 @@
 /* Fix VIA RGB_light */
 #define VIA_HAS_BROKEN_KEYCODES
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_DI_PIN A7

@@ -29,8 +29,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Diode Direction */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce Setting */
-#define DEBOUNCE 5
-
-

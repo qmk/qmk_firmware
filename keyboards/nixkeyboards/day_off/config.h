@@ -34,9 +34,6 @@
     { B1 }
 #define ENCODER_RESOLUTION 4
 
-/* Debounce reduces chatter */
-#define DEBOUNCE 5
-
 /* Set the Bootmagic key to the escape key (default key doesn't exist 0,0) */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 1

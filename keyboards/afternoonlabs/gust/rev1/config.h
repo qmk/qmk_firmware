@@ -25,9 +25,6 @@
 #define MATRIX_ROW_PINS { F5, F4, D0 }
 #define MATRIX_COL_PINS { D1, D2, D3 }
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define DIODE_DIRECTION COL2ROW
 
 #define BOOTMAGIC_LITE_ROW 0

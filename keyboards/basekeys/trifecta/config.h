@@ -55,8 +55,6 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Limits the brightness of the LEDS range of 255-0 (255 is default)*/
 #define RGBLIGHT_LIMIT_VAL 128

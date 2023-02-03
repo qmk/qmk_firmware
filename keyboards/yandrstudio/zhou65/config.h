@@ -32,6 +32,3 @@
 
 /* enable the nkro when using the VIA. */
 #define FORCE_NKRO
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5

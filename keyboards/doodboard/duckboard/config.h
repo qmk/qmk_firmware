@@ -41,6 +41,3 @@
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 8    // Number of LEDs
 #endif
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5

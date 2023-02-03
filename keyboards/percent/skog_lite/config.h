@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { C4, C2, D7, C7, C6, A0, A1, A2, A3, A7, A6, A4, A5, C5, C3}
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
 
 #define LED_CAPS_LOCK_PIN D1
 #define LED_SCROLL_LOCK_PIN D6

@@ -36,9 +36,6 @@
 # define BACKLIGHT_LEVELS 31
 #endif
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
 # define RGBLED_NUM 6

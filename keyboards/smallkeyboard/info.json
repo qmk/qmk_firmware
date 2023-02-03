@@ -8,6 +8,7 @@
     "pid": "0x736B",
     "device_version": "0.0.1"
   },
+  "debounce": 3,
   "layouts": {
     "LAYOUT_ortho_2x3": {
       "layout": [

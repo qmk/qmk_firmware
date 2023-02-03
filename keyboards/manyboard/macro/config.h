@@ -36,6 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 2
 #define RGBLIGHT_LIMIT_VAL 10
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

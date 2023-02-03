@@ -5,5 +5,6 @@
         "vid": "0x1209",
         "pid": "0x345C",
         "device_version": "0.0.1"
-    }
+    },
+    "debounce": 20
 }

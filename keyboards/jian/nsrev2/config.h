@@ -29,9 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F4, F5, B1, B3, D1, D0, D7, E6 }
 #define MATRIX_COL_PINS { D3, D2, B4, F6, F7, B2 }
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define QMK_ESC_OUTPUT D3
 #define QMK_ESC_INPUT B1
 

@@ -28,9 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 62

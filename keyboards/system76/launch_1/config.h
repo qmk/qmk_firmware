@@ -37,9 +37,6 @@
  */
 #define DIODE_DIRECTION COL2ROW
 
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
-
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DI_PIN E2
 #    define RGB_MATRIX_LED_COUNT 84

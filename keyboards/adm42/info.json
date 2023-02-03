@@ -3,6 +3,7 @@
     "manufacturer": "Lorenzo Leonini",
     "url": "https://adm42.dev/",
     "maintainer": "lleonini",
+    "debounce": 10,
     "usb": {
         "vid": "0x04D8",
         "pid": "0xE873",

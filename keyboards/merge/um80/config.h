@@ -40,8 +40,6 @@
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_LIMIT_VAL 120
 
-#define DEBOUNCE 5
-
 #define AUDIO_PIN B6
 
 #ifdef AUDIO_ENABLE

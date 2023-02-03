@@ -26,6 +26,3 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define TAPPING_TERM 100
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5

@@ -101,9 +101,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 10
-
 //#define RETRO_TAPPING
 
 #ifdef MOUSEKEY_ENABLE

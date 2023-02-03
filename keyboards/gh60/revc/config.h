@@ -41,9 +41,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define LED_CAPS_LOCK_PIN B2
 #define LED_PIN_ON_STATE 0
 
