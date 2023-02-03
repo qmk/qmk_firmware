@@ -361,11 +361,7 @@ bool oled_task_user(void) {
         /* KEYBOARD PET STATUS START */
  
         case KC_LCTL:
-            if (record->event.pressed) {
-                isSneaking = true;
-            } else {
-                isSneaking = false;
-            }
+            isSneaking = record->event.pressed;
             break;
         case KC_SPC:
             isJumping = record->event.pressed;
