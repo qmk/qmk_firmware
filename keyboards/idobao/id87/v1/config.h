@@ -44,9 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LED_CAPS_LOCK_PIN C7
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
     #define RGBLIGHT_EFFECT_ALTERNATING
