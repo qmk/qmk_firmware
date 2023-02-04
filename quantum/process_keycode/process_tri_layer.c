@@ -10,20 +10,20 @@ bool process_tri_layer(uint16_t keycode, keyrecord_t *record) {
         case QK_TRI_LAYER_LOWER:
             if (record->event.pressed) {
                 layer_on(get_tri_layer_lower_layer());
-                update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_raise_layer(), get_tri_layer_adjust_layer());
+                update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_upper_layer(), get_tri_layer_adjust_layer());
             } else {
                 layer_off(get_tri_layer_lower_layer());
-                update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_raise_layer(), get_tri_layer_adjust_layer());
+                update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_upper_layer(), get_tri_layer_adjust_layer());
             }
             return false;
             break;
-        case QK_TRI_LAYER_RAISE:
+        case QK_TRI_LAYER_UPPER:
             if (record->event.pressed) {
-                layer_on(get_tri_layer_raise_layer());
-                update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_raise_layer(), get_tri_layer_adjust_layer());
+                layer_on(get_tri_layer_upper_layer());
+                update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_upper_layer(), get_tri_layer_adjust_layer());
             } else {
-                layer_off(get_tri_layer_raise_layer());
-                update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_raise_layer(), get_tri_layer_adjust_layer());
+                layer_off(get_tri_layer_upper_layer());
+                update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_upper_layer(), get_tri_layer_adjust_layer());
             }
             return false;
             break;
