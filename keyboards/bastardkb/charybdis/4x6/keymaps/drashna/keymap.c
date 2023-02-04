@@ -16,6 +16,7 @@
  */
 #include "drashna.h"
 
+// clang-format off
 #define LAYOUT_charybdis_4x6_wrapper(...) LAYOUT_charybdis_4x6(__VA_ARGS__)
 #define LAYOUT_charybdis_4x6_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
@@ -33,7 +34,6 @@
 
 #define LAYOUT_base_wrapper(...)       LAYOUT_charybdis_4x6_base(__VA_ARGS__)
 
-// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
         _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
@@ -120,13 +120,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-
 void keyboard_post_init_keymap(void) {
 #ifdef RGB_MATRIX_ENABLE
-     g_led_config.flags[53] = g_led_config.flags[54] = g_led_config.flags[55] =
-        g_led_config.flags[0] = g_led_config.flags[1] = g_led_config.flags[2] = g_led_config.flags[3] =
-        g_led_config.flags[29] = g_led_config.flags[30] = g_led_config.flags[31] = g_led_config.flags[32] =
-        LED_FLAG_MODIFIER;
+    g_led_config.flags[53] = g_led_config.flags[54] = g_led_config.flags[55] = g_led_config.flags[0] = g_led_config.flags[1] = g_led_config.flags[2] = g_led_config.flags[3] = g_led_config.flags[29] = g_led_config.flags[30] = g_led_config.flags[31] = g_led_config.flags[32] = LED_FLAG_MODIFIER;
 #endif
 }
 
@@ -171,8 +167,8 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}},
     {{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}},
     {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}},
-    {{0, 4}, {3, 4}, {2, 4}, {5, 4}, {4, 4}, {2, 4}},
-    };
+    {{0, 4}, {3, 4}, {2, 4}, {5, 4}, {4, 4}, {2, 4}}
+};
 
 #    ifdef ENCODER_MAP_ENABLE
 const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
