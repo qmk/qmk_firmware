@@ -2,7 +2,7 @@
 A customizable soldering 80% keyboard.
 
 * Keyboard Maintainer: [eason](https://github.com/EasonQian1)
-* Hardware Supported: AngleR2
+* Hardware Supported: greatsword80
 * Hardware Availability: [eason](https://github.com/EasonQian1)
 
 Make example for this keyboard (after setting up your build environment):
