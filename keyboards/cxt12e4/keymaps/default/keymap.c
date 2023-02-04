@@ -12,31 +12,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  ),
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* top left encoder */
-        if (clockwise) {
-            rgblight_increase_hue();
-        } else {
-            rgblight_decrease_hue();
-        }
-    } else if (index == 1) { /* top right encoder */
-        if (clockwise) {
-            rgblight_increase_val();
-        } else {
-            rgblight_decrease_val();
-        }
-    } else if (index == 2) { /* center encoder */
-        if (clockwise) {
-            tap_code(KC_MFFD);
-        } else {
-            tap_code(KC_MRWD);
-        }
-    } else if (index == 3) { /* bottom encoder */
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = {
+        ENCODER_CCW_CW(RGB_HUD, RGB_HUI), /* top left encoder */
+        ENCODER_CCW_CW(RGB_VAD, RGB_VAI), /* top right encoder */
+        ENCODER_CCW_CW(KC_MRWD, KC_MFFD), /* center encoder */
+        ENCODER_CCW_CW(KC_VOLD, KC_VOLU), /* bottom encoder */
+    },
+};
+#endif
+
