@@ -4,9 +4,9 @@
 #include "tri_layer.h"
 #include <stdint.h>
 
-uint8_t tri_layer_lower_layer  = TRI_LAYER_LOWER_LAYER;
-uint8_t tri_layer_raise_layer  = TRI_LAYER_RAISE_LAYER;
-uint8_t tri_layer_adjust_layer = TRI_LAYER_ADJUST_LAYER;
+static uint8_t tri_layer_lower_layer  = TRI_LAYER_LOWER_LAYER;
+static uint8_t tri_layer_raise_layer  = TRI_LAYER_RAISE_LAYER;
+static uint8_t tri_layer_adjust_layer = TRI_LAYER_ADJUST_LAYER;
 
 void set_tri_layer_lower_layer(uint8_t layer) {
     tri_layer_lower_layer = layer;
