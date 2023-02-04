@@ -3,7 +3,6 @@
 
 #define VERSION 		"Paula Deen"
 
-#define DEBOUNCE 5
 #define FORCE_NKRO
 
 #define MATRIX_ROW_PINS { F4, F5 }

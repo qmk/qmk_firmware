@@ -40,11 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B5 }
 #define ENCODER_RESOLUTION 4
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-// All the keys just need 5ms of debounce, but the mute button on the rotary
-// encoderneeds much more (50ms).
-#define DEBOUNCE 50
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

@@ -3,7 +3,6 @@
     "keyboard_name": "Clueboard 2x1800 2021",
     "maintainer": "skullydazed",
     "bootloader": "halfkay",
-    "debounce": 5,
     "diode_direction": "ROW2COL",
     "features": {
         "audio": true,

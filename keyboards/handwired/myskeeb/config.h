@@ -25,8 +25,3 @@
 // Tap Dance
 
 #define TAPPING_TERM 200
-
-// Other
-
-#define DEBOUNCE 0
-

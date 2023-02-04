@@ -6,7 +6,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define TAPPING_TERM 100
-#define DEBOUNCE 5
 
 /* encoder support */
 #define ENCODERS_PAD_A { F5 }

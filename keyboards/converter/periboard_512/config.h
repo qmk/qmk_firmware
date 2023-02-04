@@ -16,6 +16,4 @@
 
 #pragma once
 
-
-#define DEBOUNCE 5
 #define MATRIX_HAS_GHOST

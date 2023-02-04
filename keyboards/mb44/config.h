@@ -37,6 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*Encoder Definition*/
 #define ENCODERS_PAD_A { D3 }
 #define ENCODERS_PAD_B { D2 }
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

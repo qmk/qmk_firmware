@@ -27,9 +27,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't neede */
-#define DEBOUNCE 5
-
 #define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 21

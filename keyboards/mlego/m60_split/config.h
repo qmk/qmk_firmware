@@ -15,8 +15,6 @@
  */
 #pragma once
 
-
-#define DEBOUNCE 5
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 

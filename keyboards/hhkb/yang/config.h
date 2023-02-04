@@ -96,6 +96,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BOOTMAGIC_LITE_COLUMN 0
 
 //#define DEBUG_MATRIX_SCAN_RATE
-
-// Disable debounce
-#define DEBOUNCE 0

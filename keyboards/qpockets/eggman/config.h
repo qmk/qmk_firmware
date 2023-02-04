@@ -30,6 +30,3 @@
 
 #define ENCODER_RESOLUTION 4
 //#define ENCODER_DIRECTION_FLIP
-
-#define DEBOUNCE 5
-

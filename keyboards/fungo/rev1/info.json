@@ -8,6 +8,7 @@
     "pid": "0x1233",
     "device_version": "0.0.1"
   },
+  "debounce": 3,
   "layout_aliases": {
     "LAYOUT_fungo_split_num": "LAYOUT"
   },

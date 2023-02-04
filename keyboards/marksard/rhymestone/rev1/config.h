@@ -126,6 +126,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_TYPING_HEATMAP
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -22,6 +22,3 @@
 
 #define ENCODERS_PAD_A { B0 }
 #define ENCODERS_PAD_B { B1 }
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
