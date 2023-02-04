@@ -147,14 +147,24 @@ void matrix_scan_user(void) {
 
     SEQ_TWO_KEYS(KC_O, KC_K) {
       send_unicode_string("👌"); }
-    SEQ_THREE_KEYS(KC_Y, KC_E, KC_S) {
-      send_unicode_string("✅"); }
-    SEQ_TWO_KEYS(KC_N, KC_O) {
-      send_unicode_string("❎"); }
-    SEQ_THREE_KEYS(KC_C, KC_R, KC_O) {
-      send_unicode_string("❌"); }
     SEQ_THREE_KEYS(KC_O, KC_W, KC_D) {
       send_unicode_string("⛔"); }
+
+    SEQ_ONE_KEY(KC_V) {
+      send_unicode_string("✓"); }
+    SEQ_TWO_KEYS(KC_V, KC_B) {
+      send_unicode_string("☑"); }
+    SEQ_TWO_KEYS(KC_V, KC_G) {
+      send_unicode_string("✅"); }
+
+    SEQ_ONE_KEY(KC_X) {
+      send_unicode_string("✗"); }
+    SEQ_TWO_KEYS(KC_X, KC_B) {
+      send_unicode_string("☒"); }
+    SEQ_TWO_KEYS(KC_X, KC_G) {
+      send_unicode_string("❎"); }
+    SEQ_TWO_KEYS(KC_X, KC_R) {
+      send_unicode_string("❌"); }
 
     SEQ_ONE_KEY(KC_QUESTION) {
       send_unicode_string("❔"); }
