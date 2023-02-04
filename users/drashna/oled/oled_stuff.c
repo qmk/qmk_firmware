@@ -30,7 +30,7 @@ bool is_oled_enabled = true, is_oled_locked = false;
 extern bool host_driver_disabled;
 
 uint32_t        oled_timer                        = 0;
-char            keylog_str[OLED_KEYLOGGER_LENGTH+1] = {0};
+char            keylog_str[OLED_KEYLOGGER_LENGTH] = {0};
 static uint16_t log_timer                         = 0;
 #ifdef OLED_DISPLAY_VERBOSE
 const char PROGMEM display_border[3] = {0x0, 0xFF, 0x0};
@@ -77,6 +77,7 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
 
     if ((keycode == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
         memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
+        keylog_str[OLED_KEYLOGGER_LENGTH-1] = 0x00;
         return;
     }
     if (record->tap.count) {
@@ -85,10 +86,10 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
         return;
     }
 
-    memmove(keylog_str, keylog_str + 1, OLED_KEYLOGGER_LENGTH - 1);
+    memmove(keylog_str, keylog_str + 1, OLED_KEYLOGGER_LENGTH - 2);
 
     if (keycode < ARRAY_SIZE(code_to_name)) {
-        keylog_str[(OLED_KEYLOGGER_LENGTH - 1)] = pgm_read_byte(&code_to_name[keycode]);
+        keylog_str[(OLED_KEYLOGGER_LENGTH - 2)] = pgm_read_byte(&code_to_name[keycode]);
     }
 
     log_timer = timer_read();
