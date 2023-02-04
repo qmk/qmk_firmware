@@ -11,7 +11,9 @@
 
 #include QMK_KEYBOARD_H
 
-#define ACTUATION_POINT_I2C_TIMEOUT 100
+#ifndef ACTUATION_POINT_I2C_TIMEOUT
+#    define ACTUATION_POINT_I2C_TIMEOUT 100
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 //
