@@ -18,8 +18,6 @@
 #define MATRIX_ROW_PINS { E6, B3, C7, C6 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B6, B5, B4, D7, D6, D0, B1, B0 }
 
-#define DEBOUNCE 5
-
 #define RGB_DI_PIN F1
 #define RGBLED_NUM 47
 #define RGBLIGHT_HUE_STEP 8
