@@ -1,5 +1,5 @@
-/* Copyright 2022 Phage Studio
- * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 Phage Studio
+ * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,12 @@
 
 #include "pila87.h"
 
+#ifdef RGB_MATRIX_ENABLE
+
 #include <string.h>
 #include <math.h>
 #include <lib/lib8tion/lib8tion.h>
 
-#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     { 75, NO_LED,     76,     77,     78,     79,     80,     81,     82,     83,     84,     85,     86,     87,     88,     89,     90 },
     { 74,     73,     72,     71,     70,     69,     68,     67,     66,     65,     64,     63,     62,     61,     60,     59,     58 },
@@ -44,7 +45,28 @@ led_config_t g_led_config = { {
    4, 4, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8,    4,
 } };
-#endif
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RGB_TOG:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                        rgb_matrix_enable_noeeprom();
+                    }
+                    break;
+                }
+            }
+            return false;
+    }
+    return process_record_user(keycode, record);
+}
 
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
@@ -63,3 +85,4 @@ bool rgb_matrix_indicators_kb(void) {
     }
     return true;
 }
+#endif
