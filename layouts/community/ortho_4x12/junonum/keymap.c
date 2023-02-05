@@ -1,10 +1,8 @@
 #include QMK_KEYBOARD_H
-// #include "junonum.h"
+#include "junonum.h"
 #ifdef AUDIO_ENABLE
 #    include "muse.h"
 #endif
-
-#include "junonum.h"
 
 enum planck_layers {
     _QWERTY,
