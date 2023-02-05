@@ -19,8 +19,6 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B6, B5, B4, D7, D6, D0, B1, B0 }
 #define RGB_DI_PIN F1
 
-#define DEBOUNCE 5
-
 #define RGB_MATRIX_LED_COUNT 47
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
