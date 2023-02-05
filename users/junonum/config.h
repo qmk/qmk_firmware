@@ -18,6 +18,9 @@
 
 #ifdef KEYBOARD_reviung_reviung39
 
+#   define USB_MAX_POWER_CONSUMPTION 100
+#   define TAPPING_TERM 250
+#   define IGNORE_MOD_TAP_INTERRUPT
 #   define RGB_DI_PIN D3
 
 #       ifdef RGB_DI_PIN
