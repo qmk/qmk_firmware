@@ -52,11 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN C6
 #define BACKLIGHT_LEVELS 16
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-// #define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-// #define LOCKING_RESYNC_ENABLE
-
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */

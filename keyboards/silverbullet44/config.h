@@ -109,11 +109,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define MOUSEKEY_TIME_TO_MAX 60
 #endif
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
-
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
