@@ -24,11 +24,6 @@
 #define MATRIX_ROW_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B10, B11, A9, A10 }
 #define MATRIX_COL_PINS { A0, A1, A2, B12, B13, B14, B15, A8 }
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
