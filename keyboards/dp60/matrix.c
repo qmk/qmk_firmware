@@ -15,7 +15,7 @@
 */
 #include "quantum.h"
 
-static uint8_t debouncing = DEBOUNCE;
+static uint8_t debouncing = 5;
 
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
@@ -76,7 +76,7 @@ uint8_t matrix_scan(void)
       bool curr_bit = rows & (1<<row);
       if (prev_bit != curr_bit) {
         matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
-        debouncing = DEBOUNCE;
+        debouncing = 5;
       }
     }
     unselect_cols();
