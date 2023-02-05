@@ -51,6 +51,10 @@
 #define DIP_SWITCH_PINS \
     { B14, A15, A0, B9 }
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 #define MUSIC_MAP
 #undef AUDIO_VOICES
 #undef AUDIO_PIN

@@ -21,6 +21,10 @@
 #define MATRIX_COLS 15
 #define DIODE_DIRECTION COL2ROW
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
