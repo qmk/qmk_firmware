@@ -63,11 +63,6 @@
 //   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 // #endif
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
