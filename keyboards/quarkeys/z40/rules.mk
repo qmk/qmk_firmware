@@ -1,18 +1,17 @@
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = yes    	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = yes    	# Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no        	# Commands for debug and configuration
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes           # USB Nkey Rollover
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no	    # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 # Do not enable RGB_MATRIX_ENABLE together with RGBLIGHT_ENABLE
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
+RGBLIGHT_ENABLE = no	    # Enable this and unable RGB_MATRIX_ENABLE to use RGB light effect
+
+RGB_MATRIX_ENABLE = yes		# Enable this and unable RGBLIGHT_ENABLE to use RGB Matrix effect 
+RGB_MATRIX_DRIVER = WS2812	# Comment out this line when RGBLIGHTING is enabled

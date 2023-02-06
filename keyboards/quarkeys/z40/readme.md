@@ -5,15 +5,16 @@ A 40% Bottom mount low-profile & MX switch compatible keyboard.
 * Keyboard Maintainer: [Quarkeys Studio](www.quarkeys.com)
 * Hardware Supported: Z40-ACR, Z40-Pastry
 * Hardware Specs: Per-key RGBs, layer & Capslock indicators
-* rgblgt folder contains firmware with RGB lighting effect; rgbmtix folder contains firmware with RGB matrix lighting effect
+* For RGB matrix effect, "RGB_MATRIX_ENABLE = yes", "RGB_MATRIX_DRIVER = WS2812", "RGBLIGHT_ENABLE = no";
+* For RGB light effect, "RGB_MATRIX_ENABLE = no", "#RGB_MATRIX_DRIVER = WS2812"(comment out), "RGBLIGHT_ENABLE = yes";
 
 Make example for this keyboard solder version keymap(after setting up your build environment):
 
-    make quarkeys/z40/rgblgt:default
+    make quarkeys/z40:default
 
 Flashing example for this keyboard:
 
-    make quarkeys/z40/rgblgt:default:flash
+    make quarkeys/z40:default:flash
 
 **Bootloader:** Press the `QK_BOOT` keycode at ESC position of layer 1.
 
