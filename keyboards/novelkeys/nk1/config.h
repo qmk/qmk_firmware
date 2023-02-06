@@ -27,11 +27,6 @@
     { D4 } \
 }
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 9
