@@ -15,8 +15,6 @@
 #pragma once
 #include "config_common.h"
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { E6, B3, C7, C6 }
