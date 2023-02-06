@@ -41,11 +41,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
 #define RGB_BACKLIGHT_ENABLED 1
 
 // This conditionally compiles the backlight code for M6-B specifics
