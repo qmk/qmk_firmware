@@ -112,10 +112,11 @@ static void set_rgb_wlck_leds(void) {
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    led_t led_state = host_keyboard_led_state();
+    if (led_state.caps_lock) {
         set_rgb_caps_leds();
     }
-    if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {
+    if (!led_state.num_lock) {
         set_rgb_nlck_notset_leds();
     }
     if (keymap_config.no_gui) {
