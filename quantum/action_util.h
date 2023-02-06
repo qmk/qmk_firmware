@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include "report.h"
+#include "modifiers.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,25 +41,6 @@ inline void del_key(uint8_t key) {
 inline void clear_keys(void) {
     clear_keys_from_report(keyboard_report);
 }
-
-#define MOD_BIT(code) (1 << MOD_INDEX(code))
-#define MOD_INDEX(code) ((code)&0x07)
-
-#define MOD_MASK_CTRL (MOD_BIT(KC_LEFT_CTRL) | MOD_BIT(KC_RIGHT_CTRL))
-#define MOD_MASK_SHIFT (MOD_BIT(KC_LEFT_SHIFT) | MOD_BIT(KC_RIGHT_SHIFT))
-#define MOD_MASK_ALT (MOD_BIT(KC_LEFT_ALT) | MOD_BIT(KC_RIGHT_ALT))
-#define MOD_MASK_GUI (MOD_BIT(KC_LEFT_GUI) | MOD_BIT(KC_RIGHT_GUI))
-#define MOD_MASK_CS (MOD_MASK_CTRL | MOD_MASK_SHIFT)
-#define MOD_MASK_CA (MOD_MASK_CTRL | MOD_MASK_ALT)
-#define MOD_MASK_CG (MOD_MASK_CTRL | MOD_MASK_GUI)
-#define MOD_MASK_SA (MOD_MASK_SHIFT | MOD_MASK_ALT)
-#define MOD_MASK_SG (MOD_MASK_SHIFT | MOD_MASK_GUI)
-#define MOD_MASK_AG (MOD_MASK_ALT | MOD_MASK_GUI)
-#define MOD_MASK_CSA (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_ALT)
-#define MOD_MASK_CSG (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_GUI)
-#define MOD_MASK_CAG (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI)
-#define MOD_MASK_SAG (MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
-#define MOD_MASK_CSAG (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
 
 /* modifier */
 uint8_t get_mods(void);
