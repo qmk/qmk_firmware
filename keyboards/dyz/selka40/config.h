@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 #define LED_CAPS_LOCK_PIN B1
 #define LED_NUM_LOCK_PIN B3
 #define LED_SCROLL_LOCK_PIN B2

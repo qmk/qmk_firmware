@@ -88,10 +88,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
-
 /* USB config */
 #define USB_MAX_POWER_CONSUMPTION 100
 #define USB_COUNT_SOF 0

@@ -30,7 +30,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Onboard LEDs */
 #define LED_00 F6
 #define LED_01 F7
-
-/* Bootmagic - hold down rotary encoder pushbutton while plugging in to enter bootloader */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

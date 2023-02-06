@@ -92,8 +92,4 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define WAIT_FOR_USB
 
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 #define TAP_CODE_DELAY 10

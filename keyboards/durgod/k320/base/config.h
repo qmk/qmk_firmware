@@ -35,10 +35,7 @@
 // Users may enable more if they wish
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095
 
-/* Bootmagic Lite key configuration */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-#define BOOTMAGIC_LITE_ROW                 0
-#define BOOTMAGIC_LITE_COLUMN              0
 
 /* LED indicator pins */
 #define LED_CAPS_LOCK_PIN   C9

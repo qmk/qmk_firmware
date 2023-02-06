@@ -29,10 +29,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Bootmagic reset */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* LED Indicator */
 #define LED_CAPS_LOCK_PIN C14
 #define LED_SCROLL_LOCK_PIN A0

@@ -75,10 +75,6 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
-
 #define ENCODERS_PAD_A { D2 }
 #define ENCODERS_PAD_B { D4 }
 #define ENCODER_RESOLUTIONS { 4 }

@@ -13,10 +13,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-// Bootmagic Lite
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 // uncomment to reduce firmware size
 //#define NO_DEBUG
 //#define NO_PRINT
