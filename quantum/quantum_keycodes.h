@@ -33,10 +33,6 @@
 #define QK_RSFT                0x1200
 #define QK_RALT                0x1400
 #define QK_RGUI                0x1800
-#define QK_UNICODEMAP          0x8000
-#define QK_UNICODEMAP_MAX      0xBFFF
-#define QK_UNICODEMAP_PAIR     0xC000
-#define QK_UNICODEMAP_PAIR_MAX 0xFFFF
 // clang-format on
 
 // Generic decoding for the whole QK_MODS range
