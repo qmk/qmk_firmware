@@ -8,6 +8,7 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "debounce": 2,
     "layouts": {
         "LAYOUT_ortho_2x2u": {
             "layout": [

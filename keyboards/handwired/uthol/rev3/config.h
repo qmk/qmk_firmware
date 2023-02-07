@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // A11 and A12 dont work. They are reserved for USB. B2 is reserved for BOOT1
@@ -42,9 +41,6 @@
 #define OLED_BRIGHTNESS 255
 #define OLED_DISPLAY_ADDRESS 0x3C
 #define OLED_RESET -1
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

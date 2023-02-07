@@ -19,11 +19,11 @@
 #define TYPING_SPEED_MAX_VALUE 200
 uint8_t typing_speed = 0;
 
-void velocikey_accelerate() {
+void velocikey_accelerate(void) {
     if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 50);
 }
 
-void velocikey_decelerate() {
+void velocikey_decelerate(void) {
   static uint16_t decay_timer = 0;
 
   if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {

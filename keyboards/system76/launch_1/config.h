@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // Key matrix size
 #define MATRIX_ROWS 6
@@ -37,9 +36,6 @@
  * ROW2COL = ROW => Anode (+), COL => Cathode (-)
  */
 #define DIODE_DIRECTION COL2ROW
-
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DI_PIN E2

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 // matrix
 #define MATRIX_ROWS 4
@@ -30,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // diode mode
 #define DIODE_DIRECTION COL2ROW
 
-// debouncing, NKRO, mouse keys speed
-#define DEBOUNCE 5
 #define FORCE_NKRO
 #define MK_3_SPEED
 #define TERMINAL_HELP

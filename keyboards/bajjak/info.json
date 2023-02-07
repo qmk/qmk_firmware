@@ -2,6 +2,7 @@
     "keyboard_name": "BAJJAK",
     "manufacturer": "garykong",
     "maintainer": "garykong",
+    "debounce": 30,
     "usb": {
         "vid": "0x1209",
         "pid": "0x0002",

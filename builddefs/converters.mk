@@ -19,7 +19,7 @@ ifneq ($(CONVERT_TO),)
 
     -include $(CONVERTER)/pre_converter.mk
 
-    PLATFORM_KEY = $(shell echo $(CONVERTER) | rev | cut -d "/" -f4 | rev)
+    PLATFORM_KEY = $(shell echo $(CONVERTER) | cut -d "/" -f2)
     TARGET := $(TARGET)_$(CONVERT_TO)
 
     # Configure any defaults

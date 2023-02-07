@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* rotary encoder */
 #define ENCODERS_PAD_A { D3 }

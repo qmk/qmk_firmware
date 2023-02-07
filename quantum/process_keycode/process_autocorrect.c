@@ -126,7 +126,7 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
         // and mask for base keycode when they are tapped.
         case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
 #ifdef SWAP_HANDS_ENABLE
-            // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TG, SH_TT, ...,
+            // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TOGG, SH_TT, ...,
             // which currently overlap the SH_T(kc) range.
             if (IS_SWAP_HANDS_KEYCODE(*keycode) || !record->tap.count) {
                 return false;

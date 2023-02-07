@@ -298,7 +298,7 @@ void EVENT_USB_Device_Reset(void) {
  *
  * FIXME: Needs doc
  */
-void EVENT_USB_Device_Suspend() {
+void EVENT_USB_Device_Suspend(void) {
     print("[S]");
     usb_device_state_set_suspend(USB_Device_ConfigurationNumber != 0, USB_Device_ConfigurationNumber);
 
@@ -311,7 +311,7 @@ void EVENT_USB_Device_Suspend() {
  *
  * FIXME: Needs doc
  */
-void EVENT_USB_Device_WakeUp() {
+void EVENT_USB_Device_WakeUp(void) {
     print("[W]");
 #if defined(NO_USB_STARTUP_CHECK)
     suspend_wakeup_init();

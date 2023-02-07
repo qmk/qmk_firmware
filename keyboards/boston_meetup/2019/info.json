@@ -1,5 +1,6 @@
 {
     "usb": {
         "device_version": "20.1.9"
-    }
+    },
+    "debounce": 6
 }

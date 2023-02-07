@@ -15,6 +15,10 @@
 */
 #include "quantum.h"
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 static uint8_t debouncing = DEBOUNCE;
 
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -123,7 +127,7 @@ static void init_rows(void)
   setPinInputHigh(D4);
 }
 
-static uint8_t read_rows()
+static uint8_t read_rows(void)
 {
   return ((readPin(E6) ? 0 : (1 << 0)) |
           (readPin(F6) ? 0 : (1 << 1)) |

@@ -8,6 +8,7 @@
         "pid": "0x6071",
         "device_version": "0.0.2"
     },
+    "debounce": 50,
     "layouts": {
         "LAYOUT": {
             "layout": [

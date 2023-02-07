@@ -8,6 +8,7 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "debounce": 3,
     "layout_aliases": {
         "LAYOUT_60_ansi_7u_spc": "LAYOUT_60_ansi_tsangan",
         "LAYOUT_60_iso_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift",

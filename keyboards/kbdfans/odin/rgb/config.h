@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "config_common.h"
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 20
@@ -23,7 +22,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 5
 #define RGBLED_NUM 104
 #define RGB_MATRIX_LED_COUNT 104
 #define RGB_DI_PIN B15

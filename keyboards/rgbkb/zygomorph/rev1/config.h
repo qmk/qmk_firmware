@@ -37,9 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A  { D2 }
 #define ENCODERS_PAD_B  { D7 }
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B7
 #ifndef RGBLIGHT_SPLIT_ENABLE

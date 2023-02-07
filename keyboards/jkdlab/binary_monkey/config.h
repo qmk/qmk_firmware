@@ -18,7 +18,6 @@
  
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 3
@@ -26,8 +25,6 @@
 #define MATRIX_COL_PINS { D1, D2, D3 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
 
 #define USB_MAX_POWER_CONSUMPTION 100
 

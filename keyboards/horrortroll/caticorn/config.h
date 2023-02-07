@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -28,11 +27,5 @@
 #define MATRIX_COL_PINS \
     { GP6, GP5, GP4, GP3, GP2, GP1, GP20, GP21, GP16, GP17, GP18, GP19, GP15, GP14, GP13, GP10, GP9 }
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5

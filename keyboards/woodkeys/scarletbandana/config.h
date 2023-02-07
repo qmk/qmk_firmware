@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -52,5 +51,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Disable music mode to keep the firmware size down
 #define NO_MUSIC_MODE
 #endif
-
-#define DEBOUNCE 5
