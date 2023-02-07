@@ -15,24 +15,57 @@
 
 #include QMK_KEYBOARD_H
 
+enum encoder_names {
+  _LEFT,
+  _RIGHT,
+  _MIDDLE,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [0] = LAYOUT(
-        KC_MNXT		, MO(1)			, KC_MPLY,
-        KC_V			, KC_C			, KC_RGUI,
-        KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3
+        KC_MPRV, KC_MNXT, KC_MUTE,
+        KC_V, KC_C, KC_RGUI,
+        KC_BTN1, MO(1), KC_BTN2
     ),
 
     [1] = LAYOUT(
-        QK_BOOT, BL_STEP, BL_BRTG,
-				RGB_TOG, RGB_MOD, KC_CAPS,
-        BL_TOGG, BL_STEP, BL_BRTG
+        KC_MPRV, KC_MNXT, KC_MUTE,
+				KC_TAB, RGB_MOD, KC_RGUI,
+        BL_TOGG, _______, KC_RCTL
     ),
 };
 
+/*
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][3] = {
     [0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_WH_L, KC_WH_R), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [1] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),  ENCODER_CCW_CW(RGB_SAD, RGB_SAI), ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
 };
 #endif
+*/
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == _LEFT) {
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+    else if (index == _MIDDLE) {
+        if (clockwise) {
+            tap_code(KC_DOWN);
+        } else {
+            tap_code(KC_UP);
+        }
+    }
+    else if (index == _RIGHT) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    return false;
+}
