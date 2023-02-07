@@ -83,4 +83,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+#define EECONFIG_KB_DATA_SIZE 4
+
+#define CAPS_INDICATOR_INDEX 12
+
 #endif
