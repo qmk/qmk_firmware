@@ -23,7 +23,7 @@ enum layers {
     _LAYER3
 };
 
-enum custom_keycodeas {
+enum custom_keycodes {
     A_CW = USER00,
     A_CCW
 };
