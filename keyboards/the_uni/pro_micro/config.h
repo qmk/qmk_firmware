@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x9000
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    stenokeyboards
-#define PRODUCT         The Uni
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 11
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F4, B2, B6 }
 #define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B5, B4, E6, D7, C6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

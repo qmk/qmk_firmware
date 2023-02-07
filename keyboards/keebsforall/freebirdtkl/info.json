@@ -1,7 +1,13 @@
 {
     "keyboard_name": "FreebirdTKL",
+    "manufacturer": "KeebsForAll",
     "url": "https://keebsforall.com",
     "maintainer": "KnoblesseOblige",
+    "usb": {
+        "vid": "0x75FA",
+        "pid": "0x0088",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi",
         "LAYOUT_tsangan": "LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift",

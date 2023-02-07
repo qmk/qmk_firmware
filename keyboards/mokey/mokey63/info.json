@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Mokey63",
+    "manufacturer": "Mokey",
     "url": "",
     "maintainer": "mokey",
+    "usb": {
+        "vid": "0x6653",
+        "pid": "0x063A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

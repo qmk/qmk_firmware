@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "jelly",
+    "keyboard_name": "Jelly Epoch Soldered",
+    "manufacturer": "OwLab",
     "url": "https://www.popkeyboard.com/products/jrrgvdsyu47wer",
     "maintainer": "Owlab",
+    "usb": {
+        "vid": "0x4F53",
+        "pid": "0x4A53",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

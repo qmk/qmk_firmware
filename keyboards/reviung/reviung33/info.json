@@ -1,9 +1,18 @@
 {
     "keyboard_name": "reviung33",
+    "manufacturer": "gtips",
     "url": "",
     "maintainer": "gtips",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x516D",
+        "device_version": "0.0.1"
+    },
+    "layout_aliases": {
+        "LAYOUT_reviung33": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_reviung33": {
+        "LAYOUT": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

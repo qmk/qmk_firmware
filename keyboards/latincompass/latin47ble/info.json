@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Latin47ble",
+    "keyboard_name": "Latin47BLE",
+    "manufacturer": "latincompass",
     "url": "",
     "maintainer": "latincompass",
+    "usb": {
+        "vid": "0x6C63",
+        "pid": "0x6C62",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_planck_mit": {
             "layout": [

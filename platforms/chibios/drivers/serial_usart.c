@@ -1,48 +1,55 @@
-/* Copyright 2021 QMK
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2021 QMK
+// Copyright 2022 Stefan Kerkmann
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "serial_usart.h"
+#include "serial_protocol.h"
+#include "synchronization_util.h"
 
 #if defined(SERIAL_USART_CONFIG)
-static SerialConfig serial_config = SERIAL_USART_CONFIG;
-#else
-static SerialConfig serial_config = {
-    .speed = (SERIAL_USART_SPEED), /* speed - mandatory */
+static QMKSerialConfig serial_config = SERIAL_USART_CONFIG;
+#elif defined(MCU_STM32) /* STM32 MCUs */
+static QMKSerialConfig serial_config = {
+#    if HAL_USE_SERIAL
+    .speed = (SERIAL_USART_SPEED),
+#    else
+    .baud = (SERIAL_USART_SPEED),
+#    endif
     .cr1   = (SERIAL_USART_CR1),
     .cr2   = (SERIAL_USART_CR2),
 #    if !defined(SERIAL_USART_FULL_DUPLEX)
     .cr3   = ((SERIAL_USART_CR3) | USART_CR3_HDSEL) /* activate half-duplex mode */
 #    else
-    .cr3 = (SERIAL_USART_CR3)
+    .cr3  = (SERIAL_USART_CR3)
 #    endif
 };
+#elif defined(MCU_RP) /* Raspberry Pi MCUs */
+/* USART in 8E2 config with RX and TX FIFOs enabled. */
+// clang-format off
+static QMKSerialConfig serial_config = {
+    .baud = (SERIAL_USART_SPEED),
+    .UARTLCR_H = UART_UARTLCR_H_WLEN_8BITS | UART_UARTLCR_H_PEN | UART_UARTLCR_H_STP2 | UART_UARTLCR_H_FEN,
+    .UARTCR = 0U,
+    .UARTIFLS = UART_UARTIFLS_RXIFLSEL_1_8F | UART_UARTIFLS_TXIFLSEL_1_8E,
+    .UARTDMACR = 0U
+};
+// clang-format on
+#else
+#    error MCU Familiy not supported by default, supply your own serial_config by defining SERIAL_USART_CONFIG in your keyboard files.
 #endif
 
-static SerialDriver* serial_driver = &SERIAL_USART_DRIVER;
+static QMKSerialDriver* serial_driver = (QMKSerialDriver*)&SERIAL_USART_DRIVER;
 
-static inline bool react_to_transactions(void);
-static inline bool __attribute__((nonnull)) receive(uint8_t* destination, const size_t size);
-static inline bool __attribute__((nonnull)) send(const uint8_t* source, const size_t size);
-static inline bool initiate_transaction(uint8_t sstd_index);
-static inline void usart_clear(void);
+#if HAL_USE_SERIAL
 
 /**
- * @brief Clear the receive input queue.
+ * @brief SERIAL Driver startup routine.
  */
-static inline void usart_clear(void) {
+static inline void usart_driver_start(void) {
+    sdStart(serial_driver, &serial_config);
+}
+
+inline void serial_transport_driver_clear(void) {
     osalSysLock();
     bool volatile queue_not_empty = !iqIsEmptyI(&serial_driver->iqueue);
     osalSysUnlock();
@@ -63,36 +70,96 @@ static inline void usart_clear(void) {
     }
 }
 
+#elif HAL_USE_SIO
+
+void clear_rx_evt_cb(SIODriver* siop) {
+    osalSysLockFromISR();
+    /* If errors occured during transactions this callback is invoked. We just
+     * clear the error sources and move on. We rely on the fact that we check
+     * for the success of the transaction by comparing the received/send bytes
+     * with the actual received/send bytes in the send/receive functions. */
+    sioGetAndClearEventsI(serial_driver);
+    osalSysUnlockFromISR();
+}
+
+static const SIOOperation serial_usart_operation = {.rx_cb = NULL, .rx_idle_cb = NULL, .tx_cb = NULL, .tx_end_cb = NULL, .rx_evt_cb = &clear_rx_evt_cb};
+
 /**
- * @brief Blocking send of buffer with timeout.
- *
- * @return true Send success.
- * @return false Send failed.
+ * @brief SIO Driver startup routine.
  */
-static inline bool send(const uint8_t* source, const size_t size) {
-    bool success = (size_t)sdWriteTimeout(serial_driver, source, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
+static inline void usart_driver_start(void) {
+    sioStart(serial_driver, &serial_config);
+    sioStartOperation(serial_driver, &serial_usart_operation);
+}
+
+inline void serial_transport_driver_clear(void) {
+    osalSysLock();
+    while (!sioIsRXEmptyX(serial_driver)) {
+        (void)sioGetX(serial_driver);
+    }
+    osalSysUnlock();
+}
+
+#else
+
+#    error Either the SERIAL or SIO driver has to be activated to use the usart driver for split keyboards.
+
+#endif
+
+inline bool serial_transport_send(const uint8_t* source, const size_t size) {
+    bool success = (size_t)chnWriteTimeout(serial_driver, source, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
 
 #if !defined(SERIAL_USART_FULL_DUPLEX)
-    if (success) {
-        /* Half duplex fills the input queue with the data we wrote - just throw it away.
-           Under the right circumstances (e.g. bad cables paired with high baud rates)
-           less bytes can be present in the input queue, therefore a timeout is needed. */
-        uint8_t dump[size];
-        return receive(dump, size);
+    /* Half duplex fills the input queue with the data we wrote - just throw it away. */
+    if (likely(success)) {
+        size_t bytes_left = size;
+#    if HAL_USE_SERIAL
+        /* The SERIAL driver uses large soft FIFOs that are filled from an IRQ
+         * context, so there is a delay between receiving the data and it
+         * becoming actually available, therefore we have to apply a timeout
+         * mechanism. Under the right circumstances (e.g. bad cables paired with
+         * high baud rates) less bytes can be present in the input queue as
+         * well. */
+        uint8_t dump[64];
+
+        while (unlikely(bytes_left >= 64)) {
+            if (unlikely(!serial_transport_receive(dump, 64))) {
+                return false;
+            }
+            bytes_left -= 64;
+        }
+
+        return serial_transport_receive(dump, bytes_left);
+#    else
+        /* The SIO driver directly accesses the hardware FIFOs of the USART
+         * peripheral. As these are limited in depth, the RX FIFO might have been
+         * overflowed by a large that we just send. Therefore we attempt to read
+         * back all the data we send or until the FIFO runs empty in case it
+         * overflowed and data was truncated. */
+        if (unlikely(sioSynchronizeTXEnd(serial_driver, TIME_MS2I(SERIAL_USART_TIMEOUT)) < MSG_OK)) {
+            return false;
+        }
+
+        osalSysLock();
+        while (bytes_left > 0 && !sioIsRXEmptyX(serial_driver)) {
+            (void)sioGetX(serial_driver);
+            bytes_left--;
+        }
+        osalSysUnlock();
+#    endif
     }
 #endif
 
     return success;
 }
 
-/**
- * @brief  Blocking receive of size * bytes with timeout.
- *
- * @return true Receive success.
- * @return false Receive failed.
- */
-static inline bool receive(uint8_t* destination, const size_t size) {
-    bool success = (size_t)sdReadTimeout(serial_driver, destination, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
+inline bool serial_transport_receive(uint8_t* destination, const size_t size) {
+    bool success = (size_t)chnReadTimeout(serial_driver, destination, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
+    return success;
+}
+
+inline bool serial_transport_receive_blocking(uint8_t* destination, const size_t size) {
+    bool success = (size_t)chnRead(serial_driver, destination, size) == size;
     return success;
 }
 
@@ -102,7 +169,7 @@ static inline bool receive(uint8_t* destination, const size_t size) {
  * @brief Initiate pins for USART peripheral. Half-duplex configuration.
  */
 __attribute__((weak)) void usart_init(void) {
-#    if defined(MCU_STM32)
+#    if defined(MCU_STM32) /* STM32 MCUs */
 #        if defined(USE_GPIOV1)
     palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE_OPENDRAIN);
 #        else
@@ -112,6 +179,8 @@ __attribute__((weak)) void usart_init(void) {
 #        if defined(USART_REMAP)
     USART_REMAP;
 #        endif
+#    elif defined(MCU_RP) /* Raspberry Pi MCUs */
+#        error Half-duplex with the SIO driver is not supported due to hardware limitations on the RP2040, switch to the PIO driver which has half-duplex support.
 #    else
 #        pragma message "usart_init: MCU Familiy not supported by default, please supply your own init code by implementing usart_init() in your keyboard files."
 #    endif
@@ -123,7 +192,7 @@ __attribute__((weak)) void usart_init(void) {
  * @brief Initiate pins for USART peripheral. Full-duplex configuration.
  */
 __attribute__((weak)) void usart_init(void) {
-#    if defined(MCU_STM32)
+#    if defined(MCU_STM32) /* STM32 MCUs */
 #        if defined(USE_GPIOV1)
     palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE_PUSHPULL);
     palSetLineMode(SERIAL_USART_RX_PIN, PAL_MODE_INPUT);
@@ -135,6 +204,9 @@ __attribute__((weak)) void usart_init(void) {
 #        if defined(USART_REMAP)
     USART_REMAP;
 #        endif
+#    elif defined(MCU_RP) /* Raspberry Pi MCUs */
+    palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE_UART);
+    palSetLineMode(SERIAL_USART_RX_PIN, PAL_MODE_ALTERNATE_UART);
 #    else
 #        pragma message "usart_init: MCU Familiy not supported by default, please supply your own init code by implementing usart_init() in your keyboard files."
 #    endif
@@ -145,7 +217,7 @@ __attribute__((weak)) void usart_init(void) {
 /**
  * @brief Overridable master specific initializations.
  */
-__attribute__((weak, nonnull)) void usart_master_init(SerialDriver** driver) {
+__attribute__((weak, nonnull)) void usart_master_init(QMKSerialDriver** driver) {
     (void)driver;
     usart_init();
 }
@@ -153,154 +225,22 @@ __attribute__((weak, nonnull)) void usart_master_init(SerialDriver** driver) {
 /**
  * @brief Overridable slave specific initializations.
  */
-__attribute__((weak, nonnull)) void usart_slave_init(SerialDriver** driver) {
+__attribute__((weak, nonnull)) void usart_slave_init(QMKSerialDriver** driver) {
     (void)driver;
     usart_init();
 }
 
-/**
- * @brief This thread runs on the slave and responds to transactions initiated
- * by the master.
- */
-static THD_WORKING_AREA(waSlaveThread, 1024);
-static THD_FUNCTION(SlaveThread, arg) {
-    (void)arg;
-    chRegSetThreadName("usart_tx_rx");
-
-    while (true) {
-        if (!react_to_transactions()) {
-            /* Clear the receive queue, to start with a clean slate.
-             * Parts of failed transactions or spurious bytes could still be in it. */
-            usart_clear();
-        }
-    }
-}
-
-/**
- * @brief Slave specific initializations.
- */
-void soft_serial_target_init(void) {
+void serial_transport_driver_slave_init(void) {
     usart_slave_init(&serial_driver);
-
-    sdStart(serial_driver, &serial_config);
-
-    /* Start transport thread. */
-    chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
+    usart_driver_start();
 }
 
-/**
- * @brief React to transactions started by the master.
- */
-static inline bool react_to_transactions(void) {
-    /* Wait until there is a transaction for us. */
-    uint8_t sstd_index = (uint8_t)sdGet(serial_driver);
-
-    /* Sanity check that we are actually responding to a valid transaction. */
-    if (sstd_index >= NUM_TOTAL_TRANSACTIONS) {
-        return false;
-    }
-
-    split_transaction_desc_t* trans = &split_transaction_table[sstd_index];
-
-    /* Send back the handshake which is XORed as a simple checksum,
-     to signal that the slave is ready to receive possible transaction buffers  */
-    sstd_index ^= HANDSHAKE_MAGIC;
-    if (!send(&sstd_index, sizeof(sstd_index))) {
-        return false;
-    }
-
-    /* Receive transaction buffer from the master. If this transaction requires it.*/
-    if (trans->initiator2target_buffer_size) {
-        if (!receive(split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size)) {
-            return false;
-        }
-    }
-
-    /* Allow any slave processing to occur. */
-    if (trans->slave_callback) {
-        trans->slave_callback(trans->initiator2target_buffer_size, split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size, split_trans_target2initiator_buffer(trans));
-    }
-
-    /* Send transaction buffer to the master. If this transaction requires it. */
-    if (trans->target2initiator_buffer_size) {
-        if (!send(split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size)) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-/**
- * @brief Master specific initializations.
- */
-void soft_serial_initiator_init(void) {
+void serial_transport_driver_master_init(void) {
     usart_master_init(&serial_driver);
 
 #if defined(MCU_STM32) && defined(SERIAL_USART_PIN_SWAP)
     serial_config.cr2 |= USART_CR2_SWAP; // master has swapped TX/RX pins
 #endif
 
-    sdStart(serial_driver, &serial_config);
-}
-
-/**
- * @brief Start transaction from the master half to the slave half.
- *
- * @param index Transaction Table index of the transaction to start.
- * @return bool Indicates success of transaction.
- */
-bool soft_serial_transaction(int index) {
-    /* Clear the receive queue, to start with a clean slate.
-     * Parts of failed transactions or spurious bytes could still be in it. */
-    usart_clear();
-    return initiate_transaction((uint8_t)index);
-}
-
-/**
- * @brief Initiate transaction to slave half.
- */
-static inline bool initiate_transaction(uint8_t sstd_index) {
-    /* Sanity check that we are actually starting a valid transaction. */
-    if (sstd_index >= NUM_TOTAL_TRANSACTIONS) {
-        dprintln("USART: Illegal transaction Id.");
-        return false;
-    }
-
-    split_transaction_desc_t* trans = &split_transaction_table[sstd_index];
-
-    /* Send transaction table index to the slave, which doubles as basic handshake token. */
-    if (!send(&sstd_index, sizeof(sstd_index))) {
-        dprintln("USART: Send Handshake failed.");
-        return false;
-    }
-
-    uint8_t sstd_index_shake = 0xFF;
-
-    /* Which we always read back first so that we can error out correctly.
-     *   - due to the half duplex limitations on return codes, we always have to read *something*.
-     *   - without the read, write only transactions *always* succeed, even during the boot process where the slave is not ready.
-     */
-    if (!receive(&sstd_index_shake, sizeof(sstd_index_shake)) || (sstd_index_shake != (sstd_index ^ HANDSHAKE_MAGIC))) {
-        dprintln("USART: Handshake failed.");
-        return false;
-    }
-
-    /* Send transaction buffer to the slave. If this transaction requires it. */
-    if (trans->initiator2target_buffer_size) {
-        if (!send(split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size)) {
-            dprintln("USART: Send failed.");
-            return false;
-        }
-    }
-
-    /* Receive transaction buffer from the slave. If this transaction requires it. */
-    if (trans->target2initiator_buffer_size) {
-        if (!receive(split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size)) {
-            dprintln("USART: Receive failed.");
-            return false;
-        }
-    }
-
-    return true;
+    usart_driver_start();
 }

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MW65_RGB",
+    "keyboard_name": "MW65 RGB",
+    "manufacturer": "MWStudio",
     "url": "",
     "maintainer": "TW59420",
+    "usb": {
+        "vid": "0x7BA1",
+        "pid": "0x6502",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

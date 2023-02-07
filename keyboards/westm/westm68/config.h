@@ -18,15 +18,8 @@
 
 #include "config_common.h"
 
-/* Ensure we jump to bootloader if the RESET keycode was pressed */
+/* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x574D // WM
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    WestM
-#define PRODUCT         WestM68
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -43,3 +36,7 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* Hold ESC key (first key of first column) to trigger bootloader */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0

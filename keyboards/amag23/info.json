@@ -1,7 +1,13 @@
 {
     "keyboard_name": "AMAG23",
+    "manufacturer": "Koolertron",
     "url": "http://www.koolertron.com/koolertron-one-handed-macro-mechanical-keyboard-rgb-led-backlit-portable-mini-onehanded-mechanical-gaming-keypad-23-fully-programmable-keys-blue-switches-p-874.html",
     "maintainer": "ianmclinden",
+    "usb": {
+        "vid": "0x4B54",
+        "pid": "0x2323",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

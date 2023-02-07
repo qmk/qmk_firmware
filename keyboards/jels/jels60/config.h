@@ -18,19 +18,12 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor paramater */
-#define VENDOR_ID       0x006A    //Jels (J)
-#define PRODUCT_ID      0x0060    //Jels 60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    jels
-#define PRODUCT         jels60
-
 /* Define Matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
 /*Define Matrix Pins */
-#define MATRIX_ROW_PINS {B3, D1, F0, F4, F1}
+#define MATRIX_ROW_PINS {B3, D2, F0, F4, F1}
 #define MATRIX_COL_PINS {E6, C7, B4, D7, D6, D4, D5, D3, F5, F6, F7, C6, B6, B5}
 
 // Caps lock Pin

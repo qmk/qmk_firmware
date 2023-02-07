@@ -12,7 +12,7 @@ from pygments.token import Token
 from pygments import lex
 
 import qmk.path
-from qmk.keyboard import find_keyboard_from_dir, rules_mk
+from qmk.keyboard import find_keyboard_from_dir, rules_mk, keyboard_folder
 from qmk.errors import CppError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
@@ -266,7 +266,7 @@ def generate_c(keymap_json):
 
             new_macro = "".join(macro)
             new_macro = new_macro.replace('""', '')
-            macro_txt.append(f'            case MACRO_{i}:')
+            macro_txt.append(f'            case QK_MACRO_{i}:')
             macro_txt.append(f'                SEND_STRING({new_macro});')
             macro_txt.append('                return false;')
 
@@ -357,7 +357,7 @@ def locate_keymap(keyboard, keymap):
     checked_dirs = ''
     keymap_path = ''
 
-    for dir in keyboard.split('/'):
+    for dir in keyboard_folder(keyboard).split('/'):
         if checked_dirs:
             checked_dirs = '/'.join((checked_dirs, dir))
         else:
@@ -412,7 +412,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     rules = rules_mk(keyboard)
     names = set()
 
-    if rules:
+    if rules is not None:
         keyboards_dir = Path('keyboards')
         kb_path = keyboards_dir / keyboard
 

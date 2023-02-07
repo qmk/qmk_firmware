@@ -140,12 +140,12 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 2
-#define IT_EURO ALGR(IT_E)       // €
-#define IT_LBRC ALGR(IT_EGRV)    // [
-#define IT_RBRC ALGR(IT_PLUS)    // ]
+#define IT_EURO ALGR(IT_E)    // €
+#define IT_LBRC ALGR(IT_EGRV) // [
+#define IT_RBRC ALGR(IT_PLUS) // ]
 // Row 3
-#define IT_AT   ALGR(IT_OGRV)    // @
-#define IT_HASH ALGR(IT_AGRV)    // #
+#define IT_AT   ALGR(IT_OGRV) // @
+#define IT_HASH ALGR(IT_AGRV) // #
 
 /* Shift+AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐

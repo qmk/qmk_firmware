@@ -10,6 +10,8 @@ For this, we will mostly be talking about the generic implementation used by the
 
 !> ARM split supports most QMK subsystems when using the 'serial' and 'serial_usart' drivers. I2C slave is currently unsupported.
 
+!> Both sides must use the same MCU family, for eg two Pro Micro-compatible controllers or two Blackpills. Currently, mixing AVR and ARM is not possible as ARM vs AVR uses different method for serial communication, and are not compatible. Moreover Blackpill's uses 3.3v logic, and atmega32u4 uses 5v logic.
+
 ## Compatibility Overview
 
 | Transport                    | AVR                | ARM                |
@@ -130,47 +132,48 @@ To enable this method, add the following to your `config.h` file:
 #define EE_HANDS
 ```
 
-Next, you will have to flash the EEPROM files once for the correct hand to the controller on each halve. You can do this manually with the following bootloader targets while flashing the firmware:
+Next, you will have to flash the correct handedness option to the controller on each halve. You can do this manually with the following bootloader targets using `qmk flash -kb <keyboard> -km <keymap> -bl <bootloader>` command to flash:
 
-* AVR controllers with the Caterina bootloader (e.g. Pro Micro):
-  * `:avrdude-split-left`
-  * `:avrdude-split-right`
-* AVR controllers with the stock Amtel DFU or DFU compatible bootloader (e.g. Elite-C):
-  * `:dfu-split-left`
-  * `:dfu-split-right`
-* ARM controllers with a DFU compatible bootloader (e.g. Proton-C):
-  * `:dfu-util-split-left`
-  * `:dfu-util-split-right`
+|Microcontroller Type|Bootloader Parameter|
+|--------------------|--------------------|
+|AVR controllers with Caterina bootloader<br>(e.g. Pro Micro)|`avrdude-split-left`<br>`avrdude-split-right`|
+|AVR controllers with the stock Amtel DFU or DFU compatible bootloader<br>(e.g. Elite-C)|`dfu-split-left`<br>`dfu-split-right`|
+|ARM controllers with a DFU compatible bootloader<br>(e.g. Proton-C)|`dfu-util-split-left`<br>`dfu-util-split-right`|
+|ARM controllers with a UF2 compatible bootloader<br>(e.g. RP2040)|`uf2-split-left`<br>`uf2-split-right`|
 
-Example:
-
+Example for `crkbd/rev1` keyboard with normal AVR Pro Micro MCUs, reset the left controller and run:
 ```
-make crkbd:default:avrdude-split-left
+qmk flash -kb crkbd/rev1 -km default -bl avrdude-split-left
+```
+Reset the right controller and run:
+```
+qmk flash -kb crkbd/rev1 -km default -bl avrdude-split-right
 ```
 
-?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md). Controllers using emulated EEPROM will always require handedness parameter when flashing the firmware.
+?> Some controllers (e.g. Blackpill with DFU compatible bootloader) will need to be flashed with handedness bootloader parameter every time because it is not retained between flashes.
 
 ?> [QMK Toolbox]() can also be used to flash EEPROM handedness files. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
-This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
+This setting is not changed when re-initializing the EEPROM using the `EE_CLR` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
 You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common).
 
+
 #### Handedness by `#define`
 
-You can set the handedness at compile time.  This is done by adding the following to your `config.h` file:
+You can use this option when USB cable is always connected to just one side of the split keyboard.
 
+If the USB cable is always connected to the right side, add the following to your `config.h` file and flash both sides with this option:
 ```c
 #define MASTER_RIGHT
 ```
 
-or 
-
+If the USB cable is always connected to the left side, add the following to your `config.h` file and flash both sides with this option:
 ```c
 #define MASTER_LEFT
 ```
 
-If neither are defined, the handedness defaults to `MASTER_LEFT`.
+?> If neither options are defined, the handedness defaults to `MASTER_LEFT`.
 
 
 ### Communication Options
@@ -365,7 +368,7 @@ There are some settings that you may need to configure, based on how the hardwar
 #define MATRIX_COL_PINS_RIGHT { <col pins> }
 ```
 
-This allows you to specify a different set of pins for the matrix on the right side.  This is useful if you have a board with differently-shaped halves that requires a different configuration (such as Keebio's Quefrency).
+This allows you to specify a different set of pins for the matrix on the right side.  This is useful if you have a board with differently-shaped halves that requires a different configuration (such as Keebio's Quefrency). The number of pins in the right and left matrices must be the same, if you have a board with a different number of rows or columns on one side, pad out the extra spaces with `NO_PIN` and make sure you add the unused rows or columns to your matrix.
 
 ```c
 #define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }
@@ -416,6 +419,17 @@ This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_
 #define SPLIT_USB_TIMEOUT_POLL 10
 ```
 This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+```c
+#define SPLIT_WATCHDOG_ENABLE
+```
+
+This will enable a software watchdog on any side delegated as slave and will reboot the keyboard if no successful communication occurs within `SPLIT_WATCHDOG_TIMEOUT`. This can be particularly helpful when `SPLIT_USB_DETECT` delegates both sides as slave in some circumstances.
+
+```c
+#define SPLIT_WATCHDOG_TIMEOUT 3000
+```
+This set the maximum slave timeout when waiting for communication from master when using `SPLIT_WATCHDOG_ENABLE`
 
 ## Hardware Considerations and Mods
 
