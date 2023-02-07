@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Function layer: http://www.keyboard-layout-editor.com/#/gists/59636898946da51f91fb290f8e078b4d */
     [LAYER_FUNCTION_1] = LAYOUT_65(
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_DEL,   RGB_HUI,
-        KC_CAPS,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  EEP_RST,  QK_BOOT,  KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,  _______,  _______,            RGB_SAI,
+        KC_CAPS,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  EE_CLR,   QK_BOOT,  KC_PSCR,  KC_SCRL,  KC_PAUS,  _______,  _______,  _______,            RGB_SAI,
         _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            RGB_TOG,            RGB_SAD,
         _______,  KC_APP,   _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      RGB_VAI,  RGB_HUD,
         _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,            RGB_RMOD, RGB_VAD,  RGB_MOD

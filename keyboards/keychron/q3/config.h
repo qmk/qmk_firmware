@@ -31,6 +31,13 @@
 #define DRIVER_ADDR_1 0b1110111
 #define DRIVER_ADDR_2 0b1110100
 
+/* Increase I2C speed to 1000 KHz */
+#define I2C1_TIMINGR_PRESC 0U
+#define I2C1_TIMINGR_SCLDEL 3U
+#define I2C1_TIMINGR_SDADEL 0U
+#define I2C1_TIMINGR_SCLH 15U
+#define I2C1_TIMINGR_SCLL 51U
+
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 

@@ -17,7 +17,6 @@
 
 #include "brandonschlack.h"
 #include "color.h"
-#include "rgblight_list.h"
 
 /*TODO Update as RGBLIGHT Mode */
 #ifndef RGB_THEME_COLORS_MAX

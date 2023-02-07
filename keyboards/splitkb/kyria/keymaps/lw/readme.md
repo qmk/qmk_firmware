@@ -93,7 +93,7 @@ This layer is activated when holding `MO(2)`.
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | Brt- | Prev | Bckw | Stop | Vol- |                              |  End | Left | Down | Right|ScrLck| BkSpace|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |  ´   |  `   |  ^   |  ¨   | Mute |      |UC_MOD|  |RShift| Menu | PrtSc| ç/Ç  | § °  |      | SAVE | Insert |
+ * | LShift |  ´   |  `   |  ^   |  ¨   | Mute |      |UC_Nxt|  |RShift| Menu | PrtSc| ç/Ç  | § °  |      | SAVE | Insert |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |LCtrl | LGUI | LAlt |      | MO(1)|  | MO(2)| UNDO |  CUT | COPY | PASTE|
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -101,4 +101,4 @@ This layer is activated when holding `MO(2)`.
  */
 ```
 
-The key `UC_MOD` allows to switch between Linux and Windows unicode. Note however that [WinCompose](https://github.com/samhocevar/wincompose) must be installed on Windows (simply download and install the latest release and it will run). 
+The key `UC_NEXT` allows to switch between Linux and Windows unicode. Note however that [WinCompose](https://github.com/samhocevar/wincompose) must be installed on Windows (simply download and install the latest release and it will run). 

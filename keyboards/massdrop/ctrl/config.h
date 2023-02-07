@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define MANUFACTURER        "Massdrop Inc."
-#define PRODUCT             "CTRL Keyboard"
 #define SERIAL_NUM          "Unavailable"
 
 /* key matrix size */

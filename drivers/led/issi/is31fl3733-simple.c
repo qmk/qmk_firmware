@@ -195,7 +195,7 @@ void IS31FL3733_init(uint8_t addr, uint8_t sync) {
 }
 
 void IS31FL3733_set_value(int index, uint8_t value) {
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
         is31_led led = g_is31_leds[index];
 
         g_pwm_buffer[led.driver][led.v]          = value;
@@ -204,7 +204,7 @@ void IS31FL3733_set_value(int index, uint8_t value) {
 }
 
 void IS31FL3733_set_value_all(uint8_t value) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
         IS31FL3733_set_value(i, value);
     }
 }

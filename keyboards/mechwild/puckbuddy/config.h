@@ -39,7 +39,6 @@
  */
 #define MATRIX_ROW_PINS { B12, B13, B14, B15 }
 #define MATRIX_COL_PINS { B10, A8, B4, B5 }
-#define UNUSED_PINS
 
 /* spi config */
 #define SPI_DRIVER SPID1

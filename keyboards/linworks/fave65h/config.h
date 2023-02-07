@@ -35,7 +35,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* Define RGB */
 #define RGBLED_NUM 67
-#define DRIVER_LED_TOTAL 67
+#define RGB_MATRIX_LED_COUNT 67
 #define RGB_DI_PIN B0
 
 #ifdef RGB_MATRIX_ENABLE
@@ -45,7 +45,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

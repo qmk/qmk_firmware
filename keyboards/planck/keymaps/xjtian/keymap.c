@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_EQUAL, KC_MINUS, KC_PAST, KC_SLSH,  KC_BSPC,
     _______, KC_1,    KC_2,    KC_3,    KC_4,  KC_5,    KC_6,    KC_7,     KC_8,     KC_9,    KC_0,     KC_NO,
     _______, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,    KC_COMM,  KC_DOT,  KC_NO,    _______,
-    _______, _______, _______, _______, MOA,   _______, _______, _______,  KC_RGUI,  KC_RALT, KC_RCTRL, KC_NO
+    _______, _______, _______, _______, MOA,   _______, _______, _______,  KC_RGUI,  KC_RALT, KC_RCTL,  KC_NO
 ),
 
 /* Symbols
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,   KC_BSPC,
     _______, KC_NO,   KC_PIPE, KC_LCBR, KC_LPRN, KC_LBRC, KC_RBRC, KC_RPRN, KC_RCBR, KC_BSLS, KC_QUOT,  KC_NO,
     _______, KC_TILD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UNDS, KC_PLUS,  _______,
-    _______, _______, _______, _______, _______, _______, _______, MOA,     KC_RGUI, KC_RALT, KC_RCTRL, KC_NO
+    _______, _______, _______, _______, _______, _______, _______, MOA,     KC_RGUI, KC_RALT, KC_RCTL,  KC_NO
 ),
 
 /* Function keys
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,
     _______, KC_NO,   KC_NO,   KC_NO,   KC_HOME, KC_NO,   KC_NO,   KC_END,  KC_NO,   KC_NO,   KC_NO,    KC_NO,
     _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_RGUI, KC_RALT, KC_RCTRL, KC_NO
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_RGUI, KC_RALT, KC_RCTL,  KC_NO
 ),
 
 /* Adjust (Num + Symbol)
