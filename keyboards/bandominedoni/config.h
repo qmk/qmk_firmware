@@ -180,10 +180,6 @@
 // NO_ACTION_ONESHOT -388 bytes
 #define NO_ACTION_ONESHOT
 
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
-
 #ifdef MIDI_ENABLE
 #   define MIDI_ADVANCED
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
