@@ -15,8 +15,7 @@
         "rotary": [
             { 
                 "pin_a": "B3", 
-                "pin_b": "B4",
-                "resolution": 4
+                "pin_b": "B4"
             }
         ]
     }
