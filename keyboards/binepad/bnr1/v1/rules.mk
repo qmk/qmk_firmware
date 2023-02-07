@@ -1,1 +1,3 @@
-# This file intentionally left blank
+# This mostly left blank
+
+LTO_ENABLE = yes

@@ -1,19 +1,23 @@
 {
     "bootloader": "stm32duino",
     "processor": "STM32F103",
+    "diode_direction": "COL2ROW",
     "usb": {
-        "vid": "0x4249",
         "pid": "0x4241",
         "device_version": "2.0.0"
     },
-    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["A15"],
         "rows": ["A8"]
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
-            { "pin_a": "B3", "pin_b": "B4" }
+            { 
+                "pin_a": "B3", 
+                "pin_b": "B4",
+                "resolution": 4
+            }
         ]
     }
 }
