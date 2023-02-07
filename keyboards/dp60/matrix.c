@@ -15,6 +15,10 @@
 */
 #include "quantum.h"
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 static uint8_t debouncing = DEBOUNCE;
 
 static matrix_row_t matrix[MATRIX_ROWS];

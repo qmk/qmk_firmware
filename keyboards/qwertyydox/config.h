@@ -71,11 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
 #define MOUSEKEY_DELAY             150
 #define MOUSEKEY_INTERVAL          20
 #define MOUSEKEY_MAX_SPEED         10
@@ -98,7 +93,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

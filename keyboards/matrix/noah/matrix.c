@@ -13,6 +13,10 @@
 #include "print.h"
 #include "matrix.h"
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 /**
  *
  * Row pins are input with internal pull-down.

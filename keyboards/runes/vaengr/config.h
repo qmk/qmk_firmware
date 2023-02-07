@@ -72,11 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-//#define GRAVE_ESC_CTRL_OVERRIDE
-
 #define FORCE_NKRO
 
 /*
@@ -94,7 +89,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0

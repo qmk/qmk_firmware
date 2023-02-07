@@ -17,6 +17,10 @@
 
 #include "quantum.h"
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 typedef uint16_t matrix_col_t;
 
 /*

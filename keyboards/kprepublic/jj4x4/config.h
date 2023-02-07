@@ -43,7 +43,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

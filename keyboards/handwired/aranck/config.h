@@ -73,10 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define TAPPING_TERM 200
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
 
 /*
  * Feature disable options
@@ -93,7 +89,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

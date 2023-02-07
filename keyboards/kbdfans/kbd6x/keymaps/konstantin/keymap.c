@@ -35,7 +35,7 @@ static bool last_checked_layer;
 static void check_light_layer(layer_state_t state) {
     if (IS_LAYER_ON_STATE(state, L_FN)) {
         fn_light();
-    } else if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    } else if (host_keyboard_led_state().caps_lock) {
         caps_light();
     } else {
         restore_light();

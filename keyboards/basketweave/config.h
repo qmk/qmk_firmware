@@ -30,17 +30,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
 #define ENCODERS_PAD_A { D7 }
 #define ENCODERS_PAD_B { C0 }
 #define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-

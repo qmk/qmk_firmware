@@ -74,11 +74,6 @@ B0, which is unconnected on the PCB
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -94,7 +89,3 @@ B0, which is unconnected on the PCB
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
