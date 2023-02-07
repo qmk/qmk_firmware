@@ -52,7 +52,6 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN F1
 #define RGBLED_NUM 47
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
