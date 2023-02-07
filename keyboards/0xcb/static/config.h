@@ -53,7 +53,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* oled custom font */
 #define OLED_FONT_END 255
 #define OLED_FONT_H "gfxfont.c"
-
-/* bootmagic */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

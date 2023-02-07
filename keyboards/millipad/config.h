@@ -42,10 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define FORCE_NKRO
 
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
-
 /* Encoder Definitions */
 
 #define ENCODERS_PAD_A { D3 }

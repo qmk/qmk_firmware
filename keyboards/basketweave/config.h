@@ -38,8 +38,3 @@
 #define ENCODERS_PAD_B { C0 }
 #define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-

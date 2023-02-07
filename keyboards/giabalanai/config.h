@@ -194,10 +194,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
-
 /* Audio */
 #ifdef AUDIO_ENABLE
 #   define AUDIO_PIN B5  // use EX1 = PB5 = PIN9 as Audio output

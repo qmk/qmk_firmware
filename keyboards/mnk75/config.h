@@ -30,7 +30,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
