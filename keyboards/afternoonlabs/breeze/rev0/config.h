@@ -29,9 +29,6 @@
 
 #define SPLIT_HAND_PIN B3
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define SOFT_SERIAL_PIN D2
 
 #define DIODE_DIRECTION COL2ROW

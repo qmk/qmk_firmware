@@ -142,7 +142,7 @@ bool rgb_matrix_indicators_user(void) {
     const uint8_t led_constant_val = rgb_matrix_config.hsv.v < 100 ? 100 : rgb_matrix_config.hsv.v;
 
     /* CapsLock LED indicator */
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color_hsv(30, 999, 0, led_constant_val, 0.75); // WHITE
     }
 
@@ -343,7 +343,7 @@ void send_french_accent(uint8_t letter, uint8_t accent) {
         }
     }
 
-    isCaps = IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? true : false;
+    isCaps = host_keyboard_led_state().caps_lock ? true : false;
 
     if (onMac) {
         if (isCaps) {
@@ -469,7 +469,7 @@ void matrix_scan_user(void)
             if (onMac) {
                 SEND_STRING(SS_LALT("c"));
             } else {
-                IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P2) SS_TAP(X_P8) SS_UP(X_LALT)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P5) SS_UP(X_LALT));
+                host_keyboard_led_state().caps_lock ? SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P2) SS_TAP(X_P8) SS_UP(X_LALT)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P5) SS_UP(X_LALT));
             }
         }
         /*  CapsLock */

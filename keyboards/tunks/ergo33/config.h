@@ -30,9 +30,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Underglow + top RGB configuration */
 #define RGB_DI_PIN D4
 #define RGBLIGHT_EFFECT_BREATHING
@@ -54,11 +51,6 @@
 #    define RGBLED_NUM 14
 #endif
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define ENCODERS_PAD_A { D5 }
 #define ENCODERS_PAD_B { D3 }
 
@@ -72,7 +64,3 @@
 
 /* disable print */
 //#define NO_PRINT
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

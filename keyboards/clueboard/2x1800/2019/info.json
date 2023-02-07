@@ -2,7 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 2x1800 2019",
   "maintainer": "skullydazed",
-  "debounce": 5,
   "processor": "at90usb1286",
   "bootloader": "halfkay",
   "diode_direction": "ROW2COL",

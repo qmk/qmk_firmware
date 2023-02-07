@@ -34,9 +34,6 @@
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

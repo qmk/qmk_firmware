@@ -26,9 +26,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Enable encoder */
 #define ENCODERS_PAD_A { B2 }
 #define ENCODERS_PAD_B { B3 }

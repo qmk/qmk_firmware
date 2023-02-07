@@ -3,7 +3,6 @@
     "manufacturer": "frooastside",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/frooastboard/nano",
     "maintainer": "frooastside",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT": {

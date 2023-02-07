@@ -8,8 +8,7 @@
         "pid": "0x6062",
         "device_version": "0.0.1"
     },
-    "processor": "atmega328p",
-    "bootloader": "usbasploader",
+    "debounce": 10,
     "layouts": {
         "LAYOUT": {
             "layout": [

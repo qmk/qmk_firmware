@@ -7,5 +7,6 @@
         "device_version": "0.0.1"
     },
     "processor": "MK66FX1M0",
-    "bootloader": "halfkay"
+    "bootloader": "halfkay",
+    "debounce": 20
 }

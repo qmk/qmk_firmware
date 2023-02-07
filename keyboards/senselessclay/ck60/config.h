@@ -29,9 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter */
-#define DEBOUNCE 5
-
 /* RGB matrix lighting */ 
 #define RGB_DI_PIN B1
 #define RGB_MATRIX_LED_COUNT 62

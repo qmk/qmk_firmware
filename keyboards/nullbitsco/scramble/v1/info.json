@@ -1,0 +1,4 @@
+{
+    "processor": "atmega328p",
+    "bootloader": "usbasploader"
+}

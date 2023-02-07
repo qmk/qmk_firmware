@@ -16,6 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */

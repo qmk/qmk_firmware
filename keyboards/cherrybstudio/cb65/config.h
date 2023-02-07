@@ -44,9 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_SCROLL_LOCK_PIN F4
 #define LED_PIN_ON_STATE 0
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* RGB Lighting */
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN

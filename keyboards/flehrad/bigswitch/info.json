@@ -9,6 +9,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "debounce": 50,
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0, "w":4, "h":4}]

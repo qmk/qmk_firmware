@@ -10,6 +10,7 @@
   },
   "processor": "STM32F042",
   "bootloader": "stm32-dfu",
+  "debounce": 0,
   "community_layouts": ["65_ansi_blocker"],
   "layouts": {
     "LAYOUT_69_ansi": {

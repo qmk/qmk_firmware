@@ -9,6 +9,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "debounce": 10,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

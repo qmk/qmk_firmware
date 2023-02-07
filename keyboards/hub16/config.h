@@ -48,9 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 20
-
 /* ENCODER THINGS */
 // #define ENCODER_DIRECTION_FLIP
 #define ENCODERS_PAD_A \

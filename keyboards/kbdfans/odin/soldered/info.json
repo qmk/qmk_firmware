@@ -10,6 +10,7 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "debounce": 15,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -28,9 +28,6 @@
 #define SR_DIN_PIN B3
 #define SR_DOUT_PIN B2
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed (5 is default) */
-#define DEBOUNCE 5
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

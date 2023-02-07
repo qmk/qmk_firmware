@@ -25,9 +25,6 @@
 
 #define DIODE_DIRECTION ROW2COL
 
-/* Set 0 if debouncing isn't needed. */
-#define DEBOUNCE 5
-
 /* RGB settings. */
 #define RGBLED_NUM 42
 #define RGBLED_SPLIT \

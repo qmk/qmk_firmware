@@ -10,6 +10,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "debounce": 9,
     "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_owlet60_full_bsp": {

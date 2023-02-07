@@ -22,6 +22,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Rows are doubled-up
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5

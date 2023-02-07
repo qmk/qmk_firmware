@@ -35,6 +35,5 @@
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 255
 
-#define DEBOUNCE 5
 //#define RETRO_TAPPING
 #define TAPPING_TERM 175

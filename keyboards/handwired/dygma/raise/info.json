@@ -10,5 +10,6 @@
     },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411"
+    "board": "BLACKPILL_STM32_F411",
+    "debounce": 0
 }

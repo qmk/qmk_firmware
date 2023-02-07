@@ -10,6 +10,7 @@
     },
     "processor": "at90usb1286",
     "bootloader": "halfkay",
+    "debounce": 0,
     "layouts": {
         "LAYOUT": {
             "layout": [

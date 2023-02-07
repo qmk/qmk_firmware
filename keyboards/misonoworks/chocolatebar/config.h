@@ -33,8 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 #endif
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 #define FORCE_NKRO
 
 #define RGB_DI_PIN B1

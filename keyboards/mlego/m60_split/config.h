@@ -19,7 +19,6 @@
 #define MATRIX_ROWS 10  // Rows are doubled-up
 #define MATRIX_COLS 6
 
-#define DEBOUNCE 5
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 

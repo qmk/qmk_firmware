@@ -7,5 +7,6 @@
         "device_version": "0.0.2"
     },
     "processor": "at90usb1286",
-    "bootloader": "halfkay"
+    "bootloader": "halfkay",
+    "debounce": 20
 }
