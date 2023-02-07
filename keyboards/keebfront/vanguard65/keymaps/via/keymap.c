@@ -1,5 +1,5 @@
 /*
-Copyright 2021 <felix@fjlaboratories.com>
+Copyright 2022 <hello@keebfront.com>
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -14,7 +14,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "analog.h"
-#include "print.h"
 #include "string.h"
 
 enum layers {
@@ -29,7 +28,6 @@ enum custom_keycodeas {
     A_CCW
 };
 
-
 // Set up EEPROM. Mostly boilerplate from QMK docs
 typedef union {
     uint32_t raw;
@@ -38,14 +36,13 @@ typedef union {
     };
 } user_config_t;
 user_config_t user_config; 
+
 uint8_t slider_func = 0;
 
 // On keyboard initialization, pull the EEPROM values
 void keyboard_post_init_user(void) {
     // Call the keymap level matrix init.
-
     user_config.raw = eeconfig_read_user();
-
     slider_func = user_config.slider_func_state;
 };
 
@@ -101,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-/* Define MIDI custom keycodes here */
+/* Configure custom MIDI Keycodes that will be placed on USER_00 and USER_01 */
 extern MidiDevice midi_device;
 #define MIDI_CC_OFF 0
 #define MIDI_CC_ON 127
@@ -211,18 +208,19 @@ uint8_t rgb_sat = 0;
 
 void slider(void) {
 
-    uint8_t current_val = analogReadPin(SLIDER_PINA) >>3;
+    uint8_t current_val = analogReadPin(SLIDER_PINA) >>3; // Bit shift 2^10 [1024] to 2^7 [128]
 
     if ( last_val - current_val < -1 || last_val - current_val > 1 ) { 
 
         // Underglow RGB Brightness
         if ( slider_func == 0 ) {
             uint8_t rounded_val = 0;
+            uint8_t round_coefficient = 3; // Set round-to-zero value target
             rgb_hue = rgblight_get_hue(); // Pull current hue and saturation values since we're just adjusting brightness
             rgb_sat = rgblight_get_sat();
 
             // Since the lower end range of the slider can be a little bit noisy, it's going to make the zero-value a little hard to hit when it bounces around between 0-1-2. Better off to round any super low values to zero so the lights will affirmatively turn off at lower values.
-            if ( current_val < 3 ) {
+            if ( current_val < round_coefficient ) {
                 rounded_val = 0;
             } else {
                 rounded_val = current_val;
@@ -233,12 +231,12 @@ void slider(void) {
 
         // MIDI CC 90
         else if ( slider_func == 1 ) {
-            midi_send_cc(&midi_device, 0, 90, current_val ); // (&midi_device, chan, message, highest control value - (current pin reading) >>resolution)
+            midi_send_cc(&midi_device, 0, 90, current_val );
         }
 
         // Layer shift between layers 1 - 4 
         else if ( slider_func == 2 ) {
-            layer_move(current_val >>5);
+            layer_move(current_val >>5); // Bit shift 2^7 to 2^2
         }
 
         else {

@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Vanguard65",
-    "manufacturer": "FJLaboratories",
-    "url": "https://www.fjlaboratories.com",
-    "maintainer": "FJLabs",
+    "manufacturer": "Keebfront",
+    "url": "https://www.keebfront.com",
+    "maintainer": "Keebfront",
     "usb": {
         "vid": "0x7074",
         "pid": "0x1823",
