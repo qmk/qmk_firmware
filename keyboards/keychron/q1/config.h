@@ -19,14 +19,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1011111
-
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {0,1} }
-
 /* Disable DIP switch in matrix data */
 #define MATRIX_MASKED
 
@@ -84,3 +76,5 @@
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+#define HOLD_ON_OTHER_KEY_PRESS
