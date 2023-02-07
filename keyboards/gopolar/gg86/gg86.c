@@ -1,4 +1,4 @@
-/* Copyright 2021 Gopolar
+/* Copyright 2023 Gopolar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,11 @@
 #include "lib/logo.h"
 
 #ifdef RGB_MATRIX_ENABLE
+
+#include <string.h>
+#include <math.h>
+#include <lib/lib8tion/lib8tion.h>
+
 led_config_t g_led_config = { {
     { 87,     86,     85,     84,     83,     82,     81,     80,     79,     78,     77,     76,     75, NO_LED,     74,     73,     72 },
     { 55,     56,     57,     58,     59,     60,     61,     62,     63,     64,     65,     66,     67,     68,     69,     70,     71 },
@@ -50,6 +55,62 @@ led_config_t g_led_config = { {
     // Underglow (88 -> 99)
     2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 } };
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RGB_TOG:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
+                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    case (LED_FLAG_UNDERGLOW): {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                        rgb_matrix_enable_noeeprom();
+                    }
+                    break;
+                }
+            }
+            return false;
+    }
+    return process_record_user(keycode, record);
+}
+
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
+    HSV      hsv = rgb_matrix_config.hsv;
+    uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
+    hsv.h        = time;
+    RGB      rgb = hsv_to_rgb(hsv);
+
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+    } else if (!(rgb_matrix_get_flags() & LED_FLAG_INDICATOR)) {
+        rgb_matrix_set_color(25, 0, 0, 0);
+    }
+
+    if (host_keyboard_led_state().scroll_lock) {
+        rgb_matrix_set_color(73, rgb.r, rgb.g, rgb.b);
+    } else if (!(rgb_matrix_get_flags() & LED_FLAG_INDICATOR)) {
+        rgb_matrix_set_color(73, 0, 0, 0);
+    }
+    return true;
+}
 #endif
 
 #ifdef OLED_ENABLE
