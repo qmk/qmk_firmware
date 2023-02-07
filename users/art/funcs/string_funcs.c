@@ -122,7 +122,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             tap_code16(A(KC_RIGHT));
           }
         }
-        break; 
+        break;
       case BSPC_LSFT_CLEAR:
         if (pressed) {
           tap_code16(KC_END);
@@ -134,12 +134,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         if (pressed) {
           tap_code16(C(S(KC_ENTER)));
         }
-        break;        
+        break;
     }
 }
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
-  return !layer_state_is(BASE);
+  return !layer_state_is(BASE) && !layer_state_is(WORKMAN);
 }
 
 bool is_mac_with_base_layer_off(void) {
@@ -210,63 +210,63 @@ void send_string_with_translation(char *string) {
 
         case 'w':
           toPrint = 'd';
-          break; 
+          break;
         case 'e':
           toPrint = 'r';
-          break; 
+          break;
         case 'r':
           toPrint = 'w';
-          break; 
+          break;
         case 't':
           toPrint = 'b';
-          break; 
+          break;
         case 'y':
           toPrint = 'j';
-          break; 
+          break;
         case 'u':
           toPrint = 'f';
-          break; 
+          break;
         case 'i':
           toPrint = 'u';
-          break; 
+          break;
         case 'o':
           toPrint = 'p';
-          break; 
+          break;
         case 'p':
           toPrint = ';';
-          break; 
+          break;
 
         case 'd':
           toPrint = 'h';
-          break; 
+          break;
         case 'f':
           toPrint = 't';
-          break; 
+          break;
         case 'h':
           toPrint = 'y';
-          break; 
+          break;
         case 'j':
           toPrint = 'n';
-          break; 
+          break;
         case 'k':
           toPrint = 'e';
-          break; 
+          break;
         case 'l':
           toPrint = 'o';
-          break; 
+          break;
         case ';':
           toPrint = 'i';
-          break; 
+          break;
 
         case 'b':
           toPrint = 'm';
-          break; 
+          break;
         case 'n':
           toPrint = 'k';
-          break; 
+          break;
         case 'm':
           toPrint = 'l';
-          break; 
+          break;
       }
       if (isUpperCase) {
         isUpperCase = 0;
