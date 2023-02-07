@@ -145,6 +145,10 @@ typedef struct {
   char kana[26];
 } naginata_keymap_long;
 
+typedef struct {
+  uint32_t key;
+} naginata_keymap_macro;
+
 // UNICODE
 typedef struct {
   uint32_t key;
@@ -403,6 +407,23 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 //{.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(NGLT))}, // +{←}
 //{.key = B_C|B_V|B_DOT		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
 //{.key = B_C|B_V|B_SLSH		, .macro , // +{← 20}
+};
+
+const PROGMEM naginata_keymap_macro ngmapm[] = {
+  {.key = B_J|B_K|B_W}, // 《》{改行}{↑}
+  {.key = B_J|B_K|B_S}, // (){改行}{↑}
+  {.key = B_J|B_K|B_F}, // 「」{改行}{↑}
+  {.key = B_J|B_K|B_G}, // 『』{改行}{↑}
+  {.key = B_J|B_K|B_X}, // 【】{改行}{↑}
+  {.key = B_M|B_COMM|B_W}, // ^x｜{改行}^v《》{改行}{↑}
+  {.key = B_M|B_COMM|B_S}, // ^x(^v){改行}{Space}+{↑}^x
+  {.key = B_M|B_COMM|B_F}, // ^x「^v」{改行}{Space}+{↑}^x
+  {.key = B_M|B_COMM|B_G}, // ^x『^v』{改行}{Space}+{↑}^x
+  {.key = B_M|B_COMM|B_Z}, // 　　　×　　　×　　　×{改行 2}
+  {.key = B_M|B_COMM|B_X}, // ^x【^v】{改行}{Space}+{↑}^x
+  {.key = B_M|B_COMM|B_V}, // {改行}{End}{改行}「」{改行}{↑}
+  {.key = B_C|B_V|B_SCLN}, // +{→ 20}
+  {.key = B_C|B_V|B_SLSH}, // +{← 20}
 };
 
 const PROGMEM naginata_keymap_long ngmapl_tate[] = {
@@ -913,6 +934,7 @@ void naginata_type(void) {
 int number_of_candidates() {
   naginata_keymap bngmap; // PROGMEM buffer
   naginata_keymap_long bngmapl; // PROGMEM buffer
+  naginata_keymap_macro bngmapm; // PROGMEM buffer
   naginata_keymap_unicode bngmapu; // PROGMEM buffer
   int c = 0;
   uint32_t hit = 0;
@@ -934,22 +956,20 @@ int number_of_candidates() {
     }
   }
 
-  // 編集モード Mac
-  if (naginata_config.os == NG_MAC) {
-    for (int i = 0; i < sizeof ngmapl_mac / sizeof bngmapl; i++) {
-      memcpy_P(&bngmapl, &ngmapl_mac[i], sizeof(bngmapl));
-      if ((keycomb_buf & bngmapl.key) == keycomb_buf) {
-        c++;
-        hit = bngmapl.key;
-      }
-    }
-  }
   // 編集モード 共通
   for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
     memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
     if ((keycomb_buf & bngmapl.key) == keycomb_buf) {
       c++;
       hit = bngmapl.key;
+    }
+  }
+  // 編集モード マクロ
+  for (int i = 0; i < sizeof ngmapm / sizeof bngmapm; i++) {
+    memcpy_P(&bngmapm, &ngmapm[i], sizeof(bngmapm));
+    if ((keycomb_buf & bngmapm.key) == keycomb_buf) {
+      c++;
+      hit = bngmapm.key;
     }
   }
   // 編集モード 縦書き横書き
