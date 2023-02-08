@@ -8,6 +8,8 @@
         "pid": "0x5575",
         "device_version": "0.0.3"
     },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
             "LAYOUT_all": {
             "layout": [

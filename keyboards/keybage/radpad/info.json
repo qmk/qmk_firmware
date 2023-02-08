@@ -8,6 +8,8 @@
         "pid": "0x5250",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_4x4_encoders": {
             "layout": [

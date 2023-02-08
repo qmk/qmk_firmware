@@ -8,6 +8,8 @@
         "pid": "0x6050",
         "device_version": "1.0.4"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

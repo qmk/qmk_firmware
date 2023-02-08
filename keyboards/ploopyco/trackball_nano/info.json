@@ -8,6 +8,8 @@
         "pid": "0x54A3",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "debounce": 0,
      "layouts": {
         "LAYOUT": {

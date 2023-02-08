@@ -8,6 +8,8 @@
         "pid": "0x4250",
         "device_version": "10.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "community_layouts": ["68_ansi"],
      "layouts": {
         "LAYOUT_68_ansi": {

@@ -7,6 +7,8 @@
         "pid": "0x5024",
         "device_version": "4.0.6"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["ortho_6x4", "numpad_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {

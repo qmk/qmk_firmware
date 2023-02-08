@@ -8,6 +8,8 @@
         "pid": "0x4536",
         "device_version": "0.6.2"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_60_wkl_split_bs": "LAYOUT_60_tsangan_hhkb"
     },

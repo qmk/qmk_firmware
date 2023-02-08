@@ -8,6 +8,8 @@
         "pid": "0x5D5E",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
     "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {

@@ -7,6 +7,8 @@
       "vid": "0x574C",
       "pid": "0xDCD1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_2u_space": {
             "layout": [

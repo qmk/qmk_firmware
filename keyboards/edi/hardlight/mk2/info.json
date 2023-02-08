@@ -6,6 +6,8 @@
         "pid": "0x2408",
         "device_version": "0.0.7"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "community_layouts": ["ortho_4x16"],
     "layouts": {
         "LAYOUT_ortho_4x16": {

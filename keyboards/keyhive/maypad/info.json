@@ -8,6 +8,8 @@
         "pid": "0x4D50",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "community_layouts": ["ortho_5x4", "numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {

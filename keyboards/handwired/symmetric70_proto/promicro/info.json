@@ -1,3 +1,5 @@
 {
-    "keyboard_name": "Symmetric70 prototype promicro"
+    "keyboard_name": "Symmetric70 prototype promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
 }

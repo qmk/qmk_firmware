@@ -8,6 +8,8 @@
     "pid": "0x422E",
     "device_version": "2.0.0"
   },
+  "processor": "atmega32a",
+  "bootloader": "bootloadhid",
   "community_layouts": ["alice_split_bs"],
   "layouts": {
     "LAYOUT_alice_split_bs": {
