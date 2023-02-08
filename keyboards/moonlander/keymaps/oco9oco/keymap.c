@@ -34,12 +34,12 @@ _______,  _______, _______, _______, _______,            _______,         ______
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_moonlander_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    KC_ESC,  __________________NUMROW_L_________________, KC_F5,                     KC_MINS, __________________NUMROW_R_________________, KC_DEL,
-    KC_GRAVE,__________________QWERTY_L1________________, KC_F6,                     KC_EQL,  __________________QWERTY_R1________________, KC_BSPC,
-    KC_CAPS, __________________QWERTY_SACS_L2___________, KC_F7,                     XXXXXXX, __________________QWERTY_HOME_R2___________, KC_QUOT,
+    KC_ESC,  __________________NUMROW_L_________________, KC_F5,                     KC_LBRC, __________________NUMROW_R_________________, KC_MINS,
+    KC_GRAVE,__________________QWERTY_L1________________, KC_F6,                     KC_RBRC,  __________________QWERTY_R1________________, KC_EQL,
+    KC_CAPS, __________________QWERTY_SACS_L2___________, KC_F7,                     KC_B,    __________________QWERTY_HOME_R2___________, KC_QUOT,
     KC_LSFT, __________________QWERTY_GUIZ_L3___________,                                     __________________QWERTY_R3________________, KC_BSLS,
-    KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, LCTL_T(KC_TAB),   TG(_BASE_NOMOD),           TG(_ONEHAND),       XXXXXXX, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,
-                                      THUMB_L2, THUMB_L3, THUMB_L1,                  THUMB_R1, THUMB_R3, THUMB_R2
+    KC_DOWN, KC_UP, XXXXXXX, THUMB_L1, THUMB_L2,   TG(_BASE_NOMOD),           TG(_ONEHAND),       THUMB_R2, THUMB_R1, KC_LNG2, KC_LEFT, KC_RGHT,
+                                      KC_BSPC, KC_DEL, XXXXXXX,                   XXXXXXX, XXXXXXX, THUMB_R3
 ),
 
 [_BASE_NOMOD] = LAYOUT_moonlander_wrapper(
@@ -48,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   __________________QWERTY_L1________________,  _______,            _______,  __________________QWERTY_R1________________,  KC_BSPC,
     KC_CAPS,  __________________QWERTY_L2________________,  _______,            _______,  __________________QWERTY_R2________________,  KC_QUOT,
     KC_LSFT,  __________________QWERTY_L3________________,                                __________________QWERTY_R3________________,  KC_BSLS,
-    _______,  _______, _______, _______, _______,           _______,            _______,           _______, _______, _______, _______,  _______,
-                                         _______, _______,  _______,            _______,  _______, _______
+    KC_LCTL, KC_LGUI, KC_LALT, _______, _______,           _______,            _______,           _______, _______, _______, _______,  _______,
+                                         _______, _______,  _______,            KC_GRAVE, _______, _______
 
 ),
 
@@ -60,15 +60,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F),  KC_DOT,  KC_F7,            KC_LPRN,  KC_RPRN, _________NUM_456_________, KC_COLN, KC_DQUO,
     _______, IPC(Z),  BRKT,    IPC(C),  KC_EQL,  XXXXXXX,                             XXXXXXX, _________NUM_123_________, _______, KC_PIPE,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, _______, _______, _______, _______,          TO(_ONEHAND),     _______,          _______, _______, _______, KC_LPRN, KC_RPRN,
-                                        _______, _______, _______,          _______, _______, LT(_NAV, KC_0)
+    _______, _______, _______, _______, _______,          TO(_ONEHAND),     _______,          LT(_NAV, KC_0), _______, _______, KC_LPRN, KC_RPRN,
+                                        _______, _______, _______,          _______, _______, _______
 ),
 
 [_NAV] = LAYOUT_moonlander_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     _______, CTRL_F1, KC_F2,   KC_F3,   ALT_F4,   KC_F5,  XXXXXXX,          XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-    _______, XXXXXXX, A(KC_7), A(KC_8), A(KC_9),  KC_F6,  XXXXXXX,          XXXXXXX, XXXXXXX, A(KC_1), A(KC_2), A(KC_3), XXXXXXX, KC_F12,
-    _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,  KC_F7,  XXXXXXX,          XXXXXXX, KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,
+    _______,LCA(KC_H),LCA(KC_J),LCA(KC_K),LCA(KC_L),KC_F6,XXXXXXX,          XXXXXXX, XXXXXXX, A(KC_4), A(KC_7), A(KC_6), XXXXXXX, KC_F12,
+    _______, KC_LSFT, KC_LALT, KC_LCTL, KC_LSFT,  KC_F7,  XXXXXXX,          XXXXXXX, KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,
     _______, NAV(Z),  C(KC_X), C(KC_C), C(KC_V), C(KC_B),                            KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     _______, _______, _______, BRKT, _______,             _______,          _______,         KC_TRNS, _______, _______, _______, _______,
@@ -77,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MOUSE] = LAYOUT_moonlander_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, CTRL_F1, KC_F2,   KC_F3,   ALT_F4,  KC_F5,   XXXXXXX,          XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  RESET,
-    KC_U,    XXXXXXX, KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, CTRL_F1, KC_F2,   KC_F3,   ALT_F4,  KC_F5,   XXXXXXX,          XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  QK_BOOT,
+    KC_U,    XXXXXXX, KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_MAKE,
     KC_P,    KC_LSFT, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,          XXXXXXX, KC_ACL2,  KC_ACL0, KC_BTN1, KC_BTN2, KC_BTN3, KC_ENT,
     KC_X,    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, BOLDFACE,                           KC_APP,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
     _______, _______, _______, _______, _______,          TO_BASE,          _______,          _______, _______, _______, _______, _______,
