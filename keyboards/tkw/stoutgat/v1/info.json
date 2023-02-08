@@ -8,6 +8,8 @@
         "pid": "0x7811",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "community_layouts": ["65_iso", "65_ansi"],
     "layouts": {
         "LAYOUT_encoder": {

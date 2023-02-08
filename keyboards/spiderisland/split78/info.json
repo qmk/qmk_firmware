@@ -8,6 +8,8 @@
         "pid": "0xF4E4",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
     "debounce": 50,
     "layouts": {
         "LAYOUT": {

@@ -8,6 +8,8 @@
         "pid": "0x8769",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {

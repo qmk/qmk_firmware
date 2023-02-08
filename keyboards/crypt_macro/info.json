@@ -8,6 +8,8 @@
         "pid": "0x434D",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":0.5, "y":1, "w":2}]

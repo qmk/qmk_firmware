@@ -2,5 +2,7 @@
     "keyboard_name": "XD60 Rev 2",
     "usb": {
         "pid": "0x6060"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

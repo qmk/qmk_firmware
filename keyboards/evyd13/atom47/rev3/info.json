@@ -8,6 +8,8 @@
         "pid": "0x0E6D",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_split_space": {
             "layout": [

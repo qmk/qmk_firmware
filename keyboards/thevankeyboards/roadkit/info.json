@@ -8,6 +8,8 @@
     "pid": "0x8846",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "community_layouts": ["numpad_4x4", "ortho_4x4"],
   "layouts": {
     "LAYOUT_numpad_4x4": {
