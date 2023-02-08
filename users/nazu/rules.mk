@@ -1,5 +1,4 @@
-SRC += $(USER_PATH)/nazu.c \
-        $(USER_PATH)/keyrecords/process_records.c \
+SRC += $(USER_PATH)/keyrecords/process_records.c \
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 # ifdef TAP_DANCE_ENABLE
