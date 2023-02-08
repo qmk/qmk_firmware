@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS, __________________QWERTY_SACS_L2___________, KC_F7,                     KC_B,    __________________QWERTY_HOME_R2___________, KC_QUOT,
     KC_LSFT, __________________QWERTY_GUIZ_L3___________,                                     __________________QWERTY_R3________________, KC_BSLS,
     KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, LCTL_T(KC_TAB),  TG(_BASE_NOMOD),           TG(_ONEHAND),       THUMB_R2, THUMB_R1, KC_LNG2, KC_LEFT, KC_RGHT,
-                                      THUMB_L2, KC_DEL, KC_BSPC,                   XXXXXXX, XXXXXXX, THUMB_R3
+                                      THUMB_L2, KC_DEL, KC_BSPC,                   KC_PGUP, KC_PGDN, THUMB_R3
 ),
 
 [_BASE_NOMOD] = LAYOUT_moonlander_wrapper(
@@ -71,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LSFT, KC_LALT, KC_LCTL, KC_LSFT,  KC_F7,  XXXXXXX,          XXXXXXX, KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ENT,
     _______, NAV(Z),  C(KC_X), C(KC_C), C(KC_V), C(KC_B),                            KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, _______, _______, BRKT, _______,             _______,          _______,         KC_TRNS, _______, _______, _______, _______,
-                                        _______, _______, _______,          _______, _______, _______
+    _______, _______, _______, _______, _______,             _______,          _______,         KC_TRNS, _______, _______, _______, _______,
+                                        KC_BSPC, KC_DEL, _______,          _______, _______, _______
 ),
 
 [_MOUSE] = LAYOUT_moonlander_wrapper(

@@ -53,21 +53,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 switch_cite  = 0;
                 cite_done    = true;
             } else {
-                if (prns_pressed) {
-                    SEND_STRING(")");
-                    if (!num_in_prns) {
-                        tap_code(KC_LEFT);
-                    }
-                }
-                if (brkt_pressed) {
-                    SEND_STRING("] ");
-                    cite_done = true;
-                    if (!num_in_prns) {
-                        tap_code(KC_LEFT);
-                        tap_code(KC_LEFT);
+                if (num_in_prns) {
+                    if(prns_pressed){tap_code(KC_RGHT);}
+                    if(brkt_pressed){
+                        cite_done = true;
+                        tap_code(KC_RGHT);
                     }
                 }
             }
+            return true;
             break;
 
         case CLASS_A:
@@ -84,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         switch_cite = 1;
                         break;
                     case 1:
-                        SEND_STRING("A41D13/11");
+                        SEND_STRING("A41D");
                         switch_cite = 0;
                         break;
                 }
@@ -110,11 +104,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         switch_cite = 2;
                         break;
                     case 2:
-                        SEND_STRING("E06B");
+                        SEND_STRING("E05G");
                         switch_cite = 3;
                         break;
                     case 3:
-                        SEND_STRING("E05F");
+                        SEND_STRING("E06B");
                         switch_cite = 0;
                         break;
                 }
@@ -213,7 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                         }
                         if (!brkt_pressed) {
-                            SEND_STRING("[");
+                            SEND_STRING("[]" SS_TAP(X_LEFT));
                             brkt_pressed = true;
                         }
                         switch_cite = 3;
@@ -273,7 +267,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case IPC(S):
             if (__TAPPED__ && __PRESSED__) {
-                SEND_STRING("(");
+                SEND_STRING("()" SS_TAP(X_LEFT));
                 prns_pressed = true;
             } else if (__PRESSED__) {
                 register_code(KC_LALT);
@@ -327,7 +321,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // CLOSING BRACKET PAIRS
         case BRKT:
             if (__PRESSED__) {
-                SEND_STRING("[");
+                SEND_STRING("[]" SS_TAP(X_LEFT));
                 brkt_pressed = true; // 괄호입력상태
             }
             break;
