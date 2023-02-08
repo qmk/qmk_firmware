@@ -131,8 +131,10 @@ enum keycodes {
   KC_CYCLE_LAYERS = QK_USER,
 };
 
-#define LAYER_CYCLE_START 0 //1st layer on the cycle
-#define LAYER_CYCLE_END   4 //last layer on the cycle
+// 1st layer on the cycle
+#define LAYER_CYCLE_START 0
+// Last layer on the cycle
+#define LAYER_CYCLE_END   4
 
 // Add the behaviour of this new keycode
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
