@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Mechlovin9 Rev3",
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "usb": {
+        "pid": "0x6509",
+        "device_version": "0.0.3"
+    }
+}
