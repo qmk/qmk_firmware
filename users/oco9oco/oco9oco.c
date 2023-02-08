@@ -84,7 +84,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         switch_cite = 1;
                         break;
                     case 1:
-                        SEND_STRING("A41D");
+                        SEND_STRING("A41D13/11");
                         switch_cite = 0;
                         break;
                 }
@@ -279,6 +279,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_LALT);
             } else {
                 unregister_code(KC_LALT);
+            }
+            return false;
+            break;
+        case IPC(F):
+            if (__TAPPED__ && __PRESSED__) {
+                SEND_STRING(", ");
+            } else if (__PRESSED__) {
+                register_code(KC_LSFT);
+            } else {
+                unregister_code(KC_LSFT);
             }
             return false;
             break;

@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRAVE,__________________QWERTY_L1________________, KC_F6,                     KC_RBRC,  __________________QWERTY_R1________________, KC_EQL,
     KC_CAPS, __________________QWERTY_SACS_L2___________, KC_F7,                     KC_B,    __________________QWERTY_HOME_R2___________, KC_QUOT,
     KC_LSFT, __________________QWERTY_GUIZ_L3___________,                                     __________________QWERTY_R3________________, KC_BSLS,
-    KC_DOWN, KC_UP, XXXXXXX, XXXXXXX, LCTL_T(KC_TAB),  TG(_BASE_NOMOD),           TG(_ONEHAND),       THUMB_R2, THUMB_R1, KC_LNG2, KC_LEFT, KC_RGHT,
+    KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, LCTL_T(KC_TAB),  TG(_BASE_NOMOD),           TG(_ONEHAND),       THUMB_R2, THUMB_R1, KC_LNG2, KC_LEFT, KC_RGHT,
                                       THUMB_L2, KC_DEL, KC_BSPC,                   XXXXXXX, XXXXXXX, THUMB_R3
 ),
 
@@ -48,17 +48,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   __________________QWERTY_L1________________,  _______,            _______,  __________________QWERTY_R1________________,  KC_BSPC,
     KC_CAPS,  __________________QWERTY_L2________________,  _______,            _______,  __________________QWERTY_R2________________,  KC_QUOT,
     KC_LSFT,  __________________QWERTY_L3________________,                                __________________QWERTY_R3________________,  KC_BSLS,
-    KC_LCTL, KC_LGUI, KC_LALT, _______, _______,           _______,            _______,           _______, _______, _______, _______,  _______,
+    KC_LGUI, XXXXXXX, XXXXXXX, KC_LALT, _______,           _______,            _______,           _______, _______, _______, _______,  _______,
                                          _______, _______,  _______,            KC_GRAVE, _______, _______
 
 ),
 
 [_IPC] = LAYOUT_moonlander_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, PDF_HL,  KC_P,    KC_X,    XXXXXXX, XXXXXXX, KC_F5,            XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS,
-    _______, HAEN_B,  HAEN_C,  HAEN_E,  HAEN_D,  KC_SLSH, KC_F6,            KC_LBRC,  KC_RBRC, _________NUM_789_________, XXXXXXX, KC_EQL,
-    _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F),  KC_DOT,  KC_F7,            KC_LPRN,  KC_RPRN, _________NUM_456_________, KC_COLN, KC_DQUO,
-    _______, IPC(Z),  BRKT,    IPC(C),  KC_EQL,  XXXXXXX,                             XXXXXXX, _________NUM_123_________, _______, KC_PIPE,
+    _______, PDF_HL,  KC_P,    KC_X,    XXXXXXX, XXXXXXX, XXXXXXX,            XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS,
+    _______, HAEN_B,  HAEN_C,  CLASS_E, CLASS_A, AT_IPC,  XXXXXXX,            KC_LBRC,  KC_RBRC, _________NUM_789_________, XXXXXXX, KC_EQL,
+    _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F),  KC_BSPC,  KC_DOT,            KC_LPRN,  KC_RPRN, _________NUM_456_________, KC_COLN, KC_DQUO,
+    _______, IPC(Z),  HWP_CITE, IPC(C),  KC_EQL, KC_DEL,                             XXXXXXX, _________NUM_123_________, _______, KC_PIPE,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     _______, _______, _______, _______, _______,          TO(_ONEHAND),     _______,          LT(_NAV, KC_0), _______, _______, KC_LPRN, KC_RPRN,
                                         _______, _______, _______,          _______, _______, _______
@@ -88,8 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FUNC] = LAYOUT_moonlander_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,          XXXXXXX, KC_F12, KC_F7,   KC_F8,  KC_F9,    XXXXXXX,  XXXXXXX,
+    _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, KC_F12, KC_F7,   KC_F8,  KC_F9,    XXXXXXX,  XXXXXXX,
     XXXXXXX, KC_LSFT, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, XXXXXXX,          XXXXXXX, KC_F11, KC_F4,   KC_F5,   KC_F6,   XXXXXXX,   XXXXXXX,
     XXXXXXX, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            KC_F10, KC_F1,   KC_F2,   KC_F3,   XXXXXXX,   XXXXXXX,
     _______, _______, _______, BRKT, _______,             _______,          _______,         KC_TRNS, _______, _______, _______, _______,
