@@ -38,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRAVE,__________________QWERTY_L1________________, KC_F6,                     KC_RBRC,  __________________QWERTY_R1________________, KC_EQL,
     KC_CAPS, __________________QWERTY_SACS_L2___________, KC_F7,                     KC_B,    __________________QWERTY_HOME_R2___________, KC_QUOT,
     KC_LSFT, __________________QWERTY_GUIZ_L3___________,                                     __________________QWERTY_R3________________, KC_BSLS,
-    KC_DOWN, KC_UP, XXXXXXX, THUMB_L1, THUMB_L2,   TG(_BASE_NOMOD),           TG(_ONEHAND),       THUMB_R2, THUMB_R1, KC_LNG2, KC_LEFT, KC_RGHT,
-                                      KC_BSPC, KC_DEL, XXXXXXX,                   XXXXXXX, XXXXXXX, THUMB_R3
+    KC_DOWN, KC_UP, XXXXXXX, XXXXXXX, LCTL_T(KC_TAB),  TG(_BASE_NOMOD),           TG(_ONEHAND),       THUMB_R2, THUMB_R1, KC_LNG2, KC_LEFT, KC_RGHT,
+                                      THUMB_L2, KC_DEL, KC_BSPC,                   XXXXXXX, XXXXXXX, THUMB_R3
 ),
 
 [_BASE_NOMOD] = LAYOUT_moonlander_wrapper(

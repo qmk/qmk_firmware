@@ -24,34 +24,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_AUTO_SHIFT_ALPHA
 
 //MOUSEKEY OPTIONS
+#define MOUSEKEY_INERTIA
 
-#define MK_KINETIC_SPEED
-#undef MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL 4
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY 0
 
+#undef MOUSEKEY_INTERVAL
+#undef MOUSEKEY_MAX_SPEED	//Maximum cursor speed at which acceleration stops
+#undef MOUSEKEY_TIME_TO_MAX	//Number of frames until maximum cursor speed is reached
+#undef MOUSEKEY_FRICTION		//How quickly the cursor stops after releasing a key
+#undef MOUSEKEY_MOVE_DELTA	//How much to move on first frame (1 strongly recommended)
 
-#ifdef  MK_KINETIC_SPEED
-    #define MOUSEKEY_MOVE_DELTA 30
-    #define MOUSEKEY_INITIAL_SPEED 300
-    #define MOUSEKEY_BASE_SPEED 2000
-    #define MOUSEKEY_DECELERATED_SPEED 300
-    #define MOUSEKEY_ACCELERATED_SPEED 2500
-    #define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 5
-    #define MOUSEKEY_WHEEL_BASE_MOVEMENTS 8
-    #define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 12
-    #define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 5
-#else
-    #undef MOUSEKEY_MAX_SPEED
-    #undef MOUSEKEY_TIME_TO_MAX
-    #undef MOUSEKEY_WHEEL_MAX_SPEED
-    #undef MOUSEKEY_WHEEL_TIME_TO_MAX
-    #define MOUSEKEY_MAX_SPEED 7
-    #define MOUSEKEY_TIME_TO_MAX 60
-    #define MOUSEKEY_WHEEL_MAX_SPEED 4
-    #define MOUSEKEY_WHEEL_TIME_TO_MAX 18
-#endif
+#define MOUSEKEY_INTERVAL	8	//Time between cursor movements in milliseconds (16 = 60fps)
+#define MOUSEKEY_MAX_SPEED	12	//Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_TIME_TO_MAX	30	//Number of frames until maximum cursor speed is reached
+#define MOUSEKEY_FRICTION	40	//How quickly the cursor stops after releasing a key
+#define MOUSEKEY_MOVE_DELTA	1	//How much to move on first frame (1 strongly recommended)
+// #ifdef  MK_KINETIC_SPEED
+//     #define MOUSEKEY_MOVE_DELTA 30
+//     #define MOUSEKEY_INITIAL_SPEED 300
+//     #define MOUSEKEY_BASE_SPEED 2000
+//     #define MOUSEKEY_DECELERATED_SPEED 300
+//     #define MOUSEKEY_ACCELERATED_SPEED 2500
+//     #define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 5
+//     #define MOUSEKEY_WHEEL_BASE_MOVEMENTS 8
+//     #define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 12
+//     #define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 5
+
+#undef MOUSEKEY_WHEEL_MAX_SPEED
+#undef MOUSEKEY_WHEEL_TIME_TO_MAX
+#define MOUSEKEY_WHEEL_MAX_SPEED 2
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 7
+
+    // #undef MOUSEKEY_MAX_SPEED
+    // #undef MOUSEKEY_TIME_TO_MAX
+    // #define MOUSEKEY_MAX_SPEED 7
+    // #define MOUSEKEY_TIME_TO_MAX 60
+
 
 // ONESHOT OPTIONS
 #define ONESHOT_TAP_TOGGLE 1  /* Tapping this number of times holds the key until tapped once again. */
