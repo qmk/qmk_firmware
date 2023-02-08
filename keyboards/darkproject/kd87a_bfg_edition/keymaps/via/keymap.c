@@ -34,65 +34,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_MC:
             if (record->event.pressed) {
-                host_consumer_send(0x29F);                
-                //add_weak_mods(MOD_BIT(KC_1));
-                //tap_code16(KC_1);
-                //rgblight_step();
+                host_consumer_send(0x29F);
             } else {
                 host_consumer_send(0);
-                //rgblight_step();
             }
             return false; /* Skip all further processing of this key */
 
         case KC_LPAD:
             if (record->event.pressed) {
-                host_consumer_send(0x2A0);              
-               // rgblight_step_reverse();
+                host_consumer_send(0x2A0);
             } else {
                 host_consumer_send(0);
-               //rgblight_step_reverse();
             }
             return false; /* Skip all further processing of this key */
 
         case KC_SIRI: 
             if (record->event.pressed) {
-               // host_consumer_send(0x2A0);
                 host_consumer_send(0xCF);
-               // rgblight_step_reverse();
             } else {
                 host_consumer_send(0);
-               //rgblight_step_reverse();
             }
             return false; /* Skip all further processing of this key */
 
         case KC_DND:
             if (record->event.pressed) {
-               // host_consumer_send(0x2A0);
-               host_system_send(0x9B);
-               // rgblight_step_reverse();
+                host_system_send(0x9B);
             } else {
-               host_system_send(0);
-               //rgblight_step_reverse();
+                host_system_send(0);
             }
             return false; /* Skip all further processing of this key */
 
         case KC_SPOT:
-            if (record->event.pressed) {              
-               host_consumer_send(0x221);
-               // rgblight_step_reverse();
+            if (record->event.pressed) {
+                host_consumer_send(0x221);
             } else {
                 host_consumer_send(0);
-               //rgblight_step_reverse();
             }
             return false; /* Skip all further processing of this key */ 
 
         case KC_EJ:
-            if (record->event.pressed) {              
+            if (record->event.pressed) {
                host_consumer_send(0x0B8);
-               // rgblight_step_reverse();
             } else {
                 host_consumer_send(0);
-               //rgblight_step_reverse();
             }
             return false; /* Skip all further processing of this key */     
     

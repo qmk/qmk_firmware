@@ -1,6 +1,6 @@
 # KD87A_BFG_Edition 
 
-An 87 keys keyboard. Equipped with the WestBerry G7 microcontroller
+An 87 keys keyboard, Equipped with the WestBerry G7 microcontroller.
 
 * Keyboard Maintainer: [GSKY](https://github.com/gksygithub)
 * Hardware Supported: KD87A_BFG_Edition

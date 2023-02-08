@@ -19,9 +19,6 @@
 #include "config_common.h"
 
 
-/* key matrix size */
-#define MATRIX_ROWS 14
-#define MATRIX_COLS 8
 
 #define MATRIX_ROW_PINS \
     { B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13 }
@@ -122,9 +119,3 @@
 
 
 #define RGB_MATRIX_CENTER { 87, 22 }
-
-/* Set debounce time to 5ms */
-#define DEBOUNCE 5
-
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
-// #define FORCE_NKRO

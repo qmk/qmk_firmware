@@ -1,9 +1,3 @@
-# MCU name
-MCU = WB32F3G71
-
-# Bootloader selection
-BOOTLOADER = wb32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,7 +11,7 @@ BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality.
 RGBLIGHT_ENABLE = no         # Enable keyboard RGB underglow.
 AUDIO_ENABLE = no            # Audio output.
 ENCODER_ENABLE = yes
-RGB_MATRIX_ENABLE = yes      
-RGB_MATRIX_DRIVER = AW20216  
+RGB_MATRIX_ENABLE = yes      # Enable RGB matrix effects.
+RGB_MATRIX_DRIVER = AW20216  # Enable RGB matrix effects.
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = spi_flash
