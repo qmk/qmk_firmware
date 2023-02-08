@@ -2,5 +2,8 @@
     "keyboard_name": "Adelais En Ciel Rev2",
     "usb": {
         "pid": "0xAEC2"
-    }
+    },
+    "processor": "STM32F303",
+    "board": "QMK_PROTON_C",
+    "bootloader": "stm32-dfu"
 }

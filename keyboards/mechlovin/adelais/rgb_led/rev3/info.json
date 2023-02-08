@@ -2,5 +2,7 @@
     "keyboard_name": "Adelais En Ciel Rev3",
     "usb": {
         "pid": "0xAEC3"
-    }
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino"
 }

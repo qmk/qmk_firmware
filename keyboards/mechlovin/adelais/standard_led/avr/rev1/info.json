@@ -2,5 +2,7 @@
     "keyboard_name": "Adelais AVR",
     "usb": {
         "pid": "0xAD04"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }
