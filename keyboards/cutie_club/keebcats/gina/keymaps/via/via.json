@@ -2,7 +2,6 @@
     "name": "Keebcats Gina",
     "vendorId": "0xFB9C",
     "productId": "0xB225",
-    "lighting": "none",
     "matrix": { "rows": 5, "cols": 5 },
     "layouts": {
         "labels": [
