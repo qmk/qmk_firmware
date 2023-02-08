@@ -9,6 +9,8 @@
         "pid": "0xFAB5",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["F1", "F4", "E6", "B1", "B7", "B0", "E2", "D4", "D6", "D7", "B4", "B3", "B6", "C6"],

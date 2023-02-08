@@ -7,6 +7,8 @@
         "vid": "0xB16B",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi",
         "LAYOUT_iso": "LAYOUT_tkl_f13_iso"

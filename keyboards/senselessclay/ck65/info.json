@@ -8,6 +8,8 @@
         "pid": "0x0651",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_iso"
     },

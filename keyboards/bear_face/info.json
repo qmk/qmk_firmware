@@ -7,5 +7,7 @@
     "usb": {
         "vid": "0xFEED",
         "pid": "0x09F5"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

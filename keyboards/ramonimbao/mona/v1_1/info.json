@@ -8,6 +8,8 @@
         "pid": "0x404B",
         "device_version": "0.1.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

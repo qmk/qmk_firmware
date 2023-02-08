@@ -8,6 +8,8 @@
         "pid": "0x4E4D",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["ortho_1x1"],
     "layouts": {
         "LAYOUT_ortho_1x1": {

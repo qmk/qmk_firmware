@@ -8,6 +8,8 @@
         "pid": "0x4E53",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {

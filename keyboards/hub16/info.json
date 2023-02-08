@@ -8,6 +8,8 @@
         "pid": "0x4810",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "debounce": 20,
     "layouts": {
         "LAYOUT": {

@@ -8,6 +8,8 @@
         "pid": "0xCA60",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_2_shifts": "LAYOUT_all"
     },

@@ -8,6 +8,8 @@
     "pid": "0x544E",
     "device_version": "99.9.9"
   },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT_ortho_3x3": {
       "layout": [

@@ -6,5 +6,7 @@
         "pid": "0x345C",
         "device_version": "0.0.1"
     },
+    "processor": "MK66FX1M0",
+    "bootloader": "halfkay",
     "debounce": 20
 }

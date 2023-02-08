@@ -38,5 +38,7 @@
         "vid": "0x4642",
         "pid": "0x6F21",
         "device_version": "0.0.1"
-    }
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu"
 }

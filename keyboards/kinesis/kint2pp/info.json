@@ -6,5 +6,7 @@
         "pid": "0x6060",
         "device_version": "0.0.2"
     },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "debounce": 20
 }

@@ -8,6 +8,8 @@
         "pid": "0x440B",
         "device_version": "0.1.2"
     },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [
