@@ -21,7 +21,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
-        "vid": "0x0001"
+        "vid": "0x4048"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -73,10 +73,10 @@
                 { "label": "{", "matrix": [2, 11], "x": 11.5, "y": 2.25 },
                 { "label": "}", "matrix": [2, 12], "x": 12.5, "y": 2.25 },
                 { "label": "|", "matrix": [2, 13], "w": 1.5, "x": 13.5, "y": 2.25 },
-                { "label": "Delete", "matrix": [2, 14], "x": 15.25, "y": 2.25 },
+                { "label": "Del", "matrix": [2, 14], "x": 15.25, "y": 2.25 },
                 { "label": "End", "matrix": [2, 15], "x": 16.25, "y": 2.25 },
                 { "label": "PgDn", "matrix": [4, 16], "x": 17.25, "y": 2.25 },
-                { "label": "Caps Lock", "matrix": [3, 0], "w": 1.75, "x": 0.0, "y": 3.25 },
+                { "label": "Caps", "matrix": [3, 0], "w": 1.75, "x": 0.0, "y": 3.25 },
                 { "label": "A", "matrix": [3, 1], "x": 1.75, "y": 3.25 },
                 { "label": "S", "matrix": [3, 2], "x": 2.75, "y": 3.25 },
                 { "label": "D", "matrix": [3, 3], "x": 3.75, "y": 3.25 },
@@ -87,7 +87,7 @@
                 { "label": "K", "matrix": [3, 8], "x": 8.75, "y": 3.25 },
                 { "label": "L", "matrix": [3, 9], "x": 9.75, "y": 3.25 },
                 { "label": ":", "matrix": [3, 10], "x": 10.75, "y": 3.25 },
-                { "label": "\"", "matrix": [3, 11], "x": 11.75, "y": 3.25 },
+                { "label": "Apos", "matrix": [3, 11], "x": 11.75, "y": 3.25 },
                 { "label": "Enter", "matrix": [3, 13], "w": 2.25, "x": 12.75, "y": 3.25 },
                 { "label": "Shift", "matrix": [4, 0], "w": 2.25, "x": 0.0, "y": 4.25 },
                 { "label": "Z", "matrix": [4, 2], "x": 2.25, "y": 4.25 },
