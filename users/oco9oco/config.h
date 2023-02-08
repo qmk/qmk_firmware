@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef MOUSEKEY_WHEEL_MAX_SPEED
 #undef MOUSEKEY_WHEEL_TIME_TO_MAX
 #define MOUSEKEY_WHEEL_MAX_SPEED 2
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 7
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 60
 
     // #undef MOUSEKEY_MAX_SPEED
     // #undef MOUSEKEY_TIME_TO_MAX
