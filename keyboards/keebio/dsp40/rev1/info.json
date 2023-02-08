@@ -8,6 +8,8 @@
         "pid": "0x144C",
         "device_version": "1.0.0"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

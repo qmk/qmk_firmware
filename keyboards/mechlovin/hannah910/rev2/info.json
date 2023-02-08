@@ -8,6 +8,8 @@
         "pid": "0x9102",
         "device_version": "0.0.2"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["65_ansi_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {

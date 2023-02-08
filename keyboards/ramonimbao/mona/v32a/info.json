@@ -8,6 +8,8 @@
         "pid": "0x4032",
         "device_version": "0.1.1"
     },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

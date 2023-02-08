@@ -8,6 +8,8 @@
         "pid": "0x27DB",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F446", // RET6
+    "bootloader": "stm32-dfu",
     "community_layouts": ["fullsize_ansi", "fullsize_iso"],
     "layouts": {
         "LAYOUT_all": {

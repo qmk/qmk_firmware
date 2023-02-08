@@ -8,6 +8,8 @@
         "pid": "0x4136",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {

@@ -8,6 +8,8 @@
         "pid": "0x4B45",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "community_layouts": ["60_ansi_tsangan"],
     "layouts": {
         "LAYOUT_60_ansi_tsangan": {

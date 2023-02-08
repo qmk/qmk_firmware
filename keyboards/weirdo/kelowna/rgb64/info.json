@@ -8,6 +8,9 @@
         "pid": "0x4C64",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "community_layouts": ["64_ansi"],
     "layouts": {
         "LAYOUT_64_ansi": {
