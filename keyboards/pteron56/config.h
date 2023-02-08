@@ -24,8 +24,7 @@
 #define PRODUCT_ID      0x7056
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    MooreKeys
-#define PRODUCT         Pteron56 v0.2
-//#define DESCRIPTION     Pteron56 v0.2
+#define PRODUCT         Pteron56
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -34,7 +33,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D3, D2, F4, D4, B5 }
 #define MATRIX_COL_PINS { E6, B4, D7, C6, D0, D1, F6, F7, B1, B3, B6, B2 }
-//#define UNUSED_PINS { F5 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -45,9 +43,8 @@
 #define BACKLIGHT_LEVELS 3
 #endif
 
-
 /* Set 0 if debouncing isn't needed */
-//#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -59,10 +56,4 @@
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
-
-/* prevent stuck modifiers */
-//#define PREVENT_STUCK_MODIFIERS
-
-
-
 #endif
