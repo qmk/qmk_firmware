@@ -75,7 +75,7 @@ typedef struct _fave_config_t {
 
 fave_config fave;
 
-void eeconfig_init_kb(void) {
+void eeconfig_init_user(void) {
     // Default values
     fave.caps.h       = 0;
     fave.caps.s       = 0;
@@ -93,17 +93,12 @@ enum via_fave {
 };
 
 //On Keyboard startup
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     //Read our custom menu variables from memory
     eeconfig_read_kb_datablock(&fave);
 }
 
-bool rgb_matrix_indicators_kb(void) {
-    // First decides if action is needed. If a user code is defined, or the indicator is disabled, then does not act.
-    if (!rgb_matrix_indicators_user()) {
-        return false;
-    }
-
+bool rgb_matrix_indicators_user(void) {
     if (fave.caps.enabled) {
         // The rgb_matrix_set_color function needs an RGB code to work, so first the indicator color is cast to an HSV value and then translated to RGB
         HSV hsv_caps_indicator_color = {fave.caps.h, fave.caps.s, fave.caps.v};
