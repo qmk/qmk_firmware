@@ -50,11 +50,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //     #define MOUSEKEY_WHEEL_BASE_MOVEMENTS 8
 //     #define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 12
 //     #define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 5
-
-#undef MOUSEKEY_WHEEL_MAX_SPEED
+#undef MOUSEKEY_WHEEL_DELAY		//Delay between pressing a wheel key and wheel movement
+#undef MOUSEKEY_WHEEL_INTERVAL	//Time between wheel movements
+#undef MOUSEKEY_WHEEL_MAX_SPEED	//Maximum number of scroll steps per scroll action
 #undef MOUSEKEY_WHEEL_TIME_TO_MAX
-#define MOUSEKEY_WHEEL_MAX_SPEED 2
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 60
+
+#define MOUSEKEY_WHEEL_DELAY    0	//Delay between pressing a wheel key and wheel movement
+#define MOUSEKEY_WHEEL_INTERVAL	80	//Time between wheel movements
+#define MOUSEKEY_WHEEL_MAX_SPEED 0
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 0
 
     // #undef MOUSEKEY_MAX_SPEED
     // #undef MOUSEKEY_TIME_TO_MAX
