@@ -128,7 +128,7 @@ This example shows how to implement a custom keycode to cycle through a range on
 ```c
 // Define the keycode, `SAFE_RANGE` avoids collisions with existing keycodes
 enum keycodes {
-  KC_CYCLE_LAYERS = SAFE_RANGE,
+  KC_CYCLE_LAYERS = QK_USER,
 };
 
 #define LAYER_CYCLE_START 0 //1st layer on the cycle
