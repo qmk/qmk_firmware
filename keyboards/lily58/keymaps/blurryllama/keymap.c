@@ -15,15 +15,16 @@
 */
 
 #include QMK_KEYBOARD_H
+#include "os_detection.h"
 
 // OLED animation
 #include "oled/bongocat.h"
 
 
+
 enum custom_layers {
   _QWERTY,
   _FN,
-  _GAME,
 //   _RAISE,
 //   _FN2,
 };
@@ -36,7 +37,6 @@ enum custom_keycodes {
   LOCK,
   INSP,
   KILL,
-  GAME,
 //   RAISE,
 //   FN2,
 };
@@ -83,20 +83,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FN] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
-  KC_F12,  _______, _______,   KC_UP,  _______,  KC_PGUP,                   _______, _______,    INSP, CG_TOGG,      SS, KC_HOME,
+  KC_F12,  _______, _______,   KC_UP,  _______,  KC_PGUP,                   _______, _______,    INSP, _______,      SS, KC_HOME,
   KC_CAPS, _______, KC_LEFT, KC_DOWN,  KC_RIGHT, KC_PGDN,                   _______, _______,    KILL,    LOCK, _______,  KC_END,
   _______, _______, _______,    CALC,  _______,  KC_MPRV, _______, _______, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
-                             _______,  _______,  _______, _______, KC_MPLY, _______, GAME, _______
-)  ,
-
-[_GAME] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  KC_LSFT, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-  KC_LCTRL, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                             _______, _______, _______, _______, _______, _______, _______, _______
+                             _______,  _______,  _______, _______, KC_MPLY, _______, _______, _______
 ) // ,
-
 };
 
 //SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
@@ -113,8 +104,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 static const char PROGMEM windows_logo[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xbc, 0xbc, 0xbe, 0xbe, 0x00, 0xbe, 0xbe, 0xbf, 0xbf, 0xbf, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x07, 0x0f, 0x0f, 0x00, 0x0f, 0x0f, 0x1f, 0x1f, 0x1f, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 static const char PROGMEM mac_logo[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xf0, 0xf8, 0xf8, 0xf8, 0xf0, 0xf6, 0xfb, 0xfb, 0x38, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x07, 0x0f, 0x1f, 0x1f, 0x0f, 0x0f, 0x1f, 0x1f, 0x0f, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
-static const char PROGMEM steam_logo[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0xf8, 0xfc, 0xfe, 0xfe, 0x7f, 0x1f,0x0f, 0x47, 0x06, 0x06, 0x0c, 0xf8, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x1c, 0x18, 0x31, 0x30, 0x72, 0x7c,0x7c, 0x7e, 0x3e, 0x3f, 0x1f, 0x0f, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 /* KEYBOARD PET START */
 
@@ -146,7 +135,7 @@ bool isCtrl = false;
 bool isAlt = false;
 bool isGui = false;
 bool isFun = false;
-bool isGame = false;
+uint8_t previousOs;
 
 /* logic */
 static void render_luna(int LUNA_X, int LUNA_Y) {
@@ -266,14 +255,11 @@ bool oled_task_user(void) {
     led_usb_state = host_keyboard_led_state();
     if (is_keyboard_master()) {
         oled_set_cursor(0, 0);
-        if (isGame) {
-            oled_write_raw_P(steam_logo, sizeof(steam_logo));
+
+        if (keymap_config.swap_lctl_lgui) {
+            oled_write_raw_P(mac_logo, sizeof(mac_logo));
         } else {
-            if (keymap_config.swap_lctl_lgui) {
-                oled_write_raw_P(mac_logo, sizeof(mac_logo));
-            } else {
-                oled_write_raw_P(windows_logo, sizeof(windows_logo));
-            }
+            oled_write_raw_P(windows_logo, sizeof(windows_logo));
         }
 
         if (isShft) {
@@ -342,6 +328,15 @@ bool oled_task_user(void) {
 #endif // OLED_DRIVER_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t host_os = detected_host_os();
+    if (previousOs != host_os) {
+        previousOs = host_os;
+        if (host_os == OS_MACOS || host_os == OS_IOS) {
+            process_magic(CG_SWAP, record);
+        } else {
+            process_magic(CG_NORM, record);
+        }
+    }
 
   switch (keycode) {
     case QWERTY:
@@ -358,21 +353,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         isFun = false;
         layer_off(_FN);
       }
-      return false;
-      break;
-    case GAME:
-      if (record->event.pressed) {
-        if (!keymap_config.swap_lctl_lgui) {
-            if (isGame) {
-                layer_off(_GAME);
-                isGame = false;
-
-            } else {
-                layer_on(_GAME);
-                isGame = true;
-            }
-        }
-      } 
       return false;
       break;
     case SS:
