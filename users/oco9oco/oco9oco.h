@@ -246,7 +246,7 @@ bool qwert;
 
 #define THUMB_R3 LT(_MOUSE, KC_ENT)
 #define THUMB_R2 LT(_NAV, KC_SPC)
-#define THUMB_R1 LT(_FUNC, KC_HAEN)
+#define THUMB_R1 LT(_FUNC, KC_LNG1)
 
 #define __BASE_LT THUMB_L1, THUMB_L2, LSFT_T(KC_DEL)
 #define __BASE_RT THUMB_R3, THUMB_R2, THUMB_R1

@@ -14,9 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "oco9oco.h"
 
 void haen_keycode(uint16_t keycode) {
-    tap_code(KC_HAEN);
+    tap_code(KC_LNG1);
     tap_code(keycode);
-    tap_code(KC_HAEN);
+    tap_code(KC_LNG1);
 }
 void appcmd(uint16_t keycode) {
     tap_code(KC_APP);
@@ -261,7 +261,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Intercept mod-tap
         case IPC(A):
             if (__TAPPED__ && __PRESSED__) {
-                SEND_STRING(SS_TAP(X_HAEN) SS_TAP(X_A) SS_TAP(X_HAEN));
+                SEND_STRING(SS_TAP(X_LNG1) SS_TAP(X_A) SS_TAP(X_LNG1));
                 // tap_code(KC_A);
             } else if (__PRESSED__) {
                 register_code(KC_LSFT);
