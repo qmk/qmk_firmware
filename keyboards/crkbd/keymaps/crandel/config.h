@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #define TAPPING_TERM 560
 #define TAPPING_TOGGLE 3
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define MASTER_LEFT
 // #define MASTER_RIGHT
