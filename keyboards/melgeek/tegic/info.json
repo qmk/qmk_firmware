@@ -8,8 +8,11 @@
         "pid": "0x0081",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_tegic_ansi": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_tegic_ansi": {
+        "LAYOUT": {
             "layout": [
                 {"x": 0,	"y": 0},
                 {"x": 1.25, "y": 0},
