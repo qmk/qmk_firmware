@@ -8,6 +8,8 @@
         "pid": "0x0A01",
         "device_version": "0.0.5"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

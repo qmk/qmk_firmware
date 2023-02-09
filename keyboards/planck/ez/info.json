@@ -6,6 +6,8 @@
     "vid": "0x3297",
     "device_version": "0.0.1"
   },
+  "processor": "STM32F303",
+  "bootloader": "stm32-dfu",
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_planck_1x2uC": {

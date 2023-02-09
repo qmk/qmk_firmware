@@ -8,6 +8,8 @@
         "pid": "0x5445",
         "device_version": "10.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "community_layouts": ["ortho_5x4"],
     "layouts": {
         "LAYOUT_ortho_5x4": { 

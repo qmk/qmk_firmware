@@ -6,6 +6,9 @@
         "pid": "0x5600",
         "device_version": "0.0.1"
     },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
     "layouts": {
         "LAYOUT": {
             "layout": [

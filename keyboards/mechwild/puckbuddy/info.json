@@ -8,6 +8,9 @@
         "pid": "0x170F",
         "device_version": "1.0.0"
     },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F401",
     "layouts": {
         "LAYOUT": {
             "layout": [

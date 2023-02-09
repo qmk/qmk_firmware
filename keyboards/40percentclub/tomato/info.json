@@ -8,6 +8,8 @@
     "pid": "0x546F",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "community_layouts": ["ortho_3x10"],
   "layouts": {
     "LAYOUT_ortho_3x10": {

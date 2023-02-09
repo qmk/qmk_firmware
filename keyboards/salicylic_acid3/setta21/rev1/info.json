@@ -8,6 +8,8 @@
         "pid": "0x3060",
         "device_version": "0.1.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {

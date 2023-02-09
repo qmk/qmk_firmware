@@ -8,6 +8,8 @@
     "pid": "0x4F60",
     "device_version": "0.0.1"
   },
+  "processor": "STM32F103",
+  "bootloader": "stm32duino",
   "community_layouts": ["ortho_5x12"],
   "layouts": {
     "LAYOUT_ortho_5x12": {

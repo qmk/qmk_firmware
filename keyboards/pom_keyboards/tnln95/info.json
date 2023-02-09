@@ -8,6 +8,8 @@
         "pid": "0x3931",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "debounce": 8,
     "layouts": {
         "LAYOUT_all": {

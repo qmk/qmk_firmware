@@ -2,5 +2,8 @@
     "usb": {
         "device_version": "20.1.9"
     },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "debounce": 6
 }

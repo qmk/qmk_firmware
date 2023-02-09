@@ -1,11 +1,3 @@
-# MCU name
-# Actually F070, but close enough
-MCU = STM32F072
-BOARD = DURGOD_STM32_F070
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #

@@ -8,6 +8,8 @@
     "pid": "0x0001",
     "device_version": "1.0.4"
   },
+  "processor": "atmega32u4",
+  "bootloader": "lufa-ms",
   "debounce": 0,
   "community_layouts": ["60_hhkb"],
   "layouts": {
