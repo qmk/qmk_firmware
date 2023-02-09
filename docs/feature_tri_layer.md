@@ -24,13 +24,13 @@ To change the default values for the layers, you can change these defines, in yo
 | Config name              | Default | Description                              |
 |--------------------------|---------|------------------------------------------|
 | `TRI_LAYER_LOWER_LAYER`  | `1`     | Sets the default for the "lower" layer.  |
-| `TRI_LAYER_LOWER_UPPER`  | `2`     | Sets the default for the "upper" layer.  |
-| `TRI_LAYER_LOWER_ADJUST` | `3`     | Sets the default for the "adjust" layer. |
+| `TRI_LAYER_UPPER_LAYER`  | `2`     | Sets the default for the "upper" layer.  |
+| `TRI_LAYER_ADJUST_LAYER` | `3`     | Sets the default for the "adjust" layer. |
 
 Eg, if you wanted to set the "Adjust" layer to be layer 5, you'd add this to your `config.h`: 
 
 ```c
-#define TRI_LAYER_LOWER_ADJUST 5
+#define TRI_LAYER_ADJUST_LAYER 5
 ```
 
 ## Functions
