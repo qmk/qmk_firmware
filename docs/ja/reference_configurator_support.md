@@ -104,8 +104,6 @@ JSON ファイルをビルドする最も簡単な方法は、[Keyboard Layout E
     "tags": {
         "form_factor": "numpad"
     },
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

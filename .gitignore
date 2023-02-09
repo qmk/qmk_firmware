@@ -3,6 +3,11 @@
 *.swp
 *~
 .DS_Store
+._*
+
+# Merge files
+*.orig
+*.rej
 
 # Build artifacts
 .clang_complete
@@ -18,9 +23,7 @@
 
 # QMK-specific
 api_data/v1
-doxygen/
 quantum/version.h
-!quantum/tools/eeprom_reset.hex
 *.bin
 *.eep
 *.hex
@@ -28,16 +31,11 @@ quantum/version.h
 *.uf2
 
 # Old-style QMK Makefiles
-/keyboards/*/Makefile
-/keyboards/*/*/Makefile
-/keyboards/*/*/*/Makefile
-/keyboards/*/*/*/*/Makefile
-/keyboards/*/*/*/*/*/Makefile
-/keyboards/*/keymaps/Makefile
-/keyboards/*/*/keymaps/Makefile
-/keyboards/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/*/keymaps/Makefile
+/keyboards/**/Makefile
+
+# kbfirmware....
+/keyboards/**/kb.h
+/keyboards/**/kb.c
 
 # Eclipse/PyCharm/Other IDE Settings
 *.iml
@@ -55,6 +53,7 @@ quantum/version.h
 build/
 cmake-build-debug
 CMakeLists.txt
+*.pdf
 
 # Let these ones be user specific, since we have so many different configurations
 *.code-workspace
@@ -68,10 +67,23 @@ CMakeLists.txt
 .vscode/temp.sql
 tags
 
-# Ignore image files
+# Ignore image/font files
+*.bmp
+*.wbmp
 *.gif
 *.jpg
+*.jpeg
 *.png
+*.apng
+*.mng
+*.svg
+*.webp
+*.webm
+*.avi
+*.mp4
+*.mpeg
+*.ttf
+*.otf
 
 # Things Travis sees
 /.vs
@@ -87,3 +99,11 @@ __pycache__
 
 # Allow to exist but don't include it in the repo
 user_song_list.h
+
+# clangd
+compile_commands.json
+.clangd/
+.cache/
+
+# VIA(L) json files that don't belong in QMK repo
+via*.json

@@ -1,4 +1,5 @@
-/* Copyright 2021 kuenhlee and Don Kjer
+/* Copyright 2021 Don Kjer and Tyler Tidman
+ * Copyright 2021 Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,25 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
 #include "quantum.h"
-
-#ifndef WINLOCK_DISABLED
-// Define the TGUI key here so it is available in QMK configurator
-enum K320_keycodes {
-    KC_TGUI = SAFE_RANGE,   // Toggle between GUI Lock or Unlock
-    NEW_SAFE_RANGE
-};
-
-#undef SAFE_RANGE
-#define SAFE_RANGE NEW_SAFE_RANGE
-#endif /* WINLOCK_DISABLED */
-
-/* Function Prototype */
-void off_all_leds(void);
-void on_all_leds(void);
-
 
 #define XXX KC_NO
 
@@ -53,7 +39,6 @@ void on_all_leds(void);
     { XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  K6F }   \
 }
 
-
 // This a shortcut to help you visually see your layout.
 #define LAYOUT_tkl_iso( \
       K00,        K01,  K02,  K03,  K04,  K05,  K06,  K07,  K08,  K09,  K0A,  K0B,  K0C,      K0D,  K0E,  K0F,  \
@@ -72,7 +57,6 @@ void on_all_leds(void);
     { XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  K6F }   \
 }
 
-
 // This a shortcut to help you visually see your layout.
 #define LAYOUT_all( \
       K00,        K01,  K02,  K03,  K04,  K05,  K06,  K07,  K08,  K09,  K0A,  K0B,  K0C,      K0D,  K0E,  K0F,  \
@@ -90,3 +74,24 @@ void on_all_leds(void);
     { K50,  K51,  K52,  XXX,  XXX,  XXX,  K56,  XXX,  XXX,  XXX,  K5A,  K5B,  K5C,  K5D,  K5E,  K5F },  \
     { XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  K6F }   \
 }
+
+
+#ifndef WINLOCK_DISABLED
+// Define the TGUI key here so it is available in QMK configurator
+enum K3x0_keycodes {
+#ifdef VIA_ENABLE
+    KC_TGUI = USER00,   // Toggle between GUI Lock or Unlock
+    NEW_SAFE_RANGE = SAFE_RANGE
+#else
+    KC_TGUI = SAFE_RANGE,   // Toggle between GUI Lock or Unlock
+    NEW_SAFE_RANGE
+#endif
+};
+
+#undef SAFE_RANGE
+#define SAFE_RANGE NEW_SAFE_RANGE
+#endif /* WINLOCK_DISABLED */
+
+/* Function Prototype */
+void off_all_leds(void);
+void on_all_leds(void);

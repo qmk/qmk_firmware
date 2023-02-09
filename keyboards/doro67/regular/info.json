@@ -1,10 +1,14 @@
 {
+    "keyboard_name": "Doro67",
+    "manufacturer": "Backprop Studio",
     "maintainer": "qmk",
-    "width": 16,
-    "height": 5,
+    "usb": {
+        "vid": "0x4250",
+        "pid": "0x5245",
+        "device_version": "0.0.1"
+    },
     "layouts": {
       "LAYOUT_65_ansi_blocker": {
-        "key_count": 67,
         "layout": [
           {"label":"K00", "x":0, "y":0},
           {"label":"K01", "x":1, "y":0},
@@ -77,4 +81,3 @@
       }
     }
   }
-  

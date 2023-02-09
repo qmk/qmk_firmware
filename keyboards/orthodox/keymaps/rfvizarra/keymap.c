@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] =  LAYOUT(                                                  \
-    _______, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
+    _______, QK_BOOT, _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
     _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,          _______, _______,          _______, _______,          AG_SWAP, QWERTY , COLEMAK, DVORAK,  _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
   )
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   state = update_tri_layer_state(state, _LOWER, _NAV, _NAV2);
   return state;

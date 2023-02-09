@@ -1,19 +1,16 @@
 """Helper functions for commands.
 """
-import json
 import os
+import sys
+import json
 import shutil
 from pathlib import Path
-from subprocess import DEVNULL
-from time import strftime
 
 from milc import cli
+import jsonschema
 
-import qmk.keymap
 from qmk.constants import KEYBOARD_OUTPUT_PREFIX
-from qmk.json_schema import json_load
-
-time_fmt = '%Y-%m-%d-%H:%M:%S'
+from qmk.json_schema import json_load, validate
 
 
 def _find_make():
@@ -27,13 +24,16 @@ def _find_make():
     return make_cmd
 
 
-def create_make_target(target, parallel=1, **env_vars):
+def create_make_target(target, dry_run=False, parallel=1, **env_vars):
     """Create a make command
 
     Args:
 
         target
             Usually a make rule, such as 'clean' or 'all'.
+
+        dry_run
+            make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -51,10 +51,10 @@ def create_make_target(target, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    return [make_cmd, '-j', str(parallel), *env, target]
+    return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
 
 
-def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
+def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1, **env_vars):
     """Create a make compile command
 
     Args:
@@ -67,6 +67,9 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
 
         target
             Usually a bootloader.
+
+        dry_run
+            make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -83,43 +86,28 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
     if target:
         make_args.append(target)
 
-    return create_make_target(':'.join(make_args), parallel, **env_vars)
+    return create_make_target(':'.join(make_args), dry_run=dry_run, parallel=parallel, **env_vars)
 
 
-def get_git_version(repo_dir='.', check_dir='.'):
-    """Returns the current git version for a repo, or the current time.
+def get_make_parallel_args(parallel=1):
+    """Returns the arguments for running the specified number of parallel jobs.
     """
-    git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
+    parallel_args = []
 
-    if Path(check_dir).exists():
-        git_describe = cli.run(git_describe_cmd, stdin=DEVNULL, cwd=repo_dir)
+    if int(parallel) <= 0:
+        # 0 or -1 means -j without argument (unlimited jobs)
+        parallel_args.append('--jobs')
+    else:
+        parallel_args.append('--jobs=' + str(parallel))
 
-        if git_describe.returncode == 0:
-            return git_describe.stdout.strip()
+    if int(parallel) != 1:
+        # If more than 1 job is used, synchronize parallel output by target
+        parallel_args.append('--output-sync=target')
 
-        else:
-            cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
-            print(git_describe.stderr)
-            return strftime(time_fmt)
-
-    return strftime(time_fmt)
-
-
-def write_version_h(git_version, build_date, chibios_version, chibios_contrib_version):
-    """Generate and write quantum/version.h
-    """
-    version_h = [
-        f'#define QMK_VERSION "{git_version}"',
-        f'#define QMK_BUILDDATE "{build_date}"',
-        f'#define CHIBIOS_VERSION "{chibios_version}"',
-        f'#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"',
-    ]
-
-    version_h_file = Path('quantum/version.h')
-    version_h_file.write_text('\n'.join(version_h))
+    return parallel_args
 
 
-def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
+def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=False, **env_vars):
     """Convert a configurator export JSON file into a C file and then compile it.
 
     Args:
@@ -137,25 +125,36 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 
         A command to run to compile and flash the C file.
     """
-    # Write the keymap.c file
+    # In case the user passes a keymap.json from a keymap directory directly to the CLI.
+    # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
+    user_keymap["keymap"] = user_keymap.get("keymap", "default_json")
+
     keyboard_filesafe = user_keymap['keyboard'].replace('/', '_')
     target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
     keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
     keymap_output = Path(f'{keyboard_output}_{user_keymap["keymap"]}')
-    c_text = qmk.keymap.generate_c(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
     keymap_dir = keymap_output / 'src'
-    keymap_c = keymap_dir / 'keymap.c'
+    keymap_json = keymap_dir / 'keymap.json'
 
+    if clean:
+        if keyboard_output.exists():
+            shutil.rmtree(keyboard_output)
+        if keymap_output.exists():
+            shutil.rmtree(keymap_output)
+
+    # begin with making the deepest folder in the tree
     keymap_dir.mkdir(exist_ok=True, parents=True)
-    keymap_c.write_text(c_text)
 
-    # Write the version.h file
-    git_version = get_git_version()
-    build_date = strftime('%Y-%m-%d-%H:%M:%S')
-    chibios_version = get_git_version("lib/chibios", "lib/chibios/os")
-    chibios_contrib_version = get_git_version("lib/chibios-contrib", "lib/chibios-contrib/os")
+    # Compare minified to ensure consistent comparison
+    new_content = json.dumps(user_keymap, separators=(',', ':'))
+    if keymap_json.exists():
+        old_content = json.dumps(json.loads(keymap_json.read_text(encoding='utf-8')), separators=(',', ':'))
+        if old_content == new_content:
+            new_content = None
 
-    write_version_h(git_version, build_date, chibios_version, chibios_contrib_version)
+    # Write the keymap.json file if different
+    if new_content:
+        keymap_json.write_text(new_content, encoding='utf-8')
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
@@ -166,12 +165,11 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         make_command.append('-s')
 
     make_command.extend([
-        '-j',
-        str(parallel),
+        *get_make_parallel_args(parallel),
         '-r',
         '-R',
         '-f',
-        'build_keyboard.mk',
+        'builddefs/build_keyboard.mk',
     ])
 
     if bootloader:
@@ -181,10 +179,6 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         make_command.append(f'{key}={value}')
 
     make_command.extend([
-        f'GIT_VERSION={git_version}',
-        f'BUILD_DATE={build_date}',
-        f'CHIBIOS_VERSION={chibios_version}',
-        f'CHIBIOS_CONTRIB_VERSION={chibios_contrib_version}',
         f'KEYBOARD={user_keymap["keyboard"]}',
         f'KEYMAP={user_keymap["keymap"]}',
         f'KEYBOARD_FILESAFE={keyboard_filesafe}',
@@ -196,12 +190,12 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'MAIN_KEYMAP_PATH_3={keymap_output}',
         f'MAIN_KEYMAP_PATH_4={keymap_output}',
         f'MAIN_KEYMAP_PATH_5={keymap_output}',
-        f'KEYMAP_C={keymap_c}',
+        f'KEYMAP_JSON={keymap_json}',
         f'KEYMAP_PATH={keymap_dir}',
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
-        f'QMK_BIN={"bin/qmk" if "DEPRECATED_BIN_QMK" in os.environ else "qmk"}',
+        'QMK_BIN="qmk"',
     ])
 
     return make_command
@@ -210,10 +204,17 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
-    # FIXME(skullydazed/anyone): Add validation here
-    user_keymap = json.load(configurator_file)
+    user_keymap = json_load(configurator_file)
+    # Validate against the jsonschema
+    try:
+        validate(user_keymap, 'qmk.keymap.v1')
+
+    except jsonschema.ValidationError as e:
+        cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
+        exit(1)
+
     orig_keyboard = user_keymap['keyboard']
-    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
     if orig_keyboard in aliases:
         if 'target' in aliases[orig_keyboard]:
@@ -223,3 +224,41 @@ def parse_configurator_json(configurator_file):
             user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
 
     return user_keymap
+
+
+def build_environment(args):
+    """Common processing for cli.args.env
+    """
+    envs = {}
+    for env in args:
+        if '=' in env:
+            key, value = env.split('=', 1)
+            envs[key] = value
+        else:
+            cli.log.warning('Invalid environment variable: %s', env)
+    return envs
+
+
+def in_virtualenv():
+    """Check if running inside a virtualenv.
+    Based on https://stackoverflow.com/a/1883251
+    """
+    active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
+    return active_prefix != sys.prefix
+
+
+def dump_lines(output_file, lines, quiet=True):
+    """Handle dumping to stdout or file
+    Creates parent folders if required
+    """
+    generated = '\n'.join(lines) + '\n'
+    if output_file and output_file.name != '-':
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        if output_file.exists():
+            output_file.replace(output_file.parent / (output_file.name + '.bak'))
+        output_file.write_text(generated, encoding='utf-8')
+
+        if not quiet:
+            cli.log.info(f'Wrote {output_file.name} to {output_file}.')
+    else:
+        print(generated)

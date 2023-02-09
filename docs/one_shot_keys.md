@@ -19,7 +19,7 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 * `OSL(layer)` - momentary switch to *layer*.
 * `OS_ON` - Turns on One Shot keys.
 * `OS_OFF` - Turns off One Shot keys. OSM act as regular mod keys, OSL act like `MO`.
-* `ON_TOGG` - Toggles the one shot key status.
+* `OS_TOGG` - Toggles the one shot key status.
 
 Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.  
 
@@ -27,7 +27,7 @@ For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` 
 
 For one shot mods, you need to call `set_oneshot_mods(MOD_BIT(KC_*))` to set it, or `clear_oneshot_mods()` to cancel it.
 
-!> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
+!> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tab, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
 
 ## Callbacks
 

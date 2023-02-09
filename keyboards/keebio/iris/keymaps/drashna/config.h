@@ -16,15 +16,6 @@
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-
-// #define USE_SERIAL
-#define USE_I2C
-
-/* Select hand configuration */
-
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
@@ -39,7 +30,9 @@
 #    define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #    define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 
-#    define RGBLIGHT_LIMIT_VAL 225
+#    ifndef RGBLIGHT_LIMIT_VAL
+#       define RGBLIGHT_LIMIT_VAL 225
+#    endif
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
@@ -58,13 +51,15 @@
 #    define QMK_SPEAKER C6
 #endif
 
-#undef PRODUCT
 #if defined(KEYBOARD_keebio_iris_rev2)
-#    define PRODUCT Drashna Hacked Iris Rev 2
+#    undef PRODUCT
+#    define PRODUCT "Drashna Hacked Iris Rev 2"
 #elif defined(KEYBOARD_keebio_iris_rev3)
-#    define PRODUCT Drashna Hacked Iris Rev 3
+#    undef PRODUCT
+#    define PRODUCT "Drashna Hacked Iris Rev 3"
 #elif defined(KEYBOARD_keebio_iris_rev4)
-#    define PRODUCT Drashna Hacked Iris Rev 4
+#    undef PRODUCT
+#    define PRODUCT "Drashna Hacked Iris Rev 4"
 #endif
 
 #define SHFT_LED1 6

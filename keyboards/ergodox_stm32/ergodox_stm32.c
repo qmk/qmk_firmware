@@ -16,6 +16,11 @@ void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
 }
 
+void bootloader_jump(void) {
+    // This board doesn't use the "standard" stm32duino bootloader, and is resident in memory at the base location. All we can do here is reset.
+    NVIC_SystemReset();
+}
+
 void matrix_init_kb(void)
 {
     // Init LED Ports

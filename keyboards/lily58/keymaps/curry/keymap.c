@@ -11,31 +11,37 @@
         KC_TAB,  K11, K12, K13, K14, K15,                    K16, K17, K18, K19, K1A, KC_BSLS, \
         KC_LCTL, K21, K22, K23, K24, K25,                    K26, K27, K28, K29, K2A, KC_QUOT, \
         OS_LSFT, K31, K32, K33, K34, K35, KC_LBRC, KC_RBRC,  K36, K37, K38, K39, K3A, OS_RSFT, \
-                 KC_LEAD, OS_LALT, LOWER, KC_SPC,  KC_ENT,   RAISE, KC_BSPC, OS_RGUI           \
+                 QK_LEAD, OS_LALT, LOWER, KC_SPC,  KC_ENT,   RAISE, KC_BSPC, OS_RGUI           \
     )
 #define LAYOUT_lily58_base_wrapper(...) LAYOUT_lily58_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#if defined(ENABLE_QWERTY)
     [_QWERTY] = LAYOUT_lily58_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
         _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
+#endif
 
+#if defined(ENABLE_COLEMAK)
     [_COLEMAK] = LAYOUT_lily58_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
         _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
     ),
+#endif
 
+#if defined(ENABLE_DVORAK)
     [_DVORAK] = LAYOUT_lily58_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
     ),
+#endif
 
     [_MODS] = LAYOUT_wrapper(
         _______, ___________________BLANK___________________,                    ___________________BLANK___________________, _______,
@@ -64,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_wrapper( \
         _______, ___________________BLANK___________________,                    ___________________BLANK___________________, _______,
         KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RST,
-        VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EEP_RST,
+        VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EE_CLR,
         MG_NKRO, _________________ADJUST_L3_________________, _______,  _______, _________________ADJUST_R3_________________, RGB_IDL,
                                    _______, _______, _______, _______,  _______, _______, _______, _______
     ),

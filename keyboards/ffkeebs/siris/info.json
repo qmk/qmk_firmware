@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Siris",
+    "manufacturer": "Swiftrax",
     "url": "https: //github.com/swiftrax",
     "maintainer": "Swiftrax",
-    "width": 16,
-    "height": 5.5,
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xE96C",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

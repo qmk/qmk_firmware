@@ -12,7 +12,7 @@ enum userspace_layers {
 // Enum of custom keycodes defined in process_record_user
 enum keycodes {
     KC_FNX, // Hold for FN layer, tap to toggle ARROWS layer.
-    KC_MAC, // Text macro.
+    KC_VER, // Version macro.
 };
 
 // Custom #defined keycodes

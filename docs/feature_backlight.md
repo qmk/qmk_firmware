@@ -8,7 +8,7 @@ The MCU can only supply so much current to its GPIO pins. Instead of powering th
 
 Most keyboards have backlighting enabled by default if they support it, but if it is not working for you, check that your `rules.mk` includes the following:
 
-```makefile
+```make
 BACKLIGHT_ENABLE = yes
 ```
 
@@ -16,15 +16,15 @@ BACKLIGHT_ENABLE = yes
 
 Once enabled, the following keycodes below can be used to change the backlight level.
 
-|Key      |Description                        |
-|---------|-----------------------------------|
-|`BL_TOGG`|Turn the backlight on or off       |
-|`BL_STEP`|Cycle through backlight levels     |
-|`BL_ON`  |Set the backlight to max brightness|
-|`BL_OFF` |Turn the backlight off             |
-|`BL_INC` |Increase the backlight level       |
-|`BL_DEC` |Decrease the backlight level       |
-|`BL_BRTG`|Toggle backlight breathing         |
+| Key                             | Aliases   | Description                         |
+|---------------------------------|-----------|-------------------------------------|
+| `QK_BACKLIGHT_TOGGLE`           | `BL_TOGG` | Turn the backlight on or off        |
+| `QK_BACKLIGHT_STEP`             | `BL_STEP` | Cycle through backlight levels      |
+| `QK_BACKLIGHT_ON`               | `BL_ON`   | Set the backlight to max brightness |
+| `QK_BACKLIGHT_OFF`              | `BL_OFF`  | Turn the backlight off              |
+| `QK_BACKLIGHT_UP`               | `BL_UP`   | Increase the backlight level        |
+| `QK_BACKLIGHT_DOWN`             | `BL_DOWN` | Decrease the backlight level        |
+| `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
 ## Functions :id=functions
 
@@ -54,7 +54,7 @@ If backlight breathing is enabled (see below), the following functions are also 
 
 To select which driver to use, configure your `rules.mk` with the following:
 
-```makefile
+```make
 BACKLIGHT_DRIVER = software
 ```
 
@@ -87,7 +87,7 @@ This functionality is configured at the keyboard level with the `BACKLIGHT_ON_ST
 
 The `pwm` driver is configured by default, however the equivalent setting within `rules.mk` would be:
 
-```makefile
+```make
 BACKLIGHT_DRIVER = pwm
 ```
 
@@ -143,7 +143,7 @@ The breathing effect is the same as in the hardware PWM implementation.
 
 While still in its early stages, ARM backlight support aims to eventually have feature parity with AVR. The `pwm` driver is configured by default, however the equivalent setting within `rules.mk` would be:
 
-```makefile
+```make
 BACKLIGHT_DRIVER = pwm
 ```
 
@@ -167,7 +167,7 @@ Currently only hardware PWM is supported, not timer assisted, and does not provi
 
 In this mode, PWM is "emulated" while running other keyboard tasks. It offers maximum hardware compatibility without extra platform configuration. The tradeoff is the backlight might jitter when the keyboard is busy. To enable, add this to your `rules.mk`:
 
-```makefile
+```make
 BACKLIGHT_DRIVER = software
 ```
 
@@ -188,7 +188,7 @@ To activate multiple backlight pins, add something like this to your `config.h`,
 
 If none of the above drivers apply to your board (for example, you are using a separate IC to control the backlight), you can implement a custom backlight driver using this simple API provided by QMK. To enable, add this to your `rules.mk`:
 
-```makefile
+```make
 BACKLIGHT_DRIVER = custom
 ```
 

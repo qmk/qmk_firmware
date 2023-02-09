@@ -11,7 +11,7 @@ const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {2, 2, HSV_GREEN},
     {6, 2, HSV_GREEN}
-);   
+);
 
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {2, 2, HSV_BLUE},
@@ -60,7 +60,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    //rgblight_set_layer_state(0, led_state.caps_lock);
+    rgblight_set_layer_state(0, led_state.caps_lock);
     writePin(C7, led_state.caps_lock);
     writePin(C6, middle);
     writePin(B6, bottom);

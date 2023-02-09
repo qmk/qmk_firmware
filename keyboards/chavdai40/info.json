@@ -1,9 +1,11 @@
 {
-    "keyboard_name": "chavdai40", 
+    "manufacturer": "t-miyajima",
     "url": "https://github.com/dvorak55/chavdai40", 
     "maintainer": "t-miyajima", 
-    "width": 14, 
-    "height": 4, 
+    "usb": {
+        "vid": "0x16D0",
+        "pid": "0x0F95"
+    },
     "layouts": {
         "LAYOUT_44key": {
             "layout": [

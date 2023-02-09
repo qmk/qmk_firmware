@@ -32,8 +32,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,                   _______,
         KC_PSLS, KC_F21,  KC_F22,  KC_F23,
         KC_PAST, KC_F18,  KC_F19,  KC_F20,
-        KC_NLCK, KC_F15,  KC_F16,  KC_F17,
-        RESET,   _______, KC_F13,  KC_F14
+        KC_NUM,  KC_F15,  KC_F16,  KC_F17,
+        QK_BOOT,   _______, KC_F13,  KC_F14
     )
 };
 
@@ -54,7 +54,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static uint32_t oled_logo_timer = 0;
 bool oled_logo_cleared = false; // Set to true if you don't want a logo at all
 
@@ -126,7 +126,7 @@ static void render_logo(void) {
     oled_write_raw_P(radpad_logo, sizeof(radpad_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (oled_logo_cleared) {
         render_status();
     } else {
@@ -138,5 +138,6 @@ void oled_task_user(void) {
             render_logo();
         }
     }
+    return false;
 }
 #endif

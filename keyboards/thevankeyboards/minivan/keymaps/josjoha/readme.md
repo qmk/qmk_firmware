@@ -3,7 +3,7 @@ A 40% keyboard made first by TheVan Keyboards
 _https://thevankeyboards.com_ now taken over by TKC
 _https://thekey.company_
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_vc.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_vd.jpg)
 
 Table of Contents
 =================
@@ -22,6 +22,8 @@ Table of Contents
                 3.1.6 Workman
           3.2 Special layouts
                 3.2.1 Numbers pad
+          3.3 Non-Latin languages
+                3.3.1 Hebrew
       4 The common system
           4.1 Layer access
           4.2 Layout in graphics
@@ -108,7 +110,7 @@ the western European group of languages, native from the keyboard.
 This keymap might not function as expected if you want to use a
 different keyboard language setting in your operating system.
 
-See also chapter 6 _Language support_.
+See also chapter 7 _Language support_.
 
 2 'make' example
 ================
@@ -193,6 +195,17 @@ with a normal layout on ‛Default’. How this works is explained below.
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_single_va.jpg)
 
 For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad.md) ⬅
+
+
+3.3 Non-Latin languages
+=======================
+
+3.3.1 Hebrew
+------------
+
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_hebrew_vc.jpg)
+
+For the readme about the Hebrew version, see ➡ ![base_hebrew.md](./base_hebrew.md) ⬅
 
 
 4 The common system
@@ -1053,7 +1066,9 @@ You can remove the layers `_ACC`, `_DRA` and/or `_BON` (see
 
 You can remove a set of symbols from one or more of Unicode layers,
 such as not having box drawing characters on `_BON`, or no sub-script
-numbers on `_DRA`.
+numbers on `_DRA` (see ![./user_config.h](./user_config.h) under 
+`Eviscerations ②/②` ) ⬅
+
 
 12 Key associations
 ===================

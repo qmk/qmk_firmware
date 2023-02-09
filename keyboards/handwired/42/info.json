@@ -1,9 +1,13 @@
 {
     "keyboard_name": "42",
+    "manufacturer": "nglgzz",
     "url": "",
     "maintainer": "nglgzz",
-    "width": 14.5,
-    "height": 5.417,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.3"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

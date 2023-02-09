@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-
 enum layer_number {
   _BASE,
   _NUM,
@@ -25,9 +24,6 @@ enum layer_number {
   _MUS,
   _ADJ
 };
-
-
-char wpm_as_str[8];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] =  LAYOUT(
@@ -40,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT(
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
         KC_TAB,  XXXXXXX, KC_VOLD, KC_VOLU, XXXXXXX,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_QUOT,
-        KC_LSFT, XXXXXXX, XXXXXXX, KC_MUTE, RESET,                        KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_RSFT,
+        KC_LSFT, XXXXXXX, XXXXXXX, KC_MUTE, QK_BOOT,                        KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_RSFT,
                                             XXXXXXX,                      KC_NO,
                                    XXXXXXX, KC_LALT, XXXXXXX,    _______, KC_ENT,  KC_NO
     ),
@@ -59,15 +55,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_ADJ] = LAYOUT(
-        RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG,
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,
                                             XXXXXXX,                      _______,
                                    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -155,14 +151,20 @@ static void render_logo(void) {
 }
 
 static void render_status(void) {
-  oled_write_P(PSTR("This is\n~~~~~~~~~\nDracu\nLad\n~~~~~~~~~\nv1.0\n~~~~~~~~~\n"), false);
-  sprintf(wpm_as_str, "WPM %03d", get_current_wpm());
-  oled_write(wpm_as_str,false);
-  led_t led_state = host_keyboard_led_state();
-  oled_write_P(PSTR("\nCaps: "), false);
-  oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
-  oled_write_P(PSTR("\n"),false);
-  switch (get_highest_layer(layer_state)) {
+    oled_write_P(PSTR("This is\n~~~~~~~~~\nDracu\nLad\n~~~~~~~~~\nv1.0\n~~~~~~~~~\n"), false);
+    uint8_t n = get_current_wpm();
+    char    wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write(wpm_counter, false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(PSTR("\nCaps: "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
+    oled_write_P(PSTR("\n"), false);
+    switch (get_highest_layer(layer_state)) {
         case _BASE:
             oled_write_P(PSTR("Base   "), false);
             break;
@@ -184,12 +186,13 @@ static void render_status(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
       if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_logo();
     }
+    return false;
 }
 
 #endif

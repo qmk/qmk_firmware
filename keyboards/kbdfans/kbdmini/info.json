@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "KBDMini", 
+    "keyboard_name": "KBDMINI", 
+    "manufacturer": "DZTECH",
     "url": "",
     "maintainer": "KBDFans",
-    "width": 13,
-    "height": 4,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x2001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

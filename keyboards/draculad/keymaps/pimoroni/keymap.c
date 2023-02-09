@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "pimoroni_trackball.h"
-#include "pointing_device.h"
 
 
 enum layer_number {
@@ -29,17 +27,14 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  BALL_HUI,//cycles hue
-  BALL_WHT,//cycles white
-  BALL_DEC,//decreased color
-  BALL_SCR,//scrolls
-  BALL_NCL,//left click
-  BALL_RCL,//right click
-  BALL_MCL,//middle click
+  BALL_HUI = SAFE_RANGE, //cycles hue
+  BALL_WHT,              //cycles white
+  BALL_DEC,              //decreased color
+  BALL_SCR,              //scrolls
+  BALL_NCL,              //left click
+  BALL_RCL,              //right click
+  BALL_MCL,              //middle click
 };
-
-
-char wpm_as_str[8];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] =  LAYOUT(
@@ -52,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT(
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
         KC_TAB,  KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_QUOT,
-        KC_LSFT, XXXXXXX, KC_MPRV, KC_MNXT, RESET,                        KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_RSFT,
+        KC_LSFT, XXXXXXX, KC_MPRV, KC_MNXT, QK_BOOT,                      KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_RSFT,
                                             XXXXXXX,                      KC_NO,
                                    KC_LCTL, KC_LALT, XXXXXXX,    KC_NO,   _______, KC_ENT
     ),
@@ -71,8 +66,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    XXXXXXX, XXXXXXX,  XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_ADJ] = LAYOUT(
-        RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      BALL_HUI, BALL_WHT, BALL_DEC, XXXXXXX, XXXXXXX,
-        EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI, RGB_TOG,
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      BALL_HUI, BALL_WHT, BALL_DEC, XXXXXXX, XXXXXXX,
+        EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI, RGB_TOG,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_RMOD, RGB_HUD,  RGB_SAD,  RGB_VAD, _______,
                                             XXXXXXX,                      _______,
                                    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,  XXXXXXX
@@ -80,9 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-#ifdef OLED_DRIVER_ENABLE
-
-
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
  if (is_keyboard_master()) {
@@ -168,14 +161,20 @@ static void render_logo(void) {
 }
 
 static void render_status(void) {
-  oled_write_P(PSTR("This is\n~~~~~~~~~\nDracu\nLad\n~~~~~~~~~\nv1.0\n~~~~~~~~~\n"), false);
-  sprintf(wpm_as_str, "WPM %03d", get_current_wpm());
-  oled_write(wpm_as_str,false);
-  led_t led_state = host_keyboard_led_state();
-  oled_write_P(PSTR("\nCaps: "), false);
-  oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
-  oled_write_P(PSTR("\n"),false);
-  switch (get_highest_layer(layer_state)) {
+    oled_write_P(PSTR("This is\n~~~~~~~~~\nDracu\nLad\n~~~~~~~~~\nv1.0\n~~~~~~~~~\n"), false);
+    uint8_t n = get_current_wpm();
+    char    wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write(wpm_counter, false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(PSTR("\nCaps: "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
+    oled_write_P(PSTR("\n"), false);
+    switch (get_highest_layer(layer_state)) {
         case _BASE:
             oled_write_P(PSTR("Base   "), false);
             break;
@@ -197,20 +196,31 @@ static void render_status(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
       if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_logo();
     }
+    return false;
 }
 
-#endif
+#endif //OLED_ENABLE
 
 uint8_t white = 0;
 uint8_t red = 255;
 uint8_t green = 0;
 uint8_t blue = 0;
+
+bool set_scrolling = false;
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = mouse_report.y = 0; 
+    }
+    return mouse_report;
+}
 
 void ball_increase_hue(void){
       if(red!=255&&green!=255&&blue!=255){
@@ -229,7 +239,7 @@ void ball_increase_hue(void){
       } else if(green ==0&&blue>0&&red==255){
         blue -=15;
       }
-      trackball_set_rgbw(red,green,blue,white);
+      pimoroni_trackball_set_rgbw(red,green,blue,white);
 }
 
 void decrease_color(void){
@@ -242,7 +252,7 @@ void decrease_color(void){
   if (blue>0){
     blue-=15;
   }
-  trackball_set_rgbw(red,green,blue,white);
+  pimoroni_trackball_set_rgbw(red,green,blue,white);
 }
 
 void cycle_white(void){
@@ -251,7 +261,7 @@ void cycle_white(void){
   } else{
     white=0;
   }
-  trackball_set_rgbw(red,green,blue,white);
+  pimoroni_trackball_set_rgbw(red,green,blue,white);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
@@ -276,9 +286,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
   case BALL_SCR:
    if(record->event.pressed){
-     trackball_set_scrolling(true);
+     set_scrolling = true;
    } else{
-     trackball_set_scrolling(false);
+     set_scrolling = false;
    }
    break;
 
@@ -294,6 +304,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
   }
   return true;
 }
+
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
@@ -321,4 +332,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     // the missing ones are encoder 1 on the right side and encoder 3 on the left side
     return true;
 }
-#endif
+#endif // ENCODER_ENABLE

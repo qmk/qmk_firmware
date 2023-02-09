@@ -1,9 +1,8 @@
 {
     "keyboard_name": "bradpad",
+    "manufacturer": "tempo_turtle",
     "url": "https://tempoturtle.com",
     "maintainer": "wxyangf",
-    "width": 4,
-    "height": 5,
     "diode_direction": "ROW2COL",
     "matrix_pins":{
         "rows":["B7", "D5", "C7", "D2", "D3"],
@@ -12,7 +11,7 @@
     "usb":{
         "vid":"0x7474",
         "pid":"0x6270",
-        "device_ver":"0x0001"
+        "device_version":"0.0.1"
     },
     "layouts": {
         "LAYOUT": {

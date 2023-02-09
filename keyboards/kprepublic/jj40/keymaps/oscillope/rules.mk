@@ -1,0 +1,11 @@
+# build options
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = yes
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = yes
+
+BACKLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = no
+
+KEY_LOCK_ENABLE = yes

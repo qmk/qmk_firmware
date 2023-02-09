@@ -58,7 +58,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
             uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
             RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -68,7 +68,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
         default:  // Solid Color
         {
             RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -126,9 +126,9 @@ layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _LOWER:
             break;
         case _RAISE:
@@ -172,10 +172,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #endif
 
     if (record->event.pressed) {
-      #ifdef OLED_DRIVER_ENABLE
+      #ifdef OLED_ENABLE
         oled_timer = timer_read();
         oled_on();
-        #endif // OLED_DRIVER_ENABLE
+        #endif // OLED_ENABLE
     switch (keycode) {
             case KC_BBB:
                 if (record->event.pressed) {
@@ -193,7 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 }
 #ifdef KEYBOARD_crkbd_rev1
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void render_logo(void) {
     static const char PROGMEM logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -231,7 +231,7 @@ void render_status_main(void) {
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case _BASE:
             oled_write_P(PSTR("Colemak\n"), false);
             break;
@@ -262,7 +262,7 @@ void render_status_main(void) {
 __attribute__ ((weak))
 void oled_task_keymap(void) {}
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
     if (timer_elapsed(oled_timer) > 20000) {
         oled_off();
@@ -275,6 +275,7 @@ void oled_task_user(void) {
             oled_scroll_left();
         }
         oled_task_keymap();
+        return false;
     }
 
 #endif // OLED_Driver

@@ -1,9 +1,4 @@
 {
-  "keyboard_name": "Palm Stowaway Serial",
-  "url": "",
-  "maintainer": "qmk",
-  "width": 15.25,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

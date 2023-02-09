@@ -102,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Special functions: _SP
  *
  *     ,-------------------------------------------.                            ,-------------------------------------------.
- *     |   TAB  |      |      |      | RESET|      |                            |      |      |      |      |      |  ESC   |
+ *     |   TAB  |      |      |      | QK_BOOT|      |                            |      |      |      |      |      |  ESC   |
  *     |--------+------+------+------+------+------|                            |------+------+------+------+------+--------|
- *     |   CTRL |      |      | DEBUG|      |      |                            |      |      |      |      |      |        |
+ *     |   CTRL |      |      |DB_TOGG|      |      |                            |      |      |      |      |      |        |
  *     |--------+------+------+------+------+------|                            |------+------+------+------+------+--------|
  *     | LShift |      |      |      |      |      |                            |      |      |      |      |      |  SHIFT |
  *     `------------------------⫟------⫟------⫟------⫟------.         ,-----⫟------⫟------⫟------⫟-------------------------'
@@ -114,9 +114,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_SP] = LAYOUT_split_3x6_4(
    //,-----------------------------------------------------.                            ,-----------------------------------------------------.
-        KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX,   RESET, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,
+        KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX,   QK_BOOT, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,
    //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
-       KC_LCTL, XXXXXXX, XXXXXXX,   DEBUG, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       KC_LCTL, XXXXXXX, XXXXXXX, DB_TOGG, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
    //|--------+--------+-----------⫟--------⫟--------⫟--------⫟--------.   .--------⫟--------⫟--------⫟--------⫟-----------+--------+--------|
@@ -130,7 +130,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _NN, _MS, _SP);
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
@@ -179,12 +179,13 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         print_status_narrow();
     } else {
         render_logo();
     }
+    return false;
 }
 #endif
 

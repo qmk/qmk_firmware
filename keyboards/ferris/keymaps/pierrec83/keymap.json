@@ -50,8 +50,8 @@
          "KC_TRNS"                , "KC_HOME"              , "KC_PGDN"        , "KC_END"               , "KC_TRNS",
          "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
 
-         "LGUI(KC_LEFT)"          , "KC_TRNS",
-         "KC_TRNS"                , "LGUI(KC_RGHT)"
+         "RGB_RMOD"               , "KC_TRNS",
+         "KC_TRNS"                , "RGB_MOD"
         ],
         ["KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
          "KC_TRNS"                , "KC_UNDS"              , "KC_PIPE"        , "KC_QUOT"              , "KC_TRNS",
@@ -108,7 +108,7 @@
          "DF(1)"                  , "KC_LGUI"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
 
          "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
-         "DF(0)"                  , "KC_TRNS"              , "RALT_T(KC_COMM)", "RCTL_T(KC_DOT)"       , "RESET",
+         "DF(0)"                  , "KC_TRNS"              , "RALT_T(KC_COMM)", "RCTL_T(KC_DOT)"       , "QK_BOOT",
 
          "KC_TRNS"                , "KC_TAB",
          "KC_NO"                  , "KC_TRNS"

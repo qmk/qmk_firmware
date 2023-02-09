@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "ikki68_aurora",
+    "keyboard_name": "ikki68 Aurora",
+    "manufacturer": "wuque studio",
     "url": "https://ikki68.com/",
     "maintainer": "qmk",
-    "width": 17.25,
-    "height": 5,
+    "usb": {
+        "vid": "0x706B",
+        "pid": "0x0011",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [

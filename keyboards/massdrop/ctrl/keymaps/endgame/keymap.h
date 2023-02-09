@@ -33,7 +33,6 @@
 #define RGB_TIME_OUT_MIN 10
 #define RGB_TIME_OUT_STEP 10
 
-extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 bool disable_layer_color;
 

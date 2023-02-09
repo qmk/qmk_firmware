@@ -1,9 +1,13 @@
 {
     "keyboard_name": "molecule",
+    "manufacturer": "bbrfkr",
     "url": "https://github.com/bbrfkr/keyboards/tree/master/molecule",
     "maintainer": "bbrfkr",
-    "width": 14.75, 
-    "height": 5, 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

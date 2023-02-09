@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Ogre Ergo Single",
+    "manufacturer": "ctrlshiftba",
     "url": "",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 6.5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

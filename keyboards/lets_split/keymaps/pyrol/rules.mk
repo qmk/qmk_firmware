@@ -1,1 +1,1 @@
- BOOTMAGIC_ENABLE = full
+ BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite

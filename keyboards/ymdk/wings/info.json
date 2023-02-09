@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "YMDK Wings",
+    "keyboard_name": "WINGS",
+    "manufacturer": "YMDK",
     "url": "http://ymdkey.com/",
     "maintainer": "qmk",
-    "width": 20.25,
-    "height": 5.25,
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x2975",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

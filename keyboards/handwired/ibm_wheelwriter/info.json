@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "ibm_wheelwriter",
+    "keyboard_name": "6715 Wheelwriter",
+    "manufacturer": "IBM",
     "url": "https://github.com/andresteare/qmk_firmware",
     "maintainer": "andresteare",
-    "width": 18.5,
-    "height": 5,
+    "usb": {
+        "vid": "0x8767",
+        "pid": "0x5F89",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

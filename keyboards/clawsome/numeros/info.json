@@ -1,9 +1,13 @@
 {
-    "keyboard_name": "numeros",
+    "keyboard_name": "Los Numeros",
+    "manufacturer": "AlisGraveNil",
     "url": "www.clawboards.xyz",
-    "maintainer": "AAClawson (AlisGraveNil)",
-    "width": 4,
-    "height": 5,
+    "maintainer": "AlisGraveNil",
+    "usb": {
+        "vid": "0x7767",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [
@@ -31,5 +35,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

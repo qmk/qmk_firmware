@@ -19,7 +19,7 @@ Flashing example for this keyboard:
 
 To reset the board into bootloader mode, do one of the following:
 
-* Tap the Reset switch mounted on the PCB
+* Under the **space1** key short the pins on the PCB as shown [here]( https://media.discordapp.net/attachments/768892137205923850/862663262180999218/image0.jpg?width=2520&height=910)
 * In the case of the default keymap, use the key combination Fn + PageUp
 * Hold the Esc key while connecting the USB cable (also erases persistent settings)
 

@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Jay Greco
+Copyright 2021 Jay Greco
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,25 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-
-// place overrides here
-void set_scramble_LED(uint8_t mode) {
-    switch(mode) {
-        case LED_ON:
-            setPinOutput(PIN_LED);
-            writePin(PIN_LED, GPIO_STATE_HIGH);
-        break;
-
-        case LED_DIM:
-            setPinInput(PIN_LED);
-        break;
-
-        case LED_OFF:
-            setPinOutput(PIN_LED);
-            writePin(PIN_LED, GPIO_STATE_LOW);
-        break;
-
-        default:
-        break;
-    }
-}

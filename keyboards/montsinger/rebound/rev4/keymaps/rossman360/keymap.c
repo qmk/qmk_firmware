@@ -6,7 +6,7 @@
 #define SPCMOD LT(_FN1, KC_SPACE)
 #define ENTMOD LT(_FN2, KC_ENTER)
 #define ESCMOD LT(_NUM, KC_ESC)
-#define RSMOD LT(_FN1, KC_RSHIFT)
+#define RSMOD LT(_FN1, KC_RSFT)
 #
 
 enum layer_names {
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 [_DEL] = LAYOUT_all(
-    RESET,   _______, _______, _______, _______, _______,          _______, UNDO   , _______, _______, _______, CTAB   ,
+    QK_BOOT, _______, _______, _______, _______, _______,          _______, UNDO   , _______, _______, _______, CTAB   ,
     REMCAPS, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP  ,KC_RIGHT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DOWN, _______, _______, _______,
     _______, _______, _______, BLINE  , KC_BSPC, BWORD  , _______, KC_NO  , KC_NO  , _______, _______, _______, _______
@@ -83,8 +83,8 @@ case _DEL:
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR(""), false);
 
@@ -116,6 +116,7 @@ void oled_task_user(void) {
     oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 
+    return false;
 }
 
 #endif

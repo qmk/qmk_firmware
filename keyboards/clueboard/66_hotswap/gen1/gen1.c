@@ -16,12 +16,12 @@
 #include "gen1.h"
 
 #ifdef LED_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
  *    |  | */
-    { 0, C1_1  }, // k00  KC_GESC
+    { 0, C1_1  }, // k00 QK_GESC
     { 0, C1_2  }, // k01 KC_1
     { 0, C1_3  }, // k02 KC_2
     { 0, C1_4  }, // k03 KC_3

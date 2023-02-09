@@ -1,9 +1,11 @@
 {
     "keyboard_name": "Aplx6",
+    "manufacturer": "Aplyard",
     "url": "",
     "maintainer": "Aplyard",
-    "width": 3,
-    "height": 2,
+    "usb": {
+        "vid": "0xE0E0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

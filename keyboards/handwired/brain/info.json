@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Brain",
+    "manufacturer": "Klackygears",
     "url": "",
     "maintainer": "Klackygears",
-    "width": 15,
-    "height": 6.25,
+    "usb": {
+        "vid": "0x4A53",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

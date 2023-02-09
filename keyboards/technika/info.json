@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Technika",
+    "manufacturer": "TealTechnik",
     "url": "",
     "maintainer": "Gondolindrim",
-    "height": 4,
-    "width": 14,
+    "usb": {
+        "vid": "0x8484",
+        "pid": "0x6049",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

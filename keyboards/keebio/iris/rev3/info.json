@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Iris Rev. 3",
+    "usb": {
+        "pid": "0x3256",
+        "device_version": "3.0.0"
+    }
+}

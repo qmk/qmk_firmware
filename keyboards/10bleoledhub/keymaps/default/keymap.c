@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P4,   KC_P5,    KC_P6,
         KC_P1,   KC_P2,    KC_P3),
     [1] = LAYOUT(
-        KC_NUMLOCK,
+        KC_NUM,
 		RGB_TOG, RGB_MOD, RGB_M_K,
         RGB_SAI, RGB_SAD, RGB_HUI,
         RGB_VAI, RGB_VAD, RGB_SPI),
@@ -54,8 +54,11 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) { render_logo(); }
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    render_logo();
+    return false;
+}
 #endif
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

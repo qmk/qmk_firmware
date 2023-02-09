@@ -1,11 +1,15 @@
 {
     "keyboard_name": "barracuda",
+    "manufacturer": "knaruo",
     "url": "https://github.com/knaruo/barracuda",
     "maintainer": "knaruo",
-    "width": 14,
-    "height": 3,
+    "usb": {
+        "vid": "0x6B6E",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x11": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},

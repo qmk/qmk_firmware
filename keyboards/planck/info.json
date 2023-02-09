@@ -1,9 +1,6 @@
 {
-  "keyboard_name": "Planck",
   "url": "https://olkb.com/planck",
   "maintainer": "jackhumbert",
-  "width": 12,
-  "height": 4,
   "layouts": {
     "LAYOUT_planck_1x2uC": {
       "layout": [

@@ -15,23 +15,16 @@
  */
 #include QMK_KEYBOARD_H
 
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [0] = LAYOUT(
-        KC_PSCR, KC_LSFT, MO(1)
-    ),
-    [1] = LAYOUT(
-        RESET,   KC_LCTL, _______
-    )
-};
+    [0] = LAYOUT(KC_PSCR, KC_LSFT, MO(1)),
+    [1] = LAYOUT(QK_BOOT, KC_LCTL, _______)};
 
-
-//  void encoder_update_user(uint8_t index, bool clockwise) {
+//  bool encoder_update_user(uint8_t index, bool clockwise) {
 //     if (clockwise) {
 //         tap_code(KC_PGDN);
 //     } else {
 //         tap_code(KC_PGUP);
 //     }
+//     return false;
 // }

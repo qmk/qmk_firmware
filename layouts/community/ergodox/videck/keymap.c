@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      KC_LBRC, KC_RBRC, KC_EQL, KC_RALT, KC_RCTL,
     KC_APP,  KC_ESC,
     KC_INS,
-    KC_SLCK, KC_ENT, KC_SPC
+    KC_SCRL, KC_ENT, KC_SPC
   ),
   [ARROWS] = LAYOUT_ergodox(
     // left hand

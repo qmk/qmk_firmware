@@ -98,7 +98,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 void render_space(void) {
   oled_write_P(PSTR("     "), false);
@@ -117,9 +117,10 @@ void oled_render_layer_state(void) {
 }
 
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   oled_write_ln_P(PSTR("Plaid-Pad ///////////"), false);
   oled_render_layer_state();
+    return false;
 }
 
 #endif
@@ -163,7 +164,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       case _NAVIGATION:
         // Page Down/Up
         if (clockwise) {
-          tap_code16(KC_PGDOWN);
+          tap_code16(KC_PGDN);
         } else {
           tap_code16(KC_PGUP);
         }
