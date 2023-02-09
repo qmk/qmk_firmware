@@ -21,8 +21,8 @@ void set_tri_layer_adjust_layer(uint8_t layer) {
 }
 
 void set_tri_layer_layers(uint8_t lower, uint8_t raise, uint8_t adjust) {
-    tri_layer_lower_layer = lower;
-    tri_layer_upper_layer = raise;
+    tri_layer_lower_layer  = lower;
+    tri_layer_upper_layer  = raise;
     tri_layer_adjust_layer = adjust;
 }
 
