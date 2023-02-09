@@ -123,7 +123,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 ### Example: Keycode to cycle through layers
 
-This example shows how to implement a custom keycode to cycle through a range on layers.
+This example shows how to implement a custom keycode to cycle through a range of layers.
 
 ```c
 // Define the keycode, `SAFE_RANGE` avoids collisions with existing keycodes
@@ -142,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_CYCLE_LAYERS:
       //our logic will happen on presses, nothing is done on releases
       if (!record->event.pressed) { 
-        //already handled the keycode, let QMK know it so no further code is run uselessly
+        // already handled the keycode, let QMK know so no further code is run unnecessarily
         return false;
       }
 
@@ -153,22 +153,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
 
-      // If we are in range, turn next layer on without affecting other layers, so we don't break `KC_TRNS`
+      // If we are within the range, turn next layer on
       if (current_layer < LAYER_CYCLE_END) {
-          layer_on(current_layer+1);
+          layer_on(current_layer + 1);
           return false;
       }
 
       // Getting here means we are on the last layer of the cycle
-      layer_move(LAYER_CYCLE_START); //move to starting layer, ie turn OFF all other layers (default one is always ON, tho)
+      layer_move(LAYER_CYCLE_START); // move to starting layer, i.e. turn OFF all other layers (default one is always ON, though)
       return false;
 
-    default: //don't affect other keycodes
-      return true; //returning true means QMK will handle the keycode
+    default:
+      return true; // process other keycodes normally
   }
 }
 
-// Place this new keycode wherever you want
+// Place `KC_CYCLE_LAYERS` as a keycode in your keymap
 ```
 
 Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.
