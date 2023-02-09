@@ -126,16 +126,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void playSongForLayer(int currentLayer) {
   #ifdef AUDIO_ENABLE
   switch (currentLayer) {
-    case   _QWERTY_LINUX:
+    case   _QWERTY_LINUX_ORTHO:
       PLAY_SONG(defaultLayerSong);
       break;
-    case  _MOVE_LINUX:
+    case  _MOVE_LINUX_ORTHO:
       PLAY_SONG(moveLayerSong);
       break;
-    case  _QWERTY_MAC:
+    case  _QWERTY_MAC_ORTHO:
       PLAY_SONG(macLayerSong);
       break;
-    case  _MOVE_MAC:
+    case  _MOVE_MAC_ORTHO:
       PLAY_SONG(moveLayerSong);
       break;
     case  _RAISE:

@@ -53,7 +53,7 @@ There are a number of functions (and variables) related to how you can use or ma
 
 |Function                                      |Description                                                                                              |
 |----------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| `layer_state_set(layer_mask)`                | Directly sets the layer state (recommended, do not use unless you know what you are doing).             |
+| `layer_state_set(layer_mask)`                | Directly sets the layer state (avoid unless you know what you are doing).                               |
 | `layer_clear()`                              | Clears all layers (turns them all off).                                                                 |
 | `layer_move(layer)`                          | Turns specified layer on, and all other layers off.                                                     |
 | `layer_on(layer)`                            | Turns specified layer on, leaves all other layers in existing state.                                    |
@@ -63,7 +63,7 @@ There are a number of functions (and variables) related to how you can use or ma
 | `layer_and(layer_mask)`                      | Turns on layers based on matching enabled bits between specifed layer and existing layer state.         |
 | `layer_xor(layer_mask)`                      | Turns on layers based on non-matching bits between specifed layer and existing layer state.             |
 | `layer_debug(layer_mask)`                    | Prints out the current bit mask and highest active layer to debugger console.                           |
-| `default_layer_set(layer_mask)`              | Directly sets the default layer state (recommended, do not use unless you know what you are doing).     |
+| `default_layer_set(layer_mask)`              | Directly sets the default layer state (avoid unless you know what you are doing).                       |
 | `default_layer_or(layer_mask)`               | Turns on layers based on matching bits between specifed layer and existing default layer state.         |
 | `default_layer_and(layer_mask)`              | Turns on layers based on matching enabled bits between specifed layer and existing default layer state. |
 | `default_layer_xor(layer_mask)`              | Turns on layers based on non-matching bits between specifed layer and existing default layer state.     |

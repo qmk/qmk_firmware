@@ -182,7 +182,7 @@ enum charybdis_keymap_bstiq_layers {
       __VA_ARGS__
 #define MOUSE_MOD(...) _MOUSE_MOD(__VA_ARGS__)
 
-#define LAYOUT_wrapper(...) LAYOUT_charybdis_3x5(__VA_ARGS__)
+#define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_wrapper(

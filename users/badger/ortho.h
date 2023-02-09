@@ -23,7 +23,8 @@ enum OrthoLayers {
   _MOVE_LINUX_ORTHO,
   _RAISE,
   _LOWER,
-  _FUNCTION_ORTHO
+  _FUNCTION_ORTHO,
+  _ADJUST_ORTHO
 };
 
 enum OrthoKeys {
@@ -36,6 +37,7 @@ enum OrthoKeys {
 #define RAISE LT(_RAISE, KC_SPACE)
 #define LOWER LT(_LOWER, KC_SPACE)
 #define J_FUN MO(_FUNCTION_ORTHO)
+#define J_ADJ MO(_ADJUST_ORTHO)
 #define MOMAC LT(_MOVE_MAC_ORTHO, KC_ESC)
 #define MOLNX LT(_MOVE_LINUX_ORTHO, KC_ESC)
 
