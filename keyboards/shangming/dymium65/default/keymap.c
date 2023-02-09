@@ -1,0 +1,93 @@
+ /*
+ Copyright 2020 Alec Penland
+ Copyright 2020 Garret Gartner
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include QMK_KEYBOARD_H
+
+#include "dymium65.h"
+// Layer names
+enum ats_layers{
+  // - Base layer:
+  _BASE,
+  // - Symbols, numbers, and functions:
+  _FN,
+  // - Alternate Function layer:
+  _LN,
+  // - Alternate Function layer:
+  _MT
+};
+
+#define RS_SLS RSFT_T(KC_SLSH)
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_BASE] = LAYOUT_split_space(
+    KC_ESC,                            
+                   KC_1,        KC_2,        KC_3,  KC_4,  KC_5,  KC_6,      KC_7,  KC_8,  KC_9,         KC_0,         KC_MINUS,        KC_EQUAL,         KC_BACKSPACE,   KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,        
+    KC_TAB,        KC_Q,        KC_W,        KC_E,  KC_R,  KC_T,  KC_Y,      KC_U,  KC_I,  KC_O,         KC_P,         KC_LEFT_BRACKET, KC_RIGHT_BRACKET, KC_BACKSLASH,            
+    KC_CAPS_LOCK,  KC_A,        KC_S,        KC_D,  KC_F,  KC_G,  KC_H,      KC_J,  KC_K,  KC_L,         KC_SEMICOLON, KC_QUOTE,                          KC_ENTER,       KC_PAGE_UP,     KC_PAGE_DOWN,
+    KC_LEFT_SHIFT,              KC_Z,        KC_X,  KC_C,  KC_V,  KC_B,      KC_N,  KC_M,  KC_COMMA,     KC_DOT,       KC_SLASH,                          KC_RIGHT_SHIFT, KC_UP,          KC_AUDIO_MUTE,
+    KC_LEFT_CTRL,  KC_LEFT_GUI, KC_LEFT_ALT,                      KC_SPACE,                KC_RIGHT_ALT, MO(_FN),                       KC_RIGHT_CTRL,    KC_LEFT,        KC_DOWN,        KC_RIGHT
+    ),
+    [_FN] = LAYOUT_split_space(
+    KC_GRAVE,                            
+                   KC_F1,       KC_F2,       KC_F3, KC_F4, KC_F5, KC_F6,     KC_F7, KC_F8, KC_F9,        KC_F10,       KC_F11,          KC_F12,           KC_BACKSPACE,   KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,
+    RGB_TOG,       KC_Q,        KC_W,        KC_E,  KC_R,  KC_T,  KC_Y,      KC_U,  KC_I,  KC_O,         KC_P,         RGB_HUI,         RGB_HUD,          KC_BACKSLASH,            
+    KC_CAPS_LOCK,  KC_A,        KC_S,        KC_D,  KC_F,  KC_G,  KC_H,      KC_J,  KC_K,  KC_L,         RGB_SAD,      RGB_SAI,                           KC_ENTER,       KC_PAGE_UP,     KC_PAGE_DOWN,
+    KC_LEFT_SHIFT,              KC_Z,        KC_X,  KC_C,  KC_V,  KC_B,      KC_N,  KC_M,  KC_COMMA,     MO(_LN),      KC_SLASH,                          KC_RIGHT_SHIFT, RGB_VAI,        KC_AUDIO_MUTE,
+    KC_LEFT_CTRL,  KC_LEFT_GUI, KC_LEFT_ALT,                      KC_SPACE,                RGB_MOD,      _______,                       KC_RIGHT_CTRL,    RGB_SPD,        RGB_VAD,        RGB_SPI
+    ),                                                                                                                      
+    [_LN] = LAYOUT_split_space(
+    KC_ESC,                            
+                   KC_1,        KC_2,        KC_3,  KC_4,  KC_5,  KC_6,      KC_7,  KC_8,  KC_9,         KC_0,         KC_MINUS,        KC_EQUAL,         KC_BACKSPACE,   KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,
+    KC_TAB,        KC_Q,        KC_W,        KC_E,  KC_R,  KC_T,  KC_Y,      KC_U,  KC_I,  KC_O,         KC_P,         KC_LEFT_BRACKET, KC_RIGHT_BRACKET, KC_BACKSLASH,            
+    KC_CAPS_LOCK,  KC_A,        KC_S,        KC_D,  KC_F,  KC_G,  KC_H,      KC_J,  KC_K,  KC_L,         KC_SEMICOLON, KC_QUOTE,                          KC_ENTER,       KC_PAGE_UP,     KC_PAGE_DOWN,
+    KC_LEFT_SHIFT,              KC_Z,        KC_X,  KC_C,  KC_V,  KC_B,      KC_N,  KC_M,  MO(_MT),      _______,      KC_SLASH,                          KC_RIGHT_SHIFT, KC_UP,          KC_AUDIO_MUTE,
+    KC_LEFT_CTRL,  KC_LEFT_GUI, KC_LEFT_ALT,                      KC_SPACE,                KC_RIGHT_ALT, _______,                       KC_RIGHT_CTRL,    KC_LEFT,        KC_DOWN,        KC_RIGHT
+    ),
+    [_MT] = LAYOUT_split_space(
+    KC_ESC,                            
+                   KC_1,        KC_2,        KC_3,  KC_4,  KC_5,  KC_6,      KC_7,  KC_8,  KC_9,         KC_0,         KC_MINUS,        KC_EQUAL,         KC_BACKSPACE,   KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,
+    KC_TAB,        KC_Q,        KC_W,        KC_E,  KC_R,  KC_T,  KC_Y,      KC_U,  KC_I,  KC_O,         KC_P,         KC_LEFT_BRACKET, KC_RIGHT_BRACKET, KC_BACKSLASH,            
+    KC_CAPS_LOCK,  KC_A,        KC_S,        KC_D,  KC_F,  KC_G,  KC_H,      KC_J,  KC_K,  KC_L,         KC_SEMICOLON, KC_QUOTE,                          KC_ENTER,       KC_PAGE_UP,     KC_PAGE_DOWN,
+    KC_LEFT_SHIFT,              KC_Z,        KC_X,  KC_C,  KC_V,  KC_B,      KC_N,  KC_M,  _______,      _______,      KC_SLASH,                          KC_RIGHT_SHIFT, KC_UP,          KC_AUDIO_MUTE,
+    KC_LEFT_CTRL,  KC_LEFT_GUI, KC_LEFT_ALT,                      KC_SPACE,                KC_RIGHT_ALT, _______,                       KC_RIGHT_CTRL,    KC_LEFT,        KC_DOWN,        KC_RIGHT
+    )
+};
+
+ bool encoder_update_user(uint8_t index, bool clockwise) {
+    uint8_t  layer_new      = biton32(layer_state);
+    uint16_t ringt_key_code = keymap_key_to_keycode(layer_new,(keypos_t){.row = 1,.col = 14});
+    uint16_t left_key_code  = keymap_key_to_keycode(layer_new,(keypos_t){.row = 1,.col = 15});
+
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(ringt_key_code);
+        } else {
+            tap_code(left_key_code);
+        }
+    }
+    return true;
+}
+
+/* If you want to set custom indicators,
+   such as an LED for Caps Lock, or layer indication,
+   you can use the or function for that  */
+ void rgb_matrix_indicators_kb(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(LED_CAP_LOCK_INDEX, RGB_WHITE);
+    }
+}
