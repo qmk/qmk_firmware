@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define SPLIT_USB_DETECT
 
@@ -93,7 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define TAPPING_TERM 150
 //#define IGNORE_MOD_TAP_INTERRUPT
-//#define TAPPING_FORCE_HOLD
+//#define QUICK_TAP_TERM 0
 
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 6

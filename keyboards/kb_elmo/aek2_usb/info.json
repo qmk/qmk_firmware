@@ -8,6 +8,8 @@
         "pid": "0xDB52",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT": {
             "layout": [

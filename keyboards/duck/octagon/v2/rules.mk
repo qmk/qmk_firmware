@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -21,5 +15,3 @@ RGBLIGHT_ENABLE = yes
 CUSTOM_MATRIX = yes
 SRC += indicator_leds.c \
 			 matrix.c duck_led/duck_led.c
-
-LAYOUTS = 75_ansi

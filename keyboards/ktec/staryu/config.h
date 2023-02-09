@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -53,9 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PINS { C2, C7, D5, D6, B0 }
 #define BACKLIGHT_LED_COUNT 5
 #define BACKLIGHT_LEVELS 10
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

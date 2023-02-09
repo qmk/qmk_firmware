@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -52,8 +51,5 @@
     { B1 }
 
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 #define OLED_TIMEOUT 60000

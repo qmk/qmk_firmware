@@ -1,11 +1,5 @@
-# MCU name
-MCU = atmega32u4
-
 # Processor frequency
 F_CPU = 8000000
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -23,6 +17,3 @@ AUDIO_ENABLE = no           # Audio output
 
 # Project specific files
 SRC += matrix.c
-
-# Supported layouts
-LAYOUTS = tkl_ansi

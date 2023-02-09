@@ -233,6 +233,7 @@ extern "C" {
         if (kbd2.isReady()) kbd2.SetReport(0, 0, 2, 0, 1, &usb_led);
         if (kbd3.isReady()) kbd3.SetReport(0, 0, 2, 0, 1, &usb_led);
         if (kbd4.isReady()) kbd4.SetReport(0, 0, 2, 0, 1, &usb_led);
-        led_set_kb(usb_led);
+        led_set_user(usb_led);
+        led_update_kb((led_t){.raw = usb_led});
     }
 }

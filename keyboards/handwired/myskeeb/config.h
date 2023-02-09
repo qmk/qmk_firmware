@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 // Key Matrix Size //
 // Rows are Doubled-up
@@ -31,8 +30,3 @@
 // Tap Dance
 
 #define TAPPING_TERM 200
-
-// Other
-
-#define DEBOUNCE 0
-

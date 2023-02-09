@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -38,8 +37,6 @@
     { D6, C6 }
 
 #define ENCODER_RESOLUTION 4
-
-#define DEBOUNCE 5
 
 #define LOCKING_SUPPORT_ENABLE
 

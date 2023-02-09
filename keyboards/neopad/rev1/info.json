@@ -8,6 +8,8 @@
         "pid": "0x0913",
         "device_version": "0.1.0"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

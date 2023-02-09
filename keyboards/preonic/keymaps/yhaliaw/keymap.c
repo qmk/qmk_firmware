@@ -197,7 +197,7 @@ void matrix_scan_user(void) {
     }
 }
 
-void leader_end(void) {
+void leader_end_user(void) {
     // Plays sound on if leader sequence found.
     if (leader_found) {
 #ifdef AUDIO_ENABLE

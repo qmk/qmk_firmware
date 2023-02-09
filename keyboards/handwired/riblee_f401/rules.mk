@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F401
-BOARD = BLACKPILL_STM32_F401
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +12,3 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 BACKLIGHT_DRIVER = software
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-
-LAYOUTS = ortho_5x12

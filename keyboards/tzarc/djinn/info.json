@@ -9,7 +9,6 @@
   "build": {
     "lto": true
   },
-  "debounce": 5,
   "features": {
     "audio": true,
     "backlight": true,

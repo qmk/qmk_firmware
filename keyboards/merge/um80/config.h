@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config_common.h"
 
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 8
@@ -41,8 +40,6 @@
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_LIMIT_VAL 120
 
-#define DEBOUNCE 5
-
 #define AUDIO_PIN B6
 
 #ifdef AUDIO_ENABLE
@@ -51,6 +48,3 @@
 
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { B5 }
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

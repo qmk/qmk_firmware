@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -28,6 +27,3 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

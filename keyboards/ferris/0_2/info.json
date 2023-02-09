@@ -3,5 +3,7 @@
     "usb": {
         "vid": "0xC2AB",
         "device_version": "0.0.2"
-    }
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu"
 }

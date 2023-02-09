@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 // Key matrix (TtB, LtR)
 #define MATRIX_ROWS 4
@@ -81,9 +80,6 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
 
 #define FORCE_NKRO
 

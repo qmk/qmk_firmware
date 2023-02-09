@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* COL2ROW, ROW2COL*/
 #undef DIODE_DIRECTION

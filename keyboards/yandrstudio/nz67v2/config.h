@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -30,9 +29,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define TAP_CODE_DELAY 15
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 #ifdef ENCODER_ENABLE
 

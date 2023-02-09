@@ -18,7 +18,7 @@
 
 /* Select hand configuration */
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 180
 
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM

@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // Rows are doubled-up
@@ -39,13 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 #define MASTER_LEFT
 #define USE_I2C
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN E6

@@ -30,10 +30,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-
 #define TAP_CODE_DELAY 10
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Matrix Configuration - Rows are doubled up */
 #define MATRIX_ROWS 12

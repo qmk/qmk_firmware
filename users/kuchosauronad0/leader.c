@@ -93,7 +93,7 @@ void matrix_scan_user(void) {
 //  matrix_scan_keymap();
 }
 
-void leader_start(void) {
+void leader_start_user(void) {
 #ifdef RGBLIGHT_ENABLE
  rgblight_savebase();
  rgblight_mode_noeeprom(1);
@@ -101,7 +101,7 @@ void leader_start(void) {
 #endif
 }
 
-void leader_end(void) {
+void leader_end_user(void) {
 // pick color depending of success /fail
 // fade leader_start from 100 to 0
 // fade new color from  0 to 100 to 0

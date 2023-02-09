@@ -26,9 +26,3 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define TAPPING_TERM 100
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5

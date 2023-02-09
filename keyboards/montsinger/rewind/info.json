@@ -8,6 +8,8 @@
         "pid": "0x552F",
         "device_version": "0.0.2"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_ortho_5x10": {
             "layout": [

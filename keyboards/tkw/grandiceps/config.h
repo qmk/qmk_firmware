@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -57,6 +56,3 @@
 #define WS2812_PWM_PAL_MODE 2
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
 #define WS2812_DMA_CHANNEL 5
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 LEADER_EXTERNS();
 
-void matrix_scan_user() {
+void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
     leader_end();

@@ -8,6 +8,8 @@
   	"pid": "0x7373",
   	"device_version": "30.0.2"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT_default": {
 	  "layout": [

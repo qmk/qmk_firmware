@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -27,14 +26,8 @@
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0 }
 #define MATRIX_COL_PINS { E6, B0, B1, B2, B3, B7, D2, D3, D5, D4, D6, D7, B4, B5, B6, E2 }
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 #ifdef ENCODER_ENABLE
     /* Encoder pins */

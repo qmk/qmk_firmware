@@ -16,7 +16,6 @@
   */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -27,9 +26,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 #define USB_POLLING_INTERVAL_MS 1
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 #define RGBLIGHT_LIMIT_VAL 150
 #define RGBLED_NUM          6

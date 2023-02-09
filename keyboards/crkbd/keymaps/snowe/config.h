@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200
 
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -57,7 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // fix for me putting alt under A and being a fast typist
 #define IGNORE_MOD_TAP_INTERRUPT
-//#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 
 #define LAYER_STATE_8BIT
 #define SPLIT_WPM_ENABLE

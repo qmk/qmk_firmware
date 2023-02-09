@@ -7,6 +7,9 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

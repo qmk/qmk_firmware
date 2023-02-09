@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F303
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -26,5 +20,4 @@ DIP_SWITCH_ENABLE = yes
 
 SRC += matrix.c
 
-LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no

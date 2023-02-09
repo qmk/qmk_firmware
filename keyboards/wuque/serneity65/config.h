@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -26,9 +25,6 @@
 #define MATRIX_COL_PINS { B6, B5, D5, D4, D6, B4, D7, F1, F4, F5, F6, F7, C7, E6, B7 }
 
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Enable encoder */
 #define ENCODERS_PAD_A { B2 }

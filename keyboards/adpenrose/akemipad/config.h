@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Key matrix size */
 #define MATRIX_ROWS 6
@@ -53,10 +52,3 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 #    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

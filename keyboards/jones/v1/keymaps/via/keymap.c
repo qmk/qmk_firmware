@@ -158,7 +158,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(3, led_state.caps_lock);
 
     return true;
 }

@@ -37,12 +37,7 @@ This level contains all of the options for that particular keymap. If you wish t
 
 # The `config.h` File
 
-This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
-
-```c
-#include "config_common.h"
-```
-
+This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files.
 
 ## Hardware Options
 * `#define VENDOR_ID 0x1234`
@@ -169,14 +164,18 @@ If you define these options you will enable the associated feature, which may in
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
   * See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
-* `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
-  * enables handling for per key `IGNORE_MOD_TAP_INTERRUPT` settings
-* `#define TAPPING_FORCE_HOLD`
-  * makes it possible to use a dual role key as modifier shortly after having been tapped
-  * See [Tapping Force Hold](tap_hold.md#tapping-force-hold)
-  * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
-* `#define TAPPING_FORCE_HOLD_PER_KEY`
-  * enables handling for per key `TAPPING_FORCE_HOLD` settings
+* `#define QUICK_TAP_TERM 100`
+  * tap-then-hold timing to use a dual role key to repeat keycode
+  * See [Quick Tap Term](tap_hold.md#quick-tap-term)
+  * Changes the timing of Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
+  * Defaults to `TAPPING_TERM` if not defined
+* `#define QUICK_TAP_TERM_PER_KEY`
+  * enables handling for per key `QUICK_TAP_TERM` settings
+* `#define HOLD_ON_OTHER_KEY_PRESS`
+  * selects the hold action of a dual-role key as soon as the tap of the dual-role key is interrupted by the press of another key.
+  * See "[hold on other key press](tap_hold.md#hold-on-other-key-press)" for details
+* `#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY`
+  * enables handling for per key `HOLD_ON_OTHER_KEY_PRESS` settings
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
     * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.
@@ -325,7 +324,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
   * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
-  
+
 * `#define SPLIT_WATCHDOG_ENABLE`
   * Reboot slave if no communication from master within timeout.
   * Helps resolve issue where both sides detect as slave using `SPLIT_USB_DETECT`

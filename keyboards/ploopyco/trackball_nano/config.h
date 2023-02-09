@@ -19,14 +19,10 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 0
 
 /* disable action features */
 //#define NO_ACTION_LAYER

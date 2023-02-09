@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -36,17 +35,12 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 8    // Number of LEDs
 #endif
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 1

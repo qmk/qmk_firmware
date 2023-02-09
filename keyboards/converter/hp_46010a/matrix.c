@@ -145,7 +145,7 @@ void Matrix_ThrowByte(void) {
     return ;
 }
 
-void matrix_init () {
+void matrix_init (void) {
     // debug_matrix = 1;
     // PB0 (SS) and PB1 (SCLK) set to outputs
     DDRB |= RESET | SCLK ;
