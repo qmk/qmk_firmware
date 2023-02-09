@@ -1,7 +1,5 @@
 # Igloo
 
-![Igloo]
-
 * Keyboard Maintainer: [Chris Shin](https://github.com/djok0127)
 * Hardware Supported: Igloo PCB
 
