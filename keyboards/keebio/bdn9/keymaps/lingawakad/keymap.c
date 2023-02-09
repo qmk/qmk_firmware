@@ -15,6 +15,20 @@
 
 #include QMK_KEYBOARD_H
 
+bool is_gui_tab_active = false;
+bool is_gui_shift_tab_active = false;
+uint16_t gui_tab_timer = 0;
+/* ALT↯TAB gudniss */
+void matrix_scan_user(void) {
+  if (is_gui_tab_active) {
+    if (timer_elapsed(gui_tab_timer) > 1250) {
+      unregister_code(KC_LGUI);
+			unregister_code(KC_LSFT);
+      is_gui_tab_active = false;
+    }
+  }
+};
+
 enum encoder_names {
   _LEFT,
   _RIGHT,
@@ -31,40 +45,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT(
         KC_MPRV, KC_MNXT, KC_MUTE,
-				KC_TAB, RGB_MOD, KC_RGUI,
-        BL_TOGG, _______, KC_RCTL
+				KC_PGUP, KC_TAB, KC_RGUI,
+        KC_TAB, _______, KC_RGUI
     ),
 };
-
-/*
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][3] = {
-    [0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_WH_L, KC_WH_R), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),  ENCODER_CCW_CW(RGB_SAD, RGB_SAI), ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
-};
-#endif
-*/
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == _LEFT) {
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code16(C(KC_TAB));
         } else {
-            tap_code(KC_PGUP);
+            tap_code16(S(C(KC_TAB)));
         }
     }
     else if (index == _MIDDLE) {
         if (clockwise) {
-            tap_code(KC_DOWN);
-        } else {
-            tap_code(KC_UP);
-        }
+					if (!is_gui_tab_active) {
+						is_gui_tab_active = true;
+					unregister_code(KC_LSFT);
+					register_code(KC_LGUI);
+					}
+					gui_tab_timer = timer_read();
+					tap_code16(KC_TAB);
+				} else {
+					if (!is_gui_shift_tab_active) {
+						is_gui_shift_tab_active = true;
+					register_code(KC_LGUI);
+					register_code(KC_LSFT);
+					}
+					gui_tab_timer = timer_read();
+					tap_code16(KC_TAB);
+				}
     }
     else if (index == _RIGHT) {
         if (clockwise) {
-            tap_code(KC_VOLU);
+            tap_code16(KC_VOLU);
         } else {
-            tap_code(KC_VOLD);
+            tap_code16(KC_VOLD);
         }
     }
     return false;
