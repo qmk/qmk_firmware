@@ -36,6 +36,11 @@
 #define COMBO_ALLOW_ACTION_KEYS
 #define COMBO_PERMISSIVE_HOLD
 
+// https://docs.qmk.fm/#/feature_split_keyboard?id=data-sync-options
+#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+
 // https://docs.qmk.fm/#/feature_rgblight?id=lighting-layers
 #define RGBLIGHT_LAYERS
 // https://docs.qmk.fm/#/feature_rgblight?id=configuration

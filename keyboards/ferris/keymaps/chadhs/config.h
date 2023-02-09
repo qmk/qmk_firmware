@@ -30,13 +30,19 @@
 #define COMBO_ALLOW_ACTION_KEYS
 #define COMBO_PERMISSIVE_HOLD
 
+// https://docs.qmk.fm/#/feature_split_keyboard?id=data-sync-options
+#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+
 // https://docs.qmk.fm/#/feature_rgblight?id=lighting-layers
 #define RGBLIGHT_LAYERS
 
 // https://docs.qmk.fm/#/feature_rgblight?id=configuration
-#define RGBLIGHT_LIMIT_VAL 96
+#define RGBLIGHT_LIMIT_VAL 72
 
 #define RGBLED_NUM 2
+#define RGBLED_SPLIT { 1, 1 }
 #define RGB_DI_PIN 25
 
 #define RGBLIGHT_EFFECT_RGB_TEST
