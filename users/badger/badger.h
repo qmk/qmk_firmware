@@ -56,7 +56,8 @@ enum CustomKeys {
 #define MOVE       LT(_MOVE_LINUX, KC_ESC)
 #define MOVE_MAC   LT(_MOVE, KC_ESC)
 #define LT_END     LT(_MACRO, KC_END)
-#define FUNCTION   MO(_FUNCTION)
+#define LT_SPACE   LT(_MACRO, KC_SPC)
+#define LT_FUNC    LT(_FUNCTION, KC_LEFT)
 #define CONFIG     MO(_CONFIG)
 #define J_MACRO    MO(_MACRO)
 #define CFG_LNX    MO(_CONFIG)
@@ -85,6 +86,7 @@ enum CustomKeys {
 
 /* IntelliJ / JetBrains shortcuts with Mac keymap */
 #define IJ_BACK    LGUI(LALT(KC_LEFT))
+#define LT_SLSH    RSFT_T(KC_SLSH)
 #define IJ_FWD     LGUI(LALT(KC_RIGHT))
 #define IJ_UP      LGUI(LALT(KC_UP))
 #define IJ_DOWN    LGUI(LALT(KC_DOWN))
