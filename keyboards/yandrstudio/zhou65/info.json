@@ -1,6 +1,5 @@
 {
     "keyboard_name": "zhou65",
-    "processor": "STM32F401",
     "usb": {
         "pid": "0xAAAD",
         "device_version": "1.0.0"
