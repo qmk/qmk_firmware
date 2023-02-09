@@ -18,6 +18,45 @@
 
 #include "quantum.h"
 
+#ifdef VIA_ENABLE
+// custom ID codes
+enum via_indicator_value {
+    id_caps_lock_brightness   = 1,
+    id_caps_lock_color,
+    id_caps_lock_key,
+    id_num_lock_brightness,
+    id_num_lock_color,
+    id_num_lock_key,
+    id_scroll_lock_brightness,
+    id_scroll_lock_color,
+    id_scroll_lock_key,
+    id_layer_indicator_brightness,
+    id_layer_indicator_color,
+    id_layer_indicator_key
+};
+
+// struct to save things
+typedef struct {
+    HSV caps_lock_indicator;    // 3 bytes
+    HSV num_lock_indicator;     // 3 bytes
+    HSV scroll_lock_indicator;  // 3 bytes
+    HSV layer_indicator;        // 3 bytes
+    uint8_t caps_lock_key;      // 1 byte
+    uint8_t num_lock_key;       // 1 byte
+    uint8_t scroll_lock_key;    // 1 byte
+    uint8_t layer_indicator_key;// 1 byte
+} indicator_settings_config;
+// total 16 bytes
+
+// function declaration
+void indicator_config_set_value( uint8_t *data );
+void indicator_config_get_value( uint8_t *data );
+void indicator_config_save ( void );
+void _set_color(HSV *color, uint8_t *data);
+void _get_color(HSV *color, uint8_t *data);
+#endif
+
+// Matrix definition
 #define ____ KC_NO
 
 #define LAYOUT_alice_split_bs( \
