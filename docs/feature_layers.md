@@ -126,7 +126,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 This example shows how to implement a custom keycode to cycle through a range of layers.
 
 ```c
-// Define the keycode, `SAFE_RANGE` avoids collisions with existing keycodes
+// Define the keycode, `QK_USER` avoids collisions with existing keycodes
 enum keycodes {
   KC_CYCLE_LAYERS = QK_USER,
 };
@@ -140,9 +140,9 @@ enum keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_CYCLE_LAYERS:
-      //our logic will happen on presses, nothing is done on releases
+      // Our logic will happen on presses, nothing is done on releases
       if (!record->event.pressed) { 
-        // already handled the keycode, let QMK know so no further code is run unnecessarily
+        // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
         return false;
       }
 
@@ -153,18 +153,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
 
-      // If we are within the range, turn next layer on
+      // If we are within the range, but not on the last layer, turn next layer ON
       if (current_layer < LAYER_CYCLE_END) {
           layer_on(current_layer + 1);
           return false;
       }
 
-      // Getting here means we are on the last layer of the cycle
-      layer_move(LAYER_CYCLE_START); // move to starting layer, i.e. turn OFF all other layers (default one is always ON, though)
+      // Getting here means we are on the last layer of the cycle, move back to starting layer.
+      //    Note: `layer_move` turns OFF all other layers but default one (which is always ON)
+      layer_move(LAYER_CYCLE_START);
       return false;
 
+    // Process other keycodes normally
     default:
-      return true; // process other keycodes normally
+      return true;
   }
 }
 
