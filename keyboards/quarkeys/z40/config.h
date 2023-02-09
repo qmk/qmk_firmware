@@ -13,16 +13,12 @@
 */
 
 #pragma once
-#include "config_common.h"
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { E6, B3, C7, C6 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B6, B5, B4, D7, D6, D0, B1, B0 }
 #define RGB_DI_PIN F1
-
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 47
 #define RGB_MATRIX_KEYPRESSES                       // Reacts to Keypresses
@@ -56,7 +52,6 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN F1
 #define RGBLED_NUM 47
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
