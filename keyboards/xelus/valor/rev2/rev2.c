@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2023 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +69,6 @@ void keyboard_pre_init_kb(void) {
     rgb_matrix_set_flags(LED_FLAG_MODIFIER|LED_FLAG_UNDERGLOW|LED_FLAG_KEYLIGHT);
     keyboard_pre_init_user();
 }
-#endif
 
 #ifdef VIA_ENABLE
 #include "quantum.h"
@@ -305,4 +304,5 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 
+#endif
 #endif
