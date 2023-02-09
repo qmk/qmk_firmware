@@ -58,6 +58,8 @@ enum custom_keycodes {
     // POWERON_HTML,
     // REP_QUOTE,
     POP_TAB_VSCODE,
+    SWITCH_WIN_DESKTOP_LEFT,
+    SWITCH_WIN_DESKTOP_RIGHT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -77,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , THIS_LINE_PAIR_PAREN   , RCS(KC_TAB)  , LCTL(KC_TAB)  , KC_HOME   , KC_UP     , KC_END    , KC_BSPC   ,
         KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , THIS_LINE_PAIR_BRACES  , LALT(KC_LEFT), LALT(KC_RIGHT), KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_PGUP   ,
         KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , THIS_LINE_PAIR_BRACKETS, LCTL(KC_PMNS), LCTL(KC_PPLS) , LCTL(KC_T), LCTL(KC_N), LCTL(KC_W), KC_PGDN   ,
-                                            KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC) , KC_TRNS      , KC_TRNS       , KC_TRNS
+                                            KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC) , KC_TRNS      , SWITCH_WIN_DESKTOP_LEFT, SWITCH_WIN_DESKTOP_RIGHT
     ),
     [NumCharFunc] = LAYOUT_split_3x6_3(
         KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_6      , KC_7      , KC_8      , KC_9      , KC_0      , KC_MINS   , KC_EQL    ,
@@ -86,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_CAPS   , KC_MPLY   , KC_TRNS   , KC_TRNS   , KC_MPRV   , KC_MNXT
     ),
     [AppNavMacro] = LAYOUT_split_3x6_3(
-        LALT(KC_F4)  , KC_HOME          , KC_UP          , KC_END            , RCS(KC_TAB)  , LCTL(KC_TAB)  , SELECTION_PAIR_PAREN   , ADD_SPACE_DOWN           , REMOVE_CHARACTER_DOWN  , MOVE_LINE_UP       , MOVE_LINE_DOWN       , POP_TAB_VSCODE       ,
-        KC_PGUP      , KC_LEFT          , KC_DOWN        , KC_RIGHT          , LALT(KC_LEFT), LALT(KC_RIGHT), SELECTION_PAIR_BRACES  , SELECTION_PAIR_INEQUALITY, SELECTION_BLOCK_COMMENT, SELECTION_DO_END   , SELECTION_PAIR_QUOTES, SELECT_LINE          ,
-        KC_PGDN      , OPEN_TASK_MANAGER, POP_TAB_CHROME , OPEN_FOLDER_IN_CMD, LCTL(KC_PMNS), LCTL(KC_PPLS) , SELECTION_PAIR_BRACKETS, SHIFT_CONTROL_LEFT       , SELECT_WORD            , SHIFT_CONTROL_RIGHT, MOVE_MAX_WINDOW_LEFT , MOVE_MAX_WINDOW_RIGHT,
+        LALT(KC_F4)  , KC_HOME          , KC_UP          , KC_END            , RCS(KC_TAB)  , LCTL(KC_TAB)  , SELECTION_PAIR_PAREN   , ADD_SPACE_DOWN           , REMOVE_CHARACTER_DOWN  , MOVE_LINE_UP       , MOVE_LINE_DOWN         , POP_TAB_VSCODE          ,
+        KC_PGUP      , KC_LEFT          , KC_DOWN        , KC_RIGHT          , LALT(KC_LEFT), LALT(KC_RIGHT), SELECTION_PAIR_BRACES  , SELECTION_PAIR_INEQUALITY, SELECTION_BLOCK_COMMENT, SELECTION_DO_END   , SELECTION_PAIR_QUOTES  , SELECT_LINE             ,
+        KC_PGDN      , OPEN_TASK_MANAGER, POP_TAB_CHROME , OPEN_FOLDER_IN_CMD, LCTL(KC_PMNS), LCTL(KC_PPLS) , SELECTION_PAIR_BRACKETS, SHIFT_CONTROL_LEFT       , SELECT_WORD            , SHIFT_CONTROL_RIGHT, SWITCH_WIN_DESKTOP_LEFT, SWITCH_WIN_DESKTOP_RIGHT,
                                                            KC_TRNS           , KC_TRNS      , KC_TRNS       , TO(Gaming)             , KC_TRNS                  , KC_TRNS
     ),
     [Gaming] = LAYOUT_split_3x6_3(
@@ -119,7 +121,7 @@ void pointing_device_init_user(void) {
 void housekeeping_task_user(void) {
     static i2c_status_t rgbw_status = I2C_STATUS_ERROR;
     if (rgbw_status != I2C_STATUS_SUCCESS){
-        pimoroni_trackball_set_rgbw(0, 0, 0, 100);
+        pimoroni_trackball_set_rgbw(255, 0, 0, 0);
     }
 }
 
@@ -129,7 +131,7 @@ int pointer_limit = 25;
 int track_factor = 1;
 
 int calculate_magnitude(int mouse_report_x, int mouse_report_y) {
-    return sqrt(pow(mouse_report_x,2)+pow(mouse_report_y,2));
+    return .5*sqrt(pow(mouse_report_x,2)+pow(mouse_report_y,2));
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
@@ -347,6 +349,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
         if(record->event.pressed){
             tap_code16(LCTL(KC_K));
             tap_code(KC_O);
+        }
+        return false;
+    case SWITCH_WIN_DESKTOP_LEFT:
+        if (record->event.pressed){
+            tap_code16(LCTL(LGUI(KC_LEFT)));
+        }
+        return false;
+    case SWITCH_WIN_DESKTOP_RIGHT:
+            if (record->event.pressed){
+            tap_code16(LCTL(LGUI(KC_RIGHT)));
         }
         return false;
   }

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /**
  * Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
  *
@@ -263,4 +261,3 @@ void shutdown_user(void) {
     rgb_matrix_update_pwm_buffers();
 #endif // RGB_MATRIX_ENABLE
 }
->>>>>>> 21f1cf19a3ad96e45cb5db1f4af4a4ef2bef03e4

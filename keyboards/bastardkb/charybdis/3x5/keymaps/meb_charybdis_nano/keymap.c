@@ -153,7 +153,6 @@ int scroll_track_speed = 100;
 void pointing_device_init_user(void) {
     set_auto_mouse_enable(true);
     pointing_device_set_cpi(base_track_speed);
-
 };
 
 bool alt_tabber = false;
