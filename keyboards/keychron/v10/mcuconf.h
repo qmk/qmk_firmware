@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,7 @@
 
 #pragma once
 
-#include "quantum.h"
+#include_next <mcuconf.h>
 
-#if defined(KEYBOARD_keychron_q0_rev_0130)
-#    include "rev_0130.h"
-#endif
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 TRUE
