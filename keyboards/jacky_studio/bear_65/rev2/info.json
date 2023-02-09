@@ -168,7 +168,7 @@
                 {"label":"Left", "x":17.25, "y":4},
                 {"label":"Down", "x":18.25, "y":4},
                 {"label":"Right", "x":19.25, "y":4}]
-        }
+        },
         "LAYOUT_wk_bs": {
             "layout": [
                 {"label":"Esc", "x":0.5, "y":0},

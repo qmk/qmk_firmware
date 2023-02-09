@@ -9,5 +9,20 @@
         "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
-    "bootloader": "atmel-dfu"
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0},
+                {"x": 1, "y": 0},
+                {"x": 2, "y": 0},
+                {"x": 3, "y": 0},
+
+                {"label": "Encoder 1 CCW", "x": 0, "y": 1},
+                {"label": "Encoder 1 CW", "x": 1, "y": 1},
+                {"label": "Encoder 2 CCW", "x": 2, "y": 1},
+                {"label": "Encoder 2 CW", "x": 3, "y": 1}
+            ]
+        }
+    }
 }

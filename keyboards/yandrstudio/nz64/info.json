@@ -1,6 +1,5 @@
 {
     "keyboard_name": "nz64",
-    "processor": "STM32F401",
     "usb": {
         "pid": "0xAAAF",
         "device_version": "1.0.0"
