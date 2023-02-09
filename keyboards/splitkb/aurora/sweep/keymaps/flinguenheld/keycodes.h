@@ -10,6 +10,7 @@ enum layers {
     _MOUSE,
     _ADJUST,
     _FN,
+    _LEFT_HAND,
 };
 
 enum custom_keys {
@@ -41,6 +42,3 @@ enum custom_keys {
     CS_U_DIAERESIS,
     CS_Y_DIAERESIS,
 };
-
-/* Set in leader.c and use in oled.c to display a logo */
-// static bool is_leader_active = false;

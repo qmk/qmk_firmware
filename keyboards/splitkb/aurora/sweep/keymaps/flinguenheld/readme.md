@@ -1,4 +1,4 @@
-### FLinguenheld aurora sweep keymap
+### Custom aurora sweep keymap
 
 
 This keymap is inspired by [optimot](https://bepo.fr/) which is a French layout.  
@@ -40,15 +40,16 @@ and :
 
 #### Layouts
 
-![base](https://i.imgur.com/8zwPViH.png)  
-![numeric](https://i.imgur.com/jyjGqw9.png)  
-![mouse](https://i.imgur.com/dkUlXe2.png)  
-![arrows](https://i.imgur.com/CCmrUl1.png)  
-![adjust](https://i.imgur.com/yVRvFxg.png)  
-![fn](https://i.imgur.com/GxlYDtx.png)  
-![combo](https://i.imgur.com/bAFqBeV.png)  
-![combo2](https://i.imgur.com/hghvPHl.png)  
-![combo3](https://i.imgur.com/AvpJvOG.png)  
+![base](https://i.imgur.com/E3hRkxW.png)  
+![numeric](https://i.imgur.com/GeC0reE.png)  
+![mouse](https://i.imgur.com/QhsWVrE.png)  
+![arrows](https://i.imgur.com/4sAfGAt.png)  
+![adjust](https://i.imgur.com/hcoN2P8.png)  
+![fn](https://i.imgur.com/dVunqFF.png)  
+![left hand](https://i.imgur.com/fk5YJj6.png)  
+![combo](https://i.imgur.com/aZ8TpuY.png)  
+![combo2](https://i.imgur.com/QayRuFA.png)  
+![combo3](https://i.imgur.com/YpnbMeh.png)  
 
 #### French
 
@@ -63,17 +64,17 @@ and :
 |   comma + i      |   ì                    |
 |   comma + o      |   ò                    |
 |   comma + u      |   ù                    |
-|   c + a          |   â                    |
-|   c + e          |   ê                    |
-|   c + i          |   î                    |
-|   c + o          |   ô                    |
-|   c + u          |   û                    |
-|   t + a          |   ä                    |
-|   t + e          |   ë                    |
-|   t + i          |   ï                    |
-|   t + o          |   ö                    |
-|   t + u          |   ü                    |
-|   t + y          |   ÿ                    |
+|   enter + a      |   â                    |
+|   enter + e      |   ê                    |
+|   enter + i      |   î                    |
+|   enter + o      |   ô                    |
+|   enter + u      |   û                    |
+|   dot + a        |   ä                    |
+|   dot + e        |   ë                    |
+|   dot + i        |   ï                    |
+|   dot + o        |   ö                    |
+|   dot + u        |   ü                    |
+|   dot + y        |   ÿ                    |
 
 
 #### Leader

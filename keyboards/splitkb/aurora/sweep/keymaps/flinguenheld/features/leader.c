@@ -27,6 +27,8 @@ void matrix_scan_user(void) {
     SEQ_THREE_KEYS(KC_A, KC_D, KC_M) {
       SEND_STRING("admin01234"); }
 
+    SEQ_ONE_KEY(KC_C) {
+      SEND_STRING(" | xclip -r -selection clipboard"); }
 
     /* Degree */
     SEQ_THREE_KEYS(KC_D, KC_E, KC_G) {

@@ -20,6 +20,7 @@ enum combos {
 
     LAYER_ADJUST,
     LAYER_FN,
+    LAYER_LEFT_HAND,
 
     /* French */
     E_ACUTE,
@@ -108,6 +109,7 @@ const uint16_t PROGMEM combo_bootloader[] =             {KC_K, KC_TAB, KC_Z, KC_
 
 const uint16_t PROGMEM combo_adjust[] =                 {KC_LCPO, LT(_NUMERIC, KC_ENT), COMBO_END};
 const uint16_t PROGMEM combo_fn[] =                     {LT(_NUMERIC, KC_ENT), KC_N, COMBO_END};
+const uint16_t PROGMEM combo_left_hand[] =              {KC_LCPO, GUI_T(KC_ESC), COMBO_END};
 
 /* -- */
 // const uint16_t PROGMEM combo_enter_shifted[] =          {LT(_NUMERIC, KC_ENT), KC_S, COMBO_END};
@@ -193,6 +195,7 @@ combo_t key_combos[] = {
 
     [LAYER_ADJUST] = COMBO(combo_adjust,                    OSL(_ADJUST)),
     [LAYER_FN] = COMBO(combo_fn,                            OSL(_FN)),
+    [LAYER_LEFT_HAND] = COMBO(combo_left_hand,              OSL(_LEFT_HAND)),
 
     /* -- */
     // [ENTER_SHIFTED] = COMBO(combo_enter_shifted,            S(KC_ENT)),
