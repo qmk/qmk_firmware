@@ -15,6 +15,7 @@ This is my personal fork of QMK to configure the keyboards I use.
 ### My Keyboards
 
 * [Microdox](/keyboards/boardsource/microdox/)
+* [Ferris Sweep](/keyboards/ferris/)
 
 ### Merging upstream changes
 
