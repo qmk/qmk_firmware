@@ -5,8 +5,8 @@ A 40% Bottom mount low-profile & MX switch compatible keyboard.
 * Keyboard Maintainer: [Quarkeys Studio](www.quarkeys.com)
 * Hardware Supported: Z40-ACR, Z40-Pastry
 * Hardware Specs: Per-key RGBs, layer & Capslock indicators
-* For RGB matrix effect, "RGB_MATRIX_ENABLE = yes", "RGB_MATRIX_DRIVER = WS2812", "RGBLIGHT_ENABLE = no";
-* For RGB light effect, "RGB_MATRIX_ENABLE = no", "#RGB_MATRIX_DRIVER = WS2812"(comment out), "RGBLIGHT_ENABLE = yes";
+* For [RGB Matrix feature](https://docs.qmk.fm/#/feature_rgb_matrix): `RGB_MATRIX_ENABLE = yes`, `RGB_MATRIX_DRIVER = WS2812`, `RGBLIGHT_ENABLE = no`.
+* For [RGB Light feature](https://docs.qmk.fm/#/feature_rgblight): `RGB_MATRIX_ENABLE = no`, `RGBLIGHT_ENABLE = yes`.
 
 Make example for this keyboard solder version keymap(after setting up your build environment):
 
