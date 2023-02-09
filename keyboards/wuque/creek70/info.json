@@ -1,11 +1,48 @@
 {
   "keyboard_name": "creek70",
-  "manufacturer": "wuque",
+  "manufacturer": "wuque studio",
   "maintainer": "spbgzh",
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "diode_direction": "COL2ROW",
+  "features": {
+    "bootmagic": true,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true
+  },
+  "matrix_pins": {
+    "rows": ["B3", "B2", "F0", "D3", "D1"],
+    "cols": [
+      "E6",
+      "D4",
+      "D7",
+      "F7",
+      "D2",
+      "D5",
+      "D6",
+      "F5",
+      "F4",
+      "F1",
+      "C7",
+      "C6",
+      "B6",
+      "B5",
+      "B4",
+      "B7",
+      "B1",
+      "B0"
+    ]
+  },
   "usb": {
     "vid": "0x916D",
     "pid": "0x0001",
     "device_version": "0.0.1"
+  },
+  "indicators": {
+    "caps_lock": "F6"
   },
   "layouts": {
     "LAYOUT": {

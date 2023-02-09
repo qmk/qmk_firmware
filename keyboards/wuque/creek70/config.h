@@ -16,23 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 18
-
-#define MATRIX_ROW_PINS { B3, B2, F0, D3, D1 }
-#define MATRIX_COL_PINS { E6, D4, D7, F7, D2, D5, D6, F5, F4, F1, C7, C6, B6, B5, B4, B7, B1, B0 }
-
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-#define LED_CAPS_LOCK_PIN F6
-#define LED_PIN_ON_STATE 0
-
 #define RGB_DI_PIN D0
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 1
