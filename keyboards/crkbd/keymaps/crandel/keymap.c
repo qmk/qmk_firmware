@@ -38,52 +38,52 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLMAK_LAYER] = LAYOUT_split_3x6_3(
-  //,----------------------------------------------------------------------.    ,-----------------------------------------------------------------------------.
-       KC_TAB,    KC_Q, RALT_T(KC_W), LCTL_T(KC_F),    LSFT_T(KC_P), KC_B,         KC_J,     LSFT_T(KC_L), LCTL_T(KC_U), RALT_T(KC_Y),        KC_SCLN, KC_BSPC,
-  //|--------+--------+-------------+-------------+----------------+-------|    |------+-----------------+-------------+-------------+---------------+--------|
-      KC_LCTL,    KC_A,         KC_R,         KC_S,            KC_T, KC_G,         KC_M,             KC_N,         KC_E,         KC_I,           KC_O, KC_QUOT,
-  //|--------+--------+-------------+-------------+----------------+-------|    |------+-----------------+-------------+-------------+---------------+--------|
-      KC_LSFT,    KC_Z,         KC_X,         KC_C,            KC_D, KC_V,         KC_K,             KC_H,      KC_COMM,       KC_DOT, LSFT(KC_SLASH),  KC_ESC,
-  //|--------+--------+-------------+-------------+----------------+-------|    |------+-----------------+-------------+-------------+---------------+--------|
+  //,----------------------------------------------------------------------.    ,----------------------------------------------------------------------------.
+       KC_TAB,    KC_Q, RALT_T(KC_W), LCTL_T(KC_F),    LSFT_T(KC_P), KC_B,         KC_J,     LSFT_T(KC_L), LCTL_T(KC_U), RALT_T(KC_Y),       KC_SCLN, KC_BSPC,
+  //|--------+--------+-------------+-------------+----------------+-------|    |------+-----------------+-------------+-------------+--------------+--------|
+      KC_LCTL,    KC_A,         KC_R,         KC_S,            KC_T, KC_G,         KC_M,             KC_N,         KC_E,         KC_I,          KC_O, KC_QUOT,
+  //|--------+--------+-------------+-------------+----------------+-------|    |------+-----------------+-------------+-------------+--------------+--------|
+      KC_LSFT,    KC_Z,         KC_X,         KC_C,            KC_D, KC_V,         KC_K,             KC_H,      KC_COMM,       KC_DOT, LSFT(KC_SLSH),  KC_ESC,
+  //|--------+--------+-------------+-------------+----------------+-------|    |------+-----------------+-------------+-------------+--------------+--------|
                                            KC_LGUI,TO(NUMBER_LAYER), KC_SPC,     KC_ENT, TO(COLMAK_LAYER),      KC_RALT
                                            //`-----------------------------'    `--------------------------------------'
 
   ),
 
   [NUMBER_LAYER] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------------------------.   ,-------------------------------------------------------------------------------------.
-       KC_DELETE, KC_F5, LALT_T(KC_7), LCTL_T(KC_4),    LSFT_T(KC_2),  KC_F1,         KC_HOME,   LSFT_T(KC_PGDN), LCTL_T(KC_PGUP),    KC_END,        UML_SEQ,  KC_BSPC,
-  //|-----------+------+-------------+-------------+----------------+-------|   |------------+------------------+----------------+----------+---------------+---------|
-         KC_CAPS, KC_F4,         KC_8,         KC_5,            KC_1,   KC_3,         KC_LEFT,           KC_DOWN,           KC_UP,  KC_RIGHT,        KC_LCTL, KC_MINUS,
-  //|-----------+------+-------------+-------------+----------------+-------|   |------------+------------------+----------------+----------+---------------+---------|
-         KC_LSFT, KC_F3,         KC_9,         KC_6,            KC_0,  KC_F3,     KC_KP_COMMA,         KC_KP_DOT,     KC_KP_SLASH,   KC_BSLS, KC_KP_ASTERISK,   KC_ESC,
-  //|-----------+------+-------------+-------------+----------------+-------|   |------------+------------------+----------------+----------+---------------+---------|
-                                            KC_LGUI, TO(CHARS_LAYER), KC_SPC,          KC_ENT,  TO(COLMAK_LAYER),         KC_RALT
-                                            //`-----------------------------'   `------------------------------------------------'
+  //,-----------------------------------------------------------------------.   ,-----------------------------------------------------------------------------.
+       KC_DELETE, KC_F5, LALT_T(KC_7), LCTL_T(KC_4),    LSFT_T(KC_2),  KC_F1,         KC_HOME,  LSFT_T(KC_PGDN), LCTL_T(KC_PGUP),    KC_END, UML_SEQ,  KC_BSPC,
+  //|-----------+------+-------------+-------------+----------------+-------|   |------------+-----------------+----------------+----------+--------+---------|
+         KC_CAPS, KC_F4,         KC_8,         KC_5,            KC_1,   KC_3,         KC_LEFT,          KC_DOWN,           KC_UP,  KC_RIGHT, KC_LCTL, KC_MINUS,
+  //|-----------+------+-------------+-------------+----------------+-------|   |------------+-----------------+----------------+----------+--------+---------|
+         KC_LSFT, KC_F3,         KC_9,         KC_6,            KC_0,  KC_F2,         KC_MINS,          KC_UNDS,         KC_ASTR,   KC_BSLS, KC_SLSH,   KC_ESC,
+  //|-----------+------+-------------+-------------+----------------+-------|   |------------+-----------------+----------------+----------+--------+---------|
+                                            KC_LGUI, TO(CHARS_LAYER), KC_SPC,          KC_ENT, TO(COLMAK_LAYER),         KC_RALT
+                                            //`-----------------------------'   `-----------------------------------------------'
   ),
 
   [CHARS_LAYER] = LAYOUT_split_3x6_3(
-  //,------------------------------------------------------------------------.    ,--------------------------------------------------------------------------------------------------.
-      KC_DELETE, XXXXXXX, LSFT(KC_7), LSFT(KC_4),      LSFT(KC_2),    KC_MUTE,            KC_MPRV,           KC_LSFT,           KC_LCTL,      KC_MNXT,       KC_EQUAL,        KC_BSPC,
-  //|----------+--------+-----------+-----------+----------------+-----------|    |--------------+------------------+------------------+-------------+---------------+---------------|
-        KC_LCTL, KC_VOLU, LSFT(KC_8), LSFT(KC_5),      LSFT(KC_1), LSFT(KC_3),            KC_LBRC,        LSFT(KC_9),        LSFT(KC_0),      KC_RBRC,        KC_BSLS,       KC_GRAVE,
-  //|----------+--------+-----------+-----------+----------------+-----------|    |--------------+------------------+------------------+-------------+---------------+---------------|
-        KC_LSFT, KC_VOLD,    KC_BRID, LSFT(KC_6),         KC_BRIU,    KC_MSTP,     LSFT(KC_COMMA),     LSFT(KC_LBRC),     LSFT(KC_RBRC), LSFT(KC_DOT), LSFT(KC_EQUAL), LSFT(KC_GRAVE),
-  //|----------+--------+-----------+-----------+----------------+-----------|    |--------------+------------------+------------------+-------------+---------------+---------------|
+  //,------------------------------------------------------------------------.    ,-------------------------------------------------------------------------------------------.
+      KC_DELETE, XXXXXXX, LSFT(KC_7), LSFT(KC_4),      LSFT(KC_2),    KC_MUTE,            KC_MPRV,           KC_LSFT,           KC_LCTL,      KC_MNXT,       KC_EQUAL, KC_BSPC,
+  //|----------+--------+-----------+-----------+----------------+-----------|    |--------------+------------------+------------------+-------------+---------------+--------|
+        KC_LCTL, KC_VOLU, LSFT(KC_8), LSFT(KC_5),      LSFT(KC_1), LSFT(KC_3),            KC_LBRC,        LSFT(KC_9),        LSFT(KC_0),      KC_RBRC,   LSFT(KC_GRV),  KC_GRV,
+  //|----------+--------+-----------+-----------+----------------+-----------|    |--------------+------------------+------------------+-------------+---------------+--------|
+        KC_LSFT, KC_VOLD,    KC_BRID, LSFT(KC_6),         KC_BRIU,    KC_MSTP,     LSFT(KC_COMMA),     LSFT(KC_LBRC),     LSFT(KC_RBRC), LSFT(KC_DOT), LSFT(KC_EQUAL),  KC_ESC,
+  //|----------+--------+-----------+-----------+----------------+-----------|    |--------------+------------------+------------------+-------------+---------------+--------|
                                          KC_LGUI, TO(MOUSE_LAYER),     KC_SPC,             KC_ENT,  TO(COLMAK_LAYER), KC_RALT
                                          //`---------------------------------'    `-----------------------------------------'
   ),
 
   [MOUSE_LAYER] = LAYOUT_split_3x6_3(
-  //,---------------------------------------------------------.              ,---------------------------------------------------------.
-      XXXXXXX,  XXXXXXX, KC_LALT,  KC_LCTL,   KC_LSFT, XXXXXXX,                   KC_PSCR,          KC_WH_D, KC_WH_U,   KC_F6,   KC_F7,  KC_F8,
-  //|--------+---------+--------+---------+----------+--------|              |-----------+-----------------+--------+--------+--------+-------|
-      XXXXXXX,  XXXXXXX, KC_SLCT,  KC_BTN2,   KC_BTN1, KC_BTN3,                   KC_MS_L,          KC_MS_D, KC_MS_U, KC_MS_R,   KC_F9, KC_F10,
-  //|--------+---------+--------+---------+----------+--------|              |-----------+-----------------+--------+--------+----------------|
-     TRM_COPY, TRM_PSTE,  KC_CUT,  KC_COPY,   KC_PSTE, XXXXXXX,                   KC_WBAK,          KC_PGDN, KC_PGUP, KC_WFWD,  KC_F11, KC_F12,
-  //|--------+---------+--------+---------+----------+--------|              |-----------+-----------------+--------+--------+--------+-------|
-                                   KC_LGUI,   QWRT_UA,  KC_SPC,                    KC_ENT, TO(COLMAK_LAYER), KC_RALT
-                                   //`------------------------'              `--------------------------------------'
+  //,-------------------------------------------------------.              ,---------------------------------------------------------.
+      XXXXXXX,  XXXXXXX, KC_LALT,  KC_LCTL, KC_LSFT, XXXXXXX,                   KC_PSCR,          KC_WH_D, KC_WH_U,   KC_F6,   KC_F7,  KC_F8,
+  //|--------+---------+--------+---------+--------+--------|              |-----------+-----------------+--------+--------+--------+-------|
+      XXXXXXX,  XXXXXXX, KC_SLCT,  KC_BTN2, KC_BTN1, KC_BTN3,                   KC_MS_L,          KC_MS_D, KC_MS_U, KC_MS_R,   KC_F9, KC_F10,
+  //|--------+---------+--------+---------+--------+--------|              |-----------+-----------------+--------+--------+----------------|
+     TRM_COPY, TRM_PSTE,  KC_CUT,  KC_COPY,  KC_APP, KC_PSTE,                   KC_WBAK,          KC_PGDN, KC_PGUP, KC_WFWD,  KC_F11, KC_F12,
+  //|--------+---------+--------+------------------+--------|              |-----------+-----------------+--------+--------+--------+-------|
+                                   KC_LGUI, QWRT_UA,  KC_SPC,                    KC_ENT, TO(COLMAK_LAYER), KC_RALT
+                                   //`----------------------'              `--------------------------------------'
   ),
 
   [QWERTY_LAYER] = LAYOUT_split_3x6_3(
@@ -98,7 +98,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         //`--------------------------'       `----------------------------------'
   )
 };
-
 
 
 #ifdef OLED_ENABLE
@@ -209,52 +208,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // when keycode TRM_COPY is pressed
       register_code(KC_LCTL);
       register_code(KC_LSFT);
-      register_code(KC_C);
+      tap_code(KC_C);
     } else {
       // when keycode TRM_COPY is released
-      unregister_code(KC_C);
       unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
     break;
   case TRM_PSTE:
     if (record->event.pressed) {
-      // when keycode trm_pste is pressed
+      // when keycode TRM_PSTE is pressed
       register_code(KC_LCTL);
       register_code(KC_LSFT);
-      register_code(KC_V);
+      tap_code(KC_V);
     } else {
-      // when keycode trm_pste is released
-      unregister_code(KC_V);
+      // when keycode TRM_PSTE is released
       unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
     break;
   case QWRT_UA:
     if (record->event.pressed) {
-      // when keycode qwrt_ua is pressed
+      // when keycode QWRT_UA is pressed
       layer_on(QWERTY_LAYER);
       register_code(KC_LSFT);
       register_code(KC_CAPS);
     } else {
-      // when keycode qwrt_ua is released
+      // when keycode QWRT_UA is released
       unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
     break;
   case CLM_EN:
     if (record->event.pressed) {
-      // when keycode clm_en is pressed
+      // when keycode CLM_EN is pressed
       layer_on(COLMAK_LAYER);
       tap_code(KC_CAPS);
     }
     break;
-  }
   case UML_SEQ:
     if (record->event.pressed) {
-      // when keycode clm_en is pressed
+      // when keycode UML_SEQ is pressed
       tap_code(KC_PSCR);
-      tap_code(LSFT(KC_QUOT));
+      register_code(KC_LSFT);
+      register_code(KC_QUOT);
+    } else {
+      // when keycode UML_SEQ is released
+      unregister_code(KC_CAPS);
+      unregister_code(KC_QUOT);
     }
     break;
   }
@@ -271,6 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 enum combo_events {
   QWERTY_COMBO,
   ESC_COMBO,
+  UML_COMBO,
   COMBO_LENGTH
 };
 
@@ -278,10 +280,13 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM qwerty_combo[] = {KC_G, KC_J, COMBO_END};
 const uint16_t PROGMEM esc_combo[] = {KC_H, KC_D, COMBO_END};
+const uint16_t PROGMEM uml_combo[] = {KC_V, KC_K, COMBO_END};
 combo_t key_combos[] = {
     [QWERTY_COMBO] = COMBO_ACTION(qwerty_combo), // keycodes with modifiers are possible too!
     [ESC_COMBO] = COMBO_ACTION(esc_combo),
+    [UML_COMBO] = COMBO_ACTION(uml_combo),
 };
+
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case QWERTY_COMBO:
@@ -289,8 +294,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
           layer_on(QWERTY_LAYER);
           register_code(KC_LSFT);
           register_code(KC_CAPS);
+      } else {
+          unregister_code(KC_CAPS);
           unregister_code(KC_LSFT);
-          unregister_code(KC_LCTL);
       }
       break;
     case ESC_COMBO:
@@ -298,6 +304,42 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code(KC_ESC);
       }
       break;
+    case UML_COMBO:
+      if (pressed) {
+        tap_code(KC_PSCR);
+        register_code(KC_LSFT);
+        register_code(KC_QUOT);
+      } else {
+        unregister_code(KC_CAPS);
+        unregister_code(KC_QUOT);
+      }
+      break;
   }
 }
 #endif // COMBO_ENABLE
+
+#ifdef RGBLIGHT_ENABLE
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case COLMAK_LAYER:
+            rgblight_setrgb(RGB_GREEN);
+            break;
+        case NUMBER_LAYER:
+            rgblight_setrgb(RGB_YELLOW);
+            break;
+        case CHARS_LAYER:
+            rgblight_setrgb(RGB_BLUE);
+            break;
+        case MOUSE_LAYER:
+            rgblight_setrgb(RGB_RED);
+            break;
+        case QWERTY_LAYER:
+            rgblight_setrgb(RGB_MAGENTA);
+            break;
+        default:
+            break;
+    }
+    return state;
+}
+#endif // RGBLIGHT_ENABLE
