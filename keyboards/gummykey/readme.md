@@ -1,6 +1,6 @@
 # GummyKey
 
-![gummykey](https://i.imgur.com/R6ffs2B.png)
+![gummykey](https://i.imgur.com/R6ffs2Bh.png)
 
 a 4x6+5 split keyboard i made
 
