@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4150 // AP for AcheronProject
-#define PRODUCT_ID      0x8774 // For 87H + 2 (revision Gamma)
-#define DEVICE_VER      0x0003 // Revision Gamma
-#define MANUFACTURER    AcheronProject
-#define PRODUCT         Apollo87H rev. Gamma
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -45,27 +38,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define EEPROM_I2C_24LC256
-//#define I2C1_CLOCK_SPEED 400000
-//#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
-
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-#define STM32_HSECLK 8000000
 
 // RGB Matrix defines
 #define DRIVER_ADDR_1 0b0110000
 
 #define DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 87
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
-#define ISSI_DRIVER_TOTAL DRIVER_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+#define ISSI_DRIVER_TOTAL RGB_MATRIX_LED_COUNT
 
-#define RGB_MATRIX_STARTUP_VAL 80
+#define RGB_MATRIX_DEFAULT_VAL 80
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_HUE_WAVE
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_HUE_WAVE
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

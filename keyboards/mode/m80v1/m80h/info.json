@@ -1,9 +1,19 @@
 {
-    "keyboard_name": "MODE80H", 
+    "keyboard_name": "Eighty", 
+    "manufacturer": "Mode",
     "url": "", 
     "maintainer": "qmk", 
+    "usb": {
+    	"vid": "0x00DE",
+    	"pid": "0x0081",
+    	"device_version": "0.7.2"
+    },
+	"community_layouts": [ "tkl_ansi" ],
+	"layout_aliases": {
+		"LAYOUT_eighty_m80h": "LAYOUT_tkl_ansi"
+	},
     "layouts": {
-        "LAYOUT_eighty_m80h": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
 			{"label":"Esc", "x":0, "y":0},
 			{"label":"F1", "x":2, "y":0},

@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7C10
-#define MANUFACTURER    Studio Kestra
-#define PRODUCT         Galatea
-
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
 

@@ -210,7 +210,7 @@ def new_keyboard(cli):
 
     # Preprocess any development_board presets
     if mcu in dev_boards:
-        defaults_map = json_load(Path('data/mappings/defaults.json'))
+        defaults_map = json_load(Path('data/mappings/defaults.hjson'))
         board = defaults_map['development_board'][mcu]
 
         mcu = board['processor']

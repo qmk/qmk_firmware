@@ -1,6 +1,6 @@
 # Layers :id=layers
 
-One of the most powerful and well used features of QMK Firmware is the ability to use layers.  For most people, this amounts to a function key that allows for different keys, much like what you would see on a laptop or tablet keyboard. 
+One of the most powerful and well used features of QMK Firmware is the ability to use layers.  For most people, this amounts to a function key that allows for different keys, much like what you would see on a laptop or tablet keyboard.
 
 For a detailed explanation of how the layer stack works, checkout [Keymap Overview](keymap.md#keymap-and-layers).
 
@@ -9,7 +9,7 @@ For a detailed explanation of how the layer stack works, checkout [Keymap Overvi
 These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
 
 * `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the `set_single_persistent_default_layer` function inside of [process_record_user](custom_quantum_functions.md#programming-the-behavior-of-any-keycode).)
-* `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated. 
+* `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated.
 * `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers: `MOD_LCTL`, `MOD_LSFT`, `MOD_LALT`, `MOD_LGUI` (note the use of `MOD_` constants instead of `KC_`). These modifiers can be combined using bitwise OR, e.g. `LM(_RAISE, MOD_LCTL | MOD_LALT)`.
 * `LT(layer, kc)` - momentarily activates *layer* when held, and sends *kc* when tapped. Only supports layers 0-15.
 * `OSL(layer)` - momentarily activates *layer* until the next key is pressed. See [One Shot Keys](one_shot_keys.md) for details and additional functionality.
@@ -31,7 +31,7 @@ Care must be taken when switching layers, it's possible to lock yourself into a 
 
 If you are just getting started with QMK you will want to keep everything simple. Follow these guidelines when setting up your layers:
 
-* Setup layer 0 as your default, "base" layer. This is your normal typing layer, and could be whatever layout you want (qwerty, dvorak, colemak, etc.). It's important to set this as the lowest layer since it will typically have most or all of the keyboard's keys defined, so would block other layers from having any effect if it were above them (i.e., had a higher layer number). 
+* Setup layer 0 as your default, "base" layer. This is your normal typing layer, and could be whatever layout you want (qwerty, dvorak, colemak, etc.). It's important to set this as the lowest layer since it will typically have most or all of the keyboard's keys defined, so would block other layers from having any effect if it were above them (i.e., had a higher layer number).
 * Arrange your layers in a "tree" layout, with layer 0 as the root. Do not try to enter the same layer from more than one other layer.
 * In a layer's keymap, only reference higher-numbered layers. Because layers are processed from the highest-numbered (topmost) active layer down, modifying the state of lower layers can be tricky and error-prone.
 
@@ -53,7 +53,7 @@ There are a number of functions (and variables) related to how you can use or ma
 
 |Function                                      |Description                                                                                              |
 |----------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| `layer_state_set(layer_mask)`                | Directly sets the layer state (recommended, do not use unless you know what you are doing).             |
+| `layer_state_set(layer_mask)`                | Directly sets the layer state (avoid unless you know what you are doing).                               |
 | `layer_clear()`                              | Clears all layers (turns them all off).                                                                 |
 | `layer_move(layer)`                          | Turns specified layer on, and all other layers off.                                                     |
 | `layer_on(layer)`                            | Turns specified layer on, leaves all other layers in existing state.                                    |
@@ -63,7 +63,7 @@ There are a number of functions (and variables) related to how you can use or ma
 | `layer_and(layer_mask)`                      | Turns on layers based on matching enabled bits between specifed layer and existing layer state.         |
 | `layer_xor(layer_mask)`                      | Turns on layers based on non-matching bits between specifed layer and existing layer state.             |
 | `layer_debug(layer_mask)`                    | Prints out the current bit mask and highest active layer to debugger console.                           |
-| `default_layer_set(layer_mask)`              | Directly sets the default layer state (recommended, do not use unless you know what you are doing).     |
+| `default_layer_set(layer_mask)`              | Directly sets the default layer state (avoid unless you know what you are doing).                       |
 | `default_layer_or(layer_mask)`               | Turns on layers based on matching bits between specifed layer and existing default layer state.         |
 | `default_layer_and(layer_mask)`              | Turns on layers based on matching enabled bits between specifed layer and existing default layer state. |
 | `default_layer_xor(layer_mask)`              | Turns on layers based on non-matching bits between specifed layer and existing default layer state.     |
@@ -89,3 +89,46 @@ It is also possible to check the state of a particular layer using the following
 |---------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
 | `layer_state_is(layer)`         | Checks if the specified `layer` is enabled globally.                                            | `IS_LAYER_ON(layer)`, `IS_LAYER_OFF(layer)`                           |
 | `layer_state_cmp(state, layer)` | Checks `state` to see if the specified `layer` is enabled. Intended for use in layer callbacks. | `IS_LAYER_ON_STATE(state, layer)`, `IS_LAYER_OFF_STATE(state, layer)` |
+
+## Layer Change Code :id=layer-change-code
+
+This runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling.
+
+### Example `layer_state_set_*` Implementation
+
+This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example.
+
+```c
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _RAISE:
+        rgblight_setrgb (0x00,  0x00, 0xFF);
+        break;
+    case _LOWER:
+        rgblight_setrgb (0xFF,  0x00, 0x00);
+        break;
+    case _PLOVER:
+        rgblight_setrgb (0x00,  0xFF, 0x00);
+        break;
+    case _ADJUST:
+        rgblight_setrgb (0x7A,  0x00, 0xFF);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
+}
+```
+
+Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.
+
+Outside of `layer_state_set_*` functions, you can use the `IS_LAYER_ON(layer)` and `IS_LAYER_OFF(layer)` macros to check global layer state.
+
+### `layer_state_set_*` Function Documentation
+
+* Keyboard/Revision: `layer_state_t layer_state_set_kb(layer_state_t state)`
+* Keymap: `layer_state_t layer_state_set_user(layer_state_t state)`
+
+
+The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)

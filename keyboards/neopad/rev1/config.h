@@ -18,15 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0010
-
 /* Column/Row IO definitions */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
 #define MATRIX_ROW_PINS { F4, F5 }
 #define MATRIX_COL_PINS { B3, B2, B6 }
-#define UNUSED_PINS
 
 /* Dual rotary encoders */
 #define ENCODERS_PAD_A { D1, D4 }

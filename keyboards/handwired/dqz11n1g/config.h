@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Column read via SPI (shift register) */
 /* #define MATRIX_COL_PINS { } */
-#define UNUSED_PINS
 
 #define LED_CAPS_LOCK_PIN F7 /* A0 */
 #define LED_NUM_LOCK_PIN F5 /*A2 */

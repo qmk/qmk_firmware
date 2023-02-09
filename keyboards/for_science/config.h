@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
 //#define MATRIX_COL_PINS { D4, C6, D7, E6, B4 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2 }
-#define UNUSED_PINS
 
 //#define USE_I2C
 #define SOFT_SERIAL_PIN D0

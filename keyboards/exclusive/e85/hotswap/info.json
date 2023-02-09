@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Exclusive E8.5 TKL",
+    "keyboard_name": "E8.5 Hotswap",
+    "manufacturer": "Exclusive",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4558",
+        "pid": "0xE851",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi_standard": {
             "layout": [

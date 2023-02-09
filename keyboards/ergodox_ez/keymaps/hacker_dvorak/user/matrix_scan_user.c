@@ -4,7 +4,7 @@ bool MATRIX_SCANNED = false;
 
 void matrix_scan_user(void) {
     if (!(MATRIX_SCANNED)) {
-        rgblight_sethsv_noeeprom_green();
+        rgblight_sethsv_noeeprom(HSV_GREEN);
         MATRIX_SCANNED = true;
     }
 

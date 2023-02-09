@@ -25,14 +25,6 @@ where some things are disabled to save space as well.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID  0x7844 // "XD"
-#define PRODUCT_ID 0x0404
-#define DEVICE_VER 0x0001
-// Note: unsure about manufacturer
-#define MANUFACTURER XIUDI
-#define PRODUCT XD004 v1
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 4
@@ -46,7 +38,6 @@ where some things are disabled to save space as well.
     {                      \
         { D3, D0, C4, B4 } \
     }
-#define UNUSED_PINS
 
 /* Backlight Setup */
 // Looks like each backlight LED is connected to a single output, D5 is the one furtherst away from USB port

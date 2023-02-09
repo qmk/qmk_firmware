@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(CTLAND),       OSL(ADJUST),    TD(SCAG),  TD(TDGUI),  TD(ACG), 
                                                                OS_ALT,    OS_CTL   , 
                                                                           KC_ESCAPE, 
-                                                   KC_BSPACE,  TD(SHENT), OSL(EDIT), 
+                                                   KC_BSPC,  TD(SHENT), OSL(EDIT), 
 
                      // RIGHT HAND
         KC_F5,       KC_6,             KC_7,       KC_8,    KC_9,             KC_0,          KC_BSPC, 
@@ -24,11 +24,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [NUMPAD] = LAYOUT_ergodox(VRSN, KC_F11, KC_F12, KC_F1, KC_F2, KC_F3, _______, 
-    _______, _______, KC_PGUP, KC_UP, KC_PGDOWN, _______, TO(0), 
+    _______, _______, KC_PGUP, KC_UP, KC_PGDN, _______, TO(0), 
     _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, 
     _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Y), _______,
     _______, _______, _______, _______, _______, 
-    _______, _______, KC_PSCREEN, _______, _______, TO(0), 
+    _______, _______, KC_PSCR, _______, _______, TO(0), 
 
     _______, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, _______, 
     TO(EDIT), _______, KC_7,   KC_8,   KC_9, KC_KP_MINUS, _______, 
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, TO(NUMPAD), 
     _______, _______, _______, S(KC_UP), _______, _______, KC_DELETE, 
-    TO(0), LCTL(KC_T), KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______, 
+    TO(0), LCTL(KC_T), KC_PGUP, KC_UP, KC_PGDN, KC_PSCR, _______, 
              KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, _______, 
     _______, S(KC_HOME), S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), S(KC_END), _______, 
     _______, _______, _______, _______, _______, 
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [JSYM] = LAYOUT_ergodox(_______, _______, _______, _______, _______, _______, _______, 
     _______, KC_GRV,  KC_AT  , KC_LCBR, KC_RCBR, _______, _______, 
     _______, KC_HASH, KC_DLR , KC_LPRN,    KC_RPRN,    KC_LEFT, 
-    _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, 
+    _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, _______, _______, 
     _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, _______, 
