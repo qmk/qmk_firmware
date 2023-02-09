@@ -36,8 +36,8 @@ enum layers {
 #define HOME_T LCMD_T(KC_T)
 #define HOME_BT LSFT_T(KC_GRV)
 #define HOME_N RCMD_T(KC_N)
-#define HOME_E ROPT_T(KC_E)
-#define HOME_I RCTL_T(KC_I)
+#define HOME_E LOPT_T(KC_E)
+#define HOME_I LCTL_T(KC_I)
 #define HOME_O RSFT_T(KC_O)
 #define HOME_DWN CMD_T(KC_DOWN)
 #define HOME_UP OPT_T(KC_UP)
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   '------'------'------'      '------'------'------'
 */
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-  HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QT,
+  HOME_BT, KC_RCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QT,
   KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, SFT_BSLS,
                     KC_TRNS, KC_TRNS,  KC_TRNS,     KC_DEL,  KC_TRNS, KC_TRNS
 ),

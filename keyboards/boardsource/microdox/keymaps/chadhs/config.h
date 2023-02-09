@@ -28,7 +28,7 @@
 #define EE_HANDS
 
 // https://docs.qmk.fm/#/config_options?id=features-that-can-be-enabled
-#define FORCE_NKRO
+/* #define FORCE_NKRO */
 
 // https://beta.docs.qmk.fm/using-qmk/software-features/feature_combo
 #define COMBO_VARIABLE_LEN // http://combos.gboards.ca/docs/install/#combos
