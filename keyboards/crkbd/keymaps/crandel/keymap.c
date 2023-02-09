@@ -24,6 +24,7 @@ enum custom_keycodes {
   TRM_PSTE,
   QWRT_UA,
   CLM_EN,
+  UML_SEQ,
 };
 
 enum layers {
@@ -51,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [NUMBER_LAYER] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------------------------.   ,-------------------------------------------------------------------------------------.
-       KC_DELETE, KC_F5, LALT_T(KC_7), LCTL_T(KC_4),    LSFT_T(KC_2),  KC_F1,         KC_HOME,   LSFT_T(KC_PGDN), LCTL_T(KC_PGUP),    KC_END,        KC_PSCR,  KC_BSPC,
+       KC_DELETE, KC_F5, LALT_T(KC_7), LCTL_T(KC_4),    LSFT_T(KC_2),  KC_F1,         KC_HOME,   LSFT_T(KC_PGDN), LCTL_T(KC_PGUP),    KC_END,        UML_SEQ,  KC_BSPC,
   //|-----------+------+-------------+-------------+----------------+-------|   |------------+------------------+----------------+----------+---------------+---------|
          KC_CAPS, KC_F4,         KC_8,         KC_5,            KC_1,   KC_3,         KC_LEFT,           KC_DOWN,           KC_UP,  KC_RIGHT,        KC_LCTL, KC_MINUS,
   //|-----------+------+-------------+-------------+----------------+-------|   |------------+------------------+----------------+----------+---------------+---------|
@@ -246,6 +247,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // when keycode clm_en is pressed
       layer_on(COLMAK_LAYER);
       tap_code(KC_CAPS);
+    }
+    break;
+  }
+  case UML_SEQ:
+    if (record->event.pressed) {
+      // when keycode clm_en is pressed
+      tap_code(KC_PSCR);
+      tap_code(LSFT(KC_QUOT));
     }
     break;
   }
