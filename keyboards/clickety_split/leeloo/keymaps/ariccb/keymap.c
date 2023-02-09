@@ -73,7 +73,7 @@ enum layer_names {
 #define BWSRLEFT A(KC_LEFT)
 #define BWSRRHGT A(KC_RGHT)
 #define ALT_TAB LALT(KC_TAB)
-#define TIDYTABS LCTL(LALT(LGUI(KC_R)))
+#define TERMINAL LCTL(LALT((KC_GRV)))
 
 
 enum planck_keycodes {
@@ -98,7 +98,7 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (COLEMAKH-DH)
  * .------------F1---------------------------.                                      .--------------------------F8-------------.
- * | HYPER|  F2  |  F9  |  F10 |  F11 |  F12 |                                      |  F3  |  F4  |  F5  |  F6  |  F7  |Select|
+ * |TRMNAL|  F2  |  F9  |  F10 |  F11 |  F12 |                                      |  F3  |  F4  |  F5  |  F6  |  F7  |Select|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |ADJ,ESC| Q   |  W   |  F   |  P   |  B   |                                      |  J   |  L   |  U   |  Y   |  ;   | BSPC |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `-------------------------'                            '-------------------------'
  */
   [_COLEMAKDH] = LAYOUT(
-  KC_HYPR,  KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
+  TERMINAL,  KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
   HYPERESC, KC_Q,     KC_W,   KC_F,      KC_P,      KC_B,                             KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
   MTTAB,    FN_A,     KC_R,   KC_S,      KC_T,      KC_G,                             KC_M,    KC_N,    KC_E,    KC_I,   KC_O,    MTRCTLQUO,
   KC_LSFT,  MTLGUI_Z, KC_X,   KC_C,      KC_D,      KC_V,    KC_MPLY,       CTRL_TAB, KC_K,    KC_H,    KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (QWERTY)
  * .------------F1---------------------------.                                      .--------------------------F8-------------.
- * | HYPER|  F2  |  F9  |  F10 |  F11 |  F12 |                                      |  F3  |  F4  |  F5  |  F6  |  F7  |Select|
+ * |TRMNAL|  F2  |  F9  |  F10 |  F11 |  F12 |                                      |  F3  |  F4  |  F5  |  F6  |  F7  |Select|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |ADJ,ESC| Q   |  W   |  E   |  R   |  T   |                                      |  Y   |  U   |  I   |  O   |  P   | BSPC |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `-------------------------'                            '-------------------------'
  */
   [_QWERTY] = LAYOUT(
-  KC_HYPR,  KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
+  TERMINAL, KC_F2,    KC_F9,  KC_F10,    KC_F11,    KC_F12,                           KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_SLCT,
   HYPERESC, KC_Q,     KC_W,   KC_E,      KC_R,      KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC,
   MTTAB,    FN_A,     KC_S,   KC_D,      KC_F,      KC_G,                             KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, MTRCTLQUO,
   KC_LSFT,  MTLGUI_Z, KC_X,   KC_C,      KC_V,      KC_B,    KC_MPLY,       CTRL_TAB, KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, MTRSFTBSLS,
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (LOWER)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | HYPER|  F1  |  F2  |  F3  |  F4  |  F5  |                                      |  F6  |  F7  |  F8  |  F9  | F10  |Delete|
+ * |TRMNAL|  F1  |  F2  |  F3  |  F4  |  F5  |                                      |  F6  |  F7  |  F8  |  F9  | F10  |Delete|
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
 *  |  `   |  !   |  <   |  >   |  [   |  ?   |                                      |   ^  |   7  |   8  |   9  |   :  | Bsp  |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
@@ -150,8 +150,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|Volume |                      | Layer |------+------+------+------+------+------|
  * |SHIFT |  ~   |  %   |  {   |  }   |  &   | DIAL1 |--> Reset Audio       | Lock  |   @  |   1  |   2  |   3  |   /  |  *   |
  * .-----------------------------------------|-------|    Recording Device  |-------|-----------------------------------------'
- *                      | ALT | CTRL |  LOW  /      /     on Button Press    \       \      |     |MW L/R|
- *                      | APP | ENTER| OSSft/ SPACE/                          \   0   \SPACE|  .  | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
+ *                      | ALT | CTRL |  LOW  /      /     on Button Press    \       \      |     |Expand|
+ *                      | APP | ENTER| OSSft/ SPACE/                          \ SPACE \  0  |  .  | DIAL2|--> does a configurable keyboard shortcut: Hyper(J)
  *                      `-------------------------'                            '-------------------------'
  */
   [_LOWER] = LAYOUT(
@@ -159,14 +159,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,    KC_EXLM, KC_LABK, KC_RABK, KC_LBRC, KC_QUES,                            KC_CIRC, KC_7,   KC_8,  KC_9,  KC_COLN, KC_BSPC,
   S(KC_TAB), KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_RBRC,                            KC_EQL,  KC_4,   KC_5,  KC_6,  KC_PMNS, KC_PPLS,
   KC_LSFT,   KC_TILD, KC_PERC, KC_LCBR, KC_RCBR, KC_AMPR, LCTL(KC_0),        LLOCK,  KC_AT,   KC_1,   KC_2,  KC_3,  KC_PSLS, KC_PAST,
-                               _____,   _____,   _____,   _____,             KC_0,   _____,   KC_DOT, A(S(KC_J)) //
+                               _____,   _____,   _____,   _____,             KC_SPC, KC_0,    KC_DOT, A(S(KC_J)) //
 ),
 
 /* MIT Layout (RAISE)
  * .-----------------------------------------.                                      .-----------------------------------------.
- * | HYPER|      |      |      |      |DEBUG |                               track  |MBtn 2|      |NumLck|      |      |QWERTY|
+ * |CGSWAP|      |      |      |      |DEBUG |                               track  |MBtn 2|      |NumLck|      |      |QWERTY|
  * |------+------+------+------+------+------|                               point  |------+------+------+------+------+------|
- * | Menu | Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   :  | Bksp |
+ * |CGNORM| Mb3  | Mb2  | MsUp | Mb1  | Mute |                               mouse  |      |      | MbMid|      |   :  | Bksp |
  * |------+------+------+------+------+------|                                      |------+------+------+------+------+------|
  * |      |      | MsLft| MDown|Mright| Vol+ |-------.                      .-------|ARROW | MbLft|SELWORD|MbRgt|      |   "  |
  * |------+------+------+------+------+------|Undo/Redo|                    | Layer |------+------+------+------+------+------|
@@ -177,10 +177,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      `-------------------------'                            '--------------------------'    on Button Press
  */
   [_RAISE] = LAYOUT(
-  KC_HYPR, XXXXX, XXXXX,   XXXXX,   XXXXX,   XXXXX,                                    KC_BTN2, XXXXX,   KC_NUM,  XXXXX,   XXXXX,   TG(_QWERTY),
-  KC_APP, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE,                                 _____,   LLOCK,   KC_BTN3, _____,   KC_COLN, KC_BSPC,
-  _____, _____,  KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                                   ARROW,   KC_BTN1, SELWORD, KC_BTN2, _____,   KC_DQUO,
-  _____, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),             LLOCK,   BRACES,  BRACES2, KC_LBRC, KC_RBRC, KC_EXLM, KC_PIPE,
+  CG_SWAP, XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX,                                  KC_BTN2, XXXXX,   KC_NUM,  XXXXX,   XXXXX,   TG(_QWERTY),
+  CG_NORM, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_MUTE,                                _____,   LLOCK,   KC_BTN3, _____,   KC_COLN, KC_BSPC,
+  _____,   _____,   KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLU,                                ARROW,   KC_BTN1, SELWORD, KC_BTN2, _____,   KC_DQUO,
+  _____,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLD, C(A(KC_P)),           LLOCK,   BRACES,  BRACES2, KC_LBRC, KC_RBRC, KC_EXLM, KC_PIPE,
                              _____, _____, _____, _____,                      KC_BTN1, KC_BTN3, _____,   LCTL(KC_F) // search on page (ctrl f)
 ),
 
@@ -194,16 +194,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------| Virtual|                     | Layer |------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |Desktop |-->  Next Song       | Lock  | Back |PageUp|C+A_Dn|PageDn|Forwrd|INSERT|
  * .-----------------------------------------|--------|                     |-------|-----------------------------------------'
- *                      | ALT | CTRL |  Alt  / Next  /                       \       \       |      |Expand Selection in VSCode|
- *                      | APP | ENTER| Tab  /TidyTab/                         \       \      |      | DIAL2|--> Toggle HDR
+ *                      | ALT | CTRL |  Alt  / Ctrl  /                       \       \       |      |MW L/R Selection in VSCode|
+ *                      | APP | ENTER| Tab  /  Tab  /                         \       \      |      | DIAL2|--> Toggle HDR
  *                      `--------------------------'                           '---------------------------'    on Button Press
  */
   [_ADJUST] = LAYOUT(
   CG_SWAP, XXXXX, XXXXX,   XXXXX,   KC_F11,  KC_F12,                            C(KC_PGUP), BWSRLEFT, LCA(KC_UP),   BWSRRHGT, KC_SCRL,   TG(_QWERTY),
   CG_NORM, KC_F6, KC_F7,   KC_F8,   KC_F9,   KC_F10,                            C(KC_PGDN), KC_HOME,  KC_UP,        KC_END,   KC_PAUSE,  KC_DEL,
   _____,   _____, KC_LCTL, KC_LSFT, KC_LALT, KC_CALC,                           SELWLEFT,   KC_LEFT,  KC_DOWN,      KC_RGHT,  SELWRIGHT, KC_CAPS,
-  _____,   KC_F1, KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_MNXT,             _____, BWSRLEFT,   KC_PGUP,  LCA(KC_DOWN), KC_PGDN,  BWSRRHGT,  KC_INS,
-                               _____,   _____, ALT_TAB, TIDYTABS,        _____, _____,  _____, G(A(KC_B))
+  _____,   KC_F1, KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_MNXT,         _____, BWSRLEFT,   KC_PGUP,  LCA(KC_DOWN), KC_PGDN,  BWSRRHGT,  KC_INS,
+                               _____,   _____, ALT_TAB, CTRL_TAB,        _____, _____,  _____, G(A(KC_B))
 )
 };
 
@@ -314,11 +314,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else if (index == 1) {
         switch (biton32(layer_state)) {
             case _LOWER:
-                 // Mouse Wheel Right/Left
+               // Expand selection in VSCode
                 if (!clockwise) {
-                    tap_code16(KC_WH_L);
+                    tap_code16(LALT(LSFT(KC_LEFT)));
                 } else {
-                    tap_code16(KC_WH_R);
+                    tap_code16(LALT(LSFT(KC_RGHT)));
                 }
                 break;
                 // Change Audio Recording Source on button press (Alt Shift J)
@@ -332,11 +332,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // on button press sends CTRL(KC_F)
                 break;
             case _ADJUST:
-                // Expand selection in VSCode
+                  // Mouse Wheel Right/Left
                 if (!clockwise) {
-                    tap_code16(LALT(LSFT(KC_LEFT)));
+                    tap_code16(KC_WH_L);
                 } else {
-                    tap_code16(LALT(LSFT(KC_RGHT)));
+                    tap_code16(KC_WH_R);
                 }
                 break;
                 // Next song on button press
