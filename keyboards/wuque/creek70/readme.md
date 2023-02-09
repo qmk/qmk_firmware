@@ -16,7 +16,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make wuque/promise87:default:flash
+    make wuque/creek70:default:flash
 
 ## Bootloader
 
