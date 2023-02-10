@@ -22,14 +22,10 @@
 }
 
 enum keyboard_keycodes {
-#ifdef VIA_ENABLE
-    LOCK_GUI = USER00,
-#else
-    LOCK_GUI = SAFE_RANGE,
-#endif
+    LOCK_GUI = QK_USER,
     TOG_MACOS_KEYMAP,
     KC_MISSION_CONTROL,
-    KC_LAUNCHPAD,
+    KC_LAUNCHPAD
 };
 
 #define KC_LG    LOCK_GUI
