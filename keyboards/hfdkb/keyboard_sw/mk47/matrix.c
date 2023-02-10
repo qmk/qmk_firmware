@@ -75,7 +75,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     if(Lkey_flag){
         if(scancode == KC_DEL)
         {
