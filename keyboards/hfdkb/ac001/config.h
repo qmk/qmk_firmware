@@ -102,16 +102,6 @@
 //#define ENABLE_RGB_MATRIX_SOLID_SPLASH
 //#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-/* Send up to 4 key press events per scan */
-#define QMK_KEYS_PER_SCAN 4
-
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 180 /* The maximum brightness level */
-
-/* Set debounce time to 1ms */
-#define DEBOUNCE 5
 
 #define USB_SUSPEND_WAKEUP_DELAY 1500              //Wakeup host USB
 
