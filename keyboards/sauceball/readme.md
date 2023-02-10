@@ -2,7 +2,7 @@
 
 ![sauceball DIY trackball](https://i.imgur.com/h5vI6Rqh.jpg)
 
-*A trackball design intended for use to recycle old PS/2 compatible mice into trackballs.*
+*A trackball design intended to recycle old PS/2 compatible mice into trackballs.*
 
 * Keyboard Maintainer: [xia0](https://github.com/xia0)
 * Hardware Supported: Atmega32u4
