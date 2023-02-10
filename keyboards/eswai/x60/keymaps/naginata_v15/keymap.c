@@ -24,6 +24,7 @@ NGKEYS naginata_keys;
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
+    _COLVRAK,
     _QWERTY,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
@@ -43,7 +44,7 @@ enum custom_keycodes {
 uint32_t oled_sleep_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
+  [_COLVRAK] = LAYOUT(
 //            ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
 	  	KC_GRV  ,KC_1     ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_MINS ,KC_EQL  ,KC_HOME ,KC_END  , \
 		  KC_TAB  ,KC_Y     ,KC_R    ,KC_O    ,KC_U    ,KC_COMM ,KC_DOT  ,KC_BSPC ,KC_L    ,KC_F    ,KC_P    ,KC_QUOT ,KC_DEL  , \
@@ -51,6 +52,15 @@ CTL_T(KC_ESC) ,KC_D     ,KC_S    ,KC_A    ,KC_I    ,KC_G    ,KC_J    ,KC_E    ,K
 		  KC_LSFT ,KC_V     ,KC_Z    ,KC_X    ,KC_M    ,KC_C    ,KC_N    ,KC_W    ,KC_B    ,KC_Q    ,KC_SLSH ,KC_LBRC ,KC_UP   ,KC_RBRC, \
 		  KC_LCTL ,KC_LWIN  ,MO(_LOWER)       ,LSFT_T(KC_SPC)   ,LSFT_T(KC_ENT)   ,MO(_RAISE)       ,KC_LALT ,KC_LEFT ,KC_DOWN ,KC_RGHT
 	),
+
+  [_BASE] = LAYOUT(
+//            ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
+	  	KC_GRV  ,KC_1     ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_MINS ,KC_EQL  ,KC_HOME ,KC_END  , \
+		  KC_TAB  ,KC_K     ,KC_D    ,KC_N    ,KC_F    ,KC_Q    ,KC_J    ,KC_BSPC ,KC_R    ,KC_U    ,KC_P    ,KC_QUOT ,KC_DEL  , \
+CTL_T(KC_ESC) ,KC_W     ,KC_I    ,KC_S    ,KC_A    ,KC_G    ,KC_Y    ,KC_E    ,KC_T    ,KC_H    ,KC_B    ,KC_SCLN ,KC_ENT  , \
+		  KC_LSFT ,KC_Z     ,KC_X    ,KC_V    ,KC_C    ,KC_L    ,KC_M    ,KC_O    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_LBRC ,KC_UP   ,KC_RBRC, \
+		  KC_LCTL ,KC_LWIN  ,MO(_LOWER)       ,LSFT_T(KC_SPC)   ,LSFT_T(KC_ENT)   ,MO(_RAISE)       ,KC_LALT ,KC_LEFT ,KC_DOWN ,KC_RGHT
+  ),
 
   [_QWERTY] = LAYOUT(
 //            ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
@@ -65,7 +75,7 @@ CTL_T(KC_ESC) ,KC_A     ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,KC_H    ,KC_J    ,K
 //            ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
 	    XXXXXXX ,KC_F1    ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12  ,XXXXXXX ,XXXXXXX , \
       SAKA    ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_SLSH ,KC_7    ,KC_8    ,KC_9    ,KC_MINS ,XXXXXXX ,XXXXXXX , \
-      XXXXXXX ,XXXXXXX  ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LT   ,KC_ASTR ,KC_4    ,KC_5    ,KC_6    ,KC_PLUS ,XXXXXXX ,XXXXXXX , \
+   LWIN(KC_E) ,XXXXXXX  ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LT   ,KC_ASTR ,KC_4    ,KC_5    ,KC_6    ,KC_PLUS ,XXXXXXX ,XXXXXXX , \
       XXXXXXX ,XXXXXXX  ,KC_RBRC ,KC_RCBR ,KC_RPRN ,KC_GT   ,KC_0    ,KC_1    ,KC_2    ,KC_3    ,KC_EQL  ,XXXXXXX ,KC_PGUP ,XXXXXXX , \
 		  _______ ,_______  ,_______          ,_______          ,_______         ,_______           ,_______ ,XXXXXXX ,KC_PGDN ,XXXXXXX
   ),
@@ -84,7 +94,7 @@ CTL_T(KC_ESC) ,KC_A     ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,KC_H    ,KC_J    ,K
 	    XXXXXXX ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX , \
       XXXXXXX ,EE_CLR   ,QK_BOOT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,NG_TAYO ,NGSW_WIN,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX , \
       XXXXXXX ,XXXXXXX  ,KC_SLEP ,XXXXXXX ,XXXXXXX ,XXXXXXX ,NG_KOTI ,NGSW_MAC,NG_MLV  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX , \
-      XXXXXXX ,XXXXXXX  ,KC_WAKE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,NG_SHOS ,NGSW_LNX,XXXXXXX ,DF(_BASE),DF(_QWERTY),XXXXXXX, XXXXXXX, XXXXXXX, \
+      XXXXXXX ,XXXXXXX  ,KC_WAKE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,NG_SHOS ,NGSW_LNX,XXXXXXX, XXXXXXX, XXXXXXX ,DF(_BASE),DF(_QWERTY),DF(_COLVRAK), \
 		  _______ ,_______  ,_______          ,_______          ,_______          ,_______          ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX
   ),
 
@@ -144,8 +154,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void matrix_init_user(void) {
   // 薙刀式
-  uint16_t ngonkeys[] = {KC_J, KC_E};
-  uint16_t ngoffkeys[] = {KC_I, KC_G};
+  uint16_t ngonkeys[] = {KC_Y, KC_E};
+  uint16_t ngoffkeys[] = {KC_A, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
 }
