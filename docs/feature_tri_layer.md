@@ -6,9 +6,9 @@ This enables support for the OLKB style "Tri Layer" keycodes.  These function si
 TRI_LAYER_ENABLE = yes
 ```
 
-Note that the "upper", "lower" and "adjust" names don't have a particular significance.  They are just used to identify and clarify the behavior, and the layers don't have to be in any particular order.  However, layers are processed from highest numeric value to lowest.
+Note that the "upper", "lower" and "adjust" names don't have a particular significance, they are just used to identify and clarify the behavior. Layers are processed from highest numeric value to lowest, however the values are not required to be consecutive.
 
-For a detailed explanation of how the layer stack works, checkout [Keymap Overview](keymap.md#keymap-and-layers).
+For a detailed explanation of how the layer stack works, check out [Keymap Overview](keymap.md#keymap-and-layers).
 
 ## Keycodes :id=keycodes
 
