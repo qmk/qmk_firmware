@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_mouse(KC_BTN1, KC_BTN3, KC_BTN4, KC_BTN2)
 };
 
-int move_counters[4]; // array to keep track of "incomplete" moves for low sensitivity settings
+int move_counters[4]; // array to keep count of "incomplete" moves for low sensitivity settings
 const int SENSITIVITY_PERCENTAGES[] = { SENSITIVITY_X, SENSITIVITY_Y, SENSITIVITY_H, SENSITIVITY_V }; // load our sensitivities into array
 const char AXIS_NAMES[5] = { 'X', 'Y', 'H', 'V', '\0' }; // for debugging
 
@@ -29,12 +29,12 @@ void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
 
     if (reports[i] == 0 || SENSITIVITY_PERCENTAGES[i] == 100) continue;  // skip if not moving in this axis or no change required
 
-    // Reset if movement has changed direction
+    // Reset incomplete moves counter if movement has changed direction
     if (abs(move_counters[i] + *reports[i]) < abs(move_counters[i])) {
       move_counters[i] = *reports[i]; 
     }
 
-    // update movement tally
+    // update incomplete movement tally
     move_counters[i] += *reports[i];
     *reports[i] = 0;
 
