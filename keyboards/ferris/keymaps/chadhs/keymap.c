@@ -55,6 +55,22 @@ enum ferris_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK_DH] = LAYOUT(
+/*
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | Q    | W    | F    | P    | B    |            | J    | L    | U    | Y    | ; :  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | A    | R    | S    | T    | G    |            | M    | N    | E    | I    | O    |
+    | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | Z    | X    | C    | D    | V    |            | K    | H    | , <  | . >  | / ?  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                            .------.------.      .------.------.
+                            | TAB  | BSPC |      | SPC  | ENT  |
+                            | CMD  | LNUM |      | LFUN | CMD  |
+                            '------'------'      '------'------'
+*/
     KC_Q,   KC_W,   KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,
     HOME_A, HOME_R, HOME_S,  HOME_T,  KC_G,         KC_M,    HOME_N,  HOME_E,  HOME_I, HOME_O,
     SFT_Z,  KC_X,   KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT, SFT_SLSH,
@@ -62,6 +78,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUM_NAV] = LAYOUT(
+/*
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ' "  |
+    | SFT  | CTL  | OPT  | CMD  |XMSE  |            |      | CMD  | OPT  | CTL  | SFT  |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                            .------.------.      .------.------.
+                            | ↓↓↓  | ↓↓↓  |      | DEL  | ↓↓↓  |
+                            |      |      |      |      |      |
+                            '------'------'      '------'------'
+*/
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
     HOME_BT, KC_RCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QT,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, SFT_BSLS,
@@ -69,12 +101,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FUNCTION] = LAYOUT(
+/*
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
+    |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    |      |      |      |      |      |            | ←    | ↓    | ↑    | →    |      |
+    | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | RGB  |      |      |      |      |            | F11  | F12  |      |      | GAME |
+    | TGGL |      |      |      |      |            | VolD | VolU |      |      |      |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                            .------.------.      .------.------.
+                            | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  |
+                            |      |      |      |      |      |
+                            '------'------'      '------'------'
+*/
     KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
     KC_LSFT, KC_LCTL,  KC_LGUI, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_RSFT,
     RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU,  XXXXXXX, XXXXXXX,  GAME,
                                 KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS
   ),
   [_GAME] = LAYOUT(
+/*
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | TAB  | Q    | W    | E    | R    |            | Y    | U    | I    | O    | P    |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | ESC  | A    | S    | D    | F    |            | H    | J    | K    | L    | ; :  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    |      | Z    | X    | C    | V    |            | N    | M    | , <  | . >  | GAME |
+    | SFT  |      |      |      |      |            |      |      |      |      |      |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                            .------.------.      .------.------.
+                            |      | SPC  |      | SPC  | ENT  |
+                            | CTL  |      |      | GFUN | OPT  |
+                            '------'------'      '------'------'
+*/
     KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,        KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,
     KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,        KC_H,     KC_J,     KC_K,    KC_L,    KC_SCLN,
     KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,     KC_M,     KC_COMM, KC_DOT,  GAME,
@@ -82,6 +146,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
   [_GAME_FUN] = LAYOUT(
+/*
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | ↓↓↓  |      |      |      | T    |            |      | F7   | F8   | F9   | F10  |
+    |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | ↓↓↓  |      |      |      | G    |            |      | \ |  | [ {  | ] }  |      |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | ↓↓↓  |      |      |      | B    |            | F11  | F12  |      |      | ↓↓↓  |
+    |      |      |      |      |      |            | VolD | VolU |      |      |      |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                            .------.------.      .------.------.
+                            | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |
+                            |      |      |      |      |      |
+                            '------'------'      '------'------'
+*/
     KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_T,         XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,
     KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_G,         XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
     KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_TRNS,
