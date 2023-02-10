@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D1, D0, B0, B7, E6, B3, B6, C6, D6, D7, B4, D3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN B5
-#define LED_SCROLL_LOCK_PIN D2
-#define LED_PIN_ON_STATE 0
-
 #if defined(KEYBOARD_studiokestra_galatea_rev2)
   #define RGB_DI_PIN D4
   #define RGBLED_NUM 24

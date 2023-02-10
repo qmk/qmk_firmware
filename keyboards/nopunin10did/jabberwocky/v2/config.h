@@ -27,9 +27,6 @@
 
 /* LED Configuration */
 #define BACKLIGHT_PINS          {D6}
-// To have all lights shine uniformly, add C6 and B7 to the list above, then undefine the constants below.
-#define LED_NUM_LOCK_PIN        C6
-#define LED_CAPS_LOCK_PIN       B7
 
 #define BACKLIGHT_LEVELS        6
 

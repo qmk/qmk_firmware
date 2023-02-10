@@ -8,6 +8,10 @@
         "pid": "0xC583",
         "device_version": "1.0.2"
     },
+    "indicators": {
+        "caps_lock": "D1",
+        "scroll_lock": "D6"
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "layouts": {

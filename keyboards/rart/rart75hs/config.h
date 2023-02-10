@@ -35,9 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define LED_CAPS_LOCK_PIN D4
-#define LED_PIN_ON_STATE 0
-
 #define ENCODERS_PAD_A { C1 }
 #define ENCODERS_PAD_B { C2 }
 #define ENCODER_RESOLUTION 4 //default/suggested

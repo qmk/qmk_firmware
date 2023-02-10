@@ -34,8 +34,6 @@
 #define ENCODERS_CCW_KEY { { 4, 6 } }
 #endif
 
-#define LED_CAPS_LOCK_PIN B3
-
 //#define RGB_DI_PIN E2
 //#ifdef RGB_DI_PIN
 //#    define RGBLED_NUM 16

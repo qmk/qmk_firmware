@@ -25,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B10, B1, B0, A7, A6 }
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN C13
-#define LED_PIN_ON_STATE 0
-
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

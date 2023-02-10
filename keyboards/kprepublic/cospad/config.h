@@ -38,9 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_NUM_LOCK_PIN B2
-#define LED_PIN_ON_STATE 0
-
 #define BACKLIGHT_PIN F7
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_ON_STATE 0

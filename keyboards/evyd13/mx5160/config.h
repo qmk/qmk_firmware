@@ -42,11 +42,6 @@
 #define QMK_ESC_INPUT D1
 #define QMK_LED B1
 
-#define LED_NUM_LOCK_PIN B2
-#define LED_CAPS_LOCK_PIN B1
-#define LED_SCROLL_LOCK_PIN B3
-#define LED_PIN_ON_STATE 0
-
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
 //   #define RGBLED_NUM 16

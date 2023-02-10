@@ -45,9 +45,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Define Indicator LED's */
-#define LED_CAPS_LOCK_PIN C7
-
 /* Define RGB Underglow */
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 6

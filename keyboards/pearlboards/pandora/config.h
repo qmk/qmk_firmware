@@ -65,9 +65,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SLEEP
 #endif
 
-/* Indicator Led's*/
-#define LED_CAPS_LOCK_PIN E6
-#define LED_PIN_ON_STATE 0
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

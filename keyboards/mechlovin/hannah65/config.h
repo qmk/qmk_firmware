@@ -36,9 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN B9
-#define LED_PIN_ON_STATE  0
-
 #define BACKLIGHT_PIN B8
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_PWM_DRIVER PWMD4

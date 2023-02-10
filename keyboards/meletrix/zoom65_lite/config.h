@@ -37,7 +37,3 @@
 // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 5, 4 } }
 #define ENCODERS_CCW_KEY { { 3, 4 } }
-
-#define LED_CAPS_LOCK_PIN F7
-#define LED_PIN_ON_STATE 0
-

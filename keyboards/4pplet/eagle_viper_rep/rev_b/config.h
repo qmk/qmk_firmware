@@ -58,9 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* Indicator leds */
-#define LED_CAPS_LOCK_PIN   B1
-#define LED_NUM_LOCK_PIN    B12
-#define LED_SCROLL_LOCK_PIN B13
 #define LAYER_1             B14
 #define LAYER_2             B15
 #define LAYER_3             B0

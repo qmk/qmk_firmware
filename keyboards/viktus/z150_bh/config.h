@@ -12,10 +12,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_NUM_LOCK_PIN E7
-#define LED_CAPS_LOCK_PIN B0
-#define LED_SCROLL_LOCK_PIN E6
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

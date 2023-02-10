@@ -15,11 +15,6 @@
  */
 #pragma once
 
-
-#define LED_NUM_LOCK_PIN B12
-#define LED_SCROLL_LOCK_PIN B13
-#define LED_CAPS_LOCK_PIN C13
-
 #ifdef ENCODER_ENABLE
 #define MATRIX_ROW_PINS \
     { A6, A7, B0, B1, B10 }

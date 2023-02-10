@@ -38,12 +38,8 @@
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 /* LED indicator pins */
-#define LED_NUM_LOCK_PIN    C8
-#define LED_CAPS_LOCK_PIN   C9
-#define LED_SCROLL_LOCK_PIN A8
 #define LED_WIN_LOCK_PIN    A9
 #define LED_MR_LOCK_PIN     A10
-#define LED_PIN_ON_STATE    0
 
 /* Original hardware "reset" button on pin D2 */
 #define HARDWARE_RESET_PIN  D2

@@ -8,6 +8,10 @@
         "pid": "0x660C",
         "device_version": "1.0.0"
     },
+    "indicators": {
+        "caps_lock": "B6",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "debounce": 0,

@@ -31,11 +31,6 @@
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
 
-//Indicator
-#define LED_CAPS_LOCK_PIN A6
-#define LED_SCROLL_LOCK_PIN A13
-#define LED_NUM_LOCK_PIN A14
-
 // I2C config
 #define I2C1_SCL_PIN        B8
 #define I2C1_SDA_PIN        B9

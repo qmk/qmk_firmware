@@ -2,5 +2,10 @@
     "keyboard_name": "Adelais AVR",
     "usb": {
         "pid": "0xAD04"
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "num_lock": "D7",
+        "scroll_lock": "F7"
     }
 }

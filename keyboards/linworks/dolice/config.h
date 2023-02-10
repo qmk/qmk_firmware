@@ -32,9 +32,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B5 // Timer 1 on mega32u4
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_ON_STATE 1
-
-/* Indicator LEDs */
-#define LED_NUM_LOCK_PIN B6
-#define LED_CAPS_LOCK_PIN C7
-#define LED_SCROLL_LOCK_PIN C6
-#define LED_PIN_ON_STATE 0

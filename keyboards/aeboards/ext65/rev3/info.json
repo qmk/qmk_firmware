@@ -7,6 +7,11 @@
         "pid": "0xA653",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F4",
+        "num_lock": "F5",
+        "scroll_lock": "F1"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",

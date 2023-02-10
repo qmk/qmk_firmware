@@ -45,10 +45,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Define Indicator LED's */
-#define LED_CAPS_LOCK_PIN C4
-#define LED_SCROLL_LOCK_PIN C6
-
 /* Define RGB */
 #define RGB_DI_PIN C2
 #define RGBLED_NUM 87

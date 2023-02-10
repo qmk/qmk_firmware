@@ -58,7 +58,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_STREAM STM32_DMA2_STREAM5
 #define WS2812_DMA_CHANNEL 6
 
-#define LED_CAPS_LOCK_PIN C8
-
 // If this is defined, the caps lock LED will turn on and off according to the state of caps lock. If not, the LED will shine like all other LEDs despite the caps lock state.
 #define CAPSLOCK_INDICATOR

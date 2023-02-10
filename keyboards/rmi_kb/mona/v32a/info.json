@@ -8,6 +8,9 @@
         "pid": "0x4032",
         "device_version": "0.1.1"
     },
+    "indicators": {
+        "caps_lock": "C1"
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

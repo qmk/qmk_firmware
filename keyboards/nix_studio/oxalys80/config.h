@@ -64,7 +64,3 @@
 #define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_SLEEP // RGB will turn off when PC is put to sleep
 #endif
-
-#define LED_CAPS_LOCK_PIN E6
-#define LED_SCROLL_LOCK_PIN B2
-#define LED_PIN_ON_STATE 0

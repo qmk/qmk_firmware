@@ -30,10 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define LED_CAPS_LOCK_PIN B14
-#define LED_PIN_ON_STATE 0
-
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

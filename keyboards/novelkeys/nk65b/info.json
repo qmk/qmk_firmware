@@ -8,6 +8,10 @@
         "pid": "0x4E4F",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A14",
+        "on_state": 0
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

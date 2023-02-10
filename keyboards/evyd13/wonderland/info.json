@@ -8,6 +8,12 @@
         "pid": "0xA71C",
         "device_version": "0.0.3"
     },
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "B1",
+        "scroll_lock": "B3",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "community_layouts": ["alice", "alice_split_bs"],

@@ -33,10 +33,6 @@
 #define ENCODERS_CCW_KEY { { 4, 5 } } // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 3, 5 } } // Note:  array is { col, row )
 
-/* LED pins */
-#define LED_CAPS_LOCK_PIN D4
-#define LED_PIN_ON_STATE 0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

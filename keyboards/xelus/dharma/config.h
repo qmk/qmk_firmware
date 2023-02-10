@@ -34,7 +34,3 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define FORCE_NKRO
-
-#define LED_CAPS_LOCK_PIN B7
-#define LED_NUM_LOCK_PIN F0
-#define LED_PIN_ON_STATE 1

@@ -38,9 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL // the positive current flows into the rows and then out of the columns negative.
 
-/* define whiche Pins to use for the status LEDs*/
-#define LED_CAPS_LOCK_PIN D4
-
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
 //   #define RGBLED_NUM 16

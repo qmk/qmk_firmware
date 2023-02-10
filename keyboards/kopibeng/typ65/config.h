@@ -34,7 +34,6 @@
 #define MATRIX_ROW_PINS { D0, D1, D2, F6, B0 }
 #define MATRIX_COL_PINS { D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F5, F4, F1, F0, E6 }
 
-#define LED_CAPS_LOCK_PIN B1
 #define INDICATOR_0 B2
 #define INDICATOR_1 B7
 #define INDICATOR_2 B3

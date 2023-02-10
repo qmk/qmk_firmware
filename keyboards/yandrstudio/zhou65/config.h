@@ -27,8 +27,5 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-#define LED_CAPS_LOCK_PIN A15
-#define LED_PIN_ON_STATE    0
-
 /* enable the nkro when using the VIA. */
 #define FORCE_NKRO

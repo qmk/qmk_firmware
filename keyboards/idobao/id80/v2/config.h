@@ -58,9 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define BACKLIGHT_LEVELS 3
 #endif
 
-#define LED_CAPS_LOCK_PIN C7
-#define LED_PIN_ON_STATE 0
-
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 20       /* 16 underglow LEDs, 4 top LEDs */
