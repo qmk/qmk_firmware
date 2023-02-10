@@ -15,36 +15,20 @@
  */
 
 #pragma once
-
-#include "config_common.h"
-
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
  #define FORCE_NKRO
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B15}
 #define MATRIX_COL_PINS { A5, A6, A7, C4, C5}
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #define TAP_CODE_DELAY 5
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN A1
-#define DRIVER_LED_TOTAL    5
-#define RGBLED_NUM          5        // Number of LEDs
-#define NOP_FUDGE           0.4
-
+#define RGB_MATRIX_LED_COUNT 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
