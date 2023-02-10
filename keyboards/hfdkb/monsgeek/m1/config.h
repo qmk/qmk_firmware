@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 /* Use 5 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
@@ -25,9 +23,6 @@
 /* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
  #define FORCE_NKRO
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS {B15, C6, C7, C8, C9, A8}
@@ -45,9 +40,6 @@
 #define ENCODER_RESOLUTION 2
 #define TAP_CODE_DELAY 20
 
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -140,6 +132,4 @@
 #define RGB_MATRIX_SPD_STEP 62
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 /* The maximum brightness level */
 
-/* Set debounce time to 1ms */
-#define DEBOUNCE 5
 

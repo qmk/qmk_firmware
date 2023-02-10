@@ -16,6 +16,4 @@
 
 #pragma once
 
-#include "config_common.h"
-
 #define USB_ENDPOINTS_ARE_REORDERABLE

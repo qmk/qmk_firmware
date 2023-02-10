@@ -1,9 +1,3 @@
-# MCU name
-MCU = WB32FQ95
-
-# Bootloader selection
-BOOTLOADER = wb32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
