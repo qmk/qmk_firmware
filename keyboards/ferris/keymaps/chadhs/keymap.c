@@ -24,31 +24,30 @@ enum ferris_layers {
 #define GFUN_SPC LT(_GAME_FUN,KC_SPC)
 #define GOPT_ENT OPT_T(KC_ENT)
 
-/* misc mods */
-#define GAME TG(_GAME)
-#define MOUSE TG(_MOUSE)
-#define SFT_Z LSFT_T(KC_Z)
-#define SFT_SLSH RSFT_T(KC_SLSH)
-#define SFT_BSLS RSFT_T(KC_BSLS)
-
 /* home row mods */
-#define HOME_A LSFT_T(KC_A)
-#define HOME_R LCTL_T(KC_R)
-#define HOME_S LOPT_T(KC_S)
-#define HOME_T LCMD_T(KC_T)
-#define HOME_BT LSFT_T(KC_GRV)
+#define HOME_A SFT_T(KC_A)
+#define HOME_R CTL_T(KC_R)
+#define HOME_S OPT_T(KC_S)
+#define HOME_T CMD_T(KC_T)
+#define HOME_BT SFT_T(KC_GRV)
 #define HOME_N RCMD_T(KC_N)
-#define HOME_E LOPT_T(KC_E)
-#define HOME_I LCTL_T(KC_I)
-#define HOME_O RSFT_T(KC_O)
+#define HOME_E OPT_T(KC_E)
+#define HOME_I CTL_T(KC_I)
+#define HOME_O SFT_T(KC_O)
 #define HOME_DWN CMD_T(KC_DOWN)
 #define HOME_UP OPT_T(KC_UP)
 #define HOME_RGT CTL_T(KC_RGHT)
 #define HOME_J CMD_T(KC_J)
 #define HOME_K OPT_T(KC_K)
 #define HOME_L CTL_T(KC_L)
-#define HOME_QT RSFT_T(KC_QUOT)
-#define HOME_SC RSFT_T(KC_SCLN)
+#define HOME_QT SFT_T(KC_QUOT)
+#define HOME_SC SFT_T(KC_SCLN)
+
+/* misc mods */
+#define GAME TG(_GAME)
+#define SFT_Z SFT_T(KC_Z)
+#define SFT_SLSH SFT_T(KC_SLSH)
+#define SFT_BSLS SFT_T(KC_BSLS)
 
 /* enables combos.def support: imported after defines so they can be referenced */
 #include "g/keymap_combo.h"
@@ -61,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
     | A    | R    | S    | T    | G    |            | M    | N    | E    | I    | O    |
-    | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+    | SFT  | CTL  | OPT  | CMD  |      |            |      | RCMD | OPT  | CTL  | SFT  |
     |------+------+------+------+------|            |------+------+------+------+------|
     | Z    | X    | C    | D    | V    |            | K    | H    | , <  | . >  | / ?  |
     | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
@@ -84,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
     | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ' "  |
-    | SFT  | CTL  | OPT  | CMD  |XMSE  |            |      | CMD  | OPT  | CTL  | SFT  |
+    | SFT  | RCTL | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
     |------+------+------+------+------|            |------+------+------+------+------|
     |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
     | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
