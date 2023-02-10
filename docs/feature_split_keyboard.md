@@ -79,6 +79,17 @@ If you're using a custom transport (communication method), then you will also ne
 SPLIT_TRANSPORT = custom
 ```
 
+### Layout Macro
+When setting `SPLIT_KEYBOARD = yes`, row pins are automatically doubled.
+This is because QMK views a split keyboard as follows, with the numbers
+representing row, column:
+
+IMG1
+
+IMG2
+
+Take care to define your layout in `info.json` accordingly.
+
 ### Setting Handedness
 
 By default, the firmware does not know which side is which; it needs some help to determine that. There are several ways to do this, listed in order of precedence.
