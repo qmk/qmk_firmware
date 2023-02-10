@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
+    KC_MISSION_CONTROL = QK_USER,
     KC_LAUNCHPAD
 };
 
