@@ -10,7 +10,6 @@
     },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
-    
     "layouts": {
         "LAYOUT": {
             "layout": [
