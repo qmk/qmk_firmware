@@ -110,29 +110,24 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-#define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
-
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (layer_state) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
+        case COLMAK_LAYER:
+            oled_write_ln_P(PSTR("Colemak"), false);
             break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
+        case NUMBER_LAYER:
+            oled_write_ln_P(PSTR("Numbers"), false);
             break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
+        case CHARS_LAYER:
+            oled_write_ln_P(PSTR("Chars"), false);
             break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
+        case MOUSE_LAYER:
+            oled_write_ln_P(PSTR("Mouse"), false);
             break;
+        case QWERTY_LAYER:
+          oled_write_ln_P(PSTR("QWERTY"), false);
+          break;
     }
 }
 
@@ -209,8 +204,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LCTL);
       register_code(KC_LSFT);
       tap_code(KC_C);
-    } else {
-      // when keycode TRM_COPY is released
       unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
@@ -221,8 +214,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LCTL);
       register_code(KC_LSFT);
       tap_code(KC_V);
-    } else {
-      // when keycode TRM_PSTE is released
       unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
     }
@@ -230,20 +221,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case QWRT_UA:
     if (record->event.pressed) {
       // when keycode QWRT_UA is pressed
+      layer_clear();
       layer_on(QWERTY_LAYER);
       register_code(KC_LSFT);
-      register_code(KC_CAPS);
-    } else {
-      // when keycode QWRT_UA is released
+      tap_code(KC_CAPS);
       unregister_code(KC_LSFT);
-      unregister_code(KC_LCTL);
     }
     break;
   case CLM_EN:
     if (record->event.pressed) {
       // when keycode CLM_EN is pressed
-      layer_on(COLMAK_LAYER);
       tap_code(KC_CAPS);
+      layer_clear();
+      layer_on(COLMAK_LAYER);
     }
     break;
   case UML_SEQ:
@@ -251,11 +241,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // when keycode UML_SEQ is pressed
       tap_code(KC_PSCR);
       register_code(KC_LSFT);
-      register_code(KC_QUOT);
-    } else {
-      // when keycode UML_SEQ is released
-      unregister_code(KC_CAPS);
-      unregister_code(KC_QUOT);
+      tap_code(KC_QUOT);
+      unregister_code(KC_LSFT);
     }
     break;
   }
@@ -278,8 +265,8 @@ enum combo_events {
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM qwerty_combo[] = {KC_G, KC_J, COMBO_END};
-const uint16_t PROGMEM esc_combo[] = {KC_H, KC_D, COMBO_END};
+const uint16_t PROGMEM qwerty_combo[] = {KC_B, KC_J, COMBO_END};
+const uint16_t PROGMEM esc_combo[] = {KC_G, KC_M, COMBO_END};
 const uint16_t PROGMEM uml_combo[] = {KC_V, KC_K, COMBO_END};
 combo_t key_combos[] = {
     [QWERTY_COMBO] = COMBO_ACTION(qwerty_combo), // keycodes with modifiers are possible too!
@@ -289,31 +276,28 @@ combo_t key_combos[] = {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case QWERTY_COMBO:
-      if (pressed) {
-          layer_on(QWERTY_LAYER);
-          register_code(KC_LSFT);
-          register_code(KC_CAPS);
-      } else {
-          unregister_code(KC_CAPS);
-          unregister_code(KC_LSFT);
-      }
-      break;
-    case ESC_COMBO:
-      if (pressed) {
-        tap_code(KC_ESC);
-      }
-      break;
-    case UML_COMBO:
-      if (pressed) {
-        tap_code(KC_PSCR);
-        register_code(KC_LSFT);
-        register_code(KC_QUOT);
-      } else {
-        unregister_code(KC_CAPS);
-        unregister_code(KC_QUOT);
-      }
-      break;
+  case QWERTY_COMBO:
+    if (pressed) {
+      layer_clear();
+      layer_on(QWERTY_LAYER);
+      register_code(KC_LSFT);
+      tap_code(KC_CAPS);
+      unregister_code(KC_LSFT);
+    }
+    break;
+  case ESC_COMBO:
+    if (pressed) {
+      tap_code(KC_ESC);
+    }
+    break;
+  case UML_COMBO:
+    if (pressed) {
+      tap_code(KC_PSCR);
+      register_code(KC_LSFT);
+      tap_code(KC_QUOT);
+      unregister_code(KC_LSFT);
+    }
+    break;
   }
 }
 #endif // COMBO_ENABLE
@@ -321,7 +305,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 #ifdef RGBLIGHT_ENABLE
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
+    switch (state) {
         case COLMAK_LAYER:
             rgblight_setrgb(RGB_GREEN);
             break;
@@ -338,6 +322,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgblight_setrgb(RGB_MAGENTA);
             break;
         default:
+            rgblight_setrgb(RGB_GOLD);
             break;
     }
     return state;
