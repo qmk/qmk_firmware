@@ -25,8 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 3
 #define PERMISSIVE_HOLD
 
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+// #define MASTER_LEFT
+#define MASTER_RIGHT
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
 // #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
@@ -47,4 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_VAL_STEP 17
 #endif
 
+#ifdef OLED_ENABLE
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+#define SPLIT_OLED_ENABLE
+#endif // oled_enable
