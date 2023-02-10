@@ -23,16 +23,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,    __________________QWERTY_L1________________, KC_HOME, BRKT,    KC_PGUP,    __________________QWERTY_R1________________,   KC_BSPC,
     KC_CAPS,   __________________QWERTY_SACS_L2___________, KC_END,  KC_UP,   KC_PGDN,    __________________QWERTY_HOME_R2___________,   KC_QUOT,
     KC_LSFT,   __________________QWERTY_GUIZ_L3___________, KC_LEFT, KC_DOWN, KC_RGHT,    __________________QWERTY_R3________________,   KC_BSLS,
-    KC_LCTL,   KC_LGUI, KC_LALT, KC_SLSH, THUMB_L1,THUMB_L2,THUMB_L3,TG(_ALT),THUMB_R3, THUMB_R2,THUMB_R1,KC_LANG1,KC_LANG2, XXXXXXX,    _
+    KC_LCTL,   KC_LGUI, KC_LALT, KC_SLSH, THUMB_L1,THUMB_L2,THUMB_L3,TG(_ALT),THUMB_R3, THUMB_R2,THUMB_R1,KC_LNG1,KC_LNG2, XXXXXXX,      XXXXXXX
 ),
 [_ALT] = LAYOUT_ID75_wrapper( /* QWERTY */
     _______,   _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,      _______,
     _______,   __________________QWERTY_L1________________, _______, _______, _______,  __________________QWERTY_R1________________,      _______,
-    _______,   __________________QWERTY_L1________________, _______, _______, _______,  __________________QWERTY_R2________________,      _______,
+    _______,   __________________QWERTY_L2________________, _______, _______, _______,  __________________QWERTY_R2________________,      _______,
     _______,   __________________QWERTY_L3________________, _______, _______, KC_B,     __________________QWERTY_R3________________,      _______,
     _______,   _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,      _______
 ),
-[_SORIZAVA_3BEOL] = LAYOUT_ID75_wrapper( /* MACRO */
+[_USER_MACRO] = LAYOUT_ID75_wrapper( /* MACRO */
     XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX, KC_U,    KC_P,    KC_X,    XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      XXXXXXX,
@@ -42,10 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_NAV] = LAYOUT_ID75_wrapper( /* QWERTY */
-    _______,   C(KC_F1),_______, _______, A(KC_F4),KC_F5,   _______, _______, _______,  _______, _______, _______, _______, _______,      _______, 
-    _______,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F6,   _______, _______, _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      _______, 
-    _______,   KC_LSFT, KC_LALT, KC_LCTL, KC_LSFT, KC_F7,   _______, _______, _______,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      _______, 
-    _______,   NAV(Z), C(KC_X),C(KC_C), C(KC_V), C(KC_B),   _______, _______, _______,  KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,       _______, 
+    _______,   C(KC_F1),_______, _______, A(KC_F4),KC_F5,   _______, _______, _______,  _______, _______, _______, _______, _______,      _______,
+    _______,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F6,   _______, _______, _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      _______,
+    _______,   KC_LSFT, KC_LALT, KC_LCTL, KC_LSFT, KC_F7,   _______, _______, _______,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      _______,
+    _______,   NAV(Z), C(KC_X),C(KC_C), C(KC_V), C(KC_B),   _______, _______, _______,  KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,       _______,
     _______,   _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,      _______
 ),
 [_IPC] = LAYOUT_ID75_wrapper(
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, _______,    _______, _______, _______,  LT(_NAV, KC_0),_______, _______, _______, _______,_______
 ),
 [_MOUSE] = LAYOUT_ID75_wrapper(
-   _______,    C(KC_F1),_______, _______, A(KC_F4),KC_F5,   _______, _______, _______,  _______, _______, _______, _______, _______,      RESET,
+   _______,    C(KC_F1),_______, _______, A(KC_F4),KC_F5,   _______, _______, _______,  _______, _______, _______, _______, _______,      QK_BOOT,
     KC_U,      XXXXXXX, KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX, _______, _______, _______,  XXXXXXX, KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,
     KC_P,      KC_LSFT, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______, _______, _______,  KC_INS,  KC_ACL0, KC_BTN1, KC_BTN2, KC_BTN3,      XXXXXXX,
     KC_X,      UNDO,    CUT,     COPY,    PASTE,   BOLDFACE,_______, _______, _______,  KC_APP,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      XXXXXXX,
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // COMBOS
 enum combos {
     COMBO_ONEHAND,
-    //ZB_STENO, 
+    //ZB_STENO,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -76,7 +76,7 @@ const uint16_t PROGMEM onehand_combo[] = {KC_Q, KC_W, COMBO_END};
 //const uint16_t PROGMEM STENO_combo[] = {SFTT_Z, KC_B, COMBO_END};
 combo_t key_combos[] = {
     [COMBO_ONEHAND]   = COMBO(onehand_combo, TO(_ONEHAND)),
-//    [ZB_STENO]   = COMBO(STENO_combo, TO(_SORIZAVA_3BEOL)),
+//    [ZB_STENO]   = COMBO(STENO_combo, TO(_USER_MACRO)),
 };
 
 // // Tapping term
@@ -84,13 +84,13 @@ combo_t key_combos[] = {
 //     switch (keycode) {
 //         case THUMB_L2:
 //             return TAPPING_TERM - 100;
-//       case LGUI_T(KC_F): 
+//       case LGUI_T(KC_F):
 //       case LGUI_T(KC_Z):
 //          return TAPPING_TERM + 200;
 //         case SFTT_F:
 //         case SFTT_J:
 //         case GUIT_A:
-//         case GUIT_SCL:   
+//         case GUIT_SCL:
 //             return TAPPING_TERM + 50;
 //          case SFTT_A:
 //          case SFTT_Z:
@@ -103,10 +103,10 @@ combo_t key_combos[] = {
 // bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 //     switch (keycode) {
 //         case THUMB_L2:
-//             return true;    
+//             return true;
 //         case SFTT_A:
-//         case SFTT_Z:    
-//             return true;// KEY_ROW, KEY_COL: look for oco9oco.h 
+//         case SFTT_Z:
+//             return true;// KEY_ROW, KEY_COL: look for oco9oco.h
 //         default:
 //             return false;
 //     }

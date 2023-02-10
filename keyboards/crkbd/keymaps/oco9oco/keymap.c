@@ -63,9 +63,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
   [_MOUSE] = LAYOUT_split_3x6_3(       //Mouse keys
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    KC_U,    C(KC_F1), KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX,                              XXXXXXX,KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX,  RESET,
-    KC_P,    KC_H,     KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,                              KC_INS, KC_ACL0, KC_BTN1, KC_BTN2, KC_BTN3,  KC_ENT,
-    KC_X,    XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                KC_APP, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,  KC_DEL,
+    KC_U,    C(KC_F1), KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX,                              XXXXXXX,KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+    KC_P,    KC_H,     KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,                              KC_INS, KC_ACL0, KC_BTN1, KC_BTN2, KC_BTN3, XXXXXXX,
+    KC_X,    XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                KC_APP, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, XXXXXXX,
                                         _______, _______, _______,          _______, _______, _______
     ),
   [_ONEHAND] = LAYOUT_split_3x6_3( //Trackball Manipulation

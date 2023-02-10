@@ -308,7 +308,7 @@ enum custom_keycodes {
 enum layer_index {
     _BASE = 0,       // QWERTY with home row mods
     _BASE_NOMOD,     // Just QWERTY
-    _SORIZAVA_3BEOL, // SORIZAVA STENO 3-BEOL LAYOUT
+    _USER_MACRO, // SORIZAVA STENO 3-BEOL LAYOUT
     _NAV,            // Arrows
     _IPC,            //
     _NUM,
