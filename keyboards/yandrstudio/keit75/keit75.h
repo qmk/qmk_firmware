@@ -29,11 +29,6 @@ enum keyboard_keycodes {
     TOG_MACOS_KEYMAP,
     KC_MISSION_CONTROL,
     KC_LAUNCHPAD,
-#ifdef VIA_ENABLE
-    NEW_SAFE_RANGE = SAFE_RANGE
-#else
-    NEW_SAFE_RANGE
-#endif
 };
 
 #define KC_LG     LOCK_GUI
