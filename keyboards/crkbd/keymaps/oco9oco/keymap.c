@@ -49,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
   [_NAV] = LAYOUT_split_3x6_3(          //Navigations
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    ALT_F4,  LCA(KC_H),LCA(KC_J),LCA(KC_K),LCA(KC_L),KC_F6,                          XXXXXXX, A(KC_4), A(KC_6), A(KC_7), A(KC_8), XXXXXXX,
-    KC_F2,   KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_F7,                          KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
-    C(KC_F1),C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  C(KC_B),                        KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
+    KC_ESC,  LCA(KC_H),LCA(KC_J),LCA(KC_K),LCA(KC_L),KC_F5,                          XXXXXXX, A(KC_4), A(KC_6), A(KC_7), A(KC_8), XXXXXXX,
+    KC_F2,   KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_F6,                          KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
+    C(KC_F1),NAV(Z),  C(KC_X),  C(KC_C),  C(KC_V),   KC_F7,                          KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
                                            _______, KC_BSPC, KC_DEL,        _______, _______, _______
     ),
   [_FUNC] = LAYOUT_crkbd_wrapper(       //Functions
