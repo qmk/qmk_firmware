@@ -205,7 +205,7 @@ TEST_F(TappingForceHold, tap_mod_tap_hold_key_twice_and_hold_on_second_time) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release mod-tap-hold key. */
-    EXPECT_REPORT(driver, (KC_LSHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();

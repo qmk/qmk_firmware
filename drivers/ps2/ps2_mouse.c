@@ -53,6 +53,7 @@ void ps2_mouse_init(void) {
     ps2_mouse_set_remote_mode();
 #else
     ps2_mouse_enable_data_reporting();
+    ps2_mouse_set_stream_mode();
 #endif
 
 #ifdef PS2_MOUSE_ENABLE_SCROLLING
@@ -75,20 +76,33 @@ void ps2_mouse_task(void) {
     extern int     tp_buttons;
 
     /* receives packet from mouse */
+#ifdef PS2_MOUSE_USE_REMOTE_MODE
     uint8_t rcv;
     rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
     if (rcv == PS2_ACK) {
-        mouse_report.buttons = ps2_host_recv_response() | tp_buttons;
+        mouse_report.buttons = ps2_host_recv_response();
         mouse_report.x       = ps2_host_recv_response() * PS2_MOUSE_X_MULTIPLIER;
         mouse_report.y       = ps2_host_recv_response() * PS2_MOUSE_Y_MULTIPLIER;
-#ifdef PS2_MOUSE_ENABLE_SCROLLING
+#    ifdef PS2_MOUSE_ENABLE_SCROLLING
         mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK) * PS2_MOUSE_V_MULTIPLIER;
-#endif
+#    endif
     } else {
         if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
-        return;
     }
+#else
+    if (pbuf_has_data()) {
+        mouse_report.buttons = ps2_host_recv_response();
+        mouse_report.x       = ps2_host_recv_response() * PS2_MOUSE_X_MULTIPLIER;
+        mouse_report.y       = ps2_host_recv_response() * PS2_MOUSE_Y_MULTIPLIER;
+#    ifdef PS2_MOUSE_ENABLE_SCROLLING
+        mouse_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK) * PS2_MOUSE_V_MULTIPLIER;
+#    endif
+    } else {
+        if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
+    }
+#endif
 
+    mouse_report.buttons |= tp_buttons;
     /* if mouse moves or buttons state changes */
     if (mouse_report.x || mouse_report.y || mouse_report.v || ((mouse_report.buttons ^ buttons_prev) & PS2_MOUSE_BTN_MASK)) {
 #ifdef PS2_MOUSE_DEBUG_RAW

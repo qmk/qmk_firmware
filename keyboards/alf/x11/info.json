@@ -1,11 +1,11 @@
 {
-  "keyboard_name": "x11",
-  "manufacturer": "Alf",
+  "keyboard_name": "X1.1",
+  "manufacturer": "ALF",
   "url": "",
   "maintainer": "qmk",
   "usb": {
-    "vid": "0xFEED",
-    "pid": "0x0000",
+    "vid": "0x4146",
+    "pid": "0x0001",
     "device_version": "0.0.1"
   },
   "layouts": {

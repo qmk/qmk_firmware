@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D5, D6, D7, C1, C2, C3, C4, C5, C6, C7 }
 #define MATRIX_COL_PINS { B2, B3, B18, B19, C0, C8, C9, D0, D1, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -171,5 +170,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 64
 #    define DRIVER_2_LED_TOTAL 55
-#    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 #endif

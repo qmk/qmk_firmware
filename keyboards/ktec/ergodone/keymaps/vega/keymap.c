@@ -635,31 +635,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV,
         KC_TAB, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_BSLS,
         KC_EQL, KC_A, KC_O, KC_E, KC_U, KC_I,
-        KC_LSPO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_AMPR,
+        SC_LSPO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_AMPR,
         OSL(FNLR), TT(GREL), TT(MATH), KC_UP, KC_DOWN,
         KC_LBRC, KC_HOME, KC_INS, KC_SPC, KC_LGUI, KC_DEL,
 
         OSL(FNLR), KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
         KC_PGUP, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH,
         KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
-        KC_PGDN, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSPC,
+        KC_PGDN, KC_B, KC_M, KC_W, KC_V, KC_Z, SC_RSPC,
         KC_LEFT, KC_RIGHT, KC_RALT, TT(SYMB), TT(QWER),
         KC_END, KC_RBRC, KC_PSCR, KC_RALT, KC_RCTL, KC_ENT
 ),
 
 [FNLR] = LAYOUT_ergodox(
        // left hand
-       UC_M_LN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
-       UC_M_WC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
+       UC_LINX,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
+       UC_WINC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
        TO(TINY),KC_F21, KC_F22, KC_F23,KC_F24, MAGIC_TOGGLE_NKRO,
-       TO(FULL),KC_PAUSE,KC_PSCR,KC_SLCK,KC_NO,KC_NO,KC_NO,
-          EEP_RST,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
+       TO(FULL),KC_PAUSE,KC_PSCR,KC_SCRL,KC_NO,KC_NO,KC_NO,
+          EE_CLR,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
                                        KC_NO,KC_NO,
                                                KC_NO,
                                KC_NO,KC_NO,KC_NO,
        // right hand
-       TO(BASE), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_M_LN,
-       KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_M_WI,
+       TO(BASE), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_LINX,
+       KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_WIN,
                 KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
        KC_NO, KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
                          KC_NO,KC_NO,  KC_NO,    KC_NO,  KC_NO,
@@ -672,30 +672,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_BSLS,
         KC_AMPR, KC_A, KC_S, KC_D, KC_F, KC_G,
-        KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_QUOT,
+        SC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_QUOT,
         KC_BSLS, KC_LCTL, KC_LGUI, KC_RALT, KC_APP,
         KC_LBRC, KC_HOME, KC_PGUP, KC_SPC, KC_LSFT, KC_PGDN,
 
         OSL(FNLR), KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
         KC_MINS, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_SLSH,
         KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_ENT,
-        KC_EQL, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC,
+        KC_EQL, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, SC_RSPC,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, TO(BASE),
         KC_END, KC_INS, KC_DEL, KC_RGHT, KC_ENT, KC_SPC
 ),
 
 [MATH] = LAYOUT_ergodox(
 	KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV,
-	KC_TAB,	X(Mc),	X(Munion),	X(arwl),	X(or),	X(exists),	KC_BSLASH,
+	KC_TAB,	X(Mc),	X(Munion),	X(arwl),	X(or),	X(exists),	KC_BSLS,
 	X(arwr), X(root), X(and), X(imply), X(nexists), X(forall),
-	KC_LSPO,	KC_SCLN,	X(intgrl),	X(Mn),	X(Mz),	X(member),	X(arwl),
+	SC_LSPO,	KC_SCLN,	X(intgrl),	X(Mn),	X(Mz),	X(member),	X(arwl),
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
 	TT(FNLR), KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
 	KC_PGUP, X(plsminus),	X(infin),	X(neleof),	X(equiv),	X(Mq),	KC_EQL,
 	X(sum),	X(emtyset),	X(porp),	X(suprsetof),	X(not),	X(neq),
-	KC_PGDN,	X(subsetof),	X(intersection),	X(angl),	X(nmember),	X(eleof),	KC_RSPC,
+	KC_PGDN,	X(subsetof),	X(intersection),	X(angl),	X(nmember),	X(eleof),	SC_RSPC,
 	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
@@ -807,7 +807,7 @@ void matrix_init_user(void){
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

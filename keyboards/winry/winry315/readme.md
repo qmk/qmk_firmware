@@ -29,7 +29,7 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the top left key (not the encoder) and plug in the keyboard.  This apparently also works with the vendor VIA firmware.
   * Note that the bootmagic key does not change with the board orientation configured using `WINRY315_DEFAULT_ORIENTATION` — the “top left” key position in the default orientation (encoders on the top side) is always used.
 * **Physical reset button**: Briefly press the button on the back of the PCB (the acrylic bottom cover should have a hole to access that button).
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available (the default keymap does not have that keycode assigned to any key, but you can use that keycode in your custom keymap if you want to have easier access to the bootloader).
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available (the default keymap does not have that keycode assigned to any key, but you can use that keycode in your custom keymap if you want to have easier access to the bootloader).
 
 ## Orientation
 

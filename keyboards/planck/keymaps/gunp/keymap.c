@@ -85,8 +85,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_PGDN, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, STICK,
   KC_L2_0, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M,
                                 KC_R2_1, KC_R2_2,    KC_R2_3, KC_UP,   KC_R2_5,
-  KC_L3_0, KC_L3_1, KC_L3_2, KC_ESCAPE,  KC_BSPACE,  KC_ENTER,
-                       KC_R3_0, KC_R3_1, KC_PSCREEN, KC_LEFT, KC_DOWN, KC_RIGHT
+  KC_L3_0, KC_L3_1, KC_L3_2, KC_ESCAPE,  KC_BSPC,    KC_ENTER,
+                       KC_R3_0, KC_R3_1, KC_PSCR,    KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 [LY_1000] = LAYOUT_gunp(
   XXXXXXX,   KC_PERC,   KC_QUES,   KC_EXLM,   KC_GRV,    XXXXXXX,
@@ -128,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), MC(KC_W), KC_DELETE,    KC_APP
 ),
 [LY_1101] = LAYOUT_gunp(
-  SANDBOX,   XXXXXXX,    AU_TOG,       KC_LOCK,    RGB_TOG,       RESET,
-  KC_WAKE,   KC_CLCK,    USER_NAME,    USER_EMAIL, RGB_MOD,       DEBUG,
-  KC_SLEP,   KC_NLCK,    DM_REC1,      DM_PLY1,    XXXXXXX,       EEP_RST,
-  KC_PWR,    KC_SLCK,    DM_REC2,      DM_PLY2,    DM_RSTP,       KC_INSERT
+  SANDBOX,   XXXXXXX,    AU_TOGG,      QK_LOCK,    RGB_TOG,       QK_BOOT,
+  KC_WAKE,   KC_CAPS,    USER_NAME,    USER_EMAIL, RGB_MOD,       DB_TOGG,
+  KC_SLEP,   KC_NUM,     DM_REC1,      DM_PLY1,    XXXXXXX,       EE_CLR,
+  KC_PWR,    KC_SCRL,    DM_REC2,      DM_PLY2,    DM_RSTP,       KC_INSERT
 ),
 [LY_1111] = LAYOUT_gunp(
   KC_ACL1,   KC_ACL0,    KC_WH_L,      KC_MS_U,    KC_WH_R,       KC_WH_U,
@@ -275,10 +275,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-  void rgb_matrix_indicators_kb(void) {
+  bool rgb_matrix_indicators_user(void) {
     // `42` is the index of the middle light at the bottom row (in planck light)
     // it is disabled because it does not have a cover, hence irritates my eyes
     rgb_matrix_set_color(42, 0, 0, 0);
+    return false;
   }
 #endif
 

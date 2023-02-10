@@ -101,7 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_THEME_FORWARD:
             if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
                 if(shifted) {
                     rgb_theme_step_reverse();
                 } else {
@@ -112,7 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_THEME_REVERSE:
             if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
                 if(shifted) {
                     rgb_theme_step();
                 } else {

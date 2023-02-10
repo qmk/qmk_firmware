@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK]  = CATMAP( NUMBER_ROW, DVORAK_LAYER  ),
 [_GAME]    = CATMAP( NUMBER_ROW, GAME_LAYER    ),
 [_NUMPAD]  = CATMAP( \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NLCK, KC_PAST, KC_PSLS, KC_BSPC, KC_BSPC, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM, KC_PAST, KC_PSLS, KC_BSPC, KC_BSPC, \
   NUMPAD_LAYER \
 ),
 
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------..-----------------------------------------.
- * | RESET|DEBUG |      |      |      |      ||      |      |      |      |      |      |
+ * | Boot |Debug |      |      |      |      ||      |      |      |      |      |      |
  * |------+------+------+------+------+------||------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |      ||      | Game |Numpad| Mouse|      |Sleep |
  * |------+------+------+------+------+------||------+------+------+------+------+------|
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------''-----------------------------------------'
  */
 [_ADJUST] = CATMAP( \
-   RESET , DEBUG  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, KC_F1  ,  KC_F2 , KC_F3  , KC_F4  , _______, _______, TO_GAME, TO_NUM , TO_MS  , _______, KC_SLEP, \
   _______, KC_F5  ,  KC_F6 , KC_F7  , KC_F8  , _______, _______, QWERTY , COLEMAK, WORKMAN, DVORAK , _______, \
   KC_CAPS, KC_F9  ,  KC_F10, KC_F11 , KC_F12 , _______, _______, _______, _______, _______, KC_UP  , _______, \

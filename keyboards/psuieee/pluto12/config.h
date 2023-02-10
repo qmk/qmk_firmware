@@ -12,7 +12,6 @@
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D0, D4, C6 }
 #define MATRIX_COL_PINS { D7, E6, B4, B5 }
-#define UNUSED_PINS
 
 /* Encoder Assignments */
 #define ENCODERS_PAD_A { B6 }

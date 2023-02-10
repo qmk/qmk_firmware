@@ -26,6 +26,10 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
+# Wear-levelling driver
+EEPROM_DRIVER = wear_leveling
+WEAR_LEVELING_DRIVER = spi_flash
+
 # Custom RGB matrix handling
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = custom
