@@ -21,6 +21,6 @@
 #define LAYOUT( \
 	K000, K001, K002,  K003, K004  \
 ) { \
-	{ K000,  K001,  K002,  KC_NO,  KC_NO } \
+	{ K000,  K001,  K002,  K003,  K004 } \
 }
 // clang-format on
