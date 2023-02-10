@@ -76,7 +76,7 @@ void do_code16(uint16_t code, void (*f)(uint8_t)) {
 }
 
 __attribute__((weak)) void register_code16(uint16_t code) {
-    if (IS_MOD(code) || code == KC_NO) {
+    if (IS_MODIFIER_KEYCODE(code) || code == KC_NO) {
         do_code16(code, register_mods);
     } else {
         do_code16(code, register_weak_mods);
@@ -86,7 +86,7 @@ __attribute__((weak)) void register_code16(uint16_t code) {
 
 __attribute__((weak)) void unregister_code16(uint16_t code) {
     unregister_code(code);
-    if (IS_MOD(code) || code == KC_NO) {
+    if (IS_MODIFIER_KEYCODE(code) || code == KC_NO) {
         do_code16(code, unregister_mods);
     } else {
         do_code16(code, unregister_weak_mods);
