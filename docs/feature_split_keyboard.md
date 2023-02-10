@@ -80,9 +80,7 @@ SPLIT_TRANSPORT = custom
 ```
 
 ### Layout Macro
-When setting `SPLIT_KEYBOARD = yes`, row pins are automatically doubled.
-This is because QMK views a split keyboard as follows, with the numbers
-representing row, column:
+When configuring a split keyboard, note the matrix rows and pins are doubled, thus QMK views the layout as follows, where the numbers represent `row, col`:
 
 IMG1
 
