@@ -4,7 +4,7 @@
     "manufacturer": "fearherbs1",
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "url": "https://github.com/fearherbs1",
+    "url": "https://github.com/fearherbs1/blue-team-pad",
     "usb": {
         "vid": "0x4648",
         "pid": "0x4254",
