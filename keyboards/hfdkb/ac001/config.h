@@ -15,35 +15,18 @@
  */
 
 #pragma once
-
-#include "config_common.h"
-
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
- #define FORCE_NKRO
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B15}
 #define MATRIX_COL_PINS { A5, A6, A7, C4, C5}
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #define TAP_CODE_DELAY 5
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN A1
-#define DRIVER_LED_TOTAL    5
-#define RGBLED_NUM          5        // Number of LEDs
-#define NOP_FUDGE           0.4
+#define RGB_MATRIX_LED_COUNT 5
 
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
@@ -59,8 +42,7 @@
 #define SPI_MOSI_PAL_MODE 5
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
-#define EXTERNAL_FLASH_SIZE (8 * 1024)
-#define EEPROM_SIZE EXTERNAL_FLASH_SIZE
+#define WEAR_LEVELING_BACKING_SIZE (8 * 1024)
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_CENTER {112,32}
@@ -117,17 +99,6 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 //#define ENABLE_RGB_MATRIX_SOLID_SPLASH
 //#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* Send up to 4 key press events per scan */
-#define QMK_KEYS_PER_SCAN 4
-
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 180 /* The maximum brightness level */
-
-/* Set debounce time to 1ms */
-#define DEBOUNCE 5
 
 #define USB_SUSPEND_WAKEUP_DELAY 1500              //Wakeup host USB
 

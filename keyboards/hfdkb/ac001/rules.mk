@@ -1,9 +1,3 @@
-# MCU name
-MCU = WB32FQ95
-
-# Bootloader selection
-BOOTLOADER = wb32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,8 +13,5 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = no
-FLASH_DRIVER = spi          # Enable SPI flash
-EEPROM_DRIVER = custom      # Enable SPI flash memory
-
-QUANTUM_LIB_SRC += spi_master.c
-SRC += src/eeprom_flash.c
+EEPROM_DRIVER = wear_leveling
+WEAR_LEVELING_DRIVER = spi_flash
