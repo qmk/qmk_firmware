@@ -27,8 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* FIXME: Add doxygen comments here */
 
 #define IS_ANY(code) (KC_A <= (code) && (code) <= 0xFF)
-#define IS_KEY(code) IS_BASIC_KEYCODE(code)
-#define IS_MOD(code) IS_MODIFIERS_KEYCODE(code)
 
 #define IS_SYSTEM(code) IS_SYSTEM_KEYCODE(code)
 #define IS_CONSUMER(code) IS_MEDIA_KEYCODE(code)
