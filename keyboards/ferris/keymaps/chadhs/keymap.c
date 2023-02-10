@@ -159,19 +159,19 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 
 /* custom lighting configuration */
 const rgblight_segment_t PROGMEM rgb_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_RED}
+    {0, 2, HSV_RED} // light 2 LEDs, starting with LED 1
 );
 
 const rgblight_segment_t PROGMEM rgb_colemakdh_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_WHITE}
+    {0, 2, HSV_WHITE}
 );
 
 const rgblight_segment_t PROGMEM rgb_gaming_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_BLUE}
+    {0, 2, HSV_BLUE}
 );
 
 const rgblight_segment_t PROGMEM rgb_gaming2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_PURPLE}
+    {0, 2, HSV_PURPLE}
 );
 
 // Now define the array of layers. Later layers take precedence
