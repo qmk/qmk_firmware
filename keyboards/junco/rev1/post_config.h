@@ -1,6 +1,8 @@
 // Copyright 2022 Dane Skalski (@Daneski13)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 /* Default Bootmagic lite */
 // Top left for left side is default in core
 

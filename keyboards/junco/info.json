@@ -1,16 +1,18 @@
 {
-	"manufacturer": "Dane Skalski",
-	"keyboard_name": "Junco",
-	"url": "https://github.com/Daneski13/Junco",
-	"maintainer": "Daneski13",
-	"usb": {
-		"vid": "0x4413",
-		"pid": "0x4A13",
-		"device_version": "1.0.0"
-	},
+    "manufacturer": "Dane Skalski",
+    "keyboard_name": "Junco",
+    "url": "https://github.com/Daneski13/Junco",
+    "maintainer": "Daneski13",
+    "usb": {
+        "vid": "0x4413",
+        "pid": "0x4A13",
+        "device_version": "1.0.0"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "layouts": {
-		"LAYOUT_split4x6_r1": {
-			"layout": [
+        "LAYOUT_split4x6_r1": {
+            "layout": [
                 { "label": "`", "matrix": [0, 0], "x": 0, "y": 0.7 },
                 { "label": "1", "matrix": [0, 1], "x": 1, "y": 0.7 },
                 { "label": "2", "matrix": [0, 2], "x": 2, "y": 0.3 },
@@ -68,14 +70,38 @@
                 { "label": "Ctrl", "matrix": [4, 0], "x": 2, "y": 4.3 },
                 { "label": "Win", "matrix": [4, 1], "x": 3, "y": 4 },
                 { "label": "Alt", "matrix": [4, 2], "x": 4, "y": 4.3 },
-                { "label": "Del", "matrix": [4, 3], "x": 5.1, "y": 4.5, "h": 1.5 },
-                { "label": "Spc", "matrix": [4, 4], "x": 6.1, "y": 4.5, "h": 1.5 },
-                { "label": "Shift", "matrix": [9, 3], "x": 7.9, "y": 4.5, "h": 1.5 },
-                { "label": "Bspc", "matrix": [9, 4], "x": 8.9, "y": 4.5, "h": 1.5 },
+                {
+                    "label": "Del",
+                    "matrix": [4, 3],
+                    "x": 5.1,
+                    "y": 4.5,
+                    "h": 1.5
+                },
+                {
+                    "label": "Spc",
+                    "matrix": [4, 4],
+                    "x": 6.1,
+                    "y": 4.5,
+                    "h": 1.5
+                },
+                {
+                    "label": "Shift",
+                    "matrix": [9, 3],
+                    "x": 7.9,
+                    "y": 4.5,
+                    "h": 1.5
+                },
+                {
+                    "label": "Bspc",
+                    "matrix": [9, 4],
+                    "x": 8.9,
+                    "y": 4.5,
+                    "h": 1.5
+                },
                 { "label": "Alt", "matrix": [9, 2], "x": 10, "y": 4.3 },
                 { "label": "Win", "matrix": [9, 1], "x": 11, "y": 4 },
                 { "label": "Ctrl", "matrix": [9, 0], "x": 12, "y": 4.3 }
             ]
-		}
-	}
+        }
+    }
 }
