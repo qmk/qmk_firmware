@@ -145,7 +145,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Encoder
  * Currently using ENCONDER_MAP_ENABLE
- * Leaving code for encoder_update_user in case I want to use modifiers with encoder
  */
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -156,37 +155,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_CONFIG] =  { },
 };
 #endif
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    /* if (layer_state_is(_BASE)) {
-      if (clockwise) {
-          tap_code(KC_VOLU);
-      } else {
-          tap_code(KC_VOLD);
-      }
-    } else if (layer_state_is(_GAMING)) {
-      if (clockwise) {
-          tap_code(KC_MS_WH_UP);
-      } else {
-          tap_code(KC_MS_WH_DOWN);
-      }
-    } else if (layer_state_is(_LOWER)) {
-      if (clockwise) {
-        tap_code16(C(KC_TAB));
-      } else {
-        tap_code16(C(S(KC_TAB)));
-      }
-    } else if (layer_state_is(_RAISE)) {
-      if (clockwise) {
-        tap_code(KC_MS_WH_RIGHT);
-      } else {
-        tap_code(KC_MS_WH_LEFT);
-      }
-    }
-    */
-    return false;
-}
-
 
 /* Macros
  * Ctrl + C
