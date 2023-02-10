@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAC] = LAYOUT(
     KC_TAB        ,KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q   , G(KC_X)  , G(KC_Z) ,KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P    ,KC_QUOT , \
     CMD_T(KC_ESC) ,KC_W   ,KC_I   ,KC_S    ,KC_A   ,KC_G   , G(KC_C)  , G(KC_S) ,KC_Y   ,KC_E   ,KC_T   ,KC_H   ,KC_B    ,KC_SCLN , \
-    KC_LSFT       ,KC_Z   ,KC_X   ,KC_V    ,KC_L   ,KC_C   , G(KC_V)  , G(KC_Y) ,KC_M   ,KC_O   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT , \
+    KC_LSFT       ,KC_Z   ,KC_X   ,KC_V    ,KC_C   ,KC_L   , G(KC_V)  , G(KC_Y) ,KC_M   ,KC_O   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT , \
     KC_LCTL       ,KC_LALT,KC_LCTL,KC_LCMD,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
     ),
 
