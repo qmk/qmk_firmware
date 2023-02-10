@@ -60,10 +60,6 @@
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-
-/* Debounce time in ms for matrix scans */
-#define DEBOUNCE 5
-
 /* sets the number of milliseconds to pause after sending a wakeup packet.
 *  Disabled by default, you might want to set this to 200 (or higher) if the
 *  keyboard does not wake up properly after suspending.
