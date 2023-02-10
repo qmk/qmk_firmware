@@ -6,8 +6,8 @@ This is a standard 60% layout PCB. It supports VIA.
 * Hardware Supported: A 60% keyboard with STM32F072CB
 * Hardware Availability: https://geekhack.org/index.php?topic=119025.0 
 
-![Layer 0](https://i.imgur.com/LL5mZXA.png)
-![Layer 1](https://i.imgur.com/RJDVmty.png)
+![Layer 0](https://i.imgur.com/LL5mZXAh.png)
+![Layer 1](https://i.imgur.com/RJDVmtyh.png)
 
 ## Instructions
 
