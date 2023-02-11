@@ -6,9 +6,9 @@
 #include "config_common.h"
 
 #ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
 #define I2C1_SCL_PIN        GP27
 #define I2C1_SDA_PIN        GP26
 #define I2C_DRIVER I2CD2
+#define OLED_DISPLAY_128X32
 #define OLED_BRIGHTNESS 128
 #endif
