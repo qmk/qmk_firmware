@@ -453,14 +453,6 @@ void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
     layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
 }
 
-// TODO: remove legacy api
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
