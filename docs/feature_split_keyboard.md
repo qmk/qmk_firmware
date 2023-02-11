@@ -158,21 +158,22 @@ This setting is not changed when re-initializing the EEPROM using the `EE_CLR` k
 
 You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common).
 
+
 #### Handedness by `#define`
 
-You can set the handedness at compile time.  This is done by adding the following to your `config.h` file:
+You can use this option when USB cable is always connected to just one side of the split keyboard.
 
+If the USB cable is always connected to the right side, add the following to your `config.h` file and flash both sides with this option:
 ```c
 #define MASTER_RIGHT
 ```
 
-or 
-
+If the USB cable is always connected to the left side, add the following to your `config.h` file and flash both sides with this option:
 ```c
 #define MASTER_LEFT
 ```
 
-If neither are defined, the handedness defaults to `MASTER_LEFT`.
+?> If neither options are defined, the handedness defaults to `MASTER_LEFT`.
 
 
 ### Communication Options
