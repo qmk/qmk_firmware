@@ -1,0 +1,22 @@
+{
+    "manufacturer": "takashicompany",
+    "keyboard_name": "takashicompany/minidivide",
+    "maintainer": "takashicompany",
+    "bootloader": "caterina",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "processor": "atmega32u4",
+    "url": "",
+    "usb": {
+        "vid": "0x7463",
+        "pid": "0x0037",
+        "device_version": "0.0.1"
+    }
+}
