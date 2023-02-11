@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -659,5 +659,8 @@ std::map<uint16_t, std::string> KEYCODE_ID_TABLE = {
     {QK_AUTOCORRECT_ON, "QK_AUTOCORRECT_ON"},
     {QK_AUTOCORRECT_OFF, "QK_AUTOCORRECT_OFF"},
     {QK_AUTOCORRECT_TOGGLE, "QK_AUTOCORRECT_TOGGLE"},
+    {QK_REPEAT_KEY, "QK_REPEAT_KEY"},
+    {QK_REVERSE_REPEAT_KEY, "QK_REVERSE_REPEAT_KEY"},
     {SAFE_RANGE, "SAFE_RANGE"},
 };
+
