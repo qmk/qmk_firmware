@@ -1,6 +1,6 @@
 # Blue Team Pad
 
-![blue_team_pad](https://i.imgur.com/U8LNofv.jpeg)
+![blue_team_pad](https://i.imgur.com/U8LNofvh.jpeg)
 
 An open source macropad for the cyber security analyst.
 
