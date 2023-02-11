@@ -1,1 +1,10 @@
-{}
+{
+    "ranges": {
+        "0x8000/0X3FFF": {
+            "define": "QK_UNICODEMAP"
+        },
+        "0xC000/0X3FFF": {
+            "define": "QK_UNICODEMAP_PAIR"
+        }
+    }
+}

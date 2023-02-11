@@ -351,7 +351,7 @@ void process_action(keyrecord_t *record, action_t action) {
     bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
     if (is_oneshot_layer_active() && event.pressed &&
-        (action.kind.id == ACT_USAGE || !(IS_MOD(action.key.code)
+        (action.kind.id == ACT_USAGE || !(IS_MODIFIER_KEYCODE(action.key.code)
 #    ifndef NO_ACTION_TAPPING
                                           || (tap_count == 0 && (action.kind.id == ACT_LMODS_TAP || action.kind.id == ACT_RMODS_TAP))
 #    endif
@@ -372,7 +372,7 @@ void process_action(keyrecord_t *record, action_t action) {
             uint8_t mods = (action.kind.id == ACT_LMODS) ? action.key.mods : action.key.mods << 4;
             if (event.pressed) {
                 if (mods) {
-                    if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                    if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                         // e.g. LSFT(KC_LEFT_GUI): we don't want the LSFT to be weak as it would make it useless.
                         // This also makes LSFT(KC_LEFT_GUI) behave exactly the same as LGUI(KC_LEFT_SHIFT).
                         // Same applies for some keys like KC_MEH which are declared as MEH(KC_NO).
@@ -386,7 +386,7 @@ void process_action(keyrecord_t *record, action_t action) {
             } else {
                 unregister_code(action.key.code);
                 if (mods) {
-                    if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                    if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                         del_mods(mods);
                     } else {
                         del_weak_mods(mods);
@@ -406,7 +406,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     if (!keymap_config.oneshot_enable) {
                         if (event.pressed) {
                             if (mods) {
-                                if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                                if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                                     // e.g. LSFT(KC_LGUI): we don't want the LSFT to be weak as it would make it useless.
                                     // This also makes LSFT(KC_LGUI) behave exactly the same as LGUI(KC_LSFT).
                                     // Same applies for some keys like KC_MEH which are declared as MEH(KC_NO).
@@ -420,7 +420,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         } else {
                             unregister_code(action.key.code);
                             if (mods) {
-                                if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                                if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                                     del_mods(mods);
                                 } else {
                                     del_weak_mods(mods);
@@ -877,7 +877,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
         send_keyboard_report();
 #endif
 
-    } else if IS_KEY (code) {
+    } else if IS_BASIC_KEYCODE (code) {
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
@@ -890,7 +890,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
         }
         add_key(code);
         send_keyboard_report();
-    } else if IS_MOD (code) {
+    } else if IS_MODIFIER_KEYCODE (code) {
         add_mods(MOD_BIT(code));
         send_keyboard_report();
 
@@ -944,10 +944,10 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
 #endif
 
-    } else if IS_KEY (code) {
+    } else if IS_BASIC_KEYCODE (code) {
         del_key(code);
         send_keyboard_report();
-    } else if IS_MOD (code) {
+    } else if IS_MODIFIER_KEYCODE (code) {
         del_mods(MOD_BIT(code));
         send_keyboard_report();
 

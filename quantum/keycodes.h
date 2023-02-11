@@ -82,6 +82,10 @@ enum qk_keycode_ranges {
     QK_USER_MAX                    = 0x7FFF,
     QK_UNICODE                     = 0x8000,
     QK_UNICODE_MAX                 = 0xFFFF,
+    QK_UNICODEMAP                  = 0x8000,
+    QK_UNICODEMAP_MAX              = 0xBFFF,
+    QK_UNICODEMAP_PAIR             = 0xC000,
+    QK_UNICODEMAP_PAIR_MAX         = 0xFFFF,
 };
 
 enum qk_keycode_defines {
@@ -1312,6 +1316,8 @@ enum qk_keycode_defines {
 #define IS_QK_KB(code) ((code) >= QK_KB && (code) <= QK_KB_MAX)
 #define IS_QK_USER(code) ((code) >= QK_USER && (code) <= QK_USER_MAX)
 #define IS_QK_UNICODE(code) ((code) >= QK_UNICODE && (code) <= QK_UNICODE_MAX)
+#define IS_QK_UNICODEMAP(code) ((code) >= QK_UNICODEMAP && (code) <= QK_UNICODEMAP_MAX)
+#define IS_QK_UNICODEMAP_PAIR(code) ((code) >= QK_UNICODEMAP_PAIR && (code) <= QK_UNICODEMAP_PAIR_MAX)
 
 // Group Helpers
 #define IS_INTERNAL_KEYCODE(code) ((code) >= KC_NO && (code) <= KC_TRANSPARENT)
@@ -1319,7 +1325,7 @@ enum qk_keycode_defines {
 #define IS_SYSTEM_KEYCODE(code) ((code) >= KC_SYSTEM_POWER && (code) <= KC_SYSTEM_WAKE)
 #define IS_MEDIA_KEYCODE(code) ((code) >= KC_AUDIO_MUTE && (code) <= KC_ASSISTANT)
 #define IS_MOUSE_KEYCODE(code) ((code) >= KC_MS_UP && (code) <= KC_MS_ACCEL2)
-#define IS_MODIFIERS_KEYCODE(code) ((code) >= KC_LEFT_CTRL && (code) <= KC_RIGHT_GUI)
+#define IS_MODIFIER_KEYCODE(code) ((code) >= KC_LEFT_CTRL && (code) <= KC_RIGHT_GUI)
 #define IS_SWAP_HANDS_KEYCODE(code) ((code) >= QK_SWAP_HANDS_TOGGLE && (code) <= QK_SWAP_HANDS_ONE_SHOT)
 #define IS_MAGIC_KEYCODE(code) ((code) >= MAGIC_SWAP_CONTROL_CAPSLOCK && (code) <= MAGIC_TOGGLE_ESCAPE_CAPSLOCK)
 #define IS_MIDI_KEYCODE(code) ((code) >= QK_MIDI_ON && (code) <= QK_MIDI_PITCH_BEND_UP)
