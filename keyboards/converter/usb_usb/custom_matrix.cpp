@@ -93,7 +93,7 @@ extern "C" {
         kbd2.SetReportParser(0, (HIDReportParser*)&kbd_parser2);
         kbd3.SetReportParser(0, (HIDReportParser*)&kbd_parser3);
         kbd4.SetReportParser(0, (HIDReportParser*)&kbd_parser4);
-        matrix_init_quantum();
+        matrix_init_kb();
     }
 
     static void or_report(report_keyboard_t report) {
@@ -182,7 +182,7 @@ extern "C" {
                 led_set(host_keyboard_leds());
             }
         }
-        matrix_scan_quantum();
+        matrix_scan_kb();
         return changed;
     }
 

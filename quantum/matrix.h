@@ -67,10 +67,6 @@ void matrix_io_delay(void);
 void matrix_power_up(void);
 void matrix_power_down(void);
 
-/* executes code for Quantum */
-void matrix_init_quantum(void);
-void matrix_scan_quantum(void);
-
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
 
