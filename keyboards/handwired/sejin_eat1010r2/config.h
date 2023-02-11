@@ -1,5 +1,5 @@
 /*
-Copyright 2022 DmNosachev
+Copyright 2023 DmNosachev
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,12 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
-
-#define MATRIX_HAS_GHOST
-
-#define NUM_LOCK_LED_PIN B0
-#define SCROLL_LOCK_LED_PIN B10
-#define CAPS_LOCK_LED_PIN B1
 
 #define BOOTMAGIC_LITE_ROW 1
 #define BOOTMAGIC_LITE_COLUMN 0

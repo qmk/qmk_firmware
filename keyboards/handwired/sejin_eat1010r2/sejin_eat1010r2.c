@@ -1,4 +1,4 @@
-/* Copyright 2020 DmNosachev
+/* Copyright 2023 DmNosachev
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,13 +17,13 @@
 #include "sejin_eat1010r2.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(NUM_LOCK_LED_PIN);
-    setPinOutput(CAPS_LOCK_LED_PIN);
-    setPinOutput(SCROLL_LOCK_LED_PIN);
+    setPinOutput(LED_NUM_LOCK_PIN);
+    setPinOutput(LED_CAPS_LOCK_PIN);
+    setPinOutput(LED_SCROLL_LOCK_PIN);
 
-    writePinLow(NUM_LOCK_LED_PIN);
-    writePinLow(CAPS_LOCK_LED_PIN);
-    writePinLow(SCROLL_LOCK_LED_PIN);
+    writePinLow(LED_NUM_LOCK_PIN);
+    writePinLow(LED_CAPS_LOCK_PIN);
+    writePinLow(LED_SCROLL_LOCK_PIN);
 
     matrix_init_user();
 }
@@ -31,9 +31,9 @@ void matrix_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(NUM_LOCK_LED_PIN, !led_state.num_lock);
-        writePin(CAPS_LOCK_LED_PIN, !led_state.caps_lock);
-        writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock);
+        writePin(LED_NUM_LOCK_PIN, !led_state.num_lock);
+        writePin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
+        writePin(LED_SCROLL_LOCK_PIN, !led_state.scroll_lock);
     }
     return res;
 }
