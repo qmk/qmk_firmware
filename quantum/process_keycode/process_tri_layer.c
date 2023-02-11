@@ -16,7 +16,6 @@ bool process_tri_layer(uint16_t keycode, keyrecord_t *record) {
                 update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_upper_layer(), get_tri_layer_adjust_layer());
             }
             return false;
-            break;
         case QK_TRI_LAYER_UPPER:
             if (record->event.pressed) {
                 layer_on(get_tri_layer_upper_layer());
@@ -26,7 +25,6 @@ bool process_tri_layer(uint16_t keycode, keyrecord_t *record) {
                 update_tri_layer(get_tri_layer_lower_layer(), get_tri_layer_upper_layer(), get_tri_layer_adjust_layer());
             }
             return false;
-            break;
     }
     return true;
 }

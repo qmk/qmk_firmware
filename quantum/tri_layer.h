@@ -14,25 +14,25 @@
 #endif
 
 /**
- * @brief Set the tri layer lower layer layer value
+ * @brief Set the tri layer lower layer index
  *
  * @param layer
  */
 void set_tri_layer_lower_layer(uint8_t layer);
 /**
- * @brief Set the tri layer upper layer layer value
+ * @brief Set the tri layer upper layer index
  *
  * @param layer
  */
 void set_tri_layer_upper_layer(uint8_t layer);
 /**
- * @brief Set the tri layer adjust layer object
+ * @brief Set the tri layer adjust layer index
  *
  * @param layer
  */
 void set_tri_layer_adjust_layer(uint8_t layer);
 /**
- * @brief Set the tri layer layers object
+ * @brief Set the tri layer indices
  *
  * @param lower
  * @param upper
@@ -40,19 +40,19 @@ void set_tri_layer_adjust_layer(uint8_t layer);
  */
 void set_tri_layer_layers(uint8_t lower, uint8_t upper, uint8_t adjust);
 /**
- * @brief Get the tri layer lower layer object
+ * @brief Get the tri layer lower layer index
  *
  * @return uint8_t
  */
 uint8_t get_tri_layer_lower_layer(void);
 /**
- * @brief Get the tri layer upper layer object
+ * @brief Get the tri layer upper layer index
  *
  * @return uint8_t
  */
 uint8_t get_tri_layer_upper_layer(void);
 /**
- * @brief Get the tri layer adjust layer object
+ * @brief Get the tri layer adjust layer index
  *
  * @return uint8_t
  */
