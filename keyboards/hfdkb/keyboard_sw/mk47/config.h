@@ -19,10 +19,6 @@
 /* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
  #define FORCE_NKRO
 
-// /* key matrix size */
-// #define MATRIX_ROWS 4
-// #define MATRIX_COLS 12
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C6, C7, C8, C9 }
 #define MATRIX_COL_PINS { C1, C2, C3, A0, A1, A2, A3, A4, A5, A6, A7, C4 }
@@ -125,6 +121,4 @@
 #define RGB_MATRIX_SPD_STEP 52
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 250 /* The maximum brightness level */
 
-// /* Set debounce time to 1ms */
-// #define DEBOUNCE 5
 
