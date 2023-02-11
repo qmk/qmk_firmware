@@ -15,13 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #pragma once
 
-
-#define USE_SERIAL
-
 #define MASTER_LEFT
-// #define MASTER_RIGHT
+//#define MASTER_RIGHT
+
 //#define EE_HANDS
-// Rows are doubled-up

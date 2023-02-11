@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7767
-#define PRODUCT_ID      0x7E94
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AlisGraveNil
-#define PRODUCT         The Coupe
-#define DESCRIPTION     A 61-key/60% QMK-powered custom keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7

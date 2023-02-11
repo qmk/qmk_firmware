@@ -2,14 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2020
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Jonathan Cameron
-#define PRODUCT         2x5keypad
-#define DESCRIPTION     2x5 Keypad
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 5
@@ -17,16 +9,9 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B3, B2 }
 #define MATRIX_COL_PINS { D4, C6, D7, E6, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 0
-#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -40,15 +25,17 @@
 /* Tap dancing params */
 #define TAPPING_TERM 250
 
-/* key combination for command */
-/* DISABLED
-#define IS_COMMAND() ( \
-   get_mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-*/
-
 #ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 0
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

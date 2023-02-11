@@ -1,3 +1,20 @@
+/*
+Copyright 2020 Constantine Chen @csc027
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include QMK_KEYBOARD_H
 #include "csc027.h"
 
@@ -36,11 +53,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______,  _______,  _______,                   _______,  _______,  _______
     ),
 
-    [_GT] = LAYOUT_wrapper(
-        _______________________GIT_L1______________________,                            _______________________GIT_R1______________________,
-        _______________________GIT_L2______________________,                            _______________________GIT_R2______________________,
-        _______________________GIT_L3______________________,                            _______________________GIT_R3______________________,
-        _______________________GIT_L4______________________, _______,          _______, _______________________GIT_R4______________________,
+    [_WT] = LAYOUT_wrapper(
+        ________________WINDOWS_TERMINAL_L1________________,                            ________________WINDOWS_TERMINAL_R1________________,
+        ________________WINDOWS_TERMINAL_L2________________,                            ________________WINDOWS_TERMINAL_R2________________,
+        ________________WINDOWS_TERMINAL_L3________________,                            ________________WINDOWS_TERMINAL_R3________________,
+        ________________WINDOWS_TERMINAL_L4________________, _______,          _______, ________________WINDOWS_TERMINAL_R4________________,
                                    _______,  _______,  _______,                   _______,  _______,  _______
     ),
 
@@ -62,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_CS] = LAYOUT(
         XXXXXXX, KC_5,    KC_1,    KC_2,    KC_3,    KC_4,                               KC_6,    KC_P7,   KC_P8,   KC_P9,   KC_0,    KC_BSPC,
-        XXXXXXX, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,                               KC_Y,    KC_P4,   KC_P5,   KC_P6,   XXXXXXX, KC_NLCK,
+        XXXXXXX, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,                               KC_Y,    KC_P4,   KC_P5,   KC_P6,   XXXXXXX, KC_NUM,
         KC_G,    KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                               KC_H,    KC_P1,   KC_P2,   KC_P3,   KC_PENT, KC_ESC,
         XXXXXXX, KC_LCTL, XXXXXXX, KC_X,    XXXXXXX, XXXXXXX, KC_SPC,           _______, KC_N,    KC_P0,   KC_P0,   KC_PDOT, TO(_QW), TO(_QW),
                                    KC_B,     KC_SPC,   KC_SPC,                    _______,  KC_N,     KC_P0

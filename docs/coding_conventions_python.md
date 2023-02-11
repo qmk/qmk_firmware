@@ -2,7 +2,7 @@
 
 Most of our style follows PEP8 with some local modifications to make things less nit-picky. 
 
-* We target Python 3.6 for compatability with all supported platforms.
+* We target Python 3.7 for compatibility with all supported platforms.
 * We indent using four (4) spaces (soft tabs)
 * We encourage liberal use of comments
   * Think of them as a story describing the feature
@@ -21,7 +21,7 @@ You can use [yapf](https://github.com/google/yapf) to style your code. We provid
 
 We don't have a hard and fast rule for when to use `import ...` vs `from ... import ...`. Understandability and maintainability is our ultimate goal.
 
-Generally we prefer to import specific function and class names from a module to keep code shorter and easier to understand. Sometimes this results in a name that is ambiguous, and in such cases we prefer to import the module instead. You should avoid using the "as" keyword when importing, unless you are importing a compatability module.
+Generally we prefer to import specific function and class names from a module to keep code shorter and easier to understand. Sometimes this results in a name that is ambiguous, and in such cases we prefer to import the module instead. You should avoid using the "as" keyword when importing, unless you are importing a compatibility module.
 
 Imports should be one line per module. We group import statements together using the standard python rules- system, 3rd party, local.
 

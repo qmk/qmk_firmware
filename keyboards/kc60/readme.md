@@ -12,6 +12,10 @@ Make example for this keyboard (after setting up your build environment):
 
     make kc60:default
 
+Flashing example for this keyboard:
+
+    make kc60:default:flash
+
 ## RGB Underglow Support
 
 To add RGB Underglow to the KC60, see [Adding RGB Underglow to the KC60](mod_rgb_underglow.md).

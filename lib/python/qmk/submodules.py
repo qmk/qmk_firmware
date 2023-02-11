@@ -1,7 +1,6 @@
 """Functions for working with QMK's submodules.
 """
-
-import subprocess
+from milc import cli
 
 
 def status():
@@ -12,13 +11,17 @@ def status():
         {
             'name': 'submodule_name',
             'status': None/False/True,
-            'githash': '<sha-1 hash for the submodule>
+            'githash': '<sha-1 hash for the submodule>'
+            'shorthash': '<short hash for the submodule>'
+            'describe': '<output of `git describe --tags`>'
+            'last_log_message': 'log message'
+            'last_log_timestamp': 'timestamp'
         }
 
     status is None when the submodule doesn't exist, False when it's out of date, and True when it's current
     """
     submodules = {}
-    git_cmd = subprocess.run(['git', 'submodule', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30, universal_newlines=True)
+    git_cmd = cli.run(['git', 'submodule', 'status'], timeout=30)
 
     for line in git_cmd.stdout.split('\n'):
         if not line:
@@ -37,6 +40,26 @@ def status():
         else:
             raise ValueError('Unknown `git submodule status` sha-1 prefix character: "%s"' % status)
 
+    submodule_logs = cli.run(['git', 'submodule', '-q', 'foreach', 'git --no-pager log --pretty=format:"$sm_path%x01%h%x01%ad%x01%s%x0A" --date=iso -n1'])
+    for log_line in submodule_logs.stdout.split('\n'):
+        if not log_line:
+            continue
+
+        r = log_line.split('\x01')
+        submodule = r[0]
+        submodules[submodule]['shorthash'] = r[1] if len(r) > 1 else ''
+        submodules[submodule]['last_log_timestamp'] = r[2] if len(r) > 2 else ''
+        submodules[submodule]['last_log_message'] = r[3] if len(r) > 3 else ''
+
+    submodule_tags = cli.run(['git', 'submodule', '-q', 'foreach', '\'echo $sm_path `git describe --tags`\''])
+    for log_line in submodule_tags.stdout.split('\n'):
+        if not log_line:
+            continue
+
+        r = log_line.split()
+        submodule = r[0]
+        submodules[submodule]['describe'] = r[1] if len(r) > 1 else ''
+
     return submodules
 
 
@@ -53,19 +76,19 @@ def update(submodules=None):
         # Update everything
         git_sync_cmd.append('--recursive')
         git_update_cmd.append('--recursive')
-        subprocess.run(git_sync_cmd, check=True)
-        subprocess.run(git_update_cmd, check=True)
+        cli.run(git_sync_cmd, check=True)
+        cli.run(git_update_cmd, check=True)
 
     else:
         if isinstance(submodules, str):
             # Update only a single submodule
             git_sync_cmd.append(submodules)
             git_update_cmd.append(submodules)
-            subprocess.run(git_sync_cmd, check=True)
-            subprocess.run(git_update_cmd, check=True)
+            cli.run(git_sync_cmd, check=True)
+            cli.run(git_update_cmd, check=True)
 
         else:
             # Update submodules in a list
             for submodule in submodules:
-                subprocess.run(git_sync_cmd + [submodule], check=True)
-                subprocess.run(git_update_cmd + [submodule], check=True)
+                cli.run([*git_sync_cmd, submodule], check=True)
+                cli.run([*git_update_cmd, submodule], check=True)

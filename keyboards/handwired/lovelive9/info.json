@@ -1,9 +1,13 @@
 {
     "keyboard_name": "lovelive9",
+    "manufacturer": "numazu Keyboards",
     "url": "https://github.com/ginjake",
     "maintainer": "ginjake",
-    "width": 9,
-    "height": 4.5,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0007",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,3 +1,25 @@
+/*
+  Copyright (c) 2020 Fred Silberberg
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+*/
+
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
@@ -133,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,                                         _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, KC_BTN1, KC_BTN2,                                                           _______, _______, _______, _______, _______,
-                                                             BL_INC,  BL_DEC,      KC_VOLU, _______,
+                                                             BL_UP,   BL_DOWN,     KC_VOLU, _______,
                                                                       BL_TOGG,     KC_VOLD,
                                                     _______, _______, _______,     KC_MPRV, KC_MPLY, KC_MNXT
 ),
@@ -198,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
         KC_LCTL, _______, _______, _______, _______, _______,                                              _______, _______, _______, _______, _______, _______,
         KC_LSFT, KC_Z,    _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
-        KC_ENT,  _______, _______, KC_LOCK, KC_BSPC,                                                                _______, _______, _______, _______, _______,
+        KC_ENT,  _______, _______, QK_LOCK, KC_BSPC,                                                                _______, _______, _______, _______, _______,
                                                               KC_F5,   KC_F6,         LCTL(KC_C), LCTL(KC_V),
                                                                        _______,       KC_UP,
                                                      KC_LALT, KC_SPC,  OSM(SYMB),     KC_DOWN,    _______, _______
@@ -232,7 +254,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_UP,   _______,  _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
         KC_LCTL, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                                              _______, _______, _______, _______, _______, _______,
         KC_LSFT, KC_Z,    _______, _______,  _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
-        KC_ENT,  _______, _______, KC_LOCK,  KC_BSPC,                                                                _______, _______, _______, _______, _______,
+        KC_ENT,  _______, _______, QK_LOCK,  KC_BSPC,                                                                _______, _______, _______, _______, _______,
                                                                KC_F5,   KC_F6,         LCTL(KC_C), LCTL(KC_V),
                                                                         _______,       KC_UP,
                                                       KC_LALT, KC_SPC,  OSM(SYMB),     KC_DOWN,    _______, _______
@@ -250,3 +272,43 @@ void matrix_scan_user(void) {
     ergodox_led_all_on();
 }
 
+#ifdef ST7565_ENABLE
+
+void st7565_task_user(void) {
+    // The colors will need to be ported over to the quantum painter API when
+    // https://github.com/qmk/qmk_firmware/pull/10174 is merged.
+
+    st7565_clear();
+    switch (get_highest_layer(layer_state)) {
+        case BASE:
+            //state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
+            st7565_write_P(PSTR("Default\n"), false);
+            break;
+        case CODEFLOW:
+            //state->target_lcd_color = LCD_COLOR(216, 90, 0xFF);
+            st7565_write_P(PSTR("Code\n"), false);
+            break;
+        case SYMB:
+            //state->target_lcd_color = LCD_COLOR(168, saturation, 0xFF);
+            st7565_write_P(PSTR("Symbol\n"), false);
+            break;
+        case MDIA:
+            //state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
+            st7565_write_P(PSTR("Media\n"), false);
+            break;
+        case VIM:
+            //state->target_lcd_color = LCD_COLOR(140, 100, 60);
+            st7565_write_P(PSTR("Movement\n"), false);
+            break;
+        case GAME:
+            //state->target_lcd_color = LCD_COLOR(0, 255, 60);
+            st7565_write_P(PSTR("Game\n"), false);
+            break;
+        case GAME_ARROW:
+            //state->target_lcd_color = LCD_COLOR(0, 255, 60);
+            st7565_write_P(PSTR("Game Arrow\n"), false);
+            break;
+    }
+}
+
+#endif

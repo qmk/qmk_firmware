@@ -1,31 +1,21 @@
-/*
-Copyright 2017 Danny Nguyen <danny@keeb.io>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-
-// #define USE_SERIAL
-#define USE_I2C
-
-/* Select hand configuration */
-
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
@@ -40,11 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #    define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 
-#    define RGBLIGHT_LIMIT_VAL 225
+#    ifndef RGBLIGHT_LIMIT_VAL
+#       define RGBLIGHT_LIMIT_VAL 225
+#    endif
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
-#    define C6_AUDIO
+#    define AUDIO_PIN C6
 #    ifdef RGBLIGHT_ENABLE
 #        ifndef __arm__
 #            define NO_MUSIC_MODE
@@ -59,13 +51,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define QMK_SPEAKER C6
 #endif
 
-#undef PRODUCT
 #if defined(KEYBOARD_keebio_iris_rev2)
-#    define PRODUCT Drashna Hacked Iris Rev 2
+#    undef PRODUCT
+#    define PRODUCT "Drashna Hacked Iris Rev 2"
 #elif defined(KEYBOARD_keebio_iris_rev3)
-#    define PRODUCT Drashna Hacked Iris Rev 3
+#    undef PRODUCT
+#    define PRODUCT "Drashna Hacked Iris Rev 3"
 #elif defined(KEYBOARD_keebio_iris_rev4)
-#    define PRODUCT Drashna Hacked Iris Rev 4
+#    undef PRODUCT
+#    define PRODUCT "Drashna Hacked Iris Rev 4"
 #endif
 
 #define SHFT_LED1 6

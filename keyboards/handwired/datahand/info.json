@@ -1,0 +1,100 @@
+{
+    "keyboard_name": "DataHand",
+    "manufacturer": "DataHand",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x13BA",
+        "pid": "0x0017",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"lpn", "x":1, "y":2.75},
+
+                {"label":"lrn", "x":3.25, "y":1.25},
+
+                {"label":"lmn", "x":5.75, "y":0},
+
+                {"label":"lin", "x":9, "y":0.75},
+
+                {"label":"rin", "x":13, "y":0.75},
+
+                {"label":"rmn", "x":16.25, "y":0},
+
+                {"label":"rrn", "x":18.75, "y":1.25},
+
+                {"label":"rpn", "x":21, "y":2.75},
+
+                {"label":"lpw", "x":0, "y":3.75},
+                {"label":"lpc", "x":1, "y":3.75},
+                {"label":"lpe", "x":2, "y":3.75},
+
+                {"label":"lrw", "x":2.25, "y":2.25},
+                {"label":"lrc", "x":3.25, "y":2.25},
+                {"label":"lre", "x":4.25, "y":2.25},
+
+                {"label":"lmw", "x":4.75, "y":1},
+                {"label":"lmc", "x":5.75, "y":1},
+                {"label":"lme", "x":6.75, "y":1},
+
+                {"label":"liw", "x":8, "y":1.75},
+                {"label":"lic", "x":9, "y":1.75},
+                {"label":"lie", "x":10, "y":1.75},
+
+                {"label":"riw", "x":12, "y":1.75},
+                {"label":"ric", "x":13, "y":1.75},
+                {"label":"rie", "x":14, "y":1.75},
+
+                {"label":"rmw", "x":15.25, "y":1},
+                {"label":"rmc", "x":16.25, "y":1},
+                {"label":"rme", "x":17.25, "y":1},
+
+                {"label":"rrw", "x":17.75, "y":2.25},
+                {"label":"rrc", "x":18.75, "y":2.25},
+                {"label":"rre", "x":19.75, "y":2.25},
+
+                {"label":"rpw", "x":20, "y":3.75},
+                {"label":"rpc", "x":21, "y":3.75},
+                {"label":"rpe", "x":22, "y":3.75},
+
+                {"label":"lps", "x":1, "y":4.75},
+
+                {"label":"lrs", "x":3.25, "y":3.25},
+
+                {"label":"lms", "x":5.75, "y":2},
+
+                {"label":"lis", "x":9, "y":2.75},
+
+                {"label":"ris", "x":13, "y":2.75},
+
+                {"label":"rms", "x":16.25, "y":2},
+
+                {"label":"rrs", "x":18.75, "y":3.25},
+
+                {"label":"rps", "x":21, "y":4.75},
+
+                {"label":"ltp", "x":8, "y":4.75},
+                {"label":"ltn", "x":10, "y":4.75},
+
+                {"label":"rtn", "x":12, "y":4.75},
+                {"label":"rtp", "x":14, "y":4.75},
+
+                {"label":"ltc", "x":9, "y":5.25},
+
+                {"label":"rtc", "x":13, "y":5.25},
+
+                {"label":"ltl", "x":9, "y":6.25},
+
+                {"label":"rtl", "x":13, "y":6.25},
+
+                {"label":"ltu", "x":8, "y":6.75},
+                {"label":"ltk", "x":10, "y":6.75},
+
+                {"label":"rtk", "x":12, "y":6.75},
+                {"label":"rtu", "x":14, "y":6.75}
+            ]
+        }
+    }
+}

@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E58 //"NX"
-#define PRODUCT_ID      0x010C //268
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Noxary
-#define PRODUCT         268
-#define DESCRIPTION     A fully customizable 65% keyboard.
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -43,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { F5, F4, F0, F1, D0 }
 #define MATRIX_COL_PINS { C6, C7, F7, F6, E6, B0, D1, B2, B3, D2, D3, D5, D4, D6, D7, B4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

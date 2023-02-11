@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-/* LAYOUT
+/* Layout
  * ┌───┐ ┌───┬───┬───┬───┬───┬───┬───┐         ┌───┬───┬───┬───┬───┬───┬───┬───┐
  * │50 │ │00 │01 │02 │03 │04 │05 │06 │         │07 │08 │09 │0A │0B │0C │0D │0E │
  * ├───┤ ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┘       ┌─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *       │40   │     │41   │42     │43  │   │46        │47   │           │48   │
  *       └─────┘     └─────┴───────┴────┘   └──────────┴─────┘           └─────┘
  */
-#define LAYOUT( \
+#define LAYOUT_alice_split_bs( \
   K50,   K00, K01, K02, K03, K04, K05, K06,      K07, K08, K09, K0A, K0B, K0C, K0D, K0E, \
   K51,   K10, K11, K12, K13, K14, K15,      K16, K17, K18, K19, K1A, K1B, K1C, K1D,      \
   K52,   K20, K21, K22, K23, K24, K25,      K26, K27, K28, K29, K2A, K2B,      K2C,      \
@@ -48,3 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { K50  , K51  , K52  , KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }  \
 }
 
+#define LAYOUT LAYOUT_alice_split_bs

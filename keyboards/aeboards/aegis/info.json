@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Aegis",
+    "manufacturer": "AEboards",
     "url": "",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 6.75,
+    "usb": {
+        "vid": "0x4145",
+        "pid": "0x0807",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_aegis": {
             "layout": [

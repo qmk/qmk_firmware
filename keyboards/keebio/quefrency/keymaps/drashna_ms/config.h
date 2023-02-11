@@ -35,6 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef AUDIO_ENABLE
-    #define B7_AUDIO
+    #define AUDIO_PIN B7
     #define AUDIO_CLICKY
 #endif

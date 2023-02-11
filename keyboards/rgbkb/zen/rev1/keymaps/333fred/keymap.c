@@ -1,3 +1,25 @@
+/*
+  Copyright (c) 2020 Fred Silberberg
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+*/
+
 #include QMK_KEYBOARD_H
 #include "333fred.h"
 
@@ -36,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|              |------+------+------+------+------+------|
  * | APscr|   %  |   ^  |   [  |   ]  |   ~  |              |   1  |   2  |   3  |   \  | Vol- | Vol+ |
  * |------+------+------+------+------+------+------..------+------+------+------+------+------+------|
- * | Pscr |      | RESET|      |      | GAME |      ||      |   0  |   .  |   =  | Prev | Next | Play |
+ * | Pscr |      | QK_BOOT|      |      | GAME |      ||      |   0  |   .  |   =  | Prev | Next | Play |
  * `------------------------------------------------- -------------------------------------------------'
  */
 [SYMB] = LAYOUT( \
@@ -44,12 +66,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,     KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_PIPE,                    KC_7,  KC_8,   KC_9,   KC_ASTR, KC_RPRN, KC_F12, \
     _______,     KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_GRV,                     KC_4,  KC_5,   KC_6,   KC_PLUS, KC_RCBR, KC_PIPE, \
     PSCREEN_APP, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                    KC_1,  KC_2,   KC_3,   KC_BSLS, KC_VOLD, KC_VOLU, \
-    KC_PSCR,     _______, RESET,   _______, _______, TO(GAME), _______, _______, KC_0,  KC_DOT, KC_EQL, KC_MPRV, KC_MNXT, KC_MPLY \
+    KC_PSCR,     _______, QK_BOOT, _______, _______, TO(GAME), _______, _______, KC_0,  KC_DOT, KC_EQL, KC_MPRV, KC_MNXT, KC_MPLY \
 ),
 
 /* Vim Movement
  * ,-----------------------------------------.              .-----------------------------------------.
- * |      |      |      |      |      |      |              |      |      |      |      | RESET|      |
+ * |      |      |      |      |      |      |              |      |      |      |      | QK_BOOT|      |
  * |------+------+------+------+------+------|              |------+------+------+------+------+------|
  * |      |RGBSAI|RGBVAI|RGBSAD| LSFT |      |              |      |      |      |      |      |      |
  * |------+------+------+------+------+------|              |------+------+------+------+------+------|
@@ -61,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------..------------------------------------------------'
  */
 [VIM] =  LAYOUT( \
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, RESET,   _______, \
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, QK_BOOT, _______, \
     _______, RGB_SAI, RGB_VAI, RGB_SAD, KC_LSFT, _______,                   _______, _______, _______, _______, _______, _______, \
     _______, DLEFT,   DRIGHT,  KC_LCTL, KC_LGUI, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
     _______, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______,                   _______, _______, _______, _______, _______, _______, \
@@ -79,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|              |------+------+------+------+------+------|
  * | Shift|   Z  |      |      |      |      |              |      |      |      |      |      |  GUI |
  * |------+------+------+------+------+------+------..------+------+------+------+------+------+------|
- * | Enter|      | Lock | Bksp |  Alt |  Spc | RESET||      | Lower| Left |  Up  | Down | Right|QWERTY|
+ * | Enter|      | Lock | Bksp |  Alt |  Spc | QK_BOOT||      | Lower| Left |  Up  | Down | Right|QWERTY|
  * `------------------------------------------------..-----------------------------------------------'
  */
 [GAME] =  LAYOUT( \
@@ -87,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______,        _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
     KC_LCTL, _______,        _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
     KC_LSFT, KC_Z,           _______, _______, _______, _______,                    _______, _______, _______, _______, _______, KC_LGUI, \
-    KC_ENT,  TG(GAME_ARROW), KC_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
+    KC_ENT,  TG(GAME_ARROW), QK_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
 ),
 /* Gaming Arrow mode (Raise)
  * Turns wasd into arrows
@@ -100,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|              |------+------+------+------+------+------|
  * | Shift|   Z  |      |      |      |      |              |      |      |      |      |      |  GUI |
  * |------+------+------+------+------+------+------..------+------+------+------+------+------+------|
- * | Enter|      | Lock | Bksp |  Alt |  Spc | RESET||      | Lower| Left |  Up  | Down | Right|QWERTY|
+ * | Enter|      | Lock | Bksp |  Alt |  Spc | QK_BOOT||      | Lower| Left |  Up  | Down | Right|QWERTY|
  * `------------------------------------------------..-----------------------------------------------'
  */
 [GAME_ARROW] =  LAYOUT( \
@@ -108,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, KC_UP,   _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
     KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,                    _______, _______, _______, _______, _______, _______, \
     KC_LSFT, KC_Z,    _______, _______, _______, _______,                    _______, _______, _______, _______, _______, KC_LGUI, \
-    KC_ENT,  _______, KC_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
+    KC_ENT,  _______, QK_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
 )
 };
 

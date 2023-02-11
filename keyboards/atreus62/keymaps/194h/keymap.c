@@ -31,7 +31,7 @@
 #define  NO_RCBR  RALT(KC_0)        //  }
 #define  NO_COLN  LSFT(KC_DOT)      //  :
 #define  NO_SCLN  LSFT(KC_COMM)     //  ;
-#define  NO_MU    RALT(KC_M)        //  µ
+#define  NO_MICR  RALT(KC_M)        //  µ
 #define  NO_EURO  RALT(KC_E)        //  €
 #define  NO_SECT  LSFT(KC_GRV)      //  §
 #define  NO_GERC  RALT(KC_COMM)     //  ¸
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [L5] = LAYOUT(
 	XXXXXXX,       TO(L1),       TO(L2),       TO(L3),       TO(L4),       XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      RESET,        XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      QK_BOOT,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
 	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
 	XXXXXXX,       XXXXXXX,      XXXXXXX,      KC_CAPS,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
 	XXXXXXX,       _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX

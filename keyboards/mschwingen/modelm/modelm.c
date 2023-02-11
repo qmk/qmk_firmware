@@ -27,7 +27,7 @@
 #    undef sendchar
 static int8_t capture_sendchar(uint8_t c) {
     //  sendchar(c);
-    uart_putchar(c);
+    uart_write(c);
     return 0;
 }
 #endif
@@ -47,19 +47,19 @@ static cRGB led[RGBLED_NUM] = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}
 
 static const cRGB black = {.r = 0, .g = 0, .b = 0};
 
-static const cRGB green  = {.r = 0, .g = BRIGHT, .b = 0};
-static const cRGB lgreen = {.r = 0, .g = DIM, .b = 0};
+static const __attribute__((unused)) cRGB green  = {.r = 0, .g = BRIGHT, .b = 0};
+static const __attribute__((unused)) cRGB lgreen = {.r = 0, .g = DIM, .b = 0};
 
-static const cRGB red  = {.r = BRIGHT, .g = 0, .b = 0};
-static const cRGB lred = {.r = DIM, .g = 0, .b = 0};
+static const __attribute__((unused)) cRGB red  = {.r = BRIGHT, .g = 0, .b = 0};
+static const __attribute__((unused)) cRGB lred = {.r = DIM, .g = 0, .b = 0};
 
-static const cRGB blue  = {.r = 0, .g = 0, .b = BRIGHT};
-static const cRGB lblue = {.r = 0, .g = 0, .b = DIM};
+static const __attribute__((unused)) cRGB blue  = {.r = 0, .g = 0, .b = BRIGHT};
+static const __attribute__((unused)) cRGB lblue = {.r = 0, .g = 0, .b = DIM};
 
-static const cRGB turq  = {.r = 0, .g = BRIGHT, .b = BRIGHT};
-static const cRGB lturq = {.r = 0, .g = DIM, .b = DIM};
+static const __attribute__((unused)) cRGB turq  = {.r = 0, .g = BRIGHT, .b = BRIGHT};
+static const __attribute__((unused)) cRGB lturq = {.r = 0, .g = DIM, .b = DIM};
 
-static const cRGB white = {.r = BRIGHT, .g = BRIGHT, .b = BRIGHT};
+static const __attribute__((unused)) cRGB white = {.r = BRIGHT, .g = BRIGHT, .b = BRIGHT};
 
 static led_t   led_state;
 static uint8_t layer;
@@ -163,8 +163,8 @@ void update_layer_leds(void) {
     static uint8_t old_layer         = 255;
     static uint8_t old_default_layer = 255;
 
-    layer         = biton32(layer_state);
-    default_layer = biton32(default_layer_state);
+    layer         = get_highest_layer(layer_state);
+    default_layer = get_highest_layer(default_layer_state);
 
     if (isRecording && timer_elapsed(blink_cycle_timer) > 150) {
         blink_state       = !blink_state;
