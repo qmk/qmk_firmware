@@ -663,4 +663,3 @@ std::map<uint16_t, std::string> KEYCODE_ID_TABLE = {
     {QK_REVERSE_REPEAT_KEY, "QK_REVERSE_REPEAT_KEY"},
     {SAFE_RANGE, "SAFE_RANGE"},
 };
-
