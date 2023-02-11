@@ -5,8 +5,6 @@
 
 #include "config_common.h"
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X32
 #define I2C1_SCL_PIN        GP27
