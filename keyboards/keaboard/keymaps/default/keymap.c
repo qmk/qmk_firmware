@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Keith Wade <keawade@protonmail.com>
+Copyright 2023 Keith Wade <https://github.com/keawade>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,15 +1,20 @@
 {
     "keyboard_name": "keaboard",
-    "manufacturer": "keawade",
-    "identifier": "0x9090",
+    "manufacturer": "You",
     "url": "https://github.com/keawade/keaboard",
-    "maintainer": "qmk",
-    "processor": "atmega32u4",
-    "width": 14,
-    "height": 4,
+    "maintainer": "keawade",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x9090",
+        "device_version": "1.0.0"
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "rows": ["D7", "E6", "B4", "B5"],
+        "cols": ["F5", "F6", "F7", "B1", "B3", "B2", "B6"]
+    },
     "layouts": {
         "LAYOUT": {
-            "key_count": 50,
             "layout": [
                 { "label": "L01", "x": 0, "y": 0.375 },
                 { "label": "L05", "x": 1, "y": 0.25 },
