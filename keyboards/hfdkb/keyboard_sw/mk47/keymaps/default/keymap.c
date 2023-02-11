@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
+    KC_MISSION_CONTROL = QK_USER,
     KC_LAUNCHPAD
 };
 
@@ -55,15 +55,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-        return false;
-    }
-    // caps lock cyan
-    if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(12, 255, 255, 255);
-    }
-    return true;
-}
-#endif

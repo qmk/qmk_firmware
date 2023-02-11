@@ -150,7 +150,10 @@ enum custom_keycodes {
 };
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
 #ifdef VIA_ENABLE
         case KC_RESET: {
@@ -168,3 +171,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
+    // caps lock cyan
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(12, 255, 255, 255);
+    }
+    return true;
+}
+#endif
