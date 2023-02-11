@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |RGBSP+|RGBSP-|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -113,46 +113,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // COLOR LAYERS
-const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM rgb_layer_base[] = RGBLIGHT_LAYER_SEGMENTS(
     {3, 1, HSV_GREEN}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM rgb_layer_raise[] = RGBLIGHT_LAYER_SEGMENTS(
     {5, 1, HSV_CYAN}
 );
 
-const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM rgb_layer_lower[] = RGBLIGHT_LAYER_SEGMENTS(
     {4, 1, HSV_YELLOW}
 );
 
-const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM rgb_layer_adj[] = RGBLIGHT_LAYER_SEGMENTS(
     {3, 1, HSV_PURPLE}
 );
 
-const rgblight_segment_t PROGMEM my_shift_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM rgb_layer_shift[] = RGBLIGHT_LAYER_SEGMENTS(
     {6, 1, HSV_ORANGE}
 );
 
 // MOD KEY COLOUR LAYERS
-const rgblight_segment_t PROGMEM mod1_notification_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM rbg_layer_mod1[] = RGBLIGHT_LAYER_SEGMENTS(
     {8, 1, HSV_MAGENTA}
 );
-const rgblight_segment_t PROGMEM mod2_notification_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM rgb_layer_mod2[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_PURPLE}
 );
-const rgblight_segment_t PROGMEM mod3_notification_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM rgb_layer_mod3[] = RGBLIGHT_LAYER_SEGMENTS(
     {2, 1, HSV_AZURE}
 );
- 
+
 const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_base_layer,
-    my_raise_layer,    // Overrides caps lock layer
-    my_lower_layer,    // Overrides other layers
-    my_adjust_layer,     // Overrides other layers
-    my_shift_layer,
-    mod1_notification_layer,
-    mod2_notification_layer,
-    mod3_notification_layer
+    rgb_layer_base,
+    rgb_layer_raise,    // Overrides caps lock layer
+    rgb_layer_lower,    // Overrides other layers
+    rgb_layer_adj,     // Overrides other layers
+    rgb_layer_shift,
+    rbg_layer_mod1,
+    rgb_layer_mod2,
+    rgb_layer_mod3
 );
 
 void keyboard_post_init_user(void) {
@@ -175,7 +175,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
-      if (record->event.pressed) {        
+      if (record->event.pressed) {
         print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QWERTY);
       }
