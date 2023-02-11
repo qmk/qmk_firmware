@@ -212,6 +212,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case QWRT_UA:
     if (record->event.pressed) {
       // when keycode QWRT_UA is pressed
+      layer_clear();
       layer_move(QWERTY_LAYER);
       register_code(KC_LSFT);
       tap_code(KC_CAPS);
@@ -221,7 +222,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case CLM_EN:
     if (record->event.pressed) {
       // when keycode CLM_EN is pressed
-      layer_move(COLMAK_LAYER);
+      layer_clear();
       tap_code(KC_CAPS);
     }
     break;
@@ -267,6 +268,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
   case QWERTY_COMBO:
     if (pressed) {
+      layer_clear();
       layer_move(QWERTY_LAYER);
       register_code(KC_LSFT);
       tap_code(KC_CAPS);
@@ -293,9 +295,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 #ifdef RGBLIGHT_ENABLE
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (state) {
-  case COLMAK_LAYER:
-    rgblight_setrgb(RGB_GREEN);
-    break;
   case NUMBER_LAYER:
     rgblight_setrgb(RGB_CYAN);
     break;
@@ -308,6 +307,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   case QWERTY_LAYER:
     rgblight_setrgb(RGB_MAGENTA);
     break;
+  }
+  if (layer_state_is(COLMAK_LAYER)) {
+    rgblight_setrgb(RGB_GREEN);
   }
   return state;
 }
