@@ -1,5 +1,6 @@
 // Copyright 2022 Johannes Schneider (@JohSchneider)
 // SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
 
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 3
