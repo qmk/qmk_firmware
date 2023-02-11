@@ -15,7 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+// #include "muse.h"
 
 enum layers {
     Base,
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NavNum] = LAYOUT_preonic_grid(
         SWITCH_WIN_DESKTOP_LEFT, SWITCH_WIN_DESKTOP_RIGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SWITCH_WIN_DESKTOP_LEFT, SWITCH_WIN_DESKTOP_RIGHT,
-        KC_GRV    , KC_SLSH   , KC_UP     , KC_ASTR   , KC_PLUS   , KC_LPRN   , KC_RPRN   , KC_7      , KC_8      , KC_9      , KC_DEL    , KC_BSPC   ,
+        KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , KC_LPRN   , KC_RPRN   , KC_7      , KC_8      , KC_9      , KC_DEL    , KC_BSPC   ,
         KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , KC_LCBR   , KC_RCBR   , KC_4      , KC_5      , KC_6      , KC_SCLN   , KC_ENT    ,
         KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , KC_LBRC   , KC_RBRC   , KC_1      , KC_2      , KC_3      , KC_BSLS   , KC_RSFT   ,
         KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , LT(NumCharFunc,KC_SPC), LT(NumCharFunc,KC_SPC), KC_0  , KC_DOT    , KC_COMM   , KC_TRNS   , KC_TRNS

@@ -59,7 +59,8 @@ enum custom_keycodes {
     // REP_QUOTE,
     POP_TAB_VSCODE,
     SWITCH_WIN_DESKTOP_LEFT,
-    SWITCH_WIN_DESKTOP_RIGHT
+    SWITCH_WIN_DESKTOP_RIGHT,
+    SYM_CALL
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC    , KC_Q      , KC_W      , KC_E      , KC_R          , KC_T             , KC_Y                , KC_U      , KC_I      , KC_O      , KC_P      , KC_BSPC   ,
         KC_TAB    , KC_A      , KC_S      , KC_D      , KC_F          , KC_G             , KC_H                , KC_J      , KC_K      , KC_L      , KC_QUOT   , KC_ENT    ,
         KC_LSFT   , KC_Z      , KC_X      , KC_C      , KC_V          , KC_B             , KC_N                , KC_M      , KC_COMM   , KC_DOT    , KC_SLSH   , KC_RSFT   ,
-                                            KC_LCTL   , LALT_T(KC_DEL), LT(NavNum,KC_SPC), LT(NavAppNav,KC_SPC), KC_RGUI   , MO(AppNavMacro)
+                                            KC_LCTL   , LALT_T(KC_DEL), LT(NavNum,KC_SPC), LT(NavAppNav,KC_SPC), KC_RGUI   , SYM_CALL
     ),
     [NavNum] = LAYOUT_split_3x6_3(
         KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , KC_LPRN   , KC_RPRN               , KC_7      , KC_8      , KC_9      , KC_DEL    , KC_BSPC   ,
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LALT(KC_F4)  , KC_HOME          , KC_UP          , KC_END            , RCS(KC_TAB)  , LCTL(KC_TAB)  , SELECTION_PAIR_PAREN   , ADD_SPACE_DOWN           , REMOVE_CHARACTER_DOWN  , MOVE_LINE_UP       , MOVE_LINE_DOWN         , POP_TAB_VSCODE          ,
         KC_PGUP      , KC_LEFT          , KC_DOWN        , KC_RIGHT          , LALT(KC_LEFT), LALT(KC_RIGHT), SELECTION_PAIR_BRACES  , SELECTION_PAIR_INEQUALITY, SELECTION_BLOCK_COMMENT, SELECTION_DO_END   , SELECTION_PAIR_QUOTES  , SELECT_LINE             ,
         KC_PGDN      , OPEN_TASK_MANAGER, POP_TAB_CHROME , OPEN_FOLDER_IN_CMD, LCTL(KC_PMNS), LCTL(KC_PPLS) , SELECTION_PAIR_BRACKETS, SHIFT_CONTROL_LEFT       , SELECT_WORD            , SHIFT_CONTROL_RIGHT, SWITCH_WIN_DESKTOP_LEFT, SWITCH_WIN_DESKTOP_RIGHT,
-                                                           KC_TRNS           , KC_TRNS      , KC_TRNS       , TO(Gaming)             , KC_TRNS                  , KC_TRNS
+                                                           SYM_CALL          , KC_TRNS      , KC_TRNS       , TO(Gaming)             , KC_TRNS                  , KC_TRNS
     ),
     [Gaming] = LAYOUT_split_3x6_3(
         KC_ESC    , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T      , KC_Y             , KC_U      , KC_I      , KC_O      , KC_P      , KC_BSPC   ,
@@ -148,7 +149,71 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
+int press_buffer_array[3] = {-1,-1,-1};
+int sym_call_array[3] = {-1,-1,-1};
+bool sym_call_array_update = false;
+
+int exc_array[3] = {4,23,2};
+int ats_array[3] = {0,19,18};
+int pou_array[3] = {15,14,20};
+int dol_array[3] = {3,14,11};
+int per_array[3] = {15,4,17};
+int car_array[3] = {2,0,17};
+int amp_array[3] = {0,12,15};
+int ast_array[3] = {0,18,19};
+int til_array[3] = {19,8,11};
+
+void update_press_buffer_array(int new_press){
+    press_buffer_array[0] = press_buffer_array[1];
+    press_buffer_array[1] = press_buffer_array[2];
+    press_buffer_array[2] = new_press;
+}
+
+bool compare_3e_arrays(int array1[], int array2[]){
+    int i = 0;
+
+    for(i = 0; i < 3; i++){
+        if(array1[i] != array2[i]){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void update_sym_call_array(void){
+    if(
+        compare_3e_arrays(exc_array, press_buffer_array)||
+        compare_3e_arrays(ats_array, press_buffer_array)||
+        compare_3e_arrays(pou_array, press_buffer_array)||
+        compare_3e_arrays(dol_array, press_buffer_array)||
+        compare_3e_arrays(per_array, press_buffer_array)||
+        compare_3e_arrays(car_array, press_buffer_array)||
+        compare_3e_arrays(amp_array, press_buffer_array)||
+        compare_3e_arrays(ast_array, press_buffer_array)
+    ){
+        int i = 0;
+
+        for(i = 0; i < 3; i++){
+            sym_call_array[i] = press_buffer_array[i];
+            press_buffer_array[i] = -1;
+        }
+
+        sym_call_array_update = true;
+    }
+}
+
+void sym_call_success(void){
+    if(sym_call_array_update){
+        tap_code(KC_BSPC);
+        tap_code(KC_BSPC);
+        tap_code(KC_BSPC);
+        sym_call_array_update = false;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
+  static uint16_t lt_timer;
 
   switch (keycode){
     case LT(NavNum,KC_SPC):
@@ -294,7 +359,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
         return false;
     case MOVE_LINE_UP:
         if(record->event.pressed){
-            tap_code16(SELECT_LINE);
+            tap_code(KC_HOME);
+            tap_code16(LSFT(KC_END));
             tap_code16(LCTL(KC_X));
             tap_code(KC_BSPC);
             tap_code(KC_HOME);
@@ -305,7 +371,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
         return false;
     case MOVE_LINE_DOWN:
         if(record->event.pressed){
-            tap_code16(SELECT_LINE);
+            tap_code(KC_HOME);
+            tap_code16(LSFT(KC_END));
             tap_code16(LCTL(KC_X));
             tap_code(KC_BSPC);
             tap_code(KC_DOWN);
@@ -357,11 +424,182 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
         }
         return false;
     case SWITCH_WIN_DESKTOP_RIGHT:
-            if (record->event.pressed){
+        if (record->event.pressed){
             tap_code16(LCTL(LGUI(KC_RIGHT)));
+        }
+        return false;
+    case KC_A:
+        if(record->event.pressed){
+            update_press_buffer_array(0);
+        }
+        break;
+    case KC_B:
+        if(record->event.pressed){
+            update_press_buffer_array(1);
+        }
+        break;
+    case KC_C:
+        if(record->event.pressed){
+            update_press_buffer_array(2);
+        }
+        break;
+    case KC_D:
+        if(record->event.pressed){
+            update_press_buffer_array(3);
+        }
+        break;
+    case KC_E:
+        if(record->event.pressed){
+            update_press_buffer_array(4);
+        }
+        break;
+    case KC_F:
+        if(record->event.pressed){
+            update_press_buffer_array(5);
+        }
+        break;
+    case KC_G:
+        if(record->event.pressed){
+            update_press_buffer_array(6);
+        }
+        break;
+    case KC_H:
+        if(record->event.pressed){
+            update_press_buffer_array(7);
+        }
+        break;
+    case KC_I:
+        if(record->event.pressed){
+            update_press_buffer_array(8);
+        }
+        break;
+    case KC_J:
+        if(record->event.pressed){
+            update_press_buffer_array(9);
+        }
+        break;
+    case KC_K:
+        if(record->event.pressed){
+            update_press_buffer_array(10);
+        }
+        break;
+    case KC_L:
+        if(record->event.pressed){
+            update_press_buffer_array(11);
+        }
+        break;
+    case KC_M:
+        if(record->event.pressed){
+            update_press_buffer_array(12);
+        }
+        break;
+    case KC_N:
+        if(record->event.pressed){
+            update_press_buffer_array(13);
+        }
+        break;
+    case KC_O:
+        if(record->event.pressed){
+            update_press_buffer_array(14);
+        }
+        break;
+    case KC_P:
+        if(record->event.pressed){
+            update_press_buffer_array(15);
+        }
+        break;
+    case KC_Q:
+        if(record->event.pressed){
+            update_press_buffer_array(16);
+        }
+        break;
+    case KC_R:
+        if(record->event.pressed){
+            update_press_buffer_array(17);
+        }
+        break;
+    case KC_S:
+        if(record->event.pressed){
+            update_press_buffer_array(18);
+        }
+        break;
+    case KC_T:
+        if(record->event.pressed){
+            update_press_buffer_array(19);
+        }
+        break;
+    case KC_U:
+        if(record->event.pressed){
+            update_press_buffer_array(20);
+        }
+        break;
+    case KC_V:
+        if(record->event.pressed){
+            update_press_buffer_array(21);
+        }
+        break;
+    case KC_W:
+        if(record->event.pressed){
+            update_press_buffer_array(22);
+        }
+        break;
+    case KC_X:
+        if(record->event.pressed){
+            update_press_buffer_array(23);
+        }
+        break;
+    case KC_Y:
+        if(record->event.pressed){
+            update_press_buffer_array(24);
+        }
+        break;
+    case KC_Z:
+        if(record->event.pressed){
+            update_press_buffer_array(25);
+        }
+        break;
+    case SYM_CALL:
+        if(record->event.pressed){
+            lt_timer = timer_read();
+            layer_on(AppNavMacro);
+        } else {
+            if(timer_elapsed(lt_timer) < 200){
+                update_sym_call_array();
+                if(compare_3e_arrays(exc_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_EXLM);
+                } else if(compare_3e_arrays(ats_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_AT);
+                } else if(compare_3e_arrays(pou_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_HASH);
+                } else if(compare_3e_arrays(dol_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_DLR);
+                } else if(compare_3e_arrays(per_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_PERC);
+                } else if(compare_3e_arrays(car_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_CIRC);
+                } else if(compare_3e_arrays(amp_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_AMPR);
+                } else if(compare_3e_arrays(ast_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_ASTR);
+                } else if(compare_3e_arrays(til_array, sym_call_array)){
+                    sym_call_success();
+                    tap_code16(KC_TILD);
+                }
+            }
+            layer_off(AppNavMacro);
         }
         return false;
   }
   return true;
 
 }
+
+
