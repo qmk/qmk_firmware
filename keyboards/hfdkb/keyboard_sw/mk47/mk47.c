@@ -144,33 +144,6 @@ led_config_t g_led_config = {
 
 #endif
 
-#ifdef VIA_ENABLE
-enum custom_keycodes {
-    KC_RESET = USER00,   
-};
-#endif
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-    switch (keycode) {
-#ifdef VIA_ENABLE
-        case KC_RESET: {
-        if (record->event.pressed) {
-
-        #include "via.h"
-        via_eeprom_set_valid(false);
-        eeconfig_init_via();
-        }
-            return false;
-        }
-#endif
-        default:
-            return true;  // Process all other keycodes normally
-    }
-}
-
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {

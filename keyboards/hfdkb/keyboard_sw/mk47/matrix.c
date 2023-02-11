@@ -16,6 +16,11 @@
 #include "eeconfig.h"
 #include "quantum.h"
 
+#ifdef VIA_ENABLE
+enum custom_keycodes {
+    KC_RESET = USER00,   
+};
+#endif
 
 enum colors { WHITE, RED, GREEN, BLUE };
 enum colors led_color_status = WHITE;
@@ -70,7 +75,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 Lkey_flag = 0;
             }
             return true;
-        default:
+#ifdef VIA_ENABLE
+        case KC_RESET: {
+        if (record->event.pressed) {
+
+        #include "via.h"
+        via_eeprom_set_valid(false);
+        eeconfig_init_via();
+        }
+            return false;
+        }
+#endif
+     default:
             return process_record_user(keycode, record);
     }
 }
