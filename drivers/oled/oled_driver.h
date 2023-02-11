@@ -215,6 +215,11 @@ void oled_render(void);
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
 void oled_set_cursor(uint8_t col, uint8_t line);
 
+// Moves cursor to position indicated by x and line, wraps if out of bounds
+// x start at top-left and go right
+// Max lines by 'oled_max_lines_raw()' functions
+void oled_set_cursor_raw(uint8_t x, uint8_t line);
+
 // Advances the cursor to the next page, writing ' ' if true
 // Wraps to the begining when out of bounds
 void oled_advance_page(bool clearPageRemainder);
@@ -338,5 +343,8 @@ bool oled_invert(bool invert);
 // Returns the maximum number of characters that will fit on a line
 uint8_t oled_max_chars(void);
 
-// Returns the maximum number of lines that will fit on the oled
+// Returns the maximum number of lines by font that will fit on the oled
 uint8_t oled_max_lines(void);
+
+// Returns the maximum number of lines by byte that will fit on the oled
+uint8_t oled_max_lines_raw(void);

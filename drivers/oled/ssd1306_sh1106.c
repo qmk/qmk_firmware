@@ -366,6 +366,17 @@ void oled_set_cursor(uint8_t col, uint8_t line) {
     oled_cursor = &oled_buffer[index];
 }
 
+void oled_set_cursor_raw(uint8_t x, uint8_t line) {
+    uint16_t index = line * oled_rotation_width + x;
+
+    // Out of bounds?
+    if (index >= OLED_MATRIX_SIZE) {
+        index = 0;
+    }
+
+    oled_cursor = &oled_buffer[index];
+}
+
 void oled_advance_page(bool clearPageRemainder) {
     uint16_t index     = oled_cursor - &oled_buffer[0];
     uint8_t  remaining = oled_rotation_width - (index % oled_rotation_width);
@@ -752,6 +763,13 @@ uint8_t oled_max_lines(void) {
         return OLED_DISPLAY_HEIGHT / OLED_FONT_HEIGHT;
     }
     return OLED_DISPLAY_WIDTH / OLED_FONT_HEIGHT;
+}
+
+uint8_t oled_max_lines_raw(void) {
+    if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
+        return OLED_DISPLAY_HEIGHT / 8;
+    }
+    return OLED_DISPLAY_WIDTH / 8;
 }
 
 void oled_task(void) {
