@@ -355,7 +355,12 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
  */
 static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     // allow for keyboard to hook in and override if need be
-    if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode)) return true;
+    if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode) ||
+#    ifdef POINTING_DEVICE_MODES_ENABLE
+        IS_QK_POINTING_MODE(keycode) ||
+#    endif
+        false)
+        return true;
     return false;
 }
 

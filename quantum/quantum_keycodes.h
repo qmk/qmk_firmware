@@ -216,4 +216,37 @@
 #define SQ_R(n) (n < SEQUENCER_RESOLUTIONS ? SEQUENCER_RESOLUTION_MIN + n : KC_NO)
 #define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : KC_NO)
 
+// Pointing device mode keys 16 modes max
+// pointing device mode key macros
+#define POINTING_MODE_COUNT ((QK_POINTING_MODE_MAX - QK_POINTING_MODE + 1) / 2)
+// Momentary scroll mode
+#define PM_MO(pm) (MIN((pm), (POINTING_MODE_COUNT - 1)) + QK_POINTING_MODE)
+// Toggle default scroll mode
+#define PM_TG(pm) (MIN((pm), (POINTING_MODE_COUNT - 1)) + QK_POINTING_MODE + POINTING_MODE_COUNT)
+
+// Default Pointing device pointing modes
+enum pointing_device_mode_list {
+    PM_NONE,
+    PM_PRECISION,
+    PM_DRAG,
+    PM_CARET,
+    PM_HISTORY,
+    PM_VOLUME,
+// safe range for custom modes with built in keycodes
+#ifndef EXTRAKEY_ENABLE
+    PM_SAFE_RANGE = PM_VOLUME,
+#else
+    PM_SAFE_RANGE,
+#endif
+    // safe range for custom modes requiring custom activation/new keycodes
+    PM_SAFE_RANGE_ADV = QK_POINTING_MODE_MAX - QK_POINTING_MODE + 1
+};
+
+// pointing mode aliases
+#define PM_PRE PM_PRECISION
+#define PM_HST PM_HISTORY
+#define PM_VOL PM_VOLUME
+#define PM_CRT PM_CARET
+#define PM_DRG PM_DRAG
+
 #include "quantum_keycodes_legacy.h"

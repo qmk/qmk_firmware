@@ -115,7 +115,7 @@ void host_mouse_send(report_mouse_t *report) {
 #endif
 
     if (!driver) return;
-#ifdef MOUSE_SHARED_EP
+#if defined(MOUSE_SHARED_EP) || defined(MOUSE_SCROLL_HIRES_ENABLE)
     report->report_id = REPORT_ID_MOUSE;
 #endif
 #ifdef MOUSE_EXTENDED_REPORT

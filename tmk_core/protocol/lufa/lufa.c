@@ -260,6 +260,10 @@ static void Console_Task(void) {
  */
 void EVENT_USB_Device_Connect(void) {
     print("[C]");
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+    /* Reset multiplier on reset */
+    resolution_multiplier_reset();
+#endif
     /* For battery powered device */
     if (!USB_IsInitialized) {
         USB_Disable();
@@ -446,13 +450,43 @@ void EVENT_USB_Device_ControlRequest(void) {
 
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
+#ifndef KEYBOARD_SHARED_EP
                     case KEYBOARD_INTERFACE:
-                        // TODO: test/check
                         ReportData = (uint8_t *)&keyboard_report_sent;
                         ReportSize = sizeof(keyboard_report_sent);
                         break;
+#endif
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+                    case MOUSE_INTERFACE:
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
+                        if ((USB_ControlRequest.wValue & 0xff) == REPORT_ID_MULTIPLIER) {
+                            ReportData = (uint8_t *)&mouse_scroll_res_report;
+                            ReportSize = sizeof(report_mouse_scroll_res_t);
+                            break;
+                        }
+#    endif
+                        break;
+#endif
+#ifdef SHARED_EP_ENABLE
+                    case SHARED_INTERFACE: {
+                        uint8_t report_id = USB_ControlRequest.wValue & 0xff;
+                        switch (report_id) {
+#    ifdef KEYBOARD_SHARED_EP
+                            case REPORT_ID_KEYBOARD:
+                                ReportData = (uint8_t *)&keyboard_report_sent;
+                                ReportSize = sizeof(keyboard_report_sent);
+                                break;
+#    endif
+#    if defined(MOUSE_ENABLE) && defined(MOUSE_SCROLL_HIRES_ENABLE) && defined(MOUSE_SHARED_EP)
+                            case REPORT_ID_MULTIPLIER:
+                                ReportData = (uint8_t *)&mouse_scroll_res_report;
+                                ReportSize = sizeof(report_mouse_scroll_res_t);
+                                break;
+#    endif
+                        }
+                    }
+#endif
                 }
-
                 /* Write the report data to the control endpoint */
                 Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
                 Endpoint_ClearOUT();
@@ -467,22 +501,29 @@ void EVENT_USB_Device_ControlRequest(void) {
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
                     case SHARED_INTERFACE:
 #endif
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+                    case MOUSE_INTERFACE:
+#endif
                         Endpoint_ClearSETUP();
 
                         while (!(Endpoint_IsOUTReceived())) {
                             if (USB_DeviceState == DEVICE_STATE_Unattached) return;
                         }
 
-                        if (Endpoint_BytesInEndpoint() == 2) {
-                            uint8_t report_id = Endpoint_Read_8();
-
-                            if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
+                        uint8_t report_id = USB_ControlRequest.wValue & 0xFF;
+                        // Discard report ID byte as we already have it from wValue
+                        if (USB_ControlRequest.wLength > 1) Endpoint_Discard_8();
+                        switch (report_id) {
+                            case REPORT_ID_KEYBOARD:
+                            case REPORT_ID_NKRO:
                                 keyboard_led_state = Endpoint_Read_8();
-                            }
-                        } else {
-                            keyboard_led_state = Endpoint_Read_8();
+                                break;
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+                            case REPORT_ID_MULTIPLIER:
+                                mouse_scroll_res_report.data = Endpoint_Read_8();
+                                break;
+#endif
                         }
-
                         Endpoint_ClearOUT();
                         Endpoint_ClearStatusStage();
                         break;
@@ -534,7 +575,6 @@ void EVENT_USB_Device_ControlRequest(void) {
                 Endpoint_ClearIN();
                 Endpoint_ClearStatusStage();
             }
-
             break;
     }
 

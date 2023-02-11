@@ -312,37 +312,52 @@ void send_programmable_button(report_programmable_button_t *report) {
  *------------------------------------------------------------------*/
 static struct {
     uint16_t len;
-    enum { NONE, SET_LED } kind;
+    enum { NONE, SET_LED, SET_RES_MULT } kind;
 } last_req;
 
 usbMsgLen_t usbFunctionSetup(uchar data[8]) {
     usbRequest_t *rq = (void *)data;
 
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) { /* class request type */
-        if (rq->bRequest == USBRQ_HID_GET_REPORT) {
-            dprint("GET_REPORT:");
-            if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
-                return sizeof(keyboard_report_sent);
-            }
-        } else if (rq->bRequest == USBRQ_HID_GET_IDLE) {
-            dprint("GET_IDLE:");
-            usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
-            return 1;
-        } else if (rq->bRequest == USBRQ_HID_SET_IDLE) {
-            vusb_idle_rate = rq->wValue.bytes[1];
-            dprintf("SET_IDLE: %02X", vusb_idle_rate);
-        } else if (rq->bRequest == USBRQ_HID_SET_REPORT) {
-            dprint("SET_REPORT:");
-            // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
-            if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
-                dprint("SET_LED:");
-                last_req.kind = SET_LED;
-                last_req.len  = rq->wLength.word;
-            }
-            return USB_NO_MSG; // to get data in usbFunctionWrite
-        } else {
-            dprint("UNKNOWN:");
+        switch (rq->bRequest) {
+            case USBRQ_HID_GET_REPORT:
+                dprint("GET_REPORT:");
+                if (rq->wIndex.word == KEYBOARD_INTERFACE) {
+                    usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
+                    return sizeof(keyboard_report_sent);
+                }
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+                // Report Type: 0x03(feature)/ReportID: REPORT_ID_MULTIPLIER
+                if (rq->wValue.word == 0x0300 | REPORT_ID_MULTIPLIER) {
+                    usbMsgPtr = (usbMsgPtr_t)&mouse_scroll_res_report;
+                    return sizeof(report_mouse_scroll_res_t);
+                }
+#endif
+            case USBRQ_HID_GET_IDLE:
+                dprint("GET_IDLE:");
+                usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
+                return 1;
+
+            case USBRQ_HID_SET_IDLE:
+                vusb_idle_rate = rq->wValue.bytes[1];
+                dprintf("SET_IDLE: %02X", vusb_idle_rate);
+
+            case USBRQ_HID_T:
+                dprint("SET_REPORT:");
+                // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
+                if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
+                    dprint("SET_LED:");
+                    last_req.kind = SET_LED;
+                    last_req.len  = rq->wLength.word;
+                }
+                // Report Type: 0x03(feature)/ReportID: REPORT_ID_MULTIPLIER
+                if (rq->wValue.word == 0x0300 | REPORT_ID_MULTIPLIER) {
+                    last_req.kind = SET_RES_MULT;
+                    last_req.len  = rq->wLength.word;
+                }
+                return USB_NO_MSG; // to get data in usbFunctionWrite
+            default:
+                dprint("UNKNOWN:");
         }
     } else {
         dprint("VENDOR:");
@@ -362,7 +377,16 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
             keyboard_led_state = data[0];
             last_req.len       = 0;
             return 1;
+#ifdef MOUSE_SCROLL_HIRES_ENABLE
+        case SET_RES_MULT:
+            if (len == 2 && data[0] == REPORT_ID_MULTIPLIER) {
+                dprintf("SET_RES_MULT: %02X\n", data[1]);
+                mouse_scroll_res_report.data = data[1];
+                last_req.len                 = 0;
+                return 1;
+            }
             break;
+#endif
         case NONE:
         default:
             return -1;
@@ -457,7 +481,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x05, 0x01,            // Usage Page (Generic Desktop)
     0x09, 0x02,            // Usage (Mouse)
     0xA1, 0x01,            // Collection (Application)
-    0x85, REPORT_ID_MOUSE, //   Report ID
+    0x85, REPORT_ID_MOUSE, //   Report ID (MOUSE)
     0x09, 0x01,            //   Usage (Pointer)
     0xA1, 0x00,            //   Collection (Physical)
     // Buttons (8 bits)
@@ -487,30 +511,87 @@ const PROGMEM uchar shared_hid_report[] = {
     0x95, 0x02, //     Report Count (2)
     0x75, 0x08, //     Report Size (8)
 #    else
-    0x16, 0x01, 0x80, // Logical Minimum (-32767)
-    0x26, 0xFF, 0x7F, // Logical Maximum (32767)
-    0x95, 0x02,       // Report Count (2)
-    0x75, 0x10,       // Report Size (16)
+    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
+    0x95, 0x02,       //     Report Count (2)
+    0x75, 0x10,       //     Report Size (16)
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
-    // Vertical wheel (1 byte)
-    0x09, 0x38, //     Usage (Wheel)
-    0x15, 0x81, //     Logical Minimum (-127)
-    0x25, 0x7F, //     Logical Maximum (127)
-    0x95, 0x01, //     Report Count (1)
-    0x75, 0x08, //     Report Size (8)
-    0x81, 0x06, //     Input (Data, Variable, Relative)
-    // Horizontal wheel (1 byte)
-    0x05, 0x0C,       //     Usage Page (Consumer)
-    0x0A, 0x38, 0x02, //     Usage (AC Pan)
-    0x15, 0x81,       //     Logical Minimum (-127)
-    0x25, 0x7F,       //     Logical Maximum (127)
-    0x95, 0x01,       //     Report Count (1)
-    0x75, 0x08,       //     Report Size (8)
-    0x81, 0x06,       //     Input (Data, Variable, Relative)
-    0xC0,             //   End Collection
-    0xC0,             // End Collection
+// Vertical Wheel (1-2 bytes)
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
+    0xA1, 0x02, //     Collection (Logical)
+    // Resolution Multiplier (2 bits)
+    0x85, REPORT_ID_MULTIPLIER, //         Report ID (MULTIPLIER)
+    0x09, 0x48,                 //         Usage (Resolution Multiplier)
+    0x95, 0x01,                 //         Report Count (1)
+    0x75, 0x04,                 //         Report Size (2)
+    0x15, 0x00,                 //         Logical Minimum (0)
+    0x25, 0x0F,                 //         Logical Maximum (15)
+    0x35, 0x01,                 //         Physical Minimum (1)
+    0x45, 0x78,                 //         Physical Maximum (120)
+    0xB1, 0x02,                 //         Feature (Data, Variable, Absolute)
+    0x35, 0x00,                 //         Physical Minimum (0)
+    0x45, 0x00,                 //         Physical Maximum (0) Reset Global Value
+
+    0x85, REPORT_ID_MOUSE, //         Report ID (MOUSE)
+#    endif
+    // Wheel (1-2 bytes)
+    0x09, 0x38, //         Usage (Wheel)
+#    ifdef MOUSE_SCROLL_EXTENDED_REPORT
+    0x16, 0x01, 0x80, //         Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, //         Logical Maximum (32767)
+    0x95, 0x01,       //         Report Count (1)
+    0x75, 0x10,       //         Report Size (16)
+#    else
+    0x15, 0x81,       //         Logical Minimum (-127)
+    0x25, 0x7F,       //         Logical Maximum (127)
+    0x95, 0x01,       //         Report Count (1)
+    0x75, 0x08,       //         Report Size (8)
+#    endif
+    0x81, 0x06, //         Input (Data, Variable, Relative)
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
+    0xC0, //     End Collection (Logical)
+#    endif
+
+// Horizontal wheel (1-2 bytes)
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
+    0xA1, 0x02, //     Collection (Logical)
+    // Resolution Multiplier (2 bits)
+    0x85, REPORT_ID_MULTIPLIER, //         Report ID (MULTIPLIER)
+    0x09, 0x48,                 //         Usage (Resolution Multiplier)
+    0x95, 0x01,                 //         Report Count (1)
+    0x75, 0x02,                 //         Report Size (2)
+    0x15, 0x00,                 //         Logical Minimum (0)
+    0x25, 0x0F,                 //         Logical Maximum (15)
+    0x35, 0x01,                 //         Physical Minimum (1)
+    0x45, 0x78,                 //         Physical Maximum (120)
+    0xB1, 0x02,                 //         Feature (Data, Variable, Absolute)
+    0x35, 0x00,                 //         Physical Minimum (0)
+    0x45, 0x00,                 //         Physical Maximum (0) Reset Global Value
+
+    0x85, REPORT_ID_MOUSE, //         Report ID (MOUSE)
+#    endif
+    0x05, 0x0C,       //         Usage Page (Consumer)
+    0x0A, 0x38, 0x02, //         Usage (AC Pan)
+#    ifdef MOUSE_SCROLL_EXTENDED_REPORT
+    0x16, 0x01, 0x80, //         Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, //         Logical Maximum (32767)
+    0x95, 0x01,       //         Report Count (1)
+    0x75, 0x10,       //         Report Size (16)
+#    else
+    0x15, 0x81,       //         Logical Minimum (-127)
+    0x25, 0x7F,       //         Logical Maximum (127)
+    0x95, 0x01,       //         Report Count (1)
+    0x75, 0x08,       //         Report Size (8)
+#    endif
+    0x81, 0x06, //         Input (Data, Variable, Relative)
+#    ifdef MOUSE_SCROLL_HIRES_ENABLE
+    0xC0, //     End Collection (Logical)
+#    endif
+
+    0xC0, //   End Collection (Physical)
+    0xC0, // End Collection (Application)
 #endif
 
 #ifdef EXTRAKEY_ENABLE
