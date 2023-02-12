@@ -17,6 +17,7 @@
         "tap_keycode_delay": 10
     },
     "rgblight": {
+        "enabled": true,
         "led_count": 13,
         "hue_steps": 10,
         "saturation_steps": 10,

@@ -18,8 +18,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "backlight": true,
-        "rgblight": true
+        "backlight": true
     },
     "matrix_pins": {
         "cols": ["B1", "B2", "B10", "B11", "B12", "B14", "A8", "A9", "A10", "A3", "B0", "A2", "A1", "A7", "A0", "B4", "B6", "B7"],
@@ -31,6 +30,7 @@
         "pin": "A6"
     },
     "rgblight": {
+        "enabled": true,
         "led_count": 12,
         "hue_steps": 24,
         "saturation_steps": 16,

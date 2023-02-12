@@ -22,10 +22,10 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "backlight": true,
-        "encoder": true
+        "backlight": true
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "GP28", "pin_b": "GP29"}
         ]

@@ -12,7 +12,6 @@
          "extrakey": true,
          "debug": false,
          "mousekey": false,
-         "encoder": true,
          "oled": true
     },
     "matrix_pins": {
@@ -290,6 +289,7 @@
         }
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "D3", "pin_b": "D2"}
         ]

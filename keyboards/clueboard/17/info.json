@@ -14,7 +14,6 @@
     "midi": false,
     "mousekey": true,
     "nkro": true,
-    "rgblight": true,
     "unicode": false
   },
   "matrix_pins": {
@@ -22,6 +21,7 @@
     "rows": ["B0", "D3", "D5", "D4", "D6"]
   },
   "rgblight": {
+    "enabled": true,
     "animations": {
       "alternating": true,
       "breathing": true,

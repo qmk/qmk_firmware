@@ -15,8 +15,7 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": true,
-        "rgb_matrix": true
+        "nkro": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
@@ -24,6 +23,7 @@
         "cols": ["GP29", "GP28", "GP26", "GP25", "GP24", "GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP27", "GP9", "GP1", "GP0"]
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812"
     },
     "ws2812": {

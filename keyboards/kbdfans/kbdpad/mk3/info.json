@@ -11,8 +11,7 @@
         "extrakey": true,
         "lto": true,
         "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true
+        "nkro": true
     },
     "build": {
         "lto": true
@@ -23,6 +22,7 @@
     },
     "processor": "atmega32u4",
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812",
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},

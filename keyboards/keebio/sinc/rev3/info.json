@@ -9,9 +9,7 @@
     "diode_direction": "COL2ROW",
     "features": {
         "console": true,
-        "rgblight": false,
-        "backlight": false,
-        "rgb_matrix": true
+        "backlight": false
     },
     "split": {
         "enabled": true,
@@ -44,6 +42,7 @@
         "driver": "vendor"
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812",
         "split_count": [56, 57],
         "layout": [

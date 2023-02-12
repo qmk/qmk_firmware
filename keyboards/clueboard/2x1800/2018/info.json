@@ -14,7 +14,6 @@
     "midi": false,
     "mousekey": true,
     "nkro": true,
-    "rgblight": true,
     "unicode": false
   },
   "indicators": {
@@ -27,6 +26,7 @@
     "rows": ["C0", "C1", "C2", "C3", "C7", "F7", "B1", "F2", "F3", "F4", "F5", "F6"]
   },
   "rgblight": {
+    "enabled": true,
     "animations": {
       "alternating": true,
       "breathing": true,

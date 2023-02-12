@@ -9,7 +9,6 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "encoder": true,
         "nkro": true
     },
     "matrix_pins": {
@@ -28,6 +27,7 @@
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "B3", "pin_b": "A15"},
             {"pin_a": "B4", "pin_b": "B5"},

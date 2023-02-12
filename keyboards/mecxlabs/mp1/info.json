@@ -13,10 +13,10 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "encoder": true
+        "nkro": true
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "A10", "pin_b": "A9", "resolution": 2}
         ]

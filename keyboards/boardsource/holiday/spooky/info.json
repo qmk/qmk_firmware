@@ -6,8 +6,7 @@
   "features": {
     "bootmagic": true,
     "extrakey": true,
-    "mousekey": true,
-    "rgblight": true
+    "mousekey": true
   },
   "matrix_pins": {
     "direct": [
@@ -21,6 +20,7 @@
     "vid": "0x4273"
   },
   "rgblight": {
+    "enabled": true,
     "led_count": 5,
     "sleep": true,
     "animations": {

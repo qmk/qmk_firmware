@@ -11,9 +11,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "nkro": true
     },
     "ws2812": {
         "pin": "D2"
@@ -23,6 +21,7 @@
         "rows": ["B1", "B2", "B3", "D3", "D1", "D0"]
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812",
         "layout": [
             {"flags": 1, "matrix": [3, 13], "x": 190, "y": 40},

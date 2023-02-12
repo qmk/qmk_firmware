@@ -15,8 +15,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true
+        "nkro": true
     },
     "split": {
         "enabled": true
@@ -27,6 +26,7 @@
         "rows": ["GP5", "GP4", "GP3", "GP2", "GP1", "GP0"]
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812",
         "layout": [
             {"x": 0, "y": 0.375},

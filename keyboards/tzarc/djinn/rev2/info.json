@@ -11,6 +11,7 @@
     }
   },
   "rgb_matrix": {
+    "enabled": true,
     "layout": [
       {"flags": 2, "x": 110, "y": 30},
       {"flags": 2, "x": 110, "y": 80},

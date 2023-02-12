@@ -17,12 +17,9 @@
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
-        "rgb_matrix": true,
-        "rgblight": false
+        "nkro": false
     },
     "ws2812": {
         "pin": "GP6",
@@ -41,6 +38,7 @@
         ]
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812",
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 28, "y": 12},

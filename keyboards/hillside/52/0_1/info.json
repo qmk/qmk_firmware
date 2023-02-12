@@ -18,8 +18,7 @@
     },
     "features": {
         "encoder": true,
-        "extrakey": true,
-        "rgblight": true
+        "extrakey": true
     },
     "split": {
         "soft_serial_pin": "D2",
@@ -32,6 +31,7 @@
         }
     },
     "rgblight": {
+        "enabled": true,
         "led_count": 5,
         "split": true,
         "hue_steps": 8,

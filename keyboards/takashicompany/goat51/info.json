@@ -10,15 +10,14 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "encoder": true,
-        "rgblight": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5", "D2"],
         "rows": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"]
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "D1", "pin_b": "D0"}
          ]
@@ -30,6 +29,7 @@
         "vid": "0x7463"
     },
     "rgblight": {
+        "enabled": true,
         "led_count": 11,
         "hue_steps": 10,
         "saturation_steps": 17,

@@ -10,8 +10,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["F0", "F7", "F6", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4", "D5", "D3", "D2", "D1"],
@@ -24,6 +23,7 @@
         "device_version": "1.0.0"
     },
     "rgblight": {
+        "enabled": true,
         "led_count": 16,
         "hue_steps": 10,
         "saturation_steps": 17,

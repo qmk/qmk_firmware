@@ -19,21 +19,21 @@
     "processor": "atmega32u4",
     "features": {
         "bootmagic": true,
-        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "oled": true,
-        "rgblight": true
+        "oled": true
     },
     "community_layouts": ["ortho_4x12"],
     "diode_direction": "COL2ROW",
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "B3", "pin_b": "B7", "resolution": 1}
         ]
     },
     "rgblight": {
+        "enabled": true,
         "animations": {
             "alternating": true,
             "breathing": true,

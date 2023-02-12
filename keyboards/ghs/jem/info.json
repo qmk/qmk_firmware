@@ -15,7 +15,6 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "rgblight": true,
         "nkro": true
     },
     "diode_direction": "COL2ROW",
@@ -27,6 +26,7 @@
         "caps_lock": "B7"
     },
     "rgblight": {
+        "enabled": true,
         "led_count": 22,
         "hue_steps": 10,
         "saturation_steps": 17,

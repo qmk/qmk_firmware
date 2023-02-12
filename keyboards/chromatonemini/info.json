@@ -8,13 +8,11 @@
     "features": {
         "midi": true,
         "extrakey": true,
-        "encoder": true,
         "via": true,
         "bootmagic": false,
         "console": false,
         "mousekey": false,
         "nkro": false,
-        "rgblight": false,
         "audio": false
     },
     "ws2812": {
@@ -88,6 +86,7 @@
         }
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "B5", "pin_b": "B4"}
         ]

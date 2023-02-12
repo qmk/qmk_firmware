@@ -9,6 +9,7 @@
         "rows": ["E6", "B0", "F0", "F6", "F7"]
     },
     "rgblight": {
+        "enabled": true,
         "led_count": 16,
         "hue_steps": 10,
         "saturation_steps": 10,

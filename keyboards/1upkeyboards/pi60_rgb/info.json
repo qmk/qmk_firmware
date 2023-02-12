@@ -22,9 +22,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
-        "rgb_matrix": true,
-        "rgblight": false
+        "nkro": false
     },
     "ws2812": {
         "pin": "GP19",
@@ -38,6 +36,7 @@
         "enabled": true
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812",
         "layout": [
             {"flags": 1, "matrix": [5, 5], "x": 103, "y": 58},

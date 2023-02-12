@@ -11,8 +11,7 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "backlight": false,
-        "rgblight": false
+        "backlight": false
     },
     "ws2812": {
         "pin": "E2"

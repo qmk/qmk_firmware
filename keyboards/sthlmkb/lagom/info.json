@@ -11,7 +11,6 @@
          "extrakey": true,
          "debug": false,
          "mousekey": false,
-         "encoder": true,
          "oled": true
     },
     "usb": {
@@ -425,6 +424,7 @@
         }
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "D4", "pin_b": "C6"},
             {"pin_a": "F4", "pin_b": "F5"}

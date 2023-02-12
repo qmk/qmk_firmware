@@ -9,8 +9,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "encoder": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["B3", "A15", "A10", "A9", "A8", "B15", "B14", "A7", "B0", "B1", "B10", "A6", "A5", "A4", "A3", "A2", "A1"],
@@ -27,6 +26,7 @@
         "driver": "pwm"
     },
     "rgblight": {
+        "enabled": false,
         "led_count": 16,
         "hue_steps": 10,
         "saturation_steps": 17,
@@ -45,6 +45,7 @@
         }
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "B9", "pin_b": "B7"}
         ]

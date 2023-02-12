@@ -14,7 +14,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true,
         "sleep_led": false,
         "unicode": false
     },
@@ -23,6 +22,7 @@
         "rows": ["B0", "B1", "D1", "F6", "F5"]
     },
     "rgblight": {
+        "enabled": true,
         "animations": {
             "alternating": true,
             "breathing": true,

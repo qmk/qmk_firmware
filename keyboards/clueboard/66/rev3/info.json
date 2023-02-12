@@ -16,7 +16,6 @@
     "midi": false,
     "mousekey": true,
     "nkro": true,
-    "rgblight": true,
     "unicode": false
   },
   "indicators": {
@@ -27,6 +26,7 @@
     "rows": ["B2", "C7", "C6", "B6", "B5", "B0", "B3", "D5", "D3", "D2"]
   },
   "rgblight": {
+    "enabled": true,
     "animations": {
       "alternating": true,
       "breathing": true,

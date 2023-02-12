@@ -18,7 +18,6 @@
     "midi": false,
     "mousekey": true,
     "nkro": false,
-    "rgblight": true,
     "unicode": false
   },
   "build": {
@@ -29,6 +28,7 @@
     "rows": ["F0", "F5", "F4", "B4"]
   },
   "rgblight": {
+    "enabled": true,
     "brightness_steps": 17,
     "hue_steps": 10,
     "led_count": 4,

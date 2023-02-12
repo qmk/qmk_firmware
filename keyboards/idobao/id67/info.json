@@ -11,8 +11,7 @@
         "command": false,
         "console": false,
         "nkro": true,
-        "backlight": false,
-        "rgblight": false
+        "backlight": false
     },
     "ws2812": {
         "pin": "F0"

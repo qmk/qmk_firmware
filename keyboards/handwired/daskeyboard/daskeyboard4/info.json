@@ -12,8 +12,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "encoder": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A2", "A4", "A5", "A6", "A7", "B0", "B1", "B10", "B9", "B7", "B6", "B5", "B4", "A8"],
@@ -36,6 +35,7 @@
         "on_state": 1
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "B13", "pin_b": "B12"}
         ]

@@ -11,8 +11,7 @@
         "command": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": true
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "GP27",
@@ -24,6 +23,7 @@
     },
     "processor": "RP2040",
     "rgblight": {
+        "enabled": true,
         "animations": {
             "alternating": true,
             "breathing": true,

@@ -10,9 +10,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": true,
-        "rgb_matrix": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["B5", "B6", "C6", "C7"],
@@ -29,6 +27,7 @@
         "lto": true
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812",
         "layout": [
             {"flags": 1, "matrix": [3, 3], "x": 141, "y": 64},
@@ -50,6 +49,7 @@
         ]
     },
     "rgblight": {
+        "enabled": true,
         "animations": {
             "breathing": true,
             "knight": true,

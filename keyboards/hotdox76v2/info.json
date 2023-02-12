@@ -12,8 +12,7 @@
         "mousekey": true,
         "nkro": true,
         "lto": true,
-        "oled": true,
-        "rgb_matrix": true
+        "oled": true
     },
     "build": {
         "lto": true
@@ -38,6 +37,10 @@
         "device_version": "1.0.0",
         "pid": "0xAAA9",
         "vid": "0xAA96"
+    },
+    "rgb_matrix": {
+        "enabled": true,
+        "driver": "WS2812"
     },
     "community_layouts": [
         "ergodox"

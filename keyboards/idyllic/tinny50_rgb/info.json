@@ -17,9 +17,7 @@
         "command": false,
         "nkro": true,
         "backlight": false,
-        "rgblight": false,
-        "audio": false,
-        "rgb_matrix": true
+        "audio": false
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
@@ -27,6 +25,7 @@
         "cols": ["GP29", "GP28", "GP27", "GP26", "GP25", "GP24", "GP23", "GP20", "GP19", "GP1", "GP6", "GP5"]
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812"
     },
     "ws2812": {

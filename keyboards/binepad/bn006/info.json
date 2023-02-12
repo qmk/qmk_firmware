@@ -10,8 +10,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
-        "rgb_matrix": true
+        "nkro": false
     },
     "matrix_pins": {
         "cols": ["A15", "B3", "B4"],
@@ -28,6 +27,7 @@
         "pin": "B15"
     },
     "rgb_matrix": {
+        "enabled": true,
         "driver": "WS2812",
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},

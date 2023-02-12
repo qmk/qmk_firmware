@@ -15,11 +15,11 @@
         "debug": false,
         "extrakey": true,
         "mousekey": true,
-        "rgblight": true,
         "nkro": true
     },
     "development_board": "promicro",
     "rgblight": {
+        "enabled": true,
         "sleep": true,
         "max_brightness": 255
     },

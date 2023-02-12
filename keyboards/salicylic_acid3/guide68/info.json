@@ -10,7 +10,6 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "rgblight": true,
         "nkro": false
     },
     "matrix_pins": {
@@ -25,6 +24,7 @@
         "device_version": "1.0.0"
     },
     "rgblight": {
+        "enabled": true,
         "led_count": 12,
         "animations": {
                "alternating": true,
