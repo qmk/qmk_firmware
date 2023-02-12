@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/qmk/qmk_firmware/master/data/schemas/keyboard.jsonschema",
     "keyboard_name": "keaboard",
     "manufacturer": "You",
     "url": "https://github.com/keawade/keaboard",
