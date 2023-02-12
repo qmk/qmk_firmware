@@ -23,7 +23,10 @@
         "soft_serial_pin": "D0"
     },
     "features": {
-        "mousekey": true
+        "extrakey": true,
+        "mousekey": true,
+        "unicode": true,
+        "command": true
     },
 
     "layouts": {
