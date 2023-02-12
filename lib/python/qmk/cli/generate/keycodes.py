@@ -13,6 +13,8 @@ def _translate_group(group):
     """
     if group == 'modifiers':
         return 'modifier'
+    if group == 'media':
+        return 'consumer'
     return group
 
 
