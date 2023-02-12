@@ -181,7 +181,7 @@ The `SERIAL` Subsystem is supported for the majority of ChibiOS MCUs and should 
 #define HAL_USE_SERIAL TRUE
 ```
 
-2. In your keyboards `mcuconf.h`: activate the USART peripheral that is used on your MCU. The shown example is for an STM32 MCU, so this will not work on MCUs by other manufacturers. You can find the correct names in the `mcuconf.h` files of your MCU that ship with ChibiOS. 
+2. In your keyboards `mcuconf.h`: activate the USART peripheral that is used on your MCU. The shown example is for an STM32 MCU, so this will not work on MCUs by other manufacturers. You can find the correct names in the [`mcuconf.h` files of your MCU that ship with ChibiOS](https://github.com/ChibiOS/ChibiOS-Contrib). 
  
 Just below `#include_next <mcuconf.h>` add:
 
