@@ -252,11 +252,11 @@ __attribute__((weak)) void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-/** \brief matrix_available
+/** \brief matrix_can_read
  *
- * Override this function if you have a condition where matrix tasks should not be available
+ * Allows overriding when matrix scanning operations should be executed.
  */
-__attribute__((weak)) bool matrix_available(void) {
+__attribute__((weak)) bool matrix_can_read(void) {
     return true;
 }
 
@@ -457,7 +457,7 @@ static inline void generate_tick_event(void) {
  * @return false Matrix didn't change
  */
 static bool matrix_task(void) {
-    if (!matrix_available()) {
+    if (!matrix_can_read()) {
         generate_tick_event();
         return false;
     }
