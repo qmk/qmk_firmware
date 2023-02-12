@@ -8,6 +8,8 @@
         "pid": "0x4441",
         "device_version": "1.0.0"
     },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layout_aliases": {
         "LAYOUT_daisy": "LAYOUT"
     },

@@ -31,6 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_ON_STATE 1
 #define BACKLIGHT_LEVELS 7
 #define BACKLIGHT_LIMIT_VAL 150
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

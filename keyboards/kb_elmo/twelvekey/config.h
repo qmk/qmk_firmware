@@ -33,6 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B1
 #define BACKLIGHT_LEVELS 8
 #define BACKLIGHT_ON_STATE 0
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -26,9 +26,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define LED_CAPS_LOCK_PIN F6
 #define LED_PIN_ON_STATE 0
 

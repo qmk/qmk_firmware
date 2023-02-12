@@ -27,6 +27,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_CAPS_LOCK
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 5
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -24,7 +24,5 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 #define DIODE_DIRECTION ROW2COL
 
-#define DEBOUNCE 5
-
 #define SPLIT_HAND_PIN B5
 #define USE_I2C

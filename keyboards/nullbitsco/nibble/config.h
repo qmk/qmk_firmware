@@ -28,9 +28,6 @@
 #define MATRIX_COLS 16
 #define MATRIX_MUX_COLS 4
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 10
-
 /*
  * Keyboard Matrix Assignments
  * The nibble uses a demultiplexer for the cols.

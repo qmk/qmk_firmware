@@ -42,8 +42,5 @@
 #define RGBLED_NUM 8    // Number of LEDs
 #endif
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 1

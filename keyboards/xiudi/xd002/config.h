@@ -27,9 +27,6 @@
  */
 #define DIRECT_PINS {{ B0, B1 }}
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define RGBLED_NUM 2
 #define RGB_DI_PIN B2
 

@@ -402,7 +402,7 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
 #endif
 
     const bool key_down = record->event.pressed;
-    const bool is_mod   = IS_MOD(keycode);
+    const bool is_mod   = IS_MODIFIER_KEYCODE(keycode);
 
     if (key_down) {
         switch (keycode) {

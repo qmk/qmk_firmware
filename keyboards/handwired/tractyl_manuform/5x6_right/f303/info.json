@@ -1,3 +1,5 @@
 {
-    "keyboard_name": "Tractyl Manuform (5x6) Proton-C"
+    "keyboard_name": "Tractyl Manuform (5x6) Proton-C",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu"
 }

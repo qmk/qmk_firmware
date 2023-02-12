@@ -26,8 +26,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 5
-
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* Bootmagic Lite key configuration */

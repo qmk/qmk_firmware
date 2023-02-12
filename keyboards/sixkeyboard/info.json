@@ -8,6 +8,8 @@
     "pid": "0x736B",
     "device_version": "0.0.1"
   },
+  "processor": "atmega16u2",
+  "bootloader": "atmel-dfu",
   "community_layouts": ["ortho_2x3"],
   "layouts": {
     "LAYOUT_ortho_2x3": {

@@ -6,6 +6,9 @@
         "pid": "0xB04D",
         "device_version": "0.0.1"
     },
+    "processor": "MK20DX256",
+    "bootloader": "kiibohd",
+    "board": "IC_TEENSY_3_1",
     "community_layouts": ["ergodox"],
     "layouts": {
       "LAYOUT_ergodox": {

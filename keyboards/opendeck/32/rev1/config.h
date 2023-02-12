@@ -81,9 +81,6 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
-
 #define FORCE_NKRO
 
 // Slim down the ROM

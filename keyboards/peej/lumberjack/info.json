@@ -8,6 +8,8 @@
     "pid": "0x0002",
     "device_version": "0.0.1"
   },
+  "processor": "atmega328p",
+  "bootloader": "usbasploader",
   "community_layouts": ["ortho_5x12"],
   "layouts": {
     "LAYOUT_ortho_5x12": {

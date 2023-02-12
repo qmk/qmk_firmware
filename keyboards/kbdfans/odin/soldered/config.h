@@ -25,7 +25,6 @@
 #define LED_PIN_ON_STATE 0
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 15
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN

@@ -8,6 +8,8 @@
         "pid": "0x6061",
         "device_version": "0.0.2"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_ansi_1u": "LAYOUT_75_ansi"
     },

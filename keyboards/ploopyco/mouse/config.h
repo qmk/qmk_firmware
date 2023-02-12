@@ -43,13 +43,7 @@
 #define UNUSABLE_PINS \
     { B4, D6, F1, F5, F6, F7 }
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* disable action features */
 //#define NO_ACTION_LAYER

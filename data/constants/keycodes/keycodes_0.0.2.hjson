@@ -3,5 +3,11 @@
         "0x7E00/0x01FF": {
             "define": "SAFE_RANGE"
         }
+        "0x8000/0X3FFF": {
+            "define": "QK_UNICODEMAP"
+        },
+        "0xC000/0X3FFF": {
+            "define": "QK_UNICODEMAP_PAIR"
+        }
     }
 }

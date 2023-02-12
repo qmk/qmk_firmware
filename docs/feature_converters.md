@@ -18,6 +18,7 @@ Currently the following converters are available:
 | `promicro` | `stemcell`        |
 | `promicro` | `bonsai_c4`       |
 | `promicro` | `elite_pi`        |
+| `promicro` | `michi`           |
 | `elite_c`  | `stemcell`        |
 | `elite_c`  | `elite_pi`        |
 
@@ -81,6 +82,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [STeMCell](https://github.com/megamind4089/STeMCell)                                     | `stemcell`        |
 | [customMK Bonsai C4](https://shop.custommk.com/products/bonsai-c4-microcontroller-board) | `bonsai_c4`       |
 | [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)         | `elite_pi`        |
+| [Michi](https://github.com/ci-bus/michi-promicro-rp2040)                                 | `michi`           |
 
 Converter summary:
 
@@ -94,6 +96,7 @@ Converter summary:
 | `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
 | `bonsai_c4`       | `-e CONVERT_TO=bonsai_c4`       | `CONVERT_TO=bonsai_c4`       | `#ifdef CONVERT_TO_BONSAI_C4`       |
 | `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
+| `michi`           | `-e CONVERT_TO=michi`           | `CONVERT_TO=michi`           | `#ifdef CONVERT_TO_MICHI`           |
 
 ### Proton C :id=proton_c
 
@@ -124,7 +127,7 @@ The following defaults are based on what has been implemented for [RP2040](platf
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
 | [Split keyboards](feature_split_keyboard.md) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
-### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO, and Elite-Pi :id=promicro_rp2040 
+### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO, Elite-Pi and Michi :id=promicro_rp2040 
 
 Currently identical to [Adafruit KB2040](#kb2040).
 

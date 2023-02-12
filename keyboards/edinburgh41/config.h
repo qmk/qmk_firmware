@@ -11,8 +11,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 5
-
 // Underglow LED settings
 
 #define RGB_DI_PIN D0

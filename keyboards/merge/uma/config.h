@@ -30,10 +30,5 @@
 #define SPLIT_USB_DETECT
 #define SPLIT_MODS_ENABLE
 
-#define DEBOUNCE 5
-
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { B5 }
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

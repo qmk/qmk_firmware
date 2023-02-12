@@ -8,6 +8,16 @@ from qmk.path import normpath
 from qmk.keycodes import load_spec
 
 
+def _translate_group(group):
+    """Fix up any issues with badly chosen values
+    """
+    if group == 'modifiers':
+        return 'modifier'
+    if group == 'media':
+        return 'consumer'
+    return group
+
+
 def _render_key(key):
     width = 7
     if 'S(' in key:
@@ -82,7 +92,7 @@ def _generate_helpers(lines, keycodes):
     for group, codes in temp.items():
         lo = keycodes["keycodes"][f'0x{codes[0]:04X}']['key']
         hi = keycodes["keycodes"][f'0x{codes[1]:04X}']['key']
-        lines.append(f'#define IS_{ group.upper() }_KEYCODE(code) ((code) >= {lo} && (code) <= {hi})')
+        lines.append(f'#define IS_{ _translate_group(group).upper() }_KEYCODE(code) ((code) >= {lo} && (code) <= {hi})')
 
 
 def _generate_aliases(lines, keycodes):

@@ -8,6 +8,8 @@
     "pid": "0x27DB",
     "device_version": "0.0.2"
   },
+  "processor": "atmega328p",
+  "bootloader": "usbasploader",
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_planck_mit": {

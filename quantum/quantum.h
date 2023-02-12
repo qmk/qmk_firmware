@@ -93,6 +93,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef LEADER_ENABLE
+#    include "leader.h"
 #    include "process_leader.h"
 #endif
 
@@ -241,12 +242,9 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef TRI_LAYER_ENABLE
+#    include "tri_layer.h"
 #    include "process_tri_layer.h"
 #endif
-
-// For tri-layer
-void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 
