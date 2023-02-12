@@ -20,4 +20,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader by holding the reset button while powering on the keyboard.
+Enter the bootloader by holding tapping reset button on the top edge of the board.
