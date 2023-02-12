@@ -93,6 +93,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef LEADER_ENABLE
+#    include "leader.h"
 #    include "process_leader.h"
 #endif
 
