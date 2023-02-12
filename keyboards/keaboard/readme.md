@@ -1,11 +1,11 @@
 # keaboard
 
-![keaboard](https://github.com/keawade/keaboard/blob/master/images/keaboard-rev1-pcb-render.png)
+![keaboard](https://raw.githubusercontent.com/keawade/keaboard/master/images/keaboard-rev1-pcb-render.png)
 
 A split columnular stagger 4x6 keyboard with 3 thumb keys designed by [Keith Wade](https://github.com/keawade). [More info on the GitHub Repo](https://github.com/keawade/keaboard).
 
 * Keyboard Maintainer: [Keith Wade](https://github.com/keawade)
-* Hardware Supported: Elite-C, nice!nano (via ZMK)
+* Hardware Supported: Pro Micro and clones
 * Hardware Availability: Open source. You can order your own from a PCB manufacturer.
 
 Make example for this keyboard (after setting up your build environment):
