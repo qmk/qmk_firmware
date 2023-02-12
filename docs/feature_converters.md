@@ -22,8 +22,8 @@ Currently the following converters are available:
 | `promicro` | `elite_pi`        |
 | `promicro` | `helios`          |
 | `promicro` | `michi`           |
-| `elite_c`  | `rp2040_ce`       |
 | `elite_c`  | `stemcell`        |
+| `elite_c`  | `rp2040_ce`       |
 | `elite_c`  | `elite_pi`        |
 | `elite_c`  | `helios`          |
 
@@ -135,7 +135,7 @@ The following defaults are based on what has been implemented for [RP2040](platf
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
 | [Split keyboards](feature_split_keyboard.md) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
-### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO, Elite-Pi and Michi :id=promicro_rp2040 
+### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi :id=promicro_rp2040 
 
 Currently identical to [Adafruit KB2040](#kb2040).
 
@@ -164,9 +164,17 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 
 ```c
 #undef B0
-// If Vbus detection is unused, we can send RXLED to the Vbus detect pin instead
+// If VBUS detection is unused, we can send RXLED to the Vbus detect pin instead
 #define B0 PAL_LINE(GPIOA, 9)
 ```
+
+### RP2040 Community Edition - Elite-Pi and Helios :id=rp2040_ce
+
+Feature set currently identical to [Adafruit KB2040](#kb2040).
+
+Enables VBUS detection by default for superior split keyboard support.
+
+For more information, refer to the [RP2040 Community Edition](platformdev_rp2040.md#rp2040_ce) docs.
 
 ## Elite-C
 
@@ -183,26 +191,14 @@ Converter summary:
 | Target            | Argument                        | `rules.mk`                   | Condition                           |
 |-------------------|---------------------------------|------------------------------|-------------------------------------|
 | `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
+| `rp2040_ce`       | `-e CONVERT_TO=rp2040_ce`       | `CONVERT_TO=rp2040_ce`       | `#ifdef CONVERT_TO_RP2040_CE`       |
 | `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
-| `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`        |
+| `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`          |
 
 ### STeMCell :id=stemcell_elite
 
 Currently identical to [STeMCell](#stemcell) with support for the additional bottom row of pins.
 
-### RP2040 Community Edition :id=rp2040_ce
+### RP2040 Community Edition :id=rp2040_ce_elite
 
-many rp2040 based boards like the splinky, sea-picro, helios, elite-pi, liatris and frood follow [this](https://user-images.githubusercontent.com/103112489/211809556-065e49f5-225e-4497-b922-987aec14e5d0.png) common pinout standard.
-
-It originated from the BastardKB Discord Server
-(please add all boards following the standard here)
-### Elite-Pi :id=elite_pi
-
-Currently identical to [Adafruit KB2040](#kb2040), with support for the additional bottom row of pins.
-
-### Helios :id=helios
-
-Follows the [RP2040 Community Edition](#rp2040_ce) standard, with from D+ and D- moved to the board center and GP10 and GP11 at the top (at the unused spots).
-With support for the additional bottom row of pins, 2 extra top pins, a 5V level shifted extra pin (to drive RGB LEDs for example) and a user led.
-
-Please consult the [pinout](https://github.com/0xCB-dev/0xCB-Helios/blob/main/rev1.0/helios.webp) for further reference.
+Currently identical to [RP2040 Community Edition](#rp2040_ce), with support for the additional bottom row of pins.
