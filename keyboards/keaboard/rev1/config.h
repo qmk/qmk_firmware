@@ -21,6 +21,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Rows are doubled-up
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 7
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
