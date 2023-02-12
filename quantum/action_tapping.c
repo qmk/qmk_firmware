@@ -247,12 +247,12 @@ bool process_tapping(keyrecord_t *keyp) {
                         case ACT_LMODS:
                         case ACT_RMODS:
                             if (action.key.mods && !action.key.code) return false;
-                            if (IS_MOD(action.key.code)) return false;
+                            if (IS_MODIFIER_KEYCODE(action.key.code)) return false;
                             break;
                         case ACT_LMODS_TAP:
                         case ACT_RMODS_TAP:
                             if (action.key.mods && keyp->tap.count == 0) return false;
-                            if (IS_MOD(action.key.code)) return false;
+                            if (IS_MODIFIER_KEYCODE(action.key.code)) return false;
                             break;
                         case ACT_LAYER_TAP:
                         case ACT_LAYER_TAP_EXT:
