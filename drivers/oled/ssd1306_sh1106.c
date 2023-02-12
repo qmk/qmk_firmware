@@ -458,13 +458,14 @@ void oled_write_char(const char data, bool invert) {
     }
 
     // Dirty check
-    for (uint8_t i = 0; i < OLED_FONT_HEIGHT / 8; i++)
+    for (uint8_t i = 0; i < OLED_FONT_HEIGHT / 8; i++) {
         if (memcmp(&oled_temp_buffer[i * OLED_FONT_WIDTH], &oled_cursor[i * oled_rotation_width], OLED_FONT_WIDTH)) {
             uint16_t index = &oled_cursor[i * oled_rotation_width] - &oled_buffer[0];
             oled_dirty |= ((OLED_BLOCK_TYPE)1 << (index / OLED_BLOCK_SIZE));
             // Edgecase check if the written data spans the 2 chunks
             oled_dirty |= ((OLED_BLOCK_TYPE)1 << ((index + OLED_FONT_WIDTH - 1) / OLED_BLOCK_SIZE));
         }
+    }
 
     // Finally move to the next char
     oled_advance_char();
