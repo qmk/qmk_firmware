@@ -449,7 +449,7 @@ const PROGMEM naginata_keymap_long ngmapl_tate[] = {
   {.key = B_C|B_V|B_DOT		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
 };
 
-static naginata_keymap_long ngmapl_ty[18]; // ngmapl_tate[]と同じサイズ
+static naginata_keymap_long ngmapl_ty[16]; // ngmapl_tate[]と同じサイズ
 
 const PROGMEM naginata_keymap_long ngmapl_mac[] = {
 // 編集モード Mac
