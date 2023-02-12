@@ -418,13 +418,16 @@
         "rgb_matrix": {
             "type": "object",
             "properties": {
+                "enabled": {"type": "boolean"},
+                "driver": {"type": "string"},
+                "custom_effect_kb_enabled": {"type": "boolean"},
+                "custom_effect_user_enabled": {"type": "boolean"},
                 "animations": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "boolean"
                     }
                 },
-                "driver": {"type": "string"},
                 "center_point": {
                     "type": "array",
                     "minItems": 2,
@@ -470,6 +473,8 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "enabled": {"type": "boolean"},
+                "driver": {"type": "string"},
                 "animations": {
                     "type": "object",
                     "additionalProperties": {
