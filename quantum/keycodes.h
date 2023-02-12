@@ -1323,7 +1323,7 @@ enum qk_keycode_defines {
 #define IS_INTERNAL_KEYCODE(code) ((code) >= KC_NO && (code) <= KC_TRANSPARENT)
 #define IS_BASIC_KEYCODE(code) ((code) >= KC_A && (code) <= KC_EXSEL)
 #define IS_SYSTEM_KEYCODE(code) ((code) >= KC_SYSTEM_POWER && (code) <= KC_SYSTEM_WAKE)
-#define IS_MEDIA_KEYCODE(code) ((code) >= KC_AUDIO_MUTE && (code) <= KC_ASSISTANT)
+#define IS_CONSUMER_KEYCODE(code) ((code) >= KC_AUDIO_MUTE && (code) <= KC_ASSISTANT)
 #define IS_MOUSE_KEYCODE(code) ((code) >= KC_MS_UP && (code) <= KC_MS_ACCEL2)
 #define IS_MODIFIER_KEYCODE(code) ((code) >= KC_LEFT_CTRL && (code) <= KC_RIGHT_GUI)
 #define IS_SWAP_HANDS_KEYCODE(code) ((code) >= QK_SWAP_HANDS_TOGGLE && (code) <= QK_SWAP_HANDS_ONE_SHOT)
