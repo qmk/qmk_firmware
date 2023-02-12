@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // Rows are doubled-up
@@ -83,13 +82,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock)
 #endif // SCROLL_NMOSFET
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
-//#define BACKLIGHT_BREATHING //not working with splits right now
 #define BREATHING_PERIOD 6
 #endif
 

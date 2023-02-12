@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -33,6 +32,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5
-
-/* debounce */
-#define DEBOUNCE 5

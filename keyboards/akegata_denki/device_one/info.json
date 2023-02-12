@@ -7,6 +7,9 @@
     "pid": "0xADD0",
     "device_version": "0.0.1"
     },
+  "processor": "STM32F042",
+  "bootloader": "stm32-dfu",
+  "board": "ST_NUCLEO32_F042K6",
   "maintainer": "qmk",
   "community_layouts": ["60_ansi", "60_iso"],
   "layouts": {

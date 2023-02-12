@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // wiring of each half
 #undef MATRIX_ROW_PINS

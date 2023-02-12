@@ -8,6 +8,8 @@
         "pid": "0x4040",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_right_numpad": {
             "layout": [

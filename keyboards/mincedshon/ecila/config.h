@@ -3,12 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/*Bootmagic boot button, set to topmost, leftmost key */
-#define BOOTMAGIC_LITE_ROW	0
-#define BOOTMAGIC_LITE_COLUMN	0
-
 /* encoder */
 /* #define NUMBER_OF_ENCODERS 1 */
 //#define ENCODERS_PAD_A { D3 }

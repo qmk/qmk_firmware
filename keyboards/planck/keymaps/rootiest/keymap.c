@@ -240,7 +240,6 @@ uint16_t muse_tempo     = 50;
 
 // Used by Leader key chords
 bool did_leader_succeed;
-LEADER_EXTERNS();
 
 // Tap-Dance stuffs, initializing functions that are coded further below
 td_state_t cur_dance(tap_dance_state_t* state);
@@ -414,7 +413,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
     */
     [_TABULA] = LAYOUT_planck_mit(                                                                                                   //
         KC_ESC, KC_ALTF4, VK_TOGG, PRINT_WPM_KEY, WAKE_ANI_TOG, WAKE_AUD_TOG, KC_REDO, UC_NEXT, UC_WINC, CG_TOGG, AG_TOGG, KC_DLINE,  //
-        KC_NXTAB, KC_SLCTALL, KC_SAVE, KC_TRNS, KC_FIND, SH_TG, SH_TG, IRONY, KC_LCUT, KC_LCOPY, KC_TRNS, KC_KILL,                   //
+        KC_NXTAB, KC_SLCTALL, KC_SAVE, KC_TRNS, KC_FIND, SH_TOGG, SH_TOGG, IRONY, KC_LCUT, KC_LCOPY, KC_TRNS, KC_KILL,                   //
         KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, TG(_MOUSY), KC_TRNS, KC_HOME, KC_END, SC_SENT,              //
         TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, SC_LSPO, ALT_TAB, SC_RSPC, KC_PRVWD, KC_BRID, KC_BRIU, KC_NXTWD),
     /* Tabular Layer [8]
@@ -1404,6 +1403,81 @@ void leader_start_user(void) {
 }
 // Called when either the leader sequence is completed, or the leader timeout is hit
 void leader_end_user(void) {
+    did_leader_succeed = false;
+
+    if (leader_sequence_one_key(KC_E)) {
+        SEND_STRING(SS_LCTL(SS_LSFT("t")));
+        did_leader_succeed = true;
+    }
+    if (leader_sequence_one_key(KC_C)) {
+        SEND_STRING(SS_LGUI("r") SS_DELAY(250) "calc\n");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_one_key(KC_V)) {
+        SEND_STRING(SS_LCTL("v"));
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_two_keys(KC_E, KC_D)) {
+        SEND_STRING(SS_LGUI("r") "cmd\n" SS_LCTL("c"));
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_two_keys(KC_A, KC_C)) {
+        SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_C, KC_A, KC_T)) {
+        send_unicode_string("😸");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_B, KC_A, KC_T)) {
+        send_unicode_string("🦇");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_D, KC_O, KC_G)) {
+        send_unicode_string("🐶");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_five_keys(KC_S, KC_M, KC_I, KC_L, KC_E)) {
+        send_unicode_string("🙂");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_four_keys(KC_H, KC_A, KC_P, KC_Y)) {
+        send_unicode_string("🙂");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_five_keys(KC_H, KC_A, KC_P, KC_P, KC_Y)) {
+        send_unicode_string("🙂");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_S, KC_A, KC_D)) {
+        send_unicode_string("🙁");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_Y, KC_E, KC_S)) {
+        send_unicode_string("👍");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_two_keys(KC_N, KC_O)) {
+        send_unicode_string("👎");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_W, KC_O, KC_W)) {
+        send_unicode_string("🤯");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_P, KC_O, KC_O)) {
+        send_unicode_string("💩");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_four_keys(KC_P, KC_O, KC_O, KC_P)) {
+        send_unicode_string("💩");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_four_keys(KC_B, KC_O, KC_A, KC_T)) {
+        send_unicode_string("⛵");
+        did_leader_succeed = true;
+    }
+
     if (did_leader_succeed) {
 #ifdef AUDIO_ENABLE
         PLAY_SONG(leader_succeed);
@@ -1757,84 +1831,6 @@ void matrix_scan_user(void) {
             unregister_code(KC_LALT);
             is_alt_tab_active = false;
         }
-    }
-    // Monitor and perform leader-key chords
-    LEADER_DICTIONARY() {
-        did_leader_succeed = leading = false;
-
-        SEQ_ONE_KEY(KC_E) {
-            SEND_STRING(SS_LCTL(SS_LSFT("t")));
-            did_leader_succeed = true;
-        }
-        SEQ_ONE_KEY(KC_C) {
-            SEND_STRING(SS_LGUI("r") SS_DELAY(250) "calc\n");
-            did_leader_succeed = true;
-        }
-        else SEQ_ONE_KEY(KC_V) {
-            SEND_STRING(SS_LCTL("v"));
-            did_leader_succeed = true;
-        }
-        else SEQ_TWO_KEYS(KC_E, KC_D) {
-            SEND_STRING(SS_LGUI("r") "cmd\n" SS_LCTL("c"));
-            did_leader_succeed = true;
-        }
-        else SEQ_TWO_KEYS(KC_A, KC_C) {
-            SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_C, KC_A, KC_T) {
-            send_unicode_string("😸");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_B, KC_A, KC_T) {
-            send_unicode_string("🦇");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_D, KC_O, KC_G) {
-            send_unicode_string("🐶");
-            did_leader_succeed = true;
-        }
-        else SEQ_FIVE_KEYS(KC_S, KC_M, KC_I, KC_L, KC_E) {
-            send_unicode_string("🙂");
-            did_leader_succeed = true;
-        }
-        else SEQ_FOUR_KEYS(KC_H, KC_A, KC_P, KC_Y) {
-            send_unicode_string("🙂");
-            did_leader_succeed = true;
-        }
-        else SEQ_FIVE_KEYS(KC_H, KC_A, KC_P, KC_P, KC_Y) {
-            send_unicode_string("🙂");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_S, KC_A, KC_D) {
-            send_unicode_string("🙁");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_Y, KC_E, KC_S) {
-            send_unicode_string("👍");
-            did_leader_succeed = true;
-        }
-        else SEQ_TWO_KEYS(KC_N, KC_O) {
-            send_unicode_string("👎");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_W, KC_O, KC_W) {
-            send_unicode_string("🤯");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_P, KC_O, KC_O) {
-            send_unicode_string("💩");
-            did_leader_succeed = true;
-        }
-        else SEQ_FOUR_KEYS(KC_P, KC_O, KC_O, KC_P) {
-            send_unicode_string("💩");
-            did_leader_succeed = true;
-        }
-        else SEQ_FOUR_KEYS(KC_B, KC_O, KC_A, KC_T) {
-            send_unicode_string("⛵");
-            did_leader_succeed = true;
-        }
-        leader_end();
     }
     // Run the wake-up RGB animation if performing wake-up
     if (do_wake_animation) {

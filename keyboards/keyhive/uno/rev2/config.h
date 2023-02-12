@@ -15,7 +15,6 @@
  */
 
 #pragma once
-#include "config_common.h"
 
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 
@@ -36,6 +35,3 @@
 #define RGB_DI_PIN D1
 #define RGBLED_NUM 1
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

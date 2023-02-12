@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -53,4 +52,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5

@@ -8,6 +8,8 @@
     "pid": "0x6566",
     "device_version": "0.6.5"
   },
+  "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
   "layout_aliases": {
     "LAYOUT_all": "LAYOUT_65_ansi_blocker"
   },

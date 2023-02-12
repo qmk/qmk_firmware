@@ -819,16 +819,16 @@ See also: [Space Cadet](feature_space_cadet.md)
 
 See also: [Swap Hands](feature_swap_hands.md)
 
-|Key        |Description                                                              |
-|-----------|-------------------------------------------------------------------------|
-|`SH_T(key)`|Sends `key` with a tap; momentary swap when held.                        |
-|`SH_ON`    |Turns on swapping and leaves it on.                                      |
-|`SH_OFF`   |Turn off swapping and leaves it off. Good for returning to a known state.|
-|`SH_MON`   |Swaps hands when pressed, returns to normal when released (momentary).   |
-|`SH_MOFF`  |Momentarily turns off swap.                                              |
-|`SH_TG`    |Toggles swap on and off with every key press.                            |
-|`SH_TT`    |Toggles with a tap; momentary when held.                                 |
-|`SH_OS`    |One shot swap hands: toggle while pressed or until next key press.       |
+|Key                          |Aliases  |Description                                         |
+|-----------------------------|---------|----------------------------------------------------|
+|`SH_T(kc)`                   |         |Momentary swap when held, `kc` when tapped          |
+|`QK_SWAP_HANDS_ON`           |`SH_ON`  |Turn on hand swap                                   |
+|`QK_SWAP_HANDS_OFF`          |`SH_OFF` |Turn off hand swap                                  |
+|`QK_SWAP_HANDS_MOMENTARY_ON` |`SH_MON` |Turn on hand swap while held                        |
+|`QK_SWAP_HANDS_MOMENTARY_OFF`|`SH_MOFF`|Turn off hand swap while held                       |
+|`QK_SWAP_HANDS_TOGGLE`       |`SH_TOGG`|Toggle hand swap                                    |
+|`QK_SWAP_HANDS_TAP_TOGGLE`   |`SH_TT`  |Momentary swap when held, toggle when tapped        |
+|`QK_SWAP_HANDS_ONE_SHOT`     |`SH_OS`  |Turn on hand swap while held or until next key press|
 
 ## Unicode Support :id=unicode-support
 

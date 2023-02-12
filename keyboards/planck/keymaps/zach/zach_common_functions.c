@@ -427,7 +427,7 @@ void play_goodbye_tone(void){
   _delay_ms(150);
 }
 
-void shutdown_user(){
+void shutdown_user(void){
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();

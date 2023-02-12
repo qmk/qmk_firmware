@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // Rows are doubled-up
@@ -34,9 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define EE_HANDS
 #define SPLIT_HAND_PIN E6
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define QMK_ESC_OUTPUT D3
 #define QMK_ESC_INPUT B1
 
@@ -46,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN C6
 #define BACKLIGHT_LEVELS 5
-// #define BACKLIGHT_BREATHING //not working with splits right now
 #define BREATHING_PERIOD 6
 #endif
 

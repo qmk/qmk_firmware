@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -50,14 +49,9 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* number of backlight levels */
 #define BACKLIGHT_PIN F5
 #define BACKLIGHT_LEVELS 10
 #define BACKLIGHT_ON_STATE 0
-// #define BACKLIGHT_BREATHING
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

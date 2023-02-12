@@ -8,6 +8,9 @@
         "pid": "0xDA19",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "debounce": 9,
     "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_owlet60_full_bsp": {

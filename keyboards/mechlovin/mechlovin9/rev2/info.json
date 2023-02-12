@@ -3,5 +3,7 @@
     "usb": {
         "pid": "0x6509",
         "device_version": "0.0.2"
-    }
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid"
 }

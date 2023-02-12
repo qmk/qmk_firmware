@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 /* Column/Row IO definitions */
 #define MATRIX_ROWS 4
@@ -28,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Column/Row IO definitions */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Reduce tapdance required taps from 5 to 2 */
 #define TAPPING_TOGGLE 2

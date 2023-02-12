@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 300000
@@ -29,6 +28,3 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
-

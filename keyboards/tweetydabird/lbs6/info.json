@@ -27,8 +27,6 @@
         "device_version": "1.1.0"
     },
     
-    "debounce": 5,
-    
     "matrix_pins": {
         "direct": [
             [null, "F5", null],

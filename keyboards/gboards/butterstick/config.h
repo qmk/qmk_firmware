@@ -1,10 +1,8 @@
 #pragma once
 
-#include "config_common.h"
 
 #define VERSION 		"Paula Deen"
 
-#define DEBOUNCE 5
 #define FORCE_NKRO
 
 /* key matrix size */

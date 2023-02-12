@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* Maximum dynamic keymap layers (constrained by EEPROM space) */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
@@ -31,26 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define DIODE_DIRECTION
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS  1
-
-/* mapping backlight LEDs to correct Pin */
-// #define BACKLIGHT_PIN B7
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE  0
-
 #define LED_NUM_LOCK_PIN B4
 #define LED_CAPS_LOCK_PIN B5
 #define LED_SCROLL_LOCK_PIN B6
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-// #define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-// #define LOCKING_RESYNC_ENABLE
 
 /*
  * Feature disable options

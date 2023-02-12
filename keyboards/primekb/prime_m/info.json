@@ -8,6 +8,8 @@
     "pid": "0x504D",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
   "community_layouts": ["numpad_5x6"],
   "layouts": {
       "LAYOUT_ortho_5x6": {

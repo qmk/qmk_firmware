@@ -17,11 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-/* #define DEBOUNCE 5 */
-
 #define WS2812_PIO_USE_PIO1
 #define RGBLED_NUM 48
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -26,7 +25,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
-
-#define DEBOUNCE 50
 
 #define I2C_START_RETRY_COUNT 1

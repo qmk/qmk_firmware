@@ -8,6 +8,8 @@
         "pid": "0x3370",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["tkl_nofrow_ansi", "tkl_nofrow_iso"],
     "layouts": {
         "LAYOUT_all": {

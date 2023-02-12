@@ -1,16 +1,3 @@
-# MCU name
-MCU = MK20DX256
-
-# Bootloader selection
-BOOTLOADER = kiibohd
-
-# Board: it should exist either in <chibios>/os/hal/boards/
-#  or <this_dir>/boards
-# This board was copied from PJRC_TEENSY_3_1. The only difference should be a
-# hack to ensure the watchdog has started before trying to disable it, and an
-# override to disable restart of USB driver after returning from suspend.
-BOARD = IC_TEENSY_3_1
-
 # Build Options
 #   change yes to no to disable
 #

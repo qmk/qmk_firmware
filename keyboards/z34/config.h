@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -37,10 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D3, D1, D0, D4, E6 }, \
     { B5, B4, NO_PIN, NO_PIN, NO_PIN } \
 }
-
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
