@@ -80,13 +80,14 @@ SPLIT_TRANSPORT = custom
 ```
 
 ### Layout Macro
-When configuring a split keyboard, note the matrix rows and pins are doubled, thus QMK views the layout as follows, where the numbers represent `row, col`:
 
-IMG1
+Configuring your layout in a split keyboard works slightly differently to a non-split keyboard. Take for example the following layout. The top left numbers refer to the matrix row and column, and the bottom right are the order of the keys in the layout:
 
-IMG2
+![Physical layout](https://i.imgur.com/QeY6kMQ.png)
 
-Take care to define your layout in `info.json` accordingly.
+Since the matrix scanning procedure operates on entire rows, it first populates the left half's rows, then the right half's. Thus, the matrix as QMK views it has double the rows instead of double the columns:
+
+![Matrix](https://i.imgur.com/4wjJzBU.png)
 
 ### Setting Handedness
 
