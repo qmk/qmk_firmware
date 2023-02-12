@@ -150,7 +150,7 @@ In the above example,
   * It must conform to the [layout guidelines](hardware_keyboard_guidelines.md#ltkeyboard_namehgt)
 * `"matrix": [0, 0]` defines the electrical position
 
-?> See also: [Split Keyboard Layout Macro](https://docs.qmk.fm/#/feature_split_keyboard?id=Layout Macro) and [Matrix to Physical Layout](https://docs.qmk.fm/#/understanding_qmk?id=matrix-to-physical-layout-map).
+?> See also: [Split Keyboard Layout Macro](https://docs.qmk.fm/#/feature_split_keyboard?id=layout-macro) and [Matrix to Physical Layout](https://docs.qmk.fm/#/understanding_qmk?id=matrix-to-physical-layout-map).
 
 ## Additional Configuration
 
