@@ -11,15 +11,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Internal driver validation
 
-static bool validate_driver_vtable(struct painter_driver_t *driver) {
+static bool validate_driver_vtable(painter_driver_t *driver) {
     return (driver->driver_vtable && driver->driver_vtable->init && driver->driver_vtable->power && driver->driver_vtable->clear && driver->driver_vtable->viewport && driver->driver_vtable->pixdata && driver->driver_vtable->palette_convert && driver->driver_vtable->append_pixels && driver->driver_vtable->append_pixdata) ? true : false;
 }
 
-static bool validate_comms_vtable(struct painter_driver_t *driver) {
+static bool validate_comms_vtable(painter_driver_t *driver) {
     return (driver->comms_vtable && driver->comms_vtable->comms_init && driver->comms_vtable->comms_start && driver->comms_vtable->comms_stop && driver->comms_vtable->comms_send) ? true : false;
 }
 
-static bool validate_driver_integrity(struct painter_driver_t *driver) {
+static bool validate_driver_integrity(painter_driver_t *driver) {
     return validate_driver_vtable(driver) && validate_comms_vtable(driver);
 }
 
@@ -28,7 +28,7 @@ static bool validate_driver_integrity(struct painter_driver_t *driver) {
 
 bool qp_init(painter_device_t device, painter_rotation_t rotation) {
     qp_dprintf("qp_init: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
 
     driver->validate_ok = false;
     if (!validate_driver_integrity(driver)) {
@@ -64,7 +64,7 @@ bool qp_init(painter_device_t device, painter_rotation_t rotation) {
 
 bool qp_power(painter_device_t device, bool power_on) {
     qp_dprintf("qp_power: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver->validate_ok) {
         qp_dprintf("qp_power: fail (validation_ok == false)\n");
         return false;
@@ -86,7 +86,7 @@ bool qp_power(painter_device_t device, bool power_on) {
 
 bool qp_clear(painter_device_t device) {
     qp_dprintf("qp_clear: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver->validate_ok) {
         qp_dprintf("qp_clear: fail (validation_ok == false)\n");
         return false;
@@ -108,7 +108,7 @@ bool qp_clear(painter_device_t device) {
 
 bool qp_flush(painter_device_t device) {
     qp_dprintf("qp_flush: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver->validate_ok) {
         qp_dprintf("qp_flush: fail (validation_ok == false)\n");
         return false;
@@ -130,7 +130,7 @@ bool qp_flush(painter_device_t device) {
 
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y) {
     qp_dprintf("qp_geometry: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
 
     switch (driver->rotation) {
         default:
@@ -174,7 +174,7 @@ void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height,
 
 void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_t offset_y) {
     qp_dprintf("qp_set_viewport_offsets: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
 
     driver->offset_x = offset_x;
     driver->offset_y = offset_y;
@@ -187,7 +187,7 @@ void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_
 
 bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
     qp_dprintf("qp_viewport: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver->validate_ok) {
         qp_dprintf("qp_viewport: fail (validation_ok == false)\n");
         return false;
@@ -210,7 +210,7 @@ bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t 
 
 bool qp_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
     qp_dprintf("qp_pixdata: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver->validate_ok) {
         qp_dprintf("qp_pixdata: fail (validation_ok == false)\n");
         return false;

@@ -63,7 +63,7 @@ enum qp_internal_rle_mode_t {
     NON_REPEATING_RUN,
 };
 
-struct qp_internal_byte_input_state {
+typedef struct qp_internal_byte_input_state_t {
     painter_device_t device;
     qp_stream_t*     src_stream;
     int16_t          curr;
@@ -74,22 +74,22 @@ struct qp_internal_byte_input_state {
             uint8_t                     remain; // number of bytes remaining in the current mode
         } rle;
     };
-};
+} qp_internal_byte_input_state_t;
 
-struct qp_internal_pixel_output_state {
+typedef struct qp_internal_pixel_output_state_t {
     painter_device_t device;
     uint32_t         pixel_write_pos;
     uint32_t         max_pixels;
-};
+} qp_internal_pixel_output_state_t;
 
 bool qp_internal_pixel_appender(qp_pixel_t* palette, uint8_t index, void* cb_arg);
 
-struct qp_internal_byte_output_state {
+typedef struct qp_internal_byte_output_state_t {
     painter_device_t device;
     uint32_t         byte_write_pos;
     uint32_t         max_bytes;
-};
+} qp_internal_byte_output_state_t;
 
 bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg);
 
-qp_internal_byte_input_callback qp_internal_prepare_input_state(struct qp_internal_byte_input_state* input_state, painter_compression_t compression);
+qp_internal_byte_input_callback qp_internal_prepare_input_state(qp_internal_byte_input_state_t* input_state, painter_compression_t compression);

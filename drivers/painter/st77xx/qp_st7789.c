@@ -24,7 +24,7 @@ tft_panel_dc_reset_painter_device_t st7789_drivers[ST7789_NUM_DEVICES] = {0};
 
 #ifndef ST7789_NO_AUTOMATIC_OFFSETS
 static inline void st7789_automatic_viewport_offsets(painter_device_t device, painter_rotation_t rotation) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
 
     // clang-format off
     const struct {
@@ -81,7 +81,7 @@ __attribute__((weak)) bool qp_st7789_init(painter_device_t device, painter_rotat
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
+const tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
     .base =
         {
             .init            = qp_st7789_init,
@@ -116,8 +116,8 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
     for (uint32_t i = 0; i < ST7789_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &st7789_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&st7789_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const painter_driver_vtable_t *)&st7789_driver_vtable;
+            driver->base.comms_vtable          = (const painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;
