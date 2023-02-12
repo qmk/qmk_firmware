@@ -29,12 +29,14 @@
     },
     "split": {
         "matrix_pins": {
-            "direct": [
-                ["B13", "B14", "B15", "A8", "B10", "B1"],
-                ["A15", "B3", "B4", "B5", "B8", "B9"],
-                ["B0", "A7", "A6", "A5", "A4", "A3"],
-                ["A0", "A1", "A2", null, null, null]
-            ]
+            "right": {
+                "direct": [
+                    ["B13", "B14", "B15", "A8", "B10", "B1"],
+                    ["A15", "B3", "B4", "B5", "B8", "B9"],
+                    ["B0", "A7", "A6", "A5", "A4", "A3"],
+                    ["A0", "A1", "A2", null, null, null]
+                ]
+            }
         }
     },
     "community_layouts": ["split_3x6_3"],

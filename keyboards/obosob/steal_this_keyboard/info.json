@@ -20,12 +20,14 @@
     },
     "split": {
         "matrix_pins": {
-            "direct": [
-                ["D7", "D1", "B2", "F7", "F4"],
-                ["E6", "D0", "B6", "B1", "F5"],
-                ["B4", "D4", "D3", "B3", "F6"],
-                ["B5", "C6", null, null, null]
-            ]
+            "right": {
+                "direct": [
+                    ["D7", "D1", "B2", "F7", "F4"],
+                    ["E6", "D0", "B6", "B1", "F5"],
+                    ["B4", "D4", "D3", "B3", "F6"],
+                    ["B5", "C6", null, null, null]
+                ]
+            }
         }
     },
     "community_layouts": [
