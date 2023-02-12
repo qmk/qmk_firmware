@@ -72,13 +72,21 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_TRANSPARENT;
             break;
         case QK_MODS ... QK_MODS_MAX:;
-            // Has a modifier
-            // Split it up
+        // Has a modifier
+        // Split it up
+#ifdef LEGACY_MAGIC_HANDLING
             action.code = ACTION_MODS_KEY(QK_MODS_GET_MODS(keycode), QK_MODS_GET_BASIC_KEYCODE(keycode)); // adds modifier to key
+#else                                                                                                     // LEGACY_MAGIC_HANDLING
+            action.code = ACTION_MODS_KEY(mod_config(QK_MODS_GET_MODS(keycode)), keycode_config(QK_MODS_GET_BASIC_KEYCODE(keycode))); // adds modifier to key
+#endif                                                                                                    // LEGACY_MAGIC_HANDLING
             break;
 #ifndef NO_ACTION_LAYER
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+#    ifdef LEGACY_MAGIC_HANDLING
             action.code = ACTION_LAYER_TAP_KEY(QK_LAYER_TAP_GET_LAYER(keycode), QK_LAYER_TAP_GET_TAP_KEYCODE(keycode));
+#    else  // LEGACY_MAGIC_HANDLING
+            action.code = ACTION_LAYER_TAP_KEY(QK_LAYER_TAP_GET_LAYER(keycode), keycode_config(QK_LAYER_TAP_GET_TAP_KEYCODE(keycode)));
+#    endif // LEGACY_MAGIC_HANDLING
             break;
         case QK_TO ... QK_TO_MAX:;
             // Layer set "GOTO"
@@ -125,13 +133,21 @@ action_t action_for_keycode(uint16_t keycode) {
 #endif
 #ifndef NO_ACTION_TAPPING
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            mod         = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+            mod = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+#    ifdef LEGACY_MAGIC_HANDLING
             action.code = ACTION_MODS_TAP_KEY(mod, QK_MOD_TAP_GET_TAP_KEYCODE(keycode));
+#    else  // LEGACY_MAGIC_HANDLING
+            action.code = ACTION_MODS_TAP_KEY(mod, keycode_config(QK_MOD_TAP_GET_TAP_KEYCODE(keycode)));
+#    endif // LEGACY_MAGIC_HANDLING
             break;
 #endif
 #ifdef SWAP_HANDS_ENABLE
         case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+#    ifdef LEGACY_MAGIC_HANDLING
             action.code = ACTION(ACT_SWAP_HANDS, QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode));
+#    else  // LEGACY_MAGIC_HANDLING
+            action.code = ACTION(ACT_SWAP_HANDS, keycode_config(QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode)));
+#    endif // LEGACY_MAGIC_HANDLING
             break;
 #endif
 
