@@ -105,6 +105,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
 #endif
+#ifdef LEADER_ENABLE
+#    include "leader.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -544,6 +547,10 @@ void quantum_task(void) {
 
 #ifdef COMBO_ENABLE
     combo_task();
+#endif
+
+#ifdef LEADER_ENABLE
+    leader_task();
 #endif
 
 #ifdef WPM_ENABLE
