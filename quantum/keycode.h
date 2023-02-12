@@ -28,9 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IS_ANY(code) (KC_A <= (code) && (code) <= 0xFF)
 
-#define IS_SYSTEM(code) IS_SYSTEM_KEYCODE(code)
-#define IS_CONSUMER(code) IS_MEDIA_KEYCODE(code)
-
 #define IS_MOUSEKEY(code) IS_MOUSE_KEYCODE(code)
 #define IS_MOUSEKEY_MOVE(code) (KC_MS_UP <= (code) && (code) <= KC_MS_RIGHT)
 #define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1 <= (code) && (code) <= KC_MS_BTN8)
