@@ -254,8 +254,8 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
     }
 
     // Set up the input state
-    qp_internal_byte_input_state_t input_state    = {.device = device, .src_stream = &qgf_image->stream};
-    qp_internal_byte_input_callback     input_callback = qp_internal_prepare_input_state(&input_state, frame_info->compression_scheme);
+    qp_internal_byte_input_state_t  input_state    = {.device = device, .src_stream = &qgf_image->stream};
+    qp_internal_byte_input_callback input_callback = qp_internal_prepare_input_state(&input_state, frame_info->compression_scheme);
     if (input_callback == NULL) {
         qp_dprintf("qp_drawimage_recolor: fail (invalid image compression scheme)\n");
         qp_comms_stop(device);

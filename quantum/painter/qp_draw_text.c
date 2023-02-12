@@ -325,7 +325,7 @@ typedef struct code_point_iter_calcwidth_state_t {
 
 // Codepoint handler callback: width calc
 static inline bool qp_font_code_point_handler_calcwidth(qff_font_handle_t *qff_font, uint32_t code_point, uint8_t width, uint8_t height, void *cb_arg) {
-    code_point_iter_calcwidth_state_t *state = (code_point_iter_calcwidth_state_t*)cb_arg;
+    code_point_iter_calcwidth_state_t *state = (code_point_iter_calcwidth_state_t *)cb_arg;
 
     // Increment the overall width by this glyph's width
     state->width += width;
@@ -338,10 +338,10 @@ static inline bool qp_font_code_point_handler_calcwidth(qff_font_handle_t *qff_f
 
 // Callback state
 typedef struct code_point_iter_drawglyph_state_t {
-    painter_device_t                       device;
-    int16_t                                xpos;
-    int16_t                                ypos;
-    qp_internal_byte_input_callback        input_callback;
+    painter_device_t                  device;
+    int16_t                           xpos;
+    int16_t                           ypos;
+    qp_internal_byte_input_callback   input_callback;
     qp_internal_byte_input_state_t *  input_state;
     qp_internal_pixel_output_state_t *output_state;
 } code_point_iter_drawglyph_state_t;
@@ -349,7 +349,7 @@ typedef struct code_point_iter_drawglyph_state_t {
 // Codepoint handler callback: drawing
 static inline bool qp_font_code_point_handler_drawglyph(qff_font_handle_t *qff_font, uint32_t code_point, uint8_t width, uint8_t height, void *cb_arg) {
     code_point_iter_drawglyph_state_t *state  = (code_point_iter_drawglyph_state_t *)cb_arg;
-    painter_driver_t *               driver = (painter_driver_t *)state->device;
+    painter_driver_t *                 driver = (painter_driver_t *)state->device;
 
     // Reset the input state's RLE mode -- the stream should already be correctly positioned by qp_iterate_code_points()
     state->input_state->rle.mode = MARKER_BYTE; // ignored if not using RLE
@@ -423,8 +423,8 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
     }
 
     // Set up the byte input state and input callback
-    qp_internal_byte_input_state_t input_state    = {.device = device, .src_stream = &qff_font->stream};
-    qp_internal_byte_input_callback     input_callback = qp_internal_prepare_input_state(&input_state, qff_font->compression_scheme);
+    qp_internal_byte_input_state_t  input_state    = {.device = device, .src_stream = &qff_font->stream};
+    qp_internal_byte_input_callback input_callback = qp_internal_prepare_input_state(&input_state, qff_font->compression_scheme);
     if (input_callback == NULL) {
         qp_dprintf("qp_drawtext_recolor: fail (invalid font compression scheme)\n");
         qp_comms_stop(device);
@@ -436,14 +436,14 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 
     // Set up the codepoint iteration state
     code_point_iter_drawglyph_state_t state = {// Common
-                                                    .device = device,
-                                                    .xpos   = x,
-                                                    .ypos   = y,
-                                                    // Input
-                                                    .input_callback = input_callback,
-                                                    .input_state    = &input_state,
-                                                    // Output
-                                                    .output_state = &output_state};
+                                               .device = device,
+                                               .xpos   = x,
+                                               .ypos   = y,
+                                               // Input
+                                               .input_callback = input_callback,
+                                               .input_state    = &input_state,
+                                               // Output
+                                               .output_state = &output_state};
 
     qp_pixel_t fg_hsv888 = {.hsv888 = {.h = hue_fg, .s = sat_fg, .v = val_fg}};
     qp_pixel_t bg_hsv888 = {.hsv888 = {.h = hue_bg, .s = sat_bg, .v = val_bg}};

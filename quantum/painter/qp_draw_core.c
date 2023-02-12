@@ -50,8 +50,8 @@ bool qp_internal_setpixel_impl(painter_device_t device, uint16_t x, uint16_t y) 
 // Fills the global native pixel buffer with equivalent pixels matching the supplied HSV
 void qp_internal_fill_pixdata(painter_device_t device, uint32_t num_pixels, uint8_t hue, uint8_t sat, uint8_t val) {
     painter_driver_t *driver            = (painter_driver_t *)device;
-    uint32_t                 pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
-    num_pixels                                 = QP_MIN(pixels_in_pixdata, num_pixels);
+    uint32_t          pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
+    num_pixels                          = QP_MIN(pixels_in_pixdata, num_pixels);
 
     // Convert the color to native pixel format
     qp_pixel_t color = {.hsv888 = {.h = hue, .s = sat, .v = val}};
@@ -228,7 +228,7 @@ bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uin
 // Quantum Painter External API: qp_rect
 
 bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    uint32_t                 pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
+    uint32_t          pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
     painter_driver_t *driver            = (painter_driver_t *)device;
 
     uint16_t l = QP_MIN(left, right);

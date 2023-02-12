@@ -34,8 +34,8 @@ extern const painter_comms_vtable_t spi_comms_vtable;
 
 typedef struct qp_comms_spi_dc_reset_config_t {
     qp_comms_spi_config_t spi_config;
-    pin_t                        dc_pin;
-    pin_t                        reset_pin;
+    pin_t                 dc_pin;
+    pin_t                 reset_pin;
 } qp_comms_spi_dc_reset_config_t;
 
 void     qp_comms_spi_dc_reset_send_command(painter_device_t device, uint8_t cmd);
