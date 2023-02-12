@@ -18,7 +18,6 @@
 
 #include "rgb_matrix.h"
 #include "progmem.h"
-#include "info_config.h"
 #include "eeprom.h"
 #include <string.h>
 #include <math.h>
