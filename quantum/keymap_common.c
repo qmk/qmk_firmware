@@ -157,7 +157,7 @@ action_t action_for_keycode(uint16_t keycode) {
 #    else  // LEGACY_MAGIC_HANDLING
             action.code = ACTION_MODS_TAP_KEY(mod, keycode_config(QK_MOD_TAP_GET_TAP_KEYCODE(keycode)));
 #    endif // LEGACY_MAGIC_HANDLING
-#else // NO_ACTION_TAPPING
+#else      // NO_ACTION_TAPPING
 #    ifdef NO_ACTION_TAPPING_MODTAP_MODS
             // pass through mod_config again, since it previously missed it
             // and then only send as ACTION_KEY to bypass most of action.c handling
