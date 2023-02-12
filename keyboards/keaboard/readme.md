@@ -1,7 +1,5 @@
 # keaboard
 
-![keaboard](https://raw.githubusercontent.com/keawade/keaboard/master/images/keaboard-rev1-pcb-render.png)
-
 A split columnular stagger 4x6 keyboard with 3 thumb keys designed by [Keith Wade](https://github.com/keawade). [More info on the GitHub Repo](https://github.com/keawade/keaboard).
 
 * Keyboard Maintainer: [Keith Wade](https://github.com/keawade)

@@ -20,16 +20,11 @@
     
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0",
-        "main": "left",
-        "transport": {
-            "protocol": "serial"
-        }
+        "soft_serial_pin": "D0"
     },
-    "mouse_key": {
-        "enabled": true
+    "features": {
+        "mousekey": true
     },
-
 
     "layouts": {
         "LAYOUT": {

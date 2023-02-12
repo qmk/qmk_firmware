@@ -15,11 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_H
-#define REV1_H
-
-#include "keaboard.h"
-
 #include "quantum.h"
 
 #define LAYOUT( \
@@ -38,5 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         { R03,   R07,   R11,   R15,   R19,   R23,   R24   }, \
         { R04,   R08,   R12,   R16,   R20,   KC_NO, R25   }  \
     }
-
-#endif
