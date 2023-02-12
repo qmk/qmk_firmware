@@ -350,6 +350,7 @@ action_t layer_switch_get_action(keypos_t key) {
     return action_for_key(layer_switch_get_layer(key), key);
 }
 
+#ifndef NO_ACTION_LAYER
 layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
     layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
     layer_state_t mask3  = (layer_state_t)1 << layer3;
@@ -359,3 +360,4 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
     layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
 }
+#endif
