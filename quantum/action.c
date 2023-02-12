@@ -952,9 +952,9 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
 
 #ifdef EXTRAKEY_ENABLE
-    } else if IS_SYSTEM (code) {
+    } else if IS_SYSTEM_KEYCODE (code) {
         host_system_send(0);
-    } else if IS_CONSUMER (code) {
+    } else if IS_CONSUMER_KEYCODE (code) {
         host_consumer_send(0);
 #endif
 
