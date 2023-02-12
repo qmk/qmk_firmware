@@ -52,9 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define ENCODERS_PAD_A { }
 #define ENCODERS_PAD_B { }
 #define ENCODER_RESOLUTIONS { }
