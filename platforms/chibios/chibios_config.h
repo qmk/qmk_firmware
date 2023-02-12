@@ -146,6 +146,16 @@
 #    define CPU_CLOCK BOARD_BOOTCLOCKRUN_CORE_CLOCK
 #endif
 
+#if defined(MCU_MIMXRT1064)
+#    include "clock_config.h"
+#    define CPU_CLOCK BOARD_BOOTCLOCKRUN_CORE_CLOCK
+#    define USE_GPIOV1
+#    define USE_I2CV1_CONTRIB
+#    if !defined(I2C1_CLOCK_SPEED)
+#        define I2C1_CLOCK_SPEED 400000
+#    endif
+#endif
+
 #if defined(HT32)
 #    define CPU_CLOCK HT32_CK_SYS_FREQUENCY
 #    define PAL_MODE_ALTERNATE PAL_HT32_MODE_AF
