@@ -102,5 +102,4 @@ TEST_F(OneShot, OSL_ReportPress) {
     run_one_scan_loop();
     EXPECT_NO_REPORT(driver);
     VERIFY_AND_CLEAR(driver);
-
 }
