@@ -10,6 +10,15 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["B2", "B10", "B3", "B4"],
+            ["B1", "B11", "A15", "B5"],
+            ["B0", "A5", "B7", "F0"],
+            ["A7", "A6", "B8", "B6"],
+            ["A4", "A3", "B9", "F1"]
+        ]
+    },
     "community_layouts": ["ortho_5x4", "numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {

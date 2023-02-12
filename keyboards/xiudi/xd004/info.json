@@ -9,6 +9,11 @@
     },
     "processor": "atmega16u2",
     "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["D3", "D0", "C4", "B4"]
+        ]
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"L", "x":0, "y":0}, {"label":"O", "x":1, "y":0}, {"label":"V", "x":2, "y":0}, {"label":"E", "x":3, "y":0}]
