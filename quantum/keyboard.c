@@ -252,6 +252,14 @@ __attribute__((weak)) void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
+/** \brief matrix_can_read
+ *
+ * Allows overriding when matrix scanning operations should be executed.
+ */
+__attribute__((weak)) bool matrix_can_read(void) {
+    return true;
+}
+
 /** \brief keyboard_setup
  *
  * FIXME: needs doc
@@ -449,10 +457,14 @@ static inline void generate_tick_event(void) {
  * @return false Matrix didn't change
  */
 static bool matrix_task(void) {
+    if (!matrix_can_read()) {
+        generate_tick_event();
+        return false;
+    }
+
     static matrix_row_t matrix_previous[MATRIX_ROWS];
 
     matrix_scan();
-
     bool matrix_changed = false;
     for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
         matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
