@@ -323,7 +323,7 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
 #elif defined(POINTING_DEVICE_ENABLE)
     // if mousekeys isn't enabled, and pointing device is enabled, then
     // let pointing device do all the heavy lifting, then
-    if IS_MOUSE_KEYCODE (mouse_keycode) {
+    if (IS_MOUSE_KEYCODE(mouse_keycode)) {
         pointing_device_keycode_handler(mouse_keycode, pressed);
     }
 #endif
@@ -877,7 +877,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
         send_keyboard_report();
 #endif
 
-    } else if IS_BASIC_KEYCODE (code) {
+    } else if (IS_BASIC_KEYCODE(code)) {
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
@@ -890,18 +890,18 @@ __attribute__((weak)) void register_code(uint8_t code) {
         }
         add_key(code);
         send_keyboard_report();
-    } else if IS_MODIFIER_KEYCODE (code) {
+    } else if (IS_MODIFIER_KEYCODE(code)) {
         add_mods(MOD_BIT(code));
         send_keyboard_report();
 
 #ifdef EXTRAKEY_ENABLE
-    } else if IS_SYSTEM_KEYCODE (code) {
+    } else if (IS_SYSTEM_KEYCODE(code)) {
         host_system_send(KEYCODE2SYSTEM(code));
-    } else if IS_CONSUMER_KEYCODE (code) {
+    } else if (IS_CONSUMER_KEYCODE(code)) {
         host_consumer_send(KEYCODE2CONSUMER(code));
 #endif
 
-    } else if IS_MOUSE_KEYCODE (code) {
+    } else if (IS_MOUSE_KEYCODE(code)) {
         register_mouse(code, true);
     }
 }
@@ -944,21 +944,21 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
 #endif
 
-    } else if IS_BASIC_KEYCODE (code) {
+    } else if (IS_BASIC_KEYCODE(code)) {
         del_key(code);
         send_keyboard_report();
-    } else if IS_MODIFIER_KEYCODE (code) {
+    } else if (IS_MODIFIER_KEYCODE(code)) {
         del_mods(MOD_BIT(code));
         send_keyboard_report();
 
 #ifdef EXTRAKEY_ENABLE
-    } else if IS_SYSTEM (code) {
+    } else if (IS_SYSTEM_KEYCODE(code)) {
         host_system_send(0);
-    } else if IS_CONSUMER (code) {
+    } else if (IS_CONSUMER_KEYCODE(code)) {
         host_consumer_send(0);
 #endif
 
-    } else if IS_MOUSE_KEYCODE (code) {
+    } else if (IS_MOUSE_KEYCODE(code)) {
         register_mouse(code, false);
     }
 }
