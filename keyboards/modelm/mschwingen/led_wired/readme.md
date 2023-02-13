@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment), run on
 
     make modelm/mschwingen/led_wired:default
 
-flash:
+Flashing example for this keyboard:
 
     make modelm/mschwingen/led_wired:default:flash
 
