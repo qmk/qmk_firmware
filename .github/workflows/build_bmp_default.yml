@@ -32,8 +32,11 @@ jobs:
         run: pip3 install -r requirements.txt
       
       # Runs a single command using the runners shell
-      - name: Build firmware
+      - name: Build ble_micro_pro firmware
         run: make ble_micro_pro:default:uf2
+        
+      - name: Build keyboard_quantizer_b firmware
+        run: make keyboard_quantizer/kqb:default:uf2
      
       - uses: actions/upload-artifact@v2
         with:
