@@ -31,9 +31,9 @@ Pins:        B6       5V  B5         B4
 
 Please note that some versions of Model M have LED connected with a ribbon cable, and not with separate wires.
 
-Keyboard Maintainer: [iw0rm3r](https://github.com/iw0rm3r)
-Hardware Supported: Teensy++ 2.0 board by PJRC
-Hardware Availability: https://www.pjrc.com/store/teensypp.html 
+* Keyboard Maintainer: [iw0rm3r](https://github.com/iw0rm3r)
+* Hardware Supported: Teensy++ 2.0 board by PJRC
+* Hardware Availability: https://www.pjrc.com/store/teensypp.html 
 
 Make example for this keyboard (after setting up your build environment):
 
