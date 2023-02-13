@@ -41,6 +41,36 @@ uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
                 set_unicode_input_mode(mode);
             }
 #    endif
+            switch (os_type) {
+                case OS_UNSURE:
+                    xprintf("unknown OS Detected\n");
+                    break;
+                case OS_LINUX:
+                    xprintf("Linux Detected\n");
+                    break;
+                case OS_WINDOWS:
+                    xprintf("Windows Detected\n");
+                    break;
+#    if 0
+                case OS_WINDOWS_UNSURE:
+                    xprintf("Windows? Detected\n");
+                    break;
+#    endif
+                case OS_MACOS:
+                    xprintf("MacOS Detected\n");
+                    break;
+                case OS_IOS:
+                    xprintf("iOS Detected\n");
+                    break;
+#    if 0
+                case OS_PS5:
+                    xprintf("PlayStation 5 Detected\n");
+                    break;
+                case OS_HANDHELD:
+                    xprintf("Nintend Switch/Quest 2 Detected\n");
+                    break;
+#    endif
+            }
         }
     }
 
@@ -263,44 +293,6 @@ void                       housekeeping_task_user(void) {
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
     housekeeping_task_transport_sync();
 #endif
-
-#if defined(OS_DETECTION_ENABLE)
-    static uint32_t matrix_timer = 0;
-    uint32_t        timer_now    = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer) >= 5000) {
-        switch (os_type) {
-            case OS_UNSURE:
-                xprintf("unknown OS Detected\n");
-                break;
-            case OS_LINUX:
-                xprintf("Linux Detected\n");
-                break;
-            case OS_WINDOWS:
-                xprintf("Windows Detected\n");
-                break;
-#    if 0
-            case OS_WINDOWS_UNSURE:
-                xprintf("Windows? Detected\n");
-                break;
-#    endif
-            case OS_MACOS:
-                xprintf("MacOS Detected\n");
-                break;
-            case OS_IOS:
-                xprintf("iOS Detected\n");
-                break;
-#    if 0
-            case OS_PS5:
-                xprintf("PlayStation 5 Detected\n");
-                break;
-            case OS_HANDHELD:
-                xprintf("Nintend Switch/Quest 2 Detected\n");
-                break;
-#    endif
-        }
-        matrix_timer = timer_now;
-    }
-#endif // OS_DETECTION_ENABLE
 
     housekeeping_task_keymap();
 }
