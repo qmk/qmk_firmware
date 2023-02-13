@@ -19,33 +19,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#define TO_CLM DF(COLMAK_LAYER)
-#define TO_NMB DF(NUMBER_LAYER)
-#define TO_CHR DF(CHARS_LAYER)
-#define TO_MOS DF(MOUSE_LAYER)
-#define TO_QWT DF(QWERTY_LAYER)
-#define MO_NMB MO(NUMBER_LAYER)
-#define SP_CHR LT(CHARS_LAYER, KC_SPC)
-
 enum layers {
-  COLMAK_LAYER = 0,
-  NUMBER_LAYER = 1,
-  CHARS_LAYER = 2,
-  MOUSE_LAYER = 3,
-  QWERTY_LAYER = 4,
+  COLMAK_L = 0,
+  NUMBER_L = 1,
+  CHARS_L = 2,
+  MOUSE_L = 3,
+  QWERTY_L = 4,
 };
+
+#define TO_CLM DF(COLMAK_L)
+#define TO_NMB DF(NUMBER_L)
+#define TO_CHR DF(CHARS_L)
+#define TO_MOS DF(MOUSE_L)
+#define TO_QWT DF(QWERTY_L)
+
 
 enum custom_keycodes {
   TRM_COPY = SAFE_RANGE,
   TRM_PSTE,
-  UML_SEQ,
   QWRT_UA,
   CLM_EN,
+  UML_SEQ,
 };
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [COLMAK_LAYER] = LAYOUT_split_3x6_3(
+  [COLMAK_L] = LAYOUT_split_3x6_3(
   //,-------------------------------------------------------------------.    ,------------------------------------------------------------------------.
        KC_TAB,    KC_Q, RALT_T(KC_W), LCTL_T(KC_F), LSFT_T(KC_P), KC_B,         KC_J, LSFT_T(KC_L), LCTL_T(KC_U), RALT_T(KC_Y),       KC_SCLN, KC_BSPC,
   //|--------+--------+-------------+-------------+-------------+-------|    |------+-------------+-------------+-------------+--------------+--------|
@@ -58,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [NUMBER_LAYER] = LAYOUT_split_3x6_3(
+  [NUMBER_L] = LAYOUT_split_3x6_3(
   //,-------------------------------------------------------------------.    ,-----------------------------------------------------------------------------.
       KC_DELETE, KC_F5, LALT_T(KC_7), LCTL_T(KC_4), LSFT_T(KC_2),  KC_F1,          KC_HOME, LSFT_T(KC_PGDN), LCTL_T(KC_PGUP),    KC_END, UML_SEQ,  KC_BSPC,
   //|----------+------+-------------+-------------+-------------+-------|    |------------+----------------+----------------+----------+--------+---------|
@@ -70,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            //`--------------------------'    `----------------------------------------------'
   ),
 
-  [CHARS_LAYER] = LAYOUT_split_3x6_3(
+  [CHARS_L] = LAYOUT_split_3x6_3(
   //,------------------------------------------------------------------.    ,-----------------------------------------------------------------------------------.
      KC_DELETE, XXXXXXX, LSFT(KC_7), LSFT(KC_4), LSFT(KC_2),    KC_MUTE,            KC_MPRV,       KC_LSFT,       KC_LCTL,      KC_MNXT,       KC_EQUAL, KC_BSPC,
   //|---------+--------+-----------+-----------+-----------+-----------|    |--------------+--------------+--------------+-------------+---------------+--------|
@@ -82,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         //`----------------------------'    `--------------------------------------------'
   ),
 
-  [MOUSE_LAYER] = LAYOUT_split_3x6_3(
+  [MOUSE_L] = LAYOUT_split_3x6_3(
   //,-------------------------------------------------------.              ,-------------------------------------------------------.
       XXXXXXX,  XXXXXXX, KC_LALT,  KC_LCTL, KC_LSFT, XXXXXXX,                   KC_PSCR, KC_WH_D, KC_WH_U,   KC_F6,   KC_F7,  KC_F8,
   //|--------+---------+--------+---------+--------+--------|              |-----------+--------+--------+--------+--------+-------|
@@ -94,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    //`----------------------'              `-----------------------------'
   ),
 
-  [QWERTY_LAYER] = LAYOUT_split_3x6_3(
+  [QWERTY_L] = LAYOUT_split_3x6_3(
   //,----------------------------------------------------------------.       ,-------------------------------------------------------------------------.
        KC_TAB, KC_Q, RALT_T(KC_W), LCTL_T(KC_E), LSFT_T(KC_R),   KC_T,          KC_Y, LSFT_T(KC_U), LCTL_T(KC_I), RALT_T(KC_O),        KC_P,    KC_BSPC,
   //|--------+-----+-------------+-------------+-------------+-------|       |------+-------------+-------------+-------------+------------+-----------|
@@ -102,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+-----+-------------+-------------+-------------+-------|       |------+-------------+-------------+-------------+------------+-----------|
       KC_LSFT, KC_Z,         KC_X,         KC_C,         KC_V,   KC_B,          KC_N,         KC_M,      KC_COMM,       KC_DOT,     KC_LBRC,    KC_BSLS,
   //|--------+-----+-------------+-------------+-------------+-------|       |------+-------------+-------------+-------------+------------+-----------|
-                                        KC_LGUI,       MO_NMB, SP_CHR,        KC_ENT,       CLM_EN,      KC_RALT
+                                        KC_LGUI,      XXXXXXX, KC_SPC,        KC_ENT,       CLM_EN,      KC_RALT
                                         //`--------------------------'       `----------------------------------'
   )
 };
@@ -174,7 +173,6 @@ bool oled_task_user(void) {
   oled_render_keylog();
   return false;
 }
-
 #endif // OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -219,19 +217,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       unregister_code(KC_LCTL);
     }
     break;
-  case UML_SEQ:
-    if (record->event.pressed) {
-      // when keycode UML_SEQ is pressed
-      tap_code(KC_PSCR);
-      register_code(KC_LSFT);
-      tap_code(KC_QUOT);
-      unregister_code(KC_LSFT);
-    }
-    break;
   case QWRT_UA:
     if (record->event.pressed) {
       // when keycode QWRT_UA is pressed
-      layer_move(QWERTY_LAYER);
+      layer_move(QWERTY_L);
       register_code(KC_LSFT);
       tap_code(KC_CAPS);
       unregister_code(KC_LSFT);
@@ -242,10 +231,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case CLM_EN:
     if (record->event.pressed) {
       // when keycode CLM_EN is pressed
-      layer_move(COLMAK_LAYER);
+      layer_move(COLMAK_L);
       tap_code(KC_CAPS);
     } else {
       set_indicators_state(RGB_GREEN, PSTR("COLEMAK"));
+    }
+    break;
+  case UML_SEQ:
+    if (record->event.pressed) {
+      // when keycode UML_SEQ is pressed
+      tap_code(KC_PSCR);
+      register_code(KC_LSFT);
+      tap_code(KC_QUOT);
+      unregister_code(KC_LSFT);
     }
     break;
   }
@@ -281,7 +279,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
   case QWERTY_COMBO:
     if (pressed) {
-      layer_move(QWERTY_LAYER);
+      layer_move(QWERTY_L);
       register_code(KC_LSFT);
       tap_code(KC_CAPS);
       unregister_code(KC_LSFT);
