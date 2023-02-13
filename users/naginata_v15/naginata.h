@@ -35,8 +35,6 @@ void ng_show_os(void);
 void mac_live_conversion_toggle(void);
 void tategaki_toggle(void);
 void kouchi_shift_toggle(void);
-void ty_send_string(char *);
-void copyTYtable(void);
 
 bool process_naginata(uint16_t, keyrecord_t *);
 // void set_naginata(uint8_t);

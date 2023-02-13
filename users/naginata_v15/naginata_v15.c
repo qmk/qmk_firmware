@@ -21,13 +21,6 @@
 
 #define NGBUFFER 10 // キー入力バッファのサイズ
 
-// カーソル定義
-// あとで縦書き横書きに合わせて置換するための仮の定義
-#define NGUP X_F21
-#define NGDN X_F22
-#define NGLT X_F23
-#define NGRT X_F24
-
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
@@ -35,19 +28,6 @@ static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各�
 static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
 static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 static bool is_henshu = false; // 編集モードかどうか
-
-// // EEPROMに保存する設定
-// typedef union {
-//   uint32_t raw;
-//   struct {
-//     uint8_t os;
-//     bool live_conv :1;
-//     bool tategaki :1;
-//     bool kouchi_shift :1;
-//   };
-// } naginata_config_t;
-
-// naginata_config_t naginata_config;
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -428,28 +408,44 @@ const PROGMEM naginata_keymap_macro ngmapm[] = {
 };
 
 const PROGMEM naginata_keymap_long ngmapl_tate[] = {
-  // {.key = B_T           , .kana = SS_TAP(NGLT)},
-  // {.key = B_Y           , .kana = SS_TAP(NGRT)},
-// 編集モード 縦横
-  {.key = B_J|B_K|B_V		, .kana = SS_TAP(X_ENTER)SS_TAP(NGDN)}, // {改行}{↓}
-  {.key = B_D|B_F|B_J		, .kana = SS_TAP(NGUP)}, // {↑}
-  {.key = B_D|B_F|B_K		, .kana = SS_LSFT(SS_TAP(NGUP))}, // +{↑}
-  {.key = B_D|B_F|B_L		, .kana = SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)}, // +{↑ 7}
-  {.key = B_D|B_F|B_M		, .kana = SS_TAP(NGDN)}, // {↓}
-  {.key = B_D|B_F|B_COMM		, .kana = SS_LSFT(SS_TAP(NGDN))}, // +{↓}
-  {.key = B_D|B_F|B_DOT		, .kana = SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)}, // +{↓ 7}
-  {.key = B_M|B_COMM|B_Q		, .kana = SS_TAP(X_HOME)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_BACKSPACE)SS_TAP(NGLT)}, // {Home}{Del 3}{BS}{←}
-  {.key = B_M|B_COMM|B_A		, .kana = SS_TAP(X_HOME)SS_TAP(X_DELETE)SS_TAP(X_BACKSPACE)SS_TAP(NGLT)}, // {Home}{Del 1}{BS}{←}
-  {.key = B_M|B_COMM|B_D		, .kana = SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(NGLT)}, // {Home}{改行}{Space 1}{←}
-  {.key = B_C|B_V|B_J		, .kana = SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)}, // {→ 5}
-  {.key = B_C|B_V|B_K		, .kana = SS_LSFT(SS_TAP(NGRT))}, // +{→}
-  {.key = B_C|B_V|B_L		, .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))}, // +{→ 5}
-  {.key = B_C|B_V|B_M		, .kana = SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)}, // {← 5}
-  {.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(NGLT))}, // +{←}
-  {.key = B_C|B_V|B_DOT		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
+// 編集モード 縦書き
+  {.key = B_J|B_K|B_V		, .kana = SS_TAP(X_ENTER)SS_TAP(X_DOWN)}, // {改行}{↓}
+  {.key = B_D|B_F|B_J		, .kana = SS_TAP(X_UP)}, // {↑}
+  {.key = B_D|B_F|B_K		, .kana = SS_LSFT(SS_TAP(X_UP))}, // +{↑}
+  {.key = B_D|B_F|B_L		, .kana = SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)}, // +{↑ 7}
+  {.key = B_D|B_F|B_M		, .kana = SS_TAP(X_DOWN)}, // {↓}
+  {.key = B_D|B_F|B_COMM		, .kana = SS_LSFT(SS_TAP(X_DOWN))}, // +{↓}
+  {.key = B_D|B_F|B_DOT		, .kana = SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)}, // +{↓ 7}
+  {.key = B_M|B_COMM|B_Q		, .kana = SS_TAP(X_HOME)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_BACKSPACE)SS_TAP(X_LEFT)}, // {Home}{Del 3}{BS}{←}
+  {.key = B_M|B_COMM|B_A		, .kana = SS_TAP(X_HOME)SS_TAP(X_DELETE)SS_TAP(X_BACKSPACE)SS_TAP(X_LEFT)}, // {Home}{Del 1}{BS}{←}
+  {.key = B_M|B_COMM|B_D		, .kana = SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_LEFT)}, // {Home}{改行}{Space 1}{←}
+  {.key = B_C|B_V|B_J		, .kana = SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)}, // {→ 5}
+  {.key = B_C|B_V|B_K		, .kana = SS_LSFT(SS_TAP(X_RIGHT))}, // +{→}
+  {.key = B_C|B_V|B_L		, .kana = SS_LSFT(SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT))}, // +{→ 5}
+  {.key = B_C|B_V|B_M		, .kana = SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)}, // {← 5}
+  {.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(X_LEFT))}, // +{←}
+  {.key = B_C|B_V|B_DOT		, .kana = SS_LSFT(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT))}, // +{← 5}
 };
 
-static naginata_keymap_long ngmapl_ty[16]; // ngmapl_tate[]と同じサイズ
+const PROGMEM naginata_keymap_long ngmapl_yoko[] = {
+// 編集モード 横書き
+  {.key = B_J|B_K|B_V		, .kana = SS_TAP(X_ENTER)SS_TAP(X_RIGHT)}, // {改行}{↓}
+  {.key = B_D|B_F|B_J		, .kana = SS_TAP(X_LEFT)}, // {↑}
+  {.key = B_D|B_F|B_K		, .kana = SS_LSFT(SS_TAP(X_LEFT))}, // +{↑}
+  {.key = B_D|B_F|B_L		, .kana = SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)}, // +{↑ 7}
+  {.key = B_D|B_F|B_M		, .kana = SS_TAP(X_RIGHT)}, // {↓}
+  {.key = B_D|B_F|B_COMM		, .kana = SS_LSFT(SS_TAP(X_RIGHT))}, // +{↓}
+  {.key = B_D|B_F|B_DOT		, .kana = SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)}, // +{↓ 7}
+  {.key = B_M|B_COMM|B_Q		, .kana = SS_TAP(X_HOME)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_BACKSPACE)SS_TAP(X_DOWN)}, // {Home}{Del 3}{BS}{←}
+  {.key = B_M|B_COMM|B_A		, .kana = SS_TAP(X_HOME)SS_TAP(X_DELETE)SS_TAP(X_BACKSPACE)SS_TAP(X_DOWN)}, // {Home}{Del 1}{BS}{←}
+  {.key = B_M|B_COMM|B_D		, .kana = SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_DOWN)}, // {Home}{改行}{Space 1}{←}
+  {.key = B_C|B_V|B_J		, .kana = SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)}, // {→ 5}
+  {.key = B_C|B_V|B_K		, .kana = SS_LSFT(SS_TAP(X_UP))}, // +{→}
+  {.key = B_C|B_V|B_L		, .kana = SS_LSFT(SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP)SS_TAP(X_UP))}, // +{→ 5}
+  {.key = B_C|B_V|B_M		, .kana = SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)}, // {← 5}
+  {.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(X_DOWN))}, // +{←}
+  {.key = B_C|B_V|B_DOT		, .kana = SS_LSFT(SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN)SS_TAP(X_DOWN))}, // +{← 5}
+};
 
 const PROGMEM naginata_keymap_long ngmapl_mac[] = {
 // 編集モード Mac
@@ -461,7 +457,7 @@ const PROGMEM naginata_keymap_long ngmapl_mac[] = {
   {.key = B_D|B_F|B_SCLN		, .kana = SS_LCTL("k")}, // ^i
   {.key = B_D|B_F|B_N		, .kana = SS_LCTL("e")}, // {End}
   {.key = B_D|B_F|B_SLSH		, .kana = SS_LCTL("j")}, // ^u
-  {.key = B_C|B_V|B_Y		, .kana = SS_LSFT(SS_LCTL(SS_TAP(NGUP)))}, // +{Home}
+  {.key = B_C|B_V|B_Y		, .kana = SS_LSFT(SS_LCTL(SS_TAP(X_UP)))}, // +{Home}
   {.key = B_C|B_V|B_U		, .kana = SS_LCMD("x")}, // ^x
   {.key = B_C|B_V|B_I		, .kana = SS_LCMD("z")}, // ^z
   {.key = B_C|B_V|B_O		, .kana = SS_LCMD("y")}, // ^y
@@ -497,7 +493,6 @@ void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
     eeconfig_update_user(naginata_config.raw);
   }
   ng_set_unicode_mode(naginata_config.os);
-  copyTYtable();
 }
 
 // 薙刀式をオン
@@ -565,54 +560,9 @@ void mac_live_conversion_toggle() {
   eeconfig_update_user(naginata_config.raw);
 }
 
-// 出典 https://programming-place.net/ppp/contents/c/rev_res/string014.html
-char* replace(char* s, const char* before, const char* after)
-{
-  const size_t before_len = strlen(before);
-  if (before_len == 0) {
-      return s;
-  }
-
-  const size_t after_len = strlen(after);
-  char* p = s;
-
-  for (;;) {
-    p = strstr(p, before);
-    if (p == NULL) {
-      break;
-    }
-    const char* p2 = p + before_len;
-    memmove(p + after_len, p2, strlen(p2) + 1);
-    memcpy(p, after, after_len);
-    p += after_len;
-  }
-
-  return s;
-}
-
 void tategaki_toggle() {
   naginata_config.tategaki ^= 1;
   eeconfig_update_user(naginata_config.raw);
-
-  copyTYtable();
-}
-
-void copyTYtable() {
-  memcpy_P(&ngmapl_ty, &ngmapl_tate, sizeof(ngmapl_ty));
-
-  for (int i = 0; i < sizeof(ngmapl_ty) / sizeof(ngmapl_ty[0]); i++) {
-    if (naginata_config.tategaki) {
-      replace(ngmapl_ty[i].kana, SS_TAP(NGUP), SS_TAP(X_UP));
-      replace(ngmapl_ty[i].kana, SS_TAP(NGDN), SS_TAP(X_DOWN));
-      replace(ngmapl_ty[i].kana, SS_TAP(NGLT), SS_TAP(X_LEFT));
-      replace(ngmapl_ty[i].kana, SS_TAP(NGRT), SS_TAP(X_RIGHT));
-    } else {
-      replace(ngmapl_ty[i].kana, SS_TAP(NGUP), SS_TAP(X_LEFT));
-      replace(ngmapl_ty[i].kana, SS_TAP(NGDN), SS_TAP(X_RIGHT));
-      replace(ngmapl_ty[i].kana, SS_TAP(NGLT), SS_TAP(X_DOWN));
-      replace(ngmapl_ty[i].kana, SS_TAP(NGRT), SS_TAP(X_UP));
-    }
-  }
 }
 
 void kouchi_shift_toggle() {
@@ -991,10 +941,11 @@ int number_of_candidates() {
     }
   }
   // // 編集モード 縦書き横書き
-  for (int i = 0; i < sizeof ngmapl_ty / sizeof bngmapl; i++) {
-    if ((keycomb_buf & ngmapl_ty[i].key) == keycomb_buf) {
+  for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+    memcpy_P(&bngmapl, &ngmapl_tate[i], sizeof(bngmapl));
+    if (keycomb_buf == bngmapl.key) {
       c++;
-      hit = ngmapl_ty[i].key;
+      hit = bngmapl.key;
     }
   }
   // // 編集モード UNICODE文字
@@ -1421,11 +1372,23 @@ bool naginata_lookup(int nt, bool shifted) {
           }
         }
         // 編集モード 縦書き横書き
-        for (int i = 0; i < sizeof ngmapl_ty / sizeof bngmapl; i++) {
-          if (keycomb_buf == ngmapl_ty[i].key) {
-            send_string(ngmapl_ty[i].kana);
-            compress_buffer(nt);
-            return true;
+        if (naginata_config.tategaki){
+          for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+            memcpy_P(&bngmapl, &ngmapl_tate[i], sizeof(bngmapl));
+            if (keycomb_buf == bngmapl.key) {
+              send_string(bngmapl.kana);
+              compress_buffer(nt);
+              return true;
+            }
+          }
+        } else {
+          for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+            memcpy_P(&bngmapl, &ngmapl_yoko[i], sizeof(bngmapl));
+            if (keycomb_buf == bngmapl.key) {
+              send_string(bngmapl.kana);
+              compress_buffer(nt);
+              return true;
+            }
           }
         }
         // 編集モード UNICODE文字
