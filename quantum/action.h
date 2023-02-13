@@ -84,6 +84,7 @@ typedef uint32_t swap_state_row_t;
 #        error "MATRIX_COLS: invalid value"
 #    endif
 
+bool is_swap_hands_on(void);
 void process_hand_swap(keyevent_t *record);
 #endif
 
