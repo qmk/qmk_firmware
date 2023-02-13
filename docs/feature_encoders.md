@@ -1,6 +1,6 @@
 # Encoders
 
-Basic (EC11/similar) encoders are supported by adding this to your `rules.mk`:
+Basic (EC11 compatible) encoders are supported by adding this to your `rules.mk`:
 
 ```make
 ENCODER_ENABLE = yes
@@ -109,7 +109,7 @@ When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserte
 ```c
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
-      return false; /* Don't process further events if user function exists */
+      return false; /* Don't process further events if user function exists and returns false */
     }
     if (index == 0) { /* First encoder */
         if (clockwise) {
