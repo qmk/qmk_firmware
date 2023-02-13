@@ -30,7 +30,97 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __KEYMAP_GOES_HERE__
 };
 
+#if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+__ENCODER_MAP_GOES_HERE__
+};
+#endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
+
+__MACRO_OUTPUT_GOES_HERE__
+
 """
+
+
+def _generate_keymap_table(keymap_json):
+    lines = []
+    for layer_num, layer in enumerate(keymap_json['layers']):
+        if layer_num != 0:
+            lines[-1] = lines[-1] + ','
+        layer = map(_strip_any, layer)
+        layer_keys = ', '.join(layer)
+        lines.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
+    return lines
+
+
+def _generate_encodermap_table(keymap_json):
+    lines = []
+    for layer_num, layer in enumerate(keymap_json['encoders']):
+        if layer_num != 0:
+            lines[-1] = lines[-1] + ','
+        encoder_keycode_txt = ', '.join([f'ENCODER_CCW_CW({_strip_any(e["ccw"])}, {_strip_any(e["cw"])})' for e in layer])
+        lines.append('\t[%s] = {%s}' % (layer_num, encoder_keycode_txt))
+    return lines
+
+
+def _generate_macros_function(keymap_json):
+    macro_txt = [
+        'bool process_record_user(uint16_t keycode, keyrecord_t *record) {',
+        '    if (record->event.pressed) {',
+        '        switch (keycode) {',
+    ]
+
+    for i, macro_array in enumerate(keymap_json['macros']):
+        macro = []
+
+        for macro_fragment in macro_array:
+            if isinstance(macro_fragment, str):
+                macro_fragment = macro_fragment.replace('\\', '\\\\')
+                macro_fragment = macro_fragment.replace('\r\n', r'\n')
+                macro_fragment = macro_fragment.replace('\n', r'\n')
+                macro_fragment = macro_fragment.replace('\r', r'\n')
+                macro_fragment = macro_fragment.replace('\t', r'\t')
+                macro_fragment = macro_fragment.replace('"', r'\"')
+
+                macro.append(f'"{macro_fragment}"')
+
+            elif isinstance(macro_fragment, dict):
+                newstring = []
+
+                if macro_fragment['action'] == 'delay':
+                    newstring.append(f"SS_DELAY({macro_fragment['duration']})")
+
+                elif macro_fragment['action'] == 'beep':
+                    newstring.append(r'"\a"')
+
+                elif macro_fragment['action'] == 'tap' and len(macro_fragment['keycodes']) > 1:
+                    last_keycode = macro_fragment['keycodes'].pop()
+
+                    for keycode in macro_fragment['keycodes']:
+                        newstring.append(f'SS_DOWN(X_{keycode})')
+
+                    newstring.append(f'SS_TAP(X_{last_keycode})')
+
+                    for keycode in reversed(macro_fragment['keycodes']):
+                        newstring.append(f'SS_UP(X_{keycode})')
+
+                else:
+                    for keycode in macro_fragment['keycodes']:
+                        newstring.append(f"SS_{macro_fragment['action'].upper()}(X_{keycode})")
+
+                macro.append(''.join(newstring))
+
+        new_macro = "".join(macro)
+        new_macro = new_macro.replace('""', '')
+        macro_txt.append(f'            case QK_MACRO_{i}:')
+        macro_txt.append(f'                SEND_STRING({new_macro});')
+        macro_txt.append('                return false;')
+
+    macro_txt.append('        }')
+    macro_txt.append('    }')
+    macro_txt.append('\n    return true;')
+    macro_txt.append('};')
+    macro_txt.append('')
+    return macro_txt
 
 
 def template_json(keyboard):
@@ -206,83 +296,26 @@ def generate_c(keymap_json):
             A sequence of strings containing macros to implement for this keyboard.
     """
     new_keymap = template_c(keymap_json['keyboard'])
-    layer_txt = []
-
-    for layer_num, layer in enumerate(keymap_json['layers']):
-        if layer_num != 0:
-            layer_txt[-1] = layer_txt[-1] + ','
-        layer = map(_strip_any, layer)
-        layer_keys = ', '.join(layer)
-        layer_txt.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
-
+    layer_txt = _generate_keymap_table(keymap_json)
     keymap = '\n'.join(layer_txt)
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
 
-    if keymap_json.get('macros'):
-        macro_txt = [
-            'bool process_record_user(uint16_t keycode, keyrecord_t *record) {',
-            '    if (record->event.pressed) {',
-            '        switch (keycode) {',
-        ]
+    encodermap = ''
+    if 'encoders' in keymap_json and keymap_json['encoders'] is not None:
+        encoder_txt = _generate_encodermap_table(keymap_json)
+        encodermap = '\n'.join(encoder_txt)
+    new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', encodermap)
 
-        for i, macro_array in enumerate(keymap_json['macros']):
-            macro = []
+    macros = ''
+    if 'macros' in keymap_json and keymap_json['macros'] is not None:
+        macro_txt = _generate_macros_function(keymap_json)
+        macros = '\n'.join(macro_txt)
+    new_keymap = new_keymap.replace('__MACRO_OUTPUT_GOES_HERE__', macros)
 
-            for macro_fragment in macro_array:
-                if isinstance(macro_fragment, str):
-                    macro_fragment = macro_fragment.replace('\\', '\\\\')
-                    macro_fragment = macro_fragment.replace('\r\n', r'\n')
-                    macro_fragment = macro_fragment.replace('\n', r'\n')
-                    macro_fragment = macro_fragment.replace('\r', r'\n')
-                    macro_fragment = macro_fragment.replace('\t', r'\t')
-                    macro_fragment = macro_fragment.replace('"', r'\"')
-
-                    macro.append(f'"{macro_fragment}"')
-
-                elif isinstance(macro_fragment, dict):
-                    newstring = []
-
-                    if macro_fragment['action'] == 'delay':
-                        newstring.append(f"SS_DELAY({macro_fragment['duration']})")
-
-                    elif macro_fragment['action'] == 'beep':
-                        newstring.append(r'"\a"')
-
-                    elif macro_fragment['action'] == 'tap' and len(macro_fragment['keycodes']) > 1:
-                        last_keycode = macro_fragment['keycodes'].pop()
-
-                        for keycode in macro_fragment['keycodes']:
-                            newstring.append(f'SS_DOWN(X_{keycode})')
-
-                        newstring.append(f'SS_TAP(X_{last_keycode})')
-
-                        for keycode in reversed(macro_fragment['keycodes']):
-                            newstring.append(f'SS_UP(X_{keycode})')
-
-                    else:
-                        for keycode in macro_fragment['keycodes']:
-                            newstring.append(f"SS_{macro_fragment['action'].upper()}(X_{keycode})")
-
-                    macro.append(''.join(newstring))
-
-            new_macro = "".join(macro)
-            new_macro = new_macro.replace('""', '')
-            macro_txt.append(f'            case QK_MACRO_{i}:')
-            macro_txt.append(f'                SEND_STRING({new_macro});')
-            macro_txt.append('                return false;')
-
-        macro_txt.append('        }')
-        macro_txt.append('    }')
-        macro_txt.append('\n    return true;')
-        macro_txt.append('};')
-        macro_txt.append('')
-
-        new_keymap = '\n'.join((new_keymap, *macro_txt))
-
-    if keymap_json.get('host_language'):
-        new_keymap = new_keymap.replace('__INCLUDES__', f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n')
-    else:
-        new_keymap = new_keymap.replace('__INCLUDES__', '')
+    hostlang = ''
+    if 'host_language' in keymap_json and keymap_json['host_language'] is not None:
+        hostlang = f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n'
+    new_keymap = new_keymap.replace('__INCLUDES__', hostlang)
 
     return new_keymap
 
