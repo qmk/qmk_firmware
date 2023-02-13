@@ -183,13 +183,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #if defined(CUSTOM_RGBLIGHT)
     state = layer_state_set_rgb_light(state);
 #endif // CUSTOM_RGBLIGHT
-#if defined(AUDIO_ENABLE) && !defined(__arm__)
+#if defined(AUDIO_ENABLE)
     static bool is_gamepad_on = false;
     if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
-        is_gamepad_on = layer_state_cmp(state, _GAMEPAD);
+        static bool is_click_on = false;
+        is_gamepad_on           = layer_state_cmp(state, _GAMEPAD);
         if (is_gamepad_on) {
+            is_click_on = is_clicky_on();
+            if (is_click_on) {
+                clicky_off();
+            }
             PLAY_LOOP(doom_song);
         } else {
+            if (is_click_on) {
+                clicky_on();
+            }
             stop_all_notes();
         }
     }
