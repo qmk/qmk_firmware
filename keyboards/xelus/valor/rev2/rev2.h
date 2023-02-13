@@ -44,7 +44,7 @@ enum via_indicator_value {
 };
 
 // struct to save things
-typedef struct {
+typedef struct PACKED {
     bool enable_caps_lock:1;            // |
     bool enable_num_lock:1;             // |
     bool enable_scroll_lock:1;          // |
