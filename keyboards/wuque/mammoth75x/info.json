@@ -1,7 +1,13 @@
 {
     "keyboard_name": "mammoth75x",
+    "manufacturer": "wuque studio",
     "url": "https://shop.wuquestudio.com/",
     "maintainer": "spbgzh",
+    "usb": {
+        "vid": "0xA06B",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

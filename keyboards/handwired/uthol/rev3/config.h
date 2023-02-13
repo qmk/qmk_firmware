@@ -19,10 +19,6 @@
 
 #include "config_common.h"
 
-#define DEVICE_VER 0x0003
-#define PRODUCT_ID 0x67F3
-#define PRODUCT UtholThree
-
 /* key matrix size */
 // A11 and A12 dont work. They are reserved for USB. B2 is reserved for BOOT1
 #define MATRIX_COL_PINS \
@@ -30,7 +26,6 @@
 #define MATRIX_ROW_PINS \
     { A4, A3, A2, A1, A0 }
 
-#define UNUSED_PINS
 
 // Encoder config
 #define ENCODERS_PAD_A \
@@ -57,9 +52,19 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define TAPPING_TERM 500
+#define PERMISSIVE_HOLD
 
 // RGB Stuff
 #define RGB_DI_PIN B0
 #define RGBLED_NUM 39
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_DEFAULT_HUE 201

@@ -24,7 +24,7 @@ void matrix_scan_sub_kb(void) {
     }
 }
 
-void bootmagic_lite(void) {
+__attribute__((weak)) void bootmagic_lite(void) {
     // We need multiple scans because debouncing can't be turned off.
     matrix_scan();
 #if defined(DEBOUNCE) && DEBOUNCE > 0

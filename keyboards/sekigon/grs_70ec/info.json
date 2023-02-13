@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "grs_70ec",
+    "keyboard_name": "GRS-70EC",
+    "manufacturer": "sekigon-gonnoc",
     "url": "https://github.com/sekigon-gonnoc/GRS-70EC-doc/",
     "maintainer": "sekigon-gonnoc",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x70EC",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

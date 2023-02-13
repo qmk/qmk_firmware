@@ -15,7 +15,7 @@
 #include "process_caps_word.h"
 
 bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
-    if (keycode == CAPSWRD) { // Pressing CAPSWRD toggles Caps Word.
+    if (keycode == QK_CAPS_WORD_TOGGLE) {
         if (record->event.pressed) {
             caps_word_toggle();
         }
@@ -101,14 +101,34 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 return true;
 
 #ifndef NO_ACTION_TAPPING
+            // Corresponding to mod keys above, a held mod-tap is handled as:
+            // * For shift mods, pass KC_LSFT or KC_RSFT to
+            //   caps_word_press_user() to determine whether to continue.
+            // * For Shift + AltGr (MOD_RSFT | MOD_RALT), pass RSFT(KC_RALT).
+            // * AltGr (MOD_RALT) is ignored.
+            // * Otherwise stop Caps Word.
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-                if (record->tap.count == 0) {
-                    // Deactivate if a mod becomes active through holding
-                    // a mod-tap key.
-                    caps_word_off();
-                    return true;
+                if (record->tap.count == 0) { // Mod-tap key is held.
+                    const uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
+                    switch (mods) {
+                        case MOD_LSFT:
+                            keycode = KC_LSFT;
+                            break;
+                        case MOD_RSFT:
+                            keycode = KC_RSFT;
+                            break;
+                        case MOD_RSFT | MOD_RALT:
+                            keycode = RSFT(KC_RALT);
+                            break;
+                        case MOD_RALT:
+                            return true;
+                        default:
+                            caps_word_off();
+                            return true;
+                    }
+                } else {
+                    keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
                 }
-                keycode &= 0xff;
                 break;
 
 #    ifndef NO_ACTION_LAYER
@@ -117,21 +137,27 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 if (record->tap.count == 0) {
                     return true;
                 }
-                keycode &= 0xff;
+                keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
                 break;
 #endif // NO_ACTION_TAPPING
 
 #ifdef SWAP_HANDS_ENABLE
             case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
-                if (keycode > 0x56F0 || record->tap.count == 0) {
+                // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TG, SH_TT, ...,
+                // which currently overlap the SH_T(kc) range.
+                if (IS_SWAP_HANDS_KEYCODE(keycode) || record->tap.count == 0) {
                     return true;
                 }
-                keycode &= 0xff;
+                keycode = QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode);
                 break;
 #endif // SWAP_HANDS_ENABLE
         }
 
+#ifdef AUTO_SHIFT_ENABLE
+        del_weak_mods(get_autoshift_state() ? ~MOD_BIT(KC_LSFT) : 0xff);
+#else
         clear_weak_mods();
+#endif // AUTO_SHIFT_ENABLE
         if (caps_word_press_user(keycode)) {
             send_keyboard_report();
             return true;

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "eggman", 
+    "manufacturer": "qpockets",
     "url": "", 
     "maintainer": "qpockets", 
+    "usb": {
+    	"vid": "0x7170",
+    	"pid": "0x656D",
+    	"device_version": "10.0.0"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

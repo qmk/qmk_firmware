@@ -1,7 +1,24 @@
 {
-    "keyboard_name": "ginkgo65",
+    "keyboard_name": "ginkgo 65",
+    "manufacturer": "Mokey",
     "url": "",
     "maintainer": "rhmokey",
+    "usb": {
+        "vid": "0x6653",
+        "pid": "0x3365",
+        "device_version": "0.0.1"
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["C7", "F6", "F5", "F4", "F1", "E6", "D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5"],
+        "rows": ["B0", "B1", "B2", "B3", "F7"]
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 6,
+        "breathing": true,
+        "breathing_period": 5
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },

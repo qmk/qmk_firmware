@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x00DE
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Mode
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
@@ -43,3 +38,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define LED_CAPS_LOCK_PIN A0
+#define LED_PIN_ON_STATE 0

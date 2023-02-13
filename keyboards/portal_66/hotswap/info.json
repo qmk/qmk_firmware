@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Portal 66 Hotswap",
+    "manufacturer": "Parallel Limited",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x504C",
+        "pid": "0x5067",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },

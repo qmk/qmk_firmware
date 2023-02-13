@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Constellation",
+    "keyboard_name": "Constellation Rev2",
+    "manufacturer": "AEBoards",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x4145",
+        "pid": "0x065C",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

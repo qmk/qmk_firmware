@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Krush65 Hotswap",
+    "keyboard_name": "Krush65 - Hotswap",
+    "manufacturer": "SawnsProjects",
     "url": "",
     "maintainer": "MaiTheSan",
+    "usb": {
+        "vid": "0x5350",
+        "pid": "0x5B31",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

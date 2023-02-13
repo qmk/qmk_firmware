@@ -23,4 +23,4 @@
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK
 
-#define UNICODE_SELECTED_MODES UC_LNX, UC_WINC // support for Linux and Windows unicode 
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE // support for Linux and Windows unicode 

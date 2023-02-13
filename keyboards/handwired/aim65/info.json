@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Hi-Tek AIM-65",
+    "keyboard_name": "AIM-65",
+    "manufacturer": "Hi-Tek",
     "url": "https://github.com/Bonnee/aim-65_keyboard",
     "maintainer": "bonnee",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0F34",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

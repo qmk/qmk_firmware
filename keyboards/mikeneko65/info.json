@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Mikeneko 65",
+    "manufacturer": "takishim",
     "url": "https://github.com/takishim/mikeneko65",
     "maintainer": "takishim",
+    "usb": {
+        "vid": "0x7934",
+        "pid": "0x6D54",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_65_ansi_blocker"
     },

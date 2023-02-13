@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { D1, D0, D4, C6, D7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, E6 }
-#define UNUSED_PINS
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

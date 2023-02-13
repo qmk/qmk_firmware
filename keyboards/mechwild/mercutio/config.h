@@ -19,13 +19,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1703
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    MechWild
-#define PRODUCT         Mercutio
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 7
@@ -33,7 +26,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D1, D4, C3, C0, C1, C2}
 #define MATRIX_COL_PINS { B0, D7, D6, D5, B1, B2, B3}
-#define UNUSED_PINS
 
 /* encoder pins */
 #define ENCODERS_PAD_A { B4 }

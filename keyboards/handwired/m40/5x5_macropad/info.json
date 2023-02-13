@@ -1,7 +1,13 @@
 {
     "keyboard_name": "5x5_macropad", 
+    "manufacturer": "m40",
     "url": "https://www.thingiverse.com/thing:5239739", 
     "maintainer": "m40-dev", 
+    "usb": {
+    	"vid": "0xFEED",
+    	"pid": "0x0000",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x5": {
             "layout": [

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "frankie_macropad",
+    "manufacturer": "Eric Wood",
     "url": "https://github.com/eric-wood/macro-pad",
     "maintainer": "eric-wood",
+    "usb": {
+        "vid": "0xF00D",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

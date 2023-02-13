@@ -76,7 +76,26 @@ static bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_
         if (!transaction_handler_master(master_matrix, slave_matrix, #prefix, &prefix##_handlers_master)) return false; \
     } while (0)
 
+/**
+ * @brief Constructs a transaction handler that doesn't acquire a lock to the
+ * split shared memory. Therefore the locking and unlocking has to be done
+ * manually inside the handler. Use this macro only if the handler is
+ * non-deterministic in runtime and thus needs a manual lock unlock
+ * implementation to hold the lock for the shortest possible time.
+ */
 #define TRANSACTION_HANDLER_SLAVE(prefix)                     \
+    do {                                                      \
+        prefix##_handlers_slave(master_matrix, slave_matrix); \
+    } while (0)
+
+/**
+ * @brief Constructs a transaction handler that automatically acquires a lock to
+ * safely access the split shared memory and releases the lock again after
+ * processing the handler. Use this macro if the handler is fast and
+ * deterministic in runtime and thus holds the lock only for a very short time.
+ * If not fallback to manually locking and unlocking inside the handler.
+ */
+#define TRANSACTION_HANDLER_SLAVE_AUTOLOCK(prefix)            \
     do {                                                      \
         split_shared_memory_lock();                           \
         prefix##_handlers_slave(master_matrix, slave_matrix); \
@@ -139,7 +158,7 @@ static void slave_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row
 
 // clang-format off
 #define TRANSACTIONS_SLAVE_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(slave_matrix)
-#define TRANSACTIONS_SLAVE_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(slave_matrix)
+#define TRANSACTIONS_SLAVE_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(slave_matrix)
 #define TRANSACTIONS_SLAVE_MATRIX_REGISTRATIONS \
     [GET_SLAVE_MATRIX_CHECKSUM] = trans_target2initiator_initializer(smatrix.checksum), \
     [GET_SLAVE_MATRIX_DATA]     = trans_target2initiator_initializer(smatrix.matrix),
@@ -161,7 +180,7 @@ static void master_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_ro
 }
 
 #    define TRANSACTIONS_MASTER_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(master_matrix)
-#    define TRANSACTIONS_MASTER_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(master_matrix)
+#    define TRANSACTIONS_MASTER_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(master_matrix)
 #    define TRANSACTIONS_MASTER_MATRIX_REGISTRATIONS [PUT_MASTER_MATRIX] = trans_initiator2target_initializer(mmatrix.matrix),
 
 #else // SPLIT_TRANSPORT_MIRROR
@@ -197,7 +216,7 @@ static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sl
 
 // clang-format off
 #    define TRANSACTIONS_ENCODERS_MASTER() TRANSACTION_HANDLER_MASTER(encoder)
-#    define TRANSACTIONS_ENCODERS_SLAVE() TRANSACTION_HANDLER_SLAVE(encoder)
+#    define TRANSACTIONS_ENCODERS_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(encoder)
 #    define TRANSACTIONS_ENCODERS_REGISTRATIONS \
     [GET_ENCODERS_CHECKSUM] = trans_target2initiator_initializer(encoders.checksum), \
     [GET_ENCODERS_DATA]     = trans_target2initiator_initializer(encoders.state),
@@ -239,7 +258,7 @@ static void sync_timer_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
 }
 
 #    define TRANSACTIONS_SYNC_TIMER_MASTER() TRANSACTION_HANDLER_MASTER(sync_timer)
-#    define TRANSACTIONS_SYNC_TIMER_SLAVE() TRANSACTION_HANDLER_SLAVE(sync_timer)
+#    define TRANSACTIONS_SYNC_TIMER_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(sync_timer)
 #    define TRANSACTIONS_SYNC_TIMER_REGISTRATIONS [PUT_SYNC_TIMER] = trans_initiator2target_initializer(sync_timer),
 
 #else // DISABLE_SYNC_TIMER
@@ -273,7 +292,7 @@ static void layer_state_handlers_slave(matrix_row_t master_matrix[], matrix_row_
 
 // clang-format off
 #    define TRANSACTIONS_LAYER_STATE_MASTER() TRANSACTION_HANDLER_MASTER(layer_state)
-#    define TRANSACTIONS_LAYER_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE(layer_state)
+#    define TRANSACTIONS_LAYER_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(layer_state)
 #    define TRANSACTIONS_LAYER_STATE_REGISTRATIONS \
     [PUT_LAYER_STATE]         = trans_initiator2target_initializer(layers.layer_state), \
     [PUT_DEFAULT_LAYER_STATE] = trans_initiator2target_initializer(layers.default_layer_state),
@@ -304,7 +323,7 @@ static void led_state_handlers_slave(matrix_row_t master_matrix[], matrix_row_t 
 }
 
 #    define TRANSACTIONS_LED_STATE_MASTER() TRANSACTION_HANDLER_MASTER(led_state)
-#    define TRANSACTIONS_LED_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE(led_state)
+#    define TRANSACTIONS_LED_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(led_state)
 #    define TRANSACTIONS_LED_STATE_REGISTRATIONS [PUT_LED_STATE] = trans_initiator2target_initializer(led_state),
 
 #else // SPLIT_LED_STATE_ENABLE
@@ -353,10 +372,15 @@ static bool mods_handlers_master(matrix_row_t master_matrix[], matrix_row_t slav
 }
 
 static void mods_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    set_mods(split_shmem->mods.real_mods);
-    set_weak_mods(split_shmem->mods.weak_mods);
+    split_shared_memory_lock();
+    split_mods_sync_t mods;
+    memcpy(&mods, &split_shmem->mods, sizeof(split_mods_sync_t));
+    split_shared_memory_unlock();
+
+    set_mods(mods.real_mods);
+    set_weak_mods(mods.weak_mods);
 #    ifndef NO_ACTION_ONESHOT
-    set_oneshot_mods(split_shmem->mods.oneshot_mods);
+    set_oneshot_mods(mods.oneshot_mods);
 #    endif
 }
 
@@ -384,7 +408,11 @@ static bool backlight_handlers_master(matrix_row_t master_matrix[], matrix_row_t
 }
 
 static void backlight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    backlight_set(split_shmem->backlight_level);
+    split_shared_memory_lock();
+    uint8_t backlight_level = split_shmem->backlight_level;
+    split_shared_memory_unlock();
+
+    backlight_set(backlight_level);
 }
 
 #    define TRANSACTIONS_BACKLIGHT_MASTER() TRANSACTION_HANDLER_MASTER(backlight)
@@ -417,10 +445,15 @@ static bool rgblight_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
 }
 
 static void rgblight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    split_shared_memory_lock();
     // Update the RGB with the new data
-    if (split_shmem->rgblight_sync.status.change_flags != 0) {
-        rgblight_update_sync(&split_shmem->rgblight_sync, false);
-        split_shmem->rgblight_sync.status.change_flags = 0;
+    rgblight_syncinfo_t rgblight_sync;
+    memcpy(&rgblight_sync, &split_shmem->rgblight_sync, sizeof(rgblight_syncinfo_t));
+    split_shmem->rgblight_sync.status.change_flags = 0;
+    split_shared_memory_unlock();
+
+    if (rgblight_sync.status.change_flags != 0) {
+        rgblight_update_sync(&rgblight_sync, false);
     }
 }
 
@@ -450,8 +483,12 @@ static bool led_matrix_handlers_master(matrix_row_t master_matrix[], matrix_row_
 }
 
 static void led_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    split_shared_memory_lock();
     memcpy(&led_matrix_eeconfig, &split_shmem->led_matrix_sync.led_matrix, sizeof(led_eeconfig_t));
-    led_matrix_set_suspend_state(split_shmem->led_matrix_sync.led_suspend_state);
+    bool led_suspend_state = split_shmem->led_matrix_sync.led_suspend_state;
+    split_shared_memory_unlock();
+
+    led_matrix_set_suspend_state(led_suspend_state);
 }
 
 #    define TRANSACTIONS_LED_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(led_matrix)
@@ -480,8 +517,12 @@ static bool rgb_matrix_handlers_master(matrix_row_t master_matrix[], matrix_row_
 }
 
 static void rgb_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    split_shared_memory_lock();
     memcpy(&rgb_matrix_config, &split_shmem->rgb_matrix_sync.rgb_matrix, sizeof(rgb_config_t));
-    rgb_matrix_set_suspend_state(split_shmem->rgb_matrix_sync.rgb_suspend_state);
+    bool rgb_suspend_state = split_shmem->rgb_matrix_sync.rgb_suspend_state;
+    split_shared_memory_unlock();
+
+    rgb_matrix_set_suspend_state(rgb_suspend_state);
 }
 
 #    define TRANSACTIONS_RGB_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(rgb_matrix)
@@ -512,7 +553,7 @@ static void wpm_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_
 }
 
 #    define TRANSACTIONS_WPM_MASTER() TRANSACTION_HANDLER_MASTER(wpm)
-#    define TRANSACTIONS_WPM_SLAVE() TRANSACTION_HANDLER_SLAVE(wpm)
+#    define TRANSACTIONS_WPM_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(wpm)
 #    define TRANSACTIONS_WPM_REGISTRATIONS [PUT_WPM] = trans_initiator2target_initializer(current_wpm),
 
 #else // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
@@ -535,7 +576,11 @@ static bool oled_handlers_master(matrix_row_t master_matrix[], matrix_row_t slav
 }
 
 static void oled_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    if (split_shmem->current_oled_state) {
+    split_shared_memory_lock();
+    uint8_t current_oled_state = split_shmem->current_oled_state;
+    split_shared_memory_unlock();
+
+    if (current_oled_state) {
         oled_on();
     } else {
         oled_off();
@@ -566,7 +611,11 @@ static bool st7565_handlers_master(matrix_row_t master_matrix[], matrix_row_t sl
 }
 
 static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    if (split_shmem->current_st7565_state) {
+    split_shared_memory_lock();
+    uint8_t current_st7565_state = split_shmem->current_st7565_state;
+    split_shared_memory_unlock();
+
+    if (current_st7565_state) {
         st7565_on();
     } else {
         st7565_off();
@@ -607,9 +656,9 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
     bool            okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &temp_state, &split_shmem->pointing.report, sizeof(temp_state));
     if (okay) pointing_device_set_shared_report(temp_state);
     temp_cpi = pointing_device_get_shared_cpi();
-    if (temp_cpi && memcmp(&last_cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
-        memcpy(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi));
-        okay = transport_write(PUT_POINTING_CPI, &split_shmem->pointing.cpi, sizeof(split_shmem->pointing.cpi));
+    if (temp_cpi && last_cpi != temp_cpi) {
+        split_shmem->pointing.cpi = temp_cpi;
+        okay                      = transport_write(PUT_POINTING_CPI, &split_shmem->pointing.cpi, sizeof(split_shmem->pointing.cpi));
         if (okay) {
             last_cpi = temp_cpi;
         }
@@ -629,8 +678,6 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
         return;
     }
 #    endif
-    report_mouse_t temp_report;
-    uint16_t       temp_cpi;
 #    if (POINTING_DEVICE_TASK_THROTTLE_MS > 0)
     static uint32_t last_exec = 0;
     if (timer_elapsed32(last_exec) < POINTING_DEVICE_TASK_THROTTLE_MS) {
@@ -638,17 +685,25 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
     }
     last_exec = timer_read32();
 #    endif
-    temp_cpi = !pointing_device_driver.get_cpi ? 0 : pointing_device_driver.get_cpi(); // check for NULL
-    if (split_shmem->pointing.cpi && memcmp(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
-        if (pointing_device_driver.set_cpi) {
-            pointing_device_driver.set_cpi(split_shmem->pointing.cpi);
-        }
+
+    uint16_t temp_cpi = !pointing_device_driver.get_cpi ? 0 : pointing_device_driver.get_cpi(); // check for NULL
+
+    split_shared_memory_lock();
+    split_slave_pointing_sync_t pointing;
+    memcpy(&pointing, &split_shmem->pointing, sizeof(split_slave_pointing_sync_t));
+    split_shared_memory_unlock();
+
+    if (pointing.cpi && pointing.cpi != temp_cpi && pointing_device_driver.set_cpi) {
+        pointing_device_driver.set_cpi(pointing.cpi);
     }
-    memset(&temp_report, 0, sizeof(temp_report));
-    temp_report = pointing_device_driver.get_report(temp_report);
-    memcpy(&split_shmem->pointing.report, &temp_report, sizeof(temp_report));
+
+    pointing.report = pointing_device_driver.get_report((report_mouse_t){0});
     // Now update the checksum given that the pointing has been written to
-    split_shmem->pointing.checksum = crc8(&temp_report, sizeof(temp_report));
+    pointing.checksum = crc8(&pointing.report, sizeof(report_mouse_t));
+
+    split_shared_memory_lock();
+    memcpy(&split_shmem->pointing, &pointing, sizeof(split_slave_pointing_sync_t));
+    split_shared_memory_unlock();
 }
 
 #    define TRANSACTIONS_POINTING_MASTER() TRANSACTION_HANDLER_MASTER(pointing)
@@ -662,6 +717,36 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 #    define TRANSACTIONS_POINTING_REGISTRATIONS
 
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+////////////////////////////////////////////////////
+// WATCHDOG
+
+#if defined(SPLIT_WATCHDOG_ENABLE)
+
+static bool watchdog_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    bool okay = true;
+    if (!split_watchdog_check()) {
+        okay = transport_write(PUT_WATCHDOG, &okay, sizeof(okay));
+        split_watchdog_update(okay);
+    }
+    return okay;
+}
+
+static void watchdog_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    split_watchdog_update(split_shmem->watchdog_pinged);
+}
+
+#    define TRANSACTIONS_WATCHDOG_MASTER() TRANSACTION_HANDLER_MASTER(watchdog)
+#    define TRANSACTIONS_WATCHDOG_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(watchdog)
+#    define TRANSACTIONS_WATCHDOG_REGISTRATIONS [PUT_WATCHDOG] = trans_initiator2target_initializer(watchdog_pinged),
+
+#else // defined(SPLIT_WATCHDOG_ENABLE)
+
+#    define TRANSACTIONS_WATCHDOG_MASTER()
+#    define TRANSACTIONS_WATCHDOG_SLAVE()
+#    define TRANSACTIONS_WATCHDOG_REGISTRATIONS
+
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
 
 ////////////////////////////////////////////////////
 
@@ -689,12 +774,13 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_OLED_REGISTRATIONS
     TRANSACTIONS_ST7565_REGISTRATIONS
     TRANSACTIONS_POINTING_REGISTRATIONS
+    TRANSACTIONS_WATCHDOG_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
         [PUT_RPC_INFO]  = trans_initiator2target_initializer_cb(rpc_info, slave_rpc_info_callback),
     [PUT_RPC_REQ_DATA]  = trans_initiator2target_initializer(rpc_m2s_buffer),
-    [EXECUTE_RPC]       = trans_initiator2target_initializer_cb(rpc_info.transaction_id, slave_rpc_exec_callback),
+    [EXECUTE_RPC]       = trans_initiator2target_initializer_cb(rpc_info.payload.transaction_id, slave_rpc_exec_callback),
     [GET_RPC_RESP_DATA] = trans_target2initiator_initializer(rpc_s2m_buffer),
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 };
@@ -715,6 +801,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_OLED_MASTER();
     TRANSACTIONS_ST7565_MASTER();
     TRANSACTIONS_POINTING_MASTER();
+    TRANSACTIONS_WATCHDOG_MASTER();
     return true;
 }
 
@@ -734,6 +821,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_OLED_SLAVE();
     TRANSACTIONS_ST7565_SLAVE();
     TRANSACTIONS_POINTING_SLAVE();
+    TRANSACTIONS_WATCHDOG_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -760,7 +848,8 @@ bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer
     if (target2initiator_buffer_size > RPC_S2M_BUFFER_SIZE) return false;
 
     // Prepare the metadata block
-    rpc_sync_info_t info = {.transaction_id = transaction_id, .m2s_length = initiator2target_buffer_size, .s2m_length = target2initiator_buffer_size};
+    rpc_sync_info_t info = {.payload = {.transaction_id = transaction_id, .m2s_length = initiator2target_buffer_size, .s2m_length = target2initiator_buffer_size}};
+    info.checksum        = crc8(&info.payload, sizeof(info.payload));
 
     // Make sure the local side knows that we're not sending the full block of data
     split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size  = initiator2target_buffer_size;
@@ -791,18 +880,23 @@ void slave_rpc_info_callback(uint8_t initiator2target_buffer_size, const void *i
     // Ignore the args -- the `split_shmem` already has the info, we just need to act upon it.
     // We must keep the `split_transaction_table` non-const, so that it is able to be modified at runtime.
 
-    split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size  = split_shmem->rpc_info.m2s_length;
-    split_transaction_table[GET_RPC_RESP_DATA].target2initiator_buffer_size = split_shmem->rpc_info.s2m_length;
+    split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size  = split_shmem->rpc_info.payload.m2s_length;
+    split_transaction_table[GET_RPC_RESP_DATA].target2initiator_buffer_size = split_shmem->rpc_info.payload.s2m_length;
 }
 
 void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
     // We can assume that the buffer lengths are correctly set, now, given that sequentially the rpc_info callback was already executed.
     // Go through the rpc_info and execute _that_ transaction's callback, with the scratch buffers as inputs.
-    int8_t transaction_id = split_shmem->rpc_info.transaction_id;
+    // As a safety precaution we check that the received payload matches its checksum first.
+    if (crc8(&split_shmem->rpc_info.payload, sizeof(split_shmem->rpc_info.payload)) != split_shmem->rpc_info.checksum) {
+        return;
+    }
+
+    int8_t transaction_id = split_shmem->rpc_info.payload.transaction_id;
     if (transaction_id < NUM_TOTAL_TRANSACTIONS) {
         split_transaction_desc_t *trans = &split_transaction_table[transaction_id];
         if (trans->slave_callback) {
-            trans->slave_callback(split_shmem->rpc_info.m2s_length, split_shmem->rpc_m2s_buffer, split_shmem->rpc_info.s2m_length, split_shmem->rpc_s2m_buffer);
+            trans->slave_callback(split_shmem->rpc_info.payload.m2s_length, split_shmem->rpc_m2s_buffer, split_shmem->rpc_info.payload.s2m_length, split_shmem->rpc_s2m_buffer);
         }
     }
 }

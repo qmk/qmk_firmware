@@ -1,7 +1,10 @@
 {
-    "keyboard_name": "AcheronProject Apollo87H",
+    "manufacturer": "AcheronProject",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x4150"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

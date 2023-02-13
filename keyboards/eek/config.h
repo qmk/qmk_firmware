@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4A53
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0004
-#define MANUFACTURER    klackygears
-#define PRODUCT         eek!
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10
@@ -33,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { D4, C6, B6, B2, B3, B1, F7, F6, F5, F4 }
 
-#define UNUSED_PINS { D2, D1, D0 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -46,18 +38,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_VAL_STEP 8
   #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//   #define RGBLIGHT_EFFECT_BREATHING
-//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//   #define RGBLIGHT_EFFECT_SNAKE
-//   #define RGBLIGHT_EFFECT_KNIGHT
-//   #define RGBLIGHT_EFFECT_CHRISTMAS
-//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//   #define RGBLIGHT_EFFECT_RGB_TEST
-//   #define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 // /*== customize breathing effect ==*/
 //   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
 //   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
@@ -67,9 +57,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #endif
 
  #ifdef RGB_MATRIX_ENABLE
-  #define DRIVER_LED_TOTAL 36
+  #define RGB_MATRIX_LED_COUNT 36
   #define RGB_MATRIX_LED_FLUSH_LIMIT 16
-  #define RGB_MATRIX_STARTUP_VAL 150
+  #define RGB_MATRIX_DEFAULT_VAL 150
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
  #endif
 
