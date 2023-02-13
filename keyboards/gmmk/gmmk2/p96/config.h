@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 14
@@ -29,10 +28,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #define TAP_CODE_DELAY 10
 
@@ -111,9 +106,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* Set debounce time to 5ms */
-#define DEBOUNCE 5
-
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
-// #define FORCE_NKRO

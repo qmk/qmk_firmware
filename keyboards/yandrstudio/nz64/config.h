@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -28,10 +27,6 @@
 
 /* Fix VIA RGB_light */
 #define VIA_HAS_BROKEN_KEYCODES
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE

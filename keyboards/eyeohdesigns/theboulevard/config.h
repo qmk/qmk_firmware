@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -40,5 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_EFFECT_BREATHING
-
-#define DEBOUNCE 5

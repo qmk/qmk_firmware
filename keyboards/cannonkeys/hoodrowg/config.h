@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
@@ -41,12 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LED_CAPS_LOCK_PIN B6
 #define LED_SCROLL_LOCK_PIN B2
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

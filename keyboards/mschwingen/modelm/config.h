@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 16
@@ -28,9 +27,6 @@
 #define SR_CLK_PIN B1
 #define SR_DIN_PIN B3
 #define SR_DOUT_PIN B2
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed (5 is default) */
-#define DEBOUNCE 5
 
 /*
  * Feature disable options

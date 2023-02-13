@@ -15,6 +15,10 @@
 */
 #include "quantum.h"
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 static uint8_t debouncing = DEBOUNCE;
 
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -60,7 +64,7 @@ void matrix_init(void)
     matrix_debouncing[i] = 0;
   }
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -92,7 +96,7 @@ uint8_t matrix_scan(void)
     }
   }
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
   return 1;
 }
 

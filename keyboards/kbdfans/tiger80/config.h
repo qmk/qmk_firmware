@@ -16,7 +16,6 @@
  
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -24,8 +23,6 @@
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, D3, D5, D4, D6, D7, B5, B6, C6, E2, D0 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

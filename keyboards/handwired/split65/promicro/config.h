@@ -16,7 +16,6 @@
 #pragma once
 
 
-#include "config_common.h"
 
 // Matrix Assignments
 #define MATRIX_ROWS 10 //Rows are doubled-up
@@ -33,9 +32,6 @@
 // Split Keyboard specifics
 #define SOFT_SERIAL_PIN D3
 #define SELECT_SOFT_SERIAL_SPEED 1
-
-// Debounce to reduce unintended double-presses use 0 if not needed
-#define DEBOUNCE 5
 
 // Feature diable options
 //#define NO_DEBUG

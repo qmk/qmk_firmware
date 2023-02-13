@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -38,9 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D7, C6, D4, D0, D1 }, \
     { B5, B4, NO_PIN, NO_PIN, NO_PIN } \
 }
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D2

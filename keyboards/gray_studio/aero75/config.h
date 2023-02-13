@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -24,9 +23,7 @@
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
+
 #define RGB_DI_PIN B10
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
@@ -60,14 +57,6 @@
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

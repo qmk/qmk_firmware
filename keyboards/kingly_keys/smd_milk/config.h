@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -27,8 +26,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 #define FORCE_NKRO
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

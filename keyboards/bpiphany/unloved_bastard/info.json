@@ -7,6 +7,8 @@
     "pid": "0x1337",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
   "community_layouts": ["tkl_ansi", "tkl_iso"],
   "layouts": {
     "LAYOUT_all": {

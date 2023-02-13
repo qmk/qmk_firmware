@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // Rows are doubled-up
@@ -44,13 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_HAND_PIN A6
 
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
 // #define DEBUG_LED_PIN                  D6
 
 #define ROTATIONAL_TRANSFORM_ANGLE     -25
@@ -71,10 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D3
 #define EE_HANDS
-
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* disable action features */
 //#define NO_ACTION_LAYER

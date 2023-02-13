@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config_common.h"
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
@@ -31,10 +30,5 @@
 #define SPLIT_USB_DETECT
 #define SPLIT_MODS_ENABLE
 
-#define DEBOUNCE 5
-
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { B5 }
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 11
@@ -42,6 +41,5 @@
 #define LED_NUM_LOCK_PIN B5
 #define LED_PIN_ON_STATE 0
 #define BACKLIGHT_PIN B6
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5
 

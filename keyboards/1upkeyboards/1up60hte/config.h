@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -34,14 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN B6
 #define LED_PIN_ON_STATE 0
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3
 #endif
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

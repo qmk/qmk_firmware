@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -35,9 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION 2
 // if you want to reverse encoder direction
 // #define ENCODER_DIRECTION_FLIP
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Register custom font file */
 #ifdef OLED_ENABLE

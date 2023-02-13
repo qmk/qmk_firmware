@@ -82,7 +82,7 @@ static void set_rgb_side_leds(void) {
 
 bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color_all(0x0, 0x0, 0x0);
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(3, RGB_WHITE); // CAPS
     }
     set_rgb_side_leds();

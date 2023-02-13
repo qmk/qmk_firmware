@@ -8,6 +8,8 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "community_layouts": ["fullsize_ansi"],
     "layouts": {
         "LAYOUT_fullsize_ansi": {

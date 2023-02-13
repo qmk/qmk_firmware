@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 20 
@@ -36,6 +35,5 @@
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 255
 
-#define DEBOUNCE 5
 //#define RETRO_TAPPING
 #define TAPPING_TERM 175

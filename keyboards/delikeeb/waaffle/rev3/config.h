@@ -37,10 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
 /*rotary encoder setting*/
 #define ENCODERS_PAD_A { B7, F1 }
 #define ENCODERS_PAD_B { D5, F0 }
@@ -70,9 +66,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -82,27 +75,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
  */
 #define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
 
 /*
  * Feature disable options

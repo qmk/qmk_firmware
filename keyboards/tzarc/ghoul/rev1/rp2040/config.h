@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
 
-#include "config_common.h"
 
 // Matrix configuration
 #define SPI_MATRIX_CHIP_SELECT_PIN GP21

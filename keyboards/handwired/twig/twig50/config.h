@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -14,7 +13,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 8
 #define TAPPING_TERM 150
 
 #define FORCE_NKRO

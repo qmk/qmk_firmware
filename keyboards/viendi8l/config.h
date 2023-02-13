@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -28,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       //  R0 , R1 , R2 , R3 , R4 , R5
 #define MATRIX_ROW_PINS { C3 , C2 , C1 , C0 , B14, A7 } 
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

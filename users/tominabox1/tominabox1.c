@@ -257,7 +257,7 @@ void render_status_main(void) {
 
     // Host Keyboard LED Status
 
-    oled_write_ln_P(IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
+    oled_write_ln_P(host_keyboard_led_state().caps_lock ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
 }
 __attribute__ ((weak))
 void oled_task_keymap(void) {}

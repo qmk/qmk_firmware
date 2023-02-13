@@ -8,6 +8,8 @@
         "pid": "0x5338",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_68_ansi_split_bs": {
             "layout": [

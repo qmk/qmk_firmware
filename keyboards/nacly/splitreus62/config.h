@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 // Rows are doubled-up
@@ -32,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 #define SPLIT_HAND_PIN F4
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0

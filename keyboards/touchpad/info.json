@@ -8,6 +8,8 @@
         "pid": "0x0DB8",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_ortho_6x6": {
             "layout": [

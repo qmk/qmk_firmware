@@ -17,7 +17,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -39,13 +38,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* Backlight Setup */
 #define BACKLIGHT_PIN F5
 #define BACKLIGHT_LEVELS 6
-//#define BACKLIGHT_BREATHING
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* RGB Underglow
  * F6 PIN for Org60 that has pre-soldered WS2812 LEDs

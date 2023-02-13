@@ -250,7 +250,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case MU_TOG:
+        case QK_MUSIC_TOGGLE:
             if (record->event.pressed) {
                 // On press, turn off layer if active
                 if ( layer == _SE ) {

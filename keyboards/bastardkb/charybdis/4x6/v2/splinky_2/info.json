@@ -2,5 +2,7 @@
     "keyboard_name": "Charybdis (4x6) Splinky",
     "usb": {
         "device_version": "2.0.0"
-    }
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040"
 }

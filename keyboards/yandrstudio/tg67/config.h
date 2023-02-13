@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -26,9 +25,6 @@
 
 #define MATRIX_COL_PINS {  B2,  B10, B11, A8,  A9,  A10, B5,  A15, B3,  A2,  A3,  B4,  A4,  A5,  A6 }
 #define MATRIX_ROW_PINS {  B0,  B6,  B1,  B7,  A1 }
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE

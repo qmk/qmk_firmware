@@ -38,17 +38,7 @@
 #define RGB_DI_PIN A8
 #define RGBLED_NUM 16
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Hold ESC key (first key of first column) to trigger bootloader */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

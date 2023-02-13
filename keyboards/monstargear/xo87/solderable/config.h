@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define brightnessMax 8
 
@@ -50,7 +49,6 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define DEBOUNCE 5
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 

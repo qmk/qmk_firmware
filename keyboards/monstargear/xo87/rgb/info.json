@@ -8,6 +8,8 @@
     "pid": "0x584F",
     "device_version": "0.0.1"
   },
+  "processor": "at90usb646",
+  "bootloader": "lufa-dfu",
   "community_layouts": ["tkl_ansi"],
   "layouts": {
     "LAYOUT_tkl_ansi": {

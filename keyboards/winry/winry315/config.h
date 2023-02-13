@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // Key matrix size.
 #define MATRIX_ROWS 1
@@ -133,6 +132,3 @@
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #endif
-
-// Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed.
-#define DEBOUNCE 5

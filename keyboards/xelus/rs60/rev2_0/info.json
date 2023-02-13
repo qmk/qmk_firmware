@@ -1,5 +1,7 @@
 {
     "usb": {
         "device_version": "0.2.0"
-    }
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu"
 }

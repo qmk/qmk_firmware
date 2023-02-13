@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -55,10 +54,6 @@
 //#define LED_SCROLL_LOCK_PIN B2
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
-
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN D3
 //#ifdef RGB_DI_PIN
@@ -165,43 +160,6 @@
 #   endif  // CONSOLE_ENABLE
 #endif  // RGB_MATRIX_ENABLE
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-// #define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-// #define LOCKING_RESYNC_ENABLE
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-//#define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -221,10 +179,6 @@
 // #define NO_ACTION_TAPPING
 // NO_ACTION_ONESHOT -388 bytes
 #define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
 
 #ifdef MIDI_ENABLE
 #   define MIDI_ADVANCED

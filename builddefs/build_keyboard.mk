@@ -46,11 +46,12 @@ ifdef SKIP_VERSION
 endif
 
 # Generate the version.h file
+VERSION_H_FLAGS :=
 ifdef SKIP_VERSION
-VERSION_H_FLAGS := --skip-all
+VERSION_H_FLAGS += --skip-all
 endif
 ifdef SKIP_GIT
-VERSION_H_FLAGS := --skip-git
+VERSION_H_FLAGS += --skip-git
 endif
 
 # Generate the board's version.h file.
@@ -182,7 +183,8 @@ endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
-include $(BUILDDEFS_PATH)/mcu_selection.mk
+MCU_ORIG := $(MCU)
+include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
 
 # PLATFORM_KEY should be detected in info.json via key 'processor' (or rules.mk 'MCU')
 ifeq ($(PLATFORM_KEY),)

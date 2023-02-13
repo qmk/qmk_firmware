@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -13,18 +12,12 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 #define LED_CAPS_LOCK_PIN B6
 #define LED_SCROLL_LOCK_PIN B7
 
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
