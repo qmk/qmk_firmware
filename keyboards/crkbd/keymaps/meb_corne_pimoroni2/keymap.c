@@ -30,7 +30,10 @@ enum layers {
 
 enum custom_keycodes {
     LT_APP_NAV_SYM_CALL = SAFE_RANGE,
-    SELECT_LINE
+    SELECT_LINE,
+    NEXT_SENTENCE,
+    ARROW,
+    CPI_CYCLE
 };
 
 // CONVENIENCE MACROS---------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,6 +49,7 @@ enum custom_keycodes {
 #define ZOOM_IN LCTL(KC_PPLS)
 #define DESKTOP_LEFT LCTL(LGUI(KC_LEFT))
 #define DESKTOP_RIGHT LCTL(LGUI(KC_RIGHT))
+#define ALT_F4 LALT(KC_F4)
 
 // TAP DANCE SETUP------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -75,33 +79,33 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_split_3x6_3( // Base QWERTY layer
-        KC_ESC    , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T         , KC_Y         , KC_U      , KC_I      , KC_O      , KC_P        , KC_BSPC      ,
-        KC_TAB    , KC_A      , KC_S      , KC_D      , KC_F      , KC_G         , KC_H         , KC_J      , KC_K      , KC_L      , KC_QUOT     , KC_ENT       ,
-        KC_LSFT   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B         , KC_N         , KC_M      , KC_COMM   , KC_DOT    , KC_SLSH     , KC_RSFT      ,
+        KC_ESC    , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T         , KC_Y         , KC_U      , KC_I      , KC_O         , KC_P        , KC_BSPC      ,
+        KC_TAB    , KC_A      , KC_S      , KC_D      , KC_F      , KC_G         , KC_H         , KC_J      , KC_K      , KC_L         , KC_QUOT     , KC_ENT       ,
+        KC_LSFT   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B         , KC_N         , KC_M      , KC_COMM   , KC_DOT       , KC_SLSH     , KC_RSFT      ,
                                             KC_LCTL   , ALT_DEL   , BASE_SPACE   , BASE_SPACE   , KC_RGUI   , LT_APP_NAV_SYM_CALL
     ),
     [NAV_NUM] = LAYOUT_split_3x6_3( // Left-side navigation, right-side numpad layer
-        KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , KC_LPRN      , KC_RPRN      , KC_7      , KC_8      , KC_9      , KC_DEL      , KC_BSPC      ,
-        KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , KC_LCBR      , KC_RCBR      , KC_4      , KC_5      , KC_6      , KC_SCLN     , KC_ENT       ,
-        KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , KC_LBRC      , KC_RBRC      , KC_1      , KC_2      , KC_3      , KC_BSLS     , KC_RSFT      ,
+        KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , KC_LPRN      , KC_RPRN      , KC_7      , KC_8      , KC_9         , KC_DEL      , KC_BSPC      ,
+        KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , KC_LCBR      , KC_RCBR      , KC_4      , KC_5      , KC_6         , KC_SCLN     , KC_ENT       ,
+        KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , KC_LBRC      , KC_RBRC      , KC_1      , KC_2      , KC_3         , KC_BSLS     , KC_RSFT      ,
                                             KC_TRNS   , KC_TRNS   , NAV_NUM_SPACE, NAV_NUM_SPACE, KC_0      , KC_TRNS
     ),
     [NUM_SYM_FN] = LAYOUT_split_3x6_3( // Top-row numbers, middle-row symbols, bottom row function keys layer
-        KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_6         , KC_7         , KC_8      , KC_9      , KC_0      , KC_MINS     , KC_EQL       ,
-        KC_EXLM   , KC_AT     , KC_HASH   , KC_DLR    , KC_PERC   , KC_CIRC      , KC_AMPR      , KC_ASTR   , KC_LPRN   , KC_RPRN   , KC_UNDS     , KC_PLUS      ,
-        KC_F1     , KC_F2     , KC_F3     , KC_F4     , KC_F5     , KC_F6        , KC_F7        , KC_F8     , KC_F9     , KC_F10    , KC_F11      , KC_F12       ,
+        KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_6         , KC_7         , KC_8      , KC_9      , KC_0         , KC_MINS     , KC_EQL       ,
+        KC_EXLM   , KC_AT     , KC_HASH   , KC_DLR    , KC_PERC   , KC_CIRC      , KC_AMPR      , KC_ASTR   , KC_LPRN   , KC_RPRN      , KC_UNDS     , KC_PLUS      ,
+        KC_F1     , KC_F2     , KC_F3     , KC_F4     , KC_F5     , KC_F6        , KC_F7        , KC_F8     , KC_F9     , KC_F10       , KC_F11      , KC_F12       ,
                                             KC_CAPS   , KC_MPLY   , KC_TRNS      , KC_TRNS      , KC_MPRV   , KC_MNXT
     ),
     [APP_NAV] = LAYOUT_split_3x6_3( // Transparent left-side, application navigation right-side
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , TAB_LEFT     , TAB_RIGHT, KC_HOME    , KC_UP     , KC_END      , LALT(KC_F4)  ,
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , BACK         , FORWARD  , KC_LEFT    , KC_DOWN   , KC_RIGHT    , SELECT_LINE  ,
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , ZOOM_OUT     , ZOOM_IN  , KC_TRNS    , KC_TRNS   , DESKTOP_LEFT, DESKTOP_RIGHT,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , TAB_LEFT     , TAB_RIGHT, KC_HOME    , KC_UP        , KC_END      , ALT_F4       ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , BACK         , FORWARD  , KC_LEFT    , KC_DOWN      , KC_RIGHT    , SELECT_LINE  ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , ZOOM_OUT     , ZOOM_IN  , ARROW      , NEXT_SENTENCE, DESKTOP_LEFT, DESKTOP_RIGHT,
                                             KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS      , MUSIC    , KC_TRNS
     ),
     [MOUSE_LAYER] = LAYOUT_split_3x6_3( // [AUTO_MOUSE_DEFAULT_LAYER] Transparent layer with left and right mouse buttons
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_BTN2      , KC_BTN1      , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS     , KC_TRNS      ,
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS      , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS     , KC_TRNS      ,
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS      , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS     , KC_TRNS      ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_BTN2      , KC_BTN1      , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS      , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS      , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
                                             KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS      , KC_TRNS   , KC_TRNS
     ),
 };
@@ -109,14 +113,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // POINTER DEVICE SETUP-------------------------------------------------------------------------------------------------------------------------------------------
 
 #define pointer_limit 25
+#define max_track_cpi 5000
+#define min_track_cpi 1000
+#define track_cpi_increment 1000
 
-bool set_scrolling = false;
-int pointer_magnitude = 0;
+bool set_scrolling = false;int pointer_magnitude = 0;
 int track_factor = 1;
+int track_cpi = 4000;
+int scroll_cpi = 200;
 
 void pointing_device_init_user(void) {
     set_auto_mouse_enable(true);
-    pointing_device_set_cpi(3400);
+    pointing_device_set_cpi(track_cpi);
 }
 
 void housekeeping_task_user(void) {
@@ -320,17 +328,21 @@ void sym_call_fn(void){
 
 // USER SPACE-----------------------------------------------------------------------------------------------------------------------------------------------------
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
+    const uint8_t mods = get_mods();
+    const uint8_t oneshot_mods = get_oneshot_mods();
+
     static uint16_t lt_timer;
 
     switch (keycode) {
         case BASE_SPACE:
             if (record->event.pressed) {
                 set_scrolling = true;
-                pointing_device_set_cpi(400);
+                pointing_device_set_cpi(scroll_cpi);
             } else {
                 set_scrolling = false;
-                pointing_device_set_cpi(3400);
+                pointing_device_set_cpi(track_cpi);
             }
 
             break;
@@ -350,6 +362,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                     sym_call_fn();
                 }
                 layer_off(APP_NAV);
+            }
+
+            return false;
+        case NEXT_SENTENCE:
+            if (record->event.pressed) {
+                SEND_STRING(". ");
+                add_oneshot_mods(MOD_BIT(KC_LSFT));
+            }
+            return false;
+        case ARROW:
+            if (record->event.pressed) {
+                if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+                    del_oneshot_mods(MOD_MASK_SHIFT);
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING("=>");
+                    register_mods(mods);
+                } else {
+                    SEND_STRING("->");
+                }
+            }
+
+            return false;
+        case CPI_CYCLE:
+            if (record->event.pressed) {
+                if (track_cpi < max_track_cpi){
+                    track_cpi += track_cpi_increment;
+                } else {
+                    track_cpi = min_track_cpi;
+                }
             }
 
             return false;
