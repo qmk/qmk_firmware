@@ -9,9 +9,9 @@
 #define VENDOR_ID    0x5258 // RX
 #define PRODUCT_ID   0x0000
 #define DEVICE_VER   0x0001
-#define MANUFACTURER RAYLAX DEMO
-#define PRODUCT      RAYLAX DEMO
-#define DESCRIPTION  RAYLAX DEMO ONEKEY
+#define MANUFACTURER "RAYLAX DEMO"
+#define PRODUCT      "RAYLAX DEMO"
+#define DESCRIPTION  "RAYLAX DEMO ONEKEY"
 
 /* key matrix size */
 #define MATRIX_ROWS 1

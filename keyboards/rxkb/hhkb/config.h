@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x4848 // HH = happy hacking
 #define PRODUCT_ID      0x0001 // ANSI HHKB
 #define DEVICE_VER      0x0104
-#define MANUFACTURER    q.m.k
-#define PRODUCT         HHKB mod
+#define MANUFACTURER    "q.m.k"
+#define PRODUCT         "HHKB mod"
 
 /* key matrix size */
 #define MATRIX_ROWS 8
