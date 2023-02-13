@@ -29,9 +29,12 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Install dependencies
-        run: pip3 install -r requirements.txt
+        run: python3 -m pip install qmk
       
       # Runs a single command using the runners shell
+      - name: git config
+        run: git config --global --add safe.directory /__w/qmk_firmware/qmk_firmware
+        
       - name: Build ble_micro_pro firmware
         run: make ble_micro_pro:default:uf2
         
