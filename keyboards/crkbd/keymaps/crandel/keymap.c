@@ -19,6 +19,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+#define TO_CLM DF(COLMAK_LAYER)
+#define TO_NMB DF(NUMBER_LAYER)
+#define TO_CHR DF(CHARS_LAYER)
+#define TO_MOS DF(MOUSE_LAYER)
+#define TO_QWT DF(QWERTY_LAYER)
+#define MO_NMB MO(NUMBER_LAYER)
+#define SP_CHR LT(CHARS_LAYER, KC_SPC)
+
+enum layers {
+  COLMAK_LAYER = 0,
+  NUMBER_LAYER = 1,
+  CHARS_LAYER = 2,
+  MOUSE_LAYER = 3,
+  QWERTY_LAYER = 4,
+};
+
 enum custom_keycodes {
   TRM_COPY = SAFE_RANGE,
   TRM_PSTE,
@@ -27,21 +43,6 @@ enum custom_keycodes {
   CLM_EN,
 };
 
-enum layers {
-  COLMAK_LAYER = 0,
-  NUMBER_LAYER,
-  CHARS_LAYER,
-  MOUSE_LAYER,
-  QWERTY_LAYER,
-};
-
-#define TO_CLM DF(COLMAK_LAYER)
-#define TO_NMB DF(NUMBER_LAYER)
-#define TO_CHR DF(CHARS_LAYER)
-#define TO_MOS DF(MOUSE_LAYER)
-#define TO_QWT DF(QWERTY_LAYER)
-#define MO_NMB MO(NUMBER_LAYER)
-#define SP_CHR LT(CHARS_LAYER, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLMAK_LAYER] = LAYOUT_split_3x6_3(
@@ -141,15 +142,15 @@ const char code_to_name[60] = {
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
   char name = ' ';
   if (keycode == TRM_COPY) {
-    name = 'COPY';
+    name = 'C';
   } else if (keycode == TRM_PSTE) {
-    name = 'PASTE';
+    name = 'P';
   } else if (keycode == UML_SEQ) {
-    name = 'UMLAUT';
+    name = 'U';
   } else if (keycode == QWRT_UA) {
-    name = 'QWERTY';
+    name = 'Q';
   } else if (keycode == CLM_EN) {
-    name = 'COLEMAK';
+    name = 'C';
   }
 
   if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
