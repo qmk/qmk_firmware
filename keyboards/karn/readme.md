@@ -7,7 +7,7 @@ Split, ortholinear, non-staggered, diodeless, 38 key keyboard, with a unique set
 
 Based on the excellent [cantor](https://github.com/diepala/cantor), and inspired by the popular [corne](https://github.com/foostan/crkbd), [ferris](https://github.com/pierrechevalier83/ferris) and [sweep](https://github.com/davidphilipbarr/Sweep) keyboards.
 
-![https://github.com/robcmills/karn-keyboard](https://github.com/robcmills/karn-keyboard)
+[https://github.com/robcmills/karn-keyboard](https://github.com/robcmills/karn-keyboard)
 
 ![karn-2-left](https://github.com/robcmills/karn-keyboard/blob/main/images/karn-2-left.jpg)
 
