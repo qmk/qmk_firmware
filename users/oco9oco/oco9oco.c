@@ -14,9 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "oco9oco.h"
 
 void haen_keycode(uint16_t keycode) {
-    tap_code(KC_LNG1);
+//    tap_code(KC_LNG1);
     tap_code(keycode);
-    tap_code(KC_LNG1);
+//    tap_code(KC_LNG1);
 }
 void appcmd(uint16_t keycode) {
     tap_code(KC_APP);
