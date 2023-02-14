@@ -111,8 +111,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+#ifdef OLED_ENABLE
 char keylog_str[24] = {};
 char layer_str[34] = {};
+#endif // OLED_ENABLE
 
 void set_indicators_state(uint8_t r, uint8_t g, uint8_t b, const char *data){
 #ifdef OLED_ENABLE
