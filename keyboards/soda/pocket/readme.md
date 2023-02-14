@@ -7,17 +7,11 @@ A customizable 34  keyboard, support both HOTSWAP and SOLDER.
 
 Make example for this keyboard (after setting up your build environment):
 
-**default**:
+    make soda/pocket:default
 
-```shell
-qmk compile -kb soda/compact -km default
-```
+Flashing example for this keyboard:
 
-**via:**
-
-```shell
-qmk compile -kb soda/compact -km via
-```
+    make soda/pocket:default:flash
 
 ## Bootloader
 
