@@ -16,9 +16,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_F2_F12] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F12),
 };
 
-// Equivalent to zmk behavior-hold-tap hold-preferred flavor
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SFT_T(KC_Z): // Special case for Shift
