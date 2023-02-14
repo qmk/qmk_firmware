@@ -27,6 +27,8 @@ typedef enum {
     OS_IOS,
 } os_variant_t;
 
+extern os_variant_t detected_os;
+
 void         process_wlength(const uint16_t w_length);
 os_variant_t detected_host_os(void);
 void         erase_wlength_data(void);
