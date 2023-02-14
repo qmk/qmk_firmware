@@ -27,6 +27,9 @@ typedef enum {
     OS_IOS,
 } os_variant_t;
 
+/* splits where the slave side needs to process for rgb/oled functionality
+ * define "SPLIT_DETECTED_OS_ENABLE" to enable  
+ */
 extern os_variant_t detected_os;
 
 void         process_wlength(const uint16_t w_length);
