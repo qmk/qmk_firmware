@@ -1,5 +1,7 @@
 # Ciel65
 
+![Ciel65](https://imgur.com/gallery/16FB1gN)
+
 A simple 65% keyboard based of the Bakeneko 65, originially made by Katano.
 
 * Keyboard Maintainer: [ChickenMan](https://github.com/chickenman112)
