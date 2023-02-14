@@ -1,4 +1,5 @@
 /* Copyright 2021 Jasper Chan
+ *           2023 Huckies <https://github.com/Huckies>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
