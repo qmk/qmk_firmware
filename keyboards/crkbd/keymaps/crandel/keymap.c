@@ -17,6 +17,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifdef OLED_ENABLE
+#include <stdio.h>
+#endif // OLED_ENABLE
+
 #include QMK_KEYBOARD_H
 
 enum layers {
@@ -107,10 +111,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+char keylog_str[24] = {};
+char layer_str[34] = {};
+
 void set_indicators_state(uint8_t r, uint8_t g, uint8_t b, const char *data){
 #ifdef OLED_ENABLE
-  oled_write_P(PSTR("Layer: "), false);
-  oled_write_ln_P(data, true);
+  // update layer_str
+  snprintf(layer_str,
+           sizeof(layer_str),
+           "%s",
+           data);
 #endif // OLED_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
@@ -119,7 +129,6 @@ void set_indicators_state(uint8_t r, uint8_t g, uint8_t b, const char *data){
 }
 
 #ifdef OLED_ENABLE
-#include <stdio.h>
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
@@ -128,7 +137,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-char keylog_str[24] = {};
 
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -169,32 +177,52 @@ void oled_render_keylog(void) {
   oled_write(keylog_str, false);
 }
 
+void oled_render_layer_state(void) {
+  oled_write_P(PSTR("Layer: "), false);
+  oled_write_ln(layer_str, true);
+}
+
 bool oled_task_user(void) {
+  oled_render_layer_state();
   oled_render_keylog();
   return false;
 }
 #endif // OLED_ENABLE
+void keyboard_post_init_user(void) {
+  // Call the post init code.
+#ifdef OLED_ENABLE
+    // update layer_str
+  snprintf(layer_str,
+           sizeof(layer_str),
+           "%s",
+           "Colemak");
+#endif // OLED_ENABLE
+
+#ifdef RGBLIGHT_ENABLE
+  rgblight_setrgb(RGB_GREEN);
+#endif // RGBLIGHT_ENABLE
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case TO_CLM:
     if (record->event.pressed) {
-      set_indicators_state(RGB_GREEN, PSTR("COLEMAK"));
+      set_indicators_state(RGB_GREEN, "COLEMAK");
     }
     break;
   case TO_NMB:
     if (record->event.pressed) {
-      set_indicators_state(RGB_BLUE, PSTR("NUMBERS"));
+      set_indicators_state(RGB_BLUE, "NUMBERS");
     }
     break;
   case TO_CHR:
     if (record->event.pressed) {
-      set_indicators_state(RGB_YELLOW, PSTR("CHARS"));
+      set_indicators_state(RGB_YELLOW, "CHARS");
     }
     break;
   case TO_MOS:
     if (record->event.pressed) {
-      set_indicators_state(RGB_RED, PSTR("MOUSE"));
+      set_indicators_state(RGB_RED, "MOUSE");
     }
     break;
   case TRM_COPY:
@@ -225,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       tap_code(KC_CAPS);
       unregister_code(KC_LSFT);
     } else {
-      set_indicators_state(RGB_MAGENTA, PSTR("QWERTY"));
+      set_indicators_state(RGB_MAGENTA, "QWERTY");
     }
     break;
   case CLM_EN:
@@ -234,7 +262,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_move(COLMAK_L);
       tap_code(KC_CAPS);
     } else {
-      set_indicators_state(RGB_GREEN, PSTR("COLEMAK"));
+      set_indicators_state(RGB_GREEN, "COLEMAK");
     }
     break;
   case UML_SEQ:
@@ -283,7 +311,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       register_code(KC_LSFT);
       tap_code(KC_CAPS);
       unregister_code(KC_LSFT);
-      set_indicators_state(RGB_MAGENTA, PSTR("QWERTY"));
+      set_indicators_state(RGB_MAGENTA, "QWERTY");
     }
     break;
   case ESC_COMBO:
