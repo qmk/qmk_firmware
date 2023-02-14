@@ -3,12 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 #define DIRECT_PINS {{NO_PIN, A15,A8, B15, B14, B13}, \
                      {B10,    B1, B0, A7,  A6,  A5 }, \
                      {NO_PIN, B3, B4, B5,  B8,  B9 }, \
