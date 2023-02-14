@@ -161,6 +161,10 @@ void set_swap_hands_state(size_t index, uint8_t *swap_state, bool on) {
     }
 }
 
+bool is_swap_hands_on(void) {
+    return swap_hands;
+}
+
 /** \brief Process Hand Swap
  *
  * FIXME: Needs documentation.
