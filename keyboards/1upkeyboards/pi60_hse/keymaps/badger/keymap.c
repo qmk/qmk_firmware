@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,   KC_RBRC,  KC_BSLS, \
      MOVE_MAC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,   KC_ENT,   \
      KC_LSFT,   KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,   _______,  \
-     KC_LCTL,   KC_LALT,  KC_LGUI,  KC_SPC,   FUNCTION, KC_RGUI,  KC_RALT,  J_MACRO),
+     KC_LCTL,   KC_LALT,  KC_LGUI,  KC_SPC,   LT_FUNC,  KC_RGUI,  KC_RALT,  J_MACRO),
 
   [_MOVE]       = LAYOUT_60_ansi_split_bs_rshift(\
      MAC_FRC,   MM_LEFT,  MM_RGHT,  KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  P_BRACE,  P_PAREN,  P_BRACK,  IJ_TOP,    IJ_BOTT,  WD_DELE, _______, \
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______,   _______,  _______,  _______,  _______,   _______,  _______,  _______),
 
   [_CONFIG]     = LAYOUT_60_ansi_split_bs_rshift(\
-     _______,   DF_1,     DF_2,     DF_3,     DF_4,      KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_DEL, _______, \
+     _______,    _______,  _______,  _______,  _______,  KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_DEL, _______, \
      _______,   _______,  _______,  EE_CLR,   QK_BOOT,   _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  KC_INS, \
      _______,   _______,  _______,  DB_TOGG,  RGB_MOD,   RGB_HUI,  RGB_SAI,  RGB_SPI,  RGB_M_B,  _______,  _______,  RGB_TOG,   _______,  \
      _______,   _______,  _______,  _______,  RGB_RMOD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  RGB_M_K,  _______,  _______,  _______,   _______,  \
