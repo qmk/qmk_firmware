@@ -40,13 +40,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_MPRV, KC_MNXT, KC_MUTE,
         KC_V, KC_C, KC_RGUI,
-        KC_BTN1, MO(1), KC_BTN2
+        KC_BTN1, TG(1), KC_BTN2
     ),
 
     [1] = LAYOUT(
         KC_MPRV, KC_MNXT, KC_MUTE,
 				KC_PGUP, KC_TAB, KC_RGUI,
-        KC_TAB, _______, KC_RGUI
+        KC_PGDN, _______, KC_TAB
     ),
 };
 
