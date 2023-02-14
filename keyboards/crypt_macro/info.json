@@ -10,6 +10,12 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["B12", "B6", "B7"],
+            [null, "B5", null]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":0.5, "y":1, "w":2}]

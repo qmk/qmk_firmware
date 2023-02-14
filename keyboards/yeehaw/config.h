@@ -15,16 +15,6 @@
  */
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 14
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-{ D2, D4, C6, E6, F5, B1, D3, D7, B4, F6, B3, B5, F7, F4 } \
-}
-
 #define ENCODERS_PAD_A { D1 }
 #define ENCODERS_PAD_B { D0 }
 

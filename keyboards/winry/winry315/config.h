@@ -3,18 +3,6 @@
 
 #pragma once
 
-
-// Key matrix size.
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 24
-
-// Key pins (including encoder press switches).
-// The NO_PIN entries are reserved for encoder rotation mappings.
-#define DIRECT_PINS                                                                                                                \
-    {                                                                                                                              \
-        { F4, C7, D4, D5, D1, F5, C6, D6, D3, D2, F6, B6, D7, B4, B5, B2, D0, E6, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN } \
-    }
-
 // clang-format off
 
 // Encoder pins.

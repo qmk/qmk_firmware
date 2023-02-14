@@ -16,22 +16,6 @@
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 3
-
-/* Keyboard Matrix Assignments */
-// clang-format off
-#define DIRECT_PINS { \
-    { NO_PIN, NO_PIN, GP0  }, \
-    { GP1,    GP2,    GP3  }, \
-    { GP4,    GP5,    GP6  }, \
-    { GP7,    GP8,    GP9  }, \
-    { GP10,   GP11,   GP12 }  \
-}
-// clang-format on
-
 /* OLED SPI Defines */
 #define OLED_DISPLAY_128X64
 #define OLED_IC OLED_IC_SH1106
