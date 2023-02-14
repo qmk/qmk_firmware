@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 #define MATRIX_ROW_PINS \
     { B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13 }
 #define MATRIX_COL_PINS \
@@ -27,7 +25,7 @@
     { C2 }
 #define ENCODERS_PAD_B \
     { C3 }
-    
+
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
@@ -47,8 +45,6 @@
 /* External spi flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
 #define WEAR_LEVELING_BACKING_SIZE (8 * 1024)
-
-#define LED_CAPS_LOCK_PIN C14
 
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPIDQ

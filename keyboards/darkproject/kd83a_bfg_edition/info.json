@@ -8,6 +8,9 @@
         "pid": "0xE392",
         "device_version": "0.0.3"
     },
+    "indicators": {
+        "caps_lock": "C14"
+    },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "layouts": {
@@ -104,7 +107,6 @@
                 { "label": "Left", "x": 13.25, "y": 5 },
                 { "label": "Down", "x": 14.25, "y": 5 },
                 { "label": "Right", "x": 15.25, "y": 5 }
-
 
             ]
         }
