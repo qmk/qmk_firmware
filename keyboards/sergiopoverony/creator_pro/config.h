@@ -16,16 +16,6 @@
 
 #pragma once
 
-/* key matrix size pins */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 9
-#define DIRECT_PINS {   \
-    { D1, D4, C6, D7, \
-	                 E6, \
-	  B2, B3, B1, F7  } \
-}
-
-
 /*led layout indication pins*/
 #define RED_LED D0
 #define BLUE_LED B5

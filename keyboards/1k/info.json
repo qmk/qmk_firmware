@@ -8,6 +8,11 @@
     "pid": "0x0001",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "direct": [
+      ["B0"]
+    ]
+  },
   "layouts": {
     "LAYOUT_ortho_1x1": {
       "layout": [

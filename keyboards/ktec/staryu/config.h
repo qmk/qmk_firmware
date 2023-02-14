@@ -16,17 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
-/* key matrix pins */
-#define DIRECT_PINS { \
-    { NO_PIN, D0,     D1 }, \
-    { D4,     D3,     D2 }, \
-}
-
 #define RGB_DI_PIN C6
 #define RGBLED_NUM 1     // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING

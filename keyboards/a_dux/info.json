@@ -10,6 +10,26 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["C6", "D2", "F7", "B2", "F4"],
+            ["D7", "D0", "F6", "B3", "F5"],
+            ["E6", "D4", "D3", "B1", "B6"],
+            ["B4", "B5", null, null, null]
+        ]
+    },
+    "split": {
+        "matrix_pins": {
+            "right": {
+                "direct": [
+                    ["F4", "B2", "F7", "D2", "C6"],
+                    ["F5", "B3", "F6", "D0", "D7"],
+                    ["B6", "B1", "D3", "D4", "E6"],
+                    ["B5", "B4", null, null, null]
+                ]
+            }
+        }
+    },
     "community_layouts": ["split_3x5_2"],
     "layouts": {
         "LAYOUT_split_3x5_2": {

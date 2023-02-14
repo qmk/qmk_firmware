@@ -117,9 +117,11 @@ At the top of the file you'll find this:
     // Layer names don't all need to be of the same
     // length, and you can also skip them entirely
     // and just use numbers.
-    #define _BL 0
-    #define _FL 1
-    #define _CL 2
+    enum layer_names {
+        _BL,
+        _FL,
+        _CL,
+    };
 
 These are some handy definitions we can use when building our keymap and our custom function. The `GRAVE_MODS` definition will be used later in our custom function, and the following `_BL`, `_FL`, and `_CL` defines make it easier to refer to each of our layers.
 
