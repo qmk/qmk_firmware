@@ -10,6 +10,11 @@
     },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
+    "matrix_pins": {
+        "direct": [
+            ["B0"]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -10,6 +10,12 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["D1", "C6", "B4", "B5", "B2"],
+            ["D0", "D4", "D7", "E6", "B6"]
+        ]
+    },
     "layouts": {
         "LAYOUT_ortho_2x5": {
             "layout": [

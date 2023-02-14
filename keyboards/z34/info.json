@@ -10,6 +10,26 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["C6", "F7", "F6", "F5", "F4"],
+            ["D7", "B6", "B2", "B3", "B1"],
+            ["E6", "D4", "D0", "D1", "D3"],
+            ["B4", "B5", null, null, null]
+        ]
+    },
+    "split": {
+        "matrix_pins": {
+            "right": {
+                "direct": [
+                    ["F4", "F5", "F6", "F7", "C6"],
+                    ["B1", "B3", "B2", "B6", "D7"],
+                    ["D3", "D1", "D0", "D4", "E6"],
+                    ["B5", "B4", null, null, null]
+                ]
+            }
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -16,18 +16,8 @@
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
-
 #define OLED_FONT_H "keymaps/default/glcdfont.c"
 #define OLED_TIMEOUT 600000 // Turn of after 10 minutes
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { C6, D7, E6, B4, F6 }, \
-}
 
 #define ENCODERS_PAD_A { B1 }
 #define ENCODERS_PAD_B { B3 }

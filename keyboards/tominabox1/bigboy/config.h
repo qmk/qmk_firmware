@@ -16,14 +16,6 @@
 
 #pragma once
 
-
-/* key matrix size */
-#define DIRECT_PINS { \
-    { D0, B1, B0 }, \
-    { B7, B2, B3 } \
-}
-
-
 #define ENCODERS_PAD_A { C6 }
 #define ENCODERS_PAD_B { B6 }
 #define ENCODER_RESOLUTION 2

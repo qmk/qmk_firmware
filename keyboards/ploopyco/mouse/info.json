@@ -10,6 +10,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["D4", "D2", "E6", "B6", "D7", "C6", "C7", "B7"]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
