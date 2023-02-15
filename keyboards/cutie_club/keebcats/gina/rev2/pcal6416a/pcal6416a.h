@@ -2,6 +2,7 @@
 
 #ifndef __ASSEMBLER__
 #include <stdint.h>
+#include "i2c_master.h"
 /*
 ================   TYPES   ================
 */
@@ -12,17 +13,17 @@ typedef uint8_t pcal_gpio_pin;
 /*
 ================ FUNCTIONS ================
 */
-pcal_gpio_state pcal_read_pin(pcal_gpio_pin pin);
-void pcal_write_pin(pcal_gpio_pin pin, pcal_gpio_state state);
-void pcal_set_pin_direction(pcal_gpio_pin pin, pcal_gpio_dir dir);
+i2c_status_t pcal_read_pin(pcal_gpio_pin pin, pcal_gpio_state *state);
+i2c_status_t pcal_write_pin(pcal_gpio_pin pin, pcal_gpio_state state);
+i2c_status_t pcal_set_pin_direction(pcal_gpio_pin pin, pcal_gpio_dir dir);
 
 
 // Sets each provided pins direction
-void set_pin_array_direction(const pcal_gpio_pin* pins, int size, pcal_gpio_dir direction);
+i2c_status_t set_pin_array_direction(const pcal_gpio_pin* pins, int size, pcal_gpio_dir direction);
 // Sets each provided pins state
-void set_pin_array_state(const pcal_gpio_pin* pins, int size, pcal_gpio_state state);
+i2c_status_t set_pin_array_state(const pcal_gpio_pin* pins, int size, pcal_gpio_state state);
 // Sets direction as output and primes with a specific state
-void set_pin_array_initial_state(const pcal_gpio_pin* pins, int size, pcal_gpio_state state);
+i2c_status_t set_pin_array_initial_state(const pcal_gpio_pin* pins, int size, pcal_gpio_state state);
 
 /*
 ================ REGISTERS ================
