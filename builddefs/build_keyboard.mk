@@ -46,11 +46,12 @@ ifdef SKIP_VERSION
 endif
 
 # Generate the version.h file
+VERSION_H_FLAGS :=
 ifdef SKIP_VERSION
-VERSION_H_FLAGS := --skip-all
+VERSION_H_FLAGS += --skip-all
 endif
 ifdef SKIP_GIT
-VERSION_H_FLAGS := --skip-git
+VERSION_H_FLAGS += --skip-git
 endif
 
 # Generate the board's version.h file.
