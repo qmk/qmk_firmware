@@ -38,15 +38,15 @@ enum encoder_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [0] = LAYOUT(
-        KC_MPRV, KC_MNXT, KC_MUTE,
+        KC_ENT, KC_ENT, KC_MUTE,
         KC_V, KC_C, KC_RGUI,
-        KC_BTN1, TG(1), KC_BTN2
+        KC_BTN1, MO(1), KC_BTN2
     ),
 
     [1] = LAYOUT(
-        KC_MPRV, KC_MNXT, KC_MUTE,
-				KC_PGUP, KC_TAB, KC_RGUI,
-        KC_PGDN, _______, KC_TAB
+        KC_ENT, KC_ENT, KC_MUTE,
+				KC_WH_U, KC_TAB, KC_RGUI,
+        KC_WH_D, _______, KC_TAB
     ),
 };
 
@@ -55,7 +55,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code16(C(KC_TAB));
         } else {
-            tap_code16(S(C(KC_TAB)));
+            tap_code16(C(S(KC_TAB)));
         }
     }
     else if (index == _MIDDLE) {
