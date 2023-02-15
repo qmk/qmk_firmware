@@ -190,6 +190,7 @@ bool oled_task_user(void) {
   return false;
 }
 #endif // OLED_ENABLE
+
 void keyboard_post_init_user(void) {
   // Call the post init code.
 #ifdef OLED_ENABLE
@@ -199,10 +200,6 @@ void keyboard_post_init_user(void) {
            "%s",
            "Colemak");
 #endif // OLED_ENABLE
-
-#ifdef RGBLIGHT_ENABLE
-  rgblight_setrgb(RGB_GREEN);
-#endif // RGBLIGHT_ENABLE
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -254,7 +251,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       tap_code(KC_CAPS);
       unregister_code(KC_LSFT);
-    } else {
       set_indicators_state(RGB_MAGENTA, "QWERTY");
     }
     break;
@@ -263,7 +259,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // when keycode CLM_EN is pressed
       layer_move(COLMAK_L);
       tap_code(KC_CAPS);
-    } else {
       set_indicators_state(RGB_GREEN, "COLEMAK");
     }
     break;
