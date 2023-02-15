@@ -16,10 +16,10 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = yes          # Audio output
 AUDIO_DRIVER = dac_additive
 COMBO_ENABLE = yes
+OS_DETECTION_ENABLE = yes
 
 DYNAMIC_MACRO_ENABLE = yes
 DIP_SWITCH_ENABLE = yes
-
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
 
