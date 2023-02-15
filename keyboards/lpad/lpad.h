@@ -14,7 +14,7 @@
  * └───┴───┴───┘
  */
 
-#define LAYOUT_default( \
+#define LAYOUT_default( 
 	K000, K001, \
 	K100, \
 	K200, K201, K202 \
