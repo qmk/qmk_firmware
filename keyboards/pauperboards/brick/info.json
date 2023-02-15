@@ -153,7 +153,7 @@
                 { "matrix": [3,10], "label": "&uarr;", "x": 10, "y": 3 }
             ]
         },
-        "LAYOUT_ortho_4x12": {
+        "LAYOUT_ortho_4x12_hhkb": {
             "layout": [
                 { "matrix": [0,0], "label": "Tab", "x": 0, "y": 0 },
                 { "matrix": [0,1], "label": "Q", "x": 1, "y": 0 },
