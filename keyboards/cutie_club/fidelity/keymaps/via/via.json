@@ -2,7 +2,6 @@
     "name": "HAND Engineering Fidelity",
     "vendorId": "0xFB9C",
     "productId": "0x4D1B",
-    "lighting": "none",
     "matrix": { "rows": 5, "cols": 16 },
     "layouts": {
         "labels": [
