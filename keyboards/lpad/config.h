@@ -3,12 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { E6, B7, D0}
 #define MATRIX_COL_PINS { D3, D4, D6 }
