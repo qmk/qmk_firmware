@@ -5,25 +5,26 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_default(
+	[0] = LAYOUT (
 		KC_MPLY, KC_MUTE,  
 		KC_MNXT,  
 		KC_MPRV,  KC_LEFT,    KC_RIGHT),    
 
-	[1] = LAYOUT_default(
+	[1] = LAYOUT (
 		KC_TRNS, KC_TRNS, 
 		KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[2] = LAYOUT_default(
+	[2] = LAYOUT (
 		KC_TRNS, KC_TRNS, 
 		KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[3] = LAYOUT_default(
+	[3] = LAYOUT (
 		KC_TRNS, KC_TRNS, 
 		KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS),};
+		KC_TRNS, KC_TRNS, KC_TRNS),
+};
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
