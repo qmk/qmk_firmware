@@ -5,7 +5,7 @@
 
 Brick is a 12u, 4 row ortholinear keyboard designed as a drop in replacement for PCBs like the Niu Mini. Brick features a USB-C port, an ATMega32u4, RGB underglow, three possible rotary encoder locations, and multiple ortho layout options.
 
-* Keyboard Maintainer: [Jason Chestnut](https://github.com/shurikai)
+* Keyboard Maintainer: [pauper](https://github.com/pauperboards)
 * Hardware Supported:
     * Brick v0.1 - prototype first run with red solder mask and needing a bodge wire across the top row encoder location.
     * Brick v0.2 - same layout and components as v0.1, but with the bodge fixed. This version was run as part of Cervello group buy by [P3DStore](http://p3dstore.com).
