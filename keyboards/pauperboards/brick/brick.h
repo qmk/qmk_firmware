@@ -1,4 +1,4 @@
-/* Copyright 2023 Juno Nguyen <juno.ngx@gmail.com>
+/* Copyright 2023 Jason Chestnut <pauperboards@gmail.com> @pauperboards
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
