@@ -25,6 +25,9 @@ void board_init(void) {
     setPinOutput(B12);
     setPinOutput(B13);
     setPinOutput(B14);
+    writePinLow(B12);
+    writePinLow(B13);
+    writePinLow(B14);
     setPinOutput(C13);
 }
 
@@ -61,7 +64,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false; }
     switch (index) {
         case 0:
-            if(active) { tap_code(KC_CLCK); }
+            if(active) { tap_code(KC_CAPS); }
             break;
         break;
     }
@@ -114,9 +117,9 @@ bool led_update_kb(led_t led_state) {
         // it low/0 turns it on, and high/1 turns the LED off.
         // This behavior depends on whether the LED is between the pin
         // and VCC or the pin and GND.
-        writePin(B12, !led_state.num_lock);
-        writePin(B13, !led_state.caps_lock);
-        writePin(B14, !led_state.scroll_lock);
+        writePin(B12, led_state.num_lock);
+        writePin(B13, led_state.caps_lock);
+        writePin(B14, led_state.scroll_lock);
         writePin(C13, !led_state.caps_lock);
     }
     return res;

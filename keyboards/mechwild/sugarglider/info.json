@@ -1,7 +1,14 @@
 {
-    "manufacturer": "Kyle McCreery",
-    "keyboard_name": "mechwild/sugarglider",
-    "maintainer": "kylemccreery",
+    "keyboard_name": "SugarGlider",
+    "manufacturer": "MechWild",
+    "url": "mechwild.com",
+    "maintainer": "Kyle McCreery",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x1710",
+        "device_version": "0.0.2"
+    },
+
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

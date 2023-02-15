@@ -5,16 +5,11 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1710
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MechWild
-#define PRODUCT         SugarGlider
-
 /* Matrix COL and ROW definitions */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 6
+
+#define OLED_DISPLAY_128X64
 
 /* Status light pins */
 //#define LED_NUM_LOCK_PIN B12
@@ -70,9 +65,9 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* RGB settings, uncomment this define to enable RGB */
-//#define RGB_DI_PIN B5
+#define RGB_DI_PIN B5
 #ifdef RGB_DI_PIN
-#    define RGBLED_NUM 6
+#    define RGBLED_NUM 10
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
