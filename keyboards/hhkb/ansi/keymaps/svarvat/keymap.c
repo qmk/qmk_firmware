@@ -1,4 +1,7 @@
 uint16_t timer = 0;
+// Initialize variable holding the binary
+// representation of active modifiers.
+uint8_t mod_state;
 
 /*  -*-  eval: (turn-on-orgtbl); -*-
  * default HHKB Layout
@@ -138,14 +141,15 @@ uint16_t timer = 0;
 #define FR_EURO ALGR(KC_E)   // €
 #define FR_CURR ALGR(FR_DLR) // ¤
 
+enum custom_keycodes {
+    MA_BACKTICK = SAFE_RANGE,
+    MA_TILD = SAFE_RANGE,
+};
+
 #define BASE 0
 #define MO_CONT 1
 #define MO_LGUI 2
 #define MO_RGUI 3
-
-enum custom_keycodes {
-    MA_BACKTICK = SAFE_RANGE,
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -242,14 +246,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [MO_RGUI] = LAYOUT(
-        KC_PWR, KC_F1, KC_F2, KC_F3, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, QK_BOOTLOADER,
-        KC_CAPS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
-        KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
+        KC_PWR, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, QK_BOOTLOADER,
+        KC_CAPS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, FR_AT, FR_MICR, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
+        KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, FR_PIPE, FR_SECT, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
+        KC_TRNS, FR_DEG, FR_SUP2, FR_DLR, FR_PERC, FR_PND, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 
 };
+
+void registerAndUnregisterKeyCode(uint16_t keyCode) {
+    register_code16(keyCode);
+    unregister_code16(keyCode);
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Store the current modifier state in the variable for later reference
@@ -260,6 +269,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 registerAndUnregisterKeyCode(FR_GRV);
                 // timer = timer_read();
+                registerAndUnregisterKeyCode(KC_SPC);
+            }
+            break;
+        case MA_TILD:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(FR_TILD);
                 registerAndUnregisterKeyCode(KC_SPC);
             }
             break;
@@ -275,7 +290,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-registerAndUnregisterKeyCode(uint16_t keyCode) {
-    register_code16(keyCode);
-    unregister_code16(keyCode);
-}
+
