@@ -143,67 +143,41 @@ uint8_t mod_state;
 
 enum custom_keycodes {
     MA_BACKTICK = SAFE_RANGE,
-    MA_TILD = SAFE_RANGE,
+    MA_TILD,
 };
 
 #define BASE 0
-#define MO_CONT 1
-#define MO_LGUI 2
-#define MO_RGUI 3
+#define MO_LGUI 1
+#define MO_RGUI 2
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* BASE Level: Default Layer
      |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
-     | Esc   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | -     | =   | \     | ` |
+     | Esc   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | -     | =   | \     |Win|
      |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
      | Tab   | Q | W | E | R | T | Y | U | I | O | P | [     | ]   | Backs | x |
      |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
-     | Cont  | A | S | D | F | G | H | J | K | L | ; | '     | Ent |   x   | x |
+     | LGUI  | A | S | D | F | G | H | J | K | L | ; | '     | Ent |   x   | x |
      |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
      | Shift | Z | X | C | V | B | N | M | , | . | / | Shift | Fn0 |   x   | x |
      |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
 
             |------+------+-----------------------+------+------|
-            | LAlt | LGUI | ******* Space ******* | RGUI | RAlt |
+            | LAlt | Cont | ******* Space ******* | RGUI | RAlt |
             |------+------+-----------------------+------+------|
 
     */
 
     [BASE] = LAYOUT(
-        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_GRV,
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
         MO(MO_CONT), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(MO_CONT),
-        KC_LALT, MO(MO_LGUI), KC_SPC, MO(MO_RGUI), KC_RALT
+        KC_LALT, KC_LCTL, KC_SPC, MO(MO_RGUI), KC_RALT
     ),
 
-    /* Cont:
-      |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-      | Pwr  | F1  | F2  | F3  | F4 | F5 | F6 | F7 | F8  | F9  | F10 | F11 | F12   | Ins   | Del |
-      |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-      | Caps |     |     |     |    |    |    |    | Psc | Slk | Pus | Up  |       | Backs |  x  |
-      |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-      |      | VoD | VoU | Mut |    |    | *  | /  | Hom | PgU | Lef | Rig | Enter |   x   |  x  |
-      |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-      |      |     |     |     |    |    | +  | -  | End | PgD | Dow |     |       |   x   |  x  |
-      |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-
-                 |------+------+----------------------+------+------+
-                 | **** | **** | ******************** | **** | **** |
-                 |------+------+----------------------+------+------+
-
-     */
-
-    [MO_CONT] = LAYOUT(
-        KC_PWR, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_CAPS, FR_LABK, FR_RABK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
-        KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    /* LGUI:
+    /* MO_LGUI:
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
       | Pwr  | F1  | F2  | F3  | F4 | F5 | F6 | F7 | F8  | F9  | F10 | F11 | F12   | Ins   | Del |
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
@@ -222,13 +196,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [MO_LGUI] = LAYOUT(
         KC_PWR, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_CAPS, KC_NUBS, LSFT(KC_NUBS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
+        KC_CAPS, FR_LABK, FR_RABK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
         KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
 
-    /* RGUI:
+
+    /* MO_RGUI:
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
       | Pwr  | F1  | F2  | F3  | '  | F5 | F6 | F7 | F8  | F9  | F10 | F11 | F12   | Ins   | Del |
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
@@ -260,6 +235,14 @@ void registerAndUnregisterKeyCode(uint16_t keyCode) {
     unregister_code16(keyCode);
 }
 
+bool isCapsLockStatutActivated(void) {
+    return (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK));
+}
+
+bool isNumLockStatutActivated(void) {
+    return (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK));
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Store the current modifier state in the variable for later reference
     mod_state = get_mods();
@@ -279,10 +262,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_SLSH:
-            // Detect the activation of either shift keys
             if (record->event.pressed) {
+                // Detect the activation of either shift keys
                 if (mod_state & MOD_MASK_SHIFT) {
                     registerAndUnregisterKeyCode(FR_BSLS);
+                }
+            }
+            break;
+        case KC_LGUI:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_CTRL) {
+                    registerAndUnregisterKeyCode(KC_NUM_LOCK);
                 }
             }
             break;
