@@ -1,6 +1,6 @@
 # LPAD
 
-![LPAD](https://i.imgur.com/bQgqZC6.jpg)
+![LPAD](https://i.imgur.com/bQgqZC6h.jpg)
 
 A Macro Keyboard with a RHS rotary encoder, made and sold by Laneware Peripherals.
 
