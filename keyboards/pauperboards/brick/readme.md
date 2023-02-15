@@ -1,7 +1,7 @@
 # Brick
 
-![Brick, top view](https://imgur.com/BLJ6Tum)
-![Brick, layout options](https://imgur.com/HjsWzY7)
+![Brick, top view](https://i.imgur.com/BLJ6Tum.jpg)
+![Brick, layout options](https://i.imgur.com/JhsWzY7.png)
 
 Brick is a 12u, 4 row ortholinear keyboard designed as a drop in replacement for PCBs like the Niu Mini. Brick features a USB-C port, an ATMega32u4, RGB underglow, three possible rotary encoder locations, and multiple ortho layout options.
 
