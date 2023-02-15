@@ -97,7 +97,7 @@
                 { "matrix": [3,1], "label": "Ctrl", "x": 1, "y": 3 },
                 { "matrix": [3,2], "label": "Alt", "x": 2, "y": 3 },
                 { "matrix": [3,3], "label": "Super", "x": 3, "y": 3 },
-                { "matrix": [3,4], "label": "Space", "x": 4, "y": 3, "w": 2 },
+                { "matrix": [3,5], "label": "Space", "x": 4, "y": 3, "w": 2 },
                 { "matrix": [3,6], "label": "Space", "x": 6, "y": 3, "w": 2 },
                 { "matrix": [3,8], "label": "&larr;", "x": 8, "y": 3 },
                 { "matrix": [3,9], "label": "&darr;", "x": 9, "y": 3 },
