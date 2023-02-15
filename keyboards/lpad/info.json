@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "L-PAD", 
+    "manufacturer": "Laneware Peripherals",
+    "url": "", 
+    "maintainer": "qmk", 
+    "usb": {
+        "vid": "0x4C50",
+        "pid": "0x2222",
+        "device_version": "0.0.1"
+    },
+    "layouts":{
+      "LAYOUT_default":{
+        "layout": [{"label":"Play", "x":0, "y":0}, {"label":"Mute", "x":1.5, "y":0.5}, {"label":"Next", "x":0, "y":1}, {"label":"Prev", "x":0, "y":2}, {"label":"Left", "x":1, "y":2}, {"label":"Right", "x":2, "y":2}]
+        }, 
+     }
+}
