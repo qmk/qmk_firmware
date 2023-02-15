@@ -1,3 +1,14 @@
 {
-    "keyboard_name": "Onekey Pro Micro"
+    "keyboard_name": "Onekey Pro Micro",
+    "development_board": "promicro",
+    "matrix_pins": {
+        "cols": ["F4"],
+        "rows": ["F5"]
+    },
+    "backlight": {
+        "pin": "B6"
+    },
+    "rgblight": {
+        "pin": "F6"
+    }
 }

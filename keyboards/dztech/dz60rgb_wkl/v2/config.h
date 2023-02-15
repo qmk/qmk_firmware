@@ -24,7 +24,6 @@
 #define DEBOUNCE 3
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -76,5 +75,5 @@
 
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 62
+#    define RGB_MATRIX_LED_COUNT 62
 #endif

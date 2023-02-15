@@ -5,8 +5,8 @@
     "maintainer": "nooges",
     "usb": {
         "vid": "0xCB10",
-        "pid": "0x3257",
-        "device_version": "3.0.0"
+        "pid": "0x3357",
+        "device_version": "3.1.0"
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60"

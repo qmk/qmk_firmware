@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LED matrix driver */
 #define LED_DRIVER_ADDR_1 0x74
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 71
+#define LED_MATRIX_LED_COUNT 71
 #define LED_DISABLE_WHEN_USB_SUSPENDED
 
 /* i2c (for LED matrix) */

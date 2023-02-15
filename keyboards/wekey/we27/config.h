@@ -48,15 +48,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN C6
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 27
+#define RGB_MATRIX_LED_COUNT 27
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#define RGB_MATRIX_STARTUP_HUE 108 // Sets the default hue value, if none has been set
-#define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
-#define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_HUE 108 // Sets the default hue value, if none has been set
+#define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
+#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
+#define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -141,18 +141,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_VAL_STEP 8
 //#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 //#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
-//#    define RGBLIGHT_EFFECT_BREATHING
-//#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//#    define RGBLIGHT_EFFECT_SNAKE
-//#    define RGBLIGHT_EFFECT_KNIGHT
-//#    define RGBLIGHT_EFFECT_CHRISTMAS
-//#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//#    define RGBLIGHT_EFFECT_RGB_TEST
-//#    define RGBLIGHT_EFFECT_ALTERNATING
 /*== customize breathing effect ==*/
 /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
 //#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64

@@ -1,6 +1,6 @@
 # chromatonemini
 
-![chromatonemini](https://github.com/3araht/chromatonemini/blob/main/pictures/chromatonemini_toppage.jpg)
+![chromatonemini](https://i.imgur.com/SuXzf9Dh.jpg)
 
 chromatonemini keyboard is a simple-design Chromatone mini MIDI keyboard that covers 3 octaves (37 notes).
 

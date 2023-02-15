@@ -101,6 +101,13 @@ The `host_keyboard_led_state()` function will report the LED state returned from
 bool caps = host_keyboard_led_state().caps_lock;
 ```
 
+## `led_update_ports()`
+
+This function writes the LED state to the actual hardware. Call it manually
+from your `led_update_*()` callbacks to modify the handling of the standard
+keyboard LEDs.
+For example when repurposing a standard LED indicator as layer indicator.
+
 ## Setting Physical LED State
 
 Some keyboard implementations provide convenient methods for setting the state of the physical LEDs.
