@@ -5,22 +5,22 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_ansi(
+	[0] = LAYOUT_default(
 		KC_MPLY, KC_MUTE,  
 		KC_MNXT,  
 		KC_MPRV,  KC_LEFT,    KC_RIGHT),    
 
-	[1] = LAYOUT_iso_splitbs(
+	[1] = LAYOUT_default(
 		KC_TRNS, KC_TRNS, 
 		KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[2] = LAYOUT_iso_splitbs(
+	[2] = LAYOUT_default(
 		KC_TRNS, KC_TRNS, 
 		KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[3] = LAYOUT_iso_splitbs(
+	[3] = LAYOUT_default(
 		KC_TRNS, KC_TRNS, 
 		KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS),};
