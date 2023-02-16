@@ -9,11 +9,11 @@ Based on the excellent [cantor](https://github.com/diepala/cantor), and inspired
 
 [https://github.com/robcmills/karn-keyboard](https://github.com/robcmills/karn-keyboard)
 
-![karn-2-left](https://i.imgur.com/vm6XFyI.jpeg)
+![karn-2-left](https://i.imgur.com/vm6XFyIh.jpeg)
 
-![karn-2-full](https://i.imgur.com/R7WnlC3.jpeg)
+![karn-2-full](https://i.imgur.com/R7WnlC3h.jpeg)
 
-![karn-2-pcb](https://i.imgur.com/EQqyyED.png)
+![karn-2-pcb](https://i.imgur.com/EQqyyEDh.png)
 
 
 ### Make
