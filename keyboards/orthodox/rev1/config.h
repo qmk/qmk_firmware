@@ -46,10 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI)) \
 )
 
-/* ws2812 RGB LED */
-//#define RGB_DI_PIN D3
-//#define RGBLED_NUM 16    // Number of LEDs
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
