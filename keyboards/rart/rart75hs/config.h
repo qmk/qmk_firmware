@@ -42,9 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { C2 }
 #define ENCODER_RESOLUTION 4 //default/suggested
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
-
 #define RGB_DI_PIN C0
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING

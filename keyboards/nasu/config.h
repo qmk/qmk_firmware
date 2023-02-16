@@ -35,7 +35,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN B1
 #define LED_NUM_LOCK_PIN B0
 #define LED_SCROLL_LOCK_PIN A7
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0

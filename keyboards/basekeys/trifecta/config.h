@@ -68,10 +68,6 @@
 /* EEPROM for via */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
-/* bootmagic row col assignment */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0
-
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)

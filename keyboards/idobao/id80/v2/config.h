@@ -81,7 +81,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     #define RGBLIGHT_EFFECT_TWINKLE
 #endif
-
-/* Bootmagic Lite key configuration: use the Esc key */
-#define BOOTMAGIC_LITE_ROW      0
-#define BOOTMAGIC_LITE_COLUMN   5

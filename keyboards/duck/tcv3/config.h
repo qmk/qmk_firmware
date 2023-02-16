@@ -36,7 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 17
-
-/* Set to top left most key */
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 10

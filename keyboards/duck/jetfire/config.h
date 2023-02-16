@@ -45,10 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGBLIGHT_VAL_STEP 8
 // #endif
 
-/* Set to top left most key */
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 10
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

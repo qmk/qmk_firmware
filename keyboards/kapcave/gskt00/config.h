@@ -25,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F1, D1, D2, D4, D6, F7, B0, F4 }
 #define MATRIX_COL_PINS { F6, D7, F5, C7, B4, C6, B6, B5 }
 
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 6
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

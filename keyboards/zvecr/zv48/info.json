@@ -8,6 +8,11 @@
         "pid": "0x0048",
         "device_version": "0.0.1"
     },
+    "split": {
+        "bootmagic": {
+            "matrix": [4, 0]
+        }
+    },
     "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x12": {
