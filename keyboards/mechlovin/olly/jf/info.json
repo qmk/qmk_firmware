@@ -8,6 +8,9 @@
         "pid": "0xD180",
         "device_version": "0.0.1"
     },
+    "bootmagic": {
+        "matrix": [1, 14]
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

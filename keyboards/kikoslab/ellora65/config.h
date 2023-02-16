@@ -36,7 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*RGB TINGS*/
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 12
-
-/* bootmagic row col assignment */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0

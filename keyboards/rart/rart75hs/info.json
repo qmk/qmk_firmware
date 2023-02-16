@@ -8,6 +8,9 @@
         "pid": "0x5575",
         "device_version": "0.0.3"
     },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

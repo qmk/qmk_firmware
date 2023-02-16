@@ -8,6 +8,9 @@
         "pid": "0x0108",
         "device_version": "0.0.1"
     },
+    "bootmagic": {
+        "matrix": [1, 2]
+    },
     "processor": "RP2040",
     "bootloader": "rp2040",
     "matrix_pins": {

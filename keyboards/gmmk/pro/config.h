@@ -29,10 +29,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 3
-
 #define TAP_CODE_DELAY 10
 #define ENCODERS_PAD_A \
     { C15 }

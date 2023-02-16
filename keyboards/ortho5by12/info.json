@@ -8,6 +8,9 @@
     "pid": "0x27DB",
     "device_version": "0.0.2"
   },
+  "bootmagic": {
+    "matrix": [7, 2]
+  },
   "processor": "atmega328p",
     "bootloader": "usbasploader",
   "layouts": {

@@ -37,7 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define LED_PIN_ON_STATE 0
-
-/* Bootmagic Lite key configuration, Backspace */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 14
