@@ -43,10 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
 
-/* Bootmagic Lite key configuration */
-// The (default) Stop key
-// Doesn't work, though. Maybe becuase of the bootloader that's in use?
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
-
 #define USB_MAX_POWER_CONSUMPTION 100

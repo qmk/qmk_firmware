@@ -72,18 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /*
- * BOOTMAGIC Lite
- * Hold Left-Top key to enter bootloader.
- *
- * NOTE:
- * With Round-Robin matrix, diagonal position is always High.
- * So, the default (0,0) is always judged as hold and keyboard enters bootloader.
- * To prevent this, set specific position for it.
- */
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 0
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */

@@ -35,7 +35,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PINS { C2, C7, D5, D6, B0 }
 #define BACKLIGHT_LED_COUNT 5
 #define BACKLIGHT_LEVELS 10
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1

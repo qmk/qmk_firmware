@@ -47,12 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ROTATIONAL_TRANSFORM_ANGLE     -25
 
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW             0
-#define BOOTMAGIC_LITE_COLUMN          0
-#define BOOTMAGIC_LITE_ROW_RIGHT       4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT    5
-
 #define AUDIO_PIN                      C6
 #define AUDIO_PIN_ALT                  B7
 

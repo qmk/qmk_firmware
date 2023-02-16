@@ -33,7 +33,3 @@
 #define ENCODERS_PAD_B \
     { B1 }
 #define ENCODER_RESOLUTION 4
-
-/* Set the Bootmagic key to the escape key (default key doesn't exist 0,0) */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1

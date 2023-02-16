@@ -22,10 +22,6 @@
 #define BACKLIGHT_LEVELS 5
 #endif
 
-/* Set location for BootMagic key*/
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

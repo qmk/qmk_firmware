@@ -21,9 +21,6 @@
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 8
 
-#define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW 1
-
 /*Define Matrix Pins */
 #define MATRIX_ROW_PINS {F0, F1, F5, F4, C6, C7, B5, B6, D4, D2, D5, D3}
 #define MATRIX_COL_PINS {D7, B4, F7, F6, D1, B7, B3, B2} 

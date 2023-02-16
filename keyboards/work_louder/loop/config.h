@@ -135,9 +135,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 11
-
 #define ENCODERS_PAD_A { D0, D2, D5 }
 #define ENCODERS_PAD_B { D1, D3, D4 }

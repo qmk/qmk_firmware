@@ -31,10 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_01 B3
 #define LED_02 B6
 
-/* Bootmagic - hold down rotary encoder pushbutton while plugging in to enter bootloader */
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 0
-
 #define RGB_DI_PIN D1
 #define RGB_MATRIX_LED_COUNT 16
 

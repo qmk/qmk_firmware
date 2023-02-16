@@ -30,10 +30,6 @@
 
 #define USB_MAX_POWER_CONSUMPTION 100
 
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 3
-
 #define ROTATIONAL_TRANSFORM_ANGLE 20
 
 // If board has a debug LED, you can enable it by defining this

@@ -48,10 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 3
-
 /* OLED Configuration */
 #ifdef OLED_ENABLE
     #define OLED_TIMEOUT	    60000
