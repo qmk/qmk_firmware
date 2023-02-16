@@ -4,7 +4,8 @@ combos.def: This file defines chords that when pressed emulate a single key pres
      name           result            chord keys
 */
 //// main layer
-COMB(capsLock,       KC_CAPS,         KC_G, KC_M)
+COMB(capsLock,       KC_CAPS,         HOME_T, HOME_N)
+COMB(capsLock2,      KC_CAPS,         KC_G, KC_M)
 COMB(altEscape,      KC_ESC,          KC_Q, KC_W)
 COMB(altBackspace,   KC_BSPC,         KC_Y, KC_SCLN)
 COMB(quickQuote,     KC_QUOT,         NUM_BSPC, HOME_O)
