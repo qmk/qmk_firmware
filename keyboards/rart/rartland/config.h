@@ -51,13 +51,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define OLED_TIMEOUT 10000
-
-/* #define RGB_DI_PIN D7 */
-/* #ifdef RGB_DI_PIN */
-/* #define RGBLED_NUM 11 */
-/* #define RGBLIGHT_HUE_STEP 8 */
-/* #define RGBLIGHT_SAT_STEP 8 */
-/* #define RGBLIGHT_VAL_STEP 8 */
-/* #define RGBLIGHT_LIMIT_VAL 240 */
-/* #define RGBLIGHT_SLEEP */
-/* #endif */
