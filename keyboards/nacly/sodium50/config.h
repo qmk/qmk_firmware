@@ -38,13 +38,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* ws2812 RGB LED */
-//#define RGB_DI_PIN B1
-/*
-#define RGBLED_NUM 12    // Number of LEDs
-
-#define RGBLED_SPLIT { 6, 6 }
-*/
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
