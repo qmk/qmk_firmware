@@ -1,12 +1,28 @@
-# takashicompany/minidivide
+# miniDivide
 
-![takashicompany/minidivide](imgur.com image replace me!)
+![miniDivide](https://i.imgur.com/x91x9yjh.jpg)
 
-*A short description of the keyboard/project*
+miniDivide is a split keyboard with 0.8u (16mm) key pitch.
+The size of a single key is 80% of that of a conventional keyboard key.
+Although the key size is more compact than usual, it has the advantage of requiring minimal finger movement.
+The number of keys is 19 keys for one hand and 38 keys for two hands.
+
+It is small and thin, making it easy to carry around.
+The option to mount a coin cell battery on the PCB is available so that the BLE Micro Pro can be installed.
+OLED can also be mounted.
+
+miniDivideは0.8u(16mm)キーピッチの分割型のキーボードです。
+一つのキーの大きさが従来のキーボードのキーと比較すると80%のサイズとなっています。
+通常よりコンパクトなキーサイズですが、指の動きが最小限で済むという強みがあります。
+キー数は片手で19キー、両手で38キーとなります。
+
+小さく、薄いので持ち運びにも便利です。
+またBLE Micro Proを搭載できるよう、コイン電池をPCBに搭載するオプションが可能です。
+OLEDも搭載できます。
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/minidivide
 
 Make example for this keyboard (after setting up your build environment):
 
