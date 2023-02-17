@@ -27,9 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define MASTER_LEFT
 #define MASTER_RIGHT
+
 // #define EE_HANDS
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_TRANSPORT_MIRROR
 
 #ifdef RGBLIGHT_ENABLE
 #    undef RGBLIGHT_EFFECT_ALTERNATING
@@ -50,11 +49,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_VAL_STEP 10
 #    define RGBLIGHT_LIMIT_VAL 120
 #    define RGBLIGHT_SLEEP
-#    define RGBLIGHT_SPLIT
 #endif
 
 #ifdef OLED_ENABLE
 #  define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
-#  define SPLIT_OLED_ENABLE
-#  define SPLIT_LED_STATE_ENABLE
 #endif // OLED_ENABLE

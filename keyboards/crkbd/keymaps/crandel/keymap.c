@@ -285,7 +285,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 enum combo_events {
   QWERTY_COMBO,
   ESC_COMBO,
-  UML_COMBO,
+  ESC_N_COMBO,
+  TAB_COMBO,
+  TAB_N_COMBO,
   COMBO_LENGTH
 };
 
@@ -293,11 +295,15 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM qwerty_combo[] = {KC_B, KC_J, COMBO_END};
 const uint16_t PROGMEM esc_combo[] = {KC_G, KC_M, COMBO_END};
-const uint16_t PROGMEM uml_combo[] = {KC_V, KC_K, COMBO_END};
+const uint16_t PROGMEM esc_n_combo[] = {KC_3, KC_LEFT, COMBO_END};
+const uint16_t PROGMEM tab_combo[] = {KC_V, KC_K, COMBO_END};
+const uint16_t PROGMEM tab_n_combo[] = {KC_F2, KC_MINS, COMBO_END};
 combo_t key_combos[] = {
     [QWERTY_COMBO] = COMBO_ACTION(qwerty_combo), // keycodes with modifiers are possible too!
     [ESC_COMBO] = COMBO_ACTION(esc_combo),
-    [UML_COMBO] = COMBO_ACTION(uml_combo),
+    [ESC_N_COMBO] = COMBO_ACTION(esc_n_combo),
+    [TAB_COMBO] = COMBO_ACTION(tab_combo),
+    [TAB_N_COMBO] = COMBO_ACTION(tab_n_combo),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -312,16 +318,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
     break;
   case ESC_COMBO:
+  case ESC_N_COMBO:
     if (pressed) {
       tap_code(KC_ESC);
     }
     break;
-  case UML_COMBO:
+  case TAB_COMBO:
+  case TAB_N_COMBO:
     if (pressed) {
-      tap_code(KC_PSCR);
-      register_code(KC_LSFT);
-      tap_code(KC_QUOT);
-      unregister_code(KC_LSFT);
+      tap_code(KC_TAB);
     }
     break;
   }
