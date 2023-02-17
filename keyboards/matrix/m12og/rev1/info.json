@@ -8,6 +8,10 @@
         "pid": "0x0369",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B6",
+        "scroll_lock": "B5"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

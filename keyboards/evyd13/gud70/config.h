@@ -37,11 +37,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_NUM_LOCK_PIN B2
-#define LED_CAPS_LOCK_PIN B1
-#define LED_SCROLL_LOCK_PIN B0
-#define LED_PIN_ON_STATE 0
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

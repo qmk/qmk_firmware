@@ -8,6 +8,12 @@
         "pid": "0x5341",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B10",
+        "num_lock": "B2",
+        "scroll_lock": "B11",
+        "on_state": 0
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "community_layouts": ["alice", "alice_split_bs"],

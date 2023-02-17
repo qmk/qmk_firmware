@@ -36,20 +36,5 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-
-
-
-
-// D4 D0
-// C6 E6 D7
-
-#define LED_NUM_LOCK_PIN    D4
-#define LED_CAPS_LOCK_PIN   D0
-#define LED_SCROLL_LOCK_PIN C6
-#define LED_COMPOSE_PIN     E6
-#define LED_KANA_PIN        D7
-
-
-
 #define ENCODERS_PAD_A { B3 }
 #define ENCODERS_PAD_B { B2 }

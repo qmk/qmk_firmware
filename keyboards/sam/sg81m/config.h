@@ -20,7 +20,7 @@
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
-#define LED_CAPS_LOCK_PIN B0
+
 /*
  * Keyboard Matrix Assignments
  *

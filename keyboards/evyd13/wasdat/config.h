@@ -37,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SN74X138_ADDRESS_PINS { D2, D1, D0 }
 
-#define LED_PIN_ON_STATE 0
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

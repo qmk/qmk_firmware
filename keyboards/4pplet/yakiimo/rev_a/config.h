@@ -23,9 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B10, B1, C13, C14, B14, B12, B9, B8, B5, B4, A15, B3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN A6
-#define LED_SCROLL_LOCK_PIN A7
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

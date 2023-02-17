@@ -46,10 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* status light pins */
-#define LED_NUM_LOCK_PIN B8
-#define LED_CAPS_LOCK_PIN B9
-
 /* RGB settings, uncomment this define to enable RGB */
 #define RGB_DI_PIN A0
 #ifdef RGB_DI_PIN

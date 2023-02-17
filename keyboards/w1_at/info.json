@@ -8,6 +8,13 @@
         "pid": "0x5754",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B6",
+        "num_lock": "B3",
+        "scroll_lock": "A15",
+        "kana": "A13",
+        "on_state": 0
+    },
     "bootmagic": {
         "matrix": [0, 2]
     },

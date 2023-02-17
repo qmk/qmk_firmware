@@ -38,11 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_NUM_LOCK_PIN B7
-#define LED_CAPS_LOCK_PIN C6
-#define LED_SCROLL_LOCK_PIN C5
-#define LED_PIN_ON_STATE 0
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -8,6 +8,9 @@
         "pid": "0x5452",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "num_lock": "D0"
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "community_layouts": ["numpad_6x4", "ortho_6x4"],

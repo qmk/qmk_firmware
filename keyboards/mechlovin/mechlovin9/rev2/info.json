@@ -4,6 +4,9 @@
         "pid": "0x6509",
         "device_version": "0.0.2"
     },
+    "indicators": {
+        "caps_lock": "A7"
+    },
     "bootmagic": {
         "matrix": [0, 13]
     },

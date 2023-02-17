@@ -30,6 +30,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define LED_CAPS_LOCK_PIN A0
-#define LED_PIN_ON_STATE 0

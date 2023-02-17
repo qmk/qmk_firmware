@@ -26,7 +26,8 @@
     "indicators": {
         "num_lock": "B2",
         "caps_lock": "B0",
-        "scroll_lock": "B1"
+        "scroll_lock": "B1",
+        "on_state": 0
     },
     "community_layouts": [
         "fullsize_ansi",

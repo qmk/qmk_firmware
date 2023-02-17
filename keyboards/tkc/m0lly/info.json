@@ -8,6 +8,11 @@
         "pid": "0x0004",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D3",
+        "num_lock": "D2",
+        "scroll_lock": "D4"
+    },
     "processor": "at90usb1286",
     "bootloader": "qmk-dfu",
     "layouts": {

@@ -14,7 +14,8 @@
     },
     "indicators": {
         "caps_lock": "E6",
-        "scroll_lock": "E2"
+        "scroll_lock": "E2",
+        "on_state": 0
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "C7", "C6", "B3", "B1", "B2", "B7", "D7", "B5", "B4", "D0", "B6", "D1"],

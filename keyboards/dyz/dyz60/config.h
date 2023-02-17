@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define LED_CAPS_LOCK_PIN F1
-
 #define TAP_CODE_DELAY 10 // Need this delay for some keys like VOLD/VOLU to work
 #define ENCODERS_PAD_A { D0 }
 #define ENCODERS_PAD_B { D1 }

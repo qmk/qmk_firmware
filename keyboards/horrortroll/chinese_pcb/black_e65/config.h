@@ -31,9 +31,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* LED Indicator */
-#define LED_CAPS_LOCK_PIN C7
-
 #ifdef BACKLIGHT_ENABLE
     /* Backlight config */
     #define BACKLIGHT_PIN B6

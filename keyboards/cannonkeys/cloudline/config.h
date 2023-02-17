@@ -18,10 +18,6 @@
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 
-#define LED_CAPS_LOCK_PIN B9
-#define LED_SCROLL_LOCK_PIN F0
-#define LED_PIN_ON_STATE 0
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

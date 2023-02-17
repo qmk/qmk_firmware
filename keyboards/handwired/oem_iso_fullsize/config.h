@@ -40,9 +40,6 @@
 *Row 3, R129, Pin A2
 *Row 4, R128, Pin E5
 *Row 5, R127, Pin A7
-#define LED_CAPS_LOCK_PIN C7
-#define LED_SCROLL_LOCK_PIN A3
-#define LED_NUM_LOCK_PIN C6
 #define BACKLIGHT_PINS { B5, E5, E4, A7, A1, A2 }
 #define BACKLIGHT_LEVELS 1*/
 

@@ -23,10 +23,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_NUM_LOCK_PIN B9
-#define LED_CAPS_LOCK_PIN B10
-#define LED_PIN_ON_STATE 0
-
 #define RGB_DI_PIN B15
 
 #ifdef RGB_DI_PIN

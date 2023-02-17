@@ -41,10 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* The Model M does not have NKRO */
 #define MATRIX_HAS_GHOST
 
-#define LED_NUM_LOCK_PIN B4
-#define LED_CAPS_LOCK_PIN B6
-#define LED_SCROLL_LOCK_PIN B5
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

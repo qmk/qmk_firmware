@@ -37,11 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define LED_CAPS_LOCK_PIN B10
-#define LED_NUM_LOCK_PIN A13
-#define LED_SCROLL_LOCK_PIN A14
-#define LED_PIN_ON_STATE 1
-
 #ifdef RGBLIGHT_ENABLE
 #    define RGB_DI_PIN B15
 #    define RGBLED_NUM 24
