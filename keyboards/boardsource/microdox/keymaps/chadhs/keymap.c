@@ -254,6 +254,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 
+/* caps word */
+// https://docs.qmk.fm/#/feature_caps_word?id=configure-which-keys-are-word-breaking
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_MINS:
+        case KC_UNDS:
+        case KC_LSFT: // ensure manual shift does not break caps word
+        case KC_RSFT: // ensure manual shift does not break caps word
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
+
 /* custom lighting configuration */
 // microcontroller leds
 void led_set_kb(uint8_t usb_led) {

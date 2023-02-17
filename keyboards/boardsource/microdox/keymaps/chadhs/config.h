@@ -47,6 +47,9 @@
 // see info.json in the v1 folder
 //#define RGBLIGHT_LIMIT_VAL 192
 
+// https://docs.qmk.fm/#/feature_caps_word?id=customizing-caps-word
+#define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds
+
 // https://docs.qmk.fm/#/feature_mouse_keys?id=accelerated-mode
 /* #define MOUSEKEY_INTERVAL 16 */
 /* #define MOUSEKEY_DELAY 0 */

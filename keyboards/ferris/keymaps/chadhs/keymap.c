@@ -250,6 +250,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 }
 
+
 /* caps word */
 // https://docs.qmk.fm/#/feature_caps_word?id=configure-which-keys-are-word-breaking
 
