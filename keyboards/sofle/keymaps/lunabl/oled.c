@@ -169,17 +169,15 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
 /* KEYBOARD PET END */
 static void print_status_narrow(void) {
     // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR("QWRT"), false);
-            break;
-        case 1:
             oled_write_ln_P(PSTR("CLMK"), false);
             break;
+        case 1:
+            oled_write_ln_P(PSTR("SPEC"), false);
+            break;
         default:
-            oled_write_P(PSTR("Mod\n"), false);
+            oled_write_P(PSTR("MOD\n"), false);
             break;
     }
     oled_write_P(PSTR("\n\n"), false);
@@ -188,20 +186,22 @@ static void print_status_narrow(void) {
     switch (get_highest_layer(layer_state)) {
         case 0:
         case 1:
-            oled_write_P(PSTR("Base\n"), false);
+            oled_write_P(PSTR("BASE"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Raise"), false);
+            oled_write_P(PSTR("LOWER"), false);
             break;
         case 3:
-            oled_write_P(PSTR("Lower"), false);
+            oled_write_P(PSTR("RAISE"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_ln_P(PSTR("UNDEF"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    oled_write_P(PSTR("WPM\n"), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
 
     /* KEYBOARD PET RENDER START */
 
@@ -222,6 +222,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             }
             break;
         case KC_SPC:
+        case SFT_T(KC_SPC):
             if (record->event.pressed) {
                 isJumping  = true;
                 showedJump = false;
