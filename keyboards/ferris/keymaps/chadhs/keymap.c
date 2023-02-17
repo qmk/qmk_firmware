@@ -1,12 +1,8 @@
-// this is the style you want to emulate.
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
+/*
+Custom keymap created by: Chad Stovern <hello@chadstovern.com>
+*/
 
 #include QMK_KEYBOARD_H
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 
 enum ferris_layers {
   _COLEMAK_DH,
@@ -283,7 +279,7 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_colemakdh_layer, // Overrides caps lock layer
     rgb_gaming_layer,    // Overrides other layers
     rgb_gaming2_layer,   // Overrides other layers
-    rgb_num_layer   // Overrides other layers
+    rgb_num_layer        // Overrides other layers
 );
 
 void keyboard_post_init_user(void) {
