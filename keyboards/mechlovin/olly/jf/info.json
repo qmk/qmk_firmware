@@ -13,6 +13,9 @@
         "num_lock": "B1",
         "scroll_lock": "B2"
     },
+    "bootmagic": {
+        "matrix": [1, 14]
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

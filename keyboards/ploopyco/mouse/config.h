@@ -30,10 +30,6 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 3
-
 #define RGB_DI_PIN B5
 #define RGBLED_NUM 4
 #define RGBLIGHT_LIMIT_VAL 40

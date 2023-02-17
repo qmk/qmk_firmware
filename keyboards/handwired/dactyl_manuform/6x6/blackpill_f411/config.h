@@ -24,11 +24,6 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define BOOTMAGIC_LITE_ROW          0
-#define BOOTMAGIC_LITE_COLUMN       0
-#define BOOTMAGIC_LITE_ROW_RIGHT    7
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
-
 // in col2row col is input, and row is output
 // #define SPLIT_HAND_MATRIX_GRID A10, A4
 // 68kohm

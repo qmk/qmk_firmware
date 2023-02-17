@@ -11,6 +11,9 @@
   "indicators": {
     "num_lock": "B1"
   },
+  "bootmagic": {
+    "matrix": [1, 0]
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {

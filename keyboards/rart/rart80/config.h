@@ -35,9 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
-
 #define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING

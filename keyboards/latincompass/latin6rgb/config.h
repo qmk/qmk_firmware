@@ -104,13 +104,5 @@
 #define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 6
 #endif
-//#define RGB_DI_PIN B7
-//#ifdef RGB_DI_PIN
-//#define RGBLED_NUM 8
-//#define RGBLIGHT_HUE_STEP 5
-//#define RGBLIGHT_SAT_STEP 5
-//#define RGBLIGHT_VAL_STEP 5
-//#define RGBLIGHT_SLEEP
-//#endif
 
 #define B7_AUDIO

@@ -11,6 +11,9 @@
     "indicators": {
         "caps_lock": "D1"
     },
+    "bootmagic": {
+        "matrix": [4, 0]
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "layout_aliases": {

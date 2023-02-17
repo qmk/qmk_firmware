@@ -12,6 +12,9 @@
     "caps_lock": "D6",
     "num_lock": "D4"
   },
+  "bootmagic": {
+    "matrix": [2, 0]
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layout_aliases": {

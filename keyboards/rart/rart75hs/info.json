@@ -12,6 +12,9 @@
         "caps_lock": "D4",
         "on_state": 0
     },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

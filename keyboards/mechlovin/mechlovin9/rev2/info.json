@@ -7,6 +7,9 @@
     "indicators": {
         "caps_lock": "A7"
     },
+    "bootmagic": {
+        "matrix": [0, 13]
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid"
 }

@@ -14,6 +14,9 @@
         "scroll_lock": "B5",
         "on_state": 0
     },
+    "bootmagic": {
+        "matrix": [5, 0]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {

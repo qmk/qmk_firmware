@@ -53,7 +53,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*EEPROM for via*/
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
-
-/* bootmagic row col assignment */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0

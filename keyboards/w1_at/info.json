@@ -15,6 +15,9 @@
         "kana": "A13",
         "on_state": 0
     },
+    "bootmagic": {
+        "matrix": [0, 2]
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

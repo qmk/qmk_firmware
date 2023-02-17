@@ -8,6 +8,9 @@
         "pid": "0xFF16",
         "device_version": "0.0.1"
     },
+    "bootmagic": {
+        "matrix": [4, 1]
+    },
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT"
     },

@@ -12,6 +12,9 @@
         "caps_lock": "B9",
         "num_lock": "B8"
     },
+    "bootmagic": {
+        "matrix": [5, 4]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

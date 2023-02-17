@@ -54,10 +54,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
 #endif
 
-/* Bootmagic Lite trigger key. Left-Top of the layout. */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 9
-
 /* External EEPROM */
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64

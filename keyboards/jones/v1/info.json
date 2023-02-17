@@ -8,6 +8,9 @@
     "pid": "0x175A",
     "device_version": "1.0.0"
   },
+  "bootmagic": {
+    "matrix": [0, 9]
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {

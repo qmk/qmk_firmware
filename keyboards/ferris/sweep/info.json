@@ -17,6 +17,9 @@
         ]
     },
     "split": {
+        "bootmagic": {
+            "matrix": [4, 4]
+        },
         "matrix_pins": {
             "right": {
                 "direct": [

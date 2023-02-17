@@ -13,6 +13,9 @@
     "num_lock": "D4",
     "scroll_lock": "D7"
   },
+  "bootmagic": {
+    "matrix": [2, 0]
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "community_layouts": ["alice", "alice_split_bs"],

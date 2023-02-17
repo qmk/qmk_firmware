@@ -13,6 +13,9 @@
         "num_lock": "B0",
         "scroll_lock": "A7"
     },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "community_layouts": ["alice", "alice_split_bs"],
