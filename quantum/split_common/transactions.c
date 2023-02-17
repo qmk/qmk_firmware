@@ -793,7 +793,7 @@ static void haptic_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 ////////////////////////////////////////////////////
 // Detected OS
 
-#if defined(SPLIT_DETECTED_OS_ENABLE)
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
 static bool detected_os_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_detected_os_update = 0;
@@ -809,13 +809,13 @@ static void detected_os_handlers_slave(matrix_row_t master_matrix[], matrix_row_
 #    define TRANSACTIONS_DETECTED_OS_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(detected_os)
 #    define TRANSACTIONS_DETECTED_OS_REGISTRATIONS [PUT_DETECTED_OS] = trans_initiator2target_initializer(detected_os),
 
-#else // define(SPLIT_DETECTED_OS_ENABLE)
+#else // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
 #    define TRANSACTIONS_DETECTED_OS_MASTER()
 #    define TRANSACTIONS_DETECTED_OS_SLAVE()
 #    define TRANSACTIONS_DETECTED_OS_REGISTRATIONS
 
-#endif // define(SPLIT_DETECTED_OS_ENABLE)
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
 ////////////////////////////////////////////////////
 
