@@ -16,10 +16,6 @@
 #pragma once
 
 
-// key matrix size
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
 //no underglow - prototype
 //#define MATRIX_ROW_PINS { B1, B3, B7, F6, F7 }
 //#define MATRIX_COL_PINS { B0, D5, B2, F5, D2, D3, D4, D6, D7, B4, B5, B6, C6, C7 }

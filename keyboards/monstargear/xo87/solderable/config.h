@@ -19,10 +19,6 @@
 
 #define brightnessMax 8
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
 #define BACKLIGHT_PIN F0
 
 #define MATRIX_ROW_PINS { E6,E7,E3,B0,B1,A2}

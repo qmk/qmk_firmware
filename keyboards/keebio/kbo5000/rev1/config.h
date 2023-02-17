@@ -18,11 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 10
-
 #define DIODE_DIRECTION COL2ROW
 // wiring of each half
 #define MATRIX_ROW_PINS { B1, B2, C7, B4, D7, B0 }

@@ -23,11 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_PIN B4
 #define SOFT_SERIAL_PIN D0
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 // wiring of each half
 #define MATRIX_ROW_PINS { F5, F6, C7, F7 }
 #define MATRIX_COL_PINS { F1, F4, E2, B6, D7, D6}

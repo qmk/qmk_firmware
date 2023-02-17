@@ -16,8 +16,4 @@
 
 #pragma once
 
-
-/* matrix properties */
-#define MATRIX_COLS 19
-#define MATRIX_ROWS 8
 #define MATRIX_HAS_GHOST

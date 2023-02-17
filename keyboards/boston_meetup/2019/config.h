@@ -1,11 +1,5 @@
 #pragma once
 
-#undef MATRIX_ROWS
-#undef MATRIX_COLS
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 4
-
 /*
  * Keyboard Matrix Assignments
  *

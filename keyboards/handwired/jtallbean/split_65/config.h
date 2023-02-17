@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 10 // Double rows for split keyboards. split_65 has 5, so define 10
-#define MATRIX_COLS 9
-
 /*
  * Keyboard Matrix Assignments
  *

@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 /* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { F0, F1, F4, F5, F6 }
 #define MATRIX_COL_PINS { F7, D5, D3, D2, B3, B2, C7, C6, B6, B5, B4, D7, D6, D4, B1 }

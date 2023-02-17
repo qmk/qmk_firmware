@@ -39,10 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
-/* key matrix size */
-#define MATRIX_ROWS 18
-#define MATRIX_COLS 5
-
 // For some reason, the rows are colums in the schematic, and vice versa
 #define MATRIX_ROW_PINS { B2, B3, B18, B19, C0, C9, C10, C11, D0 }
 #define MATRIX_COL_PINS { D1, D4, D5, D6, D7 }

@@ -17,9 +17,6 @@
 #pragma once
 
 
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
-
 #define MATRIX_ROW_PINS { E0 }
 #define MATRIX_COL_PINS { E6, B2, D1, D2, D3 }
 

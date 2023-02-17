@@ -18,11 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-/* NOTE: With Round-Robin matrix, set same size for both. */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 10
-
 /* key matrix pins */
 /* NOTE: With Round-Robin matrix, set same pins for both. */
 #define MATRIX_ROW_PINS { B3, E6, F1, F5, F7, B2, F0, F4, F6, C7 }

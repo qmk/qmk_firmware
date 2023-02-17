@@ -16,10 +16,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 11
-
 #define MATRIX_ROW_PINS {A4,B10,B2,B1,B0,B15,B13,B14,B12,A10,A9,A8}
 #define MATRIX_COL_PINS {A0,B7,B8,B6,A3,A2,A1,B9,A7,A5,A6}
 #define DIODE_DIRECTION ROW2COL

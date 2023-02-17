@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 #define TAP_CODE_DELAY 10
 
 #define MATRIX_ROW_PINS { D1, D0, A0, A1, A2 }

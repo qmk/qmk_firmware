@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Force USB NKRO */
 #define FORCE_NKRO
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
 #define MATRIX_ROW_PINS { D3, D5, D1, D2, D4, D0, F5, F4, F7, F6, B5, B4 }
 #define MATRIX_COL_PINS { F1, F0, E6, B0, B1, B2, B3, D6, D7 }
 

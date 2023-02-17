@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { D6 }
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 11
-
 /*
  * Keyboard Matrix Assignments
  *

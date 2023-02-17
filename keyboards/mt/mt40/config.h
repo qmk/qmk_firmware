@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 15
-
 #define RGB_DI_PIN C0
 #define RGBLED_NUM 12
 #define RGBLIGHT_EFFECT_BREATHING
