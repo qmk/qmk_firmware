@@ -3,9 +3,15 @@
 
 #pragma once
 
+#include "config_common.h"
+
 /* key matrix pins */
 #define MATRIX_ROW_PINS { E6, B7, D0}
 #define MATRIX_COL_PINS { D3, D4, D6 }
+
+/* key matrix size */
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 3
 
 /*ENCODER*/
 #define ENCODERS_PAD_A { F0 }
