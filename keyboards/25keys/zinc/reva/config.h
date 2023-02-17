@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 100
 
-/* Use I2C or Serial */
-#define SOFT_SERIAL_PIN D2
-
 /* Select hand configuration */
 #define MASTER_LEFT
 //#define MASTER_RIGHT

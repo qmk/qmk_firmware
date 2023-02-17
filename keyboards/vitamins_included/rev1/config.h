@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 
 #define EE_HANDS
-#define SOFT_SERIAL_PIN D0
 
 /* key matrix size */
 // Rows are doubled-up

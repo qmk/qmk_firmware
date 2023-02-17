@@ -57,9 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
 //#define EE_HANDS
 #define I2C_MASTER_LEFT
 //#define I2C_MASTER_RIGHT
