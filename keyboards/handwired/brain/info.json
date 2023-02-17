@@ -12,6 +12,7 @@
         "matrix": [0, 6]
     },
     "split": {
+        "soft_serial_pin": "D0",
         "bootmagic": {
             "matrix": [5, 0]
         }

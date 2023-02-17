@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define SOFT_SERIAL_PIN D3
-
 #define ENCODERS_PAD_A  { D2 }
 #define ENCODERS_PAD_B  { D7 }
 

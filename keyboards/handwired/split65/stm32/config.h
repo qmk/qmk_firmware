@@ -29,8 +29,6 @@
 
 #define MATRIX_IO_DELAY 5
 
-// Split Keyboard specifics
-#define SOFT_SERIAL_PIN A9
 #define SELECT_SOFT_SERIAL_SPEED 1
 #define SERIAL_USART_DRIVER SD1
 #define SERIAL_USART_TX_PAL_MODE 7

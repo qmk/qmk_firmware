@@ -8,6 +8,4 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define SOFT_SERIAL_PIN D2
-
 #define BACKLIGHT_PIN B0

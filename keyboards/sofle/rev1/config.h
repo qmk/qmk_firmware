@@ -15,6 +15,3 @@
 #define ENCODER_RESOLUTION 2
 
 #define TAP_CODE_DELAY 10
-
-/* communication between sides */
-#define SOFT_SERIAL_PIN D2

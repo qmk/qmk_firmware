@@ -3,6 +3,7 @@
     "device_version": "1.0.0"
   },
   "split": {
+    "soft_serial_pin": "B9",
     "usb_detect": {
       "enabled": true
     }

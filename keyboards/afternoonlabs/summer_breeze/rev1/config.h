@@ -24,6 +24,4 @@
 
 #define SPLIT_HAND_PIN B3
 
-#define SOFT_SERIAL_PIN D2
-
 #define DIODE_DIRECTION COL2ROW

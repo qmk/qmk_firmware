@@ -20,8 +20,6 @@
 #define MATRIX_COL_PINS { B1, F7, F6, F5, F4 }
 #define DIODE_DIRECTION COL2ROW
 
-// communication between sides
-#define SOFT_SERIAL_PIN D2
 #define EE_HANDS
 
 // encoders

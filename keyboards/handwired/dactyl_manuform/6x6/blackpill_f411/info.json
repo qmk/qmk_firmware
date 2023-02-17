@@ -1,5 +1,6 @@
 {
     "split": {
+        "soft_serial_pin": "B6",
         "bootmagic": {
             "matrix": [7, 0]
         }

@@ -23,9 +23,6 @@
 // COL2ROW, ROW2COL
 #define DIODE_DIRECTION COL2ROW
 
-// Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
-
-#define SOFT_SERIAL_PIN D2
 #define OLED_DISPLAY_128X64
 #define SPLIT_MODS_ENABLE
 #define SPLIT_WPM_ENABLE

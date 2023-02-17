@@ -21,10 +21,6 @@
 
 #define OLED_FONT_H "keyboards/mechwild/mokulua/glcdfont.c"
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN D3
 #define MASTER_LEFT
 //#define MASTER_RIGHT
 #define RGBLIGHT_SPLIT

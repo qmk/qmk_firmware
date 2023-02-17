@@ -4,6 +4,9 @@
         "pid": "0x5256",
         "device_version": "5.0.0"
     },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu"
 }

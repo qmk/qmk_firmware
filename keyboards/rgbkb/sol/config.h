@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 150
 
-/* Select hand configuration */
-#define SOFT_SERIAL_PIN D3
 #define EE_HANDS
 
 #define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, E6}

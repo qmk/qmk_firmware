@@ -28,9 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* serial.c configuration for split keyboard */
 //#undef USE_I2C
-#define SOFT_SERIAL_PIN D0
 #define MASTER_RIGHT
 
 /* PMW3360 Settings */

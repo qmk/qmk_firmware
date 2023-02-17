@@ -23,9 +23,6 @@
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 #define DIODE_DIRECTION COL2ROW
 
-/* communication between sides */
-#define SOFT_SERIAL_PIN D2
-
 /* define tapping term */
 #define TAPPING_TERM 100
 

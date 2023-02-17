@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2 }
 
 //#define USE_I2C
-#define SOFT_SERIAL_PIN D0
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION ROW2COL

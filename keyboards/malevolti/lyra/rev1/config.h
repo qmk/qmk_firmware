@@ -22,6 +22,3 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define TAPPING_TERM 100
-
-/* communication between sides */
-#define SOFT_SERIAL_PIN D2

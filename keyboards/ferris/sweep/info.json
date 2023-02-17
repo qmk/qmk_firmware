@@ -17,6 +17,7 @@
         ]
     },
     "split": {
+        "soft_serial_pin": "D2",
         "bootmagic": {
             "matrix": [4, 4]
         },

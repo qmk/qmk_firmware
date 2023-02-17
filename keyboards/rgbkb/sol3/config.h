@@ -46,8 +46,6 @@
 /* Split Keyboard Configuration */
 #define SPLIT_HAND_PIN C13
 #define SPLIT_USB_DETECT
-// also handles the SERIAL_USART_TX_PIN define
-#define SOFT_SERIAL_PIN A9
 #define SERIAL_USART_TX_PAL_MODE 7
 #define SERIAL_USART_TIMEOUT 5
 #define SERIAL_USART_DRIVER SD1

@@ -32,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
