@@ -106,6 +106,12 @@ void erase_wlength_data(void) {
     memset(&setups_data, 0, sizeof(setups_data));
     detected_os = OS_UNSURE;
 }
+
+#   if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+void slave_update_detected_host_os(os_variant_t os) {
+    detected_os = os;
+}
+#   endif //defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 #endif // OS_DETECTION_ENABLE
 
 #ifdef OS_DETECTION_DEBUG_ENABLE

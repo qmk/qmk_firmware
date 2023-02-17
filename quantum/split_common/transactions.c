@@ -797,12 +797,13 @@ static void haptic_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 
 static bool detected_os_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_detected_os_update = 0;
+    os_variant_t detected_os = detected_host_os();
     bool okay = send_if_condition(PUT_DETECTED_OS, &last_detected_os_update, (detected_os != split_shmem->detected_os), &detected_os, sizeof(os_variant_t));
     return okay;
 }
 
 static void detected_os_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    memcpy(&detected_os, &split_shmem->detected_os, sizeof(os_variant_t));
+    slave_update_detected_host_os(split_shmem->detected_os);
 }
 
 #    define TRANSACTIONS_DETECTED_OS_MASTER() TRANSACTION_HANDLER_MASTER(detected_os)

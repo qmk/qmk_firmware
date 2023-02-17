@@ -27,14 +27,13 @@ typedef enum {
     OS_IOS,
 } os_variant_t;
 
-/* splits where the slave side needs to process for rgb/oled functionality
- * define "SPLIT_DETECTED_OS_ENABLE" to enable  
- */
-extern os_variant_t detected_os;
-
 void         process_wlength(const uint16_t w_length);
 os_variant_t detected_host_os(void);
 void         erase_wlength_data(void);
+
+#   if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+void slave_update_detected_host_os(os_variant_t os);
+#   endif // defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 #endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
