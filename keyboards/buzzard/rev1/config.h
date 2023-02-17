@@ -3,11 +3,6 @@
 
 #pragma once
 
-/* key matrix size */
-/* Rows are doubled up */
-#define MATRIX_ROWS  8
-#define MATRIX_COLS  6
-
 // wiring
 #define MATRIX_ROW_PINS \
     { F4, F5, F6, F7 }

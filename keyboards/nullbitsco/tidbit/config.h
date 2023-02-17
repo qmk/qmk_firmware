@@ -22,10 +22,6 @@
 // Workaround for freezing after MacOS sleep
 #define USB_SUSPEND_WAKEUP_DELAY 200
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 6
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B1, E6, D7, C6, D4 }
 #define MATRIX_COL_PINS { NO_PIN, NO_PIN, F4, F5, F6, F7 }

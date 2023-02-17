@@ -6,10 +6,6 @@
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 6
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 3
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F7, D7, C6, D4 }
 #define MATRIX_COL_PINS { F4, F5, F6 }

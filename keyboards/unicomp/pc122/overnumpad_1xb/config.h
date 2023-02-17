@@ -18,10 +18,6 @@
 
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
-
 /*
  * Keyboard Matrix Assignments
  *

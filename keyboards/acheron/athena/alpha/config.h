@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
 #define MATRIX_COL_PINS { A8 , B14, B12, B10, B1 , B0 , A5 , A4 , A3 , A2 , A1 , A0 , C15, A7 , B4 , B3 , A15 }
 #define MATRIX_ROW_PINS { B9 , C13, B8 , B5 , A14 , C14 }
 

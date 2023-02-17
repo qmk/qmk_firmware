@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
-
 // wiring of each half
 // Ascii art of pro micro. Pin names PD3, PD2, etc.
 //Usage| Name | Label      Label| Name | Usage

@@ -18,11 +18,6 @@
 
 #pragma once
 
-// Key matrix size
-// Rows are doubled-up. Added extra column for rotary encoder VIA mapping.
-#define MATRIX_ROWS  10
-#define MATRIX_COLS  7
-
 // wiring of each half
 #define MATRIX_ROW_PINS       { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS       { B6, B2, B3, B1, F7, F6, NO_PIN } // A virtual pin is needed for the encoder key matrix in via.

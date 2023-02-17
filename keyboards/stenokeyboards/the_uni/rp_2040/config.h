@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 11
-
 #define MATRIX_COL_PINS { GP24, GP23, GP21, GP20, GP19, GP6, GP5, GP4, GP3, GP2, GP1 }
 #define MATRIX_ROW_PINS { GP25, GP18, GP17 }
 // #define DEBUG_MATRIX_SCAN_RATE

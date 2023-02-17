@@ -17,10 +17,6 @@
  */
 
 
- /* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 14
-
 #define ENCODERS_PAD_A { B7 }
 #define ENCODERS_PAD_B { D5 }
 

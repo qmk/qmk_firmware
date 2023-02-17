@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 6
-
 /* split options, use EEPROM for side detection */
 #define EE_HANDS
 #define SPLIT_USB_DETECT

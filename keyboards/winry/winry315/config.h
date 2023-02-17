@@ -3,8 +3,6 @@
 
 #pragma once
 
-// clang-format off
-
 // Encoder pins.
 // Encoder numbering (assuming the default board orientation with encoders on
 // the top side):

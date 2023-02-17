@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 // wiring of each half
 #define MATRIX_ROW_PINS { F4, F5, F7, B3, D2, D1, D4, D7 }
 #define MATRIX_COL_PINS { F6, B1, B2, B6, B4, E6 }

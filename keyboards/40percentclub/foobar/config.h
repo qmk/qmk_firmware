@@ -25,11 +25,6 @@
 //#define MASTER_RIGHT
 //#define EE_HANDS
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 3*2
-#define MATRIX_COLS 5
-
 /*
  * Keyboard Matrix Assignments
  *

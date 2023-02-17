@@ -16,10 +16,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 11
-#define MATRIX_COLS 10
-
 /* matrix sz handy ruler:  1   2   3   4   5   6   7   8   9  10  11  12 */
 /* key matrix pins */
 /*    row    handy ruler: r0  r1  r2  r3  r4  r5  r6  r7  r8  r9  r10 */

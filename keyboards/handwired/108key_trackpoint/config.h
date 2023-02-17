@@ -1,9 +1,6 @@
 #pragma once
 
 
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 23
-
 #ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2

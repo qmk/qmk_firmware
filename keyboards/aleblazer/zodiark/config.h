@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D3
 #define SELECT_SOFT_SERIAL_SPEED 1
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 #define DIODE_DIRECTION COL2ROW
 
 #define ENCODERS_PAD_A { D2 }

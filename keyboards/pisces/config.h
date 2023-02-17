@@ -25,11 +25,6 @@
 #define MATRIX_MASKED
 #define SPLIT_USB_DETECT
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS (3*2)
-#define MATRIX_COLS 7
-
 /*
  * Keyboard Matrix Assignments
  *

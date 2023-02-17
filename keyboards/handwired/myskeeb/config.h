@@ -1,11 +1,6 @@
 #pragma once
 
 
-// Key Matrix Size //
-// Rows are Doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
 // Wiring of Each Half
 #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }

@@ -18,11 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
 // wiring of each half
 #define MATRIX_ROW_PINS { B4, B5, F4, F5, F6 }
 #define MATRIX_COL_PINS { D3, D2, D4, C6, D7, E6 }

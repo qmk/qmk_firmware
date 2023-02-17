@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 7
-
 #define MOUSEKEY_INTERVAL    10
 #define MOUSEKEY_DELAY       0
 #define MOUSEKEY_TIME_TO_MAX 60

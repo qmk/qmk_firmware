@@ -3,10 +3,6 @@
 
 #define KEYBOARD_PCB_REV 11
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 23
-
 /* key matrix pins */
 #if KEYBOARD_PCB_REV == 10
 #define MATRIX_ROW_PINS { D2, D3, D4, D5, D6, D7 }

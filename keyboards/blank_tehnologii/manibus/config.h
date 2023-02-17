@@ -19,10 +19,6 @@
 
 #define EE_HANDS
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
 /* define pins */
 #define MATRIX_ROW_PINS { F6, F5, F4, B6, D3 }
 #define MATRIX_COL_PINS { B5, B4, D7, D6, F0, F1, C6 }

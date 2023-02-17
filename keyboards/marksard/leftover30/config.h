@@ -23,10 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { F5 }
 // #define ENCODER_DIRECTION_FLIP
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 5
-
 /*
  * Keyboard Matrix Assignments
  *

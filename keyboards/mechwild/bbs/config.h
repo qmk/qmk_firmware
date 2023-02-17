@@ -4,10 +4,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 6
-
 /* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
 #define DIP_SWITCH_PINS { A0 }
 

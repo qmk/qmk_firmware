@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 3
 #define MATRIX_ROW_PINS { F0, F5, F4, F6 }
 #define MATRIX_COL_PINS { D6, D7, B5 }
 

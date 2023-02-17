@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
 // Pro Micro Pins          4,  6,  7,  8,  9
 #define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
 // Pro Micro Pins         A3, A2, A1, A0, 15, 14, 16
