@@ -3,6 +3,8 @@
     "usb": {
         "pid": "0xAEC3"
     },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
     "indicators": {
         "caps_lock": "C14",
         "num_lock": "A0",

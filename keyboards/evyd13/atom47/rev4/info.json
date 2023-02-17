@@ -12,7 +12,7 @@
         "caps_lock": "D1",
         "on_state": 0
     },
-    "processor": "atmega32u4",
+    "processor": "atmega32u2",
     "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_split_space": {
