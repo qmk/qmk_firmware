@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 14
-
 /*
  * Keyboard Matrix Assignments
  * COLS: AVR pins used for columns, left to right

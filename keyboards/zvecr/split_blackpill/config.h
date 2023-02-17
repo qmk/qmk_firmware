@@ -16,10 +16,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 8 // Rows are doubled-up
-#define MATRIX_COLS 6
-
 /*
  * Keyboard Matrix Assignments
  *

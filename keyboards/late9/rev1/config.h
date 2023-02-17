@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* Column/Row IO definitions */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 3
 #define MATRIX_ROW_PINS { B4, E6, D7, B3, B2, B6 }
 #define MATRIX_COL_PINS { B5, C6, D4 }
 

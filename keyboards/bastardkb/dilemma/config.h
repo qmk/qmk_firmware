@@ -19,11 +19,6 @@
 #pragma once
 
 
-/* Key matrix configuration. */
-
-#define MATRIX_ROWS 8 // Rows are doubled-up.
-#define MATRIX_COLS 5
-
 #define DIODE_DIRECTION ROW2COL
 
 /* Pointing device configuration. */

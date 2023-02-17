@@ -28,13 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-/* key matrix size
-ROWS = total count of rows for both sides - this is broken out accordingly in split.h
-COLS = number of cols per side which curently needs to be equal so there are blank columns for the left side in the split89.h file
- */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 10
-
 /* Left side matrix */
 #define MATRIX_ROW_PINS { F6, F7, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS { F5, F4, B5, B4, E6, D7, C6, D4, D2, D3 }

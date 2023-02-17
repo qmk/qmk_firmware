@@ -20,10 +20,6 @@
 #define AUDIO_PIN C6
 #define AUDIO_CLICKY
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
 /*
  * Keyboard Matrix Assignments
  *

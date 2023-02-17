@@ -4,11 +4,6 @@
 #pragma once
 
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 /* Encoder */
 #define ENCODERS_PAD_A { F5 }
 #define ENCODERS_PAD_B { F4 }

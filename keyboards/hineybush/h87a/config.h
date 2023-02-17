@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONFIG_H
 
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
 /*
  * Keyboard Matrix Assignments
  *

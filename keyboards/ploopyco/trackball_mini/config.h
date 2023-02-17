@@ -19,11 +19,6 @@
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
-
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING

@@ -17,8 +17,6 @@
 
 
 // Key matrix (TtB, LtR)
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 8
 #define MATRIX_COL_PINS \
     { B4, D7, D6, D4, F7, F6, F5, F4 }
 #define MATRIX_ROW_PINS \

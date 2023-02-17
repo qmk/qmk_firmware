@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 13
-
 #define DIODE_DIRECTION COL2ROW
 
 #define LOCKING_SUPPORT_ENABLE

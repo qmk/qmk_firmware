@@ -11,10 +11,6 @@
 #define ENCODERS_CW_KEY { { 2, 1 } }
 #define ENCODERS_CCW_KEY { { 0, 1 } }
 
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 7
-
 #define FORCE_NKRO
 
 #define JOYSTICK_BUTTON_COUNT 13

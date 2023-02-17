@@ -21,10 +21,6 @@
 #define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
 
-// Matrix Assignments
-#define MATRIX_ROWS 10 //Rows are doubled-up
-#define MATRIX_COLS 8
-
 #define MATRIX_COL_PINS {A2, A1, A0, B8, B13, B14, B15, B9}
 #define MATRIX_ROW_PINS {B5, B4, B3, B2, B1}
 

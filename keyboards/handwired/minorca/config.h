@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 /* MinOrca PCB default pin-out */
 #define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, F7, F6, F5, F4, F1, F0 }
 #define MATRIX_ROW_PINS { B0, B1, B2, B3 }

@@ -21,9 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 // #define NO_ACTION_TAPPING
 // #define NO_ACTION_ONESHOT
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
 #define MATRIX_ROW_PINS { F0, F6, F5, F4, F1 }
 #define MATRIX_COL_PINS { D6, D7, B5, B6 }
 

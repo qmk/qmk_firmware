@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
-
 /* Only required if you add in a trackpoint hardware to the pcb */
 #ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5

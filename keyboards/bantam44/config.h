@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 // Planck PCB default pin-out
 // Change this to how you wired your keyboard
 // COLS: Left to right, ROWS: Top to bottom

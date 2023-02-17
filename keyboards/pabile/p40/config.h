@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10
-
 /* pin-out
 for PCB ver0.01 452019 */
 #define MATRIX_ROW_PINS { F6, B3, B2, B6 }

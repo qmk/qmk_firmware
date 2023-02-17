@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* Define Matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
 /*Define Matrix Pins */
 #define MATRIX_ROW_PINS \
     { B3, B2, D1, D0, E6, B0, F0, F1, B5, B4, D7, D6 }

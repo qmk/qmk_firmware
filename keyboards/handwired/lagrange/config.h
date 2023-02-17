@@ -20,10 +20,6 @@
 #define EE_HANDS
 #define SPLIT_USB_DETECT
 
-/* key matrix size */
-#define MATRIX_ROWS 14
-#define MATRIX_COLS 6
-
 /* pin-out */
 #define MATRIX_ROW_PINS { E6, F1, F0, F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { B4, B5, D7, B6, C6, D6 }
