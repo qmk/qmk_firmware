@@ -8,6 +8,11 @@
         "pid": "0x1895",
         "device_version": "0.0.2"
     },
+    "indicators": {
+        "caps_lock": "B3",
+        "scroll_lock": "B7",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["tkl_ansi", "tkl_iso"],

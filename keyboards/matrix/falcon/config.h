@@ -54,7 +54,6 @@
 #define RGBLIGHT_VAL_STEP 8
 
 //pin setting
-#define LED_CAPS_LOCK_PIN E2
 #define LED_POWER_PIN       D5
 #define CHG_EN_PIN          E6
 #define BATTERY_LEVEL_PIN   F0

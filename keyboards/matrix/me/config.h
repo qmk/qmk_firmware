@@ -50,7 +50,3 @@
 #define RGBLIGHT_HUE_STEP   8
 #define RGBLIGHT_SAT_STEP   8
 #define RGBLIGHT_VAL_STEP   8
-
-// led pins
-#define LED_CAPS_LOCK_PIN   E6
-#define LED_SCROLL_LOCK_PIN D2

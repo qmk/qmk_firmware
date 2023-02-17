@@ -8,6 +8,9 @@
         "pid": "0x1F02",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D0"
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "community_layouts": ["66_ansi", "66_iso"],

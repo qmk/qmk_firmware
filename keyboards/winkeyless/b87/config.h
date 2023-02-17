@@ -43,6 +43,3 @@
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
-
-#define LED_CAPS_LOCK_PIN D1 
-#define LED_SCROLL_LOCK_PIN D6 

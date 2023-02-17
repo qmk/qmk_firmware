@@ -8,8 +8,20 @@
         "pid": "0x0108",
         "device_version": "0.0.1"
     },
+    "bootmagic": {
+        "matrix": [1, 2]
+    },
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "matrix_pins": {
+        "direct": [
+            [null, null, "GP0"],
+            ["GP1", "GP2", "GP3"],
+            ["GP4", "GP5", "GP6"],
+            ["GP7", "GP8", "GP9"],
+            ["GP10", "GP11", "GP12"]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -25,10 +25,6 @@
 #define MATRIX_ROW_PINS     { E6, B4, B5, B7, D5, C7, F1, F0, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS     { F4, F5, F6, F7, D7, C6, D4, D0, D2, D3 }
 
-/* Indicator LEDs */
-#define LED_NUM_LOCK_PIN    D1
-#define LED_CAPS_LOCK_PIN   B0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION     COL2ROW
 

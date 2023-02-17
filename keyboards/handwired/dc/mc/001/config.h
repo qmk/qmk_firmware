@@ -17,19 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
-    BUTTON_MUTE           = _BV(4),
-    BUTTON_STOP           = _BV(0),
-    BUTTON_TRACK_PREVIOUS = _BV(1),
-    BUTTON_TRACK_NEXT     = _BV(2),
-    BUTTON_PLAY_PAUSE     = _BV(3),
-*/
-#define DIRECT_PINS            \
-    {                          \
-        { B4, B0, B1, B2, B3 } \
-    }
-
 /*
     RE_CHANNEL_A          = _BV(6),
     RE_CHANNEL_B          = _BV(5),
@@ -55,11 +42,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_LAYER
 #define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-// The (default) Stop key
-// Doesn't work, though. Maybe becuase of the bootloader that's in use?
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
 
 #define USB_MAX_POWER_CONSUMPTION 100

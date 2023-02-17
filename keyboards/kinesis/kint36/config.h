@@ -43,10 +43,4 @@
 // https://forum.pjrc.com/threads/47256-What-is-the-power-consumption-of-the-Teensy-3-6
 #define USB_MAX_POWER_CONSUMPTION 100
 
-#define LED_PIN_ON_STATE 0
-#define LED_NUM_LOCK_PIN A14
-#define LED_CAPS_LOCK_PIN C7
-#define LED_SCROLL_LOCK_PIN A5
-#define LED_COMPOSE_PIN E26
-
 #define EEPROM_SIZE 4096

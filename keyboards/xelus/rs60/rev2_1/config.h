@@ -31,9 +31,6 @@
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
 
-//Indicator
-#define LED_CAPS_LOCK_PIN A1
-
 // Emulated EEPROM
 #define WEAR_LEVELING_LOGICAL_SIZE 2048
 #define WEAR_LEVELING_BACKING_SIZE WEAR_LEVELING_LOGICAL_SIZE*2

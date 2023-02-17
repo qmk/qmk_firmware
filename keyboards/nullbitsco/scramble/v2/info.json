@@ -1,4 +1,10 @@
 {
     "processor": "RP2040",
-    "bootloader": "rp2040"
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "direct": [
+            ["GP6", "GP8", "GP10"],
+            ["GP29", "GP28", "GP22"]
+        ]
+    }
 }

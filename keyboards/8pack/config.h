@@ -1,22 +1,10 @@
 #pragma once
 
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
-/* key matrix pins */
-
-#define DIRECT_PINS { { F4, F5, F6, F7 }, { B1, B3, B2, B6 } }
 
 #define BACKLIGHT_LED_COUNT 8
 #undef BACKLIGHT_PIN

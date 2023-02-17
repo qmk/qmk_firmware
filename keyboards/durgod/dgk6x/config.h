@@ -33,11 +33,8 @@
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 /* LED indicator pins */
-#define LED_CAPS_LOCK_PIN   C4
 #define LED_WIN_LOCK_PIN    C5
-#define LED_SCROLL_LOCK_PIN A8
 #define LED_MR_LOCK_PIN     LED_SCROLL_LOCK_PIN
-#define LED_PIN_ON_STATE    0
 
 #ifdef RGB_MATRIX_ENABLE
 // This is a 7-bit address, that gets left-shifted and bit 0

@@ -45,8 +45,6 @@
 #define DRIVER_COUNT 2
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL+DRIVER_2_LED_TOTAL)
 
-#define LED_CAPS_LOCK_PIN   F5
-
 //rgb light setting
 #define RGBLED_NUM          65
 #define RGB_DI_PIN          B3

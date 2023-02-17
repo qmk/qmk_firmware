@@ -7,6 +7,9 @@
         "pid": "0xE62B",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D1"
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "layouts": {

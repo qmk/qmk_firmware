@@ -55,12 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-
-#define LED_NUM_LOCK_PIN B2
-#define LED_CAPS_LOCK_PIN B10
-#define LED_SCROLL_LOCK_PIN B11
-#define LED_PIN_ON_STATE 0
-
 #define ENCODERS_PAD_A { A8 }
 #define ENCODERS_PAD_B { A1 }
 #define ENCODER_RESOLUTION 2

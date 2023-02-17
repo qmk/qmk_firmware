@@ -28,6 +28,3 @@
 /* disable these deprecated features by default */
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
-
-#define LED_CAPS_LOCK_PIN B7
-#define LED_PIN_ON_STATE 0

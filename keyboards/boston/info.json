@@ -8,6 +8,11 @@
         "pid": "0x4176",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A1",
+        "num_lock": "A0",
+        "scroll_lock": "A2"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

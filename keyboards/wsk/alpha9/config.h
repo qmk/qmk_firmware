@@ -34,9 +34,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define LED_CAPS_LOCK_PIN D3
-#define LED_PIN_ON_STATE 0
-
 #define RGB_DI_PIN F4
 #ifdef RGB_DI_PIN
 #    define RGBLIGHT_EFFECT_BREATHING

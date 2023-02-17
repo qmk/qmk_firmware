@@ -27,10 +27,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* LED indicator pins */
-#define LED_NUM_LOCK_PIN    C6
-#define LED_PIN_ON_STATE    0
-
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 # define BACKLIGHT_LEVELS 31

@@ -8,6 +8,10 @@
     "pid": "0x4A4E",
     "device_version": "2.0.0"
   },
+  "indicators": {
+    "caps_lock": "D1",
+    "scroll_lock": "D6"
+  },
   "processor": "atmega32a",
   "bootloader": "bootloadhid",
   "community_layouts": ["tkl_ansi", "tkl_iso"],

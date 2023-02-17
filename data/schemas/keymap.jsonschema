@@ -21,6 +21,20 @@
                 "items": {"type": "string"}
             }
         },
+        "encoders": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": ["ccw", "cw"],
+                    "properties": {
+                        "ccw": {"type": "string"},
+                        "cw": {"type": "string"}
+                    }
+                }
+            }
+        },
         "macros": {
             "type": "array",
             "items": {

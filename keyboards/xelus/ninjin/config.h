@@ -52,7 +52,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define LED_CAPS_LOCK_PIN A2
-#define LED_SCROLL_LOCK_PIN A13
-#define LED_PIN_ON_STATE 1
