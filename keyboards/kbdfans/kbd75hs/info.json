@@ -7,6 +7,11 @@
         "pid": "0x6062",
         "device_version": "0.0.3"
     },
+    "indicators": {
+        "caps_lock": "C6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["75_ansi"],
     "layouts": {
         "LAYOUT_75_ansi": {

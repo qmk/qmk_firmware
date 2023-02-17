@@ -8,6 +8,11 @@
         "pid": "0x4E36",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F5"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_65_ansi_blocker_splitbs": "LAYOUT_65_ansi_blocker_split_bs"
     },

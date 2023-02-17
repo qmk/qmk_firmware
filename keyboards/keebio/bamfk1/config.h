@@ -3,15 +3,6 @@
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- */
-
-#define DIRECT_PINS { \
-    { E6, B6, D6, NO_PIN }, \
-    { NO_PIN, NO_PIN, NO_PIN, NO_PIN } \
-}
 #define AUDIO_PIN C6
 #ifdef AUDIO_ENABLE
 #    define STARTUP_SONG SONG(STARTUP_SOUND)

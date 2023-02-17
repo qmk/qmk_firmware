@@ -620,6 +620,7 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
+    TRI_LAYER_ENABLE := yes
     SRC += $(QUANTUM_DIR)/via.c
     OPT_DEFS += -DVIA_ENABLE
 endif

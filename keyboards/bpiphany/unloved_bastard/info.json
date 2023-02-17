@@ -7,6 +7,14 @@
     "pid": "0x1337",
     "device_version": "0.0.1"
   },
+  "indicators": {
+    "caps_lock": "C5",
+    "num_lock": "B7",
+    "scroll_lock": "C6",
+    "on_state": 0
+  },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
   "community_layouts": ["tkl_ansi", "tkl_iso"],
   "layouts": {
     "LAYOUT_all": {

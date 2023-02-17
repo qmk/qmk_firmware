@@ -15,12 +15,6 @@
  */
 #pragma once
 
-/* Milk default pinout */
-#define DIRECT_PINS { \
-    {D4}, \
-    {C6}  \
-}
-
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 1

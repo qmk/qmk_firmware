@@ -8,6 +8,12 @@
         "pid": "0x6B32",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F0",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_60_ansi_arrow_split_bs_7u_spc": "LAYOUT_60_ansi_arrow_tsangan_split_bs",
         "LAYOUT_60_ansi_arrow_7u_spc": "LAYOUT_60_ansi_arrow_tsangan"

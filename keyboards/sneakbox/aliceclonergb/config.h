@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*Bootmagic boot button, set to topmost, leftmost key */
-#define BOOTMAGIC_LITE_ROW	2
-#define BOOTMAGIC_LITE_COLUMN	0
-
 /* encoder */
 /* #define NUMBER_OF_ENCODERS 1 */
 #define ENCODERS_PAD_A { D3 }
@@ -34,10 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_NUM_LOCK_PIN  D4
-#define LED_CAPS_LOCK_PIN D6
-#define LED_SCROLL_LOCK_PIN D7
 
 #define RGB_DI_PIN D5
 #define RGBLIGHT_EFFECT_BREATHING

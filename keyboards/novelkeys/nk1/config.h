@@ -17,12 +17,6 @@
 
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { D4 } \
-}
-
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 9

@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define DIRECT_PINS { \
-    { B12,    B6, B7    }, \
-    { NO_PIN, B5, NO_PIN}  \
-}
-
 /* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 

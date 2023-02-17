@@ -8,6 +8,13 @@
         "pid": "0x0008",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["F4", "F7", "B3", "B6", "F5", "F6", "B1", "B2", "D4", "C6", "D7", "E6", null, null, null, null]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

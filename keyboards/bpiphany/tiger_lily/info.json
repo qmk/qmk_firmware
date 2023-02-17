@@ -8,6 +8,14 @@
     "pid": "0x544C",
     "device_version": "0.0.1"
   },
+  "indicators": {
+    "caps_lock": "C6",
+    "num_lock": "C5",
+    "scroll_lock": "B7",
+    "on_state": 0
+  },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
   "community_layouts": ["fullsize_ansi"],
   "layouts": {
     "LAYOUT": {

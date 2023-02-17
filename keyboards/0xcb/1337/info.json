@@ -8,6 +8,15 @@
     "pid": "0x1337",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "qmk-dfu",
+  "matrix_pins": {
+    "direct": [
+      ["D2", "D4", "F4"],
+      ["D7", "B1", "B3"],
+      ["E6", "B4", "B2"]
+    ]
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

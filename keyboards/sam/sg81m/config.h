@@ -16,8 +16,6 @@
 
 #pragma once
 
-
-#define LED_CAPS_LOCK_PIN B0
 /*
  * Keyboard Matrix Assignments
  *

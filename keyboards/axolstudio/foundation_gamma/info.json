@@ -8,6 +8,11 @@
         "pid": "0xE3EB",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_ansi_tsangan": "LAYOUT_tkl_f13_ansi_tsangan",
         "LAYOUT_all": "LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift"

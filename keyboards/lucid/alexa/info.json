@@ -8,6 +8,11 @@
         "pid": "0x0005",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {

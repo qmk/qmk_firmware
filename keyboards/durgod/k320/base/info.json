@@ -1,0 +1,10 @@
+{
+    "indicators": {
+        "caps_lock": "C9",
+        "scroll_lock": "A8",
+        "on_state": 0
+    },
+    "processor": "STM32F072", // F070
+    "bootloader": "stm32-dfu",
+    "board": "DURGOD_STM32_F070"
+}

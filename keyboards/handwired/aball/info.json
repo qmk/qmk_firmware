@@ -8,6 +8,13 @@
         "pid": "0xC2F0",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            [null]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

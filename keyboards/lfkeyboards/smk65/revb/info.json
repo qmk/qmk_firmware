@@ -1,5 +1,7 @@
 {
     "usb": {
         "pid": "0x565B"
-    }
+    },
+    "processor": "at90usb646",
+    "bootloader": "atmel-dfu"
 }

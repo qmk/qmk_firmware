@@ -6,6 +6,8 @@
         "vid": "0x7983",
         "pid": "0x5050"
     },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "community_layouts": ["ortho_4x4"],
     "layouts": {
         "LAYOUT_ortho_4x4": {

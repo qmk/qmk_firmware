@@ -8,6 +8,14 @@
         "pid": "0x3388",
         "device_version": "0.0.3"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["D7", "C6", "D4", "D1"],
+            ["B1", "B4", "B5", "B3"]
+        ]
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_2x4"
     },

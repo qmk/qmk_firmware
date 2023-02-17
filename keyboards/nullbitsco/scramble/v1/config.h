@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define DIRECT_PINS {{D4,D5,B1}, {C3,C2,C1}}
-
 /* Optional encoder pins */
 #define ENCODERS_PAD_A { D6 }
 #define ENCODERS_PAD_B { D7 }

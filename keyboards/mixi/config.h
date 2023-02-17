@@ -1,13 +1,5 @@
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { D1, D4, F4 }, \
-    { D0, B4, F5 }, \
-    { C6, F7, B6 } \
-}
-
 #define ENCODERS_PAD_A { D7, B1 }
 #define ENCODERS_PAD_B { E6, B3 }
 

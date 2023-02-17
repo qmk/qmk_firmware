@@ -3,5 +3,7 @@
     "usb": {
         "pid": "0x6356",
         "device_version": "6.1.0"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

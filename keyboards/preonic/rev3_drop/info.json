@@ -6,6 +6,8 @@
         "pid": "0xA649",
         "device_version": "0.0.3"
     },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
     "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_preonic_1x2uC": {

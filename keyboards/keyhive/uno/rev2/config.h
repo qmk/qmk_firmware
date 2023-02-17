@@ -22,11 +22,6 @@
 #define ENCODERS_PAD_A { B2 }
 #define ENCODERS_PAD_B { B3 }
 
-/* Uno default pinout */
-#define DIRECT_PINS { \
-    { D0 } \
-}
-
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D1
 #define RGBLED_NUM 1

@@ -7,6 +7,11 @@
         "pid": "0x7002",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "num_lock": "C6"
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {

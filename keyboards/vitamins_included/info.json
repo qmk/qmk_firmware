@@ -7,6 +7,7 @@
     "vid": "0x1209",
     "pid": "0xBEE5"
   },
+  "processor": "atmega32u4",
   "community_layouts": ["ortho_4x12"],
   "layouts": {
     "LAYOUT": {

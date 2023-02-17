@@ -8,6 +8,13 @@
         "pid": "0x4742",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["F7", "F6", "D1", "D2"]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -53,6 +53,3 @@
 #define ENCODERS_CCW_KEY { { 6, 0 },{ 8, 0 } }
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1

@@ -17,17 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- */
-#define DIRECT_PINS { \
-    { C6, D6, D5 }, \
-    { C7, F7, D4 }, \
-    { E6, F5, F6 }, \
-    { F0, F1, F4 }, \
-}
-
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { D7 }
 

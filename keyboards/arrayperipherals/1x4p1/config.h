@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define DIRECT_PINS {   \
-    { C7, B7, D6, F5, F7} \
-}
-
 /* rotary encoder*/
 #define ENCODERS_PAD_A {F0}
 #define ENCODERS_PAD_B {F1}

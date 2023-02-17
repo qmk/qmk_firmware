@@ -8,6 +8,11 @@
         "pid": "0xB260",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["60_iso_tsangan", "60_iso_split_bs_rshift", "60_iso", "60_tsangan_hhkb", "60_hhkb", "60_ansi_tsangan", "60_ansi_split_bs_rshift", "60_ansi"],
     "layouts": {
         "LAYOUT_all": {

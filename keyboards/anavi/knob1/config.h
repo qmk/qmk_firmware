@@ -3,13 +3,6 @@
 
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-// clang-format off
-#define DIRECT_PINS { \
-    { GP26 }  \
-}
-
 #define RGBLIGHT_DEFAULT_MODE 9
 
 /* Double tap reset button to enter bootloader */

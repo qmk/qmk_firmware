@@ -8,6 +8,12 @@
         "pid": "0x6952",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B3",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi_tsangan"],
     "layouts": {
         "LAYOUT_60_ansi_tsangan": {

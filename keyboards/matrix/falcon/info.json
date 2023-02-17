@@ -8,6 +8,11 @@
         "pid": "0x474E",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "E2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["60_hhkb"],
     "layouts": {
         "LAYOUT_60_hhkb": {

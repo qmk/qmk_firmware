@@ -8,6 +8,14 @@
         "pid": "0x6464",
         "device_version": "0.0.1"
     },
+  "indicators": {
+    "caps_lock": "C5",
+  },
+  "bootmagic": {
+      "matrix": [3, 6]
+  },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
   "community_layouts": ["60_ansi"],
   "layouts": {
       "LAYOUT_all": {

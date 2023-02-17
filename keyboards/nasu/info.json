@@ -8,6 +8,16 @@
         "pid": "0x4E53",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B1",
+        "num_lock": "B0",
+        "scroll_lock": "A7"
+    },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {

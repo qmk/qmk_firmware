@@ -15,14 +15,6 @@
  */
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * On this board we have direct connection: no diodes.
- */
-#define DIRECT_PINS {{ B0, B1 }}
-
 #define RGBLED_NUM 2
 #define RGB_DI_PIN B2
 

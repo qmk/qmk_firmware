@@ -32,16 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-//#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
-
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_SCROLL_LOCK_PIN B2
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */

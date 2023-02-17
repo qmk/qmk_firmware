@@ -8,6 +8,11 @@
         "pid": "0x1001",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_65_ansi": {
