@@ -26,7 +26,3 @@
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Define capslock and numlock */
-#define LED_NUM_LOCK_PIN  B14
-#define LED_CAPS_LOCK_PIN B15

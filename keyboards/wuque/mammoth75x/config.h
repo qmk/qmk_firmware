@@ -47,6 +47,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 3, 5 } }
 #define ENCODERS_CCW_KEY { { 5, 5 } }
-
-#define LED_CAPS_LOCK_PIN B6
-#define LED_PIN_ON_STATE 0

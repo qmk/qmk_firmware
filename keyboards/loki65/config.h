@@ -31,10 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-/* Indicator LEDs */
-#define LED_CAPS_LOCK_PIN B6
-#define LED_PIN_ON_STATE 0
-
 /* RGB Light */
 #define WS2812_PWM_DRIVER PWMD1
 #define WS2812_PWM_CHANNEL 2

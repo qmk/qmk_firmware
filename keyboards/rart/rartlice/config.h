@@ -30,11 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define LED_NUM_LOCK_PIN A8
-#define LED_CAPS_LOCK_PIN B14
-#define LED_SCROLL_LOCK_PIN A9
-#define LED_PIN_ON_STATE 0
-
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

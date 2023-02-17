@@ -8,6 +8,12 @@
         "pid": "0xB00E",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B1",
+        "num_lock": "B3",
+        "scroll_lock": "B2",
+        "on_state": 0
+    },
     "bootmagic": {
         "matrix": [2, 3]
     },

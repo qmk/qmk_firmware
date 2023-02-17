@@ -15,8 +15,6 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN B0
-
 /* RGB */
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN

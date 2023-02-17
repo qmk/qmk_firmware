@@ -45,12 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION 4
 //#define ENCODER_DIRECTION_FLIP
 
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
-//#define LED_SCROLL_LOCK_PIN B2
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

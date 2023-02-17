@@ -39,6 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_ESC_OUTPUT C4 // usually COL
 #define QMK_ESC_INPUT C6 // usually ROW
 #define QMK_LED D1
-
-#define LED_CAPS_LOCK_PIN D1
-#define LED_PIN_ON_STATE 0

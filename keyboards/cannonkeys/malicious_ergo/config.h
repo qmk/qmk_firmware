@@ -57,14 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI_SCK_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN B13
 
-// Indicator LEDs
-#define LED_CAPS_LOCK_PIN A8
-#define LED_NUM_LOCK_PIN A9
-#define LED_SCROLL_LOCK_PIN B12
-#define LED_PIN_ON_STATE 0
-
-
-
 // 2 bits for 4 layout options
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
 

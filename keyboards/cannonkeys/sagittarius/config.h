@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B10, B14, A8, A9, A10, C13, C14, C15, F0, F1 }
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_NUM_LOCK_PIN B4
-#define LED_CAPS_LOCK_PIN B3
-#define LED_SCROLL_LOCK_PIN A15
-
 #define BACKLIGHT_PIN           A6
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1

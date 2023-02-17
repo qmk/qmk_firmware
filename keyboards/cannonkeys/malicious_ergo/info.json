@@ -8,6 +8,12 @@
         "pid": "0x0009",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A8",
+        "num_lock": "A9",
+        "scroll_lock": "B12",
+        "on_state": 0
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

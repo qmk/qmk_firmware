@@ -21,8 +21,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_PINS { F4, F5 } // Top Row, Bottom Row
-
-/* LED Indicators */
-#define LED_PIN_ON_STATE 0
-#define LED_CAPS_LOCK_PIN B0 // RX Led
-#define LED_NUM_LOCK_PIN D5  // TX Led

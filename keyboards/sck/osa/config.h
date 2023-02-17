@@ -48,10 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
    #endif
 
-#define LED_NUM_LOCK_PIN C7
-#define LED_CAPS_LOCK_PIN C6
-#define LED_SCROLL_LOCK_PIN B6
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

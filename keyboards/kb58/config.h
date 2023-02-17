@@ -45,12 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SOFT_SERIAL_PIN D2  // or D0, D1, D3, E6
 
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
-//#define LED_SCROLL_LOCK_PIN B2
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

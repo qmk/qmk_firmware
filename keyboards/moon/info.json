@@ -8,6 +8,10 @@
         "pid": "0xFCB8",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B5",
+        "scroll_lock": "B6"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["tkl_ansi", "tkl_iso"],

@@ -28,11 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_NUM_LOCK_PIN A8
-#define LED_CAPS_LOCK_PIN A9
-#define LED_SCROLL_LOCK_PIN A13
-#define LED_PIN_ON_STATE 0
-
 /* Backlight */
 #define BACKLIGHT_PIN A10
 #define BACKLIGHT_BREATHING

@@ -31,8 +31,5 @@
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
 
-//Indicator
-#define LED_CAPS_LOCK_PIN B0
-
 //Force NKRO
 #define FORCE_NKRO

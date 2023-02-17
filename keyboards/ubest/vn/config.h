@@ -57,9 +57,3 @@
 //     #define RGBLIGHT_EFFECT_RGB_TEST
 //     #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
-
-#define LED_PIN_ON_STATE  	0
-#define LED_NUM_LOCK_PIN 	B1
-#define LED_CAPS_LOCK_PIN 	B3
-#define LED_SCROLL_LOCK_PIN B2
-

@@ -65,9 +65,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-#define LED_SCROLL_LOCK_PIN F0
-#define LED_CAPS_LOCK_PIN F1
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

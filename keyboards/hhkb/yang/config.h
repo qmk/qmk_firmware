@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_POWER_SAVE_TIMEOUT_L2_MS 1800000
 #define MATRIX_POWER_SAVE_TIMEOUT_L3_MS 7200000
 
-#define LED_CAPS_LOCK_PIN F4
-
 #ifdef BLUETOOTH_ENABLE
 #    define OUTPUT_DEFAULT OUTPUT_AUTO
 

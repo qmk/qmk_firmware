@@ -28,10 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 // Current flow out of the diodes are from rows to columns
 
-#define LED_CAPS_LOCK_PIN B11 // LED for Step Caps
-#define LED_SCROLL_LOCK_PIN F1 // LED Indicator for Scroll Lock
-#define LED_PIN_ON_STATE 1
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

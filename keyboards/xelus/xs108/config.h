@@ -30,12 +30,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// LED defines
-#define LED_CAPS_LOCK_PIN A2
-#define LED_SCROLL_LOCK_PIN A13
-#define LED_NUM_LOCK_PIN B7
-#define LED_PIN_ON_STATE 1
-
 // I2C setup
 #define I2C1_SCL_PIN        B8
 #define I2C1_SDA_PIN        B9

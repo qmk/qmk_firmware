@@ -8,6 +8,11 @@
     "pid": "0x7778",
     "device_version": "0.0.1"
   },
+  "indicators": {
+    "caps_lock": "C6",
+    "num_lock": "E6",
+    "on_state": 0
+  },
   "processor": "atmega32u4",
   "bootloader": "halfkay",
   "layouts": {  
