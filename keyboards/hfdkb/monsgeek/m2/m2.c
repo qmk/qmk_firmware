@@ -255,6 +255,8 @@ led_config_t g_led_config = {
 
 #endif //RGB_MATRIX_ENABLE
 
+#define LED_WIN_LOCK_PIN C11
+
 enum __layers {
     WIN_B,
     WIN_WASD,
@@ -264,18 +266,14 @@ enum __layers {
     MAC_FN
 };
 
-enum colors { WHITE, RED, GREEN, BLUE };
-enum colors led_color_status = WHITE;
-enum custom_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
-    KC_LAUNCHPAD,
-    KC_RESET
+enum colors { 
+    WHITE, 
+    RED, 
+    GREEN, 
+    BLUE 
 };
 
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
+enum colors led_color_status = WHITE;
 
 static bool     fn_make_flag        = false;
 static bool     Lkey_flag           = false;
@@ -286,8 +284,6 @@ static uint16_t current_time        = 0;
 static uint8_t  glint_cnt           = 0;
 static uint16_t scancode            = 0;
 static uint8_t  alarm_cnt           = 0;
-
-
 
 HSV hsv;
 
@@ -321,13 +317,12 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 void led_init_ports(void){
     //set our LED pings as output
-    setPinOutput(A15); // LED1 Num Lock
-    writePinHigh(A15);
-    setPinOutput(C10); // LDE2 Caps Lock
-    writePinHigh(C10);
-    setPinOutput(C11); // LED3 Win Lock
-    writePinHigh(C11);
-
+    setPinOutput(LED_NUM_LOCK_PIN); // LED1 Num Lock
+    writePinHigh(LED_NUM_LOCK_PIN);
+    setPinOutput(LED_CAPS_LOCK_PIN); // LDE2 Caps Lock
+    writePinHigh(LED_CAPS_LOCK_PIN);
+    setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
+    writePinHigh(LED_WIN_LOCK_PIN);
 }
 
 bool led_update_kb(led_t led_state) {
@@ -338,45 +333,12 @@ bool led_update_kb(led_t led_state) {
         // it low/0 turns it on, and high/1 turns the LED off.
         // This behavior depends on whether the LED is between the pin
         // and VCC or the pin and GND.
-        writePin(A15, led_state.num_lock);
-        writePin(C10, led_state.caps_lock);
-        writePin(C11, keymap_config.no_gui);
+        writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
+        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+        writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
  }
     return res;
 }
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-#ifdef VIA_ENABLE
-            case KC_RESET: {
-            if (record->event.pressed) {
-
-            #include "via.h"
-            via_eeprom_set_valid(false);
-            eeconfig_init_via();
-
-            }
-            return false;
-        }
-#endif
-    }
-    return true;
-}
-
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
@@ -460,7 +422,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 alarm_flag = true;
                 rgb_matrix_toggle_noeeprom();
                 current_time     = timer_read();
-                writePin(C11, !keymap_config.no_gui);
+                writePin(LED_WIN_LOCK_PIN, !keymap_config.no_gui);
             }
             return true;
         case RGB_VAI:
@@ -496,7 +458,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     if(Lkey_flag){
         if(scancode == KC_GRV){
             if (timer_elapsed(current_time) >= 3000) {

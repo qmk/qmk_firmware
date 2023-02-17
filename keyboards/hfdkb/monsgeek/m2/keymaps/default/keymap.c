@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-
+// clang-format off
 enum __layers {
     WIN_B,
     WIN_WASD,
@@ -36,7 +36,6 @@ enum custom_keycodes {
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
 
-// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [WIN_B] = LAYOUT( /* Base */
@@ -91,15 +90,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_MISSION_CONTROL:
+            if (record->event.pressed) {
+                host_consumer_send(0x29F);
+            } else {
+                host_consumer_send(0);
+            }
+            return false; // Skip all further processing of this key
+        case KC_LAUNCHPAD:
+            if (record->event.pressed) {
+                host_consumer_send(0x2A0);
+            } else {
+                host_consumer_send(0);
+            }
+            return false; // Skip all further processing of this key
+#ifdef VIA_ENABLE
+        case KC_RESET: {
+            if (record->event.pressed) {
+#    include "via.h"
+                via_eeprom_set_valid(false);
+                eeconfig_init_via();
+            }
+            return false;
+        }
+#endif
+    }
+    return true;
+}
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [WIN_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [WIN_WASD] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [WIN_FN] = { ENCODER_CCW_CW(RGB_VAI, RGB_VAD) },
-    [MAC_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [MAC_WASD] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [MAC_FN] = { ENCODER_CCW_CW(RGB_VAI, RGB_VAD) }
-};
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {[WIN_B] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)}, [WIN_WASD] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)}, [WIN_FN] = {ENCODER_CCW_CW(RGB_VAI, RGB_VAD)}, [MAC_B] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)}, [MAC_WASD] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)}, [MAC_FN] = {ENCODER_CCW_CW(RGB_VAI, RGB_VAD)}};
 #endif
-

@@ -30,8 +30,10 @@
 #define MATRIX_COLS 21
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS {B15, C6, C7, C8, C9, A8}
-#define MATRIX_COL_PINS { C1, C2, C3, A0, A1, A2, A3, A4, A5, A6, A7, C4, C5, B0, B1, B2,B10,B11,B12,B13,B14}
+#define MATRIX_ROW_PINS \
+    { B15, C6, C7, C8, C9, A8 }
+#define MATRIX_COL_PINS \
+    { C1, C2, C3, A0, A1, A2, A3, A4, A5, A6, A7, C4, C5, B0, B1, B2, B10, B11, B12, B13, B14 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -39,6 +41,12 @@
 /* encoder resolution */
 #define ENCODER_RESOLUTION 2
 #define TAP_CODE_DELAY 20
+
+/* LED Indicators */
+
+#define LED_NUM_LOCK_PIN        A15
+#define LED_CAPS_LOCK_PIN       C10
+// #define LED_SCROLL_LOCK_PIN     C11
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
