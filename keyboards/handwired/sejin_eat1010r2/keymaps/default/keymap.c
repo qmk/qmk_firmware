@@ -46,13 +46,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,          KC_LALT,                           KC_SPC,                                      KC_RALT,          KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT,   KC_P0,           KC_PDOT
     )
 };
-
-/*
-void matrix_init_user(void) {
-}
-void matrix_scan_user(void) {
-}
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/
