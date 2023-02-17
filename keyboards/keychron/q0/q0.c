@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "q0.h"
+#include "quantum.h"
 
 #if defined(RGB_MATRIX_ENABLE) && defined(NUM_LOCK_LED_INDEX)
 
