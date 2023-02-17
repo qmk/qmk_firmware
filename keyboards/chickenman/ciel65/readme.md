@@ -1,6 +1,6 @@
 # Ciel65
 
-![Ciel65](https://imgur.com/a/8YWNVwb)
+![Ciel65](https://i.imgur.com/CSOaQRph.jpeg)
 
 A simple 65% keyboard based of the Bakeneko 65, originially made by Katano.
 
