@@ -3,6 +3,8 @@
     "usb": {
         "pid": "0xAD04"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "indicators": {
         "caps_lock": "E6",
         "num_lock": "D7",
