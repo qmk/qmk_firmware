@@ -16,11 +16,6 @@
 
 #pragma once
 
-
-
-
-#define SOFT_SERIAL_PIN D3	// RX8
-
 /* select keyboard  master board  - I2C or Serial communication master    */
 #define MASTER_RIGHT
 

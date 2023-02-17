@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 
 #define EE_HANDS
-#define SOFT_SERIAL_PIN D0
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F5, F6, C7, F7 }

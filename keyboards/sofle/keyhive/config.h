@@ -36,9 +36,6 @@
 
 #define TAP_CODE_DELAY  10
 
-// Communication between sides
-#define SOFT_SERIAL_PIN D2
-
 // OLED settings
 #define OLED_TIMEOUT    80000
 #define OLED_BRIGHTNESS 90

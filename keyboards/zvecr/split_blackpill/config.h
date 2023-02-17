@@ -36,11 +36,7 @@
 
 #define MATRIX_IO_DELAY 5
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
 #define SPLIT_HAND_PIN B3
-#define SOFT_SERIAL_PIN B6
 #define SELECT_SOFT_SERIAL_SPEED 0
 
 #define RGB_DI_PIN B4

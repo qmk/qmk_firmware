@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Pro Micro Pins      RX1
 #define SPLIT_HAND_PIN D2
 
-// Pro Micro Pins       RX1
-#define SOFT_SERIAL_PIN D0
-
 #define DIODE_DIRECTION COL2ROW
 
 #define LOCKING_SUPPORT_ENABLE

@@ -54,7 +54,6 @@
 #define RGB_MATRIX_SPLIT { 30, 40 }    // Number of LEDs
 #endif
 
-#define SOFT_SERIAL_PIN D2
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/
 //Speeds:

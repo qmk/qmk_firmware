@@ -26,8 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
 #define SELECT_SOFT_SERIAL_SPEED 1
 // #define USE_I2C
 #define SPLIT_USB_DETECT

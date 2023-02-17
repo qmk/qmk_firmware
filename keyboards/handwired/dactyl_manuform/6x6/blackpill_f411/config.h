@@ -16,9 +16,6 @@
 
 #pragma once
 
-
-#undef SOFT_SERIAL_PIN
-
 #define MATRIX_ROW_PINS          { B12, B13, B14, B15, A8 , A9, A10}
 #define MATRIX_COL_PINS          { B1, B0, A7, A6, A5, A4}
 /* COL2ROW, ROW2COL */
@@ -31,9 +28,8 @@
 
 /* connection */
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
-#define SOFT_SERIAL_PIN B6     // USART TX pin
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
-#define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN     // USART TX pin
+#define SERIAL_USART_TX_PIN B6     // USART TX pin
 
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
                                    //  0: 460800 baud

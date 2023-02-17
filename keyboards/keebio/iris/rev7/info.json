@@ -4,6 +4,9 @@
         "pid": "0x7256",
         "device_version": "7.0.0"
     },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu"
 }

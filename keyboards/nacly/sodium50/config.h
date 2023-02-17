@@ -25,9 +25,6 @@
 
 #define SPLIT_HAND_PIN F4
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D3
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -22,8 +22,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define SOFT_SERIAL_PIN D2
-
 /* SK6812 RGB LED */
 #define RGB_DI_PIN D3
 

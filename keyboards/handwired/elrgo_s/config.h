@@ -25,10 +25,6 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 
 #define DIODE_DIRECTION COL2ROW
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
-
 /* disable debug print */
 // #define NO_DEBUG
 

@@ -8,9 +8,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define SOFT_SERIAL_PIN D2
-
-
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { F4 }
 #define ENCODER_RESOLUTION 2

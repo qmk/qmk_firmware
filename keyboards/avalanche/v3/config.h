@@ -8,8 +8,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define SOFT_SERIAL_PIN D2
-
 #define RGB_DI_PIN D3
 
 #define RGBLED_NUM 12

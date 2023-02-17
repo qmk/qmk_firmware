@@ -27,8 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B4 }
 #define ENCODERS_PAD_A_RIGHT { B3 }
 #define ENCODERS_PAD_B_RIGHT { B2 }
-#define SOFT_SERIAL_PIN D2
-
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
