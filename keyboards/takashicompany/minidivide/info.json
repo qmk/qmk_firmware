@@ -19,6 +19,10 @@
         "pid": "0x0037",
         "device_version": "0.0.1"
     },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "D2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
