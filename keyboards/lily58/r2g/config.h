@@ -62,6 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
+#   define RGBLIGHT_LIMIT_VAL 120
 #endif
 
