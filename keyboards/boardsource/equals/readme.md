@@ -2,11 +2,9 @@
 
 ![equals](imgur.com image replace me!)
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [Cole Smith](https://github.com/boardsource)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Equals PCB w/ RP2040
+* Hardware Availability: [boardsource](https://boardsource.xyz)
 
 Make example for this keyboard (after setting up your build environment):
 
