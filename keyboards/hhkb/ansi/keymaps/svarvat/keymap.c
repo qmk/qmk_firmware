@@ -190,8 +190,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LA_CAPSLOCK] = LAYOUT(
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
         KC_TAB, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), KC_LBRC, KC_RBRC, TG(LA_CAPSLOCK),
-        MO(LA_LPINKY), S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), KC_SCLN, KC_QUOT, KC_ENT,
-        KC_LSFT, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), S(KC_M), KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(LA_LPINKY),
+        MO(LA_LPINKY), S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), KC_QUOT, KC_ENT,
+        KC_LSFT, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(LA_LPINKY),
         KC_LALT, MO(LA_LTHUMB), KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
 
@@ -437,6 +437,114 @@ void processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     }
 }
 
+void processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_UPX2:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_UP);
+                registerAndUnregisterKeyCode(KC_UP);
+            }
+            break;
+        case MA_DOWNX2:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_DOWN);
+                registerAndUnregisterKeyCode(KC_DOWN);
+            }
+            break;
+        case MA_LEFTX2:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_LEFT);
+                registerAndUnregisterKeyCode(KC_LEFT);
+            }
+            break;
+        case MA_RIGHTX2:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_RIGHT);
+                registerAndUnregisterKeyCode(KC_RIGHT);
+            }
+            break;
+        case MA_DELX2:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_DEL);
+                registerAndUnregisterKeyCode(KC_DEL);
+            }
+            break;
+        case MA_ENTX2:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_ENT);
+                registerAndUnregisterKeyCode(KC_ENT);
+            }
+            break;
+        case MA_BSPCX2:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_BSPC);
+                registerAndUnregisterKeyCode(KC_BSPC);
+            }
+            break;
+    }
+}
+
+void processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_UPX4:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_UP);
+                registerAndUnregisterKeyCode(KC_UP);
+                registerAndUnregisterKeyCode(KC_UP);
+                registerAndUnregisterKeyCode(KC_UP);
+            }
+            break;
+        case MA_DOWNX4:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_DOWN);
+                registerAndUnregisterKeyCode(KC_DOWN);
+                registerAndUnregisterKeyCode(KC_DOWN);
+                registerAndUnregisterKeyCode(KC_DOWN);
+            }
+            break;
+        case MA_LEFTX4:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_LEFT);
+                registerAndUnregisterKeyCode(KC_LEFT);
+                registerAndUnregisterKeyCode(KC_LEFT);
+                registerAndUnregisterKeyCode(KC_LEFT);
+            }
+            break;
+        case MA_RIGHTX4:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_RIGHT);
+                registerAndUnregisterKeyCode(KC_RIGHT);
+                registerAndUnregisterKeyCode(KC_RIGHT);
+                registerAndUnregisterKeyCode(KC_RIGHT);
+            }
+            break;
+        case MA_DELX4:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_DEL);
+                registerAndUnregisterKeyCode(KC_DEL);
+                registerAndUnregisterKeyCode(KC_DEL);
+                registerAndUnregisterKeyCode(KC_DEL);
+            }
+            break;
+        case MA_ENTX4:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_ENT);
+                registerAndUnregisterKeyCode(KC_ENT);
+                registerAndUnregisterKeyCode(KC_ENT);
+                registerAndUnregisterKeyCode(KC_ENT);
+            }
+            break;
+        case MA_BSPCX4:
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_BSPC);
+                registerAndUnregisterKeyCode(KC_BSPC);
+                registerAndUnregisterKeyCode(KC_BSPC);
+                registerAndUnregisterKeyCode(KC_BSPC);
+            }
+            break;
+    }
+}
+
 void processKeycodeInAnyCase(uint16_t keycode, keyrecord_t* record) {}
 
 
@@ -444,6 +552,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     // Store the current modifier state in the variable for later reference
     mod_state = get_mods();
 
+    // Detect the activation of either shift keys
+    if (mod_state & MOD_MASK_SHIFT) {
+        processKeycodeIfShift(keycode, record);
+        return true;
+    }
     if (IS_LAYER_ON(LA_LTHUMB)) {
         if(isLeftThumbEWeakOn == true) {
             processKeycodeIfLThumbEWeakOn(keycode, record);
@@ -466,12 +579,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         processKeycodeIfRThumb(keycode, record);
         return true;
     }
-    // Detect the activation of either shift keys
-    if (mod_state & MOD_MASK_SHIFT) {
-        processKeycodeIfShift(keycode, record);
+    if (IS_LAYER_ON(LA_LPINKYQ)) {
+        processKeycodeIfLPinkyQ(keycode, record);
         return true;
     }
-
+    if (IS_LAYER_ON(LA_LPINKYW)) {
+        processKeycodeIfLPinkyZ(keycode, record);
+        return true;
+    }
     processKeycodeInAnyCase(keycode, record);
     return true;
 }
