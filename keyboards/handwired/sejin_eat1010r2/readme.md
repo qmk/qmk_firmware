@@ -8,7 +8,12 @@ has 27 or more IO pins
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb handwired/sejin_eat1010r2 -km default
+    make handwired/sejin_eat1010r2:default
+    
+Flashing example for this keyboard:
+
+    make handwired/sejin_eat1010r2:default:flash
+
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide)
