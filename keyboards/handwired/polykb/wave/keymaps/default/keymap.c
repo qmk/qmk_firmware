@@ -3,6 +3,7 @@
 #include "polyatom.h"
 #include "print.h"
 #include "base/disp_array.h"
+#include "base/helpers.h"
 #include "base/shift_reg.h"
 #include "fonts/gfx_used_fonts.h"
 
@@ -657,7 +658,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 }
                 break;
             case KC_RST_DSP:
-                kdisp_init(NUM_SHIFT_REGISTERS, true);
+                kdisp_init(NUM_SHIFT_REGISTERS);
+                kdisp_setup(true);
                 break;
             /*case KC_NEXT_LANG:
                 g_lang = (g_lang + 1) % NUM_LANG;
@@ -791,14 +793,6 @@ void dec_brightness(void) {
 }
 
 
-void keyboard_pre_init_user(void) {
-#ifdef OLED_ENABLE
-    setPinInputHigh(I2C1_SDA_PIN);
-#endif
-    transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
-}
-
-
 //disable first keypress if the displays are turned off
 bool display_wakeup(keyrecord_t* record) {
     if (g_contrast==0) {
@@ -813,4 +807,32 @@ bool display_wakeup(keyrecord_t* record) {
         return false;
     }
     return true;
+}
+void keyboard_post_init_user(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+
+    // Customise these values to desired behaviour
+    debug_enable   = true;
+    debug_matrix   = false;
+    debug_keyboard = false;
+    debug_mouse    = false;
+
+    //pointing_device_set_cpi(20000);
+
+    uprintf("Poly Keyboard ready.");
+}
+
+void keyboard_pre_init_user(void) {
+    kdisp_hw_setup();
+    kdisp_init(NUM_SHIFT_REGISTERS); 
+    peripherals_reset();
+    kdisp_setup(true);
+
+    set_displays(FULL_BRIGHT);
+    show_splash_screen();
+    wait_ms(4000);
+#ifdef OLED_ENABLE
+    setPinInputHigh(I2C1_SDA_PIN);
+#endif
+    transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
 }

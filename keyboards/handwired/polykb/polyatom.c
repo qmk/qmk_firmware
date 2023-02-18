@@ -7,7 +7,7 @@
 
 static uint16_t last_key = 0;
 //static bool     displays_are_on = false;
-static deferred_token remove_splash_task_token;
+
 
 #ifdef OLED_ENABLE
 
@@ -55,43 +55,11 @@ void select_all_displays(void) {
     sr_shift_out_0_latch(NUM_SHIFT_REGISTERS);
 }
 
-uint32_t remove_splash_task(uint32_t trigger_time, void* cb_arg) {
-    update_displays(DONE_ALL);
-    return 0;
-}
-
 void clear_all_displays(void) {
     select_all_displays();
     
     kdisp_set_buffer(0x00);
     kdisp_send_buffer();
-}
-
-void early_hardware_init_post(void) {
-//    kdisp_hw_setup();
-    spi_hw_setup();
-}
-
-
-void keyboard_post_init_user(void) {
-    //rgb_matrix_set_color_all(0, 4, 4);
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-
-    // Customise these values to desired behaviour
-    debug_enable   = true;
-    debug_matrix   = false;
-    debug_keyboard = false;
-    debug_mouse    = false;
-
-    kdisp_hw_setup();
-    kdisp_init(NUM_SHIFT_REGISTERS, true);
-
-    remove_splash_task_token = defer_exec(1500, remove_splash_task, NULL);
-
-    set_displays(FULL_BRIGHT);
-    show_splash_screen();
-
-    uprintf("Poly Keyboard ready.");
 }
 
 /*
@@ -104,6 +72,12 @@ void set_displays_on(bool on) {
 }
 */
 
+void early_hardware_init_post(void) {
+    spi_hw_setup();
+    
+}
+
 void set_last_key(uint16_t keycode) {
     last_key = keycode;
 }
+

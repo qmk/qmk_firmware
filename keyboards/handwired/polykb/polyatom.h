@@ -64,3 +64,4 @@ bool displays_on(void);
 void set_last_key(uint16_t keycode);
 
 void update_performed(void);
+

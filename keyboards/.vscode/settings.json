@@ -1,0 +1,5 @@
+{
+    "files.associations": {
+        "spi_helper.h": "c"
+    }
+}

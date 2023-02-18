@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "polyatom.h"
+#include "helpers.h"
 #include "spi_helper.h"
 #include "shift_reg.h"
 #include "spi_master.h"
@@ -276,7 +277,7 @@ void kdisp_hw_setup(void) {
     sr_hw_setup();
 }
 
-void kdisp_init(const int8_t num_shift_regs, bool turn_on) {
+void kdisp_init(const int8_t num_shift_regs) {
     // first turn on logic power supply
     #if defined(KEY_DISPLAYS_VDD_PIN)
         setPinOutput(KEY_DISPLAYS_VDD_PIN);
@@ -303,7 +304,10 @@ void kdisp_init(const int8_t num_shift_regs, bool turn_on) {
     spi_init();
     spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
 
-    spi_reset();
+    peripherals_reset();
+}
+
+void kdisp_setup(bool turn_on) {
 
     spi_prepare_commands();
 

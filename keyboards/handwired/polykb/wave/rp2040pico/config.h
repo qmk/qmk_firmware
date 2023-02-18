@@ -70,13 +70,18 @@ TRES  > 280µs
 #define SPI_DRIVER SPID0
 #define SPI_SS_PIN GP17
 #define SPI_DC_PIN GP8
-#define SPI_RST_PIN GP9
+#define HW_RST_PIN GP9
 #define SPI_SCK_PIN GP6
 //#define SPI_SCK_PAL_MODE 5
 #define SPI_MOSI_PIN GP7
 //#define SPI_MOSI_PAL_MODE 5
 #define SPI_MISO_PIN GP4 //can be used as uart tx as well?
-#define SPI_DIVISOR (CPU_CLOCK / 5000000) //(CPU_CLOCK / 20000000)
+
+//This number can be calculated by dividing the MCU’s clock speed
+//by the desired SPI clock speed. For example, an MCU running at 8 MHz
+//wanting to talk to an SPI device at 4 MHz would set the divisor to 2
+#define SPI_DIVISOR (CPU_CLOCK / 16000000) //rp1040 runs at 133Mhz, SPI at 16Mhz (for new Board)
+//#define SPI_DIVISOR (CPU_CLOCK / 5000000) //rp1040 runs at 133Mhz, SPI at 16Mhz
 //#define SPI_MISO_PAL_MODE 5
 
 // Shift register to select the display

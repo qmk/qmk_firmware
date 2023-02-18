@@ -32,13 +32,3 @@ void spi_prepare_data(void) {
     //wait_us(1);
 }
 
-void spi_reset(void) {
-    setPinOutput(SPI_RST_PIN);
-
-    //writePinHigh(SPI_RST_PIN);
-    //wait_us(2);
-    writePinLow(SPI_RST_PIN);
-    wait_us(2);
-    writePinHigh(SPI_RST_PIN);
-    //wait_us(2);
-}
