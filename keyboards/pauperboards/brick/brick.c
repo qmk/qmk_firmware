@@ -1,4 +1,4 @@
-/* Copyright 2023 Juno Nguyen <juno.ngx@gmail.com>
+/* Copyright 2023 Jason Chestnut <pauperboards@gmail.com> @pauperboards
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "brick.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
