@@ -45,7 +45,7 @@
 #define RGBLED_SPLIT { 1, 1 }
 #define RGB_DI_PIN 25
 
-#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_RGB_TEST // at least one animation has to be enabled
 
 // https://docs.qmk.fm/#/feature_caps_word?id=customizing-caps-word
 #define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds
