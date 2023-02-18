@@ -16,9 +16,6 @@
   */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-
-//extern uint8_t is_master;
 
 enum layer_number {
   _QWERTY = 0,
