@@ -14,7 +14,7 @@ make crkbd/r2g:mb_via
 
 Flash example for this keyboard:  
 ```sh
-qmk flash -kb crkbd/r2g -km mb_via
+make crkbd/r2g:mb_via:flash
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
