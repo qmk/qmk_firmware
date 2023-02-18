@@ -21,10 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D2, D3, D5, D7, D6 }
 #define MATRIX_COL_PINS { F1, F4, F5, F6, D4, B4 }
 #define SPLIT_HAND_PIN F0
-#define QMK_ESC_OUTPUT F1
-#define QMK_ESC_INPUT D2
-#define QMK_LED B0
-#define QMK_SPEAKER C6
 
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B7 }

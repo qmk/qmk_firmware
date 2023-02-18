@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define QMK_ESC_OUTPUT C6 // usually COL
-#define QMK_ESC_INPUT C4 // usually ROW
-
 #define RGB_DI_PIN D7
 #define RGBLED_NUM 2
 

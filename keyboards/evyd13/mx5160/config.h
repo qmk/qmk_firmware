@@ -33,11 +33,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-// For QMK DFU
-#define QMK_ESC_OUTPUT C6
-#define QMK_ESC_INPUT D1
-#define QMK_LED B1
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
