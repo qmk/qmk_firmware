@@ -316,7 +316,9 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_colemakdh_layer, // Overrides caps lock layer
     rgb_gaming_layer,    // Overrides other layers
     rgb_gaming2_layer,   // Overrides other layers
-    rgb_num_layer        // Overrides other layers
+    rgb_num_layer,       // Overrides other layers
+    // There seems to be a bug activating layer 0, so adding caps as layer 5 as well
+    rgb_capslock_layer
 );
 
 void keyboard_post_init_user(void) {
@@ -324,9 +326,8 @@ void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
 }
 
-// TODO: currently not working
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.caps_lock);
+    rgblight_set_layer_state(5, led_state.caps_lock);
     return true;
 }
 
@@ -340,4 +341,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(3, layer_state_cmp(state, _GAME_FUN));
     rgblight_set_layer_state(4, layer_state_cmp(state, _NUM_NAV));
     return state;
+}
+
+void caps_word_set_user(bool active) {
+    if (active) {
+        // Do something when Caps Word activates.
+        rgblight_set_layer_state(5, true);
+    } else {
+        // Do something when Caps Word deactivates.
+        rgblight_set_layer_state(5, false);
+    }
 }
