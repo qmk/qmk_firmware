@@ -4,6 +4,7 @@ A customizable 98-key keyboard
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
 * Hardware Supported: monsgeek m2
+* Hardware Availability: [monsgeek](https://www.monsgeek.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
