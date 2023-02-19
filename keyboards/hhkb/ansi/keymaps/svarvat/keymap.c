@@ -151,16 +151,22 @@ enum custom_keycodes {
 #define LA_LPINKYW 5
 #define LA_RTHUMB 6
 #define LA_LTHUMB 7
-#define LA_LTHUMBEOSL 8
-#define LA_LTHUMBDOSL 9
+#define LA_LTHUMBEMO 8
+#define LA_LTHUMBEOSL 9
+#define LA_LTHUMBDMO 10
+#define LA_LTHUMBDOSL 11
+#define LA_LTHUMB1MO 12
+#define LA_LTHUMB2MO 13
+#define LA_LTHUMB3MO 14
+#define LA_LTHUMB4MO 15
 
 
-bool isLeftThumbEWeakOn = false;
-bool isLeftThumbDWeakOn = false;
-bool isLeftThumb1WeakOn = false;
-bool isLeftThumb2WeakOn = false;
-bool isLeftThumb3WeakOn = false;
-bool isLeftThumb4WeakOn = false;
+bool isLeftThumbEWeakStarted = false;
+bool isLeftThumbDWeakStarted = false;
+bool isLeftThumb1WeakStarted = false;
+bool isLeftThumb2WeakStarted = false;
+bool isLeftThumb3WeakStarted = false;
+bool isLeftThumb4WeakStarted = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -243,8 +249,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT, KC_LCTL, KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
 
+    [LA_LTHUMBEMO] = LAYOUT(
+        KC_TRNS, KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
     [LA_LTHUMBEOSL] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, C(KC_Q), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    [LA_LTHUMBDMO] = LAYOUT(
+        KC_TRNS, KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -252,13 +274,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [LA_LTHUMBDOSL] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, C(KC_Q), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    [LA_LTHUMB1MO] = LAYOUT(
+        KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    [LA_LTHUMB2MO] = LAYOUT(
+        KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    [LA_LTHUMB3MO] = LAYOUT(
+        KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    [LA_LTHUMB4MO] = LAYOUT(
+        KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
-
 };
 
 void registerAndUnregisterKeyCode(uint16_t keyCode) {
@@ -276,130 +329,55 @@ void processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
     }
 }
 
-void processKeycodeIfLThumbEWeakOn(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case MO(LA_LTHUMB):
-            if (!(record->event.pressed)) {
-                isLeftThumbEWeakOn = false;
-            }
-            break;
-        case MA_LTHUMBE:
-            if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_HOME);
-                registerAndUnregisterKeyCode(KC_HOME);
-                register_code16(KC_LSFT);
-                registerAndUnregisterKeyCode(KC_END);
-                registerAndUnregisterKeyCode(KC_RGHT);
-                unregister_code16(KC_LSFT);
-                registerAndUnregisterKeyCode(KC_DEL);
-            }
-            break;
-    }
-}
-
-
-void processKeycodeIfLThumbDWeakOn(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case MO(LA_LTHUMB):
-            if (!(record->event.pressed)) {
-                isLeftThumbDWeakOn = false;
-            }
-            break;
-        case MA_LTHUMBQ:
-            if (record->event.pressed) {
-            }
-            break;
-    }
-}
-
- void processKeycodeIfLThumb1WeakOn(uint16_t keycode, keyrecord_t* record) {
-     switch (keycode) {
-         case MO(LA_LTHUMB):
-             if (!(record->event.pressed)) {
-                 isLeftThumb1WeakOn = false;
-             }
-             break;
-         case MA_LTHUMBQ:
-             if (record->event.pressed) {
-             }
-             break;
-     }
-}
-
- void processKeycodeIfLThumb2WeakOn(uint16_t keycode, keyrecord_t* record) {
-     switch (keycode) {
-         case MO(LA_LTHUMB):
-             if (!(record->event.pressed)) {
-                 isLeftThumb2WeakOn = false;
-             }
-             break;
-         case MA_LTHUMBQ:
-             if (record->event.pressed) {
-             }
-             break;
-     }
-}
-
- void processKeycodeIfLThumb3WeakOn(uint16_t keycode, keyrecord_t* record) {
-     switch (keycode) {
-         case MO(LA_LTHUMB):
-             if (!(record->event.pressed)) {
-                 isLeftThumb3WeakOn = false;
-             }
-             break;
-         case MA_LTHUMBQ:
-             if (record->event.pressed) {
-             }
-             break;
-     }
-}
-
- void processKeycodeIfLThumb4WeakOn(uint16_t keycode, keyrecord_t* record) {
-     switch (keycode) {
-         case MO(LA_LTHUMB):
-             if (!(record->event.pressed)) {
-                 isLeftThumb4WeakOn = false;
-             }
-             break;
-         case MA_LTHUMBQ:
-             if (record->event.pressed) {
-             }
-             break;
-     }
-}
-
 void processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBE:
             if (record->event.pressed) {
-                isLeftThumbEWeakOn = true;
+                layer_on(LA_LTHUMBEMO);
             }
             break;
         case MA_LTHUMBD:
             if (record->event.pressed) {
-                isLeftThumbDWeakOn = true;
+                layer_on(LA_LTHUMBDMO);
             }
             break;
         case MA_LTHUMB1:
             if (record->event.pressed) {
-                isLeftThumb1WeakOn = true;
+                layer_on(LA_LTHUMB1MO);
             }
             break;
         case MA_LTHUMB2:
             if (record->event.pressed) {
-                isLeftThumb2WeakOn = true;
+                layer_on(LA_LTHUMB2MO);
             }
             break;
         case MA_LTHUMB3:
             if (record->event.pressed) {
-                isLeftThumb3WeakOn = true;
+                layer_on(LA_LTHUMB3MO);
             }
             break;
         case MA_LTHUMB4:
             if (record->event.pressed) {
-                isLeftThumb4WeakOn = true;
+                layer_on(LA_LTHUMB4MO);
             }
             break;
+    }
+}
+
+void processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MO(LA_LTHUMB):
+            if (!(record->event.pressed)) {
+                layer_off(LA_LTHUMBEMO);
+                if(isLeftThumbEWeakStarted == false) {
+                    layer_on(LA_LTHUMBEOSL);
+                } else {
+                    isLeftThumbEWeakStarted = false;
+                }
+            }
+            break;
+        case !MO(LA_LTHUMB):
+            isLeftThumbEWeakStarted = true;
         case MA_DELLINE:
             if (record->event.pressed) {
                 registerAndUnregisterKeyCode(KC_HOME);
@@ -411,12 +389,42 @@ void processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 registerAndUnregisterKeyCode(KC_DEL);
             }
             break;
-        case MA_LTHUMBQ:
-            if (record->event.pressed) {
-                registerAndUnregisterKeyCode(C(KC_Q));
+    }
+}
+
+void processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MO(LA_LTHUMB):
+            if (!(record->event.pressed)) {
+                layer_off(LA_LTHUMBDMO);
+                if(isLeftThumbDWeakStarted == false) {
+                    layer_on(LA_LTHUMBDOSL);
+                } else {
+                    isLeftThumbDWeakStarted = false;
+                }
             }
             break;
+        case !MO(LA_LTHUMB):
+            isLeftThumbDWeakStarted = true;
+        case MA_LTHUMBE:
+            break;
     }
+}
+
+void processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
+
+}
+
+void processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {
+
+}
+
+void processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
+
+}
+
+void processKeycodeIfLThumb4Mo(uint16_t keycode, keyrecord_t* record) {
+
 }
 
 void processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
@@ -558,18 +566,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         return true;
     }
     if (IS_LAYER_ON(LA_LTHUMB)) {
-        if(isLeftThumbEWeakOn == true) {
-            processKeycodeIfLThumbEWeakOn(keycode, record);
-        } else if(isLeftThumbDWeakOn == true) {
-            processKeycodeIfLThumbDWeakOn(keycode, record);
-        } else if(isLeftThumb1WeakOn == true) {
-            processKeycodeIfLThumb1WeakOn(keycode, record);
-        } else if(isLeftThumb2WeakOn == true) {
-            processKeycodeIfLThumb2WeakOn(keycode, record);
-        } else if(isLeftThumb3WeakOn == true) {
-            processKeycodeIfLThumb3WeakOn(keycode, record);
-        } else if(isLeftThumb4WeakOn == true) {
-            processKeycodeIfLThumb4WeakOn(keycode, record);
+        if(IS_LAYER_ON(LA_LTHUMBEMO)) {
+            processKeycodeIfLThumbEMo(keycode, record);
+        } else if(IS_LAYER_ON(LA_LTHUMBDMO)) {
+            processKeycodeIfLThumbDMo(keycode, record);
+        } else if(IS_LAYER_ON(LA_LTHUMB1MO)) {
+            processKeycodeIfLThumb1Mo(keycode, record);
+        } else if(IS_LAYER_ON(LA_LTHUMB2MO)) {
+            processKeycodeIfLThumb2Mo(keycode, record);
+        } else if(IS_LAYER_ON(LA_LTHUMB3MO)) {
+            processKeycodeIfLThumb3Mo(keycode, record);
+        } else if(IS_LAYER_ON(LA_LTHUMB4MO)) {
+            processKeycodeIfLThumb4Mo(keycode, record);
         } else {
             processKeycodeIfLThumb(keycode, record);
         }
