@@ -3,6 +3,18 @@
 
 #include QMK_KEYBOARD_H
 
+enum keymap_keycodes {
+    LOCK_GUI = QK_USER,
+    TOG_MACOS_KEYMAP,
+    KC_MISSION_CONTROL,
+    KC_LAUNCHPAD
+};
+
+#define KC_LG    LOCK_GUI
+#define KC_MACOS TOG_MACOS_KEYMAP
+#define KC_MCTL  KC_MISSION_CONTROL
+#define KC_LPAD  KC_LAUNCHPAD
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_ESC,           KC_F1,   KC_F2,   KC_F3,  KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS,
@@ -33,3 +45,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case KC_LG:
+            if (record->event.pressed) {
+                process_magic(GUI_TOG, record);
+            }
+            return false;
+        case KC_MACOS:
+            if (record->event.pressed) {
+                process_magic(CG_TOGG, record);
+            }
+            return false;
+        case KC_MCTL:
+            if (record->event.pressed) {
+                host_consumer_send(0x29F);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;
+        case KC_LPAD:
+            if (record->event.pressed) {
+                host_consumer_send(0x2A0);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;
+        default:
+            break;
+    }
+    return true;
+}
