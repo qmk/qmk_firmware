@@ -28,7 +28,7 @@ def _append_lighting_map(lines, feature, spec):
     ifdef_prefix = PREFIX_MAP[feature]['ifdef']
     def_prefix = PREFIX_MAP[feature]['def']
 
-    lines.append(f'static uint8_t {feature}_effect_map[][2] = {{')
+    lines.append(f'static const uint8_t {feature}_effect_map[][2] PROGMEM = {{')
     for id, obj in spec.get('effects', {}).items():
         define = obj['define']
         offset = f' + {obj["offset"]}' if obj['offset'] else ''
@@ -54,16 +54,16 @@ def _append_lighting_map(lines, feature, spec):
         f'''
 uint8_t {feature}2xap(uint8_t val) {{
     for(uint8_t i = 0; i < ARRAY_SIZE({feature}_effect_map); i++) {{
-        if ({feature}_effect_map[i][1] == val)
-            return {feature}_effect_map[i][0];
+        if (pgm_read_byte(&{feature}_effect_map[i][1]) == val)
+            return pgm_read_byte(&{feature}_effect_map[i][0]);
     }}
     return 0xFF;
 }}
 
 uint8_t xap2{feature}(uint8_t val) {{
     for(uint8_t i = 0; i < ARRAY_SIZE({feature}_effect_map); i++) {{
-        if ({feature}_effect_map[i][0] == val)
-            return {feature}_effect_map[i][1];
+        if (pgm_read_byte(&{feature}_effect_map[i][0]) == val)
+            return pgm_read_byte(&{feature}_effect_map[i][1]);
     }}
     return 0xFF;
 }}'''

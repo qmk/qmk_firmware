@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -31,7 +31,7 @@
 #define ENABLE_LED_MATRIX_SOLID
 
 #ifdef RGBLIGHT_ENABLE
-static uint8_t rgblight_effect_map[][2] = {
+static const uint8_t rgblight_effect_map[][2] PROGMEM = {
 
 #ifdef RGBLIGHT_EFFECT_STATIC_LIGHT
     { 0x00, RGBLIGHT_MODE_STATIC_LIGHT},
@@ -204,16 +204,16 @@ static uint8_t rgblight_effect_map[][2] = {
 
 uint8_t rgblight2xap(uint8_t val) {
     for(uint8_t i = 0; i < ARRAY_SIZE(rgblight_effect_map); i++) {
-        if (rgblight_effect_map[i][1] == val)
-            return rgblight_effect_map[i][0];
+        if (pgm_read_byte(&rgblight_effect_map[i][1]) == val)
+            return pgm_read_byte(&rgblight_effect_map[i][0]);
     }
     return 0xFF;
 }
 
 uint8_t xap2rgblight(uint8_t val) {
     for(uint8_t i = 0; i < ARRAY_SIZE(rgblight_effect_map); i++) {
-        if (rgblight_effect_map[i][0] == val)
-            return rgblight_effect_map[i][1];
+        if (pgm_read_byte(&rgblight_effect_map[i][0]) == val)
+            return pgm_read_byte(&rgblight_effect_map[i][1]);
     }
     return 0xFF;
 }
@@ -389,7 +389,7 @@ enum { ENABLED_RGBLIGHT_EFFECTS = 0
 };
 #endif //RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
-static uint8_t rgb_matrix_effect_map[][2] = {
+static const uint8_t rgb_matrix_effect_map[][2] PROGMEM = {
 
 #ifdef ENABLE_RGB_MATRIX_SOLID_COLOR
     { 0x00, RGB_MATRIX_SOLID_COLOR},
@@ -612,16 +612,16 @@ static uint8_t rgb_matrix_effect_map[][2] = {
 
 uint8_t rgb_matrix2xap(uint8_t val) {
     for(uint8_t i = 0; i < ARRAY_SIZE(rgb_matrix_effect_map); i++) {
-        if (rgb_matrix_effect_map[i][1] == val)
-            return rgb_matrix_effect_map[i][0];
+        if (pgm_read_byte(&rgb_matrix_effect_map[i][1]) == val)
+            return pgm_read_byte(&rgb_matrix_effect_map[i][0]);
     }
     return 0xFF;
 }
 
 uint8_t xap2rgb_matrix(uint8_t val) {
     for(uint8_t i = 0; i < ARRAY_SIZE(rgb_matrix_effect_map); i++) {
-        if (rgb_matrix_effect_map[i][0] == val)
-            return rgb_matrix_effect_map[i][1];
+        if (pgm_read_byte(&rgb_matrix_effect_map[i][0]) == val)
+            return pgm_read_byte(&rgb_matrix_effect_map[i][1]);
     }
     return 0xFF;
 }
@@ -847,7 +847,7 @@ enum { ENABLED_RGB_MATRIX_EFFECTS = 0
 };
 #endif //RGB_MATRIX_ENABLE
 #ifdef LED_MATRIX_ENABLE
-static uint8_t led_matrix_effect_map[][2] = {
+static const uint8_t led_matrix_effect_map[][2] PROGMEM = {
 
 #ifdef ENABLE_LED_MATRIX_SOLID
     { 0x00, LED_MATRIX_SOLID},
@@ -963,16 +963,16 @@ static uint8_t led_matrix_effect_map[][2] = {
 
 uint8_t led_matrix2xap(uint8_t val) {
     for(uint8_t i = 0; i < ARRAY_SIZE(led_matrix_effect_map); i++) {
-        if (led_matrix_effect_map[i][1] == val)
-            return led_matrix_effect_map[i][0];
+        if (pgm_read_byte(&led_matrix_effect_map[i][1]) == val)
+            return pgm_read_byte(&led_matrix_effect_map[i][0]);
     }
     return 0xFF;
 }
 
 uint8_t xap2led_matrix(uint8_t val) {
     for(uint8_t i = 0; i < ARRAY_SIZE(led_matrix_effect_map); i++) {
-        if (led_matrix_effect_map[i][0] == val)
-            return led_matrix_effect_map[i][1];
+        if (pgm_read_byte(&led_matrix_effect_map[i][0]) == val)
+            return pgm_read_byte(&led_matrix_effect_map[i][1]);
     }
     return 0xFF;
 }
@@ -1090,3 +1090,4 @@ enum { ENABLED_LED_MATRIX_EFFECTS = 0
 #endif
 };
 #endif //LED_MATRIX_ENABLE
+
