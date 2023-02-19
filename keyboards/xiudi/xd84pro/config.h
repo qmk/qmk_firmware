@@ -44,7 +44,6 @@
 
 #define BACKLIGHT_PIN F5
 #define BACKLIGHT_LEVELS 10
-#define BACKLIGHT_ON_STATE 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

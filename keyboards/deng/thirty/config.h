@@ -25,7 +25,6 @@
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN B11
 #define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_ON_STATE 0
 #endif
 
 /* RGB Matrix */

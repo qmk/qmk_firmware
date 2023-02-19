@@ -81,7 +81,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
-#define BREATHING_PERIOD 6
 #endif
 
 /* ws2812 RGB LED */

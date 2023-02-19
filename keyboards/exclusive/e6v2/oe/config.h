@@ -44,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 5
 #define BACKLIGHT_BREAHTING
-#define BREATHING_PERIOD 3
 #endif
 
 #define DIODE_DIRECTION COL2ROW
