@@ -7,6 +7,10 @@ uint8_t mod_state;
  * default HHKB Layout
  */
 #include QMK_KEYBOARD_H
+void registerAndUnregisterKeyCode(uint16_t keyCode) {
+    register_code16(keyCode);
+    unregister_code16(keyCode);
+}
 
 /*
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -126,7 +130,6 @@ enum custom_keycodes {
     MA_LTHUMB1,
     MA_LTHUMB2,
     MA_LTHUMB3,
-    MA_LTHUMB4,
     MA_LTHUMBQ,
     MA_LTHUMBW,
     MA_LTHUMBA,
@@ -141,32 +144,30 @@ enum custom_keycodes {
     MA_LTHUMBR,
     MA_LTHUMBT,
     MA_LTHUMBY,
+    MA_LPINKY,
 };
 
 #define LA_BASE 0
 #define LA_CAPSLOCK 1
 #define LA_RPINKY 2
-#define LA_LPINKY 3
-#define LA_LPINKYQ 4
-#define LA_LPINKYW 5
-#define LA_RTHUMB 6
-#define LA_LTHUMB 7
-#define LA_LTHUMBEMO 8
-#define LA_LTHUMBEOSL 9
-#define LA_LTHUMBDMO 10
-#define LA_LTHUMBDOSL 11
-#define LA_LTHUMB1MO 12
-#define LA_LTHUMB2MO 13
-#define LA_LTHUMB3MO 14
-#define LA_LTHUMB4MO 15
-
+#define LA_RTHUMB 3
+#define LA_LTHUMB 4
+#define LA_LTHUMBEMO 5
+#define LA_LTHUMBEOSL 6
+#define LA_LTHUMBDMO 7
+#define LA_LTHUMBDOSL 8
+#define LA_LTHUMB1MO 9
+#define LA_LTHUMB2MO 10
+#define LA_LTHUMB3MO 11
+#define LA_LPINKY 12
+#define LA_LPINKYQ 13
+#define LA_LPINKYW 14
 
 bool isLeftThumbEWeakStarted = false;
 bool isLeftThumbDWeakStarted = false;
 bool isLeftThumb1WeakStarted = false;
 bool isLeftThumb2WeakStarted = false;
 bool isLeftThumb3WeakStarted = false;
-bool isLeftThumb4WeakStarted = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -192,7 +193,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(LA_RPINKY),
         KC_LALT, MO(LA_LTHUMB), KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
-
     [LA_CAPSLOCK] = LAYOUT(
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
         KC_TAB, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), KC_LBRC, KC_RBRC, TG(LA_CAPSLOCK),
@@ -200,7 +200,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(LA_LPINKY),
         KC_LALT, MO(LA_LTHUMB), KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
-
     [LA_RPINKY] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MEDIA_PLAY_PAUSE,
@@ -208,7 +207,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-
+    [LA_RTHUMB] = LAYOUT(
+        KC_PWR, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, QK_REBOOT, QK_BOOTLOADER,
+        KC_CAPS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, FR_AT, FR_MICR, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
+        KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, FR_PIPE, FR_SECT, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
+        KC_TRNS, FR_DEG, FR_SUP2, FR_DLR, FR_PERC, FR_PND, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
     [LA_LPINKY] = LAYOUT(
         KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
         KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -216,7 +221,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
     ),
-
     [LA_LPINKYQ] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, MA_DELX2, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UPX2, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -224,7 +228,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_LCTL, MA_BSPCX2, KC_TRNS, KC_TRNS
     ),
-
     [LA_LPINKYW] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, MA_DELX4, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UPX4, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -232,23 +235,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_LCTL, MA_BSPCX4, KC_TRNS, KC_TRNS
     ),
-
-    [LA_RTHUMB] = LAYOUT(
-        KC_PWR, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, QK_BOOTLOADER,
-        KC_CAPS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, FR_AT, FR_MICR, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
-        KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, FR_PIPE, FR_SECT, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
-        KC_TRNS, FR_DEG, FR_SUP2, FR_DLR, FR_PERC, FR_PND, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
     [LA_LTHUMB] = LAYOUT(
-        KC_ESC, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, MA_LTHUMB4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
+        KC_ESC, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
         KC_TAB, MA_LTHUMBQ, MA_LTHUMBW, MA_LTHUMBE, MA_LTHUMBR, MA_LTHUMBT, MA_LTHUMBY, FR_7, FR_8, FR_9, FR_EQL, FR_ASTR, KC_RBRC, KC_BSPC,
-        MO(LA_LPINKY), MA_LTHUMBA, MA_LTHUMBS,  MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, FR_DOT, FR_4, FR_5, FR_6, FR_MINS, FR_PLUS, KC_ENT,
+        MA_LPINKY, MA_LTHUMBA, MA_LTHUMBS,  MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, FR_DOT, FR_4, FR_5, FR_6, FR_MINS, FR_PLUS, KC_ENT,
         KC_LSFT, MA_LTHUMBZ, MA_LTHUMBX, MA_LTHUMBC, MA_LTHUMBV, MA_LTHUMBB, FR_0, FR_1, FR_2, FR_3, FR_SLSH, KC_RSFT, MO(LA_LPINKY),
-        KC_LALT, KC_LCTL, KC_SPC, MO(LA_RTHUMB), KC_RALT
+        KC_LALT, KC_TRNS, KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
-
     [LA_LTHUMBEMO] = LAYOUT(
         KC_TRNS, KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -256,7 +249,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-
     [LA_LTHUMBEOSL] = LAYOUT(
         KC_TRNS, C(KC_Q), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -264,7 +256,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-
     [LA_LTHUMBDMO] = LAYOUT(
         KC_TRNS, KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -272,7 +263,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-
     [LA_LTHUMBDOSL] = LAYOUT(
         KC_TRNS, C(KC_Q), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -280,7 +270,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-
     [LA_LTHUMB1MO] = LAYOUT(
         KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -288,7 +277,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-
     [LA_LTHUMB2MO] = LAYOUT(
         KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -296,7 +284,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-
     [LA_LTHUMB3MO] = LAYOUT(
         KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -304,20 +291,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-
-    [LA_LTHUMB4MO] = LAYOUT(
-        KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    )
 };
 
-void registerAndUnregisterKeyCode(uint16_t keyCode) {
-    register_code16(keyCode);
-    unregister_code16(keyCode);
-}
 
 void processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -328,9 +303,28 @@ void processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
             break;
     }
 }
-
+void processKeycodeIfCtl(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case C(KC_DOWN):
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_DOWN);
+            }
+            break;
+        case C(KC_UP):
+            if (record->event.pressed) {
+                registerAndUnregisterKeyCode(KC_UP);
+            }
+            break;
+    }
+}
 void processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case MA_LPINKY:
+            if (record->event.pressed) {
+                layer_move(LA_LPINKY);
+                register_mods(MOD_MASK_CTRL);
+            }
+            break;
         case MA_LTHUMBE:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBEMO);
@@ -356,22 +350,16 @@ void processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 layer_on(LA_LTHUMB3MO);
             }
             break;
-        case MA_LTHUMB4:
-            if (record->event.pressed) {
-                layer_on(LA_LTHUMB4MO);
-            }
-            break;
     }
 }
-
 void processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MO(LA_LTHUMB):
             if (!(record->event.pressed)) {
-                layer_off(LA_LTHUMBEMO);
                 if(isLeftThumbEWeakStarted == false) {
                     layer_on(LA_LTHUMBEOSL);
                 } else {
+                    layer_off(LA_LTHUMBEMO);
                     isLeftThumbEWeakStarted = false;
                 }
             }
@@ -391,7 +379,15 @@ void processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
             break;
     }
 }
-
+void processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
+//    switch (keycode) {
+//        case MO(LA_LTHUMB):
+//            break;
+//    }
+    if (record->event.pressed) {
+        layer_off(LA_LTHUMBEOSL);
+    }
+}
 void processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MO(LA_LTHUMB):
@@ -410,23 +406,9 @@ void processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
             break;
     }
 }
-
-void processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
-
-}
-
-void processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {
-
-}
-
-void processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
-
-}
-
-void processKeycodeIfLThumb4Mo(uint16_t keycode, keyrecord_t* record) {
-
-}
-
+void processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {}
+void processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {}
+void processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {}
 void processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_BACKTICK:
@@ -444,7 +426,15 @@ void processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
             break;
     }
 }
-
+void processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case KC_LCTL:
+            if (!(record->event.pressed)) {
+                unregister_mods(MOD_MASK_CTRL);
+            }
+            break;
+    }
+}
 void processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_UPX2:
@@ -491,7 +481,6 @@ void processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
             break;
     }
 }
-
 void processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_UPX4:
@@ -553,21 +542,25 @@ void processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
     }
 }
 
-void processKeycodeInAnyCase(uint16_t keycode, keyrecord_t* record) {}
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     // Store the current modifier state in the variable for later reference
     mod_state = get_mods();
-
     // Detect the activation of either shift keys
     if (mod_state & MOD_MASK_SHIFT) {
         processKeycodeIfShift(keycode, record);
         return true;
     }
+//    if (mod_state & MOD_MASK_CTRL) {
+//        processKeycodeIfCtl(keycode, record);
+//        return true;
+//    }
+
     if (IS_LAYER_ON(LA_LTHUMB)) {
         if(IS_LAYER_ON(LA_LTHUMBEMO)) {
             processKeycodeIfLThumbEMo(keycode, record);
+        } else if(IS_LAYER_ON(LA_LTHUMBEOSL)) {
+            processKeycodeIfLThumbEOsl(keycode, record);
         } else if(IS_LAYER_ON(LA_LTHUMBDMO)) {
             processKeycodeIfLThumbDMo(keycode, record);
         } else if(IS_LAYER_ON(LA_LTHUMB1MO)) {
@@ -576,8 +569,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             processKeycodeIfLThumb2Mo(keycode, record);
         } else if(IS_LAYER_ON(LA_LTHUMB3MO)) {
             processKeycodeIfLThumb3Mo(keycode, record);
-        } else if(IS_LAYER_ON(LA_LTHUMB4MO)) {
-            processKeycodeIfLThumb4Mo(keycode, record);
         } else {
             processKeycodeIfLThumb(keycode, record);
         }
@@ -587,6 +578,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         processKeycodeIfRThumb(keycode, record);
         return true;
     }
+    if (IS_LAYER_ON(LA_LPINKY)) {
+            processKeycodeIfLPinky(keycode, record);
+            return true;
+        }
     if (IS_LAYER_ON(LA_LPINKYQ)) {
         processKeycodeIfLPinkyQ(keycode, record);
         return true;
@@ -595,7 +590,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         processKeycodeIfLPinkyZ(keycode, record);
         return true;
     }
-    processKeycodeInAnyCase(keycode, record);
+
     return true;
 }
 
