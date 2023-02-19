@@ -52,7 +52,7 @@
     "layouts": {
         "LAYOUT_k1": {
             "layout": [
-                { "label":"Mute", "x": 0, "y": 0 }
+                { "x": 0, "y": 0, "matrix": [0, 0] }
             ]
         }
     },

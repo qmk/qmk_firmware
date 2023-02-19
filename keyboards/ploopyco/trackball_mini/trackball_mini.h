@@ -31,9 +31,6 @@
 
 void process_wheel(void);
 
-#define LAYOUT(BL, BM, BR, BF, BB) \
-    { {BL, BM, BR, BF, BB}, }
-
 typedef union {
     uint32_t raw;
     struct {
