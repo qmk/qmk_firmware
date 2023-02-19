@@ -7,10 +7,6 @@ uint8_t mod_state;
  * default HHKB Layout
  */
 #include QMK_KEYBOARD_H
-void registerAndUnregisterKeyCode(uint16_t keyCode) {
-    register_code16(keyCode);
-    unregister_code16(keyCode);
-}
 
 /*
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -238,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LA_LTHUMB] = LAYOUT(
         KC_ESC, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
         KC_TAB, MA_LTHUMBQ, MA_LTHUMBW, MA_LTHUMBE, MA_LTHUMBR, MA_LTHUMBT, MA_LTHUMBY, FR_7, FR_8, FR_9, FR_EQL, FR_ASTR, KC_RBRC, KC_BSPC,
-        MA_LPINKY, MA_LTHUMBA, MA_LTHUMBS,  MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, FR_DOT, FR_4, FR_5, FR_6, FR_MINS, FR_PLUS, KC_ENT,
+        LM(LA_LPINKY, MOD_LCTL), MA_LTHUMBA, MA_LTHUMBS,  MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, FR_DOT, FR_4, FR_5, FR_6, FR_MINS, FR_PLUS, KC_ENT,
         KC_LSFT, MA_LTHUMBZ, MA_LTHUMBX, MA_LTHUMBC, MA_LTHUMBV, MA_LTHUMBB, FR_0, FR_1, FR_2, FR_3, FR_SLSH, KC_RSFT, MO(LA_LPINKY),
         KC_LALT, KC_TRNS, KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
@@ -294,65 +290,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case KC_SLSH:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(FR_BSLS);
+                tap_code16(FR_BSLS);
             }
-            break;
+            return false;
     }
+    return true;
 }
-void processKeycodeIfCtl(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfCtl(uint16_t keycode, keyrecord_t* record) {return true;}
+bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case C(KC_DOWN):
-            if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_DOWN);
-            }
-            break;
-        case C(KC_UP):
-            if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_UP);
-            }
-            break;
-    }
-}
-void processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case MA_LPINKY:
-            if (record->event.pressed) {
-                layer_move(LA_LPINKY);
-                register_mods(MOD_MASK_CTRL);
-            }
-            break;
+//        case MA_LPINKY:
+//            if (record->event.pressed) {
+//                layer_move(LA_LPINKY);
+//                register_mods(MOD_MASK_CTRL);
+//            }
+//            return false;
         case MA_LTHUMBE:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBEMO);
             }
-            break;
+            return false;
         case MA_LTHUMBD:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBDMO);
             }
-            break;
+            return false;
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMB1MO);
             }
-            break;
+            return false;
         case MA_LTHUMB2:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMB2MO);
             }
-            break;
+            return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMB3MO);
             }
-            break;
+            return false;
     }
+    return true;
 }
-void processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MO(LA_LTHUMB):
             if (!(record->event.pressed)) {
@@ -363,32 +348,34 @@ void processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
                     isLeftThumbEWeakStarted = false;
                 }
             }
-            break;
+            return false;
         case !MO(LA_LTHUMB):
             isLeftThumbEWeakStarted = true;
         case MA_DELLINE:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_HOME);
-                registerAndUnregisterKeyCode(KC_HOME);
+                tap_code16(KC_HOME);
+                tap_code16(KC_HOME);
                 register_code16(KC_LSFT);
-                registerAndUnregisterKeyCode(KC_END);
-                registerAndUnregisterKeyCode(KC_RGHT);
+                tap_code16(KC_END);
+                tap_code16(KC_RGHT);
                 unregister_code16(KC_LSFT);
-                registerAndUnregisterKeyCode(KC_DEL);
+                tap_code16(KC_DEL);
             }
-            break;
+            return false;
     }
+    return true;
 }
-void processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
 //    switch (keycode) {
 //        case MO(LA_LTHUMB):
-//            break;
+//            return false;
 //    }
     if (record->event.pressed) {
         layer_off(LA_LTHUMBEOSL);
     }
+    return false;
 }
-void processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MO(LA_LTHUMB):
             if (!(record->event.pressed)) {
@@ -399,197 +386,194 @@ void processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
                     isLeftThumbDWeakStarted = false;
                 }
             }
-            break;
+            return false;
         case !MO(LA_LTHUMB):
             isLeftThumbDWeakStarted = true;
         case MA_LTHUMBE:
-            break;
+            return false;
     }
+    return true;
 }
-void processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {}
-void processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {}
-void processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {}
-void processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {return true;}
+bool processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {return true;}
+bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {return true;}
+bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_BACKTICK:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(FR_GRV);
+                tap_code16(FR_GRV);
                 // timer = timer_read();
-                registerAndUnregisterKeyCode(KC_SPC);
+                tap_code16(KC_SPC);
             }
-            break;
+            return false;
         case MA_TILD:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(FR_TILD);
-                registerAndUnregisterKeyCode(KC_SPC);
+                tap_code16(FR_TILD);
+                tap_code16(KC_SPC);
             }
-            break;
+            return false;
     }
+    return true;
 }
-void processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case KC_LCTL:
-            if (!(record->event.pressed)) {
-                unregister_mods(MOD_MASK_CTRL);
+        case C(KC_UP):
+            if (record->event.pressed) {
+                tap_code16(KC_UP);
             }
-            break;
+            return false;
+        case C(KC_DOWN):
+            if (record->event.pressed) {
+                tap_code16(KC_DOWN);
+            }
+            return false;
     }
+    return true;
 }
-void processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_UPX2:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_UP);
-                registerAndUnregisterKeyCode(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
             }
-            break;
+            return false;
         case MA_DOWNX2:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_DOWN);
-                registerAndUnregisterKeyCode(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
             }
-            break;
+            return false;
         case MA_LEFTX2:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_LEFT);
-                registerAndUnregisterKeyCode(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
             }
-            break;
+            return false;
         case MA_RIGHTX2:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_RIGHT);
-                registerAndUnregisterKeyCode(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
             }
-            break;
+            return false;
         case MA_DELX2:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_DEL);
-                registerAndUnregisterKeyCode(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
             }
-            break;
+            return false;
         case MA_ENTX2:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_ENT);
-                registerAndUnregisterKeyCode(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
             }
-            break;
+            return false;
         case MA_BSPCX2:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_BSPC);
-                registerAndUnregisterKeyCode(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
             }
-            break;
+            return false;
     }
+    return true;
 }
-void processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_UPX4:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_UP);
-                registerAndUnregisterKeyCode(KC_UP);
-                registerAndUnregisterKeyCode(KC_UP);
-                registerAndUnregisterKeyCode(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
             }
-            break;
+            return false;
         case MA_DOWNX4:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_DOWN);
-                registerAndUnregisterKeyCode(KC_DOWN);
-                registerAndUnregisterKeyCode(KC_DOWN);
-                registerAndUnregisterKeyCode(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
             }
-            break;
+            return false;
         case MA_LEFTX4:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_LEFT);
-                registerAndUnregisterKeyCode(KC_LEFT);
-                registerAndUnregisterKeyCode(KC_LEFT);
-                registerAndUnregisterKeyCode(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
             }
-            break;
+            return false;
         case MA_RIGHTX4:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_RIGHT);
-                registerAndUnregisterKeyCode(KC_RIGHT);
-                registerAndUnregisterKeyCode(KC_RIGHT);
-                registerAndUnregisterKeyCode(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
             }
-            break;
+            return false;
         case MA_DELX4:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_DEL);
-                registerAndUnregisterKeyCode(KC_DEL);
-                registerAndUnregisterKeyCode(KC_DEL);
-                registerAndUnregisterKeyCode(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
             }
-            break;
+            return false;
         case MA_ENTX4:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_ENT);
-                registerAndUnregisterKeyCode(KC_ENT);
-                registerAndUnregisterKeyCode(KC_ENT);
-                registerAndUnregisterKeyCode(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
             }
-            break;
+            return false;
         case MA_BSPCX4:
             if (record->event.pressed) {
-                registerAndUnregisterKeyCode(KC_BSPC);
-                registerAndUnregisterKeyCode(KC_BSPC);
-                registerAndUnregisterKeyCode(KC_BSPC);
-                registerAndUnregisterKeyCode(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
             }
-            break;
+            return false;
     }
+    return true;
 }
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     // Store the current modifier state in the variable for later reference
     mod_state = get_mods();
-    // Detect the activation of either shift keys
-    if (mod_state & MOD_MASK_SHIFT) {
-        processKeycodeIfShift(keycode, record);
-        return true;
-    }
-//    if (mod_state & MOD_MASK_CTRL) {
-//        processKeycodeIfCtl(keycode, record);
-//        return true;
-//    }
 
     if (IS_LAYER_ON(LA_LTHUMB)) {
         if(IS_LAYER_ON(LA_LTHUMBEMO)) {
-            processKeycodeIfLThumbEMo(keycode, record);
+            return processKeycodeIfLThumbEMo(keycode, record);
         } else if(IS_LAYER_ON(LA_LTHUMBEOSL)) {
-            processKeycodeIfLThumbEOsl(keycode, record);
+            return processKeycodeIfLThumbEOsl(keycode, record);
         } else if(IS_LAYER_ON(LA_LTHUMBDMO)) {
-            processKeycodeIfLThumbDMo(keycode, record);
+            return processKeycodeIfLThumbDMo(keycode, record);
         } else if(IS_LAYER_ON(LA_LTHUMB1MO)) {
-            processKeycodeIfLThumb1Mo(keycode, record);
+            return processKeycodeIfLThumb1Mo(keycode, record);
         } else if(IS_LAYER_ON(LA_LTHUMB2MO)) {
-            processKeycodeIfLThumb2Mo(keycode, record);
+            return processKeycodeIfLThumb2Mo(keycode, record);
         } else if(IS_LAYER_ON(LA_LTHUMB3MO)) {
-            processKeycodeIfLThumb3Mo(keycode, record);
+            return processKeycodeIfLThumb3Mo(keycode, record);
         } else {
-            processKeycodeIfLThumb(keycode, record);
+            return processKeycodeIfLThumb(keycode, record);
         }
-        return true;
     }
-    if (IS_LAYER_ON(LA_RTHUMB)) {
-        processKeycodeIfRThumb(keycode, record);
-        return true;
-    }
+    if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
     if (IS_LAYER_ON(LA_LPINKY)) {
-            processKeycodeIfLPinky(keycode, record);
-            return true;
+        if (IS_LAYER_ON(LA_LPINKYQ)) {
+            return processKeycodeIfLPinkyQ(keycode, record);
+        } else if (IS_LAYER_ON(LA_LPINKYW)) {
+            return processKeycodeIfLPinkyZ(keycode, record);
+        } else {
+            return processKeycodeIfLPinky(keycode, record);
         }
-    if (IS_LAYER_ON(LA_LPINKYQ)) {
-        processKeycodeIfLPinkyQ(keycode, record);
-        return true;
     }
-    if (IS_LAYER_ON(LA_LPINKYW)) {
-        processKeycodeIfLPinkyZ(keycode, record);
-        return true;
-    }
+
+    if (mod_state & MOD_MASK_SHIFT) {return processKeycodeIfShift(keycode, record);}
+    if (mod_state & MOD_MASK_CTRL) {return processKeycodeIfCtl(keycode, record);}
 
     return true;
 }
