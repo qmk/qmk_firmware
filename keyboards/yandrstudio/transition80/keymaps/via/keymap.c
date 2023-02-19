@@ -48,16 +48,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case KC_LG:
-            if (record->event.pressed) {
-                process_magic(GUI_TOG, record);
-            }
-            return false;
-        case KC_MACOS:
-            if (record->event.pressed) {
-                process_magic(CG_TOGG, record);
-            }
-            return false;
         case KC_MCTL:
             if (record->event.pressed) {
                 host_consumer_send(0x29F);
