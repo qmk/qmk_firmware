@@ -1,3 +1,5 @@
+#pragma once
+
 // Configure the global tapping term (default: 200ms)
 // https://docs.qmk.fm/#/tap_hold?id=tapping-term
 #define TAPPING_TERM 200
@@ -17,14 +19,7 @@
 #define PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD_PER_KEY
 
-/*
-  allow the microdox board to work with either controller plugged in
-  docs: https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom
-
-  flashing the controllers:
-  make boardsource/microdox:chadhs:dfu-split-left
-  make boardsource/microdox:chadhs:dfu-split-right
-*/
+// docs: https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom
 #define EE_HANDS
 
 // https://docs.qmk.fm/#/config_options?id=features-that-can-be-enabled
@@ -50,9 +45,6 @@
 // https://docs.qmk.fm/#/feature_caps_word?id=customizing-caps-word
 #define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds
 
-// https://docs.qmk.fm/#/feature_mouse_keys?id=accelerated-mode
-/* #define MOUSEKEY_INTERVAL 16 */
-/* #define MOUSEKEY_DELAY 0 */
-/* #define MOUSEKEY_TIME_TO_MAX 60 */
-/* #define MOUSEKEY_MAX_SPEED 4 // 7 */
-/* #define MOUSEKEY_WHEEL_DELAY 0 */
+// https://getreuer.info/posts/keyboards/layer-lock/index.html
+// TODO: fix this
+#define LAYER_LOCK_IDLE_TIMEOUT 5000  // turn off after 5 seconds

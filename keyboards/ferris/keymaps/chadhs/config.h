@@ -19,6 +19,7 @@
 #define PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD_PER_KEY
 
+// docs: https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom
 #define EE_HANDS
 
 // https://docs.qmk.fm/#/config_options?id=features-that-can-be-enabled
@@ -49,3 +50,7 @@
 
 // https://docs.qmk.fm/#/feature_caps_word?id=customizing-caps-word
 #define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds
+
+// https://getreuer.info/posts/keyboards/layer-lock/index.html
+// TODO: fix this
+#define LAYER_LOCK_IDLE_TIMEOUT 5000  // turn off after 5 seconds

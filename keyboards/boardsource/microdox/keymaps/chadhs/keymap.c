@@ -93,14 +93,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
   '------'------'------'------'------'            '------'------'------'------'------'
                    .------.------.------.      .------.------.------.
-                   |      | ↓↓↓  | ↓↓↓  |      | DEL  | ↓↓↓  |      |
+                   |      | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |      |
                    |      |      |      |      |      |      |      |
                    '------'------'------'      '------'------'------'
 */
   KC_1,    KC_2,    KC_3,     KC_4,     KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
   HOME_BT, KC_RCTL, HOME_PGU, HOME_PGD, LLOCK,        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QT,
   KC_LSFT, XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,      KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, SFT_BSLS,
-                    XXXXXXX,  KC_TRNS,  KC_TRNS,      KC_DEL,  KC_TRNS, XXXXXXX
+                    XXXXXXX,  KC_TRNS,  KC_TRNS,      KC_TRNS, KC_TRNS, XXXXXXX
 ),
 
 [_FUNCTION] = LAYOUT_split_3x5_3(
@@ -259,12 +259,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
-        // Keycodes that continue Caps Word, with shift applied.
+        // keycodes that continue Caps Word, with shift applied
         case KC_A ... KC_Z:
-            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            add_weak_mods(MOD_BIT(KC_LSFT));  // apply shift to next key
             return true;
 
-        // Keycodes that continue Caps Word, without shifting.
+        // keycodes that continue Caps Word, without shifting
         case KC_1 ... KC_0:
         case KC_BSPC:
         case KC_DEL:
@@ -275,12 +275,13 @@ bool caps_word_press_user(uint16_t keycode) {
             return true;
 
         default:
-            return false;  // Deactivate Caps Word.
+            return false;  // deactivate Caps Word
     }
 }
 
 
 /* custom lighting configuration */
+
 // microcontroller leds
 void led_set_kb(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK))
@@ -310,22 +311,23 @@ const rgblight_segment_t PROGMEM rgb_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 12, HSV_GREEN}
 );
 
-// Now define the array of layers. Later layers take precedence
+// array of layers
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    rgb_capslock_layer,
-    rgb_colemakdh_layer, // Overrides caps lock layer
-    rgb_gaming_layer,    // Overrides other layers
-    rgb_gaming2_layer,   // Overrides other layers
-    rgb_num_layer,       // Overrides other layers
-    // There seems to be a bug activating layer 0, so adding caps as layer 5 as well
+    rgb_capslock_layer,  // not used, see comment on duplicated layer below
+    rgb_colemakdh_layer, // default layer
+    rgb_gaming_layer,    // overrides other layers
+    rgb_gaming2_layer,   // overrides other layers
+    rgb_num_layer,       // overrides other layers
+    // there seems to be a bug activating layer 0, so adding caps as layer 5 as well
     rgb_capslock_layer
 );
 
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
+    // enable the LED layers
     rgblight_layers = rgb_layers;
 }
 
+// activate rgb_capslock_layer when Caps Lock is on
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(5, led_state.caps_lock);
     return true;
@@ -339,16 +341,23 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _GAME));
     rgblight_set_layer_state(3, layer_state_cmp(state, _GAME_FUN));
-    rgblight_set_layer_state(4, layer_state_cmp(state, _NUM_NAV));
     return state;
 }
 
+// activate rgb_capslock_layer when Caps Word activates
 void caps_word_set_user(bool active) {
     if (active) {
-        // Do something when Caps Word activates.
         rgblight_set_layer_state(5, true);
     } else {
-        // Do something when Caps Word deactivates.
         rgblight_set_layer_state(5, false);
+    }
+}
+
+// activate rgb_num_layer when num layer is locked
+void layer_lock_set_user(layer_state_t locked_layers) {
+    if (is_layer_locked(_NUM_NAV)) {
+        rgblight_set_layer_state(4, true);
+    } else {
+        rgblight_set_layer_state(4, false);
     }
 }

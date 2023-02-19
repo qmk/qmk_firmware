@@ -7,7 +7,10 @@ combos.def: This file defines chords that when pressed emulate a single key pres
 COMB(capsWord,       CW_TOGG,         HOME_T, HOME_N)
 COMB(capsLock,       KC_CAPS,         KC_G, KC_M)
 COMB(altEscape,      KC_ESC,          KC_Q, KC_W)
+COMB(altEscapeNum,   KC_ESC,          KC_1, KC_2)
 COMB(altBackspace,   KC_BSPC,         KC_Y, KC_SCLN)
+COMB(altDelete,      KC_DEL,          NUM_BSPC, HOME_T)
+COMB(altDeleteNum,   KC_DEL,          NUM_BSPC, HOME_PGD)
 COMB(quickQuote,     KC_QUOT,         NUM_BSPC, HOME_O)
 //// gaming layer
 COMB(gameT,          KC_T,            KC_E, KC_R)
