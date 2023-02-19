@@ -22,12 +22,10 @@
 
 enum custom_keycodes {
 #ifdef VIA_ENABLE
-    KC_MISSION_CONTROL = USER00,
+    KC_LOPTN = USER00,
 #else
-    KC_MISSION_CONTROL = SAFE_RANGE,
+    KC_LOPTN = SAFE_RANGE,
 #endif
-    KC_LAUNCHPAD,
-    KC_LOPTN,
     KC_ROPTN,
     KC_LCMMD,
     KC_RCMMD,
@@ -38,8 +36,6 @@ enum custom_keycodes {
     KC_CORTANA
 };
 
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
 #define KC_TASK KC_TASK_VIEW
 #define KC_FLXP KC_FILE_EXPLORER
 #define KC_SNAP KC_SCREEN_SHOT
