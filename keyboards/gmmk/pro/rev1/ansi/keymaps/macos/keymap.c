@@ -23,9 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  KC_MSCTRL = SAFE_RANGE,
-  KC_LNPD,
-  LED_TLDE,
+  LED_TLDE = SAFE_RANGE,
   LED_1,
   LED_2,
   LED_3,
@@ -209,23 +207,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-      // https://github.com/qmk/qmk_firmware/issues/10111
-      case KC_MSCTRL:
-        if (record->event.pressed) {
-          host_consumer_send(0x29F);
-        } else {
-          host_consumer_send(0);
-        }
-        return false; /* Skip all further processing of this key */
-
-      case KC_LNPD:
-        if (record->event.pressed) {
-          host_consumer_send(0x2A0);
-        } else {
-          host_consumer_send(0);
-        }
-        return false; /* Skip all further processing of this key */
-
       #ifdef NKRO_ENABLE
         #if RGB_CONFIRMATION_BLINKING_TIME > 0
           case NK_TOGG:
