@@ -25,9 +25,7 @@ enum layers{
 };
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = USER00,
-    KC_LAUNCHPAD,
-    KC_TASK,
+    KC_TASK = USER00,
     KC_FLXP
 };
 
