@@ -41,7 +41,7 @@ static bool mac_fnkey_pressed = false;
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    KC_TGUI = SAFE_RANGE,  // Toggle between GUI Lock or Unlock (Windows)
+    GUI_TOG = SAFE_RANGE,  // Toggle between GUI Lock or Unlock (Windows)
     KC_TMED,               // Toggle between Fx keys or Media keys (Mac)
     KC_WFN,                // Windows function key
     KC_MFN,                // Mac function key
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, KC_VOLD,    _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                                  _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,             _______,             _______, _______, _______, _______,
-        _______, KC_TGUI, _______,                            _______,                            _______, _______, MO_WSL,  _______,    _______, _______, _______,    _______,          _______
+        _______, GUI_TOG, _______,                            _______,                            _______, _______, MO_WSL,  _______,    _______, _______, _______,    _______,          _______
     ),
   /* Keymap _WSL: Windows System Layer
    * ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┐
@@ -258,7 +258,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_TGUI:
+        case GUI_TOG:
             if (!record->event.pressed) {
                 // Toggle GUI lock on key release
                 toggle_lock_win_key();
