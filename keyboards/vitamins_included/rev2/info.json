@@ -2,5 +2,8 @@
     "usb": {
         "device_version": "0.0.2"
     },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
     "bootloader": "qmk-dfu"
 }

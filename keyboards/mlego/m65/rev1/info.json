@@ -3,6 +3,11 @@
         "pid": "0x6061",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C13",
+        "num_lock": "B12",
+        "scroll_lock": "B13"
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino"
 }

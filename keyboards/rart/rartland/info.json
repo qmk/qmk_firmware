@@ -8,6 +8,10 @@
         "pid": "0x6065",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A0",
+        "on_state": 0
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "community_layouts": ["65_ansi", "65_iso"],

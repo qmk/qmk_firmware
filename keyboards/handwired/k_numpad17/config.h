@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 400
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
 // ROWS: Top to bottom, COLS: Left to right
 
 #define MATRIX_ROW_PINS { D1, D4, C6, D7, E6 }

@@ -33,9 +33,6 @@
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
 
-#define LAYOUT(BL, BM, BR, BF, BB) \
-    { {BL, BM, BR, BF, BB}, }
-
 typedef union {
     uint32_t raw;
     struct {

@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -40,11 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Split hand configration */
 #define MASTER_LEFT
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
 
 #ifdef RGBLIGHT_ENABLE
   #define RGB_DI_PIN D3

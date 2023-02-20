@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
 #define MATRIX_COL_PINS { B10, B12, C8 , C4 , C5 , B0 , C10, B13, B14, B15, A15, C6 , C7 , A8 , C9}
 #define MATRIX_ROW_PINS { A7 , A10, D2 , C12, B1 , C11 }
 #define DIODE_DIRECTION COL2ROW
@@ -37,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 #define OPENDRAIN_INDICATORS
-#define LED_CAPS_LOCK_PIN A6
 
 /*
  * Feature disable options

@@ -16,10 +16,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 8 // Rows are doubled-up
-#define MATRIX_COLS 6
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -40,11 +36,7 @@
 
 #define MATRIX_IO_DELAY 5
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
 #define SPLIT_HAND_PIN B9
-#define SOFT_SERIAL_PIN B6
 //#define SELECT_SOFT_SERIAL_SPEED 0
 #define SERIAL_USART_SPEED 921600
 
@@ -92,9 +84,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW_RIGHT 4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0

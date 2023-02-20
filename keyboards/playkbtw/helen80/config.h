@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -58,7 +54,3 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
-
-#define LED_CAPS_LOCK_PIN B3
-#define LED_SCROLL_LOCK_PIN B2
-#define LED_PIN_ON_STATE 0

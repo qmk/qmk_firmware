@@ -17,16 +17,9 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { E6, B7, F7, F4, F5 }
 #define MATRIX_COL_PINS { F6, B0, F1, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1 }
-
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 6
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

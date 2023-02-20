@@ -8,6 +8,10 @@
         "pid": "0x4A58",
         "device_version": "0.2.0"
     },
+    "indicators": {
+        "caps_lock": "B7",
+        "num_lock": "C6"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

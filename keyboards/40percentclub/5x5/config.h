@@ -3,10 +3,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -22,14 +18,6 @@
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-// #define RGBLED_NUM 16
-// #define RGBLIGHT_HUE_STEP 8
-// #define RGBLIGHT_SAT_STEP 8
-// #define RGBLIGHT_VAL_STEP 8
-// #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -18,26 +18,6 @@
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 8
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define DIRECT_PINS                        \
-    {                                      \
-        { D4, D2, E6, B6, D7, C6, C7, B7 } \
-    }
-
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default
 #define UNUSABLE_PINS \
@@ -49,10 +29,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 3
 
 #define RGB_DI_PIN B5
 #define RGBLED_NUM 4

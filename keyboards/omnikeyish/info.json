@@ -8,6 +8,11 @@
         "pid": "0x0666",
         "device_version": "13.3.7"
     },
+    "indicators": {
+        "caps_lock": "E1",
+        "num_lock": "E0",
+        "scroll_lock": "B7"
+    },
     "processor": "at90usb1286",
     "bootloader": "halfkay",
     "layouts": {

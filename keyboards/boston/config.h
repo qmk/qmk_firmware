@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 19
-
 #define MATRIX_COL_PINS \
     { B10, B11, B12, B13, B14, B15, A8, A9, A10, A15, B3, B4, B7, B8, B9, C14, C15, F0, A3 }
 #define MATRIX_ROW_PINS \
@@ -64,11 +60,6 @@
     { F1 }
 #define ENCODER_RESOLUTION 2
 #define TAP_CODE_DELAY 15
-
-/* Lock LEDs */
-#define LED_NUM_LOCK_PIN A0
-#define LED_CAPS_LOCK_PIN A1
-#define LED_SCROLL_LOCK_PIN A2
 
 /*
  * Feature disable options

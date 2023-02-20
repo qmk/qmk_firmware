@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -37,15 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-//#define RGB_DI_PIN D5
-//#ifdef RGB_DI_PIN
-//#define RGBLED_NUM 8
-//#define RGBLIGHT_HUE_STEP 8
-//#define RGBLIGHT_SAT_STEP 8
-//#define RGBLIGHT_VAL_STEP 8
-//#define RGBLIGHT_SLEEP
-//#endif
 
 /*
  * Feature disable options

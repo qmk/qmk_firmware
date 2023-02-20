@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
 /* NCC-1701-KB PCB default pin-out */
 #define MATRIX_ROW_PINS { D4, D6, D7 }
 #define MATRIX_COL_PINS { B4, B5, B6 }

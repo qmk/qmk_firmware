@@ -16,10 +16,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 13
-
 #define MATRIX_ROW_PINS { F1, B7, F7, F5, F4}
 #define MATRIX_COL_PINS { F6, B3, B2, B1, B0, C7, C6, B6, B5, B4, D7, D6, D4}
 
@@ -54,7 +50,6 @@
 #define RGBLIGHT_VAL_STEP 8
 
 //pin setting
-#define LED_CAPS_LOCK_PIN E2
 #define LED_POWER_PIN       D5
 #define CHG_EN_PIN          E6
 #define BATTERY_LEVEL_PIN   F0

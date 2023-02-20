@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 7
-
 #define MOUSEKEY_INTERVAL    10
 #define MOUSEKEY_DELAY       0
 #define MOUSEKEY_TIME_TO_MAX 60
@@ -37,6 +33,5 @@
 
 #define HAL_USE_SERIAL TRUE
 #define SPLIT_HAND_PIN B9
-#define SOFT_SERIAL_PIN A9
 #define SERIAL_USART_DRIVER SD1
 #define SERIAL_USART_TX_PAL_MODE 7

@@ -30,10 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define DIODE_DIRECTION
 
-#define LED_NUM_LOCK_PIN B4
-#define LED_CAPS_LOCK_PIN B5
-#define LED_SCROLL_LOCK_PIN B6
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

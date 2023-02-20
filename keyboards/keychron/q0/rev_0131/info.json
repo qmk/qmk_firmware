@@ -8,6 +8,9 @@
         "pid": "0x0131",
         "device_version": "1.0.0"
     },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
     "layouts": {

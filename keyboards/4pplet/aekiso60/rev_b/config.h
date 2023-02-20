@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 // ROWS: Top to bottom, COLS: Left to right
 
 #define MATRIX_ROW_PINS {B15,A9,B7,A1,A2}
@@ -47,7 +44,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define LED_CAPS_LOCK_PIN A10
 
 #define BACKLIGHT_LEVELS 5

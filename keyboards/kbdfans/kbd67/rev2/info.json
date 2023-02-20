@@ -8,6 +8,10 @@
         "pid": "0x6067",
         "device_version": "0.0.2"
     },
+    "indicators": {
+        "caps_lock": "D4",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {

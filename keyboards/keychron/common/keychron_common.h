@@ -21,9 +21,7 @@
 #include "quantum_keycodes.h"
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = QK_KB_0,
-    KC_LAUNCHPAD,
-    KC_LOPTN,
+    KC_LOPTN = QK_KB_0,
     KC_ROPTN,
     KC_LCMMD,
     KC_RCMMD,
@@ -34,8 +32,6 @@ enum custom_keycodes {
     KC_CORTANA
 };
 
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
 #define KC_TASK KC_TASK_VIEW
 #define KC_FLXP KC_FILE_EXPLORER
 #define KC_SNAP KC_SCREEN_SHOT

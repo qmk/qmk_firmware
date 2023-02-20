@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { D2, D4, F4 }, \
-    { D7, B1, B3 }, \
-    { E6, B4, B2 } \
-}
-
 #define ENCODERS_PAD_A { D0, F6, B6 }
 #define ENCODERS_PAD_B { D1, F5, F7 }
 

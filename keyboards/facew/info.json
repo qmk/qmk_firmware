@@ -8,6 +8,10 @@
     "pid": "0x422D",
     "device_version": "2.0.0"
   },
+  "indicators": {
+    "caps_lock": "D1",
+    "num_lock": "D0"
+  },
   "processor": "atmega32a",
   "bootloader": "bootloadhid",
   "community_layouts": ["60_ansi"],

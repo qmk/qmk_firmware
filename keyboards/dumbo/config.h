@@ -15,11 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-/* Rows are doubled up */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 // wiring
 #define MATRIX_ROW_PINS { D4, D7, E6, B4 }
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6}
@@ -31,11 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN D2
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

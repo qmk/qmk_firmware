@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -64,10 +60,4 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif

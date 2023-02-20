@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 13
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -41,11 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Hardware LED pins*/
-#define LED_CAPS_LOCK_PIN D4
-#define LED_NUM_LOCK_PIN D2
-#define LED_PIN_ON_STATE 1
 
 /*
  * Feature disable options

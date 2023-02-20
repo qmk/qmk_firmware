@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
 #define MATRIX_ROW_PINS { B7, B3, B2, B1, B0 }
 #define MATRIX_COL_PINS { D5, D3, D2, D1, D0, F0, F1, E6, B5, B4, D7, D6, D4, F4, F5, F6 }
 
@@ -32,10 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define LED_CAPS_LOCK_PIN F7
-#define LED_PIN_ON_STATE 0
-
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

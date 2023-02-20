@@ -61,11 +61,7 @@
 enum keyboard_keycodes {
     LOCK_GUI = QK_KB_0,
     TOG_MACOS_KEYMAP,
-    KC_MISSION_CONTROL,
-    KC_LAUNCHPAD,
 };
 
 #define KC_LG    LOCK_GUI
 #define KC_MACOS TOG_MACOS_KEYMAP
-#define KC_MCTL  KC_MISSION_CONTROL
-#define KC_LPAD  KC_LAUNCHPAD

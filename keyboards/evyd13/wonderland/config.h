@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 // ROWS: Top to bottom, COLS: Left to right
 
 #define MATRIX_ROW_PINS {B0,D1,D2,D3,D5}
@@ -30,11 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_NUM_LOCK_PIN B1
-#define LED_CAPS_LOCK_PIN B2
-#define LED_SCROLL_LOCK_PIN B3
-#define LED_PIN_ON_STATE 0
 
 /* Backlight configuration
  */

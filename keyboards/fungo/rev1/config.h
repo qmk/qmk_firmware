@@ -16,19 +16,9 @@
 
 #pragma once
 
-
-
-
-#define SOFT_SERIAL_PIN D3	// RX8
-
 /* select keyboard  master board  - I2C or Serial communication master    */
 #define MASTER_RIGHT
 
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 7
 
 // wiring of each half
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2}

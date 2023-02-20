@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -40,10 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* The Model M has no diodes */
 #define MATRIX_HAS_GHOST
-
-/* Indicator LEDs */
-#define LED_CAPS_LOCK_PIN E6
-#define LED_PIN_ON_STATE 0
 
 /*
  * Feature disable options

@@ -1,4 +1,10 @@
 {
     "processor": "atmega328p",
-    "bootloader": "usbasploader"
+    "bootloader": "usbasploader",
+    "matrix_pins": {
+        "direct": [
+            ["D4", "D5", "B1"],
+            ["C3", "C2", "C1"]
+        ]
+    }
 }

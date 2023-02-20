@@ -35,16 +35,12 @@ typedef union {
 user_config_t user_config;
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = QK_KB_0,
-    KC_LAUNCHPAD,
-    KC_LIGHT_TAB_TOGGLE,
+    KC_LIGHT_TAB_TOGGLE = QK_KB_0,
     KC_LIGHT_ALPHAS_TOGGLE,
     KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE,
     KC_FN_LAYER_COLOR_TOGGLE
 };
 
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
 #define KC_LTTOG KC_LIGHT_TAB_TOGGLE
 #define KC_LATOG KC_LIGHT_ALPHAS_TOGGLE
 #define KC_TKTOG KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE
@@ -111,25 +107,11 @@ void eeconfig_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
         case KC_LIGHT_TAB_TOGGLE:
             if (record->event.pressed) {
                 user_config.caps_lock_light_tab ^= 1; // bitwise xor to toggle status bit
                 eeconfig_update_user(user_config.raw);
-            } 
+            }
             return false;  // Skip all further processing of this key
         case KC_LIGHT_ALPHAS_TOGGLE:
             if (record->event.pressed) {

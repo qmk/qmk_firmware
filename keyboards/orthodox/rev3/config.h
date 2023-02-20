@@ -22,11 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 9
-
 // wiring of each half
 
 //REV.3 PRO MICRO
@@ -42,17 +37,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define SOFT_SERIAL_PIN D0
-
 /* key combination for command */
 #define IS_COMMAND() ( \
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI)) \
 )
-
-/* ws2812 RGB LED */
-//#define RGB_DI_PIN D3
-
-//#define RGBLED_NUM 16    // Number of LEDs
 
 /*
  * Feature disable options

@@ -1,10 +1,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
-
 /* backlight */
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 3
@@ -20,7 +16,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* ROW and COL for ESC key */
-#define BOOTMAGIC_LITE_ROW 8
-#define BOOTMAGIC_LITE_COLUMN 0

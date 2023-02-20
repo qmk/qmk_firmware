@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 4
-
 // ROWS: Top to bottom, COLS: Left to right
 
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, D5, D0 }
@@ -36,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define LED_NUM_LOCK_PIN D6
-#define LED_PIN_ON_STATE 0
 
 /* Backlight configuration
  */

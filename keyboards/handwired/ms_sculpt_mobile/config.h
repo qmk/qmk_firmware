@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 18
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 

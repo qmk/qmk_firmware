@@ -8,7 +8,11 @@
         "pid": "0x8446",
         "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
+    "indicators": {
+        "caps_lock": "D1",
+        "on_state": 0
+    },
+    "processor": "atmega32u2",
     "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_split_space": {

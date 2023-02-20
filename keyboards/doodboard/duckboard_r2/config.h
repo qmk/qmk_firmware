@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 5
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F7, B1, B3, B2, B6 }
@@ -41,6 +37,3 @@
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 8    // Number of LEDs
 #endif
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1

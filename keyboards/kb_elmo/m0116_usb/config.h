@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 18
-
 /*
  * Keyboard Matrix Assignments
  */
@@ -35,7 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 4
-#define BOOTMAGIC_LITE_COLUMN 5

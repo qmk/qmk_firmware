@@ -17,20 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*Bootmagic boot button, set to topmost, leftmost key */
-#define BOOTMAGIC_LITE_ROW	1
-#define BOOTMAGIC_LITE_COLUMN	0
-
 /* encoder */
 /* #define NUMBER_OF_ENCODERS 1 */
 #define ENCODERS_PAD_A { B3 }
 #define ENCODERS_PAD_B { B2 }
 #define ENCODER_RESOLUTION 1
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B7, D0, D1, D2, D3}
@@ -44,9 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Define LED Indicator Pin */
-#define LED_NUM_LOCK_PIN B1
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING

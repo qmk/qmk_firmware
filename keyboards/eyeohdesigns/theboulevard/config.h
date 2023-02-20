@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 13
 #define ENCODERS_PAD_A {F5}
 #define ENCODERS_PAD_B {F4}
 #define ENCODER_RESOLUTION 2

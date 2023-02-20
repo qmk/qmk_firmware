@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
 // wiring of each half
 #define MATRIX_ROW_PINS { B1, F0, F5, F6, F7 }
 #define MATRIX_COL_PINS { F1, F4, D3, D2, B7, D4 }
@@ -40,10 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
 
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 5
