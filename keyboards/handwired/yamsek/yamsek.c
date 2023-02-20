@@ -20,4 +20,5 @@ void keyboard_post_init_kb(void) {
         wait_ms(1000); // workaround: usb needs some time to initialize, and qmk console does too to reconnect; without this, early 'print's are lost
         dprint("YaMseK: post_init done :-)\n");
     }
+    keyboard_post_init_user();
 }

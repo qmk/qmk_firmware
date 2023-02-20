@@ -24,7 +24,8 @@ RGBLIGHT_ENABLE = no
 RGBLIGHT_DRIVER = WS2812
 
 VPATH += drivers/gpio
-SRC += mcp23018.c i2c_master.c
+SRC += mcp23018.c
+QUANTUM_LIB_SRC += i2c_master.c
 OPT_DEFS += -DHAL_USE_I2C=TRUE
 
 DEFAULT_FOLDER = yamsek/atmega32u4

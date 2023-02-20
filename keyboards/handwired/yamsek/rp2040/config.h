@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#include "config_common.h"
-
 #define RGB_DI_PIN GP16
 //PICO_DEFAULT_WS2812_PIN
 #define RGBLED_NUM 1
