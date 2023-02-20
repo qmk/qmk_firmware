@@ -98,5 +98,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //see also https://docs.qmk.fm/#/feature_pointing_device?id=split-keyboard-configuration
 //#define SPLIT_POINTING_ENABLE
 
-#define CIRQUE_PINNACLE_DIAMETER_MM 23
-#define CIRQUE_PINNACLE_TAP_ENABLE true
+//#define CIRQUE_PINNACLE_DIAMETER_MM 23
+//#define CIRQUE_PINNACLE_TAP_ENABLE true
+#define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_RIGHT
+#define POINTING_DEVICE_DEBUG
+//#define PIMORONI_TRACKBALL_SCALE 5
+#define POINTING_DEVICE_ROTATION_270
+#define TRACKBALL_LED_TIMEOUT 5000
