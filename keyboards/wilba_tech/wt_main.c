@@ -150,6 +150,14 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
 
     // DO NOT call raw_hid_send(data,length) here, let caller do this
 }
+
+void via_set_device_indication(uint8_t value)
+{
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+    backlight_device_indication(value);
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+}
+
 #endif // VIA_ENABLE
 
 //
