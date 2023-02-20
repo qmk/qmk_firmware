@@ -22,9 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x2021
 #define PRODUCT_ID      0x2007
-#define DEVICE_VER      0x0215
-#define MANUFACTURER    [thpoll]
-#define PRODUCT         PolyKeyboard-Atom v0.2.15
+#define DEVICE_VER      0x0216
+#define MANUFACTURER    "[thpoll]"
+#define PRODUCT         "PolyKeyboard-Atom v0.2.16"
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

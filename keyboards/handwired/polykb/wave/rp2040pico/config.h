@@ -47,11 +47,12 @@ TRES  > 280µs
 */
 
 //#define WS2812_TIMING	1250
-#define WS2812_T0H	320
-#define WS2812_T0L	700
-#define WS2812_T1H	700
-#define WS2812_T1L	700
-#define WS2812_TRST_US 300
+//#define WS2812_T0H	320
+//#define WS2812_T0L	700
+//#define WS2812_T1H	700
+//#define WS2812_T1L	700
+//#define WS2812_TRST_US 300
+//WS2812_T0L < (50 + WS2812_T1L)?
 
 #define NOP_FUDGE 0.4
 /*

@@ -205,14 +205,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE_LAYER] = SPLIT_LAYOUT(
         KC_GRAVE,       KC_1,       KC_2,        KC_3,       KC_4,       KC_5,       KC_MINUS,    /*no key*/KC_NO,    
         KC_TAB,         KC_Q,       KC_W,        KC_E,       KC_R,       KC_T,       KC_LBRC,   KC_ENC_UP,          
-        KC_CAPSLOCK,    KC_A,       KC_S,        KC_D,       KC_F,       KC_G,       KC_SCLN,   KC_ENC_DOWN,        
-        KC_LSHIFT,      KC_Z,       KC_X,        KC_C,       KC_V,       KC_B,       KC_ESC,     KC_MS_BTN1,/*enc*/  
+        KC_CAPS_LOCK,    KC_A,       KC_S,        KC_D,       KC_F,       KC_G,       KC_SCLN,   KC_ENC_DOWN,        
+        KC_LSFT,      KC_Z,       KC_X,        KC_C,       KC_V,       KC_B,       KC_ESC,     KC_MS_BTN1,/*enc*/  
         KC_LCTL,        KC_LALT,    KC_LANG,     KC_APP,     KC_LWIN,    KC_SPACE,   KC_END,     KC_NXTL,//KC_HOME,            
         
 /*!key*/KC_NO,          KC_EQUAL,   KC_6,        KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC, 
         KC_ENC_UP,      KC_RBRC,    KC_Y,        KC_U,       KC_I,       KC_O,       KC_P,       KC_BSLS,    
         KC_ENC_DOWN,    KC_QUOTE,   KC_H,        KC_J,       KC_K,       KC_L,       KC_L,       KC_NUHS,     
- /*enc*/KC_MS_BTN1,     KC_UP,      KC_N,        KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSHIFT,
+ /*enc*/KC_MS_BTN1,     KC_UP,      KC_N,        KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
         KC_ENT,         KC_LEFT,    KC_DOWN,     KC_RIGHT,   KC_LNG1,    KC_RWIN,    KC_NXTL,    KC_RCTL
         ),
 
@@ -444,10 +444,10 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
             return u"  " ICON_UP;
         case KC_DOWN:
             return u"  " ICON_DOWN;
-        case KC_CAPSLOCK:
+        case KC_CAPS_LOCK:
             return state.caps_lock ? u"Cap" ICON_CAPSLOCK_ON : u"Cap" ICON_CAPSLOCK_OFF;
-        case KC_LSHIFT:
-        case KC_RSHIFT:
+        case KC_LSFT:
+        case KC_RSFT:
             return u" " ICON_SHIFT;
         case KC_NO:
             return u"";
@@ -615,7 +615,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
     }
 
-    if(keycode==KC_CAPSLOCK) {
+    if(keycode==KC_CAPS_LOCK) {
         request_disp_refresh();
     }
 
@@ -818,6 +818,8 @@ void keyboard_post_init_user(void) {
     debug_mouse    = false;
 
     //pointing_device_set_cpi(20000);
+    pointing_device_set_cpi(2000);
+    pimoroni_trackball_set_rgbw(0,0,255,100);
 
     uprintf("Poly Keyboard ready.");
 }
