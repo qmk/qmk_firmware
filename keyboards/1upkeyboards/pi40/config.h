@@ -29,7 +29,7 @@
 #define ENCODERS_PAD_B { GP13 }
 
 #define RGB_DI_PIN GP0
-#define DRIVER_LED_TOTAL 47
+#define RGB_MATRIX_LED_COUNT 47
 #define RGBLED_NUM 47
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS  

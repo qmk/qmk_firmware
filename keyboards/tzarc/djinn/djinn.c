@@ -129,7 +129,7 @@ RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 //----------------------------------------------------------
 // UI Placeholder, implemented in themes
 
-__attribute__((weak)) void draw_ui_user(void) {}
+__attribute__((weak)) void draw_ui_user(bool force_redraw) {}
 
 //----------------------------------------------------------
 // Housekeeping
@@ -223,7 +223,7 @@ void housekeeping_task_kb(void) {
 
     // Draw the UI
     if (kb_state.lcd_power) {
-        draw_ui_user();
+        draw_ui_user(false);
     }
 
     // Go into low-scan interrupt-based mode if we haven't had any matrix activity in the last 250 milliseconds

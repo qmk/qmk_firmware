@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_MEDIA] = LAYOUT(
-    KC_NO,   KC_SLCK,  KC_PAUS, KC_NO,    KC_NO,   RGB_VAD,         RGB_VAI, KC_MRWD, KC_MPLY, KC_MFFD, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,
+    KC_NO,   KC_SCRL,  KC_PAUS, KC_NO,    KC_NO,   RGB_VAD,         RGB_VAI, KC_MRWD, KC_MPLY, KC_MFFD, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,
     RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI,  RGB_VAI, RGB_SPI,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_MPLY, KC_NO,   KC_NO,   KC_NO,
     KC_NO,   RGB_RMOD, RGB_HUD, RGB_SAD,  RGB_VAD, RGB_SPD,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
     KC_NO,   RGB_M_P,  RGB_M_B, RGB_M_SW, RGB_M_G, KC_NO,           KC_NO,   KC_MUTE, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_VOLU, KC_NO,

@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Enable the space-cadet options */
 #define RSPC_KEYS KC_RSFT, KC_TRNS, KC_PGUP
-#define RCPC_KEYS KC_RCTL, KC_TRNS, KC_PGDOWN
+#define RCPC_KEYS KC_RCTL, KC_TRNS, KC_PGDN
 #define LSPO_KEYS KC_LSFT, KC_TRNS, KC_HOME
 #define LCPO_KEYS KC_LCTL, KC_TRNS, KC_END
 

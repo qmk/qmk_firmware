@@ -223,7 +223,7 @@ Check your environment and report problems only:
 
 ## `qmk format-json`
 
-Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if neccesary.
+Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if necessary.
 
 **Usage**:
 

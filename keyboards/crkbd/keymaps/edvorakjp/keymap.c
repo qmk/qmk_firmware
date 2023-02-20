@@ -5,12 +5,6 @@
 
 #include "edvorakjp.h"
 
-/*
- * enum custom_keycodes {
- *   KC_LOCK = NEW_SAFE_RANGE,
- * };
- */
-
 #define LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 
 // clang-format off
@@ -58,14 +52,14 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     switch (get_highest_layer(state)) {
         case L_EDVORAKJP_LOWER:
-            rgblight_sethsv_noeeprom_red();
+            rgblight_sethsv_noeeprom(HSV_RED);
             break;
         case L_EDVORAKJP_RAISE:
-            rgblight_sethsv_noeeprom_green();
+            rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
         default:  // for any other layers, or the default layer
             rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
-            rgblight_sethsv_red();
+            rgblight_sethsv(HSV_RED);
             break;
     }
     return state;

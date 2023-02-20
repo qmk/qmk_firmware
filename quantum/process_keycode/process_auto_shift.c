@@ -17,7 +17,6 @@
 #ifdef AUTO_SHIFT_ENABLE
 
 #    include <stdbool.h>
-#    include <stdio.h>
 #    include "process_auto_shift.h"
 
 #    ifndef AUTO_SHIFT_DISABLED_AT_STARTUP
@@ -331,11 +330,12 @@ void autoshift_disable(void) {
 #    ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
 #        ifdef SEND_STRING_ENABLE
-    char display[8];
-
-    snprintf(display, 8, "\n%d\n", autoshift_timeout);
-
-    send_string((const char *)display);
+    const char *autoshift_timeout_str = get_u16_str(autoshift_timeout, ' ');
+    // Skip padding spaces
+    while (*autoshift_timeout_str == ' ') {
+        autoshift_timeout_str++;
+    }
+    send_string(autoshift_timeout_str);
 #        endif
 }
 #    endif
@@ -375,24 +375,24 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         }
 
         switch (keycode) {
-            case KC_ASTG:
+            case AS_TOGG:
                 autoshift_toggle();
                 break;
-            case KC_ASON:
+            case AS_ON:
                 autoshift_enable();
                 break;
-            case KC_ASOFF:
+            case AS_OFF:
                 autoshift_disable();
                 break;
 
 #    ifndef AUTO_SHIFT_NO_SETUP
-            case KC_ASUP:
+            case AS_UP:
                 autoshift_timeout += 5;
                 break;
-            case KC_ASDN:
+            case AS_DOWN:
                 autoshift_timeout -= 5;
                 break;
-            case KC_ASRP:
+            case AS_RPT:
                 autoshift_timer_report();
                 break;
 #    endif

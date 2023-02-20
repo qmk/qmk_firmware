@@ -68,5 +68,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 #define MASTER_LEFT
-#define USE_SERIAL
 

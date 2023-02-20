@@ -6,21 +6,21 @@ You can store one or two macros and they may have a combined total of 128 keypre
 
 To enable them, first include `DYNAMIC_MACRO_ENABLE = yes` in your `rules.mk`. Then, add the following keys to your keymap:
 
-|Key               |Alias     |Description                                        |
-|------------------|----------|---------------------------------------------------|
-|`DYN_REC_START1`  |`DM_REC1` |Start recording Macro 1                            |
-|`DYN_REC_START2`  |`DM_REC2` |Start recording Macro 2                            |
-|`DYN_MACRO_PLAY1` |`DM_PLY1` |Replay Macro 1                                     |
-|`DYN_MACRO_PLAY2` |`DM_PLY2` |Replay Macro 2                                     |
-|`DYN_REC_STOP`    |`DM_RSTP` |Finish the macro that is currently being recorded. |
+|Key                              |Alias    |Description                                       |
+|---------------------------------|---------|--------------------------------------------------|
+|`QK_DYNAMIC_MACRO_RECORD_START_1`|`DM_REC1`|Start recording Macro 1                           |
+|`QK_DYNAMIC_MACRO_RECORD_START_2`|`DM_REC2`|Start recording Macro 2                           |
+|`QK_DYNAMIC_MACRO_PLAY_1`        |`DM_PLY1`|Replay Macro 1                                    |
+|`QK_DYNAMIC_MACRO_PLAY_2`        |`DM_PLY2`|Replay Macro 2                                    |
+|`QK_DYNAMIC_MACRO_RECORD_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
 That should be everything necessary. 
 
-To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. 
+To start recording the macro, press either `DM_REC1` or `DM_REC2`. 
 
-To finish the recording, press the `DYN_REC_STOP` layer button. You can also press `DYN_REC_START1` or `DYN_REC_START2` again to stop the recording.
+To finish the recording, press the `DM_RSTP` layer button. You can also press `DM_REC1` or `DM_REC2` again to stop the recording.
 
-To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
+To replay the macro, press either `DM_PLY1` or `DM_PLY2`.
 
 It is possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.  You can disable this completely by defining `DYNAMIC_MACRO_NO_NESTING`  in your `config.h` file.
 
@@ -43,10 +43,10 @@ If the LEDs start blinking during the recording with each keypress, it means the
 
 ### DYNAMIC_MACRO_USER_CALL
 
-For users of the earlier versions of dynamic macros: It is still possible to finish the macro recording using just the layer modifier used to access the dynamic macro keys, without a dedicated `DYN_REC_STOP` key. If you want this behavior back, add `#define DYNAMIC_MACRO_USER_CALL` to your `config.h` and insert the following snippet at the beginning of your `process_record_user()` function:
+For users of the earlier versions of dynamic macros: It is still possible to finish the macro recording using just the layer modifier used to access the dynamic macro keys, without a dedicated `DM_RSTP` key. If you want this behavior back, add `#define DYNAMIC_MACRO_USER_CALL` to your `config.h` and insert the following snippet at the beginning of your `process_record_user()` function:
 
 ```c
-	uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
+	uint16_t macro_kc = (keycode == MO(_DYN) ? DM_RSTP : keycode);
 
 	if (!process_record_dynamic_macro(macro_kc, record)) {
 		return false;

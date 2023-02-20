@@ -41,12 +41,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CTL_Z,   ALT_X,   WIN_C,   KC_V,    FN1_BSPC, FN2_SPC, FN3_B,    ALT_N,   CTL_M,   SFT_ENT, KC_P1,   KC_P2,   KC_P3,   KC_MINS
   ),
   [_FN1] = LAYOUT(
-    _______, _______, _______, QK_BOOT, _______,  _______,  KC_PSCR, KC_LBRC, KC_RBRC, KC_BSLS, KC_7,    KC_8,    KC_9,    KC_NLCK,
+    _______, _______, _______, QK_BOOT, _______,  _______,  KC_PSCR, KC_LBRC, KC_RBRC, KC_BSLS, KC_7,    KC_8,    KC_9,    KC_NUM,
     _______, _______, _______, _______, _______,  _______,  _______, KC_GRV,  KC_SCLN, KC_QUOT, KC_4,    KC_5,    KC_6,    KC_0,
     _______, _______, _______, _______, _______,  KC_TAB,   KC_LGUI, KC_COMM, KC_DOT,  KC_SLSH, KC_1,    KC_2,    KC_3,    KC_EQL
   ),
   [_FN2] = LAYOUT(
-    _______, _______, _______, _______, _______,  _______,  _______, KC_LCBR, KC_RCBR, KC_PIPE, KC_AMPR, KC_ASTR, KC_LPRN, KC_CLCK,
+    _______, _______, _______, _______, _______,  _______,  _______, KC_LCBR, KC_RCBR, KC_PIPE, KC_AMPR, KC_ASTR, KC_LPRN, KC_CAPS,
     _______, _______, _______, _______, _______,  _______,  _______, KC_TILD, KC_COLN, KC_DQUO, KC_DLR,  KC_PERC, KC_CIRC, KC_RPRN,
     _______, _______, _______, _______, KC_DEL,   _______,  _______, KC_LABK, KC_RABK, KC_QUES, KC_EXLM, KC_AT,   KC_HASH, KC_PLUS
   ),

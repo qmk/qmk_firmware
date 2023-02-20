@@ -28,11 +28,6 @@ extern rgblight_config_t rgblight_config;
 #define _RAISE 4
 #define _ADJUST 16
 
-
-#ifndef BLUETOOTH_ENABLE
-#define OUT_BT KC_TRNS
-#endif
-
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -114,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 QK_BOOT, _______,   _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_PSCR, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_DEL, \
                 BL_STEP, RGB_MOD, _______, AU_ON,   AU_OFF,  _______, _______, _______,  _______, _______,  _______, _______, \
                 BL_TOGG, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-                _______, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, OUT_AUTO, OUT_USB, OUT_BT \
+                _______, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, OU_AUTO, OU_USB, OU_BT \
         )
 };
 
