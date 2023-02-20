@@ -22,11 +22,11 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
     if (keycode == QK_REPEAT_KEY) {
         repeat_key_invoke(&record->event);
         return false;
-#ifndef NO_REVERSE_REPEAT_KEY
-    } else if (keycode == QK_REVERSE_REPEAT_KEY) {
-        rev_repeat_key_invoke(&record->event);
+#ifndef NO_ALT_REPEAT_KEY
+    } else if (keycode == QK_ALT_REPEAT_KEY) {
+        alt_repeat_key_invoke(&record->event);
         return false;
-#endif // NO_REVERSE_REPEAT_KEY
+#endif // NO_ALT_REPEAT_KEY
     } else if (record->event.pressed && get_repeat_key_eligible(keycode, record)) {
         set_repeat_key_record(keycode, record);
         set_repeat_key_mods(get_mods() | get_weak_mods()

@@ -23,9 +23,9 @@
         },
         "0x7C7A": {
             "group": "quantum",
-            "key": "QK_REVERSE_REPEAT_KEY",
+            "key": "QK_ALT_REPEAT_KEY",
             "aliases": [
-                "QK_RREP"
+                "QK_AREP"
             ]
         }
     }

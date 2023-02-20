@@ -28,7 +28,7 @@ using ::testing::InSequence;
 
 namespace {
 
-uint16_t get_rev_repeat_key_keycode_user_default(uint16_t keycode, uint8_t mods) {
+uint16_t get_alt_repeat_key_keycode_user_default(uint16_t keycode, uint8_t mods) {
     return KC_NO;
 }
 
@@ -38,23 +38,23 @@ bool process_record_user_default(uint16_t keycode, keyrecord_t* record) {
 
 // Indirections so that process_record_user() can be replaced with other
 // functions in the test cases below.
-std::function<uint16_t(uint16_t, uint8_t)>  get_rev_repeat_key_keycode_user_fun = get_rev_repeat_key_keycode_user_default;
+std::function<uint16_t(uint16_t, uint8_t)>  get_alt_repeat_key_keycode_user_fun = get_alt_repeat_key_keycode_user_default;
 std::function<bool(uint16_t, keyrecord_t*)> process_record_user_fun             = process_record_user_default;
 
-extern "C" uint16_t get_rev_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
-    return get_rev_repeat_key_keycode_user_fun(keycode, mods);
+extern "C" uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    return get_alt_repeat_key_keycode_user_fun(keycode, mods);
 }
 
 extern "C" bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return process_record_user_fun(keycode, record);
 }
 
-class RevRepeatKey : public TestFixture {
+class AltRepeatKey : public TestFixture {
    public:
     bool process_record_user_was_called_;
 
     void SetUp() override {
-        get_rev_repeat_key_keycode_user_fun = get_rev_repeat_key_keycode_user_default;
+        get_alt_repeat_key_keycode_user_fun = get_alt_repeat_key_keycode_user_default;
         process_record_user_fun             = process_record_user_default;
     }
 
@@ -90,14 +90,14 @@ class RevRepeatKey : public TestFixture {
     }
 };
 
-TEST_F(RevRepeatKey, ReverseBasic) {
+TEST_F(AltRepeatKey, AlternateBasic) {
     TestDriver driver;
     KeymapKey  key_bspc(0, 0, 0, KC_BSPC);
     KeymapKey  key_pgdn(0, 1, 0, KC_PGDN);
     KeymapKey  key_pgup(0, 2, 0, KC_PGUP);
     KeymapKey  key_repeat(0, 4, 0, QK_REP);
-    KeymapKey  key_rev_repeat(0, 5, 0, QK_RREP);
-    set_keymap({key_bspc, key_pgdn, key_pgup, key_repeat, key_rev_repeat});
+    KeymapKey  key_alt_repeat(0, 5, 0, QK_AREP);
+    set_keymap({key_bspc, key_pgdn, key_pgup, key_repeat, key_alt_repeat});
 
     // Allow any number of empty reports.
     EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
@@ -116,39 +116,39 @@ TEST_F(RevRepeatKey, ReverseBasic) {
 
     tap_key(key_bspc);
 
-    for (int n = 1; n <= 2; ++n) { // Tap the Reverse Repeat Key twice.
+    for (int n = 1; n <= 2; ++n) { // Tap the Alternate Repeat Key twice.
         ExpectProcessRecordUserCalledWith(true, KC_DEL, -n);
-        key_rev_repeat.press(); // Press the Reverse Repeat Key.
+        key_alt_repeat.press(); // Press the Alternate Repeat Key.
         run_one_scan_loop();
         EXPECT_TRUE(process_record_user_was_called_);
 
         // Expect the corresponding release event.
         ExpectProcessRecordUserCalledWith(false, KC_DEL, -n);
-        key_rev_repeat.release(); // Release the Repeat Key.
+        key_alt_repeat.release(); // Release the Repeat Key.
         run_one_scan_loop();
         EXPECT_TRUE(process_record_user_was_called_);
     }
 
     process_record_user_fun = process_record_user_default;
-    tap_keys(key_repeat, key_rev_repeat);
-    tap_keys(key_pgdn, key_rev_repeat);
-    tap_keys(key_pgup, key_rev_repeat);
+    tap_keys(key_repeat, key_alt_repeat);
+    tap_keys(key_pgdn, key_alt_repeat);
+    tap_keys(key_pgup, key_alt_repeat);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-struct TestParamsReverseKeyCodes {
+struct TestParamsAlternateKeyCodes {
     uint16_t keycode;
     uint8_t  mods;
-    uint16_t expected_rev_keycode;
+    uint16_t expected_alt_keycode;
 };
 
-// Tests `get_rev_repeat_key_keycode()` for various keycodes.
-TEST_F(RevRepeatKey, GetRevRepeatKeyKeycode) {
-    for (const auto& params : std::vector<TestParamsReverseKeyCodes>({
+// Tests `get_alt_repeat_key_keycode()` for various keycodes.
+TEST_F(AltRepeatKey, GetAltRepeatKeyKeycode) {
+    for (const auto& params : std::vector<TestParamsAlternateKeyCodes>({
              // clang-format off
-          // Each line tests one call to `get_rev_repeat_key_keycode()`:
-          // {keycode, mods, expected_rev_keycode}.
+          // Each line tests one call to `get_alt_repeat_key_keycode()`:
+          // {keycode, mods, expected_alt_keycode}.
           // Arrows.
           {KC_LEFT, 0, KC_RGHT},
           {KC_RGHT, 0, KC_LEFT},
@@ -193,7 +193,7 @@ TEST_F(RevRepeatKey, GetRevRepeatKeyKeycode) {
           {LSFT_T(KC_F), MOD_BIT(KC_RCTL), RCTL(KC_B)},
           {LT(1, KC_A), MOD_BIT(KC_RGUI), RGUI(KC_E)},
           {RALT_T(KC_J), 0, KC_K},
-          // Some keys where no reverse is defined.
+          // Some keys where no alternate is defined.
           {KC_A, 0, KC_NO},
           {KC_F1, 0, KC_NO},
           {QK_LEAD, 0, KC_NO},
@@ -204,16 +204,16 @@ TEST_F(RevRepeatKey, GetRevRepeatKeyKeycode) {
         set_repeat_key_keycode(params.keycode);
         set_repeat_key_mods(params.mods);
 
-        const uint16_t actual = get_rev_repeat_key_keycode();
+        const uint16_t actual = get_alt_repeat_key_keycode();
 
-        EXPECT_EQ(get_rev_repeat_key_keycode(), params.expected_rev_keycode) << "Actual: " << get_keycode_identifier_or_default(actual) << ", Expected: " << get_keycode_identifier_or_default(params.expected_rev_keycode);
+        EXPECT_EQ(get_alt_repeat_key_keycode(), params.expected_alt_keycode) << "Actual: " << get_keycode_identifier_or_default(actual) << ", Expected: " << get_keycode_identifier_or_default(params.expected_alt_keycode);
     }
 }
 
 // Test adding to and overriding the above through the
-// `get_rev_repeat_key_keycode_user()` callback.
-TEST_F(RevRepeatKey, GetRevRepeatKeyKeycodeUser) {
-    get_rev_repeat_key_keycode_user_fun = [](uint16_t keycode, uint8_t mods) -> uint16_t {
+// `get_alt_repeat_key_keycode_user()` callback.
+TEST_F(AltRepeatKey, GetAltRepeatKeyKeycodeUser) {
+    get_alt_repeat_key_keycode_user_fun = [](uint16_t keycode, uint8_t mods) -> uint16_t {
         bool shifted = (mods & MOD_MASK_SHIFT);
         switch (keycode) {
             case KC_LEFT:
@@ -242,33 +242,33 @@ TEST_F(RevRepeatKey, GetRevRepeatKeyKeycodeUser) {
     };
 
     set_repeat_key_keycode(KC_LEFT);
-    EXPECT_EQ(get_rev_repeat_key_keycode(), KC_ENT);
+    EXPECT_EQ(get_alt_repeat_key_keycode(), KC_ENT);
 
     set_repeat_key_keycode(MO(1));
-    EXPECT_EQ(get_rev_repeat_key_keycode(), TG(1));
+    EXPECT_EQ(get_alt_repeat_key_keycode(), TG(1));
 
     set_repeat_key_keycode(KC_TAB);
-    EXPECT_EQ(get_rev_repeat_key_keycode(), S(KC_TAB));
+    EXPECT_EQ(get_alt_repeat_key_keycode(), S(KC_TAB));
 
     set_repeat_key_keycode(KC_TAB);
     set_repeat_key_mods(MOD_BIT(KC_LSFT));
-    EXPECT_EQ(get_rev_repeat_key_keycode(), KC_TAB);
+    EXPECT_EQ(get_alt_repeat_key_keycode(), KC_TAB);
 
     set_repeat_key_keycode(KC_Z);
     set_repeat_key_mods(MOD_BIT(KC_LCTL));
-    EXPECT_EQ(get_rev_repeat_key_keycode(), C(KC_Y));
+    EXPECT_EQ(get_alt_repeat_key_keycode(), C(KC_Y));
 
     set_repeat_key_keycode(KC_Y);
     set_repeat_key_mods(MOD_BIT(KC_LCTL));
-    EXPECT_EQ(get_rev_repeat_key_keycode(), C(KC_Z));
+    EXPECT_EQ(get_alt_repeat_key_keycode(), C(KC_Z));
 }
 
-// Tests rolling from a key to Reverse Repeat.
-TEST_F(RevRepeatKey, RollingToRevRepeat) {
+// Tests rolling from a key to Alternate Repeat.
+TEST_F(AltRepeatKey, RollingToAltRepeat) {
     TestDriver driver;
     KeymapKey  key_left(0, 0, 0, KC_LEFT);
-    KeymapKey  key_rev_repeat(0, 1, 0, QK_RREP);
-    set_keymap({key_left, key_rev_repeat});
+    KeymapKey  key_alt_repeat(0, 1, 0, QK_AREP);
+    set_keymap({key_left, key_alt_repeat});
 
     {
         InSequence seq;
@@ -280,7 +280,7 @@ TEST_F(RevRepeatKey, RollingToRevRepeat) {
         EXPECT_EMPTY_REPORT(driver);
     }
 
-    // Perform a rolled press from Left to Reverse Repeat.
+    // Perform a rolled press from Left to Alternate Repeat.
 
     ExpectProcessRecordUserCalledWith(true, KC_LEFT, 0);
     key_left.press();
@@ -288,7 +288,7 @@ TEST_F(RevRepeatKey, RollingToRevRepeat) {
     EXPECT_TRUE(process_record_user_was_called_);
 
     ExpectProcessRecordUserCalledWith(true, KC_RGHT, -1);
-    key_rev_repeat.press(); // Press the Reverse Repeat Key.
+    key_alt_repeat.press(); // Press the Alternate Repeat Key.
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
 
@@ -298,23 +298,23 @@ TEST_F(RevRepeatKey, RollingToRevRepeat) {
     EXPECT_TRUE(process_record_user_was_called_);
 
     ExpectProcessRecordUserCalledWith(false, KC_RGHT, -1);
-    key_rev_repeat.release(); // Release the Reverse Repeat Key.
+    key_alt_repeat.release(); // Release the Alternate Repeat Key.
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
 
     process_record_user_fun = process_record_user_default;
-    tap_key(key_rev_repeat);
+    tap_key(key_alt_repeat);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-// Tests rolling from Reverse Repeat to another key.
-TEST_F(RevRepeatKey, RollingFromRevRepeat) {
+// Tests rolling from Alternate Repeat to another key.
+TEST_F(AltRepeatKey, RollingFromAltRepeat) {
     TestDriver driver;
     KeymapKey  key_left(0, 0, 0, KC_LEFT);
     KeymapKey  key_up(0, 1, 0, KC_UP);
-    KeymapKey  key_rev_repeat(0, 2, 0, QK_RREP);
-    set_keymap({key_left, key_up, key_rev_repeat});
+    KeymapKey  key_alt_repeat(0, 2, 0, QK_AREP);
+    set_keymap({key_left, key_up, key_alt_repeat});
 
     {
         InSequence seq;
@@ -330,10 +330,10 @@ TEST_F(RevRepeatKey, RollingFromRevRepeat) {
 
     tap_key(key_left);
 
-    // Perform a rolled press from Reverse Repeat to Up.
+    // Perform a rolled press from Alternate Repeat to Up.
 
     ExpectProcessRecordUserCalledWith(true, KC_RGHT, -1);
-    key_rev_repeat.press(); // Press the Reverse Repeat Key.
+    key_alt_repeat.press(); // Press the Alternate Repeat Key.
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
 
@@ -345,7 +345,7 @@ TEST_F(RevRepeatKey, RollingFromRevRepeat) {
     EXPECT_EQ(get_repeat_key_keycode(), KC_UP);
 
     ExpectProcessRecordUserCalledWith(false, KC_RGHT, -1);
-    key_rev_repeat.release(); // Release the Reverse Repeat Key.
+    key_alt_repeat.release(); // Release the Alternate Repeat Key.
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
 
@@ -355,18 +355,18 @@ TEST_F(RevRepeatKey, RollingFromRevRepeat) {
     EXPECT_TRUE(process_record_user_was_called_);
 
     process_record_user_fun = process_record_user_default;
-    tap_key(key_rev_repeat);
+    tap_key(key_alt_repeat);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-// Tests using the Reverse Repeat Key on a macro that doesn't have a reverse
-// keycode defined.
-TEST_F(RevRepeatKey, ReverseUnsupportedMacro) {
+// Tests using the Alternate Repeat Key on a macro that doesn't have an
+// alternate keycode defined.
+TEST_F(AltRepeatKey, AlternateUnsupportedMacro) {
     TestDriver driver;
     KeymapKey  key_foo(0, 0, 0, FOO_MACRO);
-    KeymapKey  key_rev_repeat(0, 1, 0, QK_RREP);
-    set_keymap({key_foo, key_rev_repeat});
+    KeymapKey  key_alt_repeat(0, 1, 0, QK_AREP);
+    set_keymap({key_foo, key_alt_repeat});
 
     process_record_user_fun = [=](uint16_t keycode, keyrecord_t* record) {
         process_record_user_was_called_ = true;
@@ -389,16 +389,16 @@ TEST_F(RevRepeatKey, ReverseUnsupportedMacro) {
 
     EXPECT_TRUE(process_record_user_was_called_);
     EXPECT_EQ(get_repeat_key_keycode(), FOO_MACRO);
-    EXPECT_EQ(get_rev_repeat_key_keycode(), KC_NO);
+    EXPECT_EQ(get_alt_repeat_key_keycode(), KC_NO);
 
     process_record_user_was_called_ = false;
-    key_rev_repeat.press(); // Press Reverse Repeat.
+    key_alt_repeat.press(); // Press Alternate Repeat.
     run_one_scan_loop();
 
     EXPECT_FALSE(process_record_user_was_called_);
 
     process_record_user_was_called_ = false;
-    key_rev_repeat.release(); // Release Reverse Repeat.
+    key_alt_repeat.release(); // Release Alternate Repeat.
     run_one_scan_loop();
 
     EXPECT_FALSE(process_record_user_was_called_);
@@ -411,17 +411,17 @@ TEST_F(RevRepeatKey, ReverseUnsupportedMacro) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-// Tests a macro with custom reverse behavior.
-TEST_F(RevRepeatKey, MacroCustomReverse) {
+// Tests a macro with custom alternate behavior.
+TEST_F(AltRepeatKey, MacroCustomAlternate) {
     TestDriver driver;
     KeymapKey  key_foo(0, 0, 0, FOO_MACRO);
-    KeymapKey  key_rev_repeat(0, 1, 0, QK_RREP);
-    set_keymap({key_foo, key_rev_repeat});
+    KeymapKey  key_alt_repeat(0, 1, 0, QK_AREP);
+    set_keymap({key_foo, key_alt_repeat});
 
-    get_rev_repeat_key_keycode_user_fun = [](uint16_t keycode, uint8_t mods) -> uint16_t {
+    get_alt_repeat_key_keycode_user_fun = [](uint16_t keycode, uint8_t mods) -> uint16_t {
         switch (keycode) {
             case FOO_MACRO:
-                return FOO_MACRO; // FOO_MACRO handles its own reverse.
+                return FOO_MACRO; // FOO_MACRO handles its own alternate.
             default:
                 return KC_NO; // No key by default.
         }
@@ -433,7 +433,7 @@ TEST_F(RevRepeatKey, MacroCustomReverse) {
                 if (record->event.pressed) {
                     if (get_repeat_key_count() >= 0) {
                         SEND_STRING("foo");
-                    } else { // Key is being reverse repeated.
+                    } else { // Key is being alternate repeated.
                         SEND_STRING("bar");
                     }
                 }
@@ -446,7 +446,7 @@ TEST_F(RevRepeatKey, MacroCustomReverse) {
     EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
     ExpectString(driver, "foobarbar");
 
-    tap_keys(key_foo, key_rev_repeat, key_rev_repeat);
+    tap_keys(key_foo, key_alt_repeat, key_alt_repeat);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }

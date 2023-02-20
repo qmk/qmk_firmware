@@ -17,9 +17,9 @@
 // Variables saving the state of the last key press.
 static keyrecord_t last_record = {0};
 static uint8_t     last_mods   = 0;
-// Signed count of the number of times the last key has been repeated or reverse
-// repeated: it is 0 when a key is pressed normally, positive when repeated,
-// and negative when reverse repeated.
+// Signed count of the number of times the last key has been repeated or
+// alternate repeated: it is 0 when a key is pressed normally, positive when
+// repeated, and negative when alternate repeated.
 static int8_t last_repeat_count = 0;
 
 // The repeat_count, but set to 0 outside of repeat_key_invoke() so that it is
@@ -100,21 +100,21 @@ void repeat_key_invoke(const keyevent_t* event) {
     }
 }
 
-#ifndef NO_REVERSE_REPEAT_KEY
+#ifndef NO_ALT_REPEAT_KEY
 /**
- * @brief Find reverse keycode from a table of opposing keycode pairs.
+ * @brief Find alternate keycode from a table of opposing keycode pairs.
  * @param table Array of pairs of basic keycodes, declared as PROGMEM.
  * @param table_size_bytes The size of the table in bytes.
  * @param target The basic keycode to find.
- * @return The reverse basic keycode, or KC_NO if none was found.
+ * @return The alternate basic keycode, or KC_NO if none was found.
  *
  * @note The table keycodes and target must be basic keycodes.
  *
- * This helper is used several times below to define reverse keys. Given a table
- * of pairs of basic keycodes, the function finds the pair containing `target`
- * and returns the other keycode in the pair.
+ * This helper is used several times below to define alternate keys. Given a
+ * table of pairs of basic keycodes, the function finds the pair containing
+ * `target` and returns the other keycode in the pair.
  */
-static uint8_t find_rev_keycode(const uint8_t (*table)[2], uint8_t table_size_bytes, uint8_t target) {
+static uint8_t find_alt_keycode(const uint8_t (*table)[2], uint8_t table_size_bytes, uint8_t target) {
     const uint8_t* keycodes = (const uint8_t*)table;
     for (uint8_t i = 0; i < table_size_bytes; ++i) {
         if (target == pgm_read_byte(keycodes + i)) {
@@ -125,16 +125,16 @@ static uint8_t find_rev_keycode(const uint8_t (*table)[2], uint8_t table_size_by
     return KC_NO;
 }
 
-uint16_t get_rev_repeat_key_keycode(void) {
+uint16_t get_alt_repeat_key_keycode(void) {
     uint16_t keycode = last_record.keycode;
     uint8_t  mods    = last_mods;
 
     // Call the user callback first to give it a chance to override the default
-    // reverse key definitions that follow.
-    uint16_t rev_keycode = get_rev_repeat_key_keycode_user(keycode, mods);
+    // alternate key definitions that follow.
+    uint16_t alt_keycode = get_alt_repeat_key_keycode_user(keycode, mods);
 
-    if (rev_keycode) {
-        return rev_keycode;
+    if (alt_keycode) {
+        return alt_keycode;
     }
 
     // Convert 8-bit mods to the 5-bit format used in keycodes. This is lossy:
@@ -185,7 +185,7 @@ uint16_t get_rev_repeat_key_keycode(void) {
                 {KC_A   , KC_E   },  // Home / End.
             };
             // clang-format on
-            rev_keycode = find_rev_keycode(pairs, sizeof(pairs), keycode);
+            alt_keycode = find_alt_keycode(pairs, sizeof(pairs), keycode);
         } else {
             // The last key was pressed with no mods or only Shift. The
             // following map a few more Vim hotkeys.
@@ -198,10 +198,10 @@ uint16_t get_rev_repeat_key_keycode(void) {
                 {KC_E   , KC_B   },  // Forward / Backward by word.
             };
             // clang-format on
-            rev_keycode = find_rev_keycode(pairs, sizeof(pairs), keycode);
+            alt_keycode = find_alt_keycode(pairs, sizeof(pairs), keycode);
         }
 
-        if (!rev_keycode) {
+        if (!alt_keycode) {
             // The following key pairs are considered with any mods.
             // clang-format off
             static const uint8_t pairs[][2] PROGMEM = {
@@ -226,19 +226,19 @@ uint16_t get_rev_repeat_key_keycode(void) {
 #endif  // MOUSEKEY_ENABLE
             };
             // clang-format on
-            rev_keycode = find_rev_keycode(pairs, sizeof(pairs), keycode);
+            alt_keycode = find_alt_keycode(pairs, sizeof(pairs), keycode);
         }
 
-        if (rev_keycode) {
+        if (alt_keycode) {
             // Combine basic keycode with mods.
-            return (mods << 8) | rev_keycode;
+            return (mods << 8) | alt_keycode;
         }
     }
 
-    return KC_NO; // No reverse key found.
+    return KC_NO; // No alternate key found.
 }
 
-void rev_repeat_key_invoke(const keyevent_t* event) {
+void alt_repeat_key_invoke(const keyevent_t* event) {
     static keyrecord_t registered_record       = {0};
     static int8_t      registered_repeat_count = 0;
     // Since this function calls process_record(), it may recursively call
@@ -254,11 +254,11 @@ void rev_repeat_key_invoke(const keyevent_t* event) {
             .tap.interrupted = false,
             .tap.count       = 0,
 #    endif
-            .keycode = get_rev_repeat_key_keycode(),
+            .keycode = get_alt_repeat_key_keycode(),
         };
     }
 
-    // Early return if there is no reverse key defined.
+    // Early return if there is no alternate key defined.
     if (!registered_record.keycode) {
         return;
     }
@@ -275,8 +275,8 @@ void rev_repeat_key_invoke(const keyevent_t* event) {
     processing_repeat_count = 0;
 }
 
-// Default implementation of get_rev_repeat_key_keycode_user().
-__attribute__((weak)) uint16_t get_rev_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+// Default implementation of get_alt_repeat_key_keycode_user().
+__attribute__((weak)) uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return KC_NO;
 }
-#endif // NO_REVERSE_REPEAT_KEY
+#endif // NO_ALT_REPEAT_KEY

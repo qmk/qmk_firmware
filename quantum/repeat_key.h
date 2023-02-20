@@ -17,18 +17,18 @@
 #include "quantum.h"
 
 /**
- * @brief Signed count of times the key has been repeated or reverse repeated.
+ * @brief Signed count of times the key has been repeated or alternate repeated.
  *
- * @note The count is nonzero only while a repeated or reverse-repeated key is
+ * @note The count is nonzero only while a repeated or alternate-repeated key is
  *       being processed.
  *
  * When a key is pressed normally, the count is 0. When the Repeat Key is used
  * to repeat a key, the count is 1 on the first repeat, 2 on the second repeat,
  * and continuing up to 127.
  *
- * Negative counts are used similarly for reverse repeating. When the Reverse
- * Repeat Key is used, the count is -1 on the first reverse repeat, -2 on the
- * second, continuing down to -127.
+ * Negative counts are used similarly for alternate repeating. When the
+ * Alternate Repeat Key is used, the count is -1 on the first alternate repeat,
+ * -2 on the second, continuing down to -127.
  */
 int8_t get_repeat_key_count(void);
 
@@ -46,32 +46,32 @@ void set_repeat_key_record(uint16_t keycode, keyrecord_t* record);
  */
 void repeat_key_invoke(const keyevent_t* event);
 
-#ifndef NO_REVERSE_REPEAT_KEY
+#ifndef NO_ALT_REPEAT_KEY
 
 /**
- * @brief Keycode to be used for reverse repeating.
+ * @brief Keycode to be used for alternate repeating.
  *
- * Reverse Repeat performs this keycode based on the last eligible pressed key
+ * Alternate Repeat performs this keycode based on the last eligible pressed key
  * and mods, get_repeat_key_keycode() and get_repeat_key_mods(). For example,
  * when the last key was KC_UP, this function returns KC_DOWN. The function
- * returns KC_NO if the last key doesn't have a defined reverse.
+ * returns KC_NO if the last key doesn't have a defined alternate.
  */
-uint16_t get_rev_repeat_key_keycode(void);
+uint16_t get_alt_repeat_key_keycode(void);
 
 /**
- * @brief Calls `process_record()` to reverse repeat the last key.
+ * @brief Calls `process_record()` to alternate repeat the last key.
  * @param event Event information in the generated record.
  */
-void rev_repeat_key_invoke(const keyevent_t* event);
+void alt_repeat_key_invoke(const keyevent_t* event);
 
 /**
- * @brief Optional user callback to define additional reverse keys.
+ * @brief Optional user callback to define additional alternate keys.
  *
- * When `get_rev_repeat_key_keycode()` is called, it first calls this callback.
- * It should return a keycode representing the "reverse" of the given keycode
+ * When `get_alt_repeat_key_keycode()` is called, it first calls this callback.
+ * It should return a keycode representing the "alternate" of the given keycode
  * and mods. Returning KC_NO defers to the default definitions in
- * `get_rev_repeat_key_keycode()`.
+ * `get_alt_repeat_key_keycode()`.
  */
-uint16_t get_rev_repeat_key_keycode_user(uint16_t keycode, uint8_t mods);
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods);
 
-#endif // NO_REVERSE_REPEAT_KEY
+#endif // NO_ALT_REPEAT_KEY

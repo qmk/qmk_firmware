@@ -808,7 +808,7 @@ See also: [Repeat Key](feature_repeat_key.md)
 |Keycode                |Aliases  |Description                          |
 |-----------------------|---------|-------------------------------------|
 |`QK_REPEAT_KEY`        |`QK_REP` |Repeat the last pressed key          |
-|`QK_REVERSE_REPEAT_KEY`|`QK_RREP`|Perform the reverse of the last key  |
+|`QK_ALT_REPEAT_KEY`    |`QK_AREP`|Perform alternate of the last key    |
 
 ## Space Cadet :id=space-cadet
 
