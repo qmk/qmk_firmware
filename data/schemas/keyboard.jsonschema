@@ -101,6 +101,8 @@
             "properties": {
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "pin_alt": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "voices": {"type": "boolean"}
             }
         },
