@@ -10,6 +10,8 @@
     // deprecated: Default `false`. Set to `true` to turn on warning when a value exists
     // invalid: Default `false`. Set to `true` to generate errors when a value exists
     // replace_with: use with a key marked deprecated or invalid to designate a replacement
+    "AUDIO_PIN": {"info_key": "audio.pin"},
+    "AUDIO_PIN_ALT": {"info_key": "audio.pin_alt"},
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},
