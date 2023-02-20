@@ -1,9 +1,13 @@
 {
-  "keyboard_name": "Alice Clone",
+  "keyboard_name": "AliceClone",
+  "manufacturer": "Sneakbox",
   "url": "https://sneakbox.design",
   "maintainer": "mujimanic",
-  "width": 18.25,
-  "height": 5,
+  "usb": {
+    "vid": "0x5342",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
   "layouts": {
       "LAYOUT_alice_split_bs": {
           "layout": [

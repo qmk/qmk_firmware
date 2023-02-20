@@ -1,8 +1,8 @@
 # ユーザスペース: キーマップ間でのコードの共有
 
 <!---
-  original document: 0.9.43:docs/feature_userspace.md
-  git diff 0.9.43 HEAD -- docs/feature_userspace.md | cat
+  original document: 0.13.17:docs/feature_userspace.md
+  git diff 0.13.17 HEAD -- docs/feature_userspace.md | cat
 -->
 
 似たキーマップを複数のキーボードで使う場合、それらの間でコードを共有できるという利点が得られることがあります。`users/`に以下の構造でキーマップ(理想的には GitHub のユーザ名、`<name>`)と同じ名前の独自のフォルダを作成します:

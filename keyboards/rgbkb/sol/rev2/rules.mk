@@ -1,11 +1,10 @@
 # RGBKB Sol Rev2 Defaults
 
 # Keycode Options
-BOOTMAGIC_ENABLE        = no        # Virtual DIP switch configuration(
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE         = no        # Mouse keys
 EXTRAKEY_ENABLE         = yes       # Audio control and System control
-UNICODE_ENABLE          = no        # Unicode keycodes
-NKRO_ENABLE             = no        # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # Enable N-Key Rollover
 
 # Debug Options
 CONSOLE_ENABLE          = no        # Console for debug
@@ -13,7 +12,6 @@ COMMAND_ENABLE          = no        # Commands for debug and configuration
 
 # RGB Options
 RGBLIGHT_ENABLE         = no        # Enable global lighting effects. Do not enable with RGB Matrix
-RGBLIGHT_ANIMATIONS     = no        # LED animations
 LED_MIRRORED            = no        # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
 
 RGB_MATRIX_ENABLE = yes             # Enable per-key coordinate based RGB effects. Do not enable with RGBlight
@@ -27,8 +25,8 @@ SF_ENABLE               = no        # Enables the additional 38 Starfighter LEDs
 IOS_DEVICE_ENABLE       = no        # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 # Misc
-OLED_DRIVER_ENABLE      = no        # Enable the OLED Driver
-EXTRA_ENCODERS_ENABLE   = no        # Enables 3 encoders per side (up from 1, not compatible with OLED_DRIVER_ENABLE)
+OLED_ENABLE     = no        # Enable the OLED Driver
+EXTRA_ENCODERS_ENABLE   = no        # Enables 3 encoders per side (up from 1, not compatible with OLED_ENABLE)
 SWAP_HANDS_ENABLE       = no        # Enable one-hand typing
 LTO_ENABLE = yes # Enable Link Time Optimizations greatly reducing firmware size by disabling the old Macros and Functions features
 

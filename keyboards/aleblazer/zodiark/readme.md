@@ -10,11 +10,11 @@ A split keyboard with 5x7 including a thumbcluster, encoders on each side, per k
 
 Make example for this keyboard (after setting up your build environment):
 
-    make zodiark:default
+    make aleblazer/zodiark:default
 
 Flashing example for this keyboard:
 
-    make zodiark:default:flash
+    make aleblazer/zodiark:default:flash
 
 Remove TRRS cable from halves, plug into one side, press reset button when asked. Repeat process on the other side.
 

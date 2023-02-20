@@ -9,7 +9,7 @@
 #if defined(BACKLIGHT_PINS)
 static const pin_t backlight_pins[] = BACKLIGHT_PINS;
 #    ifndef BACKLIGHT_LED_COUNT
-#        define BACKLIGHT_LED_COUNT (sizeof(backlight_pins) / sizeof(pin_t))
+#        define BACKLIGHT_LED_COUNT ARRAY_SIZE(backlight_pins)
 #    endif
 
 #    define FOR_EACH_LED(x)                                 \
@@ -44,6 +44,10 @@ void backlight_pins_init(void) {
     FOR_EACH_LED(setPinOutput(backlight_pin); backlight_off(backlight_pin);)
 }
 
-void backlight_pins_on(void) { FOR_EACH_LED(backlight_on(backlight_pin);) }
+void backlight_pins_on(void) {
+    FOR_EACH_LED(backlight_on(backlight_pin);)
+}
 
-void backlight_pins_off(void) { FOR_EACH_LED(backlight_off(backlight_pin);) }
+void backlight_pins_off(void) {
+    FOR_EACH_LED(backlight_off(backlight_pin);)
+}

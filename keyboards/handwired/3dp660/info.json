@@ -1,9 +1,13 @@
 {
     "keyboard_name": "3dp660",
+    "manufacturer": "gooberpsycho",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
+    "usb": {
+        "vid": "0x676F",
+        "pid": "0x3660",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_66_ansi": {
 

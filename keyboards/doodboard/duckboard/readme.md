@@ -1,10 +1,10 @@
-# duckboard
+# duckboard R1
 
-An 18-key numpad with rotary encoder and OLED support. 
+An 18-key numpad with rotary encoder and OLED support.
 
-* Keyboard Maintainer: [doodboard](https://github.com/doodboard)
-* Hardware Supported: duckboard PCB
-* Hardware Availability: Private Group Buy
+-   Keyboard Maintainer: [doodboard](https://doodboard.xyz/)
+-   Hardware Supported: duckboard PCB
+-   Hardware Availability: Private Group Buy
 
 Make example for this keyboard (after setting up your build environment):
 

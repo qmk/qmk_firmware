@@ -1,18 +1,18 @@
  /* Copyright 2020 Domantas Petrauskas
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,   LT_A_OG, LT_C_CA, LT_E_OG, LT_E_DO, LT_I_OG,                  LT_S_CA, LT_U_OG, LT_U_MA, KC_9,    KC_0,    LT_Z_CA,
         KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
         KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LCTRL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_LBRC, KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RALT,
+        KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_LBRC, KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RALT,
                                 KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC,  KC_ENT,  KC_BSPC, MO(_RAISE), KC_DEL
     ),
 
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
      * |LShift|   7  |   8  |   9  |   0  |      |-------.    ,-------|      |      |      |      |      |      |
      * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
-     * |LCTRL |   =  |   +  |   -  |   |  |      |-------|    |-------|      |      |      |      |      |      |
+     * |LCTRL |   =  |   +  |   -  |   |  |      |-------|    |-------|      |      |      |      |   \  |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
      *                   | LGUI | LAlt |LOWER | / Space /       \ Enter\  | Bksp |RAISE | Del  |
      *                   |      |      ||||||||/       /         \      \ |      |      |      |
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, LT_1,    LT_2,    LT_3,    LT_4,    LT_5,                      LT_6,    LT_7,    LT_8,    LT_9,    LT_0,    KC_GRV,
         _______, LT_4,    LT_5,    LT_6,    _______, _______,                   _______, _______, _______, _______, _______, _______,
         _______, LT_7,    LT_8,    LT_9,    LT_0,    _______,                   _______, _______, _______, _______, _______, _______,
-        _______, LT_EQL, KC_PPLS, KC_PMNS, KC_PIPE, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, LT_EQL, KC_PPLS, KC_PMNS, KC_PIPE, _______, _______, _______, _______, _______, _______, _______, KC_BSLS, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -275,10 +275,11 @@ static void render_status(void) {
     oled_write_ln_P(PSTR("caps"), led_state.caps_lock);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_left()) {
         render_status();
     } else {
         render_bongo_cat();
     }
+    return false;
 }

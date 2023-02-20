@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Wyvern", 
+    "manufacturer": "Mystic Works",
     "url": "https://mysticworks.xyz", 
     "maintainer": "mysticworks", 
-    "width": 20.75, 
-    "height": 5.25, 
+    "usb": {
+        "vid": "0x4D59",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

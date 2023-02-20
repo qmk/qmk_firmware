@@ -1,9 +1,6 @@
 {
-    "keyboard_name": "Preonic",
     "url": "https://olkb.com/preonic",
     "maintainer": "jackhumbert",
-    "width": 12,
-    "height": 5,
     "layouts": {
         "LAYOUT_preonic_1x2uC": {
             "layout": [

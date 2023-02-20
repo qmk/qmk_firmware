@@ -1,8 +1,8 @@
 # キーマップの FAQ
 
 <!---
-  original document: 0.8.62:docs/faq_keymap.md
-  git diff 0.8.62 HEAD -- docs/faq_keymap.md | cat
+  original document: 0.13.15:docs/faq_keymap.md
+  git diff 0.13.15 HEAD -- docs/faq_keymap.md | cat
 -->
 
 このページは人々がキーマップについてしばしば持つ疑問について説明します。まだ読んだことが無い場合には、[キーマップの概要](ja/keymap.md)を最初に読むべきです。
@@ -10,7 +10,7 @@
 ## どのキーコードを使えますか？
 あなたが利用可能なキーコードのインデックスについては、[キーコード](ja/keycodes.md)を見てください。より広範なドキュメントがある場合は、そこからリンクしてあります。
 
-キーコードは実際には [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h) で定義されています。
+キーコードは実際には [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h) で定義されています。
 
 ## デフォルトのキーコードとは何か？
 
@@ -80,7 +80,7 @@ https://github.com/tmk/tmk_keyboard/issues/67
 
 この機能を有効にした後で、キーマップでキーコード `KC_LCAP`、`KC_LNUM` および `KC_LSCR` を使います。
 
-古いビンテージメカニカルキーボードにはロックスイッチが付いている場合がありますが、最新のものにはありません。***ほとんどの場合この機能は必要なく、単にキーコード `KC_CAPS`、`KC_NLCK` および `KC_SLCK`*** を使います。
+古いビンテージメカニカルキーボードにはロックスイッチが付いている場合がありますが、最新のものにはありません。***ほとんどの場合この機能は必要なく、単にキーコード `KC_CAPS`、`KC_NUM` および `KC_SCRL`*** を使います。
 
 ## セディーユ 'Ç' のような ASCII 以外の特別文字の入力
 

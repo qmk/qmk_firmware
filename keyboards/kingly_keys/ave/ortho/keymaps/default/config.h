@@ -18,15 +18,3 @@
 #pragma once
 
 #define TAPPING_TERM_PER_KEY
-
-#ifdef RGBLIGHT_ENABLE
-    /* ws2812 RGB LED */
-    #define RGB_DI_PIN B7
-    #define RGBLED_NUM 2   // Number of LEDs
-    
-    #define RGBLIGHT_EFFECT_BREATHING
-/*  #define RGBLIGHT_HUE_STEP 6
-*   #define RGBLIGHT_SAT_STEP 4
-*   #define RGBLIGHT_VAL_STEP 4
-*/
-#endif

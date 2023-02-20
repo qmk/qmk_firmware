@@ -1,8 +1,8 @@
 # キーボードマトリックスの仕組み
 
 <!---
-  original document: 0.9.32:docs/how_a_matrix_works.md
-  git diff 0.9.32 HEAD -- docs/how_a_matrix_works.md | cat
+  original document: 0.13.15:docs/how_a_matrix_works.md
+  git diff 0.13.15 HEAD -- docs/how_a_matrix_works.md | cat
 -->
 
 キーボードスイッチのマトリックスは行と列に配置されます。マトリックス回路がなければ、各スイッチはコントローラに直接配線する必要があります。

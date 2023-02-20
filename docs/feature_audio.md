@@ -8,7 +8,7 @@ To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 On Atmega32U4 based boards, up to two simultaneous tones can be rendered.
 With one speaker connected to a PWM capable pin on PORTC driven by timer 3 and the other on one of the PWM pins on PORTB driven by timer 1.
 
-The following pins can be configured as audio outputs in `config.h` - for one speaker set eiter one out of:
+The following pins can be configured as audio outputs in `config.h` - for one speaker set either one out of:
 
 * `#define AUDIO_PIN C4`
 * `#define AUDIO_PIN C5`
@@ -114,7 +114,7 @@ The audio core offers interface functions to get/set/change the tone multiplexin
 There's a couple of different sounds that will automatically be enabled without any other configuration:
 ```
 STARTUP_SONG // plays when the keyboard starts up (audio.c)
-GOODBYE_SONG // plays when you press the RESET key (quantum.c)
+GOODBYE_SONG // plays when you press the QK_BOOT key (quantum.c)
 AG_NORM_SONG // plays when you press AG_NORM (quantum.c)
 AG_SWAP_SONG // plays when you press AG_SWAP (quantum.c)
 CG_NORM_SONG // plays when you press CG_NORM (quantum.c)
@@ -131,11 +131,13 @@ You can override the default songs by doing something like this in your `config.
 
 ```c
 #ifdef AUDIO_ENABLE
-  #define STARTUP_SONG SONG(STARTUP_SOUND)
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
 A full list of sounds can be found in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) - feel free to add your own to this list! All available notes can be seen in [quantum/audio/musical_notes.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/musical_notes.h).
+
+Additionally, if you with to maintain your own list of songs (such as ones that may be copyrighted) and not have them added to the repo, you can create a `user_song_list.h` file and place it in your keymap (or userspace) folder.  This file will be automatically included, it just needs to exist.
 
 To play a custom sound at a particular time, you can define a song like this (near the top of the file):
 
@@ -159,14 +161,42 @@ It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif
 
 The available keycodes for audio are: 
 
-* `AU_ON` - Turn Audio Feature on
-* `AU_OFF` - Turn Audio Feature off
-* `AU_TOG` - Toggle Audio Feature state
+|Key                      |Aliases  |Description                                |
+|-------------------------|---------|-------------------------------------------|
+|`QK_AUDIO_ON`            |`AU_ON`  |Turns on Audio Feature                     |
+|`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
+|`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
 
 !> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
 
+## Audio Config
+
+| Settings                        | Default              | Description                                                                   |
+|---------------------------------|----------------------|-------------------------------------------------------------------------------|
+|`AUDIO_PIN`                      | *Not defined*        |Configures the pin that the speaker is connected to.                           |
+|`AUDIO_PIN_ALT`                  | *Not defined*        |Configures the pin for a second speaker or second pin connected to one speaker.|
+|`AUDIO_PIN_ALT_AS_NEGATIVE`      | *Not defined*        |Enables support for one speaker connected to two pins.                         |
+|`AUDIO_INIT_DELAY`               | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.        |
+|`AUDIO_ENABLE_TONE_MULTIPLEXING` | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.     |
+|`STARTUP_SONG`                   | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                    |
+|`GOODBYE_SONG`                   | `GOODBYE_SOUND`      |Plays when you press the QK_BOOT key (quantum.c)                               |
+|`AG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press AG_NORM (process_magic.c)                                 |
+|`AG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press AG_SWAP (process_magic.c)                                 |
+|`CG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press CG_NORM (process_magic.c)                                 |
+|`CG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press CG_SWAP (process_magic.c)                                 |
+|`MUSIC_ON_SONG`                  | `MUSIC_ON_SOUND`     |Plays when music mode is activated (process_music.c)                           |
+|`MUSIC_OFF_SONG`                 | `MUSIC_OFF_SOUND`    |Plays when music mode is deactivated (process_music.c)                         |
+|`MIDI_ON_SONG`                   | `MUSIC_ON_SOUND`     |Plays when midi mode is activated (process_music.c)                            |
+|`MIDI_OFF_SONG`                  | `MUSIC_OFF_SOUND`    |Plays when midi mode is deactivated (process_music.c)                          |
+|`CHROMATIC_SONG`                 | `CHROMATIC_SOUND`    |Plays when the chromatic music mode is selected (process_music.c)              |
+|`GUITAR_SONG`                    | `GUITAR_SOUND`       |Plays when the guitar music mode is selected (process_music.c)                 |
+|`VIOLIN_SONG`                    | `VIOLIN_SOUND`       |Plays when the violin music mode is selected (process_music.c)                 |
+|`MAJOR_SONG`                     | `MAJOR_SOUND`        |Plays when the major music mode is selected (process_music.c)                  |
+|`DEFAULT_LAYER_SONGS`            | *Not defined*        |Plays song when switched default layers with [`set_single_persistent_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer)(quantum.c)       |
+|`SENDSTRING_BELL`                | *Not defined*        |Plays chime when the "enter" ("\a") character is sent (send_string.c)          |
+
 ## Tempo
-the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lenghts are defined relative to that.
+the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lengths are defined relative to that.
 The initial/default tempo is set to 120 bpm, but can be configured by setting `TEMPO_DEFAULT` in `config.c`.
 There is also a set of functions to modify the tempo from within the user/keymap code:
 ```c
@@ -191,6 +221,12 @@ Aka "audio effects", different ones can be enabled by setting in `config.h` thes
 `#define AUDIO_VOICES` to enable the feature, and `#define AUDIO_VOICE_DEFAULT something` to select a specific effect
 for details see quantum/audio/voices.h and .c
 
+Keycodes available:
+
+|Key                      |Aliases  |Description                                |
+|-------------------------|---------|-------------------------------------------|
+|`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|Cycles through the audio voices            |
+|`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|Cycles through the audio voices in reverse |
 
 ## Music Mode
 
@@ -200,10 +236,14 @@ Recording is experimental due to some memory issues - if you experience some wei
 
 Keycodes available:
 
-* `MU_ON` - Turn music mode on
-* `MU_OFF` - Turn music mode off
-* `MU_TOG` - Toggle music mode
-* `MU_MOD` - Cycle through the music modes:
+|Key                      |Aliases  |Description                                |
+|-------------------------|---------|-------------------------------------------|
+|`QK_MUSIC_ON`            |`MU_ON`  |Turns on Music Mode                        |
+|`QK_MUSIC_OFF`           |`MU_OFF` |Turns off Music Mode                       |
+|`QK_MUSIC_TOGGLE`        |`MU_TOGG`|Toggles Music Mode                         |
+|`QK_MUSIC_MODE_NEXT`     |`MU_NEXT`|Cycles through the music modes             |
+
+Available Modes:
   * `CHROMATIC_MODE` - Chromatic scale, row changes the octave
   * `GUITAR_MODE` - Chromatic scale, but the row changes the string (+5 st)
   * `VIOLIN_MODE` - Chromatic scale, but the row changes the string (+7 st)
@@ -272,13 +312,16 @@ You can look at the [Planck Keyboard](https://github.com/qmk/qmk_firmware/blob/e
 
 This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. And the sounds are slightly different for each keypress, so it doesn't sound like a single long note, if you type rapidly. 
 
-* `CK_TOGG` - Toggles the status (will play sound if enabled)
-* `CK_ON` - Turns on Audio Click (plays sound)
-* `CK_OFF` - Turns off Audio Click (doesn't play sound)
-* `CK_RST` - Resets the frequency to the default state (plays sound at default frequency)
-* `CK_UP` - Increases the frequency of the clicks (plays sound at new frequency)
-* `CK_DOWN` - Decreases the frequency of the clicks (plays sound at new frequency)
+Keycodes available:
 
+|Key                      |Aliases  |Description                                |
+|-------------------------|---------|-------------------------------------------|
+|`QK_AUDIO_CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode                  |
+|`QK_AUDIO_CLICKY_ON`     |`CK_ON`  |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks          |
+|`QK_AUDIO_CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks          |
+|`QK_AUDIO_CLICKY_RESET`  |`CK_RST` |Resets frequency to default                |
 
 The feature is disabled by default, to save space.  To enable it, add this to your `config.h`:
 
@@ -291,7 +334,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 |--------|---------------|-------------|
 | `AUDIO_CLICKY_FREQ_DEFAULT` | 440.0f | Sets the default/starting audio frequency for the clicky sounds. |
 | `AUDIO_CLICKY_FREQ_MIN` | 65.0f | Sets the lowest frequency (under 60f are a bit buggy). |
-| `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the the highest frequency. Too high may result in coworkers attacking you. |
+| `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the highest frequency. Too high may result in coworkers attacking you. |
 | `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN key codes.  This is a multiplicative factor.  The default steps the frequency up/down by a musical minor third.  |
 | `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. | 
 | `AUDIO_CLICKY_DELAY_DURATION` | 1 | An integer note duration where 1 is 1/16th of the tempo, or a sixty-fourth note (see `quantum/audio/musical_notes.h` for implementation details). The main clicky effect will be delayed by this duration.  Adjusting this to values around 6-12 will help compensate for loud switches. |
@@ -301,132 +344,24 @@ You can configure the default, min and max frequencies, the stepping and built i
 
 ## MIDI Functionality
 
-This is still a WIP, but check out `quantum/process_keycode/process_midi.c` to see what's happening. Enable from the Makefile.
-
+See [MIDI](feature_midi.md)
 
 ## Audio Keycodes
 
-|Key             |Aliases  |Description                       |
-|----------------|---------|----------------------------------|
-|`AU_ON`         |         |Audio mode on                     |
-|`AU_OFF`        |         |Audio mode off                    |
-|`AU_TOG`        |         |Toggles Audio mode                |
-|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
-|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
-|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
-|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
-|`MU_ON`         |         |Turns on Music Mode               |
-|`MU_OFF`        |         |Turns off Music Mode              |
-|`MU_TOG`        |         |Toggles Music Mode                |
-|`MU_MOD`        |         |Cycles through the music modes    |
-
-<!-- FIXME: this formatting needs work
-
-## Audio
-
-```c
-#ifdef AUDIO_ENABLE
-    AU_ON,
-    AU_OFF,
-    AU_TOG,
-
-    // Music mode on/off/toggle
-    MU_ON,
-    MU_OFF,
-    MU_TOG,
-
-    // Music voice iterate
-    MUV_IN,
-    MUV_DE,
-#endif
-```
-
-### Midi
-
-#if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-    MI_ON,  // send midi notes when music mode is enabled
-    MI_OFF, // don't send midi notes when music mode is enabled
-#endif
-
-MIDI_TONE_MIN,
-MIDI_TONE_MAX
-
-MI_C = MIDI_TONE_MIN,
-MI_Cs,
-MI_Db = MI_Cs,
-MI_D,
-MI_Ds,
-MI_Eb = MI_Ds,
-MI_E,
-MI_F,
-MI_Fs,
-MI_Gb = MI_Fs,
-MI_G,
-MI_Gs,
-MI_Ab = MI_Gs,
-MI_A,
-MI_As,
-MI_Bb = MI_As,
-MI_B,
-
-MIDI_TONE_KEYCODE_OCTAVES > 1
-
-where x = 1-5:
-MI_C_x,
-MI_Cs_x,
-MI_Db_x = MI_Cs_x,
-MI_D_x,
-MI_Ds_x,
-MI_Eb_x = MI_Ds_x,
-MI_E_x,
-MI_F_x,
-MI_Fs_x,
-MI_Gb_x = MI_Fs_x,
-MI_G_x,
-MI_Gs_x,
-MI_Ab_x = MI_Gs_x,
-MI_A_x,
-MI_As_x,
-MI_Bb_x = MI_As_x,
-MI_B_x,
-
-MI_OCT_Nx 1-2
-MI_OCT_x 0-7
-MIDI_OCTAVE_MIN = MI_OCT_N2,
-MIDI_OCTAVE_MAX = MI_OCT_7,
-MI_OCTD, // octave down
-MI_OCTU, // octave up
-
-MI_TRNS_Nx 1-6
-MI_TRNS_x 0-6
-MIDI_TRANSPOSE_MIN = MI_TRNS_N6,
-MIDI_TRANSPOSE_MAX = MI_TRNS_6,
-MI_TRNSD, // transpose down
-MI_TRNSU, // transpose up
-
-MI_VEL_x 1-10
-MIDI_VELOCITY_MIN = MI_VEL_1,
-MIDI_VELOCITY_MAX = MI_VEL_9,
-MI_VELD, // velocity down
-MI_VELU, // velocity up
-
-MI_CHx 1-16
-MIDI_CHANNEL_MIN = MI_CH1
-MIDI_CHANNEL_MAX = MI_CH16,
-MI_CHD, // previous channel
-MI_CHU, // next channel
-
-MI_ALLOFF, // all notes off
-
-MI_SUS, // sustain
-MI_PORT, // portamento
-MI_SOST, // sostenuto
-MI_SOFT, // soft pedal
-MI_LEG,  // legato
-
-MI_MOD, // modulation
-MI_MODSD, // decrease modulation speed
-MI_MODSU, // increase modulation speed
-#endif // MIDI_ADVANCED
-
--->
+|Key                      |Aliases  |Description                                |
+|-------------------------|---------|-------------------------------------------|
+|`QK_AUDIO_ON`            |`AU_ON`  |Turns on Audio Feature                     |
+|`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
+|`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
+|`QK_AUDIO_CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode                  |
+|`QK_AUDIO_CLICKY_ON`     |`CK_ON`  |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks          |
+|`QK_AUDIO_CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks          |
+|`QK_AUDIO_CLICKY_RESET`  |`CK_RST` |Resets frequency to default                |
+|`QK_MUSIC_ON`            |`MU_ON`  |Turns on Music Mode                        |
+|`QK_MUSIC_OFF`           |`MU_OFF` |Turns off Music Mode                       |
+|`QK_MUSIC_TOGGLE`        |`MU_TOGG`|Toggles Music Mode                         |
+|`QK_MUSIC_MODE_NEXT`     |`MU_NEXT`|Cycles through the music modes             |
+|`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|Cycles through the audio voices            |
+|`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|Cycles through the audio voices in reverse |

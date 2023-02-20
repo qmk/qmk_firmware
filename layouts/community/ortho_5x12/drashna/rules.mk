@@ -1,7 +1,7 @@
-BOOTMAGIC_ENABLE  = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE   = no       # Mouse keys(+4700)
-EXTRAKEY_ENABLE   = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE    = no         # Console for debug(+400)
+BOOTMAGIC_ENABLE  = yes       # Enable Bootmagic Lite
+MOUSEKEY_ENABLE   = no        # Mouse keys
+EXTRAKEY_ENABLE   = yes       # Audio control and System control
+CONSOLE_ENABLE    = no        # Console for debug
 COMMAND_ENABLE    = no        # Commands for debug and configuration
 TAP_DANCE_ENABLE  = no
 NKRO_ENABLE       = yes
@@ -12,7 +12,13 @@ ifeq ($(strip $(KEYBOARD)), fractal)
     AUDIO_SUPPORTED             = yes
     RGBLIGHT_SUPPORTED          = yes
     RGBLIGHT_ENABLE             = yes
-    RGBLIGHT_TWINKLE            = yes
-    RGBLIGHT_STARTUP_ANIMATION  = yes
+    RGBLIGHT_STARTUP_ANIMATION  = no
     BOOTLOADER                  = qmk-dfu
+    CUSTOM_UNICODE_ENABLE       = no
+endif
+
+ifeq ($(strip $(MCU)), atmega32u4)
+    BOOTLOADER                  = qmk-dfu
+    BOOTLOADER_SIZE             = 512
+    LTO_ENABLE                  = yes
 endif

@@ -1,9 +1,13 @@
 {
     "keyboard_name": "x16",
+    "manufacturer": "yinxianwei",
     "url": "",
     "maintainer": "yinxianwei",
-    "width": 4,
-    "height": 4,
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x016A",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [
@@ -30,4 +34,3 @@
         }
     }
 }
-

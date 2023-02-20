@@ -1,4 +1,4 @@
-/* Copyright 2020 James Young (@noroadsleft)
+/* Copyright 2020-2022 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,6 @@
 #include "noroadsleft.h"
 #include "version.h"
 
-/*******************
-** MODIFIER MASKS **
-*******************/
-bool macroMode = 0;
-
 __attribute__((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; };
 
@@ -29,10 +24,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keymap(keycode, record)) {
         return false;
     }
+#if defined(ANSI_NUBS_ROW) && defined(ANSI_NUBS_COL)
+    // if ANSI_NUBS_ROW and ANSI_NUBS_COL are both defined, and Right Alt mod is active
+    if ( record->event.key.row == ANSI_NUBS_ROW && record->event.key.col == ANSI_NUBS_COL && get_mods() & MOD_MASK_RALT ) {
+        if (record->event.pressed) {
+            register_code(KC_NUBS);
+        } else {
+            unregister_code(KC_NUBS);
+        }
+        return false;
+    }
+#endif
     switch (keycode) {
         case VRSN:
             if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " # @ " QMK_VERSION);
             }
             return false;
         case G_PUSH:
@@ -60,62 +66,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             };
             return false;
+        case G_PWD:
+            if (record->event.pressed) {
+                clear_mods();
+                SEND_STRING("$( pwd | sed -e 's;^.*/keyboards/;;' -e 's;/;_;g')");
+            };
+            return false;
         case M_SALL:
             if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    SEND_STRING(SS_LGUI("a"));
-                } else {
-                    SEND_STRING(SS_LCTL("a"));
-                }
+                tap_code16(C(KC_A));
             }
             return false;
         case M_UNDO:
             if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    if ( get_mods() & MOD_MASK_SHIFT ) {
-                        SEND_STRING(SS_LSFT(SS_LGUI("z")));
-                    } else {
-                        SEND_STRING(SS_LGUI("z"));
-                    }
-                } else {
-                    SEND_STRING(SS_LCTL("z"));
-                }
+                register_code(KC_LCTL);
+                register_code(KC_Z);
+            } else {
+                unregister_code(KC_Z);
+                unregister_code(KC_LCTL);
             }
             return false;
         case M_CUT:
             if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    SEND_STRING(SS_LGUI("x"));
-                } else {
-                    SEND_STRING(SS_LCTL("x"));
-                }
+                tap_code16(C(KC_X));
             }
             return false;
         case M_COPY:
             if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    SEND_STRING(SS_LGUI("c"));
-                } else {
-                    SEND_STRING(SS_LCTL("c"));
-                }
+                tap_code16(C(KC_C));
             }
             return false;
         case M_PASTE:
             if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    if ( get_mods() & MOD_MASK_SHIFT ) {
-                        SEND_STRING(SS_LSFT(SS_LALT(SS_LGUI("v"))));
-                    } else {
-                        SEND_STRING(SS_LGUI("v"));
-                    }
-                } else {
-                    SEND_STRING(SS_LCTL("v"));
-                }
-            }
-            return false;
-        case M_MDSWP:
-            if (record->event.pressed) {
-                macroMode ^= 1;
+                register_code(KC_LCTL);
+                register_code(KC_V);
+            } else {
+                unregister_code(KC_V);
+                unregister_code(KC_LCTL);
             }
             return false;
         case KC_1 ... KC_0:

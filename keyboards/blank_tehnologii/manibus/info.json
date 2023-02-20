@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Manibus",
+    "manufacturer": "Blank Tehnologii",
     "url": "https://blank.computer/",
     "maintainer": "SamuraiKek",
-    "width": 14,
-    "height": 4.75,
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout":  [

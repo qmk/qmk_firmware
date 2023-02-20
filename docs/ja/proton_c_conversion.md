@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.9.46:docs/proton_c_conversion.md
-  git diff 0.9.46 HEAD -- docs/proton_c_conversion.md | cat
+  original document: 0.13.17:docs/proton_c_conversion.md
+  git diff 0.13.17 HEAD -- docs/proton_c_conversion.md | cat
 -->
 
 Proton C は Pro Micro の差し替え可能品であるため、簡単に使用することができます。
@@ -27,7 +27,7 @@ QMK で現在サポートされているキーボードが Pro Micro（または
 #endif
 ```
 
-`PORTB/DDRB` などが定義されていないというエラーが発生した場合は、ARM と AVR の両方で機能する [GPIO 制御](ja/internals_gpio_control.md) を使用するようにキーボードのコードを変換する必要があります。これは AVR ビルドにまったく影響を与えません。
+`PORTB/DDRB` などが定義されていないというエラーが発生した場合は、ARM と AVR の両方で機能する [GPIO 制御](ja/gpio_control.md) を使用するようにキーボードのコードを変換する必要があります。これは AVR ビルドにまったく影響を与えません。
 
 Proton C には1つのオンボード LED(C13)しかなく、デフォルトでは TXLED(D5) がそれにマップされています。代わりに RXLED(B0) をそれにマッピングしたい場合は、`config.h` に次のように追加してください。
 

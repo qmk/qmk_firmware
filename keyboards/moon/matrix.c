@@ -76,17 +76,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (MATRIX_COLS <= 8)
 #  define print_matrix_header() print("\nr/c 01234567\n")
 #  define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
-#  define matrix_bitpop(i) bitpop(matrix[i])
 #  define ROW_SHIFTER ((uint8_t)1)
 #elif (MATRIX_COLS <= 16)
 #  define print_matrix_header() print("\nr/c 0123456789ABCDEF\n")
 #  define print_matrix_row(row) print_bin_reverse16(matrix_get_row(row))
-#  define matrix_bitpop(i) bitpop16(matrix[i])
 #  define ROW_SHIFTER ((uint16_t)1)
 #elif (MATRIX_COLS <= 32)
 #  define print_matrix_header() print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
 #  define print_matrix_row(row) print_bin_reverse32(matrix_get_row(row))
-#  define matrix_bitpop(i) bitpop32(matrix[i])
 #  define ROW_SHIFTER ((uint32_t)1)
 #endif
 
@@ -125,14 +122,6 @@ void matrix_print(void) {
   }
 }
 
-uint8_t matrix_key_count(void) {
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += matrix_bitpop(i);
-  }
-  return count;
-}
-
 static void init_i2c(void) {
   pca9555_init(IC1);
   pca9555_init(IC2);
@@ -158,10 +147,12 @@ static void select_row(uint8_t row) {
 }
 
 static uint16_t read_cols(void) {
-  uint16_t state_1 = pca9555_readPins(IC2, PCA9555_PORT0);
-  uint16_t state_2 = pca9555_readPins(IC2, PCA9555_PORT1);
+  uint8_t state_1 = 0;
+  uint8_t state_2 = 0;
+  pca9555_readPins(IC2, PCA9555_PORT0, &state_1);
+  pca9555_readPins(IC2, PCA9555_PORT1, &state_2);
 
-  uint16_t state = ((state_1 & PORT0_COLS_MASK) << 3) | ((state_2 & PORT1_COLS_MASK));
+  uint16_t state = (((uint16_t)state_1 & PORT0_COLS_MASK) << 3) | (((uint16_t)state_2 & PORT1_COLS_MASK));
 
   // A low pin indicates an active column
   return (~state) & COLS_MASK;

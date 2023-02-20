@@ -4,7 +4,7 @@ This page details various common questions people have about troubleshooting the
 
 ## Debugging :id=debugging
 
-Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
+Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
 
 ```c
 void keyboard_post_init_user(void) {
@@ -18,17 +18,21 @@ void keyboard_post_init_user(void) {
 
 ## Debugging Tools
 
-There are two different tools you can use to debug your keyboard.
+Various tools are available to debug your keyboard.
 
 ### Debugging With QMK Toolbox
 
 For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can be used to display debug messages from your keyboard.
 
+### Debugging with QMK CLI
+
+Prefer a terminal based solution? The [QMK CLI console command](cli_commands.md#qmk-console) can be used to display debug messages from your keyboard.
+
 ### Debugging With hid_listen
 
-Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
+Something stand-alone? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
 
-## Sending Your Own Debug Messages
+## Sending Your Own Debug Messages :id=debug-api
 
 Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions.md). Doing so is pretty simple. Start by including `print.h` at the top of your file:
 
@@ -55,22 +59,22 @@ When porting, or when attempting to diagnose pcb issues, it can be useful to kno
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif 
   return true;
 }
 ```
 
 Example output
-```text
+```
 Waiting for device:.......
 Listening:
-KL: kc: 169, col: 0, row: 0, pressed: 1
-KL: kc: 169, col: 0, row: 0, pressed: 0
-KL: kc: 174, col: 1, row: 0, pressed: 1
-KL: kc: 174, col: 1, row: 0, pressed: 0
-KL: kc: 172, col: 2, row: 0, pressed: 1
-KL: kc: 172, col: 2, row: 0, pressed: 0
+KL: kc: 169, col: 0, row: 0, pressed: 1, time: 15505, int: 0, count: 0
+KL: kc: 169, col: 0, row: 0, pressed: 0, time: 15510, int: 0, count: 0
+KL: kc: 174, col: 1, row: 0, pressed: 1, time: 15703, int: 0, count: 0
+KL: kc: 174, col: 1, row: 0, pressed: 0, time: 15843, int: 0, count: 0
+KL: kc: 172, col: 2, row: 0, pressed: 1, time: 16303, int: 0, count: 0
+KL: kc: 172, col: 2, row: 0, pressed: 0, time: 16411, int: 0, count: 0
 ```
 
 ### How long did it take to scan for a keypress?
@@ -82,7 +86,7 @@ When testing performance issues, it can be useful to know the frequency at which
 ```
 
 Example output
-```text
+```
   > matrix scan frequency: 315
   > matrix scan frequency: 313
   > matrix scan frequency: 316
@@ -129,3 +133,4 @@ Check:
 - Set `debug_enable=true`. See [Debugging](#debugging)
 - Try using `print` function instead of debug print. See **common/print.h**.
 - Disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
+- Ensure all strings end with a newline character (`\n`). QMK Toolbox prints console output on a per-line basis.

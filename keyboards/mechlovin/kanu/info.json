@@ -1,9 +1,13 @@
 {
     "keyboard_name": "Kanu",
+    "manufacturer": "Mechlovin",
     "url": "",
     "maintainer": "Team Mechlovin'",
-    "width": 16,
-    "height": 5,
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x4B4E",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

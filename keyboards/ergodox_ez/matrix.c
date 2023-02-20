@@ -70,7 +70,7 @@ void matrix_init_custom(void) {
 // Reads and stores a row, returning
 // whether a change occurred.
 static inline bool store_raw_matrix_row(uint8_t index) {
-    matrix_row_t temp = read_cols(index);
+    matrix_row_t temp = 0x3F & read_cols(index);
     if (raw_matrix[index] != temp) {
         raw_matrix[index] = temp;
         return true;

@@ -9,6 +9,8 @@ and this to your `config.h`:
 ```c
 // Connects each switch in the dip switch to the GPIO pin of the MCU
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
+// For split keyboards, you can separately define the right side pins
+#define DIP_SWITCH_PINS_RIGHT { ... }
 ```
 
 or
@@ -23,8 +25,9 @@ or
 The callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
-void dip_switch_update_kb(uint8_t index, bool active) { 
-    dip_switch_update_user(index, active); 
+bool dip_switch_update_kb(uint8_t index, bool active) { 
+    if (!dip_switch_update_user(index, active)) { return false; }
+    return true;
 }
 ```
 
@@ -32,7 +35,7 @@ void dip_switch_update_kb(uint8_t index, bool active) {
 or `keymap.c`:
 
 ```c
-void dip_switch_update_user(uint8_t index, bool active) { 
+bool dip_switch_update_user(uint8_t index, bool active) { 
     switch (index) {
         case 0:
             if(active) { audio_on(); } else { audio_off(); }
@@ -57,6 +60,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
             }
             break;
     }
+    return true;
 }
 ```
 
@@ -64,8 +68,9 @@ Additionally, we support bit mask functions which allow for more complex handlin
 
 
 ```c
-void dip_switch_update_mask_kb(uint32_t state) { 
-    dip_switch_update_mask_user(state); 
+bool dip_switch_update_mask_kb(uint32_t state) { 
+    if (!dip_switch_update_mask_user(state)) { return false; }
+    return true;
 }
 ```
 
@@ -73,7 +78,7 @@ void dip_switch_update_mask_kb(uint32_t state) {
 or `keymap.c`:
 
 ```c
-void dip_switch_update_mask_user(uint32_t state) { 
+bool dip_switch_update_mask_user(uint32_t state) { 
     if (state & (1UL<<0) && state & (1UL<<1)) {
         layer_on(_ADJUST); // C on esc
     } else {
@@ -89,9 +94,9 @@ void dip_switch_update_mask_user(uint32_t state) {
     } else {
         layer_off(_TEST_B);
     }
+    return true;
 }
 ```
-
 
 ## Hardware
 

@@ -16,9 +16,7 @@
 
 #pragma once
 
-#undef MANUFACTURER
-#undef PRODUCT
-#define MANUFACTURER    KBDfans
-#define PRODUCT         KBD75 rev1
-
 #define BACKLIGHT_BREATHING
+
+#define ANSI_NUBS_ROW 4
+#define ANSI_NUBS_COL 2

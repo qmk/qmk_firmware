@@ -1,9 +1,13 @@
 {
     "keyboard_name": "BIOI S65",
+    "manufacturer": "Basic IO Instruments",
     "url": "",
     "maintainer": "scottywei",
-    "width": 18.25,
-    "height": 5,
+    "usb": {
+        "vid": "0x8101",
+        "pid": "0x5365",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

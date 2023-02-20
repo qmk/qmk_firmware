@@ -5,13 +5,14 @@
 CONSOLE_ENABLE = no
 TAP_DANCE_ENABLE = yes
 NKRO_ENABLE = yes
-BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
 RGB_MATRIX_ENABLE = yes
 EXTRAFLAGS += -flto
 BOOTLOADER = qmk-dfu
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 endif
 
 ifeq ($(strip $(KEYBOARD)), lazydesigners/dimple)

@@ -3,7 +3,6 @@
 
 ## Features
 
-- Enabled USE_SERIAL for Falba.Tech Redox keyboards.
 - PC Layouts: Colemak Mod DH-MK, Qwerty.
 - Mac Layouts: same as above with CTRL-GUI keys inverted.
 - Added redundant `Space`, `Esc`, `Ctrl` and `Enter` keys. I like to have this
