@@ -1,0 +1,2 @@
+LTO_ENABLE = yes
+BOOTLOADER=caterina
