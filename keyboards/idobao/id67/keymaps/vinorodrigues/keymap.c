@@ -16,14 +16,7 @@ enum {
 };
 
 enum {
-    KC_MCON = USER00,
-    KC_LPAD,
     KB_VRSN = SAFE_RANGE
-};
-
-enum macos_consumer_usages {
-    _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
-    _AC_SHOW_ALL_APPS    = 0x2A0   // mapped to KC_LPAD
 };
 
 #define LT1_C_L LT(_FN1, KC_CAPS)
@@ -270,23 +263,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " (v" QMK_VERSION ")");
                 }
-            }
-            return false;
-
-        // @see: https://github.com/qmk/qmk_firmware/issues/10111#issuecomment-752300353
-        case KC_MCON:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_WINDOWS);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_APPS);
-            } else {
-                host_consumer_send(0);
             }
             return false;
 
