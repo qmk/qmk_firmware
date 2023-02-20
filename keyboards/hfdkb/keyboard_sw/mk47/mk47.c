@@ -191,7 +191,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     switch (keycode) {
         case MO(1):
-            fn_make_flag = event.pressed;
+            fn_make_flag = record->event.pressed;
             return true;
         case KC_DEL:
             if (fn_make_flag && record->event.pressed) {
