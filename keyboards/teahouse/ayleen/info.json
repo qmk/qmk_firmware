@@ -6,7 +6,8 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction":"COL2ROW",
-    "freatures":{
+    "features": {
+        "rgblight": true,
       "bootmagic": false,
       "command":false,
       "console":false,
