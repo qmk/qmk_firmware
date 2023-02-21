@@ -109,6 +109,8 @@ enum custom_keycodes {
     MA_DELLINE,
     MA_DELX2,
     MA_BSPCX2,
+    MA_DOWN,
+    MA_UP,
     MA_DOWNX2,
     MA_UPX2,
     MA_RIGHTX2,
@@ -142,19 +144,36 @@ enum custom_keycodes {
     MA_LTHUMBT,
     MA_LTHUMBY,
     MA_LPINKY,
+    MA_0,
+    MA_1,
+    MA_2,
+    MA_3,
+    MA_4,
+    MA_5,
+    MA_6,
+    MA_7,
+    MA_8,
+    MA_9,
+    MA_EQL,
+    MA_ASTR,
+    MA_DOT,
+    MA_MINS,
+    MA_PLUS,
+    MA_ENT,
+    MA_SLSH,
 };
 
 #define LA_BASE 0
 #define LA_LTHUMB 1
 #define LA_LTHUMBEMO 2
 #define LA_LTHUMBEOSL 3
-#define LA_CAPSLOCK 4
-#define LA_RTHUMB 5
-#define LA_LTHUMBDMO 6
-#define LA_LTHUMBDOSL 7
-#define LA_LTHUMB1MO 8
-#define LA_LTHUMB2MO 9
-#define LA_LTHUMB3MO 10
+#define LA_LTHUMBDMO 4
+#define LA_LTHUMBDOSL 5
+#define LA_LTHUMB1MO 6
+#define LA_LTHUMB2MO 7
+#define LA_LTHUMB3MO 8
+#define LA_CAPSLOCK 9
+#define LA_RTHUMB 10
 #define LA_LPINKY 11
 #define LA_LPINKYQ 12
 #define LA_LPINKYW 13
@@ -162,10 +181,7 @@ enum custom_keycodes {
 #define LA_LPINKYF 15
 
 bool isLeftThumbEMoStarted = false;
-bool isLeftThumbDOslStarted = false;
-bool isLeftThumb1OslStarted = false;
-bool isLeftThumb2OslStarted = false;
-bool isLeftThumb3OslStarted = false;
+bool isLeftThumbDMoStarted = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -187,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LA_BASE] = LAYOUT(
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, TG(LA_CAPSLOCK),
-        MO(LA_LPINKY), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
+        MA_LPINKY, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_RALT,
         KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
@@ -207,8 +223,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LA_LPINKY] = LAYOUT(
         KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
-        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_ESC, KC_UP, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_PENT,
+        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UP, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_ESC, KC_UP, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, MA_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
     ),
@@ -227,11 +243,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_LCTL, MA_BSPCX4, KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMB] = LAYOUT(
-        KC_ESC, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
-        KC_TAB, MA_LTHUMBQ, MA_LTHUMBW, MA_LTHUMBE, MA_LTHUMBR, MA_LTHUMBT, MA_LTHUMBY, FR_7, FR_8, FR_9, FR_EQL, FR_ASTR, KC_RBRC, KC_BSPC,
-        LM(LA_LPINKY, MOD_LCTL), MA_LTHUMBA, MA_LTHUMBS,  MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, FR_DOT, FR_4, FR_5, FR_6, FR_MINS, FR_PLUS, KC_ENT,
-        KC_LSFT, MA_LTHUMBZ, MA_LTHUMBX, MA_LTHUMBC, MA_LTHUMBV, MA_LTHUMBB, FR_0, FR_1, FR_2, FR_3, FR_SLSH, KC_RSFT, MO(LA_LPINKY),
-        KC_LALT, KC_TRNS, KC_SPC, MO(LA_RTHUMB), KC_RALT
+        KC_TRNS, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, MA_LTHUMBQ, MA_LTHUMBW, MA_LTHUMBE, MA_LTHUMBR, MA_LTHUMBT, MA_LTHUMBY, MA_7, MA_8, MA_9, MA_EQL, MA_ASTR, KC_TRNS, KC_TRNS,
+        MA_LPINKY, MA_LTHUMBA, MA_LTHUMBS,  MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, MA_DOT, MA_4, MA_5, MA_6, MA_MINS, MA_PLUS, MA_ENT,
+        KC_TRNS, MA_LTHUMBZ, MA_LTHUMBX, MA_LTHUMBC, MA_LTHUMBV, MA_LTHUMBB, MA_0, MA_1, MA_2, MA_3, MA_SLSH, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_SPC, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_LTHUMBEMO] = LAYOUT(
         KC_TRNS, KC_TRNS, MA_DELLINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -292,21 +308,25 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 register_mods(MOD_MASK_CTRL);
             }
             return false;
+        case MA_LPINKY:
+            if (record->event.pressed) {
+                layer_on(LA_LPINKY);
+            }
+            return false;
     }
     return true;
 }
 bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
+    unregister_mods(MOD_MASK_CTRL);
     switch (keycode) {
         case MA_LTHUMB:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMB);
-                unregister_mods(MOD_MASK_CTRL);
             }
             return false;
         case MA_LTHUMBE:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBEMO);
-                unregister_mods(MOD_MASK_CTRL);
             }
             return false;
         case MA_LTHUMBD:
@@ -329,7 +349,117 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 layer_on(LA_LTHUMB3MO);
             }
             return false;
+        case MA_LPINKY:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMB);
+                layer_on(LA_LPINKY);
+                register_code16(KC_LCTL);
+            }
+            return false;
+        case MA_0:
+            if (record->event.pressed) {
+                tap_code16(FR_0);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_1:
+            if (record->event.pressed) {
+                tap_code16(FR_1);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_2:
+            if (record->event.pressed) {
+                tap_code16(FR_2);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_3:
+            if (record->event.pressed) {
+                tap_code16(FR_3);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_4:
+            if (record->event.pressed) {
+                tap_code16(FR_4);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_5:
+            if (record->event.pressed) {
+                tap_code16(FR_5);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_6:
+            if (record->event.pressed) {
+                tap_code16(FR_6);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_7:
+            if (record->event.pressed) {
+                tap_code16(FR_7);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_8:
+            if (record->event.pressed) {
+                tap_code16(FR_8);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_9:
+            if (record->event.pressed) {
+                tap_code16(FR_9);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_EQL:
+            if (record->event.pressed) {
+                tap_code16(FR_EQL);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_ASTR:
+            if (record->event.pressed) {
+                tap_code16(FR_ASTR);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_DOT:
+            if (record->event.pressed) {
+                tap_code16(FR_DOT);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_MINS:
+            if (record->event.pressed) {
+                tap_code16(FR_MINS);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_PLUS:
+            if (record->event.pressed) {
+                tap_code16(FR_PLUS);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_ENT:
+            if (record->event.pressed) {
+                tap_code16(KC_ENT);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
+        case MA_SLSH:
+            if (record->event.pressed) {
+                tap_code16(FR_SLSH);
+            }
+            register_mods(MOD_MASK_CTRL);
+            return false;
     }
+    register_mods(MOD_MASK_CTRL);
     return true;
 }
 bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
@@ -374,31 +504,110 @@ bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
+    if ((keycode != MA_LTHUMB) & (keycode != MA_LTHUMBD)) {
+        isLeftThumbDMoStarted = true;
+    }
     switch (keycode) {
         case MA_LTHUMB:
-            if (record->event.pressed) {
-                layer_on(LA_LTHUMB);
-                register_mods(MOD_MASK_CTRL);
-            } else {
-                if(isLeftThumbDOslStarted == false) {
+            if (!(record->event.pressed)) {
+                layer_off(LA_LTHUMBDMO);
+                if(!isLeftThumbDMoStarted) {
                     layer_on(LA_LTHUMBDOSL);
                 } else {
-                    isLeftThumbDOslStarted = false;
-                    layer_off(LA_LTHUMBDMO);
+                    isLeftThumbDMoStarted = false;
                     layer_off(LA_LTHUMB);
                 }
             }
             return false;
-        case !MA_LTHUMB:
-            isLeftThumbDOslStarted = true;
-        case MA_LTHUMBE:
+        case MA_DELLINE:
+            if (record->event.pressed) {
+                tap_code16(KC_HOME);
+                tap_code16(KC_HOME);
+                register_code16(KC_LSFT);
+                tap_code16(KC_END);
+                tap_code16(KC_RGHT);
+                unregister_code16(KC_LSFT);
+                tap_code16(KC_DEL);
+            }
             return false;
     }
     return true;
 }
-bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {return true;}
-bool processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {return true;}
-bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {return true;}
+bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
+//    switch (keycode) {
+//        case MA_LTHUMB:
+//            return false;
+//    }
+    if (!(record->event.pressed)) {
+        layer_off(LA_LTHUMB);
+        layer_off(LA_LTHUMBDOSL);
+    }
+    return true;
+}
+bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_LTHUMB:
+            if (!(record->event.pressed)) {
+                layer_off(LA_LTHUMB1MO);
+                layer_off(LA_LTHUMB);
+            }
+            return false;
+//        case MA_DELLINE:
+//            if (record->event.pressed) {
+//                tap_code16(KC_HOME);
+//                tap_code16(KC_HOME);
+//                register_code16(KC_LSFT);
+//                tap_code16(KC_END);
+//                tap_code16(KC_RGHT);
+//                unregister_code16(KC_LSFT);
+//                tap_code16(KC_DEL);
+//            }
+//            return false;
+    }
+    return true;
+}
+bool processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_LTHUMB:
+            if (!(record->event.pressed)) {
+                layer_off(LA_LTHUMB2MO);
+                layer_off(LA_LTHUMB);
+            }
+            return false;
+//        case MA_DELLINE:
+//            if (record->event.pressed) {
+//                tap_code16(KC_HOME);
+//                tap_code16(KC_HOME);
+//                register_code16(KC_LSFT);
+//                tap_code16(KC_END);
+//                tap_code16(KC_RGHT);
+//                unregister_code16(KC_LSFT);
+//                tap_code16(KC_DEL);
+//            }
+//            return false;
+    }
+    return true;}
+bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_LTHUMB:
+            if (!(record->event.pressed)) {
+                layer_off(LA_LTHUMB2MO);
+                layer_off(LA_LTHUMB);
+            }
+            return false;
+//        case MA_DELLINE:
+//            if (record->event.pressed) {
+//                tap_code16(KC_HOME);
+//                tap_code16(KC_HOME);
+//                register_code16(KC_LSFT);
+//                tap_code16(KC_END);
+//                tap_code16(KC_RGHT);
+//                unregister_code16(KC_LSFT);
+//                tap_code16(KC_DEL);
+//            }
+//            return false;
+    }
+    return true;}
 bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_BACKTICK:
@@ -417,16 +626,38 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
-bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
     switch (keycode) {
-        case C(KC_UP):
-            if (record->event.pressed) {
-                tap_code16(KC_UP);
+        case MA_LPINKY:
+            if (!(record->event.pressed)) {
+                layer_off(LA_LPINKY);
             }
             return false;
-        case C(KC_DOWN):
+        case MA_LTHUMB:
+            if (!(record->event.pressed)) {
+                unregister_code16(KC_LCTL);
+            }
+            return false;
+        case MA_UP:
             if (record->event.pressed) {
-                tap_code16(KC_DOWN);
+                if (mod_state & MOD_MASK_CTRL) {
+                    unregister_code16(KC_LCTL);
+                    tap_code16(KC_UP);
+                    register_code16(KC_LCTL);
+                } else {
+                    tap_code16(KC_UP);
+                }
+            }
+            return false;
+        case MA_DOWN:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_CTRL) {
+                    unregister_code16(KC_LCTL);
+                    tap_code16(KC_DOWN);
+                    register_code16(KC_LCTL);
+                } else {
+                    tap_code16(KC_DOWN);
+                }
             }
             return false;
     }
@@ -554,21 +785,23 @@ bool processKeycodeIfCtl(uint16_t keycode, keyrecord_t* record) {return true;}
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     // Store the current modifier state in the variable for later reference
-    mod_state = get_mods();
+    uint8_t mod_state = get_mods();
 
     if (IS_LAYER_ON(LA_LTHUMB)) {
         if (IS_LAYER_ON(LA_LTHUMBEOSL)) {
             return processKeycodeIfLThumbEOsl(keycode, record);
         } else if (IS_LAYER_ON(LA_LTHUMBEMO)) {
             return processKeycodeIfLThumbEMo(keycode, record);
-//        } else if (IS_LAYER_ON(LA_LTHUMBDMO)) {
-//            return processKeycodeIfLThumbDMo(keycode, record);
-//        } else if (IS_LAYER_ON(LA_LTHUMB1MO)) {
-//            return processKeycodeIfLThumb1Mo(keycode, record);
-//        } else if (IS_LAYER_ON(LA_LTHUMB2MO)) {
-//            return processKeycodeIfLThumb2Mo(keycode, record);
-//        } else if (IS_LAYER_ON(LA_LTHUMB3MO)) {
-//            return processKeycodeIfLThumb3Mo(keycode, record);
+        } else if (IS_LAYER_ON(LA_LTHUMBDOSL)) {
+            return processKeycodeIfLThumbDOsl(keycode, record);
+        } else if (IS_LAYER_ON(LA_LTHUMBDMO)) {
+            return processKeycodeIfLThumbDMo(keycode, record);
+        } else if (IS_LAYER_ON(LA_LTHUMB1MO)) {
+            return processKeycodeIfLThumb1Mo(keycode, record);
+        } else if (IS_LAYER_ON(LA_LTHUMB2MO)) {
+            return processKeycodeIfLThumb2Mo(keycode, record);
+        } else if (IS_LAYER_ON(LA_LTHUMB3MO)) {
+            return processKeycodeIfLThumb3Mo(keycode, record);
         } else {
             return processKeycodeIfLThumb(keycode, record);
         }
@@ -579,10 +812,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         } else if (IS_LAYER_ON(LA_LPINKYW)) {
             return processKeycodeIfLPinkyZ(keycode, record);
         } else {
-            return processKeycodeIfLPinky(keycode, record);
+            return processKeycodeIfLPinky(keycode, record, mod_state);
         }
     }
-//    if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
+    if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
 
     if (mod_state & MOD_MASK_SHIFT) {return processKeycodeIfShift(keycode, record);}
     if (mod_state & MOD_MASK_CTRL) {return processKeycodeIfCtl(keycode, record);}
