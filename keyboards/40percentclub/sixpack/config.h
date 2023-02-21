@@ -20,4 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Backlight */
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 6
-#define BACKLIGHT_PINS { F4, F5 } // Top Row, Bottom Row

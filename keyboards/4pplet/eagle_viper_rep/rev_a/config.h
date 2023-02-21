@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_DRIVER    PWMD2
 #define BACKLIGHT_PWM_CHANNEL   4
 #define BACKLIGHT_PAL_MODE      2
-#define BACKLIGHT_ON_STATE      1
 #define BACKLIGHT_LEVELS        10
 #define BACKLIGHT_BREATHING     TRUE
 

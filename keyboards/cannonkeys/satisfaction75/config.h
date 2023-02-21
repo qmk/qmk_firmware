@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //LEDS A6, RGB B15
 #define BACKLIGHT_LEVELS 24
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 // I2C config
 #define I2C_DRIVER I2CD1

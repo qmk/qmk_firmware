@@ -29,7 +29,6 @@ Copyright 2022 Nathan Spears
 #define BACKLIGHT_PIN           D1
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 // ws2812 options
 #define RGB_DI_PIN B1 // pin the DI on the ws2812 is hooked-up to

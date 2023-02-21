@@ -4,6 +4,10 @@
         "pid": "0x6584",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "on_state": 0,
+        "breathing_period": 5
+    },
     "indicators": {
         "caps_lock": "A10"
     },

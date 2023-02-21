@@ -22,4 +22,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_CAPS_LOCK
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 5

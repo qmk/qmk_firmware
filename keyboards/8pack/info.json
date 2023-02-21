@@ -7,6 +7,9 @@
     "vid": "0xFEED",
     "pid": "0x2171"
   },
+  "backlight": {
+    "pins": ["D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5"]
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "matrix_pins": {
