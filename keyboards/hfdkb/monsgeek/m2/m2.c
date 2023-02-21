@@ -284,11 +284,13 @@ static uint16_t current_time        = 0;
 static uint8_t  glint_cnt           = 0;
 static uint16_t scancode            = 0;
 static uint8_t  alarm_cnt           = 0;
+static uint8_t  RGB_HSV_level;
 
 HSV hsv;
 
 void led_test(uint8_t color);
 void clear_eeprom(void);
+void rgb_hsv_updata_user(void);
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -394,6 +396,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_toggle_noeeprom();
                 current_time     = timer_read();
                 keymap_config.no_gui = 0;
+                eeconfig_update_keymap(keymap_config.raw);
                 // layer_state_set(MAC_B);
                 set_single_persistent_default_layer(MAC_B);
                 return false;
@@ -426,33 +429,84 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
         case RGB_VAI:
-                if ((fn_make_flag && record->event.pressed)&&(alarm_flag == 0)) {
-                    if(rgblight_get_val()<180){
-                         alarm_cnt = 2;
-                    }
+            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_val() / (RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4)) < 4) {
+                    alarm_cnt = 2;
+                    RGB_HSV_level++;
+                    rgb_matrix_config.hsv.v = (uint8_t)(RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4) * RGB_HSV_level;
                 }
-            return true;
+                rgb_hsv_updata_user();
+            }
+            return false;
         case RGB_VAD:
-                if ((fn_make_flag && record->event.pressed)&&(alarm_flag == 0)) {
-                    if(rgblight_get_val()>10){
-                        alarm_cnt = 2;
-                    }
+            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_val() / (RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4)) > 0) {
+                    alarm_cnt = 2;
+                    RGB_HSV_level--;
+                    rgb_matrix_config.hsv.v = (uint8_t)(RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4) * RGB_HSV_level;
                 }
-            return true;
+                rgb_hsv_updata_user();
+            }
+            return false;
         case RGB_SAI:
-                if ((fn_make_flag && record->event.pressed)&&(alarm_flag == 0)) {
-                    if(rgblight_get_sat()<240){
-                         alarm_cnt = 2;
-                    }
+            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_sat() / (UINT8_MAX / 4)) < 4) {
+                    alarm_cnt = 2;
+                    RGB_HSV_level++;
+                    rgb_matrix_config.hsv.s = (uint8_t)(UINT8_MAX / 4) * RGB_HSV_level;
                 }
-            return true;
+                rgb_hsv_updata_user();
+            }
+            return false;
         case RGB_SAD:
-                if ((fn_make_flag && record->event.pressed)&&(alarm_flag == 0)) {
-                    if(rgblight_get_sat()>10){
-                        alarm_cnt = 2;
-                    }
+            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_sat() / (UINT8_MAX / 4)) > 0) {
+                    alarm_cnt = 2;
+                    RGB_HSV_level--;
+                    rgb_matrix_config.hsv.s = (uint8_t)(UINT8_MAX / 4) * RGB_HSV_level;
                 }
-            return true;
+                rgb_hsv_updata_user();
+            }
+            return false;
+        case RGB_HUI:
+            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_hue() / (UINT8_MAX / 6)) < 6) {
+                    alarm_cnt = 2;
+                    RGB_HSV_level++;
+                    rgb_matrix_config.hsv.h = (uint8_t)(UINT8_MAX / 6) * RGB_HSV_level;
+                }
+                rgb_hsv_updata_user();
+            }
+            return false;
+        case RGB_HUD:
+            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_hue() / (UINT8_MAX / 6)) > 0) {
+                    alarm_cnt = 2;
+                    RGB_HSV_level--;
+                    rgb_matrix_config.hsv.h = (uint8_t)(UINT8_MAX / 6) * RGB_HSV_level;
+                }
+                rgb_hsv_updata_user();
+            }
+            return false;
+        case RGB_SPI:
+            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_speed() / (UINT8_MAX / 4)) < 4) {
+                    alarm_cnt = 2;
+                    RGB_HSV_level++;
+                    rgb_matrix_set_speed((uint8_t)(UINT8_MAX / 4) * RGB_HSV_level);
+                }
+            }
+            return false;
+        case RGB_SPD:
+            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_speed() / (UINT8_MAX / 4)) > 0) {
+                    alarm_cnt = 2;
+                    RGB_HSV_level--;
+                    rgb_matrix_set_speed((uint8_t)(UINT8_MAX / 4) * RGB_HSV_level);
+                }
+            }
+            return false;
+
         default:
             return process_record_user(keycode, record);
     }
@@ -568,7 +622,7 @@ void clear_eeprom(void) {
     layer_state_set(default_layer_temp);
     default_layer_set(default_layer_temp);
     keymap_config.no_gui = 0;
-
+    eeconfig_update_keymap(keymap_config.raw);
     #ifdef VIA_ENABLE
         // This resets the layout options
         via_set_layout_options(VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT);
@@ -579,4 +633,9 @@ void clear_eeprom(void) {
     #endif
 
     rgb_matrix_enable_noeeprom();
+}
+
+void rgb_hsv_updata_user(void)
+{
+    rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
 }
