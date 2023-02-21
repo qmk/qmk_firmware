@@ -163,7 +163,12 @@ enum custom_keycodes {
 };
 #endif
 
-enum colors { WHITE, RED, GREEN, BLUE };
+enum colors {
+    WHITE, 
+    RED, 
+    GREEN, 
+    BLUE 
+};
 enum colors led_color_status = WHITE;
 
 static bool     fn_make_flag        = false;
@@ -180,12 +185,12 @@ void led_test(uint8_t color);
 void clear_eeprom(void);
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
         case MO(1):
-            fn_make_flag = false;
-            if (record->event.pressed) {
-                fn_make_flag = true;
-            } 
+            fn_make_flag = record->event.pressed;
             return true;
         case KC_DEL:
             if (fn_make_flag && record->event.pressed) {
@@ -199,17 +204,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return true;
         case KC_SPC:
             if (fn_make_flag && record->event.pressed) {
-
-                if(while_test_flag)
-                {
+                if (while_test_flag) {
                     while_test_flag = false;
                     rgb_matrix_init();
-                }
-                else
-                {
-                    Lkey_flag           = true;
-                    current_time     = timer_read();
-                    scancode = KC_SPC;
+                } else {
+                    Lkey_flag    = true;
+                    current_time = timer_read();
+                    scancode     = KC_SPC;
                 }
                 return false;   
             } else {
@@ -218,12 +219,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return true;
 #ifdef VIA_ENABLE
         case KC_RESET: {
-        if (record->event.pressed) {
-
-        #include "via.h"
-        via_eeprom_set_valid(false);
-        eeconfig_init_via();
-        }
+            if (record->event.pressed) {
+#    include "via.h"
+                via_eeprom_set_valid(false);
+                eeconfig_init_via();
+            }
             return false;
         }
 #endif
@@ -233,9 +233,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void housekeeping_task_kb(void) {
-    if(Lkey_flag){
-        if(scancode == KC_DEL)
-        {
+    if (Lkey_flag) {
+        if (scancode == KC_DEL) {
             if (timer_elapsed(current_time) >= 5000) {
                 Lkey_flag = false;
                 clear_eeprom();
@@ -246,9 +245,7 @@ void housekeeping_task_kb(void) {
                 rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
                 rgb_matrix_sethsv_noeeprom(HSV_OFF);
             }
-        }
-        else if(scancode == KC_SPC)
-        {
+        } else if (scancode == KC_SPC) {
             if (timer_elapsed(current_time) >= 3000) {
                 Lkey_flag = false;
                 clear_eeprom();
@@ -259,9 +256,7 @@ void housekeeping_task_kb(void) {
                 rgb_matrix_sethsv_noeeprom(HSV_RED);
             }
         }
-    }
-    else if(reset_glint_flag)
-    {
+    } else if (reset_glint_flag) {
         if ((timer_elapsed(current_time)) >= 300) {
             current_time = timer_read();
             if (((glint_cnt++) & 0x01 )== 0) {
@@ -276,8 +271,7 @@ void housekeeping_task_kb(void) {
             }
         }
 
-    }
-    else if(while_test_flag){
+    } else if (while_test_flag) {
         if ((timer_elapsed(current_time)) >= 1500) {
             current_time = timer_read();
             if ((glint_cnt%3) == 0) {
@@ -288,9 +282,8 @@ void housekeeping_task_kb(void) {
                 rgb_matrix_sethsv_noeeprom(HSV_BLUE);
             }
             glint_cnt++;
-            if(glint_cnt>=30)
-            {
-                glint_cnt = 0;
+            if (glint_cnt >= 30) {
+                glint_cnt       = 0;
                 while_test_flag = false;
                 rgb_matrix_init();
             }
