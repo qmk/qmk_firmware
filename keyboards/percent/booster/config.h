@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { C7, D4, D2, D0 }
 
 #define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 3
 
 #define DIODE_DIRECTION COL2ROW
 

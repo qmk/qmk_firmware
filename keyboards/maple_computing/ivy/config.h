@@ -27,8 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN D2
 
-#define BACKLIGHT_LEVELS 3
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

@@ -34,7 +34,6 @@
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 
 #if defined(RGBLIGHT_ENABLE)
     #define RGB_DI_PIN E2

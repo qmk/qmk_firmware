@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // In-switch LED defines
 #define BACKLIGHT_PIN           A6
-#define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
 
 #define BACKLIGHT_PWM_DRIVER    PWMD3

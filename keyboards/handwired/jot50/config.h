@@ -6,7 +6,6 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, D3, D2, D1, D0, D4, C6 }
 
 /* leds */
-#define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_BREATHING
 
