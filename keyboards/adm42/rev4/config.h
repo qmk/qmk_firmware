@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #define MATRIX_COL_PINS { C6, B6, B5, B4, D7, D6, F0, F1, F4, F5, F6, F7 }
 #define MATRIX_ROW_PINS { C7, D5, D3, D2 }
 
