@@ -57,15 +57,12 @@ void keyboard_post_init_user(void){
   rgblight_layers = my_rgb_layers;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-
-    default:
-    if (record->event.pressed) {
-      rgblight_blink_layer(0, 100);
-
-    }
-      return true; // Process all other keycodes normally
+      default:
+          if (record->event.pressed) {
+              rgblight_blink_layer(0, 100);
+          }
   }
 }
 
