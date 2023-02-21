@@ -1,6 +1,6 @@
 # Combos
 
-The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `S` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
+The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `B` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
 
 To enable this feature, you need to add `COMBO_ENABLE = yes` to your `rules.mk`.
 

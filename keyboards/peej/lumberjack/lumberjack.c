@@ -16,14 +16,9 @@
 
 #include "lumberjack.h"
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    writePin(LED1, record->event.pressed);
+void keyboard_pre_init_kb() {
+    setPinOutput(LED1);
+    setPinOutput(LED2);
 
-    return process_record_user(keycode, record);
-}
-
-layer_state_t layer_state_set_kb(layer_state_t state) {
-    writePin(LED2, state);
-
-    return layer_state_set_user(state);
+    keyboard_pre_init_user();
 }

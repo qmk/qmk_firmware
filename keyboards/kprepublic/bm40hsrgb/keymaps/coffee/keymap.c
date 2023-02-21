@@ -10,14 +10,29 @@ enum custom_keycodes {
         MCR_REC,             // Macro record
         MCR_SWT,             // Swap active macro
     #endif
+    #ifdef MOUSEKEY_ENABLE
+        MS_ACL_U,
+        MS_ACL_D,
+    #endif
 };
 
 enum layout_names {
     _MAIN = 0,       // Keys Layout: The main keyboard layout that has all the characters
     _SUB,            // Extension to Main
     _CTR,            // Macros, RGB, Audio controls, layer access. More or less the control center of my keyboard
+    #ifdef MOUSEKEY_ENABLE
+    _MSE,
+    #endif // MOUSEKEY_ENABLE
     _END,
 };
+
+#ifdef MOUSEKEY_ENABLE
+#include "action.h"
+#define TOG_MSE TG(_MSE)
+static int current_accel = 0;
+#else
+#define TOG_MSE XXXXXXX
+#endif // MOUSEKEY_ENABLE
 
 #ifdef DYNAMIC_MACRO_ENABLE
     // Macro 1 is = 1, Macro 2 = -1, No macro = 0
@@ -57,8 +72,16 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, XXXXXXX, XXXXXXX, KC_VOLU, XXXXXXX, XXXXXXX, MCR_REC,
         XXXXXXX, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, MCR_PLY,
         XXXXXXX, XXXXXXX, RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLD, XXXXXXX, XXXXXXX, MCR_SWT,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      TOG_MSE,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
+    #ifdef MOUSEKEY_ENABLE
+    ,[_MSE] = LAYOUT_planck_mit(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, XXXXXXX, KC_BTN1, KC_WH_D, KC_WH_U, KC_BTN2, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MS_ACL_D,      TOG_MSE,    MS_ACL_U,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    )
+    #endif // MOUSEKEY_ENABLE
 };
 
 #define LAYER (get_highest_layer(layer_state))
@@ -124,6 +147,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             REC = (MACRO1 ? DM_REC1 : DM_REC2);
             return false;
         }
+    #endif
+
+    #ifdef MOUSEKEY_ENABLE
+    if (keycode == MS_ACL_U || keycode == MS_ACL_D) {
+        if (record->event.pressed) {
+            if ( (keycode == MS_ACL_U) && (current_accel < 2) ) { current_accel += 1; }
+            if ( (keycode == MS_ACL_D) && (current_accel > 0) ) { current_accel -= 1; }
+        }
+        keycode = KC_ACL0 + current_accel;
+        action_t mousekey_action = action_for_keycode(keycode);
+        process_action(record, mousekey_action);
+    }
     #endif
 
     switch (keycode) {

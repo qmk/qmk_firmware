@@ -1,10 +1,10 @@
 {
-  "manufacturer": "Filco",
-  "url": "",
-  "maintainer": "qmk",
-  "usb": {
-    "vid": "0xFEED",
-    "pid": "0x6050",
-    "device_version": "1.0.4"
-  }
+    "manufacturer": "Filco",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4245",
+        "pid": "0x6050",
+        "device_version": "1.0.0"
+    }
 }
