@@ -220,7 +220,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #ifdef VIA_ENABLE
         case KC_RESET: {
             if (record->event.pressed) {
-#    include "via.h"
                 via_eeprom_set_valid(false);
                 eeconfig_init_via();
             }
