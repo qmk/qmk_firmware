@@ -181,9 +181,6 @@ static uint16_t scancode           = 0;
 
 HSV hsv;
 
-void led_test(uint8_t color);
-void clear_eeprom(void);
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
