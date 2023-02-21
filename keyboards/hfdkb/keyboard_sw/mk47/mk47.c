@@ -149,10 +149,10 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
     }
-    // caps lock cyan
     if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(12, 255, 255, 255);
+        RGB_MATRIX_INDICATOR_SET_COLOR(12, 255, 0, 0);
     }
+
     return true;
 }
 #endif
@@ -178,6 +178,7 @@ static bool     while_test_flag     = false;
 static uint16_t current_time        = 0;
 static uint8_t  glint_cnt           = 0;
 static uint16_t scancode           = 0;
+static uint8_t  RGB_HSV_level;
 
 HSV hsv;
 
@@ -214,6 +215,52 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 Lkey_flag = 0;
             }
             return true;
+        case RGB_VAI:
+            if ((fn_make_flag && record->event.pressed)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_val() / (RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4)) < 4) {
+                    RGB_HSV_level++;
+                    rgb_matrix_config.hsv.v = (uint8_t)(RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4) * RGB_HSV_level;
+                }
+                rgb_hsv_updata_user();
+            }
+            return false;
+        case RGB_VAD:
+            if ((fn_make_flag && record->event.pressed)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_val() / (RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4)) > 0) {
+                    RGB_HSV_level--;
+                    rgb_matrix_config.hsv.v = (uint8_t)(RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4) * RGB_HSV_level;
+                }
+                rgb_hsv_updata_user();
+            }
+            return false;
+        case RGB_HUI:
+            if ((fn_make_flag && record->event.pressed)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_hue() / (UINT8_MAX / 9)) < 9) {
+                    RGB_HSV_level++;
+                }else{
+                    RGB_HSV_level = 1;
+                }
+                rgb_matrix_config.hsv.h = (uint8_t)(UINT8_MAX / 9) * RGB_HSV_level;
+                rgb_hsv_updata_user();
+            }
+            return false;
+
+        case RGB_SPI:
+            if ((fn_make_flag && record->event.pressed)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_speed() / (UINT8_MAX / 5)) < 5) {
+                    RGB_HSV_level++;
+                    rgb_matrix_set_speed((uint8_t)(UINT8_MAX / 5) * RGB_HSV_level);
+                }
+            }
+            return false;
+        case RGB_SPD:
+            if ((fn_make_flag && record->event.pressed)) {
+                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_speed() / (UINT8_MAX / 5)) > 0) {
+                    RGB_HSV_level--;
+                    rgb_matrix_set_speed((uint8_t)(UINT8_MAX / 5) * RGB_HSV_level);
+                }
+            }
+            return false;     
 #ifdef VIA_ENABLE
         case KC_RESET: {
             if (record->event.pressed) {
@@ -325,4 +372,8 @@ void clear_eeprom(void) {
     #endif
 
     rgb_matrix_enable_noeeprom();
+}
+
+void rgb_hsv_updata_user(void) {
+    rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
 }
