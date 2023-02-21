@@ -35,7 +35,7 @@ typedef union {
 user_config_t user_config;
 
 enum custom_keycodes {
-    KC_LIGHT_TAB_TOGGLE = QK_KB_0,
+    KC_LIGHT_TAB_TOGGLE = QK_KB_2, // TECH DEBT: Starts at QK_KB_2 to maintain ordering with VIA definitions. See #19884. Revert to QK_KB_0 when VIA catches up with QMK.
     KC_LIGHT_ALPHAS_TOGGLE,
     KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE,
     KC_FN_LAYER_COLOR_TOGGLE
