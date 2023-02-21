@@ -1,9 +1,9 @@
 # CC67
 
-A 65% keyboard made by XCStore, which controlled by an STM32F401xC (probably not genuine) chipset. The keyboard features per-key RGB, RGB underglow.
+A 65% keyboard made by XCStore, which controlled by an STM32F401xC chipset. The keyboard features per-key RGB, RGB underglow.
 
 * Keyboard Maintainer: XCStore
-* Hardware Supported: STM32F401xC (probably not genuine)
+* Hardware Supported: STM32F401xC
 * Hardware Availability: From XCStore on Taobao
 
 Make example for this keyboard (after setting up your build environment):
