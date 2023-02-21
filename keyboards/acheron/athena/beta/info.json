@@ -4,6 +4,9 @@
         "pid": "0x6585",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "breathing_period": 5
+    },
     "indicators": {
         "caps_lock": "C8"
     },

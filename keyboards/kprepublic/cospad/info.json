@@ -8,6 +8,9 @@
         "pid": "0xB1E5",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "on_state": 0
+    },
     "indicators": {
         "num_lock": "B2",
         "on_state": 0

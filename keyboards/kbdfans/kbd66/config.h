@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

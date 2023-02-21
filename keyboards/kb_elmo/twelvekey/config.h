@@ -28,4 +28,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Backlight */
 #define BACKLIGHT_PIN B1
 #define BACKLIGHT_LEVELS 8
-#define BACKLIGHT_ON_STATE 0

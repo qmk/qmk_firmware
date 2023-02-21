@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN F5
 #define BACKLIGHT_LEVELS 6
-#define BACKLIGHT_ON_STATE 0
 
 #define RGB_DI_PIN F6
 #ifdef RGB_DI_PIN

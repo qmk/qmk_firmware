@@ -28,7 +28,6 @@
 #define BACKLIGHT_PAL_MODE 1
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
