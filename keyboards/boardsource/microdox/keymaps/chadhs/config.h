@@ -48,3 +48,8 @@
 // https://getreuer.info/posts/keyboards/layer-lock/index.html
 // TODO: fix this
 #define LAYER_LOCK_IDLE_TIMEOUT 5000  // turn off after 5 seconds
+
+// fix unresponsiveness after wake
+#define USB_SUSPEND_WAKEUP_DELAY 500
+#define SPLIT_WATCHDOG_ENABLE
+#define SPLIT_USB_DETECT // default; setting explicitly
