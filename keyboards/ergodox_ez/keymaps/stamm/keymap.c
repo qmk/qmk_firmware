@@ -54,22 +54,22 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_0_BASE] = LAYOUT_ergodox(
-  KC_NONUS_BSLASH,      KC_EXLM,              KC_AT,         KC_HASH,        KC_DLR,       KC_PERC,   KC_AUDIO_MUTE,
-  KC_LEAD,              KC_Q,                 KC_W,          E_NUMBERS,      R_MOUSE,      KC_T,      XXXXXXX,
+  KC_NUBS,              KC_EXLM,              KC_AT,         KC_HASH,        KC_DLR,       KC_PERC,   KC_AUDIO_MUTE,
+  QK_LEAD,              KC_Q,                 KC_W,          E_NUMBERS,      R_MOUSE,      KC_T,      XXXXXXX,
   LCTL(KC_B),           LSFT_T(KC_A),         LCTL_T(KC_S),  LALT_T(KC_D),   LGUI_T(KC_F), KC_G,
-  KC_BSLASH,            KC_Z,                 KC_X,          KC_C,           KC_V,         KC_B,      XXXXXXX,
+  KC_BSLS,              KC_Z,                 KC_X,          KC_C,           KC_V,         KC_B,      XXXXXXX,
   ALT_TAB,              XXXXXXX,              XXXXXXX,       MO(_1_NUMBERS), ARROWS,
   KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,
   XXXXXXX,
   KC_ENTER,             KC_TAB,               KC_ESCAPE,
-  KC_CAPSLOCK,          KC_CIRC,              KC_AMPR,       KC_ASTR,       KC_LPRN,            KC_RPRN,   KC_MINUS,
-  XXXXXXX,              KC_Y,                 KC_U,          KC_I,          KC_O,               KC_P,      KC_LBRACKET,
-  KC_H,                 RGUI_T(KC_J),         RALT_T(KC_K),  RCTL_T(KC_L),  RSFT_T(KC_SCOLON),  KC_QUOTE,
-  KC_RBRACKET,          KC_N,                 KC_M,          KC_COMMA,      KC_DOT,             KC_SLASH,  KC_EQUAL,
+  KC_CAPS,              KC_CIRC,              KC_AMPR,       KC_ASTR,       KC_LPRN,            KC_RPRN,   KC_MINUS,
+  XXXXXXX,              KC_Y,                 KC_U,          KC_I,          KC_O,               KC_P,      KC_LBRC,
+  KC_H,                 RGUI_T(KC_J),         RALT_T(KC_K),  RCTL_T(KC_L),  RSFT_T(KC_SCLN),    KC_QUOTE,
+  KC_RBRC,              KC_N,                 KC_M,          KC_COMMA,      KC_DOT,             KC_SLASH,  KC_EQUAL,
   XXXXXXX,              XXXXXXX,              XXXXXXX,       XXXXXXX,       XXXXXXX,
   KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_NEXT_TRACK,
   XXXXXXX,
-  KC_ESCAPE,            KC_BSPACE,            KC_SPACE
+  KC_ESCAPE,            KC_BSPC,              KC_SPACE
 ),
 [_1_NUMBERS] = LAYOUT_ergodox(
   _______,  KC_F1,      KC_F2,    KC_F3,     KC_F4,    KC_F5,      _______,
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  KC_F6,      KC_F7,    KC_F8,     KC_F9,    KC_F10,     KC_F11,
   _______,  _______,    KC_7,     KC_8,      KC_9,     KC_ASTR,    KC_F12,
   _______,  KC_4,       KC_5,     KC_6,      KC_PLUS,  _______,
-  _______,  _______,    KC_1,     KC_2,      KC_3,     KC_BSLASH,  _______,
+  _______,  _______,    KC_1,     KC_2,      KC_3,     KC_BSLS,    _______,
   KC_0,     KC_KP_DOT,  _______,  KC_EQUAL,  _______,
   _______,  _______,
   _______,
@@ -217,7 +217,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     case RGUI_T(KC_J):
     case RALT_T(KC_K):
     case RCTL_T(KC_L):
-    case RSFT_T(KC_SCOLON):
+    case RSFT_T(KC_SEMICOLON):
     case ARROWS:
       return true;
     default:
@@ -237,7 +237,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     case RGUI_T(KC_J):
     case RALT_T(KC_K):
     case RCTL_T(KC_L):
-    case RSFT_T(KC_SCOLON):
+    case RSFT_T(KC_SEMICOLON):
     case ARROWS:
       return false;
     default:

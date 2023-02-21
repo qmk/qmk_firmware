@@ -9,15 +9,20 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 - PR should be submitted using a non-`master` branch on the source repository
     - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
     - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
+- PRs should contain the smallest amount of modifications required for a single change to the codebase
+    - multiple keyboards at the same time is not acceptable
+        - exception: keymaps for a single user targeting multiple keyboards and/or userspace is acceptable
+    - **the smaller the PR, the higher likelihood of a quicker review, higher likelihood of quicker merge, and less chance of conflicts**
 - newly-added directories and filenames must be lowercase
-    - this rule may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
+    - the lowercase requirement may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
     - if there is valid justification (i.e. consistency with existing core files etc.) this can be relaxed
         - a board designer naming their keyboard with uppercase letters is not enough justification
 - valid license headers on all `*.c` and `*.h` source files
     - GPL2/GPL3 recommended for consistency
-    - an example GPL2+ license header may be copied and modified from the bottom of this document
-    - other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged.
+    - an example GPL2+ license header may be copied (and author modified) from the bottom of this document
+    - other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged
     - missing license headers will prevent PR merge due to ambiguity with license compatibility
+        - simple assignment-only `rules.mk` files should not need a license header - where additional logic is used in an `*.mk` file a license header may be appropriate
 - QMK Codebase "best practices" followed
     - this is not an exhaustive list, and will likely get amended as time goes by
     - `#pragma once` instead of `#ifndef` include guards in header files
@@ -31,13 +36,14 @@ If there are any inconsistencies with these recommendations, you're best off [cr
         - refactor it as a separate core change
         - remove your specific copy in your board
 - fix all merge conflicts before opening the PR (in case you need help or advice, reach out to QMK Collaborators on Discord)
+    - PR submitters will need to keep up-to-date with their base branch, resolving conflicts along the way
 
 ## Keymap PRs
 
 - `#include QMK_KEYBOARD_H` preferred to including specific board files
 - prefer layer `enum`s to `#define`s
 - require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
-- terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous
+- terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous and should be removed
 - some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
 ## Keyboard PRs
@@ -45,6 +51,9 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 Closed PRs (for inspiration, previous sets of review comments will help you eliminate ping-pong of your own reviews):
 https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
+- keyboard moves within the repository *must* go through the `develop` branch instead of `master`, so as to ensure compatibility for users
+    - `data/mappings/keyboard_aliases.hjson` must be updated to reflect the move, so users with pre-created configurator keymap.json files continue to detect the correct keyboard
+- PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards -- try `qmk import-kbfirmware` first
 - `info.json`
     - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
     - the mandatory elements for a minimally complete `info.json` at present are:
@@ -55,6 +64,11 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
             - should use standard definitions if applicable
             - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
+            - If the keyboard only has a single electrical/switch layout:
+                - use `LAYOUT` as your macro name, unless a community layout already exists
+            - If the keyboard has multiple electrical/switch layouts:
+                - include a `LAYOUT_all` which specifies all possible layout positions in the electrical matrix
+                - use alternate layout names for all other possible layouts, preferring community layout names if an equivalent is available (e.g. `LAYOUT_tkl_ansi`, `LAYOUT_ortho_4x4` etc.)
 - `readme.md`
     - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
@@ -112,6 +126,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
+- Do not include KLE json files in the PR. These have no use within QMK.
 - Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine.
   - For instance, only `wilba_tech` boards shall include `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine for any and all boards.
   - Code that needs to be used by multiple boards is a candidate for core code changes, and should be separated out.
@@ -135,7 +150,10 @@ Also, specific to ChibiOS:
     - for new MCUs, a new "child" keyboard should be added that targets your newly-added MCU, so that builds can be verified
     - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided
     - if an existing keymap exists that can leverage this functionality this may not be required (e.g. a new RGB driver chip, supported by the `rgb` keymap) -- consult with the QMK Collaborators on Discord to determine if there is sufficient overlap already
-- any features adding `_kb`/`_user` callbacks must return a `bool`, to allow for user override of keyboard-level callbacks. 
+- any features adding `_kb`/`_user` callbacks must return a `bool`, to allow for user override of keyboard-level callbacks.
+- where relevant, unit tests are strongly recommended -- they boost the confidence level that changes behave correctly
+    - critical areas of the code -- such as the keycode handling pipeline -- will almost certainly require unit tests accompanying them to ensure current and future correctness
+    - you should not be surprised if a QMK collaborator requests unit tests to be included in your PR if it's critical functionality
 - other requirements are at the discretion of QMK collaborators
     - core is a lot more subjective given the breadth of posted changes
 

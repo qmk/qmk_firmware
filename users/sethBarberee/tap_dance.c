@@ -51,7 +51,7 @@ void dance_ecap_finished (qk_tap_dance_state_t *state, void *user_data){
             tap_code(KC_ESC);
             break;
         case SINGLE_HOLD:
-            register_code(KC_LCTRL);
+            register_code(KC_LCTL);
             break;
         case DOUBLE_TAP:
             tap_code(KC_CAPS);
@@ -76,7 +76,7 @@ void dance_ecap_finished (qk_tap_dance_state_t *state, void *user_data){
 
 void dance_ecap_reset (qk_tap_dance_state_t *state, void *user_data){
     if(caps_status.state == SINGLE_HOLD){
-        unregister_code(KC_LCTRL);
+        unregister_code(KC_LCTL);
     }
     caps_status.state = 0;
 }
