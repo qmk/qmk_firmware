@@ -1,7 +1,5 @@
 # Teahouse Ayleen
 
-Teahouse Ayleen
-
 ![Teahouse Ayleen](https://cdn.shopify.com/s/files/1/0578/4941/3805/products/Screenshot2022-12-21at1.26.07AM_1024x1024@2x.png?v=1671614827)
 
 
