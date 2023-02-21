@@ -24,11 +24,6 @@ enum layers{
     _FN3
 };
 
-enum custom_keycodes {
-    KC_TASK = QK_KB_0,
-    KC_FLXP
-};
-
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
 
