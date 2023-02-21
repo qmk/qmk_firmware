@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
   [_IPC] = LAYOUT_crkbd_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    PDF_HL,  HAEN_B,  HAEN_C,  CLASS_E, CLASS_A, KC_BSLS,                            KC_GRV,  _________NUM_789_________, KC_MINS, KC_PLUS,
+    PDF_HL,  HAEN_B,  HAEN_C,  CLASS_E, CLASS_A, KC_BSLS,                             KC_GRV,  _________NUM_789_________, KC_MINS, KC_PLUS,
     _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F),  KC_DOT,                              KC_LBRC, _________NUM_456_________, KC_COLN, KC_DQUO,
     KC_LNG1, IPC(Z),  HWP_CITE,IPC(C),  KC_EQL,  KC_SLSH,                             KC_RBRC, _________NUM_123_________, _______, KC_PIPE,
                                         _______, _______, _______,          _______, LT(_NAV,KC_0), _______
