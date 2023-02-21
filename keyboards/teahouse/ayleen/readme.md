@@ -8,7 +8,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -km teahouse/ayleen -km default
+    make teahouse/ayleen:default
+
+Flashing example for this keyboard:
+
+    make teahouse/ayleen:default:flash
 
 
 For reset instruction, use the physical reset button on the back of the keyboard to enter bootloader mode
