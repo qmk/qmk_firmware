@@ -5,7 +5,7 @@
     "maintainer": "lalalademaxiya1",
     "usb": {
         "vid": "0x3434",
-        "pid": "0x01A1",
+        "pid": "0x03A1",
         "device_version": "1.0.0"
     },
     "processor": "STM32L432",
