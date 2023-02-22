@@ -27,5 +27,6 @@
     "python.formatting.provider": "yapf",
     "[json]": {
 	    "editor.formatOnSave": false
-    }
+    },
+    "cmake.configureOnOpen": false
 }
