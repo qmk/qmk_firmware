@@ -109,6 +109,7 @@ def merge_ordered_dicts(dicts):
     Later input dicts overrides earlier dicts for plain values.
     Arrays will be appended. If the first entry of an array is "!reset!", the contents of the array will be cleared and replaced with RHS.
     Dictionaries will be recursively merged. If any entry is "!reset!", the contents of the dictionary will be cleared and replaced with RHS.
+                                             If any value is "!delete!", the dictionary will be removed from its parent.
     """
     result = OrderedDict()
 
@@ -125,6 +126,8 @@ def merge_ordered_dicts(dicts):
                 target[k] = v[1:]
             else:
                 target[k] = target[k] + v
+        elif v == "!delete!" and isinstance(target[k], (OrderedDict, dict)):
+            del target[k]
         else:
             target[k] = v
 
