@@ -10,7 +10,8 @@
   },
   "backlight": {
     "pin": "B7",
-    "levels": 5
+    "levels": 5,
+    "as_caps_lock": true
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",

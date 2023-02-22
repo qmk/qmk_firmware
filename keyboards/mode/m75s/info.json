@@ -10,7 +10,8 @@
     },
     "backlight": {
         "pin": "C6",
-        "levels": 20
+        "levels": 20,
+        "as_caps_lock": true
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",

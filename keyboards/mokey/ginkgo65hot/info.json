@@ -11,7 +11,8 @@
     "backlight": {
         "pin": "B6",
         "levels": 6,
-        "breathing": true
+        "breathing": true,
+        "as_caps_lock": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
