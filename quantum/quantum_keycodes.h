@@ -34,7 +34,7 @@
 #define QK_RALT                0x1400
 #define QK_RGUI                0x1800
 
-#define SAFE_RANGE             QK_KB
+#define SAFE_RANGE             QK_USER
 // clang-format on
 
 // Generic decoding for the whole QK_MODS range
