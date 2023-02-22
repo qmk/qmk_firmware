@@ -107,9 +107,9 @@ def deep_update(origdict, newdict):
 def merge_ordered_dicts(dicts):
     """Merges nested OrderedDict objects resulting from reading a hjson file.
     Later input dicts overrides earlier dicts for plain values.
+    If any value is "!delete!", the existing value will be removed from its parent.
     Arrays will be appended. If the first entry of an array is "!reset!", the contents of the array will be cleared and replaced with RHS.
     Dictionaries will be recursively merged. If any entry is "!reset!", the contents of the dictionary will be cleared and replaced with RHS.
-                                             If any value is "!delete!", the dictionary will be removed from its parent.
     """
     result = OrderedDict()
 
@@ -126,7 +126,7 @@ def merge_ordered_dicts(dicts):
                 target[k] = v[1:]
             else:
                 target[k] = target[k] + v
-        elif v == "!delete!" and isinstance(target[k], (OrderedDict, dict)):
+        elif v == "!delete!" and isinstance(target, (OrderedDict, dict)):
             del target[k]
         else:
             target[k] = v
