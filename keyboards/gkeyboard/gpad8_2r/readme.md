@@ -1,6 +1,6 @@
 # GPAD8-2R
 
-![GPAD8-2R](https://i.imgur.com/jAaO7gY.png)
+![GPAD8-2R](https://i.imgur.com/jAaO7gYh.png)
 
 8 Keys Custom Macro Pad, 2 Encoders, with USB Type-C, RGB underglow, RGB Per Key Lighting. 
 
