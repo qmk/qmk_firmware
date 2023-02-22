@@ -14,22 +14,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "wave75.h"
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) { return false; }
-    switch(keycode) {
-        case KC_LG:
-            if (record->event.pressed) {
-                process_magic(GUI_TOG, record);
-            }
-            return false;
-        case KC_MACOS:
-            if (record->event.pressed) {
-                process_magic(CG_TOGG, record);
-            }
-            return false;
-        default:
-            return true;
-    }
-    return true;
-}
