@@ -2,7 +2,7 @@
 #define PRODUCT_ID 0x7256
 
 // Configure the global tapping term (default: 200ms)
-#define TAPPING_TERM 170
+#define TAPPING_TERM 200
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -12,5 +12,5 @@
 
 #define PERMISSIVE_HOLD
 
-#define COMBO_COUNT 2
+#define COMBO_COUNT 4
 
