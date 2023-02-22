@@ -39,8 +39,8 @@ BLUETOOTH_DRIVER = BluefruitLE # or RN42
 
 This is used when multiple keyboard outputs can be selected. Currently this only allows for switching between USB and Bluetooth on keyboards that support both.
 
-|Name      |Description                                   |
-|----------|----------------------------------------------|
-|`OUT_AUTO`|Automatically switch between USB and Bluetooth|
-|`OUT_USB` |USB only                                      |
-|`OUT_BT`  |Bluetooth only                                |
+|Key                  |Aliases  |Description                                   |
+|---------------------|---------|----------------------------------------------|
+|`QK_OUTPUT_AUTO`     |`OU_AUTO`|Automatically switch between USB and Bluetooth|
+|`QK_OUTPUT_USB`      |`OU_USB` |USB only                                      |
+|`QK_OUTPUT_BLUETOOTH`|`OU_BT`  |Bluetooth only                                |

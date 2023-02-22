@@ -21,7 +21,7 @@
 
 // RGB configuration
 #define RGBLED_NUM 84
-#define DRIVER_LED_TOTAL 84
+#define RGB_MATRIX_LED_COUNT 84
 #define RGB_MATRIX_SPLIT \
     { 42, 42 }
 #define RGB_POWER_ENABLE_PIN B1

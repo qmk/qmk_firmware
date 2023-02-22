@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F1,    KC_F2,    KC_F3
     ),
     [LAYER_FUNCTION_1] = LAYOUT(
-        EEP_RST,  _______,  QK_BOOT,
+        EE_CLR,   _______,  QK_BOOT,
         KC_F10,   KC_F11,   KC_F12,
         KC_F7,    KC_F8,    KC_F9
     ),

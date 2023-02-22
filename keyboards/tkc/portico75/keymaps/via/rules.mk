@@ -1,6 +1,7 @@
 VIA_ENABLE = yes
 LTO_ENABLE = yes
 RGB_MATRIX_ENABLE = no         # Use RGB matrix
+ENCODER_MAP_ENABLE = yes
 
 # project specific files
 SRC += keyboards/wilba_tech/wt_main.c \

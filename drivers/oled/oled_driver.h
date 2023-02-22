@@ -170,6 +170,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_UPDATE_INTERVAL 50
 #endif
 
+#if !defined(OLED_UPDATE_PROCESS_LIMIT)
+#    define OLED_UPDATE_PROCESS_LIMIT 1
+#endif
+
 typedef struct __attribute__((__packed__)) {
     uint8_t *current_element;
     uint16_t remaining_element_count;
