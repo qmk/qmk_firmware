@@ -8,6 +8,9 @@
         "pid": "0x3738",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "levels": 8
+    },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_BREATHING
-
 #define RGB_DI_PIN B3
 #define RGBLED_NUM 4
 #define RGBLIGHT_HUE_STEP 8

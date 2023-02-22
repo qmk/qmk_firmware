@@ -44,7 +44,6 @@ B0, which is unconnected on the PCB
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B0
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 3
 

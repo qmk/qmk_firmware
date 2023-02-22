@@ -9,6 +9,9 @@
         "device_version": "0.0.2"
     },
     "backlight": {
+        "pin": "B6",
+        "levels": 2,
+        "breathing": true,
         "breathing_period": 3
     },
     "indicators": {

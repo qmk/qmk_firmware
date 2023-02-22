@@ -18,11 +18,8 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-/* Backlighting include */
-#define BACKLIGHT_PIN           B14
 #define BACKLIGHT_PWM_DRIVER    PWMD5
 #define BACKLIGHT_PWM_CHANNEL   1
-#define BACKLIGHT_LEVELS        5
 
 /* Encoder */
 #define ENCODERS_PAD_A \

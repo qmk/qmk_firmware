@@ -8,6 +8,10 @@
         "pid": "0x5444",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B14",
+        "levels": 5
+    },
     "debounce": 1,
     "layouts": {
         "LAYOUT": {

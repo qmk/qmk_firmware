@@ -8,6 +8,9 @@
     "pid": "0x6064",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "levels": 8
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {

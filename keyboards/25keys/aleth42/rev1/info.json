@@ -2,6 +2,11 @@
     "usb": {
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "C6",
+        "levels": 8,
+        "breathing": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu"
 }

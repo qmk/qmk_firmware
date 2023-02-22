@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { D0, F6, B6 }
 #define ENCODERS_PAD_B { D1, F5, F7 }
 
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 7
-
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 4

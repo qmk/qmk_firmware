@@ -6,8 +6,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define BACKLIGHT_LEVELS 8
-
 // ws2812 options
 #define RGB_DI_PIN D2 // pin the DI on the ws2812 is hooked-up to
 #define RGBLED_NUM 8 // number of LEDs

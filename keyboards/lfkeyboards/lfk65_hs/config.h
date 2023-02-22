@@ -11,7 +11,6 @@
 #define QMK_LED F1
 // #define QMK_SPEAKER C6
 
-#define BACKLIGHT_LEVELS 8
 #define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
 
 #define RGB_DI_PIN C7  // Have to set it to something to get the ws2812 code to compile

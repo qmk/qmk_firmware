@@ -38,9 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //EITHERWAY is supported through a custom matrix
 //#define DIODE_DIRECTION EITHERWAY
 
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-
 #define RGB_DI_PIN B0
 #ifdef RGB_DI_PIN
    #define RGBLED_NUM 27

@@ -1,10 +1,5 @@
 #pragma once
 
-#define BACKLIGHT_PIN B7
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 6
-#endif
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 

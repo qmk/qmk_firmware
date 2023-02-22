@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4 }
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN D4
-
 /* RGB underglow */
 // The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
 // The same pin is used on the JJ40, at least.

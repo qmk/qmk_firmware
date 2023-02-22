@@ -8,6 +8,10 @@
         "pid": "0xE701",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "levels": 6
+    },
     "indicators": {
         "caps_lock": "F0"
     },

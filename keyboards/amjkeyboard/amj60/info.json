@@ -8,6 +8,11 @@
         "pid": "0x6066",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6",
+        "levels": 4,
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "B2",
         "on_state": 0

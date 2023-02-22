@@ -30,7 +30,8 @@
     "cols": ["C0", "C1", "C2", "C3", "A0", "A1", "A2"]
   },
   "backlight": {
-    "pin": "A7"
+    "pin": "A7",
+    "levels": 4
   },
   "split": {
     "enabled": true,

@@ -8,6 +8,10 @@
         "pid": "0x5754",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "C6",
+        "levels": 16
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

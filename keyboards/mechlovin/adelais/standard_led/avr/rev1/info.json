@@ -3,6 +3,10 @@
     "usb": {
         "pid": "0xAD04"
     },
+    "backlight": {
+        "pin": "B5",
+        "breathing": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "indicators": {

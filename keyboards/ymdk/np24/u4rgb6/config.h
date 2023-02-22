@@ -23,11 +23,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN B7
-#ifdef BACKLIGHT_PIN
-# define BACKLIGHT_LEVELS 31
-#endif
-
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
 # define RGBLED_NUM 6

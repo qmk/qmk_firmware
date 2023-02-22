@@ -8,6 +8,9 @@
         "pid": "0x3232",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "C6"
+    },
     "split": {
         "soft_serial_pin": "D2"
     },

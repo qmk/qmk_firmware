@@ -33,11 +33,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-/* Backlight */
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
-
 /* RGB Glow */
 #define RGB_DI_PIN F4     // The pin the LED strip is connected to
 #define RGBLED_NUM 5     // Number of LEDs in your strip

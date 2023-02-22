@@ -8,6 +8,9 @@
     "pid": "0x0690",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7"
+  },
   "processor": "at90usb1286",
   "bootloader": "halfkay",
   "layouts": {

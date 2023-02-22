@@ -44,10 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Reverse encoder direction */
 // #define ENCODER_DIRECTION_FLIP
 
-/* Backlighting code used for caps lock indicator */
-#define BACKLIGHT_PIN C6
-#define BACKLIGHT_LEVELS 16
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

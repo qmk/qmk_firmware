@@ -10,7 +10,10 @@
         "device_version": "0.0.1"
     },
     "backlight": {
-        "on_state": 0
+        "pin": "B5",
+        "levels": 17,
+        "on_state": 0,
+        "breathing": true
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",

@@ -49,7 +49,6 @@
 #endif // LCD_ACTIVITY_TIMEOUT
 
 // Backlight driver (to control LCD backlight)
-#define BACKLIGHT_LEVELS 4
 #define BACKLIGHT_PWM_DRIVER PWMD17
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1

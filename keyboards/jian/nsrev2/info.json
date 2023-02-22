@@ -3,6 +3,11 @@
     "usb": {
         "device_version": "2.1.0"
     },
+    "backlight": {
+        "pin": "C6",
+        "levels": 5,
+        "breathing": true
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu"
 }

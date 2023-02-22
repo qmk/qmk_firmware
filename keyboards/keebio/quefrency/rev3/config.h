@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A_RIGHT { D6 }
 #define ENCODERS_PAD_B_RIGHT { D4 }
 
-#define BACKLIGHT_PIN B5
 #define CAPS_LOCK_LED_PIN B6
 
 /* ws2812 RGB LED */

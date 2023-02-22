@@ -8,6 +8,11 @@
     "pid": "0x1257",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "C6",
+    "levels": 5,
+    "breathing": true
+  },
   "split": {
     "soft_serial_pin": "D0"
   },

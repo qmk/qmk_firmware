@@ -8,6 +8,11 @@
     "pid": "0x0040",
     "device_version": "2.0.0"
   },
+  "backlight": {
+    "pin": "D4",
+    "levels": 12,
+    "breathing": true
+  },
   "processor": "atmega32a",
   "bootloader": "bootloadhid",
   "community_layouts": ["ortho_4x12", "planck_mit"],

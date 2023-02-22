@@ -30,11 +30,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Switch LED Backlighting */
-#define BACKLIGHT_PIN C4
-#define BACKLIGHT_LEVELS 6
-#define BACKLIGHT_BREATHING
-
 // ws2812 options
 #define RGB_DI_PIN C5 // pin the DI on the ws2812 is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING

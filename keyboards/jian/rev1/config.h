@@ -78,11 +78,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock)
 #endif // SCROLL_NMOSFET
 
-#ifdef BACKLIGHT_ENABLE
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 5
-#endif
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D4
 #define RGBLIGHT_TIMER
