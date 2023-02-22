@@ -37,7 +37,7 @@
 #define ARROWS MO(_3_ARROW)
 
 enum custom_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
+  RGB_SLD = SAFE_RANGE,
   ALT_TAB,
 };
 
