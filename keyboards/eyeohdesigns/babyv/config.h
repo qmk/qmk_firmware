@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN B7
 #define RGBLED_NUM 12

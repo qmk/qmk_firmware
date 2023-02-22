@@ -41,8 +41,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define BACKLIGHT_PIN B6
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
 
 #define DIODE_DIRECTION COL2ROW

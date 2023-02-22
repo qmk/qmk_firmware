@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 #define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
 
 #ifdef RGBLIGHT_ENABLE

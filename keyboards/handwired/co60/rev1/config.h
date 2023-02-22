@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
 #endif
-#define BACKLIGHT_LEVELS 3
 
 /*
  * Feature disable options
