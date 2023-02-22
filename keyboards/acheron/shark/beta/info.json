@@ -4,9 +4,6 @@
         "pid": "0x5369",
         "device_version": "0.0.2"
     },
-    "backlight": {
-        "breathing_period": 5
-    },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
     "community_layouts": ["ortho_4x12"],

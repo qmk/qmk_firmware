@@ -62,7 +62,6 @@ so there is only one configuration. */
 
 
 #define ENCODER_RESOLUTION 2
-#define BACKLIGHT_LEVELS 5
 
 #ifdef LED_MATRIX_ENABLE
 

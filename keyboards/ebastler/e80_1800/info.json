@@ -27,7 +27,6 @@
     },
     "backlight": {
         "breathing": true,
-        "breathing_period": 5,
         "levels": 5,
         "pin": "A9",
         "on_state": 1

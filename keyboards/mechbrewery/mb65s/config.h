@@ -25,10 +25,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B5
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

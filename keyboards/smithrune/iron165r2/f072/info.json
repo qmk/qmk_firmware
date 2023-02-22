@@ -1,7 +1,4 @@
 {
-    "backlight": {
-        "breathing_period": 5
-    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu"
 }

@@ -7,5 +7,3 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B0
