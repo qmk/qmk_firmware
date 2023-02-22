@@ -11,7 +11,6 @@
 /* Encoder Assignments */
 #define ENCODERS_PAD_A { B6 }
 #define ENCODERS_PAD_B { B2 }
-#define ENCODER_RESOLUTION 4
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -33,7 +33,6 @@
 /* encoder support */
 #define ENCODERS_PAD_A { D5, D5 }
 #define ENCODERS_PAD_B { B7, C7 }
-#define ENCODER_RESOLUTION 4
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW

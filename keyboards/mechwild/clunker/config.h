@@ -21,6 +21,5 @@
 
 #define ENCODERS_PAD_A { D2 }
 #define ENCODERS_PAD_B { D3 }
-#define ENCODER_RESOLUTION 4
 
 #define SOLENOID_PIN F4

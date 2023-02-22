@@ -33,8 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_LAYERS
 
-#define ENCODER_RESOLUTION 4
-
 #undef RGBLED_NUM
 #define RGBLED_NUM 20
 #define RGBLIGHT_EFFECT_BREATHING

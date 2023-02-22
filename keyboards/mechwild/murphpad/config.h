@@ -26,8 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { E6, D2 }
 #define ENCODERS_PAD_B { B4, D3 }
 
-/* Encoder resolution */
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
 
 /* COL2ROW, ROW2COL */

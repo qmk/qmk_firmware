@@ -226,10 +226,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #   define ENCODERS_PAD_A { }
 #   define ENCODERS_PAD_B { }
-#   define ENCODER_RESOLUTIONS { }
 #   define ENCODERS_PAD_A_RIGHT { B4 }
 #   define ENCODERS_PAD_B_RIGHT { B6 }
-#   define ENCODER_RESOLUTIONS_RIGHT { 4 }
 #   define TAP_CODE_DELAY 10
 #endif  // ENCODER_ENABLE
 

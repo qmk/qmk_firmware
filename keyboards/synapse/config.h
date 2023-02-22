@@ -32,6 +32,4 @@
 #define ENCODERS_PAD_B \
     { D6, C6 }
 
-#define ENCODER_RESOLUTION 4
-
 #define LOCKING_SUPPORT_ENABLE

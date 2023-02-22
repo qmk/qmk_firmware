@@ -22,7 +22,6 @@
 #define DIODE_DIRECTION COL2ROW
 #define ENCODERS_PAD_A { F7 }
 #define ENCODERS_PAD_B { F6 }
-#define ENCODER_RESOLUTION 4
 
 /* RGB Light Configuration */
 

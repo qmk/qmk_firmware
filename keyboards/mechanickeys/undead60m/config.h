@@ -53,4 +53,3 @@
 /* Rotary encoder */
 #define ENCODERS_PAD_A { F6 }
 #define ENCODERS_PAD_B { F5 }
-#define ENCODER_RESOLUTION 4

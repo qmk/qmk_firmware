@@ -28,6 +28,3 @@
 /* Encoder used pins */
 #define ENCODERS_PAD_A { E6 }
 #define ENCODERS_PAD_B { B7 }
-
-/* Specifies the number of pulses the encoder registers between each detent */
-#define ENCODER_RESOLUTION 4

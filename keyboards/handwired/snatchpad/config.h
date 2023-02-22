@@ -21,7 +21,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Rotary encoder options */
-#define ENCODER_RESOLUTIONS { 4, 4 }
 #define ENCODERS_PAD_A { D3, D0 }
 #define ENCODERS_PAD_B { D2, D1 }
 

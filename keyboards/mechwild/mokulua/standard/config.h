@@ -12,8 +12,6 @@
 #define ENCODERS_PAD_A { D2 }
 #define ENCODERS_PAD_B { B2 }
 
-/* Encoder resolution */
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
 
 /* COL2ROW, ROW2COL */

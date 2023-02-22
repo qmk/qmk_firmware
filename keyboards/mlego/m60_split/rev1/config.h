@@ -32,8 +32,6 @@
     { A0 }
 #define ENCODERS_PAD_B \
     { B8 }
-#define ENCODER_RESOLUTIONS \
-    { 4 }
 #endif
 
 #define SPLIT_LAYER_STATE_ENABLE

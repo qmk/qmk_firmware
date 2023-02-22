@@ -42,4 +42,3 @@
 
 #define ENCODERS_PAD_A { F5 }
 #define ENCODERS_PAD_B { F6 }
-#define ENCODER_RESOLUTION 4

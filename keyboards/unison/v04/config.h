@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
   #define ENCODERS_PAD_A { B0, D2, D5, D6, B4 }
   #define ENCODERS_PAD_B { B1, D3, D4, D7, B5 }
-  #define ENCODER_RESOLUTION 4  //the default & suggested is 4
 #endif
 
 /* Audio */

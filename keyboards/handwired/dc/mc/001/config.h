@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B6 }
 #define ENCODERS_PAD_B \
     { B5 }
-#define ENCODER_RESOLUTION 4
 
 /*
  * Feature disable options

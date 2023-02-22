@@ -30,6 +30,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Encoder */
 #define ENCODERS_PAD_A { F5 }
 #define ENCODERS_PAD_B { F4 }
-#define ENCODER_RESOLUTION 4
 
 #define TAP_CODE_DELAY 50

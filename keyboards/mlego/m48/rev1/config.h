@@ -26,7 +26,6 @@
     { A0 }
 #define ENCODERS_PAD_B \
     { B8 }
-#define ENCODER_RESOLUTION 4
 #endif
 
 #ifdef RGBLIGHT_ENABLE

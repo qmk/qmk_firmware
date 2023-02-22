@@ -11,7 +11,6 @@
 //   2 - right
 #define ENCODERS_PAD_A { F1, B0, B3 }
 #define ENCODERS_PAD_B { F0, B1, B7 }
-#define ENCODER_RESOLUTION 4
 
 // Encoder mappings (used for VIA).
 #define ENCODERS 3

@@ -24,7 +24,6 @@
 /* Encoder Configuration */
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { A10 }
-#define ENCODER_RESOLUTION 4
 #define ENCODER_DEFAULT_POS 0x3
 
 /* Enable caps-lock LED */

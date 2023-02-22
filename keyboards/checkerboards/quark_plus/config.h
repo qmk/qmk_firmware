@@ -54,4 +54,3 @@
 
 #define ENCODERS_PAD_A { C7, B7, B3, B2}
 #define ENCODERS_PAD_B { B7, C7, B2, B3}
-#define ENCODER_RESOLUTION 4

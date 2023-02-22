@@ -21,7 +21,6 @@
 #define ENCODERS_PAD_A  { D0 }
 #define ENCODERS_PAD_B  { D1 }
 
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 16
 #define DIODE_DIRECTION COL2ROW
 

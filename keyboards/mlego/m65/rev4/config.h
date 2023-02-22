@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { A0 }
 #define ENCODERS_PAD_B \
     { B6 }
-#define ENCODER_RESOLUTION 4
 #endif
 
 #ifdef RGBLIGHT_ENABLE

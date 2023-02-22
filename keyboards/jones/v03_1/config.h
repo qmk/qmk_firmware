@@ -44,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Rotary Encoder */
 #define ENCODERS_PAD_A { F6, B3 }
 #define ENCODERS_PAD_B { F7, B2 }
-#define ENCODER_RESOLUTION 4  //the default & suggested is 4
 
 /* Audio */
 #ifdef AUDIO_ENABLE

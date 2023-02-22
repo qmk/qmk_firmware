@@ -28,4 +28,3 @@
     { B0 }
 #define ENCODERS_PAD_B \
     { B1 }
-#define ENCODER_RESOLUTION 4
