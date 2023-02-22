@@ -1,5 +1,6 @@
 {
     "backlight": {
+        "driver": "software",
         "pin": "B7",
         "levels": 10
     }

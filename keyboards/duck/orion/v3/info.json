@@ -9,6 +9,7 @@
         "device_version": "0.0.2"
     },
     "backlight": {
+        "driver": "custom",
         "pins": ["B1", "B2", "B3", "E6"],
         "levels": 10
     },

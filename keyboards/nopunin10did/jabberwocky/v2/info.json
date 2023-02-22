@@ -9,6 +9,7 @@
         "device_version": "0.2.0"
     },
     "backlight": {
+        "driver": "software",
         "pins": ["D6"],
         "levels": 6
     },

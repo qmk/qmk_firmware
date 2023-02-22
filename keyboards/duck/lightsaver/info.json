@@ -9,6 +9,7 @@
     "device_version": "0.0.3"
   },
   "backlight": {
+    "driver": "custom",
     "levels": 1
   },
   "bootmagic": {

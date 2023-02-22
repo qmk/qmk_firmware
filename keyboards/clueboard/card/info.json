@@ -38,6 +38,7 @@
     "vid": "0xC1ED"
   },
   "backlight": {
+    "driver": "custom",
     "levels": 6
   },
   "layout_aliases": {

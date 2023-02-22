@@ -51,6 +51,7 @@
     "vid": "0xC1ED"
   },
   "backlight": {
+    "driver": "custom",
     "levels": 1
   },
   "community_layouts": ["66_ansi"],
