@@ -62,6 +62,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DISPLAY_128X64
 #define OLED_FONT_END 255
 #define OLED_FONT_H "gfxfont.c"
-
-/* QMK DFU */
-#define QMK_LED B0

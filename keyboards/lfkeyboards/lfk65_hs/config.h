@@ -6,11 +6,6 @@
 #define MATRIX_COL_PINS {E6, F4, B7, D5, D3, D2, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4}
 #define RGBLED_NUM 20     // Number of LEDs
 
-#define QMK_ESC_OUTPUT E6 // usually COL
-#define QMK_ESC_INPUT B0 // usually ROW
-#define QMK_LED F1
-// #define QMK_SPEAKER C6
-
 #define BACKLIGHT_LEVELS 8
 #define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
 

@@ -38,11 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SN74X138_ADDRESS_PINS { D2, D1, D0 }
 #define SN74X138_E3_PIN D4
 
-// For QMK DFU
-#define QMK_ESC_OUTPUT E6
-#define QMK_ESC_INPUT F0
-#define QMK_LED B1
-
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5

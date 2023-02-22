@@ -38,7 +38,3 @@
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 12
 #endif
-
-/* For Production */
-#define QMK_ESC_OUTPUT F0 // usually COL
-#define QMK_ESC_INPUT D0 // usually ROW
