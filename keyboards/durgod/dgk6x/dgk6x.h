@@ -25,22 +25,6 @@
 #   include "galaxy.h"
 #endif
 
-#ifndef WINLOCK_DISABLED
-// Define the TGUI key here so it is available in QMK configurator
-enum DGK6X_keycodes {
-#ifdef VIA_ENABLE
-    KC_TGUI = USER00,   // Toggle between GUI Lock or Unlock
-    NEW_SAFE_RANGE = SAFE_RANGE
-#else
-    KC_TGUI = SAFE_RANGE,   // Toggle between GUI Lock or Unlock
-    NEW_SAFE_RANGE
-#endif
-};
-
-#undef SAFE_RANGE
-#define SAFE_RANGE NEW_SAFE_RANGE
-#endif /* WINLOCK_DISABLED */
-
 /* Function Prototype */
 void off_all_leds(void);
 void on_all_leds(void);
