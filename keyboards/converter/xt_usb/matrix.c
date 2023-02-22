@@ -25,13 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "xt.h"
 #include "matrix.h"
 
-
 static void matrix_make(uint8_t code);
 static void matrix_break(uint8_t code);
 
 static uint8_t matrix[MATRIX_ROWS];
-#define ROW(code)      (code>>3)
-#define COL(code)      (code&0x07)
+
+#define ROW(code) (code >> 3)
+#define COL(code) (code & 0x07)
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -48,16 +48,16 @@ void matrix_init_user(void) {
 }
 
 __attribute__ ((weak))
-void matrix_scan_user(void) {
-}
+void matrix_scan_user(void) { }
 
-void matrix_init(void)
-{
+void matrix_init(void) {
     debug_enable = true;
     xt_host_init();
 
     // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0x00;
+    }
 
     matrix_init_quantum();
 }
@@ -71,7 +71,7 @@ static uint8_t move_e0code(uint8_t code) {
         case 0x1C: return 0x6F; // Keypad Enter
         case 0x35: return 0x7F; // Keypad /
 
-        // Any XT keyobard with these keys?
+        // Any XT keyboard with these keys?
         // http://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/translate.pdf
         // https://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/scancode.doc
         case 0x5B: return 0x5A; // Left  GUI
@@ -96,144 +96,145 @@ static uint8_t move_e0code(uint8_t code) {
     return 0x00;
 }
 
-uint8_t matrix_scan(void)
-{
+uint8_t matrix_scan(void) {
     static enum {
-        INIT,
-        E0,
+        XT_STATE_INIT,
+        XT_STATE_E0,
         // Pause: E1 1D 45, E1 9D C5
-        E1,
-        E1_1D,
-        E1_9D,
-    } state = INIT;
+        XT_STATE_E1,
+        XT_STATE_E1_1D,
+        XT_STATE_E1_9D,
+    } state = XT_STATE_INIT;
 
     uint8_t code = xt_host_recv();
-    if (!code) return 0;
+
+    if (!code) {
+        return 0;
+    }
+
     xprintf("%02X ", code);
+
     switch (state) {
-        case INIT:
+        case XT_STATE_INIT:
             switch (code) {
                 case 0xE0:
-                    state = E0;
+                    state = XT_STATE_E0;
                     break;
                 case 0xE1:
-                    state = E1;
+                    state = XT_STATE_E1;
                     break;
                 default:
-                    if (code < 0x80)
+                    if (code < 0x80) {
                         matrix_make(code);
-                    else
+                    } else {
                         matrix_break(code & 0x7F);
+                    }
                     break;
             }
             break;
-        case E0:
+        case XT_STATE_E0:
             switch (code) {
                 case 0x2A:
                 case 0xAA:
                 case 0x36:
                 case 0xB6:
                     //ignore fake shift
-                    state = INIT;
+                    state = XT_STATE_INIT;
                     break;
                 default:
-                    if (code < 0x80)
+                    if (code < 0x80) {
                         matrix_make(move_e0code(code));
-                    else
+                    } else {
                         matrix_break(move_e0code(code & 0x7F));
-                    state = INIT;
+                    }
+                    state = XT_STATE_INIT;
                     break;
             }
             break;
-        case E1:
+        case XT_STATE_E1:
             switch (code) {
                 case 0x1D:
-                    state = E1_1D;
+                    state = XT_STATE_E1_1D;
                     break;
                 case 0x9D:
-                    state = E1_9D;
+                    state = XT_STATE_E1_9D;
                     break;
                 default:
-                    state = INIT;
+                    state = XT_STATE_INIT;
                     break;
             }
             break;
-        case E1_1D:
+        case XT_STATE_E1_1D:
             switch (code) {
                 case 0x45:
                     matrix_make(0x55);
                     break;
                 default:
-                    state = INIT;
+                    state = XT_STATE_INIT;
                     break;
             }
             break;
-        case E1_9D:
+        case XT_STATE_E1_9D:
             switch (code) {
                 case 0x45:
                     matrix_break(0x55);
                     break;
                 default:
-                    state = INIT;
+                    state = XT_STATE_INIT;
                     break;
             }
             break;
         default:
-            state = INIT;
+            state = XT_STATE_INIT;
     }
+
     matrix_scan_quantum();
+
     return 1;
 }
 
 inline
-uint8_t matrix_get_row(uint8_t row)
-{
+uint8_t matrix_get_row(uint8_t row) {
     return matrix[row];
 }
 
-inline
-static void matrix_make(uint8_t code)
-{
+inline static void matrix_make(uint8_t code) {
     if (!matrix_is_on(ROW(code), COL(code))) {
-        matrix[ROW(code)] |= 1<<COL(code);
+        matrix[ROW(code)] |= 1 << COL(code);
     }
 }
 
-inline
-static void matrix_break(uint8_t code)
-{
+inline static void matrix_break(uint8_t code) {
     if (matrix_is_on(ROW(code), COL(code))) {
-        matrix[ROW(code)] &= ~(1<<COL(code));
+        matrix[ROW(code)] &= ~(1 << COL(code));
     }
 }
 
-void matrix_clear(void)
-{
+void matrix_clear(void) {
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 }
 
-bool matrix_is_on(uint8_t row, uint8_t col)
-{
-    return (matrix_get_row(row) & (1<<col));
+bool matrix_is_on(uint8_t row, uint8_t col) {
+    return (matrix_get_row(row) & (1 << col));
 }
 
 #if (MATRIX_COLS <= 8)
-#    define print_matrix_header()  print("\nr/c 01234567\n")
-#    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
+#    define print_matrix_header() print("\nr/c 01234567\n")
+#    define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
 #elif (MATRIX_COLS <= 16)
-#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
-#    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
+#    define print_matrix_header() print("\nr/c 0123456789ABCDEF\n")
+#    define print_matrix_row(row) print_bin_reverse16(matrix_get_row(row))
 #elif (MATRIX_COLS <= 32)
-#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
-#    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
+#    define print_matrix_header() print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
+#    define print_matrix_row(row) print_bin_reverse32(matrix_get_row(row))
 #endif
 
-void matrix_print(void)
-{
+void matrix_print(void) {
     print_matrix_header();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row);
+        print(": ");
         print_matrix_row(row);
         print("\n");
     }

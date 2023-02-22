@@ -1,18 +1,23 @@
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+	M_TGLHF = SAFE_RANGE,
+	M_TGG
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT(
 		LT(3, KC_MSTP), KC_VOLU, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT),
 
 	LAYOUT(
-		LT(3, KC_ESC), M(3), M(4), M(5), M(6), M(7)),
+		LT(3, KC_ESC), C(KC_Z), C(S(KC_Z)), C(KC_X), C(KC_C), C(KC_V)),
 
 	LAYOUT(
-		LT(3, KC_1), KC_2, KC_3, KC_4, M(0), M(1)),
+		LT(3, KC_1), KC_2, KC_3, KC_4, M_TGLHF, M_TGG),
 
 	LAYOUT(
-		KC_TRNS, KC_TRNS, RESET, TO(0), TO(1), TO(2)),
+		KC_TRNS, KC_TRNS, QK_BOOT, TO(0), TO(1), TO(2)),
 
 	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
@@ -51,54 +56,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	//keyevent_t event = record->event;
-
-	switch (id) {
-		case 0:
-			if (record->event.pressed) {
-				return MACRO( T(T), T(G), T(L), T(H), T(F), T(ENT), END );
-			}
-			break;
-		case 1:
-			if (record->event.pressed) {
-				return MACRO( T(T), T(G), T(G), T(ENT), END );
-			}
-			break;
-		case 2:
-			if (record->event.pressed) {
-				return MACRO( D(NO), T(L), U(NO), END );
-			}
-			break;
-		case 3:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(Z), U(LCTL), END );
-			}
-			break;
-		case 4:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), D(LSFT), T(Z), U(LSFT), U(LCTL), END );
-			}
-			break;
-		case 5:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(X), U(LCTL), END );
-			}
-			break;
-		case 6:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(C), U(LCTL), END );
-			}
-			break;
-		case 7:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(V), U(LCTL), END );
-			}
-			break;
-	}
-	return MACRO_NONE;
-}
 
 void set_switch_led(int ledId, bool state) {
 	if(state) {
@@ -172,72 +129,52 @@ void set_layer_led(int layerId) {
 	}
 }
 
-void matrix_init_user(void) {
-	led_init_ports();
-	
-	PORTB |= (1 << 7);
-	DDRB &= ~(1<<7);
-	
-	PORTD |= (1<<7);
-	PORTC |= (1<<6);
-	PORTC |= (1<<7);
-	PORTD |= (1<<4);
-	PORTE |= (1<<6);
-	PORTB |= (1<<4);
-	PORTD |= (1<<6);
-	
-	set_layer_led(0);
-}
-
-void matrix_scan_user(void) {
-}
-
-void led_init_ports() {
+void led_init_ports_user(void) {
   // led voor switch #1
 	DDRD |= (1<<7);
 	PORTD &= ~(1<<7);
-	
+
   // led voor switch #2
 	DDRC |= (1<<6);
 	DDRC |= (1<<7);
 	PORTC &= ~(1<<6);
 	PORTC &= ~(1<<7);
-	
+
   // led voor switch #3
 	DDRD |= (1<<4);
 	PORTD &= ~(1<<4);
-	
+
   // led voor switch #4
 	DDRE |= (1<<6);
 	PORTE &= ~(1<<6);
-	
+
   // led voor switch #5
 	DDRB |= (1<<4);
 	PORTB &= ~(1<<4);
-	
+
   // led voor switch #6
 	DDRD |= (1<<6);
 	PORTD &= ~(1<<6);
-	
+
 	/*
 	DDRD |= (1<<7);
 	PORTD |= (1<<7);
-	
+
 	DDRC |= (1<<6);
 	PORTC |= (1<<6);
-	
+
 	DDRD |= (1<<4);
 	PORTD |= (1<<4);
-	
+
 	DDRE |= (1<<6);
 	PORTE |= (1<<6);
-	
+
 	DDRB |= (1<<4);
 	PORTB |= (1<<4);
-	
+
 	DDRD |= (1<<6);
 	PORTD |= (1<<6);
-	// */	
+	// */
 
 	DDRD |= (1<<5);
 	DDRB |= (1<<6);
@@ -245,42 +182,24 @@ void led_init_ports() {
 	//led_set_layer(0);
 }
 
-void led_set_user(uint8_t usb_led) {
+void matrix_init_user(void) {
+	led_init_ports_user();
 
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		
-	} else {
-		
-	}
+	PORTB |= (1 << 7);
+	DDRB &= ~(1<<7);
 
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		
-	} else {
-		
-	}
+	PORTD |= (1<<7);
+	PORTC |= (1<<6);
+	PORTC |= (1<<7);
+	PORTD |= (1<<4);
+	PORTE |= (1<<6);
+	PORTB |= (1<<4);
+	PORTD |= (1<<6);
 
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-		
-	} else {
-		
-	}
-
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
-		
-	} else {
-		
-	}
-
-	if (usb_led & (1 << USB_LED_KANA)) {
-		
-	} else {
-		
-	}
-
+	set_layer_led(0);
 }
 
-
-/*  
+/*
 *   NOTE:
 *
 *   In case you don't understand this coding stuff, please
@@ -300,11 +219,11 @@ void led_set_user(uint8_t usb_led) {
 *	| 	  | | 	  | | 	  |       |	  set_switch_led( [1-6], [true/false]);
 *	|  4  | |  5  | |  6  |    <---
 *	|_____| |_____| |_____|
-*	
+*
 *	 < 0 >   < 1 >   < 2 >     <---      These front-LEDs are called 'Layer LEDs'
 *							             To turn one of them on, use:
 *										 set_layer_led( [0-2] );
-*										 
+*
 */
 
 /*
@@ -315,14 +234,14 @@ void led_set_user(uint8_t usb_led) {
 */
 void led_set_layer(int layer) {
 	switch(layer) {
-			
+
 			/**
 			*   Here is an example to turn LEDs on and of. By default:
 			*   - the LEDs are turned on in layer 0
 			*   - the LEDs are turned off in layer 1
 			*   - the LEDs don't change from state for layer 2
-			*/			
-			
+			*/
+
 		case 0:
 			set_layer_led(0); // Turn on only the first/left layer indicator
 			set_switch_led(1, true);
@@ -332,7 +251,7 @@ void led_set_layer(int layer) {
 			set_switch_led(5, true);
 			set_switch_led(6, true);
 			break;
-			
+
 		case 1:
 			set_layer_led(1); // Turn on only the second/middle layer indicator
 			set_switch_led(1, false);
@@ -342,12 +261,12 @@ void led_set_layer(int layer) {
 			set_switch_led(5, false);
 			set_switch_led(6, false);
 			break;
-			
+
 		case 2:
 			set_layer_led(2); // Turn on only the third/right layer indicator
-			
+
 			// Keep leds for layer two in their current state, since we don't use set_switch_led(SWITCH_ID, TRUE_OR_FALSE)
-			
+
 			break;
 	}
 }
@@ -369,6 +288,18 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
         led_set_layer(2);
      }
      break;
+  case M_TGLHF:
+    if (record->event.pressed) {
+      SEND_STRING("tglhf");
+      tap_code(KC_ENT);
+    }
+    return false;
+  case M_TGG:
+    if (record->event.pressed) {
+      SEND_STRING("tgg");
+      tap_code(KC_ENT);
+    }
+    return false;
   }
   return true;
 }

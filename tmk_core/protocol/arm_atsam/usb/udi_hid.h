@@ -75,7 +75,7 @@ extern "C" {
  *
  * \return \c 1 if function was successfully done, otherwise \c 0.
  */
-bool udi_hid_setup( uint8_t *rate, uint8_t *protocol, uint8_t *report_desc, bool (*setup_report)(void) );
+bool udi_hid_setup(uint8_t *rate, uint8_t *protocol, uint8_t *report_desc, bool (*setup_report)(void));
 
 //@}
 

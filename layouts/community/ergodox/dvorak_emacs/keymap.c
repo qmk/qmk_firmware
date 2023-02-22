@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(
         // left hand
         KC_NO,          KC_1,     KC_2,   KC_3,   KC_4,          KC_5,           KC_ESC,
-        KC_TILD,        KC_QUOTE, KC_COMM,KC_DOT, KC_P,          KC_Y,           KC_LBRACKET,
+        KC_TILD,        KC_QUOTE, KC_COMM,KC_DOT, KC_P,          KC_Y,           KC_LBRC,
         KC_TAB,         KC_A,     KC_O,   KC_E,   SFT_T(KC_U),   LT(AUX, KC_I),
         SFT_T(KC_LBRC), KC_SCLN,  KC_Q,   KC_J,   KC_K,          KC_X,           KC_LGUI,
         KC_NO,          KC_NO,    KC_NO,  KC_NO,  MO(AUX),
@@ -66,10 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       CTL_T(KC_BSPC), ALT_T(KC_DEL), KC_PGDN,
         // right hand
                     KC_ESC,          KC_6,           KC_7,         KC_8,   KC_9,   KC_0,   KC_EQL,
-                    KC_RBRACKET,     KC_F,           KC_G,         KC_C,   KC_R,   KC_L,   KC_SLASH,
+                    KC_RBRC,         KC_F,           KC_G,         KC_C,   KC_R,   KC_L,   KC_SLASH,
                                      LT(AUX, KC_D),  SFT_T(KC_H),  KC_T,   KC_N,   KC_S,   KC_MINUS,
                     KC_LGUI,         KC_B,           KC_M,         KC_W,   KC_V,   KC_Z,   SFT_T(KC_RBRC),
-                                                                 MO(AUX), KC_NO,   KC_NO,  KC_BSLASH, KC_NO,
+                                                                 MO(AUX), KC_NO,   KC_NO,  KC_BSLS, KC_NO,
         KC_LEFT, KC_RIGHT,
         KC_UP,
         KC_DOWN, ALT_T(KC_ENT), CTL_T(KC_SPC)
@@ -117,30 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

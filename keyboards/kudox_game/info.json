@@ -1,0 +1,42 @@
+{
+    "keyboard_name": "The Kudox Game Keyboard",
+    "manufacturer": "Kumao Kobo",
+    "url": "",
+    "maintainer": "Kumao Kobo",
+    "usb": {
+        "vid": "0xABBA",
+        "pid": "0x9696"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"Esc", "x":0, "y":0},
+                {"label":"1", "x":1.5, "y":0},
+                {"label":"2", "x":2.5, "y":0},
+                {"label":"3", "x":3.5, "y":0},
+                {"label":"4", "x":4.5, "y":0},
+                {"label":"5", "x":5.5, "y":0},
+                {"label":"Q", "x":1.75, "y":1},
+                {"label":"W", "x":2.75, "y":1},
+                {"label":"E", "x":3.75, "y":1},
+                {"label":"R", "x":4.75, "y":1},
+                {"label":"T", "x":5.75, "y":1},
+                {"label":"Ctrl-C", "x":0, "y":2},
+                {"label":"Ctrl-V", "x":1, "y":2},
+                {"label":"A", "x":2, "y":2},
+                {"label":"S", "x":3, "y":2},
+                {"label":"D", "x":4, "y":2},
+                {"label":"F", "x":5.25, "y":2},
+                {"label":"G", "x":6.25, "y":2},
+                {"label":"Shift", "x":0, "y":3, "w":1.5},
+                {"label":"Z", "x":1.5, "y":3},
+                {"label":"X", "x":3.75, "y":3},
+                {"label":"C", "x":4.75, "y":3},
+                {"label":"V", "x":5.75, "y":3},
+                {"label":"Ctrl", "x":0, "y":4, "w":1.5},
+                {"label":"Layer", "x":5.5, "y":4.25, "h":1.5},
+                {"x":6.5, "y":4.75, "h":2}
+            ]
+        }
+    }
+}

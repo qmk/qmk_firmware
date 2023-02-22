@@ -1,0 +1,323 @@
+void single_dance(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            key_in(self->value1);
+            break;
+        case DEACTIVATED:
+            key_out(self->value1);
+            *self->state = IDLE;
+            break;
+        case RESTART:
+            key_out(self->value1);
+            break;
+        default:
+            break;
+    }
+}
+
+void key_layer_dance(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            current_pseudolayer = self->value2;
+            a_key_went_through = false;
+            break;
+        case DEACTIVATED:
+        case RESTART:
+            if (!a_key_went_through) {
+                tap_key(self->value1);
+            }
+            current_pseudolayer = self->pseudolayer;
+            *self->state = IDLE; // does not have effect if the state was RESTART
+            break;
+        default:
+            break;
+    }
+}
+
+void key_mod_dance(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            key_in(self->value2);
+            a_key_went_through = false;
+            break;
+        case DEACTIVATED:
+        case RESTART:
+            key_out(self->value2);
+            if (!a_key_went_through) {
+                tap_key(self->value1);
+            }
+            *self->state = IDLE; // does not have effect if the state was RESTART
+            break;
+        default:
+            break;
+    }
+}
+
+void key_key_dance(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            break;
+        case DEACTIVATED:
+            tap_key(self->value1);
+            *self->state = IDLE;
+            break;
+        case FINISHED:
+        case PRESS_FROM_ACTIVE:
+            key_in(self->value2);
+            break;
+        case RESTART:
+            key_out(self->value2);
+            break;
+        default:
+            break;
+    }
+}
+
+void autoshift_dance_impl(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            *self->counter = 0;
+            break;
+        case DEACTIVATED:
+        case RESTART:
+            tap_key(self->value1);
+            *self->state = IDLE;
+            break;
+        case FINISHED_FROM_ACTIVE:
+            if (*self->counter == (LONG_PRESS_MULTIPLIER - 2)) {
+                key_in(KC_LSFT);
+                tap_key(self->value1);
+                key_out(KC_LSFT);
+                *self->state = IDLE;
+                // the skip to IDLE is usually just a lag optimization,
+                // in this case it has a logic function, on a short
+                // press (still longer than a tap) the key does not get shifted
+            } else {
+                *self->counter += 1;
+                *self->state = PRESS_FROM_ACTIVE;
+                dance_timer = timer_read();
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+void autoshift_dance(const struct Chord* self) {
+    if (autoshift_mode) {
+        autoshift_dance_impl(self);
+    } else {
+        single_dance(self);
+    }
+}
+
+void autoshift_toggle(const struct Chord* self){
+    if (*self->state == ACTIVATED) {
+        autoshift_mode = !autoshift_mode;
+        *self->state = IDLE;
+    }
+}
+
+void temp_pseudolayer(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            current_pseudolayer = self->value1;
+            break;
+        case DEACTIVATED:
+            current_pseudolayer = self->pseudolayer;
+            *self->state = IDLE;
+            break;
+        case RESTART:
+            current_pseudolayer = self->pseudolayer;
+            break;
+        default:
+            break;
+    }
+}
+
+void temp_pseudolayer_alt(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            current_pseudolayer = self->value1;
+            break;
+        case DEACTIVATED:
+            current_pseudolayer = self->value2;
+            *self->state = IDLE;
+            break;
+        case RESTART:
+            current_pseudolayer = self->value2;
+            break;
+        default:
+            break;
+    }
+}
+
+void perm_pseudolayer(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        current_pseudolayer = self->value1;
+        *self->state = IDLE;
+    }
+}
+
+void switch_layer(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        layer_move(self->value1);
+        *self->state = IDLE;
+    }
+}
+
+void lock(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        lock_next = true;
+        *self->state = IDLE;
+    }
+}
+
+void one_shot_key(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            break;
+        case DEACTIVATED:
+            key_in(self->value1);
+            *self->state = IN_ONE_SHOT;
+            break;
+        case FINISHED:
+        case PRESS_FROM_ACTIVE:
+            key_in(self->value1);
+            a_key_went_through = false;
+            break;
+        case RESTART:
+            if (a_key_went_through) {
+                key_out(self->value1);
+            } else {
+                *self->state = IN_ONE_SHOT;
+            }
+        default:
+            break;
+    }
+}
+
+void one_shot_layer(const struct Chord* self) {
+    switch (*self->state) {
+        case ACTIVATED:
+            break;
+        case DEACTIVATED:
+            current_pseudolayer = self->value1;
+            *self->state = IN_ONE_SHOT;
+            break;
+        case FINISHED:
+        case PRESS_FROM_ACTIVE:
+            current_pseudolayer = self->value1;
+            a_key_went_through = false;
+            break;
+        case RESTART:
+            if (a_key_went_through) {
+                current_pseudolayer = self->pseudolayer;
+            } else {
+                *self->state = IN_ONE_SHOT;
+            }
+        default:
+            break;
+    }
+}
+
+void command(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        command_mode++;
+        *self->state = IDLE;
+    }
+}
+
+bool identical(uint16_t* buffer1, uint16_t* buffer2) {
+    bool same = true;
+    for (int i = 0; i < LEADER_MAX_LENGTH; i++) {
+        same = same && (buffer1[i] == buffer2[i]);
+    }
+    return same;
+}
+
+void leader(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        in_leader_mode = true;
+        *self->state = IDLE;
+    }
+}
+
+void dynamic_macro_record(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        for (int i = 0; i < DYNAMIC_MACRO_MAX_LENGTH; i++) {
+            dynamic_macro_buffer[i] = 0;
+        }
+        dynamic_macro_mode = true;
+        *self->state = IDLE;
+    }
+}
+
+void dynamic_macro_next(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        if (dynamic_macro_mode && dynamic_macro_ind < DYNAMIC_MACRO_MAX_LENGTH) {
+            dynamic_macro_buffer[dynamic_macro_ind] = 0;
+            dynamic_macro_ind++;
+        }
+        *self->state = IDLE;
+    }
+}
+
+void dynamic_macro_end(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        if (dynamic_macro_mode) {
+            dynamic_macro_mode = false;
+        }
+        *self->state = IDLE;
+    }
+}
+
+void dynamic_macro_play(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        int ind_start = 0;
+        while (ind_start < DYNAMIC_MACRO_MAX_LENGTH) {
+            for (int i = ind_start; i < DYNAMIC_MACRO_MAX_LENGTH; i++) {
+                if (dynamic_macro_buffer[i] == 0) {
+                    break;
+                }
+                register_code(dynamic_macro_buffer[i]);
+            }
+            send_keyboard_report();
+            wait_ms(TAP_TIMEOUT);
+            for (int i = ind_start; i < DYNAMIC_MACRO_MAX_LENGTH; i++) {
+                if (dynamic_macro_buffer[i] == 0) {
+                    ind_start = i + 1;
+                    break;
+                }
+                unregister_code(dynamic_macro_buffer[i]);
+            }
+            send_keyboard_report();
+        }
+        *self->state = IDLE;
+    }
+}
+
+void string_in(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        char buffer[STRING_MAX_LENGTH];
+        strcpy_P(buffer, (char*)pgm_read_word(&(strings[self->value1])));
+        send_string(buffer);
+    }
+}
+
+void clear(const struct Chord* self);
+
+void reset_keyboard_kb(void){
+#ifdef WATCHDOG_ENABLE
+    MCUSR = 0;
+    wdt_disable();
+    wdt_reset();
+#endif
+    reset_keyboard();
+}
+
+void reset(const struct Chord* self) {
+    if (*self->state == ACTIVATED) {
+        reset_keyboard_kb();
+    }
+}

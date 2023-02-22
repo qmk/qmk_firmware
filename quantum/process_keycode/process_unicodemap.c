@@ -15,54 +15,41 @@
  */
 
 #include "process_unicodemap.h"
-#include "process_unicode_common.h"
+#include "unicode.h"
+#include "quantum_keycodes.h"
+#include "keycode.h"
+#include "action_util.h"
+#include "host.h"
 
-void register_hex32(uint32_t hex) {
-  bool onzerostart = true;
-  for(int i = 7; i >= 0; i--) {
-    if (i <= 3) {
-      onzerostart = false;
-    }
-    uint8_t digit = ((hex >> (i*4)) & 0xF);
-    if (digit == 0) {
-      if (!onzerostart) {
-        register_code(hex_to_keycode(digit));
-        unregister_code(hex_to_keycode(digit));
-      }
+__attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
+    if (keycode >= QK_UNICODEMAP_PAIR) {
+        // Keycode is a pair: extract index based on Shift / Caps Lock state
+        uint16_t index;
+
+        uint8_t mods = get_mods() | get_weak_mods();
+#ifndef NO_ACTION_ONESHOT
+        mods |= get_oneshot_mods();
+#endif
+
+        bool shift = mods & MOD_MASK_SHIFT;
+        bool caps  = host_keyboard_led_state().caps_lock;
+        if (shift ^ caps) {
+            index = QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(keycode);
+        } else {
+            index = QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(keycode);
+        }
+
+        return index;
     } else {
-      register_code(hex_to_keycode(digit));
-      unregister_code(hex_to_keycode(digit));
-      onzerostart = false;
+        // Keycode is a regular index
+        return QK_UNICODEMAP_GET_INDEX(keycode);
     }
-  }
 }
 
-__attribute__((weak))
-void unicodemap_input_error() {}
-
 bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
-  if ((keycode & QK_UNICODEMAP) == QK_UNICODEMAP && record->event.pressed) {
-    uint16_t index = keycode - QK_UNICODEMAP;
-    uint32_t code = pgm_read_dword(unicode_map + index);
-    uint8_t input_mode = get_unicode_input_mode();
-
-    if (code > 0xFFFF && code <= 0x10FFFF && input_mode == UC_OSX) {
-      // Convert to UTF-16 surrogate pair
-      code -= 0x10000;
-      uint32_t lo = code & 0x3FF, hi = (code & 0xFFC00) >> 10;
-
-      unicode_input_start();
-      register_hex32(hi + 0xD800);
-      register_hex32(lo + 0xDC00);
-      unicode_input_finish();
-    } else if ((code > 0x10FFFF && input_mode == UC_OSX) || (code > 0xFFFFF && input_mode == UC_LNX)) {
-      // Character is out of range supported by the OS
-      unicodemap_input_error();
-    } else {
-      unicode_input_start();
-      register_hex32(code);
-      unicode_input_finish();
+    if (keycode >= QK_UNICODEMAP && keycode <= QK_UNICODEMAP_PAIR_MAX && record->event.pressed) {
+        uint32_t code_point = pgm_read_dword(unicode_map + unicodemap_index(keycode));
+        register_unicode(code_point);
     }
-  }
-  return true;
+    return true;
 }

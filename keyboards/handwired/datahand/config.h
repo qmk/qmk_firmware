@@ -17,15 +17,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-/* Taken from the DataHand PS/2-USB adaptor. */
-#define VENDOR_ID       0x13BA
-#define PRODUCT_ID      0x0017
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DataHand
-#define PRODUCT         DataHand
-#define DESCRIPTION     DataHand Teensy++ 2.0 conversion
-
 /* key matrix size */
 #define MATRIX_ROWS 13
 #define MATRIX_COLS 4
@@ -33,7 +24,7 @@
 //#define DIODE_DIRECTION
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 0
+#define DEBOUNCE 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

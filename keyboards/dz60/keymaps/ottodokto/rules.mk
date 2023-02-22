@@ -1,0 +1,1 @@
+VELOCIKEY_ENABLE = yes

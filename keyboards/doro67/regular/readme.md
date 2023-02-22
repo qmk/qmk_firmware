@@ -1,8 +1,12 @@
-# Regular PCB for the Doro67 
+# Doro67 Regular PCB 
 
-Regular PCB for the Doro67 having ONLY one layout. This is not the PCB with RGB support. 
+65% custom keyboard made by 80ultraman/Alf/Backprop Studios available during the China Group Buy. 
 
-Do not flash RGB firmware for this board. 
+This is not the PCB with RGB support. Do not flash RGB firmware for this board. 
+
+**REGULAR PCB (AVAILABILITY: CHINA GB ONLY)*
+If you are a non-china buyer, you probably have the multi PCB or rgb PCB. 
+Please look at the "multi" and "rgb" readme files.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Doro67 Regular PCB  

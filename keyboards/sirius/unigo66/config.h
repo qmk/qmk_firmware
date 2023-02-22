@@ -17,22 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define CUSTOM_MATRIX 2
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1001
-#define DEVICE_VER      0x1901
-#define MANUFACTURER    Sirius
-#define PRODUCT         UniGo66
-#define DESCRIPTION     UniGo66 Wireless Split keyboard
-
 /* size of virtual matrix */
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 16
-
-/* matrix scanning is done in custom_matrix.cpp */
-//#define DIODE_DIRECTION
 
 /*
  * Feature disable options
@@ -49,5 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

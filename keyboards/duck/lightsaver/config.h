@@ -15,18 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x444B // Duck ("DK")
-#define PRODUCT_ID      0x4C53 // Lightsaver ("LS")
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    Duck
-#define PRODUCT         Lightsaver V3
-#define DESCRIPTION     Duck Lightsaver V3
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -35,15 +26,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 1
 
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 17
 
-#define TAPPING_TERM 200
+/* Set to top left most key */
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COLUMN 10
 
-#endif
+#define TAPPING_TERM 200

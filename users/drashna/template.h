@@ -1,7 +1,9 @@
-#ifndef USERSPACE
-#define USERSPACE
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
+#pragma once
+
+#include QMK_KEYBOARD_H
 #include "version.h"
 #include "eeprom.h"
 
@@ -9,10 +11,8 @@
 #define BASE 0
 
 enum custom_keycodes {
-  VRSN = SAFE_RANGE, // can always be here
-  KC_MAKE,
-  KC_RESET,
-  NEWPLACEHOLDER  //use "NEWPLACEHOLDER for keymap specific codes
+    VRSN = SAFE_RANGE,  // can always be here
+    QK_MAKE,
+    QK_BOOT,
+    NEWPLACEHOLDER  // use "NEWPLACEHOLDER for keymap specific codes
 };
-
-#endif

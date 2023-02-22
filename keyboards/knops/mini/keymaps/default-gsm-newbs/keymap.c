@@ -1,5 +1,10 @@
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+	M_TGLHF = SAFE_RANGE,
+	M_TGG
+};
+
 /*
 *  Copy of knopps mini default May 16,2018
 *  Added comments in code to more easilly understand it.
@@ -41,16 +46,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *   Layer 1
 *	 _____	 _____	 _____
 *	| 	  | | 	  | | 	  |
-*	  ESC    Macro3  Macro4
+*	  ESC    Ctl+Z   CSf+Z
 *	|_____| |_____| |_____|
 *	 _____	 _____	 _____
 *	| 	  | | 	  | | 	  |
-*	 Macro5  Macro6  Macro7
+*	 Ctl+X   Ctl+C   Ctl+V
 *	|_____| |_____| |_____|
 *
 */
 	LAYOUT(
-		LT(3, KC_ESC), M(3), M(4), M(5), M(6), M(7)),
+		LT(3, KC_ESC), C(KC_Z), C(S(KC_Z)), C(KC_X), C(KC_C), C(KC_V)),
 
 /*
 *   Layer 2
@@ -65,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 */
 	LAYOUT(
-		LT(3, KC_1), KC_2, KC_3, KC_4, M(0), M(1)),
+		LT(3, KC_1), KC_2, KC_3, KC_4, M_TGLHF, M_TGG),
 
 /*
 *  Layer 3 Key Layout
@@ -84,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 */
 	LAYOUT(
-		KC_TRNS, KC_TRNS, RESET, TO(0), TO(1), TO(2)),
+		KC_TRNS, KC_TRNS, QK_BOOT, TO(0), TO(1), TO(2)),
 
 // More Layers that can be used, but are not by default
 
@@ -125,91 +130,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 
 };
-
-//  Older way of Macros found here: https://docs.qmk.fm/features/macros
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	//keyevent_t event = record->event;
-
-	switch (id) {
-		case 0:
-			if (record->event.pressed) {
-			/*
-			* This is Macro 0
-			* Content:  tglhf<enter>
-			*/
-				return MACRO( T(T), T(G), T(L), T(H), T(F), T(ENT), END );
-			}
-			break;
-		case 1:
-			if (record->event.pressed) {
-			/*
-			* This is Macro 1
-			* Content:  tgg<enter>
-			*/
-				return MACRO( T(T), T(G), T(G), T(ENT), END );
-			}
-			break;
-		case 2:
-			if (record->event.pressed) {
-			/*
-			* This is Macro 2
-			* Content:  Press and hold "no" , type "l", release "no"<enter>
-			* I haven't found what this "NO" key maps to
-			*/
-				return MACRO( D(NO), T(L), U(NO), END );
-			}
-			break;
-		case 3:
-			if (record->event.pressed) {
-			/*
-			* This is Macro 3
-			* Content:  press/hold LCTRL, type "2", release LCTRL
-			*/
-				return MACRO( D(LCTL), T(Z), U(LCTL), END );
-			}
-			break;
-		case 4:
-			if (record->event.pressed) {
-			/*
-			* This is Macro 4
-			* Content:  press/hold LCTRL, type "2", release LCTRL
-			*/
-				return MACRO( D(LCTL), D(LSFT), T(Z), U(LSFT), U(LCTL), END );
-			}
-			break;
-		case 5:
-			if (record->event.pressed) {
-			/*
-			* This is Macro 5
-			* Content:  press/hold LCTRL, type "x", release LCTRL
-			*/
-				return MACRO( D(LCTL), T(X), U(LCTL), END );
-			}
-			break;
-		case 6:
-			if (record->event.pressed) {
-			/*
-			* This is Macro 6
-			* Content:  press/hold LCTRL, type "c", release LCTRL
-			*/
-				return MACRO( D(LCTL), T(C), U(LCTL), END );
-			}
-			break;
-		case 7:
-			if (record->event.pressed) {
-			/*
-			* This is Macro 7
-			* Content:  press/hold LCTRL, type "v", release LCTRL
-			*/
-				return MACRO( D(LCTL), T(V), U(LCTL), END );
-			}
-			break;
-	}
-	return MACRO_NONE;
-}
-
-
 
 void set_switch_led(int ledId, bool state) {
 	if(state) {
@@ -283,27 +203,7 @@ void set_layer_led(int layerId) {
 	}
 }
 
-void matrix_init_user(void) {
-	led_init_ports();
-
-	PORTB |= (1 << 7);
-	DDRB &= ~(1<<7);
-
-	PORTD |= (1<<7);
-	PORTC |= (1<<6);
-	PORTC |= (1<<7);
-	PORTD |= (1<<4);
-	PORTE |= (1<<6);
-	PORTB |= (1<<4);
-	PORTD |= (1<<6);
-
-	set_layer_led(0);
-}
-
-void matrix_scan_user(void) {
-}
-
-void led_init_ports() {
+void led_init_ports_user(void) {
   // led voor switch #1
 	DDRD |= (1<<7);
 	PORTD &= ~(1<<7);
@@ -354,6 +254,26 @@ void led_init_ports() {
 	DDRB |= (1<<6);
 	DDRB |= (1<<0);
 	//led_set_layer(0);
+}
+
+void matrix_init_user(void) {
+	led_init_ports_user();
+
+	PORTB |= (1 << 7);
+	DDRB &= ~(1<<7);
+
+	PORTD |= (1<<7);
+	PORTC |= (1<<6);
+	PORTC |= (1<<7);
+	PORTD |= (1<<4);
+	PORTE |= (1<<6);
+	PORTB |= (1<<4);
+	PORTD |= (1<<6);
+
+	set_layer_led(0);
+}
+
+void matrix_scan_user(void) {
 }
 
 void led_set_user(uint8_t usb_led) {
@@ -480,6 +400,17 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
         led_set_layer(2);
      }
      break;
+  case M_TGLHF:
+    if (record->event.pressed) {
+      SEND_STRING("tglhf");
+      tap_code(KC_ENT);
+    }
+  case M_TGG:
+    if (record->event.pressed) {
+      SEND_STRING("tgg");
+      tap_code(KC_ENT);
+    }
+    return false;
   }
   return true;
 }

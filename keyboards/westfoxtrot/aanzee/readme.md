@@ -1,6 +1,6 @@
 # aanzee
 
-![aanzee](https://cablecardesigns.co/portfolio-posts/aanzee)
+[aanzee](https://cablecardesigns.co/portfolio-posts/aanzee)
 
 custom pcb for the aanzee keyboard
 

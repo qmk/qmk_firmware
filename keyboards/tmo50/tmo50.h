@@ -17,6 +17,10 @@
 
 #include "quantum.h"
 
+bool process_indicator_led_kb(layer_state_t state);
+__attribute__((weak))
+bool process_indicator_led_user(layer_state_t state);
+
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -51,4 +55,3 @@
 	{ K20, K21, K22, K23, K24,   K25,   K26,   K27, K28,   K29,   K2A, K2B,   K2C,   K2D },   \
 	{ K30, K31, K32, K33, KC_NO, KC_NO, KC_NO, K37, KC_NO, KC_NO, K3A, KC_NO, KC_NO, KC_NO }  \
 }
-

@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "Pix",
+    "manufacturer": "sendyyeah",
+    "url": "https://github.com/sendz/pix",
+    "maintainer": "sendz",
+    "usb": {
+        "vid": "0x5359",
+        "pid": "0x4E34",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0},
+                {"x":1, "y":0},
+                {"x":2, "y":0},
+                {"x":3, "y":0},
+                {"x":4, "y":0}
+            ]
+        }
+    }
+}

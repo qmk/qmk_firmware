@@ -1,224 +1,130 @@
+/* Copyright 2021 QMK
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#include "config.h"
-#include "matrix.h"
-#include "quantum.h"
+#include <string.h>
+#include <debug.h>
 
-#define ROWS_PER_HAND (MATRIX_ROWS/2)
+#include "transactions.h"
+#include "transport.h"
+#include "transaction_id_define.h"
+#include "atomic_util.h"
 
-#ifdef RGBLIGHT_ENABLE
-#   include "rgblight.h"
-#endif
+#ifdef USE_I2C
 
-#ifdef BACKLIGHT_ENABLE
-# include "backlight.h"
-  extern backlight_config_t backlight_config;
-#endif
+#    ifndef SLAVE_I2C_TIMEOUT
+#        define SLAVE_I2C_TIMEOUT 100
+#    endif // SLAVE_I2C_TIMEOUT
 
-#if defined(USE_I2C) || defined(EH)
+#    ifndef SLAVE_I2C_ADDRESS
+#        define SLAVE_I2C_ADDRESS 0x32
+#    endif
 
-#include "i2c.h"
+#    include "i2c_master.h"
+#    include "i2c_slave.h"
 
-#ifndef SLAVE_I2C_ADDRESS
-#  define SLAVE_I2C_ADDRESS           0x32
-#endif
+// Ensure the I2C buffer has enough space
+_Static_assert(sizeof(split_shared_memory_t) <= I2C_SLAVE_REG_COUNT, "split_shared_memory_t too large for I2C_SLAVE_REG_COUNT");
 
-#if (MATRIX_COLS > 8)
-#  error "Currently only supports 8 COLS"
-#endif
-
-// Get rows from other half over i2c
-bool transport_master(matrix_row_t matrix[]) {
-  int err = 0;
-
-  // write backlight info
-#ifdef BACKLIGHT_ENABLE
-  if (BACKLIT_DIRTY) {
-    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-    if (err) { goto i2c_error; }
-
-    // Backlight location
-    err = i2c_master_write(I2C_BACKLIT_START);
-    if (err) { goto i2c_error; }
-
-    // Write backlight
-    i2c_master_write(get_backlight_level());
-
-    BACKLIT_DIRTY = false;
-  }
-#endif
-
-  err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-  if (err) { goto i2c_error; }
-
-  // start of matrix stored at I2C_KEYMAP_START
-  err = i2c_master_write(I2C_KEYMAP_START);
-  if (err) { goto i2c_error; }
-
-  // Start read
-  err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
-  if (err) { goto i2c_error; }
-
-  if (!err) {
-    int i;
-    for (i = 0; i < ROWS_PER_HAND-1; ++i) {
-      matrix[i] = i2c_master_read(I2C_ACK);
-    }
-    matrix[i] = i2c_master_read(I2C_NACK);
-    i2c_master_stop();
-  } else {
-i2c_error: // the cable is disconnceted, or something else went wrong
-    i2c_reset_state();
-    return false;
-  }
-
-#ifdef RGBLIGHT_ENABLE
-  if (RGB_DIRTY) {
-    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-    if (err) { goto i2c_error; }
-
-    // RGB Location
-    err = i2c_master_write(I2C_RGB_START);
-    if (err) { goto i2c_error; }
-
-    uint32_t dword = eeconfig_read_rgblight();
-
-    // Write RGB
-    err = i2c_master_write_data(&dword, 4);
-    if (err) { goto i2c_error; }
-
-    RGB_DIRTY = false;
-    i2c_master_stop();
-  }
-#endif
-
-  return true;
-}
-
-void transport_slave(matrix_row_t matrix[]) {
-
-  for (int i = 0; i < ROWS_PER_HAND; ++i)
-  {
-    i2c_slave_buffer[I2C_KEYMAP_START + i] = matrix[i];
-  }
-  // Read Backlight Info
-  #ifdef BACKLIGHT_ENABLE
-  if (BACKLIT_DIRTY)
-  {
-    backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
-    BACKLIT_DIRTY = false;
-  }
-  #endif
-  #ifdef RGBLIGHT_ENABLE
-  if (RGB_DIRTY)
-  {
-    // Disable interupts (RGB data is big)
-    cli();
-    // Create new DWORD for RGB data
-    uint32_t dword;
-
-    // Fill the new DWORD with the data that was sent over
-    uint8_t * dword_dat = (uint8_t *)(&dword);
-    for (int i = 0; i < 4; i++)
-    {
-      dword_dat[i] = i2c_slave_buffer[I2C_RGB_START + i];
-    }
-
-    // Update the RGB now with the new data and set RGB_DIRTY to false
-    rgblight_update_dword(dword);
-    RGB_DIRTY = false;
-    // Re-enable interupts now that RGB is set
-    sei();
-  }
-  #endif
-}
+split_shared_memory_t *const split_shmem = (split_shared_memory_t *)i2c_slave_reg;
 
 void transport_master_init(void) {
-  i2c_master_init();
+    i2c_init();
 }
-
 void transport_slave_init(void) {
-  i2c_slave_init(SLAVE_I2C_ADDRESS);
+    i2c_slave_init(SLAVE_I2C_ADDRESS);
 }
 
-#else // USE_SERIAL
+i2c_status_t transport_trigger_callback(int8_t id) {
+    // If there's no callback, indicate that we were successful
+    if (!split_transaction_table[id].slave_callback) {
+        return I2C_STATUS_SUCCESS;
+    }
 
-#include "serial.h"
-
-typedef struct _Serial_s2m_buffer_t {
-  // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
-  matrix_row_t smatrix[ROWS_PER_HAND];
-} Serial_s2m_buffer_t;
-
-typedef struct _Serial_m2s_buffer_t {
-#ifdef BACKLIGHT_ENABLE
-    uint8_t backlight_level;
-#endif
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-    rgblight_config_t rgblight_config; //not yet use
-    //
-    // When MCUs on both sides drive their respective RGB LED chains,
-    // it is necessary to synchronize, so it is necessary to communicate RGB information.
-    // In that case, define the RGBLIGHT_SPLIT macro.
-    //
-    // Otherwise, if the master side MCU drives both sides RGB LED chains,
-    // there is no need to communicate.
-#endif
-} Serial_m2s_buffer_t;
-
-volatile Serial_s2m_buffer_t serial_s2m_buffer = {};
-volatile Serial_m2s_buffer_t serial_m2s_buffer = {};
-uint8_t volatile status0 = 0;
-
-SSTD_t transactions[] = {
-  { (uint8_t *)&status0,
-    sizeof(serial_m2s_buffer), (uint8_t *)&serial_m2s_buffer,
-    sizeof(serial_s2m_buffer), (uint8_t *)&serial_s2m_buffer
-  }
-};
-
-void transport_master_init(void)
-{ soft_serial_initiator_init(transactions, TID_LIMIT(transactions)); }
-
-void transport_slave_init(void)
-{ soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
-
-bool transport_master(matrix_row_t matrix[]) {
-
-  if (soft_serial_transaction()) {
-    return false;
-  }
-
-  // TODO:  if MATRIX_COLS > 8 change to unpack()
-  for (int i = 0; i < ROWS_PER_HAND; ++i) {
-    matrix[i] = serial_s2m_buffer.smatrix[i];
-  }
-
-  #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-    // Code to send RGB over serial goes here (not implemented yet)
-  #endif
-
-  #ifdef BACKLIGHT_ENABLE
-    // Write backlight level for slave to read
-    serial_m2s_buffer.backlight_level = backlight_config.enable ? backlight_config.level : 0;
-  #endif
-
-  return true;
+    // Kick off the "callback executor", now that data has been written to the slave
+    split_shmem->transaction_id     = id;
+    split_transaction_desc_t *trans = &split_transaction_table[I2C_EXECUTE_CALLBACK];
+    return i2c_writeReg(SLAVE_I2C_ADDRESS, trans->initiator2target_offset, split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size, SLAVE_I2C_TIMEOUT);
 }
 
-void transport_slave(matrix_row_t matrix[]) {
+bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
+    i2c_status_t              status;
+    split_transaction_desc_t *trans = &split_transaction_table[id];
+    if (initiator2target_length > 0) {
+        size_t len = trans->initiator2target_buffer_size < initiator2target_length ? trans->initiator2target_buffer_size : initiator2target_length;
+        memcpy(split_trans_initiator2target_buffer(trans), initiator2target_buf, len);
+        if ((status = i2c_writeReg(SLAVE_I2C_ADDRESS, trans->initiator2target_offset, split_trans_initiator2target_buffer(trans), len, SLAVE_I2C_TIMEOUT)) < 0) {
+            return false;
+        }
+    }
 
-  // TODO: if MATRIX_COLS > 8 change to pack()
-  for (int i = 0; i < ROWS_PER_HAND; ++i)
-  {
-    serial_s2m_buffer.smatrix[i] = matrix[i];
-  }
-  #ifdef BACKLIGHT_ENABLE
-    backlight_set(serial_m2s_buffer.backlight_level);
-  #endif
-  #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-  // Add serial implementation for RGB here
-  #endif
+    // If we need to execute a callback on the slave, do so
+    if ((status = transport_trigger_callback(id)) < 0) {
+        return false;
+    }
 
+    if (target2initiator_length > 0) {
+        size_t len = trans->target2initiator_buffer_size < target2initiator_length ? trans->target2initiator_buffer_size : target2initiator_length;
+        if ((status = i2c_readReg(SLAVE_I2C_ADDRESS, trans->target2initiator_offset, split_trans_target2initiator_buffer(trans), len, SLAVE_I2C_TIMEOUT)) < 0) {
+            return false;
+        }
+        memcpy(target2initiator_buf, split_trans_target2initiator_buffer(trans), len);
+    }
+
+    return true;
 }
 
-#endif
+#else // USE_I2C
+
+#    include "serial.h"
+
+static split_shared_memory_t shared_memory;
+split_shared_memory_t *const split_shmem = &shared_memory;
+
+void transport_master_init(void) {
+    soft_serial_initiator_init();
+}
+void transport_slave_init(void) {
+    soft_serial_target_init();
+}
+
+bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length) {
+    split_transaction_desc_t *trans = &split_transaction_table[id];
+    if (initiator2target_length > 0) {
+        size_t len = trans->initiator2target_buffer_size < initiator2target_length ? trans->initiator2target_buffer_size : initiator2target_length;
+        memcpy(split_trans_initiator2target_buffer(trans), initiator2target_buf, len);
+    }
+
+    if (!soft_serial_transaction(id)) {
+        return false;
+    }
+
+    if (target2initiator_length > 0) {
+        size_t len = trans->target2initiator_buffer_size < target2initiator_length ? trans->target2initiator_buffer_size : target2initiator_length;
+        memcpy(target2initiator_buf, split_trans_target2initiator_buffer(trans), len);
+    }
+
+    return true;
+}
+
+#endif // USE_I2C
+
+bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    return transactions_master(master_matrix, slave_matrix);
+}
+
+void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    transactions_slave(master_matrix, slave_matrix);
+}

@@ -1,0 +1,20 @@
+{
+    "keyboard_name": "Binary_Monkey",
+    "manufacturer": "JKDLAB.",
+    "url": "https://gumroad.com/jkdlab",
+    "maintainer": "JKDLAB.",
+    "usb": {
+        "vid": "0x4934",
+        "pid": "0x0101",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "0", "x": 0, "y": 0},
+                {"label": "1", "x": 1, "y": 0},
+                {"label": "ENTER", "x": 0, "y": 1, "w" : 2}
+            ]
+        }
+    }
+}

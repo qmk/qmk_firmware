@@ -1,16 +1,16 @@
 # Glossary of QMK Terms
 
 ## ARM
-A line of 32-bit MCU's produced by a number of companies, such as Atmel, Cypress, Kinetis, NXP, ST, and TI.
+A line of 32-bit MCUs produced by a number of companies, such as Atmel, Cypress, Kinetis, NXP, ST, and TI.
 
 ## AVR
-A line of 8-bit MCU's produced by [Atmel](http://www.microchip.com/). AVR was the original platform that TMK supported.
+A line of 8-bit MCUs produced by [Atmel](https://www.microchip.com/). AVR was the original platform that TMK supported.
 
 ## AZERTY
 The standard Français (French) keyboard layout. Named for the first 6 keys on the keyboard.
 
 ## Backlight
-A generic term for lighting on a keyboard. The backlight is typically, but not always, an array of LED's that shine through keycaps and/or switches.
+A generic term for lighting on a keyboard. The backlight is typically, but not always, an array of LEDs that shine through keycaps and/or switches.
 
 ## Bluetooth
 A short range peer to peer wireless protocol. Most common wireless protocol for a keyboard.
@@ -41,13 +41,10 @@ A macro which has been recorded on the keyboard and which will be lost when the 
 ## Eclipse
 An IDE that is popular with many C developers.
 
-* [Eclipse Setup Instructions](eclipse.md)
+* [Eclipse Setup Instructions](other_eclipse.md)
 
 ## Firmware
 The software that controls your MCU.
-
-## FLIP
-Software provided by Atmel for flashing AVR devices. We generally recommend [QMK Flasher](https://github.com/qmk/qmk_flasher) instead, but for some advanced use cases FLIP is required.
 
 ## git
 Versioning software used at the command line
@@ -128,12 +125,12 @@ The standard Deutsche (German) keyboard layout. Named for the first 6 letters on
 The term for pressing a key while a key is already held down. Variants include 2KRO, 6KRO, and NKRO.
 
 ## Scancode
-A 1 byte number that is sent as part of a HID report over USB that represents a single key. These numbers are documented in the [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) published by the [USB-IF](http://www.usb.org/).
+A 1 byte number that is sent as part of a HID report over USB that represents a single key. These numbers are documented in the [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) published by the [USB-IF](https://www.usb.org/).
 
 ## Space Cadet Shift
 A special set of shift keys which allow you to type various types of braces by tapping the left or right shift one or more times.
 
-* [Space Cadet Shift Documentation](feature_space_cadet_shift.md)
+* [Space Cadet Shift Documentation](feature_space_cadet.md)
 
 ## Tap
 Pressing and releasing a key. In some situations you will need to distinguish between a key down and a key up event, and Tap always refers to both at once.
@@ -147,7 +144,7 @@ A feature that lets you assign multiple keycodes to the same key based on how ma
 A low-cost AVR development board that is commonly used for hand-wired builds. A teensy is often chosen despite costing a few dollars more due to its halfkay bootloader, which makes flashing very simple.
 
 ## Underlight
-A generic term for LEDs that light the underside of the board. These LED's typically shine away from the bottom of the PCB and towards the surface the keyboard rests on.
+A generic term for LEDs that light the underside of the board. These LEDs typically shine away from the bottom of the PCB and towards the surface the keyboard rests on.
 
 ## Unicode
 In the larger computer world Unicode is a set of encoding schemes for representing characters in any language. As it relates to QMK it means using various OS schemes to send unicode codepoints instead of scancodes.

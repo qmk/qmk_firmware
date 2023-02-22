@@ -15,17 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1337
-#define PRODUCT_ID      0x6006
-#define MANUFACTURER    Bishop Keyboards
-#define PRODUCT         The ECO Keyboard
-#define DESCRIPTION     An economical ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -38,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -60,14 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #ifdef SUBPROJECT_rev1
     #include "rev1/config.h"
 #endif
 #ifdef SUBPROJECT_rev2
     #include "rev2/config.h"
-#endif
-
 #endif

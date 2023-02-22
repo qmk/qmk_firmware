@@ -180,9 +180,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_ADJUST] = LAYOUT_preonic_1x2uC( \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  \
-    _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,LALT(KC_PSCR), LCTL(KC_PSCR), KC_PSCR,  \
-    KC_CAPS, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  NUMPAD,  KC_INS,  \
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
+    _______, QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, LALT(KC_PSCR), LCTL(KC_PSCR), KC_PSCR,  \
+    KC_CAPS, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  NUMPAD,  KC_INS,  \
+    _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______,      _______,     _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
   )
 

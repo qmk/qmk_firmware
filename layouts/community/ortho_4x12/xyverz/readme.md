@@ -6,6 +6,10 @@ I'm moving all my 4x12s to the same keymap since I pretty much use it across all
 
 This revision includes this documentation and introduction of the individual RGB mode keys in the `ADJUST` layer.
 
+## What's New?
+ * Added the Mac Lock macro of CMD+CTRL+Q to lock the screen on my mac.
+ * Changed the location of the `pipe` and `backslash` keys to match my other layouts.
+
 ## Still to do:
 
  * Enjoy this revision; figure out new things later.
@@ -56,9 +60,9 @@ This revision includes this documentation and introduction of the individual RGB
 
 ```
     ,-----------------------------------------------------------------------------------.
-    |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |      |
+    |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |  |   |
     |------+------+------+------+------+-------------+------+------+------+------+------|
-    | Caps |      | Mute | Vol- | Vol+ |      |      |   _  |   +  |   {  |   }  |  |   |
+    | Caps |      | Mute | Vol- | Vol+ |      |      |   _  |   +  |   {  |   }  |      |
     |------+------+------+------+------+------|------+------+------+------+------+------|
     |      |      | Prev | Play | Next |      |      |      |      |      |      |      |
     |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -70,9 +74,9 @@ This revision includes this documentation and introduction of the individual RGB
 
 ```
     ,-----------------------------------------------------------------------------------.
-    |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
+    |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  \   |
     |------+------+------+------+------+-------------+------+------+------+------+------|
-    | Caps |      | Mute | Vol- | Vol+ |      |      |   -  |   =  |   [  |   ]  |  \   |
+    | Caps |      | Mute | Vol- | Vol+ |      |      |   -  |   =  |   [  |   ]  |      |
     |------+------+------+------+------+------|------+------+------+------+------+------|
     |      |      | Prev | Play | Next |      |      |      |      |      |      |      |
     |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -90,6 +94,6 @@ This revision includes this documentation and introduction of the individual RGB
     |------+------+------+------+------+------|------+------+------+------+------+------|
     |RGB ON| MODE |RGB SW|RGB KN|RGB GR| HUE- | HUE+ | HUE- | SAT+ | SAT- | VAL+ | VAL- |
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    |      |      |      |      |      |      |      |      |      |      |      |      |
+    |      |      |      |      |      |MacLck|      |      |      |      |      |      |
     `-----------------------------------------------------------------------------------'
  ```

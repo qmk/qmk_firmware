@@ -1,11 +1,12 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -23,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
      BL_STEP, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_LBRC,                   KC_RBRC, KC_P4,   KC_P5,   KC_P6,   KC_PLUS, KC_PIPE,
-     RESET,   _______, RGB_HUD, RGB_SAD, RGB_VAD, KC_LCBR,                   KC_RCBR, KC_P1,   KC_P2,   KC_P3,   KC_SLSH, _______,
+     QK_BOOT,   _______, RGB_HUD, RGB_SAD, RGB_VAD, KC_LCBR,                   KC_RCBR, KC_P1,   KC_P2,   KC_P3,   KC_SLSH, _______,
      KC_GRV,  _______, _______, _______, _______, KC_DEL,                    _______, _______, KC_P0,   KC_PDOT, _______, _______,
                                                   _______, _______, _______, _______
   ),

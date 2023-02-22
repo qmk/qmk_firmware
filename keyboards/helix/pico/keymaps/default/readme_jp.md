@@ -56,48 +56,19 @@
 
 他の配列(Colemak,Dvorak)は、[readme.md](readme.md) を参照
 
-## コンパイルの仕方
-
-コンパイルは、qmk_firmware のトップディレクトリで行います。
-
-```
-$ cd qmk_firmware
-```
-qmk_firmwareでは各キーボードのコンパイルは、`<キーボード名>:<キーマップ名>`という指定で行います。
-
-```
-$ make helix/pico:default
-```
-
-キーボードへの書き込みまで同時に行うには下記のように`:avrdude`を付けます。
-
-```
-$ make helix/pico:default:avrdude
-```
-
-コンパイル結果と中間生成物を消去したい場合は以下のようにします。
-
-```
-$ make helix/pico:default:clean
-```
-
 ## カスタマイズ
 
-オプションの OLED をつけたり、
 RGB バックライトまたは、RGB Underglow をつけた場合は、
 `qmk_firmware/keyboards/helix/pico/keymaps/default/rules.mk` の以下の部分を編集して機能を有効化してください。
 
 ```
-# Helix keyboard customize
-# you can edit follows 6 Variables
-#  jp: 以下の6つの変数を必要に応じて編集します。
-OLED_ENABLE = no            # OLED_ENABLE
-LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
-LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
-LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
-LED_ANIMATIONS = yes        # LED animations
-IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
-
+# Helix Spacific Build Options
+# you can uncomment and edit follows 4 Variables
+#  jp: 以下の4つの変数を必要に応じて編集し、コメントアウトをはずします。
+# LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
+# LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
+# LED_ANIMATIONS = yes        # LED animations
+# IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 ```
 
 ## RGB バックライトを有効にする
@@ -115,13 +86,6 @@ rules.mk の下記の部分を編集して no を yes に変更してくださ�
 LED_UNDERGLOW_ENABLE = yes   # LED underglow (Enable WS2812 RGB underlight.)
 ```
 
-## OLEDを有効にする
-
-rules.mk の下記の部分を編集して no を yes に変更してください。
-```
-OLED_ENABLE = yes            # OLED_ENABLE
-```
-
 ## iPad/iPhoneサポートを有効にする。
 
 rules.mk の下記の部分を編集して no を yes に変更してください。
@@ -129,6 +93,43 @@ RBG Underglow や RGBバックライトの輝度を抑えて、iPad, iPhone に�
 
 ```
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
+```
+
+## コンパイルの仕方
+
+コンパイルは、qmk_firmware のトップディレクトリで行います。
+
+```
+$ cd qmk_firmware
+```
+qmk_firmwareでは各キーボードのコンパイルは、`<キーボード名>:<キーマップ名>`という指定で行います。
+
+```
+$ make helix/pico:default
+```
+
+キーボードへの書き込みまで同時に行うには下記のように`:flash`を付けます。
+
+```
+$ make helix/pico:default:flash
+```
+
+コンパイル結果と中間生成物を消去したい場合は以下のようにします。
+
+```
+$ make helix/pico:default:clean
+```
+
+上記の、rules.mk によるカスタマイズ項目の一部は下記のようにコマンド上で直接指定することも可能です。
+
+RGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
+```
+$ make helix/pico/back:default:flash
+```
+
+RGB Underglow を有効にしてコンパイルしてキーボードへ書き込む。
+```
+$ make helix/pico/under:default:flash
 ```
 
 ## リンク

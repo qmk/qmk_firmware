@@ -18,11 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _ADC_H_
 #define _ADC_H_
 
-#define ADC_5V_START_LEVEL              2365
+#define ADC_5V_START_LEVEL 2365
 
-#define ADC_5V     ADC_INPUTCTRL_MUXPOS_AIN12_Val
-#define ADC_CON1   ADC_INPUTCTRL_MUXPOS_AIN14_Val
-#define ADC_CON2   ADC_INPUTCTRL_MUXPOS_AIN13_Val
+#define ADC_5V ADC_INPUTCTRL_MUXPOS_AIN12_Val
+#define ADC_CON1 ADC_INPUTCTRL_MUXPOS_AIN14_Val
+#define ADC_CON2 ADC_INPUTCTRL_MUXPOS_AIN13_Val
 
 extern uint16_t v_5v;
 extern uint16_t v_5v_avg;

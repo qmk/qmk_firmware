@@ -1,0 +1,22 @@
+{
+  "keyboard_name": "Pulse 4k",
+  "manufacturer": "Maxr1998",
+  "url": "https://github.com/Maxr1998/Pulse_4k",
+  "maintainer": "Maxr1998",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [ 
+        { "w": 1, "x": 0, "y": 0 }, 
+        { "w": 1, "x": 1, "y": 0 }, 
+        { "w": 1, "x": 2, "y": 0 }, 
+        { "w": 1, "x": 0, "y": 1 }, 
+        { "w": 1, "x": 1, "y": 1 }, 
+        { "w": 1, "x": 2, "y": 1 } ]
+    }
+  }
+}

@@ -1,9 +1,10 @@
 {
-    "keyboard_name": "Iris",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "Keebio",
-    "width": 14.5,
-    "height": 5,
+    "usb": {
+        "vid": "0xCB10"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -13,59 +13,108 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* Sendstring definitions for the Spanish layout */
-#ifndef SENDSTRING_SPANISH
-#define SENDSTRING_SPANISH
+
+// Sendstring lookup tables for Spanish layouts
+
+#pragma once
 
 #include "keymap_spanish.h"
+#include "quantum.h"
 
-const bool ascii_to_shift_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
+// clang-format off
 
-    0, 1, 1, 1, 1, 1, 1, 0,
-    1, 1, 1, 0, 0, 0, 0, 1,
-    0, 0, 0, 0, 0, 0, 0, 0,
+const uint8_t ascii_to_shift_lut[16] PROGMEM = {
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    0, 0, 1, 1, 0, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    
-    1, 1, 1, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 1, 0
+    KCLUT_ENTRY(0, 1, 1, 0, 1, 1, 1, 0),
+    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
+    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 1, 1),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
 };
 
-/* Until an ALT table/functionality is added, the following symbols will not work:
- # @ [ ] { } | ~
-*/
-const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, KC_ESC, 0, 0, 0, 0,
-/*        ,   !    "      #     $    %     &      '    */
-    KC_SPC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, ES_APOS,
-/*    (     )       *        +         ,       -        .     /    */
-    KC_8, KC_9, ES_PLUS,  ES_PLUS, KC_COMM, ES_MINS, KC_DOT, KC_7,
-    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-/*    8     9       :        ;        <      =     >         ?    */
-    KC_8, KC_9, KC_DOT, KC_COMM, KC_NUBS,  KC_0, KC_NUBS,  ES_APOS,
-/*    @     A      B    C    D      E     F     G                 */
-    KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
-    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
-    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-/*    X     Y     Z      [         \      ]        ^       _    */    
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, ES_GRV, ES_MINS,
-    ES_GRV, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
-    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
-    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+
+    KCLUT_ENTRY(0, 0, 0, 1, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0)
 };
 
-#endif
+const uint8_t ascii_to_dead_lut[16] PROGMEM = {
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 1, 0),
+    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
+};
+
+const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
+    // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // BS    TAB      LF       VT       FF       CR       SO       SI
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // DLE   DC1      DC2      DC3      DC4      NAK      SYN      ETB
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // CAN   EM       SUB      ESC      FS       GS       RS       US
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+
+    //       !        "        #        $        %        &        '
+    KC_SPC,  ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_QUOT,
+    // (     )        *        +        ,        -        .        /
+    ES_8,    ES_9,    ES_PLUS, ES_PLUS, ES_COMM, ES_MINS, ES_DOT,  ES_7,
+    // 0     1        2        3        4        5        6        7
+    ES_0,    ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_7,
+    // 8     9        :        ;        <        =        >        ?
+    ES_8,    ES_9,    ES_DOT,  ES_COMM, ES_LABK, ES_0,    ES_LABK, ES_QUOT,
+    // @     A        B        C        D        E        F        G
+    ES_2,    ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
+    // H     I        J        K        L        M        N        O
+    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
+    // P     Q        R        S        T        U        V        W
+    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
+    // X     Y        Z        [        \        ]        ^        _
+    ES_X,    ES_Y,    ES_Z,    ES_GRV,  ES_MORD, ES_PLUS, ES_GRV,  ES_MINS,
+    // `     a        b        c        d        e        f        g
+    ES_GRV,  ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
+    // h     i        j        k        l        m        n        o
+    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
+    // p     q        r        s        t        u        v        w
+    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
+    // x     y        z        {        |        }        ~        DEL
+    ES_X,    ES_Y,    ES_Z,    ES_ACUT, ES_1,    ES_CCED, ES_4,    KC_DEL
+};

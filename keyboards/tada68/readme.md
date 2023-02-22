@@ -1,17 +1,16 @@
-TADA68
-======
+# TADA68
 
 A compact 65% keyboard.
 
-Keyboard Maintainer: QMK Community  
-Hardware Supported: TADA68 PCB  
-Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/products/tada68-mechanical-keyboard-gateron-swtich-65-layout-dye-sub-keycaps-cherry-profils?variant=34710238797), [kbdist](http://www.kbdist.com/)
+* Keyboard Maintainer: QMK Community
+* Hardware Supported: TADA68 PCB
+* Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/products/tada68-mechanical-keyboard-gateron-swtich-65-layout-dye-sub-keycaps-cherry-profils?variant=34710238797), [kbdist](http://www.kbdist.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
     make tada68:default
 
-See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Firmware Format
 

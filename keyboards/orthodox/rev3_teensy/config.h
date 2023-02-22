@@ -19,18 +19,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV3_TEENSY_CONFIG_H
-#define REV3_TEENSY_CONFIG_H
+#pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    deductivemonkee
-#define PRODUCT         Monkeebs Orthodox Rev.3 (Teensy)
-#define DESCRIPTION     Bananadox
 
 /* key matrix size */
 // Rows are doubled-up
@@ -40,11 +31,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 
 //REV.3 TEENSY
-#define MATRIX_ROW_PINS { B0, C6, C7, }
+#define MATRIX_ROW_PINS { B0, C6, C7 }
 #define MATRIX_COL_PINS { D2, F5, F6, D6, D7, B4, B5, B6, F7 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define SOFT_SERIAL_PIN D0
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -53,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 // #define LOCKING_SUPPORT_ENABLE
@@ -62,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LGUI)) \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI)) \
 )
 
 /* ws2812 RGB LED */
@@ -85,7 +78,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-#endif

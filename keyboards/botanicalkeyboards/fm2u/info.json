@@ -1,0 +1,73 @@
+{
+    "keyboard_name": "FM2U",
+    "manufacturer": "Botanical Keyboards",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x6969",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_1u": {
+            "layout": [
+                {"x": 0, "y": 0}
+            ]
+        },
+        "LAYOUT_1u25": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 1.25}
+            ]
+        },
+        "LAYOUT_1u5": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 1.50}
+            ]
+        },
+        "LAYOUT_1u75": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 1.75}
+            ]
+        },
+        "LAYOUT_2u": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 2}
+            ]
+        },
+        "LAYOUT_2u25": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 2.25}
+            ]
+        },
+        "LAYOUT_2u75": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 2.75}
+            ]
+        },
+        "LAYOUT_3u": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 3}
+            ]
+        },
+        "LAYOUT_6u": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 6}
+            ]
+        },
+        "LAYOUT_6u25": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 6.25}
+            ]
+        },
+        "LAYOUT_7u": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 7}
+            ]
+        },
+        "LAYOUT_isoenter": {
+            "layout": [
+                {"x": 0.25, "y": 0, "w": 1.25, "h": 2}
+            ]
+        }
+    }
+}

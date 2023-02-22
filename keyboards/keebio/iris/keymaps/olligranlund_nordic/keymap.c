@@ -1,3 +1,19 @@
+/* Copyright 2020 Oliver Granlund
+ * 
+ * This program is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 2 of the License, or 
+ * (at your option) any later version. 
+ * 
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details. 
+ * 
+ * You should have received a copy of the GNU General Public License 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ */ 
+
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
 
@@ -20,11 +36,7 @@ enum custom_keycodes {
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
 #define KC_ADJ ADJUST
-#define KC_RST RESET
-
-#define KC_AA NO_AA
-#define KC_AE NO_AE
-#define KC_OE NO_OSLH
+#define KC_RST QK_BOOT
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -32,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
 	 	KC_ESC,  KC_1, 	  KC_2, 	 KC_3, 	 KC_4, 	  KC_5,                				  KC_6,    KC_7,    KC_8, 	 KC_9,     KC_0,  KC_MINS,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_Y,    KC_U, 	KC_I, 	 KC_O, 	  KC_P,   KC_AA,
+LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_Y,    KC_U, 	KC_I, 	 KC_O, 	  KC_P,   SE_ARNG,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	 	KC_LSFT,  KC_A, 	KC_S, 	 KC_D, 	 KC_F, 	  KC_G,         					  KC_H, 	KC_J, 	KC_K, 	  KC_L,  KC_OE,   KC_AE,
+	 	KC_LSFT,  KC_A, 	KC_S, 	 KC_D, 	 KC_F, 	  KC_G,         					  KC_H, 	KC_J, 	KC_K, 	  KC_L,  SE_ODIA, SE_ADIA,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
 	 	KC_LCTL,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,   RAISE,           KC_BSPC,  KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
 	//└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -44,13 +56,13 @@ LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_
 
 	[_LOWER] = LAYOUT(
 	//┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-	   NO_TILD,  KC_EXLM, NO_AT,   KC_HASH, NO_DLR, KC_PERC,                     		NO_CIRC,  NO_AMPR, NO_ASTR, NO_SLSH, NO_LPRN, NO_RPRN,
+	   SE_TILD,  KC_EXLM, SE_AT,   KC_HASH, SE_DLR, KC_PERC,                     		SE_CIRC,  SE_AMPR, SE_ASTR, SE_SLSH, SE_LPRN, SE_RPRN,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	   KC_TRNS,  KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_PGUP, KC_UP, KC_PGDOWN, NO_LCBR, NO_RCBR,
+	   KC_TRNS,  KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_PGUP, KC_UP, KC_PGDN,   SE_LCBR, SE_RCBR,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	  KC_TRNS,  KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, NO_BSLS,                     		KC_TRNS, KC_LEFT,  KC_DOWN, KC_RGHT, NO_LBRC,  NO_RBRC,
+	  KC_TRNS,  KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, SE_BSLS,                     		KC_TRNS, KC_LEFT,  KC_DOWN, KC_RGHT, SE_LBRC,  SE_RBRC,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-	   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_DEL, KC_TRNS, KC_GRAVE, KC_CIRC, KC_QUOTE, NO_LESS, NO_GRTR,
+	   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_DEL, KC_TRNS, KC_GRAVE, KC_CIRC, KC_QUOTE, SE_LABK, SE_RABK,
 	//└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
 	                               	   KC_TRNS, KC_TRNS, KC_TRNS,         		    KC_TRNS, KC_TRNS, KC_TRNS
 								  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -60,9 +72,9 @@ LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_
 	//┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
 	 	KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     		 KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	 	NO_GRV, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     		 KC_TRNS,  KC_7,    KC_8,    KC_9,  NO_MINS, NO_ASTR,
+	 	SE_GRV, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     		 KC_TRNS,  KC_7,    KC_8,    KC_9,  SE_MINS, SE_ASTR,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_4,    KC_5,    KC_6,  NO_PLUS, NO_SLSH,
+	 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_4,    KC_5,    KC_6,  SE_PLUS, SE_SLSH,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
 	 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,  KC_1,   KC_2,     KC_3,   KC_0,   KC_TRNS,
 	//└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -74,7 +86,7 @@ LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_
 	//┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
 	   BL_TOGG, BL_STEP, BL_BRTG, RGB_TOG, RGB_RMOD, RGB_MOD,                            _______, _______, _______, _______, _______, _______,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	   BL_DEC, _______,   BL_INC, RGB_VAD, RGB_SAI, RGB_VAI,                            _______, _______, _______, _______, _______, _______,
+	   BL_DOWN,_______,   BL_UP,  RGB_VAD, RGB_SAI, RGB_VAI,                            _______, _______, _______, _______, _______, _______,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
 	   _______, _______, _______, RGB_HUD, RGB_SAD, RGB_HUI,                            _______, _______, _______, _______, _______, _______,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤

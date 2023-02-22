@@ -18,9 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "protocol/serial.h"
+#include "uart.h"
 #include "timer.h"
-#include "pincontrol.h"
 
 
 /*
@@ -59,8 +58,6 @@ static uint16_t disconnect_counter = 0;
 #define COL(code)    ((code & COL_MASK) )
 #define KEYUP(code) ((code & KEY_MASK) >>7 )
 
-static bool is_modified = false;
-
 __attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
@@ -96,27 +93,27 @@ void pins_init(void) {
  // set pins for pullups, Rts , power &etc. 
 
     //print ("pins setup\n");
-    pinMode(VCC_PIN, PinDirectionOutput);
-    digitalWrite(VCC_PIN, PinLevelLow);
+    setPinOutput(VCC_PIN);
+    writePinLow(VCC_PIN);
 
 #if ( HANDSPRING == 0)
 
 #ifdef CY835
-    pinMode(GND_PIN, PinDirectionOutput);
-    digitalWrite(GND_PIN, PinLevelLow);
+    setPinOutput(GND_PIN);
+    writePinLow(GND_PIN);
 
-    pinMode(PULLDOWN_PIN, PinDirectionOutput);
-    digitalWrite(PULLDOWN_PIN, PinLevelLow);
+    setPinOutput(PULLDOWN_PIN);
+    writePinLow(PULLDOWN_PIN);
 #endif
 
-    pinMode(DCD_PIN, PinDirectionInput);
-    pinMode(RTS_PIN, PinDirectionInput); 
+    setPinInput(DCD_PIN);
+    setPinInput(RTS_PIN);
 #endif
 
 /* check that the other side isn't powered up. 
-    test=digitalRead(DCD_PIN);
+    test=readPin(DCD_PIN);
     xprintf("b%02X:", test);
-    test=digitalRead(RTS_PIN);
+    test=readPin(RTS_PIN);
     xprintf("%02X\n", test);
 */
  
@@ -129,20 +126,20 @@ uint8_t rts_reset(void) {
 // On boot, we keep rts as input, then switch roles here
 // on leaving sleep, we toggle the same way
 
-    firstread=digitalRead(RTS_PIN);
+    firstread=readPin(RTS_PIN);
    // printf("r%02X:", firstread);
 
-    pinMode(RTS_PIN, PinDirectionOutput);
+    setPinOutput(RTS_PIN);
 
-    if (firstread == PinLevelHigh) {
-        digitalWrite(RTS_PIN, PinLevelLow);
+    if (firstread) {
+        writePinLow(RTS_PIN);
     } 
      _delay_ms(10);
-    digitalWrite(RTS_PIN, PinLevelHigh);  
+    writePinHigh(RTS_PIN);
     
 
 /* the future is Arm 
-    if (palReadPad(RTS_PIN_IOPRT) == PinLevelLow)
+    if (!palReadPad(RTS_PIN_IOPRT))
   {
     _delay_ms(10);
     palSetPadMode(RTS_PINn_IOPORT, PinDirectionOutput_PUSHPULL);
@@ -167,7 +164,7 @@ uint8_t rts_reset(void) {
 uint8_t get_serial_byte(void) {
     static uint8_t code;
     while(1) {
-        code = serial_recv();
+        code = uart_read();
         if (code) { 
             debug_hex(code); debug(" ");
             return code;
@@ -224,9 +221,9 @@ uint8_t handspring_handshake(void) {
 }
 
 uint8_t handspring_reset(void) {
-    digitalWrite(VCC_PIN, PinLevelLow);
+    writePinLow(VCC_PIN);
     _delay_ms(5);
-    digitalWrite(VCC_PIN, PinLevelHigh);
+    writePinHigh(VCC_PIN);
 
     if ( handspring_handshake() ) {
         last_activity = timer_read();
@@ -243,14 +240,14 @@ void matrix_init(void)
     debug_enable = true;
     //debug_matrix =true;
     
-    serial_init(); // arguments all #defined 
+    uart_init(9600); // arguments all #defined 
  
 #if (HANDSPRING == 0)
     pins_init(); // set all inputs and outputs. 
 #endif
 
     print("power up\n");
-    digitalWrite(VCC_PIN, PinLevelHigh);
+    writePinHigh(VCC_PIN);
 
     // wait for DCD strobe from keyboard - it will do this 
     // up to 3 times, then the board needs the RTS toggled to try again
@@ -265,7 +262,7 @@ void matrix_init(void)
     }
 
 #else  /// Palm / HP  device with DCD
-    while( digitalRead(DCD_PIN) != PinLevelHigh ) {;} 
+    while( !readPin(DCD_PIN) ) {;} 
     print("dcd\n");
 
     rts_reset(); // at this point the keyboard should think all is well. 
@@ -293,7 +290,7 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     uint8_t code;
-    code = serial_recv();
+    code = uart_read();
     if (!code) {
 /*         
         disconnect_counter ++;
@@ -355,11 +352,6 @@ uint8_t matrix_scan(void)
     return code;
 }
 
-bool matrix_is_modified(void)
-{
-    return is_modified;
-}
-
 inline
 bool matrix_has_ghost(void)
 {
@@ -382,17 +374,8 @@ void matrix_print(void)
 {
     print("\nr/c 01234567\n");
     for (uint8_t row = 0; row < matrix_rows(); row++) {
-        phex(row); print(": ");
-        pbin_reverse(matrix_get_row(row));
+        print_hex8(row); print(": ");
+        print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop(matrix[i]);
-    }
-    return count;
 }

@@ -14,41 +14,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "inttypes.h"
-#include "stdint.h"
+#include <inttypes.h>
+#include <stdint.h>
 #include "process_key_lock.h"
 
 #define BV_64(shift) (((uint64_t)1) << (shift))
-#define GET_KEY_ARRAY(code) (((code) < 0x40) ? key_state[0] : \
-                             ((code) < 0x80) ? key_state[1] : \
-                             ((code) < 0xC0) ? key_state[2] : key_state[3])
-#define GET_CODE_INDEX(code) (((code) < 0x40) ? (code) : \
-                              ((code) < 0x80) ? (code) - 0x40 : \
-                              ((code) < 0xC0) ? (code) - 0x80 : (code) - 0xC0)
-#define KEY_STATE(code)  (GET_KEY_ARRAY(code) & BV_64(GET_CODE_INDEX(code))) == BV_64(GET_CODE_INDEX(code))
-#define SET_KEY_ARRAY_STATE(code, val) do { \
-    switch (code) { \
-        case 0x00 ... 0x3F: \
-            key_state[0] = (val); \
-            break; \
-        case 0x40 ... 0x7F: \
-            key_state[1] = (val); \
-            break; \
-        case 0x80 ... 0xBF: \
-            key_state[2] = (val); \
-            break; \
-        case 0xC0 ... 0xFF: \
-            key_state[3] = (val); \
-            break; \
-    } \
-} while(0)
+#define GET_KEY_ARRAY(code) (((code) < 0x40) ? key_state[0] : ((code) < 0x80) ? key_state[1] : ((code) < 0xC0) ? key_state[2] : key_state[3])
+#define GET_CODE_INDEX(code) (((code) < 0x40) ? (code) : ((code) < 0x80) ? (code)-0x40 : ((code) < 0xC0) ? (code)-0x80 : (code)-0xC0)
+#define KEY_STATE(code) (GET_KEY_ARRAY(code) & BV_64(GET_CODE_INDEX(code))) == BV_64(GET_CODE_INDEX(code))
+#define SET_KEY_ARRAY_STATE(code, val) \
+    do {                               \
+        switch (code) {                \
+            case 0x00 ... 0x3F:        \
+                key_state[0] = (val);  \
+                break;                 \
+            case 0x40 ... 0x7F:        \
+                key_state[1] = (val);  \
+                break;                 \
+            case 0x80 ... 0xBF:        \
+                key_state[2] = (val);  \
+                break;                 \
+            case 0xC0 ... 0xFF:        \
+                key_state[3] = (val);  \
+                break;                 \
+        }                              \
+    } while (0)
 #define SET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code) | BV_64(GET_CODE_INDEX(code))))
 #define UNSET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code)) & ~(BV_64(GET_CODE_INDEX(code))))
 #define IS_STANDARD_KEYCODE(code) ((code) <= 0xFF)
 
 // Locked key state. This is an array of 256 bits, one for each of the standard keys supported qmk.
-uint64_t key_state[4] = { 0x0, 0x0, 0x0, 0x0 };
-bool watching = false;
+uint64_t key_state[4] = {0x0, 0x0, 0x0, 0x0};
+bool     watching     = false;
 
 // Translate any OSM keycodes back to their unmasked versions.
 static inline uint16_t translate_keycode(uint16_t keycode) {
@@ -57,6 +54,11 @@ static inline uint16_t translate_keycode(uint16_t keycode) {
     } else {
         return keycode;
     }
+}
+
+void cancel_key_lock(void) {
+    watching = false;
+    UNSET_KEY_STATE(0x0);
 }
 
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
@@ -68,7 +70,7 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
     //    reset the state in our map and return false. When the user releases the
     //    key, the up event will no longer be masked and the OS will observe the
     //    released key.
-    // 3. KC_LOCK was just pressed. In this case, we set up the state machine
+    // 3. QK_LOCK was just pressed. In this case, we set up the state machine
     //    to watch for the next key down event, and finish processing
     // 4. The keycode is below 0xFF, and we are watching for new keys. In this case,
     //    we will send the key down event to the os, and set the key_state for that
@@ -93,20 +95,20 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
 
     if (record->event.pressed) {
         // Non-standard keycode, reset and return
-        if (!(IS_STANDARD_KEYCODE(translated_keycode) || translated_keycode == KC_LOCK)) {
+        if (!(IS_STANDARD_KEYCODE(translated_keycode) || translated_keycode == QK_LOCK)) {
             watching = false;
             return true;
         }
 
         // If we're already watching, turn off the watch.
-        if (translated_keycode == KC_LOCK) {
+        if (translated_keycode == QK_LOCK) {
             watching = !watching;
             return false;
         }
 
         if (IS_STANDARD_KEYCODE(translated_keycode)) {
             // We check watching first. This is so that in the following scenario, we continue to
-            // hold the key: KC_LOCK, KC_F, KC_LOCK, KC_F
+            // hold the key: QK_LOCK, KC_F, QK_LOCK, KC_F
             // If we checked in reverse order, we'd end up holding the key pressed after the second
             // KC_F press is registered, when the user likely meant to hold F
             if (watching) {
@@ -135,4 +137,3 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
         return !(IS_STANDARD_KEYCODE(translated_keycode) && KEY_STATE(translated_keycode));
     }
 }
-

@@ -3,6 +3,7 @@
 
 #include "../../config.h"
 
+#undef WORKMAN_SOUND
 #define WORKMAN_SOUND COLEMAK_SOUND
 
 #ifdef AUDIO_ENABLE
@@ -20,9 +21,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
@@ -43,6 +41,15 @@
 
 #define RGB_DI_PIN B2     // The pin the LED strip is connected to (PB2 by default)
 #define RGBLED_NUM 3      // Number of LEDs in your strip
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 #endif

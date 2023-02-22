@@ -21,8 +21,8 @@ ifeq ($(strip $(BT)), yes)
   #opt_defs for alternate pin usage
   OPT_DEFS += -DBLUEFRUIT
   #Adafruit Bluefruit controller settings
-  BLUETOOTH = AdafruitBLE
   BLUETOOTH_ENABLE = yes
+  BLUETOOTH_DRIVER = BluefruitLE
   F_CPU = 8000000
   CONSOLE_ENABLE = no 		# Console for debug(+400)
   COMMAND_ENABLE = no 		# Commands for debug and configuration
@@ -36,4 +36,10 @@ ifeq ($(strip $(padc)), yes)
 endif
 ifeq ($(strip $(padl)), yes)
 	OPT_DEFS += -DPADL
+endif
+
+#change gherkin orientation (i.e. move USB port from right side to left side)
+#example usage: make gherkin:wanleg flip=yes
+ifeq ($(strip $(flip)), yes)
+	OPT_DEFS += -DFLIP
 endif

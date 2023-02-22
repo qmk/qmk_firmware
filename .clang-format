@@ -1,10 +1,13 @@
-﻿---
+---
 BasedOnStyle: Google
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: 'true'
 AlignConsecutiveDeclarations: 'true'
 AlignOperands: 'true'
 AllowAllParametersOfDeclarationOnNextLine: 'false'
+AllowShortCaseLabelsOnASingleLine: 'false'
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: 'false'
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: 'false'
@@ -13,14 +16,15 @@ BinPackParameters: 'true'
 ColumnLimit: '1000'
 IndentCaseLabels: 'true'
 IndentPPDirectives: AfterHash
-IndentWidth: '2'
+IndentWidth: '4'
 MaxEmptyLinesToKeep: '1'
 PointerAlignment: Right
 SortIncludes: 'false'
 SpaceBeforeAssignmentOperators: 'true'
 SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: 'false'
-TabWidth: '2'
+SpacesBeforeTrailingComments: 1
+TabWidth: '4'
 UseTab: Never
 
 ...

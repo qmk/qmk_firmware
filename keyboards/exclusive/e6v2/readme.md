@@ -13,7 +13,7 @@ The E6-V2 is a 60% keyboard manufactured by Exclusive.
 
 These docs are for the QMK version of the E6-V2 PCB. [More info on qmk.fm](http://qmk.fm/)
 
-The E6V2 has been available with either a bootmapper client or QMK powered PCB. During the second round, the QMK powered PCB was redesigned and used different ports and a different switch matrix. 
+The E6V2 has been available with either a Bootmapper Client or QMK-powered PCB. During the second round, the QMK-powered and BMC PCBs were redesigned, and used different ports and a different switch matrix. 
 
 Please use the appropriate version when making your firmware. Flashing one in place of the other, can brick your PCB. Please be certain whether you have a OE or LE  PCB. 
 

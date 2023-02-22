@@ -72,57 +72,57 @@ extern "C" {
  * selected by UDC.
  */
 typedef struct {
-        /**
-         * \brief Enable the interface.
-         *
-         * This function is called when the host selects a configuration
-         * to which this interface belongs through a Set Configuration
-         * request, and when the host selects an alternate setting of
-         * this interface through a Set Interface request.
-         *
-         * \return \c 1 if function was successfully done, otherwise \c 0.
-         */
-        bool(*enable) (void);
+    /**
+     * \brief Enable the interface.
+     *
+     * This function is called when the host selects a configuration
+     * to which this interface belongs through a Set Configuration
+     * request, and when the host selects an alternate setting of
+     * this interface through a Set Interface request.
+     *
+     * \return \c 1 if function was successfully done, otherwise \c 0.
+     */
+    bool (*enable)(void);
 
-        /**
-         * \brief Disable the interface.
-         *
-         * This function is called when this interface is currently
-         * active, and
-         * - the host selects any configuration through a Set
-         *   Configuration request, or
-         * - the host issues a USB reset, or
-         * - the device is detached from the host (i.e. Vbus is no
-         *   longer present)
-         */
-        void (*disable) (void);
+    /**
+     * \brief Disable the interface.
+     *
+     * This function is called when this interface is currently
+     * active, and
+     * - the host selects any configuration through a Set
+     *   Configuration request, or
+     * - the host issues a USB reset, or
+     * - the device is detached from the host (i.e. Vbus is no
+     *   longer present)
+     */
+    void (*disable)(void);
 
-        /**
-         * \brief Handle a control request directed at an interface.
-         *
-         * This function is called when this interface is currently
-         * active and the host sends a SETUP request
-         * with this interface as the recipient.
-         *
-         * Use udd_g_ctrlreq to decode and response to SETUP request.
-         *
-         * \return \c 1 if this interface supports the SETUP request, otherwise \c 0.
-         */
-        bool(*setup) (void);
+    /**
+     * \brief Handle a control request directed at an interface.
+     *
+     * This function is called when this interface is currently
+     * active and the host sends a SETUP request
+     * with this interface as the recipient.
+     *
+     * Use udd_g_ctrlreq to decode and response to SETUP request.
+     *
+     * \return \c 1 if this interface supports the SETUP request, otherwise \c 0.
+     */
+    bool (*setup)(void);
 
-        /**
-         * \brief Returns the current setting of the selected interface.
-         *
-         * This function is called when UDC when know alternate setting of selected interface.
-         *
-         * \return alternate setting of selected interface
-         */
-        uint8_t(*getsetting) (void);
+    /**
+     * \brief Returns the current setting of the selected interface.
+     *
+     * This function is called when UDC when know alternate setting of selected interface.
+     *
+     * \return alternate setting of selected interface
+     */
+    uint8_t (*getsetting)(void);
 
-        /**
-         * \brief To signal that a SOF is occurred
-         */
-        void(*sof_notify) (void);
+    /**
+     * \brief To signal that a SOF is occurred
+     */
+    void (*sof_notify)(void);
 } udi_api_t;
 
 //@}

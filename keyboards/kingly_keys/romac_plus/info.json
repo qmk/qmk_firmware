@@ -1,0 +1,16 @@
+{
+  "keyboard_name": "RoMac+",
+  "manufacturer": "TheRoyalSweatshirt",
+  "url": "",
+  "maintainer": "TheRoyalSweatshirt",
+  "usb": {
+    "vid": "0x4B4B",
+    "pid": "0x0002",
+    "device_version": "0.0.1"
+  },
+  "layouts": {
+    "LAYOUT": {
+	  "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}, {"x":0, "y":3}, {"x":1, "y":3}, {"x":2, "y":3}]
+	}
+  }
+}

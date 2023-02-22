@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //--------------------------------------------------------------------------------------------------------------------------------------.
    //        |        |        |        |        |        |        |        |        |        |        |        |        |                 |
    //        |        |        |        |        |        |        |        |        |        |        |        |        |                 |
-     KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_NO,   
+     QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_NO,   
    //--------------------------------------------------------------------------------------------------------------------------------------|
    //            |        |        |        |        |        |        |        |        |        |        |        |        |             |
    //            |        |        |        |        |        |        |        |        |        |        |        |        |             |
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //--------------------------------------------------------------------------------------------------------------------------------------|
    //          |          |          |                                                        |          |░░░░░░|        |        |        |
    //          |          |          |                                                        |          |░░░░░░|        |        |        |
-     KC_LCTL,   KC_LGUI,   KC_LALT,   KC_SPC,                                                  F(0),      KC_NO, KC_LEFT, KC_DOWN, KC_RIGHT),
+     KC_LCTL,   KC_LGUI,   KC_LALT,   KC_SPC,                                               MO(_FUNCTION),KC_NO, KC_LEFT, KC_DOWN, KC_RIGHT),
    //--------------------------------------------------------------------------------------------------------------------------------------'
 
 
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //--------------------------------------------------------------------------------------------------------------------------------------|
    //            |        |        |        |        |        |        |        |        |        |        |        |        |             |
    //            |        |        |        |        |        |        |        |        |        |        |        |        |             |
-     RESET,       KC_7,    KC_8,    KC_9,    RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, KC_NO,   KC_INS,  KC_PAUS, KC_HOME, KC_END,  KC_SLEP,      
+     QK_BOOT,     KC_7,    KC_8,    KC_9,    RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, KC_NO,   KC_INS,  KC_PAUS, KC_HOME, KC_END,  KC_SLEP,      
    //--------------------------------------------------------------------------------------------------------------------------------------|
    //               |        |        |        |        |        |        |        |        |        |        |        |                   |
    //               |        |        |        |        |        |        |        |        |        |        |        |                   |
@@ -99,21 +99,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //--------------------------------------------------------------------------------------------------------------------------------------|
    //                   |        |        |        |        |        |        |        |        |        |        |░░░░░░|        |░░░░░░░░|
    //                   |        |        |        |        |        |        |        |        |        |        |░░░░░░|        |░░░░░░░░|
-     KC_LSFT, KC_NO,     KC_1,    KC_2,    KC_3,    KC_NO,   BL_INC,  BL_DEC,  KC_NO,   KC_MPRV, KC_MNXT, KC_NO,   KC_NO, KC_VOLU, KC_NO,   
+     KC_LSFT, KC_NO,     KC_1,    KC_2,    KC_3,    KC_NO,   BL_UP,   BL_DOWN, KC_NO,   KC_MPRV, KC_MNXT, KC_NO,   KC_NO, KC_VOLU, KC_NO,   
    //--------------------------------------------------------------------------------------------------------------------------------------|
    //          |          |          |                                                        |          |░░░░░░|        |        |        |
    //          |          |          |                                                        |          |░░░░░░|        |        |        |
-     KC_LCTL,   KC_LGUI,   KC_LALT,   KC_0,                                                    F(0),      KC_NO, KC_MUTE, KC_VOLD, KC_MPLY),
+     KC_LCTL,   KC_LGUI,   KC_LALT,   KC_0,                                                 MO(_FUNCTION),KC_NO, KC_MUTE, KC_VOLD, KC_MPLY),
    //--------------------------------------------------------------------------------------------------------------------------------------'
 
 };
-
-
-// Custom Actions
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(_FUNCTION),  // to Function overlay
-};
-
 
 // Loop
 void matrix_scan_user(void) {

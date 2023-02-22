@@ -1,11 +1,9 @@
-# WILBA.TECH WT8-A
-
-![WILBA.TECH WT8-A](https://wilba.tech)
+# wilba.tech WT8-A
 
 WT8-A is an 8-key macropad PCB, designed for the Singa Ocelot. [More info at wilba.tech](https://wilba.tech/)
 
 Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
-Hardware Supported: WILBA.TECH WT8-A  
+Hardware Supported: wilba.tech WT8-A  
 Hardware Availability: Singa Keyboards
 
 Make example for this keyboard (after setting up your build environment):

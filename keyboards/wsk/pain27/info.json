@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "PAIN27", 
+    "manufacturer": "Worldspawn00",
+    "url": "https://qmk.fm/keyboards", 
+    "maintainer": "worldspawn00", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x9E8C",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"label":"Q", "x":1, "y":0}, {"label":"W", "x":2, "y":0}, {"label":"E", "x":3, "y":0}, {"label":"R", "x":4, "y":0}, {"label":"T", "x":5, "y":0}, {"label":"Y", "x":6, "y":0}, {"label":"U", "x":7, "y":0}, {"label":"I", "x":8, "y":0}, {"label":"O", "x":9, "y":0}, {"label":"P", "x":10, "y":0}, {"label":"A", "x":1.25, "y":1}, {"label":"S", "x":2.25, "y":1}, {"label":"D", "x":3.25, "y":1}, {"label":"F", "x":4.25, "y":1}, {"label":"G", "x":5.25, "y":1}, {"label":"H", "x":6.25, "y":1}, {"label":"J", "x":7.25, "y":1}, {"label":"K", "x":8.25, "y":1}, {"label":"L", "x":9.25, "y":1}, {"label":"Z", "x":1.75, "y":2}, {"label":"X", "x":2.75, "y":2}, {"label":"C", "x":3.75, "y":2}, {"label":"V", "x":4.75, "y":2}, {"label":"B", "x":5.75, "y":2}, {"label":"N", "x":6.75, "y":2}, {"label":"M", "x":7.75, "y":2}, {"x":3.25, "y":3, "w":6.25}]
+        }
+    }
+}

@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef KBD66_H
-#define KBD66_H
+#pragma once
 
 #include "quantum.h"
 
@@ -33,4 +32,3 @@
     { k40, k41, k42, KC_NO, KC_NO, k45, KC_NO, KC_NO, k48, KC_NO, k4A, k4B, k4C,   k4D, k4E,   k4F}, \
 }
 
-#endif

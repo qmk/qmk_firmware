@@ -1,0 +1,1 @@
+CONSOLE_ENABLE = no

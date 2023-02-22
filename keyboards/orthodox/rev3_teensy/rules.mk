@@ -1,2 +1,4 @@
-BACKLIGHT_ENABLE = no
+# Bootloader selection
 BOOTLOADER = halfkay
+
+BACKLIGHT_ENABLE = no

@@ -1,27 +1,26 @@
-//midi for embedded chips,
-//Copyright 2010 Alex Norman
+// midi for embedded chips,
+// Copyright 2010 Alex Norman
 //
-//This file is part of avr-midi.
+// This file is part of avr-midi.
 //
-//avr-midi is free software: you can redistribute it and/or modify
-//it under the terms of the GNU General Public License as published by
-//the Free Software Foundation, either version 3 of the License, or
+// avr-midi is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
 //(at your option) any later version.
 //
-//avr-midi is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//GNU General Public License for more details.
+// avr-midi is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-//You should have received a copy of the GNU General Public License
-//along with avr-midi.  If not, see <http://www.gnu.org/licenses/>.
+// You should have received a copy of the GNU General Public License
+// along with avr-midi.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef SYSEX_TOOLS_H
-#define SYSEX_TOOLS_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
-#endif 
+#endif
 
 #include <inttypes.h>
 
@@ -31,7 +30,7 @@ extern "C" {
  *
  * These functions are for converting data to and from a "midi-safe" format,
  * which can be use to send data with sysex messages.  Sysex messages may only
- * contain data where the to bit is not set. 
+ * contain data where the to bit is not set.
  *
  * An "encoded" midi message is one that contains all of the data from its
  * original state, but does not have any of the top bits set.
@@ -70,7 +69,7 @@ uint16_t sysex_decoded_length(uint16_t encoded_length);
  * @param encoded The output data buffer, must be at least sysex_encoded_length(length) bytes long.
  * @param source The input buffer of data to be encoded.
  * @param length The number of bytes from the input buffer to encode.
- * 
+ *
  * @return number of bytes encoded.
  */
 uint16_t sysex_encode(uint8_t *encoded, const uint8_t *source, uint16_t length);
@@ -81,7 +80,7 @@ uint16_t sysex_encode(uint8_t *encoded, const uint8_t *source, uint16_t length);
  * @param decoded The output data buffer, must be at least sysex_decoded_length(length) bytes long.
  * @param source The input buffer of data to be decoded.
  * @param length The number of bytes from the input buffer to decode.
- * 
+ *
  * @return number of bytes decoded.
  */
 uint16_t sysex_decode(uint8_t *decoded, const uint8_t *source, uint16_t length);
@@ -90,6 +89,4 @@ uint16_t sysex_decode(uint8_t *decoded, const uint8_t *source, uint16_t length);
 
 #ifdef __cplusplus
 }
-#endif 
-
 #endif

@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "Red Comet Big Switch",
+    "manufacturer": "zFrontier",
+    "url": "https://en.zfrontier.com/products/redcomet-bigswitch-combo",
+    "maintainer": "carlxia",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0A01",
+        "device_version": "0.0.5"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 4, "h": 4}
+            ]
+        }
+    }
+}

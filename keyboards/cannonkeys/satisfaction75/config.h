@@ -17,15 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0x57F5
-#define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER QMK
-#define PRODUCT Satisfaction75
-#define DESCRIPTION Satisfaction 75 Keyboard
+/* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+/* LSE clock */
+#define STM32_LSECLK 32768
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -35,9 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B9 }
 #define ENCODERS_PAD_B { B8 }
+
+#define ENCODER_RESOLUTION 2
 
 //LEDS A6, RGB B15
 #define BACKLIGHT_LEVELS 24
@@ -47,6 +44,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+// I2C config
+#define I2C_DRIVER I2CD1
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+#define I2C1_TIMINGR_PRESC 0x00U
+#define I2C1_TIMINGR_SCLDEL 0x03U
+#define I2C1_TIMINGR_SDADEL 0x01U
+#define I2C1_TIMINGR_SCLH 0x03U
+#define I2C1_TIMINGR_SCLL 0x09U
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
@@ -56,37 +64,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#ifdef QWIIC_MICRO_OLED_ENABLE
+// configure oled driver for the 128x32 oled
+#define OLED_UPDATE_INTERVAL 66 // ~15fps
 
-#undef I2C_ADDRESS_SA0_1
-#define I2C_ADDRESS_SA0_1 0b0111100
-#define LCDWIDTH      128
-#define LCDHEIGHT     32
+// OLED_TIMEOUT is incompatible with the OLED_OFF mode
+#define OLED_TIMEOUT 0
 
-#endif
+// OLED timeout reimplemented in the keyboard-specific code
+#define CUSTOM_OLED_TIMEOUT 60000
 
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x02
-#define EEPROM_VERSION_ADDR 34
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*6*16*2)) = (35+768)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 803
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 221
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
-
-
+// Custom config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+// Custom config Usage:
+// 1 for enabled encoder modes (1 byte)
+// 1 for custom backlighting controls (1 byte)
+// 1 for OLED default mode (1 byte)
+// 6 for 3x custom encoder settings, left, right, and press (18 bytes)
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 21
 
 /*
  * Feature disable options
@@ -103,5 +97,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

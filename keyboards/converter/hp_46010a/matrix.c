@@ -29,23 +29,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
-#include "LUFA/Drivers/Peripheral/SPI.h"
+#include <LUFA/Drivers/Peripheral/SPI.h>
 
 #include "config.h"
 
 
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#   define DEBOUNCE 5
 #endif
 
-#if ( DEBOUNCING_DELAY > 0 )
+#if ( DEBOUNCE > 0 )
 static uint16_t debouncing_time         ;
 static bool     debouncing      = false ;
 #endif
 
 static uint8_t matrix [MATRIX_ROWS] = {0};
 
-#if ( DEBOUNCING_DELAY > 0 )
+#if ( DEBOUNCE > 0 )
 static uint8_t matrix_debounce_old [MATRIX_ROWS] = {0};
 static uint8_t matrix_debounce_new [MATRIX_ROWS] = {0};
 #endif 
@@ -172,7 +172,7 @@ uint8_t matrix_scan(void)  {
     // the first byte of the keyboard's output data can be ignored
     Matrix_ThrowByte();
     
-#if ( DEBOUNCING_DELAY > 0 )
+#if ( DEBOUNCE > 0 )
 
     for ( uint8_t row = 0 ; row < MATRIX_ROWS ; ++row ) {
         //transfer old debouncing values
@@ -194,8 +194,8 @@ uint8_t matrix_scan(void)  {
 #endif 
 
     
-#if ( DEBOUNCING_DELAY > 0 )
-    if ( debouncing && ( timer_elapsed( debouncing_time ) > DEBOUNCING_DELAY ) ) {
+#if ( DEBOUNCE > 0 )
+    if ( debouncing && ( timer_elapsed( debouncing_time ) > DEBOUNCE ) ) {
         
         for ( uint8_t row = 0 ; row < MATRIX_ROWS ; ++row ) {
             matrix[row] = matrix_debounce_new[row] ;
@@ -220,7 +220,7 @@ void matrix_print(void)
     print("\nr/c 01234567\n");
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }

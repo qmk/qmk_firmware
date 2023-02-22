@@ -51,7 +51,8 @@
 #include "udi_device_conf.h"
 #include "udi.h"
 #include "udc.h"
-#include "md_bootloader.h"
+
+#define BOOTLOADER_SERIAL_MAX_SIZE 20 // DO NOT MODIFY!
 
 /**
  * \ingroup udc_group
@@ -83,7 +84,6 @@ static usb_iface_desc_t UDC_DESC_STORAGE *udc_ptr_iface;
 
 //! @}
 
-
 //! \name Internal structure to store the USB device main strings
 //! @{
 
@@ -91,11 +91,7 @@ static usb_iface_desc_t UDC_DESC_STORAGE *udc_ptr_iface;
  * \brief Language ID of USB device (US ID by default)
  */
 COMPILER_WORD_ALIGNED
-static UDC_DESC_STORAGE usb_str_lgid_desc_t udc_string_desc_languageid = {
-    .desc.bLength = sizeof(usb_str_lgid_desc_t),
-    .desc.bDescriptorType = USB_DT_STRING,
-    .string = {LE16(USB_LANGID_EN_US)}
-};
+static UDC_DESC_STORAGE usb_str_lgid_desc_t udc_string_desc_languageid = {.desc.bLength = sizeof(usb_str_lgid_desc_t), .desc.bDescriptorType = USB_DT_STRING, .string = {LE16(USB_LANGID_EN_US)}};
 
 /**
  * \brief USB device manufacture name storage
@@ -104,9 +100,9 @@ static UDC_DESC_STORAGE usb_str_lgid_desc_t udc_string_desc_languageid = {
  */
 #ifdef USB_DEVICE_MANUFACTURE_NAME
 static uint8_t udc_string_manufacturer_name[] = USB_DEVICE_MANUFACTURE_NAME;
-#define USB_DEVICE_MANUFACTURE_NAME_SIZE (sizeof(udc_string_manufacturer_name)-1)
+#    define USB_DEVICE_MANUFACTURE_NAME_SIZE (sizeof(udc_string_manufacturer_name) - 1)
 #else
-#define USB_DEVICE_MANUFACTURE_NAME_SIZE 0
+#    define USB_DEVICE_MANUFACTURE_NAME_SIZE 0
 #endif
 
 /**
@@ -116,37 +112,36 @@ static uint8_t udc_string_manufacturer_name[] = USB_DEVICE_MANUFACTURE_NAME;
  */
 #ifdef USB_DEVICE_PRODUCT_NAME
 static uint8_t udc_string_product_name[] = USB_DEVICE_PRODUCT_NAME;
-#define USB_DEVICE_PRODUCT_NAME_SIZE (sizeof(udc_string_product_name)-1)
+#    define USB_DEVICE_PRODUCT_NAME_SIZE (sizeof(udc_string_product_name) - 1)
 #else
-#define USB_DEVICE_PRODUCT_NAME_SIZE 0
+#    define USB_DEVICE_PRODUCT_NAME_SIZE 0
 #endif
 
 #if defined USB_DEVICE_SERIAL_NAME
-#define USB_DEVICE_SERIAL_NAME_SIZE (sizeof(USB_DEVICE_SERIAL_NAME)-1)
+#    define USB_DEVICE_SERIAL_NAME_SIZE (sizeof(USB_DEVICE_SERIAL_NAME) - 1)
 #else
-#define USB_DEVICE_SERIAL_NAME_SIZE 0
+#    define USB_DEVICE_SERIAL_NAME_SIZE 0
 #endif
 
-uint8_t usb_device_serial_name_size = 0;
-#if defined USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
-uint8_t bootloader_serial_number[BOOTLOADER_SERIAL_MAX_SIZE+1]="";
-#endif
-static const uint8_t *udc_get_string_serial_name(void)
-{
-#if defined USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
-    uint32_t serial_ptrloc = (uint32_t)&_srom - 4;
-    uint32_t serial_address = *(uint32_t *)serial_ptrloc; //Address of bootloader's serial number if available
+extern uint32_t _srom;
 
-    if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc) //Check for factory programmed serial address
+uint8_t     usb_device_serial_name_size = 0;
+#if defined USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
+uint8_t     bootloader_serial_number[BOOTLOADER_SERIAL_MAX_SIZE + 1] = "";
+#endif
+static const uint8_t *udc_get_string_serial_name(void) {
+#if defined           USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
+    uint32_t serial_ptrloc  = (uint32_t)&_srom - 4;
+    uint32_t serial_address = *(uint32_t *)serial_ptrloc; // Address of bootloader's serial number if available
+
+    if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc) // Check for factory programmed serial address
     {
-        if ((serial_address & 0xFF) % 4 == 0) //Check alignment
+        if ((serial_address & 0xFF) % 4 == 0) // Check alignment
         {
-            uint16_t *serial_use = (uint16_t *)(serial_address); //Point to address of string in rom
-            uint8_t serial_length = 0;
+            uint16_t *serial_use    = (uint16_t *)(serial_address); // Point to address of string in rom
+            uint8_t   serial_length = 0;
 
-            while ((*(serial_use + serial_length) > 32 && *(serial_use + serial_length) < 127) &&
-                   serial_length < BOOTLOADER_SERIAL_MAX_SIZE)
-            {
+            while ((*(serial_use + serial_length) > 32 && *(serial_use + serial_length) < 127) && serial_length < BOOTLOADER_SERIAL_MAX_SIZE) {
                 bootloader_serial_number[serial_length] = *(serial_use + serial_length) & 0xFF;
                 serial_length++;
             }
@@ -154,7 +149,7 @@ static const uint8_t *udc_get_string_serial_name(void)
 
             usb_device_serial_name_size = serial_length;
 
-            return bootloader_serial_number; //Use serial programmed into bootloader rom
+            return bootloader_serial_number; // Use serial programmed into bootloader rom
         }
     }
 #endif
@@ -162,9 +157,9 @@ static const uint8_t *udc_get_string_serial_name(void)
     usb_device_serial_name_size = USB_DEVICE_SERIAL_NAME_SIZE;
 
 #if defined USB_DEVICE_SERIAL_NAME
-    return (const uint8_t *)USB_DEVICE_SERIAL_NAME; //Use serial supplied by keyboard's config.h
+    return (const uint8_t *)USB_DEVICE_SERIAL_NAME; // Use serial supplied by keyboard's config.h
 #else
-    return 0; //No serial supplied
+    return 0; // No serial supplied
 #endif
 }
 
@@ -173,22 +168,17 @@ static const uint8_t *udc_get_string_serial_name(void)
  * Structure used to transfer ASCII strings to USB String descriptor structure.
  */
 #ifndef BOOTLOADER_SERIAL_MAX_SIZE
-#define BOOTLOADER_SERIAL_MAX_SIZE 0
-#endif //BOOTLOADER_SERIAL_MAX_SIZE
+#    define BOOTLOADER_SERIAL_MAX_SIZE 0
+#endif // BOOTLOADER_SERIAL_MAX_SIZE
 struct udc_string_desc_t {
     usb_str_desc_t header;
-    le16_t string[Max(Max(Max(USB_DEVICE_MANUFACTURE_NAME_SIZE, \
-                  USB_DEVICE_PRODUCT_NAME_SIZE), USB_DEVICE_SERIAL_NAME_SIZE), \
-                  BOOTLOADER_SERIAL_MAX_SIZE)];
+    le16_t         string[Max(Max(Max(USB_DEVICE_MANUFACTURE_NAME_SIZE, USB_DEVICE_PRODUCT_NAME_SIZE), USB_DEVICE_SERIAL_NAME_SIZE), BOOTLOADER_SERIAL_MAX_SIZE)];
 };
 COMPILER_WORD_ALIGNED
-static UDC_DESC_STORAGE struct udc_string_desc_t udc_string_desc = {
-    .header.bDescriptorType = USB_DT_STRING
-};
+static UDC_DESC_STORAGE struct udc_string_desc_t udc_string_desc = {.header.bDescriptorType = USB_DT_STRING};
 //! @}
 
-usb_iface_desc_t UDC_DESC_STORAGE *udc_get_interface_desc(void)
-{
+usb_iface_desc_t UDC_DESC_STORAGE *udc_get_interface_desc(void) {
     return udc_ptr_iface;
 }
 
@@ -197,14 +187,11 @@ usb_iface_desc_t UDC_DESC_STORAGE *udc_get_interface_desc(void)
  *
  * \return address after the last byte of USB Configuration descriptor
  */
-static usb_conf_desc_t UDC_DESC_STORAGE *udc_get_eof_conf(void)
-{
-    return (UDC_DESC_STORAGE usb_conf_desc_t *) ((uint8_t *)
-            udc_ptr_conf->desc +
-            le16_to_cpu(udc_ptr_conf->desc->wTotalLength));
+static usb_conf_desc_t UDC_DESC_STORAGE *udc_get_eof_conf(void) {
+    return (UDC_DESC_STORAGE usb_conf_desc_t *)((uint8_t *)udc_ptr_conf->desc + le16_to_cpu(udc_ptr_conf->desc->wTotalLength));
 }
 
-#if (0!=USB_DEVICE_MAX_EP)
+#if (0 != USB_DEVICE_MAX_EP)
 /**
  * \brief Search specific descriptor in global interface descriptor
  *
@@ -215,15 +202,12 @@ static usb_conf_desc_t UDC_DESC_STORAGE *udc_get_eof_conf(void)
  * \return address of specific descriptor found
  * \return NULL if it is the end of global interface descriptor
  */
-static usb_conf_desc_t UDC_DESC_STORAGE *udc_next_desc_in_iface(usb_conf_desc_t
-        UDC_DESC_STORAGE * desc, uint8_t desc_id)
-{
+static usb_conf_desc_t UDC_DESC_STORAGE *udc_next_desc_in_iface(usb_conf_desc_t UDC_DESC_STORAGE *desc, uint8_t desc_id) {
     usb_conf_desc_t UDC_DESC_STORAGE *ptr_eof_desc;
 
     ptr_eof_desc = udc_get_eof_conf();
     // Go to next descriptor
-    desc = (UDC_DESC_STORAGE usb_conf_desc_t *) ((uint8_t *) desc +
-            desc->bLength);
+    desc = (UDC_DESC_STORAGE usb_conf_desc_t *)((uint8_t *)desc + desc->bLength);
     // Check the end of configuration descriptor
     while (ptr_eof_desc > desc) {
         // If new interface descriptor is found,
@@ -235,8 +219,7 @@ static usb_conf_desc_t UDC_DESC_STORAGE *udc_next_desc_in_iface(usb_conf_desc_t
             return desc; // Specific descriptor found
         }
         // Go to next descriptor
-        desc = (UDC_DESC_STORAGE usb_conf_desc_t *) ((uint8_t *) desc +
-                desc->bLength);
+        desc = (UDC_DESC_STORAGE usb_conf_desc_t *)((uint8_t *)desc + desc->bLength);
     }
     return NULL; // No specific descriptor found
 }
@@ -251,8 +234,7 @@ static usb_conf_desc_t UDC_DESC_STORAGE *udc_next_desc_in_iface(usb_conf_desc_t
  *
  * \return 1 if found or 0 if not found
  */
-static bool udc_update_iface_desc(uint8_t iface_num, uint8_t setting_num)
-{
+static bool udc_update_iface_desc(uint8_t iface_num, uint8_t setting_num) {
     usb_conf_desc_t UDC_DESC_STORAGE *ptr_end_desc;
 
     if (0 == udc_num_configuration) {
@@ -264,26 +246,20 @@ static bool udc_update_iface_desc(uint8_t iface_num, uint8_t setting_num)
     }
 
     // Start at the beginning of configuration descriptor
-    udc_ptr_iface = (UDC_DESC_STORAGE usb_iface_desc_t *)
-            udc_ptr_conf->desc;
+    udc_ptr_iface = (UDC_DESC_STORAGE usb_iface_desc_t *)udc_ptr_conf->desc;
 
     // Check the end of configuration descriptor
     ptr_end_desc = udc_get_eof_conf();
-    while (ptr_end_desc >
-            (UDC_DESC_STORAGE usb_conf_desc_t *) udc_ptr_iface) {
+    while (ptr_end_desc > (UDC_DESC_STORAGE usb_conf_desc_t *)udc_ptr_iface) {
         if (USB_DT_INTERFACE == udc_ptr_iface->bDescriptorType) {
             // A interface descriptor is found
             // Check interface and alternate setting number
-            if ((iface_num == udc_ptr_iface->bInterfaceNumber) &&
-                    (setting_num ==
-                    udc_ptr_iface->bAlternateSetting)) {
+            if ((iface_num == udc_ptr_iface->bInterfaceNumber) && (setting_num == udc_ptr_iface->bAlternateSetting)) {
                 return true; // Interface found
             }
         }
         // Go to next descriptor
-        udc_ptr_iface = (UDC_DESC_STORAGE usb_iface_desc_t *) (
-                (uint8_t *) udc_ptr_iface +
-                udc_ptr_iface->bLength);
+        udc_ptr_iface = (UDC_DESC_STORAGE usb_iface_desc_t *)((uint8_t *)udc_ptr_iface + udc_ptr_iface->bLength);
     }
     return false; // Interface not found
 }
@@ -296,8 +272,7 @@ static bool udc_update_iface_desc(uint8_t iface_num, uint8_t setting_num)
  *
  * \return 1 if it is done or 0 if interface is not found
  */
-static bool udc_iface_disable(uint8_t iface_num)
-{
+static bool udc_iface_disable(uint8_t iface_num) {
     udi_api_t UDC_DESC_STORAGE *udi_api;
 
     // Select first alternate setting of the interface
@@ -309,7 +284,7 @@ static bool udc_iface_disable(uint8_t iface_num)
     // Select the interface with the current alternate setting
     udi_api = udc_ptr_conf->udi_apis[iface_num];
 
-#if (0!=USB_DEVICE_MAX_EP)
+#if (0 != USB_DEVICE_MAX_EP)
     if (!udc_update_iface_desc(iface_num, udi_api->getsetting())) {
         return false;
     }
@@ -317,13 +292,10 @@ static bool udc_iface_disable(uint8_t iface_num)
     // Start at the beginning of interface descriptor
     {
         usb_ep_desc_t UDC_DESC_STORAGE *ep_desc;
-        ep_desc = (UDC_DESC_STORAGE usb_ep_desc_t *) udc_ptr_iface;
+        ep_desc = (UDC_DESC_STORAGE usb_ep_desc_t *)udc_ptr_iface;
         while (1) {
             // Search Endpoint descriptor included in global interface descriptor
-            ep_desc = (UDC_DESC_STORAGE usb_ep_desc_t *)
-                    udc_next_desc_in_iface((UDC_DESC_STORAGE
-                    usb_conf_desc_t *)
-                    ep_desc, USB_DT_ENDPOINT);
+            ep_desc = (UDC_DESC_STORAGE usb_ep_desc_t *)udc_next_desc_in_iface((UDC_DESC_STORAGE usb_conf_desc_t *)ep_desc, USB_DT_ENDPOINT);
             if (NULL == ep_desc) {
                 break;
             }
@@ -348,31 +320,23 @@ static bool udc_iface_disable(uint8_t iface_num)
  *
  * \return 1 if it is done or 0 if interface is not found
  */
-static bool udc_iface_enable(uint8_t iface_num, uint8_t setting_num)
-{
+static bool udc_iface_enable(uint8_t iface_num, uint8_t setting_num) {
     // Select the interface descriptor
     if (!udc_update_iface_desc(iface_num, setting_num)) {
         return false;
     }
 
-#if (0!=USB_DEVICE_MAX_EP)
+#if (0 != USB_DEVICE_MAX_EP)
     usb_ep_desc_t UDC_DESC_STORAGE *ep_desc;
 
     // Start at the beginning of the global interface descriptor
-    ep_desc = (UDC_DESC_STORAGE usb_ep_desc_t *) udc_ptr_iface;
+    ep_desc = (UDC_DESC_STORAGE usb_ep_desc_t *)udc_ptr_iface;
     while (1) {
         // Search Endpoint descriptor included in the global interface descriptor
-        ep_desc = (UDC_DESC_STORAGE usb_ep_desc_t *)
-                udc_next_desc_in_iface((UDC_DESC_STORAGE
-                        usb_conf_desc_t *) ep_desc,
-                USB_DT_ENDPOINT);
-        if (NULL == ep_desc)
-            break;
+        ep_desc = (UDC_DESC_STORAGE usb_ep_desc_t *)udc_next_desc_in_iface((UDC_DESC_STORAGE usb_conf_desc_t *)ep_desc, USB_DT_ENDPOINT);
+        if (NULL == ep_desc) break;
         // Alloc the endpoint used by the interface
-        if (!udd_ep_alloc(ep_desc->bEndpointAddress,
-                ep_desc->bmAttributes,
-                le16_to_cpu
-                (ep_desc->wMaxPacketSize))) {
+        if (!udd_ep_alloc(ep_desc->bEndpointAddress, ep_desc->bmAttributes, le16_to_cpu(ep_desc->wMaxPacketSize))) {
             return false;
         }
     }
@@ -383,15 +347,13 @@ static bool udc_iface_enable(uint8_t iface_num, uint8_t setting_num)
 
 /*! \brief Start the USB Device stack
  */
-void udc_start(void)
-{
+void udc_start(void) {
     udd_enable();
 }
 
 /*! \brief Stop the USB Device stack
  */
-void udc_stop(void)
-{
+void udc_stop(void) {
     udd_disable();
     udc_reset();
 }
@@ -400,20 +362,16 @@ void udc_stop(void)
  * \brief Reset the current configuration of the USB device,
  * This routines can be called by UDD when a RESET on the USB line occurs.
  */
-void udc_reset(void)
-{
+void udc_reset(void) {
     uint8_t iface_num;
 
     if (udc_num_configuration) {
-        for (iface_num = 0;
-                iface_num < udc_ptr_conf->desc->bNumInterfaces;
-                iface_num++) {
+        for (iface_num = 0; iface_num < udc_ptr_conf->desc->bNumInterfaces; iface_num++) {
             udc_iface_disable(iface_num);
         }
     }
     udc_num_configuration = 0;
-#if (USB_CONFIG_ATTR_REMOTE_WAKEUP \
-    == (USB_DEVICE_ATTR & USB_CONFIG_ATTR_REMOTE_WAKEUP))
+#if (USB_CONFIG_ATTR_REMOTE_WAKEUP == (USB_DEVICE_ATTR & USB_CONFIG_ATTR_REMOTE_WAKEUP))
     if (CPU_TO_LE16(USB_DEV_STATUS_REMOTEWAKEUP) & udc_device_status) {
         // Remote wakeup is enabled then disable it
         UDC_REMOTEWAKEUP_DISABLE();
@@ -421,20 +379,17 @@ void udc_reset(void)
 #endif
     udc_device_status =
 #if (USB_DEVICE_ATTR & USB_CONFIG_ATTR_SELF_POWERED)
-            CPU_TO_LE16(USB_DEV_STATUS_SELF_POWERED);
+        CPU_TO_LE16(USB_DEV_STATUS_SELF_POWERED);
 #else
-            CPU_TO_LE16(USB_DEV_STATUS_BUS_POWERED);
+        CPU_TO_LE16(USB_DEV_STATUS_BUS_POWERED);
 #endif
 }
 
-void udc_sof_notify(void)
-{
+void udc_sof_notify(void) {
     uint8_t iface_num;
 
     if (udc_num_configuration) {
-        for (iface_num = 0;
-                iface_num < udc_ptr_conf->desc->bNumInterfaces;
-                iface_num++) {
+        for (iface_num = 0; iface_num < udc_ptr_conf->desc->bNumInterfaces; iface_num++) {
             if (udc_ptr_conf->udi_apis[iface_num]->sof_notify != NULL) {
                 udc_ptr_conf->udi_apis[iface_num]->sof_notify();
             }
@@ -447,36 +402,31 @@ void udc_sof_notify(void)
  *
  * \return true if success
  */
-static bool udc_req_std_dev_get_status(void)
-{
+static bool udc_req_std_dev_get_status(void) {
     if (udd_g_ctrlreq.req.wLength != sizeof(udc_device_status)) {
         return false;
     }
 
-    udd_set_setup_payload( (uint8_t *) & udc_device_status,
-            sizeof(udc_device_status));
+    udd_set_setup_payload((uint8_t *)&udc_device_status, sizeof(udc_device_status));
     return true;
 }
 
-#if (0!=USB_DEVICE_MAX_EP)
+#if (0 != USB_DEVICE_MAX_EP)
 /**
  * \brief Standard endpoint request to get endpoint status
  *
  * \return true if success
  */
-static bool udc_req_std_ep_get_status(void)
-{
+static bool udc_req_std_ep_get_status(void) {
     static le16_t udc_ep_status;
 
     if (udd_g_ctrlreq.req.wLength != sizeof(udc_ep_status)) {
         return false;
     }
 
-    udc_ep_status = udd_ep_is_halted(udd_g_ctrlreq.req.
-            wIndex & 0xFF) ? CPU_TO_LE16(USB_EP_STATUS_HALTED) : 0;
+    udc_ep_status = udd_ep_is_halted(udd_g_ctrlreq.req.wIndex & 0xFF) ? CPU_TO_LE16(USB_EP_STATUS_HALTED) : 0;
 
-    udd_set_setup_payload( (uint8_t *) & udc_ep_status,
-            sizeof(udc_ep_status));
+    udd_set_setup_payload((uint8_t *)&udc_ep_status, sizeof(udc_ep_status));
     return true;
 }
 #endif
@@ -486,16 +436,14 @@ static bool udc_req_std_ep_get_status(void)
  *
  * \return true if success
  */
-static bool udc_req_std_dev_clear_feature(void)
-{
+static bool udc_req_std_dev_clear_feature(void) {
     if (udd_g_ctrlreq.req.wLength) {
         return false;
     }
 
     if (udd_g_ctrlreq.req.wValue == USB_DEV_FEATURE_REMOTE_WAKEUP) {
         udc_device_status &= CPU_TO_LE16(~(uint32_t)USB_DEV_STATUS_REMOTEWAKEUP);
-#if (USB_CONFIG_ATTR_REMOTE_WAKEUP \
-    == (USB_DEVICE_ATTR & USB_CONFIG_ATTR_REMOTE_WAKEUP))
+#if (USB_CONFIG_ATTR_REMOTE_WAKEUP == (USB_DEVICE_ATTR & USB_CONFIG_ATTR_REMOTE_WAKEUP))
         UDC_REMOTEWAKEUP_DISABLE();
 #endif
         return true;
@@ -503,14 +451,13 @@ static bool udc_req_std_dev_clear_feature(void)
     return false;
 }
 
-#if (0!=USB_DEVICE_MAX_EP)
+#if (0 != USB_DEVICE_MAX_EP)
 /**
  * \brief Standard endpoint request to clear endpoint feature
  *
  * \return true if success
  */
-static bool udc_req_std_ep_clear_feature(void)
-{
+static bool udc_req_std_ep_clear_feature(void) {
     if (udd_g_ctrlreq.req.wLength) {
         return false;
     }
@@ -527,59 +474,56 @@ static bool udc_req_std_ep_clear_feature(void)
  *
  * \return true if success
  */
-static bool udc_req_std_dev_set_feature(void)
-{
+static bool udc_req_std_dev_set_feature(void) {
     if (udd_g_ctrlreq.req.wLength) {
         return false;
     }
 
     switch (udd_g_ctrlreq.req.wValue) {
-
-    case USB_DEV_FEATURE_REMOTE_WAKEUP:
-#if (USB_CONFIG_ATTR_REMOTE_WAKEUP \
-    == (USB_DEVICE_ATTR & USB_CONFIG_ATTR_REMOTE_WAKEUP))
-        udc_device_status |= CPU_TO_LE16(USB_DEV_STATUS_REMOTEWAKEUP);
-        UDC_REMOTEWAKEUP_ENABLE();
-        return true;
+        case USB_DEV_FEATURE_REMOTE_WAKEUP:
+#if (USB_CONFIG_ATTR_REMOTE_WAKEUP == (USB_DEVICE_ATTR & USB_CONFIG_ATTR_REMOTE_WAKEUP))
+            udc_device_status |= CPU_TO_LE16(USB_DEV_STATUS_REMOTEWAKEUP);
+            UDC_REMOTEWAKEUP_ENABLE();
+            return true;
 #else
-        return false;
+            return false;
 #endif
 
 #ifdef USB_DEVICE_HS_SUPPORT
-    case USB_DEV_FEATURE_TEST_MODE:
-        if (!udd_is_high_speed()) {
+        case USB_DEV_FEATURE_TEST_MODE:
+            if (!udd_is_high_speed()) {
+                break;
+            }
+            if (udd_g_ctrlreq.req.wIndex & 0xff) {
+                break;
+            }
+            // Unconfigure the device, terminating all ongoing requests
+            udc_reset();
+            switch ((udd_g_ctrlreq.req.wIndex >> 8) & 0xFF) {
+                case USB_DEV_TEST_MODE_J:
+                    udd_g_ctrlreq.callback = udd_test_mode_j;
+                    return true;
+
+                case USB_DEV_TEST_MODE_K:
+                    udd_g_ctrlreq.callback = udd_test_mode_k;
+                    return true;
+
+                case USB_DEV_TEST_MODE_SE0_NAK:
+                    udd_g_ctrlreq.callback = udd_test_mode_se0_nak;
+                    return true;
+
+                case USB_DEV_TEST_MODE_PACKET:
+                    udd_g_ctrlreq.callback = udd_test_mode_packet;
+                    return true;
+
+                case USB_DEV_TEST_MODE_FORCE_ENABLE: // Only for downstream facing hub ports
+                default:
+                    break;
+            }
             break;
-        }
-        if (udd_g_ctrlreq.req.wIndex & 0xff) {
-            break;
-        }
-        // Unconfigure the device, terminating all ongoing requests
-        udc_reset();
-        switch ((udd_g_ctrlreq.req.wIndex >> 8) & 0xFF) {
-        case USB_DEV_TEST_MODE_J:
-            udd_g_ctrlreq.callback = udd_test_mode_j;
-            return true;
-
-        case USB_DEV_TEST_MODE_K:
-            udd_g_ctrlreq.callback = udd_test_mode_k;
-            return true;
-
-        case USB_DEV_TEST_MODE_SE0_NAK:
-            udd_g_ctrlreq.callback = udd_test_mode_se0_nak;
-            return true;
-
-        case USB_DEV_TEST_MODE_PACKET:
-            udd_g_ctrlreq.callback = udd_test_mode_packet;
-            return true;
-
-        case USB_DEV_TEST_MODE_FORCE_ENABLE: // Only for downstream facing hub ports
+#endif
         default:
             break;
-        }
-        break;
-#endif
-    default:
-        break;
     }
     return false;
 }
@@ -589,9 +533,8 @@ static bool udc_req_std_dev_set_feature(void)
  *
  * \return true if success
  */
-#if (0!=USB_DEVICE_MAX_EP)
-static bool udc_req_std_ep_set_feature(void)
-{
+#if (0 != USB_DEVICE_MAX_EP)
+static bool udc_req_std_ep_set_feature(void) {
     if (udd_g_ctrlreq.req.wLength) {
         return false;
     }
@@ -607,8 +550,7 @@ static bool udc_req_std_ep_set_feature(void)
  * \brief Change the address of device
  * Callback called at the end of request set address
  */
-static void udc_valid_address(void)
-{
+static void udc_valid_address(void) {
     udd_set_address(udd_g_ctrlreq.req.wValue & 0x7F);
 }
 
@@ -617,8 +559,7 @@ static void udc_valid_address(void)
  *
  * \return true if success
  */
-static bool udc_req_std_dev_set_address(void)
-{
+static bool udc_req_std_dev_set_address(void) {
     if (udd_g_ctrlreq.req.wLength) {
         return false;
     }
@@ -634,53 +575,49 @@ static bool udc_req_std_dev_set_address(void)
  *
  * \return true if success
  */
-static bool udc_req_std_dev_get_str_desc(void)
-{
-    uint8_t i;
+static bool udc_req_std_dev_get_str_desc(void) {
+    uint8_t        i;
     const uint8_t *str;
-    uint8_t str_length = 0;
+    uint8_t        str_length = 0;
 
     // Link payload pointer to the string corresponding at request
     switch (udd_g_ctrlreq.req.wValue & 0xff) {
-    case 0:
-        udd_set_setup_payload((uint8_t *) &udc_string_desc_languageid,
-                sizeof(udc_string_desc_languageid));
-        break;
+        case 0:
+            udd_set_setup_payload((uint8_t *)&udc_string_desc_languageid, sizeof(udc_string_desc_languageid));
+            break;
 
 #ifdef USB_DEVICE_MANUFACTURE_NAME
-    case 1:
-        str_length = USB_DEVICE_MANUFACTURE_NAME_SIZE;
-        str = udc_string_manufacturer_name;
-        break;
+        case 1:
+            str_length = USB_DEVICE_MANUFACTURE_NAME_SIZE;
+            str        = udc_string_manufacturer_name;
+            break;
 #endif
 #ifdef USB_DEVICE_PRODUCT_NAME
-    case 2:
-        str_length = USB_DEVICE_PRODUCT_NAME_SIZE;
-        str = udc_string_product_name;
-        break;
-#endif
-    case 3:
-        str = udc_get_string_serial_name();
-        str_length = usb_device_serial_name_size;
-        break;
-    default:
-#ifdef UDC_GET_EXTRA_STRING
-        if (UDC_GET_EXTRA_STRING()) {
+        case 2:
+            str_length = USB_DEVICE_PRODUCT_NAME_SIZE;
+            str        = udc_string_product_name;
             break;
-        }
 #endif
-        return false;
+        case 3:
+            str        = udc_get_string_serial_name();
+            str_length = usb_device_serial_name_size;
+            break;
+        default:
+#ifdef UDC_GET_EXTRA_STRING
+            if (UDC_GET_EXTRA_STRING()) {
+                break;
+            }
+#endif
+            return false;
     }
 
     if (str_length) {
-        for(i = 0; i < str_length; i++) {
+        for (i = 0; i < str_length; i++) {
             udc_string_desc.string[i] = cpu_to_le16((le16_t)str[i]);
         }
 
-        udc_string_desc.header.bLength = 2 + (str_length) * 2;
-        udd_set_setup_payload(
-            (uint8_t *) &udc_string_desc,
-            udc_string_desc.header.bLength);
+        udc_string_desc.header.bLength = 2 + (str_length)*2;
+        udd_set_setup_payload((uint8_t *)&udc_string_desc, udc_string_desc.header.bLength);
     }
 
     return true;
@@ -691,106 +628,89 @@ static bool udc_req_std_dev_get_str_desc(void)
  *
  * \return true if success
  */
-static bool udc_req_std_dev_get_descriptor(void)
-{
+static bool udc_req_std_dev_get_descriptor(void) {
     uint8_t conf_num;
 
     conf_num = udd_g_ctrlreq.req.wValue & 0xff;
 
     // Check descriptor ID
-    switch ((uint8_t) (udd_g_ctrlreq.req.wValue >> 8)) {
-    case USB_DT_DEVICE:
-        // Device descriptor requested
+    switch ((uint8_t)(udd_g_ctrlreq.req.wValue >> 8)) {
+        case USB_DT_DEVICE:
+            // Device descriptor requested
 #ifdef USB_DEVICE_HS_SUPPORT
-        if (!udd_is_high_speed()) {
-            udd_set_setup_payload(
-                (uint8_t *) udc_config.confdev_hs,
-                udc_config.confdev_hs->bLength);
-        } else
+            if (!udd_is_high_speed()) {
+                udd_set_setup_payload((uint8_t *)udc_config.confdev_hs, udc_config.confdev_hs->bLength);
+            } else
 #endif
-        {
-            udd_set_setup_payload(
-                (uint8_t *) udc_config.confdev_lsfs,
-                udc_config.confdev_lsfs->bLength);
-        }
-        break;
+            {
+                udd_set_setup_payload((uint8_t *)udc_config.confdev_lsfs, udc_config.confdev_lsfs->bLength);
+            }
+            break;
 
-    case USB_DT_CONFIGURATION:
-        // Configuration descriptor requested
+        case USB_DT_CONFIGURATION:
+            // Configuration descriptor requested
 #ifdef USB_DEVICE_HS_SUPPORT
-        if (udd_is_high_speed()) {
-            // HS descriptor
-            if (conf_num >= udc_config.confdev_hs->bNumConfigurations) {
-                return false;
-            }
-            udd_set_setup_payload(
-                (uint8_t *)udc_config.conf_hs[conf_num].desc,
-                le16_to_cpu(udc_config.conf_hs[conf_num].desc->wTotalLength));
-        } else
+            if (udd_is_high_speed()) {
+                // HS descriptor
+                if (conf_num >= udc_config.confdev_hs->bNumConfigurations) {
+                    return false;
+                }
+                udd_set_setup_payload((uint8_t *)udc_config.conf_hs[conf_num].desc, le16_to_cpu(udc_config.conf_hs[conf_num].desc->wTotalLength));
+            } else
 #endif
-        {
-            // FS descriptor
-            if (conf_num >= udc_config.confdev_lsfs->bNumConfigurations) {
-                return false;
+            {
+                // FS descriptor
+                if (conf_num >= udc_config.confdev_lsfs->bNumConfigurations) {
+                    return false;
+                }
+                udd_set_setup_payload((uint8_t *)udc_config.conf_lsfs[conf_num].desc, le16_to_cpu(udc_config.conf_lsfs[conf_num].desc->wTotalLength));
             }
-            udd_set_setup_payload(
-                (uint8_t *)udc_config.conf_lsfs[conf_num].desc,
-                le16_to_cpu(udc_config.conf_lsfs[conf_num].desc->wTotalLength));
-        }
-        ((usb_conf_desc_t *) udd_g_ctrlreq.payload)->bDescriptorType =
-                USB_DT_CONFIGURATION;
-        break;
+            ((usb_conf_desc_t *)udd_g_ctrlreq.payload)->bDescriptorType = USB_DT_CONFIGURATION;
+            break;
 
 #ifdef USB_DEVICE_HS_SUPPORT
-    case USB_DT_DEVICE_QUALIFIER:
-        // Device qualifier descriptor requested
-        udd_set_setup_payload( (uint8_t *) udc_config.qualifier,
-                udc_config.qualifier->bLength);
-        break;
+        case USB_DT_DEVICE_QUALIFIER:
+            // Device qualifier descriptor requested
+            udd_set_setup_payload((uint8_t *)udc_config.qualifier, udc_config.qualifier->bLength);
+            break;
 
-    case USB_DT_OTHER_SPEED_CONFIGURATION:
-        // Other configuration descriptor requested
-        if (!udd_is_high_speed()) {
-            // HS descriptor
-            if (conf_num >= udc_config.confdev_hs->bNumConfigurations) {
-                return false;
+        case USB_DT_OTHER_SPEED_CONFIGURATION:
+            // Other configuration descriptor requested
+            if (!udd_is_high_speed()) {
+                // HS descriptor
+                if (conf_num >= udc_config.confdev_hs->bNumConfigurations) {
+                    return false;
+                }
+                udd_set_setup_payload((uint8_t *)udc_config.conf_hs[conf_num].desc, le16_to_cpu(udc_config.conf_hs[conf_num].desc->wTotalLength));
+            } else {
+                // FS descriptor
+                if (conf_num >= udc_config.confdev_lsfs->bNumConfigurations) {
+                    return false;
+                }
+                udd_set_setup_payload((uint8_t *)udc_config.conf_lsfs[conf_num].desc, le16_to_cpu(udc_config.conf_lsfs[conf_num].desc->wTotalLength));
             }
-            udd_set_setup_payload(
-                (uint8_t *)udc_config.conf_hs[conf_num].desc,
-                le16_to_cpu(udc_config.conf_hs[conf_num].desc->wTotalLength));
-        } else {
-            // FS descriptor
-            if (conf_num >= udc_config.confdev_lsfs->bNumConfigurations) {
-                return false;
-            }
-            udd_set_setup_payload(
-                (uint8_t *)udc_config.conf_lsfs[conf_num].desc,
-                le16_to_cpu(udc_config.conf_lsfs[conf_num].desc->wTotalLength));
-        }
-        ((usb_conf_desc_t *) udd_g_ctrlreq.payload)->bDescriptorType =
-                USB_DT_OTHER_SPEED_CONFIGURATION;
-        break;
+            ((usb_conf_desc_t *)udd_g_ctrlreq.payload)->bDescriptorType = USB_DT_OTHER_SPEED_CONFIGURATION;
+            break;
 #endif
 
-    case USB_DT_BOS:
-        // Device BOS descriptor requested
-        if (udc_config.conf_bos == NULL) {
+        case USB_DT_BOS:
+            // Device BOS descriptor requested
+            if (udc_config.conf_bos == NULL) {
+                return false;
+            }
+            udd_set_setup_payload((uint8_t *)udc_config.conf_bos, udc_config.conf_bos->wTotalLength);
+            break;
+
+        case USB_DT_STRING:
+            // String descriptor requested
+            if (!udc_req_std_dev_get_str_desc()) {
+                return false;
+            }
+            break;
+
+        default:
+            // Unknown descriptor requested
             return false;
-        }
-        udd_set_setup_payload( (uint8_t *) udc_config.conf_bos,
-                udc_config.conf_bos->wTotalLength);
-        break;
-
-    case USB_DT_STRING:
-        // String descriptor requested
-        if (!udc_req_std_dev_get_str_desc()) {
-            return false;
-        }
-        break;
-
-    default:
-        // Unknown descriptor requested
-        return false;
     }
     // if the descriptor is larger than length requested, then reduce it
     if (udd_g_ctrlreq.req.wLength < udd_g_ctrlreq.payload_size) {
@@ -804,13 +724,12 @@ static bool udc_req_std_dev_get_descriptor(void)
  *
  * \return true if success
  */
-static bool udc_req_std_dev_get_configuration(void)
-{
+static bool udc_req_std_dev_get_configuration(void) {
     if (udd_g_ctrlreq.req.wLength != 1) {
         return false;
     }
 
-    udd_set_setup_payload(&udc_num_configuration,1);
+    udd_set_setup_payload(&udc_num_configuration, 1);
     return true;
 }
 
@@ -819,8 +738,7 @@ static bool udc_req_std_dev_get_configuration(void)
  *
  * \return true if success
  */
-static bool udc_req_std_dev_set_configuration(void)
-{
+static bool udc_req_std_dev_set_configuration(void) {
     uint8_t iface_num;
 
     // Check request length
@@ -835,16 +753,14 @@ static bool udc_req_std_dev_set_configuration(void)
 #ifdef USB_DEVICE_HS_SUPPORT
     if (udd_is_high_speed()) {
         // HS descriptor
-        if ((udd_g_ctrlreq.req.wValue & 0xFF) >
-                udc_config.confdev_hs->bNumConfigurations) {
+        if ((udd_g_ctrlreq.req.wValue & 0xFF) > udc_config.confdev_hs->bNumConfigurations) {
             return false;
         }
     } else
 #endif
     {
         // FS descriptor
-        if ((udd_g_ctrlreq.req.wValue & 0xFF) >
-                udc_config.confdev_lsfs->bNumConfigurations) {
+        if ((udd_g_ctrlreq.req.wValue & 0xFF) > udc_config.confdev_lsfs->bNumConfigurations) {
             return false;
         }
     }
@@ -869,8 +785,7 @@ static bool udc_req_std_dev_set_configuration(void)
         udc_ptr_conf = &udc_config.conf_lsfs[udc_num_configuration - 1];
     }
     // Enable all interfaces of the selected configuration
-    for (iface_num = 0; iface_num < udc_ptr_conf->desc->bNumInterfaces;
-            iface_num++) {
+    for (iface_num = 0; iface_num < udc_ptr_conf->desc->bNumInterfaces; iface_num++) {
         if (!udc_iface_enable(iface_num, 0)) {
             return false;
         }
@@ -884,9 +799,8 @@ static bool udc_req_std_dev_set_configuration(void)
  *
  * \return true if success
  */
-static bool udc_req_std_iface_get_setting(void)
-{
-    uint8_t iface_num;
+static bool udc_req_std_iface_get_setting(void) {
+    uint8_t   iface_num;
     udi_api_t UDC_DESC_STORAGE *udi_api;
 
     if (udd_g_ctrlreq.req.wLength != 1) {
@@ -908,11 +822,11 @@ static bool udc_req_std_iface_get_setting(void)
         return false;
     }
     // Get alternate setting from UDI
-    udi_api = udc_ptr_conf->udi_apis[iface_num];
+    udi_api           = udc_ptr_conf->udi_apis[iface_num];
     udc_iface_setting = udi_api->getsetting();
 
     // Link value to payload pointer of request
-    udd_set_setup_payload(&udc_iface_setting,1);
+    udd_set_setup_payload(&udc_iface_setting, 1);
     return true;
 }
 
@@ -922,8 +836,7 @@ static bool udc_req_std_iface_get_setting(void)
  *
  * \return true if success
  */
-static bool udc_req_std_iface_set_setting(void)
-{
+static bool udc_req_std_iface_set_setting(void) {
     uint8_t iface_num, setting_num;
 
     if (udd_g_ctrlreq.req.wLength) {
@@ -933,7 +846,7 @@ static bool udc_req_std_iface_set_setting(void)
         return false; // The device is not is configured state yet
     }
 
-    iface_num = udd_g_ctrlreq.req.wIndex & 0xFF;
+    iface_num   = udd_g_ctrlreq.req.wIndex & 0xFF;
     setting_num = udd_g_ctrlreq.req.wValue & 0xFF;
 
     // Disable current setting
@@ -950,8 +863,7 @@ static bool udc_req_std_iface_set_setting(void)
  *
  * \return true if the request is supported
  */
-static bool udc_reqstd(void)
-{
+static bool udc_reqstd(void) {
     if (Udd_setup_is_in()) {
         // GET Standard Requests
         if (udd_g_ctrlreq.req.wLength == 0) {
@@ -961,34 +873,34 @@ static bool udc_reqstd(void)
         if (USB_REQ_RECIP_DEVICE == Udd_setup_recipient()) {
             // Standard Get Device request
             switch (udd_g_ctrlreq.req.bRequest) {
-            case USB_REQ_GET_STATUS:
-                return udc_req_std_dev_get_status();
-            case USB_REQ_GET_DESCRIPTOR:
-                return udc_req_std_dev_get_descriptor();
-            case USB_REQ_GET_CONFIGURATION:
-                return udc_req_std_dev_get_configuration();
-            default:
-                break;
+                case USB_REQ_GET_STATUS:
+                    return udc_req_std_dev_get_status();
+                case USB_REQ_GET_DESCRIPTOR:
+                    return udc_req_std_dev_get_descriptor();
+                case USB_REQ_GET_CONFIGURATION:
+                    return udc_req_std_dev_get_configuration();
+                default:
+                    break;
             }
         }
 
         if (USB_REQ_RECIP_INTERFACE == Udd_setup_recipient()) {
             // Standard Get Interface request
             switch (udd_g_ctrlreq.req.bRequest) {
-            case USB_REQ_GET_INTERFACE:
-                return udc_req_std_iface_get_setting();
-            default:
-                break;
+                case USB_REQ_GET_INTERFACE:
+                    return udc_req_std_iface_get_setting();
+                default:
+                    break;
             }
         }
-#if (0!=USB_DEVICE_MAX_EP)
+#if (0 != USB_DEVICE_MAX_EP)
         if (USB_REQ_RECIP_ENDPOINT == Udd_setup_recipient()) {
             // Standard Get Endpoint request
             switch (udd_g_ctrlreq.req.bRequest) {
-            case USB_REQ_GET_STATUS:
-                return udc_req_std_ep_get_status();
-            default:
-                break;
+                case USB_REQ_GET_STATUS:
+                    return udc_req_std_ep_get_status();
+                default:
+                    break;
             }
         }
 #endif
@@ -997,41 +909,41 @@ static bool udc_reqstd(void)
         if (USB_REQ_RECIP_DEVICE == Udd_setup_recipient()) {
             // Standard Set Device request
             switch (udd_g_ctrlreq.req.bRequest) {
-            case USB_REQ_SET_ADDRESS:
-                return udc_req_std_dev_set_address();
-            case USB_REQ_CLEAR_FEATURE:
-                return udc_req_std_dev_clear_feature();
-            case USB_REQ_SET_FEATURE:
-                return udc_req_std_dev_set_feature();
-            case USB_REQ_SET_CONFIGURATION:
-                return udc_req_std_dev_set_configuration();
-            case USB_REQ_SET_DESCRIPTOR:
-                /* Not supported (defined as optional by the USB 2.0 spec) */
-                break;
-            default:
-                break;
+                case USB_REQ_SET_ADDRESS:
+                    return udc_req_std_dev_set_address();
+                case USB_REQ_CLEAR_FEATURE:
+                    return udc_req_std_dev_clear_feature();
+                case USB_REQ_SET_FEATURE:
+                    return udc_req_std_dev_set_feature();
+                case USB_REQ_SET_CONFIGURATION:
+                    return udc_req_std_dev_set_configuration();
+                case USB_REQ_SET_DESCRIPTOR:
+                    /* Not supported (defined as optional by the USB 2.0 spec) */
+                    break;
+                default:
+                    break;
             }
         }
 
         if (USB_REQ_RECIP_INTERFACE == Udd_setup_recipient()) {
             // Standard Set Interface request
             switch (udd_g_ctrlreq.req.bRequest) {
-            case USB_REQ_SET_INTERFACE:
-                return udc_req_std_iface_set_setting();
-            default:
-                break;
+                case USB_REQ_SET_INTERFACE:
+                    return udc_req_std_iface_set_setting();
+                default:
+                    break;
             }
         }
-#if (0!=USB_DEVICE_MAX_EP)
+#if (0 != USB_DEVICE_MAX_EP)
         if (USB_REQ_RECIP_ENDPOINT == Udd_setup_recipient()) {
             // Standard Set Endpoint request
             switch (udd_g_ctrlreq.req.bRequest) {
-            case USB_REQ_CLEAR_FEATURE:
-                return udc_req_std_ep_clear_feature();
-            case USB_REQ_SET_FEATURE:
-                return udc_req_std_ep_set_feature();
-            default:
-                break;
+                case USB_REQ_CLEAR_FEATURE:
+                    return udc_req_std_ep_clear_feature();
+                case USB_REQ_SET_FEATURE:
+                    return udc_req_std_ep_set_feature();
+                default:
+                    break;
             }
         }
 #endif
@@ -1044,9 +956,8 @@ static bool udc_reqstd(void)
  *
  * \return true if the request is supported
  */
-static bool udc_req_iface(void)
-{
-    uint8_t iface_num;
+static bool udc_req_iface(void) {
+    uint8_t   iface_num;
     udi_api_t UDC_DESC_STORAGE *udi_api;
 
     if (0 == udc_num_configuration) {
@@ -1079,9 +990,8 @@ static bool udc_req_iface(void)
  *
  * \return true if the request is supported
  */
-static bool udc_req_ep(void)
-{
-    uint8_t iface_num;
+static bool udc_req_ep(void) {
+    uint8_t   iface_num;
     udi_api_t UDC_DESC_STORAGE *udi_api;
 
     if (0 == udc_num_configuration) {
@@ -1089,8 +999,7 @@ static bool udc_req_ep(void)
     }
     // Send this request on all enabled interfaces
     iface_num = udd_g_ctrlreq.req.wIndex & 0xFF;
-    for (iface_num = 0; iface_num < udc_ptr_conf->desc->bNumInterfaces;
-            iface_num++) {
+    for (iface_num = 0; iface_num < udc_ptr_conf->desc->bNumInterfaces; iface_num++) {
         // Select the interface with the current alternate setting
         udi_api = udc_ptr_conf->udi_apis[iface_num];
         if (!udc_update_iface_desc(iface_num, udi_api->getsetting())) {
@@ -1118,11 +1027,10 @@ static bool udc_req_ep(void)
  *
  * \return true if the request is supported, else the request is stalled by UDD
  */
-bool udc_process_setup(void)
-{
+bool udc_process_setup(void) {
     // By default no data (receive/send) and no callbacks registered
-    udd_g_ctrlreq.payload_size = 0;
-    udd_g_ctrlreq.callback = NULL;
+    udd_g_ctrlreq.payload_size   = 0;
+    udd_g_ctrlreq.callback       = NULL;
     udd_g_ctrlreq.over_under_run = NULL;
 
     if (Udd_setup_is_in()) {
