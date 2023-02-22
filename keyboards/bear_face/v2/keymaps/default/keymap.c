@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] = LAYOUT_83_ansi(
-        _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, KC_INS,
+        _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, KC_INS,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CALC, BASE_QWER,
         _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, BASE_COLE,
         _______, _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, BASE_DVOR,

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "sedan",
+    "keyboard_name": "The Sedan",
+    "manufacturer": "AlisGraveNil",
     "url": "www.clawboards.xyz",
     "maintainer": "AlisGraveNil",
+    "usb": {
+        "vid": "0x7767",
+        "pid": "0x8C78",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Mechlovin Olly",
+    "keyboard_name": "Olly JF",
+    "manufacturer": "Mechlovin.Studio",
     "url": "",
     "maintainer": "Mechlovin' Studio",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0xD180",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

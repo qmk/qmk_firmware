@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Pabile 40", 
+    "keyboard_name": "P40", 
+    "manufacturer": "Pabile",
     "url": "https://pabileonline.blogspot.com/", 
     "maintainer": "Pabile", 
+    "usb": {
+    	"vid": "0x6666",
+    	"pid": "0x6666",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

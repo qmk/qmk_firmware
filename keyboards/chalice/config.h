@@ -19,12 +19,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x6A6A
-#define PRODUCT_ID      0x000C
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CustomKBD
-#define PRODUCT         Chalice
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7

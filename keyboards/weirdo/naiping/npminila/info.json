@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "NP_minila",
+    "keyboard_name": "NPminila",
+    "manufacturer": "Weirdo",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7764",
+        "pid": "0x706D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

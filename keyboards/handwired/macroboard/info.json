@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "macroboard",
+    "keyboard_name": "Macroboard",
+    "manufacturer": "QMK",
     "url": "",
     "maintainer": "Michał Szczepaniak",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x2137",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ortho_5x6": {
             "layout": [

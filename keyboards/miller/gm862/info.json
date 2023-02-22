@@ -1,7 +1,13 @@
 {
     "keyboard_name": "GM862",
+    "manufacturer": "MILLER",
     "url": "",
     "maintainer": "MILLER",
+    "usb": {
+        "vid": "0x4B42",
+        "pid": "0x0223",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

@@ -1,6 +1,6 @@
 # Combos
 
-The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `S` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
+The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `B` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
 
 To enable this feature, you need to add `COMBO_ENABLE = yes` to your `rules.mk`.
 
@@ -55,7 +55,7 @@ const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
   [JK_TAB] = COMBO(jk_combo, KC_TAB),
-  [QW_SFT] = COMBO(qw_combo, KC_LSFT)
+  [QW_SFT] = COMBO(qw_combo, KC_LSFT),
   [SD_LAYER] = COMBO(sd_combo, MO(_LAYER)),
 };
 ```
@@ -105,11 +105,11 @@ It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](
 ## Keycodes
 You can enable, disable and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`
 
-|Keycode   |Description                      |
-|----------|---------------------------------|
-|`CMB_ON`  |Turns on Combo feature           |
-|`CMB_OFF` |Turns off Combo feature          |
-|`CMB_TOG` |Toggles Combo feature on and off |
+|Keycode          |Aliases  |Description                     |
+|-----------------|---------|--------------------------------|
+|`QK_COMBO_ON`    |`CM_ON`  |Turns on Combo feature          |
+|`QK_COMBO_OFF`   |`CM_OFF` |Turns off Combo feature         |
+|`QK_COMBO_TOGGLE`|`CM_TOGG`|Toggles Combo feature on and off|
 
 # Advanced Configuration
 These configuration settings can be set in your `config.h` file.
@@ -255,7 +255,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 ```
 
 ## Variable Length Combos
-If you leave `COMBO_COUNT` undefined in `config.h`, it allows you to programmatically declare the size of the Combo data structure and avoid updating `COMBO_COUNT`. Instead a variable called `COMBO_LEN` has to be set. It can be set with something similar to the following in `keymap.c`: `uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `uint16_t COMBO_LEN = COMBO_LENGTH;` as such:
+If you leave `COMBO_COUNT` undefined in `config.h`, it allows you to programmatically declare the size of the Combo data structure and avoid updating `COMBO_COUNT`. Instead a variable called `COMBO_LEN` has to be set. It can be set with something similar to the following in `keymap.c`: `uint16_t COMBO_LEN = ARRAY_SIZE(key_combos);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `uint16_t COMBO_LEN = COMBO_LENGTH;` as such:
 ```c
 enum myCombos {
     ...,
@@ -326,7 +326,7 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
 
 If you, for example, use multiple base layers for different key layouts, one for QWERTY, and another one for Colemak, you might want your combos to work from the same key positions on all layers. Defining the same combos again for another layout is redundant and takes more memory. The solution is to just check the keycodes from one layer.
 
-With `#define COMBO_ONLY_FROM_LAYER _LAYER_A` the combos' keys are always checked from layer `_LAYER_A` even though the active layer would be `_LAYER_B`.
+With `#define COMBO_ONLY_FROM_LAYER 0` in config.h, the combos' keys are always checked from layer `0`, even if other layers are active.
 
 ## User callbacks
 

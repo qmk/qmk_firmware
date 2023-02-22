@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xE9B6
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Gowla
-#define PRODUCT         Gowla Macro Board
-
 /* Matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
@@ -31,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Pin-out */
 #define MATRIX_ROW_PINS { D1, D0, D4 }
 #define MATRIX_COL_PINS { B5, B4, E6 }
-#define UNUSED_PINS
 
 /* ROW2COL */
 #define DIODE_DIRECTION ROW2COL

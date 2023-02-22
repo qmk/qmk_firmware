@@ -1,7 +1,13 @@
 {
   "keyboard_name": "Lumberjack",
+  "manufacturer": "Peej",
   "url": "https://github.com/peej/lumberjack-keyboard",
   "maintainer": "Peej",
+  "usb": {
+    "vid": "0x706A",
+    "pid": "0x0002",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_ortho_5x12": {
       "layout": [

@@ -1,7 +1,7 @@
 {
     "manufacturer": "Catmunch",
     "keyboard_name": "MacroCat Keyboard",
-    "maintainer": "Catmunch",
+    "maintainer": "Catmunch, starcatmeow",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -24,8 +24,11 @@
         "pid": "0x8086",
         "vid": "0x2022"
     },
+    "layout_aliases": {
+        "LAYOUT_numpad_4x4": "LAYOUT_ortho_4x4"
+    },
     "layouts": {
-        "LAYOUT_numpad_4x4": {
+        "LAYOUT_ortho_4x4": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },

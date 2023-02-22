@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "Lily58",
+    "keyboard_name": "Lily58L",
+    "manufacturer": "Keycapsss",
     "url": "https://keycapsss.com",
     "maintainer": "BenRoe",
+    "usb": {
+        "vid": "0x7983",
+        "pid": "0x4C4C",
+        "device_version": "1.0.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

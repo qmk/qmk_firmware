@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "MechMini v1",
+    "keyboard_name": "MechMini",
+    "manufacturer": "MechKeys",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xCA40",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

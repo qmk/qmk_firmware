@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Cordillera",
+    "manufacturer": "Coarse",
     "url": "https://keyboard.coarse.tech/Cordillera-Alice-like-PCB-b34d95777ea44249bad3271b01d7838a",
     "maintainer": "coarse",
+    "usb": {
+        "vid": "0x434B",
+        "pid": "0x1401",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_alice": {
             "layout": [

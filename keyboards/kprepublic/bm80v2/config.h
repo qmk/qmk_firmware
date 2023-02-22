@@ -16,19 +16,11 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50
-#define PRODUCT_ID      0x1141
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KP republic
-#define PRODUCT         bm80v2
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
 #define MATRIX_ROW_PINS { C7, C6, B6, F5, F7, F6 }
 #define MATRIX_COL_PINS { E6, F0, F1, F4, D7, D6, B7, B1, B0, B2, B3, D3, D5, D4, D2, B4, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -37,7 +29,7 @@
 #define DEBOUNCE 5
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -78,6 +70,6 @@
 #define DRIVER_ADDR_1 0b0110000
 #define DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 87
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Chaos65",
+    "manufacturer": "ThomasLT",
     "url": "https://www.thomasltstudio.com/product-page/chaos-65-keyboard",
     "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0xB23B",
+        "pid": "0x1688",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -77,7 +83,7 @@
                 {"label":"Fn", "x":11.25, "y":4, "w":1.25},
                 {"label":"\u2190", "x":13, "y":4},
                 {"label":"\u2193", "x":14, "y":4},
-                {"label":"\u2192" "x":15, "y":4}
+                {"label":"\u2192", "x":15, "y":4}
             ]
         },
         "LAYOUT_65_ansi_blocker": {
@@ -152,7 +158,7 @@
                 {"label":"Fn", "x":11.25, "y":4, "w":1.25},
                 {"label":"\u2190", "x":13, "y":4},
                 {"label":"\u2193", "x":14, "y":4},
-                {"label":"\u2192" "x":15, "y":4}
+                {"label":"\u2192", "x":15, "y":4}
             ]
         },
         "LAYOUT_65_ansi_blocker_tsangan": {
@@ -226,7 +232,7 @@
                 {"label":"Fn", "x":11, "y":4, "w":1.5},
                 {"label":"\u2190", "x":13, "y":4},
                 {"label":"\u2193", "x":14, "y":4},
-                {"label":"\u2192" "x":15, "y":4}
+                {"label":"\u2192", "x":15, "y":4}
             ]
         },
         "LAYOUT_65_iso_blocker": {
@@ -302,7 +308,7 @@
                 {"label":"Fn", "x":11.25, "y":4, "w":1.25},
                 {"label":"\u2190", "x":13, "y":4},
                 {"label":"\u2193", "x":14, "y":4},
-                {"label":"\u2192" "x":15, "y":4}
+                {"label":"\u2192", "x":15, "y":4}
             ]
         },
         "LAYOUT_65_iso_blocker_tsangan": {
@@ -377,7 +383,7 @@
                 {"label":"Fn", "x":11, "y":4, "w":1.5},
                 {"label":"\u2190", "x":13, "y":4},
                 {"label":"\u2193", "x":14, "y":4},
-                {"label":"\u2192" "x":15, "y":4}
+                {"label":"\u2192", "x":15, "y":4}
             ]
         }
     }

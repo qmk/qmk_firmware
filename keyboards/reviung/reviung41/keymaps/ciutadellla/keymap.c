@@ -133,7 +133,7 @@
 
 
  void matrix_init_user(){
-     set_unicode_input_mode(UC_MAC);
+     set_unicode_input_mode(UNICODE_MODE_MACOS);
  }
 
 
@@ -229,7 +229,7 @@
             // [_RAISE] = LAYOUT_reviung41(
      //     KC_TRNS, KC_P1, KC_P2, KC_P3, KC_P4, KC_P5,                 KC_P6, KC_P7, KC_P8, KC_P9, KC_P0, KC_DEL,
      //     KC_TRNS, KC_LPRN, KC_RPRN, KC_LT, KC_GT, KC_AMPR,           KC_PMNS, KC_PPLS, KC_HASH, KC_PERC, KC_COLN, KC_PEQL,
-     //     KC_TRNS, KC_LCBR, KC_RCBR, KC_SLSH, KC_RO, KC_PIPE,         KC_PSLS, KC_PAST, KC_PCMM, KC_PDOT, KC_HASH, KC_PENT,
+     //     KC_TRNS, KC_LCBR, KC_RCBR, KC_SLSH, KC_INT1, KC_PIPE,       KC_PSLS, KC_PAST, KC_PCMM, KC_PDOT, KC_HASH, KC_PENT,
      //                                     KC_TRNS, MO(3), KC_BSPC, KC_TRNS, KC_TRNS
      // ),
 
@@ -247,12 +247,12 @@
     * |-------+-------+-------+---------+-------+---------+     +------+------+------+------+------+-------|
     * |       |       |       |         |       |         |     | M_L  | M_D  | M_I  | M_R  |      | SLEEP |
     * |-------+-------+-------+---------+-------+---------+     +------+------+------+------+------+-------|
-    * |       |       |       |         | SCRLFT| SCRRGHT |     | M_B1 |  M_B2|  M0  |  M2  |      | RESET |
+    * |       |       |       |         | SCRLFT| SCRRGHT |     | M_B1 |  M_B2|  M0  |  M2  |      | QK_BOOT |
     * |-------+-------+-------+---------+-------+---------+     +------+------+------+------+------+-------|
     *                                   | ____ | ____ |    BSPC   | ____  | ____ |
     *                                   +-------------/            \--------------+
     */
-     [_MOVE] = LAYOUT_reviung41(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2, LOCK_OSX, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL0, SLEEP_OSX, KC_F13, KC_F14, KC_F15, KC_F16, KC_C_LF, KC_C_RT, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+     [_MOVE] = LAYOUT_reviung41(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2, LOCK_OSX, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL0, SLEEP_OSX, KC_F13, KC_F14, KC_F15, KC_F16, KC_C_LF, KC_C_RT, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
      /* _ADJUST 4
     * ,----------------------------------------+         +---------------------------------------------------.
     * |  😃  |   😅 |  🤣  |  😉  |  😇  |  🥰  |          | RGBUP | HUEUP  | RGB_MOD |  BRIU  | PLAY  | VOLU |

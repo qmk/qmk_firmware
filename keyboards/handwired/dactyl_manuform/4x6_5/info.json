@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Dactyl Manuform 4x6 5 thumb keys",
+    "manufacturer": "tshort",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3436",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

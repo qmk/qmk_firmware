@@ -16,18 +16,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#undef VENDOR_ID
-#define VENDOR_ID 0x1209
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x345C
-#undef DEVICE_VER
-#define DEVICE_VER 0x0001
-#undef MANUFACTURER
-#define MANUFACTURER "https://github.com/stapelberg"
-#undef PRODUCT
-#define PRODUCT "kinT (kintlc)"
-
 /* key matrix size */
 #define MATRIX_ROWS 15
 #define MATRIX_COLS 7
@@ -72,7 +60,6 @@
             LINE_PIN6   /* COL_6 */ \
     }
 
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

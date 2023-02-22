@@ -1,7 +1,13 @@
 {
     "keyboard_name": "glacier",
+    "manufacturer": "creatkeebs",
     "url": "",
     "maintainer": "Timliuzhaolu",
+    "usb": {
+        "vid": "0x0410",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_f13_ansi_tsangan"
     },

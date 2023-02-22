@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "evancook.audio tenpad",
+    "keyboard_name": "tenpad",
+    "manufacturer": "evancook.audio",
     "url": "https://evancook.audio/",
     "maintainer": "evanmcook",
+    "usb": {
+        "vid": "0x636F",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
 
 	"LAYOUT_ortho_2x5": {

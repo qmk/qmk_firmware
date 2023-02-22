@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x9991
-#define PRODUCT_ID      0x9038
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    I/O Keyboards
-#define PRODUCT         Aves65
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -34,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS {D4,D6,D7,B4,E6}
 #define MATRIX_COL_PINS {D0,D1,D2,D3,D5,B5,F0,F1,F4,F5,F6,F7,C7,C6,B6}
-#define UNUSED_PINS {B7,B1,B2,B3}
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -53,7 +45,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Backlight configuration
  */
 #define RGB_DI_PIN B0
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 9
 
 #define QMK_ESC_OUTPUT D0 // usually COL

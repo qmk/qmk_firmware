@@ -19,13 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4C58 //"LX"
-#define PRODUCT_ID   0x0007 // FAve 65H
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    Lx3
-#define PRODUCT         FAve 65H
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -33,7 +26,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Checked with Eagle Schematic
 #define MATRIX_ROW_PINS { D1, D0, D2, D3, D5  }
 #define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -43,7 +35,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* Define RGB */
 #define RGBLED_NUM 67
-#define DRIVER_LED_TOTAL 67
+#define RGB_MATRIX_LED_COUNT 67
 #define RGB_DI_PIN B0
 
 #ifdef RGB_MATRIX_ENABLE
@@ -53,7 +45,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

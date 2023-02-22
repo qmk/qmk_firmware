@@ -1,6 +1,12 @@
 {
-    "keyboard_name": "Whitefox",
+    "keyboard_name": "Whitefox (QMK)",
+    "manufacturer": "Input:Club",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x1C11",
+        "pid": "0xB04D",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
