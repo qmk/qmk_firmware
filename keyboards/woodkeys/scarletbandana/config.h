@@ -39,8 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D4, D6, D7, B4, B5 }
 #define MATRIX_COL_PINS { B2, B3, B7, B1, F5, F4, F6, F7, B0, F0, F1, D0, D1, D2, D5, B6, C7 }
 
-#define QMK_SPEAKER C6
-
 #ifdef AUDIO_ENABLE
 #define AUDIO_PIN C6
 #define STARTUP_SONG SONG(PREONIC_SOUND)

@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define QMK_ESC_OUTPUT D6
-#define QMK_ESC_INPUT F5
-#define QMK_SPEAKER D2
-
 #define RGB_DI_PIN F7
 
 #define FORCE_NKRO

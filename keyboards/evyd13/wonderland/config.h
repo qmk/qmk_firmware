@@ -41,7 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 12
-
-#define QMK_ESC_OUTPUT F0 // usually COL
-#define QMK_ESC_INPUT B0 // usually ROW
-#define QMK_LED B1

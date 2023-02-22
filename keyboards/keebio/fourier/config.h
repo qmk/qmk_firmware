@@ -25,11 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define QMK_ESC_OUTPUT F5
-#define QMK_ESC_INPUT F4
-#define QMK_LED B0
-#define QMK_SPEAKER C6
-
 /* Split Defines */
 #define SPLIT_HAND_PIN D2
 
