@@ -43,7 +43,7 @@ bool ID61_process_special_k(uint16_t keycode, keyrecord_t *record, bool arrow_mo
             }
         }
     } else {
-        if (get_keycode_raised(keycode - QK_USER)) {
+        if (get_keycode_raised(keycode - QK_KB_0)) {
             // *** Fn keyed ***
             if (arrow_mode) {
                 // alternate key
