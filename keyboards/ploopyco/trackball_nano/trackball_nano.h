@@ -31,8 +31,7 @@ typedef union {
 extern keyboard_config_t keyboard_config;
 
 enum ploopy_keycodes {
-    DPI_CONFIG = SAFE_RANGE,
-    PLOOPY_SAFE_RANGE,
+    DPI_CONFIG = QK_KB_0,
 };
 
 void cycle_dpi(void);

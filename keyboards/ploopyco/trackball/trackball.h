@@ -46,7 +46,6 @@ extern uint16_t          dpi_array[];
 enum ploopy_keycodes {
     DPI_CONFIG = QK_KB_0,
     DRAG_SCROLL,
-    PLOOPY_SAFE_RANGE,
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise);

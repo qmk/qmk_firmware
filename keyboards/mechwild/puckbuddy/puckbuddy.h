@@ -48,5 +48,4 @@ enum keyboard_keycodes {
     TAP_ON,
     TAP_OFF,
     TAP_TOG,
-    NEW_SAFE_RANGE
 };
