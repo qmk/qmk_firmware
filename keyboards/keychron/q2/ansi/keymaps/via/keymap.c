@@ -25,7 +25,7 @@ enum layers{
 };
 
 enum custom_keycodes {
-    KC_TASK = USER00,
+    KC_TASK = QK_KB_0,
     KC_FLXP
 };
 

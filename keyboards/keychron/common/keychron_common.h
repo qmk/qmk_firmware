@@ -23,11 +23,7 @@
 #include "quantum_keycodes.h"
 
 enum custom_keycodes {
-#ifdef VIA_ENABLE
-    KC_LOPTN = USER00,
-#else
-    KC_LOPTN = SAFE_RANGE,
-#endif
+    KC_LOPTN = QK_KB_0,
     KC_ROPTN,
     KC_LCMMD,
     KC_RCMMD,

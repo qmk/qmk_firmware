@@ -26,7 +26,7 @@ enum {
 };
 
 enum {
-    KB_ARRW = USER00,  // toggle right modifiers are arrows feature
+    KB_ARRW = QK_KB_0,  // toggle right modifiers are arrows feature
     KB_RSFT,           // right shift or up arrow
     KB_RALT,           // right alt or left arrow
     KB_RAPP,           // menu or down arrow (Windows Menu)
