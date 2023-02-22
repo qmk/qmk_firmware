@@ -28,8 +28,6 @@
 
 #ifdef  BACKLIGHT_PIN
 #	define BACKLIGHT_LEVELS    10
-#	define BACKLIGHT_ON_STATE  1
-#	define BACKLIGHT_LIMIT_VAL 255
 #endif
 
 #ifdef RGB_DI_PIN

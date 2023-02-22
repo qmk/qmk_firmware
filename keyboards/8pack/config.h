@@ -6,9 +6,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define BACKLIGHT_LED_COUNT 8
-#undef BACKLIGHT_PIN
-#define BACKLIGHT_PINS { D1, D0, D4, C6, D7, E6, B4, B5 }
 #define BACKLIGHT_LEVELS 8
 
 // ws2812 options

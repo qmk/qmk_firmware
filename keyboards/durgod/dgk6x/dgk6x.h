@@ -1,4 +1,4 @@
-/* Copyright 2021 Jessica Sullivan and Don Kjer 
+/* Copyright 2021 Jessica Sullivan and Don Kjer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,13 +24,6 @@
 #elif defined KEYBOARD_durgod_dgk6x_galaxy
 #   include "galaxy.h"
 #endif
-
-#ifndef WINLOCK_DISABLED
-// Define the TGUI key here so it is available in QMK configurator
-enum DGK6X_keycodes {
-    KC_TGUI = QK_KB_0,   // Toggle between GUI Lock or Unlock
-};
-#endif /* WINLOCK_DISABLED */
 
 /* Function Prototype */
 void off_all_leds(void);

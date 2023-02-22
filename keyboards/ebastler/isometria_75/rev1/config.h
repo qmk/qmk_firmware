@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL 2
 #define BACKLIGHT_PAL_MODE 2
 #define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_ON_STATE 1
 #define BACKLIGHT_PWM_OUTPUT_FREQUENCY 1000 // Increases backlight PWM freq if compiled with an unmerged PR. Does no harm without it.
 
 /* Underglow */

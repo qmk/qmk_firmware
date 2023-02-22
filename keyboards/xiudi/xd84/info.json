@@ -8,6 +8,9 @@
         "pid": "0x8484",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "on_state": 0
+    },
     "indicators": {
         "caps_lock": "B6",
         "on_state": 0

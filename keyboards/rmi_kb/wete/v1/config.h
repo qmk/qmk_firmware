@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PAL_MODE 1
 #define BACKLIGHT_LEVELS 24
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 // RGB B4
 #define RGB_DI_PIN B4

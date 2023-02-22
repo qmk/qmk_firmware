@@ -33,11 +33,3 @@
     { K400,  KC_NO, K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  K411,  K412,  KC_NO, KC_NO, KC_NO, K416 }, \
     { K500,  K501,  K502,  KC_NO, KC_NO, KC_NO, K506,  K507,  K508,  K509,  K510,  KC_NO, KC_NO, KC_NO, K514,  K515,  K516 }  \
 }
-
-enum keyboard_keycodes {
-    LOCK_GUI = QK_KB_0,
-    TOG_MACOS_KEYMAP,
-};
-
-#define KC_LG    LOCK_GUI
-#define KC_MACOS TOG_MACOS_KEYMAP

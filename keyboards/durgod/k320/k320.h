@@ -75,14 +75,6 @@
     { XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  XXX,  K6F }   \
 }
 
-
-#ifndef WINLOCK_DISABLED
-// Define the TGUI key here so it is available in QMK configurator
-enum K3x0_keycodes {
-    KC_TGUI = QK_KB_0,   // Toggle between GUI Lock or Unlock
-};
-#endif /* WINLOCK_DISABLED */
-
 /* Function Prototype */
 void off_all_leds(void);
 void on_all_leds(void);

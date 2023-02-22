@@ -37,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN D0
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_ON_STATE 0
 
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN

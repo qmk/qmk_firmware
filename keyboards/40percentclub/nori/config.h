@@ -34,7 +34,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 3
 
 // enable RGB underglow
 #define RGB_DI_PIN B4

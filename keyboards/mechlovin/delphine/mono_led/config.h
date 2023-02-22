@@ -3,7 +3,6 @@
 
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 3
 #endif
 
 #ifdef RGBLIGHT_ENABLE
