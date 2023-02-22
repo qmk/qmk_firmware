@@ -40,7 +40,7 @@ When defining axes for your joystick, you must provide a definition array typica
 For instance, the below example configures two axes. The X axis is read from the `A4` pin. With the default axis resolution of 8 bits, the range of values between 900 and 575 are scaled to -127 through 0, and values 575 to 285 are scaled to 0 through 127. The Y axis is configured as a virtual axis, and its value is not read from any pin. Instead, the user must update the axis value programmatically.
 
 ```c
-joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     JOYSTICK_AXIS_IN(A4, 900, 575, 285),
     JOYSTICK_AXIS_VIRTUAL
 };
@@ -64,7 +64,7 @@ The `low` and `high` values can be swapped to effectively invert the axis.
 The following example adjusts two virtual axes (X and Y) based on keypad presses, with `KC_P0` as a precision modifier:
 
 ```c
-joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     JOYSTICK_AXIS_VIRTUAL, // x
     JOYSTICK_AXIS_VIRTUAL  // y
 };

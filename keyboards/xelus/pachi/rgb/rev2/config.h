@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2023 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,8 +90,9 @@
 #define ENABLE_RGB_MATRIX_HUE_BREATHING
 #define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #define ENABLE_RGB_MATRIX_HUE_WAVE
-// #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // #define ENABLE_RGB_MATRIX_PIXEL_RAIN
+// #define ENABLE_RGB_MATRIX_PIXEL_FLOW
+// #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
@@ -109,5 +110,6 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-
-#define FORCE_NKRO
+// VIA KB level
+#define VIA_FIRMWARE_VERSION 1
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17

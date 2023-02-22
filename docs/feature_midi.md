@@ -60,9 +60,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MIDI_CC80:
             if (record->event.pressed) {
-                midi_send_cc(&midi_device, midi_config.channel, 80, ON);
+                midi_send_cc(&midi_device, midi_config.channel, 80, MIDI_CC_ON);
             } else {
-                midi_send_cc(&midi_device, midi_config.channel, 80, OFF);
+                midi_send_cc(&midi_device, midi_config.channel, 80, MIDI_CC_OFF);
             }
             return true;
     }
