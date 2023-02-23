@@ -23,10 +23,3 @@
 #define BACKLIGHT_PWM_DRIVER    PWMD5
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_LEVELS        5
-
-/* Encoder */
-#define ENCODERS_PAD_A \
-    { B9 }
-#define ENCODERS_PAD_B \
-    { B8 }
-#define ENCODER_RESOLUTION 2

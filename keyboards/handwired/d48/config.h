@@ -40,10 +40,6 @@
 )
 #endif
 
-/* Encoders */
-#define ENCODERS_PAD_A { B3, A0 }
-#define ENCODERS_PAD_B { A6, A1 }
-
 /* OLED */
 #define OLED_FONT_H "glcdfont_d48.c"
 #define OLED_TIMEOUT 0
