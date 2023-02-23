@@ -80,6 +80,6 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
    } else {
    	tap_code(KC_VOLD);
    }
-   return false;
+   return true;
 }
 #endif
