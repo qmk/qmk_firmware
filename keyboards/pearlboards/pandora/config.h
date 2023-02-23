@@ -34,11 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* Encoder Function */
-#define ENCODERS_PAD_A { F6 }
-#define ENCODERS_PAD_B { F5 }
-//#define ENCODER_DIRECTION_FLIP
-#define ENCODER_RESOLUTION 1
 #define DIP_SWITCH_PINS { B2, B5 }
 
 /*== all animations enabled ==*/

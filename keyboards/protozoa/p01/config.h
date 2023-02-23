@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Encoder */
 #define ENCODERS 1
-#define ENCODERS_PAD_A { B15 }
-#define ENCODERS_PAD_B { B14 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
