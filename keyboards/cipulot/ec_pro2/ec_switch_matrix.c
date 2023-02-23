@@ -30,15 +30,11 @@ static uint16_t      ecsm_sw_value[MATRIX_ROWS][MATRIX_COLS];
 static adc_mux adcMux;
 
 static inline void discharge_capacitor(void) {
-    ATOMIC_BLOCK_FORCEON {
-        writePinLow(DISCHARGE_PIN);
-    }
+    writePinLow(DISCHARGE_PIN);
 }
 static inline void charge_capacitor(uint8_t row) {
-    ATOMIC_BLOCK_FORCEON {
-        writePinHigh(DISCHARGE_PIN);
-        writePinHigh(row_pins[row]);
-    }
+    writePinHigh(DISCHARGE_PIN);
+    writePinHigh(row_pins[row]);
 }
 
 static inline void init_mux_sel(void) {
@@ -111,15 +107,14 @@ uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
 
     // Set strobe pins to low state
     writePinLow(row_pins[row]);
-
-    // Set the row pin to high state and have capacitor charge
-    charge_capacitor(row);
-
     ATOMIC_BLOCK_FORCEON {
+        // Set the row pin to high state and have capacitor charge
+        charge_capacitor(row);
+        // Read the ADC value
         sw_value = adc_read(adcMux);
+        // Discharge peak hold capacitor
+        discharge_capacitor();
     }
-    // Discharge peak hold capacitor
-    discharge_capacitor();
 
     return sw_value;
 }
