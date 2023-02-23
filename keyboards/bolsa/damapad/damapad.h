@@ -30,3 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	{ K10, K11, K12, K13, K14, K15 }, \
 	{ K20, K21, XXX, K23, XXX, K25 }  \
 }
+
+#define LAYOUT_bar( \
+	K00, K01, K02, K03, K04, K05, \
+	K10, K11, K12, K13, K14, K15, \
+	K20,           K23,      K25  \
+) { \
+	{ K00, K01, K02, K03, K04, K05 }, \
+	{ K10, K11, K12, K13, K14, K15 }, \
+	{ K20, XXX, XXX, K23, XXX, K25 }  \
+}

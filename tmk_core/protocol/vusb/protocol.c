@@ -158,7 +158,7 @@ void protocol_task(void) {
 #ifdef RAW_ENABLE
         usbPoll();
 
-        if (usbConfiguration && usbInterruptIsReady3()) {
+        if (usbConfiguration && usbInterruptIsReady4()) {
             raw_hid_task();
         }
 #endif

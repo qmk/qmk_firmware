@@ -1,19 +1,27 @@
-# OrangeBoyErgo (OBE)
+# BB Steno (BBS)
 
-![obe](https://i.imgur.com/bzqi2XOh.png)
+![BBS](https://i.imgur.com/XIjlzKOh.png)
 
-An affordable Alice-like keyboard kit powered by the STM32 Blackpill.
+A bare-bones stenography keyboard. No bells or whistles. Simple, cheap, effective, steno.
 
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
-* Hardware Supported: OBE v2.1
-* Hardware Availability: [OBE on MechWild](https://mechwild.com/product/orange-boy-ergo/)
+* Hardware Supported: BBS v0.1
+* Hardware Availability: [BBS on MechWild](https://mechwild.com/product/bb-steno/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mechwild/obe:default
+    make mechwild/bbs:default
 
 Flashing example for this keyboard:
 
-    make mechwild/obe:default:flash
+    make mechwild/bbs:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (assigned to the top left key) and plug in the keyboard while holding it.
+* **Physical reset button**: Press and hold the boot0 button on the blackpill, tap  and release the nrst button on the blackpill, then release the boot0 button.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available.

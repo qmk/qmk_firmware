@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "bpiphany HIDLiberation",
+    "keyboard_name": "HIDLiberation",
+    "manufacturer": "bpiphany",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xB919",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

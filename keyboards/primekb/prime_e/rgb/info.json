@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Prime_E RGB",
+    "usb": {
+        "pid": "0x0052",
+        "device_version": "0.0.1"
+    }
+}

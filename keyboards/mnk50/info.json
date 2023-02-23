@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MNK50",
+    "manufacturer": "Yiancar-Designs",
     "url": "https://yiancar-designs.com",
     "maintainer": "Yiancar-Designs",
+    "usb": {
+        "vid": "0x8968",
+        "pid": "0x4D35",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

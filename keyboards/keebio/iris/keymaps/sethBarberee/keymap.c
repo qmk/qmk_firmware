@@ -17,7 +17,7 @@
 
 extern backlight_config_t backlight_config;
 
-#define KC_RST RESET
+#define KC_RST QK_BOOT
 #define KC_BL_S BL_STEP
 #define KC_RTOG RGB_TOG
 #define KC_RMOD RGB_MOD
@@ -27,7 +27,7 @@ extern backlight_config_t backlight_config;
 #define KC_RSAD RGB_SAD
 #define KC_RVAI RGB_VAI
 #define KC_RVAD RGB_VAD
-#define KC_VK VLK_TOG
+#define KC_VK VK_TOGG
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 

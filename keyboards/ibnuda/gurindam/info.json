@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "gurindam",
+    "keyboard_name": "Gurindam",
+    "manufacturer": "Ibnu D. Aji",
     "url": "https://github.com/ibnuda/gurindam",
     "maintainer": "Ibnu D. Aji",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x6974",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

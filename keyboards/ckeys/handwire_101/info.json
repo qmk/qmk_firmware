@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "cKeys Handwire 101",
+    "keyboard_name": "Handwire 101",
+    "manufacturer": "cKeys",
     "url": "https://ckeys.org/slides/handwire/",
     "maintainer": "brandenbyers",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x4"
     },

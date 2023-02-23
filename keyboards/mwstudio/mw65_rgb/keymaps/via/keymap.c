@@ -95,16 +95,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {
     if (clockwise) {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 3));
+        tap_code(dynamic_keymap_get_keycode(get_highest_layer(layer_state), 4, 3));
     } else {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 4));
+        tap_code(dynamic_keymap_get_keycode(get_highest_layer(layer_state), 4, 4));
     }
   }
   return true;
 }
 #endif
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (user_config.top_rgb_change)
     {
@@ -125,4 +125,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
         }
     }
+    return false;
 }

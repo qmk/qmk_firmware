@@ -1,36 +1,15 @@
 # Copyright 2019 Manna Harbour
 # https://github.com/manna-harbour/miryoku
-# generated -*- buffer-read-only: t -*-
 
-MOUSEKEY_ENABLE = yes # Mouse keys
-EXTRAKEY_ENABLE = yes # Audio control and System control
-AUTO_SHIFT_ENABLE = yes # Auto Shift
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+AUTO_SHIFT_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+KEY_OVERRIDE_ENABLE = yes
 
-SRC += manna-harbour_miryoku.c # keymap
+INTROSPECTION_KEYMAP_C = manna-harbour_miryoku.c # keymaps
 
-# alternative layouts:
+include users/manna-harbour_miryoku/custom_rules.mk
 
-# alphas
-ifneq ($(strip $(MIRYOKU_ALPHAS)),)
-  OPT_DEFS += -DMIRYOKU_ALPHAS_$(MIRYOKU_ALPHAS)
-endif
-
-# nav
-ifneq ($(strip $(MIRYOKU_NAV)),)
-  OPT_DEFS += -DMIRYOKU_NAV_$(MIRYOKU_NAV)
-endif
-
-# clipboard
-ifneq ($(strip $(MIRYOKU_CLIPBOARD)),)
-  OPT_DEFS += -DMIRYOKU_CLIPBOARD_$(MIRYOKU_CLIPBOARD)
-endif
-
-# layers
-ifneq ($(strip $(MIRYOKU_LAYERS)),)
-  OPT_DEFS += -DMIRYOKU_LAYERS_$(MIRYOKU_LAYERS)
-endif
-
-# subset mappings
-ifneq ($(strip $(MIRYOKU_MAPPING)),)
-  OPT_DEFS += -DMIRYOKU_MAPPING_$(MIRYOKU_MAPPING)
-endif
+include users/manna-harbour_miryoku/post_rules.mk

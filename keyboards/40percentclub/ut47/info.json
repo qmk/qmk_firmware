@@ -5,7 +5,7 @@
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4025",
-    "vid": "0x7574",
+    "pid": "0x7574",
     "device_version": "0.0.1"
   },
   "layouts": {

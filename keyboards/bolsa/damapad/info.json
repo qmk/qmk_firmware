@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Damapad",
+    "manufacturer": "Bolsa Keyboard Supply",
     "url": "",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x6D64",
+        "pid": "0x6470",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_wkl": {
             "layout": [{

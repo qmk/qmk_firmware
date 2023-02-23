@@ -15,12 +15,8 @@
  */
 #include "quantum.h"
 
-#ifndef NO_ACTION_ONESHOT
-uint8_t get_oneshot_mods(void);
-#endif
-
-static uint16_t last_td;
-static int16_t  highest_td = -1;
+static uint16_t active_td;
+static uint16_t last_tap_time;
 
 void qk_tap_dance_pair_on_each_tap(qk_tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
@@ -34,18 +30,14 @@ void qk_tap_dance_pair_on_each_tap(qk_tap_dance_state_t *state, void *user_data)
 void qk_tap_dance_pair_finished(qk_tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
 
-    if (state->count == 1) {
-        register_code16(pair->kc1);
-    } else if (state->count == 2) {
-        register_code16(pair->kc2);
-    }
+    register_code16(pair->kc1);
 }
 
 void qk_tap_dance_pair_reset(qk_tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
 
-    wait_ms(TAP_CODE_DELAY);
     if (state->count == 1) {
+        wait_ms(TAP_CODE_DELAY);
         unregister_code16(pair->kc1);
     } else if (state->count == 2) {
         unregister_code16(pair->kc2);
@@ -87,75 +79,80 @@ static inline void _process_tap_dance_action_fn(qk_tap_dance_state_t *state, voi
 }
 
 static inline void process_tap_dance_action_on_each_tap(qk_tap_dance_action_t *action) {
+    action->state.count++;
+    action->state.weak_mods = get_mods();
+    action->state.weak_mods |= get_weak_mods();
+#ifndef NO_ACTION_ONESHOT
+    action->state.oneshot_mods = get_oneshot_mods();
+#endif
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap);
-}
-
-static inline void process_tap_dance_action_on_dance_finished(qk_tap_dance_action_t *action) {
-    if (action->state.finished) return;
-    action->state.finished = true;
-    add_mods(action->state.oneshot_mods);
-    add_weak_mods(action->state.weak_mods);
-    send_keyboard_report();
-    _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_dance_finished);
 }
 
 static inline void process_tap_dance_action_on_reset(qk_tap_dance_action_t *action) {
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_reset);
-    del_mods(action->state.oneshot_mods);
     del_weak_mods(action->state.weak_mods);
+#ifndef NO_ACTION_ONESHOT
+    del_mods(action->state.oneshot_mods);
+#endif
     send_keyboard_report();
+    action->state = (const qk_tap_dance_state_t){0};
 }
 
-void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
-    qk_tap_dance_action_t *action;
-
-    if (!record->event.pressed) return;
-
-    if (highest_td == -1) return;
-
-    for (int i = 0; i <= highest_td; i++) {
-        action = &tap_dance_actions[i];
-        if (action->state.count) {
-            if (keycode == action->state.keycode && keycode == last_td) continue;
-            action->state.interrupted          = true;
-            action->state.interrupting_keycode = keycode;
-            process_tap_dance_action_on_dance_finished(action);
-            reset_tap_dance(&action->state);
-
-            // Tap dance actions can leave some weak mods active (e.g., if the tap dance is mapped to a keycode with
-            // modifiers), but these weak mods should not affect the keypress which interrupted the tap dance.
-            clear_weak_mods();
-        }
+static inline void process_tap_dance_action_on_dance_finished(qk_tap_dance_action_t *action) {
+    if (!action->state.finished) {
+        action->state.finished = true;
+        add_weak_mods(action->state.weak_mods);
+#ifndef NO_ACTION_ONESHOT
+        add_mods(action->state.oneshot_mods);
+#endif
+        send_keyboard_report();
+        _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_dance_finished);
+    }
+    active_td = 0;
+    if (!action->state.pressed) {
+        // There will not be a key release event, so reset now.
+        process_tap_dance_action_on_reset(action);
     }
 }
 
+bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
+    qk_tap_dance_action_t *action;
+
+    if (!record->event.pressed) return false;
+
+    if (!active_td || keycode == active_td) return false;
+
+    action                             = &tap_dance_actions[TD_INDEX(active_td)];
+    action->state.interrupted          = true;
+    action->state.interrupting_keycode = keycode;
+    process_tap_dance_action_on_dance_finished(action);
+
+    // Tap dance actions can leave some weak mods active (e.g., if the tap dance is mapped to a keycode with
+    // modifiers), but these weak mods should not affect the keypress which interrupted the tap dance.
+    clear_weak_mods();
+
+    // Signal that a tap dance has been finished due to being interrupted,
+    // therefore the keymap lookup for the currently processed event needs to
+    // be repeated with the current layer state that might have been updated by
+    // the finished tap dance.
+    return true;
+}
+
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
-    uint16_t               idx = keycode - QK_TAP_DANCE;
     qk_tap_dance_action_t *action;
 
     switch (keycode) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
-            if ((int16_t)idx > highest_td) highest_td = idx;
-            action = &tap_dance_actions[idx];
+            action = &tap_dance_actions[TD_INDEX(keycode)];
 
             action->state.pressed = record->event.pressed;
             if (record->event.pressed) {
-                action->state.keycode = keycode;
-                action->state.count++;
-                action->state.timer = timer_read();
-#ifndef NO_ACTION_ONESHOT
-                action->state.oneshot_mods = get_oneshot_mods();
-#else
-                action->state.oneshot_mods = 0;
-#endif
-                action->state.weak_mods = get_mods();
-                action->state.weak_mods |= get_weak_mods();
+                last_tap_time = timer_read();
                 process_tap_dance_action_on_each_tap(action);
-
-                last_td = keycode;
+                active_td = action->state.finished ? 0 : keycode;
             } else {
-                if (action->state.count && action->state.finished) {
-                    reset_tap_dance(&action->state);
+                if (action->state.finished) {
+                    process_tap_dance_action_on_reset(action);
                 }
             }
 
@@ -166,39 +163,17 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 void tap_dance_task() {
-    if (highest_td == -1) return;
-    uint16_t tap_user_defined;
+    qk_tap_dance_action_t *action;
 
-    for (uint8_t i = 0; i <= highest_td; i++) {
-        qk_tap_dance_action_t *action = &tap_dance_actions[i];
-        if (action->custom_tapping_term > 0) {
-            tap_user_defined = action->custom_tapping_term;
-        } else {
-#ifdef TAPPING_TERM_PER_KEY
-            tap_user_defined = get_tapping_term(action->state.keycode, &(keyrecord_t){});
-#else
-            tap_user_defined = TAPPING_TERM;
-#endif
-        }
-        if (action->state.count && timer_elapsed(action->state.timer) > tap_user_defined) {
-            process_tap_dance_action_on_dance_finished(action);
-            reset_tap_dance(&action->state);
-        }
+    if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
+
+    action = &tap_dance_actions[TD_INDEX(active_td)];
+    if (!action->state.interrupted) {
+        process_tap_dance_action_on_dance_finished(action);
     }
 }
 
 void reset_tap_dance(qk_tap_dance_state_t *state) {
-    qk_tap_dance_action_t *action;
-
-    if (state->pressed) return;
-
-    action = &tap_dance_actions[state->keycode - QK_TAP_DANCE];
-
-    process_tap_dance_action_on_reset(action);
-
-    state->count                = 0;
-    state->interrupted          = false;
-    state->finished             = false;
-    state->interrupting_keycode = 0;
-    last_td                     = 0;
+    active_td = 0;
+    process_tap_dance_action_on_reset((qk_tap_dance_action_t *)state);
 }

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Simpler61",
+    "manufacturer": "Equalz",
     "url": "",
     "maintainer": "Equalz",
+    "usb": {
+        "vid": "0xC3C3",
+        "pid": "0xC361",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_61_ansi": {
             "layout": [

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Stella",
+    "manufacturer": "HnahKB",
     "url": "",
     "maintainer": "VGS",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0AB7",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Rabbit68",
+    "manufacturer": "Kai Eckert",
     "url": "",
     "maintainer": "kaiec",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x68F1",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

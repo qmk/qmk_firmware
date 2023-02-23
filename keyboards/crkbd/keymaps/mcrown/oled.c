@@ -94,7 +94,7 @@ inline static char get_ascii(int16_t keycode){
         ascii_idx=code_to_ascii[(uint8_t)keycode];
     }else if(keycode<KC_KP_ENTER){
         ascii_idx=code_to_ascii[SPECIAL_KEYS_SHIFT(keycode)];
-    }else if(KC_LANG1==keycode){
+    }else if(KC_LNG1==keycode){
         ascii_idx=code_to_ascii[ALT_CODE];
     }else if( QK_LSFT==(QK_LSFT&keycode) ){
         ascii_idx=code_to_ascii[RM_LSFT(keycode)];

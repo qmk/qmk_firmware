@@ -77,7 +77,7 @@ enum {
 #define DNTAB  LCTL(LSFT(KC_PGDN))
 #define NXTWIN LALT(KC_TAB)
 #define PRVWIN LALT(LSFT(KC_TAB))
-#define CALDL  LCTL(LALT(KC_DELT))
+#define CALDL  LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
 #define EXPLR  LGUI(KC_E)
 #define LCKGUI LGUI(KC_L)
@@ -112,7 +112,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [E_R]           = COMBO(e_r_combo, KC_UNDS),
     [Z_X]           = COMBO(z_x_combo, KC_ENT),
     [C_X]           = COMBO(x_c_combo, LCTL(KC_W)),
-    [C_V]           = COMBO(c_v_combo, KC_DELT),
+    [C_V]           = COMBO(c_v_combo, KC_DEL),
 
     // right hand combinations.
     [P_O]           = COMBO(p_o_combo,       KC_BSPC),
@@ -120,7 +120,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [U_I]           = COMBO(u_i_combo,       KC_MINS),
     [SLASH_DOT]     = COMBO(slash_dot_combo, KC_PIPE),
     [DOT_COMMA]     = COMBO(dot_comma_combo, KC_APP),
-    [COMMA_M]       = COMBO(comma_m_combo,   KC_DELT),
+    [COMMA_M]       = COMBO(comma_m_combo,   KC_DEL),
 
     // both hand combinations.
     [SLASH_Z]       = COMBO(z_slash_combo, KC_HOME),
@@ -145,13 +145,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_thumbrow(
     KC_ESC, KC_QUES,KC_UNDS,KC_F1,  KC_F2,                  KC_F3,  KC_F4,  KC_MINS,KC_SLSH,KC_BSPC ,
     KC_LSFT,KC_TAB, KC_PGUP,KC_F5,  KC_F6,                  KC_F7,  KC_F8,  KC_HOME,KC_LALT,KC_ENT  ,
-    KC_CLCK,KC_SLCK,KC_PGDN,KC_F9,  KC_F10,                 KC_F11, KC_F12, KC_END, KC_INS, KC_SLSH ,
+    KC_CAPS,KC_SCRL,KC_PGDN,KC_F9,  KC_F10,                 KC_F11, KC_F12, KC_END, KC_INS, KC_SLSH ,
                     LOWER,  ADDDD,  _______,KC_ESC, KC_ENT, ALT_ENT,ADDDD, RAISE
 ),
 [_ADJUST] = LAYOUT_thumbrow(
     _______,EXPLR,  KC_UP,  PRVTAB, PRVWIN,                 NXTWIN, NXTTAB, _______,_______,LCKGUI,
     TSKMGR, KC_LEFT,KC_DOWN,KC_RGHT,UPTAB,                  DNTAB,  KC_ENT, KC_LGUI,_______,CALDL,
-    _______,CLSGUI, _______,CONPST, RESET,                  _______,_______,_______,_______,_______,
+    _______,CLSGUI, _______,CONPST, QK_BOOT,                  _______,_______,_______,_______,_______,
                     _______,_______,_______,_______,_______,_______,_______,_______
 ),
 };

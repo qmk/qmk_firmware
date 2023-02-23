@@ -43,7 +43,7 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
   static uint8_t is_leds_changes = 1;
-  c_lyr = biton32(layer_state);
+  c_lyr = get_highest_layer(layer_state);
 
   is_leds_changes = is_leds_changes << set_layer_led(c_lyr);
   is_leds_changes = is_leds_changes << shifted_layer();

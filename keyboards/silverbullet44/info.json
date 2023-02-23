@@ -1,7 +1,13 @@
 {
     "keyboard_name": "SilverBullet44",
+    "manufacturer": "SwanMatch",
     "url": "https://swanmatch.booth.pm/items/1561270",
     "maintainer": "swanmatch",
+    "usb": {
+        "vid": "0x16C0",
+        "pid": "0x27DB",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

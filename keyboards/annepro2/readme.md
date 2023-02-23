@@ -1,12 +1,10 @@
 # Anne Pro 2 rev. C15 and C18 QMK firmware
 
-## Introduction
+An ANSI-layout 60% keyboard featuring Bluetooth support and per-key RGB lighting.
 
-This is the QMK firmware repository for the Anne Pro 2 rev. C15 and C18 keyboard.
-
-## Layouts
-
-Keyboard has 60% ANSI standard layout.
+* Keyboard Maintainer: [bwisn](https://github.com/bwisn)
+* Hardware Supported: Anne Pro 2, [C15](c15/) and [C18](c18/) versions
+* Hardware Availability: [annepro.net](https://www.annepro.net/), [Hexcore](https://www.hexcore.xyz/annepro2)
 
 ## How to compile
 
@@ -25,24 +23,24 @@ If you want to compile the Anne Pro 2 C15 default keymap use:
 If you want the executable instead of compiling it yourself, [download it here](https://ci.codetector.org/job/OpenAnnePro/job/AnnePro2-Tools/job/master/).
 Windows and Linux versions are available. Otherwise, follow the steps below:
 
-0. Install the latest stable `rust` toolchain using [rustup](https://rustup.rs/)
-0. Also install [Visual Studio Community edition](https://visualstudio.microsoft.com/downloads/)
+1. Install the latest stable `rust` toolchain using [rustup](https://rustup.rs/)
+1. Also install [Visual Studio Community edition](https://visualstudio.microsoft.com/downloads/)
 including the C/C++ module to prevent errors while compiling
-0. Download or Clone the [AnnePro2-Tools](https://github.com/OpenAnnePro/AnnePro2-Tools) project.
-0. Compile the tool using
-```bash
-cargo build --release
-```
-0. The compiled tool should be in `./target/release/annepro2_tools` (In later I will refer to this as `annepro2_tools`)
+1. Download or Clone the [AnnePro2-Tools](https://github.com/OpenAnnePro/AnnePro2-Tools) project.
+1. Compile the tool using
+   ```bash
+   cargo build --release
+   ```
+   The compiled tool should be in `./target/release/annepro2_tools` (In later I will refer to this as `annepro2_tools`)
 
 ### Flashing the firmware
-0. Put the keyboard into DFU/IAP mode by unplugging the keyboard, then holding ESC while plugging it back in.
-0. Run annepro2_tools with the firmware you just built.
 
-**Please substitute with the correct paths and correct bin file if you chose another keymap profile**
-```bash
-annepro2_tools annepro2_c15_default.bin
-```
+1. Put the keyboard into DFU/IAP mode by unplugging the keyboard, then holding ESC while plugging it back in.
+1. Run annepro2_tools with the firmware you just built.  
+   **Please substitute with the correct paths and correct bin file if you chose another keymap profile.**
+   ```bash
+   annepro2_tools annepro2_c15_default.bin
+   ```
 
 If the tool can't find the keyboard please double check you have the keyboard in IAP mode.
 

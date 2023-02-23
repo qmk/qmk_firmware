@@ -12,7 +12,7 @@
 
 #define KC_LOWR MO(_LOWER)
 #define KC_RASE MO(_RAISE)
-#define KC_RST  RESET
+#define KC_RST  QK_BOOT
 #define KC_CAD  LCTL(LALT(KC_DEL))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

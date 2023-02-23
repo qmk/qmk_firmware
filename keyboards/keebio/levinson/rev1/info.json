@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Levinson Rev. 1",
+    "usb": {
+        "pid": "0x1146",
+        "device_version": "1.0.0"
+    }
+}

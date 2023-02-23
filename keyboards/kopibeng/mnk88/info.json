@@ -1,7 +1,13 @@
 {
     "keyboard_name": "MNK88",
-    "maintainer": "kopibeng",
+    "manufacturer": "kopibeng",
     "url": "https://monokei.co/",
+    "maintainer": "kopibeng",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x8800",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -187,7 +187,7 @@
 #define TR_CURR S(ALGR(TR_4))    // ¤
 #define TR_IQUE S(ALGR(TR_SLSH)) // ¿
 // Row 2
-#define TR_REGD S(ALGR(TR_I)     // ®
+#define TR_REGD S(ALGR(TR_I))    // ®
 // Row 3
 #define TR_SECT S(ALGR(TR_IDOT)) // §
 #define TR_FORD S(ALGR(TR_A))    // ª

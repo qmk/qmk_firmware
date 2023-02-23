@@ -20,6 +20,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 NO_USB_STARTUP_CHECK = yes
+LTO_ENABLE = yes
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes
