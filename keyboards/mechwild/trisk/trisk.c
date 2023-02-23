@@ -1,29 +1,7 @@
 // Copyright 2023 Kyle McCreery (@kylemccreery)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "trisk.h"
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (index) {
-        case 0:
-            if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        break;
-		case 1:
-            if (clockwise) {
-                tap_code(KC_BRIU);
-            } else {
-                tap_code(KC_BRID);
-            }
-        break;
-    }
-    return true;
-}
-#endif
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {

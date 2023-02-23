@@ -5,8 +5,8 @@
 13 key macro pad with optional encoders on either side.
 
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Triskaidekaphilia v1.1
+* Hardware Availability: [Triskaidekaphilia on MechWild](https://mechwild.com/product/triskaidekaphilia/)
 
 Make example for this keyboard (after setting up your build environment):
 
