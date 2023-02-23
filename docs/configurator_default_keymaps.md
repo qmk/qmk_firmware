@@ -153,10 +153,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ```c
 enum keyboard_keycodes {
-    CUSTOM_1 = SAFE_RANGE,
+    CUSTOM_1 = QK_KB_0,
     CUSTOM_2,
     CUSTOM_3,
-    NEW_SAFE_RANGE  // Important!
 };
 ```
 
@@ -185,8 +184,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-Note the call to `process_record_user()` at the end. Additionally, users of the keyboard will need to use `NEW_SAFE_RANGE` instead of `SAFE_RANGE` if they wish to add their own custom keycodes at keymap level, beyond what is provided by the keyboard.
-
+Note the call to `process_record_user()` at the end.
 
 ## Additional Reading :id=additional-reading
 

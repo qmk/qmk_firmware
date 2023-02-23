@@ -13,6 +13,9 @@
     "levels": 7,
     "breathing": true
   },
+  "qmk_lufa_bootloader": {
+    "led": "B0"
+  },
   "processor": "atmega32u4",
   "bootloader": "qmk-dfu",
   "matrix_pins": {

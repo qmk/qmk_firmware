@@ -1,4 +1,4 @@
-/* Copyright 2021 Jessica Sullivan and Don Kjer 
+/* Copyright 2021 Jessica Sullivan and Don Kjer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

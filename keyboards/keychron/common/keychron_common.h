@@ -23,11 +23,7 @@
 #include "quantum_keycodes.h"
 
 enum custom_keycodes {
-#ifdef VIA_ENABLE
-    KC_LOPTN = USER00,
-#else
-    KC_LOPTN = SAFE_RANGE,
-#endif
+    KC_LOPTN = QK_KB_2, // TECH DEBT: Starts at QK_KB_2 to maintain ordering with VIA definitions. See #19884. Revert to QK_KB_0 when VIA catches up with QMK.
     KC_ROPTN,
     KC_LCMMD,
     KC_RCMMD,

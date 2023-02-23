@@ -71,6 +71,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define QMK_ESC_OUTPUT B7 // usually COL
-#define QMK_ESC_INPUT D2 // usually ROW

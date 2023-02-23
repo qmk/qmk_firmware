@@ -30,10 +30,10 @@ enum {
 
 enum {
     #ifdef RGB_MATRIX_ENABLE
-    RGB_TPK = USER00,  // Toggle Per-Key
+    RGB_TPK = QK_KB_0,  // Toggle Per-Key
     RGB_TUG,           // Toggle Underglow
     #endif  // RGB_MATRIX_ENABLE
-    KB_VRSN = USER09   // debug, type version
+    KB_VRSN = QK_KB_9   // debug, type version
 };
 
 #ifndef RGB_MATRIX_ENABLE

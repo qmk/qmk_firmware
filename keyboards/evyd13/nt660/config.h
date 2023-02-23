@@ -54,7 +54,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define QMK_ESC_OUTPUT D6 // usually COL
-#define QMK_ESC_INPUT B7 // usually ROW
-#define QMK_LED D0
