@@ -20,9 +20,6 @@
   #define NO_MUSIC_MODE
 #endif
 
-#define ENCODERS_PAD_A { D1,F1 }
-#define ENCODERS_PAD_B { D0,F0 }
-
 #define RGB_DI_PIN F5
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

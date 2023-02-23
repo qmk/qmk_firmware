@@ -40,6 +40,11 @@
         "pid": "0x0023",
         "vid": "0x7463"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"}
+        ]
+    },
     "rgblight": {
         "led_count": 53,
         "pin": "D3",
