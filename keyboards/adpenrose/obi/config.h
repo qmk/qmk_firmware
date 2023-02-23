@@ -20,8 +20,6 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { F1 }
-#define ENCODERS_PAD_B { F0 }
 #define TAP_CODE_DELAY 10
 
 /* Underglow options: */
