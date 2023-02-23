@@ -151,11 +151,12 @@ void reset_keyboard_kb() {
     reset_keyboard();
 }
 
-void led_set_kb(uint8_t usb_led) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
 #ifdef ISSI_ENABLE
 #    ifdef CAPSLOCK_LED
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         activateLED(0, 3, 7, 255);
     } else {
         activateLED(0, 3, 7, 0);
@@ -163,7 +164,8 @@ void led_set_kb(uint8_t usb_led) {
 #    endif // CAPSLOCK_LED
 #endif // ISS_ENABLE
 
-    led_set_user(usb_led);
+    }
+    return res;
 }
 
 // LFK lighting info

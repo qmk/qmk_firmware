@@ -25,8 +25,11 @@
         "rows": ["B12", "B13", "B14", "B15"],
         "cols": ["A0", "A1", "A2", "A3", "A4", "A5",  "A6", "A7", "B0", "B1", "B6", "B10", "B9", "B8", "B7"]
     },
+    "layout_aliases": {
+        "LAYOUT_proto": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_proto": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0],  "label":"Esc",     "x":0,        "y":0},
                 {"matrix": [0, 1],  "label":"Q",       "x":1,        "y":0},

@@ -1,6 +1,6 @@
 # Combos
 
-The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `S` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
+The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `B` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
 
 To enable this feature, you need to add `COMBO_ENABLE = yes` to your `rules.mk`.
 
@@ -55,7 +55,7 @@ const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
   [JK_TAB] = COMBO(jk_combo, KC_TAB),
-  [QW_SFT] = COMBO(qw_combo, KC_LSFT)
+  [QW_SFT] = COMBO(qw_combo, KC_LSFT),
   [SD_LAYER] = COMBO(sd_combo, MO(_LAYER)),
 };
 ```
