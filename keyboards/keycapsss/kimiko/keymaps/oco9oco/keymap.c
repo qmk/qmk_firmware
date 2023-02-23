@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     KC_ESC,  __________________NUMROW_L_________________,                            __________________NUMROW_R_________________, KC_MINS,
-    KC_TAB,  __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
+    KC_GRV,  __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
     SFT_CAPS,__________________QWERTY_SACS_L2___________,                            __________________QWERTY_R2________________, KC_QUOT,
     KC_LSFT, __________________QWERTY_GUIZ_L3___________, TG(_BASE_NOMOD),  KC_B,    __________________QWERTY_HOME_R3___________, RSFT_T(KC_BSLS),
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
@@ -64,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     _______, CTRL_F1, KC_F2,   KC_F3,   ALT_F4,   KC_F5,                             XXXXXXX, A(KC_7), A(KC_8), A(KC_9), A(KC_0), XXXXXXX,
     _______, LCA(KC_H),LCA(KC_J),LCA(KC_K),LCA(KC_L), KC_F6,                         XXXXXXX, A(KC_4), A(KC_5), A(KC_6), XXXXXXX, XXXXXXX,
-    _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,  KC_F7,                             KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
-    _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_B), TO_BASE,          CG_TOGG, KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
+    _______, XXXXXXX, KC_LALT, KC_LCTL, KC_LSFT,  KC_F7,                             KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
+    _______, KC_LGUI, C(KC_X), C(KC_C), C(KC_V), C(KC_B), TO_BASE,          CG_TOGG, KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-                      _______, _______, BRKT,    KC_BSPC, KC_DEL,           _______, KC_TRNS, _______, _______, _______
+                      _______, _______, _______, KC_BSPC, KC_DEL,           _______, KC_TRNS, _______, _______, _______
 ),
 
 [_MOUSE] = LAYOUT_kimiko_wrapper(
@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ONEHAND] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     KC_ESC,  C(KC_F1),XXXXXXX, XXXXXXX, A(KC_F4),XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    KC_TAB,  KC_WH_U, KC_BTN2, KC_UP,   KC_BTN1, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_WH_D, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  TO_BASE,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_TAB,  XXXXXXX, KC_WH_U, TO_BASE, KC_BTN2, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, KC_LSFT, KC_WH_D, KC_UP,   KC_BTN1, KC_BSPC,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  TO_BASE,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       KC_LGUI, KC_LALT, KC_LCTL, KC_SPC,  KC_ENT,         TO(_MOUSE),_______, _______, _______, _______
 ),
@@ -134,14 +134,10 @@ combo_t key_combos[] = {
 // COMBO_TERM
 
 // Key overrides
-const key_override_t GRV_override       = ko_make_basic(MOD_MASK_SHIFT, KC_ESC, KC_TILD);
-const key_override_t TLD_override       = ko_make_basic(MOD_MASK_CTRL, KC_ESC, KC_GRV);
 const key_override_t DLR_0_override     = ko_make_basic(MOD_MASK_SHIFT, KC_DLR, KC_0);
 const key_override_t DEL_override       = ko_make_basic(MOD_MASK_SHIFT, KC_DEL, KC_BSPC);
 
 const key_override_t **key_overrides = (const key_override_t *[]){                              // This globally defines all key overrides to be used
-    &GRV_override,
-    &TLD_override,
     &DLR_0_override,
     &DEL_override,
     NULL                                                                                        // Null terminate the array of overrides!

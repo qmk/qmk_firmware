@@ -363,7 +363,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 200;
         case THUMB_L2:
         case SFTT_A:
-            return TAPPING_TERM - 150;
+            return TAPPING_TERM - 170;
         case SFTT_F:
         case SFTT_J:
         case GUIT_A:
