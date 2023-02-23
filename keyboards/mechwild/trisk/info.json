@@ -15,7 +15,6 @@
         "RGBLIGHT": false,
         "RGB_MATRIX": true
     },
-
     "matrix_pins": {
         "rows": ["C6", "F5", "F6"],
         "cols": ["F4", "F7", "B1", "B3", "B6"]
@@ -29,7 +28,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "D3", "pin_b": "D2", "resolution": 4 }
+            { "pin_a": "D3", "pin_b": "D2", "resolution": 4 },
             { "pin_a": "B5", "pin_b": "B4", "resolution": 4 }
         ]
     },
@@ -48,7 +47,7 @@
                 { "matrix": [1, 4], "x": 9, "y": 0 },
                 { "matrix": [2, 0], "x": 10, "y": 0 },
                 { "matrix": [2, 1], "x": 11, "y": 0 },
-                { "matrix": [2, 2], "x": 12, "y": 0 },
+                { "matrix": [2, 2], "x": 12, "y": 0 }
             ]
         }
     }
