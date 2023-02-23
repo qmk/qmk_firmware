@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// Left, Right, Middle
-#define ENCODERS_PAD_A { A8, B3, A10 }
-#define ENCODERS_PAD_B { A4, A15, A9 }
 #define TAP_CODE_DELAY 10
 
 #define RGB_DI_PIN B15

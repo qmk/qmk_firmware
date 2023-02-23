@@ -46,9 +46,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define ENCODERS 2
-#define ENCODERS_PAD_A { B3,A14 }
-#define ENCODERS_PAD_B { B5,A15 }
-
 #define ENCODERS_CW_KEY  { { 0, 0 },{ 2, 0 } }
 #define ENCODERS_CCW_KEY { { 6, 0 },{ 8, 0 } }
 

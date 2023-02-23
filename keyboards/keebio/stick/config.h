@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define ENCODERS_PAD_A { D1, D4 }
-#define ENCODERS_PAD_B { D0, C6 }
-
 /* WS2812 RGB LED */
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN

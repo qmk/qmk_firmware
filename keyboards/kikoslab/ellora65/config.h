@@ -26,9 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B0 }
-#define ENCODERS_PAD_B { B1 }
-
 /*RGB TINGS*/
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 12

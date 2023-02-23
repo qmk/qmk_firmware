@@ -26,9 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { A3, C3 }
-#define ENCODERS_PAD_B { A4, C4 }
-
 #define EMCODER_DIRECTION_FLIP
 
 /*EEPROM for via*/
