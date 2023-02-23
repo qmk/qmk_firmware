@@ -163,6 +163,8 @@ enum custom_keycodes {
     MA_ENT,
     MA_SLSH,
     MA_CIRC,
+    MA_SIMPLEARROW,
+    MA_DOUBLEARROW,
 };
 
 enum unicode_names {
@@ -280,8 +282,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LA_LPINKY] = LAYOUT(
         KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
-        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UP, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_ESC, KC_UP, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, MA_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_PENT,
+        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_ESC, KC_UP, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, MA_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
     ),
@@ -745,6 +747,20 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
                 } else {
                     tap_code16(KC_DOWN);
                 }
+            }
+            return false;
+        case MA_DOUBLEARROW:
+            if (record->event.pressed) {
+                tap_code16(FR_EQL);
+                tap_code16(FR_RABK);
+                tap_code16(KC_SPC);
+            }
+            return false;
+        case MA_SIMPLEARROW:
+            if (record->event.pressed) {
+                tap_code16(FR_MINS);
+                tap_code16(FR_RABK);
+                tap_code16(KC_SPC);
             }
             return false;
     }
