@@ -18,6 +18,7 @@
 //#define LED_PIN_ON_STATE 0
 
 #define USB_POLLING_INTERVAL_MS 1
+#define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X
 
 /* Memory definitions for UF2 builds */
 #ifdef UF2_BUILD
@@ -41,7 +42,8 @@
  * defining it this way allows us to easily modify it with DYNAMIC_TAPPING_TERM_ENABLE
  */
 #define TAPPING_TERM 0
-
+#define CIRQUE_PINNACLE_TAP_ENABLE
+#define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
 /* spi config */
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
