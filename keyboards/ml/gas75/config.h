@@ -27,10 +27,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Encoder pins */
-#define ENCODERS_PAD_A { F0 }
-#define ENCODERS_PAD_B { F1 }
-
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 3
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200

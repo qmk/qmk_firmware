@@ -21,8 +21,6 @@
 #define MATRIX_ROW_PINS { B6 }
 #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5}
 
-#define ENCODERS_PAD_A { E6 }
-#define ENCODERS_PAD_B { D1 }
 #define TAP_CODE_DELAY 10
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

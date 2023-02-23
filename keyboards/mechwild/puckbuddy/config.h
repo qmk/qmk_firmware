@@ -42,10 +42,6 @@
 #define CIRQUE_PINNACLE_SPI_DIVISOR 8
 #define CIRQUE_PINNACLE_SPI_CS_PIN A4
 
-/* encoder pins */
-#define ENCODERS_PAD_A { B1, B3 }
-#define ENCODERS_PAD_B { B0, A15 }
-
 #define TAP_CODE_DELAY 10
 
 /* COL2ROW, ROW2COL */

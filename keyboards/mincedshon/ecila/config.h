@@ -3,12 +3,6 @@
 
 #pragma once
 
-/* encoder */
-/* #define NUMBER_OF_ENCODERS 1 */
-//#define ENCODERS_PAD_A { D3 }
-//#define ENCODERS_PAD_B { D2 }
-//#define ENCODER_RESOLUTION 1
-
 #define RGB_DI_PIN B0
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

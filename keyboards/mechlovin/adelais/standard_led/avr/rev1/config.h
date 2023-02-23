@@ -48,7 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define ENCODERS_PAD_A { D3, D5, C7 }
-#define ENCODERS_PAD_B { D2, B6, C6 }
-
 #define TAP_CODE_DELAY 10

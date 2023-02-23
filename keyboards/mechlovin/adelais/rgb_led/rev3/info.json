@@ -3,6 +3,11 @@
     "usb": {
         "pid": "0xAEC3"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B12", "pin_b": "B13"}
+        ]
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "indicators": {
