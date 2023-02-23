@@ -50,15 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 24    // Number of LEDs
 #define RGBLED_SPLIT { 12, 12 }
 
-
-
-#define ENCODERS_PAD_A {F4}
-#define ENCODERS_PAD_B {F1}
-//#define ENCODERS_PAD_A_RIGHT {F4}
-//#define ENCODERS_PAD_B_RIGHT {F1}
-
-#define ENCODER_RESOLUTIONS { 8 }
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
