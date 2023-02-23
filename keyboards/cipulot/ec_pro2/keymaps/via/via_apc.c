@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef VIA_ENABLE
+
 #    include "ec_switch_matrix.h"
 #    include "quantum.h"
 
@@ -154,4 +154,3 @@ void apc_set_threshold(bool is_for_actuation) {
     // Update the ecsm_config
     ecsm_update(&ecsm_config);
 }
-#endif
