@@ -19,9 +19,6 @@
 #include "atomic_util.h"
 #include "print.h"
 
-#define WAIT_DISCHARGE()
-#define WAIT_CHARGE()
-
 /* Pin and port array */
 const uint32_t row_pins[]     = MATRIX_ROW_PINS;
 const uint8_t  col_channels[] = MATRIX_COL_CHANNELS;
