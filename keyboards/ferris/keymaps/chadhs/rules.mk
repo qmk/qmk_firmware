@@ -1,9 +1,8 @@
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes # enable Bootmagic Lite
 TAP_DANCE_ENABLE = no
+RGBLIGHT_ENABLE = yes
 NKRO_ENABLE = no # usb nkey rollover
 FORCE_NKRO = no
-RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE = yes
 VPATH += keyboards/gboards/ # enables combos.def support
-SRC += features/layer_lock.c # https://getreuer.info/posts/keyboards/layer-lock/index.html

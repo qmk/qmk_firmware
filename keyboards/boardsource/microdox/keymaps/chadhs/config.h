@@ -22,9 +22,6 @@
 // docs: https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom
 #define EE_HANDS
 
-// https://docs.qmk.fm/#/config_options?id=features-that-can-be-enabled
-/* #define FORCE_NKRO */
-
 // https://beta.docs.qmk.fm/using-qmk/software-features/feature_combo
 #define COMBO_VARIABLE_LEN // http://combos.gboards.ca/docs/install/#combos
 #define COMBO_TERM 50 // http://combos.gboards.ca/docs/install/#combos
@@ -38,16 +35,12 @@
 
 // https://docs.qmk.fm/#/feature_rgblight?id=lighting-layers
 #define RGBLIGHT_LAYERS
+
 // https://docs.qmk.fm/#/feature_rgblight?id=configuration
-// see info.json in the v1 folder
-//#define RGBLIGHT_LIMIT_VAL 192
+// RGBLIGHT_LIMIT_VAL set in info.json in the v1 folder
 
 // https://docs.qmk.fm/#/feature_caps_word?id=customizing-caps-word
 #define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds
-
-// https://getreuer.info/posts/keyboards/layer-lock/index.html
-// TODO: fix this
-#define LAYER_LOCK_IDLE_TIMEOUT 5000  // turn off after 5 seconds
 
 // fix unresponsiveness after wake
 #define USB_SUSPEND_WAKEUP_DELAY 500

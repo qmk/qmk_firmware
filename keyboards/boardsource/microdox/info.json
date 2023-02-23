@@ -11,7 +11,7 @@
     "bootmagic": false,
     "extrakey": true,
     "mousekey": false,
-    "nkro": true,
+    "nkro": false,
     "oled": false
   },
   "url": "https://boardsource.xyz/store/5f2e7e4a2902de7151494f92",
