@@ -23,15 +23,6 @@
 
 #define TAPPING_TERM 100
 
-/* encoder support */
-#ifdef ENCODER_ENABLE
-#   define ENCODERS_PAD_A { F5 }
-#   define ENCODERS_PAD_B { F4 }
-#   define ENCODERS_PAD_A_RIGHT { F4 }
-#   define ENCODERS_PAD_B_RIGHT { F5 }
-#   define ENCODER_RESOLUTION 2
-#endif
-
 /* joystick support */
 #ifdef JOYSTICK_ENABLE
 #   define JOYSTICK_AXIS_COUNT 2

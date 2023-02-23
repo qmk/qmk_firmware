@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* rotary encoder 1,2,3 closest to usb port is 0*/
-#define ENCODERS_PAD_A { D0}
-#define ENCODERS_PAD_B { D2}
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN C7 //D3 - underglow C7 - backlight
 #define RGBLIGHT_EFFECT_BREATHING
