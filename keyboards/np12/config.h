@@ -22,8 +22,3 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define ENCODERS_PAD_A { F4 }
-#define ENCODERS_PAD_B { F5 }
-
-
