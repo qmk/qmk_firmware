@@ -19,9 +19,6 @@
 #define MATRIX_ROW_PINS { E6, B0, B1, F6, F5, F1, F7, F0, F4 }
 #define MATRIX_COL_PINS { B6, D4, D6, D7, B4, B5, C6, C7 }
 
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define RGB_DI_PIN D0
 #ifdef RGB_DI_PIN
 #   define RGBLED_NUM 22
