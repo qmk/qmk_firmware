@@ -157,15 +157,4 @@
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
 
-/*
- * Encoder options
- */
-#ifdef ENCODER_ENABLE
-#   define ENCODERS_PAD_A { }
-#   define ENCODERS_PAD_B { }
-#   define ENCODER_RESOLUTIONS { }
-#   define ENCODERS_PAD_A_RIGHT { F5 }
-#   define ENCODERS_PAD_B_RIGHT { F4 }
-#   define ENCODER_RESOLUTIONS_RIGHT { 4 }
-#   define TAP_CODE_DELAY 10
-#endif  // ENCODER_ENABLE
+#define TAP_CODE_DELAY 10

@@ -37,9 +37,5 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* rotary encoder */
-#define ENCODERS_PAD_A { B7 }
-#define ENCODERS_PAD_B { E6 }
-
 #define PMW33XX_CS_PIN SPI_SS_PIN
 #define POINTING_DEVICE_INVERT_Y
