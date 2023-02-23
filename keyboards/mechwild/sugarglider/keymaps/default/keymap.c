@@ -1,4 +1,4 @@
-// Copyright 2022 Kyle McCreery
+// Copyright 2023 Kyle McCreery
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
