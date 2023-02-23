@@ -1,8 +1,8 @@
 # mechwild/trisk
 
-![mechwild/trisk](imgur.com image replace me!)
+![mechwild/trisk](https://i.imgur.com/vpB6PBXh.jpg)
 
-*A short description of the keyboard/project*
+13 key macro pad with optional encoders on either side.
 
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
 * Hardware Supported: *The PCBs, controllers supported*
