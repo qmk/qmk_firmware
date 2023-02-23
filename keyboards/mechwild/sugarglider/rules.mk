@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F401
-BOARD = BLACKPILL_STM32_F401
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -35,3 +28,5 @@ CUSTOM_MATRIX = lite
 VPATH += drivers/gpio
 SRC += mcp23018.c matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
+
+DEFAULT_FOLDER = mechwild/sugarglider/f401
