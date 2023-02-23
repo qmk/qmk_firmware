@@ -14,9 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#    include "ec_switch_matrix.h"
-#    include "quantum.h"
+#include "ec_switch_matrix.h"
+#include "eeconfig.h"
 
 void apc_init_thresholds(void);
 void apc_set_threshold(bool is_for_actuation);
