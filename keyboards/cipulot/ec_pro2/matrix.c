@@ -16,7 +16,6 @@
 
 #include "ec_switch_matrix.h"
 #include "matrix.h"
-#include "debug.h"
 
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
