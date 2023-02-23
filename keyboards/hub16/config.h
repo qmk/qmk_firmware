@@ -44,13 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-/* ENCODER THINGS */
-// #define ENCODER_DIRECTION_FLIP
-#define ENCODERS_PAD_A \
-    { F5, B5 }
-#define ENCODERS_PAD_B \
-    { F6, B4 }
-
 /* Tap Dance timing */
 #define TAPPING_TERM 200
 

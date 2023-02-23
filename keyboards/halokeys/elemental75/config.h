@@ -19,8 +19,6 @@
 #define MATRIX_COL_PINS { B2, B1, B0, B10, B11, B13, B14, B15, A8, A9, A14, A15, B3, B4, B7 }
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B6 }
-#define ENCODERS_PAD_B { B5 }
 #define TAP_CODE_DELAY 10 // tap_code function delay for register and unregister
 
 #define RGB_DI_PIN A10
