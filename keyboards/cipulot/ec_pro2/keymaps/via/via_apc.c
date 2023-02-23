@@ -16,6 +16,9 @@
 
 #include "ec_switch_matrix.h"
 #include "eeconfig.h"
+#include "keycodes.h"
+#include "action.h"
+#include "via.h"
 
 void apc_init_thresholds(void);
 void apc_set_threshold(bool is_for_actuation);
