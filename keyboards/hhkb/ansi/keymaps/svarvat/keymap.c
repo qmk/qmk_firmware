@@ -163,6 +163,34 @@ enum custom_keycodes {
     MA_SLSH,
 };
 
+enum unicode_names {
+    EGRAVE,
+    EAIGU,
+    ECIRC,
+    ETREMA,
+    AGRAVE,
+    ACIRC,
+    ATREMA,
+    ICIRC,
+    ITREMA,
+    OCIRC,
+    OTREMA,
+};
+
+const uint32_t unicode_map[] PROGMEM = {
+    [EGRAVE] = 0x00C8, // È
+    [EAIGU] = 0x00C9, // É
+    [ECIRC] = 0x00CA, // Ê
+    [ETREMA] = 0x00CB, // Ë
+    [AGRAVE] = 0x00C0, // À
+    [ACIRC] = 0x00C2, // Â
+    [ATREMA] = 0x00C4, // Ä
+    [ICIRC] = 0x00CE, // Î
+    [ITREMA] = 0x00CF, // Ï
+    [OCIRC] = 0x00D4, // Ô
+    [OTREMA] = 0x00D6, // Ö
+};
+
 #define LA_BASE 0
 #define LA_LTHUMB 1
 #define LA_LTHUMBEMO 2
@@ -182,6 +210,8 @@ enum custom_keycodes {
 
 bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
+
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -208,7 +238,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
     [LA_CAPSLOCK] = LAYOUT(
-        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
+        KC_ESC, KC_1, X(EAIGU), KC_3, KC_4, KC_5, KC_6, X(EGRAVE), KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
         KC_TAB, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), KC_LBRC, KC_RBRC, TG(LA_CAPSLOCK),
         MO(LA_LPINKY), S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), KC_QUOT, KC_ENT,
         KC_LSFT, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(LA_LPINKY),
