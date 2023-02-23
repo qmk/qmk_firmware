@@ -3,9 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* RGB settings, uncomment this define to enable RGB */
 #define RGB_DI_PIN D1
 
 #ifdef RGBLIGHT_ENABLE
@@ -40,6 +37,6 @@
 #define RGB_MATRIX_KEYRELEASES
 #define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_PINWHEEL	
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_PINWHEEL	
 #define RGB_MATRIX_LED_COUNT 17
 #endif

@@ -12,8 +12,8 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "RGBLIGHT": false,
-        "RGB_MATRIX": true
+        "rgblight": false,
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "rows": ["C6", "F5", "F6"],

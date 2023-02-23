@@ -6,8 +6,8 @@
 enum layer_names {
     _BASE,
     _FN1,
-	_FN2,
-	_FN3
+    _FN2,
+    _FN3
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -35,9 +35,9 @@ void keyboard_post_init_user(void) {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][2][2] = {
-    [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)      },
-    [1] =  { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)     },
-    [2] =  { ENCODER_CCW_CW(KC_HOME, KC_END),   ENCODER_CCW_CW(KC_HOME, KC_END)       },
-    [3] =  { ENCODER_CCW_CW(KC_BRID, KC_BRIU),  ENCODER_CCW_CW(KC_BRID, KC_BRIU)      }
+    [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)      },
+    [_FN1] =  { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)     },
+    [_FN2] =  { ENCODER_CCW_CW(KC_HOME, KC_END),   ENCODER_CCW_CW(KC_HOME, KC_END)       },
+    [_FN3] =  { ENCODER_CCW_CW(KC_BRID, KC_BRIU),  ENCODER_CCW_CW(KC_BRID, KC_BRIU)      }
 };
 #endif
