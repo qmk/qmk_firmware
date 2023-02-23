@@ -11,12 +11,9 @@ from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.constants import COL_LETTERS, ROW_LETTERS, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
-def _generate_layouts(keyboard):
-    """Generates the layouts.h file.
+def _generate_layouts(keyboard, kb_info_json):
+    """Generates the layouts macros.
     """
-    # Build the info.json file
-    kb_info_json = info_json(keyboard)
-
     if 'matrix_size' not in kb_info_json:
         cli.log.error(f'{keyboard}: Invalid matrix config.')
         return []
@@ -65,6 +62,32 @@ def _generate_layouts(keyboard):
     return lines
 
 
+def _generate_keycodes(kb_info_json):
+    """Generates keyboard level keycodes.
+    """
+    if 'keycodes' not in kb_info_json:
+        return []
+
+    lines = []
+    lines.append('enum keyboard_keycodes {')
+
+    for index, item in enumerate(kb_info_json.get('keycodes')):
+        key = item["key"]
+        if index == 0:
+            lines.append(f'  {key} = QK_KB_0,')
+        else:
+            lines.append(f'  {key},')
+
+    lines.append('};')
+
+    for item in kb_info_json.get('keycodes', []):
+        key = item["key"]
+        for alias in item.get("aliases", []):
+            lines.append(f'#define {alias} {key}')
+
+    return lines
+
+
 @cli.argument('-i', '--include', nargs='?', arg_only=True, help='Optional file to include')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -73,8 +96,12 @@ def _generate_layouts(keyboard):
 def generate_keyboard_h(cli):
     """Generates the keyboard.h file.
     """
+    # Build the info.json file
+    kb_info_json = info_json(cli.args.keyboard)
+
     keyboard_h = cli.args.include
-    dd_layouts = _generate_layouts(cli.args.keyboard)
+    dd_layouts = _generate_layouts(cli.args.keyboard, kb_info_json)
+    dd_keycodes = _generate_keycodes(kb_info_json)
     valid_config = dd_layouts or keyboard_h
 
     # Build the layouts.h file.
@@ -86,6 +113,11 @@ def generate_keyboard_h(cli):
         keyboard_h_lines.extend(dd_layouts)
     if keyboard_h:
         keyboard_h_lines.append(f'#include "{Path(keyboard_h).name}"')
+
+    keyboard_h_lines.append('')
+    keyboard_h_lines.append('// Keycode content')
+    if dd_keycodes:
+        keyboard_h_lines.extend(dd_keycodes)
 
     # Protect against poorly configured keyboards
     if not valid_config:
