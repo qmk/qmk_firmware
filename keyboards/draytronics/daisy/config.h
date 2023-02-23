@@ -33,8 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B0, C0, C1}
 #define MATRIX_COL_PINS { C2, C3, C4, C5 }
 
-#define ENCODERS_PAD_A { B1, D0 }
-#define ENCODERS_PAD_B { B2, D1 }
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 #define TAP_CODE_DELAY 10
