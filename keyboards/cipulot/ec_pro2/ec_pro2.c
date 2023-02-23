@@ -46,8 +46,8 @@ enum via_apc_enums {
 // Initializing persistent memory configuration: default values are declared and stored in PMEM
 void eeconfig_init_kb(void) {
     // Default values
-    apc.actuation_threshold = 550;
-    apc.release_threshold   = 500;
+    apc.actuation_threshold = DEFAULT_ACTUATION_LEVEL;
+    apc.release_threshold   = DEFAULT_RELEASE_LEVEL;
     // Write default value to EEPROM now
     eeconfig_update_kb_datablock(&apc);
 }

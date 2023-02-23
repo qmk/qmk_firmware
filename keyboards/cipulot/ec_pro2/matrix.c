@@ -24,8 +24,8 @@ extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 void matrix_init_custom(void) {
     // Default values, overwritten by VIA if enabled later
-    ecsm_config.ecsm_actuation_threshold = 550;
-    ecsm_config.ecsm_release_threshold   = 500;
+    ecsm_config.ecsm_actuation_threshold = DEFAULT_ACTUATION_LEVEL;
+    ecsm_config.ecsm_release_threshold   = DEFAULT_RELEASE_LEVEL;
 
     ecsm_init(&ecsm_config);
 }
