@@ -8,6 +8,12 @@
       "pid": "0x0050",
       "device_version": "0.0.1"
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B3", "pin_b": "B1"},
+      {"pin_a": "F5", "pin_b": "F4"}
+    ]
+  },
   "indicators": {
       "caps_lock": "D7"
   },
