@@ -166,7 +166,6 @@ enum custom_keycodes {
     MA_SIMPLEARROW,
     MA_DOUBLEARROW,
 };
-
 enum unicode_names {
     EGRAVE,
     EAIGU,
@@ -181,8 +180,8 @@ enum unicode_names {
     OTREMA,
     UCIRC,
     UTREMA,
+    UAIGU,
 };
-
 const uint32_t unicode_map[] PROGMEM = {
     [EGRAVE] = 0x00C8, // È
     [EAIGU] = 0x00C9, // É
@@ -201,35 +200,35 @@ const uint32_t unicode_map[] PROGMEM = {
 };
 
 #define LA_BASE 0
-#define LA_LTHUMB 1
-#define LA_LTHUMBEMO 2
+#define LA_CAPSLOCK 1
+#define LA_LTHUMB 2
+#define LA_LTHUMBEMO 3
     // gui + shift + lettre côté gauche
     // LSG
-#define LA_LTHUMBDMO 3
+#define LA_LTHUMBDMO 4
     // gui + alt + lettre côté gauche
     // RSG
-#define LA_LTHUMBEOSL 4
+#define LA_LTHUMBEOSL 5
     // ctl + shift + lettre côté gauche
     // LAG
-#define LA_LTHUMBDOSL 5
+#define LA_LTHUMBDOSL 6
     // ctl + alt + lettre côté gauche
     // RAG
-#define LA_LTHUMBEOSLBIS 6
+#define LA_LTHUMBEOSLBIS 7
     // ctl + shift + alt + lettre côté gauche
     // LCA
-#define LA_LTHUMBDOSLBIS 7
+#define LA_LTHUMBDOSLBIS 8
     // ctl + alt + gui + lettre côté gauche
     // RSA
-#define LA_LTHUMB1MO 8
+#define LA_LTHUMB1MO 9
     // shift + alt + gui + lettre côté gauche
     // LCAG
-#define LA_LTHUMB2MO 9
+#define LA_LTHUMB2MO 10
     // shift + alt + lettre côté gauche
     // MEH
-#define LA_LTHUMB3MO 10
+#define LA_LTHUMB3MO 11
     // ctl + shift + alt + gui + lettre côté gauche
     // HYPR
-#define LA_CAPSLOCK 11
 #define LA_RTHUMB 12
 #define LA_LPINKY 13
 #define LA_LPINKYQ 14
@@ -269,9 +268,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LA_CAPSLOCK] = LAYOUT(
         KC_TRNS, KC_TRNS, X(EAIGU), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, X(EGRAVE), KC_TRNS, KC_TRNS, X(AGRAVE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), MA_CIRC, KC_TRNS, KC_TRNS,
-        KC_TRNS, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), X(UAIGU), KC_TRNS,
+        MA_LPINKY, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), X(UAIGU), KC_TRNS,
         KC_TRNS, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+        KC_TRNS, MA_LTHUMB, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_RTHUMB] = LAYOUT(
         KC_PWR, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, QK_REBOOT, QK_BOOTLOADER,
@@ -878,7 +877,7 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mo
     switch (keycode) {
         case MA_CIRC:
             if (record->event.pressed) {
-                if (!isDeadKeyTremaStarted & mod_state & MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
+                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
                 else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
             }
             return false;
@@ -886,24 +885,28 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mo
             if (record->event.pressed) {
                 if (isDeadKeyTremaStarted) {tap_code16(X(OTREMA));}
                 else if (isDeadKeyCircStarted) {tap_code16(X(OCIRC));}
+                else {return true;}
             }
             return false;
         case S(KC_A):
             if (record->event.pressed) {
                 if (isDeadKeyTremaStarted) {tap_code16(X(ATREMA));}
                 else if (isDeadKeyCircStarted) {tap_code16(X(ACIRC));}
+                else {return true;}
             }
             return false;
         case S(KC_I):
             if (record->event.pressed) {
                 if (isDeadKeyTremaStarted) {tap_code16(X(ITREMA));}
                 else if (isDeadKeyCircStarted) {tap_code16(X(ICIRC));}
+                else {return true;}
             }
             return false;
         case S(KC_U):
             if (record->event.pressed) {
                 if (isDeadKeyTremaStarted) {tap_code16(X(UTREMA));}
                 else if (isDeadKeyCircStarted) {tap_code16(X(UCIRC));}
+                else {return true;}
             }
             return false;
     }
