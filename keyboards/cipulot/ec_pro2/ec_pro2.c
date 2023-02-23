@@ -16,8 +16,6 @@
 
 #ifdef VIA_ENABLE
 #    include "ec_switch_matrix.h"
-#    include "print.h"
-#    include "eeconfig.h"
 #    include "quantum.h"
 
 void apc_init_thresholds(void);
