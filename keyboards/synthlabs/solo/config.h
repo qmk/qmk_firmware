@@ -5,8 +5,6 @@
 
 
 #define ENCODERS 1
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B3 }
 #define ENCODERS_CW_KEY { { 2, 1 } }
 #define ENCODERS_CCW_KEY { { 0, 1 } }
 

@@ -8,6 +8,11 @@
         "pid": "0xEB0C",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"}
+        ]
+    },
     "bootmagic": {
         "matrix": [1, 0]
     },
