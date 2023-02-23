@@ -162,6 +162,7 @@ enum custom_keycodes {
     MA_PLUS,
     MA_ENT,
     MA_SLSH,
+    MA_CIRC,
 };
 
 enum unicode_names {
@@ -176,6 +177,8 @@ enum unicode_names {
     ITREMA,
     OCIRC,
     OTREMA,
+    UCIRC,
+    UTREMA,
 };
 
 const uint32_t unicode_map[] PROGMEM = {
@@ -190,6 +193,9 @@ const uint32_t unicode_map[] PROGMEM = {
     [ITREMA] = 0x00CF, // Ï
     [OCIRC] = 0x00D4, // Ô
     [OTREMA] = 0x00D6, // Ö
+    [UAIGU] = 0x00D9, // Ù
+    [UCIRC] = 0x00DB, // Û
+    [UTREMA] = 0x00DC, // Ü
 };
 
 #define LA_BASE 0
@@ -229,6 +235,8 @@ const uint32_t unicode_map[] PROGMEM = {
 
 bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
+bool isDeadKeyCircStarted = false;
+bool isDeadKeyTremaStarted = false;
 
 
 
@@ -257,9 +265,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
     [LA_CAPSLOCK] = LAYOUT(
-        KC_ESC, KC_1, X(EAIGU), KC_3, KC_4, KC_5, KC_6, X(EGRAVE), KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
-        KC_TAB, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), KC_LBRC, KC_RBRC, TG(LA_CAPSLOCK),
-        MO(LA_LPINKY), S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), KC_QUOT, KC_ENT,
+        KC_ESC, KC_1, X(EAIGU), KC_3, KC_4, KC_5, KC_6, X(EGRAVE), KC_8, KC_9, X(AGRAVE), KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
+        KC_TAB, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), MA_CIRC, KC_RBRC, TG(LA_CAPSLOCK),
+        MO(LA_LPINKY), S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), X(UAIGU), KC_ENT,
         KC_LSFT, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(LA_LPINKY),
         KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
@@ -850,6 +858,43 @@ bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
+bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+    switch (keycode) {
+        case MA_CIRC:
+            if (record->event.pressed) {
+                if (!isDeadKeyTremaStarted & mod_state & MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
+                else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
+            }
+            return false;
+        case S(KC_O):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(OTREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(OCIRC));}
+            }
+            return false;
+        case S(KC_A):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(ATREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(ACIRC));}
+            }
+            return false;
+        case S(KC_I):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(ITREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(ICIRC));}
+            }
+            return false;
+        case S(KC_U):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(UTREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(UCIRC));}
+            }
+            return false;
+    }
+    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
+    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
+    return true;
+}
 bool processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case KC_SLSH:
@@ -899,9 +944,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
     }
     if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
-
     if (mod_state & MOD_MASK_SHIFT) {return processKeycodeIfShift(keycode, record);}
     if (mod_state & MOD_MASK_CTRL) {return processKeycodeIfCtl(keycode, record);}
+    if (IS_LAYER_ON(LA_CAPSLOCK)) {return processKeycodeIfLCapslock(keycode, record, mod_state);}
     if (IS_LAYER_ON(LA_BASE)) {return processKeycodeIfLBase(keycode, record);}
 
 
