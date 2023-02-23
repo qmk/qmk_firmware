@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 /* Custom matrix pins and port select array */
 #define MATRIX_ROW_PINS \
     { B15, A8, B0, A7, B1 }
