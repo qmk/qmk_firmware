@@ -240,7 +240,6 @@ bool isDeadKeyCircStarted = false;
 bool isDeadKeyTremaStarted = false;
 
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* LA_BASE Level: Default Layer
@@ -374,6 +373,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case TG(LA_CAPSLOCK):
+            if (record->event.pressed) {
+                register_code16(KC_CAPS);
+            }
+            return false;
         case MA_LTHUMB:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMB);
@@ -383,6 +387,235 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
         case MA_LPINKY:
             if (record->event.pressed) {
                 layer_on(LA_LPINKY);
+            }
+            return false;
+    }
+    return true;
+}
+bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+    switch (keycode) {
+        case TG(LA_CAPSLOCK):
+            if (record->event.pressed) {
+                unregister_code16(KC_CAPS);
+            }
+            return false;
+        case MA_CIRC:
+            if (record->event.pressed) {
+                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
+                else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
+            }
+            return false;
+        case S(KC_E):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(ETREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(ECIRC));}
+                else {return true;}
+            }
+            return false;
+        case S(KC_A):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(ATREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(ACIRC));}
+                else {return true;}
+            }
+            return false;
+        case S(KC_I):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(ITREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(ICIRC));}
+                else {return true;}
+            }
+            return false;
+        case S(KC_U):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(UTREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(UCIRC));}
+                else {return true;}
+            }
+            return false;
+    }
+    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
+    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
+    return true;
+}
+bool processKeycodeIfCtl(uint16_t keycode, keyrecord_t* record) {return true;}
+bool processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case KC_SLSH:
+            if (record->event.pressed) {
+                tap_code16(FR_BSLS);
+            }
+            return false;
+    }
+    return true;
+}
+bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_BACKTICK:
+            if (record->event.pressed) {
+                tap_code16(FR_GRV);
+                // timer = timer_read();
+                tap_code16(KC_SPC);
+            }
+            return false;
+        case MA_TILD:
+            if (record->event.pressed) {
+                tap_code16(FR_TILD);
+                tap_code16(KC_SPC);
+            }
+            return false;
+    }
+    return true;
+}
+bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+    switch (keycode) {
+        case MA_LPINKY:
+            if (!(record->event.pressed)) {
+                layer_off(LA_LPINKY);
+            }
+            return false;
+        case MA_UP:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_CTRL) {
+                    unregister_code16(KC_LCTL);
+                    tap_code16(KC_UP);
+                    register_code16(KC_LCTL);
+                } else {
+                    tap_code16(KC_UP);
+                }
+            }
+            return false;
+        case MA_DOWN:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_CTRL) {
+                    unregister_code16(KC_LCTL);
+                    tap_code16(KC_DOWN);
+                    register_code16(KC_LCTL);
+                } else {
+                    tap_code16(KC_DOWN);
+                }
+            }
+            return false;
+        case MA_DOUBLEARROW:
+            if (record->event.pressed) {
+                tap_code16(FR_EQL);
+                tap_code16(FR_RABK);
+                tap_code16(KC_SPC);
+            }
+            return false;
+        case MA_SIMPLEARROW:
+            if (record->event.pressed) {
+                tap_code16(FR_MINS);
+                tap_code16(FR_RABK);
+                tap_code16(KC_SPC);
+            }
+            return false;
+    }
+    return true;
+}
+bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_UPX2:
+            if (record->event.pressed) {
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+            }
+            return false;
+        case MA_DOWNX2:
+            if (record->event.pressed) {
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+            }
+            return false;
+        case MA_LEFTX2:
+            if (record->event.pressed) {
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+            }
+            return false;
+        case MA_RIGHTX2:
+            if (record->event.pressed) {
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+            }
+            return false;
+        case MA_DELX2:
+            if (record->event.pressed) {
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+            }
+            return false;
+        case MA_ENTX2:
+            if (record->event.pressed) {
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+            }
+            return false;
+        case MA_BSPCX2:
+            if (record->event.pressed) {
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+            }
+            return false;
+    }
+    return true;
+}
+bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_UPX4:
+            if (record->event.pressed) {
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+            }
+            return false;
+        case MA_DOWNX4:
+            if (record->event.pressed) {
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+            }
+            return false;
+        case MA_LEFTX4:
+            if (record->event.pressed) {
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+            }
+            return false;
+        case MA_RIGHTX4:
+            if (record->event.pressed) {
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+            }
+            return false;
+        case MA_DELX4:
+            if (record->event.pressed) {
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+            }
+            return false;
+        case MA_ENTX4:
+            if (record->event.pressed) {
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+            }
+            return false;
+        case MA_BSPCX4:
+            if (record->event.pressed) {
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
             }
             return false;
     }
@@ -701,230 +934,7 @@ bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
 //            return false;
     }
     return true;}
-bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case MA_BACKTICK:
-            if (record->event.pressed) {
-                tap_code16(FR_GRV);
-                // timer = timer_read();
-                tap_code16(KC_SPC);
-            }
-            return false;
-        case MA_TILD:
-            if (record->event.pressed) {
-                tap_code16(FR_TILD);
-                tap_code16(KC_SPC);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
-    switch (keycode) {
-        case MA_LPINKY:
-            if (!(record->event.pressed)) {
-                layer_off(LA_LPINKY);
-            }
-            return false;
-        case MA_UP:
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_code16(KC_LCTL);
-                    tap_code16(KC_UP);
-                    register_code16(KC_LCTL);
-                } else {
-                    tap_code16(KC_UP);
-                }
-            }
-            return false;
-        case MA_DOWN:
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_code16(KC_LCTL);
-                    tap_code16(KC_DOWN);
-                    register_code16(KC_LCTL);
-                } else {
-                    tap_code16(KC_DOWN);
-                }
-            }
-            return false;
-        case MA_DOUBLEARROW:
-            if (record->event.pressed) {
-                tap_code16(FR_EQL);
-                tap_code16(FR_RABK);
-                tap_code16(KC_SPC);
-            }
-            return false;
-        case MA_SIMPLEARROW:
-            if (record->event.pressed) {
-                tap_code16(FR_MINS);
-                tap_code16(FR_RABK);
-                tap_code16(KC_SPC);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case MA_UPX2:
-            if (record->event.pressed) {
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-            }
-            return false;
-        case MA_DOWNX2:
-            if (record->event.pressed) {
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-            }
-            return false;
-        case MA_LEFTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-            }
-            return false;
-        case MA_RIGHTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-            }
-            return false;
-        case MA_DELX2:
-            if (record->event.pressed) {
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-            }
-            return false;
-        case MA_ENTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-            }
-            return false;
-        case MA_BSPCX2:
-            if (record->event.pressed) {
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case MA_UPX4:
-            if (record->event.pressed) {
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-            }
-            return false;
-        case MA_DOWNX4:
-            if (record->event.pressed) {
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-            }
-            return false;
-        case MA_LEFTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-            }
-            return false;
-        case MA_RIGHTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-            }
-            return false;
-        case MA_DELX4:
-            if (record->event.pressed) {
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-            }
-            return false;
-        case MA_ENTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-            }
-            return false;
-        case MA_BSPCX4:
-            if (record->event.pressed) {
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
-    switch (keycode) {
-        case MA_CIRC:
-            if (record->event.pressed) {
-                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
-                else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
-            }
-            return false;
-        case S(KC_O):
-            if (record->event.pressed) {
-                if (isDeadKeyTremaStarted) {tap_code16(X(OTREMA));}
-                else if (isDeadKeyCircStarted) {tap_code16(X(OCIRC));}
-                else {return true;}
-            }
-            return false;
-        case S(KC_A):
-            if (record->event.pressed) {
-                if (isDeadKeyTremaStarted) {tap_code16(X(ATREMA));}
-                else if (isDeadKeyCircStarted) {tap_code16(X(ACIRC));}
-                else {return true;}
-            }
-            return false;
-        case S(KC_I):
-            if (record->event.pressed) {
-                if (isDeadKeyTremaStarted) {tap_code16(X(ITREMA));}
-                else if (isDeadKeyCircStarted) {tap_code16(X(ICIRC));}
-                else {return true;}
-            }
-            return false;
-        case S(KC_U):
-            if (record->event.pressed) {
-                if (isDeadKeyTremaStarted) {tap_code16(X(UTREMA));}
-                else if (isDeadKeyCircStarted) {tap_code16(X(UCIRC));}
-                else {return true;}
-            }
-            return false;
-    }
-    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
-    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
-    return true;
-}
-bool processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case KC_SLSH:
-            if (record->event.pressed) {
-                tap_code16(FR_BSLS);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfCtl(uint16_t keycode, keyrecord_t* record) {return true;}
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     // Store the current modifier state in the variable for later reference
