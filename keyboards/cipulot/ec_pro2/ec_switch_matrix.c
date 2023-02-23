@@ -65,6 +65,9 @@ int ecsm_init(ecsm_config_t const* const ecsm_config) {
     palSetLineMode(ANALOG_PORT, PAL_MODE_INPUT_ANALOG);
     adcMux = pinToMux(ANALOG_PORT);
 
+    //Dummy call to make sure that adcStart() has been called in the appropriate state
+    adc_read(adcMux);
+
     // Initialize discharge pin as discharge mode
     writePinLow(DISCHARGE_PIN);
     setPinOutputOpenDrain(DISCHARGE_PIN);
@@ -112,9 +115,9 @@ uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
         charge_capacitor(row);
         // Read the ADC value
         sw_value = adc_read(adcMux);
-        // Discharge peak hold capacitor
-        discharge_capacitor();
     }
+    // Discharge peak hold capacitor
+    discharge_capacitor();
 
     return sw_value;
 }
