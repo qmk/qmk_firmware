@@ -182,6 +182,7 @@ enum unicode_names {
     UCIRC,
     UTREMA,
     UAIGU,
+    WARNING,
 };
 const uint32_t unicode_map[] PROGMEM = {
     [EGRAVE] = 0x00C8, // È
@@ -198,42 +199,43 @@ const uint32_t unicode_map[] PROGMEM = {
     [UAIGU] = 0x00D9, // Ù
     [UCIRC] = 0x00DB, // Û
     [UTREMA] = 0x00DC, // Ü
+    [WARNING] = 0x26A0, // warning
 };
 
 #define LA_BASE 0
-#define LA_CAPSLOCK 1
-#define LA_LTHUMB 2
-#define LA_LTHUMBEMO 3
+#define LA_LTHUMB 1
+#define LA_LTHUMBEMO 2
     // gui + shift + lettre côté gauche
     // LSG
-#define LA_LTHUMBDMO 4
+#define LA_LTHUMBDMO 3
     // gui + alt + lettre côté gauche
     // RSG
-#define LA_LTHUMBEOSL 5
+#define LA_LTHUMBEOSL 4
     // ctl + shift + lettre côté gauche
     // LAG
-#define LA_LTHUMBDOSL 6
+#define LA_LTHUMBDOSL 5
     // ctl + alt + lettre côté gauche
     // RAG
-#define LA_LTHUMBEOSLBIS 7
+#define LA_LTHUMBEOSLBIS 6
     // ctl + shift + alt + lettre côté gauche
     // LCA
-#define LA_LTHUMBDOSLBIS 8
+#define LA_LTHUMBDOSLBIS 7
     // ctl + alt + gui + lettre côté gauche
     // RSA
-#define LA_LTHUMB1MO 9
+#define LA_LTHUMB1MO 8
     // shift + alt + gui + lettre côté gauche
     // LCAG
-#define LA_LTHUMB2MO 10
+#define LA_LTHUMB2MO 9
     // shift + alt + lettre côté gauche
     // MEH
-#define LA_LTHUMB3MO 11
+#define LA_LTHUMB3MO 10
     // ctl + shift + alt + gui + lettre côté gauche
     // HYPR
-#define LA_RTHUMB 12
-#define LA_LPINKY 13
-#define LA_LPINKYQ 14
-#define LA_LPINKYW 15
+#define LA_RTHUMB 11
+#define LA_LPINKY 12
+#define LA_LPINKYQ 13
+#define LA_LPINKYW 14
+#define LA_CAPSLOCK 15
 
 bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
@@ -264,13 +266,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MA_LPINKY, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_RALT,
         KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_KC_RCTL
-    ),
-    [LA_CAPSLOCK] = LAYOUT(
-        KC_TRNS, KC_TRNS, X(EAIGU), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, X(EGRAVE), KC_TRNS, KC_TRNS, X(AGRAVE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), MA_CIRC, KC_TRNS, KC_TRNS,
-        MA_LPINKY, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), X(UAIGU), KC_TRNS,
-        KC_TRNS, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, MA_LTHUMB, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_RTHUMB] = LAYOUT(
         KC_PWR, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
@@ -370,6 +365,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, HYPR(KC_Z), HYPR(KC_X), HYPR(KC_C), HYPR(KC_V), HYPR(KC_B), HYPR(KC_N), HYPR(KC_M), HYPR(KC_COMM), HYPR(KC_DOT), HYPR(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, HYPR(KC_SPC), KC_TRNS, KC_TRNS
     ),
+    [LA_CAPSLOCK] = LAYOUT(
+        KC_TRNS, X(WARNING), X(EAIGU), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, X(EGRAVE), KC_TRNS, KC_TRNS, X(AGRAVE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), MA_CIRC, KC_TRNS, KC_TRNS,
+        MA_LPINKY, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), X(UAIGU), KC_TRNS,
+        KC_TRNS, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, MA_LTHUMB, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
+    ),
 };
 
 bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
@@ -391,52 +393,6 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
     }
-    return true;
-}
-bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
-    switch (keycode) {
-        case TG(LA_CAPSLOCK):
-            if (record->event.pressed) {
-                unregister_code16(KC_CAPS);
-            }
-            return false;
-        case MA_CIRC:
-            if (record->event.pressed) {
-                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
-                else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
-            }
-            return false;
-        case S(KC_E):
-            if (record->event.pressed) {
-                if (isDeadKeyTremaStarted) {tap_code16(X(ETREMA));}
-                else if (isDeadKeyCircStarted) {tap_code16(X(ECIRC));}
-                else {return true;}
-            }
-            return false;
-        case S(KC_A):
-            if (record->event.pressed) {
-                if (isDeadKeyTremaStarted) {tap_code16(X(ATREMA));}
-                else if (isDeadKeyCircStarted) {tap_code16(X(ACIRC));}
-                else {return true;}
-            }
-            return false;
-        case S(KC_I):
-            if (record->event.pressed) {
-                if (isDeadKeyTremaStarted) {tap_code16(X(ITREMA));}
-                else if (isDeadKeyCircStarted) {tap_code16(X(ICIRC));}
-                else {return true;}
-            }
-            return false;
-        case S(KC_U):
-            if (record->event.pressed) {
-                if (isDeadKeyTremaStarted) {tap_code16(X(UTREMA));}
-                else if (isDeadKeyCircStarted) {tap_code16(X(UCIRC));}
-                else {return true;}
-            }
-            return false;
-    }
-    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
-    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
     return true;
 }
 bool processKeycodeIfCtl(uint16_t keycode, keyrecord_t* record) {return true;}
@@ -935,6 +891,52 @@ bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
 //            return false;
     }
     return true;}
+bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+    switch (keycode) {
+        case TG(LA_CAPSLOCK):
+            if (record->event.pressed) {
+                unregister_code16(KC_CAPS);
+            }
+            return false;
+        case MA_CIRC:
+            if (record->event.pressed) {
+                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
+                else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
+            }
+            return false;
+        case S(KC_E):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(ETREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(ECIRC));}
+                else {return true;}
+            }
+            return false;
+        case S(KC_A):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(ATREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(ACIRC));}
+                else {return true;}
+            }
+            return false;
+        case S(KC_I):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(ITREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(ICIRC));}
+                else {return true;}
+            }
+            return false;
+        case S(KC_U):
+            if (record->event.pressed) {
+                if (isDeadKeyTremaStarted) {tap_code16(X(UTREMA));}
+                else if (isDeadKeyCircStarted) {tap_code16(X(UCIRC));}
+                else {return true;}
+            }
+            return false;
+    }
+    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
+    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
+    return true;
+}
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -964,6 +966,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             return processKeycodeIfLThumb(keycode, record, mod_state);
         }
     }
+    if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
     if (IS_LAYER_ON(LA_LPINKY)) {
         if (IS_LAYER_ON(LA_LPINKYQ)) {
             return processKeycodeIfLPinkyQ(keycode, record);
@@ -973,12 +976,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             return processKeycodeIfLPinky(keycode, record, mod_state);
         }
     }
-    if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
     if (mod_state & MOD_MASK_SHIFT) {return processKeycodeIfShift(keycode, record);}
     if (mod_state & MOD_MASK_CTRL) {return processKeycodeIfCtl(keycode, record);}
     if (IS_LAYER_ON(LA_CAPSLOCK)) {return processKeycodeIfLCapslock(keycode, record, mod_state);}
-    if (IS_LAYER_ON(LA_BASE)) {return processKeycodeIfLBase(keycode, record);}
 
+    if (IS_LAYER_ON(LA_BASE)) {return processKeycodeIfLBase(keycode, record);}
 
     return true;
 }
