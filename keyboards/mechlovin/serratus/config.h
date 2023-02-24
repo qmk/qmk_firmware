@@ -38,13 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define LED_NUM_LOCK_PIN D7
-#define LED_CAPS_LOCK_PIN D6
-#define LED_SCROLL_LOCK_PIN B4
-#define LED_PIN_ON_STATE 1
-
 #define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
 
 #ifdef RGBLIGHT_ENABLE
@@ -65,10 +59,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif

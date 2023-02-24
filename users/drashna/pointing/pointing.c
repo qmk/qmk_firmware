@@ -82,9 +82,9 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
 #    if defined(KEYBOARD_ploopy)
         case DPI_CONFIG:
 #    elif (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)) && !defined(NO_CHARYBDIS_KEYCODES)
-        case SAFE_RANGE ...(CHARYBDIS_SAFE_RANGE - 1):
+        case QK_KB ... QK_KB_MAX:
 #    elif (defined(KEYBOARD_bastardkb_dilemma) && !defined(NO_DILEMMA_KEYCODES))
-        case SAFE_RANGE ...(DILEMMA_SAFE_RANGE - 1):
+        case QK_KB ... QK_KB_MAX:
 #    endif
         case KC_ACCEL:
             return true;

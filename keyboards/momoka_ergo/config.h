@@ -18,21 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 14
-#define MATRIX_COLS 6
-
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5, B6, B7 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 #define SELECT_SOFT_SERIAL_SPEED 5
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN D1  // or D1, D2, D3, E6
 
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 22

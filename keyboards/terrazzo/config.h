@@ -16,13 +16,6 @@
 #pragma once
 
 
-/* key matrix size */
-
-// SWAP FOR PRO MICRO
-// #define MATRIX_ROWS 8
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 6
-
 /* key matrix pins */
 
 // SWAP FOR PRO MICRO
@@ -69,7 +62,6 @@ so there is only one configuration. */
 
 
 #define ENCODER_RESOLUTION 2
-#define BACKLIGHT_LEVELS 5
 
 #ifdef LED_MATRIX_ENABLE
 

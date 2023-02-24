@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
-
 // ROWS: Top to bottom, COLS: Left to right
 
 #define MATRIX_ROW_PINS {B3,B2,B1,B0}
@@ -37,9 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5
 
-#define LED_CAPS_LOCK_PIN E6
-#define LED_PIN_ON_STATE 0
-
 #define RGB_DI_PIN F5    // The pin the LED strip is connected to
 #define RGBLED_NUM 6     // Number of LEDs in your strip
 #define RGBLIGHT_EFFECT_BREATHING
@@ -52,6 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define QMK_ESC_OUTPUT B7 // usually COL
-#define QMK_ESC_INPUT B0 // usually ROW
-#define QMK_LED E6

@@ -8,6 +8,10 @@
     "pid": "0x0257",
     "device_version": "0.0.1"
   },
+  "qmk_lufa_bootloader": {
+    "esc_input": "B2",
+    "esc_output": "B5"
+  },
   "processor": "atmega32u4",
   "bootloader": "qmk-dfu",
   "community_layouts": ["60_ansi", "60_iso"],

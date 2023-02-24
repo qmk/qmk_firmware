@@ -5,11 +5,6 @@
 #pragma once
 
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 5
-
 // wiring of each half
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
 #define MATRIX_ROW_PINS { B1, B3, B2, B6 }
@@ -22,9 +17,6 @@
 #define MOUSEKEY_TIME_TO_MAX    60
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

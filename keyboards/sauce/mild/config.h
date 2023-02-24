@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -41,6 +37,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define LED_CAPS_LOCK_PIN A6
-#define LED_SCROLL_LOCK_PIN B14

@@ -21,10 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define SERIAL_NUM          "Unavailable"
 
-/* key matrix size */
-#define MATRIX_ROWS 11
-#define MATRIX_COLS 8
-
 #define MATRIX_ROW_PINS { B04, B05, B06, B07, B08, B09, A10, A11, B10, B11, B12 }
 #define MATRIX_COL_PINS { A00, A01, A02, A03, A04, A05, A06, A07 }
 

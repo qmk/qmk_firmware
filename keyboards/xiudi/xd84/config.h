@@ -37,12 +37,8 @@
 /* COL2ROW, ROW2COL */
 //#define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN B6
-#define LED_PIN_ON_STATE 0
-
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 10
-#define BACKLIGHT_ON_STATE 0
 
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 7
@@ -56,13 +52,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-// #ifdef RGB_DI_PIN
-//   #define RGBLIGHT_HUE_STEP 8
-//   #define RGBLIGHT_SAT_STEP 8
-//   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

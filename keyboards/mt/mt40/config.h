@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 15
-
 #define RGB_DI_PIN C0
 #define RGBLED_NUM 12
 #define RGBLIGHT_EFFECT_BREATHING
@@ -57,8 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN D2
-
-#define BACKLIGHT_LEVELS 3
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 /* #define LOCKING_SUPPORT_ENABLE */

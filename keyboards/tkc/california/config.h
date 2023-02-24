@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 10
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2 //Reduced layer count due to memory space considerations
 
 /*
@@ -43,10 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 #endif
-#define LED_NUM_LOCK_PIN F1
-#define LED_CAPS_LOCK_PIN F0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

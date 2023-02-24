@@ -15,10 +15,6 @@
  */
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
 #define MATRIX_ROW_PINS { B15, B14, B12, B1, B0 }
 #define MATRIX_COL_PINS { B13, A7, A6, A5, A4, A3, A2, B7, B6, B5, B4, B3, A15, A14 }
 
@@ -30,9 +26,6 @@
 
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
-
-//Indicator
-#define LED_CAPS_LOCK_PIN A1
 
 // Emulated EEPROM
 #define WEAR_LEVELING_LOGICAL_SIZE 2048

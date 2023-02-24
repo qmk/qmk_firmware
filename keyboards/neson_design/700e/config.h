@@ -19,9 +19,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 #define MATRIX_ROW_PINS { E6, B7, F6, F1, F0}
 #define MATRIX_COL_PINS { F7, B0, B3, B1, B2, F4, C7, C6, B6, B5, B4, D7, D3, D2, D6, D4}
 #define DIODE_DIRECTION COL2ROW
@@ -44,8 +41,6 @@
 #define DRIVER_ADDR_2 0b1110111
 #define DRIVER_COUNT 2
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL+DRIVER_2_LED_TOTAL)
-
-#define LED_CAPS_LOCK_PIN   F5
 
 //rgb light setting
 #define RGBLED_NUM          68

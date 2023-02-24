@@ -18,11 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -43,9 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A_RIGHT { B2 }
 #define ENCODERS_PAD_B_RIGHT { B3 }
 #define ENCODER_RESOLUTION_RIGHT 2
-
-/* communication between sides */
-#define SOFT_SERIAL_PIN D2
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

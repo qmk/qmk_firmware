@@ -4,10 +4,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -24,7 +20,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN

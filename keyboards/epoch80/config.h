@@ -18,18 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D1, D0, B3, B0, B2, B1 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D4, D6, D2, D3, D5 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Indicator LEDs */
-#define LED_CAPS_LOCK_PIN E6
-#define LED_SCROLL_LOCK_PIN B7
-#define LED_PIN_ON_STATE 0

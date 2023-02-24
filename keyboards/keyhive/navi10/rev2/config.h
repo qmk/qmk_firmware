@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 3
-
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS \
     { B6, B2, B3, B4 }

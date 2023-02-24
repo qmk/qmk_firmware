@@ -18,20 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
 /* pin-out */
 #define MATRIX_ROW_PINS { E6, B3 }
 #define MATRIX_COL_PINS { F7, B6, F4 }
-
-
-/* ws2812 RGB LED */
-//#define RGB_DI_PIN X
-
-//#define RGBLED_NUM X    // Number of LEDs
-
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

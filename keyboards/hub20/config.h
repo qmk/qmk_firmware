@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 4
-
 #define MATRIX_ROW_PINS { A13, B14, A10, A0, A2, A1 }
 #define MATRIX_COL_PINS { A6, A7, B7, B6 }
 

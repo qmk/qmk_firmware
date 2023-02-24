@@ -20,9 +20,5 @@
 // Both controllers draw 100 mA or less
 #define USB_MAX_POWER_CONSUMPTION 100
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 20
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL

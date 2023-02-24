@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Force USB NKRO */
 #define FORCE_NKRO
 
-/* key matrix size */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 8
-
 #define MATRIX_ROW_PINS { F5, F4, F6, F7, B0, B7, D7, D6, D4 }
 #define MATRIX_COL_PINS { E6, F0, F1, B4, D5, D3, D2, B2 }
 
@@ -31,10 +27,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Backlight */
 #define BACKLIGHT_PIN B5 // Timer 1 on mega32u4
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_ON_STATE 1
-
-/* Indicator LEDs */
-#define LED_NUM_LOCK_PIN B6
-#define LED_CAPS_LOCK_PIN C7
-#define LED_SCROLL_LOCK_PIN C6
-#define LED_PIN_ON_STATE 0

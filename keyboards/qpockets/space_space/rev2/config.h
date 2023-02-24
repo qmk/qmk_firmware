@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 11
-
 #define MATRIX_ROW_PINS \
     { B1, B0, D5, B6 }
 #define MATRIX_COL_PINS \

@@ -8,6 +8,9 @@
         "pid": "0x4652",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B7"
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "layouts": {

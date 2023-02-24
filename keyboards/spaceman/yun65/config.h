@@ -15,9 +15,6 @@
  */
 #pragma once
 
-/* Key Matrix perameter */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { E6, D3, D2, D1, D0 }

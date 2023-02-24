@@ -18,16 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // clang-format off
 
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { D2, D4, F4 }, \
-    { D7, B1, B3 }, \
-    { E6, B4, B2 } \
-}
 #define TAP_CODE_DELAY 10
 #define ENCODER_RESOLUTION 4
 #define ENCODERS_PAD_A { F6 }
@@ -72,6 +62,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DISPLAY_128X64
 #define OLED_FONT_END 255
 #define OLED_FONT_H "gfxfont.c"
-
-/* QMK DFU */
-#define QMK_LED B0

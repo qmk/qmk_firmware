@@ -18,10 +18,6 @@ Copyright 2021 Nathan Spears
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F0, F1, E6, B7, C6 }
 #define MATRIX_COL_PINS { F6, F5, F4, D0, D7, D3, D4, D5, D6, F7, C7, B4, B6, B5 }
@@ -34,7 +30,6 @@ Copyright 2021 Nathan Spears
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 // ws2812 options
 #define RGB_DI_PIN D2 // pin the DI on the ws2812 is hooked-up to

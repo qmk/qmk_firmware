@@ -18,11 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-// Same number for Round-Robin matrix.
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 10
-
 // Same pins for Round-Robin matrix.
 #define MATRIX_ROW_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }
 #define MATRIX_COL_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }
@@ -53,10 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LAYERS
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
 #endif
-
-/* Bootmagic Lite trigger key. Left-Top of the layout. */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 9
 
 /* External EEPROM */
 // Use 24LC64 EEPROM

@@ -15,10 +15,6 @@
 #define OLED_FONT_H "keyboards/1upkeyboards/pi40/lib/glcdfont.c"
 #endif
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { GP21, GP20, GP19, GP18 }

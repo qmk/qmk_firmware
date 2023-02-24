@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#undef BACKLIGHT_PIN
-#define BACKLIGHT_PINS { B1, B2, B3, E6 }
-#define BACKLIGHT_LED_COUNT 4
 #define BACKLIGHT_LEVELS 10
 
 #define RGBLIGHT_EFFECT_BREATHING
@@ -41,9 +38,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 18
-
-/* Set to top left most key */
-#define BOOTMAGIC_LITE_ROW 4
-#define BOOTMAGIC_LITE_COLUMN 10
 
 #define TAPPING_TERM 200

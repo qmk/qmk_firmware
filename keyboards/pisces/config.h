@@ -16,19 +16,10 @@
 
 #pragma once
 
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D2
-
 /* Select hand configuration */
 #define SPLIT_HAND_MATRIX_GRID B0,B7
 #define MATRIX_MASKED
 #define SPLIT_USB_DETECT
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS (3*2)
-#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments

@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 #define MATRIX_ROW_PINS \
     { E6, B0, F4, F1 }
 #define MATRIX_COL_PINS \
@@ -39,9 +35,3 @@
 #define ENCODER_RESOLUTION 4
 
 #define LOCKING_SUPPORT_ENABLE
-
-//#define RGB_DI_PIN D5
-//#define RGBLED_NUM 4
-
-//#define RGB_MATRIX_LED_COUNT RGBLED_NUM
-//#define RGBLIGHT_DEFAULT_HUE 130

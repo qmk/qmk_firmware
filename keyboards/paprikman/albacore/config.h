@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -58,7 +54,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
   #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #endif
-
-/* Set lower left modifier key as a bootmagic key */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0

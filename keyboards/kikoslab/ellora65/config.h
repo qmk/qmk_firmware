@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
-
 // ROWS: Top to bottom, COLS: Left to right
 
 #define MATRIX_ROW_PINS { B7, B2, F1, F4, D6, D7, D5, D4, D3, D2 }
@@ -36,7 +32,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*RGB TINGS*/
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 12
-
-/* bootmagic row col assignment */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0

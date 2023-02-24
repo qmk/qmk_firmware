@@ -8,6 +8,9 @@
         "pid": "0x404B",
         "device_version": "0.1.1"
     },
+    "indicators": {
+        "caps_lock": "B3"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

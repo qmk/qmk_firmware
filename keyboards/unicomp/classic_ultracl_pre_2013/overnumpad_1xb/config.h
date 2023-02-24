@@ -18,10 +18,6 @@
 
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -57,8 +53,3 @@
 #define SOLENOID_MIN_DWELL 4
 #define HAPTIC_OFF_IN_LOW_POWER 1
 #define NO_HAPTIC_MOD
-
-#define LED_NUM_LOCK_PIN C12
-#define LED_CAPS_LOCK_PIN C11
-#define LED_SCROLL_LOCK_PIN C10
-#define LED_ON_STATE 1

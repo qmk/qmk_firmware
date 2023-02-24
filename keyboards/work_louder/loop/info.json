@@ -7,6 +7,9 @@
         "vid": "0x574C",
         "pid": "0x1DF9"
     },
+    "bootmagic": {
+        "matrix": [0, 11]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

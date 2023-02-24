@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
 #define MATRIX_ROW_PINS { E6, F0, F5, F6, C7, C6, B4, D7, D6, D4 }
 #define MATRIX_COL_PINS { F4, F1, F7, B2, D1, D2, B3, B1 }
 
@@ -24,9 +22,6 @@
 #define ENCODERS_PAD_A { B7 }
 #define ENCODERS_PAD_B { B0 }
 #define ENCODER_RESOLUTION 4
-
-#define LED_CAPS_LOCK_PIN B6
-#define BACKLIGHT_ON_STATE  0
 
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 5

@@ -3,6 +3,9 @@
     "usb": {
         "pid": "0x6363"
     },
+    "backlight": {
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu"
 }

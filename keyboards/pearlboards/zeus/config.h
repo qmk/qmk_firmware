@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 18
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -80,11 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SLEEP
 #endif
 
-/* Indicator Led's*/
-#define LED_CAPS_LOCK_PIN C5
-#define LED_NUM_LOCK_PIN C4
-#define LED_SCROLL_LOCK_PIN C3
-#define LED_PIN_ON_STATE 0
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

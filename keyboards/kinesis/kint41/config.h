@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 15
-#define MATRIX_COLS 7
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -77,9 +73,3 @@
 
 // in clock cycles
 #define GPIO_INPUT_PIN_DELAY 0
-
-#define LED_PIN_ON_STATE 0
-#define LED_NUM_LOCK_PIN LINE_PIN26
-#define LED_CAPS_LOCK_PIN LINE_PIN12
-#define LED_SCROLL_LOCK_PIN LINE_PIN25
-#define LED_COMPOSE_PIN LINE_PIN24

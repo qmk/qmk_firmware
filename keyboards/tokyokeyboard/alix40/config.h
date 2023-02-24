@@ -14,11 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 31
@@ -55,10 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 10
 #define RGBLIGHT_VAL_STEP 10
 #endif
-
-/* For Production */
-#define QMK_ESC_OUTPUT F7 // usually COL
-#define QMK_ESC_INPUT D7 // usually ROW
 
 /* Bluetooth */
 #define BATTERY_LEVEL_PIN   B6
