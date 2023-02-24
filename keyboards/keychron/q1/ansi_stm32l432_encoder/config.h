@@ -50,9 +50,6 @@
 #define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
 
 /* Encoder Configuration */
-#define ENCODERS_PAD_A { A10 }
-#define ENCODERS_PAD_B { A8 }
-#define ENCODER_RESOLUTION 4
 #define ENCODER_DEFAULT_POS 0x3
 
 /* Enable caps-lock LED */
