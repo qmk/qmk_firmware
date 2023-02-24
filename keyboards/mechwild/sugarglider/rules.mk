@@ -22,8 +22,3 @@ DEFAULT_FOLDER = mechwild/sugarglider/f401
 
 # Necessary for stenography functionality
 KEYBOARD_SHARED_EP = yes    # Needed to free up an endpoint in blackpill
-
-# Checking if WIDE_OLED
-ifeq ($(strip $(WIDE_OLED_ENABLE)), yes)
-    OPT_DEFS += -DOLED_DISPLAY_128X64
-endif
