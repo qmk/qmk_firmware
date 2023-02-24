@@ -27,9 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+  HSV hsv = {190, 255, 128};
+  RGB rgb = hsv_to_rgb(hsv);
   for (uint8_t i = led_min; i <= led_max; i++) {
     if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
-      rgb_matrix_set_color(i, RGB_PURPLE);
+      rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
   }
   return false;
