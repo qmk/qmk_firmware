@@ -1,7 +1,13 @@
 {
     "keyboard_name": "[n]87",
+    "manufacturer": "Neil Brian Ramirez",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
+    "usb": {
+        "vid": "0x0717",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_tkl_ansi_split_bs_rshift": {
             "layout": [

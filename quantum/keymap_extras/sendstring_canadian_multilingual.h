@@ -63,6 +63,26 @@ const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0)
 };
 
+const uint8_t ascii_to_dead_lut[16] PROGMEM = {
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 1, 0),
+    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
+};
+
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -80,7 +100,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // 0     1        2        3        4        5        6        7
     CA_0,    CA_1,    CA_2,    CA_3,    CA_4,    CA_5,    CA_6,    CA_7,
     // 8     9        :        ;        <        =        >        ?
-    CA_8,    CA_9,    CA_SCLN, CA_SCLN, CA_DOT,  CA_EQL,  CA_COMM, CA_6,
+    CA_8,    CA_9,    CA_SCLN, CA_SCLN, CA_COMM, CA_EQL,  CA_DOT,  CA_6,
     // @     A        B        C        D        E        F        G
     CA_2,    CA_A,    CA_B,    CA_C,    CA_D,    CA_E,    CA_F,    CA_G,
     // H     I        J        K        L        M        N        O

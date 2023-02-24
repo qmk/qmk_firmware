@@ -1,0 +1,27 @@
+{
+    "manufacturer": "Binepad",
+    "keyboard_name": "BNR1",
+    "maintainer": "Binpad",
+    "debounce": 5,
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "encoder": true
+    },
+    "url": "http://binepad.com",
+    "usb": {
+        "vid": "0x4249"
+    },
+    "community_layouts": ["ortho_1x1"],
+    "layouts": {
+        "LAYOUT_ortho_1x1": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 2, "h": 2}
+            ]
+        }
+    }
+}

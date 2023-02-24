@@ -13,139 +13,136 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef KONACLASSIC_H
-#define KONACLASSIC_H
+
+#pragma once
 
 #include "quantum.h"
 
 // readability
 #define ___ KC_NO
 
-
 #define LAYOUT_all( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, \
-    KA8, KA9,   K40, K41, K42,      K44,      K46, K47,      K49, K4A, K4B, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, \
+    k40, k41,   k42, k43, k44,      k46,      k48, k49,      k4B, k4C, k4D, k4E, k4F \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D }, \
-	{ KA8, KA9,   K40, K41, K42, ___, K44, ___, K46, K47, ___, K49, K4A, K4B, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, ___, k46, ___, k48, k49, ___, k4B, k4C, k4D, k4E, k4F } \
 }
 
 #define LAYOUT_ansi( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      \
-    KA8, KA9,   K40, K41, K42,                K46,                K49, K4A, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32,      k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, \
+    k40, k41,   k42, k43, k44,                k48,                k4B, k4C, k4E, k4F  \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, ___, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, ___ }, \
-	{ KA8, KA9,   K40, K41, K42, ___, ___, ___, K46, ___, ___, K49, K4A, ___, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, ___, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, ___ }, \
+    { k40, k41, k42, k43, k44, ___, ___, ___, k48, ___, ___, k4B, k4C, ___, k4E, k4F } \
 }
 
 #define LAYOUT_ansi_arrows( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, \
-    KA8, KA9,   K40, K41, K42,                K46,           K49, K4A, K4B, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32,      k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, \
+    k40, k41,   k42, k43, k44,                k48,           k4B, k4C, k4D, k4E, k4F \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, ___, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D }, \
-	{ KA8, KA9,   K40, K41, K42, ___, ___, ___, K46, ___, ___, K49, K4A, K4B, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, ___, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, ___, ___, ___, k48, ___, ___, k4B, k4C, k4D, k4E, k4F } \
 }
 
 #define LAYOUT_ansi_split( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      \
-    KA8, KA9,   K40, K41, K42,      K44,      K46, K47,           K49, K4A, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32,      k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, \
+    k40, k41,   k42, k43, k44,      k46,      k48, k49,           k4B, k4C, k4E, k4F \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, ___, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, ___ }, \
-	{ KA8, KA9,   K40, K41, K42, ___, K44, ___, K46, K47, ___, K49, K4A, ___, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, ___, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, ___ }, \
+    { k40, k41, k42, k43, k44, ___, k46, ___, k48, k49, ___, k4B, k4C, ___, k4E, k4F } \
 }
 
 #define LAYOUT_ansi_split_arrows( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, \
-    KA8, KA9,   K40, K41, K42,      K44,      K46, K47,      K49, K4A, K4B, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32,      k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, \
+    k40, k41,   k42, k43, k44,      k46,      k48, k49,      k4B, k4C, k4D, k4E, k4F \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, ___, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D }, \
-	{ KA8, KA9,   K40, K41, K42, ___, K44, ___, K46, K47, ___, K49, K4A, K4B, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, ___, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, ___, k46, ___, k48, k49, ___, k4B, k4C, k4D, k4E, k4F } \
 }
 
 #define LAYOUT_iso( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      \
-    KA8, KA9,   K40, K41, K42,                K46,                K49, K4A, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, \
+    k40, k41,   k42, k43, k44,                k48,                k4B, k4C, k4E, k4F \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, ___ }, \
-	{ KA8, KA9,   K40, K41, K42, ___, ___, ___, K46, ___, ___, K49, K4A, ___, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, ___ }, \
+    { k40, k41, k42, k43, k44, ___, ___, ___, k48, ___, ___, k4B, k4C, ___, k4E, k4F } \
 }
 
 #define LAYOUT_iso_arrows( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, \
-    KA8, KA9,   K40, K41, K42,                K46,           K49, K4A, K4B, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, \
+    k40, k41,   k42, k43, k44,                k48,           k4B, k4C, k4D, k4E, k4F \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D }, \
-	{ KA8, KA9,   K40, K41, K42, ___, ___, ___, K46, ___, ___, K49, K4A, K4B, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, ___, ___, ___, k48, ___, ___, k4B, k4C, k4D, k4E, k4F } \
 }
 
 #define LAYOUT_iso_split( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,      \
-    KA8, KA9,   K40, K41, K42,      K44,      K46, K47,           K49, K4A, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, \
+    k40, k41,   k42, k43, k44,      k46,      k48, k49,           k4B, k4C, k4E, k4F \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, ___ }, \
-	{ KA8, KA9,   K40, K41, K42, ___, K44, ___, K46, K47, ___, K49, K4A, ___, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, ___ }, \
+    { k40, k41, k42, k43, k44, ___, k46, ___, k48, k49, ___, k4B, k4C, ___, k4E, k4F } \
 }
 
 #define LAYOUT_iso_split_arrows( \
-    KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
-    KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
-    KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,      \
-    KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, \
-    KA8, KA9,   K40, K41, K42,      K44,      K46, K47,      K49, K4A, K4B, K4C, K4D  \
+    k00, k01,   k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+    k10, k11,   k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, \
+    k20, k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31,   k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, \
+    k40, k41,   k42, k43, k44,      k46,      k48, k49,      k4B, k4C, k4D, k4E, k4F \
 ) { \
-	{ KA0, KA1,   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D }, \
-	{ KA2, KA3,   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D }, \
-	{ KA4, KA5,   K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, ___ }, \
-	{ KA6, KA7,   K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D }, \
-	{ KA8, KA9,   K40, K41, K42, ___, K44, ___, K46, K47, ___, K49, K4A, K4B, K4C, K4D } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, ___ }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, ___, k46, ___, k48, k49, ___, k4B, k4C, k4D, k4E, k4F } \
 }
-
-#endif

@@ -1,7 +1,13 @@
 {
     "keyboard_name": "z12",
+    "manufacturer": "zigotica",
     "url": "https://github.com/zigotica/mechanical-keyboards/tree/main/z12",
     "maintainer": "@zigotica",
+    "usb": {
+        "vid": "0x7A74",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -19,7 +25,7 @@
 
                 {"x": 0.5, "y": 3},
                 {"x": 1.5, "y": 3},
-                {"x": 2.5, "y": 3},
+                {"x": 2.5, "y": 3}
             ]
         }
     }

@@ -62,15 +62,12 @@ static void send_msg(uint16_t keycode, bool pressed) {
   msg[IDX_KCMSB] = (keycode >> 8) & 0xFF;
   msg[IDX_PRESSED] = pressed;
   msg[IDX_CHECKSUM] = chksum8(msg, UART_MSG_LEN-1);
-
-  for (int i=0; i<UART_MSG_LEN; i++) {
-    uart_putchar(msg[i]);
-  }
+  uart_transmit(msg, UART_MSG_LEN);
 }
 
-static void print_message_buffer(void) {
+static inline void print_message_buffer(void) {
   for (int i=0; i<UART_MSG_LEN; i++) {
-    dprintf("msg[%u]: %u\n", i, msg[i]);
+    dprintf("msg[%u]: 0x%02X\n", i, msg[i]);
   }
 }
 
@@ -79,7 +76,7 @@ static void process_uart(void) {
   if (msg[IDX_PREAMBLE] != UART_PREAMBLE || msg[IDX_CHECKSUM] != chksum) {
      dprintf("UART checksum mismatch!\n");
      print_message_buffer();
-     dprintf("calc checksum: %u\n", chksum);
+     dprintf("calc checksum: 0x%02X\n", chksum);
   } else {
     uint16_t keycode = (uint16_t)msg[IDX_KCLSB] | ((uint16_t)msg[IDX_KCMSB] << 8);
     bool pressed = (bool)msg[IDX_PRESSED];
@@ -103,14 +100,15 @@ static void process_uart(void) {
 
 static void get_msg(void) {
   while (uart_available()) {
-    msg[msg_idx] = uart_getchar();
-    dprintf("idx: %u, recv: %u\n", msg_idx, msg[msg_idx]);
+    msg[msg_idx] = uart_read();
+    dprintf("idx: %u, recv: 0x%002X\n", msg_idx, msg[msg_idx]);
     if (msg_idx == 0 && (msg[msg_idx] != UART_PREAMBLE)) {
       dprintf("Byte sync error!\n");
       msg_idx = 0;
     } else if (msg_idx == (UART_MSG_LEN-1)) {
       process_uart();
       msg_idx = 0;
+      break;
     } else {
       msg_idx++;
     }

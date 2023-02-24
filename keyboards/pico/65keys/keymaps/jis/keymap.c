@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include"keymap_jp.h"
+#include"keymap_japanese.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -11,8 +11,8 @@
 // Shortcut to make keymap more readable
 #define SYM_L    MO(_SYMB)
 #define KC_ALES  LALT_T(KC_ESC)
-#define KC_L1SYM LT(_SYMB, KC_LANG1)
-#define KC_L2SYM LT(_SYMB, KC_LANG2)
+#define KC_L1SYM LT(_SYMB, KC_LNG1)
+#define KC_L2SYM LT(_SYMB, KC_LNG2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

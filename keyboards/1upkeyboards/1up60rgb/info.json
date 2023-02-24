@@ -1,7 +1,13 @@
 {
-  "keyboard_name": "1up60rgb",
+  "keyboard_name": "1UP RGB Underglow PCB",
+  "manufacturer": "1upkeyboards",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x6F75",
+    "pid": "0x7267",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_all": {
       "layout": [

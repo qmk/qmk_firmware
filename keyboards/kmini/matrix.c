@@ -132,15 +132,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop32(matrix[i]);
-    }
-    return count;
-}
-
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 {
     bool matrix_changed = false;

@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______,                                     _______, _______, KC_UP,   _______, _______, RGB_TOG,
       _______, _______, _______, _______, _______, _______,                                     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, RGB_HUI,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_HUD,
-                                 _______, _______, _______, _______, _______, _______, _______, RESET,   DEBUG,   _______
+                                 _______, _______, _______, _______, _______, _______, _______, QK_BOOT, DB_TOGG, _______
     ),
 // /*
 //  * Layer template
@@ -246,12 +246,13 @@ static void render_status(void) {
     oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_kyria_logo();
     }
+    return false;
 }
 #endif
 

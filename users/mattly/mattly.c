@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             set_lights_default();
             #endif
             return true;
-        case RESET:
+        case QK_BOOT:
             #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(HSV_RESET);
             #endif

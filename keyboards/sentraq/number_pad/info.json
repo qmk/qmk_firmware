@@ -1,6 +1,12 @@
 {
-  "keyboard_name": "Sentraq Number Pad",
+  "keyboard_name": "Number Pad",
+  "manufacturer": "Sentraq",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
   "url": "https://sentraq.com/collections/kits/products/number-pad-rgb-kit",
   "layouts": {
     "LAYOUT_numpad_5x4": {

@@ -39,7 +39,7 @@ For more customization possibilities, you may directly create a `key_override_t`
 This shows how the mentioned example of sending `delete` when `shift` + `backspace` are pressed is realized:
 
 ```c
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -107,10 +107,10 @@ The [Grave Escape feature](feature_grave_esc.md) is limited in its configurabili
 
 ```c
 // Shift + esc = ~
-const key_override_t tilde_esc_override = ko_make_basic(MOD_MASK_SHIFT, KC_ESC, S(KC_GRAVE));
+const key_override_t tilde_esc_override = ko_make_basic(MOD_MASK_SHIFT, KC_ESC, S(KC_GRV));
 
 // GUI + esc = `
-const key_override_t grave_esc_override = ko_make_basic(MOD_MASK_GUI, KC_ESC, KC_GRAVE);
+const key_override_t grave_esc_override = ko_make_basic(MOD_MASK_GUI, KC_ESC, KC_GRV);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
 	&tilde_esc_override,
@@ -150,15 +150,13 @@ const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | 
                                    .enabled                = NULL};
 ```
 
-## Keycodes 
+## Keycodes
 
-You can enable, disable and toggle all key overrides on the fly.
-
-|Keycode   |Description                      |Function Equivalent|
-|----------|---------------------------------|--------|
-|`KEY_OVERRIDE_ON`  |Turns on Key Override feature           | `key_override_on(void)`|
-|`KEY_OVERRIDE_OFF` |Turns off Key Override feature          |`key_override_off(void)`|
-|`KEY_OVERRIDE_TOGGLE` |Toggles Key Override feature on and off |`key_override_toggle(void)`|
+|Keycode                 |Aliases  |Description           |
+|------------------------|---------|----------------------|
+|`QK_KEY_OVERRIDE_TOGGLE`|`KO_TOGG`|Toggle key overrides  |
+|`QK_KEY_OVERRIDE_ON`    |`KO_ON`  |Turn on key overrides |
+|`QK_KEY_OVERRIDE_OFF`   |`KO_OFF` |Turn off key overrides|
 
 ## Reference for `key_override_t`
 

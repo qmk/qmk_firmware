@@ -4,8 +4,8 @@
 //  ・Muhenkan（入力文字なし/直接入力）に「IMEを無効化」を割り当て
 
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"       // qmk_firmware-master/quantum/keymap_extras/keymap_jp.h 日本語キーボード設定用
-#include <sendstring_jis.h>  // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
+#include "keymap_japanese.h"     // qmk_firmware-master/quantum/keymap_extras/keymap_japanese.h 日本語キーボード設定用
+#include "sendstring_japanese.h" // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -39,8 +39,8 @@ enum custom_keycodes {
 // Use Dynamic macro
 
 // Fillers to make layering more clear
-#define LOWER   LT(_LOWER, KC_MHEN)    // タップで無変換     ホールドでLower
-#define RAISE   LT(_RAISE, KC_HENK)    // タップで変換       ホールドでRaise
+#define LOWER   LT(_LOWER, JP_MHEN)    // タップで無変換     ホールドでLower
+#define RAISE   LT(_RAISE, JP_HENK)    // タップで変換       ホールドでRaise
 #define GUI_ESC GUI_T(KC_ESC)          // タップでESC        ホールドでGUI
 #define SFT_BS  SFT_T(KC_BSPC)         // タップでBackSpace  ホールドでSHIFT
 #define CTL_ENT CTL_T(KC_ENT)          // タップでEnter      ホールドでCTRL
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT( 
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                       KC_7,    KC_8,    KC_9,    KC_DOT,  KC_BSPC,
       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                      KC_4,    KC_5,    KC_6,    KC_PPLS, KC_PAST,
-      KC_ZKHK, KC_SLCK, KC_PAUS, KC_F11,  KC_F12,                      KC_1,    KC_2,    KC_3,    KC_PMNS, KC_PSLS,
+      JP_ZKHK, KC_SCRL, KC_PAUS, KC_F11,  KC_F12,                      KC_1,    KC_2,    KC_3,    KC_PMNS, KC_PSLS,
       KC_LALT, KC_LGUI, JP_GRV,  SFT_DEL, _______, KC_LCTL,  SFT_SPC,  _______, KC_0,    KC_COMM, JP_EQL,  KC_ENT
       ),
 
@@ -152,14 +152,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------|             |------+------+------+------+------|
    * |      |      |      |      |      |             |      |      |      |      |      |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |RESET |      |      |      |      |      |      |      |      |      |      |      |
+   * |QK_BOOT |      |      |      |      |      |      |      |      |      |      |      |
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] =  LAYOUT(
       MCR1,    MCR2,    MCR3,    MCR4,    MCR5,                DM_PLY1, DM_PLY2, DM_REC1, DM_REC2, DM_RSTP,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAME,                      XXXXXXX, QWERTY,  HDBX,    XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      RESET,   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
       )
 };
 

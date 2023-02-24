@@ -1,7 +1,7 @@
 # colinta's keymap for XD75
 
 ```
-make xd75:colinta:dfu
+make xiudi/xd75:colinta:dfu
 ```
 
 The default layout is a Colemak keyboard with "one-shot" keys assigned to the modifier keys.
@@ -23,7 +23,7 @@ I've implemented my own "tap/hold" feature, identical in spirit to "Space Cadet"
 
 The function layer is only to switch to Qwerty (so other people can use this keyboard - also turns off sticky keys) and to start recording keypresses.
 
-I implemented "stop recording" in a unique way; starting a macro recording sends the keyboard layer to one that has all the macro keys assigned to `DYN_REC_STOP`, and restores the layer to the default when recording is stopped.
+I implemented "stop recording" in a unique way; starting a macro recording sends the keyboard layer to one that has all the macro keys assigned to `DM_RSTP`, and restores the layer to the default when recording is stopped.
 
 I wish Dynamic Macros supported more, because I'd like to record a third macro in the MACRO slot instead of hardcoding it.  I'm using these to store some passwords.
 
@@ -41,13 +41,13 @@ If you would *also* like to take advantage of this feature, you'll first want to
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
-/keyboards/xd75/keymaps/colinta/secrets.h
+/keyboards/xiudi/xd75/keymaps/colinta/secrets.h
 ```
 
 Then you can create this file and add your macro strings to it:
 
 ```
-$EDITOR keyboards/xd75/keymaps/colinta/secrets.h
+$EDITOR keyboards/xiudi/xd75/keymaps/colinta/secrets.h
 ```
 
 ###### secrets.h
@@ -60,5 +60,5 @@ $EDITOR keyboards/xd75/keymaps/colinta/secrets.h
 To include the feature at compile time, include the flag `IS_COLINTA` like so:
 
 ```
-make xd75:colinta:dfu EXTRAFLAGS=-DIS_COLINTA
+make xiudi/xd75:colinta:dfu EXTRAFLAGS=-DIS_COLINTA
 ```

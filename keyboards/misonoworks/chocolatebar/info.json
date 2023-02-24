@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Chocolate Bar",
+    "manufacturer": "MisonoWorks",
     "url": "https://github.com/misonoworks/chocolate-bar",
     "maintainer": "Robin Bayardo",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0xC456",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

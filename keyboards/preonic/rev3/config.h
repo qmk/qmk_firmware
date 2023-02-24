@@ -15,12 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REV3_CONFIG_H
-#define REV3_CONFIG_H
-
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0003
-#define PRODUCT_ID 0xA649
+#pragma once
 
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
@@ -32,7 +27,6 @@
 #undef MATRIX_COL_PINS
 #define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2, A3, A6 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
-#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
@@ -90,22 +84,27 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /*
  * WS2812 Underglow Matrix options
  */
 #define RGB_DI_PIN A1
 #define RGBLED_NUM 9
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 // RGB Matrix support
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2
 #define WS2812_PWM_PAL_MODE 1
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
 #define WS2812_DMA_CHANNEL 2
-
-#endif

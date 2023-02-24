@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(_LOWR_R, KC_ESC), _______, LT(_RAIS_R, KC_DEL)
 ),
 [_RAIS_L] = LAYOUT_symmetric_left(
-  _______, LGUI_T(KC_CAPS), KC_SLCK, KC_HOME, KC_PSCR, KC_PGUP,              KC_VOLU,
+  _______, LGUI_T(KC_CAPS), KC_SCRL, KC_HOME, KC_PSCR, KC_PGUP,              KC_VOLU,
            LCTL_T(KC_APP),  KC_INS,  KC_LEFT, KC_UP,   KC_RGHT,              KC_MUTE,
            _______,         KC_PAUS, KC_END,  KC_DOWN, KC_PGDN,              KC_VOLD,
                                               _______, LT(_RAIS_R, KC_TAB) , LT(_ADJUST, KC_ESC)
@@ -63,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      _______, _______, LT(_ADJUST, KC_ESC)
 ),
 [_ADJUST] = LAYOUT_symmetric_left(
-  RESET,   DEBUG,   XXXXXXX, BL_INC,  RGB_VAI, RGB_HUD, RGB_HUI,
-           XXXXXXX, XXXXXXX, BL_DEC,  RGB_VAD, RGB_SAD, RGB_SAI,
+  QK_BOOT, DB_TOGG, XXXXXXX, BL_UP,   RGB_VAI, RGB_HUD, RGB_HUI,
+           XXXXXXX, XXXXXXX, BL_DOWN, RGB_VAD, RGB_SAD, RGB_SAI,
            XXXXXXX, BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,
                                       _______, _______, _______
 )

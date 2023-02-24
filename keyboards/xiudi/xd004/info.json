@@ -1,6 +1,12 @@
 {
     "keyboard_name": "XD004", 
+    "manufacturer": "XIUDI",
     "maintainer": "qmk", 
+    "usb": {
+        "vid": "0x7844",
+        "pid": "0x0404",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"L", "x":0, "y":0}, {"label":"O", "x":1, "y":0}, {"label":"V", "x":2, "y":0}, {"label":"E", "x":3, "y":0}]

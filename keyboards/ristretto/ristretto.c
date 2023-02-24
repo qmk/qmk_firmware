@@ -36,11 +36,14 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_270;
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
 }
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
 	oled_write_P(PSTR("\n\n"), false);
 	oled_write_ln_P(PSTR("LAYER"), false);
 	oled_write_ln_P(PSTR(""), false);
@@ -58,6 +61,7 @@ __attribute__((weak)) void oled_task_user(void) {
 			oled_write_P(PSTR("ADJ\n"), false);
 			break;
 	}
+    return false;
 }
 
 #endif

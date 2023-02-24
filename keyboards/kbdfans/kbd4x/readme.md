@@ -4,9 +4,9 @@
 
 A compact 40% (12x4) ortholinear keyboard kit sold by KBDFans.
 
-Keyboard Maintainer: ![sevenseacat](https://github.com/sevenseacat)  
-Hardware Supported: KBD4x PCB  
-Hardware Availability: https://kbdfans.cn/collections/diy-kit/products/kbd4x-custom-mechanical-keyboard-hot-swap-diy-kit
+* Keyboard Maintainer: ![sevenseacat](https://github.com/sevenseacat)
+* Hardware Supported: KBD4x PCB
+* Hardware Availability: https://kbdfans.cn/collections/diy-kit/products/kbd4x-custom-mechanical-keyboard-hot-swap-diy-kit
 
 Make example for this keyboard (after setting up your build environment):
 

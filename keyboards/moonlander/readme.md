@@ -31,7 +31,7 @@ By default, the Indicator LEDs are used to indicate the layer state for the keyb
 
 ### Oryx Configuration
 
-To enable the features from Oryx (ZSA's Configurator), either compile the the `default` keymap, or add `#define ORYX_CONFIGURATOR` to your `config.h` file.  
+To enable the features from Oryx (ZSA's Configurator), either compile the `default` keymap, or add `#define ORYX_CONFIGURATOR` to your `config.h` file.
 
 This enables the front Indicator LEDs, and the `TOGGLE_LAYER_COLOR` keycode.  The `TOGGLE_LAYER_COLOR` keycode toggles the customized LED map configured on Oryx. 
 
@@ -41,4 +41,18 @@ If you're using the Smart LED (layer indication) feature from the Oryx Configura
 
 This changes the `RGB_TOG` keycode so that it will toggle the lights on and off, in a way that will allow the Smart LEDs to continue to work, even with the rest of the LEDs turned off. 
 
-Additionally, a new keycode has been added to toggle the Smart LEDs.  Use `TOGGLE_LAYER_COLOR`, if you aren't already.  
+Additionally, a new keycode has been added to toggle the Smart LEDs.  Use `TOGGLE_LAYER_COLOR`, if you aren't already.
+
+### Detecting split / Gaming mode
+
+To make it extra gaming friendly, you can configure what happens when you disconnect the right half. This is especially useful when using gaming unfriendly layers or layouts (e.g. home row mods, dvorak, colemak).
+
+Example for enabling a specific layer while right side is disconnected:
+
+```
+void housekeeping_task_user(void) {
+    if (!is_transport_connected()) {
+        // set layer
+    }
+}
+```

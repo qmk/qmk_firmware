@@ -32,6 +32,10 @@ KEYCODES:
 - CT_PGDN         Ctrl-PgDn
 - CT_HOME         Ctrl-HOme
 - CT_END          Ctrl-End
+- KC_SFTUP        RShift when held, Up arrow when tapped
+- KC_RAISESPC     _RAISE layer mod when held, space when tapped
+- KC_LOWERSPC     _LOWER layer mod when held, space when tapped
+- KC_TSTOG        toggles between volume and Alt-Tab encoder control
 - 
  When EMOTICON_ENABLE = yes
 -   EMO_SHRUG       `\_("/)_/`
@@ -39,6 +43,7 @@ KEYCODES:
 -   EMD_TEARS       (T_T)
 -   EMO_NERVOUS     (~_~;)
 -   EMO_JOY         (^o^)
+-   EMO_SAD         :'-(
 
 
 AVAILABLE ENCODER ACTIONS:
@@ -55,7 +60,9 @@ AVAILABLE ENCODER ACTIONS:
 - void encoder_action_rgb_saturation(bool clockwise);
 - void encoder_action_rgb_brightness(bool clockwise);
 - void encoder_action_rgb_mode(bool clockwise);
-
+-
+- void encoder_action_alttabscroll(bool clockwise)
+- void encoder_toggle_alttabscroll(void);
 
 ENABLE FEATURES your keymap rules.mk
 ---------------------------------------
@@ -79,7 +86,21 @@ IDLE_TIMEOUT_ENABLE = yes
 - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
 - When enabled, use this in the keymap for an additional matrix processing:  void matrix_scan_keymap(void)
 
-- Functions:
+EMOTICON_ENABLE
+- adds EMO_ keycodes for text emojis
+    
+INVERT_NUMLOCK_INDICATOR
+- inverts the Num lock indicator, LED is on when num lock is off
+
+ALTTAB_SCROLL_ENABLE
+- When ENCODER_DEFAULTACTIONS_ENABLE = yes, 
+    Enables Alt-Tab scrolling functions in default encoder, 
+    bind KS_TSTOG to a key to enable/disable Alt-Tab vs Volume control
+- When defining your own encoder functions use encoder_action_alttabscroll(bool clockwise) to assign the encodr action
+
+
+FUNCTIONS
+------------------------
 -   u16int_t get_timeout_threshold(void)            // returns the current timeout threshold
 -   void timeout_update_threshold(bool increase)    // change threshold: true = increase, false = decrease     
 -   void timeout_reset_timer(void)                  // resets timer (put in process_record_user if you override it)
@@ -98,6 +119,6 @@ LIST OF COMPATIBLE KEYMAPS
 - mechwild/mercutio
 - mechwild/murphpad
 - mechwild/OBE
-- nopunin10did/kastenwagen (*)
+- kbdfans/kdb67
+- nopunin10did/kastenwagen48
 
-    (*) coming soon

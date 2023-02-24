@@ -17,7 +17,7 @@ This layer is commonly accessed via `MO(_FL)` on the base layer. It consists of 
 This layer is only present on my 60% boards. I habitually use the bottom right modifiers as arrows. 
 
 ### _CL (Control Layer)
-This layer is used for the `RESET` and `EEP_RST` keycodes. 
+This layer is used for the `RESET` and `EE_CLR` keycodes. 
 
 ## Custom Keycodes
 ----
@@ -39,9 +39,9 @@ Output the version of QMK Firmware on device.
 ## QMK Features
 ----
 
-### RGBLIGHT_SLEEP
+### RGBLIGHT_SLEEP and RGB_DISABLE_WHEN_USB_SUSPENDED
 
-Ensures that when my computer is in sleep mode, the keyboard underglow lights will also be off. 
+Ensures that when my computer is in sleep mode, the keyboard underglow and inswitch RGB lights will also be off. 
 
 ### Audio Clicky
 

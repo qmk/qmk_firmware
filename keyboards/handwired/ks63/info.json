@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "ks60",
+    "keyboard_name": "ks63",
+    "manufacturer": "kleshwong",
     "url": "",
     "maintainer": "Klesh Wong",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3061",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
