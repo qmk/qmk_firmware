@@ -165,6 +165,7 @@ enum custom_keycodes {
     MA_CIRC,
     MA_SIMPLEARROW,
     MA_DOUBLEARROW,
+    MA_ADEFIL,
 };
 enum unicode_names {
     EGRAVE,
@@ -258,11 +259,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |------+------+-----------------------+------+------|
     */
     [LA_BASE] = LAYOUT(
-        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
-        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, TG(LA_CAPSLOCK),
+        MA_ADEFIL, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
+        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, QK_REBOOT, TG(LA_CAPSLOCK),
         MA_LPINKY, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_RALT,
-        KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_RALT
+        KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_KC_RCTL
     ),
     [LA_CAPSLOCK] = LAYOUT(
         KC_TRNS, KC_TRNS, X(EAIGU), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, X(EGRAVE), KC_TRNS, KC_TRNS, X(AGRAVE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -272,18 +273,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, MA_LTHUMB, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_RTHUMB] = LAYOUT(
-        KC_PWR, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, QK_REBOOT, QK_BOOTLOADER,
+        KC_PWR, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
         KC_CAPS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, FR_AT, FR_MICR, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
         KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, FR_PIPE, FR_SECT, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
         KC_TRNS, FR_DEG, FR_SUP2, FR_DLR, FR_PERC, FR_PND, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [LA_LPINKY] = LAYOUT(
-        KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
+        KC_LGUI, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, QK_REBOOT, QK_BOOTLOADER,
         KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_ESC, KC_UP, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, MA_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
+        TG(LA_CAPSLOCK), KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
     ),
     [LA_LPINKYQ] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -475,7 +476,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
             }
             return false;
         case MA_UP:
-            if (record->event.pressed) {
+//            if (record->event.pressed) {
                 if (mod_state & MOD_MASK_CTRL) {
                     unregister_code16(KC_LCTL);
                     tap_code16(KC_UP);
@@ -483,10 +484,10 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
                 } else {
                     tap_code16(KC_UP);
                 }
-            }
+//            }
             return false;
         case MA_DOWN:
-            if (record->event.pressed) {
+//            if (record->event.pressed) {
                 if (mod_state & MOD_MASK_CTRL) {
                     unregister_code16(KC_LCTL);
                     tap_code16(KC_DOWN);
@@ -494,7 +495,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
                 } else {
                     tap_code16(KC_DOWN);
                 }
-            }
+//            }
             return false;
         case MA_DOUBLEARROW:
             if (record->event.pressed) {
