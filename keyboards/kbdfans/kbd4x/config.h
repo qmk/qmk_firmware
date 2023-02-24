@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -40,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 #endif
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

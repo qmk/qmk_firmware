@@ -32,15 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* indicator LEDs */
-#define LED_NUM_LOCK_PIN F5
-#define LED_CAPS_LOCK_PIN F4
-#define LED_SCROLL_LOCK_PIN F1
-
 #define BACKLIGHT_PIN B7
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

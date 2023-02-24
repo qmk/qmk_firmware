@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
-
 #define DIODE_DIRECTION COL2ROW
 // wiring of each half
 #define MATRIX_ROW_PINS { B1, B2, C7, B4, D7 }
@@ -30,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { F6 }
 
 #define BACKLIGHT_PIN B5
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

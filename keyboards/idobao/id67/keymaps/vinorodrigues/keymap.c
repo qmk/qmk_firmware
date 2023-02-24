@@ -16,14 +16,7 @@ enum {
 };
 
 enum {
-    KC_MCON = USER00,
-    KC_LPAD,
     KB_VRSN = SAFE_RANGE
-};
-
-enum macos_consumer_usages {
-    _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
-    _AC_SHOW_ALL_APPS    = 0x2A0   // mapped to KC_LPAD
 };
 
 #define LT1_C_L LT(_FN1, KC_CAPS)
@@ -107,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
      */
     [_FN3] = LAYOUT_65_ansi_blocker(
-        QK_BOOT,  MACRO01,  MACRO02, MACRO03, MACRO04, MACRO05, MACRO06, MACRO07, MACRO08, MACRO09, MACRO10, MACRO11,   MACRO12, KC_PWR,    KC_F15,
+        QK_BOOT,  MC_1,     MC_2,    MC_3,    MC_4,    MC_5,    MC_6,    MC_7,    MC_8,    MC_9,    MC_10,   MC_11,     MC_12,   KC_PWR,    KC_F15,
         XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_SLEP,   XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            DB_TOGG,   XXXXXXX,
-        XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, KB_VRSN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, MACRO00,   XXXXXXX,
-        XXXXXXX,  XXXXXXX,           XXXXXXX,                   KC_WAKE,                            XXXXXXX, XXXXXXX,   MACRO13, MACRO14,   MACRO15)
+        XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, KB_VRSN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, MC_0,      XXXXXXX,
+        XXXXXXX,  XXXXXXX,           XXXXXXX,                   KC_WAKE,                            XXXXXXX, XXXXXXX,   MC_13,   MC_14,     MC_15)
 };
 
 #ifdef RGB_MATRIX_ENABLE
@@ -270,23 +263,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " (v" QMK_VERSION ")");
                 }
-            }
-            return false;
-
-        // @see: https://github.com/qmk/qmk_firmware/issues/10111#issuecomment-752300353
-        case KC_MCON:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_WINDOWS);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_APPS);
-            } else {
-                host_consumer_send(0);
             }
             return false;
 

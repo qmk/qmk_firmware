@@ -17,21 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*Bootmagic boot button, set to topmost, leftmost key */
-#define BOOTMAGIC_LITE_ROW	2
-#define BOOTMAGIC_LITE_COLUMN	0
-
 /* encoder */
 /* #define NUMBER_OF_ENCODERS 1 */
 #define ENCODERS_PAD_A { D3 }
 #define ENCODERS_PAD_B { D2 }
 #define ENCODER_RESOLUTION 1
-
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F1, E6, F4, B1, F5, B2, F6, B3, F7, B7 }

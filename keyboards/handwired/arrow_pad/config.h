@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 4
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -39,8 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-#define BACKLIGHT_LEVELS 3
 
 #define FORCE_NKRO
 

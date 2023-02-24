@@ -44,3 +44,9 @@ As an example, if a split keyboard has a single encoder per side, you can swap t
 const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 1, 0 };
 #endif
 ```
+
+### Functions :id=functions
+
+| Function             | Description                                 |
+|----------------------|---------------------------------------------|
+| `is_swap_hands_on()` | Returns true if Swap-Hands is currently on. |

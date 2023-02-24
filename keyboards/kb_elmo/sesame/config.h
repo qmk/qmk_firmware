@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 /*
  * Keyboard Matrix Assignments
  */
@@ -30,10 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
 
 /* Workaround for https://github.com/qmk/qmk_firmware/issues/11389 */
 #define IGNORE_ATOMIC_BLOCK

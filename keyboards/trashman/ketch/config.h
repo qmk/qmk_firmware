@@ -22,8 +22,6 @@ SOFTWARE.
 
 #pragma once
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 8
 #define MATRIX_ROW_PINS { F5, F1, F0, F7, B6, F6 }
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D4, D5, D6, D7 }
 #define DIODE_DIRECTION COL2ROW

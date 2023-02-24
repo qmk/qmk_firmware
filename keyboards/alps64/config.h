@@ -18,25 +18,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
-
 #define MATRIX_COL_PINS {  B0, B1, B2, B3, B4, B5, B6, B7 }
 #define MATRIX_ROW_PINS {  D0, D1, D2, D3, D4, D5, D6, C2 }
 
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN C5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Bootmagic Lite Support*/
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 6
 
 /*
  * Feature disable options

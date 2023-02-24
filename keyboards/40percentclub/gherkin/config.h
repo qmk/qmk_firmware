@@ -1,10 +1,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 6
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F7, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS { B4, E6, D7, C6, D4, D0 }
@@ -13,9 +9,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B5
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

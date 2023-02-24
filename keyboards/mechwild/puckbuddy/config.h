@@ -4,19 +4,11 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 4
-
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
 /* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
 #define DIP_SWITCH_PINS { A0 }
-
-/* status light pins using the on board LED for the blackpill */
-#define LED_CAPS_LOCK_PIN C13
-#define LED_PIN_ON_STATE 0
 
 /* set the tapping term for glidepoint pad to register a tap click */
 //#define CIRQUE_PINNACLE_TAPPING_TERM 0 // This is set to 0 to disable it
@@ -79,12 +71,6 @@
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

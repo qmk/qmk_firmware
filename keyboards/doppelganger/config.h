@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 9
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -43,29 +39,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
 // #define USE_I2C
-#define SOFT_SERIAL_PIN D1 // or D1, D2, D3, E6
 
 #define RGB_DI_PIN B4
-// #ifdef RGB_DI_PIN
 #define RGBLED_NUM 2
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 1, 1 }
-//   #define RGBLIGHT_HUE_STEP 8
-//   #define RGBLIGHT_SAT_STEP 8
-//   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== customize breathing effect ==*/
-//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-//   /*==== use exp() and sin() ====*/
-//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-// #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -87,7 +66,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 2

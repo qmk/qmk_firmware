@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -58,6 +54,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define QMK_ESC_OUTPUT F0 // usually COL
-#define QMK_ESC_INPUT B7 // usually ROW

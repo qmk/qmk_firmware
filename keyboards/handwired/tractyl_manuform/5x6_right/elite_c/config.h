@@ -36,8 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define AUDIO_PIN       C6
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D2
 #define EE_HANDS
 
 #define ENCODERS_PAD_A \

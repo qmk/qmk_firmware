@@ -18,19 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { B4, B6, D7, D5, D0 }
 #define MATRIX_COL_PINS { D1, D2, D3, D4, C6, C7, F7, F6, F5, F4, F0, F1, B3, B2, B1, B0 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Caps LED */
-#define LED_CAPS_LOCK_PIN D6
 
 /* RGB */
 #define RGB_DI_PIN B5

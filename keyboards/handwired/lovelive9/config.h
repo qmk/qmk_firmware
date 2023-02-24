@@ -2,10 +2,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 9
-
 /* default pin-out */
 #define MATRIX_ROW_PINS { NO_PIN }
 #define MATRIX_COL_PINS { B4, B6, B2, D7, B1, F7, F6, F5, F4 }
@@ -28,9 +24,7 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define BACKLIGHT_LEVELS 5
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 4
-#define BREATHING_PERIOD 2
 #define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17

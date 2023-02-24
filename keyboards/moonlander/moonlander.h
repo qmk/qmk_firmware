@@ -90,9 +90,8 @@ extern bool mcp23018_leds[];
 // clang-format on
 
 enum planck_ez_keycodes {
-    TOGGLE_LAYER_COLOR = SAFE_RANGE,
+    TOGGLE_LAYER_COLOR = QK_KB_0,
     LED_LEVEL,
-    ML_SAFE_RANGE,
 };
 
 #ifndef WEBUSB_ENABLE

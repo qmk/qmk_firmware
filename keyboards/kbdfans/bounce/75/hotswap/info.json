@@ -7,6 +7,10 @@
         "pid": "0x7001",
         "device_version": "0.0.3"
     },
+    "indicators": {
+        "caps_lock": "C6",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

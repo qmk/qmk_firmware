@@ -19,6 +19,7 @@
 #include "test_common.hpp"
 
 using testing::_;
+using testing::AnyNumber;
 using testing::InSequence;
 
 class ActionLayer : public TestFixture {};
@@ -397,5 +398,67 @@ TEST_F(ActionLayer, LayerTapReleasedBeforeKeypressReleaseWithModifiers) {
     layer_1_key_1.release();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(0));
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ActionLayer, LayerModWithKeypress) {
+    TestDriver driver;
+    KeymapKey  layer_key   = KeymapKey{0, 0, 0, LM(1, MOD_RALT)};
+    KeymapKey  regular_key = KeymapKey{0, 1, 0, KC_A};
+    set_keymap({layer_key, regular_key, KeymapKey{1, 1, 0, KC_B}});
+
+    // Allow any number of reports with no keys or only KC_RALT.
+    // clang-format off
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
+                KeyboardReport(),
+                KeyboardReport(KC_RALT))))
+        .Times(AnyNumber());
+    // clang-format on
+    EXPECT_REPORT(driver, (KC_RALT, KC_B)).Times(1);
+
+    layer_key.press();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    EXPECT_EQ(get_mods(), MOD_BIT(KC_RALT));
+
+    tap_key(regular_key);
+
+    layer_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(0));
+    EXPECT_EQ(get_mods(), 0);
+
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ActionLayer, LayerModHonorsModConfig) {
+    TestDriver driver;
+    KeymapKey  layer_key   = KeymapKey{0, 0, 0, LM(1, MOD_RALT)};
+    KeymapKey  regular_key = KeymapKey{0, 1, 0, KC_A};
+    set_keymap({layer_key, regular_key, KeymapKey{1, 1, 0, KC_B}});
+
+    // Allow any number of reports with no keys or only KC_RALT.
+    // clang-format off
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
+                KeyboardReport(),
+                KeyboardReport(KC_RGUI))))
+        .Times(AnyNumber());
+    // clang-format on
+    EXPECT_REPORT(driver, (KC_RGUI, KC_B)).Times(1);
+
+    keymap_config.swap_ralt_rgui = true;
+
+    layer_key.press();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    EXPECT_EQ(get_mods(), MOD_BIT(KC_RGUI));
+
+    tap_key(regular_key);
+
+    layer_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(0));
+    EXPECT_EQ(get_mods(), 0);
+
     VERIFY_AND_CLEAR(driver);
 }

@@ -8,6 +8,12 @@
         "pid": "0x1014",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "E2",
+        "scroll_lock": "F7",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

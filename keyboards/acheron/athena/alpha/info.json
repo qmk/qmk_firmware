@@ -4,6 +4,12 @@
         "pid": "0x6584",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "on_state": 0
+    },
+    "indicators": {
+        "caps_lock": "A10"
+    },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu"
 }

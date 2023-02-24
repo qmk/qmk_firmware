@@ -16,8 +16,6 @@
 #pragma once
 
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 #define DIODE_DIRECTION COL2ROW
 
 /* Backlighting include */
@@ -25,7 +23,6 @@
 #define BACKLIGHT_PWM_DRIVER    PWMD5
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_LEVELS        5
-#define BREATHING_PERIOD        6
 
 /* Encoder */
 #define ENCODERS_PAD_A \

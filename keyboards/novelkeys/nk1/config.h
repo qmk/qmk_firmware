@@ -17,16 +17,6 @@
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { D4 } \
-}
-
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 9

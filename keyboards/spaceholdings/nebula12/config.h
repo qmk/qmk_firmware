@@ -24,10 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LSE clock */
 #define STM32_LSECLK 32768
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 3
-
 #define MATRIX_ROW_PINS { A8, C15, A0, A1 }
 #define MATRIX_COL_PINS { A9, C13, C14 }
 // To enable debugger set A13 A14 -> A5 A7

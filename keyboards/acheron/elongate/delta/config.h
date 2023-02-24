@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 #define MATRIX_COL_PINS { A10, A9, A8, B14, B12, B11, B10, B2, B1, A7, A5, B9, B8, B7, B6 }
 #define MATRIX_ROW_PINS { B3, A15, B0, B4, B5 }
 
@@ -33,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 20
 #define BACKLIGHT_DEFAULT_LEVEL	10
-#define BREATHING_PERIOD 3
 
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 16

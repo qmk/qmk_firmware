@@ -19,21 +19,12 @@
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
-
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 3
 
 // If board has a debug LED, you can enable it by defining this
 // #define DEBUG_LED_PIN F7

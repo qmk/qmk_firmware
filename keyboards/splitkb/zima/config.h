@@ -17,27 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS  4
-#define MATRIX_COLS  3
-
-/*
- * Keyboard Matrix Assignments
- */
-#define DIRECT_PINS { \
-    { C6, D6, D5 }, \
-    { C7, F7, D4 }, \
-    { E6, F5, F6 }, \
-    { F0, F1, F4 }, \
-}
-
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { D7 }
-
-// #define QMK_ESC_OUTPUT B7
-// #define QMK_ESC_INPUT C6
-// #define QMK_SPEAKER B6
 
 #define AUDIO_PIN B6
 #define AUDIO_CLICKY

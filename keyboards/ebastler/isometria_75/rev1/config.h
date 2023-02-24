@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
 #define MATRIX_ROW_PINS { A15, B4, B5, B6, B7, B8}
 #define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A10, A13, A14, B9, C13, F0, F1, A0, B2, B10, B11 }
 
@@ -35,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL 2
 #define BACKLIGHT_PAL_MODE 2
 #define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_ON_STATE 1
 #define BACKLIGHT_PWM_OUTPUT_FREQUENCY 1000 // Increases backlight PWM freq if compiled with an unmerged PR. Does no harm without it.
 
 /* Underglow */

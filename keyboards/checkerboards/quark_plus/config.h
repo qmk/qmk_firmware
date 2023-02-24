@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B4, B1, C2, D0, D6, B0, B6, B5 }
 #define MATRIX_COL_PINS { C6, D1, D5, D4, D3, D2 }
@@ -38,7 +34,6 @@
 #define BACKLIGHT_PIN C4
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 // ws2812 options
 #define RGB_DI_PIN C5 // pin the DI on the ws2812 is hooked-up to

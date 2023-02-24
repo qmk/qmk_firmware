@@ -18,20 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Force USB NKRO */
 #define FORCE_NKRO
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
 #define MATRIX_ROW_PINS { B3, B4, B5, B6, B7, A0 }
 #define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, B0, B1, B2, B10, B11, B12, B13, B14, B15 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_NUM_LOCK_PIN A8
-#define LED_CAPS_LOCK_PIN A9
-#define LED_SCROLL_LOCK_PIN A13
-#define LED_PIN_ON_STATE 0
 
 /* Backlight */
 #define BACKLIGHT_PIN A10
@@ -40,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL 3
 #define BACKLIGHT_PAL_MODE 6
 #define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_ON_STATE 1
 #define BACKLIGHT_PWM_OUTPUT_FREQUENCY 1000 // Increases backlight PWM freq if compiled with an unmerged PR. Does no harm without it.
 
 /* Underglow */

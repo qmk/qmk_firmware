@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 // ROWS: Top to bottom, COLS: Left to right
 
 #define MATRIX_ROW_PINS {B0,B7,D0,D1,D2}
@@ -29,6 +25,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define QMK_ESC_OUTPUT B3 // usually COL
-#define QMK_ESC_INPUT F0 // usually ROW

@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS \
     { B0, B1, B2, B3, B4 }
@@ -29,9 +25,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_CAPS_LOCK_PIN B6
-#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN

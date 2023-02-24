@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -37,24 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_CAPS_LOCK_PIN D0
-
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-//   #define RGBLED_NUM 16
-//   #define RGBLIGHT_HUE_STEP 8
-//   #define RGBLIGHT_SAT_STEP 8
-//   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== customize breathing effect ==*/
-//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-//   /*==== use exp() and sin() ====*/
-//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-// #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -76,7 +54,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define QMK_ESC_OUTPUT D6 // usually COL
-#define QMK_ESC_INPUT B7 // usually ROW
-#define QMK_LED D0

@@ -18,10 +18,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 7
-
 #define MATRIX_ROW_PINS { B3, B4, B9, B8, A5, A6 }
 #define MATRIX_COL_PINS { B14, B13, B12, B0, A7, A9, A8 }
 #define DIODE_DIRECTION COL2ROW // COL2ROW or ROW2COL
@@ -30,11 +26,6 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-// #define LED_NUM_LOCK_PIN A8
-// #define LED_CAPS_LOCK_PIN B14
-// #define LED_SCROLL_LOCK_PIN A9
-// #define LED_PIN_ON_STATE 0
 
 /* key encoders pins*/
 #define ENCODERS_PAD_A { B5 , A1 , A3 }

@@ -18,23 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
 #define DIODE_DIRECTION COL2ROW
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F4, F5, B1, B3 }
 #define MATRIX_COL_PINS { D3, D2, B4, F6, F7, B2 }
 
-#define SOFT_SERIAL_PIN D1
-
 //#define EE_HANDS
 #define SPLIT_HAND_PIN E6
-
-#define QMK_ESC_OUTPUT D3
-#define QMK_ESC_INPUT B1
 
 #define PHYSICAL_LEDS_ENABLE
 #define IOS_DEVICE_ENABLE
@@ -42,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN C6
 #define BACKLIGHT_LEVELS 5
-#define BREATHING_PERIOD 6
 #endif
 
 /* ws2812 RGB LED */

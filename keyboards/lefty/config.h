@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 8
-
 /* key matrix pins are in subfolders v1/v2 */
 
 /* Diode direction   */

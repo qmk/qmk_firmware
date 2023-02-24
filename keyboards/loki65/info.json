@@ -8,6 +8,10 @@
         "pid": "0x4C36",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B6",
+        "on_state": 0
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

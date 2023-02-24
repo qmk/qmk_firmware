@@ -17,10 +17,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 11
-#define MATRIX_COLS 8
-
 #define MATRIX_ROW_PINS \
     { B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10 }
 #define MATRIX_COL_PINS \
@@ -28,10 +24,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 3
 
 #define TAP_CODE_DELAY 10
 #define ENCODERS_PAD_A \

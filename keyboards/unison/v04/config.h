@@ -18,11 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-/* NOTE: With Round-Robin matrix, set same size for both. */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 10
-
 /* key matrix pins */
 /* NOTE: With Round-Robin matrix, set same pins for both. */
 #define MATRIX_ROW_PINS { B3, E6, F1, F5, F7, B2, F0, F4, F6, C7 }
@@ -69,25 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // #define RGBLIGHT_EFFECT_RGB_TEST
   // #define RGBLIGHT_EFFECT_ALTERNATING
   #define RGBLIGHT_EFFECT_TWINKLE
-  // /*== customize breathing effect ==*/
-  // /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-  // #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-  // /*==== use exp() and sin() ====*/
-  // #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-  // #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
-
-/*
- * BOOTMAGIC Lite
- * Hold Left-Top key to enter bootloader.
- *
- * NOTE:
- * With Round-Robin matrix, diagonal position is always High.
- * So, the default (0,0) is always judged as hold and keyboard enters bootloader.
- * To prevent this, set specific position for it.
- */
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 0
 
 /*
  * Feature disable options

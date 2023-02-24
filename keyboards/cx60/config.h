@@ -17,10 +17,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { F1, F4, F5, F6, E6 }
 #define MATRIX_COL_PINS { C7, C6, F7, F0, B4, D7, D6, B0, B1, B2, B3, D2, D3, D5 }
@@ -50,6 +46,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
-
-#define LED_CAPS_LOCK_PIN B5
-#define LED_PIN_ON_STATE 0

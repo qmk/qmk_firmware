@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
@@ -30,8 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define BACKLIGHT_PIN D2
-
-#define BACKLIGHT_LEVELS 3
 
 /*
  * Feature disable options

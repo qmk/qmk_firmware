@@ -15,10 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 11
-#define MATRIX_COLS 9
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -38,11 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 #define BACKLIGHT_PIN B6
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
-#define LED_CAPS_LOCK_PIN C7
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

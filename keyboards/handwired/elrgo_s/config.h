@@ -18,20 +18,12 @@ Copyright 2021 Yaroslav Smirnov <elorenn@bk.ru>
 #pragma once
 
 
-// Rows are doubled-up for splits
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 // Wiring of each half
 #define MATRIX_ROW_PINS { B1, B3, B2, B6 }
 #define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5 }
 // Reversed sort
 
 #define DIODE_DIRECTION COL2ROW
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
 
 /* disable debug print */
 // #define NO_DEBUG

@@ -8,6 +8,9 @@
         "pid": "0x675F",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C5"
+    },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -2,18 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-
-/* bootmagic */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* rgb underglow */
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 6
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 3
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F7, D7, C6, D4 }

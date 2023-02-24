@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* Column/Row IO definitions */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 5
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
 
@@ -31,7 +29,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_00 B6
 #define LED_01 B1
 #define LED_02 B3
-
-/* Bootmagic - hold down rotary encoder pushbutton while plugging in to enter bootloader */
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 0

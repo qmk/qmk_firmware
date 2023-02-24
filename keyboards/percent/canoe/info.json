@@ -8,6 +8,9 @@
     "pid": "0x434E",
     "device_version": "2.0.0"
   },
+  "indicators": {
+    "caps_lock": "D1"
+  },
   "processor": "atmega32a",
   "bootloader": "bootloadhid",
   "community_layouts": ["65_ansi_blocker", "65_iso_blocker"],

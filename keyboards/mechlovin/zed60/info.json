@@ -8,6 +8,9 @@
         "pid": "0x0602",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A4"
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layout_aliases": {

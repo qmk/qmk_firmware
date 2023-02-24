@@ -4,6 +4,10 @@
         "pid": "0xAAAD",
         "device_version": "1.0.0"
     },
+    "indicators": {
+        "caps_lock": "A15",
+        "on_state": 0
+    },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "layouts": {

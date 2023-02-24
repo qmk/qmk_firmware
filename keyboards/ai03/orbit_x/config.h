@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 8 // Double the rows for split 
-#define MATRIX_COLS 6
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -40,10 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 #define SPLIT_HAND_PIN D5
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 2500

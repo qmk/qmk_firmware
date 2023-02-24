@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
 #define MATRIX_COL_PINS { B8, B0, A0, B5, B10, B9, A6, B12, A7, A5, A4, A3, A2, A1, B13, B14 }
 #define MATRIX_ROW_PINS { B4, B11, B1, B7, B6 }
 #define DIODE_DIRECTION COL2ROW
@@ -30,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

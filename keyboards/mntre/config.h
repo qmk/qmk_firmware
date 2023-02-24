@@ -4,10 +4,6 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -26,7 +22,6 @@
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_CUSTOM_RESOLUTION 0x400
-#define BACKLIGHT_LIMIT_VAL 84
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

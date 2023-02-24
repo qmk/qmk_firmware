@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
-
 /*
  * Keyboard Matrix Assignments
  *

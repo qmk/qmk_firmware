@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -42,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * https://docs.qmk.fm/#/feature_backlight?id=timer-assisted-pwm-implementation
  */
 #define BACKLIGHT_PIN D4
-#define BACKLIGHT_ON_STATE 0
 
 #define RGB_DI_PIN B2
 #ifdef RGB_DI_PIN

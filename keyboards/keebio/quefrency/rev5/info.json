@@ -8,6 +8,9 @@
         "pid": "0x5357",
         "device_version": "5.1.0"
     },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
