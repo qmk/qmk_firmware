@@ -1,20 +1,15 @@
-// Copyright 2022 Kyle McCreery
+// Copyright 2023 Kyle McCreery
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6D77 // mw = "MechWild"
-#define PRODUCT_ID      0x1710
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MechWild
-#define PRODUCT         SugarGlider
-
 /* Matrix COL and ROW definitions */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 6
+
+#define OLED_DISPLAY_128X64
 
 /* Status light pins */
 //#define LED_NUM_LOCK_PIN B12
@@ -23,6 +18,7 @@
 //#define LED_PIN_ON_STATE 0
 
 #define USB_POLLING_INTERVAL_MS 1
+#define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X
 
 /* Memory definitions for UF2 builds */
 #ifdef UF2_BUILD
@@ -46,7 +42,8 @@
  * defining it this way allows us to easily modify it with DYNAMIC_TAPPING_TERM_ENABLE
  */
 #define TAPPING_TERM 0
-
+#define CIRQUE_PINNACLE_TAP_ENABLE
+#define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
 /* spi config */
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
@@ -59,8 +56,8 @@
 #define CIRQUE_PINNACLE_SPI_CS_PIN A3
 
 /* encoder pins */
-#define ENCODERS_PAD_A { B0, B3, B9 }
-#define ENCODERS_PAD_B { A2, A15, B8 }
+#define ENCODERS_PAD_B { B0, B3, B9, C15 }
+#define ENCODERS_PAD_A { A2, A15, B8, C14 }
 
 /* encoder resolution */
 #define ENCODER_RESOLUTION 4
@@ -70,9 +67,9 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* RGB settings, uncomment this define to enable RGB */
-//#define RGB_DI_PIN B5
+#define RGB_DI_PIN B5
 #ifdef RGB_DI_PIN
-#    define RGBLED_NUM 6
+#    define RGBLED_NUM 10
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8

@@ -1,12 +1,12 @@
 # mechwild/sugarglider
 
-![mechwild/sugarglider](imgur.com image replace me!)
+![mechwild/sugarglider](https://i.imgur.com/IYhOU3xh.jpg)
 
-*A short description of the keyboard/project*
+The Sugar Glider is an ergonomic keyboard with columnar stagger and a central touchpad, OLED, and status LEDs.
 
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Sugar Glider v0.2
+* Hardware Availability: [Sugar Glider on MechWild](https://mechwild.com/product/sugar-glider/)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (assigned to the top left key) and plug in the keyboard while holding it.
+* **Physical reset button**: Press and hold the boot0 button on the blackpill, tap  and release the nrst button on the blackpill, then release the boot0 button.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available. By default this is the top right key on layer 1.
