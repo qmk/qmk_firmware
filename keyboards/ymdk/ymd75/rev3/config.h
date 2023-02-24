@@ -7,3 +7,5 @@
 #define BACKLIGHT_PIN B6 // change the backlight pin that has since changed in Rev 3
 #define DIODE_DIRECTION ROW2COL
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 4
+#undef LED_CAPS_LOCK_PIN // CapsLock pin changed in Rev 3
+#define LED_CAPS_LOCK_PIN C7

@@ -4,10 +4,13 @@ This document describes QMK's Breaking Change process. A Breaking Change is any 
 
 This also includes any keyboard moves within the repository.
 
-The breaking change period is when we will merge PR's that change QMK in dangerous or unexpected ways. There is a built-in period of testing so we are confident that any problems caused are rare or unable to be predicted.
+The breaking change period is when we will merge PRs that change QMK in dangerous or unexpected ways. There is a built-in period of testing so we are confident that any problems caused are rare or unable to be predicted.
+
+Practically, this means QMK merges the `develop` branch into the `master` branch on a 3-month cadence.
 
 ## What has been included in past Breaking Changes?
 
+* [2022 Nov 26](ChangeLog/20221126.md)
 * [2022 Aug 27](ChangeLog/20220827.md)
 * [2022 May 28](ChangeLog/20220528.md)
 * [2022 Feb 26](ChangeLog/20220226.md)
@@ -23,30 +26,39 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for November 26, 2022.
+The next Breaking Change is scheduled for February 26, 2023.
 
 ### Important Dates
 
-* 2022 Aug 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2022 Oct 29 - `develop` closed to new PR's.
-* 2022 Oct 29 - Call for testers.
-* 2022 Nov 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2022 Nov 19 - `develop` is locked, only critical bugfix PR's merged.
-* 2022 Nov 24 - `master` is locked, no PR's merged.
-* 2022 Nov 26 - Merge `develop` to `master`.
-* 2022 Nov 26 - `master` is unlocked. PR's can be merged again.
+* 2022 Nov 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2023 Jan 29 - `develop` closed to new PRs.
+* 2023 Jan 29 - Call for testers.
+* 2023 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2023 Feb 19 - `develop` is locked, only critical bugfix PRs merged.
+* 2023 Feb 24 - `master` is locked, no PRs merged.
+* 2023 Feb 26 - Merge `develop` to `master`.
+* 2023 Feb 26 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 
-To see a list of breaking change candidates you can look at the [`breaking_change` label](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Abreaking_change+is%3Apr). New changes might be added between now and when `develop` is closed, and a PR with that label applied is not guaranteed to be merged.
+To see a list of breaking changes merge candidates you can look at the [`core` label](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Acore+is%3Apr). This label is applied whenever a PR is raised or changed, but only if the PR includes changes to core areas of QMK Firmware. A PR with that label applied is not guaranteed to be merged in the current cycle. New changes might be added between now and when `develop` is closed, and it is generally the responsibility of the submitter to handle conflicts. There is also another label used by QMK Collaborators -- `breaking_change_YYYYqN` -- which signifies to maintainers that it is a strong candidate for inclusion, and should be prioritised for review.
 
-If you want your breaking change to be included in this round you need to create a PR with the `breaking_change` label and have it accepted before `develop` closes. After `develop` closes no new breaking changes will be accepted.
+If you want your breaking change to be included in this round you need to create a PR and have it accepted by QMK Collaborators before `develop` closes. After `develop` closes, new submissions will be deferred to the next breaking changes cycle.
+
+The simpler your PR is, the easier it is for maintainers to review, thus a higher likelihood of a faster merge. Large PRs tend to require a lot of attention, refactoring, and back-and-forth with subsequent reviews -- with other PRs getting merged in the meantime larger unmerged PRs are far more likely to be susceptible to conflicts.
 
 Criteria for acceptance:
 
 * The PR is complete and ready to merge
+* GitHub checks for the PR are green whenever possible
+    * A "red" check may be disregarded by maintainers if the items flagged are unrelated to the change proposed in the PR
+        * Modifications to existing files should not need to add license headers to pass lint, for instance.
+        * If it's not directly related to your PR's functionality, prefer avoiding making a change.
+
+Strongly suggested:
+
 * The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20221126`.
-    * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PR's ID.
+    * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PRs ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
 ## Checklists
@@ -55,7 +67,7 @@ This section documents various processes we use when running the Breaking Change
 
 ### 4 Weeks Before Merge
 
-* `develop` is now closed to new PR's, only fixes for current PR's may be merged
+* `develop` is now closed to new PRs, only fixes for current PRs may be merged
 * Post call for testers: message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
     * `@Breaking Changes Updates -- Hey folks, last day for functional PRs to be raised against qmk_firmware for this breaking changes cycle is today.`
 

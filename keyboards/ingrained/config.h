@@ -12,23 +12,15 @@
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS_PER_SIDE (MATRIX_COLS / 2)
 
-#define UNUSED_MCU 13
-#define UNUSED_MCP 6
-
-
 // wiring
 #define MATRIX_ROW_PINS_MCU \
     { B0, B1, B2, B3 }
 #define MATRIX_COL_PINS_MCU \
     { F7, F6, F5, F4, F1, F0 }
-#define UNUSED_PINS_MCU \
-    { B4, B5, B6, B7, C6, C7, D2, D3, D4, D5, D6, D7, E6}
 #define MATRIX_ROW_PINS_MCP \
     { B0, B1, B2, B3 }
 #define MATRIX_COL_PINS_MCP \
     { A0, A1, A2, A3, A4, A5 }
-#define UNUSED_PINS_MCP \
-    { B4, B5, B6, B7, A6, A7 }
 
 /*
  * Keyboard Matrix Assignments

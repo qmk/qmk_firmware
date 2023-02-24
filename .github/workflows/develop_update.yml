@@ -1,5 +1,8 @@
 name: Update develop after master merge
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:

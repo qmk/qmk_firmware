@@ -26,5 +26,4 @@
 //RGB Stuff
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 39
-#define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_DEFAULT_HUE 201
