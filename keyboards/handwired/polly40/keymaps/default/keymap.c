@@ -1,4 +1,4 @@
-/* Copyright 2021 PAUL ENRICO N. VIOLA
+/* Copyright 2023 PAUL ENRICO N. VIOLA
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [3] = LAYOUT(
-        RESET,   _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  _______, 
+        QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  _______, 
         KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, 
         _______, _______, _______, _______, _______, _______, KC_SCLN, KC_QUOT, KC_SLSH, KC_RSFT, _______, 
         _______, _______, _______, _______, _______, _______  
