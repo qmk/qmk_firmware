@@ -72,7 +72,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 }
 #endif
 
-#ifdef ENCODER_ENABLE
+#if defined(ENCODER_ENABLE) && ! defined(ENCODER_MAP_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     switch (index) {
@@ -125,14 +125,14 @@ bool led_update_kb(led_t led_state) {
     return res;
 }
 
-#ifdef OLED_ENABLE   // OLED Functionality
+#if defined(OLED_ENABLE) && defined(OLED_DISPLAY_128X64) // Wide OLED Functionality
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;       // flips the display 180 degrees
 }
 
 bool clear_screen = true;           // used to manage singular screen clears to prevent display glitch
 bool clear_screen_art = true;       // used to manage singular screen clears to prevent display glitch
-static void render_sugarglider(void) {     // Render sugarglider logo
+static void render_sugarglider_wide(void) {     // Render sugarglider logo
     static const char PROGMEM sgl_1[] = {0xDE, 0xDE, 0xDE, 0x98, 0x99, 0xDE, 0x9A, 0x9B, 0x9C, 0xDE, 0xDE, 0xDE, 0xDE, 0xDE, 0xCC, 0xCD, 0xCE, 0xCF, 0x00};
     static const char PROGMEM sgl_2[] = {0x9D, 0x9E, 0xDE, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xDE, 0xDE, 0xDE, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00};
     static const char PROGMEM sgl_3[] = {0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xDE, 0xDE, 0xDE, 0xD5, 0xD6, 0xD7, 0xD8, 0x00};
@@ -186,7 +186,7 @@ bool oled_task_kb(void) {
             oled_render();
             clear_screen_art = false;
         }
-        render_sugarglider();
+        render_sugarglider_wide();
 #ifdef POINTING_DEVICE_ENABLE
         oled_set_cursor(10,5);
         oled_write_P(PSTR(" DPI:"), false);
@@ -212,17 +212,25 @@ bool oled_task_kb(void) {
         oled_set_cursor(8,1);
         switch (get_highest_layer(layer_state)) {
             case 0:
-                oled_write_P(PSTR("Layer 0"), false);
+                oled_write_P(PSTR("Base Layer"), false);
                 break;
             case 1:
-                oled_write_P(PSTR("Layer 1"), false);
+                oled_write_P(PSTR("Lower"), false);
                 break;
             case 2:
-                oled_write_P(PSTR("Layer 2"), false);
+                oled_write_P(PSTR("Raise"), false);
                 break;
             case 3:
-                oled_write_P(PSTR("Layer 3"), false);
+                oled_write_P(PSTR("Adjust"), false);
                 break;
+            case 4:
+                oled_write_P(PSTR("Mouse Layer"), false);
+                break;
+#ifdef STENO_ENABLE
+            case 5:
+                oled_write_P(PSTR("Steno Layer"), false);
+                break;
+#endif
             default:
                 oled_write_P(PSTR("Layer ?"), false);    // Should never display, here as a catchall
         }
@@ -327,6 +335,9 @@ void eeconfig_init_kb(void) {
     keyboard_config.dt_term_config = TAPPING_TERM;
 #endif
     eeconfig_update_kb(keyboard_config.raw);
+#ifdef STENO_ENABLE
+    steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
+#endif
     eeconfig_init_user();
 }
 

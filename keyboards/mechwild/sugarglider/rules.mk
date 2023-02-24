@@ -8,7 +8,7 @@ CONSOLE_ENABLE = no                 # Console for debug
 COMMAND_ENABLE = no                 # Commands for debug and configuration
 NKRO_ENABLE = yes                   # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no               # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = yes                # Enable keyboard RGB underglow
+RGBLIGHT_ENABLE = yes               # Enable keyboard RGB underglow
 AUDIO_ENABLE = no                   # Audio output
 ENCODER_ENABLE = yes                # Encoder Enabled
 OLED_ENABLE = yes                   # OLED Enabled
@@ -30,3 +30,8 @@ SRC += mcp23018.c matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
 
 DEFAULT_FOLDER = mechwild/sugarglider/f401
+
+# Necessary for stenography functionality
+STENO_ENABLE = yes          # Enable stenography endpoint
+NKRO_ENABLE = yes           # Enable N-Key Rollover
+KEYBOARD_SHARED_EP = yes    # Needed to free up an endpoint in blackpill

@@ -2,10 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 
 // Defines names for use in layer keycodes and the keymap
-
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
   //debug_enable=true;
@@ -14,21 +12,19 @@ void keyboard_post_init_user(void) {
   //debug_mouse=true;
 }
 
-
 enum layer_names {
     _QWERTY,
 	_LOWER,
 	_RAISE,
     _ADJUST,
-    _MOUSE,
-    _STENO
+    _MOUSE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(                                                            
     QK_GESC, KC_Q, KC_W,    KC_E,    KC_R,       KC_T,                          TAP_UP,       KC_Y,   KC_U,     KC_I,   KC_O,    KC_P, KC_BSPC, 
     KC_LCTL, KC_A, KC_S,    KC_D,    KC_F,       KC_G,             KC_MUTE,     TAP_DN,       KC_H,   KC_J,     KC_K,   KC_L, KC_QUOT,  KC_ENT, 
-    KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,       KC_B,                      TG(_STENO),       KC_N,   KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,    
+    KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,       KC_B,                         KC_TRNS,       KC_N,   KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,    
           KC_MUTE,       KC_LGUI, KC_LALT, MO(_LOWER), KC_MS_BTN1, TAP_TOG, KC_MS_BTN2, MO(_RAISE), KC_SPC,  KC_RSFT,         KC_MUTE
   ),
   [_LOWER] = LAYOUT(                                                 
@@ -54,12 +50,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
              KC_TRNS,          DPI_FINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS
-  ),
-  [_STENO] = LAYOUT(                                                                                                
-    STN_RES1,  STN_S1,  STN_TL,  STN_PL,  STN_HL, STN_ST1,                   KC_TRNS, STN_ST3,  STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,         
-    STN_RES2,  STN_S2,  STN_KL,  STN_WL,  STN_RL, STN_ST2,          KC_TRNS, KC_TRNS, STN_ST4,  STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
-     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI, RGB_MOD, KC_TRNS,
-              KC_TRNS,            STN_A,   STN_O,  STN_N1, KC_TRNS, KC_TRNS, KC_TRNS,  STN_N2,   STN_E,   STN_U,          KC_TRNS
   )
 };
 
@@ -69,8 +59,7 @@ const uint16_t PROGMEM encoder_map[][4][2] = {
     [_LOWER] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT), ENCODER_CCW_CW(KC_HOME, KC_END),   ENCODER_CCW_CW(DPI_UP, DPI_DN)    },
     [_RAISE] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_HOME, KC_END),   ENCODER_CCW_CW(KC_LEFT, KC_RIGHT), ENCODER_CCW_CW(KC_HOME, KC_END)   },
     [_ADJUST] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_BRID, KC_BRIU),  ENCODER_CCW_CW(KC_TRNS, KC_TRNS),  ENCODER_CCW_CW(KC_BRID, KC_BRIU)  },
-    [_MOUSE] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_BRID, KC_BRIU),  ENCODER_CCW_CW(KC_TRNS, KC_TRNS),  ENCODER_CCW_CW(KC_BRID, KC_BRIU)  },
-    [_STENO] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_HOME, KC_END),   ENCODER_CCW_CW(KC_TRNS, KC_TRNS),  ENCODER_CCW_CW(KC_HOME, KC_END)   }
+    [_MOUSE] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_BRID, KC_BRIU),  ENCODER_CCW_CW(KC_TRNS, KC_TRNS),  ENCODER_CCW_CW(KC_BRID, KC_BRIU)  }
 };
 #endif
 

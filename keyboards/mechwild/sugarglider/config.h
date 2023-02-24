@@ -11,6 +11,8 @@
 
 #define OLED_DISPLAY_128X64
 
+#define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+
 /* Status light pins */
 //#define LED_NUM_LOCK_PIN B12
 //#define LED_CAPS_LOCK_PIN B13
@@ -56,8 +58,8 @@
 #define CIRQUE_PINNACLE_SPI_CS_PIN A3
 
 /* encoder pins */
-#define ENCODERS_PAD_B { B0, B3, B9, C15 }
-#define ENCODERS_PAD_A { A2, A15, B8, C14 }
+#define ENCODERS_PAD_A { B0, B3, B9, C15 }
+#define ENCODERS_PAD_B { A2, A15, B8, C14 }
 
 /* encoder resolution */
 #define ENCODER_RESOLUTION 4
