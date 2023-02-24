@@ -15,10 +15,7 @@
  */
 
 #include "riblee.h"
-#include "raw_hid.h"
 #include <string.h>
-
-const uint8_t shift = MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT);
 
 // Tap Dance functions
 void dance_key_a (qk_tap_dance_state_t *state, void *user_data) {
@@ -26,7 +23,7 @@ void dance_key_a (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("a");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("á");
         } else {
             send_unicode_string("Á");
@@ -41,7 +38,7 @@ void dance_key_e (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("e");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("é");
         } else {
             send_unicode_string("É");
@@ -56,7 +53,7 @@ void dance_key_i (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("i");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("í");
         } else {
             send_unicode_string("Í");
@@ -71,7 +68,7 @@ void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("o");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ó");
         } else {
             send_unicode_string("Ó");
@@ -79,7 +76,7 @@ void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
 
         reset_tap_dance(state);
     } else if (state->count == 3) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ö");
         } else {
             send_unicode_string("Ö");
@@ -87,7 +84,7 @@ void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
 
         reset_tap_dance(state);
     } else if (state->count == 4) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ő");
         } else {
             send_unicode_string("Ő");
@@ -102,7 +99,7 @@ void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
         SEND_STRING("u");
         reset_tap_dance(state);
     } else if (state->count == 2) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ú");
         } else {
             send_unicode_string("Ú");
@@ -110,7 +107,7 @@ void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
 
         reset_tap_dance(state);
     } else if (state->count == 3) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ü");
         } else {
             send_unicode_string("Ü");
@@ -118,7 +115,7 @@ void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
 
         reset_tap_dance(state);
     } else if (state->count == 4) {
-        if (!(keyboard_report->mods & shift)) {
+        if (!(keyboard_report->mods & MOD_MASK_SHIFT)) {
             send_unicode_string("ű");
         } else {
             send_unicode_string("Ű");
@@ -164,73 +161,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case BACKLIT:
-            if (record->event.pressed) {
-                register_code(keycode_config(KC_LGUI));
-#ifdef BACKLIGHT_ENABLE
-                backlight_step();
-#endif
-            } else {
-                unregister_code(keycode_config(KC_LGUI));
-            }
-            return false;
-            break;
     }
     return true;
 };
 
-#ifdef OLED_ENABLE
+void keyboard_pre_init_user(void) {
+    // Set C13 pin as output
+    setPinOutput(C13);
 
-static char receive_buffer[128] = {};
-static uint8_t receive_buffer_length = 0;
-
-void oled_task_user(void) {
-    // Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undefined\n"), false);
-    }
-
-    // Print string received via HID RAW
-    oled_write_ln(receive_buffer, false);
+    // Turn off the LED
+    writePinHigh(C13);
 }
-
-#ifdef RAW_ENABLE
-
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-
-    // Append data to receive_buffer, without the first byte
-    memcpy(receive_buffer + receive_buffer_length, data + 1, length - 1);
-    receive_buffer_length += (length - 1);
-
-    // First byte indicate if we will recive more package for the current string
-    // If it's 1 then this was the last package and we can reset the offset
-    if (data[0] == 1) {
-        // Reset the offset for memcpy to the begining of our buffer
-        receive_buffer_length = 0;
-    }
-
-    // Reset the offset to prevent overwriting memory outside of the buffer
-    if (receive_buffer_length + 32 >= 128) {
-        receive_buffer_length = 0;
-    }
-
-}
-
-#endif
-
-#endif

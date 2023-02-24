@@ -18,15 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0A0C
-#define DEVICE_VER      0x0F00
-#define MANUFACTURER    di0ib
-#define PRODUCT         The foobar Keyboard
-
-#define USE_SERIAL
-
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0
 
@@ -52,7 +43,6 @@
 */
 #define MATRIX_ROW_PINS { D7, E6, B4 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -63,7 +53,6 @@
 
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
-// #define RGBLIGHT_ANIMATIONS
 // #define RGBLED_NUM 16
 // #define RGBLIGHT_HUE_STEP 8
 // #define RGBLIGHT_SAT_STEP 8
@@ -124,5 +113,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

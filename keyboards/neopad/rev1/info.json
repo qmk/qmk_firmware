@@ -1,8 +1,13 @@
 {
     "keyboard_name": "neopad",
-    "keyboard_folder": "neopad/rev1",
+    "manufacturer": "rookiebwoy",
     "url": "https://github.com/rookiebwoy/neopad)",
     "maintainer": "rookiebwoy",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0913",
+        "device_version": "0.1.0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

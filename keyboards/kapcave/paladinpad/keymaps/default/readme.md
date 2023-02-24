@@ -1,0 +1,1 @@
+The default keymap for PaladinPad which resembles the AEK Numpad

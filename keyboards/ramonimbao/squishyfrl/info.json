@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "SquishyTKL",
+    "keyboard_name": "SquishyFRL",
+    "manufacturer": "Ramon Imbao",
     "url": "",
     "maintainer": "Ramon Imbao",
+    "usb": {
+        "vid": "0xB16B",
+        "pid": "0x4BE5",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [
@@ -67,7 +73,7 @@
                 {"x":10.25, "y":3}, 
                 {"x":11.25, "y":3}, 
                 {"x":12.25, "y":3, "w":1.75},
-                {"x":14, "y":3} 
+                {"x":14, "y":3}, 
                 {"x":16.25, "y":3}, 
                 
                 {"x":0, "y":4, "w":1.25}, 

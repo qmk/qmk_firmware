@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E45  // NE
-#define PRODUCT_ID      0x3630  // 60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    GON
-#define PRODUCT         NerD 60
-
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
@@ -20,7 +13,6 @@
 /* matrix pins */
 #define MATRIX_ROW_PINS { B4, E2, F4, F7, F1, F6, C6, F5, D7, C7 }
 #define MATRIX_COL_PINS { E6, B0, B1, B2, B3, F0, D0, D5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -203,7 +203,7 @@ char* make_sys_info_text(void) {
 };
 
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (!sysToggled) {
     render_logo();
     oled_set_cursor(0,3);
@@ -221,6 +221,7 @@ void oled_task_user(void) {
         free(s);
     }
   }
+    return false;
 };
 
 int concat(int a, int b) {

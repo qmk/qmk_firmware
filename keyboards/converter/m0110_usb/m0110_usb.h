@@ -16,11 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Ported to QMK by Techsock <info@techsock.com>
 */
 
-#ifndef M0110_USB_H
-#define M0110_USB_H
-#endif
+#pragma once
 
 #include "quantum.h"
+
+#define XXX KC_NO
 
 /* Common layout for M0110 and M0110A
  * This keymap works with both keyboards. As you can see, the M0110A is 
@@ -67,26 +67,26 @@ Ported to QMK by Techsock <info@techsock.com>
  * Two right and left keys of 38 and 3A are identical, you cannot discriminate those two.
  */
 #define LAYOUT_ansi( \
-    K32,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33,  K47,K68,K6D,K62, \
-    K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,      K59,K5B,K5C,K4E, \
-    K39,K00,K01,K02,K03,K05,K04,K26,K28,K25,K29,K27,    K24,  K56,K57,K58,K66, \
-    K38,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,        K4D,  K53,K54,K55,K4C, \
-    K3A,K37,            K31,            K34,K2A,K46,K42,K48,  K52,    K41      \
+    K32, K12, K13, K14, K15, K17, K16, K1A, K1C, K19, K1D, K1B, K18, K33,  K47, K68, K6D, K62, \
+    K30, K0C, K0D, K0E, K0F, K11, K10, K20, K22, K1F, K23, K21, K1E,       K59, K5B, K5C, K4E, \
+    K39, K00, K01, K02, K03, K05, K04, K26, K28, K25, K29, K27,      K24,  K56, K57, K58, K66, \
+    K38, K06, K07, K08, K09, K0B, K2D, K2E, K2B, K2F, K2C,           K4D,  K53, K54, K55, K4C, \
+    K3A, K37,                K31,                K34, K2A, K46, K42, K48,  K52,      K41 \
 ) { \
-    { K00,    K01,    K02,    K03,    K04,    K05,    K06,    K07   }, \
-    { K08,    K09,    KC_NO,  K0B,    K0C,    K0D,    K0E,    K0F   }, \
-    { K10,    K11,    K12,    K13,    K14,    K15,    K16,    K17   }, \
-    { K18,    K19,    K1A,    K1B,    K1C,    K1D,    K1E,    K1F   }, \
-    { K20,    K21,    K22,    K23,    K24,    K25,    K26,    K27   }, \
-    { K28,    K29,    K2A,    K2B,    K2C,    K2D,    K2E,    K2F   }, \
-    { K30,    K31,    K32,    K33,    K34,    KC_NO,  KC_NO,  K37   }, \
-    { K38,    K39,    K3A,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO }, \
-    { KC_NO,  K41,    K42,    KC_NO,  KC_NO,  KC_NO,  K46,    K47   }, \
-    { K48,    KC_NO,  KC_NO,  KC_NO,  K4C,    K4D,    K4E,    KC_NO }, \
-    { KC_NO,  KC_NO,  K52,    K53,    K54,    K55,    K56,    K57   }, \
-    { K58,    K59,    KC_NO,  K5B,    K5C,    KC_NO,  KC_NO,  KC_NO }, \
-    { KC_NO,  KC_NO,  K62,    KC_NO,  KC_NO,  KC_NO,  K66,    KC_NO }, \
-    { K68,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  K6D,    KC_NO,  KC_NO }, \
+    { K00, K01, K02, K03, K04, K05, K06, K07 }, \
+    { K08, K09, XXX, K0B, K0C, K0D, K0E, K0F }, \
+    { K10, K11, K12, K13, K14, K15, K16, K17 }, \
+    { K18, K19, K1A, K1B, K1C, K1D, K1E, K1F }, \
+    { K20, K21, K22, K23, K24, K25, K26, K27 }, \
+    { K28, K29, K2A, K2B, K2C, K2D, K2E, K2F }, \
+    { K30, K31, K32, K33, K34, XXX, XXX, K37 }, \
+    { K38, K39, K3A, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, K41, K42, XXX, XXX, XXX, K46, K47 }, \
+    { K48, XXX, XXX, XXX, K4C, K4D, K4E, XXX }, \
+    { XXX, XXX, K52, K53, K54, K55, K56, K57 }, \
+    { K58, K59, XXX, K5B, K5C, XXX, XXX, XXX }, \
+    { XXX, XXX, K62, XXX, XXX, XXX, K66, XXX }, \
+    { K68, XXX, XXX, XXX, XXX, K6D, XXX, XXX } \
 }
 
 /* International keyboard layout for M0110 + M0120
@@ -108,24 +108,24 @@ Ported to QMK by Techsock <info@techsock.com>
  * Two right and left keys of 38 and 3A are identical, you cannot discriminate those two.
  */
 #define LAYOUT_iso( \
-    K32,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33,  K47,K68,K6D,K62, \
-    K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,K2A,  K59,K5B,K5C,K4E, \
-    K39,K00,K01,K02,K03,K05,K04,K26,K28,K25,K29,K27,K24,      K56,K57,K58,K66, \
-    K38,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,K0A,          K53,K54,K55,K4C, \
-        K3A,K37,            K34,                K31,          K52,    K41      \
+    K32, K12, K13, K14, K15, K17, K16, K1A, K1C, K19, K1D, K1B, K18, K33,  K47, K68, K6D, K62, \
+    K30, K0C, K0D, K0E, K0F, K11, K10, K20, K22, K1F, K23, K21, K1E, K2A,  K59, K5B, K5C, K4E, \
+    K39, K00, K01, K02, K03, K05, K04, K26, K28, K25, K29, K27, K24,       K56, K57, K58, K66, \
+    K38, K06, K07, K08, K09, K0B, K2D, K2E, K2B, K2F, K2C, K0A,            K53, K54, K55, K4C, \
+         K3A, K37,                K34,                     K31,            K52,      K41 \
 ) { \
-    { K00,    K01,    K02,    K03,    K04,    K05,    K06,    K07   }, \
-    { K08,    K09,    K0A,    K0B,    K0C,    K0D,    K0E,    K0F   }, \
-    { K10,    K11,    K12,    K13,    K14,    K15,    K16,    K17   }, \
-    { K18,    K19,    K1A,    K1B,    K1C,    K1D,    K1E,    K1F   }, \
-    { K20,    K21,    K22,    K23,    K24,    K25,    K26,    K27   }, \
-    { K28,    K29,    K2A,    K2B,    K2C,    K2D,    K2E,    K2F   }, \
-    { K30,    K31,    K32,    K33,    K34,    KC_NO,  KC_NO,  K37   }, \
-    { K38,    K39,    K3A,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO }, \
-    { KC_NO,  K41,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  K47   }, \
-    { KC_NO,  KC_NO,  KC_NO,  KC_NO,  K4C,    KC_NO,  K4E,    KC_NO }, \
-    { KC_NO,  KC_NO,  K52,    K53,    K54,    K55,    K56,    K57   }, \
-    { K58,    K59,    KC_NO,  K5B,    K5C,    KC_NO,  KC_NO,  KC_NO }, \
-    { KC_NO,  KC_NO,  K62,    KC_NO,  KC_NO,  KC_NO,  K66,    KC_NO }, \
-    { K68,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  K6D,    KC_NO,  KC_NO }, \
+    { K00, K01, K02, K03, K04, K05, K06, K07 }, \
+    { K08, K09, K0A, K0B, K0C, K0D, K0E, K0F }, \
+    { K10, K11, K12, K13, K14, K15, K16, K17 }, \
+    { K18, K19, K1A, K1B, K1C, K1D, K1E, K1F }, \
+    { K20, K21, K22, K23, K24, K25, K26, K27 }, \
+    { K28, K29, K2A, K2B, K2C, K2D, K2E, K2F }, \
+    { K30, K31, K32, K33, K34, XXX, XXX, K37 }, \
+    { K38, K39, K3A, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, K41, XXX, XXX, XXX, XXX, XXX, K47 }, \
+    { XXX, XXX, XXX, XXX, K4C, XXX, K4E, XXX }, \
+    { XXX, XXX, K52, K53, K54, K55, K56, K57 }, \
+    { K58, K59, XXX, K5B, K5C, XXX, XXX, XXX }, \
+    { XXX, XXX, K62, XXX, XXX, XXX, K66, XXX }, \
+    { K68, XXX, XXX, XXX, XXX, K6D, XXX, XXX } \
 }

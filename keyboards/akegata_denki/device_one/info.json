@@ -1,6 +1,12 @@
 {
   "keyboard_name": "device one",
+  "manufacturer": "akegata denki",
   "url": "https://akegata.co",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0xADD0",
+    "device_version": "0.0.1"
+    },
   "maintainer": "qmk",
   "layouts": {
     "LAYOUT_60_ansi": {

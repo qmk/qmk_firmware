@@ -114,10 +114,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_L2] = LAYOUT_ortho_4x12(
-    KC_SYSREQ, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_NLCK, KC_P7,   KC_P8,    KC_P9,   KC_PAST, KC_BSPC,
-    XXXXXXX,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_P4,   KC_P5,    KC_P6,   KC_PSLS, _______,
-    XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, KC_P1,   KC_P2,    KC_P3,   KC_PPLS, KC_PENT,
-    _______,   _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  XXXXXXX, KC_P0,    KC_PDOT, KC_PMNS, _______
+    KC_SYRQ, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_NUM,  KC_P7,   KC_P8,    KC_P9,   KC_PAST, KC_BSPC,
+    XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_P4,   KC_P5,    KC_P6,   KC_PSLS, _______,
+    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, KC_P1,   KC_P2,    KC_P3,   KC_PPLS, KC_PENT,
+    _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  XXXXXXX, KC_P0,    KC_PDOT, KC_PMNS, _______
   ),
 
   /* L3
@@ -185,21 +185,21 @@ void tmux_dance (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     SEND_STRING("tmux"); register_code(KC_ENT); unregister_code(KC_ENT);
   } else if (state->count == 2) {
-    register_mods(MOD_BIT(KC_LCTRL));
+    register_mods(MOD_BIT(KC_LCTL));
     register_code(KC_B); unregister_code(KC_B);
-    unregister_mods(MOD_BIT(KC_LCTRL));
-    register_mods(MOD_BIT(KC_LSHIFT));
+    unregister_mods(MOD_BIT(KC_LCTL));
+    register_mods(MOD_BIT(KC_LSFT));
     register_code(KC_5); unregister_code(KC_5);
-    unregister_mods(MOD_BIT(KC_LSHIFT));
+    unregister_mods(MOD_BIT(KC_LSFT));
   }
 }
 
 void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    register_mods(MOD_BIT(KC_LCTRL));
+    register_mods(MOD_BIT(KC_LCTL));
     register_mods(MOD_BIT(KC_LALT));
     register_code(KC_DELETE);
-    unregister_mods(MOD_BIT(KC_LCTRL));
+    unregister_mods(MOD_BIT(KC_LCTL));
     unregister_mods(MOD_BIT(KC_LALT));
     unregister_code(KC_DELETE);
   } else if (state->count == 2) {
@@ -211,10 +211,10 @@ void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_ESC);
   } else if (state->count == 3) {
     register_mods(MOD_BIT(KC_LGUI));
-    register_mods(MOD_BIT(KC_LSHIFT));
+    register_mods(MOD_BIT(KC_LSFT));
     register_code(KC_4);
     unregister_mods(MOD_BIT(KC_LGUI));
-    unregister_mods(MOD_BIT(KC_LSHIFT));
+    unregister_mods(MOD_BIT(KC_LSFT));
     unregister_code(KC_4);
   }
 }
@@ -222,13 +222,13 @@ void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
 void cmd_sft_slash_pipe_down (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     if (state->interrupted || state->pressed==0) {
-      register_code (KC_NONUS_BSLASH);
+      register_code (KC_NONUS_BACKSLASH);
     } else {
       register_code (KC_LSFT);
     }
   } else if (state->count == 2) {
     register_mods(MOD_BIT(KC_LSFT));
-    register_code(KC_NONUS_BSLASH);
+    register_code(KC_NONUS_BACKSLASH);
   }
 }
 
@@ -237,11 +237,11 @@ void cmd_sft_slash_pipe_up (qk_tap_dance_state_t *state, void *user_data) {
     if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
       unregister_code (KC_LSFT);
     } else {
-      unregister_code (KC_NONUS_BSLASH);
+      unregister_code (KC_NONUS_BACKSLASH);
     }
   } else if (state->count == 2) {
     unregister_mods(MOD_BIT(KC_LSFT));
-    unregister_code(KC_NONUS_BSLASH);
+    unregister_code(KC_NONUS_BACKSLASH);
   }
 }
 

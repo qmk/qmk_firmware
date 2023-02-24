@@ -94,7 +94,7 @@ inline static char get_ascii(int16_t keycode){
         ascii_idx=code_to_ascii[(uint8_t)keycode];
     }else if(keycode<KC_KP_ENTER){
         ascii_idx=code_to_ascii[SPECIAL_KEYS_SHIFT(keycode)];
-    }else if(KC_LANG1==keycode){
+    }else if(KC_LNG1==keycode){
         ascii_idx=code_to_ascii[ALT_CODE];
     }else if( QK_LSFT==(QK_LSFT&keycode) ){
         ascii_idx=code_to_ascii[RM_LSFT(keycode)];
@@ -308,7 +308,7 @@ static void render_logo(void){
  *  @param void.
  *  @return void.
  */
-void oled_task_user(void){
+bool oled_task_user(void){
     if (timer_elapsed32(standby_oled_timer) > 15000){
         oled_off();
     }else{
@@ -321,6 +321,7 @@ void oled_task_user(void){
             oled_scroll_left();
         }
     }
+    return false;
 }
 
 /** @brief process the current key and add it to the keylog string.

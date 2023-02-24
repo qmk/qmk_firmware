@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C44 // "LD"
-#define PRODUCT_ID      0x0050
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    LazyDesigners
-#define PRODUCT         THE50
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 15
@@ -16,7 +9,6 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3 }
 #define MATRIX_COL_PINS { B5, D0, D1, D2, D3, D4, D5, D6, D7, C6, C7, F4, F5, F6, F7 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

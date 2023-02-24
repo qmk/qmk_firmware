@@ -16,5 +16,5 @@ La touche de fonction permet elle d'avoir accès aux différentes touches multim
 # Compilation 
 
 ```
-make xd75:french:dfu
+make xiudi/xd75:french:dfu
 ```

@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "Hex4B",
+    "manufacturer": "Mechlovin Studio",
     "url": "",
     "maintainer": "Hex-Keyboard&Mechlovin",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x0675"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_bs",
         "LAYOUT_all": "LAYOUT_split_bs"

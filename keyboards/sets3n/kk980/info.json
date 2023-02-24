@@ -1,7 +1,13 @@
 {
     "keyboard_name": "kk980",
+    "manufacturer": "Sets3n",
     "url": "https://i.imgur.com/MQA6FXb.jpg",
     "maintainer": "Sets3n",
+    "usb": {
+        "vid": "0x404A",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -106,11 +112,10 @@
                 {"label":"DOWN", "x": 14.25, "y": 5.75},
                 {"label":"RIGHT", "x": 15.25, "y": 5.75},
                 {"label":"0", "x": 16.5, "y": 5.5},
-                {"label":".DEL", "x": 17.5, "y": 5.5,},
+                {"label":".DEL", "x": 17.5, "y": 5.5},
                 {"label":"ENTER", "x": 18.5, "y": 4.5, "h": 2}
 
             ]
         }
     }
 }
-

@@ -5,7 +5,7 @@
 
 * Build/Flash
   qmk setup
-  qmk compile -kb xd75 -km clanghans
-  qmk flash -kb xd75 -km clanghans
+  qmk compile -kb xiudi/xd75 -km clanghans
+  qmk flash -kb xiudi/xd75 -km clanghans
   
   Hit 'Raise'+'PgUp' for entering bootloader mode

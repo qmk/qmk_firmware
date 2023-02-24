@@ -1,7 +1,12 @@
 {
-    "keyboard_name": "symmetric70_proto",
+    "manufacturer": "mtei",
     "url": "",
     "maintainer": "mtei",
+    "usb": {
+    	"vid": "0xFEED",
+    	"pid": "0x2BE5",
+    	"device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2018 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2021 Doni Crosby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,16 +38,16 @@
 #define ISSI_INTERRUPTMASKREGISTER 0xF0
 #define ISSI_INTERRUPTSTATUSREGISTER 0xF1
 
-#define ISSI_PAGE_LEDCONTROL 0x00  // PG0
-#define ISSI_PAGE_PWM 0x01         // PG1
-#define ISSI_PAGE_AUTOBREATH 0x02  // PG2
-#define ISSI_PAGE_FUNCTION 0x03    // PG3
+#define ISSI_PAGE_LEDCONTROL 0x00 // PG0
+#define ISSI_PAGE_PWM 0x01        // PG1
+#define ISSI_PAGE_AUTOBREATH 0x02 // PG2
+#define ISSI_PAGE_FUNCTION 0x03   // PG3
 
-#define ISSI_REG_CONFIGURATION 0x00  // PG3
-#define ISSI_REG_GLOBALCURRENT 0x01  // PG3
-#define ISSI_REG_RESET 0x11          // PG3
-#define ISSI_REG_SWPULLUP 0x0F       // PG3
-#define ISSI_REG_CSPULLUP 0x10       // PG3
+#define ISSI_REG_CONFIGURATION 0x00 // PG3
+#define ISSI_REG_GLOBALCURRENT 0x01 // PG3
+#define ISSI_REG_RESET 0x11         // PG3
+#define ISSI_REG_SWPULLUP 0x0F      // PG3
+#define ISSI_REG_CSPULLUP 0x10      // PG3
 
 #ifndef ISSI_TIMEOUT
 #    define ISSI_TIMEOUT 100
@@ -54,6 +55,22 @@
 
 #ifndef ISSI_PERSISTENCE
 #    define ISSI_PERSISTENCE 0
+#endif
+
+#ifndef ISSI_PWM_FREQUENCY
+#    define ISSI_PWM_FREQUENCY 0b000 // PFS - IS31FL3733B only
+#endif
+
+#ifndef ISSI_SWPULLUP
+#    define ISSI_SWPULLUP PUR_0R
+#endif
+
+#ifndef ISSI_CSPULLUP
+#    define ISSI_CSPULLUP PUR_0R
+#endif
+
+#ifndef ISSI_GLOBALCURRENT
+#    define ISSI_GLOBALCURRENT 0xFF
 #endif
 
 // Transfer buffer for TWITransmitData()
@@ -154,18 +171,23 @@ void IS31FL3733_init(uint8_t addr, uint8_t sync) {
 
     // Select PG3
     IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
+    // Set de-ghost pull-up resistors (SWx)
+    IS31FL3733_write_register(addr, ISSI_REG_SWPULLUP, ISSI_SWPULLUP);
+    // Set de-ghost pull-down resistors (CSx)
+    IS31FL3733_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
-    IS31FL3733_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
+    IS31FL3733_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
     // Disable software shutdown.
-    IS31FL3733_write_register(addr, ISSI_REG_CONFIGURATION, (sync << 6) | 0x01);
+    IS31FL3733_write_register(addr, ISSI_REG_CONFIGURATION, ((sync & 0b11) << 6) | ((ISSI_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);
 }
 
 void IS31FL3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+    is31_led led;
+    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
@@ -175,13 +197,14 @@ void IS31FL3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         IS31FL3733_set_color(i, red, green, blue);
     }
 }
 
 void IS31FL3733_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led = g_is31_leds[index];
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     uint8_t control_register_r = led.r / 8;
     uint8_t control_register_g = led.g / 8;

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  */
 
-
+#pragma once
 /* Making it so you need to hold the modifier and other key for the time together, helps not accidentally hit activate the hold functions of bottom row*/
 #define IGNORE_MOD_TAP_INTERRUPT
 

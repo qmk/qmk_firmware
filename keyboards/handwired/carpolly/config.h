@@ -18,6 +18,7 @@
 
 #include "config_common.h"
 
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6532
 #define PRODUCT_ID      0x0017

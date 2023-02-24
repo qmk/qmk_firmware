@@ -1,7 +1,13 @@
 {
-	"keyboard_name": "adkb96",
+	"keyboard_name": "ADKB96",
+	"manufacturer": "Bit Trade One",
 	"url": "",
 	"maintainer": "qmk",
+	"usb": {
+		"vid": "0x00A5",
+		"pid": "0xAD96",
+		"device_version": "0.0.1"
+	},
 	"layouts": {
 		"LAYOUT_ortho_6x16": {
 			"layout": [

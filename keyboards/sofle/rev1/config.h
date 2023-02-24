@@ -1,12 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFC32
-#define PRODUCT_ID      0x0287
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    JosefAdamcik
-#define PRODUCT         Sofle
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
@@ -30,9 +23,4 @@
 #define TAP_CODE_DELAY 10
 
 /* communication between sides */
-#define USE_SERIAL
-#define SERIAL_USE_MULTI_TRANSACTION
 #define SOFT_SERIAL_PIN D2
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

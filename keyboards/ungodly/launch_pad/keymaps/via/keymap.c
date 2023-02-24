@@ -20,7 +20,7 @@
 /* Force Numlock on */
 void matrix_init_user (void) {
   if (!host_keyboard_led_state().num_lock) {
-      tap_code(KC_NUMLOCK);
+      tap_code(KC_NUM_LOCK);
   }
 }
 
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-------------------'
 */
 [1] = LAYOUT_ortho_5x4(
-  KC_LUP, KC_NUMLOCK, XXXXXXX,    XXXXXXX,
+  KC_LUP,    KC_NUM,  XXXXXXX,    XXXXXXX,
   KC_HOME,   KC_UP,   KC_PGUP,    XXXXXXX,
   KC_LEFT, XXXXXXX,   KC_RGHT,    XXXXXXX,
   KC_END,  KC_DOWN,   KC_PGDN,    KC_PENT,
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_HUD,  RGB_HUI,  XXXXXXX,   RGB_M_P,
     RGB_SAD,  RGB_SAI,  XXXXXXX,   RGB_MOD,
     RGB_VAD,  RGB_VAI,  XXXXXXX,   XXXXXXX,
-      RESET,    RESET,  XXXXXXX,   XXXXXXX
+      QK_BOOT,    QK_BOOT,  XXXXXXX,   XXXXXXX
   ),
 };
 
@@ -273,7 +273,7 @@ static void render_light_logo(void) {
   oled_write_raw_P(light_logo, sizeof(light_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   switch (get_highest_layer(layer_state)) {
     case 0:
       render_rocket_logo();
@@ -289,5 +289,6 @@ void oled_task_user(void) {
       oled_write_ln_P(PSTR(" UND"), false);
       break;
     }
+    return false;
 }
 #endif

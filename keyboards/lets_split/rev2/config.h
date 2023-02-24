@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6F77
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Wootpatoot
-#define PRODUCT         Lets Split v2
-
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -74,5 +67,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

@@ -18,13 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6582 // wilba.tech
-#define PRODUCT_ID      0x075A // 75-A
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT75-A
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
@@ -41,7 +34,6 @@
 */
 #define MATRIX_ROW_PINS { F1, F0, E6, F4, F6, F7 }
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -104,8 +96,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 // enable the mono backlight
 #define MONO_BACKLIGHT_ENABLED 1
@@ -131,6 +121,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
