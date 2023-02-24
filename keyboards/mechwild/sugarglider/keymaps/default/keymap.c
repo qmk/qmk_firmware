@@ -5,16 +5,6 @@
 #include "keymap_steno.h"
 
 // Defines names for use in layer keycodes and the keymap
-
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  //debug_enable=true;
-  //debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
-}
-
-
 enum layer_names {
     _QWERTY,
 	_LOWER,
@@ -82,55 +72,3 @@ void pointing_device_init_user(void) {
     set_auto_mouse_layer(_MOUSE);
     set_auto_mouse_enable(true);
 }
-
-//#ifdef OLED_ENABLE
-//	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-//		return OLED_ROTATION_180;       // flips the display 270 degrees
-//	}
-//
-//	//static void render_logo(void) {     // Render MechWild "MW" Logo
-//	//	static const char PROGMEM logo_1[] = {0x8A, 0x8B, 0x8C, 0x8D, 0x00};
-//	//	static const char PROGMEM logo_2[] = {0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0x00};
-//	//	static const char PROGMEM logo_3[] = {0xCA, 0xCB, 0xCC, 0xCD, 0x00};
-//	//	static const char PROGMEM logo_4[] = {0x20, 0x8E, 0x8F, 0x90, 0x00};
-//	//	oled_set_cursor(0,0);
-//	//	oled_write_P(logo_1, false);
-//	//	oled_set_cursor(0,1);
-//	//	oled_write_P(logo_2, false);
-//	//	oled_set_cursor(0,2);
-//	//	oled_write_P(logo_3, false);
-//	//	oled_set_cursor(0,3);
-//	//	oled_write_P(logo_4, false);
-//	//}
-//
-//	bool oled_task_user(void) {
-//		//render_logo();
-//		oled_set_cursor(0,0);
-//
-//		oled_write_ln_P(PSTR("Layer"), false);
-//
-//    switch (get_highest_layer(layer_state)) {
-//        case 0:
-//            oled_write_ln_P(PSTR("Base"), false);
-//            break;
-//        case 1:
-//            oled_write_ln_P(PSTR("FN 1"), false);
-//            break;
-//        case 2:
-//            oled_write_ln_P(PSTR("FN 2"), false);
-//            break;
-//        case 3:
-//            oled_write_ln_P(PSTR("FN 3"), false);
-//            break;
-//        default:
-//            oled_write_ln_P(PSTR("Undef"), false);
-//    }
-//	oled_write_ln_P(PSTR(""), false);
-//    // Host Keyboard LED Status
-//    led_t led_state = host_keyboard_led_state();
-//    oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-//    oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-//    oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-//    return false;
-//	}
-//#endif

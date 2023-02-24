@@ -112,15 +112,10 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        // writePin sets the pin high for 1 and low for 0.
-        // In this example the pins are inverted, setting
-        // it low/0 turns it on, and high/1 turns the LED off.
-        // This behavior depends on whether the LED is between the pin
-        // and VCC or the pin and GND.
-        writePin(B12, led_state.num_lock);
-        writePin(B13, led_state.caps_lock);
-        writePin(B14, led_state.scroll_lock);
-        writePin(C13, !led_state.caps_lock);
+        writePin(B12, led_state.num_lock);     // Updates status LEDs
+        writePin(B13, led_state.caps_lock);    // Updates status LEDs
+        writePin(B14, led_state.scroll_lock);  // Updates status LEDs
+        writePin(C13, !led_state.caps_lock);   // Updates status LEDs, this is the LED on the blackpill itself
     }
     return res;
 }
@@ -257,6 +252,79 @@ bool oled_task_kb(void) {
     }
     return true;
 }
+#elif defined(OLED_ENABLE) && ! defined(OLED_DISPLAY_128X64)
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;       // flips the display 270 degrees
+}
+
+static void render_logo(void) {     // Render MechWild "MW" Logo
+    static const char PROGMEM logo_1[] = {0xCC, 0xCD, 0xCE, 0xCF, 0x00};
+    static const char PROGMEM logo_2[] = {0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00};
+    static const char PROGMEM logo_3[] = {0xD5, 0xD6, 0xD7, 0xD8, 0x00};
+    static const char PROGMEM logo_4[] = {0xDE, 0xD9, 0xDA, 0xDB, 0x00};
+    
+    oled_set_cursor(0,0);
+    oled_write_P(logo_1, false);
+    oled_set_cursor(0,1);
+    oled_write_P(logo_2, false);
+    oled_set_cursor(0,2);
+    oled_write_P(logo_3, false);
+    oled_set_cursor(0,3);
+    oled_write_P(logo_4, false);
+}
+
+bool oled_task_kb(void) {
+    if(!oled_task_user()) {
+        return false;
+    }
+    render_logo();
+
+    oled_set_cursor(0,5);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("Base"), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("Lower"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("Raise"), false);
+            break;
+        case 3:
+            oled_write_P(PSTR("Adjst"), false);
+            break;
+        case 4:
+            oled_write_P(PSTR("Mouse"), false);
+            break;
+#ifdef STENO_ENABLE
+        case 5:
+            oled_write_P(PSTR("Steno"), false);
+            break;
+#endif
+        default:
+            oled_write_P(PSTR("?????"), false);    // Should never display, here as a catchall
+    }
+        led_t led_state = host_keyboard_led_state();
+        oled_set_cursor(0,6);
+        oled_write_P(led_state.num_lock ? PSTR("NUM  ") : PSTR("     "), false);
+        oled_write_P(led_state.caps_lock ? PSTR("CAP  ") : PSTR("     "), false);
+        oled_write_P(led_state.scroll_lock ? PSTR("SCR  ") : PSTR("     "), false);
+#ifdef POINTING_DEVICE_ENABLE
+        oled_set_cursor(0,11);
+        oled_write_P(PSTR("DPI: "), false);
+        oled_write(get_u16_str(dpi_array[keyboard_config.dpi_config], ' '), false);
+#endif
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE              // only display tap info if it is being configured dynamically
+        oled_set_cursor(0,13);
+        oled_write_P(PSTR("TAP: "), false);
+        if (keyboard_config.dt_term_config < 0) {
+            oled_write_P(PSTR("Off  "), false);
+        } else {
+            oled_write(get_u16_str(g_tapping_term, ' '), false);
+        }
+#endif
+    return true;
+}
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -371,6 +439,3 @@ void keyboard_post_init_kb(void) {
     oled_on();
 #endif
 }
-
-
-
