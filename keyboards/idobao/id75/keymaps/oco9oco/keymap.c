@@ -19,7 +19,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //clang-format off
 [_BASE] = LAYOUT_ID75_wrapper( /* QWERTY */
-    KC_ESC,    KC_F1,   KC_F2,   KC_F3,  KC_F4,   KC_F5,    KC_MINS, KC_GRV,  KC_EQL,   KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,    KC_DEL,
+    KC_ESC,    KC_1,    KC_2,    KC_3,   KC_4,     KC_5,    KC_MINS, KC_GRV,  KC_EQL,   KC_6,    KC_7,    KC_8,   KC_9,    KC_0,         KC_DEL,
     KC_TAB,    __________________QWERTY_L1________________, KC_HOME, BRKT,    KC_PGUP,    __________________QWERTY_R1________________,   KC_BSPC,
     KC_CAPS,   __________________QWERTY_SACS_L2___________, KC_END,  KC_UP,   KC_PGDN,    __________________QWERTY_HOME_R2___________,   KC_QUOT,
     KC_LSFT,   __________________QWERTY_GUIZ_L3___________, KC_LEFT, KC_DOWN, KC_RGHT,    __________________QWERTY_R3________________,   KC_BSLS,
@@ -33,34 +33,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,   _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,      _______
 ),
 [_USER_MACRO] = LAYOUT_ID75_wrapper( /* MACRO */
-    XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,
+    TO_HOME,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX, KC_U,    KC_P,    KC_X,    XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,       XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, XXXXXXX, _______,  _______, _______, XXXXXXX, XXXXXXX, XXXXXXX,      _______
 ),
 
-
 [_NAV] = LAYOUT_ID75_wrapper( /* QWERTY */
     _______,   C(KC_F1),_______, _______, A(KC_F4),KC_F5,   _______, _______, _______,  _______, _______, _______, _______, _______,      _______,
     _______,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F6,   _______, _______, _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      _______,
     _______,   KC_LSFT, KC_LALT, KC_LCTL, KC_LSFT, KC_F7,   _______, _______, _______,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      _______,
     _______,   NAV(Z), C(KC_X),C(KC_C), C(KC_V), C(KC_B),   _______, _______, _______,  KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,       _______,
-    _______,   _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,      _______
+    _______,   _______, _______, _______, _______, _______, _______, _______, _______,  KC_TRNS, _______, _______, _______, _______,      _______
 ),
 [_IPC] = LAYOUT_ID75_wrapper(
-   _______, PDF_HL,  KC_P,    KC_X,    XXXXXXX, XXXXXXX,    _______, _______, _______,  KC_LT,   KC_LPRN, KC_GRV,  KC_RPRN, KC_GT,        _______,
-   _______, A(KC_1), A(KC_2), A(KC_3), A(KC_7), A(KC_8),    _______, _______, _______,  KC_LBRC, _________NUM_789_________, KC_RBRC,      _______,
-   _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F),  KC_DOT,     _______, _______, _______,  KC_GRV,  _________NUM_456_________, KC_COLN,      KC_DQUO,
-   _______, IPC(Z),  BRKT,    IPC(C),  KC_EQL,  KC_COLN,    _______, _______, _______,  A(KC_2), _________NUM_123_________, _______,      KC_PIPE,
-   _______, _______, _______, _______, _______, _______,    _______, _______, _______,  LT(_NAV, KC_0),_______, _______, _______, _______,_______
+    _______, PDF_HL,  KC_P,    KC_X,    XXXXXXX, XXXXXXX,    _______, _______, _______,  KC_LT,   KC_LPRN, KC_GRV,  KC_RPRN, KC_GT,        _______,
+    _______, A(KC_1), A(KC_2), A(KC_3), A(KC_7), A(KC_8),    _______, _______, _______,  KC_LBRC, _________NUM_789_________, KC_RBRC,      _______,
+    _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F),  KC_DOT,     _______, _______, _______,  KC_GRV,  _________NUM_456_________, KC_COLN,      KC_DQUO,
+    _______, IPC(Z),  BRKT,    IPC(C),  KC_EQL,  KC_COLN,    _______, _______, _______,  A(KC_2), _________NUM_123_________, _______,      KC_PIPE,
+    _______, _______, _______, _______, _______, _______,    _______, _______, _______,  LT(_NAV, KC_0),_______, _______, _______, _______,_______
 ),
 [_MOUSE] = LAYOUT_ID75_wrapper(
-   _______,    C(KC_F1),_______, _______, A(KC_F4),KC_F5,   _______, _______, _______,  _______, _______, _______, _______, _______,      QK_BOOT,
-    KC_U,      XXXXXXX, KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX, _______, _______, _______,  XXXXXXX, KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,
+    _______,   C(KC_F1),_______, _______, A(KC_F4),KC_F5,   _______, _______, _______,  _______, _______, _______, _______, _______,      QK_BOOT,
+    KC_U,      XXXXXXX, KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX, _______, _______, _______,  XXXXXXX, KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX,      QK_MAKE,
     KC_P,      KC_LSFT, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______, _______, _______,  KC_INS,  KC_ACL0, KC_BTN1, KC_BTN2, KC_BTN3,      XXXXXXX,
     KC_X,      UNDO,    CUT,     COPY,    PASTE,   BOLDFACE,_______, _______, _______,  KC_APP,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      XXXXXXX,
-    _______,   _______, _______, KC_LCTL, KC_SPC,  KC_ENT,  _______, _______, _______,  KC_TRNS, _______, _______, _______, _______,      _______
+    _______,   _______, _______, KC_LCTL, KC_SPC,  KC_ENT,  _______, _______, KC_TRNS,  _______, _______, _______, _______, _______,      _______
 ),
 };
 //clang-format on
@@ -72,10 +71,10 @@ enum combos {
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
-const uint16_t PROGMEM onehand_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM onehand_combo[] = {KC_ESC, KC_1, COMBO_END};
 //const uint16_t PROGMEM STENO_combo[] = {SFTT_Z, KC_B, COMBO_END};
 combo_t key_combos[] = {
-    [COMBO_ONEHAND]   = COMBO(onehand_combo, TO(_ONEHAND)),
+    [COMBO_ONEHAND]   = COMBO(onehand_combo, TO(_USER_MACRO)),
 //    [ZB_STENO]   = COMBO(STENO_combo, TO(_USER_MACRO)),
 };
 

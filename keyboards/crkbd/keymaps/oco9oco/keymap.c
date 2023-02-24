@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
   [_IPC] = LAYOUT_crkbd_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    PDF_HL,  HAEN_B,  HAEN_C,  CLASS_E, CLASS_A, KC_BSLS,                            KC_GRV,  _________NUM_789_________, KC_MINS, KC_PLUS,
+    PDF_HL,  HAEN_B,  HAEN_C,  CLASS_E, CLASS_A, KC_BSLS,                             KC_GRV,  _________NUM_789_________, KC_MINS, KC_PLUS,
     _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F),  KC_DOT,                              KC_LBRC, _________NUM_456_________, KC_COLN, KC_DQUO,
     KC_LNG1, IPC(Z),  HWP_CITE,IPC(C),  KC_EQL,  KC_SLSH,                             KC_RBRC, _________NUM_123_________, _______, KC_PIPE,
                                         _______, _______, _______,          _______, LT(_NAV,KC_0), _______
@@ -70,37 +70,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
   [_ONEHAND] = LAYOUT_split_3x6_3( //Trackball Manipulation
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    KC_ESC,  KC_WH_U, KC_BTN2, KC_UP,   KC_BTN1, ALT_F4,                             XXXXXXX, G(KC_7), G(KC_8), G(KC_9), XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_WH_D, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,                            XXXXXXX, G(KC_4), G(KC_5), G(KC_6), XXXXXXX, XXXXXXX,
-    KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, G(KC_1), G(KC_2), G(KC_3), XXXXXXX, XXXXXXX,
-                                        KC_DEL,  KC_SPC, KC_ENT,            XXXXXXX, XXXXXXX, XXXXXXX
+    KC_ESC,  C(KC_F1), KC_F2,   KC_F3,  ALT_F4,  XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO_HOME,
+    KC_TAB,  KC_WH_U, KC_BTN2, KC_UP,   KC_BTN1, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    G(KC_R), KC_WH_D, KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                        KC_LCTL, KC_BSPC, KC_ENT,           TO_HOME, XXXXXXX, XXXXXXX
     )
 };
 //clang-format on
 
 // COMBOS
-// enum combos {
-//     COMBO_ONEHAND,
+enum combos {
+    COMBO_ONEHAND,
 //     COMBO_NOMOD,
 //     COMBO_HOME,
 //     COMBO_OS,
 //     COMBO_ONEHAND_HOME,
 //     //ZB_STENO,
-//     COMBO_LENGTH
-// };
-// uint16_t COMBO_LEN = COMBO_LENGTH;
-// const uint16_t PROGMEM qw_combo[] = {KC_W,    KC_E,    COMBO_END};
+    COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+const uint16_t PROGMEM EQ_combo[] = {KC_ESC,    KC_Q,    COMBO_END};
 // const uint16_t PROGMEM pe_combo[] = {KC_P,    KC_EQL,  COMBO_END};
 // const uint16_t PROGMEM sq_combo[] = {KC_SCLN, KC_QUOT, COMBO_END};
 // const uint16_t PROGMEM os_combo[] = {KC_BSLS, KC_SLSH, COMBO_END};
 // const uint16_t PROGMEM oh_combo[] = {KC_BTN2, KC_UP,   COMBO_END};
 
-// combo_t key_combos[] = {
-//     [COMBO_ONEHAND]               = COMBO(qw_combo, TO(_ONEHAND)),
+combo_t key_combos[] = {
+    [COMBO_ONEHAND]               = COMBO(EQ_combo, TO(_ONEHAND)),
 //     [COMBO_NOMOD]	              = COMBO(pe_combo, TO(_BASE_NOMOD)),
 //     [COMBO_HOME]                  = COMBO(sq_combo, TO(_BASE)),
 //     [COMBO_OS]                    = COMBO(os_combo, CG_TOGG),
 //     [COMBO_ONEHAND_HOME]          = COMBO(oh_combo, TO(_BASE)),
-// };
+};
 
 
