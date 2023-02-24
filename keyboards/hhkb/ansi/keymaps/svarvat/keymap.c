@@ -109,8 +109,6 @@ enum custom_keycodes {
     MA_DELLINE,
     MA_DELX2,
     MA_BSPCX2,
-    MA_DOWN,
-    MA_UP,
     MA_DOWNX2,
     MA_UPX2,
     MA_RIGHTX2,
@@ -265,19 +263,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, QK_REBOOT, TG(LA_CAPSLOCK),
         MA_LPINKY, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_RALT,
-        KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_KC_RCTL
+        KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_RCTL
     ),
     [LA_RTHUMB] = LAYOUT(
-        KC_PWR, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
-        KC_CAPS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, FR_AT, FR_MICR, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
-        KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, FR_PIPE, FR_SECT, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
-        KC_TRNS, FR_DEG, FR_SUP2, FR_DLR, FR_PERC, FR_PND, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
+        KC_TRNS, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, FR_AT, FR_MICR, KC_TRNS, KC_PSCR, KC_SCRL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, FR_PIPE, FR_SECT, KC_PSLS, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_TRNS, KC_TRNS,
+        KC_TRNS, FR_DEG, FR_SUP2, FR_DLR, FR_PERC, FR_PND, KC_PPLS, KC_PMNS, KC_TRNS, KC_MEDIA_PLAY_PAUSE, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [LA_LPINKY] = LAYOUT(
-        KC_LGUI, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, QK_REBOOT, QK_BOOTLOADER,
-        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_ESC, KC_UP, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, MA_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
+        KC_LGUI, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
+        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_ESC, KC_UP, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
         TG(LA_CAPSLOCK), KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
     ),
@@ -297,70 +295,70 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LA_LTHUMB] = LAYOUT(
         KC_TRNS, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, MA_LTHUMBQ, MA_LTHUMBW, MA_LTHUMBE, MA_LTHUMBR, MA_LTHUMBT, MA_LTHUMBY, MA_7, MA_8, MA_9, MA_EQL, MA_ASTR, KC_TRNS, KC_TRNS,
-        KC_TRNS, MA_LTHUMBA, MA_LTHUMBS,  MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, MA_DOT, MA_4, MA_5, MA_6, MA_MINS, MA_PLUS, MA_ENT,
-        KC_LSFT, MA_LTHUMBZ, MA_LTHUMBX, MA_LTHUMBC, MA_LTHUMBV, MA_LTHUMBB, MA_0, MA_1, MA_2, MA_3, MA_SLSH, KC_TRNS, KC_TRNS,
+        KC_TRNS, C(KC_Q), C(KC_W), MA_LTHUMBE, MA_LTHUMBR, MA_LTHUMBT, MA_LTHUMBY, MA_7, MA_8, MA_9, MA_EQL, MA_ASTR, KC_TRNS, KC_TRNS,
+        KC_TRNS, MA_LTHUMBA, C(KC_S), MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, MA_DOT, MA_4, MA_5, MA_6, MA_MINS, MA_PLUS, MA_ENT,
+        KC_LSFT, MA_LTHUMBZ, C(KC_X), C(KC_C), C(KC_V), MA_LTHUMBB, MA_0, MA_1, MA_2, MA_3, MA_SLSH, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_SPC, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_LTHUMBEMO] = LAYOUT(
         LSG(KC_ESC), LSG(KC_1), LSG(KC_2), LSG(KC_3), LSG(KC_4), LSG(KC_5), LSG(KC_6), LSG(KC_7), LSG(KC_8), LSG(KC_9), LSG(KC_0), LSG(KC_MINS), LSG(KC_EQL), LSG(KC_BSLS), KC_TRNS,
-        LSG(KC_TAB), LSG(KC_Q), LSG(KC_W), LSG(KC_E), LSG(KC_R), LSG(KC_T), LSG(KC_Y), LSG(KC_U), LSG(KC_I), LSG(KC_O), LSG(KC_P), LSG(KC_LBRC), LSG(KC_RBRC), KC_TRNS,
+        LSG(KC_TAB), LSG(KC_Q), LSG(KC_W), LSG(KC_E), LSG(KC_R), LSG(KC_T), LSG(KC_Y), LSG(KC_U), LSG(KC_I), LSG(KC_O), LSG(KC_P), LSG(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, LSG(KC_A), LSG(KC_S), LSG(KC_D), LSG(KC_F), LSG(KC_G), LSG(KC_H), LSG(KC_J), LSG(KC_K), LSG(KC_L), LSG(KC_SCLN), LSG(KC_QUOT), LSG(KC_ENT),
         KC_TRNS, LSG(KC_Z), LSG(KC_X), LSG(KC_C), LSG(KC_V), LSG(KC_B), LSG(KC_N), LSG(KC_M), LSG(KC_COMM), LSG(KC_DOT), LSG(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, LSG(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMBEOSL] = LAYOUT(
         LAG(KC_ESC), LAG(KC_1), LAG(KC_2), LAG(KC_3), LAG(KC_4), LAG(KC_5), LAG(KC_6), LAG(KC_7), LAG(KC_8), LAG(KC_9), LAG(KC_0), LAG(KC_MINS), LAG(KC_EQL), LAG(KC_BSLS), KC_TRNS,
-        LAG(KC_TAB), LAG(KC_Q), LAG(KC_W), LAG(KC_E), LAG(KC_R), LAG(KC_T), LAG(KC_Y), LAG(KC_U), LAG(KC_I), LAG(KC_O), LAG(KC_P), LAG(KC_LBRC), LAG(KC_RBRC), KC_TRNS,
+        LAG(KC_TAB), LAG(KC_Q), LAG(KC_W), LAG(KC_E), LAG(KC_R), LAG(KC_T), LAG(KC_Y), LAG(KC_U), LAG(KC_I), LAG(KC_O), LAG(KC_P), LAG(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, LAG(KC_A), LAG(KC_S), LAG(KC_D), LAG(KC_F), LAG(KC_G), LAG(KC_H), LAG(KC_J), LAG(KC_K), LAG(KC_L), LAG(KC_SCLN), LAG(KC_QUOT), LAG(KC_ENT),
         KC_TRNS, LAG(KC_Z), LAG(KC_X), LAG(KC_C), LAG(KC_V), LAG(KC_B), LAG(KC_N), LAG(KC_M), LAG(KC_COMM), LAG(KC_DOT), LAG(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, LAG(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMBEOSLBIS] = LAYOUT(
         LCA(KC_ESC), LCA(KC_1), LCA(KC_2), LCA(KC_3), LCA(KC_4), LCA(KC_5), LCA(KC_6), LCA(KC_7), LCA(KC_8), LCA(KC_9), LCA(KC_0), LCA(KC_MINS), LCA(KC_EQL), LCA(KC_BSLS), KC_TRNS,
-        LCA(KC_TAB), LCA(KC_Q), LCA(KC_W), LCA(KC_E), LCA(KC_R), LCA(KC_T), LCA(KC_Y), LCA(KC_U), LCA(KC_I), LCA(KC_O), LCA(KC_P), LCA(KC_LBRC), LCA(KC_RBRC), KC_TRNS,
+        LCA(KC_TAB), LCA(KC_Q), LCA(KC_W), LCA(KC_E), LCA(KC_R), LCA(KC_T), LCA(KC_Y), LCA(KC_U), LCA(KC_I), LCA(KC_O), LCA(KC_P), LCA(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, LCA(KC_A), LCA(KC_S), LCA(KC_D), LCA(KC_F), LCA(KC_G), LCA(KC_H), LCA(KC_J), LCA(KC_K), LCA(KC_L), LCA(KC_SCLN), LCA(KC_QUOT), LCA(KC_ENT),
         KC_TRNS, LCA(KC_Z), LCA(KC_X), LCA(KC_C), LCA(KC_V), LCA(KC_B), LCA(KC_N), LCA(KC_M), LCA(KC_COMM), LCA(KC_DOT), LCA(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, LCA(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMBDMO] = LAYOUT(
         RSG(KC_ESC), RSG(KC_1), RSG(KC_2), RSG(KC_3), RSG(KC_4), RSG(KC_5), RSG(KC_6), RSG(KC_7), RSG(KC_8), RSG(KC_9), RSG(KC_0), RSG(KC_MINS), RSG(KC_EQL), RSG(KC_BSLS), KC_TRNS,
-        RSG(KC_TAB), RSG(KC_Q), RSG(KC_W), RSG(KC_E), RSG(KC_R), RSG(KC_T), RSG(KC_Y), RSG(KC_U), RSG(KC_I), RSG(KC_O), RSG(KC_P), RSG(KC_LBRC), RSG(KC_RBRC), KC_TRNS,
+        RSG(KC_TAB), RSG(KC_Q), RSG(KC_W), RSG(KC_E), RSG(KC_R), RSG(KC_T), RSG(KC_Y), RSG(KC_U), RSG(KC_I), RSG(KC_O), RSG(KC_P), RSG(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, RSG(KC_A), RSG(KC_S), RSG(KC_D), RSG(KC_F), RSG(KC_G), RSG(KC_H), RSG(KC_J), RSG(KC_K), RSG(KC_L), RSG(KC_SCLN), RSG(KC_QUOT), RSG(KC_ENT),
         KC_TRNS, RSG(KC_Z), RSG(KC_X), RSG(KC_C), RSG(KC_V), RSG(KC_B), RSG(KC_N), RSG(KC_M), RSG(KC_COMM), RSG(KC_DOT), RSG(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, RSG(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMBDOSL] = LAYOUT(
         RAG(KC_ESC), RAG(KC_1), RAG(KC_2), RAG(KC_3), RAG(KC_4), RAG(KC_5), RAG(KC_6), RAG(KC_7), RAG(KC_8), RAG(KC_9), RAG(KC_0), RAG(KC_MINS), RAG(KC_EQL), RAG(KC_BSLS), KC_TRNS,
-        RAG(KC_TAB), RAG(KC_Q), RAG(KC_W), RAG(KC_E), RAG(KC_R), RAG(KC_T), RAG(KC_Y), RAG(KC_U), RAG(KC_I), RAG(KC_O), RAG(KC_P), RAG(KC_LBRC), RAG(KC_RBRC), KC_TRNS,
+        RAG(KC_TAB), RAG(KC_Q), RAG(KC_W), RAG(KC_E), RAG(KC_R), RAG(KC_T), RAG(KC_Y), RAG(KC_U), RAG(KC_I), RAG(KC_O), RAG(KC_P), RAG(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, RAG(KC_A), RAG(KC_S), RAG(KC_D), RAG(KC_F), RAG(KC_G), RAG(KC_H), RAG(KC_J), RAG(KC_K), RAG(KC_L), RAG(KC_SCLN), RAG(KC_QUOT), RAG(KC_ENT),
         KC_TRNS, RAG(KC_Z), RAG(KC_X), RAG(KC_C), RAG(KC_V), RAG(KC_B), RAG(KC_N), RAG(KC_M), RAG(KC_COMM), RAG(KC_DOT), RAG(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, RAG(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMBDOSLBIS] = LAYOUT(
         RSA(KC_ESC), RSA(KC_1), RSA(KC_2), RSA(KC_3), RSA(KC_4), RSA(KC_5), RSA(KC_6), RSA(KC_7), RSA(KC_8), RSA(KC_9), RSA(KC_0), RSA(KC_MINS), RSA(KC_EQL), RSA(KC_BSLS), KC_TRNS,
-        RSA(KC_TAB), RSA(KC_Q), RSA(KC_W), RSA(KC_E), RSA(KC_R), RSA(KC_T), RSA(KC_Y), RSA(KC_U), RSA(KC_I), RSA(KC_O), RSA(KC_P), RSA(KC_LBRC), RSA(KC_RBRC), KC_TRNS,
+        RSA(KC_TAB), RSA(KC_Q), RSA(KC_W), RSA(KC_E), RSA(KC_R), RSA(KC_T), RSA(KC_Y), RSA(KC_U), RSA(KC_I), RSA(KC_O), RSA(KC_P), RSA(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, RSA(KC_A), RSA(KC_S), RSA(KC_D), RSA(KC_F), RSA(KC_G), RSA(KC_H), RSA(KC_J), RSA(KC_K), RSA(KC_L), RSA(KC_SCLN), RSA(KC_QUOT), RSA(KC_ENT),
         KC_TRNS, RSA(KC_Z), RSA(KC_X), RSA(KC_C), RSA(KC_V), RSA(KC_B), RSA(KC_N), RSA(KC_M), RSA(KC_COMM), RSA(KC_DOT), RSA(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, RSA(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMB1MO] = LAYOUT(
         LCAG(KC_ESC), LCAG(KC_1), LCAG(KC_2), LCAG(KC_3), LCAG(KC_4), LCAG(KC_5), LCAG(KC_6), LCAG(KC_7), LCAG(KC_8), LCAG(KC_9), LCAG(KC_0), LCAG(KC_MINS), LCAG(KC_EQL), LCAG(KC_BSLS), KC_TRNS,
-        LCAG(KC_TAB), LCAG(KC_Q), LCAG(KC_W), LCAG(KC_E), LCAG(KC_R), LCAG(KC_T), LCAG(KC_Y), LCAG(KC_U), LCAG(KC_I), LCAG(KC_O), LCAG(KC_P), LCAG(KC_LBRC), LCAG(KC_RBRC), KC_TRNS,
+        LCAG(KC_TAB), LCAG(KC_Q), LCAG(KC_W), LCAG(KC_E), LCAG(KC_R), LCAG(KC_T), LCAG(KC_Y), LCAG(KC_U), LCAG(KC_I), LCAG(KC_O), LCAG(KC_P), LCAG(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, LCAG(KC_A), LCAG(KC_S), LCAG(KC_D), LCAG(KC_F), LCAG(KC_G), LCAG(KC_H), LCAG(KC_J), LCAG(KC_K), LCAG(KC_L), LCAG(KC_SCLN), LCAG(KC_QUOT), LCAG(KC_ENT),
         KC_TRNS, LCAG(KC_Z), LCAG(KC_X), LCAG(KC_C), LCAG(KC_V), LCAG(KC_B), LCAG(KC_N), LCAG(KC_M), LCAG(KC_COMM), LCAG(KC_DOT), LCAG(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, LCAG(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMB2MO] = LAYOUT(
         MEH(KC_ESC), MEH(KC_1), MEH(KC_2), MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_6), MEH(KC_7), MEH(KC_8), MEH(KC_9), MEH(KC_0), MEH(KC_MINS), MEH(KC_EQL), MEH(KC_BSLS), KC_TRNS,
-        MEH(KC_TAB), MEH(KC_Q), MEH(KC_W), MEH(KC_E), MEH(KC_R), MEH(KC_T), MEH(KC_Y), MEH(KC_U), MEH(KC_I), MEH(KC_O), MEH(KC_P), MEH(KC_LBRC), MEH(KC_RBRC), KC_TRNS,
+        MEH(KC_TAB), MEH(KC_Q), MEH(KC_W), MEH(KC_E), MEH(KC_R), MEH(KC_T), MEH(KC_Y), MEH(KC_U), MEH(KC_I), MEH(KC_O), MEH(KC_P), MEH(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, MEH(KC_A), MEH(KC_S), MEH(KC_D), MEH(KC_F), MEH(KC_G), MEH(KC_H), MEH(KC_J), MEH(KC_K), MEH(KC_L), MEH(KC_SCLN), MEH(KC_QUOT), MEH(KC_ENT),
         KC_TRNS, MEH(KC_Z), MEH(KC_X), MEH(KC_C), MEH(KC_V), MEH(KC_B), MEH(KC_N), MEH(KC_M), MEH(KC_COMM), MEH(KC_DOT), MEH(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, MEH(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMB3MO] = LAYOUT(
         HYPR(KC_ESC), HYPR(KC_1), HYPR(KC_2), HYPR(KC_3), HYPR(KC_4), HYPR(KC_5), HYPR(KC_6), HYPR(KC_7), HYPR(KC_8), HYPR(KC_9), HYPR(KC_0), HYPR(KC_MINS), HYPR(KC_EQL), HYPR(KC_BSLS), KC_TRNS,
-        HYPR(KC_TAB), HYPR(KC_Q), HYPR(KC_W), HYPR(KC_E), HYPR(KC_R), HYPR(KC_T), HYPR(KC_Y), HYPR(KC_U), HYPR(KC_I), HYPR(KC_O), HYPR(KC_P), HYPR(KC_LBRC), HYPR(KC_RBRC), KC_TRNS,
+        HYPR(KC_TAB), HYPR(KC_Q), HYPR(KC_W), HYPR(KC_E), HYPR(KC_R), HYPR(KC_T), HYPR(KC_Y), HYPR(KC_U), HYPR(KC_I), HYPR(KC_O), HYPR(KC_P), HYPR(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, HYPR(KC_A), HYPR(KC_S), HYPR(KC_D), HYPR(KC_F), HYPR(KC_G), HYPR(KC_H), HYPR(KC_J), HYPR(KC_K), HYPR(KC_L), HYPR(KC_SCLN), HYPR(KC_QUOT), HYPR(KC_ENT),
         KC_TRNS, HYPR(KC_Z), HYPR(KC_X), HYPR(KC_C), HYPR(KC_V), HYPR(KC_B), HYPR(KC_N), HYPR(KC_M), HYPR(KC_COMM), HYPR(KC_DOT), HYPR(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, HYPR(KC_SPC), KC_TRNS, KC_TRNS
@@ -392,15 +390,29 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 layer_on(LA_LPINKY);
             }
             return false;
+        case MA_ADEFIL:
+            if (record->event.pressed) {
+                layer_on(LA_LPINKY);
+            }
+            return false;
     }
     return true;
 }
-bool processKeycodeIfCtl(uint16_t keycode, keyrecord_t* record) {return true;}
 bool processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case KC_SLSH:
             if (record->event.pressed) {
                 tap_code16(FR_BSLS);
+            }
+            return false;
+    }
+    return true;
+}
+bool processKeycodeIfShiftCtlAlt(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_ADEFIL:
+            if (record->event.pressed) {
+                tap_code16(QK_BOOTLOADER);
             }
             return false;
     }
@@ -431,28 +443,26 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
                 layer_off(LA_LPINKY);
             }
             return false;
-        case MA_UP:
-//            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
+        case KC_UP:
+            if (mod_state & MOD_MASK_CTRL) {
+                if (record->event.pressed) {
                     unregister_code16(KC_LCTL);
                     tap_code16(KC_UP);
                     register_code16(KC_LCTL);
-                } else {
-                    tap_code16(KC_UP);
+                    return false;
                 }
-//            }
-            return false;
-        case MA_DOWN:
-//            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
+            }
+            return true;
+        case KC_DOWN:
+            if (mod_state & MOD_MASK_CTRL) {
+                if (record->event.pressed) {
                     unregister_code16(KC_LCTL);
                     tap_code16(KC_DOWN);
                     register_code16(KC_LCTL);
-                } else {
-                    tap_code16(KC_DOWN);
+                    return false;
                 }
-//            }
-            return false;
+            }
+            return true;
         case MA_DOUBLEARROW:
             if (record->event.pressed) {
                 tap_code16(FR_EQL);
@@ -976,13 +986,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             return processKeycodeIfLPinky(keycode, record, mod_state);
         }
     }
-    if (mod_state & MOD_MASK_SHIFT) {return processKeycodeIfShift(keycode, record);}
-    if (mod_state & MOD_MASK_CTRL) {return processKeycodeIfCtl(keycode, record);}
     if (IS_LAYER_ON(LA_CAPSLOCK)) {return processKeycodeIfLCapslock(keycode, record, mod_state);}
+    if (mod_state & MOD_MASK_SHIFT & MOD_MASK_CTRL & MOD_MASK_ALT) {return processKeycodeIfShiftCtlAlt(keycode, record);}
+    if (mod_state & MOD_MASK_SHIFT) {return processKeycodeIfShift(keycode, record);}
+    return processKeycodeIfLBase(keycode, record);
 
-    if (IS_LAYER_ON(LA_BASE)) {return processKeycodeIfLBase(keycode, record);}
-
-    return true;
 }
 
 
