@@ -31,18 +31,18 @@ uint16_t usb_setups[STORED_USB_SETUPS];
 
 #ifdef OS_DETECTION_ENABLE
 struct setups_data_t {
-    uint8_t      count;
-    uint8_t      cnt_02;
-    uint8_t      cnt_04;
-    uint8_t      cnt_ff;
-    uint16_t     last_wlength;
+    uint8_t  count;
+    uint8_t  cnt_02;
+    uint8_t  cnt_04;
+    uint8_t  cnt_ff;
+    uint16_t last_wlength;
 };
 
 struct setups_data_t setups_data = {
-    .count       = 0,
-    .cnt_02      = 0,
-    .cnt_04      = 0,
-    .cnt_ff      = 0,
+    .count  = 0,
+    .cnt_02 = 0,
+    .cnt_04 = 0,
+    .cnt_ff = 0,
 };
 
 os_variant_t detected_os = OS_UNSURE;
@@ -107,11 +107,11 @@ void erase_wlength_data(void) {
     detected_os = OS_UNSURE;
 }
 
-#   if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 void slave_update_detected_host_os(os_variant_t os) {
     detected_os = os;
 }
-#   endif //defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+#    endif //defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 #endif // OS_DETECTION_ENABLE
 
 #ifdef OS_DETECTION_DEBUG_ENABLE

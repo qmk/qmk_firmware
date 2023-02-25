@@ -134,7 +134,7 @@ typedef struct _rpc_sync_info_t {
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 
 #if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
-#   include "os_detection.h"
+#    include "os_detection.h"
 #endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
 typedef struct _split_shared_memory_t {
