@@ -1,10 +1,10 @@
-# Finalkey Origin65(A)
+# Finalkey Origin65A
 
-![Finalkey Origin65(A)]()
+![Origin65A](https://i.imgur.com/ZhGIiphl.png)
 
-A 65% keyboard with encoder, which controlled by an ATMEGA32U4 chipset.
+A 65% keyboard, which controlled by an ATMEGA32U4 chipset. The keyboard feature RGB Matrix and 1 Encoder.
 
-* Keyboard Maintainer: [Pangorin](https://github.com/pangorin)
+* Keyboard Maintainer: Finalkey
 * Hardware Supported: ATMEGA32U4
 
 Make example for this keyboard (after setting up your build environment):
@@ -21,6 +21,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix and plug in the keyboard
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (Esc key) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
