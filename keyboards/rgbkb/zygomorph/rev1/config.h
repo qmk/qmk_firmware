@@ -28,9 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A  { D2 }
-#define ENCODERS_PAD_B  { D7 }
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B7
 #ifndef RGBLIGHT_SPLIT_ENABLE

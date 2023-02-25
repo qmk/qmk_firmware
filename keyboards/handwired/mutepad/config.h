@@ -19,14 +19,6 @@
 #define MATRIX_COL_PINS \
     { B1, B3, B2, B6 }
 
-/* encoder support */
-#define ENCODERS_PAD_A \
-    { F4 }
-#define ENCODERS_PAD_B \
-    { F5 }
-
-#define ENCODER_RESOLUTION 2
-
 #define TAP_CODE_DELAY 10
 
 /* COL2ROW, ROW2COL */

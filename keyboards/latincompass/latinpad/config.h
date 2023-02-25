@@ -77,8 +77,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #define OLED_FONT_H "./lib/glcdfont.c"
-
-#define ENCODERS_PAD_A { B4, B5 }
-#define ENCODERS_PAD_B { B2, B6 }
-
-#define ENCODER_RESOLUTION 4

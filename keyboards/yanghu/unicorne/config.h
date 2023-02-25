@@ -25,11 +25,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A \
-    { B10, B2 }
-#define ENCODERS_PAD_B \
-    { B12, B0 }
-
 /* I2C - required for custom i2c_init */
 #define I2C1_SCL_PIN B6
 #define I2C1_SDA_PIN B7

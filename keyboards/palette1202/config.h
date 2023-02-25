@@ -24,13 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* Encoders */
-#define ENCODERS_PAD_A { F4, F6 }
-#define ENCODERS_PAD_B { F5, F7 }
-#define ENCODER_RESOLUTION 2
-// if you want to reverse encoder direction
-// #define ENCODER_DIRECTION_FLIP
-
 /* Register custom font file */
 #ifdef OLED_ENABLE
   #define OLED_FONT_H "lib/glcdfont.c"

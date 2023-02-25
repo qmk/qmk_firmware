@@ -25,15 +25,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-#ifdef ENCODER_ENABLE
-    /* Encoder pins */
-    #define ENCODERS_PAD_A { C6 }
-    #define ENCODERS_PAD_B { C7 }
-
-    /* Encoder config */
-    #define ENCODER_RESOLUTION 2
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200

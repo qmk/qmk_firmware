@@ -24,6 +24,3 @@
 
 #define SPLIT_USB_DETECT
 #define SPLIT_MODS_ENABLE
-
-#define ENCODERS_PAD_A { B4 }
-#define ENCODERS_PAD_B { B5 }

@@ -17,9 +17,6 @@
 #define MATRIX_ROW_PINS { A3, B8, B9, B1 }
 #define MATRIX_COL_PINS { A7, A8, B2, B10 }
 
-#define ENCODERS_PAD_A { B13 }
-#define ENCODERS_PAD_B { B14 }
-
 //Audio
 #undef AUDIO_VOICES
 #undef AUDIO_PIN

@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B6 }
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

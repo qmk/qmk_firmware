@@ -16,10 +16,6 @@
 
 #pragma once
 
-#define ENCODERS_PAD_A { C6 }
-#define ENCODERS_PAD_B { B6 }
-#define ENCODER_RESOLUTION 2
-
 #define RGB_DI_PIN B5
 
 #ifdef RGB_DI_PIN

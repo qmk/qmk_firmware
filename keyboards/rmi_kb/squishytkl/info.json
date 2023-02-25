@@ -8,6 +8,11 @@
         "pid": "0x00B1",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "B7", "resolution": 1}
+        ]
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layouts": {

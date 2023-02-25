@@ -80,11 +80,6 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define ENCODERS_PAD_A \
-    { D4, B0 }
-#define ENCODERS_PAD_B \
-    { D6, B1 }
-
 #define WORK_LOUDER_LED_PIN_1 B6
 #define WORK_LOUDER_LED_PIN_2 B7
 #define WORK_LOUDER_LED_PIN_3 B5

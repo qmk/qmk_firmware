@@ -14,10 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.#pragma once
  */
 
-
-#define ENCODERS_PAD_A { D6 }
-#define ENCODERS_PAD_B { D7 }
-
  /* key matrix pins */
 #define MATRIX_ROW_PINS { C7, C6 }
 #define MATRIX_COL_PINS { F4, F1, F0, D5 }

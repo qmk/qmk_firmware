@@ -36,12 +36,6 @@
 #define MATRIX_COL_PINS \
     { B11, B10, B2, B1, A7, B0 }
 
-
-#define ENCODERS_PAD_A \
-    { B12 }
-#define ENCODERS_PAD_B \
-    { B13 }
-
 #define DIP_SWITCH_PINS \
     { B14, A15, A0, B9 }
 

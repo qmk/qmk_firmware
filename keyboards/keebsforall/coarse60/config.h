@@ -47,10 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define ENCODERS_PAD_A { A8 }
-#define ENCODERS_PAD_B { A1 }
-#define ENCODER_RESOLUTION 2
-
 // 2 bits for 4 layout options
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
 

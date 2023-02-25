@@ -3,6 +3,11 @@
     "usb": {
         "pid": "0xAEC2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A4", "pin_b": "A3"}
+        ]
+    },
     "processor": "STM32F303",
     "board": "QMK_PROTON_C",
     "bootloader": "stm32-dfu",

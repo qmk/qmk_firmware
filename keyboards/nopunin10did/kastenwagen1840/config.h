@@ -26,10 +26,5 @@
 #define LED_INDICATOR_MID   D4
 #define LED_INDICATOR_BOT   C6
 
-/* Rotary encoder rotation pins */
-#define ENCODERS_PAD_A      { D0, D3 }
-#define ENCODERS_PAD_B      { D1, D2 }
-
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION     COL2ROW

@@ -31,8 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_SPLIT { 36, 36 }
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_LIMIT_VAL 120
-
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { D4 }
-#define ENCODERS_PAD_A_RIGHT { D4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }

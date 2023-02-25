@@ -25,10 +25,6 @@
 #define TOUCH_RESOLUTION 25 // sensitivity of swipes, lower=faster
 #define TOUCH_SEGMENTS 3
 
-/* Encoder Configuration */
-#define ENCODERS_PAD_A { B8, B9 }
-#define ENCODERS_PAD_B { A14, A15 }
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

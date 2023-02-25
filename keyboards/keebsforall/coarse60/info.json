@@ -8,6 +8,11 @@
         "pid": "0x5341",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A8", "pin_b": "A1", "resolution": 2}
+        ]
+    },
     "backlight": {
         "pin": "A6",
         "levels": 6,

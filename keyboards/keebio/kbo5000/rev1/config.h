@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS_RIGHT { B3, B2, B6, B4, D7, B0 }
 #define MATRIX_COL_PINS_RIGHT { F1, F0, F4, F5, F6, D5, D2, D3, B7, B1 }
 #define SPLIT_HAND_PIN F7
-#define ENCODERS_PAD_A { F5, NO_PIN }
-#define ENCODERS_PAD_B { F6, NO_PIN }
-#define ENCODERS_PAD_A_RIGHT { D6, C7 }
-#define ENCODERS_PAD_B_RIGHT { D4, C6 }
 
 #define CAPS_LOCK_LED_PIN B6
 

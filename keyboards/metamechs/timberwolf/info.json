@@ -12,6 +12,11 @@
         "pin": "C6",
         "levels": 16
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B7", "pin_b": "B3", "resolution": 2}
+        ]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

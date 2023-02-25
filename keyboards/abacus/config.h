@@ -33,10 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIP_SWITCH_PINS { D0 }
 
-#define ENCODERS_PAD_A { F1 }
-#define ENCODERS_PAD_B { F0 }
-#define ENCODER_RESOLUTION 4
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 #define RGB_DI_PIN D1

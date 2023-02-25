@@ -8,6 +8,11 @@
         "pid": "0xEA68",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C5", "pin_b": "C4"}
+        ]
+    },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "layouts": {

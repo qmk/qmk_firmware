@@ -40,9 +40,6 @@
 //#define SELECT_SOFT_SERIAL_SPEED 0
 #define SERIAL_USART_SPEED 921600
 
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { A2 }
-
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 48
 #define RGBLED_SPLIT {24, 24}

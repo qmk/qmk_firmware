@@ -33,10 +33,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Defining encoder pads */
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D3 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

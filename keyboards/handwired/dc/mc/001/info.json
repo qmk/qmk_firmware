@@ -8,6 +8,11 @@
         "pid": "0x4D43",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "B5"}
+        ]
+    },
     "bootmagic": {
         "matrix": [0, 1]
     },

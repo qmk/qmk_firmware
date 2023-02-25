@@ -13,10 +13,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* encoders */
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B3 }
-
 /* misc */
 #define LAYER_STATE_8BIT
 #define NO_ACTION_TAPPING

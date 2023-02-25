@@ -20,12 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D4 }
-#define ENCODERS_PAD_A_RIGHT { D4 }
-#define ENCODERS_PAD_B_RIGHT { D2 }
-#define ENCODER_RESOLUTION 3
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, F4 }
 #define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }

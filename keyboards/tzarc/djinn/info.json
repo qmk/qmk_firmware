@@ -35,7 +35,19 @@
   },
   "split": {
     "enabled": true,
-    "main": "pin"
+    "main": "pin",
+    "encoder": {
+      "right": {
+        "rotary": [
+          {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
+        ]
+      }
+    }
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "C14", "pin_b": "C15", "resolution": 2}
+    ]
   },
   "layouts": {
     "LAYOUT_all": {

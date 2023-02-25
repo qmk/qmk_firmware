@@ -8,6 +8,11 @@
         "pid": "0x0180",
         "device_version": "0.0.2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C13", "pin_b": "C14"}
+        ]
+    },
     "indicators": {
         "caps_lock": "A1",
         "on_state": 0

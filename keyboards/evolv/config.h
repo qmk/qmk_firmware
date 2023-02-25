@@ -41,9 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define ENCODERS_PAD_A { B3 }
-#define ENCODERS_PAD_B { A15 }
-#define ENCODER_RESOLUTION 2
 #define TAPPING_TERM 200
 
 /*

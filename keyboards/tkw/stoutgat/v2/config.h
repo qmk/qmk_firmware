@@ -24,9 +24,6 @@
 #define MATRIX_IO_DELAY 5
 #define TAP_CODE_DELAY 10
 
-#define ENCODERS_PAD_A { B14, B12}
-#define ENCODERS_PAD_B { B15, B13 }
-
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 13
 #define RGBLIGHT_LIMIT_VAL 120

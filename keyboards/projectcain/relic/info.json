@@ -8,6 +8,11 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "D6"}
+        ]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

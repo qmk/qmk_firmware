@@ -34,16 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* Wncoswe pins */
-#define ENCODERS_PAD_A { B7 }
-#define ENCODERS_PAD_B { B3 }
-
-/* Encoder resolution, lower number = more sensitive */
-#define ENCODER_RESOLUTION 2
-
-/* Reverse encoder direction */
-// #define ENCODER_DIRECTION_FLIP
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

@@ -8,12 +8,6 @@
 #define SPLIT_HAND_MATRIX_GRID B5, F6
 #define MATRIX_MASKED
 
-/* Encoder */
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
-#define ENCODERS_PAD_A_RIGHT { F4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }
-
 #define RGBLIGHT_SLEEP
 
 /* Haptic hardware */

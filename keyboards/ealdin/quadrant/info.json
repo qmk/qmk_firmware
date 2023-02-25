@@ -8,6 +8,11 @@
         "pid": "0x5154",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D5", "pin_b": "F1"}
+        ]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["ortho_5x14"],

@@ -8,6 +8,12 @@
         "pid": "0x4D49",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D7", "pin_b": "E6"},
+            {"pin_a": "B1", "pin_b": "B3"}
+        ]
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {

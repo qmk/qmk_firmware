@@ -20,9 +20,6 @@
 #define MATRIX_COL_PINS { D3, D1, B7, D6, C7, B6, B5, D7, C6, D0}
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-#define ENCODERS_PAD_A { F7 }
-#define ENCODERS_PAD_B { F6 }
-#define ENCODER_RESOLUTION 4
 
 /* RGB Light Configuration */
 

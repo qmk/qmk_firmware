@@ -31,12 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B8, B4, B3, B9, A15, B12, B13, B14, B15, A8 }
 #define MATRIX_COL_PINS { B10, B1, B0, A7, A6, A5, A4 }
 
-/* encoder pins */
-#define ENCODERS_PAD_A { A3 }
-#define ENCODERS_PAD_B { A2 }
-
-/* encoder resolution */
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
 
 /* COL2ROW, ROW2COL */

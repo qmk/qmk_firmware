@@ -58,9 +58,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* QoL improvements */
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
-
-/* Encoder */
-#define ENCODERS_PAD_A { A0 }
-#define ENCODERS_PAD_B { A1 }
-
-//#define ENCODER_DIRECTION_FLIP

@@ -18,16 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /*
-    RE_CHANNEL_A          = _BV(6),
-    RE_CHANNEL_B          = _BV(5),
-*/
-#define ENCODERS_PAD_A \
-    { B6 }
-#define ENCODERS_PAD_B \
-    { B5 }
-#define ENCODER_RESOLUTION 4
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */

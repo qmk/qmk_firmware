@@ -34,13 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* ROTARY ENCODERS */
-#define ENCODERS_PAD_A { F5, D6 }
-#define ENCODERS_PAD_B { F6, D7 }
-
-#define ENCODER_RESOLUTION 4
-//#define ENCODER_DIRECTION_FLIP
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

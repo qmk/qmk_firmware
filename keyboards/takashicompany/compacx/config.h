@@ -34,10 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODER_RESOLUTION 4
-#define ENCODERS_PAD_A { E6, B6 }
-#define ENCODERS_PAD_B { B4, B5 }
-
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 12

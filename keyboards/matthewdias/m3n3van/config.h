@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* m3n3van PCB default pin-out */
 #define MATRIX_ROW_PINS { B5, B6, C6, C7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F1, F7, F0, E6, D3, D0, D1, D2, D4, D6 }
-#define ENCODERS_PAD_A { B4 }
-#define ENCODERS_PAD_B { D7 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

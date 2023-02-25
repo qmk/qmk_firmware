@@ -34,9 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B3 }
-
 #define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 30
 // RGB Matrix Animation modes. Explicitly enabled

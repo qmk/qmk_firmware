@@ -7,6 +7,11 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A15", "pin_b": "A14", "resolution": 2}
+        ]
+    },
     "backlight": {
         "pin": "A10",
         "levels": 5,

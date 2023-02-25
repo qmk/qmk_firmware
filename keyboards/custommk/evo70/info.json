@@ -9,6 +9,11 @@
         "pid": "0xFAB5",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C7", "pin_b": "D5", "resolution": 2}
+        ]
+    },
     "backlight": {
         "pin": "B5",
         "levels": 17,

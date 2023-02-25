@@ -41,12 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_CLICKY
 #define AUDIO_PIN C6
 
-/* Encoder Function */
-#define ENCODERS_PAD_A { D6 }
-#define ENCODERS_PAD_B { D4 }
-//#define ENCODER_DIRECTION_FLIP
-#define ENCODER_RESOLUTION 1
-
 /*== all animations enabled ==*/
 /* If RGBLIGHT_SLEEP defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGB_DI_PIN B7

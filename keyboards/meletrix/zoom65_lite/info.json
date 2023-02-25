@@ -8,6 +8,11 @@
         "pid": "0x0005",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B0", "resolution": 2}
+        ]
+    },
     "indicators": {
         "caps_lock": "F7",
         "on_state": 0

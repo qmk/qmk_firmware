@@ -43,13 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 
-
-/* Rotary encoder - set the resolution fitting your encoder.
-Most will need a value of 4. If 1 encoder click results in 2 keycodes sent
-increase the value. If you need 2 clicks for 1 keycode, decrease*/
-#define ENCODER_RESOLUTION 2
-#define ENCODERS_PAD_A { C15 }
-#define ENCODERS_PAD_B { C14 }
 #define TAP_CODE_DELAY 10
 
 /* ADC - will be used for battery monitoring once BT support is added */

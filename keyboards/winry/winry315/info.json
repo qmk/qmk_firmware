@@ -8,6 +8,13 @@
         "pid": "0x0315",
         "vid": "0xF1F1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F1", "pin_b": "F0"},
+            {"pin_a": "B0", "pin_b": "B1"},
+            {"pin_a": "B3", "pin_b": "B7"}
+        ]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "matrix_pins": {

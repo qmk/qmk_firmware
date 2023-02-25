@@ -26,9 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { A7, A6, A5, A4 }
 #define MATRIX_COL_PINS { D7, C2, C3, C4, C5, C6, C7, A3, A2, A1, A0, B0 }
 
-#define ENCODERS_PAD_A { B4, B2 }
-#define ENCODERS_PAD_B { B3, B1 }
-
 #define TAPPING_TOGGLE 3
 
 #define DIP_SWITCH_PINS { D0, D1, D4, D6 }
