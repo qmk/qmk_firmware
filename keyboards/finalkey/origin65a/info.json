@@ -22,8 +22,10 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "lto": true,
         "rgb_matrix": true
+    },
+    "build": {
+        "lto": true
     },
     "encoder": {
         "enabled": true,
