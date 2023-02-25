@@ -5,18 +5,13 @@
 #define CTLA LCTL(KC_A)
 #define CAE LCTL(LALT(KC_END))
 #define CAD LCTL(LALT(KC_DEL))
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
 
 enum crow_layers {
-_QWERTY,
-_LOWER,
-_RAISE,
-_ADJUST,
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
-
-
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
