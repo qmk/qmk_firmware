@@ -36,6 +36,7 @@ enum layer_number {
   _SYM,
   _MED,
   _FUN,
+  _MOU,
 };
 
 #define TH_NAV LT(_NAV, KC_TAB)
@@ -43,6 +44,7 @@ enum layer_number {
 #define TH_SYM LT(_SYM, KC_ENT)
 #define TH_MED LT(_MED, KC_ESC)
 #define TH_FUN LT(_FUN, KC_DEL)
+#define TH_MOU LT(_MOU, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -55,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                             KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______,
   _______,  HO_A   , HO_S   , HO_D   , HO_F   , KC_G   ,                             KC_H   , HO_J   , HO_K   , HO_L   , HO_SCLN, _______,
   _______,  KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , _______,           _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______,
-                              _______, TH_MED , TH_NAV , KC_SPC ,           TH_SYM , TH_NUM , TH_FUN , _______
+                              _______, TH_MED , TH_NAV , TH_MOU ,           TH_SYM , TH_NUM , TH_FUN , _______
 ),
 /* 
  * NAV
@@ -91,11 +93,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * MED
  */
 [_MED] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                       _______, _______   , _______          , _______        , _______, _______,
-  _______, _______, _______, _______, _______, _______,                       _______, _______   , _______          , _______        , _______, _______,
-  _______, _______, _______, _______, _______, _______,                       _______, KC_MPRV   , KC_KB_VOLUME_DOWN, KC_KB_VOLUME_UP, KC_MNXT, _______,
-  _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______   , _______          , _______        , _______, _______,
-                             _______, _______, _______, _______,     KC_MSTP, KC_MPLY, KC_KB_MUTE, _______
+  _______, _______, _______, _______, _______, _______,                       _______, _______          , _______          , _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                       _______, _______          , _______          , _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                       KC_MPRV, KC_KB_VOLUME_DOWN, KC_KB_VOLUME_UP  , KC_MNXT, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______          , _______          , _______, _______, _______,
+                             _______, _______, _______, _______,     KC_MSTP, KC_MPLY, KC_KB_MUTE       , _______
 ),
 /* 
  * FUN
@@ -106,6 +108,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F11 , KC_F4  , KC_F5  , KC_F6  , KC_SCRL,                       _______, _______, _______, _______, _______, _______,
   _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , KC_PAUS, _______,     _______, _______, _______, _______, _______, _______, _______,
                              _______, _______, _______, _______,     _______, _______, _______, _______
+),
+/* 
+ * MOU
+ */
+[_MOU] = LAYOUT(
+  _______, _______, _______, _______, _______, _______,                          _______      , _______      , _______    , _______       , _______, _______,
+  _______, _______, _______, _______, _______, _______,                          _______      , _______      , _______    , _______       , _______, _______,
+  _______, _______, _______, _______, _______, _______,                          KC_MS_LEFT   , KC_MS_DOWN   , KC_MS_UP   , KC_MS_RIGHT   , _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,     _______   , KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, _______, _______,
+                             _______, _______, _______, _______,     KC_MS_BTN1, KC_MS_BTN2   , KC_MS_BTN3   , _______
 ),
 };
 
@@ -198,6 +210,9 @@ bool oled_task_user(void) {
         break;
     case _FUN:
         oled_write_ln_P(PSTR("Fun"), false);
+        break;
+    case _MOU:
+        oled_write_ln_P(PSTR("Mou"), false);
         break;
     default:
         oled_write_ln_P(PSTR("Undefined"), false);
