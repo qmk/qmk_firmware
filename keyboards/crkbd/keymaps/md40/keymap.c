@@ -1,4 +1,7 @@
 #include QMK_KEYBOARD_H
+#define KC_ESCC MT(MOD_LCTL, KC_ESC)
+#define KC_ENTS MT(MOD_LSFT, KC_ENT)
+#define KC_FN   MO(_FN)
 
 enum layers {
   _QWERTY,
