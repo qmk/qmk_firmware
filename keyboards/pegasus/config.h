@@ -40,11 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
-/* Rotary Encoder Definitions */
-#define ENCODERS_PAD_A { D0, D5 }
-#define ENCODERS_PAD_B { D1, D3 }
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

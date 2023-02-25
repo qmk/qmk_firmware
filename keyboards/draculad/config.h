@@ -42,12 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SLEEP
 #endif
 
-#define ENCODERS_PAD_A {B2 , B4}
-#define ENCODERS_PAD_B {B6 , B5}
-
-#define ENCODER_RESOLUTIONS { 4, 4 }
-#define ENCODER_RESOLUTIONS_RIGHT { 4, 1 }
-
 #define EE_HANDS
 
 #define LAYER_STATE_8BIT

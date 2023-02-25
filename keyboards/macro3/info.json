@@ -8,6 +8,12 @@
         "pid": "0x3388",
         "device_version": "0.0.3"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3"},
+            {"pin_a": "F7", "pin_b": "F6"}
+        ]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "matrix_pins": {

@@ -8,6 +8,11 @@
         "pid": "0x1703",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "B5"}
+        ]
+    },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "layouts": {

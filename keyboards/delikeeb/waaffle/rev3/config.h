@@ -33,10 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/*rotary encoder setting*/
-#define ENCODERS_PAD_A { B7, F1 }
-#define ENCODERS_PAD_B { D5, F0 }
-
 #define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 10

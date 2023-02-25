@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define ENCODERS_PAD_A {F5}
-#define ENCODERS_PAD_B {F4}
-#define ENCODER_RESOLUTION 2
-
 #define MATRIX_ROW_PINS { F7, B1, E6, F0, F1 }
 #define MATRIX_COL_PINS { B0, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1, D0 }
 

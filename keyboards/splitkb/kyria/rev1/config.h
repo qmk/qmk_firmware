@@ -23,15 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS \
     { B6, B2, B3, B1, F7, F6, F5, F4 }
 
-#define ENCODERS_PAD_A \
-    { C6 }
-#define ENCODERS_PAD_B \
-    { B5 }
-#define ENCODERS_PAD_A_RIGHT \
-    { B5 }
-#define ENCODERS_PAD_B_RIGHT \
-    { C6 }
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 

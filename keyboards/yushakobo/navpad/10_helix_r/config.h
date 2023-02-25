@@ -44,12 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               34, 35, 36, 37, 38, 39, 40 }
 #endif
 
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B6 }
-
-#define ENCODERS_PAD_A_RIGHT { B6 }
-#define ENCODERS_PAD_B_RIGHT { B5 }
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

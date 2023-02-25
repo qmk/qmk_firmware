@@ -64,10 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Custom font */
 #define OLED_FONT_H "keyboards/rura66/common/glcdfont.c"
 
-/* Encorder */
-// #define ENCODERS_PAD_A { B6 }
-// #define ENCODERS_PAD_B { B5 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

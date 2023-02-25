@@ -49,12 +49,6 @@
 //The 3D-printed version of Boston uses APA106 LEDs, which are reversed
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
-/* Define encoder */
-#define ENCODERS_PAD_A \
-    { C13 }
-#define ENCODERS_PAD_B \
-    { F1 }
-#define ENCODER_RESOLUTION 2
 #define TAP_CODE_DELAY 15
 
 /*

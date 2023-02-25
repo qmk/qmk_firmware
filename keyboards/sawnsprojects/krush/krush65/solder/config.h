@@ -23,11 +23,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* rotary */
-#define ENCODERS_PAD_A { D0 }
-#define ENCODERS_PAD_B { B3 }
-#define ENCODER_RESOLUTION 4
-
 #define RGB_DI_PIN F1
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 20

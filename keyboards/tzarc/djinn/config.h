@@ -2,20 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-// Encoders -- right-side is reversed
-#define ENCODERS_PAD_A \
-    { C14 }
-#define ENCODERS_PAD_B \
-    { C15 }
-#define ENCODERS_PAD_A_RIGHT \
-    { C15 }
-#define ENCODERS_PAD_B_RIGHT \
-    { C14 }
-
-#ifndef ENCODER_RESOLUTION
-#    define ENCODER_RESOLUTION 2
-#endif // ENCODER_RESOLUTION
-
 // Bootloader
 #define STM32_BOOTLOADER_DUAL_BANK TRUE
 #define STM32_BOOTLOADER_DUAL_BANK_GPIO B7

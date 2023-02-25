@@ -8,6 +8,11 @@
         "pid": "0x00B3",
         "device_version": "35.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D1"}
+        ]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -4,6 +4,11 @@
         "pid": "0x3256",
         "device_version": "3.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B7"}
+        ]
+    },
     "backlight": {
         "pin": "B6",
         "levels": 5

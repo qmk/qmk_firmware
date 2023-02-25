@@ -8,6 +8,11 @@
       "pid": "0x6163",
       "device_version": "0.0.2"
     },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "D1", "pin_b": "D0", "resolution": 2}
+      ]
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

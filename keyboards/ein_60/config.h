@@ -23,12 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#ifdef ENCODER_ENABLE
-#    define ENCODERS_PAD_A { B0, C5 }
-#    define ENCODERS_PAD_B { E3, C4 }
-#    define ENCODER_RESOLUTIONS { 4, 4 }
-#endif
-
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
 #    define OLED_TIMEOUT 450000

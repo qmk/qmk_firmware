@@ -5,14 +5,6 @@
 #define MATRIX_ROW_PINS { E6 }
 #define MATRIX_COL_PINS { D1, D0, D4 }
 
-/*Rotary Encoder Pins*/
-#define ENCODERS_PAD_A { C6 }
-#define ENCODERS_PAD_B { D7 }
-
-/*Sets the number of pulses per increment*/
-#define ENCODER_RESOLUTION 2
-
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

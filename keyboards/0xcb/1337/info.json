@@ -13,6 +13,11 @@
     "levels": 7,
     "breathing": true
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F6", "pin_b": "F5"}
+    ]
+  },
   "qmk_lufa_bootloader": {
     "led": "B0"
   },

@@ -8,6 +8,11 @@
         "pid": "0x6C01",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A15", "pin_b": "A2"}
+        ]
+    },
     "backlight": {
         "pin": "B0",
         "breathing": true

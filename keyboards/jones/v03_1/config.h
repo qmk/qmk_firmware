@@ -41,11 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // No need to define DIODE_DIRECTION for Jones' custom Round-Robin matrix.
 //#define DIODE_DIRECTION COL2ROW
 
-/* Rotary Encoder */
-#define ENCODERS_PAD_A { F6, B3 }
-#define ENCODERS_PAD_B { F7, B2 }
-#define ENCODER_RESOLUTION 4  //the default & suggested is 4
-
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6

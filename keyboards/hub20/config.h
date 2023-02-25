@@ -24,11 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* Rotary Encoder Things */
-// #define ENCODER_DIRECTION_FLIP
-#define ENCODERS_PAD_A { B12, A8 }
-#define ENCODERS_PAD_B { B13, A9 }
-
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 27
 

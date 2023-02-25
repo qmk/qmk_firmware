@@ -16,11 +16,6 @@
 
 #pragma once
 
-
-#define ENCODERS_PAD_A { B13 }
-#define ENCODERS_PAD_B { B15 }
-#define ENCODER_RESOLUTION 4
-
 #define MATRIX_ROW_PINS { A2, A1, A0, B8 }
 #define MATRIX_COL_PINS { B5, B4, B3, B2, B1, B0 }
 

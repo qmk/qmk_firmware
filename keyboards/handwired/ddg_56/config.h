@@ -19,6 +19,3 @@
 
 #define MATRIX_ROW_PINS { B5, B15, B9, B10, A14 }
 #define MATRIX_COL_PINS { A2, B8, B13, B14, B4, B11, B12, A13, A15, A8, A7, A6, B0, B1 }
-
-#define ENCODERS_PAD_A { A1, B3 }
-#define ENCODERS_PAD_B { A0, B2 }

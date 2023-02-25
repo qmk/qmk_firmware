@@ -51,12 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Encoders */
-
-#define ENCODERS 3
-
-#define ENCODERS_PAD_A { F6, F4 , B6 }
-#define ENCODERS_PAD_B { F7, F5 , C6 }
-
 #define ENCODERS_CW_KEY  { { 2, 4 },{ 4, 4 },{ 6, 4 } }
 #define ENCODERS_CCW_KEY { { 1, 4 },{ 3, 4 },{ 5, 4 } }
 

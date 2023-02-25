@@ -25,14 +25,6 @@
 #define MATRIX_ROW_PINS \
     { A4, A3, A2, A1, A0 }
 
-
-// Encoder config
-#define ENCODERS_PAD_A \
-    { C15 }
-#define ENCODERS_PAD_B \
-    { C14 }
-#define ENCODER_RESOLUTION 2
-
 // OLED config
 #define OLED_DISPLAY_128X64
 #define OLED_DISPLAY_WIDTH 128

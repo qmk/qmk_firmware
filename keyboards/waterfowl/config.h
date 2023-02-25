@@ -28,10 +28,5 @@
 #define SPLIT_WPM_ENABLE
 #define SPLIT_USB_DETECT
 
-// Encoders
-#define ENCODERS_PAD_A { B4, B3 }
-#define ENCODERS_PAD_B { B5, B2 }
-#define ENCODER_RESOLUTIONS { 4, 2 }
-
 // Tapping term
 #define TAPPING_TERM 200

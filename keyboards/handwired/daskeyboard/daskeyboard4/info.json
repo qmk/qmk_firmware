@@ -39,8 +39,7 @@
         "rotary": [
             {
             "pin_a": "B13",
-            "pin_b": "B12",
-            "resolution": 4
+            "pin_b": "B12"
             }
         ]
     },

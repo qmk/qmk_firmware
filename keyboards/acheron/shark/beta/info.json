@@ -4,6 +4,11 @@
         "pid": "0x5369",
         "device_version": "0.0.2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C15", "pin_b": "C14"}
+        ]
+    },
     "backlight": {
         "pin": "A6",
         "levels": 20,

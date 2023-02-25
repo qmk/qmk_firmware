@@ -1,12 +1,19 @@
 {
-    "keyboard_name": "Ellipse", 
+    "keyboard_name": "Ellipse",
     "manufacturer": "AbstractKB",
-    "url": "https://abstractkb.tk/product/ellipse-rev1", 
-    "maintainer": "AbstractKB", 
+    "url": "https://abstractkb.tk/product/ellipse-rev1",
+    "maintainer": "AbstractKB",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0001",
         "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B1", "resolution": 2},
+            {"pin_a": "B3", "pin_b": "B7", "resolution": 2},
+            {"pin_a": "D5", "pin_b": "B4", "resolution": 2}
+        ]
     },
     "backlight": {
         "pin": "C6",

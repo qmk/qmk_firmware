@@ -55,9 +55,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-// Encoder pins
-#define ENCODERS_PAD_A { C13 }
-#define ENCODERS_PAD_B { C14 }
-
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10

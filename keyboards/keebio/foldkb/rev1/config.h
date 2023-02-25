@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B1, B2, C7, B4, D7 }
 #define MATRIX_COL_PINS { F4, F1, F0, B7, B3, D2, D3, D5 }
 #define SPLIT_HAND_PIN F7
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F6 }
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

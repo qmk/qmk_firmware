@@ -32,11 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B7, D4, B5, B6, C6, C7 }
 #define MATRIX_COL_PINS { D5, D3, D2, F7 }
 
-#define ENCODERS_PAD_A \
-    { B4, F0, F4 }
-#define ENCODERS_PAD_B \
-    { D7, E6, F1 }
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 

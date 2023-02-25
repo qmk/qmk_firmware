@@ -37,10 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 3
 
-#define ENCODERS_PAD_A { A15 }
-#define ENCODERS_PAD_B { A2 }
-#define ENCODER_RESOLUTION 4
-
 #define TAP_CODE_DELAY 10
 
 #define WEAR_LEVELING_BACKING_SIZE 4096

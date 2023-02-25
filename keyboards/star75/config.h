@@ -11,12 +11,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* encoder definitions */
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B1 }
-#endif
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

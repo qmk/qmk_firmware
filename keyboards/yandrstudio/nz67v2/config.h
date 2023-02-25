@@ -26,13 +26,6 @@
 
 #define TAP_CODE_DELAY 15
 
-#ifdef ENCODER_ENABLE
-
-#   define ENCODERS_PAD_A { A9 }
-#   define ENCODERS_PAD_B { A10 }
-
-#endif
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 

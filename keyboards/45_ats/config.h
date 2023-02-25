@@ -18,10 +18,6 @@
 
 #pragma once
 
-
-#define ENCODERS_PAD_A { B4 }
-#define ENCODERS_PAD_B { B5 }
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D3, D5, D7, D6 }
 #define MATRIX_COL_PINS { E6, B0, B1, B2, B3, B7, F6, F5, F4, C7, F7, C6, B6, D4 }

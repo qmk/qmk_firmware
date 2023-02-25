@@ -48,9 +48,6 @@
 #    define RGBLED_NUM 14
 #endif
 
-#define ENCODERS_PAD_A { D5 }
-#define ENCODERS_PAD_B { D3 }
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

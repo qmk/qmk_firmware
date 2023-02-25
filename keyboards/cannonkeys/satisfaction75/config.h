@@ -27,11 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B9 }
-#define ENCODERS_PAD_B { B8 }
-
-#define ENCODER_RESOLUTION 2
-
 // I2C config
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN B6
