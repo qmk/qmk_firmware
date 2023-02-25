@@ -1,3 +1,16 @@
 {
-    "keyboard_name": "Symmetric70 prototype proton-c"
+    "bootloader": "stm32-dfu",
+    "processor": "STM32F303",
+    "board": "QMK_PROTON_C",
+    "usb": {
+        "device_version": "0.0.2"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false
+    }
 }

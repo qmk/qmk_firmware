@@ -1,3 +1,15 @@
 {
-    "keyboard_name": "Symmetric70 prototype promicro"
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "usb": {
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false
+    }
 }

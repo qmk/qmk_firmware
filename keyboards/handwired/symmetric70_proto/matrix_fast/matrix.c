@@ -18,9 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <gpio.h>
-#ifndef readPort
-#    include "gpio_extr.h"
-#endif
+#include "gpio_extr.h"
+#    if ! (defined(readPort) && defined(setPortBitInput))
+#        error matrix_read_cols_on_row.c requires readPort() and related macros.
+#    endif
 #include "util.h"
 #include "matrix.h"
 #include "matrix_extr.h"
@@ -36,15 +37,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define _BV(bit) (1 << (bit))
 #endif
 
-#ifndef MATRIX_DEBUG_PIN
+#ifndef MATRIX_DEBUG_PIN_INIT
 #    define MATRIX_DEBUG_PIN_INIT()
+#endif
+#ifdef MATRIX_DEBUG_SCAN_START
+#    pragma message "MATRIX_DEBUG_SCAN_* enable"
+#else
 #    define MATRIX_DEBUG_SCAN_START()
 #    define MATRIX_DEBUG_SCAN_END()
+#endif
+#ifdef MATRIX_DEBUG_DELAY_START
+#    pragma message "MATRIX_DEBUG_DELAY_* enable"
+#else
 #    define MATRIX_DEBUG_DELAY_START()
 #    define MATRIX_DEBUG_DELAY_END()
-#    define MATRIX_DEBUG_GAP()
-#else
-#    define MATRIX_DEBUG_GAP()  asm volatile("nop \n nop":::"memory")
+#endif
+#ifndef MATRIX_DEBUG_WAIT
+#    define MATRIX_DEBUG_WAIT(n)
 #endif
 
 typedef uint16_t     port_width_t;
@@ -160,6 +169,7 @@ LOCAL_FUNC void read_matrix_line(matrix_line_t phy_matrix[], uint8_t current_lin
 #endif // MATRIX_TYPE == DIRECT_SWITCH
 
 void matrix_init(void) {
+    MATRIX_DEBUG_PIN_INIT();
     // initialize key pins
     init_all_ports();
 
@@ -177,8 +187,6 @@ void matrix_init(void) {
 uint8_t matrix_scan(void) {
     matrix_line_t phy_matrix[MATRIX_LINES];
 
-    MATRIX_DEBUG_PIN_INIT();
-
     MATRIX_DEBUG_SCAN_START();
 
     // read I/O port to phy_matrix[] (physical matrix)
@@ -186,7 +194,7 @@ uint8_t matrix_scan(void) {
     for (uint8_t current_line = 0; current_line < MATRIX_LINES; current_line++) {
         read_matrix_line(phy_matrix, current_line);
     }
-    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP(); MATRIX_DEBUG_SCAN_START();
+    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_WAIT(1); MATRIX_DEBUG_SCAN_START();
 
     bool changed = false;
 #if MATRIX_TYPE == DIRECT_SWITCH || MATRIX_TYPE == DIODE_COL2ROW
@@ -221,11 +229,11 @@ uint8_t matrix_scan(void) {
         }
     }
 #endif
-    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP(); MATRIX_DEBUG_SCAN_START();
+    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_WAIT(1); MATRIX_DEBUG_SCAN_START();
 
     // debounce raw_matrix[] to matrix[]
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP();
+    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_WAIT(1);
 
     MATRIX_DEBUG_SCAN_START();
     matrix_scan_quantum();

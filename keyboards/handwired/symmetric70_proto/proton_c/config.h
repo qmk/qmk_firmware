@@ -1,32 +1,12 @@
-/*
-Copyright 2021 mtei
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+// Copyright 2021-2022 Takeshi Ishii (@mtei)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /* Proton-C **************************
                  ====
          +-------====------+
-   DEBUG | A9/TX/SCL2   5V | (VUSB)
+         | A9/TX/SCL2   5V | (VUSB)
          | A10/RX/SDA2 GND |
          | GND       FLASH |
          | GND        3.3V | (VCC)
@@ -40,18 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      C8  | B0      SDA1/B9 | C7
          +---+         +---+
          +---+         +---+
-      R0 | A4          B10 |
-      R1 | A5          B11 |
+      R0 | A4          B10 | DEBUG_MATRIX_SCAN
+      R1 | A5          B11 | DEBUG_MATRIX_DELAY
       R2 | A6          B12 |
       R3 | A7          A14 |
       R4 | A8          A13 |
          | A15         RST |
          +-----------------+
 ***************************************/
-
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
@@ -136,6 +112,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BOOTMAGIC_LITE_COLUMN 0
 
 #ifdef DEBUG_CONFIG
-#    define MATRIX_DEBUG_PIN A9
+#    define MATRIX_DEBUG_PIN B10,B11
 #    include "../debug_config.h"
 #endif

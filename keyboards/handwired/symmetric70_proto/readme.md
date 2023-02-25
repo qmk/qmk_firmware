@@ -6,3 +6,4 @@ A compact 70keys keyboard (prototype) designed by mtei
 
 * [Pro Micro version of symmetric70_proto](promicro/readme.md)
 * [Proton-C version of symmetric70_proto](proton_c/readme.md)
+* [Raspberry Pi Pico version of symmetric70_proto](rp_pico/readme.md)
