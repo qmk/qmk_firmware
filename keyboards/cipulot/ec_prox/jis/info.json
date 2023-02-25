@@ -8,10 +8,6 @@
         "lto": true
     },
     "diode_direction": "COL2ROW",
-    "matrix_size": {
-        "rows": 5,
-        "cols": 14
-    },
     "features": {
         "audio": false,
         "backlight": false,
