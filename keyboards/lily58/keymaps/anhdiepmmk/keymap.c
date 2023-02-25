@@ -47,21 +47,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_BASE] = LAYOUT(
-  _______,  KC_1,   KC_2,    KC_3  , KC_4  , KC_5  ,                             KC_6  ,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-  _______,  KC_Q,   KC_W,    KC_E  , KC_R  , KC_T  ,                             KC_Y  ,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
-  _______,  HO_A,   HO_S,    HO_D  , HO_F  , KC_G  ,                             KC_H  ,    HO_J,    HO_K,    HO_L,    HO_SCLN, KC_QUOT,
-  _______,  KC_Z,   KC_X,    KC_C  , KC_V  , KC_B  , _______,           _______, KC_N  ,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
-                            _______, KC_ESC, TH_NAV, KC_SPC ,           KC_ENT , TH_SYM,  TH_NUM, _______
+  _______,  _______, _______, _______, _______, _______,                             _______, _______, _______, _______, _______, _______,
+  _______,  KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                             KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______,
+  _______,  HO_A   , HO_S   , HO_D   , HO_F   , KC_G   ,                             KC_H   , HO_J   , HO_K   , HO_L   , HO_SCLN, _______,
+  _______,  KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , _______,           _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______,
+                              _______, KC_ESC , TH_NAV , KC_SPC ,           KC_ENT , TH_SYM , TH_NUM , _______
 ),
 /* 
  * NAV
  */
 [_NAV] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                   _______, _______ , _______, _______ , _______     , _______,
-  _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_HOME , KC_ASTR, KC_END  , KC_PAGE_UP  , _______,
-  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_LEFT , KC_DOWN, KC_UP  , KC_RIGHT, KC_PAGE_DOWN, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_PIPE, KC_GRAVE, KC_PLUS, KC_LCBR , KC_RCBR     , _______,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
+  _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______ , _______     , _______,
+  _______, _______, _______, _______, _______, _______,                          _______, KC_HOME, _______, KC_END  , KC_PAGE_UP  , _______,
+  _______, _______, _______, _______, _______, _______,                          KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, KC_PAGE_DOWN, _______,
+  _______, _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______ , _______     , _______,
+                             _______, _______, _______, _______,        _______, _______, _______, _______
 ),
 /* 
  * NUM
