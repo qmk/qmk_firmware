@@ -22,9 +22,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN           A0
-#define BACKLIGHT_LEVELS         5
-
 #define MOUSEKEY_INTERVAL 32
 
 #define TAPPING_TERM 175

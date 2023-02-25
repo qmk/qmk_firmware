@@ -8,6 +8,9 @@
         "pid": "0x6067",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "pin": "B5"
+    },
     "indicators": {
         "caps_lock": "D4",
         "on_state": 0

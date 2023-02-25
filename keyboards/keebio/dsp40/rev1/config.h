@@ -25,11 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAP_CODE_DELAY 10
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN A6
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
-#define BACKLIGHT_LEVELS 7
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN

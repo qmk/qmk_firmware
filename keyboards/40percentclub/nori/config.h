@@ -33,8 +33,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B5
-
 // enable RGB underglow
 #define RGB_DI_PIN B4
 #define RGBLIGHT_EFFECT_BREATHING

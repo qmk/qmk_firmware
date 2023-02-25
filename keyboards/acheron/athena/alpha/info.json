@@ -5,7 +5,10 @@
         "device_version": "0.0.1"
     },
     "backlight": {
-        "on_state": 0
+        "pin": "A6",
+        "levels": 20,
+        "on_state": 0,
+        "breathing": true
     },
     "indicators": {
         "caps_lock": "A10"

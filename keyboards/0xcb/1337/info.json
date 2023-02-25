@@ -8,6 +8,11 @@
     "pid": "0x1337",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B5",
+    "levels": 7,
+    "breathing": true
+  },
   "qmk_lufa_bootloader": {
     "led": "B0"
   },

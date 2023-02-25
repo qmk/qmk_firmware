@@ -42,9 +42,6 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-#define BACKLIGHT_PIN F5
-#define BACKLIGHT_LEVELS 10
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

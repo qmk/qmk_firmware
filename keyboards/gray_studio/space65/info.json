@@ -8,6 +8,11 @@
         "pid": "0x3000",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "levels": 5,
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "E6",
         "on_state": 0

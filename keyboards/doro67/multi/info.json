@@ -8,6 +8,10 @@
     "pid": "0x4D4C",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7",
+    "levels": 7
+  },
   "indicators": {
     "caps_lock": "E6",
     "on_state": 0

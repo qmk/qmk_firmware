@@ -26,13 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B5 }
 #define ENCODER_RESOLUTION 1
 
-//LEDS A6
-#define BACKLIGHT_PIN A6
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
-#define BACKLIGHT_LEVELS 24
-#define BACKLIGHT_BREATHING
 
 #define SLEEP_LED_GPT_DRIVER GPTD1
 

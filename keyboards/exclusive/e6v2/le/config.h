@@ -40,10 +40,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 12
 #endif
 
-#define BACKLIGHT_PIN B6
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 2
-#define BACKLIGHT_BREAHTING
-#endif
-
 #define DIODE_DIRECTION COL2ROW

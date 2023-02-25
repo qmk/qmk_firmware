@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A_RIGHT { D6, C7 }
 #define ENCODERS_PAD_B_RIGHT { D4, C6 }
 
-#define BACKLIGHT_PIN B5
 #define CAPS_LOCK_LED_PIN B6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

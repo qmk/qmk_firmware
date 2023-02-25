@@ -8,6 +8,10 @@
     "pid": "0x0000",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B8",
+    "breathing": true
+  },
   "processor": "STM32F303",
   "bootloader": "stm32-dfu",
   "board": "QMK_PROTON_C",

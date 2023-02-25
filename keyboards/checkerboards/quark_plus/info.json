@@ -8,6 +8,11 @@
         "pid": "0x5344",
         "device_version": "0.0.1"
     },
+    "backlight": {
+      "pin": "C4",
+      "levels": 6,
+      "breathing": true
+    },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "layouts": {

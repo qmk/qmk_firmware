@@ -23,9 +23,6 @@
 #define ENCODERS_PAD_B { B0 }
 #define ENCODER_RESOLUTION 4
 
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 5
-
 #define GRAVE_ESC_CTRL_OVERRIDE
 
 /* RGB Light Configuration */
