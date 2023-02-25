@@ -8,7 +8,6 @@
 
 enum layers {
   _QWERTY,
-  _CODE,
   _FN,
 };
 

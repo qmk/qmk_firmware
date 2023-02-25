@@ -12,12 +12,8 @@ Supports crkbd only.
 
 ## Base Layer
 
-![Base Layer](https://raw.githubusercontent.com/shano/shano.github.io/main/images/base.png)
-
-
-
-
+![Base Layer](https://i.imgur.com/hXLP6us.png)
 
 ## Fn Layer
 
-![Base Layer](https://raw.githubusercontent.com/shano/shano.github.io/main/images/fn.png)
+![Base Layer](https://i.imgur.com/Sozd1p8.png)
