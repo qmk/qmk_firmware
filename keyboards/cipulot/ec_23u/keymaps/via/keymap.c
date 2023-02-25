@@ -18,7 +18,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
-    [0] = LAYOUT(
+    [0] = LAYOUT_all(
         KC_ESC, KC_TAB,  KC_BSPC, MO(1),
         KC_NUM, KC_PSLS, KC_PAST, KC_PEQL,
         KC_P7,  KC_P8,   KC_P9,   KC_PMNS,
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P1,  KC_P2,   KC_P3,   KC_PENT,
         KC_P0,  KC_P0,   KC_PDOT, KC_PENT),
 
-    [1] = LAYOUT(
+    [1] = LAYOUT_all(
         RGB_TOG, RGB_VAD, RGB_VAI, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, QK_BOOT, _______),
 
 
-    [2] = LAYOUT(
+    [2] = LAYOUT_all(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______,
         _______, _______, _______, _______),
 
-    [3] = LAYOUT(
+    [3] = LAYOUT_all(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
