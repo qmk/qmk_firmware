@@ -21,11 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, B5, B6, B7 }
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN A8
 #define BACKLIGHT_PWM_DRIVER PWMD1
 #define BACKLIGHT_PWM_CHANNEL 1
-#define BACKLIGHT_LEVELS 6
-#define BACKLIGHT_BREATHING
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

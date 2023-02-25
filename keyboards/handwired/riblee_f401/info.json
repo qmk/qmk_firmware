@@ -8,6 +8,11 @@
         "pid": "0x002A",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "driver": "software",
+        "pin": "A0",
+        "levels": 5
+    },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "board": "BLACKPILL_STM32_F401",

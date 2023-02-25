@@ -27,12 +27,6 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-#ifdef BACKLIGHT_ENABLE
-    /* Backlight config */
-    #define BACKLIGHT_PIN B6
-    #define BACKLIGHT_LEVELS 6
-#endif
-
 #ifdef RGBLIGHT_ENABLE
     /* RGB Lighting config */
     #define RGB_DI_PIN E2

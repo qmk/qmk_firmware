@@ -18,7 +18,6 @@
 #include "TWIlib.h"
 #include "lighting.h"
 #include "quantum.h"
-#define BACKLIGHT_BREATHING
 
 extern void backlight_set(uint8_t level);
 

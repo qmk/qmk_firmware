@@ -8,6 +8,11 @@
         "pid": "0x5A65",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_iso_blocker"],

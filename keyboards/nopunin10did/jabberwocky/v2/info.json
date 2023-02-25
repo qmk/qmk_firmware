@@ -9,7 +9,9 @@
         "device_version": "0.2.0"
     },
     "backlight": {
-        "pins": ["D6"]
+        "driver": "software",
+        "pins": ["D6"],
+        "levels": 6
     },
     "indicators": {
         "caps_lock": "B7",

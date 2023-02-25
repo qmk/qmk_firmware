@@ -34,10 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN C6
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
-
 #ifndef SELECT_SOFT_SERIAL_SPEED
 #define SELECT_SOFT_SERIAL_SPEED 3
 #endif

@@ -43,8 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SPLIT_HAND_PIN D5
 
-#define BACKLIGHT_PIN B7
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

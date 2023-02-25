@@ -9,6 +9,7 @@
     "device_version": "0.0.1"
   },
   "backlight": {
+    "pin": "D4",
     "on_state": 0
   },
   "processor": "atmega32u4",

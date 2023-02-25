@@ -22,7 +22,6 @@ CONSOLE_ENABLE = no             # Console for debug
 COMMAND_ENABLE = no             # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes          # Enable keyboard backlight functionality
-BACKLIGHT_DRIVER = custom
 AUDIO_ENABLE = yes              # Audio output
 RGBLIGHT_ENABLE = yes           # Enable RGB underlight
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812

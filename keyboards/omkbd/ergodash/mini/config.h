@@ -31,11 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define AUDIO_PIN C6
 
-#ifdef BACKLIGHT_ENABLE
-  #define BACKLIGHT_PIN B6
-  #define BACKLIGHT_LEVELS 7
-#endif
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

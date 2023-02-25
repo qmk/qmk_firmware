@@ -8,6 +8,9 @@
         "pid": "0x3357",
         "device_version": "3.1.0"
     },
+    "backlight": {
+        "pin": "B5"
+    },
     "split": {
         "soft_serial_pin": "D0"
     },

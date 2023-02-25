@@ -8,6 +8,10 @@
         "pid": "0x57F5",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "levels": 24,
+        "breathing": true
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu"
 }

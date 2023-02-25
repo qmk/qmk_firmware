@@ -24,10 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Backlight */
-#define BACKLIGHT_PIN B7 // Timer 1 on mega32u4
-#define BACKLIGHT_BREATHING
-
 /* Underglow */
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 40

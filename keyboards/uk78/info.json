@@ -8,6 +8,9 @@
     "pid": "0x004E",
     "device_version": "0.0.2"
   },
+  "backlight": {
+    "pin": "B6"
+  },
   "processor": "at90usb1286",
   "bootloader": "atmel-dfu",
   "layouts": {

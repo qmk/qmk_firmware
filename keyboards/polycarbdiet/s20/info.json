@@ -8,6 +8,10 @@
         "pid": "0x7320",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["ortho_5x4", "numpad_5x4"],

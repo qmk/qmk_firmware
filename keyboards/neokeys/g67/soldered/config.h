@@ -32,10 +32,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 10
-
 #if defined(RGBLIGHT_ENABLE)
     #define RGB_DI_PIN F0
     #define RGBLED_NUM 18

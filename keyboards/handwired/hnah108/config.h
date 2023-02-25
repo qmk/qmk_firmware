@@ -37,10 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { B2 }
 #define ENCODERS_PAD_B { B3 }
 
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 4
-
 #define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 30
 // RGB Matrix Animation modes. Explicitly enabled

@@ -31,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_BREATHING
-
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 23
 #define RGBLIGHT_LIMIT_VAL 255

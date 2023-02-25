@@ -7,6 +7,10 @@
         "pid": "0x0404",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D5",
+        "levels": 6
+    },
     "processor": "atmega16u2",
     "bootloader": "atmel-dfu",
     "matrix_pins": {

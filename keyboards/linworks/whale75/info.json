@@ -7,6 +7,11 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A10",
+        "levels": 5,
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "A9",
         "num_lock": "A8",

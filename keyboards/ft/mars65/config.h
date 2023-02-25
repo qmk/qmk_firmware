@@ -19,8 +19,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B7
-
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 24

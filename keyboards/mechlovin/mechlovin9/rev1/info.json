@@ -4,6 +4,10 @@
         "pid": "0x6509",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B8",
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "B9"
     },

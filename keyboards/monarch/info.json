@@ -8,6 +8,11 @@
         "pid": "0x43C1",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A6",
+        "levels": 24,
+        "breathing": true
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {
