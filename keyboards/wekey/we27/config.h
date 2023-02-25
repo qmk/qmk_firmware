@@ -99,7 +99,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
-#define ENCODERS 1
 #define ENCODERS_CW_KEY { { 4, 5 } }
 #define ENCODERS_CCW_KEY { { 4, 3 } }
 

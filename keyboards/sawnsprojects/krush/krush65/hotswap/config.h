@@ -25,7 +25,6 @@
 
 /* Encoders */
 
-#define ENCODERS 1
 #define ENCODERS_CW_KEY  { { 12, 3 } }
 #define ENCODERS_CCW_KEY { { 12, 4 } }
 

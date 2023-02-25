@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define ENCODERS 1
-
 // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 3, 2 } }
 #define ENCODERS_CCW_KEY { { 3, 4 } }

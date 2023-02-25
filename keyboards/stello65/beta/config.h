@@ -20,7 +20,6 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS 1
 #define ENCODERS_CW_KEY  { { 4, 7 } }
 #define ENCODERS_CCW_KEY { { 4, 6 } }
 

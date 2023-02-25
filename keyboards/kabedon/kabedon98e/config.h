@@ -45,7 +45,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define ENCODERS 2
 #define ENCODERS_CW_KEY  { { 0, 0 },{ 2, 0 } }
 #define ENCODERS_CCW_KEY { { 6, 0 },{ 8, 0 } }
 
