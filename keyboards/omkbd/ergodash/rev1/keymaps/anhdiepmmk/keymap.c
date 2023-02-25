@@ -6,7 +6,7 @@ enum layer_names {
     _NUM,
     _NAV,
     _SYM,
-    _MEDIA,
+    _MED,
     // _FUN,
     // _MOUSE
 };
@@ -16,7 +16,7 @@ enum custom_keycodes {
   NUM,
   NAV,
   SYM,
-  MEDIA,
+  MED,
 };
 
 // home row mod
@@ -33,7 +33,7 @@ enum custom_keycodes {
 #define TH_NAV LT(NAV, KC_TAB) 
 #define TH_NUM LT(NUM, KC_BSPC) 
 #define TH_SYM LT(SYM, KC_ENT) 
-#define TH_MEDIA LT(MEDIA, KC_ESC) 
+#define TH_MED LT(MED, KC_ESC) 
 
 #define EISU LALT(KC_GRV)
 
@@ -82,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /* 
-   * Media
+   * Med
    */
-  [_MEDIA] = LAYOUT(
+  [_MED] = LAYOUT(
     _______, _______, _______, _______, _______, _______,_______,                       _______, _______, _______, _______, _______, _______, _______,
     _______, QK_BOOT, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,_______,                       _______, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______,
     _______, _______, BL_TOGG, BL_BRTG, BL_UP  , BL_DOWN,_______,                       _______, _______, _______, _______, _______, _______, _______,
@@ -135,11 +135,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case MEDIA:
+    case MED:
       if (record->event.pressed) {
-        layer_on(_MEDIA);
+        layer_on(_MED);
       } else {
-        layer_off(_MEDIA);
+        layer_off(_MED);
       }
       return false;
       break;
