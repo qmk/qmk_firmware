@@ -1,6 +1,6 @@
 # EC Pro2
 
-![EC Pro 2 PCB](https://i.imgur.com/uYOgTYo.png)
+![EC Pro 2 PCB](https://i.imgur.com/uYOgTYoh.png)
 
 HHKB Pro2 replacement PCB.
 
