@@ -25,11 +25,6 @@ Copyright 2022 Nathan Spears
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Switch LED Backlighting */
-#define BACKLIGHT_PIN           D1
-#define BACKLIGHT_LEVELS 6
-#define BACKLIGHT_BREATHING
-
 // ws2812 options
 #define RGB_DI_PIN B1 // pin the DI on the ws2812 is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING

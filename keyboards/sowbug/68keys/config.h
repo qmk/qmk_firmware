@@ -28,11 +28,6 @@
 
 #define RGB_DI_PIN B9
 
-// Want backlighting and RGB Matrix patterns? See the note in the readme,
-// apply the patches, and then uncomment the line below as well as the ones
-// in rules.mk.
-//
-// #define BACKLIGHT_PIN rgb_matrix
 #define RGB_MATRIX_KEYPRESSES
 #define RGBLED_NUM 68
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM

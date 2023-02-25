@@ -13,6 +13,11 @@
             {"pin_a": "A8", "pin_b": "A1", "resolution": 2}
         ]
     },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "B10",
         "num_lock": "B2",

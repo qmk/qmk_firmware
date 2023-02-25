@@ -23,9 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION ROW2COL
 
-/* mapping backlight LEDs to correct Pin */
-#define BACKLIGHT_PIN B7
-
 #define TAPPING_TERM      175
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

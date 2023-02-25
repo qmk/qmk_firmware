@@ -16,6 +16,11 @@
         {"pin_a": "B2", "pin_b": "B3"}
       ]
     },
+    "backlight": {
+      "pin": "C4",
+      "levels": 6,
+      "breathing": true
+    },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "layouts": {

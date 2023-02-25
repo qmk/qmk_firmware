@@ -3,6 +3,11 @@
     "usb": {
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "pin": "B8",
+        "levels": 5,
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "B9",
         "num_lock": "C15",

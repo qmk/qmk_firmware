@@ -29,8 +29,6 @@
 )
 #endif
 
-#define BACKLIGHT_PIN B7
-
 #define LED_BRIGHTNESS_LO       15
 #define LED_BRIGHTNESS_HI       255
 

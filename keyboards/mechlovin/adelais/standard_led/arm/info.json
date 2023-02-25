@@ -1,5 +1,9 @@
 {
     "keyboard_name": "Adelais",
+    "backlight": {
+        "pin": "B0",
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "B2",
         "num_lock": "C15",

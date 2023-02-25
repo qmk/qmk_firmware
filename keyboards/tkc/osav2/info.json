@@ -8,6 +8,10 @@
         "pid": "0x0005",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D6",
+        "breathing": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["alice", "alice_split_bs"],

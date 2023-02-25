@@ -20,9 +20,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 5
-
 #define GRAVE_ESC_CTRL_OVERRIDE
 
 /* RGB Light Configuration */

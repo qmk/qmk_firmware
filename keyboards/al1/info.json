@@ -8,6 +8,10 @@
         "pid": "0x6050",
         "device_version": "1.0.4"
     },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "B7",
         "num_lock": "D0",

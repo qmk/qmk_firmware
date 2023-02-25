@@ -14,6 +14,8 @@
         ]
     },
     "backlight": {
+        "pin": "B5",
+        "levels": 5,
         "on_state": 0
     },
     "indicators": {

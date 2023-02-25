@@ -8,6 +8,10 @@
         "pid": "0xE600",
         "device_version": "0.0.1"
     },
+    "backlight":  {
+        "pin": "A6",
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "B8",
         "num_lock": "B0",

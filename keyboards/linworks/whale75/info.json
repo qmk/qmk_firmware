@@ -12,6 +12,11 @@
             {"pin_a": "A15", "pin_b": "A14", "resolution": 2}
         ]
     },
+    "backlight": {
+        "pin": "A10",
+        "levels": 5,
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "A9",
         "num_lock": "A8",

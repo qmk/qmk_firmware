@@ -33,7 +33,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B8
-#define BACKLIGHT_BREATHING
 #define BACKLIGHT_PWM_DRIVER PWMD4
 #define BACKLIGHT_PWM_CHANNEL 3

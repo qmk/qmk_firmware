@@ -14,6 +14,9 @@
             {"pin_a": null, "pin_b": null}
         ]
     },
+    "backlight": {
+        "pin": "B5"
+    },
     "split": {
         "soft_serial_pin": "D0",
         "encoder": {

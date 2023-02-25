@@ -9,6 +9,11 @@
             {"pin_a": "C15", "pin_b": "C14"}
         ]
     },
+    "backlight": {
+        "pin": "A6",
+        "levels": 20,
+        "breathing": true
+    },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
     "community_layouts": ["ortho_4x12"],

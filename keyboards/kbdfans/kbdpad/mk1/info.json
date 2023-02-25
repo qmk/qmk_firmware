@@ -8,6 +8,10 @@
         "pid": "0x422D",
         "device_version": "2.0.0"
     },
+    "backlight": {
+        "pin": "D4",
+        "breathing": true
+    },
     "indicators": {
         "num_lock": "D0"
     },

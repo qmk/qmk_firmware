@@ -10,6 +10,9 @@
         "pid": "0x0428",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6"
+    },
     "indicators": {
         "caps_lock": "C7",
         "on_state": 0

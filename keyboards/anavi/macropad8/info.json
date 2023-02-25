@@ -4,10 +4,14 @@
   "url": "",
   "maintainer": "leon-anavi",
   "usb": {
-        "vid": "0xCEEB",
-        "pid": "0x0001",
-        "device_version": "0.0.1"
-    },
+      "vid": "0xCEEB",
+      "pid": "0x0001",
+      "device_version": "0.0.1"
+  },
+  "backlight": {
+    "pin": "D7",
+    "breathing": true
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "matrix_pins": {

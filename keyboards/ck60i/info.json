@@ -13,6 +13,11 @@
             {"pin_a": "A5", "pin_b": "A4"}
         ]
     },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

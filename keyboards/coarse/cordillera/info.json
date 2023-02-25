@@ -8,6 +8,11 @@
         "pid": "0x1401",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A8",
+        "levels": 6,
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "A1",
         "num_lock": "B0",

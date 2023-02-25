@@ -8,6 +8,10 @@
     "pid": "0x504D",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7",
+    "levels": 4
+  },
   "processor": "atmega32u2",
   "bootloader": "atmel-dfu",
   "community_layouts": ["numpad_5x6"],

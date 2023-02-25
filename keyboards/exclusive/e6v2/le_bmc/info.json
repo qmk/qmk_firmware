@@ -7,6 +7,9 @@
         "pid": "0xE62D",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D4"
+    },
     "indicators": {
         "caps_lock": "D1"
     },
