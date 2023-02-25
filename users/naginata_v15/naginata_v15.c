@@ -544,7 +544,7 @@ void switchOS(uint8_t os) {
 void ng_set_unicode_mode(uint8_t os) {
   switch (os) {
     case NG_WIN:
-      set_unicode_input_mode(UNICODE_MODE_WINDOWS);
+      set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
       break;
     case NG_MAC:
       set_unicode_input_mode(UNICODE_MODE_MACOS);
