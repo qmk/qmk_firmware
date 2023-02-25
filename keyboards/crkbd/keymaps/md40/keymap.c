@@ -1,3 +1,6 @@
+// Copyright 2021 Shane Dowling (@shano)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #define KC_ESCC MT(MOD_LCTL, KC_ESC)
 #define KC_ENTS MT(MOD_LSFT, KC_ENT)
