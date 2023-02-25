@@ -1,4 +1,4 @@
-/* Copyright 2021 PAUL ENRICO N. VIOLA
+/* Copyright 2023 PAUL ENRICO N. VIOLA
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
