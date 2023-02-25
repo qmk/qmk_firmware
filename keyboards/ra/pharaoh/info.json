@@ -1,0 +1,7 @@
+{
+    "manufacturer": "The Voice of Ra",
+    "usb": {
+        "vid": "0x4000",
+        "device_version": "0.0.0"
+    }
+}
