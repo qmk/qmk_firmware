@@ -3,7 +3,6 @@
     "keyboard_name": "budgy",
     "maintainer": "doesntfazer",
     "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "command": false,
