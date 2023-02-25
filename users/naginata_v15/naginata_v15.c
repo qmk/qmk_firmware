@@ -320,7 +320,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   // enter+シフト(連続シフト)
   {.key = B_SHFT|B_V|B_M    , .kana = SS_TAP(X_ENTER)},
 
-  {.key = B_J|B_K|B_T       , .kana = "/"}, // ・
+  // {.key = B_J|B_K|B_T       , .kana = "/"}, // ・
 
   // 非標準の変換
   {.key = B_X|B_C|B_M       , .kana = "pyu"     }, // ピュ
