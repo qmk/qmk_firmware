@@ -3,29 +3,14 @@
 
 #pragma once
 
-#include "config_common.h"
 
-#ifdef VIA_ENABLE
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
-#endif
 
-/* Matrix COL and ROW definitions */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 6
 
 /* Cirque Touchpad Settings */
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#define USB_POLLING_INTERVAL_MS 1
 #define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X
 
-/* Memory definitions for UF2 builds */
-#ifdef UF2_BUILD
-#define EXTERNAL_EEPROM_BYTE_COUNT 2048
-#define EXTERNAL_EEPROM_PAGE_SIZE 128
-#define EXTERNAL_EEPROM_ADDRESS_SIZE 1
-#define EXTERNAL_EEPROM_WRITE_TIME 0
-#define FEE_PAGE_BASE_ADDRESS 0x08008000
-#endif
 
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/sugarglider/glcdfont.c"
