@@ -3,14 +3,15 @@
 
 #pragma once
 
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 
+/* Matrix COL and ROW definitions */
+#define MATRIX_ROWS 9
+#define MATRIX_COLS 6
 
 /* Cirque Touchpad Settings */
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X
-
 
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/sugarglider/glcdfont.c"

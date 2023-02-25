@@ -14,7 +14,7 @@ typedef union {
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
-extern uint16_t          dpi_array[];
+extern uint16_t dpi_array[];
 
 enum keyboard_keycodes {
     DPI_UP = QK_KB,
@@ -24,5 +24,5 @@ enum keyboard_keycodes {
     TAP_DN,
     TAP_ON,
     TAP_OFF,
-    TAP_TOG,
+    TAP_TOG
 };

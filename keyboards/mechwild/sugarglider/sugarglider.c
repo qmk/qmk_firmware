@@ -64,7 +64,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false; }
     switch (index) {
         case 0:
-            if(active) { tap_code(KC_CAPS); }
+            if(active != host_keyboard_led_state().caps_lock) { tap_code(KC_CAPS); }
             break;
         break;
     }
@@ -121,7 +121,7 @@ bool led_update_kb(led_t led_state) {
 }
 
 #if defined(OLED_ENABLE) && defined(OLED_DISPLAY_128X64) // Wide OLED Functionality
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;       // flips the display 180 degrees
 }
 
@@ -137,7 +137,6 @@ static void render_sugarglider_wide(void) {     // Render sugarglider logo
     static const char PROGMEM sgl_7[] = {0xDE, 0xBD, 0xBE, 0xDE, 0xDE, 0xBF, 0xDE, 0xDE, 0xC0, 0xC1, 0x00};
     static const char PROGMEM sgl_8[] = {0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0x00};
 
-    oled_set_cursor(0,0);
     oled_write_P(sgl_1, false);
     oled_set_cursor(0,1);
     oled_write_P(sgl_2, false);
@@ -161,7 +160,6 @@ static void render_logo(void) {     // Render MechWild "MW" Logo
     static const char PROGMEM logo_3[] = {0xD5, 0xD6, 0xD7, 0xD8, 0x00};
     static const char PROGMEM logo_4[] = {0xDE, 0xD9, 0xDA, 0xDB, 0x00};
     
-    oled_set_cursor(0,0);
     oled_write_P(logo_1, false);
     oled_set_cursor(0,1);
     oled_write_P(logo_2, false);
@@ -253,7 +251,7 @@ bool oled_task_kb(void) {
     return true;
 }
 #elif defined(OLED_ENABLE) && ! defined(OLED_DISPLAY_128X64)
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_270;       // flips the display 270 degrees
 }
 
@@ -263,7 +261,6 @@ static void render_logo(void) {     // Render MechWild "MW" Logo
     static const char PROGMEM logo_3[] = {0xD5, 0xD6, 0xD7, 0xD8, 0x00};
     static const char PROGMEM logo_4[] = {0xDE, 0xD9, 0xDA, 0xDB, 0x00};
     
-    oled_set_cursor(0,0);
     oled_write_P(logo_1, false);
     oled_set_cursor(0,1);
     oled_write_P(logo_2, false);
