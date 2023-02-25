@@ -10,7 +10,7 @@
     },
     "backlight": {
         "pin": "B6",
-        "levels": "15"
+        "levels": 15
     },
     "bootmagic": {
         "matrix": [0, 15]
