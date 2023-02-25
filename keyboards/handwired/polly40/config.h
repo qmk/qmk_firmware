@@ -16,13 +16,6 @@
 
 #pragma once
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments
