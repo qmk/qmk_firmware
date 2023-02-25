@@ -19,11 +19,6 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x6532
-#define PRODUCT_ID      0x0069
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    paul
-#define PRODUCT         polly40 v2
 
 /* key matrix size */
 #define MATRIX_ROWS 4
