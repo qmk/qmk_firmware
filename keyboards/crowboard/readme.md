@@ -2,11 +2,11 @@
 
 ![crowboard](https://i.imgur.com/Rg7IYPwh.jpg)
 
-*RP2040 based 36 key keyboard*
+RP2040 based 36 key keyboard
 
 * Keyboard Maintainer: [doesntfazer](https://github.com/doesntfazer)
-* Hardware Supported: *Raspberry Pi Pico*
-* Hardware Availability: *keyboarddweebs.net*
+* Hardware Supported: Raspberry Pi Pico
+* Hardware Availability: keyboarddweebs.net
 
 ## Bootloader
 
