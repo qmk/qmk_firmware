@@ -10,7 +10,7 @@
     },
     "backlight": {
         "pin": "B5",
-        "level": 5
+        "levels": 5
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

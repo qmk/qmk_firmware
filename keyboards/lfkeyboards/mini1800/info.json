@@ -10,8 +10,7 @@
     },
     "backlight": {
         "driver": "custom",
-        "levels": 10,
-        "breathing": true
+        "levels": 10
     },
     "layouts": {
         "LAYOUT": {
