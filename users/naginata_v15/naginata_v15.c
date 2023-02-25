@@ -1013,6 +1013,64 @@ bool naginata_lookup(int nt, bool shifted) {
   }
 
   if (is_henshu) {
+    // 編集モード Mac
+    if (naginata_config.os == NG_MAC) {
+      for (int i = 0; i < sizeof ngmapl_mac / sizeof bngmapl; i++) {
+        memcpy_P(&bngmapl, &ngmapl_mac[i], sizeof(bngmapl));
+        if (keycomb_buf == bngmapl.key) {
+          send_string(bngmapl.kana);
+          compress_buffer(nt);
+          return true;
+        }
+      }
+    }
+    // 編集モード 共通
+    for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+      memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
+      if (keycomb_buf == bngmapl.key) {
+        send_string(bngmapl.kana);
+        compress_buffer(nt);
+        return true;
+      }
+    }
+    // 編集モード 縦書き横書き
+    if (naginata_config.tategaki){
+      for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+        memcpy_P(&bngmapl, &ngmapl_tate[i], sizeof(bngmapl));
+        if (keycomb_buf == bngmapl.key) {
+          send_string(bngmapl.kana);
+          compress_buffer(nt);
+          return true;
+        }
+      }
+    } else {
+      for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+        memcpy_P(&bngmapl, &ngmapl_yoko[i], sizeof(bngmapl));
+        if (keycomb_buf == bngmapl.key) {
+          send_string(bngmapl.kana);
+          compress_buffer(nt);
+          return true;
+        }
+      }
+    }
+    // 編集モード UNICODE文字
+    for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
+      memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
+      if (keycomb_buf == bngmapu.key) {
+        switch (naginata_config.os) {
+          case NG_WIN:
+          case NG_LINUX:
+            ng_send_unicode_string(bngmapu.win);
+            break;
+          case NG_MAC:
+            mac_send_string(bngmapu.mac);
+            break;
+        }
+        compress_buffer(nt);
+        return true;
+      }
+    }
+
     switch (keycomb_buf) {
   // 編集モード macro
       case B_J|B_K|B_W: // 《》{改行}{↑}
@@ -1349,65 +1407,6 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-
-      default:
-        // 編集モード Mac
-        if (naginata_config.os == NG_MAC) {
-          for (int i = 0; i < sizeof ngmapl_mac / sizeof bngmapl; i++) {
-            memcpy_P(&bngmapl, &ngmapl_mac[i], sizeof(bngmapl));
-            if (keycomb_buf == bngmapl.key) {
-              send_string(bngmapl.kana);
-              compress_buffer(nt);
-              return true;
-            }
-          }
-        }
-        // 編集モード 共通
-        for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
-          memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
-          if (keycomb_buf == bngmapl.key) {
-            send_string(bngmapl.kana);
-            compress_buffer(nt);
-            return true;
-          }
-        }
-        // 編集モード 縦書き横書き
-        if (naginata_config.tategaki){
-          for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
-            memcpy_P(&bngmapl, &ngmapl_tate[i], sizeof(bngmapl));
-            if (keycomb_buf == bngmapl.key) {
-              send_string(bngmapl.kana);
-              compress_buffer(nt);
-              return true;
-            }
-          }
-        } else {
-          for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
-            memcpy_P(&bngmapl, &ngmapl_yoko[i], sizeof(bngmapl));
-            if (keycomb_buf == bngmapl.key) {
-              send_string(bngmapl.kana);
-              compress_buffer(nt);
-              return true;
-            }
-          }
-        }
-        // 編集モード UNICODE文字
-        for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
-          memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
-          if (keycomb_buf == bngmapu.key) {
-            switch (naginata_config.os) {
-              case NG_WIN:
-              case NG_LINUX:
-                ng_send_unicode_string(bngmapu.win);
-                break;
-              case NG_MAC:
-                mac_send_string(bngmapu.mac);
-                break;
-            }
-            compress_buffer(nt);
-            return true;
-          }
-        }
     }
   } else {
     switch (keycomb_buf) {
