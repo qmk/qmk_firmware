@@ -2,7 +2,7 @@
 
 A handwired keyboard on a Pro micro Atmega32u4 controller
 
-![ Polly ](https://i.imgur.com/QJCQcFA.jpg)
+![ Polly ](https://i.imgur.com/QJCQcFAh.jpg)
 
 
 * Keyboard Maintainer: Paul Enrico N. Viola (https://github.com/PollyV1)

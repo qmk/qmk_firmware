@@ -15,14 +15,6 @@
  */
 
 #pragma once
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments
@@ -38,7 +30,6 @@
 #define MATRIX_COL_PINS { F4, D7, B5, B6, C6, C7, D4, D6, D5, D0, D1, D2 }
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
