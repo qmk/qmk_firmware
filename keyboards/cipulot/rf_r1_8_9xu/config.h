@@ -16,6 +16,9 @@
 
 #pragma once
 
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 16
+
 /* Custom matrix pins and port select array */
 #define MATRIX_ROW_PINS \
     { B15, A8, B13, B12, B14, B0 }
