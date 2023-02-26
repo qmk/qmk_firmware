@@ -1,0 +1,45 @@
+// UNMAPPED
+// -----------------------------------------------------
+//   name          result          chord keys
+
+//COMB(,          ,     KC_, KC_)
+
+// HOTKEYS
+// -----------------------------------------------------
+COMB(CMB_YANK,         LGUI(KC_C),  KC_A, LCTL_T(KC_E))
+COMB(CMB_PUT,          LGUI(KC_V),  KC_A, LGUI_T(KC_U))
+COMB(CMB_BOARD,        LCTL(KC_V),  KC_A, LALT_T(KC_O))
+
+// APPLICATIONS
+// -----------------------------------------------------
+COMB(CMB_TERM,        LGUI(LCTL(KC_X)),  KC_B, KC_M)
+COMB(CMB_BROWSE,        LGUI(LCTL(KC_B)),  KC_D, KC_H)
+COMB(CMB_IDE,        LGUI(LCTL(KC_SCLN)), KC_F, KC_G)
+
+// CORE
+// -----------------------------------------------------
+COMB(BSPC,             KC_BSPC,  KC_H, KC_T)
+COMB(DEL,             KC_DEL,  KC_T, KC_N)
+COMB(TAB,             KC_TAB,  KC_H, KC_N)
+COMB(ENTR,             KC_ENT,  KC_M, KC_W)
+COMB(ESC,             KC_ESC,  KC_C, KC_R)
+COMB(EQL,             KC_EQL,   KC_M, KC_V)
+COMB(MINS,             KC_MINS,   KC_W, KC_V)
+COMB(FSLASH,             KC_SLSH,   KC_T, KC_M)
+COMB(BSLASH,             KC_BSLS,   LCTL_T(KC_E), KC_K)
+
+
+// NUMBERS LAYER
+// -----------------------------------------------------
+COMB(TO_NUM,           MO(2),     LCTL_T(KC_E), LGUI_T(KC_U))
+
+COMB(LBRK,             KC_LBRC,   KC_7, KC_8)
+COMB(RBRK,             KC_RBRC,   KC_9, KC_8)
+COMB(LCBR,             KC_LCBR,   KC_1, KC_2)
+COMB(RCBR,             KC_RCBR,   KC_2, KC_3)
+COMB(LPRN,             KC_LPRN,   KC_4, KC_5)
+COMB(RPRN,             KC_RPRN,   KC_5, KC_6)
+COMB(GT,               KC_GT,     KC_5, KC_3)
+COMB(LT,               KC_LT,     KC_5, KC_1)
+
+

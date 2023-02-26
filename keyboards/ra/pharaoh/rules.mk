@@ -27,3 +27,4 @@ QUANTUM_LIB_SRC += i2c_master.c
 LAYOUTS = split_3x5_2
 
 DEFAULT_FOLDER = ra/pharaoh/base
+
