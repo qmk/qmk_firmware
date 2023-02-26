@@ -1,15 +1,23 @@
 # Kuro 65
-
+<img align="right" width="118" height="207" src="https://user-images.githubusercontent.com/28592326/219898869-d1d8c107-8534-48e9-9dfd-22592b35853f.png">
 A 65% keyboard with an ISO layout, which fits the TOFU65 case (and similar) by KBDFans.
 
-Keyboard maintainer: [0x544D](https://github.com/0x544D)
+Keyboard maintainer: [0x544D](https://github.com/0x544D)<br>
 Hardware availability: not yet available
+
+## Features
+
+- Hot-swappable ISO layout
+- Per key RGB LED (south facing)
+- USB-C connector
+- Reset button on the back of the PCB
+- Compatible with TOFU65 and similar cases 
 
 ## Bootloader mode
 
 To put in bootloader mode, hold the `Esc` key while plugging in the USB cable or use the reset key on the back of the PCB.
 
-## Making firmware
+## Building the firmware
 
 Make example for this keyboard (after setting up your build environment):
 
