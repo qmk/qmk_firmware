@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Kuro65",
     "manufacturer": "Kuro",
+    "maintainer" : "0x544D",
     "usb": {
         "vid": "0x544D",
         "pid": "0xC000",
