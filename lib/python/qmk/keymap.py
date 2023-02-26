@@ -210,8 +210,12 @@ def generate_c(keymap_json):
     for layer_num, layer in enumerate(keymap_json['layers']):
         if layer_num != 0:
             layer_txt[-1] = layer_txt[-1] + ','
-        layer = map(_strip_any, layer)
-        layer_keys = ', '.join(layer)
+
+        if len(layer) > 0:
+            layer = map(_strip_any, layer)
+            layer_keys = ', '.join(layer)
+        else:
+            layer_keys = ', '.join(['KC_NO'] * len(keymap_json['layers'][0]))
         layer_txt.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
 
     keymap = '\n'.join(layer_txt)
