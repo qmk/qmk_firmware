@@ -1,10 +1,11 @@
 # Welcome to my Keyboard Firmwares
 
 ## Keyboards Released by me:
-  | Keyboard name    | MCU           | Layout       | Vendor ID | Product ID | Features                                     |
-  | ---------------- | ------------- | ------------ | --------- | ---------- | -------------------------------------------- |
-  | Handwired K552   | STM32F103RCT6 | TKL          | 0x7516    | 0x5000     | Hotswap, RGB Underglow, OLED 128x32          |
-  | Paws 60          | ATMEGA32U4    | 60%          | 0x7516    | 0x5001     | Hotswap                                      |
+  | Keyboard name   | MCU           | Layout       | Vendor ID | Product ID | Features                                     |
+  | --------------- | ------------- | ------------ | --------- | ---------- | -------------------------------------------- |
+  | Handwired K552  | STM32F103RCT6 | TKL          | 0x7516    | 0x5000     | Hotswap, RGB Underglow, OLED 128x32          |
+  | Paws 60 (Rev 1) | ATMEGA32U4    | 60%          | 0x7516    | 0x5001     | Hotswap                                      |
+  | Paws 60 (Rev 2) | ATMEGA32U4    | 60%          | 0x7516    | 0x5002     | Hotswap, RGB Matrix                          |
 
 ## Keyboards Completed has Collaboration with me:
   | Keyboard name      | MCU           | Layout       | Vendor ID | Product ID | Features                           |
