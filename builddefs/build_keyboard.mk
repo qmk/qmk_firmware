@@ -147,7 +147,8 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     else ifneq ($(LAYOUTS),)
         # If we haven't found a keymap yet fall back to community layouts
         include $(BUILDDEFS_PATH)/build_layout.mk
-    else
+    # Not finding keymap.c is fine if we found a keymap.json
+    else ifeq ("$(wildcard $(KEYMAP_JSON_PATH))", "")
         $(call CATASTROPHIC_ERROR,Invalid keymap,Could not find keymap)
         # this state should never be reached
     endif
@@ -155,6 +156,12 @@ endif
 
 # Have we found a keymap.json?
 ifneq ("$(wildcard $(KEYMAP_JSON))", "")
+    ifneq ("$(wildcard $(KEYMAP_C))", "")
+        $(call WARNING_MESSAGE,Keymap is specified as both keymap.json and keymap.c -- keymap.json file wins.)
+    endif
+
+    KEYMAP_PATH := $(KEYMAP_JSON_PATH)
+
     KEYMAP_C := $(KEYMAP_OUTPUT)/src/keymap.c
     KEYMAP_H := $(KEYMAP_OUTPUT)/src/config.h
 
