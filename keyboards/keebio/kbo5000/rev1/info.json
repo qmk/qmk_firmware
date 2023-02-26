@@ -10,8 +10,7 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "F5", "pin_b": "F6"},
-            {"pin_a": "NO_PIN", "pin_b": "NO_PIN"}
+            {"pin_a": "F5", "pin_b": "F6"}
         ]
     },
     "backlight": {
