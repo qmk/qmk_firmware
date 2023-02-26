@@ -1,10 +1,13 @@
 # Kuro 65
 
+A 65% keyboard with an ISO layout, which fits the TOFU65 case (and similar) by KBDFans.
 
+Keyboard maintainer: [0x544D](https://github.com/0x544D)
+Hardware availability: not yet available
 
 ## Bootloader mode
 
-To put in bootloader mode, hold the `Esc` key while plugging in the USB cable. or use reset key behind the pcb.
+To put in bootloader mode, hold the `Esc` key while plugging in the USB cable or use the reset key on the back of the PCB.
 
 ## Making firmware
 
