@@ -123,11 +123,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Custom font file to use
 #if !defined(OLED_FONT_H)
-#   if OLED_FONT_HEIGHT == 16 && OLED_FONT_WIDTH == 12 
-#       define OLED_FONT_H "glcdfont_16x12.c"
-#   else
-#       define OLED_FONT_H "glcdfont.c"
-#   endif
+#    if OLED_FONT_HEIGHT == 16 && OLED_FONT_WIDTH == 12
+#        define OLED_FONT_H "glcdfont_16x12.c"
+#    else
+#        define OLED_FONT_H "glcdfont.c"
+#    endif
 #endif
 // unsigned char value of the first character in the font file
 #if !defined(OLED_FONT_START)
@@ -135,11 +135,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 // unsigned char value of the last character in the font file
 #if !defined(OLED_FONT_END)
-#   if OLED_FONT_HEIGHT == 16 && OLED_FONT_WIDTH == 12 
-#       define OLED_FONT_END 191
-#   else
-#       define OLED_FONT_END 223
-#   endif
+#    if OLED_FONT_HEIGHT == 16 && OLED_FONT_WIDTH == 12
+#        define OLED_FONT_END 191
+#    else
+#        define OLED_FONT_END 223
+#    endif
 #endif
 // Font render width
 #if !defined(OLED_FONT_WIDTH)
