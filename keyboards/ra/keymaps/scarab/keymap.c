@@ -1,6 +1,25 @@
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
-enum _layers { _INSERT, _NAVIGATE, _NUMBERS };
+enum _layers { _INSERT, _NAVIGATE, _NUMBERS, _MACRO };
+
+enum custom_keycodes {
+    KC_CUSTOM = SAFE_RANGE,
+};
+
+/*══════════════════════════════════════════════════════════════════════════════════════════════╗
+     FEATURE FLAGS                                                                              ║
+ *══════════════════════════════════════════════════════════════════════════════════════════════╣           */
+
+#include "print.h"
+#include "g/keymap_combo.h"
+#include "raw_hid.h"
+
+#include "feature/shift_keys/custom_shift_keys.h"
+
+
+/*══════════════════════════════════════════════════════════════════════════════════════════════╗
+     BASIC FUNCTIONS                                                                            ║
+ *══════════════════════════════════════════════════════════════════════════════════════════════╣           */
 
 #define CLN_ KC_COLN
 #define CM_ KC_COMM
@@ -58,19 +77,9 @@ enum _layers { _INSERT, _NAVIGATE, _NUMBERS };
 
 #define S_TAB LSFT_T(KC_TAB)
 #define SHTAB LSFT(KC_TAB)
+#define M_SHTAB LT(3,SHTAB)
 #define N_SPC LT(1,KC_SPACE)
 
-
-/*══════════════════════════════════════════════════════════════════════════════════════════════╗
-     FEATURE FLAGS                                                                              ║
- *══════════════════════════════════════════════════════════════════════════════════════════════╣           */
-
-#include "print.h"
-#include "g/keymap_combo.h"
-
-/*══════════════════════════════════════════════════════════════════════════════════════════════╗
-     BASIC FUNCTIONS                                                                            ║
- *══════════════════════════════════════════════════════════════════════════════════════════════╣           */
 
 int elapsed_time = 0;
 
@@ -86,6 +95,38 @@ void repeat(uint16_t keycode, int rep) {
         unregister_code16(keycode);
     }
 }
+
+void raw_hid_receive(uint8_t *data, uint8_t len) {
+  // Print the received data to the console
+  for (int i = 0; i < len; i++) {
+    printf("%02x ", data[i]);
+  }
+  printf("\n");
+}
+
+
+
+//  CUSTOM SHIFT  //
+const custom_shift_key_t custom_shift_keys[] = {
+    {KC_DOT, KC_EXLM},                // Shift . is !
+    {KC_COMM, KC_QUES},               // Shift , is ?
+    {KC_COLN, KC_SCLN},               // Shift : is ;
+    {LT(5,KC_COMM), KC_QUES},         // Shift , is ?
+    {KC_DQUO, KC_QUOT},               // Shift " is '
+    {LT(1, KC_SPACE), KC_TAB},        // Shift SPACE is TAB
+    {KC_LPRN, KC_RPRN},               // Shift ( is )
+    {KC_RPRN, KC_LPRN},               // Shift ) is (
+    {KC_LCBR, KC_RCBR},               // Shift { is }
+    {KC_RCBR, KC_LCBR},               // Shift { is }
+    {KC_LBRC, KC_RBRC},               // Shift [ is ]
+    {KC_RBRC, KC_LBRC},               // Shift [ is ]
+    {KC_LT, KC_GT},                   // Shift < is >
+    {KC_GT, KC_LT},                   // Shift < is >
+    {KC_DEL, KC_BSPC},                // Shift del is bspace
+    {KC_BSPC, LGUI(KC_Z)},            // Shift bspace is undo
+    {LGUI(KC_V), LCTL(KC_V)},         // Shift paste is pasteboard
+};
+uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 
 /*══════════════════════════════════════════════════════════════════════════════════════════════╗
@@ -105,11 +146,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     uprintf(log_format, keycode, record->event.key.row, record->event.key.col, get_highest_layer(layer_state), get_mods(), get_oneshot_mods(), record->tap.count, (last_key_event_time + elapsed_time));
 
 
+    switch (keycode) {
+        default:
+            break;
+    }
+
 #ifdef PROCESS_CUSTOM_SHIFT_KEYS
     if (!process_custom_shift_keys(keycode, record)) {
-#    ifdef LOG_KEY_EVENTS
         uprintf("key 0x%04X altered by custom shift", keycode);
-#    endif
         return false;
     }
 #endif
@@ -221,17 +265,34 @@ void matrix_scan_user(void) {
      LAYER SWITCH                                                                               ║
  *══════════════════════════════════════════════════════════════════════════════════════════════╣           */
 
+uint8_t LAYER_STATE = 1;
+uint8_t APP_STATE = 0;
+uint8_t USER_VAR = 0;
+
 layer_state_t layer_state_set_user(layer_state_t state) {
+
     switch (get_highest_layer(state)) {
         case _INSERT:
+            LAYER_STATE = 0x01;
             break;
         case _NAVIGATE:
+            LAYER_STATE = 0x02;
             break;
         case _NUMBERS:
+            LAYER_STATE = 0x03;
+            break;
+        case _MACRO:
+            LAYER_STATE = 0x04;
             break;
         default:
             break;
     }
+
+    {
+        uint8_t data[] = {LAYER_STATE, APP_STATE, USER_VAR};
+        raw_hid_send(data, sizeof(data));
+    }
+
     return state;
 }
 
@@ -242,7 +303,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/*══════════════════════════════════════════════════════════════════════════════════════════════╗
+/*══════════════════════════════════════════════════════════════════════════════════════════════╣
                         INSERT:0                                                                ║
         ╔══════╦══════╦══════╦══════╦══════╗       ╔══════╦══════╦══════╦══════╦══════╗         ║
         ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
@@ -256,26 +317,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ╚══════╩══════╩══════╩══════╩══════╝       ╚══════╩══════╩══════╩══════╩══════╝         ║
                                ╔═════╦═════╗       ╔═════╦═════╗                                ║
                                ║     ║LSFT/║       ║L_NAV║     ║                                ║
-                               ║MOUSE║ TAB ║       ║/SPCE║LEADR║                                ║
+                               ║SHTAB║ TAB ║       ║/SPCE║LEADR║                                ║
                                ╚═════╩═════╝       ╚═════╩═════╝                                ║
                                                                                                 ║        */
     [_INSERT] = LAYOUT(/* INSERT :0 ════════════════════════════════════════════════════════════╣        */
-                        CLN_, CM_, DT_, P_,  Y_,        F_, G_, C_, R_, L_,
-                        A_,   AO_, CE_, GU_, I_,        D_, H_, T_, N_, S_,
-                        DQ_,  Q_,  J_,  K_,  X_,        B_, M_, W_, V_, Z_,
+                    CLN_, CM_, DT_, P_,  Y_,        F_, G_, C_, R_, L_,
+                    A_,   AO_, CE_, GU_, I_,        D_, H_, T_, N_, S_,
+                    DQ_,  Q_,  J_,  K_,  X_,        B_, M_, W_, V_, Z_,
 
-                                   SHTAB, S_TAB,        N_SPC, QK_LEAD
+                               M_SHTAB, S_TAB,        N_SPC, QK_LEAD
 
     ),
 
-/*══════════════════════════════════════════════════════════════════════════════════════════════╗
+/*══════════════════════════════════════════════════════════════════════════════════════════════╣
                         NAVIGATE:1                                                              ║
         ╔══════╦══════╦══════╦══════╦══════╗       ╔══════╦══════╦══════╦══════╦══════╗         ║
         ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
         ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
         ╠══════╬══════╬══════╬══════╬══════╣       ╠══════╬══════╬══════╬══════╬══════╣         ║
         ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
-        ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
+        ║      ║      ║      ║      ║      ║       ║      ║   ←  ║   ↓  ║   ↑  ║    → ║         ║
         ╠══════╬══════╬══════╬══════╬══════╣       ╠══════╬══════╬══════╬══════╬══════╣         ║
         ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
         ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
@@ -294,7 +355,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     ),
 
-/*══════════════════════════════════════════════════════════════════════════════════════════════╗
+/*══════════════════════════════════════════════════════════════════════════════════════════════╣
                         NUMBERS:2                                                               ║
         ╔══════╦══════╦══════╦══════╦══════╗       ╔══════╦══════╦══════╦══════╦══════╗         ║
         ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
@@ -318,5 +379,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                    ___, ___,        ___, ___
 
+    ),
+
+/*══════════════════════════════════════════════════════════════════════════════════════════════╣
+                        MACRO:3                                                                 ║
+        ╔══════╦══════╦══════╦══════╦══════╗       ╔══════╦══════╦══════╦══════╦══════╗         ║
+        ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
+        ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
+        ╠══════╬══════╬══════╬══════╬══════╣       ╠══════╬══════╬══════╬══════╬══════╣         ║
+        ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
+        ║      ║      ║  M2  ║  M1  ║      ║       ║      ║      ║      ║      ║      ║         ║
+        ╠══════╬══════╬══════╬══════╬══════╣       ╠══════╬══════╬══════╬══════╬══════╣         ║
+        ║      ║      ║      ║      ║      ║       ║      ║      ║      ║      ║      ║         ║
+        ║      ║      ║  M2R ║  M1R ║      ║       ║      ║      ║      ║      ║      ║         ║
+        ╚══════╩══════╩══════╩══════╩══════╝       ╚══════╩══════╩══════╩══════╩══════╝         ║
+                               ╔═════╦═════╗       ╔═════╦═════╗                                ║
+                               ║     ║     ║       ║     ║     ║                                ║
+                               ║     ║     ║       ║     ║     ║                                ║
+                               ╚═════╩═════╝       ╚═════╩═════╝                                ║
+                                                                                                ║        */
+    [_MACRO] = LAYOUT(/*     MACRO :3 ══════════════════════════════════════════════════════════╣        */
+             ___, ___, ___, ___, ___,              ___, ___, ___, ___, ___,
+             ___, ___, DM_PLY2, DM_PLY1, ___,      ___, ___, ___, ___, ___,
+             ___, ___, DM_REC2, DM_REC1, ___,      ___, ___, ___, ___, ___,
+
+                                   ___, ___,        ___, ___
+
     )
+/*══════════════════════════════════════════════════════════════════════════════════════════════╣
+     KEYMAPS                                                                                    ║
+ *══════════════════════════════════════════════════════════════════════════════════════════════╝        */
 };

@@ -22,34 +22,7 @@
  * For full documentation, see
  * <https://getreuer.info/posts/keyboards/custom-shift-keys>
  */
-
 #include "custom_shift_keys.h"
-
-//  CUSTOM SHIFT  //
-const custom_shift_key_t custom_shift_keys[] = {
-    {KC_DOT, KC_EXLM},                // Shift . is !
-    {KC_COMM, KC_QUES},               // Shift , is ?
-    {KC_COLN, KC_SCLN},               // Shift : is ;
-    {LT(5,KC_COMM), KC_QUES},         // Shift , is ?
-    {KC_DQUO, KC_QUOT},               // Shift " is '
-    {LT(1, KC_SPACE), KC_TAB},        // Shift SPACE is TAB
-    {KC_0, KC_EQUAL},                 // Shift 0 is =
-    {KC_2, KC_MINS},                  // Shift 2 is -
-    {KC_8, KC_PLUS},                  // Shift 8 is +
-    {KC_LPRN, KC_RPRN},               // Shift ( is )
-    {KC_RPRN, KC_LPRN},               // Shift ) is (
-    {KC_LCBR, KC_RCBR},               // Shift { is }
-    {KC_RCBR, KC_LCBR},               // Shift { is }
-    {KC_LBRC, KC_RBRC},               // Shift [ is ]
-    {KC_RBRC, KC_LBRC},               // Shift [ is ]
-    {KC_LT, KC_GT},                   // Shift < is >
-    {KC_GT, KC_LT},                   // Shift < is >
-    {KC_DEL, KC_BSPC},                // Shift del is bspace
-    {KC_BSPC, LGUI(KC_Z)},            // Shift bspace is undo
-    {LGUI(KC_V), LCTL(KC_V)},         // Shift paste is pasteboard
-};
-
-uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
   static uint16_t registered_keycode = KC_NO;

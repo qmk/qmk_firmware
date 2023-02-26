@@ -1,117 +1,45 @@
-//   name          result          chord keys
-// -----------------------------------------------------
-
 // UNMAPPED
+// -----------------------------------------------------
+//   name          result          chord keys
+
 //COMB(,          ,     KC_, KC_)
 
-// MEDIA
-COMB(PLAY,             KC_MPLY,     KC_I, KC_D)
-COMB(FFWD,             KC_MFFD,     KC_I, KC_RIGHT)
-COMB(MNEXT,            KC_MNXT,     KC_I, KC_RIGHT, KC_UP)
-COMB(MPREV,            KC_MPRV,     KC_I, KC_LEFT, KC_DOWN)
-COMB(VOLDN,            KC_VOLD,     KC_I, KC_DOWN)
-COMB(VOLUP,            KC_VOLU,     KC_I, KC_UP)
-COMB(MUTE,             KC_MUTE,     KC_I, KC_UP, KC_DOWN)
-COMB(ASST,             KC_ASST,     KC_I, KC_G )
-COMB(CPNL,             KC_CPNL,     KC_I, KC_C)
-COMB(WSCH,             KC_WSCH,     KC_I, KC_R)
-COMB(MYCM,             KC_MYCM,     KC_I, KC_L)
-COMB(CALC,             KC_CALC,     KC_I, KC_F )
-COMB(EJCT,             KC_EJCT,     KC_I, KC_B)
-COMB(OUT,              KC_OUT,      KC_I, KC_M)
-COMB(SEPR,             KC_SEPR,     KC_I, KC_W)
-COMB(RETN,             KC_RETN,     KC_I, KC_V)
-COMB(PRIR,             KC_PRIR,     KC_I, KC_Z)
-COMB(CLR,              KC_CLR,      KC_I, KC_BSPC)
-COMB(CNCL,             KC_CNCL,     KC_I, KC_DEL)
+// HOTKEYS
+// -----------------------------------------------------
+COMB(CMB_YANK,         LGUI(KC_C),  KC_A, LCTL_T(KC_E))
+COMB(CMB_PUT,          LGUI(KC_V),  KC_A, LGUI_T(KC_U))
+COMB(CMB_BOARD,        LCTL(KC_V),  KC_A, LALT_T(KC_O))
+
+// APPLICATIONS
+// -----------------------------------------------------
+COMB(CMB_TERM,        LGUI(LCTL(KC_X)),  KC_B, KC_M)
+COMB(CMB_BROWSE,        LGUI(LCTL(KC_B)),  KC_D, KC_H)
+COMB(CMB_IDE,        LGUI(LCTL(KC_SCLN)), KC_F, KC_G)
+
+// CORE
+// -----------------------------------------------------
+COMB(BSPC,             KC_BSPC,  KC_H, KC_T)
+COMB(DEL,             KC_DEL,  KC_T, KC_N)
+COMB(TAB,             KC_TAB,  KC_H, KC_N)
+COMB(ENTR,             KC_ENT,  KC_M, KC_W)
+COMB(ESC,             KC_ESC,  KC_C, KC_R)
+COMB(EQL,             KC_EQL,   KC_M, KC_V)
+COMB(MINS,             KC_MINS,   KC_W, KC_V)
+COMB(FSLASH,             KC_SLSH,   KC_T, KC_M)
+COMB(BSLASH,             KC_BSLS,   KC_E, KC_K)
+
 
 // NUMBERS LAYER
+// -----------------------------------------------------
+COMB(TO_NUM,           MO(2),     LCTL_T(KC_E), LGUI_T(KC_U))
+
 COMB(LBRK,             KC_LBRC,   KC_7, KC_8)
 COMB(RBRK,             KC_RBRC,   KC_9, KC_8)
 COMB(LCBR,             KC_LCBR,   KC_1, KC_2)
 COMB(RCBR,             KC_RCBR,   KC_2, KC_3)
 COMB(LPRN,             KC_LPRN,   KC_4, KC_5)
 COMB(RPRN,             KC_RPRN,   KC_5, KC_6)
-COMB(GT,               KC_GT,   KC_5, KC_1)
-COMB(LT,               KC_LT,   KC_5, KC_3)
-
-COMB(BTT_PIN,          LCTL(KC_P),  LGUI_T(KC_U), KC_P)
-COMB(CMB_BTT_PUT,      LCTL(KC_V),  LT(4,KC_A), LALT_T(KC_O))
-COMB(CMB_YANK,         LGUI(KC_C),  LT(4,KC_A), LCTL_T(KC_E))
-COMB(CMB_PUT,          LGUI(KC_V),  LT(4,KC_A), LGUI_T(KC_U))
-
-// NORMAL MODE
-COMB(NRM_H,            KC_H,   KC_LEFT, LT(1,KC_SPACE))
-COMB(NRM_T,            KC_T,   KC_DOWN, LT(1,KC_SPACE))
-COMB(NRM_N,            KC_N,   KC_UP, LT(1,KC_SPACE))
-COMB(NRM_S,            KC_S,   KC_RIGHT, LT(1,KC_SPACE))
-
-COMB(NRM_NBR,          LT(2,KC_DEL),   LCTL_T(KC_E), LGUI_T(KC_U))
-COMB(NRM_FN,           LT(3,KC_BSPC),   LALT_T(KC_O), LCTL_T(KC_E))
-
-COMB(NRM_BSPC,         KC_BSPC,  KC_LEFT, KC_DOWN)
-COMB(NRM_DEL_R,        KC_DEL,  KC_DOWN, KC_UP)
-COMB(NRM_ENTER,        KC_ENT,   KC_M, KC_W)
-COMB(NRM_ESC,          KC_ESC,   KC_C, KC_R)
-
-COMB(NRM_PIPE,         KC_PIPE,   KC_C, KC_DOWN)
-COMB(NRM_TILDA,        KC_TILD,  LT(5,KC_COMM), KC_DOT)
-COMB(NRM_GRAVE,        KC_GRV,   LT(5,KC_COMM), KC_DOT, LSFT_T(KC_SPACE))
-COMB(NRM_BSLASH,       KC_BSLS,  LCTL_T(KC_E), LT(2,KC_K))
-COMB(NRM_FSLASH,       KC_SLSH,  KC_M, KC_DOWN)
-COMB(NRM_MINS,         KC_MINS,  KC_J, LT(2,KC_K))
-COMB(NRM_EQL,          KC_EQL,   KC_M, LT(4,KC_V))
-COMB(LYR_NUM,          MO(2),     KC_O, KC_U)
-
-COMB(NRM_TAB,          KC_TAB,  KC_LEFT, KC_UP)
-COMB(NRM_TAB_LOOP,     LSFT(LCTL(KC_TAB)),  KC_RIGHT, KC_LEFT)
-COMB(NRM_TAB_LAST,     LCTL(KC_TAB),  KC_RIGHT, KC_UP)
-COMB(NRM_APP_LOOP,     LGUI(LSFT(KC_TAB)), LT(5,KC_Q), LGUI(KC_V))
-COMB(NRM_APP_LAST,     LALT(LSFT(KC_TAB)), KC_W, LT(4,KC_V))
-
-COMB(NRM_SAVE,         RGUI(KC_S),      KC_UP, KC_RGHT)
-COMB(NRM_UNDO,         RGUI(KC_Z),      LT(4,KC_V), KC_Z)
-
-SUBS(VS_KEYMAP,        SS_LGUI("ks"),   LGUI_T(KC_U), KC_K)
-COMB(VS_EDITOR,        LSFT(LGUI(KC_E)),   LGUI_T(KC_U), LCTL_T(KC_E), LSFT_T(KC_SPACE))
-
-COMB(NRM_TERM_R,       RCTL(LGUI(KC_X)), KC_B, KC_M)
-COMB(NRM_TERM_L,       LCTL(LGUI(KC_X)), KC_X, LT(2,KC_K))
-COMB(NRM_BRWS_R,       RCTL(LGUI(KC_B)), KC_D, KC_LEFT)
-COMB(NRM_BRWS_L,       LCTL(LGUI(KC_B)), LGUI_T(KC_U), KC_I)
-COMB(NRM_CODE_R,       RCTL(LGUI(KC_COLN)), KC_F, KC_G)
-COMB(NRM_CODE_L,       LCTL(LGUI(KC_COLN)), KC_P, KC_Y)
-
-
-// INSERT MODE
-COMB(INS_PIPE,         KC_PIPE,  KC_C, KC_T)
-COMB(INS_BSPC,         KC_BSPC,  KC_H, KC_T)
-COMB(INS_DEL_R,        KC_DEL,   KC_T, KC_N)
-COMB(INS_DEL,          KC_DEL,   KC_E, KC_U)
-COMB(INS_ENTER,        KC_ENT,   KC_M, KC_W)
-COMB(INS_ESC,          KC_ESC,   KC_C, KC_R)
-
-COMB(INS_TILDA,        KC_TILD,  KC_DOT, KC_COMM)
-COMB(INS_GRAVE,        KC_GRV,   LSFT_T(KC_SPACE), KC_COMM, KC_DOT)
-COMB(INS_BSLASH,       KC_BSLS,  KC_E, KC_K)
-COMB(INS_FSLASH,       KC_SLSH,  KC_M, KC_T)
-COMB(INS_MINS,         KC_MINS,  KC_J, KC_K)
-COMB(INS_EQL,          KC_EQL,   KC_M, KC_V)
-
-COMB(INS_NBR,          MO(2), KC_U, KC_E)
-COMB(INS_FN,           MO(3), KC_O, KC_E)
-COMB(INS_APP_LOOP,     LGUI(LSFT(KC_TAB)), KC_Q, KC_J)
-COMB(INS_APP_LAST,     RGUI(KC_TAB), KC_V, KC_W)
-
-COMB(INS_SAVE,         RGUI(KC_S),      KC_N, KC_S)
-COMB(INS_UNDO,         RGUI(KC_Z),      KC_V, KC_Z)
-
-COMB(INS_TERM_R,       RCTL(LGUI(KC_X)), KC_B, KC_M)
-COMB(INS_TERM_L,       LCTL(LGUI(KC_X)), KC_X, LT(2,KC_K))
-COMB(INS_BRWS_R,       RCTL(LGUI(KC_B)), KC_D, KC_H)
-COMB(INS_BRWS_L,       LCTL(LGUI(KC_B)), KC_U, KC_I)
-COMB(INS_CODE_R,       RCTL(LGUI(KC_COLN)), KC_F, KC_G)
-COMB(INS_CODE_L,       LCTL(LGUI(KC_COLN)), KC_P, KC_Y)
-
+COMB(GT,               KC_GT,     KC_5, KC_3)
+COMB(LT,               KC_LT,     KC_5, KC_1)
 
 
