@@ -8,7 +8,8 @@ endif
 # TODO: opt in rather than assume everything uses a pro micro
 PIN_COMPATIBLE ?= promicro
 ifneq ($(CONVERT_TO),)
-    # Remove whitespace from any rule.mk provided vars - env cannot have whitespace anyway
+    # Remove whitespace from any rule.mk provided vars
+    #   - env cannot be overwritten but cannot have whitespace anyway
     CONVERT_TO:=$(strip $(CONVERT_TO))
 
     # stash so we can overwrite env provided vars if needed
