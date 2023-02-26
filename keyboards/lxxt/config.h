@@ -16,11 +16,4 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define ENCODERS 2
-#define ENCODERS_PAD_A { GP27, GP8 }
-#define ENCODERS_PAD_B { GP28, GP9 }
-#define TAP_CODE_DELAY 10
-
 #define WS2812_PIO_USE_PIO1

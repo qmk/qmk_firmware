@@ -8,6 +8,12 @@
     	"pid": "0x0001",
     	"device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP27", "pin_b": "GP28"},
+            {"pin_a": "GP8", "pin_b": "GP9"}
+        ]
+	},
 	"processor": "RP2040",
     "bootloader": "rp2040",
     "matrix_pins": {
@@ -43,10 +49,7 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "backlight": false,
-        "rgblight": true,
-        "audio": false,
-        "key_lock": false
+        "rgblight": true
     },
     "layouts": {
         "LAYOUT": {
