@@ -1,20 +1,22 @@
-# Paws 60
+# Paws60 (Rev 2)
 
-A PCB that has been inspired by Bakeneko 60 from kkatano [GitHub](https://github.com/kkatano/bakeneko-60)
+![Paws60](https://i.imgur.com/eRviqJy.png)
 
-But more changes has been added: Hotswap socket, ...
+A 60% keyboard, which controlled by an RP2040 chipset. The keyboard feature hotswap sockets and RGB LED indicator.
+
+PCB that has been inspired by Bakeneko 60 from kkatano [GitHub](https://github.com/kkatano/bakeneko-60)
 
 * Keyboard Maintainer: [HorrorTroll](https://github.com/HorrorTroll)
-* Hardware Supported: Atmega32u4
-* Hardware Availability: [Open source on GitHub](https://github.com/HorrorTroll/KeebProj/tree/default/paws60/pcb/Hotswap)
+* Hardware Supported: RP2040
+* Hardware Availability: [Open source on GitHub](https://github.com/HorrorTroll/Keeb_Project/tree/default/paws60/pcb/rev2)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make horrortroll/paws60:default
+    make horrortroll/paws60/rev2:default
 
 Flashing example for this keyboard:
 
-    make horrortroll/paws60:default:flash
+    make horrortroll/paws60/rev2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -22,6 +24,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (3,6) in the matrix (B key) and plug in the keyboard
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (Esc key) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

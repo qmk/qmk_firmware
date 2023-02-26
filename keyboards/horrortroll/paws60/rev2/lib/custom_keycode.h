@@ -1,4 +1,4 @@
-/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
+enum custom_keycodes {
+    RED_ESC = SAFE_RANGE,
+    ORG_ESC,
+    YLW_ESC,
+    GRN_ESC,
+    CYN_ESC,
+    BLU_ESC,
+    MGT_ESC,
+    PIK_ESC,
+    RGB_ESC
+};
