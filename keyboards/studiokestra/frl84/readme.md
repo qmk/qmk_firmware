@@ -1,12 +1,12 @@
 # studiokestra/frl84
 
-![studiokestra/frl84](https://i.imgur.com/XzO7Ly0.png)
+![studiokestra/frl84](https://i.imgur.com/XzO7Ly0h.png)
 
 FRL84 is a hotswap, via-compatible 65+Numpad layout. 
 
 * Keyboard Maintainer: [studiokestra](https://github.com/studiokestra)
 * Hardware Supported: FRL84 Invisibolt Case
-* Hardware Availability: https://p3dstore.com/products/frl84-invisibolt-case-and-pcb-group-buy
+* Hardware Availability: [FRL84 Invisibolt Case and PCB Group Buy](https://p3dstore.com/products/frl84-invisibolt-case-and-pcb-group-buy)
 
 Make example for this keyboard (after setting up your build environment):
 
