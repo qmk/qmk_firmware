@@ -8,7 +8,7 @@ enum layer_names {
     _SYM,
     _MED,
     _FUN,
-    // _MOUSE
+    _MOU,
 };
 
 enum custom_keycodes {
@@ -18,13 +18,14 @@ enum custom_keycodes {
   SYM,
   MED,
   FUN,
+  MOU,
 };
 
 // home row mod
 #define HO_A MT(MOD_LCTL, KC_A)
 #define HO_S MT(MOD_LSFT, KC_S)
 #define HO_D MT(MOD_LALT, KC_D)
-#define HO_F MT(MOD_LCTL, KC_F)
+#define HO_F MT(MOD_LGUI, KC_F)
 #define HO_J MT(MOD_RGUI, KC_J)
 #define HO_K MT(MOD_RALT, KC_K)
 #define HO_L MT(MOD_RSFT, KC_L)
@@ -36,6 +37,7 @@ enum custom_keycodes {
 #define TH_SYM LT(SYM, KC_ENT) 
 #define TH_MED LT(MED, KC_ESC) 
 #define TH_FUN LT(FUN, KC_DEL) 
+#define TH_MOU LT(MOU, KC_SPC) 
 
 #define EISU LALT(KC_GRV)
 
@@ -44,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * Base
    */
   [_BASE] = LAYOUT(
-    _______, _______, _______, _______, _______, _______ , _______,                             _______, _______, _______, _______, _______, _______, _______,
-    _______, KC_Q   , KC_W   , KC_E   , KC_R   , KC_T    , _______,                             _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______,
-    _______, HO_A   , HO_S   , HO_D   , HO_F   , KC_G    , _______,                             _______, KC_H   , HO_J   , HO_K   , HO_L   , HO_SCLN, _______,
-    _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B    , _______,                             _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______,
-    _______, _______, _______, _______,          TH_MED  , TH_NAV , KC_SPC,               TH_SYM, TH_NUM , TH_FUN ,          _______ , _______, _______, _______
+    _______, _______, _______, _______, _______, _______ , _______,                               _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_Q   , KC_W   , KC_E   , KC_R   , KC_T    , _______,                               _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______,
+    _______, HO_A   , HO_S   , HO_D   , HO_F   , KC_G    , _______,                               _______, KC_H   , HO_J   , HO_K   , HO_L   , HO_SCLN, _______,
+    _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B    , _______,                               _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______,
+    _______, _______, _______, _______,          TH_MED  , TH_NAV , TH_MOU,               TH_SYM, TH_NUM , TH_FUN ,          _______ , _______, _______, _______
   ),
   /* 
    * Num
@@ -94,11 +96,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * Fun
    */
   [_FUN] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,_______,                        _______, _______, _______, _______, _______, _______, _______,
-    _______, KC_F12 , KC_F7  , KC_F8  , KC_F8  , KC_PSCR,_______,                        _______, _______, _______, _______, _______, _______, _______,
-    _______, KC_F11 , KC_F4  , KC_F5  , KC_F6  , KC_SCRL,_______,                        _______, _______, _______, _______, _______, _______, _______,
-    _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , KC_PAUSE,_______,                        _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______,          _______,_______,_______,       _______, _______, _______,          _______, _______, _______, _______
+    _______, _______, _______, _______, _______, _______ , _______,                         _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_F12 , KC_F7  , KC_F8  , KC_F8  , KC_PSCR , _______,                         _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_F11 , KC_F4  , KC_F5  , KC_F6  , KC_SCRL , _______,                         _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , KC_PAUSE, _______,                         _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______,          _______ , _______, _______,       _______, _______, _______,          _______, _______, _______, _______
+  ),
+  /* 
+   * Mou
+   */
+  [_MOU] = LAYOUT(
+    _______, _______, _______, _______, _______, _______, _______,                            _______   , _______      , _______      , _______    , _______       , _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,                            _______   , _______      , _______      , _______    , _______       , _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,                            _______   , KC_MS_LEFT   , KC_MS_DOWN   , KC_MS_UP   , KC_MS_RIGHT   , _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,                            _______   , KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, _______, _______,
+    _______, _______, _______, _______,          _______, _______, _______,       KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3   ,                _______    , _______       , _______, _______
   ),
 };
 
@@ -157,6 +169,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_FUN);
       } else {
         layer_off(_FUN);
+      }
+      return false;
+      break;
+    case MOU:
+      if (record->event.pressed) {
+        layer_on(_MOU);
+      } else {
+        layer_off(_MOU);
       }
       return false;
       break;
