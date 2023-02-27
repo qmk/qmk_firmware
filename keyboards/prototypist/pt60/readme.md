@@ -8,7 +8,7 @@ Default layout is in ISO.*
 
 * Keyboard Maintainer: [Josh @ Prototypist](https://github.com/Anjheos)
 * Hardware Supported: *PT-60J PCB and PT-60C PCB*
-* Hardware Availability: [Proto[Typist]](prototypist.net)
+* Hardware Availability: [Proto[Typist]](https://prototypist.net)
 
 Make example for this keyboard (after setting up your build environment):
 
