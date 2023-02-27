@@ -1,6 +1,6 @@
 # prototypist/pt80
 
-![prototypist/pt80](imgur.com image replace me!)
+![prototypist/pt80](https://i.imgur.com/voa3ivJ.png)
 
 *Proto[Typist] Keyboards' first ever in-house universal TKL PCB designed by Josh (Anjheos). 
 Features various physical layouts available to fit multiple regional, F-row and bottom row layouts.
@@ -8,7 +8,7 @@ Default layout is in ISO.*
 
 * Keyboard Maintainer: [Josh @ Prototypist](https://github.com/Anjheos)
 * Hardware Supported: *PT-80J PCB and PT-80C PCB*
-* Hardware Availability: *prototypist.net*
+* Hardware Availability: [Proto[Typist]](https://prototypist.net)
 
 Make example for this keyboard (after setting up your build environment):
 
