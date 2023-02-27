@@ -7,7 +7,7 @@ enum layer_names {
     _NAV,
     _SYM,
     _MED,
-    // _FUN,
+    _FUN,
     // _MOUSE
 };
 
@@ -17,6 +17,7 @@ enum custom_keycodes {
   NAV,
   SYM,
   MED,
+  FUN,
 };
 
 // home row mod
@@ -34,6 +35,7 @@ enum custom_keycodes {
 #define TH_NUM LT(NUM, KC_BSPC) 
 #define TH_SYM LT(SYM, KC_ENT) 
 #define TH_MED LT(MED, KC_ESC) 
+#define TH_FUN LT(FUN, KC_DEL) 
 
 #define EISU LALT(KC_GRV)
 
@@ -42,11 +44,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * Base
    */
   [_BASE] = LAYOUT(
-    _______, _______, _______, _______, _______, _______ ,    _______,                             _______, _______, _______, _______, _______, _______, _______,
-    _______, KC_Q   , KC_W   , KC_E   , KC_R   , KC_T    ,    _______,                             _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______,
-    _______, HO_A   , HO_S   , HO_D   , HO_F   , KC_G    ,    _______,                             _______, KC_H   , HO_J   , HO_K   , HO_L   , HO_SCLN, _______,
-    _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B    ,    _______,                             _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______,
-    _______, _______, _______, _______,          TH_MED  ,  TH_NAV , KC_SPC,               TH_SYM, TH_NUM , KC_DEL,          _______ , _______, _______, _______
+    _______, _______, _______, _______, _______, _______ , _______,                             _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_Q   , KC_W   , KC_E   , KC_R   , KC_T    , _______,                             _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______,
+    _______, HO_A   , HO_S   , HO_D   , HO_F   , KC_G    , _______,                             _______, KC_H   , HO_J   , HO_K   , HO_L   , HO_SCLN, _______,
+    _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B    , _______,                             _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______,
+    _______, _______, _______, _______,          TH_MED  , TH_NAV , KC_SPC,               TH_SYM, TH_NUM , TH_FUN ,          _______ , _______, _______, _______
   ),
   /* 
    * Num
@@ -87,6 +89,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, BL_TOGG, BL_BRTG, BL_UP  , BL_DOWN,_______,                        _______, KC_MPRV   , KC_KB_VOLUME_DOWN, KC_KB_VOLUME_UP, KC_MNXT, _______, _______,
     _______, _______, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI,_______,                        _______, _______   , _______          , _______        , _______, _______, _______,
     _______, _______, _______, _______,          _______,_______,_______,       KC_MSTP, KC_MPLY, KC_KB_MUTE,                    _______        , _______, _______, _______
+  ),
+  /* 
+   * Fun
+   */
+  [_FUN] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,_______,                        _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_F12 , KC_F7  , KC_F8  , KC_F8  , KC_PSCR,_______,                        _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_F11 , KC_F4  , KC_F5  , KC_F6  , KC_SCRL,_______,                        _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , KC_PAUSE,_______,                        _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______,          _______,_______,_______,       _______, _______, _______,          _______, _______, _______, _______
   ),
 };
 
@@ -137,6 +149,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_MED);
       } else {
         layer_off(_MED);
+      }
+      return false;
+      break;
+    case FUN:
+      if (record->event.pressed) {
+        layer_on(_FUN);
+      } else {
+        layer_off(_FUN);
       }
       return false;
       break;
