@@ -32,12 +32,12 @@ While the defaults are designed so that it can be plugged in and used right away
 
 ```c
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report){
-   // executed each time step as the mouse position is updated
-   ... = mouse_report.x // int8_t x translation of the cursor
-   ... = mouse_report.y // int8_t y translation of the cursor
-   ... = mouse_report.h // int8_t horizontal scroll distance
-   ... = mouse_report.v // int8_t vertical scroll distance
-   return mouse_report;
+    // executed each time step as the mouse position is updated
+    ... = mouse_report.x // int8_t x translation of the cursor
+    ... = mouse_report.y // int8_t y translation of the cursor
+    ... = mouse_report.h // int8_t horizontal scroll distance
+    ... = mouse_report.v // int8_t vertical scroll distance
+    return mouse_report;
 }
 ```
 
