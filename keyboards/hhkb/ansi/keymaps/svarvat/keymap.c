@@ -127,18 +127,8 @@ enum custom_keycodes {
     MA_LTHUMB1,
     MA_LTHUMB2,
     MA_LTHUMB3,
-    MA_LTHUMBQ,
-    MA_LTHUMBW,
-    MA_LTHUMBA,
-    MA_LTHUMBS,
-    MA_LTHUMBF,
     MA_LTHUMBG,
-    MA_LTHUMBZ,
-    MA_LTHUMBX,
-    MA_LTHUMBC,
-    MA_LTHUMBV,
     MA_LTHUMBB,
-    MA_LTHUMBR,
     MA_LTHUMBT,
     MA_LTHUMBY,
     MA_LPINKY,
@@ -275,7 +265,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LA_LPINKY] = LAYOUT(
         KC_LGUI, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
         KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_ESC, KC_UP, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
+        KC_TRNS, KC_ESC, KC_UP, KC_ENT, MA_DELLINE, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
         TG(LA_CAPSLOCK), KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
     ),
@@ -295,14 +285,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LA_LTHUMB] = LAYOUT(
         KC_TRNS, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, C(KC_Q), C(KC_W), MA_LTHUMBE, MA_LTHUMBR, MA_LTHUMBT, MA_LTHUMBY, MA_7, MA_8, MA_9, MA_EQL, MA_ASTR, KC_TRNS, KC_TRNS,
-        KC_TRNS, MA_LTHUMBA, C(KC_S), MA_LTHUMBD, MA_LTHUMBF, MA_LTHUMBG, MA_DOT, MA_4, MA_5, MA_6, MA_MINS, MA_PLUS, MA_ENT,
-        KC_LSFT, MA_LTHUMBZ, C(KC_X), C(KC_C), C(KC_V), MA_LTHUMBB, MA_0, MA_1, MA_2, MA_3, MA_SLSH, KC_TRNS, KC_TRNS,
+        KC_TRNS, C(KC_Q), C(KC_W), MA_LTHUMBE, C(KC_R), MA_LTHUMBT, MA_LTHUMBY, MA_7, MA_8, MA_9, MA_EQL, MA_ASTR, KC_TRNS, KC_TRNS,
+        KC_TRNS, C(KC_Z), C(KC_S), MA_LTHUMBD, C(KC_F), MA_LTHUMBG, MA_DOT, MA_4, MA_5, MA_6, MA_MINS, MA_PLUS, MA_ENT,
+        KC_LSFT, C(KC_A), C(KC_X), C(KC_C), C(KC_V), MA_LTHUMBB, MA_0, MA_1, MA_2, MA_3, MA_SLSH, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_SPC, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_LTHUMBEMO] = LAYOUT(
         LSG(KC_ESC), LSG(KC_1), LSG(KC_2), LSG(KC_3), LSG(KC_4), LSG(KC_5), LSG(KC_6), LSG(KC_7), LSG(KC_8), LSG(KC_9), LSG(KC_0), LSG(KC_MINS), LSG(KC_EQL), LSG(KC_BSLS), KC_TRNS,
-        LSG(KC_TAB), LSG(KC_Q), LSG(KC_W), LSG(KC_E), LSG(KC_R), LSG(KC_T), LSG(KC_Y), LSG(KC_U), LSG(KC_I), LSG(KC_O), LSG(KC_P), LSG(KC_LBRC), KC_TRNS, KC_TRNS,
+        LSG(KC_TAB), C(KC_V), C(KC_X), C(KC_C), LSG(KC_R), LSG(KC_T), LSG(KC_Y), LSG(KC_U), LSG(KC_I), LSG(KC_O), LSG(KC_P), LSG(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, LSG(KC_A), LSG(KC_S), LSG(KC_D), LSG(KC_F), LSG(KC_G), LSG(KC_H), LSG(KC_J), LSG(KC_K), LSG(KC_L), LSG(KC_SCLN), LSG(KC_QUOT), LSG(KC_ENT),
         KC_TRNS, LSG(KC_Z), LSG(KC_X), LSG(KC_C), LSG(KC_V), LSG(KC_B), LSG(KC_N), LSG(KC_M), LSG(KC_COMM), LSG(KC_DOT), LSG(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, LSG(KC_SPC), KC_TRNS, KC_TRNS
@@ -463,6 +453,17 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
                 }
             }
             return true;
+        case MA_DELLINE:
+            if (record->event.pressed) {
+                tap_code16(KC_HOME);
+                tap_code16(KC_HOME);
+                register_code16(KC_LSFT);
+                tap_code16(KC_END);
+                tap_code16(KC_RGHT);
+                unregister_code16(KC_LSFT);
+                tap_code16(KC_DEL);
+            }
+            return false;
         case MA_DOUBLEARROW:
             if (record->event.pressed) {
                 tap_code16(FR_EQL);
@@ -606,10 +607,12 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
              }
             return false;
         case MA_LTHUMBD:
-            if (mod_state & MOD_MASK_SHIFT) {
-                layer_on(LA_LTHUMBDOSLBIS);
-            } else {
-                layer_on(LA_LTHUMBDMO);
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    layer_on(LA_LTHUMBDOSLBIS);
+                } else {
+                    layer_on(LA_LTHUMBDMO);
+                }
             }
             return false;
         case MA_LTHUMB1:
@@ -749,17 +752,6 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
-        case MA_DELLINE:
-            if (record->event.pressed) {
-                tap_code16(KC_HOME);
-                tap_code16(KC_HOME);
-                register_code16(KC_LSFT);
-                tap_code16(KC_END);
-                tap_code16(KC_RGHT);
-                unregister_code16(KC_LSFT);
-                tap_code16(KC_DEL);
-            }
-            return false;
     }
     return true;
 }
@@ -799,17 +791,6 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
                     isLeftThumbDMoStarted = false;
                     layer_off(LA_LTHUMB);
                 }
-            }
-            return false;
-        case MA_DELLINE:
-            if (record->event.pressed) {
-                tap_code16(KC_HOME);
-                tap_code16(KC_HOME);
-                register_code16(KC_LSFT);
-                tap_code16(KC_END);
-                tap_code16(KC_RGHT);
-                unregister_code16(KC_LSFT);
-                tap_code16(KC_DEL);
             }
             return false;
     }
