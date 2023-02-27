@@ -8,6 +8,10 @@
     "pid": "0x4D68",
     "device_version": "1.0.1"
   },
+  "backlight": {
+    "pin": "B5",
+    "breathing": true
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "community_layouts": ["68_ansi"],

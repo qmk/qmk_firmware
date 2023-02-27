@@ -34,10 +34,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Set up rotary encoder */
-#define ENCODERS_PAD_A { F1 }
-#define ENCODERS_PAD_B { F0 }
-#define ENCODER_RESOLUTION 2
-
 /* Set delay for tap_code on rotary encoder */
 #define TAP_CODE_DELAY 10

@@ -7,6 +7,10 @@
       "pid": "0x0005",
       "device_version": "0.0.1"
     },
+    "backlight": {
+      "pin": "B5",
+      "breathing": true
+    },
     "indicators": {
       "caps_lock": "C7",
       "num_lock": "B6",

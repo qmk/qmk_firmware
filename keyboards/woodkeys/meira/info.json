@@ -8,6 +8,10 @@
         "pid": "0x6061",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "driver": "custom",
+        "levels": 10
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layout_aliases": {

@@ -34,11 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* D4 is not a PWM pin, but look at timer assisted software PWM if you want something other than toggle
- * https://docs.qmk.fm/#/feature_backlight?id=timer-assisted-pwm-implementation
- */
-#define BACKLIGHT_PIN D4
-
 #define RGB_DI_PIN B2
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 20

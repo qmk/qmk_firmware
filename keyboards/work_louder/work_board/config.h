@@ -134,9 +134,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define ENCODERS_PAD_A \
-    { B0 }
-#define ENCODERS_PAD_B \
-    { B1 }
-
 #define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x1

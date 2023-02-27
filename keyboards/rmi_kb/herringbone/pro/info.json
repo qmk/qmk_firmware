@@ -8,6 +8,11 @@
         "pid": "0x440B",
         "device_version": "0.1.2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C3", "pin_b": "C2"}
+        ]
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

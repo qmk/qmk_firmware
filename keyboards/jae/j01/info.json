@@ -8,6 +8,11 @@
         "pid": "0x0143",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "levels": 4,
+        "breathing": true
+    },
     "bootmagic": {
         "matrix": [0, 2]
     },

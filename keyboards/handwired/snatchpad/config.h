@@ -20,11 +20,6 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Rotary encoder options */
-#define ENCODER_RESOLUTIONS { 4, 4 }
-#define ENCODERS_PAD_A { D3, D0 }
-#define ENCODERS_PAD_B { D2, D1 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -43,12 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Allows for rotary encoder volume control
 #define TAP_CODE_DELAY 20
 
-/* Encoder stuff */
-#define ENCODERS_PAD_A \
-    { A0, A2 }
-#define ENCODERS_PAD_B \
-    { A1, A3 }
-
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 

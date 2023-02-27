@@ -12,7 +12,6 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 CUSTOM_MATRIX = yes         # Custom matrix file
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
-BACKLIGHT_DRIVER = custom
 AUDIO_ENABLE = no           # Audio output
 
 # Project specific files

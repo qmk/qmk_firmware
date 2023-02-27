@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* Encoder */
-#define ENCODERS_PAD_A { F4 }
-#define ENCODERS_PAD_B { F5 }
-// #define ENCODER_DIRECTION_FLIP
-
 /*
  * Keyboard Matrix Assignments
  *

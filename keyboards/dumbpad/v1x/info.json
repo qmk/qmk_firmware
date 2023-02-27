@@ -2,6 +2,11 @@
     "usb": {
         "device_version": "0.1.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "D4"}
+        ]
+    },
     "bootmagic": {
         "matrix": [3, 0]
     },

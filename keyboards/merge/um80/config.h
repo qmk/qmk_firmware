@@ -42,6 +42,3 @@
 #ifdef AUDIO_ENABLE
   #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
-
-#define ENCODERS_PAD_A { B4 }
-#define ENCODERS_PAD_B { B5 }

@@ -31,12 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Backlight configuration
- * Backlight LEDs on B8
- */
-#define BACKLIGHT_PIN B8
-#define BACKLIGHT_BREATHING
-
 #define WS2812_SPI SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 5
 

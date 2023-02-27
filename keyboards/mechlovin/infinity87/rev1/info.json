@@ -1,4 +1,8 @@
 {
+    "backlight": {
+        "pin": "B0",
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "A4",
         "scroll_lock": "A8"

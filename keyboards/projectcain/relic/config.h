@@ -16,9 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#define ENCODERS_PAD_A { D4 }
-#define ENCODERS_PAD_B { D6 }
-
 
 /*
  * Keyboard Matrix Assignments

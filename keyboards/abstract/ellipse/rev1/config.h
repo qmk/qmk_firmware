@@ -34,9 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN C6
-#define BACKLIGHT_LEVELS 15
-
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
    #define RGBLED_NUM 3
@@ -67,7 +64,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define ENCODERS_PAD_A { B2, B3, D5 }
-#define ENCODERS_PAD_B { B1, B7, B4 }
-#define ENCODER_RESOLUTION 2

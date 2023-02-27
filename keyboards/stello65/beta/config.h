@@ -20,15 +20,8 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D2 }
-#define ENCODER_RESOLUTION 2
-
-#define ENCODERS 1
 #define ENCODERS_CW_KEY  { { 4, 7 } }
 #define ENCODERS_CCW_KEY { { 4, 6 } }
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

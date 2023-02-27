@@ -22,10 +22,3 @@
 #define MATRIX_COL_PINS \
     { F0, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1, D0 }
 #define DIODE_DIRECTION COL2ROW
-
-/* encoder */
-#define ENCODERS_PAD_A \
-    { B0 }
-#define ENCODERS_PAD_B \
-    { B1 }
-#define ENCODER_RESOLUTION 4

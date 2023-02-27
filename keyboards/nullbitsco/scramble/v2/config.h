@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Optional encoder pins */
-#define ENCODERS_PAD_A { GP24 }
-#define ENCODERS_PAD_B { GP25 }
 #define TAP_CODE_DELAY 10
 
 /* RP2040-specific defines*/

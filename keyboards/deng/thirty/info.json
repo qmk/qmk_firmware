@@ -9,6 +9,9 @@
         "device_version": "0.0.1"
     },
     "backlight": {
+        "driver": "software",
+        "pin": "B11",
+        "levels": 5,
         "on_state": 0
     },
     "processor": "STM32F103",

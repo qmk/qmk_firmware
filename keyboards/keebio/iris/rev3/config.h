@@ -22,9 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F1, F4, F5, F6, D4, B4 }
 #define SPLIT_HAND_PIN F0
 
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B7 }
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
@@ -32,9 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 5
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7

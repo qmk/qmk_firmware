@@ -13,7 +13,3 @@
 #define RGBLED_NUM 12
 #define RGBLED_SPLIT { 7, 7 }
 #define RGBLIGHT_SPLIT
-
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { F4 }
-#define ENCODER_RESOLUTION 2

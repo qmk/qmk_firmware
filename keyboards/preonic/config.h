@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_VOICES
 #define AUDIO_PIN C6
 
-#define BACKLIGHT_PIN B7
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

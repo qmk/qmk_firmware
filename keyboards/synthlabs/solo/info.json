@@ -17,6 +17,11 @@
         "pid": "0x3031",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B3"}
+        ]
+    },
     "bootmagic": {
         "matrix": [1, 1]
     },

@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SN74X154_ADDRESS_PINS { D4, D5, D6, D7 }
 #define SN74X154_E1_PIN D3
 
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_BREATHING
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

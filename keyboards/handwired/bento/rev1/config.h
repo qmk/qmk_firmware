@@ -16,9 +16,6 @@
 
 #pragma once
 
-#define ENCODERS_PAD_A { D1 }
-#define ENCODERS_PAD_B { D0 }
-
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 4

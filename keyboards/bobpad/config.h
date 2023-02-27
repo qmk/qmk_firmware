@@ -31,6 +31,3 @@
 #define MATRIX_COL_PINS { F6, F5, F4 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define ENCODERS_PAD_A { B3 }
-#define ENCODERS_PAD_B { B2 }

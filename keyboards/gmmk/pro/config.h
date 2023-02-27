@@ -26,10 +26,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define TAP_CODE_DELAY 10
-#define ENCODERS_PAD_A \
-    { C15 }
-#define ENCODERS_PAD_B \
-    { C14 }
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

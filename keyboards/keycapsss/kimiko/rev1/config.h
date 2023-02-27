@@ -38,13 +38,6 @@
   #define RGBLIGHT_LIMIT_VAL 80
 #endif
 
-#ifdef ENCODER_ENABLE
-#   define ENCODERS_PAD_A { F4 }
-#   define ENCODERS_PAD_B { F5 }
-#   define ENCODERS_PAD_A_RIGHT { F4 }
-#   define ENCODERS_PAD_B_RIGHT { F5 }
-#endif
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

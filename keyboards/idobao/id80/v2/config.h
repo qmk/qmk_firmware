@@ -48,11 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#ifdef BACKLIGHT_ENABLE
-    #define BACKLIGHT_PIN B6
-    #define BACKLIGHT_BREATHING
-#endif
-
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 20       /* 16 underglow LEDs, 4 top LEDs */

@@ -8,6 +8,9 @@
         "pid": "0xAA55",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "E6"
+    },
     "indicators": {
         "caps_lock": "F5",
         "num_lock": "F6",

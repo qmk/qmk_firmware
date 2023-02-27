@@ -32,9 +32,6 @@
 
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-
 #define RGB_DI_PIN E2
 #if defined(RGBLIGHT_ENABLE)
     #define RGBLED_NUM 8

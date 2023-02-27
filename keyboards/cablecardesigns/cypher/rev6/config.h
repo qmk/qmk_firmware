@@ -9,15 +9,10 @@
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define BACKLIGHT_PIN D0
 
 #define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN

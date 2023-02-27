@@ -8,6 +8,10 @@
     "pid": "0x4024",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7",
+    "levels": 4
+  },
   "processor": "atmega32u2",
   "bootloader": "atmel-dfu",
   "layouts": {

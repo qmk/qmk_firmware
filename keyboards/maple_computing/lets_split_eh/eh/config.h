@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B7
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B2
 #define RGBLED_NUM 12    // Number of LEDs (each hand)

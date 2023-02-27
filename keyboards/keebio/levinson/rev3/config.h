@@ -37,7 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D7
 #define RGBLED_NUM 12    // Number of LEDs
 #define RGBLED_SPLIT { 6, 6 }
-
-/* Backlight LEDs */
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 7

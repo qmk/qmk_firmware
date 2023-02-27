@@ -8,6 +8,13 @@
         "pid": "0xEAF3",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "B4"},
+            {"pin_a": "D6", "pin_b": "D3"},
+            {"pin_a": "D7", "pin_b": "D5"}
+        ]
+    },
     "bootmagic": {
         "matrix": [1, 0]
     },
