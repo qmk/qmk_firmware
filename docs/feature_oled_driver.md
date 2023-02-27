@@ -10,6 +10,7 @@ Tested combinations:
 |SSD1306  |128x32|AVR     |Primary support         |
 |SSD1306  |128x64|AVR     |Verified working        |
 |SSD1306  |128x32|Arm     |                        |
+|SSD1306  |64x48 |Arm     |                        |
 |SH1106   |128x64|AVR     |No rotation or scrolling|
 
 Hardware configurations using Arm-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
@@ -173,17 +174,18 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
 |`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
-|`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
+|`OLED_COLUMN_OFFSET`       |`0`              |Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.               |
 |`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
 |`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
  ## 128x64 & Custom sized OLED Displays
 
- The default display size for this feature is 128x32 and all necessary defines are precalculated with that in mind. We have added a define, `OLED_DISPLAY_128X64`, to switch all the values to be used in a 128x64 display, as well as added a custom define, `OLED_DISPLAY_CUSTOM`, that allows you to provide the necessary values to the driver.
+ The default display size for this feature is 128x32 and all necessary defines are precalculated with that in mind. We have added defines, `OLED_DISPLAY_128X64` or `OLED_DISPLAY_64X48`, to switch all the values to be used in a 128x64 or 64x48 display, as well as added a custom define, `OLED_DISPLAY_CUSTOM`, that allows you to provide the necessary values to the driver.
 
 |Define               |Default        |Description                                                                                                                             |
 |---------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DISPLAY_128X64`|*Not defined*  |Changes the display defines for use with 128x64 displays.                                                                               |
+|`OLED_DISPLAY_64X48` |*Not defined*  |Changes the display defines for use with 64x48 displays.<br>`OLED_COLUMN_OFFSET` might be needed.
 |`OLED_DISPLAY_CUSTOM`|*Not defined*  |Changes the display defines for use with custom displays.<br>Requires user to implement the below defines.                              |
 |`OLED_DISPLAY_WIDTH` |`128`          |The width of the OLED display.                                                                                                          |
 |`OLED_DISPLAY_HEIGHT`|`32`           |The height of the OLED display.                                                                                                         |
