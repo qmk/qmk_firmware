@@ -10,6 +10,12 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+      "rotary": [
+        {"pin_a": "C7", "pin_b": "D1"}
+      ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

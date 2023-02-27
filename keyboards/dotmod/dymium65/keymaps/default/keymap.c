@@ -1,32 +1,15 @@
-/*
-Copyright 2022 <felix@fjlaboratories.com>
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
+// Copyright 2023 <felix@fjlaboratories.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
 // Layer names
-enum ats_layers{
-  // - Base layer:
+enum layers {
   _BASE,
-  // - Symbols, numbers, and functions:
   _FN,
-  // - Alternate Function layer:
   _LN,
-  // - Alternate Function layer:
   _MT
 };
-
-#define RS_SLS RSFT_T(KC_SLSH)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
@@ -63,12 +46,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(LED_CAP_LOCK_INDEX, RGB_WHITE);
     }
     return false;
 }
+
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP) },
