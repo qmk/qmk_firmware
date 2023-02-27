@@ -4,7 +4,7 @@
     "url": "",
     "maintainer": "gtips",
     "usb": {
-        "vid": "0xFEED",
+        "vid": "0x6774",
         "pid": "0x4E03",
         "device_version": "0.0.1"
     },
