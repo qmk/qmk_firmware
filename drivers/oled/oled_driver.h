@@ -68,6 +68,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
 // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
 // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
+#elif defined(OLED_DISPLAY_64X48)
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 64
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 48
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 384 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint16_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 16 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 24, 16, 8, 0 }
+#    endif
+
 #else // defined(OLED_DISPLAY_128X64)
 // Default 128x32
 #    ifndef OLED_DISPLAY_WIDTH
