@@ -29,17 +29,15 @@ The PCB should indicate which revision this is.
 
 While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change.  Such as adding DPI control, or to use the ball to scroll while holding a button.   To allow for this sort of control, there is a callback for both the scroll wheel and the mouse sensor. 
 
-The default behavior for this is:
 
 ```c
-void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
-    mouse_report->h = h;
-    mouse_report->v = v;
-}
-
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
-    mouse_report->x = x;
-    mouse_report->y = y;
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report){
+   // executed each time step as the mouse position is updated
+   ... = mouse_report.x // int8_t x translation of the cursor
+   ... = mouse_report.y // int8_t y translation of the cursor
+   ... = mouse_report.h // int8_t horizontal scroll distance
+   ... = mouse_report.v // int8_t vertical scroll distance
+   return mouse_report;
 }
 ```
 
