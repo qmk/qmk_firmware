@@ -9,6 +9,7 @@ Hardware availability: not yet available
 
 - Hot-swappable ISO layout
 - Per key RGB LED (south facing)
+- VIA compatible
 - USB-C connector
 - Reset button on the back of the PCB
 - Compatible with TOFU65 and similar cases 
