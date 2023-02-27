@@ -21,18 +21,9 @@
 
 /* space savers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
-// #define NO_ACTION_TAPPING // Waiting on QMK #11528
+#define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
-#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD
-
-// Selectively undefine to save space
-// VIA support won't fit otherwise
-#ifdef RGBLIGHT_ENABLE
-#undef RGBLIGHT_EFFECT_RGB_TEST
-#undef RGBLIGHT_EFFECT_ALTERNATING
-#undef RGBLIGHT_EFFECT_TWINKLE
-#endif //RGB LIGHT_ENABLE
 
 // Split Options
 #define SPLIT_TRANSPORT_MIRROR

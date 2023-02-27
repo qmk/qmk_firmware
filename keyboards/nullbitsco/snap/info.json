@@ -7,6 +7,7 @@
         "pid": "0x6063",
         "device_version": "0.0.1"
     },
+    "debounce": 10,
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

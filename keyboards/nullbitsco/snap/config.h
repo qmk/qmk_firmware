@@ -16,14 +16,18 @@
 // clang-format off
 #pragma once
 
-#include "config_common.h"
-
 /* Used to set host for remote KB if VUSB detect doesn't work. */
 // #define KEYBOARD_HOST // Force host mode
 // #define KEYBOARD_REMOTE // Force remote mode
 
 // Workarounds for sleep/wake issues
 #define USB_SUSPEND_WAKEUP_DELAY 250
+
+// NOTE: There is a bug in AVR deep sleep, which
+// causes the MCU to stop responding in some cases.
+// Disabling the watchdog prevents the MCU from entering 
+// power down, while still turning off LEDs, audio, etc.
+// See qmk_firmware/issues/20087 for background
 #undef WDT_vect
 
 /* split config */
@@ -37,9 +41,6 @@
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
 #define MATRIX_MUX_COLS 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 10
 
 /*
  * Keyboard Matrix Assignments

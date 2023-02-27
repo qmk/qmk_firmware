@@ -2,7 +2,7 @@
 
 VIA compatible keymap that displays a live wpm HUD on your OLED.
 
-<https://user-images.githubusercontent.com/2514771/166799498-01af70cd-fee3-40e4-861d-b3646f40051b.mp4>
+<https://nullbits.co/static/file/snap-typehud.webp>
 
 ## Configuration
 

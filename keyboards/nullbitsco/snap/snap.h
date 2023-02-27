@@ -23,7 +23,7 @@
 
 #ifdef VIA_ENABLE
 enum custom_keycodes {
-    DISC_MUTE = USER00,
+    DISC_MUTE = QK_USER_0,
     SUPER_ALT_TAB
 };
 #else
