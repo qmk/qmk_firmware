@@ -111,8 +111,8 @@ void erase_wlength_data(void) {
 void slave_update_detected_host_os(os_variant_t os) {
     detected_os = os;
 }
-#    endif //defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
-#endif // OS_DETECTION_ENABLE
+#    endif // defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+#endif     // OS_DETECTION_ENABLE
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
 void print_stored_setups(void) {
