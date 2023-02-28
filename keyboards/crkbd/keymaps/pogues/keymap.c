@@ -219,7 +219,7 @@ combo_t key_combos[] = {
     [WF_ESC] = COMBO(combo_esc, KC_ESC),
     [CD_TAB] = COMBO(combo_tab, KC_TAB),
 
-    [RESET_COMBO] = COMBO(combo_reset, RESET),
+    [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
 
     [UY_DEL] = COMBO(combo_del, KC_DEL),
     [NUM_89_DEL] = COMBO(combo_num_del, KC_DEL),
