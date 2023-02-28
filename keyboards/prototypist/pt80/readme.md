@@ -1,6 +1,6 @@
 # prototypist/pt80
 
-![prototypist/pt80](https://i.imgur.com/voa3ivJ.png)
+![prototypist/pt80](https://i.imgur.com/voa3ivJh.png)
 
 *Proto[Typist] Keyboards' first ever in-house universal TKL PCB designed by Josh (Anjheos). 
 Features various physical layouts available to fit multiple regional, F-row and bottom row layouts.
