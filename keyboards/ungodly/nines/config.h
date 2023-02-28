@@ -15,12 +15,6 @@
  */
  #pragma once
 
-/* Rotary Encoder Assignments */
-#define ENCODERS_PAD_A { C6, E6 }
-#define ENCODERS_PAD_B { D7, B4 }
-
-#define ENCODER_RESOLUTION 2
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

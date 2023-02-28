@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format off
 
 #define TAP_CODE_DELAY 10
-#define ENCODER_RESOLUTION 4
-#define ENCODERS_PAD_A { F6 }
-#define ENCODERS_PAD_B { F5 }
-
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 7
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN

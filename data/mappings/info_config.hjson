@@ -13,6 +13,7 @@
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},
+    "BACKLIGHT_CAPS_LOCK": {"info_key": "backlight.as_caps_lock", "value_type": "bool"},
     "BACKLIGHT_LEVELS": {"info_key": "backlight.levels", "value_type": "int"},
     "BACKLIGHT_LIMIT_VAL": {"info_key": "backlight.max_brightness", "value_type": "int"},
     "BACKLIGHT_ON_STATE": {"info_key": "backlight.on_state", "value_type": "int"},

@@ -21,6 +21,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D4, D5 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7 }
 #define DIODE_DIRECTION COL2ROW
-
-/* Backlight */
-#define BACKLIGHT_PIN B5

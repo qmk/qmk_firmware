@@ -17,10 +17,6 @@
 
 #pragma once
 
-
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B1 }
-
 #define MATRIX_ROW_PINS { B3, F4, F7, F6, F5 }
 #define MATRIX_COL_PINS { C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1, D0}
 

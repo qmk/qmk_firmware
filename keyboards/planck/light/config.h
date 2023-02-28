@@ -12,10 +12,6 @@
 #define AUDIO_PIN     C6
 #define AUDIO_PIN_ALT B5
 
-#undef BACKLIGHT_PIN
-
-#define BACKLIGHT_PIN A5
-
 #define NO_USB_STARTUP_CHECK
 
 #define PLANCK_MIT_LAYOUT

@@ -18,10 +18,6 @@
 
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 
-/* ENCODER */
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B3 }
-
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D1
 #define RGBLED_NUM 1

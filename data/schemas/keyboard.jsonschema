@@ -108,6 +108,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["pwm", "software", "timer", "custom"]
+                },
                 "breathing": {"type": "boolean"},
                 "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "levels": {
@@ -118,7 +122,8 @@
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "on_state": {"$ref": "qmk.definitions.v1#/bit"}
+                "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                "as_caps_lock": {"type": "boolean"}
             }
         },
         "bluetooth": {

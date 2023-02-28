@@ -8,10 +8,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { F4 }
-#define ENCODER_RESOLUTION 2
-
 #ifdef RGBLIGHT_ENABLE
 #    define RGB_DI_PIN D3
 #    define RGBLED_NUM 64

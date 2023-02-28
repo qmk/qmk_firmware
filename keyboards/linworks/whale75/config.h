@@ -24,13 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Backlight */
-#define BACKLIGHT_PIN A10
-#define BACKLIGHT_BREATHING
 #define BACKLIGHT_PWM_DRIVER PWMD1
 #define BACKLIGHT_PWM_CHANNEL 3
 #define BACKLIGHT_PAL_MODE 6
-#define BACKLIGHT_LEVELS 5
 #define BACKLIGHT_PWM_OUTPUT_FREQUENCY 1000 // Increases backlight PWM freq if compiled with an unmerged PR. Does no harm without it.
 
 /* Underglow */
@@ -48,11 +44,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 
-
-/* Rotary encoder - set the resolution fitting your encoder.
-Most will need a value of 4. If 1 encoder click results in 2 keycodes sent
-double the value. If you need 2 clicks for 1 keycode, half it */
-#define ENCODER_RESOLUTION 2
-#define ENCODERS_PAD_A { A15 }
-#define ENCODERS_PAD_B { A14 }
 #define TAP_CODE_DELAY 10

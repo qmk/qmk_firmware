@@ -41,10 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLED_NUM 8
 #endif
 
-
-#define ENCODERS_PAD_A { F4 }
-#define ENCODERS_PAD_B { F5 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

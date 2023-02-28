@@ -29,7 +29,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define ENCODERS_PAD_A { D4 }
-#define ENCODERS_PAD_B { D6 }
-#define ENCODER_RESOLUTION 4

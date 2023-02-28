@@ -8,6 +8,10 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
     "indicators": {
         "caps_lock": "B2",
         "num_lock": "B1",

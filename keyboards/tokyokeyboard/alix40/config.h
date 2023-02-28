@@ -14,12 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define BACKLIGHT_PIN B7
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 31
-#define BACKLIGHT_BREATHING
-#endif
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 

@@ -8,6 +8,10 @@
     "pid": "0x4266",
     "device_version": "2.0.0"
   },
+  "backlight": {
+    "pin": "D4",
+    "levels": 6
+  },
   "indicators": {
     "caps_lock": "D1"
   },

@@ -32,10 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Define encoder pins */
-#define ENCODERS_PAD_A { F5, F7 } // 1a, 2a
-#define ENCODERS_PAD_B { F4, F6 } // 1b, 2b
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

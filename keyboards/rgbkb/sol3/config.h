@@ -28,14 +28,6 @@
 #define TOUCH_RESOLUTION 25 // sensitivity of swipes, lower=faster
 #define TOUCH_SEGMENTS 3
 
-/* Encoder Configuration */
-//      Matrix Entries  k36/k35(E1SW>B13), k33/k32, k7/k28
-#define ENCODERS_PAD_A { A1, B10, A13 }
-#define ENCODERS_PAD_B { A2, B11, B14 }
-//      Matrix Entries  k72/k71(E5SW>B0), k69/k68, k43/k64
-#define ENCODERS_PAD_A_RIGHT { A1, C15,  B3 }
-#define ENCODERS_PAD_B_RIGHT { A2, C14, B13 }
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

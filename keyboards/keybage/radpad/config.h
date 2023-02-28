@@ -23,11 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { D4, F6 }
-#define ENCODERS_PAD_B { C6, F7 }
-
-#define ENCODER_RESOLUTION 2
-
 #define RGB_DI_PIN F4
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 16

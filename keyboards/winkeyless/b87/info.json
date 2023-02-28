@@ -8,6 +8,9 @@
         "pid": "0x0B87",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D4"
+    },
     "indicators": {
         "caps_lock": "D1",
         "scroll_lock": "D6"

@@ -8,9 +8,6 @@
 #    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 
-#define ENCODERS_PAD_A { C7, D7 }
-#define ENCODERS_PAD_B { B5, D4 }
-#define ENCODERS 2
 #define ENCODERS_CW_KEY  { { 1, 1 }, { 3, 1 } }
 #define ENCODERS_CCW_KEY { { 0, 1 }, { 2, 1 } }
 

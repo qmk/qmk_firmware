@@ -16,11 +16,6 @@
 #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
-#define ENCODERS_PAD_A { C7, F7, D6 }
-#define ENCODERS_PAD_B { C6, E6, D7 }
-#define ENCODER_RESOLUTIONS { 4, 4, 2 }
-
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

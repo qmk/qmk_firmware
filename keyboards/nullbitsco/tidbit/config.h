@@ -42,8 +42,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-/* Optional encoder pins */
-// Encoders are defined in order. 1: B2 & B3, 2: B4 & B5, 3: D0 & D1, 4: D2 & D3
-#define ENCODERS_PAD_A { B2, B4, D0, D3 }
-#define ENCODERS_PAD_B { B3, B5, D1, D2 }

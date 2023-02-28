@@ -34,12 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/*Rotary encoder - set the resolution fitting your encoder.
-Most will need a value of 4. If 1 encoder click results in 2 keycodes sent
-increase the value. If you need 2 clicks for 1 keycode, decrease*/
-#define ENCODER_RESOLUTION 4
-#define ENCODERS_PAD_A { B7 }
-#define ENCODERS_PAD_B { D5 }
 #define TAP_CODE_DELAY 10
 
 /* Underglow options: */

@@ -7,7 +7,3 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D2 }
-#define ENCODER_RESOLUTION 2

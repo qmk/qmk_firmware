@@ -31,10 +31,6 @@
 /* Use the custom font */
 #define OLED_FONT_H "./lib/glcdfont.c"
 
-/* Encoder pins */
-#define ENCODERS_PAD_A { F7, C7, D7 }
-#define ENCODERS_PAD_B { E6, C6, D6 }
-
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define RGB_DI_PIN F6

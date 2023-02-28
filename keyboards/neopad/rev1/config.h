@@ -21,10 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F4, F5 }
 #define MATRIX_COL_PINS { B3, B2, B6 }
 
-/* Dual rotary encoders */
-#define ENCODERS_PAD_A { D1, D4 }
-#define ENCODERS_PAD_B { D0, C6 }
-
 /* Onboard LEDs */
 #define LED_00 F6
 #define LED_01 F7

@@ -8,6 +8,11 @@
         "pid": "0x58E4",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F6"}
+        ]
+    },
     "indicators": {
         "caps_lock": "D3",
         "num_lock": "D5",

@@ -22,12 +22,9 @@
     { B5, B6, A7, B0, B1, B2, A4 }
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN A6
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
-#define BACKLIGHT_LEVELS 6
-#define BACKLIGHT_BREATHING
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -52,12 +49,6 @@
 //The 3D-printed version of Boston uses APA106 LEDs, which are reversed
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
-/* Define encoder */
-#define ENCODERS_PAD_A \
-    { C13 }
-#define ENCODERS_PAD_B \
-    { F1 }
-#define ENCODER_RESOLUTION 2
 #define TAP_CODE_DELAY 15
 
 /*

@@ -29,11 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MK_3_SPEED
 #define TERMINAL_HELP
 
-// encoders
-#define ENCODERS_PAD_A { B2, F4 }
-#define ENCODERS_PAD_B { B1, F5 }
-#define ENCODER_RESOLUTION 3
-
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 

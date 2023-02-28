@@ -9,7 +9,6 @@
 #include "lighting.h"
 #include "debug.h"
 
-#define BACKLIGHT_BREATHING
 #include "quantum.h"
 
 uint16_t click_hz = CLICK_HZ;

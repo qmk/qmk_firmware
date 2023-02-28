@@ -24,14 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS \
     { A10, A15, B3, B4, B5, B9, B8, B7, A1, A2, A3, A4, B1 }
 
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A \
-    { A0 }
-#define ENCODERS_PAD_B \
-    { B6 }
-#define ENCODER_RESOLUTION 4
-#endif
-
 #ifdef RGBLIGHT_ENABLE
 
 #define RGB_DI_PIN B15

@@ -8,6 +8,12 @@
         "pid": "0x1111",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C7", "pin_b": "B5"},
+            {"pin_a": "D7", "pin_b": "D4"}
+        ]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "matrix_pins": {

@@ -53,7 +53,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-// Define rotary encoder
-#define ENCODERS_PAD_A { F1 }
-#define ENCODERS_PAD_B { F4 }

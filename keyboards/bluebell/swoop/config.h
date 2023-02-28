@@ -22,12 +22,6 @@
 
 #define EE_HANDS
 
-// encoders
-#define ENCODERS_PAD_A { B4 }
-#define ENCODERS_PAD_B { B5 }
-#define ENCODERS_PAD_A_RIGHT { B5 }
-#define ENCODERS_PAD_B_RIGHT { B4 }
-
 // OLED driver
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X32

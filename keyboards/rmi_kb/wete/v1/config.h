@@ -21,13 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { A9, B12, B11, B10, B2, B1 }
 #define DIODE_DIRECTION COL2ROW
 
-//LEDS A6
-#define BACKLIGHT_PIN A6
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
-#define BACKLIGHT_LEVELS 24
-#define BACKLIGHT_BREATHING
 
 // RGB B4
 #define RGB_DI_PIN B4

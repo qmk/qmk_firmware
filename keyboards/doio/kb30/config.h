@@ -27,12 +27,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key encoders pins*/
-#define ENCODERS_PAD_A { B5 , A1 , A3 }
-#define ENCODERS_PAD_B { B6 , A2 , A4 }
-#define ENCODER_RESOLUTIONS \
-    { 4, 4, 2 }
-
 // #define QMK_KEYS_PER_SCAN 12
 
 /* OLED */

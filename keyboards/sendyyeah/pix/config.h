@@ -19,9 +19,6 @@
 #define OLED_FONT_H "keymaps/default/glcdfont.c"
 #define OLED_TIMEOUT 600000 // Turn of after 10 minutes
 
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B3 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

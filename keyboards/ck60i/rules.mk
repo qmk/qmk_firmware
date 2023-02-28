@@ -9,7 +9,6 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality 
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
-BACKLIGHT_DRIVER = pwm
 ENCODER_ENABLE = yes
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

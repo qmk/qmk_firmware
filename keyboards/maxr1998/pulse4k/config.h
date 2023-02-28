@@ -25,11 +25,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Rotary encoders */
-#define ENCODERS_PAD_A { D2, F6 }
-#define ENCODERS_PAD_B { D3, F5 }
-#define ENCODER_RESOLUTION 4
-
 /* Combo setup */
 #define COMBO_COUNT 1
 #define COMBO_TERM 150

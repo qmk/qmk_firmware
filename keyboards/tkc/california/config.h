@@ -36,11 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN B7
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_BREATHING
-#endif
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

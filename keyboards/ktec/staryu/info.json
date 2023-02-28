@@ -9,7 +9,8 @@
         "device_version": "2.0.5"
     },
     "backlight": {
-        "pins": ["C2", "C7", "D5", "D6", "B0"]
+        "pins": ["C2", "C7", "D5", "D6", "B0"],
+        "levels": 10
     },
     "bootmagic": {
         "matrix": [0, 1]

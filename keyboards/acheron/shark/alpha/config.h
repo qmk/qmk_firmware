@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* encoder pads */
-#define ENCODERS_PAD_A { B6 }
-#define ENCODERS_PAD_B { B7 }
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -44,7 +39,6 @@ B0, which is unconnected on the PCB
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B0
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 3
 

@@ -26,14 +26,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* ROTARY ENCODERS */
-#define ENCODERS_PAD_A \
-    { B4, C7 }
-#define ENCODERS_PAD_B \
-    { D7, F7 }
-
-#define ENCODER_RESOLUTION 3
-
 #define LOCKING_SUPPORT_ENABLE
 
 #define RGB_DI_PIN F0

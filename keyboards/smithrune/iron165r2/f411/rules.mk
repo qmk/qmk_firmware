@@ -13,7 +13,6 @@ LTO_ENABLE = no
 ENCODER_ENABLE = no
 EEPROM_DRIVER = i2c
 BACKLIGHT_ENABLE = yes
-BACKLIGHT_DRIVER = pwm
 WS2812_DRIVER = pwm
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

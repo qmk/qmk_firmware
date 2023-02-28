@@ -48,6 +48,3 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-
-#define ENCODERS_PAD_A { B11 }
-#define ENCODERS_PAD_B { B10 }

@@ -34,10 +34,6 @@
 #define MATRIX_ROW_PINS { D1, D2, D3, D4 }
 #define MATRIX_COL_PINS { D5, D6, C2, D0 }
 
-#define ENCODERS_PAD_A { B1, B3 }
-#define ENCODERS_PAD_B { B2, B4 }
-
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

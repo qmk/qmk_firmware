@@ -8,6 +8,10 @@
     "pid": "0x6060",
     "device_version": "0.0.3"
   },
+  "backlight": {
+    "pin": "B6",
+    "levels": 4
+  },
   "indicators": {
     "num_lock": "D6",
     "on_state": 0

@@ -21,12 +21,6 @@
 #define MATRIX_COL_PINS { B13, B14, B3, A4, A6 }
 #define DIODE_DIRECTION COL2ROW
 
-/* Backlight */
-#ifdef BACKLIGHT_ENABLE
-#define BACKLIGHT_PIN B11
-#define BACKLIGHT_LEVELS 5
-#endif
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DI_PIN B12

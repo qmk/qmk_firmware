@@ -24,11 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* Rotary Encoder */
-#define ENCODERS_PAD_A { F5, D2 }
-#define ENCODERS_PAD_B { F4, D3 }
-#define ENCODER_RESOLUTION 4  //the default & suggested is 4
-
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6

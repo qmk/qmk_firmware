@@ -24,10 +24,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Encoder pins */
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B2 }
-
 /* RGB Matrix config */
 #define RGB_DI_PIN B3
 

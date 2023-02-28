@@ -27,17 +27,6 @@
 #define MATRIX_COL_PINS_RIGHT \
     { B0, A3, A2, A1, B7, B5 }  // cols are from right to left to match the layout
 
-
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A \
-    { A0 }
-#define ENCODERS_PAD_B \
-    { B8 }
-#define ENCODER_RESOLUTIONS \
-    { 4 }
-
-#endif
-
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 

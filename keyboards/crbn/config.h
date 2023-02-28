@@ -24,13 +24,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/*Rotary Encoder Pins*/
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
-
-/*Sets the number of pulses per increment*/
-#define ENCODER_RESOLUTION 2
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
