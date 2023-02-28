@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* Matrix size */
 #define MATRIX_ROWS 7
@@ -31,10 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Column read via SPI (shift register) */
 /* #define MATRIX_COL_PINS { } */
-
-#define LED_CAPS_LOCK_PIN F7 /* A0 */
-#define LED_NUM_LOCK_PIN F5 /*A2 */
-#define LED_SCROLL_LOCK_PIN F4 /*A3 */
 
 #define LED_FUN_LOCK_PIN F6 /* A1 (handled in layer_state_set_user()) */
 

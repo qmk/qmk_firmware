@@ -3,6 +3,9 @@
     "usb": {
         "pid": "0xCF44",
     },
+    "bootmagic": {
+        "matrix": [0, 6]
+    },
     "features": {
         "mousekey": true,
         "bootmagic": true,
@@ -145,6 +148,9 @@
         ]
     },
     "split": {
+        "bootmagic": {
+            "matrix": [4, 6]
+        },
         "soft_serial_pin": "D2",
         "main": "matrix_grid",
         "matrix_pins": {

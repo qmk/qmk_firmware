@@ -7,6 +7,18 @@
         "vid": "0x574C",
         "pid": "0x1DF9"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "D2", "pin_b": "D3"},
+            {"pin_a": "D5", "pin_b": "D4"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 11]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

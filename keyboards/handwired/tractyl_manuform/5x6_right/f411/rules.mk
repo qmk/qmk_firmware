@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F411
-BOARD = BLACKPILL_STM32_F411
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 KEYBOARD_SHARED_EP = yes
 CONSOLE_ENABLE     = yes
 MOUSE_SHARED_EP    = yes

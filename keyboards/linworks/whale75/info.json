@@ -7,6 +7,25 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A15", "pin_b": "A14", "resolution": 2}
+        ]
+    },
+    "backlight": {
+        "pin": "A10",
+        "levels": 5,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "A9",
+        "num_lock": "A8",
+        "scroll_lock": "A13",
+        "on_state": 0
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

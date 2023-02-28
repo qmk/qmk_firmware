@@ -132,7 +132,7 @@ uint8_t matrix_scan(void)
             }
         }
     }
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

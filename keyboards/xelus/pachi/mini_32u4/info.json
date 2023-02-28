@@ -8,6 +8,12 @@
         "pid": "0x5041",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F1",
+        "scroll_lock": "B3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
