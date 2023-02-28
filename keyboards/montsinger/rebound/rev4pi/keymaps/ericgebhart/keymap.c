@@ -95,7 +95,7 @@ void oled_task_user(void) {
   oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
   oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
   oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-
+  return false;
 }
 
 #endif
