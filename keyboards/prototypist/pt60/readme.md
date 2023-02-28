@@ -1,6 +1,6 @@
 # prototypist/pt60
 
-![prototypist/pt60](https://imgur.com/Iu3QwxR.png)
+![prototypist/pt60](https://i.imgur.com/Iu3QwxRh.png)
 
 *Proto[Typist] Keyboards' first ever in-house universal 60% PCB designed by Josh (Anjheos). 
 Features various physical layouts available to fit multiple regional and bottom row layouts.
