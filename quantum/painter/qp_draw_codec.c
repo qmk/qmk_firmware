@@ -12,18 +12,19 @@ static const qp_pixel_t qp_pixel_white = {.hsv888 = {.h = 0, .s = 0, .v = 255}};
 static const qp_pixel_t qp_pixel_black = {.hsv888 = {.h = 0, .s = 0, .v = 0}};
 
 bool qp_internal_bpp_capable(uint8_t bits_per_pixel) {
-#if !(QUANTUM_PAINTER_SUPPORTS_256_PALETTE)
+#if !(QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS)
+#    if !(QUANTUM_PAINTER_SUPPORTS_256_PALETTE)
     if (bits_per_pixel > 4) {
         qp_dprintf("qp_internal_decode_palette: image bpp greater than 4\n");
         return false;
     }
-#endif
+#    endif
 
     if (bits_per_pixel > 8) {
         qp_dprintf("qp_internal_decode_palette: image bpp greater than 8\n");
         return false;
     }
-
+#endif
     return true;
 }
 
@@ -32,7 +33,7 @@ bool qp_internal_decode_palette(painter_device_t device, uint32_t pixel_count, u
     const uint8_t pixels_per_byte  = 8 / bits_per_pixel;
     uint32_t      remaining_pixels = pixel_count; // don't try to derive from byte_count, we may not use an entire byte
     while (remaining_pixels > 0) {
-        uint8_t byteval = input_callback(input_arg);
+        int16_t byteval = input_callback(input_arg);
         if (byteval < 0) {
             return false;
         }
@@ -62,6 +63,21 @@ bool qp_internal_decode_recolor(painter_device_t device, uint32_t pixel_count, u
     }
 
     return qp_internal_decode_palette(device, pixel_count, bits_per_pixel, input_callback, input_arg, qp_internal_global_pixel_lookup_table, output_callback, output_arg);
+}
+
+bool qp_internal_send_bytes(painter_device_t device, uint32_t byte_count, qp_internal_byte_input_callback input_callback, void* input_arg, qp_internal_byte_output_callback output_callback, void* output_arg) {
+    uint32_t remaining_bytes = byte_count;
+    while (remaining_bytes > 0) {
+        int16_t byteval = input_callback(input_arg);
+        if (byteval < 0) {
+            return false;
+        }
+        if (!output_callback(byteval, output_arg)) {
+            return false;
+        }
+        remaining_bytes -= 1;
+    }
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,6 +139,26 @@ bool qp_internal_pixel_appender(qp_pixel_t* palette, uint8_t index, void* cb_arg
             return false;
         }
         state->pixel_write_pos = 0;
+    }
+
+    return true;
+}
+
+bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg) {
+    struct qp_internal_byte_output_state* state  = (struct qp_internal_byte_output_state*)cb_arg;
+    struct painter_driver_t*              driver = (struct painter_driver_t*)state->device;
+
+    if (!driver->driver_vtable->append_pixdata(state->device, qp_internal_global_pixdata_buffer, state->byte_write_pos++, byteval)) {
+        return false;
+    }
+
+    // If we've hit the transmit limit, send out the entire buffer and reset the write position
+    if (state->byte_write_pos == state->max_bytes) {
+        struct painter_driver_t* driver = (struct painter_driver_t*)state->device;
+        if (!driver->driver_vtable->pixdata(state->device, qp_internal_global_pixdata_buffer, state->byte_write_pos * 8 / driver->native_bits_per_pixel)) {
+            return false;
+        }
+        state->byte_write_pos = 0;
     }
 
     return true;

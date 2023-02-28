@@ -1,7 +1,7 @@
 #include "tap_dances.h"
 
 /*
-void macroTogKey(qk_tap_dance_state_t *state, void *user_data) {
+void macroTogKey(tap_dance_state_t *state, void *user_data) {
   keyrecord_t kr;
 
   if (state->count == 1)
@@ -21,7 +21,7 @@ void macroTogKey(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void macroTogKey2(qk_tap_dance_state_t *state, void *user_data) {
+void macroTogKey2(tap_dance_state_t *state, void *user_data) {
   keyrecord_t kr;
 
   if (state->count == 1)
@@ -42,7 +42,7 @@ void macroTogKey2(qk_tap_dance_state_t *state, void *user_data) {
 }
 */
 
-void pstinsrt(qk_tap_dance_state_t *state, void *user_data) {
+void pstinsrt(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         register_code(KC_LALT);
         tap_code(KC_I);
@@ -54,7 +54,7 @@ void pstinsrt(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void ccopy(qk_tap_dance_state_t *state, void *user_data) {
+void ccopy(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         tap_code16(C(KC_X));
 
@@ -65,7 +65,7 @@ void ccopy(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void pstspecial(qk_tap_dance_state_t *state, void *user_data) {
+void pstspecial(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         register_code(KC_LALT);
         tap_code(KC_E);
@@ -82,7 +82,7 @@ void pstspecial(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void deldel(qk_tap_dance_state_t *state, void *user_data) {
+void deldel(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         register_code(KC_LALT);
         tap_code(KC_E);
@@ -94,7 +94,7 @@ void deldel(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void findreplace(qk_tap_dance_state_t *state, void *user_data) {
+void findreplace(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         tap_code16(C(KC_H));
     } else {
@@ -103,7 +103,7 @@ void findreplace(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void cyclawin(qk_tap_dance_state_t *state, void *user_data) {
+void cyclawin(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         tap_code16(C(S(KC_F6)));
     } else {
@@ -112,7 +112,7 @@ void cyclawin(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void SCRNSNP(qk_tap_dance_state_t *state, void *user_data) {
+void SCRNSNP(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         tap_code16(A(KC_PSCR));
     } else {
@@ -124,7 +124,7 @@ void SCRNSNP(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void mcccpy(qk_tap_dance_state_t *state, void *user_data) {
+void mcccpy(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         tap_code16(G(KC_X));
     } else {
@@ -133,7 +133,7 @@ void mcccpy(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void mcpstin(qk_tap_dance_state_t *state, void *user_data) {
+void mcpstin(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         tap_code16(G(KC_I));
     } else {
@@ -142,7 +142,7 @@ void mcpstin(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void enttab(qk_tap_dance_state_t *state, void *user_data) {
+void enttab(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         tap_code(KC_ENT);
     } else {
@@ -151,7 +151,7 @@ void enttab(qk_tap_dance_state_t *state, void *user_data) {
     reset_tap_dance(state);
 }
 
-void rgb_toggle(qk_tap_dance_state_t *state, void *user_data) {
+void rgb_toggle(tap_dance_state_t *state, void *user_data) {
 #ifdef RGBLIGHT_ENABLE
     if (state->count == 1) {
         rgblight_step();
@@ -162,7 +162,7 @@ void rgb_toggle(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_PSTI] = ACTION_TAP_DANCE_FN(pstinsrt),
     [TD_PTSP] = ACTION_TAP_DANCE_FN(pstspecial),
     [TD_FNDR] = ACTION_TAP_DANCE_FN(findreplace),

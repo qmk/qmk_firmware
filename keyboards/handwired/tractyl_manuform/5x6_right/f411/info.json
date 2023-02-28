@@ -1,3 +1,11 @@
 {
-    "keyboard_name": "Tractyl Manuform (5x6) BlackPill"
+    "keyboard_name": "Tractyl Manuform (5x6) BlackPill",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A13", "pin_b": "A14"}
+        ]
+    },
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F411"
 }

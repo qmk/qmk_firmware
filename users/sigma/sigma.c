@@ -90,26 +90,19 @@ void store_userspace_config(void) {
   eeconfig_update_user(stored_userspace_config.raw);
 }
 
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_TWO_KEYS(KC_F1, KC_L) {
-      set_os(_OS_LINUX);
-    }
-    SEQ_TWO_KEYS(KC_F1, KC_M) {
-      set_os(_OS_MACOS);
-    }
-    SEQ_TWO_KEYS(KC_F1, KC_W) {
-      set_os(_OS_WINDOWS);
-    }
-    SEQ_TWO_KEYS(KC_F1, KC_S) {
-      stored_userspace_config.raw = runtime_userspace_config.raw;
-      store_userspace_config();
-    }
+void leader_end_user(void) {
+  if (leader_sequence_two_keys(KC_F1, KC_L)) {
+    set_os(_OS_LINUX);
+  }
+  if (leader_sequence_two_keys(KC_F1, KC_M)) {
+    set_os(_OS_MACOS);
+  }
+  if (leader_sequence_two_keys(KC_F1, KC_W)) {
+    set_os(_OS_WINDOWS);
+  }
+  if (leader_sequence_two_keys(KC_F1, KC_S)) {
+    stored_userspace_config.raw = runtime_userspace_config.raw;
+    store_userspace_config();
   }
 }
 

@@ -30,7 +30,7 @@ typedef struct {
   int state;
 } tap;
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
     if (state->count == 1) {
       if (state->interrupted || !state->pressed) {
         return SINGLE_TAP;
@@ -57,7 +57,7 @@ static tap quote_state = {
   .state = 0
 };
 
-void quote_finished(qk_tap_dance_state_t *state, void *user_data) {
+void quote_finished(tap_dance_state_t *state, void *user_data) {
     quote_state.state = cur_dance(state);
     switch(quote_state.state) {
       case SINGLE_TAP: register_code(KC_QUOT); break;
@@ -66,7 +66,7 @@ void quote_finished(qk_tap_dance_state_t *state, void *user_data) {
       case DOUBLE_SINGLE_TAP: register_code(KC_QUOT); unregister_code(KC_QUOT); register_code(KC_QUOT); break;
     }
 }
-void quote_reset(qk_tap_dance_state_t *state, void *user_data) {
+void quote_reset(tap_dance_state_t *state, void *user_data) {
     switch(quote_state.state) {
       case SINGLE_TAP: unregister_code(KC_QUOT); break;
       case SINGLE_HOLD: layer_off(_LEANDOWN); break;
@@ -85,7 +85,7 @@ static tap ralt_state = {
   .state = 0
 };
 
-void ralt_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ralt_finished(tap_dance_state_t *state, void *user_data) {
     ralt_state.state = cur_dance(state);
     switch(ralt_state.state) {
       case SINGLE_TAP: register_code(KC_LBRC); break;
@@ -95,7 +95,7 @@ void ralt_finished(qk_tap_dance_state_t *state, void *user_data) {
       case DOUBLE_SINGLE_TAP: register_code(KC_RALT); break;
     }
 }
-void ralt_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ralt_reset(tap_dance_state_t *state, void *user_data) {
     switch(ralt_state.state) {
       case SINGLE_TAP: unregister_code(KC_LBRC); break;
       case SINGLE_HOLD: unregister_code(KC_RALT); break;
@@ -114,7 +114,7 @@ static tap rgui_state = {
   .state = 0
 };
 
-void rgui_finished(qk_tap_dance_state_t *state, void *user_data) {
+void rgui_finished(tap_dance_state_t *state, void *user_data) {
     rgui_state.state = cur_dance(state);
     switch(rgui_state.state) {
       case SINGLE_TAP: register_code(KC_RBRC); break;
@@ -124,7 +124,7 @@ void rgui_finished(qk_tap_dance_state_t *state, void *user_data) {
       case DOUBLE_SINGLE_TAP: register_code(KC_RGUI); break;
     }
 }
-void rgui_reset(qk_tap_dance_state_t *state, void *user_data) {
+void rgui_reset(tap_dance_state_t *state, void *user_data) {
     switch(rgui_state.state) {
       case SINGLE_TAP: unregister_code(KC_RBRC); break;
       case SINGLE_HOLD: unregister_code(KC_RGUI); break;
@@ -146,7 +146,7 @@ enum {
   TD_RBRC_RGUI_RCBR
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // Tap once for Alt, twice for Shift
   [TD_ALT_SHIFT] = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_RSFT),
   [TD_QUOT_LEAN_MINS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, quote_finished, quote_reset),

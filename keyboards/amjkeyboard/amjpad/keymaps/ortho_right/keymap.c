@@ -28,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------'
    */
   [_BL] = LAYOUT_ortho_6x4(
-    KC_SPACE, KC_N,     KC_H,      KC_Y,   \
-    MO(1),    KC_M,     KC_J,      KC_U,   \
-    KC_LEFT,  KC_COMM,  KC_K,      KC_I,   \
-    KC_DOWN,  KC_DOT,   KC_L,      KC_O,   \
-    KC_UP,    KC_SLASH, KC_SCLN,   KC_P,   \
+    KC_SPACE, KC_N,     KC_H,      KC_Y,
+    MO(1),    KC_M,     KC_J,      KC_U,
+    KC_LEFT,  KC_COMM,  KC_K,      KC_I,
+    KC_DOWN,  KC_DOT,   KC_L,      KC_O,
+    KC_UP,    KC_SLASH, KC_SCLN,   KC_P,
     KC_RIGHT, KC_ENT,   KC_QUOT,   KC_BSPC
   ),
 
@@ -52,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------'
    */
   [_FL] = LAYOUT_ortho_6x4(
-    _______, KC_F12,  KC_F6,   KC_6,  \
-    _______, _______, KC_MINS, KC_7,  \
-    _______, _______, KC_EQL,  KC_8,  \
-    _______, _______, KC_LBRC, KC_9,  \
-    _______, _______, KC_RBRC, KC_0,  \
+    _______, KC_F12,  KC_F6,   KC_6,
+    _______, _______, KC_MINS, KC_7,
+    _______, _______, KC_EQL,  KC_8,
+    _______, _______, KC_LBRC, KC_9,
+    _______, _______, KC_RBRC, KC_0,
     _______, _______, KC_BSLS, KC_DEL
   ),
 };
