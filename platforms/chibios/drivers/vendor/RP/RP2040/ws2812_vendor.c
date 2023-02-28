@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ws2812.h"
- #include "hardware/timer.h"
- #include "hardware/clocks.h"
- // Keep this exact include order otherwise we run into naming conflicts between
- // pico-sdk and rp2040.h which we don't control.
- #include "quantum.h"
- #include "hardware/pio.h"
+#include "hardware/timer.h"
+#include "hardware/clocks.h"
+// Keep this exact include order otherwise we run into naming conflicts between
+// pico-sdk and rp2040.h which we don't control.
+#include "quantum.h"
+#include "hardware/pio.h"
 
 #if !defined(MCU_RP)
 #    error PIO Driver is only available for Raspberry Pi 2040 MCUs!
