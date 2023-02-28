@@ -22,6 +22,14 @@ bool          get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record
             return true;
     }
 }
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    /* Disable combo `SOME_COMBO` on layer `_LAYER_A` */
+    if (layer_state_is(_GAME)) {
+        return false;
+    }
+
+    return true;
+}
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case HOME_A:
