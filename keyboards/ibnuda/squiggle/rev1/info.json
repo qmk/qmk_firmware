@@ -145,15 +145,15 @@
                 {"label":".", "x":8, "y":2.2},
                 {"label":"/", "x":9, "y":2.9},
 
-                {"label":"bspc", "x":3, "y":3.6, "h":1},
-                {"label":"esc/sft", "x":4, "y":3.65, "h":1},
-                {"label":"ent/alt", "x":5, "y":3.65, "h":1},
-                {"label":"spc", "x":6, "y":3.6, "h":1},
+                {"label":"bspc", "x":3, "y":3.6},
+                {"label":"esc/sft", "x":4, "y":3.65},
+                {"label":"ent/alt", "x":5, "y":3.65},
+                {"label":"spc", "x":6, "y":3.6},
 
-                {"label":"lower", "x":3, "y":4.6, "h":1},
-                {"label":"gui", "x":4, "y":4.65, "h":1},
-                {"label":"tab", "x":5, "y":4.65, "h":1},
-                {"label":"raise", "x":6, "y":4.6, "h":1}
+                {"label":"lower", "x":3, "y":4.6},
+                {"label":"gui", "x":4, "y":4.65},
+                {"label":"tab", "x":5, "y":4.65},
+                {"label":"raise", "x":6, "y":4.6}
             ]
         }
     }
