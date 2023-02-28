@@ -1,4 +1,4 @@
-#include "mixi.h"
+#include "quantum.h"
 
 void eeconfig_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE

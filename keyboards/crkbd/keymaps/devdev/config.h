@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200
 
 #define RGBLIGHT_SLEEP

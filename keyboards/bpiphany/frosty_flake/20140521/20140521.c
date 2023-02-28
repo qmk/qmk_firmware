@@ -1,6 +1,6 @@
 #include "frosty_flake.h"
 
-void keyboard_pre_init_kb() {
+void keyboard_pre_init_kb(void) {
     setPinOutput(B7); // num lock
     writePinHigh(B7);
     setPinOutput(C5); // caps lock

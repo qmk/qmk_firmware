@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
-
-// Key matrix size
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 
 // Keyboard Matrix Assignments
 #define MATRIX_ROW_PINS { F0, F1, C7, D5, B7 }
@@ -45,13 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_BREATHE_TABLE_SIZE    256
-#define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85
-#define RGBLIGHT_EFFECT_BREATHE_MAX    255
 #endif
-
-// Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed
-#define DEBOUNCE 5
 
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE

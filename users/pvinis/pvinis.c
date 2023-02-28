@@ -75,7 +75,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[] = {};
+tap_dance_action_t tap_dance_actions[] = {};
 #endif
 
 void keyboard_post_init_rgb_light(void) {
