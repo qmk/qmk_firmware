@@ -7,6 +7,13 @@
         "pid": "0xA652",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B5",
+        "levels": 6,
+        "breathing": true
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["B14", "B6", "A0", "B1", "B0", "A7", "A6", "A5", "A4", "A3"],

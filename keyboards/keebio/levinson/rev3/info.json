@@ -1,7 +1,14 @@
 {
     "keyboard_name": "Levinson Rev. 3",
+    "split": {
+        "soft_serial_pin": "D0"
+    },
     "usb": {
         "pid": "0x3146",
         "device_version": "3.0.0"
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 7
     }
 }

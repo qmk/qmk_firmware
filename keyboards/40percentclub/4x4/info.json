@@ -8,6 +8,9 @@
         "pid": "0x0A0C",
         "device_version": "44.4.4"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_4x4", "ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

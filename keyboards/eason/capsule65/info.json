@@ -8,9 +8,15 @@
         "pid": "0x6E6E",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": ["65_ansi", "65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_ansi_split_bs", "65_iso", "65_iso_blocker", "65_iso_blocker_split_bs", "65_iso_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

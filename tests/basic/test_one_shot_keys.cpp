@@ -36,12 +36,12 @@ TEST_F(OneShot, OSMWithoutAdditionalKeypressDoesNothing) {
     run_one_scan_loop();
     osm_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* OSM are added when an actual report is send */
     EXPECT_REPORT(driver, (osm_key.report_code));
     send_keyboard_report();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Make unit-test pass */
     clear_oneshot_mods();
@@ -62,19 +62,19 @@ TEST_P(OneShotParametrizedTestFixture, OSMExpiredDoesNothing) {
     run_one_scan_loop();
     osm_key.release();
     idle_for(ONESHOT_TIMEOUT);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
     EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 #endif
@@ -92,19 +92,19 @@ TEST_P(OneShotParametrizedTestFixture, OSMWithAdditionalKeypress) {
     run_one_scan_loop();
     osm_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
     EXPECT_REPORT(driver, (osm_key.report_code, regular_key.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_P(OneShotParametrizedTestFixture, OSMAsRegularModifierWithAdditionalKeypress) {
@@ -120,26 +120,26 @@ TEST_P(OneShotParametrizedTestFixture, OSMAsRegularModifierWithAdditionalKeypres
     EXPECT_NO_REPORT(driver);
     osm_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
     EXPECT_NO_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
     EXPECT_NO_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release OSM */
     EXPECT_REPORT(driver, (regular_key.report_code, osm_key.report_code)).Times(1);
     EXPECT_EMPTY_REPORT(driver);
     osm_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // clang-format off
@@ -172,24 +172,24 @@ TEST_F(OneShot, OSLWithAdditionalKeypress) {
     EXPECT_NO_REPORT(driver);
     osl_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release OSL key */
     EXPECT_NO_REPORT(driver);
     osl_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Press regular key */
     EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
     EXPECT_EMPTY_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
     EXPECT_NO_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

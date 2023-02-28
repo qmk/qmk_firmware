@@ -2,5 +2,18 @@
     "keyboard_name": "Hex-4B Rev.2",
     "usb": {
         "device_version": "0.0.2"
-    }
+    },
+    "backlight": {
+        "pin": "B8",
+        "levels": 5,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B9",
+        "num_lock": "C15",
+        "scroll_lock": "A15",
+        "on_state": 0
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino"
 }
