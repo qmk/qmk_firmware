@@ -8,6 +8,13 @@
         "pid": "0x5208",
         "device_version": "0.0.2"
     },
+    "indicators": {
+        "caps_lock": "A6",
+        "num_lock": "A14",
+        "scroll_lock": "A13"
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_108_fullsize_ansi": {
             "layout": [

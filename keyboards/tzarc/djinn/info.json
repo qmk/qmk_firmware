@@ -9,7 +9,6 @@
   "build": {
     "lto": true
   },
-  "debounce": 5,
   "features": {
     "audio": true,
     "backlight": true,
@@ -31,11 +30,24 @@
     "cols": ["C0", "C1", "C2", "C3", "A0", "A1", "A2"]
   },
   "backlight": {
-    "pin": "A7"
+    "pin": "A7",
+    "levels": 4
   },
   "split": {
     "enabled": true,
-    "main": "pin"
+    "main": "pin",
+    "encoder": {
+      "right": {
+        "rotary": [
+          {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
+        ]
+      }
+    }
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "C14", "pin_b": "C15", "resolution": 2}
+    ]
   },
   "layouts": {
     "LAYOUT_all": {

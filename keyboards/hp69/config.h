@@ -17,11 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 /*
  * Keyboard Matrix Assignments
  *
@@ -54,6 +50,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
-
-#define LED_CAPS_LOCK_PIN A6
-#define LED_SCROLL_LOCK_PIN A7
