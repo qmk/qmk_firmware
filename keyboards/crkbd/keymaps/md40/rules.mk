@@ -4,6 +4,6 @@
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
+MOUSEKEY_ENABLE = no        # Mouse keys
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BOOTLOADER = caterina
