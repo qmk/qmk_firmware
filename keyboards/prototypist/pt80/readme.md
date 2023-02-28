@@ -12,15 +12,17 @@ Default layout is in ISO.*
 
 Make example for this keyboard (after setting up your build environment):
 
+    make prototypist/pt80:default
     make prototypist/pt80:via
     make prototypist/pt80:default_ansi
-    make prototypist/pt80:default_iso
+    
 
 Flashing example for this keyboard:
 
+    make prototypist/pt80:default:flash
     make prototypist/pt80:via:flash
     make prototypist/pt80:default_ansi:flash
-    make prototypist/pt80:default_iso:flash
+    
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
