@@ -173,65 +173,59 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_C)) { // Inline Code
+        SEND_STRING("`` " SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+    }
+    if (leader_sequence_one_key(KC_P)) { // Invoke Password Manager
+        SEND_STRING(SS_LCTL(SS_LALT("\\")));
+    }
+    if (leader_sequence_one_key(KC_S)) { // Windows screenshot
+        SEND_STRING(SS_LGUI("\nS"));
+    }
+    if (leader_sequence_two_keys(KC_F, KC_P)) { // Fusion Projection prefix
+        SEND_STRING("[Projection] ");
+    }
+    if (leader_sequence_two_keys(KC_B, KC_B)) { // Basecone invoice description
+        SEND_STRING("[Leveranciersnaam] [Factuurnummer]");
+    }
+    if (leader_sequence_two_keys(KC_E, KC_S)) { // Support email splitkb
+        SEND_STRING("support@splitkb.com");
+    }
+    if (leader_sequence_two_keys(KC_E, KC_T)) { // Email splitkb
+        SEND_STRING("thomas@splitkb.com");
+    }
+    if (leader_sequence_two_keys(KC_E, KC_P)) { // Email personal
+        SEND_STRING("mail@thomasbaart.nl");
+    }
+    if (leader_sequence_two_keys(KC_S, KC_D)) { // Splitkb documentation
+        SEND_STRING("https://docs.splitkb.com/");
+    }
+    if (leader_sequence_two_keys(KC_S, KC_V)) { // Splitkb VAT number
+        SEND_STRING("NL210593349B01");
+    }
+    if (leader_sequence_two_keys(KC_B, KC_C)) { // Discord bongocat
+        SEND_STRING(":bongocat:\n");
+    }
+    if (leader_sequence_two_keys(KC_C, KC_B)) { // Discord code block
+        SEND_STRING("```c" SS_LSFT("\n\n") "``` " SS_TAP(X_UP));
+    }
+    if (leader_sequence_two_keys(KC_Y, KC_S)) { // Greeting
+        SEND_STRING("Yours sincerely,\n\nThomas Baart");
+    }
+    if (leader_sequence_three_keys(KC_M, KC_V, KC_G)) { // Greeting
+        SEND_STRING("Met vriendelijke groet,\n\nThomas Baart");
+    }
+}
 
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
-
-LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
     if (is_alt_tab_active) {
         if (timer_elapsed(alt_tab_timer) > 1000) {
             unregister_code(KC_LALT);
             is_alt_tab_active = false;
-        }
-    }
-
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_C) { // Inline Code
-            SEND_STRING("`` " SS_TAP(X_LEFT) SS_TAP(X_LEFT));
-        }
-        SEQ_ONE_KEY(KC_P) { // Invoke Password Manager
-            SEND_STRING(SS_LCTL(SS_LALT("\\")));
-        }
-        SEQ_ONE_KEY(KC_S) { // Windows screenshot
-            SEND_STRING(SS_LGUI("\nS"));
-        }
-        SEQ_TWO_KEYS(KC_F, KC_P) { // Fusion Projection prefix
-            SEND_STRING("[Projection] ");
-        }
-        SEQ_TWO_KEYS(KC_B, KC_B) { // Basecone invoice description
-            SEND_STRING("[Leveranciersnaam] [Factuurnummer]");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_S) { // Support email splitkb
-            SEND_STRING("support@splitkb.com");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_T) { // Email splitkb
-            SEND_STRING("thomas@splitkb.com");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_P) { // Email personal
-            SEND_STRING("mail@thomasbaart.nl");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_D) { // Splitkb documentation
-            SEND_STRING("https://docs.splitkb.com/");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_V) { // Splitkb VAT number
-            SEND_STRING("NL210593349B01");
-        }
-        SEQ_TWO_KEYS(KC_B, KC_C) { // Discord bongocat
-            SEND_STRING(":bongocat:\n");
-        }
-        SEQ_TWO_KEYS(KC_C, KC_B) { // Discord code block
-            SEND_STRING("```c" SS_LSFT("\n\n") "``` " SS_TAP(X_UP));
-        }
-        SEQ_TWO_KEYS(KC_Y, KC_S) { // Greeting
-            SEND_STRING("Yours sincerely,\n\nThomas Baart");
-        }
-        SEQ_THREE_KEYS(KC_M, KC_V, KC_G) { // Greeting
-            SEND_STRING("Met vriendelijke groet,\n\nThomas Baart");
         }
     }
 }

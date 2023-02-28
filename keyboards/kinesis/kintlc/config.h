@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 15
-#define MATRIX_COLS 7
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -64,13 +60,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Well-worn Cherry MX key switches can bounce for up to 20ms, despite the
- * Cherry data sheet specifying 5ms. Because we use the sym_eager_pk debounce
- * algorithm, this debounce latency only affects key releases (not key
- * presses). */
-#undef DEBOUNCE
-#define DEBOUNCE 20
-
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // The Teensy LC power consumption is unknown as per
@@ -85,17 +74,3 @@
 
 // in clock cycles
 #define GPIO_INPUT_PIN_DELAY 0
-
-// The default "1" results in LEDs being on when they should be off and
-// the other way around.
-#define LED_PIN_ON_STATE 0
-
-// Discussion about which Teensy LC pins can be used for driving staus LEDs:
-//   https://github.com/kinx-project/kint/issues/55
-// Discussion about using Neopixel LEDs:
-//   https://github.com/kinx-project/kint/issues/32
-// Available pins can be seen in:
-//   /lib/chibios-contrib/os/hal/boards/PJRC_TEENSY_LC/board.h
-#define LED_CAPS_LOCK_PIN LINE_PIN12
-#define LED_SCROLL_LOCK_PIN LINE_PIN25
-#define LED_COMPOSE_PIN LINE_PIN24
