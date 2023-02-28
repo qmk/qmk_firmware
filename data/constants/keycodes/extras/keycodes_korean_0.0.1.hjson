@@ -1,0 +1,310 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  ₩  │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │        │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
+ * │        │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │          │
+ * ├─────┬──┴┬──┴──┬┴──┬┴───┴───┴───┴──┬┴──┬┴───┴┬──┴┬───┬─────┤
+ * │     │   │     │Hnj│               │H↔Y│     │   │   │     │
+ * └─────┴───┴─────┴───┴───────────────┴───┴─────┴───┴───┴─────┘
+ */
+        "KC_GRV": {
+            "key": "KR_GRV",
+            "label": "`",
+        }
+        "KC_1": {
+            "key": "KR_1",
+            "label": "1",
+        }
+        "KC_2": {
+            "key": "KR_2",
+            "label": "2",
+        }
+        "KC_3": {
+            "key": "KR_3",
+            "label": "3",
+        }
+        "KC_4": {
+            "key": "KR_4",
+            "label": "4",
+        }
+        "KC_5": {
+            "key": "KR_5",
+            "label": "5",
+        }
+        "KC_6": {
+            "key": "KR_6",
+            "label": "6",
+        }
+        "KC_7": {
+            "key": "KR_7",
+            "label": "7",
+        }
+        "KC_8": {
+            "key": "KR_8",
+            "label": "8",
+        }
+        "KC_9": {
+            "key": "KR_9",
+            "label": "9",
+        }
+        "KC_0": {
+            "key": "KR_0",
+            "label": "0",
+        }
+        "KC_MINS": {
+            "key": "KR_MINS",
+            "label": "-",
+        }
+        "KC_EQL": {
+            "key": "KR_EQL",
+            "label": "=",
+        }
+        "KC_Q": {
+            "key": "KR_Q",
+            "label": "Q",
+        }
+        "KC_W": {
+            "key": "KR_W",
+            "label": "W",
+        }
+        "KC_E": {
+            "key": "KR_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "KR_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "KR_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "KR_Y",
+            "label": "Y",
+        }
+        "KC_U": {
+            "key": "KR_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "KR_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "KR_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "KR_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "KR_LBRC",
+            "label": "[",
+        }
+        "KC_RBRC": {
+            "key": "KR_RBRC",
+            "label": "]",
+        }
+        "KC_BSLS": {
+            "key": "KR_WON",
+            "label": "₩",
+        }
+        "KC_A": {
+            "key": "KR_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "KR_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "KR_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "KR_F",
+            "label": "F",
+        }
+        "KC_G": {
+            "key": "KR_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "KR_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "KR_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "KR_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "KR_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "KR_SCLN",
+            "label": ";",
+        }
+        "KC_QUOT": {
+            "key": "KR_QUOT",
+            "label": "'",
+        }
+        "KC_Z": {
+            "key": "KR_Z",
+            "label": "Z",
+        }
+        "KC_X": {
+            "key": "KR_X",
+            "label": "X",
+        }
+        "KC_C": {
+            "key": "KR_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "KR_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "KR_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "KR_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "KR_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "KR_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "KR_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "KR_SLSH",
+            "label": "/",
+        }
+        "KC_LNG2": {
+            "key": "KR_HANJ",
+            "label": "Hanja (한자)",
+        }
+        "KC_LNG1": {
+            "key": "KR_HAEN",
+            "label": "Han ↔ Yeong (한 ↔ 영)",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ~ │ ! │ @ │ # │ $ │ % │ ^ │ & │ * │ ( │ ) │ _ │ + │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │ { │ } │  |  │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+ * │      │   │   │   │   │   │   │   │   │   │ : │ " │        │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
+ * │        │   │   │   │   │   │   │   │ < │ > │ ? │          │
+ * ├─────┬──┴┬──┴──┬┴──┬┴───┴───┴───┴──┬┴──┬┴───┴┬──┴┬───┬─────┤
+ * │     │   │     │   │               │   │     │   │   │     │
+ * └─────┴───┴─────┴───┴───────────────┴───┴─────┴───┴───┴─────┘
+ */
+        "S(KR_GRV)": {
+            "key": "KR_TILD",
+            "label": "~",
+        }
+        "S(KR_1)": {
+            "key": "KR_EXLM",
+            "label": "!",
+        }
+        "S(KR_2)": {
+            "key": "KR_AT",
+            "label": "@",
+        }
+        "S(KR_3)": {
+            "key": "KR_HASH",
+            "label": "#",
+        }
+        "S(KR_4)": {
+            "key": "KR_DLR",
+            "label": "$",
+        }
+        "S(KR_5)": {
+            "key": "KR_PERC",
+            "label": "%",
+        }
+        "S(KR_6)": {
+            "key": "KR_CIRC",
+            "label": "^",
+        }
+        "S(KR_7)": {
+            "key": "KR_AMPR",
+            "label": "&",
+        }
+        "S(KR_8)": {
+            "key": "KR_ASTR",
+            "label": "*",
+        }
+        "S(KR_9)": {
+            "key": "KR_LPRN",
+            "label": "(",
+        }
+        "S(KR_0)": {
+            "key": "KR_RPRN",
+            "label": ")",
+        }
+        "S(KR_MINS)": {
+            "key": "KR_UNDS",
+            "label": "_",
+        }
+        "S(KR_EQL)": {
+            "key": "KR_PLUS",
+            "label": "+",
+        }
+        "S(KR_LBRC)": {
+            "key": "KR_LCBR",
+            "label": "{",
+        }
+        "S(KR_RBRC)": {
+            "key": "KR_RCBR",
+            "label": "}",
+        }
+        "S(KR_WON)": {
+            "key": "KR_PIPE",
+            "label": "|",
+        }
+        "S(KR_SCLN)": {
+            "key": "KR_COLN",
+            "label": ":",
+        }
+        "S(KR_QUOT)": {
+            "key": "KR_DQUO",
+            "label": "\"",
+        }
+        "S(KR_COMM)": {
+            "key": "KR_LABK",
+            "label": "<",
+        }
+        "S(KR_DOT)": {
+            "key": "KR_RABK",
+            "label": ">",
+        }
+        "S(KR_SLSH)": {
+            "key": "KR_QUES",
+            "label": "?",
+        }
+    }
+}

@@ -13,11 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 8
 
 /*
  * Keyboard Matrix Assignments
@@ -33,20 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B7, D0, D1, D2, D3 }
 #define MATRIX_COL_PINS { D5, D4, D6, D7, F7, B5, B6, C6 }
 
-/* Encoder configuration */
-//#define ENCODERS_PAD_A { F5 }
-//#define ENCODERS_PAD_B { F6 }
-//#define ENCODER_RESOLUTION 4
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_CAPS_LOCK_PIN F1
-#define LED_SCROLL_LOCK_PIN F4
-#define LED_PIN_ON_STATE 0
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* RGB Lighting */
 #define RGB_DI_PIN F0

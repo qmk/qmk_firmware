@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u2
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +13,3 @@ SLEEP_LED_ENABLE = yes
 
 CUSTOM_MATRIX = yes
 SRC += matrix.c
-
-LAYOUTS = tkl_ansi tkl_iso

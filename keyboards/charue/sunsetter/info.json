@@ -8,6 +8,12 @@
         "pid": "0x5353",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F1",
+        "on_state": 0
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
