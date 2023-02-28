@@ -32,14 +32,13 @@ While the defaults are designed so that it can be plugged in and used right away
 
 ```c
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report){
-    // executed each time step as the mouse position is updated
-    ... = mouse_report.x // int8_t x translation of the cursor
-    ... = mouse_report.y // int8_t y translation of the cursor
-    ... = mouse_report.h // int8_t horizontal scroll distance
-    ... = mouse_report.v // int8_t vertical scroll distance
+    // executed each time the sensor is updated
+    // mouse_report.<attribute> - can be used to access indivdual mouse attributes
     return mouse_report;
 }
 ```
+
+More information on `report_mouse_t` may be found [here](https://docs.qmk.fm/#/feature_pointing_device?id=manipulating-mouse-reports).
 
 This should allow you to more heavily customize the behavior. 
 
