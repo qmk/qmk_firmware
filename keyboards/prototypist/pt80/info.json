@@ -21,10 +21,10 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
-        "vid": "0x5054"
+        "vid": "0x4A46"
     },
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_all": {
             "layout": [
                 { "matrix": [0, 0], "label": "Esc", "x": 0, "y": 0 },
                 { "matrix": [0, 1], "label": "F1", "x": 1.25, "y": 0 },
