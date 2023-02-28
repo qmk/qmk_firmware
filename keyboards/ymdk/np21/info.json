@@ -7,6 +7,17 @@
         "pid": "0x5021",
         "device_version": "2.0.0"
     },
+    "backlight": {
+        "pin": "D4",
+        "levels": 12,
+        "breathing": true
+    },
+    "indicators": {
+        "num_lock": "D0"
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
+    "community_layouts": ["ortho_6x4", "numpad_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

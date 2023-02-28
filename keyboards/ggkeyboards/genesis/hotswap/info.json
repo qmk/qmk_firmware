@@ -8,9 +8,12 @@
         "pid": "0xD4D3",
         "device_version": "0.0.1"
     },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_ansi"
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

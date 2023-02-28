@@ -34,5 +34,3 @@ RGB_MATRIX_DRIVER = WS2812
 # Wear-levelling driver
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = embedded_flash
-
-LAYOUTS = tkl_ansi

@@ -8,6 +8,12 @@
         "pid": "0x1727",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F1",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32a
-
-# Bootloader selection
-BOOTLOADER = bootloadhid
-
 # Build Options
 #   change yes to no to disable
 #

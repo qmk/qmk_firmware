@@ -8,6 +8,13 @@
         "pid": "0x6060",
         "device_version": "1.0.0"
     },
+    "backlight": {
+        "pin": "B6",
+        "levels": 7
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
     "layouts": {
         "LAYOUT_4key": {
             "layout": [

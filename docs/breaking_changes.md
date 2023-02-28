@@ -10,34 +10,27 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
+* [2023 Feb 26](ChangeLog/20230226.md)
 * [2022 Nov 26](ChangeLog/20221126.md)
 * [2022 Aug 27](ChangeLog/20220827.md)
 * [2022 May 28](ChangeLog/20220528.md)
 * [2022 Feb 26](ChangeLog/20220226.md)
-* [2021 Nov 27](ChangeLog/20211127.md)
-* [2021 Aug 28](ChangeLog/20210828.md)
-* [2021 May 29](ChangeLog/20210529.md)
-* [2021 Feb 27](ChangeLog/20210227.md)
-* [2020 Nov 28](ChangeLog/20201128.md)
-* [2020 Aug 29](ChangeLog/20200829.md)
-* [2020 May 30](ChangeLog/20200530.md)
-* [2020 Feb 29](ChangeLog/20200229.md)
-* [2019 Aug 30](ChangeLog/20190830.md)
+* [Older Breaking Changes](breaking_changes_history.md)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for February 26, 2023.
+The next Breaking Change is scheduled for May 28, 2023.
 
 ### Important Dates
 
-* 2022 Nov 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2023 Jan 29 - `develop` closed to new PRs.
-* 2023 Jan 29 - Call for testers.
-* 2023 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2023 Feb 19 - `develop` is locked, only critical bugfix PRs merged.
-* 2023 Feb 24 - `master` is locked, no PRs merged.
-* 2023 Feb 26 - Merge `develop` to `master`.
-* 2023 Feb 26 - `master` is unlocked. PRs can be merged again.
+* 2023 Feb 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2023 Apr 30 - `develop` closed to new PRs.
+* 2023 Apr 30 - Call for testers.
+* 2023 May 14 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2023 May 21 - `develop` is locked, only critical bugfix PRs merged.
+* 2023 May 26 - `master` is locked, no PRs merged.
+* 2023 May 28 - Merge `develop` to `master`.
+* 2023 May 28 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 
