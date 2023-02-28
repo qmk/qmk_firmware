@@ -11,7 +11,7 @@ from milc import cli
 
 from qmk.comment_remover import comment_remover
 
-default_key_entry = {'x': -1, 'y': 0, 'w': 1}
+default_key_entry = {'x': -1, 'y': 0}
 single_comment_regex = re.compile(r'\s+/[/*].*$')
 multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
 layout_macro_define_regex = re.compile(r'^#\s*define')
