@@ -34,7 +34,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios"]
         },
         "pin_compatible": {
             "type": "string",
@@ -108,6 +108,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["pwm", "software", "timer", "custom"]
+                },
                 "breathing": {"type": "boolean"},
                 "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "levels": {
@@ -118,7 +122,8 @@
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "on_state": {"$ref": "qmk.definitions.v1#/bit"}
+                "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                "as_caps_lock": {"type": "boolean"}
             }
         },
         "bluetooth": {
@@ -128,6 +133,22 @@
                 "driver": {
                     "type": "string",
                     "enum": ["BluefruitLE", "RN42"]
+                }
+            }
+        },
+        "bootmagic":{
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "matrix": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
                 }
             }
         },
@@ -155,6 +176,7 @@
                 "stm32-dfu",
                 "stm32duino",
                 "tinyuf2",
+                "uf2boot",
                 "unknown",
                 "usbasploader",
                 "wb32-dfu"
@@ -240,6 +262,9 @@
                     "c_macro": {
                         "type": "boolean"
                     },
+                    "json_layout": {
+                        "type": "boolean"
+                    },
                     "layout": {
                         "type": "array",
                         "items": {
@@ -288,6 +313,7 @@
                 "custom": {"type": "boolean"},
                 "custom_lite": {"type": "boolean"},
                 "ghost": {"type": "boolean"},
+                "input_pressed_state": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "io_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "direct": {
                     "type": "array",
@@ -511,6 +537,21 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
+                "bootmagic":{
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "matrix": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "type": "integer",
+                                "minimum": 0
+                            }
+                        }
+                    }
+                },
                 "matrix_grid": {
                     "type": "array",
                     "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
@@ -588,7 +629,6 @@
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},
-                "ignore_mod_tap_interrupt_per_key": {"type": "boolean"},
                 "hold_on_other_key_press": {"type": "boolean"},
                 "hold_on_other_key_press_per_key": {"type": "boolean"},
                 "permissive_hold": {"type": "boolean"},

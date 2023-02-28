@@ -3,5 +3,25 @@
     "usb": {
         "pid": "0x1133",
         "device_version": "1.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "F6", "pin_b": "F5"},
+            {"pin_a": "B6", "pin_b": "F7"}
+        ]
+    },
+    "backlight": {
+        "pin": "B5",
+        "levels": 7
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["D2", "D4", "F4"],
+            ["D7", "B1", "B3"],
+            ["E6", "B4", "B2"]
+        ]
     }
 }

@@ -4,6 +4,11 @@
         "pid": "0x170A",
         "device_version": "1.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
     "matrix_pins": {
         "rows":[ "C6", "D7", "B4", "D4", "E6", "B2" ],
         "cols": ["B3", "B1", "F7", "F6", "F5", "F4", "B5" ]

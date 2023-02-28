@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* COL2ROW, ROW2COL*/
 #undef DIODE_DIRECTION
@@ -23,10 +22,6 @@
 
 #define MATRIX_ROW_PINS { B3, D4, F1, C6 }
 #define MATRIX_COL_PINS { F4, F5, B0, B2, B1, B4, D7, C7, D2, F7 }
-
-/* Define encoder pads */
-#define ENCODERS_PAD_A { D5 }
-#define ENCODERS_PAD_B { D3 }
 
 /*
  * WS2812 Underglow Matrix options

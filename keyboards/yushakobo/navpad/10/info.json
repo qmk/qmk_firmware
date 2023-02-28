@@ -7,6 +7,13 @@
         "vid": "0x3265",
         "pid": "0x0008"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

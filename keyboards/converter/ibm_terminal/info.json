@@ -8,6 +8,8 @@
     "pid": "0x6535",
     "device_version": "1.0.0"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [
