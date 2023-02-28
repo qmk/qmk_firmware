@@ -173,7 +173,7 @@ bool oled_task_kb(void) {
     if(!oled_task_user()) {
         return false;
     }
-    if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && IS_HOST_LED_OFF(USB_LED_SCROLL_LOCK) && get_highest_layer(layer_state) == 0 ) {
+    if ( !(host_keyboard_led_state().num_lock || host_keyboard_led_state().caps_lock || host_keyboard_led_state().scroll_lock ) && get_highest_layer(layer_state) == 0 ) {
         if (clear_screen_art == true) {
             oled_clear();
             oled_render();
@@ -205,19 +205,19 @@ bool oled_task_kb(void) {
         oled_set_cursor(8,1);
         switch (get_highest_layer(layer_state)) {
             case 0:
-                oled_write_P(PSTR("Base Layer"), false);
+                oled_write_P(PSTR("Base  "), false);
                 break;
             case 1:
-                oled_write_P(PSTR("Lower"), false);
+                oled_write_P(PSTR("Lower "), false);
                 break;
             case 2:
-                oled_write_P(PSTR("Raise"), false);
+                oled_write_P(PSTR("Raise "), false);
                 break;
             case 3:
                 oled_write_P(PSTR("Adjust"), false);
                 break;
             case 4:
-                oled_write_P(PSTR("Mouse Layer"), false);
+                oled_write_P(PSTR("Mouse "), false);
                 break;
 #ifdef STENO_ENABLE
             case 5:
@@ -279,7 +279,7 @@ bool oled_task_kb(void) {
     oled_set_cursor(0,5);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_P(PSTR("Base"), false);
+            oled_write_P(PSTR("Base "), false);
             break;
         case 1:
             oled_write_P(PSTR("Lower"), false);
