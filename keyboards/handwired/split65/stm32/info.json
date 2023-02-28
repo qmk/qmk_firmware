@@ -1,8 +1,0 @@
-{
-    "split": {
-        "soft_serial_pin": "A9"
-    },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C"
-}
