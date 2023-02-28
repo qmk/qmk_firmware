@@ -15,7 +15,6 @@
  */
 
 #include "ec_switch_matrix.h"
-#include "eeconfig.h"
 #include "action.h"
 #include "via.h"
 
