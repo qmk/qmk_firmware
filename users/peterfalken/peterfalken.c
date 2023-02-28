@@ -4,7 +4,7 @@
 #include "peterfalken.h"
 
 // Process custom keycodes
- bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_LAUNCHPAD:
             if (record->event.pressed) {
@@ -16,7 +16,7 @@
         default:
             return true;  // Process all other keycodes normally
     }
- }
+}
 
 #ifndef CUSTOM_LAYER_STATE
 // Switch layer

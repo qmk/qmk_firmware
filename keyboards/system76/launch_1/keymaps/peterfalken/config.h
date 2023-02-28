@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#include "config_common.h"
 
 // Custom RGB_MATRIX settings
 #ifdef RGB_MATRIX_ENABLE

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#include "config_common.h"
 
 // Fix warning - "Attached USB accessory uses too much power."
 #ifndef USB_MAX_POWER_CONSUMPTION

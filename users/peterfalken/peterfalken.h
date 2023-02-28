@@ -13,22 +13,17 @@
  };
  #endif  // CUSTOM_KEYMAP_LAYERS
 
- // Custom keycode definitions
- enum custom_keycodes {
-    KC_LAUNCHPAD = SAFE_RANGE
- };
-
  // Custom definitions for keys
- #define CK_CW  CW_TOGG         // CAPS_WORD for Caps Word feature
- #define CK_SLP KC_SLEP         // System Sleep
- #define CK_M1  C(KC_UP)        // Mission Control - All apps
- #define CK_M2  C(KC_DOWN)      // Mission Control - One apps
- #define CK_LP  KC_LAUNCHPAD    // LaunchPad Key
- #define CK_CO  KC_COPY         // COPY = CMD + C
- #define CK_CU  KC_CUT          // CUT = CMD + X
- #define CK_MV  LAG(KC_V)       // MOVE = CMD + OPT + V
- #define CK_PA  KC_PASTE        // PASTE = CMD + V
- #define CK_UN  KC_UNDO         // UNDO = CMD + Z
+ #define CK_CW  CW_TOGG     // CAPS_WORD for Caps Word feature
+ #define CK_SLP KC_SLEP     // System Sleep
+ #define CK_M1  C(KC_UP)    // Mission Control - All apps
+ #define CK_M2  C(KC_DOWN)  // Mission Control - One apps
+ #define CK_LP  KC_LPAD     // LaunchPad Key
+ #define CK_CO  KC_COPY     // COPY = CMD + C
+ #define CK_CU  KC_CUT      // CUT = CMD + X
+ #define CK_MV  LAG(KC_V)   // MOVE = CMD + OPT + V
+ #define CK_PA  KC_PASTE    // PASTE = CMD + V
+ #define CK_UN  KC_UNDO     // UNDO = CMD + Z
 
  // Layer activation
  #define LOWER  MO(_LOWER)
