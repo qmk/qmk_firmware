@@ -73,6 +73,8 @@ led_config_t g_led_config = { {
 } };
 #endif // RGB_MATRIX_ENABLE
 
+static bool lctl_pressed, rctl_pressed = false;
+
 bool eeprom_is_valid(void) {
     return (
         eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
@@ -226,6 +228,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 set_value_all_layers(level);
             }
             return false;
+                    case KC_LCTL:
+            lctl_pressed = record->event.pressed;
+            break;
+        case KC_RCTL:
+            rctl_pressed = record->event.pressed;
+            break;
+        case KC_ESC:
+            if (lctl_pressed && rctl_pressed) {
+                if (record->event.pressed) system76_ec_unlock();
+                return false;
+            }
+            break;
     }
 
     return true;
