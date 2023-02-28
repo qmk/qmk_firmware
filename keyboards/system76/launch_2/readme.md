@@ -1,4 +1,4 @@
-# System76 Launch Configurable Keyboard (launch_1)
+# System76 Launch Configurable Keyboard (launch_2)
 
 ![System76 Launch Configurable Keyboard](https://images.prismic.io/system76/b71307ac-dae6-4863-b7ca-804cd61c7ef8_launch_overhead.png?auto=compress,format&w=750)
 
@@ -20,13 +20,13 @@ Additional Launch Keyboard resources:
 To build the firmware using `make` (after setting up the build environment), e.g.:
 
 ```bash
-make -r system76/launch_1:default
+make -r system76/launch_2:default
 ```
 
 Equivalently, using the QMK CLI:
 
 ```bash
-qmk compile -kb system76/launch_1 -km default
+qmk compile -kb system76/launch_2 -km default
 ```
 
 ## Flashing Firmware (DFU)
@@ -34,13 +34,13 @@ qmk compile -kb system76/launch_1 -km default
 To build and flash the firmware on the keyboard, e.g.:
 
 ```bash
-make -r system76/launch_1:default:flash
+make -r system76/launch_2:default:flash
 ```
 
 Equivalently, using the QMK CLI:
 
 ```bash
-qmk flash -kb system76/launch_1 -km default
+qmk flash -kb system76/launch_2 -km default
 ```
 
 ## Flashing Firmware (ISP)

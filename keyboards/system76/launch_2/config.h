@@ -23,8 +23,8 @@
  * ROWS: AVR pins used for rows, top to bottom
  * COLS: AVR pins used for columns, left to right
  */
-#define MATRIX_ROW_PINS { F0, F1, F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { D7, C7, C6, B6, B5, B4, D6, D4, E6, D5, D3, D2, B7, B0 }
+#define MATRIX_ROW_PINS { F0, F1, F2, F3, F4, F5 }
+#define MATRIX_COL_PINS { C6, C5, C4, C3, C2, C1, C7, A7, A6, A5, A4, E6, C0, E7 }
 
 /*
  * Diode Direction
@@ -34,7 +34,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DI_PIN E2
+#    define RGB_DI_PIN F7
 #    define RGB_MATRIX_LED_COUNT 84
 #    define RGB_MATRIX_KEYPRESSES                                      // Reacts to keypresses
 // #    define RGB_MATRIX_KEYRELEASES                                     // Reacts to keyreleases (instead of keypresses)

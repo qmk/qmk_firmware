@@ -17,6 +17,7 @@
  */
 
 #include "usb_mux.h"
+#include "quantum.h"
 
 #include <stdbool.h>
 
@@ -28,19 +29,20 @@
 #define REG_PIO64_OUT 0xBF800928
 #define REG_VID 0xBF803000
 #define REG_PRT_SWAP 0xBF8030FA
-#define REG_USB3_HUB_VID 0xBFD2E548
+#define REG_USB3_HUB_VID 0xBF809048
 #define REG_RUNTIME_FLAGS2 0xBFD23408
 #define REG_I2S_FEAT_SEL 0xBFD23412
+#define GPIO_RESET_USB A3
 
-struct USB7206 {
+struct USB7006 {
     uint8_t addr;
 };
 
-struct USB7206 usb_hub = {.addr = 0x2D};
+struct USB7006 usb_hub = {.addr = 0x2D};
 
-// Perform USB7206 register access.
+// Perform USB0206 register access.
 // Returns zero on success or a negative number on error.
-i2c_status_t usb7206_register_access(struct USB7206* self) {
+i2c_status_t usb7006_register_access(struct USB7006* self) {
     uint8_t register_access[3] = {
         0x99,
         0x37,
@@ -50,9 +52,9 @@ i2c_status_t usb7206_register_access(struct USB7206* self) {
     return i2c_transmit(self->addr << 1, register_access, sizeof(register_access), I2C_TIMEOUT);
 }
 
-// Read data from USB7206 register region.
+// Read data from USB7006 register region.
 // Returns number of bytes read on success or a negative number on error.
-i2c_status_t usb7206_read_reg(struct USB7206* self, uint32_t addr, uint8_t* data, int length) {
+i2c_status_t usb7006_read_reg(struct USB7006* self, uint32_t addr, uint8_t* data, int length) {
     i2c_status_t status;
 
     uint8_t register_read[9] = {
@@ -72,7 +74,7 @@ i2c_status_t usb7206_read_reg(struct USB7206* self, uint32_t addr, uint8_t* data
         return status;
     }
 
-    status = usb7206_register_access(self);
+    status = usb7006_register_access(self);
     if (status < 0) {
         return status;
     }
@@ -125,15 +127,15 @@ error:
     return (status < 0) ? status : length;
 }
 
-// Read 32-bit value from USB7206 register region.
+// Read 32-bit value from USB7006 register region.
 // Returns number of bytes read on success or a negative number on error.
-i2c_status_t usb7206_read_reg_32(struct USB7206* self, uint32_t addr, uint32_t* data) {
+i2c_status_t usb7006_read_reg_32(struct USB7006* self, uint32_t addr, uint32_t* data) {
     i2c_status_t status;
 
     // First byte is available length
     uint8_t bytes[4] = {0, 0, 0, 0};
 
-    status = usb7206_read_reg(self, addr, bytes, sizeof(bytes));
+    status = usb7006_read_reg(self, addr, bytes, sizeof(bytes));
     if (status < 0) {
         return status;
     }
@@ -144,9 +146,9 @@ i2c_status_t usb7206_read_reg_32(struct USB7206* self, uint32_t addr, uint32_t* 
     return status;
 }
 
-// Write data to USB7206 register region.
+// Write data to USB7006 register region.
 // Returns number of bytes written on success or a negative number on error.
-i2c_status_t usb7206_write_reg(struct USB7206* self, uint32_t addr, uint8_t* data, int length) {
+i2c_status_t usb7006_write_reg(struct USB7006* self, uint32_t addr, uint8_t* data, int length) {
     i2c_status_t status;
 
     uint8_t register_write[9] = {
@@ -182,7 +184,7 @@ i2c_status_t usb7206_write_reg(struct USB7206* self, uint32_t addr, uint8_t* dat
 
     i2c_stop();
 
-    status = usb7206_register_access(self);
+    status = usb7006_register_access(self);
     if (status < 0) {
         goto error;
     }
@@ -193,13 +195,13 @@ error:
     return (status < 0) ? status : length;
 }
 
-// Write 8-bit value to USB7206 register region.
+// Write 8-bit value to USB7006 register region.
 // Returns number of bytes written on success or a negative number on error.
-i2c_status_t usb7206_write_reg_8(struct USB7206* self, uint32_t addr, uint8_t data) { return usb7206_write_reg(self, addr, &data, sizeof(data)); }
+i2c_status_t usb7006_write_reg_8(struct USB7006* self, uint32_t addr, uint8_t data) { return usb7006_write_reg(self, addr, &data, sizeof(data)); }
 
-// Write 32-bit value to USB7206 register region.
+// Write 32-bit value to USB7006 register region.
 // Returns number of bytes written on success or a negative number on error.
-i2c_status_t usb7206_write_reg_32(struct USB7206* self, uint32_t addr, uint32_t data) {
+i2c_status_t usb7006_write_reg_32(struct USB7006* self, uint32_t addr, uint32_t data) {
     // Convert to little endian
     uint8_t bytes[4] = {
         (uint8_t)(data >> 0),
@@ -208,47 +210,47 @@ i2c_status_t usb7206_write_reg_32(struct USB7206* self, uint32_t addr, uint32_t 
         (uint8_t)(data >> 24),
     };
 
-    return usb7206_write_reg(self, addr, bytes, sizeof(bytes));
+    return usb7006_write_reg(self, addr, bytes, sizeof(bytes));
 }
 
-// Initialize USB7206.
+// Initialize USB7006.
 // Returns zero on success or a negative number on error.
-int usb7206_init(struct USB7206* self) {
+int usb7006_init(struct USB7006* self) {
     i2c_status_t status;
     uint32_t     data;
 
     // DM and DP are swapped on ports 2 and 3
-    status = usb7206_write_reg_8(self, REG_PRT_SWAP, 0x0C);
+    status = usb7006_write_reg_8(self, REG_PRT_SWAP, 0x0C);
     if (status < 0) {
         return status;
     }
 
     // Disable audio
-    status = usb7206_write_reg_8(self, REG_I2S_FEAT_SEL, 0);
+    status = usb7006_write_reg_8(self, REG_I2S_FEAT_SEL, 0);
     if (status < 0) {
         return status;
     }
 
     // Set HFC_DISABLE
     data   = 0;
-    status = usb7206_read_reg_32(self, REG_RUNTIME_FLAGS2, &data);
+    status = usb7006_read_reg_32(self, REG_RUNTIME_FLAGS2, &data);
     if (status < 0) {
         return status;
     }
     data |= 1;
-    status = usb7206_write_reg_32(self, REG_RUNTIME_FLAGS2, data);
+    status = usb7006_write_reg_32(self, REG_RUNTIME_FLAGS2, data);
     if (status < 0) {
         return status;
     }
 
     // Set Vendor ID and Product ID of USB 2 hub
-    status = usb7206_write_reg_32(self, REG_VID, 0x00033384);
+    status = usb7006_write_reg_32(self, REG_VID, 0x00033384);
     if (status < 0) {
         return status;
     }
 
     // Set Vendor ID and Product ID of USB 3 hub
-    status = usb7206_write_reg_32(self, REG_USB3_HUB_VID, 0x00043384);
+    status = usb7006_write_reg_32(self, REG_USB3_HUB_VID, 0x00043384);
     if (status < 0) {
         return status;
     }
@@ -256,9 +258,9 @@ int usb7206_init(struct USB7206* self) {
     return 0;
 }
 
-// Attach USB7206.
+// Attach USB7006.
 // Returns bytes written on success or a negative number on error.
-i2c_status_t usb7206_attach(struct USB7206* self) {
+i2c_status_t usb7006_attach(struct USB7006* self) {
     uint8_t data[3] = {
         0xAA,
         0x56,
@@ -268,23 +270,23 @@ i2c_status_t usb7206_attach(struct USB7206* self) {
     return i2c_transmit(self->addr << 1, data, sizeof(data), I2C_TIMEOUT);
 }
 
-struct USB7206_GPIO {
-    struct USB7206* usb7206;
+struct USB7006_GPIO {
+    struct USB7006* usb7006;
     uint32_t        pf;
 };
 
-struct USB7206_GPIO usb_gpio_sink         = {.usb7206 = &usb_hub, .pf = 29};  // UP_SEL = PF29 = GPIO93
-struct USB7206_GPIO usb_gpio_source_left  = {.usb7206 = &usb_hub, .pf = 10};  // CL_SEL = PF10 = GPIO74
-struct USB7206_GPIO usb_gpio_source_right = {.usb7206 = &usb_hub, .pf = 25};  // CR_SEL = PF25 = GPIO88
+struct USB7006_GPIO usb_gpio_sink         = {.usb7006 = &usb_hub, .pf = 29};  // UP_SEL = PF29 = GPIO93
+struct USB7006_GPIO usb_gpio_source_left  = {.usb7006 = &usb_hub, .pf = 10};  // CL_SEL = PF10 = GPIO74
+struct USB7006_GPIO usb_gpio_source_right = {.usb7006 = &usb_hub, .pf = 25};  // CR_SEL = PF25 = GPIO88
 
-// Set USB7206 GPIO to specified value.
+// Set USB7006 GPIO to specified value.
 // Returns zero on success or negative number on error.
-i2c_status_t usb7206_gpio_set(struct USB7206_GPIO* self, bool value) {
+i2c_status_t usb7006_gpio_set(struct USB7006_GPIO* self, bool value) {
     i2c_status_t status;
     uint32_t     data;
 
     data   = 0;
-    status = usb7206_read_reg_32(self->usb7206, REG_PIO64_OUT, &data);
+    status = usb7006_read_reg_32(self->usb7006, REG_PIO64_OUT, &data);
     if (status < 0) {
         return status;
     }
@@ -294,7 +296,7 @@ i2c_status_t usb7206_gpio_set(struct USB7206_GPIO* self, bool value) {
     } else {
         data &= ~(((uint32_t)1) << self->pf);
     }
-    status = usb7206_write_reg_32(self->usb7206, REG_PIO64_OUT, data);
+    status = usb7006_write_reg_32(self->usb7006, REG_PIO64_OUT, data);
     if (status < 0) {
         return status;
     }
@@ -302,30 +304,30 @@ i2c_status_t usb7206_gpio_set(struct USB7206_GPIO* self, bool value) {
     return 0;
 }
 
-// Initialize USB7206 GPIO.
+// Initialize USB7006 GPIO.
 // Returns zero on success or a negative number on error.
-i2c_status_t usb7206_gpio_init(struct USB7206_GPIO* self) {
+i2c_status_t usb7006_gpio_init(struct USB7006_GPIO* self) {
     i2c_status_t status;
     uint32_t     data;
 
     // Set programmable function to GPIO
-    status = usb7206_write_reg_8(self->usb7206, REG_PF1_CTL + (self->pf - 1), 0);
+    status = usb7006_write_reg_8(self->usb7006, REG_PF1_CTL + (self->pf - 1), 0);
     if (status < 0) {
         return status;
     }
 
     // Set GPIO to false by default
-    usb7206_gpio_set(self, false);
+    usb7006_gpio_set(self, false);
 
     // Set GPIO to output
     data   = 0;
-    status = usb7206_read_reg_32(self->usb7206, REG_PIO64_OEN, &data);
+    status = usb7006_read_reg_32(self->usb7006, REG_PIO64_OEN, &data);
     if (status < 0) {
         return status;
     }
 
     data |= (((uint32_t)1) << self->pf);
-    status = usb7206_write_reg_32(self->usb7206, REG_PIO64_OEN, data);
+    status = usb7006_write_reg_32(self->usb7006, REG_PIO64_OEN, data);
     if (status < 0) {
         return status;
     }
@@ -346,7 +348,7 @@ struct PTN5110 {
     enum TCPC_TYPE type;
     uint8_t addr;
     uint8_t cc;
-    struct USB7206_GPIO * gpio;
+    struct USB7006_GPIO * gpio;
 };
 
 struct PTN5110 usb_sink = { .type = TCPC_TYPE_SINK, .addr = 0x51, .gpio = &usb_gpio_sink };
@@ -361,7 +363,7 @@ int ptn5110_get_cc_status(struct PTN5110 * self, uint8_t * cc) {
 
 // Set PTN5110 SSMUX orientation.
 // Returns zero on success or a negative number on error.
-i2c_status_t ptn5110_set_ssmux(struct PTN5110* self, bool orientation) { return usb7206_gpio_set(self->gpio, orientation); }
+i2c_status_t ptn5110_set_ssmux(struct PTN5110* self, bool orientation) { return usb7006_gpio_set(self->gpio, orientation); }
 
 // Write PTN5110 COMMAND.
 // Returns zero on success or negative number on error.
@@ -448,7 +450,7 @@ i2c_status_t ptn5110_init(struct PTN5110* self) {
     // Set last cc to invalid value, to force update
     self->cc = 0xFF;
     // Initialize GPIO
-    return usb7206_gpio_init(self->gpio);
+    return usb7006_gpio_init(self->gpio);
 }
 
 void usb_mux_event(void) {
@@ -464,11 +466,15 @@ void usb_mux_event(void) {
 }
 
 void usb_mux_init(void) {
+    // Put the USB hub in reset
+    setPinOutput(GPIO_RESET_USB);
+    writePinLow(GPIO_RESET_USB);
+
     // Run I2C bus at 100 kHz
     i2c_init();
 
     // Set up hub
-    usb7206_init(&usb_hub);
+    usb7006_init(&usb_hub);
 
     // Set up sink
     ptn5110_init(&usb_sink);
@@ -478,7 +484,7 @@ void usb_mux_init(void) {
     ptn5110_init(&usb_source_right);
 
     // Attach hub
-    usb7206_attach(&usb_hub);
+    usb7006_attach(&usb_hub);
 
     // Ensure orientation is correct after attaching hub
     // TODO: Find reason why GPIO for sink orientation is reset
