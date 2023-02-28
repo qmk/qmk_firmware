@@ -1,4 +1,4 @@
-// Copyright 2023 Anjheos (@Anjheos)
+// Copyright 2021 Josh (@Anjheos)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
