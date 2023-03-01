@@ -112,9 +112,6 @@
         ],
         "max_brightness": 128
     },
-    "rgblight": {
-        "pin": "B9"
-    },
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0075",
