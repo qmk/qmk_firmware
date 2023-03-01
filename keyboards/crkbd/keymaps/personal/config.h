@@ -17,7 +17,7 @@ for more options..
 // wiring of each half
 //#define SPLIT_USB_DETECT
 //#define EE_HANDS
-#define MASTER_LEFT
+#define MASTER_RIGHT
 
 // Tapdancing
 //#define TAPPING_TERM 200
