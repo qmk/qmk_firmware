@@ -8,6 +8,8 @@ uint8_t mod_state;
  */
 #include QMK_KEYBOARD_H
 
+
+
 /*
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
  * │ ² │ & │ é │ " │ ' │ ( │ - │ è │ _ │ ç │ à │ ) │ = │       │
@@ -198,27 +200,13 @@ const uint32_t unicode_map[] PROGMEM = {
 #define LA_MOUSE 1
 #define LA_CAPSLOCK 2
 #define LA_LTHUMB 3
-#define LA_LTHUMBEMO 4
-    // gui + shift left + lettre côté gauche
-    // LSG
-#define LA_LTHUMBDMO 5
-    // gui + shift right + lettre côté gauche
-    // RSG
-#define LA_LTHUMBEOSL 6
-    // alt + gui left + lettre côté gauche
-    // LAG
-#define LA_LTHUMBDOSL 7
-    // alt + gui right + lettre côté gauche
-    // RAG
-#define LA_LTHUMB1MO 8
-    // shift + alt + gui + lettre côté gauche
-    // LCA
-#define LA_LTHUMB2MO 9
-    // shift + ctrl + lettre côté gauche
-    // RCS
-#define LA_LTHUMB3MO 10
-    // ctl +  gui + lettre côté gauche
-    // C(G())
+#define LA_LTHUMBEMO 4 // gui + shift left + lettre côté gauche - LSG
+#define LA_LTHUMBDMO 5 // gui + shift right + lettre côté gauche - RSG
+#define LA_LTHUMBEOSL 6 // alt + gui left + lettre côté gauche - LAG
+#define LA_LTHUMBDOSL 7 // alt + gui right + lettre côté gauche - RAG
+#define LA_LTHUMB1MO 8 // shift + alt + gui + lettre côté gauche - LCA
+#define LA_LTHUMB2MO 9 // shift + ctrl + lettre côté gauche - RCS
+#define LA_LTHUMB3MO 10 // ctl +  gui + lettre côté gauche - C(G())
 #define LA_RTHUMB 11
 #define LA_LPINKY 12
 #define LA_LPINKYQ 13
@@ -228,7 +216,6 @@ bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
 bool isDeadKeyCircStarted = false;
 bool isDeadKeyTremaStarted = false;
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -356,11 +343,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case TG(LA_CAPSLOCK):
-            if (record->event.pressed) {
-                register_code16(KC_CAPS);
-            }
-            return false;
         case MA_LTHUMB:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMB);
@@ -398,7 +380,7 @@ bool processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
 }
 bool processKeycodeIfShiftCtlAlt(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case MA_ADEFIL:
+        case S(C(A(MA_MOUSE))):
             if (record->event.pressed) {
                 tap_code16(QK_BOOTLOADER);
             }
@@ -747,6 +729,15 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
             }
             register_mods(MOD_MASK_CTRL);
             return false;
+        case TG(LA_CAPSLOCK):
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(LA_CAPSLOCK)) {
+                    unregister_code16(KC_CAPS);
+                } else {
+                    register_code16(KC_CAPS);
+                }
+            }
+            return true;
     }
     register_mods(MOD_MASK_CTRL);
     return true;
@@ -772,9 +763,6 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
 }
 bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case KC_SPC:
-            register_code16(KC_LCTL);
-            return false;
         case KC_SPC:
             register_code16(KC_LCTL);
             return false;
@@ -899,11 +887,6 @@ bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
     return true;}
 bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
     switch (keycode) {
-        case TG(LA_CAPSLOCK):
-            if (record->event.pressed) {
-                unregister_code16(KC_CAPS);
-            }
-            return false;
         case MA_CIRC:
             if (record->event.pressed) {
                 if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
@@ -949,6 +932,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     // Store the current modifier state in the variable for later reference
     uint8_t mod_state = get_mods();
 
+    if (IS_LAYER_ON(LA_LPINKY)) {
+        if (IS_LAYER_ON(LA_LPINKYQ)) {
+            return processKeycodeIfLPinkyQ(keycode, record);
+        } else if (IS_LAYER_ON(LA_LPINKYW)) {
+            return processKeycodeIfLPinkyZ(keycode, record);
+        } else {
+            return processKeycodeIfLPinky(keycode, record, mod_state);
+        }
+    }
+    if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
     if (IS_LAYER_ON(LA_LTHUMB)) {
         if (IS_LAYER_ON(LA_LTHUMBEOSL)) {
             return processKeycodeIfLThumbEOsl(keycode, record);
@@ -968,21 +961,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             return processKeycodeIfLThumb(keycode, record, mod_state);
         }
     }
-    if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
-    if (IS_LAYER_ON(LA_LPINKY)) {
-        if (IS_LAYER_ON(LA_LPINKYQ)) {
-            return processKeycodeIfLPinkyQ(keycode, record);
-        } else if (IS_LAYER_ON(LA_LPINKYW)) {
-            return processKeycodeIfLPinkyZ(keycode, record);
-        } else {
-            return processKeycodeIfLPinky(keycode, record, mod_state);
-        }
-    }
     if (IS_LAYER_ON(LA_CAPSLOCK)) {return processKeycodeIfLCapslock(keycode, record, mod_state);}
-    if (mod_state & MOD_MASK_SHIFT & MOD_MASK_CTRL & MOD_MASK_ALT) {return processKeycodeIfShiftCtlAlt(keycode, record);}
-    if (mod_state & MOD_MASK_SHIFT) {return processKeycodeIfShift(keycode, record);}
+    if (mod_state & MOD_MASK_SHIFT) {
+        if (MOD_MASK_CTRL & MOD_MASK_ALT) {return processKeycodeIfShiftCtlAlt(keycode, record);}
+        return processKeycodeIfShift(keycode, record);
+    }
     return processKeycodeIfLBase(keycode, record);
 }
-
-
 
