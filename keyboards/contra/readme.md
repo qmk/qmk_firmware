@@ -4,7 +4,6 @@
 
 Contra is a low cost 40% keyboard.
 
-## Keyboard Info
 * Keyboard Maintainer: The QMK Community  
 * Hardware Supported: [Contra](https://github.com/ai03-2725/Contra)
 * Hardware Availability: PCB sold by various vendors
