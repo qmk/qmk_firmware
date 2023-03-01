@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- #pragma once
+#pragma once
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
