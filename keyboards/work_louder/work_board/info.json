@@ -19,8 +19,6 @@
       ]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
