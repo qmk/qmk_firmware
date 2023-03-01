@@ -39,7 +39,7 @@
         "pid": "0x0011",
         "vid": "0x4B42"        
     },
-    "community_layouts": ["tkl_f13_ansi_tsangan"],
+    "community_layouts": ["tkl_f13_ansi_tsangan", "tkl_f13_iso_tsangan"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
