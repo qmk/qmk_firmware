@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 // Auto mouse layer makes use of the Cirque touchdown indicator which requires
 // the touch sensor to be on the master side
 #define MASTER_RIGHT
