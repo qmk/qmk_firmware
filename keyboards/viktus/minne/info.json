@@ -11,12 +11,16 @@
     "bootloader": "atmel-dfu",
     "processor": "atmega32u4",
     "features": {
+        "rgblight": true,
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": true
+    },
+    "build": {
+        "lto": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

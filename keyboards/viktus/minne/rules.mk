@@ -1,11 +1,1 @@
-# Build Options
-SLEEP_LED_ENABLE = no
-BACKLIGHT_ENABLE = no
-RGBLIGHT_ENABLE = yes
-BLUETOOTH_ENABLE = no
-AUDIO_ENABLE = no
-LEADER_ENABLE = no
-MIDI_ENABLE = no
-UNICODE_ENABLE = no
-OLED_DRIVER_ENABLE = no
-LTO_ENABLE = yes
+# This file intentionally left blank
