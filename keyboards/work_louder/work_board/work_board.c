@@ -123,6 +123,7 @@ bool rgb_matrix_indicators_kb(void) {
 #    endif
     return true;
 }
+#endif
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(B2);
@@ -145,7 +146,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == QK_KB_10 && record->event.pressed) {
         work_louder_config.led_level ^= true;
-        eeconfig_update_user(work_louder_config.raw);
+        eeconfig_update_kb(work_louder_config.raw);
         layer_state_set_kb(layer_state);
     }
 
@@ -175,6 +176,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     return state;
 }
 
+#ifdef VIA_ENABLE
 void eeconfig_init_kb(void) {
     work_louder_config.raw       = 0;
     work_louder_config.led_level = true;
@@ -224,7 +226,7 @@ void wl_config_get_value(uint8_t *data) {
 }
 
 void wl_config_save(void) {
-    eeconfig_update_user(work_louder_config.raw);
+    eeconfig_update_kb(work_louder_config.raw);
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
@@ -256,5 +258,4 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     }
     *command_id = id_unhandled;
 }
-
 #endif
