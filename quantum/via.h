@@ -58,7 +58,7 @@
 
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.
-#define VIA_PROTOCOL_VERSION 0x000B
+#define VIA_PROTOCOL_VERSION 0x000C
 
 // This is a version number for the firmware for the keyboard.
 // It can be used to ensure the VIA keyboard definition and the firmware
@@ -133,46 +133,6 @@ enum via_qmk_rgb_matrix_value {
 enum via_qmk_audio_value {
     id_qmk_audio_enable        = 1,
     id_qmk_audio_clicky_enable = 2,
-};
-
-enum via_keycodes {
-    FN_MO13 = QK_MACRO,
-    FN_MO23,
-    MACRO00,
-    MACRO01,
-    MACRO02,
-    MACRO03,
-    MACRO04,
-    MACRO05,
-    MACRO06,
-    MACRO07,
-    MACRO08,
-    MACRO09,
-    MACRO10,
-    MACRO11,
-    MACRO12,
-    MACRO13,
-    MACRO14,
-    MACRO15,
-};
-
-enum user_keycodes {
-    USER00 = QK_USER,
-    USER01,
-    USER02,
-    USER03,
-    USER04,
-    USER05,
-    USER06,
-    USER07,
-    USER08,
-    USER09,
-    USER10,
-    USER11,
-    USER12,
-    USER13,
-    USER14,
-    USER15,
 };
 
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of

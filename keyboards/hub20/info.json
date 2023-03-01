@@ -8,6 +8,14 @@
       "pid": "0x4414",
       "device_version": "0.0.1"
     },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "B12", "pin_b": "B13"},
+        {"pin_a": "A8", "pin_b": "A9"}
+      ]
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
       "LAYOUT_all": {
         "layout": [

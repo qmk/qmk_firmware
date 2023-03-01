@@ -8,6 +8,17 @@
         "pid": "0xD181",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D4",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B0",
+        "num_lock": "B1",
+        "scroll_lock": "B2"
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
