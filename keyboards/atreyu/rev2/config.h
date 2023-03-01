@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
 
 /*
  * Keyboard Matrix Assignments
@@ -35,11 +30,6 @@
 #define MATRIX_ROW_PINS { D7, E6, B4, B5, F6, F7, B1, B3, B6, B2 }
 #define MATRIX_COL_PINS { F4, F5, C6, D4, D2, D3 }
 
-/* encoder support */
-#define ENCODERS_PAD_A { D5, D5 }
-#define ENCODERS_PAD_B { B7, C7 }
-#define ENCODER_RESOLUTION 4
-
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
  
@@ -47,11 +37,6 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
 
 /*
  * Feature disable options

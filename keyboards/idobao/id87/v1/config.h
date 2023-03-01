@@ -14,11 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 11
-#define MATRIX_COLS 9
 
 /*
  * Keyboard Matrix Assignments
@@ -38,19 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN B6
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
-#define LED_CAPS_LOCK_PIN C7
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
-    // RGBLIGHT_ANIMATIONS
     #define RGBLIGHT_EFFECT_ALTERNATING
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_CHRISTMAS
