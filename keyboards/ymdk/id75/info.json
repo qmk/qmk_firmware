@@ -115,9 +115,6 @@
     "rgblight": {
         "pin": "B9"
     },
-    "tapping": {
-        "toggle": 2
-    },
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0075",

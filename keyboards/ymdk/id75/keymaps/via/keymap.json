@@ -2,6 +2,11 @@
     "version": 1,
     "author": "qmk",
     "notes": "",
+    "config": {
+        "features": {
+            "via": true
+        }
+    },
     "keyboard": "ymdk/id75",
     "keymap": "via",
     "layout": "LAYOUT_ortho_5x15",
