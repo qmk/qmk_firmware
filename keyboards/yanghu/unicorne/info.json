@@ -8,6 +8,12 @@
     "pid": "0x0204",
     "device_version": "0.0.1"
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B10", "pin_b": "B12"},
+      {"pin_a": "B2", "pin_b": "B0"}
+    ]
+  },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_split_3x6_4"
   },

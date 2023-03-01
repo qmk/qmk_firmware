@@ -117,16 +117,6 @@ inline void bajjak_led_all_set(uint8_t n) {
     bajjak_right_led_3_set(n);
 }
 
-enum BAJJAK_ez_keycodes {
-    LED_LEVEL = SAFE_RANGE,
-    TOGGLE_LAYER_COLOR,
-    EZ_SAFE_RANGE,
-};
-
-#ifndef WEBUSB_ENABLE
-#    define WEBUSB_PAIR KC_NO
-#endif
-
 typedef union {
   uint32_t raw;
   struct {

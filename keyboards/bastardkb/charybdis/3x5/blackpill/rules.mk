@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F411
-BOARD = BLACKPILL_STM32_F411
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -25,7 +18,6 @@ RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812
 
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x5_3
 
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360

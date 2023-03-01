@@ -75,12 +75,12 @@ void sleep_led_toggle(void) {}
 
 void sleep_led_disable(void) {
     suspend_active = false;
-    writePinHigh(QMK_LED);
+    writePinHigh(MODELM_STATUS_LED);
 }
 
 void sleep_led_enable(void) {
     suspend_active = true;
-    writePinLow(QMK_LED);
+    writePinLow(MODELM_STATUS_LED);
 #ifdef KEYBOARD_mschwingen_modelm_led_ws2812
     led[0] = black;
     led[1] = black;
@@ -101,8 +101,8 @@ void keyboard_pre_init_kb(void) {
     writePinLow(MODELM_LED_SCROLLOCK);
     writePinLow(MODELM_LED_NUMLOCK);
 #endif
-    setPinOutput(QMK_LED);
-    writePinHigh(QMK_LED);
+    setPinOutput(MODELM_STATUS_LED);
+    writePinHigh(MODELM_STATUS_LED);
     _delay_ms(50);
 #ifdef UART_DEBUG
     uart_init(115200);

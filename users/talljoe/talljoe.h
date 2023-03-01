@@ -123,7 +123,7 @@ enum layers {
   #define H2_DEC KC_NO
   #define S2_INC KC_NO
   #define S2_DEC KC_NO
-  #define FN_MO13 KC_NO
+  #define TL_LOWR KC_NO
   #define FN_MO2 KC_NO
 #endif
 

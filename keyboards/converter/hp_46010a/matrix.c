@@ -51,16 +51,6 @@ static uint8_t matrix_debounce_new [MATRIX_ROWS] = {0};
 #endif 
 
 __attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
-__attribute__ ((weak))
 void matrix_init_kb(void) {    
     matrix_init_user();
 }
@@ -145,7 +135,7 @@ void Matrix_ThrowByte(void) {
     return ;
 }
 
-void matrix_init () {
+void matrix_init (void) {
     // debug_matrix = 1;
     // PB0 (SS) and PB1 (SCLK) set to outputs
     DDRB |= RESET | SCLK ;
@@ -161,7 +151,7 @@ void matrix_init () {
     DDRD  |= LED ;
     PORTD &= ~LED ;
 
-    matrix_init_quantum();
+    matrix_init_kb();
 
     //toggle reset, to put the keyboard logic into a known state
     Matrix_Reset() ;
@@ -206,7 +196,7 @@ uint8_t matrix_scan(void)  {
 #endif
     Matrix_Reset() ;
     
-    matrix_scan_quantum() ;
+    matrix_scan_kb() ;
     return 1;
 }
 

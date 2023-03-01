@@ -122,7 +122,7 @@ void matrix_init(void)
     for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
     matrix = _matrix0;
     matrix_prev = _matrix1;
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -182,7 +182,7 @@ uint8_t matrix_scan(void)
             matrix_last_modified = timer_read32();
         }
     }
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

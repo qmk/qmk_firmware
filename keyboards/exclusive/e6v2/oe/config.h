@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* QMK E6-V2 PCB default pin-out */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
@@ -45,12 +40,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 12
 #endif
 
-#define BACKLIGHT_PIN B6
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_BREAHTING
-#define BREATHING_PERIOD 3
-#endif
-
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5

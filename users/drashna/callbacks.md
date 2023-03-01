@@ -2,7 +2,7 @@
 
 Specifically QMK works by using customized callback functions for everything. This allows for multiple levels of customization. 
 
-`matrix_scan` calls `matrix_scan_quantum`, which calls `matrix_scan_kb`, which calls `matrix_scan_user`. 
+`matrix_scan` calls `matrix_scan_kb`, which calls `matrix_scan_user`. 
 `process_record` calls a bunch of stuff, but eventually calls `process_record_kb` which calls `process_record_user`
 The same goes for `matrix_init`, `layer_state_set`, `led_set`, and a few other functions.  
 
