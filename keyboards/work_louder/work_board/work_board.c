@@ -166,7 +166,7 @@ void eeconfig_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    work_louder_config.raw = eeconfig_read_user();
+    work_louder_config.raw = eeconfig_read_kb();
     keyboard_post_init_user();
 }
 
