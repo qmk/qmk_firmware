@@ -150,21 +150,19 @@ class InfoJSONEncoder(QMKJSONEncoder):
 class KeymapJSONEncoder(QMKJSONEncoder):
     """Custom encoder to make keymap.json's a little nicer to work with.
     """
-    def encode_dict(self, obj):
+    def encode_dict(self, obj, key):
         """Encode dictionary objects for keymap.json.
         """
         if obj:
             self.indentation_level += 1
-            output_lines = [f"{self.indent_str}{json.dumps(key)}: {self.encode(value)}" for key, value in sorted(obj.items(), key=self.sort_dict)]
-            output = ',\n'.join(output_lines)
+            output = [self.indent_str +  f"{json.dumps(k)}: {self.encode(v, k)}" for k, v in sorted(obj.items(), key=self.sort_dict)]
             self.indentation_level -= 1
-
-            return f"{{\n{output}\n{self.indent_str}}}"
+            return "{\n" + ",\n".join(output) + "\n" + self.indent_str + "}"
 
         else:
             return "{}"
 
-    def encode_list(self, obj):
+    def encode_list(self, obj, k=None):
         """Encode a list-like object.
         """
         if self.indentation_level == 2:
