@@ -1,6 +1,6 @@
 # TKL-F13HS
 
-![TKL-F13HS](https://i.imgur.com/6kBCSh4l.png)
+![TKL-F13HS](https://i.imgur.com/6kBCSh4h.png)
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: RP2040
