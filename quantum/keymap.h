@@ -30,8 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum_keycodes.h"
 
-// translates key to keycode
-uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
+#include "keymap_common.h"
 
 #ifdef ENCODER_MAP_ENABLE
 // Ensure we have a forward declaration for the encoder map
