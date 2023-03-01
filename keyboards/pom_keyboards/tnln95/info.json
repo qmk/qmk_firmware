@@ -8,6 +8,17 @@
         "pid": "0x3931",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "levels": 10,
+        "breathing": true
+    },
+    "bootmagic": {
+        "matrix": [0, 4]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 8,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

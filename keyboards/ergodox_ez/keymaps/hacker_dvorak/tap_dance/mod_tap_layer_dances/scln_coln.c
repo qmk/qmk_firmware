@@ -4,7 +4,7 @@ static tap scln_coln_state = {
     .state           = 0
 };
 
-void scln_coln_finished(qk_tap_dance_state_t *state, void *user_data) {
+void scln_coln_finished(tap_dance_state_t *state, void *user_data) {
     scln_coln_state.state = current_dance(state);
     switch (scln_coln_state.state) {
         case SINGLE_TAP:
@@ -23,7 +23,7 @@ void scln_coln_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void scln_coln_reset(qk_tap_dance_state_t *state, void *user_data) {
+void scln_coln_reset(tap_dance_state_t *state, void *user_data) {
     switch (scln_coln_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_SCLN);

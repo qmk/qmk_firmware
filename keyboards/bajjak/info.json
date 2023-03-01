@@ -2,11 +2,14 @@
     "keyboard_name": "BAJJAK",
     "manufacturer": "garykong",
     "maintainer": "garykong",
+    "debounce": 30,
     "usb": {
         "vid": "0x1209",
         "pid": "0x0002",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT_6x7": {
             "layout": [
