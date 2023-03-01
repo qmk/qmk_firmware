@@ -28,7 +28,9 @@
         "pin": "F6",
         "max_brightness": 191,
         "animations": {
-            "all": true
+            "breathing": true,
+            "rainbow_swirl": true,
+            "twinkle": true
         }
     },
     "layouts": {
