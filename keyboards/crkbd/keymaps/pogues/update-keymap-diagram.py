@@ -373,6 +373,7 @@ key_names = {
     "KC_MS_R": "&#8608;",
     "KC_WH_D": "&#8635;",
     "KC_WH_U": "&#8634;",
+    "QK_BOOTLOADER": "RESET",
 }
 
 key_names.update(
