@@ -1,6 +1,6 @@
 {
     "manufacturer": "Ning",
-    "keyboard_name": "ning/tiny_board/tb16_rgb",
+    "keyboard_name": "TB16 RGB",
     "maintainer": "ningjx",
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
