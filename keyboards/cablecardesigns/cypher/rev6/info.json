@@ -6,6 +6,13 @@
       "pid": "0xAA99",
       "device_version": "0.0.2"
     },
+    "backlight": {
+      "pin": "D0",
+      "levels": 5,
+      "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
       "LAYOUT_all": {
         "layout": [

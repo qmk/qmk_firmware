@@ -141,7 +141,7 @@ enum custom_keycodes {
 
     MY_CHORD_MAX = MI_CH_BDim7,
 
-    VERSION = USER00
+    VERSION = QK_KB_0
 };
 
 #define MY_CHORD_COUNT (MY_CHORD_MAX - MY_CHORD_MIN + 1)

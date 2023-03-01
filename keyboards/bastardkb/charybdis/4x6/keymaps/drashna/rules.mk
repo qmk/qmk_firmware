@@ -37,8 +37,7 @@ ifeq ($(strip $(OVERLOAD_FEATURES)), yes)
     NKRO_ENABLE           = yes # Enable N-Key Rollover
     RGBLIGHT_ENABLE       = no  # Enable keyboard RGB underglow
 
-    KEYBOARD_SHARED_EP    = yes
-    MOUSE_SHARED_EP       = yes
+    MOUSE_SHARED_EP       = no
 
     AUTOCORRECT_ENABLE    = yes
     CAPS_WORD_ENABLE      = yes

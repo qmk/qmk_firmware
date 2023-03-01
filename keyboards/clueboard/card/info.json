@@ -37,6 +37,10 @@
     "pid": "0x2330",
     "vid": "0xC1ED"
   },
+  "backlight": {
+    "driver": "custom",
+    "levels": 6
+  },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"
   },

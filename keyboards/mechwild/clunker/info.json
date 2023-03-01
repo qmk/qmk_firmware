@@ -25,6 +25,11 @@
         "pid": "0x1711",
         "vid": "0x6D77"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

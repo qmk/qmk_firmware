@@ -8,6 +8,8 @@
     "pid": "0x6955",
     "device_version": "8.9.9"
   },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
       "LAYOUT_all": {
           "layout": [

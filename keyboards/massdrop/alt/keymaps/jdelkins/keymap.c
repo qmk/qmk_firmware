@@ -42,10 +42,10 @@ enum alt_keycodes {
 
 int ctl_state = 0;
 
-void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_finished(tap_dance_state_t *state, void *user_data) {
     ctl_state = cur_dance(state);
     switch(ctl_state) {
-        case SINGLE_TAP:    qk_leader_start(); break;
+        case SINGLE_TAP:    leader_start(); break;
         case SINGLE_HOLD:   register_code(KC_LCTL); break;
         case DOUBLE_TAP:    tap_code(KC_RCTL); break;
         case DOUBLE_HOLD:   register_code(KC_RCTL); break;
@@ -54,7 +54,7 @@ void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_reset(tap_dance_state_t *state, void *user_data) {
     switch(ctl_state) {
         case SINGLE_HOLD:   unregister_code(KC_LCTL); break;
         case DOUBLE_HOLD:
@@ -63,7 +63,7 @@ void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
     ctl_state = 0;
 }
 
-void g_finished(qk_tap_dance_state_t *state, void *user_data) {
+void g_finished(tap_dance_state_t *state, void *user_data) {
     switch (cur_dance(state)) {
         case SINGLE_TAP:
             tap_code16(C(KC_END));
@@ -80,7 +80,7 @@ enum {
     TD_G,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LDCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_finished, ctl_reset),
     [TD_GUI]   = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_RGUI),
     [TD_G]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, g_finished, NULL),
@@ -256,6 +256,54 @@ static void set_rgb_layer(int layer) {
     }
 }
 
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_K)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_one_key(KC_G)) {
+        layer_invert(_GAME);
+    }
+    if (leader_sequence_one_key(KC_KP_5)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_1)) {
+        send_secret_string(0);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_2)) {
+        send_secret_string(1);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_3)) {
+        send_secret_string(2);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_4)) {
+        send_secret_string(3);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_5)) {
+        send_secret_string(4);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_6)) {
+        send_secret_string(5);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_M)) {
+        send_secret_string(0);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_COMM)) {
+        send_secret_string(1);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_DOT)) {
+        send_secret_string(2);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_J)) {
+        send_secret_string(3);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_K)) {
+        send_secret_string(4);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_L)) {
+        send_secret_string(5);
+    }
+}
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_keymap(void) {
     // force numlock on upon startup
@@ -263,8 +311,6 @@ void matrix_init_keymap(void) {
         tap_code(KC_NUM_LOCK);
     }
 };
-
-LEADER_EXTERNS();
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_keymap(void) {
@@ -281,56 +327,6 @@ void matrix_scan_keymap(void) {
             rgb_matrix_set_color(15, RGB_GOLD);
         else
             rgb_matrix_set_color(15, 0, 0, 0);
-    }
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_K) {
-            layer_invert(_KP);
-        }
-        SEQ_ONE_KEY(KC_G) {
-            layer_invert(_GAME);
-        }
-        SEQ_ONE_KEY(KC_KP_5) {
-            layer_invert(_KP);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_1) {
-            send_secret_string(0);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_2) {
-            send_secret_string(1);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_3) {
-            send_secret_string(2);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_4) {
-            send_secret_string(3);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_5) {
-            send_secret_string(4);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_6) {
-            send_secret_string(5);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_M) {
-            send_secret_string(0);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_COMM) {
-            send_secret_string(1);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_DOT) {
-            send_secret_string(2);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_J) {
-            send_secret_string(3);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_K) {
-            send_secret_string(4);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_L) {
-            send_secret_string(5);
-        }
     }
 };
 
