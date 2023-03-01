@@ -356,13 +356,13 @@ struct PTN5110 usb_source_right = { .type = TCPC_TYPE_SOURCE, .addr = 0x50, .gpi
 // Read PTN5110 CC_STATUS
 // Returns bytes read on success or negative number on error
 int ptn5110_get_cc_status(struct PTN5110 * self, uint8_t * cc) {
-    return i2c_get(self->addr, TCPC_CC_STATUS, cc, 1);
+    return i2c_readReg(self->addr << 1, TCPC_CC_STATUS, cc, 1, I2C_TIMEOUT);
 }
 
 // Write PTN5110 ROLE_CONTROL
 // Returns bytes written on success or negative number on error
 int ptn5110_set_role_control(struct PTN5110 * self, uint8_t role_control) {
-    return i2c_set(self->addr, TCPC_ROLE_CONTROL, &role_control, 1);
+    return i2c_writeReg(self->addr << 1, TCPC_ROLE_CONTROL, &role_control, 1, I2C_TIMEOUT);
 }
 
 // Set PTN5110 SSMUX orientation.
