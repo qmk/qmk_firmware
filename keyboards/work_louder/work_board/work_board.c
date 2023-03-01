@@ -136,4 +136,125 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
+work_louder_config_t work_louder_config;
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_work_rgb(keycode, record)) {
+        return false;
+    }
+
+    if (keycode == QK_KB_10 && record->event.pressed) {
+        work_louder_config.led_level ^= true;
+        eeconfig_update_user(work_louder_config.raw);
+        layer_state_set_kb(layer_state);
+    }
+
+    return process_record_user(keycode, record);
+}
+
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    writePinLow(B2);
+    writePinLow(B3);
+    writePinLow(B7);
+
+    state = layer_state_set_user(state);
+    if (work_louder_config.led_level) {
+        switch (get_highest_layer(state)) {
+            case 1:
+                writePinHigh(B2);
+                break;
+            case 2:
+                writePinHigh(B3);
+                break;
+            case 3:
+                writePinHigh(B7);
+                break;
+        }
+    }
+
+    return state;
+}
+
+void eeconfig_init_kb(void) {
+    work_louder_config.raw       = 0;
+    work_louder_config.led_level = true;
+    eeconfig_update_kb(work_louder_config.raw);
+    eeconfig_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    work_louder_config.raw = eeconfig_read_user();
+    keyboard_post_init_user();
+}
+
+enum via_indicator_value {
+    id_wl_brightness = 1,
+    id_wl_layer, // placeholder
+};
+
+void wl_config_set_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_wl_brightness:
+            work_louder_config.led_level = (bool)*value_data;
+            layer_state_set_kb(layer_state);
+            break;
+            // case id_wl_layer:
+            //     layer_move(*value_data);
+            //     break;
+    }
+}
+
+void wl_config_get_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_wl_brightness:
+            *value_data = work_louder_config.led_level;
+            break;
+            // case id_wl_layer:
+            //     *value_data = get_highest_layer(layer_state);
+            //     break;
+    }
+}
+
+void wl_config_save(void) {
+    eeconfig_update_user(work_louder_config.raw);
+}
+
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t *command_id        = &(data[0]);
+    uint8_t *channel_id        = &(data[1]);
+    uint8_t *value_id_and_data = &(data[2]);
+
+    if (*channel_id == id_custom_channel) {
+        switch (*command_id) {
+            case id_custom_set_value: {
+                wl_config_set_value(value_id_and_data);
+                break;
+            }
+            case id_custom_get_value: {
+                wl_config_get_value(value_id_and_data);
+                break;
+            }
+            case id_custom_save: {
+                wl_config_save();
+                break;
+            }
+            default: {
+                // Unhandled message.
+                *command_id = id_unhandled;
+                break;
+            }
+        }
+        return;
+    }
+    *command_id = id_unhandled;
+}
+
 #endif

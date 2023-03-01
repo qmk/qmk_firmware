@@ -31,8 +31,7 @@ void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) { return false; }
+bool process_record_work_rgb(uint16_t keycode, keyrecord_t *record) {
 
     if (record->event.pressed) {
         switch(keycode) {
