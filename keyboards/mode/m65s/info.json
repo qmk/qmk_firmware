@@ -8,6 +8,11 @@
         "pid": "0x6583",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C8"
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

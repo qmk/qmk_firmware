@@ -4,7 +4,6 @@
   "maintainer": "skullydazed",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
-  "debounce": 5,
   "diode_direction": "COL2ROW",
   "features": {
     "audio": false,
@@ -50,6 +49,10 @@
     "device_version": "0.0.1",
     "pid": "0x2370",
     "vid": "0xC1ED"
+  },
+  "backlight": {
+    "driver": "custom",
+    "levels": 1
   },
   "community_layouts": ["66_ansi", "66_iso"],
   "layout_aliases": {

@@ -3,8 +3,14 @@
     "manufacturer": "chemicalwill",
     "url": "https://github.com/chemicalwill/bear_face_pcb",
     "maintainer": "chemicalwill",
+    "debounce": 6,
     "usb": {
         "vid": "0xFEED",
         "pid": "0x09F5"
-    }
+    },
+    "backlight": {
+        "pin": "F7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

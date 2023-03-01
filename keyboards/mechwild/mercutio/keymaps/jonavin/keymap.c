@@ -188,8 +188,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
 
     bool oled_task_user(void) {
-
-        if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && get_selected_layer() == 0 && get_highest_layer(layer_state) == 0 ) {
+        led_t led_state = host_keyboard_led_state();
+        if ( !led_state.num_lock && !led_state.caps_lock && get_selected_layer() == 0 && get_highest_layer(layer_state) == 0 ) {
             render_name();
             clear_screen = true;
         } else {

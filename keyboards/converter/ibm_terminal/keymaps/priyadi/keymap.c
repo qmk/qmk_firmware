@@ -97,7 +97,7 @@ enum unicode_name {
   SKULL, // skull
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [GRIN] = 0x1F600,
   [TJOY] = 0x1F602,
   [SMILE] = 0x1F601,
@@ -297,6 +297,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user() {
+void matrix_init_user(void) {
   set_unicode_input_mode(UNICODE_MODE_LINUX);
 }
