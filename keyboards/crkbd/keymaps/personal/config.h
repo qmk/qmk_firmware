@@ -11,15 +11,16 @@ for more options..
 #define NO_MUSIC_MODE
 
 #define LAYER_STATE_8BIT // Up to 8 layers
-#define CUSTOM_LAYER_READ // if you remove this it causes issues - needs better guarding
+//#define CUSTOM_LAYER_READ // if you remove this it causes issues - needs better guarding
 
 // Keyboard matrix print
 // wiring of each half
-#define SPLIT_USB_DETECT
-#define EE_HANDS
+//#define SPLIT_USB_DETECT
+//#define EE_HANDS
+#define MASTER_LEFT
 
 // Tapdancing
-#define TAPPING_TERM 200
+//#define TAPPING_TERM 200
 
 // Memory Saver
 #define NO_ACTION_MACRO
