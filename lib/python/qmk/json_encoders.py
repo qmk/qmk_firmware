@@ -155,7 +155,7 @@ class KeymapJSONEncoder(QMKJSONEncoder):
         """
         if obj:
             self.indentation_level += 1
-            output = [self.indent_str +  f"{json.dumps(k)}: {self.encode(v, k)}" for k, v in sorted(obj.items(), key=self.sort_dict)]
+            output = [self.indent_str + f"{json.dumps(k)}: {self.encode(v, k)}" for k, v in sorted(obj.items(), key=self.sort_dict)]
             self.indentation_level -= 1
             return "{\n" + ",\n".join(output) + "\n" + self.indent_str + "}"
 
