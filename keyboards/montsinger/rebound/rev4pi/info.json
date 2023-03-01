@@ -9,6 +9,11 @@
         "device_version": "0.0.2"
     },
     "processor": "RP2040",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP0", "pin_b": "GP1"}
+        ]
+    },
     "bootloader": "rp2040",
     "board": "GENERIC_RP_RP2040",
     "diode_direction": "ROW2COL",
