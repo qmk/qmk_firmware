@@ -1,9 +1,9 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-/*#ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
 	extern rgblight_config_t rgblight_config; // To pull layer status for RGBLIGHT
-#endif*/
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_config_t rgb_matrix_config;
@@ -108,7 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        /* KEYBOARD PET STATUS START
+        /* KEYBOARD PET STATUS START */
         case KC_LCTL:
         case KC_RCTL:
             if (record->event.pressed) {
@@ -125,7 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 isJumping = false;
             }
             break;
-         KEYBOARD PET STATUS END */
+        /* KEYBOARD PET STATUS END */
     }
     return true;
 };

@@ -76,35 +76,3 @@ void matrix_scan_user(void) {
 }
 
 #endif*/
-
-#ifdef RGB_MATRIX_ENABLE
-
-/*void keyboard_post_init_user(void) {
-  rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_WIDE);
-};*/
-
-/*layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        case _COLEMAK:
-            rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
-            rgb_matrix_set_color_all(RGB_RED); // Original color RED
-            // Original color BLUE
-            break;
-        case _LOWER:
-            rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-            rgb_matrix_set_color_all(RGB_BLUE); // Original color RED
-            break;
-        case _RAISE:
-            rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-            rgb_matrix_set_color_all(RGB_GOLD);
-            break;
-        case _ADJUST:
-            rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-            rgb_matrix_set_color_all(RGB_MAGENTA);
-            break;
-    }
-    return state;
-}*/
-
-
-#endif

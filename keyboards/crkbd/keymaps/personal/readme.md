@@ -2,7 +2,7 @@
 ![SofleKeyboard adjust layer](https://github.com/HiroshiLG/qmk_firmware/blob/personal-layout/keyboards/crkbd/keymaps/personal/crkbd-adjust.png)
 
 
-# for key modifications
+// # for key modifications
 # http://www.keyboard-layout-editor.com/#/gists/abfe7d231f9d9fbf0dcd3d81feeafd2a
 
 # Default keymap for Corne Keyboard
