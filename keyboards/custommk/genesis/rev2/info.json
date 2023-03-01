@@ -8,6 +8,14 @@
         "pid": "0xFAB1",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F6", "pin_b": "F7", "resolution": 2},
+            {"pin_a": "D2", "pin_b": "D1", "resolution": 2}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [{"label":"MO(1)", "x":0, "y":0},

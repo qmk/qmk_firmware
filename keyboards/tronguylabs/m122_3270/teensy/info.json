@@ -1,5 +1,7 @@
 {
     "usb": {
         "device_version": "0.0.1"
-    }
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay"
 }

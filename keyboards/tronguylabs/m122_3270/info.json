@@ -6,6 +6,7 @@
         "vid": "0x1209",
         "pid": "0x3270"
     },
+    "debounce": 15,
     "layouts": {
         "LAYOUT": {
             "layout": [

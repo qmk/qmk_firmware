@@ -8,6 +8,12 @@
     	"pid": "0x0082",
     	"device_version": "0.0.2"
     },
+    "indicators": {
+    	"caps_lock": "A0",
+    	"on_state": 0
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_m80v2s": {
             "layout": [

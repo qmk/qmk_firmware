@@ -34,11 +34,11 @@ enum {
 };
 
 //function to handle all the tap dances
-int cur_dance(qk_tap_dance_state_t *state);
+int cur_dance(tap_dance_state_t *state);
 
 //functions for each tap dance
-void tk_finished(qk_tap_dance_state_t *state, void *user_data);
-void tk_reset(qk_tap_dance_state_t *state, void *user_data);
+void tk_finished(tap_dance_state_t *state, void *user_data);
+void tk_reset(tap_dance_state_t *state, void *user_data);
 
 #define INDICATOR_LED   B5
 #define TX_LED          D5
@@ -85,7 +85,7 @@ void matrix_init_user(void) {
 }
 
 //determine the current tap dance state
-int cur_dance (qk_tap_dance_state_t *state){
+int cur_dance (tap_dance_state_t *state){
     if(state->count == 1){
         //if a tap was registered
         if(!state->pressed){
@@ -114,7 +114,7 @@ static tap tk_tap_state = {
 };
 
 //functions that control what our tap dance key does
-void tk_finished(qk_tap_dance_state_t *state, void *user_data){
+void tk_finished(tap_dance_state_t *state, void *user_data){
     tk_tap_state.state = cur_dance(state);
     switch(tk_tap_state.state){
         case SINGLE_TAP:
@@ -166,7 +166,7 @@ void tk_finished(qk_tap_dance_state_t *state, void *user_data){
     }
 }
 
-void tk_reset(qk_tap_dance_state_t *state, void *user_data){
+void tk_reset(tap_dance_state_t *state, void *user_data){
     //if held and released, leave the layer
     if(tk_tap_state.state == SINGLE_HOLD){
         layer_off(_FN0);
@@ -177,6 +177,6 @@ void tk_reset(qk_tap_dance_state_t *state, void *user_data){
 
 
 //associate the tap dance key with its functionality
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TAPPY_KEY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tk_finished, tk_reset)
 };

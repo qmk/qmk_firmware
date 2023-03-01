@@ -7,6 +7,8 @@
         "pid": "0x6D76",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_split": {
             "layout": [
