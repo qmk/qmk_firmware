@@ -10,6 +10,11 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "C13",
+        "on_state": 0
+    },
     "layouts": {
         "LAYOUT": {
             "layout":[
