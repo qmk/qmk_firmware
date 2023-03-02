@@ -56,17 +56,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case PASS:
 		if (record->event.pressed) {
 			// when keycode M4 is pressed	
-			SEND_STRING("Ineedmorethan24h)@");
+			SEND_STRING("XXXXXXXXXX");
 		} else {
-			// when keycode M4 is released
+			// when keycode is released
 		}
 		break;
 	case USER:
 		if(record->event.pressed) {
 			// when keycode USER is pressed
-			SEND_STRING("lahlouh211");
+			SEND_STRING("XXXXXXXXXX");
 		} else {
-			// when keycode USER is released
+			// when keycode is released
 		}
 		break;
 	}
