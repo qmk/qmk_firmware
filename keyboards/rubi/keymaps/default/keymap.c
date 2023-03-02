@@ -15,11 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
-// enum custom_keycodes {
-//     FIRST = NEW_SAFE_RANGE,
-// };
-
 // Defines names for use in layer keycodes and the keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */

@@ -2,5 +2,8 @@
     "usb": {
         "pid": "0x1321",
         "device_version": "2.1.0"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-ms",
+    "debounce": 3
 }

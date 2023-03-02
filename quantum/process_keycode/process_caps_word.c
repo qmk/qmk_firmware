@@ -143,9 +143,13 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef SWAP_HANDS_ENABLE
             case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
-                // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TG, SH_TT, ...,
+                // Note: IS_SWAP_HANDS_KEYCODE() actually tests for the special action keycodes like SH_TOGG, SH_TT, ...,
                 // which currently overlap the SH_T(kc) range.
-                if (IS_SWAP_HANDS_KEYCODE(keycode) || record->tap.count == 0) {
+                if (IS_SWAP_HANDS_KEYCODE(keycode)
+#    ifndef NO_ACTION_TAPPING
+                    || record->tap.count == 0
+#    endif // NO_ACTION_TAPPING
+                ) {
                     return true;
                 }
                 keycode = QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode);

@@ -8,6 +8,12 @@
         "pid": "0xC18B",
         "device_version": "0.0.1"
     },
+    "indicators": {
+    	"caps_lock": "B6",
+    	"num_lock": "B5"
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
 		"LAYOUT_resume1800_ansi_all": {
             "layout": [

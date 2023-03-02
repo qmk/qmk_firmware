@@ -8,6 +8,11 @@
         "pid": "0x5887",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C14",
+        "scroll_lock": "A0"
+    },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

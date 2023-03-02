@@ -24,15 +24,8 @@ enum layers {
     MAC_FN
 };
 
-enum custom_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
-    KC_LAUNCHPAD
-};
-
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
 #define TO_WINB TO(WIN_BASE)
 #define TO_MACB TO(MAC_BASE)
 #define MO_WINF MO(WIN_FN)
@@ -174,20 +167,6 @@ bool led_update_user(led_t led_state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
     #ifdef RGB_MATRIX_ENABLE
     #ifdef NKRO_ENABLE
         case NK_TOGG:
@@ -296,7 +275,7 @@ bool rgb_matrix_indicators_user(void) {
     return false;
 }
 
-static void start_effects() {
+static void start_effects(void) {
     effect_started_time = sync_timer_read();
     if (!rgb_matrix_is_enabled()) {
         /* Turn it ON, signal the cause (EFFECTS) */
@@ -319,7 +298,7 @@ static void start_effects() {
 //  87, led 07                                                                                                                                                                      88, led 18
 //  91, led 08                                                                                                                                                                      92, led 19
 
-static void set_rgb_caps_leds() {
+static void set_rgb_caps_leds(void) {
     rgb_matrix_set_color(0, 0xFF, 0x0, 0x0); // ESC
     rgb_matrix_set_color(6, 0xFF, 0x0, 0x0); // F1
     rgb_matrix_set_color(12, 0xFF, 0x0, 0x0); // F2

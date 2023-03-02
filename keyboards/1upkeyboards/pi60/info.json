@@ -1,0 +1,148 @@
+{
+    "manufacturer": "1upkeyboards",
+    "keyboard_name": "pi60",
+    "maintainer": "ziptyze",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x5604",
+        "vid": "0x6F75"
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgb_matrix": true,
+        "rgblight": false
+    },
+    "matrix_pins": {
+        "cols": ["GP5", "GP8", "GP11", "GP6", "GP7", "GP0", "GP26", "GP10", "GP9", "GP1", "GP18", "GP20", "GP21", "GP27", "GP28", "GP19"],
+        "rows": ["GP12", "GP13", "GP16", "GP25", "GP29"]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP4",
+                "pin_b": "GP3"
+            },
+            {
+                "pin_a": "GP22",
+                "pin_b": "GP2"
+            },
+            {
+                "pin_a": "GP23",
+                "pin_b": "GP24"
+            }
+        ]
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            { "flags": 2, "x": 17,  "y": 50 },
+            { "flags": 2, "x": 37,  "y": 50 },
+            { "flags": 2, "x": 56,  "y": 50 },
+            { "flags": 2, "x": 77,  "y": 50 },
+            { "flags": 2, "x": 94,  "y": 50 },
+            { "flags": 2, "x": 114, "y": 50 },
+            { "flags": 2, "x": 131, "y": 50 },
+            { "flags": 2, "x": 148, "y": 50 },
+            { "flags": 2, "x": 168, "y": 50 },
+            { "flags": 2, "x": 188, "y": 50 },
+            { "flags": 2, "x": 209, "y": 50 },
+            { "flags": 2, "x": 209, "y": 13 },
+            { "flags": 2, "x": 187, "y": 13 },
+            { "flags": 2, "x": 166, "y": 13 },
+            { "flags": 2, "x": 145, "y": 13 },
+            { "flags": 2, "x": 126, "y": 13 },
+            { "flags": 2, "x": 109, "y": 13 },
+            { "flags": 2, "x": 90,  "y": 13 },
+            { "flags": 2, "x": 71,  "y": 13 },
+            { "flags": 2, "x": 54,  "y": 13 },
+            { "flags": 2, "x": 20,  "y": 13 }
+        ]
+    },
+    "layouts": {
+        "LAYOUT_60_ansi": {
+            "layout": [
+                { "label": "Esc",    "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
+                { "label": "1",      "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
+                { "label": "2",      "matrix": [0, 2], "w": 1, "x": 2, "y": 0 },
+                { "label": "3",      "matrix": [0, 3], "w": 1, "x": 3, "y": 0 },
+                { "label": "4",      "matrix": [0, 4], "w": 1, "x": 4, "y": 0 },
+                { "label": "5",      "matrix": [0, 5], "w": 1, "x": 5, "y": 0 },
+                { "label": "6",      "matrix": [0, 6], "w": 1, "x": 6, "y": 0 },
+                { "label": "7",      "matrix": [0, 7], "w": 1, "x": 7, "y": 0 },
+                { "label": "8",      "matrix": [0, 8], "w": 1, "x": 8, "y": 0 },
+                { "label": "9",      "matrix": [0, 9], "w": 1, "x": 9, "y": 0 },
+                { "label": "0",      "matrix": [0, 10], "w": 1, "x": 10, "y": 0 },
+                { "label": "-",      "matrix": [0, 11], "w": 1, "x": 11, "y": 0 },
+                { "label": "=",      "matrix": [0, 12], "w": 1, "x": 12, "y": 0 },
+                { "label": "BS",     "matrix": [0, 13], "w": 1, "x": 13, "y": 0 },
+                { "label": "~",      "matrix": [0, 14], "w": 1, "x": 14, "y": 0 },
+                { "label": "Tab",    "matrix": [1, 0], "w": 1.5, "x": 0, "y": 1 },
+                { "label": "Q",      "matrix": [1, 1], "w": 1, "x": 1.5, "y": 1 },
+                { "label": "W",      "matrix": [1, 2], "w": 1, "x": 2.5, "y": 1 },
+                { "label": "E",      "matrix": [1, 3], "w": 1, "x": 3.5, "y": 1 },
+                { "label": "R",      "matrix": [1, 4], "w": 1, "x": 4.5, "y": 1 },
+                { "label": "T",      "matrix": [1, 5], "w": 1, "x": 5.5, "y": 1 },
+                { "label": "Y",      "matrix": [1, 6], "w": 1, "x": 6.5, "y": 1 },
+                { "label": "U",      "matrix": [1, 7], "w": 1, "x": 7.5, "y": 1 },
+                { "label": "I",      "matrix": [1, 8], "w": 1, "x": 8.5, "y": 1 },
+                { "label": "O",      "matrix": [1, 9], "w": 1, "x": 9.5, "y": 1 },
+                { "label": "P",      "matrix": [1, 10], "w": 1, "x": 10.5, "y": 1 },
+                { "label": "[",      "matrix": [1, 11], "w": 1, "x": 11.5, "y": 1 },
+                { "label": "]",      "matrix": [1, 12], "w": 1, "x": 12.5, "y": 1 },
+                { "label": "|",      "matrix": [1, 13], "w": 1.5, "x": 13.5, "y": 1 },
+                { "label": "Caps",   "matrix": [2, 15], "w": 1.75, "x": 0, "y": 2 },
+                { "label": "A",      "matrix": [2, 1], "w": 1, "x": 1.75, "y": 2 },
+                { "label": "S",      "matrix": [2, 2], "w": 1, "x": 2.75, "y": 2 },
+                { "label": "D",      "matrix": [2, 3], "w": 1, "x": 3.75, "y": 2 },
+                { "label": "F",      "matrix": [2, 4], "w": 1, "x": 4.75, "y": 2 },
+                { "label": "G",      "matrix": [2, 5], "w": 1, "x": 5.75, "y": 2 },
+                { "label": "H",      "matrix": [2, 6], "w": 1, "x": 6.75, "y": 2 },
+                { "label": "J",      "matrix": [2, 7], "w": 1, "x": 7.75, "y": 2 },
+                { "label": "K",      "matrix": [2, 8], "w": 1, "x": 8.75, "y": 2 },
+                { "label": "L",      "matrix": [2, 9], "w": 1, "x": 9.75, "y": 2 },
+                { "label": ";",      "matrix": [2, 10], "w": 1, "x": 10.75, "y": 2 },
+                { "label": "'",      "matrix": [2, 11], "w": 1, "x": 11.75, "y": 2 },
+                { "label": "ISO'",   "matrix": [2, 12], "w": 1, "x": 12.75, "y": 2 },
+                { "label": "Enter",  "matrix": [2, 13], "w": 1.25, "x": 13.75, "y": 2 },
+                { "label": "LShift", "matrix": [3, 0], "w": 1.25, "x": 0, "y": 3 },
+                { "label": "ISO<>",  "matrix": [3, 1], "w": 1, "x": 1.25, "y": 3 },
+                { "label": "Z",      "matrix": [3, 2], "w": 1, "x": 2.25, "y": 3 },
+                { "label": "X",      "matrix": [3, 3], "w": 1, "x": 3.25, "y": 3 },
+                { "label": "C",      "matrix": [3, 4], "w": 1, "x": 4.25, "y": 3 },
+                { "label": "V",      "matrix": [3, 5], "w": 1, "x": 5.25, "y": 3 },
+                { "label": "B",      "matrix": [3, 6], "w": 1, "x": 6.25, "y": 3 },
+                { "label": "N",      "matrix": [3, 7], "w": 1, "x": 7.25, "y": 3 },
+                { "label": "M",      "matrix": [3, 8], "w": 1, "x": 8.25, "y": 3 },
+                { "label": ",",      "matrix": [3, 9], "w": 1, "x": 9.25, "y": 3 },
+                { "label": ".",      "matrix": [3, 10], "w": 1, "x": 10.25, "y": 3 },
+                { "label": "/",      "matrix": [3, 11], "w": 1.75, "x": 11.25, "y": 3 },
+                { "label": "RShift", "matrix": [3, 12], "w": 1, "x": 13, "y": 3 },
+                { "label": "FN",     "matrix": [3, 14], "w": 1, "x": 14, "y": 3 },
+                { "label": "LCtrl",  "matrix": [4, 15], "w": 1.25, "x": 0, "y": 4 },
+                { "label": "LGui",   "matrix": [4, 1], "w": 1.25, "x": 1.25, "y": 4 },
+                { "label": "LAlt",   "matrix": [4, 2], "w": 1.25, "x": 2.5, "y": 4 },
+                { "label": "LSpace", "matrix": [4, 4], "w": 2.75, "x": 3.75, "y": 4 },
+                { "label": "CSpace", "matrix": [4, 6], "w": 1.25, "x": 6.5, "y": 4 },
+                { "label": "RSpace", "matrix": [4, 8], "w": 2.25, "x": 7.75, "y": 4 },
+                { "label": "RAlt",   "matrix": [4, 10], "w": 1, "x": 10, "y": 4 },
+                { "label": "FN",     "matrix": [4, 11], "w": 1, "x": 11, "y": 4 },
+                { "label": "Mid1U",  "matrix": [4, 12], "w": 1, "x": 12, "y": 4 },
+                { "label": "Menu",   "matrix": [4, 13], "w": 1, "x": 13, "y": 4 },
+                { "label": "RCtrl",  "matrix": [4, 14], "w": 1, "x": 14, "y": 4 }
+            ]
+        }
+    }
+}
