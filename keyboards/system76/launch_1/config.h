@@ -72,7 +72,7 @@
 // I2C {
 #define F_SCL 100000UL // Run I2C bus at 100 kHz
 #define I2C_START_RETRY_COUNT 20
-#define I2C_TIMEOUT 100 // milliseconds
+#define I2C_TIMEOUT 10 // milliseconds
 // } I2C
 
 // EEPROM {
