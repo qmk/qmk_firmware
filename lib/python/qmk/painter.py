@@ -171,6 +171,7 @@ def convert_requested_format(im, format):
             if fmt["image_format"] == image_format:
                 # has to be an iterable, to use `in`
                 valid = [ fmt["num_colors"] ]
+                break
 
     if ncolors not in valid:
         raise ValueError(f"Number of colors must be {' '.join(valid)}.")
