@@ -273,8 +273,7 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
         if (ret && output_state.pixel_write_pos > 0) {
             ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.pixel_write_pos);
         }
-    }
-    else if (frame_info->bpp != driver->native_bits_per_pixel) {
+    } else if (frame_info->bpp != driver->native_bits_per_pixel) {
         // Prevent stuff like drawing 24bpp images on 16bpp displays
         qp_dprintf("Image's bpp doesn't match the target display's native_bits_per_pixel\n");
         return false;
