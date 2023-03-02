@@ -4,7 +4,7 @@
 
 The Pteron56 is a 56-key vertically staggered ortholinear keyboard with a 15 degree inward tilt per hand. 
 
-Initially developed by @FSund, this keyboard was designed to potentially reduce wrist and typing strain by offsetting the keys in a manner that mimics the natural stagger of the human hand with 4 thumb keys per side arranged around an ~85mm arc to mimic the swimg of one's mighty thumbs.
+Initially developed by [FSund](https://github.com/%fsund%), this keyboard was designed to potentially reduce wrist and typing strain by offsetting the keys in a manner that mimics the natural stagger of the human hand with 4 thumb keys per side arranged around an ~85mm arc to mimic the swimg of one's mighty thumbs.
 
 Users have reported reduced finger movement, reduced wrist movement, and better typing comfort and swiftness with the Pteron layouts compared to a standard keyboard. 
 
