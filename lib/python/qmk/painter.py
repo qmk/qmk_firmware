@@ -170,12 +170,11 @@ def convert_requested_format(im, format):
         for _, fmt in valid_formats.items():
             if fmt["image_format"] == image_format:
                 # has to be an iterable, to use `in`
-                valid = [ fmt["num_colors"] ]
+                valid = [fmt["num_colors"]]
                 break
 
     if ncolors not in valid:
         raise ValueError(f"Number of colors must be {' '.join(valid)}.")
-
 
     # Work out where we're getting the bytes from
     if image_format == 'IMAGE_FORMAT_GRAYSCALE':
