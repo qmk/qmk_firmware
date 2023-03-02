@@ -8,6 +8,14 @@
       "pid": "0x0001",
       "device_version": "0.0.2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D5", "pin_b": "B7"},
+            {"pin_a": "D5", "pin_b": "C7"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

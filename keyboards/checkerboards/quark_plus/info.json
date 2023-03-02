@@ -8,6 +8,21 @@
         "pid": "0x5344",
         "device_version": "0.0.1"
     },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "C7", "pin_b": "B7"},
+        {"pin_a": "B7", "pin_b": "C7"},
+        {"pin_a": "B3", "pin_b": "B2"},
+        {"pin_a": "B2", "pin_b": "B3"}
+      ]
+    },
+    "backlight": {
+      "pin": "C4",
+      "levels": 6,
+      "breathing": true
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
           "LAYOUT_grid": {
               "layout":

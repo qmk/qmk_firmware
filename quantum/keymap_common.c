@@ -72,14 +72,28 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_TRANSPARENT;
             break;
         case QK_MODS ... QK_MODS_MAX:;
-            // Has a modifier
-            // Split it up
+        // Has a modifier
+        // Split it up
+#ifdef LEGACY_MAGIC_HANDLING
             action.code = ACTION_MODS_KEY(QK_MODS_GET_MODS(keycode), QK_MODS_GET_BASIC_KEYCODE(keycode)); // adds modifier to key
+#else                                                                                                     // LEGACY_MAGIC_HANDLING
+            action.code = ACTION_MODS_KEY(mod_config(QK_MODS_GET_MODS(keycode)), keycode_config(QK_MODS_GET_BASIC_KEYCODE(keycode))); // adds modifier to key
+#endif                                                                                                    // LEGACY_MAGIC_HANDLING
+            break;
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+#if !defined(NO_ACTION_LAYER) && !defined(NO_ACTION_TAPPING)
+#    ifdef LEGACY_MAGIC_HANDLING
+            action.code = ACTION_LAYER_TAP_KEY(QK_LAYER_TAP_GET_LAYER(keycode), QK_LAYER_TAP_GET_TAP_KEYCODE(keycode));
+#    else  // LEGACY_MAGIC_HANDLING
+            action.code = ACTION_LAYER_TAP_KEY(QK_LAYER_TAP_GET_LAYER(keycode), keycode_config(QK_LAYER_TAP_GET_TAP_KEYCODE(keycode)));
+#    endif // LEGACY_MAGIC_HANDLING
+#else
+            // pass through keycode_config again, since it previously missed it
+            // and then only send as ACTION_KEY to bypass most of action.c handling
+            action.code = ACTION_KEY(keycode_config(QK_LAYER_TAP_GET_TAP_KEYCODE(keycode)));
+#endif
             break;
 #ifndef NO_ACTION_LAYER
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-            action.code = ACTION_LAYER_TAP_KEY(QK_LAYER_TAP_GET_LAYER(keycode), QK_LAYER_TAP_GET_TAP_KEYCODE(keycode));
-            break;
         case QK_TO ... QK_TO_MAX:;
             // Layer set "GOTO"
             action_layer = QK_TO_GET_LAYER(keycode);
@@ -107,31 +121,61 @@ action_t action_for_keycode(uint16_t keycode) {
             action_layer = QK_ONE_SHOT_LAYER_GET_LAYER(keycode);
             action.code  = ACTION_LAYER_ONESHOT(action_layer);
             break;
+#endif // NO_ACTION_ONESHOT
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:;
             // OSM(mod) - One-shot mod
-            mod         = mod_config(QK_ONE_SHOT_MOD_GET_MODS(keycode));
+            mod = mod_config(QK_ONE_SHOT_MOD_GET_MODS(keycode));
+#if defined(NO_ACTION_TAPPING) || defined(NO_ACTION_ONESHOT)
+            action.code = ACTION_MODS(mod);
+#else  // defined(NO_ACTION_TAPPING) || defined(NO_ACTION_ONESHOT)
             action.code = ACTION_MODS_ONESHOT(mod);
+#endif // defined(NO_ACTION_TAPPING) || defined(NO_ACTION_ONESHOT)
             break;
-#endif
 #ifndef NO_ACTION_LAYER
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+#    ifndef NO_ACTION_TAPPING
             action.code = ACTION_LAYER_TAP_TOGGLE(QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode));
+#    else // NO_ACTION_TAPPING
+#        ifdef NO_ACTION_TAPPING_TAP_TOGGLE_MO
+            action.code = ACTION_LAYER_MOMENTARY(QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode));
+#        else  // NO_ACTION_TAPPING_TAP_TOGGLE_MO
+            action.code = ACTION_LAYER_TOGGLE(QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode));
+#        endif // NO_ACTION_TAPPING_TAP_TOGGLE_MO
+#    endif     // NO_ACTION_TAPPING
             break;
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
             mod          = mod_config(QK_LAYER_MOD_GET_MODS(keycode));
             action_layer = QK_LAYER_MOD_GET_LAYER(keycode);
-            action.code  = ACTION_LAYER_MODS(action_layer, mod);
+            action.code  = ACTION_LAYER_MODS(action_layer, (mod & 0x10) ? mod << 4 : mod);
             break;
-#endif
-#ifndef NO_ACTION_TAPPING
+#endif // NO_ACTION_LAYER
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            mod         = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+#ifndef NO_ACTION_TAPPING
+            mod = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+#    ifdef LEGACY_MAGIC_HANDLING
             action.code = ACTION_MODS_TAP_KEY(mod, QK_MOD_TAP_GET_TAP_KEYCODE(keycode));
+#    else  // LEGACY_MAGIC_HANDLING
+            action.code = ACTION_MODS_TAP_KEY(mod, keycode_config(QK_MOD_TAP_GET_TAP_KEYCODE(keycode)));
+#    endif // LEGACY_MAGIC_HANDLING
+#else      // NO_ACTION_TAPPING
+#    ifdef NO_ACTION_TAPPING_MODTAP_MODS
+            // pass through mod_config again, since it previously missed it
+            // and then only send as ACTION_KEY to bypass most of action.c handling
+            action.code = ACTION_MODS(mod_config(QK_MOD_TAP_GET_MODS(keycode)));
+#    else  // NO_ACTION_TAPPING_MODTAP_MODS
+           // pass through keycode_config again, since it previously missed it
+           // and then only send as ACTION_KEY to bypass most of action.c handling
+            action.code = ACTION_KEY(keycode_config(QK_MOD_TAP_GET_TAP_KEYCODE(keycode)));
+#    endif // NO_ACTION_TAPPING_MODTAP_MODS
+#endif     // NO_ACTION_TAPPING
             break;
-#endif
 #ifdef SWAP_HANDS_ENABLE
         case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+#    ifdef LEGACY_MAGIC_HANDLING
             action.code = ACTION(ACT_SWAP_HANDS, QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode));
+#    else  // LEGACY_MAGIC_HANDLING
+            action.code = ACTION(ACT_SWAP_HANDS, keycode_config(QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode)));
+#    endif // LEGACY_MAGIC_HANDLING
             break;
 #endif
 

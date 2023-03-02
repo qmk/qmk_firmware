@@ -21,7 +21,7 @@
 enum unicode_names { SAE, BAE, SUE, BUE, SOE, BOE, SS, EUR, CPR };
 
 /* Unicode map */
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [SAE] = 0x00E4,  // ä
     [BAE] = 0x00C4,  // Ä
     [SUE] = 0x00FC,  // ü
