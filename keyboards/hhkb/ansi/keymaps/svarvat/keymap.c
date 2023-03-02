@@ -135,6 +135,7 @@ enum custom_keycodes {
     MA_LTHUMBY,
     MA_LPINKY,
     MA_LOSLBISTRIG,
+    MA_CAPSLOCK,
     MA_0,
     MA_1,
     MA_2,
@@ -238,8 +239,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MA_MOUSE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_LGUI,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, QK_REBOOT, KC_DEL,
         MA_LPINKY, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
-        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_RCTL,
-        KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_RALT
+        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_LSFT, KC_LCTL,
+        KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_LALT
     ),
     [LA_RTHUMB] = LAYOUT(
         KC_TRNS, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -270,7 +271,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_LCTL, MA_BSPCX4, KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMB] = LAYOUT(
-        TG(LA_CAPSLOCK), MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        MA_CAPSLOCK, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, C(KC_Q), C(KC_W), MA_LTHUMBE, C(KC_R), MA_LTHUMBT, MA_LTHUMBY, MA_7, MA_8, MA_9, MA_EQL, MA_ASTR, KC_TRNS, KC_TRNS,
         KC_TRNS, C(KC_Z), C(KC_S), MA_LTHUMBD, C(KC_F), MA_LTHUMBG, MA_DOT, MA_4, MA_5, MA_6, MA_MINS, MA_PLUS, MA_ENT,
         KC_LSFT, C(KC_A), C(KC_X), C(KC_C), C(KC_V), MA_LTHUMBB, MA_0, MA_1, MA_2, MA_3, MA_SLSH, KC_TRNS, KC_TRNS,
@@ -330,7 +331,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), MA_CIRC, KC_TRNS, KC_TRNS,
         MA_LPINKY, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), X(UAIGU), KC_TRNS,
         KC_TRNS, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, MA_LTHUMB, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
+        KC_TRNS, KC_TRNS, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_MOUSE] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -354,6 +355,12 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 layer_on(LA_LPINKY);
             }
             return false;
+        case MEH(MA_MOUSE):
+            if (record->event.pressed) {
+                tap_code16(KC_D);
+                reset_keyboard();
+            }
+            return false;
         case MA_MOUSE:
             if (record->event.pressed) {
                 if (IS_LAYER_ON(LA_MOUSE)) {
@@ -365,24 +372,9 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
-    }
-    return true;
-}
-bool processKeycodeIfShift(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case KC_SLSH:
+        case S(KC_SLSH):
             if (record->event.pressed) {
                 tap_code16(FR_BSLS);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfShiftCtlAlt(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case S(C(A(MA_MOUSE))):
-            if (record->event.pressed) {
-                tap_code16(QK_BOOTLOADER);
             }
             return false;
     }
@@ -729,15 +721,16 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
             }
             register_mods(MOD_MASK_CTRL);
             return false;
-        case TG(LA_CAPSLOCK):
+        case MA_CAPSLOCK:
             if (record->event.pressed) {
                 if (IS_LAYER_ON(LA_CAPSLOCK)) {
-                    unregister_code16(KC_CAPS);
+                    layer_off(LA_CAPSLOCK);
                 } else {
-                    register_code16(KC_CAPS);
+                    layer_on(LA_CAPSLOCK);
                 }
             }
-            return true;
+            register_mods(MOD_MASK_CTRL);
+            return false;
     }
     register_mods(MOD_MASK_CTRL);
     return true;
@@ -924,7 +917,7 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mo
     }
     if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
     if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
-    return true;
+    return processKeycodeIfLBase(keycode, record);
 }
 
 
@@ -962,10 +955,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
     }
     if (IS_LAYER_ON(LA_CAPSLOCK)) {return processKeycodeIfLCapslock(keycode, record, mod_state);}
-    if (mod_state & MOD_MASK_SHIFT) {
-        if (MOD_MASK_CTRL & MOD_MASK_ALT) {return processKeycodeIfShiftCtlAlt(keycode, record);}
-        return processKeycodeIfShift(keycode, record);
-    }
     return processKeycodeIfLBase(keycode, record);
+
 }
 

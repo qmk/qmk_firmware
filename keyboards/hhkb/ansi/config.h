@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNICODE_KEY_WINC KC_LCAP
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 1
-#define AUTO_MOUSE_TIME 400
+#define AUTO_MOUSE_TIME 1000
 
 
 /* key matrix size */
