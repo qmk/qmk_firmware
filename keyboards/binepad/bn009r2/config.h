@@ -1,4 +1,4 @@
-// Copyright 2023 binepad (@binepad)
+// Copyright 2023 Binepad (@binepad)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -6,17 +6,8 @@
 #define HOLD_ON_OTHER_KEY_PRESS
 
 /*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
+ * Wear Leveling EEPROM Emulation
  */
 
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+#define WEAR_LEVELING_LOGICAL_SIZE 2048                              // Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
+#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)  // Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.

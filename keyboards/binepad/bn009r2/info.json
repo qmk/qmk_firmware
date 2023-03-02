@@ -1,6 +1,6 @@
 {
     "manufacturer": "Binepad",
-    "keyboard_name": "BN009",
+    "keyboard_name": "BN009 R2",
     "maintainer": "binepad",
     "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
@@ -23,6 +23,7 @@
         "pid": "0x4295",
         "device_version": "2.0.0"
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
