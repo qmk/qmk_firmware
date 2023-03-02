@@ -3,13 +3,6 @@
 
 #pragma once
 
-
-// wiring of each half
-#undef MATRIX_ROW_PINS
-#define MATRIX_ROW_PINS { B5, B3, B2, B1, B0 }
-#undef MATRIX_COL_PINS
-#define MATRIX_COL_PINS { A1, A0, B8, B13, B14, B15, B9 }
-
 // //we are using hardware serial, so lets undef the softserial used otherwise
 
 /* serial.c configuration for split keyboard */
