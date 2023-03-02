@@ -3,28 +3,6 @@
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { E6, D5, B3, B2 }
 #define MATRIX_COL_PINS { C7, C6, B6, B5, B4, D7, D6, D4, F6, F7, F5, F4 }
