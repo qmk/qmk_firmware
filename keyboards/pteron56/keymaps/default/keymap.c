@@ -48,15 +48,5 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//	switch (keycode) {
-//	case DIFHIL:
-//		if (record->event.pressed) {
-//			// when keycode DIFHIL is pressed	
-//			// SEND_STRING("echo \"KexAlgorithms +diffie-hellman-group1-sha1\" > .ssh/config");
-//		} else {
-//			// when keycode DIFHIL is released
-//		}
-//		break;
-//	}
 	return true;
 }
