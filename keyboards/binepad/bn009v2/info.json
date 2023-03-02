@@ -13,8 +13,8 @@
         "nkro": false
     },
     "matrix_pins": {
-        "cols": ["A6", "A2", "A1"],
-        "rows": ["B2", "B7", "B6"]
+        "cols": ["A1", "A2", "A6"],
+        "rows": ["B6", "B7", "B2"]
     },
     "processor": "STM32F103",
     "url": "http://binepad.com",
