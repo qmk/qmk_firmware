@@ -4,11 +4,11 @@
 
 The Pteron56 is a 56-key vertically staggered ortholinear keyboard with a 15 degree inward tilt per hand. 
 
-Initially developed by [FSund](https://github.com/%fsund%), this keyboard was designed to potentially reduce wrist and typing strain by offsetting the keys in a manner that mimics the natural stagger of the human hand with 4 thumb keys per side arranged around an ~85mm arc to mimic the swimg of one's mighty thumbs.
+Initially developed by [FSund](https://github.com/fsund), this keyboard was designed to potentially reduce wrist and typing strain by offsetting the keys in a manner that mimics the natural stagger of the human hand with 4 thumb keys per side arranged around an ~85mm arc to mimic the swimg of one's mighty thumbs.
 
 Users have reported reduced finger movement, reduced wrist movement, and better typing comfort and swiftness with the Pteron layouts compared to a standard keyboard. 
 
-* Keyboard Maintainer: [Alex Moore](https://github.com/%kraken-jokes%)
+* Keyboard Maintainer: [Alex Moore](https://github.com/kraken-jokes)
 * Hardware Supported: [PCB]Pteron56v0.2, Pteron56v0.2hsu, Pteron56v0.3, Pteron56v0.4e [MCU]Pro-Micro, Elite-C
 * Hardware Availability: moorekeys.etsy.com. Open source though so it varies.
 
