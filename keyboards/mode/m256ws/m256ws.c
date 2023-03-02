@@ -19,3 +19,7 @@
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     rgblight_disable(); // Enable RGB by default
 }
+
+void board_init(void) {
+    wait_ms(30);
+}
