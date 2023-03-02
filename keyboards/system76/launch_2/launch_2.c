@@ -19,6 +19,8 @@
 
 #include "usb_mux.h"
 
+#define GPIO_MASK_RESET_USB (1<<3)
+
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE
 // LEDs by index
@@ -72,8 +74,6 @@ led_config_t g_led_config = { {
 /* 80 */ 4, 4, 4, 4
 } };
 #endif // RGB_MATRIX_ENABLE
-
-static bool lctl_pressed, rctl_pressed = false;
 
 bool eeprom_is_valid(void) {
     return (
@@ -228,18 +228,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 set_value_all_layers(level);
             }
             return false;
-                    case KC_LCTL:
-            lctl_pressed = record->event.pressed;
-            break;
-        case KC_RCTL:
-            rctl_pressed = record->event.pressed;
-            break;
-        case KC_ESC:
-            if (lctl_pressed && rctl_pressed) {
-                if (record->event.pressed) system76_ec_unlock();
-                return false;
-            }
-            break;
     }
 
     return true;
@@ -258,3 +246,40 @@ void keyboard_post_init_user(void) {
     debug_keyboard = false;
 }
 #endif  // CONSOLE_ENABLE
+
+void bootloader_jump(void) {
+
+    // Disable all peripherals on AT90USB646
+    UDCON = 1;
+    USBCON = (1<<FRZCLK);  // disable USB
+    UCSR1B = 0;
+    _delay_ms(5);
+
+    EIMSK  = 0;
+    PCICR  = 0;
+    SPCR   = 0;
+    ACSR   = 0;
+    EECR   = 0;
+    ADCSRA = 0;
+    TIMSK0 = 0;
+    TIMSK1 = 0;
+    TIMSK2 = 0;
+    TIMSK3 = 0;
+    UCSR1B = 0;
+    TWCR   = 0;
+    DDRA   = GPIO_MASK_RESET_USB;
+    DDRB   = 0;
+    DDRC   = 0;
+    DDRD   = 0;
+    DDRE   = 0;
+    DDRF   = 0;
+    PORTA  = GPIO_MASK_RESET_USB;
+    PORTB  = 0;
+    PORTC  = 0;
+    PORTD  = 0;
+    PORTE  = 0;
+    PORTF  = 0;
+
+    // finally, jump to bootloader
+    asm volatile("jmp 0xFC00");
+}
