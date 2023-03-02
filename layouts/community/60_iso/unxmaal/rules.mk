@@ -1,4 +1,4 @@
 # Only enable RGB on avr boards
-ifndef MCU_FAMILY
+ifeq ($(strip $(PLATFORM)), AVR)
     RGBLIGHT_ENABLE = yes          # Enable RGB Underglow
 endif
