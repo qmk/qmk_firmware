@@ -8,6 +8,11 @@
         "pid": "0x6135",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["E6", "B7", "D5", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7", "F6", "F5", "F4", "D3"],
+        "rows": ["B1", "B2", "B3", "F1", "F0"]
+    },
+    "diode_direction": "COL2ROW",
     "qmk_lufa_bootloader": {
         "esc_input": "B1",
         "esc_output": "E6"
