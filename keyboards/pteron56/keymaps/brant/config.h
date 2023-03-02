@@ -1,14 +1,12 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6D4B
 #define PRODUCT_ID      0x7056
-#define DEVICE_VER      0x0001
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    MooreKeys
-#define PRODUCT         Pteron56 v0.1
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -49,6 +47,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #endif
