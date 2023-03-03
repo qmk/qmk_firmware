@@ -17,15 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS { C7, C6, B5 }
-#define MATRIX_COL_PINS { B4, D2 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define RGB_DI_PIN B7
 #ifdef  RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING

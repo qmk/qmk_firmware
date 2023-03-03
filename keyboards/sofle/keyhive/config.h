@@ -18,14 +18,6 @@
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS       { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS       { B6, B2, B3, B1, F7, F6, NO_PIN } // A virtual pin is needed for the encoder key matrix in via.
-#define MATRIX_ROW_PINS_RIGHT { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS_RIGHT { F6, F7, B1, B3, B2, B6, NO_PIN } // A virtual pin is needed for the encoder key matrix in via.
-
-#define DIODE_DIRECTION COL2ROW
-
 #define TAP_CODE_DELAY  10
 
 // OLED settings
