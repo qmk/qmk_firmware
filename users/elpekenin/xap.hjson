@@ -1,0 +1,516 @@
+{
+    routes: {
+        0x01: {
+            type: command
+            name: Capabilities Query
+            define: CAPABILITIES_QUERY_KB
+            description:
+                '''
+                KB subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                '''
+            return_type: u32
+            return_purpose: capabilities
+            return_constant: XAP_ROUTE_KB_CAPABILITIES
+        },
+        0x02: {
+            type: router
+            name: quantum_painter
+            define: QUANTUM_PAINTER
+            description:
+                '''
+                This subsystem allows for control over quantum painter feature
+                '''
+            enable_if_preprocessor: defined(QUANTUM_PAINTER_ENABLE)
+            routes: {
+                0x01: {
+                    type: command
+                    name: clear
+                    define: CLEAR
+                    description: Expose `qp_clear`
+                    request_struct_length: 1
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                    ]
+                    return_execute: qp_clear
+                }
+                0x02: {
+                    type: command
+                    name: setpixel
+                    define: SETPIXEL
+                    description: Expose `qp_setpixel`
+                    request_struct_length: 8
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u8
+                            name: hue
+                        },
+                        {
+                            type: u8
+                            name: sat
+                        },
+                        {
+                            type: u8
+                            name: val
+                        },
+                    ]
+                    return_execute: qp_setpixel
+                }
+                0x03: {
+                    type: command
+                    name: line
+                    define: DRAW_LINE
+                    description: Expose `qp_line`
+                    request_struct_length: 12
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x0
+                        },
+                        {
+                            type: u16
+                            name: y0
+                        },
+                        {
+                            type: u16
+                            name: x1
+                        },
+                        {
+                            type: u16
+                            name: y1
+                        },
+                        {
+                            type: u8
+                            name: hue
+                        },
+                        {
+                            type: u8
+                            name: sat
+                        },
+                        {
+                            type: u8
+                            name: val
+                        },
+                    ]
+                    return_execute: qp_line
+                }
+                0x04: {
+                    type: command
+                    name: rect
+                    define: DRAW_RECT
+                    description: Expose `qp_rect`
+                    request_struct_length: 13
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: left
+                        },
+                        {
+                            type: u16
+                            name: top
+                        },
+                        {
+                            type: u16
+                            name: right
+                        },
+                        {
+                            type: u16
+                            name: bottom
+                        },
+                        {
+                            type: u8
+                            name: hue
+                        },
+                        {
+                            type: u8
+                            name: sat
+                        },
+                        {
+                            type: u8
+                            name: val
+                        },
+                        {
+                            type: u8
+                            name: filled
+                        },
+                    ]
+                    return_execute: qp_rect
+                }
+                0x05: {
+                    type: command
+                    name: circle
+                    define: DRAW_CIRCLE
+                    description: Expose `qp_circle`
+                    request_struct_length: 11
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u16
+                            name: radius
+                        },
+                        {
+                            type: u8
+                            name: hue
+                        },
+                        {
+                            type: u8
+                            name: sat
+                        },
+                        {
+                            type: u8
+                            name: val
+                        },
+                        {
+                            type: u8
+                            name: filled
+                        },
+                    ]
+                    return_execute: qp_circle
+                }
+                0x06: {
+                    type: command
+                    name: ellipse
+                    define: DRAW_ELLIPSE
+                    description: Expose `qp_ellipse`
+                    request_struct_length: 13
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u16
+                            name: sizex
+                        },
+                        {
+                            type: u16
+                            name: sizey
+                        },
+                        {
+                            type: u8
+                            name: hue
+                        },
+                        {
+                            type: u8
+                            name: sat
+                        },
+                        {
+                            type: u8
+                            name: val
+                        },
+                        {
+                            type: u8
+                            name: filled
+                        },
+                    ]
+                    return_execute: qp_ellipse
+                }
+                0x07: {
+                    type: command
+                    name: drawimage
+                    define: DRAWIMAGE
+                    description: Expose `qp_drawimage`
+                    request_struct_length: 6
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u8
+                            name: image_id
+                        },
+                    ]
+                    return_execute: qp_drawimage
+                }
+                0x08: {
+                    type: command
+                    name: drawimage_recolor
+                    define: DRAWIMAGE_RECOLOR
+                    description: Expose `qp_drawimage_recolor`
+                    request_struct_length: 12
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u8
+                            name: image_id
+                        },
+                        {
+                            type: u8
+                            name: hue_fg
+                        },
+                        {
+                            type: u8
+                            name: sat_fg
+                        },
+                        {
+                            type: u8
+                            name: val_fg
+                        },
+                        {
+                            type: u8
+                            name: hue_bg
+                        },
+                        {
+                            type: u8
+                            name: sat_bg
+                        },
+                        {
+                            type: u8
+                            name: val_bg
+                        },
+                    ]
+                    return_execute: qp_drawimage_recolor
+                }
+                0x09: {
+                    type: command
+                    name: animate
+                    define: ANIMATE
+                    description: Expose `qp_animate`
+                    request_struct_length: 6
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u8
+                            name: image_id
+                        },
+                    ]
+                    return_execute: qp_animate
+                }
+                0x0A: {
+                    type: command
+                    name: animate_recolor
+                    define: ANIMATE_RECOLOR
+                    description: Expose `qp_animate_recolor`
+                    request_struct_length: 12
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u8
+                            name: image_id
+                        },
+                        {
+                            type: u8
+                            name: hue_fg
+                        },
+                        {
+                            type: u8
+                            name: sat_fg
+                        },
+                        {
+                            type: u8
+                            name: val_fg
+                        },
+                        {
+                            type: u8
+                            name: hue_bg
+                        },
+                        {
+                            type: u8
+                            name: sat_bg
+                        },
+                        {
+                            type: u8
+                            name: val_bg
+                        },
+                    ]
+                    return_execute: qp_animate_recolor
+                }
+                0x0B: {
+                    type: command
+                    name: drawtext
+                    define: DRAWTEXT
+                    description: Expose `qp_drawtext`
+                    request_struct_length: 61
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u8
+                            name: font_id
+                        }
+                        {
+                            type: u8[55]
+                            name: text
+                        },
+                    ]
+                    return_execute: qp_drawtext
+                }
+                0x0C: {
+                    type: command
+                    name: drawtext_recolor
+                    define: DRAWTEXT_RECOLOR
+                    description: Expose `qp_drawtext_recolor`
+                    request_struct_length: 61
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                        {
+                            type: u16
+                            name: x
+                        },
+                        {
+                            type: u16
+                            name: y
+                        },
+                        {
+                            type: u8
+                            name: font_id
+                        },
+                        {
+                            type: u8
+                            name: hue_fg
+                        },
+                        {
+                            type: u8
+                            name: sat_fg
+                        },
+                        {
+                            type: u8
+                            name: val_fg
+                        },
+                        {
+                            type: u8
+                            name: hue_bg
+                        },
+                        {
+                            type: u8
+                            name: sat_bg
+                        },
+                        {
+                            type: u8
+                            name: val_bg
+                        },
+                        {
+                            type: u8[49]
+                            name: text
+                        },
+                    ]
+                    return_execute: qp_drawtext_recolor
+                }
+                0x0D: {
+                    type: command
+                    name: qp_get_geometry
+                    define: QP_GET_GEOMETRY
+                    description: Expose `qp_get_geometry`
+                    request_struct_length: 1
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        }
+                    ]
+                    return_execute: qp_get_geometry
+                }
+                0x0E: {
+                    type: command
+                    name: flush
+                    define: FLUSH
+                    description: Expose `qp_flush`
+                    request_struct_length: 1
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: device_id
+                        },
+                    ]
+                    return_execute: qp_flush
+                }
+            }
+        }
+    }
+}
