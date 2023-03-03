@@ -86,8 +86,8 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - a picture about the keyboard and preferably about the PCB, too
         - images are not to be placed in the `qmk_firmware` repository
         - images should be uploaded to an external image hosting service, such as [imgur](https://imgur.com/).
-        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. `https://i.imgur.com/vqgE7Ok.jpg` becomes `https://i.imgur.com/vqgE7Okh.jpg`
-        - image links should link directly to the image, not a "preview" (e.g. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Okh.jpg](https://i.imgur.com/vqgE7Okh.jpg) when using imgur)
+        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. [https://i.imgur.com/vqgE7Ok.jpg](https://i.imgur.com/vqgE7Ok.jpg) becomes [https://i.imgur.com/vqgE7Ok**h**.jpg](https://i.imgur.com/vqgE7Okh.jpg)
+        - image links should link directly to the image, not a "preview" -- i.e. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Okh.jpg](https://i.imgur.com/vqgE7Okh.jpg) when using imgur
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
