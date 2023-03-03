@@ -8,7 +8,7 @@
     "version": 1,
     "author": "binepad",
     "notes": "This file is a keymap.json file for binepad/bn009r2",
-    "keymap": "default",
+    "keymap": "via",
     "layout": "LAYOUT_ortho_3x3",
     "layers": [
         [
