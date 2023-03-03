@@ -8,6 +8,7 @@ import os
 import os.path
 import argparse
 import json
+from time import sleep
 
 
 UF2_MAGIC_START0 = 0x0A324655 # "UF2\n"
@@ -276,23 +277,25 @@ def main():
     parser = argparse.ArgumentParser(description='Convert to UF2 or flash directly.')
     parser.add_argument('input', metavar='INPUT', type=str, nargs='?',
                         help='input file (HEX, BIN or UF2)')
-    parser.add_argument('-b' , '--base', dest='base', type=str,
+    parser.add_argument('-b', '--base', dest='base', type=str,
                         default="0x2000",
                         help='set base address of application for BIN format (default: 0x2000)')
-    parser.add_argument('-o' , '--output', metavar="FILE", dest='output', type=str,
-                        help='write output to named file; defaults to "flash.uf2" or "flash.bin" where sensible')
-    parser.add_argument('-d' , '--device', dest="device_path",
-                        help='select a device path to flash')
-    parser.add_argument('-l' , '--list', action='store_true',
-                        help='list connected devices')
-    parser.add_argument('-c' , '--convert', action='store_true',
-                        help='do not flash, just convert')
-    parser.add_argument('-D' , '--deploy', action='store_true',
-                        help='just flash, do not convert')
-    parser.add_argument('-f' , '--family', dest='family', type=str,
+    parser.add_argument('-f', '--family', dest='family', type=str,
                         default="0x0",
                         help='specify familyID - number or name (default: 0x0)')
-    parser.add_argument('-C' , '--carray', action='store_true',
+    parser.add_argument('-o', '--output', metavar="FILE", dest='output', type=str,
+                        help='write output to named file; defaults to "flash.uf2" or "flash.bin" where sensible')
+    parser.add_argument('-d', '--device', dest="device_path",
+                        help='select a device path to flash')
+    parser.add_argument('-l', '--list', action='store_true',
+                        help='list connected devices')
+    parser.add_argument('-c', '--convert', action='store_true',
+                        help='do not flash, just convert')
+    parser.add_argument('-D', '--deploy', action='store_true',
+                        help='just flash, do not convert')
+    parser.add_argument('-w', '--wait', action='store_true',
+                        help='wait for device to flash')
+    parser.add_argument('-C', '--carray', action='store_true',
                         help='convert binary file to a C array, not UF2')
     parser.add_argument('-i', '--info', action='store_true',
                         help='display header information from UF2, do not convert')
@@ -337,20 +340,23 @@ def main():
             print("Converted to %s, output size: %d, start address: 0x%x" %
                   (ext, len(outbuf), appstartaddr))
         if args.convert or ext != "uf2":
-            drives = []
             if args.output == None:
                 args.output = "flash." + ext
-        else:
-            drives = get_drives()
-
         if args.output:
             write_file(args.output, outbuf)
-        else:
+        if ext == "uf2" and not args.convert and not args.info:
+            drives = get_drives()
             if len(drives) == 0:
-                error("No drive to deploy.")
-        for d in drives:
-            print("Flashing %s (%s)" % (d, board_id(d)))
-            write_file(d + "/NEW.UF2", outbuf)
+                if args.wait:
+                    print("Waiting for drive to deploy...")
+                    while len(drives) == 0:
+                        sleep(0.1)
+                        drives = get_drives()
+                elif not args.output:
+                    error("No drive to deploy.")
+            for d in drives:
+                print("Flashing %s (%s)" % (d, board_id(d)))
+                write_file(d + "/NEW.UF2", outbuf)
 
 
 if __name__ == "__main__":

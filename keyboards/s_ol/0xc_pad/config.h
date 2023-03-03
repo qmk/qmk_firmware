@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN C7

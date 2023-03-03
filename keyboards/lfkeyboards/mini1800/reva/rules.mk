@@ -1,9 +1,3 @@
-# MCU name
-MCU = at90usb1286
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,7 +13,6 @@ AUDIO_ENABLE = yes          # Audio output
 
 # RGB code is implemented in lfkeyboards, not WS2812
 RGBLIGHT_CUSTOM_DRIVER = yes
-BACKLIGHT_DRIVER = custom
 SLEEP_LED_ENABLE = yes
 
 ISSI_ENABLE = yes           # If the I2C pullup resistors aren't install this must be disabled

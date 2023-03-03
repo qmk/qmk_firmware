@@ -8,6 +8,11 @@
         "pid": "0x5492",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7"
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [

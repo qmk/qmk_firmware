@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴────┴────┴─┴───┴────┴───┘
      */
     [_FN] = LAYOUT_65_ansi_blocker(
-        KC_LOCK, KC_F1,      KC_F2,      KC_F3,       KC_F4,          KC_F5,    KC_F6,    KC_F7,    KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_DEL,    MAC,
+        QK_LOCK, KC_F1,      KC_F2,      KC_F3,       KC_F4,          KC_F5,    KC_F6,    KC_F7,    KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_DEL,    MAC,
         RGB_TOG, KC_MS_BTN1, KC_MS_UP,   KC_MS_BTN2,  KC_MS_WH_UP,    _______,  _______,  _______,  KC_UP,   _______,  KC_HOME, KC_PGUP, _______, _______,   WIN,
         _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,  _______,  _______,  KC_LEFT,  KC_DOWN, KC_RIGHT, KC_END,  KC_PGDN,          QK_BOOT,     _______,
         RGB_MOD, KC_F13,     KC_F14,     KC_F15,      KC_F16,         KC_F17,   KC_F18,   KC_F19,   KC_F20,  KC_F21,   KC_F22,  KC_F23,           KC_BRIU,   _______, 

@@ -2,6 +2,16 @@
     "usb": {
         "device_version": "0.0.7"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "D0"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [3, 4]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

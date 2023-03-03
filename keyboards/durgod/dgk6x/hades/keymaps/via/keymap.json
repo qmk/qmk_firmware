@@ -15,7 +15,7 @@
       "KC_TRNS", "KC_TRNS", "KC_UP",   "KC_TRNS",  "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_PSCR", "KC_SCRL", "KC_PAUS", "KC_TRNS", "KC_TRNS",
       "KC_TRNS", "KC_LEFT", "KC_DOWN", "KC_RIGHT", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_INS",  "KC_END",             "KC_TRNS", "KC_TRNS",
       "KC_TRNS",            "KC_TRNS", "KC_TRNS",  "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
-      "KC_TRNS", "KC_TGUI", "KC_TRNS",                                   "KC_TRNS",                       "KC_TRNS", "MO(3)",   "KC_TRNS", "KC_APP",  "KC_TRNS", "KC_TRNS"
+      "KC_TRNS", "GUI_TOG", "KC_TRNS",                                   "KC_TRNS",                       "KC_TRNS", "MO(3)",   "KC_TRNS", "KC_APP",  "KC_TRNS", "KC_TRNS"
     ],
     [
       "KC_TRNS", "KC_MPLY", "KC_MSTP", "KC_MPRV", "KC_MNXT", "KC_VOLD", "KC_VOLU", "KC_MUTE", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RGB_TOG", "RGB_MOD", "RGB_RMOD", "KC_TRNS",
