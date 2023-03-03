@@ -2,7 +2,6 @@
     "manufacturer": "QMK",
     "keyboard_name": "DirectPins Teensy 3.2",
     "maintainer": "skullydazed",
-    "debounce": 5,
     "processor": "MK20DX256",
     "bootloader": "halfkay",
     "features": {

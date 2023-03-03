@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define CHOREOGRAPH(DANCE, PRESS, RELEASE, TAP, DOUBLETAP)              \
     static bool dance_ ## DANCE ## _pressed;                            \
                                                                         \
-    void dance_ ## DANCE ## _finished(qk_tap_dance_state_t *state, void *user_data) { \
+    void dance_ ## DANCE ## _finished(tap_dance_state_t *state, void *user_data) { \
         if (state->count == 1) {                                        \
             if (state->pressed) {                                       \
                 dance_ ## DANCE ## _pressed = true;                     \
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         }                                                               \
     }                                                                   \
                                                                         \
-    void dance_ ## DANCE ## _reset(qk_tap_dance_state_t *state, void *user_data) { \
+    void dance_ ## DANCE ## _reset(tap_dance_state_t *state, void *user_data) { \
         if (state->count == 1) {                                        \
             if (dance_ ## DANCE ## _pressed) {                          \
                 RELEASE;                                                \
@@ -138,7 +138,7 @@ CHOREOGRAPH(TD_C_X,
             SEND_STRING(SS_UP(X_LCTL)),
             SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL)),);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     STEPS(TD_LEFT), STEPS(TD_RGHT), STEPS(TD_C_X)
 };
 

@@ -3,12 +3,18 @@
   "manufacturer": "Yiancar",
   "url": "",
   "maintainer": "qmk",
-  "bootloader": "atmel-dfu",
   "usb": {
     "vid": "0xFEED",
     "pid": "0x5050",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7",
+    "levels": 5,
+    "breathing": true
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT_ansi": {
       "layout": [
