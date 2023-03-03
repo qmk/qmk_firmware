@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_LOWER] = LAYOUT(                                                 
     KC_TRNS,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                    DPI_UP,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,         
-    KC_TRNS, KC_MINS,  KC_EQL, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,  DPI_DN, KC_TRNS, KC_LBRC, KC_RBRC, KC_BSLS, KC_QUOT, KC_TRNS,
+    KC_TRNS, KC_MINS,  KC_EQL, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,  DPI_DN, KC_TRNS, KC_LBRC, KC_RBRC, KC_BSLS, KC_SCLN, KC_SCLN,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_TRNS,
              KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS            
   ),                                                                                                                 
@@ -45,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
              KC_TRNS,          DPI_FINE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS
   ),
-  [_STENO] = LAYOUT(                                                                                                
-    STN_RES1,  STN_S1,  STN_TL,  STN_PL,  STN_HL, STN_ST1,                   KC_TRNS, STN_ST3,  STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,         
-    STN_RES2,  STN_S2,  STN_KL,  STN_WL,  STN_RL, STN_ST2,          KC_TRNS, KC_TRNS, STN_ST4,  STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
-     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI, RGB_MOD, KC_TRNS,
-              KC_TRNS,            STN_A,   STN_O,  STN_N1, KC_TRNS, KC_TRNS, KC_TRNS,  STN_N2,   STN_E,   STN_U,          KC_TRNS
+    [_STENO] = LAYOUT(                                                                                                
+      STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,                   KC_TRNS,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC, 
+    STN_RES1,  STN_S1,  STN_TL,  STN_PL,  STN_HL, STN_ST1,          KC_TRNS, KC_TRNS, STN_ST3,  STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,         
+    STN_RES2,  STN_S2,  STN_KL,  STN_WL,  STN_RL, STN_ST2,                   KC_TRNS, STN_ST4,  STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR, 
+              KC_TRNS,           STN_N1,   STN_A,   STN_O, KC_TRNS, KC_TRNS, KC_TRNS,   STN_E,   STN_U,  STN_N2,          KC_TRNS
   )
 };
 
