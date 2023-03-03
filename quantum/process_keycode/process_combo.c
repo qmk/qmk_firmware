@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "keymap_common.h"
 #include "print.h"
 #include "process_combo.h"
 #include "action_tapping.h"
