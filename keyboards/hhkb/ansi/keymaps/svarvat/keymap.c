@@ -787,16 +787,17 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
         case MA_JUMPTAB:
             if (!(record->event.pressed)) {
                 tap_code16(KC_HOME);
+                tap_code16(KC_HOME);
                 tap_code16(KC_TAB);
                 tap_code16(KC_DOWN);
             }
             return false;
         case MA_JUMPDETAB:
             if (!(record->event.pressed)) {
+                tap_code16(KC_UP);
                 tap_code16(KC_HOME);
                 tap_code16(KC_HOME);
                 tap_code16(KC_DEL);
-                tap_code16(KC_UP);
             }
             return false;
     }
@@ -823,17 +824,6 @@ bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_LTHUMB);
             }
             return false;
-//        case MA_DELLINE:
-//            if (record->event.pressed) {
-//                tap_code16(KC_HOME);
-//                tap_code16(KC_HOME);
-//                register_code16(KC_LSFT);
-//                tap_code16(KC_END);
-//                tap_code16(KC_RGHT);
-//                unregister_code16(KC_LSFT);
-//                tap_code16(KC_DEL);
-//            }
-//            return false;
     }
     return true;
 }
@@ -845,17 +835,6 @@ bool processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_LTHUMB);
             }
             return false;
-//        case MA_DELLINE:
-//            if (record->event.pressed) {
-//                tap_code16(KC_HOME);
-//                tap_code16(KC_HOME);
-//                register_code16(KC_LSFT);
-//                tap_code16(KC_END);
-//                tap_code16(KC_RGHT);
-//                unregister_code16(KC_LSFT);
-//                tap_code16(KC_DEL);
-//            }
-//            return false;
     }
     return true;}
 bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
@@ -866,17 +845,6 @@ bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_LTHUMB);
             }
             return false;
-//        case MA_DELLINE:
-//            if (record->event.pressed) {
-//                tap_code16(KC_HOME);
-//                tap_code16(KC_HOME);
-//                register_code16(KC_LSFT);
-//                tap_code16(KC_END);
-//                tap_code16(KC_RGHT);
-//                unregister_code16(KC_LSFT);
-//                tap_code16(KC_DEL);
-//            }
-//            return false;
     }
     return true;}
 bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
