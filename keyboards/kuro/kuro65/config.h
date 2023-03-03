@@ -18,28 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter -> deprecated, see info.json */
-// #define VENDOR_ID       0x544D
-// #define PRODUCT_ID      0xC000
-// #define DEVICE_VER      0x0001
-// #define MANUFACTURER    KURO
-// #define PRODUCT         KURO65
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-#define MATRIX_ROW_PINS { F6, F5, F4, F1, F0 }
-#define MATRIX_COL_PINS { B0, B7, D0, D1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7 }
-
-/*
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- */
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* RGB Matrix defines*/
 #ifdef RGB_MATRIX_ENABLE
 // The pin connected to the data pin of the LEDs
