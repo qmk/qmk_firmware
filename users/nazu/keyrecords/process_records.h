@@ -35,7 +35,6 @@ enum userspace_custom_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-#define ADJUST MO(_ADJUST)
 
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK

@@ -18,3 +18,5 @@ TAP_DANCE_ENABLE = yes	  	# Enable Tap Dance
 NKRO_ENABLE = yes          	# Nkey Rollover
 
 MOUSEKEY_ENABLE = no
+
+TRI_LAYER_ENABLE = yes
