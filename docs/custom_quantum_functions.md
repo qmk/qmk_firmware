@@ -208,14 +208,14 @@ This example will show you how to use `void housekeeping_task_user(void)` to tur
 
 First add those lines to your user `config.h`.
 
-```
+```c
 #define RGBLIGHT_SLEEP  // enable rgblight_suspend() and rgblight_wakeup() in keymap.c
 #define RGBLIGHT_TIMEOUT 900000  // ms to wait until rgblight time out, 900K ms is 15min.
 ```
 
 And add those lines to your `keymap.c`.
 
-```
+```c
 static uint32_t key_timer;           // timer for last keyboard activity, use 32bit value and function to make longer idle time possible
 static void refresh_rgb(void);       // refreshes the activity timer and RGB, invoke whenever any activity happens
 static void check_rgb_timeout(void); // checks if enough time has passed for RGB to timeout
