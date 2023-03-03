@@ -22,7 +22,6 @@ extern "C" {
 #include "debug.h"
 #include "eeconfig.h"
 #include "keyboard.h"
-#include "keymap.h"
 
 void set_time(uint32_t t);
 void advance_time(uint32_t ms);
