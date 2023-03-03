@@ -8,6 +8,11 @@
         "pid": "0x22CF",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B7", "F7", "C7", "C6", "B6", "F0", "B5", "F1", "B4", "F4", "D7", "F5", "D6", "F6", "D4"],
+        "rows": ["D2", "D5", "E6", "D0", "D1"]
+    },
+    "diode_direction": "COL2ROW",
     "qmk_lufa_bootloader": {
         "esc_input": "D2",
         "esc_output": "B7"
