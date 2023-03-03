@@ -77,7 +77,7 @@
     {
         "id": "0x57755a57",
         "short_name": "STM32F4",
-        "description": "ST STM32F401"
+        "description": "ST STM32F4xx"
     },
     {
         "id": "0x5a18069b",
@@ -188,5 +188,20 @@
         "id": "0x9af03e33",
         "short_name": "GD32VF103",
         "description": "GigaDevice GD32VF103"
+    },
+    {
+        "id": "0x4f6ace52",
+        "short_name": "CSK4",
+        "description": "LISTENAI CSK300x/400x"
+    },
+    {
+        "id": "0x6e7348a8",
+        "short_name": "CSK6",
+        "description": "LISTENAI CSK60xx"
+    },
+    {
+        "id": "0x11de784a",
+        "short_name": "M0SENSE",
+        "description": "M0SENSE BL702"
     }
 ]

@@ -34,7 +34,7 @@ The next Breaking Change is scheduled for May 28, 2023.
 
 ## What changes will be included?
 
-To see a list of breaking changes merge candidates you can look at the [`core` label](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Acore+is%3Apr). This label is applied whenever a PR is raised or changed, but only if the PR includes changes to core areas of QMK Firmware. A PR with that label applied is not guaranteed to be merged in the current cycle. New changes might be added between now and when `develop` is closed, and it is generally the responsibility of the submitter to handle conflicts. There is also another label used by QMK Collaborators -- `breaking_change_YYYYqN` -- which signifies to maintainers that it is a strong candidate for inclusion, and should be prioritised for review.
+To see a list of breaking changes merge candidates you can look at the [`core` label](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Acore+is%3Apr). This label is applied whenever a PR is raised or changed, but only if the PR includes changes to core areas of QMK Firmware. A PR with that label applied is not guaranteed to be merged in the current cycle. New changes might be added between now and when `develop` is closed, and it is generally the responsibility of the submitter to handle conflicts. There is also another label used by QMK Collaborators -- `breaking_change_YYYYqN` -- which signifies to maintainers that it is a strong candidate for inclusion, and should be prioritized for review.
 
 If you want your breaking change to be included in this round you need to create a PR and have it accepted by QMK Collaborators before `develop` closes. After `develop` closes, new submissions will be deferred to the next breaking changes cycle.
 
@@ -127,12 +127,12 @@ This happens immediately after the previous `develop` branch is merged to `maste
     * Validate each submodule SHA1 matches the qmk fork, e.g. for ChibiOS:
         * Go to [qmk/ChibiOS](https://github.com/qmk/ChibiOS)
         * Compare the commit hash in the above output to the commit hash in the repository
-        * If there's a mismatch, that repository needs to have its `master` branch updated to match (otherwise Configurator won't work):
+        * If there's a mismatch, that repository needs to have its `qmk-master` branch updated to match (otherwise Configurator won't work):
             * `cd lib/chibios`
             * `git fetch --all`
-            * `git checkout master`
+            * `git checkout qmk-master`
             * `git reset --hard <commit hash>`
-            * `git push origin master --force-with-lease`
+            * `git push origin qmk-master --force-with-lease`
 
 * Announce that both `master` and `develop` are now unlocked -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
     * `@Breaking Changes Updates -- Hey folks, develop has now been merged into master -- newest batch of changes are now available for everyone to use!`
