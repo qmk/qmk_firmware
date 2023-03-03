@@ -4,10 +4,10 @@
 // the slave and the master. Until we return from main.
 //
 // Amen.
+#pragma once
 
 #include QMK_KEYBOARD_H
 #include "mousekey.h"
-#include "keymap.h"
 #include "keymap_steno.h"
 #include "wait.h"
 
