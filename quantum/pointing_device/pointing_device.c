@@ -23,6 +23,8 @@
 #    include "mousekey.h"
 #endif
 
+void last_pointing_device_activity_trigger(void);
+
 #if (defined(POINTING_DEVICE_ROTATION_90) + defined(POINTING_DEVICE_ROTATION_180) + defined(POINTING_DEVICE_ROTATION_270)) > 1
 #    error More than one rotation selected.  This is not supported.
 #endif
@@ -168,6 +170,7 @@ __attribute__((weak)) void pointing_device_send(void) {
 
     // If you need to do other things, like debugging, this is the place to do it.
     if (has_mouse_report_changed(&local_mouse_report, &old_report)) {
+        last_pointing_device_activity_trigger();
         host_mouse_send(&local_mouse_report);
     }
     // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device

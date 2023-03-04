@@ -139,6 +139,17 @@ void last_encoder_activity_trigger(void) {
     last_encoder_modification_time = last_input_modification_time = timer_read32();
 }
 
+static uint32_t last_pointing_device_modification_time = 0;
+uint32_t        last_pointing_device_activity_time(void) {
+    return last_pointing_device_modification_time;
+}
+uint32_t last_pointing_device_activity_elapsed(void) {
+    return timer_elapsed32(last_pointing_device_modification_time);
+}
+void last_pointing_device_activity_trigger(void) {
+    last_pointing_device_modification_time = last_input_modification_time = timer_read32();
+}
+
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE)
 static uint32_t matrix_timer           = 0;
