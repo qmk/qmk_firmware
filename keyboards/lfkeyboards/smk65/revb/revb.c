@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
 #include "smk65.h"
-#include "keymap.h"
 #include "debug.h"
 #include "issi.h"
 #include "TWIlib.h"

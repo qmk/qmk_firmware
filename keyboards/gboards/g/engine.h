@@ -10,9 +10,9 @@
         crap is removed where possible
 */
 
-#include QMK_KEYBOARD_H
 #pragma once
-#include "keymap.h"
+
+#include QMK_KEYBOARD_H
 #include <string.h>
 #include <stdint.h>
 #include <stdio.h>

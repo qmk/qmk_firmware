@@ -15,6 +15,9 @@ jobs:
     container: qmkfm/qmk_cli
 
     steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -24,7 +27,7 @@ jobs:
 
     - name: Get changed files
       id: file_changes
-      uses: tj-actions/changed-files@v34
+      uses: tj-actions/changed-files@v35
 
     - name: Print info
       run: |

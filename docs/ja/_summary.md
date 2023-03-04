@@ -38,7 +38,6 @@
     * [キーマップの概要](ja/keymap.md)
     * 開発環境
       * [Docker のガイド](ja/getting_started_docker.md)
-      * [Vagrant のガイド](ja/getting_started_vagrant.md)
     * 書き込み
       * [書き込み](ja/flashing.md)
       * [ATmega32A の書き込み (ps2avrgb)](ja/flashing_bootloadhid.md)
