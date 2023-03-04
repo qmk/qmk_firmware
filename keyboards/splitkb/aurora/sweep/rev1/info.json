@@ -3,6 +3,9 @@
     "usb": {
         "pid": "0xEC17"
     },
+    "bootmagic": {
+        "matrix": [0, 4]
+    },
     "features": {
         "mousekey": true,
         "bootmagic": true,
@@ -56,6 +59,9 @@
             ]
         }
     },
+    "community_layouts": [
+        "split_3x5_2"
+    ],
     "diode_direction": "ROW2COL",
     "matrix_pins": {
         "rows": ["F6", "F5", "F7", "B1"],
@@ -75,6 +81,9 @@
         ]
     },
     "split": {
+        "bootmagic": {
+            "matrix": [4, 4]
+        },
         "soft_serial_pin": "D2",
         "main": "pin",
         "matrix_pins": {

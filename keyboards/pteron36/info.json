@@ -8,6 +8,24 @@
         "pid": "0x5054",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F4"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D3",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F4", "pin_b": "F5"}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["split_3x5_3"],
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

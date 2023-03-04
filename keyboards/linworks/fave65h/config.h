@@ -17,11 +17,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 // Checked with Eagle Schematic
 #define MATRIX_ROW_PINS { D1, D0, D2, D3, D5  }
@@ -30,12 +25,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Define RGB */
 #define RGBLED_NUM 67
-#define DRIVER_LED_TOTAL 67
+#define RGB_MATRIX_LED_COUNT 67
 #define RGB_DI_PIN B0
 
 #ifdef RGB_MATRIX_ENABLE
@@ -45,7 +37,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

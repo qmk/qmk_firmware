@@ -20,7 +20,7 @@
 #include "actions/td.semicolon.c"
 #include "actions/td.function.c"
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SEMICOLON] = ACTION_TAP_DANCE_FN_ADVANCED(tap_dance_semicolon_each, tap_dance_semicolon_finished, tap_dance_semicolon_reset),
   [TD_LOCK]      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_lock_finished, tap_dance_lock_reset),
   [TD_GRAVE]     = ACTION_TAP_DANCE_FN_ADVANCED(tap_dance_grave_each, tap_dance_grave_finished, NULL),

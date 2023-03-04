@@ -45,7 +45,7 @@ VPATH += $(USER_PATH)/oled
 # SERIAL_DRIVER = usart
 # AUDIO_ENABLE = no
 # LTO_ENABLE = no
-# CONVERT_TO_PROTON_C = yes
+# CONVERT_TO=proton_c
 
 # so the keyboard's code doesn't add stuff we don't need.
 # when we use our own oled renders.
@@ -63,7 +63,7 @@ EXTRAKEY_ENABLE  = no # Audio control and System control
 COMMAND_ENABLE   = no # Commands for debug and configuration
 NKRO_ENABLE      = no # Enable N-Key Rollover
 SWAP_HANDS_ENABLE= no # Allow swapping hands of keyboard
-KEY_LOCK_ENABLE  = no # Enable the KC_LOCK key
+KEY_LOCK_ENABLE  = no
 TAP_DANCE_ENABLE = no # Enable the tap dance feature.
 KEY_OVERRIDE_ENABLE = no
 CONSOLE_ENABLE   = no  # Console for debug or keylogging.

@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
+const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |     R location

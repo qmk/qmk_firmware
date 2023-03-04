@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "config_common.h"
 
 #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 6
@@ -50,6 +49,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    0

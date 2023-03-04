@@ -174,7 +174,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -264,50 +264,54 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 };
 
 led_config_t g_led_config = { {
-    {   0,  5, 10, 15, 20, 25, 29 },
-    {   1,  6, 11, 16, 21, 26, 30 },
-    {   2,  7, 12, 17, 22, 27, 31 },
-    {   3,  8, 13, 18, 23, 28, NO_LED },
-    {   4,  9, 14, 19, 24, NO_LED, NO_LED },
-    {  32, 33, 34, 35, NO_LED, NO_LED, NO_LED },
-    {  65, 61, 56, 51, 46, 41, 36 },
-    {  66, 62, 57, 52, 47, 42, 37 },
-    {  67, 63, 58, 53, 48, 43, 38 },
-    {  NO_LED, 64, 59, 54, 49, 44, 39 },
-    {  NO_LED, NO_LED, 60, 55, 50, 45, 40 },
-    {  NO_LED, NO_LED, NO_LED, 71, 70, 69, 68 },
+    {  0,  5, 10, 15, 20, 25, 29 },
+    {  1,  6, 11, 16, 21, 26, 30 },
+    {  2,  7, 12, 17, 22, 27, 31 },
+    {  3,  8, 13, 18, 23, 28, NO_LED },
+    {  4,  9, 14, 19, 24, NO_LED, NO_LED },
+    { 32, 33, 34, 35, NO_LED, NO_LED, NO_LED },
+    { 65, 61, 56, 51, 46, 41, 36 },
+    { 66, 62, 57, 52, 47, 42, 37 },
+    { 67, 63, 58, 53, 48, 43, 38 },
+    { NO_LED, 64, 59, 54, 49, 44, 39 },
+    { NO_LED, NO_LED, 60, 55, 50, 45, 40 },
+    { NO_LED, NO_LED, NO_LED, 71, 70, 69, 68 }
 }, {
-    {   0,   0 }, {   0,  12 }, {   0,  25 }, {   0,  38 }, {   0,  51 },
-    {  17,   0 }, {  17,  12 }, {  17,  25 }, {  17,  38 }, {  17,  51 },
-    {  34,   0 }, {  34,  12 }, {  34,  25 }, {  34,  38 }, {  34,  51 },
-    {  51,   0 }, {  51,  12 }, {  51,  25 }, {  51,  38 }, {  51,  51 },
-    {  68,   0 }, {  68,  12 }, {  68,  25 }, {  68,  38 }, {  68,  51 },
-    {  86,   0 }, {  86,  12 }, {  86,  25 }, {  86,  38 },
-    { 105,   0 }, { 105,  12 }, { 105,  25 },
-    {  90,  55 }, { 105,  68 }, { 116,  86 }, { 116, 59 },
+    {  0,   4}, {  0,  20}, {  0,  36}, {  0, 52}, {  0,  68},
+    { 16,   3}, { 16,  19}, { 16,  35}, { 16, 51}, { 16,  67},
+    { 32,   1}, { 32,  17}, { 32,  33}, { 32, 49}, { 32,  65},
+    { 48,   0}, { 48,  16}, { 48,  32}, { 48, 48}, { 48,  64},
+    { 64,   1}, { 64,  17}, { 64,  33}, { 64, 49}, { 64,  65},
+    { 80,   3}, { 80,  19}, { 80,  35}, { 80, 51},
+    { 96,   4}, { 96,  20}, { 96,  36},
+    { 88,  69}, {100,  80}, {112,  91}, {108, 69},
 
-    { 250,   0 }, { 250,  12 }, { 250,  25 }, { 250,  38 }, { 250,  51 },
-    { 233,   0 }, { 233,  12 }, { 233,  25 }, { 233,  38 }, { 233,  51 },
-    { 216,   0 }, { 216,  12 }, { 216,  25 }, { 216,  38 }, { 216,  51 },
-    { 198,   0 }, { 198,  12 }, { 198,  25 }, { 198,  38 }, { 198,  51 },
-    { 181,   0 }, { 181,  12 }, { 181,  25 }, { 181,  38 }, { 181,  51 },
-    { 163,   0 }, { 163,  12 }, { 163,  25 }, { 163,  38 },
-    { 146,   0 }, { 146,  12 }, { 146,  25 },
-    { 161,  55 }, { 161,  68 }, { 146,  86 }, { 131, 59 }
-
+    {240,   4}, {240,  20}, {240,  36}, {240,  52}, {240,  68},
+    {224,   3}, {224,  19}, {224,  35}, {224,  51}, {224,  67},
+    {208,   1}, {208,  17}, {208,  33}, {208,  49}, {208,  65},
+    {192,   0}, {192,  16}, {192,  32}, {192,  48}, {192,  64},
+    {176,   1}, {176,  17}, {176,  33}, {176,  49}, {176,  65},
+    {160,   3}, {160,  19}, {160,  35}, {160,  51},
+    {144,   4}, {144,  20}, {144,  36},
+    {152,  69}, {140,  80}, {128,  91}, {132,  69}
 }, {
-    1, 1, 1, 1, 1, 4,
-    4, 4, 4, 1, 4, 4,
-    4, 4, 1, 4, 4, 4,
-    4, 1, 4, 4, 4, 4,
-    1, 4, 4, 4, 4, 4,
-    4, 4, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 4,
-    4, 4, 4, 1, 4, 4,
-    4, 4, 1, 4, 4, 4,
-    4, 1, 4, 4, 4, 4,
-    1, 4, 4, 4, 4, 4,
-    4, 4, 1, 1, 1, 1
+    1, 1, 1, 1, 1,
+    4, 4, 4, 4, 1,
+    4, 4, 4, 4, 1,
+    4, 4, 4, 4, 1,
+    4, 4, 4, 4, 1,
+    4, 4, 4, 4,
+    1, 1, 1,
+    1, 1, 1, 1,
+
+    1, 1, 1, 1, 1,
+    4, 4, 4, 4, 1,
+    4, 4, 4, 4, 1,
+    4, 4, 4, 4, 1,
+    4, 4, 4, 4, 1,
+    4, 4, 4, 4,
+    1, 1, 1,
+    1, 1, 1, 1
 } };
 // clang-format on
 
@@ -316,12 +320,19 @@ led_config_t g_led_config = { {
 #ifdef AUDIO_ENABLE
 bool music_mask_kb(uint16_t keycode) {
     switch (keycode) {
-        case QK_LAYER_TAP ... QK_ONE_SHOT_LAYER_MAX:
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_MOD_MAX:
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+        case QK_TO ... QK_TO_MAX:
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+        case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+        case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-        case AU_ON ... MUV_DE:
+        case AU_ON ... AU_PREV:
         case QK_BOOT:
-        case EEP_RST:
+        case QK_CLEAR_EEPROM:
             return false;
         default:
             return music_mask_user(keycode);
@@ -358,6 +369,7 @@ void keyboard_post_init_kb(void) {
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
 // clang-format off
+__attribute__ ((weak))
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
     58, 59, 60, 61, 62, 63, 64,    65, 66, 67, 68, 69, 70, 71,
     44, 45, 46, 47, 48, 49, 50,    51, 52, 53, 54, 55, 56, 57,
@@ -370,12 +382,8 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 #endif
 
 #ifdef CAPS_LOCK_STATUS
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        ML_LED_6(led_state.caps_lock);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    ML_LED_6(led_state.caps_lock);
 }
 #endif
 

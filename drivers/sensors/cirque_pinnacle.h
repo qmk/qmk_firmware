@@ -5,6 +5,7 @@
 #include "cirque_pinnacle_regdefs.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "pointing_device_internal.h"
 
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds

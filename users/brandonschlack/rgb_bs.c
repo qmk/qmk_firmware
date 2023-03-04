@@ -75,7 +75,7 @@ void rgb_theme_step_reverse(void) {
 
 rgb_theme_color_t get_rgb_theme_color(uint8_t index) {
     rgb_theme_t theme = get_rgb_theme();
-    size_t rgb_theme_color_max = sizeof theme.colors / sizeof *theme.colors;
+    size_t rgb_theme_color_max = ARRAY_SIZE(theme.colors);
 
     if (index == _ADJUST) {
         return default_adjust;
@@ -98,7 +98,7 @@ void rgb_theme_layer(layer_state_t state) {
 
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, uint8_t led_type) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         if (!HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
             rgb_matrix_set_color( i, red, green, blue );
         }

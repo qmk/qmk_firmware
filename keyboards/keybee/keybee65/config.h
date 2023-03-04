@@ -17,11 +17,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -41,13 +36,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN B0
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 80
+#define RGB_MATRIX_LED_COUNT 68
 // Limit the Brithness of the LEDs
 #define RGBLIGHT_LIMIT_VAL 96
 #define RGB_VAL_STEP 12

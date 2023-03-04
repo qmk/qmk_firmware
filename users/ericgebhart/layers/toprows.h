@@ -25,8 +25,8 @@
 /*******************************************************************/
 // Kinesis function key row. I don't use them. but might as well define them.
 #define ___KINTFUNC_L___ KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8
-// #define ___KINTFUNC_RIGHT___ KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SLCK, KC_PAUS, KC_FN0, RESET
-#define ___KINTFUNC_R___ KC_F9, KC_F10, KC_F11, KC_F12, XXX, XXX, XXX, XXX, RESET
+// #define ___KINTFUNC_RIGHT___ KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SCRL, KC_PAUS, KC_FN0, QK_BOOT
+#define ___KINTFUNC_R___ KC_F9, KC_F10, KC_F11, KC_F12, XXX, XXX, XXX, XXX, QK_BOOT
 
 // A TOPROWS Layer.
 // set it how you like it, if you like it.

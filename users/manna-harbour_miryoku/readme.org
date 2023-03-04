@@ -39,6 +39,7 @@ Merging branches can be performed automatically at build time for [[#workflow-bu
 
 Any local changes to existing workflow files should be made independently in commits with messages starting ~[miryoku-github]~ so that they can also be automatically excluded in workflow builds.
 
+
 ** Building
 
 
@@ -171,7 +172,9 @@ The ~merge~ option can be used to merge branches at build time. Branches are spe
 
 The Build Inputs workflow can be used without editing workflow files.  Select Run workflow, select the Branch and fill out the form as desired, and activate Run workflow.
 
-Options are specified by entering values directly in the corresponding field.  Multiple comma separated values can be entered per option and a matrix build will be performed for each combination of values across all options.
+Most options are specified by entering values directly in the corresponding field.  Multiple comma separated values can be entered per option and a matrix build will be performed for each combination of values across all options.
+
+Values for Miryoku alternative layout options are selected from a list.  As multiple selection is not supported, matrix builds across multiple values are not possible for these options, and the Test Inputs or [[#build-examples][Build Example]] workflows should be used instead.
 
 The ~Keyboard~ option specifies the keyboard and is required.  All other options are optional.
 
@@ -416,6 +419,21 @@ make planck/rev6:manna-harbour_miryoku:flash FORCE_LAYOUT=planck_mit # planck re
 #+END_SRC
 
 
+
+**** split_3x5_2
+
+[[#thumb-combos][Thumb combos]] are enabled automatically for this layout.
+
+Keyboards supporting this layout: a_dux, alt34/rev1, bastardkb/dilemma, cradio, ferris/0_1, ferris/0_2, ferris/sweep
+
+Example build command lines:
+
+#+BEGIN_SRC sh :tangle no
+make ferris/0_2:manna-harbour_miryoku:flash # ferris/0_2
+make ferris/sweep:manna-harbour_miryoku:flash # ferris/sweep
+#+END_SRC
+
+
 **** split_3x5_3
 
 Keyboards supporting this layout: arch_36, boardsource/microdox, centromere, crkbd, eek, miniaxe, minidox/rev1, pteron36, squiggle/rev1, suihankey/split/rev1.
@@ -518,18 +536,6 @@ To build for this keyboard,
 
 #+BEGIN_SRC sh :tangle no
 make ergotravel:manna-harbour_miryoku:flash
-#+END_SRC
-
-
-**** ferris
-
-[[#thumb-combos][Thumb combos]] are enabled automatically for this keyboard.
-
-To build for this keyboard,
-
-#+BEGIN_SRC sh :tangle no
-make ferris/0_2:manna-harbour_miryoku:flash # 0_2
-make ferris/sweep:manna-harbour_miryoku:flash # sweep
 #+END_SRC
 
 
@@ -724,6 +730,26 @@ make splitkb/kyria:manna-harbour_miryoku:flash MIRYOKU_MAPPING=EXTENDED_THUMBS #
 #+END_SRC
 
 
+**** takashicompany/minizone
+
+The bottom row middle two keys are mapped to left and right mouse buttons.
+
+An alternative subset mapping is also provided with the thumb keys shifted one
+position in the direction of thumb extension.  To select this mapping, append
+~MIRYOKU_MAPPING=EXTENDED_THUMBS~ to the ~make~ command line when building.
+
+To build for this keyboard,
+
+#+BEGIN_SRC sh :tangle no
+make takashicompany/minizone:manna-harbour_miryoku:flash # make
+make takashicompany/minizone:manna-harbour_miryoku:flash MIRYOKU_MAPPING=EXTENDED_THUMBS # make, extended thumb position
+make takashicompany/minizone:manna-harbour_miryoku:flash POINTING_DEVICE_ENABLE=yes POINTING_DEVICE_DRIVER=pimoroni_trackball OLED_ENABLE=no # make, with pimoroni trackball
+qmk compile -c -kb takashicompany/minizone -km manna-harbour_miryoku # qmk
+qmk compile -c -kb takashicompany/minizone -km manna-harbour_miryoku -e MIRYOKU_MAPPING=EXTENDED_THUMBS # qmk, extended thumb position
+qmk compile -c -kb takashicompany/minizone -km manna-harbour_miryoku -e POINTING_DEVICE_ENABLE=yes -e POINTING_DEVICE_DRIVER=pimoroni_trackball -e OLED_ENABLE=no # qmk, with pimoroni trackball
+#+END_SRC
+
+
 **** torn
 
 To build for this keyboard,
@@ -736,21 +762,27 @@ make torn:manna-harbour_miryoku:flash
 ** Additional and Experimental Features
 
 
+*** Bilateral Combinations
+
+- [[https://github.com/manna-harbour/qmk_firmware/issues/29][Bilateral Combinations]]
+
+
+*** Caps Word
+
+[[https://github.com/qmk/qmk_firmware/blob/master/docs/feature_caps_word.md][Caps Word]] is used in place of ~Caps Lock~.  Combine with ~Shift~ for ~Caps Lock~.
+
+
+*** Retro Shift
+
+- [[https://github.com/manna-harbour/qmk_firmware/issues/33][Retro Shift]]
+
+
 *** Thumb Combos
 
 ~MIRYOKU_KLUDGE_THUMBCOMBOS=yes~
 
 Combo the primary and secondary thumb keys to emulate the tertiary thumb key.  Can be used on keyboards with missing or hard to reach tertiary thumb keys or for compatibility with same.  Requires suitable keycaps to enable the thumb to press both keys simultaneously.
 
-
-*** Bilateral Combinations
-
-- [[https://github.com/manna-harbour/qmk_firmware/issues/29][Bilateral Combinations]]
-
-
-*** Retro Shift
-
-- [[https://github.com/manna-harbour/qmk_firmware/issues/33][Retro Shift]]
 
 
 *** 𝑥MK
@@ -762,6 +794,7 @@ For [[#local-builds][local builds]], merge https://github.com/manna-harbour/qmk_
 For [[#workflow-builds][workflow builds]], use the Build Inputs workflow and build with keyboard ~converter/xmk~ and merge ~manna-harbour/qmk_firmware/xmk~, or use the Build Example 𝑥MK workflow.
 
 Also see [[https://github.com/manna-harbour/miryoku_kmonad][Miryoku KMonad]].
+
 
 ** 
 

@@ -55,11 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * - Holding A or ; switches to movement layer.
  * - Raise and Lower are one-shot layers.
  */
-[_QWERTY] = LAYOUT_ortho_4x12( \
-  KC_TAB,         KC_Q,      KC_W,    KC_E,    KC_R,         KC_T,    KC_Y,   KC_U,       KC_I,    KC_O,    KC_P,              KC_BSPC, \
-  LCTL_T(KC_ESC), KC_A,      KC_S,    KC_D,    KC_F,         KC_G,    KC_H,   KC_J,       KC_K,    KC_L,    LT(_MOVE,KC_SCLN), KC_QUOT, \
-  KC_LSFT,        KC_Z,      KC_X,    KC_C,    KC_V,         KC_B,    KC_N,   KC_M,       KC_COMM, KC_DOT,  KC_SLSH,           RSFT_T(KC_ENT) , \
-  LSFT(KC_LALT),  MO(_MOVE), KC_LALT, KC_LGUI, MO(_LOWER),   KC_SPC,  KC_SPC, MO(_RAISE), KC_RGUI, KC_RALT, MO(_MOVE),         VIM_START \
+[_QWERTY] = LAYOUT_ortho_4x12(
+  KC_TAB,         KC_Q,      KC_W,    KC_E,    KC_R,         KC_T,    KC_Y,   KC_U,       KC_I,    KC_O,    KC_P,              KC_BSPC,
+  LCTL_T(KC_ESC), KC_A,      KC_S,    KC_D,    KC_F,         KC_G,    KC_H,   KC_J,       KC_K,    KC_L,    LT(_MOVE,KC_SCLN), KC_QUOT,
+  KC_LSFT,        KC_Z,      KC_X,    KC_C,    KC_V,         KC_B,    KC_N,   KC_M,       KC_COMM, KC_DOT,  KC_SLSH,           RSFT_T(KC_ENT) ,
+  LSFT(KC_LALT),  MO(_MOVE), KC_LALT, KC_LGUI, MO(_LOWER),   KC_SPC,  KC_SPC, MO(_RAISE), KC_RGUI, KC_RALT, MO(_MOVE),         VIM_START
 ),
 
 /* Lower
@@ -73,11 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      | Bail |      |      |      |      |      |Raise |      |      | Bail |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_ortho_4x12( \
-  KC_TILD, KC_F1,       KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS, KC_LCBR, KC_RCBR,     KC_BSPC, \
-  KC_DEL,  KC_EXLM,     KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR, KC_LPRN, KC_RPRN,     KC_PIPE, \
-  _______, KC_F7,       KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  X_____X,    X_____X, X_____X, X_____X,     FIREY_RETURN, \
-  QK_BOOT, TO(_QWERTY), _______, _______, _______, _______, _______, MO(_RAISE), _______, _______, TO(_QWERTY), X_____X \
+[_LOWER] = LAYOUT_ortho_4x12(
+  KC_TILD, KC_F1,       KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS, KC_LCBR, KC_RCBR,     KC_BSPC,
+  KC_DEL,  KC_EXLM,     KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR, KC_LPRN, KC_RPRN,     KC_PIPE,
+  _______, KC_F7,       KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  X_____X,    X_____X, X_____X, X_____X,     FIREY_RETURN,
+  QK_BOOT, TO(_QWERTY), _______, _______, _______, _______, _______, MO(_RAISE), _______, _______, TO(_QWERTY), X_____X
 ),
 
 /* Raise
@@ -91,11 +91,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      | Bail |      |      |Lower |      |      |      |      |      | Bail |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_ortho_4x12( \
-  KC_GRV,  X_____X,     X_____X, X_____X, X_____X,    X_____X, X_____X, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,     KC_BSPC, \
-  KC_DEL,  KC_1,        KC_2,    KC_3,    KC_4,       KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,        KC_BSLS, \
-  _______, X_____X,     X_____X, X_____X, X_____X,    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,     FIREY_RETURN, \
-  X_____X, TO(_QWERTY), _______, _______, MO(_LOWER), _______, _______, _______, _______, _______, TO(_QWERTY), QK_BOOT \
+[_RAISE] = LAYOUT_ortho_4x12(
+  KC_GRV,  X_____X,     X_____X, X_____X, X_____X,    X_____X, X_____X, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,     KC_BSPC,
+  KC_DEL,  KC_1,        KC_2,    KC_3,    KC_4,       KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,        KC_BSLS,
+  _______, X_____X,     X_____X, X_____X, X_____X,    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,     FIREY_RETURN,
+  X_____X, TO(_QWERTY), _______, _______, MO(_LOWER), _______, _______, _______, _______, _______, TO(_QWERTY), QK_BOOT
 ),
 
 
@@ -110,38 +110,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |Backlite| Bail |      |      |      |      |      |      |      |      | Bail |      |
  * `-------------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_ortho_4x12( \
-  BL_INC,  X_____X,    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,     RGB_MODE_PLAIN, \
-  BL_DEC,  X_____X,    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,     RGB_MODE_REVERSE, \
-  BL_STEP, X_____X,    X_____X, X_____X, X_____X, X_____X, X_____X, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,     RGB_MODE_FORWARD, \
-  BL_TOGG, TO(_MOUSE), _______, _______, _______, _______, _______, _______, _______, _______, TO(_QWERTY), RGB_TOG \
+[_ADJUST] = LAYOUT_ortho_4x12(
+  BL_UP,   X_____X,    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,     RGB_MODE_PLAIN,
+  BL_DOWN, X_____X,    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,     RGB_MODE_REVERSE,
+  BL_STEP, X_____X,    X_____X, X_____X, X_____X, X_____X, X_____X, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,     RGB_MODE_FORWARD,
+  BL_TOGG, TO(_MOUSE), _______, _______, _______, _______, _______, _______, _______, _______, TO(_QWERTY), RGB_TOG
 ),
 
 
 /* movement layer (hold semicolon) */
-[_MOVE] = LAYOUT_ortho_4x12( \
-  TO(_QWERTY), X_____X, X_____X,       X_____X,             X_____X,             X_____X,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  X_____X, X_____X, \
-  _______,     X_____X, LGUI(KC_LBRC), LGUI(LSFT(KC_LBRC)), LGUI(LSFT(KC_RBRC)), LGUI(KC_RBRC), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, X_____X, \
-  _______,     X_____X, X_____X,       X_____X,             X_____X,             X_____X,       X_____X, X_____X, X_____X, X_____X, X_____X, _______, \
-  _______,     _______, _______,       _______,             _______,             X_____X,       X_____X, _______, _______, _______, _______, X_____X \
+[_MOVE] = LAYOUT_ortho_4x12(
+  TO(_QWERTY), X_____X, X_____X,       X_____X,             X_____X,             X_____X,       KC_HOME, KC_PGDN, KC_PGUP, KC_END,  X_____X, X_____X,
+  _______,     X_____X, LGUI(KC_LBRC), LGUI(LSFT(KC_LBRC)), LGUI(LSFT(KC_RBRC)), LGUI(KC_RBRC), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, X_____X,
+  _______,     X_____X, X_____X,       X_____X,             X_____X,             X_____X,       X_____X, X_____X, X_____X, X_____X, X_____X, _______,
+  _______,     _______, _______,       _______,             _______,             X_____X,       X_____X, _______, _______, _______, _______, X_____X
 ),
 
 /* mouse layer
  */
-[_MOUSE] = LAYOUT_ortho_4x12( \
-  TO(_QWERTY), X_____X,     X_____X,    KC_MS_UP,   X_____X,     X_____X, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, X_____X,     X_____X, \
-  _______,     X_____X,     KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, X_____X, X_____X,       KC_MS_BTN1,    KC_MS_BTN2,  KC_MS_BTN3,     X_____X,     X_____X, \
-  _______,     X_____X,     X_____X,    X_____X,    X_____X,     X_____X, X_____X,       X_____X,       X_____X,     X_____X,        X_____X,     _______, \
-  _______,     TO(_QWERTY), _______,    _______,    _______,     X_____X, X_____X,       _______,       _______,     _______,        TO(_QWERTY), X_____X \
+[_MOUSE] = LAYOUT_ortho_4x12(
+  TO(_QWERTY), X_____X,     X_____X,    KC_MS_UP,   X_____X,     X_____X, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, X_____X,     X_____X,
+  _______,     X_____X,     KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, X_____X, X_____X,       KC_MS_BTN1,    KC_MS_BTN2,  KC_MS_BTN3,     X_____X,     X_____X,
+  _______,     X_____X,     X_____X,    X_____X,    X_____X,     X_____X, X_____X,       X_____X,       X_____X,     X_____X,        X_____X,     _______,
+  _______,     TO(_QWERTY), _______,    _______,    _______,     X_____X, X_____X,       _______,       _______,     _______,        TO(_QWERTY), X_____X
 ),
 
 /* vim command layer.
  */
-[_CMD] = LAYOUT_ortho_4x12( \
-  X_____X,   X_____X,     VIM_W,   VIM_E,   X_____X, X_____X, VIM_Y,   VIM_U,   VIM_I,     VIM_O,      VIM_P,       X_____X, \
-  VIM_ESC,   VIM_A,       VIM_S,   VIM_D,   X_____X, VIM_G,   VIM_H,   VIM_J,   VIM_K,     VIM_L,      X_____X,     X_____X, \
-  VIM_SHIFT, X_____X,     VIM_X,   VIM_C,   VIM_V,   VIM_B,   X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X,     VIM_SHIFT, \
-  _______,   TO(_QWERTY), _______, _______, X_____X, X_____X, X_____X, X_____X, _______,   _______,    TO(_QWERTY), X_____X \
+[_CMD] = LAYOUT_ortho_4x12(
+  X_____X,   X_____X,     VIM_W,   VIM_E,   X_____X, X_____X, VIM_Y,   VIM_U,   VIM_I,     VIM_O,      VIM_P,       X_____X,
+  VIM_ESC,   VIM_A,       VIM_S,   VIM_D,   X_____X, VIM_G,   VIM_H,   VIM_J,   VIM_K,     VIM_L,      X_____X,     X_____X,
+  VIM_SHIFT, X_____X,     VIM_X,   VIM_C,   VIM_V,   VIM_B,   X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X,     VIM_SHIFT,
+  _______,   TO(_QWERTY), _______, _______, X_____X, X_____X, X_____X, X_____X, _______,   _______,    TO(_QWERTY), X_____X
 )
 
 };

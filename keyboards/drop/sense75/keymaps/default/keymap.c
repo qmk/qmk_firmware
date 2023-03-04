@@ -45,8 +45,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(62, RGB_WHITE);
     }
+    return false;
 }
