@@ -1,6 +1,5 @@
-SRC += features/oneshot.c
-
 BOOTMAGIC_ENABLE = no
+BOOLOADER = atmel-dfu
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306   # Enables the use of OLED displays
 RGBLIGHT_ENABLE = no    # Enable keyboard RGB underglow
@@ -13,5 +12,6 @@ MIDI_ENABLE = no
 BLUETOOTH_ENABLE = no
 BACKLIGHT_ENABLE = no
 CAPS_WORD_ENABLE = yes
+CUSTOM_ONESHOT_ENABLE = yes
 
 LAYOUTS = split_3x5_3 split_3x6_3

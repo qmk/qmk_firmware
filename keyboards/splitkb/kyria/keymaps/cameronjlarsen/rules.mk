@@ -1,6 +1,5 @@
-SRC += features/oneshot.c
-
 BOOTMAGIC_ENABLE = no
+BOOTLOADER = atmel-dfu
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306   # Enables the use of OLED displays
 ENCODER_ENABLE = yes       # Enables the use of one or more encoders
@@ -10,8 +9,6 @@ COMBO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 CONSOLE_ENABLE = no
 AUDIO_ENABLE = no
-MIDI_ENABLE = no
-BLUETOOTH_ENABLE = no
-BACKLIGHT_ENABLE = no
 CAPS_WORD_ENABLE = yes
+CUSTOM_ONESHOT_ENABLE = yes
 

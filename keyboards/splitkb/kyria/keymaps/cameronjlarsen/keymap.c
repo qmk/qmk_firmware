@@ -28,13 +28,12 @@ enum layers {
 #define LA_NAV MO(NAV)
 
 // One shot mods
-enum keycodes{
- OS_SHFT = SAFE_RANGE,
- OS_CTRL,
- OS_ALT,
- OS_GUI,
+enum keycodes {
+    OS_SHFT = SAFE_RANGE,
+    OS_CTRL,
+    OS_ALT,
+    OS_GUI,
 };
-
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -65,15 +64,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | Mute |      | OSM  |  OSM | Nav  |  | Sym  | Space| GUI  |      | Menu |
- *                        |      |      | Ctrl | Shift|      |  | Tab  |      |      |      |      |
+ *                        | Mute |      | Ctrl |Shift | Nav  |  | Sym  | Space| GUI  |      | Menu |
+ *                        |      |      |      |      |      |  | Tab  |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
      XXXXXXX , KC_Q  ,  KC_W  ,  KC_E  ,   KC_R ,   KC_T ,                                          KC_Y,  KC_U ,  KC_I ,   KC_O ,   KC_P , XXXXXXX,
      XXXXXXX , KC_A  ,  KC_S  ,  KC_D  ,   KC_F ,   KC_G ,                                          KC_H,  KC_J ,  KC_K ,   KC_L , KC_ENT , XXXXXXX,
-     XXXXXXX , KC_Z  ,  KC_X  ,  KC_C  ,   KC_V ,   KC_B , KC_LBRC, XXXXXXX,     XXXXXXX,KC_RBRC,   KC_N, KC_M  ,KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
-                                KC_MUTE, XXXXXXX, OS_CTRL, OS_SHFT, LA_NAV ,     LA_SYM , KC_SPC, OS_GUI,XXXXXXX, KC_APP
+     XXXXXXX , KC_Z  ,  KC_X  ,  KC_C  ,   KC_V ,   KC_B , XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX,   KC_N, KC_M  ,KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
+                                KC_MUTE, XXXXXXX, OS_CTRL, OS_SHFT, LA_NAV ,     LA_SYM , KC_SPC , OS_GUI,XXXXXXX, KC_APP
     ),
 
 /*
@@ -106,47 +105,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  * Notes:
  * - Vim style navigation keys
- * - Cut, Copy, Paste on X, C, V
  * - BKSP on Enter
  * - DEL on /
  * - Esc on G
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              | Home | PgDn | PgUp | End  |PrtScr|        |
+ * |        |      |      |      | BriUp| BriDn|                              | Home | PgDn | PgUp | End  |PrtScr|        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  GUI |  Alt | Ctrl | Shift| Esc  |                              |   ←  |  ↓   |   ↑  |   →  | Bksp |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      | Cut  | Copy | Paste|NumLck|      |      |  |      |      |      |      |      |      |Delete|        |
+ * |        |      |      |      |      |NumLck|      |      |  |      |      | MPrev| MPlay| MStop| MNext|Delete|        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [NAV] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     KC_HOME, KC_PGDN, KC_PGUP,  KC_END, KC_PSCR, _______,
+      _______, _______, _______, _______, KC_BRIU, KC_BRID,                                     KC_HOME, KC_PGDN, KC_PGUP,  KC_END, KC_PSCR, _______,
       _______, OS_GUI , OS_ALT , OS_CTRL, OS_SHFT,  KC_ESC,                                     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_BSPC, _______,
-      _______, _______, C(KC_X), C(KC_C), C(KC_V),  KC_NUM, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL , _______,
+      _______, _______, _______, _______, _______,  KC_NUM, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_DEL , _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
  * Function Layer: Function keys
  *
+ * Notes:
+ * - F1-F10 on bottom row
+ * - F11-F12 on index finger inner row
+ * - Homerow mods
+ * - Num keys on top row
+ *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  F9  | F10  | F11  | F12  |      |                              |      |      |      |      |      |        |
+ * |        |  1 ! |  2 @ |  3 # |  4 $ |  5 % |                              |  6 ^ |  7 & |  8 * |  9 ( |  0 ) |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  F5  |  F6  |  F7  |  F8  |      |                              |      | Shift| Ctrl |  Alt |  GUI |        |
+ * |        |  GUI |  Alt | Ctrl | Shift| F11  |                              | F12  | Shift| Ctrl |  Alt |  GUI |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  F1  |  F2  |  F3  |  F4  |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |      |  |      |      |  F6  |  F7  |  F8  |  F9  | F10  |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [FUN] = LAYOUT(
-      _______,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     _______, OS_SHFT, OS_CTRL, OS_ALT, OS_GUI, _______,
-      _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , _______,
+      _______, OS_GUI , OS_ALT , OS_CTRL, OS_SHFT, KC_F11 ,                                     KC_F12 , OS_SHFT, OS_CTRL, OS_ALT , OS_GUI , _______,
+      _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 ,  KC_F5 , _______, _______, _______, _______,  KC_F6 ,  KC_F7 ,  KC_F8 ,  KC_F9 , KC_F10 , _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
