@@ -16,18 +16,10 @@
 
 #include "drashna.h"
 
-#ifdef BACKLIGHT_ENABLE
+#define BACKLIT OSM(MOD_LSFT)
 enum planck_keycodes {
-    BACKLIT = NEW_SAFE_RANGE,
-    TH_LVL,
+    TH_LVL = USER_SAFE_RANGE,
 };
-
-#else
-#    define BACKLIT OSM(MOD_LSFT)
-enum planck_keycodes {
-    TH_LVL = NEW_SAFE_RANGE,
-};
-#endif
 
 #ifdef KEYBOARD_planck_ez
 #    define PLNK_1 BK_LWER
@@ -56,10 +48,10 @@ enum planck_keycodes {
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_ortho_4x12_wrapper( \
-    KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_DEL, \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     PRINT_SETUPS, \
     LALT_T(KC_TAB), K11, K12, K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29, RCTL_T(K2A), KC_ENT,  \
-    BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+    STORE_SETUPS, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
 
@@ -130,18 +122,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-#ifdef BACKLIGHT_ENABLE
-        case BACKLIT:
-            if (record->event.pressed) {
-                register_code(KC_RSFT);
-#    ifdef BACKLIGHT_ENABLE
-                backlight_step();
-#    endif
-            } else {
-                unregister_code(KC_RSFT);
-            }
-            break;
-#endif
 #ifdef KEYBOARD_planck_ez
         case TH_LVL:
             if (record->event.pressed) {
@@ -249,22 +229,11 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return true;
 }
 
-void matrix_init_keymap(void) {
+void keyboard_post_init_keymap(void) {
 #    ifdef KEYBOARD_planck_light
     writePinLow(D6);
 #    endif
     // rgblight_mode(RGB_MATRIX_MULTISPLASH);
-}
-#else  // RGB_MATRIX_INIT
-
-void matrix_init_keymap(void) {
-#    if !defined(CONVERT_TO_PROTON_C) && !defined(KEYBOARD_planck)
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-#    endif
 }
 #endif  // RGB_MATRIX_INIT
 

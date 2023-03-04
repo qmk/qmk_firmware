@@ -1,6 +1,6 @@
 # Combos
 
-The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `S` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
+The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `B` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
 
 To enable this feature, you need to add `COMBO_ENABLE = yes` to your `rules.mk`.
 
@@ -55,7 +55,7 @@ const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
   [JK_TAB] = COMBO(jk_combo, KC_TAB),
-  [QW_SFT] = COMBO(qw_combo, KC_LSFT)
+  [QW_SFT] = COMBO(qw_combo, KC_LSFT),
   [SD_LAYER] = COMBO(sd_combo, MO(_LAYER)),
 };
 ```
@@ -105,11 +105,11 @@ It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](
 ## Keycodes
 You can enable, disable and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`
 
-|Keycode   |Description                      |
-|----------|---------------------------------|
-|`CMB_ON`  |Turns on Combo feature           |
-|`CMB_OFF` |Turns off Combo feature          |
-|`CMB_TOG` |Toggles Combo feature on and off |
+|Keycode          |Aliases  |Description                     |
+|-----------------|---------|--------------------------------|
+|`QK_COMBO_ON`    |`CM_ON`  |Turns on Combo feature          |
+|`QK_COMBO_OFF`   |`CM_OFF` |Turns off Combo feature         |
+|`QK_COMBO_TOGGLE`|`CM_TOGG`|Toggles Combo feature on and off|
 
 # Advanced Configuration
 These configuration settings can be set in your `config.h` file.
@@ -255,7 +255,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 ```
 
 ## Variable Length Combos
-If you leave `COMBO_COUNT` undefined in `config.h`, it allows you to programmatically declare the size of the Combo data structure and avoid updating `COMBO_COUNT`. Instead a variable called `COMBO_LEN` has to be set. It can be set with something similar to the following in `keymap.c`: `uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `uint16_t COMBO_LEN = COMBO_LENGTH;` as such:
+If you leave `COMBO_COUNT` undefined in `config.h`, it allows you to programmatically declare the size of the Combo data structure and avoid updating `COMBO_COUNT`. Instead a variable called `COMBO_LEN` has to be set. It can be set with something similar to the following in `keymap.c`: `uint16_t COMBO_LEN = ARRAY_SIZE(key_combos);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `uint16_t COMBO_LEN = COMBO_LENGTH;` as such:
 ```c
 enum myCombos {
     ...,
@@ -328,6 +328,51 @@ If you, for example, use multiple base layers for different key layouts, one for
 
 With `#define COMBO_ONLY_FROM_LAYER 0` in config.h, the combos' keys are always checked from layer `0`, even if other layers are active.
 
+### Combo reference layers by layer.
+
+If not using `COMBO_ONLY_FROM_LAYER` it is possible to specify a
+combo reference layer for any layer using the `combo_ref_from_layer` hook. 
+The combo macros automatically create this function from the `COMBO_REF_LAYER()`
+entries given.
+
+This function returns the assigned reference layer for the current layer.
+if there is no match, it returns the  default reference layer if set, 
+or the current layer otherwise. A default layer can be set with
+`DEFAULT_REF_LAYER(_MY_COMBO_REF_LAYER)`
+
+If not set, the default reference layer selection from the automatically generated 
+`combo-ref-from-layer()` will be the current layer.
+
+The following `combo_ref_from_layer` function 
+will give a reference layer of _QWERTY for the _DVORAK layer and
+will give the _NAV layer as a reference to it's self. All other layers
+will have the default for their combo reference layer. If the default
+is not set, all other layers will reference themselves.
+
+    ```c
+    #define COMBO_REF_DEFAULT _MY_COMBO_LAYER
+    ...
+
+    uint8_t combo_ref_from_layer(uint8_t layer){
+        switch (get_highest_layer(layer_state)){
+            case _DVORAK: return _QWERTY;
+            case _NAV: return _NAV;
+            default: return _MY_COMBO_LAYER;
+        }
+        return layer;  // important if default is not in case.
+    }
+
+    ```
+    
+    The equivalent definition using the combo macros is this: 
+
+    ```c
+    COMBO_REF_LAYER(_DVORAK, _QWERTY)
+    COMBO_REF_LAYER(_NAV, _NAV)
+    DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
+    ```
+    
+
 ## User callbacks
 
 In addition to the keycodes, there are a few functions that you can use to set the status, or check it:
@@ -350,6 +395,11 @@ First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, in
 Then, write your combos in `combos.def` file in the following manner:
 
 ```c
+// Alternate reference layers by layer
+//               Layer     Reference layer
+COMBO_REF_LAYER(_DVORAK, _QWERTY)  // reference the qwerty layer for dvorak.
+COMBO_REF_LAYER(_NAV, _NAV) // explicit reference to self instead of the default.
+
 //   name     result    chord keys
 COMB(AB_ESC,   KC_ESC,   KC_A, KC_B)
 COMB(JK_TAB,   KC_TAB,   KC_J, KC_K)

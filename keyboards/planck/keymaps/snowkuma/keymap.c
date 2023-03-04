@@ -63,13 +63,13 @@ enum {
 };
 
 // Tap Dance Definitions
-void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
+void safe_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count >=3) {
         // Reset the keyboard if you tap the key more than three times
         reset_keyboard();
         reset_tap_dance(state);
     }
-}; void tilde_home(qk_tap_dance_state_t *state, void *user_data) {
+}; void tilde_home(tap_dance_state_t *state, void *user_data) {
     if (state->count > 2) {
 	register_code(KC_LSFT);
         register_code(KC_GRV);
@@ -86,7 +86,7 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tilde_reset(qk_tap_dance_state_t *state, void *user_data)
+void tilde_reset(tap_dance_state_t *state, void *user_data)
 {
   if (state->count == 2) {
     unregister_code(KC_SLSH);
@@ -97,7 +97,7 @@ void tilde_reset(qk_tap_dance_state_t *state, void *user_data)
 }
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_RESET] = ACTION_TAP_DANCE_FN (safe_reset),
   [TD_TILD] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, tilde_home, tilde_reset)
 };
@@ -369,5 +369,5 @@ void matrix_scan_user(void) {
 }
 
 void matrix_init_user(void) {
-    set_unicode_input_mode(UC_OSX);
+    set_unicode_input_mode(UNICODE_MODE_MACOS);
 }

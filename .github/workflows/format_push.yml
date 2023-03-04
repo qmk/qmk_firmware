@@ -1,5 +1,8 @@
 name: Lint Format
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -13,6 +16,9 @@ jobs:
     container: qmkfm/qmk_cli
 
     steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0

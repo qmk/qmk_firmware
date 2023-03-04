@@ -35,7 +35,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + LONG_TAPPING_TERM;
         case MT(MOD_RGUI, KC_L):
             return TAPPING_TERM + LONG_TAPPING_TERM;
-        case KC_LCPO:
+        case SC_LCPO:
             return TAPPING_TERM 75;
         default:
             return TAPPING_TERM;

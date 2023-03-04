@@ -17,29 +17,13 @@
 
 #pragma once
 
-#include "config_common.h"
-
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F1, F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { E2, E6, C6, C7, D7, B6, B5, B4, B3, B2, B1, B0, D4, D6, D5, F0 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-#define BACKLIGHT_PIN B7
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 15
-#endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 #define RGB_DI_PIN D1
 #ifdef RGB_DI_PIN

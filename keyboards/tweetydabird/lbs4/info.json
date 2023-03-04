@@ -1,78 +1,76 @@
 {
-	"keyboard_name": "Little Big Scroll 4",
-	"manufacturer": "Tweetys Wild Thinking",
-	"url": "https://lectronz.com/stores/tweetys-wild-thinking",
-	"maintainer": "TweetyDaBird",	
-	
-	"development_board": "promicro",
-	"bootloader_instructions": "Short marked pads on PCB, or hold top left key when plugging in.",
-	
-	"features": {
-		"bootmagic": true,
-		"command": false,
-		"console": false,
-		"extrakey": true,
-		"mousekey": false,
-		"nkro": false,
-		"rgblight": true,
-		"encoder": true
-	},
+    "keyboard_name": "Little Big Scroll 4",
+    "manufacturer": "Tweetys Wild Thinking",
+    "url": "https://lectronz.com/stores/tweetys-wild-thinking",
+    "maintainer": "TweetyDaBird",
+    
+    "development_board": "promicro",
+    "bootloader_instructions": "Short marked pads on PCB, or hold top left key when plugging in.",
+    
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": true,
+        "encoder": true
+    },
 
-	"build": {
-		"lto": true
-	},
-	
-	"debounce": 5,
-	
-	"usb": {
-		"vid": "0xFEED",
+    "build": {
+        "lto": true
+    },
+    
+    "usb": {
+        "vid": "0xFEED",
         "pid": "0x23B0",
-		"device_version": "1.1.0"
-	},
+        "device_version": "1.1.0"
+    },
 
-	"matrix_pins": {
+    "matrix_pins": {
         "direct": [
-			["E6", "D7", "F4"],
-			["B5", "B4", null]
+            ["E6", "D7", "F4"],
+            ["B5", "B4", null]
         ]
     },
 
-	"encoder": {
+    "encoder": {
         "rotary": [
             { 
-				"pin_a": "B1", 
-				"pin_b": "F7",
-				"resolution": 2
-			}
+                "pin_a": "B1", 
+                "pin_b": "F7",
+                "resolution": 2
+            }
         ]
     },
-	
-	"rgblight": {
+    
+    "rgblight": {
         "led_count": 6,
         "pin": "D2",
         "hue_steps": 8,
         "saturation_steps": 17,
         "brightness_steps": 17,
-		"max_brightness": 175,
+        "max_brightness": 175,
         "animations": {
-            "alternating": true
+            "alternating": true,
             "breathing": true,
             "rainbow_mood": true,
-            "static_gradient": true,
+            "static_gradient": true
         }
     },
 
-	"layouts": {
+    "layouts": {
         "LAYOUT": {
-            "layout": [	
-			{ "label": "Play", 	"matrix": [0, 2], "x": 2, "y": 0, "w": 2, "h": 2 }, 
-			
-			{ "label": "F1", 	"matrix": [0, 0], "x": 0, "y": 0, "w": 1, "h": 1 }, 
-			{ "label": "F2", 	"matrix": [0, 1], "x": 1, "y": 0, "w": 1, "h": 1 }, 
-			
-			{ "label": "F3", 	"matrix": [1, 0], "x": 0, "y": 1, "w": 1, "h": 1 },
-			{ "label": "F4", 	"matrix": [1, 1], "x": 1, "y": 1, "w": 1, "h": 1 },
-			]
-		}
-	}	
+            "layout": [
+            { "label": "Play", "matrix": [0, 2], "x": 2, "y": 0, "w": 2, "h": 2 }, 
+            
+            { "label": "F1", "matrix": [0, 0], "x": 0, "y": 0, "w": 1, "h": 1 }, 
+            { "label": "F2", "matrix": [0, 1], "x": 1, "y": 0, "w": 1, "h": 1 }, 
+            
+            { "label": "F3", "matrix": [1, 0], "x": 0, "y": 1, "w": 1, "h": 1 },
+            { "label": "F4", "matrix": [1, 1], "x": 1, "y": 1, "w": 1, "h": 1 }
+            ]
+        }
+    }
 }

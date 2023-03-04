@@ -112,7 +112,7 @@ bool oled_task_keymap(void) {
     };
     oled_write_raw_P(header_image, sizeof(header_image));
     oled_set_cursor(7, 0);
-    oled_write_P(PSTR("Rock On"), true);
+    oled_write_P(PSTR("Dilemma"), true);
 
     render_default_layer_state(1, 1);
     render_layer_state(1, 2);
@@ -133,14 +133,24 @@ bool oled_task_keymap(void) {
 
 //    render_rgb_hsv(1, 13);
     oled_set_cursor(1, 13);
-    // oled_write_P(PSTR("Timer:"), false);
-    // oled_write(get_u8_str((uint8_t)(timer_elapsed32(oled_timer) / 1000), ' '), false);
-    oled_write_P(PSTR("Status: "), false);
-    if (is_oled_enabled) {
-        oled_write_P(PSTR("on "), false);
-    } else {
-        oled_write_P(PSTR("off"), false);
-    }
+    oled_write_P(PSTR("OS: "), false);
+    extern os_variant_t os_type;
+        switch (os_type) {
+            case OS_LINUX:
+                oled_write_ln_P(PSTR("Linux"), false);
+                break;
+            case OS_WINDOWS:
+                oled_write_ln_P(PSTR("Windows"), false);
+                break;
+            case OS_MACOS:
+                oled_write_ln_P(PSTR("MacOS"), false);
+                break;
+            case OS_IOS:
+                oled_write_ln_P(PSTR("iOS"), false);
+                break;
+            default:
+                break;
+        }
 
     render_keylogger_status(1, 14);
 
@@ -157,4 +167,20 @@ bool oled_task_keymap(void) {
 
     return false;
 }
+#endif
+
+
+#ifdef SWAP_HANDS_ENABLE
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    /* Left hand, matrix positions */
+    {{0, 4}, {3, 4}, {2, 4}, {5, 4}, {4, 4}},
+    {{0, 5}, {1, 5}, {2, 5}, {3, 5}, {4, 5}},
+    {{0, 6}, {1, 6}, {2, 6}, {3, 6}, {4, 6}},
+    {{0, 7}, {1, 7}, {2, 7}, {3, 7}, {4, 7}},
+    /* Right hand, matrix positions */
+    {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}},
+    {{0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}},
+    {{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}},
+    {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}},
+    };
 #endif

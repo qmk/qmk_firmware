@@ -36,7 +36,7 @@ enum custom_keycodes {
 enum {
     TD_S
 };
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_S] = ACTION_TAP_DANCE_DOUBLE(KC_S, KC_Z),
 };
 
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT(
-     _______,  KC_VOLD, KC_VOLU, KC_MUTE, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP,    KC_PSCREEN, _______, _______, _______, _______, QK_BOOT,
+     _______,  KC_VOLD, KC_VOLU, KC_MUTE, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP,    KC_PSCR,    _______, _______, _______, _______, QK_BOOT,
      _______,  KC_SLSH, KC_6,    KC_5,    KC_4,    KC_EQL,                            KC_CIRC, KC_PGUP, KC_UP,   KC_PGDN, _______, RGB_VAI,
      _______,  KC_3,    KC_2,    KC_1,    KC_0,    KC_DOT,                            KC_EQL,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
      _______,  KC_ASTR, KC_9,    KC_8,    KC_7,    KC_PLUS,  _______,        _______, KC_PLUS, KC_HOME, KC_COLN, KC_END,  _______, RGB_MOD,
@@ -94,7 +94,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk){
       if (record->event.pressed) {
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)){
            unregister_code(KC_LSFT);
            unregister_code(KC_RSFT);
            register_code(sk);
@@ -111,7 +111,7 @@ bool sh_key(keyrecord_t *record, uint8_t sk, uint8_t nk){
 
 bool sh_key8(keyrecord_t *record, uint8_t sk, uint8_t nk){
       if (record->event.pressed) {
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT)){
            register_code(sk);
         } else {
            register_code(nk);

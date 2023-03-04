@@ -17,7 +17,7 @@
 #include "drashna.h"
 
 enum more_custom_keycodes {
-    KC_SWAP_NUM = NEW_SAFE_RANGE,
+    KC_SWAP_NUM = USER_SAFE_RANGE,
     PM_SCROLL,
     PM_PRECISION,
 };
@@ -160,14 +160,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_GRV,  _________________RAISE_L1__________________, _______,                 _______, _________________RAISE_R1__________________, KC_BSLS,
              _______, _________________RAISE_L2__________________,                                   _________________RAISE_R2__________________, KC_QUOT,
              _______, _________________RAISE_L3__________________, _______,                 _______, _________________RAISE_R3__________________, KC_PSCR,
-             _______, _______, _______, _______, _______,                                                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_SLCK,
+             _______, _______, _______, _______, _______,                                                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_SCRL,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
                                                  _______, _______, _______,                 _______, _______, _______
             ),
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-             QK_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, QK_BOOT,
+             QK_MAKE, _______, _______, _______, _______, _______, UC_NEXT,                 KC_NUKE, _________________ADJUST_R1_________________, QK_BOOT,
              VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _________________ADJUST_R1_________________, EE_CLR,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
              KEYLOCK, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG_MODS,
@@ -268,7 +268,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_keymap(void) {  // runs frequently to update info
+void housekeeping_task_keymap(void) {  // runs frequently to update info
     uint8_t modifiers     = get_mods();
     uint8_t led_usb_state = host_keyboard_leds();
     uint8_t one_shot      = get_oneshot_mods();

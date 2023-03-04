@@ -17,57 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
 
 #define MATRIX_ROW_PINS { B11, B10, B2, B1, A9, A5 }
 #define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A10, A14, A15, B3, B4, B5, B6, B7, B8, B9, A0, A1 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Indicator LEDs */
-#define LED_CAPS_LOCK_PIN A2
-#define LED_PIN_ON_STATE 0
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-// #define MATRIX_HAS_GHOST
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-// #define FORCE_NKRO
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 /* RGB options */
 
@@ -79,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_CHANNEL 3
 
 #define RGBLED_NUM 87
-#define DRIVER_LED_TOTAL 87
+#define RGB_MATRIX_LED_COUNT 87
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 114
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES

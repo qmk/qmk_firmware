@@ -46,7 +46,6 @@ ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
 
 #ifdef RGB_MATRIX_ENABLE
 static uint8_t led_enabled = 1;
-static uint8_t current_rgb_row = 0;
 #endif
 
 void bootloader_jump(void) {
@@ -112,7 +111,7 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-void matrix_scan_kb() {
+void matrix_scan_kb(void) {
     // if there's stuff on the ble serial buffer
     // read it into the capslock struct
     while (!sdGetWouldBlock(&SD1)) {
@@ -125,15 +124,6 @@ void matrix_scan_kb() {
         proto_consume(&proto, byte);
     }
 
-    #ifdef RGB_MATRIX_ENABLE
-    /* If there's data ready to be sent to LED MCU - send it. */
-    if(rgb_row_changed[current_rgb_row])
-    {
-        rgb_row_changed[current_rgb_row] = 0;
-        ap2_led_colors_set_row(current_rgb_row);
-    }
-    current_rgb_row = (current_rgb_row + 1) % NUM_ROW;
-    #endif
 
     matrix_scan_user();
 }

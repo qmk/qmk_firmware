@@ -218,8 +218,8 @@ gccversion :
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
-%.uf2: %.hex
-	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex --output $(BUILD_DIR)/$(TARGET).uf2 --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
+%.uf2: %.elf
+	$(eval CMD=$(HEX) $< $(BUILD_DIR)/$(TARGET).tmp && $(UF2CONV) $(BUILD_DIR)/$(TARGET).tmp --output $@ --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
 	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
 	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
@@ -332,6 +332,7 @@ $1/asflags.txt: $1/force
 	echo '$$($1_ASFLAGS)' | cmp -s - $$@ || echo '$$($1_ASFLAGS)' > $$@
 
 $1/compiler.txt: $1/force
+	test -f $$@ || touch $$@
 	$$(CC) --version | cmp -s - $$@ || $$(CC) --version > $$@
 endef
 

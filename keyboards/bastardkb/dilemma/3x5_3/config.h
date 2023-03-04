@@ -27,9 +27,6 @@
 #define SPLIT_HAND_PIN GP29
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN GP1
-
 /* RGB settings. */
 #define RGB_DI_PIN GP0  // Per-key.
 // #define RGB_DI_PIN GP10 // Underglow.
@@ -62,10 +59,10 @@
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
-#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_KEYPRESSES
 #endif

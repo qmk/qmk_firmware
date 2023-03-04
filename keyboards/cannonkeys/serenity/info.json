@@ -1,4 +1,5 @@
 {
+    "manufacturer": "Cannon Keys",
     "keyboard_name": "Serenity",
     "usb": {
         "vid": "0xCA04",
@@ -20,14 +21,12 @@
         "backlight": true,
         "rgblight": true
     },
-    "debounce": 5,
     "matrix_pins": {
         "cols": ["B1", "B2", "B10", "B11", "B12", "B14", "A8", "A9", "A10", "A3", "B0", "A2", "A1", "A7", "A0", "B4", "B6", "B7"],
         "rows": ["A15", "B3", "B5", "A4", "A5", "F1"]
     },
     "backlight": {
         "breathing": true,
-        "breathing_period": 5,
         "levels": 15,
         "pin": "A6"
     },

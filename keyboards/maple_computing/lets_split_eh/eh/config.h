@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* Let's Split EH? pin-out */
 #define MATRIX_ROW_PINS { B1, B3, D7, B4 }
@@ -26,20 +25,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B7
-
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B2
 #define RGBLED_NUM 12    // Number of LEDs (each hand)
 #define RGBLED_SPLIT { 6, 6 }
-#define RGBLIGHT_ANIMATIONS 
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+
 
 /* Split Defines */
 #define SPLIT_HAND_PIN D3
-#define SOFT_SERIAL_PIN D0
 
 // The 'EH' has previously forced use of I2C so this default has been kept
 // however users can undef to use serial

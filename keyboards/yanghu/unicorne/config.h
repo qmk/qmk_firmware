@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 #define MATRIX_COL_PINS \
     { A14, A15, B13, B14, B15, A13, A0, A1, A2, A3, A6, A7 }
@@ -29,11 +24,6 @@
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-#define ENCODERS_PAD_A \
-    { B10, B2 }
-#define ENCODERS_PAD_B \
-    { B12, B0 }
 
 /* I2C - required for custom i2c_init */
 #define I2C1_SCL_PIN B6
@@ -46,12 +36,11 @@
 #define AUDIO_PWM_PAL_MODE 1
 #define AUDIO_PWM_DRIVER PWMD1
 #define AUDIO_PWM_CHANNEL 1
-#define AUDIO_STATE_TIMER GPTD4
 
 /* RGB LED */
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 8
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -69,7 +58,3 @@
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
 #define WS2812_DMA_CHANNEL 5
 #define WS2812_EXTERNAL_PULLUP
-
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

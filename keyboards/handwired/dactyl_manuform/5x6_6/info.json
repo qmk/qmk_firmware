@@ -1,4 +1,5 @@
 {
+    "manufacturer": "QMK",
     "keyboard_name": "Dactyl Manuform 5x6+6",
     "url": "https://github.com/fgoodwin/dactyl-manuform-5x6_6/tree/main/5x6_6",
     "maintainer": "fgoodwin",
@@ -7,6 +8,11 @@
         "pid": "0x3536",
         "device_version": "0.0.3"
     },
+    "split": {
+        "soft_serial_pin": "D3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_split_5x6_6": {
             "layout": [

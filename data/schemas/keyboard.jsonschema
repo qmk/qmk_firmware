@@ -34,15 +34,66 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "proton_c", "kb2040", "promicro_rp2040", "blok", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios"]
         },
         "pin_compatible": {
             "type": "string",
-            "enum": ["promicro"]
+            "enum": ["promicro", "elite_c"]
         },
         "processor": {
             "type": "string",
-            "enum": ["cortex-m0", "cortex-m0plus", "cortex-m3", "cortex-m4", "MKL26Z64", "MK20DX128", "MK20DX256", "MK64FX512", "MK66FX1M0", "RP2040", "STM32F042", "STM32F072", "STM32F103", "STM32F303", "STM32F401", "STM32F405", "STM32F407", "STM32F411", "STM32F446", "STM32G431", "STM32G474", "STM32L412", "STM32L422", "STM32L432", "STM32L433", "STM32L442", "STM32L443", "GD32VF103", "WB32F3G71", "WB32FQ95", "atmega16u2", "atmega32u2", "atmega16u4", "atmega32u4", "at90usb162", "at90usb646", "at90usb647", "at90usb1286", "at90usb1287", "atmega32a", "atmega328p", "atmega328", "attiny85", "unknown"]
+            "enum": [
+                "cortex-m0",
+                "cortex-m0plus",
+                "cortex-m3",
+                "cortex-m4",
+                "cortex-m7",
+                "cortex-m23",
+                "cortex-m33",
+                "cortex-m35p",
+                "cortex-m55",
+                "cortex-m85",
+                "MKL26Z64",
+                "MK20DX128",
+                "MK20DX256",
+                "MK64FX512",
+                "MK66FX1M0",
+                "RP2040",
+                "STM32F042",
+                "STM32F072",
+                "STM32F103",
+                "STM32F303",
+                "STM32F401",
+                "STM32F405",
+                "STM32F407",
+                "STM32F411",
+                "STM32F446",
+                "STM32G431",
+                "STM32G474",
+                "STM32L412",
+                "STM32L422",
+                "STM32L432",
+                "STM32L433",
+                "STM32L442",
+                "STM32L443",
+                "GD32VF103",
+                "WB32F3G71",
+                "WB32FQ95",
+                "atmega16u2",
+                "atmega32u2",
+                "atmega16u4",
+                "atmega32u4",
+                "at90usb162",
+                "at90usb646",
+                "at90usb647",
+                "at90usb1286",
+                "at90usb1287",
+                "atmega32a",
+                "atmega328p",
+                "atmega328",
+                "attiny85",
+                "unknown"
+            ]
         },
         "audio": {
             "type": "object",
@@ -57,6 +108,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["pwm", "software", "timer", "custom"]
+                },
                 "breathing": {"type": "boolean"},
                 "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "levels": {
@@ -64,8 +119,11 @@
                     "minimum": 1,
                     "maximum": 31
                 },
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "on_state": {"$ref": "qmk.definitions.v1#/bit"}
+                "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                "as_caps_lock": {"type": "boolean"}
             }
         },
         "bluetooth": {
@@ -75,8 +133,23 @@
                 "driver": {
                     "type": "string",
                     "enum": ["BluefruitLE", "RN42"]
-                },
-                "lto": {"type": "boolean"}
+                }
+            }
+        },
+        "bootmagic":{
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "matrix": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
             }
         },
         "board": {
@@ -89,7 +162,6 @@
             "enum": [
                 "atmel-dfu",
                 "bootloadhid",
-                "bootloadHID",
                 "caterina",
                 "custom",
                 "gd32v-dfu",
@@ -104,9 +176,9 @@
                 "stm32-dfu",
                 "stm32duino",
                 "tinyuf2",
+                "uf2boot",
                 "unknown",
                 "usbasploader",
-                "USBasp",
                 "wb32-dfu"
             ]
         },
@@ -190,11 +262,15 @@
                     "c_macro": {
                         "type": "boolean"
                     },
+                    "json_layout": {
+                        "type": "boolean"
+                    },
                     "layout": {
                         "type": "array",
                         "items": {
                             "type": "object",
                             "additionalProperties": false,
+                            "required": ["x", "y"],
                             "properties": {
                                 "label": {
                                     "type": "string",
@@ -237,6 +313,7 @@
                 "custom": {"type": "boolean"},
                 "custom_lite": {"type": "boolean"},
                 "ghost": {"type": "boolean"},
+                "input_pressed_state": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "io_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "direct": {
                     "type": "array",
@@ -267,7 +344,31 @@
         "led_matrix": {
             "type": "object",
             "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
                 "driver": {"type": "string"},
+                "center_point": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                },
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "split_count": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "layout": {
                     "type": "array",
                     "items": {
@@ -294,7 +395,31 @@
         "rgb_matrix": {
             "type": "object",
             "properties": {
+                "animations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
                 "driver": {"type": "string"},
+                "center_point": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                },
+                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "split_count": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "layout": {
                     "type": "array",
                     "items": {
@@ -393,11 +518,40 @@
                 }
             }
         },
+        "ps2": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "mouse_enabled": {"type": "boolean"},
+                "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "driver": {
+                    "type": "string",
+                    "enum": ["busywait", "interrupt", "usart", "vendor"]
+                }
+            }
+        },
         "split": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
+                "bootmagic":{
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "matrix": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "type": "integer",
+                                "minimum": 0
+                            }
+                        }
+                    }
+                },
                 "matrix_grid": {
                     "type": "array",
                     "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
@@ -449,7 +603,9 @@
                             "enum": ["custom", "i2c", "serial", "serial_usart"]
                         },
                         "sync_matrix_state": {"type": "boolean"},
-                        "sync_modifiers": {"type": "boolean"}
+                        "sync_modifiers": {"type": "boolean"},
+                        "watchdog": {"type": "boolean"},
+                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
                 },
                 "usb_detect": {
@@ -473,7 +629,8 @@
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},
-                "ignore_mod_tap_interrupt_per_key": {"type": "boolean"},
+                "hold_on_other_key_press": {"type": "boolean"},
+                "hold_on_other_key_press_per_key": {"type": "boolean"},
                 "permissive_hold": {"type": "boolean"},
                 "permissive_hold_per_key": {"type": "boolean"},
                 "retro": {"type": "boolean"},
@@ -487,7 +644,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "device_ver": {"$ref": "qmk.definitions.v1#/hex_number_4d"}, # Deprecated
+                "device_ver": {
+                    "$ref": "qmk.definitions.v1#/hex_number_4d",
+                    "$comment": "Deprecated: use device_version instead"
+                },
                 "device_version": {"$ref": "qmk.definitions.v1#/bcd_version"},
                 "force_nkro": {"type": "boolean"},
                 "pid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
