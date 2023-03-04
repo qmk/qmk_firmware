@@ -1,9 +1,6 @@
-#pragma once
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-#ifdef KEYBOARD_lily58_rev1
-    #include "rev1.h"
-#elif KEYBOARD_lily58_light
-    #include "light.h"
-#elif KEYBOARD_lily58_glow_enc
-    #include "glow_enc.h"
-#endif
+#include "quantum.h"
+void render_layer_state(void);
+void render_keylog(void);
