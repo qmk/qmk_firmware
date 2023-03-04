@@ -16,22 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B3 }
-#define MATRIX_COL_PINS { B14, B13, B12, B0, A7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Encoder pins */
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B6 }
-
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define RGB_DI_PIN A10
