@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
     | Esc   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | -     | =   | \     |Win|
     |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
-    | Tab   | Q | W | E | R | T | Y | U | I | O | P | [     | ]   | Backs | x |
+    | Tab   | Q | W | E | R | T | Y | U | I | O | P | [     | ]   | Backs | x*&&&&&&&&&&&&&&&&& |
     |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
     | LGUI  | A | S | D | F | G | H | J | K | L | ; | '     | Ent |   x   | x |
     |-------+---+---+---+---+---+---+---+---+---+---+-------+-----+-------+---|
@@ -401,9 +401,17 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
 }
 bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
     switch (keycode) {
+        case MA_LTHUMB:
+            if (!(record->event.pressed)) {
+                unregister_code16(KC_LCTL);
+            }
+            return false;
         case MA_LPINKY:
             if (!(record->event.pressed)) {
                 layer_off(LA_LPINKY);
+                if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
+                    layer_on(LA_LTHUMB);
+                }
             }
             return false;
         case KC_UP:
@@ -580,6 +588,13 @@ bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
 bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
     unregister_mods(MOD_MASK_CTRL);
     switch (keycode) {
+        case MA_LPINKY:
+            if (record->event.pressed) {
+                register_code16(KC_LCTL);
+                layer_on(LA_LPINKY);
+                layer_off(LA_LTHUMB);
+            }
+            return false;
         case MA_LTHUMB:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMB);
