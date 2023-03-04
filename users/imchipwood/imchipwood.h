@@ -41,11 +41,11 @@ enum td_keycodes {
 
 
 typedef enum { SINGLE_TAP, SINGLE_HOLD, DOUBLE_TAP } td_state_t;
-int cur_dance(qk_tap_dance_state_t *state);
+int cur_dance(tap_dance_state_t *state);
 
-void altf2_finished(qk_tap_dance_state_t *state, void *user_data);
-void altf2_reset(qk_tap_dance_state_t *state, void *user_data);
-void ctlf5_finished(qk_tap_dance_state_t *state, void *user_data);
-void ctlf5_reset(qk_tap_dance_state_t *state, void *user_data);
-void altf7_finished(qk_tap_dance_state_t *state, void *user_data);
-void altf7_reset(qk_tap_dance_state_t *state, void *user_data);
+void altf2_finished(tap_dance_state_t *state, void *user_data);
+void altf2_reset(tap_dance_state_t *state, void *user_data);
+void ctlf5_finished(tap_dance_state_t *state, void *user_data);
+void ctlf5_reset(tap_dance_state_t *state, void *user_data);
+void altf7_finished(tap_dance_state_t *state, void *user_data);
+void altf7_reset(tap_dance_state_t *state, void *user_data);
