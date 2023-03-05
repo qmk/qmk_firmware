@@ -58,6 +58,12 @@ void clear_oneshot_locked_mods(void) {
         oneshot_locked_mods_changed_kb(oneshot_locked_mods);
     }
 }
+void del_oneshot_locked_mods(uint8_t mods) {
+    if (oneshot_locked_mods & mods) {
+        oneshot_locked_mods &= ~mods;
+        oneshot_locked_mods_changed_kb(oneshot_locked_mods);
+    }
+}
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
 static uint16_t oneshot_time = 0;
 bool            has_oneshot_mods_timed_out(void) {

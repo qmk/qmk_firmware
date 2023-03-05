@@ -451,11 +451,12 @@ void process_action(keyrecord_t *record, action_t action) {
                         } else {
                             if (tap_count == 0) {
                                 unregister_mods(mods);
+                                del_oneshot_locked_mods(mods);
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == 1 && (mods & get_mods())) {
                                 unregister_mods(mods);
+                                del_oneshot_locked_mods(mods);
                                 clear_oneshot_mods();
-                                set_oneshot_locked_mods(~mods & get_oneshot_locked_mods());
 #        endif
                             }
                         }
