@@ -1,7 +1,15 @@
 {
     "keyboard_name": "OK35",
+    "manufacturer": "moth.monster",
     "url": "https://moth.monster",
     "maintainer": "mothdotmonster",
+    "usb": {
+        "vid": "0x86FE",
+        "pid": "0x0035",
+        "device_version": "0.1.0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
