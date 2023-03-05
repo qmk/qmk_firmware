@@ -451,6 +451,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
                 layer_off(LA_LPINKY);
                 if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
                     layer_on(LA_LTHUMB);
+                    register_mods(MOD_MASK_CTRL);
                 }
             }
             return false;
@@ -640,6 +641,7 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
             }
             return false;
         case MA_LTHUMB:
+        case KC_LCTL:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMB);
             }
