@@ -8,6 +8,11 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["D4", "C6", "D7", "E6", "F5", "F6", "B6", "B2", "F4", "B5"],
+    "rows": ["B4", "F7", "B1", "B3"]
+  },
+  "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "halfkay",
   "layouts": {

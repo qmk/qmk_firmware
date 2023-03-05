@@ -8,6 +8,11 @@
         "pid": "0xC868",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4"],
+        "rows": ["D5", "D3", "D2", "D1", "D0", "B7"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

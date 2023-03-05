@@ -1,4 +1,9 @@
 {
+    "matrix_pins": {
+        "cols": ["B12", "B13", "B14", "B15", "A8", "A10"],
+        "rows": ["A15", "B3", "B4", "B5", "B7"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
     "board": "BLACKPILL_STM32_F411"
