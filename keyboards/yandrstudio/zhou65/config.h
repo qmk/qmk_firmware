@@ -15,13 +15,5 @@
  */
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { A2, A1, B8, B7, C15 }
-#define MATRIX_COL_PINS { B9, B6, B5, B4, B3, B1, B0, A7, A6, A5, A4, A3, A8, B15, B14 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* enable the nkro when using the VIA. */
 #define FORCE_NKRO

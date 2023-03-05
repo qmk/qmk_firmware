@@ -8,6 +8,11 @@
         "pid": "0x6464",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A15", "C10", "C11", "C12", "D2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "A2", "A3"],
+        "rows": ["B11", "B10", "B2", "B1", "B0"]
+    },
+    "diode_direction": "ROW2COL",
     "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
