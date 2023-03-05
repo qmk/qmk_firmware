@@ -446,7 +446,7 @@ void process_action(keyrecord_t *record, action_t action) {
                                 ac_dprintf("MODS_TAP: Toggling oneshot");
                                 register_mods(mods);
                                 del_oneshot_mods(mods);
-                                set_oneshot_locked_mods(mods | get_oneshot_locked_mods());
+                                add_oneshot_locked_mods(mods);
 #        endif
                             }
                         } else {

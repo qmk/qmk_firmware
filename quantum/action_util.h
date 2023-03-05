@@ -64,6 +64,7 @@ void    clear_oneshot_mods(void);
 bool    has_oneshot_mods_timed_out(void);
 
 uint8_t get_oneshot_locked_mods(void);
+void    add_oneshot_locked_mods(uint8_t mods);
 void    set_oneshot_locked_mods(uint8_t mods);
 void    clear_oneshot_locked_mods(void);
 void    del_oneshot_locked_mods(uint8_t mods);
