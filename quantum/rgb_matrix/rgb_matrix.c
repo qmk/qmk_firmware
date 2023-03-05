@@ -251,7 +251,9 @@ void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
     if (pressed)
 #    endif // defined(RGB_MATRIX_KEYRELEASES)
     {
-        process_rgb_matrix_typing_heatmap(row, col);
+        if (g_heatmap_enabled || rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
+            process_rgb_matrix_typing_heatmap(row, col);
+        };
     }
 #endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
 }
