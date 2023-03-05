@@ -451,16 +451,11 @@ void process_action(keyrecord_t *record, action_t action) {
                         } else {
                             if (tap_count == 0) {
                                 unregister_mods(mods);
-                            } else if (tap_count == 1) {
-                                // Retain Oneshot mods
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
-                                if (mods & get_mods()) {
-                                    unregister_mods(mods);
-                                    clear_oneshot_mods();
-                                    set_oneshot_locked_mods(~mods & get_oneshot_locked_mods());
-                                }
-                            } else if (tap_count == ONESHOT_TAP_TOGGLE) {
-                                // Toggle Oneshot Layer
+                            } else if (tap_count == 1 && (mods & get_mods())) {
+                                unregister_mods(mods);
+                                clear_oneshot_mods();
+                                set_oneshot_locked_mods(~mods & get_oneshot_locked_mods());
 #        endif
                             }
                         }
