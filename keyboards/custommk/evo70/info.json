@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "EVO70", 
-    "url": "https://www.customMK.com", 
-    "maintainer": "customMK", 
+    "keyboard_name": "EVO70",
+    "url": "https://www.customMK.com",
+    "maintainer": "customMK",
     "manufacturer": "customMK",
     "tags": ["70%", "encoder", "underglow", "backlight"],
     "usb": {
@@ -9,14 +9,25 @@
         "pid": "0xFAB5",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C7", "pin_b": "D5", "resolution": 2}
+        ]
+    },
+    "backlight": {
+        "pin": "B5",
+        "levels": 17,
+        "on_state": 0,
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["F1", "F4", "E6", "B1", "B7", "B0", "E2", "D4", "D6", "D7", "B4", "B3", "B6", "C6"],
         "rows": ["D3", "D2", "F7", "F6", "F5", "F0"]
 
     },
-    "debounce": 5,
-    "processor": "atmega32u4",
     "rgblight": {
         "led_count": 48,
         "pin": "B2",
@@ -24,7 +35,16 @@
         "saturation_steps": 8,
         "brightness_steps": 4,
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "layouts": {

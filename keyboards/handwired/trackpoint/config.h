@@ -1,11 +1,7 @@
 #pragma once
 
-#include "config_common.h"
 
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 3
-
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
@@ -46,8 +42,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

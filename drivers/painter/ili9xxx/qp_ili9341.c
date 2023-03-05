@@ -20,7 +20,7 @@ tft_panel_dc_reset_painter_device_t ili9341_drivers[ILI9341_NUM_DEVICES] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_ili9341_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_ili9341_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format off
     const uint8_t ili9341_init_sequence[] = {
         // Command,                 Delay,  N, Data[N]
@@ -76,6 +76,7 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t ili9341_driver_vtable = 
             .viewport        = qp_tft_panel_viewport,
             .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
             .append_pixels   = qp_tft_panel_append_pixels_rgb565,
+            .append_pixdata  = qp_tft_panel_append_pixdata,
         },
     .num_window_bytes   = 2,
     .swap_window_coords = false,

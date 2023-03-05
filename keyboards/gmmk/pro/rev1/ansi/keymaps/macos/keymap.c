@@ -23,9 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  KC_MSCTRL = SAFE_RANGE,
-  KC_LNPD,
-  LED_TLDE,
+  LED_TLDE = SAFE_RANGE,
   LED_1,
   LED_2,
   LED_3,
@@ -144,7 +142,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     } else {
       tap_code(KC_VOLD);
     }
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
   }
 #endif //ENCODER_ENABLE
 
@@ -208,23 +207,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-      // https://github.com/qmk/qmk_firmware/issues/10111
-      case KC_MSCTRL:
-        if (record->event.pressed) {
-          host_consumer_send(0x29F);
-        } else {
-          host_consumer_send(0);
-        }
-        return false; /* Skip all further processing of this key */
-
-      case KC_LNPD:
-        if (record->event.pressed) {
-          host_consumer_send(0x2A0);
-        } else {
-          host_consumer_send(0);
-        }
-        return false; /* Skip all further processing of this key */
-
       #ifdef NKRO_ENABLE
         #if RGB_CONFIRMATION_BLINKING_TIME > 0
           case NK_TOGG:
@@ -371,7 +353,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 
 
-  void rgb_matrix_indicators_user() {
+  bool rgb_matrix_indicators_user(void) {
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
     if (effect_started_time > 0) {
       /* Render blinking EFFECTS */
@@ -409,10 +391,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     if (host_keyboard_led_state().caps_lock) {
       set_rgb_caps_leds();
     }
+    return false;
   }
 
   #if RGB_CONFIRMATION_BLINKING_TIME > 0
-  static void start_effects() {
+  static void start_effects(void) {
     effect_started_time = sync_timer_read();
     if (!rgb_matrix_is_enabled()) {
       /* Turn it ON, signal the cause (EFFECTS) */
@@ -425,7 +408,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
   #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
 
-  static void set_rgb_caps_leds() {
+  static void set_rgb_caps_leds(void) {
     rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
     rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
     rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2

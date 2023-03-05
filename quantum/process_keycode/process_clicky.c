@@ -82,31 +82,31 @@ bool is_clicky_on(void) {
 }
 
 bool process_clicky(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == CLICKY_TOGGLE && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_TOGGLE && record->event.pressed) {
         clicky_toggle();
     }
 
-    if (keycode == CLICKY_ENABLE && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_ON && record->event.pressed) {
         clicky_on();
     }
-    if (keycode == CLICKY_DISABLE && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_OFF && record->event.pressed) {
         clicky_off();
     }
 
-    if (keycode == CLICKY_RESET && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_RESET && record->event.pressed) {
         clicky_freq_reset();
     }
 
-    if (keycode == CLICKY_UP && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_UP && record->event.pressed) {
         clicky_freq_up();
     }
-    if (keycode == CLICKY_DOWN && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_DOWN && record->event.pressed) {
         clicky_freq_down();
     }
 
     if (audio_config.enable && audio_config.clicky_enable) {
-        if (record->event.pressed) {                      // Leave this separate so it's easier to add upstroke sound
-            if (keycode != AU_OFF && keycode != AU_TOG) { // DO NOT PLAY if audio will be disabled, and causes issuse on ARM
+        if (record->event.pressed) {                                 // Leave this separate so it's easier to add upstroke sound
+            if (keycode != QK_AUDIO_ON && keycode != QK_AUDIO_OFF) { // DO NOT PLAY if audio will be disabled, and causes issuse on ARM
                 clicky_play();
             }
         }

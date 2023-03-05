@@ -15,15 +15,10 @@
  */
 
 #pragma once
-#include "config_common.h"
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 4
 #define MATRIX_ROW_PINS { C7, B7, B6, B0, B1, B2 }
 #define MATRIX_COL_PINS { B5, B4, D0, C2 }
 #define DIODE_DIRECTION COL2ROW
-#define LED_NUM_LOCK_PIN C6
-#define LED_PIN_ON_STATE 1
-#define DEBOUNCE 5
+
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

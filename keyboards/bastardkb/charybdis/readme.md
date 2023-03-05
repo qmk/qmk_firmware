@@ -21,6 +21,7 @@ Check out the [keyboard build guides](https://docs.bastardkb.com) for the Charyb
 **You must specify the shield version when compiling/flashing the firmware.**
 
 The template is:
+
 ```shell
 qmk compile -kb bastardkb/charybdis/{LAYOUT}/{VERSION}/elitec -km {KEYMAP}
 ```
@@ -33,16 +34,16 @@ Check out the `via` layout if you're looking for VIA support.
 
 ### Charybdis (4x6)
 
-| Shield Version | default                                                         | via                                                             |
-|----------------|-----------------------------------------------------------------|-----------------------------------------------------------------|
-| v1             | `qmk compile -kb bastardkb/charybdis/4x6/v1/elitec -km default` | `qmk compile -kb bastardkb/charybdis/4x6/v1/elitec -km via`     |
+| Shield Version | default                                                         | via                                                         |
+| -------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
+| v1             | `qmk compile -kb bastardkb/charybdis/4x6/v1/elitec -km default` | `qmk compile -kb bastardkb/charybdis/4x6/v1/elitec -km via` |
 | v2             | `qmk compile -kb bastardkb/charybdis/4x6/v2/elitec -km default` | `qmk compile -kb bastardkb/charybdis/4x6/v2/elitec -km via` |
 
 ### Charybdis (3x5)
 
-| Shield Version | default                                                         | via                                                             |
-|----------------|-----------------------------------------------------------------|-----------------------------------------------------------------|
-| v1             | `qmk compile -kb bastardkb/charybdis/3x5/v1/elitec -km default` | `qmk compile -kb bastardkb/charybdis/3x5/v1/elitec -km via`     |
+| Shield Version | default                                                         | via                                                         |
+| -------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
+| v1             | `qmk compile -kb bastardkb/charybdis/3x5/v1/elitec -km default` | `qmk compile -kb bastardkb/charybdis/3x5/v1/elitec -km via` |
 | v2             | `qmk compile -kb bastardkb/charybdis/3x5/v2/elitec -km default` | `qmk compile -kb bastardkb/charybdis/3x5/v2/elitec -km via` |
 
 ## Customizing the firmware
@@ -120,7 +121,7 @@ The Charybdis firmware defines a number of keycodes to leverage its features, na
 ```
 #ifndef NO_CHARYBDIS_KEYCODES
 enum charybdis_keycodes {
-  POINTER_DEFAULT_DPI_FORWARD = SAFE_RANGE,
+  POINTER_DEFAULT_DPI_FORWARD = QK_KB_0,
   POINTER_DEFAULT_DPI_REVERSE,
   POINTER_SNIPING_DPI_FORWARD,
   POINTER_SNIPING_DPI_REVERSE,
@@ -128,7 +129,6 @@ enum charybdis_keycodes {
   SNIPING_MODE_TOGGLE,
   DRAGSCROLL_MODE,
   DRAGSCROLL_MODE_TOGGLE,
-  CHARYBDIS_SAFE_RANGE,
 };
 
 #define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
@@ -142,20 +142,6 @@ enum charybdis_keycodes {
 #endif // !NO_CHARYBDIS_KEYCODES
 ```
 
-Users extending the keycode set themselves (either in their keymap, or in their userspace) must start at `CHARYBDIS_SAFE_RANGE` to avoid conflicts, _eg._:
-
-```c
-enum userspace_keycodes {
-#ifndef NO_CHARYBDIS_KEYCODES
-  MY_FIRST_KEYCODE = CHARYBDIS_SAFE_RANGE,
-#else
-  MY_FIRST_KEYCODE = SAFE_RANGE,
-#endif // !NO_CHARYBDIS_KEYCODES
-  MY_SECOND_KEYCODE,
-  …
-};
-```
-
 To disable the custom keycodes, and reduce binary size, simply add a definition in `config.h`:
 
 ```c
@@ -164,17 +150,17 @@ To disable the custom keycodes, and reduce binary size, simply add a definition 
 
 ### Configuration Syncing
 
-If you want/need to enable syncing of the charybdis config, such as to read the sniping or drag scroll modes on the other half (such as for displaying the status via rgb matrix, or added on screens, or what not), you can enabled this.  To do so, add this to your `config.h`: 
+If you want/need to enable syncing of the charybdis config, such as to read the sniping or drag scroll modes on the other half (such as for displaying the status via rgb matrix, or added on screens, or what not), you can enabled this. To do so, add this to your `config.h`:
 
 ```c
 #define CHARYBDIS_CONFIG_SYNC
 ```
 
-Note that you will need to reflash both sides when enabling this. 
+Note that you will need to reflash both sides when enabling this.
 
 ### Enable Large Mouse Reports
 
-By default, the X and Y motion for the pointing device/mouse reports is -127 to 127.  You can definitely hit the limit for that with the sensors.  You can enable support for -32767 to 32767 by adding this to your `config.h`:
+By default, the X and Y motion for the pointing device/mouse reports is -127 to 127. You can definitely hit the limit for that with the sensors. You can enable support for -32767 to 32767 by adding this to your `config.h`:
 
 ```c
 #define MOUSE_EXTENDED_REPORT

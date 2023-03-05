@@ -16,17 +16,17 @@ float compute_freq_for_midi_note(uint8_t note) {
 }
 
 bool process_audio(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == AU_ON && record->event.pressed) {
+    if (keycode == QK_AUDIO_ON && record->event.pressed) {
         audio_on();
         return false;
     }
 
-    if (keycode == AU_OFF && record->event.pressed) {
+    if (keycode == QK_AUDIO_OFF && record->event.pressed) {
         audio_off();
         return false;
     }
 
-    if (keycode == AU_TOG && record->event.pressed) {
+    if (keycode == QK_AUDIO_TOGGLE && record->event.pressed) {
         if (is_audio_on()) {
             audio_off();
         } else {
@@ -35,13 +35,13 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (keycode == MUV_IN && record->event.pressed) {
+    if (keycode == QK_AUDIO_VOICE_NEXT && record->event.pressed) {
         voice_iterate();
         PLAY_SONG(voice_change_song);
         return false;
     }
 
-    if (keycode == MUV_DE && record->event.pressed) {
+    if (keycode == QK_AUDIO_VOICE_PREVIOUS && record->event.pressed) {
         voice_deiterate();
         PLAY_SONG(voice_change_song);
         return false;
@@ -62,5 +62,5 @@ void process_audio_all_notes_off(void) {
     stop_all_notes();
 }
 
-__attribute__((weak)) void audio_on_user() {}
-__attribute__((weak)) void audio_off_user() {}
+__attribute__((weak)) void audio_on_user(void) {}
+__attribute__((weak)) void audio_off_user(void) {}

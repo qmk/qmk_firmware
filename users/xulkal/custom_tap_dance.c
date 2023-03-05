@@ -4,9 +4,9 @@
 #ifdef TAP_DANCE_ENABLE
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [COMM_QUOT]  = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_QUOT),
-  [BACKSPACE] = ACTION_TAP_DANCE_DOUBLE (KC_BSPACE, LCTL(KC_BSPACE)),
+  [BACKSPACE] = ACTION_TAP_DANCE_DOUBLE (KC_BACKSPACE, LCTL(KC_BACKSPACE)),
   [DELETE] = ACTION_TAP_DANCE_DOUBLE (KC_DELETE, LCTL(KC_DELETE))
 };
 
@@ -17,7 +17,7 @@ static uint16_t td_timer;
 
 const uint16_t PROGMEM td_keymaps[TD_MAX - TD_MIN][2] = {
     [TD_COMM - TD_MIN]  = { KC_COMM, KC_QUOT },
-    [TD_BSPC - TD_MIN]  = { KC_BSPACE, LCTL(KC_BSPACE) },
+    [TD_BSPC - TD_MIN]  = { KC_BACKSPACE, LCTL(KC_BACKSPACE) },
     [TD_DEL - TD_MIN]  = { KC_DELETE, LCTL(KC_DELETE) }
 };
 

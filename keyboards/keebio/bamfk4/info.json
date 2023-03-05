@@ -1,5 +1,6 @@
 {
     "keyboard_name": "BAMFK-4",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "nooges",
     "usb": {
@@ -7,6 +8,8 @@
         "pid": "0x1114",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -13,7 +13,7 @@ OSM(MOD_LSFT),  _________________QWERTY_L3_________________,   KC_SLASH,
 KC_LCTL, LSFT(KC_LGUI), LSFT(KC_LALT),  KC_LALT,   KC_LGUI,
                                         XXXXXXX,  XXXXXXX,
                                                 XXXXXXX,
-                        KC_SPACE,   KC_BSPACE,  KC_DEL,
+                        KC_SPACE,   KC_BSPC,  KC_DEL,
 
 KC_EQL    , KC_6    , KC_7    , KC_8    , KC_9          , KC_0    , KC_ESCAPE      ,
 KC_PLUS   , _________________QWERTY_R1_________________  , LGUI(KC_SPACE) ,
@@ -31,12 +31,12 @@ KC_DOWN,  KC_TAB, KC_ENTER
 KC_ESCAPE , KC_F1         , KC_F2         , KC_F3       , KC_F4            , KC_F5    , KC_F6    ,
 XXXXXXX   , _________________SYMB_L1___________________ ,KC_ASTR  ,
 KC_TAB    ,  _________________SYMB_L2___________________,
-KC_LSHIFT ,  _________________SYMB_L3___________________, KC_SLASH ,
+KC_LSFT   ,  _________________SYMB_L3___________________, KC_SLASH ,
 KC_LCTL   , LSFT(KC_LGUI) , LSFT(KC_LALT) , KC_LALT     , WKSP_LEFT  ,
 
                                               XXXXXXX,        XXXXXXX,
                                                             XXXXXXX,
-                                    WKSP_RIGHT, KC_BSPACE,    KC_DEL,
+                                    WKSP_RIGHT, KC_BSPC,    KC_DEL,
 
 KC_F7     , KC_F8    , KC_F9   , KC_F10    , KC_F11    , KC_F12  , XXXXXXX  ,
 KC_PLUS   , _________________SYMB_R1___________________ , MO(_NAVI)  ,
@@ -59,7 +59,7 @@ TO(0)   , XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
 
                                             XXXXXXX  ,  XXXXXXX  ,
                                                         XXXXXXX  ,
-                                            KC_SPACE , KC_BSPACE , KC_DEL ,
+                                            KC_SPACE , KC_BSPC , KC_DEL ,
 
 KC_EQL  , ___________________XXXXX___________________ , QK_BOOT   ,
 KC_PLUS , _________________NUMP_R1___________________ , XXXXXXX ,

@@ -15,5 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#undef DRIVER_LED_TOTAL
-#define DRIVER_LED_TOTAL 78
+#pragma once
+
+#undef RGB_MATRIX_LED_COUNT
+#define RGB_MATRIX_LED_COUNT 78

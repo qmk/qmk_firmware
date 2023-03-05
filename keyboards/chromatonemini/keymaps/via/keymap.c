@@ -41,7 +41,7 @@ static bool led_indicator_enable = true;
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    SHIFT_L = USER00,
+    SHIFT_L = QK_KB_0,
     SHIFT_R,
     TGLINDI,  //  ToGgLe INDIcator
     TGLINTR,  //  ToGgLe INdicator location {(_KEY01, _KEY13, _KEY25, _KEY37) or (_KEY02, _KEY14, _KEY26) / (_KEY12, _KEY24, _KEY36)}in TRans mode
@@ -54,47 +54,56 @@ enum custom_keycodes {
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE LT(_FN, KC_MUTE)
 
-// Used to set octave to MI_OCT_0
+// Used to set octave to 0
 extern midi_config_t midi_config;
 static bool is_trans_mode = false;     //  By default, shift mode is chosen.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-            FN_MUTE,         MI_SUS,                             KC_VOLD, KC_VOLU,
-            MI_BENDU,
-        SHIFT_L, SHIFT_R,    MI_C_2, MI_D_2, MI_E_2,  MI_Fs_2, MI_Ab_2, MI_Bb_2, MI_C_3, MI_D_3, MI_E_3, MI_Fs_3, MI_Ab_3, MI_Bb_3, MI_C_4,  MI_D_4,  MI_E_4, MI_Fs_4, MI_Ab_4, MI_Bb_4, MI_C_5,
-            MI_BENDD,           MI_Db_2, MI_Eb_2, MI_F_2,  MI_G_2,  MI_A_2,  MI_B_2, MI_Db_3, MI_Eb_3, MI_F_3,  MI_G_3, MI_A_3,  MI_B_3, MI_Db_4, MI_Eb_4, MI_F_4,  MI_G_4,  MI_A_4,  MI_B_4
+            FN_MUTE,         MI_SUST,
+            MI_BNDU,
+        SHIFT_L, SHIFT_R,    MI_C2, MI_D2, MI_E2,  MI_Fs2, MI_Ab2, MI_Bb2, MI_C3, MI_D3, MI_E3, MI_Fs3, MI_Ab3, MI_Bb3, MI_C4,  MI_D4,  MI_E4, MI_Fs4, MI_Ab4, MI_Bb4, MI_C5,
+            MI_BNDD,            MI_Db2, MI_Eb2, MI_F2,  MI_G2,  MI_A2,  MI_B2, MI_Db3, MI_Eb3, MI_F3,  MI_G3, MI_A3,  MI_B3, MI_Db4, MI_Eb4, MI_F4,  MI_G4,  MI_A4,  MI_B4
     ),
 
     /* TRANS   This layer must locate 1 layer below _FN layer. */
     [_TRANS] = LAYOUT(
-            _______,           _______,                             _______, _______,
+            _______,           _______,
             _______,
-        MI_TRNSD, MI_TRNSU,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        MI_TRSD,  MI_TRSU,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
             _______,               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
     /* RESERVE */
     [_RESERVE] = LAYOUT(
-            _______,          _______,                             _______, _______,
+            _______,          _______,
             _______,
         _______, _______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
             _______,               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
     [_FN] =  LAYOUT(
-            _______,          XXXXXXX,                             RGB_RMOD, RGB_MOD,
+            _______,          XXXXXXX,
             MI_VELU,
         MI_OCTD, MI_OCTU,     B_BASE, DF(_RESERVE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, XXXXXXX, XXXXXXX,
-            MI_VELD,              TGLINTR,    TGLTRNS, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EEP_RST, TGLINDI, RGB_TOG
+            MI_VELD,              TGLINTR,    TGLTRNS, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EE_CLR, TGLINDI, RGB_TOG
     )
 };
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE]         = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_TRANS]        = { ENCODER_CCW_CW(_______, _______)  },
+    [_RESERVE]      = { ENCODER_CCW_CW(_______, _______)  },
+    [_FN]           = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+};
+#endif
+
 // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
 void my_init(void){
-    //  Set octave to MI_OCT_1
-    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+    //  Set octave to 0
+    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
     default_layer_set(_LS_BASE);
@@ -110,7 +119,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable();
-    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
+    rgb_matrix_set_speed(RGB_MATRIX_DEFAULT_SPD);
     rgb_matrix_sethsv(HSV_BLUE);
 #endif  // RGB_MATRIX_ENABLE
     my_init(); // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
@@ -236,7 +245,7 @@ void set_led_scale_indicator(uint8_t r, uint8_t g, uint8_t b) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     // uint32_t mode = rgblight_get_mode();
 
     if (rgb_matrix_is_enabled()) {  // turn the lights on when it is enabled.
@@ -271,5 +280,6 @@ void rgb_matrix_indicators_user(void) {
                 break;
         }
     }
+    return false;
 }
 #endif  // RGB_MATRIX_ENABLE

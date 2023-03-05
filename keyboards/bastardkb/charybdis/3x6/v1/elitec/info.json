@@ -1,6 +1,11 @@
 {
     "keyboard_name": "Charybdis Mini (3x6) Elite-C",
     "usb": {
-      "device_version": "1.0.0",
+        "device_version": "1.0.0"
     },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

@@ -24,13 +24,13 @@ RGB_MATRIX_EFFECT(unlocked)
 #include "dynamic_keymap.h"
 
 static bool active_keys_initialized = false;
-static uint8_t active_keys_table[DRIVER_LED_TOTAL] = {0};
+static uint8_t active_keys_table[RGB_MATRIX_LED_COUNT] = {0};
 
 static void active_keys_initialize(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             uint8_t led = g_led_config.matrix_co[row][col];
-            if (led < DRIVER_LED_TOTAL && row < 16 && col < 16) {
+            if (led < RGB_MATRIX_LED_COUNT && row < 16 && col < 16) {
                 active_keys_table[led] = (row << 4) | col;
             }
         }
@@ -65,10 +65,10 @@ static bool active_keys(effect_params_t* params) {
         }
     }
 
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
-RGB raw_rgb_data[DRIVER_LED_TOTAL] = {0};
+RGB raw_rgb_data[RGB_MATRIX_LED_COUNT] = {0};
 
 static uint8_t normalize_component(uint8_t component) {
     uint16_t x = (uint16_t)component;
@@ -94,7 +94,7 @@ static bool raw_rgb(effect_params_t* params) {
         RGB rgb = normalize_index(i);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 static uint8_t unlocked_keys[8][2] = {
@@ -151,7 +151,7 @@ static bool unlocked(effect_params_t* params) {
         RGB rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 #endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

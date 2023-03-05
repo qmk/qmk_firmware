@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments
@@ -36,21 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B4, F5, F6, B6, B5 }
 #define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6, F7 }
 #define DIODE_DIRECTION COL2ROW
-
-/* encoder support */
-#define ENCODERS_PAD_A { B3 }
-#define ENCODERS_PAD_B { B2 }
-#define ENCODER_RESOLUTION 2
-#define ENCODERS_PAD_A_RIGHT { B2 }
-#define ENCODERS_PAD_B_RIGHT { B3 }
-#define ENCODER_RESOLUTION_RIGHT 2
-
-/* communication between sides */
-#define USE_SERIAL
-#define SOFT_SERIAL_PIN D2
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -72,7 +51,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0

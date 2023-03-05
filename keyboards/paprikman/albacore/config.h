@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
@@ -42,8 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B3
 
 #ifdef RGB_MATRIX_ENABLE
-  #define DRIVER_LED_TOTAL 8
-  #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
+  #define RGB_MATRIX_LED_COUNT 8
   #define RGB_DISABLE_WHEN_USB_SUSPENDED
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220
   #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -60,10 +54,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
   #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Set lower left modifier key as a bootmagic key */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0

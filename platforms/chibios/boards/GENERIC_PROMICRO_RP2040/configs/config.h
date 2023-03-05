@@ -8,7 +8,7 @@
  *========================**/
 
 #if !defined(I2C_DRIVER)
-#    define I2C_DRIVER I2CD2
+#    define I2C_DRIVER I2CD1
 #endif
 
 #if !defined(I2C1_SDA_PIN)

@@ -26,12 +26,12 @@ SECURE_ENABLE = yes
 
 ## Keycodes
 
-| Key              | Description                                                                    |
-|------------------|--------------------------------------------------------------------------------|
-| `SECURE_LOCK`    | Revert back to a locked state                                                  |
-| `SECURE_UNLOCK`  | Forces unlock without performing a unlock sequence                             |
-| `SECURE_TOGGLE`  | Toggle directly between locked and unlock without performing a unlock sequence |
-| `SECURE_REQUEST` | Request that user perform the unlock sequence                                  |
+| Key                 |Aliases  | Description                                                                    |
+|---------------------|---------|--------------------------------------------------------------------------------|
+| `QK_SECURE_LOCK`    |`SE_LOCK`| Revert back to a locked state                                                  |
+| `QK_SECURE_UNLOCK`  |`SE_UNLK`| Forces unlock without performing a unlock sequence                             |
+| `QK_SECURE_TOGGLE`  |`SE_TOGG`| Toggle directly between locked and unlock without performing a unlock sequence |
+| `QK_SECURE_REQUEST` |`SE_REQ` | Request that user perform the unlock sequence                                  |
 
 ## Configuration
 

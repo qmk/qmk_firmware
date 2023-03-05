@@ -5,6 +5,11 @@
     "type": "object",
     "properties": {
         "author": {"type": "string"},
+        "converter": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z][0-9a-z_]*$"
+        },
         "host_language": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},
@@ -14,6 +19,20 @@
             "items": {
                 "type": "array",
                 "items": {"type": "string"}
+            }
+        },
+        "encoders": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": ["ccw", "cw"],
+                    "properties": {
+                        "ccw": {"type": "string"},
+                        "cw": {"type": "string"}
+                    }
+                }
             }
         },
         "macros": {

@@ -2,5 +2,23 @@
     "usb": {
         "pid": "0x6362",
         "device_version": "0.0.1"
-    }
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A0", "pin_b": "B8"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "C13",
+        "num_lock": "B12",
+        "scroll_lock": "B13"
+    },
+    "split": {
+        "bootmagic": {
+            "matrix": [5, 0]
+        }
+    },
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F411"
 }

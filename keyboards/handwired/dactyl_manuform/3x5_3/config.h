@@ -16,16 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-// Communication
-// #define USE_I2C
-#define USE_SERIAL
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 5
 
 // wiring of each half
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
@@ -35,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN D3
-#define DRIVER_LED_TOTAL 36
+#define RGB_MATRIX_LED_COUNT 36
 #define RGB_MATRIX_SPLIT { 18, 18 }
 #define RGB_MATRIX_CENTER { 133, 54 }
 

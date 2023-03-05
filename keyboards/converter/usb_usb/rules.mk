@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -22,5 +16,3 @@ CUSTOM_MATRIX = yes
 SRC += custom_matrix.cpp
 
 DEFAULT_FOLDER = converter/usb_usb/hasu
-
-LAYOUTS = fullsize_ansi fullsize_iso

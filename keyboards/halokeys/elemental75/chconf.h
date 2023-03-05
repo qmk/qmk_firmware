@@ -18,4 +18,4 @@
 // so we need to change resolution and frequency to match.
 #define CH_CFG_ST_RESOLUTION 16
 #define CH_CFG_ST_FREQUENCY 10000
-#include_next "chconf.h"
+#include_next <chconf.h>

@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [Matt Chan](https://github.com/mattchan)
 * Hardware Supported: Kegen G-Boy
-* Hardware Availability: Unfortunately, there is no site for this, and the Kegen Discord is ghost town.
+* Hardware Availability: Unfortunately, there is no site for this, and the Kegen Discord is no longer active. The group buy runners appear to have disappeared after round two units were delivered.
 
 Make example for this keyboard (after setting up your build environment):
 
