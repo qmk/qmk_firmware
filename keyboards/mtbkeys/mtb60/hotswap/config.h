@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix pinout */
-#define MATRIX_ROW_PINS { D6, D7, B4, B5, D5 }
-#define MATRIX_COL_PINS { D0, D1, D2, D3, B7, B6, F7, C6, C7, F6, F4, F1, F0, F5, E6 }
-
-/* diode direction: COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* Pin WS2812 RGB LEDs are connected to */
 #define RGB_DI_PIN D4
 

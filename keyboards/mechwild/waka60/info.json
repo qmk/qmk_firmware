@@ -8,6 +8,11 @@
         "pid": "0x1709",
         "device_version": "1.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B10", "B1", "B0", "A7", "A6", "A5", "A4"],
+        "rows": ["B8", "B4", "B3", "B9", "A15", "B12", "B13", "B14", "B15", "A8"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "A3", "pin_b": "A2"}

@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B12, A6, A5, A4, A3 }
-#define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B2, B1, A15, B3, B9, B8, B7, B6, B5, B4 }
-
-
 #ifdef LED_MATRIX_ENABLE
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
