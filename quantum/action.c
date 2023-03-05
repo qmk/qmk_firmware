@@ -435,11 +435,12 @@ void process_action(keyrecord_t *record, action_t action) {
                     } else {
                         if (event.pressed) {
                             if (tap_count == 0) {
+                                // Not a tap, but a hold: register the held mod
                                 ac_dprintf("MODS_TAP: Oneshot: 0\n");
                                 register_mods(mods);
                             } else if (tap_count == 1) {
                                 ac_dprintf("MODS_TAP: Oneshot: start\n");
-                                set_oneshot_mods(mods | get_oneshot_mods());
+                                add_oneshot_mods(mods);
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 ac_dprintf("MODS_TAP: Toggling oneshot");
@@ -450,6 +451,7 @@ void process_action(keyrecord_t *record, action_t action) {
                             }
                         } else {
                             if (tap_count == 0) {
+                                // Release hold: unregister the held mod and its variants
                                 unregister_mods(mods);
                                 del_oneshot_mods(mods);
                                 del_oneshot_locked_mods(mods);
