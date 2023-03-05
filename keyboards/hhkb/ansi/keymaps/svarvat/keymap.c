@@ -42,7 +42,7 @@
  * default HHKB Layout
  */
 #include QMK_KEYBOARD_H
-
+#include "print.h"
 
 
 /*
@@ -144,6 +144,10 @@ enum custom_keycodes {
     MA_BACKTICK = SAFE_RANGE,
     MA_TILD,
     MA_DELLINE,
+    MA_DOWN,
+    MA_UP,
+    MA_RIGHT,
+    MA_LEFT,
     MA_DELX2,
     MA_BSPCX2,
     MA_DOWNX2,
@@ -200,11 +204,13 @@ enum custom_keycodes {
     MA_CAPSU,
     MA_CAPSI,
     MA_CAPSA,
+    MA_MOUSEX1,
+    MA_MOUSEX4,
     DRAG_SCROLL,
 };
 
 #define LA_BASE 0
-#define LA_MOUSE 1
+#define LA_MOUSE 1 // Mouse x1
 #define LA_CAPSLOCK 2
 #define LA_LTHUMB 3
 #define LA_LTHUMBEMO 4 // gui + shift left + lettre côté gauche - LSG
@@ -223,6 +229,38 @@ bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
 //bool isDeadKeyCircStarted = false;
 //bool isDeadKeyTremaStarted = false;
+
+bool isMouseX1Started = false;
+bool mouseLeftX1 = false;
+bool mouseRightX1 = false;
+bool mouseUpX1 = false;
+bool mouseDownX1 = false;
+bool isMouseX2Started = false;
+bool mouseLeftX2 = false;
+bool mouseRightX2 = false;
+bool mouseUpX2 = false;
+bool mouseDownX2 = false;
+bool isMouseX4Started = false;
+bool mouseLeftX4 = false;
+bool mouseRightX4 = false;
+bool mouseUpX4 = false;
+bool mouseDownX4 = false;
+bool isScrollX1Started = false;
+bool scrollLeftX1 = false;
+bool scrollRightX1 = false;
+bool scrollUpX1 = false;
+bool scrollDownX1 = false;
+bool isScrollX2Started = false;
+bool scrollLeftX2 = false;
+bool scrollRightX2 = false;
+bool scrollUpX2 = false;
+bool scrollDownX2 = false;
+bool isScrollX4Started = false;
+bool scrollLeftX4 = false;
+bool scrollRightX4 = false;
+bool scrollUpX4 = false;
+bool scrollDownX4 = false;
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -340,9 +378,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_MOUSE] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_MS_BTN3, KC_MS_BTN1, KC_MS_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, MA_MOUSEX1, MA_MOUSEX4, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_MS_BTN3, KC_MS_BTN1, KC_MS_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, MA_UP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFT, MA_DOWN, MA_RIGHT, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
@@ -369,9 +407,11 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record, uint8_t mod_st
                 } else if(IS_LAYER_OFF(LA_MOUSE)) {
 //                    set_auto_mouse_enable(true);
                     layer_on(LA_MOUSE);
+                    isMouseX2Started = true;
                 } else if (IS_LAYER_ON(LA_MOUSE)) {
 //                    set_auto_mouse_enable(false);
                     layer_off(LA_MOUSE);
+                    isMouseX2Started = false;
                 }
             }
             return false;
@@ -952,14 +992,186 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mo
 //    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
     return processKeycodeIfLBase(keycode, record, mod_state);
 }
+bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_MOUSEX1:
+            if (record->event.pressed) {
+                isMouseX1Started = true;
+            } else {
+                isMouseX1Started = false;
+            }
+            return false;
+        case MA_MOUSEX4:
+            if (record->event.pressed) {
+                isMouseX4Started = true;
+            } else {
+                isMouseX4Started = false;
+            }
+            return false;
+        case MA_DOWN:
+            if (record->event.pressed) {
+                mouseDownX2 = true;
+            } else {
+                mouseDownX2 = false;
+            }
+            return false;
+    }
 
-bool set_scrolling = false;
+    return true;
+}
+
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  debug_mouse=true;
+}
+
+
+void matrix_scan_user(void) {
+    if (isMouseX1Started) {
+        if (mouseDownX1) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.y = -1;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseUpX1) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.y = 1;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseRightX1) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.x = 1;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseLeftX1) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.x = -1;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        }
+    } else if (isMouseX2Started) {
+        if (mouseDownX2) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.y = -4;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseUpX2) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.y = 4;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseRightX2) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.x = 4;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseLeftX2) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.x = -4;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        }
+    } else if (isMouseX4Started) {
+        if (mouseRightX4) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.x = 8;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseLeftX4) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.x = -8;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseDownX4) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.y = -8;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (mouseUpX4) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.y = 8;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        }
+    } else if (isScrollX1Started) {
+        if (scrollDownX1) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.v = -1;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollUpX1) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.v = 1;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollLeftX1) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.h = -1;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollRightX1) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.h = 1;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        }
+    } else if (isScrollX2Started) {
+        if (scrollDownX2) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.v = -4;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollUpX2) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.v = 4;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollLeftX2) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.h = -4;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollRightX2) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.h = 4;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        }
+    } else if (isScrollX4Started) {
+         if (scrollDownX4) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.v = -8;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollUpX4) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.v = 8;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollLeftX4) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.h = -8;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        } else if (scrollRightX4) {
+            report_mouse_t currentReport = pointing_device_get_report();
+            currentReport.h = 8;
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+        }
+    }
+}
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 //    if (keycode == DRAG_SCROLL && record->event.pressed) {
 //        set_scrolling = !set_scrolling;
-//        return false;
 //    }
+
 
     // Store the current modifier state in the variable for later reference
     uint8_t mod_state = get_mods();
@@ -998,13 +1210,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 }
 
+
+
+
+//bool set_scrolling = false;
+//void pointing_device_driver_init(void) {}
+//report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
+//    return mouse_report;
+//}
+//uint16_t pointing_device_driver_get_cpi(void) { return 0; }
+//void pointing_device_driver_set_cpi(uint16_t cpi) {}
 //
 //report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 //    if (set_scrolling) {
-//        mouse_report.h = mouse_report.x;
-//        mouse_report.v = mouse_report.y;
-//        mouse_report.x = 0;
-//        mouse_report.y = 0;
+//        report_mouse_t currentReport = pointing_device_get_report();
+//            currentReport.v = 1;
+//            currentReport.h = 1;
+//            currentReport.buttons |= MOUSE_BTN1;  // this is defined in report.h
+//        pointing_device_set_report(currentReport);
+//        pointing_device_send();
 //    }
 //    return mouse_report;
 //}
