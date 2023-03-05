@@ -15,7 +15,6 @@
 #define RGBLIGHT_SLEEP
 #endif
 
-/* number of backlight levels */
 #ifdef BACKLIGHT_LEVELS
 #undef BACKLIGHT_LEVELS
 #endif

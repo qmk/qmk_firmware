@@ -16,24 +16,14 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 4
 
 #define MATRIX_ROW_PINS { C0, C1, C2, C3 }
 #define MATRIX_COL_PINS { B0, D7, D6, D5 }
-
-#define ENCODER_RESOLUTION 4
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 // Fix for volume controll with encoder (steadily in/decrease)
 #define TAP_CODE_DELAY 60

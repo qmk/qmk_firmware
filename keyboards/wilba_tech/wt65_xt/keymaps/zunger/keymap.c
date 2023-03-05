@@ -435,7 +435,7 @@ void toggle_os_mode(void) {
   set_os_mode((os_mode + 1) % _OS_MODES_MAX);
 }
 
-void keyboard_post_init_user() {
+void keyboard_post_init_user(void) {
   set_os_mode(_WINDOWS);
 }
 

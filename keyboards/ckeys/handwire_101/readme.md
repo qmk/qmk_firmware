@@ -14,7 +14,7 @@ The laser cutting file is ideal for Ponoko's P1 board size.
 
 If you want to reflash the pre-installed firmware, use the `.bin` file for Proton C and the `.hex` file for Pro Micro builds. Flash with the QMK Toolbox or via the command line.
 
-Building for Proton C: `make ckeys/handwire_101:default CTPC=yes`
+Building for Proton C: `make ckeys/handwire_101:default CONVERT_TO=proton_c`
 Building for Pro Micro: `make ckeys/handwire_101:default`
 
 Pre-built firmware files (and laser cutting case files) can be found here: https://github.com/c-keys/handwire

@@ -1,0 +1,2 @@
+CONVERTER:=platforms/chibios/converters/promicro_to_rp2040_ce
+ACTIVE_CONVERTER:=rp2040_ce

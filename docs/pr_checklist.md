@@ -145,7 +145,13 @@ Also, specific to ChibiOS:
 
 ## Core PRs :id=core-pr
 
-- must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
+- all core PRs must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
+- as indicated above, the smallest set of changes to core components should be included in each PR
+    - PRs containing multiple areas of change will be asked to be split up and raised separately
+    - keyboard and keymap changes should only be included if they affect base keyboard builds, or the default-like `default`, `via`, `default_????` keymaps etc.
+        - keymap modifications for anything other than the default-like keymaps **should not be included in the initial PR** in order to simplify the review process
+        - the core PR submitter should submit a followup PR affecting other keymaps after initial PR merge
+        - large-scale refactoring or consolidation PRs that affect other keymaps (such as renaming keycodes) should always be raised separately
 - any new boards adding support for new hardware now requires a corresponding test board under `keyboards/handwired/onekey`
     - for new MCUs, a new "child" keyboard should be added that targets your newly-added MCU, so that builds can be verified
     - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided

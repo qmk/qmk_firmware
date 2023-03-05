@@ -8,6 +8,13 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B0",
+        "num_lock": "E7",
+        "scroll_lock": "E6"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT": {
             "layout": [

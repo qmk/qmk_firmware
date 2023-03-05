@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,   KC_RBRC,  KC_BSPC, \
      MOVE_MAC,   KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,   KC_ENT,   \
      KC_LSFT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,   J_MACRO,  \
-     KC_LCTL,    KC_LALT,  KC_LGUI,  KC_SPC,   FUNCTION, KC_RALT,  KC_RGUI),
+     KC_LCTL,    KC_LALT,  KC_LGUI,  KC_SPC,   LT_FUNC,  KC_RALT,  KC_RGUI),
 
   [_MOVE]    = LAYOUT_tsangan(\
      MAC_FRC,    MM_LEFT,  MM_RGHT,  KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_0,     IJ_TOP,    IJ_BOTT,  KC_DEL,  KC_BSPC, \
@@ -45,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CONFIG]     = LAYOUT_tsangan(\
      _______,   DF_1,     DF_2,     DF_3,     DF_4,      _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______, _______, \
-     _______,   NK_ON,    NK_OFF,   EEP_RST,  RESET,     _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  KC_INS, \
-     _______,   GE_SWAP,  GE_NORM,  DEBUG,    RGB_MOD,   RGB_HUI,  RGB_SAI,  RGB_SPI,  RGB_M_B,  _______,  _______,  RGB_TOG,   _______,  \
+     _______,   NK_ON,    NK_OFF,   EE_CLR,   QK_BOOT,   _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  KC_INS, \
+     _______,   GE_SWAP,  GE_NORM,  DB_TOGG,  RGB_MOD,   RGB_HUI,  RGB_SAI,  RGB_SPI,  RGB_M_B,  _______,  _______,  RGB_TOG,   _______,  \
      _______,   _______,  _______,  _______,  RGB_RMOD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  RGB_M_K,  _______,  _______,  _______,   _______,  \
      _______,   _______,  _______,  _______,  _______,   _______,  _______)
 };

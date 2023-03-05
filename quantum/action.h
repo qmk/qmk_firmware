@@ -84,6 +84,13 @@ typedef uint32_t swap_state_row_t;
 #        error "MATRIX_COLS: invalid value"
 #    endif
 
+/**
+ * @brief Get the swap hands enable state
+ *
+ * @return true
+ * @return false
+ */
+bool is_swap_hands_on(void);
 void process_hand_swap(keyevent_t *record);
 #endif
 
@@ -112,7 +119,19 @@ bool is_tap_action(action_t action);
 void process_record_tap_hint(keyrecord_t *record);
 #endif
 
-/* debug */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Helpers
+
+#ifdef ACTION_DEBUG
+#    include "debug.h"
+#    include "print.h"
+#    define ac_dprintf(...) dprintf(__VA_ARGS__)
+#else
+#    define ac_dprintf(...) \
+        do {                \
+        } while (0)
+#endif
+
 void debug_event(keyevent_t event);
 void debug_record(keyrecord_t record);
 void debug_action(action_t action);
