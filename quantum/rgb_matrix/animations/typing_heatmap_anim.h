@@ -13,10 +13,15 @@ RGB_MATRIX_EFFECT(TYPING_HEATMAP)
 #        ifndef RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT
 #            define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16
 #        endif
+
+#        ifndef RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT
+#            define RGB_MATRIX_TYPING_HEATMAP_INCREASE 32
+#        endif
+
 void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
 #        ifdef RGB_MATRIX_TYPING_HEATMAP_SLIM
     // Limit effect to pressed keys
-    g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], 32);
+    g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], RGB_MATRIX_TYPING_HEATMAP_INCREASE);
 #        else
     if (g_led_config.matrix_co[row][col] == NO_LED) { // skip as pressed key doesn't have an led position
         return;
@@ -27,7 +32,7 @@ void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
                 continue;
             }
             if (i_row == row && i_col == col) {
-                g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], 32);
+                g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], RGB_MATRIX_TYPING_HEATMAP_INCREASE);
             } else {
 #            define LED_DISTANCE(led_a, led_b) sqrt16(((int16_t)(led_a.x - led_b.x) * (int16_t)(led_a.x - led_b.x)) + ((int16_t)(led_a.y - led_b.y) * (int16_t)(led_a.y - led_b.y)))
                 uint8_t distance = LED_DISTANCE(g_led_config.point[g_led_config.matrix_co[row][col]], g_led_config.point[g_led_config.matrix_co[i_row][i_col]]);
