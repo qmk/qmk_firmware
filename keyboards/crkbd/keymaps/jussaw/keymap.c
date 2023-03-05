@@ -70,6 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  Alt   |    Z   |    X   |    C   |    D   |    V   |                    |    K   |    H   |    ,   |    .   |    /   | Enter  |
    * |--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
    *                                     |  Ctrl  | Lower  | Space  |  | Shift  | Upper  |  GUI   |
+   *                                     `--------------------------'  `--------------------------'
    */
   [_COLEMAKDH] = LAYOUT_split_3x6_3(
        KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
