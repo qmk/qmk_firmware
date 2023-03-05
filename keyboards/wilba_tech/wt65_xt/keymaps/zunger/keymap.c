@@ -21,81 +21,81 @@
 // key mappings or handle accents. Why? Because different OS's do this in radically different
 // ways, and don't support all of the features one often needs.
 //
-// LAYER MAGIC (aka, typing in many alphabets)
+// FEATURE #1: LANGUAGES
+// There are a set of "language select" keys that pick the language. In the "default" language,
+// keys work as normal; in other languages, they generate Unicode based on lookup tables. Our
+// languages right now are Greek, Yiddish, and "Cadet," i.e. space-cadet mathematical symbols;
+// the key layouts are designed to mimic QWERTY rather than be the most popular "native" layouts
+// for those languages, because that's what I prefer.
 //
-//   This keyboard has three sets of "polyglot" layers: GREEK, CADET, and YIDDISH. Each of these
-// is actually a pair of layers, FOO and SHIFTFOO, which are full of Unicode points that let you
-// type in them. (The Greek and Yiddish keymaps selected here are very canted towards use on a
-// QWERTY layout, rather than the "standard" layouts often used for those languages in monolingual
-// environments. This is useful if your keyboard doesn't have legends for all of them, which in
-// most cases it won't. Of course, you could easily add more.)
+// FEATURE #2: ACCENTS
+// When typing in the default language, you can generate Latin accents by typing fn-<accentkey>
+// followed by a letter. The accent keys are picked mimicing Mac OS: fn-e for an acute accent,
+// fn-i for a circumflex, etc. A lot of magic goes on under the hood to emit the *correct* Unicode
+// for these.
 //
-//   These each have their own layer select key, which can act as a held modifier key (GREEK+s to
-// produce sigma, etc). There's also a "layer lock" key; layer lock + modifier switches you into
-// that layer until you hit "layer lock" again to bounce back to QWERTY.
-//
-// ACCENT MAGIC
-//
-//   We want to support easy typing of diacriticals, again without relying on the host OS. (On
-// MacOS, if you want Unicode to work you have to lose all the normal accent combining keys, and
-// if you're in a multi-OS world, each OS has a totally different input method)
-//
-//   The real nuance comes from the three different ways Unicode represents these. Many common
-// accent + letter combinations like é have their own dedicated code points (the combined
-// normal form). One can also place a "combining accent mark" after the letter's code point to
-// form the decomposed normal form (NFKD); this often renders the same as the combined form, but
-// many less-sophisticated apps won't realize it's the same thing as the combined form (thus messing
-// up string matching), and if you backspace you need to backspace *twice* to remove the character,
-// because it's literally two characters. Finally, if you want to render just the accent mark as a
-// symbol of its own, that's a *third* code point. If you're simply typing, you don't want to think
-// about any of this!
-//
-//   We thus have a bunch of special keycodes for "accent requests," which live on the FUNCTION
-// layer. Accent requests don't do anything immediate, but when the *next* non-modifier key is hit,
-// we generate a combined code point (if possible), two uncombined points (in cases where combined
-// points don't exist), or the isolated accent followed by the next character typed (in cases where
-// what you typed next isn't a letterform at all, e.g. you hit the space bar). You can also hit
-// shift-<accent request> to just generate the uncombined accent on its own.
-//
-// The current accent request codes are modeled on the ones in MacOS.
-//
-//    fn+`    Grave accent (`)
-//    fn+e    Acute accent (´)
-//    fn+i    Circumflex (^)
-//    fn+u    Diaresis / umlaut / trema (¨)
-//    fn+c    Cedilla (¸)
-//    fn+n    Tilde (˜)
-//
-// Together, these functions make for a nice "polyglot" keyboard: one that can easily type in a wide
-// variety of languages, which is very useful for people who, well, need to type in a bunch of
-// languages.
-//
-// The major TODOs are:
-//   - Add accent support for Hebrew accents.
-//   - Factor the code below so that the data layers are more clearly separated from the code logic,
-//     so that other users of this keymap can easily add whichever alphabets they need without
-//     having to deeply understand the implementation. Probably something similar to
-//     users/drashna/keyrecords/unicode.c, but I want to see if I can do some preprocessor magic
-//     so that we can actually have the rendered *character* sitting in the code instead of just the
-//     hex code point!
-//
-// PLATFORM MAGIC (aka, working well on both Mac and Windows)
-//
-//   Finally, this keyboard can switch between Mac and Windows modes, changing various macro
-// combinations, the Unicode mode, and the position of the ALT and GUI keys.
+// FEATURE #3: OS-SPECIFIC KEYS
+// There's a "platform select" mode that can pick Mac or Windows. In addition to setting up the
+// Unicode mode, this also supports some magic keys for mute mic, raise hand, and screenshot, which
+// are mapped to key combos for particular apps. It would be nice if there were standard keycodes
+// for these like there are for media playing, but there aren't, and so any further standardization
+// would require running magic scripts on the host OS that detect currently running apps and pick the
+// right keycodes for each. Sigh.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// DECLARATIONS
+
+// Return values for process_* functions, because I get this wrong without macros
+#define FALLTHROUGH true
+#define STOP false
+
+#define IS_SHIFTED (get_mods() & MOD_MASK_SHIFT)
+
+enum languages {  // These double as tap-dance codes.
+  L_DEFAULT = 0,
+  L_GREEK,
+  L_CADET,
+  L_YIDDISH,
+  NUM_LANGUAGES,
+};
+
+// You can temporarily switch into a language by holding down the corresponding language-select
+// key, and "lock" the language by double-tapping it. While a language is locked, holding down that
+// language select key toggles back to L_DEFAULT; double-tapping it unlocks the key.
+static uint8_t language_lock = L_DEFAULT;
+static uint8_t language_select_held = L_DEFAULT;
+// The normal way to check the current language.
+uint8_t current_language(void);
+
+// Tap-dance helper declarations. Note how we stuff a language code into user_data!
+#define LANGUAGE_TAP_DANCE(code) \
+  { .fn = {NULL, lang_tap_dance_finished, lang_tap_dance_reset}, .user_data = (void*)(code) }
+
+void lang_tap_dance_finished(tap_dance_state_t *state, void *user_data);
+void lang_tap_dance_reset(tap_dance_state_t *state, void *user_data);
+bool process_language_key(uint16_t keycode, keycord_t *record);
+
+// OS mode selection helpers.
+enum os_modes {
+  OS_WINDOWS = 0,
+  OS_MAC = 1,
+  NUM_OS_MODES = 2,
+};
+static uint8_t os_mode = OS_MAC;
+
+void set_os_mode(uint8_t new_mode);
+void toggle_os_mode(void);  // Cycle through them
+bool process_os_key(uint16_t keycode, keyrecord_t *record);
+
+// Accent management, all in one function.
+bool process_accent_key(uint16_t keycode, keyrecord_t *record);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// Key maps
 
 enum custom_keycodes {
-  // The GREEK, CADET, and YIDDISH keys are for selecting language modes. LANG_LOCK is the lock key
-  // for those; lock+<selector> moves us into that mode, while just holding down <selector> acts as
-  // a modifier.
-  // TODO: Make double-tapping a selector act as a lock instead.
-  KC_GREEK = SAFE_RANGE,
-  KC_CADET,
-  KC_YIDDISH,
-  KC_LANG_LOCK,
-
   // OS-dependent macros
-  KC_PLATFORM,  // Platform select
+  KC_PLATFORM = SAFE_RANGE,  // Platform select
   KC_VC_MUTE,  // Video conference mute
   KC_VC_HAND,  // Video conference hand-raise
   KC_SCRNSHT,  // Screenshot (gui-shift-S on Windows, gui-shift-4 on Mac)
@@ -111,16 +111,20 @@ enum custom_keycodes {
   KC_ACCENT_END,
 };
 
+tap_dance_action_t tap_dance_actions[] = {
+    [L_GREEK] = LANGUAGE_TAP_DANCE(L_GREEK),
+    [L_CADET] = LANGUAGE_TAP_DANCE(L_CADET),
+    [L_YIDDISH] = LANGUAGE_TAP_DANCE(L_YIDDISH)
+};
+
 enum layers_keymap {
   _QWERTY,
   _FUNCTION,
 };
 
-
 // This is so that H(xxxx) has the same width as _______, which makes the grids more legible.
 #define H(x) UC(0x##x)
 #define MO_FN MO(_FUNCTION)
-#define KC_LLCK KC_LANG_LOCK
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT_65_xt_ansi_blocker_tsangan(
@@ -228,56 +232,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,  KC_TRNS,    KC_RCTL, KC_RGUI, KC_RALT,                            KC_TRNS,                                     KC_TRNS,          XXXXXXX, XXXXXXX, XXXXXXX),
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-// OS MODES
-// We manage our OS mode internally, and store it in a static, rather than EEPROM, bit. That's
-// because it changes as we flip machines, and there's no good reason to wear out the memory.
-enum os_modes {
-  _WINDOWS = 0,
-  _MAC = 1,
-  _OS_MODES_MAX = 2,
-};
-static uint8_t os_mode = _MAC;
-
-void set_os_mode(uint8_t new_mode) {
-  os_mode = new_mode;
-  // NB: We set unicode_config.input_mode directly, rather than calling
-  // set_unicode_input_mode, because we don't want to persist this and so we shouldn't put
-  // extra load on the EEPROMs.
-  unicode_config.input_mode = (os_mode == _MAC ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE);
-  // Swap LALT and LGUI depending on Mac/Windows.
-  keymap_config.swap_lalt_lgui = (os_mode == _MAC);
-  // This would be a great moment for some auditory or visual feedback, but this keyboard
-  // doesn't support it. :(
-}
-
-void toggle_os_mode(void) {
-  set_os_mode((os_mode + 1) % _OS_MODES_MAX);
-}
-
-void keyboard_post_init_user() {
-  set_os_mode(_WINDOWS);
-}
-
-// msec to hold the platform key to trigger a switch
-#define PLATFORM_HOLD_DURATION 750
-// Values for our OS-dependent keys, as arrays keyed by OS mode. Use Meet shortcuts on Mac, Teams on Windows
-const char *VC_MUTE_VALUES[_OS_MODES_MAX] = {SS_LCTL(SS_LSFT("m")), SS_LCMD("d")};
-const char *VC_HAND_VALUES[_OS_MODES_MAX] = {SS_LCTL(SS_LSFT("k")), SS_LCTL(SS_LCMD("h"))};
-const char *SCRNSHT_VALUES[_OS_MODES_MAX] = {SS_LGUI(SS_LSFT("s")), SS_LCMD(SS_LSFT("4"))};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // LANGUAGE SELECTION
-
-enum languages {
-  L_DEFAULT = 0,
-  L_GREEK,
-  L_CADET,
-  L_YIDDISH,
-  NUM_LANGUAGES,
-};
-
-#define MIN_TRANSLATABLE_KEY KC_A
 #define NUM_TRANSLATABLE_KEYS KC_CAPS_LOCK
 #define LANGUAGE_COLUMNS (2 * NUM_LANGUAGES - 2)
 
@@ -384,11 +341,7 @@ const uint16_t PROGMEM translation[NUM_TRANSLATABLE_KEYS][LANGUAGE_COLUMNS] = {
   [KC_SLSH] = {XXXXXX, XXXXXX, 0x2298, XXXXXX, ______, ______},
 };
 
-// Figure out which language we're in
-inline uint8_t current_language(
-  uint8_t language_lock,
-  uint8_t language_select_held
-) {
+uint8_t current_language(void) {
   if (language_select_held == L_DEFAULT) {
     // No selector key currently held; pick the locked language.
     return language_lock;
@@ -401,36 +354,46 @@ inline uint8_t current_language(
   }
 }
 
+void lang_tap_dance_finished(tap_dance_state_t *state, void *user_data) {
+    // We just stuffed an int into the "pointer"
+    const int language = (int)(user_data);
+    if (state->pressed) {
+        language_select_held = language;
+    } else if (state->count == 2) {  // Double-tap
+        language_lock = (language_lock == language ? L_DEFAULT : language);
+    }
+}
+
+void lang_tap_dance_reset(tap_dance_state_t *state, void *user_data) {
+    language_select_held = L_DEFAULT;
+}
+
 // Given the language we're in, if we need to generate some Unicode, actually do it! Returns
 // 'true' if we've done so and fully handled the keystroke, 'false' if this isn't Unicode and
 // we need to pass it on.
-bool process_language_key(
-  uint8_t language,
-  bool shifted,
-  uint16_t keycode,
-  keyrecord_t *record
-) {
-  // Fast paths: In default-language mode, or for any keycode we don't map, or for anything
-  // other than a keypress, nothing to do here.
-  if (language == L_DEFAULT || keycode < MIN_TRANSLATABLE_KEY || keycode >= NUM_TRANSLATABLE_KEYS || !record->event.pressed) {
-    return false;
-  }
+bool process_language_key(uint16_t keycode, keyrecord_t *record) {
+  // Fast paths: For keys outside the language-mapped set, or anything but keypresses, nothing
+  // to do here.
+  if (keycode < KC_A || keycode >= NUM_TRANSLATABLE_KEYS || !record->event.pressed) return FALLTHROUGH;
+
+  const uint8_t language = current_language();
+  if (language == L_DEFAULT) return FALLTHROUGH;
 
   const uint16_t code_point = pgm_read_word(
     (const uint16_t*)translation +   // Translation table
     keycode * LANGUAGE_COLUMNS +     // Outer index is the keycode
     2 * (language - 1) +             // Inner index has 2 slots per language
-    (shifted ? 1 : 0)                // unshifted, then shifted.
+    (IS_SHIFTED ? 1 : 0)                // unshifted, then shifted.
   );
 
   switch (code_point) {
     case ______:
-      return false;
+      return FALLTHROUGH;
     case XXXXXX:
-      return true;
+      return STOP;
     default:
       register_unicode(code_point);
-      return true;
+      return STOP;
   }
 }
 
@@ -497,257 +460,140 @@ const uint16_t PROGMEM combined_accents[NUM_ACCENTS] = {
   [KC_CTIL - KC_ACCENT_START] = 0x0303,
 };
 
-// Key types matter for accent handling. If there's a pending accent request and another key is
-// pressed:
-// - If it's a normal key, we trigger all our magic accent handling.
-// - If it's a modifier key, we do nothing and let the accent request hold until the next keypress.
-// - If it's a special key, we drop the accent request but don't handle it.
-enum key_types {
-  _NORMAL_KEY,
-  _MODIFIER_KEY,
-  _SPECIAL_KEY,
-};
+bool process_accent_key(uint16_t keycode, keyrecord_t *record) {
+  // The accent request, or zero if there isn't one.
+  static uint16_t accent_request = 0;
 
-// This function manages keypresses that happen after an accent has been selected by an earlier
-// keypress.
-// Args:
-//   accent_key: The accent key which was earlier selected. This must be in the range
-//     [KC_ACCENT_START, KC_ACCENT_END).
-//   keycode: The keycode which was just pressed.
-//   is_shifted: The current shift state (as set by a combination of shift and caps lock)
-//
-// Returns true if the keycode has been completely handled by this function (and so should not be
-// processed further by process_record_user) or false otherwise.
-bool process_key_after_accent(
-    uint16_t accent_key,
-    uint16_t keycode,
-    bool is_shifted
-) {
-  assert(accent_key >= KC_ACCENT_START);
-  assert(accent_key < KC_ACCENT_END);
-  const int accent_index = accent_key - KC_ACCENT_START;
+  // Everything in here only triggers on key downstrokes.
+  if (!record->event.pressed) return FALLTHROUGH;
 
+  // Press on an accent request key.
+  if (keycode >= KC_ACCENT_START && keycode < KC_ACCENT_END) {
+      if (IS_SHIFTED) {
+        // Shift+accent request means to just emit the appropriate Unicode combining accent symbol
+        // right now.
+        register_unicode(pgm_read_word(combined_accents + keycode - KC_ACCENT_START));
+      } else {
+        accent_request = keycode;
+      }
+      return STOP;
+  }
+
+  // OK, some other key was pressed. Is there a pending accent request? If not, we're done.
+  if (!accent_request) return FALLTHROUGH;
+
+  // If a modifier key was pressed, even though there's an accent request, don't do anything yet.
+  if (IS_MODIFIER_KEYCODE(keycode) || IS_QK_MODS(keycode)) return FALLTHROUGH;
+
+  // If we hit a normal key but with ctrl, alt, or gui, or if we just hit a non-alphanumeric key
+  // altogether, then just abort the accent request as if it never happened.
+  if (!IS_BASIC_KEYCODE(keycode) || (get_mods() & MOD_MASK_CAG)) {
+    accent_request = 0;
+    return FALLTHROUGH;
+  }
+
+  // An accent request is pending, and a normal key got hit! Time to generate some Unicode.
+  assert(accent_request >= KC_ACCENT_START);
+  assert(accent_request < KC_ACCENT_END);
+  const int accent_index = accent_request - KC_ACCENT_START;
+  // Consume the accent request, no matter which path we take from here.
+  accent_request = 0;
+
+  // If the accent request and the next key (as represented by its keycode and shift state)
+  // together have an NFC representation, emit that. For example, fn-e e leads to U+00E9 LATIN
+  // SMALL LETTER E WITH ACUTE if shift isn't held, or U+00C9 LATIN LARGE LETTER E WITH ACUTE if it is.
   // If the keycode is outside A..Z, we know we shouldn't even bother with a table lookup.
   if (keycode <= KC_Z) {
     // Pick the correct array. Because this is progmem, we're going to need to do the
     // two-dimensional array indexing by hand, and so we just cast it to a single-dimensional array.
-    const uint16_t *points = (const uint16_t*)(is_shifted ? shifted_accents : unshifted_accents);
+    const uint16_t *points = (const uint16_t*)(IS_SHIFTED ? shifted_accents : unshifted_accents);
     const uint16_t code_point = pgm_read_word(points + NUM_ACCENTS * keycode + accent_index);
     if (code_point) {
       register_unicode(code_point);
-      return true;
+      return STOP;
     }
   }
 
-  // If we get here, there was no accent match. Emit the accent as its own character (i.e. a
-  // Unicode combining accent mark) and return false so that process_record_user also registers
-  // whatever is appropriate for the keycode after that. The host can figure out what to do with
-  // combining Unicode.
+  // Otherwise, NFC and NFD are identical, and we emit the accent as its own character -- a
+  // Unicode combining accent mark -- and then return false, so that the keycode falls through
+  // and ultimately gets transmitted to the host OS. For example, if you are a Spinal Tap fan,
+  // you might tap fn-u n, and we will emit U+0308 COMBINING DIARESIS followed by KC_N. The host
+  // OS is responsible for merging those; generally speaking, Mac OS is much better at handling
+  // that than other OS's, so YMMV.
   register_unicode(pgm_read_word(uncombined_accents + accent_index));
-  return false;
+  return FALLTHROUGH;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // We track these persistent globals and manage them on our own, rather than trying to rely on
-  // get_mods or the like, because this function is called *before* that's updated!
-  static bool shift_held = false;
-  static bool alt_held = false;
-  static bool ctrl_held = false;
-  static bool super_held = false;
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// OS MODES
+// We manage our OS mode internally, and store it in a static, rather than EEPROM, bit. That's
+// because it changes as we flip machines, and there's no good reason to wear out the memory.
+void set_os_mode(uint8_t new_mode) {
+  os_mode = new_mode;
+  // NB: We set unicode_config.input_mode directly, rather than calling
+  // set_unicode_input_mode, because we don't want to persist this and so we shouldn't put
+  // extra load on the EEPROMs.
+  unicode_config.input_mode = (os_mode == OS_MAC ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE);
+  // Swap LALT and LGUI depending on Mac/Windows.
+  keymap_config.swap_lalt_lgui = (os_mode == OS_MAC);
+  // This would be a great moment for some auditory or visual feedback, but this keyboard
+  // doesn't support it. :(
+}
 
-  // These are where we remember the values of lock states.
-  static bool shift_lock = false;
-  static uint8_t language_lock = L_DEFAULT;  // The currently locked language
-  static uint8_t next_language_lock = L_DEFAULT;  // Used when language_lock is held
-  // Which language select key is currently being held down. L_DEFAULT is equivalent to "none."
-  static uint8_t language_select_held = L_DEFAULT;
+void toggle_os_mode(void) {
+  set_os_mode((os_mode + 1) % NUM_OS_MODES);
+}
 
+// msec to hold the platform key to trigger a switch
+#define PLATFORM_HOLD_DURATION 750
+// Values for our OS-dependent keys, as arrays keyed by OS mode. Use Meet shortcuts on Mac, Teams on Windows
+const char *VC_MUTE_VALUES[NUM_OS_MODES] = {SS_LCTL(SS_LSFT("m")), SS_LCMD("d")};
+const char *VC_HAND_VALUES[NUM_OS_MODES] = {SS_LCTL(SS_LSFT("k")), SS_LCTL(SS_LCMD("h"))};
+const char *SCRNSHT_VALUES[NUM_OS_MODES] = {SS_LGUI(SS_LSFT("s")), SS_LCMD(SS_LSFT("4"))};
+
+bool process_os_key(uint16_t keycode, keyrecord_t *record) {
   // When the hold on the platform key started
   static uint16_t platform_hold_start = 0;
+  if (keycode == KC_PLATFORM) {
+    if (record->event.pressed) {
+      platform_hold_start = record->event.time;
+    } else if (platform_hold_start != 0 && record->event.time - platform_hold_start > PLATFORM_HOLD_DURATION) {
+      toggle_os_mode();
+    }
+    return STOP;
+  }
 
-  // The accent request, or zero if there isn't one.
-  static uint16_t accent_request = 0;
+  // For other cases, we only want keypresses.
+  if (!record->event.pressed) return FALLTHROUGH;
 
-  // What kind of key we're striking right now, so that we know what to do if any accent requests
-  // are hanging around.
-  uint8_t key_type = _NORMAL_KEY;
-
-  // The language selection and locking logic is:
-  // * By default, the current language is given by saved value language_lock.
-  // * If a language select key is held down, we update the current language to that value.
-  //   (But special thing: If the current language lock is <language> and you hit the select key
-  //   for <language>, it instead toggles the current language back to L_DEFAULT! That way you can
-  //   insert some QWERTY keys in the midst of other-language text.)
-  // * If the KC_LANG_LOCK key is held down and a language select key gets pressed, we update
-  //   next_language_lock to that selected language. When KC_LANG_LOCK is released, we update
-  //   language_lock to next_language_lock. Note that that simply tapping KC_LANG_LOCK resets
-  //   language_lock to L_DEFAULT.
-  // * After all of this is done, we check if shift is held (via either shift or caps lock);
-  //   if it is, and our current language isn't L_DEFAULT, then we bump the current language ID by 1
-  //   to get the shifted language.
-
-  // Step 1: Process various interesting keycodes, especially ones that update our running
-  // state variables.
   switch (keycode) {
-    // Monitoring the modifier keys, because we'll need them for our logic!
-    case KC_LSFT:
-    case KC_RSFT:
-      shift_held = record->event.pressed;
-      key_type = _MODIFIER_KEY;
-      break;
-    case KC_CAPS:
-      shift_lock = !shift_lock;
-      key_type = _MODIFIER_KEY;
-      break;
-    case KC_LALT:
-    case KC_RALT:
-      alt_held = record->event.pressed;
-      key_type = _MODIFIER_KEY;
-      break;
-    case KC_LCTL:
-    case KC_RCTL:
-      ctrl_held = record->event.pressed;
-      key_type = _MODIFIER_KEY;
-      break;
-    case KC_LGUI:
-    case KC_RGUI:
-      super_held = record->event.pressed;
-      key_type = _MODIFIER_KEY;
-      break;
-
-    case KC_LANG_LOCK:
-      if (record->event.pressed) {
-        // On press, get ready for a language selection.
-        next_language_lock = L_DEFAULT;
-      } else {
-        // On release, propagate next_language_lock to language_lock.
-        language_lock = next_language_lock;
-      }
-      key_type = _MODIFIER_KEY;
-      break;
-
-    // Layer selectors
-    case KC_GREEK:
-      if (record->event.pressed) {
-        language_select_held = L_GREEK;
-        next_language_lock = L_GREEK;
-      } else {
-        language_select_held = L_DEFAULT;
-      }
-      key_type = _MODIFIER_KEY;
-      break;
-    case KC_CADET:
-      if (record->event.pressed) {
-        language_select_held = L_CADET;
-        next_language_lock = L_CADET;
-      } else {
-        language_select_held = L_DEFAULT;
-      }
-      key_type = _MODIFIER_KEY;
-      break;
-    case KC_YIDDISH:
-      if (record->event.pressed) {
-        language_select_held = L_YIDDISH;
-        next_language_lock = L_YIDDISH;
-      } else {
-        language_select_held = L_DEFAULT;
-      }
-      key_type = _MODIFIER_KEY;
-      break;
-
-    // Accent selectors
-    case KC_CGRV:
-    case KC_CAGU:
-    case KC_CDIA:
-    case KC_CCIR:
-    case KC_CCED:
-    case KC_CTIL:
-      // The accent request keys normally update accent_request (whose effect will trigger the next
-      // time we see a "normal" key pressed). However, shift+accent request will instead immediately
-      // generate the Unicode combining accent symbol instead.
-      if (shift_held) {
-        register_unicode(pgm_read_word(combined_accents + keycode - KC_ACCENT_START));
-        return false;
-      } else {
-        accent_request = keycode;
-      }
-      key_type = _MODIFIER_KEY;
-      break;
-
-    // Our special keycodes
-    case KC_PLATFORM:
-      if (record->event.pressed) {
-        platform_hold_start = record->event.time;
-      } else if (platform_hold_start != 0 && record->event.time - platform_hold_start > PLATFORM_HOLD_DURATION) {
-        toggle_os_mode();
-      }
-      key_type = _SPECIAL_KEY;
-      return true;
-
     case KC_VC_MUTE:
-      if (record->event.pressed) {
         send_string(VC_MUTE_VALUES[os_mode]);
-        return true;
-      }
-      key_type = _SPECIAL_KEY;
-      break;
+        return STOP;
 
     case KC_VC_HAND:
-      if (record->event.pressed) {
         send_string(VC_HAND_VALUES[os_mode]);
-        return true;
-      }
-      key_type = _SPECIAL_KEY;
-      break;
+        return STOP;
 
     case KC_SCRNSHT:
-      if (record->event.pressed) {
         send_string(SCRNSHT_VALUES[os_mode]);
-        return true;
-      }
-      key_type = _SPECIAL_KEY;
-      break;
-
-    case QK_BOOT:
-      key_type = _SPECIAL_KEY;
-      break;
+        return STOP;
   }
 
-  // Step 2: Finalize the state of shift, language, and key type detection.
-  const bool shifted = (shift_held != shift_lock);
-  const uint8_t language = current_language(language_lock, language_select_held);
+  return FALLTHROUGH;
+}
 
-  // Final update to key_type -- if we're in any language other than L_DEFAULT, or if any
-  // modifier key is being held down, then we're actually generating a special key, not a
-  // normal one.
-  // TODO: Support accents in all our languages!
-  if (key_type == _NORMAL_KEY &&
-      (language != L_DEFAULT || ctrl_held || super_held || alt_held)) {
-    key_type = _SPECIAL_KEY;
-  }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// Main
 
-  bool handled = false;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return (
+        process_os_key(keycode, record) &&
+        process_accent_key(keycode, record) &&
+        process_language_key(keycode, record)
+    );
+}
 
-  // Step 3: Handle accents.
-  if (accent_request && record->event.pressed) {
-    switch (key_type) {
-      case _NORMAL_KEY:
-        handled = process_key_after_accent(accent_request, keycode, shifted);
-        accent_request = 0;
-        break;
-
-      case _SPECIAL_KEY:
-        accent_request = 0;
-        break;
-
-      case _MODIFIER_KEY:
-        break;
-    }
-  }
-
-  // Step 4: Handle any language keys
-  handled |= process_language_key(language, shifted, keycode, record);
-
-  // Finally, return if we already took care of the key or not.
-  return !handled;
+void keyboard_post_init_user() {
+  set_os_mode(OS_WINDOWS);
 }
