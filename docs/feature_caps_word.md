@@ -90,6 +90,24 @@ by defining `IS_COMMAND()` in config.h:
 
 ## Customizing Caps Word :id=customizing-caps-word
 
+### Invert on shift :id=invert-on-shift
+
+By default, Caps Word turns off when Shift keys are pressed, considering them as
+word-breaking. Alternatively with the `CAPS_WORD_INVERT_ON_SHIFT` option,
+pressing the Shift key continues Caps Word and inverts the shift state. This
+makes it convenient to uncapitalize one or a few letters within a word, for
+example with Caps Word on, typing "P, D, F, Shift+S" produces "PDFs".
+
+Enable it by adding in config.h
+
+```c
+#define CAPS_WORD_INVERT_ON_SHIFT
+```
+
+This option works with regular Shift keys `KC_LSFT` and `KC_RSFT` and mod-tap
+Shift keys. 
+
+
 ### Idle timeout :id=idle-timeout
 
 Caps Word turns off automatically if no keys are pressed for
