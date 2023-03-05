@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 6
-
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, C6, D7 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2 ,B6 }
@@ -31,12 +26,6 @@
 /* define tapping term */
 #define TAPPING_TERM 120
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -44,13 +33,21 @@
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 36
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 18, 18 }    // Number of LEDs
 #define RGBLIGHT_LIMIT_VAL 100
 
-#define SOFT_SERIAL_PIN D2
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/
 //Speeds:

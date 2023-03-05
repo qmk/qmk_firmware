@@ -18,11 +18,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-// key matrix size
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
 
 // key matrix pins
 #define MATRIX_ROW_PINS \
@@ -36,7 +31,7 @@
 #define RGB_DI_PIN B9
 #define RGB_MATRIX_KEYPRESSES
 #define RGBLED_NUM 87
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 
@@ -88,9 +83,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-// Want backlighting and RGB Matrix patterns? See the note in the readme,
-// apply the patches, and then uncomment the line below as well as the ones
-// in rules.mk.
-//
-// #define BACKLIGHT_PIN rgb_matrix

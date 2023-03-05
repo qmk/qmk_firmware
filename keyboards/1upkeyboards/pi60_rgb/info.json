@@ -10,7 +10,6 @@
         "pid": "0x5602",
         "vid": "0x6F75"
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
         "layer_count": 10

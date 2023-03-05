@@ -16,13 +16,11 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DI_PIN A10
-#    define RGBLED_NUM 28
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define BACKLIGHT_LIMIT_VAL 200
+#    define RGB_MATRIX_LED_COUNT 28
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #    define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT

@@ -51,7 +51,7 @@ ef8878fba5d3786e3f9c66436da63a560cd36ac9 Hineybush h87a lock indicators (#8237)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_all(
-    KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,              KC_PSCR, KC_SLCK, KC_PAUS,
+    KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,              KC_PSCR, KC_SCRL, KC_PAUS,
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC,    KC_INS,  KC_HOME, KC_PGUP,
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,             KC_DEL,  KC_END,  KC_PGDN,
     KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   "layout": "LAYOUT_all",
   "layers": [
     [
-      "KC_ESC",             "KC_F1",   "KC_F2",   "KC_F3",   "KC_F4",   "KC_F5",   "KC_F6",   "KC_F7",   "KC_F8",   "KC_F9",   "KC_F10",  "KC_F11",  "KC_F12",                "KC_PSCR", "KC_SLCK", "KC_PAUS",
+      "KC_ESC",             "KC_F1",   "KC_F2",   "KC_F3",   "KC_F4",   "KC_F5",   "KC_F6",   "KC_F7",   "KC_F8",   "KC_F9",   "KC_F10",  "KC_F11",  "KC_F12",                "KC_PSCR", "KC_SCRL", "KC_PAUS",
       "KC_GRV",  "KC_1",    "KC_2",    "KC_3",    "KC_4",    "KC_5",    "KC_6",    "KC_7",    "KC_8",    "KC_9",    "KC_0",    "KC_MINS", "KC_EQL",  "KC_BSPC", "KC_BSPC",    "KC_INS",  "KC_HOME", "KC_PGUP",
       "KC_TAB",  "KC_Q",    "KC_W",    "KC_E",    "KC_R",    "KC_T",    "KC_Y",    "KC_U",    "KC_I",    "KC_O",    "KC_P",    "KC_LBRC", "KC_RBRC", "KC_BSLS",               "KC_DEL",  "KC_END",  "KC_PGDN",
       "KC_CAPS", "KC_A",    "KC_S",    "KC_D",    "KC_F",    "KC_G",    "KC_H",    "KC_J",    "KC_K",    "KC_L",    "KC_SCLN", "KC_QUOT", "KC_NUHS", "KC_ENT",
@@ -127,26 +127,26 @@ enum layer_names {
 
 ```c
 enum custom_keycodes {
-    MACRO_1 = SAFE_RANGE,
-    MACRO_2,
-    MACRO_3
+    CUSTOM_1 = SAFE_RANGE,
+    CUSTOM_2,
+    CUSTOM_3
 };
 ...
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case MACRO_1:
+        case CUSTOM_1:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #1.");
+                SEND_STRING("This is custom keycode #1.");
             }
             return false;
-        case MACRO_2:
+        case CUSTOM_2:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #2.");
+                SEND_STRING("This is custom keycode #2.");
             }
             return false;
-        case MACRO_3:
+        case CUSTOM_3:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #3.");
+                SEND_STRING("This is custom keycode #3.");
             }
             return false;
     }
@@ -158,9 +158,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ```c
 enum keyboard_keycodes {
-    MACRO_1 = SAFE_RANGE,
-    MACRO_2,
-    MACRO_3,
+    CUSTOM_1 = SAFE_RANGE,
+    CUSTOM_2,
+    CUSTOM_3,
     NEW_SAFE_RANGE  // 重要!
 };
 ```
@@ -170,19 +170,19 @@ enum keyboard_keycodes {
 ```c
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case MACRO_1:
+        case CUSTOM_1:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #1.");
+                SEND_STRING("This is custom keycode #1.");
             }
             return false;
-        case MACRO_2:
+        case CUSTOM_2:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #2.");
+                SEND_STRING("This is custom keycode #2.");
             }
             return false;
-        case MACRO_3:
+        case CUSTOM_3:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #3.");
+                SEND_STRING("This is custom keycode #3.");
             }
             return false;
     }

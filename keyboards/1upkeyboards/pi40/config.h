@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10
 
@@ -11,25 +10,18 @@
 #    define OLED_DISPLAY_128X32
 #define I2C1_SCL_PIN        GP17
 #define I2C1_SDA_PIN        GP16
-#define I2C_DRIVER I2CD1
+#define I2C_DRIVER I2CD0
 #define OLED_BRIGHTNESS 128
 #define OLED_FONT_H "keyboards/1upkeyboards/pi40/lib/glcdfont.c"
 #endif
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { GP21, GP20, GP19, GP18 }
 #define MATRIX_COL_PINS { GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12 }
 
-#define ENCODERS_PAD_A { GP14 }
-#define ENCODERS_PAD_B { GP13 }
-
 #define RGB_DI_PIN GP0
-#define DRIVER_LED_TOTAL 47
+#define RGB_MATRIX_LED_COUNT 47
 #define RGBLED_NUM 47
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS  
@@ -87,13 +79,7 @@
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

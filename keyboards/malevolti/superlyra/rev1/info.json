@@ -8,6 +8,8 @@
         "pid": "0x4C53",
         "device_version": "30.3.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

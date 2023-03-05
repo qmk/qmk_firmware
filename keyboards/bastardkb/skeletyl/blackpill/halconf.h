@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2020 Nick Brassel (tzarc)
  * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
  *

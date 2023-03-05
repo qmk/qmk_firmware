@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_COL_PINS {  B9,  A3,  A4,  A5,  A6,  A7,  B0,  B2,  B10, B11, B12, B13, B14, B15, A8 }
@@ -31,27 +26,16 @@
 
 #define TAP_CODE_DELAY 15
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-#ifdef ENCODER_ENABLE
-
-#   define ENCODERS_PAD_A { A9 }
-#   define ENCODERS_PAD_B { A10 }
-
-#endif
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 
 #    define RGB_DI_PIN B5
 #    define RGBLED_NUM 86
-#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 #    define RGBLIGHT_VAL_STEP 5
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define RGB_MATRIX_CENTER { 112, 32 }
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 

@@ -4,7 +4,6 @@
     "maintainer": "IBNobody",
     "bootloader": "atmel-dfu",
     "diode_direction": "ROW2COL",
-    "debounce": 5,
     "features": {
         "bootmagic": true,
         "command": false,
@@ -25,7 +24,7 @@
         "device_version": "2.0.0",
         "pid": "0x0227",
         "vid": "0x6964"
-    }
+    },
     "layouts": {
         "LAYOUT_numpad_6x5": {
             "layout": [

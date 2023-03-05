@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LSFT, KC_TAB,  MO(MANLNX), GUI_ESC,
                                                     _______, _______,
                                                              _______,
-                                          KC_LCTRL, KC_BSPC, _______,
+                                          KC_LCTL,  KC_BSPC, _______,
     // right hand
     _______, _______, _______,  _______, _______, _______,        _______,
     _______, KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,           KC_BSPC,

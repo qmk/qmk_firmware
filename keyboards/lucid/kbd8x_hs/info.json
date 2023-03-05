@@ -8,6 +8,11 @@
         "pid": "0x0003",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B7"
+    },
+    "processor": "at90usb646",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

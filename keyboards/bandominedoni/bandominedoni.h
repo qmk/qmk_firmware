@@ -74,8 +74,8 @@
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE  LT(_FN, KC_MUTE)
 #define DF_QWER  DF(_QWERTY)
-#define MIS_EIS  LT(_MISC,KC_LANG2)
-#define MIS_KAN  LT(_MISC,KC_LANG1)
+#define MIS_EIS  LT(_MISC,KC_LNG2)
+#define MIS_KAN  LT(_MISC,KC_LNG1)
 
 
 //  Overriding is_keyboard_left() in qmk_firmware/quantum/split_common/split_util.c to limit the handedness check only once.

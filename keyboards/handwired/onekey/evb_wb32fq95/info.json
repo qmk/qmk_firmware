@@ -5,5 +5,11 @@
     "matrix_pins": {
         "cols": ["B12"],
         "rows": ["B13"]
+    },
+    "backlight": {
+        "pin": "B8"
+    },
+    "rgblight": {
+        "pin": "A0"
     }
 }
