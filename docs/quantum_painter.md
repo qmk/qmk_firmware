@@ -352,6 +352,20 @@ Native color format rgb565 is compatible with ST7735
 
 !> Some ST7735 devices are known to have different drawing offsets -- despite being a 132x162 pixel display controller internally, some display panels are only 80x160, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
 
+!> Due to many variant of 80x160 display panels, which they need some changes to work correctly.
+
+Turn on RGB color order if display panels is not render correctly (default is BGR color order):
+
+```c
+#define ST7735_RGB_PANEL TRUE
+```
+
+Turn on invert color if display panels is not render correctly (default is not using invert color):
+
+```c
+#define ST7735_INVERT_COLOR TRUE
+```
+
 #### ** ST7789 **
 
 Enabling support for the ST7789 in Quantum Painter is done by adding the following to `rules.mk`:

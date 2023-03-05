@@ -1,6 +1,7 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
 // Copyright 2021 Nick Brassel (@tzarc)
 // Copyright 2022 David Hoelscher (@customMK)
+// Copyright 2023 Pham Duc (@HorrorTroll)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -17,6 +18,22 @@
  *      Increasing this number allows for multiple displays to be used.
  */
 #    define ST7735_NUM_DEVICES 1
+#endif
+
+#ifndef ST7735_INVERT_COLOR
+/**
+ * @def This controls the invert color of ST7735 devices that Quantum Painter render on panel.
+ *      Default config is not inverted.
+ */
+#    define ST7735_INVERT_COLOR FALSE
+#endif
+
+#ifndef ST7735_RGB_PANEL
+/**
+ * @def This controls the color order of ST7735 devices that Quantum Painter render on panel.
+ *      Default config is BGR color order.
+ */
+#    define ST7735_RGB_PANEL FALSE
 #endif
 
 // Additional configuration options to be copied to your keyboard's config.h (don't change here):
