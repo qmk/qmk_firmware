@@ -271,123 +271,123 @@ const char *SCRNSHT_VALUES[_OS_MODES_MAX] = {SS_LGUI(SS_LSFT("s")), SS_LCMD(SS_L
 
 enum languages {
   L_DEFAULT = 0,
-  L_YIDDISH,
   L_GREEK,
   L_CADET,
+  L_YIDDISH,
   NUM_LANGUAGES,
 };
 
-#define MIN_MAPPED_KEY KC_A
-#define MAX_MAPPED_KEY KC_CAPS_LOCK
+#define MIN_TRANSLATABLE_KEY KC_A
+#define NUM_TRANSLATABLE_KEYS KC_CAPS_LOCK
 #define LANGUAGE_COLUMNS (2 * NUM_LANGUAGES - 2)
 
 #define XXXXXX 0x0000
 #define ______ 0x0001
 
-// The first column of this table is the keycode to be mapped, up to MAX_MAPPED_KEY.
+// The first column of this table is the keycode to be mapped, up to NUM_TRANSLATABLE_KEYS.
 // The second column is (2 * (language - 1) + (shifted ? 1 : 0)), where language is
 // the currently selected language.
-const uint32_t PROGMEM translation[MAX_MAPPED_KEY][LANGUAGE_COLUMNS] = {
+const uint16_t PROGMEM translation[NUM_TRANSLATABLE_KEYS][LANGUAGE_COLUMNS] = {
   //   a    α 03b1  Α 0391  ∀ 2200  Å 212b  א 05d0  אַ fb2e
-  [KC_A] = [0x03b1, 0x0391, 0x2200, 0x212b, 0x05d0, 0xfb2e],
+  [KC_A] = {0x03b1, 0x0391, 0x2200, 0x212b, 0x05d0, 0xfb2e},
   //   b    β 03b2  Β 0392                  ב 05d1
-  [KC_B] = [0x03b2, 0x0392, XXXXXX, XXXXXX, 0x05d1, XXXXXX],
+  [KC_B] = {0x03b2, 0x0392, XXXXXX, XXXXXX, 0x05d1, XXXXXX},
   //   c    χ 03c7  Χ 03a7  ℂ 2102            כ 05db  ך 05da
-  [KC_C] = [0x03c7, 0x03a7, 0x2102, XXXXXX, 0x05db, 0x05da],
+  [KC_C] = {0x03c7, 0x03a7, 0x2102, XXXXXX, 0x05db, 0x05da},
   //   d    δ 03b4  Δ 0394  ⊂ 2282  ⊄ 2284   ד 05d3
-  [KC_D] = [0x03b4, 0x0394, 0x2282, 0x2284, 0x05d3, XXXXXX],
+  [KC_D] = {0x03b4, 0x0394, 0x2282, 0x2284, 0x05d3, XXXXXX},
   //   e    ε 03b5  Ε 0395  ∃ 2203  ∄ 2204  ע 05e2
-  [KC_E] = [0x03b5, 0x0395, 0x2203, 0x2204, 0x05e2, XXXXXX],
+  [KC_E] = {0x03b5, 0x0395, 0x2203, 0x2204, 0x05e2, XXXXXX},
   //   f    φ 03c6  Φ 03a6  ⊆ 2286  ⊈ 2288   פֿ fb4e
-  [KC_F] = [0x03c6, 0x03a6, 0x2286, 0x2288, 0xfb4e, XXXXXX],
+  [KC_F] = {0x03c6, 0x03a6, 0x2286, 0x2288, 0xfb4e, XXXXXX},
   //   g    γ 03b3  Γ 0393  ⊇ 2287  ⊉ 2289   ג 05d2
-  [KC_G] = [0x03b3, 0x0393, 0x2287, 0x2289, 0x05d2, XXXXXX],
+  [KC_G] = {0x03b3, 0x0393, 0x2287, 0x2289, 0x05d2, XXXXXX},
   //   h    η 03b7  Η 0397  ← 2190  ⇐ 21d0   ה 05d4
-  [KC_H] = [0x03b7, 0x0397, 0x2190, 0x21d0, 0x05d4, XXXXXX],
+  [KC_H] = {0x03b7, 0x0397, 0x2190, 0x21d0, 0x05d4, XXXXXX},
   //   i    ι 03b9  Ι 0399  ∞ 221e  ℵ 2135  י 05d9
-  [KC_I] = [0x03b9, 0x0399, 0x221e, 0x2135, 0x05d9, XXXXXX],
+  [KC_I] = {0x03b9, 0x0399, 0x221e, 0x2135, 0x05d9, XXXXXX},
   //   j            ϑ 03d1  ↓ 2193  ⇓ 21d3   ח 05d7  כֿ fb4d
-  [KC_J] = [XXXXXX, 0x03d1, 0x2193, 0x21d3, 0x05d7, 0xfb4d],
+  [KC_J] = {XXXXXX, 0x03d1, 0x2193, 0x21d3, 0x05d7, 0xfb4d},
   //   k    κ 03ba  Κ 039a  ↑ 2191  ⇑ 21d1   כ 05db  ך 05da
-  [KC_K] = [0x03ba, 0x039a, 0x2191, 0x21d1, 0x05db, 0x05da],
+  [KC_K] = {0x03ba, 0x039a, 0x2191, 0x21d1, 0x05db, 0x05da},
   //   l    λ 03bb  Λ 039b  → 2192  ⇒ 21d2   ל 05dc
-  [KC_L] = [0x03bb, 0x039b, 0x2192, 0x21d2, 0x05dc, XXXXXX],
+  [KC_L] = {0x03bb, 0x039b, 0x2192, 0x21d2, 0x05dc, XXXXXX},
   //   m    μ 03bc  Μ 039c                    מ 05de  ם 05dd
-  [KC_M] = [0x03bc, 0x039c, XXXXXX, XXXXXX, 0x05de, 0x05dd],
+  [KC_M] = {0x03bc, 0x039c, XXXXXX, XXXXXX, 0x05de, 0x05dd},
   //   n    ν 03bd  Ν 039d  ℕ 2115            נ 05e0  ן 05df
-  [KC_N] = [0x03bd, 0x039d, 0x2115, XXXXXX, 0x05e0, 0x05df],
+  [KC_N] = {0x03bd, 0x039d, 0x2115, XXXXXX, 0x05e0, 0x05df},
   //   o    ο 03bf  Ο 039f                  ו 05d5  אָ fb2f
-  [KC_O] = [0x03bf, 0x039f, XXXXXX, XXXXXX, 0x05d5, 0xfb2f],
+  [KC_O] = {0x03bf, 0x039f, XXXXXX, XXXXXX, 0x05d5, 0xfb2f},
   //   p    π 03c0  Π 03a0  ≡ 2261  ≢ 2262  פ 05e4  ף 05e3
-  [KC_P] = [0x03c0, 0x03a0, 0x2261, 0x2262, 0x05e4, 0x05e3],
+  [KC_P] = {0x03c0, 0x03a0, 0x2261, 0x2262, 0x05e4, 0x05e3},
   //   q    θ 03b8  Θ 0398  ℚ 211a          ק 05e7
-  [KC_Q] = [0x03b8, 0x0398, 0x211a, XXXXXX, 0x05e7, XXXXXX],
+  [KC_Q] = {0x03b8, 0x0398, 0x211a, XXXXXX, 0x05e7, XXXXXX},
   //   r    ρ 03c1  Ρ 03a1  ℝ 211d          ר 05e8
-  [KC_R] = [0x03c1, 0x03a1, 0x211d, XXXXXX, 0x05e8, XXXXXX],
+  [KC_R] = {0x03c1, 0x03a1, 0x211d, XXXXXX, 0x05e8, XXXXXX},
   //   s    σ 03c3  Σ 03a3  ∈ 2208  ∉ 2209   ס 05e1 ת 05ea
-  [KC_S] = [0x03c3, 0x03a3, 0x2208, 0x2209, 0x05e1, 0x05ea],
+  [KC_S] = {0x03c3, 0x03a3, 0x2208, 0x2209, 0x05e1, 0x05ea},
   //   t    τ 03c4  Τ 03a4                  ט 05d8  תּ fb4a
-  [KC_T] = [0x03c4, 0x03a4, XXXXXX, XXXXXX, 0x05d8, 0xfb4a],
+  [KC_T] = {0x03c4, 0x03a4, XXXXXX, XXXXXX, 0x05d8, 0xfb4a},
   //   u    υ 03c5  Υ 03a5  ∪ 222a  ∩ 2229  ו 05d5  ױ 05f1
-  [KC_U] = [0x03c5, 0x03a5, 0x222a, 0x2229, 0x05d5, 0x05f1],
+  [KC_U] = {0x03c5, 0x03a5, 0x222a, 0x2229, 0x05d5, 0x05f1},
   //   v            ς 03c2  ✔ 2714  √ 221a    װ 05f0  בֿ fb4c
-  [KC_V] = [XXXXXX, 0x03c2, 0x2714, 0x221a, 0x05f0, 0xfb4c],
+  [KC_V] = {XXXXXX, 0x03c2, 0x2714, 0x221a, 0x05f0, 0xfb4c},
   //   w    ω 03c9  Ω 03a9                  ש 05e9, שׂ fb2b
-  [KC_W] = [0x03c9, 0x03a9, XXXXXX, XXXXXX, 0x05e9, 0xfb2b],
+  [KC_W] = {0x03c9, 0x03a9, XXXXXX, XXXXXX, 0x05e9, 0xfb2b},
   //   x    ξ 03be  Ξ 039e  ✘ 2718            צ 05e6  ץ 05e5
-  [KC_X] = [0x03be, 0x039e, 0x2718, XXXXXX, 0x05e6, 0x05e5],
+  [KC_X] = {0x03be, 0x039e, 0x2718, XXXXXX, 0x05e6, 0x05e5},
   //   y    ψ 03c8  Ψ 03a8  ∨ 2228  ∧ 2227  ײ 05f2  ײַ fb1f
-  [KC_Y] = [0x03c8, 0x03a8, 0x2228, 0x2227, 0x05f2, 0xfb1f],
+  [KC_Y] = {0x03c8, 0x03a8, 0x2228, 0x2227, 0x05f2, 0xfb1f},
   //   z    ζ 03b6  Ζ 0396  ℤ 2124           ז 05d6
-  [KC_Z] = [0x03b6, 0x0396, 0x2124, XXXXXX, 0x05d6, XXXXXX],
+  [KC_Z] = {0x03b6, 0x0396, 0x2124, XXXXXX, 0x05d6, XXXXXX},
   //   1    ₁ 2081  ¹ 00b9  ¡ 00a1  ¿ 00bf  [transparent]
-  [KC_1] = [0x2081, 0x00b9, 0x00a1, 0x00bf, ______, ______],
+  [KC_1] = {0x2081, 0x00b9, 0x00a1, 0x00bf, ______, ______},
   //   2    ₂ 2082  ² 00b2  « 00ab  » 00bb  [transparent]
-  [KC_2] = [0x2082, 0x00b2, 0x00ab, 0x00bb, ______, ______],
+  [KC_2] = {0x2082, 0x00b2, 0x00ab, 0x00bb, ______, ______},
   //   3    ₃ 2083  ³ 00b3  £ 00a3  € 20ac  [transparent]
-  [KC_3] = [0x2083, 0x00b3, 0x00a3, 0x20ac, ______, ______],
+  [KC_3] = {0x2083, 0x00b3, 0x00a3, 0x20ac, ______, ______},
   //   4    ₄ 2084  ⁴ 2074                  [transparent]
-  [KC_4] = [0x2084, 0x2074, XXXXXX, XXXXXX, ______, ______],
+  [KC_4] = {0x2084, 0x2074, XXXXXX, XXXXXX, ______, ______},
   //   5    ₅ 2085  ⁵ 2075                  [transparent]
-  [KC_5] = [0x2085, 0x2075, XXXXXX, XXXXXX, ______, ______],
+  [KC_5] = {0x2085, 0x2075, XXXXXX, XXXXXX, ______, ______},
   //   6    ₆ 2086  ⁶ 2076                  [transparent]
-  [KC_6] = [0x2086, 0x2076, XXXXXX, XXXXXX, ______, ______],
+  [KC_6] = {0x2086, 0x2076, XXXXXX, XXXXXX, ______, ______},
   //   7    ₇ 2087  ⁷ 2077                  [transparent]
-  [KC_7] = [0x2087, 0x2077, XXXXXX, XXXXXX, ______, ______],
+  [KC_7] = {0x2087, 0x2077, XXXXXX, XXXXXX, ______, ______},
   //   8    ₈ 2088  ⁸ 2078  ° 00b0  ⊗ 2297  [transparent]
-  [KC_8] = [0x2088, 0x2078, 0x00b0, 0x2297, ______, ______],
+  [KC_8] = {0x2088, 0x2078, 0x00b0, 0x2297, ______, ______},
   //   9    ₉ 2089  ⁹ 2079                  [transparent]
-  [KC_9] = [0x2089, 0x2079, XXXXXX, XXXXXX, ______, ______],
+  [KC_9] = {0x2089, 0x2079, XXXXXX, XXXXXX, ______, ______},
   //   0    ₀ 2080  ⁰ 2070  ∅ 2205          [transparent]
-  [KC_0] = [0x2080, 0x2070, 0x2205, XXXXXX, ______, ______],
+  [KC_0] = {0x2080, 0x2070, 0x2205, XXXXXX, ______, ______},
   //   -    ₋ 208b  ⁻ 207b  ¬ 00ac  ⊖ 2296  [transparent]
-  [KC_MINS] = [0x208b, 0x207b, 0x00ac, 0x2296, ______, ______],
+  [KC_MINS] = {0x208b, 0x207b, 0x00ac, 0x2296, ______, ______},
   //   =    ₊ 208a  ₋ 208b  ≠ 2260  ⊕ 2295  [transparent]
-  [KC_EQL]  = [0x208a, 0x208b, 0x2260, 0x2295, ______, ______],
+  [KC_EQL]  = {0x208a, 0x208b, 0x2260, 0x2295, ______, ______},
   //   [                    ± 00b1  ∓ 2213
-  [KC_LBRC] = [XXXXXX, XXXXXX, 0x00b1, 0x2213, ______, ______],
+  [KC_LBRC] = {XXXXXX, XXXXXX, 0x00b1, 0x2213, ______, ______},
   //   ]                    ≈ 2248  ≉ 2249
-  [KC_RBRC] = [XXXXXX, XXXXXX, 0x2248, 0x2249, ______, ______],
+  [KC_RBRC] = {XXXXXX, XXXXXX, 0x2248, 0x2249, ______, ______},
   //   \                    ∼ 223c  ≁ 2241
-  [KC_BSLS] = [XXXXXX, XXXXXX, 0x223c, 0x2241, ______, ______],
+  [KC_BSLS] = {XXXXXX, XXXXXX, 0x223c, 0x2241, ______, ______},
   //   ;    … 2026  ⋯ 22ef  ↔ 2194  ⇔ 21d4
-  [KC_SCLN] = [0x2026, 0x22ef, 0x2194, 0x21d4, ______, ______],
+  [KC_SCLN] = {0x2026, 0x22ef, 0x2194, 0x21d4, ______, ______},
   //   '    · 00b7  • 2022  ∴ 2234  ⊙ 2299
-  [KC_QUOT] = [0x00b7, 0x2022, 0x2234, 0x2299, ______, ______],
+  [KC_QUOT] = {0x00b7, 0x2022, 0x2234, 0x2299, ______, ______},
   //   `                                    ׳ 05f3   ״ 05f4
-  [KC_GRV]  = [XXXXXX, XXXXXX, XXXXXX, XXXXXX, 0x05f3, 0x05f4],
+  [KC_GRV]  = {XXXXXX, XXXXXX, XXXXXX, XXXXXX, 0x05f3, 0x05f4},
   //   ,    ≪ 226a  ≫ 226b  ∂ 2202  ∫ 222b
-  [KC_COMM] = [0x226a, 0x226b, 0x2202, 0x222b, ______, ______],
+  [KC_COMM] = {0x226a, 0x226b, 0x2202, 0x222b, ______, ______},
   //   .    ≲ 2272  ≳ 2273  ≰ 2270  ≱ 2271
-  [KC_DOT]  = [0x2272, 0x2273, 0x2270, 0x2271, ______, ______],
+  [KC_DOT]  = {0x2272, 0x2273, 0x2270, 0x2271, ______, ______},
   //   /                            ⊘ 2298
-  [KC_SLSH] = [XXXXXX, XXXXXX, 0x2298, XXXXXX, ______, ______],
+  [KC_SLSH] = {XXXXXX, XXXXXX, 0x2298, XXXXXX, ______, ______},
 };
 
 // Figure out which language we're in
 inline uint8_t current_language(
   uint8_t language_lock,
-  uint8_t language_select_held,
+  uint8_t language_select_held
 ) {
   if (language_select_held == L_DEFAULT) {
     // No selector key currently held; pick the locked language.
@@ -404,23 +404,23 @@ inline uint8_t current_language(
 // Given the language we're in, if we need to generate some Unicode, actually do it! Returns
 // 'true' if we've done so and fully handled the keystroke, 'false' if this isn't Unicode and
 // we need to pass it on.
-inline bool process_language_key(
+bool process_language_key(
   uint8_t language,
   bool shifted,
   uint16_t keycode,
-  keyrecord_t *record,
+  keyrecord_t *record
 ) {
   // Fast paths: In default-language mode, or for any keycode we don't map, or for anything
   // other than a keypress, nothing to do here.
-  if (language == L_DEFAULT || keycode < MIN_MAPPED_KEY || keycode >= MAX_MAPPED_KEY || !record->event.pressed) {
+  if (language == L_DEFAULT || keycode < MIN_TRANSLATABLE_KEY || keycode >= NUM_TRANSLATABLE_KEYS || !record->event.pressed) {
     return false;
   }
 
-  const uint32_t code_point = pgm_read_dword(
-      translation +                 // Array base
-      keycode * LANGUAGE_COLUMNS +  // Outer index: keycode
-      2 * (language - 1) +          // Inner index: 2 slots per language other than L_DEFAULT
-      (shifted ? 1 : 0)             // unshifted, then shifted.
+  const uint16_t code_point = pgm_read_word(
+    (const uint16_t*)translation +   // Translation table
+    keycode * LANGUAGE_COLUMNS +     // Outer index is the keycode
+    2 * (language - 1) +             // Inner index has 2 slots per language
+    (shifted ? 1 : 0)                // unshifted, then shifted.
   );
 
   switch (code_point) {
@@ -450,10 +450,10 @@ inline bool process_language_key(
 // The contents are either Unicode code points, or zero to indicate that we don't have a point for
 // this combination.
 
-#define KC_NUM_ACCENTS (KC_ACCENT_END - KC_ACCENT_START)
-#define KC_NUM_SLOTS (KC_Z + 1)
+#define NUM_ACCENTS (KC_ACCENT_END - KC_ACCENT_START)
+#define NUM_ACCENTABLE_CHARS (KC_Z + 1)
 
-const uint16_t PROGMEM unshifted_accents[KC_NUM_SLOTS][KC_NUM_ACCENTS] = {
+const uint16_t PROGMEM unshifted_accents[NUM_ACCENTABLE_CHARS][NUM_ACCENTS] = {
   //         KC_CGRV, KC_CAGU, KC_CDIA, KC_CCIR, KC_CCED, KC_CTIL
   [KC_A] = { 0x00e0,  0x00e1,  0x00e4,  0x00e2,  0,       0x00e3 },
   [KC_E] = { 0x00e8,  0x00e9,  0x00eb,  0x00ea,  0,       0      },
@@ -465,7 +465,7 @@ const uint16_t PROGMEM unshifted_accents[KC_NUM_SLOTS][KC_NUM_ACCENTS] = {
   [KC_C] = { 0,       0,       0,       0,       0x00e7,  0      },
 };
 
-const uint16_t PROGMEM shifted_accents[KC_NUM_SLOTS][KC_NUM_ACCENTS] = {
+const uint16_t PROGMEM shifted_accents[NUM_ACCENTABLE_CHARS][NUM_ACCENTS] = {
   //         KC_CGRV, KC_CAGU, KC_CDIA, KC_CCIR, KC_CCED, KC_CTIL
   [KC_A] = { 0x00c0,  0x00c1,  0x00c4,  0x00c2,  0,       0x00c3 },
   [KC_E] = { 0x00c8,  0x00c9,  0x00cb,  0x00ca,  0,       0      },
@@ -479,7 +479,7 @@ const uint16_t PROGMEM shifted_accents[KC_NUM_SLOTS][KC_NUM_ACCENTS] = {
 
 // The uncombined and combined forms of the accents, for when we want to emit them as single
 // characters.
-const uint16_t PROGMEM uncombined_accents[KC_NUM_ACCENTS] = {
+const uint16_t PROGMEM uncombined_accents[NUM_ACCENTS] = {
   [KC_CGRV - KC_ACCENT_START] = 0x0060,
   [KC_CAGU - KC_ACCENT_START] = 0x00b4,
   [KC_CDIA - KC_ACCENT_START] = 0x00a8,
@@ -488,7 +488,7 @@ const uint16_t PROGMEM uncombined_accents[KC_NUM_ACCENTS] = {
   [KC_CTIL - KC_ACCENT_START] = 0x02dc,
 };
 
-const uint16_t PROGMEM combined_accents[KC_NUM_ACCENTS] = {
+const uint16_t PROGMEM combined_accents[NUM_ACCENTS] = {
   [KC_CGRV - KC_ACCENT_START] = 0x0300,
   [KC_CAGU - KC_ACCENT_START] = 0x0301,
   [KC_CDIA - KC_ACCENT_START] = 0x0308,
@@ -532,7 +532,7 @@ bool process_key_after_accent(
     // Pick the correct array. Because this is progmem, we're going to need to do the
     // two-dimensional array indexing by hand, and so we just cast it to a single-dimensional array.
     const uint16_t *points = (const uint16_t*)(is_shifted ? shifted_accents : unshifted_accents);
-    const uint16_t code_point = pgm_read_word(points + KC_NUM_ACCENTS * keycode + accent_index);
+    const uint16_t code_point = pgm_read_word(points + NUM_ACCENTS * keycode + accent_index);
     if (code_point) {
       register_unicode(code_point);
       return true;
@@ -722,7 +722,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // normal one.
   // TODO: Support accents in all our languages!
   if (key_type == _NORMAL_KEY &&
-      (current_language != L_DEFAULT || ctrl_held || super_held || alt_held)) {
+      (language != L_DEFAULT || ctrl_held || super_held || alt_held)) {
     key_type = _SPECIAL_KEY;
   }
 
