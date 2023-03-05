@@ -397,7 +397,7 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"}
-            },
+            }
         },
         "rgb_matrix": {
             "type": "object",
