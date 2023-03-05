@@ -12,7 +12,6 @@ RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 
-SPLIT_KEYBOARD = yes
 ENCODER_ENABLE = yes
 
 OLED_ENABLE = yes
