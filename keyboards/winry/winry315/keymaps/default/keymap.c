@@ -31,49 +31,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 // clang-format on
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t layer = get_highest_layer(layer_state | default_layer_state);
-
-    switch (index) {
-        case 0:
-            // Left encoder
-            if (layer == _RGB) {
-                if (clockwise) {
-                    rgblight_increase_hue();
-                } else {
-                    rgblight_decrease_hue();
-                }
-            } else {
-                tap_code(clockwise ? KC_PGDN : KC_PGUP);
-            }
-            break;
-
-        case 1:
-            // Center encoder
-            if (layer == _RGB) {
-                if (clockwise) {
-                    rgblight_increase_sat();
-                } else {
-                    rgblight_decrease_sat();
-                }
-            } else {
-                tap_code_delay(clockwise ? KC_VOLU : KC_VOLD, 10);
-            }
-            break;
-
-        case 2:
-            // Right encoder
-            if (layer == _RGB) {
-                if (clockwise) {
-                    rgblight_increase_val();
-                } else {
-                    rgblight_decrease_val();
-                }
-            } else {
-                tap_code_delay(clockwise ? KC_MNXT : KC_MPRV, 10);
-            }
-            break;
-    }
-    return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =  { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT)  },
+    [_RGB] =   { ENCODER_CCW_CW(RGB_HUI, RGB_HUD), ENCODER_CCW_CW(RGB_SAD, RGB_SAI), ENCODER_CCW_CW(RGB_VAD, RGB_VAI)  },
+};
+#endif
