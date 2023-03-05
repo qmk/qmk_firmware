@@ -1,7 +1,18 @@
 {
-    "keyboard_name": "sam sg81m",
+    "keyboard_name": "SG81M",
+    "manufacturer": "Sam",
     "url": "",
     "maintainer": "CMMS-Freather",
+    "usb": {
+        "vid": "0x534D",
+        "pid": "0x3831",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_7u_space": {
             "layout": [

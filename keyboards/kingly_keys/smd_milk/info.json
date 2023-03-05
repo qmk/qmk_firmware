@@ -1,7 +1,15 @@
 {
-  "keyboard_name": "smd_milk",
+  "keyboard_name": "SMD-2% Milk",
+  "manufacturer": "Kingly-Keys",
   "url": "",
   "maintainer": "TheRoyalSweatshirt",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0xB195",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [ {"x": 0, "y": 0 }, {"x": 0, "y": 1 }]

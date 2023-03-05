@@ -1,7 +1,32 @@
 {
     "keyboard_name": "DracuLad",
+    "manufacturer": "MangoIV",
     "url": "",
     "maintainer": "MangoIV",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1B1E",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B6"},
+            {"pin_a": "B4", "pin_b": "B5"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "B2", "pin_b": "B6", "resolution": 4},
+                    {"pin_a": "B4", "pin_b": "B5", "resolution": 1}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

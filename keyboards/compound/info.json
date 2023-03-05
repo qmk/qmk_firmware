@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Compound",
+    "manufacturer": "Sabomov",
     "url": "https://geekhack.org/index.php?topic=111187.0",
     "maintainer": "yumagulovrn",
+    "usb": {
+        "vid": "0x420A",
+        "pid": "0xB0BA",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,12 +1,3 @@
-# MCU name
-MCU = STM32F401
-
-# Bootloader selection
-BOOTLOADER = tinyuf2
-#BOOTLOADER = stm32-dfu
-MCU_LDSCRIPT = STM32F401xE
-EEPROM_DRIVER = vendor
-
 # Build Options
 #   change yes to no to disable
 #
@@ -22,6 +13,4 @@ AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 ENCODER_ENABLE = yes        # Enable encoder
-
-LAYOUTS = ortho_5x12
 

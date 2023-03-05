@@ -1,7 +1,18 @@
 {
-    "keyboard_name": "sunsetter_r2",
+    "keyboard_name": "Sunsetter R2",
+    "manufacturer": "Charue Design",
     "url": "https://charue-design.com/collections/sunsetter",
     "maintainer": "ILWrites",
+    "usb": {
+        "vid": "0x4344",
+        "pid": "0x5335",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

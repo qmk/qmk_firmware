@@ -1,0 +1,8 @@
+{
+    "keyboard_name": "Kangaroo Rev 2.0",
+    "usb": {
+        "device_version": "0.0.2"
+    },
+    "processor": "STM32L412",
+    "bootloader": "stm32-dfu"
+}

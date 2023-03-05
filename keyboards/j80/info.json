@@ -1,7 +1,23 @@
 {
   "keyboard_name": "J80",
+  "manufacturer": "JER",
   "url": "",
   "maintainer": "oeywil",
+  "usb": {
+    "vid": "0x20A0",
+    "pid": "0x422D",
+    "device_version": "0.0.1"
+  },
+  "backlight": {
+    "pin": "D4"
+  },
+  "indicators": {
+    "caps_lock": "D1",
+    "num_lock": "D0",
+    "scroll_lock": "D6"
+  },
+  "processor": "atmega32a",
+  "bootloader": "bootloadhid",
   "layouts": {
     "LAYOUT_tkl_ansi": {
       "layout": [

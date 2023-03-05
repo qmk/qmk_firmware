@@ -1,10 +1,19 @@
 {
     "keyboard_name": "CK65",
+    "manufacturer": "senselessclay",
     "url": "https://candykeys.com",
     "maintainer": "had-i",
+    "usb": {
+        "vid": "0x4849",
+        "pid": "0x0651",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_iso"
     },
+    "community_layouts": ["65_iso"],
     "layouts": {
         "LAYOUT_65_iso": {
             "layout": [

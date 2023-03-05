@@ -1,0 +1,13 @@
+{
+    "keyboard_name": "CO60 rev 6",
+    "usb": {
+        "device_version": "6.0.0"
+    },
+    "backlight": {
+        "pin": "B8",
+        "breathing": true
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C"
+}

@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4B59 // KY
-#define PRODUCT_ID 0x414B // AK
-#define DEVICE_VER 0x0000
-#define MANUFACTURER Keeboyzlab
-#define PRODUCT AKIRA
-
-// key matrix size
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 // M60-A PCB default pin-out
 #define MATRIX_ROW_PINS \
@@ -48,4 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 3

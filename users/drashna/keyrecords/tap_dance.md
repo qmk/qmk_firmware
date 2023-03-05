@@ -30,7 +30,7 @@ These are the custom defined dances that I'm using.  It sets up everything for l
 
 ```c
 //Tap Dance Definitions, sets the index and the keycode.
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // tap once to disable, and more to enable timed micros
     [TD_D3_1] = ACTION_TAP_DANCE_DIABLO(0, KC_1),
     [TD_D3_2] = ACTION_TAP_DANCE_DIABLO(1, KC_2),
@@ -82,13 +82,13 @@ The first part of the magic here is the `diablo_tapdance_master` function.  The 
 
 ```c
 // Cycle through the times for the macro, starting at 0, for disabled.
-void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
+void diablo_tapdance_master(tap_dance_state_t *state, void *user_data) {
     diable_keys_t *diablo_keys = (diable_keys_t *)user_data;
     // Sets the keycode based on the index
     diablo_timer[diablo_keys->index].keycode = diablo_keys->keycode;
 
     // if the tapdance is hit more than the number of elemints in the array, reset
-    if (state->count >= (sizeof(diablo_times) / sizeof(uint8_t) ) ) {
+    if (state->count >= ARRAY_SIZE(diablo_times) ) {
         diablo_timer[diablo_keys->index].key_interval = 0;
         reset_tap_dance(state);
     }  else { // else set the interval (tapdance count starts at 1, array starts at 0, so offset by one)

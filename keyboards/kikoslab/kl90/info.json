@@ -1,7 +1,21 @@
 {
     "keyboard_name": "KL-90", 
+    "manufacturer": "Kikos Lab",
     "url": "www.kikoslab.com", 
     "maintainer": "swiftrax", 
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEA53",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A3", "pin_b": "A4"},
+            {"pin_a": "C3", "pin_b": "C4"}
+        ]
+    },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

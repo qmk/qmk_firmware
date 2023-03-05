@@ -19,6 +19,14 @@
 #include "test_fixture.hpp"
 #include "test_keymap_key.hpp"
 
+// Allow reports with no keys or only KC_LSFT.
+// clang-format off
+#define EXPECT_EMPTY_OR_LSFT(driver)              \
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf( \
+            KeyboardReport(),                     \
+            KeyboardReport(KC_LSFT))))
+// clang-format on
+
 using ::testing::_;
 using ::testing::AnyNumber;
 using ::testing::AnyOf;
@@ -39,13 +47,7 @@ TEST_F(CapsWord, AutoShiftKeys) {
     KeymapKey  key_spc(0, 1, 0, KC_SPC);
     set_keymap({key_a, key_spc});
 
-    // Allow any number of reports with no keys or only KC_LSFT.
-    // clang-format off
-    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
-                KeyboardReport(),
-                KeyboardReport(KC_LSFT))))
-        .Times(AnyNumber());
-    // clang-format on
+    EXPECT_EMPTY_OR_LSFT(driver).Times(AnyNumber());
     { // Expect: "A, A, space, a".
         InSequence s;
         EXPECT_REPORT(driver, (KC_LSFT, KC_A));
@@ -62,7 +64,47 @@ TEST_F(CapsWord, AutoShiftKeys) {
     tap_key(key_spc);
     tap_key(key_a);
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Test Caps Word + Auto Shift where keys A and B are rolled.
+TEST_F(CapsWord, AutoShiftRolledShiftedKeys) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_b(0, 0, 1, KC_B);
+    set_keymap({key_a, key_b});
+
+    EXPECT_EMPTY_OR_LSFT(driver).Times(AnyNumber());
+    { // Expect: "A, B, A, B".
+        InSequence s;
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+    }
+
+    caps_word_on();
+
+    key_a.press(); // Overlapping taps: A down, B down, A up, B up.
+    run_one_scan_loop();
+    key_b.press();
+    run_one_scan_loop();
+    key_a.release();
+    run_one_scan_loop();
+    key_b.release();
+    run_one_scan_loop();
+
+    key_a.press(); // Nested taps: A down, B down, B up, A up.
+    run_one_scan_loop();
+    key_b.press();
+    run_one_scan_loop();
+    key_b.release();
+    run_one_scan_loop();
+    key_a.release();
+    run_one_scan_loop();
+
+    caps_word_off();
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Tests that with tap-hold keys with Retro Shift, letter keys are shifted by
@@ -73,13 +115,7 @@ TEST_F(CapsWord, RetroShiftKeys) {
     KeymapKey  key_layertap_b(0, 1, 0, LT(1, KC_B));
     set_keymap({key_modtap_a, key_layertap_b});
 
-    // Allow any number of reports with no keys or only KC_LSFT.
-    // clang-format off
-    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
-                KeyboardReport(),
-                KeyboardReport(KC_LSFT))))
-        .Times(AnyNumber());
-    // clang-format on
+    EXPECT_EMPTY_OR_LSFT(driver).Times(AnyNumber());
     { // Expect: "B, A, B, A".
         InSequence s;
         EXPECT_REPORT(driver, (KC_LSFT, KC_B));
@@ -97,5 +133,5 @@ TEST_F(CapsWord, RetroShiftKeys) {
     tap_key(key_modtap_a);                     // Tap A quickly.
 
     EXPECT_EQ(is_caps_word_on(), true);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "ky01",
+    "keyboard_name": "KY-01",
+    "manufacturer": "KnoblesseOblige",
     "url": "https://geekhack.org/index.php?topic=107809.0",
     "maintainer": "KnoblesseOblige",
+    "usb": {
+        "vid": "0x4B4F",
+        "pid": "0x4B59",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

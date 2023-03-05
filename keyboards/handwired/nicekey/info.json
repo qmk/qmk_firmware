@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "nicekey handwired",
+    "keyboard_name": "nicekey",
+    "manufacturer": "Lukas",
     "url": "",
     "maintainer": "spydon",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6464",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

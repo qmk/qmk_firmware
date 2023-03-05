@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /*
  * Keyboard Matrix Assignments
@@ -34,7 +33,6 @@
 #else
   #define MATRIX_COL_PINS { D7, C6, B5, B4, E6, D4, B6, F6, F7, D6, B7 }
 #endif
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

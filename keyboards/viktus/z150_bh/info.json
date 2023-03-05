@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "Z-150 BH",
+    "keyboard_name": "Z-150 Blackheart",
+    "manufacturer": "blindassassin111",
     "url": "",
     "maintainer": "qmk, blindassassin111",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B0",
+        "num_lock": "E7",
+        "scroll_lock": "E6"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT": {
             "layout": [

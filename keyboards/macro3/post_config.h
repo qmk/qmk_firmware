@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: GPL-2.0+
  */
 
+#pragma once
+
 /* Top right key */
 #ifndef BOOTMAGIC_LITE_ROW
 #    define BOOTMAGIC_LITE_ROW 0

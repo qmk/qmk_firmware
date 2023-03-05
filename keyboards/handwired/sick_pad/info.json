@@ -1,7 +1,17 @@
 {
-    "keyboard_name": "sick_pad",
+    "keyboard_name": "SiCK-PAD",
+    "manufacturer": "FedorSosnin",
     "url": "https://www.thingiverse.com/thing:3682168",
     "maintainer": "jmschneider",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xDA20",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "community_layouts": ["numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

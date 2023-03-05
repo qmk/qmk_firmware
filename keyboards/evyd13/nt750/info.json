@@ -1,7 +1,19 @@
 {
     "keyboard_name": "nt750", 
+    "manufacturer": "Evyd13",
     "url": "https://github.com/evyd13/nt-series/tree/main/nt-750", 
     "maintainer": "evyd13", 
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0x3320",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "D5",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

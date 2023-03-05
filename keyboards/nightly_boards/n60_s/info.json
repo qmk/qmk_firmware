@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "[n]60-s", 
+    "keyboard_name": "[n]60-S", 
+    "manufacturer": "Neil Brian Ramirez",
     "url": "", 
     "maintainer": "Neil Brian Ramirez", 
+    "usb": {
+    	"vid": "0xD812",
+    	"pid": "0x0007",
+    	"device_version": "0.0.1"
+    },
+    "encoder": {
+    	"rotary": [
+    		{"pin_a": "D3", "pin_b": "D5"}
+    	]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
 			"layout": [

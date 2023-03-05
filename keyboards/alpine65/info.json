@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Alpine65",
+    "manufacturer": "Bitmap Designs",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x6680",
+        "pid": "0x0065",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

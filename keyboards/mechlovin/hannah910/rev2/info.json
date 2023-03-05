@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "Hannah910 Rev.2",
+    "keyboard_name": "Hannah910",
+    "manufacturer": "Mechlovin",
     "url": "",
     "maintainer": "Team Mechlovin'",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x9102",
+        "device_version": "0.0.2"
+    },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

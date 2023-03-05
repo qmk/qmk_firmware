@@ -103,7 +103,9 @@ enum consumer_usages {
     AC_FORWARD             = 0x225,
     AC_STOP                = 0x226,
     AC_REFRESH             = 0x227,
-    AC_BOOKMARKS           = 0x22A
+    AC_BOOKMARKS           = 0x22A,
+    AC_MISSION_CONTROL     = 0x29F,
+    AC_LAUNCHPAD           = 0x2A0
 };
 
 /* Generic Desktop Page (0x01)
@@ -201,41 +203,55 @@ typedef struct {
     uint32_t usage;
 } __attribute__((packed)) report_programmable_button_t;
 
+#ifdef MOUSE_EXTENDED_REPORT
+typedef int16_t mouse_xy_report_t;
+#else
+typedef int8_t mouse_xy_report_t;
+#endif
+
 typedef struct {
 #ifdef MOUSE_SHARED_EP
     uint8_t report_id;
 #endif
     uint8_t buttons;
-    int8_t  x;
-    int8_t  y;
-    int8_t  v;
-    int8_t  h;
+#ifdef MOUSE_EXTENDED_REPORT
+    int8_t boot_x;
+    int8_t boot_y;
+#endif
+    mouse_xy_report_t x;
+    mouse_xy_report_t y;
+    int8_t            v;
+    int8_t            h;
 } __attribute__((packed)) report_mouse_t;
 
 typedef struct {
 #ifdef DIGITIZER_SHARED_EP
     uint8_t report_id;
 #endif
-    uint8_t  tip : 1;
-    uint8_t  inrange : 1;
-    uint8_t  pad2 : 6;
+    bool     in_range : 1;
+    bool     tip : 1;
+    bool     barrel : 1;
+    uint8_t  reserved : 5;
     uint16_t x;
     uint16_t y;
 } __attribute__((packed)) report_digitizer_t;
 
 typedef struct {
-#if JOYSTICK_AXES_COUNT > 0
-#    if JOYSTICK_AXES_RESOLUTION > 8
-    int16_t axes[JOYSTICK_AXES_COUNT];
+#ifdef JOYSTICK_SHARED_EP
+    uint8_t report_id;
+#endif
+#if JOYSTICK_AXIS_COUNT > 0
+#    if JOYSTICK_AXIS_RESOLUTION > 8
+    int16_t axes[JOYSTICK_AXIS_COUNT];
 #    else
-    int8_t axes[JOYSTICK_AXES_COUNT];
+    int8_t axes[JOYSTICK_AXIS_COUNT];
 #    endif
 #endif
 
 #if JOYSTICK_BUTTON_COUNT > 0
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif
-} __attribute__((packed)) joystick_report_t;
+} __attribute__((packed)) report_joystick_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
@@ -282,6 +298,10 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
             return AL_CALCULATOR;
         case KC_MY_COMPUTER:
             return AL_LOCAL_BROWSER;
+        case KC_CONTROL_PANEL:
+            return AL_CONTROL_PANEL;
+        case KC_ASSISTANT:
+            return AL_ASSISTANT;
         case KC_WWW_SEARCH:
             return AC_SEARCH;
         case KC_WWW_HOME:
@@ -300,6 +320,10 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
             return BRIGHTNESS_DOWN;
         case KC_WWW_FAVORITES:
             return AC_BOOKMARKS;
+        case KC_MISSION_CONTROL:
+            return AC_MISSION_CONTROL;
+        case KC_LAUNCHPAD:
+            return AC_LAUNCHPAD;
         default:
             return 0;
     }

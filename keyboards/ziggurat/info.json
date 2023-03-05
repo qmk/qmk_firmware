@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "ziggurat",
+    "keyboard_name": "Ziggurat",
+    "manufacturer": "LaminarWoob",
     "url": "",
     "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0x8F5D",
+        "pid": "0x5258",
+        "device_version": "0.0.1"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

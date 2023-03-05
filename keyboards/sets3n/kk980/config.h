@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x404A
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Sets3n
-#define PRODUCT         kk980
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
 
 /*
  * Keyboard Matrix Assignments
@@ -43,19 +31,9 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B2, B3, D3, D4, D5, D6 }
 #define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, B1, B0, D0, D1 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 8
-#endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -94,10 +72,6 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGB_MATRIX_KEYPRESSES
 #endif
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-

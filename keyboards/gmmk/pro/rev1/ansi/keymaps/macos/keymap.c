@@ -23,9 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  KC_MSCTRL = SAFE_RANGE,
-  KC_LNPD,
-  LED_TLDE,
+  LED_TLDE = SAFE_RANGE,
   LED_1,
   LED_2,
   LED_3,
@@ -57,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      Ct_L     Opt_L    Cmd_L                               SPACE                               Cmd_R    Opt_R    FN       Left     Down     Right
 
 
-  // The FN key by default maps to a momentary toggle to layer 1 to provide access to the RESET key (to put the board into bootloader mode). Without
+  // The FN key by default maps to a momentary toggle to layer 1 to provide access to the QK_BOOT key (to put the board into bootloader mode). Without
   // this mapping, you have to open the case to hit the button on the bottom of the PCB (near the USB cable attachment) while plugging in the USB
   // cable to get the board into bootloader mode - definitely not fun when you're working on your QMK builds. Remove this and put it back to KC_RGUI
   // if that's your preference.
@@ -80,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT(
     _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  _______,           RGB_TOG,
     LED_TLDE, LED_1,   LED_2,   LED_3,   LED_4,   LED_5,   LED_6,   LED_7,   LED_8,   LED_9,   LED_0,   LED_MINS, LED_EQL, _______,           KC_PSCR,
-    _______,  RGB_HUI, RGB_VAI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______,  _______, RESET,             _______,
+    _______,  RGB_HUI, RGB_VAI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______,  _______, QK_BOOT,           _______,
     _______,  RGB_HUD, RGB_VAD, RGB_SAD, TG(2),   _______, _______, _______, _______, _______, _______, _______,           _______,           _______,
     _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,           _______, RGB_MOD,  RGB_TOG,
     _______,  _______, _______,                            _______,                            _______, _______,  _______, RGB_SPD, RGB_RMOD, RGB_SPI
@@ -144,7 +142,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     } else {
       tap_code(KC_VOLD);
     }
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
   }
 #endif //ENCODER_ENABLE
 
@@ -208,23 +207,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-      // https://github.com/qmk/qmk_firmware/issues/10111
-      case KC_MSCTRL:
-        if (record->event.pressed) {
-          host_consumer_send(0x29F);
-        } else {
-          host_consumer_send(0);
-        }
-        return false; /* Skip all further processing of this key */
-
-      case KC_LNPD:
-        if (record->event.pressed) {
-          host_consumer_send(0x2A0);
-        } else {
-          host_consumer_send(0);
-        }
-        return false; /* Skip all further processing of this key */
-
       #ifdef NKRO_ENABLE
         #if RGB_CONFIRMATION_BLINKING_TIME > 0
           case NK_TOGG:
@@ -371,7 +353,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 
 
-  void rgb_matrix_indicators_user() {
+  bool rgb_matrix_indicators_user(void) {
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
     if (effect_started_time > 0) {
       /* Render blinking EFFECTS */
@@ -409,10 +391,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     if (host_keyboard_led_state().caps_lock) {
       set_rgb_caps_leds();
     }
+    return false;
   }
 
   #if RGB_CONFIRMATION_BLINKING_TIME > 0
-  static void start_effects() {
+  static void start_effects(void) {
     effect_started_time = sync_timer_read();
     if (!rgb_matrix_is_enabled()) {
       /* Turn it ON, signal the cause (EFFECTS) */
@@ -425,7 +408,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
   #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
 
-  static void set_rgb_caps_leds() {
+  static void set_rgb_caps_leds(void) {
     rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
     rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
     rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2

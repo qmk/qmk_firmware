@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BLED] = LAYOUT(
     BL_STEP, BL_BRTG, BL_TOGG,
     BL_ON,   BL_OFF,  TO(2),
-    BL_INC,  BL_DEC,  TO(0)
+    BL_UP,   BL_DOWN, TO(0)
 )
 };
 // clang-format on

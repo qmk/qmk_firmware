@@ -1,18 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device Descriptor Parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    DAG3
-#define PRODUCT         MySKeeb
-
-// Key Matrix Size //
-// Rows are Doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 
 // Wiring of Each Half
 #define DIODE_DIRECTION COL2ROW
@@ -22,8 +9,6 @@
 
 // Comunication and Split Detection
 
-#define USE_SERIAL
-#define SOFT_SERIAL_PIN D3
 #define SELECT_SOFT_SERIAL_SPEED 1
 #define SPLIT_USB_DETECT
 #define EE_HANDS
@@ -39,8 +24,3 @@
 // Tap Dance
 
 #define TAPPING_TERM 200
-
-// Other
-
-#define DEBOUNCE 0
-

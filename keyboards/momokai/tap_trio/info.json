@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "Momokai Tap Trio",
+    "keyboard_name": "Tap Trio",
+    "manufacturer": "Momokai",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x69F9",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

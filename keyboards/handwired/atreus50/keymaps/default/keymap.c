@@ -4,13 +4,15 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _MOVEMENT 5
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _COLEMAK,
+    _DVORAK,
+    _LOWER,
+    _RAISE,
+    _MOVEMENT,
+    _ADJUST,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -83,9 +85,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------------------'
  */
   [_ADJUST] = LAYOUT(
-    _______, QK_BOOT,   RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,                   RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, KC_DEL,
+    _______, QK_BOOT, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,                   RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, KC_DEL,
     _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______,
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,                     MI_OFF,  _______, _______, _______, _______, _______,
+    _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,                     MI_OFF,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 
@@ -185,13 +187,13 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);

@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6963
-#define PRODUCT_ID 0x6965
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Koobaczech
-#define PRODUCT Pearl
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
 
 /*
  * Keyboard Matrix Assignments
@@ -79,14 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_SLEEP
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 4
-
-/* Indicator Led's*/
-#define LED_CAPS_LOCK_PIN B0
-#define LED_NUM_LOCK_PIN B1
-#define LED_SCROLL_LOCK_PIN B2
-#define LED_PIN_ON_STATE 0
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

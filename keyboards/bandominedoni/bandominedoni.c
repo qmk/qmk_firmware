@@ -20,17 +20,17 @@
 
 led_config_t g_led_config = {
     {
-        {     75,     46,     45,     44,     43,     42, NO_LED }, \
-        {     47,     48,     49,     50,     51,     52,     53 }, \
-        {     60,     59,     58,     57,     56,     55,     54 }, \
-        {     61,     62,     63,     64,     65,     66,     67 }, \
-        {     74,     73,     72,     71,     70,     69,     68 }, \
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }, \
-        {      7,      6,      4,      3,      2,      1,      5}, \
-        {      8,      9,     10,     11,     12,     13,      0 }, \
-        {     19,     18,     17,     16,     15,     14,     41 }, \
-        {     20,     21,     22,     23,     24,     25,     40 }, \
-        {     30,     29,     28,     27,     26,     39,     38 }, \
+        {     75,     46,     45,     44,     43,     42, NO_LED },
+        {     47,     48,     49,     50,     51,     52,     53 },
+        {     60,     59,     58,     57,     56,     55,     54 },
+        {     61,     62,     63,     64,     65,     66,     67 },
+        {     74,     73,     72,     71,     70,     69,     68 },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        {      7,      6,      4,      3,      2,      1,      5},
+        {      8,      9,     10,     11,     12,     13,      0 },
+        {     19,     18,     17,     16,     15,     14,     41 },
+        {     20,     21,     22,     23,     24,     25,     40 },
+        {     30,     29,     28,     27,     26,     39,     38 },
         {     31,     32,     33,     34,     35,     36,     37 }
     }, {
         { 145,  6 }, { 157,  5 }, { 153, 14 }, { 149, 22 }, { 145, 32 }, { 136, 35 }, { 139, 48 }, { 134, 61 },
@@ -117,55 +117,3 @@ static enum { UNKNOWN, LEFT, RIGHT } hand_side = UNKNOWN;
         return (hand_side == LEFT);
     }
 }
-
-#ifdef ENCODER_ENABLE
-#   ifdef ENCODERS
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
-#   endif
-
-void encoder_action_unregister(void) {
-#   ifdef ENCODERS
-    for (int index = 0; index < ENCODERS; ++index) {
-        if (encoder_state[index]) {
-            keyevent_t encoder_event = (keyevent_t) {
-                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
-                .pressed = false,
-                .time = (timer_read() | 1)
-            };
-            encoder_state[index] = 0;
-            action_exec(encoder_event);
-        }
-    }
-#   endif
-}
-
-void encoder_action_register(uint8_t index, bool clockwise) {
-#   ifdef ENCODERS
-    keyevent_t encoder_event = (keyevent_t) {
-        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
-        .pressed = true,
-        .time = (timer_read() | 1)
-    };
-    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
-#       ifdef CONSOLE_ENABLE
-    uprintf("encoder_action_register index = %u, clockwise = %u, row = %u, col = %u\n", index, clockwise, encoder_event.key.row, encoder_event.key.col);
-#       endif
-    action_exec(encoder_event);
-#   endif
-}
-
-void matrix_scan_kb(void) {
-    encoder_action_unregister();
-    matrix_scan_user();
-}
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    encoder_action_register(index, clockwise);
-    // don't return user actions, because they are in the keymap
-    // encoder_update_user(index, clockwise);
-    return true;
-};
-
-#endif

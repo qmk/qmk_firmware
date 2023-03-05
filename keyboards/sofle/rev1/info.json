@@ -1,7 +1,30 @@
 {
     "keyboard_name": "Sofle",
+    "manufacturer": "JosefAdamcik",
     "url": "https://github.com/josefadamcik/SofleKeyboard",
     "maintainer": "Josef Adamcik <josef.adamcik@gmail.com>",
+    "usb": {
+        "vid": "0xFC32",
+        "pid": "0x0287",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F4", "pin_b": "F5", "resolution": 2}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

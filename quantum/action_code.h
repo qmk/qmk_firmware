@@ -179,6 +179,9 @@ enum mods_bit {
     MOD_RALT = 0x14,
     MOD_RGUI = 0x18,
 };
+#define MOD_HYPR (MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI)
+#define MOD_MEH (MOD_LCTL | MOD_LSFT | MOD_LALT)
+
 enum mods_codes {
     MODS_ONESHOT    = 0x00,
     MODS_TAP_TOGGLE = 0x01,
@@ -192,7 +195,11 @@ enum mods_codes {
 
 /** \brief Other Keys
  */
-enum usage_pages { PAGE_SYSTEM, PAGE_CONSUMER };
+enum usage_pages {
+    PAGE_SYSTEM,
+    PAGE_CONSUMER,
+};
+
 #define ACTION_USAGE_SYSTEM(id) ACTION(ACT_USAGE, PAGE_SYSTEM << 10 | (id))
 #define ACTION_USAGE_CONSUMER(id) ACTION(ACT_USAGE, PAGE_CONSUMER << 10 | (id))
 #define ACTION_MOUSEKEY(key) ACTION(ACT_MOUSEKEY, key)
@@ -234,6 +241,7 @@ enum layer_param_tap_op {
 #define ACTION_LAYER_INVERT(layer, on) ACTION_LAYER_BIT_XOR((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_ON(layer, on) ACTION_LAYER_BIT_OR((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_OFF(layer, on) ACTION_LAYER_BIT_AND((layer) / 4, ~(1 << ((layer) % 4)), (on))
+#define ACTION_LAYER_GOTO(layer) ACTION_LAYER_SET(layer, ON_PRESS)
 #define ACTION_LAYER_SET(layer, on) ACTION_LAYER_BIT_SET((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_ON_OFF(layer) ACTION_LAYER_TAP((layer), OP_ON_OFF)
 #define ACTION_LAYER_OFF_ON(layer) ACTION_LAYER_TAP((layer), OP_OFF_ON)

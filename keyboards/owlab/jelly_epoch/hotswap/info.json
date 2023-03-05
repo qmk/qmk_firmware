@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "jelly epoch",
+    "keyboard_name": "Jelly Epoch Hotswap",
+    "manufacturer": "OwLab",
     "url": "https://www.popkeyboard.com/products/jrrgvdsyu47wer",
     "maintainer": "Owlab",
+    "usb": {
+        "vid": "0x4F53",
+        "pid": "0x4A4C",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

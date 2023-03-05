@@ -1,7 +1,30 @@
 {
     "keyboard_name": "pluckey",
+    "manufacturer": "floookay",
     "url": "https://github.com/floookay/pluckey",
     "maintainer": "floookay",
+    "usb": {
+        "vid": "0xF100",
+        "pid": "0x91CE",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B2", "resolution": 2}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "B2", "pin_b": "B3", "resolution": 2}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

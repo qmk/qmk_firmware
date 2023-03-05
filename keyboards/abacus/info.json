@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Abacus",
+    "manufacturer": "nickolaij",
     "url": "https://www.github.com/nickolaij",
     "maintainer": "nickolaij",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F1", "pin_b": "F0"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

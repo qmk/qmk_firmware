@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x8767
-#define PRODUCT_ID      0x5f89
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    IBM
-#define PRODUCT         ibm6715
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 13
 
 /*
  * Keyboard Matrix Assignments

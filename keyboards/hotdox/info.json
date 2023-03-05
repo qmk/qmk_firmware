@@ -1,6 +1,18 @@
 {
-    "keyboard_name": "HotDox",
+    "keyboard_name": "Ergodox 76 \"HotDox\"",
+    "manufacturer": "Alpaca Keyboards",
     "maintainer": "layne001365",
+    "usb": {
+      "vid": "0x414B",
+      "pid": "0x0001",
+      "device_version": "0.0.1"
+    },
+    "backlight": {
+      "pin": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ergodox"],
     "layouts": {
       "LAYOUT_ergodox": {
 

@@ -1,6 +1,14 @@
 {
     "keyboard_name": "A65I",
+    "manufacturer": "AnomalyKB",
     "maintainer": "Lfgberg",
+    "usb": {
+        "vid": "0x4C47",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
         "LAYOUT_ansi_splitbs": "LAYOUT_65_ansi_blocker_split_bs",

@@ -16,35 +16,10 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A
-#define PRODUCT_ID      0xDB96
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DZ96
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 13
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B7, B3, E6, F0, D5, D4, D6, C7 }
 #define MATRIX_COL_PINS { C6, F1, F4, F5, F6, F7, D7, B4, B5, D0, D1, D2, D3}
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_NUM_LOCK_PIN B0
-#define LED_CAPS_LOCK_PIN B2
-#define LED_SCROLL_LOCK_PIN B1
-#define LED_PIN_ON_STATE 0
-
-/* number of backlight levels */
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 5
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5

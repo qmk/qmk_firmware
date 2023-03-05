@@ -1,7 +1,20 @@
 {
     "keyboard_name": "n51gl", 
+    "manufacturer": "Salicylic_Acid",
     "url": "https://salicylic-acid3.hatenablog.com/", 
     "maintainer": "Salicylic_acid3", 
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xE8CF",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D7", "pin_b": "E6", "resolution": 3}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

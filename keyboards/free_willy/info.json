@@ -1,7 +1,15 @@
 {
     "keyboard_name": "free willy",
+    "manufacturer": "squashkb",
     "url": "https://www.squashkb.com/product/free-willy",
     "maintainer": "tsquash",
+    "usb": {
+        "vid": "0x5351",
+        "pid": "0x4657",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

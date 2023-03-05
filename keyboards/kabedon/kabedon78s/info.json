@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "KabeDon78s", 
+    "keyboard_name": "78S", 
+    "manufacturer": "Kabe_Don",
     "url": "", 
     "maintainer": "370490639", 
+    "usb": {
+    	"vid": "0x4B44",
+    	"pid": "0x3738",
+    	"device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

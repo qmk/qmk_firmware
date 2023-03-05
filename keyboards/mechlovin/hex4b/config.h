@@ -17,16 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0x0675 //Hex-75
-#define MANUFACTURER Mechlovin Studio
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -41,9 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_PIN_ON_STATE 0
-
-/* Bootmagic Lite key configuration, Backspace */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 14

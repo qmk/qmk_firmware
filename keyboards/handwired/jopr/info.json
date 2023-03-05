@@ -1,7 +1,15 @@
 {
-  "keyboard_name": "jopr-106",
+  "keyboard_name": "jopr-106-Nl2SR-Cl2nL",
+  "manufacturer": "joelproko",
   "url": "https://github.com/joelproko/keyboard_layout_jopr",
   "maintainer": "joelproko",
+  "usb": {
+    "vid": "0x4DAE",
+    "pid": "0x1000",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -1,10 +1,25 @@
 {
     "keyboard_name": "Eagle/Viper V2",
+    "manufacturer": "Duck",
+    "usb": {
+        "vid": "0x444B",
+        "pid": "0x4556",
+        "device_version": "0.0.2"
+    },
+    "backlight": {
+        "driver": "custom"
+    },
+    "bootmagic": {
+        "matrix": [4, 10]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_eagle": "LAYOUT_60_ansi",
         "LAYOUT_viper": "LAYOUT_60_hhkb",
         "LAYOUT_eagle_splits": "LAYOUT_60_ansi_split_bs_lshift_rshift"
     },
+    "community_layouts": ["60_ansi", "60_hhkb", "60_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

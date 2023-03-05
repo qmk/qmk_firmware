@@ -159,14 +159,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_ENABLE
-
-#define ENCODERS 1
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = {{3, 5}};
-static keypos_t encoder_ccw[ENCODERS]   = {{4, 5}};
+static uint8_t  encoder_state[NUM_ENCODERS] = {0};
+static keypos_t encoder_cw[NUM_ENCODERS]    = {{3, 5}};
+static keypos_t encoder_ccw[NUM_ENCODERS]   = {{4, 5}};
 
 void encoder_action_unregister(void) {
-    for (int index = 0; index < ENCODERS; ++index) {
+    for (int index = 0; index < NUM_ENCODERS; ++index) {
         if (encoder_state[index]) {
             keyevent_t encoder_event = (keyevent_t) {
                 .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
@@ -199,7 +197,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(2, 0, 0, 0);
 
     HSV      hsv = rgb_matrix_config.hsv;
@@ -218,4 +216,5 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(2, 0, 0, 0);
         }
     }
+    return false;
 }

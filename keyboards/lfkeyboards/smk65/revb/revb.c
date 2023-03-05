@@ -74,14 +74,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
     if (click_toggle && record->event.pressed){
         click(click_hz, click_time);
     }
-    if (keycode == RESET) {
+    if (keycode == QK_BOOT) {
         reset_keyboard_kb();
     } else {
     }
     return process_record_user(keycode, record);
 }
 
-void reset_keyboard_kb(){
+void reset_keyboard_kb(void){
 #ifdef WATCHDOG_ENABLE
     MCUSR = 0;
     wdt_disable();

@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "CO60 rev 1",
+    "usb": {
+        "device_version": "1.0.0"
+    },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

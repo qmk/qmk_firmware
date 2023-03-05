@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u2
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,8 +11,8 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
+ENCODER_ENABLE = yes	    # Enable Rotary Encoders
 
-LAYOUTS = ortho_4x12 planck_mit
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no

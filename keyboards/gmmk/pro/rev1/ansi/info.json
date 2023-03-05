@@ -1,7 +1,23 @@
 {
-    "keyboard_name": "GMMK Pro (ANSI)",
+    "keyboard_name": "GMMK Pro ANSI",
+    "manufacturer": "Glorious",
     "url": "https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black-reservation",
     "maintainer": "GloriousThrall",
+    "usb": {
+        "vid": "0x320F",
+        "pid": "0x5044",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C15", "pin_b": "C14"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [1, 3]
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

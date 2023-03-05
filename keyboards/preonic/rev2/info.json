@@ -1,0 +1,21 @@
+{
+    "keyboard_name": "Preonic",
+    "manufacturer": "OLKB",
+    "usb": {
+        "vid": "0x03A8",
+        "pid": "0x67F3",
+        "device_version": "0.0.2"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "B5",
+        "esc_output": "F1",
+        "led": "E6",
+        "speaker": "C6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["ortho_5x12"]
+}

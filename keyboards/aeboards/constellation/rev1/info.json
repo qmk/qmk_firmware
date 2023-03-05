@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "Constellation",
+    "keyboard_name": "Constellation Rev1",
+    "manufacturer": "AEBoards",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x4145",
+        "pid": "0x065C",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

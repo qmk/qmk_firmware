@@ -17,6 +17,7 @@ SPACE_CADET_ENABLE ?= yes
 GRAVE_ESC_ENABLE ?= yes
 
 GENERIC_FEATURES = \
+    AUTOCORRECT \
     CAPS_WORD \
     COMBO \
     COMMAND \
@@ -25,8 +26,6 @@ GENERIC_FEATURES = \
     DIP_SWITCH \
     DYNAMIC_KEYMAP \
     DYNAMIC_MACRO \
-    ENCODER \
-    ENCODER_MAP \
     GRAVE_ESC \
     HAPTIC \
     KEY_LOCK \
@@ -40,6 +39,7 @@ GENERIC_FEATURES = \
     VELOCIKEY \
     WPM \
     DYNAMIC_TAPPING_TERM \
+    TRI_LAYER
 
 define HANDLE_GENERIC_FEATURE
     # $$(info "Processing: $1_ENABLE $2.c")

@@ -1,7 +1,24 @@
 {
   "keyboard_name": "Jones",
+  "manufacturer": "jpskenn",
   "url": "https://github.com/jpskenn/Jones",
   "maintainer": "jpskenn",
+  "usb": {
+    "vid": "0xB9DD",
+    "pid": "0x175A",
+    "device_version": "1.0.0"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F5", "pin_b": "F4"},
+      {"pin_a": "D2", "pin_b": "D3"}
+    ]
+  },
+  "bootmagic": {
+    "matrix": [0, 9]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

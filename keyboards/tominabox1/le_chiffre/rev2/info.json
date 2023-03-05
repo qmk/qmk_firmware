@@ -1,0 +1,12 @@
+{
+    "usb": {
+        "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "C6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

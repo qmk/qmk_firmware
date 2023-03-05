@@ -17,14 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define MANUFACTURER Mechlovin Studio
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 #define DIODE_DIRECTION COL2ROW
-#define BACKLIGHT_LEVELS 3

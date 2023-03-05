@@ -1,7 +1,21 @@
 {
-    "keyboard_name": "Vault 45",
+    "keyboard_name": "Vault45",
+    "manufacturer": "projectcain",
     "url": "",
     "maintainer": "projectcain",
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0x6060",
+      "device_version": "0.0.1"
+    },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "B3", "pin_b": "B2", "resolution": 2},
+        {"pin_a": "D1", "pin_b": "D2", "resolution": 2}
+      ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

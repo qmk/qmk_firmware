@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Vega",
+    "manufacturer": "ai03 Design Studio",
     "url": "ai03.com",
     "maintainer": "ai03",
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0015",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

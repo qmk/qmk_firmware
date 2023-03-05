@@ -1,6 +1,18 @@
 {
     "keyboard_name": "Barleycorn SMD",
+    "manufacturer": "P3D Store",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x7033",
+        "pid": "0x4749",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "B3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "converter/usb_usb",
+    "keyboard_name": "USB to USB Converter",
+    "manufacturer": "QMK",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x005B",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "community_layouts": ["fullsize_ansi", "fullsize_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

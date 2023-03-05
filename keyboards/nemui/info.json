@@ -1,7 +1,15 @@
 {
-  "keyboard_name": "nemui",
+  "keyboard_name": "Nemui",
+  "manufacturer": "Bachoo",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x6400",
+    "pid": "0x2371",
+    "device_version": "0.0.1"
+  },
+  "processor": "STM32F072",
+  "bootloader": "stm32-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

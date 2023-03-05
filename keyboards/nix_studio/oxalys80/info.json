@@ -1,7 +1,24 @@
 {
-    "keyboard_name": "oxalys80",
+    "keyboard_name": "OXALYS80",
+    "manufacturer": "Nix Studio",
     "url": "",
     "maintainer": "Nix Studio",
+    "usb": {
+        "vid": "0x6E78",
+        "pid": "0x3830",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "scroll_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

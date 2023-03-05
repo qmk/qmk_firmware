@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xDA74
-#define PRODUCT_ID   0x7461
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Atsushi_Morimoto_74th
-#define PRODUCT      sparrow62
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 
 // wiring of each half
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
@@ -36,11 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D2
 #define SPLIT_HAND_PIN F4
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

@@ -1,7 +1,15 @@
 {
   "keyboard_name": "PKB65", 
+  "manufacturer": "MCKeebs",
   "url": "", 
   "maintainer": "qmk", 
+  "usb": {
+    "vid": "0x4D43",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
       "LAYOUT": {
           "layout": [

@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "BM60HSRGB_ISO",
+    "keyboard_name": "BM60HSRGB_ISO Rev1",
+    "manufacturer": "KPRepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0xEF8C",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_60_iso_arrow": {
             "layout": [

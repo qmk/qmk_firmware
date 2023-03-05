@@ -1,6 +1,15 @@
 {
     "keyboard_name": "Parallel 65% Hotswap PCB",
+    "manufacturer": "Parallel Limited",
     "maintainer": "matthewdias",
+    "usb": {
+        "vid": "0x504C",
+        "pid": "0x5069",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

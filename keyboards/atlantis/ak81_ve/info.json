@@ -1,6 +1,23 @@
 {
     "keyboard_name": "AK81_VE",
+    "manufacturer": "Atlantis",
     "maintainer": "fOmey",
+    "usb": {
+        "vid": "0x416B",
+        "pid": "0x0081",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E6", "pin_b": "B0"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "D4",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

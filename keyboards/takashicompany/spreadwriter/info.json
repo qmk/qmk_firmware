@@ -40,6 +40,11 @@
         "pid": "0x0023",
         "vid": "0x7463"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"}
+        ]
+    },
     "rgblight": {
         "led_count": 53,
         "pin": "D3",
@@ -47,7 +52,16 @@
         "saturation_steps": 17,
         "brightness_steps": 17,
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "layouts": {

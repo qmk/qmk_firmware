@@ -1,7 +1,21 @@
 {
     "keyboard_name": "GH80-3700", 
+    "manufacturer": "Evyd13",
     "url": "https://github.com/evyd13/gh80-series/tree/master/GH80-3700", 
     "maintainer": "evyd13", 
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0x633A",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F1", "pin_b": "F4"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

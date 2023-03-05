@@ -1,7 +1,16 @@
 {
   "keyboard_name": "Aranck",
+  "manufacturer": "Ardakilic",
   "url": "https://github.com/Ardakilic",
   "maintainer": "Arda Kilicdagi",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "community_layouts": ["planck_mit"],
   "layouts": {
     "LAYOUT_planck_mit": {
       "layout": [

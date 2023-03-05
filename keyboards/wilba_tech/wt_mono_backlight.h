@@ -56,7 +56,6 @@ void backlight_timer_enable(void);
 void backlight_timer_disable(void);
 
 void backlight_set_suspend_state(bool state);
-void backlight_set_indicator_state(uint8_t state);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
@@ -77,3 +76,4 @@ void backlight_effect_speed_decrease(void);
 void backlight_brightness_increase(void);
 void backlight_brightness_decrease(void);
 
+void backlight_device_indication(uint8_t value);

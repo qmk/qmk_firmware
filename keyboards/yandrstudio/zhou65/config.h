@@ -15,18 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAAD
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ZHOU_Y&R
-#define PRODUCT         zhou65
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { A2, A1, B8, B7, C15 }
@@ -35,11 +23,5 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-#define LED_CAPS_LOCK_PIN A15
-#define LED_PIN_ON_STATE    0
-
 /* enable the nkro when using the VIA. */
 #define FORCE_NKRO
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
