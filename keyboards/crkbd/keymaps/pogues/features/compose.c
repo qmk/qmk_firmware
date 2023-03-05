@@ -34,7 +34,7 @@ bool process_compose(uint16_t keycode, keyrecord_t* record, uint16_t compose_key
     // ignore MOD-keys and layer modifiers
     if (
         // ignore (L/R)-CTRL, ALT, GUI, Shift
-        IS_MOD(keycode)
+        IS_MODIFIER_KEYCODE(keycode)
         // ignore any layer modifiers
         || (QK_LAYER_TAP <= keycode && keycode <= QK_ONE_SHOT_MOD_MAX)
         || (QK_LAYER_TAP_TOGGLE <= keycode && keycode <= QK_LAYER_MOD_MAX)
