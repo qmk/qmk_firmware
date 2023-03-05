@@ -14,22 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "matrix.h"
 #include "quantum.h"
 
-// Pin connected to DS of 74HC595
-#define DATA_PIN A7
-// Pin connected to SH_CP of 74HC595
-#define CLOCK_PIN B1
-// Pin connected to ST_CP of 74HC595
-#define LATCH_PIN B0
+#define HC595_DS A7
+#define HC595_SHCP B1
+#define HC595_STCP B0
 
-#ifdef MATRIX_ROW_PINS
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-#endif // MATRIX_ROW_PINS
-#ifdef MATRIX_COL_PINS
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-#endif // MATRIX_COL_PINS
 
 #define ROWS_PER_HAND MATRIX_ROWS
 
@@ -47,7 +39,7 @@ static inline void setPinOutput_writeHigh(pin_t pin) {
     }
 }
 
-static inline void setPinInputHigh_atomic(pin_t pin) {
+static inline void setPinInput_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         setPinInputHigh(pin);
     }
@@ -61,50 +53,52 @@ static inline uint8_t readMatrixPin(pin_t pin) {
     }
 }
 
-// At 3.6V input, three nops (37.5ns) should be enough for all signals
-#define small_delay() __asm__ __volatile__("nop;nop;nop;\n\t" ::: "memory")
-#define compiler_barrier() __asm__ __volatile__("" ::: "memory")
-
-static void shiftOut(uint8_t dataOut) {
-    ATOMIC_BLOCK_FORCEON {
-        for (uint8_t i = 0; i < 8; i++) {
-            compiler_barrier();
-            if (dataOut & 0x1) {
-                writePinHigh(DATA_PIN);
-            } else {
-                writePinLow(DATA_PIN);
-            }
-            dataOut = dataOut >> 1;
-            compiler_barrier();
-            writePinHigh(CLOCK_PIN);
-            small_delay();
-            writePinLow(CLOCK_PIN);
-        }
-        compiler_barrier();
-        writePinHigh(LATCH_PIN);
-        small_delay();
-        writePinLow(LATCH_PIN);
-        compiler_barrier();
+static inline void HC595_delay(uint16_t n) {
+    while (n-- > 0) {
+        asm volatile("nop" ::: "memory");
     }
 }
 
-static void shiftOut_single(uint8_t data) {
+static void HC595_output(uint8_t dataOut) {
     ATOMIC_BLOCK_FORCEON {
-        compiler_barrier();
-        if (data & 0x1) {
-            writePinHigh(DATA_PIN);
-        } else {
-            writePinLow(DATA_PIN);
+        for (uint8_t i = 0; i < 8; i++) {
+            if (dataOut & 0x1) {
+                writePinHigh(HC595_DS);
+            } else {
+                writePinLow(HC595_DS);
+            }
+
+            dataOut = dataOut >> 1;
+
+            writePinHigh(HC595_SHCP);
+            HC595_delay(1);
+            writePinLow(HC595_SHCP);
+            HC595_delay(1);
         }
-        compiler_barrier();
-        writePinHigh(CLOCK_PIN);
-        small_delay();
-        writePinLow(CLOCK_PIN);
-        compiler_barrier();
-        writePinHigh(LATCH_PIN);
-        small_delay();
-        writePinLow(LATCH_PIN);
-        compiler_barrier();
+        writePinHigh(HC595_STCP);
+        HC595_delay(1);
+        writePinLow(HC595_STCP);
+        HC595_delay(1);
+    }
+}
+
+static void HC595_output_oneBit(uint8_t data) {
+    ATOMIC_BLOCK_FORCEON {
+        if (data & 0x1) {
+            writePinHigh(HC595_DS);
+        } else {
+            writePinLow(HC595_DS);
+        }
+
+        writePinHigh(HC595_SHCP);
+        HC595_delay(1);
+        writePinLow(HC595_SHCP);
+        HC595_delay(1);
+
+        writePinHigh(HC595_STCP);
+        HC595_delay(1);
+        writePinLow(HC595_STCP);
+        HC595_delay(1);
     }
 }
 
@@ -116,7 +110,7 @@ static bool select_col(uint8_t col) {
         return true;
     } else {
         if (col == 8) {
-            shiftOut_single(0x00);
+            HC595_output_oneBit(0x00);
         }
         return true;
     }
@@ -130,10 +124,10 @@ static void unselect_col(uint8_t col) {
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
         setPinOutput_writeHigh(pin);
 #else
-        setPinInputHigh_atomic(pin);
+        setPinInput_high(pin);
 #endif
     } else {
-        shiftOut_single(0x01);
+        HC595_output_oneBit(0x01);
     }
 }
 
@@ -144,20 +138,20 @@ static void unselect_cols(void) {
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
             setPinOutput_writeHigh(pin);
 #else
-            setPinInputHigh_atomic(pin);
+            setPinInput_high(pin);
 #endif
         } else {
             if (x == 8)
                 // unselect shift Register
-                shiftOut(0xFF);
+                HC595_output(0xFF);
         }
     }
 }
 
 static void matrix_init_pins(void) {
-    setPinOutput(DATA_PIN);
-    setPinOutput(CLOCK_PIN);
-    setPinOutput(LATCH_PIN);
+    setPinOutput(HC595_DS);
+    setPinOutput(HC595_SHCP);
+    setPinOutput(HC595_STCP);
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
@@ -168,7 +162,7 @@ static void matrix_init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(row_pins[x]);
+            setPinInput_high(row_pins[x]);
         }
     }
 }
