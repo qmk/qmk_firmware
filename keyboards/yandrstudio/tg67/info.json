@@ -6,6 +6,11 @@
         "pid": "0xAA8D",
         "device_version": "1.0.0"
     },
+    "matrix_pins": {
+        "cols": ["B2", "B10", "B11", "A8", "A9", "A10", "B5", "A15", "B3", "A2", "A3", "B4", "A4", "A5", "A6"],
+        "rows": ["B0", "B6", "B1", "B7", "A1"]
+    },
+    "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT": {
             "layout": [

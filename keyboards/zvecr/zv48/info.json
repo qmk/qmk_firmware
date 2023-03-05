@@ -8,6 +8,11 @@
         "pid": "0x0048",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B15", "B10", "B0", "A5", "A4", "A3"],
+        "rows": ["A10", "A15", "B3", "B4"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "B5", "pin_b": "A2"}
@@ -17,6 +22,12 @@
         "soft_serial_pin": "B6",
         "bootmagic": {
             "matrix": [4, 0]
+        },
+        "matrix_pins": {
+            "right": {
+                "cols": ["B10", "B15", "A10", "A15", "B3", "B4"],
+                "rows": ["B0", "A5", "A4", "A3"]
+            }
         }
     },
     "community_layouts": ["ortho_4x12"],
