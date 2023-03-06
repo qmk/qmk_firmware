@@ -11,6 +11,7 @@ QMK provides methods to read 5 of the LEDs defined in the HID spec:
 * Kana
 
 There are three ways to get the lock LED state:
+* Configuration options in `info.json` 
 * Configuration options in `config.h`
 * Implement `led_update_*` function
 * Call `led_t host_keyboard_led_state()`
@@ -21,6 +22,10 @@ Two deprecated functions that provide the LED state as `uint8_t`:
 
 * `uint8_t led_set_user(uint8_t usb_led)`
 * `uint8_t host_keyboard_leds()`
+
+## `info.json` Options
+Information about using data driven configuration specified in the `info.json` file can be found [at the following link](reference_info_json.md#led-indicators). 
+
 
 ## Configuration Options
 
