@@ -33,7 +33,7 @@ alias `QK_REP`). Optionally, use the keycode `QK_ALT_REPEAT_KEY` (short alias
 
 ## Alternate Repeating
 
-The Alternate Repeat Key performs the "alternate" action to the last pressed key
+The Alternate Repeat Key performs the "alternate" action of the last pressed key
 if it is defined. By default, Alternate Repeat is defined for navigation keys to
 act in the reverse direction. When the last key is the common "select by word"
 hotkey Ctrl + Shift + Right Arrow, the Alternate Repeat Key performs Ctrl +
@@ -103,9 +103,9 @@ with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 ### Defining alternate keys
 
 Use the `get_alt_repeat_key_keycode_user()` callback to define the "alternate"
-key for additional keys or override the default definitions. For example, to
-define Ctrl + Y as the alternate of Ctrl + Z, and vice versa, add the following
-in keymap.c:
+for additional keys or override the default definitions. For example, to define
+Ctrl + Y as the alternate of Ctrl + Z, and vice versa, add the following in
+keymap.c:
 
 ```c
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
@@ -144,11 +144,11 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 ```
 
 Alternate Repeat can be configured more generally to perform an action that
-"complements" the last key. Alternate Repeat not limited to reverse repeating,
-and it need not be symmetric. You can use it to eliminate the worst same-finger
-bigrams in your layout. The following addresses the top 5 same-finger bigrams in
-QWERTY, so that for instance "`ed`" may be typed as <kbd>E</kbd>, <kbd>Alt
-Repeat</kbd>.
+"complements" the last key. Alternate Repeat is not limited to reverse
+repeating, and it need not be symmetric. You can use it to eliminate the worst
+same-finger bigrams in your layout. The following addresses the top 5
+same-finger bigrams in QWERTY, so that for instance "`ed`" may be typed as
+<kbd>E</kbd>, <kbd>Alt Repeat</kbd>.
 
 ```c
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
