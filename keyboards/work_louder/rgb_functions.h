@@ -14,35 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include "quantum.h"
 
-#    ifndef RGB_MATRIX_TOGGLE
-#        define RGB_MATRIX_TOGGLE QK_KB_0
-#    endif
-#    ifndef RGB_MATRIX_MODE_INC
-#        define RGB_MATRIX_MODE_INC QK_KB_1
-#    endif
-#    ifndef RGB_MATRIX_MODE_DEC
-#        define RGB_MATRIX_MODE_DEC QK_KB_2
-#    endif
-#    ifndef RGB_MATRIX_HUE_INC
-#        define RGB_MATRIX_HUE_INC QK_KB_3
-#    endif
-#    ifndef RGB_MATRIX_HUE_DEC
-#        define RGB_MATRIX_HUE_DEC QK_KB_4
-#    endif
-#    ifndef RGB_MATRIX_SAT_INC
-#        define RGB_MATRIX_SAT_INC QK_KB_5
-#    endif
-#    ifndef RGB_MATRIX_SAT_DEC
-#        define RGB_MATRIX_SAT_DEC QK_KB_6
-#    endif
-#    ifndef RGB_MATRIX_VAL_INC
-#        define RGB_MATRIX_VAL_INC QK_KB_7
-#    endif
-#    ifndef RGB_MATRIX_VAL_DEC
-#        define RGB_MATRIX_VAL_DEC QK_KB_8
-#    endif
+enum work_louder_rgb_keycodes {
+    RGB_MATRIX_TOGGLE = QK_KB,
+    RGB_MATRIX_MODE_INC,
+    RGB_MATRIX_MODE_DEC,
+    RGB_MATRIX_HUE_INC,
+    RGB_MATRIX_HUE_DEC,
+    RGB_MATRIX_SAT_INC,
+    RGB_MATRIX_SAT_DEC,
+    RGB_MATRIX_VAL_INC,
+    RGB_MATRIX_VAL_DEC, // QK_KB_8
+};
 
 #define R_M_TOG RGB_MATRIX_TOGGLE
 #define R_M_MOD RGB_MATRIX_MODE_INC
