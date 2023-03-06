@@ -17,14 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* encoder support */
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
-#define ENCODERS_PAD_A_RIGHT { F4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }
-
 #define RGB_DI_PIN       D3
 #define RGB_MATRIX_LED_COUNT 74
 
