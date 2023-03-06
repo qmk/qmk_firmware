@@ -1,0 +1,318 @@
+{
+  "manufacturer": "CXT",
+  "keyboard_name": "12E4",
+  "url": "https://www.cxtmaker.com/products/keyboard-12e4/",
+  "maintainer": "iSma",
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "usb": {
+    "device_version": "1.0.0",
+    "vid": "0x6378",
+    "pid": "0x12E4"
+  },
+  "features": {
+    "audio": false,
+    "backlight": false,
+    "bootmagic": true,
+    "command": false,
+    "console": false,
+    "encoder": true,
+    "extrakey": true,
+    "midi": true,
+    "mousekey": true,
+    "nkro": true,
+    "rgb_matrix": true,
+    "rgblight": false
+  },
+  "matrix_pins": {
+    "cols": [
+      "D4",
+      "D7",
+      "B4",
+      "B5"
+    ],
+    "rows": [
+      "C7",
+      "C6",
+      "D6",
+      "F4"
+    ]
+  },
+  "diode_direction": "ROW2COL",
+  "encoder": {
+    "enabled": true,
+    "rotary": [
+      {
+        "pin_a": "F5",
+        "pin_b": "F6",
+        "resolution": 2
+      },
+      {
+        "pin_a": "E6",
+        "pin_b": "F0",
+        "resolution": 2
+      },
+      {
+        "pin_a": "B2",
+        "pin_b": "B3",
+        "resolution": 2
+      },
+      {
+        "pin_a": "D5",
+        "pin_b": "D3",
+        "resolution": 2
+      }
+    ]
+  },
+  "rgblight": {
+    "led_count": 12,
+    "pin": "F7"
+  },
+  "rgb_matrix": {
+    "driver": "WS2812",
+    "layout": [
+      {
+        "flags": 4,
+        "matrix": [
+          0,
+          3
+        ],
+        "x": 96,
+        "y": 0
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          0,
+          2
+        ],
+        "x": 64,
+        "y": 0
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          0,
+          1
+        ],
+        "x": 32,
+        "y": 0
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          0,
+          0
+        ],
+        "x": 0,
+        "y": 0
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          1,
+          0
+        ],
+        "x": 0,
+        "y": 32
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          1,
+          1
+        ],
+        "x": 32,
+        "y": 32
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          1,
+          2
+        ],
+        "x": 64,
+        "y": 32
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          1,
+          3
+        ],
+        "x": 96,
+        "y": 32
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          2,
+          3
+        ],
+        "x": 96,
+        "y": 64
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          2,
+          2
+        ],
+        "x": 64,
+        "y": 64
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          2,
+          1
+        ],
+        "x": 32,
+        "y": 64
+      },
+      {
+        "flags": 4,
+        "matrix": [
+          2,
+          0
+        ],
+        "x": 0,
+        "y": 64
+      }
+    ]
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {
+          "matrix": [
+            0,
+            0
+          ],
+          "x": 0,
+          "y": 0
+        },
+        {
+          "matrix": [
+            0,
+            1
+          ],
+          "x": 1,
+          "y": 0
+        },
+        {
+          "matrix": [
+            0,
+            2
+          ],
+          "x": 2,
+          "y": 0
+        },
+        {
+          "matrix": [
+            0,
+            3
+          ],
+          "x": 3,
+          "y": 0
+        },
+        {
+          "matrix": [
+            1,
+            0
+          ],
+          "x": 0,
+          "y": 1
+        },
+        {
+          "matrix": [
+            1,
+            1
+          ],
+          "x": 1,
+          "y": 1
+        },
+        {
+          "matrix": [
+            1,
+            2
+          ],
+          "x": 2,
+          "y": 1
+        },
+        {
+          "matrix": [
+            1,
+            3
+          ],
+          "x": 3,
+          "y": 1
+        },
+        {
+          "matrix": [
+            2,
+            0
+          ],
+          "x": 0,
+          "y": 2
+        },
+        {
+          "matrix": [
+            2,
+            1
+          ],
+          "x": 1,
+          "y": 2
+        },
+        {
+          "matrix": [
+            2,
+            2
+          ],
+          "x": 2,
+          "y": 2
+        },
+        {
+          "matrix": [
+            2,
+            3
+          ],
+          "x": 3,
+          "y": 2
+        },
+        {
+          "matrix": [
+            3,
+            2
+          ],
+          "x": 4,
+          "y": 0
+        },
+        {
+          "matrix": [
+            3,
+            3
+          ],
+          "x": 5,
+          "y": 0
+        },
+        {
+          "matrix": [
+            3,
+            1
+          ],
+          "x": 4.5,
+          "y": 1.5
+        },
+        {
+          "matrix": [
+            3,
+            0
+          ],
+          "x": 4.5,
+          "y": 3.5
+        }
+      ]
+    }
+  }
+}
