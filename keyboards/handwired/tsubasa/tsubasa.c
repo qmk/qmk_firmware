@@ -40,14 +40,8 @@ static void render_scrl(void) {
     };
     oled_write_raw_P(raw_scrl, sizeof(raw_scrl));
 }
-
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return rotation;
-}
-
-
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     render_scrl();
     oled_set_cursor(14, 0);
     oled_write_P(PSTR("WPM:"), false);
