@@ -32,12 +32,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #endif
 
-#define ENCODERS_PAD_A { }
-#define ENCODERS_PAD_B { }
-#define ENCODER_RESOLUTIONS { }
-#define ENCODERS_PAD_A_RIGHT { F4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }
-#define ENCODER_RESOLUTIONS_RIGHT { 4 }
-
 #define SPLIT_WPM_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
