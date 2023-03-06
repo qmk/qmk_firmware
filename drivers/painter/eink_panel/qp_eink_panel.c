@@ -78,8 +78,7 @@ bool qp_eink_panel_power(painter_device_t device, bool power_on) {
 // Screen clear
 bool qp_eink_panel_clear(painter_device_t device) {
     painter_driver_t *driver = (painter_driver_t *)device;
-    qp_init(device, driver->rotation);
-    return true;
+    return qp_init(device, driver->rotation);
 }
 
 // Screen flush
@@ -117,10 +116,10 @@ bool qp_eink_panel_flush(painter_device_t device) {
 bool qp_eink_panel_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
     eink_panel_dc_reset_painter_device_t *driver = (eink_panel_dc_reset_painter_device_t *)device;
 
-    qp_viewport(driver->black_surface, left, top, right, bottom);
-    qp_viewport(driver->color_surface, left, top, right, bottom);
+    bool ret = qp_viewport(driver->black_surface, left, top, right, bottom);
+    ret &= qp_viewport(driver->color_surface, left, top, right, bottom);
 
-    return true;
+    return ret;
 }
 
 // Stream pixel data to the current write position
@@ -128,7 +127,8 @@ bool qp_eink_panel_pixdata(painter_device_t device, const void *pixel_data, uint
     eink_panel_dc_reset_painter_device_t *driver = (eink_panel_dc_reset_painter_device_t *)device;
     uint8_t *                             pixels = (uint8_t *)pixel_data;
 
-    uint32_t i = 0;
+    uint32_t i   = 0;
+    bool     ret = true;
     uint8_t  black_data, color_data;
     while (i < native_pixel_count) {
         // at most, 8 pixels per cycle
@@ -138,14 +138,19 @@ bool qp_eink_panel_pixdata(painter_device_t device, const void *pixel_data, uint
         // stream data to display
         decode_masked_pixels(pixels, byte, &black_data, &color_data);
         // this is very slow with debugging on, call the vtable's function manually instead
-        qp_pixdata(driver->black_surface, (const void *)&black_data, pixels_this_loop);
-        qp_pixdata(driver->color_surface, (const void *)&color_data, pixels_this_loop);
+        ret &= qp_pixdata(driver->black_surface, (const void *)&black_data, pixels_this_loop);
+        ret &= qp_pixdata(driver->color_surface, (const void *)&color_data, pixels_this_loop);
+
+        if (!ret) {
+            qp_dprintf("qp_eink_panel_pixdata: something went wrong, quitting\n");
+            return false;
+        }
 
         // update position
         i += pixels_this_loop;
     }
 
-    return true;
+    return ret;
 }
 
 // Convert supplied palette entries into their native equivalents
@@ -210,6 +215,6 @@ bool qp_eink_panel_append_pixels(painter_device_t device, uint8_t *target_buffer
 }
 
 bool qp_eink_panel_append_pixdata(painter_device_t device, uint8_t *target_buffer, uint32_t pixdata_offset, uint8_t pixdata_byte) {
-    qp_dprintf("Shouldn't call append_pixdata on e-Ink displays\n");
+    qp_dprintf("qp_eink_panel_append_pixdata: should not get here\n");
     return false;
 }
