@@ -20,12 +20,6 @@
 #define RGB_DI_PIN       D3
 #define RGB_MATRIX_LED_COUNT 74
 
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLED_SPLIT \
-        { 37, 37 }
-#    define RGBLIGHT_SPLIT
-#endif
-
 /* RGB matrix support */
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
