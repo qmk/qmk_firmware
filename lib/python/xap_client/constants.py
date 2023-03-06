@@ -1,4 +1,4 @@
-# Copyright 2022 QMK
+# Copyright 2023 QMK
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 ################################################################################
@@ -121,3 +121,5 @@ class RgbMatrixModes(IntEnum):
     MULTISPLASH = 0x29
     SOLID_SPLASH = 0x2A
     SOLID_MULTISPLASH = 0x2B
+
+# noqa: W391

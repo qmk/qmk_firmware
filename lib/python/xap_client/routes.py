@@ -1,4 +1,4 @@
-# Copyright 2022 QMK
+# Copyright 2023 QMK
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 ################################################################################
@@ -84,3 +84,5 @@ class XAPRoutes():
     AUDIO_GET_CONFIG = b'\x07\x03'
     AUDIO_SET_CONFIG = b'\x07\x04'
     AUDIO_SAVE_CONFIG = b'\x07\x05'
+
+# noqa: W391

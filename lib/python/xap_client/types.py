@@ -1,4 +1,4 @@
-# Copyright 2022 QMK
+# Copyright 2023 QMK
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 ################################################################################
@@ -133,3 +133,5 @@ class XAPEventType(IntEnum):
 class XAPFlags(IntFlag):
     SUCCESS = 1 << 0
     SECURE_FAILURE = 1 << 1
+
+# noqa: W391
