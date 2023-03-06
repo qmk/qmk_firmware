@@ -78,6 +78,10 @@ void keyboard_pre_init_user(void) {
     setPinOutput(B5);
     writePinLow(B5);
     
+    //set solenoid
+    setPinOutput(C7);
+    writePinLow(C7);
+    
     #ifdef BLE_ENABLE
     //enable BLE_PWR(PD5)
     setPinOutput(D5);
@@ -109,7 +113,10 @@ void keyboard_pre_init_user(void) {
     setPinOutput(B7);
     writePinLow(B7);
 
+
     #endif        
+
+
 }
 
 void keyboard_post_init_user(void) {

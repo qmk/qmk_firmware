@@ -23,28 +23,8 @@ enum layer_names {
     _FN
 };
 
-// Defines the keycodes used by our macros in process_record_user
-// enum custom_keycodes {
-//     QMKBEST = SAFE_RANGE,
-//     QMKURL
-// };
 
-//keymap for test
-// const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//     /* Base */
-//     [_BASE] = LAYOUT(
-//         KC_1,       KC_2,       MO(_FN),
-//         KC_4,       KC_5,       KC_6, 
-//         KC_7,       KC_8,       KC_9,
-//         KC_A,       KC_B,       KC_C,
-//         OUT_USB,    OUT_BT,       KC_F
-//     )
-//     // [_FN] = LAYOUT(
-//     //     QMKBEST, QMKURL,  _______,
-//     //         RESET,    XXXXXXX
-//     // )
-// };
-
+uint8_t presscnt = 0;
 
 
 enum my_keycodes {
@@ -73,7 +53,7 @@ enum LED_STAT{
 void set_status_led(enum LED_STAT led_stat,enum LED_STAT current_stat);
 #endif
 
-// BLE keymap for user
+// USB keymap for user
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT_650(
@@ -86,13 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN] = LAYOUT_650(
         KC_GRV,     KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_F13,  KC_DEL,   KC_DEL,
-        BLE_DFU,    KC_BTN1,  KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, OU_USB,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_HOME,  KC_BSPC,
-        KC_TRNS,    KC_MS_L,  KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, OU_AUTO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_END,
-        KC_TRNS,    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, OU_BT,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_VOLU, KC_INS,
+        KC_TRNS,    KC_BTN1,  KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_HOME,  KC_BSPC,
+        KC_TRNS,    KC_MS_L,  KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_END,
+        KC_TRNS,    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_VOLU, KC_INS,
         KC_TRNS,    KC_TRNS,  KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS,  KC_MPRV, KC_VOLD, KC_MNXT,
         KC_TRNS,    KC_TRNS,  KC_TRNS, KC_TRNS    
     )
 };
+
 
 
 
@@ -172,23 +153,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Do something else when release
         }
             return true;     
-                 
-        case LED_BLE:
-        if (record->event.pressed) {                
-            if(ble_led) {
-                ble_led = 0;
-                print("BLE LED OFF\n");
-                bluefruit_le_set_mode_leds(0);
-            } else {
-                ble_led = 1;
-                print("BLE LED ON\n");
-                bluefruit_le_set_mode_leds(1);                                
-            }
-        } else {
-            // Do something else when release
-        }
-            return true; 
-        #endif   
+        #endif            
+        
         case BLE_PWR_OFF:
         if (record->event.pressed) {
             
@@ -239,6 +205,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //     }
         //     return true; // Let QMK send the enter press/release events
         default:
+            
+        //solenoid
+        if (record->event.pressed) {
+             
+            presscnt++;
+            //DFU_MCU(PC7) HIGH
+            writePinHigh(C7);
+              
+        } else {
+            presscnt--;
+            if(0 == presscnt)
+            {
+            
+                //DFU_MCU(PC7) LOW
+                 writePinLow(C7);  //set low
+            }   
+            
+        }
             return true; // Process all other keycodes normally
     }
 }

@@ -76,7 +76,7 @@ SRC += matrix.c \
 	   
 QUANTUM_LIB_SRC += i2c_master.c
 
-VIA_ENABLE = yes
+VIA_ENABLE = no
 
 # BOOTLOADER = halfkay
 

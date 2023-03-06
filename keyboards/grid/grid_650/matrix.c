@@ -1,3 +1,19 @@
+/* Copyright 2020 grid
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
@@ -65,7 +81,7 @@ void matrix_init(void) {
   }
 
   debounce_init(MATRIX_ROWS);
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 void matrix_power_up(void) {
@@ -124,7 +140,7 @@ uint8_t matrix_scan(void) {
   }
 
   debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
   return 1;
 }

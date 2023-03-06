@@ -1,1 +1,1 @@
-# The default keymap for grid650
+# The BLE keymap for grid650, via enabled

@@ -46,6 +46,7 @@ enum layer_names {
 // };
 
 
+uint8_t presscnt = 0;
 
 enum my_keycodes {
   FOO = SAFE_RANGE,
@@ -239,6 +240,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //     }
         //     return true; // Let QMK send the enter press/release events
         default:
+        //solenoid
+        if (record->event.pressed) {
+             
+            presscnt++;
+            //DFU_MCU(PC7) HIGH
+            writePinHigh(C7);
+              
+        } else {
+            presscnt--;
+            if(0 == presscnt)
+            {
+            
+                //DFU_MCU(PC7) LOW
+                 writePinLow(C7);  //set low
+            }   
+            
+        }
             return true; // Process all other keycodes normally
     }
 }
