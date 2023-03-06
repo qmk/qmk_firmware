@@ -24,7 +24,6 @@
         "nkro": true,
         "backlight": true,
         "encoder": true,
-        "encoder_map": true
     },
     "encoder": {
         "rotary": [
