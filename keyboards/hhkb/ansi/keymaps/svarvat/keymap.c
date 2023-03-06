@@ -505,7 +505,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
                 if (!(record->event.pressed)) {
                     layer_off(LA_LTHUMB);
                     layer_off(LA_LTHUMBEOSL);
-                    layer_off(LA_LTHUMBEOSL);
+                    layer_off(LA_LTHUMBDOSL);
                 }
                 return false;
             }
@@ -1235,7 +1235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         } else if (IS_LAYER_ON(LA_LTHUMBDOSL)) {
             return processKeycodeIfLThumbDOsl(keycode, record);
         } else if (IS_LAYER_ON(LA_LTHUMBDMO)) {
-            return processKeycodeIfLThumbDMo(keycode, record);
+            return processKeycodeIfLThumbDMo(keycode,"" record);
         } else if (IS_LAYER_ON(LA_LTHUMB1MO)) {
             return processKeycodeIfLThumb1Mo(keycode, record);
         } else if (IS_LAYER_ON(LA_LTHUMB2MO)) {
