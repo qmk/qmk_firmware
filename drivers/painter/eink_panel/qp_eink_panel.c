@@ -1,4 +1,4 @@
-// Copyright 2023 Pablo Martinez (@elpekenin)
+// Copyright 2023 Pablo Martinez (@elpekenin) <elpekenin@elpekenin.dev>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_comms.h"
@@ -17,14 +17,14 @@
 // Reset can_flush flag back to true after timeout
 uint32_t can_flush_callback(uint32_t trigger_time, void *cb_arg) {
     eink_panel_dc_reset_painter_device_t *driver = (eink_panel_dc_reset_painter_device_t *)cb_arg;
-    driver->can_flush = true;
+    driver->can_flush                            = true;
     return 0;
 }
 
 // Set can_flush to false and schedule its cleanup
 void qp_eink_update_can_flush(painter_device_t device) {
     eink_panel_dc_reset_painter_device_t *driver = (eink_panel_dc_reset_painter_device_t *)device;
-    driver->can_flush = false;
+    driver->can_flush                            = false;
     defer_exec(driver->timeout, can_flush_callback, (void *)device);
 }
 
@@ -129,11 +129,11 @@ bool qp_eink_panel_pixdata(painter_device_t device, const void *pixel_data, uint
     uint8_t *                             pixels = (uint8_t *)pixel_data;
 
     uint32_t i = 0;
-    uint8_t black_data, color_data;
+    uint8_t  black_data, color_data;
     while (i < native_pixel_count) {
         // at most, 8 pixels per cycle
-        uint8_t pixels_this_loop = QP_MIN(native_pixel_count - i, 8);
-        uint32_t byte = i / 4;
+        uint8_t  pixels_this_loop = QP_MIN(native_pixel_count - i, 8);
+        uint32_t byte             = i / 4;
 
         // stream data to display
         decode_masked_pixels(pixels, byte, &black_data, &color_data);
@@ -154,8 +154,8 @@ bool qp_eink_panel_palette_convert(painter_device_t device, int16_t palette_size
 
     for (int16_t i = 0; i < palette_size; ++i) {
         HSV      hsv            = (HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v};
-        uint32_t white_distance = hsv_distance(hsv, (HSV){ HSV_WHITE });
-        uint32_t black_distance = hsv_distance(hsv, (HSV){ HSV_BLACK });
+        uint32_t white_distance = hsv_distance(hsv, (HSV){HSV_WHITE});
+        uint32_t black_distance = hsv_distance(hsv, (HSV){HSV_BLACK});
         uint32_t color_distance = hsv_distance(hsv, driver->color);
 
         // Default to white

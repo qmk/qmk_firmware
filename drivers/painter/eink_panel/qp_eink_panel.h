@@ -1,4 +1,4 @@
-// Copyright 2023 Pablo Martinez (@elpekenin)
+// Copyright 2023 Pablo Martinez (@elpekenin) <elpekenin@elpekenin.dev>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "color.h"
@@ -50,7 +50,7 @@ typedef struct eink_panel_dc_reset_painter_device_t {
      * Represented as a bitmask where a 1 means "needs inversion"
      * 0000 00BC
      */
-    HSV color;
+    HSV     color;
     uint8_t invert_mask;
 
     // Storage for each color's data
