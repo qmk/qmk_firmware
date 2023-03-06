@@ -26,7 +26,6 @@
           }
       }
   },
-  "debounce": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [
