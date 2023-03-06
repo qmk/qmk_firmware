@@ -41,18 +41,6 @@ void keyboard_post_init_kb(void) {
 
 #endif
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) { return false; }
-    switch(keycode) {
-        case LOCK_GUI:
-            process_magic(GUI_TOG, record);
-            return false;
-        default:
-            break;
-    }
-    return true;
-}
-
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;
 }

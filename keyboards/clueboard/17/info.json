@@ -46,6 +46,9 @@
     "pid": "0x2312",
     "vid": "0xC1ED"
   },
+  "backlight": {
+    "driver": "custom"
+  },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_numpad_5x4"
   },

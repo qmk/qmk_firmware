@@ -11,7 +11,7 @@
 
 #ifdef TAP_DANCE_ENABLE
 #    include "keyrecords/tap_dances.h"
-#endif  // TAP_DANCE_ENABLE
+#endif // TAP_DANCE_ENABLE
 #if defined(RGBLIGHT_ENABLE)
 #    include "rgb/rgb_stuff.h"
 #endif
@@ -26,6 +26,9 @@
 #endif
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing/pointing.h"
+#endif
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
 #endif
 
 /* Define layer names */
@@ -79,6 +82,7 @@ bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 bool hasAllBitsInMask(uint8_t value, uint8_t mask);
 void tap_code16_nomods(uint16_t kc);
+void format_layer_bitmap_string(char* buffer, layer_state_t state, layer_state_t default_state);
 
 // clang-format off
 typedef union {

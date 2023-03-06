@@ -40,7 +40,7 @@ enum unicode_names {
     DEGREE,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [APOST]         = 0x0027, // '
     [QUOTE]         = 0x0022, // "
     [ACUTE]         = 0x00B4, // ´

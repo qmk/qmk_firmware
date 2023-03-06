@@ -23,33 +23,6 @@ where some things are disabled to save space as well.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 4
-
-/*
- * Keyboard Matrix Assignments
- *
- * On this board we have direct connection: no diodes.
- */
-#define DIRECT_PINS        \
-    {                      \
-        { D3, D0, C4, B4 } \
-    }
-
-/* Backlight Setup */
-// Looks like each backlight LED is connected to a single output, D5 is the one furtherst away from USB port
-#define BACKLIGHT_PIN D5
-#define BACKLIGHT_LEVELS 6
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* RGB Underglow
 This will not be used, as RGBLIGHT_ENABLE is set to 'no' in rules.mk
 We do not have enough space in the flash for this at the moment, maybe

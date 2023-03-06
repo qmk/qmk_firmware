@@ -111,7 +111,7 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-void matrix_scan_kb() {
+void matrix_scan_kb(void) {
     // if there's stuff on the ble serial buffer
     // read it into the capslock struct
     while (!sdGetWouldBlock(&SD1)) {
