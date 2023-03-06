@@ -94,7 +94,7 @@ __attribute__ ((weak)) void matrix_init_user(void) {}
 __attribute__ ((weak)) void matrix_scan_user(void) {}
 
 
-void keyboard_pre_init_kb() {
+void keyboard_pre_init_kb(void) {
 #ifdef LED_MATRIX_ENABLE
     // Turn on LED controller
     setPinOutput(B16);

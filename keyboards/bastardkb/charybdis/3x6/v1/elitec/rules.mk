@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -24,7 +18,6 @@ RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812
 
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x6_3
 
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360

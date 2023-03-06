@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
+
 #ifndef OLED_FONT_H
 #    define OLED_FONT_H "lib/kintsugifont.c"
 #	 define OLED_TIMEOUT 120000

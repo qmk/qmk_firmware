@@ -117,9 +117,11 @@ At the top of the file you'll find this:
     // Layer names don't all need to be of the same
     // length, and you can also skip them entirely
     // and just use numbers.
-    #define _BL 0
-    #define _FL 1
-    #define _CL 2
+    enum layer_names {
+        _BL,
+        _FL,
+        _CL,
+    };
 
 These are some handy definitions we can use when building our keymap and our custom function. The `GRAVE_MODS` definition will be used later in our custom function, and the following `_BL`, `_FL`, and `_CL` defines make it easier to refer to each of our layers.
 
@@ -141,14 +143,15 @@ After this you'll find the layer definitions. Typically you'll have one or more 
 
 Here is an example of the Clueboard's base layer:
 
-      /* Keymap _BL: Base Layer (Default Layer)
-       */
-    [_BL] = LAYOUT(
-      F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_GRV,  KC_BSPC,          KC_PGUP, \
-      KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,                   KC_PGDN, \
-      KC_CAPS, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,                             \
-      KC_LSFT, KC_NUBS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_INT1,  KC_RSFT,          KC_UP,            \
-      KC_LCTL, KC_LGUI, KC_LALT, KC_INT5,          KC_SPC,KC_SPC,                        KC_INT4,  KC_RALT,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
+```c
+[_BL] = LAYOUT(
+    F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_GRV,  KC_BSPC,          KC_PGUP,
+    KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,                   KC_PGDN,
+    KC_CAPS, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,
+    KC_LSFT, KC_NUBS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_INT1,  KC_RSFT,          KC_UP,
+    KC_LCTL, KC_LGUI, KC_LALT, KC_INT5,          KC_SPC,KC_SPC,                        KC_INT4,  KC_RALT,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT
+),
+```
 
 Some interesting things to note about this:
 
@@ -163,12 +166,15 @@ Some interesting things to note about this:
 
 Our function layer is, from a code point of view, no different from the base layer. Conceptually, however, you will build that layer as an overlay, not a replacement. For many people this distinction does not matter, but as you build more complicated layering setups it matters more and more.
 
-    [_FL] = LAYOUT(
-      KC_GRV,  KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______, KC_DEL,           BL_STEP, \
-      _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SCRL, KC_PAUS,  _______,  _______,  _______,                   _______, \
-      _______, _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                           \
-      _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,          KC_PGUP,         \
-      _______, _______, _______, _______,        _______,_______,                        _______,  _______,  _______,  MO(_FL), KC_HOME, KC_PGDN, KC_END),
+```c
+[_FL] = LAYOUT(
+    KC_GRV,  KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______, KC_DEL,           BL_STEP,
+    _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SCRL, KC_PAUS,  _______,  _______,  _______,                   _______,
+    _______, _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,
+    _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,          KC_PGUP,
+    _______, _______, _______, _______,        _______,_______,                        _______,  _______,  _______,  MO(_FL), KC_HOME, KC_PGDN, KC_END
+),
+```
 
 Some interesting things to note:
 
