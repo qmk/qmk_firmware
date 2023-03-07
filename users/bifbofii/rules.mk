@@ -14,10 +14,7 @@ ifeq ($(strip $(CONSOLE_DEBUG)), yes)
     OPT_DEFS += -DCONSOLE_DEBUG
 endif
 
-RAISE_LOWER ?= yes
-ifeq ($(strip $(RAISE_LOWER)), yes)
-    OPT_DEFS += -DRAISE_LOWER
-endif
+TRI_LAYER_ENABLE ?= yes
 
 GAMING_ENABLE ?= no
 ifeq ($(strip $(GAMING_ENABLE)), yes)

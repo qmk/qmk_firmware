@@ -1,4 +1,4 @@
-/* Copyright 2022 Christoph Jabs (BifbofII)
+/* Copyright 2023 Christoph Jabs (BifbofII)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +30,8 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
         case _FUNC:
             rgblight_set_hsv_and_mode(FUNC_HSV, RGBLIGHT_MODE_BREATHING + 3);
             break;
-#ifdef RAISE_LOWER
-        case _RAISE:
+#ifdef TRI_LAYER_ENABLE
+        case _UPPER:
             rgblight_set_hsv_and_mode(RAISE_HSV, RGBLIGHT_MODE_BREATHING + 3);
             break;
         case _LOWER:

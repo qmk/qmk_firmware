@@ -1,4 +1,4 @@
-/* Copyright 2022 Christoph Jabs (BifbofII)
+/* Copyright 2023 Christoph Jabs (BifbofII)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,9 +33,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
     state = layer_state_set_rgb_light(state);
 #endif
-#ifdef RAISE_LOWER
-    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-#endif
     return layer_state_set_keymap(state);
 }
 
@@ -59,5 +56,5 @@ bool oled_task_user(void) {
 
 __attribute__((weak)) void housekeeping_task_keymap(void) {}
 void                       housekeeping_task_user(void) {
-                          housekeeping_task_keymap();
+    housekeeping_task_keymap();
 }

@@ -1,4 +1,4 @@
-/* Copyright 2022 Christoph Jabs (BifbofII)
+/* Copyright 2023 Christoph Jabs (BifbofII)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +26,10 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_ortho_4x12_wrapper( \
-      KC_TAB,      K01,     K02,     K03,     K04,   K05,        K06,        K07,   K08,     K09,     K0A,     KC_BSPC, \
-      UNICODE_ESC, K11,     K12,     K13,     K14,   K15,        K16,        K17,   K18,     K19,     K1A,     K1B, \
-      KC_LSFT,     K21,     K22,     K23,     K24,   K25,        K26,        K27,   K28,     K29,     K2A,     SFT_ENT, \
-      KC_LCTL,     KC_LGUI, XXXXXXX, KC_LALT, LOWER, FUNC_SPACE, FUNC_SPACE, RAISE, KC_RALT, KC_RGUI, KC_RCTL, XXXXXXX \
+      KC_TAB,      K01,     K02,     K03,     K04,     K05,        K06,        K07,     K08,     K09,     K0A,     KC_BSPC, \
+      UNICODE_ESC, K11,     K12,     K13,     K14,     K15,        K16,        K17,     K18,     K19,     K1A,     K1B, \
+      KC_LSFT,     K21,     K22,     K23,     K24,     K25,        K26,        K27,     K28,     K29,     K2A,     SFT_ENT, \
+      KC_LCTL,     KC_LGUI, XXXXXXX, KC_LALT, TL_LOWR, FUNC_SPACE, FUNC_SPACE, TL_UPPR, KC_RALT, KC_RGUI, KC_RCTL, XXXXXXX \
   )
 // clang-format on
 #define LAYOUT_ortho_4x12_base_wrapper(...) LAYOUT_ortho_4x12_base(__VA_ARGS__)
@@ -76,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, ___________________BLANK___________________, ___________________BLANK___________________, _______
     ),
 
-    [_RAISE] = LAYOUT_ortho_4x12_wrapper(
-        KC_GRV,  _________________RAISE_L1__________________, _________________RAISE_R1__________________, _______,
-        _______, _________________RAISE_L2__________________, _________________RAISE_R2__________________, KC_BSLS,
-        _______, _________________RAISE_L3__________________, _________________RAISE_R3__________________, _______,
+    [_UPPER] = LAYOUT_ortho_4x12_wrapper(
+        KC_GRV,  _________________UPPER_L1__________________, _________________UPPER_R1__________________, _______,
+        _______, _________________UPPER_L2__________________, _________________UPPER_R2__________________, KC_BSLS,
+        _______, _________________UPPER_L3__________________, _________________UPPER_R3__________________, _______,
         _______, ___________________BLANK___________________, ___________________BLANK___________________, _______
     ),
 

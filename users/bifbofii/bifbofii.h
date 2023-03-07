@@ -1,4 +1,4 @@
-/* Copyright 2022 Christoph Jabs (BifbofII)
+/* Copyright 2023 Christoph Jabs (BifbofII)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,9 +51,9 @@ enum userspace_layers {
 #endif
     _UNICODE, // Layer with unicode characters
     _FUNC,    // Function layer with arrows
-#ifdef RAISE_LOWER
-    _LOWER, // Lower layer with symbols
-    _RAISE, // Raised layer with numbers
+#ifdef TRI_LAYER_ENABLE
+    _LOWER = TRI_LAYER_LOWER_LAYER, // Lower layer with symbols
+    _UPPER, // Upper layer with numbers
 #else
     _FUNC2, // Second function layer
 #endif

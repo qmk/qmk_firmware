@@ -1,4 +1,5 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2023 Christoph Jabs (BifbofII)
+ * Copyright 2019 Thomas Baart <thomas@splitkb.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +28,7 @@
   LAYOUT_wrapper( \
       KC_TAB,      K01, K02, K03,     K04,     K05,                                               K06,      K07,     K08,     K09,     K0A,     KC_BSLS, \
       UNICODE_ESC, K11, K12, K13,     K14,     K15,                                               K16,      K17,     K18,     K19,     K1A,     K1B, \
-      KC_LSFT,     K21, K22, K23,     K24,     K25,     LOWER,      RAISE,   LOWER,   RAISE,      K26,      K27,     K28,     K29,     K2A,     KC_MINS, \
+      KC_LSFT,     K21, K22, K23,     K24,     K25,     TL_LOWR,    TL_UPPR, TL_LOWR, TL_UPPR,    K26,      K27,     K28,     K29,     K2A,     KC_MINS, \
                              KC_LALT, KC_LCTL, KC_LGUI, FUNC_SPACE, SFT_ESC, SFT_ENT, FUNC_SPACE, GUI_BSPC, CTL_DEL, KC_RALT \
   )
 // clang-format on
@@ -75,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______
     ),
 
-    [_RAISE] = LAYOUT_wrapper(
-        KC_GRV,  _________________RAISE_L1__________________,                                     _________________RAISE_R1__________________, _______,
-        _______, _________________RAISE_L2__________________,                                     _________________RAISE_R2__________________, KC_BSLS,
-        _______, _________________RAISE_L3__________________, _______, _______, _______, _______, _________________RAISE_R3__________________, _______,
+    [_UPPER] = LAYOUT_wrapper(
+        KC_GRV,  _________________UPPER_L1__________________,                                     _________________UPPER_R1__________________, _______,
+        _______, _________________UPPER_L2__________________,                                     _________________UPPER_R2__________________, KC_BSLS,
+        _______, _________________UPPER_L3__________________, _______, _______, _______, _______, _________________UPPER_R3__________________, _______,
                                    _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______
     ),
 
@@ -127,8 +128,8 @@ bool oled_task_keymap(void) {
             case _LOWER:
                 oled_write_P(PSTR("Lower\n"), false);
                 break;
-            case _RAISE:
-                oled_write_P(PSTR("Raise\n"), false);
+            case _UPPER:
+                oled_write_P(PSTR("Upper\n"), false);
                 break;
             case _UNICODE:
                 oled_write_P(PSTR("Unicode\n"), false);

@@ -1,4 +1,4 @@
-/* Copyright 2022 Christoph Jabs (BifbofII)
+/* Copyright 2023 Christoph Jabs (BifbofII)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,3 +22,11 @@
 #    define RAW_USAGE_PAGE 0xFF61
 #    define RAW_USAGE_ID 0x42
 #endif
+
+#ifdef GAMING_ENABLE
+#    define TRI_LAYER_LOWER_LAYER 6
+#else
+#    define TRI_LAYER_LOWER_LAYER 5
+#endif
+#define TRI_LAYER_UPPER_LAYER TRI_LAYER_LOWER_LAYER + 1
+#define TRI_LAYER_ADJUST_LAYER TRI_LAYER_UPPER_LAYER + 1

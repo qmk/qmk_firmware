@@ -1,4 +1,4 @@
-/* Copyright 2022 Christoph Jabs (BifbofII)
+/* Copyright 2023 Christoph Jabs (BifbofII)
  * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * Copyright 2020 @jola5
  *
@@ -94,13 +94,13 @@ NOTE: These are all the same length.  If you do a search/replace
 
 
 
-#define _________________RAISE_L1__________________       ________________NUMBER_LEFT________________
-#define _________________RAISE_L2__________________       _________________FN_LEFT___________________
-#define _________________RAISE_L3__________________       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11
+#define _________________UPPER_L1__________________       ________________NUMBER_LEFT________________
+#define _________________UPPER_L2__________________       _________________FN_LEFT___________________
+#define _________________UPPER_L3__________________       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11
 
-#define _________________RAISE_R1__________________       ________________NUMBER_RIGHT_______________
-#define _________________RAISE_R2__________________       KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
-#define _________________RAISE_R3__________________       KC_F12,  _______, _______, _______, _______
+#define _________________UPPER_R1__________________       ________________NUMBER_RIGHT_______________
+#define _________________UPPER_R2__________________       KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
+#define _________________UPPER_R3__________________       KC_F12,  _______, _______, _______, _______
 
 
 

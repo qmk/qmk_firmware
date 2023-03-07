@@ -1,4 +1,4 @@
-/* Copyright 2022 Christoph Jabs (BifbofII)
+/* Copyright 2023 Christoph Jabs (BifbofII)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,13 +34,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define ADJUST MO(_ADJUST)
 #define FUNC_SPACE LT(_FUNC, KC_SPACE)
 #define UNICODE_ESC LT(_UNICODE, KC_ESC)
-#ifdef RAISE_LOWER
-#    define LOWER MO(_LOWER)
-#    define RAISE MO(_RAISE)
+#ifndef TRI_LAYER_ENABLE
 #    define FUNC2 XXXXXXX
 #else
-#    define LOWER XXXXXXX
-#    define RAISE XXXXXXX
 #    define FUNC2 MO(_FUNC2)
 #endif
 #ifdef GAMING_ENABLE

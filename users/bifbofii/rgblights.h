@@ -1,4 +1,4 @@
-/* Copyright 2022 Christoph Jabs (BifbofII)
+/* Copyright 2023 Christoph Jabs (BifbofII)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #    define GAMING_HSV HSV_GREEN
 #endif
 #define FUNC_HSV HSV_ORANGE
-#ifdef RAISE_LOWER
+#ifdef TRI_LAYER_ENABLE
 #    define RAISE_HSV HSV_ORANGE
 #    define LOWER_HSV HSV_PURPLE
 #else
