@@ -212,7 +212,7 @@ enum custom_keycodes {
 };
 
 #define LA_BASE 0
-#define LA_MOUSE 1 // Mouse x1
+#define LA_MOUSE 1 // Mouse x2
 #define LA_CAPSLOCK 2
 #define LA_LTHUMB 3
 #define LA_LTHUMBEMO 4 // gui + shift left + lettre côté gauche - LSG
@@ -1094,7 +1094,8 @@ void matrix_scan_user(void) {
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
-    } else if (isMouseX4Started) {
+    }
+    else if (isMouseX4Started) {
         if (mouseRight) {
             report_mouse_t currentReport = pointing_device_get_report();
             currentReport.x = 12;
@@ -1116,7 +1117,8 @@ void matrix_scan_user(void) {
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
-    } else if (isMouseX2Started) {
+    }
+    else if (isMouseX2Started) {
         if (mouseDown) {
             report_mouse_t currentReport = pointing_device_get_report();
             currentReport.y = 4;
@@ -1161,7 +1163,8 @@ void matrix_scan_user(void) {
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
-    } else if (isScrollX4Started) {
+    }
+    else if (isScrollX4Started) {
         if (scrollDown) {
             report_mouse_t currentReport = pointing_device_get_report();
             currentReport.v = -2.5;
@@ -1183,7 +1186,8 @@ void matrix_scan_user(void) {
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
-    } else if (isScrollX2Started) {
+    }
+    else if (isScrollX2Started) {
         if (scrollDown) {
             report_mouse_t currentReport = pointing_device_get_report();
             currentReport.v = -0.5;
