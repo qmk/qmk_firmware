@@ -3,8 +3,8 @@
 // Copyright 2023 @frobiac
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-// This implements a custom matrix scan for the BlackBowl keyboard.
-// Each side has a dedicated MCP202 I2C address are
+// This implements a matrix scan (lite) for the BlackBowl keyboard.
+// Each side has a dedicated MCP23018 I2C expander.
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -20,8 +20,7 @@
 #include "timer.h"
 
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
-
-static matrix_row_t matrix[MATRIX_ROWS];
+#define ROW_SHIFTER ((matrix_row_t)1)
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
 
@@ -34,48 +33,7 @@ static const uint8_t I2C_ADDR_RIGHT = 0x4E;
 static const uint8_t I2C_ADDR_LEFT  = 0x46;
 static const uint8_t i2c_addr[]     = {I2C_ADDR_RIGHT, I2C_ADDR_LEFT};
 
-#define ROW_SHIFTER ((matrix_row_t)1)
-
-// The next to `_quantum()` declarations are not mentioned in `docs/custom_matrix.md`,
-// but required by gcc-8.3.0 CI build? .
-__attribute__((weak)) void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-__attribute__((weak)) void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
-__attribute__((weak)) void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
-__attribute__((weak)) void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-void matrix_init(void) {
-    init_expander();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        matrix[i] = 0;
-    }
-    matrix_init_quantum();
-}
-
-inline uint8_t matrix_rows(void) {
-    return MATRIX_ROWS;
-}
-
-inline uint8_t matrix_cols(void) {
-    return MATRIX_COLS;
-}
-
-void init_expander(void) {
+void matrix_init_custom(void) {
     if (!i2c_initialized) {
         i2c_init();
         wait_ms(1000);
@@ -94,39 +52,23 @@ void init_expander(void) {
     }
 }
 
-uint8_t matrix_scan(void) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    bool matrix_has_changed = false;
+
     if (expander_status) { // if there was an error
         ++expander_reset_loop;
         if (++expander_reset_loop == 0) {
             // since expander_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
-            init_expander();
+            matrix_init_custom();
         }
     }
 
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        read_rows_on_col(matrix, current_col);
+        matrix_has_changed |= read_rows_on_col(current_matrix, current_col);
     }
-    matrix_scan_quantum();
-    return 1;
-}
 
-inline bool matrix_is_on(uint8_t row, uint8_t col) {
-    return (matrix[row] & (ROW_SHIFTER << col));
-}
-
-inline matrix_row_t matrix_get_row(uint8_t row) {
-    return matrix[row];
-}
-
-void matrix_print(void) {
-    print("\nr/c 0123456789ABCDEF\n");
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        print_hex8(row);
-        print(": ");
-        print_bin_reverse16(matrix_get_row(row));
-        print("\n");
-    }
+    return matrix_has_changed;
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {

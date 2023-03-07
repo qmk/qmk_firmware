@@ -1,4 +1,4 @@
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 
 # project specific files
 QUANTUM_LIB_SRC += i2c_master.c
