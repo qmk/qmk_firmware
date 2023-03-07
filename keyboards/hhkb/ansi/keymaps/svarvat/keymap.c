@@ -220,13 +220,13 @@ enum custom_keycodes {
 #define LA_MOUSE 1 // Mouse x2
 #define LA_CAPSLOCK 2
 #define LA_LTHUMB 3
-#define LA_LTHUMBEMO 4 // gui + shift left + lettre côté gauche - LSG
-#define LA_LTHUMBDMO 5 // gui + shift right + lettre côté gauche - RSG
-#define LA_LTHUMBEOSL 6 // alt + gui left + lettre côté gauche - LAG
-#define LA_LTHUMBDOSL 7 // alt + gui right + lettre côté gauche - RAG
-#define LA_LTHUMB1MO 8 // shift + alt + gui + lettre côté gauche - LCA
-#define LA_LTHUMB2MO 9 // shift + ctrl + lettre côté gauche - RCS
-#define LA_LTHUMB3MO 10 // ctl +  gui + lettre côté gauche - C(G())
+#define LA_LTHUMBEMO 4 // LSG
+#define LA_LTHUMBDMO 5 // RSG
+#define LA_LTHUMBEOSL 6 // LAG - CAG
+#define LA_LTHUMBDOSL 7 // LSA - CSA
+#define LA_LTHUMB1MO 8 // LALT
+#define LA_LTHUMB2MO 9 // RCS
+#define LA_LTHUMB3MO 10 // C(G())
 #define LA_RTHUMB 11
 #define LA_LPINKY 12
 #define LA_LPINKYQ 13
@@ -323,18 +323,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_SPC, KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMBDOSL] = LAYOUT(
-        RAG(KC_ESC), RAG(KC_1), RAG(KC_2), RAG(KC_3), RAG(KC_4), RAG(KC_5), RAG(KC_6), RAG(KC_7), RAG(KC_8), RAG(KC_9), RAG(KC_0), RAG(KC_MINS), RAG(KC_EQL), RAG(KC_BSLS), KC_TRNS,
-        RAG(KC_TAB), RAG(KC_Q), RAG(KC_W), RAG(KC_E), RAG(KC_R), RAG(KC_T), RAG(KC_Y), RAG(KC_U), RAG(KC_I), RAG(KC_O), RAG(KC_P), RAG(KC_LBRC), KC_TRNS, KC_TRNS,
-        KC_TRNS, RAG(KC_A), RAG(KC_S), RAG(KC_D), RAG(KC_F), RAG(KC_G), RAG(KC_H), RAG(KC_J), RAG(KC_K), RAG(KC_L), RAG(KC_SCLN), RAG(KC_QUOT), RAG(KC_ENT),
-        KC_TRNS, RAG(KC_Z), RAG(KC_X), RAG(KC_C), RAG(KC_V), RAG(KC_B), RAG(KC_N), RAG(KC_M), RAG(KC_COMM), RAG(KC_DOT), RAG(KC_SLSH), KC_TRNS, KC_TRNS,
+        LSA(KC_ESC), LSA(KC_1), LSA(KC_2), LSA(KC_3), LSA(KC_4), LSA(KC_5), LSA(KC_6), LSA(KC_7), LSA(KC_8), LSA(KC_9), LSA(KC_0), LSA(KC_MINS), LSA(KC_EQL), LSA(KC_BSLS), KC_TRNS,
+        LSA(KC_TAB), LSA(KC_Q), LSA(KC_W), LSA(KC_E), LSA(KC_R), LSA(KC_T), LSA(KC_Y), LSA(KC_U), LSA(KC_I), LSA(KC_O), LSA(KC_P), LSA(KC_LBRC), KC_TRNS, KC_TRNS,
+        KC_TRNS, LSA(KC_A), LSA(KC_S), LSA(KC_D), LSA(KC_F), LSA(KC_G), LSA(KC_H), LSA(KC_J), LSA(KC_K), LSA(KC_L), LSA(KC_SCLN), LSA(KC_QUOT), LSA(KC_ENT),
+        KC_TRNS, LSA(KC_Z), LSA(KC_X), LSA(KC_C), LSA(KC_V), LSA(KC_B), LSA(KC_N), LSA(KC_M), LSA(KC_COMM), LSA(KC_DOT), LSA(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_SPC, KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMB1MO] = LAYOUT(
-        LCA(KC_ESC), LCA(KC_1), LCA(KC_2), LCA(KC_3), LCA(KC_4), LCA(KC_5), LCA(KC_6), LCA(KC_7), LCA(KC_8), LCA(KC_9), LCA(KC_0), LCA(KC_MINS), LCA(KC_EQL), LCA(KC_BSLS), KC_TRNS,
-        LCA(KC_TAB), LCA(KC_Q), LCA(KC_W), LCA(KC_E), LCA(KC_R), LCA(KC_T), LCA(KC_Y), LCA(KC_U), LCA(KC_I), LCA(KC_O), LCA(KC_P), LCA(KC_LBRC), KC_TRNS, KC_TRNS,
-        KC_TRNS, LCA(KC_A), LCA(KC_S), LCA(KC_D), LCA(KC_F), LCA(KC_G), LCA(KC_H), LCA(KC_J), LCA(KC_K), LCA(KC_L), LCA(KC_SCLN), LCA(KC_QUOT), LCA(KC_ENT),
-        KC_TRNS, LCA(KC_Z), LCA(KC_X), LCA(KC_C), LCA(KC_V), LCA(KC_B), LCA(KC_N), LCA(KC_M), LCA(KC_COMM), LCA(KC_DOT), LCA(KC_SLSH), KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, LCA(KC_SPC), KC_TRNS, KC_TRNS
+        LALT(KC_ESC), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), LALT(KC_6), LALT(KC_7), LALT(KC_8), LALT(KC_9), LALT(KC_0), LALT(KC_MINS), LALT(KC_EQL), LALT(KC_BSLS), KC_TRNS,
+        LALT(KC_TAB), LALT(KC_Q), LALT(KC_W), LALT(KC_E), LALT(KC_R), LALT(KC_T), LALT(KC_Y), LALT(KC_U), LALT(KC_I), LALT(KC_O), LALT(KC_P), LALT(KC_LBRC), KC_TRNS, KC_TRNS,
+        KC_TRNS, LALT(KC_A), LALT(KC_S), LALT(KC_D), LALT(KC_F), LALT(KC_G), LALT(KC_H), LALT(KC_J), LALT(KC_K), LALT(KC_L), LALT(KC_SCLN), LALT(KC_QUOT), LALT(KC_ENT),
+        KC_TRNS, LALT(KC_Z), LALT(KC_X), LALT(KC_C), LALT(KC_V), LALT(KC_B), LALT(KC_N), LALT(KC_M), LALT(KC_COMM), LALT(KC_DOT), LALT(KC_SLSH), KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, LALT(KC_SPC), KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMB2MO] = LAYOUT(
         RCS(KC_ESC), RCS(KC_1), RCS(KC_2), RCS(KC_3), RCS(KC_4), RCS(KC_5), RCS(KC_6), RCS(KC_7), RCS(KC_8), RCS(KC_9), RCS(KC_0), RCS(KC_MINS), RCS(KC_EQL), RCS(KC_BSLS), KC_TRNS,
