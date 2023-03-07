@@ -18,6 +18,7 @@
 #include "analog.h"
 #include "atomic_util.h"
 #include "print.h"
+#include "wait.h"
 
 /* Pin and port array */
 const uint32_t row_pins[]     = MATRIX_ROW_PINS;
@@ -110,6 +111,8 @@ uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
     }
     // Discharge peak hold capacitor
     discharge_capacitor();
+    // Waiting for the ghost capacitor to discharge fully
+    wait_us(DISCHARGE_TIME);
 
     return sw_value;
 }
