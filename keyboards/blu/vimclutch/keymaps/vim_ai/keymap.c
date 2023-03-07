@@ -50,11 +50,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_VIMA] = LAYOUT(
-        TO(_VC),    TO(_VIM),  CLUTCH_A
+        TO(_VIMA),    TO(_VIMI),  CLUTCH_A
     ),
 
     [_VIMI] = LAYOUT(
-        TO(_VC),    TO(_VIM),  CLUTCH_I
+        TO(_VIMA),    TO(_VIMI),  CLUTCH_I
     )
 };
 

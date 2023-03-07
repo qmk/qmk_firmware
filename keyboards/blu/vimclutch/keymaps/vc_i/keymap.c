@@ -63,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case USER_CLUTCH:
         if (record->event.pressed) {
             tap_code_delay(KC_ESC, 50); 
-            tap_code_delay(KC_A, 50); 
+            tap_code_delay(KC_I, 50); 
         } else {
             tap_code_delay(KC_ESC, 50); 
         }
