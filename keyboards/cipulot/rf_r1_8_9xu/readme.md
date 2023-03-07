@@ -1,6 +1,6 @@
 # RF R1 8-9Xu
 
-![RF_R1_8-9Xu PCB](https://i.imgur.com/lyy5OPr.png)
+![RF_R1_8-9Xu PCB](https://i.imgur.com/lyy5OPrh.png)
 
 Open source universal PCB for the Realforce R1 family of keyboards.
 
