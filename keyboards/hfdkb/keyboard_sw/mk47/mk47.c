@@ -157,19 +157,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 }
 #endif
 
-#ifdef VIA_ENABLE
-enum custom_keycodes {
-    KC_RESET = USER00,   
-};
-#endif
-
-enum colors {
-    WHITE, 
-    RED, 
-    GREEN, 
-    BLUE 
-};
-enum colors led_color_status = WHITE;
 
 static bool     fn_make_flag        = false;
 static bool     Lkey_flag           = false;
