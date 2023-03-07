@@ -91,7 +91,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 // clang-format off
 static const led_config_t PROGMEM initial_led_config = {
     {
-        { 6, 11, 12, 17, 18, 7, 10, 13, 16, 19, 8, 9, 14, 15, 20, 2, 0, 4, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
+        { 6, 11, 12, 17, 18, 7, 10, 13, 16, 19, 8, 9, 14, 15, 20, 2, 0, 4 }
     },
     {
         LED( 35,  36),
