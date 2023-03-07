@@ -15,14 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-
-// SWAP FOR PRO MICRO
-// #define MATRIX_ROWS 8
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 6
 
 /* key matrix pins */
 
@@ -32,45 +24,6 @@
 #define MATRIX_COL_PINS { D3, F4, F5, F6, F7, B1 }
 
 #define DIODE_DIRECTION COL2ROW
-
-/* ROTARY ENCODERS */
-
-/* 4 encoder positions are supported. With multiple
-encoder support when using the extra pins of
-Elite-C controller.
-
-Use the following configuration guides for your
-encoder layout. */
-
-/* PRO MICRO CONFIGURATIONS */
-
-/* If using a Pro Micro, only 1 encoder may be used,
-and only in the top or bottom position.
-Top and bottom encoders share the same net,
-so there is only one configuration. */
-
-/* TOP or BOTTOM */
-// #define ENCODERS_PAD_A { C6 }
-// #define ENCODERS_PAD_B { D4 }
-
-/* ELITE-C ONLY CONFIGURATIONS */
-
-/* TOP 3
-   Default configuration */
-#define ENCODERS_PAD_A { C6 , B7, C7 }
-#define ENCODERS_PAD_B { D4 , D5, F1 }
-
-/* BOTTOM 3 */
-// #define ENCODERS_PAD_A { B7, C7, C6 }
-// #define ENCODERS_PAD_B { D5, F1, D4 }
-
-/* BOTTOM 2 */
-// #define ENCODERS_PAD_A { C7, C6 }
-// #define ENCODERS_PAD_B { F1, D4 }
-
-
-#define ENCODER_RESOLUTION 2
-#define BACKLIGHT_LEVELS 5
 
 #ifdef LED_MATRIX_ENABLE
 

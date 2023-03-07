@@ -54,38 +54,38 @@ enum custom_keycodes {
 
 // Not a mistake to have KC_LALT (also) on the right, RALT is kept for compose (LLS_RALT)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_adm42_3x12_6(
+    [_QWERTY] = LAYOUT(
         LW_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    RW_EQU,
         LC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, RC_QUT,
         KC_LALT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LALT,
                                    LLS_ESC, LS_BPC,  LLA_DEL, LLE_ENT, RS_SPC,  LLS_RALT
     ),
-    [_COLEMAKDH] = LAYOUT_adm42_3x12_6(
+    [_COLEMAKDH] = LAYOUT(
         LW_GRV,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, RW_EQU,
         LC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    RC_QUT,
         KC_LALT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_LALT,
                                    LLS_ESC, LS_BPC,  LLA_DEL, LLE_ENT, RS_SPC,  LLS_RALT
     ),
 
-    [_SPECIAL] = LAYOUT_adm42_3x12_6(
+    [_SPECIAL] = LAYOUT(
         _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    RW_BS,
         LC_CIRC, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_EXLM, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MINS, RC_DLR,
         _______, KC_AMPR, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, KC_UNDS, KC_ASTR, KC_HASH, KC_PERC, KC_TILD, _______,
                                    KC_ESC,  _______, KC_DEL,  KC_ENT,  _______, KC_RALT
     ),
-    [_EXTRA] = LAYOUT_adm42_3x12_6(
+    [_EXTRA] = LAYOUT(
         LW_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  RW_F12,
         KC_LCTL, KC_PAUS, KC_INS,  KC_VOLD, KC_VOLU, KC_MUTE, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_APP,  KC_RCTL,
         _______, KC_SLEP, KC_PWR,  KC_MSTP, KC_MNXT, KC_MPLY, _______, KC_BRID, KC_BRIU, KC_PSCR, KC_WAKE, _______,
                                    KC_CAPS, _______, _______, _______, _______, KC_CAPS
     ),
-    [_ADM] = LAYOUT_adm42_3x12_6(
+    [_ADM] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_B, RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_RMOD,RGB_HUD, RGB_HUI, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RGB_M_P, RGB_SPD, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX,
                                    XXXXXXX, XXXXXXX, XXXXXXX, SETUP,   XXXXXXX, XXXXXXX
     ),
-    [_SETUP] = LAYOUT_adm42_3x12_6(
+    [_SETUP] = LAYOUT(
         REFLASH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, DF_QWER, DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EE_CLR,
@@ -93,34 +93,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-     case RC_QUT:
-        return true;
-     default:
-        return false;
-    }
-}
-
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    // Special if-condition outside the switch because `RC_QUT` overlaps with
+    // the `QK_MOD_TAP ... QK_MOD_TAP_MAX` range.
+    if (keycode == RC_QUT) {
+        return false;
+    }
     switch (keycode) {
-     case LLS_ESC:
-     case LLS_RALT:
-     case LLE_ENT:
-     case LLA_DEL:
+     case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+     case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
         return true;
      default:
         return false;
     }
 }
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
      case LLS_ESC:
      case LLS_RALT:
-        return true;
+        return 0;
      default:
-        return false;
+        return QUICK_TAP_TERM;
     }
 }
 
@@ -180,7 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      case REFLASH:
         eeconfig_init();
         eeconfig_update_rgb_matrix_default();
-        writePinLow(QMK_LED);
+        writePinLow(ADM42_LED);
         reset_keyboard();
         return false;
 
@@ -190,21 +184,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(QMK_LED);
-    writePinHigh(QMK_LED);
+    setPinOutput(ADM42_LED);
+    writePinHigh(ADM42_LED);
 }
 
 void keyboard_post_init_kb(void) {
     debug_enable = true;
     debug_matrix = false;
     debug_keyboard = false;
-    writePinHigh(QMK_LED);
+    writePinHigh(ADM42_LED);
 }
 
 void suspend_power_down_kb(void) {
-    writePinLow(QMK_LED);
+    writePinLow(ADM42_LED);
 }
 
 void suspend_wakeup_init_kb(void) {
-  writePinHigh(QMK_LED);
+  writePinHigh(ADM42_LED);
 }

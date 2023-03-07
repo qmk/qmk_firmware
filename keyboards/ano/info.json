@@ -8,6 +8,13 @@
         "pid": "0x0651",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B12", "pin_b": "A14", "resolution": 2}
+        ]
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

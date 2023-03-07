@@ -8,8 +8,14 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "layout_aliases": {
+    "LAYOUT_numbrero_numpad": "LAYOUT_numpad",
+    "LAYOUT_numbrero_ortho": "LAYOUT_ortho"
+  },
   "layouts": {
-    "LAYOUT_numbrero_numpad": {
+    "LAYOUT_numpad": {
       "layout": [
         {"label":"K00", "x":0, "y":0},
         {"label":"K01", "x":1, "y":0},
@@ -34,7 +40,7 @@
         {"label":"K34", "x":4, "y":3, "h":2}
       ]
     },
-    "LAYOUT_numbrero_ortho": {
+    "LAYOUT_ortho": {
       "layout": [
         {"label":"K00", "x":0, "y":0},
         {"label":"K01", "x":1, "y":0},

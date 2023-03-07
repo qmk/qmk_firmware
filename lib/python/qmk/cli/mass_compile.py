@@ -2,6 +2,7 @@
 
 This will compile everything in parallel, for testing purposes.
 """
+import fnmatch
 import logging
 import multiprocessing
 import os
@@ -58,7 +59,8 @@ def _load_keymap_info(keyboard, keymap):
     arg_only=True,
     action='append',
     default=[],
-    help="Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the format 'features.rgblight=true'. May be passed multiple times, all filters need to match."
+    help=  # noqa: `format-python` and `pytest` don't agree here.
+    "Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the formats 'features.rgblight=true' or 'exists(matrix_pins.direct)'. May be passed multiple times, all filters need to match. Value may include wildcards such as '*' and '?'."  # noqa: `format-python` and `pytest` don't agree here.
 )
 @cli.argument('-km', '--keymap', type=str, default='default', help="The keymap name to build. Default is 'default'.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
@@ -93,24 +95,33 @@ def mass_compile(cli):
             cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
             valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.starmap(_load_keymap_info, target_list)]
 
-            filter_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
+            equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
+            exists_re = re.compile(r'^exists\((?P<key>[a-zA-Z0-9_\.]+)\)$')
             for filter_txt in cli.args.filter:
-                f = filter_re.match(filter_txt)
+                f = equals_re.match(filter_txt)
                 if f is not None:
                     key = f.group('key')
                     value = f.group('value')
                     cli.log.info(f'Filtering on condition ("{key}" == "{value}")...')
 
                     def _make_filter(k, v):
+                        expr = fnmatch.translate(v)
+                        rule = re.compile(expr, re.IGNORECASE)
+
                         def f(e):
                             lhs = e[2].get(k)
-                            lhs = str(False if lhs is None else lhs).lower()
-                            rhs = str(v).lower()
-                            return lhs == rhs
+                            lhs = str(False if lhs is None else lhs)
+                            return rule.search(lhs) is not None
 
                         return f
 
                     valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
+
+                f = exists_re.match(filter_txt)
+                if f is not None:
+                    key = f.group('key')
+                    cli.log.info(f'Filtering on condition (exists: "{key}")...')
+                    valid_keymaps = filter(lambda e: e[2].get(key) is not None, valid_keymaps)
 
             targets = [(e[0], e[1]) for e in valid_keymaps]
 
@@ -130,7 +141,7 @@ all: {keyboard_safe}_{keymap_name}_binary
 {keyboard_safe}_{keymap_name}_binary:
 	@rm -f "{QMK_FIRMWARE}/.build/failed.log.{keyboard_safe}.{keymap_name}" || true
 	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}"
-	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{keymap_name}" REQUIRE_PLATFORM_KEY= COLOR=true SILENT=false {' '.join(cli.args.env)} \\
+	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{keymap_name}" COLOR=true SILENT=false {' '.join(cli.args.env)} \\
 		>>"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}" 2>&1 \\
 		|| cp "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}" "{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
 	@{{ grep '\[ERRORS\]' "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\

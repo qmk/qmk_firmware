@@ -16,20 +16,10 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D2
-
 /* Select hand configuration */
 #define SPLIT_HAND_MATRIX_GRID B0,B7
 #define MATRIX_MASKED
 #define SPLIT_USB_DETECT
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS (3*2)
-#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments
@@ -46,9 +36,6 @@
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
