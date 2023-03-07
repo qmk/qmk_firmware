@@ -42,7 +42,7 @@
  * default HHKB Layout
  */
 #include QMK_KEYBOARD_H
-#include "print.h"
+//#include "print.h"
 
 
 /*
@@ -982,10 +982,12 @@ bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 tap_code16(KC_UP);
                 tap_code16(KC_UP);
+                tap_code16(KC_UP);
             }
             return false;
         case MA_DOWNX2:
             if (record->event.pressed) {
+                tap_code16(KC_DOWN);
                 tap_code16(KC_DOWN);
                 tap_code16(KC_DOWN);
             }
@@ -994,10 +996,12 @@ bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 tap_code16(KC_LEFT);
                 tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
             }
             return false;
         case MA_RIGHTX2:
             if (record->event.pressed) {
+                tap_code16(KC_RIGHT);
                 tap_code16(KC_RIGHT);
                 tap_code16(KC_RIGHT);
             }
@@ -1006,16 +1010,19 @@ bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 tap_code16(KC_DEL);
                 tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
             }
             return false;
         case MA_ENTX2:
             if (record->event.pressed) {
                 tap_code16(KC_ENT);
                 tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
             }
             return false;
         case MA_BSPCX2:
             if (record->event.pressed) {
+                tap_code16(KC_BSPC);
                 tap_code16(KC_BSPC);
                 tap_code16(KC_BSPC);
             }
@@ -1031,10 +1038,22 @@ bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_UP);
                 tap_code16(KC_UP);
                 tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
             }
             return false;
         case MA_DOWNX4:
             if (record->event.pressed) {
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
                 tap_code16(KC_DOWN);
                 tap_code16(KC_DOWN);
                 tap_code16(KC_DOWN);
@@ -1047,10 +1066,22 @@ bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_LEFT);
                 tap_code16(KC_LEFT);
                 tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
             }
             return false;
         case MA_RIGHTX4:
             if (record->event.pressed) {
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
                 tap_code16(KC_RIGHT);
                 tap_code16(KC_RIGHT);
                 tap_code16(KC_RIGHT);
@@ -1063,6 +1094,12 @@ bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_DEL);
                 tap_code16(KC_DEL);
                 tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
             }
             return false;
         case MA_ENTX4:
@@ -1071,10 +1108,22 @@ bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_ENT);
                 tap_code16(KC_ENT);
                 tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
             }
             return false;
         case MA_BSPCX4:
             if (record->event.pressed) {
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
                 tap_code16(KC_BSPC);
                 tap_code16(KC_BSPC);
                 tap_code16(KC_BSPC);
