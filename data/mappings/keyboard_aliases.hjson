@@ -1294,4 +1294,7 @@
     "zinc/reva": {
         "target": "25keys/zinc/reva"
     }
+    "cxt_studio": {
+        "target": "cxt_studio/12e4"
+    }
 }
