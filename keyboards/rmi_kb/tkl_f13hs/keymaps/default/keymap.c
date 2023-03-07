@@ -33,37 +33,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                                     _______, _______, _______, _______, _______, _______
     ),
 };
-
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = {{
-    // Key Matrix to LED Index
-    {      2, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,      1, NO_LED,      0, NO_LED },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    {      3, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
-}, {
-    // LED Index to Physical Position
-    { 211, 0 }, { 182, 0 }, { 0, 0 }, { 2, 27 }
-}, {
-    // LED Index to Flag
-    LED_FLAG_INDICATOR, LED_FLAG_INDICATOR, LED_FLAG_INDICATOR, LED_FLAG_INDICATOR
-}};
-
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (!((host_keyboard_led_state().scroll_lock))) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 0);
-    }
-
-    if (!((host_keyboard_led_state().num_lock))) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(2, 0, 0, 0);
-    }
-
-    if (!((host_keyboard_led_state().caps_lock))) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(3, 0, 0, 0);
-    }
-
-    return true;
-}
-#endif

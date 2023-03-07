@@ -23,6 +23,18 @@
         "rows": ["GP0",  "GP1",  "GP2",  "GP21", "GP3",  "GP4"],
         "cols": ["GP29", "GP28", "GP27", "GP26", "GP25", "GP24", "GP23", "GP22", "GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP12", "GP6"]
     },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            {"flags": 8, "matrix": [0, 15], "x": 211, "y": 0},
+            {"flags": 8, "matrix": [0, 13], "x": 182, "y": 0},
+            {"flags": 8, "matrix": [0, 0], "x": 0, "y": 0},
+            {"flags": 8, "matrix": [3, 0], "x": 2, "y": 27}
+        ]
+    },
+    "rgblight": {
+        "pin": "GP5"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
