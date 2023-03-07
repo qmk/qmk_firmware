@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum layers { 
+enum layer_names { 
     _BASE, 
 };
 
