@@ -15,7 +15,7 @@
  */
 #include "utils.h"
 
-void store_rgb_state_to_eeprom() {
+void store_rgb_state_to_eeprom(void) {
     uint8_t mode  = rgb_matrix_get_mode();
     uint8_t speed = rgb_matrix_get_speed();
     HSV     color = rgb_matrix_get_hsv();

@@ -8,6 +8,13 @@
         "pid": "0x5F10",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6",
+        "levels": 7,
+        "max_brightness": 150
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT_rev41lp": "LAYOUT"
     },

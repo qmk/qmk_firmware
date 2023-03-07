@@ -8,6 +8,14 @@
         "pid": "0x8B23",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D7",
+        "num_lock": "D6",
+        "scroll_lock": "D4",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

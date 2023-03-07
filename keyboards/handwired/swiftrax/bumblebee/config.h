@@ -25,13 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Encoder */
-#define ENCODERS_PAD_A { C6 }
-#define ENCODERS_PAD_B { B6 }
-
 /* RGB Indicators */
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 3

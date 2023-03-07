@@ -8,6 +8,15 @@
     "pid": "0xA4F9",
     "device_version": "0.0.6"
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B12", "pin_b": "B13"}
+    ]
+  },
+  "processor": "STM32F303",
+  "bootloader": "stm32-dfu",
+  "board": "QMK_PROTON_C",
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_ortho_4x12": {
       "layout": [
