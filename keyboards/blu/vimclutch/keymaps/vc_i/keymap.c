@@ -1,4 +1,4 @@
-/* Copyright 2021 John Mueller
+/* Copyright 2023 Brandon Lu
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case USER_CLUTCH:
         if (record->event.pressed) {
             tap_code_delay(KC_ESC, 50); 
-            tap_code_delay(KC_G, 50); 
+            tap_code_delay(KC_A, 50); 
         } else {
             tap_code_delay(KC_ESC, 50); 
         }

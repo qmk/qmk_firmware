@@ -1,4 +1,4 @@
-/* Copyright 2023 Brandon Lu
+/* Copyright 2021 John Mueller
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,23 +17,24 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _VC,
-    _VIM
+    _VIMA,
+    _VIMI
 };
 
 // Define custom keycodes
 enum my_keycodes {
-    USER_CLUTCH = SAFE_RANGE
+    CLUTCH_A = SAFE_RANGE,
+    CLUTCH_I
 };
 
 // Layer-specific lighting
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-    case _VC:
+    case _VIMA:
         writePinLow(F4);
 	writePinHigh(F5);
         break;
-    case _VIM:
+    case _VIMI:
         writePinHigh(F4);
 	writePinLow(F5);
         break;
@@ -48,22 +49,30 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // Define the layout
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_VC] = LAYOUT(
-        TO(_VC),    TO(_VIM),  KC_F13
+    [_VIMA] = LAYOUT(
+        TO(_VC),    TO(_VIM),  CLUTCH_A
     ),
 
-    [_VIM] = LAYOUT(
-        TO(_VC),    TO(_VIM),  USER_CLUTCH
+    [_VIMI] = LAYOUT(
+        TO(_VC),    TO(_VIM),  CLUTCH_I
     )
 };
 
 // Define vim-clutching
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case USER_CLUTCH:
+    case CLUTCH_A:
         if (record->event.pressed) {
             tap_code_delay(KC_ESC, 50); 
             tap_code_delay(KC_A, 50); 
+        } else {
+            tap_code_delay(KC_ESC, 50); 
+        }
+        break;
+    case CLUTCH_I:
+        if (record->event.pressed) {
+            tap_code_delay(KC_ESC, 50); 
+            tap_code_delay(KC_I, 50); 
         } else {
             tap_code_delay(KC_ESC, 50); 
         }
