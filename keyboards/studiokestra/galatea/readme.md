@@ -13,7 +13,7 @@ TKL H87/88c compatible PCB with support for the most common layouts.
 There are 3 ways to put the board in bootloader mode:
 
 - Hold the top-left key (typically `Esc`) while plugging in the USB cable, OR
-- While the PCB is plugged into the PC, press the physical `QK_BOOT` button on the back of the board, OR
+- While the PCB is plugged into the PC, press the physical `RESET` button on the back of the board, OR
 - With the default layout, toggle Layer 1 and press the `R` key. 
 
 ## Compiling Firmware

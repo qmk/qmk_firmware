@@ -21,18 +21,18 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise))
         return false;
     if (clockwise)
-        tap_code16(KC_VOLU);
+        tap_code(KC_VOLU);
     else
-        tap_code16(KC_VOLD);
+        tap_code(KC_VOLD);
     return true;
 }
 
 // Initialize all RGB indicators to 'off'
-__attribute__((weak))
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     rgblight_setrgb_at(0, 0, 0, 0); // [..., 0] = top LED
     rgblight_setrgb_at(0, 0, 0, 1); // [..., 1] = middle LED
     rgblight_setrgb_at(0, 0, 0, 2); // [..., 2] = bottom LED
+    keyboard_post_init_user();
 }
 
 // RGB Layer Indicators

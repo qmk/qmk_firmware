@@ -8,6 +8,13 @@
         "pid": "0x0333",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A10", "pin_b": "A8"}
+        ]
+    },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_tkl_f13_iso": {
             "layout": [
@@ -25,9 +32,9 @@
                 {"matrix":[0,11], "x":11.75, "y":0},
                 {"matrix":[0,12], "x":12.75, "y":0},
                 {"matrix":[0,13], "x":14, "y":0},
-                {"matrix":[0,14], "x":15.75, "y":0},
-                {"matrix":[0,15], "x":16.75, "y":0},
-                {"matrix":[3,14], "x":17.75, "y":0},
+                {"matrix":[0,14], "x":15.25, "y":0},
+                {"matrix":[0,15], "x":16.25, "y":0},
+                {"matrix":[3,14], "x":17.25, "y":0},
 
                 {"matrix":[1, 0], "x":0, "y":1.25},
                 {"matrix":[1, 1], "x":1, "y":1.25},

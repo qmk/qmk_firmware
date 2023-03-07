@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
 
 /*
  * Keyboard Matrix Assignments
@@ -37,10 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, B0, B1 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
 
 #define RGB_DI_PIN B3
 #ifdef RGB_DI_PIN

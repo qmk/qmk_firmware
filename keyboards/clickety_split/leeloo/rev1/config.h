@@ -17,10 +17,21 @@
 
 #pragma once
 
-#include "config_common.h"
+/* define tapping term */
+#define TAPPING_TERM 100
 
-/* encoder support */
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
-#define ENCODERS_PAD_A_RIGHT { F4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }
+/* disable action features */
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
+
+/*
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
+ */
+
+/* disable debug print */
+// #define NO_DEBUG
+
+/* disable print */
+// #define NO_PRINT

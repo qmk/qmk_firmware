@@ -4,16 +4,8 @@
 #pragma once
 #include "drashna.h"
 
-#if defined(KEYBOARD_handwired_tractyl_manuform) && defined(POINTING_DEVICE_ENABLE)
-#    define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
-#elif defined(KEYBOARD_bastardkb_charybdis)
-#    define PLACEHOLDER_SAFE_RANGE CHARYBDIS_SAFE_RANGE
-#else
-#    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
-#endif
-
 enum userspace_custom_keycodes {
-    VRSN = PLACEHOLDER_SAFE_RANGE,           // Prints QMK Firmware and board info
+    VRSN = QK_USER,                          // Prints QMK Firmware and board info
     KC_QWERTY,                               // Sets default layer to QWERTY
     FIRST_DEFAULT_LAYER_KEYCODE = KC_QWERTY, // Sets default layer to QWERTY
     KC_COLEMAK_DH,                           // Sets default layer to COLEMAK
@@ -47,7 +39,12 @@ enum userspace_custom_keycodes {
     KC_SUPER,
     KC_COMIC,
     KC_ACCEL,
-    NEW_SAFE_RANGE // use "NEWPLACEHOLDER for keymap specific codes
+    OLED_LOCK,
+
+    STORE_SETUPS,
+    PRINT_SETUPS,
+
+    USER_SAFE_RANGE, // use "NEWPLACEHOLDER for keymap specific codes
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);

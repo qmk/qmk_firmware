@@ -6,6 +6,6 @@
         "rows": ["GP5"]
     },
     "rgblight": {
-        "pin": "A1"
+        "pin": "GP17"
     }
 }

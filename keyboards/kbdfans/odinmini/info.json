@@ -3,7 +3,6 @@
     "keyboard_name": "Odinmini",
     "maintainer": "moyi4681",
     "bootloader": "rp2040",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "audio": false,
@@ -135,8 +134,8 @@
                 { "label": "0", "matrix": [4, 10], "w": 1, "x": 17.5, "y": 4 },
                 { "label": ".", "matrix": [4, 11], "w": 1, "x": 18.5, "y": 4 },
                 { "label": "\u2190", "matrix": [4, 12], "w": 1, "x": 14.25, "y": 4.25 },
-                { "label": "\u2193", "matrix": [4, 13], "w": 1, "x": 15.25, "y": 4.25 },
-                { "label": "\u2192", "matrix": [4, 14], "w": 1, "x": 16.25, "y": 4.25 }
+                { "label": "\u2193", "matrix": [4, 14], "w": 1, "x": 15.25, "y": 4.25 },
+                { "label": "\u2192", "matrix": [4, 15], "w": 1, "x": 16.25, "y": 4.25 }
             ]
         }
     }
