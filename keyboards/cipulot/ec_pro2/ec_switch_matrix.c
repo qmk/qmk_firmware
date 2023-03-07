@@ -114,7 +114,6 @@ uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
     ATOMIC_BLOCK_FORCEON {
         // Set the row pin to high state and have capacitor charge
         charge_capacitor(row);
-        //wait_us(10);
         // Read the ADC value
         sw_value = adc_read(adcMux);
     }
