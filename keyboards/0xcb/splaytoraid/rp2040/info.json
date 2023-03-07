@@ -1,0 +1,21 @@
+{
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "cols": ["GP28", "GP27", "GP26", "GP29", "GP20", "GP22", "GP23"],
+        "rows": ["GP0", "GP1", "GP2", "GP4", "GP6", "GP7", "GP8", "GP5"]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP9",
+                "pin_b": "GP21",
+                "resolution": 4
+            }
+        ]
+    },
+    "rgblight": {
+        "pin": "GP3"
+    }
+}
