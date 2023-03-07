@@ -1,3 +1,6 @@
+// Copyright 2023 Dreipunkteinsvier (@dreipunkteinsvier)
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include <string.h>
@@ -288,18 +291,6 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-// │ H A P T I C   F E E D B A C K                                                                                                              │
-// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
-void keyboard_post_init_user(void) {
-  // Call the post init code.
-  #if RGB_MATRIX_ENABLE
-    rgblight_enable_noeeprom();
-    //rgblight_sethsv_noeeprom(35, 255, 255); // set default RGB color to yellow
-  #endif //RGB_MATRIX_ENABLE
-}
-
-// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // │ M A C R O S                                                                                                                                │
 // └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 // ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
@@ -320,9 +311,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     PLAY_SONG(winxp_song);
                   #endif // AUDIO_ENABLE
                 }
-              #ifdef HAPTIC_ENABLE
-                DRV_pulse(pulsing_strong);
-              #endif // HAPTIC_ENABLE
             eeconfig_update_keymap(keymap_config.raw);
             clear_keyboard();  // ──── clear to prevent stuck keys
             return false;
@@ -336,28 +324,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case COLEMAK:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_COLEMAK);
-                #ifdef HAPTIC_ENABLE
-                  DRV_pulse(transition_hum);
-                #endif // HAPTIC_ENABLE
             }
             return false;
         case QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
-                #ifdef HAPTIC_ENABLE
-                  DRV_pulse(transition_hum);
-                #endif // HAPTIC_ENABLE
             }
             return false;
     }
     return true;
 }
-
-// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-// │ E N C O D E R                                                                                                                              │
-// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
-#ifdef ENCODER_ENABLE
 
 // ┌───────────────────────────────────────────────────────────┐
 // │ e n c o d e r                                             │
@@ -371,18 +347,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_NUMBERS] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_FUNCTION] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
 };
-#endif // ENCODER_ENABLE
-
-#ifdef DIP_SWITCH_ENABLE
-bool dip_switch_update_user(uint8_t index, bool active) {
-    switch (index) {
-        case 0:
-            if(active) { tap_code(KC_MUTE); }
-            break;
-    }
-    return true;
-}
-#endif //
 
 
 
