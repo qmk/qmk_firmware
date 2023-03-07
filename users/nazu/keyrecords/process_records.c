@@ -98,22 +98,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
-        // case US_RSFT:
-        //     if (useTapDance) {
-        //         if (record->event.pressed) {
-        //             tap_code(TD_CAPS);
-        //         } else {
-        //             unregister_code(TD_CAPS);
-        //         }
-        //     }
-        // case US_SPC:
-        //     if (useTapDance) {
-        //         if (record->event.pressed) {
-        //             tap_code(TD_SPC);
-        //         } else {
-        //             unregister_code(TD_SPC);
-        //         }
-        //     }
         case KC_4: // Implementation of Alt F4
             // Only detect in Windows-typical config
             if (!keymap_config.swap_lalt_lgui) {
