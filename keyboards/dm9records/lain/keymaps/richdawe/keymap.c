@@ -53,49 +53,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------'     \-----------------------------------|
  * |     |     /     /     /     /     /           \     \     \     \     \     |     |
  * `-----------------------------------'           \-----------------------------------|
- *    |     |  /     /     /  -  /  -  /           \     \  -  \     \     \     |     |
+ *    |     |  /     /     /Space/Space/           \     \Space\     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  XXXXXXX, KC_BSPC,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT, XXXXXXX, XXXXXXX,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
-        _______,          _______, _______, KC_MINS, KC_MINS,             _______, KC_MINS, _______,  _______, XXXXXXX, XXXXXXX
+        _______,          _______, _______, KC_SPC,  KC_SPC,              _______, KC_SPC,  _______,  _______, XXXXXXX, XXXXXXX
     ),
 
     [NUM] = LAYOUT(
 /*
  * ,-----------------------------------------.     ,-----------------------------------.
- * |     |     /  1  /  2  /  3  /  :  /  (  /     \  -  \  =  \     \  0  \  .  |Bspc |
+ * |     |     /  1  /  2  /  3  /  .  /  (  /     \  -  \  =  \  :  \  0  \  .  |Bspc |
  * |-----------------------------------------/     \-----------------------------------|
- * |     |     /  4  /  5  /  6  /  .  /  )  /     \     \     \     \     \     |     |
+ * |     |     /  4  /  5  /  6  /  0  /  )  /     \  0  \  7  \  8  \  9  \     |     |
  * |-----------------------------------------'     \-----------------------------------|
- * |     |     /  7  /  8  /  9  /  0  /           \     \     \     \     \     |     |
+ * |     |     /     /     /     /     /           \     \     \     \     \     |     |
  * `-----------------------------------'           \-----------------------------------|
- *    |     |  /     /     /  -  /     /           \  -  \  -  \     \     \     |     |
+ *    |     |  /     /     /Space/     /           \Space\Space\     \     \     |     |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_COLON, KC_LPRN,   KC_MINS, KC_EQL,  XXXXXXX,  KC_0,    KC_DOT,  KC_BSPC,
-        _______, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_DOT,   KC_RPRN,   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_0,                XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
-        _______,          _______, _______, KC_MINS, _______,             KC_MINS, KC_MINS, _______,  _______, XXXXXXX, XXXXXXX
+        _______, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_DOT,   KC_LPRN,   KC_MINS, KC_EQL,  KC_COLON, KC_0,    KC_DOT,  KC_BSPC,
+        _______, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,     KC_RPRN,   KC_0,    KC_7,    KC_8,     KC_9,    XXXXXXX, XXXXXXX,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
+        _______,          _______, _______, KC_SPC,  _______,             KC_SPC,  KC_SPC,  _______,  _______, XXXXXXX, XXXXXXX
     ),
 
     [SYM] = LAYOUT(
 /*
  * ,-----------------------------------------.     ,-----------------------------------.
- * |     |     /  !  /  @  /  #  /     /  {  /     \  _  \  +  \     \     \     |Bspc |
+ * |     |     /  !  /  @  /  #  /  .  /  {  /     \  -  \  =  \  :  \     \     |Bspc |
  * |-----------------------------------------/     \-----------------------------------|
- * |     |     /  $  /  %  /  ^  /     /  }  /     \     \     \     \     \     | \|  |
+ * |     |     /  $  /  %  /  ^  /     /  }  /     \  +  \  &  \  *  \  (  \  )  | \|  |
  * |-----------------------------------------'     \-----------------------------------|
- * |     |     /  &  /  *  /  (  /  )  /           \     \     \     \     \     |     |
+ * |     |     /     /     /     /     /           \  _  \     \     \     \     |     |
  * `-----------------------------------'           \-----------------------------------|
- *    |     |  /     /     /     /     /           \  -  \  -  \     \     \     | `~  |
+ *    |     |  /     /     /     /Space/           \Space\     \     \     \     | `~  |
  *    `-----'  `-----------------------'           `-----------------------------------'
  */
-        _______, XXXXXXX, S(KC_1), S(KC_2), S(KC_3), XXXXXXX, KC_LBRC,   S(KC_MINS), S(KC_EQL), XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
-        _______, XXXXXXX, S(KC_4), S(KC_5), S(KC_6), XXXXXXX, KC_RBRC,   XXXXXXX,    XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, SH_BSLS,
-        _______, XXXXXXX, S(KC_7), S(KC_8), S(KC_9), S(KC_0),            XXXXXXX,    XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______,          _______, _______, _______, KC_MINS,            KC_MINS,    _______,   _______, _______, XXXXXXX, SH_GRV
+        _______, XXXXXXX, S(KC_1), S(KC_2), S(KC_3), KC_DOT,  KC_LBRC,   KC_MINS,    KC_EQL,   KC_COLON, XXXXXXX, XXXXXXX, KC_BSPC,
+        _______, XXXXXXX, S(KC_4), S(KC_5), S(KC_6), XXXXXXX, KC_RBRC,   S(KC_EQL),  S(KC_7),  S(KC_8),  S(KC_9), S(KC_0), SH_BSLS,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            S(KC_MINS), XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, _______,
+        _______,          _______, _______, _______, KC_SPC,             KC_SPC,    _______,   _______,  _______, XXXXXXX, SH_GRV
     ),
 
     [FUNC] = LAYOUT(
