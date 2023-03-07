@@ -5,7 +5,7 @@
 // Convert this into a printable keymap on Linux using:
 /*
 grep -A11 '[=] LAYOUT(' keyboards/dm9records/lain/keymaps/richdawe/keymap.c > lain-keymap-richdawe.txt
-enscript -v -r -f Courier9 --media=A4 lain-keymap-richdawe.txt -o lain-keymap-richdawe.ps
+enscript -v -r -f Courier7 --media=A4 lain-keymap-richdawe.txt -o lain-keymap-richdawe.ps
 ps2pdf lain-keymap-richdawe.ps lain-keymap-richdawe.pdf
 */
 
