@@ -18,6 +18,7 @@
 #include "analog.h"
 #include "atomic_util.h"
 #include "print.h"
+#include "wait.h"
 
 /* Pin and port array */
 const uint32_t row_pins[]     = MATRIX_ROW_PINS;
@@ -65,7 +66,7 @@ int ecsm_init(ecsm_config_t const* const ecsm_config) {
     palSetLineMode(ANALOG_PORT, PAL_MODE_INPUT_ANALOG);
     adcMux = pinToMux(ANALOG_PORT);
 
-    //Dummy call to make sure that adcStart() has been called in the appropriate state
+    // Dummy call to make sure that adcStart() has been called in the appropriate state
     adc_read(adcMux);
 
     // Initialize discharge pin as discharge mode
@@ -118,6 +119,8 @@ uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
     }
     // Discharge peak hold capacitor
     discharge_capacitor();
+    // Waiting for the ghost capacitor to discharge fully
+    wait_us(DISCHARGE_TIME);
 
     return sw_value;
 }
