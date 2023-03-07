@@ -10,18 +10,13 @@
 #define MATRIX_COLS 4
 #define EXPANDER_COL_REGISTER GPIOA
 #define EXPANDER_ROW_REGISTER GPIOB
-// clang-format off
-
-/* Set 0 if debouncing isn't needed. Was 15 */
-#define DEBOUNCE 0
-
-#define USB_MAX_POWER_CONSUMPTION 500
 
 #ifdef PS2_MOUSE_ENABLE
 #    define PS2_MOUSE_USE_REMOTE_MODE
 #    define PS2_MOUSE_INIT_DELAY 1000
 #endif
 
+// clang-format off
 #ifdef PS2_DRIVER_USART
 
 #    define PS2_CLOCK_PIN D5

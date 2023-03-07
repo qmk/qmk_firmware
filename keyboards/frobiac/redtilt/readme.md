@@ -1,6 +1,6 @@
 # frobiac/redtilt
 
-![frobiac/redtilt](https://i.imgur.com/stMcpmS.jpeg)
+![frobiac/redtilt](https://i.imgur.com/stMcpmSh.jpeg)
 
 Custom 3D-printed and handwired 46-key split-keyboard with trackpoint developed in 2013.
 

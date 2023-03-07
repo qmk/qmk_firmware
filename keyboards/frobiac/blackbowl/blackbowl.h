@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "i2c_master.h"
-#include <util/delay.h>
+#include "wait.h"
 
 extern uint8_t expander_status;
 extern uint8_t expander_input_pin_mask;

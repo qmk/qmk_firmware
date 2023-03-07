@@ -1,6 +1,6 @@
 # frobiac/blackbowl
 
-![frobiac/blackbowl](https://i.imgur.com/nehpp3f.jpeg)
+![frobiac/blackbowl](https://i.imgur.com/nehpp3fh.jpeg)
 
 Custom 3D-printed and handwired 36-key split-keyboard with trackpoint developed in 2016.
 

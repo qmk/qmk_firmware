@@ -14,12 +14,13 @@
         "console": false,
         "dynamic_macro": true,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": false,
         "unicode": false,
-        "rgblight": false,
-        "sleep_led": false
+        "rgblight": false
+    },
+    "build": {
+        "lto": true
     },
     "usb": {
         "device_version": "1.0.0",

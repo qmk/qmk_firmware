@@ -14,12 +14,13 @@
         "console": false,
         "dynamic_macro": true,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": false,
         "unicode": false,
-        "rgblight": false,
-        "sleep_led": false
+        "rgblight": false
+    },
+    "build": {
+        "lto": true
     },
     "matrix_pins": {
         "cols": ["F0", "F1", "F4", "F5", "F6"],
