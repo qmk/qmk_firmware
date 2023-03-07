@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include <string.h>
-#include "splaytoraid40.h"
 #include "layers.h"
 
 // ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -99,12 +98,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        │   ESC   │   TAB   │  ENTER  │                    │  SPACE  │ BSPACE  │   DEL   │
                        └─────────┴─────────┴─────────┘                    └─────────┴─────────┴─────────┘ */
 
-   [_QWERTY] = LAYOUT_splaytoraid36(
+   [_QWERTY] = LAYOUT_36(
  //╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷
     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                          KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
     HM_A,     HM_S,     HM_D,     HM_F,     HM_G,                          HM_H,     HM_J,     HM_K,     HM_L,     HM_SCLN,
     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                          KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
-                        KC_ESC,   TB_TAB,   TB_ENT,                        TB_SPC,   TB_BSPC,  KC_DEL
+                        KC_ESC,   TB_TAB,   TB_ENT,       KC_MPLY,         TB_SPC,   TB_BSPC,  KC_DEL
   ),
 
  /*
@@ -127,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,     KC_W,     KC_F,     KC_P,     KC_G,                          KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,
     KC_A,     KC_R,     KC_S,     KC_T,     KC_D,                          KC_H,     KC_N,     KC_E,     KC_I,     KC_O,
     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                          KC_K,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,
-                        KC_ESC,   TB_TAB,   TB_ENT,                        TB_SPC,   TB_BSPC,  KC_DEL
+                        KC_ESC,   TB_TAB,   TB_ENT,       _______,         TB_SPC,   TB_BSPC,  KC_DEL
   ),
 
   /*
@@ -151,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,  _______,  KC_LCBR,                       KC_RCBR,  CT_LEFT,  CT_DOWN,    CT_UP,  CT_RGHT,
     KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_LPRN,                       KC_RPRN,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,
     _______,  _______,  _______,  _______,  KC_LBRC,                       KC_RBRC,  KC_HOME,  KC_PGDN,  KC_PGUP,   KC_END,
-                        _______,  _______,  _______,                       _______,  _______,  _______
+                        _______,  _______,  _______,       _______,        _______,  _______,  _______
   ),
 
   /*
@@ -175,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_UNDS,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,                       RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI,
     KC_PLUS,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_DQUO,                       RGB_M_P,  RGB_RMOD, RGB_HUD,  RGB_SAD,  RGB_VAD,
     KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_PIPE,                       QWERTY,   COLEMAK,  _______,  _______,  QK_BOOTLOADER,
-                        _______,  _______,  _______,                       _______,  _______,  _______
+                        _______,  _______,  _______,       _______,        _______,  _______,  _______
   ),
 
   /*
@@ -199,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MINS,  KC_7,     KC_8,     KC_9,     KC_0,                          _______,  _______,  _______,  _______,  _______,
     KC_EQL,   KC_4,     KC_5,     KC_6,     KC_QUOT,                       KC_RALT,  KC_RSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,
     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_BSLS,                       _______,  _______,  _______,  _______,  _______,
-                        _______,  _______,  _______,                       _______,  _______,  _______
+                        _______,  _______,  _______,       _______,        _______,  _______,  _______
   ),
 
   /*
@@ -223,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F12,   KC_F7,    KC_F8,    KC_F9,    KC_PSCR,                       _______,  _______,  _______,  _______,  _______,
     KC_F11,   KC_F4,    KC_F5,    KC_F6,    _______,                       KC_RALT,  KC_RSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,
     KC_F10,   KC_F1,    KC_F2,    KC_F3,    KC_INS,                        _______,  _______,  _______,  _______,  _______,
-                        _______,  _______,  _______,                       _______,  _______,  _______
+                        _______,  _______,  _______,       _______,        _______,  _______,  _______
   ),
 
  /*
@@ -247,7 +246,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,  _______,  _______,                       _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,                       _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,                       _______,  _______,  _______,  _______,  _______,
-                        _______,  _______,  _______,                       _______,  _______,  _______
+                        _______,  _______,  _______,       _______,        _______,  _______,  _______
  )*/
 };
 
@@ -364,39 +363,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // │ e n c o d e r                                             │
 // └───────────────────────────────────────────────────────────┘
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch(get_highest_layer(layer_state|default_layer_state)) {
-      case _NAVIGATION:
-        if (index == 0) {
-          if (clockwise) {
-                register_code(KC_LGUI);
-                register_code(KC_LSFT);
-                tap_code(KC_RGHT);
-                unregister_code(KC_LGUI);
-                unregister_code(KC_LSFT);
-            } else {
-                register_code(KC_LGUI);
-                register_code(KC_LSFT);
-                tap_code(KC_LEFT);
-                unregister_code(KC_LGUI);
-                unregister_code(KC_LSFT);
-            }
-        }
-        break;
-      case _QWERTY:
-      default:
-        if (index == 0) {
-          if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        }
-        break;
-    }
-    return true;
-}
-
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_NAVIGATION] =  { ENCODER_CCW_CW(KC_LEFT, KC_RGHT) },
+    [_QWERTY] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_COLEMAK] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_MEDIA] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_NUMBERS] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_FUNCTION] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
+};
 #endif // ENCODER_ENABLE
 
 #ifdef DIP_SWITCH_ENABLE
