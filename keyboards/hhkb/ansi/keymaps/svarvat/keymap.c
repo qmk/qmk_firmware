@@ -204,7 +204,7 @@ enum custom_keycodes {
     MA_CAPSU,
     MA_CAPSI,
     MA_CAPSA,
-    MA_MOUSEX1,
+    MA_MOUSEX2,
     MA_MOUSEX4,
     MA_MS_WH_UP,
     MA_MS_WH_DOWN,
@@ -212,7 +212,7 @@ enum custom_keycodes {
 };
 
 #define LA_BASE 0
-#define LA_MOUSE 1 // Mouse x1
+#define LA_MOUSE 1 // Mouse x2
 #define LA_CAPSLOCK 2
 #define LA_LTHUMB 3
 #define LA_LTHUMBEMO 4 // gui + shift left + lettre côté gauche - LSG
@@ -231,8 +231,6 @@ bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
 //bool isDeadKeyCircStarted = false;
 //bool isDeadKeyTremaStarted = false;
-
-
 bool mouseLeft = false;
 bool mouseRight = false;
 bool mouseUp = false;
@@ -247,6 +245,8 @@ bool scrollDown = false;
 bool isScrollX1Started = false;
 bool isScrollX2Started = false;
 bool isScrollX4Started = false;
+bool editModeLthumbOslStarted = false;
+bool isLpinkyLayerMouseStarted = false;
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -274,39 +274,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT, MA_LTHUMB, KC_SPC, MO(LA_RTHUMB), KC_RALT
     ),
     [LA_MOUSE] = LAYOUT(
-        KC_TRNS, MA_MOUSEX1, MA_MOUSEX4, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_MS_BTN3, KC_MS_BTN1, KC_MS_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, MA_UP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, MA_MS_WH_UP, MA_MS_WH_DOWN, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFT, MA_DOWN, MA_RIGHT, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, MA_MOUSEX2, MA_MOUSEX4, KC_MS_BTN1, KC_MS_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, MA_UP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        MA_LPINKY, KC_TRNS, MA_MS_WH_UP, MA_MS_WH_DOWN, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFT, MA_DOWN, MA_RIGHT, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-    [LA_RTHUMB] = LAYOUT(
-        KC_TRNS, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, FR_AT, FR_MICR, KC_TRNS, KC_PSCR, KC_SCRL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, FR_PIPE, FR_SECT, KC_PSLS, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_TRNS, KC_TRNS,
-        KC_TRNS, FR_DEG, FR_SUP2, FR_DLR, FR_PERC, FR_PND, KC_PPLS, KC_PMNS, KC_TRNS, KC_MEDIA_PLAY_PAUSE, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-    [LA_LPINKY] = LAYOUT(
-        KC_LGUI, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
-        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_ESC, KC_UP, KC_ENT, MA_DELLINE, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
-        MA_CTLALTDEL, KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
-    ),
-    [LA_LPINKYQ] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, MA_DELX2, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UPX2, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_ESC, MA_UPX2, MA_ENTX2, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFTX2, MA_DOWNX2, MA_RIGHTX2, KC_TRNS, KC_TRNS, KC_PENT,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_LCTL, MA_BSPCX2, KC_TRNS, KC_TRNS
-    ),
-    [LA_LPINKYW] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, MA_DELX4, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UPX4, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_ESC, MA_UPX4, MA_ENTX4, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFTX4, MA_DOWNX4, MA_RIGHTX4, KC_TRNS, KC_TRNS, KC_PENT,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_LCTL, MA_BSPCX4, KC_TRNS, KC_TRNS
+    [LA_CAPSLOCK] = LAYOUT(
+        KC_TRNS, KC_TRNS, S(KC_E), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, S(KC_E), KC_TRNS, KC_TRNS, S(KC_Q), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), MA_CIRC, KC_TRNS, KC_TRNS,
+        MA_LPINKY, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), S(KC_U), KC_TRNS,
+        KC_TRNS, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
     ),
     [LA_LTHUMB] = LAYOUT(
         MA_CAPSLOCK, MA_LTHUMB1, MA_LTHUMB2, MA_LTHUMB3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -322,19 +301,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, LSG(KC_Z), LSG(KC_X), LSG(KC_C), LSG(KC_V), LSG(KC_B), LSG(KC_N), LSG(KC_M), LSG(KC_COMM), LSG(KC_DOT), LSG(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, LSG(KC_SPC), KC_TRNS, KC_TRNS
     ),
-    [LA_LTHUMBEOSL] = LAYOUT(
-        LAG(KC_ESC), LAG(KC_1), LAG(KC_2), LAG(KC_3), LAG(KC_4), LAG(KC_5), LAG(KC_6), LAG(KC_7), LAG(KC_8), LAG(KC_9), LAG(KC_0), LAG(KC_MINS), LAG(KC_EQL), LAG(KC_BSLS), KC_TRNS,
-        LAG(KC_TAB), LAG(KC_Q), LAG(KC_W), LAG(KC_E), LAG(KC_R), LAG(KC_T), LAG(KC_Y), LAG(KC_U), LAG(KC_I), LAG(KC_O), LAG(KC_P), LAG(KC_LBRC), KC_TRNS, KC_TRNS,
-        KC_TRNS, LAG(KC_A), LAG(KC_S), LAG(KC_D), LAG(KC_F), LAG(KC_G), LAG(KC_H), LAG(KC_J), LAG(KC_K), LAG(KC_L), LAG(KC_SCLN), LAG(KC_QUOT), LAG(KC_ENT),
-        KC_TRNS, LAG(KC_Z), LAG(KC_X), LAG(KC_C), LAG(KC_V), LAG(KC_B), LAG(KC_N), LAG(KC_M), LAG(KC_COMM), LAG(KC_DOT), LAG(KC_SLSH), KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_SPC, KC_TRNS, KC_TRNS
-    ),
     [LA_LTHUMBDMO] = LAYOUT(
         RSG(KC_ESC), MA_JUMPDETAB, MA_JUMPTAB, RSG(KC_3), RSG(KC_4), RSG(KC_5), RSG(KC_6), RSG(KC_7), RSG(KC_8), RSG(KC_9), RSG(KC_0), RSG(KC_MINS), RSG(KC_EQL), RSG(KC_BSLS), KC_TRNS,
         RSG(KC_TAB), RSG(KC_Q), RSG(KC_W), RSG(KC_E), RSG(KC_R), RSG(KC_T), RSG(KC_Y), RSG(KC_U), RSG(KC_I), RSG(KC_O), RSG(KC_P), RSG(KC_LBRC), KC_TRNS, KC_TRNS,
         KC_TRNS, RSG(KC_A), RSG(KC_S), RSG(KC_D), RSG(KC_F), RSG(KC_G), RSG(KC_H), RSG(KC_J), RSG(KC_K), RSG(KC_L), RSG(KC_SCLN), RSG(KC_QUOT), RSG(KC_ENT),
         KC_TRNS, RSG(KC_Z), RSG(KC_X), RSG(KC_C), RSG(KC_V), RSG(KC_B), RSG(KC_N), RSG(KC_M), RSG(KC_COMM), RSG(KC_DOT), RSG(KC_SLSH), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, RSG(KC_SPC), KC_TRNS, KC_TRNS
+    ),
+    [LA_LTHUMBEOSL] = LAYOUT(
+        LAG(KC_ESC), LAG(KC_1), LAG(KC_2), LAG(KC_3), LAG(KC_4), LAG(KC_5), LAG(KC_6), LAG(KC_7), LAG(KC_8), LAG(KC_9), LAG(KC_0), LAG(KC_MINS), LAG(KC_EQL), LAG(KC_BSLS), KC_TRNS,
+        LAG(KC_TAB), LAG(KC_Q), LAG(KC_W), LAG(KC_E), LAG(KC_R), LAG(KC_T), LAG(KC_Y), LAG(KC_U), LAG(KC_I), LAG(KC_O), LAG(KC_P), LAG(KC_LBRC), KC_TRNS, KC_TRNS,
+        KC_TRNS, LAG(KC_A), LAG(KC_S), LAG(KC_D), LAG(KC_F), LAG(KC_G), LAG(KC_H), LAG(KC_J), LAG(KC_K), LAG(KC_L), LAG(KC_SCLN), LAG(KC_QUOT), LAG(KC_ENT),
+        KC_TRNS, LAG(KC_Z), LAG(KC_X), LAG(KC_C), LAG(KC_V), LAG(KC_B), LAG(KC_N), LAG(KC_M), LAG(KC_COMM), LAG(KC_DOT), LAG(KC_SLSH), KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_SPC, KC_TRNS, KC_TRNS
     ),
     [LA_LTHUMBDOSL] = LAYOUT(
         RAG(KC_ESC), RAG(KC_1), RAG(KC_2), RAG(KC_3), RAG(KC_4), RAG(KC_5), RAG(KC_6), RAG(KC_7), RAG(KC_8), RAG(KC_9), RAG(KC_0), RAG(KC_MINS), RAG(KC_EQL), RAG(KC_BSLS), KC_TRNS,
@@ -364,13 +343,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, C(G(KC_Z)), C(G(KC_X)), C(G(KC_C)), C(G(KC_V)), C(G(KC_B)), C(G(KC_N)), C(G(KC_M)), C(G(KC_COMM)), C(G(KC_DOT)), C(G(KC_SLSH)), KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, C(G(KC_SPC)), KC_TRNS, KC_TRNS
     ),
-    [LA_CAPSLOCK] = LAYOUT(
-        KC_TRNS, KC_TRNS, S(KC_E), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, S(KC_E), KC_TRNS, KC_TRNS, S(KC_Q), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), MA_CIRC, KC_TRNS, KC_TRNS,
-        MA_LPINKY, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K), S(KC_L), S(KC_SCLN), S(KC_U), KC_TRNS,
-        KC_TRNS, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, MO(LA_RTHUMB), KC_TRNS
-    )
+    [LA_RTHUMB] = LAYOUT(
+        KC_TRNS, FR_EURO, MA_TILD, FR_HASH, MA_BACKTICK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, FR_LBRC, FR_RBRC, FR_LCBR, FR_RCBR, FR_AT, FR_MICR, KC_TRNS, KC_PSCR, KC_SCRL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, FR_LABK, FR_RABK, FR_LPRN, FR_RPRN, FR_PIPE, FR_SECT, KC_PSLS, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_TRNS, KC_TRNS,
+        KC_TRNS, FR_DEG, FR_SUP2, FR_DLR, FR_PERC, FR_PND, KC_PPLS, KC_PMNS, KC_TRNS, KC_MEDIA_PLAY_PAUSE, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+    [LA_LPINKY] = LAYOUT(
+        KC_LGUI, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
+        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_ESC, KC_UP, KC_ENT, MA_DELLINE, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
+        MA_CTLALTDEL, KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
+    ),
+    [LA_LPINKYQ] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, MA_DELX2, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UPX2, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_ESC, MA_UPX2, MA_ENTX2, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFTX2, MA_DOWNX2, MA_RIGHTX2, KC_TRNS, KC_TRNS, KC_PENT,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_LCTL, MA_BSPCX2, KC_TRNS, KC_TRNS
+    ),
+    [LA_LPINKYW] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, MA_DELX4, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, MA_UPX4, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_ESC, MA_UPX4, MA_ENTX4, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFTX4, MA_DOWNX4, MA_RIGHTX4, KC_TRNS, KC_TRNS, KC_PENT,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_LCTL, MA_BSPCX4, KC_TRNS, KC_TRNS
+    ),
 };
 
 
@@ -421,210 +421,178 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record, uint8_t mod_st
     }
     return true;
 }
-bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case MA_BACKTICK:
+        case MA_MOUSE:
             if (record->event.pressed) {
-                tap_code16(FR_GRV);
-                // timer = timer_read();
-                tap_code16(KC_SPC);
-            }
-            return false;
-        case MA_TILD:
-            if (record->event.pressed) {
-                tap_code16(FR_TILD);
-                tap_code16(KC_SPC);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
-    switch (keycode) {
-        case MA_LTHUMB:
-            if (!(record->event.pressed)) {
-                unregister_code16(KC_LCTL);
+                if (IS_LAYER_ON(LA_MOUSE)) {
+//                    set_auto_mouse_enable(false);
+                    layer_off(LA_MOUSE);
+                    isMouseX2Started = false;
+                    isScrollX2Started = false;
+                }
             }
             return false;
         case MA_LPINKY:
-            if (!(record->event.pressed)) {
-                layer_off(LA_LPINKY);
-                if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
-                    layer_on(LA_LTHUMB);
-                    register_mods(MOD_MASK_CTRL);
+            if (record->event.pressed) {
+                isLpinkyLayerMouseStarted = true;
+            } else {
+                isLpinkyLayerMouseStarted = false;
+            }
+            return false;
+        case MA_MOUSEX2:
+            if (record->event.pressed) {
+                if (isLpinkyLayerMouseStarted) {
+                    isMouseX2Started = true;
+                } else {
+                    register_code16(KC_MS_BTN1);
+                }
+            } else {
+                if (isLpinkyLayerMouseStarted) {
+                    isMouseX2Started = false;
                 }
             }
             return false;
-        case KC_UP:
-            if (mod_state & MOD_MASK_CTRL) {
-                if (record->event.pressed) {
-                    unregister_code16(KC_LCTL);
-                    tap_code16(KC_UP);
-                    register_code16(KC_LCTL);
-                    return false;
+        case MA_MOUSEX4:
+            if (record->event.pressed) {
+                if (isLpinkyLayerMouseStarted) {
+                    isMouseX4Started = true;
+                } else {
+                    unregister_code16(KC_MS_BTN1);
+                }
+            } else {
+                if (isLpinkyLayerMouseStarted) {
+                    isMouseX4Started = false;
                 }
             }
-            return true;
-        case KC_DOWN:
-            if (mod_state & MOD_MASK_CTRL) {
-                if (record->event.pressed) {
-                    unregister_code16(KC_LCTL);
-                    tap_code16(KC_DOWN);
-                    register_code16(KC_LCTL);
-                    return false;
-                }
-            }
-            return true;
-        case MA_DELLINE:
+            return false;
+        case MA_MS_WH_DOWN:
             if (record->event.pressed) {
-                tap_code16(KC_HOME);
-                tap_code16(KC_HOME);
-                register_code16(KC_LSFT);
-                tap_code16(KC_END);
-                tap_code16(KC_RGHT);
-                unregister_code16(KC_LSFT);
-                tap_code16(KC_DEL);
+                if (isScrollX1Started) {scrollDown = true;}
+                else if (isScrollX4Started) {scrollDown = true;}
+                else {scrollDown = true;}
+            } else {
+                scrollDown = false;
             }
             return false;
-        case MA_DOUBLEARROW:
+        case MA_MS_WH_UP:
             if (record->event.pressed) {
-                tap_code16(FR_EQL);
-                tap_code16(FR_RABK);
-                tap_code16(KC_SPC);
+                if (isScrollX1Started) {scrollUp = true;}
+                else if (isScrollX4Started) {scrollUp = true;}
+                else {scrollUp = true;}
+            } else {
+                scrollUp = false;
             }
             return false;
-        case MA_SIMPLEARROW:
+        case MA_DOWN:
             if (record->event.pressed) {
-                tap_code16(FR_MINS);
-                tap_code16(FR_RABK);
-                tap_code16(KC_SPC);
+                if (isMouseX2Started) {mouseDown = true;}
+                else if (isMouseX4Started) {mouseDown = true;}
+                else {mouseDown = true;}
+            } else {
+                mouseDown = false;
             }
             return false;
-        case KC_ESC:
-            if (IS_LAYER_ON(LA_LTHUMBEOSL) || IS_LAYER_ON(LA_LTHUMBDOSL)) {
-                if (!(record->event.pressed)) {
-                    layer_off(LA_LTHUMB);
-                    layer_off(LA_LTHUMBEOSL);
-                    layer_off(LA_LTHUMBDOSL);
-                }
-                return false;
-            }
-            return true;
-        case MA_CTLALTDEL:
+        case MA_UP:
             if (record->event.pressed) {
-                tap_code16(C(A(KC_DEL)));
+                if (isMouseX2Started) {mouseUp = true;}
+                else if (isMouseX4Started) {mouseUp = true;}
+                else {mouseUp = true;}
+            } else {
+                mouseUp = false;
             }
-            return true;
+            return false;
+        case MA_LEFT:
+            if (record->event.pressed) {
+                if (isMouseX2Started) {mouseLeft = true;}
+                else if (isMouseX4Started) {mouseLeft = true;}
+                else {mouseLeft = true;}
+            } else {
+                mouseLeft = false;
+            }
+            return false;
+        case MA_RIGHT:
+            if (record->event.pressed) {
+                if (isMouseX2Started) {mouseRight = true;}
+                else if (isMouseX4Started) {mouseRight = true;}
+                else {mouseRight = true;}
+            } else {
+                mouseRight = false;
+            }
+            return false;
     }
+
     return true;
 }
-bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
     switch (keycode) {
-        case MA_UPX2:
-            if (record->event.pressed) {
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-            }
+        case MA_CIRC:
+//            if (record->event.pressed) {
+//                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
+//                else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
+//            }
             return false;
-        case MA_DOWNX2:
-            if (record->event.pressed) {
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-            }
-            return false;
-        case MA_LEFTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-            }
-            return false;
-        case MA_RIGHTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-            }
-            return false;
-        case MA_DELX2:
-            if (record->event.pressed) {
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-            }
-            return false;
-        case MA_ENTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-            }
-            return false;
-        case MA_BSPCX2:
-            if (record->event.pressed) {
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-            }
-            return false;
+//        case MA_CAPSE:
+//            if (record->event.pressed) {
+//                if (isDeadKeyTremaStarted) {
+//                    tap_code16(X(ETREMA));
+//                    isDeadKeyTremaStarted=false;
+//                } else if (isDeadKeyCircStarted) {
+//                    register_code16(KC_RALT);
+//                    tap_code16(S(X(ECIRC)));
+//                    unregister_code16(KC_RALT);
+//                    isDeadKeyCircStarted=false;
+//                } else {
+//                    register_code16(KC_RALT);
+//                    tap_code16(X(ECIRC));
+////                    tap_code16(S(KC_E));
+//                    unregister_code16(KC_RALT);
+//                }
+//            }
+//            return false;
+//        case MA_CAPSA:
+//            if (record->event.pressed) {
+//                if (isDeadKeyTremaStarted) {
+//                    tap_code16(X(ATREMA));
+//                    isDeadKeyTremaStarted=false;
+//                }
+//                else if (isDeadKeyCircStarted) {
+//                    tap_code16(X(ACIRC));
+//                    isDeadKeyCircStarted=false;
+//                }
+//                else {tap_code16(S(KC_Q));}
+//            }
+//            return false;
+//        case MA_CAPSI:
+//            if (record->event.pressed) {
+//                if (isDeadKeyTremaStarted) {
+//                    tap_code16(X(ITREMA));
+//                    isDeadKeyTremaStarted=false;
+//                }
+//                else if (isDeadKeyCircStarted) {
+//                    tap_code16(X(ICIRC));
+//                    isDeadKeyCircStarted=false;
+//                }
+//                else {tap_code16(S(KC_I));}
+//            }
+//            return false;
+//        case MA_CAPSU:
+//            if (record->event.pressed) {
+//                if (isDeadKeyTremaStarted) {
+//                    tap_code16(X(UTREMA));
+//                    isDeadKeyTremaStarted=false;
+//                }
+//                else if (isDeadKeyCircStarted) {
+//                    tap_code16(X(UCIRC));
+//                    isDeadKeyCircStarted=false;
+//                }
+//                else {tap_code16(S(KC_U));}
+//            }
+//            return false;
     }
-    return true;
-}
-bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case MA_UPX4:
-            if (record->event.pressed) {
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-            }
-            return false;
-        case MA_DOWNX4:
-            if (record->event.pressed) {
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-            }
-            return false;
-        case MA_LEFTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-            }
-            return false;
-        case MA_RIGHTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-            }
-            return false;
-        case MA_DELX4:
-            if (record->event.pressed) {
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-            }
-            return false;
-        case MA_ENTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-            }
-            return false;
-        case MA_BSPCX4:
-            if (record->event.pressed) {
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-            }
-            return false;
-    }
-    return true;
+//    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
+//    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
+    return processKeycodeIfLBase(keycode, record, mod_state);
 }
 bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
     switch (keycode) {
@@ -816,19 +784,6 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
-bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case KC_SPC:
-            register_code16(KC_LCTL);
-            return false;
-    }
-    if (!(record->event.pressed)) {
-        unregister_code16(KC_LCTL);
-        layer_off(LA_LTHUMB);
-        layer_off(LA_LTHUMBEOSL);
-    }
-    return true;
-}
 bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
     if ((keycode != MA_LTHUMB) & (keycode != MA_LTHUMBD)) {
         isLeftThumbDMoStarted = true;
@@ -864,14 +819,30 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
-bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case KC_SPC:
-            register_code16(KC_RCTL);
+            register_code16(KC_LCTL);
+            editModeLthumbOslStarted = true;
             return false;
     }
     if (!(record->event.pressed)) {
-        unregister_code16(KC_RCTL);
+        if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+        layer_off(LA_LTHUMB);
+        layer_off(LA_LTHUMBEOSL);
+    }
+    return true;
+}
+bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
+
+    switch (keycode) {
+        case KC_SPC:
+            register_code16(KC_RCTL);
+            editModeLthumbOslStarted = true;
+            return false;
+    }
+    if (!(record->event.pressed)) {
+        if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
         layer_off(LA_LTHUMB);
         layer_off(LA_LTHUMBDOSL);
     }
@@ -908,168 +879,268 @@ bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
             return false;
     }
     return true;}
-bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case MA_CIRC:
-//            if (record->event.pressed) {
-//                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
-//                else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
-//            }
-            return false;
-//        case MA_CAPSE:
-//            if (record->event.pressed) {
-//                if (isDeadKeyTremaStarted) {
-//                    tap_code16(X(ETREMA));
-//                    isDeadKeyTremaStarted=false;
-//                } else if (isDeadKeyCircStarted) {
-//                    register_code16(KC_RALT);
-//                    tap_code16(S(X(ECIRC)));
-//                    unregister_code16(KC_RALT);
-//                    isDeadKeyCircStarted=false;
-//                } else {
-//                    register_code16(KC_RALT);
-//                    tap_code16(X(ECIRC));
-////                    tap_code16(S(KC_E));
-//                    unregister_code16(KC_RALT);
-//                }
-//            }
-//            return false;
-//        case MA_CAPSA:
-//            if (record->event.pressed) {
-//                if (isDeadKeyTremaStarted) {
-//                    tap_code16(X(ATREMA));
-//                    isDeadKeyTremaStarted=false;
-//                }
-//                else if (isDeadKeyCircStarted) {
-//                    tap_code16(X(ACIRC));
-//                    isDeadKeyCircStarted=false;
-//                }
-//                else {tap_code16(S(KC_Q));}
-//            }
-//            return false;
-//        case MA_CAPSI:
-//            if (record->event.pressed) {
-//                if (isDeadKeyTremaStarted) {
-//                    tap_code16(X(ITREMA));
-//                    isDeadKeyTremaStarted=false;
-//                }
-//                else if (isDeadKeyCircStarted) {
-//                    tap_code16(X(ICIRC));
-//                    isDeadKeyCircStarted=false;
-//                }
-//                else {tap_code16(S(KC_I));}
-//            }
-//            return false;
-//        case MA_CAPSU:
-//            if (record->event.pressed) {
-//                if (isDeadKeyTremaStarted) {
-//                    tap_code16(X(UTREMA));
-//                    isDeadKeyTremaStarted=false;
-//                }
-//                else if (isDeadKeyCircStarted) {
-//                    tap_code16(X(UCIRC));
-//                    isDeadKeyCircStarted=false;
-//                }
-//                else {tap_code16(S(KC_U));}
-//            }
-//            return false;
-    }
-//    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
-//    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
-    return processKeycodeIfLBase(keycode, record, mod_state);
-}
-bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
-    switch (keycode) {
-        case MA_MOUSE:
+        case MA_BACKTICK:
             if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_MOUSE)) {
-//                    set_auto_mouse_enable(false);
-                    layer_off(LA_MOUSE);
-                    isMouseX2Started = false;
-                    isScrollX2Started = false;
+                tap_code16(FR_GRV);
+                // timer = timer_read();
+                tap_code16(KC_SPC);
+            }
+            return false;
+        case MA_TILD:
+            if (record->event.pressed) {
+                tap_code16(FR_TILD);
+                tap_code16(KC_SPC);
+            }
+            return false;
+    }
+    return true;
+}
+bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+    switch (keycode) {
+        case MA_LTHUMB:
+            if (!(record->event.pressed)) {
+                unregister_code16(KC_LCTL);
+            }
+            return false;
+        case MA_LPINKY:
+            if (!(record->event.pressed)) {
+                layer_off(LA_LPINKY);
+                if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
+                    layer_on(LA_LTHUMB);
+                    register_mods(MOD_MASK_CTRL);
                 }
             }
             return false;
-        case MA_MOUSEX1:
+        case KC_UP:
+            if (mod_state & MOD_MASK_CTRL) {
+                if (record->event.pressed) {
+                    unregister_code16(KC_LCTL);
+                    tap_code16(KC_UP);
+                    register_code16(KC_LCTL);
+                    return false;
+                }
+            }
+            return true;
+        case KC_DOWN:
+            if (mod_state & MOD_MASK_CTRL) {
+                if (record->event.pressed) {
+                    unregister_code16(KC_LCTL);
+                    tap_code16(KC_DOWN);
+                    register_code16(KC_LCTL);
+                    return false;
+                }
+            }
+            return true;
+        case MA_DELLINE:
             if (record->event.pressed) {
-                isMouseX1Started = true;
-            } else {
-                isMouseX1Started = false;
+                tap_code16(KC_HOME);
+                tap_code16(KC_HOME);
+                register_code16(KC_LSFT);
+                tap_code16(KC_END);
+                tap_code16(KC_RGHT);
+                unregister_code16(KC_LSFT);
+                tap_code16(KC_DEL);
             }
             return false;
-        case MA_MOUSEX4:
+        case MA_DOUBLEARROW:
             if (record->event.pressed) {
-                isMouseX4Started = true;
-            } else {
-                isMouseX4Started = false;
+                tap_code16(FR_EQL);
+                tap_code16(FR_RABK);
+                tap_code16(KC_SPC);
             }
             return false;
-        case MA_MS_WH_DOWN:
+        case MA_SIMPLEARROW:
             if (record->event.pressed) {
-                if (isScrollX1Started) {scrollDown = true;}
-                else if (isScrollX4Started) {scrollDown = true;}
-                else {scrollDown = true;}
-            } else {
-                scrollDown = false;
+                tap_code16(FR_MINS);
+                tap_code16(FR_RABK);
+                tap_code16(KC_SPC);
             }
             return false;
-        case MA_MS_WH_UP:
+        case KC_ESC:
+            if (IS_LAYER_ON(LA_LTHUMBEOSL) || IS_LAYER_ON(LA_LTHUMBDOSL)) {
+                if (!(record->event.pressed)) {
+                    layer_off(LA_LTHUMB);
+                    layer_off(LA_LTHUMBEOSL);
+                    layer_off(LA_LTHUMBDOSL);
+                }
+                return false;
+            }
+            return true;
+        case MA_CTLALTDEL:
             if (record->event.pressed) {
-                if (isScrollX1Started) {scrollUp = true;}
-                else if (isScrollX4Started) {scrollUp = true;}
-                else {scrollUp = true;}
-            } else {
-                scrollUp = false;
+                tap_code16(C(A(KC_DEL)));
+            }
+            return true;
+    }
+    return true;
+}
+bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_UPX2:
+            if (record->event.pressed) {
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
             }
             return false;
-        case MA_DOWN:
+        case MA_DOWNX2:
             if (record->event.pressed) {
-                if (isMouseX1Started) {mouseDown = true;}
-                else if (isMouseX4Started) {mouseDown = true;}
-                else {mouseDown = true;}
-            } else {
-                mouseDown = false;
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
             }
             return false;
-        case MA_UP:
+        case MA_LEFTX2:
             if (record->event.pressed) {
-                if (isMouseX1Started) {mouseUp = true;}
-                else if (isMouseX4Started) {mouseUp = true;}
-                else {mouseUp = true;}
-            } else {
-                mouseUp = false;
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
             }
             return false;
-        case MA_LEFT:
+        case MA_RIGHTX2:
             if (record->event.pressed) {
-                if (isMouseX1Started) {mouseLeft = true;}
-                else if (isMouseX4Started) {mouseLeft = true;}
-                else {mouseLeft = true;}
-            } else {
-                mouseLeft = false;
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
             }
             return false;
-        case MA_RIGHT:
+        case MA_DELX2:
             if (record->event.pressed) {
-                if (isMouseX1Started) {mouseRight = true;}
-                else if (isMouseX4Started) {mouseRight = true;}
-                else {mouseRight = true;}
-            } else {
-                mouseRight = false;
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+            }
+            return false;
+        case MA_ENTX2:
+            if (record->event.pressed) {
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+            }
+            return false;
+        case MA_BSPCX2:
+            if (record->event.pressed) {
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
             }
             return false;
     }
-
-    return processKeycodeIfLBase(keycode, record, mod_state);
+    return true;
+}
+bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_UPX4:
+            if (record->event.pressed) {
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+            }
+            return false;
+        case MA_DOWNX4:
+            if (record->event.pressed) {
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+            }
+            return false;
+        case MA_LEFTX4:
+            if (record->event.pressed) {
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+            }
+            return false;
+        case MA_RIGHTX4:
+            if (record->event.pressed) {
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+            }
+            return false;
+        case MA_DELX4:
+            if (record->event.pressed) {
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+            }
+            return false;
+        case MA_ENTX4:
+            if (record->event.pressed) {
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+            }
+            return false;
+        case MA_BSPCX4:
+            if (record->event.pressed) {
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+            }
+            return false;
+    }
+    return true;
 }
 
-void keyboard_post_init_user(void) {
-//  Customise these values to desired behaviour
-//  debug_enable=true;
-//  debug_matrix=true;
-//  debug_keyboard=true;
-//  debug_mouse=true;
-}
+//void keyboard_post_init_user(void) {
+//    Customise these values to desired behaviour
+//    debug_enable=true;
+//    debug_matrix=true;
+//    debug_keyboard=true;
+//    debug_mouse=true;
+//}
 
 void matrix_scan_user(void) {
     if (isMouseX1Started) {
@@ -1094,29 +1165,31 @@ void matrix_scan_user(void) {
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
-    } else if (isMouseX4Started) {
+    }
+    else if (isMouseX4Started) {
         if (mouseRight) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.x = 8;
+            currentReport.x = 12;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } else if (mouseLeft) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.x = -8;
+            currentReport.x = -12;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } if (mouseDown) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.y = 8;
+            currentReport.y = 12;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } else if (mouseUp) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.y = -8;
+            currentReport.y = -12;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
-    } else if (isMouseX2Started) {
+    }
+    else if (isMouseX2Started) {
         if (mouseDown) {
             report_mouse_t currentReport = pointing_device_get_report();
             currentReport.y = 4;
@@ -1142,66 +1215,68 @@ void matrix_scan_user(void) {
     if (isScrollX1Started) {
         if (scrollDown) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.v = -1;
+            currentReport.v = -0.1;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } else if (scrollUp) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.v = 1;
+            currentReport.v = 0.1;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } if (scrollLeft) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.h = -1;
+            currentReport.h = -0.1;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } else if (scrollRight) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.h = 1;
+            currentReport.h = 0.1;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
-    } else if (isScrollX4Started) {
+    }
+    else if (isScrollX4Started) {
         if (scrollDown) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.v = -8;
+            currentReport.v = -2.5;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } else if (scrollUp) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.v = 8;
+            currentReport.v = 2.5;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } if (scrollLeft) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.h = -8;
+            currentReport.h = -2.5;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } else if (scrollRight) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.h = 8;
+            currentReport.h = 2.5;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
-    } else if (isScrollX2Started) {
+    }
+    else if (isScrollX2Started) {
         if (scrollDown) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.v = -1;
+            currentReport.v = -0.5;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } else if (scrollUp) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.v = 1;
+            currentReport.v = 0.5;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } if (scrollLeft) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.h = -1;
+            currentReport.h = -0.5;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         } else if (scrollRight) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.h = 1;
+            currentReport.h = 0.5;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
