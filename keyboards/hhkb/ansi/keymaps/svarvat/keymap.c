@@ -204,10 +204,15 @@ enum custom_keycodes {
     MA_CAPSU,
     MA_CAPSI,
     MA_CAPSA,
-    MA_MOUSEX2,
-    MA_MOUSEX4,
+    MA_MOUSE_BTN1,
     MA_MS_WH_UP,
     MA_MS_WH_DOWN,
+    MA_LPINKYQ,
+    MA_LPINKYW,
+    MA_MS_BTN1_UNREG,
+    MA_MS_BTN1_REG,
+    MA_MS_BTN1_TAP,
+    MA_LPINKYMS,
     DRAG_SCROLL,
 };
 
@@ -226,6 +231,8 @@ enum custom_keycodes {
 #define LA_LPINKY 12
 #define LA_LPINKYQ 13
 #define LA_LPINKYW 14
+
+uint8_t mod_state;
 
 bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
@@ -275,8 +282,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LA_MOUSE] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, MA_MOUSEX2, MA_MOUSEX4, KC_MS_BTN1, KC_MS_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, MA_UP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        MA_LPINKY, KC_TRNS, MA_MS_WH_UP, MA_MS_WH_DOWN, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFT, MA_DOWN, MA_RIGHT, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, MA_MS_BTN1_UNREG, MA_MS_BTN1_REG, MA_MS_BTN1_TAP, KC_MS_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, MA_UP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        MA_LPINKYMS, KC_TRNS, MA_MS_WH_UP, MA_MS_WH_DOWN, KC_TRNS, KC_TRNS, KC_TRNS, MA_LEFT, MA_DOWN, MA_RIGHT, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
@@ -352,7 +359,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LA_LPINKY] = LAYOUT(
         KC_LGUI, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS,
-        KC_TRNS, MO(LA_LPINKYQ), MO(LA_LPINKYW), KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, MA_LPINKYQ, MA_LPINKYW, KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, MA_DOUBLEARROW, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_ESC, KC_UP, KC_ENT, MA_DELLINE, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, MA_SIMPLEARROW, KC_TRNS, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS,
         MA_CTLALTDEL, KC_LCTL, KC_BSPC, KC_TRNS, KC_TRNS
@@ -374,7 +381,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMB:
             if (record->event.pressed) {
@@ -383,20 +390,23 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record, uint8_t mod_st
             }
             return false;
         case MA_LPINKY:
-            if (record->event.pressed) {
-                layer_on(LA_LPINKY);
-            }
+            if (record->event.pressed) {layer_on(LA_LPINKY);}
             return false;
         case MA_MOUSE:
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_CSA) {
                     reset_keyboard();
-                } else if(IS_LAYER_OFF(LA_MOUSE)) {
+                } else {
 //                    set_auto_mouse_enable(true);
                     layer_on(LA_MOUSE);
-                    isMouseX2Started = true;
-                    isScrollX2Started = true;
+                    isMouseX1Started = true;
+                    isScrollX1Started = true;
                 }
+            }
+            return false;
+        case MA_CAPSLOCK:
+            if (record->event.pressed) {
+                layer_on(LA_CAPSLOCK);
             }
             return false;
         case KC_SLSH:
@@ -409,15 +419,6 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record, uint8_t mod_st
                 }
             }
             return true;
-        case MA_CAPSLOCK:
-            if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_CAPSLOCK)) {
-                    layer_off(LA_CAPSLOCK);
-                } else {
-                    layer_on(LA_CAPSLOCK);
-                }
-            }
-            return false;
     }
     return true;
 }
@@ -425,97 +426,78 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_MOUSE:
             if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_MOUSE)) {
-//                    set_auto_mouse_enable(false);
-                    layer_off(LA_MOUSE);
-                    isMouseX2Started = false;
-                    isScrollX2Started = false;
-                }
+//                set_auto_mouse_enable(false);
+                layer_off(LA_MOUSE);
+                isMouseX1Started = false;
+                isScrollX1Started = false;
             }
             return false;
-        case MA_LPINKY:
+        case MA_MS_BTN1_UNREG:
+            if (record->event.pressed) {
+                if (isLpinkyLayerMouseStarted) {isMouseX2Started = true;}
+                else {unregister_code16(KC_MS_BTN1);}
+            } else {
+                if (isLpinkyLayerMouseStarted) {isMouseX2Started = false;}
+            }
+            return false;
+        case MA_MS_BTN1_REG:
+            if (record->event.pressed) {
+                if (isLpinkyLayerMouseStarted) {isMouseX4Started = true;}
+                else {register_code16(KC_MS_BTN1);}
+            } else {
+                if (isLpinkyLayerMouseStarted) {isMouseX4Started = false;}
+            }
+            return false;
+        case MA_MS_BTN1_TAP:
+            if (record->event.pressed) {
+                tap_code16(KC_MS_BTN1);
+            }
+            return false;
+        case MA_LPINKYMS:
             if (record->event.pressed) {
                 isLpinkyLayerMouseStarted = true;
             } else {
                 isLpinkyLayerMouseStarted = false;
             }
             return false;
-        case MA_MOUSEX2:
-            if (record->event.pressed) {
-                if (isLpinkyLayerMouseStarted) {
-                    isMouseX2Started = true;
-                } else {
-                    register_code16(KC_MS_BTN1);
-                }
-            } else {
-                if (isLpinkyLayerMouseStarted) {
-                    isMouseX2Started = false;
-                }
-            }
-            return false;
-        case MA_MOUSEX4:
-            if (record->event.pressed) {
-                if (isLpinkyLayerMouseStarted) {
-                    isMouseX4Started = true;
-                } else {
-                    unregister_code16(KC_MS_BTN1);
-                }
-            } else {
-                if (isLpinkyLayerMouseStarted) {
-                    isMouseX4Started = false;
-                }
-            }
-            return false;
         case MA_MS_WH_DOWN:
             if (record->event.pressed) {
-                if (isScrollX1Started) {scrollDown = true;}
-                else if (isScrollX4Started) {scrollDown = true;}
-                else {scrollDown = true;}
+                scrollDown = true;
             } else {
                 scrollDown = false;
             }
             return false;
         case MA_MS_WH_UP:
             if (record->event.pressed) {
-                if (isScrollX1Started) {scrollUp = true;}
-                else if (isScrollX4Started) {scrollUp = true;}
-                else {scrollUp = true;}
+                scrollUp = true;
             } else {
                 scrollUp = false;
             }
             return false;
         case MA_DOWN:
             if (record->event.pressed) {
-                if (isMouseX2Started) {mouseDown = true;}
-                else if (isMouseX4Started) {mouseDown = true;}
-                else {mouseDown = true;}
+                mouseDown = true;
             } else {
                 mouseDown = false;
             }
             return false;
         case MA_UP:
             if (record->event.pressed) {
-                if (isMouseX2Started) {mouseUp = true;}
-                else if (isMouseX4Started) {mouseUp = true;}
-                else {mouseUp = true;}
+                mouseUp = true;
             } else {
                 mouseUp = false;
             }
             return false;
         case MA_LEFT:
             if (record->event.pressed) {
-                if (isMouseX2Started) {mouseLeft = true;}
-                else if (isMouseX4Started) {mouseLeft = true;}
-                else {mouseLeft = true;}
+                mouseLeft = true;
             } else {
                 mouseLeft = false;
             }
             return false;
         case MA_RIGHT:
             if (record->event.pressed) {
-                if (isMouseX2Started) {mouseRight = true;}
-                else if (isMouseX4Started) {mouseRight = true;}
-                else {mouseRight = true;}
+                mouseRight = true;
             } else {
                 mouseRight = false;
             }
@@ -524,8 +506,13 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
 
     return true;
 }
-bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case MA_CAPSLOCK:
+            if (record->event.pressed) {
+                layer_off(LA_CAPSLOCK);
+            }
+            return false;
         case MA_CIRC:
 //            if (record->event.pressed) {
 //                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
@@ -592,9 +579,9 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record, uint8_t mo
     }
 //    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
 //    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
-    return processKeycodeIfLBase(keycode, record, mod_state);
+    return processKeycodeIfLMouse(keycode, record);
 }
-bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case KC_TAB:
             return true;
@@ -868,7 +855,8 @@ bool processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
     }
-    return true;}
+    return true;
+}
 bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMB:
@@ -878,7 +866,8 @@ bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
     }
-    return true;}
+    return true;
+}
 bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_BACKTICK:
@@ -897,7 +886,7 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
-bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_state) {
+bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMB:
             if (!(record->event.pressed)) {
@@ -911,6 +900,24 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
                     layer_on(LA_LTHUMB);
                     register_mods(MOD_MASK_CTRL);
                 }
+            }
+            return false;
+        case MA_LPINKYQ:
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX2Started = true;}
+                else {layer_on(LA_LPINKYQ);}
+            } else {
+                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX2Started = false;}
+                else {layer_off(LA_LPINKYQ);}
+            }
+            return false;
+        case MA_LPINKYW:
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX4Started = true;}
+                else {layer_on(LA_LPINKYW);}
+            } else {
+                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX4Started = false;}
+                else {layer_off(LA_LPINKYW);}
             }
             return false;
         case KC_UP:
@@ -978,6 +985,12 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record, uint8_t mod_s
 }
 bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case MA_LPINKYQ:
+            if (!(record->event.pressed)) {
+                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX2Started = false;}
+                else {layer_off(LA_LPINKYQ);}
+            }
+            return false;
         case MA_UPX2:
             if (record->event.pressed) {
                 tap_code16(KC_UP);
@@ -1028,10 +1041,16 @@ bool processKeycodeIfLPinkyQ(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
     }
-    return true;
+    return processKeycodeIfLPinky(keycode, record);
 }
-bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLPinkyW(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case MA_LPINKYW:
+            if (!(record->event.pressed)) {
+                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX4Started = false;}
+                else {layer_off(LA_LPINKYW);}
+            }
+            return false;
         case MA_UPX4:
             if (record->event.pressed) {
                 tap_code16(KC_UP);
@@ -1143,30 +1162,7 @@ bool processKeycodeIfLPinkyZ(uint16_t keycode, keyrecord_t* record) {
 //}
 
 void matrix_scan_user(void) {
-    if (isMouseX1Started) {
-        if (mouseDown) {
-            report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.y = 1;
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
-        } else if (mouseUp) {
-            report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.y = -1;
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
-        } if (mouseRight) {
-            report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.x = 1;
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
-        } else if (mouseLeft) {
-            report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.x = -1;
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
-        }
-    }
-    else if (isMouseX4Started) {
+    if (isMouseX4Started) {
         if (mouseRight) {
             report_mouse_t currentReport = pointing_device_get_report();
             currentReport.x = 12;
@@ -1212,30 +1208,30 @@ void matrix_scan_user(void) {
             pointing_device_send();
         }
     }
-    if (isScrollX1Started) {
-        if (scrollDown) {
+    else if (isMouseX1Started) {
+        if (mouseDown) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.v = -0.1;
+            currentReport.y = 1;
             pointing_device_set_report(currentReport);
             pointing_device_send();
-        } else if (scrollUp) {
+        } else if (mouseUp) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.v = 0.1;
+            currentReport.y = -1;
             pointing_device_set_report(currentReport);
             pointing_device_send();
-        } if (scrollLeft) {
+        } if (mouseRight) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.h = -0.1;
+            currentReport.x = 1;
             pointing_device_set_report(currentReport);
             pointing_device_send();
-        } else if (scrollRight) {
+        } else if (mouseLeft) {
             report_mouse_t currentReport = pointing_device_get_report();
-            currentReport.h = 0.1;
+            currentReport.x = -1;
             pointing_device_set_report(currentReport);
             pointing_device_send();
         }
     }
-    else if (isScrollX4Started) {
+    if (isScrollX4Started) {
         if (scrollDown) {
             report_mouse_t currentReport = pointing_device_get_report();
             currentReport.v = -2.5;
@@ -1281,6 +1277,29 @@ void matrix_scan_user(void) {
             pointing_device_send();
         }
     }
+    else if (isScrollX1Started) {
+            if (scrollDown) {
+                report_mouse_t currentReport = pointing_device_get_report();
+                currentReport.v = -0.1;
+                pointing_device_set_report(currentReport);
+                pointing_device_send();
+            } else if (scrollUp) {
+                report_mouse_t currentReport = pointing_device_get_report();
+                currentReport.v = 0.1;
+                pointing_device_set_report(currentReport);
+                pointing_device_send();
+            } if (scrollLeft) {
+                report_mouse_t currentReport = pointing_device_get_report();
+                currentReport.h = -0.1;
+                pointing_device_set_report(currentReport);
+                pointing_device_send();
+            } else if (scrollRight) {
+                report_mouse_t currentReport = pointing_device_get_report();
+                currentReport.h = 0.1;
+                pointing_device_set_report(currentReport);
+                pointing_device_send();
+            }
+        }
 }
 
 
@@ -1298,18 +1317,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 //    }
 
     // Store the current modifier state in the variable for later reference
-    uint8_t mod_state = get_mods();
+    mod_state = get_mods();
 
     if (IS_LAYER_ON(LA_LPINKY)) {
-        if (IS_LAYER_ON(LA_LPINKYQ)) {
-            return processKeycodeIfLPinkyQ(keycode, record);
-        } else if (IS_LAYER_ON(LA_LPINKYW)) {
-            return processKeycodeIfLPinkyZ(keycode, record);
+        if (IS_LAYER_ON(LA_LPINKYW)) {
+            if (!processKeycodeIfLPinkyW(keycode, record)) {return false;}
+        } else if (IS_LAYER_ON(LA_LPINKYQ)) {
+            if (!processKeycodeIfLPinkyQ(keycode, record)) {return false;}
         } else {
-            return processKeycodeIfLPinky(keycode, record, mod_state);
+            if (!processKeycodeIfLPinky(keycode, record)) {return false;}
         }
     }
-    if (IS_LAYER_ON(LA_RTHUMB)) {return processKeycodeIfRThumb(keycode, record);}
+    if (IS_LAYER_ON(LA_RTHUMB)) {
+        if (!processKeycodeIfRThumb(keycode, record)) {return false;}
+    }
     if (IS_LAYER_ON(LA_LTHUMB)) {
         if (IS_LAYER_ON(LA_LTHUMBEOSL)) {
             return processKeycodeIfLThumbEOsl(keycode, record);
@@ -1326,12 +1347,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         } else if (IS_LAYER_ON(LA_LTHUMB3MO)) {
             return processKeycodeIfLThumb3Mo(keycode, record);
         } else {
-            return processKeycodeIfLThumb(keycode, record, mod_state);
+            if (!processKeycodeIfLThumb(keycode, record)) {return false;}
         }
     }
-    if (IS_LAYER_ON(LA_CAPSLOCK)) {return processKeycodeIfLCapslock(keycode, record, mod_state);}
-    if (IS_LAYER_ON(LA_MOUSE)) {return processKeycodeIfLMouse(keycode, record, mod_state);}
-    return processKeycodeIfLBase(keycode, record, mod_state);
+    if (IS_LAYER_ON(LA_CAPSLOCK)) {
+        if (!processKeycodeIfLCapslock(keycode, record)) {return false;}
+    }
+    if (IS_LAYER_ON(LA_MOUSE)) {
+        if (!processKeycodeIfLMouse(keycode, record)) {return false;}
+    }
+    return processKeycodeIfLBase(keycode, record);
 
 }
 
