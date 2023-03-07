@@ -10,7 +10,7 @@ Open source universal PCB for the Realforce R1 family of keyboards.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make rf_r1_8_9xu:default
+    make cipulot/rf_r1_8_9xu:default
 
 Flashing example for this keyboard:
 
