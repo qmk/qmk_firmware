@@ -247,6 +247,7 @@ bool scrollDown = false;
 bool isScrollX1Started = false;
 bool isScrollX2Started = false;
 bool isScrollX4Started = false;
+bool editModeLthumbOslStarted = false;
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -804,23 +805,26 @@ bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case KC_SPC:
             register_code16(KC_LCTL);
+            editModeLthumbOslStarted = true;
             return false;
     }
     if (!(record->event.pressed)) {
-        unregister_code16(KC_LCTL);
+        if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
         layer_off(LA_LTHUMB);
         layer_off(LA_LTHUMBEOSL);
     }
     return true;
 }
 bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
+
     switch (keycode) {
         case KC_SPC:
             register_code16(KC_RCTL);
+            editModeLthumbOslStarted = true;
             return false;
     }
     if (!(record->event.pressed)) {
-        unregister_code16(KC_RCTL);
+        if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
         layer_off(LA_LTHUMB);
         layer_off(LA_LTHUMBDOSL);
     }
