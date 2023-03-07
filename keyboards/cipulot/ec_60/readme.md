@@ -1,6 +1,6 @@
 # EC 60
 
-![EC 60 PCB](https://i.imgur.com/XNwsVOn.png)
+![EC 60 PCB](https://i.imgur.com/XNwsVOnh.png)
 
 60% Electrostatic Capacitive PCB, GH60 mounting compatible, with multi-layout support
 
