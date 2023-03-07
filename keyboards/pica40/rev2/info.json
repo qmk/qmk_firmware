@@ -1,0 +1,53 @@
+{
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["GP26", "GP27", "GP28", "GP29", "GP6"],
+        "rows": ["GP3", "GP4", "GP2", "GP1"]
+    },
+    "indicators": {
+        "num_lock": "GP17",
+        "caps_lock": "GP16",
+        "scroll_lock": "GP25",
+        "on_state": 0
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "mousekey": true,
+        "extrakey": true,
+        "encoder": true,
+        "rgblight": true,
+        "nkro": true
+    },
+    "rgblight": {
+        "led_count": 1,
+        "pin": "GP12",
+        "split": true,
+        "layers": {
+            "enabled": true,
+            "max": 3
+        }
+    },
+    "split": {
+        "enabled": true,
+        "encoder": {
+            "right": {
+                "rotary": []
+            }
+        }
+    },
+    "encoder": {
+        "rotary": [{ "pin_a": "GP7", "pin_b": "GP7", "resolution": 4 }]
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0842",
+        "vid": "0xFEED"
+    },
+    "build": {
+        "lto": true
+    }
+}

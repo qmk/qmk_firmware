@@ -19,13 +19,6 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID  0x4D58   // MX
-#define PRODUCT_ID 0xAB87   // abelx keyboard
-#define DEVICE_VER 0x0001
-#define MANUFACTURER MATRIX
-#define PRODUCT ABELX
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
@@ -85,10 +78,8 @@
 #define COL15_MASK 0x04
 #define COL16_MASK 0x02
 
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE    5
 
 // i2c setting
 #define USE_I2CV1
@@ -101,7 +92,17 @@
 // rgb light setting
 #define RGBLED_NUM 9
 #define RGB_DI_PIN B4
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+
 
 #define AW9523B_RGB_NUM 4
 

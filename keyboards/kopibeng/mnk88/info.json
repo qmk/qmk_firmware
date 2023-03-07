@@ -1,7 +1,20 @@
 {
     "keyboard_name": "MNK88",
-    "maintainer": "kopibeng",
+    "manufacturer": "kopibeng",
     "url": "https://monokei.co/",
+    "maintainer": "kopibeng",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x8800",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B3",
+        "scroll_lock": "A15"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_tsangan", "tkl_f13_iso", "tkl_f13_iso_tsangan"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

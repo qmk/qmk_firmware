@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Aozora",
+    "manufacturer": "Salmon Cat Studio",
     "url": "https://salmoncat.studio/pages/aozora-%E9%9D%92%E7%A9%BA-6-9-21-7-10-21",
     "maintainer": "Phooood",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xE86A",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

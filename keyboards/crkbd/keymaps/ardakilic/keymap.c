@@ -30,7 +30,7 @@ enum {
   _ADJUST
 };
 
-//KC_NONUS_BSLASH (\|) is equivalent to ["é] key in Turkish keyboards.
+//KC_NUBS (\|) is equivalent to ["é] key in Turkish keyboards.
 //KC_GRV (~ `) is equivalent to [<>|] key in Turkish keyboards.
 // KC_SCLN is Turkish s [şŞ] key
 // KC_QUOT is Turkish i [iİ] key
@@ -48,7 +48,7 @@ enum {
 #define BACKTICK RALT(KC_BSLS)
 #define TILDE RALT(KC_RBRC)
 #define NUMBER_SIGN RALT(KC_3) //hashtag sign
-#define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
+#define LOCKSCREEN LCTL(LSFT(KC_PWR)) // Screen Lock shortcut for OSX
 
 /* 
 // Unicode Turkish characters, in case it's needed
@@ -68,7 +68,7 @@ enum {
 };
 
 // clang-format off
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [TR_C] = 0x00c7,
     [TR_C_L] = 0x00e7,
     [TR_I] = 0x0130,
@@ -89,7 +89,7 @@ const uint32_t PROGMEM unicode_map[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * BASE LAYER
-  [_TPL] = LAYOUT_wrapper( \
+  [_TPL] = LAYOUT_wrapper(
   //,-----------------------------------------------------.      ,----------------------------------------------------.
     |  Tab   |   Q    |   W    |   E    |   R    |   T    |      |    Y   |   U    |   I    |   O    |   P    |  Bksp |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
@@ -106,13 +106,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,            KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
     LT(_NUMPAD, KC_ESC), KC_A,  KC_S, KC_D,  KC_F,  KC_G,           KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
     LSFT_T(KC_CAPS), KC_Z, KC_X, KC_C, KC_V, KC_B,                  KC_N,   KC_M,  KC_COMM, KC_DOT, KC_SLSH, LCTL_T(KC_ENT), /*KC_ENT*/
-      LGUI_T(KC_SLSH), LT(_LOWER, KC_BSLS),LT(_SPACE, KC_SPC),   LT(_SODA, KC_ENT), LT(_RAISE, KC_NONUS_BSLASH), LALT_T(KC_SLSH)
+      LGUI_T(KC_SLSH), LT(_LOWER, KC_BSLS),LT(_SPACE, KC_SPC),   LT(_SODA, KC_ENT), LT(_RAISE, KC_NUBS), LALT_T(KC_SLSH)
 
   ),
 
 /*
  * LOWER LAYER
-  [_TPL] = LAYOUT_wrapper( \
+  [_TPL] = LAYOUT_wrapper(
   //,-----------------------------------------------------.      ,----------------------------------------------------.
     |   >    |   !    |   '    |   ^    |   +    |   %    |      |    &   |   /    |   (    |   )    |   =    |  Bksp |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  * RAISE LAYER
-  [_TPL] = LAYOUT_wrapper( \
+  [_TPL] = LAYOUT_wrapper(
   //,-----------------------------------------------------.      ,----------------------------------------------------.
     |   Tab  |   1    |   2    |   3    |   4    |   5    |      |    6   |   7    |   8    |   9    |   0    |  Bksp |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  * SPACE LAYER
-  [_TPL] = LAYOUT_wrapper( \
+  [_TPL] = LAYOUT_wrapper(
   //,-----------------------------------------------------.      ,----------------------------------------------------.
     |        |  CMD+1 |  CMD+2 |  CMD+3 |  CMD+4 | CMD+5  |      |  CMD+6 |  CMD+7 |  CMD+8 |  CMD+9 |  CMD+0 | LCKOSX|
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * NUMPAD LAYER
  * KC_PDOT is comma on the Turkish layout ¯\_(ツ)_/¯
-  [_TPL] = LAYOUT_wrapper( \
+  [_TPL] = LAYOUT_wrapper(
   //,-----------------------------------------------------.      ,----------------------------------------------------.
     |        |        |        |        |        |        |      |   =    |  Num7  |  Num8  |  Num9  |   -    |  Bksp |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
  * SODA LAYER
  * KC_PDOT is comma on the Turkish layout ¯\_(ツ)_/¯
-  [_TPL] = LAYOUT_wrapper( \
+  [_TPL] = LAYOUT_wrapper(
   //,-----------------------------------------------------.      ,----------------------------------------------------.
     |        |        |   Up   |        |        |        |      |        |        |        |        |        |       |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
@@ -227,9 +227,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  * ADJUST LAYER
-  [_TPL] = LAYOUT_wrapper( \
+  [_TPL] = LAYOUT_wrapper(
   //,-----------------------------------------------------.      ,----------------------------------------------------.
-    |  RESET | EEPRST |        |        |        |        |      |        |        |        |        |        |       |
+    |  QK_BOOT | EEPRST |        |        |        |        |      |        |        |        |        |        |       |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
     | RGBTog |  HUE▲  |  SAT▲  | BRGHT▲ |        |        |      |        |        |        |        |        |       |
   //|--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+-------|
@@ -241,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 */
   [_ADJUST] = LAYOUT_split_3x6_3(
-    RESET, EEP_RST, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+    QK_BOOT, EE_CLR,  _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                    _______, _______, _______, _______, _______, _______,
     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,                    _______, _______, _______, _______, _______, _______,
                                           KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT

@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "Adelais En Ciel",
+    "usb": {
+        "pid": "0xAEC1"
+    },
+    "processor": "STM32F303",
+    "board": "QMK_PROTON_C",
+    "bootloader": "stm32-dfu",
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "C15",
+        "scroll_lock": "B9"
+    }
+}

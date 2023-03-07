@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Mechboards Micropad", 
+    "manufacturer": "Yiancar",
     "url": "", 
     "maintainer": "yiancar", 
+    "usb": {
+        "vid": "0x8968",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [{"label":"1", "x":0, "y":0}, {"label":"2", "x":1, "y":0}, {"label":"3", "x":2, "y":0}, {"label":"4", "x":3, "y":0}]

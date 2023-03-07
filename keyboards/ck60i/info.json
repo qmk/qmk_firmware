@@ -1,7 +1,25 @@
 {
     "keyboard_name": "CK60i",
+    "manufacturer": "CandyKeys",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x434B",
+        "pid": "0x6049",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A5", "pin_b": "A4"}
+        ]
+    },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

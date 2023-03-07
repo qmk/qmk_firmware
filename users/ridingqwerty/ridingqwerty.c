@@ -7,7 +7,7 @@ void matrix_init_user(void) {
     matrix_init_keymap();
 
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 #endif
 
     //set_single_persistent_default_layer(_QWERTY);
@@ -55,11 +55,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 };
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case NM(SCLN):
-      return true;
-    default:
-      return false;
-  }
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case NM(SCLN):
+            return 0;
+        default:
+            return QUICK_TAP_TERM;
+    }
 }

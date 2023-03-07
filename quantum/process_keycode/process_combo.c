@@ -29,6 +29,12 @@ extern uint16_t COMBO_LEN;
 
 __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
 
+#ifndef COMBO_ONLY_FROM_LAYER
+__attribute__((weak)) uint8_t combo_ref_from_layer(uint8_t layer) {
+    return layer;
+}
+#endif
+
 #ifdef COMBO_MUST_HOLD_PER_COMBO
 __attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) {
     return false;
@@ -88,8 +94,6 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 
 #define INCREMENT_MOD(i) i = (i + 1) % COMBO_BUFFER_LENGTH
 
-#define COMBO_KEY_POS ((keypos_t){.col = 254, .row = 254})
-
 #ifndef EXTRA_SHORT_COMBOS
 /* flags are their own elements in combo_t struct. */
 #    define COMBO_ACTIVE(combo) (combo->active)
@@ -140,12 +144,7 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 static inline void release_combo(uint16_t combo_index, combo_t *combo) {
     if (combo->keycode) {
         keyrecord_t record = {
-            .event =
-                {
-                    .key     = COMBO_KEY_POS,
-                    .time    = timer_read() | 1,
-                    .pressed = false,
-                },
+            .event   = MAKE_KEYEVENT(KEYLOC_COMBO, KEYLOC_COMBO, false),
             .keycode = combo->keycode,
         };
 #ifndef NO_ACTION_TAPPING
@@ -234,7 +233,16 @@ static inline void dump_key_buffer(void) {
 #endif
         }
         record->event.time = 0;
+
+#if defined(CAPS_WORD_ENABLE) && defined(AUTO_SHIFT_ENABLE)
+        // Edge case: preserve the weak Left Shift mod if both Caps Word and
+        // Auto Shift are on. Caps Word capitalizes by setting the weak Left
+        // Shift mod during the press event, but Auto Shift doesn't send the
+        // key until it receives the release event.
+        del_weak_mods((is_caps_word_on() && get_autoshift_state()) ? ~MOD_BIT(KC_LSFT) : 0xff);
+#else
         clear_weak_mods();
+#endif // defined(CAPS_WORD_ENABLE) && defined(AUTO_SHIFT_ENABLE)
 
 #if TAP_CODE_DELAY > 0
         // only delay once and for a non-tapping key
@@ -302,7 +310,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
 #if defined(EXTRA_EXTRA_LONG_COMBOS)
     uint32_t state = 0;
 #elif defined(EXTRA_LONG_COMBOS)
-    uint16_t state = 0;
+    uint16_t state         = 0;
 #else
     uint8_t state = 0;
 #endif
@@ -325,7 +333,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
         if (ALL_COMBO_KEYS_ARE_DOWN(state, key_count)) {
             // this in the end executes the combo when the key_buffer is dumped.
             record->keycode   = combo->keycode;
-            record->event.key = COMBO_KEY_POS;
+            record->event.key = MAKE_KEYPOS(KEYLOC_COMBO, KEYLOC_COMBO);
 
             qrecord->combo_index = combo_index;
             ACTIVATE_COMBO(combo);
@@ -529,17 +537,17 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     bool is_combo_key          = false;
     bool no_combo_keys_pressed = true;
 
-    if (keycode == CMB_ON && record->event.pressed) {
+    if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
         return true;
     }
 
-    if (keycode == CMB_OFF && record->event.pressed) {
+    if (keycode == QK_COMBO_OFF && record->event.pressed) {
         combo_disable();
         return true;
     }
 
-    if (keycode == CMB_TOG && record->event.pressed) {
+    if (keycode == QK_COMBO_TOGGLE && record->event.pressed) {
         combo_toggle();
         return true;
     }
@@ -547,6 +555,12 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #ifdef COMBO_ONLY_FROM_LAYER
     /* Only check keycodes from one layer. */
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
+#else
+    uint8_t  highest_layer = get_highest_layer(layer_state);
+    uint8_t  ref_layer     = combo_ref_from_layer(highest_layer);
+    if (ref_layer != highest_layer) {
+        keycode = keymap_key_to_keycode(ref_layer, record->event.key);
+    }
 #endif
 
     for (uint16_t idx = 0; idx < COMBO_LEN; ++idx) {

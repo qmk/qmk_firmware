@@ -1,7 +1,22 @@
 {
     "keyboard_name": "Pearl",
-    "maintainer": "Koobaczech",
+    "manufacturer": "Koobaczech",
     "url": "",
+    "maintainer": "Koobaczech",
+    "usb": {
+        "vid": "0x6963",
+        "pid": "0x6965",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B0",
+        "num_lock": "B1",
+        "scroll_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 4,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

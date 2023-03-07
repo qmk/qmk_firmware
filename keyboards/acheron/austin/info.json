@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Austin",
+    "manufacturer": "DriftMechanics",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xAC11",
+        "pid": "0x4175",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

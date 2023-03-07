@@ -17,30 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1C11
-#define PRODUCT_ID      0xB04D
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Input Club
-#define PRODUCT         Infinity 60% (QMK)
-
-/* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 9
-
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
 
 /*
  * Feature disable options

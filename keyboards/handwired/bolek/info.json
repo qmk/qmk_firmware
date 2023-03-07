@@ -1,7 +1,15 @@
 {
     "keyboard_name": "bolek",
+    "manufacturer": "Mikołaj Biel",
     "url": "https://github.com/klausweiss/bolek",
     "maintainer": "klausweiss",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3708",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

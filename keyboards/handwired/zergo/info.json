@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "zergo", 
+    "keyboard_name": "zErgo", 
+    "manufacturer": "GreenJack",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/zergo", 
     "maintainer": "greenjack", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xB92B",
+        "device_version": "0.0.1"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT": {
             "layout": [

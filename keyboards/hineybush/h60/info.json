@@ -1,7 +1,20 @@
 {
     "keyboard_name": "h60",
+    "manufacturer": "hineybush",
     "url": "",
     "maintainer": "hineybush",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEBBE",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "levels": 12
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_hhkb", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

@@ -18,16 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0x3436
-#define DEVICE_VER 0x0001
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
 
 // row-driven
 #define MATRIX_ROW_PINS { F7, B1, B3, B2, B6 }

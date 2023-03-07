@@ -1,7 +1,30 @@
 {
-    "keyboard_name": "Lily58",
+    "keyboard_name": "Lily58L",
+    "manufacturer": "Keycapsss",
     "url": "https://keycapsss.com",
     "maintainer": "BenRoe",
+    "usb": {
+        "vid": "0x7983",
+        "pid": "0x4C4C",
+        "device_version": "1.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F4", "pin_b": "F5"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F5", "pin_b": "F4"}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,25 @@
 {
-    "keyboard_name": "hnah108",
+    "keyboard_name": "Hnah108",
+    "manufacturer": "HnahKB",
     "url": "",
     "maintainer": "HnahKB",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B3"}
+        ]
+    },
+    "backlight": {
+        "pin": "B7",
+        "levels": 4,
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

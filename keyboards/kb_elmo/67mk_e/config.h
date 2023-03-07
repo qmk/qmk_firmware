@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xA68C
-#define PRODUCT_ID   0xD03E
-#define DEVICE_VER   0x0001
-#define MANUFACTURER kb_elmo
-#define PRODUCT      67mk_E
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D7, B4, D6, D5, B0 }
@@ -36,9 +24,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Indicator LEDs */
-#define LED_CAPS_LOCK_PIN B7

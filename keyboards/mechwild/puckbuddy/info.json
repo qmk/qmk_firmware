@@ -1,0 +1,44 @@
+{
+    "keyboard_name": "PuckBuddy",
+    "manufacturer": "MechWild",
+    "url": "mechwild.com",
+    "maintainer": "kylemccreery",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x170F",
+        "device_version": "1.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B0"},
+            {"pin_a": "B3", "pin_b": "A15"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "C13",
+        "on_state": 0
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F401",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"k00", "x":0, "y":0},
+                {"label":"k01", "x":1.5, "y":0},
+                {"label":"k02", "x":2.5, "y":0},
+                {"label":"k03", "x":3.5, "y":0},
+                {"label":"k05", "x":5, "y":0},
+                {"label":"k10", "x":0, "y":1.25},
+                {"label":"k15", "x":5, "y":1.25},
+                {"label":"k20", "x":0, "y":2.25},
+                {"label":"k25", "x":5, "y":2.25},
+                {"label":"k30", "x":0, "y":3.25},
+                {"label":"k35", "x":5, "y":3.25},
+                {"label":"k31", "x":1, "y":4.5},
+                {"label":"k32", "x":2, "y":4.5},
+                {"label":"k33", "x":3, "y":4.5},
+                {"label":"k34", "x":4, "y":4.5}]
+        }
+    }
+}

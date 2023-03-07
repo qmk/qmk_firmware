@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Siemens Tastatur",
+    "manufacturer": "Yiancar-Designs",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x8968",
+        "pid": "0x4353",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
     "layouts": {
         "LAYOUT": {
             "layout": [

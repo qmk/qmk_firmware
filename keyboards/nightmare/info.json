@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Nightmare",
+    "manufacturer": "cfbender",
     "url": "https://keyhive.xyz/shop/nightmare-pcb-and-case",
     "maintainer": "cfbender",
+    "usb": {
+        "vid": "0x434B",
+        "pid": "0x4E49",
+        "device_version": "0.0.1"
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_default": {
             "layout": [

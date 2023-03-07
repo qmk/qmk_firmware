@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "Kay65",
+    "keyboard_name": "Kay65 Rev. 1",
+    "manufacturer": "Team Mechlovin",
     "url": "",
     "maintainer": "Mechlovin' Studio",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x6502",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "D6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker", "65_iso_blocker"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

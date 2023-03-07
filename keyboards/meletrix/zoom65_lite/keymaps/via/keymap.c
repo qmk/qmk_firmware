@@ -16,14 +16,13 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef VIA_ENABLE
-static uint8_t encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS] = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[ENCODERS] = ENCODERS_CCW_KEY;
+static uint8_t encoder_state[NUM_ENCODERS] = {0};
+static keypos_t encoder_cw[NUM_ENCODERS] = ENCODERS_CW_KEY;
+static keypos_t encoder_ccw[NUM_ENCODERS] = ENCODERS_CCW_KEY;
 
 void encoder_action_unregister(void)
 {
-    for (int index = 0; index < ENCODERS; ++index)
+    for (int index = 0; index < NUM_ENCODERS; ++index)
     {
         if (encoder_state[index])
         {
@@ -56,8 +55,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise)
 {
     encoder_action_register(index, clockwise);
     return true;
-};
-#endif
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(
@@ -71,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,   KC_MNXT, KC_MPLY, KC_MPRV,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
         _______, _______, _______,                   _______, _______, _______,          _______, _______,          _______, _______, _______
     ),
     [2] = LAYOUT_all(

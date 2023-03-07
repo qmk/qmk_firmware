@@ -1,7 +1,15 @@
 {
   "keyboard_name": "pilcrow",
+  "manufacturer": "Unknown",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "halfkay",
   "layouts": {
     "LAYOUT": {
       "layout": [

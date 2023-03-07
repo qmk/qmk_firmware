@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "odelia", 
+    "keyboard_name": "Odelia", 
+    "manufacturer": "InterpolKeeb",
     "url": "", 
     "maintainer": "kb-elmo", 
+    "usb": {
+        "vid": "0x6BE3",
+        "pid": "0xA129",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

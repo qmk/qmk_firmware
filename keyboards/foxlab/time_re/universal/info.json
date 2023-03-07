@@ -1,7 +1,22 @@
 {
-    "keyboard_name": "Time RE Universal",
+    "keyboard_name": "Time 80 Reforged",
+    "manufacturer": "Fox Lab",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x464C",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

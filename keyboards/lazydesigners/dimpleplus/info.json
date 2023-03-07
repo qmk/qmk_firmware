@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Dimpleplus",
+    "manufacturer": "LAZYDESIGNERS",
     "url": "http://lazydesigners.cn",
     "maintainer": "LAZYDESIGNERS",
+    "usb": {
+        "vid": "0x4C44",
+        "pid": "0x0061",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

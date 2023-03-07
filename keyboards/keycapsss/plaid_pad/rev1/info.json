@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "Plaid-Pad Rev1",
+    "usb": {
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"},
+            {"pin_a": "B2", "pin_b": "B1"}
+        ]
+    },
+}

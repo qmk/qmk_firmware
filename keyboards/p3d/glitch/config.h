@@ -17,17 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID       0x7033
-#define PRODUCT_ID      0x3568
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    P3D Store
-#define PRODUCT         Glitch
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
 
 /*
  * Keyboard Matrix Assignments
@@ -43,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* A Custom matrix.c is used to poll the port expander C6 shows that the pins are hardwired there */
 #define MATRIX_ROW_PINS { D5, D6, B6, D7, C7, B4, B5, D3, D4, C6 }
 #define MATRIX_COL_PINS { B2, D2, B3, B7, F5, F4, F1, F0 }
-#define UNUSED_PINS
 
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 25
@@ -57,10 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define ENCODERS_PAD_A { F6 }
-#define ENCODERS_PAD_B { F7 }
-#define ENCODER_RESOLUTION 2
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

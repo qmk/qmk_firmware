@@ -15,6 +15,7 @@
  */
 #include "led.h"
 #include "host.h"
+#include "timer.h"
 #include "debug.h"
 #include "gpio.h"
 
@@ -54,19 +55,19 @@ static void handle_backlight_caps_lock(led_t led_state) {
 }
 #endif
 
+static uint32_t last_led_modification_time = 0;
+uint32_t        last_led_activity_time(void) {
+    return last_led_modification_time;
+}
+uint32_t last_led_activity_elapsed(void) {
+    return timer_elapsed32(last_led_modification_time);
+}
+
 /** \brief Lock LED set callback - keymap/user level
  *
  * \deprecated Use led_update_user() instead.
  */
 __attribute__((weak)) void led_set_user(uint8_t usb_led) {}
-
-/** \brief Lock LED set callback - keyboard level
- *
- * \deprecated Use led_update_kb() instead.
- */
-__attribute__((weak)) void led_set_kb(uint8_t usb_led) {
-    led_set_user(usb_led);
-}
 
 /** \brief Lock LED update callback - keymap/user level
  *
@@ -83,30 +84,34 @@ __attribute__((weak)) bool led_update_user(led_t led_state) {
 __attribute__((weak)) bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-#if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
-#    if LED_PIN_ON_STATE == 0
-        // invert the whole thing to avoid having to conditionally !led_state.x later
-        led_state.raw = ~led_state.raw;
-#    endif
-
-#    ifdef LED_NUM_LOCK_PIN
-        writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
-#    endif
-#    ifdef LED_CAPS_LOCK_PIN
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-#    endif
-#    ifdef LED_SCROLL_LOCK_PIN
-        writePin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
-#    endif
-#    ifdef LED_COMPOSE_PIN
-        writePin(LED_COMPOSE_PIN, led_state.compose);
-#    endif
-#    ifdef LED_KANA_PIN
-        writePin(LED_KANA_PIN, led_state.kana);
-#    endif
-#endif
+        led_update_ports(led_state);
     }
     return res;
+}
+
+/** \brief Write LED state to hardware
+ */
+__attribute__((weak)) void led_update_ports(led_t led_state) {
+#if LED_PIN_ON_STATE == 0
+    // invert the whole thing to avoid having to conditionally !led_state.x later
+    led_state.raw = ~led_state.raw;
+#endif
+
+#ifdef LED_NUM_LOCK_PIN
+    writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
+#endif
+#ifdef LED_CAPS_LOCK_PIN
+    writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+#endif
+#ifdef LED_SCROLL_LOCK_PIN
+    writePin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
+#endif
+#ifdef LED_COMPOSE_PIN
+    writePin(LED_COMPOSE_PIN, led_state.compose);
+#endif
+#ifdef LED_KANA_PIN
+    writePin(LED_KANA_PIN, led_state.kana);
+#endif
 }
 
 /** \brief Initialise any LED related hardware and/or state
@@ -141,7 +146,7 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
     handle_backlight_caps_lock((led_t)usb_led);
 #endif
 
-    led_set_kb(usb_led);
+    led_set_user(usb_led);
     led_update_kb((led_t)usb_led);
 }
 
@@ -174,7 +179,8 @@ void led_task(void) {
     // update LED
     uint8_t led_status = host_keyboard_leds();
     if (last_led_status != led_status) {
-        last_led_status = led_status;
+        last_led_status            = led_status;
+        last_led_modification_time = timer_read32();
 
         if (debug_keyboard) {
             debug("led_task: ");

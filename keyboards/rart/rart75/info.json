@@ -1,7 +1,20 @@
 {
     "keyboard_name": "RART75",
+    "manufacturer": "Alabahuy",
     "url": "",
     "maintainer": "Alabahuy",
+    "usb": {
+        "vid": "0x414C",
+        "pid": "0x0075",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E6", "pin_b": "B0"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

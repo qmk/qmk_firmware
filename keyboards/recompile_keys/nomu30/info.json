@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Nomu30",
+    "manufacturer": "recompile keys",
     "url": "https://keys.recompile.net/projects/nomu30/",
     "maintainer": "takai",
+    "usb": {
+        "vid": "0x524B",
+        "pid": "0x4E31",
+        "device_version": "0.0.1"
+    },
+    "bootmagic": {
+        "matrix": [0, 11]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,23 @@
 {
     "keyboard_name": "MW75",
+    "manufacturer": "MWStudio",
     "url": "",
     "maintainer": "TW59420",
+    "usb": {
+        "vid": "0x7BA1",
+        "pid": "0x7501",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B2"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

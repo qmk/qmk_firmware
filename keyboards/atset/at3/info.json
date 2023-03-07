@@ -1,0 +1,21 @@
+{
+  "keyboard_name": "AT3",
+  "manufacturer": "Atset",
+  "maintainer": "atset",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x":0, "y":0, "matrix": [0, 0]},
+        {"x":1, "y":0, "matrix": [0, 1]},
+        {"x":2, "y":0, "matrix": [0, 2]}
+      ]
+    }
+  }
+}

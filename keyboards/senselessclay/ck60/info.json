@@ -1,10 +1,19 @@
 {
     "keyboard_name": "CK60",
+    "manufacturer": "senselessclay",
     "url": "https://candykeys.com",
     "maintainer": "had-i",
+    "usb": {
+        "vid": "0x4849",
+        "pid": "0x0601",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_iso"
     },
+    "community_layouts": ["60_iso"],
     "layouts": {
         "LAYOUT_60_iso": {
             "layout": [

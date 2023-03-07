@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x6868
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Elliot Powell
-#define PRODUCT ephs68
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -44,13 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { B6, B5, B4, D0, F6 }
 #define MATRIX_COL_PINS \
   { B0, B1, B3, B2, B7, D3, F1, D5, D6, D7, F4, F5, C7, C6, F0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -1,7 +1,24 @@
 {
     "keyboard_name": "Compacx",
+    "manufacturer": "takashicompany",
     "url": "https://github.com/takashicompany/compacx",
     "maintainer": "takashicompany",
+    "usb": {
+        "vid": "0x7463",
+        "pid": "0x0014",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E6", "pin_b": "B4"},
+            {"pin_a": "B6", "pin_b": "B5"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

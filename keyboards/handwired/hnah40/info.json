@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Hnah40", 
+    "manufacturer": "HnahKB",
     "url": "https://github.com/vuhopkep/PCB/tree/master/Hnah40-Atmega328p/PCB_V1/PCB", 
     "maintainer": "HnahKB", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.2"
+    },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT": {
             "layout": [

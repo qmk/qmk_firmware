@@ -1,7 +1,23 @@
 {
     "keyboard_name": "Unicorn",
+    "manufacturer": "Keyprez",
     "url": "",
     "maintainer": "Keyprez",
+    "usb": {
+        "vid": "0x6B7A",
+        "pid": "0x7563",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D4"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

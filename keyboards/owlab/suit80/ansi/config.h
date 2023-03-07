@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4F53  //0x4F53 OS for owl studio
-#define PRODUCT_ID      0x5355  //0x5355 SU for SUIT
-#define DEVICE_VER      0x0001 
-#define MANUFACTURER    OwLab 
-#define PRODUCT         SUIT80
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { E6, B0, B7, D0, D1, D2 }
@@ -37,10 +25,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* NKRO */
-#ifdef NKRO_ENABLE
-#         define FORCE_NKRO
-#endif
+#define FORCE_NKRO

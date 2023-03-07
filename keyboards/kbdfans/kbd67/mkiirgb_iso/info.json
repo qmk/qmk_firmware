@@ -1,7 +1,16 @@
 {
-    "keyboard_name": "kbd67mkiirgb_iso",
+    "keyboard_name": "KBD67MKIIRGB ISO",
+    "manufacturer": "KBDfans",
     "url": "",
     "maintainer": "moyi4681",
+    "usb": {
+        "vid": "0x4B42",
+        "pid": "0x0105",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-ms",
+    "community_layouts": ["65_iso_blocker"],
     "layouts": {
         "LAYOUT_65_iso_blocker": {
             "layout": [

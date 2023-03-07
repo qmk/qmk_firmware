@@ -16,17 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID       0x9624
-#define PRODUCT_ID      0x0008
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Ocean
-#define PRODUCT         Wang Ergo
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments
@@ -41,11 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*                        0    1    2    3    4    5    6    7    8    9   10  11  12  13  14*/
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6, B4, B5, B6, B2, B3, B1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-

@@ -1,7 +1,26 @@
 {
     "keyboard_name": "Atlas",
-    "maintainer": "Koobaczech",
+    "manufacturer": "Koobaczech",
     "url": "",
+    "maintainer": "Koobaczech",
+    "usb": {
+        "vid": "0x6963",
+        "pid": "0x6964",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E0", "pin_b": "D7", "resolution": 1}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "F4",
+        "num_lock": "F5",
+        "scroll_lock": "F6",
+        "on_state": 0
+    },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

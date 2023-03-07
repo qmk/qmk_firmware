@@ -17,26 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x454B
-#define PRODUCT_ID 0x0003
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Eniigma Keyboards
-#define PRODUCT ek60
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { B2, B1, B0, F0, B4 }
 #define MATRIX_COL_PINS { F7, C6, F6, B6, F5, F4, B5, F1, E6, D0, D7, D5, D1, D3, D2 }
-#define UNUSED_PINS { B3, B7, C7, D4, D6 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

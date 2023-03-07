@@ -1,7 +1,25 @@
 {
-    "keyboard_name": "isometria_75",
+    "keyboard_name": "isometria 75",
+    "manufacturer": "ebastler",
     "url": "https://github.com/ebastler/isometria-75",
     "maintainer": "ebastler",
+    "usb": {
+        "vid": "0x6562",
+        "pid": "0x1337",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
+        ]
+    },
+    "backlight": {
+        "pin": "A9",
+        "levels": 5,
+        "breathing": true
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_iso": {
             "layout": [

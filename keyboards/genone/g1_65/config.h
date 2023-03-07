@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xE720 // GEN ONE
-#define PRODUCT_ID      0x0001 // G1_65
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    GEN ONE LLC
-#define PRODUCT         G1_65
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -41,7 +29,6 @@
 */
 #define MATRIX_ROW_PINS { B3, B7, B0, B1, B2 }
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

@@ -1,8 +1,21 @@
 {
     "keyboard_name": "Southern Breeze",
+    "manufacturer": "AfternoonLabs",
     "url": "afternoonlabs.com/breeze",
-    "productId": "0x0005",
     "maintainer": "eithanshavit",
+    "usb": {
+        "vid": "0x616C",
+        "pid": "0x0005",
+        "device_version": "0.0.1"
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "bootmagic": {
+        "matrix": [0, 5]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

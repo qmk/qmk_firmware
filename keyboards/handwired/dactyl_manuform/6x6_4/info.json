@@ -1,7 +1,18 @@
 {
-    "keyboard_name": "Dactyl Manuform 6x6 4 extra keys",
+    "keyboard_name": "Dactyl-Manuform (6x6+4)",
+    "manufacturer": "tshort",
     "url": "",
     "maintainer": "dmik",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3636",
+        "device_version": "0.0.1"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_6x6_4": {
             "layout": [

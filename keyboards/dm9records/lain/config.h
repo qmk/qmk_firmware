@@ -3,18 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x04D8
-#define PRODUCT_ID 0xE8F4
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Dm9Records
-#define PRODUCT lain
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
 
 /*
  * Keyboard Matrix Assignments
@@ -31,9 +19,6 @@
 #define LED_NUM 3
 #define LED_PINS \
     { B6, B5, B4 }
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

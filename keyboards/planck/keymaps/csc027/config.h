@@ -19,10 +19,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-#define USB_POLLING_INTERVAL_MS 1
-
-#if defined(TAP_CODE_DELAY)
-#    undef TAP_CODE_DELAY
-#endif
-#define TAP_CODE_DELAY 10

@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Potato 65 Solderable",
+    "manufacturer": "Maelkk",
     "url": "https://github.com/Aeonstrife/potato65solderable",
     "maintainer": "Maelkk",
+    "usb": {
+        "vid": "0x4A56",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

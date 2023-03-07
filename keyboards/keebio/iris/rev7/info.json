@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "Iris Rev. 7",
+    "usb": {
+        "pid": "0x7256",
+        "device_version": "7.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B2"},
+            {"pin_a": "F6", "pin_b": "F7"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

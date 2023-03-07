@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "Adelais En Ciel Rev3",
+    "usb": {
+        "pid": "0xAEC3"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B12", "pin_b": "B13"}
+        ]
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "indicators": {
+        "caps_lock": "C14",
+        "num_lock": "A0",
+        "scroll_lock": "C15"
+    }
+}

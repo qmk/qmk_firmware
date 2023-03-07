@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Potato 65 Hotswap",
+    "manufacturer": "Maelkk",
     "url": "https://github.com/Aeonstrife/potato65hotswap",
     "maintainer": "Maelkk",
+    "usb": {
+        "vid": "0x4A56",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

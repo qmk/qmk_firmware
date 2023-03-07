@@ -1,7 +1,16 @@
 {
   "keyboard_name": "Pterodactyl",
+  "manufacturer": "myoung34",
   "url": "https://marcyoung.us/post/pterodactyl/",
   "maintainer": "Marcus Young",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1308",
+    "device_version": "0.0.2"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "debounce": 0,
   "layouts": {
     "LAYOUT_pterodactyl": {
       "layout": [

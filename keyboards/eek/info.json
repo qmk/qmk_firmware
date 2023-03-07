@@ -1,7 +1,16 @@
 {
     "keyboard_name": "eek!",
+    "manufacturer": "klackygears",
     "url": "http://www.keyboard-layout-editor.com/#/gists/3e4d0cd1534dd4e4b9f25cf2b36d0d63",
     "maintainer": "klackygears",
+    "usb": {
+        "vid": "0x4A53",
+        "pid": "0x0002",
+        "device_version": "0.0.4"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["split_3x5_3"],
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

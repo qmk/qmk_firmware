@@ -1,7 +1,16 @@
 {
     "keyboard_name": "LFKPad",
+    "manufacturer": "LFKeyboards",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4C46",
+        "pid": "0x3231",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

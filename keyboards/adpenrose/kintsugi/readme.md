@@ -15,7 +15,7 @@ A 65%-ish keyboard with some extra features.
 ## General info
 
 * Keyboard Maintainer: [Arturo Avila](https://github.com/ADPenrose)
-* Hardware Supported: Kintsugi V1 PCB
+* Hardware Supported: Kintsugi v1 PCB
 * Hardware Availability: [Arturo Avila](https://github.com/ADPenrose)
 
 Make example for this keyboard (after setting up your build environment):
@@ -34,4 +34,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the front of the Elite-C microcontroller _**before soldering**_ it to the PCB- some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

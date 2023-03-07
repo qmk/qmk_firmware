@@ -1,7 +1,22 @@
 {
     "keyboard_name": "D48",
+    "manufacturer": "Andrew Dunai",
     "url": "",
     "maintainer": "and3rson",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "A6"},
+            {"pin_a": "A0", "pin_b": "A1"}
+        ]
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
             "layout": [
