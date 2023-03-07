@@ -5,10 +5,6 @@
     "url": "https://github.com/freya-irl/splaytoraid40",
     "debounce": 5,
     "diode_direction": "COL2ROW",
-    "matrix_size": {
-        "cols": 7,
-        "rows": 8
-    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xCB00",
