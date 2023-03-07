@@ -4,7 +4,6 @@
     "maintainer": "IBNobody",
     "bootloader": "atmel-dfu",
     "diode_direction": "ROW2COL",
-    "debounce": 5,
     "features": {
         "bootmagic": true,
         "command": false,

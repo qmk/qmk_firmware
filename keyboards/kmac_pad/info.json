@@ -7,6 +7,8 @@
     "pid": "0x4143",
     "device_version": "1.0.4"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

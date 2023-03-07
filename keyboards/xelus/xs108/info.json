@@ -8,6 +8,13 @@
         "pid": "0x0108",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A2",
+        "num_lock": "B7",
+        "scroll_lock": "A13"
+    },
+    "processor": "STM32L412",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_108_ansi": {
             "layout": [
