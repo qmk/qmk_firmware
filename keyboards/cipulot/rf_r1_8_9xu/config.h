@@ -42,5 +42,7 @@
 // This is the size of the EEPROM for the custom VIA-specific data
 #define EECONFIG_KB_DATA_SIZE 4
 
-#define DEFAULT_ACTUATION_LEVEL 750
-#define DEFAULT_RELEASE_LEVEL 700
+#define DEFAULT_ACTUATION_LEVEL 700
+#define DEFAULT_RELEASE_LEVEL 650
+
+#define DISCHARGE_TIME 10
