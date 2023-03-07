@@ -12,7 +12,7 @@ RGB_MATRIX_DRIVER = WS2812
 
 ENCODER_ENABLE = no       	# Enables the use of one or more encoders
 # BACKLIGHT_ENABLE = yes     	# Enable keyboard backlight functionality
-LTO_ENABLE = yes 	   		# significantly reduce the compiled size, but disable the legacy TMK Macros and Functions features
+LTO_ENABLE = yes 	   		# significantly reduce the compiled size
 TAP_DANCE_ENABLE = yes	  	# Enable Tap Dance
 
 NKRO_ENABLE = yes          	# Nkey Rollover
