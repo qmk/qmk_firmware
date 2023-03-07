@@ -18,15 +18,6 @@
 
 #include "quantum.h"
 
-
-enum colors {
-    WHITE, 
-    RED, 
-    GREEN, 
-    BLUE 
-};
-enum colors led_color_status = WHITE;
-
 void led_test(uint8_t color);
 void clear_eeprom(void);
 void rgb_hsv_updata_user(void);
