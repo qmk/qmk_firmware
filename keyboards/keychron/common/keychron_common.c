@@ -52,7 +52,7 @@ bool process_record_keychron(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 register_code(KC_LAUNCHPAD);
             } else {
-                register_code(KC_LAUNCHPAD);
+                unregister_code(KC_LAUNCHPAD);
             }
             return false;  // Skip all further processing of this key
         case KC_LOPTN:
