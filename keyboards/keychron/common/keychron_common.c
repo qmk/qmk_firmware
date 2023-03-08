@@ -43,18 +43,18 @@ bool process_record_keychron(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QK_KB_0:
             if (record->event.pressed) {
-                register_code(KC_MISSION_CONTROL);
+                host_consumer_send(AC_MISSION_CONTROL);
             } else {
-                unregister_code(KC_MISSION_CONTROL);
+                host_consumer_send(0x0);
             }
-            return false; // Skip all further processing of this key
+            return false;  // Skip all further processing of this key
         case QK_KB_1:
             if (record->event.pressed) {
-                register_code(KC_LAUNCHPAD);
+                host_consumer_send(AC_LAUNCHPAD);
             } else {
-                unregister_code(KC_LAUNCHPAD);
+                host_consumer_send(0x0);
             }
-            return false; // Skip all further processing of this key
+            return false;  // Skip all further processing of this key
         case KC_LOPTN:
         case KC_ROPTN:
         case KC_LCMMD:
