@@ -254,15 +254,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;     
-#ifdef VIA_ENABLE
-        case QK_KB: {
-            if (record->event.pressed) {
-                via_eeprom_set_valid(false);
-                eeconfig_init_via();
-            }
-            return false;
-        }
-#endif
      default:
             return true;
     }
