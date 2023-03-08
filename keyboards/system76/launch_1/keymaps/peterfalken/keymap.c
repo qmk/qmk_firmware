@@ -38,22 +38,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 1, function layer
  _________________________________________________________________________________________________________________________________  ________
 |        |        |        |        |        |        |        |        |        |        |        |        |        |            || PLAY/  |
-|        |        |  M.AP  |  M.AL  |  LPAD  |        |        |        |        |        |        |        |        |            || PAUSE  |
+|    ▽   |    ▽   |  M.AP  |  M.AL  |  LPAD  |    ▽   |    ▽   |    ▽   |    ▽   |    ▽   |    ▽   |    ▽   |    ▽   |      ▽     || PAUSE  |
 |________|________|________|________|________|________|________|________|________|________|________|________|________|____________||________|
 |        |        |        |        |        |        |        |        |        |        |  LED   |  LED   |  LED   |            || VOLUME |
-|  TO.0  |  TO.1  |  TO.2  |  TO.3  |        |        |        |        |        |        | TOGGLE |  DOWN  |  UP    |            ||   UP   |
+|  TO.0  |  TO.1  |  TO.2  |  TO.3  |    ▽   |    ▽   |    ▽   |    ▽   |    ▽   |    ▽   | TOGGLE |  DOWN  |  UP    |      ▽     ||   UP   |
 |________|________|________|________|________|________|________|________|________|________|________|________|________|____________||________|
 |            |        |        |        |        |        |        |        |        |        |        |        |        |        || VOLUME |
-|PRINT SCREEN|        |        |        |        |        |  HOME  |  PGDN  |  PGUP  |  END   |        |        |        |  SLEP  ||  DOWN  |
+|PRINT SCREEN|    ▽   |    ▽   |    ▽   |    ▽   |    ▽   |  HOME  |  PGDN  |  PGUP  |  END   |    ▽   |    ▽   |    ▽   |  SLEP  ||  DOWN  |
 |____________|________|________|________|________|________|________|________|________|________|________|________|________|________||________|
   |            |        |        |        |        |        |        |        |        |        |        |        |            |   |        |
-  |            |        |        |        |        |        |  LEFT  |  DOWN  |   UP   | RIGHT  |        |        |            |   |  MUTE  |
+  |      ▽     |    ▽   |    ▽   |    ▽   |    ▽   |    ▽   |  LEFT  |  DOWN  |   UP   | RIGHT  |    ▽   |    ▽   |      ▽     |   |  MUTE  |
   |____________|________|________|________|________|________|________|________|________|________|________|________|____________|___|________|
   |                |        |        |        |        |        |        |        |        |        |        |            |        |
-  |                |   UN   |   CU   |   CO   |   PA   |   MV   |        |        |        |        |        |            |  PGUP  |
+  |        ▽       |   UN   |   CU   |   CO   |   PA   |   MV   |    ▽   |    ▽   |    ▽   |    ▽   |    ▽   |      ▽     |  PGUP  |
   |________________|________|________|________|________|________|________|________|________|________|________|____________|________|________
   |            |        |       |        |                 |                 |        |        |             |   |        |        |        |
-  |            |        |       |        |                 |                 |        |        |    TO.0     |   |  HOME  |  PGDN  |  END   |
+  |      ▽     |    ▽   |   ▽   |    ▽   |        ▽        |        ▽        |    ▽   |    ▽   |    TO.0     |   |  HOME  |  PGDN  |  END   |
   |____________|________|_______|________|_________________|_________________|________|________|_____________|   |________|________|________|
 
    * `QK_BOOT' resets the controller and puts the board into firmware flashing mode.
@@ -61,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
     [_LOWER] = LAYOUT(
-        KC_TRNS,  KC_TRNS,   CK_M2,   CK_M1,   CK_LP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_MPLY,
+        KC_TRNS,  KC_TRNS,   CK_M1, KC_MCTL, KC_LPAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_MPLY,
         TO(0),      TO(1),   TO(2),   TO(3), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_TOG, RGB_VAD, RGB_VAI, KC_TRNS,   KC_VOLU,
         KC_PSCR,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS, KC_TRNS, KC_TRNS, CK_SLP,  KC_VOLD,
             KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS,         KC_MUTE,
-            KC_TRNS,     CK_UN,    CK_CU,    CK_CO,    CK_PA,  CK_MV, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,   KC_PGUP,
+            KC_TRNS,   KC_TRNS,    CK_CU,    CK_CO,    CK_PA,  CK_MV, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,   KC_PGUP,
             KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,        KC_TRNS, KC_TRNS,    TO(0),           KC_HOME, KC_PGDN, KC_END
     ),
 
