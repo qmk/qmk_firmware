@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 /* Use 5 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
