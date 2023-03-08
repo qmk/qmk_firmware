@@ -25,9 +25,6 @@ enum __layers {
     MAC_WASD,
     MAC_FN
 };
-enum custom_keycodes {
-    KC_RESET = SAFE_RANGE
-};
 
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
