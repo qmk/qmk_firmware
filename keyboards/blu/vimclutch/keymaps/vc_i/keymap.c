@@ -15,18 +15,27 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _VC,
     _VIM
 };
 
-// Define custom keycodes
 enum my_keycodes {
     USER_CLUTCH = SAFE_RANGE
 };
 
-// Layer-specific lighting
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* Base */
+    [_VC] = LAYOUT(
+        TO(_VC),    TO(_VIM),  KC_F13
+    ),
+
+    [_VIM] = LAYOUT(
+        TO(_VC),    TO(_VIM),  USER_CLUTCH
+    )
+};
+
+/* Layer-specific lighting */
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _VC:
@@ -45,19 +54,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 };
 
-// Define the layout
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [_VC] = LAYOUT(
-        TO(_VC),    TO(_VIM),  KC_F13
-    ),
-
-    [_VIM] = LAYOUT(
-        TO(_VC),    TO(_VIM),  USER_CLUTCH
-    )
-};
-
-// Define vim-clutching
+/* Define vim-clutching */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case USER_CLUTCH:
