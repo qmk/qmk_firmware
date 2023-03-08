@@ -1,6 +1,6 @@
 # EC Pro X JIS
 
-![EC Pro X JIS PCB](https://i.imgur.com/yJdPOcb.png)
+![EC Pro X JIS PCB](https://i.imgur.com/yJdPOcbh.png)
 
 Open source replacement PCB kit for the HHKB Pro 2 and Pro 3 keyboards using the JIS case.
 

@@ -1,6 +1,6 @@
 # EC Pro X ANSI/ISO
 
-![EC Pro X ANSI/ISO PCB](https://i.imgur.com/TYhUrV0.png)
+![EC Pro X ANSI/ISO PCB](https://i.imgur.com/TYhUrV0h.png)
 
 Open source replacement PCB kit for the HHKB Pro 2 and Pro 3 keyboards using the ANSI case.
 
