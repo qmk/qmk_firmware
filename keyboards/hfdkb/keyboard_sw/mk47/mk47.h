@@ -17,7 +17,7 @@
 #pragma once
 
 #include "quantum.h"
-
+enum colors;
 void led_test(uint8_t color);
 void clear_eeprom(void);
 void rgb_hsv_updata_user(void);
