@@ -15,4 +15,4 @@ SPACE_CADET_ENABLE = no	# Free up space
 LTO_ENABLE = yes
 
 # Include userspace files
-SRC += peterfalken.c
+SRC += $(USER_PATH)/peterfalken.c 
