@@ -16,7 +16,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 }
 #endif
 
-void eeconfig_init_kb() {
+void eeconfig_init_kb(void) {
     steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
     eeconfig_init_user();
 }

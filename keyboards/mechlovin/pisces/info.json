@@ -8,6 +8,14 @@
         "pid": "0x6501",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7"
+    },
+    "indicators": {
+        "caps_lock": "B2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

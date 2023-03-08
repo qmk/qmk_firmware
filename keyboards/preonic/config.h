@@ -17,37 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
 
 /* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { D2, D5, B5, B6, D3 }
 #define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
 
-#define QMK_ESC_OUTPUT F1
-#define QMK_ESC_INPUT B5
-#define QMK_LED     E6
-#define QMK_SPEAKER C6
-
 #define AUDIO_VOICES
 #define AUDIO_PIN C6
 
-#define BACKLIGHT_PIN B7
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

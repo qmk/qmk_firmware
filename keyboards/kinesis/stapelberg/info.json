@@ -5,5 +5,14 @@
         "vid": "0xFEED",
         "pid": "0x6060",
         "device_version": "0.0.2"
-    }
+    },
+    "indicators": {
+        "caps_lock": "F3",
+        "num_lock": "F2",
+        "scroll_lock": "F1",
+        "compose": "F0",
+        "on_state": 0
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay"
 }
