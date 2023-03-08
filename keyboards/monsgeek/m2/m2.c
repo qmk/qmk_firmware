@@ -470,21 +470,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case RGB_HUI:
             if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
-                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_hue() / (UINT8_MAX / 6)) < 6) {
-                    alarm_cnt = 2;
-                    RGB_HSV_level++;
-                    rgb_matrix_config.hsv.h = (uint8_t)(UINT8_MAX / 6) * RGB_HSV_level;
-                }
-                rgb_hsv_updata_user();
-            }
-            return false;
-        case RGB_HUD:
-            if ((fn_make_flag && record->event.pressed) && (alarm_flag == 0)) {
-                if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_hue() / (UINT8_MAX / 6)) > 0) {
-                    alarm_cnt = 2;
-                    RGB_HSV_level--;
-                    rgb_matrix_config.hsv.h = (uint8_t)(UINT8_MAX / 6) * RGB_HSV_level;
-                }
+                alarm_cnt = 2;
+                RGB_HSV_level = (uint8_t)rgb_matrix_get_hue() / (UINT8_MAX / 6);
+                RGB_HSV_level++;
+                RGB_HSV_level %= 7;
+                rgb_matrix_config.hsv.h = (uint8_t)(UINT8_MAX / 6) * RGB_HSV_level;     
                 rgb_hsv_updata_user();
             }
             return false;
