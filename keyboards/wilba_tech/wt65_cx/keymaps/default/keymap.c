@@ -1,3 +1,5 @@
+// Copyright 2023 Jason Williams (@wilba)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 #include "keyboards/wilba_tech/wt_rgb_backlight_keycodes.h"
 
