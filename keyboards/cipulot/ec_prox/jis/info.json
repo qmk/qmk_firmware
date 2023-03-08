@@ -2,7 +2,6 @@
     "manufacturer": "Cipulot",
     "keyboard_name": "EC Pro X JIS",
     "maintainer": "Cipulot",
-    "board": "GENERIC_STM32_F401XC",
     "bootloader": "stm32-dfu",
     "build": {
         "lto": true
@@ -19,7 +18,6 @@
         "nkro": true,
         "rgblight": true
     },
-    "keyboard_folder": "cipulot/ec_prox/jis",
     "mouse_key": {
         "enabled": true
     },
