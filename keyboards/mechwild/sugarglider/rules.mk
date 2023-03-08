@@ -1,7 +1,6 @@
 # Build Options
 #   change yes to no to disable
 #
-WIDE_OLED_ENABLE = yes
 OLED_ENABLE = yes                   # OLED Enabled
 OLED_DRIVER = SSD1306               # OLED Driver
 
@@ -18,7 +17,7 @@ VPATH += drivers/gpio
 SRC += mcp23018.c matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
 
-DEFAULT_FOLDER = mechwild/sugarglider/f401
+DEFAULT_FOLDER = mechwild/sugarglider/wide_oled
 
 # Necessary for stenography functionality
 KEYBOARD_SHARED_EP = yes    # Needed to free up an endpoint in blackpill

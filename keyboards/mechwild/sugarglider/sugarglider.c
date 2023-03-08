@@ -6,10 +6,8 @@
 #ifndef GLIDEPOINT_DPI_OPTIONS
 #    define GLIDEPOINT_DPI_OPTIONS \
         { 400, 800, 1200, 1600, 2000, 2400, 2800, 3200, 3600, 4000 }
-#    ifndef GLIDEPOINT_DPI_DEFAULT
-#        define GLIDEPOINT_DPI_DEFAULT 1
-#    endif
 #endif
+
 #ifndef GLIDEPOINT_DPI_DEFAULT
 #    define GLIDEPOINT_DPI_DEFAULT 1
 #endif
@@ -57,7 +55,7 @@ void tap_toggle(void) {
     }
     eeconfig_update_kb(keyboard_config.raw);
 }
-#endif
+#endif  // ifdef DYNAMIC_TAPPING_TERM_ENABLE
 
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) {
@@ -120,7 +118,23 @@ bool led_update_kb(led_t led_state) {
     return res;
 }
 
-#if defined(OLED_ENABLE) && defined(OLED_DISPLAY_128X64) // Wide OLED Functionality
+#ifdef OLED_ENABLE
+static void render_logo(void) {     // Render MechWild "MW" Logo
+    static const char PROGMEM logo_1[] = {0xCC, 0xCD, 0xCE, 0xCF, 0x00};
+    static const char PROGMEM logo_2[] = {0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00};
+    static const char PROGMEM logo_3[] = {0xD5, 0xD6, 0xD7, 0xD8, 0x00};
+    static const char PROGMEM logo_4[] = {0xDE, 0xD9, 0xDA, 0xDB, 0x00};
+    
+    oled_write_P(logo_1, false);
+    oled_set_cursor(0,1);
+    oled_write_P(logo_2, false);
+    oled_set_cursor(0,2);
+    oled_write_P(logo_3, false);
+    oled_set_cursor(0,3);
+    oled_write_P(logo_4, false);
+}
+
+#ifdef OLED_DISPLAY_128X64 // Wide OLED Functionality
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;       // flips the display 180 degrees
 }
@@ -154,37 +168,21 @@ static void render_sugarglider_wide(void) {     // Render sugarglider logo
     oled_write_P(sgl_8, false);
 }
 
-static void render_logo(void) {     // Render MechWild "MW" Logo
-    static const char PROGMEM logo_1[] = {0xCC, 0xCD, 0xCE, 0xCF, 0x00};
-    static const char PROGMEM logo_2[] = {0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00};
-    static const char PROGMEM logo_3[] = {0xD5, 0xD6, 0xD7, 0xD8, 0x00};
-    static const char PROGMEM logo_4[] = {0xDE, 0xD9, 0xDA, 0xDB, 0x00};
-    
-    oled_write_P(logo_1, false);
-    oled_set_cursor(0,1);
-    oled_write_P(logo_2, false);
-    oled_set_cursor(0,2);
-    oled_write_P(logo_3, false);
-    oled_set_cursor(0,3);
-    oled_write_P(logo_4, false);
-}
-
 bool oled_task_kb(void) {
     if(!oled_task_user()) {
         return false;
     }
-    if ( !(host_keyboard_led_state().num_lock || host_keyboard_led_state().caps_lock || host_keyboard_led_state().scroll_lock ) && get_highest_layer(layer_state) == 0 ) {
+    if ( !(host_keyboard_led_state().num_lock || host_keyboard_led_state().caps_lock || host_keyboard_led_state().scroll_lock ) && get_highest_layer(layer_state) == 0 ) {      // If none of the status LEDs are active and also the active layer is the base layer
         if (clear_screen_art == true) {
             oled_clear();
             oled_render();
             clear_screen_art = false;
         }
         render_sugarglider_wide();
-#ifdef POINTING_DEVICE_ENABLE
+#ifdef POINTING_DEVICE_ENABLE                           // only display dpi and tap info if pointing devices are active
         oled_set_cursor(10,5);
         oled_write_P(PSTR(" DPI:"), false);
         oled_write(get_u16_str(dpi_array[keyboard_config.dpi_config], ' '), false);
-#endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE                      // only display tap info if it is being configured dynamically
         oled_set_cursor(10,6);
         oled_write_P(PSTR(" TAP:"), false);
@@ -194,8 +192,9 @@ bool oled_task_kb(void) {
             oled_write(get_u16_str(g_tapping_term, ' '), false);
         }
 #endif
+#endif
         clear_screen = true;
-    } else {
+    } else {        // If any of the status LEDs are active or if the active layer is not the base layer
         if (clear_screen == true) {
             oled_clear();
             oled_render();
@@ -232,11 +231,10 @@ bool oled_task_kb(void) {
         oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
         oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
         oled_write_P(led_state.scroll_lock ? PSTR("SCR") : PSTR("    "), false);
-#ifdef POINTING_DEVICE_ENABLE
+#ifdef POINTING_DEVICE_ENABLE                   // only display dpi and tap info if pointing devices are active
         oled_set_cursor(8,2);
         oled_write_P(PSTR("DPI:"), false);
         oled_write(get_u16_str(dpi_array[keyboard_config.dpi_config], ' '), false);
-#endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE              // only display tap info if it is being configured dynamically
         oled_set_cursor(8,3);
         oled_write_P(PSTR("TAP:"), false);
@@ -246,29 +244,16 @@ bool oled_task_kb(void) {
             oled_write(get_u16_str(g_tapping_term, ' '), false);
         }
 #endif
+#endif
         clear_screen_art = true;
     }
     return true;
 }
-#elif defined(OLED_ENABLE) && ! defined(OLED_DISPLAY_128X64)
+#else  // Using an OLED but not the wide OLED
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_270;       // flips the display 270 degrees
 }
 
-static void render_logo(void) {     // Render MechWild "MW" Logo
-    static const char PROGMEM logo_1[] = {0xCC, 0xCD, 0xCE, 0xCF, 0x00};
-    static const char PROGMEM logo_2[] = {0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00};
-    static const char PROGMEM logo_3[] = {0xD5, 0xD6, 0xD7, 0xD8, 0x00};
-    static const char PROGMEM logo_4[] = {0xDE, 0xD9, 0xDA, 0xDB, 0x00};
-    
-    oled_write_P(logo_1, false);
-    oled_set_cursor(0,1);
-    oled_write_P(logo_2, false);
-    oled_set_cursor(0,2);
-    oled_write_P(logo_3, false);
-    oled_set_cursor(0,3);
-    oled_write_P(logo_4, false);
-}
 
 bool oled_task_kb(void) {
     if(!oled_task_user()) {
@@ -322,7 +307,8 @@ bool oled_task_kb(void) {
 #endif
     return true;
 }
-#endif
+#endif // Not using wide OLED
+#endif // ifdef OLED_ENABLE
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     switch(keycode) {
@@ -356,7 +342,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE // only include tap info keycodes if it is being configured dynamically
         case TAP_UP:
             if (record->event.pressed) {
-                tap_modify(DYNAMIC_TAPPING_TERM_INCREMENT, true);
+                if (keyboard_config.dt_term_config < 5000) {
+                    tap_modify(DYNAMIC_TAPPING_TERM_INCREMENT, true);
+                }
             }
             return false;
         case TAP_DN:
@@ -381,7 +369,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 tap_toggle();
             }
             return false;
-#endif
+#endif // ifdef 
     }
     return process_record_user(keycode, record);
 }
