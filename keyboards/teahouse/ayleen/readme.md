@@ -1,6 +1,6 @@
 # Teahouse Ayleen
 
-![Teahouse Ayleen](https://imgur.com/rOotAjT)
+![Teahouse Ayleen](https://i.imgur.com/rOotAjTh.png)
 
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
