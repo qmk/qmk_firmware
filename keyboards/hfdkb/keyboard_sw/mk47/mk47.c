@@ -264,7 +264,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         }
 #endif
      default:
-            return process_record_user(keycode, record);
+            return true;
     }
 }
 
