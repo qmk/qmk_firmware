@@ -93,6 +93,15 @@ class XAPShell(cmd.Cmd):
         # cache keycodes for this device
         self.keycodes = _load_keycodes(device.version().get('keycodes', 'latest'))
 
+        # TODO: dummy code is only to PoC kb/user keycodes
+        kb_keycodes = self.device.info().get('keycodes', [])
+        for index, item in enumerate(kb_keycodes):
+            self.keycodes[0x7E00 + index] = item['key']
+
+        user_keycodes = self.device.info().get('user_keycodes', [])
+        for index, item in enumerate(user_keycodes):
+            self.keycodes[0x7E40 + index] = item['key']
+
     def do_about(self, arg):
         """Prints out the version info of QMK
         """

@@ -894,7 +894,13 @@ def keymap_json_config(keyboard, keymap):
     keymap_folder = locate_keymap(keyboard, keymap).parent
 
     km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
-    return km_info_json.get('config', {})
+    ret = km_info_json.get('config', {})
+
+    # TODO: dummy code is only to PoC kb/user keycodes
+    if 'keycodes' in km_info_json:
+        ret['user_keycodes'] = km_info_json['keycodes']
+
+    return ret
 
 
 def keymap_json(keyboard, keymap):
