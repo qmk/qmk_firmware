@@ -5,8 +5,13 @@
     "usb": {
         "vid": "0xFFFE",
         "pid": "0x0008",
-        "device_version": "1.1.0"
+        "device_version": "1.0.0"
     },
+    "matrix_pins": {
+        "cols": ["B15", "C6", "C7", "C8", "C9", "A8"],
+        "rows": ["C1","C2","C3","A0","A1","A2","A3","A4","A5","A6","A7","C4","C5","B0","B1","B2","B10","B11","B12","B13","B14"]
+    },
+    "diode_direction": "ROW2COL",
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "layouts": {

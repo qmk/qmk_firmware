@@ -21,24 +21,7 @@
 
 #define RGB_TRIGGER_ON_KEYDOWN
 /* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
- #define FORCE_NKRO
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 21
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS \
-    { B15, C6, C7, C8, C9, A8 }
-#define MATRIX_COL_PINS \
-    { C1, C2, C3, A0, A1, A2, A3, A4, A5, A6, A7, C4, C5, B0, B1, B2, B10, B11, B12, B13, B14 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* encoder resolution */
-#define ENCODER_RESOLUTION 2
-#define TAP_CODE_DELAY 20
+#define FORCE_NKRO
 
 /* LED Indicators */
 
