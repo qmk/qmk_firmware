@@ -16,30 +16,5 @@
 
 #pragma once
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
-/* Custom matrix pins and port select array */
-#define MATRIX_ROW_PINS \
-    { B15, A8, B13, B12, B14, B0 }
-#define MATRIX_COL_CHANNELS \
-    { 3, 0, 1, 2, 4, 6, 7, 5 }
-#define MUX_SEL_PINS \
-    { B4, B5, B6 }
-
-/* Hardware peripherals pins */
-#define APLEX_EN_PIN_0 B7
-#define APLEX_EN_PIN_1 A6
-#define DISCHARGE_PIN A4
-#define ANALOG_PORT A3
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-#define DEFAULT_ACTUATION_LEVEL 700
-#define DEFAULT_RELEASE_LEVEL 650
-
-#define DISCHARGE_TIME 10
+// This is the size of the EEPROM for the custom VIA-specific data
+#define EECONFIG_USER_DATA_SIZE 4
