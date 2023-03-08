@@ -8,6 +8,8 @@
         "pid": "0x0382",
         "device_version": "1.0.0"
     },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_iso_70": {
             "layout": [

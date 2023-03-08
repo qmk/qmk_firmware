@@ -16,28 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { E6, D7, B1, B3 }, \
-    { B5, B4, B2, B6 } \
-}
-
 #define RGB_DI_PIN D3                   // LED data pin on controller
 #define RGBLED_NUM 4                    // Number of LEDs connected
 
@@ -62,12 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_BRIGHTNESS 128
 #define OLED_DISPLAY_128X64
 
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-//#define GRAVE_ESC_CTRL_OVERRIDE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -83,7 +55,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0

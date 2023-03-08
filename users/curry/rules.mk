@@ -29,7 +29,7 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(LEADER_ENABLE)), yes)
-    SRC += leader.c
+    SRC += leader_user.c
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)

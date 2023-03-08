@@ -8,6 +8,8 @@
         "pid": "0x0202",
         "device_version": "20.0.4"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [
