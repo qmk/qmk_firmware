@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB matrix */
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 #ifdef RGB_MATRIX_ENABLE
+#define RGB_DI_PIN GP5
 #define RGB_MATRIX_LED_COUNT 4
 
 // RGB Matrix Effects
