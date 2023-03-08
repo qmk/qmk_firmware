@@ -4,9 +4,9 @@
 
 A hotswap 65% keyboard with arow keys, per key rgb and a rotary encoder designed for Rotwitt by Trip-trap.
 
-* Keyboard Maintainer: [Trip-trap](https://github.com/adamnaldal)
-* Hardware Supported: Polygon iso and ansi edition PCBs
-* Hardware Availability: https://www.instagram.com/byrotwitt/
+-   Keyboard Maintainer: [Trip-trap](https://github.com/adamnaldal)
+-   Hardware Supported: Polygon iso and ansi edition PCBs
+-   Hardware Availability: https://www.rotwitt.com/
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -15,7 +15,6 @@ Make example for this keyboard (after setting up your build environment):
 or
 
     make polygon/ansi:ansi
-
 
 Flashing example for this keyboard:
 
