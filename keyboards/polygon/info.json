@@ -16,8 +16,8 @@
         "rotary": [{ "pin_a": "D3", "pin_b": "D5", "resolution": 4 }]
     },
     "processor": "atmega32u4",
-    "diode_direction": "COL2ROW",
     "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT_iso": {
             "layout": [
