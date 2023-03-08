@@ -32,9 +32,6 @@
             {"flags": 8, "matrix": [3, 0], "x": 2, "y": 27}
         ]
     },
-    "rgblight": {
-        "pin": "GP5"
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
