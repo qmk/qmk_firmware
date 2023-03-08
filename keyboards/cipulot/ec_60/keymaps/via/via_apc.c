@@ -28,7 +28,7 @@ typedef struct _apc_config_t {
 } apc_config;
 
 // Check if the size of the reserved persistent memory is the same as the size of struct apc_config
-_Static_assert(sizeof(apc_config) == EECONFIG_KB_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
+_Static_assert(sizeof(apc_config) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
 // Declaring a new variable apc of type apc_config
 apc_config apc;
@@ -42,18 +42,18 @@ enum via_apc_enums {
 };
 
 // Initializing persistent memory configuration: default values are declared and stored in PMEM
-void eeconfig_init_kb(void) {
+void eeconfig_init_user(void) {
     // Default values
     apc.actuation_threshold = DEFAULT_ACTUATION_LEVEL;
     apc.release_threshold   = DEFAULT_RELEASE_LEVEL;
     // Write default value to EEPROM now
-    eeconfig_update_kb_datablock(&apc);
+    eeconfig_update_user_datablock(&apc);
 }
 
 // On Keyboard startup
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     // Read custom menu variables from memory
-    eeconfig_read_kb_datablock(&apc);
+    eeconfig_read_user_datablock(&apc);
     apc_init_thresholds();
 }
 
@@ -99,7 +99,7 @@ void apc_config_get_value(uint8_t *data) {
 
 // Save the data to persistent memory after changes are made
 void apc_config_save(void) {
-    eeconfig_update_kb_datablock(&apc);
+    eeconfig_update_user_datablock(&apc);
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
