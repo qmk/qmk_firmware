@@ -2,7 +2,6 @@
     "manufacturer": "Cipulot",
     "keyboard_name": "RF R1 8-9Xu",
     "maintainer": "Cipulot",
-    "board": "GENERIC_STM32_F401XC",
     "bootloader": "stm32-dfu",
     "build": {
         "lto": true
@@ -19,7 +18,6 @@
         "nkro": true,
         "rgblight": true
     },
-    "keyboard_folder": "cipulot/rf_r1_8_9xu",
     "mouse_key": {
         "enabled": true
     },
