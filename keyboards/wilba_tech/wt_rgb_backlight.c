@@ -22,6 +22,8 @@
     defined(RGB_BACKLIGHT_KOYU) || \
     defined(RGB_BACKLIGHT_M65_B) || \
     defined(RGB_BACKLIGHT_M65_BX) || \
+    defined(RGB_BACKLIGHT_WT65_C) || \
+    defined(RGB_BACKLIGHT_WT65_CX) || \
     defined(RGB_BACKLIGHT_HS60) || \
     defined(RGB_BACKLIGHT_NK65) || \
     defined(RGB_BACKLIGHT_NK87) || \
@@ -996,8 +998,7 @@ const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
     // LC0..LC17
     {112,64}, {100,48}, {84,48}, {68,48}, {52,48}, {36,48}, {64,60}, {44,60}, {24,64},
     {108,32}, {92,32}, {76,32}, {60,32}, {44,32}, {28,32}, {255,255}, {10,48}, {4,64},
-    // LD0..LD1762
-
+    // LD0..LD17
     {124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {202,48}, {224,48},
     {116,48}, {132,48}, {148,48}, {164,48}, {255,255}, {160,60}, {180,64}, {208,64}, {255,255}
 };
@@ -1043,6 +1044,35 @@ const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
     // LD0..LD17
     {0,9}, {0,43}, {0,77}, {0,111}, {0,145}, {0,201}, {224,181}, {230,217}, {235,255},
     {189,128}, {200,131}, {210,141}, {218,159}, {255,255}, {207,238}, {211,255}, {218,255}, {221,255}
+};
+#elif defined(RGB_BACKLIGHT_WT65_C) || defined(RGB_BACKLIGHT_WT65_CX)
+const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
+    // LA0..LA17
+    {120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
+    {128,0}, {112,0}, {96,0}, {80,0}, {64,0}, {48,0}, {32,0}, {16,0}, {0,0},
+    // LB0..LB17
+    {144,0}, {160,0}, {176,0}, {192,0}, {208,0}, {224,0}, {216,0}, {240,0}, {240,16},
+    {136,16}, {152,16}, {168,16}, {184,16}, {200,16}, {220,16}, {240,32}, {240,48}, {240,64},
+    // LC0..LC17
+    {96,64}, {100,48}, {84,48}, {68,48}, {52,48}, {36,48}, {255,255}, {48,60}, {28,64},
+    {108,32}, {92,32}, {76,32}, {60,32}, {44,32}, {28,32}, {255,255}, {10,48}, {4,64},
+    // LD0..LD17
+    {124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {202,48}, {224,48},
+    {116,48}, {132,48}, {148,48}, {164,48}, {144,60}, {164,64}, {188,64}, {208,64}, {224,64}
+};
+const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
+    // LA0..LA17
+    {64,128}, {75,132}, {84,145}, {91,164}, {97,187}, {102,213}, {105,242}, {109,255}, {128,243},
+    {61,255}, {67,255}, {72,255}, {77,255}, {82,255}, {86,255}, {90,255}, {93,255}, {96,255},
+    // LB0..LB17
+    {56,255}, {51,255}, {46,255}, {42,255}, {38,255}, {35,255}, {37,255}, {32,255}, {19,255},
+    {53,132}, {44,145}, {37,164}, {31,187}, {26,213}, {22,249}, {0,255}, {237,255}, {224,255},
+    // LC0..LC17
+    {184,255}, {179,135}, {170,149}, {163,169}, {157,193}, {153,220}, {255,255}, {167,255}, {165,255},
+    {128,26}, {128,60}, {128,94}, {128,128}, {128,162}, {128,196}, {255,255}, {148,255}, {161,255},
+    // LD0..LD17
+    {0,9}, {0,43}, {0,77}, {0,111}, {0,145}, {0,201}, {224,181}, {230,217}, {235,255},
+    {189,128}, {200,131}, {210,141}, {218,159}, {201,228}, {206,255}, {213,255}, {218,255}, {221,255}
 };
 #elif defined(RGB_BACKLIGHT_ZEAL60) || defined(RGB_BACKLIGHT_M60_A)
 const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
@@ -1579,6 +1609,22 @@ const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     {   0+8, 36+14, 36+13, 36+12, 36+11, 36+10,  36+9,  54+0,  54+1,  54+2,  54+3,  54+4,  54+5,  18+5, 18+15 },
     { 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8, 18+16 },
     { 36+17,  36+8,  36+7,  36+6,   255,   255,   255,  36+0,  255,    255, 54+14, 54+15, 54+16, 54+17, 18+17 }
+};
+#elif defined(RGB_BACKLIGHT_WT65_C) || defined(RGB_BACKLIGHT_WT65_CX)
+// Note: Left spacebar stab is at 4,2 (LC7)
+// Right spacebar stab is at 4,9 (D13)
+//                                                                  (B6)
+// A17, A16, A15, A14, A13, A12, A11, A10,  A9,  B0,  B1,  B2,  B3,  B4,  B7
+//  A7,  A6,  A5,  A4,  A3,  A2,  A1,  A0,  B9, B10, B11, B12, B13, B14,  B8
+//  A8, C14, C13, C12, C11, C10,  C9,  D0,  D1,  D2,  D3,  D4,  D5,  B5, B15
+// C16, C15,  C5,  C4,  C3,  C2,  C1,  D9, D10, D11, D12,  D6,  D7,  D8, B16
+// C17,  C8,  C7, ---, ---,  C0, ---, ---, ---, D13, D14, D15, D16, D17, B17
+const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+    {  0+17,  0+16,  0+15,  0+14,  0+13,  0+12,  0+11,  0+10,   0+9,  18+0,  18+1,  18+2,  18+3,  18+4,  18+7 },
+    {   0+7,   0+6,   0+5,   0+4,   0+3,   0+2,   0+1,   0+0,  18+9, 18+10, 18+11, 18+12, 18+13, 18+14,  18+8 },
+    {   0+8, 36+14, 36+13, 36+12, 36+11, 36+10,  36+9,  54+0,  54+1,  54+2,  54+3,  54+4,  54+5,  18+5, 18+15 },
+    { 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8, 18+16 },
+    { 36+17,  36+8,  36+7,   255,   255,  36+0,   255,   255,   255, 54+13, 54+14, 54+15, 54+16, 54+17, 18+17 }
 };
 #elif defined(RGB_BACKLIGHT_ZEAL60) || defined(RGB_BACKLIGHT_M60_A)
 // Note: Left spacebar stab is at 4,3 (LC6)
@@ -2400,10 +2446,13 @@ void backlight_effect_indicators_set_colors( uint8_t index, HS color )
 #if defined(RGB_BACKLIGHT_ZEAL65)
             backlight_set_color( 36+7, rgb.r, rgb.g, rgb.b ); // LC7
             backlight_set_color( 54+14, rgb.r, rgb.g, rgb.b ); // LD14
-#elif defined(RGB_BACKLIGHT_KOYU) || defined(RGB_BACKLIGHT_M65_B) || defined(RGB_BACKLIGHT_M65_BX)
+#elif defined(RGB_BACKLIGHT_KOYU) || defined(RGB_BACKLIGHT_M65_B) || defined(RGB_BACKLIGHT_M65_BX) || defined(RGB_BACKLIGHT_M60_A) || defined(RGB_BACKLIGHT_WT60_B) || defined(RGB_BACKLIGHT_WT60_BX) || defined(RGB_BACKLIGHT_WT60_C)
             backlight_set_color( 36+6, rgb.r, rgb.g, rgb.b ); // LC6
             backlight_set_color( 54+14, rgb.r, rgb.g, rgb.b ); // LD14
-#elif defined(RGB_BACKLIGHT_ZEAL60) || defined(RGB_BACKLIGHT_M60_A)
+#elif defined(RGB_BACKLIGHT_WT65_C) || defined(RGB_BACKLIGHT_WT65_CX)
+            backlight_set_color( 36+7, rgb.r, rgb.g, rgb.b ); // LC7
+            backlight_set_color( 54+13, rgb.r, rgb.g, rgb.b ); // LD13
+#elif defined(RGB_BACKLIGHT_ZEAL60)
             backlight_set_color( 36+6, rgb.r, rgb.g, rgb.b ); // LC6
             backlight_set_color( 54+13, rgb.r, rgb.g, rgb.b ); // LD13
             if ( g_config.use_7u_spacebar )
@@ -3056,6 +3105,15 @@ void backlight_init_drivers(void)
         // LC15 LD13 not present on M65-B, M65-BX
                           ( index == 36+15 ) || // LC15
                           ( index == 54+13 ) ); // LD13
+#elif defined(RGB_BACKLIGHT_WT65_C) || defined(RGB_BACKLIGHT_WT65_CX)
+        bool enabled = !(
+        // LB6 not present on WT65-C
+#if defined(RGB_BACKLIGHT_WT65_C)
+                          ( index == 18+6 ) || // LB6
+#endif
+        // LC6 LC15 not present on WT65-C, WT65-CX
+                          ( index == 36+6 ) || // LC6
+                          ( index == 36+15 ) ); // LC15
 #elif defined(RGB_BACKLIGHT_M60_A)
         bool enabled = !(
         // LB6 LB7 LB8 LB15 LB16 LB17 not present on M60-A
