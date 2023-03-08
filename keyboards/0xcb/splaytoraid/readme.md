@@ -1,6 +1,6 @@
 # splaytoraid
 
-![splaytoraid](https://keeb.supply/assets/splaytoraid-rgb__preview.webp?preset=full)
+![splaytoraid](https://i.imgur.com/N85DPHGh.png)
 
 *A short description of the keyboard/project*
 
@@ -11,18 +11,11 @@
 Make example for this keyboard (after setting up your build environment):
 
     make 0xcb/splaytoraid:default
-
-Flashing example for this keyboard:
-
-    make 0xcb/splaytoraid:default
-
-this will build the rp2040 variant
-you can also build the atmega32u4 variant by using:
-
     make 0xcb/splaytoraid/32u4:default
     
-and flash it:
+Flashing example for this keyboard:
 
+    make 0xcb/splaytoraid:default:flash
     make 0xcb/splaytoraid/32u4:default:flash
 
 

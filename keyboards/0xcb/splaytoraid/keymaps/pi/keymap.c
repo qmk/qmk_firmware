@@ -287,51 +287,6 @@ bool caps_word_press_user(uint16_t keycode) {
   }
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-// │ M A C R O S                                                                                                                                │
-// └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-// ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-
-        case OS_SWAP:
-            if (record->event.pressed) {
-                if (!keymap_config.swap_lctl_lgui) {
-                  keymap_config.swap_lctl_lgui = true;  // ─── MAC
-                  #ifdef AUDIO_ENABLE
-                    PLAY_SONG(mac_song);
-                  #endif // AUDIO_ENABLE
-                }
-                else {
-                  keymap_config.swap_lctl_lgui = false; // ─── WIN
-                  #ifdef AUDIO_ENABLE
-                    PLAY_SONG(winxp_song);
-                  #endif // AUDIO_ENABLE
-                }
-            eeconfig_update_keymap(keymap_config.raw);
-            clear_keyboard();  // ──── clear to prevent stuck keys
-            return false;
-          }
-
-
-// ┌───────────────────────────────────────────────────────────┐
-// │ l a y e r                                                 │
-// └───────────────────────────────────────────────────────────┘
-
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-    }
-    return true;
-}
-
 // ┌───────────────────────────────────────────────────────────┐
 // │ e n c o d e r                                             │
 // └───────────────────────────────────────────────────────────┘

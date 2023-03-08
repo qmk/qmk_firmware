@@ -17,8 +17,5 @@
                 "resolution": 4
             }
         ]
-    },
-    "rgblight": {
-        "pin": "D0"
     }
 }
