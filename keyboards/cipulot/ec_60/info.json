@@ -2,7 +2,6 @@
     "manufacturer": "Cipulot",
     "keyboard_name": "EC 60",
     "maintainer": "Cipulot",
-    "board": "GENERIC_STM32_F401XC",
     "bootloader": "stm32-dfu",
     "build": {
         "lto": true
@@ -19,7 +18,6 @@
         "nkro": true,
         "rgblight": false
     },
-    "keyboard_folder": "cipulot/ec_60",
     "mouse_key": {
         "enabled": true
     },
