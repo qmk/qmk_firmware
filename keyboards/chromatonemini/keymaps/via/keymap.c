@@ -41,7 +41,7 @@ static bool led_indicator_enable = true;
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    SHIFT_L = USER00,
+    SHIFT_L = QK_KB_0,
     SHIFT_R,
     TGLINDI,  //  ToGgLe INDIcator
     TGLINTR,  //  ToGgLe INdicator location {(_KEY01, _KEY13, _KEY25, _KEY37) or (_KEY02, _KEY14, _KEY26) / (_KEY12, _KEY24, _KEY36)}in TRans mode

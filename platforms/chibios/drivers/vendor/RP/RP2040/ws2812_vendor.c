@@ -1,10 +1,13 @@
 // Copyright 2022 Stefan Kerkmann (@KarlK90)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
 #include "ws2812.h"
-#include "hardware/pio.h"
+#include "hardware/timer.h"
 #include "hardware/clocks.h"
+// Keep this exact include order otherwise we run into naming conflicts between
+// pico-sdk and rp2040.h which we don't control.
+#include "quantum.h"
+#include "hardware/pio.h"
 
 #if !defined(MCU_RP)
 #    error PIO Driver is only available for Raspberry Pi 2040 MCUs!
@@ -132,7 +135,7 @@ static uint32_t                RP_DMA_MODE_WS2812;
 static int                     STATE_MACHINE = -1;
 
 static SEMAPHORE_DECL(TRANSFER_COUNTER, 1);
-static rtcnt_t LAST_TRANSFER;
+static absolute_time_t LAST_TRANSFER;
 
 /**
  * @brief Convert RGBW value into WS2812 compatible 32-bit data word.
@@ -161,7 +164,7 @@ static void ws2812_dma_callback(void* p, uint32_t ct) {
     // Convert from ns to us
     time_to_completion /= 1000;
 
-    LAST_TRANSFER = chSysGetRealtimeCounterX() + time_to_completion + WS2812_TRST_US;
+    update_us_since_boot(&LAST_TRANSFER, time_us_64() + time_to_completion + WS2812_TRST_US);
 
     osalSysLockFromISR();
     chSemSignalI(&TRANSFER_COUNTER);
@@ -256,8 +259,7 @@ static inline void sync_ws2812_transfer(void) {
     }
 
     // Busy wait until last transfer has finished
-    while (unlikely(!timer_expired32(chSysGetRealtimeCounterX(), LAST_TRANSFER))) {
-    }
+    busy_wait_until(LAST_TRANSFER);
 }
 
 void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {

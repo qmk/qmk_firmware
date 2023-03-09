@@ -1,0 +1,10 @@
+{
+    "split": {
+        "bootmagic": {
+            "matrix": [7, 0]
+        }
+    },
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F411"
+}

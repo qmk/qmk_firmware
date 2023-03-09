@@ -8,6 +8,8 @@
         "pid": "0xF048",
         "vid": "0xF048"
            },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
