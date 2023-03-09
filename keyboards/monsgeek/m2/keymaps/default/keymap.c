@@ -81,33 +81,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______,                   _______,                           _______,          _______,           RGB_SAD, RGB_VAD,  RGB_SAI, _______, _______)
 
 };
-// clang-format on
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-       case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; // Skip all further processing of this key
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; // Skip all further processing of this key
-    }
-    return true;
-}
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [WIN_B] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)}, 
-    [WIN_WASD] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)}, 
-    [WIN_FN] = {ENCODER_CCW_CW(RGB_VAI, RGB_VAD)}, 
-    [MAC_B] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)}, 
-    [MAC_WASD] = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)}, 
-    [MAC_FN] = {ENCODER_CCW_CW(RGB_VAI, RGB_VAD)}
-    };
-#endif
