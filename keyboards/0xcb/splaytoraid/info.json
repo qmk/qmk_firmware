@@ -3,7 +3,6 @@
     "keyboard_name": "splaytoraid",
     "maintainer": "freya-irl",
     "url": "https://github.com/freya-irl/splaytoraid40",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "usb": {
         "device_version": "1.0.0",
