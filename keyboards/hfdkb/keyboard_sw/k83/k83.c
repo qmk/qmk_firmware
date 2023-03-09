@@ -249,6 +249,29 @@ led_config_t g_led_config = {
     }
 };
 
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
+    // caps lock red
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(44, 255, 0, 0);
+    } else {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(44, 0, 0, 0);
+        }
+    }
+    // GUI lock red
+    if (keymap_config.no_gui) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(73, 255, 0, 0);
+    } else {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(73, 0, 0, 0);
+        }
+    }
+    return true;
+}
+
 #endif
 
 enum __layers {

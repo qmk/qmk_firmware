@@ -15,26 +15,18 @@
  */
 
 #include QMK_KEYBOARD_H
-
+// clang-format off
 enum __layers {
     WIN_B,
     WIN_FN,
     MAC_B,
     MAC_FN
 };
-enum custom_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
-    KC_LAUNCHPAD,
-    KC_RESET
-};
 
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
 #define KC_SIRI LALT(KC_SPC)
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
 
-// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [WIN_B] = LAYOUT( /* Base */
@@ -69,65 +61,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LSFT, KC_Z,    KC_X,    KC_CALC, KC_V,   KC_B,   KC_N,   KC_MUTE, KC_VOLD,KC_VOLU,   KC_SLSH, KC_RSFT,                            RGB_VAI, KC_END, 
 		KC_LCTL, KC_LALT, KC_LGUI,                 KC_SPC,                                      KC_RGUI, MO(MAC_FN), KC_RCTL,   RGB_SPD,            RGB_VAD, RGB_SPI)
 };
-// clang-format on
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-#ifdef VIA_ENABLE
-            case KC_RESET: {
-            if (record->event.pressed) {
-
-            #include "via.h"
-            via_eeprom_set_valid(false);
-            eeconfig_init_via();
-
-            }
-            return false;
-        }
-#endif
-    }
-    return true;
-}
-
-
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-        return false;
-    }
-    // caps lock red
-    if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(44, 255, 0, 0);
-    } else {
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(44, 0, 0, 0);
-        }
-    }
-    // GUI lock red
-    if (keymap_config.no_gui) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(73, 255, 0, 0);
-    } else {
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(73, 0, 0, 0);
-        }
-    }
-    return true;
-}
-#endif
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
