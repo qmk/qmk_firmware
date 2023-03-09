@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "numpad.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -110,7 +110,7 @@ led_config_t g_led_config = {{
 } };
 
 #    ifdef DRIVER_1_PW_EN
-void matrix_init_user(void) {
+void matrix_init_kb(void) {
     wait_ms(2000);
     setPinOutput(DRIVER_1_PW_EN);
     writePinHigh(DRIVER_1_PW_EN);
@@ -121,14 +121,11 @@ void matrix_init_user(void) {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
     if (!clockwise) {
         tap_code_delay(KC_VOLU, 10);
     } else {
         tap_code_delay(KC_VOLD, 10);
     }
-    return false;
+    return true;
 }
 #endif
