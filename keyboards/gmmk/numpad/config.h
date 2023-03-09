@@ -17,11 +17,6 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS \
-  { A3, A4, A5, A6, A7 }
-#define MATRIX_COL_PINS \
-  { B7, B1, B10, B11 }
-
 #define TAP_CODE_DELAY 10
 
 #define SLIDER_PIN B0
@@ -41,7 +36,6 @@
 #define DRIVER_COUNT 1
 
 #define DRIVER_1_LED_TOTAL 31
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL)
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL)
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B6

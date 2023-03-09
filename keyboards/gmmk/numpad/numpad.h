@@ -17,25 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ___ KC_NO
 
-//      NUM      /       *       -
-//      7        8       9       +
-//      4        5       6       CALC
-//      1        2       3       RET
-//      0                        .
-
-// clang-format off
-#define LAYOUT( \
-    k00, k01, k02, k03,\
-    k10, k11, k12, k13,\
-    k20, k21, k22, k23,\
-    k30, k31, k32, k33,\
-    k40,           k43 \
-)\
-{\
-    { k00, k01, k02, k03 },\
-    { k10, k11, k12, k13 },\
-    { k20, k21, k22, k23 },\
-    { k30, k31, k32, k33 },\
-    { k40, ___, ___, k43 } \
-}
 // clang-format on
