@@ -10,7 +10,7 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "A1", "pin_b": "A2"}
+            {"pin_a": "A2", "pin_b": "A1"}
         ]
     },
     "bootmagic": {
