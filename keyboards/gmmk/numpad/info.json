@@ -8,6 +8,17 @@
         "pid": "0x5088",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A1", "pin_b": "A2"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 0]
+    },
+    "processor": "WB32F3G71",
+    "bootloader": "wb32-dfu",
+    "diode_direction": "ROW2COL",
     "layouts": {
         "LAYOUT": {
             "layout": [

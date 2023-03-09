@@ -1,5 +1,5 @@
 /* Copyright 2021 Gigahawk
- * Modified 2021 by usrfriendly for vial-qmk
+ * Modified 2022 by rustedaperture for qmk_firmware
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

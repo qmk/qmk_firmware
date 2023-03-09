@@ -17,32 +17,16 @@
 
 #pragma once
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
 #define MATRIX_ROW_PINS \
   { A3, A4, A5, A6, A7 }
 #define MATRIX_COL_PINS \
   { B7, B1, B10, B11 }
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 #define TAP_CODE_DELAY 10
-#define ENCODERS_PAD_A \
-    { A1 }
-#define ENCODERS_PAD_B \
-    { A2 }
 
 #define SLIDER_PIN B0
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
 #define SPI_DRIVER SPIDQ
@@ -63,9 +47,6 @@
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B6
 #define WEAR_LEVELING_BACKING_SIZE 2048
 
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -95,10 +76,8 @@
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
 #define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
@@ -111,12 +90,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* 1000Hz USB polling - it's the default on stock firmware */
-// #define USB_POLLING_INTERVAL_MS 1
-
-/* Set debounce time to 5ms */
-#define DEBOUNCE 5
-
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
-// #define FORCE_NKRO
