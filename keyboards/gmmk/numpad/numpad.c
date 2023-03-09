@@ -110,10 +110,12 @@ led_config_t g_led_config = {{
 } };
 
 #    ifdef DRIVER_1_PW_EN
+
 void matrix_init_kb(void) {
     wait_ms(2000);
     setPinOutput(DRIVER_1_PW_EN);
     writePinHigh(DRIVER_1_PW_EN);
+    matrix_init_user();
 }
 #    endif
 
