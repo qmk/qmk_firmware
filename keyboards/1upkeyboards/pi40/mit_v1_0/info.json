@@ -4,13 +4,11 @@
     "maintainer": "ziptyze",
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "board": "GENERIC_RP_RP2040",
     "usb": {
         "vid": "0x6F75",
         "pid": "0x5600",
         "device_version": "1.0.0"
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
         "layer_count": 10
