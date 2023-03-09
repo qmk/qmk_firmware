@@ -8,9 +8,16 @@
         "pid": "0x0011",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C7",
+        "scroll_lock": "B2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_tkl_f13_ansi_tsangan"
     },
+    "community_layouts": ["tkl_f13_ansi_tsangan"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [

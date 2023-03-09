@@ -37,12 +37,7 @@ This level contains all of the options for that particular keymap. If you wish t
 
 # The `config.h` File
 
-This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
-
-```c
-#include "config_common.h"
-```
-
+This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files.
 
 ## Hardware Options
 * `#define VENDOR_ID 0x1234`
@@ -216,6 +211,9 @@ If you define these options you will enable the associated feature, which may in
   * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPS_LOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 * `#define KEY_OVERRIDE_REPEAT_DELAY 500`
   * Sets the key repeat interval for [key overrides](feature_key_overrides.md).
+* `#define LEGACY_MAGIC_HANDLING`
+  * Enables magic configuration handling for advanced keycodes (such as Mod Tap and Layer Tap)
+
 
 ## RGB Light Configuration
 
@@ -329,7 +327,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
   * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
-  
+
 * `#define SPLIT_WATCHDOG_ENABLE`
   * Reboot slave if no communication from master within timeout.
   * Helps resolve issue where both sides detect as slave using `SPLIT_USB_DETECT`

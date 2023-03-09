@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -24,7 +24,7 @@
 *******************************************************************************/
 
 #pragma once
-#include "keymap.h"
+#include "keycodes.h"
 // clang-format off
 
 // Aliases
@@ -51,3 +51,4 @@
 #define PV_O    KC_V   
 #define PV_E    KC_N   
 #define PV_U    KC_M   
+

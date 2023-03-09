@@ -8,11 +8,14 @@
         "pid": "0x5860",
         "device_version": "0.0.1"
     },
+    "processor": "STM32L422",
+    "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["B0", "B1", "A8", "A9", "B5", "A6", "C14", "C15", "A0", "A5", "A4", "A3", "A2", "A1"],
         "rows": ["B4", "B3", "A15", "A14", "A7"]
     },
+    "community_layouts": ["60_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32L422
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -23,5 +17,3 @@ WS2812_DRIVER = bitbang
 
 LTO_ENABLE = yes
 OPT = 2
-
-LAYOUTS = 60_ansi_split_bs_rshift

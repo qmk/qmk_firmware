@@ -161,6 +161,10 @@ void set_swap_hands_state(size_t index, uint8_t *swap_state, bool on) {
     }
 }
 
+bool is_swap_hands_on(void) {
+    return swap_hands;
+}
+
 /** \brief Process Hand Swap
  *
  * FIXME: Needs documentation.
@@ -323,7 +327,7 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
 #elif defined(POINTING_DEVICE_ENABLE)
     // if mousekeys isn't enabled, and pointing device is enabled, then
     // let pointing device do all the heavy lifting, then
-    if IS_MOUSEKEY (mouse_keycode) {
+    if (IS_MOUSE_KEYCODE(mouse_keycode)) {
         pointing_device_keycode_handler(mouse_keycode, pressed);
     }
 #endif
@@ -350,7 +354,12 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
-    if (is_oneshot_layer_active() && event.pressed && (action.kind.id == ACT_USAGE || !IS_MOD(action.key.code))
+    if (is_oneshot_layer_active() && event.pressed &&
+        (action.kind.id == ACT_USAGE || !(IS_MODIFIER_KEYCODE(action.key.code)
+#    ifndef NO_ACTION_TAPPING
+                                          || (tap_count == 0 && (action.kind.id == ACT_LMODS_TAP || action.kind.id == ACT_RMODS_TAP))
+#    endif
+                                              ))
 #    ifdef SWAP_HANDS_ENABLE
         && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
 #    endif
@@ -367,7 +376,7 @@ void process_action(keyrecord_t *record, action_t action) {
             uint8_t mods = (action.kind.id == ACT_LMODS) ? action.key.mods : action.key.mods << 4;
             if (event.pressed) {
                 if (mods) {
-                    if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                    if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                         // e.g. LSFT(KC_LEFT_GUI): we don't want the LSFT to be weak as it would make it useless.
                         // This also makes LSFT(KC_LEFT_GUI) behave exactly the same as LGUI(KC_LEFT_SHIFT).
                         // Same applies for some keys like KC_MEH which are declared as MEH(KC_NO).
@@ -381,7 +390,7 @@ void process_action(keyrecord_t *record, action_t action) {
             } else {
                 unregister_code(action.key.code);
                 if (mods) {
-                    if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                    if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                         del_mods(mods);
                     } else {
                         del_weak_mods(mods);
@@ -390,9 +399,9 @@ void process_action(keyrecord_t *record, action_t action) {
                 }
             }
         } break;
-#ifndef NO_ACTION_TAPPING
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP: {
+#ifndef NO_ACTION_TAPPING
             uint8_t mods = (action.kind.id == ACT_LMODS_TAP) ? action.key.mods : action.key.mods << 4;
             switch (action.layer_tap.code) {
 #    ifndef NO_ACTION_ONESHOT
@@ -401,7 +410,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     if (!keymap_config.oneshot_enable) {
                         if (event.pressed) {
                             if (mods) {
-                                if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                                if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                                     // e.g. LSFT(KC_LGUI): we don't want the LSFT to be weak as it would make it useless.
                                     // This also makes LSFT(KC_LGUI) behave exactly the same as LGUI(KC_LSFT).
                                     // Same applies for some keys like KC_MEH which are declared as MEH(KC_NO).
@@ -415,7 +424,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         } else {
                             unregister_code(action.key.code);
                             if (mods) {
-                                if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                                if (IS_MODIFIER_KEYCODE(action.key.code) || action.key.code == KC_NO) {
                                     del_mods(mods);
                                 } else {
                                     del_weak_mods(mods);
@@ -514,8 +523,8 @@ void process_action(keyrecord_t *record, action_t action) {
                     }
                     break;
             }
+#endif // NO_ACTION_TAPPING
         } break;
-#endif
 #ifdef EXTRAKEY_ENABLE
         /* other HID usage */
         case ACT_USAGE:
@@ -528,7 +537,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     break;
             }
             break;
-#endif
+#endif // EXTRAKEY_ENABLE
         /* Mouse key */
         case ACT_MOUSEKEY:
             register_mouse(action.key.code, event.pressed);
@@ -588,10 +597,10 @@ void process_action(keyrecord_t *record, action_t action) {
                 layer_off(action.layer_mods.layer);
             }
             break;
-#    ifndef NO_ACTION_TAPPING
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
+#    ifndef NO_ACTION_TAPPING
                 case OP_TAP_TOGGLE:
                     /* tap toggle */
                     if (event.pressed) {
@@ -604,6 +613,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         }
                     }
                     break;
+#    endif
                 case OP_ON_OFF:
                     event.pressed ? layer_on(action.layer_tap.val) : layer_off(action.layer_tap.val);
                     break;
@@ -613,7 +623,7 @@ void process_action(keyrecord_t *record, action_t action) {
                 case OP_SET_CLEAR:
                     event.pressed ? layer_move(action.layer_tap.val) : layer_clear();
                     break;
-#        ifndef NO_ACTION_ONESHOT
+#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
                 case OP_ONESHOT:
                     // Oneshot modifier
                     if (!keymap_config.oneshot_enable) {
@@ -623,7 +633,7 @@ void process_action(keyrecord_t *record, action_t action) {
                             layer_off(action.layer_tap.val);
                         }
                     } else {
-#            if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
+#        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                         do_release_oneshot = false;
                         if (event.pressed) {
                             if (get_oneshot_layer_state() == ONESHOT_TOGGLED) {
@@ -642,7 +652,7 @@ void process_action(keyrecord_t *record, action_t action) {
                                 clear_oneshot_layer_state(ONESHOT_PRESSED);
                             }
                         }
-#            else
+#        else
                         if (event.pressed) {
                             layer_on(action.layer_tap.val);
                             set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
@@ -652,12 +662,18 @@ void process_action(keyrecord_t *record, action_t action) {
                                 clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
                             }
                         }
-#            endif
-                    }
-                    break;
 #        endif
+                    }
+#    else  // NO_ACTION_ONESHOT && NO_ACTION_TAPPING
+                    if (event.pressed) {
+                        layer_on(action.layer_tap.val);
+                    } else {
+                        layer_off(action.layer_tap.val);
+                    }
+#    endif // !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
+                    break;
                 default:
-                    /* tap key */
+#    ifndef NO_ACTION_TAPPING /* tap key */
                     if (event.pressed) {
                         if (tap_count > 0) {
                             ac_dprintf("KEYMAP_TAP_KEY: Tap: register_code\n");
@@ -680,11 +696,24 @@ void process_action(keyrecord_t *record, action_t action) {
                             layer_off(action.layer_tap.val);
                         }
                     }
+#    else
+                    if (event.pressed) {
+                        ac_dprintf("KEYMAP_TAP_KEY: Tap: register_code\n");
+                        register_code(action.layer_tap.code);
+                    } else {
+                        ac_dprintf("KEYMAP_TAP_KEY: Tap: unregister_code\n");
+                        if (action.layer_tap.code == KC_CAPS) {
+                            wait_ms(TAP_HOLD_CAPS_DELAY);
+                        } else {
+                            wait_ms(TAP_CODE_DELAY);
+                        }
+                        unregister_code(action.layer_tap.code);
+                    }
+#    endif
                     break;
             }
             break;
-#    endif
-#endif
+#endif // NO_ACTION_LAYER
 
 #ifdef SWAP_HANDS_ENABLE
         case ACT_SWAP_HANDS:
@@ -872,7 +901,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
         send_keyboard_report();
 #endif
 
-    } else if IS_KEY (code) {
+    } else if (IS_BASIC_KEYCODE(code)) {
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
@@ -885,18 +914,18 @@ __attribute__((weak)) void register_code(uint8_t code) {
         }
         add_key(code);
         send_keyboard_report();
-    } else if IS_MOD (code) {
+    } else if (IS_MODIFIER_KEYCODE(code)) {
         add_mods(MOD_BIT(code));
         send_keyboard_report();
 
 #ifdef EXTRAKEY_ENABLE
-    } else if IS_SYSTEM (code) {
+    } else if (IS_SYSTEM_KEYCODE(code)) {
         host_system_send(KEYCODE2SYSTEM(code));
-    } else if IS_CONSUMER (code) {
+    } else if (IS_CONSUMER_KEYCODE(code)) {
         host_consumer_send(KEYCODE2CONSUMER(code));
 #endif
 
-    } else if IS_MOUSEKEY (code) {
+    } else if (IS_MOUSE_KEYCODE(code)) {
         register_mouse(code, true);
     }
 }
@@ -939,21 +968,21 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         send_keyboard_report();
 #endif
 
-    } else if IS_KEY (code) {
+    } else if (IS_BASIC_KEYCODE(code)) {
         del_key(code);
         send_keyboard_report();
-    } else if IS_MOD (code) {
+    } else if (IS_MODIFIER_KEYCODE(code)) {
         del_mods(MOD_BIT(code));
         send_keyboard_report();
 
 #ifdef EXTRAKEY_ENABLE
-    } else if IS_SYSTEM (code) {
+    } else if (IS_SYSTEM_KEYCODE(code)) {
         host_system_send(0);
-    } else if IS_CONSUMER (code) {
+    } else if (IS_CONSUMER_KEYCODE(code)) {
         host_consumer_send(0);
 #endif
 
-    } else if IS_MOUSEKEY (code) {
+    } else if (IS_MOUSE_KEYCODE(code)) {
         register_mouse(code, false);
     }
 }
@@ -1045,7 +1074,7 @@ void clear_keyboard_but_mods(void) {
  *
  * FIXME: Needs documentation.
  */
-void clear_keyboard_but_mods_and_keys() {
+void clear_keyboard_but_mods_and_keys(void) {
 #ifdef EXTRAKEY_ENABLE
     host_system_send(0);
     host_consumer_send(0);

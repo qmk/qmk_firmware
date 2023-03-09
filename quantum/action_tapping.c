@@ -122,7 +122,7 @@ void action_tapping_process(keyrecord_t record) {
  * readable. The conditional definition of tapping_keycode and all the
  * conditional uses of it are hidden inside macros named TAP_...
  */
-#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(QUICK_TAP_TERM_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
 #        define TAP_DEFINE_KEYCODE uint16_t tapping_keycode = get_record_keycode(&tapping_key, false)
 #    else
 #        define TAP_DEFINE_KEYCODE
@@ -247,12 +247,12 @@ bool process_tapping(keyrecord_t *keyp) {
                         case ACT_LMODS:
                         case ACT_RMODS:
                             if (action.key.mods && !action.key.code) return false;
-                            if (IS_MOD(action.key.code)) return false;
+                            if (IS_MODIFIER_KEYCODE(action.key.code)) return false;
                             break;
                         case ACT_LMODS_TAP:
                         case ACT_RMODS_TAP:
                             if (action.key.mods && keyp->tap.count == 0) return false;
-                            if (IS_MOD(action.key.code)) return false;
+                            if (IS_MODIFIER_KEYCODE(action.key.code)) return false;
                             break;
                         case ACT_LAYER_TAP:
                         case ACT_LAYER_TAP_EXT:

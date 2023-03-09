@@ -8,6 +8,20 @@
         "pid": "0x4001",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D1", "D0", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5", "F0", "F1", "B6", "F4", "F5", "F6"],
+        "rows": ["B0", "B1", "B2", "B3", "E6"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "C7",
+        "num_lock": "C6",
+        "scroll_lock": "F7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -24,7 +24,7 @@
 *******************************************************************************/
 
 #pragma once
-#include "keymap.h"
+#include "keycodes.h"
 // clang-format off
 
 // Aliases
@@ -124,3 +124,4 @@
 #define LV_MUL  S(ALGR(LV_8))    // ×
 #define LV_MDSH S(ALGR(LV_MINS)) // —
 #define LV_DIAE S(ALGR(LV_QUOT)) // ¨ (dead)
+

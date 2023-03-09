@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -24,7 +24,7 @@
 *******************************************************************************/
 
 #pragma once
-#include "keymap.h"
+#include "keycodes.h"
 // clang-format off
 
 // Aliases
@@ -118,3 +118,4 @@
 #define SI_LCBR ALGR(SI_B)    // {
 #define SI_RCBR ALGR(SI_N)    // }
 #define SI_SECT ALGR(SI_M)    // §
+

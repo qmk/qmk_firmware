@@ -80,7 +80,7 @@
  };
 
  //https://unicode-table.com/en/#00F1
- const uint32_t PROGMEM unicode_map[] = {
+ const uint32_t unicode_map[] PROGMEM = {
      [CKC_EUR] = 0x20AC, //€
      [N_TILDE] = 0x00F1,  // ñ
      [COMB_ACUTE_ACCENT] = 0x0301,  // ´
@@ -132,7 +132,7 @@
  };
 
 
- void matrix_init_user(){
+ void matrix_init_user(void){
      set_unicode_input_mode(UNICODE_MODE_MACOS);
  }
 

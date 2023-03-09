@@ -2,5 +2,23 @@
     "keyboard_name": "Jian",
     "usb": {
         "device_version": "2.0.0"
-    }
+    },
+    "matrix_pins": {
+        "cols": ["D3", "D2", "B4", "F6", "F7", "B2"],
+        "rows": ["F4", "F5", "B1", "B3"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "C6",
+        "levels": 5
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "B1",
+        "esc_output": "D3"
+    },
+    "split": {
+        "soft_serial_pin": "D1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu"
 }

@@ -1,4 +1,4 @@
-// Copyright 2022 QMK
+// Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -24,7 +24,7 @@
 *******************************************************************************/
 
 #pragma once
-#include "keymap.h"
+#include "keycodes.h"
 // clang-format off
 
 // Aliases
@@ -183,3 +183,4 @@
 #define FR_IQUE S(A(FR_COMM)) // ¿
 #define FR_BSLS S(A(FR_COLN)) // (backslash)
 #define FR_PLMN S(A(FR_EQL))  // ±
+

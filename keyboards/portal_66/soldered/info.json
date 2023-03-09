@@ -7,12 +7,15 @@
         "pid": "0x5066",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_65_ansi_split_bs": "LAYOUT_65_ansi_blocker_split_bs",
         "LAYOUT_65_ansi": "LAYOUT_65_ansi_blocker",
         "LAYOUT_65_tsangan_split_bs": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
         "LAYOUT_65_iso": "LAYOUT_65_iso_blocker"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
@@ -231,7 +234,7 @@
                 { "x":15, "y":3 },
 
                 { "x":0, "y":4, "w":1.5 },
-                { "x":1.5, "y":4, "w":1 },
+                { "x":1.5, "y":4 },
                 { "x":2.5, "y":4, "w":1.5 },
                 { "x":4, "y":4, "w":7 },
                 { "x":11, "y":4,  "w":1.5 },
@@ -460,7 +463,7 @@
                 { "x":15, "y":3 },
 
                 { "x":0, "y":4, "w":1.5 },
-                { "x":1.5, "y":4, "w":1 },
+                { "x":1.5, "y":4 },
                 { "x":2.5, "y":4, "w":1.5 },
                 { "x":4, "y":4, "w":7 },
                 { "x":11, "y":4,  "w":1.5 },

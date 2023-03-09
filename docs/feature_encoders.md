@@ -1,6 +1,6 @@
 # Encoders
 
-Basic encoders are supported by adding this to your `rules.mk`:
+Basic (EC11 compatible) encoders are supported by adding this to your `rules.mk`:
 
 ```make
 ENCODER_ENABLE = yes
@@ -67,6 +67,8 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 #define ENCODER_RESOLUTIONS_RIGHT { 4 }
 ```
 
+!> Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
+
 ## Encoder map :id=encoder-map
 
 Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
@@ -102,9 +104,27 @@ Using encoder mapping pumps events through the normal QMK keycode processing pip
 
 When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 
+?> Those who are adding new keyboard support where encoders are enabled at the keyboard level should include basic encoder functionality at the keyboard level (`<keyboard>.c`) using the `encoder_update_kb()` function, that way it works for QMK Configuator users and exists in general.
+
 ```c
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    return encoder_update_user(index, clockwise);
+    if (!encoder_update_user(index, clockwise)) {
+      return false; /* Don't process further events if user function exists and returns false */
+    }
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, 10);
+        } else {
+            tap_code_delay(KC_VOLD, 10);
+        }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            rgb_matrix_increase_hue();
+        } else {
+            rgb_matrix_decrease_hue();
+        }
+    }
+    return true;
 }
 ```
 
@@ -129,49 +149,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-!> If you return `true`, it will allow the keyboard level code to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard function is set up.
-
-Layer conditions can also be used with the callback function like the following:
-
-```c
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch(get_highest_layer(layer_state|default_layer_state)) {
-        case 0:
-            if (index == 0) {
-                if (clockwise) {
-                    tap_code(KC_PGDN);
-                } else {
-                    tap_code(KC_PGUP);
-                }
-            } else if (index == 1) {
-                if (clockwise) {
-                    rgb_matrix_increase_speed();
-                } else {
-                    rgb_matrix_decrease_speed();
-                }
-            }
-            break;
-        case 1:
-            if (index == 0) {
-                if (clockwise) {
-                    tap_code(KC_WH_D);
-                } else {
-                    tap_code(KC_WH_U);
-                }
-            } else if (index == 1) {
-                if (clockwise) {
-                    tap_code_delay(KC_VOLU, 10);
-                } else {
-                    tap_code_delay(KC_VOLD, 10);
-                }
-            }
-            break;
-    }
-    return false;
-}
-```
-
-?> Media and mouse countrol keycodes such as `KC_VOLU` and `KC_WH_D` requires `EXTRAKEY_ENABLE = yes` and `MOUSEKEY_ENABLE = yes` respectively in user's `rules.mk` if they are not enabled as default on keyboard level configuration.
+!> If you return `true` in the keymap level `_user` function, it will allow the keyboard level encoder code to run on top of your own. Returning `false` will override the keyboard level function, if setup correctly. This is generally the safest option to avoid confusion.
 
 ## Hardware
 

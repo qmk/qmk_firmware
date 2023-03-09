@@ -3,13 +3,11 @@
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
 #include "mini1800.h"
-#include "keymap.h"
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"
 #include "debug.h"
 
-#define BACKLIGHT_BREATHING
 #include "quantum.h"
 
 uint16_t click_hz = CLICK_HZ;
@@ -122,7 +120,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
     return process_record_user(keycode, record);
 }
 
-void reset_keyboard_kb(){
+void reset_keyboard_kb(void){
 #ifdef WATCHDOG_ENABLE
     MCUSR = 0;
     wdt_disable();

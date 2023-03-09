@@ -16,21 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 6
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { D6, B4, C7, B1, E6, D7 }, \
-    { C6, D4, D0, D1, D2, D2 }, \
-    { F0, F1, F5, F5, F6, F7 }  \
-}
-
 /* LEDs Pins */
 #define LED_PINS 5
 #define LED_PINS_HW {B5, B6, B7, B3, B2}
-
-#define DEBOUNCE 10
