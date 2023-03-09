@@ -1,6 +1,6 @@
 # frobiac/blackflat
 
-![frobiac/blackflat]((https://i.imgur.com/eaewuolh.jpeg)
+![frobiac/blackflat](https://i.imgur.com/eaewuolh.jpeg)
 
 Custom 3D-printed and handwired 36-key split-keyboard with trackpoint developed in 2016.
 

@@ -6,7 +6,7 @@ Custom 3D-printed and handwired 46-key split-keyboard with trackpoint developed 
 
 * Keyboard Maintainer: [frobiac](https://github.com/frobiac)
 * Hardware Supported: Teensy-2.0, IBM Trackpoint
-* Development History: [deskthority.net](https://deskthority.net/viewtopic.php?p=339638#p339638)
+* Development History: [deskthority.net](https://deskthority.net/viewtopic.php?p=116641#p116641)
 * Layout [Full KLE](http://www.keyboard-layout-editor.com/#/gists/8f30f08f84f61749c0e549f7eca97262)
 * Layout [VIAL KLE](http://www.keyboard-layout-editor.com/#/gists/a52c1005abcf77695d2902159dce3789)
 * [Original Firmware](https://github.com/frobiac/adnw)
