@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_COL_PINS { B7, B8, B9, B10 }
-#define MATRIX_ROW_PINS { B3, B4, B5, B6 }
-#define DIODE_DIRECTION COL2ROW
-
 //LEDS A6, RGB B15
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
