@@ -1,6 +1,6 @@
 # Viktus Minne - Topre
 
-![minne_topre](https://imgur.com/OKnryxc)
+![minne_topre](https://i.imgur.com/OKnryxch.png)
 
 Minne is a 40% keyboard with an HHKB bottom row, Now with Topre.
 
