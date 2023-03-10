@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "iron160_h.h"
+#include "quantum.h"
 
 // Defining indicator colors
 uint8_t caps_color[3] = {0x33,0x33,0x33};
