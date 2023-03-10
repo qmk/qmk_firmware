@@ -21,7 +21,7 @@ enum layer_names {
 };
 
 enum my_keycodes {
-    CLUTCH_A = SAFE_RANGE,
+    CLUTCH_A = QK_USER,
     CLUTCH_I
 };
 
