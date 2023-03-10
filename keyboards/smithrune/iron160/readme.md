@@ -1,6 +1,6 @@
 # Iron 160 QMK folder
 
-![Iron160](https://i.imgur.com/8B2l2pn.jpg)
+![Iron160](https://i.imgur.com/8B2l2pnh.jpg)
 
 ## Introduction
 
