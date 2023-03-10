@@ -8,11 +8,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make slab:default
+    make tominabox1/slab:default
 
 Flashing example for this keyboard:
 
-    make slab:default:flash
+    make tominabox1/slab:default:flash
     
 Note that the analog slider functions slightly differently in MacOS and Windows when used for volume, so there are separate firmware to flash depending on target OS. The default firmware is for Windows.
 
