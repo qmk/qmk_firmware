@@ -2,7 +2,7 @@
 
 ![frobiac/hypernano](https://i.imgur.com/ZVGtpBbh.jpeg)
 
-Custom 3D-printed and handwired 44-key split keyboard with trackpoint developed in 2013.
+Custom 3D-printed and handwired 44-key keyboard with trackpoint developed in 2013.
 
 * Keyboard Maintainer: [frobiac](https://github.com/frobiac)
 * Hardware Supported: Teensy-2.0, IBM Trackpoint
