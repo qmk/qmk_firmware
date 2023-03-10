@@ -112,7 +112,7 @@ static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
 
-void audio_init() {
+void audio_init(void) {
     if (audio_initialized) {
         return;
     }
@@ -185,7 +185,7 @@ bool audio_is_on(void) {
     return (audio_config.enable != 0);
 }
 
-void audio_stop_all() {
+void audio_stop_all(void) {
     if (audio_driver_stopped) {
         return;
     }

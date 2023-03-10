@@ -73,20 +73,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*          ctrl     win      alt      fn       th1      th2      th3      th4      fn       alt      ctrl     left     down     right    */
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
-    ),
-    [4] = LAYOUT(
-     /* Rotary                                                                                                                                 */
-        KC_TRNS,
-     /*          esc      1        2        3        4        5        6        7        8        9        0        -        =        home     */
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-     /*          tab      Q        W        E        R        T        Y        U        I        O        P        \        delete   end      */
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-     /*          caps     A        S        D        F        G        H        J        K        L        ;        '        enter             */
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_RBRC, KC_TRNS, KC_TRNS, KC_TRNS,
-     /*          shift    Z        X        C        V        B        N        M        ,        .        /                 up                */
-                 KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-     /*          ctrl     win      alt      fn       th1      th2      th3      th4      fn       alt      ctrl     left     down     right    */
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-
     )
 };

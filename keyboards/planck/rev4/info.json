@@ -8,6 +8,12 @@
     "pid": "0xAE01",
     "device_version": "0.0.4"
   },
+  "backlight": {
+    "pin": "B7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_planck_1x2uC": {
       "layout": [

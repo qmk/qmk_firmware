@@ -8,65 +8,86 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["C4"]
+        ]
+    },
+    "layout_aliases": {
+        "LAYOUT_100u": "LAYOUT_1u",
+        "LAYOUT_125u": "LAYOUT_1u25",
+        "LAYOUT_150u": "LAYOUT_1u5",
+        "LAYOUT_175u": "LAYOUT_1u75",
+        "LAYOUT_200u": "LAYOUT_2u",
+        "LAYOUT_225u": "LAYOUT_2u25",
+        "LAYOUT_275u": "LAYOUT_2u75",
+        "LAYOUT_300u": "LAYOUT_3u",
+        "LAYOUT_600u": "LAYOUT_6u",
+        "LAYOUT_625u": "LAYOUT_6u25",
+        "LAYOUT_700u": "LAYOUT_7u",
+        "LAYOUT_iso": "LAYOUT_isoenter"
+    },
     "layouts": {
         "LAYOUT_1u": {
             "layout": [
-                {"x": 0, "y": 0}
+                {"x": 0, "y": 0, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_1u25": {
             "layout": [
-                {"x": 0, "y": 0, "w": 1.25}
+                {"x": 0, "y": 0, "w": 1.25, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_1u5": {
             "layout": [
-                {"x": 0, "y": 0, "w": 1.50}
+                {"x": 0, "y": 0, "w": 1.50, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_1u75": {
             "layout": [
-                {"x": 0, "y": 0, "w": 1.75}
+                {"x": 0, "y": 0, "w": 1.75, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_2u": {
             "layout": [
-                {"x": 0, "y": 0, "w": 2}
+                {"x": 0, "y": 0, "w": 2, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_2u25": {
             "layout": [
-                {"x": 0, "y": 0, "w": 2.25}
+                {"x": 0, "y": 0, "w": 2.25, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_2u75": {
             "layout": [
-                {"x": 0, "y": 0, "w": 2.75}
+                {"x": 0, "y": 0, "w": 2.75, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_3u": {
             "layout": [
-                {"x": 0, "y": 0, "w": 3}
+                {"x": 0, "y": 0, "w": 3, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_6u": {
             "layout": [
-                {"x": 0, "y": 0, "w": 6}
+                {"x": 0, "y": 0, "w": 6, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_6u25": {
             "layout": [
-                {"x": 0, "y": 0, "w": 6.25}
+                {"x": 0, "y": 0, "w": 6.25, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_7u": {
             "layout": [
-                {"x": 0, "y": 0, "w": 7}
+                {"x": 0, "y": 0, "w": 7, "matrix": [0, 0]}
             ]
         },
         "LAYOUT_isoenter": {
             "layout": [
-                {"x": 0.25, "y": 0, "w": 1.25, "h": 2}
+                {"x": 0.25, "y": 0, "w": 1.25, "h": 2, "matrix": [0, 0]}
             ]
         }
     }

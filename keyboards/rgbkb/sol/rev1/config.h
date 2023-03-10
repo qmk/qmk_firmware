@@ -29,7 +29,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_LED_COUNT  RGBLED_NUM
 
 #define RGB_MATRIX_CENTER { 112, 35 }
-
-// Encoder support
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D6 }

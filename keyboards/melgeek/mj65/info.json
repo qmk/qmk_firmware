@@ -8,6 +8,11 @@
         "pid": "0x0065",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "debounce": 3,
+    "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
