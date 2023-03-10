@@ -1,6 +1,6 @@
 # Minne
 
-![minne](https://imgur.com/OKnryxc)
+![minne](https://i.imgur.com/OKnryxch.png)
 
 Minne is a 40% keyboard with an HHKB bottom row.
 
