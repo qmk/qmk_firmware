@@ -2,7 +2,7 @@
     "manufacturer": "xia0",
     "keyboard_name": "sauceball",
     "maintainer": "xia0",
-    "bootloader": "atmel-dfu",
+    "bootloader": "halfkay",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
