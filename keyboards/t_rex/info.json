@@ -1,6 +1,6 @@
 {
     "manufacturer": "Sylivan Kenobi",
-    "keyboard_name": "contra2",
+    "keyboard_name": "t_rex",
     "maintainer": "Sylivan Kenobi",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
@@ -10,18 +10,38 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight":true
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "B5", "B4", "E6", "D7", "C6", "D4", "D0", "D1", "D2", "D3"],
         "rows": ["F6", "B1", "B3", "B2", "B6"]
     },
     "processor": "atmega32u4",
-    "url": "",
+    "url": "https://github.com/SylivanKenobi/t-rex",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED"
+    },
+    "rgblight": {
+        "led_count": 255,
+        "pin": "F7",
+        "hue_steps": 10,
+        "max_brightness": 100,
+        "saturation_steps": 17,
+        "brightness_steps": 17,
+        "animations": {
+            "twinkle": true,
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true
+        }
     },
     "layouts": {
         "LAYOUT_ortho_5x12": {
