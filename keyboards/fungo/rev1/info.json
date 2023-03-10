@@ -8,11 +8,8 @@
     "pid": "0x1233",
     "device_version": "0.0.1"
   },
-  "layout_aliases": {
-    "LAYOUT_fungo_split_num": "LAYOUT"
-  },
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_fungo_split_num": {
       "layout": [
         {"x":0, "y":0.375},
         {"x":1, "y":0.375},

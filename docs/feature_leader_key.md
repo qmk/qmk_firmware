@@ -41,18 +41,12 @@ As you can see, you have a few functions. You can use `SEQ_ONE_KEY` for single-k
 
 Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
 
-## Adding Leader Key Support
+## Adding Leader Key Support in the `rules.mk`
 
-To enable Leader Key, add the following line to your keymap's `rules.mk`:
+To add support for Leader Key you simply need to add a single line to your keymap's `rules.mk`:
 
 ```make
 LEADER_ENABLE = yes
-```
-
-Place the following macro in your `keymap.c` or user space source file, before any functional code. It handles declaration of external variables that will be referenced by Leader Key codes that follows:
-
-```c
-LEADER_EXTERNS();
 ```
 
 ## Per Key Timing on Leader keys

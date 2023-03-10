@@ -8,11 +8,8 @@
         "pid": "0xE873",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT_adm42_3x12_6": "LAYOUT"
-    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_adm42_3x12_6": {
             "layout": [
                 {"label":"GUI/`~", "x":0, "y":0.8},
                 {"label":"Q", "x":1, "y":0.8},

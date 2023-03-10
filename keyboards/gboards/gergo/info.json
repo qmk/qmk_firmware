@@ -8,11 +8,8 @@
         "pid": "0x1307",
         "device_version": "0.0.1"
     },
-    "layout_aliases": {
-        "LAYOUT_gergo": "LAYOUT"
-    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_gergo": {
             "layout": [
                 {
                     "label": "L00",

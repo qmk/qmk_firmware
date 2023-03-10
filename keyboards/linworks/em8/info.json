@@ -29,13 +29,8 @@
         "scroll_lock": "D5",
         "on_state": 0
     },
-    "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_split_bs",
-        "LAYOUT_em8_all": "LAYOUT_split_bs",
-        "LAYOUT_em8_2u_backsp": "LAYOUT"
-    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_em8_2u_backsp": {
             "layout": [
                 {"x":0, "y":0, "matrix":[1,0] },
                 {"x":1.25, "y":0, "matrix":[0,0] },
@@ -113,7 +108,7 @@
             ]
         },
 
-        "LAYOUT_split_bs": {
+        "LAYOUT_em8_all": {
             "layout": [
                 {"x":0, "y":0, "matrix":[1,0] },
                 {"x":1.25, "y":0, "matrix":[0,0] },
