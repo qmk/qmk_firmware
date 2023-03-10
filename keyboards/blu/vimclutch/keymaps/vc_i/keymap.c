@@ -21,7 +21,7 @@ enum layer_names {
 };
 
 enum my_keycodes {
-    USER_CLUTCH = SAFE_RANGE
+    USER_CLUTCH = QK_USER
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
