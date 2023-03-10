@@ -8,6 +8,11 @@
       "pid": "0x3521",
       "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["F4", "F5", "D5", "D3", "D2", "C6", "B6", "B5", "B4", "D7", "D6", "D1"],
+    "rows": ["F0", "F1", "F6", "C7"]
+  },
+  "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {

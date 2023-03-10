@@ -7,6 +7,7 @@
         "pid": "0x4040",
         "device_version": "0.0.1"
     },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

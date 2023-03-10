@@ -8,6 +8,11 @@
         "pid": "0xEA78",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F0", "C7", "F1", "C6", "F4", "B6", "F5", "B5", "F6", "B4", "F7", "D7", "D6", "D5", "B3", "B1", "B2"],
+        "rows": ["D0", "D1", "D2", "D3", "D4", "B7"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "layouts": {

@@ -23,13 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EE_HANDS
 
-#define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, E6}
-
-// wiring of each half
-#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 40
