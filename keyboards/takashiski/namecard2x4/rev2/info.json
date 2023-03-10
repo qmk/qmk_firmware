@@ -3,5 +3,5 @@
         "cols": ["D7", "E6", "B4", "B5"],
         "rows": ["B2", "B6"]
     },
-    "diode_direction": "COL2ROW"
+    "diode_direction": "ROW2COL"
 }
