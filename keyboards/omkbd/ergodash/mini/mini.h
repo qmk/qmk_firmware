@@ -4,14 +4,6 @@
 
 #include "quantum.h"
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
-#endif
-
 #ifndef FLIP_HALF
 // Standard Keymap
 // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
