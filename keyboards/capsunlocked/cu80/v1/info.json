@@ -8,6 +8,11 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F6", "F5", "F4", "F1", "F0", "C7", "C6", "B6", "B0", "E6", "B7", "B3", "B2", "D2", "D3", "D5", "D4"],
+        "rows": ["B1", "B5", "B4", "F7", "D7", "D6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["tkl_iso", "tkl_ansi"],

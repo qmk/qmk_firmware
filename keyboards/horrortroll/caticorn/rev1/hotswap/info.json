@@ -8,6 +8,11 @@
         "pid": "0x6002",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["GP6", "GP5", "GP4", "GP3", "GP2", "GP1", "GP20", "GP21", "GP16", "GP17", "GP18", "GP19", "GP15", "GP14", "GP13", "GP10", "GP9"],
+        "rows": ["GP7", "GP0", "GP8", "GP25", "GP11", "GP12"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "RP2040",
     "bootloader": "rp2040",
     "community_layouts": ["tkl_f13_ansi"],

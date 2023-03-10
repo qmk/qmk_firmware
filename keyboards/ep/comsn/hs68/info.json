@@ -7,6 +7,11 @@
         "pid": "0x6868",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B0", "B1", "B3", "B2", "B7", "D3", "F1", "D5", "D6", "D7", "F4", "F5", "C7", "C6", "F0"],
+        "rows": ["B6", "B5", "B4", "D0", "F6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

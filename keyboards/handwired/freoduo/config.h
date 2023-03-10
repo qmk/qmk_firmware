@@ -15,14 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* wiring of each half */
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { B2, B6, F6, B3, B1, F7 }
 #define EE_HANDS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D4

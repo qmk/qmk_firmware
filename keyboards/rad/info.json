@@ -6,6 +6,11 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["B5", "B4", "E6"],
+    "rows": ["D7", "C6", "B6", "D0"]
+  },
+  "diode_direction": "COL2ROW",
   "bootmagic": {
     "matrix": [0, 2]
   },

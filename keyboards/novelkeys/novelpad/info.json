@@ -8,6 +8,11 @@
         "pid": "0x6070",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D7", "D6", "D5", "D4"],
+        "rows": ["C2", "C4", "C5", "C6", "C7"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B7",
         "levels": 10

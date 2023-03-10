@@ -17,15 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { B1, F0, F5, F6, F7 }
-#define MATRIX_COL_PINS { F1, F4, D3, D2, B7, D4 }
-#define MATRIX_ROW_PINS_RIGHT { B1, B2, D2, F1, F4 }
-#define MATRIX_COL_PINS_RIGHT { D4, D7, D3, B7, F0, B3 }
 #define SPLIT_HAND_PIN D5
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_DEFAULT_LEVEL 3
 

@@ -15,8 +15,5 @@
   */
 #pragma once
 
-
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER    PWMD5
 #define BACKLIGHT_PWM_CHANNEL   1
