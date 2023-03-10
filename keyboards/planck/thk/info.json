@@ -8,6 +8,11 @@
     "pid": "0x25A7",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["D7", "C2", "C3", "C4", "C5", "C6", "C7", "A3", "A2", "A1", "A0", "B0"],
+    "rows": ["A7", "A6", "A5", "A4"]
+  },
+  "diode_direction": "COL2ROW",
   "encoder": {
     "rotary": [
       {"pin_a": "B4", "pin_b": "B3"},

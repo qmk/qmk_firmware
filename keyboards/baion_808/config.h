@@ -17,11 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_ROW_PINS { A2, A14, A15, B3, B4, B5 }
-#define MATRIX_COL_PINS { A1, B9, A3, A4, A5, A6, A7, B0, B1, B2, B10, B11, B12, B13, B14, B15, A8 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Ensure we jump to bootloader if the RESET keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
