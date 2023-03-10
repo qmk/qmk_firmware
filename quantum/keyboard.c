@@ -144,10 +144,10 @@ uint32_t        last_pointing_device_activity_time(void) {
     return last_pointing_device_modification_time;
 }
 uint32_t last_pointing_device_activity_elapsed(void) {
-    return timer_elapsed32(last_pointing_device_modification_time);
+    return sync_timer_elapsed32(last_pointing_device_modification_time);
 }
 void last_pointing_device_activity_trigger(void) {
-    last_pointing_device_modification_time = last_input_modification_time = timer_read32();
+    last_pointing_device_modification_time = last_input_modification_time = sync_timer_read32();
 }
 
 // Only enable this if console is enabled to print to
