@@ -1,9 +1,4 @@
 OPT_DEFS += -DHAL_USE_SPI=TRUE
-#
-# RP2040-specific options
-ALLOW_WARNINGS = yes
-PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
-
 # Build Options
 #   change yes to no to disable
 #
