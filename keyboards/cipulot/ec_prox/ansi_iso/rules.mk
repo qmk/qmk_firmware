@@ -1,2 +1,3 @@
 CUSTOM_MATRIX = lite
-SRC += analog.c matrix.c ec_switch_matrix.c
+QUANTUM_LIB_SRC += analog.c 
+SRC += matrix.c ec_switch_matrix.c
