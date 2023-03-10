@@ -4,7 +4,11 @@
         "device_version": "2.0.0"
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "GP0"
+        "bootmagic": {
+            "matrix": [4, 0]
+        }
     },
     "processor": "RP2040",
     "bootloader": "rp2040"
