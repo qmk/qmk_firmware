@@ -5,6 +5,7 @@
 #include "mcp23018.h"
 #include "wait.h"
 #include "debug.h"
+#include "encoder.h"
 
 #define I2C_ADDR 0x20
 #define ROW_POS { 0b01000000, 0b10000000, 0b01000000, 0b10000000, 0b00000100, 0b00010000, 0b00100000, 0b00000010, 0b00001000 }
