@@ -86,6 +86,9 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         changed |= read_cols_on_row(current_matrix, current_row);
+#ifdef ENCODER_ENABLE
+        encoder_read();
+#endif
     }
     return changed;
 }
