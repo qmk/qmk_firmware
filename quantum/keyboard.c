@@ -638,15 +638,24 @@ void keyboard_task(void) {
     }
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+    pointing_device_task();
+    const bool pointing_device_changed = !(last_pointing_device_activity_elapsed());
+#endif
+
 #ifdef OLED_ENABLE
     oled_task();
 #    if OLED_TIMEOUT > 0
     // Wake up oled if user is using those fabulous keys or spinning those encoders!
+    if (matrix_changed
 #        ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) oled_on();
-#        else
-    if (matrix_changed) oled_on();
+        || encoders_changed
 #        endif
+#        ifdef POINTING_DEVICE_ENABLE
+        || pointing_device_changed
+#        endif
+    )
+        oled_on();
 #    endif
 #endif
 
@@ -654,11 +663,15 @@ void keyboard_task(void) {
     st7565_task();
 #    if ST7565_TIMEOUT > 0
     // Wake up display if user is using those fabulous keys or spinning those encoders!
+    if (matrix_changed
 #        ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) st7565_on();
-#        else
-    if (matrix_changed) st7565_on();
+        || encoders_changed
 #        endif
+#        ifdef POINTING_DEVICE_ENABLE
+        || pointing_device_changed
+#        endif
+    )
+        st7565_on();
 #    endif
 #endif
 
@@ -669,10 +682,6 @@ void keyboard_task(void) {
 
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_task();
-#endif
-
-#ifdef POINTING_DEVICE_ENABLE
-    pointing_device_task();
 #endif
 
 #ifdef MIDI_ENABLE
