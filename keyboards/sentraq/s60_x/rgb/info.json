@@ -1,5 +1,10 @@
 {
     "keyboard_name": "S60-X-RGB",
+    "matrix_pins": {
+        "cols": ["D0", "D1", "D2", "D3", "D5", "B6", "C6", "C7", "F1", "F0", "E6", "B3", "B2", "B1", "B0"],
+        "rows": ["B5", "B4", "D7", "D6", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B7",
         "breathing":  true

@@ -7,6 +7,11 @@
         "vid": "0x574D",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B8", "B5", "B4"],
+        "rows": ["A14", "A15", "B3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

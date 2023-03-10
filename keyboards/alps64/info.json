@@ -4,10 +4,15 @@
   "url": "",
   "maintainer": "qmk",
   "usb": {
-        "vid": "0x6873",
-        "pid": "0x6464",
-        "device_version": "0.0.1"
-    },
+    "vid": "0x6873",
+    "pid": "0x6464",
+    "device_version": "0.0.1"
+  },
+  "matrix_pins": {
+    "cols": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7"],
+    "rows": ["D0", "D1", "D2", "D3", "D4", "D5", "D6", "C2"]
+  },
+  "diode_direction": "COL2ROW",
   "indicators": {
     "caps_lock": "C5",
   },

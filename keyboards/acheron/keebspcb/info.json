@@ -8,6 +8,11 @@
         "pid": "0x4B45",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B12", "A1", "A0", "F1", "F0", "C15", "C14", "C13", "B9", "B8", "B7", "B6", "B5"],
+        "rows": ["B4", "B3", "A2", "A3", "A4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "community_layouts": ["60_ansi_tsangan"],
