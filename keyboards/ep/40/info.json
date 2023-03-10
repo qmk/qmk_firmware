@@ -7,6 +7,10 @@
         "pid": "0x4040",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F6", "F5", "F4", "F1", "F0", "D2", "D3", "D5", "D4", "D6", "D7", "B4"],
+        "rows": ["C7", "C6", "B6", "B5"]
+    },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
