@@ -8,6 +8,11 @@
         "pid": "0x170E",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B0", "A7", "A6", "A5", "A4", "A3"],
+        "rows": ["B12", "B10", "B13", "B1", "B14"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "C13",
         "on_state": 0
