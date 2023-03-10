@@ -15,11 +15,6 @@
  */
 #pragma once
 
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B7, B6 }
-#define MATRIX_COL_PINS { C6, C7, F7, F6, F5, F4, F1, F0, D2, D3, D5, D4, D6, D7, B4, B5 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES

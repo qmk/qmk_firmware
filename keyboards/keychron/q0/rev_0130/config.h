@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A5, A6, A7, B0 }
-
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
