@@ -7,6 +7,11 @@
     "vid": "0xFEED",
     "pid": "0x3070"
   },
+  "matrix_pins": {
+    "cols": ["D1"],
+    "rows": ["D3", "F4", "D0", "F6", "F5", "D4"]
+  },
+  "diode_direction": "COL2ROW",
   "backlight": {
     "pin": "D2"
   },

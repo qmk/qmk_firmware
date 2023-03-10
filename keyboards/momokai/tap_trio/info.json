@@ -8,6 +8,11 @@
         "pid": "0x0006",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["E6", "B2", "B7", "D1", "D2", "D3"],
+        "rows": ["E0"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
