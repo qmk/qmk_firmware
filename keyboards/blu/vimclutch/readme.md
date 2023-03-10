@@ -23,7 +23,13 @@ Also includes a mode for single-keypress in case of "push to talk clutch"
 
 Make example for this keyboard after setting up your development environment:
 
-      make blu/vimclutch:default
+    make blu/vimclutch:default
+      
+Flashing example for this keyboard:
+
+    make blu/vimclutch:default
+
+## Bootloader
 
 Reset button on the reverse side of the enclosure for initializing flashing.
 
