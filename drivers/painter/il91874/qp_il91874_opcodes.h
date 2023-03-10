@@ -31,12 +31,3 @@
 #define IL91874_VCM_DC_SETTING 0x82
 // Undocummented command on Adafruit's sample code
 #define IL91874_MISTERY_COMMAND 0xF8
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 23K640 SRAM command opcodes
-// The chip on https://www.adafruit.com/product/4098
-#define SRAM_23K640_WRITE_STATUS 0x01
-#define SRAM_23K640_WRITE 0x02
-#define SRAM_23K640_READ 0x03
-#define SRAM_23K640_READ_STATUS 0x05
-#define SRAM_23K640_SEQUENTIAL_MODE 0x40

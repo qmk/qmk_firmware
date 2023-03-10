@@ -27,8 +27,8 @@ bool qp_il91874_init(painter_device_t device, painter_rotation_t rotation) {
     surface_painter_device_t *            black  = (surface_painter_device_t *)driver->black_surface;
     surface_painter_device_t *            color  = (surface_painter_device_t *)driver->color_surface;
 
-    uint16_t width    = driver->base.panel_width;
-    uint16_t height   = driver->base.panel_height;
+    uint16_t width  = driver->base.panel_width;
+    uint16_t height = driver->base.panel_height;
 
     uint8_t width_lsb  = width & 0xFF;
     uint8_t width_msb  = (width >> 8) & 0xFF;
@@ -61,7 +61,6 @@ bool qp_il91874_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format on
     qp_comms_bulk_command_sequence(device, il91874_init_sequence, sizeof(il91874_init_sequence));
     driver->base.rotation = rotation;
-
 
     qp_init(driver->black_surface, driver->base.rotation);
     qp_init(driver->color_surface, driver->base.rotation);
@@ -130,7 +129,7 @@ painter_device_t qp_il91874_make_spi_device(uint16_t panel_width, uint16_t panel
             driver->timeout = 3 * 60 * 1000; // 3 minutes as suggested by Adafruit
             qp_eink_update_can_flush((painter_device_t *)driver);
 
-            driver->color       = (HSV){ HSV_RED };
+            driver->color       = (HSV){HSV_RED};
             driver->invert_mask = 0b00;
 
             driver->black_surface = qp_make_mono1bpp_surface(panel_width, panel_height, ptr);
