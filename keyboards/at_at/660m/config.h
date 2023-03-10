@@ -23,10 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LSE clock */
 #define STM32_LSECLK 32768
 
-#define MATRIX_COL_PINS { B15, B14, B13, B12, B11, B10, B2, B1, B9, B8, B7, B6, B5, B3, B4, B0 }
-#define MATRIX_ROW_PINS { A3, A4, A5, A0, A1 }
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
