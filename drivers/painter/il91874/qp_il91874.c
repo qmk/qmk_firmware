@@ -79,6 +79,7 @@ bool qp_il91874_init(painter_device_t device, painter_rotation_t rotation) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
+// clang-format off
 const eink_panel_dc_reset_painter_driver_vtable_t il91874_driver_vtable = {
     .base =
         {
@@ -102,6 +103,7 @@ const eink_panel_dc_reset_painter_driver_vtable_t il91874_driver_vtable = {
             .refresh         = IL91874_DISPLAY_REFRESH,
         }
 };
+// clang-format on
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SPI
