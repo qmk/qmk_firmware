@@ -221,8 +221,7 @@ static void refresh_rgb(void);       // refreshes the activity timer and RGB, in
 static void check_rgb_timeout(void); // checks if enough time has passed for RGB to timeout
 bool is_rgb_timeout = false;         // store if RGB has timed out or not in a boolean
 
-void refresh_rgb()
-{
+void refresh_rgb(void) {
     key_timer = timer_read32(); // store time of last refresh
     if (is_rgb_timeout)
     {
@@ -230,8 +229,7 @@ void refresh_rgb()
         rgblight_wakeup();
     }
 }
-void check_rgb_timeout()
-{
+void check_rgb_timeout(void) {
     if (!is_rgb_timeout && timer_elapsed32(key_timer) > RGBLIGHT_TIMEOUT) // check if RGB has already timeout and if enough time has passed
     {
         rgblight_suspend();
@@ -240,25 +238,20 @@ void check_rgb_timeout()
 }
 /* Then, call the above functions from QMK's built in post processing functions like so */
 /* Runs at the end of each scan loop, check if RGB timeout has occured or not */
-
-void housekeeping_task_user(void)
-{
+void housekeeping_task_user(void) {
 #ifdef RGBLIGHT_TIMEOUT
     check_rgb_timeout();
 #endif
 }
 /* Runs after each key press, check if activity occurred */
-void post_process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_TIMEOUT
     if (record->event.pressed)
         refresh_rgb();
 #endif
 }
 /* Runs after each encoder tick, check if activity occurred */
-
-void post_encoder_update_user(uint8_t index, bool clockwise)
-{
+void post_encoder_update_user(uint8_t index, bool clockwise) {
 #ifdef RGBLIGHT_TIMEOUT
     refresh_rgb();
 #endif
