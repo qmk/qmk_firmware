@@ -16,10 +16,6 @@
 
 #pragma once
 
-#define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4, B6, B5 }
-#define MATRIX_ROW_PINS { B4, B3, A15, A3, B9, B8 }
-#define DIODE_DIRECTION COL2ROW
-
 /* RGB Underglow */
 #define RGB_DI_PIN A10
 #define RGBLED_NUM 26

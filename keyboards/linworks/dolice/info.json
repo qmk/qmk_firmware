@@ -7,6 +7,11 @@
       "pid": "0x0005",
       "device_version": "0.0.1"
     },
+    "matrix_pins": {
+      "cols": ["E6", "F0", "F1", "B4", "D5", "D3", "D2", "B2"],
+      "rows": ["F5", "F4", "F6", "F7", "B0", "B7", "D7", "D6", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
       "pin": "B5",
       "breathing": true
