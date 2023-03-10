@@ -7,6 +7,11 @@
         "pid": "0x6064",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": [null, null, "F4", "F5", "F6", "F7"],
+        "rows": ["B1", "E6", "D7", "C6", "D4"]
+    },
+    "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
             {"pin_a": "B2", "pin_b": "B3"},

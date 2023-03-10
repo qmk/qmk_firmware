@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { F1, F2, F3, F4 }
-#define MATRIX_COL_PINS { A3, A2, A1, A0, F6, F5, F0, E0, E1, C0, C1, C2, C3 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
 #    define OLED_TIMEOUT 450000
