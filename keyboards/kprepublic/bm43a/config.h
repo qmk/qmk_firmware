@@ -17,22 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { D1, F4, F1, F0 }
-#define MATRIX_COL_PINS { B0, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 10
