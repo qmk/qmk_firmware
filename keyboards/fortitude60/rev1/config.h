@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// wiring of each half
-#define MATRIX_ROW_PINS { D1, D0, D3, B7, B6 }
-#define MATRIX_COL_PINS { F7, F6, F5, B3, B2, B1 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 //#define EE_HANDS
 
 #define SPLIT_USB_DETECT
