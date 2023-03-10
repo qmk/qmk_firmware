@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "qc60.h"
-
 #include "quantum.h"
 
 // readability

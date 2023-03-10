@@ -1,6 +1,5 @@
 #pragma once
 
-#include "iris.h"
 #include "quantum.h"
 
 #ifdef USE_I2C

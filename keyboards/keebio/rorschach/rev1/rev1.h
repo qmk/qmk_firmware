@@ -1,7 +1,5 @@
 #pragma once
 
-#include "rorschach.h"
-
 #include "quantum.h"
 
 #ifdef USE_I2C

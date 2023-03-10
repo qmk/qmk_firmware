@@ -1,6 +1,6 @@
 #pragma once
 
-#include "adkb96.h"
+#include "quantum.h"
 
 #ifdef USE_I2C
 #include <stddef.h>

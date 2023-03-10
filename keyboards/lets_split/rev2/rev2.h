@@ -1,7 +1,5 @@
 #pragma once
 
-#include "lets_split.h"
-
 #include "quantum.h"
 
 #ifdef USE_I2C

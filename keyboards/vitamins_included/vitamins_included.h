@@ -2,12 +2,6 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_vitamins_included_rev1
-    #include "rev1.h"
-#else
-    #include "rev2.h"
-#endif
-
 #ifdef USE_I2C
 #include <stddef.h>
 #ifdef __AVR__

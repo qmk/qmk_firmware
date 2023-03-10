@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "rosaline.h"
+#include "quantum.h"
 
 /*
  * ┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
