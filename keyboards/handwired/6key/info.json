@@ -8,6 +8,11 @@
       "pid": "0x0007",
       "device_version": "0.0.1"
     },
+    "matrix_pins": {
+      "cols": ["D3", "D2", "D1"],
+      "rows": ["B4", "D0"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

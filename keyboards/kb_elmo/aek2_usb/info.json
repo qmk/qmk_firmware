@@ -8,6 +8,11 @@
         "pid": "0xDB52",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A1", "A0", "A2", "A3", "A4", "A5", "A6", "A7", "C7", "C6", "C5", "C0", "D6", "D1"],
+        "rows": ["D5", "C1", "C4", "D0", "C3", "C2", "B3", "B4"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "B1",
         "num_lock": "B2",

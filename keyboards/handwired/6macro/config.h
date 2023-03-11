@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* pinout - DON'T CHANGE */
-#define MATRIX_ROW_PINS { B3, B4 }
-#define MATRIX_COL_PINS { B0, B1, B2 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define RGB_DI_PIN D2
 #define RGBLED_NUM 10
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM

@@ -8,6 +8,11 @@
         "pid": "0x5350",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B6", "F7", "F6", "F5", "F4", "D0", "D1", "D7", "B4"],
+        "rows": ["B2", "F0", "C6", "D4", "D3", "F1", "D2", "B5", "D5"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -9,8 +9,19 @@
         "pid": "0x0000",
         "device_version": "0.0.2"
     },
+    "matrix_pins": {
+        "cols": ["B5", "B4", "D7", "D6", "F0", "F1", "C6"],
+        "rows": ["F6", "F5", "F4", "B6", "D3"]
+    },
+    "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D0"
+        "soft_serial_pin": "D0",
+        "matrix_pins": {
+            "right": {
+                "cols": ["B1", "B2", "B3", "F1", "F4", "F5", "F6"],
+                "rows": ["D6", "D7", "B4", "F7", "E6"]
+            }
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

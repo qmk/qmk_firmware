@@ -15,16 +15,6 @@
  */
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS \
-    { D4, D6, D7, B4, B5 }
-#define MATRIX_COL_PINS \
-    { B0, B1, B2, B3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Midi Slider */
 #define SLIDER_PIN F6
 #define MIDI_ADVANCED

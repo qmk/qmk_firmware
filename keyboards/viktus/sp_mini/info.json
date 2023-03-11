@@ -8,10 +8,23 @@
         "pid": "0x534D",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B6", "C6", "C7", "D4", "D2", "D3", "D5", null],
+        "rows": ["F0", "B5", "B4", "D7", "D6"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "F4", "pin_b": "F1", "resolution": 8}
         ]
+    },
+    "split": {
+        "matrix_pins": {
+            "right": {
+                "cols": ["B6", "C6", "C7", "D4", "D2", "D3", "D5", "B7"],
+                "rows": ["F0", "B5", "B4", "D7", "D6"]
+            }
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

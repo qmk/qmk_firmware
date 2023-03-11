@@ -3,6 +3,11 @@
         "pid": "0x0040",
         "device_version": "0.0.2"
     },
+    "matrix_pins": {
+        "cols": ["C6", "D7", "E6"],
+        "rows": ["B4", "B5"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "F5", "pin_b": "F4"}

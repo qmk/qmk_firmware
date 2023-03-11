@@ -69,7 +69,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #endif
 
-#define DIODE_DIRECTION COL2ROW
-
 #define SPLIT_USB_DETECT
 
