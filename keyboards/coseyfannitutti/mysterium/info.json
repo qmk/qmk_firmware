@@ -8,6 +8,11 @@
         "pid": "0x8769",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A0", "B0", "A1", "B1", "A2", "B2", "A3", "B3", "A4", "B4", "A5", "A6", "A7", "D6", "D5", "D1", "D0", "D7"],
+        "rows": ["C2", "C3", "C7", "C4", "C6", "C5"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "community_layouts": ["tkl_ansi"],

@@ -16,9 +16,6 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS { B1, B2 }
-#define MATRIX_COL_PINS { B3, B4 }
-
 #define RGB_DI_PIN B5
 #define RGBLED_NUM 12
 #define RGBLIGHT_EFFECT_BREATHING
@@ -36,6 +33,3 @@
 #define RGBLIGHT_VAL_STEP 10
 #define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_SLEEP
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW

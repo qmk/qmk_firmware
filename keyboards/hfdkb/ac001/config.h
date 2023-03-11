@@ -18,13 +18,6 @@
 
 #define FORCE_NKRO
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B15}
-#define MATRIX_COL_PINS { A5, A6, A7, C4, C5}
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 #define TAP_CODE_DELAY 5
 
 /* ws2812 RGB LED */

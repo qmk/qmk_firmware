@@ -3,10 +3,6 @@
 
 #pragma once
 
-#define MATRIX_COL_PINS { B1, B2, B10, B11, B12, B14, A8, A9, A10, A3, B0, A2, A1, A7, A0, B4, B6, B7 }
-#define MATRIX_ROW_PINS { A15, B3, B5, A4, A5, F1 }
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      1

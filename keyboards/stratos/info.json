@@ -8,6 +8,11 @@
         "pid": "0x992D",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F4", "F7", "F5", "F6", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4", "D5", "D3"],
+        "rows": ["B1", "B2", "B3", "F0", "F1"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi", "60_ansi_arrow", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan"],

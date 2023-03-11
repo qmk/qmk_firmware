@@ -8,6 +8,11 @@
         "pid": "0xDA20",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B9", "B15", "B14", "B13"],
+        "rows": ["B0", "B1", "B2", "B3", "B4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",

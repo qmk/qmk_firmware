@@ -8,6 +8,11 @@
     "pid": "0x422F",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["C6", "C7", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "F0", "F1", "F4", "F5", "F6", "F7"],
+    "rows": ["B0", "B1", "B2", "B3", "B4"]
+  },
+  "diode_direction": "COL2ROW",
   "backlight": {
     "pin": "B7"
   },

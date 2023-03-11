@@ -8,6 +8,11 @@
         "pid": "0x3060",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C6", "D7", "E6", "B4", "B5"],
+        "rows": ["B1", "B3", "B2", "B6"]
+    },
+    "diode_direction": "COL2ROW",
     "split": {
         "soft_serial_pin": "D0"
     },

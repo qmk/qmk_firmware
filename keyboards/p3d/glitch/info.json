@@ -8,6 +8,11 @@
         "pid": "0x3568",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B2", "D2", "B3", "B7", "F5", "F4", "F1", "F0"],
+        "rows": ["D5", "D6", "B6", "D7", "C7", "B4", "B5", "D3", "D4", "C6"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "F6", "pin_b": "F7", "resolution": 2}

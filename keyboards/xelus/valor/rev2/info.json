@@ -8,6 +8,11 @@
         "pid": "0x5653",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B2", "B1", "B0", "A7", "A6", "A5", "A4", "A13", "B7", "B6", "B5", "B4", "B3", "A15", "A14"],
+        "rows": ["B11", "B10", "A3", "A1", "A2"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32L422",
     "bootloader": "stm32-dfu",
     "community_layouts": ["alice_split_bs"],
