@@ -8,6 +8,17 @@
         "pid": "0x0180",
         "device_version": "0.0.2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C13", "pin_b": "C14"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "A1",
+        "on_state": 0
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
     "layout_aliases": {
         "LAYOUT_tkl_nofrow_ansi": "LAYOUT_ansi",
         "LAYOUT_tkl_nofrow_iso": "LAYOUT_iso"

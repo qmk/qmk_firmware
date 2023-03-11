@@ -25,32 +25,31 @@ def _generate_layouts(keyboard):
     row_num = kb_info_json['matrix_size']['rows']
 
     lines = []
-    for layout_name in kb_info_json['layouts']:
-        if kb_info_json['layouts'][layout_name]['c_macro']:
+    for layout_name, layout_data in kb_info_json['layouts'].items():
+        if layout_data['c_macro']:
             continue
 
-        if 'matrix' not in kb_info_json['layouts'][layout_name]['layout'][0]:
-            cli.log.debug(f'{keyboard}/{layout_name}: No matrix data!')
+        if not all('matrix' in key_data for key_data in layout_data['layout']):
+            cli.log.debug(f'{keyboard}/{layout_name}: No or incomplete matrix data!')
             continue
 
         layout_keys = []
-        layout_matrix = [['KC_NO' for i in range(col_num)] for i in range(row_num)]
+        layout_matrix = [['KC_NO'] * col_num for _ in range(row_num)]
 
-        for i, key in enumerate(kb_info_json['layouts'][layout_name]['layout']):
-            row = key['matrix'][0]
-            col = key['matrix'][1]
-            identifier = 'k%s%s' % (ROW_LETTERS[row], COL_LETTERS[col])
+        for index, key_data in enumerate(layout_data['layout']):
+            row, col = key_data['matrix']
+            identifier = f'k{ROW_LETTERS[row]}{COL_LETTERS[col]}'
 
             try:
                 layout_matrix[row][col] = identifier
                 layout_keys.append(identifier)
             except IndexError:
-                key_name = key.get('label', identifier)
-                cli.log.error(f'Matrix data out of bounds for layout {layout_name} at index {i} ({key_name}): [{row}, {col}]')
+                key_name = key_data.get('label', identifier)
+                cli.log.error(f'{keyboard}/{layout_name}: Matrix data out of bounds at index {index} ({key_name}): [{row}, {col}]')
                 return []
 
         lines.append('')
-        lines.append('#define %s(%s) {\\' % (layout_name, ', '.join(layout_keys)))
+        lines.append(f'#define {layout_name}({", ".join(layout_keys)}) {{ \\')
 
         rows = ', \\\n'.join(['\t {' + ', '.join(row) + '}' for row in layout_matrix])
         rows += ' \\'

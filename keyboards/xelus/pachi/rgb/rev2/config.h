@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2023 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,12 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { A5, A6, B0, A7, A8, B1, B4, B5, A15, B3, A13, A14 }
 #define MATRIX_COL_PINS { C14, C15, A0, A1, A2, A3, A4, A10, A9}
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -90,8 +83,9 @@
 #define ENABLE_RGB_MATRIX_HUE_BREATHING
 #define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #define ENABLE_RGB_MATRIX_HUE_WAVE
-// #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // #define ENABLE_RGB_MATRIX_PIXEL_RAIN
+// #define ENABLE_RGB_MATRIX_PIXEL_FLOW
+// #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
@@ -109,5 +103,6 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-
-#define FORCE_NKRO
+// VIA KB level
+#define VIA_FIRMWARE_VERSION 1
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17

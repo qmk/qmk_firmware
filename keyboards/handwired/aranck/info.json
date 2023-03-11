@@ -8,6 +8,9 @@
     "pid": "0x0000",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "community_layouts": ["planck_mit"],
   "layouts": {
     "LAYOUT_planck_mit": {
       "layout": [
