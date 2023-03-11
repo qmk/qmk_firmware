@@ -66,7 +66,7 @@ enum {
   GUI_NM = 3
 };
 
-void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_CTL_NM_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
 	set_oneshot_mods(MOD_LCTL);
   } else {
@@ -75,7 +75,7 @@ void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_CTL_NM_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LCTL);
   } else {
@@ -84,7 +84,7 @@ void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_GUI_NM_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
 	register_code (KC_LGUI);
   } else {
@@ -93,7 +93,7 @@ void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_GUI_NM_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LGUI);
   } else {
@@ -102,7 +102,7 @@ void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_ALT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_ALT_NM_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
 	register_code (KC_LALT);
   } else {
@@ -111,7 +111,7 @@ void dance_ALT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_ALT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_ALT_NM_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LALT);
   } else {
@@ -120,7 +120,7 @@ void dance_ALT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_SFT_NM_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
 	register_code (KC_LSFT);
 	set_oneshot_mods(MOD_LSFT);
@@ -130,7 +130,7 @@ void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_SFT_NM_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LSFT);
   } else {
@@ -140,7 +140,7 @@ void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
  [CTL_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_CTL_NM_finished, dance_CTL_NM_reset),
  [GUI_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_GUI_NM_finished, dance_GUI_NM_reset),
  [ALT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_ALT_NM_finished, dance_ALT_NM_reset),

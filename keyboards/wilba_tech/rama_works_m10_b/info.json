@@ -8,6 +8,11 @@
     "pid": "0x00AB",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "C6"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -17,9 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// Define tab key for boot magic
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0
-
 // OLED 
 #define OLED_DISPLAY_128X64

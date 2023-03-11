@@ -8,6 +8,14 @@
         "pid": "0x198B",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B1",
+        "num_lock": "B2",
+        "scroll_lock": "B0",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

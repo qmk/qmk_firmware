@@ -8,6 +8,14 @@
         "pid": "0x7342",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "driver": "software",
+        "pin": "B11",
+        "levels": 5,
+        "on_state": 0
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
     "layouts": {
         "LAYOUT_ortho_3x10": {
             "layout": [

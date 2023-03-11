@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,9 +27,9 @@
 // entirely and just use numbers.
 
 enum layer_names {
-    _BASE = 0,
-    _WAVE = 1,
-    _FN = 2
+    _BASE,
+    _WAVE,
+    _FN,
 };
 
 // For CUSTOM_GRADIENT
@@ -212,12 +212,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 switch (rgb_matrix_get_mode()) {
                     case RGB_MATRIX_CUSTOM_CUSTOM_GRADIENT:
-                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_DIAGONAL);
-                        return false;
-                    case RGB_MATRIX_CUSTOM_DIAGONAL:
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_COOL_DIAGONAL);
                         return false;
                     case RGB_MATRIX_CUSTOM_COOL_DIAGONAL:
+                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_FLOWER_BLOOMING);
+                        return false;
+                    case RGB_MATRIX_CUSTOM_FLOWER_BLOOMING:
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_KITT);
                         return false;
                     case RGB_MATRIX_CUSTOM_KITT:

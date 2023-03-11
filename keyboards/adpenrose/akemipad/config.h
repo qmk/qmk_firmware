@@ -3,11 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 5
 
 /*
  * Keyboard Matrix Assignments
@@ -25,12 +20,6 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/*Rotary encoder - set the resolution fitting your encoder.
-Most will need a value of 4. If 1 encoder click results in 2 keycodes sent
-increase the value. If you need 2 clicks for 1 keycode, decrease*/
-#define ENCODER_RESOLUTION 4
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B3 }
 #define TAP_CODE_DELAY 10
 
 /* Audio functionality */
@@ -53,10 +42,3 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 #    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

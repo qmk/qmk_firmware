@@ -8,6 +8,17 @@
         "pid": "0x0870",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "D6",
+        "num_lock": "D7",
+        "scroll_lock": "B4"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

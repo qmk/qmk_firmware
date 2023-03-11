@@ -31,9 +31,6 @@
 // #define SPLIT_HAND_PIN GP13
 // #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
 
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN GP1
-
 /* RGB settings. */
 #define RGB_DI_PIN GP0
 
