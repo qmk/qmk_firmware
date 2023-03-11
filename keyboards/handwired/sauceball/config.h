@@ -24,8 +24,8 @@
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 #define PS2_MOUSE_INVERT_X
-
 #define PS2_MOUSE_USE_1_1_SCALING
+#define PS2_MOUSE_SCROLL_DIVISOR_H 2
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 
 /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
