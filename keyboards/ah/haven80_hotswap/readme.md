@@ -1,6 +1,6 @@
 #Haven80 Hotswap
 
-![haven 80 hotswap](https://i.imgur.com/lXKf8Ci.png)
+![haven 80 hotswap](https://i.imgur.com/lXKf8Cih.png)
 
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
