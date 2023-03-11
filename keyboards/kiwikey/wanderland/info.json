@@ -8,6 +8,11 @@
         "pid": "0x574C",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F5", "F6", "B4", "D7", "D6", "D5", "D2", "D3", "B0", "F0", "B1", "B2", "B3"],
+        "rows": ["F4", "F1", "E6", "E2", "C7", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B7",
         "breathing": true

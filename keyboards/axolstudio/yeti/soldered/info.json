@@ -8,6 +8,11 @@
     "pid": "0x9F9F",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["F6", "F5", "F4", "F1", "F0", "F7", "D7", "D6", "D4", "B3", "B7", "D0", "D1", "D2", "D3", "D5"],
+    "rows": ["C7", "C6", "B6", "B5", "B4"]
+  },
+  "diode_direction": "ROW2COL",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "community_layouts": ["alice", "alice_split_bs"],

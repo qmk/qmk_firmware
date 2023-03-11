@@ -15,12 +15,6 @@
  */
 #pragma once
 
-#define MATRIX_COL_PINS { B7,  A6,  B6, B5,  B4,  B3,  A5,  A10, B1,  B0,  A7,  A9,  B11, B10, B2,  A15, B15 }
-#define MATRIX_ROW_PINS { A3,  B9,  B8,  A4, C14, C13 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef RGBLIGHT_ENABLE
 
 #    define RGB_DI_PIN A8

@@ -4,6 +4,11 @@
         "device_version": "2.0.0",
         "pid": "0x1835"
     },
+    "matrix_pins": {
+        "cols": ["GP8", "GP9", "GP7", "GP6", "GP28"],
+        "rows": ["GP4", "GP5", "GP27", "GP26"]
+    },
+    "diode_direction": "ROW2COL",
     "split": {
         "soft_serial_pin": "GP1"
     },

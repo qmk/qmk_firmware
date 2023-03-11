@@ -18,14 +18,6 @@
 
 #pragma once
 
-
-/* Planck PCB default pin-out */
-#define MATRIX_ROW_PINS { B6, F7, F6, D6 }
-#define MATRIX_COL_PINS { F5, F1, F0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

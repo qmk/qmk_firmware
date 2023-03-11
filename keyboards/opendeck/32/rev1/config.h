@@ -15,14 +15,6 @@
  */
 #pragma once
 
-
-// Key matrix (TtB, LtR)
-#define MATRIX_COL_PINS \
-    { B4, D7, D6, D4, F7, F6, F5, F4 }
-#define MATRIX_ROW_PINS \
-    { C7, C6, B6, B5 }
-#define DIODE_DIRECTION COL2ROW
-
 // RGB matrix
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_COUNT 1

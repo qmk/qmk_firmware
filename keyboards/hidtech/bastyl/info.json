@@ -8,6 +8,11 @@
         "pid": "0x1827",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B4", "E6", "C6", "B1", "B3", "B2"],
+        "rows": ["D7", "B5", "F7", "F6", "B6"]
+    },
+    "diode_direction": "ROW2COL",
     "split": {
         "soft_serial_pin": "D0"
     },

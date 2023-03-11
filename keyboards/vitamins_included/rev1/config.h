@@ -23,12 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EE_HANDS
 
-// wiring of each half
-#define MATRIX_ROW_PINS { F5, F6, C7, F7 }
-#define MATRIX_COL_PINS { F1, F4, E2, B6, D7, D6}
-
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -8,6 +8,11 @@
         "pid": "0x1319",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F7", "F6", "D2", "D3"],
+        "rows": ["B0", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "debounce": 3,

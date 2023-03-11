@@ -8,6 +8,11 @@
         "pid": "0x7E94",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6", "F7", "B6", "B3", "B2"],
+        "rows": ["D7", "D2", "C6", "B5", "D4", "B4", "D0", "D3", "D1", "E6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "community_layouts": ["60_ansi"],

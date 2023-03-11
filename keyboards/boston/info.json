@@ -8,6 +8,11 @@
         "pid": "0x4176",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B10", "B11", "B12", "B13", "B14", "B15", "A8", "A9", "A10", "A15", "B3", "B4", "B7", "B8", "B9", "C14", "C15", "F0", "A3"],
+        "rows": ["B5", "B6", "A7", "B0", "B1", "B2", "A4"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "C13", "pin_b": "F1", "resolution": 2}

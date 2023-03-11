@@ -8,6 +8,11 @@
       "pid": "0x7EC5",
       "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "C6", "C7", "C8", "C9", "C10"],
+    "rows": ["A0", "A1", "A2", "A3", "A4"]
+  },
+  "diode_direction": "ROW2COL",
   "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
