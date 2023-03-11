@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_LAYER2] = LAYOUT_split_3x5_3(
 		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,					KC_NO,			KC_NO,			 KC_NO,			  KC_NO,		   	KC_NO,
 		KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,					KC_NO,			KC_NO,			 TD(TD_UP_PGUP),  KC_NO,		   	KC_NO,
-		KC_F11,		KC_F12,		KC_NO,		KC_NO,		KC_NO,					KC_NO,			TD(TD_LEFT_HOME),TD(TD_DOWN_PGDN),TD(TD_RIGHT_HOME),KC_NO,
+		KC_F11,		KC_F12,		KC_NO,		KC_NO,		KC_NO,					KC_NO,			TD(TD_LEFT_HOME),TD(TD_DOWN_PGDN),TD(TD_RIGHT_END),KC_NO,
 								KC_NO,		KC_NO,		TO(_LAYER0),			TO(_LAYER1),	KC_NO,			 KC_NO
 	)
 };
