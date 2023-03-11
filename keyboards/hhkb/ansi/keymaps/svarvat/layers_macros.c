@@ -235,7 +235,7 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
     }
 //    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
 //    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
-    return processKeycodeIfLMouse(keycode, record);
+    return true;
 }
 bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -774,7 +774,7 @@ bool processKeycodeIfLThumbQ(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
     }
-    return processKeycodeIfLPinky(keycode, record);
+    return true;
 }
 bool processKeycodeIfLThumbW(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
