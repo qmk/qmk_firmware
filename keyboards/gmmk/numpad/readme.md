@@ -1,6 +1,6 @@
 # GMMK NUMPAD
 
-A 17 Key macropad made ans old by Glorious LLC, equiped with a WB32 microcontroller, with support for a rotary encoder.
+A 17 Key macropad made and sold by Glorious LLC, equipped with a WB32 microcontroller, with support for a rotary encoder.
 
 * Keyboard Maintainer: [GloriousThrall](https://github.com/GloriousThrall)
 * Hardware Supported: GMMK Numpad
