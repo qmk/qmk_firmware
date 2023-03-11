@@ -325,16 +325,16 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
  */
 static void debug_spleeb_config_to_console(spleeb_config_t* config) {
 #    ifdef CONSOLE_ENABLE
-    dprintf("(spleeb) process_record_kb: config = {\n"
-            "\traw = 0x%u,\n"
-            "\t{\n"
-            "\t\tis_dragscroll_enabled=%u\n"
-            "\t\tis_sniping_enabled=%u\n"
-            "\t\tdefault_dpi=0x%X (%u)\n"
-            "\t\tsniping_dpi=0x%X (%u)\n"
-            "\t}\n"
-            "}\n",
-            config->raw, config->is_dragscroll_enabled, config->is_sniping_enabled, config->pointer_default_dpi, get_pointer_default_dpi(config), config->pointer_sniping_dpi, get_pointer_sniping_dpi(config));
+    pd_dprintf("(spleeb) process_record_kb: config = {\n"
+               "\traw = 0x%u,\n"
+               "\t{\n"
+               "\t\tis_dragscroll_enabled=%u\n"
+               "\t\tis_sniping_enabled=%u\n"
+               "\t\tdefault_dpi=0x%X (%u)\n"
+               "\t\tsniping_dpi=0x%X (%u)\n"
+               "\t}\n"
+               "}\n",
+               config->raw, config->is_dragscroll_enabled, config->is_sniping_enabled, config->pointer_default_dpi, get_pointer_default_dpi(config), config->pointer_sniping_dpi, get_pointer_sniping_dpi(config));
 #    endif // CONSOLE_ENABLE
 }
 #endif // POINTING_DEVICE_ENABLE
