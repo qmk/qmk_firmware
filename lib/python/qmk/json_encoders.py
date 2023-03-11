@@ -97,23 +97,23 @@ class InfoJSONEncoder(QMKJSONEncoder):
         if key == 'label':
             return '00label'
 
+        elif key == 'matrix':
+            return '01matrix'
+
         elif key == 'x':
-            return '01x'
+            return '02x'
 
         elif key == 'y':
-            return '02y'
+            return '03y'
 
         elif key == 'w':
-            return '03w'
+            return '04w'
 
         elif key == 'h':
-            return '04h'
+            return '05h'
 
         elif key == 'flags':
-            return '05flags'
-
-        elif key == 'matrix':
-            return '06matrix'
+            return '06flags'
 
         return key
 
