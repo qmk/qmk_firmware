@@ -32,7 +32,6 @@ struct ShiftKeyParams {
     uint16_t    keycode;
     uint16_t    report_shift_code;
 
-
     static const std::string& GetName(const TestParamInfo<ShiftKeyParams>& info) {
         return info.param.name;
     }
