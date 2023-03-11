@@ -22,8 +22,11 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the Num key and plug in the keyboard
 * **Keycode in layout**: Press the Num+Del key which is mapped to `QK_BOOT`
+* **Physical switch**: Pinhole located ubnde the zero key press while inserting the USB
+* **From Glorious Core Firmware**: Press Enter+Plus at the same time while plugging in the USB
 
 ## Broken
 
 * Slider does not function
 * Rotary input push button (mapped to gpio)
+* Bluetooth functionality
