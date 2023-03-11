@@ -11,6 +11,9 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
+KEYBOARD_SHARED_EP = yes
+MIDI_ENABLE = yes
+
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = AW20216
 
@@ -18,3 +21,5 @@ EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = spi_flash
 
 LTO_ENABLE = yes
+
+SRC += analog.c

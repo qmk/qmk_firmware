@@ -25,8 +25,11 @@ Enter the bootloader in 3 ways:
 * **Physical switch**: Pinhole located ubnde the zero key press while inserting the USB
 * **From Glorious Core Firmware**: Press Enter+Plus at the same time while plugging in the USB
 
+## Slider
+
+The slider is currently setup to use [Midi2Vol](https://github.com/jesusvallejo/Midi2Vol)
+
 ## Broken
 
-* Slider does not function
 * Rotary input push button (mapped to gpio)
 * Bluetooth functionality

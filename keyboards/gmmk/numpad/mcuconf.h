@@ -22,4 +22,4 @@
 #define WB32_SPI_USE_QSPI TRUE
 
 // #undef WB32_ADC_USE_ADC1
-// #define WB32_ADC_USE_ADC1 TRUE
+#define WB32_ADC_USE_ADC1 TRUE
