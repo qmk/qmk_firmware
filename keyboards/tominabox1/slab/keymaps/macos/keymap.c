@@ -26,7 +26,7 @@ bool    moving     = false;
 #define SLIDER_PIN F0
 #include "print.h"
 
-void matrix_init_user(void) {
+void mkeyboard_post_init_user(void) {
     analogReference(ADC_REF_POWER);
     for (int i = 0; i < max_ticks; ++i) {
         tap_code(KC_VOLD);
@@ -34,7 +34,7 @@ void matrix_init_user(void) {
     ticks = 0;
 }
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     // slider();
 
     pot_val = (analogReadPin(SLIDER_PIN));
@@ -62,8 +62,12 @@ enum layer_names { _BASE };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT(KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8)};
+    [_BASE] = LAYOUT(
+    KC_1, KC_2, KC_3, KC_4,
+    KC_5, KC_6, KC_7, KC_8
+    )};
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {[_BASE] = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)}};
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)}};
 #endif

@@ -26,7 +26,7 @@ bool moving     = false;
 #define SLIDER_PIN F0
 #include "print.h"
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
     analogReference(ADC_REF_POWER);
     for (int i = 0; i < max_ticks; ++i) {
         tap_code(KC_VOLD);
@@ -34,7 +34,7 @@ void matrix_init_user(void) {
     ticks = 0;
 }
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     // slider();
 
     pot_val = (analogReadPin(SLIDER_PIN));
