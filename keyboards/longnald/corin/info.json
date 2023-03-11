@@ -8,6 +8,8 @@
     "pid": "0x1024",
     "device_version": "0.0.4"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT_64_ansi": {
       "layout": [

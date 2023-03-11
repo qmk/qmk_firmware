@@ -6,6 +6,7 @@
         "pid": "0xAACD",
         "device_version": "1.0.0"
     },
+    "debounce": 8,
     "layouts": {
         "LAYOUT": {
             "layout": [

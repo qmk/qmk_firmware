@@ -1,5 +1,4 @@
 #pragma once
-#include "config_common.h"
 
 /* Speaker configuration
  */
@@ -10,10 +9,6 @@
 /* Space savings
  */
 #define NO_ACTION_TAPPING
-
-/* Backlight configuration
- */
-#define BACKLIGHT_LEVELS 1
 
 /* Underlight configuration
  */

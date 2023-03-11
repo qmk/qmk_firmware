@@ -7,6 +7,8 @@
         "pid": "0xAE65",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["B2", "B3", "B1", "B0", "F7", "F0", "F1", "F4", "F5", "F6"],
