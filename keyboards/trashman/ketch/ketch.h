@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright 2021 Evan Sailer, Jetpacktuxedo, & QMK Firmware
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,7 +32,7 @@ SOFTWARE.
     { K0, K1, K2, K3, K4, K5, K6, K7 },\
     { K8, K9, K10, K11, K12, K13, K14, K15 },\
     { K16, K17, K18, K19, K20, K21, K22, K23 },\
-    { K24, KC_NO, K26, K27, K28, K29, KC_NO, K31 },\
+    { KC_NO, K24, K26, K27, K28, K29, KC_NO, K31 },\
     { K32, K33, K34, K35, K36, K37, K38, KC_NO },\
     { K39, K40, K41, K42, K43, K44, K45, KC_NO }\
 }
