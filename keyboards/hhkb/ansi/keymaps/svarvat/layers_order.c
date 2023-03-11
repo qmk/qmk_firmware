@@ -1,7 +1,7 @@
  #define LA_BASE 0
  #define LA_MOUSE 1 // Mouse x2
  #define LA_CAPSLOCK 2
- #define LA_LPINKY 3
+ #define LA_LPINKY 3 // GUI
  #define LA_RTHUMB 4
  #define LA_LTHUMB 5
  #define LA_LTHUMBEMO 6 // LSG

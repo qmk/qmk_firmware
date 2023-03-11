@@ -7,27 +7,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     mod_state = get_mods();
 
     if (IS_LAYER_ON(LA_LTHUMB)) {
-        if (IS_LAYER_ON(LA_LTHUMBEOSL)) {
-            return processKeycodeIfLThumbEOsl(keycode, record);
-        } else if (IS_LAYER_ON(LA_LTHUMBEMO)) {
-            return processKeycodeIfLThumbEMo(keycode, record);
-        } else if (IS_LAYER_ON(LA_LTHUMBDOSL)) {
-            return processKeycodeIfLThumbDOsl(keycode, record);
-        } else if (IS_LAYER_ON(LA_LTHUMBDMO)) {
-            return processKeycodeIfLThumbDMo(keycode, record);
-        } else if (IS_LAYER_ON(LA_LTHUMB1MO)) {
-            return processKeycodeIfLThumb1Mo(keycode, record);
-        } else if (IS_LAYER_ON(LA_LTHUMB2MO)) {
-            return processKeycodeIfLThumb2Mo(keycode, record);
-        } else if (IS_LAYER_ON(LA_LTHUMB3MO)) {
-            return processKeycodeIfLThumb3Mo(keycode, record);
-        } else if (IS_LAYER_ON(LA_LTHUMBW)) {
-            return processKeycodeIfLThumbW(keycode, record);
-        } else if (IS_LAYER_ON(LA_LTHUMBQ)) {
-            return processKeycodeIfLThumbQ(keycode, record);
-        } else {
-            if (!processKeycodeIfLThumb(keycode, record)) {return false;}
+        if (IS_LAYER_ON(LA_LTHUMBEMO)) {
+            if (!processKeycodeIfLThumbEMo(keycode, record)) {return false;}
         }
+        else if (IS_LAYER_ON(LA_LTHUMBDMO)) {
+            if (!processKeycodeIfLThumbDMo(keycode, record)) {return false;}
+        }
+        else if (IS_LAYER_ON(LA_LTHUMBW)) {
+            if (!processKeycodeIfLThumbW(keycode, record)) {return false;}
+        }
+        else if (IS_LAYER_ON(LA_LTHUMBQ)) {
+            if (!processKeycodeIfLThumbQ(keycode, record)) {return false;}
+        }
+        else if (IS_LAYER_ON(LA_LTHUMB1MO)) {
+            if (!processKeycodeIfLThumb1Mo(keycode, record)) {return false;}
+        }
+        else if (IS_LAYER_ON(LA_LTHUMB2MO)) {
+            if (!processKeycodeIfLThumb2Mo(keycode, record)) {return false;}
+        }
+        else if (IS_LAYER_ON(LA_LTHUMB3MO)) {
+            if (!processKeycodeIfLThumb3Mo(keycode, record)) {return false;}
+        }
+        else {
+            if (IS_LAYER_ON(LA_LTHUMBEOSL)) {return processKeycodeIfLThumbEOsl(keycode, record);}
+            if (IS_LAYER_ON(LA_LTHUMBDOSL)) {return processKeycodeIfLThumbDOsl(keycode, record);}
+        }
+        if (!processKeycodeIfLThumb(keycode, record)) {return false;}
     }
     if (IS_LAYER_ON(LA_RTHUMB)) {
         if (!processKeycodeIfRThumb(keycode, record)) {return false;}
