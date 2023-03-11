@@ -404,7 +404,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #endif // SPLEEB_ENCODER_MODE_MAP_ENABLE
 
 #ifdef POINTING_DEVICE_ENABLE
-    if ((keycode > __SPLEEB_START_RANGE && keycode < SPLEEB_SAFE_RANGE) || IS_MOUSEKEY(keycode)) {
+    if ((keycode >= POINTER_DEFAULT_DPI_FORWARD && keycode <= ENC_MODE_STEP_RIGHT) || IS_MOUSEKEY(keycode)) {
         debug_spleeb_config_to_console(&g_spleeb_config);
     }
 #endif // POINTING_DEVICE_ENABLE

@@ -85,7 +85,7 @@ This will enable 4 encoder modes. On the left side there will be modes for volum
 
 ## Custom Keycodes 
 
-This firmware defines the following custom keycodes for use in keymap.c. Depending on your defines the pointing or encoder specific keymaps will not be included. Use `SPLEEB_SAFE_RANGE` for keymap.c custom keycodes.
+This firmware defines the following custom keycodes for use in keymap.c. Depending on your defines the pointing or encoder specific keymaps will not be included.
 
 ```c
 #define DF_MOD POINTER_DEFAULT_DPI_FORWARD
@@ -98,7 +98,6 @@ This firmware defines the following custom keycodes for use in keymap.c. Dependi
 #define DRG_TOG DRAGSCROLL_MODE_TOGGLE
 #define ENC_STL ENC_MODE_STEP_LEFT
 #define ENC_STR ENC_MODE_STEP_RIGHT
-// SPLEEB_SAFE_RANGE
 ```
 
 ## Bootloader
