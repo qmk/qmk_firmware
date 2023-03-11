@@ -55,10 +55,6 @@ const uint16_t PROGMEM encoder_map[][4][2] = {
 };
 #endif
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
 void pointing_device_init_user(void) {
     set_auto_mouse_layer(_MOUSE);
     set_auto_mouse_enable(true);
