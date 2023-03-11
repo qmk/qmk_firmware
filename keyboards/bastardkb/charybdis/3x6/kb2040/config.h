@@ -17,12 +17,6 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_COL_PINS \
-    { GP2, GP1, GP29, GP6, GP7, GP8 }
-
-#define MATRIX_ROW_PINS \
-    { GP3, GP5, GP4, GP9 }
 
 /* Handedness. */
 #define EE_HANDS
