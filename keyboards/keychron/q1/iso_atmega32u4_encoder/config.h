@@ -17,7 +17,10 @@
 #pragma once
 
 /* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {0,1} }
+#define DIP_SWITCH_MATRIX_GRID \
+    {                          \
+        { 0, 1 }               \
+    }
 
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 2
