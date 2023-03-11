@@ -8,6 +8,11 @@
         "pid": "0x3700",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B0", "B13", "B9", "B8"],
+        "rows": ["B12", "B7", "B5", "B4", "B3", "A15"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
     	"num_lock": "B6"
     },

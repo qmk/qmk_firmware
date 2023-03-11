@@ -8,6 +8,11 @@
         "pid": "0x6074",
         "device_version": "0.0.2"
     },
+    "matrix_pins": {
+        "cols": ["B4", "B3"],
+        "rows": ["B0", "B5"]
+    },
+    "diode_direction": "ROW2COL",
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "debounce": 50,

@@ -15,10 +15,4 @@
  */
 #pragma once
 
-
-#define MATRIX_ROW_PINS \
-    { F1, B4, B5, D6, D7 }
-#define MATRIX_COL_PINS \
-    { B6, C6, C7, F7, F6, F5, F4, F0, B7, D0, D1, D2, D3, D5, D4 }
-
 #define RGB_DI_PIN E6

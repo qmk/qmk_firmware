@@ -8,6 +8,11 @@
         "pid": "0x6D6E",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C5", "C4", "C3", "D0", "C2", "D1", "C1", "C0", "D4", "B0", "D7", "D6", "B5"],
+        "rows": ["B1", "B2", "B3", "B4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "layouts": {

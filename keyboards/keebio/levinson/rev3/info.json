@@ -1,12 +1,23 @@
 {
     "keyboard_name": "Levinson Rev. 3",
     "split": {
-        "soft_serial_pin": "D0"
+        "soft_serial_pin": "D0",
+        "matrix_pins": {
+            "right": {
+                "cols": ["F4", "F7", "D3", "B5", "B4", "E6"],
+                "rows": ["D4", "B2", "B3", "B1"]
+            }
+        }
     },
     "usb": {
         "pid": "0x3146",
         "device_version": "3.0.0"
     },
+    "matrix_pins": {
+        "cols": ["D3", "F4", "F7", "B1", "B3", "B2"],
+        "rows": ["D4", "E6", "B4", "B5"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B6",
         "levels": 7

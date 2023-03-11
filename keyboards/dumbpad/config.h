@@ -16,9 +16,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-/* Column/Row IO definitions */
-#define DIODE_DIRECTION COL2ROW
-
 /* Reduce tapdance required taps from 5 to 2 */
 #define TAPPING_TOGGLE 2

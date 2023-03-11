@@ -2,14 +2,6 @@
 
 #include "adkb96.h"
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
-#endif
-
 // Keymap with right side flipped
 // (TRRS jack on both halves are to the right)
 #define LAYOUT_ortho_6x16( \

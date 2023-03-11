@@ -7,7 +7,6 @@
         "pid": "0x4B4E"
     },
     "manufacturer": "Quartz64",
-    "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT": {
             "layout": [

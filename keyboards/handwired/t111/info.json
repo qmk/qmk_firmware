@@ -8,6 +8,11 @@
         "pid": "0x6FAA",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B15", "B11", "B10", "B1", "B0", "A10", "A9", "A7", "A6", "A5", "A4", "A8", "B13", "B14"],
+        "rows": ["A15", "B6", "B5", "B4", "B3", "B9", "B8", "B7"]
+    },
+    "diode_direction": "ROW2COL",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layouts": {
