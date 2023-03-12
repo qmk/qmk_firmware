@@ -12,11 +12,13 @@ Make example for this keyboard (after setting up your build environment):
 
     make 0xcb/splaytoraid:default
     make 0xcb/splaytoraid/32u4:default
+    make 0xcb/splaytoraid/kb2040:default
     
 Flashing example for this keyboard:
 
     make 0xcb/splaytoraid:default:flash
     make 0xcb/splaytoraid/32u4:default:flash
+    make 0xcb/splaytoraid/kb2040:default:flash
 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
@@ -25,6 +27,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the left top 5. col key (usually Escape) and plug in the keyboard
+* **Bootmagic reset**: Hold down the left top 4. col key (usually Escape) and plug in the keyboard
 * **Physical reset button**: Press the button on the controller (Helios) for more than 500ms or just press it (Pluto)
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
