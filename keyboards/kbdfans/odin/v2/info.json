@@ -5,7 +5,7 @@
     "maintainer": "lexbrugman",
     "usb": {
         "vid": "0x4B42",
-        "pid": "0x0101",
+        "pid": "0x0104",
         "device_version": "0.0.1"
     },
     "indicators": {
