@@ -28,3 +28,9 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the left top 4. col key (usually Escape) and plug in the keyboard
 * **Physical reset button**: Press the button on the controller (Helios) for more than 500ms or just press it (Pluto)
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
+Please note that the default bootloader for the `32u4` version is QMK DFU, for compatibility with [0xCB Pluto](https://github.com/0xCB-dev/0xCB-Pluto). Generic Pro Micros often use a different bootloader, such as `caterina`.
+
+If the incorrect bootloader is specified, bootmagic reset and the `QK_BOOT` keycode will not work.
+
+To avoid this problem, set the correct bootloader in your custom keymap's `rules.mk` file before compiling, or flash using an appropriate target (ex: `make 0xcb/splaytoraid/32u4:default:avrdude`). See [flashing instructions and bootloader information](https://docs.qmk.fm/#/flashing) for more details.
