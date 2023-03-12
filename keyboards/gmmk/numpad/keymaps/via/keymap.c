@@ -80,10 +80,9 @@ extern int16_t encPrev;
 void matrix_scan_user(void) {
     if (enc != encPrev) {
         if (enc < 1) {
-          register_code16(KC_MUTE);
+          tap_code_delay(KC_MUTE, 10);
         }
         else {
-          unregister_code16(KC_MUTE);
         }
     }
 
