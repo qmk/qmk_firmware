@@ -27,7 +27,7 @@ Enter the bootloader in 3 ways:
 
 ## Slider
 
-The slider is currently setup to use [Midi2Vol](https://github.com/jesusvallejo/Midi2Vol)
+The slider is currently compatible with [Midi2Vol](https://github.com/jesusvallejo/Midi2Vol), [Midi Mixer (Windows)](https://github.com/jpwilliams/midi-mixer-releases/releases), [Midi2Lightroom (Mac)](https://rsjaffe.github.io/MIDI2LR/), and [ControllerMate (Mac)](https://www.orderedbytes.com/controllermate/)
 
 ## Encoder Button
 
