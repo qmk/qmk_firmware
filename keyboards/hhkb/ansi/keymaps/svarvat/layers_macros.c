@@ -276,6 +276,11 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 unregister_code16(KC_LCTL);
             }
             return false;
+        case MA_LGUI:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_LGUI);
+            }
+            return false;
         case MA_Q:
             if (record->event.pressed) {
                 tap_code16_wrap_lctl(G(KC_Q));
