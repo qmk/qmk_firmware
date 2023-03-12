@@ -271,6 +271,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LPINKY:
+        case KC_LCTL:
             if (!(record->event.pressed)) {
                 layer_off(LA_LPINKY);
                 unregister_code16(KC_LCTL);
@@ -279,6 +280,11 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_LGUI:
             if (record->event.pressed) {
                 tap_code16_wrap_lctl(KC_LGUI);
+            }
+            return false;
+        case MA_SPC:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(G(MA_SPC));
             }
             return false;
         case MA_Q:

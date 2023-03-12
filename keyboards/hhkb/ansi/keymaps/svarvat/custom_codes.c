@@ -22,6 +22,7 @@ enum custom_keycodes {
     MA_UP,
     MA_TAB,
     MA_LGUI,
+    MA_SPC,
     MA_RIGHT,
     MA_LEFT,
     MA_DELX2,
