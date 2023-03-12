@@ -161,8 +161,7 @@ def convert_requested_format(im, format):
     ## Check if ncolors is valid
     # Formats accepting several options
     if image_format in ['IMAGE_FORMAT_GRAYSCALE', 'IMAGE_FORMAT_PALETTE']:
-        # 'or' is a hack for text formatting
-        valid = [2, 4, 8, 16, 'or', 256]
+        valid = [2, 4, 8, 16, 256]
 
     # Formats expecting a particular number
     else:
