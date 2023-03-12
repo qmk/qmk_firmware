@@ -1,8 +1,12 @@
 # 2d4d
 
-![2d4d](imgur.com image replace me!)
+https://i.imgur.com/famGFG8.jpg
 
-*A short description of the keyboard/project*
+https://i.imgur.com/IfoQUnc.jpg
+
+https://imgur.com/a/e9hCvfe
+
+*Handwired %50 keyboard (48 switches), you can use 1 or 2 encoders instead of switch and vise versa*
 
 * Keyboard Maintainer: [mechMehmet](https://github.com/mechMehmet)
 * Hardware Supported: *The PCBs, controllers supported*
