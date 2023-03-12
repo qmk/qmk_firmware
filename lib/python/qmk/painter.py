@@ -1,5 +1,6 @@
 """Functions that help us work with Quantum Painter's file formats.
 """
+import datetime
 import math
 import re
 from string import Template
@@ -79,6 +80,56 @@ valid_formats = {
     }
 }
 
+
+def generate_subs(cli, out_bytes, *, font=None, image=None):
+    if font is not None and image is not None:
+        raise ValueError("Cant generate subs for font and image at the same time")
+
+    subs = {
+        'year': datetime.date.today().strftime("%Y"),
+        'input_file': cli.args.input.name,
+        'sane_name': re.sub(r"[^a-zA-Z0-9]", "_", cli.args.input.stem),
+        'byte_count': len(out_bytes),
+        'bytes_lines': render_bytes(out_bytes),
+        'format': cli.args.format,
+    }
+
+    if font is not None:
+        subs.update({
+            "generated_type": "font",
+            "var_prefix": "font",
+            "generator_command": f"qmk painter-convert-font-image -i {cli.args.input.name} -f {cli.args.format}",
+            # not using triple quotes to avoid extra indentation/weird formatted code
+            "metadata": "\n".join([
+                f"// Font's metadata",
+                f"// ---------------",
+                f"// Glyphs: {', '.join([i for i in cli.args.unicode_glyphs])}",
+            ]),
+        })
+
+    elif image is not None:
+        subs.update({
+            "generated_type": "image",
+            "var_prefix": "gfx",
+            "generator_command": f"qmk painter-convert-graphics -i {cli.args.input.name} -f {cli.args.format}",
+            # not using triple quotes to avoid extra indentation/weird formatted code
+            "metadata": "\n".join([
+                f"// Image's metadata",
+                f"// ----------------",
+                f"//      Width: {image.width}",
+                f"//     Height: {image.height}",
+                f"//     Frames: {image.n_frames}",
+            ]),
+        })
+
+    else:
+        raise ValueError("Pass either an image or a font")
+
+    subs.update({"license": render_license(subs)})
+
+    return subs
+
+
 license_template = """\
 // Copyright ${year} QMK -- generated source code only, ${generated_type} retains original copyright
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -110,6 +161,9 @@ def render_header(subs):
 
 source_file_template = """\
 ${license}
+
+${metadata}
+
 #include <qp.h>
 
 const uint32_t ${var_prefix}_${sane_name}_length = ${byte_count};
