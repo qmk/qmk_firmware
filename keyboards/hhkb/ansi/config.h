@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
 //#define UNICODE_KEY_WINC KC_RALT
+//#define PMW33XX_CS_PINS { B5, B6 }
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 1
 #define AUTO_MOUSE_TIME 5000

@@ -7,30 +7,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     mod_state = get_mods();
 
     if (IS_LAYER_ON(LA_LTHUMB)) {
-        if (IS_LAYER_ON(LA_LTHUMBEMO)) {
-            if (!processKeycodeIfLThumbEMo(keycode, record)) {return false;}
-        }
-        else if (IS_LAYER_ON(LA_LTHUMBDMO)) {
-            if (!processKeycodeIfLThumbDMo(keycode, record)) {return false;}
-        }
-        else if (IS_LAYER_ON(LA_LTHUMBW)) {
+        if (IS_LAYER_ON(LA_LTHUMBW)) {
             if (!processKeycodeIfLThumbW(keycode, record)) {return false;}
         }
-        else if (IS_LAYER_ON(LA_LTHUMBQ)) {
+        if (IS_LAYER_ON(LA_LTHUMBQ)) {
             if (!processKeycodeIfLThumbQ(keycode, record)) {return false;}
         }
-        else if (IS_LAYER_ON(LA_LTHUMB1MO)) {
-            if (!processKeycodeIfLThumb1Mo(keycode, record)) {return false;}
-        }
-        else if (IS_LAYER_ON(LA_LTHUMB2MO)) {
-            if (!processKeycodeIfLThumb2Mo(keycode, record)) {return false;}
-        }
-        else if (IS_LAYER_ON(LA_LTHUMB3MO)) {
+        if (IS_LAYER_ON(LA_LTHUMB3MO)) {
             if (!processKeycodeIfLThumb3Mo(keycode, record)) {return false;}
         }
-        else {
-            if (IS_LAYER_ON(LA_LTHUMBEOSL)) {return processKeycodeIfLThumbEOsl(keycode, record);}
-            if (IS_LAYER_ON(LA_LTHUMBDOSL)) {return processKeycodeIfLThumbDOsl(keycode, record);}
+        if (IS_LAYER_ON(LA_LTHUMB2MO)) {
+            if (!processKeycodeIfLThumb2Mo(keycode, record)) {return false;}
+        }
+        if (IS_LAYER_ON(LA_LTHUMB1MO)) {
+            if (!processKeycodeIfLThumb1Mo(keycode, record)) {return false;}
+        }
+        if (IS_LAYER_ON(LA_LTHUMBDOSL)) {return processKeycodeIfLThumbDOsl(keycode, record);}
+        if (IS_LAYER_ON(LA_LTHUMBEOSL)) {return processKeycodeIfLThumbEOsl(keycode, record);}
+        if (IS_LAYER_ON(LA_LTHUMBDMO)) {
+            if (!processKeycodeIfLThumbDMo(keycode, record)) {return false;}
+        }
+        if (IS_LAYER_ON(LA_LTHUMBEMO)) {
+            if (!processKeycodeIfLThumbEMo(keycode, record)) {return false;}
         }
         if (!processKeycodeIfLThumb(keycode, record)) {return false;}
     }

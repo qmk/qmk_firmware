@@ -18,6 +18,7 @@ bool isScrollX2Started = false;
 bool isScrollX4Started = false;
 bool editModeLthumbOslStarted = false;
 bool isLThumbLayerMouseStarted = false;
+bool isCtlTabStarted = false;
 void tap_code16_wrap_lctl(uint16_t keycode) {
     unregister_code16(KC_LCTL);
     tap_code16(keycode);
@@ -79,6 +80,18 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_MOUSE);
                 isMouseX1Started = false;
                 isScrollX1Started = false;
+                isMouseX2Started = false;
+                isScrollX2Started = false;
+                isMouseX4Started = false;
+                isScrollX4Started = false;
+                scrollLeft = false;
+                scrollUp = false;
+                scrollDown = false;
+                scrollRight = false;
+                mouseDown = false;
+                mouseUp = false;
+                mouseRight = false;
+                mouseLeft = false;
             }
             return false;
         case MA_LTHUMB:
@@ -87,6 +100,18 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_MOUSE);
                 isMouseX1Started = false;
                 isScrollX1Started = false;
+                isMouseX2Started = false;
+                isScrollX2Started = false;
+                isMouseX4Started = false;
+                isScrollX4Started = false;
+                scrollLeft = false;
+                scrollUp = false;
+                scrollDown = false;
+                scrollRight = false;
+                mouseDown = false;
+                mouseUp = false;
+                mouseRight = false;
+                mouseLeft = false;
             }
             return false;
         case MA_MS_BTN1_UNREG:
@@ -423,6 +448,14 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
+    if (isCtlTabStarted && (keycode != MA_TAB)) {
+        isCtlTabStarted = false;
+        unregister_code16(KC_LCTL);
+        if (keycode == MA_LTHUMB) {
+            layer_off(LA_LTHUMB);
+        }
+        return false;
+    }
     switch (keycode) {
         case MA_LTHUMB:
             if (!(record->event.pressed)) {
@@ -534,6 +567,17 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return true;
+        case MA_TAB:
+            if (record->event.pressed) {
+                if (!isCtlTabStarted) {
+                    isCtlTabStarted = true;
+                    register_code16(KC_LCTL);
+                    tap_code16(KC_TAB);
+                } else {
+                    tap_code16(KC_TAB);
+                }
+            }
+            return false;
         case MA_DOUBLEARROW:
             if (record->event.pressed) {
                 tap_code16(FR_EQL);

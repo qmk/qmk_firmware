@@ -20,6 +20,7 @@ enum custom_keycodes {
     MA_DELLINE,
     MA_DOWN,
     MA_UP,
+    MA_TAB,
     MA_RIGHT,
     MA_LEFT,
     MA_DELX2,
