@@ -1,6 +1,6 @@
 # KeyDeck8
 
-![KeyDeck8 Wiring Diagram](https://imgur.com/a/W78DTC1)
+![KeyDeck8 Wiring Diagram](https://i.imgur.com/1sOvYRU.jpg)
 ![Promicro Pinout Guide](https://i.imgur.com/LZ194Hf.jpg)
 
 Firmware for obscuresausage's Multimedia Key Deck.
