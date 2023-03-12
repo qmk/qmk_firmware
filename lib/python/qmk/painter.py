@@ -192,7 +192,7 @@ def convert_requested_format(im, format):
 def rgb_to565(r, g, b):
     msb = ((r >> 3 & 0x1F) << 3) + (g >> 5 & 0x07)
     lsb = ((g >> 2 & 0x07) << 5) + (b >> 3 & 0x1F)
-    return (msb << 8) + lsb
+    return [msb, lsb]
 
 
 def convert_image_bytes(im, format):
@@ -259,7 +259,7 @@ def convert_image_bytes(im, format):
         # No palette
         palette = None
 
-        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in rgb_to565(r, g, b).to_bytes(2, byteorder="big")]
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in rgb_to565(r, g, b)]
 
     if image_format == 'IMAGE_FORMAT_RGB888':
         # Take the red, green, and blue channels
