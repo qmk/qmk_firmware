@@ -38,7 +38,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
