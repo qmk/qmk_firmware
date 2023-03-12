@@ -5,7 +5,7 @@ Keyspensory KP60 PCB
 ![Keyspensory KP60 PCB](https://i.imgur.com/3Ob0bp9.png)
 
 
-* Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
+* Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather), [d-floe](https://github.com/d-floe)
 * Hardware Supported: PCB, Atmega32u4
 
 Make example for this keyboard (after setting up your build environment):
