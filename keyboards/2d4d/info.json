@@ -1,0 +1,14 @@
+{
+    "manufacturer": "mechMehmet",
+    "keyboard_name": "2d4d",
+    "maintainer": "mechMehmet",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "processor": "STM32F401",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    }
+}
