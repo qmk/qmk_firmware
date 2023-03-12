@@ -173,7 +173,7 @@ def convert_requested_format(im, format):
                 break
 
     if ncolors not in valid:
-        raise ValueError(f"Number of colors must be {' '.join(valid)}.")
+        raise ValueError(f"Number of colors must be: {', '.join(valid)}.")
 
     # Work out where we're getting the bytes from
     if image_format == 'IMAGE_FORMAT_GRAYSCALE':
