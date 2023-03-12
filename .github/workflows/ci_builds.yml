@@ -11,7 +11,7 @@ on:
 
 jobs:
   ci_builds:
-    name: "CI Build: {{ matrix.keymap }}"
+    name: "CI Build"
     runs-on: self-hosted
     timeout-minutes: 1380
 
