@@ -29,7 +29,10 @@ Enter the bootloader in 3 ways:
 
 The slider is currently setup to use [Midi2Vol](https://github.com/jesusvallejo/Midi2Vol)
 
+## Encoder Button
+
+The Button is set to mute by default
+
 ## Broken
 
-* Rotary input push button (mapped to gpio)
 * Bluetooth functionality

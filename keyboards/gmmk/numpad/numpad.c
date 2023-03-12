@@ -120,6 +120,22 @@ void keyboard_pre_init_user(void) {
 
 #endif
 
+void keyboard_pre_init_kb(void) {
+    // Encoder pins
+    setPinInput(ENCODER_PUSHBUTTON_PIN);
+    keyboard_pre_init_user();
+}
+
+int16_t enc = 1;
+int16_t encPrev = 1;
+
+void matrix_scan_kb(void) {
+    encPrev = enc;
+    enc = readPin(ENCODER_PUSHBUTTON_PIN);
+
+    matrix_scan_user();
+}
+
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
