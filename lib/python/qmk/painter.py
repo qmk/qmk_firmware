@@ -158,7 +158,7 @@ def convert_requested_format(im, format):
     ncolors = format["num_colors"]
     image_format = format["image_format"]
 
-    ## Check if ncolors is valid
+    # -- Check if ncolors is valid
     # Formats accepting several options
     if image_format in ['IMAGE_FORMAT_GRAYSCALE', 'IMAGE_FORMAT_PALETTE']:
         valid = [2, 4, 8, 16, 256]
