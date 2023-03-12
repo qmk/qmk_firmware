@@ -49,7 +49,6 @@ void ap2_set_IAP(void);
 void ap2_led_disable(void);
 void ap2_led_enable(void);
 void ap2_led_set_profile(uint8_t prof);
-void ap2_led_get_status(void);
 void ap2_led_next_profile(void);
 void ap2_led_prev_profile(void);
 void ap2_led_next_intensity(void);
