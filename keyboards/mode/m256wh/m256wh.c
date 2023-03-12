@@ -17,10 +17,9 @@
 #include "eeconfig.h"
 #include "quantum.h"
 
-void keyboard_post_init_kb(void) {
-    wait_ms(20);
-    rgblight_reload_from_eeprom();
-}
+//void board_init(void) {
+//    wait_ms(30);
+//}
 
 //bool is_second_rgb_row_active;
 //enum via_secondrow_enable {
