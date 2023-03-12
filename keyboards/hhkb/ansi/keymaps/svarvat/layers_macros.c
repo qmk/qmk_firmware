@@ -287,6 +287,11 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 tap_code16_wrap_lctl(G(MA_SPC));
             }
             return false;
+        case MA_ENT:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_ENT);
+            }
+            return false;
         case MA_Q:
             if (record->event.pressed) {
                 tap_code16_wrap_lctl(G(KC_Q));
@@ -665,16 +670,6 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
-        case MA_ENT:
-            if (record->event.pressed) {
-                tap_code16(KC_ENT);
-            }
-            return false;
-        case MA_DEL:
-            if (record->event.pressed) {
-                tap_code16(KC_DEL);
-            }
-            return false;
         case MA_DELLINE:
             if (record->event.pressed) {
                 tap_code16(KC_HOME);
@@ -684,11 +679,6 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_RGHT);
                 unregister_code16(KC_LSFT);
                 tap_code16(KC_DEL);
-            }
-            return false;
-        case MA_BSPC:
-            if (record->event.pressed) {
-                tap_code16(KC_BSPC);
             }
             return false;
         case MA_JUMPTAB:
