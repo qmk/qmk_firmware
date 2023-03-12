@@ -105,8 +105,9 @@ Enable it by adding in config.h
 #define CAPS_WORD_INVERT_ON_SHIFT
 ```
 
-This option works with regular Shift keys `KC_LSFT` and `KC_RSFT` and mod-tap
-Shift keys. 
+This option works with regular Shift keys `KC_LSFT` and `KC_RSFT`, mod-tap Shift
+keys, and one-shot Shift keys. Note that while Caps Word is on, one-shot Shift
+keys behave like regular Shift keys, and have effect only while they are held.
 
 
 ### Idle timeout :id=idle-timeout

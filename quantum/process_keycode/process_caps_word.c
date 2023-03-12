@@ -18,8 +18,15 @@
 static uint8_t held_mods = 0;
 
 static bool handle_shift(uint16_t keycode, keyrecord_t* record) {
-#    ifndef NO_ACTION_TAPPING
     switch (keycode) {
+        case OSM(MOD_LSFT):
+            keycode = KC_LSFT;
+            break;
+        case OSM(MOD_RSFT):
+            keycode = KC_RSFT;
+            break;
+
+#    ifndef NO_ACTION_TAPPING
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             if (record->tap.count == 0) { // Mod-tap key is held.
                 switch (QK_MOD_TAP_GET_MODS(keycode)) {
@@ -31,8 +38,8 @@ static bool handle_shift(uint16_t keycode, keyrecord_t* record) {
                         break;
                 }
             }
-    }
 #    endif // NO_ACTION_TAPPING
+    }
 
     if (keycode == KC_LSFT || keycode == KC_RSFT) {
         const uint8_t mod = MOD_BIT(keycode);

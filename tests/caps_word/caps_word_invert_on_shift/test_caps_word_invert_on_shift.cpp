@@ -204,7 +204,9 @@ INSTANTIATE_TEST_CASE_P(
         ShiftKeyParams{"KC_LSFT", KC_LSFT, KC_LSFT},
         ShiftKeyParams{"KC_RSFT", KC_RSFT, KC_RSFT},
         ShiftKeyParams{"LSFT_T", LSFT_T(KC_A), KC_LSFT},
-        ShiftKeyParams{"RSFT_T", RSFT_T(KC_A), KC_RSFT}
+        ShiftKeyParams{"RSFT_T", RSFT_T(KC_A), KC_RSFT},
+        ShiftKeyParams{"OSM_LSFT", OSM(MOD_LSFT), KC_LSFT},
+        ShiftKeyParams{"OSM_RSFT", OSM(MOD_RSFT), KC_RSFT}
       ),
     ShiftKeyParams::GetName
     );
