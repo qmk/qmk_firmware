@@ -86,12 +86,12 @@ def generate_subs(cli, out_bytes, *, font=None, image=None):
         raise ValueError("Cant generate subs for font and image at the same time")
 
     subs = {
-        'year': datetime.date.today().strftime("%Y"),
-        'input_file': cli.args.input.name,
-        'sane_name': re.sub(r"[^a-zA-Z0-9]", "_", cli.args.input.stem),
-        'byte_count': len(out_bytes),
-        'bytes_lines': render_bytes(out_bytes),
-        'format': cli.args.format,
+        "year": datetime.date.today().strftime("%Y"),
+        "input_file": cli.args.input.name,
+        "sane_name": re.sub(r"[^a-zA-Z0-9]", "_", cli.args.input.stem),
+        "byte_count": len(out_bytes),
+        "bytes_lines": render_bytes(out_bytes),
+        "format": cli.args.format,
     }
 
     if font is not None:
