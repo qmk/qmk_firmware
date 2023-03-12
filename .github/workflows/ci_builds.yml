@@ -11,7 +11,9 @@ on:
 
 jobs:
   ci_builds:
+    name: "CI Build: {{ matrix.keymap }}"
     runs-on: self-hosted
+    timeout-minutes: 1380
 
     if: github.repository == 'qmk/qmk_firmware'
 
