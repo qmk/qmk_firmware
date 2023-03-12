@@ -101,8 +101,8 @@ def generate_subs(cli, out_bytes, *, font=None, image=None):
             "generator_command": f"qmk painter-convert-font-image -i {cli.args.input.name} -f {cli.args.format}",
             # not using triple quotes to avoid extra indentation/weird formatted code
             "metadata": "\n".join([
-                f"// Font's metadata",
-                f"// ---------------",
+                "// Font's metadata",
+                "// ---------------",
                 f"// Glyphs: {', '.join([i for i in cli.args.unicode_glyphs])}",
             ]),
         })
@@ -114,8 +114,8 @@ def generate_subs(cli, out_bytes, *, font=None, image=None):
             "generator_command": f"qmk painter-convert-graphics -i {cli.args.input.name} -f {cli.args.format}",
             # not using triple quotes to avoid extra indentation/weird formatted code
             "metadata": "\n".join([
-                f"// Image's metadata",
-                f"// ----------------",
+                "// Image's metadata",
+                "// ----------------",
                 f"//      Width: {image.width}",
                 f"//     Height: {image.height}",
                 f"//     Frames: {image.n_frames}",

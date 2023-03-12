@@ -1,11 +1,10 @@
 """This script automates the conversion of font files into a format QMK firmware understands.
 """
 
-import re
 from io import BytesIO
 from qmk.path import normpath
 from qmk.painter_qff import QFFFont
-from qmk.painter import generate_subs, render_header, render_source, render_license, render_bytes, valid_formats
+from qmk.painter import generate_subs, render_header, render_source, valid_formats
 from milc import cli
 
 
