@@ -1,4 +1,4 @@
-// Copyright 2023 mechMehmet (@mechMehmet)
+// Copyright Mehmet DEĞİRMENCİOĞLU (@mechMehmet) <https://www.youtube.com/@mechmehmet>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
