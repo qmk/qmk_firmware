@@ -4,7 +4,6 @@
     "maintainer": "freya-irl",
     "url": "https://github.com/freya-irl/splaytoraid40",
     "development_board": "promicro",
-    "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
