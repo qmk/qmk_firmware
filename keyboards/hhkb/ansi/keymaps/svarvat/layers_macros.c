@@ -42,7 +42,7 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_RSFT)) == MOD_BIT(KC_RSFT)
                 && (mod_state & MOD_BIT(KC_RCTL)) == MOD_BIT(KC_RCTL)
-                && (mod_state & MOD_BIT(KC_RALT) == MOD_BIT(KC_RALT)) {
+                && (mod_state & MOD_BIT(KC_RALT)) == MOD_BIT(KC_RALT)) {
                     reset_keyboard();
                 } else {
 //                    set_auto_mouse_enable(true);
