@@ -2,7 +2,6 @@
   "keyboard_name": "10k",
   "maintainer": "Nabos",
   "manufacturer": "Nabos",
-  "debounce": 5,
   "diode_direction": "COL2ROW",
   "matrix_pins": {
     "cols": ["C6", "D7", "E6", "B4", "B5"],
@@ -24,6 +23,8 @@
     "pid": "0x0001",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layout_aliases": {
     "LAYOUT": "LAYOUT_split_1x5"
   },

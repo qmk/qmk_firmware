@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 
 // Pro Micro Pins          4,  6,  7,  8,  9
 #define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
@@ -31,19 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Pro Micro Pins      RX1
 #define SPLIT_HAND_PIN D2
 
-// Pro Micro Pins       RX1
-#define SOFT_SERIAL_PIN D0
-
 #define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 4
-
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 7
-

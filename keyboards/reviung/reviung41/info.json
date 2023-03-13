@@ -8,6 +8,8 @@
         "pid": "0xDCCB",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT_reviung41": "LAYOUT"
     },

@@ -15,12 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size
- */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* key matrix pins
  */
@@ -37,10 +31,6 @@
 #define LED_DRIVER_ADDR_1 0b1110100
 #define LED_DRIVER_COUNT 1
 #define LED_MATRIX_LED_COUNT 3
-
-/* Set 0 if debouncing isn't needed
- */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
  */

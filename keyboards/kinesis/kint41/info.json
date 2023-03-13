@@ -5,5 +5,13 @@
         "vid": "0x1209",
         "pid": "0x345C",
         "device_version": "0.0.1"
-    }
+    },
+    "indicators": {
+        "caps_lock": "LINE_PIN12",
+        "num_lock": "LINE_PIN26",
+        "scroll_lock": "LINE_PIN25",
+        "compose": "LINE_PIN24",
+        "on_state": 0
+    },
+    "debounce": 20
 }
