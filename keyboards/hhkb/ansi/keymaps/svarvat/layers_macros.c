@@ -40,7 +40,9 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_LMOUSE:
             if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_RSFT)) == MOD_BIT(KC_RSFT) && (mod_state & MOD_BIT(KC_RCTL)) == MOD_BIT(KC_RCTL) && (mod_state & MOD_BIT(KC_RALT) == MOD_BIT(KC_RALT) && (mod_state & MOD_BIT(KC_RGUI)) == MOD_BIT(KC_RGUI)) {
+                if ((mod_state & MOD_BIT(KC_RSFT)) == MOD_BIT(KC_RSFT)
+                && (mod_state & MOD_BIT(KC_RCTL)) == MOD_BIT(KC_RCTL)
+                && (mod_state & MOD_BIT(KC_RALT) == MOD_BIT(KC_RALT)) {
                     reset_keyboard();
                 } else {
 //                    set_auto_mouse_enable(true);
