@@ -367,6 +367,71 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 tap_code16_wrap_lctl(FR_SLSH);
             }
             return false;
+        case MA_F0:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F0);
+            }
+            return false;
+        case MA_F1:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F1);
+            }
+            return false;
+        case MA_F2:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F2);
+            }
+            return false;
+        case MA_F3:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F3);
+            }
+            return false;
+        case MA_F4:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F4);
+            }
+            return false;
+        case MA_F5:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F5);
+            }
+            return false;
+        case MA_F6:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F6);
+            }
+            return false;
+        case MA_F7:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F7);
+            }
+            return false;
+        case MA_F8:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F8);
+            }
+            return false;
+        case MA_F9:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F9);
+            }
+            return false;
+        case MA_F10:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F10);
+            }
+            return false;
+        case MA_F11:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F11);
+            }
+            return false;
+        case MA_F12:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_F12);
+            }
+            return false;
     }
     return true;
 }
