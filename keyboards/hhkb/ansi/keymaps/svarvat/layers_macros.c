@@ -490,37 +490,31 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_LTHUMBE:
             if (record->event.pressed) {
-                unregister_code16(KC_LCTL);
                 layer_on(LA_LTHUMBEMO);
             }
             return false;
         case MA_LTHUMBD:
             if (record->event.pressed) {
-                unregister_code16(KC_LCTL);
                 layer_on(LA_LTHUMBDMO);
             }
             return false;
         case MA_LTHUMB1:
             if (record->event.pressed) {
-                unregister_code16(KC_LCTL);
                 layer_on(LA_LTHUMB1MO);
             }
             return false;
         case MA_LTHUMB2:
             if (record->event.pressed) {
-                unregister_code16(KC_LCTL);
                 layer_on(LA_LTHUMB2MO);
             }
             return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
-                unregister_code16(KC_LCTL);
                 layer_on(LA_LTHUMB3MO);
             }
             return false;
         case MA_LMOUSE:
             if (record->event.pressed) {
-                unregister_code16(KC_LCTL);
                 layer_off(LA_LTHUMB);
                 layer_on(LA_MOUSE);
                 isMouseX1Started = true;
