@@ -71,5 +71,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /* 4 */  { KC_NO, KC_NO, KC4,   KC_NO, KE4,   KF4,   KG4,   KH4,   KI4,   KJ4,   KK4,   KL4,   KM4,   KC_NO, KO4,   KP4,   KQ4,   KR4   },\
         /* 5 */  { KC_NO, KC_NO, KC5,   KC_NO, KE5,   KF5,   KG5,   KH5,   KI5,   KJ5,   KK5,   KL5,   KM5,   KN5,   KO5,   KP5,   KC_NO, KC_NO },\
         /* 6 */  { KC_NO, KC_NO, KC6,   KC_NO, KC_NO, KF6,   KG6,   KC_NO, KI6,   KJ6,   KK6,   KL6,   KC_NO, KN6,   KO6,   KC_NO, KQ6,   KC_NO },\
-        /* 7 */  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KF7,   KG7,   KH7,   KI7,   KJ7,   KK7,   KL7,   KK7,   KL7,   KO7,   KP7,   KC_NO, KC_NO } \
+        /* 7 */  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KF7,   KG7,   KH7,   KI7,   KJ7,   KK7,   KL7,   KM7,   KN7,   KO7,   KP7,   KC_NO, KC_NO } \
 }

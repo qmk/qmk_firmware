@@ -35,7 +35,7 @@
     { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, XXX, k1e, k1f }, \
     { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, XXX, XXX, k2e, k2f }, \
     { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, XXX, k3e, k3f }, \
-    { k40, k4a, k42, XXX, XXX, XXX, k46, XXX, XXX, k49, k4a, k4b, XXX, XXX, k4e, k4f }, \
+    { k40, k41, k42, XXX, XXX, XXX, k46, XXX, XXX, k49, k4a, k4b, XXX, XXX, k4e, k4f }, \
 }
 
 // ISO
@@ -52,7 +52,7 @@
     { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, XXX, k1e, k1f }, \
     { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, XXX, XXX, k2e, k2f }, \
     { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, XXX, k3e, k3f }, \
-    { k40, k4a, k42, XXX, XXX, XXX, k46, XXX, XXX, k49, k4a, k4b, XXX, XXX, k4e, k4f }, \
+    { k40, k41, k42, XXX, XXX, XXX, k46, XXX, XXX, k49, k4a, k4b, XXX, XXX, k4e, k4f }, \
 }
 
 // Exposed
@@ -69,5 +69,5 @@
     { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, XXX, k1e, k1f }, \
     { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, XXX, XXX, k2e, k2f }, \
     { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, XXX, k3e, k3f }, \
-    { k40, k4a, k42, XXX, XXX, XXX, k46, XXX, XXX, k49, k4a, k4b, k4c, XXX, k4e, k4f }, \
+    { k40, k41, k42, XXX, XXX, XXX, k46, XXX, XXX, k49, k4a, k4b, k4c, XXX, k4e, k4f }, \
 }
