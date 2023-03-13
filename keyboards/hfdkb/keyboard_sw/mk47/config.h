@@ -18,14 +18,7 @@
 
 /* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
  #define FORCE_NKRO
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { C6, C7, C8, C9 }
-#define MATRIX_COL_PINS { C1, C2, C3, A0, A1, A2, A3, A4, A5, A6, A7, C4 }
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-
+ 
 #define TAP_CODE_DELAY 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

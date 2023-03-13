@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mk47.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
@@ -209,7 +209,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
         case RGB_VAI:
-            if ((fn_make_flag && record->event.pressed)) {
+            if (record->event.pressed) {
                 if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_val() / (RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4)) < 4) {
                     RGB_HSV_level++;
                     rgb_matrix_config.hsv.v = (uint8_t)(RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4) * RGB_HSV_level;
@@ -218,7 +218,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case RGB_VAD:
-            if ((fn_make_flag && record->event.pressed)) {
+            if (record->event.pressed) {
                 if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_val() / (RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4)) > 0) {
                     RGB_HSV_level--;
                     rgb_matrix_config.hsv.v = (uint8_t)(RGB_MATRIX_MAXIMUM_BRIGHTNESS / 4) * RGB_HSV_level;
@@ -227,7 +227,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case RGB_HUI:
-            if ((fn_make_flag && record->event.pressed)) {
+            if (record->event.pressed) {
                 if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_hue() / (UINT8_MAX / 9)) < 9) {
                     RGB_HSV_level++;
                 }else{
@@ -239,7 +239,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case RGB_SPI:
-            if ((fn_make_flag && record->event.pressed)) {
+            if (record->event.pressed) {
                 if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_speed() / (UINT8_MAX / 5)) < 5) {
                     RGB_HSV_level++;
                     rgb_matrix_set_speed((uint8_t)(UINT8_MAX / 5) * RGB_HSV_level);
@@ -247,7 +247,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case RGB_SPD:
-            if ((fn_make_flag && record->event.pressed)) {
+            if (record->event.pressed) {
                 if ((RGB_HSV_level = (uint8_t)rgb_matrix_get_speed() / (UINT8_MAX / 5)) > 0) {
                     RGB_HSV_level--;
                     rgb_matrix_set_speed((uint8_t)(UINT8_MAX / 5) * RGB_HSV_level);
