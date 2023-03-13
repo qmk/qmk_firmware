@@ -277,89 +277,14 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 unregister_code16(KC_LCTL);
             }
             return false;
-        case MA_LGUI:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_LGUI);
-            }
-            return false;
         case MA_SPC:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(MA_SPC));
+                tap_code16_wrap_lctl(KC_SPC);
             }
             return false;
         case MA_ENT:
             if (record->event.pressed) {
                 tap_code16_wrap_lctl(KC_ENT);
-            }
-            return false;
-        case MA_Q:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_Q));
-            }
-            return false;
-        case MA_W:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_W));
-            }
-            return false;
-        case MA_E:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_E));
-            }
-            return false;
-        case MA_R:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_R));
-            }
-            return false;
-        case MA_T:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_T));
-            }
-            return false;
-        case MA_A:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_A));
-            }
-            return false;
-        case MA_S:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_S));
-            }
-            return false;
-        case MA_D:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_D));
-            }
-            return false;
-        case MA_F:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_F));
-            }
-            return false;
-        case MA_G:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_G));
-            }
-            return false;
-        case MA_Z:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_Z));
-            }
-            return false;
-        case MA_X:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_X));
-            }
-            return false;
-        case MA_C:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_C));
-            }
-            return false;
-        case MA_V:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(G(KC_V));
             }
             return false;
         case MA_0:
