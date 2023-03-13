@@ -11,13 +11,13 @@
         "vid": "0x676D"
     },
     "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": false,
-        "encoder": true
+        "bootmagic":    true,
+        "command":      false,
+        "console":      false,
+        "extrakey":     true,
+        "mousekey":     false,
+        "nkro":         false,
+        "encoder":      true
     },
     "encoder": {
         "rotary": [
