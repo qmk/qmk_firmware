@@ -17,23 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter
-#define VENDOR_ID    0x6959
-#define PRODUCT_ID   0x065F
-#define DEVICE_VER   0x0001
-#define MANUFACTURER rotwitt
-#define PRODUCT      polygon*/
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
-/*#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D5 }
-#define ENCODER_RESOLUTION 4*/
-
 /*
  * Keyboard Matrix Assignments
  *
