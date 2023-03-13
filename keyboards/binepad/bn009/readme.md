@@ -2,7 +2,7 @@
 
 ![BINEPAD BN009](https://imgur.com/fu0iXD0h.jpg)
 
-*A 9% macropad.*
+A 9% macropad.
 
 * Keyboard Maintainer: [binepad](https://github.com/binepad)
 * Hardware Supported:
