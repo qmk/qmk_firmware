@@ -118,7 +118,7 @@
     { XXX, k71, k72, k73, k74, k75, k76, k77, k78 }, \
     { k80, k81, k82, XXX, k84, k85, k86, k87, k88 }, \
     { XXX, k91, k92, k93, k94, k95, k96, k97, k98 }, \
-    { kA0, kA1, kA2, XXX, kA4, kA5, kA6, kA7, kA8 }, \
+    { kA0, kA1, kA2, kA3, kA4, kA5, kA6, kA7, kA8 }, \
     { kB0, kB1, kB2, kB3, kB4, kB5, kB6, kB7, kB8 } \
 }
 
