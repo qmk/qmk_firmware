@@ -1,6 +1,6 @@
 # Geistmaschine Macropod
 
-![macropod](https://i.imgur.com/lG2G1sj.png)
+![macropod](https://i.imgur.com/lAsCslA.png)
 
 Macropod is a modular macropad, designed around a central big encoder with a magnetic connector for modularity. The default module uses three MX style keys.
 * Keyboard Maintainer: [ebastler](https://github.com/ebastler)
