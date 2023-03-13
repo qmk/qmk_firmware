@@ -1,4 +1,4 @@
-/* Copyright 2022
+/* Copyright 2023 ebastler and elpekenin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
 
 #include "pca9555.h"
 #include "quantum.h"
-#include "print.h"
 
 // PCA9555 i2c address, 0x20: A0 = 0, A1 = 0, A2 = 0
 #define IC1 0x20
@@ -32,9 +31,8 @@ typedef enum {
 } expander_status_t;
 
 void pca9555_setup(void) {
-    // Initialize the expnader, then set all pins on Port 0 as inputs
+    // Initialize the expander, no need to set ports to inputs as that is the default behavior
     pca9555_init(IC1);
-    // pca9555_set_config(IC1, PCA9555_PORT0, ALL_INPUT);
 }
 
 void matrix_init_custom(void) {
@@ -51,12 +49,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     uint8_t pin_states = 0xFF;
     
     
-    // Read the entire port into this byte, 1 = not pressed, 0 = pressed
     if (status != UNPLUGGED || timer_elapsed32(retry_timer) > RETRY_TIMESPAN) {
         // If the chip was unplugged before, it needs to be re-initialized
         if(status==UNPLUGGED) {
             pca9555_setup();
         }
+        // Read the entire port into this byte, 1 = not pressed, 0 = pressed
         bool ret = pca9555_readPins(IC1, PCA9555_PORT0, &pin_states);
 
         // Update state
