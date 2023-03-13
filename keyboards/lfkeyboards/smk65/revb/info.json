@@ -1,5 +1,10 @@
 {
     "usb": {
         "pid": "0x565B"
-    }
+    },
+    "backlight": {
+        "levels": 8
+    },
+    "processor": "at90usb646",
+    "bootloader": "atmel-dfu"
 }

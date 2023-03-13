@@ -8,6 +8,20 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B6"
+  },
+  "indicators": {
+    "caps_lock": "C7",
+    "num_lock": "C6",
+    "scroll_lock": "B5",
+    "on_state": 0
+  },
+  "bootmagic": {
+    "matrix": [5, 0]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

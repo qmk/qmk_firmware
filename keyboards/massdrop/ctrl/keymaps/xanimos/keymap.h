@@ -86,11 +86,11 @@ typedef struct {
 // Declare your tapdance functions:
 
 // Function to determine the current tapdance state
-td_state_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
-void fn_tap_finished(qk_tap_dance_state_t *state, void *user_data);
-void fn_tap_reset(qk_tap_dance_state_t *state, void *user_data);
+void fn_tap_finished(tap_dance_state_t *state, void *user_data);
+void fn_tap_reset(tap_dance_state_t *state, void *user_data);
 
 enum ctrl_keycodes {
     MD_BOOT = SAFE_RANGE,  // Restart into bootloader after hold timeout

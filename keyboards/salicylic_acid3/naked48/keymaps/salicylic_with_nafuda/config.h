@@ -22,7 +22,7 @@
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 180
 
 #ifdef RGBLED_NUM

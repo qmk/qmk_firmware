@@ -8,6 +8,8 @@
         "pid": "0xD750",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_bs",
         "LAYOUT_all": "LAYOUT_split_bs"

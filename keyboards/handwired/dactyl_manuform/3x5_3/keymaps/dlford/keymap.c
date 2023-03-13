@@ -55,15 +55,15 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 }
 
 // Tapping force hold per key
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LT(3, KC_SPC):
-      return true; // Enable force hold
-    case LT(2, KC_TAB):
-      return true;
-    default:
-      return false; // Disable force hold
-  }
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(3, KC_SPC):
+            return 0; // Enable force hold
+        case LT(2, KC_TAB):
+            return 0;
+        default:
+            return QUICK_TAP_TERM; // Disable force hold
+    }
 }
 
 // Tapping term per key
