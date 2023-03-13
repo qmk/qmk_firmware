@@ -29,7 +29,7 @@ enum layers {
 
 // One shot mods
 enum keycodes {
-    OS_SHFT = SAFE_RANGE,
+    OS_SHFT = QK_USER,
     OS_CTRL,
     OS_ALT,
     OS_GUI,
@@ -276,9 +276,6 @@ bool caps_word_press_user(uint16_t keycode) {
   }
 }
 
-void matrix_scan_user(void) {
-  // Other tasks...
-}
 
 layer_state_t layer_state_set_user(layer_state_t state){
   return update_tri_layer_state(state, SYM, NAV, FUN);
