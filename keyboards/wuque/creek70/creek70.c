@@ -51,7 +51,7 @@ bool rgb_matrix_indicators_kb(void) {
 }
 
 enum my_keycodes {
-    RIGHT_COLOR_CHANGE = USER00,
+    RIGHT_COLOR_CHANGE = QK_KB,
     RIGHT_BRIGHTNESS_ADD,
     RIGHT_BRIGHTNESS_MINUS,
 };
