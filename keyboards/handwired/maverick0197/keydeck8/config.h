@@ -1,6 +1,6 @@
 /*
 Copyright 2023 Maverick0197 <>
-  *
+
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
   * the Free Software Foundation, either version 2 of the License, or
@@ -16,15 +16,9 @@ Copyright 2023 Maverick0197 <>
   */
 #pragma once
 
-#include "quantum.h"
-
-#define LAYOUT( \
-	K00, K01, K02, \
-	K03, K04, K05, \
-	K06, K07, K08  \
-) \
-{ \
-	{K00, K01, K02}, \
-	{K03, K04, K05}, \
-	{K06, K07, K08}  \
-}
+/* Encoder Configuration */
+#define ENCODERS_PAD_A { D2 }
+#define ENCODERS_PAD_B { D3 }
+#define ENCODER_RESOLUTION 4
+#define ENCODER_DIRECTION_FLIP
+//#define ENCODER_DEFAULT_POS 0x3
