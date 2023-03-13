@@ -38,20 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Layer-specific lighting */
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _VIMA:
-        writePinLow(F4);
-	writePinHigh(F5);
-        break;
-    case _VIMI:
-        writePinHigh(F4);
-	writePinLow(F5);
-        break;
-    default:
-        writePinHigh(F4);
-        writePinHigh(F5);
-        break;
-    }
+    writePin(F4, !layer_state_cmp(state, _VIMA));
+    writePin(F5, !layer_state_cmp(state, _VIMI));
     return state;
 };
 
