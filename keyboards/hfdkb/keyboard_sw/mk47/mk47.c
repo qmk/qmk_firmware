@@ -15,7 +15,6 @@
  */
 
 #include "quantum.h"
-
 #ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -174,6 +173,9 @@ static uint16_t scancode           = 0;
 static uint8_t  RGB_HSV_level;
 
 HSV hsv;
+void led_test(uint8_t color);
+void clear_eeprom(void);
+void rgb_hsv_updata_user(void);
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
