@@ -1,9 +1,6 @@
 # Keyspensory KP60
 
-Keyspensory KP60 PCB
-
 ![Keyspensory KP60 PCB](https://i.imgur.com/3Ob0bp9h.png)
-
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather), [d-floe](https://github.com/d-floe)
 * Hardware Supported: PCB, Atmega32u4
@@ -11,6 +8,10 @@ Keyspensory KP60 PCB
 Make example for this keyboard (after setting up your build environment):
 
     make keyspensory/kp60:default
+
+Flashing example for this keyboard:
+
+    make keyspensory/kp60:default:flash
 
 
 ## Bootloader
