@@ -15,9 +15,6 @@
  */
 
 #include "creek70.h"
-#include "rgb_matrix.h"
-#include "via.h"
-#include "color.h"
 
 led_config_t g_led_config = {{
                                  {NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED},
