@@ -17,12 +17,8 @@ Copyright 2023 Maverick0197 <>
 #pragma once
 
 /* Encoder Configuration */
-#define ENCODERS_PAD_A {
-  D2
-}
-#define ENCODERS_PAD_B {
-  D3
-}
+#define ENCODERS_PAD_A { D2 }
+#define ENCODERS_PAD_B { D3 }
 #define ENCODER_RESOLUTION 4
 #define ENCODER_DIRECTION_FLIP
 //#define ENCODER_DEFAULT_POS 0x3
