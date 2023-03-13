@@ -3,7 +3,17 @@
 	"manufacturer": "Maverick0197",
 	"maintainer": "Maverick0197",
 	"bootloader": "atmel-dfu",
-	"features": {},
+	"features": {
+	    "bootmagic": true,
+	    "extrakey": true,
+	    "mousekey": true,
+	    "encoder": true
+	},
+	"encoder": {
+	    "rotary": [
+	        { "pin_a": "D3", "pin_b": "D2", "resolution": 4 }
+	    ]
+	},
 	"matrix_pins": {
 		"direct": [
 			["D0", "D1", "D4"],
