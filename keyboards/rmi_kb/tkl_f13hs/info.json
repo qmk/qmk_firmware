@@ -17,7 +17,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "rows": ["GP0",  "GP1",  "GP2",  "GP21", "GP3",  "GP4"],
