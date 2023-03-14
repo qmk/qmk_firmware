@@ -579,6 +579,7 @@ enum rgb_matrix_effects {
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
+    RGB_MATRIX_RANDOM_FILL,         // Fill keyboard randomly, empty randomly
 #endif
 #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
     RGB_MATRIX_SOLID_REACTIVE_SIMPLE,   // Pulses keys hit to hue & value then fades value out
@@ -639,6 +640,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |------------------------------------------------------|----------------------------------------------|
 |`#define ENABLE_RGB_MATRIX_TYPING_HEATMAP`            |Enables `RGB_MATRIX_TYPING_HEATMAP`           |
 |`#define ENABLE_RGB_MATRIX_DIGITAL_RAIN`              |Enables `RGB_MATRIX_DIGITAL_RAIN`             |
+|`#define ENABLE_RGB_MATRIX_RANDOM_FILL`               |Enables `RGB_MATRIX_RANDOM_FILL`              |
 
 ?> These modes also require the `RGB_MATRIX_FRAMEBUFFER_EFFECTS` define to be available.
 
