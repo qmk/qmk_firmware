@@ -559,6 +559,46 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return true;
+        case MA_HOME:
+            if (record->event.pressed) {
+                if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
+                    tap_code16_wrap_lctl(KC_HOME);
+                } else {
+                    tap_code16(KC_HOME);
+                }
+                return false;
+            }
+            return true;
+        case MA_END:
+            if (record->event.pressed) {
+                if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
+                    tap_code16_wrap_lctl(KC_END);
+                } else {
+                    tap_code16(KC_END);
+                }
+                return false;
+            }
+            return true;
+        case MA_PGUP:
+            if (record->event.pressed) {
+                if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
+                    tap_code16(KC_HOME);
+                } else {
+                    tap_code16(KC_PGUP);
+                }
+                return false;
+            }
+            return true;
+        case MA_PGDN:
+            if (record->event.pressed) {
+                if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
+                    tap_code16(KC_END);
+                } else {
+                    tap_code16(KC_PGDN);
+                }
+                return false;
+            }
+            return true;
         case MA_TAB:
             if (record->event.pressed) {
                 if (!isCtlTabStarted) {
@@ -684,7 +724,7 @@ bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
             return false;
     }
     if (!(record->event.pressed)) {
-        if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+        if (editModeLthumbOslStarted) {unregister_code16(KC_LCTL);}
         layer_off(LA_LTHUMB);
         layer_off(LA_LTHUMBEOSL);
     }
