@@ -4,8 +4,8 @@
   "maintainer": "jturnsek",
   "manufacturer": "EdgePro",
   "usb": {
-    "vid": "0x1209",
-    "pid": "0x4C58",
+    "vid": "0x1FC9",
+    "pid": "0x8313",
     "device_version": "0.0.1"
   },
   "layouts": {
