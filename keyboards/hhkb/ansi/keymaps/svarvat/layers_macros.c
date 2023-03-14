@@ -2,6 +2,7 @@ bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
 bool editModeLthumbOslStarted = false;
 bool isCtlTabStarted = false;
+bool isAltTabStarted = false;
 //bool isDeadKeyCircStarted = false;
 //bool isDeadKeyTremaStarted = false;
 bool mouseLeft = false;
@@ -27,6 +28,15 @@ void tap_code16_wrap_lctl(uint16_t keycode) {
 }
 
 bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
+    if (isAltTabStarted
+    && (keycode != KC_TAB)
+    && (keycode != KC_I)
+    && (keycode != KC_J)
+    && (keycode != KC_K)
+    && (keycode != KC_L)
+    && (keycode != KC_LSFT)) {
+        isAltTabStarted = false;
+    }
     switch (keycode) {
         case MA_LTHUMB:
             if (record->event.pressed) {
@@ -58,6 +68,45 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 layer_on(LA_CAPSLOCK);
             }
             return false;
+        case KC_I:
+            if (record->event.pressed) {
+                if (isAltTabStarted) {
+                    tap_code16(KC_UP);
+                    return false;
+                }
+            }
+            return true;
+        case KC_J:
+            if (record->event.pressed) {
+                if (isAltTabStarted) {
+                    tap_code16(KC_LEFT);
+                    return false;
+                }
+            }
+            return true;
+        case KC_K:
+            if (record->event.pressed) {
+                if (isAltTabStarted) {
+                    tap_code16(KC_DOWN);
+                    return false;
+                }
+            }
+            return true;
+        case KC_L:
+            if (record->event.pressed) {
+                if (isAltTabStarted) {
+                    tap_code16(KC_RIGHT);
+                    return false;
+                }
+            }
+            return true;
+        case KC_TAB:
+            if (record->event.pressed) {
+                if ((mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT) && !isAltTabStarted) {
+                    isAltTabStarted = true;
+                }
+            }
+            return true;
         case KC_SLSH:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
@@ -428,7 +477,8 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     && (keycode != KC_LEFT)
     && (keycode != KC_RIGHT)
     && (keycode != MA_LTHUMBQ)
-    && (keycode != MA_LTHUMBW)) {
+    && (keycode != MA_LTHUMBW)
+    && (keycode != KC_LSFT)) {
         isCtlTabStarted = false;
         unregister_code16(KC_LCTL);
         if (keycode == MA_LTHUMB) {
