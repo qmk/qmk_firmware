@@ -24,7 +24,7 @@
         "vid": "0x6178"
     },
     "layouts": {
-        "LAYOUT_macro5x4": {
+        "LAYOUT": {
             "layout": [
                 {"label": "K00 (F5,F4)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01 (F5,F6)", "matrix": [0, 1], "x": 1, "y": 0},
