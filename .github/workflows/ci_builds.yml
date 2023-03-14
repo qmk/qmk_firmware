@@ -19,46 +19,8 @@ jobs:
 
     strategy:
       matrix:
-        keymap:
-        - default
-        - via
-        keyboard_folder:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-        - 7
-        - 8
-        - 9
-        - a
-        - b
-        - c
-        - d
-        - e
-        - f
-        - g
-        - h
-        - i
-        - j
-        - k
-        - l
-        - m
-        - n
-        - o
-        - p
-        - q
-        - r
-        - s
-        - t
-        - u
-        - v
-        - w
-        - x
-        - y
-        - z
+        keymap: [default, via]
+        keyboard_folder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z]
 
     container: qmkfm/qmk_cli
 
@@ -79,7 +41,7 @@ jobs:
     - name: 'Upload binaries'
       uses: actions/upload-artifact@v3
       with:
-        name: Artifacts-${{ matrix.keyboard_folder }}-${{ matrix.keymap }}
+        name: binaries-${{ matrix.keyboard_folder }}-${{ matrix.keymap }}
         if-no-files-found: ignore
         path: |
           *.bin
