@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "minne_topre.h"
-
 #include "quantum.h"
 #include "ec.h"
 #include "matrix.h"

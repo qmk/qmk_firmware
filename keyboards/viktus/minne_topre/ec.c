@@ -14,9 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "quantum.h"
 #include "ec.h"
-
-#include "quantum.h"  //delete?
 #include "analog.h"
 //#include "debug.h"  // needed for debugging
 
