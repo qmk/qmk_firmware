@@ -80,6 +80,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Artifacts-${{ matrix.keyboard_folder }}-${{ matrix.keymap }}
+        if-no-files-found: ignore
         path: |
           *.bin
           *.hex
