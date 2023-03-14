@@ -16,9 +16,10 @@
 
 #include "minne_topre.h"
 
+#include "quantum.h"
 #include "ec.h"
 #include "matrix.h"
-#include "debug.h"
+//#include "debug.h"  // needed for debugging
 
 #define RESET_PT 55
 #define ACTUATION_PT 65

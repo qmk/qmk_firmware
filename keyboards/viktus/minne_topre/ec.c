@@ -16,9 +16,9 @@
 
 #include "ec.h"
 
-#include "quantum.h"
+#include "quantum.h"  //delete?
 #include "analog.h"
-#include "debug.h"
+//#include "debug.h"  // needed for debugging
 
 // sensing channel definitions
 #define A0 0
