@@ -14,6 +14,12 @@ Hardware availability: not yet available
 - Reset button on the back of the PCB
 - Compatible with TOFU65 and similar cases 
 
+## Pictures
+
+![kuro65_pcb](https://user-images.githubusercontent.com/28592326/225080112-e31c2d8d-801e-48e6-b4a8-996fe5636419.jpeg)
+
+![kuro65_case](https://user-images.githubusercontent.com/28592326/225080143-74d2be9f-fc1b-4c57-8ad6-8ea516279ff8.jpeg)
+
 ## Building the firmware
 
 Make example for this keyboard (after setting up your build environment):
