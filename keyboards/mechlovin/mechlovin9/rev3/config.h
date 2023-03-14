@@ -27,10 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { B12, B13, B14, B15, A1 }
-#define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A6, A5, A4, A3, C13, B7, B6, B5, B4, B3 }
-
-#define LED_CAPS_LOCK_PIN B9
 
 /* Bootmagic Lite key configuration */
  #define BOOTMAGIC_LITE_ROW 0
