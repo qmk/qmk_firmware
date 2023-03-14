@@ -1,6 +1,6 @@
 # h87_g2
 
-[h87_g2](https://i.imgur.com/t7chDf8.png)
+[h87_g2](https://i.imgur.com/t7chDf8h.png)
 
 New generation of the h87 keyboard PCB platform with an STM32 microcontroller.
 
