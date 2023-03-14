@@ -1,4 +1,4 @@
-/* Copyright 2023 Maverick0197
+/* Copyright 2023 Maverick0197 <>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +15,13 @@
  */
 #include QMK_KEYBOARD_H
 
+enum layer_names {
+  _HOME = 0,
+  _FN1,
+  _FN2,
+  _FN3
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 /*
      * ┌────┬────┬────┐
@@ -25,28 +32,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ B4 │ B5 │ B6 │
      * └────┴────┴────┘
      */
-	[0] = LAYOUT(
+	[_HOME] = LAYOUT(
 	 KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK,
-	 KC_1, 	KC_2, 	KC_3,
-	 KC_4, 	KC_5, 	KC_6),
-	[1] = LAYOUT(
+	 KC_1, KC_2, KC_3,
+	 KC_4, KC_5, KC_6),
+	[_FN1] = LAYOUT(
 	KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS),
-	[2] = LAYOUT(
+	[_FN2] = LAYOUT(
 	KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS),
-	[3] = LAYOUT(
+	[_FN3] = LAYOUT(
 	KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS,
-	KC_TRNS, KC_TRNS, KC_TRNS),
+	KC_TRNS, KC_TRNS, KC_TRNS)
 };
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-        [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-        [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-        [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-        [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+        [_HOME] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+        [_FN1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+        [_FN2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+        [_FN3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
 };
 #endif
