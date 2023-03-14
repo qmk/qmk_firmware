@@ -633,6 +633,69 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         return false;
     }
 
+#ifdef VIA_ENABLE
+    uint32_t highest_layer = get_highest_layer(layer_state);
+
+    /* ========== Scroll Lock ========== */
+    if (!((host_keyboard_led_state().num_lock && (g_value[scroll] & (1 << bs_num_lock))) ||
+        (host_keyboard_led_state().caps_lock && (g_value[scroll] & (1 << bs_caps_lock))) ||
+        (host_keyboard_led_state().scroll_lock && (g_value[scroll] & (1 << bs_scroll_lock))) ||
+        ((get_mods() & MOD_MASK_CTRL) && (g_value[scroll] & (1 << bs_ctrl))) ||
+        ((get_mods() & MOD_MASK_GUI) && (g_value[scroll] & (1 << bs_gui))) ||
+        ((get_mods() & MOD_MASK_ALT) && (g_value[scroll] & (1 << bs_alt))) ||
+        ((get_mods() & MOD_MASK_SHIFT) && (g_value[scroll] & (1 << bs_shift))) ||
+        (highest_layer == 0 && (g_value[scroll] & (1 << bs_layer_0))) ||
+        (highest_layer == 1 && (g_value[scroll] & (1 << bs_layer_1))) ||
+        (highest_layer == 2 && (g_value[scroll] & (1 << bs_layer_2))) ||
+        (highest_layer == 3 && (g_value[scroll] & (1 << bs_layer_3))))) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 0);
+    }
+
+    /* ========== F13 ========== */
+    if (!((host_keyboard_led_state().num_lock && (g_value[f13] & (1 << bs_num_lock))) ||
+        (host_keyboard_led_state().caps_lock && (g_value[f13] & (1 << bs_caps_lock))) ||
+        (host_keyboard_led_state().scroll_lock && (g_value[f13] & (1 << bs_scroll_lock))) ||
+        ((get_mods() & MOD_MASK_CTRL) && (g_value[f13] & (1 << bs_ctrl))) ||
+        ((get_mods() & MOD_MASK_GUI) && (g_value[f13] & (1 << bs_gui))) ||
+        ((get_mods() & MOD_MASK_ALT) && (g_value[f13] & (1 << bs_alt))) ||
+        ((get_mods() & MOD_MASK_SHIFT) && (g_value[f13] & (1 << bs_shift))) ||
+        (highest_layer == 0 && (g_value[f13] & (1 << bs_layer_0))) ||
+        (highest_layer == 1 && (g_value[f13] & (1 << bs_layer_1))) ||
+        (highest_layer == 2 && (g_value[f13] & (1 << bs_layer_2))) ||
+        (highest_layer == 3 && (g_value[f13] & (1 << bs_layer_3))))) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(1, 0, 0, 0);
+    }
+
+    /* ========== Esc ========== */
+    if (!((host_keyboard_led_state().num_lock && (g_value[esc] & (1 << bs_num_lock))) ||
+        (host_keyboard_led_state().caps_lock && (g_value[esc] & (1 << bs_caps_lock))) ||
+        (host_keyboard_led_state().scroll_lock && (g_value[esc] & (1 << bs_scroll_lock))) ||
+        ((get_mods() & MOD_MASK_CTRL) && (g_value[esc] & (1 << bs_ctrl))) ||
+        ((get_mods() & MOD_MASK_GUI) && (g_value[esc] & (1 << bs_gui))) ||
+        ((get_mods() & MOD_MASK_ALT) && (g_value[esc] & (1 << bs_alt))) ||
+        ((get_mods() & MOD_MASK_SHIFT) && (g_value[esc] & (1 << bs_shift))) ||
+        (highest_layer == 0 && (g_value[esc] & (1 << bs_layer_0))) ||
+        (highest_layer == 1 && (g_value[esc] & (1 << bs_layer_1))) ||
+        (highest_layer == 2 && (g_value[esc] & (1 << bs_layer_2))) ||
+        (highest_layer == 3 && (g_value[esc] & (1 << bs_layer_3))))) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(2, 0, 0, 0);
+    }
+
+    /* ========== Caps Lock ========== */
+    if (!((host_keyboard_led_state().num_lock && (g_value[caps] & (1 << bs_num_lock))) ||
+        (host_keyboard_led_state().caps_lock && (g_value[caps] & (1 << bs_caps_lock))) ||
+        (host_keyboard_led_state().scroll_lock && (g_value[caps] & (1 << bs_scroll_lock))) ||
+        ((get_mods() & MOD_MASK_CTRL) && (g_value[caps] & (1 << bs_ctrl))) ||
+        ((get_mods() & MOD_MASK_GUI) && (g_value[caps] & (1 << bs_gui))) ||
+        ((get_mods() & MOD_MASK_ALT) && (g_value[caps] & (1 << bs_alt))) ||
+        ((get_mods() & MOD_MASK_SHIFT) && (g_value[caps] & (1 << bs_shift))) ||
+        (highest_layer == 0 && (g_value[caps] & (1 << bs_layer_0))) ||
+        (highest_layer == 1 && (g_value[caps] & (1 << bs_layer_1))) ||
+        (highest_layer == 2 && (g_value[caps] & (1 << bs_layer_2))) ||
+        (highest_layer == 3 && (g_value[caps] & (1 << bs_layer_3))))) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(3, 0, 0, 0);
+    }
+#else
     if (!((host_keyboard_led_state().scroll_lock))) {
         RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 0);
     }
@@ -644,6 +707,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!((host_keyboard_led_state().caps_lock))) {
         RGB_MATRIX_INDICATOR_SET_COLOR(3, 0, 0, 0);
     }
+#endif
     return true;
 }
 #endif
