@@ -1,7 +1,31 @@
 {
-    "keyboard_name": "hex-6C",
+    "keyboard_name": "Hex6C",
+    "manufacturer": "Mechlovin Studio and Hex Keyboard",
     "url": "",
     "maintainer": "Mechlovin' Studio",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x6C01",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A15", "pin_b": "A2"}
+        ]
+    },
+    "backlight": {
+        "pin": "B0",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "A4",
+        "num_lock": "A3",
+        "scroll_lock": "A8",
+        "on_state": 0
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

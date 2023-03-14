@@ -1,7 +1,19 @@
 {
     "keyboard_name": "Phoenix",
+    "manufacturer": "ErgoKB",
     "url": "ergokb.tw",
     "maintainer": "ErgoKB via lschyi",
+    "usb": {
+        "vid": "0x456B",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "split": {
+        "soft_serial_pin": "A9"
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F401",
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [

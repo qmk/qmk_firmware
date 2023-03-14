@@ -1,7 +1,15 @@
 {
     "keyboard_name": "kk980",
+    "manufacturer": "Sets3n",
     "url": "https://i.imgur.com/MQA6FXb.jpg",
     "maintainer": "Sets3n",
+    "usb": {
+        "vid": "0x404A",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

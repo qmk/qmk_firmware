@@ -1,7 +1,18 @@
 {
-    "keyboard_name": "blank01",
+    "keyboard_name": "BLANK.01",
+    "manufacturer": "BLANK",
     "url": "",
     "maintainer": "gkeyboard",
+    "usb": {
+        "vid": "0x424C",
+        "pid": "0x4B01",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [

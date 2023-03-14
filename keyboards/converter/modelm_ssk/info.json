@@ -1,7 +1,20 @@
 {
     "keyboard_name": "IBM Model M Space-Saving Keyboard",
+    "manufacturer": "tiltowait",
     "url": "https://github.com/tiltowait/qmk_firmware/tree/modelm_ssk/keyboards/converter/modelm_ssk",
     "maintainer": "tiltowait",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B6",
+        "num_lock": "B4",
+        "scroll_lock": "B5"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "layouts":
     {
         "LAYOUT":

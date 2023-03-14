@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Gin V2",
+    "manufacturer": "Ocean",
     "url": "",
     "maintainer": "Ocean",
+    "usb": {
+        "vid": "0x9624",
+        "pid": "0x0005",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

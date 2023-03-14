@@ -18,25 +18,10 @@
  
 #pragma once
 
-#include "config_common.h"
 
-#define VENDOR_ID       0x4934
-#define PRODUCT_ID      0x0101 
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    JKDLAB.
-#define PRODUCT         Binary_Monkey
-
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 3
 #define MATRIX_ROW_PINS { D0 }
 #define MATRIX_COL_PINS { D1, D2, D3 }
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 5
-
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 2

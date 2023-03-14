@@ -15,11 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 6
 
 /*
  * Keyboard Matrix Assignments
@@ -33,7 +28,6 @@
 */
 #define MATRIX_ROW_PINS { B6, F7, B2, B3, B1 }
 #define MATRIX_COL_PINS { F6, C6, D7, F5, B4, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

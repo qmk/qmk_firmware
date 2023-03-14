@@ -11,10 +11,6 @@
     #define ONESHOT_TIMEOUT 2000
 #endif  // !ONESHOT_TIMEOUT
 
-#ifndef QMK_KEYS_PER_SCAN
-  #define QMK_KEYS_PER_SCAN 4
-#endif // !QMK_KEYS_PER_SCAN
-
 #if defined(LEADER_ENABLE)
   #define LEADER_PER_KEY_TIMING
   #define LEADER_TIMEOUT 250
@@ -35,7 +31,7 @@
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
-//#define TAPPING_FORCE_HOLD
+//#define QUICK_TAP_TERM 0
 //#define RETRO_TAPPING
 
 #ifndef TAPPING_TOGGLE

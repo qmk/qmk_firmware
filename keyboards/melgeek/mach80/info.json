@@ -1,7 +1,17 @@
 {
     "keyboard_name": "Mach80",
+    "manufacturer": "MelGeek",
     "url": "",
     "maintainer": "melgeek001365",
+    "usb": {
+        "vid": "0xEDED",
+        "pid": "0x0080",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 3,
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

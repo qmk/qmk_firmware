@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_all(
 		LT(1, KC_ESC),  KC_LCTL,  KC_LALT,  KC_MEDIA_PLAY_PAUSE,
-		KC_NLCK,        KC_PSLS,  KC_PAST,  KC_PMNS,
+		KC_NUM,         KC_PSLS,  KC_PAST,  KC_PMNS,
 		KC_P7,          KC_P8,    KC_P9,    KC_PPLS,
 		KC_P4,          KC_P5,    KC_P6,    KC_PPLS,
 		KC_P1,          KC_P2,    KC_P3,    KC_PENT,
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_all(
 		KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-		RESET,    RGB_TOG,  RGB_MOD,  RGB_HUI,
+		QK_BOOT,    RGB_TOG,  RGB_MOD,  RGB_HUI,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,

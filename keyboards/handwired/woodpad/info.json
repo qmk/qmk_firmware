@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Woodpad",
+    "manufacturer": "WoodKeys.click",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6069",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_5x4"],
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [

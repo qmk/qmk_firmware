@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Uni660",
+    "manufacturer": "SiRius",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5352",
+        "pid": "0x0201",
+        "device_version": "19.1.2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

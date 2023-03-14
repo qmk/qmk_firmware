@@ -16,31 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B43
-#define PRODUCT_ID      0x5050
-#define MANUFACTURER    KapCave
-#define PRODUCT         paladinpad
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
-

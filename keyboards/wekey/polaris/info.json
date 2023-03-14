@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Polaris",
+    "manufacturer": "@wekey",
     "url": "",
     "maintainer": "@wekey.dev",
+    "usb": {
+        "vid": "0x5559",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

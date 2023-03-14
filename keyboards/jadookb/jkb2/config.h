@@ -14,19 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "config_common.h"
-
-#define VENDOR_ID       0x4A4B // "JK"
-#define PRODUCT_ID      0x3225 // "2%"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER JadooKB
-#define PRODUCT      JKB2
-
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 2
 
 #define MATRIX_ROW_PINS { B1 }
 #define MATRIX_COL_PINS { B3 ,B2}
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW

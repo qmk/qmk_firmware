@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "stoutgat/v2",
+    "keyboard_name": "Stoutgat v2 65%",
+    "manufacturer": "TKW",
     "url": "https://github.com/vattern/stoutgatv2",
     "maintainer": "vattern",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x7811",
+        "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B14", "pin_b": "B15"},
+            {"pin_a": "B12", "pin_b": "B13"}
+        ]
+    },
+    "community_layouts": ["65_iso", "65_ansi"],
     "layouts": {
         "LAYOUT_encoder": {
             "layout": [

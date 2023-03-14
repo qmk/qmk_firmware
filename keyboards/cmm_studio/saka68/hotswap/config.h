@@ -18,18 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x434D
-#define PRODUCT_ID      0x5348
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CMM.Studio
-#define PRODUCT         Saka68 Hotswap
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments

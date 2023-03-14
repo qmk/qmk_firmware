@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,3 @@
 #pragma once
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
-
-#ifdef RGB_MATRIX_ENABLE
-    #define VIA_QMK_RGBLIGHT_ENABLE
-#endif

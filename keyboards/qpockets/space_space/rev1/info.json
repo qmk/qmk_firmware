@@ -1,7 +1,22 @@
 {
   "keyboard_name": "space_space",
+  "manufacturer": "qpockets",
   "url": "",
   "maintainer": "qpockets",
+  "usb": {
+  	"vid": "0x7170",
+  	"pid": "0x7373",
+  	"device_version": "30.0.0"
+  },
+  "encoder": {
+  	"rotary": [
+  		{"pin_a": "B3", "pin_b": "B2", "resolution": 3},
+  		{"pin_a": "D6", "pin_b": "D7"}
+  	]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "debounce": 7,
   "layouts": {
     "LAYOUT_default": {
 	  "layout": [

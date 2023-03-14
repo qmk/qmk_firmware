@@ -24,7 +24,6 @@
 //#define TAPPING_TERM 200
 #define TAPPING_TOGGLE 2
 //#define PERMISSIVE_HOLD
-//#define QMK_KEYS_PER_SCAN 4
 #define FORCE_NKRO
 
 #define MOUSEKEY_INTERVAL 16

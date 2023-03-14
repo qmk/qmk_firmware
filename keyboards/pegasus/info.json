@@ -1,7 +1,21 @@
 {
-    "keyboard_name": "pegasus",
+    "keyboard_name": "Pegasus",
+    "manufacturer": "melonbred",
     "url": "",
     "maintainer": "melonbred",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "D5", "pin_b": "D3"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_default": {
             "layout": [

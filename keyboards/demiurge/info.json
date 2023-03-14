@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Demiurge",
+    "manufacturer": "ojthetiny",
     "url": "",
     "maintainer": "ojthetiny",
+    "usb": {
+        "vid": "0x6F6A",
+        "pid": "0x6475",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

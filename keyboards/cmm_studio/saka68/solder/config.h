@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x434D
-#define PRODUCT_ID      0x534B
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    CMM.Studio
-#define PRODUCT         Saka68 Solder
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 17
 
 /*
  * Keyboard Matrix Assignments
@@ -43,5 +31,3 @@
 #define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, C6, F5, F4, F1, F0, B1, B2, B3, D2, D3, D5 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5

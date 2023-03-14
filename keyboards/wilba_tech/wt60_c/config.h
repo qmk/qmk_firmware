@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6582 // wilba.tech
-#define PRODUCT_ID      0x60C0 // 60-C
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT60-C
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -41,14 +29,9 @@
 */
 #define MATRIX_ROW_PINS { F0, F1, F4, F6, F7 }
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -58,7 +41,7 @@
 
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 72
+#define RGB_MATRIX_LED_COUNT 72
 
 #define RGB_BACKLIGHT_ENABLED 1
 
@@ -113,6 +96,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE

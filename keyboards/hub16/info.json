@@ -1,7 +1,22 @@
 {
     "keyboard_name": "Hub16",
+    "manufacturer": "Josh Johnson",
     "url": "https://joshajohnson.com/hub16-keyboard/",
     "maintainer": "Josh Johnson",
+    "usb": {
+        "vid": "0x6A6A",
+        "pid": "0x4810",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F6"},
+            {"pin_a": "B5", "pin_b": "B4"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "debounce": 20,
     "layouts": {
         "LAYOUT": {
             "layout": [

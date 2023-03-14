@@ -1,7 +1,15 @@
 {
-    "keyboard_name":"cornelius",
+    "keyboard_name":"Cornelius",
+    "manufacturer":"Yushakobo",
     "url":"",
     "maintainer":"foostan",
+    "usb": {
+        "vid": "0x3265",
+        "pid": "0x0005",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts":{
         "LAYOUT":{
             "layout":[

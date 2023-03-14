@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "Trackpoint",
+    "keyboard_name": "Trackpoint Demo",
+    "manufacturer": "QMK",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x1234",
+        "pid": "0x5678",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT": {
             "layout": [

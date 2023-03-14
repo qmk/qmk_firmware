@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Iron180",
+    "manufacturer": "SmithRune",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x8384",
+        "pid": "0x1180",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "A6",
+        "levels": 20,
+        "breathing": true
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

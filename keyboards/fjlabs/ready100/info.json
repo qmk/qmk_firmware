@@ -1,10 +1,19 @@
 {
     "keyboard_name": "Ready100",
+    "manufacturer": "FJLabs",
     "url": "https://www.ready100.com",
     "maintainer": "FJLabs",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x1003",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_64key": "LAYOUT_64_ansi"
     },
+    "community_layouts": ["64_ansi"],
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [

@@ -1,7 +1,24 @@
 {
-    "keyboard_name": "smolka",
+    "keyboard_name": "Smolka",
+    "manufacturer": "Viktus Design LLC",
     "url": "",
     "maintainer": "jrfhoutx",
+    "usb": {
+        "vid": "0x5644",
+        "pid": "0x0010",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D1"},
+            {"pin_a": "D5", "pin_b": "D3", "resolution": 2}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,17 @@
 {
     "keyboard_name": "JotPad16",
+    "manufacturer": "Jotix",
     "url": "",
     "maintainer": "jotix",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "debounce": 0,
+    "community_layouts": ["ortho_4x4"],
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

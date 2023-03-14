@@ -1,7 +1,15 @@
 {
     "keyboard_name": "[n]9", 
+    "manufacturer": "Neil Brian Ramirez",
     "url": "", 
     "maintainer": "Neil Brian Ramirez", 
+    "usb": {
+    	"vid": "0xD812",
+    	"pid": "0x0012",
+    	"device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

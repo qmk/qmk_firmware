@@ -3,7 +3,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,-----------------.
-   * |RESET|  2  |  3  |
+   * |QK_BOOT|  2  |  3  |
    * |-----------------|
    * |Caps |NmLk |ScLk |
    * `-----------------'

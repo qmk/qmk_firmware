@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6963
-#define PRODUCT_ID 0x6966
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Koobaczech
-#define PRODUCT Zeus
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 18
 
 /*
  * Keyboard Matrix Assignments
@@ -42,16 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F0, C1, E1, E0, D7, D6 }
 #define MATRIX_COL_PINS { F1, F2, F3, F4, F5, F6, F7, A0, A1, A2, A3, A4, A5, A6, A7, C7, C2, C0 }
-#define UNUSED_PINS { E3, E4, E5, B0, B4, B5, B6, B7, D4 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Encoder Function */
-#define ENCODERS_PAD_A { E7 }
-#define ENCODERS_PAD_B { E6 }
-//#define ENCODER_DIRECTION_FLIP
-#define ENCODER_RESOLUTION 1
 
 /* Audio Function */
 #define AUDIO_CLICKY
@@ -89,14 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SLEEP
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Indicator Led's*/
-#define LED_CAPS_LOCK_PIN C5
-#define LED_NUM_LOCK_PIN C4
-#define LED_SCROLL_LOCK_PIN C3
-#define LED_PIN_ON_STATE 0
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

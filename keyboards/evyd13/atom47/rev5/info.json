@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Atom47 rev5", 
+    "manufacturer": "Evyd13",
     "url": "", 
     "maintainer": "evyd13", 
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0x92EA",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_split_space": {
             "layout": [

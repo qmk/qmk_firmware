@@ -1,7 +1,30 @@
 {
-    "keyboard_name": "Lily58",
+    "keyboard_name": "Lily58GlowEnc",
+    "manufacturer": "ORVISEVANS+",
     "url": "https://keycapsss.com",
     "maintainer": "BenRoe",
+    "usb": {
+        "vid": "0xFC51",
+        "pid": "0x0059",
+        "device_version": "1.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "D4"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "D4", "pin_b": "F5"}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

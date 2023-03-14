@@ -1,7 +1,24 @@
 {
-    "keyboard_name": "TKM 2021",
+    "keyboard_name": "TKM 2021 R1.03",
+    "manufacturer": "cest73",
     "url": "https://geekhack.org/index.php?topic=110499",
     "maintainer": "cest73 (aka fire-h0und)",
+    "usb": {
+        "vid": "0xBADD",
+        "pid": "0xAA55",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "E6"
+    },
+    "indicators": {
+        "caps_lock": "F5",
+        "num_lock": "F6",
+        "scroll_lock": "F7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

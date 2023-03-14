@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "Keyboardio Atreus",
+    "keyboard_name": "Atreus",
+    "manufacturer": "Keyboardio",
     "url": "",
     "maintainer": "keyboardio",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x2303",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

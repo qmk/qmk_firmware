@@ -19,19 +19,7 @@
 
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define DIRECT_PINS {{NO_PIN}}
-
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default
-#define UNUSED_PINS \
+#define UNUSABLE_PINS \
     { B5, B6, C7, D0, D1, D2, D3, D4, D5, D6, D7, E6, F1, F3, F5, F6, F7 }

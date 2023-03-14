@@ -17,21 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID       0xCEEB
-#define PRODUCT_ID      0x0035
-#define MANUFACTURER    kaylynb
-#define PRODUCT         MechLlama G35
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 7
 
 #define DIODE_DIRECTION COL2ROW
-
-#define QMK_ESC_OUTPUT D6
-#define QMK_ESC_INPUT F5
-#define QMK_SPEAKER D2
 
 #define RGB_DI_PIN F7
 

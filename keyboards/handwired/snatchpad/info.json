@@ -1,7 +1,21 @@
 {
     "keyboard_name": "snatchpad",
+    "manufacturer": "xia0",
     "url": "",
     "maintainer": "xia0",
+    "usb": {
+        "vid": "0x6662",
+        "pid": "0x7370",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D3", "pin_b": "D2"},
+            {"pin_a": "D0", "pin_b": "D1"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

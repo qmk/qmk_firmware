@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Basketweave",
+    "manufacturer": "Clackery",
     "url": "https://github.com/null-ll/basketweave",
     "maintainer": "null-ll",
+    "usb": {
+        "vid": "0x6B62",
+        "pid": "0x8989",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D7", "pin_b": "C0"}
+        ]
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_default": {
             "layout": [
