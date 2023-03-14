@@ -3,7 +3,7 @@
 A 65% keyboard with an ISO layout, which fits the TOFU65 case (and similar) by KBDFans.
 
 Keyboard maintainer: [0x544D](https://github.com/0x544D)<br>
-Hardware availability: not yet available
+Hardware availability: [0x544D/kuro65](https://github.com/0x544D/kuro65)
 
 ## Features
 
