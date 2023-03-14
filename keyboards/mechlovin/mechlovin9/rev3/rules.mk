@@ -1,1 +1,1 @@
-BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
+# This file intentionally left blank
