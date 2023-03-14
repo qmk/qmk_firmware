@@ -633,6 +633,7 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
 //                set_auto_mouse_enable(false);
                 layer_off(LA_MOUSE);
                 layer_off(LA_LTHUMBMS);
+                isWeakLaMouseStarted = false;
                 isMouseX1Started = false;
                 isScrollX1Started = false;
                 isMouseX2Started = false;
