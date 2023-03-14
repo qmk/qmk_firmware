@@ -3,7 +3,7 @@
 A 65% keyboard with an ISO layout, which fits the TOFU65 case (and similar) by KBDFans.
 
 Keyboard maintainer: [0x544D](https://github.com/0x544D)<br>
-Hardware availability: not yet available
+Hardware availability: [0x544D/kuro65](https://github.com/0x544D/kuro65)
 
 ## Features
 
@@ -13,6 +13,12 @@ Hardware availability: not yet available
 - USB-C connector
 - Reset button on the back of the PCB
 - Compatible with TOFU65 and similar cases 
+
+## Pictures
+
+![kuro65_pcb](https://user-images.githubusercontent.com/28592326/225080112-e31c2d8d-801e-48e6-b4a8-996fe5636419.jpeg)
+
+![kuro65_case](https://user-images.githubusercontent.com/28592326/225080143-74d2be9f-fc1b-4c57-8ad6-8ea516279ff8.jpeg)
 
 ## Building the firmware
 
