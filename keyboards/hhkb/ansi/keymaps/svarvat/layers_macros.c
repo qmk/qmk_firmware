@@ -1,5 +1,7 @@
 bool isLeftThumbEMoStarted = false;
 bool isLeftThumbDMoStarted = false;
+bool editModeLthumbOslStarted = false;
+bool isCtlTabStarted = false;
 //bool isDeadKeyCircStarted = false;
 //bool isDeadKeyTremaStarted = false;
 bool mouseLeft = false;
@@ -16,9 +18,8 @@ bool scrollDown = false;
 bool isScrollX1Started = false;
 bool isScrollX2Started = false;
 bool isScrollX4Started = false;
-bool editModeLthumbOslStarted = false;
-bool isLThumbLayerMouseStarted = false;
-bool isCtlTabStarted = false;
+bool isWeakLaMouseStarted = false;
+
 void tap_code16_wrap_lctl(uint16_t keycode) {
     unregister_code16(KC_LCTL);
     tap_code16(keycode);
@@ -96,52 +97,26 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 mouseLeft = false;
             }
             return false;
-        case MA_LTHUMB:
-            if (!(record->event.pressed)) {
-//                set_auto_mouse_enable(false);
-                layer_off(LA_MOUSE);
-                isMouseX1Started = false;
-                isScrollX1Started = false;
-                isMouseX2Started = false;
-                isScrollX2Started = false;
-                isMouseX4Started = false;
-                isScrollX4Started = false;
-                scrollLeft = false;
-                scrollUp = false;
-                scrollDown = false;
-                scrollRight = false;
-                mouseDown = false;
-                mouseUp = false;
-                mouseRight = false;
-                mouseLeft = false;
+        case MA_LTHUMBMS:
+            if (record->event.pressed) {
+                layer_on(LA_LTHUMBMS);
+            } else {
+                layer_off(LA_LTHUMBMS);
             }
             return false;
         case MA_MS_BTN1_UNREG:
             if (record->event.pressed) {
-                if (isLThumbLayerMouseStarted) {isMouseX2Started = true;}
-                else {unregister_code16(KC_MS_BTN1);}
-            } else {
-                if (isLThumbLayerMouseStarted) {isMouseX2Started = false;}
+                unregister_code16(KC_MS_BTN1);
             }
             return false;
         case MA_MS_BTN1_REG:
             if (record->event.pressed) {
-                if (isLThumbLayerMouseStarted) {isMouseX4Started = true;}
-                else {register_code16(KC_MS_BTN1);}
-            } else {
-                if (isLThumbLayerMouseStarted) {isMouseX4Started = false;}
+                register_code16(KC_MS_BTN1);
             }
             return false;
         case MA_MS_BTN1_TAP:
             if (record->event.pressed) {
                 tap_code16(KC_MS_BTN1);
-            }
-            return false;
-        case MA_LTHUMBMS:
-            if (record->event.pressed) {
-                isLThumbLayerMouseStarted = true;
-            } else {
-                isLThumbLayerMouseStarted = false;
             }
             return false;
         case MA_MS_WH_DOWN:
@@ -446,7 +421,14 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
-    if (isCtlTabStarted && (keycode != MA_TAB)) {
+    if (isCtlTabStarted
+    && (keycode != MA_TAB)
+    && (keycode != KC_UP)
+    && (keycode != KC_DOWN)
+    && (keycode != KC_LEFT)
+    && (keycode != KC_RIGHT)
+    && (keycode != MA_LTHUMBQ)
+    && (keycode != MA_LTHUMBW)) {
         isCtlTabStarted = false;
         unregister_code16(KC_LCTL);
         if (keycode == MA_LTHUMB) {
@@ -465,20 +447,16 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_LTHUMBQ:
             if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX2Started = true;}
-                else {layer_on(LA_LTHUMBQ);}
+                layer_on(LA_LTHUMBQ);
             } else {
-                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX2Started = false;}
-                else {layer_off(LA_LTHUMBQ);}
+                layer_off(LA_LTHUMBQ);
             }
             return false;
         case MA_LTHUMBW:
             if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX4Started = true;}
-                else {layer_on(LA_LTHUMBW);}
+                layer_on(LA_LTHUMBW);
             } else {
-                if (IS_LAYER_ON(LA_MOUSE)) {isMouseX4Started = false;}
-                else {layer_off(LA_LTHUMBW);}
+                layer_off(LA_LTHUMBW);
             }
             return false;
         case MA_LPINKY:
@@ -517,18 +495,10 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 layer_off(LA_LTHUMB);
                 layer_on(LA_MOUSE);
+                layer_on(LA_LTHUMBMS);
                 isMouseX1Started = true;
                 isScrollX1Started = true;
-                isLThumbLayerMouseStarted = true;
-            }
-            return false;
-        case MA_CAPSLOCK:
-            if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_CAPSLOCK)) {
-                    layer_off(LA_CAPSLOCK);
-                } else {
-                    layer_on(LA_CAPSLOCK);
-                }
+                isWeakLaMouseStarted = true;
             }
             return false;
         case MA_ESC:
@@ -544,7 +514,8 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case KC_UP:
-            if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
+            if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)
+            && !isCtlTabStarted) {
                 if (record->event.pressed) {
                     tap_code16_wrap_lctl(KC_UP);
                     return false;
@@ -552,7 +523,8 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             }
             return true;
         case KC_DOWN:
-            if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
+            if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)
+            && !isCtlTabStarted) {
                 if (record->event.pressed) {
                     tap_code16_wrap_lctl(KC_DOWN);
                     return false;
@@ -627,6 +599,141 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
+bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
+    if (isCtlTabStarted && (keycode != MA_TAB)) {
+        isCtlTabStarted = false;
+        unregister_code16(KC_LCTL);
+        if (keycode == MA_LTHUMBMS || keycode == MA_LTHUMB) {
+            layer_off(LA_LTHUMBMS);
+        }
+        return false;
+    }
+    switch (keycode) {
+        case MA_LTHUMBMS:
+            if (!(record->event.pressed)) {
+                layer_off(LA_LTHUMBMS);
+                isMouseX1Started = false;
+                isScrollX1Started = false;
+                isMouseX2Started = false;
+                isScrollX2Started = false;
+                isMouseX4Started = false;
+                isScrollX4Started = false;
+                scrollLeft = false;
+                scrollUp = false;
+                scrollDown = false;
+                scrollRight = false;
+                mouseDown = false;
+                mouseUp = false;
+                mouseRight = false;
+                mouseLeft = false;
+            }
+            return false;
+        case MA_LTHUMB:
+            if (!(record->event.pressed)) {
+//                set_auto_mouse_enable(false);
+                layer_off(LA_MOUSE);
+                layer_off(LA_LTHUMBMS);
+                isMouseX1Started = false;
+                isScrollX1Started = false;
+                isMouseX2Started = false;
+                isScrollX2Started = false;
+                isMouseX4Started = false;
+                isScrollX4Started = false;
+                scrollLeft = false;
+                scrollUp = false;
+                scrollDown = false;
+                scrollRight = false;
+                mouseDown = false;
+                mouseUp = false;
+                mouseRight = false;
+                mouseLeft = false;
+            }
+            return false;
+        case MA_LTHUMBQ:
+            if (record->event.pressed) {
+                isMouseX2Started = true;
+            } else {
+                isMouseX2Started = false;
+            }
+            return false;
+        case MA_LTHUMBW:
+            if (record->event.pressed) {
+                isMouseX4Started = true;
+            } else {
+                isMouseX4Started = false;
+            }
+            return false;
+        case MA_LTHUMBE:
+            if (record->event.pressed) {
+                if (isWeakLaMouseStarted) {
+                    tap_code16(KC_MS_BTN1);
+                } else {
+                    layer_on(LA_LTHUMBEMO);
+                }
+            }
+            return false;
+        case MA_LTHUMBD:
+            if (record->event.pressed) {
+                if (isWeakLaMouseStarted) {
+                    scrollDown = true;
+                } else {
+                    layer_on(LA_LTHUMBDMO);
+                }
+            } else {
+                if (isWeakLaMouseStarted) {
+                    scrollDown = false;
+                }
+            }
+            return false;
+        case KC_LGUI:
+            if (isWeakLaMouseStarted) {
+                if (record->event.pressed) {
+                    scrollUp = true;
+                } else {
+                    scrollUp = false;
+                }
+                return false;
+            }
+            return true;
+        case MA_LTHUMB1:
+            if (record->event.pressed) {
+                layer_on(LA_LTHUMB1MO);
+            }
+            return false;
+        case MA_LTHUMB2:
+            if (record->event.pressed) {
+                layer_on(LA_LTHUMB2MO);
+            }
+            return false;
+        case MA_LTHUMB3:
+            if (record->event.pressed) {
+                layer_on(LA_LTHUMB3MO);
+            }
+            return false;
+        case MA_ESC:
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(LA_LTHUMBEOSL) || IS_LAYER_ON(LA_LTHUMBDOSL)) {
+                    layer_off(LA_LTHUMBEOSL);
+                    layer_off(LA_LTHUMBDOSL);
+                } else {
+                    tap_code16(KC_ESC);
+                }
+            }
+            return false;
+        case MA_TAB:
+            if (record->event.pressed) {
+                if (!isCtlTabStarted) {
+                    isCtlTabStarted = true;
+                    register_code16(KC_LCTL);
+                    tap_code16(KC_TAB);
+                } else {
+                    tap_code16(KC_TAB);
+                }
+            }
+            return false;
+    }
+    return true;
+}
 bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
     if ((keycode != MA_LTHUMB) & (keycode != MA_LTHUMBE)) {
         isLeftThumbEMoStarted = true;
@@ -640,12 +747,14 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMB:
+        case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMBEMO);
                 if(!isLeftThumbEMoStarted) {
                     layer_on(LA_LTHUMBEOSL);
                 } else {
                     isLeftThumbEMoStarted = false;
+                    layer_off(LA_LTHUMBMS);
                     layer_off(LA_LTHUMB);
                 }
             }
@@ -676,12 +785,14 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMB:
+        case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMBDMO);
                 if(!isLeftThumbDMoStarted) {
                     layer_on(LA_LTHUMBDOSL);
                 } else {
                     isLeftThumbDMoStarted = false;
+                    layer_off(LA_LTHUMBMS);
                     layer_off(LA_LTHUMB);
                 }
             }
@@ -725,7 +836,8 @@ bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
     }
     if (!(record->event.pressed)) {
         if (editModeLthumbOslStarted) {unregister_code16(KC_LCTL);}
-        layer_off(LA_LTHUMB);
+        if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
+        else {layer_off(LA_LTHUMB);}
         layer_off(LA_LTHUMBEOSL);
     }
     return true;
@@ -739,7 +851,8 @@ bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
     }
     if (!(record->event.pressed)) {
         if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
-        layer_off(LA_LTHUMB);
+        if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
+        else {layer_off(LA_LTHUMB);}
         layer_off(LA_LTHUMBDOSL);
     }
     return true;
@@ -747,9 +860,11 @@ bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
 bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMB:
+        case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMB1MO);
                 layer_off(LA_LTHUMB);
+                layer_off(LA_LTHUMBMS);
             }
             return false;
     }
@@ -758,9 +873,11 @@ bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
 bool processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMB:
+        case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMB2MO);
                 layer_off(LA_LTHUMB);
+                layer_off(LA_LTHUMBMS);
             }
             return false;
     }
@@ -772,6 +889,12 @@ bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMB3MO);
                 layer_off(LA_LTHUMB);
+            }
+            return false;
+        case MA_LTHUMBMS:
+            if (!(record->event.pressed)) {
+                layer_off(LA_LTHUMB3MO);
+                layer_off(LA_LTHUMBMS);
             }
             return false;
     }

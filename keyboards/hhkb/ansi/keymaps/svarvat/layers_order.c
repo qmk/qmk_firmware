@@ -4,12 +4,13 @@
  #define LA_LPINKY 3 // C(G())
  #define LA_RTHUMB 4
  #define LA_LTHUMB 5
- #define LA_LTHUMBEMO 6 // LSG
- #define LA_LTHUMBDMO 7 // RSG
- #define LA_LTHUMBEOSL 8 // LAG - CAG
- #define LA_LTHUMBDOSL 9 // LSA - CSA
- #define LA_LTHUMB1MO 10 // LALT
- #define LA_LTHUMB2MO 11 // RCS
- #define LA_LTHUMB3MO 12 // C(A)
- #define LA_LTHUMBQ 13
- #define LA_LTHUMBW 14
+ #define LA_LTHUMBMS 6
+ #define LA_LTHUMBEMO 7 // LSG
+ #define LA_LTHUMBDMO 8 // RSG
+ #define LA_LTHUMBEOSL 9 // LAG - CAG
+ #define LA_LTHUMBDOSL 10 // LSA - CSA
+ #define LA_LTHUMB1MO 11 // LALT
+ #define LA_LTHUMB2MO 12 // RCS
+ #define LA_LTHUMB3MO 13 // C(A)
+ #define LA_LTHUMBQ 14
+ #define LA_LTHUMBW 15
