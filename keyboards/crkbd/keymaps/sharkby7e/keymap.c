@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
   [0] = LAYOUT_split_3x5_3(
   // \-----------------------------------------------------------------|   |--------------------------------------------------------------/
            KC_Q,      KC_W,    LCTL_T(KC_F),      KC_P,         KC_B,         KC_J,         KC_L,       RCTL_T(KC_U),    KC_Y,    KC_BSPC,  
@@ -28,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \--------------+-------+----------------+--------------+----------|   | ---------+---------------+---------------+--------+----------/
            KC_Z,      KC_X,        KC_C,          KC_D,         KC_V,         KC_K,         KC_H,         KC_COMM,      KC_DOT,   KC_SLSH,  
   // \--------------+-------+----------------+--------------+----------|   | ---------+---------------+---------------+--------+----------/
-                              RCTL_T(KC_ESC),     MO(1),       KC_LSPO,       KC_SPC,       MO(2),     MEH_T(KC_TAB)
+                              RCTL_T(KC_ESC),     MO(1),       SC_LSPO,       KC_SPC,       MO(2),     MEH_T(KC_TAB)
 //                           \---------------+--------------+----------|   |----------+---------------+--------------/
 
   ),
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_split_3x5_3(
   // \--------------------------------------------.                    ,---------------------------------------------|
-      RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // \--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+---------|
       RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // \--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+---------|
