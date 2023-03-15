@@ -8,6 +8,13 @@ keypos_t keyboard_pairing_sequence[PAIRING_SEQUENCE_SIZE];
 keypos_t host_pairing_sequence[PAIRING_SEQUENCE_SIZE];
 uint8_t  pairing_input_index = 0;
 
+void oryx_error(uint8_t code) {
+    uint8_t event[RAW_EPSIZE];
+    event[0] = ORYX_EVT_ERROR;
+    event[1] = code;
+    raw_hid_send(event, RAW_EPSIZE);
+}
+
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     uint8_t  command   = data[0];
     uint8_t *param     = &data[1];
@@ -45,10 +52,32 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
 
         case ORYX_SET_LAYER:
-            if(rawhid_state.paired == true) {
+            if (rawhid_state.paired == true) {
                 layer_clear();
                 layer_on(param[0]);
             }
+            break;
+
+        case ORYX_RGB_CONTROL:
+#if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
+            if (param[0] == 0) {
+                rgb_matrix_reload_from_eeprom();
+                rawhid_state.rgb_control = false;
+            } else {
+                rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_oryx_webhid_effect);
+                rawhid_state.rgb_control = true;
+            }
+#else
+            oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
+#endif
+            break;
+
+        case ORYX_SET_RGB_LED:
+#if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
+            webhid_leds[param[0]] = (RGB){.r = param[1], .g = param[2], .b = param[3]};
+#else
+            oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
+#endif
             break;
     }
 }
@@ -122,7 +151,6 @@ bool compare_sequences(keypos_t a[PAIRING_SEQUENCE_SIZE], keypos_t b[PAIRING_SEQ
 }
 
 void pairing_validate_handler() {
-    
     uint8_t event[RAW_EPSIZE];
     bool    valid = compare_sequences(keyboard_pairing_sequence, host_pairing_sequence);
 
@@ -151,6 +179,16 @@ keypos_t get_random_keypos(void) {
     } else {
         return get_random_keypos();
     }
+}
+
+keypos_t *pairing_sequence(void) {
+    // The pairing sequence is derived from Oryx's layout id declared
+    // in the generated source config file with the FIRMWARE_VERSION define.
+    keypos_t *sequence = (keypos_t *)&host_pairing_sequence[0];
+    for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
+    }
+
+    return sequence;
 }
 
 void create_pairing_code(void) {
