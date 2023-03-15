@@ -8,6 +8,17 @@
         "pid": "0x3935",
         "device_version": "0.0.2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B5"},
+            {"pin_a": "A14", "pin_b": "A15"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
     "layouts": {
         "LAYOUT": {
             "layout": [

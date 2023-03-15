@@ -1,7 +1,14 @@
 {
     "keyboard_name": "Viterbi Rev. 2",
+    "split": {
+        "soft_serial_pin": "D0"
+    },
     "usb": {
         "pid": "0x2157",
         "device_version": "2.0.0"
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 7
     }
 }

@@ -8,6 +8,8 @@
         "pid": "0x6050",
         "device_version": "1.0.0"
     },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

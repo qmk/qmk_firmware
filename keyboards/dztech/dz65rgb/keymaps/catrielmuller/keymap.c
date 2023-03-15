@@ -86,7 +86,7 @@ enum unicode_names {
     UC_THUMBSUP, // 👎
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [UC_GRINNING_FACE] = 0x1F603,
     [UC_BEAMING_FACE] = 0x1F601,
     [UC_GRINNING_FACE_WITH_SWEAT] = 0x1F605,
@@ -233,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool rgb_matrix_indicators_user(void) {
 
     // CapsLock Light
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(30, MAIN_COLOR[0], MAIN_COLOR[1], MAIN_COLOR[2]);
     }
 

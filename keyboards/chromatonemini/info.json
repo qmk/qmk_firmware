@@ -22,7 +22,6 @@
         "cols": [ "F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6" ],
         "rows": [ "E6", "D7", "C6", "D4", "D0", "D1" ]
     },
-    "debounce": 5,
     "usb": {
         "vid": "0xFEED",
         "pid": "0xF4B4",
@@ -78,7 +77,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "B5", "pin_b": "B4", "resolution": 4 }
+            { "pin_a": "B5", "pin_b": "B4" }
         ]
     }
 }

@@ -12,5 +12,3 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 DEFAULT_FOLDER = lfkeyboards/smk65/revb
-
-LAYOUTS = 65_ansi 65_iso

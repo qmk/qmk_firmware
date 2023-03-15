@@ -321,7 +321,7 @@ void matrix_init_keymap(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     #ifdef RGB_MATRIX_ENABLE
     rgblight_mode(RGB_MATRIX_CYCLE_ALL);
@@ -330,7 +330,7 @@ void startup_user()
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_goodbye);
     wait_ms(150);

@@ -4,7 +4,6 @@
   "maintainer": "skullydazed",
   "processor": "at90usb1286",
   "bootloader": "halfkay",
-  "debounce": 5,
   "diode_direction": "ROW2COL",
   "features": {
     "audio": true,

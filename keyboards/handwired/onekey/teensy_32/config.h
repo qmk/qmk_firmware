@@ -17,7 +17,6 @@
 #pragma once
 
 // TODO: including this causes "error: expected identifier before '(' token" errors
-//#include "config_common.h"
 
 // i2c_master defines
 #define I2C1_SCL_PIN B0 // A2 on pinout = B0

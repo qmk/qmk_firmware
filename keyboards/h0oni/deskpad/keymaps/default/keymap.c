@@ -46,15 +46,15 @@ enum custom_keycodes {
     VSCODE,
 };
 
-td_state_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(tap_dance_state_t *state);
 
 /* Quad layer switching */
-void layer_finished(qk_tap_dance_state_t *state, void *user_data);
-void layer_reset(qk_tap_dance_state_t *state, void *user_data);
+void layer_finished(tap_dance_state_t *state, void *user_data);
+void layer_reset(tap_dance_state_t *state, void *user_data);
 
 /* Copy, paste, select all, cut */
-void cvxa_finished(qk_tap_dance_state_t *state, void *user_data);
-void cvxa_reset(qk_tap_dance_state_t *state, void *user_data);
+void cvxa_finished(tap_dance_state_t *state, void *user_data);
+void cvxa_reset(tap_dance_state_t *state, void *user_data);
 
 static td_tap_t layerTap_state = {
     .is_press_action = true,
@@ -67,7 +67,7 @@ static td_tap_t cvxa_state = {
 };
 
 // Determine the current tap dance state
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
         // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
@@ -79,7 +79,7 @@ td_state_t cur_dance(qk_tap_dance_state_t *state) {
     } else return TD_UNKNOWN;
 }
 
-void layer_finished(qk_tap_dance_state_t *state, void *user_data) {
+void layer_finished(tap_dance_state_t *state, void *user_data) {
     layerTap_state.state = cur_dance(state);
     layer_off(get_highest_layer(layer_state));
     switch (layerTap_state.state) {
@@ -91,11 +91,11 @@ void layer_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void layer_reset(qk_tap_dance_state_t *state, void *user_data) {
+void layer_reset(tap_dance_state_t *state, void *user_data) {
     layerTap_state.state = TD_NONE;
 }
 
-void cvxa_finished(qk_tap_dance_state_t *state, void *user_data) {
+void cvxa_finished(tap_dance_state_t *state, void *user_data) {
     cvxa_state.state = cur_dance(state);
     register_mods(MOD_BIT(KC_LCTL));
     switch (cvxa_state.state) {
@@ -108,12 +108,12 @@ void cvxa_finished(qk_tap_dance_state_t *state, void *user_data) {
     unregister_mods(MOD_BIT(KC_LCTL));
 }
 
-void cvxa_reset(qk_tap_dance_state_t *state, void *user_data) {
+void cvxa_reset(tap_dance_state_t *state, void *user_data) {
     cvxa_state.state = TD_NONE;
 }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_CUT_REDO] = ACTION_TAP_DANCE_DOUBLE(C(KC_Z), S(C(KC_Z))),
     [TD_PLAY_PAUSE_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE),
     [TD_MNXT_RIGHT] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_RIGHT),
