@@ -16,10 +16,11 @@
 
 #include QMK_KEYBOARD_H
 
-#define BASE   0 // base layer Windows
-#define FN1    1 // function layer 1
-#define FN2    2 // function layer 2
-
+enum layers {
+    BASE,
+    FN1,
+    FN2
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

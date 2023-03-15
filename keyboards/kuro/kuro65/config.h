@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* RGB Matrix defines*/
 #ifdef RGB_MATRIX_ENABLE
@@ -25,7 +24,6 @@
 // The number of LEDs connected
 #    define RGB_MATRIX_LED_COUNT 69
 
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define USB_SUSPEND_WAKEUP_DELAY 5000
 #    define RGB_MATRIX_KEYPRESSES
@@ -80,5 +78,5 @@
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #endif
