@@ -204,16 +204,16 @@ Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To 
 
 ### Example `void housekeeping_task_user(void)` implementation
 
-This example will show you how to use `void housekeeping_task_user(void)` to turn off RGB light. For RGB Matrix just use `#define RGB_MATRIX_TIMEOUT` in your `config.h`.
+This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight.md). For RGB Matrix, the [builtin](https://docs.qmk.fm/#/feature_rgb_matrix?id=additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
 
-First add those lines to your user `config.h`.
+First, add the following lines to your keymap's `config.h`:
 
 ```c
 #define RGBLIGHT_SLEEP  // enable rgblight_suspend() and rgblight_wakeup() in keymap.c
 #define RGBLIGHT_TIMEOUT 900000  // ms to wait until rgblight time out, 900K ms is 15min.
 ```
 
-And add those lines to your `keymap.c`.
+Next, add the following code to your `keymap.c`:
 
 ```c
 static uint32_t key_timer;           // timer for last keyboard activity, use 32bit value and function to make longer idle time possible
