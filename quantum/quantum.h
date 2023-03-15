@@ -213,6 +213,9 @@ extern layer_state_t layer_state;
 
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
+#    ifdef POINTING_DEVICE_MODES_ENABLE
+#        include "process_pointing_modes.h"
+#    endif
 #endif
 
 #ifdef MOUSEKEY_ENABLE
