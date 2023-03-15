@@ -20,6 +20,7 @@ bool isScrollX1Started = false;
 bool isScrollX2Started = false;
 bool isScrollX4Started = false;
 bool isWeakLaMouseStarted = false;
+bool isCapswordStarted = false;
 
 void tap_code16_wrap_lctl(uint16_t keycode) {
     unregister_code16(KC_LCTL);
@@ -210,10 +211,25 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 mouseRight = false;
             }
             return false;
+        case MA_END:
+            if (record->event.pressed) {
+                tap_code16(KC_MS_BTN5);
+            }
+            return false;
+        case MA_HOME:
+            if (record->event.pressed) {
+                tap_code16(KC_MS_BTN4);
+            }
+            return false;
     }
     return true;
 }
 bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
+    if (isCapswordStarted && keycode == KC_SPC) {
+        isCapswordStarted = false;
+        layer_off(LA_CAPSLOCK);
+        return true;
+    }
     switch (keycode) {
         case MA_CAPSLOCK:
             if (record->event.pressed) {
@@ -549,6 +565,12 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 isMouseX1Started = true;
                 isScrollX1Started = true;
                 isWeakLaMouseStarted = true;
+            }
+            return false;
+        case MA_CAPSWORD:
+            if (record->event.pressed) {
+                isCapswordStarted = true;
+                layer_on(LA_CAPSLOCK);
             }
             return false;
         case MA_ESC:
