@@ -35,7 +35,7 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     && (keycode != KC_J)
     && (keycode != KC_K)
     && (keycode != KC_L)
-    && (keycode != KC_LSFT)) {
+    && (keycode != OSM(MOD_LSFT))) {
         isAltTabStarted = false;
     }
     switch (keycode) {
@@ -482,6 +482,12 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_SPC);
             }
             return false;
+        case MA_CAPSWORD:
+            if (record->event.pressed) {
+                isCapswordStarted = true;
+                layer_on(LA_CAPSLOCK);
+            }
+            return false;
     }
     return true;
 }
@@ -586,19 +592,43 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case KC_UP:
-            if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)
-            && !isCtlTabStarted) {
-                if (record->event.pressed) {
+            if (record->event.pressed) {
+                if (isCtlTabStarted) {
+                    register_code16(KC_LSFT);
+                    tap_code16(KC_TAB);
+                    unregister_code16(KC_LSFT);
+                    return false;
+                } else if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
                     tap_code16_wrap_lctl(KC_UP);
                     return false;
                 }
             }
             return true;
         case KC_DOWN:
-            if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)
-            && !isCtlTabStarted) {
-                if (record->event.pressed) {
+            if (record->event.pressed) {
+                if (isCtlTabStarted) {
+                    tap_code16(KC_TAB);
+                    return false;
+                } else if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
                     tap_code16_wrap_lctl(KC_DOWN);
+                    return false;
+                }
+            }
+            return true;
+        case KC_LEFT:
+            if (record->event.pressed) {
+                if (isCtlTabStarted) {
+                    register_code16(KC_LSFT);
+                    tap_code16(KC_TAB);
+                    unregister_code16(KC_LSFT);
+                    return false;
+                }
+            }
+            return true;
+        case KC_RGHT:
+            if (record->event.pressed) {
+                if (isCtlTabStarted ) {
+                    tap_code16(KC_TAB);
                     return false;
                 }
             }
