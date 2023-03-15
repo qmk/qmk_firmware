@@ -27,9 +27,6 @@
         "cols": ["D6", "D2", "D1"],
         "rows": ["F5", "F4", "F1"]
     },
-    "bootmagic": {
-        "matrix": [0, 1] // Hold 8 on start up to clear EEPROM and boot into bootloader mode
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
