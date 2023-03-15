@@ -24,41 +24,13 @@
             }
         ]
     },
-    "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": false,
-        "command": false,
-        "console": false,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": false,
-        "rgblight": false
-    },
-    "keyboard_folder": "handwired/2d4d",
-    "keymaps": {},
     "matrix_pins": {
         "cols": ["B12", "B13", "B14", "B15", "A8", "A15"],
         "rows": ["B3", "B4", "B5", "B6", "A2", "A3", "A4", "A5"]
     },
-    "matrix_size": {
-        "cols": 6,
-        "rows": 8
-    },
-    "mouse_key": {
-        "enabled": true
-    },
-    "platform": "STM32",
-    "platform_key": "chibios",
     "processor": "STM32F401",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "layouts": {
         "LAYOUT_8x6": {
-            "c_macro": true,
-            "filename": "keyboards/handwired/2d4d/2d4d.h",
-            "json_layout": false,
             "layout": [
                 { "label": "K000", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
                 { "label": "K001", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
