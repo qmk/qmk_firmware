@@ -61,8 +61,6 @@
     "mouse_key": {
         "enabled": true
     },
-    "parse_errors": ["No LAYOUTs defined! Need at least one layout defined in info.json."],
-    "parse_warnings": [],
     "platform": "STM32",
     "platform_key": "chibios",
     "processor": "STM32F401",
