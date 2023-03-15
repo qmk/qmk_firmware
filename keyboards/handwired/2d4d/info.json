@@ -1,99 +1,122 @@
 {
-    "manufacturer": "mechMehmet",
-    "keyboard_name": "2d4d",
-    "maintainer": "mechMehmet",
+    "keyboard_name": "handwired/2d4d",
+    "maintainer": "qmk",
+    "board": "BLACKPILL_STM32_F401",
     "bootloader": "stm32-dfu",
-    "processor": "STM32F401",
-    "url": "https://www.youtube.com/@mechmehmet",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+    "bootmagic": {
+        "enabled": false
     },
-    "diode_direction": "COL2ROW",
-    "features": {
+    "config_h_features": {
         "audio": false,
         "backlight": false,
-        "bluetooth": false,
         "bootmagic": false,
         "command": false,
         "console": false,
+        "encoder": true,
         "extrakey": true,
-        "midi": false,
         "mousekey": true,
         "nkro": false,
-        "rgblight": false,
-        "unicode": false, 
-        "encoder": true,
+        "rgblight": false
     },
+    "debounce": 5,
+    "diode_direction": "COL2ROW",
     "encoder": {
+        "enabled": true,
         "rotary": [
-            {"pin_a": "A1", "pin_b": "A0"}
+            {
+                "pin_a": "A1",
+                "pin_b": "A0",
+                "resolution": 4
+            }
         ]
     },
-    "matrix_pins": {
-      "cols": ["B12", "B13", "B14", "B15", "A8", "A15"],
-      "rows": [ "B3", "B4", "B5", "B6", "A2", "A3", "A4", "A5" ]
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": false
     },
+    "keyboard_folder": "handwired/2d4d",
+    "keymaps": {},
+    "matrix_pins": {
+        "cols": ["B12", "B13", "B14", "B15", "A8", "A15"],
+        "rows": ["B3", "B4", "B5", "B6", "A2", "A3", "A4", "A5"]
+    },
+    "matrix_size": {
+        "cols": 6,
+        "rows": 8
+    },
+    "mouse_key": {
+        "enabled": true
+    },
+    "parse_errors": ["No LAYOUTs defined! Need at least one layout defined in info.json."],
+    "parse_warnings": [],
+    "platform": "STM32",
+    "platform_key": "chibios",
+    "processor": "STM32F401",
+    "processor_type": "arm",
+    "protocol": "ChibiOS",
     "layouts": {
         "LAYOUT_8x6": {
+            "c_macro": true,
+            "filename": "keyboards/handwired/2d4d/2d4d.h",
+            "json_layout": false,
             "layout": [
-              {"label":"K00", "x":0, "y":0},
-              {"label":"K01", "x":0, "y":1},
-              {"label":"K02", "x":0, "y":2},
-              {"label":"K03", "x":0, "y":3},
-              {"label":"K04", "x":0, "y":4},
-              {"label":"K05", "x":0, "y":5},
-              {"label":"K06", "x":0, "y":6},
-              {"label":"K07", "x":0, "y":7},
-
-              {"label":"K10", "x":1, "y":0},
-              {"label":"K11", "x":1, "y":1},
-              {"label":"K12", "x":1, "y":2},
-              {"label":"K13", "x":1, "y":3},
-              {"label":"K14", "x":1, "y":4},
-              {"label":"K15", "x":1, "y":5},
-              {"label":"K16", "x":1, "y":6},
-              {"label":"K17", "x":1, "y":7},
-
-              {"label":"K20", "x":2, "y":0},
-              {"label":"K21", "x":2, "y":1},
-              {"label":"K22", "x":2, "y":2},
-              {"label":"K23", "x":2, "y":3},
-              {"label":"K24", "x":2, "y":4},
-              {"label":"K25", "x":2, "y":5},
-              {"label":"K26", "x":2, "y":6},
-              {"label":"K27", "x":2, "y":7},
-
-              {"label":"K30", "x":3, "y":0},
-              {"label":"K31", "x":3, "y":1},
-              {"label":"K32", "x":3, "y":2},
-              {"label":"K33", "x":3, "y":3},
-              {"label":"K34", "x":3, "y":4},
-              {"label":"K35", "x":3, "y":5},
-              {"label":"K36", "x":3, "y":6},
-              {"label":"K37", "x":3, "y":7},
-
-              {"label":"K40", "x":4, "y":0},
-              {"label":"K41", "x":4, "y":1},
-              {"label":"K42", "x":4, "y":2},
-              {"label":"K43", "x":4, "y":3},
-              {"label":"K44", "x":4, "y":4},
-              {"label":"K45", "x":4, "y":5},
-              {"label":"K46", "x":4, "y":6},
-              {"label":"K47", "x":4, "y":7},
-
-              {"label":"K50", "x":5, "y":0},
-              {"label":"K51", "x":5, "y":1},
-              {"label":"K52", "x":5, "y":2},
-              {"label":"K53", "x":5, "y":3},
-              {"label":"K54", "x":5, "y":4},
-              {"label":"K55", "x":5, "y":5},
-              {"label":"K56", "x":5, "y":6},
-              {"label":"K57", "x":5, "y":7},
+                { "label": "K000", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
+                { "label": "K001", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
+                { "label": "K002", "matrix": [0, 2], "w": 1, "x": 2, "y": 0 },
+                { "label": "K003", "matrix": [0, 3], "w": 1, "x": 3, "y": 0 },
+                { "label": "K004", "matrix": [0, 4], "w": 1, "x": 4, "y": 0 },
+                { "label": "K005", "matrix": [0, 5], "w": 1, "x": 5, "y": 0 },
+                { "label": "K705", "matrix": [7, 5], "w": 1, "x": 6, "y": 0 },
+                { "label": "K704", "matrix": [7, 4], "w": 1, "x": 7, "y": 0 },
+                { "label": "K703", "matrix": [7, 3], "w": 1, "x": 8, "y": 0 },
+                { "label": "K702", "matrix": [7, 2], "w": 1, "x": 9, "y": 0 },
+                { "label": "K701", "matrix": [7, 1], "w": 1, "x": 10, "y": 0 },
+                { "label": "K700", "matrix": [7, 0], "w": 1, "x": 11, "y": 0 },
+                { "label": "K100", "matrix": [1, 0], "w": 1, "x": 12, "y": 0 },
+                { "label": "K101", "matrix": [1, 1], "w": 1, "x": 13, "y": 0 },
+                { "label": "K102", "matrix": [1, 2], "w": 1, "x": 14, "y": 0 },
+                { "label": "K103", "matrix": [1, 3], "w": 1, "x": 15, "y": 0 },
+                { "label": "K104", "matrix": [1, 4], "w": 1, "x": 16, "y": 0 },
+                { "label": "K105", "matrix": [1, 5], "w": 1, "x": 17, "y": 0 },
+                { "label": "K605", "matrix": [6, 5], "w": 1, "x": 18, "y": 0 },
+                { "label": "K604", "matrix": [6, 4], "w": 1, "x": 19, "y": 0 },
+                { "label": "K603", "matrix": [6, 3], "w": 1, "x": 20, "y": 0 },
+                { "label": "K602", "matrix": [6, 2], "w": 1, "x": 21, "y": 0 },
+                { "label": "K601", "matrix": [6, 1], "w": 1, "x": 22, "y": 0 },
+                { "label": "K600", "matrix": [6, 0], "w": 1, "x": 23, "y": 0 },
+                { "label": "K200", "matrix": [2, 0], "w": 1, "x": 24, "y": 0 },
+                { "label": "K201", "matrix": [2, 1], "w": 1, "x": 25, "y": 0 },
+                { "label": "K202", "matrix": [2, 2], "w": 1, "x": 26, "y": 0 },
+                { "label": "K203", "matrix": [2, 3], "w": 1, "x": 27, "y": 0 },
+                { "label": "K204", "matrix": [2, 4], "w": 1, "x": 28, "y": 0 },
+                { "label": "K205", "matrix": [2, 5], "w": 1, "x": 29, "y": 0 },
+                { "label": "K505", "matrix": [5, 5], "w": 1, "x": 30, "y": 0 },
+                { "label": "K504", "matrix": [5, 4], "w": 1, "x": 31, "y": 0 },
+                { "label": "K503", "matrix": [5, 3], "w": 1, "x": 32, "y": 0 },
+                { "label": "K502", "matrix": [5, 2], "w": 1, "x": 33, "y": 0 },
+                { "label": "K501", "matrix": [5, 1], "w": 1, "x": 34, "y": 0 },
+                { "label": "K500", "matrix": [5, 0], "w": 1, "x": 35, "y": 0 },
+                { "label": "K300", "matrix": [3, 0], "w": 1, "x": 36, "y": 0 },
+                { "label": "K301", "matrix": [3, 1], "w": 1, "x": 37, "y": 0 },
+                { "label": "K302", "matrix": [3, 2], "w": 1, "x": 38, "y": 0 },
+                { "label": "K305", "matrix": [3, 5], "w": 1, "x": 39, "y": 0 },
+                { "label": "K405", "matrix": [4, 5], "w": 1, "x": 40, "y": 0 },
+                { "label": "K402", "matrix": [4, 2], "w": 1, "x": 41, "y": 0 },
+                { "label": "K401", "matrix": [4, 1], "w": 1, "x": 42, "y": 0 },
+                { "label": "K400", "matrix": [4, 0], "w": 1, "x": 43, "y": 0 },
+                { "label": "K303", "matrix": [3, 3], "w": 1, "x": 44, "y": 0 },
+                { "label": "K304", "matrix": [3, 4], "w": 1, "x": 45, "y": 0 },
+                { "label": "K404", "matrix": [4, 4], "w": 1, "x": 46, "y": 0 },
+                { "label": "K403", "matrix": [4, 3], "w": 1, "x": 47, "y": 0 }
             ]
         }
     }
-
-
 }
