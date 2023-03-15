@@ -1,10 +1,6 @@
 # 2d4d
 
-https://i.imgur.com/famGFG8.jpg
-
-https://i.imgur.com/IfoQUnc.jpg
-
-https://imgur.com/a/e9hCvfe
+![image](https://i.imgur.com/famGFG8h.jpeg)
 
 *Handwired %50 keyboard (48 switches), you can use 1 or 2 encoders instead of switch and vise versa*
 
