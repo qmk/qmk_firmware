@@ -21,7 +21,9 @@
         "command": false,
         "nkro": true,
         "rgb_matrix": true,
-        "lto": true,
+    },
+    "build": {
+        "lto": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
