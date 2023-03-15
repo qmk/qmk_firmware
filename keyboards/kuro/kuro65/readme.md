@@ -1,8 +1,8 @@
 # Kuro 65
-<img align="right" width="118" height="207" src="https://i.imgur.com/HEDgTOk.png">
 A 65% keyboard with an ISO layout, which fits the TOFU65 case (and similar) by KBDFans.
 
-Keyboard maintainer: [0x544D](https://github.com/0x544D)<br>
+Keyboard maintainer: [0x544D](https://github.com/0x544D)
+
 Hardware availability: [0x544D/kuro65](https://github.com/0x544D/kuro65)
 
 ## Features
@@ -16,9 +16,9 @@ Hardware availability: [0x544D/kuro65](https://github.com/0x544D/kuro65)
 
 ## Pictures
 
-![kuro65_pcb](https://i.imgur.com/m5KoeQw.jpg)
+![kuro65_pcb](https://i.imgur.com/m5KoeQwh.jpg)
 
-![kuro65_case](https://i.imgur.com/jmoACMS.jpg)
+![kuro65_case](https://i.imgur.com/jmoACMSh.jpg)
 
 ## Building the firmware
 
