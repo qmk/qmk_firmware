@@ -821,8 +821,8 @@ void keyboard_post_init_user(void) {
     debug_mouse    = false;
 
     //pointing_device_set_cpi(20000);
-    pointing_device_set_cpi(2000);
-    pimoroni_trackball_set_rgbw(0,0,255,100);
+    //pointing_device_set_cpi(2000);
+    //pimoroni_trackball_set_rgbw(0,0,255,100);
 
     uprintf("Poly Keyboard ready.");
 }
