@@ -227,3 +227,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define NO_ACTION_TAPPING
 // NO_ACTION_ONESHOT -388 bytes
 #define NO_ACTION_ONESHOT
+/*
+ * Encoder options
+ */
+#ifdef ENCODER_ENABLE
+#   define ENCODER_RESOLUTIONS_RIGHT { 4 }
+#endif  // ENCODER_ENABLE
