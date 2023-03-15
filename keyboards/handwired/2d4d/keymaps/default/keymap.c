@@ -257,11 +257,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
  
 
 bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        //writePin(NUM_LOCK_LED_PIN, led_state.num_lock);
-        writePin(ledWhite, !led_state.caps_lock);
-        //writePin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock);
-    }
+    writePin(ledWhite, !led_state.caps_lock);
    return true;
 }
 
