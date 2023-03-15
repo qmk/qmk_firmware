@@ -52,6 +52,12 @@ enum qk_keycode_ranges {
     QK_ONE_SHOT_MOD_MAX            = 0x52BF,
     QK_LAYER_TAP_TOGGLE            = 0x52C0,
     QK_LAYER_TAP_TOGGLE_MAX        = 0x52DF,
+    QK_POINTING_MODE_MO            = 0x52E0,
+    QK_POINTING_MODE_MO_MAX        = 0x52EF,
+    QK_POINTING_MODE_TG            = 0x52F0,
+    QK_POINTING_MODE_TG_MAX        = 0x52FF,
+    QK_POINTING_MODE_UTIL          = 0x5300,
+    QK_POINTING_MODE_UTIL_MAX      = 0x5302,
     QK_SWAP_HANDS                  = 0x5600,
     QK_SWAP_HANDS_MAX              = 0x56FF,
     QK_TAP_DANCE                   = 0x5700,
@@ -310,6 +316,9 @@ enum qk_keycode_defines {
     KC_RIGHT_SHIFT = 0x00E5,
     KC_RIGHT_ALT = 0x00E6,
     KC_RIGHT_GUI = 0x00E7,
+    QK_PM_CYCLE_DEVICES = 0x5300,
+    QK_PM_DEVICE_RIGHT = 0x5301,
+    QK_PM_DEVICE_LEFT = 0x5302,
     QK_SWAP_HANDS_TOGGLE = 0x56F0,
     QK_SWAP_HANDS_TAP_TOGGLE = 0x56F1,
     QK_SWAP_HANDS_MOMENTARY_ON = 0x56F2,
@@ -936,6 +945,9 @@ enum qk_keycode_defines {
     KC_RGUI    = KC_RIGHT_GUI,
     KC_RCMD    = KC_RIGHT_GUI,
     KC_RWIN    = KC_RIGHT_GUI,
+    PMR_CYD    = QK_PM_CYCLE_DEVICES,
+    PMR_RGHT   = QK_PM_DEVICE_RIGHT,
+    PMR_LEFT   = QK_PM_DEVICE_LEFT,
     SH_TOGG    = QK_SWAP_HANDS_TOGGLE,
     SH_TT      = QK_SWAP_HANDS_TAP_TOGGLE,
     SH_MON     = QK_SWAP_HANDS_MOMENTARY_ON,
@@ -1377,6 +1389,9 @@ enum qk_keycode_defines {
 #define IS_QK_ONE_SHOT_LAYER(code) ((code) >= QK_ONE_SHOT_LAYER && (code) <= QK_ONE_SHOT_LAYER_MAX)
 #define IS_QK_ONE_SHOT_MOD(code) ((code) >= QK_ONE_SHOT_MOD && (code) <= QK_ONE_SHOT_MOD_MAX)
 #define IS_QK_LAYER_TAP_TOGGLE(code) ((code) >= QK_LAYER_TAP_TOGGLE && (code) <= QK_LAYER_TAP_TOGGLE_MAX)
+#define IS_QK_POINTING_MODE_MO(code) ((code) >= QK_POINTING_MODE_MO && (code) <= QK_POINTING_MODE_MO_MAX)
+#define IS_QK_POINTING_MODE_TG(code) ((code) >= QK_POINTING_MODE_TG && (code) <= QK_POINTING_MODE_TG_MAX)
+#define IS_QK_POINTING_MODE_UTIL(code) ((code) >= QK_POINTING_MODE_UTIL && (code) <= QK_POINTING_MODE_UTIL_MAX)
 #define IS_QK_SWAP_HANDS(code) ((code) >= QK_SWAP_HANDS && (code) <= QK_SWAP_HANDS_MAX)
 #define IS_QK_TAP_DANCE(code) ((code) >= QK_TAP_DANCE && (code) <= QK_TAP_DANCE_MAX)
 #define IS_QK_MAGIC(code) ((code) >= QK_MAGIC && (code) <= QK_MAGIC_MAX)
@@ -1402,6 +1417,7 @@ enum qk_keycode_defines {
 #define IS_CONSUMER_KEYCODE(code) ((code) >= KC_AUDIO_MUTE && (code) <= KC_LAUNCHPAD)
 #define IS_MOUSE_KEYCODE(code) ((code) >= KC_MS_UP && (code) <= KC_MS_ACCEL2)
 #define IS_MODIFIER_KEYCODE(code) ((code) >= KC_LEFT_CTRL && (code) <= KC_RIGHT_GUI)
+#define IS_POINTING_MODE_UTIL_KEYCODE(code) ((code) >= QK_PM_CYCLE_DEVICES && (code) <= QK_PM_DEVICE_LEFT)
 #define IS_SWAP_HANDS_KEYCODE(code) ((code) >= QK_SWAP_HANDS_TOGGLE && (code) <= QK_SWAP_HANDS_ONE_SHOT)
 #define IS_MAGIC_KEYCODE(code) ((code) >= QK_MAGIC_SWAP_CONTROL_CAPS_LOCK && (code) <= QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK)
 #define IS_MIDI_KEYCODE(code) ((code) >= QK_MIDI_ON && (code) <= QK_MIDI_PITCH_BEND_UP)

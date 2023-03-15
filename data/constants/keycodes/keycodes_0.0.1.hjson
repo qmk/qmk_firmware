@@ -36,8 +36,7 @@
         "0x52C0/0x001F": {
             "define": "QK_LAYER_TAP_TOGGLE"
         },
-        // 0x52E0/0x001F - UNUSED
-        // 0x5300/0x02FF - UNUSED
+        // 0x5303/0x02FC - UNUSED
         "0x5600/0x00FF": {
             "define": "QK_SWAP_HANDS"
         },
