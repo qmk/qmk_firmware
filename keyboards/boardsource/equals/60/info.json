@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "Equals 4x12",
+    "keyboard_name": "Equals 60",
 
     "matrix_pins": {
         "cols": ["GP0","GP1","GP2","GP3","GP4","GP5","GP6","GP7","GP8","GP9","GP10","GP11"],
-        "rows": ["GP12","GP13","GP16","GP17"]
+        "rows": ["GP12","GP13","GP16","GP17","GP18"]
     },
 
 
@@ -104,21 +104,32 @@
           { "flags": 4, "matrix": [2, 10], "x": 203, "y": 42 },
           { "flags": 1, "matrix": [2, 11], "x": 224, "y": 42 },
           { "flags": 1, "matrix": [3, 0], "x": 0, "y": 64 },
-          { "flags": 1, "matrix": [3, 1], "x": 20, "y": 64 },
-          { "flags": 1, "matrix": [3, 2], "x": 40, "y": 64 },
-          { "flags": 1, "matrix": [3, 3], "x": 61, "y": 64 },
-          { "flags": 1, "matrix": [3, 4], "x": 81, "y": 64 },
+          { "flags": 4, "matrix": [3, 1], "x": 20, "y": 64 },
+          { "flags": 4, "matrix": [3, 2], "x": 40, "y": 64 },
+          { "flags": 4, "matrix": [3, 3], "x": 61, "y": 64 },
+          { "flags": 4, "matrix": [3, 4], "x": 81, "y": 64 },
           { "flags": 4, "matrix": [3, 5], "x": 101, "y": 64 },
-          { "flags": 1, "matrix": [3, 6], "x": 122, "y": 64 },
-          { "flags": 1, "matrix": [3, 7], "x": 142, "y": 64 },
-          { "flags": 1, "matrix": [3, 8], "x": 162, "y": 64 },
-          { "flags": 1, "matrix": [3, 9], "x": 183, "y": 64 },
-          { "flags": 1, "matrix": [3, 10], "x": 203, "y": 64 },
-          { "flags": 1, "matrix": [3, 11], "x": 224, "y": 64 }
+          { "flags": 4, "matrix": [3, 6], "x": 122, "y": 64 },
+          { "flags": 4, "matrix": [3, 7], "x": 142, "y": 64 },
+          { "flags": 4, "matrix": [3, 8], "x": 162, "y": 64 },
+          { "flags": 4, "matrix": [3, 9], "x": 183, "y": 64 },
+          { "flags": 4, "matrix": [3, 10], "x": 203, "y": 64 },
+          { "flags": 1, "matrix": [3, 11], "x": 224, "y": 64 },
+          { "flags": 1, "matrix": [4, 0], "x": 0, "y": 86 },
+          { "flags": 1, "matrix": [4, 1], "x": 20, "y": 86 },
+          { "flags": 1, "matrix": [4, 2], "x": 40, "y": 86 },
+          { "flags": 1, "matrix": [4, 3], "x": 61, "y": 86 },
+          { "flags": 1, "matrix": [4, 4], "x": 81, "y": 86 },
+          { "flags": 4, "matrix": [4, 5], "x": 111, "y": 86 },
+          { "flags": 1, "matrix": [4, 7], "x": 142, "y": 86 },
+          { "flags": 1, "matrix": [4, 8], "x": 162, "y": 86 },
+          { "flags": 1, "matrix": [4, 9], "x": 183, "y": 86 },
+          { "flags": 1, "matrix": [4, 10], "x": 203, "y": 86 },
+          { "flags": 1, "matrix": [4, 11], "x": 224, "y": 86 }
         ]
       },
     "layouts": {
-        "LAYOUT_ortho_4x12": {
+        "LAYOUT_ortho_5x12": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
@@ -167,7 +178,19 @@
                 { "matrix": [3, 8], "x": 8, "y": 3 },
                 { "matrix": [3, 9], "x": 9, "y": 3 },
                 { "matrix": [3, 10], "x": 10, "y": 3 },
-                { "matrix": [3, 11], "x": 11, "y": 3 }
+                { "matrix": [3, 11], "x": 11, "y": 3 },
+                { "matrix": [4, 0], "x": 0, "y": 4 },
+                { "matrix": [4, 1], "x": 1, "y": 4 },
+                { "matrix": [4, 2], "x": 2, "y": 4 },
+                { "matrix": [4, 3], "x": 3, "y": 4 },
+                { "matrix": [4, 4], "x": 4, "y": 4 },
+                { "matrix": [4, 5], "x": 5, "y": 4 },
+                { "matrix": [4, 6], "x": 6, "y": 4 },
+                { "matrix": [4, 7], "x": 7, "y": 4 },
+                { "matrix": [4, 8], "x": 8, "y": 4 },
+                { "matrix": [4, 9], "x": 9, "y": 4 },
+                { "matrix": [4, 10], "x": 10, "y": 4 },
+                { "matrix": [4, 11], "x": 11, "y": 4 }
             ]
         }
     }
