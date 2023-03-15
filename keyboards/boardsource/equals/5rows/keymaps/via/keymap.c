@@ -1,3 +1,5 @@
+// Copyright 2022 @boardsource
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
 enum layers
@@ -9,8 +11,6 @@ enum layers
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-extern void ui_init(void);
-extern void ui_task(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT_ortho_5x12(
@@ -37,15 +37,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
-
-void keyboard_post_init_user(void)
-{
-    // Init the display
-    ui_init();
-}
-
-void housekeeping_task_user(void)
-{
-    // Draw the display
-    ui_task();
-}
