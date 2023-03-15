@@ -22,8 +22,6 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 3
 
 // Tweak how the mouse cursor moves. https://docs.qmk.fm/#/feature_mouse_keys
 // Accelerated mode (default).
