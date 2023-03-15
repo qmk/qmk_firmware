@@ -1,3 +1,5 @@
+// Copyright 2022 @boardsource
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
 enum layers

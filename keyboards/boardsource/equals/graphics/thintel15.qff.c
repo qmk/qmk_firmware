@@ -1,4 +1,5 @@
-
+// Copyright 2023 Cole Smith (@boardsource)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include <qp.h>
 
 const uint32_t font_thintel15_length = 966;
