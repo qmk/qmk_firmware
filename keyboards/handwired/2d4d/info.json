@@ -9,22 +9,13 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
-    "config_h_features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": false,
-        "command": false,
-        "console": false,
+    "features": {
         "encoder": true,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": false,
-        "rgblight": false
+        "mousekey": true
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {
                 "pin_a": "A1",
