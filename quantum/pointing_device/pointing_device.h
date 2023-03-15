@@ -32,6 +32,9 @@ typedef struct {
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #    include "pointing_device_auto_mouse.h"
 #endif
+#ifdef POINTING_DEVICE_MODES_ENABLE
+#    include "pointing_device_modes.h"
+#endif
 
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 #    include "drivers/sensors/adns5050.h"
@@ -136,6 +139,7 @@ uint16_t pointing_device_get_shared_cpi(void);
 #    if defined(POINTING_DEVICE_COMBINED)
 void           pointing_device_set_cpi_on_side(bool left, uint16_t cpi);
 report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, report_mouse_t right_report);
+report_mouse_t pointing_device_task_combined(report_mouse_t left_report, report_mouse_t right_report);
 report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, report_mouse_t right_report);
 report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report);
 report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_report);
