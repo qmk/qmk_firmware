@@ -4,7 +4,7 @@
 	"maintainer": "Maverick0197",
 	"bootloader": "atmel-dfu",
 	"features": {
-	    "bootmagic": true,
+		"bootmagic": true,
 	    "extrakey": true,
 	    "mousekey": true,
 	    "encoder": true
