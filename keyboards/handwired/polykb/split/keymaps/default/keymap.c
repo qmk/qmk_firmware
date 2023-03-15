@@ -233,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LANG_LAYER] = SPLIT_LAYOUT(
         KC_LEAD,        KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      /*no key*/KC_NO,    
-        KC_NO,          KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_NO,      KC_NO,      KC_NO,      KC_ENC_UP,          
+        KC_NO,          KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_LANG_GR, KC_NO,      KC_NO,      KC_ENC_UP,          
         KC_NO,          KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_ENC_DOWN,        
         KC_NO,          KC_LANG_IT, KC_LANG_EN, KC_LANG_KO, KC_NO,      KC_NO,      KC_NO,      KC_MS_BTN1,/*enc*/  
         KC_NO,          KC_NO,      KC_LANG,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,              

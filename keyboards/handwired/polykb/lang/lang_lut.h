@@ -33,6 +33,7 @@ enum lang_layer {
     LANG_KO,
     LANG_JA,
     LANG_AR,
+    LANG_GR,
     //[[[end]]]
     NUM_LANG };
 
