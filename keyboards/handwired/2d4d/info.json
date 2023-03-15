@@ -4,9 +4,6 @@
     "manufacturer": "mechMehmet",
     "board": "BLACKPILL_STM32_F401",
     "bootloader": "stm32-dfu",
-    "bootmagic": {
-        "enabled": false
-    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
