@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "spi_helper.h": "c"
+        "spi_helper.h": "c",
+        "helpers.h": "c"
     }
 }
