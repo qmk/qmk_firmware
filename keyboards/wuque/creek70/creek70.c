@@ -56,7 +56,10 @@ enum my_keycodes {
     RIGHT_BRIGHTNESS_MINUS,
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
         case RIGHT_COLOR_CHANGE:
             if (record->event.pressed) {
