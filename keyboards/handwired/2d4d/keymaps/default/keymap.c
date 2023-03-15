@@ -24,8 +24,7 @@ uint8_t laughVal = 1;
 uint8_t ahahCount = 0;
 uint8_t incTemp = 0;
 enum custom_keycodes {
-    SHUT = SAFE_RANGE, 
-
+    SHUT = QK_USER
 };
 
 
