@@ -5,8 +5,8 @@
 New generation of the h87 keyboard PCB platform with an STM32 microcontroller.
 
 * Keyboard Maintainer: [Josh Hinnebusch](https://github.com/hineybush)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: H87 G2 PCB w/ STM32F072 MCU
+* Hardware Availability: [hineybush.com](https://hineybush.com)
 
 Make example for this keyboard (after setting up your build environment):
 
