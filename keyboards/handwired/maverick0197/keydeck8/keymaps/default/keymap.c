@@ -1,4 +1,4 @@
-/* Copyright 2023 Maverick0197 <>
+/* Copyright 2023 Maverick0197
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,3 +29,5 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
 };
 #endif // ENCODER_MAP_ENABLE
+
+// clang-format on
