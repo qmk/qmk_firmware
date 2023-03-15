@@ -45,9 +45,6 @@
             ]
         }
     },
-    "rgblight": {
-        "pin": "E2"
-    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
