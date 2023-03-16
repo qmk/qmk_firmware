@@ -1,6 +1,6 @@
 # pteropus keyboard
 
-![pteropus](https://i.imgur.com/5AACuSX.jpg)
+![pteropus](https://i.imgur.com/5AACuSXh.jpg)
 
 Another Miryoku inspired 36-key non-split keyboard
 
