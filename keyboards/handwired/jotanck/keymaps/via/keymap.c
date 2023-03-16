@@ -21,10 +21,12 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-#define _QWERTY   0
-#define _LOWER    1
-#define _RAISE    2
-#define _ADJUST   3
+enum layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
