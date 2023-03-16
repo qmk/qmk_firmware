@@ -1,5 +1,6 @@
 """Functions for searching through QMK keyboards and keymaps.
 """
+import contextlib
 import fnmatch
 import logging
 import multiprocessing
@@ -22,25 +23,26 @@ def _set_log_level(level):
     return old
 
 
-def _all_keymaps(keyboard):
+@contextlib.contextmanager
+def ignore_logging():
     old = _set_log_level(logging.CRITICAL)
-    keymaps = qmk.keymap.list_keymaps(keyboard)
+    yield
     _set_log_level(old)
-    return (keyboard, keymaps)
+
+
+def _all_keymaps(keyboard):
+    with ignore_logging():
+        return (keyboard, qmk.keymap.list_keymaps(keyboard))
 
 
 def _keymap_exists(keyboard, keymap):
-    old = _set_log_level(logging.CRITICAL)
-    ret = keyboard if qmk.keymap.locate_keymap(keyboard, keymap) is not None else None
-    _set_log_level(old)
-    return ret
+    with ignore_logging():
+        return keyboard if qmk.keymap.locate_keymap(keyboard, keymap) is not None else None
 
 
 def _load_keymap_info(keyboard, keymap):
-    old = _set_log_level(logging.CRITICAL)
-    ret = (keyboard, keymap, keymap_json(keyboard, keymap))
-    _set_log_level(old)
-    return ret
+    with ignore_logging():
+        return (keyboard, keymap, keymap_json(keyboard, keymap))
 
 
 def search_keymap_targets(keymap='default', filters=[]):
