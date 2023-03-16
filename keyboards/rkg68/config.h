@@ -16,8 +16,8 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS { B3, B2, B1, B0, B7  }
-#define MATRIX_COL_PINS { D0, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1 }
+#define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
+#define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B6, D4, B1, B7, B5, B4, D7, D6, B3, F4 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
