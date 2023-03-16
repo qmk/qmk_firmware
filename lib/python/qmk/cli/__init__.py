@@ -39,6 +39,7 @@ subcommands = [
     'qmk.cli.compile',
     'qmk.cli.docs',
     'qmk.cli.doctor',
+    'qmk.cli.find',
     'qmk.cli.flash',
     'qmk.cli.format.c',
     'qmk.cli.format.json',
