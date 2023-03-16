@@ -2,15 +2,8 @@
 MCU = STM32F103
 
 # Bootloader selection
-# BOOTLOADER = stm32duino
-
-# Custom loader configuration
-MCU_LDSCRIPT = STM32F103xB_stm32duino_bootloader
-OPT_DEFS += -DBOOTLOADER_STM32DUINO
-BOARD = STM32_F103_STM32DUINO
-BOOTLOADER_TYPE = stm32duino
-DFU_ARGS = -d 1EAF:0003 -a 2 -R
-DFU_SUFFIX_ARGS = -v 1EAF -p 0003
+BOOTLOADER = stm32duino
+MCU_LDSCRIPT = STM32F103xB
 
 # Extra include
 SRC += keycode_lookup.c
