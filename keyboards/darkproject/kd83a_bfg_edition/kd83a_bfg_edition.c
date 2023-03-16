@@ -192,5 +192,5 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
 
     // 600 cycles at 0.6 cycles/ns == 1μs
     const uint32_t cycles_per_us = 96;
-    delay_inline(2 * cycles_per_us); // min working for KD83A is 2
+    delay_inline(3 * cycles_per_us); // min working for KD83A is 3
 }
