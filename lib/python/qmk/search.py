@@ -77,7 +77,7 @@ def search_keymap_targets(keymap='default', filters=[]):
 
                     def _make_filter(k, v):
                         expr = fnmatch.translate(v)
-                        rule = re.compile(expr, re.IGNORECASE)
+                        rule = re.compile(f'^{expr}$', re.IGNORECASE)
 
                         def f(e):
                             lhs = e[2].get(k)
