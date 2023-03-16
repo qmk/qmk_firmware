@@ -23,7 +23,6 @@
         "rgb_matrix": true,
     },
     "build": {
-        "debounce_type": "sym_defer_pk",
         "lto": true
     },
     "diode_direction": "COL2ROW",
