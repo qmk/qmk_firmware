@@ -22,11 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4653
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    jabbato
-#define PRODUCT         YAOHKIB
+//#define VENDOR_ID       0x44d6
+//#define PRODUCT_ID      0x0001
+//#define DEVICE_VER      0x0001
+//#define MANUFACTURER    jabbato
+//#define PRODUCT         YAOHKIB
 
 /* key matrix size */
 // Rows are doubled-up
@@ -42,5 +42,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL
 
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION

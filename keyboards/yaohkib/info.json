@@ -1,7 +1,13 @@
 {
   "keyboard_name": "yaohkib",
+  "manufacturer": "jabbato",
   "url": "",
   "maintainer": "jabbato",
+  "usb": {
+    "vid": "0x44D6",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
   "layouts": {
     "LAYOUT_split_3x5_6": {
       "layout": [
