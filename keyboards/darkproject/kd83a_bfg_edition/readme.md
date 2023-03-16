@@ -1,6 +1,6 @@
 # KD83A_BFG_Edition 
 
-An 83 keys keyboard. Equipped with the WestBerry G7 ARM Cortex-M4 microcontroller
+An 83 keys keyboard. Equipped with the WestBerry WB32FQ95 ARM Cortex-M3 microcontroller
 
 * Keyboard Maintainer: [GSKY](https://github.com/gksygithub)
 * Hardware Supported: KD83A_BFG_Edition
