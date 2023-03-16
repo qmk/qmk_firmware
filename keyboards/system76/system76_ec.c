@@ -19,6 +19,7 @@
 #include <string.h>
 
 #include "dynamic_keymap.h"
+#include "eeprom.h"
 #include "raw_hid.h"
 #include "rgb_matrix.h"
 #include "version.h"
@@ -185,9 +186,9 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
 // clang-format on
 
 // Read or write EEPROM data with checks for being inside System76 EC region.
-static bool system76_ec_eeprom_op(void *buf, uint16_t size, uint16_t offset, bool write) {
-    uint16_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
-    uint16_t end  = addr + size;
+static bool system76_ec_eeprom_op(void *buf, size_t size, size_t offset, bool write) {
+    size_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
+    size_t end  = addr + size;
     // Check for overflow and zero size
     if ((end > addr) && (addr >= SYSTEM76_EC_EEPROM_ADDR) && (end <= (SYSTEM76_EC_EEPROM_ADDR + SYSTEM76_EC_EEPROM_SIZE))) {
         if (write) {
