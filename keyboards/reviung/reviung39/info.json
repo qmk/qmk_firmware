@@ -8,8 +8,13 @@
         "pid": "0x5F10",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layout_aliases": {
+        "LAYOUT_reviung39": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_reviung39": {
+        "LAYOUT": {
             "layout": [
                 {"label":"K00", "x":0, "y":0.54},
                 {"label":"K01", "x":1, "y":0.36},

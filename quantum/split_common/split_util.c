@@ -16,7 +16,6 @@
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
-#include "config.h"
 #include "timer.h"
 #include "transport.h"
 #include "quantum.h"

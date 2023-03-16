@@ -86,7 +86,7 @@ The `qmk generate-autocorrect-data` commands can make an effort to check for ent
 
 ## Overriding Autocorrect
 
-Occasionally you might actually want to type a typo (for instance, while editing autocorrection_dict.txt) without being autocorrected. There are a couple of ways to do this:
+Occasionally you might actually want to type a typo (for instance, while editing autocorrect_dict.txt) without being autocorrected. There are a couple of ways to do this:
 
 1. Begin typing the typo.
 2. Before typing the last letter, press and release the Ctrl or Alt key.
@@ -236,15 +236,27 @@ bool apply_autocorrect(uint8_t backspaces, const char *str) {
 }
 ```
 
+### Autocorrect Status
+
+Additional user callback functions to manipulate Autocorrect:
+
+| Function                   | Description                                  |
+|----------------------------|----------------------------------------------|
+| `autocorrect_enable()`     | Turns Autocorrect on.                        |
+| `autocorrect_disable()`    | Turns Autocorrect off.                       |
+| `autocorrect_toggle()`     | Toggles Autocorrect.                         |
+| `autocorrect_is_enabled()` | Returns true if Autocorrect is currently on. |
+
+
 ## Appendix: Trie binary data format :id=appendix
 
-This section details how the trie is serialized to byte data in autocorrection_data. You don’t need to care about this to use this autocorrection implementation. But it is documented for the record in case anyone is interested in modifying the implementation, or just curious how it works.
+This section details how the trie is serialized to byte data in autocorrect_data. You don’t need to care about this to use this autocorrection implementation. But it is documented for the record in case anyone is interested in modifying the implementation, or just curious how it works.
 
 What I did here is fairly arbitrary, but it is simple to decode and gets the job done.
 
 ### Encoding :id=encoding
 
-All autocorrection data is stored in a single flat array autocorrection_data. Each trie node is associated with a byte offset into this array, where data for that node is encoded, beginning with root at offset 0. There are three kinds of nodes. The highest two bits of the first byte of the node indicate what kind:
+All autocorrection data is stored in a single flat array autocorrect_data. Each trie node is associated with a byte offset into this array, where data for that node is encoded, beginning with root at offset 0. There are three kinds of nodes. The highest two bits of the first byte of the node indicate what kind:
 
 * 00 ⇒ chain node: a trie node with a single child.
 * 01 ⇒ branching node: a trie node with multiple children.

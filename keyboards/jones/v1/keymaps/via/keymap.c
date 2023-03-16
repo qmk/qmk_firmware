@@ -158,7 +158,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(3, led_state.caps_lock);
 
     return true;
 }
@@ -168,12 +168,12 @@ bool led_update_user(led_t led_state) {
 //------------------------------------------------------------------------------
 // Rotary Encoder
 //------------------------------------------------------------------------------
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
+static uint8_t  encoder_state[NUM_ENCODERS] = {0};
+static keypos_t encoder_cw[NUM_ENCODERS]    = ENCODERS_CW_KEY;
+static keypos_t encoder_ccw[NUM_ENCODERS]   = ENCODERS_CCW_KEY;
 
 void encoder_action_unregister(void) {
-    for (int index = 0; index < ENCODERS; ++index) {
+    for (int index = 0; index < NUM_ENCODERS; ++index) {
         if (encoder_state[index]) {
             keyevent_t encoder_event = (keyevent_t) {
                 .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
