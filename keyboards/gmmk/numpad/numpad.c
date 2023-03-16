@@ -129,7 +129,7 @@ void keyboard_pre_init_kb(void) {
 int16_t enc = 1;
 int16_t encPrev = 1;
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     encPrev = enc;
     enc = readPin(ENCODER_PUSHBUTTON_PIN);
 
