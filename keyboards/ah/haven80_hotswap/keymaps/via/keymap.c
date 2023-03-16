@@ -66,7 +66,7 @@ typedef struct _freather_config_t {
 
 
 // Check if the size of the reserved persistent memory is the same as the size of struct freather_config
-_Static_assert(sizeof(indicator_config) == EECONFIG_KB_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
+_Static_assert(sizeof(indicator_config) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
 // Declaring a new variable freather of type freather_config
 freather_config freather;
@@ -88,13 +88,13 @@ void eeconfig_init_user(void) {
     freather.caps.enabled = true;
     rgblight_set_effect_range(1,20);
     // Write default value to EEPROM now
-    eeconfig_update_kb_datablock(&freather);
+    eeconfig_update_user_datablock(&freather);
 }
 
 // On Keyboard startup
 void keyboard_post_init_user(void) {
     // Read custom menu variables from memory
-    eeconfig_read_kb_datablock(&freather);
+    eeconfig_read_user_datablock(&freather);
 }
 
 // Handle the data received by the keyboard from the VIA menus
@@ -139,7 +139,7 @@ void freather_config_get_value(uint8_t *data) {
 
 //save data to memory
 void freather_config_save(void) {
-    eeconfig_update_kb_datablock(&freather);
+    eeconfig_update_user_datablock(&freather);
 }
 
 
