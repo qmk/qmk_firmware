@@ -77,7 +77,7 @@ void slider(void) {
 extern int16_t enc;
 extern int16_t encPrev;
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     if (enc != encPrev) {
         if (enc < 1) {
           tap_code_delay(KC_MUTE, 10);
