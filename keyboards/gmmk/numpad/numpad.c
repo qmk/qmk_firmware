@@ -132,8 +132,6 @@ int16_t encPrev = 1;
 void housekeeping_task_kb(void) {
     encPrev = enc;
     enc = readPin(ENCODER_PUSHBUTTON_PIN);
-
-    matrix_scan_user();
 }
 
 #ifdef ENCODER_ENABLE
