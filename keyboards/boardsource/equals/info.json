@@ -1,6 +1,5 @@
 {
     "manufacturer": "Boardsource",
-    "keyboard_name": "Equals",
     "maintainer": "Boardsource",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
