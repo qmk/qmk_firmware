@@ -3,7 +3,7 @@
     "manufacturer": "System76",
     "usb": {
         "vid": "0x3384",
-        "pid": "0x0000",
+        "pid": "0x0008",
         "device_version": "0.0.1"
     },
     "processor": "RP2040",
