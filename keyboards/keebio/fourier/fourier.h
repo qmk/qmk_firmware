@@ -1,9 +1,5 @@
 #pragma once
 
-#ifdef KEYBOARD_fourier_rev1
-    #include "rev1.h"
-#endif
-
 #include "quantum.h"
 
 #define LAYOUT( \

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "nyquist.h"
-
 #include "quantum.h"
 
 #ifndef FLIP_HALF

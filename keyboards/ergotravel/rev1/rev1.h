@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ergotravel.h"
-
 #include "quantum.h"
 
 #define XXX KC_NO

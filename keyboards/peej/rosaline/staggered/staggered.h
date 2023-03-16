@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "rosaline.h"
+#include "quantum.h"
 
 /*
  * ┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
@@ -36,6 +36,8 @@
  *                 └──────────┴───┴────────┴───┘
  */
 
+#define XXX KC_NO
+
 #define LAYOUT_all( \
 	k00, k10, k01, k02, k12, k03, k13, k04, k14, k05, k06, k16, k07, k17, \
 	k20, k11, k21, k22, k32, k23, k33, k24, k15, k25, k26, k36,      k27, \
@@ -52,6 +54,3 @@
 	{ XXX, XXX, XXX, XXX, XXX, k65, k66, k67 }, \
 	{ XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
 }
-
-#define LED1 C5
-#define LED2 C4

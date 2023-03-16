@@ -1,6 +1,5 @@
 #pragma once
 
-#include "sinc.h"
 #include "quantum.h"
 
 #define XXX KC_NO
