@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 /* Handedness by Pin */
 /* pull-up: left side,   pull-down: right side */
 #define SPLIT_HAND_PIN GP28
