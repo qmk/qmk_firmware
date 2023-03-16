@@ -34,6 +34,23 @@
       "pid":      "0x4141",
       "device_version": "0.0.1"
     },
+    "rgblight": {
+        "pin": "C7",
+        "led_count": 2,
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
