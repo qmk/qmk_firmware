@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ergo42.h"
-
 #include "quantum.h"
 
 #ifndef FLIP_HALF

@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "split_5x7.h"
+#include "quantum.h"
 
 
 #define LAYOUT( \

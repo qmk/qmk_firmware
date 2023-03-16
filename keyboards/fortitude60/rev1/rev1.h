@@ -1,7 +1,5 @@
 #pragma once
 
-#include "fortitude60.h"
-
 #include "quantum.h"
 
 // Standard Keymap

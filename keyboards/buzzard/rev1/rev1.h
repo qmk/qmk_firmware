@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#include "buzzard.h"
+#include "quantum.h"
 
 /* This a shortcut to help you visually see your layout.
  *

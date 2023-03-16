@@ -1,7 +1,5 @@
 #pragma once
 
-#include "sk.h"
-
 #include "quantum.h"
 
 #define LAYOUT_all( \
