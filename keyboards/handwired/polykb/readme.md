@@ -1,17 +1,23 @@
-# PolyKeyboard
+# PolyKybd
 
 Project progress is documented on https://ko-fi.com/polykb
 
-Development version of PolyKeyboard (Atom), which uses one OLED display per keycap.
+Development version of PolyKybd, which uses OLED displays in its keycaps.
 Hardware info at https://github.com/thpoll83/PolyKeyboard/tree/master/poly_kb_atom
 
 Keyboard Maintainer: thpoll83  
-Hardware Supported: STM32F407 (not maintained), RP2040
+Hardware Supported: STM32F407 (not maintained any more), RP2040
 Hardware Availability:
  - https://www.raspberrypi.com/products/raspberry-pi-pico/
  - https://stm32-base.org/boards/STM32F407VGT6-STM32F4XX-M.html
 
 # Build Notes
+
+## Keyboard Variants
+
+ - `4x2` and `4x5` were the first dev boards running QMK, these folders are not maintained and also will not compile.
+ - `wave` was the first version of the 72-key split keyboard and is still maintained.
+ - `split` is the next hardware iteration of `wave` with only slight differences. Only `split` is actively developed.
 
 ## Clean
 
@@ -21,13 +27,13 @@ $ rm -rf .build
 
 ## Build
 
-$ make handwired/polykb/wave:default
-$ qmk compile -kb handwired/polykb/wave -km default
+$ make handwired/polykb/split:default
+$ qmk compile -kb handwired/polykb/split -km default
 
 ### Flash split setup via EE Hands
 
-make handwired/polykb/wave:default:uf2-split-right
-make handwired/polykb/wave:default:uf2-split-left
+make handwired/polykb/split:default:uf2-split-right
+make handwired/polykb/split:default:uf2-split-left
 
 ## After merging master into branch update dependencies with
 
@@ -39,11 +45,11 @@ $ git submodule update --init --recursive
 
 ## Check image size
 
-$ size .build//handwired_polykb_wave_rp2040pico_default.elf -B
+$ size .build//handwired_polykb_split_rp2040pico_default.elf -B
 
 ### Copy image to RPI
 
-$ cp .build/handwired_polykb_wave_rp2040pico_default.uf2 /media/$USER/RPI-RP2/
+$ cp .build/handwired_polykb_split_rp2040pico_default.uf2 /media/$USER/RPI-RP2/
 
 ## Get debug output
 

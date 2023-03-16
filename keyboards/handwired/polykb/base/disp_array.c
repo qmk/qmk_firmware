@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "polyatom.h"
+#include "polykybd.h"
 #include "helpers.h"
 #include "spi_helper.h"
 #include "shift_reg.h"

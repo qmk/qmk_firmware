@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#include "polyatom.h"
+#include "polykybd.h"
 #include "print.h"
 #include "base/disp_array.h"
 #include "base/helpers.h"
@@ -13,6 +13,10 @@
 #include <transactions.h>
 
 #include "lang/lang_lut.h"
+
+#define FULL_BRIGHT 49
+#define FADE_TRANSITION_TIME 4000
+#define FADE_OUT_TIME 20000
 
 static enum lang_layer g_lang = 
     /*[[[cog
@@ -69,8 +73,10 @@ enum my_keycodes {
   //[[[end]]]
 };
 
+enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL};
 static enum refresh_mode g_refresh = DONE_ALL;
 static uint8_t g_contrast = FULL_BRIGHT;
+static uint16_t last_key = 0;
 
 typedef struct _poly_state_t {
     led_t led_state;
@@ -85,6 +91,46 @@ poly_state_t g_state;
 static int32_t last_update;
 
 bool display_wakeup(keyrecord_t* record);
+void update_displays(enum refresh_mode mode);
+void set_displays(uint8_t contrast);
+
+void inc_brightness(void) {
+    if(g_contrast<FULL_BRIGHT) {
+        g_contrast+=4;
+    }
+    if(g_contrast>FULL_BRIGHT) {
+        g_contrast = FULL_BRIGHT;
+    }
+    //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
+}
+
+void dec_brightness(void) {
+    if(g_contrast>=6) {
+        g_contrast-=4;
+    }
+    //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
+}
+
+void select_all_displays(void) {
+    // make sure we are talking to all shift registers
+    sr_shift_out_0_latch(NUM_SHIFT_REGISTERS);
+}
+
+void clear_all_displays(void) {
+    select_all_displays();
+    
+    kdisp_set_buffer(0x00);
+    kdisp_send_buffer();
+}
+
+void early_hardware_init_post(void) {
+    spi_hw_setup();
+    
+}
+
+void set_last_key(uint16_t keycode) {
+    last_key = keycode;
+}
 
 void update_performed(void) {
     last_update = timer_read32();
@@ -794,23 +840,6 @@ void set_displays(uint8_t contrast) {
     */
 }
 
-void inc_brightness(void) {
-    if(g_contrast<FULL_BRIGHT) {
-        g_contrast+=4;
-    }
-    if(g_contrast>FULL_BRIGHT) {
-        g_contrast = FULL_BRIGHT;
-    }
-    //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
-}
-
-void dec_brightness(void) {
-    if(g_contrast>=6) {
-        g_contrast-=4;
-    }
-    //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
-}
-
 
 //disable first keypress if the displays are turned off
 bool display_wakeup(keyrecord_t* record) {
@@ -841,6 +870,9 @@ void keyboard_post_init_user(void) {
     //pimoroni_trackball_set_rgbw(0,0,255,100);
 
     uprintf("Poly Keyboard ready.");
+
+    wait_ms(500);
+    transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
 }
 
 void keyboard_pre_init_user(void) {
@@ -851,24 +883,13 @@ void keyboard_pre_init_user(void) {
 
     set_displays(FULL_BRIGHT);
     show_splash_screen();
-    wait_ms(2000);
+    
 #ifdef OLED_ENABLE
     setPinInputHigh(I2C1_SDA_PIN);
 #endif
-    transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
 }
-
-static uint16_t last_key = 0;
-
 
 #ifdef OLED_ENABLE
-
-/*
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    //timer = timer_read32();
-    return rotation;
-}
-*/
 
 bool oled_task_user(void) {
     char buffer[32];
@@ -903,24 +924,3 @@ bool oled_task_user(void) {
 }
 
 #endif
-
-void select_all_displays(void) {
-    // make sure we are talking to all shift registers
-    sr_shift_out_0_latch(NUM_SHIFT_REGISTERS);
-}
-
-void clear_all_displays(void) {
-    select_all_displays();
-    
-    kdisp_set_buffer(0x00);
-    kdisp_send_buffer();
-}
-
-void early_hardware_init_post(void) {
-    spi_hw_setup();
-    
-}
-
-void set_last_key(uint16_t keycode) {
-    last_key = keycode;
-}

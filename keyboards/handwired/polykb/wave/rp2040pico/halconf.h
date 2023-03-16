@@ -21,6 +21,8 @@
 
 #pragma once
 
+#define PAL_USE_WAIT TRUE
+#define PAL_USE_CALLBACKS TRUE
 #include_next <halconf.h>
 
 #undef HAL_USE_I2C
@@ -41,7 +43,7 @@
 //3	57600 baud
 //4	38400 baud
 //5	19200 baud
-#define SELECT_SOFT_SERIAL_SPEED 2
+#define SELECT_SOFT_SERIAL_SPEED 1
 
 //for split keyboard setup
 //#define PAL_USE_CALLBACKS TRUE

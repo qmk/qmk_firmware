@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "spi_helper.h": "c",
-        "helpers.h": "c"
+        "helpers.h": "c",
+        "polykybd.h": "c",
+        "lang_lut.h": "c"
     }
 }

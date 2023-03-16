@@ -2,7 +2,7 @@
 //Execute the following command to do so (via cogapp):
 //cog -r lang_lut.c
 #include "lang_lut.h"
-#include "polyatom.h"
+#include "polykybd.h"
 
 static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*[[[cog
