@@ -21,9 +21,9 @@
 
 /* local data structure for tracking auto mouse */
 static auto_mouse_context_t auto_mouse_context = {
-    .config.layer    = (uint8_t)AUTO_MOUSE_DEFAULT_LAYER,
-    .config.timeout  = (uint16_t)AUTO_MOUSE_TIME,
-    .config.debounce = (uint8_t)AUTO_MOUSE_DEBOUNCE,
+    .config.layer    = (uint8_t)(AUTO_MOUSE_DEFAULT_LAYER),
+    .config.timeout  = (uint16_t)(AUTO_MOUSE_TIME),
+    .config.debounce = (uint8_t)(AUTO_MOUSE_DEBOUNCE),
 };
 
 /* local functions */
