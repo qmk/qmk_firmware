@@ -3,7 +3,6 @@
 import fnmatch
 import logging
 import multiprocessing
-import os
 import re
 from dotty_dict import dotty
 from milc import cli
