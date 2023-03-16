@@ -1,12 +1,14 @@
 # takashicompany/tightwriter
 
-![takashicompany/tightwriter](imgur.com image replace me!)
+![Tightwriter](https://i.imgur.com/evVMdSRh.jpg)
 
-*A short description of the keyboard/project*
+Tightwriter is a 35-key keyboard.
+The PCB is compatible with Cherry MX compatible key switches and Kailh Choc v1 key switches.
+It can be equipped with backlight LEDs and a TRRS socket.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/tightwriter
 
 Make example for this keyboard (after setting up your build environment):
 
