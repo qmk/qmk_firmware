@@ -14,6 +14,7 @@
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -61,41 +62,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
  * |        |   F7   |   F8   |   F9   |   F10  |   F11  |   F12  |        |        |        |        |        |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
- * |        |        |        |        |        |        |        |        |  home  |  home  |  pgdn  |   end  |
+ * |        |        |        |        | adjust |        |        |        |  home  |  home  |  pgdn  |   end  |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
  */
 [_RAISE] = LAYOUT_ortho_4x12 (
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
+    _______, _______, _______, _______, ADJUST, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
 [_ADJUST] = LAYOUT_ortho_4x12 (
-    _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______,
+    _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
     
 };
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  #ifdef JOTANCK_LEDS
-  switch (get_highest_layer(state)) {
-  case _LOWER:
-    writePinHigh(JOTANCK_LED1);
-    writePinLow(JOTANCK_LED2);
-    break;
-  case _RAISE:
-    writePinLow(JOTANCK_LED1);
-    writePinHigh(JOTANCK_LED2);
-    break;
-  default:
-    writePinLow(JOTANCK_LED1);
-    writePinLow(JOTANCK_LED2);
-    break; 
-  };
-  #endif
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
