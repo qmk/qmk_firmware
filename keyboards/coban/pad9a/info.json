@@ -11,7 +11,7 @@
     },
     "matrix_pins": {
         "direct": [
-            ["GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP2", "GP27"]
+            ["GP2", "GP27", "GP8", "GP11", "GP13", "GP9", "GP10", "GP12"]
         ]
     },
     "processor": "RP2040",
@@ -19,14 +19,14 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"left",    "x":0, "y":0, "matrix": [0, 6]},
-                {"label":"right",   "x":2, "y":0, "matrix": [0, 7]},
-                {"label":"1",       "x":0, "y":1, "matrix": [0, 0]},
-                {"label":"2",       "x":1, "y":1, "matrix": [0, 1]},
-                {"label":"3",       "x":3, "y":1, "matrix": [0, 2]},
-                {"label":"4",       "x":0, "y":2, "matrix": [0, 3]},
-                {"label":"5",       "x":1, "y":2, "matrix": [0, 4]},
-                {"label":"6",       "x":2, "y":3, "matrix": [0, 5]}
+                {"label":"push_left",   "x":0, "y":0, "matrix": [0, 0]},
+                {"label":"push_right",  "x":2, "y":0, "matrix": [0, 1]},
+                {"label":"key_1",       "x":0, "y":1, "matrix": [0, 2]},
+                {"label":"key_2",       "x":1, "y":1, "matrix": [0, 3]},
+                {"label":"key_3",       "x":3, "y":1, "matrix": [0, 4]},
+                {"label":"key_4",       "x":0, "y":2, "matrix": [0, 5]},
+                {"label":"key_5",       "x":1, "y":2, "matrix": [0, 6]},
+                {"label":"key_6",       "x":2, "y":3, "matrix": [0, 7]}
             ]
         }
     }
