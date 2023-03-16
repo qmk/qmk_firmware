@@ -1,0 +1,49 @@
+name: CI Builds
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+
+jobs:
+  ci_builds:
+    name: "CI Build"
+    runs-on: self-hosted
+    timeout-minutes: 1380
+
+    if: github.repository == 'qmk/qmk_firmware'
+
+    strategy:
+      matrix:
+        keymap: [default, via]
+        keyboard_folder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z]
+
+    container: qmkfm/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: pip3 install -r requirements.txt
+
+    - name: Run `qmk mass-compile` (keyboards ${{ matrix.keyboard_folder }}*, keymap ${{ matrix.keymap }})
+      run: qmk mass-compile -j $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null) -km ${{ matrix.keymap }} -f 'keyboard_folder=${{ matrix.keyboard_folder }}*'
+
+    - name: 'Upload binaries'
+      uses: actions/upload-artifact@v3
+      with:
+        name: binaries-${{ matrix.keyboard_folder }}-${{ matrix.keymap }}
+        if-no-files-found: ignore
+        path: |
+          *.bin
+          *.hex
+          *.uf2
