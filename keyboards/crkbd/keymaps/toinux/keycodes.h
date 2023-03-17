@@ -41,7 +41,7 @@ enum crkbd_layers {
 #define TABLGUI LGUI_T(KC_TAB)
 #define BASE DF(_BASE)
 #define GAMING DF(_GAMING)
-#define GAMING2 LT(_GAMING2,KC_ESC)
+#define GAMING2 MO(_GAMING2)
 
 #define SC_F1 LSFT(LCTL(KC_F1))
 #define SC_F2 LSFT(LCTL(KC_F2))
