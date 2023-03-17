@@ -17,6 +17,51 @@ multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
 layout_macro_define_regex = re.compile(r'^#\s*define')
 
 
+def extract_enum_from_c_file_as_dict(contents: str, enum_identifier: str):
+    """
+    Extracts an enum from the contents of a C file and returns it as a python dictionary.
+
+    Args:
+        contents (str): The contents of the C file as a string.
+        enum_identifier (str): The identifier for the enum to extract.
+
+    Returns:
+        dict: A dictionary representation of the extracted enum.
+    """
+    # define the regex pattern to match the entire enum block
+    enum_pattern = re.compile(f'enum\\s+{enum_identifier}\\s*{{([^}}]*)}}', re.DOTALL)
+
+    # use the regex pattern to find the enum block
+    enum_match = enum_pattern.search(contents)
+
+    # if the enum block was found, parse it to extract the desired enum values
+    if not enum_match:
+        return False
+
+    enum_block = enum_match.group(1)
+    enum_values = {}
+    last_value = -1
+
+    flat_list = []
+    for line in enum_block.splitlines():
+        line = line.strip()  # remove any leading/trailing whitespaces
+        if line:  # skip empty lines
+            flat_list.extend(line.split(','))
+    for line in flat_list:
+        if line.strip().startswith('typedef') or line.strip().startswith('#') or line.strip().startswith("//"):
+            continue
+        if "=" in line:
+            enum_name, enum_value = line.split('=')
+            last_value = int(enum_value.replace(",", "").strip())
+        else:
+            enum_name = line.replace(",", "").strip()
+            if len(enum_name) == 0:
+                continue
+            last_value += 1
+        enum_values[enum_name.strip()] = last_value
+    return enum_values
+
+
 def _get_chunks(it, size):
     """Break down a collection into smaller parts
     """

@@ -78,6 +78,7 @@ subcommands = [
     'qmk.cli.new.keymap',
     'qmk.cli.painter',
     'qmk.cli.pytest',
+    'qmk.cli.rgb_effects',
     'qmk.cli.via2json',
 ]
 
