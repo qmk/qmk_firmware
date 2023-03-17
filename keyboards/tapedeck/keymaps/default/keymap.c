@@ -29,9 +29,9 @@ int16_t val = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
-        KC_ESC, 			KC_MNXT, 			KC_MPLY, 	KC_MNXT, KC_MPLY,
-        RGB_MODE_RAINBOW,   RGB_MODE_RGBTEST,   RGB_M_K, 	RGB_TOG, KC_MPLY,
-        KC_F1,        		KC_F2, 				KC_F3, 			KC_F14
+        KC_ESC,            KC_MNXT,           KC_MPLY,     KC_MNXT, KC_MPLY,
+        RGB_MODE_RAINBOW,  RGB_MODE_RGBTEST,  RGB_M_K,     RGB_TOG, KC_MPLY,
+        KC_F1,             KC_F2,             KC_F3,       KC_F14
     )
 };
 
