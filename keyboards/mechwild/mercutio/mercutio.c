@@ -24,6 +24,25 @@ static const char PROGMEM mercutio_name[] = {
     0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
 };
 
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if(!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+
+    switch (index) {
+        case 0:
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+        break;
+    }
+    return true;
+}
+#endif
+
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
 }
