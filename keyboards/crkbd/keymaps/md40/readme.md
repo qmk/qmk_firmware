@@ -16,4 +16,4 @@ Supports crkbd only.
 
 ## Fn Layer
 
-![Base Layer](https://i.imgur.com/Sozd1p8.png)
+![Base Layer](https://i.imgur.com/Sozd1p8h.png)
