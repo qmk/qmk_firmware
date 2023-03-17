@@ -2,11 +2,11 @@
 
 ![ning/tiny_board/tb16_rgb](imgur.com image replace me!)
 
-*A short description of the keyboard/project*
+A 4*4 tiny keyboard whith rgb lights.
 
 * Keyboard Maintainer: [Ning](https://github.com/ningjx)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: The PCB is designed by [Ning](https://github.com/ningjx),with ATMega32U4.
+* Hardware Availability: https://oshwhub.com/iqirtryi/atmega32a-kb40
 
 Make example for this keyboard (after setting up your build environment):
 

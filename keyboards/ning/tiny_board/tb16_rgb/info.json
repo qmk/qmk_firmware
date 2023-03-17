@@ -2,7 +2,6 @@
     "manufacturer": "Ning",
     "keyboard_name": "TB16 RGB",
     "maintainer": "ningjx",
-    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -10,13 +9,15 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["B6", "B1", "B3", "B2"],
         "rows": ["F7", "F6", "F5", "F4"]
     },
     "processor": "atmega32u4",
+    "bootloader": "caterina",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
