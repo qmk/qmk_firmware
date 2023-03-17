@@ -80,7 +80,13 @@
         "led_count": 3,
         "max_brightness": 225,
         "pin": "B6",
-        "saturation_steps": 17
+        "saturation_steps": 17.
+		"animations": {
+            "knight": true,
+            "rainbow_swirl": true,
+			"rainbow_mood": true,
+			"rgb_test": true
+        }
     },
     "url": "https://github.com/SamGowland/Gowla-Macro-Boards",
     "usb": {
