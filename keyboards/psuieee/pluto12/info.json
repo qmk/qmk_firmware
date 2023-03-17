@@ -1,0 +1,36 @@
+{
+    "keyboard_name": "pluto12",
+    "manufacturer": "psuieee",
+    "url": "https://github.com/psuieee/pluto12",
+    "maintainer": "wymcg",
+    "usb": {
+        "vid": "0x4747",
+        "pid": "0x7012",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "B2"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "M1", "x": 0, "y": 0 },
+                { "label": "M2", "x": 1, "y": 0 },
+                { "label": "M3", "x": 2, "y": 0 },
+                { "label": "M4", "x": 3, "y": 0 },
+                { "label": "M5", "x": 0, "y": 1 },
+                { "label": "M6", "x": 1, "y": 1 },
+                { "label": "M7", "x": 2, "y": 1 },
+                { "label": "M8", "x": 3, "y": 1 },
+                { "label": "M9", "x": 0, "y": 2 },
+                { "label": "M10", "x": 1, "y": 2 },
+                { "label": "M11", "x": 2, "y": 2 },
+                { "label": "M12", "x": 3, "y": 2 }
+            ]
+        }
+    }
+}

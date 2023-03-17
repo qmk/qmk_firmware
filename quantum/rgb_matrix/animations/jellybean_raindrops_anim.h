@@ -4,7 +4,7 @@ RGB_MATRIX_EFFECT(JELLYBEAN_RAINDROPS)
 
 static void jellybean_raindrops_set_color(int i, effect_params_t* params) {
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
-    HSV hsv = {rand() & 0xFF, qadd8(rand() & 0x7F, 0x80), rgb_matrix_config.hsv.v};
+    HSV hsv = {random8(), random8_min_max(127, 255), rgb_matrix_config.hsv.v};
     RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 }
@@ -13,7 +13,7 @@ bool JELLYBEAN_RAINDROPS(effect_params_t* params) {
     if (!params->init) {
         // Change one LED every tick, make sure speed is not 0
         if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 5 == 0) {
-            jellybean_raindrops_set_color(rand() % DRIVER_LED_TOTAL, params);
+            jellybean_raindrops_set_color(random8_max(RGB_MATRIX_LED_COUNT), params);
         }
         return false;
     }
@@ -22,8 +22,8 @@ bool JELLYBEAN_RAINDROPS(effect_params_t* params) {
     for (int i = led_min; i < led_max; i++) {
         jellybean_raindrops_set_color(i, params);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS

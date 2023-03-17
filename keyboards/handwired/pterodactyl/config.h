@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1308
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    myoung34
-#define PRODUCT         Pterodactyl
 
 #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 6
@@ -57,10 +49,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    0
-
-#define AdafruitBleResetPin D4
-#define AdafruitBleCSPin B4
-#define AdafruitBleIRQPin E6

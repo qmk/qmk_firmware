@@ -1,7 +1,15 @@
 {
     "keyboard_name": "4by3",
+    "manufacturer": "Elias Sjögreen",
     "url": "https://github.com/eliassjogreen/4by3",
     "maintainer": "eliassjogreen",
+    "usb": {
+        "vid": "0xEEEE",
+        "pid": "0x2019",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_horizontal": {
             "layout": [

@@ -75,7 +75,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [R_L_PINKY_RING]          = COMBO(ll_p_r_combo,  KC_ENT),
     [R_L_RING_MIDDLE]         = COMBO(ll_r_m_combo,  LCTL(KC_W)),
     [R_L_RING_INDEX]          = COMBO(ll_r_i_combo,  KC_TAB),
-    [R_L_MIDDLE_INDEX]        = COMBO(ll_m_i_combo,  KC_DELT),
+    [R_L_MIDDLE_INDEX]        = COMBO(ll_m_i_combo,  KC_DEL),
     [R_L_INDEX_INNER_INDEX]   = COMBO(ll_i_ii_combo, KC_TILD),
 
     // right hand combinations.
@@ -88,7 +88,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [L_L_PINKY_RING]          = COMBO(rl_p_r_combo,  KC_BSLS),
     [L_L_RING_MIDDLE]         = COMBO(rl_r_m_combo,  KC_APP),
     [L_L_RING_INDEX]          = COMBO(rl_r_i_combo,  LSFT(KC_TAB)),
-    [L_L_MIDDLE_INDEX]        = COMBO(rl_m_i_combo,  KC_DELT),
+    [L_L_MIDDLE_INDEX]        = COMBO(rl_m_i_combo,  KC_DEL),
     [L_L_INDEX_INNER_INDEX]   = COMBO(rl_i_ii_combo, KC_GRV),
 
     // both hand combinations.

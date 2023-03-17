@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "BigSeries 3-Key",
+    "manufacturer": "WoodKeys.click",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6073",
+        "device_version": "0.0.2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 50,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 4, "h": 4},
+                {"x": 4, "y": 0, "w": 4, "h": 4},
+                {"x": 8, "y": 0, "w": 4, "h": 4}
+            ]
+        }
+    }
+}

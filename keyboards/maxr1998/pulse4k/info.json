@@ -1,7 +1,21 @@
 {
   "keyboard_name": "Pulse 4k",
+  "manufacturer": "Maxr1998",
   "url": "https://github.com/Maxr1998/Pulse_4k",
   "maintainer": "Maxr1998",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D2", "pin_b": "D3"},
+      {"pin_a": "F6", "pin_b": "F5"}
+    ]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [ 

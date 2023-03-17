@@ -1,7 +1,15 @@
 {
     "keyboard_name": "earth_rover",
+    "manufacturer": "k.bigwheel",
     "url": "https://github.com/bigwheel/earth_rover",
     "maintainer": "k.bigwheel",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xEE11",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

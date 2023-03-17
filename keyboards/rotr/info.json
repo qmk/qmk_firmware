@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "rotr", 
+    "keyboard_name": "ROTR", 
+    "manufacturer": "ROTR",
     "url": "https://geekhack.org/index.php?topic=107104.0", 
     "maintainer": "qmk", 
+    "usb": {
+        "vid": "0x726F",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C6", "pin_b": "D7", "resolution": 2}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}]

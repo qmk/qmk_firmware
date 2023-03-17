@@ -1,7 +1,24 @@
 {
     "keyboard_name": "dtisaac01",
+    "manufacturer": "DTIsaac",
     "url": "",
     "maintainer": "DTIsaac",
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x4973",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
+    "indicators": {
+    	"caps_lock": "D3",
+    	"scroll_lock": "D5",
+    	"on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -88,10 +105,10 @@
 				{"label":"K100", "x":10, "y":5.5, "w":1.25}, 
                 {"label":"K111", "x":11.25, "y":5.5, "w":1.25}, 
                 {"label":"K112", "x":12.5, "y":5.5, "w":1.25}, 
-                {"label":"K113", "x":13.75, "y":5.5, "w":1.25}
+                {"label":"K113", "x":13.75, "y":5.5, "w":1.25},
 				{"label":"K114", "x":15.25, "y":5.5}, 
 				{"label":"K115", "x":16.25, "y":5.5}, 
-				{"label":"K116", "x":17.25, "y":5.5},
+				{"label":"K116", "x":17.25, "y":5.5}
             ]
         }
     }

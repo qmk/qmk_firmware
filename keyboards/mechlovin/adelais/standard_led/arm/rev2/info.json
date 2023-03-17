@@ -1,0 +1,8 @@
+{
+    "usb": {
+        "pid": "0xAD01"
+    },
+    "processor": "STM32F303",
+    "board": "QMK_PROTON_C",
+    "bootloader": "stm32-dfu"
+}

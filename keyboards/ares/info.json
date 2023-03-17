@@ -1,10 +1,28 @@
 {
-    "keyboard_name": "LSJ Ares",
+    "keyboard_name": "Ares",
+    "manufacturer": "LSJ",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x20A0",
+        "pid": "0x422D",
+        "device_version": "2.0.0"
+    },
+    "backlight": {
+        "pin": "D4"
+    },
+    "indicators": {
+        "caps_lock": "D1"
+    },
+    "bootmagic": {
+        "matrix": [4, 0]
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": ["60_ansi_split_bs_rshift", "60_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

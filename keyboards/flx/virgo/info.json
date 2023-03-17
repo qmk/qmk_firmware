@@ -1,7 +1,19 @@
 {
-    "keyboard_name": "FLX Virgo",
+    "keyboard_name": "Virgo",
+    "manufacturer": "FLX",
     "url": "",
     "maintainer": "mechmerlin",
+    "usb": {
+        "vid": "0x4658",
+        "pid": "0x5647",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "levels": 5
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

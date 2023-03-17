@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT_65_ansi": {
+        "LAYOUT_65_ansi_split_bs": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

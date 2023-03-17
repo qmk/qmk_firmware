@@ -1,7 +1,19 @@
 {
     "keyboard_name": "p65rgb",
+    "manufacturer": "marhalloweenvt",
     "url": "",
     "maintainer": "marhalloweenvt",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x75B4",
+        "device_version": "0.0.1"
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "C7",
+        "esc_output": "E6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

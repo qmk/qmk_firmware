@@ -1,0 +1,10 @@
+{
+    "usb": {
+        "device_version": "0.1.0"
+    },
+    "indicators": {
+        "caps_lock": "B0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

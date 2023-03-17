@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [1] = LAYOUT_ortho_5x15( /* FUNCTION LAYER*/
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
-        KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR,
+        KC_SCRL, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR,
         KC_CAPS, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_ACL0, KC_ACL2, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, _______, _______, KC_WH_U,
-        KC_NLCK, _______, _______, _______, _______, _______, _______, _______, KC_INS,  KC_END,  KC_HOME, _______, _______, KC_MS_U, KC_WH_D,
+        KC_NUM,  _______, _______, _______, _______, _______, _______, _______, KC_INS,  KC_END,  KC_HOME, _______, _______, KC_MS_U, KC_WH_D,
         _______, _______, MO(1),   _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, _______, MO(1),   KC_MS_L, KC_MS_D, KC_MS_R
     ),
 };

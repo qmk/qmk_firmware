@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "TKC Candybar",
+    "keyboard_name": "Candybar",
+    "manufacturer": "The Key Company",
     "url": "",
     "maintainer": "terrymathews",
+    "usb": {
+        "vid": "0x544B",
+        "pid": "0x0003",
+        "device_version": "0.0.6"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

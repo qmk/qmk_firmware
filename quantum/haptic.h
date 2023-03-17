@@ -75,3 +75,30 @@ void    haptic_cont_decrease(void);
 
 void haptic_play(void);
 void haptic_shutdown(void);
+void haptic_notify_usb_device_state_change(void);
+
+#ifdef HAPTIC_ENABLE_PIN_ACTIVE_LOW
+#    ifndef HAPTIC_ENABLE_PIN
+#        error HAPTIC_ENABLE_PIN not defined
+#    endif
+#    define HAPTIC_ENABLE_PIN_WRITE_ACTIVE() writePinLow(HAPTIC_ENABLE_PIN)
+#    define HAPTIC_ENABLE_PIN_WRITE_INACTIVE() writePinHigh(HAPTIC_ENABLE_PIN)
+#else
+#    define HAPTIC_ENABLE_PIN_WRITE_ACTIVE() writePinHigh(HAPTIC_ENABLE_PIN)
+#    define HAPTIC_ENABLE_PIN_WRITE_INACTIVE() writePinLow(HAPTIC_ENABLE_PIN)
+#endif
+
+#ifdef HAPTIC_ENABLE_STATUS_LED_ACTIVE_LOW
+#    ifndef HAPTIC_ENABLE_STATUS_LED
+#        error HAPTIC_ENABLE_STATUS_LED not defined
+#    endif
+#    define HAPTIC_ENABLE_STATUS_LED_WRITE_ACTIVE() writePinLow(HAPTIC_ENABLE_STATUS_LED)
+#    define HAPTIC_ENABLE_STATUS_LED_WRITE_INACTIVE() writePinHigh(HAPTIC_ENABLE_STATUS_LED)
+#else
+#    define HAPTIC_ENABLE_STATUS_LED_WRITE_ACTIVE() writePinHigh(HAPTIC_ENABLE_STATUS_LED)
+#    define HAPTIC_ENABLE_STATUS_LED_WRITE_INACTIVE() writePinLow(HAPTIC_ENABLE_STATUS_LED)
+#endif
+
+#ifndef HAPTIC_OFF_IN_LOW_POWER
+#    define HAPTIC_OFF_IN_LOW_POWER 0
+#endif

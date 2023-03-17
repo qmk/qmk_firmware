@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Hex-4B Rev.1",
+    "usb": {
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "D4",
+        "levels": 5,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "D7",
+        "num_lock": "D6",
+        "scroll_lock": "D5",
+        "on_state": 0
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader"
+}

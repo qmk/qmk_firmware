@@ -1,7 +1,15 @@
 {
   "keyboard_name": "Polilla",
+  "manufacturer": "elagil",
   "url": "",
   "maintainer": "elagil",
+  "usb": {
+    "vid": "0x6166",
+    "pid": "0x0010",
+    "device_version": "0.0.1"
+  },
+  "processor": "STM32F042",
+  "bootloader": "stm32-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

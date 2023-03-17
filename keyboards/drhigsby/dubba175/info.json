@@ -1,0 +1,18 @@
+{
+  "keyboard_name": "Dubba175",
+  "manufacturer": "DrHigsby",
+  "url": "http://www.keyboard-layout-editor.com/#/gists/3185de74dfb973bf6d42e785994cfd4e",
+  "maintainer": "drhigsby",
+  "usb": {
+     "vid": "0x0420",
+     "pid": "0x0420",
+     "device_version": "4.2.0"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "layouts": {
+       "LAYOUT": {
+            "layout": [{"label":"", "x":0, "y":0}, {"label":"", "x":1, "y":0}, {"label":"", "x":2, "y":0}, {"label":"", "x":3, "y":0}, {"label":"", "x":4, "y":0}, {"label":"", "x":5, "y":0}, {"label":"", "x":6, "y":0}, {"label":"", "x":7, "y":0}, {"label":"", "x":8, "y":0}, {"label":"", "x":9, "y":0}, {"label":"", "x":0, "y":1}, {"label":"", "x":1, "y":1}, {"label":"", "x":2, "y":1}, {"label":"", "x":3, "y":1}, {"label":"", "x":4, "y":1}, {"label":"", "x":5, "y":1}, {"label":"", "x":6, "y":1}, {"label":"", "x":7, "y":1}, {"label":"", "x":8, "y":1}, {"label":"", "x":9, "y":1}, {"label":"", "x":0, "y":2}, {"label":"", "x":1, "y":2}, {"label":"", "x":2, "y":2}, {"label":"", "x":3, "y":2}, {"label":"", "x":4, "y":2}, {"label":"", "x":5, "y":2}, {"label":"", "x":6, "y":2}, {"label":"<", "x":7, "y":2}, {"label":">", "x":8, "y":2}, {"label":"", "x":9, "y":2}, {"label":"", "x":1.25, "y":3}, {"label":"", "x":2.25, "y":3}, {"label":"", "x":3.25, "y":3, "w":1.75}, {"x":5, "y":3, "w":1.75}, {"label":"", "x":6.75, "y":3}, {"label":"", "x":7.75, "y":3}]
+        }
+    }
+}

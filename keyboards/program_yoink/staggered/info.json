@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "program_yoink",
+    "keyboard_name": "Program Yoink! Staggered",
+    "manufacturer": "melonbred",
     "url": "",
     "maintainer": "melonbred",
+    "usb": {
+        "vid": "0x7079",
+        "pid": "0xF10B",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"}
+        ]
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_default": {
             "layout": [

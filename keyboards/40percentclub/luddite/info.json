@@ -1,7 +1,20 @@
 {
   "keyboard_name": "Luddite",
+  "manufacturer": "di0ib",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4025",
+    "pid": "0x4C55",
+    "device_version": "10.0.1"
+  },
+  "backlight": {
+    "pin": "B5",
+    "levels": 4
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "community_layouts": ["60_ansi"],
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

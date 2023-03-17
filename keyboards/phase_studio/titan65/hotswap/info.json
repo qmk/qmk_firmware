@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Titan 65 (hotswap)",
+    "manufacturer": "Phase Studio",
     "url": "",
     "maintainer": "drashna",
+    "usb": {
+        "vid": "0x5054",
+        "pid": "0xBB91",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

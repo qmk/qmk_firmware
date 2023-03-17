@@ -12,5 +12,5 @@ bool effect_runner_dx_dy(effect_params_t* params, dx_dy_f effect_func) {
         int16_t dy = g_led_config.point[i].y - k_led_matrix_center.y;
         led_matrix_set_value(i, effect_func(led_matrix_eeconfig.val, dx, dy, time));
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_matrix_check_finished_leds(led_max);
 }

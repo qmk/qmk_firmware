@@ -1,9 +1,21 @@
 {
-    "keyboard_name": "Tractyl Manuform 4x6",
+    "keyboard_name": "Tractyl Manuform (4x6)",
     "url": "",
     "maintainer": "drashna",
+    "usb": {
+        "pid": "0x3537",
+        "device_version": "0.0.1"
+    },
+    "split": {
+        "soft_serial_pin": "D3",
+        "bootmagic": {
+            "matrix": [4, 5]
+        }
+    },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layouts": {
-        "LAYOUT_5x6_right": {
+        "LAYOUT_4x6_right": {
             "layout": [
                 {"label":"L00", "x":0, "y":0},
                 {"label":"L01", "x":1, "y":0},
@@ -41,32 +53,20 @@
                 {"label":"R23", "x":14, "y":2},
                 {"label":"R24", "x":15, "y":2},
                 {"label":"R25", "x":16, "y":2},
-                {"label":"L30", "x":0, "y":3},
-                {"label":"L31", "x":1, "y":3},
                 {"label":"L32", "x":2, "y":3},
                 {"label":"L33", "x":3, "y":3},
-                {"label":"L34", "x":4, "y":3},
-                {"label":"L35", "x":5, "y":3},
-                {"label":"R30", "x":11, "y":3},
-                {"label":"R31", "x":12, "y":3},
                 {"label":"R32", "x":13, "y":3},
                 {"label":"R33", "x":14, "y":3},
-                {"label":"R34", "x":15, "y":3},
-                {"label":"R35", "x":16, "y":3},
-                {"label":"L42", "x":2, "y":4},
-                {"label":"L43", "x":3, "y":4},
-                {"label":"R42", "x":13, "y":4},
-                {"label":"R43", "x":14, "y":4},
-                {"label":"L44", "x":4, "y":5},
-                {"label":"L45", "x":5, "y":5},
-                {"label":"R41", "x":12, "y":5},
-                {"label":"L54", "x":6, "y":6},
-                {"label":"L55", "x":7, "y":6},
-                {"label":"R51", "x":10, "y":6},
-                {"label":"L52", "x":6, "y":7},
-                {"label":"L53", "x":7, "y":7},
-                {"label":"R52", "x":9, "y":7},
-                {"label":"R53", "x":10, "y":7}
+                {"label":"L34", "x":4, "y":4},
+                {"label":"L35", "x":5, "y":4},
+                {"label":"R31", "x":12, "y":4},
+                {"label":"L44", "x":6, "y":5},
+                {"label":"L45", "x":7, "y":5},
+                {"label":"R41", "x":10, "y":5},
+                {"label":"L42", "x":6, "y":6},
+                {"label":"L43", "x":7, "y":6},
+                {"label":"R42", "x":9, "y":6},
+                {"label":"R43", "x":10, "y":6}
             ]
         }
     }

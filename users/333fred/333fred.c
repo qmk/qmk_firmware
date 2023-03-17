@@ -31,7 +31,7 @@ typedef enum {
 static tap_dance_state_enum tap_dance_state;
 static bool tap_dance_active = false;
 
-void tap_dance_sym_vim_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_sym_vim_finished(tap_dance_state_t *state, void *user_data) {
     // Determine the current state
     if (state->count == 1) {
         if (state->interrupted || state->pressed == 0) tap_dance_state = SINGLE_TAP;
@@ -60,7 +60,7 @@ void tap_dance_sym_vim_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tap_dance_sym_vim_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_sym_vim_reset(tap_dance_state_t *state, void *user_data) {
     switch(tap_dance_state) {
         case SINGLE_TAP:
             clear_oneshot_layer_state(ONESHOT_PRESSED);
@@ -74,7 +74,7 @@ void tap_dance_sym_vim_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tap_dance_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_copy_paste_finished(tap_dance_state_t *state, void *user_data) {
     bool is_paste = state->count == 2;
     // If either the one-shot shift is set, or if shift is being held, count as shift being held.
     // We'll clear the one-shot shift if it was held
@@ -92,18 +92,18 @@ void tap_dance_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data)
         if (is_shift) {
             SEND_STRING(SS_LSFT(SS_TAP(X_INSERT)));
         } else {
-            SEND_STRING(SS_LCTRL("v"));
+            SEND_STRING(SS_LCTL("v"));
         }
     } else {
         if (is_shift) {
-            SEND_STRING(SS_LCTRL(SS_TAP(X_INSERT)));
+            SEND_STRING(SS_LCTL(SS_TAP(X_INSERT)));
         } else {
-            SEND_STRING(SS_LCTRL("c"));
+            SEND_STRING(SS_LCTL("c"));
         }
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_SYM_VIM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_sym_vim_finished, tap_dance_sym_vim_reset),
     [TD_COPY_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_copy_paste_finished, NULL)
 };
@@ -115,7 +115,7 @@ void tap_dance_process_keycode(uint16_t keycode) {
 }
 
 __attribute__ ((weak))
-void layer_state_set_rgb(uint32_t state) {}
+void layer_state_set_rgb(layer_state_t state) {}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   layer_state_set_rgb(state);
@@ -135,7 +135,7 @@ bool try_handle_macro(uint16_t keycode, keyrecord_t *record) {
             return true;
         case PSCREEN_APP:
             if (record->event.pressed)
-                SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)));
+                SEND_STRING(SS_LALT(SS_TAP(X_PRINT_SCREEN)));
             return true;
 
         default:

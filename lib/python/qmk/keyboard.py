@@ -69,7 +69,7 @@ def keyboard_folder(keyboard):
 
     This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
     """
-    aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
+    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
     if keyboard in aliases:
         keyboard = aliases[keyboard].get('target', keyboard)
@@ -98,14 +98,18 @@ def keyboard_completer(prefix, action, parser, parsed_args):
     return list_keyboards()
 
 
-def list_keyboards():
-    """Returns a list of all keyboards.
+def list_keyboards(resolve_defaults=True):
+    """Returns a list of all keyboards - optionally processing any DEFAULT_FOLDER.
     """
     # We avoid pathlib here because this is performance critical code.
     kb_wildcard = os.path.join(base_path, "**", "rules.mk")
-    paths = [path for path in glob(kb_wildcard, recursive=True) if 'keymaps' not in path]
+    paths = [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
 
-    return sorted(set(map(resolve_keyboard, map(_find_name, paths))))
+    found = map(_find_name, paths)
+    if resolve_defaults:
+        found = map(resolve_keyboard, found)
+
+    return sorted(set(found))
 
 
 def resolve_keyboard(keyboard):
@@ -162,13 +166,12 @@ def render_layout(layout_data, render_ascii, key_labels=None):
     """
     textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
-    box_chars = BOX_DRAWING_CHARACTERS[style]
 
     for key in layout_data:
-        x = ceil(key.get('x', 0) * 4)
-        y = ceil(key.get('y', 0) * 3)
-        w = ceil(key.get('w', 1) * 4)
-        h = ceil(key.get('h', 1) * 3)
+        x = key.get('x', 0)
+        y = key.get('y', 0)
+        w = key.get('w', 1)
+        h = key.get('h', 1)
 
         if key_labels:
             label = key_labels.pop(0)
@@ -177,26 +180,12 @@ def render_layout(layout_data, render_ascii, key_labels=None):
         else:
             label = key.get('label', '')
 
-        label_len = w - 2
-        label_leftover = label_len - len(label)
-
-        if len(label) > label_len:
-            label = label[:label_len]
-
-        label_blank = ' ' * label_len
-        label_border = box_chars['h'] * label_len
-        label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
-
-        top_line = array('u', box_chars['tl'] + label_border + box_chars['tr'])
-        lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
-        mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
-        bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
-
-        textpad[y][x:x + w] = top_line
-        textpad[y + 1][x:x + w] = lab_line
-        for i in range(h - 3):
-            textpad[y + i + 2][x:x + w] = mid_line
-        textpad[y + h - 1][x:x + w] = bot_line
+        if x >= 0.25 and w == 1.25 and h == 2:
+            render_key_isoenter(textpad, x, y, w, h, label, style)
+        elif w == 2.25 and h == 2:
+            render_key_baenter(textpad, x, y, w, h, label, style)
+        else:
+            render_key_rect(textpad, x, y, w, h, label, style)
 
     lines = []
     for line in textpad:
@@ -216,3 +205,96 @@ def render_layouts(info_json, render_ascii):
         layouts[layout] = render_layout(layout_data, render_ascii)
 
     return layouts
+
+
+def render_key_rect(textpad, x, y, w, h, label, style):
+    box_chars = BOX_DRAWING_CHARACTERS[style]
+    x = ceil(x * 4)
+    y = ceil(y * 3)
+    w = ceil(w * 4)
+    h = ceil(h * 3)
+
+    label_len = w - 2
+    label_leftover = label_len - len(label)
+
+    if len(label) > label_len:
+        label = label[:label_len]
+
+    label_blank = ' ' * label_len
+    label_border = box_chars['h'] * label_len
+    label_middle = label + ' ' * label_leftover
+
+    top_line = array('u', box_chars['tl'] + label_border + box_chars['tr'])
+    lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
+    mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
+    bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
+
+    textpad[y][x:x + w] = top_line
+    textpad[y + 1][x:x + w] = lab_line
+    for i in range(h - 3):
+        textpad[y + i + 2][x:x + w] = mid_line
+    textpad[y + h - 1][x:x + w] = bot_line
+
+
+def render_key_isoenter(textpad, x, y, w, h, label, style):
+    box_chars = BOX_DRAWING_CHARACTERS[style]
+    x = ceil(x * 4)
+    y = ceil(y * 3)
+    w = ceil(w * 4)
+    h = ceil(h * 3)
+
+    label_len = w - 1
+    label_leftover = label_len - len(label)
+
+    if len(label) > label_len:
+        label = label[:label_len]
+
+    label_blank = ' ' * (label_len - 1)
+    label_border_top = box_chars['h'] * label_len
+    label_border_bottom = box_chars['h'] * (label_len - 1)
+    label_middle = label + ' ' * label_leftover
+
+    top_line = array('u', box_chars['tl'] + label_border_top + box_chars['tr'])
+    lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
+    crn_line = array('u', box_chars['bl'] + box_chars['tr'] + label_blank + box_chars['v'])
+    mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
+    bot_line = array('u', box_chars['bl'] + label_border_bottom + box_chars['br'])
+
+    textpad[y][x - 1:x + w] = top_line
+    textpad[y + 1][x - 1:x + w] = lab_line
+    textpad[y + 2][x - 1:x + w] = crn_line
+    textpad[y + 3][x:x + w] = mid_line
+    textpad[y + 4][x:x + w] = mid_line
+    textpad[y + 5][x:x + w] = bot_line
+
+
+def render_key_baenter(textpad, x, y, w, h, label, style):
+    box_chars = BOX_DRAWING_CHARACTERS[style]
+    x = ceil(x * 4)
+    y = ceil(y * 3)
+    w = ceil(w * 4)
+    h = ceil(h * 3)
+
+    label_len = w - 2
+    label_leftover = label_len - len(label)
+
+    if len(label) > label_len:
+        label = label[:label_len]
+
+    label_blank = ' ' * (label_len - 3)
+    label_border_top = box_chars['h'] * (label_len - 3)
+    label_border_bottom = box_chars['h'] * label_len
+    label_middle = label + ' ' * label_leftover
+
+    top_line = array('u', box_chars['tl'] + label_border_top + box_chars['tr'])
+    mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
+    crn_line = array('u', box_chars['tl'] + box_chars['h'] + box_chars['h'] + box_chars['br'] + label_blank + box_chars['v'])
+    lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
+    bot_line = array('u', box_chars['bl'] + label_border_bottom + box_chars['br'])
+
+    textpad[y][x + 3:x + w] = top_line
+    textpad[y + 1][x + 3:x + w] = mid_line
+    textpad[y + 2][x + 3:x + w] = mid_line
+    textpad[y + 3][x:x + w] = crn_line
+    textpad[y + 4][x:x + w] = lab_line
+    textpad[y + 5][x:x + w] = bot_line

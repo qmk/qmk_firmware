@@ -19,18 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define SPLIT_HAND_PIN B4
-#define SOFT_SERIAL_PIN D0
-
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0002
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F5, F6, C7, F7 }
@@ -38,32 +28,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F0
 
 #define RGBLED_NUM 12
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_SPLIT { 6, 6 }
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE
 #    define AUDIO_PIN C6  // Define this to enable the buzzer
 #endif
-
-#define QMK_ESC_OUTPUT F1 // usually COL
-#define QMK_ESC_INPUT F5 // usually ROW
-#define QMK_LED D5
-#define QMK_SPEAKER C6
-
 
 /*
  * Feature disable options
@@ -80,5 +64,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

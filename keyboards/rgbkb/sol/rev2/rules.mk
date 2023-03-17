@@ -4,7 +4,7 @@
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE         = no        # Mouse keys
 EXTRAKEY_ENABLE         = yes       # Audio control and System control
-NKRO_ENABLE             = no        # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # Enable N-Key Rollover
 
 # Debug Options
 CONSOLE_ENABLE          = no        # Console for debug
@@ -12,7 +12,6 @@ COMMAND_ENABLE          = no        # Commands for debug and configuration
 
 # RGB Options
 RGBLIGHT_ENABLE         = no        # Enable global lighting effects. Do not enable with RGB Matrix
-RGBLIGHT_ANIMATIONS     = no        # LED animations
 LED_MIRRORED            = no        # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
 
 RGB_MATRIX_ENABLE = yes             # Enable per-key coordinate based RGB effects. Do not enable with RGBlight

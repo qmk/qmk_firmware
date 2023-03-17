@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "rb86", 
-    "url": "", 
-    "maintainer": "qmk", 
+    "keyboard_name": "rb86",
+    "manufacturer": "ryanbaekr",
+    "url": "",
+    "maintainer": "ryanbaekr",
+    "usb": {
+        "vid": "0x7262",
+        "pid": "0x0086",
+        "device_version": "0.0.2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT_numpad_6x17": "LAYOUT"
     },

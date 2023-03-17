@@ -14,21 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5342 // "SB"
-#define PRODUCT_ID      0x594E // "YN"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Spaceman
-#define PRODUCT         Yun 65
-
-/* Key Matrix perameter */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { E6, D3, D2, D1, D0 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, D4, D6, D7, B4, B5, B6, C6, C7, D5, B3 }
 
-#define UNUSED_PINS

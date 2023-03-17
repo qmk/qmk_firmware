@@ -1,57 +1,101 @@
-PROTOCOL_DIR = protocol
+TMK_COMMON_SRC +=	\
+	$(PROTOCOL_DIR)/host.c \
+	$(PROTOCOL_DIR)/report.c \
+	$(PROTOCOL_DIR)/usb_device_state.c \
+	$(PROTOCOL_DIR)/usb_util.c \
 
-ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
-    SRC += $(PROTOCOL_DIR)/ps2_mouse.c
-    OPT_DEFS += -DPS2_MOUSE_ENABLE
+SHARED_EP_ENABLE = no
+MOUSE_SHARED_EP ?= yes
+ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
+    TMK_COMMON_DEFS += -DKEYBOARD_SHARED_EP
+    SHARED_EP_ENABLE = yes
+    # With the current usb_descriptor.c code,
+    # you can't share kbd without sharing mouse;
+    # that would be a very unexpected use case anyway
+    MOUSE_SHARED_EP = yes
+endif
+
+ifeq ($(strip $(MOUSE_ENABLE)), yes)
     OPT_DEFS += -DMOUSE_ENABLE
+    ifeq ($(strip $(MOUSE_SHARED_EP)), yes)
+        TMK_COMMON_DEFS += -DMOUSE_SHARED_EP
+        SHARED_EP_ENABLE = yes
+    endif
 endif
 
-ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
-    SRC += protocol/ps2_busywait.c
-    SRC += protocol/ps2_io_avr.c
-    OPT_DEFS += -DPS2_USE_BUSYWAIT
+ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DEXTRAKEY_ENABLE
+    SHARED_EP_ENABLE = yes
 endif
 
-ifeq ($(strip $(PS2_USE_INT)), yes)
-    SRC += protocol/ps2_interrupt.c
-    SRC += protocol/ps2_io_$(PLATFORM_KEY).c
-    OPT_DEFS += -DPS2_USE_INT
+ifeq ($(strip $(PROGRAMMABLE_BUTTON_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DPROGRAMMABLE_BUTTON_ENABLE
+    SHARED_EP_ENABLE = yes
 endif
 
-ifeq ($(strip $(PS2_USE_USART)), yes)
-    SRC += protocol/ps2_usart.c
-    SRC += protocol/ps2_io_$(PLATFORM_KEY).c
-    OPT_DEFS += -DPS2_USE_USART
+ifeq ($(strip $(RAW_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DRAW_ENABLE
 endif
 
-
-ifeq ($(strip $(SERIAL_MOUSE_MICROSOFT_ENABLE)), yes)
-    SRC += $(PROTOCOL_DIR)/serial_mouse_microsoft.c
-    OPT_DEFS += -DSERIAL_MOUSE_ENABLE -DSERIAL_MOUSE_MICROSOFT \
-                -DMOUSE_ENABLE
+ifeq ($(strip $(CONSOLE_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DCONSOLE_ENABLE
+else
+    # TODO: decouple this so other print backends can exist
+    TMK_COMMON_DEFS += -DNO_PRINT
+    TMK_COMMON_DEFS += -DNO_DEBUG
 endif
 
-ifeq ($(strip $(SERIAL_MOUSE_MOUSESYSTEMS_ENABLE)), yes)
-    SRC += $(PROTOCOL_DIR)/serial_mouse_mousesystems.c
-    OPT_DEFS += -DSERIAL_MOUSE_ENABLE -DSERIAL_MOUSE_MOUSESYSTEMS \
-                -DMOUSE_ENABLE
+ifeq ($(strip $(NKRO_ENABLE)), yes)
+    ifeq ($(PROTOCOL), VUSB)
+        $(info NKRO is not currently supported on V-USB, and has been disabled.)
+    else ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+        $(info NKRO is not currently supported with Bluetooth, and has been disabled.)
+    else
+        TMK_COMMON_DEFS += -DNKRO_ENABLE
+        SHARED_EP_ENABLE = yes
+    endif
 endif
 
-ifeq ($(strip $(SERIAL_MOUSE_USE_SOFT)), yes)
-    SRC += $(PROTOCOL_DIR)/serial_soft.c
+ifeq ($(strip $(RING_BUFFERED_6KRO_REPORT_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DRING_BUFFERED_6KRO_REPORT_ENABLE
 endif
 
-ifeq ($(strip $(SERIAL_MOUSE_USE_UART)), yes)
-    SRC += $(PROTOCOL_DIR)/serial_uart.c
+ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
+    TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
-ifeq ($(strip $(ADB_MOUSE_ENABLE)), yes)
-    OPT_DEFS += -DADB_MOUSE_ENABLE -DMOUSE_ENABLE
+ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)
+    TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
 endif
 
-ifeq ($(strip $(XT_ENABLE)), yes)
-    SRC += $(PROTOCOL_DIR)/xt_interrupt.c
-    OPT_DEFS += -DXT_ENABLE
+ifeq ($(strip $(JOYSTICK_SHARED_EP)), yes)
+    TMK_COMMON_DEFS += -DJOYSTICK_SHARED_EP
+    SHARED_EP_ENABLE = yes
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DJOYSTICK_ENABLE
+    ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
+        TMK_COMMON_DEFS += -DJOYSTICK_SHARED_EP
+        SHARED_EP_ENABLE = yes
+    endif
+endif
+
+ifeq ($(strip $(DIGITIZER_SHARED_EP)), yes)
+    TMK_COMMON_DEFS += -DDIGITIZER_SHARED_EP
+    SHARED_EP_ENABLE = yes
+endif
+
+ifeq ($(strip $(DIGITIZER_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DDIGITIZER_ENABLE
+    ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
+        TMK_COMMON_DEFS += -DDIGITIZER_SHARED_EP
+        SHARED_EP_ENABLE = yes
+    endif
+endif
+
+ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DSHARED_EP_ENABLE
 endif
 
 ifeq ($(strip $(USB_HID_ENABLE)), yes)

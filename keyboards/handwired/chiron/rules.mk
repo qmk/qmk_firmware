@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,7 +11,7 @@ DEBUG_ENABLE = no
 EXTRAKEY_ENABLE = no
 LEADER_ENABLE = no
 MOUSEKEY_ENABLE = yes
-NKRO_ENABLE = no
+NKRO_ENABLE = no            # Enable N-Key Rollover
 RGBLIGHT_ENABLE = yes
 SLEEP_LED_ENABLE = yes
 SPLIT_KEYBOARD = yes

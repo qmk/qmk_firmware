@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6d62
-#define PRODUCT_ID 0x6d62
-#define DEVICE_VER 0x0001
-#define MANUFACTURER melonbred
-
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments
@@ -42,20 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { D1, D6, D5, D4 }
 #define MATRIX_COL_PINS { C4, C5, C6, C7, B7, B6, B5, B4, B3, B2, B1, B0 }
-#define UNUSED_PINS { C2 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/*Encoder Definition*/
-#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D2 }
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-

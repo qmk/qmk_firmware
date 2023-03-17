@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "Tractyl Manuform (5x6) Proton-C",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A7", "pin_b": "A8"}
+        ]
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu"
+}

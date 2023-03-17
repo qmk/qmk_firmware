@@ -1,7 +1,20 @@
 {
     "keyboard_name": "GH60 Rev C",
+    "manufacturer": "geekhack",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4335",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi", "60_iso", "60_ansi_split_bs_rshift", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

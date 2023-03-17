@@ -17,22 +17,32 @@
  */
 #include QMK_KEYBOARD_H
 
-// safe range starts at `PLOOPY_SAFE_RANGE` instead.
+// safe range starts at `USER_SAFE_RANGE` instead.
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(/* Base */
+    [0] = LAYOUT(
                  C(KC_C), KC_BTN1, KC_BTN3, KC_BTN2, MO(1), KC_BTN4, KC_BTN5, DPI_CONFIG),
-    [1] = LAYOUT(/* Base */
-                 RGB_HUI, RGB_MOD, RGB_TOG, RGB_RMOD, MO(1), KC_VOLU, KC_VOLD, RESET)
-
+    [1] = LAYOUT(
+                 RGB_HUI, RGB_MOD, RGB_TOG, RGB_RMOD, MO(1), KC_VOLU, KC_VOLD, QK_BOOT)
 };
+// clang-format on
 
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
+    [1] = { ENCODER_CCW_CW( RGB_HUD, RGB_HUI ) },
+};
+#endif
+
+#ifdef RGBLIGHT_ENABLE
 void eeconkfig_init_user(void) {
     rgblight_enable();
-#ifdef RGBLIGHT_EFFECT_TWINKLE
-    rgblight_mode(RGBLIGHT_MODE_TWINKLE+5);
-#else
-    rgblight_mode(RGBLIGHT_MODE_BREATHING+5);
-#endif
+#    ifdef RGBLIGHT_EFFECT_TWINKLE
+    rgblight_mode(RGBLIGHT_MODE_TWINKLE + 5);
+#    else
+    rgblight_mode(RGBLIGHT_MODE_BREATHING + 5);
+#    endif
     rgblight_sethsv(HSV_MAGENTA);
 }
+#endif

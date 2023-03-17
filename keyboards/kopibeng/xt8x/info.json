@@ -1,7 +1,19 @@
 {
     "keyboard_name": "XT8x",
-    "maintainer": "kopibeng",
+    "manufacturer": "kopibeng",
     "url": "",
+    "maintainer": "kopibeng",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x8788",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B3",
+        "scroll_lock": "A15"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

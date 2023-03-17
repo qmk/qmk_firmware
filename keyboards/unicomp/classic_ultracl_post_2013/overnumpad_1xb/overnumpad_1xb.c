@@ -18,10 +18,6 @@
 
 void keyboard_post_init_kb(void)
 {
-    // Solenoid enable:
-    setPinOutput(C13);
-    writePin(C13, 1);
-
     //debug_enable=true;
     //debug_matrix=true;
 }

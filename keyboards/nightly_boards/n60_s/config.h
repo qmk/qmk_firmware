@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xD812
-#define PRODUCT_ID 0x0007
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Neil Brian Ramirez
-#define PRODUCT [n]60-S
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -42,18 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B4, D7, D6, D0, E6, NO_PIN }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, B0, B1, B2, B3, B5, B6, C6, C7 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* Encoders */
-
-#define ENCODERS 1
-
-#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D5 }
-
 #define ENCODERS_CW_KEY  { { 1, 5 } }
 #define ENCODERS_CCW_KEY { { 0, 5 } }
 
@@ -84,16 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

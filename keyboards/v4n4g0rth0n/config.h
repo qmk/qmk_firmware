@@ -17,30 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xB33F
-#define PRODUCT_ID   0x58E4
-#define MANUFACTURER s8erdude
-#define PRODUCT      v4n4g0rth0n
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-// TOP, MID, BOT
-// B4, D7, D6
-#define LED_NUM_LOCK_PIN B4
-#define LED_CAPS_LOCK_PIN D7
-#define LED_SCROLL_LOCK_PIN D6

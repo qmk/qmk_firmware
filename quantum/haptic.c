@@ -17,14 +17,42 @@
 #include "haptic.h"
 #include "eeconfig.h"
 #include "debug.h"
+#include "usb_device_state.h"
+#include "gpio.h"
 #ifdef DRV2605L
 #    include "DRV2605L.h"
 #endif
 #ifdef SOLENOID_ENABLE
 #    include "solenoid.h"
 #endif
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_HAPTIC_ENABLE)
+extern uint8_t split_haptic_play;
+#endif
 
 haptic_config_t haptic_config;
+
+static void update_haptic_enable_gpios(void) {
+    if (haptic_config.enable && ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED))) {
+#if defined(HAPTIC_ENABLE_PIN)
+        HAPTIC_ENABLE_PIN_WRITE_ACTIVE();
+#endif
+#if defined(HAPTIC_ENABLE_STATUS_LED)
+        HAPTIC_ENABLE_STATUS_LED_WRITE_ACTIVE();
+#endif
+    } else {
+#if defined(HAPTIC_ENABLE_PIN)
+        HAPTIC_ENABLE_PIN_WRITE_INACTIVE();
+#endif
+#if defined(HAPTIC_ENABLE_STATUS_LED)
+        HAPTIC_ENABLE_STATUS_LED_WRITE_INACTIVE();
+#endif
+    }
+}
+
+static void set_haptic_config_enable(bool enabled) {
+    haptic_config.enable = enabled;
+    update_haptic_enable_gpios();
+}
 
 void haptic_init(void) {
     if (!eeconfig_is_enabled()) {
@@ -44,6 +72,10 @@ void haptic_init(void) {
         // or the previous firmware didn't have solenoid enabled,
         // and the current one has solenoid enabled.
         haptic_reset();
+    } else {
+        // Haptic configuration has been loaded through the "raw" union item.
+        // This is to execute any side effects of the configuration.
+        set_haptic_config_enable(haptic_config.enable);
     }
 #ifdef SOLENOID_ENABLE
     solenoid_setup();
@@ -54,6 +86,12 @@ void haptic_init(void) {
     dprintf("DRV2605 driver initialized\n");
 #endif
     eeconfig_debug_haptic();
+#ifdef HAPTIC_ENABLE_PIN
+    setPinOutput(HAPTIC_ENABLE_PIN);
+#endif
+#ifdef HAPTIC_ENABLE_STATUS_LED
+    setPinOutput(HAPTIC_ENABLE_STATUS_LED);
+#endif
 }
 
 void haptic_task(void) {
@@ -69,13 +107,13 @@ void eeconfig_debug_haptic(void) {
 }
 
 void haptic_enable(void) {
-    haptic_config.enable = 1;
+    set_haptic_config_enable(true);
     xprintf("haptic_config.enable = %u\n", haptic_config.enable);
     eeconfig_update_haptic(haptic_config.raw);
 }
 
 void haptic_disable(void) {
-    haptic_config.enable = 0;
+    set_haptic_config_enable(false);
     xprintf("haptic_config.enable = %u\n", haptic_config.enable);
     eeconfig_update_haptic(haptic_config.raw);
 }
@@ -157,7 +195,7 @@ void haptic_dwell_decrease(void) {
 }
 
 void haptic_reset(void) {
-    haptic_config.enable   = true;
+    set_haptic_config_enable(true);
     uint8_t feedback       = HAPTIC_FEEDBACK_DEFAULT;
     haptic_config.feedback = feedback;
 #ifdef DRV2605L
@@ -212,7 +250,9 @@ void haptic_set_dwell(uint8_t dwell) {
     xprintf("haptic_config.dwell = %u\n", haptic_config.dwell);
 }
 
-uint8_t haptic_get_enable(void) { return haptic_config.enable; }
+uint8_t haptic_get_enable(void) {
+    return haptic_config.enable;
+}
 
 uint8_t haptic_get_mode(void) {
     if (!haptic_config.enable) {
@@ -282,14 +322,30 @@ void haptic_play(void) {
     uint8_t play_eff = 0;
     play_eff         = haptic_config.mode;
     DRV_pulse(play_eff);
+#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_HAPTIC_ENABLE)
+    split_haptic_play = haptic_config.mode;
+#    endif
 #endif
 #ifdef SOLENOID_ENABLE
-    solenoid_fire();
+    solenoid_fire_handler();
+#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_HAPTIC_ENABLE)
+    split_haptic_play = 1;
+#    endif
 #endif
 }
 
 void haptic_shutdown(void) {
 #ifdef SOLENOID_ENABLE
     solenoid_shutdown();
+#endif
+}
+
+void haptic_notify_usb_device_state_change(void) {
+    update_haptic_enable_gpios();
+#if defined(HAPTIC_ENABLE_PIN)
+    setPinOutput(HAPTIC_ENABLE_PIN);
+#endif
+#if defined(HAPTIC_ENABLE_STATUS_LED)
+    setPinOutput(HAPTIC_ENABLE_STATUS_LED);
 #endif
 }

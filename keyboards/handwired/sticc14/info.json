@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Sticc14",
+    "manufacturer": "u/ergorius",
     "url": "",
     "maintainer": "erkhal",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

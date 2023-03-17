@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Lasgweloth",
+    "manufacturer": "AcheronProject",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x4150",
+        "pid": "0x7641",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

@@ -1,7 +1,25 @@
 {
-  "keyboard_name": "x11",
+  "keyboard_name": "X1.1",
+  "manufacturer": "ALF",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4146",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
+  "backlight": {
+    "pin": "B7",
+    "breathing": true
+  },
+  "indicators": {
+    "caps_lock": "C6",
+    "num_lock": "E6",
+    "scroll_lock": "C7",
+    "on_state": 0
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

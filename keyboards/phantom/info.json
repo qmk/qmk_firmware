@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Phantom",
+    "manufacturer": "bpiphany",
     "url": "https://deskthority.net/wiki/Phantom",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x5B50",
+        "device_version": "0.0.3"
+    },
+    "indicators": {
+        "caps_lock": "B6",
+        "scroll_lock": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
+    "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

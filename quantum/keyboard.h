@@ -40,17 +40,56 @@ typedef struct {
 /* equivalent test of keypos_t */
 #define KEYEQ(keya, keyb) ((keya).row == (keyb).row && (keya).col == (keyb).col)
 
+/* special keypos_t entries */
+#define KEYLOC_TICK 255
+#define KEYLOC_COMBO 254
+#define KEYLOC_ENCODER_CW 253
+#define KEYLOC_ENCODER_CCW 252
+
 /* Rules for No Event:
  * 1) (time == 0) to handle (keyevent_t){} as empty event
  * 2) Matrix(255, 255) to make TICK event available
  */
-static inline bool IS_NOEVENT(keyevent_t event) { return event.time == 0 || (event.key.row == 255 && event.key.col == 255); }
-static inline bool IS_PRESSED(keyevent_t event) { return (!IS_NOEVENT(event) && event.pressed); }
-static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) && !event.pressed); }
+static inline bool IS_NOEVENT(keyevent_t event) {
+    return event.time == 0 || (event.key.row == KEYLOC_TICK && event.key.col == KEYLOC_TICK);
+}
+static inline bool IS_EVENT(keyevent_t event) {
+    return !IS_NOEVENT(event);
+}
+static inline bool IS_KEYEVENT(keyevent_t event) {
+    return event.key.row < MATRIX_ROWS && event.key.col < MATRIX_COLS;
+}
+static inline bool IS_COMBOEVENT(keyevent_t event) {
+    return event.key.row == KEYLOC_COMBO;
+}
+static inline bool IS_ENCODEREVENT(keyevent_t event) {
+    return event.key.row == KEYLOC_ENCODER_CW || event.key.row == KEYLOC_ENCODER_CCW;
+}
+static inline bool IS_PRESSED(keyevent_t event) {
+    return IS_EVENT(event) && event.pressed;
+}
+static inline bool IS_RELEASED(keyevent_t event) {
+    return IS_EVENT(event) && !event.pressed;
+}
 
-/* Tick event */
-#define TICK \
-    (keyevent_t) { .key = (keypos_t){.row = 255, .col = 255}, .pressed = false, .time = (timer_read() | 1) }
+/* Common keyevent object factory */
+#define MAKE_KEYPOS(row_num, col_num) ((keypos_t){.row = (row_num), .col = (col_num)})
+
+/**
+ * @brief Constructs a key event for a pressed or released key.
+ */
+#define MAKE_KEYEVENT(row_num, col_num, press) ((keyevent_t){.key = MAKE_KEYPOS((row_num), (col_num)), .pressed = (press), .time = (timer_read() | 1)})
+
+/**
+ * @brief Constructs a internal tick event that is used to drive the internal QMK state machine.
+ */
+#define TICK_EVENT MAKE_KEYEVENT(KEYLOC_TICK, KEYLOC_TICK, false)
+
+#ifdef ENCODER_MAP_ENABLE
+/* Encoder events */
+#    define ENCODER_CW_EVENT(enc_id, press) MAKE_KEYEVENT(KEYLOC_ENCODER_CW, (enc_id), (press))
+#    define ENCODER_CCW_EVENT(enc_id, press) MAKE_KEYEVENT(KEYLOC_ENCODER_CCW, (enc_id), (press))
+#endif // ENCODER_MAP_ENABLE
 
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);
@@ -58,8 +97,6 @@ void keyboard_setup(void);
 void keyboard_init(void);
 /* it runs repeatedly in main loop */
 void keyboard_task(void);
-/* it runs when host LED status is updated */
-void keyboard_set_leds(uint8_t leds);
 /* it runs whenever code has to behave differently on a slave */
 bool is_keyboard_master(void);
 /* it runs whenever code has to behave differently on left vs right split */
@@ -70,18 +107,18 @@ void keyboard_pre_init_user(void);
 void keyboard_post_init_kb(void);
 void keyboard_post_init_user(void);
 
-void housekeeping_task(void);       // To be executed by the main loop in each backend TMK protocol
-void housekeeping_task_kb(void);    // To be overridden by keyboard-level code
-void housekeeping_task_user(void);  // To be overridden by user/keymap-level code
+void housekeeping_task(void);      // To be executed by the main loop in each backend TMK protocol
+void housekeeping_task_kb(void);   // To be overridden by keyboard-level code
+void housekeeping_task_user(void); // To be overridden by user/keymap-level code
 
-uint32_t last_input_activity_time(void);     // Timestamp of the last matrix or encoder activity
-uint32_t last_input_activity_elapsed(void);  // Number of milliseconds since the last matrix or encoder activity
+uint32_t last_input_activity_time(void);    // Timestamp of the last matrix or encoder activity
+uint32_t last_input_activity_elapsed(void); // Number of milliseconds since the last matrix or encoder activity
 
-uint32_t last_matrix_activity_time(void);     // Timestamp of the last matrix activity
-uint32_t last_matrix_activity_elapsed(void);  // Number of milliseconds since the last matrix activity
+uint32_t last_matrix_activity_time(void);    // Timestamp of the last matrix activity
+uint32_t last_matrix_activity_elapsed(void); // Number of milliseconds since the last matrix activity
 
-uint32_t last_encoder_activity_time(void);     // Timestamp of the last encoder activity
-uint32_t last_encoder_activity_elapsed(void);  // Number of milliseconds since the last encoder activity
+uint32_t last_encoder_activity_time(void);    // Timestamp of the last encoder activity
+uint32_t last_encoder_activity_elapsed(void); // Number of milliseconds since the last encoder activity
 
 uint32_t get_matrix_scan_rate(void);
 

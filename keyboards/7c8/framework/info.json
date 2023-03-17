@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Framework",
+    "manufacturer": "7c8",
     "url": "",
     "maintainer": "stevennguyen",
+    "usb": {
+        "vid": "0x77C8",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"}
+        ]
+    },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

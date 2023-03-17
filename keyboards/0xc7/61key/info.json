@@ -1,7 +1,15 @@
 {
     "keyboard_name": "61Key",
+    "manufacturer": "0xC7",
     "url": "",
     "maintainer": "RealEmanGaming",
+    "usb": {
+        "vid": "0xE117",
+        "pid": "0x6161",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_ansi"
     },

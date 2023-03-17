@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "2Key2CrawlPad",
+    "keyboard_name": "2Key2Crawl",
+    "manufacturer": "WoodKeys.click",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6090",
+        "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1", "resolution": 1}
+        ]
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

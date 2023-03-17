@@ -1,9 +1,20 @@
 {
     "keyboard_name": "Cupar19 Giant Macro Pad",
+    "manufacturer": "Cutie Club",
     "url": "",
     "maintainer": "cutie-club",
+    "usb": {
+        "vid": "0xFB9C",
+        "pid": "0x74B6",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_20x20"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_20x20": {
             "layout": [
                 {"label":"k00_00", "x":0, "y":0},
                 {"label":"k00_01", "x":1, "y":0},

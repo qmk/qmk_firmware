@@ -16,27 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID       0x4D65
-#define PRODUCT_ID      0x1200
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Merge
-#define PRODUCT         ISO Macro
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
 
 #define MATRIX_ROW_PINS { F4, F5, F6}
 #define MATRIX_COL_PINS { B4, B5, B6}
-#define UNUSED_PINS
-#define BACKLIGHT_PIN B7
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-
-#define ENCODERS_PAD_A { F0, D0 }
-#define ENCODERS_PAD_B { F1, D1 }
-#define ENCODER_RESOLUTION 4

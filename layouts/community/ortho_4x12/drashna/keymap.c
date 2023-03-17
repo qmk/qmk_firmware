@@ -16,18 +16,10 @@
 
 #include "drashna.h"
 
-#ifdef BACKLIGHT_ENABLE
+#define BACKLIT OSM(MOD_LSFT)
 enum planck_keycodes {
-    BACKLIT = NEW_SAFE_RANGE,
-    TH_LVL,
+    TH_LVL = USER_SAFE_RANGE,
 };
-
-#else
-#    define BACKLIT OSM(MOD_LSFT)
-enum planck_keycodes {
-    TH_LVL = NEW_SAFE_RANGE,
-};
-#endif
 
 #ifdef KEYBOARD_planck_ez
 #    define PLNK_1 BK_LWER
@@ -56,10 +48,10 @@ enum planck_keycodes {
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_ortho_4x12_wrapper( \
-    KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_DEL, \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     PRINT_SETUPS, \
     LALT_T(KC_TAB), K11, K12, K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29, RCTL_T(K2A), KC_ENT,  \
-    BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+    STORE_SETUPS, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
 
@@ -103,10 +95,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT_ortho_4x12_wrapper(
-    KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
-    VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
+    QK_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, QK_BOOT,
+    VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EE_CLR,
     TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
-    KEYLOCK, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
+    KEYLOCK, _______, _______, QK_RBT,  _______, KC_NUKE, _______, _______, AUTO_CTN,_______, _______, TG_MODS
   )
 
 };
@@ -130,18 +122,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-#ifdef BACKLIGHT_ENABLE
-        case BACKLIT:
-            if (record->event.pressed) {
-                register_code(KC_RSFT);
-#    ifdef BACKLIGHT_ENABLE
-                backlight_step();
-#    endif
-            } else {
-                unregister_code(KC_RSFT);
-            }
-            break;
-#endif
 #ifdef KEYBOARD_planck_ez
         case TH_LVL:
             if (record->event.pressed) {
@@ -201,17 +181,8 @@ led_config_t g_led_config = {
 // clange-format on
 #    endif
 
-// clang-format off
-void suspend_power_down_keymap(void) {
-    rgb_matrix_set_suspend_state(true);
-}
 
-void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_set_suspend_state(false);
-}
-// clang-format on
-
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
     uint8_t this_osm = get_oneshot_mods();
@@ -221,48 +192,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #        define THUMB_LED 42
 #    endif
 #    define RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(...) RGB_MATRIX_INDICATOR_SET_COLOR(__VA_ARGS__)
-#    if defined(RGBLIGHT_ENABLE)
-    if (!userspace_config.rgb_layer_change)
-#    else
-    if (userspace_config.rgb_layer_change)
-#    endif
-    {
-        switch (get_highest_layer(layer_state)) {
-            case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            default:
-                {
-                    switch (get_highest_layer(default_layer_state)) {
-                        case _DEFAULT_LAYER_1:
-                            rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                            break;
-                        case _DEFAULT_LAYER_2:
-                            rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                            break;
-                        case _DEFAULT_LAYER_3:
-                            rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                            break;
-                        case _DEFAULT_LAYER_4:
-                            rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                            break;
-                    }
-                    break;
-                }
-        }
-    }
 
     switch (get_highest_layer(default_layer_state)) {
         case _DEFAULT_LAYER_1:
@@ -296,24 +225,15 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if ((this_mod | this_osm) & MOD_MASK_ALT) {
         RGB_MATRIX_INDICATOR_SET_COLOR(38, 0x00, 0x00, 0xFF);
     }
+
+    return true;
 }
 
-void matrix_init_keymap(void) {
+void keyboard_post_init_keymap(void) {
 #    ifdef KEYBOARD_planck_light
     writePinLow(D6);
 #    endif
     // rgblight_mode(RGB_MATRIX_MULTISPLASH);
-}
-#else  // RGB_MATRIX_INIT
-
-void matrix_init_keymap(void) {
-#    if !defined(CONVERT_TO_PROTON_C) && !defined(KEYBOARD_planck)
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-#    endif
 }
 #endif  // RGB_MATRIX_INIT
 

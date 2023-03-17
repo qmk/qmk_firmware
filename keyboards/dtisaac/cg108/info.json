@@ -1,9 +1,21 @@
 {
     "keyboard_name": "CG108",
+    "manufacturer": "DTIsaac",
     "url": "",
     "maintainer": "daotakisaac",
-    "width": 22.5,
-    "height": 6.5,
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x4973",
+        "device_version": "0.0.2"
+    },
+    "indicators": {
+    	"caps_lock": "B6",
+    	"num_lock": "B5",
+    	"scroll_lock": "B7",
+    	"on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

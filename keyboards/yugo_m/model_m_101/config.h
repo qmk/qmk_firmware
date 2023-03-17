@@ -1,5 +1,6 @@
 /*
 Copyright 2020 Nidzo Tomic <tomicn8@hotmail.com>
+Copyright 2022 an_achronism <87213873+an-achronism@users.noreply.github.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,17 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x8E81  // Yugo-M
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IBM
-#define PRODUCT         Yugo-M (Model M replacement controller)
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -41,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B8, B7, B6, B5, B4, B3, A15, A14 }
 #define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4, A3 }
-#define UNUSED_PINS { A0, A1, A2, A10, A13, B9, C13, C14, C15 }
 
 
 
@@ -50,36 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost */
 #define MATRIX_HAS_GHOST
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed (5 is default) */
-#define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-// #define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-// #define LOCKING_RESYNC_ENABLE
-
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
 
 /*
  * Feature disable options
@@ -96,5 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+
+/* redefine available (emulated) EEPROM as 4 kB rather than the default 2 kB to let VIA use more of the on-chip Flash of the STM32F303 to store 4 layers (since 4 layers * 8 rows * 16 columns * 2 = 1024 bytes but the default max available is 1023 bytes due to ATMEGA32U4 etc. only having 1 kB of EEPROM) */
+#define WEAR_LEVELING_BACKING_SIZE 4096
+#define WEAR_LEVELING_LOGICAL_SIZE 2048

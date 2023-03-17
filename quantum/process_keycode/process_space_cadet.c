@@ -27,53 +27,53 @@
 
 // Shift / Enter setup
 #ifndef SFTENT_KEY
-#    define SFTENT_KEY KC_ENT
+#    define SFTENT_KEY KC_ENTER
 #endif
 
 #ifdef DISABLE_SPACE_CADET_MODIFIER
 #    ifndef LSPO_MOD
-#        define LSPO_MOD KC_TRNS
+#        define LSPO_MOD KC_TRANSPARENT
 #    endif
 #    ifndef RSPC_MOD
-#        define RSPC_MOD KC_TRNS
+#        define RSPC_MOD KC_TRANSPARENT
 #    endif
 #else
 #    ifndef LSPO_MOD
-#        define LSPO_MOD KC_LSFT
+#        define LSPO_MOD KC_LEFT_SHIFT
 #    endif
 #    ifndef RSPC_MOD
-#        define RSPC_MOD KC_RSFT
+#        define RSPC_MOD KC_RIGHT_SHIFT
 #    endif
 #endif
 // **********************************************************
 
 // Shift / paren setup
 #ifndef LSPO_KEYS
-#    define LSPO_KEYS KC_LSFT, LSPO_MOD, LSPO_KEY
+#    define LSPO_KEYS KC_LEFT_SHIFT, LSPO_MOD, LSPO_KEY
 #endif
 #ifndef RSPC_KEYS
-#    define RSPC_KEYS KC_RSFT, RSPC_MOD, RSPC_KEY
+#    define RSPC_KEYS KC_RIGHT_SHIFT, RSPC_MOD, RSPC_KEY
 #endif
 
 // Control / paren setup
 #ifndef LCPO_KEYS
-#    define LCPO_KEYS KC_LCTL, KC_LSFT, KC_9
+#    define LCPO_KEYS KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_9
 #endif
 #ifndef RCPC_KEYS
-#    define RCPC_KEYS KC_RCTL, KC_RSFT, KC_0
+#    define RCPC_KEYS KC_RIGHT_CTRL, KC_RIGHT_SHIFT, KC_0
 #endif
 
 // Alt / paren setup
 #ifndef LAPO_KEYS
-#    define LAPO_KEYS KC_LALT, KC_LSFT, KC_9
+#    define LAPO_KEYS KC_LEFT_ALT, KC_LEFT_SHIFT, KC_9
 #endif
 #ifndef RAPC_KEYS
-#    define RAPC_KEYS KC_RALT, KC_RSFT, KC_0
+#    define RAPC_KEYS KC_RIGHT_ALT, KC_RIGHT_SHIFT, KC_0
 #endif
 
 // Shift / Enter setup
 #ifndef SFTENT_KEYS
-#    define SFTENT_KEYS KC_RSFT, KC_TRNS, SFTENT_KEY
+#    define SFTENT_KEYS KC_RIGHT_SHIFT, KC_TRANSPARENT, SFTENT_KEY
 #endif
 
 static uint8_t  sc_last  = 0;
@@ -89,21 +89,16 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 #ifdef SPACE_CADET_MODIFIER_CARRYOVER
         sc_mods = get_mods();
 #endif
-        if (IS_MOD(holdMod)) {
+        if (IS_MODIFIER_KEYCODE(holdMod)) {
             register_mods(MOD_BIT(holdMod));
         }
     } else {
-#ifdef TAPPING_TERM_PER_KEY
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(sc_keycode, record))
-#else
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM)
-#endif
-        {
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < GET_TAPPING_TERM(sc_keycode, record)) {
             if (holdMod != tapMod) {
-                if (IS_MOD(holdMod)) {
+                if (IS_MODIFIER_KEYCODE(holdMod)) {
                     unregister_mods(MOD_BIT(holdMod));
                 }
-                if (IS_MOD(tapMod)) {
+                if (IS_MODIFIER_KEYCODE(tapMod)) {
                     register_mods(MOD_BIT(tapMod));
                 }
             }
@@ -114,11 +109,11 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 #ifdef SPACE_CADET_MODIFIER_CARRYOVER
             clear_weak_mods();
 #endif
-            if (IS_MOD(tapMod)) {
+            if (IS_MODIFIER_KEYCODE(tapMod)) {
                 unregister_mods(MOD_BIT(tapMod));
             }
         } else {
-            if (IS_MOD(holdMod)) {
+            if (IS_MODIFIER_KEYCODE(holdMod)) {
                 unregister_mods(MOD_BIT(holdMod));
             }
         }
@@ -127,31 +122,31 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 
 bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_LSPO: {
+        case QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN: {
             perform_space_cadet(record, keycode, LSPO_KEYS);
             return false;
         }
-        case KC_RSPC: {
+        case QK_SPACE_CADET_RIGHT_SHIFT_PARENTHESIS_CLOSE: {
             perform_space_cadet(record, keycode, RSPC_KEYS);
             return false;
         }
-        case KC_LCPO: {
+        case QK_SPACE_CADET_LEFT_CTRL_PARENTHESIS_OPEN: {
             perform_space_cadet(record, keycode, LCPO_KEYS);
             return false;
         }
-        case KC_RCPC: {
+        case QK_SPACE_CADET_RIGHT_CTRL_PARENTHESIS_CLOSE: {
             perform_space_cadet(record, keycode, RCPC_KEYS);
             return false;
         }
-        case KC_LAPO: {
+        case QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN: {
             perform_space_cadet(record, keycode, LAPO_KEYS);
             return false;
         }
-        case KC_RAPC: {
+        case QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE: {
             perform_space_cadet(record, keycode, RAPC_KEYS);
             return false;
         }
-        case KC_SFTENT: {
+        case QK_SPACE_CADET_RIGHT_SHIFT_ENTER: {
             perform_space_cadet(record, keycode, SFTENT_KEYS);
             return false;
         }

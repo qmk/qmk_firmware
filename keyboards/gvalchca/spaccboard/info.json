@@ -1,7 +1,19 @@
 {
     "keyboard_name": "SpaccBoard",
+    "manufacturer": "Gvalchca",
     "url": "https://keebmeup.com",
     "maintainer": "Gvalchca",
+    "usb": {
+        "vid": "0x6776",
+        "pid": "0x5342",
+        "device_version": "0.0.1"
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "B1",
+        "esc_output": "E6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

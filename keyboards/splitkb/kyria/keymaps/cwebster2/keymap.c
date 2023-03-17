@@ -252,7 +252,7 @@ bool led_update_user(led_t led_state) {
 #endif
 
 #ifdef OLED_ENABLE
-void suspend_power_down_user() {
+void suspend_power_down_user(void) {
     oled_clear();
     oled_off();
 }
@@ -391,12 +391,13 @@ static void render_status(void) {
 
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_logo();
     }
+    return false;
 }
 #endif
 

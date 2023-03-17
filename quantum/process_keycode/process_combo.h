@@ -43,8 +43,8 @@ typedef struct {
 #ifdef EXTRA_SHORT_COMBOS
     uint8_t state;
 #else
-    bool disabled;
-    bool active;
+    bool     disabled;
+    bool     active;
 #    if defined(EXTRA_EXTRA_LONG_COMBOS)
     uint32_t state;
 #    elif defined(EXTRA_LONG_COMBOS)
@@ -69,7 +69,7 @@ typedef struct {
 #endif
 
 /* check if keycode is only modifiers */
-#define KEYCODE_IS_MOD(code) (IS_MOD(code) || (code >= QK_MODS && code <= QK_MODS_MAX && !(code & QK_BASIC_MAX)))
+#define KEYCODE_IS_MOD(code) (IS_MODIFIER_KEYCODE(code) || (IS_QK_MODS(code) && !QK_MODS_GET_BASIC_KEYCODE(code)))
 
 bool process_combo(uint16_t keycode, keyrecord_t *record);
 void combo_task(void);

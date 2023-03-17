@@ -1,15 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID       0x414B // 'AK' for Alpaca Keyboards
-#define PRODUCT_ID      0x0001 // sequentially numbered
-
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alpaca Keyboards
-#define PRODUCT         ErgoDox 76 "HotDox"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -22,9 +12,6 @@
 #define MOUSEKEY_WHEEL_DELAY    0
 
 #define TAPPING_TOGGLE  1
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 #define TAPPING_TERM    200
 #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
@@ -42,18 +29,11 @@
 )
 #endif
 
-#define BACKLIGHT_PIN B7
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
-
 #define LED_BRIGHTNESS_LO       15
 #define LED_BRIGHTNESS_HI       255
 
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
@@ -72,6 +52,5 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+
 //#define DEBUG_MATRIX_SCAN_RATE

@@ -58,11 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [3] = LAYOUT_split_3x6_3(
    //,-------------------------------------------------------------------------------.                    ,------------------------------------------------------------------.
-       KC_ESC,    KC_F1,       KC_F2,         KC_F3,          KC_F4,     KC_F5,                            KC_F6,       KC_F7,       KC_F8,       KC_F9,   KC_F10,  RESET,
+       KC_ESC,    KC_F1,       KC_F2,         KC_F3,          KC_F4,     KC_F5,                            KC_F6,       KC_F7,       KC_F8,       KC_F9,   KC_F10,  QK_BOOT,
    //|----------+------------+--------------+---------------+-----------+------------|                    |------------+------------+------------+--------+--------+---------|
        KC_LCTL,   A(KC_F12),   A(G(KC_LEFT)), A(G(KC_RIGHT)), S(KC_F6),  C(S(KC_D)),                       C(S(KC_R)),  G(KC_LBRC),  G(KC_RBRC),  KC_F11,  KC_F12, KC_MPLY,
    //|----------+------------+--------------+---------------+-----------+------------|                    |------------+------------+------------+--------+--------+---------|
-       G(KC_F2), A(G(KC_F)),  KC_MUTE,       KC__VOLDOWN,     KC__VOLUP, G(KC_GRV),                        C(G(KC_G)),  KC_TAB,      S(KC_TAB),   KC_BRID, KC_BRIU, KC_CAPS,
+       G(KC_F2), A(G(KC_F)),  KC_MUTE,       KC_VOLD,         KC_VOLU,   G(KC_GRV),                        C(G(KC_G)),  KC_TAB,      S(KC_TAB),   KC_BRID, KC_BRIU, KC_CAPS,
    //|----------+------------+--------------+---------------+-----------+------------+--------|  |--------+------------+------------+------------+--------+--------+---------|
                                                              _______,    KC_LGUI,     KC_SPC,     KC_SPC,   KC_RALT,     _______
                                                          //`----------------------------------'  `-------------------------------'
@@ -128,12 +128,13 @@ void oled_render_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
     } else {
         oled_render_logo();
     }
+    return false;
 }
 
 #endif // OLED_ENABLE

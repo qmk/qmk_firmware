@@ -16,9 +16,8 @@
 
 #pragma once
 
-#define PRODUCT_ID  0x8702
-#define DEVICE_VER  0x0001
-#define PRODUCT     Infinity 87 rev2
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 17
 
 /*
  * Keyboard Matrix Assignments
@@ -30,19 +29,27 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { A3, D5, C3, C2, B3, B4 }
-#define UNUSED_PINS
+#define MATRIX_ROW_PINS { D5, D2, D4, D3, D0, D1 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_BREATHING
-
-#define LED_NUM_LOCK_PIN B1
-#define LED_CAPS_LOCK_PIN B0
-#define LED_SCROLL_LOCK_PIN B2
-#define LED_PIN_ON_STATE 0
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#ifdef RGBLIGHT_ENABLE
+#define RGB_DI_PIN E2
+#define RGBLED_NUM 24
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
+#endif

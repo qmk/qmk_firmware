@@ -1,0 +1,25 @@
+{
+    "keyboard_name": "Ivy",
+    "manufacturer": "Maple Computing",
+    "url": "",
+    "maintainer": "That-Canadian",
+    "usb": {
+        "vid": "0x1337",
+        "pid": "0x6012",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0},
+                {"x":1, "y":0},
+                {"x":2, "y":0}
+            ]
+        }
+    }
+}

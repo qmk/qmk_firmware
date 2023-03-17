@@ -15,24 +15,28 @@
  */
 #include QMK_KEYBOARD_H
 
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [0] = LAYOUT_via(
-        KC_PSCR, MACRO00, MO(1),
-        KC_PGDN, KC_PGUP
+    [0] = LAYOUT(
+        TG(1),   C(KC_C), C(KC_V)
     ),
-    [1] = LAYOUT_via(
-        RESET,   MACRO01, _______,
-        _______, _______
+    [1] = LAYOUT(
+        TG(1)  , G(KC_C), G(KC_V)
     ),
-    [2] = LAYOUT_via(
-        _______, _______, _______,
-        _______, _______
+    [2] = LAYOUT(
+        _______, _______, _______
     ),
-    [3] = LAYOUT_via(
-        _______, _______, _______,
-        _______, _______
+    [3] = LAYOUT(
+        _______, _______, _______
     )
 };
+
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW(C(KC_Z), C(KC_Y)) },
+    [1] = { ENCODER_CCW_CW(G(KC_Z), G(S(KC_Z))) },
+    [2] = { ENCODER_CCW_CW(_______, _______) },
+    [3] = { ENCODER_CCW_CW(_______, _______) }
+};
+#endif

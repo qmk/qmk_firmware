@@ -16,22 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4131
-#define PRODUCT_ID      0x5141
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    XeaLouS
-#define PRODUCT         XeaL60
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
 
 // wiring of each half
 // Ascii art of pro micro. Pin names PD3, PD2, etc.
@@ -54,15 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B5, B4, E6, D7, D4 }
 #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4 }
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -78,7 +55,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+
 #define IGNORE_MOD_TAP_INTERRUPT
-#endif

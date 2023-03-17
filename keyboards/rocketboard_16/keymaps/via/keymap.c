@@ -34,7 +34,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
-        RGB_MOD,                   KC_NLCK,
+        RGB_MOD,                   KC_NUM,
         KC_P7,   KC_P8,   KC_P9,   KC_DEL,
         KC_P4,   KC_P5,   KC_P6,   KC_END,
         KC_P1,   KC_P2,   KC_P3,   KC_F13,
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_RMOD,                   KC_MUTE,
         KC_NO,    KC_NO,   KC_NO,   KC_EXAM,
         KC_NO,    KC_NO,   KC_NO,   KC_NO,
-        RESET,    RGB_TOG, RGB_SPI, RGB_SPD,
+        QK_BOOT,    RGB_TOG, RGB_SPI, RGB_SPD,
         KC_NO,    _______, KC_NO,   KC_NO
     )
 };
@@ -107,10 +107,10 @@ static void oled_write_ln_centered(const char * data, bool inverted)
     char line_buf[21];
 
     // Amount to offset string from left side
-    uint8_t offset = (21 - strlen(data))/2;
+    uint8_t offset = (22 - strlen(data))/2;
 
     // Formatted string centering... look, it works, don't ask how...
-    snprintf(line_buf, 21, "%*s%s%*s\0", offset, "", data, offset, ""); // Centers data within 21 character buffer with null termination
+    snprintf(line_buf, 21, "%*s%s%*s", offset, "", data, offset, ""); // Centers data within 21 character buffer
 
     oled_write_ln(line_buf, inverted);
 }
@@ -209,7 +209,7 @@ static void render_logo(uint8_t startX, uint8_t startY)
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
-void oled_task_user(void)
+bool oled_task_user(void)
 {
     // Playing the animation
     if((timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) && (splash_dur_counter < SPLASH_DUR))
@@ -348,6 +348,7 @@ void oled_task_user(void)
 
     }
 
+    return false;
 }
 
 // Process the extra/extended keycode functionality

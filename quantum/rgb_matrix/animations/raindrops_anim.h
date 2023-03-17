@@ -14,26 +14,25 @@ static void raindrops_set_color(int i, effect_params_t* params) {
         deltaH += 256;
     }
 
-    hsv.h   = rgb_matrix_config.hsv.h + (deltaH * (rand() & 0x03));
+    hsv.h   = rgb_matrix_config.hsv.h + (deltaH * (random8() & 0x03));
     RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 }
 
 bool RAINDROPS(effect_params_t* params) {
+    RGB_MATRIX_USE_LIMITS(led_min, led_max);
     if (!params->init) {
         // Change one LED every tick, make sure speed is not 0
         if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
-            raindrops_set_color(rand() % DRIVER_LED_TOTAL, params);
+            raindrops_set_color(random8_max(RGB_MATRIX_LED_COUNT), params);
         }
-        return false;
+    } else {
+        for (int i = led_min; i < led_max; i++) {
+            raindrops_set_color(i, params);
+        }
     }
-
-    RGB_MATRIX_USE_LIMITS(led_min, led_max);
-    for (int i = led_min; i < led_max; i++) {
-        raindrops_set_color(i, params);
-    }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_MATRIX_RAINDROPS
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // ENABLE_RGB_MATRIX_RAINDROPS

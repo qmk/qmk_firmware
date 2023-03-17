@@ -1,7 +1,15 @@
 {
   "keyboard_name": "CMD60",
+  "manufacturer": "cmd",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "halfkay",
   "layouts": {
     "LAYOUT": {
       "layout": [

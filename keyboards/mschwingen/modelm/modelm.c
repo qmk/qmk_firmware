@@ -27,7 +27,7 @@
 #    undef sendchar
 static int8_t capture_sendchar(uint8_t c) {
     //  sendchar(c);
-    uart_putchar(c);
+    uart_write(c);
     return 0;
 }
 #endif
@@ -75,12 +75,12 @@ void sleep_led_toggle(void) {}
 
 void sleep_led_disable(void) {
     suspend_active = false;
-    writePinHigh(QMK_LED);
+    writePinHigh(MODELM_STATUS_LED);
 }
 
 void sleep_led_enable(void) {
     suspend_active = true;
-    writePinLow(QMK_LED);
+    writePinLow(MODELM_STATUS_LED);
 #ifdef KEYBOARD_mschwingen_modelm_led_ws2812
     led[0] = black;
     led[1] = black;
@@ -101,8 +101,8 @@ void keyboard_pre_init_kb(void) {
     writePinLow(MODELM_LED_SCROLLOCK);
     writePinLow(MODELM_LED_NUMLOCK);
 #endif
-    setPinOutput(QMK_LED);
-    writePinHigh(QMK_LED);
+    setPinOutput(MODELM_STATUS_LED);
+    writePinHigh(MODELM_STATUS_LED);
     _delay_ms(50);
 #ifdef UART_DEBUG
     uart_init(115200);
@@ -163,8 +163,8 @@ void update_layer_leds(void) {
     static uint8_t old_layer         = 255;
     static uint8_t old_default_layer = 255;
 
-    layer         = biton32(layer_state);
-    default_layer = biton32(default_layer_state);
+    layer         = get_highest_layer(layer_state);
+    default_layer = get_highest_layer(default_layer_state);
 
     if (isRecording && timer_elapsed(blink_cycle_timer) > 150) {
         blink_state       = !blink_state;

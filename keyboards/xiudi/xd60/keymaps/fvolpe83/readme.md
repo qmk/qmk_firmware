@@ -27,7 +27,7 @@ via has been enabled
 
 To build the keymap, simply run:
 
-    make xd60/rev3:fvolpe83  # XD60 rev3
+    make xiudi/xd60/rev3:fvolpe83  # XD60 rev3
 	
 	
 ![Keyboard Layout (Physical appearence)](https://i.imgur.com/CSRPjbX.png "physical layout")

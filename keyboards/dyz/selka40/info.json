@@ -1,5 +1,6 @@
 {
     "keyboard_name": "selka40",
+    "manufacturer": "dyz",
     "url": "https://github.com/dayatz/mechanical-keyboards/tree/master/selka40",
     "maintainer": "dayatz",
     "diode_direction": "COL2ROW",
@@ -14,14 +15,36 @@
         "saturation_steps": 10,
         "brightness_steps": 10,
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "usb": {
         "vid": "0xD772",
         "pid": "0x0012",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D6", "pin_b": "D7"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "B1",
+        "num_lock": "B3",
+        "scroll_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

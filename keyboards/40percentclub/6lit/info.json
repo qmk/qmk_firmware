@@ -1,7 +1,19 @@
 {
-    "keyboard_name": "6lit",
+    "keyboard_name": "The 6lit Macropad",
+    "manufacturer": "di0ib",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4025",
+        "pid": "0x0F61",
+        "device_version": "1.0.0"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_2x3", "ortho_2x6"],
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [
