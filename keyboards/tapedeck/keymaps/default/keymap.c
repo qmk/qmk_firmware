@@ -83,16 +83,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	  return true;
 }
 
-#ifdef RGBLIGHT_ENABLE
-void keyboard_post_init_user(void) {
-	// led hue, sat, val, led
-	rgblight_sethsv_range(HSV_GREEN, 0, 2);
-	rgblight_sethsv_noeeprom(HSV_GREEN);
-}
-#endif
-
-
-
-
-
-
