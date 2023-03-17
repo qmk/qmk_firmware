@@ -1,4 +1,4 @@
-# KD83A_BFG_Edition 
+# Dark Project KD83A LTD 
 
 An 83 keys keyboard. Equipped with the WestBerry WB32FQ95 ARM Cortex-M3 microcontroller
 
