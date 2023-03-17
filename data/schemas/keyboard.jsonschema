@@ -96,6 +96,19 @@
                 "unknown"
             ]
         },
+        "apa102": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "default_brightness": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 31
+                }
+            }
+        },
         "audio": {
             "type": "object",
             "additionalProperties": false,

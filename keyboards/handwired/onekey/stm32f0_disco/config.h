@@ -22,5 +22,3 @@
 #define BACKLIGHT_PAL_MODE    0
 
 #define ADC_PIN A0
-
-#define RGB_CI_PIN B13
