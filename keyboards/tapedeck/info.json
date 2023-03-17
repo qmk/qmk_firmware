@@ -19,23 +19,13 @@
         ]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bluetooth": false,
         "bootmagic": true,
-        "command": false,
-        "console": true,
         "encoder": true,
         "extrakey": true,
-        "fauxclicky": false,
-        "midi": false,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true,
-        "sleep_led": false
     },
-    "keyboard_folder": "tapedeck",
-    "keymaps": {},
     "matrix_pins": {
         "cols": ["B5", "B4", "E6", "D7", "C6"],
         "rows": ["B2", "B3", "B1"]
