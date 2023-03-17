@@ -35,8 +35,12 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     && (keycode != KC_J)
     && (keycode != KC_K)
     && (keycode != KC_L)
+    && (keycode != KC_1)
+    && (keycode != MA_LMOUSE)
     && (keycode != OSM(MOD_LSFT))) {
         isAltTabStarted = false;
+        unregister_code16(KC_LALT);
+        return false;
     }
     switch (keycode) {
         case MA_LTHUMB:
@@ -56,6 +60,10 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 && (mod_state & MOD_BIT(KC_RCTL)) == MOD_BIT(KC_RCTL)
                 && (mod_state & MOD_BIT(KC_RALT)) == MOD_BIT(KC_RALT)) {
                     reset_keyboard();
+                } else if ((mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
+                    register_code16(KC_LCTL);
+                    tap_code16(KC_P);
+                    unregister_code16(KC_LCTL);
                 } else {
 //                    set_auto_mouse_enable(true);
                     layer_on(LA_MOUSE);
@@ -66,9 +74,19 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_CAPSLOCK:
             if (record->event.pressed) {
+                tap_code16(KC_SCROLL_LOCK);
                 layer_on(LA_CAPSLOCK);
             }
             return false;
+        case KC_1:
+            if (record->event.pressed) {
+                if ((mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
+                    register_code16(KC_LCTL);
+                    tap_code16(KC_O);
+                    unregister_code16(KC_LCTL);
+                }
+            }
+            return true;
         case KC_I:
             if (record->event.pressed) {
                 if (isAltTabStarted) {
@@ -233,6 +251,7 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_CAPSLOCK:
             if (record->event.pressed) {
+                tap_code16(KC_SCROLL_LOCK);
                 layer_off(LA_CAPSLOCK);
             }
             return false;
