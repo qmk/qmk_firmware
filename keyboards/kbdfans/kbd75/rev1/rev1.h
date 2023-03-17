@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "kbd75.h"
+#include "quantum.h"
 
 #define ___ KC_NO
 

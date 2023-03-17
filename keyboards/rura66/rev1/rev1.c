@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rura66.h"
+#include "rev1.h"
 
 bool is_mac_mode(void) {
     return keymap_config.swap_lalt_lgui == false;

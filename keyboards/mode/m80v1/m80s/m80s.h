@@ -13,7 +13,7 @@
 
 #pragma once
 
-#include "m80v1.h"
+#include "quantum.h"
 
 #define LAYOUT_eighty_m80s( \
     K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  K111,  K112,  K113,  K415,  K114, K115,  K116, \

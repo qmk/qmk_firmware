@@ -43,14 +43,14 @@ FULL 11x11 ROUND-ROBIN MATRIX for Reference
  */
 #define LAYOUT_all( \
     k17, k27, k37, k47, k57, k67, k76, k86, k96, ka6, kb6, k81, k91, ka1, kb1, \
-    k18,   k38, k48, k58, k68, k78, k87, k97, ka7, kb7, k82, K92,    ka2, kb2, \
+    k18,   k38, k48, k58, k68, k78, k87, k97, ka7, kb7, k82, k92,    ka2, kb2, \
     k19,   k39, k49, k59, k69, k79, k89, k98, ka8, kb8, k83, k93,    ka3, kb3, \
     k1a,      k3a, k4a, k5a, k6a, k7a, k8a, k9a, ka9, kb9, k84, k94, ka4, kb4, \
     k1b, k2b, k3b, k4b,      k6b,      k8b,      k9b, kab, k85, k95, ka5, kb5  \
 ) \
 { \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k81,   k91,   ka1,   kb1 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k82,   KC_NO, ka2,   kb2 }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k82,   k92,   ka2,   kb2 }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k83,   k93,   ka3,   kb3 }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k84,   k94,   ka4,   kb4 }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k85,   k95,   ka5,   kb5 }, \

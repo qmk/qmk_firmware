@@ -212,5 +212,5 @@
     { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, XXX }, \
     { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, XXX, k2D, k2E, XXX }, \
     { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, XXX }, \
-    { k40, k41, k42, K43, k44, XXX, K46, XXX, XXX, XXX, k4A, XXX, k4C, k4D, k4E, XXX }, \
+    { k40, k41, k42, K43, k44, XXX, K46, XXX, XXX, K49, k4A, XXX, k4C, k4D, k4E, XXX }, \
 }

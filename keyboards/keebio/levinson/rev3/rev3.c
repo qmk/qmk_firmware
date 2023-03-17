@@ -1,4 +1,4 @@
-#include "levinson.h"
+#include "rev3.h"
 
 void eeconfig_init_kb(void) {
 #ifdef BACKLIGHT_ENABLE

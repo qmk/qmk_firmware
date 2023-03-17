@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../pinky.h"
-
 #include "quantum.h"
 
 #define LAYOUT_split_4x7_4( \

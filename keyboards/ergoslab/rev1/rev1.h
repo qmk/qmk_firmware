@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ergoslab.h"
-
 #include "quantum.h"
 
 #define LAYOUT_ergoslab( \
