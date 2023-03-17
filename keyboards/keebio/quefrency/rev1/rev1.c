@@ -1,4 +1,4 @@
-#include "quefrency.h"
+#include "rev1.h"
 
 void eeconfig_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE

@@ -15,10 +15,7 @@
  */
 #pragma once
 
-#include "kyria.h"
-#ifdef KEYBOARD_splitkb_kyria_rev2_proton_c
-#    include "proton_c.h"
-#endif
+#include "quantum.h"
 
 /* This a shortcut to help you visually see your layout.
  *

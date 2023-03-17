@@ -8,6 +8,11 @@
         "pid": "0x27DB",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F5"],
+        "rows": ["F7"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B5",
         "breathing": true

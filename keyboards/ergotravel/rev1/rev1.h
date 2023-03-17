@@ -1,16 +1,6 @@
 #pragma once
 
-#include "ergotravel.h"
-
 #include "quantum.h"
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-#endif
-#endif
 
 #define XXX KC_NO
 

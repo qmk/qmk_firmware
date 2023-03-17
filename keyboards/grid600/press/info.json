@@ -8,6 +8,11 @@
         "pid": "0x7539",
         "device_version": "0.0.5"
     },
+    "matrix_pins": {
+        "cols": ["F1", "F4", "F5", "F6"],
+        "rows": ["F0"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

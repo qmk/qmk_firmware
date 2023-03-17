@@ -8,6 +8,11 @@
         "pid": "0x4544",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6", "F7", "C7", "C6", "B6", "B3", "D7", "D6", "D4", "D5", "D3", "D2", "D1", "D0"],
+        "rows": ["F1", "F0", "E6", "B5", "B4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "community_layouts": ["alice", "alice_split_bs"],

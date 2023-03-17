@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "qc60.h"
-
 #include "quantum.h"
 
 // readability
@@ -49,7 +47,7 @@
     {L20, L21, L22, L23, L24, L25, XXX, XXX}, \
     {L30, L31, L32, L33, L34, L35, L36, XXX}, \
     {L40, L41, L42, L43, L44, XXX, XXX, XXX}, \
-    {R07, XXX, R05, R04, R03, R02, R01, R00}, \
+    {R07, R06, R05, R04, R03, R02, R01, R00}, \
     {R17, R16, R15, R14, R13, R12, R11, R10}, \
     {R27, R26, R25, R24, R23, R22, R21, XXX}, \
     {R37, R36, R35, R34, R33, R32, R31, XXX}, \

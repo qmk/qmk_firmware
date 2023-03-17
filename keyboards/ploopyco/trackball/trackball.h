@@ -21,11 +21,6 @@
 #include "quantum.h"
 #include "analog.h"
 #include "opt_encoder.h"
-#if defined(KEYBOARD_ploopyco_trackball_rev1)
-#    include "rev1.h"
-#elif defined(KEYBOARD_ploopyco_trackball_rev1_005)
-#    include "rev1_005.h"
-#endif
 
 // Sensor defs
 #define OPT_ENC1 F0

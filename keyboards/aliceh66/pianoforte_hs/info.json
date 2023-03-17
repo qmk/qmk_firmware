@@ -8,6 +8,11 @@
         "pid": "0x7068",
         "vid": "0x6168"
     },
+    "matrix_pins": {
+        "cols": ["D6", "D7", "B4", "B5", "B6", "F6", "F5", "E6", "D4"],
+        "rows": ["D2", "D1", "D3", "D0", "D5", "B0", "F0", "F1", "F7", "F4", "C7", "C6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -17,20 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "naked48.h"
-
 #include "quantum.h"
 #ifdef RGBLIGHT_ENABLE
 //rgb led driver
 #include "ws2812.h"
-#endif
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

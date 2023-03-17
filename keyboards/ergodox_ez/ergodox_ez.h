@@ -25,12 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "i2c_master.h"
 
-#if defined(KEYBOARD_ergodox_ez_glow)
-#    include "glow.h"
-#elif defined(KEYBOARD_ergodox_ez_shine)
-#    include "shine.h"
-#endif
-
 // I2C aliases and register addresses (see "mcp23018.md")
 #define I2C_ADDR        0b0100000
 #define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )

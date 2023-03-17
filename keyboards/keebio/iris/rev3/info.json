@@ -4,6 +4,11 @@
         "pid": "0x3256",
         "device_version": "3.0.0"
     },
+    "matrix_pins": {
+        "cols": ["F1", "F4", "F5", "F6", "D4", "B4"],
+        "rows": ["D2", "D3", "D5", "D7", "D6"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "B5", "pin_b": "B7"}

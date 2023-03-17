@@ -1,14 +1,6 @@
 #pragma once
 
-#include "adkb96.h"
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
-#endif
+#include "quantum.h"
 
 // Keymap with right side flipped
 // (TRRS jack on both halves are to the right)

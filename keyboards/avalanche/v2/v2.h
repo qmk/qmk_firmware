@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "avalanche.h"
-
 #include "quantum.h"
 
 #define L__ KC_NO

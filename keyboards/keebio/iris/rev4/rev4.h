@@ -1,15 +1,6 @@
 #pragma once
 
-#include "iris.h"
 #include "quantum.h"
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-#endif
-#endif
 
 #define LAYOUT( \
     LA1, LA2, LA3, LA4, LA5, LA6,           RA6, RA5, RA4, RA3, RA2, RA1, \

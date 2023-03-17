@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 

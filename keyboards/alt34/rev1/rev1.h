@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "alt34.h"
 #include "quantum.h"
 
 #define ____ KC_NO

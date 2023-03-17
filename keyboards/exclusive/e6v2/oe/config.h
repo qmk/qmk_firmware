@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* QMK E6-V2 PCB default pin-out */
-#define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
-#define MATRIX_COL_PINS { C7, C6, B5, B4, D7, D6, D4, F6, F7, F5, F4, F1, F0, B0, B1 }
-
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
@@ -39,5 +34,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 12
 #endif
-
-#define DIODE_DIRECTION COL2ROW

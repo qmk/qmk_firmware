@@ -8,6 +8,11 @@
         "pid": "0x0003",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D3", "D0", "D2", "B6", "B5", "B4", "B3", "D6", "D5", "B0", "B1"],
+        "rows": ["D4", "D1", "C2", "C4", "C7", "B2"]
+    },
+    "diode_direction": "COL2ROW",
     "qmk_lufa_bootloader": {
         "esc_input": "D4",
         "esc_output": "D3"

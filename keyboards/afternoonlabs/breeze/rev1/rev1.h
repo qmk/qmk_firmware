@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "breeze.h"
-
 #include "quantum.h"
 
 #define LAYOUT( \
