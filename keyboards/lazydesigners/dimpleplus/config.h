@@ -17,20 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
 
 #define MATRIX_ROW_PINS { B3, F0, E6, F4, F5 }
 #define MATRIX_COL_PINS { F1, D5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 
 /* RBG underglow */
 #define RGB_DI_PIN D2

@@ -8,6 +8,18 @@
         "pid": "0x1707",
         "device_version": "2.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B4"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "B9",
+        "num_lock": "B8"
+    },
+    "bootmagic": {
+        "matrix": [5, 4]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

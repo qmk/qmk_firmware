@@ -8,6 +8,18 @@
         "pid": "0x0004",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B0", "resolution": 2}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "F7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker", "65_iso_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -7,6 +7,14 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B4"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 10,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

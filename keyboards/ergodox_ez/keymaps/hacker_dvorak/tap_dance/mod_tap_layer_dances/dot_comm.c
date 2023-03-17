@@ -4,7 +4,7 @@ static tap dot_comm_state = {
     .state           = 0
 };
 
-void dot_comm_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dot_comm_finished(tap_dance_state_t *state, void *user_data) {
     dot_comm_state.state = current_dance(state);
     switch (dot_comm_state.state) {
         case SINGLE_TAP:
@@ -22,7 +22,7 @@ void dot_comm_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dot_comm_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dot_comm_reset(tap_dance_state_t *state, void *user_data) {
     switch (dot_comm_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_DOT);

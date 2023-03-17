@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define RGB_DI_PIN GP19
 #define RGB_MATRIX_LED_COUNT 61

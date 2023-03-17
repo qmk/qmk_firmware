@@ -8,6 +8,10 @@
         "pid": "0x5336",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "community_layouts": ["68_ansi"],
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [

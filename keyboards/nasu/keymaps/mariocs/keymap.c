@@ -25,7 +25,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LGUI] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, 1),
 };
 
