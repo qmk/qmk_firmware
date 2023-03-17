@@ -387,6 +387,7 @@ ifneq ("$(KEYMAP_H)","")
 endif
 
 OPT_DEFS += -DKEYMAP_C=\"$(KEYMAP_C)\"
+OPT_DEFS += -save-temps=obj
 
 # If a keymap or userspace places their keymap array in another file instead, allow for it to be included
 # !!NOTE!! -- For this to work, the source file cannot be part of $(SRC), so users should not add it via `SRC += <file>`
