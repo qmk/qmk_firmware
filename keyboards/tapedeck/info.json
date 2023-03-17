@@ -30,24 +30,6 @@
         "cols": ["B5", "B4", "E6", "D7", "C6"],
         "rows": ["B2", "B3", "B1"]
     },
-    "matrix_size": {
-        "cols": 5,
-        "rows": 3
-    },
-    "mouse_key": {
-        "enabled": false
-    },
-    "parse_errors": [],
-    "parse_warnings": ["DIODE_DIRECTION in config.h is overwriting diode_direction in info.json"],
-    "platform": "unknown",
-    "processor": "atmega32u4",
-    "processor_type": "avr",
-    "protocol": "LUFA",
-    "qmk_lufa_bootloader": {
-        "esc_input": "B5",
-        "esc_output": "B2",
-        "led": "B0"
-    },
     "rgblight": {
         "hue_steps": 10,
         "led_count": 3,
