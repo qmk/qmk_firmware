@@ -11,12 +11,12 @@ Another Miryoku inspired 36-key non-split keyboard
 Make example for this keyboard (after setting up your build environment):
 
     make pteropus:default
-    make pteropus:manna-harbour_miryoku         // for Miryoku layout
+    make pteropus:manna-harbour_miryoku
 
 Flashing example for this keyboard:
 
     make pteropus:default:flash
-    make pteropus:manna-harbour_miryoku:flash     // for Miryoku layout
+    make pteropus:manna-harbour_miryoku:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
