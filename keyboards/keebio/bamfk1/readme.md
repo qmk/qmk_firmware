@@ -1,6 +1,6 @@
 # BAMFK-1
 
-![bamfk1](https://cdn.shopify.com/s/files/1/1851/5125/products/bamfk-1-back_1100x.png?v=1635304218)
+![BAMFK-1](https://i.imgur.com/DF9dW7dh.png)
 
 PCB for the Big Switch with support for horizontal rotary encoders.
 
@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the Big Switch and plug in the keyboard. This will also clear EEPROM, so it is a good first step if the keyboard is misbehaving.
+* **Physical reset button**: Briefly press the button on the back of the PCB. It is next to the LED labeled `DR12`.
+* **Keycode in layout**: There is no key mapped to `QK_BOOT` in the pre-created keymaps, but you may assign this key in any keymaps you create.

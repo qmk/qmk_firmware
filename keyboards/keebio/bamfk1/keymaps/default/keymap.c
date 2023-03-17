@@ -6,34 +6,24 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _MAIN,
-    _FN1,
-    _FN2,
-    _FN3
+    _FN1
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT(
         KC_A,               // Big Switch
-        MO(1),   KC_MUTE,   // Encoder presses
-        KC_DOWN, KC_UP,     // Left encoder turns
-        KC_VOLD, KC_VOLU     // Right encoder turns
+        MO(1),   KC_MUTE    // Encoder presses
     ),
     [_FN1] = LAYOUT(
         KC_B,               // Big Switch
-        _______, KC_C,      // Encoder presses
-        KC_PGDN, KC_PGUP,   // Left encoder turns
-        KC_VOLU, KC_VOLD    // Right encoder turns
-    ),
-    [_FN2] = LAYOUT(
-        _______,            // Big Switch
-        _______, _______,   // Encoder presses
-        _______, _______,   // Left encoder turns
-        _______, _______    // Right encoder turns
-    ),
-    [_FN3] = LAYOUT(
-        _______,            // Big Switch
-        _______, _______,   // Encoder presses
-        _______, _______,   // Left encoder turns
-        _______, _______    // Right encoder turns
+        _______, KC_C       // Encoder presses
     )
 };
+
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_MAIN] = { ENCODER_CCW_CW(KC_DOWN, KC_UP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_FN1]  = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP), ENCODER_CCW_CW(KC_VOLU, KC_VOLD) }
+};
+#endif
