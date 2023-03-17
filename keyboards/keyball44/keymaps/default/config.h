@@ -17,3 +17,10 @@
 #pragma once
 
 // place overrides here
+
+#ifdef RGBLIGHT_ENABLE
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#endif
+//#define RGBLIGHT_LAYERS
+#define TAP_CODE_DELAY 5
+//#define DYNAMIC_KEYMAP_LAYER_COUNT 5
