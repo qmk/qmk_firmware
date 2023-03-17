@@ -15,10 +15,6 @@
     "rows": 5
   },  
   "diode_direction": "COL2ROW",
-  "bootmagic": {
-    "enabled": true,
-    "matrix": [0, 0]
-  },
   "features": {
     "audio": false,
     "backlight": false,
