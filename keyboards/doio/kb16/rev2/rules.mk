@@ -1,11 +1,7 @@
 SRC += ./lib/layer_status/layer_status.c
 SRC += ./lib/logo.c
 
-# MCU name
-MCU = STM32F103
-
-# Bootloader selection
-BOOTLOADER = stm32duino
+# Configure for 128K flash
 MCU_LDSCRIPT = STM32F103xB
 
 # Build Options

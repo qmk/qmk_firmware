@@ -1,8 +1,4 @@
-# MCU name
-MCU = STM32F103
-
-# Bootloader selection
-BOOTLOADER = stm32duino
+# Configure for 128K flash
 MCU_LDSCRIPT = STM32F103xB
 
 # Extra include
