@@ -18,3 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* SLIDER */
 #define POT_ENABLE
 
+/* RGB Default */
+# define RGB_MATRIX_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
+

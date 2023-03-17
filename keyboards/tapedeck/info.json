@@ -3,6 +3,7 @@
     "keyboard_name": "Tapedeck",
     "maintainer": "Gowla",
     "development_board": "promicro",
+	"bootloader": "qmk-dfu",
     "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [

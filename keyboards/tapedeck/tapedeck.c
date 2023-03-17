@@ -15,6 +15,15 @@
  */
 
 #include "quantum.h"
+
+#ifdef POT_ENABLE
+  #include "analog.h"
+#endif
+
+int16_t pot_val = 0;
+int16_t prev_val = 0;
+int16_t val = 0;
+
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
@@ -33,4 +42,44 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         }
     }
     return true;
+}
+
+void matrix_init_kb(void) {
+#ifdef POT_ENABLE
+    analogReference(ADC_REF_POWER);
+#endif
+}
+
+uint8_t divisor = 0;
+
+long map(long x, long in_min, long in_max, long out_min, long out_max)
+{
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void slider(void) {
+    if (divisor++) { // only run the slider function 1/256 times it's called
+        return;
+    }
+
+    pot_val = analogReadPin(D4);
+	val = map(pot_val, 0, 1023, 1, 50);
+
+	if (( val > (prev_val + 1)) && val != prev_val){
+		int i;
+		for (i = prev_val; i < val; i++ )
+				{tap_code(KC_VOLU);}
+	}
+	if ((val  < (prev_val - 1)) && val != prev_val){
+		int i;
+		for (i = val; i < prev_val; i++ )
+				{tap_code(KC_VOLD);}
+	}
+	prev_val = val;
+}
+
+void matrix_scan_kb(void) {
+#ifdef POT_ENABLE
+	slider();
+#endif
 }
