@@ -21,7 +21,6 @@
     "command": false,
     "console": false,
     "deferred_exec": true,
-    "magic": false,
     "nkro": false,
     "rgblight": false
   },
