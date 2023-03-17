@@ -23,8 +23,7 @@
     "deferred_exec": true,
     "magic": false,
     "nkro": false,
-    "rgblight": false,
-    "unicode": false
+    "rgblight": false
   },
   "layouts": {
     "LAYOUT": {
