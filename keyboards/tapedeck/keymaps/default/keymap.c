@@ -1,4 +1,4 @@
-/* Copyright 2021 Gowla
+/* Copyright 2023 Gowla
   * 
   * This program is free software: you can redistribute it and/or modify 
   * it under the terms of the GNU General Public License as published by 
