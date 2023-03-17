@@ -5,7 +5,6 @@
     "development_board": "promicro",
     "diode_direction": "ROW2COL",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {
                 "pin_a": "F4",
