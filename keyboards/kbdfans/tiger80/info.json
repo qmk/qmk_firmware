@@ -31,7 +31,19 @@
         "led_count": 20,
         "pin": "B3",
         "saturation_steps": 10,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "url": "",
     "usb": {
