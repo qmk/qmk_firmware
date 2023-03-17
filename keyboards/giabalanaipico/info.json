@@ -27,8 +27,19 @@
         "pid": "0xF4C0",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": []
+    },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "soft_serial_pin": "GP0",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "GP2", "pin_b": "GP3"}
+                ]
+            }
+        }
     },
     "layouts": {
         "LAYOUT": {

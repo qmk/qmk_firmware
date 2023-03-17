@@ -500,7 +500,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(27, RGB_DARKSPRINGGREEN);  //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(28, RGB_DARKGREEN);        //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(29, RGB_DARKCHARTREUSE);   //  MIDI Oct // giabalanai and giabalanaipico have different layouts on encoder LED location.
-                rgb_matrix_set_color(35, RGB_DARKGOLD);          //  VERSION  // giabalanai and giabalanaipico have different layouts on encoder LED location.
+                rgb_matrix_set_color(35, RGB_DARKGOLD);         //  VERSION  // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(36, RGB_DARKPINK);         //  EE_CLR   // giabalanai and giabalanaipico have different layouts on encoder LED location.
                 rgb_matrix_set_color(41, RGB_DARKYELLOW);       //  MI_VELD
                 rgb_matrix_set_color(40, RGB_DARKGREEN);        //  MI_VELU

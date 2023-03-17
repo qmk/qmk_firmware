@@ -26,8 +26,6 @@
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SOFT_SERIAL_PIN GP0
-// #define SERIAL_USART_TX_PIN GP0
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/
 //Speeds:
@@ -163,31 +161,11 @@
 #   define DYNAMIC_KEYMAP_LAYER_COUNT 12
 #endif  //  VIA_ENABLE
 
+#define TAP_CODE_DELAY 10
+
 /*
  * Encoder options
  */
 #ifdef ENCODER_ENABLE
-#   define ENCODERS_PAD_A { }
-#   define ENCODERS_PAD_B { }
-#   define ENCODER_RESOLUTIONS { }
-#   define ENCODERS_PAD_A_RIGHT { GP2 }
-#   define ENCODERS_PAD_B_RIGHT { GP3 }
 #   define ENCODER_RESOLUTIONS_RIGHT { 4 }
-#   define TAP_CODE_DELAY 10
 #endif  // ENCODER_ENABLE
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
