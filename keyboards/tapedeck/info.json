@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Tapedeck",
+    "manufacturer": "Gowla",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "1.0.0"
+    },
+}
