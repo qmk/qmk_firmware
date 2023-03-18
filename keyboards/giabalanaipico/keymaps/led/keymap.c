@@ -61,7 +61,7 @@ extern volatile bool isLeftHand;
 #define _________________FUNC__L___________________ KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC__R___________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
-// Used to set octave to MI_OC0
+// Used to set octave to QK_MIDI_OCTAVE_0
 extern midi_config_t midi_config;
 uint8_t midi_bass_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 
@@ -430,8 +430,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 
 void my_init(void){
-    //  Set octave to MI_OC0
-    midi_config.octave = MI_OC0 - MIDI_OCTAVE_MIN;
+    //  Set octave to QK_MIDI_OCTAVE_0
+    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
 }
@@ -440,7 +440,7 @@ void eeconfig_init_user(void) {
     midi_init();
     my_init();
 
-    // Used to set octave to MI_OC0
+    // Used to set octave to QK_MIDI_OCTAVE_0
     midi_bass_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 
     // UNISON flags
