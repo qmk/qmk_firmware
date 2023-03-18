@@ -8,6 +8,16 @@
         "pid": "0x4152",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B12", "pin_b": "B13", "resolution": 2},
+            {"pin_a": "B14", "pin_b": "B15", "resolution": 2},
+            {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
+        ]
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

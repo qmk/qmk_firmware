@@ -2,7 +2,6 @@
   "manufacturer": "CapsUnlocked",
   "maintainer": "rys / maz0r",
   "bootloader": "atmel-dfu",
-  "debounce": 5,
   "diode_direction": "COL2ROW",
   "features": {
     "audio": false,

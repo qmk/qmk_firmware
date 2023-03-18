@@ -16,24 +16,13 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 7
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D7, E6, B4, B5, D4, C6, D2, D3 }
 #define MATRIX_COL_PINS { F5, F6, B1, B3, B2, B6, F7 }
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO

@@ -45,7 +45,7 @@ enum tapdances{
 
 #define KC_SCCL  TD(TD_SCCL)
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SCCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
 };
 

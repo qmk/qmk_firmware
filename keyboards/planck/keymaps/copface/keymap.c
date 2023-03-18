@@ -53,7 +53,7 @@ enum tapdancers {
 };
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [T_BR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
   [T_PA] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_RPRN),
   [T_CU] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
@@ -157,47 +157,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-LEADER_EXTERNS();
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        // Screenshot
-        SEQ_ONE_KEY(KC_S) {
-            tap_code16(G(C(S(KC_4))));
-        }
-        // Record Screen
-        SEQ_TWO_KEYS(KC_S, KC_S) {
-            tap_code16(S(G(KC_5)));
-        }
-        // 1Pass browser
-        SEQ_ONE_KEY(KC_A) {
-            tap_code16(G(A(KC_BSLS)));
-        }
-        // 1Pass mini
-        SEQ_TWO_KEYS(KC_A, KC_A) {
-            tap_code16(G(KC_BSLS));
-        }
-        // Comment out
-        SEQ_ONE_KEY(KC_F) {
-            tap_code16(G(KC_SLSH));
-        }
-        // Spotlight
-        SEQ_ONE_KEY(KC_SPC) {
-            tap_code16(G(KC_SPC));
-        }
-        // Auto format
-        SEQ_ONE_KEY(KC_ENT) {
-            tap_code16(S(G(A(KC_F))));
-        }
-        // Focus file tree
-        SEQ_ONE_KEY(KC_TAB) {
-            tap_code16(G(KC_1));
-        }
-        // Caps-lock
-        SEQ_TWO_KEYS(KC_TAB, KC_TAB) {
-            tap_code16(KC_CAPS);
-        }
+void leader_end_user(void) {
+    // Screenshot
+    if (leader_sequence_one_key(KC_S)) {
+        tap_code16(G(C(S(KC_4))));
+    }
+    // Record Screen
+    if (leader_sequence_two_keys(KC_S, KC_S)) {
+        tap_code16(S(G(KC_5)));
+    }
+    // 1Pass browser
+    if (leader_sequence_one_key(KC_A)) {
+        tap_code16(G(A(KC_BSLS)));
+    }
+    // 1Pass mini
+    if (leader_sequence_two_keys(KC_A, KC_A)) {
+        tap_code16(G(KC_BSLS));
+    }
+    // Comment out
+    if (leader_sequence_one_key(KC_F)) {
+        tap_code16(G(KC_SLSH));
+    }
+    // Spotlight
+    if (leader_sequence_one_key(KC_SPC)) {
+        tap_code16(G(KC_SPC));
+    }
+    // Auto format
+    if (leader_sequence_one_key(KC_ENT)) {
+        tap_code16(S(G(A(KC_F))));
+    }
+    // Focus file tree
+    if (leader_sequence_one_key(KC_TAB)) {
+        tap_code16(G(KC_1));
+    }
+    // Caps-lock
+    if (leader_sequence_two_keys(KC_TAB, KC_TAB)) {
+        tap_code16(KC_CAPS);
     }
 }
