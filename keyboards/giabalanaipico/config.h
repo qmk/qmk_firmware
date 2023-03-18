@@ -23,19 +23,6 @@
 /* test matrix scan speed */
 // #define DEBUG_MATRIX_SCAN_RATE
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SELECT_SOFT_SERIAL_SPEED 1
-/*Sets the protocol speed when using serial communication*/
-//Speeds:
-//0: about 189kbps (Experimental only)
-//1: about 137kbps (default)
-//2: about 75kbps
-//3: about 39kbps
-//4: about 26kbps
-//5: about 20kbps
-
 // Right side has to be the master since 1, LED data is output from right side, and 2, Audio pin is prepared on right side as a reserve.
 #define MASTER_RIGHT
 
