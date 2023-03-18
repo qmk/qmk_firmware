@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------'                                ------------------------------------------------'
    */
 
-  [BASE] = LAYOUT_fungo_split_num(
+  [BASE] = LAYOUT(
     KC_GRV,     KC_1,     KC_2,    KC_3,    KC_4,     KC_5,    KC_ESC,                                                              KC_BSPC,  KC_6,  KC_7,   KC_8,    KC_9,    KC_0,    KC_NO,
     KC_TAB,     KC_Q,     KC_W,    KC_E,    KC_R,     KC_T,    KC_MINS,                                                             KC_EQL,   KC_Y,  KC_U,   KC_I,    KC_O,    KC_P,    KC_TAB,
     KC_NO,      KC_A,     SFCT_S,  CT_D,    SF_F,     KC_G,    KC_LBRC,                                                             KC_RBRC,  KC_H,  MTC_J,  MTC_K,   KC_L,    KC_SCLN, KC_NO,
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------'                                ------------------------------------------------'
    */
 
-  [F3LAY] = LAYOUT_fungo_split_num(
+  [F3LAY] = LAYOUT(
     KC_F11,     KC_F1,      KC_F2,       KC_F3,        KC_F4,        KC_F5,   KC_ESC,                                                              KC_BSPC, KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F12,
     KC_TAB,     KC_1,       KC_2,        KC_3,         KC_4,         KC_5,    KC_CAPS,                                                             KC_CAPS, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    KC_TAB,
     KC_NO,      KC_NO,      SFCTLNO,     KC_LCTL,      KC_LSFT,      KC_PAUS, KC_PSCR,                                                             KC_BSPC, KC_DEL,  KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_NO,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [F4LAY] = LAYOUT_fungo_split_num(
+  [F4LAY] = LAYOUT(
     KC_F11,     KC_F1,      KC_F2,       KC_F3,        KC_F4,        KC_F5,   KC_ESC,                                                              KC_BSPC, KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F12,
     KC_TAB,     KC_NO,      KC_NO,       KC_NO,        KC_NO,        KC_NO,   KC_CAPS,                                                             KC_CAPS, KC_DEL,  KC_HOME, KC_UP,   KC_END,   KC_NO,   KC_TAB,
     KC_NO,      KC_NO,      SFCTLNO,     KC_LCTL,      KC_LSFT,      KC_PAUS, KC_PSCR,                                                             KC_BSPC, KC_INS,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_NO,   KC_NO,
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   
   /*
-    [TEST] = LAYOUT_fungo_split_num(
+    [TEST] = LAYOUT(
     KC_GRV,     KC_1,   KC_2,    KC_3,    KC_4,     KC_5,    KC_ESC,                                                KC_BSPC,  KC_6,    KC_7,    KC_8,      KC_9,   KC_0,    KC_NO,
     KC_TAB,     KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,    KC_MINS,                                               KC_EQL,   KC_Y,    KC_U,    KC_I,      KC_O,   KC_P,    KC_TAB,
     KC_LSFT,    KC_A,   KC_S,    KC_D,    KC_F,     KC_G,    KC_LBRC,                                               KC_RBRC,  KC_H,    KC_J,    KC_K,      KC_L,   KC_SCLN, KC_RSFT,
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   //--------------------------------------------------------NEW-----------------------------------------------
   //SAM1을 기반으로 새로운 모드
-    [SAM1] = LAYOUT_fungo_split_num(
+    [SAM1] = LAYOUT(
     KC_NO,      KC_1,     KC_2,    KC_3,    KC_4,     KC_5,    KC_ESC,                                            KC_ESC,   KC_6,  KC_7,   KC_8,    KC_9,    KC_0,     KC_NO,
     KC_NO,      KC_Q,     KC_W,    KC_E,    KC_R,     KC_T,    KC_BSPC,                                           KC_BSPC,  KC_Y,  KC_U,   KC_I,    KC_O,    KC_P,     KC_NO,
     KC_TAB,     KC_A,     SFCT_S,  CT_D,    SF_F,     KC_G,    KC_CAPS,                                           KC_CAPS,  KC_H,  MTC_J,  MTC_K,   KC_L,    KC_SCLN,  KC_TAB,
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,      TT(SAM1), KC_NO,   KC_LALT,    KC_SPC,         TT(SAM2),  KC_ENT,     MO(SAM4), KC_NO, KC_ENT,    TT(SAM3),     KC_SPC,    KC_RALT, KC_NO,   TT(SAM1), KC_NO
   ),
   
-    [SAM3] = LAYOUT_fungo_split_num(
+    [SAM3] = LAYOUT(
     KC_NO,      KC_NO,      KC_NO,       KC_NO,        KC_NO,        KC_NO,   KC_ESC,                                       KC_ESC,  KC_NO,   KC_NO,     KC_NO,   KC_NO,    KC_NO,    KC_NO,
     KC_NO,      KC_1,       KC_2,        KC_3,         KC_4,         KC_5,    KC_BSPC,                                      KC_BSPC, KC_1,    KC_2,      KC_3,    KC_4,     KC_5,     KC_NO,
     KC_TAB,     KC_6,       KC_7,        KC_8,         MTLC_9,       KC_0,    KC_CAPS,                                      KC_CAPS, KC_6,    MTC_7,     MTC_8,   KC_9,     KC_0,     KC_TAB,
@@ -136,14 +136,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,      TT(SAM1),   KC_NO,       KC_LALT,             KC_SPC,         TT(SAM2), KC_ENT,    MO(SAM4),  KC_NO, KC_ENT,   TT(SAM3),    KC_SPC,         KC_RALT, KC_NO,    TT(SAM1), KC_NO
   ),
   
-    [SAM2] = LAYOUT_fungo_split_num(
+    [SAM2] = LAYOUT(
     KC_NO,      KC_NO,      KC_NO,       KC_NO,        KC_NO,        KC_NO,   KC_ESC,                                       KC_ESC,  KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,
     KC_NO,      KC_F1,      KC_F2,       KC_F3,        KC_F4,        KC_F5,   KC_F11,                                       KC_BSPC, KC_DEL,  KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_NO,
     KC_TAB,     KC_F6,      MTC_F7,      MTC_F8,       MTC_F9,       KC_F10,  KC_F12,                                       KC_CAPS, KC_INS,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, KC_TAB,
     KC_LCTL,    LCTL(KC_Z), LCTL(KC_X),  LCTL(KC_C),   LCTL(KC_V),   KC_NO,   KC_NO,    TT(SAM3),  KC_NO,  KC_NO, TT(SAM2), KC_NO,   KC_BSLS, KC_QUOT, KC_LBRC, KC_RBRC,  KC_GRV,  KC_RCTL,
     KC_NO,      TT(SAM1),   KC_NO,       KC_LALT,             KC_SPC,         TT(SAM2), KC_ENT,    MO(SAM4),  KC_NO, KC_ENT,   TT(SAM3),    KC_SPC,       KC_RALT, KC_NO,   TT(SAM1), KC_NO
   ),  
-    [SAM4] = LAYOUT_fungo_split_num(
+    [SAM4] = LAYOUT(
     KC_NO,      KC_NO,      KC_NO,       KC_NO,        KC_NO,        KC_NO,   KC_ESC,                                       KC_ESC,   KC_NO,     KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,
     KC_NO,      KC_F1,      KC_F2,       KC_F3,        KC_F4,        KC_F5,   KC_F11,                                       KC_BSPC,  KC_ACL0,   KC_BTN1, KC_MS_U, KC_BTN2,  KC_NO,    KC_NO,
     KC_TAB,     KC_F6,      MTC_F7,      MTC_F8,       MTC_F9,       KC_F10,  KC_F12,                                       KC_CAPS,  KC_ACL1,   KC_MS_L, KC_MS_D, KC_MS_R,  KC_NO,    KC_TAB,

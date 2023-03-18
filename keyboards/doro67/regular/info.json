@@ -7,6 +7,13 @@
         "pid": "0x5245",
         "device_version": "0.0.1"
     },
+    "indicators": {
+      "caps_lock": "E6",
+      "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
       "LAYOUT_65_ansi_blocker": {
         "layout": [

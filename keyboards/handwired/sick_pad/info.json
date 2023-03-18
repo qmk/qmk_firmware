@@ -8,6 +8,10 @@
         "pid": "0xDA20",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "community_layouts": ["numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

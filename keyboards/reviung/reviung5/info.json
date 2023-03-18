@@ -8,8 +8,18 @@
         "pid": "0x4F0D",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layout_aliases": {
+        "LAYOUT_reviung5": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_reviung5": {
+        "LAYOUT": {
             "layout": [
                 {"label": "k00", "x": 0, "y": 0},
                 {"label": "k01", "x": 1, "y": 0.25},

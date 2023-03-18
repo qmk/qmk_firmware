@@ -8,8 +8,14 @@
         "pid": "0x0410",
         "device_version": "1.0.0"
     },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_ansi_84": "LAYOUT_75_ansi"
+    },
+    "community_layouts": ["75_ansi"],
     "layouts": {
-        "LAYOUT_ansi_84": {
+        "LAYOUT_75_ansi": {
             "layout": [
                 {"matrix":[0, 0], "x":0, "y":0},
                 {"matrix":[0, 1], "x":1, "y":0},

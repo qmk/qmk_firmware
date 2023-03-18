@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -21,5 +15,3 @@ AUDIO_ENABLE = no            # Audio output
 CUSTOM_MATRIX = lite
 
 SRC += matrix.c
-
-LAYOUTS = fullsize_iso

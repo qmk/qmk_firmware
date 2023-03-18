@@ -748,6 +748,48 @@ static void watchdog_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 #endif // defined(SPLIT_WATCHDOG_ENABLE)
 
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
+uint8_t                split_haptic_play = 0xFF;
+extern haptic_config_t haptic_config;
+
+static bool haptic_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t           last_update = 0;
+    split_slave_haptic_sync_t haptic_sync;
+
+    memcpy(&haptic_sync.haptic_config, &haptic_config, sizeof(haptic_config_t));
+    haptic_sync.haptic_play = split_haptic_play;
+
+    bool okay = send_if_data_mismatch(PUT_HAPTIC, &last_update, &haptic_sync, &split_shmem->haptic_sync, sizeof(haptic_sync));
+
+    split_haptic_play = 0xFF;
+
+    return okay;
+}
+
+static void haptic_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    memcpy(&haptic_config, &split_shmem->haptic_sync.haptic_config, sizeof(haptic_config_t));
+
+    if (split_shmem->haptic_sync.haptic_play != 0xFF) {
+        haptic_set_mode(split_shmem->haptic_sync.haptic_play);
+        haptic_play();
+    }
+}
+
+// clang-format off
+#    define TRANSACTIONS_HAPTIC_MASTER() TRANSACTION_HANDLER_MASTER(haptic)
+#    define TRANSACTIONS_HAPTIC_SLAVE() TRANSACTION_HANDLER_SLAVE(haptic)
+#    define TRANSACTIONS_HAPTIC_REGISTRATIONS [PUT_HAPTIC] = trans_initiator2target_initializer(haptic_sync),
+// clang-format on
+
+#else // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
+#    define TRANSACTIONS_HAPTIC_MASTER()
+#    define TRANSACTIONS_HAPTIC_SLAVE()
+#    define TRANSACTIONS_HAPTIC_REGISTRATIONS
+
+#endif // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
 ////////////////////////////////////////////////////
 
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
@@ -775,6 +817,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_ST7565_REGISTRATIONS
     TRANSACTIONS_POINTING_REGISTRATIONS
     TRANSACTIONS_WATCHDOG_REGISTRATIONS
+    TRANSACTIONS_HAPTIC_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -802,6 +845,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_ST7565_MASTER();
     TRANSACTIONS_POINTING_MASTER();
     TRANSACTIONS_WATCHDOG_MASTER();
+    TRANSACTIONS_HAPTIC_MASTER();
     return true;
 }
 
@@ -822,6 +866,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_ST7565_SLAVE();
     TRANSACTIONS_POINTING_SLAVE();
     TRANSACTIONS_WATCHDOG_SLAVE();
+    TRANSACTIONS_HAPTIC_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

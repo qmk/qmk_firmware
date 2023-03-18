@@ -8,6 +8,11 @@
     "pid": "0x4096",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "halfkay",
   "layouts": {
     "LAYOUT": {
       "layout": [

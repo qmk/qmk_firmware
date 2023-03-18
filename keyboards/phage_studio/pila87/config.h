@@ -17,11 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
 
 /* Key matrix pins */
 #define MATRIX_ROW_PINS { A1, A2, A10, A9, A8, C9 }
@@ -29,17 +24,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Bootmagic reset */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
-/* LED Indicator */
-#define LED_CAPS_LOCK_PIN C14
-#define LED_SCROLL_LOCK_PIN A0
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 91

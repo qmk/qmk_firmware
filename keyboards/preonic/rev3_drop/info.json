@@ -6,6 +6,14 @@
         "pid": "0xA649",
         "device_version": "0.0.3"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B12", "pin_b": "B13"}
+        ]
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_preonic_1x2uC": {
             "layout": [

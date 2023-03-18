@@ -8,6 +8,9 @@
         "pid": "0x6602",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C14"
+    },
     "layout_aliases": {
         "LAYOUT_65_ansi_blocker": "LAYOUT_ansi_blocker",
         "LAYOUT_65_iso_blocker": "LAYOUT_iso_blocker"
