@@ -16,16 +16,13 @@
   },  
   "diode_direction": "COL2ROW",
   "features": {
-    "backlight": false,
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "deferred_exec": true,
-    "nkro": false,
-    "rgblight": false
+    "nkro": false
   },
+  "community_layouts": [ "split_3x5_3" ],
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_split_3x5_3": {
       "layout": [
         { "label": "K00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0.75 },
         { "label": "K10", "matrix": [1, 0], "w": 1, "x": 1, "y": 0.5 },
