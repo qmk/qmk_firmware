@@ -1,4 +1,4 @@
-/* Copyright 2022 DZTECH <moyi4681@Live.cn>
+/* Copyright 2021 RyanDam (https://github.com/RyanDam)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +15,4 @@
  */
 
 #pragma once
-
-#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_EFFECT_RAINBOW_MOOD + 6)
-#define RGBLIGHT_DEFAULT_SPD 15
-
-#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
+#define DYNAMIC_KEYMAP_LAYER_COUNT 2
