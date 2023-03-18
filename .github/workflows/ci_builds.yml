@@ -40,7 +40,7 @@ jobs:
     - name: 'Upload binaries'
       uses: actions/upload-artifact@v3
       with:
-        name: binaries-${{ matrix.keyboard_folder }}
+        name: binaries-${{ matrix.keymap }}
         if-no-files-found: ignore
         path: |
           *.bin
