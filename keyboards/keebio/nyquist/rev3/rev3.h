@@ -1,6 +1,5 @@
 #pragma once
 
-#include "nyquist.h"
 #include "quantum.h"
 
 #define LAYOUT( \

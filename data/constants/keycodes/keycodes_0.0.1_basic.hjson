@@ -253,7 +253,7 @@
         "0x002F": {
             "group": "basic",
             "key": "KC_LEFT_BRACKET",
-            "label": "]",
+            "label": "[",
             "aliases": [
                 "KC_LBRC"
             ]
@@ -261,7 +261,7 @@
         "0x0030": {
             "group": "basic",
             "key": "KC_RIGHT_BRACKET",
-            "label": "[",
+            "label": "]",
             "aliases": [
                 "KC_RBRC"
             ]

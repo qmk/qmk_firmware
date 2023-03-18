@@ -61,15 +61,15 @@
                 {"label":">", "x":13.5, "y":2.3},
                 {"label":"?", "x":14.5, "y":3.1},
 
-                {"label":"Alt", "x":3.5, "y":4.0},
-                {"label":"Cmd", "x":4.5, "y":4.0},
-                {"label":"Lower", "x":5.5, "y":4.0},
-                {"label":"Shift", "x":6.5, "y":4.0},
+                {"label":"Alt", "x":3.5, "y":4},
+                {"label":"Cmd", "x":4.5, "y":4},
+                {"label":"Lower", "x":5.5, "y":4},
+                {"label":"Shift", "x":6.5, "y":4},
                 
-                {"label":"Del", "x":9.25, "y":4.0},
-                {"label":"Raise", "x":10.25, "y":4.0},
-                {"label":"Enter", "x":11.25, "y":4.0},
-                {"label":"Backspace", "x":12.25, "y":4.0}
+                {"label":"Del", "x":9.25, "y":4},
+                {"label":"Raise", "x":10.25, "y":4},
+                {"label":"Enter", "x":11.25, "y":4},
+                {"label":"Backspace", "x":12.25, "y":4}
             ]
         }
     }

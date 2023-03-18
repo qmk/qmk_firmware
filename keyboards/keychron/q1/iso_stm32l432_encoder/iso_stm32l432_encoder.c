@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "iso_stm32l432_encoder.h"
+#include "quantum.h"
 
 const matrix_row_t matrix_mask[] = {
     0b1111111111111111,

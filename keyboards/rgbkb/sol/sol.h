@@ -1,12 +1,6 @@
 #pragma once
 
 #include "quantum.h"
-#ifdef KEYBOARD_rgbkb_sol_rev1
-#include "rev1.h"
-#else
-#include "rev2.h"
-#endif
-
 
 #define LAYOUT( \
   L00, L01, L02, L03, L04, L05, L06, R06, R00, R01, R02, R03, R04, R05, \

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "squiggle.h"
-
 #include "quantum.h"
 
 #define ___ KC_NO

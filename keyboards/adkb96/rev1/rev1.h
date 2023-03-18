@@ -1,6 +1,6 @@
 #pragma once
 
-#include "adkb96.h"
+#include "quantum.h"
 
 // Keymap with right side flipped
 // (TRRS jack on both halves are to the right)
