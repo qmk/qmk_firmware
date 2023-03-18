@@ -1,4 +1,4 @@
-#include "ergodash.h"
+#include "rev1.h"
 
 #ifdef AUDIO_ENABLE
     float tone_startup[][2] = SONG(STARTUP_SOUND);

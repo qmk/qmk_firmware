@@ -20,3 +20,5 @@
 #define DRIVER_1_LED_TOTAL 53
 #define DRIVER_2_LED_TOTAL 8
 #endif
+
+#define CAPS_LED 28

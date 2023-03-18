@@ -1,6 +1,5 @@
 #pragma once
 
-#include "viterbi.h"
 #include "quantum.h"
 
 #ifndef FLIP_HALF

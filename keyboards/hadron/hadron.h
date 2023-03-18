@@ -2,14 +2,6 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_hadron_ver0)
-#    include "ver0.h"
-#elif defined(KEYBOARD_hadron_ver2)
-#    include "ver2.h"
-#elif defined(KEYBOARD_hadron_ver3)
-#    include "ver3.h"
-#endif
-
 #define XXX KC_NO
 
 #define LAYOUT( \

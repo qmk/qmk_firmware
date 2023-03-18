@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "naked48.h"
-
 #include "quantum.h"
 #ifdef RGBLIGHT_ENABLE
 //rgb led driver

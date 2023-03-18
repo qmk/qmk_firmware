@@ -16,11 +16,6 @@
 #pragma once
 
 #include "quantum.h"
-#ifdef KEYBOARD_recompile_keys_nomu30_rev1
-    #include "rev1.h"
-#elif KEYBOARD_recompile_keys_nomu30_rev2
-    #include "rev2.h"
-#endif
 
 #define LAYOUT( \
         K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, \
