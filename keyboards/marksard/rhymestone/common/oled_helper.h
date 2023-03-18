@@ -1,3 +1,6 @@
+#include <stdint.h>
+#include "action.h"
+
 #ifdef OLED_ENABLE
 
 void render_logo(void);
