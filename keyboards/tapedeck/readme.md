@@ -1,8 +1,6 @@
 # Gowla Tapedeck
 
-<p align="center">
-  <img src="https://github.com/SamGowland/Gowla-Macro-Board/blob/master/Images/purple.PNG" height="400">
-</p>
+![Image of Tapedeck](https://i.ibb.co/R3JVMjM/tapedeck.jpg)
 
 4x4 12 Key Macro Board with 60MM Slider, RGB and 2 X Rotary Encoders. For use with QMK, designed and sold by Gowla.
 
