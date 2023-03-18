@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,            KC_NO,      KC_NO,      KC_NO,      KC_DOT,     KC_NO,        \
                                 KC_LCTL,    KC_OSYM,    KC_OSFT,          KC_SPC,     KC_ONUM,    KC_ENT
     ),
-    [_NAVIGATION] = LAYOUT(
+    [_NAVIGATION] = LAYOUT_split_3x5_3(
         KC_NO,      KC_F2,      KC_NO,      KC_NO,      KC_NO,            KC_NO,      KC_HOME,    KC_UP,      KC_END,     KC_BSPC,      \
         KC_TAB,     KC_NO,      KC_NO,      KC_NO,      KC_NO,            KC_NO,      KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_ENT,       \
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,            KC_NO,      KC_MPRV,    KC_MPLY,    KC_MNXT,    KC_DEL,       \
