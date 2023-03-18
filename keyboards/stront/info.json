@@ -1,0 +1,152 @@
+{
+    "keyboard_name": "stront",
+    "manufacturer": "zzeneg",
+    "url": "https://github.com/zzeneg/stront",
+    "maintainer": "zzeneg",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 1], "x": 2, "y": 0 },
+                { "matrix": [0, 2], "x": 3, "y": 0 },
+                { "matrix": [0, 3], "x": 4, "y": 0 },
+                { "matrix": [0, 4], "x": 5, "y": 0 },
+
+                { "matrix": [4, 4], "x": 8, "y": 0 },
+                { "matrix": [4, 3], "x": 9, "y": 0 },
+                { "matrix": [4, 2], "x": 10, "y": 0 },
+                { "matrix": [4, 1], "x": 11, "y": 0 },
+
+                { "matrix": [0, 0], "x": 0, "y": 1 },
+                { "matrix": [1, 0], "x": 1, "y": 1 },
+                { "matrix": [1, 1], "x": 2, "y": 1 },
+                { "matrix": [1, 2], "x": 3, "y": 1 },
+                { "matrix": [1, 3], "x": 4, "y": 1 },
+                { "matrix": [1, 4], "x": 5, "y": 1 },
+
+                { "matrix": [5, 4], "x": 8, "y": 1 },
+                { "matrix": [5, 3], "x": 9, "y": 1 },
+                { "matrix": [5, 2], "x": 10, "y": 1 },
+                { "matrix": [5, 1], "x": 11, "y": 1 },
+                { "matrix": [5, 0], "x": 12, "y": 1 },
+                { "matrix": [4, 0], "x": 13, "y": 1 },
+
+                { "matrix": [3, 0], "x": 0, "y": 2 },
+                { "matrix": [2, 0], "x": 1, "y": 2 },
+                { "matrix": [2, 1], "x": 2, "y": 2 },
+                { "matrix": [2, 2], "x": 3, "y": 2 },
+                { "matrix": [2, 3], "x": 4, "y": 2 },
+                { "matrix": [2, 4], "x": 5, "y": 2 },
+
+                { "matrix": [6, 4], "x": 8, "y": 2 },
+                { "matrix": [6, 3], "x": 9, "y": 2 },
+                { "matrix": [6, 2], "x": 10, "y": 2 },
+                { "matrix": [6, 1], "x": 11, "y": 2 },
+                { "matrix": [6, 0], "x": 12, "y": 2 },
+                { "matrix": [7, 0], "x": 13, "y": 2 },
+
+                { "matrix": [3, 2], "x": 4, "y": 3 },
+                { "matrix": [3, 3], "x": 5, "y": 3 },
+                { "matrix": [3, 4], "x": 6, "y": 3 },
+                { "matrix": [7, 4], "x": 7, "y": 3 },
+                { "matrix": [7, 3], "x": 8, "y": 3 },
+                { "matrix": [7, 2], "x": 9, "y": 3 }
+            ]
+        }
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["GP2", "GP3", "GP4", "GP5", "GP6"],
+        "rows": ["GP28", "GP27", "GP26", "GP15"]
+    },
+    "split": {
+        "enabled": true
+    },
+    "encoder": {
+        "rotary": [
+            {
+                "pin_a": "GP8",
+                "pin_b": "GP14",
+                "resolution": 4
+            }
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": true,
+        "quantum_painter": true,
+        "encoder": true,
+        "mousekey": true,
+        "extrakey": true,
+        "backlight": true,
+        "rgblight": false,
+        "rgb_matrix": true,
+        "nkro": false
+    },
+    "backlight": {
+        "pin": "GP14"
+    },
+    "rgblight": {
+        "led_count": 38,
+        "pin": "GP29",
+        "split": true,
+        "split_count": [18, 18],
+        "layers": {
+            "enabled": true,
+            "max": 3
+        }
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "led_count": 38,
+        "split_count": [19, 19],
+        "layout": [
+            { "flags": 4, "matrix": [0, 1], "x": 24, "y": 0 },
+            { "flags": 4, "matrix": [0, 2], "x": 48, "y": 0 },
+            { "flags": 4, "matrix": [0, 3], "x": 72, "y": 0 },
+            { "flags": 4, "matrix": [0, 4], "x": 96, "y": 0 },
+            { "flags": 4, "matrix": [1, 4], "x": 96, "y": 21 },
+            { "flags": 4, "matrix": [1, 3], "x": 72, "y": 21 },
+            { "flags": 4, "matrix": [1, 2], "x": 48, "y": 21 },
+            { "flags": 4, "matrix": [1, 1], "x": 24, "y": 21 },
+            { "flags": 4, "matrix": [1, 0], "x": 0, "y": 21 },
+            { "flags": 4, "matrix": [2, 0], "x": 0, "y": 42 },
+            { "flags": 4, "matrix": [2, 1], "x": 24, "y": 42 },
+            { "flags": 4, "matrix": [2, 2], "x": 48, "y": 42 },
+            { "flags": 4, "matrix": [2, 3], "x": 72, "y": 42 },
+            { "flags": 4, "matrix": [2, 4], "x": 96, "y": 42 },
+            { "flags": 4, "matrix": [3, 4], "x": 96, "y": 64 },
+            { "flags": 4, "matrix": [3, 3], "x": 72, "y": 64 },
+            { "flags": 4, "matrix": [3, 2], "x": 48, "y": 64 },
+            { "flags": 4, "matrix": [3, 1], "x": 48, "y": 64 },
+            { "flags": 4, "matrix": [3, 0], "x": 0, "y": 64 },
+
+            { "flags": 4, "matrix": [7, 3], "x": 200, "y": 0 },
+            { "flags": 4, "matrix": [7, 2], "x": 176, "y": 0 },
+            { "flags": 4, "matrix": [7, 1], "x": 152, "y": 0 },
+            { "flags": 4, "matrix": [7, 0], "x": 128, "y": 0 },
+            { "flags": 4, "matrix": [6, 0], "x": 128, "y": 21 },
+            { "flags": 4, "matrix": [6, 1], "x": 152, "y": 21 },
+            { "flags": 4, "matrix": [6, 2], "x": 176, "y": 21 },
+            { "flags": 4, "matrix": [6, 3], "x": 200, "y": 21 },
+            { "flags": 4, "matrix": [7, 4], "x": 224, "y": 21 },
+            { "flags": 4, "matrix": [6, 4], "x": 224, "y": 42 },
+            { "flags": 4, "matrix": [5, 3], "x": 200, "y": 42 },
+            { "flags": 4, "matrix": [5, 2], "x": 176, "y": 42 },
+            { "flags": 4, "matrix": [5, 1], "x": 152, "y": 42 },
+            { "flags": 4, "matrix": [5, 0], "x": 128, "y": 42 },
+            { "flags": 4, "matrix": [4, 0], "x": 128, "y": 64 },
+            { "flags": 4, "matrix": [4, 1], "x": 152, "y": 64 },
+            { "flags": 4, "matrix": [4, 2], "x": 176, "y": 64 },
+            { "flags": 4, "matrix": [4, 3], "x": 176, "y": 64 },
+            { "flags": 4, "matrix": [5, 4], "x": 224, "y": 64 }
+        ]
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0844",
+        "vid": "0xFEED"
+    }
+}
