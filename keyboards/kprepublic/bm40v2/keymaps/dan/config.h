@@ -4,3 +4,4 @@
 #pragma once
 
 #define TAPPING_TERM 143
+#define DYNAMIC_KEYMAP_LAYER_COUNT 9
