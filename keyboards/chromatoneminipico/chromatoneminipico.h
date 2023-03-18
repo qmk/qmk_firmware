@@ -48,9 +48,6 @@
     { k110,    k108,  k106, k104, k102, k100, k98,  k96, k94, k92 } \
 }
 
-// Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
-#define MIDI_INITIAL_VELOCITY 117
-
 #ifdef RGB_MATRIX_ENABLE
 extern led_config_t g_led_config;
 extern const uint8_t led_scale_indicator[12][12];
