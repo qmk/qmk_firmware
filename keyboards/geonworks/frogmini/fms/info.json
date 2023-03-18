@@ -8,6 +8,12 @@
         "pid": "0x2D33",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A10",
+        "levels": 20
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

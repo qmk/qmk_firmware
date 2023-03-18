@@ -16,23 +16,14 @@
  
 #pragma once
 
-#include "config_common.h"
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
 #define MATRIX_ROW_PINS { B0, E6, B1, B4, D1, D2 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, D3, D5, D4, D6, D7, B5, B6, C6, E2, D0 }
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 5
-
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
-
-#define LED_CAPS_LOCK_PIN C7
-#define LED_SCROLL_LOCK_PIN B2
-#define LED_PIN_ON_STATE 1
 
 #define RGB_DI_PIN B3
 #ifdef RGB_DI_PIN

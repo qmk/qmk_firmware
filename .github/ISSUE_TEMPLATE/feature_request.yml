@@ -7,6 +7,9 @@ body:
     attributes:
       value: |
         Provide a general summary of the changes you want in the title above.
+
+        Please refrain from asking maintainers to add support for specific keyboards -- it is unlikely they will have hardware available, and will not be able to help.
+        Your best bet is to take the initiative, add support, then submit a PR yourself.
   - type: checkboxes
     attributes:
       label: Feature Request Type

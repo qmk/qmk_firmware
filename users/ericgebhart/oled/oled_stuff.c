@@ -47,7 +47,7 @@ void oled_render_mod_status(uint8_t modifiers) {
   oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
 }
 
-void oled_render_mod_lock_status(){
+void oled_render_mod_lock_status(void){
   oled_render_mod_status(get_mods() | get_oneshot_mods());
   oled_render_keylock_status(host_keyboard_leds());
 }

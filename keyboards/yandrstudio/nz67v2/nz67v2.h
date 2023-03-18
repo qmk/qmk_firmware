@@ -85,5 +85,3 @@
 #else
 #   define URGB_K KC_TRNS
 #endif
-
-#define LOCK_GUI KC_F23

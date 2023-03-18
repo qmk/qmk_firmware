@@ -19,7 +19,7 @@
 
 static td_tap_t mac_caps_language_tap_state = {.is_press_action = true, .state = TD_NONE};
 
-void mac_caps_language_finished(qk_tap_dance_state_t *state, void *user_data) {
+void mac_caps_language_finished(tap_dance_state_t *state, void *user_data) {
     mac_caps_language_tap_state.state = current_dance(state);
     switch (mac_caps_language_tap_state.state) {
         case TD_SINGLE_TAP:
@@ -34,7 +34,7 @@ void mac_caps_language_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void mac_caps_language_reset(qk_tap_dance_state_t *state, void *user_data) {
+void mac_caps_language_reset(tap_dance_state_t *state, void *user_data) {
     switch (mac_caps_language_tap_state.state) {
         case TD_SINGLE_TAP:
             unregister_code(KC_SPACE);

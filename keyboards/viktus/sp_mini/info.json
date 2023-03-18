@@ -8,6 +8,13 @@
         "pid": "0x534D",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F4", "pin_b": "F1", "resolution": 8}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

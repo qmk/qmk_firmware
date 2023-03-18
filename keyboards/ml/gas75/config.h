@@ -16,31 +16,16 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D3, D5, D4, D7, D6, B4 }
 #define MATRIX_COL_PINS { D1, D2, B5, B6, C6, C7, F7, F6, F5, F4, E6, B0, B1, B2, B3 }
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* Encoder pins */
-#define ENCODERS_PAD_A { F0 }
-#define ENCODERS_PAD_B { F1 }
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 3

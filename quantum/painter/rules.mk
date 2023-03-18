@@ -2,6 +2,8 @@
 QUANTUM_PAINTER_DRIVERS ?=
 QUANTUM_PAINTER_ANIMATIONS_ENABLE ?= yes
 
+QUANTUM_PAINTER_LVGL_INTEGRATION ?= no
+
 # The list of permissible drivers that can be listed in QUANTUM_PAINTER_DRIVERS
 VALID_QUANTUM_PAINTER_DRIVERS := \
 	rgb565_surface \
@@ -152,3 +154,7 @@ ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_COMMS_SPI)), yes)
     endif
 endif
 
+# Check if LVGL needs to be enabled
+ifeq ($(strip $(QUANTUM_PAINTER_LVGL_INTEGRATION)), yes)
+	include $(QUANTUM_DIR)/painter/lvgl/rules.mk
+endif

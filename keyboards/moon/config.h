@@ -17,21 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 11
-
-#define LED_CAPS_LOCK_PIN B5
-#define LED_SCROLL_LOCK_PIN B6
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Backlight */
-#define BACKLIGHT_PIN C6
-#define BACKLIGHT_LEVELS 3
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

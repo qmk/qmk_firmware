@@ -16,10 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -84,6 +80,5 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#define DEBOUNCE 5
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

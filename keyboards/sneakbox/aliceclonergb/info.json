@@ -8,6 +8,22 @@
     "pid": "0x0006",
     "device_version": "0.0.1"
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D3", "pin_b": "D2", "resolution": 1}
+    ]
+  },
+  "indicators": {
+    "caps_lock": "D6",
+    "num_lock": "D4",
+    "scroll_lock": "D7"
+  },
+  "bootmagic": {
+    "matrix": [2, 0]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["alice", "alice_split_bs"],
   "layouts": {
       "LAYOUT_alice_split_bs": {
           "layout": [

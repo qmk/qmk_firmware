@@ -16,22 +16,11 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define OLED_UPDATE_INTERVAL 33
 
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_LIMIT_VAL 255
-#define BACKLIGHT_ON_STATE 0
-#define BACKLIGHT_LEVELS 17
-#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
-
 #define OLED_DISABLE_TIMEOUT
 
-#define ENCODERS_PAD_A { C7 }
-#define ENCODERS_PAD_B { D5 }
-#define ENCODER_RESOLUTION 2
 #define TAP_CODE_DELAY 10
 
 #define RGBLIGHT_EFFECT_BREATHING

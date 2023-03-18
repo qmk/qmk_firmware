@@ -7,5 +7,5 @@
 #if __has_include("platforms/chibios/common/configs/chconf.h")
 #    include_next "platforms/chibios/common/configs/chconf.h"
 #else
-#    include_next "chconf.h"
+#    include_next <chconf.h>
 #endif
