@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_NUM_LOCK_PIN B1
 #define LED_CAPS_LOCK_PIN A14
 #define LED_SCROLL_LOCK_PIN B2
-#define LED_PIN_ON_STATE 0 
+#define LED_PIN_ON_STATE 1
 
 #define ENCODERS_PAD_A { A7 }
 #define ENCODERS_PAD_B { B0 }
