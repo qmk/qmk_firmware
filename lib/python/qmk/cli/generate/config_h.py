@@ -111,8 +111,8 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
     b_pads = []
     resolutions = []
     for encoder in encoder_json.get("rotary", []):
-        a_pads.append(encoder["pin_a"])
-        b_pads.append(encoder["pin_b"])
+        a_pads.append(str(encoder["pin_a"]))
+        b_pads.append(str(encoder["pin_b"]))
         resolutions.append(encoder.get("resolution", None))
 
     config_h_lines.append(generate_define(f'ENCODERS_PAD_A{postfix}', f'{{ {", ".join(a_pads)} }}'))

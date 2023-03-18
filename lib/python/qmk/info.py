@@ -270,8 +270,8 @@ def _extract_encoders_values(config_c, postfix=''):
     default_resolution = config_c.get('ENCODER_RESOLUTION', None)
 
     if a_pad and b_pad:
-        a_pad = list(filter(None, a_pad.split(',')))
-        b_pad = list(filter(None, b_pad.split(',')))
+        a_pad = list(map(lambda pad: int(pad) if pad.isdigit() else pad, filter(None, a_pad.split(','))))
+        b_pad = list(map(lambda pad: int(pad) if pad.isdigit() else pad, filter(None, b_pad.split(','))))
         resolutions = list(filter(None, resolutions.split(',')))
         if default_resolution:
             resolutions += [default_resolution] * (len(a_pad) - len(resolutions))
