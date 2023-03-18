@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Bootmagic reset**: Hold down the top-left key and plug in the keyboard
 * **Physical reset button**: Hold Xiao B button, press Xiao R button, release B
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Keycode in layout**: There is no key mapped to `QK_BOOT` in the pre-created keymaps, but you may assign this key in any keymaps you create
