@@ -21,6 +21,7 @@ bool isScrollX2Started = false;
 bool isScrollX4Started = false;
 bool isWeakLaMouseStarted = false;
 bool isCapswordStarted = false;
+bool isCtlFStarted = false;
 
 void tap_code16_wrap_lctl(uint16_t keycode) {
     unregister_code16(KC_LCTL);
@@ -67,6 +68,7 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 } else {
 //                    set_auto_mouse_enable(true);
                     layer_on(LA_MOUSE);
+                    tap_code16(KC_SCROLL_LOCK);
                     isMouseX1Started = true;
                     isScrollX1Started = true;
                 }
@@ -74,7 +76,12 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_CAPSLOCK:
             if (record->event.pressed) {
-                tap_code16(KC_SCROLL_LOCK);
+                layer_on(LA_CAPSLOCK);
+            }
+            return false;
+        case MA_CAPSWORD:
+            if (record->event.pressed) {
+                isCapswordStarted = true;
                 layer_on(LA_CAPSLOCK);
             }
             return false;
@@ -148,6 +155,7 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
         case MA_LMOUSE:
             if (record->event.pressed) {
 //                set_auto_mouse_enable(false);
+                tap_code16(KC_SCROLL_LOCK);
                 layer_off(LA_MOUSE);
                 isMouseX1Started = false;
                 isScrollX1Started = false;
@@ -243,15 +251,25 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
-    if (isCapswordStarted && keycode == KC_SPC) {
-        isCapswordStarted = false;
-        layer_off(LA_CAPSLOCK);
-        return true;
+    if (isCapswordStarted &&
+    (keycode == KC_SPC
+    || keycode == KC_UP
+    || keycode == KC_DOWN
+    || keycode == MA_HOME
+    || keycode == MA_END
+    || keycode == KC_ENT
+    || keycode == MA_CAPSWORD
+    || keycode == MA_CAPSLOCK)) {
+        if (record->event.pressed) {
+            isCapswordStarted = false;
+            layer_off(LA_CAPSLOCK);
+            return true;
+        }
     }
     switch (keycode) {
         case MA_CAPSLOCK:
+        case MA_CAPSWORD:
             if (record->event.pressed) {
-                tap_code16(KC_SCROLL_LOCK);
                 layer_off(LA_CAPSLOCK);
             }
             return false;
@@ -365,7 +383,15 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_4:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_4);
+                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    unregister_code16(KC_LCTL);
+                    unregister_code16(KC_LSFT);
+                    tap_code16(KC_5);
+                    register_code16(KC_LCTL);
+                    register_code16(KC_LSFT);
+                } else {
+                    tap_code16_wrap_lctl(FR_4);
+                }
             }
             return false;
         case MA_5:
@@ -375,12 +401,28 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_6:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_6);
+                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    unregister_code16(KC_LCTL);
+                    unregister_code16(KC_LSFT);
+                    tap_code16(KC_MINS);
+                    register_code16(KC_LCTL);
+                    register_code16(KC_LSFT);
+                } else {
+                    tap_code16_wrap_lctl(FR_6);
+                }
             }
             return false;
         case MA_7:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_7);
+                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    unregister_code16(KC_LCTL);
+                    unregister_code16(KC_LSFT);
+                    tap_code16(KC_NUBS);
+                    register_code16(KC_LCTL);
+                    register_code16(KC_LSFT);
+                } else {
+                    tap_code16_wrap_lctl(FR_7);
+                }
             }
             return false;
         case MA_8:
@@ -390,12 +432,43 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_9:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_9);
+                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    unregister_code16(KC_LCTL);
+                    unregister_code16(KC_LSFT);
+                    tap_code16(S(FR_LABK));
+                    register_code16(KC_LCTL);
+                    register_code16(KC_LSFT);
+                } else {
+                    tap_code16_wrap_lctl(FR_9);
+                }
             }
             return false;
         case MA_EQL:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_EQL);
+                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    unregister_code16(KC_LCTL);
+                    unregister_code16(KC_LSFT);
+                    tap_code16(FR_EQL);
+                    tap_code16(FR_RABK);
+                    register_code16(KC_LCTL);
+                    register_code16(KC_LSFT);
+                } else {
+                    tap_code16_wrap_lctl(FR_EQL);
+                }
+            }
+            return false;
+        case MA_MINS:
+            if (record->event.pressed) {
+                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    unregister_code16(KC_LCTL);
+                    unregister_code16(KC_LSFT);
+                    tap_code16(FR_MINS);
+                    tap_code16(FR_RABK);
+                    register_code16(KC_LCTL);
+                    register_code16(KC_LSFT);
+                } else {
+                    tap_code16_wrap_lctl(FR_MINS);
+                }
             }
             return false;
         case MA_ASTR:
@@ -406,11 +479,6 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_DOT:
             if (record->event.pressed) {
                 tap_code16_wrap_lctl(FR_DOT);
-            }
-            return false;
-        case MA_MINS:
-            if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_MINS);
             }
             return false;
         case MA_PLUS:
@@ -501,12 +569,6 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_SPC);
             }
             return false;
-        case MA_CAPSWORD:
-            if (record->event.pressed) {
-                isCapswordStarted = true;
-                layer_on(LA_CAPSLOCK);
-            }
-            return false;
     }
     return true;
 }
@@ -592,12 +654,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 isWeakLaMouseStarted = true;
             }
             return false;
-        case MA_CAPSWORD:
-            if (record->event.pressed) {
-                isCapswordStarted = true;
-                layer_on(LA_CAPSLOCK);
-            }
-            return false;
         case MA_ESC:
             if (IS_LAYER_ON(LA_LTHUMBEOSL) || IS_LAYER_ON(LA_LTHUMBDOSL)) {
                 if (record->event.pressed) {
@@ -659,7 +715,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 } else {
                     tap_code16(KC_HOME);
                 }
-                return false;
             }
             return true;
         case MA_END:
@@ -669,7 +724,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 } else {
                     tap_code16(KC_END);
                 }
-                return false;
             }
             return true;
         case MA_PGUP:
@@ -701,20 +755,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 } else {
                     tap_code16(KC_TAB);
                 }
-            }
-            return false;
-        case MA_DOUBLEARROW:
-            if (record->event.pressed) {
-                tap_code16(FR_EQL);
-                tap_code16(FR_RABK);
-                tap_code16(KC_SPC);
-            }
-            return false;
-        case MA_SIMPLEARROW:
-            if (record->event.pressed) {
-                tap_code16(FR_MINS);
-                tap_code16(FR_RABK);
-                tap_code16(KC_SPC);
             }
             return false;
     }
@@ -856,8 +896,11 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
-    if ((keycode != MA_LTHUMB) & (keycode != MA_LTHUMBE)) {
+    if ((keycode != MA_LTHUMB) & (keycode != MA_LTHUMBMS) & (keycode != MA_LTHUMBE)) {
         isLeftThumbEMoStarted = true;
+    }
+    if ((keycode != MA_CF)) {
+        isCtlFStarted = false;
     }
     switch (keycode) {
         case MA_LTHUMBD:
@@ -890,11 +933,23 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
                 unregister_code16(KC_LSFT);
             }
             return false;
+        case MA_CF:
+            if (record->event.pressed) {
+                if (isCtlFStarted) {
+                    tap_code16(KC_ENT);
+                } else {
+                    isCtlFStarted = true;
+                    tap_code16(C(KC_C));
+                    tap_code16(C(KC_F));
+                    tap_code16(C(KC_V));
+                }
+            }
+            return false;
     }
     return true;
 }
 bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
-    if ((keycode != MA_LTHUMB) & (keycode != MA_LTHUMBD)) {
+    if ((keycode != MA_LTHUMB) & (keycode != MA_LTHUMBMS) & (keycode != MA_LTHUMBD)) {
         isLeftThumbDMoStarted = true;
     }
     switch (keycode) {
