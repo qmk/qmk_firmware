@@ -19,7 +19,7 @@
 // Long press: go to _FN , tap: MUTE
 #define FN_MUTE LT(_FN, KC_MUTE)
 
-// Used to set octave to MI_OCT_0
+// Used to set octave to QK_MIDI_OCTAVE_0
 extern midi_config_t midi_config;
 
 // Defines names for use in  keycodes and the keymap
@@ -72,16 +72,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_BASE]        = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MI_TRNSD, MI_TRNSU) },
-    [_RESERVE01]   = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_FN]          = { ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(MI_OCTD,  MI_OCTU)  }
+    [_BASE]        = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MI_TRSD, MI_TRSU) },
+    [_RESERVE01]   = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [_FN]          = { ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(MI_OCTD, MI_OCTU)  }
 };
 #endif
 
 
 void my_init(void){
-    //  Set octave to MI_OCT_0
-    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+    //  Set octave to QK_MIDI_OCTAVE_0
+    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
 }

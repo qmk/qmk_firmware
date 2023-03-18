@@ -17,10 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
 #define RGB_DI_PIN GP12
-#define RGBLED_NUM 56
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 
 #ifdef RGB_MATRIX_ENABLE
@@ -128,18 +125,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT

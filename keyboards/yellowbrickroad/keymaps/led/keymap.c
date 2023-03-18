@@ -19,7 +19,7 @@
 // Long press: go to _FN , tap: MUTE
 #define FN_MUTE LT(_FN, KC_MUTE)
 
-// Used to set octave to MI_OCT_0
+// Used to set octave to QK_MIDI_OCTAVE_0
 extern midi_config_t midi_config;
 static bool is_trans_mode = false;     //  By default, shift mode is chosen.
 
@@ -239,7 +239,7 @@ enum custom_keycodes {
     FLIPPEN,                //  FLIP PENtatonic
 
 
-    TGLTRNS = USER00,       //  ToGgLe TRaNS and shift mode
+    TGLTRNS = QK_KB_0,       //  ToGgLe TRaNS and shift mode
     SHIFT_L,                //  SHIFT led indicator Left
     SHIFT_R,                //  SHIFT led indicator Right
     SHLAYER,                //  SHift LAYER
@@ -429,19 +429,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_BASE]              = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU), ENCODER_CCW_CW(SHIFT_L,  SHIFT_R)  },
-    [_CHORDS]            = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_BASEANDCHORDS]     = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_HEPTATONIC]        = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_PENTATONIC]        = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_TRANS]             = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(MI_TRNSD, MI_TRNSU) },
-    [_FLIP]              = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_FLIPCHORDS]        = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_FLIPBASEANDCHORDS] = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_FLIPHEPTA]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_FLIPPENTA]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______,  _______)  },
-    [_FLIPTRANS]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(MI_TRNSU, MI_TRNSD) },
-    [_FN]                = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(MI_OCTD,  MI_OCTU)  }
+    [_BASE]              = { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU), ENCODER_CCW_CW(SHIFT_L, SHIFT_R)  },
+    [_CHORDS]            = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_BASEANDCHORDS]     = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_HEPTATONIC]        = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_PENTATONIC]        = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_TRANS]             = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(MI_TRSD, MI_TRSU) },
+    [_FLIP]              = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_FLIPCHORDS]        = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_FLIPBASEANDCHORDS] = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_FLIPHEPTA]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_FLIPPENTA]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(_______, _______)  },
+    [_FLIPTRANS]         = { ENCODER_CCW_CW(_______,  _______), ENCODER_CCW_CW(MI_TRSU, MI_TRSD) },
+    [_FN]                = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(MI_OCTD, MI_OCTU)  }
 };
 #endif
 
@@ -453,8 +453,8 @@ void reset_scale_indicator(void) {
 }
 
 void my_init(void){
-    //  Set octave to MI_OCT_0
-    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+    //  Set octave to QK_MIDI_OCTAVE_0
+    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
 
@@ -470,7 +470,7 @@ void _load_eeprom_data(void){
 
 void eeconfig_init_user(void) {  // EEPROM is getting reset!
     midi_init();  // in midi_init(), octave is set to MI_OCT_2.
-    my_init();    // Octave is set to MI_OCT_0, velocity is set to MIDI_INITIAL_VELOCITY. etc.
+    my_init();    // Octave is set to QK_MIDI_OCTAVE_0, velocity is set to MIDI_INITIAL_VELOCITY. etc.
 
     // UNISON flags
     melody_dyad_high = false;  //  true when +1 octave unison dyad is enabled.
@@ -960,30 +960,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
-            root_note = keycode - MI_CH_Cr + MI_C_1;
+            root_note = keycode - MI_CH_Cr + MI_C1;
             my_process_midi4Bass(midi_bass_ch, record, chord_status, chord, root_note, IS_SINGLE_BASS());
             break;
 
         case MI_CH_C ... MI_CH_B:  // Major Chords
-            root_note = keycode - MI_CH_C + MI_C_2;
+            root_note = keycode - MI_CH_C + MI_C2;
             // Root, Major Third, and Fifth Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 4, 7);
             break;
 
         case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
-            root_note = keycode - MI_CH_Cm + MI_C_2;
+            root_note = keycode - MI_CH_Cm + MI_C2;
             // Root, Minor Third, and Fifth Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 7);
             break;
 
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
-            root_note = keycode - MI_CH_CDom7 + MI_C_2;
+            root_note = keycode - MI_CH_CDom7 + MI_C2;
             // Major Third, Major Fifth, and Minor Seventh Notes
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 4, 7, 10);
             break;
 
         case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
-            root_note = keycode - MI_CH_CDim7 + MI_C_2;
+            root_note = keycode - MI_CH_CDim7 + MI_C2;
             // Root, Minor Third, and Diminished 5th Note
             my_process_midi4TriadChords(midi_chord_ch, record, chord_status, chord, root_note, 0, 3, 6);
             break;
