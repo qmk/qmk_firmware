@@ -883,12 +883,18 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_TAB:
             if (record->event.pressed) {
-                if (!isCtlTabStarted) {
+                if (isWeakLaMouseStarted) {
+                    register_code16(KC_MS_BTN3);
+                } else if (!isCtlTabStarted) {
                     isCtlTabStarted = true;
                     register_code16(KC_LCTL);
                     tap_code16(KC_TAB);
                 } else {
                     tap_code16(KC_TAB);
+                }
+            } else {
+                if (isWeakLaMouseStarted) {
+                    unregister_code16(KC_MS_BTN3);
                 }
             }
             return false;
