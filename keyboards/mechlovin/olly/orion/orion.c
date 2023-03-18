@@ -21,7 +21,7 @@ void board_init(void) {
    AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
 }
 
-void led_init_ports(void) {
+void keyboard_pre_init_kb(void) {
   setPinOutput(B5);
   setPinOutput(B6);
   setPinOutput(B7);
