@@ -118,8 +118,8 @@ and navigating to `http://localhost:8936/`.
 Most first-time QMK contributors start with their personal keymaps. We try to keep keymap standards pretty casual (keymaps, after all, reflect the personality of their creators) but we do ask that you follow these guidelines to make it easier for others to discover and learn from your keymap.
 
 * Write a `readme.md` using [the template](documentation_templates.md).
-* All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
-* Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
+* All Keymap PRs are squashed, so if you care about how your commits are squashed you should do it yourself
+* Do not lump features in with keymap PRs. Submit the feature first and then a second PR for the keymap.
 * Do not include `Makefile`s in your keymap folder (they're no longer used)
 * Update copyrights in file headers (look for `%YOUR_NAME%`)
 
@@ -143,7 +143,7 @@ Before you put a lot of work into building your new feature you should make sure
 * [Chat on Discord](https://discord.gg/Uq7gcHh)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
-Feature and Bug Fix PR's affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.
+Feature and Bug Fix PRs affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.
 
 Here are some things to keep in mind when working on your feature or bug fix.
 

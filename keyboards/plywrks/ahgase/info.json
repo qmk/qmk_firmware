@@ -8,6 +8,8 @@
         "pid": "0x7902",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi",
         "LAYOUT_iso": "LAYOUT_tkl_f13_iso"

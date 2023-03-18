@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include_next "mcuconf.h"
+#include_next <mcuconf.h>
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill)
 #    undef STM32_I2C_USE_I2C1

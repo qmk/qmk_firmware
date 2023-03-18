@@ -8,6 +8,13 @@
     "pid": "0x0003",
     "device_version": "0.0.4"
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D6", "pin_b": "D7"}
+    ]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [{"label":"K00", "x":0, "y":0}, {"label":"K01", "x":1, "y":0}, {"label":"K02", "x":2, "y":0}, {"label":"K03", "x":4, "y":0}, {"label":"K10", "x":0, "y":1}, {"label":"K11", "x":1, "y":1}, {"label":"K12", "x":2, "y":1}, {"label":"K13", "x":4, "y":1}]

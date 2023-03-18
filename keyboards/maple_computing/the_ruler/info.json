@@ -8,6 +8,8 @@
     "pid": "0x6007",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
       "LAYOUT": {
           "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0}, {"x":5, "y":0, "w":2}]

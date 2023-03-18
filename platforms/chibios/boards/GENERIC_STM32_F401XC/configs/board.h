@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#include_next "board.h"
+#include_next <board.h>
 
 // Force B9 as input to align with qmk defaults
 #undef VAL_GPIOB_MODER

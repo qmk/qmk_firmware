@@ -113,6 +113,20 @@ Example:
 }
 ```
 
+### Additional Options
+
+* `input_pressed_state`
+    * This configures state of the GPIO pins when the key is pressed - `1` for high, `0` for low
+    * Default: `0`
+
+Example:
+
+```json
+    "matrix_pins": {
+        "input_pressed_state": 1,
+},
+```
+
 ## Non-RGB LED Lighting
 
 This section controls basic 2-pin LEDs, which typically pass through keyswitches and are soldered into the PCB, or are placed in PCB sockets.
@@ -238,7 +252,6 @@ The following animations can be enabled:
 
 |Key              |Description                           |
 |-----------------|--------------------------------------|
-|`all`            |Enable all additional animation modes.|
 |`alternating`    |Enable alternating animation mode.    |
 |`breathing`      |Enable breathing animation mode.      |
 |`christmas`      |Enable christmas animation mode.      |
@@ -331,5 +344,26 @@ Example:
         "unlock_timeout": 5000,
         "idle_timeout": 60000
     }
+}
+```
+
+## Bootmagic
+
+This section configures [Bootmagic Lite](feature_bootmagic.md) support.
+
+The following options can be configured:
+
+|Key      |Description                                                                  |
+|---------|-----------------------------------------------------------------------------|
+|`matrix` | A two item list describing the row and column location for the trigger key. |
+
+Example:
+
+```json
+{
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    },
 }
 ```

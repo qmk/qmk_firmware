@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
 
-#include "config_common.h"
 
 // Matrix
 #define MATRIX_SHIFT_REGISTER_COUNT 5
