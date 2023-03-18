@@ -873,11 +873,17 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_ESC:
             if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_LTHUMBEOSL) || IS_LAYER_ON(LA_LTHUMBDOSL)) {
+                if (isWeakLaMouseStarted) {
+                    register_code16(KC_MS_BTN3);
+                } else if (IS_LAYER_ON(LA_LTHUMBEOSL) || IS_LAYER_ON(LA_LTHUMBDOSL)) {
                     layer_off(LA_LTHUMBEOSL);
                     layer_off(LA_LTHUMBDOSL);
                 } else {
                     tap_code16(KC_ESC);
+                }
+            } else {
+                if (isWeakLaMouseStarted) {
+                    unregister_code16(KC_MS_BTN3);
                 }
             }
             return false;
