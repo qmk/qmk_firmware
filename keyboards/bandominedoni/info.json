@@ -3,13 +3,35 @@
     "manufacturer": "3araht",
     "url": "https://github.com/3araht",
     "maintainer": "3araht",
+    "features": {
+        "midi": true,
+        "extrakey": true,
+        "encoder": true,
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": false,
+        "audio": false
+    },
+    "encoder": {
+        "rotary": []
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "D1", "E6", "F7", "B1", "B3", "B2", "D0" ],
+        "rows": [ "B5", "B4", "D7", "F6", "C6", "D4" ]
+    },
     "usb": {
         "vid": "0xFEED",
         "pid": "0xF4B5",
         "device_version": "0.0.1"
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2",
+        "soft_serial_speed": 1,
         "encoder": {
             "right": {
                 "rotary": [
