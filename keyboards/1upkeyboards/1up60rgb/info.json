@@ -8,6 +8,13 @@
     "pid": "0x7267",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B6",
+    "levels": 5
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["60_ansi", "60_iso", "60_ansi_split_bs_rshift", "60_hhkb"],
   "layouts": {
     "LAYOUT_all": {
       "layout": [

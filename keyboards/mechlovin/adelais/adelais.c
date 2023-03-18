@@ -15,3 +15,11 @@
  */
 
 #include "adelais.h"
+
+#ifdef RGBLIGHT_ENABLE
+void keyboard_post_init_kb(void) {
+  // Call the post init code.
+  rgblight_sethsv_at(255, 255, 255, 0);	
+    keyboard_post_init_user();
+}
+#endif

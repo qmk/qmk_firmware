@@ -100,7 +100,7 @@ static painter_font_handle_t qp_load_font_internal(bool (*stream_factory)(qff_fo
     qff_read_font_descriptor(&font->stream, &font->base.line_height, &font->has_ascii_table, &font->num_unicode_glyphs, &font->bpp, &font->has_palette, &font->compression_scheme, NULL);
 
     if (!qp_internal_bpp_capable(font->bpp)) {
-        qp_dprintf("qp_load_font: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE)\n", (int)font->bpp);
+        qp_dprintf("qp_load_font: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE or QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS)\n", (int)font->bpp);
         qp_close_font((painter_font_handle_t)font);
         return NULL;
     }

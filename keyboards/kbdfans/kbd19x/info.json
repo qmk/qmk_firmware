@@ -8,6 +8,17 @@
         "pid": "0x0191",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6"
+    },
+    "indicators": {
+        "caps_lock": "B0",
+        "num_lock": "B2",
+        "scroll_lock": "B1",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

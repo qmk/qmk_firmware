@@ -71,6 +71,10 @@ If you’re on the second layer, pressing `v` will send the string `"\n- "`, not
 
 F16, accessed by holding ; and pressing the ' key next to it, is intended for Siri.
 
+## use the fn/🌐︎︎︎ key
+
+A thumb key is bound to Caps Lock. You are not expected to use this for Caps Lock. You would probably be happier going into System Settings, opening the “Customize modifier keys” part of it, and having Caps Lock work as the fn key. macOS is convinced that Ergodoxen EZ have fn keys, so you might as well have one in a place that lends itself tolerably well to keyboard shortcuts.
+
 ## use it with an iPad
 
 This layout overrides `USB_MAX_POWER_CONSUMPTION` to turn it down to 100 mA instead of the default of 500 mA. This is not what you want if your Ergodox EZ has the Shine or Glow lights, but good if you want to be able to plug it into your iPad’s lightning port with a USB adapter. The indicator lights that tell you what layer you’re on are _not_ Shine or Glow lights.
