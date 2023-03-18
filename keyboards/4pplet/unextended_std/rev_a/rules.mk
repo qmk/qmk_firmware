@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F072
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -16,6 +10,7 @@ NKRO_ENABLE = yes            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
+KEY_LOCK_ENABLE = yes
 
 # Wildcard to allow APM32 MCU
 DFU_SUFFIX_ARGS = -p FFFF -v FFFF
