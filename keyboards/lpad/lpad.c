@@ -1,7 +1,7 @@
 // Copyright 2023 Laneware Peripherals
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "lpad.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
