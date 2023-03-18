@@ -27,8 +27,7 @@ void led_init_ports(void) {
   setPinOutput(B7);
   setPinOutput(B8);
   setPinOutput(B9);
-  setPinOutput(A13);
-  setPinOutput(A14);
+  keyboard_pre_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
