@@ -38,7 +38,6 @@
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN GP6
-#define RGBLED_NUM 123
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 
 #ifdef RGB_MATRIX_ENABLE
