@@ -31,8 +31,9 @@
         "key_lock": false,
         "rgb_matrix": true
     },
+    "community_layouts": [ "65_iso" ],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_iso": {
             "layout": [
                 { "matrix": [0,  0], "label":"Esc",       "x": 0,     "y": 0},
                 { "matrix": [0,  1], "label":"1",         "x": 1,     "y": 0},
