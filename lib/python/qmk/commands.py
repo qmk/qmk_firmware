@@ -175,9 +175,6 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
     if bootloader:
         make_command.append(bootloader)
 
-    for key, value in env_vars.items():
-        make_command.append(f'{key}={value}')
-
     make_command.extend([
         f'KEYBOARD={user_keymap["keyboard"]}',
         f'KEYMAP={user_keymap["keymap"]}',
@@ -197,6 +194,9 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
         'SILENT=false',
         'QMK_BIN="qmk"',
     ])
+
+    for key, value in env_vars.items():
+        make_command.append(f'{key}={value}')
 
     return make_command
 
