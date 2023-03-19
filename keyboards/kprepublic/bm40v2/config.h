@@ -1,4 +1,4 @@
-/* Copyright 2020 tominabox1
+/* Copyright 2020 syntax-magic
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +15,8 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // "KP"
-#define PRODUCT_ID      0x3430 // "40"
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KPRepublic
-#define PRODUCT         BM40 Hotswap RGB
+/* number of layers ( 9 max ) */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 9
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -64,7 +58,7 @@
 #        define WS2812_LED_TOTAL 6
 #    endif
 #    define DRIVER_LED_TOTAL (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
-
+#    define RGB_MATRIX_LED_COUNT (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 // RGB Matrix Animation modes. Explicitly enabled
