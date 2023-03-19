@@ -37,16 +37,20 @@ Please make sure to save any customizations you have made in VIA to a .json file
 ## Optional .json Configuration File
 
 I have included an optional .json configuration file (keychron_q2_ansi_knob_configure_mkillewald.json) which can be loaded in VIA on the Configure Tab (keyboard icon) to make the following layout changes:
+
     - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
-    - Fn1+Q in Mac mode will lock and sleep display 
+
+    - Fn1+Q in Mac mode will lock and sleep display
+
     - Changes the two vertical keys under the knob as follows:
         - Base Layer: PGUP and PGDN
         - Fn1 Layer: Home and End (Mac mode does Cmd-left and Cmd-right)
         - Fn2 Layer: Delete and Home (Mac mode Home returns to top of page)
+
     - Changes the knob to function as follows:
-        - Base Layer: volume up, down           Press: mute
-        - Fn1 Layer:  zoom in, out              Press: return to 100% zoom
-        - Fn2 Layer:  LED brighness inc, dec    Press: backlight toggle
+        - Base Layer: volume up, down Press: mute
+        - Fn1 Layer:  zoom in, out Press: return to 100% zoom
+        - Fn2 Layer:  LED brighness inc, dec Press: backlight toggle
 
 #### USE AT YOUR OWN RISK
 
