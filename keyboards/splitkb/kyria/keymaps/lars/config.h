@@ -34,6 +34,6 @@
 #    	define RGBLIGHT_LIMIT_VAL 150
 #    endif
 #endif
-
+#define SPLIT_DETECTED_OS_ENABLE
 // Lets you roll mod-tap keys
 #define IGNORE_MOD_TAP_INTERRUPT

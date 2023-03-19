@@ -225,7 +225,25 @@ bool oled_task_user(void) {
                 break;
         }
     } else {
+oled_write_P(PSTR("\nRunning on Host:\n"), false);
 
+switch (detected_host_os()) {
+    case OS_UNSURE:
+        oled_write_P(PSTR("Not sure\n"), false);
+        break;
+    case OS_WINDOWS:
+        oled_write_P(PSTR("Windows... ew\n"), false);
+        break;
+    case OS_MACOS:
+        oled_write_P(PSTR("MacOS\n"), false);
+        break;
+    case OS_IOS:
+        oled_write_P(PSTR("IOS\n"), false);
+        break;
+    case OS_LINUX:
+        oled_write_P(PSTR("Linux\n"), false);
+        break;
+}
     }
     return false;
 }
