@@ -1,9 +1,0 @@
-{
-    "usb": {
-        "pid": "0xDEF1",
-        "device_version": "0.0.1"
-    },
-    "backlight": {
-        "pin": "B6"
-    }
-}

@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "kbd67mkiirgb v4",
-    "usb": {
-        "pid": "0x1227",
-        "device_version": "0.0.4"
-    },
-    "processor": "atmega32u4",
-    "bootloader": "lufa-ms"
-}

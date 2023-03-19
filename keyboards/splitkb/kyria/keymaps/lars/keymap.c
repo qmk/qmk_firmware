@@ -47,6 +47,9 @@ enum custom_keycodes {
     USR_PASTE,
 };
 
+tap_dance_action_t tap_dance_actions[] = {
+    //[TD_SYM_ESC] = ACTION_TAP_DANCE_TAP_HOLD(KC_ENT, MO(_SYM)),
+};
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
 // produces the key `tap` when tapped (i.e. pressed and released).
@@ -292,7 +295,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef REPEAT_KEY
   process_repeat_key(keycode, record);
 #endif
-    tap_dance_action_t *action;
 
     switch (keycode) {
     case USR_COPY:

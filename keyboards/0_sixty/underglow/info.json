@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "0-Sixty-underglow",
-    "usb": {
-        "pid": "0x0061"
-    },
-    "features": {
-        "rgblight": true
-    }
-}

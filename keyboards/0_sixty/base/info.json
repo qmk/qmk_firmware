@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "0-Sixty",
-    "usb": {
-        "pid": "0x0060"
-    },
-    "indicators": {
-        "caps_lock": "B6"
-    }
-}
