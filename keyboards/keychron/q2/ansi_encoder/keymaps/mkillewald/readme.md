@@ -25,9 +25,9 @@
 
 All custom keycodes described above can be moved to different keys in VIA by using the following keycodes:
 - CUSTOM(11) = LTTOG (default: Fn2+Z) Caps Lock Light Tab Togglex
-- CUSTOM(12) = LATOG (default: Fn2+Z) Caps Lock Light Alpha Toggle
-- CUSTOM(13) = TKTOG (default: Fn2+Z) Fn layer Trasnparent Key Toggle
-- CUSTOM(14) = FCTOG (default: Fn2+Z) Fn layer Color Toggle
+- CUSTOM(12) = LATOG (default: Fn2+X) Caps Lock Light Alpha Toggle
+- CUSTOM(13) = TKTOG (default: Fn2+C) Fn layer Trasnparent Key Toggle
+- CUSTOM(14) = FCTOG (default: Fn2+V) Fn layer Color Toggle
 
 RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off. The indicators will remain at full brightness.
 
