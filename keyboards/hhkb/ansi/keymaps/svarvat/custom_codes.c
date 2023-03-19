@@ -10,6 +10,7 @@ enum custom_keycodes {
     MA_CAPSWORD,
     MA_CF,
     MA_CS,
+    MA_GE,
     MA_F1,
     MA_F2,
     MA_F3,

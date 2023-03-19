@@ -489,6 +489,15 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 tap_code16_wrap_lctl(FR_SLSH);
             }
             return false;
+        case MA_GE:
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(LA_MOUSE)) {
+                    tap_code16(KC_MS_BTN1);
+                } else {
+                    tap_code16(G(KC_E));
+                }
+            }
+            return false;
         case MA_F1:
             if (record->event.pressed) {
                 tap_code16_wrap_lctl(KC_F1);
