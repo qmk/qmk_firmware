@@ -36,7 +36,9 @@ Please make sure to save any customizations you have made in VIA to a .json file
 
 ## Optional .json Configuration File
 
-I have included an optional .json configuration file (keychron_q2_ansi_knob_configure_mkillewald.json) which can be loaded in VIA on the Configure Tab (keyboard icon) to make the following layout changes:
+keychron_q2_ansi_knob_configure_mkillewald.json
+
+I have included an optional .json configuration file which can be loaded in VIA on the Configure Tab (keyboard icon) to make the following layout changes:
 
 - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
 
