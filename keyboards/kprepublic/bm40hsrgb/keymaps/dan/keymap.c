@@ -1,4 +1,4 @@
-/* Copyright 2020 tominabox1
+/* Copyright 2020 syntax-magic
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ enum {
     TD_PAST_PSLS,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for asterisk, twice for slash
     [TD_PAST_PSLS] = ACTION_TAP_DANCE_DOUBLE(KC_PAST, KC_PSLS),
 };
@@ -299,7 +299,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 {36, 37, 38, 39, 40,   41,   42, 43, 44, 45, 46}
 */
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     uint8_t ind[3] = {14, 22, 0};
     uint8_t red[3] = {22, 2, 0};
     uint8_t yellow[3] = {20, 22, 0};
@@ -356,6 +356,7 @@ void rgb_matrix_indicators_user(void) {
     if (led_state.scroll_lock) {
         rgb_matrix_set_color(23, ind[0], ind[1], ind[2]);
     }
+    return true;
 }
 
 // Turn of RGB Matrix Effect
