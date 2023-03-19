@@ -1,7 +1,5 @@
-
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 #include <stdio.h>
-#include "crkbd.h"
 
 // in the future, should use (1U<<_LAYER_NAME) instead, but needs to be moved to keymap,c
 #define L_BASE 0

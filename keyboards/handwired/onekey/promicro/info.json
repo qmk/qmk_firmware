@@ -10,5 +10,9 @@
     },
     "rgblight": {
         "pin": "F6"
+    },
+    "apa102": {
+        "data_pin": "F6",
+        "clock_pin": "B1"
     }
 }
