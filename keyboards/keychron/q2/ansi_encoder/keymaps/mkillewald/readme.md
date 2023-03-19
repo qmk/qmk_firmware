@@ -33,21 +33,19 @@ RGB must be toggled on for all indicators to function. If you do not want an RGB
 
 Please make sure to save any customizations you have made in VIA to a .json file before flashing the firmware. Sometimes it has been necessary to re-apply those changes in VIA after flashing the firmware. If that is the case, you will most likely need to manually add the custom keycodes back in.
 
-Optional: 
-
-    I have included an optional .json configuration file (keychron_q2_ansi_knob_configure_mkillewald.json) which can be loaded in VIA on the Configure Tab (keyboard icon) which makes the following layout changes:
-        - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
-        - Fn1+Q in Mac mode will lock and sleep display 
+I have included an optional .json configuration file (keychron_q2_ansi_knob_configure_mkillewald.json) which can be loaded in VIA on the Configure Tab (keyboard icon) which makes the following layout changes:
+    - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
+    - Fn1+Q in Mac mode will lock and sleep display 
+    
+    - Changes the two vertical keys under the knob as follows:
+        - Base Layer: PGUP and PGDN
+        - Fn1 Layer: Home and End (Mac mode does Cmd-left and Cmd-right)
+        - Fn2 Layer: Delete and Home (Mac mode Home returns to top of page)
         
-        - Changes the two vertical keys under the knob as follows:
-            - Base Layer: PGUP and PGDN
-            - Fn1 Layer: Home and End (Mac mode does Cmd-left and Cmd-right)
-            - Fn2 Layer: Delete and Home (Mac mode Home returns to top of page)
-            
-        - Changes the knob to function as follows:
-            - Base Layer: volume up, down           Press: mute
-            - Fn1 Layer:  zoom in, out              Press: return to 100% zoom
-            - Fn2 Layer:  LED brighness inc, dec    Press: backlight toggle
+    - Changes the knob to function as follows:
+        - Base Layer: volume up, down           Press: mute
+        - Fn1 Layer:  zoom in, out              Press: return to 100% zoom
+        - Fn2 Layer:  LED brighness inc, dec    Press: backlight toggle
         
 #### USE AT YOUR OWN RISK
 
