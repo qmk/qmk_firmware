@@ -41,11 +41,11 @@ enum layers {
 #define ALT_ENT     MT(MOD_LALT, KC_ENT)
 
 
+
 enum custom_keycodes {
     USR_COPY,
     USR_PASTE,
 };
-
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -71,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK_DHk] = LAYOUT(
      KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   DE_Y , DE_SCLN, DE_SLSH  ,
      KC_BSPC , KC_A ,  KC_R   ,  KC_S  ,   KC_T ,   KC_G ,                                        KC_K,   KC_N ,  KC_E ,   KC_I ,  KC_O ,  DE_QUOT  ,
-     KC_LSFT , DE_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V ,USR_COPY, CTL_ESC,     SYM,  USR_PASTE      ,    KC_M,   KC_H ,DE_COMM, DE_DOT ,DE_MINS, KC_RSFT   ,
-                                CTL_ESC, KC_LGUI,CTL_ESC, CTL_ESC , NUMBERS,     NAV,  ALT_ENT,KC_SPC,COLEMAK_GERMANIZED, KC_APP
+     KC_LSFT , DE_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V ,USR_COPY, CTL_ESC,     NAV,  USR_PASTE      ,    KC_M,   KC_H ,DE_COMM, DE_DOT ,DE_MINS, KC_RSFT   ,
+                                CTL_ESC, KC_LGUI,ALT_ENT, CTL_ESC , NUMBERS,     NAV,  LT(SYM, KC_ENT),KC_SPC,COLEMAK_GERMANIZED, KC_APP
 
     ),
 
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
-      _______, DE_EXLM, DE_QUES,  DE_DLR, DE_PERC, _______,                                     _______,   DE_AT, DE_ASTR, _______, _______, _______,
+      _______, DE_EXLM, DE_QUES, KC_HASH, DE_DLR , DE_PERC,                                     _______,   DE_AT, DE_ASTR, _______, _______, _______,
       _______, DE_LBRC, DE_RBRC, DE_LPRN, DE_RPRN, _______,                                     DE_AMPR, DE_LCBR, DE_RCBR, DE_LABK, DE_RABK, _______,
       _______, _______, _______, DE_MINS,  DE_EQL, DE_DQUO,  _______, _______, _______, _______, DE_PIPE, _______, _______, DE_TILD, DE_PLUS, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -292,13 +292,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef REPEAT_KEY
   process_repeat_key(keycode, record);
 #endif
-  switch (keycode) {
+    tap_dance_action_t *action;
+
+    switch (keycode) {
     case USR_COPY:
-      process_platform_combo(keycode, record);
-      return false;
+        process_platform_combo(keycode, record);
+        return false;
     case USR_PASTE:
-      process_platform_combo(keycode, record);
-      return false;
+        process_platform_combo(keycode, record);
+        return false;
   }
   return true;
 }

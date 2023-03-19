@@ -6,3 +6,4 @@ RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 OS_DETECTION_ENABLE = yes
 SPLIT_KEYBOARD = yes
 SPLIT_DETECTED_OS_ENABLE = yes
+TAP_DANCE_ENABLE = yes
