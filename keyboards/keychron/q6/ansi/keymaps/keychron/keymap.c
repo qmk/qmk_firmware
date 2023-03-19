@@ -63,9 +63,29 @@ void housekeeping_task_user(void) {
     housekeeping_task_keychron();
 }
 
+static bool caps_lock_enabled = false;
+
+bool process_caps_lock(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (caps_lock_enabled) {
+            caps_lock_enabled = false;
+            unregister_code(KC_CAPSLOCK);
+        } else {
+            caps_lock_enabled = true;
+            register_code(KC_CAPSLOCK);
+        }
+        rgblight_toggle();
+    }
+    return false;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(!process_record_keychron(keycode, record)) {
         return false;
+    }
+
+    if (keycode == KC_CAPS) {
+        return process_caps_lock(keycode, record);
     }
 
     return true;
