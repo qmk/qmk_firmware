@@ -8,7 +8,6 @@ VIA_ENABLE = yes
 BOOTLOADER = atmel-dfu
 
 HOLD_ON_OTHER_KEY_PRESS = no
-IGNORE_MOD_TAP_INTERRUPT = yes
 
 # Build Options
 #   change yes to no to disable
