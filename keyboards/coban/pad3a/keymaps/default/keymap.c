@@ -1,4 +1,4 @@
-/* Copyright 2022 DZTECH <moyi4681@Live.cn>
+/* Copyright 2021 RyanDam (https://github.com/RyanDam)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-#pragma once
 
-#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_EFFECT_RAINBOW_MOOD + 6)
-#define RGBLIGHT_DEFAULT_SPD 15
+#include QMK_KEYBOARD_H
 
-#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT(KC_MUTE, KC_MNXT, KC_MPLY),
+};
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+};
+#endif
