@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
-#include "./lib/oled.h"
+#include "oled.h"
+#include "rubi.h"
 
 bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
