@@ -257,19 +257,17 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
     || keycode == KC_DOWN
     || keycode == MA_HOME
     || keycode == MA_END
-    || keycode == KC_ENT
-    || keycode == MA_CAPSWORD
-    || keycode == MA_CAPSLOCK)) {
+    || keycode == KC_ENT)) {
         if (record->event.pressed) {
             isCapswordStarted = false;
             layer_off(LA_CAPSLOCK);
-            return true;
         }
     }
     switch (keycode) {
         case MA_CAPSLOCK:
         case MA_CAPSWORD:
             if (record->event.pressed) {
+                isCapswordStarted = false;
                 layer_off(LA_CAPSLOCK);
             }
             return false;
@@ -846,6 +844,19 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
+        case MA_CS:
+            if (record->event.pressed) {
+                if (isWeakLaMouseStarted) {
+                    scrollUp = true;
+                } else {
+                    tap_code16(C(KC_S));
+                }
+            } else {
+                if (isWeakLaMouseStarted) {
+                    scrollUp = false;
+                }
+            }
+            return false;
         case KC_LGUI:
             if (isWeakLaMouseStarted) {
                 if (record->event.pressed) {
@@ -951,9 +962,7 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
                     tap_code16(KC_ENT);
                 } else {
                     isCtlFStarted = true;
-                    tap_code16(C(KC_C));
                     tap_code16(C(KC_F));
-                    tap_code16(C(KC_V));
                 }
             }
             return false;
