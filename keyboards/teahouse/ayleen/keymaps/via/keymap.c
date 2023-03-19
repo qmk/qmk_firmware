@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //indicator variables
 bool caps_is_active = false;
-int mode = 5;
+
 
 //to change color if the caps lock is on
 void freather_set_color(bool capslock_is_on);
@@ -88,7 +88,7 @@ void eeconfig_init_user(void) {
     freather.caps.s       = 100;
     freather.caps.v       = 100;
     freather.caps.enabled = true;
-    rgblight_set_effect_range(0,1);
+    rgblight_set_effect_range(1,1);
     // Write default value to EEPROM now
     eeconfig_update_user_datablock(&freather);
 }
@@ -108,7 +108,13 @@ void freather_config_set_value(uint8_t *data) {
     switch (*value_id) {
         case id_freather_indicator_enabled: {
             freather.caps.enabled = value_data[0];
-            rgblight_sethsv_at(0,0,0,0);
+            if(caps_is_active == true &&freather.caps.enabled == true)
+            {
+              rgblight_sethsv_at(freather.caps.h, freather.caps.s, freather.caps.v,0);
+            }else
+            {
+              rgblight_sethsv_at(0,0,0,0);
+            }
             break;
         }
         case id_freather_indicator_color: {
@@ -196,16 +202,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_CAPS:
       if (record->event.pressed && caps_is_active == false &&freather.caps.enabled == true) {  //turn on caps
         caps_is_active = true;
-        mode = rgblight_get_mode();
-        rgblight_mode(1);
-        rgblight_sethsv_range(freather.caps.h, freather.caps.s, freather.caps.v, 0, 1); //needs a way to override the effect
+        rgblight_sethsv_at(freather.caps.h, freather.caps.s, freather.caps.v, 0); //needs a way to override the effect
         return true;
-      }else if(record->event.pressed && caps_is_active == true ){
-        rgblight_set_effect_range(0,1);
-        rgblight_mode(mode);
-
+      }else if(record->event.pressed && caps_is_active == true&&freather.caps.enabled == true ){
+        rgblight_sethsv_at(0,0,0,0);
         caps_is_active = false;
       }
+      else if(record->event.pressed && caps_is_active == false && freather.caps.enabled == false){
+        caps_is_active = true;
+      }
+      else if(record->event.pressed && caps_is_active == true && freather.caps.enabled == false){
+        caps_is_active = false;
+      }
+
     default:
       return true; // Process all other keycodes normally
   }
