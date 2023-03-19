@@ -1,4 +1,4 @@
 # Build Options
 #   change yes to no to disable
 #
-SRC += analog.c
+QUANTUM_LIB_SRC += analog.c
