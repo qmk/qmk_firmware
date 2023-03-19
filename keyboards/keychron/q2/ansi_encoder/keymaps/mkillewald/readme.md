@@ -33,6 +33,9 @@ RGB must be toggled on for all indicators to function. If you do not want an RGB
 
 Please make sure to save any customizations you have made in VIA to a .json file before flashing the firmware. Sometimes it has been necessary to re-apply those changes in VIA after flashing the firmware. If that is the case, you will most likely need to manually add the custom keycodes back in.
 
+
+## Optional .json Configuration File
+
 I have included an optional .json configuration file (keychron_q2_ansi_knob_configure_mkillewald.json) which can be loaded in VIA on the Configure Tab (keyboard icon) which makes the following layout changes:
     - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
     - Fn1+Q in Mac mode will lock and sleep display 
