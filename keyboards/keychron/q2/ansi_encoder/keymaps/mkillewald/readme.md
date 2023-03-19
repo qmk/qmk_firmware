@@ -33,7 +33,6 @@ RGB must be toggled on for all indicators to function. If you do not want an RGB
 
 Please make sure to save any customizations you have made in VIA to a .json file before flashing the firmware. Sometimes it has been necessary to re-apply those changes in VIA after flashing the firmware. If that is the case, you will most likely need to manually add the custom keycodes back in.
 
-
 ## Optional .json Configuration File
 
 keychron_q2_ansi_knob_configure_mkillewald.json
@@ -53,6 +52,14 @@ I have included an optional .json configuration file which can be loaded in VIA 
     - Base Layer: volume up, down Press: mute
     - Fn1 Layer:  zoom in, out Press: return to 100% zoom
     - Fn2 Layer:  LED brighness inc, dec Press: backlight toggle
+    
+## Known Issues
+
+1. Keychron factory reset (clear eeprom) Fn1+J+Z is not working 
+2. Keychron LED test Fn1+Home+Right is not working
+
+It seems Keychron has not pushed the relavant code to the main QMK repo yet. I see the code is in Keychron's fork, and I may manually add that code here at some point.
+ 
 
 #### USE AT YOUR OWN RISK
 
