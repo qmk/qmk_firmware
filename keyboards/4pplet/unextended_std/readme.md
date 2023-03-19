@@ -1,4 +1,4 @@
-# ASK
+# Unextended Standard PCB
 
 PCB for the Unextended Standard Project. The PCB enables use of M0116, M0118, IIc and NeXT keycaps and is designed to fit in the open sourced Unextended case.
 
@@ -15,8 +15,9 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-How to enter bootloader (DFU):
-* Short the reset-header (labled RESET) on tha back of the PCB for keyboard to enter DFU. When in DFU, it's ready to flash the firmware.
+## Bootloader
+Enter the bootloader in 3 ways:
 
-Alternative option if the firmware is already pre-flashed:
-* Unplug your keyboard, hold down the Spacebar and B at the same time, plug in your keyboard and wait a second before releasing the keys. The keyboard will enter DFU and is ready to flash the firmware.
+* **Bootmagic reset**: Hold down the Escape-key and plug in the keyboard
+* **Physical reset header**: Briefly short the header labled "BL/reset" on the PCB
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
