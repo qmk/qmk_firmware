@@ -771,7 +771,6 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMBMS);
-                isScrollX1Started = false;
                 isMouseX2Started = false;
                 isScrollX2Started = false;
                 isMouseX4Started = false;
