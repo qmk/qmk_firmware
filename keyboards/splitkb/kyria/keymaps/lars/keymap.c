@@ -41,6 +41,12 @@ enum layers {
 #define ALT_ENT     MT(MOD_LALT, KC_ENT)
 
 
+enum custom_keycodes {
+    USR_COPY,
+    USR_PASTE,
+};
+
+
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
 // produces the key `tap` when tapped (i.e. pressed and released).
@@ -65,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK_DHk] = LAYOUT(
      KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   DE_Y , DE_SCLN, DE_SLSH  ,
      KC_BSPC , KC_A ,  KC_R   ,  KC_S  ,   KC_T ,   KC_G ,                                        KC_K,   KC_N ,  KC_E ,   KC_I ,  KC_O ,  DE_QUOT  ,
-     KC_LSFT , DE_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V ,CTL_ESC, CTL_ESC,     SYM,  CTL_ESC      ,    KC_M,   KC_H ,DE_COMM, DE_DOT ,DE_MINS, KC_RSFT   ,
+     KC_LSFT , DE_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V ,USR_COPY, CTL_ESC,     SYM,  USR_PASTE      ,    KC_M,   KC_H ,DE_COMM, DE_DOT ,DE_MINS, KC_RSFT   ,
                                 CTL_ESC, KC_LGUI,CTL_ESC, CTL_ESC , NUMBERS,     NAV,  ALT_ENT,KC_SPC,COLEMAK_GERMANIZED, KC_APP
 
     ),
@@ -248,39 +254,51 @@ switch (detected_host_os()) {
     return false;
 }
 #endif
-//
-//enum custom_keycodes {
-//  USR_COPY,
-//  USR_PASTE,
-//};
 
 
+void process_platform_combo(uint16_t keycode, keyrecord_t *record) {
+  os_variant_t host_os = detected_host_os();
+  uint16_t keycode_to_press = KC_NO;
+  if (host_os == OS_MACOS || host_os == OS_IOS) {
+    switch (keycode) {
+      case USR_COPY:
+        keycode_to_press = G(KC_C);
+        break;
+      case USR_PASTE:
+        keycode_to_press = G(KC_V);
+        break;
+    }
+  } else {
+    switch (keycode) {
+      case USR_COPY:
+        keycode_to_press = C(KC_C);
+        break;
+      case USR_PASTE:
+        keycode_to_press = C(KC_V);
+        break;
+    }
+  }
+  if (record->event.pressed) {
+    register_code16(keycode_to_press);
+  } else {
+    unregister_code16(keycode_to_press);
+  }
+}
 
-//void process_platform_combo(uint16_t keycode, keyrecord_t *record) {
-//  os_variant_t host_os = detected_host_os();
-//  uint16_t keycode_to_press = KC_NO;
-//  if (host_os == OS_MACOS || host_os == OS_IOS) {
-//    switch (keycode) {
-//      case USR_COPY:
-//        keycode_to_press = G(KC_C);
-//        break;
-//      case USR_PASTE:
-//        keycode_to_press = G(KC_V);
-//        break;
-//    }
-//  } else {
-//    switch (keycode) {
-//      case USR_COPY:
-//        keycode_to_press = C(KC_C);
-//        break;
-//      case USR_PASTE:
-//        keycode_to_press = C(KC_V);
-//        break;
-//    }
-//  }
-//  if (record->event.pressed) {
-//    register_code16(keycode_to_press);
-//  } else {
-//    unregister_code16(keycode_to_press);
-//  }
-//}
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef CONSOLE_ENABLE
+  uprintf("KL: kc: 0x%04X, pressed: %b, time: %u\n", keycode, record->event.pressed, record->event.time);
+#endif
+#ifdef REPEAT_KEY
+  process_repeat_key(keycode, record);
+#endif
+  switch (keycode) {
+    case USR_COPY:
+      process_platform_combo(keycode, record);
+      return false;
+    case USR_PASTE:
+      process_platform_combo(keycode, record);
+      return false;
+  }
+  return true;
+}
