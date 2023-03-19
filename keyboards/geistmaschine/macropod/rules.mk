@@ -1,5 +1,3 @@
-ENCODER_MAP_ENABLE = yes
-
 CUSTOM_MATRIX = lite
 
 VPATH += drivers/gpio
