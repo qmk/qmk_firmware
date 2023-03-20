@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 @ Mike Killewald (https://github.com/mkillewald)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,6 +83,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,           KC_LTTOG, KC_LATOG, KC_TKTOG, KC_FCTOG, _______, _______, _______, _______, _______,  _______,            _______, _______,
         _______, _______,  _______,                                _______,                            _______,  _______,  _______,  _______, _______, _______)
 };
+
+// clang-format on
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
