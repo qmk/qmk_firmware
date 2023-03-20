@@ -24,7 +24,7 @@
         - Fn2+V (keycode: FCTOG) will toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR (default: static color off)
 
 All custom keycodes described above can be moved to different keys in VIA by using the following keycodes:
-- CUSTOM(11) = LTTOG (default: Fn2+Z) Caps Lock Light Tab Togglex
+- CUSTOM(11) = LTTOG (default: Fn2+Z) Caps Lock Light Tab Toggle
 - CUSTOM(12) = LATOG (default: Fn2+X) Caps Lock Light Alpha Toggle
 - CUSTOM(13) = TKTOG (default: Fn2+C) Fn layer Trasnparent Key Toggle
 - CUSTOM(14) = FCTOG (default: Fn2+V) Fn layer Color Toggle
