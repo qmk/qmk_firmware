@@ -87,7 +87,7 @@ void cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResoluti
 }
 
 // Clears Status1 register flags (SW_CC and SW_DR)
-void cirque_pinnacle_clear_flags() {
+void cirque_pinnacle_clear_flags(void) {
     RAP_Write(HOSTREG__STATUS1, HOSTREG__STATUS1_DEFVAL & ~(HOSTREG__STATUS1__COMMAND_COMPLETE | HOSTREG__STATUS1__DATA_READY));
     wait_us(50);
 }

@@ -3,7 +3,6 @@
     "keyboard_name": "ASK55",
     "maintainer": "qmk",
     "development_board": "promicro",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "audio": false,

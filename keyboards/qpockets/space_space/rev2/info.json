@@ -8,6 +8,14 @@
   	"pid": "0x7373",
   	"device_version": "30.0.2"
   },
+  "encoder": {
+  	"rotary": [
+  		{"pin_a": "B4", "pin_b": "D7", "resolution": 3},
+  		{"pin_a": "C7", "pin_b": "F7", "resolution": 3}
+  	]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT_default": {
 	  "layout": [

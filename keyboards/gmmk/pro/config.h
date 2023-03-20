@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 11
-#define MATRIX_COLS 8
 
 #define MATRIX_ROW_PINS \
     { B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10 }
@@ -30,15 +25,7 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 3
-
 #define TAP_CODE_DELAY 10
-#define ENCODERS_PAD_A \
-    { C15 }
-#define ENCODERS_PAD_B \
-    { C14 }
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -105,9 +92,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* Set debounce time to 5ms */
-#define DEBOUNCE 5
-
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
-// #define FORCE_NKRO

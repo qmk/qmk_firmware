@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -23,5 +17,3 @@ SPLIT_KEYBOARD = yes
 
 RGBLIGHT_SUPPORTED = yes
 RGB_MATRIX_SUPPORTED = yes
-
-LAYOUTS = split_3x5_3

@@ -247,7 +247,7 @@ bool rgb_matrix_indicators_user(void) {
 //  87, led 07                                                                                                                                                                      88, led 18
 //  91, led 08                                                                                                                                                                      92, led 19
 
-static void set_rgb_caps_leds_on() {
+static void set_rgb_caps_leds_on(void) {
         rgb_matrix_set_color(0, 255, 0, 0);       //Escape Key
         rgb_matrix_set_color(3, 255, 0, 0);       //capslock key
         rgb_matrix_set_color(5, 255, 0, 0);       //Left CTRL key
@@ -269,7 +269,7 @@ static void set_rgb_caps_leds_on() {
         rgb_matrix_set_color(92, 255, 255, 255);  //Right LED 19
 }
 
-static void set_rgb_caps_leds_off() {
+static void set_rgb_caps_leds_off(void) {
         rgb_matrix_set_color(0,  0, 0, 0); //Escape Key
         rgb_matrix_set_color(3,  0, 0, 0); //capslock key
         rgb_matrix_set_color(5,  0, 0, 0); //Left CTRL key
@@ -291,11 +291,11 @@ static void set_rgb_caps_leds_off() {
         rgb_matrix_set_color(92, 0, 0, 0); //Right LED 19
 }
 
-static void set_rgb_scroll_leds_on() {
+static void set_rgb_scroll_leds_on(void) {
         rgb_matrix_set_color(72, 255, 255, 255); // Under Rotary (HOME)
 }
 
-static void set_rgb_scroll_leds_off() {
+static void set_rgb_scroll_leds_off(void) {
         rgb_matrix_set_color(72, 0, 0, 0); // Under Rotary (HOME)
 }
 
