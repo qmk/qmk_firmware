@@ -8,8 +8,7 @@
 		"pid": "0x6060",
 		"device_version": "0.0.1"
 	},
-	"processor": "atmega32u4",
-	"bootloader": "caterina",
+	"development_board": "promicro",
 	"diode_direction": "ROW2COL",
 	"matrix_pins": {
 			"cols": ["B3", "B2", "B6"],
