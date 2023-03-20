@@ -15,6 +15,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         } else {
             tap_code_delay(KC_VOLD, 10);
         }
+    }
     return true;
 }
 #endif
