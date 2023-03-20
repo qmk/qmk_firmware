@@ -21,17 +21,6 @@
 #include "keymap_user_config.h"
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
-bool is_suspended = false;
-
-void suspend_power_down_user(void) {
-    // code will run multiple times while keyboard is suspended
-    is_suspended = true;
-}
-
-void suspend_wakeup_init_user(void) {
-    // code will run on keyboard wakeup
-    is_suspended = false;
-}
 
 void rgb_matrix_init_user(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
