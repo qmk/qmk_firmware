@@ -144,7 +144,6 @@ void encoder_init(void) {
     }
 #endif // defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 
-    XL9555_set_polarity(0xFF, 0xFF);
     uint16_t pins = XL9555_read();
     for (uint8_t i = 0; i < thisCount; i++) {
         encoder_state[i] = (read_expander_pin(encoders_pad_a[i], pins) << 0) | (read_expander_pin(encoders_pad_b[i], pins) << 1);
