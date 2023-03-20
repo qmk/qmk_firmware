@@ -35,10 +35,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // the following removes auto repeat on keys, but allows a key to be tapped then immediately
 // held to activate the modifier.  (without this tap and hold would autorepeat)
 #define TAPPING_FORCE_HOLD
+// when you tap then hold - setting quick tap term to 0 means you get the hold action,
+// otherwise the tap to hold time must be below this to activate autorepeat.
+#define QUICK_TAP_TERM 0
 
 // permissive hold means D(a), D(b), U(b), U(a) will always emit the modified version of b,
 // without this if the above is within tapping tarm you get ab instead.
 #define PERMISSIVE_HOLD
+// hold on other key press will mean that D(mod), D(b), U(mod), U(b) will emit the hold action on mod
+//#define HOLD_ON_OTHER_KEY_PRESS
+
 #define TAPPING_TERM 175
 
 #define ONESHOT_TAP_TOGGLE 2
