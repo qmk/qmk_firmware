@@ -1,6 +1,6 @@
-#Haven65 Hotswap
+#Haven65
 
-![haven 65 hotswap](https://i.imgur.com/M1l1DaO.png)
+![haven 65](https://i.imgur.com/M1l1DaO.png)
 
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
@@ -8,11 +8,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ah/haven65_hotswap:default
+    make ah/haven65:default
 
 Flashing example for this keyboard:
 
-    make ah/haven65_hotswap:default:flash
+    make ah/haven65:default:flash
 
 ##Bootloader Atmel-DFU
 
