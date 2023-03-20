@@ -37,14 +37,14 @@ TEST_F(AutoShift, key_release_before_timeout) {
     EXPECT_NO_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
     EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(AutoShift, key_release_after_timeout) {
@@ -58,7 +58,7 @@ TEST_F(AutoShift, key_release_after_timeout) {
     EXPECT_NO_REPORT(driver);
     regular_key.press();
     idle_for(AUTO_SHIFT_TIMEOUT);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
     EXPECT_REPORT(driver, (KC_LSFT, KC_A));
@@ -66,5 +66,5 @@ TEST_F(AutoShift, key_release_after_timeout) {
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#include_next "mcuconf.h"
+#include_next <mcuconf.h>
 
 #undef WB32_ADC_USE_ADC1
 #define WB32_ADC_USE_ADC1 TRUE

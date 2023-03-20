@@ -8,6 +8,16 @@
        "pid": "0x5044",
        "device_version": "0.0.2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C15", "pin_b": "C14"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [1, 3]
+    },
+    "processor": "WB32F3G71",
+    "bootloader": "wb32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

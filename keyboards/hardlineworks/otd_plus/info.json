@@ -8,6 +8,12 @@
         "pid": "0x0087",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F4",
+        "scroll_lock": "D5"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_tkl_ansi_wkl": {
             "layout": [

@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include_next "mcuconf.h"
+#include_next <mcuconf.h>
 
 // for i2c expander, and ISSI
 #undef STM32_I2C_USE_I2C1

@@ -62,7 +62,7 @@
         "brightness_steps": 8,
         "hue_steps": 8,
         "led_count": 8,
-        "max_brightness": 255,
+        "max_brightness": 120,
         "pin": "D1",
         "saturation_steps": 8,
         "sleep": true

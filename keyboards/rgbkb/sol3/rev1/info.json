@@ -8,6 +8,27 @@
         "pid": "0x3510",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A1", "pin_b": "A2"},
+            {"pin_a": "B10", "pin_b": "B11"},
+            {"pin_a": "A13", "pin_b": "B14"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "A9",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "A1", "pin_b": "A2"},
+                    {"pin_a": "C15", "pin_b": "C14"},
+                    {"pin_a": "B3", "pin_b": "B13"}
+                ]
+            }
+        }
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

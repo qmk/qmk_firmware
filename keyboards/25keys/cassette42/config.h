@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 6
-
-#define DIRECT_PINS {{ B4, F6, F5, F4, B5, F7 }}
-
-#define ENCODERS_PAD_A { B6, B3 }
-#define ENCODERS_PAD_B { B2, B1 }
-#define ENCODER_RESOLUTION 4
-
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 5

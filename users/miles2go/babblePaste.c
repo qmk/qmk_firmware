@@ -23,7 +23,7 @@ __attribute__((weak)) void babble_modeswitch_kb(uint8_t mode) { babble_modeswitc
 
 void set_babble_mode(uint8_t id) { babble_mode = id; }
 
-void babble_mode_increment() {
+void babble_mode_increment(void) {
     babble_mode += 1;
     if (babble_mode >= BABL_MODEMAX) {
         babble_mode = 0;
@@ -31,7 +31,7 @@ void babble_mode_increment() {
     babble_modeswitch_kb(babble_mode);
 }
 
-void babble_mode_decrement() {
+void babble_mode_decrement(void) {
     if (babble_mode >= 1) {
         babble_mode -= 1;
     } else {

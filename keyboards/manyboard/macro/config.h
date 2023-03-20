@@ -16,19 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 4
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3 }
 #define MATRIX_COL_PINS { D4, D5, D6, D7 }
-
-/*Encoder Pins*/
-#define ENCODERS_PAD_A { C6 }
-#define ENCODERS_PAD_B { C7 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -37,6 +28,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 2
 #define RGBLIGHT_LIMIT_VAL 10
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

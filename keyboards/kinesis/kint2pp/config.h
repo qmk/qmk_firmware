@@ -1,9 +1,5 @@
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 15
-#define MATRIX_COLS  7 
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -20,19 +16,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_NUM_LOCK_PIN C5
-#define LED_CAPS_LOCK_PIN C1
-#define LED_SCROLL_LOCK_PIN C4
-#define LED_COMPOSE_PIN C3
-#define LED_PIN_ON_STATE 0
-
-/* Well-worn Cherry MX key switches can bounce for up to 20ms, despite the
- * Cherry data sheet specifying 5ms. Because we use the sym_eager_pk debounce
- * algorithm, this debounce latency only affects key releases (not key
- * presses). */
-#undef DEBOUNCE
-#define DEBOUNCE 20
 
 #define IGNORE_MOD_TAP_INTERRUPT
 
