@@ -8,6 +8,19 @@
         "pid": "0x1258",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F6"}
+        ]
+    },
+    "backlight": {
+        "pin": "B5"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

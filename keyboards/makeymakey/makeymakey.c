@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "makeymakey.h"
+#include "quantum.h"
 
 static pin_t pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 static pin_t led_pins[LED_PINS] = LED_PINS_HW;
@@ -108,7 +108,7 @@ void cycle_leds(void) {
     }
 }
 
-void matrix_scan_kb() {
+void matrix_scan_kb(void) {
     cycle_leds();
     matrix_scan_user();
 }

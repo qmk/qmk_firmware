@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F303
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # KEYBOARD_SHARED_EP = yes
 CONSOLE_ENABLE     = yes
 

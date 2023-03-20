@@ -5,8 +5,16 @@
     "maintainer": "lalalademaxiya1",
     "usb": {
         "vid": "0x3434",
-        "pid": "0x01A1",
+        "pid": "0x03A1",
         "device_version": "1.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A10", "pin_b": "A8"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
     },
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",

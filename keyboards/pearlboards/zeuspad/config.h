@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
@@ -46,12 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_CLICKY
 #define AUDIO_PIN C6
 
-/* Encoder Function */
-#define ENCODERS_PAD_A { D6 }
-#define ENCODERS_PAD_B { D4 }
-//#define ENCODER_DIRECTION_FLIP
-#define ENCODER_RESOLUTION 1
-
 /*== all animations enabled ==*/
 /* If RGBLIGHT_SLEEP defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGB_DI_PIN B7
@@ -71,9 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_SLEEP
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -93,6 +93,7 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t st7735_driver_vtable = {
             .viewport        = qp_tft_panel_viewport,
             .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
             .append_pixels   = qp_tft_panel_append_pixels_rgb565,
+            .append_pixdata  = qp_tft_panel_append_pixdata,
         },
     .num_window_bytes   = 2,
     .swap_window_coords = false,

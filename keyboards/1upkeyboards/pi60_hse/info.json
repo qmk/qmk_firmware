@@ -10,7 +10,6 @@
         "pid": "0x5603",
         "vid": "0x6F75"
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "audio": false,

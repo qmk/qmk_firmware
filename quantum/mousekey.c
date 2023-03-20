@@ -24,7 +24,7 @@
 #include "debug.h"
 #include "mousekey.h"
 
-inline int8_t times_inv_sqrt2(int8_t x) {
+static inline int8_t times_inv_sqrt2(int8_t x) {
     // 181/256 is pretty close to 1/sqrt(2)
     // 0.70703125                 0.707106781
     // 1 too small for x=99 and x=198
