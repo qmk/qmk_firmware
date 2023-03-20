@@ -8,4 +8,7 @@ JOYSTICK_ENABLE = yes
 JOYSTICK_DRIVER = analog
 SRC += analog.c
 
+RGB_MATRIX_DRIVER = custom
+SRC += ws2812.c drivers/is31fl3208.c
+
 LTO_ENABLE = yes
