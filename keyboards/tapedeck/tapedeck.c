@@ -81,6 +81,7 @@ void slider(void) {
 
 void matrix_scan_kb(void) {
 #ifdef POT_ENABLE
-	slider();
+    slider();
 #endif
+    matrix_scan_user();
 }
