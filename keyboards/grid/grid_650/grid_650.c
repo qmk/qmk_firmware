@@ -38,6 +38,9 @@ __asm__ __volatile__ (  \
 // #define FAKE_BAT_LEVEL
 #define BAT_LEVEL_STEP_10
 
+
+
+
 #endif
 
 #include "grid_650.h"

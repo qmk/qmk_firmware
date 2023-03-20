@@ -23,29 +23,6 @@ enum layer_names {
     _FN
 };
 
-// Defines the keycodes used by our macros in process_record_user
-// enum custom_keycodes {
-//     QMKBEST = SAFE_RANGE,
-//     QMKURL
-// };
-
-//keymap for test
-// const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//     /* Base */
-//     [_BASE] = LAYOUT(
-//         KC_1,       KC_2,       MO(_FN),
-//         KC_4,       KC_5,       KC_6, 
-//         KC_7,       KC_8,       KC_9,
-//         KC_A,       KC_B,       KC_C,
-//         OUT_USB,    OUT_BT,       KC_F
-//     )
-//     // [_FN] = LAYOUT(
-//     //     QMKBEST, QMKURL,  _______,
-//     //         RESET,    XXXXXXX
-//     // )
-// };
-
-
 
 enum my_keycodes {
   FOO = SAFE_RANGE,
@@ -61,17 +38,7 @@ enum my_keycodes {
   ORANGE
 };
 
-#ifdef LED_DEBUG
-enum LED_STAT{
-  RED_BLINK,
-  WHITE_BREATHING,
-  WHITE_ON,  
-  BLE_ON,
-  ORANGE_ON  
-};
 
-void set_status_led(enum LED_STAT led_stat,enum LED_STAT current_stat);
-#endif
 
 // USB keymap for user
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -105,9 +72,7 @@ uint8_t red_led = 1;
 uint8_t ble_led = 1;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef LED_DEBUG
-    static enum LED_STAT current_stat = WHITE_BREATHING;
-    #endif
+
 
     switch (keycode) {
         // case LED_RED:
@@ -126,54 +91,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //         // Do something else when release
         //     }
         //     return true; 
-        #ifdef LED_DEBUG
-        case ORANGE:
-        if (record->event.pressed) {                
-            set_status_led(ORANGE_ON,current_stat);
-            current_stat = ORANGE_ON;
-            // xprintf("current stat = %d\n",current_stat);
-
-        } else {
-            // Do something else when release
-        }
-            return true;
-        case BREATHING:
-        if (record->event.pressed) {
-            set_status_led(WHITE_BREATHING,current_stat);
-            current_stat = WHITE_BREATHING;
-            // xprintf("current stat = %d\n",current_stat);
-        } else {
-            // Do something else when release
-        }
-            return true;    
-        case ON:
-        if (record->event.pressed) {
-            set_status_led(WHITE_ON,current_stat);
-            current_stat = WHITE_ON;
-            // xprintf("current stat = %d\n",current_stat);
-        } else {
-            // Do something else when release
-        }
-            return true;    
-        case RED:
-        if (record->event.pressed) {
-            set_status_led(RED_BLINK,current_stat);
-            current_stat = RED_BLINK;
-            // xprintf("current stat = %d\n",current_stat);
-        } else {
-            // Do something else when release
-        }
-            return true; 
-        case BLUE:
-        if (record->event.pressed) {
-            set_status_led(BLE_ON,current_stat);
-            current_stat = BLE_ON;
-            // xprintf("current stat = %d\n",current_stat);
-        } else {
-            // Do something else when release
-        }
-            return true;     
-        #endif            
+        
         
         case BLE_PWR_OFF:
         if (record->event.pressed) {

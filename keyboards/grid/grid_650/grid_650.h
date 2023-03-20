@@ -16,24 +16,6 @@
 
 #pragma once
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-/*
-#define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k12    \
-) \
-{ \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k12 }  \
-}*/
-
 
 #include "quantum.h"
 #include <stdint.h>
@@ -57,21 +39,6 @@
 
 
 
-// #include <avr/interrupt.h>
-// #include <avr/io.h>
-// #include <avr/power.h>
-// #include "keyboard.h"
-// #include "matrix.h"
-// #include "host.h"
-// #include "action.h"
-// #include "uart.h"
-// #include "timer.h"
-// #include "debug.h"
-// #include "keycode.h"
-// #include "command.h"
-
-
-
 
 #define LAYOUT_650( \
  	K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K0F, \
@@ -92,8 +59,6 @@
 
 
 
-
-//need some config??
 // #define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
 // #define CPU_16MHz       0x00
 
@@ -113,7 +78,6 @@
 
 #define I2C_TIMEOUT 100
 extern i2c_status_t mcp23018_status;
-// void init_ergodox(void);
 
 uint8_t init_mcp23018(void);
 
