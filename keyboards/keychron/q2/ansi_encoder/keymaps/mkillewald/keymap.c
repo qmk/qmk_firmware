@@ -121,18 +121,11 @@ void keyboard_post_init_user(void) {
     user_config_read();
 }
 
-/*bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron(keycode, record)) {
-        return false;
-    }
-
-    return true;
-}*/
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {    
     if (process_record_keychron(keycode, record)) {
         switch (keycode) {
             case QK_BOOT:
+            case RESET:
 #ifdef RGB_MATRIX_ENABLE
                 // We want to turn off LEDs before calling bootloader, so here
                 // we call rgb_matrix_disable_noeeprom() and set a flag because
