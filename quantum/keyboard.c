@@ -139,6 +139,12 @@ void last_encoder_activity_trigger(void) {
     last_encoder_modification_time = last_input_modification_time = sync_timer_read32();
 }
 
+void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp) {
+    last_matrix_modification_time  = matrix_timestamp;
+    last_encoder_modification_time = encoder_timestamp;
+    last_input_modification_time   = MAX(matrix_timestamp, encoder_timestamp);
+}
+
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE)
 static uint32_t matrix_timer           = 0;

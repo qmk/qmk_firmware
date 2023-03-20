@@ -1,9 +1,9 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
 // Uncomment the following if your board uses 1.5A and 3.0A hold current fuses.
-//#define DJINN_SUPPORTS_3A_FUSE
+// #define DJINN_SUPPORTS_3A_FUSE
 
 // Encoder settings
 #define ENCODER_RESOLUTION 2
