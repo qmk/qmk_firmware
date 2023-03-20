@@ -2,7 +2,7 @@
   "name": "Keychron Q2 ANSI Knob",
   "vendorProductId": 875823377,
   "macros": [
-    "{KC_LGUI,KC_LCTL,KC_Q}{165}{KC_ESC}",
+    "{KC_LGUI,KC_LCTL,KC_Q}{200}{KC_ESC}",
     "",
     "",
     "",
