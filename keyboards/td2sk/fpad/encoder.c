@@ -23,6 +23,8 @@
 // for memcpy
 #include <string.h>
 
+#include "drivers/xl9555.h"
+
 #ifndef ENCODER_MAP_KEY_DELAY
 #    include "action.h"
 #    define ENCODER_MAP_KEY_DELAY TAP_CODE_DELAY
@@ -36,10 +38,14 @@
 #    error "No encoder pads defined by ENCODERS_PAD_A and ENCODERS_PAD_B"
 #endif
 
+#if !defined(CUSTOM_ENCODERS_PAD_A) || !defined(CUSTOM_ENCODERS_PAD_B)
+#    error "No encoder pads defined by CUSTOM_ENCODERS_PAD_A and CUSTOM_ENCODERS_PAD_B"
+#endif
+
 extern volatile bool isLeftHand;
 
-static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_A;
-static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_B;
+static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE] = CUSTOM_ENCODERS_PAD_A;
+static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE] = CUSTOM_ENCODERS_PAD_B;
 
 #ifdef ENCODER_RESOLUTIONS
 static uint8_t encoder_resolutions[NUM_ENCODERS] = ENCODER_RESOLUTIONS;
@@ -84,6 +90,10 @@ __attribute__((weak)) bool should_process_encoder(void) {
     return is_keyboard_master();
 }
 
+static bool read_expander_pin(uint8_t pin, uint16_t pins) {
+    return (pins >> pin) & 1;
+}
+
 void encoder_init(void) {
 #ifdef SPLIT_KEYBOARD
     thisHand  = isLeftHand ? 0 : NUM_ENCODERS_LEFT;
@@ -102,8 +112,8 @@ void encoder_init(void) {
     memset(encoder_value, 0, sizeof(encoder_value));
     memset(encoder_state, 0, sizeof(encoder_state));
     memset(encoder_pulses, 0, sizeof(encoder_pulses));
-    static const pin_t encoders_pad_a_left[] = ENCODERS_PAD_A;
-    static const pin_t encoders_pad_b_left[] = ENCODERS_PAD_B;
+    static const pin_t encoders_pad_a_left[] = CUSTOM_ENCODERS_PAD_A;
+    static const pin_t encoders_pad_b_left[] = CUSTOM_ENCODERS_PAD_B;
     for (uint8_t i = 0; i < thisCount; i++) {
         encoders_pad_a[i] = encoders_pad_a_left[i];
         encoders_pad_b[i] = encoders_pad_b_left[i];
@@ -134,13 +144,10 @@ void encoder_init(void) {
     }
 #endif // defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 
+    XL9555_set_polarity(0xFF, 0xFF);
+    uint16_t pins = XL9555_read();
     for (uint8_t i = 0; i < thisCount; i++) {
-        setPinInputHigh(encoders_pad_a[i]);
-        setPinInputHigh(encoders_pad_b[i]);
-    }
-    encoder_wait_pullup_charge();
-    for (uint8_t i = 0; i < thisCount; i++) {
-        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+        encoder_state[i] = (read_expander_pin(encoders_pad_a[i], pins) << 0) | (read_expander_pin(encoders_pad_b[i], pins) << 1);
     }
 }
 
@@ -218,9 +225,10 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 }
 
 bool encoder_read(void) {
-    bool changed = false;
+    bool     changed = false;
+    uint16_t pins    = XL9555_read();
     for (uint8_t i = 0; i < thisCount; i++) {
-        uint8_t new_status = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+        uint8_t new_status = (read_expander_pin(encoders_pad_a[i], pins) << 0) | (read_expander_pin(encoders_pad_b[i], pins) << 1);
         if ((encoder_state[i] & 0x3) != new_status) {
             encoder_state[i] <<= 2;
             encoder_state[i] |= new_status;

@@ -1,20 +1,17 @@
-// Copyright 2023 anonymous (@anonymous)
+// Copyright 2023 td2sk (td2sk)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
+#define ENCODERS_PAD_A \
+    { NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+#define ENCODERS_PAD_B \
+    { NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 
-/* disable debug print */
-//#define NO_DEBUG
+#define CUSTOM_ENCODERS_PAD_A \
+    { 0, 2, 4, 6, 8 }
+#define CUSTOM_ENCODERS_PAD_B \
+    { 1, 3, 5, 7, 9 }
 
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+#define ENCODER_RESOLUTIONS \
+    { 4, 4, 4, 4, 4 }
