@@ -1,12 +1,12 @@
 # fpad
 
-![fpad](imgur.com image replace me!)
+![fpad](https://i.imgur.com/LPFezWrh.jpeg)
 
-*A short description of the keyboard/project*
+An open source macro keyboard with 4x4 keys, 5 [illuminated rotary encoders](https://www.sparkfun.com/products/15141), and JoyStick.
 
-* Keyboard Maintainer: [anonymous](https://github.com/anonymous)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+-   Keyboard Maintainer: [td2sk](https://github.com/td2sk)
+-   Hardware Supported: [fpad PCB](https://github.com/td2sk/fpad), ProMicro
+-   Hardware Availability: [Design](https://github.com/td2sk/fpad)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -20,8 +20,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+-   **Physical reset button**: Briefly press the button on the bottom of the ProMicro - some may have pads you must short instead
