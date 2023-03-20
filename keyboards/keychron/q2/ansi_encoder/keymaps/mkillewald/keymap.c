@@ -44,8 +44,11 @@ enum my_keycodes {
 #define KC_LKMAC KC_MACRO_LOCK_MAC
 #define KC_SSMAC KC_MACRO_SCREEN_SHOT_MAC
 
+#ifdef RGB_MATRIX_ENABLE
 bool bootloader_pressed = false;
+bool bootloader_wait = false;
 bool do_bootloader = false;
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
@@ -97,16 +100,23 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 
 void housekeeping_task_user(void) {
+#ifdef RGB_MATRIX_ENABLE
     if (do_bootloader) {
-        // bootloader was pressed on previous frame. RGB should now be off,
-        // so we can now call the bootloader.  
-        reset_keyboard(); 
-    } else if (bootloader_pressed) {
-        // User pressed bootloader combo and RGB was disabled earlier in this 
-        // frame. We set a flag here to call the bootloader at end of 
-        // the next frame.  
+        // bootloader was pressed two frames ago. RGB should now be off,
+        // so we can call the bootloader.  
+        reset_keyboard();
+    } else if (bootloader_wait) {
+        // bootloader was pressed on previous frame, we wait this frame and
+        // set flag to do bootloader at end of next frame. For some reason, my 
+        // Q2 needed this extra wait frame.
         do_bootloader = true;
+    } else if (bootloader_pressed) {
+        // User pressed bootloader keycode and RGB was disabled earlier in this 
+        // frame. However RGB changes wont take place immediately, so we set a
+        // flag here which will be caught at end of the next frame.
+        bootloader_wait = true;
     }
+#endif
     
     housekeeping_task_keychron();
 }
@@ -125,7 +135,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keychron(keycode, record)) {
         switch (keycode) {
             case QK_BOOT:
-            case RESET:
 #ifdef RGB_MATRIX_ENABLE
                 // We want to turn off LEDs before calling bootloader, so here
                 // we call rgb_matrix_disable_noeeprom() and set a flag because
