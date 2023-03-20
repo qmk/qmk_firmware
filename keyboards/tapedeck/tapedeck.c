@@ -48,6 +48,7 @@ void matrix_init_kb(void) {
 #ifdef POT_ENABLE
     analogReference(ADC_REF_POWER);
 #endif
+    matrix_init_user();
 }
 
 uint8_t divisor = 0;
