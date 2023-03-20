@@ -9,9 +9,15 @@
 #include "i2c_master.h"
 #include "gpio.h"
 
-#include "drivers/is31fl3208.h"
-#include "drivers/xl9555.h"
-#include "drivers/ws2812.h"
+#ifdef RGB_MATRIX_ENABLE
+#    include "drivers/ws2812.h"
+#    ifdef ENCODER_ENABLE
+#        include "drivers/is31fl3208.h"
+#    endif
+#endif
+
+#if defined(ENCODER_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "drivers/xl9555.h"
 
 static uint8_t prev_pressed             = 0;
 static uint8_t additional_keys_map[][2] = {{0, 0}, {0, 1}, {0, 2}, {0, 3}, {2, 4}, {4, 4}};
@@ -32,36 +38,41 @@ static void additional_button_scan(void) {
 }
 
 void keyboard_post_init_user(void) {
-    setPinInputHigh(B1);
     i2c_init();
     XL9555_set_polarity(0xFF, 0b10000011);
+#    ifdef RGB_MATRIX_ENABLE
+    setPinInputHigh(B1);
+#    endif
 }
 
 void matrix_scan_user(void) {
     additional_button_scan();
 }
+#endif
 
-joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {[0] = JOYSTICK_AXIS_IN(F7, 102, 512, 922), [1] = JOYSTICK_AXIS_IN(F6, 102, 512, 922)};
-
-// LED color buffer
+#ifdef RGB_MATRIX_ENABLE
 LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
 
 static void init(void) {
     i2c_init();
+#    ifdef ENCODER_ENABLE
     IS31FL3208_init();
+#    endif
 }
 
 static void flush(void) {
     ws2812_setleds(rgb_matrix_ws2812_array, CUSTOM_SERIAL_LED_TOTAL);
+#    ifdef ENCODER_ENABLE
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT - CUSTOM_SERIAL_LED_TOTAL; ++i) {
         RGB *led = rgb_matrix_ws2812_array + CUSTOM_SERIAL_LED_TOTAL + i;
         IS31FL3208_set_color(i, led->r, led->g, led->b);
     }
     IS31FL3208_update();
+#    endif
 }
 
 static void set_color(int i, uint8_t r, uint8_t g, uint8_t b) {
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
     const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
     if (!is_keyboard_left()) {
         if (i >= k_rgb_matrix_split[0]) {
@@ -72,14 +83,14 @@ static void set_color(int i, uint8_t r, uint8_t g, uint8_t b) {
     } else if (i >= k_rgb_matrix_split[0]) {
         return;
     }
-#endif
+#    endif
 
     rgb_matrix_ws2812_array[i].r = r;
     rgb_matrix_ws2812_array[i].g = g;
     rgb_matrix_ws2812_array[i].b = b;
-#ifdef RGBW
+#    ifdef RGBW
     convert_rgb_to_rgbw(&rgb_matrix_ws2812_array[i]);
-#endif
+#    endif
 }
 
 static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
@@ -89,3 +100,8 @@ static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {.init = init, .flush = flush, .set_color = set_color, .set_color_all = set_color_all};
+#endif
+
+#ifdef JOYSTICK_ENABLE
+joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {[0] = JOYSTICK_AXIS_IN(F7, 102, 512, 922), [1] = JOYSTICK_AXIS_IN(F6, 102, 512, 922)};
+#endif

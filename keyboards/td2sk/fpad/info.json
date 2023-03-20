@@ -17,6 +17,9 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
+        "encoder": true,
+        "encoder_map": true,
+        "joystick": true,
         "nkro": true,
         "rgb_matrix": true
     },
