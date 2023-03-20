@@ -40,13 +40,6 @@ enum {
     TD_ARS,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_LCMK] = ACTION_TAP_DANCE_LAYER_MOVE(KC_LCTRL, _COLEMAK),
-    [TD_RCMK] = ACTION_TAP_DANCE_LAYER_MOVE(KC_RCTRL, _COLEMAK),
-    [TD_NUM]  = ACTION_TAP_DANCE_LAYER_MOVE(KC_LCTRL, _LOWER),
-    [TD_ARS]  = ACTION_TAP_DANCE_LAYER_MOVE(KC_RCTRL, _RAISE),
-};
-
 #include "layout.h"
 #include "my_oled.h"
 #include "my_encoder.h"
