@@ -26,23 +26,20 @@
 
 enum my_keycodes {
 #ifdef VIA_ENABLE
-    KC_LIGHT_TAB_TOGGLE = QK_KB_11,
+    KC_LIGHT_TAB_TOGGLE = QK_KB_11,     // USER11 here gave compile error (not defined)
+                                        // indexed at 11 to appear after Keychron's keycodes
 #else
     KC_LIGHT_TAB_TOGGLE = SAFE_RANGE,
 #endif
     KC_LIGHT_ALPHAS_TOGGLE,
     KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE,
-    KC_FN_LAYER_COLOR_TOGGLE,
-    KC_MACRO_LOCK_MAC,
-    KC_MACRO_SCREEN_SHOT_MAC
+    KC_FN_LAYER_COLOR_TOGGLE
 };
 
 #define KC_LTTOG KC_LIGHT_TAB_TOGGLE
 #define KC_LATOG KC_LIGHT_ALPHAS_TOGGLE
 #define KC_TKTOG KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE
 #define KC_FCTOG KC_FN_LAYER_COLOR_TOGGLE
-#define KC_LKMAC KC_MACRO_LOCK_MAC
-#define KC_SSMAC KC_MACRO_SCREEN_SHOT_MAC
 
 #ifdef RGB_MATRIX_ENABLE
 bool bootloader_pressed = false;
@@ -163,17 +160,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) {
                     user_config_toggle_fn_layer_color_enable();
                 }
-                return false;  // Skip all further processing of this key
-            case KC_MACRO_LOCK_MAC:
-                if (record->event.pressed) {
-                    send_string(SS_LGUI(SS_LCTL("q")) SS_DELAY(300) SS_TAP(X_ESC));
-                }
-                return false;  // Skip all further processing of this key
-            case KC_MACRO_SCREEN_SHOT_MAC:
-                if (record->event.pressed) {
-                    send_string(SS_LGUI(SS_LSFT("3")));
-                }
-                return false;  // Skip all further processing of this key            
+                return false;  // Skip all further processing of this key         
             default:
                 return true;  // Process all other keycodes normally
         }
