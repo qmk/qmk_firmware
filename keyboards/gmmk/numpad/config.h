@@ -17,8 +17,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 10
-
 #define SLIDER_PIN B0
 #define MIDI_ADVANCED
 
