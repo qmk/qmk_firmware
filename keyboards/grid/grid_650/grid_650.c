@@ -587,6 +587,7 @@ void suspend_power_down_kb(void)
     //set orange led low
     writePinLow(B7);
     #endif
+    suspend_power_down_user();
 }
 
 uint8_t init_mcp23018(void) {
