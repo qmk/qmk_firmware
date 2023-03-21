@@ -122,11 +122,6 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-//   debug_enable=true;
-
-}
 
 #ifdef LED_CONTROL
 
