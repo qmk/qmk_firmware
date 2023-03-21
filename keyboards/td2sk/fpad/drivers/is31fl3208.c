@@ -1,6 +1,6 @@
 // Copyright 2023 td2sk (@td2sk)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "drivers/IS31FL3208.h"
+#include "drivers/is31fl3208.h"
 
 #include <string.h>
 
