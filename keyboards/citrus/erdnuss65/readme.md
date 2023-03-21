@@ -1,12 +1,7 @@
 # Erdnuss65
 
-
-
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [Citrus Lab](https://github.com/ctt-t) 
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: STM32F103C8T6
 
 Make example for this keyboard (after setting up your build environment):
 
