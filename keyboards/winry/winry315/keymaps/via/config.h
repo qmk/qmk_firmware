@@ -4,3 +4,4 @@
 #pragma once
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
+#define VIA_FIRMWARE_VERSION 1
