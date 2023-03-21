@@ -16,6 +16,7 @@
 uint16_t home_screen_timer = 0;
 
 /* shared styles */
+static lv_style_t style_screen;
 static lv_style_t style_container;
 static lv_style_t style_button;
 static lv_style_t style_button_active;
@@ -95,6 +96,9 @@ lv_obj_t *create_button(lv_obj_t *parent, const char *text) {
 }
 
 void init_styles(void) {
+    lv_style_init(&style_screen);
+    lv_style_set_bg_color(&style_screen, lv_color_black());
+
     lv_style_init(&style_container);
     lv_style_set_bg_opa(&style_container, 0);
     lv_style_set_border_width(&style_container, 0);
@@ -102,10 +106,6 @@ void init_styles(void) {
     lv_style_set_height(&style_container, LV_SIZE_CONTENT);
 
     lv_style_init(&style_button);
-    // lv_style_set_pad_top(&style_button, 3);
-    // lv_style_set_pad_bottom(&style_button, 3);
-    // lv_style_set_pad_left(&style_button, 3);
-    // lv_style_set_pad_right(&style_button, 3);
     lv_style_set_radius(&style_button, 6);
     lv_style_set_text_color(&style_button, lv_palette_main(LV_PALETTE_AMBER));
 
@@ -118,6 +118,7 @@ void init_styles(void) {
 void init_screen_home(void) {
     screen_home = lv_scr_act();
     lv_obj_add_event_cb(screen_home, on_home_screen_unloaded, LV_EVENT_SCREEN_UNLOADED, NULL);
+    lv_obj_add_style(screen_home, &style_screen, 0);
     use_flex_column(screen_home);
 
     label_volume_home = lv_label_create(screen_home);
@@ -142,6 +143,7 @@ void init_screen_home(void) {
     label_layer = lv_label_create(bottom_row);
     lv_label_set_text(label_layer, "");
     lv_obj_align(label_layer, LV_ALIGN_LEFT_MID, 0, 0);
+    display_process_layer_state(0);
 
     icon_layout = lv_img_create(bottom_row);
     lv_obj_set_style_radius(icon_layout, 4, 0);
@@ -151,6 +153,7 @@ void init_screen_home(void) {
 
 void init_screen_volume(void) {
     screen_volume = lv_obj_create(NULL);
+    lv_obj_add_style(screen_volume, &style_screen, 0);
 
     arc_volume = lv_arc_create(screen_volume);
     // lv_arc_set_value(arc_volume, 0);
@@ -169,6 +172,7 @@ void init_screen_volume(void) {
 
 void init_screen_media(void) {
     screen_media = lv_obj_create(NULL);
+    lv_obj_add_style(screen_media, &style_screen, 0);
     use_flex_column(screen_media);
 
     label_media_artist = lv_label_create(screen_media);
@@ -199,7 +203,7 @@ bool display_init(void) {
     dprint("qp_init \n");
 
     lv_disp_t  *lv_display = lv_disp_get_default();
-    lv_theme_t *lv_theme   = lv_theme_default_init(lv_display, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_AMBER), true, LV_FONT_DEFAULT);
+    lv_theme_t *lv_theme   = lv_theme_default_init(lv_display, lv_palette_main(LV_PALETTE_AMBER), lv_palette_main(LV_PALETTE_BLUE), true, LV_FONT_DEFAULT);
     lv_disp_set_theme(lv_display, lv_theme);
 
     init_styles();
@@ -229,8 +233,8 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
         case _VOLUME:
             dprintf("volume %d\n", data[1]);
             lv_label_set_text_fmt(label_volume_home, "Volume: %02d%%", data[1]);
-            lv_arc_set_value(arc_volume, data[1]);
             lv_label_set_text_fmt(label_volume_arc, "%02d", data[1]);
+            lv_arc_set_value(arc_volume, data[1]);
             break;
 
         case _LAYOUT:
@@ -242,12 +246,9 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
             read_string(data, string_data);
             dprintf("media artist %s\n", string_data);
             lv_label_set_text(label_media_artist, string_data);
-            dprintf("artist screen 1 %s%s\n", lv_scr_act() == screen_media ? "media" : "", lv_scr_act() == screen_home ? "home" : "");
             if (lv_scr_act() != screen_media) {
                 lv_scr_load(screen_media);
-                // lv_scr_load_anim(media_screen, LV_SCR_LOAD_ANIM_MOVE_LEFT, 200, 0, false);
             }
-            dprintf("artist screen 2 %s%s\n", lv_scr_act() == screen_media ? "media" : "", lv_scr_act() == screen_home ? "home" : "");
             home_screen_timer = timer_read();
             break;
 
@@ -255,12 +256,9 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
             read_string(data, string_data);
             dprintf("media title %s\n", string_data);
             lv_label_set_text(label_media_title, string_data);
-            dprintf("title screen 1 %s%s\n", lv_scr_act() == screen_media ? "media" : "", lv_scr_act() == screen_home ? "home" : "");
             if (lv_scr_act() != screen_media) {
                 lv_scr_load(screen_media);
-                // lv_scr_load_anim(media_screen, LV_SCR_LOAD_ANIM_MOVE_LEFT, 200, 0, false);
             }
-            dprintf("title screen 2 %s%s\n", lv_scr_act() == screen_media ? "media" : "", lv_scr_act() == screen_home ? "home" : "");
             home_screen_timer = timer_read();
             break;
     }
@@ -275,8 +273,8 @@ void display_process_record(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
             case KC_VOLU:
             case KC_VOLD:
+            case KC_ESC:
                 data[0] = _VOLUME;
-                // lv_scr_load_anim(volume_screen, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 0, false);
                 lv_scr_load(screen_volume);
                 home_screen_timer = timer_read();
                 break;
@@ -314,6 +312,24 @@ void display_process_layer_state(uint8_t layer) {
             break;
         case _GAME:
             lv_label_set_text(label_layer, "GAME");
+            break;
+        case _EU:
+            lv_label_set_text(label_layer, "EU");
+            break;
+        case _NAV:
+            lv_label_set_text(label_layer, "NAV");
+            break;
+        case _NUMBER:
+            lv_label_set_text(label_layer, "NUMBER");
+            break;
+        case _SYMBOL:
+            lv_label_set_text(label_layer, "SYMBOL");
+            break;
+        case _FUNC:
+            lv_label_set_text(label_layer, "FUNC");
+            break;
+        case _SYS:
+            lv_label_set_text(label_layer, "SYSTEM");
             break;
     }
 }
