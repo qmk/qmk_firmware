@@ -83,5 +83,4 @@ void matrix_scan_kb(void) {
 #ifdef POT_ENABLE
     slider();
 #endif
-    matrix_scan_user();
 }
