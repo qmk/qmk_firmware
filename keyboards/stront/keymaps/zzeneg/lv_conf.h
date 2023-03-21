@@ -11,14 +11,6 @@
 
 #include_next <lv_conf.h>
 
-/* undef and define MIN/MAX as a workaround for gif library */
-#undef MIN
-#undef MAX
-#undef LV_USE_GIF
-#define LV_USE_GIF 1
-#define MIN(A, B) ((A) < (B) ? (A) : (B))
-#define MAX(A, B) ((A) > (B) ? (A) : (B))
-
 /* Custom fonts:
     - montserrat_24_en_ru_4bpp - english/cyrillic symbols, range 0x20-0x7F,0x0410-0x044F,0x0401,0x0451
     - montserrat_48_digits - digits, dot and colon only, range 0x2E,0x30-0x3A
