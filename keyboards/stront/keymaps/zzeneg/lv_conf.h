@@ -5,6 +5,14 @@
 
 #include_next <lv_conf.h>
 
+/* undef and define MIN/MAX as a workaround for gif library */
+#undef MIN
+#undef MAX
+#undef LV_USE_GIF
+#define LV_USE_GIF 1
+#define MIN(A, B) ((A) < (B) ? (A) : (B))
+#define MAX(A, B) ((A) > (B) ? (A) : (B))
+
 #undef LV_FONT_MONTSERRAT_14
 
 // #undef LV_FONT_MONTSERRAT_16

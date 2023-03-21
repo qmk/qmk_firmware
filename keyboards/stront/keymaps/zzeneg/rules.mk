@@ -23,4 +23,5 @@ SRC +=  lvgl_helpers.c \
 		./icons/flag_uk.c \
 		./icons/flag_ru.c \
 		./icons/flag_pl.c \
+		./images/music_bars.c \
 		./images/fine.c

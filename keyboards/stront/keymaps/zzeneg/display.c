@@ -52,6 +52,8 @@ LV_IMG_DECLARE(flag_pl);
 // LV_IMG_DECLARE(fine);
 // static lv_obj_t *fine_img;
 
+LV_IMG_DECLARE(music_bars);
+
 enum data_type {
     _TIME = 0,
     _VOLUME,
@@ -174,6 +176,9 @@ void init_screen_media(void) {
     lv_label_set_long_mode(label_media_artist, LV_LABEL_LONG_WRAP);
     lv_obj_set_width(label_media_artist, lv_pct(100));
     lv_obj_set_style_text_align(label_media_artist, LV_TEXT_ALIGN_CENTER, 0);
+
+    lv_obj_t *music_bars_gif = lv_gif_create(screen_media);
+    lv_gif_set_src(music_bars_gif, &music_bars);
 
     label_media_title = lv_label_create(screen_media);
     lv_label_set_text(label_media_title, "N/A");
