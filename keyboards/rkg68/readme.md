@@ -1,6 +1,6 @@
 # RK G68
 
-![Keyboard picture](https://imgur.com/UnOJPZr.jpg)
+![Keyboard picture](https://imgur.com/UnOJPZrh.jpg)
 
 * Keyboard Maintainer: [Royal Kludge](https://rkgamingstore.com/)
 * Hardware Supported: Royal Kludge RK G68
@@ -35,4 +35,4 @@ Enter the bootloader in 3 ways:
 
 - ANSI layout;
 
-![image](https://user-images.githubusercontent.com/58439854/225489922-a6a4df65-aff7-4835-a452-3b1afdb6fc15.png)
+![Imgur](https://i.imgur.com/l7ka1gkh.png)
