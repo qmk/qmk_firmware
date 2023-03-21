@@ -18,8 +18,6 @@
     },
 
     "diode_direction": "COL2ROW",
-
-    "debounce": 5,
     
     "features": {
         "bootmagic": true,
@@ -34,15 +32,7 @@
     },
     "rgblight": {
         "pin": "A15",
-        "led_count": 1,
-        "hue_steps": 8,
-        "saturation_steps": 8,
-        "brightness_steps": 8,
-        "max_brightness": 200,
-        "sleep": true,
-        "animations": {
-            "all": false
-        }
+        "led_count": 1
     },
     "layouts": {
         "LAYOUT": {
