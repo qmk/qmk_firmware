@@ -354,8 +354,17 @@ void tap_tb(uint8_t keycode0, uint8_t keycode1, uint8_t keycode2, uint8_t keycod
 	}
 }
 
-void handle_pointing_device_modes(void){
-	report_mouse_t mouse_report = pointing_device_get_report();
+void get_sensor_data(report_mouse_t pmw_report) {
+    float r = 0.0 * M_PI / 180.0;
+    float nx = pmw_report.x * cos(r) - pmw_report.y * sin(r);
+    float ny = pmw_report.y * cos(r) + pmw_report.x * sin(r);
+    sensor_x = -nx;
+    sensor_y = -ny;
+}
+
+report_mouse_t handle_pointing_device_modes(report_mouse_t mouse_report){
+    get_sensor_data(mouse_report);
+    // report_mouse_t mouse_report = pointing_device_get_report();
     cum_x += sensor_y;
     cum_y -= sensor_x;
     switch (track_mode)
@@ -416,6 +425,8 @@ void handle_pointing_device_modes(void){
             mouse_report.v = 0;
             mouse_report.h = 0;
         }
+        mouse_report.x = 0;
+        mouse_report.y = 0;
         break;
     default:
         break;
@@ -425,34 +436,18 @@ void handle_pointing_device_modes(void){
                     uprintf("mouse_report.x y %d %d\n",mouse_report.x,mouse_report.y);
                 }
                 #endif
-	pointing_device_set_report(mouse_report);
-	pointing_device_send();
+    return mouse_report;
+	// pointing_device_set_report(mouse_report);
+	// pointing_device_send();
 }
 
-void get_sensor_data(void) {
-	if(!is_keyboard_master())
-		return;
-	report_mouse_t pmw_report = pointing_device_get_report();
-    float r = 0.0 * M_PI / 180.0;
-    float nx = pmw_report.x * cos(r) - pmw_report.y * sin(r);
-    float ny = pmw_report.y * cos(r) + pmw_report.x * sin(r);
-    sensor_x = nx;
-    sensor_y = ny;
-}
 
-void pointing_device_task(void) {
-#ifndef POLLING
-	if ( is_keyboard_master() && false )
-		handle_pointing_device_modes();
-#else
-	get_sensor_data();
-	handle_pointing_device_modes();
+
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+#ifdef CONSOLE_ENABLE
+    if (mouse_report.x != 0 || mouse_report.y!=0) {
+        uprintf("mouse_report.x y %d %d\n",mouse_report.x,mouse_report.y);
+    }
 #endif
+    return pointing_device_task_user(handle_pointing_device_modes(mouse_report));
 }
-
-#ifndef POLLING
-ISR(INT2_vect) {
-    get_sensor_data();
-    handle_pointing_device_modes();
-}
-#endif
