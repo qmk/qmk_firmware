@@ -2,15 +2,18 @@
 
 ## Supported Hardware
 
-OLED modules using SSD1306 or SH1106 driver ICs, communicating over I2C.
+OLED modules using SSD1306, SH1106 or SH1107 driver ICs, communicating over I2C or SPI.
 Tested combinations:
 
-|IC       |Size  |Platform|Notes                   |
-|---------|------|--------|------------------------|
-|SSD1306  |128x32|AVR     |Primary support         |
-|SSD1306  |128x64|AVR     |Verified working        |
-|SSD1306  |128x32|Arm     |                        |
-|SH1106   |128x64|AVR     |No rotation or scrolling|
+|IC       |Size   |Platform|Notes                   |
+|---------|-------|--------|------------------------|
+|SSD1306  |128x32 |AVR     |Primary support         |
+|SSD1306  |128x64 |AVR     |Verified working        |
+|SSD1306  |128x32 |Arm     |                        |
+|SH1106   |128x64 |AVR     |No scrolling            |
+|SH1107   |64x128 |AVR     |No scrolling            |
+|SH1107   |64x128 |Arm     |No scrolling            |
+|SH1107   |128x128|Arm     |No scrolling            |
 
 Hardware configurations using Arm-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
@@ -23,13 +26,14 @@ OLED_ENABLE = yes
 ```
 
 ## OLED type
-|OLED Driver        |Supported Device           |
-|-------------------|---------------------------|
-|SSD1306 (default)  |For both SSD1306 and SH1106|
+|OLED Driver        |
+|-------------------|
+|I2C (default)      |
+|SPI                |
 
 e.g.
 ```make
-OLED_DRIVER = SSD1306
+OLED_DRIVER = I2C
 ```
 
 Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
@@ -161,7 +165,6 @@ These configuration options should be placed in `config.h`. Example:
 
 |Define                     |Default          |Description                                                                                                               |
 |---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
-|`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
 |`OLED_FONT_H`              |`"glcdfont.c"`   |The font code file to use for custom fonts                                                                                |
 |`OLED_FONT_START`          |`0`              |The starting character index for custom fonts                                                                             |
 |`OLED_FONT_END`            |`223`            |The ending character index for custom fonts                                                                               |
@@ -172,19 +175,38 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_FADE_OUT_INTERVAL`   |`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
 |`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
-|`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
-|`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
+|`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` or `OLED_IC_SH1107` if the corresponding controller chip is used.                                 |
+|`OLED_COLUMN_OFFSET`       |`0`              |Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.               |
 |`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
 |`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
+
+|Define                     |Default          |Description                                                                                                               |
+|---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
+|`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
+
+|Define                     |Default          |Description                                                                                                               |
+|---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
+|`OLED_DC_PIN`              | Required        |The pin used for the DC connection of the OLED Display.                                                                   |
+|`OLED_CS_PIN`              | Required        |The pin used for the CS connection of the OLED Display.                                                                   |
+|`OLED_SPI_MODE`            |`3` (default)    |The SPI Mode for the OLED Display (not typically changed).                                                                |
+|`OLED_SPI_DIVISOR`         |`2` (default)    |The SPI Multiplier to use for the OLED Display.                                                                           |
+
 
  ## 128x64 & Custom sized OLED Displays
 
  The default display size for this feature is 128x32 and all necessary defines are precalculated with that in mind. We have added a define, `OLED_DISPLAY_128X64`, to switch all the values to be used in a 128x64 display, as well as added a custom define, `OLED_DISPLAY_CUSTOM`, that allows you to provide the necessary values to the driver.
 
+|Define                |Default        |Description                                                                                                                            |
+|----------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------|
+|`OLED_DISPLAY_128X64` |*Not defined*  |Changes the display defines for use with 128x64 displays.                                                                              |
+|`OLED_DISPLAY_64X32`  |*Not defined*  |Changes the display defines for use with 64x32 displays.                                                                               |
+|`OLED_DISPLAY_64X48`  |*Not defined*  |Changes the display defines for use with 64x48 displays.                                                                               |
+|`OLED_DISPLAY_64X128` |*Not defined*  |Changes the display defines for use with 64x128 displays.                                                                              |
+|`OLED_DISPLAY_128X128`|*Not defined*  |Changes the display defines for use with 128x128 displays.                                                                             |
+|`OLED_DISPLAY_CUSTOM` |*Not defined*  |Changes the display defines for use with custom displays.<br>Requires user to implement the below defines.                             |
+
 |Define               |Default        |Description                                                                                                                             |
-|---------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
-|`OLED_DISPLAY_128X64`|*Not defined*  |Changes the display defines for use with 128x64 displays.                                                                               |
-|`OLED_DISPLAY_CUSTOM`|*Not defined*  |Changes the display defines for use with custom displays.<br>Requires user to implement the below defines.                              |
+| --------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DISPLAY_WIDTH` |`128`          |The width of the OLED display.                                                                                                          |
 |`OLED_DISPLAY_HEIGHT`|`32`           |The height of the OLED display.                                                                                                         |
 |`OLED_MATRIX_SIZE`   |`512`          |The local buffer size to allocate.<br>`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`.                                                 |
@@ -192,6 +214,8 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_BLOCK_COUNT`   |`16`           |The number of blocks the display is divided into for dirty rendering.<br>`(sizeof(OLED_BLOCK_TYPE) * 8)`.                               |
 |`OLED_BLOCK_SIZE`    |`32`           |The size of each block for dirty rendering<br>`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`.                                                  |
 |`OLED_COM_PINS`      |`COM_PINS_SEQ` |How the SSD1306 chip maps it's memory to display.<br>Options are `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, & `COM_PINS_ALT_LR`.|
+|`OLED_COM_PIN_COUNT` |*Not defined*  |Number of COM pins supported by the controller.<br>If not defined, the value appropriate for the defined `OLED_IC` is used.             |
+|`OLED_COM_PIN_OFFSET`|`0`            |Number of the first COM pin used by the OLED matrix.                                                                                    |
 |`OLED_SOURCE_MAP`    |`{ 0, ... N }` |Precalculated source array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
 |`OLED_TARGET_MAP`    |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
 
@@ -210,7 +234,7 @@ typedef enum {
 } oled_rotation_t;
 ```
 
-OLED displays driven by SSD1306 drivers only natively support in hardware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an ATmega32U4 board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms.
+OLED displays driven by SSD1306, SH1106 or SH1107 drivers only natively support in hardware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an ATmega32U4 board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms.
 
 90 degree rotation is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the display height, width, and block size. For example, in the 128x32 implementation with a `uint8_t` block type, we have a 64 byte block size. This gives us eight 8 byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8 byte blocks before moving down a page, e.g:
 
@@ -231,6 +255,8 @@ However the local buffer is stored as if it was Height x Width display instead o
 | 0 | 4 |   |   |   |   |
 
 So those precalculated arrays just index the memory offsets in the order in which each one iterates its data.
+
+Rotation on SH1106 and SH1107 is noticeably less efficient than on SSD1306, because these controllers do not support the “horizontal addressing mode”, which allows transferring the data for the whole rotated block at once; instead, separate address setup commands for every page in the block are required.  The screen refresh time for SH1107 is therefore about 45% higher than for a same size screen with SSD1306 when using STM32 MCUs (on AVR the slowdown is about 20%, because the code which actually rotates the bitmap consumes more time).
 
 ## OLED API
 
@@ -386,7 +412,9 @@ uint8_t oled_max_chars(void);
 uint8_t oled_max_lines(void);
 ```
 
-!> Scrolling and rotation are unsupported on the SH1106.
+!> Scrolling is unsupported on the SH1106 and SH1107.
+
+!> Scrolling does not work properly on the SSD1306 if the display width is smaller than 128.
 
 ## SSD1306.h Driver Conversion Guide
 
