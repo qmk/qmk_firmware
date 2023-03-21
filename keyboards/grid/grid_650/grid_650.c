@@ -70,7 +70,7 @@ enum LED_STAT {
 enum LED_STAT curr_stat = NONE;
 #endif
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
   // Call the keyboard pre init code.
 
     //set orange led(PB7) for low
