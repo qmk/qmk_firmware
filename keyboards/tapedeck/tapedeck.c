@@ -44,7 +44,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 
-void matrix_init_kb(void) {
+void keyboard_post_init_kb(void) {
 #ifdef POT_ENABLE
     analogReference(ADC_REF_POWER);
 #endif
