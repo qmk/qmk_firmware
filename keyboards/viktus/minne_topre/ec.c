@@ -34,7 +34,7 @@
 #define ANALOG_PORT D4
 
 #ifndef MUX_SEL_PIN
-#define MUX_SEL_PINS \
+#   define MUX_SEL_PINS \
         { D1, D2, D3 }
 #endif
 
@@ -80,7 +80,7 @@ void init_col(void) {
     }
 }
 
-int ec_init(ec_config_t const* const ec_config) {
+void ec_init(ec_config_t const* const ec_config) {
     // save config
     config = *ec_config;
 
@@ -99,8 +99,6 @@ int ec_init(ec_config_t const* const ec_config) {
 
     // set discharge pin to charge mode
     setPinInput(DISCHARGE_PIN);
-
-    return 0;
 }
 
 uint16_t ec_readkey_raw(uint8_t col, uint8_t row) {
