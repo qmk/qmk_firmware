@@ -806,7 +806,7 @@ static void activity_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 // clang-format off
 #    define TRANSACTIONS_ACTIVITY_MASTER() TRANSACTION_HANDLER_MASTER(activity)
-#    define TRANSACTIONS_ACTIVITY_SLAVE() TRANSACTION_HANDLER_SLAVE(activity)
+#    define TRANSACTIONS_ACTIVITY_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(activity)
 #    define TRANSACTIONS_ACTIVITY_REGISTRATIONS [PUT_ACTIVITY] = trans_initiator2target_initializer(activity_sync),
 // clang-format on
 
