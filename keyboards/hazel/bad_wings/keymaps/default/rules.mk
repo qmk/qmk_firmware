@@ -1,3 +1,2 @@
 MOUSEKEY_ENABLE			= yes
 EXTRAKEY_ENABLE			= yes
-TRI_LAYER_ENABLE 		= yes
