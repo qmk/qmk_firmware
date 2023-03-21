@@ -19,9 +19,6 @@
         "mousekey": false,
         "nkro": true
     },
-    "bootmagic": {
-        "matrix": [0,0]
-    },
     "build": {
         "lto": true
     },
