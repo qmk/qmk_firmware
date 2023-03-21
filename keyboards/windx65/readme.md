@@ -2,8 +2,6 @@
 
 ![windx65](https://i.imgur.com/kBJ3enL.jpeg)
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [thewerther](https://github.com/thewerther)
 * Hardware Supported: Windx65
 * Hardware Availability: https://windstudio.store/products/instock-x65-quick-order
