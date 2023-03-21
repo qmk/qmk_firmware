@@ -362,7 +362,7 @@ uint8_t battery_level(void) {
 #endif
 
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     // put your looping keyboard code here
     // runs every cycle (a lot)
 
