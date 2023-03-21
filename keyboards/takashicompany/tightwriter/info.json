@@ -31,7 +31,6 @@
             "B6"
         ]
     },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
