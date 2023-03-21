@@ -20,7 +20,6 @@ SRC +=  lvgl_helpers.c \
   		./display.c \
 		./fonts/montserrat_24_en_ru.c \
 		./fonts/montserrat_48_digits.c \
-		./icons/flag_uk.c \
-		./icons/flag_ru.c \
 		./icons/flag_pl.c \
+		./icons/flag_ru.c \
 		./images/fine.c

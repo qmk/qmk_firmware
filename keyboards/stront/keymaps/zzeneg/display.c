@@ -81,7 +81,8 @@ void read_string(uint8_t *data, char *string_data) {
     string_data[data_length] = '\0';
 }
 
-void on_home_screen_unloaded(lv_event_t *event) {
+void start_home_screen_timer(void) {
+    dprint("reset home screen \n");
     home_screen_timer = timer_read();
 }
 
@@ -115,7 +116,6 @@ void init_styles(void) {
 
 void init_screen_home(void) {
     screen_home = lv_scr_act();
-    lv_obj_add_event_cb(screen_home, on_home_screen_unloaded, LV_EVENT_SCREEN_UNLOADED, NULL);
     lv_obj_add_style(screen_home, &style_screen, 0);
     use_flex_column(screen_home);
 
@@ -154,7 +154,6 @@ void init_screen_volume(void) {
     lv_obj_add_style(screen_volume, &style_screen, 0);
 
     arc_volume = lv_arc_create(screen_volume);
-    // lv_arc_set_value(arc_volume, 0);
     lv_obj_set_size(arc_volume, 200, 200);
     lv_obj_center(arc_volume);
 
@@ -172,6 +171,7 @@ void init_screen_media(void) {
     screen_media = lv_obj_create(NULL);
     lv_obj_add_style(screen_media, &style_screen, 0);
     use_flex_column(screen_media);
+    lv_obj_set_flex_align(screen_media, LV_FLEX_ALIGN_SPACE_EVENLY, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 
     label_media_artist = lv_label_create(screen_media);
     lv_label_set_text(label_media_artist, "N/A");
@@ -241,20 +241,16 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
             read_string(data, string_data);
             dprintf("media artist %s\n", string_data);
             lv_label_set_text(label_media_artist, string_data);
-            if (lv_scr_act() != screen_media) {
-                lv_scr_load(screen_media);
-            }
-            home_screen_timer = timer_read();
+            lv_scr_load(screen_media);
+            start_home_screen_timer();
             break;
 
         case _MEDIA_TITLE:
             read_string(data, string_data);
             dprintf("media title %s\n", string_data);
             lv_label_set_text(label_media_title, string_data);
-            if (lv_scr_act() != screen_media) {
-                lv_scr_load(screen_media);
-            }
-            home_screen_timer = timer_read();
+            lv_scr_load(screen_media);
+            start_home_screen_timer();
             break;
     }
 }
@@ -271,7 +267,7 @@ void display_process_record(uint16_t keycode, keyrecord_t *record) {
             case KC_ESC:
                 data[0] = _VOLUME;
                 lv_scr_load(screen_volume);
-                home_screen_timer = timer_read();
+                start_home_screen_timer();
                 break;
             case KC_Q:
                 lv_scr_load(screen_media);
