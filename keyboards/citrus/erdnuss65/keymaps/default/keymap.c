@@ -39,21 +39,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
-//Initialize all RGB indicators to 'off'初始化rgb
-__attribute__((weak))
-void keyboard_post_inti_user(void) {
-    rgblight_setrgb_at(0, 0, 0, 0);
-}
 
 //Indicator light function
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
+bool led_update_user(led_t led_state) {
     if (led_state.caps_lock) {
         rgblight_setrgb_at(255, 255, 255, 0); //white
     } else {
         rgblight_setrgb_at(0, 0, 0, 0);
     }
-}
-    return res;
+    return true;
 }
