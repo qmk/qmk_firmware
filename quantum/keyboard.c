@@ -639,8 +639,10 @@ void keyboard_task(void) {
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
-    pointing_device_task();
-    const bool pointing_device_changed = !(last_pointing_device_activity_elapsed());
+    const bool pointing_device_changed = pointing_device_task();
+    if (pointing_device_changed) {
+        last_pointing_device_activity_trigger();
+    }
 #endif
 
 #ifdef OLED_ENABLE
