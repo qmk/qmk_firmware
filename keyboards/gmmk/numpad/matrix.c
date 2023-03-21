@@ -102,7 +102,10 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
         // Check row pin state
-        if (readMatrixPin(row_pins[row_index]) == 0) {
+        if (current_col == 3 && row_index == 2 && readMatrixPin(B8) == 1) {
+            current_matrix[row_index] |= row_shifter;
+            key_pressed = !readMatrixPin(B8);
+        } else if (readMatrixPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= row_shifter;
             key_pressed = true;
