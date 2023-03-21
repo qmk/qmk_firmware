@@ -21,7 +21,6 @@
 			["B4", "B5", "B6"]
 		]
 	},
-	"processor": "atmega32u4",
 	"usb": {
 		"device_version": "0.0.1",
 		"pid": "0x3031",
