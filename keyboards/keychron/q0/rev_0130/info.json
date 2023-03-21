@@ -53,9 +53,7 @@
             "solid_reactive_multiwide": true,
             "solid_reactive_multinexus": true,
             "splash": true,
-            "solid_splash": true,
-            "keypresses": true,
-            "framebuffer_effects": true
+            "solid_splash": true
         },
         "center_point": [56, 16],
         "layout": [
