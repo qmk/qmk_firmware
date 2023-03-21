@@ -8,6 +8,11 @@
         "pid": "0x645C",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F7", "F6", "F5", "F4", "F0", "E6", "D5", "D3", "D4", "D6", "D7", "B4"],
+        "rows": ["B5", "B6", "C6", "C7"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
@@ -56,9 +61,9 @@
                 {"x":2.25, "y":3, "matrix": [3, 2]},
                 {"x":3.25, "y":3, "w":2.25, "matrix": [3, 3]},
                 {"x":5.5, "y":3, "w":2.75, "matrix": [3, 6]},
-                {"x":9.0, "y":3, "matrix": [3, 8]},
-                {"x":10.0, "y":3, "matrix": [3, 9]},
-                {"x":11.0, "y":3, "w":1.25, "matrix": [3, 11]}
+                {"x":9, "y":3, "matrix": [3, 8]},
+                {"x":10, "y":3, "matrix": [3, 9]},
+                {"x":11, "y":3, "w":1.25, "matrix": [3, 11]}
             ]
         }
     }

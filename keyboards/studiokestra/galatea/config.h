@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, B2, D5 }
-#define MATRIX_ROW_PINS { D1, D0, B0, B7, E6, B3, B6, C6, D6, D7, B4, D3 }
-#define DIODE_DIRECTION COL2ROW
-
 #if defined(KEYBOARD_studiokestra_galatea_rev2)
   #define RGB_DI_PIN D4
   #define RGBLED_NUM 24

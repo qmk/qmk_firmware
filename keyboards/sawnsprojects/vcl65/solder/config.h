@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { F6, F7, F0, F4, B1 }
-#define MATRIX_COL_PINS { B2, B5, F5, C7, B4, C6, D7, D6, D4, D5, D3, D2, B6, D1, D0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 20

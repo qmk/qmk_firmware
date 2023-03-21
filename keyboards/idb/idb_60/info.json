@@ -8,6 +8,11 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B2", "B3", "B4", "C6", "B6", "B7", "C7", "B5"],
+        "rows": ["C2", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "B0", "B1"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
@@ -239,7 +244,7 @@
                 {"label":"0)", "x":10, "y":0},
                 {"label":"-_", "x":11, "y":0},
                 {"label":"=+", "x":12, "y":0},
-                {"label":"Backspace", "x":13, "y":0, "w":2.0},
+                {"label":"Backspace", "x":13, "y":0, "w":2},
 
                 {"label":"Tab", "x":0, "y":1, "w":1.5},
                 {"label":"Q", "x":1.5, "y":1},
@@ -306,7 +311,7 @@
                 {"label":"0)", "x":10, "y":0},
                 {"label":"-_", "x":11, "y":0},
                 {"label":"=+", "x":12, "y":0},
-                {"label":"Backspace", "x":13, "y":0, "w":2.0},
+                {"label":"Backspace", "x":13, "y":0, "w":2},
 
                 {"label":"Tab", "x":0, "y":1, "w":1.5},
                 {"label":"Q", "x":1.5, "y":1},
@@ -446,7 +451,7 @@
                 {"label":"0)", "x":10, "y":0},
                 {"label":"-_", "x":11, "y":0},
                 {"label":"=+", "x":12, "y":0},
-                {"label":"Backspace", "x":13, "y":0, "w":2.0},
+                {"label":"Backspace", "x":13, "y":0, "w":2},
 
                 {"label":"Tab", "x":0, "y":1, "w":1.5},
                 {"label":"Q", "x":1.5, "y":1},

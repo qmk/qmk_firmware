@@ -17,12 +17,6 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { A2, B8, A8, B9 }
-#define MATRIX_COL_PINS \
-    { B0, B1, B10, B3, B4, B5 }
-
 /* Handedness. */
 #define SPLIT_HAND_PIN A3 // High -> left, Low -> right.
 

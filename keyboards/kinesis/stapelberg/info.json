@@ -6,6 +6,11 @@
         "pid": "0x6060",
         "device_version": "0.0.2"
     },
+    "matrix_pins": {
+        "cols": ["B0", "B1", "B2", "B3", "B4", "B5", "B6"],
+        "rows": ["D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "C0", "C1", "C2", "C3", "C4", "C5", "C6"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "F3",
         "num_lock": "F2",

@@ -7,6 +7,11 @@
         "pid": "0x5024",
         "device_version": "4.0.6"
     },
+    "matrix_pins": {
+        "cols": ["F5", "F4", "D3", "D2"],
+        "rows": ["B3", "B6", "B2", "B1", "D7", "B4"]
+    },
+    "diode_direction": "ROW2COL",
     "backlight": {
         "pin": "B7",
         "levels": 31

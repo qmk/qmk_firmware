@@ -6,6 +6,11 @@
         "vid": "0x7983",
         "pid": "0x5050"
     },
+    "matrix_pins": {
+        "cols": ["B0", "D7", "D6", "D5"],
+        "rows": ["C0", "C1", "C2", "C3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "community_layouts": ["ortho_4x4"],

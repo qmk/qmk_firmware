@@ -8,6 +8,11 @@
         "pid": "0x534F",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B5", "B6", "B7", "C7"],
+        "rows": ["B0", "B1", "B2", "B3", "B4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "community_layouts": ["ortho_5x4"],

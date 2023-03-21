@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B0, B1, B2, B3 }
-#define MATRIX_COL_PINS { D0, D1, D2, D3, D4, D5, D6, C2, C4, C5, C6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN
    #define RGBLED_NUM 6

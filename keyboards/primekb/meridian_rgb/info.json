@@ -8,6 +8,11 @@
         "pid": "0x0042",
         "device_version": "0.0.2"
     },
+    "matrix_pins": {
+        "cols": ["C7", "C6", "B6", "B5", "B4", "F7", "D4", "B7", "B3", "D5", "D3", "D2", "D1", "D0"],
+        "rows": ["E6", "F0", "F6", "D7", "D6"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "B1",
         "num_lock": "B0",

@@ -1,4 +1,9 @@
 {
+    "matrix_pins": {
+        "cols": ["A2", "A1", "A0", "B8", "B13", "B14", "B15", "B9"],
+        "rows": ["B5", "B4", "B3", "B2", "B1"]
+    },
+    "diode_direction": "COL2ROW",
     "split": {
         "soft_serial_pin": "A9"
     },

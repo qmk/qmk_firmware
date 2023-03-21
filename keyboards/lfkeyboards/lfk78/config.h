@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_MAP { 8, 16, 40, 55, 70, 128, 200, 255 }
 
 #define TAPPING_TERM 200

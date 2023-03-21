@@ -17,14 +17,6 @@
 
 #pragma once
 
-
-/* Matrix pins */
-#define MATRIX_ROW_PINS { B4, E6 }
-#define MATRIX_COL_PINS { B7, B3, F0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Combo setup */
 #define COMBO_COUNT 1
 #define COMBO_TERM 150

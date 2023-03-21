@@ -19,12 +19,6 @@
 
 #define ___ KC_NO
 
-#ifdef KEYBOARD_maxipad_promicro
-    #include "promicro.h"
-#elif KEYBOARD_maxipad_teensy2
-    #include "teensy2.h"
-#endif
-
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical

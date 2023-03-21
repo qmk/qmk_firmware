@@ -1,6 +1,5 @@
 #pragma once
 
-#include "kbo5000.h"
 #include "quantum.h"
 
 #define LAYOUT_ansi( \

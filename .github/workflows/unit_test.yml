@@ -23,7 +23,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
     - uses: actions/checkout@v3

@@ -17,19 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring
-#define MATRIX_ROW_PINS \
-    { F6, F7, B1, B3 }
-#define MATRIX_COL_PINS \
-    { B2, B6, B5, B4, E6, D7, C6, D4 }
-#define MATRIX_ROW_PINS_RIGHT \
-    { D4, C6, D7, E6 }
-#define MATRIX_COL_PINS_RIGHT \
-    { B4, B5, B6, B2, B3, B1, F7, F6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 // Side detection
 // col 4 row 3 on right-hand-side
 #define SPLIT_HAND_MATRIX_GRID E6, B3 // row first because the board is col2row

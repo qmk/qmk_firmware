@@ -3,16 +3,6 @@
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- */
-#define MATRIX_ROW_PINS { F0 }
-#define MATRIX_COL_PINS { E6, D5, B6, B7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 32

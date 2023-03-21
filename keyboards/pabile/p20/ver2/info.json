@@ -3,6 +3,11 @@
     "usb": {
         "device_version": "0.0.2"
     },
+    "matrix_pins": {
+        "cols": ["D1", "D0", "D4", "B2"],
+        "rows": ["C6", "D7", "E6", "B4", "B5"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina"
 }

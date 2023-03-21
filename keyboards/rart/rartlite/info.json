@@ -8,6 +8,11 @@
         "pid": "0x4040",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D4", "C6", "D7", "E6", "B3", "F7", "D3"],
+        "rows": ["F4", "D2", "B2", "B4", "B6", "B5", "D0", "D1"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "F5",
         "num_lock": "F6",

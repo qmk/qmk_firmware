@@ -3,6 +3,11 @@
     "usb": {
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B2", "B3", "B1", "F7", "F5", "F6", "D3", "D1", "D0", "D4", "C6", "E6"],
+        "rows": ["D2", "D7", "B4", "B5", "B6"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "C7", "pin_b": "D5"},

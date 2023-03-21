@@ -16,14 +16,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B3, B2 }
-#define MATRIX_COL_PINS { B5, B4, B1, B0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* RBG underglow */
 #define RGB_DI_PIN C2
 #ifdef RGB_DI_PIN

@@ -8,6 +8,11 @@
         "pid": "0x481C",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D7", "E6", "B4", "B2", "B3", "B1", "F7"],
+        "rows": ["B5", "B6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

@@ -16,16 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "sinc.h"
 #include "quantum.h"
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-#endif
-#endif
 
 #define LAYOUT_75( \
   LF3, LF4, LF5, LF6, LF7, LF8, LF9,           RF2, RF3, RF4, RF5, RF6, RF7, RF8, \

@@ -15,13 +15,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { C3, B2, C2, B1, C1, D7, C0, B0 }
-#define MATRIX_COL_PINS { D0, D1, B4, B5, B3, D4, D6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

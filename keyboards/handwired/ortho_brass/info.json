@@ -8,6 +8,11 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F4", "F7", "F5", "F1", "C7", "F0", "B1", "B0", "F6", "B6", "B2", "B3"],
+        "rows": ["D3", "D2", "D1", "D0"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "community_layouts": ["ortho_4x12"],

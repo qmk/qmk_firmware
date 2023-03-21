@@ -8,6 +8,11 @@
     "pid": "0x27DB",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["D7", "D6", "D5", "D4", "B1", "B2", "C1", "C2", "C3", "C5", "D1", "D0", "C4"],
+    "rows": ["B4", "B5", "B3", "B0", "C0"]
+  },
+  "diode_direction": "COL2ROW",
   "processor": "atmega328p",
   "bootloader": "usbasploader",
   "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift"],

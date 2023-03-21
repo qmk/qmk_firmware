@@ -8,6 +8,11 @@
     "pid": "0x504D",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["B3", "C7", "C6", "D2", "D1", "D0"],
+    "rows": ["C5", "B5", "B2", "D5", "D3"]
+  },
+  "diode_direction": "COL2ROW",
   "backlight": {
     "pin": "B7",
     "levels": 4

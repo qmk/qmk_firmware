@@ -4,6 +4,11 @@
         "pid": "0x1256",
         "device_version": "1.1.0"
     },
+    "matrix_pins": {
+        "cols": ["F6", "F7", "B1", "B3", "B2", "F4"],
+        "rows": ["D7", "E6", "B4", "B5", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B6",
         "levels": 5

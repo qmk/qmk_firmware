@@ -8,6 +8,11 @@
         "pid": "0x9770",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B9", "B8", "B7", "B6", "B5", "B4", "B3", "B11", "A15", "A10", "A9", "B14", "B13", "B12", "A5"],
+        "rows": ["B10", "B1", "B0", "A7", "A6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layouts": {

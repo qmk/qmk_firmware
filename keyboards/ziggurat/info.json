@@ -8,6 +8,11 @@
         "pid": "0x5258",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F6", "F5", "F4", "F3", "F2", "F1", "B5", "B6", "C2", "C3", "C4", "C5", "C6", "C7", "A7", "A6", "A5", "A4"],
+        "rows": ["A2", "A1", "A0", "F7", "A3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {

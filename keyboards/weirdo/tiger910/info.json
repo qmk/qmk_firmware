@@ -8,6 +8,11 @@
         "pid": "0x5447",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B5", "B6", "B7", "C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "D0", "D1", "D2", "D3", "D4"],
+        "rows": ["B0", "B1", "B2", "B3", "B4"]
+    },
+    "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

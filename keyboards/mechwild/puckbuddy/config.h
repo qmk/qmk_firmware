@@ -18,19 +18,6 @@
  */
 #define TAPPING_TERM 0
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { B12, B13, B14, B15 }
-#define MATRIX_COL_PINS { B10, A8, B4, B5 }
-
 /* spi config */
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
@@ -43,9 +30,6 @@
 #define CIRQUE_PINNACLE_SPI_CS_PIN A4
 
 #define TAP_CODE_DELAY 10
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* RGB settings, uncomment this define to enable RGB */
 #define RGB_DI_PIN A3

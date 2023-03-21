@@ -8,6 +8,11 @@
         "pid":"0x3003",
         "device_version": "0.0.3",
     },
+    "matrix_pins": {
+        "cols": ["A3", "A5", "A4", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15", "B0", "A8", "B15", "B14", "B13"],
+        "rows": ["A6", "B12", "A2", "A0", "A1"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "community_layouts": ["65_ansi_blocker", "65_iso_blocker"],

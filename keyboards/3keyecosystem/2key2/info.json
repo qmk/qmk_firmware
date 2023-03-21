@@ -8,6 +8,11 @@
         "pid": "0x3304",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F4", "D7"],
+        "rows": ["F6"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "B7"
     },

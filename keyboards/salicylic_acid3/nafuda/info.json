@@ -8,6 +8,11 @@
         "pid": "0x3060",
         "device_version": "0.1.2"
     },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6"],
+        "rows": ["D1", "D0", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

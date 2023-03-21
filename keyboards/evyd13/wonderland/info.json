@@ -8,6 +8,11 @@
         "pid": "0xA71C",
         "device_version": "0.0.3"
     },
+    "matrix_pins": {
+        "cols": ["F0", "F1", "F4", "F5", "F6", "F7", "E6", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4"],
+        "rows": ["B0", "D1", "D2", "D3", "D5"]
+    },
+    "diode_direction": "COL2ROW",
     "qmk_lufa_bootloader": {
         "esc_input": "B0",
         "esc_output": "F0",

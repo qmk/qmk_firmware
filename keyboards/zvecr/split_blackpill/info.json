@@ -8,10 +8,21 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B11", "B10", "B1", "B0", "A7", "A6"],
+        "rows": ["B15", "B14", "B13", "B12"]
+    },
+    "diode_direction": "COL2ROW",
     "split": {
         "soft_serial_pin": "B6",
         "bootmagic": {
             "matrix": [4, 0]
+        },
+        "matrix_pins": {
+            "right": {
+                "cols": ["B12", "B13", "B14", "B15", "A8", "A9"],
+                "rows": ["B0", "B1", "B10", "B11"]
+            }
         }
     },
     "processor": "STM32F103",

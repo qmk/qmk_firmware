@@ -16,13 +16,5 @@
 
 #pragma once
 
-
-/* pin-out */
-#define MATRIX_ROW_PINS { B4, D0 }
-#define MATRIX_COL_PINS { D3, D2, D1 }
-
 /* dip switch */
 #define DIP_SWITCH_PINS { C6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW

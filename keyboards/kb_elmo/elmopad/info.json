@@ -8,6 +8,11 @@
         "pid": "0x8B35",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C0", "C1", "C2", "C3"],
+        "rows": ["C5", "C4", "B2", "B1", "D7", "B0"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "community_layouts": ["numpad_6x4"],

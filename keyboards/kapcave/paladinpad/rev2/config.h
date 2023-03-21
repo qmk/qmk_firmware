@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { F4, F6, D7, B4, D6 }
-#define MATRIX_COL_PINS { F7, F5, D3, B7 }
-
 #define AUDIO_PIN C6
 
 #define RGB_DI_PIN D0

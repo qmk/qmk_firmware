@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "dsp40.h"
 #include "quantum.h"
 
 #define LAYOUT_ortho_4x12( \
