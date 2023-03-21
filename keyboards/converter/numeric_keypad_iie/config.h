@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /*
 
@@ -83,10 +82,6 @@ http://wiki.apple2.org/index.php?title=Pinouts#Apple_.2F.2Fe_Numeric_Keypad_conn
 
 */
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 6
 #define MATRIX_ROW_PINS { B0, B2, D2, D3 }
 #define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6 }
 #define DIODE_DIRECTION COL2ROW
-#define SOFT_SERIAL_PIN D0
-#define DEBOUNCE 5

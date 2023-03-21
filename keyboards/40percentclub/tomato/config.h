@@ -1,10 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 6
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F7, B1, B3, B2, B6 }
@@ -12,9 +7,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE

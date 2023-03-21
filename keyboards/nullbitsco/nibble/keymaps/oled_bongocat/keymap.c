@@ -29,7 +29,7 @@ enum layer_names {
 #define KC_DISC_DEAF KC_F24
 
 enum custom_keycodes {
-  PROG = USER00,
+  PROG = QK_KB_0,
   DISC_MUTE,
   DISC_DEAF,
   SUPER_ALT_TAB,

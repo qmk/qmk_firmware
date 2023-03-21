@@ -3,21 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/*Bootmagic boot button, set to topmost, leftmost key */
-#define BOOTMAGIC_LITE_ROW	0
-#define BOOTMAGIC_LITE_COLUMN	0
-
-/* encoder */
-/* #define NUMBER_OF_ENCODERS 1 */
-//#define ENCODERS_PAD_A { D3 }
-//#define ENCODERS_PAD_B { D2 }
-//#define ENCODER_RESOLUTION 1
-
-//#define LED_NUM_LOCK_PIN  D4
-//#define LED_CAPS_LOCK_PIN D6
-
 #define RGB_DI_PIN B0
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

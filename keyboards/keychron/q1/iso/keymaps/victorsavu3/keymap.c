@@ -31,7 +31,7 @@ enum unicode_names {
     SAD,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [GRIN]  = 0x1F600,  // 😀
     [SAD]   = 0x1F61E,  // 😞
 };
@@ -76,68 +76,62 @@ static bool wiggle_mouse;
 static uint16_t wiggle_timer;
 static uint16_t next_wiggle;
 
-
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(QK_LEAD) {
-            tap_code(KC_CAPS);
-        }
-
-        SEQ_FOUR_KEYS(KC_I, KC_D, KC_L, KC_E) {
-            wiggle_mouse = !wiggle_mouse;
-            wiggle_timer = timer_read();
-        }
-
-        SEQ_TWO_KEYS(KC_O, KC_K) {
-            send_unicode_string("👍");
-        }
-
-        SEQ_THREE_KEYS(KC_S, KC_A, KC_D) {
-            send_unicode_string("😞");
-        }
-
-        SEQ_FIVE_KEYS(KC_C, KC_H, KC_E, KC_C, KC_K) {
-            send_unicode_string("✅");
-        }
-
-        SEQ_FIVE_KEYS(KC_C, KC_R, KC_O, KC_S, KC_S) {
-            send_unicode_string("❎");
-        }
-
-        SEQ_FIVE_KEYS(KC_T, KC_H, KC_A, KC_N, KC_K) {
-            send_unicode_string("🙏");
-        }
-
-        SEQ_FIVE_KEYS(KC_S, KC_M, KC_I, KC_L, KC_E) {
-            send_unicode_string("😊");
-        }
-
-        SEQ_FIVE_KEYS(KC_P, KC_A, KC_R, KC_T, KC_Y) {
-            send_unicode_string("🎉");
-        }
-
-        SEQ_FOUR_KEYS(KC_E, KC_Y, KC_E, KC_S) {
-            send_unicode_string("(ಠ_ಠ)");
-        }
-
-        SEQ_FIVE_KEYS(KC_M, KC_A, KC_G, KC_I, KC_C) {
-            send_unicode_string("(ಠ_ಠ) 🪄 ⠁⭒*.✫.*⭒⠁");
-        }
-
-        SEQ_FIVE_KEYS(KC_T, KC_A, KC_B, KC_L, KC_E) {
-            send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
-        }
-
-        SEQ_FIVE_KEYS(KC_S, KC_H, KC_R, KC_U, KC_G) {
-            send_unicode_string("¯\\_(ツ)_/¯");
-        }
+void leader_end_user(void) {
+    if (leader_sequence_one_key(QK_LEAD)) {
+        tap_code(KC_CAPS);
     }
 
+    if (leader_sequence_four_keys(KC_I, KC_D, KC_L, KC_E)) {
+        wiggle_mouse = !wiggle_mouse;
+        wiggle_timer = timer_read();
+    }
+
+    if (leader_sequence_two_keys(KC_O, KC_K)) {
+        send_unicode_string("👍");
+    }
+
+    if (leader_sequence_three_keys(KC_S, KC_A, KC_D)) {
+        send_unicode_string("😞");
+    }
+
+    if (leader_sequence_five_keys(KC_C, KC_H, KC_E, KC_C, KC_K)) {
+        send_unicode_string("✅");
+    }
+
+    if (leader_sequence_five_keys(KC_C, KC_R, KC_O, KC_S, KC_S)) {
+        send_unicode_string("❎");
+    }
+
+    if (leader_sequence_five_keys(KC_T, KC_H, KC_A, KC_N, KC_K)) {
+        send_unicode_string("🙏");
+    }
+
+    if (leader_sequence_five_keys(KC_S, KC_M, KC_I, KC_L, KC_E)) {
+        send_unicode_string("😊");
+    }
+
+    if (leader_sequence_five_keys(KC_P, KC_A, KC_R, KC_T, KC_Y)) {
+        send_unicode_string("🎉");
+    }
+
+    if (leader_sequence_four_keys(KC_E, KC_Y, KC_E, KC_S)) {
+        send_unicode_string("(ಠ_ಠ)");
+    }
+
+    if (leader_sequence_five_keys(KC_M, KC_A, KC_G, KC_I, KC_C)) {
+        send_unicode_string("(ಠ_ಠ) 🪄 ⠁⭒*.✫.*⭒⠁");
+    }
+
+    if (leader_sequence_five_keys(KC_T, KC_A, KC_B, KC_L, KC_E)) {
+        send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
+    }
+
+    if (leader_sequence_five_keys(KC_S, KC_H, KC_R, KC_U, KC_G)) {
+        send_unicode_string("¯\\_(ツ)_/¯");
+    }
+}
+
+void matrix_scan_user(void) {
     if (wiggle_mouse && timer_elapsed(wiggle_timer) > next_wiggle) {
         wiggle_timer = timer_read();
 
