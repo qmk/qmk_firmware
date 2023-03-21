@@ -24,6 +24,11 @@
         "pid": "0x8802",
         "vid": "0x7C10"
     },
+    "indicators": {
+        "caps_lock": "B5",
+        "scroll_lock": "D2",
+        "on_state": 0
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

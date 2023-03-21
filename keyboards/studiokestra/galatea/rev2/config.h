@@ -3,10 +3,6 @@
 
 #pragma once
 
-#define LED_CAPS_LOCK_PIN B5
-#define LED_SCROLL_LOCK_PIN D2
-#define LED_PIN_ON_STATE 0
-
 #define RGB_DI_PIN D4
 #define RGBLED_NUM 24
 #define RGBLIGHT_HUE_STEP 8
