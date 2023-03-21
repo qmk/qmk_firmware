@@ -79,7 +79,7 @@ void slider(void) {
 	prev_val = val;
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 #ifdef POT_ENABLE
     slider();
 #endif
