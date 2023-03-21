@@ -37,12 +37,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  |AltGr |Lower | Space| Enter|Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = LAYOUT_preonic_grid( \
-  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    NO_PLUS, KC_BSPC, \
-  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    NO_AM,   \
-  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NO_AE,   NO_OSLH, \
-  KC_LSFT, NO_LESS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_DOT,  KC_COMM, NO_MINS, \
-  KC_LCTL, KC_LALT, KC_LGUI, KC_ALGR, LOWER,   KC_SPC,  KC_ENT,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+[_QWERTY] = LAYOUT_preonic_grid(
+  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    NO_PLUS, KC_BSPC,
+  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    NO_AM,
+  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NO_AE,   NO_OSLH,
+  KC_LSFT, NO_LESS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_DOT,  KC_COMM, NO_MINS,
+  KC_LCTL, KC_LALT, KC_LGUI, KC_ALGR, LOWER,   KC_SPC,  KC_ENT,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
@@ -58,12 +58,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |Bspc  |      |      |PgDn  |PgUp  |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_preonic_grid( \
-  _______, NO_AT,   NO_PND,  NO_DLR,  _______, _______, NO_LCBR, NO_LBRC, NO_RBRC, NO_RCBR, NO_BSLS, KC_DEL,  \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU, _______, _______, NO_TILD, \
-  _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, LSFT(KC_BSLS), \
-  _______, NO_PIPE, _______, _______, _______, _______, _______, _______, KC_VOLD, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, KC_BSPC, _______, _______, KC_PGDN, KC_PGUP, _______  \
+[_LOWER] = LAYOUT_preonic_grid(
+  _______, NO_AT,   NO_PND,  NO_DLR,  _______, _______, NO_LCBR, NO_LBRC, NO_RBRC, NO_RCBR, NO_BSLS, KC_DEL,
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU, _______, _______, NO_TILD,
+  _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, LSFT(KC_BSLS),
+  _______, NO_PIPE, _______, _______, _______, _______, _______, _______, KC_VOLD, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, KC_BSPC, _______, _______, KC_PGDN, KC_PGUP, _______
 ),
 
 /* Raise
@@ -79,12 +79,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |Bspc  |      |      |      | PgDn | PgUp |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_preonic_grid( \
-  LSFT(KC_1),NO_QUO2,LSFT(KC_3), NO_BULT,LSFT(KC_5), NO_AMPR, NO_SLSH, NO_LPRN, NO_RPRN, NO_EQL,  NO_QUES, KC_INS, \
-  _______, _______, _______, KC_MS_U, _______, _______, _______, _______, KC_WH_U, _______, _______, NO_CIRC, \
-  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_BTN1, KC_BTN3, KC_BTN2, NO_APOS, NO_QUOT, \
-  _______, NO_GRTR, _______, _______, _______, _______, _______, _______, KC_WH_D, NO_COLN, NO_SCLN, NO_UNDS, \
-  _______, _______, _______, _______, _______, KC_BSPC, _______, _______, _______, KC_PGDN, KC_PGUP, _______  \
+[_RAISE] = LAYOUT_preonic_grid(
+  LSFT(KC_1),NO_QUO2,LSFT(KC_3), NO_BULT,LSFT(KC_5), NO_AMPR, NO_SLSH, NO_LPRN, NO_RPRN, NO_EQL,  NO_QUES, KC_INS,
+  _______, _______, _______, KC_MS_U, _______, _______, _______, _______, KC_WH_U, _______, _______, NO_CIRC,
+  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_BTN1, KC_BTN3, KC_BTN2, NO_APOS, NO_QUOT,
+  _______, NO_GRTR, _______, _______, _______, _______, _______, _______, KC_WH_D, NO_COLN, NO_SCLN, NO_UNDS,
+  _______, _______, _______, _______, _______, KC_BSPC, _______, _______, _______, KC_PGDN, KC_PGUP, _______
 ),
 
 /* Mac Qwerty
@@ -100,12 +100,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  |AltGr |Lower | Space| Enter|Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_MQWERTY] = LAYOUT_preonic_grid( \
-  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    NO_PLUS, KC_BSPC, \
-  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    NO_AM,   \
-  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NO_AE,   NO_OSLH, \
-  KC_LSFT, NO_LESS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_DOT,  KC_COMM, NO_MINS, \
-  KC_LCTL, KC_LALT, KC_LGUI, KC_ALGR, MLOWER,  KC_SPC,  KC_ENT,  MRAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+[_MQWERTY] = LAYOUT_preonic_grid(
+  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    NO_PLUS, KC_BSPC,
+  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    NO_AM,
+  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NO_AE,   NO_OSLH,
+  KC_LSFT, NO_LESS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_DOT,  KC_COMM, NO_MINS,
+  KC_LCTL, KC_LALT, KC_LGUI, KC_ALGR, MLOWER,  KC_SPC,  KC_ENT,  MRAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Mac Lower
@@ -121,12 +121,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |Bspc  |      |      |PgDn  |PgUp  |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MLOWER] = LAYOUT_preonic_grid( \
-  _______, NO_AT,   NO_PND,  NO_DLR,  _______, _______, LSFT(LALT(KC_8)), NO_LBRC, NO_RBRC, LSFT(LALT(KC_9)), LSFT(LALT(KC_7)), KC_DEL,  \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU, _______, _______, NO_TILD, \
-  _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, LSFT(KC_BSLS), \
-  _______, NO_LBRC, _______, _______, _______, _______, _______, _______, KC_VOLD, _______, _______, _______,  \
-  _______, _______, _______, _______, _______, _______, KC_BSPC, _______, _______, KC_PGDN, KC_PGUP, _______  \
+[_MLOWER] = LAYOUT_preonic_grid(
+  _______, NO_AT,   NO_PND,  NO_DLR,  _______, _______, LSFT(LALT(KC_8)), NO_LBRC, NO_RBRC, LSFT(LALT(KC_9)), LSFT(LALT(KC_7)), KC_DEL,
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU, _______, _______, NO_TILD,
+  _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, LSFT(KC_BSLS),
+  _______, NO_LBRC, _______, _______, _______, _______, _______, _______, KC_VOLD, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, KC_BSPC, _______, _______, KC_PGDN, KC_PGUP, _______
 ),
 
 /* Mac Raise
@@ -142,12 +142,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |Bspc  |      |      |      | PgDn | PgUp |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MRAISE] = LAYOUT_preonic_grid( \
-  LSFT(KC_1),NO_QUO2,LSFT(KC_3), NO_BULT,LSFT(KC_5), NO_AMPR, NO_SLSH, NO_LPRN, NO_RPRN, NO_EQL,  NO_QUES, KC_INS, \
-  _______, _______, _______, KC_MS_U, _______, _______, _______, _______, KC_WH_U, _______, _______, NO_CIRC, \
-  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_BTN1, KC_BTN3, KC_BTN2, NO_APOS, NO_QUOT, \
-  _______, NO_GRTR, _______, _______, _______, _______, _______, _______, KC_WH_D, NO_COLN, NO_SCLN, NO_UNDS, \
-  _______, _______, _______, _______, _______, KC_BSPC, _______, _______, _______, KC_PGDN, KC_PGUP, _______  \
+[_MRAISE] = LAYOUT_preonic_grid(
+  LSFT(KC_1),NO_QUO2,LSFT(KC_3), NO_BULT,LSFT(KC_5), NO_AMPR, NO_SLSH, NO_LPRN, NO_RPRN, NO_EQL,  NO_QUES, KC_INS,
+  _______, _______, _______, KC_MS_U, _______, _______, _______, _______, KC_WH_U, _______, _______, NO_CIRC,
+  _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_BTN1, KC_BTN3, KC_BTN2, NO_APOS, NO_QUOT,
+  _______, NO_GRTR, _______, _______, _______, _______, _______, _______, KC_WH_D, NO_COLN, NO_SCLN, NO_UNDS,
+  _______, _______, _______, _______, _______, KC_BSPC, _______, _______, _______, KC_PGDN, KC_PGUP, _______
 ),
 
 /* Adjust (Lower + Raise)
@@ -163,12 +163,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_preonic_grid( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  _______, _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RSFT, \
-  _______, MU_ON,   MU_OFF,  _______, _______, _______, _______, TO(0),   TO(5),   _______, _______, RESET,   \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+[_ADJUST] = LAYOUT_preonic_grid(
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RSFT,
+  _______, MU_ON,   MU_OFF,  _______, _______, _______, _______, TO(0),   TO(5),   _______, _______, QK_BOOT,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
 
@@ -258,13 +258,13 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);

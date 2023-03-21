@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Athena rev Beta",
+    "usb": {
+        "pid": "0x6585",
+        "device_version": "0.0.2"
+    },
+    "backlight": {
+        "pin": "B0",
+        "levels": 20,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "C8"
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu"
+}

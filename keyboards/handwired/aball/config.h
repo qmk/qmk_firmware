@@ -17,20 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xC2F0
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Richard Sutherland
-#define PRODUCT ABall
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-#define DIRECT_PINS {{NO_PIN}}
-
 #define ADNS9800_CS_PIN F7
 #define POINTING_DEVICE_INVERT_X

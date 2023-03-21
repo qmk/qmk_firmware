@@ -1,7 +1,17 @@
 {
     "keyboard_name": "v4n4g0rth0n",
+    "manufacturer": "s8erdude",
     "url": "https://github.com/jpuerto96/v4n4g0rth0n",
     "maintainer": "jpuerto96 (s8erdude)",
+    "usb": {
+        "vid": "0xB33F",
+        "pid": "0x58E4"
+    },
+    "indicators": {
+        "caps_lock": "D7",
+        "num_lock": "B4",
+        "scroll_lock": "D6"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

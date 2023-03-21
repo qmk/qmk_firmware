@@ -1,7 +1,22 @@
 {
-    "keyboard_name": "tenkey_plusplus",
+    "keyboard_name": "Tenkey++",
+    "manufacturer": "Lizard Trick Electronics",
     "url": "https://github.com/jonbobcar/tenkey_plusplus",
     "maintainer": "Jonathon Carstens",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "D7"},
+            {"pin_a": "F0", "pin_b": "E6"},
+            {"pin_a": "F4", "pin_b": "F1"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

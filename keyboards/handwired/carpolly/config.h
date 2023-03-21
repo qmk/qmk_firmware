@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6532
-#define PRODUCT_ID      0x0017
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    paul
-#define PRODUCT         Carpolly
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
 
 /*
  * Keyboard Matrix Assignments

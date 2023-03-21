@@ -1,5 +1,18 @@
 {
-  "keyboard_name": "Cypher",
+  "keyboard_name": "cypher",
+  "manufacturer": "westfoxtrot",
+  "usb": {
+    "vid": "0x21FF",
+    "pid": "0xAA97",
+    "device_version": "0.0.1"
+  },
+  "backlight": {
+    "pin": "B5",
+    "levels": 5,
+    "breathing": true
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT_ansi": {
       "layout": [

@@ -16,19 +16,11 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x7EC5
-#define DEVICE_VER      0x0001
-#define PRODUCT         DURGOD Venus (QMK)
 
 /* key matrix rows */
-#define MATRIX_ROWS 5
 #define MATRIX_ROW_PINS { A0, A1, A2, A3, A4 }
 
 /* key matrix columns */
-#define MATRIX_COLS 14
 #define MATRIX_COL_PINS { B0, B1, B2, B10, B11, B12, B13, B14, B15, C6, C7, C8, C9, C10 }
 
 #ifdef RGB_MATRIX_ENABLE

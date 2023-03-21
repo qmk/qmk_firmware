@@ -166,7 +166,7 @@ Send multiple bytes to the selected I2C device.
 
 ### `i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)`
 
-Receive multiple bytes from the selected SPI device.
+Receive multiple bytes from the selected I2C device.
 
 #### Arguments
 

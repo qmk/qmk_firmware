@@ -1,7 +1,14 @@
 {
     "keyboard_name": "JM60",
+    "manufacturer": "JMWS",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6464",
+        "device_version": "0.0.1"
+    },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

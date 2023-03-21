@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Moonlander Mark I",
+    "manufacturer": "ZSA Technology Labs",
     "url": "zsa.io/moonlander",
     "maintainer": "ZSA via Drashna",
+    "usb": {
+        "vid": "0x3297",
+        "pid": "0x1969",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_moonlander": {
             "layout": [

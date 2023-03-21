@@ -1,7 +1,18 @@
 {
-	"keyboard_name": "adkb96",
+	"keyboard_name": "ADKB96",
+	"manufacturer": "Bit Trade One",
 	"url": "",
 	"maintainer": "qmk",
+	"usb": {
+		"vid": "0x00A5",
+		"pid": "0xAD96",
+		"device_version": "0.0.1"
+	},
+	"split": {
+		"soft_serial_pin": "D0"
+	},
+	"processor": "atmega32u4",
+	"bootloader": "caterina",
 	"layouts": {
 		"LAYOUT_ortho_6x16": {
 			"layout": [

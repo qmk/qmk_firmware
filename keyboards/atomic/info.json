@@ -1,9 +1,21 @@
 {
     "keyboard_name": "Atomic",
+    "manufacturer": "OLKB",
     "maintainer": "jackhumbert",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_grid": "LAYOUT_ortho_5x15"
     },
+    "community_layouts": ["ortho_5x15"],
     "layouts": {
         "LAYOUT_semi_standard": {
             "layout": [

@@ -1,7 +1,11 @@
 {
-    "keyboard_name": "Treadstone32",
+    "manufacturer": "marksard",
     "url": "https://github.com/marksard/Keyboards",
     "maintainer": "marksard",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xDFA5"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

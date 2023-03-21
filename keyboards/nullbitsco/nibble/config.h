@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* Used to set host for remote KB if VUSB detect doesn't work. */
 // #define KEYBOARD_HOST // Force host mode
@@ -24,21 +23,10 @@
 // Workaround for freezing after MacOS sleep
 #define NO_USB_STARTUP_CHECK
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6E61
-#define PRODUCT_ID      0x6060
-
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    nullbits
-#define PRODUCT         NIBBLE
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 #define MATRIX_MUX_COLS 4
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 10
 
 /*
  * Keyboard Matrix Assignments
@@ -53,9 +41,14 @@
 /* Optional SMT LED pins */
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 10
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_SLEEP
-
-/* Optional encoder pins */
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B4 }

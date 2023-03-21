@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "dumbpad",
+    "manufacturer": "imchipwood",
+    "url": "https://www.github.com/imchipwood/dumbpad",
+    "maintainer": "imchipwood",
+    "usb": {
+        "vid": "0xDEAF",
+        "pid": "0x0913"
+    }
+}

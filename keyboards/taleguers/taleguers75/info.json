@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Taleguers75",
+    "manufacturer": "Taleguers",
     "url": "",
     "maintainer": "borlopjim",
+    "usb": {
+        "vid": "0x8476",
+        "pid": "0x0075",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "B5"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [{

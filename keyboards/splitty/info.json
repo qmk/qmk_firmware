@@ -1,7 +1,15 @@
 {
   "keyboard_name": "Splitty",
+  "manufacturer": "Nicolas Schodet",
   "url": "https://git.ni.fr.eu.org/splitty.git/about/",
   "maintainer": "schodet",
+  "usb": {
+    "vid": "0x1D50",
+    "pid": "0x6052",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

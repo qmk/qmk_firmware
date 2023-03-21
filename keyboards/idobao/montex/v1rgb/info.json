@@ -1,0 +1,45 @@
+{
+    "keyboard_name": "Montex RGB",
+    "manufacturer": "IDOBAO",
+    "usb": {
+        "vid": "0x6964",
+        "pid": "0x0127",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["numpad_6x5"],
+    "layouts": {
+        "LAYOUT_numpad_6x5": {
+            "layout": [
+                { "label": "K00 (D4,D5)", "x": 0, "y": 0 },
+                { "label": "K01 (D4,D3)", "x": 1, "y": 0 },
+                { "label": "K02 (D4,D2)", "x": 2, "y": 0 },
+                { "label": "K03 (D4,D1)", "x": 3, "y": 0 },
+                { "label": "K04 (D4,D0)", "x": 4, "y": 0 },
+                { "label": "K10 (D6,D5)", "x": 0, "y": 1 },
+                { "label": "K11 (D6,D3)", "x": 1, "y": 1 },
+                { "label": "K12 (D6,D2)", "x": 2, "y": 1 },
+                { "label": "K13 (D6,D1)", "x": 3, "y": 1 },
+                { "label": "K14 (D6,D0)", "x": 4, "y": 1 },
+                { "label": "K20 (D7,D5)", "x": 0, "y": 2 },
+                { "label": "K21 (D7,D3)", "x": 1, "y": 2 },
+                { "label": "K22 (D7,D2)", "x": 2, "y": 2 },
+                { "label": "K23 (D7,D1)", "x": 3, "y": 2 },
+                { "label": "K24 (D7,D0)", "x": 4, "y": 2, "h": 2 },
+                { "label": "K30 (B4,D5)", "x": 0, "y": 3 },
+                { "label": "K31 (B4,D3)", "x": 1, "y": 3 },
+                { "label": "K32 (B4,D2)", "x": 2, "y": 3 },
+                { "label": "K33 (B4,D1)", "x": 3, "y": 3 },
+                { "label": "K40 (B5,D5)", "x": 0, "y": 4 },
+                { "label": "K41 (B5,D3)", "x": 1, "y": 4 },
+                { "label": "K42 (B5,D2)", "x": 2, "y": 4 },
+                { "label": "K43 (B5,D1)", "x": 3, "y": 4 },
+                { "label": "K53 (C6,D1)", "x": 4, "y": 4, "h": 2 },
+                { "label": "K50 (C6,D5)", "x": 0, "y": 5 },
+                { "label": "K51 (C6,D3)", "x": 1, "y": 5, "w": 2 },
+                { "label": "K52 (C6,D2)", "x": 3, "y": 5 }
+            ]
+        }
+    }
+}

@@ -1,7 +1,15 @@
 {
     "keyboard_name": "slz40",
+    "manufacturer": "SithLord",
     "url": "https://github.com/sithlord121/slz40",
     "maintainer": "SithLord",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

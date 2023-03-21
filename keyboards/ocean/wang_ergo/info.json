@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Wang Ergo",
+    "manufacturer": "Ocean",
     "url": "",
     "maintainer": "oceeean",
+    "usb": {
+        "vid": "0x9624",
+        "pid": "0x0008",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

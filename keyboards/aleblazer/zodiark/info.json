@@ -1,7 +1,30 @@
 {
-    "keyboard_name": "zodiark", 
+    "keyboard_name": "Zodiark", 
+    "manufacturer": "Aleblazer",
     "url": "https://github.com/Aleblazer/qmk_firmware/tree/master/keyboards/zodiark", 
     "maintainer": "Aleblazer", 
+    "usb": {
+        "vid": "0xF901",
+        "pid": "0xF902",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D4", "resolution": 3}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D3",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "D4", "pin_b": "D2", "resolution": 3}
+                ]
+            }
+        },
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,18 @@
 {
     "keyboard_name": "scatter42",
+    "manufacturer": "bbrfkr",
     "url": "https://github.com/bbrfkr/keyboards/tree/master/scatter42",
     "maintainer": "bbrfkr",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3B47",
+        "device_version": "0.0.1"
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

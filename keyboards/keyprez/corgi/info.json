@@ -1,7 +1,21 @@
 {
     "keyboard_name": "corgi",
+    "manufacturer": "Christian Sandven",
     "url": "",
     "maintainer": "Christian Sandven",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D3", "pin_b": "D4"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 0,
     "layouts": {
         "LAYOUT": {
             "layout": [

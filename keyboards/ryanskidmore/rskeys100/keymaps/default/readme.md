@@ -1,0 +1,1 @@
+This is the default keymap (UK, ISO) for the rskeys100. The RGB control layer can be activated by holding the F12 key.

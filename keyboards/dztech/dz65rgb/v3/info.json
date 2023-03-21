@@ -1,0 +1,8 @@
+{
+    "usb": {
+        "pid": "0x1424",
+        "device_version": "3.0.0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-ms"
+}

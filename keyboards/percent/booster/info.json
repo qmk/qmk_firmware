@@ -1,7 +1,19 @@
 {
-    "keyboard_name": "booster",
+    "keyboard_name": "Booster",
+    "manufacturer": "Percent Studio",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5053",
+        "pid": "0x4253",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

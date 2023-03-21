@@ -1,7 +1,30 @@
 {
-    "keyboard_name": "navpad 1.0 w/ helix right hand side",
+    "keyboard_name": "navpad 1.0 with helix keyboard",
+    "manufacturer": "yushakobo",
     "url": "",
     "maintainer": "yushakobo",
+    "usb": {
+        "vid": "0x3265",
+        "pid": "0x0008",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "B6", "pin_b": "B5"}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

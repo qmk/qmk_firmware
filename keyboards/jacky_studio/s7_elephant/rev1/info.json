@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "S7 Elephant",
+    "keyboard_name": "S7 Elephant Rev1",
+    "manufacturer": "Jacky",
     "url": "https://geekhack.org/index.php?topic=96434.0",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xA13B",
+        "pid": "0x0007",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

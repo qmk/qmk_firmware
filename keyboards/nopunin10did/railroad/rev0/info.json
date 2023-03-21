@@ -1,7 +1,15 @@
 {
     "keyboard_name": "The Railroad",
+    "manufacturer": "NoPunIn10Did",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/railroad",
     "maintainer": "NoPunIn10Did",
+    "usb": {
+        "vid": "0x4E50",
+        "pid": "0x9111",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

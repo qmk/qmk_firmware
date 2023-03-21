@@ -1,7 +1,14 @@
 {
     "keyboard_name": "Oddball",
+    "manufacturer": "Alexander Tulloh",
     "url": "https://atulloh.github.io/oddball",
     "maintainer": "Alexander Tulloh",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xCA49",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
     "layouts": {
         "LAYOUT": {
             "layout": [

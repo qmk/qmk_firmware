@@ -1,7 +1,15 @@
 {
     "keyboard_name": "CANARY60RGB",
+    "manufacturer": "CANARY",
     "url": "",
     "maintainer": "tuananhnguyen204",
+    "usb": {
+        "vid": "0x4341",
+        "pid": "0x0621",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

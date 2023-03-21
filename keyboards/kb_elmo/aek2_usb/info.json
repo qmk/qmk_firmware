@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "aek 2 usb", 
+    "keyboard_name": "AEK II USB", 
+    "manufacturer": "kb-elmo",
     "url": "https://github.com/kb-elmo/aek2_usb", 
     "maintainer": "kb-elmo", 
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0xDB52",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B1",
+        "num_lock": "B2",
+        "scroll_lock": "B0"
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT": {
             "layout": [

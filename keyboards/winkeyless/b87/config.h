@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor paramater */
-#define VENDOR_ID       0x20A0   // 
-#define PRODUCT_ID      0x0B87  // B87
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Winkeyless
-#define PRODUCT         B87 // QMK PORT
-
-/* Define Matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
 
 /*Define Matrix Pins */
 #define MATRIX_ROW_PINS {B5, B4, B3, B2, B1, B0, B6, B7}
@@ -48,9 +36,3 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
-
-#define LED_CAPS_LOCK_PIN D1 
-#define LED_SCROLL_LOCK_PIN D6 

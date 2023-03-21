@@ -74,21 +74,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     The sector size of the FLASH in bytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_SECTOR_SIZE
-#    define EXTERNAL_FLASH_SECTOR_SIZE (4 * 1024)
+#    define EXTERNAL_FLASH_SECTOR_SIZE (4 * 1024L)
 #endif
 
 /*
     The block size of the FLASH in bytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_BLOCK_SIZE
-#    define EXTERNAL_FLASH_BLOCK_SIZE (64 * 1024)
+#    define EXTERNAL_FLASH_BLOCK_SIZE (64 * 1024L)
 #endif
 
 /*
     The total size of the FLASH in bytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_SIZE
-#    define EXTERNAL_FLASH_SIZE (512 * 1024)
+#    define EXTERNAL_FLASH_SIZE (512 * 1024L)
 #endif
 
 /*

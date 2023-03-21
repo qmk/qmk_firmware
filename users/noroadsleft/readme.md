@@ -19,13 +19,16 @@ Outputs a string that tells me the Git commit from which my flashed firmware was
 
 Some frequently used Git commands.
 
-| Keycode                             | Output                 | Output with <kbd>Shift</kbd> |
-| :---------------------------------- | :--------------------- | :--------------------------- |
-| [`G_PUSH`](./noroadsleft.c#L44-L48) | `git push origin `     | `git push origin `           |
-| [`G_FTCH`](./noroadsleft.c#L49-L58) | `git fetch upstream `  | `git pull upstream `         |
-| [`G_BRCH`](./noroadsleft.c#L59-L68) | `master`               | `$(git branch-name)`         |
+| Keycode                             | Output                                                | Output with <kbd>Shift</kbd>                          |
+| :---------------------------------- | :---------------------------------------------------- | :---------------------------------------------------- |
+| [`G_PUSH`](./noroadsleft.c#L44-L48) | `git push origin `                                    | `git push origin `                                    |
+| [`G_FTCH`](./noroadsleft.c#L49-L58) | `git fetch upstream `                                 | `git pull upstream `                                  |
+| [`G_BRCH`](./noroadsleft.c#L59-L68) | `master`                                              | `$(git branch-name)`                                  |
+| [`G_PWD`](./noroadsleft.c#L69-L74)  | `$( pwd \| sed -e 's;^.*/keyboards/;;' -e 's;/;_;g')`  | `$( pwd \| sed -e 's;^.*/keyboards/;;' -e 's;/;_;g')`  |
 
 `$(git branch-name)` is an alias for `git rev-parse --abbrev-ref HEAD`, which normally returns the name of the current branch.
+
+The `G_PWD` macro outputs a shell expansion that returns the current working directory in relation to `qmk_firmware/keyboards/`, and with the slashes replaced with underscores. I do a lot of keyboard refactoring in QMK, and this is a string I use regularly.
 
 ### Customized Keycodes
 
@@ -33,11 +36,11 @@ I used to have a boolean variable that changed the functionality of these keycod
 
 | Keycode                               | Action    |
 | :------------------------------------ | :-------- |
-| [`M_SALL`](./noroadsleft.c#L69-L73)   | `Ctrl+A`  |
-| [`M_UNDO`](./noroadsleft.c#L74-L82)   | `Ctrl+Z`  |
-| [`M_CUT`](./noroadsleft.c#L83-L87)    | `Ctrl+X`  |
-| [`M_COPY`](./noroadsleft.c#L88-L92)   | `Ctrl+C`  |
-| [`M_PASTE`](./noroadsleft.c#L93-L101) | `Ctrl+V`  |
+| [`M_SALL`](./noroadsleft.c#L75-L79)   | `Ctrl+A`  |
+| [`M_UNDO`](./noroadsleft.c#L80-L88)   | `Ctrl+Z`  |
+| [`M_CUT`](./noroadsleft.c#L89-L93)    | `Ctrl+X`  |
+| [`M_COPY`](./noroadsleft.c#L94-L98)   | `Ctrl+C`  |
+| [`M_PASTE`](./noroadsleft.c#L99-L107) | `Ctrl+V`  |
 
 ### [Emulated Non-US Backslash](./noroadsleft.c#L27-L37)
 
@@ -47,18 +50,18 @@ This macro simulates the Non-US Backslash key if I hold Right Alt and tap the ke
 
 Requires defining `ANSI_NUBS_ROW` and `ANSI_NUBS_COL` in `config.h` at the keymap level.[<sup>1</sup>](#footnotes)
 
-### [Emulated Numeric Keypad](./noroadsleft.c#L102-L116)
+### [Emulated Numeric Keypad](./noroadsleft.c#L108-L122)
 
 If I hold the Right Alt key, the number row (`KC_1` through `KC_0`) will output numpad keycodes instead of number row keycodes, enabling quicker access to characters like ™ and °.
 
-### [Emulated Extended Function Keys](./noroadsleft.c#L117-L131)
+### [Emulated Extended Function Keys](./noroadsleft.c#L123-L137)
 
 Similar to the emulated numpad, if I hold the Right Alt key with the Fn key, the function row (`KC_F1` through `KC_F12`) will output keycodes `KC_F13` throught `KC_F24`.
 
 
 ## License
 
-Copyright 2020-2021 James Young (@noroadsleft)
+Copyright 2020-2022 James Young (@noroadsleft)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

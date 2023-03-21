@@ -1,7 +1,19 @@
 {
   "keyboard_name": "Baguette",
+  "manufacturer": "Yiancar",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x5050",
+    "device_version": "0.0.1"
+  },
+  "backlight": {
+    "pin": "B7",
+    "levels": 5,
+    "breathing": true
+  },
+  "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT_ansi": {
@@ -134,7 +146,7 @@
         {"label":",", "x":9.25, "y":3},
         {"label":".", "x":10.25, "y":3},
         {"label":"/", "x":11.25, "y":3},
-        {"label":"JP_RO", "x":12.25, "y":3},
+        {"label":"\\", "x":12.25, "y":3},
         {"label":"Shift", "x":13.25, "y":3, "w":1.25},
         {"label":"Up", "x":14.5, "y":3},
         {"label":"GUI", "x":1.25, "y":4},

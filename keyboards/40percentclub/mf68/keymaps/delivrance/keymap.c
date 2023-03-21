@@ -23,10 +23,9 @@
 #define KC_FN1 MO(_FN)
 #define KC_FN2 LT(_FN, KC_CAPS)
 
-#define KC_BLUP BL_INC   // Backlight increase
-#define KC_BLDN BL_DEC   // Backlight decrease
+#define KC_BLUP BL_UP    // Backlight increase
+#define KC_BLDN BL_DOWN  // Backlight decrease
 #define KC_BLTOG BL_TOGG // Backlight toggle
-#define KC_TERM TERM_ON  // Terminal mode on
 #define KC_REC1 DM_REC1  // Record macro 1
 #define KC_PLY1 DM_PLY1  // Play macro 1
 #define KC_REC2 DM_REC2  // Record macro 2
@@ -54,7 +53,7 @@ enum {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_68_ansi( /* Default layer
    ┏━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━━━━━┓ ┏━━━━┳━━━━┓ */
-    KC_GESC, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  , KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,KC_EQL ,  KC_BSPC  ,  KC_INS ,KC_PGUP, /*
+    QK_GESC, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  , KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,KC_EQL ,  KC_BSPC  ,  KC_INS ,KC_PGUP, /*
    ┣━━━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━━━━━┫ ┣━━━━╋━━━━┫ */
      KC_TAB  , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  , KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_LBRC,KC_RBRC, KC_BSLS ,  KC_DEL ,KC_PGDN, /*
    ┣━━━━━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━━━━━━┫ ┗━━━━┻━━━━┛ */
@@ -71,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ┣Esc ┻ 1! ┻ 2@ ┻ 3# ┻ 4$ ┻ 5% ┻ 6^ ┻ 7& ┻ 8* ┻ 9( ┻ 0) ┻ -_ ┻ =+ ┻━┳━ ←─ ━┫ ┣Ins ╋PgUp┫ */
   _______ ,KC_PLY1,KC_PLY2,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_7  , KC_8  , KC_9  ,KC_BLDN,KC_BLUP,KC_BLTOG ,KC_TRNS  ,KC_END , /*
    ┣ Tab ━┻ Q ━┻ W ━┻ E ━┻ R ━┻ T ━┻ Y ━┻ U ━┻ I ━┻ O ━┻ P ━┻ [{ ┻ ]} ┻━ \| ━┫ ┗Del ┻PgDn┛ */
-    _______ ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_4  , KC_5  , KC_6  ,KC_TRNS,   KC_TERM  ,         /*
+    _______ ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_4  , KC_5  , KC_6  ,KC_TRNS,   KC_TRNS  ,         /*
    ┣━ Caps ━┻ A ━┻ S ━┻ D ━┻ F ━┻ G ━┻ H ━┻ J ━┻ K ━┻ L ━┻ ;: ┻ '" ┻━ Enter ━┫ ┏━━━━┓      */
     _______   ,KC_REC1,KC_REC2,KC_TRNS,KC_TRNS,KC_MSTP,KC_TRNS,KC_MUTE, KC_1  , KC_2  , KC_3  ,KC_TRNS        ,  KC_VOLU,  /*
    ┣━━ Shift ━┻ Z ━┻ X ━┻ C ━┻ V ━┻ B ━┻ N ━┻ M ━┻ ,< ┻ .> ╋ /? ┻┳━━ Shift ━━┻━╋ ↑ ━╋━━━━┓ */
@@ -198,7 +197,7 @@ void led_set_user(uint8_t usb_led) {
 static uint32_t timer;
 static bool is_idle;
 
-void matrix_scan_user() {
+void matrix_scan_user(void) {
     // Check the timer only if the keyboard is not idle
     if (!is_idle) {
         if (timer_elapsed32(timer) >= (uint32_t) BACKLIGHT_IDLE_TIMEOUT * 1000) {

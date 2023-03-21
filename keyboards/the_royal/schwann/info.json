@@ -1,7 +1,15 @@
 {
-  "keyboard_name": "Schwann's PCB",
+  "keyboard_name": "The Schwann PCB",
+  "manufacturer": "TheRoyalSweatshirt",
   "url": "https://github.com/TheRoyalSweatshirt/The_Royal_Projects/tree/schwann/PCBs/Schwann_PCB",
   "maintainer": "TheRoyalSweatshirt",
+  "usb": {
+      "vid": "0xFEED",
+      "pid": "0x3521",
+      "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
    "LAYOUT_mit": {
       "layout": [

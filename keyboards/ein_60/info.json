@@ -1,7 +1,21 @@
 {
     "keyboard_name": "Ein_60",
+    "manufacturer": "klackygears",
     "url": "",
     "maintainer": "klackygears",
+    "usb": {
+        "vid": "0x4A53",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B0", "pin_b": "E3"},
+            {"pin_a": "C5", "pin_b": "C4"}
+        ]
+    },
+    "processor": "at90usb1286",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

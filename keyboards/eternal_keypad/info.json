@@ -1,7 +1,18 @@
 {
     "keyboard_name": "eternal_keypad",
+    "manufacturer": "duckyb",
     "url": "https://github.com/duckyb/eternal-keypad",
     "maintainer": "duckyb",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0xDB00",
+        "device_version": "0.0.1"
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

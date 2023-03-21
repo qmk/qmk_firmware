@@ -1,7 +1,19 @@
 {
     "keyboard_name": "Lagrange",
+    "manufacturer": "Dimitris Papavasiliou",
     "url": "https://github.com/dpapavas/lagrange-keyboard",
     "maintainer": "dpapavas",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x2718",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "D1",
+        "scroll_lock": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

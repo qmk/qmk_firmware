@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "keymap_german_ch.h"
+#include "keymap_swiss_de.h"
 #include "features/haptic_utils.h"
 
 #ifdef PS2_MOUSE_ENABLE

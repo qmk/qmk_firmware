@@ -1,7 +1,18 @@
 {
     "keyboard_name": "kbod",
+    "manufacturer": "fudanchii",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

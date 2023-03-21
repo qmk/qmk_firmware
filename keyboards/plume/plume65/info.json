@@ -1,7 +1,19 @@
 {
     "keyboard_name": "Plume65", 
+    "manufacturer": "Plume Keyboards LLC",
     "url": "", 
     "maintainer": "evyd13", 
+    "usb": {
+        "vid": "0x5D66",
+        "pid": "0x22CF",
+        "device_version": "0.0.1"
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "D2",
+        "esc_output": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_iso": {
             "layout": [

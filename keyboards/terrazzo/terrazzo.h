@@ -108,7 +108,7 @@ enum terrazzo_matrix_effects {
 };
 
 enum terrazzo_keycodes {
-    TZ_NXT = SAFE_RANGE,
+    TZ_NXT = QK_KB_0,
     TZ_PRV,
     TZ_OFF
 };

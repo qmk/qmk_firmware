@@ -1,7 +1,16 @@
 {
     "keyboard_name": "BM65HSRGB",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "bytesapart",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0xEF6E",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

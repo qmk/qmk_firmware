@@ -1,7 +1,16 @@
 {
-    "keyboard_name": "lodestone",
+    "keyboard_name": "Lodestone",
+    "manufacturer": "FLX",
     "url": "https://prototypist.net/",
     "maintainer": "Flexerm",
+    "usb": {
+        "vid": "0x4658",
+        "pid": "0x4C53",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -14,20 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x552F
-#define DEVICE_VER 0x0002
-#define MANUFACTURER Montsinger
-#define PRODUCT Rebound
-
-/* key matrix size */
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments
@@ -43,22 +29,11 @@ diode)
 
 #define MATRIX_ROW_PINS { F4, F5, D1, D0, B0 }
 #define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5, B6, B2, B3, B1, F7, F6 }
-#define UNUSED_PINS { }
-
-#define ENCODERS_PAD_A { D3 }
-#define ENCODERS_PAD_B { D2 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

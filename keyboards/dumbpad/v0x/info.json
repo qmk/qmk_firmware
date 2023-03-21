@@ -1,7 +1,17 @@
 {
-    "keyboard_name": "dumbpad/v0x",
-    "url": "https://www.github.com/imchipwood/dumbpad",
-    "maintainer": "imchipwood",
+    "usb": {
+        "device_version": "0.0.7"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D4"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [3, 0]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "Doro 67 RGB",
+    "keyboard_name": "Doro67 RGB",
+    "manufacturer": "Backprop Studio",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4250",
+        "pid": "0x5247",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+      "caps_lock": "E6",
+      "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
       "LAYOUT_65_ansi_blocker": {
         "layout": [

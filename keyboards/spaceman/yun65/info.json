@@ -1,7 +1,15 @@
 {
-  "keyboard_name": "yun65",
+  "keyboard_name": "Yun 65",
+  "manufacturer": "Spaceman",
   "url": "",
   "maintainer": "Spaceman",
+  "usb": {
+    "vid": "0x5342",
+    "pid": "0x594E",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

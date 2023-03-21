@@ -79,6 +79,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
                 }
                 break;
+            case KC_QWER:  // Set default layer to QWERTY
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_QWERTY);
+                }
+                break;
+            case KC_COLE:  // Set default layer to COLEMAK
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_COLEMAK);
+                }
+                break;
+            case KC_DVOR:  // Set default layer to DVORAK
+                if (record->event.pressed) {
+                    set_single_persistent_default_layer(_DVORAK);
+                }
+                break;
         }
     }
     return true;

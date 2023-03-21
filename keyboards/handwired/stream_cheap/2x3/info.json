@@ -1,16 +1,31 @@
 {
-    "keyboard_name": "Stream Cheap 2x3",
+    "keyboard_name": "2x3",
+    "manufacturer": "Stream Cheap",
     "url": "https://www.thingiverse.com/thing:4497991",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7363",
+        "pid": "0x1213",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["D1", "C6", "B4"],
+            ["D0", "D4", "D7"]
+        ]
+    },
+    "community_layouts": ["ortho_2x3"],
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [
-                {"label":"K00", "x":0, "y":0},
-                {"label":"K01", "x":1, "y":0},
-                {"label":"K02", "x":2, "y":0},
-                {"label":"K03", "x":0, "y":1},
-                {"label":"K04", "x":1, "y":1},
-                {"label":"K05", "x":2, "y":1}
+                {"x":0, "y":0, "matrix": [0, 0]},
+                {"x":1, "y":0, "matrix": [0, 1]},
+                {"x":2, "y":0, "matrix": [0, 2]},
+                {"x":0, "y":1, "matrix": [1, 0]},
+                {"x":1, "y":1, "matrix": [1, 1]},
+                {"x":2, "y":1, "matrix": [1, 2]}
             ]
         }
     }

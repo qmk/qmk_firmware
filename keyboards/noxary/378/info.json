@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "Noxary 378",
+    "keyboard_name": "378",
+    "manufacturer": "Noxary",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x4E58",
+        "pid": "0x017A",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

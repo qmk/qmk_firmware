@@ -1,7 +1,19 @@
 {
     "keyboard_name": "THE30",
+    "manufacturer": "LazyDesigners",
     "url": "http://lazydesigners.cn",
     "maintainer": "Erovia",
+    "usb": {
+        "vid": "0x4C44",
+        "pid": "0x0030",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_3x10"],
     "layouts": {
         "LAYOUT_ortho_3x10": {
             "layout": [

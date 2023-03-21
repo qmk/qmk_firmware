@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Crin",
+    "manufacturer": "Bachoo",
     "url": "https://bachoo.com",
     "maintainer": "KnoblesseOblige",
+    "usb": {
+        "vid": "0x6400",
+        "pid": "0xCC11",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT_all",
         "LAYOUT_tsangan": "LAYOUT_ansi_tsangan"

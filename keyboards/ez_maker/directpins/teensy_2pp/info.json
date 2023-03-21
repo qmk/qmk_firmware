@@ -4,8 +4,6 @@
     "maintainer": "skullydazed",
     "processor": "at90usb1286",
     "bootloader": "halfkay",
-    "debounce": 5,
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,

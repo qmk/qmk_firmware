@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6050
-#define DEVICE_VER      0x0104
-#define MANUFACTURER    Bathroom Epiphanies
-#define PRODUCT         ghost_squid
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -32,11 +24,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_PIN_ON_STATE 0
-#define LED_NUM_LOCK_PIN C5
-#define LED_CAPS_LOCK_PIN C6
-#define LED_SCROLL_LOCK_PIN B7
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

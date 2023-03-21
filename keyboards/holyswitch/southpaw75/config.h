@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x484F // "HO" short for Holy Switch
-#define PRODUCT_ID      0x5350 // "SP" short for Southpaw
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    drewguy
-#define PRODUCT         southpaw default
-
-/* key matrix size */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 9
 
 /*
  * Keyboard Matrix Assignments

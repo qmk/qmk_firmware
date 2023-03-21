@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Lily58", 
+    "manufacturer": "liliums",
     "url": "", 
     "maintainer": "liliums", 
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEB2D",
+        "device_version": "1.0.0"
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

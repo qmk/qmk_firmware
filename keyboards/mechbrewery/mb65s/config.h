@@ -1,4 +1,4 @@
-/* Copyright 2021 MechBrewery
+/* Copyright 2022 MechBrewery
  * Author: tuananhnguyen204 (https://github.com/AnthonyNguyen168) (tuananhnguyen204@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,39 +17,12 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4252	//BR
-#define PRODUCT_ID      0x3635	//65
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MechBrewery
-#define PRODUCT         MB65S
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 #define MATRIX_ROW_PINS { B7, D0, F0, F1, F4 }
 #define MATRIX_COL_PINS { B0, B1, B2, B3, D1, D2, D3, D6, D7, B4, B6, C6, C7, F7, F6, F5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debouncing reduces chatter */
-#define DEBOUNCE 5
-
-/* indicators */
-#define LED_CAPS_LOCK_PIN D4
-#define LED_PIN_ON_STATE 0
-
-/* number of backlight levels */
-#define BACKLIGHT_PIN B5
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

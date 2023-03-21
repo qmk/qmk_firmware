@@ -1,0 +1,26 @@
+{
+    "keyboard_name": "Tap Trio",
+    "manufacturer": "Momokai",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x69F9",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "K00 (E0,E6)", "x": 0, "y": 0, "w": 1.5, "h": 1.5 },
+                { "label": "K01 (E0,B2)", "x": 2.25, "y": 0, "w": 1.5, "h": 1.5 },
+                { "label": "K02 (E0,B7)", "x": 4.5, "y": 0, "w": 1.5, "h": 1.5 },
+                { "label": "K03 (E0,D1)", "x": 2.25, "y": 2.5 },
+                { "label": "K04 (E0,D2)", "x": 3.75, "y": 2.5 },
+                { "label": "K05 (E0,D3)", "x": 5.25, "y": 2.5 }
+            ]
+        }
+    }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
+}

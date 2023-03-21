@@ -1,7 +1,17 @@
 {
-    "keyboard_name": "Infinity 60%",
+    "keyboard_name": "Infinity 60% (QMK)",
+    "manufacturer": "Input:Club",
     "url": "https://input.club/devices/infinity-keyboard/",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x1C11",
+        "pid": "0xB04D",
+        "device_version": "0.0.1"
+    },
+    "processor": "MK20DX128",
+    "bootloader": "kiibohd",
+    "board": "MCHCK_K20",
+    "community_layouts": ["60_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

@@ -1,7 +1,21 @@
 {
-  "keyboard_name": "fc980c",
+  "keyboard_name": "FC980C",
+  "manufacturer": "Hasu",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4853",
+    "pid": "0x980C",
+    "device_version": "1.0.0"
+  },
+  "indicators": {
+    "caps_lock": "B5",
+    "num_lock": "B4",
+    "scroll_lock": "B6"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "debounce": 0,
   "layouts": {
     "LAYOUT": {
       "layout": [

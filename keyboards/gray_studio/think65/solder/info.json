@@ -1,7 +1,16 @@
 {
-    "keyboard_name": "THINK6.5",
+    "keyboard_name": "Think6.5°",
+    "manufacturer": "Graystudio",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4753",
+        "pid": "0x4000",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

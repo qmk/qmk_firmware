@@ -1,7 +1,18 @@
 {
-    "keyboard_name": "Polaris Hotswap and Solder",
+    "keyboard_name": "Polaris",
+    "manufacturer": "FJLaboratories",
     "url": "http://www.fjlaboratories.com/projects/",
     "maintainer": "FJLabs",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x9001",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "C7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

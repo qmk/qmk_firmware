@@ -21,7 +21,6 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  //#define RGBLIGHT_ANIMATIONS
   //#define RGBLIGHT_EFFECT_ALTERNATING
   #define RGBLIGHT_EFFECT_BREATHING
   //#define RGBLIGHT_EFFECT_CHRISTMAS
@@ -46,8 +45,6 @@
 #ifdef COMBO_ENABLE
   #define COMBO_COUNT 5
 #endif
-
-#define QMK_KEYS_PER_SCAN 4
 
 #define EE_HANDS
 

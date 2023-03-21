@@ -19,18 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x3146
-#define DEVICE_VER      0x0300
-#define MANUFACTURER    Keebio
-#define PRODUCT         Levinson
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, E6, B4, B5 }
 #define MATRIX_COL_PINS { D3, F4, F7, B1, B3, B2 }
@@ -39,12 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_PIN D2
 
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -55,7 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D7
 #define RGBLED_NUM 12    // Number of LEDs
 #define RGBLED_SPLIT { 6, 6 }
-
-/* Backlight LEDs */
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 7

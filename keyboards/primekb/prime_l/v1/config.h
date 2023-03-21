@@ -18,18 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x504C
-#define DEVICE_VER      0x0001
-#define PRODUCT         Prime_L V1
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D1, D0, B7, B3, B2 }
 #define MATRIX_COL_PINS { D2, D3, D5, D4, D6, D7, B4, B5, C7, C6, F7, F6, F5, F4, F1, F0 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN B6
-/*#define BACKLIGHT_BREATHING*/
-#define BACKLIGHT_LEVELS 4

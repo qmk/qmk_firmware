@@ -1,7 +1,23 @@
 {
     "keyboard_name": "Redox Media",
+    "manufacturer": "shiftux",
     "url": "",
     "maintainer": "shiftux",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "1.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F4", "pin_b": "F5"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,6 +1,14 @@
 {
     "keyboard_name": "Barleycorn",
+    "manufacturer": "Yiancar-Designs",
     "maintainer": "Yiancar",
+    "usb": {
+      "vid": "0x8968",
+      "pid": "0x4749",
+      "device_version": "0.0.1"
+    },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layouts": {
       "LAYOUT_all": {
         "layout": [

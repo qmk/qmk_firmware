@@ -16,31 +16,15 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFB9C
-#define PRODUCT_ID 0x74B6
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Cutie Club
-#define PRODUCT Cupar19 Giant Macro Pad
-
-/* key matrix size */
-#define MATRIX_ROWS 20
-#define MATRIX_COLS 20
 
 /*
  * Keyboard Matrix Assignments
  */
 #define MATRIX_ROW_PINS { C10, C11, C12, D2,  B3,  B4,  B5,  B6,  B7,  B8,  A3,  B2,  B1,  B0,  C5,  C4,  A7,  A6,  A5,  A4 }
 #define MATRIX_COL_PINS { C9,  C8,  C7,  C6,  B15, B14, B13, B12, A8,  A15, B9,  A2,  A1,  A0,  C3,  C2,  C1,  C0,  F1,  F0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
