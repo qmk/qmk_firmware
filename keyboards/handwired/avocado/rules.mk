@@ -10,7 +10,7 @@ BOOTLOADER = caterina
 BOOTMAGIC_ENABLE = no     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = no       # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
@@ -24,5 +24,6 @@ AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = no  # if firmware size over limit, try this option
 # Add trackball support
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = pmw3360
 
-SRC += pmw3360/pmw3360.c
+# SRC += pmw3360/pmw3360.c
