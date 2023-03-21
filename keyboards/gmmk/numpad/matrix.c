@@ -12,7 +12,7 @@
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
