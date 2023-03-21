@@ -10,6 +10,50 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+
+    "matrix_pins": {
+        "rows":
+        ["B14","B15","B6","B5","B4"],
+        "cols":
+        ["B2","A4","A1","A2","F1","F0","C15","C14","C13","B9","B8","B7","B12","B3"]
+    },
+
+    "diode_direction": "COL2ROW",
+
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "backlight": false,
+        "rgblight": true,
+        "audio": false
+    },
+
+    "rgblight": {
+        "pin": "A8",
+        "led_count": 16,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+
+    "indicators": {
+        "caps_lock": "A10",
+        "on_state": 0
+    },
+
     "layouts": {
         "LAYOUT_all": {
             "layout": [
