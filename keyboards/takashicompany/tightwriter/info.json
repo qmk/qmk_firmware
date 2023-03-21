@@ -40,9 +40,6 @@
     "rgblight": {
         "led_count": 10,
         "pin": "D3",
-        "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "animations": {
             "alternating": true,
             "breathing": true,
