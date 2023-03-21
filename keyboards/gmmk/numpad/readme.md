@@ -1,5 +1,7 @@
 # GMMK NUMPAD
 
+![GMMK NUMPAD](https://i.imgur.com/JV4C5os.png)
+
 A 17 Key macropad made and sold by Glorious LLC, equipped with a WB32 microcontroller, with support for a rotary encoder.
 
 * Keyboard Maintainer: [GloriousThrall](https://github.com/GloriousThrall)
