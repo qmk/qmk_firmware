@@ -82,8 +82,6 @@ void housekeeping_task_user(void) {
         if (enc < 1) {
           tap_code_delay(KC_MUTE, 10);
         }
-        else {
-        }
     }
 
     slider();
