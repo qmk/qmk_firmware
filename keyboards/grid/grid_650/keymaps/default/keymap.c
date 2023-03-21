@@ -25,9 +25,7 @@ enum layer_names {
 
 
 enum my_keycodes {
-  FOO = SAFE_RANGE,
-  BAR,
-  LED_BLE,
+    LED_BLE = QK_USER,
   BLE_PWR_OFF,
   BLE_PWR_ON,
   BLE_DFU,
