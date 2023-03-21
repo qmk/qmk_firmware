@@ -1,4 +1,4 @@
-// Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2021-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -82,3 +82,8 @@ struct painter_driver_t {
     // Comms config pointer -- needs to point to an appropriate comms config if the comms driver requires it.
     void *comms_config;
 };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Device internals
+
+bool qp_internal_register_device(painter_device_t driver);

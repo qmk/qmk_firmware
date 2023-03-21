@@ -16,7 +16,7 @@
  * EEPROM management code from ../cannonkeys/stm32f072/keyboard.c
  */
 
-#include QMK_KEYBOARD_H
+#include "mxss.h"
 #include "eeprom.h"
 #include "action_layer.h"
 #include "rgblight.h"
