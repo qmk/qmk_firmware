@@ -31,7 +31,7 @@ The slider is currently compatible with [Midi2Vol](https://github.com/jesusvalle
 
 ## Encoder Button
 
-The Button is set to mute by default
+The Button is set to KC_CALC by default and is located at 2,3 on the matrix
 
 ## Broken
 

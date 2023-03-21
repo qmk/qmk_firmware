@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //      NUM      /       *       -
 //      7        8       9       +
-//      4        5       6       CALC
+//      4        5       6       ENCODER
 //      1        2       3       RET
 //      0                        .
 
