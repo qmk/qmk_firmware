@@ -20,6 +20,38 @@
        "60_iso_tsangan",
        "60_tsangan_hhkb"
     ],
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["A7","A5","A4","A3","A1","F1","F0","C15","C14","B9","B6","B5","B4","B3"],
+        "rows": ["B8","A15","C13","A2","A6"]
+    },
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "rgblight": true
+    },
+    "rgblight": {
+        "led_count": 12,
+        "pin": "A8",
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
