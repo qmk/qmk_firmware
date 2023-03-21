@@ -24,5 +24,6 @@ AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = no  # if firmware size over limit, try this option
 # Add trackball support
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = pmw3360
 
-SRC += pmw3360/pmw3360.c
+# SRC += pmw3360/pmw3360.c

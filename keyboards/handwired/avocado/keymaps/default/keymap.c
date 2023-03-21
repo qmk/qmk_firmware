@@ -20,8 +20,11 @@
  * Trackball related defines
  **************************/
 
-#include "pointing_device.h"
-#include "../../pmw3360/pmw3360.h"
+// #include "pointing_device.h"
+// #include "../../pmw3360/pmw3360.h"
+
+
+
 
 typedef union {
   uint32_t raw;
@@ -429,7 +432,7 @@ void handle_pointing_device_modes(void){
 void get_sensor_data(void) {
 	if(!is_keyboard_master())
 		return;
-	report_pmw_t pmw_report = pmw_get_report();
+	report_mouse_t pmw_report = pointing_device_get_report();
     float r = 0.0 * M_PI / 180.0;
     float nx = pmw_report.x * cos(r) - pmw_report.y * sin(r);
     float ny = pmw_report.y * cos(r) + pmw_report.x * sin(r);

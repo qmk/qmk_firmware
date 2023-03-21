@@ -159,3 +159,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+
+
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN F7
