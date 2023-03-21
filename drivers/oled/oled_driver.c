@@ -15,19 +15,23 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifdef OLED_DRIVER_SPI
+#    include "spi_master.h"
+#else
+#    include "i2c_master.h"
+#endif
 #include "oled_driver.h"
-#include "oled_common.h"
 #include OLED_FONT_H
 #include "timer.h"
 #include "print.h"
 #include <string.h>
 #include "progmem.h"
 #include "keyboard.h"
+#include "wait.h"
 
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
 // for SH1107: https://www.displayfuture.com/Display/datasheet/controller/SH1107.pdf
-
 
 #include "progmem.h"
 
@@ -123,7 +127,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_DATA 0x40
 
 #undef ARRAY_SIZE
-#define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])
+#define ARRAY_SIZE(arr) sizeof(arr) / sizeof(arr[0])
 
 #define HAS_FLAGS(bits, flags) ((bits & flags) == flags)
 
@@ -132,7 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // parts of the display unusable or don't get cleared correctly
 // and also allows for drawing & inverting
 uint8_t         oled_buffer[OLED_MATRIX_SIZE];
-uint8_t *       oled_cursor;
+uint8_t        *oled_cursor;
 OLED_BLOCK_TYPE oled_dirty          = 0;
 bool            oled_initialized    = false;
 bool            oled_active         = false;
@@ -173,7 +177,6 @@ uint16_t oled_update_timeout;
 #    endif
 #endif
 
-
 // Transmit/Write Funcs.
 bool oled_cmd(const uint8_t *data, uint16_t size) {
 #ifdef OLED_DRIVER_SPI
@@ -194,7 +197,7 @@ bool oled_cmd(const uint8_t *data, uint16_t size) {
 #endif
 }
 
-oled_cmd_P(const uint8_t *data, uint16_t size) {
+bool oled_cmd_P(const uint8_t *data, uint16_t size) {
 #if defined(__AVR__) && !defined(OLED_DRIVER_SPI)
     i2c_status_t status = i2c_start((OLED_DISPLAY_ADDRESS << 1) | I2C_WRITE, OLED_I2C_TIMEOUT);
 
@@ -222,9 +225,8 @@ bool oled_write_reg(const uint8_t *data, uint16_t size) {
         return false;
     }
     spi_stop();
-#else
     return true;
-
+#else
     i2c_status_t status = i2c_writeReg((OLED_DISPLAY_ADDRESS << 1), I2C_DATA, data, size, OLED_I2C_TIMEOUT);
     return (status == I2C_STATUS_SUCCESS);
 #endif
@@ -275,7 +277,6 @@ bool oled_init(oled_rotation_t rotation) {
     }
     oled_driver_init();
 
-
     static const uint8_t PROGMEM display_setup1[] = {
         I2C_CMD,
         DISPLAY_OFF,
@@ -288,8 +289,8 @@ bool oled_init(oled_rotation_t rotation) {
         OLED_DISPLAY_HEIGHT - 1,
 #endif
 #if OLED_IC == OLED_IC_SH1107
-	SH1107_DISPLAY_START_LINE,
-	0x00,
+        SH1107_DISPLAY_START_LINE,
+        0x00,
 #else
         DISPLAY_START_LINE | 0x00,
 #endif
@@ -298,10 +299,10 @@ bool oled_init(oled_rotation_t rotation) {
 #if OLED_IC_HAS_HORIZONTAL_MODE
         // MEMORY_MODE is unsupported on SH1106 (Page Addressing only)
         MEMORY_MODE,
-        0x00,  // Horizontal addressing mode
+        0x00, // Horizontal addressing mode
 #elif OLED_IC == OLED_IC_SH1107
-	// Page addressing mode
-	SH1107_MEMORY_MODE_PAGE,
+        // Page addressing mode
+        SH1107_MEMORY_MODE_PAGE,
 #endif
     };
     if (!oled_cmd_P(display_setup1, ARRAY_SIZE(display_setup1))) {
@@ -311,11 +312,7 @@ bool oled_init(oled_rotation_t rotation) {
 
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_180)) {
         static const uint8_t PROGMEM display_normal[] = {
-            I2C_CMD,
-            SEGMENT_REMAP_INV,
-            COM_SCAN_DEC,
-            DISPLAY_OFFSET,
-            OLED_COM_PIN_OFFSET,
+            I2C_CMD, SEGMENT_REMAP_INV, COM_SCAN_DEC, DISPLAY_OFFSET, OLED_COM_PIN_OFFSET,
         };
         if (!oled_cmd_P(display_normal, ARRAY_SIZE(display_normal))) {
             print("oled_init cmd normal rotation failed\n");
@@ -323,11 +320,7 @@ bool oled_init(oled_rotation_t rotation) {
         }
     } else {
         static const uint8_t PROGMEM display_flipped[] = {
-            I2C_CMD,
-            SEGMENT_REMAP,
-            COM_SCAN_INC,
-            DISPLAY_OFFSET,
-            (OLED_COM_PIN_COUNT - OLED_COM_PIN_OFFSET) % OLED_COM_PIN_COUNT,
+            I2C_CMD, SEGMENT_REMAP, COM_SCAN_INC, DISPLAY_OFFSET, (OLED_COM_PIN_COUNT - OLED_COM_PIN_OFFSET) % OLED_COM_PIN_COUNT,
         };
         if (!oled_cmd_P(display_flipped, ARRAY_SIZE(display_flipped))) {
             print("display_flipped failed\n");
@@ -406,9 +399,9 @@ static void calc_bounds_90(uint8_t update_start, uint8_t *cmd_array) {
     // Only the Page Addressing Mode is supported
     uint8_t start_page   = bottom_block_top_page - (OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_HEIGHT / 8);
     uint8_t start_column = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8;
-    cmd_array[0] = PAM_PAGE_ADDR | start_page;
-    cmd_array[1] = PAM_SETCOLUMN_LSB | ((OLED_COLUMN_OFFSET + start_column) & 0x0f);
-    cmd_array[2] = PAM_SETCOLUMN_MSB | ((OLED_COLUMN_OFFSET + start_column) >> 4 & 0x0f);
+    cmd_array[0]         = PAM_PAGE_ADDR | start_page;
+    cmd_array[1]         = PAM_SETCOLUMN_LSB | ((OLED_COLUMN_OFFSET + start_column) & 0x0f);
+    cmd_array[2]         = PAM_SETCOLUMN_MSB | ((OLED_COLUMN_OFFSET + start_column) >> 4 & 0x0f);
 #else
     cmd_array[1] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8 + OLED_COLUMN_OFFSET;
     cmd_array[4] = bottom_block_top_page - (OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_HEIGHT / 8);
@@ -494,7 +487,7 @@ void oled_render(void) {
 #else
             // For SH1106 or SH1107 the data chunk must be split into separate pieces for each page
             const uint8_t columns_in_block = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) / OLED_DISPLAY_HEIGHT * 8;
-            const uint8_t num_pages = OLED_BLOCK_SIZE / columns_in_block;
+            const uint8_t num_pages        = OLED_BLOCK_SIZE / columns_in_block;
             for (uint8_t i = 0; i < num_pages; ++i) {
                 // Send column & page position for all pages except the first one
                 if (i > 0) {
@@ -664,8 +657,6 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
         }
     }
 }
-
-
 
 oled_buffer_reader_t oled_read_raw(uint16_t start_index) {
     if (start_index > OLED_MATRIX_SIZE) start_index = OLED_MATRIX_SIZE;
