@@ -74,15 +74,6 @@ void slider(void) {
     midi_send_cc(&midi_device, 2, 0x3E, 0x7F + (analogReadPin(SLIDER_PIN) >> 3));
 }
 
-extern int16_t enc;
-extern int16_t encPrev;
-
 void housekeeping_task_user(void) {
-    if (enc != encPrev) {
-        if (enc < 1) {
-          tap_code_delay(KC_MUTE, 10);
-        }
-    }
-
     slider();
 }
