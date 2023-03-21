@@ -11,6 +11,8 @@
 
 #    if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
 #        error "IGNORE_MOD_TAP_INTERRUPT_PER_KEY has been removed; the code needs to be ported to use HOLD_ON_OTHER_KEY_PRESS_PER_KEY instead."
+#    elif defined(IGNORE_MOD_TAP_INTERRUPT)
+#        error "IGNORE_MOD_TAP_INTERRUPT is no longer necessary as it is now the default behavior of mod-tap keys. Please remove it from your config."
 #    endif
 
 #    define IS_TAPPING() IS_EVENT(tapping_key.event)
