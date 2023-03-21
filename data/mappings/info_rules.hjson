@@ -28,6 +28,7 @@
     "MCU": {"info_key": "processor", "warn_duplicate": false},
     "MOUSEKEY_ENABLE": {"info_key": "mouse_key.enabled", "value_type": "bool"},
     "NO_USB_STARTUP_CHECK": {"info_key": "usb.no_startup_check", "value_type": "bool"},
+    "DISABLE_AVR_DEEP_SLEEP": {"info_key": "disable_avr_deep_sleep", "value_type": "bool"},
     "PIN_COMPATIBLE": {"info_key": "pin_compatible"},
     "SECURE_ENABLE": {"info_key": "secure.enabled", "value_type": "bool"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},

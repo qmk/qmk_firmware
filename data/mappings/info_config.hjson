@@ -29,7 +29,6 @@
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
     "DEBOUNCE": {"info_key": "debounce", "value_type": "int"},
     "DIODE_DIRECTION": {"info_key": "diode_direction"},
-    "DISABLE_AVR_DEEP_SLEEP": {"info_key": "disable_avr_deep_sleep", "value_type": "bool"},
     "DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.double_tap_shift_turns_on", "value_type": "bool"},
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "bool"},
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
