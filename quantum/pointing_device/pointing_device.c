@@ -74,8 +74,8 @@ uint16_t pointing_device_get_shared_cpi(void) {
 
 #endif // defined(SPLIT_POINTING_ENABLE)
 
-static report_mouse_t local_mouse_report = {};
-static bool pointing_device_force_send = false;
+static report_mouse_t local_mouse_report         = {};
+static bool           pointing_device_force_send = false;
 
 extern const pointing_device_driver_t pointing_device_driver;
 
@@ -165,8 +165,8 @@ __attribute__((weak)) void pointing_device_init(void) {
  *
  */
 bool pointing_device_send(void) {
-    static report_mouse_t old_report = {};
-    bool should_send_report = has_mouse_report_changed(&local_mouse_report, &old_report);
+    static report_mouse_t old_report         = {};
+    bool                  should_send_report = has_mouse_report_changed(&local_mouse_report, &old_report);
 
     if (should_send_report) {
         host_mouse_send(&local_mouse_report);
@@ -290,7 +290,7 @@ __attribute__((weak)) bool pointing_device_task(void) {
     local_mouse_report.buttons     = local_mouse_report.buttons | mousekey_report.buttons;
 #endif
 
-    const bool send_report = pointing_device_send() || pointing_device_force_send;
+    const bool send_report     = pointing_device_send() || pointing_device_force_send;
     pointing_device_force_send = false;
 
     return send_report;
