@@ -177,7 +177,7 @@ bool pointing_device_send(void) {
     local_mouse_report.buttons = buttons;
     memcpy(&old_report, &local_mouse_report, sizeof(local_mouse_report));
 
-    return should_send_report;
+    return should_send_report || buttons;
 }
 
 /**
