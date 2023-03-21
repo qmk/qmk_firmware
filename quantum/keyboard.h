@@ -120,6 +120,8 @@ uint32_t last_matrix_activity_elapsed(void); // Number of milliseconds since the
 uint32_t last_encoder_activity_time(void);    // Timestamp of the last encoder activity
 uint32_t last_encoder_activity_elapsed(void); // Number of milliseconds since the last encoder activity
 
+void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp); // Set the timestamps of the last matrix and encoder activity
+
 uint32_t get_matrix_scan_rate(void);
 
 #ifdef __cplusplus

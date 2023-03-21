@@ -1,4 +1,4 @@
-/* Copyright 2020 BINEPAD
+/* Copyright 2023 Ning (@ningjx)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,13 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#define RGB_DI_PIN B5
+#define RGB_MATRIX_LED_COUNT 16
+
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_TYPING_HEATMAP
+#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+
+
