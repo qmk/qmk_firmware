@@ -3,16 +3,24 @@
 
 #include "lvgl_helpers.h"
 
-void hide_anim_var(lv_anim_t *anim) {
-    lv_obj_add_flag(anim->var, LV_OBJ_FLAG_HIDDEN);
+void use_flex_row(void *obj) {
+    lv_obj_set_layout(obj, LV_LAYOUT_FLEX);
+    lv_obj_set_flex_flow(obj, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(obj, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 }
 
-void show_anim_var(lv_anim_t *anim) {
-    lv_obj_clear_flag(anim->var, LV_OBJ_FLAG_HIDDEN);
+void use_flex_column(void *obj) {
+    lv_obj_set_layout(obj, LV_LAYOUT_FLEX);
+    lv_obj_set_flex_flow(obj, LV_FLEX_FLOW_COLUMN);
+    lv_obj_set_flex_align(obj, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 }
 
-void set_obj_opacity(void *obj, int32_t value) {
-    lv_obj_set_style_opa(obj, value, 0);
+void toggle_state(void *obj, lv_state_t state, bool enabled) {
+    if (enabled) {
+        lv_obj_add_state(obj, state);
+    } else {
+        lv_obj_clear_state(obj, state);
+    }
 }
 
 void toggle_hidden(void *obj, bool visible) {

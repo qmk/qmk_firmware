@@ -3,18 +3,9 @@
 
 #include QMK_KEYBOARD_H
 
-enum layer_number {
-    // clang-format off
-    _QWERTY = 0,
-    _GAME,
-    _EU,
-    _NAV,
-    _NUMBER,
-    _SYMBOL,
-    _FUNC,
-    _SYS
-    // clang-format on
-};
+#include "display.h"
+#include "raw_hid.h"
+#include "layers.h"
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -149,6 +140,39 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+uint16_t HOME_CTRL_pressed_time = 0;
+
+bool custom_home_row_ctrl(keyrecord_t *record, uint16_t time) {
+    if (record->tap.count && record->event.pressed && get_mods() & MOD_MASK_CTRL) {
+        if (TIMER_DIFF_16(record->event.time, HOME_CTRL_pressed_time) < time) {
+            del_mods(MOD_MASK_CTRL);
+            tap_code(KC_D);
+        }
+    }
+
+    return true;
+}
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_MINS:
+        case KC_RSFT:
+            return true;
+
+        default:
+            return false; // Deactivate Caps Word.
+    }
+}
+
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     // clang-format off
@@ -176,17 +200,72 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _GAME));
-    return state;
-}
-
 void caps_word_set_user(bool active) {
     rgblight_set_layer_state(2, active);
 }
 
+#endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
+
+static bool display_enabled;
+
 void keyboard_post_init_user(void) {
+    debug_enable = true;
+
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
     rgblight_layers = rgb_layers;
+#endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
+
+    if (is_keyboard_master()) {
+        display_enabled = display_init();
+    }
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    dprintf("keycode %u %s %s %d\n", keycode, record->event.pressed ? "pressed" : "depressed", record->tap.interrupted ? "interrupted" : "not interrupted", record->tap.count);
+
+    if (display_enabled) {
+        display_process_record(keycode, record);
+    }
+
+    switch (keycode) {
+        case HOME_D:
+            // save time when CTRL from D key is pressed
+            if (!record->tap.count && record->event.pressed) {
+                HOME_CTRL_pressed_time = record->event.time;
+            }
+            return true;
+        case HOME_S:
+            // if S is pressed and CTRL is active, and < 170 passed since CTRL was pressed, cancel CTRL and send D instead
+            return custom_home_row_ctrl(record, 170);
+        case HOME_A:
+            // if A is pressed and CTRL is active, and < 200 passed since CTRL was pressed, cancel CTRL and send D instead
+            return custom_home_row_ctrl(record, 200);
+    }
+    return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
+    rgblight_set_layer_state(0, layer_state_cmp(state, _GAME));
 #endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
+
+    if (display_enabled) {
+        display_process_layer_state(get_highest_layer(state));
+    }
+
+    return state;
+}
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    dprintf("received %u bytes from HID \n", length);
+
+    if (display_enabled) {
+        display_process_raw_hid_data(data, length);
+    }
+}
+
+void housekeeping_task_user(void) {
+    if (display_enabled) {
+        display_refresh_data();
+    }
+}

@@ -74,16 +74,10 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": true,
-        "quantum_painter": true,
         "encoder": true,
-        "mousekey": true,
-        "extrakey": true,
         "backlight": true,
         "rgblight": false,
-        "rgb_matrix": true,
-        "nkro": false
+        "rgb_matrix": true
     },
     "backlight": {
         "pin": "GP14"
@@ -92,11 +86,7 @@
         "led_count": 38,
         "pin": "GP29",
         "split": true,
-        "split_count": [18, 18],
-        "layers": {
-            "enabled": true,
-            "max": 3
-        }
+        "split_count": [19, 19]
     },
     "rgb_matrix": {
         "driver": "WS2812",

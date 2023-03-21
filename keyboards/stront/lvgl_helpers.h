@@ -3,9 +3,9 @@
 
 #include "qp_lvgl.h"
 
-void hide_anim_var(lv_anim_t *a);
-void show_anim_var(lv_anim_t *a);
-void set_obj_opacity(void *obj, int32_t v);
+void use_flex_row(void *obj);
+void use_flex_column(void *obj);
+void toggle_state(void *obj, lv_state_t state, bool enabled);
 void toggle_hidden(void *obj, bool visible);
 void resize_font(void *label, int32_t v);
 
