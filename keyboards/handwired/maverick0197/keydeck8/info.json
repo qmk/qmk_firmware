@@ -2,7 +2,7 @@
 	"keyboard_name": "keydeck8",
 	"manufacturer": "Maverick0197",
 	"maintainer": "Maverick0197",
-	"bootloader": "caterina",
+    "development_board": "promicro",
 	"features": {
 		"bootmagic": true,
 	    "extrakey": true,
