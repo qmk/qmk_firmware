@@ -8,6 +8,11 @@
         "pid": "0x065E",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT"
     },

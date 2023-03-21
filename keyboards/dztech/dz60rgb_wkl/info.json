@@ -6,6 +6,7 @@
     "usb": {
         "vid": "0x445A"
     },
+    "community_layouts": ["60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [

@@ -22,11 +22,11 @@ POINTING_DEVICE_DRIVER = adns5050
 
 The ADNS 5050 sensor uses a serial type protocol for communication, and requires an additional light source. 
 
-| Setting             | Description                                                         | Default                    |
-| ------------------- | ------------------------------------------------------------------- | -------------------------- |
-| `ADNS5050_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        | `POINTING_DEVICE_SCLK_PIN` |
-| `ADNS5050_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         | `POINTING_DEVICE_SDIO_PIN` |
-| `ADNS5050_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
+| Setting             | Description                                                        | Default                    |
+| ------------------- | ------------------------------------------------------------------ | -------------------------- |
+| `ADNS5050_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.       | `POINTING_DEVICE_SCLK_PIN` |
+| `ADNS5050_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.        | `POINTING_DEVICE_SDIO_PIN` |
+| `ADNS5050_CS_PIN`   | (Required) The pin connected to the Chip Select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
 
 
 
@@ -48,7 +48,7 @@ The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surfac
 | `ADNS9800_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`                  |
 | `ADNS9800_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `3`                      |
 | `ADNS9800_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_                 |
-| `ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | `POINTING_DEVICE_CS_PIN` |
+| `ADNS9800_CS_PIN`       | (Required) Sets the Chip Select pin connected to the sensor.           | `POINTING_DEVICE_CS_PIN` |
 
 
 The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
@@ -124,7 +124,7 @@ Default attenuation is set to 4X, although if you are using a thicker overlay (s
 | `CIRQUE_PINNACLE_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`                  |
 | `CIRQUE_PINNACLE_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `1`                      |
 | `CIRQUE_PINNACLE_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_                 |
-| `CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | `POINTING_DEVICE_CS_PIN` |
+| `CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Chip Select pin connected to the sensor.           | `POINTING_DEVICE_CS_PIN` |
 
 Default Scaling is 1024. Actual CPI depends on trackpad diameter.
 
@@ -218,11 +218,14 @@ POINTING_DEVICE_DRIVER = pmw3389
 The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
 Both PMW 3360 and PMW 3389 are SPI driven optical sensors, that use a built in IR LED for surface tracking.
+If you have different CS wiring on each half you can use `PMW33XX_CS_PIN_RIGHT` or `PMW33XX_CS_PINS_RIGHT` in combination with `PMW33XX_CS_PIN` or `PMW33XX_CS_PINS` to configure both sides independently. If `_RIGHT` values aren't provided, they default to be the same as the left ones.
 
 | Setting                      | Description                                                                                 | Default                  |
 | ---------------------------- | ------------------------------------------------------------------------------------------- | ------------------------ |
-| `PMW33XX_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                               | `POINTING_DEVICE_CS_PIN` |
-| `PMW33XX_CS_PINS`            | (Alternative) Sets the Cable Select pins connected to multiple sensors.                     | _not defined_            |
+| `PMW33XX_CS_PIN`             | (Required) Sets the Chip Select pin connected to the sensor.                                | `POINTING_DEVICE_CS_PIN` |
+| `PMW33XX_CS_PINS`            | (Alternative) Sets the Chip Select pins connected to multiple sensors.                      | `{PMW33XX_CS_PIN}`       |
+| `PMW33XX_CS_PIN_RIGHT`       | (Optional) Sets the Chip Select pin connected to the sensor on the right half.              | `PMW33XX_CS_PIN`         |
+| `PMW33XX_CS_PINS_RIGHT`      | (Optional) Sets the Chip Select pins connected to multiple sensors on the right half.       | `{PMW33XX_CS_PIN_RIGHT}` |
 | `PMW33XX_CPI`                | (Optional) Sets counts per inch sensitivity of the sensor.                                  | _varies_                 |
 | `PMW33XX_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                    | `2000000`                |
 | `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                 | _varies_                 |

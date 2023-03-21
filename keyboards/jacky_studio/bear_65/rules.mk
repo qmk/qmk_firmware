@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = jacky_studio/bear65/rev1
+DEFAULT_FOLDER = jacky_studio/bear_65/rev1

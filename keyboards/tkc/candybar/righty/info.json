@@ -8,6 +8,8 @@
         "pid": "0x0002",
         "device_version": "0.0.6"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

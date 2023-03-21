@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments
@@ -39,12 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/*Rotary encoder - set the resolution fitting your encoder.
-Most will need a value of 4. If 1 encoder click results in 2 keycodes sent
-increase the value. If you need 2 clicks for 1 keycode, decrease*/
-#define ENCODER_RESOLUTION 4
-#define ENCODERS_PAD_A { B7 }
-#define ENCODERS_PAD_B { D5 }
 #define TAP_CODE_DELAY 10
 
 /* Underglow options: */
@@ -65,17 +54,4 @@ increase the value. If you need 2 clicks for 1 keycode, decrease*/
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

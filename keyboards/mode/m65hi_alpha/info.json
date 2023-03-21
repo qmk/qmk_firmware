@@ -8,6 +8,11 @@
     "pid": "0x6574",
     "device_version": "0.6.5"
   },
+  "indicators": {
+    "caps_lock": "A6"
+  },
+  "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
   "layout_aliases": {
       "LAYOUT_all": "LAYOUT_65_iso_blocker"
   },

@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 
 // Keyboard Matrix Assignments
 #define MATRIX_ROW_PINS { D0, D1, D3, D2, D4, B2 }

@@ -8,6 +8,13 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B7", "pin_b": "E6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

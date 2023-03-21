@@ -8,6 +8,9 @@
         "pid": "0x3700",
         "device_version": "0.0.1"
     },
+    "indicators": {
+    	"num_lock": "B6"
+    },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
 	"layout_aliases": {
