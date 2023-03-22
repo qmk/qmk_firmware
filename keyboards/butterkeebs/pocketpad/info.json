@@ -1,5 +1,5 @@
 {
-    "manufacturer": "ButterKeebs",
+	"manufacturer": "ButterKeebs",
     "keyboard_name": "PocketPad",
     "maintainer": "qmk",
     "diode_direction": "ROW2COL",
