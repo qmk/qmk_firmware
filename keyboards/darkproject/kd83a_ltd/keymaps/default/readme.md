@@ -1,1 +1,1 @@
-# The Default KD83A_BFG_Edition Layout
+# The Default Dark Project KD83a LTD
