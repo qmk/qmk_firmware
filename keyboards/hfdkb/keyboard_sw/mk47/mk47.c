@@ -163,14 +163,17 @@ enum colors {
 };
 enum colors led_color_status = WHITE;
 
-static bool     fn_make_flag        = false;
 static bool     Lkey_flag           = false;
 static bool     reset_glint_flag    = false;
 static bool     while_test_flag     = false;
 static uint16_t current_time        = 0;
 static uint8_t  glint_cnt           = 0;
 static uint16_t scancode           = 0;
+
+#ifndef DISABLE_MK4_KEYCODES
+static bool     fn_make_flag        = false;
 static uint8_t  RGB_HSV_level;
+#endif
 
 HSV hsv;
 void led_test(uint8_t color);
@@ -182,6 +185,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
+#ifndef DISABLE_MK4_KEYCODES
         case MO(1):
             fn_make_flag = record->event.pressed;
             return true;
@@ -256,7 +260,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;     
-     default:
+#endif
+        default:
             return true;
     }
 }
