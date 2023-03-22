@@ -48,7 +48,6 @@ typedef enum xap_route_type_t {
     XAP_ROUTE,
     XAP_EXECUTE,
     XAP_VALUE,
-    XAP_GETTER,
     XAP_CONST_MEM,
     TOTAL_XAP_ROUTE_TYPES
 } xap_route_type_t;
@@ -82,9 +81,6 @@ struct __attribute__((packed)) xap_route_t {
 
         // XAP_EXECUTE
         bool (*handler)(xap_token_t token, const uint8_t *data, size_t data_len);
-
-        // XAP_GETTER
-        uint32_t (*u32getter)(void);
 
         // XAP_VALUE / XAP_CONST_MEM
         struct {
@@ -133,14 +129,6 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
                 if (route.handler != NULL) {
                     bool ok = (route.handler)(token, data_len == 1 ? NULL : &data[1], data_len - 1);
                     if (ok) return;
-                }
-                break;
-
-            case XAP_GETTER:
-                if (route.u32getter != NULL) {
-                    const uint32_t ret = (route.u32getter)();
-                    xap_respond_data(token, &ret, sizeof(ret));
-                    return;
                 }
                 break;
 
