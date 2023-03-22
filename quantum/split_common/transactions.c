@@ -716,12 +716,14 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
 
     okay = read_if_checksum_mismatch(GET_POINTING_CPI_CHECKSUM, GET_POINTING_CPI, &last_cpi_update, &temp_cpi, &split_shmem->pointing.cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
     if (okay) {
-        memcpy(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t)* POINTING_DEVICE_COUNT);
-        pointing_device_set_shared_cpi(last_target_cpi);
+        if (memcmp(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT) != 0) {
+            memcpy(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
+            pointing_device_set_shared_cpi(last_target_cpi);
+        }
     }
 
     memcpy(&temp_cpi, pointing_device_get_shared_cpi(), sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
-    if (memcmp(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t)) != 0) { // target cpi doesn't match initiator cpi
+    if (memcmp(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT) != 0) { // target cpi doesn't match initiator cpi
         okay = transport_write(PUT_POINTING_CPI, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
         if (okay) {
             pointing_device_reset_shared_cpi_update_flags();
@@ -734,14 +736,6 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
 extern const pointing_device_driver_t pointing_device_driver;
 
 static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    // uint16_t temp_cpi = !pointing_device_driver.get_cpi ? 0 : pointing_device_driver.get_cpi(); // check for NU
-
-    // static uint32_t last_exec = 0;
-    // if (timer_elapsed32(last_exec) < 1) {
-    //     return;
-    // }
-    // last_exec = timer_read32();
-
     split_shared_memory_lock();
     split_slave_pointing_sync_t pointing = {0};
     memcpy(&pointing, &split_shmem->pointing, sizeof(split_slave_pointing_sync_t));
@@ -750,6 +744,7 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
     pointing_device_set_shared_cpi(pointing.cpi);
     memcpy(&pointing.cpi, pointing_device_get_shared_cpi(), sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT); // get cpi after it's been smooshed together.
     pointing.cpi_checksum = crc8(&pointing.cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
+    pointing_device_reset_shared_cpi_update_flags();
 
     pointing.report   = pointing_device_get_shared_report();
     pointing.checksum = crc8(&pointing.report, sizeof(report_mouse_t));
