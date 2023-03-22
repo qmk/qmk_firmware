@@ -124,6 +124,9 @@ __attribute__((weak)) void pointing_device_init(void) {
         if (pointing_device_configs[i].driver->init != NULL) {
             pointing_device_configs[i].driver->init(pointing_device_configs[i].config);
         }
+        if (pointing_device_configs[i].motion.pin) {
+            setPinInput(pointing_device_configs[i].motion.pin);
+        }
     }
 }
 
@@ -164,12 +167,12 @@ report_mouse_t pointing_device_adjust_report(report_mouse_t report, uint8_t inde
             break;
         default:
             break;
-            if (pointing_device_configs[index].invert == INVERT_X || pointing_device_configs[index].invert == INVERT_XY) {
-                report.x = -report.x;
-            }
-            if (pointing_device_configs[index].invert == INVERT_Y || pointing_device_configs[index].invert == INVERT_XY) {
-                report.y = -report.y;
-            }
+    }
+    if (pointing_device_configs[index].invert == INVERT_X || pointing_device_configs[index].invert == INVERT_XY) {
+        report.x = -report.x;
+    }
+    if (pointing_device_configs[index].invert == INVERT_Y || pointing_device_configs[index].invert == INVERT_XY) {
+        report.y = -report.y;
     }
     return report;
 }
@@ -200,8 +203,9 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
 }
 
 report_mouse_t pointing_deivce_task_get_pointing_reports(void) {
-    report_mouse_t loop_report = {0};
+    report_mouse_t temp_report = {0};
     for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
+        report_mouse_t loop_report = {0};
 #if defined(SPLIT_KEYBOARD)
         if (!POINTING_DEVICE_THIS_SIDE(i)) {
             continue; // skip processing devices not on this side
@@ -211,10 +215,10 @@ report_mouse_t pointing_deivce_task_get_pointing_reports(void) {
             loop_report = pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config);
             loop_report = pointing_device_adjust_report(loop_report, i);
             loop_report = pointing_device_task_kb(loop_report, i);
-            loop_report = pointing_device_add_and_clamp_report(local_report, loop_report);
+            temp_report = pointing_device_add_and_clamp_report(temp_report, loop_report);
         }
     }
-    return loop_report;
+    return temp_report;
 }
 
 __attribute__((weak)) void pointing_device_task(void) {
@@ -228,7 +232,7 @@ __attribute__((weak)) void pointing_device_task(void) {
 
     // automatic mouse layer function
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-    pointing_device_task_auto_mouse(local_mouse_report);
+    pointing_device_task_auto_mouse(local_report);
 #endif
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
