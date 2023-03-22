@@ -29,8 +29,8 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "GP14", "pin_b": "GP15", "resolution": 4 },
-            { "pin_a": "GP17", "pin_b": "GP16", "resolution": 4 }
+            { "pin_a": "GP14", "pin_b": "GP15" },
+            { "pin_a": "GP17", "pin_b": "GP16" }
         ]
     },
     "layouts": {
