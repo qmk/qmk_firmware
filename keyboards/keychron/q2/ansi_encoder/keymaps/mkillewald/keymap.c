@@ -24,6 +24,15 @@
 
 // clang-format off
 
+#ifdef RGB_MATRIX_ENABLE
+enum my_bootloader_state {
+    BOOTLOADER_INACTIVE,
+    BOOTLOADER_PRESSED,
+    BOOTLOADER_WAIT,
+    BOOTLOADER_DO
+} bootloader_state;
+#endif
+
 enum my_keycodes {
 #ifdef VIA_ENABLE
     KC_LIGHT_TAB_TOGGLE = QK_KB_11,     // USER11 here gave compile error (not defined)
@@ -40,12 +49,6 @@ enum my_keycodes {
 #define KC_LATOG KC_LIGHT_ALPHAS_TOGGLE
 #define KC_TKTOG KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE
 #define KC_FCTOG KC_FN_LAYER_COLOR_TOGGLE
-
-#ifdef RGB_MATRIX_ENABLE
-bool bootloader_pressed = false;
-bool bootloader_wait = false;
-bool do_bootloader = false;
-#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
@@ -98,21 +101,27 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 void housekeeping_task_user(void) {
 #ifdef RGB_MATRIX_ENABLE
-    if (do_bootloader) {
-        // bootloader was pressed two frames ago. RGB should now be off,
-        // so we can call the bootloader.  
-        reset_keyboard();
-    } else if (bootloader_wait) {
-        // bootloader was pressed on previous frame, we wait this frame and
-        // set flag to do bootloader at end of next frame. For some reason, my 
-        // Q2 needed this extra wait frame.
-        do_bootloader = true;
-    } else if (bootloader_pressed) {
-        // User pressed bootloader keycode and RGB was disabled earlier in this 
-        // frame. However RGB changes wont take place immediately, so we set a
-        // flag here which will be caught at end of the next frame.
-        bootloader_wait = true;
-    }
+    switch(bootloader_state) {
+        case BOOTLOADER_DO:
+            // bootloader was pressed two frames ago. RGB should now be off,
+            // so we can call the bootloader.  
+            reset_keyboard();
+            break;
+        case BOOTLOADER_WAIT:
+            // bootloader was pressed on previous frame, we wait this frame and
+            // set flag to do bootloader at end of next frame. For some reason, my 
+            // Q2 needed this extra wait frame.
+            bootloader_state = BOOTLOADER_DO;
+            break;
+        case BOOTLOADER_PRESSED:
+            // User pressed bootloader keycode and RGB was disabled earlier in this 
+            // frame. However RGB changes wont take place immediately, so we set a
+            // flag here which will be caught at end of the next frame.
+            bootloader_state = BOOTLOADER_WAIT;
+            break;
+        default:
+            break;
+        }
 #endif
     
     housekeeping_task_keychron();
@@ -137,7 +146,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // we call rgb_matrix_disable_noeeprom() and set a flag because
                 // the LEDs won't be updated until the next frame. 
                 rgb_matrix_disable_noeeprom();
-                bootloader_pressed = true;
+                bootloader_state = BOOTLOADER_PRESSED;
                 return false;  // Skip all further processing of this key
 #endif
                 return true;  // Allow further processing of this key
