@@ -16,6 +16,10 @@
  */
 #include QMK_KEYBOARD_H
 
+// #ifdef RGB_MATRIX_ENABLE
+#include "quantum/rgb_matrix/rgb_matrix.h"
+// #endif  // RGB_MATRIX_ENABLE
+
 enum charybdis_keymap_layers {
     LAYER_BASE = 0,
     LAYER_SYM,
@@ -23,9 +27,6 @@ enum charybdis_keymap_layers {
     LAYER_NUM,
     LAYER_GAM
 };
-
-#define LOWER MO(LAYER_LOWER)
-#define RAISE MO(LAYER_RAISE)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -88,4 +89,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+   #ifdef RGB_MATRIX_ENABLE
+     switch (biton32(state)) {
+          case LAYER_NAV:
+               rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+               rgb_matrix_sethsv_noeeprom(HSV_BLUE);
+               break;
+          case LAYER_BASE:
+               rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+               rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+               break;
+          case LAYER_SYM:
+               rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+               rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
+               break;
+          case LAYER_NUM:
+               rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+               rgb_matrix_sethsv_noeeprom(HSV_RED);
+               break;
+    }
+     #endif // RGB_MATRIX_ENABLE
+  return state;
+}
 // clang-format on
