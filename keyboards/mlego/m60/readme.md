@@ -6,7 +6,7 @@ A  (12x5) ortholinear keyboard that can be hand wired or using a pcb.
 
 * Keyboard Maintainer: [Alin Elena](https://github.com/alinelena) ([@drFaustroll on GitLab](https://gitlab.com/drFaustroll))
 * Hardware Supported: custom pcb [see](https://gitlab.com/drFaustroll/m60) STM32F401 from we act (rev1)
-* Hardware Availability: [custom how to](https://gitlab.com/drFaustroll/m65)
+* Hardware Availability: [custom how to](https://mlego.elena.space/m60)
 
 
 Make example for this keyboard (after setting up your build environment):
@@ -47,3 +47,30 @@ similar for stm32f411
 | CAPS_LOCK   | C13 |
 | SCROLL_LOCK | B13 |
 | RBG_dI      | B15 |
+
+## Layout and pins rp2040 rpico clones
+
+check we act vs original pico... are pin compatible but not numbers.
+
+| Rows  | C0    | C1    | C2    | C3    | C4    | C5    | C6    | C7    | C8    | C9    | C10   | C11   | Pins  |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| R0    | Esc   | 1     | 2     | 3     | 4     | 5     | 6     | 7     | 8     | 9     | 0     | BSpace| GP19  |
+| R1    | Tab   | q     | w     | e     | r     | t     | y     | u     | i     | o     | p     | Del   | GP16  |
+| R2    | #     | a     | s     | d     | f     | g     | h     | j     | k     | l     | ;     | '     | GP17  |
+| R3    | Shift | z     | x     | c     | v     | b     | n     | m     | ,     | .     | /     | Enter | GP18  |
+| R4    | Ctrl  | Menu  | Alt   | Fn    | Lower | Space | Space | Raise | Left  | Down  | Up    | Right | GP20  |
+| Pins  | GP1   | GP6   | GP7   | GP8   | GP9   | GP15  | GP14  | GP13  | GP12  | GP11  | GP10  |  GP21 |       |
+
+### Encoders:
+
+  - Pad_A: GP4
+  - Pad_B: GP5
+
+### Leds
+
+| Leds        | Pin |
+| ----------- | --- |
+| NUM_LOCK    | GP22|
+| CAPS_LOCK   | GP25|
+| SCROLL_LOCK | GP27|
+| RBG_dI      |  GP0|
