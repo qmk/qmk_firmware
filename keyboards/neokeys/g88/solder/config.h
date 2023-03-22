@@ -1,4 +1,4 @@
-/* Copyright 2021 James Young (@noroadsleft)
+/* Copyright 2021 Neo keys
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +15,6 @@
  */
 
 #pragma once
-
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B7, C6 }
-#define MATRIX_COL_PINS { C7, F6, F5, F4, F1, E6, D5, D2, D0, D3, D4, D1, D6, D7, B4, B5 }
 
 #if defined(RGBLIGHT_ENABLE)
     #define RGB_DI_PIN F0

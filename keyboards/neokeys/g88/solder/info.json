@@ -11,6 +11,10 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "rows": ["B0", "B1", "B2", "B3", "B7", "C6"],
+        "cols": ["C7", "F6", "F5", "F4", "F1", "E6", "D5", "D2", "D0", "D3", "D4", "D1", "D6", "D7", "B4", "B5"]
+    },
     "layouts": {
         "LAYOUT": {
             "layout":  [
