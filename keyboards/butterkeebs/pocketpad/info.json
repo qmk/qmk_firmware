@@ -28,9 +28,6 @@
         "cols": ["F1", "C7", "D5", "B7"],
         "rows": ["F7", "F6", "F5", "F4", "B1"]
     },
-    "mouse_key": {
-        "enabled": true
-    },
 
     "processor": "atmega32u4",
 	"bootloader": "atmel-dfu",
