@@ -10,15 +10,111 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "A0", "pin_b": "B8"}
+            {
+                "pin_a": "A0",
+                "pin_b": "B8"
+            }
         ]
+     },
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
     },
     "indicators": {
         "caps_lock": "C13",
         "num_lock": "B12",
         "scroll_lock": "B13"
     },
+    "matrix_pins": {
+        "cols": ["A10", "A15", "B3", "B4", "B5", "B7", "B6", "A1", "A2", "A3", "A4", "A5"],
+        "rows": ["A6", "A7", "B0", "B10"]
+    },
     "processor": "STM32F401",
-    "bootloader": "tinyuf2",
-    "board": "BLACKPILL_STM32_F401"
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "layers": {
+            "enabled": true
+        },
+        "led_count": 20,
+        "pin": "B15"
+    },
+    "url": "https://gitlab.com/m-lego/m48",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x6261",
+        "vid": "0xBABA"
+    },
+    "layouts": {
+        "LAYOUT_ortho_4x12": {
+            "layout": [
+                { "label": "Tab", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
+                { "label": "q", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
+                { "label": "w", "matrix": [0, 2], "w": 1, "x": 2, "y": 0 },
+                { "label": "e", "matrix": [0, 3], "w": 1, "x": 3, "y": 0 },
+                { "label": "r", "matrix": [0, 4], "w": 1, "x": 4, "y": 0 },
+                { "label": "t", "matrix": [0, 5], "w": 1, "x": 5, "y": 0 },
+                { "label": "y", "matrix": [0, 6], "w": 1, "x": 6, "y": 0 },
+                { "label": "u", "matrix": [0, 7], "w": 1, "x": 7, "y": 0 },
+                { "label": "i", "matrix": [0, 8], "w": 1, "x": 8, "y": 0 },
+                { "label": "o", "matrix": [0, 9], "w": 1, "x": 9, "y": 0 },
+                { "label": "p", "matrix": [0, 10], "w": 1, "x": 10, "y": 0 },
+                { "label": "Backspace", "matrix": [0, 11], "w": 1, "x": 11, "y": 0 },
+                { "label": "Esc", "matrix": [1, 0], "w": 1, "x": 0, "y": 1 },
+                { "label": "a", "matrix": [1, 1], "w": 1, "x": 1, "y": 1 },
+                { "label": "s", "matrix": [1, 2], "w": 1, "x": 2, "y": 1 },
+                { "label": "d", "matrix": [1, 3], "w": 1, "x": 3, "y": 1 },
+                { "label": "f", "matrix": [1, 4], "w": 1, "x": 4, "y": 1 },
+                { "label": "g", "matrix": [1, 5], "w": 1, "x": 5, "y": 1 },
+                { "label": "h", "matrix": [1, 6], "w": 1, "x": 6, "y": 1 },
+                { "label": "j", "matrix": [1, 7], "w": 1, "x": 7, "y": 1 },
+                { "label": "k", "matrix": [1, 8], "w": 1, "x": 8, "y": 1 },
+                { "label": "l", "matrix": [1, 9], "w": 1, "x": 9, "y": 1 },
+                { "label": ";", "matrix": [1, 10], "w": 1, "x": 10, "y": 1 },
+                { "label": "'", "matrix": [1, 11], "w": 1, "x": 11, "y": 1 },
+                { "label": "Shift", "matrix": [2, 0], "w": 1, "x": 0, "y": 2 },
+                { "label": "z", "matrix": [2, 1], "w": 1, "x": 1, "y": 2 },
+                { "label": "x", "matrix": [2, 2], "w": 1, "x": 2, "y": 2 },
+                { "label": "c", "matrix": [2, 3], "w": 1, "x": 3, "y": 2 },
+                { "label": "v", "matrix": [2, 4], "w": 1, "x": 4, "y": 2 },
+                { "label": "b", "matrix": [2, 5], "w": 1, "x": 5, "y": 2 },
+                { "label": "n", "matrix": [2, 6], "w": 1, "x": 6, "y": 2 },
+                { "label": "m", "matrix": [2, 7], "w": 1, "x": 7, "y": 2 },
+                { "label": ",", "matrix": [2, 8], "w": 1, "x": 8, "y": 2 },
+                { "label": ".", "matrix": [2, 9], "w": 1, "x": 9, "y": 2 },
+                { "label": "/", "matrix": [2, 10], "w": 1, "x": 10, "y": 2 },
+                { "label": "Enter", "matrix": [2, 11], "w": 1, "x": 11, "y": 2 },
+                { "label": "Ctrl", "matrix": [3, 0], "w": 1, "x": 0, "y": 3 },
+                { "label": "Fn", "matrix": [3, 1], "w": 1, "x": 1, "y": 3 },
+                { "label": "Menu", "matrix": [3, 2], "w": 1, "x": 2, "y": 3 },
+                { "label": "Alt", "matrix": [3, 3], "w": 1, "x": 3, "y": 3 },
+                { "label": "Lower", "matrix": [3, 4], "w": 1, "x": 4, "y": 3 },
+                { "label": "Space", "matrix": [3, 5], "w": 1, "x": 5, "y": 3 },
+                { "label": "Space", "matrix": [3, 6], "w": 1, "x": 6, "y": 3 },
+                { "label": "Raise", "matrix": [3, 7], "w": 1, "x": 7, "y": 3 },
+                { "label": "Left", "matrix": [3, 8], "w": 1, "x": 8, "y": 3 },
+                { "label": "Down", "matrix": [3, 9], "w": 1, "x": 9, "y": 3 },
+                { "label": "Up", "matrix": [3, 10], "w": 1, "x": 10, "y": 3 },
+                { "label": "Right", "matrix": [3, 11], "w": 1, "x": 11, "y": 3 }
+            ]
+        }
+    }
 }
