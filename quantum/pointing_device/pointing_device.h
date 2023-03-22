@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef POINTING_DEVICE_COUNT
-#define POINTING_DEVICE_COUNT 1
+#    define POINTING_DEVICE_COUNT 1
 #endif
 
 typedef enum {
@@ -72,11 +72,17 @@ typedef struct {
     const pointing_device_invert_t    invert;
     const uint8_t                     throttle;
     const void                       *config;
-    const pointing_device_motion_t motion;
+    const pointing_device_motion_t    motion;
 #if defined(SPLIT_KEYBOARD)
     const pointing_device_side_t side;
 #endif
 } pointing_device_config_t;
+
+typedef struct {
+    uint16_t cpi;
+    bool     update;
+} pointing_device_shared_cpi_t;
+
 typedef enum {
     POINTING_DEVICE_BUTTON1,
     POINTING_DEVICE_BUTTON2,
@@ -98,7 +104,8 @@ typedef int32_t clamp_range_t;
 typedef int16_t clamp_range_t;
 #endif
 
-#define POINTING_DEVICE_NO_MOTION_PIN {0}
+#define POINTING_DEVICE_NO_MOTION_PIN \
+    { 0 }
 #define POINTING_DEVICE_THIS_SIDE(index) (pointing_device_configs[index].side == (is_keyboard_left() ? LEFT : RIGHT))
 
 void           pointing_device_init(void);
@@ -109,6 +116,9 @@ void           pointing_device_set_report(report_mouse_t mouse_report);
 uint16_t       pointing_device_get_cpi(void);
 void           pointing_device_set_cpi(uint16_t cpi);
 
+uint16_t pointing_device_get_cpi_by_index(uint8_t index);
+void     pointing_device_set_cpi_by_index(uint16_t cpi, uint8_t index);
+
 void           pointing_device_init_kb(void);
 void           pointing_device_init_user(void);
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report, uint8_t index);
@@ -116,3 +126,10 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report, uint8_t in
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
 report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report);
 void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
+report_mouse_t pointing_deivce_task_get_pointing_reports(void);
+
+void                          pointing_device_set_shared_report(report_mouse_t report);
+report_mouse_t                pointing_device_get_shared_report(void);
+void                          pointing_device_set_shared_cpi(pointing_device_shared_cpi_t cpi[]);
+pointing_device_shared_cpi_t *pointing_device_get_shared_cpi(void);
+void                          pointing_device_reset_shared_cpi_update_flags(void);

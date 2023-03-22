@@ -27,9 +27,39 @@
 
 extern const pointing_device_config_t pointing_device_configs[POINTING_DEVICE_COUNT];
 
-uint16_t       pointing_device_cpi[POINTING_DEVICE_COUNT] = {0};
-report_mouse_t local_report                               = {0};
-report_mouse_t shared_report                              = {0};
+report_mouse_t local_report = {0};
+
+#if defined(SPLIT_KEYBOARD)
+report_mouse_t               shared_report                     = {0};
+pointing_device_shared_cpi_t shared_cpi[POINTING_DEVICE_COUNT] = {0};
+
+void pointing_device_set_shared_report(report_mouse_t report) {
+    shared_report = report;
+}
+
+report_mouse_t pointing_device_get_shared_report(void) {
+    return shared_report;
+}
+
+void pointing_device_set_shared_cpi(pointing_device_shared_cpi_t new_cpi[]) {
+    for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
+        if (new_cpi[i].cpi && shared_cpi[i].cpi != new_cpi[i].cpi && new_cpi[i].update) { // cpi to set is not zero, is different to current and requires update
+            pointing_device_set_cpi_by_index(new_cpi[i].cpi, i);
+        }
+    }
+}
+
+pointing_device_shared_cpi_t* pointing_device_get_shared_cpi(void) {
+    return shared_cpi;
+}
+
+void pointing_device_reset_shared_cpi_update_flags(void) {
+    for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
+        shared_cpi[i].update = false;
+    }
+}
+
+#endif
 
 /**
  * @brief clamps int16_t to int8_t
@@ -169,28 +199,32 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
     return ready;
 }
 
-__attribute__((weak)) void pointing_device_task(void) {
+report_mouse_t pointing_deivce_task_get_pointing_reports(void) {
+    report_mouse_t loop_report = {0};
     for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
 #if defined(SPLIT_KEYBOARD)
         if (!POINTING_DEVICE_THIS_SIDE(i)) {
             continue; // skip processing devices not on this side
         }
 #endif
-        report_mouse_t loop_report = {0};
         if (pointing_device_is_ready(pointing_device_configs[i], i)) {
-            loop_report  = pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config);
-            loop_report  = pointing_device_adjust_report(loop_report, i);
-            loop_report  = pointing_device_task_kb(loop_report, i);
-            local_report = pointing_device_add_and_clamp_report(local_report, loop_report);
+            loop_report = pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config);
+            loop_report = pointing_device_adjust_report(loop_report, i);
+            loop_report = pointing_device_task_kb(loop_report, i);
+            loop_report = pointing_device_add_and_clamp_report(local_report, loop_report);
         }
     }
-#if defined(SPLIT_KEYBOARD)
-    if (is_keyboard_master()) {
-        local_report = pointing_device_add_and_clamp_report(local_report, shared_report);
-    } else {
-        return; // slave side doesn't need to do anymore processing.
+    return loop_report;
+}
+
+__attribute__((weak)) void pointing_device_task(void) {
+    static uint32_t last_exec = 0;
+    if (timer_elapsed32(last_exec) < 1) {
+        return;
     }
-#endif
+    last_exec = timer_read32();
+
+    local_report = pointing_deivce_task_get_pointing_reports();
 
     // automatic mouse layer function
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
@@ -201,6 +235,17 @@ __attribute__((weak)) void pointing_device_task(void) {
     report_mouse_t mousekey_report = mousekey_get_report();
     local_report.buttons           = local_report.buttons | mousekey_report.buttons;
 #endif
+
+#if defined(SPLIT_KEYBOARD)
+    if (is_keyboard_master()) {
+        local_report = pointing_device_add_and_clamp_report(local_report, shared_report);
+    } else {
+        shared_report = local_report;
+        memset(&local_report, 0, sizeof(local_report));
+        return;
+    }
+#endif
+
     pointing_device_send();
 }
 
@@ -225,7 +270,7 @@ void pointing_device_set_report(report_mouse_t mouse_report) {
 uint16_t pointing_device_get_cpi_by_index(uint8_t index) {
 #if defined(SPLIT_KEYBOARD)
     if (!POINTING_DEVICE_THIS_SIDE(index)) {
-        return pointing_device_cpi[index];
+        return shared_cpi[index].cpi;
     }
 #endif
     return pointing_device_configs[index].driver->get_cpi(pointing_device_configs[index].config);
@@ -244,8 +289,9 @@ uint16_t pointing_device_get_cpi(void) {
 
 void pointing_device_set_cpi_by_index(uint16_t cpi, uint8_t index) {
 #if defined(SPLIT_KEYBOARD)
+    shared_cpi[index].cpi = cpi;
     if (!POINTING_DEVICE_THIS_SIDE(index)) {
-        pointing_device_cpi[index] = cpi;
+        shared_cpi[index].update = true;
     }
 #endif
     pointing_device_configs[index].driver->set_cpi(pointing_device_configs[index].config, cpi);
