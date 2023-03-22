@@ -172,17 +172,3 @@ def merge_xap_defs(kb, km):
         exit(1)
 
     return defs
-
-
-def route_conditions(route_stack):
-    """Handles building the C preprocessor conditional based on the current route.
-    """
-    conditions = []
-    for route in route_stack:
-        if 'enable_if_preprocessor' in route:
-            conditions.append(route['enable_if_preprocessor'])
-
-    if len(conditions) == 0:
-        return None
-
-    return "(" + ' && '.join([f'({c})' for c in conditions]) + ")"
