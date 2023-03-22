@@ -13,7 +13,6 @@
             {
                 "pin_a": "GP27",
                 "pin_b": "GP28",
-                "resolution": 4
             }
         ]
     },
