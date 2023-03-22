@@ -170,7 +170,7 @@ static uint16_t current_time        = 0;
 static uint8_t  glint_cnt           = 0;
 static uint16_t scancode           = 0;
 
-#ifndef DISABLE_MK4_KEYCODES
+#ifndef DISABLE_MK47_KEYCODES
 static bool     fn_make_flag        = false;
 static uint8_t  RGB_HSV_level;
 #endif
@@ -185,7 +185,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
-#ifndef DISABLE_MK4_KEYCODES
+#ifndef DISABLE_MK47_KEYCODES
         case MO(1):
             fn_make_flag = record->event.pressed;
             return true;
