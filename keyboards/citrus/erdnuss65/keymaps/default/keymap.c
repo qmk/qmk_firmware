@@ -39,12 +39,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
-//Indicator light function
-bool led_update_user(led_t led_state) {
-    if (led_state.caps_lock) {
-        rgblight_setrgb_at(255, 255, 255, 0); //white
-    } else {
-        rgblight_setrgb_at(0, 0, 0, 0);
-    }
-    return true;
-}
+
