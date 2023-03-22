@@ -8,7 +8,7 @@
 
 设置好编译环境后, 使用以下指令(以smart80键盘为例):
 
-     qmk compile -kb smart/smart80 -km via
+     qmk compile -kb smart/smart80
 
 
 
