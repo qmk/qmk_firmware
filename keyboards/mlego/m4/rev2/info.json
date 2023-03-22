@@ -8,7 +8,6 @@
     "debounce": 10,
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {
                 "pin_a": "GP27",
