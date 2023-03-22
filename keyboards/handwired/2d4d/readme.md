@@ -1,8 +1,8 @@
 # 2d4d
 
-![2d4d](https://i.imgur.com/famGFG8.jpg)
+![2d4d](https://i.imgur.com/famGFG8h.jpg)
 
-![2d4d_2](https://i.imgur.com/IfoQUnc.jpg)
+![2d4d_2](https://i.imgur.com/IfoQUnch.jpg)
 
 
 *Handwired %50 keyboard (48 switches) There is 2 places for rotary encoders/switches and 2 indicator leds. You can use switches instead of rotary encoder just break the extensions from thumb cluster.*
