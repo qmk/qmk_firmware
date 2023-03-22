@@ -108,9 +108,10 @@ typedef struct _split_mods_sync_t {
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 #    include "pointing_device.h"
 typedef struct _split_slave_pointing_sync_t {
-    uint8_t        checksum;
-    report_mouse_t report;
-    uint16_t       cpi;
+    uint8_t                      checksum;
+    report_mouse_t               report;
+    uint8_t                      cpi_checksum;
+    pointing_device_shared_cpi_t cpi[POINTING_DEVICE_COUNT];
 } split_slave_pointing_sync_t;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
