@@ -58,9 +58,6 @@
         "pin": "GP0",
         "saturation_steps": 8
     },
-    "tapping": {
-        "toggle": 2
-    },
     "url": "https://gitlab.com/m-lego/m20",
     "usb": {
         "device_version": "0.0.1",
