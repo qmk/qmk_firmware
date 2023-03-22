@@ -51,7 +51,8 @@ It uses four pins from the MCU to provide 16 output pins */
 /* Shift Register SPI Data Out configuration (MCU to ShiftRegister.SER - 14) */
 /* Shift Register SPI Serial Clock configuration (MCU to ShiftRegister.SRCLK - 11) */
 
-#define ROWS  {GP26, GP29}
+#define ROWS \
+    { GP26, GP29 }
 
 #define SPI_DRIVER SPID0
 #define SPI_LATCH_PIN GP1
@@ -63,15 +64,15 @@ It uses four pins from the MCU to provide 16 output pins */
 #define SPI_lsbFirst true
 #define DEBUG_MATRIX_SCAN_RATE
 
-
-//0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080, 0x0100, 0x0200, 0x0400, 0x0800, 0x1000, 0x2000, 0x4000, 0x8000
-// 1QA     1QB     1QC     1QD     1QE     1QF     1QG     1QH     2QA     2QB     2QC     2QD     2QE     2QF     2QG     2QH
+// 0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080, 0x0100, 0x0200, 0x0400, 0x0800, 0x1000, 0x2000, 0x4000, 0x8000
+//  1QA     1QB     1QC     1QD     1QE     1QF     1QG     1QH     2QA     2QB     2QC     2QD     2QE     2QF     2QG     2QH
 
 //              C0      C1
 //              1QA     2QA
-#define COLS { 0x0001, 0x0100}
+#define COLS \
+    { 0x0001, 0x0100 }
 
-#define   RGB_ENABLE_PIN GP11
+#define RGB_ENABLE_PIN GP11
 
 /* Double tap reset button to enter bootloader */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
@@ -80,9 +81,9 @@ It uses four pins from the MCU to provide 16 output pins */
 
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X32
-#define I2C1_SCL_PIN        GP7
-#define I2C1_SDA_PIN        GP6
-#define I2C_DRIVER I2CD1
-#define OLED_BRIGHTNESS 128
-#define OLED_FONT_H "keyboards/mlego/m65/lib/glcdfont.c"
+#    define I2C1_SCL_PIN GP7
+#    define I2C1_SDA_PIN GP6
+#    define I2C_DRIVER I2CD1
+#    define OLED_BRIGHTNESS 128
+#    define OLED_FONT_H "keyboards/mlego/m65/lib/glcdfont.c"
 #endif

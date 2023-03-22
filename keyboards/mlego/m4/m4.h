@@ -4,12 +4,7 @@
 
 #include "quantum.h"
 
-enum layer_names {
-    _QW = 0,
-    _LWR,
-    _RSE,
-    _ADJ
-};
+enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 
 #ifdef OLED_ENABLE
 void user_oled_magic(void);
@@ -19,11 +14,10 @@ void init_timer(void);
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-void set_rgb_layers(layer_state_t);
-const rgblight_segment_t * const*  my_rgb(void);
-void set_default_rgb_layers(layer_state_t);
+void                             set_rgb_layers(layer_state_t);
+const rgblight_segment_t* const* my_rgb(void);
+void                             set_default_rgb_layers(layer_state_t);
 #endif
-
 
 void toggle_leds(void);
 void set_led_toggle(const uint8_t, const bool);
