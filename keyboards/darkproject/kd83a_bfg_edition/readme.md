@@ -1,18 +1,18 @@
-# Dark Project KD83a LTD 
+# Dark Project KD83a LTD
 
 An 83 keys keyboard. Equipped with the WestBerry WB32FQ95 ARM Cortex-M3 microcontroller
 
 * Keyboard Maintainer: [GSKY](https://github.com/gksygithub)
-* Hardware Supported: KD83A_BFG_Edition
-* Hardware Availability: [GSKY GitHub](https://github.com/gksygithub/keyboard)
+* Hardware Supported: Dark Project KD83a LTD
+* Hardware Availability: [Dark Project](https://darkproject.ru)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make darkproject/kd83a_bfg_edition:default
+    make darkproject/kd83a_ltd:default
 
 Flashing example for this keyboard:
 
-    make darkproject/kd83a_bfg_edition:default:flash
+    make darkproject/kd83a_ltd:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
