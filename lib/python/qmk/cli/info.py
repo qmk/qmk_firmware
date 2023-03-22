@@ -18,7 +18,8 @@ from qmk.path import is_keyboard
 UNICODE_SUPPORT = sys.stdout.encoding.lower().startswith('utf')
 
 
-def strip_api_content(info_json):
+def _strip_api_content(info_json):
+    # Ideally this would only be added in the API pathway.
     info_json.pop('platform', None)
     info_json.pop('platform_key', None)
     info_json.pop('processor_type', None)
@@ -195,7 +196,7 @@ def info(cli):
         kb_info_json = info_json(cli.config.info.keyboard)
 
     if not cli.args.api:
-        kb_info_json = strip_api_content(kb_info_json)
+        kb_info_json = _strip_api_content(kb_info_json)
 
     # Output in the requested format
     if cli.args.format == 'json':
