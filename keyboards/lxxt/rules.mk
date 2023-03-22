@@ -1,1 +1,3 @@
-# This file is intentionally left blank
+ENCODER_ENABLE = yes
+
+WS2812_DRIVER = vendor
