@@ -1,0 +1,73 @@
+{
+    "manufacturer": "Alin Elena",
+    "keyboard_name": "mlego/m4 rev2",
+    "maintainer": "alin elena",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board":"GENERIC_RP_RP2040",
+    "debounce": 10,
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP27",
+                "pin_b": "GP28",
+                "resolution": 4
+            }
+        ]
+    },
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true,
+        "wpm": true
+    },
+    "indicators": {
+        "caps_lock": "GP25",
+        "num_lock": "GP17",
+        "scroll_lock": "GP16"
+    },
+    "tapping": {
+        "toggle": 2
+    },
+    "rgblight": {
+        "hue_steps": 10,
+        "saturation_steps": 17,
+        "brightness_steps": 17,
+        "animations": {
+            "all": true
+        },
+        "layers": {
+            "enabled": true
+        },
+        "led_count": 1,
+        "pin": "GP12",
+        "max_brightness": 128
+
+    },
+    "url": "mlego.elena.space/m4",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x6560",
+        "vid": "0xBABA"
+    },
+    "layouts": {
+        "LAYOUT_ortho_2x2": {
+            "layout": [
+                { "label": "2", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
+                { "label": "4", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
+                { "label": "Lower", "matrix": [1, 0], "w": 1, "x": 0, "y": 1 },
+                { "label": "Raise", "matrix": [1, 1], "w": 1, "x": 1, "y": 1 }
+            ]
+        }
+    }
+}
