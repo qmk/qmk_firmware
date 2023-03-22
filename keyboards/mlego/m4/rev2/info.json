@@ -34,9 +34,6 @@
         "num_lock": "GP17",
         "scroll_lock": "GP16"
     },
-    "tapping": {
-        "toggle": 2
-    },
     "rgblight": {
         "animations": {
             "alternating": true,
