@@ -38,6 +38,10 @@
     }
 
     type_docs: {
+        bool:
+            '''
+            Data type that contains values 0 and 1. Implementaed as an alias of `u8`.
+            '''
         u64:
             '''
             An unsigned 64-bit integral, commonly seen as `uint64_t` from _stdint.h_.

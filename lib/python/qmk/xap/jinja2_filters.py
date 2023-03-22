@@ -27,6 +27,8 @@ def _xap_type_to_c_before(xt: str):
         return 'uint32_t'
     elif xt == 'u64':
         return 'uint64_t'
+    elif xt == 'bool':
+        return 'uint8_t'
     elif xt == 'string':
         return 'const char*'
     elif xt == 'token':
