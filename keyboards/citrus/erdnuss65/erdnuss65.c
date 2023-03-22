@@ -13,14 +13,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "erdnuss65.h"
+#include "quantum.h"
 
 //Indicator light function
-bool led_update_user(led_t led_state) {
-    if (led_state.caps_lock) {
-        rgblight_setrgb_at(255, 255, 255, 0); //white
-    } else {
-        rgblight_setrgb_at(0, 0, 0, 0);
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        if (led_state.caps_lock) {
+            rgblight_setrgb_at(255, 255, 255, 0); //white
+        } else {
+            rgblight_setrgb_at(0, 0, 0, 0);
+        }
     }
     return true;
 }
