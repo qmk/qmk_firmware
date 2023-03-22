@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB Strip*/
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -40,6 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_LIMIT_VAL 255    
 #    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 #    define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL/2
-#endif
-
-

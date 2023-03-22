@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
 #    define RGBLED_SPLIT { 27, 27 }
 #    define RGBLED_NUM 54 // backlight x42 + underglow x12
 #    define RGBLIGHT_HUE_STEP 8
@@ -35,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR

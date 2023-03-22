@@ -18,7 +18,6 @@
 
 #define RGB_DI_PIN B15
 
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 4
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -34,4 +33,3 @@
     #define RGBLIGHT_VAL_STEP 8
     #define RGBLIGHT_LIMIT_VAL 180
     #define RGBLIGHT_SLEEP
-#endif
