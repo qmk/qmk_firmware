@@ -1,1 +1,1 @@
-# The Default Dark Project KD83a LTD
+# The Default Dark Project KD83a LTD layout
