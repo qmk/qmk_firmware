@@ -15,9 +15,6 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make chromatoneminipico:default:flash
-or
-
-    qmk flash -kb chromatoneminipico -km default
 
 Run this while Raspberry Pi Pico is in bootloader mode.
 ## Bootloader

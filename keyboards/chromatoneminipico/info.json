@@ -29,7 +29,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "GP15", "pin_b": "GP14", "resolution": 4 }
+            { "pin_a": "GP15", "pin_b": "GP14" }
         ]
     },
     "layouts": {
