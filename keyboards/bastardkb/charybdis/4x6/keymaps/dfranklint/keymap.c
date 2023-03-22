@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
         KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_BSPC, KC_DEL,
+       KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,     KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_BSPC, KC_DEL,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_BTN1,  KC_BTN2, KC_SLSH, KC_LALT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -95,19 +95,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
      switch (biton32(state)) {
           case LAYER_NAV:
                rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-               rgb_matrix_sethsv_noeeprom(HSV_BLUE);
                break;
           case LAYER_BASE:
-               rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-               rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+               rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_base_effect);
                break;
           case LAYER_SYM:
                rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-               rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
                break;
           case LAYER_NUM:
                rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-               rgb_matrix_sethsv_noeeprom(HSV_RED);
                break;
     }
      #endif // RGB_MATRIX_ENABLE
