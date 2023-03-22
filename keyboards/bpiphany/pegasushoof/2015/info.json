@@ -1,5 +1,12 @@
 {
     "keyboard_name": "Majestouch TKL The Pegasus Hoof 2015",
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock" : "C6",
+        "scroll_lock": "C5",
+        "on_state": 0
+    },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT": {
             "layout": [

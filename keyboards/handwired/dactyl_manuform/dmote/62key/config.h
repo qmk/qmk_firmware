@@ -1,9 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 6
 
 // MCUs are flipped on each side, relative to the shape of the case,
 // but for ease of mounting, the pinout is not flipped with the controller.

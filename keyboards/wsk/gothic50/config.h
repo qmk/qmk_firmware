@@ -1,10 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 14
 
 /* key matrix pins */
 
@@ -33,13 +28,6 @@
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -47,6 +35,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
+ * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
  */
 #define GRAVE_ESC_CTRL_OVERRIDE

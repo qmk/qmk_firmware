@@ -8,6 +8,8 @@
         "pid": "0x7070",
         "device_version": "0.0.1"
     },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

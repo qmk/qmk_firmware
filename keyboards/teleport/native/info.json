@@ -15,10 +15,9 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true
     },
-    "debounce": 5,
     "diode_direction": "ROW2COL",
     "matrix_pins": {
         "cols": [ "A5", "A4", "B12", "B14", "B8", "B3", "B4", "B5" ],

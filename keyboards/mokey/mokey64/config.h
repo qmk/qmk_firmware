@@ -14,16 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 #define MATRIX_ROW_PINS { B1, B2, B3, B4, B5 }
 #define MATRIX_COL_PINS { C7, F6, F5, F4, F1, E6, D0, D2, D1, D3, D5, D4, D6, D7, B6 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

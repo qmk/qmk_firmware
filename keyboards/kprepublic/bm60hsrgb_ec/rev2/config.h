@@ -15,15 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-#define ENCODERS_PAD_A { F1 }
-#define ENCODERS_PAD_B { F4 }
-#define ENCODER_RESOLUTION 2
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -39,9 +30,6 @@
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
 
 //rgb light setting
 #define RGBLIGHT_LIMIT_VAL 150

@@ -17,20 +17,11 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 #define MATRIX_ROW_PINS { D0, D1, B6, F5 }
 #define MATRIX_COL_PINS { F4, F6, F7, B5, B4, D7, D6, D4, D5, D3, D2, B0 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN

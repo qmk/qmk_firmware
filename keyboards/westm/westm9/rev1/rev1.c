@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev1.h"
+#include "westm9.h"
 
 void board_init(void) {
     // Purely for fixing problem on prototype board
