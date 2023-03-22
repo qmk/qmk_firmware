@@ -3,6 +3,8 @@
 
 #include QMK_KEYBOARD_H
 
+// clang-format off
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT_ortho_5x4(
         KC_PSLS, KC_PAST, KC_MINS,   KC_EQL,
@@ -34,12 +36,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+// clang-format on
+
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_NUM] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LWR] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
-    [_RSE] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
-    [_ADJ] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+    [_NUM] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [_LWR] = {ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
+    [_RSE] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [_ADJ] = {ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
 };
 #endif
 
@@ -49,9 +53,7 @@ bool led_update_user(led_t led_state) {
 }
 
 void matrix_scan_user(void) {
-
     toggle_leds();
-
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -75,7 +77,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-
 #ifdef RGBLIGHT_ENABLE
 
     set_rgb_layers(state);
