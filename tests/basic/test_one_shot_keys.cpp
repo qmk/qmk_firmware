@@ -185,7 +185,7 @@ TEST_F(OneShot, OSMChainingTwoOSMs) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Press and hold regular key */
+    /* Press regular key */
     EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code, regular_key.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
@@ -227,7 +227,7 @@ TEST_F(OneShot, OSMDoubleTapNotLockingOSMs) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Press and hold regular key */
+    /* Press regular key */
     EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code, regular_key.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
@@ -239,7 +239,7 @@ TEST_F(OneShot, OSMDoubleTapNotLockingOSMs) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Press and hold regular key */
+    /* Press regular key */
     EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
@@ -270,29 +270,28 @@ TEST_F(OneShot, OSMHoldNotLockingOSMs) {
     VERIFY_AND_CLEAR(driver);
 
     /* Press and hold OSM2 */
-    EXPECT_NO_REPORT(driver);
+    EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code)).Times(1);
     osm_key2.press();
     run_one_scan_loop();
-    //osm_key2.release();
-    //run_one_scan_loop();
+    idle_for(TAPPING_TERM);
     VERIFY_AND_CLEAR(driver);
 
-    /* Press and hold regular key */
-    EXPECT_NO_REPORT(driver);
+    /* Press and release regular key */
+    EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code, regular_key.report_code)).Times(1);
+    EXPECT_REPORT(driver, (osm_key2.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
     regular_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Release regular key */
-    EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code, regular_key.report_code)).Times(1);
+    /* Release OSM2 */
     EXPECT_EMPTY_REPORT(driver);
     osm_key2.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Press and hold regular key */
+    /* Press regular key */
     EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
     regular_key.press();
     run_one_scan_loop();
