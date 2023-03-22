@@ -1,6 +1,7 @@
 # Build Options
 # change yes to no to disable
 #
+MCU_LDSCRIPT = Smartbootloader
 
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control

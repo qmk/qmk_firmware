@@ -1,6 +1,8 @@
 # MCU name
 # MCU = STM32F103
 
+MCU_LDSCRIPT = Smartbootloader
+
 #
 OS_DETECTION_ENABLE = yes   #Enable OS detection
 #BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
