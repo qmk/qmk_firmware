@@ -16,6 +16,23 @@
 
 #include "quantum.h"
 
+#ifdef RGB_MATRIX_ENABLE
+
+led_config_t g_led_config = {
+{
+    {  NO_LED,          NO_LED,
+        2,      1,      0,
+        3,      4,      5 },
+}, {
+    {0,0}   , {112,0},  {224,0},
+    {0,64}  , {112,64}, {224,64}
+}, {
+    4, 4, 4, 4, 4, 4
+} };
+
+#endif
+
+
 #if defined(ENCODER_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }

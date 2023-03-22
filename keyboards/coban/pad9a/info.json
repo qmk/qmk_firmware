@@ -6,7 +6,7 @@
     "manufacturer": "Coban Stationery",
     "usb": {
         "pid": "0xCC9A",
-        "vid": "0xCB9A",
+        "vid": "0xCB3A",
         "device_version": "1.0.0"
     },
     "matrix_pins": {
@@ -16,6 +16,17 @@
     },
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "features": {
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP3", "pin_b": "GP4" },
+            { "pin_a": "GP28", "pin_b": "GP29" }
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
