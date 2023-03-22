@@ -164,7 +164,7 @@ In most situations you will want to answer `y` to all of the prompts.
 
 ## 4. Test Your Build Environment
 
-Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. You should be able to do that with a command in this format:
+Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. If you're not sure what your keyboard's name is, check the [keyboards folder](https://github.com/qmk/qmk_firmware/tree/master/keyboards) in the QMK source code. You should be able to build a firmware with a command in this format:
 
     qmk compile -kb <keyboard> -km default
 
