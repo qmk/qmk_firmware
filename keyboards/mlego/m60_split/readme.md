@@ -6,7 +6,7 @@ A  (12x5) ortholinear split keyboard that can be hand wired or using a pcb.
 
 * Keyboard Maintainer: [Alin Elena](https://github.com/alinelena) ([@drFaustroll on GitLab](https://gitlab.com/drFaustroll))
 * Hardware Supported: custom pcb [see](https://gitlab.com/m-lego/m60_split) STM32F401 from we act (rev1)
-* Hardware Availability: [custom how to](https://gitlab.com/m-lego/m60_split)
+* Hardware Availability: [custom how to](https://mlego.elena.space/m60_split)
 
 
 Make example for this keyboard (after setting up your uild environment):
