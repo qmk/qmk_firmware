@@ -80,33 +80,42 @@ valid_formats = {
     }
 }
 
+
 def _render_text(values):
     # FIXME: May need more chars with GIFs containing lots of frames (or longer durations)
-    return " |".join([f"{i:4d}" for i in values])
+    return "|".join([f"{i:4d}" for i in values])
+
 
 def _render_numeration(metadata):
     return _render_text(range(len(metadata)))
 
-def _render_duration(metadata):
-    return _render_text([i["delay"] for i in metadata])
 
-def _render_compression(metadata):
-    return _render_text([i["compression"] for i in metadata]) + " >> See qp.h, painter_compression_t"
-
-def _render_delta(metadata):
-    return _render_text([i["delta"] for i in metadata])
+def _render_values(metadata, key):
+    return _render_text([i[key] for i in metadata])
 
 
 def _render_image_metadata(metadata):
-    if len(metadata) == 1:
-        return "// Single frame"
+    size = metadata.pop(0)
 
-    return "\n".join([
-        f"//        Frame: {_render_numeration(metadata)}",
-        f"// Duration(ms): {_render_duration(metadata)}",
-        f"//  Compression: {_render_compression(metadata)}",
-        f"//        Delta: {_render_delta(metadata)}",
-    ])
+    lines = [
+        "// Image's metadata",
+        "// ----------------",
+        f"// Width: {size['width']}",
+        f"// Height: {size['height']}",
+    ]
+
+    if len(metadata) == 1:
+        lines.append("// Single frame")
+
+    else:
+        lines.extend([
+            f"//        Frame: {_render_numeration(metadata)}",
+            f"// Duration(ms): {_render_values(metadata, 'delay')}",
+            f"//  Compression: {_render_values(metadata, 'compression')} >> See qp.h, painter_compression_t",
+            f"//        Delta: {_render_values(metadata, 'delta')}",
+        ])
+
+    return "\n".join(lines)
 
 
 def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
@@ -136,21 +145,12 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
         })
 
     elif image_metadata is not None:
-        # width/height is stored in the 1st entry
-        size = image_metadata.pop(0)
-
         subs.update({
             "generated_type": "image",
             "var_prefix": "gfx",
             "generator_command": f"qmk painter-convert-graphics -i {cli.args.input.name} -f {cli.args.format}",
             # not using triple quotes to avoid extra indentation/weird formatted code
-            "metadata": "\n".join([
-                "// Image's metadata",
-                "// ----------------",
-                f"// Width: {size['width']}",
-                f"// Height: {size['height']}",
-                _render_image_metadata(image_metadata)
-            ]),
+            "metadata": _render_image_metadata(image_metadata),
         })
 
     else:
