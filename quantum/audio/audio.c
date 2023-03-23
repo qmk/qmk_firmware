@@ -18,6 +18,7 @@
 #include "eeconfig.h"
 #include "timer.h"
 #include "wait.h"
+#include "util.h"
 
 /* audio system:
  *

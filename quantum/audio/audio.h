@@ -43,11 +43,6 @@ typedef union {
     };
 } audio_config_t;
 
-// AVR/LUFA has a MIN, arm/chibios does not
-#ifndef MIN
-#    define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
-
 /*
  * a 'musical note' is represented by pitch and duration; a 'musical tone' adds intensity and timbre
  * https://en.wikipedia.org/wiki/Musical_tone
