@@ -17,7 +17,6 @@
 #pragma once
 
 #define RGB_DI_PIN F0
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 6
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
@@ -34,7 +33,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 #define RGB_MATRIX_LED_COUNT 6
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
