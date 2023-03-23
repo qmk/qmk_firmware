@@ -18,6 +18,7 @@
 #include "eeconfig.h"
 #include "timer.h"
 #include "wait.h"
+#include "util.h"
 
 /* audio system:
  *
@@ -111,6 +112,10 @@ float audio_off_song[][2] = AUDIO_OFF_SONG;
 static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
+
+void eeconfig_update_audio_current(void) {
+    eeconfig_update_audio(audio_config.raw);
+}
 
 void audio_init(void) {
     if (audio_initialized) {
