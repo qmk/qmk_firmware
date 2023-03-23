@@ -48,7 +48,7 @@
                 {"label": "K43 (B5,B2)", "matrix": [4, 3], "x": 3, "y": 3}                
             ]
         },
-        "LAYOUT_num4x5": {
+        "LAYOUT_numpad_5x4": {
             "layout": [
                 {"label": "K00 (F5,F4)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01 (F5,F6)", "matrix": [0, 1], "x": 1, "y": 0},
