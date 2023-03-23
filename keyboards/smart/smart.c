@@ -13,5 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
  #include "quantum.h"
+
+void bootloader_jump(void) {
+    BKP->DR1 = 0x4F42;
+    NVIC_SystemReset();
+}
+
+

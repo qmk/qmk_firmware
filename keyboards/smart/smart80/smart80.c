@@ -15,109 +15,12 @@
  */
  
 #include "smart80.h"
-#include "uart.h"
-//#include "bootloader.h"
-extern uint8_t keyboard_led_state;
 
-
-void board_init(void) {
-    uart_init(115200);
-    uart_write('s');
-}
-
-__attribute__((weak)) void bootloader_jump(void) {
-    BKP->DR1 = 0x4F42;
-    NVIC_SystemReset();
-}
-
-__attribute__((weak)) void mcu_reset(void) {}
-
-__attribute__((weak)) void enter_bootloader_mode_if_requested(void) {}
-
-
-void bootmagic_lite(void) {
-    matrix_scan();
-    wait_ms(DEBOUNCE * 2);
-    matrix_scan();
-
-    if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
-      // Jump to bootloader.
-      
-        bootloader_jump();
-        while (1) ;
-     
-    }
-}
-
-
-bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_indicators_user()) {
-        return false;
-    }
-
-    if (host_keyboard_led_state().caps_lock) {
-        
-        rgb_matrix_set_color(3, 99, 99, 22);
-    } else {
-        rgb_matrix_set_color(3, 0,0,0);
-    }
-
-    return true;
-}
-
-uint8_t button_flag = 0; //按下标志位  0未按下 1按下
-uint8_t keymap_num11[3] = {0x55, 0x00, 0x01};
-uint8_t keymap_num22[3] = {0x55, 0x00, 0x00};
-uint8_t msg[3] ={0x55,0x55,0x55};
-
-
-/*
-bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-
-
-    if IS_ANY (keycode) // #define IS_ANY(code) (KC_A <= (code) && (code) <= 0xFF)
-        {
-            if (readPin(B14)) {
-            
-            uart_write(0x55);
-            uart_write(keycode);
-            uart_write(record->event.pressed);
-            
-
-            return false;
-            }
-
-        }
-
-    return process_record_user(keycode, record);
-        
-}
-*/
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
-led_config_t g_led_config = {{
-// LED 对应到键盘矩阵，index从0开始，没有灯的地方写 NO_LED
-
-
-    /*
-    #define LAYOUT( \
-    K00,      K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,   K0D, K0E, K3D, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,   K5B, K5C, K3E, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,   K2E, K5D, K5E, \
-    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,      K3C,                  \
-    K40,      K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A,      K4B,        K4C,      \
-    K50, K51, K52,                K53,                K54, K55, K56, K57,   K58, K59, K5A  \
-) { \
-    { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E   }, \
-    { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   K1C,   K1D,   KC_NO }, \
-    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C,   K2D,   K2E   }, \
-    { K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E   }, \
-    { K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47,   K48,   K49,   K4A,   K4B,   K4C,   KC_NO, KC_NO }, \
-    { K50,   K51,   K52,   K53,   K54,   K55,   K56,   K57,   K58,   K59,   K5A,   K5B,   K5C,   K5D,   K5E   }, \
-}
-
-    */
+led_config_t g_led_config = {
+    {
     /*  0      1      2      3      4      5      6      7      8      9     10     11     12     13     14  */
      {  0,     6,    12,    18,    23,    28,    34,    39,    44,    50,    56,    62,    68,    74,    78}, 
      {  1,     7,    13,    19,    24,    29,    35,    40,    45,    51,    57,    63,    69,    72,NO_LED},
@@ -125,9 +28,9 @@ led_config_t g_led_config = {{
      {  3,     9,    15,    21,    26,    31,    37,    42,    47,    53,    59,    65,    71,    83,    84},
      {  4,    10,    16,    22,    27,    32,    38,    43,    48,    54,    60,    66,    81,NO_LED,NO_LED},
      {  5,    11,    17,    33,    49,    55,    61,    67,    77,    82,    86,    75,    79,    80,    85}
-
-
-}, {
+    }, 
+    
+    {
     {0, 0},     // 0, ESC, k00
     {0, 17},    // 1, ~, k10
     {3, 29},    // 2, Tab, k20
@@ -237,7 +140,7 @@ led_config_t g_led_config = {{
     {200, 40},    //88 CAPS
   
 },
-// 分组，如果没有自己做灯光的需求用处其实不大 
+
  {
     4, 4, 4, 3, 1, 1, 4, 4, 4, 4,//0-9
     4, 1, 4, 4, 4, 4, 4, 1, 4, 4,//10-19
@@ -249,7 +152,9 @@ led_config_t g_led_config = {{
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4,//70-79
     4, 4, 4, 4, 4, 4, 4, 8, 8    //80-88
 
-}};
+}
+
+};
 
 const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS1_SW1, CS2_SW1, CS3_SW1},        //  0, ESC, k00
