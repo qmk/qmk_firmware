@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #endif
 
-// let us assume we start with both layers off
-static bool toggle_lwr = false;
-static bool toggle_rse = false;
 
 #ifdef RGBLIGHT_ENABLE
 
@@ -252,16 +249,8 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb();
 
 #endif
-#ifdef LED_LOWER_PIN
-    setPinOutput(LED_LOWER_PIN);
-    writePin(LED_LOWER_PIN, toggle_lwr);
-    wait_ms(30);
-#endif
-#ifdef LED_RAISE_PIN
-    setPinOutput(LED_RAISE_PIN);
-    writePin(LED_RAISE_PIN, toggle_lwr);
-    wait_ms(30);
-#endif
+
+init_lwr_rse_led();
 
 #ifdef OLED_ENABLE
     init_timer();
