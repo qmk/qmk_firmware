@@ -12,8 +12,7 @@
             },
             {
                 "pin_a": "F6",
-                "pin_b": "F7",
-                "resolution": 4
+                "pin_b": "F7"
             }
         ]
     },
