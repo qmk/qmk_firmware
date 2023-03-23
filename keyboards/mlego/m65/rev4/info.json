@@ -33,9 +33,7 @@
         "wpm": true
     },
     "indicators": {
-        "caps_lock": "C13",
-        "num_lock": "B12",
-        "scroll_lock": "B13"
+        "caps_lock": "C13"
     },
     "rgblight": {
         "saturation_steps": 8,

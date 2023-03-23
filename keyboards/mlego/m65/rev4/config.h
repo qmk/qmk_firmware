@@ -3,6 +3,9 @@
 
 #pragma once
 
+#define LED_RAISE_PIN B12
+#define LED_LOWER_PIN B13
+
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X32
 #    define I2C1_SCL_PIN B9
