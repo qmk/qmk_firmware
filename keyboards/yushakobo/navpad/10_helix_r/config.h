@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EE_HANDS
 
-#    define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 8, 7, \//navpad side
-                                   9, 10, 11, 12, 13, 14, \//helix side
+#    define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 8, 7, \
+                                   9, 10, 11, 12, 13, 14, \
                                   20, 19, 18, 17, 16, 15, \
                                   21, 22, 23, 24, 25, 26, \
                               33, 32, 31, 30, 29, 28, 27, \
