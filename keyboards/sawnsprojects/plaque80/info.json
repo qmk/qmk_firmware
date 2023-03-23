@@ -22,7 +22,7 @@
         "console": false,
         "command": false,
         "nkro": false,
-        "rgblight": true,
+        "rgblight": true
     },
     "rgblight": {
         "pin": "F0",
