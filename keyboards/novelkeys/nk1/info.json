@@ -10,10 +10,17 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["D4"]
+        ]
+    },
     "community_layouts": ["ortho_1x1"],
     "layouts": {
         "LAYOUT_ortho_1x1": {
-            "layout": [{"x": 0, "y": 0}]
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]}
+            ]
         }
     }
 }

@@ -4,5 +4,10 @@
         "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["B6"]
+        ]
+    }
 }

@@ -8,6 +8,24 @@
         "pid": "0x5344",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C6", "D1", "D5", "D4", "D3", "D2"],
+        "rows": ["B4", "B1", "C2", "D0", "D6", "B0", "B6", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+      "rotary": [
+        {"pin_a": "C7", "pin_b": "B7"},
+        {"pin_a": "B7", "pin_b": "C7"},
+        {"pin_a": "B3", "pin_b": "B2"},
+        {"pin_a": "B2", "pin_b": "B3"}
+      ]
+    },
+    "backlight": {
+      "pin": "C4",
+      "levels": 6,
+      "breathing": true
+    },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "layouts": {

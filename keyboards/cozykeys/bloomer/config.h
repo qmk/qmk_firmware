@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-// Key matrix size
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
 // Enable RGB backlight
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D7
@@ -40,9 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_BREATHE_TABLE_SIZE    256
-#define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85
-#define RGBLIGHT_EFFECT_BREATHE_MAX    255
 #endif
 
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap

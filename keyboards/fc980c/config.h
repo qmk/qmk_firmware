@@ -25,15 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
 
-// #define MATRIX_ROW_PINS { B0, B2, B4, B5, B6 }
-// #define MATRIX_COL_PINS { F5, B1, F0, F1, F4, B3, D7, D6, D4, D5, D3, D2, D1, D0 }
-
-//#define DIODE_DIRECTION
-
-#define LED_NUM_LOCK_PIN B4
-#define LED_CAPS_LOCK_PIN B5
-#define LED_SCROLL_LOCK_PIN B6
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define BOOTMAGIC_LITE_ROW 13
-#define BOOTMAGIC_LITE_COLUMN 2
-
 /* Defaults */
 #ifndef BALLSTEP
 #define BALLSTEP 20

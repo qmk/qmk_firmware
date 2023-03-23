@@ -17,18 +17,7 @@
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { D4 } \
-}
-
 #define RGB_DI_PIN F0
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 9
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
@@ -45,7 +34,6 @@
     #define RGBLIGHT_EFFECT_RGB_TEST
     #define RGBLIGHT_EFFECT_ALTERNATING
     #define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 /* There is only 1 Button so limiting VIA to 1 layer */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 1

@@ -124,3 +124,18 @@ As the RP2040 does not have any internal flash memory it depends on an external 
 | W25X10CL                   | `#define RP2040_FLASH_W25X10CL`    |
 | IS25LP080                  | `#define RP2040_FLASH_IS25LP080`   |
 | Generic 03H flash          | `#define RP2040_FLASH_GENERIC_03H` |
+
+## RP2040 Community Edition :id=rp2040_ce
+
+The "RP2040 Community Edition" standard is a pinout that was defined by a committee of designers on the BastardKB Discord server.
+
+These boards are designed to be a drop-in replacement for keyboards wanting an upgrade from ATmega32u4 based pro micros (eg. Elite-C).
+
+| Pinout Compatible Controllers                                                    |
+| -------------------------------------------------------------------------------- |
+| [0xB2 Splinky](https://github.com/plut0nium/0xB2/)                               |
+| [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040) |
+| [Sea-Picro EXT](https://github.com/joshajohnson/sea-picro)                       |
+| [0xCB Helios](https://keeb.supply/products/0xcb-helios)                          |
+| [Frood](https://github.com/piit79/Frood)                                         |
+| [Liatris](https://splitkb.com/products/liatris)                                  |

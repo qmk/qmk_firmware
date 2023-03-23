@@ -6,6 +6,14 @@
     "usb": {
         "vid": "0x4D4C"
     },
+    "matrix_pins": {
+        "cols": ["F7", "D7", "D6", "D2"],
+        "rows": ["F0", "F1", "F4", "F5", "F6", "D3"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "num_lock": "B5"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["numpad_6x4", "ortho_6x4"],

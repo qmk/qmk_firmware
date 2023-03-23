@@ -16,21 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
-#define MATRIX_COL_PINS { A0, B1, B0, A4, B5, B4, B3 }
-#define MATRIX_ROW_PINS { A2, A1, B8, A10, C15, A15, B7, B6, C14, C13}
-#define DIODE_DIRECTION COL2ROW
-
-/* In switch leds */
-#define BACKLIGHT_PIN           A3
 #define BACKLIGHT_PWM_DRIVER    PWMD2
 #define BACKLIGHT_PWM_CHANNEL   4
 #define BACKLIGHT_PAL_MODE      2
-#define BACKLIGHT_ON_STATE      1
-#define BACKLIGHT_LEVELS        10
-#define BACKLIGHT_BREATHING     TRUE
 
 /* Underglow */
 #define RGB_DI_PIN  A7

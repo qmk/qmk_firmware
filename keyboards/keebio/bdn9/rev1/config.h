@@ -17,26 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { D2, D4, F4 }, \
-    { D7, B1, B3 }, \
-    { E6, B4, B2 } \
-}
-
-#define ENCODERS_PAD_A { D0, F6, B6 }
-#define ENCODERS_PAD_B { D1, F5, F7 }
-
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 7
-
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 4
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
@@ -53,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

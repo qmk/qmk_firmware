@@ -18,18 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
-// wiring of each half
-#define MATRIX_COL_PINS { C0, C1, C2, C3, C4, C5 }
-#define MATRIX_ROW_PINS { A0, A1, A2, A3, A4 }
-
-#define DIODE_DIRECTION COL2ROW
-
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN       E7
 #define RGB_MATRIX_LED_COUNT 62
@@ -47,12 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ROTATIONAL_TRANSFORM_ANGLE     -25
 
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW             0
-#define BOOTMAGIC_LITE_COLUMN          0
-#define BOOTMAGIC_LITE_ROW_RIGHT       4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT    5
-
 #define AUDIO_PIN                      C6
 #define AUDIO_PIN_ALT                  B7
 
@@ -60,8 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_LAYER_COUNT     16
 #define LAYER_STATE_16BIT
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D3
 #define EE_HANDS
 
 /* disable action features */

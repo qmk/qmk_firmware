@@ -8,6 +8,11 @@
         "pid": "0xAA03",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A6", "A7", "B0", "A9", "A8", "A14", "A15", "B3", "B4", "B5", "B8", "B7", "B6", "B9"],
+        "rows": ["C13", "B2", "B1", "A4", "A3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

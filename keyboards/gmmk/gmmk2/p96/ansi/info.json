@@ -8,6 +8,11 @@
         "pid": "0x504B",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A0", "A1", "A2", "A3", "A4", "A8", "A9", "A10"],
+        "rows": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "WB32F3G71",
     "bootloader": "wb32-dfu",
     "layouts": {

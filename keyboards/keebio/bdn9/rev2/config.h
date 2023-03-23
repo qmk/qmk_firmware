@@ -17,25 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-    { B12, B5, B6 }, \
-    { B14, B4, B7 }, \
-    { A3, F1, F0 } \
-}
-
-// Left, Right, Middle
-#define ENCODERS_PAD_A { A8, B3, A10 }
-#define ENCODERS_PAD_B { A4, A15, A9 }
 #define TAP_CODE_DELAY 10
 
 #define RGB_DI_PIN B15
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 11
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
@@ -106,7 +90,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    endif
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

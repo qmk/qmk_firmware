@@ -49,18 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 };
 
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY(KC_A) {
-      tap_code16(SGUI(KC_L));
-    }
-    SEQ_TWO_KEYS(KC_S, KC_S) {
-      tap_code16(SGUI(KC_5));
-    }
+void leader_end_user(void) {
+  if (leader_sequence_one_key(KC_A)) {
+    tap_code16(SGUI(KC_L));
+  }
+  if (leader_sequence_two_keys(KC_S, KC_S)) {
+    tap_code16(SGUI(KC_5));
   }
 }

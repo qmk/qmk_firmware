@@ -19,10 +19,6 @@
 
 #include "planck.h"
 
-#ifdef KEYBOARD_planck_ez_glow
-#    include "glow.h"
-#endif
-
 #define LAYOUT_planck_1x2uC( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, \
@@ -68,9 +64,8 @@ void planck_ez_left_led_off(void);
 void planck_ez_left_led_level(uint8_t level);
 
 enum planck_ez_keycodes {
-    LED_LEVEL = SAFE_RANGE,
+    LED_LEVEL = QK_KB_0,
     TOGGLE_LAYER_COLOR,
-    EZ_SAFE_RANGE,
 };
 
 #ifndef WEBUSB_ENABLE

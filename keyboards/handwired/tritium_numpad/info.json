@@ -8,6 +8,19 @@
     "pid": "0x6060",
     "device_version": "0.0.3"
   },
+  "matrix_pins": {
+    "cols": ["F4", "F6", "B1", "B2"],
+    "rows": ["D1", "D0", "D4", "C6", "D7", "E6"]
+  },
+  "diode_direction": "COL2ROW",
+  "backlight": {
+    "pin": "B6",
+    "levels": 4
+  },
+  "indicators": {
+    "num_lock": "D5",
+    "on_state": 0
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "community_layouts": ["numpad_6x4", "ortho_6x4"],

@@ -19,7 +19,7 @@ on:
 jobs:
   api_data:
     runs-on: ubuntu-latest
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     # protect against those who work in their fork on 'important' branches
     if: github.repository == 'qmk/qmk_firmware'

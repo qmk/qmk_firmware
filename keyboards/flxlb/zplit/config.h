@@ -18,28 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
-// wiring of each half
-#define MATRIX_ROW_PINS { D4, F5, F4, F1 }
-#define MATRIX_COL_PINS { B2, B3, D6, D7, B4, B5 }
-// #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6 } //uncomment this line and comment line above if you need to reverse left-to-right key order
-
-#define DIODE_DIRECTION COL2ROW
-
-/* configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
 #define SELECT_SOFT_SERIAL_SPEED 1
 // #define USE_I2C
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 500
-
-#define ENCODERS_PAD_A { B0 }
-#define ENCODERS_PAD_B { D2 }
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

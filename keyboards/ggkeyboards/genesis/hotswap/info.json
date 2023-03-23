@@ -8,6 +8,11 @@
         "pid": "0xD4D3",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C6", "C7"],
+        "rows": ["C5", "C4", "C3", "C2", "C1", "C0"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layout_aliases": {

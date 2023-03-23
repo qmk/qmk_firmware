@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { C14, C15, A0, A1, A2 }
-
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110111
@@ -35,11 +31,4 @@
 #define NUM_LOCK_LED_INDEX 5
 
 /* Encoder Configuration */
-#define ENCODERS_PAD_A { A3 }
-#define ENCODERS_PAD_B { A4 }
-#define ENCODER_RESOLUTION 4
 #define ENCODER_DEFAULT_POS 0x3
-
-/* Specify (0,1) which programmed as "Fn" key on this keyboard as bootmagic key */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1

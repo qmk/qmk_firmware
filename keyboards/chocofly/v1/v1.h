@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "chocofly.h"
-
 #include "quantum.h"
 
 #define K__ KC_NO

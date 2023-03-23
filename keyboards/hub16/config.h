@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
 #define MATRIX_ROW_PINS \
     { F0, C7, C6, B6, E6}
 #define MATRIX_COL_PINS \
@@ -47,13 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-/* ENCODER THINGS */
-// #define ENCODER_DIRECTION_FLIP
-#define ENCODERS_PAD_A \
-    { F5, B5 }
-#define ENCODERS_PAD_B \
-    { F6, B4 }
 
 /* Tap Dance timing */
 #define TAPPING_TERM 200

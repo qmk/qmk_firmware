@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "vitamins_included.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))

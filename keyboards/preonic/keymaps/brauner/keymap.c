@@ -363,44 +363,35 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     return true;
 }
 
-LEADER_EXTERNS();
-
 static inline void register_ctrl_sequence(uint16_t keycode) {
     tap_code16(RCTL(keycode));
 }
 
-static inline void leader_bindings(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
+void leader_end_user(void) {
+    if (leader_sequence_three_keys(KC_A, KC_C, KC_K)) {
+        SEND_STRING("Acked-by: Christian Brauner <brauner@kernel.org>");
+    }
 
-        SEQ_THREE_KEYS(KC_A, KC_C, KC_K) {
-            SEND_STRING("Acked-by: Christian Brauner <brauner@kernel.org>");
-        }
+    if (leader_sequence_three_keys(KC_R, KC_V, KC_B)) {
+        SEND_STRING("Reviewed-by: Christian Brauner <brauner@kernel.org>");
+    }
 
-        SEQ_THREE_KEYS(KC_R, KC_V, KC_B) {
-            SEND_STRING("Reviewed-by: Christian Brauner <brauner@kernel.org>");
-        }
+    if (leader_sequence_three_keys(KC_S, KC_O, KC_B)) {
+        SEND_STRING("Signed-off-by: Christian Brauner <brauner@kernel.org>");
+    }
 
-        SEQ_THREE_KEYS(KC_S, KC_O, KC_B) {
-            SEND_STRING("Signed-off-by: Christian Brauner <brauner@kernel.org>");
-        }
+    /* Support vim-style copy. */
+    if (leader_sequence_one_key(KC_Y)) {
+        tap_code16(C(S(KC_C)));
+    }
 
-        /* Support vim-style copy. */
-        SEQ_ONE_KEY(KC_Y) {
-            tap_code16(C(S(KC_C)));
-        }
-
-        /* Support vim-style paste. */
-        SEQ_ONE_KEY(KC_P) {
-            tap_code16(C(S(KC_V)));
-        }
+    /* Support vim-style paste. */
+    if (leader_sequence_one_key(KC_P)) {
+        tap_code16(C(S(KC_V)));
     }
 }
 
 void matrix_scan_user(void) {
-    leader_bindings();
-
 #ifdef AUDIO_ENABLE
     if (muse_mode) {
         if (muse_counter == 0) {

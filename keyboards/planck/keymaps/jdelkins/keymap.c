@@ -408,7 +408,64 @@ void keyboard_post_init_keymap(void) {
     bspc_timer = 0;
 }
 
-LEADER_EXTERNS();
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_K)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_one_key(KC_G)) {
+        layer_invert(_GAME);
+    }
+    if (leader_sequence_one_key(KC_KP_5)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_one_key(KC_5)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_1)) {
+        send_secret_string(0);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_2)) {
+        send_secret_string(1);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_3)) {
+        send_secret_string(2);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_4)) {
+        send_secret_string(3);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_5)) {
+        send_secret_string(4);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_6)) {
+        send_secret_string(5);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_M)) {
+        send_secret_string(0);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_COMM)) {
+        send_secret_string(1);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_DOT)) {
+        send_secret_string(2);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_J)) {
+        send_secret_string(3);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_K)) {
+        send_secret_string(4);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_L)) {
+        send_secret_string(5);
+    }
+    if (leader_sequence_one_key(KC_C)) {
+        tap_code16(C(KC_C));
+    }
+    // neovim: terminal escape
+    if (leader_sequence_one_key(KC_QUOT)) {
+        tap_code16(C(KC_BSLS));
+        tap_code16(C(KC_N));
+    }
+}
 
 void matrix_scan_keymap(void) {
 #ifdef AUDIO_ENABLE
@@ -435,67 +492,6 @@ void matrix_scan_keymap(void) {
         layer_off(_KP);
         bspc_timer = 0;
         register_code(KC_BSPC);
-    }
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_K) {
-            layer_invert(_KP);
-        }
-        SEQ_ONE_KEY(KC_G) {
-            layer_invert(_GAME);
-        }
-        SEQ_ONE_KEY(KC_KP_5) {
-            layer_invert(_KP);
-        }
-        SEQ_ONE_KEY(KC_5) {
-            layer_invert(_KP);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_1) {
-            send_secret_string(0);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_2) {
-            send_secret_string(1);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_3) {
-            send_secret_string(2);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_4) {
-            send_secret_string(3);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_5) {
-            send_secret_string(4);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_6) {
-            send_secret_string(5);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_M) {
-            send_secret_string(0);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_COMM) {
-            send_secret_string(1);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_DOT) {
-            send_secret_string(2);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_J) {
-            send_secret_string(3);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_K) {
-            send_secret_string(4);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_L) {
-            send_secret_string(5);
-        }
-        SEQ_ONE_KEY(KC_C) {
-            tap_code16(C(KC_C));
-        }
-        // neovim: terminal escape
-        SEQ_ONE_KEY(KC_QUOT) {
-            tap_code16(C(KC_BSLS));
-            tap_code16(C(KC_N));
-        }
     }
 }
 

@@ -21,25 +21,6 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 19
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-//#define MATRIX_ROW_PINS { D0, D5 }
-//#define MATRIX_COL_PINS { F1, F0, B0 }
-
-/* COL2ROW, ROW2COL */
-//#define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 10
-
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 9
 #define RGBLIGHT_EFFECT_BREATHING
@@ -52,14 +33,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-// #ifdef RGB_DI_PIN
-//   #define RGBLIGHT_HUE_STEP 8
-//   #define RGBLIGHT_SAT_STEP 8
-//   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

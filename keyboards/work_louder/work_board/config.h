@@ -17,29 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS  4
-#define MATRIX_COLS  13
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS \
-    { F0, F1, F4, F5 }
-#define MATRIX_COL_PINS \
-    { D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6, E6 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION        COL2ROW
-
 #define USB_MAX_POWER_CONSUMPTION 100
 
 #define RGBLIGHT_DI_PIN        D2
@@ -60,13 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_GRADIENT + 9
 #define RGBLIGHT_DEFAULT_HUE          213
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-//#endif
 
 #define RGB_DI_PIN                    D1
 #define RGB_MATRIX_LED_COUNT              49
@@ -144,10 +114,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define ENCODERS_PAD_A \
-    { B0 }
-#define ENCODERS_PAD_B \
-    { B1 }
 
 #define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x1

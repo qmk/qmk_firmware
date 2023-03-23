@@ -1,5 +1,7 @@
 #pragma once
 
+#include "lfk78.h"
+
 // readability
 #define XXX KC_NO
 

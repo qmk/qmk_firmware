@@ -1,11 +1,6 @@
 
 #pragma once
 
-#ifdef BACKLIGHT_ENABLE
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 3
-#endif
-
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 13

@@ -6,6 +6,11 @@
         "pid": "0x2408",
         "device_version": "0.0.7"
     },
+    "matrix_pins": {
+        "cols": ["B2", "B6", "B5", "F1", "F0", "C15", "C14", "C13"],
+        "rows": ["B10", "B11", "A14", "A15", "A3", "A0", "A2", "A1"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "community_layouts": ["ortho_4x16"],

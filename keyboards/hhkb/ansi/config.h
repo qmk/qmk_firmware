@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM    200
 
-#define BACKLIGHT_LEVELS 3
-
 #ifdef HHKB_RN42_ENABLE
 // rn42 support -- acquired from the tmk repo. This is almost certainly not
 // integrated with qmk in the correct way.

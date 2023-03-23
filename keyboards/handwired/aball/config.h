@@ -17,12 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-#define DIRECT_PINS {{NO_PIN}}
-
 #define ADNS9800_CS_PIN F7
 #define POINTING_DEVICE_INVERT_X

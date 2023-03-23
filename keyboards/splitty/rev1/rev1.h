@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_H
+#include "splitty.h"
 
 // clang-format off
 #define LAYOUT( \

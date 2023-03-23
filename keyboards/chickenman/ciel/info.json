@@ -8,6 +8,11 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C6", "B6", "B5", "B4", "B3", "B2", "B1", "D6", "D5", "D4", "D3", "D2", "D1", "D0", "C2"],
+        "rows": ["C5", "C4", "B0", "C7", "B7"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi_split_bs_rshift", "60_ansi", "60_tsangan_hhkb"],

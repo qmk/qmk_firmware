@@ -60,8 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
-#define BACKLIGHT_LEVELS 3
-
 #ifndef LED_BRIGHTNESS_LO
 #define LED_BRIGHTNESS_LO       15
 #endif

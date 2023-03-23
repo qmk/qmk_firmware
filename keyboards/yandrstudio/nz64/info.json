@@ -4,6 +4,11 @@
         "pid": "0xAAAF",
         "device_version": "1.0.0"
     },
+    "matrix_pins": {
+        "cols": ["A15", "B3", "B4", "B6", "B7", "B5", "C13", "A5", "A4", "B14", "B15", "A8", "A9", "A10"],
+        "rows": ["C14", "B13", "B12", "C15", "A3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "layouts": {

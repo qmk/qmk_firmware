@@ -92,6 +92,9 @@
     "bpiphany/pegasushoof": {
         "target": "bpiphany/pegasushoof/2013"
     },
+    "brick": {
+        "target": "pauperboards/brick"
+    },
     "chavdai40": {
         "target": "chavdai40/rev1"
     },

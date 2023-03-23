@@ -8,6 +8,19 @@
     "pid": "0x6060",
     "device_version": "0.0.3"
   },
+  "matrix_pins": {
+    "cols": ["F1", "F0", "E6", "C7"],
+    "rows": ["F7", "F6", "F5", "F4", "D5", "D0"]
+  },
+  "diode_direction": "COL2ROW",
+  "backlight": {
+    "pin": "B6",
+    "levels": 4
+  },
+  "indicators": {
+    "num_lock": "D6",
+    "on_state": 0
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "community_layouts": ["numpad_6x4", "ortho_6x4"],
