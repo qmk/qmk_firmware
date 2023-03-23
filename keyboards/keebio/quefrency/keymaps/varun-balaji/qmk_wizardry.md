@@ -33,6 +33,7 @@
 [ ] combos?
 [ ] key override shift+backspace to delete
 [ ] left mod key: double tap for normal layer? mod + G for gaming layer?
+[ ] in case of a smaller keyboard, make escape (and tab) a layered key
 
 # Abandoned
 [ ] mod-tap tab to a different layer maybe?, nah, too much to hold
