@@ -13,9 +13,7 @@
         matrix_task();
 
         // After (variant 1, automatic naming):
-        PROFILE_CALL(1000, {
-            matrix_task();
-        });
+        PROFILE_CALL(1000, matrix_task());
 
         // After (variant 2, explicit naming):
         PROFILE_CALL_NAMED(1000, "matrix_task", {
