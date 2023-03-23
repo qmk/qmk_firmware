@@ -2,7 +2,7 @@
     "manufacturer": "Joe Scotto",
     "keyboard_name": "ScottoAlp",
     "maintainer": "joe-scotto",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
