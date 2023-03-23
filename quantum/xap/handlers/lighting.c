@@ -60,10 +60,6 @@ extern rgblight_config_t rgblight_config;
 uint8_t rgblight2xap(uint8_t val);
 uint8_t xap2rgblight(uint8_t val);
 
-void rgblight_enabled_noeeprom(bool val) {
-    val ? rgblight_enable_noeeprom() : rgblight_disable_noeeprom();
-}
-
 bool xap_respond_get_rgblight_config(xap_token_t token, const void *data, size_t length) {
     xap_route_lighting_rgblight_get_config_t ret;
 

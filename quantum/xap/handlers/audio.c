@@ -32,7 +32,7 @@ bool xap_respond_set_audio_config(xap_token_t token, const void *data, size_t le
 }
 
 bool xap_respond_save_audio_config(xap_token_t token, const void *data, size_t length) {
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio_current();
 
     return xap_respond_success(token);
 }
