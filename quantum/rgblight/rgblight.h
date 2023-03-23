@@ -321,6 +321,7 @@ void rgblight_enable(void);
 void rgblight_enable_noeeprom(void);
 void rgblight_disable(void);
 void rgblight_disable_noeeprom(void);
+void rgblight_enabled_noeeprom(bool state);
 
 /*   hue, sat, val change */
 void rgblight_increase_hue(void);

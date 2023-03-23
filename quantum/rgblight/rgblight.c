@@ -422,6 +422,10 @@ void rgblight_disable_noeeprom(void) {
     rgblight_set();
 }
 
+void rgblight_enabled_noeeprom(bool state) {
+    state ? rgblight_enable_noeeprom() : rgblight_disable_noeeprom();
+}
+
 bool rgblight_is_enabled(void) {
     return rgblight_config.enable;
 }
