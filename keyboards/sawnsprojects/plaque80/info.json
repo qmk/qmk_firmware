@@ -22,14 +22,11 @@
         "console": false,
         "command": false,
         "nkro": false,
-        "backlight": false,
         "rgblight": true,
-        "audio": false,
-        "key_lock": false
     },
     "rgblight": {
         "pin": "F0",
-        "led_count": 0,
+        "led_count": 30,
         "sleep": true,
         "animations": {
             "alternating": true,
