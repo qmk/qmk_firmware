@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Pin WS2812 RGB LEDs are connected to */
 #define RGB_DI_PIN B0
 
-#ifdef RGB_DI_PIN
 #   define RGBLED_NUM 16
 #   define RGBLIGHT_HUE_STEP 8
 #   define RGBLIGHT_SAT_STEP 8
@@ -38,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #   define RGBLIGHT_EFFECT_TWINKLE
 #   define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL /* Set default RGB */
-#endif /* RGB_DI_PIN */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

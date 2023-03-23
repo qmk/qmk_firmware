@@ -17,11 +17,9 @@
 #pragma once
 
 #define RGB_DI_PIN F7
-#ifdef RGB_DI_PIN
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
     #define RGBLIGHT_EFFECT_SNAKE
     #define RGBLED_NUM 12
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
-#endif

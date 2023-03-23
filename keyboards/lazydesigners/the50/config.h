@@ -7,7 +7,5 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN E6
-#ifdef RGB_DI_PIN
 #define RGBLED_NUM 1
 #define RGBLIGHT_SLEEP
-#endif

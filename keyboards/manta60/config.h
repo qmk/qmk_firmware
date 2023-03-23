@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SELECT_SOFT_SERIAL_SPEED 1
 
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 68
 #    define RGBLIGHT_SPLIT
 #    define RGBLED_SPLIT { 34, 34 }
@@ -44,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 #    define USB_MAX_POWER_CONSUMPTION 400

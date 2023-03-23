@@ -17,6 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef RGB_DI_PIN
 #    define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 8, 7 }
-#endif
