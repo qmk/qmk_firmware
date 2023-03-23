@@ -610,9 +610,10 @@ void quantum_task(void) {
 
 /** \brief Main task that is repeatedly called as fast as possible. */
 void keyboard_task(void) {
-    const bool matrix_changed = matrix_task();
-    if (matrix_changed) {
+    __attribute__((unused)) bool activity_has_occurred = false;
+    if (matrix_task()) {
         last_matrix_activity_trigger();
+        activity_has_occurred = true;
     }
 
     quantum_task();
@@ -639,16 +640,16 @@ void keyboard_task(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-    const bool encoders_changed = encoder_read();
-    if (encoders_changed) {
+    if (encoder_read()) {
         last_encoder_activity_trigger();
+        activity_has_occurred = true;
     }
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
-    const bool pointing_device_changed = pointing_device_task();
-    if (pointing_device_changed) {
+    if (pointing_device_task()) {
         last_pointing_device_activity_trigger();
+        activity_has_occurred = true;
     }
 #endif
 
@@ -656,15 +657,7 @@ void keyboard_task(void) {
     oled_task();
 #    if OLED_TIMEOUT > 0
     // Wake up oled if user is using those fabulous keys or spinning those encoders!
-    if (matrix_changed
-#        ifdef ENCODER_ENABLE
-        || encoders_changed
-#        endif
-#        ifdef POINTING_DEVICE_ENABLE
-        || pointing_device_changed
-#        endif
-    )
-        oled_on();
+    if (activity_has_occurred) oled_on();
 #    endif
 #endif
 
@@ -672,15 +665,7 @@ void keyboard_task(void) {
     st7565_task();
 #    if ST7565_TIMEOUT > 0
     // Wake up display if user is using those fabulous keys or spinning those encoders!
-    if (matrix_changed
-#        ifdef ENCODER_ENABLE
-        || encoders_changed
-#        endif
-#        ifdef POINTING_DEVICE_ENABLE
-        || pointing_device_changed
-#        endif
-    )
-        st7565_on();
+    if (activity_has_occurred) st7565_on();
 #    endif
 #endif
 
