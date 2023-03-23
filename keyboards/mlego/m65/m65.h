@@ -11,6 +11,10 @@ enum unicode_names { la = 0, lA, lb, lB, lc, lC, ld, lD, le, lE, lf, lF, lg, lG,
 
 enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 
+// let us assume we start with both layers off
+static bool toggle_lwr = false;
+static bool toggle_rse = false;
+
 #ifdef OLED_ENABLE
 void user_oled_magic(void);
 void render_logo(void);
@@ -27,7 +31,7 @@ void                             set_default_rgb_layers(layer_state_t);
 void toggle_leds(void);
 void set_led_toggle(const uint8_t, const bool);
 
-static inline void init_lwr_rse_led(const bool toggle_lwr, const bool toggle_rse) {
+static inline void init_lwr_rse_led(void) {
 #ifdef LED_LWR_PIN
     setPinOutput(LED_LWR_PIN);
     writePin(LED_LWR_PIN, toggle_lwr);
@@ -50,5 +54,18 @@ static inline void led_lwr(const bool on) {
 static inline void led_rse(const bool on) {
 #ifdef LED_RSE_PIN
     writePin(LED_RSE_PIN, on);
+#endif
+}
+static inline void led_caps(const bool on) {
+#ifdef LED_CAPS_LOCK_PIN
+/*
+  if (((PRODUCT_ID == 0x6061) || (PRODUCT_ID == 0x6063) ||  (PRODUCT_ID == 0x6062)) && (DEVICE_VER == 0x0002)) {
+  writePin(LED_CAPS_LOCK_PIN, on);
+} else {
+ */
+        writePin(LED_CAPS_LOCK_PIN, !on);
+/*
+    }
+ */
 #endif
 }

@@ -3,9 +3,6 @@
 
 #include "m65.h"
 
-// let us assume we start with both layers off
-static bool toggle_lwr = false;
-static bool toggle_rse = false;
 
 #if defined(RGBLIGHT_ENABLE)
 
@@ -232,6 +229,8 @@ void keyboard_post_init_kb(void) {
 
 #if defined(OLED_ENABLE)
     init_timer();
+#endif
+
 #endif
 
 #if defined(CONSOLE_ENABLE)
