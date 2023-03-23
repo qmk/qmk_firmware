@@ -112,6 +112,10 @@ static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
 
+void eeconfig_update_audio_current(void) {
+    eeconfig_update_audio(audio_config.raw);
+}
+
 void audio_init(void) {
     if (audio_initialized) {
         return;
