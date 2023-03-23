@@ -513,6 +513,9 @@
     "ropro": {
         "target": "kingly_keys/ropro"
     },
+    "rs40": {
+        "target": "kj_modify/rs40"
+    },
     "satan": {
         "target": "gh60/satan"
     },

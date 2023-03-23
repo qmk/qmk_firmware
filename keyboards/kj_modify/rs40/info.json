@@ -1,0 +1,77 @@
+{
+    "manufacturer": "KJ-Modify",
+    "keyboard_name": "kj_modify/rs40",
+    "maintainer": "Audite Marlow",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["B12", "B14", "B15", "A8", "A9", "C13", "B9", "B8", "B5", "B4", "B3", "A15"],
+        "rows": ["B13", "A10", "B1", "B10"]
+    },
+    "processor": "STM32F401",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x5253",
+        "vid": "0x4B4A"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "x": 0,  "y": 0, "w": 1, "label": "ESC" },
+                { "x": 1,  "y": 0, "w": 1, "label": "Q" },
+                { "x": 2,  "y": 0, "w": 1, "label": "W" },
+                { "x": 3,  "y": 0, "w": 1, "label": "E" },
+                { "x": 4,  "y": 0, "w": 1, "label": "R" },
+                { "x": 5,  "y": 0, "w": 1, "label": "T" },
+                { "x": 6,  "y": 0, "w": 1, "label": "Y" },
+                { "x": 7,  "y": 0, "w": 1, "label": "U" },
+                { "x": 8,  "y": 0, "w": 1, "label": "I" },
+                { "x": 9,  "y": 0, "w": 1, "label": "O" },
+                { "x": 10, "y": 0, "w": 1, "label": "P" },
+                { "x": 11, "y": 0, "w": 1, "label": "BACKSPACE" },
+
+                { "x": 0,     "y": 1, "w": 1.25, "label": "CAPSLOCK" },
+                { "x": 1.25,  "y": 1, "w": 1,    "label": "A" },
+                { "x": 2.25,  "y": 1, "w": 1,    "label": "S" },
+                { "x": 3.25,  "y": 1, "w": 1,    "label": "D" },
+                { "x": 4.25,  "y": 1, "w": 1,    "label": "F" },
+                { "x": 5.25,  "y": 1, "w": 1,    "label": "G" },
+                { "x": 6.25,  "y": 1, "w": 1,    "label": "H" },
+                { "x": 7.25,  "y": 1, "w": 1,    "label": "J" },
+                { "x": 8.25,  "y": 1, "w": 1,    "label": "K" },
+                { "x": 9.25,  "y": 1, "w": 1,    "label": "L" },
+                { "x": 10.25, "y": 1, "w": 1.75, "label": "ENTER" },
+
+                { "x": 0,     "y": 2, "w": 1.75, "label": "LSHIFT" },
+                { "x": 1.75,  "y": 2, "w": 1,    "label": "Z" },
+                { "x": 2.75,  "y": 2, "w": 1,    "label": "X" },
+                { "x": 3.75,  "y": 2, "w": 1,    "label": "C" },
+                { "x": 4.75,  "y": 2, "w": 1,    "label": "V" },
+                { "x": 5.75,  "y": 2, "w": 1,    "label": "B" },
+                { "x": 6.75,  "y": 2, "w": 1,    "label": "N" },
+                { "x": 7.75,  "y": 2, "w": 1,    "label": "M" },
+                { "x": 8.75,  "y": 2, "w": 1,    "label": "COMMA" },
+                { "x": 9.75,  "y": 2, "w": 1,    "label": "PERIOD" },
+                { "x": 10.75, "y": 2, "w": 1.25, "label": "RSHIFT" },
+
+                { "x": 0,     "y": 2, "w": 1.25, "label": "LCTRL" },
+                { "x": 1.25,  "y": 2, "w": 1,    "label": "FN2" },
+                { "x": 2.25,  "y": 2, "w": 1.25, "label": "WIN" },
+                { "x": 3.5,   "y": 2, "w": 2.25, "label": "SPACE" },
+                { "x": 5.75,  "y": 2, "w": 2.75, "label": "FN" },
+                { "x": 8.5,   "y": 2, "w": 1.25, "label": "SLASH" },
+                { "x": 9.75,  "y": 2, "w": 1,    "label": "SEMICOLON" },
+                { "x": 10.75, "y": 2, "w": 1.25, "label": "RCTRL" }
+            ]
+        }
+    }
+}
