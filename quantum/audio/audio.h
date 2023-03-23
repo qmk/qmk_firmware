@@ -64,6 +64,11 @@ typedef struct {
 // public interface
 
 /**
+ * @brief Save the current choices to the eeprom
+ */
+void eeconfig_update_audio_current(void);
+
+/**
  * @brief one-time initialization called by quantum/quantum.c
  * @details usually done lazy, when some tones are to be played
  *
