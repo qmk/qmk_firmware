@@ -61,7 +61,10 @@ def painter_convert_font_image(cli):
         return
 
     # Work out the text substitutions for rendering the output data
-    subs = generate_subs(cli, out_bytes, font=font)
+    metadata = {
+        "glyphs": cli.args.unicode_glyphs
+    }
+    subs = generate_subs(cli, out_bytes, font_metadata=metadata)
 
     # Render and write the header file
     header_text = render_header(subs)

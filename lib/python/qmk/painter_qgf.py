@@ -230,6 +230,8 @@ def _save(im, fp, filename):
     verbose = encoderinfo.get("verbose", False)
     use_deltas = encoderinfo.get("use_deltas", True)
     use_rle = encoderinfo.get("use_rle", True)
+    metadata = encoderinfo.get("metadata", [])
+    metadata.append({"width": im.width, "height": im.height})
 
     # Helper for inline verbose prints
     def vprint(s):
@@ -378,6 +380,13 @@ def _save(im, fp, filename):
             # Write the delta frame to the output
             vprint(f'{f"Frame {idx:3d} delta":26s} {fp.tell():5d}d / {fp.tell():04X}h')
             delta_descriptor.write(fp)
+
+        # Add metadata, showed later in a comment in the generated file
+        metadata.append({
+            "compression": frame_descriptor.compression,
+            "delta": frame_descriptor.is_delta,
+            "delay": frame_descriptor.delay,
+        })
 
         # Write out the data for this frame to the output
         data_descriptor = QGFFrameDataDescriptorV1()

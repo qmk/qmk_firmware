@@ -80,9 +80,37 @@ valid_formats = {
     }
 }
 
+def _render_text(values):
+    # FIXME: May need more chars with GIFs containing lots of frames (or longer durations)
+    return " |".join([f"{i:4d}" for i in values])
 
-def generate_subs(cli, out_bytes, *, font=None, image=None):
-    if font is not None and image is not None:
+def _render_numeration(metadata):
+    return _render_text(range(len(metadata)))
+
+def _render_duration(metadata):
+    return _render_text([i["delay"] for i in metadata])
+
+def _render_compression(metadata):
+    return _render_text([i["compression"] for i in metadata]) + " >> See qp.h, painter_compression_t"
+
+def _render_delta(metadata):
+    return _render_text([i["delta"] for i in metadata])
+
+
+def _render_image_metadata(metadata):
+    if len(metadata) == 1:
+        return "// Single frame"
+
+    return "\n".join([
+        f"//        Frame: {_render_numeration(metadata)}",
+        f"// Duration(ms): {_render_duration(metadata)}",
+        f"//  Compression: {_render_compression(metadata)}",
+        f"//        Delta: {_render_delta(metadata)}",
+    ])
+
+
+def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
+    if font_metadata is not None and image_metadata is not None:
         raise ValueError("Cant generate subs for font and image at the same time")
 
     subs = {
@@ -94,7 +122,7 @@ def generate_subs(cli, out_bytes, *, font=None, image=None):
         "format": cli.args.format,
     }
 
-    if font is not None:
+    if font_metadata is not None:
         subs.update({
             "generated_type": "font",
             "var_prefix": "font",
@@ -103,11 +131,14 @@ def generate_subs(cli, out_bytes, *, font=None, image=None):
             "metadata": "\n".join([
                 "// Font's metadata",
                 "// ---------------",
-                f"// Glyphs: {', '.join([i for i in cli.args.unicode_glyphs])}",
+                f"// Glyphs: {', '.join([i for i in font_metadata['glyphs']])}",
             ]),
         })
 
-    elif image is not None:
+    elif image_metadata is not None:
+        # width/height is stored in the 1st entry
+        size = image_metadata.pop(0)
+
         subs.update({
             "generated_type": "image",
             "var_prefix": "gfx",
@@ -116,14 +147,14 @@ def generate_subs(cli, out_bytes, *, font=None, image=None):
             "metadata": "\n".join([
                 "// Image's metadata",
                 "// ----------------",
-                f"//      Width: {image.width}",
-                f"//     Height: {image.height}",
-                f"//     Frames: {image.n_frames}",
+                f"// Width: {size['width']}",
+                f"// Height: {size['height']}",
+                _render_image_metadata(image_metadata)
             ]),
         })
 
     else:
-        raise ValueError("Pass either an image or a font")
+        raise ValueError("Pass metadata for either an image or a font")
 
     subs.update({"license": render_license(subs)})
 

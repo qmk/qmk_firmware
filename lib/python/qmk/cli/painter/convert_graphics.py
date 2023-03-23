@@ -49,7 +49,8 @@ def painter_convert_graphics(cli):
 
     # Convert the image to QGF using PIL
     out_data = BytesIO()
-    input_img.save(out_data, "QGF", use_deltas=(not cli.args.no_deltas), use_rle=(not cli.args.no_rle), qmk_format=format, verbose=cli.args.verbose)
+    metadata = []
+    input_img.save(out_data, "QGF", use_deltas=(not cli.args.no_deltas), use_rle=(not cli.args.no_rle), qmk_format=format, verbose=cli.args.verbose, metadata=metadata)
     out_bytes = out_data.getvalue()
 
     if cli.args.raw:
@@ -59,7 +60,7 @@ def painter_convert_graphics(cli):
         return
 
     # Work out the text substitutions for rendering the output data
-    subs = generate_subs(cli, out_bytes, image=input_img)
+    subs = generate_subs(cli, out_bytes, image_metadata=metadata)
 
     # Render and write the header file
     header_text = render_header(subs)
