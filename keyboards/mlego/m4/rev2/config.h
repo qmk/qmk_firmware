@@ -74,6 +74,9 @@ It uses four pins from the MCU to provide 16 output pins */
 
 #define RGB_ENABLE_PIN GP11
 
+#define LED_LWR_PIN GP16
+#define LED_RSE_PIN GP17
+
 /* Double tap reset button to enter bootloader */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17

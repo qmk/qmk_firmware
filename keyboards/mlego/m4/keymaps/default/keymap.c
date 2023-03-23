@@ -87,24 +87,3 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 #endif
-
-void keyboard_post_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    setPinOutput(RGB_ENABLE_PIN);
-    writePinHigh(RGB_ENABLE_PIN);
-    wait_ms(20);
-
-    // Enable the LED layers
-    rgblight_layers = my_rgb();
-#endif
-
-#ifdef CONSOLE_ENABLE
-    debug_enable = true;
-    debug_matrix = true;
-//  debug_keyboard = true;
-#endif
-
-#ifdef OLED_ENABLE
-    init_timer();
-#endif
-}

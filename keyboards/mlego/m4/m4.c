@@ -3,10 +3,6 @@
 
 #include "m4.h"
 
-// let us assume we start with both layers off
-static bool toggle_lwr = false;
-static bool toggle_rse = false;
-
 #ifdef RGBLIGHT_ENABLE
 
 const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_PURPLE});
@@ -164,3 +160,26 @@ bool oled_task_kb(void) {
 }
 
 #endif
+
+void keyboard_post_init_user(void) {
+#ifdef RGBLIGHT_ENABLE
+    setPinOutput(RGB_ENABLE_PIN);
+    writePinHigh(RGB_ENABLE_PIN);
+    wait_ms(20);
+
+    // Enable the LED layers
+    rgblight_layers = my_rgb();
+#endif
+
+    init_lwr_rse_led();
+
+#ifdef CONSOLE_ENABLE
+    debug_enable   = true;
+    debug_matrix   = true;
+    debug_keyboard = true;
+#endif
+
+#ifdef OLED_ENABLE
+    init_timer();
+#endif
+}

@@ -11,7 +11,7 @@
         "rotary": [
             {
                 "pin_a": "GP27",
-                "pin_b": "GP28",
+                "pin_b": "GP28"
             }
         ]
     },
@@ -30,9 +30,7 @@
         "wpm": true
     },
     "indicators": {
-        "caps_lock": "GP25",
-        "num_lock": "GP17",
-        "scroll_lock": "GP16"
+        "caps_lock": "GP25"
     },
     "rgblight": {
         "animations": {
