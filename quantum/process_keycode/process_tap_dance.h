@@ -37,7 +37,9 @@ typedef void (*tap_dance_user_fn_t)(tap_dance_state_t *state, void *user_data);
 typedef struct {
     tap_dance_state_t state;
     struct {
-        tap_dance_user_fn_t on_each_tap;
+#    ifdef TAP_DANCE_ON_EACH_RELEASE
+        tap_dance_user_fn_t on_each_release;
+#    endif
         tap_dance_user_fn_t on_dance_finished;
         tap_dance_user_fn_t on_reset;
     } fn;
