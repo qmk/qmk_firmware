@@ -5,11 +5,10 @@
 	"bootloader": "atmel-dfu",
 	"processor": "atmega32u4",
 	"diode_direction": "COL2ROW",
-	"encoder": {
-		"enabled": false
-	},
 	"features": {
-		"encoder": false
+		"bootmagic": true,
+		"extrakey": true,
+		"mousekey": true
 	},
 	"matrix_pins": {
 		"cols": [ "F0", "F1", "E6", "C7", "C6", "B6", "D4", "B1", "B7", "B5", "B4", "D7", "D6", "B3", "F4" ],
@@ -20,11 +19,8 @@
 			"knight": true,
 			"rainbow_swirl": true
 		},
-		"brightness_steps": 17,
-		"hue_steps": 10,
 		"led_count": 4,
-		"pin": "B3",
-		"saturation_steps": 17
+		"pin": "B3"
 	},
 	"url": "http://en.rkgaming.com/",
 	"usb": {

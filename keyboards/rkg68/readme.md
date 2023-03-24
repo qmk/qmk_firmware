@@ -6,12 +6,6 @@
 * Hardware Supported: Royal Kludge RK G68
 * Hardware Availability: [RKG 68](http://en.rkgaming.com/download/1/)
 
-## Availability
-
-The RKG68 is available for purchase through [AliExpress](https://www.aliexpress.com/).
-
-## How to compile
-
 After setting up your build environment, you can compile the  default keymap by using:
 
     make rkg68:default
@@ -23,7 +17,6 @@ Flashing example for this keyboard:
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
----
 
 Enter the bootloader in 3 ways:
 
