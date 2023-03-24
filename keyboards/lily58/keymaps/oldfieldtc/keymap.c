@@ -3,10 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef WPM_ENABLE
-  #include "wpm.h"
-#endif
-
 enum layer_number {
   _QWERTY = 0,
   _LOWER,
@@ -128,8 +124,6 @@ const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
-
-char wpm_str[10];
 
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
