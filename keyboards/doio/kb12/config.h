@@ -17,30 +17,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B3, B4, B9 }
-#define MATRIX_COL_PINS { B14, B13, B12, B0, A7 }
-#define DIODE_DIRECTION COL2ROW // COL2ROW or ROW2COL
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-// #define LED_NUM_LOCK_PIN A8
-// #define LED_CAPS_LOCK_PIN B14
-// #define LED_SCROLL_LOCK_PIN A9
-// #define LED_PIN_ON_STATE 0
-
-// #define QMK_KEYS_PER_SCAN 12
-// #define FORCE_NKRO
-
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define RGB_DI_PIN A10
@@ -100,18 +76,4 @@
 
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
 
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
