@@ -18,6 +18,9 @@
             {"pin_a": "B5", "pin_b": "A2"}
         ]
     },
+    "ws2812": {
+        "driver": "pwm"
+    },
     "split": {
         "soft_serial_pin": "B6",
         "bootmagic": {

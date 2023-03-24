@@ -8,6 +8,9 @@
         "pid": "0x3505",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "driver": "pwm"
+    },
     "matrix_pins": {
         "cols": ["A0", "B11", "B0", "B10", "B12", "B2", "A8"],
         "rows": ["A1", "A3", "B3", "A13", "B15", null, null]
