@@ -11,6 +11,9 @@
         "pin": "D4",
         "levels": 12
     },
+    "ws2812": {
+        "driver": "i2c"
+    },
     "indicators": {
         "caps_lock": "D1"
     },

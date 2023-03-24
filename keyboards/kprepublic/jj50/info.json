@@ -18,6 +18,9 @@
         "levels": 12,
         "breathing": true
     },
+    "ws2812": {
+        "driver": "i2c"
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "layout_aliases": {

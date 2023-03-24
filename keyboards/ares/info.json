@@ -22,6 +22,9 @@
     "bootmagic": {
         "matrix": [4, 0]
     },
+    "ws2812": {
+        "driver": "i2c"
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "layout_aliases": {
