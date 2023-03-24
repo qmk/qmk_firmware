@@ -49,9 +49,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_LAY0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN) },
     [_LAY1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [_LAY2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [_LAY3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [_LAY4] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [_LAY5] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
 };
 #endif
