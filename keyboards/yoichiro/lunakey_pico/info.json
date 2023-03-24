@@ -50,6 +50,9 @@
     "split": {
         "enabled": true
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x6_4"
     },

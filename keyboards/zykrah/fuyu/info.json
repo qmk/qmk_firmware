@@ -26,6 +26,9 @@
     "rgb_matrix": {
         "driver": "WS2812"
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "url": "https://github.com/zykrah/fuyu",
     "layouts": {
         "LAYOUT": {

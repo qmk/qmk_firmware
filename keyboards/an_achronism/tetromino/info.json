@@ -20,6 +20,9 @@
         "rgblight": false,
         "rgb_matrix": true
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["GP0",  "GP1",  "GP2",  "GP3",  "GP4",  "GP5",  "GP6",

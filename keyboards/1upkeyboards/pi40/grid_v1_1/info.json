@@ -13,6 +13,9 @@
     "dynamic_keymap": {
         "layer_count": 10
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "features": {
         "audio": false,
         "backlight": false,
