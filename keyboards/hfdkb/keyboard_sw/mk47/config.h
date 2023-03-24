@@ -75,5 +75,7 @@
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 /* The maximum brightness level */
+
 //#define DISABLE_MK47_KEYCODES /*If you need to change or restore the default QMK button function, please open it*/
 
