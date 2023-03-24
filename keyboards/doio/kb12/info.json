@@ -1,0 +1,38 @@
+{
+    "keyboard_name": "KB12-01",
+    "manufacturer": "DOIO",
+    "url": "",
+    "maintainer": "Alice",
+    "usb": {
+        "vid": "0xD010",
+        "pid": "0x1201",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"}
+        ]
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"Encoder 1", "x":0, "y":0},
+                {"label":"K00", "x":1, "y":0},
+                {"label":"K01", "x":2, "y":0},
+                {"label":"K02", "x":3, "y":0},
+                {"label":"K03", "x":4, "y":0},
+                {"label":"K10", "x":5, "y":0},
+                {"label":"K11", "x":6, "y":0},
+                {"label":"K12", "x":7, "y":0},
+                {"label":"K13", "x":8, "y":0},
+                {"label":"K20", "x":9, "y":0},
+                {"label":"K21", "x":10, "y":0},
+                {"label":"K22", "x":11, "y":0},
+                {"label":"K23", "x":12, "y":0}
+            
+            ]
+        }
+    }
+}
