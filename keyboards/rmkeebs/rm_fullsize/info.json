@@ -31,7 +31,7 @@
         ]
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_all_split": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0.25 },
                 { "matrix": [0, 2], "x": 2, "y": 0.25 },
