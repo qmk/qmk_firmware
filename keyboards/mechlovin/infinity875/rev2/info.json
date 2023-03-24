@@ -1,0 +1,44 @@
+{
+    "usb": {
+        "pid": "0x1875",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B10",
+        "scroll_lock": "B5"
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "matrix_pins": {
+        "rows": ["A8", "A9", "A10", "B11", "C13", "C14"],
+        "cols": ["B14", "B13", "B12", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "A15", "B3", "B4"]
+    },
+    "rgblight": {
+        "led_count": 24,
+        "pin": "B15",
+        "hue_steps": 10,
+        "saturation_steps": 17,
+        "brightness_steps": 17,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alterating": true,
+            "twinkle": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    }
+}
