@@ -15,7 +15,7 @@
  */
 
 
-#include "lxxt.h"
+#include "quantum.h"
 
 #if defined(ENCODER_ENABLE)
 
