@@ -15,7 +15,8 @@
     },
 
     "indicators": {
-        "caps_lock": "B6"
+        "caps_lock": "B6",
+        "on_state": 0
     },
 
     "rgblight": {
@@ -34,8 +35,20 @@
             "twinkle" : true
         }
     },
+
+
+    "features": {
+        "audio": false,
+        "rgblight": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+
     "bootmagic": {
-        "enabled": true,
         "matrix": [1, 1]
     },
     "layouts": {
