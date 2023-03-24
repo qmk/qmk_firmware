@@ -5,21 +5,7 @@
     "maintainer": "Mechlovin' Studio",
     "usb": {
         "vid": "0x4D4C",
-        "pid": "0x0875",
-        "device_version": "0.0.1"
     },
-    "rgb_matrix": {
-        "driver": "ws2812"
-    },
-    "indicators": {
-        "caps_lock": "D6",
-        "scroll_lock": "B4"
-    },
-    "ws2812": {
-        "pin": "E2"
-    },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_tkl_ansi_split_bs_rshift": {
             "layout": [
