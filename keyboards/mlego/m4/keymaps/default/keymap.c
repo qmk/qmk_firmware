@@ -50,11 +50,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
-bool led_update_user(led_t led_state) {
-    // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
-    return false;
-}
-
 void matrix_scan_user(void) {
     toggle_leds(toggle_lwr, toggle_rse);
 }

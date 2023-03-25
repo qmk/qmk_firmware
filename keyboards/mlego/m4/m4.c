@@ -14,8 +14,6 @@ static const char PROGMEM m65_logo[]      = {0x91, 0x92, 0x93, 0x94, 0x95, 0x96,
 void toggle_leds(const bool toggle_lwr, const bool toggle_rse) {
     led_lwr(toggle_lwr);
     led_rse(toggle_rse);
-    led_t led_state = host_keyboard_led_state();
-    led_caps(led_state.caps_lock);
     if (layer_state_is(_ADJ)) {
         led_lwr(true);
         led_rse(true);

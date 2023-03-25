@@ -47,9 +47,3 @@ static inline void led_rse(const bool on) {
     writePin(LED_RSE_PIN, !on);
 #endif
 }
-
-static inline void led_caps(const bool on) {
-#ifdef LED_CAPS_LOCK_PIN
-    writePin(LED_CAPS_LOCK_PIN, !on);
-#endif
-}

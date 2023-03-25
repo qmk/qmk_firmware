@@ -30,7 +30,8 @@
         "wpm": true
     },
     "indicators": {
-        "caps_lock": "GP25"
+        "caps_lock": "GP25",
+        "on_state": 0
     },
     "rgblight": {
         "animations": {
