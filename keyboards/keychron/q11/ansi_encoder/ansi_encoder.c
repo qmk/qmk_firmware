@@ -222,6 +222,14 @@ static int16_t analogReadPin_my(pin_t pin) {
 }
 
 void keyboard_post_init_kb(void) {
+    // 1. The pin A5/B5 of the USB C interface in the left hand is connected to the pin A0 of MCU,
+    // A0 will be set to output and write high when keyboard initial.
+    // 2. The same pin in the right hand is connected to the pin B0 and B1 of MCU respectively,
+    // and the ADC function of B0 and B1 will be enabled when keyboard initial.
+    // 3. because the serial usart RXD and TXD is multiplexed on USB's D+ and D- in the right hand.
+    // So detect the voltage on the pin A5/B5 of the USB C interface by ADC,
+    // and disable USB connectivity when the ADC value exceeds 1000,
+    // to avoid affecting the serial usart communication between the left hand and the right hand.
     if (is_keyboard_left()) {
         setPinOutput(A0);
         writePinHigh(A0);
