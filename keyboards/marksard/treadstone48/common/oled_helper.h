@@ -1,3 +1,5 @@
+#pragma once
+
 #ifdef OLED_ENABLE
 
 #include <stdint.h>

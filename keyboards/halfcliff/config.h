@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B4, E6, C6, B6, B2 }
 
  #define RGB_DI_PIN D3
- #ifdef RGB_DI_PIN
    #define RGBLED_NUM 10
    #define RGBLIGHT_SPLIT
    #define RGBLED_SPLIT { 5, 5 }
@@ -35,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_VAL_STEP 8
    #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
- #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

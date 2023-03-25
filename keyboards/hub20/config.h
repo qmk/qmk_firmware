@@ -22,9 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 27
 
 #define RGB_MATRIX_LED_COUNT 27
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 27
-#endif
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES

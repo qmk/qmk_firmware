@@ -17,7 +17,6 @@
 #pragma once
 
 #define RGB_DI_PIN D0
-#ifdef RGB_DI_PIN
 #   define RGBLED_NUM 22
 
 /* RGB LED logical order map */
@@ -38,7 +37,6 @@
 #    define RGBLIGHT_EFFECT_CHRISTMAS
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

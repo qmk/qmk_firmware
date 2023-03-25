@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 16  // Add 12 if attaching the RGB LED ring
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    ifdef RGBLIGHT_ENABLE
@@ -90,7 +89,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #    endif
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
