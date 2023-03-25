@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 74
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 74
     #define RGB_MATRIX_KEYPRESSES
     #define RGBLIGHT_HUE_STEP 8
@@ -92,4 +91,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
-#endif

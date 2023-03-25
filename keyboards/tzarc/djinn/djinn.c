@@ -1,4 +1,4 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <string.h>
 #include "quantum.h"
@@ -74,7 +74,6 @@ void keyboard_post_init_kb(void) {
     qp_init(lcd, QP_ROTATION_0);
 
     // Turn on the LCD and clear the display
-    kb_state.lcd_power = 1;
     qp_power(lcd, true);
     qp_rect(lcd, 0, 0, 239, 319, HSV_BLACK, true);
 
@@ -187,18 +186,14 @@ void housekeeping_task_kb(void) {
     }
 
     // Turn on/off the LCD
-    static bool lcd_on = false;
-    if (lcd_on != (bool)kb_state.lcd_power) {
-        lcd_on = (bool)kb_state.lcd_power;
-        qp_power(lcd, lcd_on);
-    }
+    bool peripherals_on = last_input_activity_elapsed() < LCD_ACTIVITY_TIMEOUT;
 
     // Enable/disable RGB
-    if (lcd_on) {
+    if (peripherals_on) {
         // Turn on RGB
         writePinHigh(RGB_POWER_ENABLE_PIN);
         // Modify the RGB state if different to the LCD state
-        if (rgb_matrix_is_enabled() != lcd_on) {
+        if (rgb_matrix_is_enabled() != peripherals_on) {
             // Wait for a small amount of time to allow the RGB capacitors to charge, before enabling RGB output
             wait_ms(10);
             // Enable RGB
@@ -208,21 +203,21 @@ void housekeeping_task_kb(void) {
         // Turn off RGB
         writePinLow(RGB_POWER_ENABLE_PIN);
         // Disable the PWM output for the RGB
-        if (rgb_matrix_is_enabled() != lcd_on) {
+        if (rgb_matrix_is_enabled() != peripherals_on) {
             rgb_matrix_disable_noeeprom();
         }
     }
 
     // Match the backlight to the LCD state
-    if (is_keyboard_master() && is_backlight_enabled() != lcd_on) {
-        if (lcd_on)
+    if (is_keyboard_master() && is_backlight_enabled() != peripherals_on) {
+        if (peripherals_on)
             backlight_enable();
         else
             backlight_disable();
     }
 
     // Draw the UI
-    if (kb_state.lcd_power) {
+    if (peripherals_on) {
         draw_ui_user(false);
     }
 

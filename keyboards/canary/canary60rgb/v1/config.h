@@ -16,7 +16,6 @@
  #pragma once
 
 #define RGB_DI_PIN B6
-#ifdef RGB_DI_PIN
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -32,7 +31,6 @@
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_SLEEP
-#endif
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended

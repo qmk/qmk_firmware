@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 6
   #ifndef IOS_DEVICE_ENABLE
     #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
@@ -39,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for treadstone32 keyboard

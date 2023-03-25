@@ -790,6 +790,34 @@ static void haptic_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 
 #endif // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
 
+#if defined(SPLIT_ACTIVITY_ENABLE)
+
+static bool activity_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t             last_update = 0;
+    split_slave_activity_sync_t activity_sync;
+    activity_sync.matrix_timestamp  = last_matrix_activity_time();
+    activity_sync.encoder_timestamp = last_encoder_activity_time();
+    return send_if_data_mismatch(PUT_ACTIVITY, &last_update, &activity_sync, &split_shmem->activity_sync, sizeof(activity_sync));
+}
+
+static void activity_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    set_activity_timestamps(split_shmem->activity_sync.matrix_timestamp, split_shmem->activity_sync.encoder_timestamp);
+}
+
+// clang-format off
+#    define TRANSACTIONS_ACTIVITY_MASTER() TRANSACTION_HANDLER_MASTER(activity)
+#    define TRANSACTIONS_ACTIVITY_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(activity)
+#    define TRANSACTIONS_ACTIVITY_REGISTRATIONS [PUT_ACTIVITY] = trans_initiator2target_initializer(activity_sync),
+// clang-format on
+
+#else // defined(SPLIT_ACTIVITY_ENABLE)
+
+#    define TRANSACTIONS_ACTIVITY_MASTER()
+#    define TRANSACTIONS_ACTIVITY_SLAVE()
+#    define TRANSACTIONS_ACTIVITY_REGISTRATIONS
+
+#endif // defined(SPLIT_ACTIVITY_ENABLE)
+
 ////////////////////////////////////////////////////
 
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
@@ -818,6 +846,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_POINTING_REGISTRATIONS
     TRANSACTIONS_WATCHDOG_REGISTRATIONS
     TRANSACTIONS_HAPTIC_REGISTRATIONS
+    TRANSACTIONS_ACTIVITY_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -846,6 +875,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_POINTING_MASTER();
     TRANSACTIONS_WATCHDOG_MASTER();
     TRANSACTIONS_HAPTIC_MASTER();
+    TRANSACTIONS_ACTIVITY_MASTER();
     return true;
 }
 
@@ -867,6 +897,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_POINTING_SLAVE();
     TRANSACTIONS_WATCHDOG_SLAVE();
     TRANSACTIONS_HAPTIC_SLAVE();
+    TRANSACTIONS_ACTIVITY_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

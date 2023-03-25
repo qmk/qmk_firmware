@@ -10,6 +10,9 @@
     // deprecated: Default `false`. Set to `true` to turn on warning when a value exists
     // invalid: Default `false`. Set to `true` to generate errors when a value exists
     // replace_with: use with a key marked deprecated or invalid to designate a replacement
+    "APA102_DI_PIN": {"info_key": "apa102.data_pin"},
+    "APA102_CI_PIN": {"info_key": "apa102.clock_pin"},
+    "APA102_DEFAULT_BRIGHTNESS": {"info_key": "apa102.default_brightness", "value_type": "int"},
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},

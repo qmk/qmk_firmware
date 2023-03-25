@@ -18,7 +18,6 @@
 
 /* RGB */
 #define RGB_DI_PIN D2
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 22
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
@@ -35,4 +34,3 @@
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     #define RGBLIGHT_EFFECT_RGB_TEST
     #define RGBLIGHT_EFFECT_ALTERNATING
-#endif

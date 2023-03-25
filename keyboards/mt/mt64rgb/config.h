@@ -81,7 +81,6 @@
 #endif
 
 #define RGB_DI_PIN B0
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -97,7 +96,6 @@
 #define RGBLIGHT_SAT_STEP 5
 #define RGBLIGHT_VAL_STEP 5
 #define RGBLIGHT_SLEEP
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

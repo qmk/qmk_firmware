@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#include "nack.h"
 
 #ifdef RGB_MATRIX_ENABLE
     led_config_t g_led_config = { {

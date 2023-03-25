@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN E6
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 68
 #    define RGBLED_SPLIT { 34, 34 }
 #    define RGBLIGHT_HUE_STEP 8
@@ -88,4 +87,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define RGB_DISABLE_WHEN_USB_SUSPENDED
 #        define RGB_MATRIX_KEYPRESSES
 #    endif
-#endif

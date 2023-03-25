@@ -12,5 +12,9 @@
     },
     "rgblight": {
         "pin": "A2"
+    },
+    "apa102": {
+        "data_pin": "A2",
+        "clock_pin": "B13"
     }
 }
