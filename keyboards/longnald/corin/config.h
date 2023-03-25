@@ -19,7 +19,6 @@
 #pragma once
 
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 64
 #    define RGBLIGHT_HUE_STEP 20
 #    define RGBLIGHT_SAT_STEP 20
@@ -30,4 +29,3 @@
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #    define RGBLIGHT_EFFECT_SNAKE
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#endif

@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN B4
-#ifdef RGB_DI_PIN
 #define RGBLED_NUM 12
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -33,8 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#endif
 
 /* Encoders */
 #define ENCODERS_CW_KEY  { { 2, 4 },{ 4, 4 },{ 6, 4 } }

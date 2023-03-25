@@ -441,6 +441,14 @@ $(eval $(call add_qmk_prefix_defs,MCU_FAMILY,MCU_FAMILY))
 $(eval $(call add_qmk_prefix_defs,MCU_SERIES,MCU_SERIES))
 $(eval $(call add_qmk_prefix_defs,BOARD,BOARD))
 
+# Control whether intermediate file listings are generated
+# e.g.:
+#    make handwired/onekey/blackpill_f411:default KEEP_INTERMEDIATES=yes
+#    cat .build/obj_handwired_onekey_blackpill_f411_default/quantum/quantum.i | sed -e 's@^#.*@@g' -e 's@^\s*//.*@@g' -e '/^\s*$/d' | clang-format
+ifeq ($(strip $(KEEP_INTERMEDIATES)), yes)
+    OPT_DEFS += -save-temps=obj
+endif
+
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)

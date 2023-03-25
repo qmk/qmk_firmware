@@ -122,6 +122,14 @@ typedef struct _split_slave_haptic_sync_t {
 } split_slave_haptic_sync_t;
 #endif // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
 
+#if defined(SPLIT_ACTIVITY_ENABLE)
+#    include "keyboard.h"
+typedef struct _split_slave_activity_sync_t {
+    uint32_t matrix_timestamp;
+    uint32_t encoder_timestamp;
+} split_slave_activity_sync_t;
+#endif // defined(SPLIT_ACTIVITY_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 typedef struct _rpc_sync_info_t {
     uint8_t checksum;
@@ -203,6 +211,10 @@ typedef struct _split_shared_memory_t {
 #if defined(HAPTIC_ENABLE)
     split_slave_haptic_sync_t haptic_sync;
 #endif // defined(HAPTIC_ENABLE)
+
+#if defined(SPLIT_ACTIVITY_ENABLE)
+    split_slave_activity_sync_t activity_sync;
+#endif // defined(SPLIT_ACTIVITY_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;

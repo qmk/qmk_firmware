@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define RGB_DI_PIN E7
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM         38
 #    define RGBLIGHT_HUE_STEP  4
 #    define RGBLIGHT_SAT_STEP  8
@@ -47,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_COUNT              38

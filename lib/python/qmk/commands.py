@@ -51,6 +51,9 @@ def create_make_target(target, dry_run=False, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
+    if cli.config.general.verbose:
+        env.append('VERBOSE=true')
+
     return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
 
 
