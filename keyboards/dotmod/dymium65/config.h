@@ -22,20 +22,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Define less important options */
-
-
 #define FORCE_NKRO
-/*
- * Feature disable options
- * These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-#define NO_DEBUG
-
-/* disable print */
-#define NO_PRINT
 
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN D7
