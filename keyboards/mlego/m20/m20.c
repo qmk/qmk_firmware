@@ -1,22 +1,7 @@
-// Copyright 2022 alin m elena (@alinelena)
+// Copyright 2022-2023 alin m elena (@alinelena)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "m20.h"
-
-// let us assume we start with both layers off
-static bool toggle_lwr = false;
-static bool toggle_rse = false;
-
-#ifdef RGBLIGHT_ENABLE
-
-const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_PURPLE});
-const rgblight_segment_t PROGMEM my_lwr_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_CYAN});
-const rgblight_segment_t PROGMEM my_rse_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
-const rgblight_segment_t PROGMEM my_adj_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
-
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_qwerty_layer, my_lwr_layer, my_rse_layer, my_adj_layer);
-
-#endif
 
 #ifdef OLED_ENABLE
 
@@ -26,39 +11,7 @@ static const char PROGMEM m65_logo[]      = {0x91, 0x92, 0x93, 0x94, 0x95, 0x96,
 
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-
-void set_rgb_layers(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _NUM));
-    rgblight_set_layer_state(1, layer_state_cmp(state, _LWR));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _RSE));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _ADJ));
-}
-
-void set_default_rgb_layers(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _NUM));
-}
-
-const rgblight_segment_t* const* my_rgb(void) {
-    return my_rgb_layers;
-}
-
-#endif
-
-void set_led_toggle(const uint8_t layer, const bool state) {
-    switch (layer) {
-        case _LWR:
-            toggle_lwr = state;
-            break;
-        case _RSE:
-            toggle_rse = state;
-            break;
-        default:
-            break;
-    }
-}
-
-void toggle_leds(void) {
+void toggle_leds(const bool toggle_lwr, const bool toggle_rse) {
     led_lwr(toggle_lwr);
     led_rse(toggle_rse);
     if (layer_state_is(_ADJ)) {
@@ -72,39 +25,6 @@ void toggle_leds(void) {
 void init_timer(void) {
     oled_logo_timer = timer_read32();
 };
-
-void user_oled_magic(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _NUM:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        case _LWR:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case _RSE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case _ADJ:
-            oled_write_P(PSTR("ADJ\n"), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
-    }
-
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("Lower ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("Raise ") : PSTR("    "), false);
-#    ifdef WPM_ENABLE
-    oled_write_P(PSTR("\nwpm: "), false);
-    uint8_t wpm = get_current_wpm();
-    oled_write_P(wpm != 0 ? get_u8_str(wpm, ' ') : PSTR("   "), false);
-#    endif
-}
 
 void render_logo(void) {
     oled_write_P(m65_logo, false);
@@ -140,3 +60,16 @@ bool oled_task_kb(void) {
 }
 
 #endif
+
+void keyboard_post_init_user(void) {
+#ifdef RGBLIGHT_ENABLE
+    // Enable the LED layers
+    rgblight_layers = my_rgb();
+#endif
+
+    init_lwr_rse_led();
+
+#ifdef OLED_ENABLE
+    init_timer();
+#endif
+}

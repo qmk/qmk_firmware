@@ -9,7 +9,7 @@
         "backlight": false,
         "bootmagic": true,
         "command": false,
-        "console": false,
+        "console": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -29,10 +29,6 @@
     "matrix_pins": {
         "cols": ["GP1", "GP6", "GP7", "GP8"],
         "rows": ["GP9", "GP10", "GP11", "GP12", "GP13"]
-    },
-    "indicators": {
-        "num_lock": "GP25",
-        "scroll_lock": "GP14"
     },
     "processor": "RP2040",
     "rgblight": {
