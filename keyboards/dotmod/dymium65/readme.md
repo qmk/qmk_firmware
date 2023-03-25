@@ -6,6 +6,7 @@ A customizable 65% encoder keyboard.
 
 * Keyboard Maintainer: [LiWenLiu](https://github.com/LiuLiuQMK)
 * Hardware Supported: dymium65 PCB with atmega32u4 microcontroller
+* Hardware Availability: Coming soon
 
 Make example for this keyboard (after setting up your build environment):
 
