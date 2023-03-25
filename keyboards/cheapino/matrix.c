@@ -25,11 +25,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "quantum.h"
 #include "debounce.h"
+#include "encoder.h"
 
-#define ROW_SHIFTER ((uint16_t)1)
+#define COL_SHIFTER ((uint16_t)1)
 
 static const pin_t row_pins[] = MATRIX_ROW_PINS;
 static const pin_t col_pins[] = MATRIX_COL_PINS;
+static matrix_row_t previous_matrix[MATRIX_ROWS];
+
+void keyboard_post_init_user(void) {
+    // Customise these values to desired behaviour
+    debug_enable=true;
+    debug_matrix=true;
+    debug_keyboard=true;
+    //debug_mouse=true;
+}
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
@@ -59,25 +69,14 @@ static void unselect_cols(void) {
     }
 }
 
-static void init_pins(void) {
-    unselect_cols();
-    unselect_rows();
-}
-
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
-    // Store last value of row prior to reading
-    matrix_row_t last_row_value = current_matrix[current_row];
-
-    // Clear data in matrix row
-    //current_matrix[current_row] = 0;
-
+static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Select row and wait for row selection to stabilize
     select_row(current_row);
     wait_us(30);
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS / 2; col_index++) {
-        uint16_t column_index_bitmask = ROW_SHIFTER << ((col_index * 2) + 1);
+        uint16_t column_index_bitmask = COL_SHIFTER << ((col_index * 2) + 1);
         // Check row pin state
         if (readPin(col_pins[col_index*2])) {
             // Pin HI, clear col bit
@@ -90,23 +89,16 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
-
-    return (last_row_value != current_matrix[current_row]);
 }
 
-static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
-    bool matrix_changed = false;
-
+static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     // Select col and wait for col selection to stabilize
     select_col(current_col*2);
     wait_us(30);
 
+    uint16_t column_index_bitmask = COL_SHIFTER << (current_col * 2);
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS-1; row_index++) {
-        // Store last value of row prior to reading
-        matrix_row_t last_row_value = current_matrix[row_index];
-
-        uint16_t column_index_bitmask = ROW_SHIFTER << (current_col * 2);
         // Check row pin state
         if (readPin(row_pins[row_index])) {
             // Pin HI, clear col bit
@@ -115,41 +107,46 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
             // Pin LO, set col bit
             current_matrix[row_index] |= column_index_bitmask;
         }
-
-        // Determine if the matrix changed state
-        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed)) {
-                   matrix_changed = true;
-        }
     }
-
     // Unselect col
     unselect_col(current_col*2);
-
-    return matrix_changed;
 }
 
 
 void matrix_init_custom(void) {
     // initialize key pins
-    init_pins();
-
+    unselect_cols();
+    unselect_rows();
+    setPinInput(row_pins[MATRIX_ROWS-1]);
+    writePinHigh(row_pins[MATRIX_ROWS-1]);
     debounce_init(MATRIX_ROWS);
 }
 
+void store_old_matrix(matrix_row_t current_matrix[]) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        previous_matrix[i] = current_matrix[i];
+    }
+}
+
+bool has_matrix_changed(matrix_row_t current_matrix[]) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        if (previous_matrix[i] != current_matrix[i]) return true;
+    }
+    return false;
+}
+
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-
-    bool changed = false;
-
+    store_old_matrix(current_matrix);
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS-1; current_row++) {
-        changed |= read_cols_on_row(current_matrix, current_row);
+        read_cols_on_row(current_matrix, current_row);
     }
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS/2; current_col++) {
-        changed |= read_rows_on_col(current_matrix, current_col);
+        read_rows_on_col(current_matrix, current_col);
     }
 
-    //debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    fix_encoder_action(current_matrix);
 
-    return changed;
+    return has_matrix_changed(current_matrix);
 }
