@@ -1,0 +1,4 @@
+ENCODER_MAP_ENABLE = yes
+UNICODEMAP_ENABLE = yes
+USER_NAME := alinelena
+
