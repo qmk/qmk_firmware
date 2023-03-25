@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FORCE_NKRO
 
 #define RGB_DI_PIN B1
-#ifdef RGB_DI_PIN
 #define RGBLED_NUM 12
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -32,4 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGBLIGHT_EFFECT_RGB_TEST
 // #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif

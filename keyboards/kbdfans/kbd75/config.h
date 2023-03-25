@@ -10,7 +10,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -27,5 +26,3 @@
 #define RGBLIGHT_VAL_STEP 8
 /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_SLEEP
-
-#endif

@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*== all animations enabled ==*/
 /* If RGBLIGHT_SLEEP defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGB_DI_PIN B3
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_CHRISTMAS
@@ -48,7 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_SLEEP
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -212,7 +212,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 debug_enable=true;
-#ifdef RGB_DI_PIN
   #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
@@ -220,6 +219,5 @@ debug_enable=true;
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
   #endif
-#endif
 
 }

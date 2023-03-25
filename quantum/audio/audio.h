@@ -43,11 +43,6 @@ typedef union {
     };
 } audio_config_t;
 
-// AVR/LUFA has a MIN, arm/chibios does not
-#ifndef MIN
-#    define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
-
 /*
  * a 'musical note' is represented by pitch and duration; a 'musical tone' adds intensity and timbre
  * https://en.wikipedia.org/wiki/Musical_tone
@@ -62,6 +57,11 @@ typedef struct {
 } musical_tone_t;
 
 // public interface
+
+/**
+ * @brief Save the current choices to the eeprom
+ */
+void eeconfig_update_audio_current(void);
 
 /**
  * @brief one-time initialization called by quantum/quantum.c
