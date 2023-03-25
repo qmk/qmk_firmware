@@ -3,17 +3,6 @@
 
 #include "m4.h"
 
-#ifdef RGBLIGHT_ENABLE
-
-const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_PURPLE});
-const rgblight_segment_t PROGMEM my_lwr_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_CYAN});
-const rgblight_segment_t PROGMEM my_rse_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
-const rgblight_segment_t PROGMEM my_adj_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
-
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_qwerty_layer, my_lwr_layer, my_rse_layer, my_adj_layer);
-
-#endif
-
 #ifdef OLED_ENABLE
 
 static uint32_t           oled_logo_timer = 0;
@@ -22,39 +11,7 @@ static const char PROGMEM m65_logo[]      = {0x91, 0x92, 0x93, 0x94, 0x95, 0x96,
 
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-
-void set_rgb_layers(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
-    rgblight_set_layer_state(1, layer_state_cmp(state, _LWR));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _RSE));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _ADJ));
-}
-
-void set_default_rgb_layers(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
-}
-
-const rgblight_segment_t* const* my_rgb(void) {
-    return my_rgb_layers;
-}
-
-#endif
-
-void set_led_toggle(const uint8_t layer, const bool state) {
-    switch (layer) {
-        case _LWR:
-            toggle_lwr = state;
-            break;
-        case _RSE:
-            toggle_rse = state;
-            break;
-        default:
-            break;
-    }
-}
-
-void toggle_leds(void) {
+void toggle_leds(const bool toggle_lwr, const bool toggle_rse) {
     led_lwr(toggle_lwr);
     led_rse(toggle_rse);
     led_t led_state = host_keyboard_led_state();
@@ -70,61 +27,6 @@ void toggle_leds(void) {
 void init_timer(void) {
     oled_logo_timer = timer_read32();
 };
-
-void user_oled_magic(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _QW:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        case _LWR:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case _RSE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case _ADJ:
-            oled_write_P(PSTR("ADJ\n"), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
-    }
-
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("Lower ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("Raise ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CapsLock ") : PSTR("    "), false);
-
-#    ifdef UNICODE_COMMON_ENABLE
-    oled_write_P(PSTR("\nunicode: "), false);
-    switch (get_unicode_input_mode()) {
-        case UC_LNX:
-            oled_write_P(PSTR("Linux"), false);
-            break;
-        case UC_MAC:
-            oled_write_P(PSTR("apple"), false);
-            break;
-        case UC_WIN:
-            oled_write_P(PSTR("windows"), false);
-            break;
-        case UC_WINC:
-            oled_write_P(PSTR("windows c"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("not supported"), false);
-    }
-#    endif
-
-#    ifdef WPM_ENABLE
-    oled_write_P(PSTR("\nwpm: "), false);
-    uint8_t wpm = get_current_wpm();
-    oled_write_P(wpm != 0 ? get_u8_str(wpm, ' ') : PSTR("   "), false);
-#    endif
-}
 
 void render_logo(void) {
     oled_write_P(m65_logo, false);
@@ -160,26 +62,3 @@ bool oled_task_kb(void) {
 }
 
 #endif
-
-void keyboard_post_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    setPinOutput(RGB_ENABLE_PIN);
-    writePinHigh(RGB_ENABLE_PIN);
-    wait_ms(20);
-
-    // Enable the LED layers
-    rgblight_layers = my_rgb();
-#endif
-
-    init_lwr_rse_led();
-
-#ifdef CONSOLE_ENABLE
-    debug_enable   = true;
-    debug_matrix   = true;
-    debug_keyboard = true;
-#endif
-
-#ifdef OLED_ENABLE
-    init_timer();
-#endif
-}

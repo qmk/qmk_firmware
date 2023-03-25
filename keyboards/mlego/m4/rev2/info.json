@@ -20,7 +20,7 @@
         "backlight": false,
         "bootmagic": true,
         "command": false,
-        "console": true,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -50,7 +50,7 @@
         },
         "led_count": 1,
         "pin": "GP12",
-        "max_brightness": 128
+        "max_brightness": 64
 
     },
     "url": "mlego.elena.space/m4",
