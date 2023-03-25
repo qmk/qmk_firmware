@@ -82,3 +82,8 @@ typedef struct painter_driver_t {
     // Comms config pointer -- needs to point to an appropriate comms config if the comms driver requires it.
     void *comms_config;
 } painter_driver_t;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Device internals
+
+bool qp_internal_register_device(painter_device_t driver);
