@@ -10,7 +10,7 @@ static bool toggle_rse = false;
 // clang-format off
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_NUM] = LAYOUT_ortho_5x4(
+    [_QW] = LAYOUT_ortho_5x4(
         KC_PSLS, KC_PAST, KC_MINS,   KC_EQL,
            KC_7,    KC_8,    KC_9,  KC_BSPC,
            KC_4,    KC_5,    KC_6,  KC_PPLS,
