@@ -4,6 +4,23 @@
 #define COL_SHIFTER ((uint16_t)1)
 
 static bool colABpressed = false;
+static bool encoderPressed = false;
+
+void clicked(void) {
+    tap_code(KC_MUTE);
+}
+
+void turned(bool clockwise) {
+    if (IS_LAYER_ON(6)) {
+        tap_code(LGUI(clockwise ? KC_DOWN : KC_UP));
+    } else if (IS_LAYER_ON(3)) {
+        tap_code(clockwise ? KC_TAB : LSFT(KC_TAB));
+    } else if (IS_LAYER_ON(5)) {
+        tap_code(clockwise ? KC_MS_WH_DOWN : KC_MS_WH_UP);
+    } else {
+        tap_code(clockwise ? KC_VOLU : KC_VOLD);
+    }
+}
 
 void blank_column(matrix_row_t current_matrix[], uint8_t col) {
     uint16_t column_index_bitmask = COL_SHIFTER << col;
@@ -27,10 +44,16 @@ void fix_encoder_action(matrix_row_t current_matrix[]) {
 
     // 7th column means encoder was pressed
     if (is_entire_column_held(current_matrix, 7)) {
+        encoderPressed = true;
         blank_column(current_matrix, 7);
         current_matrix[3] |= COL_SHIFTER;
     } else {
         current_matrix[3] &= ~COL_SHIFTER;
+        // Only trigger click on release
+        if (encoderPressed) {
+            encoderPressed = false;
+            clicked();
+        }
     }
 
     // Now check rotary action:
@@ -44,13 +67,13 @@ void fix_encoder_action(matrix_row_t current_matrix[]) {
     } else if (colA) {
         if (colABpressed) {
             colABpressed = false;
-            tap_code(KC_U);
+            turned(true);
         }
         blank_column(current_matrix, 9);
     } else if (colB) {
         if (colABpressed) {
             colABpressed = false;
-            tap_code(KC_D);
+            turned(false);
         }
         blank_column(current_matrix, 11);
     }
