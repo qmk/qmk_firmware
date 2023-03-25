@@ -169,3 +169,16 @@ void user_oled_magic(void) {
 }
 
 #endif
+
+void keyboard_post_init_user(void) {
+#ifdef RGBLIGHT_ENABLE
+    // Enable the LED layers
+    rgblight_layers = my_rgb();
+#endif
+
+    init_lwr_rse_led();
+
+#ifdef OLED_ENABLE
+    init_timer();
+#endif
+}
