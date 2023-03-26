@@ -6,6 +6,9 @@
         "vid": "0xFEED",
         "pid": "0x7812"
     },
+    "ws2812": {
+        "driver": "pwm"
+    },
     "matrix_pins": {
         "cols": ["B0", "A7", "A3", "A5", "A4", "A2"],
         "rows": ["B12", "A6", "B13", "B9", "B8"]

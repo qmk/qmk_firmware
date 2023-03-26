@@ -24,6 +24,9 @@
         "rgb_matrix": true,
         "rgblight": false
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "matrix_pins": {
         "cols": ["GP5", "GP8", "GP11", "GP6", "GP7", "GP0", "GP26", "GP10", "GP9", "GP1", "GP18", "GP20", "GP21", "GP27", "GP28", "GP19"],
         "rows": ["GP12", "GP13", "GP16", "GP25", "GP29"]

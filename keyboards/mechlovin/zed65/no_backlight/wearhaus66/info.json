@@ -16,6 +16,9 @@
     "indicators": {
         "caps_lock": "C14"
     },
+    "ws2812": {
+        "driver": "spi"
+    },
     "layout_aliases": {
         "LAYOUT_65_ansi_blocker": "LAYOUT_ansi_blocker",
         "LAYOUT_65_iso_blocker": "LAYOUT_iso_blocker"

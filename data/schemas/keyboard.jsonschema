@@ -699,6 +699,16 @@
                 "led": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "speaker": {"$ref": "qmk.definitions.v1#/mcu_pin"}
             }
+        },
+        "ws2812": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["bitbang", "i2c", "pwm", "spi", "vendor"]
+                }
+            }
         }
     }
 }

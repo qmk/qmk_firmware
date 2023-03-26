@@ -8,6 +8,9 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "driver": "spi"
+    },
     "matrix_pins": {
         "cols": ["A6", "A7", "A8", "A9", "A10", "B0", "B1", "B2", "B6", "B7", "C13", "C14", "C15"],
         "rows": ["A0", "A1", "A2", "A3"]

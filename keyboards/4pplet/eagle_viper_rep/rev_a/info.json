@@ -18,6 +18,9 @@
         "levels": 10,
         "breathing": true
     },
+    "ws2812": {
+        "driver": "spi"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

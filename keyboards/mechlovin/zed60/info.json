@@ -16,6 +16,9 @@
     "indicators": {
         "caps_lock": "A4"
     },
+    "ws2812": {
+        "driver": "spi"
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layout_aliases": {

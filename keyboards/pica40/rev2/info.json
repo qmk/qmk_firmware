@@ -31,6 +31,9 @@
             "max": 3
         }
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "split": {
         "enabled": true,
         "encoder": {

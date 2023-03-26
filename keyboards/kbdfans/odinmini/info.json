@@ -45,6 +45,9 @@
         "saturation_steps": 8,
         "sleep": true
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6073",

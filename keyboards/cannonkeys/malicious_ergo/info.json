@@ -18,6 +18,9 @@
         "levels": 6,
         "breathing": true
     },
+    "ws2812": {
+        "driver": "spi"
+    },
     "indicators": {
         "caps_lock": "A8",
         "num_lock": "A9",

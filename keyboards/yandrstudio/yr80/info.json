@@ -6,6 +6,9 @@
         "pid": "0xAA0D",
         "device_version": "1.0.0"
     },
+    "ws2812": {
+        "driver": "pwm"
+    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["B12", "B13", "B14", "A15", "B3", "B4", "B5", "B0", "A5", "A4", "A3", "A1", "A2", "B11", "B1", "B2", "B10"],
