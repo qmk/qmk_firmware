@@ -1,6 +1,6 @@
 {
     "manufacturer": "KJ-Modify",
-    "keyboard_name": "kj_modify/rs40",
+    "keyboard_name": "RS40",
     "maintainer": "Audite Marlow",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
@@ -17,7 +17,7 @@
         "rows": ["B13", "A10", "B1", "B10"]
     },
     "processor": "STM32F401",
-    "url": "",
+    "url": "https://www.aliexpress.com/store/911983021",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5253",
