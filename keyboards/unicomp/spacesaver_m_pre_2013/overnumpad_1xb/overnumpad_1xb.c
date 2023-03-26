@@ -19,13 +19,10 @@
 void keyboard_post_init_kb(void)
 {
     // Led pins:
-    // C12 is the left-most led, normally Num Lock, but on Spacesaver M it's Caps Lock. Configured in config.h
+    // C12 is the left-most led, normally Num Lock, but on Spacesaver M it's Caps Lock. Configured in info.json
     setPinOutput(C11); // middle led, always off on Spacesaver M
     writePin(C11, 0);
     setPinOutput(C10); // right-most led, normally Scroll Lock, but on Spacesaver M indicates function layer
-
-    //debug_enable=true;
-    //debug_matrix=true;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
