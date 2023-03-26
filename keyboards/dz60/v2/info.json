@@ -1,4 +1,9 @@
 {
+    "usb": {
+        "device_version": "0.0.2",
+        "pid": "0x2261",
+        "vid": "0x445A"
+    },
     "features": {
         "backlight": false,
         "bootmagic": true,
@@ -35,11 +40,6 @@
         "led_count": 16,
         "pin": "B2",
         "saturation_steps": 10
-    },
-    "usb": {
-        "device_version": "0.0.2",
-        "pid": "0x2261",
-        "vid": "0x445A"
     }
 }
 
