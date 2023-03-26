@@ -18,7 +18,7 @@
 #define RGB_DI_PIN RGB_INDICATOR_PIN
 #define ws2812_setleds indicator_setleds
 #define ws2812_setleds_pin indicator_setleds_pin
-#include "ws2812.c"
+#include "ws2812_bitbang.c"
 
 void indicator_write(LED_TYPE *start_led, uint8_t num_leds)
 {
