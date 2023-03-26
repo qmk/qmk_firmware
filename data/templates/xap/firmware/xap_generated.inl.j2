@@ -32,18 +32,40 @@ void {{ xap.broadcast_messages.define_prefix | lower }}_{{ data.define | to_snak
 ////////////////////////////////////////////////////////////////////////////////
 // Decl
 
-{% macro export_route_declaration(container) %}
+{% macro export_route_declaration(prefix, container) %}
 {% if 'routes' in container %}
 {% for route, data in container.routes | dictsort %}
+{% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
+{% set this_prefix_lc = this_prefix_uc | lower %}
 {% if 'return_execute' in data %}
-bool xap_respond_{{ data.return_execute }}(xap_token_t token, const uint8_t *data, size_t data_len);
+
+{% if 'request_struct_members' in data %}
+{% set arg_type = ( this_prefix_lc | to_snake | lower ) + '_arg_t' %}
+{% set arg_var = arg_type + ' arg' %}
+{% elif 'request_type' in data %}
+{% set arg_type = data.request_type | type_to_c() %}
+{% set arg_var = data.request_type | type_to_c('arg') %}
 {% endif %}
-{{ export_route_declaration(data) }}
+
+__attribute__((weak)) bool xap_execute_{{ data.return_execute }}(xap_token_t token{% if arg_type %}, {{ arg_type }}{{ '*' if 'xap_route' in arg_type else '' }}{% endif %}) { return false; }
+__attribute__((weak)) bool xap_respond_{{ data.return_execute }}(xap_token_t token, const uint8_t *data, size_t data_len) {
+{% if arg_type %}
+    if (data_len != sizeof({{ arg_type }})) {
+        return false;
+    }
+    {{ arg_var }};
+    memcpy(&arg, data, sizeof({{ arg_type }}));
+{% endif %}
+
+    return xap_execute_{{ data.return_execute }}(token{% if arg_type %}, {{ '&' if 'xap_route' in arg_type else '' }}arg{% endif %});
+}
+{% endif %}
+{{ export_route_declaration(this_prefix_lc, data) }}
 {% endfor %}
 {% endif %}
 {% endmacro %}
 
-{{ export_route_declaration(xap) }}
+{{ export_route_declaration('xap_route', xap) }}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Data

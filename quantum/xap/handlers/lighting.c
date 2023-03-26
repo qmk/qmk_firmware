@@ -11,7 +11,7 @@
 
 extern backlight_config_t backlight_config;
 
-bool xap_respond_get_backlight_config(xap_token_t token, const void *data, size_t length) {
+bool xap_execute_get_backlight_config(xap_token_t token) {
     xap_route_lighting_backlight_get_config_t ret;
 
     ret.enable = backlight_config.enable;
@@ -21,13 +21,7 @@ bool xap_respond_get_backlight_config(xap_token_t token, const void *data, size_
     return xap_respond_data(token, &ret, sizeof(ret));
 }
 
-bool xap_respond_set_backlight_config(xap_token_t token, const void *data, size_t length) {
-    if (length != sizeof(xap_route_lighting_backlight_set_config_arg_t)) {
-        return false;
-    }
-
-    xap_route_lighting_backlight_set_config_arg_t *arg = (xap_route_lighting_backlight_set_config_arg_t *)data;
-
+bool xap_execute_set_backlight_config(xap_token_t token, xap_route_lighting_backlight_set_config_arg_t* arg) {
     if (arg->enable) {
         backlight_level_noeeprom(arg->val);
     } else {
@@ -45,7 +39,7 @@ bool xap_respond_set_backlight_config(xap_token_t token, const void *data, size_
     return xap_respond_success(token);
 }
 
-bool xap_respond_save_backlight_config(xap_token_t token, const void *data, size_t length) {
+bool xap_execute_save_backlight_config(xap_token_t token) {
     eeconfig_update_backlight_current();
 
     return xap_respond_success(token);
@@ -60,7 +54,7 @@ extern rgblight_config_t rgblight_config;
 uint8_t rgblight_effect_to_id(uint8_t val);
 uint8_t rgblight_id_to_effect(uint8_t val);
 
-bool xap_respond_get_rgblight_config(xap_token_t token, const void *data, size_t length) {
+bool xap_execute_get_rgblight_config(xap_token_t token) {
     xap_route_lighting_rgblight_get_config_t ret;
 
     ret.enable = rgblight_config.enable;
@@ -73,13 +67,7 @@ bool xap_respond_get_rgblight_config(xap_token_t token, const void *data, size_t
     return xap_respond_data(token, &ret, sizeof(ret));
 }
 
-bool xap_respond_set_rgblight_config(xap_token_t token, const void *data, size_t length) {
-    if (length != sizeof(xap_route_lighting_rgblight_set_config_arg_t)) {
-        return false;
-    }
-
-    xap_route_lighting_rgblight_set_config_arg_t *arg = (xap_route_lighting_rgblight_set_config_arg_t *)data;
-
+bool xap_execute_set_rgblight_config(xap_token_t token, xap_route_lighting_rgblight_set_config_arg_t* arg) {
     uint8_t mode = rgblight_id_to_effect(arg->mode);
     if (mode == INVALID_EFFECT) {
         return false;
@@ -93,7 +81,7 @@ bool xap_respond_set_rgblight_config(xap_token_t token, const void *data, size_t
     return xap_respond_success(token);
 }
 
-bool xap_respond_save_rgblight_config(xap_token_t token, const void *data, size_t length) {
+bool xap_execute_save_rgblight_config(xap_token_t token) {
     eeconfig_update_rgblight_current();
 
     return xap_respond_success(token);
@@ -112,7 +100,7 @@ void rgb_matrix_enabled_noeeprom(bool val) {
     val ? rgb_matrix_enable_noeeprom() : rgb_matrix_disable_noeeprom();
 }
 
-bool xap_respond_get_rgb_matrix_config(xap_token_t token, const void *data, size_t length) {
+bool xap_execute_get_rgb_matrix_config(xap_token_t token) {
     xap_route_lighting_rgb_matrix_get_config_t ret;
 
     ret.enable = rgb_matrix_config.enable;
@@ -126,13 +114,7 @@ bool xap_respond_get_rgb_matrix_config(xap_token_t token, const void *data, size
     return xap_respond_data(token, &ret, sizeof(ret));
 }
 
-bool xap_respond_set_rgb_matrix_config(xap_token_t token, const void *data, size_t length) {
-    if (length != sizeof(xap_route_lighting_rgb_matrix_set_config_arg_t)) {
-        return false;
-    }
-
-    xap_route_lighting_rgb_matrix_set_config_arg_t *arg = (xap_route_lighting_rgb_matrix_set_config_arg_t *)data;
-
+bool xap_execute_set_rgb_matrix_config(xap_token_t token, xap_route_lighting_rgb_matrix_set_config_arg_t* arg) {
     uint8_t mode = rgb_matrix_id_to_effect(arg->mode);
     if (mode == INVALID_EFFECT) {
         return false;
@@ -147,7 +129,7 @@ bool xap_respond_set_rgb_matrix_config(xap_token_t token, const void *data, size
     return xap_respond_success(token);
 }
 
-bool xap_respond_save_rgb_matrix_config(xap_token_t token, const void *data, size_t length) {
+bool xap_execute_save_rgb_matrix_config(xap_token_t token) {
     eeconfig_update_rgb_matrix();
 
     return xap_respond_success(token);

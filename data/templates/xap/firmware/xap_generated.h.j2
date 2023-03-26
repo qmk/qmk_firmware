@@ -72,7 +72,11 @@ typedef struct {
 } __attribute__((__packed__)) {{ this_prefix_lc | to_snake | lower }}_arg_t;
 _Static_assert(sizeof({{ this_prefix_lc | to_snake | lower }}_arg_t) == {{ data.request_struct_length }}, "{{ this_prefix_lc | to_snake | lower }}_arg_t needs to be {{ data.request_struct_length }} bytes in size");
 {% elif 'request_type' in data %}
+{% if '[' in data.request_type %}
+typedef struct __attribute__((__packed__)) { {{ data.request_type | type_to_c('x') }}; } {{ this_prefix_lc }}_arg_t;
+{% else %}
 typedef {{ data.request_type | type_to_c(this_prefix_lc+'_arg_t') }};
+{% endif %}
 {% endif %}
 
 {% if 'return_struct_members' in data %}
@@ -88,8 +92,8 @@ typedef struct __attribute__((__packed__)) { {{ data.return_type | type_to_c('x'
 {% else %}
 typedef {{ data.return_type | type_to_c(this_prefix_lc+'_t') }};
 {% endif %}
-
 {% endif %}
+
 {{ export_route_types(this_prefix_lc, data) }}
 {% endfor %}
 {% endif %}
