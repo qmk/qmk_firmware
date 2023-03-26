@@ -72,8 +72,8 @@ WS2812_DRIVER = i2c
 
 Configure the hardware via your config.h:
 ```c
-#define WS2812_ADDRESS 0xb0 // default: 0xb0
-#define WS2812_TIMEOUT 100 // default: 100
+#define WS2812_I2C_ADDRESS 0xB0 // default: 0xB0
+#define WS2812_I2C_TIMEOUT 100 // default: 100
 ```
 
 ### SPI

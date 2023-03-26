@@ -574,7 +574,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_WS2812_DRIVER_TYPES := bitbang pwm spi i2c vendor
+VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
 
 WS2812_DRIVER ?= bitbang
 ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)

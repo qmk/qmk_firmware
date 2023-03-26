@@ -119,6 +119,8 @@
     "USB_MAX_POWER_CONSUMPTION": {"info_key": "usb.max_power", "value_type": "int"},
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
+    "WS2812_I2C_ADDRESS": {"info_key": "ws2812.i2c_address", "value_type": "hex"},
+    "WS2812_I2C_TIMEOUT": {"info_key": "ws2812.i2c_timeout", "value_type": "int"},
 
     // Items we want flagged in lint
     "NO_ACTION_MACRO": {"info_key": "_invalid.no_action_macro", "invalid": true},
