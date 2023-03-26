@@ -20,10 +20,6 @@
   #include "analog.h"
 #endif
 
-int16_t pot_val = 0;
-int16_t prev_val = 0;
-int16_t val = 0;
-
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
@@ -51,6 +47,10 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
+#ifdef POT_ENABLE
+int16_t pot_val = 0;
+int16_t prev_val = 0;
+int16_t val = 0;
 uint8_t divisor = 0;
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
@@ -64,7 +64,7 @@ void slider(void) {
     }
 
     pot_val = analogReadPin(D4);
-	val = map(pot_val, 0, 1023, 1, 50);
+	val = map(pot_val, 0, 1023, 1, 50); // Windows Specific
 
 	if (( val > (prev_val + 1)) && val != prev_val){
 		int i;
@@ -78,6 +78,7 @@ void slider(void) {
 	}
 	prev_val = val;
 }
+#endif
 
 void housekeeping_task_kb(void) {
 #ifdef POT_ENABLE
