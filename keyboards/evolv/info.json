@@ -8,6 +8,13 @@
         "pid": "0x0E75",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "A15", "resolution": 2}
+        ]
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_evolv_ansi": {
             "layout": [

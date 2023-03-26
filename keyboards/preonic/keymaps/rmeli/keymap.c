@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_wrapper(
   QK_BOOT, _________________NONE_5x___________________, ______________________NONE_6x_______________________,
   XXXXXXX, MU_ON,   AU_ON,   MI_ON,   XXXXXXX, XXXXXXX, _______________CONFIG_R1_x5________________,  QWERTY,
-  RESET,   MU_MOD,  AU_TOG,  MI_TOG,  XXXXXXX, XXXXXXX, _______________CONFIG_R2_x5________________, XXXXXXX,
+  QK_BOOT, MU_NEXT, AU_TOGG, MI_TOGG, XXXXXXX, XXXXXXX, _______________CONFIG_R2_x5________________, XXXXXXX,
   XXXXXXX, MU_OFF,  AU_OFF,  MI_OFF,  XXXXXXX, XXXXXXX, _______________CONFIG_R3_x5________________, COLEMAK,
   ______________________BLANK_6x______________________, ______________________BLANK_6x______________________
 )

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,6 +12,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 
-KEY_LOCK_ENABLE = no      # Enable KC_LOCK support
-
-LAYOUTS = tkl_ansi
+KEY_LOCK_ENABLE = no

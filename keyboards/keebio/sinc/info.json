@@ -13,13 +13,13 @@
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
-        "unicode": false,
+        "unicode": false
     },
     "split": {
-        "enabled": true,
+        "enabled": true
     },
     "build": {
-        "lto": true,
+        "lto": true
     },
     "layouts": {
         "LAYOUT_75": {

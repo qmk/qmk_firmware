@@ -40,7 +40,7 @@ void keyboard_post_init_user(void) {
   // Set default layer, if enabled
   if (user_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_cyan();
+    rgblight_sethsv_noeeprom(HSV_CYAN);
     rgblight_mode_noeeprom(1);
   }
 }
@@ -51,19 +51,19 @@ The above function will use the EEPROM config immediately after reading it, to s
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _RAISE:
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_MAGENTA); rgblight_mode_noeeprom(1); }
         break;
     case _LOWER:
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_red(); rgblight_mode_noeeprom(1); }
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_RED); rgblight_mode_noeeprom(1); }
         break;
     case _PLOVER:
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_green(); rgblight_mode_noeeprom(1); }
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_GREEN); rgblight_mode_noeeprom(1); }
         break;
     case _ADJUST:
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1); }
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_WHITE); rgblight_mode_noeeprom(1); }
         break;
     default: //  for any other layers, or the default layer
-        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1); }
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_CYAN); rgblight_mode_noeeprom(1); }
         break;
     }
   return state;
@@ -109,7 +109,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 ```
-And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued.
+And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EE_CLR` keycode or [Bootmagic Lite](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued.
 
 ```c
 void eeconfig_init_user(void) {  // EEPROM is getting reset!
@@ -119,7 +119,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 
   // use the non noeeprom versions, to write these values to EEPROM too
   rgblight_enable(); // Enable RGB by default
-  rgblight_sethsv_cyan();  // Set it to CYAN by default
+  rgblight_sethsv(HSV_CYAN);  // Set it to CYAN by default
   rgblight_mode(1); // set to solid by default
 }
 ```

@@ -16,7 +16,7 @@
 
 #pragma once
 
-#define UNICODE_SELECTED_MODES UC_WINC
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
 
 /* Selected Unicode input method relies on WinCompose
  * https://docs.qmk.fm/#/feature_unicode?id=input-modes

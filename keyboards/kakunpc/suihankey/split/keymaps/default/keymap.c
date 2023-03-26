@@ -26,7 +26,7 @@ enum layers{
 #define KC_CMD_ET    LT(COMMAND,KC_ENTER)
 #define KC_NUM_ALT   LT(NUMBER,KC_LALT)
 #define KC_NUM_BS    LT(NUMBER,KC_BSPC)
-#define KC_SET_CTRL  LT(SETTING,KC_LCTRL)
+#define KC_SET_CTRL  LT(SETTING,KC_LCTL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x5_3( /* Base */

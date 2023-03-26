@@ -17,24 +17,13 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 5
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D5, D4, D3, D2 }
 #define MATRIX_COL_PINS { F5, F4, F1, F0, B7 }
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
@@ -42,17 +31,13 @@
 /* Use the custom font */
 #define OLED_FONT_H "./lib/glcdfont.c"
 
-/* Encoder pins */
-#define ENCODERS_PAD_A { F7, C7, D7 }
-#define ENCODERS_PAD_B { E6, C6, D6 }
-
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define RGB_DI_PIN F6
-    #define DRIVER_LED_TOTAL 16
+    #define RGB_MATRIX_LED_COUNT 16
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_UP_DOWN
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
     #define RGB_MATRIX_KEYPRESSES
 
     /* RGB Matrix effect */

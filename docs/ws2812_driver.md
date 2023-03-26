@@ -175,7 +175,7 @@ Configure the hardware via your config.h:
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 ```
 
-The WS2812 PIO programm uses 1 state machine, 4 instructions and does not use any interrupt handlers. 
+The WS2812 PIO programm uses 1 state machine, 6 instructions and one DMA interrupt handler callback. Due to the implementation the time resolution for this drivers is 50ns, any value not specified in this interval will be rounded to the next matching interval.
 
 ### Push Pull and Open Drain Configuration
 The default configuration is a push pull on the defined pin.

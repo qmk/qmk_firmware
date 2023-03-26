@@ -31,7 +31,7 @@ uint8_t hex_digit_to_keycode(uint8_t digit) {
 }
 } // namespace
 
-TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::send_keyboard, &TestDriver::send_mouse, &TestDriver::send_system, &TestDriver::send_consumer} {
+TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::send_keyboard, &TestDriver::send_mouse, &TestDriver::send_extra} {
     host_set_driver(&m_driver);
     m_this = this;
 }
@@ -53,12 +53,8 @@ void TestDriver::send_mouse(report_mouse_t* report) {
     m_this->send_mouse_mock(*report);
 }
 
-void TestDriver::send_system(uint16_t data) {
-    m_this->send_system_mock(data);
-}
-
-void TestDriver::send_consumer(uint16_t data) {
-    m_this->send_consumer(data);
+void TestDriver::send_extra(report_extra_t* report) {
+    m_this->send_extra_mock(*report);
 }
 
 namespace internal {

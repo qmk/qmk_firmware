@@ -3,7 +3,6 @@
     "keyboard_name": "BareDev (rev1)",
     "url": "https://github.com/ManoShu/BareDev",
     "maintainer": "ManoShu",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "tapping": {
         "term": 175

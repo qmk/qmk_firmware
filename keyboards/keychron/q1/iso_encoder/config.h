@@ -31,11 +31,7 @@
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 59
 #define DRIVER_2_LED_TOTAL 24
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-/* Encoder Configuration */
-#define ENCODERS_PAD_A { E6 }
-#define ENCODERS_PAD_B { B7 }
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 44

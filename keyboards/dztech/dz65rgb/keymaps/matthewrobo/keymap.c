@@ -31,40 +31,40 @@ extern bool autoshift_enabled;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT_65_ansi(
-		KC_GESC, KC_1,     KC_2,     KC_3,   KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,  KC_BSPC, KC_DEL,  \
-		KC_TAB,  KC_Q,     KC_W,     KC_E,   KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC, KC_BSLS, KC_PGUP, \
-		LT_CAPS, KC_A,     KC_S,     KC_D,   KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,           KC_ENT,  KC_PGDN, \
-		KC_LSPO, KC_Z,     KC_X,     KC_C,   KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSPC,           KC_UP,   KC_END,  \
-		KC_LCTL, KC_LGUI,  LM_LALT,                   KC_SPC,                             KC_RALT, MO(_FNC), KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT  \
+		QK_GESC, KC_1,     KC_2,     KC_3,   KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,  KC_BSPC, KC_DEL,
+		KC_TAB,  KC_Q,     KC_W,     KC_E,   KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC, KC_BSLS, KC_PGUP,
+		LT_CAPS, KC_A,     KC_S,     KC_D,   KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,           KC_ENT,  KC_PGDN,
+		SC_LSPO, KC_Z,     KC_X,     KC_C,   KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  SC_RSPC,           KC_UP,   KC_END,
+		KC_LCTL, KC_LGUI,  LM_LALT,                   KC_SPC,                             KC_RALT, MO(_FNC), KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
 	),
 	[_FNM]    = LAYOUT_65_ansi(
-		_______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   _______,  _______, _______, _______, \
-		_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______, _______, _______, \
-		_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,           _______, _______, \
-		_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,           _______, _______, \
-		_______, _______,  _V_V_V_,                   _______,                            _______, _______,  _______,  _______, _______, _______  \
+		_______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   _______,  _______, _______, _______,
+		_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______, _______, _______,
+		_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,           _______, _______,
+		_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,           _______, _______,
+		_______, _______,  _V_V_V_,                   _______,                            _______, _______,  _______,  _______, _______, _______
 	),
 	[_NAV]    = LAYOUT_65_ansi(
-		KC_NLCK, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_PAST,  KC_PMNS,  KC_PPLS, _______, _______, \
-		_______, KC_PGUP,  KC_HOME, KC_UP,   KC_END,  _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PSLS,  KC_PSCR,  KC_SLCK, KC_INS,  KC_PMNS, \
-		_V_V_V_, KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______,  _______,           KC_PENT, KC_PPLS, \
-		_______, _______,  _______, _______, _______, _______, KC_P0,   KC_P0,   KC_P0,   KC_PDOT, KC_PSLS,  _______,           _______, _______, \
-		_______, _______,  _______,                   _______,                            _______, _______,  _______,  _______, _______, _______  \
+		KC_NUM,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_PAST,  KC_PMNS,  KC_PPLS, _______, _______,
+		_______, KC_PGUP,  KC_HOME, KC_UP,   KC_END,  _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PSLS,  KC_PSCR,  KC_SCRL, KC_INS,  KC_PMNS,
+		_V_V_V_, KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______,  _______,           KC_PENT, KC_PPLS,
+		_______, _______,  _______, _______, _______, _______, KC_P0,   KC_P0,   KC_P0,   KC_PDOT, KC_PSLS,  _______,           _______, _______,
+		_______, _______,  _______,                   _______,                            _______, _______,  _______,  _______, _______, _______
 	),
 	[_FNC]    = LAYOUT_65_ansi(
-		_______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,  _______, KC_ASTG, \
-		_______, RGB_MOD,  RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, MAS_MGT, MAS_BLU, MAS_WHT,  RGB_RMOD, RGB_MOD, _______, KC_MPRV, \
-		_______, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, MAS_RED, MAS_KEY, MAS_CYN, MAS_PRP,  _______,           EEP_RST, KC_MNXT, \
-		_______, RGB_TOG,  _______, _______, REEPROM, REBOOT,  TG_NKRO, MAS_YEL, MAS_GRN, MAS_CRM, _______,  _______,           KC_VOLU, KC_MUTE, \
-		_______, _______,  _______,                  _______,                             _______, _V_V_V_,  _______,  RGB_SPD, KC_VOLD, RGB_SPI  \
+		_______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,  _______, AS_TOGG,
+		_______, RGB_MOD,  RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, MAS_MGT, MAS_BLU, MAS_WHT,  RGB_RMOD, RGB_MOD, _______, KC_MPRV,
+		_______, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, MAS_RED, MAS_KEY, MAS_CYN, MAS_PRP,  _______,           EE_CLR,  KC_MNXT,
+		_______, RGB_TOG,  _______, _______, REEPROM, REBOOT,  TG_NKRO, MAS_YEL, MAS_GRN, MAS_CRM, _______,  _______,           KC_VOLU, KC_MUTE,
+		_______, _______,  _______,                  _______,                             _______, _V_V_V_,  _______,  RGB_SPD, KC_VOLD, RGB_SPI
 	),
 	/*
 	[_LEDS]    = LAYOUT_65_ansi(
-		17, 16, 15, 14, 13, 12, 11, 10,  9, 18, 19, 20, 21, 22, 23, \
-		 7,  6,  5,  4,  3,  2,  1,  0, 26, 27, 28, 29, 30, 31, 24, \
-		 8, 48, 47, 46, 45, 44, 43, 51, 52, 53, 54, 55,     56, 25, \
-		49, 40, 39, 38, 37, 36, 60, 61, 62, 63, 57, 58,     59, 32, \
-		50, 42, 41,         35,             64, 65, 66, 67, 34, 33  \
+		17, 16, 15, 14, 13, 12, 11, 10,  9, 18, 19, 20, 21, 22, 23,
+		 7,  6,  5,  4,  3,  2,  1,  0, 26, 27, 28, 29, 30, 31, 24,
+		 8, 48, 47, 46, 45, 44, 43, 51, 52, 53, 54, 55,     56, 25,
+		49, 40, 39, 38, 37, 36, 60, 61, 62, 63, 57, 58,     59, 32,
+		50, 42, 41,         35,             64, 65, 66, 67, 34, 33
 	),
 	*/
 };
@@ -82,9 +82,8 @@ CPS, A,   S,   D,   F,   G,   H,   J,   K,   L,   COL, QOT,  RETURN,   +
 SFT, Z,   X,   C,   V,   B,   N,   M,   COM, DOT, SLS, SHIFT,    UP,   0
 CTL, GUI, ALT,        SPACEBAR,              ALT, FN, CTL, LFT, DWN, RIT
 */
-void rgb_matrix_indicators_user(void)
-{
-	if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+bool rgb_matrix_indicators_user(void) {
+	if (host_keyboard_led_state().caps_lock) {
 		rgb_matrix_set_color(8, 0xFF, 0xFF, 0xFF);
 	}
 
@@ -173,7 +172,7 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(25, 0xFF, 0x40, 0x00);
 
 			if (this_led & (1 << !autoshift_enabled)) {
-				rgb_matrix_set_color(15, 0xFF, 0x00, 0x00); // KC_ASTG
+				rgb_matrix_set_color(15, 0xFF, 0x00, 0x00); // AS_TOGG
 			} else {
 				rgb_matrix_set_color(15, 0xFF, 0xFF, 0x00);
 			}
@@ -208,16 +207,7 @@ void rgb_matrix_indicators_user(void)
 		break;
 		}
 	}
-}
-
-void matrix_init_user(void)
-{
-	//user initialization
-}
-
-void matrix_scan_user(void)
-{
-	//user matrix
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record)

@@ -42,7 +42,6 @@
 #include "bootmagic.h"
 #include "timer.h"
 #include "sync_timer.h"
-#include "config_common.h"
 #include "gpio.h"
 #include "atomic_util.h"
 #include "led.h"
@@ -75,6 +74,7 @@ extern layer_state_t layer_state;
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
 #    include "process_audio.h"
+#    include "song_list.h"
 #    ifdef AUDIO_CLICKY
 #        include "process_clicky.h"
 #    endif
@@ -93,6 +93,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef LEADER_ENABLE
+#    include "leader.h"
 #    include "process_leader.h"
 #endif
 
@@ -109,6 +110,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
 #    include "process_unicode_common.h"
 #endif
 
@@ -118,10 +120,6 @@ extern layer_state_t layer_state;
 
 #ifdef TAP_DANCE_ENABLE
 #    include "process_tap_dance.h"
-#endif
-
-#ifdef PRINTING_ENABLE
-#    include "process_printer.h"
 #endif
 
 #ifdef AUTO_SHIFT_ENABLE
@@ -210,6 +208,10 @@ extern layer_state_t layer_state;
 #    include "joystick.h"
 #endif
 
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
+#endif
+
 #ifdef VIA_ENABLE
 #    include "via.h"
 #endif
@@ -235,9 +237,14 @@ extern layer_state_t layer_state;
 #    include "process_caps_word.h"
 #endif
 
-// For tri-layer
-void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
+#ifdef AUTOCORRECT_ENABLE
+#    include "process_autocorrect.h"
+#endif
+
+#ifdef TRI_LAYER_ENABLE
+#    include "tri_layer.h"
+#    include "process_tri_layer.h"
+#endif
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 

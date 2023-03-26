@@ -153,7 +153,7 @@ void dynamic_keymap_reset(void) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             for (int column = 0; column < MATRIX_COLS; column++) {
                 if (layer < keymap_layer_count()) {
-                    dynamic_keymap_set_keycode(layer, row, column, pgm_read_word(&keymaps[layer][row][column]));
+                    dynamic_keymap_set_keycode(layer, row, column, keycode_at_keymap_location_raw(layer, row, column));
                 } else {
                     dynamic_keymap_set_keycode(layer, row, column, KC_TRANSPARENT);
                 }
@@ -162,8 +162,8 @@ void dynamic_keymap_reset(void) {
 #ifdef ENCODER_MAP_ENABLE
         for (int encoder = 0; encoder < NUM_ENCODERS; encoder++) {
             if (layer < encodermap_layer_count()) {
-                dynamic_keymap_set_encoder(layer, encoder, true, pgm_read_word(&encoder_map[layer][encoder][0]));
-                dynamic_keymap_set_encoder(layer, encoder, false, pgm_read_word(&encoder_map[layer][encoder][1]));
+                dynamic_keymap_set_encoder(layer, encoder, true, keycode_at_encodermap_location_raw(layer, encoder, true));
+                dynamic_keymap_set_encoder(layer, encoder, false, keycode_at_encodermap_location_raw(layer, encoder, false));
             } else {
                 dynamic_keymap_set_encoder(layer, encoder, true, KC_TRANSPARENT);
                 dynamic_keymap_set_encoder(layer, encoder, false, KC_TRANSPARENT);
@@ -201,20 +201,21 @@ void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
     }
 }
 
-// This overrides the one in quantum/keymap_common.c
-uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
-    if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        return dynamic_keymap_get_keycode(layer, key.row, key.col);
+uint16_t keycode_at_keymap_location(uint8_t layer_num, uint8_t row, uint8_t column) {
+    if (layer_num < DYNAMIC_KEYMAP_LAYER_COUNT && row < MATRIX_ROWS && column < MATRIX_COLS) {
+        return dynamic_keymap_get_keycode(layer_num, row, column);
     }
-#ifdef ENCODER_MAP_ENABLE
-    else if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && key.row == KEYLOC_ENCODER_CW && key.col < NUM_ENCODERS) {
-        return dynamic_keymap_get_encoder(layer, key.col, true);
-    } else if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && key.row == KEYLOC_ENCODER_CCW && key.col < NUM_ENCODERS) {
-        return dynamic_keymap_get_encoder(layer, key.col, false);
-    }
-#endif // ENCODER_MAP_ENABLE
     return KC_NO;
 }
+
+#ifdef ENCODER_MAP_ENABLE
+uint16_t keycode_at_encodermap_location(uint8_t layer_num, uint8_t encoder_idx, bool clockwise) {
+    if (layer_num < DYNAMIC_KEYMAP_LAYER_COUNT && encoder_idx < NUM_ENCODERS) {
+        return dynamic_keymap_get_encoder(layer_num, encoder_idx, clockwise);
+    }
+    return KC_NO;
+}
+#endif // ENCODER_MAP_ENABLE
 
 uint8_t dynamic_keymap_macro_get_count(void) {
     return DYNAMIC_KEYMAP_MACRO_COUNT;
@@ -278,9 +279,8 @@ void dynamic_keymap_macro_send(uint8_t id) {
     p         = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
     void *end = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE);
     while (id > 0) {
-        // If we are past the end of the buffer, then the buffer
-        // contents are garbage, i.e. there were not DYNAMIC_KEYMAP_MACRO_COUNT
-        // nulls in the buffer.
+        // If we are past the end of the buffer, then there is
+        // no Nth macro in the buffer.
         if (p == end) {
             return;
         }
@@ -290,9 +290,8 @@ void dynamic_keymap_macro_send(uint8_t id) {
         ++p;
     }
 
-    // Send the macro string one or three chars at a time
-    // by making temporary 1 or 3 char strings
-    char data[4] = {0, 0, 0, 0};
+    // Send the macro string by making a temporary string.
+    char data[8] = {0};
     // We already checked there was a null at the end of
     // the buffer, so this cannot go past the end
     while (1) {
@@ -302,14 +301,44 @@ void dynamic_keymap_macro_send(uint8_t id) {
         if (data[0] == 0) {
             break;
         }
-        // If the char is magic (tap, down, up),
-        // add the next char (key to use) and send a 3 char string.
-        if (data[0] == SS_TAP_CODE || data[0] == SS_DOWN_CODE || data[0] == SS_UP_CODE) {
-            data[1] = data[0];
-            data[0] = SS_QMK_PREFIX;
-            data[2] = eeprom_read_byte(p++);
-            if (data[2] == 0) {
-                break;
+        if (data[0] == SS_QMK_PREFIX) {
+            // Get the code
+            data[1] = eeprom_read_byte(p++);
+            // Unexpected null, abort.
+            if (data[1] == 0) {
+                return;
+            }
+            if (data[1] == SS_TAP_CODE || data[1] == SS_DOWN_CODE || data[1] == SS_UP_CODE) {
+                // Get the keycode
+                data[2] = eeprom_read_byte(p++);
+                // Unexpected null, abort.
+                if (data[2] == 0) {
+                    return;
+                }
+                // Null terminate
+                data[3] = 0;
+            } else if (data[1] == SS_DELAY_CODE) {
+                // Get the number and '|'
+                // At most this is 4 digits plus '|'
+                uint8_t i = 2;
+                while (1) {
+                    data[i] = eeprom_read_byte(p++);
+                    // Unexpected null, abort
+                    if (data[i] == 0) {
+                        return;
+                    }
+                    // Found '|', send it
+                    if (data[i] == '|') {
+                        data[i + 1] = 0;
+                        break;
+                    }
+                    // If haven't found '|' by i==6 then
+                    // number too big, abort
+                    if (i == 6) {
+                        return;
+                    }
+                    ++i;
+                }
             }
         }
         send_string_with_delay(data, DYNAMIC_KEYMAP_MACRO_DELAY);

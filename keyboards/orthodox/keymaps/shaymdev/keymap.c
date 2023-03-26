@@ -86,19 +86,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT( 
   _______, KC_PSCR, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                                                KC_VOLU, KC_F7, KC_F8,  KC_F9,  KC_F10,  XXXXXXX,
   KC_CAPS, KC_INS,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  _______,          _______,         _______,          _______, KC_VOLD, KC_F4, KC_F5,  KC_F6,  KC_F11,  XXXXXXX,
-  _______, KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______, _______,         _______, _______, _______, KC_MUTE, KC_F1, KC_F2,  KC_F3,  KC_F12,  XXXXXXX
+  _______, KC_NUM,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______, _______,         _______, _______, _______, KC_MUTE, KC_F1, KC_F2,  KC_F3,  KC_F12,  XXXXXXX
 ),
 
 [_ADJUST] =  LAYOUT( 
     TO_DV, QK_BOOT, _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, KC_SLEP,  
-  RGB_TOG, RGB_MOD, VLK_TOG,  AU_ON,   AU_OFF,  AG_NORM, _______,          _______,          _______,          _______, AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______, 
+  RGB_TOG, RGB_MOD, VK_TOGG,  AU_ON,   AU_OFF,  AG_NORM, _______,          _______,          _______,          _______, AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______, 
   RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______,          _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  
 )
 
 
 };
 
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DELETE);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){

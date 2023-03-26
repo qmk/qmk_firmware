@@ -303,18 +303,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             break;
     }
 #        endif // !NO_CHARYBDIS_KEYCODES
-#        ifndef MOUSEKEY_ENABLE
-    // Simulate mouse keys if full support is not enabled (reduces firmware size
-    // while maintaining support for mouse keys).
-    if (IS_MOUSEKEY_BUTTON(keycode)) {
-        report_mouse_t mouse_report = pointing_device_get_report();
-        mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, record->event.pressed, keycode - KC_MS_BTN1);
-        pointing_device_set_report(mouse_report);
-        pointing_device_send();
-    }
-#        endif // !MOUSEKEY_ENABLE
 #    endif     // POINTING_DEVICE_ENABLE
-    if ((keycode >= POINTER_DEFAULT_DPI_FORWARD && keycode < CHARYBDIS_SAFE_RANGE) || IS_MOUSEKEY(keycode)) {
+    if (IS_QK_KB(keycode) || IS_MOUSEKEY(keycode)) {
         debug_charybdis_config_to_console(&g_charybdis_config);
     }
     return true;

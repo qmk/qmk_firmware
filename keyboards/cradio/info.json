@@ -9,8 +9,8 @@
       "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
-    "protocol": "atmel-dfu",
-    "debounce": 5,
+    "bootloader": "atmel-dfu",
+    "pin_compatible": "promicro",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -29,6 +29,9 @@
         ]
     },
     "split": {
+        "bootmagic": {
+            "matrix": [4, 4]
+        },
         "enabled": true,
         "matrix_pins": {
             "right": {

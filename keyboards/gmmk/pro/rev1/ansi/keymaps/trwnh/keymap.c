@@ -54,7 +54,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 //  80, led 05   4, Sh_L   10, Z      16, X       22, C    27, V    32, B       38, N    43, M    48, ,<      54, .<   60, /?               90, Sh_R   94, Up        82, End        81, led 16
 //  83, led 06   5, Ct_L   11,Win_L   17, Alt_L                     33, SPACE                     49, Alt_R   55, FN             65, Ct_R   95, Left   97, Down      79, Right      84, led 17
 //  87, led 07                                                                                                                                                                      88, led 18
-//  91, led 08   
+//  91, led 08
 
 #ifdef RGB_MATRIX_ENABLE
 	static void set_rgb_caps_leds_on(void);
@@ -62,7 +62,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 	static void set_rgb_caps_leds_off(void);
 	static void set_rgb_scroll_leds_off(void);
 
-	static void set_rgb_caps_leds_on() {
+	static void set_rgb_caps_leds_on(void) {
 		// Set alpha and capslock to red
 
 		rgb_matrix_set_color( 3, 255, 0, 0);	// Caps
@@ -97,7 +97,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 		rgb_matrix_set_color(43, 255, 0, 0);	// M
 	}
 
-	static void set_rgb_caps_leds_off() {
+	static void set_rgb_caps_leds_off(void) {
 		// Set alpha and capslock to black
 
 		rgb_matrix_set_color( 3, 0, 0, 0);	// Caps
@@ -132,15 +132,15 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 		rgb_matrix_set_color(43, 0, 0, 0);	// M
 	}
 
-	static void set_rgb_scroll_leds_on() { 
+	static void set_rgb_scroll_leds_on(void) {
 		rgb_matrix_set_color(72, 255, 255, 255); // Under Rotary (HOME)
 	}
 
-	static void set_rgb_scroll_leds_off() { 
+	static void set_rgb_scroll_leds_off(void) {
 		rgb_matrix_set_color(72, 0, 0, 0); // Under Rotary (HOME)
 	}
 
-	void rgb_matrix_indicators_user(void) {
+	bool rgb_matrix_indicators_user(void) {
 		// Left side rainbow
 		rgb_matrix_set_color(67, 255,   0,   0);	// Left LED 01
 		rgb_matrix_set_color(70, 255, 127,   0);	// Left LED 02
@@ -175,6 +175,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 			set_rgb_scroll_leds_off();
 			}
 		}
+    return false;
 	}
 
 #endif // RGB_MATRIX_ENABLE

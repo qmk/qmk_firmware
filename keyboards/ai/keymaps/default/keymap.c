@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │NaN│App│GUI│Alt│
      * └───┴───┴───┴───┘
      */
-    [0] = LAYOUT_ai_5x4_1(
+    [0] = LAYOUT(
         KC_TAB,  KC_Q,    KC_W,    KC_E,
         KC_BSPC, KC_R,    KC_T,    KC_A,    
         KC_LSFT, KC_S,    KC_D,    KC_F, 

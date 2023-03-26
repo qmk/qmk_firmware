@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F103
-BOARD = STM32_F103_STM32DUINO
-
-# Bootloader selection
-BOOTLOADER = stm32duino
-
 # Build Options
 #   change yes to no to disable
 #
@@ -14,8 +7,7 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = mechlovin/zed65/wearhaus66
+DEFAULT_FOLDER = mechlovin/zed65/no_backlight/wearhaus66

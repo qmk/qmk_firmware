@@ -58,7 +58,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
             uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
             RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -68,7 +68,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
         default:  // Solid Color
         {
             RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -79,7 +79,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 }
 #endif //RGB_MATRIX_ENABLE
 
-void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_finished (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code16(S(KC_2));
     } else {
@@ -87,14 +87,14 @@ void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_reset (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code16(S(KC_2));
     } else {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [KC_EMAIL] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };
@@ -257,7 +257,7 @@ void render_status_main(void) {
 
     // Host Keyboard LED Status
 
-    oled_write_ln_P(IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
+    oled_write_ln_P(host_keyboard_led_state().caps_lock ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
 }
 __attribute__ ((weak))
 void oled_task_keymap(void) {}

@@ -18,12 +18,12 @@
 
 #ifdef UNICODE_SELECTED_MODES
 #    undef UNICODE_SELECTED_MODES
-#    define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC
+#    define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS, UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE
 #endif
 
 enum unicode_names { BANG, IRONY, SNEK };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [BANG]  = 0x203D,
     [IRONY] = 0x2E2E,
     [SNEK]  = 0x1F40D,

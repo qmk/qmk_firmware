@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*|tab-----`-q------`-w------`-e------`-r------`-t------`-y------`-u------`-i------`-o------`-p------`-{------`-}------`--|-----| */
     NAV_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
  /*|caps----`-a------`-s------`-d------`-f------`-g------`-h------`-j------`-k------`-l------`-;------`-'------`-----------enter-| */
-    KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,                   KC_RSPC,
+    SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,                   SC_RSPC,
  /*|shift---`-z------`-x------`-c------`-v------`-b------`-n------`-m------`-,------`-.------`-/------`--------------------shift-| */
     KC_LCTL, KC_RGUI, KC_LALT,                            KC_SPC,                             KC_X1,   KC_RALT, KC_RCTL, KC_X1
  /*`ctrl----`-gui----`-alt----`------------------space---------------------------------------`-fn-----`-alt----`ctrl----' ANY      */

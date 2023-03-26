@@ -8,6 +8,12 @@
         "pid": "0x5344",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "driver": "custom",
+        "pin": "F0"
+    },
+    "processor": "at90usb646",
+    "bootloader": "lufa-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

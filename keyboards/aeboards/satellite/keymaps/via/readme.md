@@ -1,2 +1,0 @@
-# The VIA Satellite Layout
-
