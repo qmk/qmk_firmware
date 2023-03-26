@@ -31,31 +31,39 @@
 #    error Unknown protocol in use
 #endif
 
-#define PROFILE_CALL_NAMED(count, name, call)                                                                         \
-    do {                                                                                                              \
-        static uint64_t inner_sum = 0;                                                                                \
-        static uint64_t outer_sum = 0;                                                                                \
-        uint32_t        start_ts;                                                                                     \
-        static uint32_t end_ts;                                                                                       \
-        static uint32_t write_location = 0;                                                                           \
-        start_ts                       = TIMESTAMP_GETTER;                                                            \
-        if (write_location > 0) {                                                                                     \
-            outer_sum += start_ts - end_ts;                                                                           \
-        }                                                                                                             \
-        do {                                                                                                          \
-            call;                                                                                                     \
-        } while (0);                                                                                                  \
-        end_ts = TIMESTAMP_GETTER;                                                                                    \
-        inner_sum += end_ts - start_ts;                                                                               \
-        ++write_location;                                                                                             \
-        if (write_location >= (count)) {                                                                              \
-            uint32_t inner_avg = inner_sum / ((count)-1);                                                             \
-            uint32_t outer_avg = outer_sum / ((count)-1);                                                             \
-            dprintf("%s -- Percentage time spent: %d%%\n", (name), (int)(inner_avg * 100 / (inner_avg + outer_avg))); \
-            inner_sum      = 0;                                                                                       \
-            outer_sum      = 0;                                                                                       \
-            write_location = 0;                                                                                       \
-        }                                                                                                             \
-    } while (0)
+#ifndef CONSOLE_ENABLE
+// Can't do anything if we don't have console output enabled.
+#    define PROFILE_CALL_NAMED(count, name, call) \
+        do {                                      \
+        } while (0)
+#else
+#    define PROFILE_CALL_NAMED(count, name, call)                                                                         \
+        do {                                                                                                              \
+            static uint64_t inner_sum = 0;                                                                                \
+            static uint64_t outer_sum = 0;                                                                                \
+            uint32_t        start_ts;                                                                                     \
+            static uint32_t end_ts;                                                                                       \
+            static uint32_t write_location = 0;                                                                           \
+            start_ts                       = TIMESTAMP_GETTER;                                                            \
+            if (write_location > 0) {                                                                                     \
+                outer_sum += start_ts - end_ts;                                                                           \
+            }                                                                                                             \
+            do {                                                                                                          \
+                call;                                                                                                     \
+            } while (0);                                                                                                  \
+            end_ts = TIMESTAMP_GETTER;                                                                                    \
+            inner_sum += end_ts - start_ts;                                                                               \
+            ++write_location;                                                                                             \
+            if (write_location >= ((uint32_t)count)) {                                                                    \
+                uint32_t inner_avg = inner_sum / (((uint32_t)count) - 1);                                                 \
+                uint32_t outer_avg = outer_sum / (((uint32_t)count) - 1);                                                 \
+                dprintf("%s -- Percentage time spent: %d%%\n", (name), (int)(inner_avg * 100 / (inner_avg + outer_avg))); \
+                inner_sum      = 0;                                                                                       \
+                outer_sum      = 0;                                                                                       \
+                write_location = 0;                                                                                       \
+            }                                                                                                             \
+        } while (0)
+
+#endif // CONSOLE_ENABLE
 
 #define PROFILE_CALL(count, call) PROFILE_CALL_NAMED(count, #call, call)
