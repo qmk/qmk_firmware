@@ -24,7 +24,7 @@
 #if defined(PROTOCOL_LUFA)
 #    define TIMESTAMP_GETTER (_Static_assert(FALSE, "LUFA not currently supported"), 0)
 #elif defined(PROTOCOL_CHIBIOS)
-#    define TIMESTAMP_GETTER chSysGetRealtimeCounterX
+#    define TIMESTAMP_GETTER chSysGetRealtimeCounterX()
 #elif defined(PROTOCOL_ARM_ATSAM)
 #    define TIMESTAMP_GETTER (_Static_assert(FALSE, "arm_atsam not currently supported"), 0)
 #elif defined(PROTOCOL_VUSB)
@@ -40,14 +40,14 @@
         uint32_t        start_ts;                                                                                     \
         static uint32_t end_ts;                                                                                       \
         static uint32_t write_location = 0;                                                                           \
-        start_ts                       = TIMESTAMP_GETTER();                                                          \
+        start_ts                       = TIMESTAMP_GETTER;                                                            \
         if (write_location > 0) {                                                                                     \
             outer_sum += start_ts - end_ts;                                                                           \
         }                                                                                                             \
         do {                                                                                                          \
             call;                                                                                                     \
         } while (0);                                                                                                  \
-        end_ts = TIMESTAMP_GETTER();                                                                                  \
+        end_ts = TIMESTAMP_GETTER;                                                                                    \
         inner_sum += end_ts - start_ts;                                                                               \
         ++write_location;                                                                                             \
         if (write_location >= (count)) {                                                                              \
