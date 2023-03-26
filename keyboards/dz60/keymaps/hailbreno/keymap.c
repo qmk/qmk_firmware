@@ -7,7 +7,7 @@
 
 #include QMK_KEYBOARD_H
 
-#define X KC_NO
+#define XXX KC_NO
 
 extern keymap_config_t keymap_config;
 
@@ -27,7 +27,7 @@ enum keycodes {
   DVORAK,
   FUNC,
   FUNC2,
-  RGB,
+  RGB0,
 };
 
 /*layout template
@@ -47,7 +47,7 @@ enum keycodes {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______,
-  _______, X,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, XXX,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______,           _______,        _______,           _______,         _______, _______, _______, _______, _______),
 */
 
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,          KC_1,  KC_2,  KC_3,  KC_4,  KC_5,  KC_6,  KC_7,  KC_8,  KC_9,  KC_0,  KC_MINS,  KC_EQL,  KC_BSLS, KC_GRV,
   KC_TAB,             KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,  KC_Y,  KC_U,  KC_I,  KC_O,  KC_P,  KC_LBRC,  KC_RBRC,       KC_DEL,
   LT(_FUNC,KC_CAPS),   KC_A,  KC_S,  KC_D,  KC_F,  KC_G,  KC_H,  KC_J,  KC_K,  KC_L,  KC_SCLN,  KC_QUOT,             KC_ENT,
-  SC_LSPO, X,         KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_N,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH,  SC_RSPC,  KC_UP,     RGB,
+  SC_LSPO, XXX,         KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_N,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH,  SC_RSPC,  KC_UP,     RGB0,
   KC_LCTL,            KC_LALT,  KC_LGUI,  KC_BSPC,    FUNC2,   KC_SPC,     KC_RALT,  KC_APP,  KC_LEFT,  KC_DOWN,   KC_RGHT),
 
 /* COLEMAK
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,          KC_1,  KC_2,  KC_3,  KC_4,  KC_5,  KC_6,  KC_7,  KC_8,  KC_9,  KC_0,  KC_MINS,  KC_EQL,  KC_BSLS, KC_GRV,
   KC_TAB,             KC_Q,  KC_W,  KC_F,  KC_P,  KC_G,  KC_J,  KC_L,  KC_U,  KC_Y,  KC_SCLN,  KC_LBRC,  KC_RBRC,    KC_DEL,
   LT(_FUNC,KC_CAPS),   KC_A,  KC_R,  KC_S,  KC_T,  KC_D,  KC_H,  KC_N,  KC_E,  KC_I,  KC_O,  KC_QUOT,                KC_ENT,
-  SC_LSPO, X,         KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_K,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH,  SC_RSPC,  KC_UP,     RGB,
+  SC_LSPO, XXX,         KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_K,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH,  SC_RSPC,  KC_UP,     RGB0,
   KC_LCTL,            KC_LALT,  KC_LGUI,  KC_BSPC,    FUNC2,   KC_SPC,     KC_RALT,  KC_APP,  KC_LEFT,  KC_DOWN,   KC_RGHT),
 
 /* DVORAK
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,         KC_1,  KC_2,  KC_3,  KC_4,  KC_5,  KC_6,  KC_7,  KC_8,  KC_9,  KC_0,  KC_LBRC,  KC_RBRC,  KC_BSLS, KC_GRV,
   KC_TAB,          KC_QUOTE,  KC_COMM,  KC_DOT,  KC_P,  KC_Y,  KC_F,  KC_G,  KC_C,  KC_R,  KC_L,  KC_SLSH,  KC_EQL,  KC_DEL,
   LT(_FUNC,KC_CAPS),   KC_A,  KC_O,  KC_E,  KC_U,  KC_I,  KC_D,  KC_H,  KC_T,  KC_N,  KC_S,  KC_MINS,                KC_ENT,
-  SC_LSPO, X,         KC_SCLN,  KC_Q,  KC_J,  KC_K,  KC_X,  KC_B,  KC_M,  KC_W, KC_V,  KC_Z,  SC_RSPC,     KC_UP,       RGB,
+  SC_LSPO, XXX,         KC_SCLN,  KC_Q,  KC_J,  KC_K,  KC_X,  KC_B,  KC_M,  KC_W, KC_V,  KC_Z,  SC_RSPC,     KC_UP,       RGB0,
   KC_LCTL,            KC_LALT,  KC_LGUI,  KC_BSPC,    FUNC2,   KC_SPC,      KC_RALT,  KC_APP,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
 /* FUNC
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_PSCR,  KC_INS,
   _______,          _______, _______, _______, _______, _______, _______, KC_PGUP,   KC_UP, KC_PGDN, KC_CIRC, _______, _______, KC_BSPC,
   _______,      _______, _______, _______, _______, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_TILD,              _______,
-  _______, X,        _______, _______, _______, _______, _______, KC_END, _______, _______, _______, _______, _______, KC_PGUP, _______,
+  _______, XXX,        _______, _______, _______, _______, _______, KC_END, _______, _______, _______, _______, _______, KC_PGUP, _______,
   _______, _______, _______,           _______,        _______,           _______,          _______, _______, KC_HOME, KC_PGDN, KC_END),
 
 /* FUNC2
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______,
-  _______, X,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, XXX,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______,           _______,        _______,           _______,         _______, _______, _______, _______, _______),
 
 /* RGB
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, _______, _______, _______, _______, _______, _______,
   _______,          RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______,      RGB_HUD, RGB_VAD, RGB_HUI, _______, _______, _______, _______, _______, _______, _______, _______,              _______,
-  _______, X,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, _______,
+  _______, XXX,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, _______,
   _______, _______, _______,           _______,        _______,           _______,         _______, _______, _______, _______, _______),
 
 /* Adjust (Func + Func2)
@@ -190,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   QK_BOOT,
   _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,              _______,
-  _______, X,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, XXX,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______,           _______,        _______,           _______,         _______, _______,  QWERTY, COLEMAK,  DVORAK),
 };
 
@@ -239,7 +239,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case RGB:
+    case RGB0:
       if (record->event.pressed) {
         layer_on(_RGB);
       } else {
