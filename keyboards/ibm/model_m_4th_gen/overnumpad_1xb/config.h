@@ -43,9 +43,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-#define MATRIX_HAS_GHOST
-
 #define STM32_HSECLK 16000000
 
 #define SOLENOID_PIN B5

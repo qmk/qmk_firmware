@@ -1,4 +1,7 @@
 {
+    "matrix_pins": {
+        "ghost": true
+    },
     "usb": {
         "vid": "0x16C0",
         "pid": "0x27DB",
