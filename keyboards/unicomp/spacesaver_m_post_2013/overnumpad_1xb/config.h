@@ -15,8 +15,11 @@
  */
 #pragma once
 
+#define DEF_SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
-#define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
+#ifndef SERIAL_NUMBER
+#define SERIAL_NUMBER DEF_SERIAL_NUMBER
+#endif
 
 #define STM32_HSECLK 16000000
 
