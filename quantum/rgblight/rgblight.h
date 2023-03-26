@@ -174,6 +174,10 @@ typedef struct {
     uint8_t val;
 } rgblight_segment_t;
 
+// rgblight_set_layer_state doesn't take effect until the next time
+// rgblight_task runs, so timers must be enabled for layers to work.
+#    define RGBLIGHT_USE_TIMER
+
 #    define RGBLIGHT_END_SEGMENT_INDEX (255)
 #    define RGBLIGHT_END_SEGMENTS \
         { RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0 }
