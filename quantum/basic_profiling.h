@@ -21,16 +21,14 @@
         });
 */
 
-#if defined(PROTOCOL_LUFA)
-#    define TIMESTAMP_GETTER (_Static_assert(FALSE, "LUFA not currently supported"), 0)
+#if defined(PROTOCOL_LUFA) || defined(PROTOCOL_VUSB)
+#    define TIMESTAMP_GETTER TCNT0
 #elif defined(PROTOCOL_CHIBIOS)
 #    define TIMESTAMP_GETTER chSysGetRealtimeCounterX()
 #elif defined(PROTOCOL_ARM_ATSAM)
-#    define TIMESTAMP_GETTER (_Static_assert(FALSE, "arm_atsam not currently supported"), 0)
-#elif defined(PROTOCOL_VUSB)
-#    define TIMESTAMP_GETTER (_Static_assert(FALSE, "VUSB not currently supported"), 0)
+#    error arm_atsam not currently supported
 #else
-#    define TIMESTAMP_GETTER (_Static_assert(FALSE, "Unknown protocol in use"), 0)
+#    error Unknown protocol in use
 #endif
 
 #define PROFILE_CALL_NAMED(count, name, call)                                                                         \
