@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "Unicomp Classic / Ultra Classic (pre-2013)",
+    "manufacturer": "Unicomp",
+    "maintainer": "purdeaandrei",
+    "url": "https://www.pckeyboard.com/",
+    "indicators": {
+        "on_state": 0,
+        "num_lock": "GP4",
+        "caps_lock": "GP3",
+        "scroll_lock": "GP2"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
+    "matrix_pins": {
+        "io_delay": 4
+    },
+}

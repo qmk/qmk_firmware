@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "Unicomp Spacesaver M (post-2013)",
+    "manufacturer": "Unicomp",
+    "maintainer": "purdeaandrei",
+    "url": "https://www.pckeyboard.com/",
+    "indicators": {
+        "on_state": 0,
+        "caps_lock": "GP4",
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
+    "matrix_pins": {
+        "io_delay": 4
+    },
+}
