@@ -48,7 +48,7 @@
     "usb": {
         "device_ver": "0x0002",
         "device_version": "0.0.2",
-        "pid": "0x2260",
+        "pid": "0x2261",
         "vid": "0x445A"
     },
     "community_layouts": ["60_ansi", "60_ansi_arrow_split_bs_7u_spc", "60_ansi_arrow", "60_ansi_split_bs_rshift", "60_hhkb", "60_iso", "60_abnt2", "60_tsangan_hhkb"],
