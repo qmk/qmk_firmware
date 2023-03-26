@@ -22,12 +22,8 @@ enum custom_layers {
 };
 
 enum custom_keycodes {
-    NUMSLCK = SAFE_RANGE, // Num Lock on shift, Scroll Lock regularly
-    NEW_SAFE_RANGE,
+    NUMSLCK = QK_USER, // Num Lock on shift, Scroll Lock regularly
 };
-
-#undef SAFE_RANGE
-#define SAFE_RANGE NEW_SAFE_RANGE
 
 // Mod key detection
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
