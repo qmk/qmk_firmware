@@ -2,7 +2,7 @@
 POINTING_DEVICE_DRIVERS ?=
 
 # The list of permissible drivers that can be listed in POINTING_DEVICE_DRIVERS
-VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom
+VALID_POINTING_DEVICE_DRIVERS := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3360 pmw3389 pimoroni_trackball custom_i2c custom_spi
 
 OPT_DEFS += -DPOINTING_DEVICE_ENABLE
 MOUSE_ENABLE := yes
@@ -22,8 +22,8 @@ define handle_pointing_device_drivers
         $$(error "$$(CURRENT_POINTING_DEVICE_DRIVER)" is not a valid pointing driver)
 
 	else ifneq ($$(strip $$(CURRENT_POINTING_DEVICE_DRIVER)), custom)
-			SRC += $(DRIVER_PATH)/sensors/$$(strip $$(CURRENT_POINTING_DEVICE_DRIVER)).c
-			OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$$(strip $$(shell echo $$(CURRENT_POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
+		SRC += $(DRIVER_PATH)/sensors/$$(strip $$(CURRENT_POINTING_DEVICE_DRIVER)).c
+		OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$$(strip $$(shell echo $$(CURRENT_POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
 	endif
 	OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(CURRENT_POINTING_DEVICE_DRIVER))
 	ifeq ($$(strip $$(CURRENT_POINTING_DEVICE_DRIVER)), adns9800)
@@ -45,6 +45,10 @@ define handle_pointing_device_drivers
 		SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
 	else ifeq ($$(strip $$(CURRENT_POINTING_DEVICE_DRIVER)), pimoroni_trackball)
 		POINTING_DEVICE_NEEDS_COMMS_I2C := yes
+	else ifeq ($$(strip $$(CURRENT_POINTING_DEVICE_DRIVER)), custom_i2c)
+		POINTING_DEVICE_NEEDS_COMMS_I2C := yes
+	else ifeq ($$(strip $$(CURRENT_POINTING_DEVICE_DRIVER)), custom_spi)
+		POINTING_DEVICE_NEEDS_COMMS_SPI := yes
 	else ifneq ($$(filter $$(strip $$(CURRENT_POINTING_DEVICE_DRIVER)),pmw3360 pmw3389),)
 		POINTING_DEVICE_NEEDS_COMMS_SPI := yes
 		SRC += $(DRIVER_PATH)/sensors/pmw33xx_common.c
