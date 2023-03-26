@@ -56,75 +56,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		),
 };
 
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-
-
-	switch (get_highest_layer(layer_state)) {
-        case _BASE:
-             if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
-            tap_code(KC_MS_WH_UP);
-        }
-    }
-            break;
-        case _RAISE:
-            if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_MNXT);
-        } else {
-            tap_code(KC_MPRV);
-        }
-    }
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_WH_R);
-        } else {
-            tap_code(KC_WH_L);
-        }
-    }
-            break;
-		case _LOWER:
-			if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_PGUP);
-        } else {
-            tap_code(KC_PGDN);
-        }
-    }
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_END);
-        } else {
-            tap_code(KC_HOME);
-        }
-    }
-			break;
-        case _ADJUST:
-             if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_MS_RIGHT);
-        } else {
-            tap_code(KC_MS_LEFT);
-        }
-    }
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_MS_DOWN);
-        } else {
-            tap_code(KC_MS_UP);
-        }
-    }
-            break;
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    [_LOWER] =  { ENCODER_CCW_CW(KC_PGDN, KC_PGUP), ENCODER_CCW_CW(KC_HOME, KC_END)  },
+    [_RAISE] =  { ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(KC_WH_L, KC_WH_R)  },
+    [_ADJUST] = { ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT), ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN) },
+};
+#endif
