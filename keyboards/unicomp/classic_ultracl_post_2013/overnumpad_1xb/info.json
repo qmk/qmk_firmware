@@ -9,5 +9,6 @@
         "scroll_lock": "C10"
     },
     "processor": "STM32F446",
-    "bootloader": "stm32-dfu"
+    "bootloader": "stm32-dfu",
+    "diode_direction": "ROW2COL"
 }
