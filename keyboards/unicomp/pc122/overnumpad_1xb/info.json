@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "IBM Model M (4th generation)",
-    "manufacturer": "IBM/Purdea Andrei",
+    "keyboard_name": "Unicomp PC122",
+    "manufacturer": "Unicomp/Purdea Andrei",
     "url": "https://github.com/purdeaandrei/overnumpad_controller_1xb",
     "maintainer": "purdeaandrei",
     "indicators": {
@@ -9,5 +9,5 @@
         "scroll_lock": "C10"
     },
     "processor": "STM32F446", // RET6
-    "bootloader": "stm32-dfu",
+    "bootloader": "stm32-dfu"
 }

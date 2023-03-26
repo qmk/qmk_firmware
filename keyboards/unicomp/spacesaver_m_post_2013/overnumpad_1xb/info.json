@@ -1,12 +1,10 @@
 {
-    "keyboard_name": "IBM Model M (4th generation)",
-    "manufacturer": "IBM/Purdea Andrei",
+    "keyboard_name": "Unicomp Spacesaver M",
+    "manufacturer": "Unicomp/Purdea Andrei",
     "url": "https://github.com/purdeaandrei/overnumpad_controller_1xb",
     "maintainer": "purdeaandrei",
     "indicators": {
-        "caps_lock": "C11",
-        "num_lock": "C12",
-        "scroll_lock": "C10"
+        "caps_lock": "C12"
     },
     "processor": "STM32F446", // RET6
     "bootloader": "stm32-dfu",
