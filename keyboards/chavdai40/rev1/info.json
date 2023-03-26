@@ -3,6 +3,11 @@
     "usb": {
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B8", "B4", "B3", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1"],
+        "rows": ["A0", "A15", "B5", "B6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F042",
     "bootloader": "stm32-dfu"
 }

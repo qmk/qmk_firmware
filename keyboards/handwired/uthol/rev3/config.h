@@ -17,14 +17,6 @@
 
 #pragma once
 
-
-/* key matrix size */
-// A11 and A12 dont work. They are reserved for USB. B2 is reserved for BOOT1
-#define MATRIX_COL_PINS \
-    { B1, B10, B9, B8, B5, B4, B3, A15, B15, B14, B13, B12 }
-#define MATRIX_ROW_PINS \
-    { A4, A3, A2, A1, A0 }
-
 // OLED config
 #define OLED_DISPLAY_128X64
 #define OLED_DISPLAY_WIDTH 128

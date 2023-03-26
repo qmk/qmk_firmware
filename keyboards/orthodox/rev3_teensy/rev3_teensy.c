@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "orthodox.h"
+#include "rev3_teensy.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))

@@ -16,14 +16,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { F0, C7, C6, B6, B5, B0}
-#define MATRIX_COL_PINS { F4, F5, D7, B4 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define TAP_CODE_DELAY 10
 
 #define RGB_DI_PIN E6

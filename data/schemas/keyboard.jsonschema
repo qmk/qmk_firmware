@@ -35,7 +35,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris"]
         },
         "pin_compatible": {
             "type": "string",
@@ -95,6 +95,19 @@
                 "attiny85",
                 "unknown"
             ]
+        },
+        "apa102": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "default_brightness": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 31
+                }
+            }
         },
         "audio": {
             "type": "object",
@@ -685,6 +698,16 @@
                 "esc_input": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "led": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "speaker": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+            }
+        },
+        "ws2812": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["bitbang", "i2c", "pwm", "spi", "vendor"]
+                }
             }
         }
     }

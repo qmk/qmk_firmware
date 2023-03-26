@@ -17,13 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef MATRIX_ROW_PINS
-#undef MATRIX_COL_PINS
-
-//v.1.0
-//#define MATRIX_ROW_PINS { B8, B9, C13, B7, B6, B4, B3 }
-//v.1.1
-#define MATRIX_ROW_PINS { B8, B9, C13, B7, B6, B5, B4 }
-#define MATRIX_COL_PINS { A6, A7, B0, B1, B10, B11, A0, A1, A2, A3, A4, A5 }
-
 #define LED4_PIN A8

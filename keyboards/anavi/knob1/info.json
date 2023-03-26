@@ -34,6 +34,9 @@
 		"twinkle": true
         }
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "encoder": {
 	"enabled": true,
         "rotary": [

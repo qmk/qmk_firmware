@@ -17,14 +17,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { D5, D4, D3, D2 }
-#define MATRIX_COL_PINS { F5, F4, F1, F0, B7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 

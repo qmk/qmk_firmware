@@ -11,5 +11,8 @@
         "resolution": 2
       }
     ]
+  },
+  "ws2812": {
+    "driver": "vendor"
   }
 }

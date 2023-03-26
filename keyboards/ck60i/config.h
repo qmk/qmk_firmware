@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_COL_PINS { B12, A2 , A1 , A0 , F1 , F0 , B11, B10, B2 , B1 , B0 , A7 , C15, C14}
-#define MATRIX_ROW_PINS { B9 , C13, A3 , B14, A8}
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      1

@@ -8,6 +8,11 @@
         "pid": "0xD408",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B2", "B3", "D0", "D1", "D2", "D3", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4"],
+        "rows": ["F6", "F7", "F5", "F1", "F4"]
+    },
+    "diode_direction": "COL2ROW",
     "bootmagic": {
         "matrix": [4, 6]
     },

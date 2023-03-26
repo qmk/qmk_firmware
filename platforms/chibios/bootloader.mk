@@ -93,7 +93,6 @@ ifeq ($(strip $(BOOTLOADER)), kiibohd)
 endif
 ifeq ($(strip $(BOOTLOADER)), stm32duino)
     OPT_DEFS += -DBOOTLOADER_STM32DUINO
-    MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
     BOARD = STM32_F103_STM32DUINO
     BOOTLOADER_TYPE = stm32duino
 

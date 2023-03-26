@@ -2,13 +2,6 @@
 
 #pragma once
 
-/* default pin-out */
-#define MATRIX_ROW_PINS { NO_PIN }
-#define MATRIX_COL_PINS { B4, B6, B2, D7, B1, F7, F6, F5, F4 }
-
-#define DIODE_DIRECTION COL2ROW
-
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 

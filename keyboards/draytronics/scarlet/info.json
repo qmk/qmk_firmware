@@ -8,6 +8,11 @@
         "pid": "0x5343",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A5", "A6", "A7", "C7"],
+        "rows": ["A0", "A1", "A2", "A3", "A4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "community_layouts": ["numpad_5x4"],

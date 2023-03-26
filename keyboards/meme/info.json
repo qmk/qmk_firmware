@@ -8,6 +8,11 @@
     "pid": "0x0000",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["D3", "D2", "B5", "B6", "C7", "C6", "C5", "C4"],
+    "rows": ["C2", "D0", "D1", "D4", "D5", "D6", "B0", "B1", "B2", "B3"]
+  },
+  "diode_direction": "COL2ROW",
   "backlight": {
     "pin": "B7",
     "breathing": true

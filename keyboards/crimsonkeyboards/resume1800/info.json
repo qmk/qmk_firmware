@@ -8,6 +8,11 @@
         "pid": "0xC18B",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A2", "B3", "A3", "B4", "A4", "D1", "D5", "D6", "A6", "A7", "C7", "C6", "C5", "C4", "D7", "C3", "C2", "C1", "C0", "D0"],
+        "rows": ["A5", "A0", "A1", "B1", "B2", "B0"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
     	"caps_lock": "B6",
     	"num_lock": "B5"

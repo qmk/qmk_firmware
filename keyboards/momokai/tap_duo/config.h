@@ -16,13 +16,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { E0 }
-#define MATRIX_COL_PINS { E6, B2, D1, D2, D3 }
-
-#define DIODE_DIRECTION COL2ROW
-
-
 // Tweak how the mouse cursor moves. https://docs.qmk.fm/#/feature_mouse_keys
 // Accelerated mode (default).
 #define MOUSEKEY_DELAY  10

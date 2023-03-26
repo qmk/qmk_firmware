@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#include "polyandry.h"
+#include "quantum.h"
 
 #define LAYOUT_ortho_4x3( \
 	K000, K001, K002, \

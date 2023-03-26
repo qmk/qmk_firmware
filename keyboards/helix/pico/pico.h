@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#include "helix.h"
+#include "quantum.h"
 
 // Each keymap.c should use is_keyboard_master() instead of 'is_master', 'has_usb()'.
 // But keep 'is_master' for a while for backwards compatibility

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "zygomorph.h"
 #include "quantum.h"
 
 #ifdef RGBLIGHT_ENABLE

@@ -8,6 +8,11 @@
         "pid": "0xCA75",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F0", "F1", "E6", "C7", "C6", "F5", "D4", "B1", "B0", "B5", "B4", "D7", "D6", "B3", "F4", "F6"],
+        "rows": ["D0", "D1", "D2", "D3", "D5", "B7"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B6",
         "breathing": true

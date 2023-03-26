@@ -13,6 +13,9 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "ws2812": {
+        "driver": "pwm"
+    },
     "matrix_pins": {
         "cols": ["B15", "B14", "B13", "A9", "A2", "B1", "B9", "B7", "B5", "B4", "B0", "A8", "B6", "B3"],
         "rows": ["A15", "B8", "A4", "A3", "B2"]

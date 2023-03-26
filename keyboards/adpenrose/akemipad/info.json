@@ -7,6 +7,11 @@
         "pid": "0x0004",
         "vid": "0x4450"
     },
+    "matrix_pins": {
+        "cols": ["D3", "D2", "F5", "F6", "B2"],
+        "rows": ["D4", "D7", "E6", "B6", "B4", "B5"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "B1", "pin_b": "B3"}

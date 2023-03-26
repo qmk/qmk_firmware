@@ -7,6 +7,11 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F7", "D5", "D3", "D2", "B3", "B2", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4", "B1"],
+        "rows": ["F0", "F1", "F4", "F5", "F6"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B7",
         "breathing": true

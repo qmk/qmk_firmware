@@ -15,12 +15,6 @@
  */
 #pragma once
 
-
-#define MATRIX_ROW_PINS \
-    { A6, A7, B0, B10 }
-#define MATRIX_COL_PINS \
-    { A10, A15, B3, B4, B5, B7, B6, A1, A2, A3, A4, A5 }
-
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_LAYERS
 #define RGB_DI_PIN B15

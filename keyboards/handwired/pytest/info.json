@@ -12,7 +12,7 @@
     "layouts": {
         "LAYOUT_ortho_1x1": {
             "layout": [
-                { "w": 1, "x": 0, "y": 0 }
+                { "x": 0, "y": 0 }
             ]
         }
     }

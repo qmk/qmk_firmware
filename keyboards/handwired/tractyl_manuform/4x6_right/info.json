@@ -6,6 +6,11 @@
         "pid": "0x3537",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C0", "C1", "C2", "C3", "C4", "C5"],
+        "rows": ["A0", "A1", "A2", "A3", "A4"]
+    },
+    "diode_direction": "COL2ROW",
     "split": {
         "soft_serial_pin": "D3",
         "bootmagic": {

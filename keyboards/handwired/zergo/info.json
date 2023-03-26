@@ -8,6 +8,11 @@
         "pid": "0xB92B",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C7", "C6", "C5", "C4", "C2", "C1", "B7", "D3", "D2", "B6", "B5", "B4", "B3", "B2"],
+        "rows": ["B1", "D7", "C3", "D6", "D5", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "at90usb1286",
     "bootloader": "halfkay",
     "layouts": {

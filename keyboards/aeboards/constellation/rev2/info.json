@@ -8,6 +8,11 @@
         "pid": "0x065C",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B12", "A1", "H0", "C15", "C14", "B11", "B10", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3"],
+        "rows": ["B15", "A14", "A2", "B13", "B14"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32L422",
     "bootloader": "stm32-dfu",
     "layouts": {

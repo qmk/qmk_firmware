@@ -7,6 +7,11 @@
         "pid": "0x2146",
         "device_version": "2.0.0"
     },
+    "matrix_pins": {
+        "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
+        "rows": ["D4", "D7", "E6", "B4"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B5",
         "levels": 7

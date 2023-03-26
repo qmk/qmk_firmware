@@ -6,6 +6,11 @@
         "pid": "0x3201",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A10", "A9", "A8", "B15", "B14", "B13", "B12", "A4", "A2", "A1", "B6", "B5", "B4", "B3", "A15"],
+        "rows": ["A3", "A5", "A6", "A7", "B0"]
+    },
+    "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
             {"pin_a": "B11", "pin_b": "B10"}

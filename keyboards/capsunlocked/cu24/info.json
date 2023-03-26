@@ -8,6 +8,11 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F0", "F1", "D0", "D1"],
+        "rows": ["E6", "F5", "B4", "B6", "C6", "C7"]
+    },
+    "diode_direction": "ROW2COL",
     "backlight": {
         "pin": "B5",
         "levels": 5,

@@ -8,6 +8,11 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D1", "D0", "D4", "C6"],
+        "rows": ["B0"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B5"
     },

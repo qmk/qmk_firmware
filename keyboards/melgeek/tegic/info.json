@@ -8,6 +8,11 @@
         "pid": "0x0081",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B0", "B1", "B2", "B3", "D2", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7"],
+        "rows": ["F0", "F1", "F4", "F5", "F6", "D3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "debounce": 3,
@@ -46,7 +51,7 @@
                 {"x": 10,	"y": 1.5},
                 {"x": 11,	"y": 1.5},
                 {"x": 12,	"y": 1.5},
-                {"x": 13,	"y": 1.5, "w": 2.0},
+                {"x": 13,	"y": 1.5, "w": 2},
                 {"x": 15.5, "y": 1.5},
 
                 {"x": 0,	"y": 2.5, "w": 1.5},
