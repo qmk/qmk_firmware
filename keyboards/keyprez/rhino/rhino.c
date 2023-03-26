@@ -15,6 +15,7 @@
  */
 
 #include "quantum.h"
+#include QMK_KEYBOARD_H
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
