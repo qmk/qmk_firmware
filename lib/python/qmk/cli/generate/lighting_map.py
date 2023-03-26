@@ -105,7 +105,7 @@ def _append_lighting_bit_field(lines, feature, spec):
 
 
 def _append_lighting_mapping(lines, feature):
-    """Generate lookup table and bit-field of effect 
+    """Generate lookup table and bit-field of effect
     """
     spec = load_lighting_spec(feature)
 

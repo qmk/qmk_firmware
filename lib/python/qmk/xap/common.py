@@ -9,7 +9,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 import qmk.constants
 from qmk.git import git_get_version
 from qmk.lighting import load_lighting_spec
-from qmk.json_schema import json_load, validate, merge_ordered_dicts
+from qmk.json_schema import validate, merge_ordered_dicts
 from qmk.makefile import parse_rules_mk_file
 from qmk.decorators import lru_cache
 from qmk.keymap import locate_keymap
