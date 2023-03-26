@@ -22,6 +22,9 @@
     "indicators": {
         "caps_lock": "A0"
     },
+    "ws2812": {
+        "driver": "pwm"
+    },
     "rgblight": {
         "led_count": 16,
         "pin": "B8",

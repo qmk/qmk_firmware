@@ -19,5 +19,8 @@
         "caps_lock": "C14",
         "num_lock": "A0",
         "scroll_lock": "C15"
+    },
+    "ws2812": {
+        "driver": "spi"
     }
 }

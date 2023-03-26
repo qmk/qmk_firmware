@@ -16,6 +16,9 @@
   "backlight": {
     "pin": "D2"
   },
+  "ws2812": {
+    "driver": "i2c"
+  },
   "processor": "atmega32a",
   "bootloader": "bootloadhid",
   "community_layouts": ["planck_mit"],

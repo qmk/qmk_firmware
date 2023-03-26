@@ -8,6 +8,9 @@
         "pid": "0x5337",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "driver": "spi"
+    },
     "matrix_pins": {
         "cols": ["A9", "C13", "C14"],
         "rows": ["A8", "C15", "A0", "A1"]

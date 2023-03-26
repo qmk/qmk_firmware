@@ -33,6 +33,9 @@
     "pin": "A7",
     "levels": 4
   },
+  "ws2812": {
+    "driver": "pwm"
+  },
   "split": {
     "enabled": true,
     "main": "pin",

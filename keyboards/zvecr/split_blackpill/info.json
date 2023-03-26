@@ -25,6 +25,9 @@
             }
         }
     },
+    "ws2812": {
+        "driver": "pwm"
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "community_layouts": ["ortho_4x12"],

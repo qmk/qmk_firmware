@@ -8,6 +8,9 @@
         "pid": "0x2323",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "driver": "i2c"
+    },
     "matrix_pins": {
         "cols": ["B0", "B1", "B2", "B3", "B4", "B5"],
         "rows": ["A0", "A1", "A2", "A3"]
