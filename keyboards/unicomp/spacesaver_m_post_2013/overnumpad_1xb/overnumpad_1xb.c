@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "overnumpad_1xb.h"
+#include "quantum.h"
 
 void keyboard_post_init_kb(void)
 {
