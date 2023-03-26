@@ -18,7 +18,16 @@
 #include <xap.h>
 #include "secure.h"
 
-#include "lighting_map.h"
+#ifdef RGBLIGHT_ENABLE
+#    include "rgblight/lighting_map.h"
+#endif
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix/lighting_map.h"
+#endif
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix/lighting_map.h"
+#endif
+
 #include "config_blob_gz.h"
 bool get_config_blob_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
     if (offset >= CONFIG_BLOB_GZ_LEN) {
