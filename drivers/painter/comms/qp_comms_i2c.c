@@ -9,9 +9,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Helpers
 
-static const uint8_t cmd_byte  = 0x00;
-static const uint8_t data_byte = 0x40;
-
 static uint32_t qp_comms_i2c_send_raw(painter_device_t device, const void *data, uint32_t byte_count) {
     painter_driver_t *     driver       = (painter_driver_t *)device;
     qp_comms_i2c_config_t *comms_config = (qp_comms_i2c_config_t *)driver->comms_config;
@@ -43,6 +40,12 @@ uint32_t qp_comms_i2c_send_data(painter_device_t device, const void *data, uint3
 void qp_comms_i2c_stop(painter_device_t device) {
     i2c_stop();
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Command+Data I2C support
+
+static const uint8_t cmd_byte  = 0x00;
+static const uint8_t data_byte = 0x40;
 
 void qp_comms_i2c_cmddata_send_command(painter_device_t device, uint8_t cmd) {
     uint8_t buf[2] = {cmd_byte, cmd};

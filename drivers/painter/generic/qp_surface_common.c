@@ -123,8 +123,8 @@ bool qp_surface_draw(painter_device_t surface, painter_device_t target, uint16_t
     }
 
     // Offload to the pixdata transfer function
-    surface_painter_driver_vtable_t *vtbl = (surface_painter_driver_vtable_t *)surface_driver->driver_vtable;
-    bool                             ok   = vtbl->target_pixdata_transfer(surface_driver, target_driver, x, y, entire_surface);
+    surface_painter_driver_vtable_t *vtable = (surface_painter_driver_vtable_t *)surface_driver->driver_vtable;
+    bool                             ok     = vtable->target_pixdata_transfer(surface_driver, target_driver, x, y, entire_surface);
     if (!ok) {
         qp_dprintf("qp_surface_draw: fail (could not transfer pixel data)\n");
         return false;
