@@ -196,6 +196,10 @@ def _flash_uf2(file):
     cli.run(['util/uf2conv.py', '--deploy', file], capture_output=False)
 
 
+def _flash_ubaboot(file):
+    cli.run(['util/ubaboot.py', 'write', file], capture_output=False)
+
+
 def flasher(mcu, file):
     bl, details = _find_bootloader()
     # Add a small sleep to avoid race conditions
@@ -222,6 +226,8 @@ def flasher(mcu, file):
         _flash_mdloader(file)
     elif bl == '_uf2_compatible_':
         _flash_uf2(file)
+    elif bl == 'ubaboot':
+        _flash_ubaboot(file)
     else:
         return (True, "Known bootloader found but flashing not currently supported!")
 

@@ -217,6 +217,13 @@ Precompiled `.hex` files are generally not available, but you can compile it you
 
 Note that some boards may have their own specialized build of this bootloader in a separate repository. This will usually be linked to in the board's readme.
 
+### Ubaboot
+
+This bootloader is designed to occupy the bare minimum possible, using less that 512 bytes of flash. It runs on ATmega32U4 MCUs. It can be flashed with any ISP supported by avrdude.
+There is no pre-built .hex file, it must be built using the included Makefile.
+
+https://github.com/rrevans/ubaboot
+
 ## Flashing the Bootloader
 
 Open a new Terminal window - if you are on Windows, use MSYS2 or QMK MSYS, not the Command Prompt. Navigate to the directory your bootloader `.hex` is in. Now it's time to run the `avrdude` command.

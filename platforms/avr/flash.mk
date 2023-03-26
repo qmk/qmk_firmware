@@ -165,6 +165,10 @@ define EXEC_HID_LUFA
 	$(HID_BOOTLOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 endef
 
+define EXEC_UBABOOT
+	util/ubaboot.py --wait write $(BUILD_DIR)/$(TARGET).hex
+endef
+
 hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_HID_LUFA)
 
@@ -184,6 +188,8 @@ else ifeq ($(strip $(BOOTLOADER)), bootloadhid)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_BOOTLOADHID)
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HID_LUFA)
+else ifeq ($(strip $(BOOTLOADER)), ubaboot)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_UBABOOT)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif

@@ -403,6 +403,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `caterina`
   * `bootloadhid`
   * `usbasploader`
+  * `ubaboot`
 
 ## Feature Options :id=feature-options
 

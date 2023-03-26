@@ -190,6 +190,7 @@
                 "stm32-dfu",
                 "stm32duino",
                 "tinyuf2",
+                "ubaboot",
                 "uf2boot",
                 "unknown",
                 "usbasploader",

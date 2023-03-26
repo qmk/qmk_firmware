@@ -109,7 +109,8 @@ BOOTLOADER_VIDS_PIDS = {
     'hid-bootloader': {
         ("03eb", "2067"),  # QMK HID
         ("16c0", "0478")  # PJRC halfkay
-    }
+    },
+    'ubaboot': {("1d50", "611c")}
 }
 
 # Common format strings

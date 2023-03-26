@@ -442,3 +442,23 @@ CLI Flashing sequence:
 4. Wait for the keyboard to become available
 
 <sup>1</sup>: This works only if QMK was compiled with `RP2040_BOOTLOADER_DOUBLE_TAP_RESET` defined.
+
+## Ubaboot
+
+This is a little bootloader (less than 512 bytes) developed by RREvans. The `rules.mk` setting for this
+bootloader is `ubaboot`.
+
+Compatible flashers:
+
+Ubaboot uses its own protocol, including by default a python3-written flasher called `ubaboot.py`.
+Rastersoft created a compatible C-language flasher. Installing any of them in the path should work.
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Press the `QK_BOOT` keycode
+    * Press the `RESET` button on the PCB if available
+    * short RST to GND quickly
+2. Wait for the OS to detect the device
+3. Flash a .hex file
+4. Reset the device into application mode (may be done automatically)
