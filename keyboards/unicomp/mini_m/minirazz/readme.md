@@ -1,6 +1,6 @@
 # unicomp/mini_m/minirazz
 
-![unicomp/mini_m/minirazz](https://sharktastica.co.uk/resources/images/SNKB/SNKB-M2021-SSK-87.jpg)
+![unicomp/mini_m/minirazz](https://i.imgur.com/JFXIz4O.jpeg)
 
 Supports the Unicomp Mini M keyboard, with the "MiniRazz" open hardware replacement controller.
 

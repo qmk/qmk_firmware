@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Mini M (MiniRazz)",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
+    "matrix_pins": {
+        "ghost": true,
+        "io_delay": 4
+    },
+    "indicators": {
+        "on_state": 0,
+        "num_lock": "GP22",
+        "caps_lock": "GP21",
+        "scroll_lock": "GP20"
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    }
+}
