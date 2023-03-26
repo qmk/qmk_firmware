@@ -29,6 +29,8 @@
 #    define TIMESTAMP_GETTER (_Static_assert(FALSE, "arm_atsam not currently supported"), 0)
 #elif defined(PROTOCOL_VUSB)
 #    define TIMESTAMP_GETTER (_Static_assert(FALSE, "VUSB not currently supported"), 0)
+#else
+#    define TIMESTAMP_GETTER (_Static_assert(FALSE, "Unknown protocol in use"), 0)
 #endif
 
 #define PROFILE_CALL_NAMED(count, name, call)                                                                         \
