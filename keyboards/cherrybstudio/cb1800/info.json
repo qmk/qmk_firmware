@@ -8,6 +8,14 @@
         "pid": "0x1818",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F5",
+        "num_lock": "F6",
+        "scroll_lock": "F7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

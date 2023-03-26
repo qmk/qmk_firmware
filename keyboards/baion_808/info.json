@@ -8,6 +8,11 @@
         "pid": "0x4238",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B6",
+        "scroll_lock": "B7",
+        "on_state": 0
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

@@ -32,24 +32,24 @@ enum {
 extern volatile uint8_t active_layer;
 
 void layer_switcher_tap(uint8_t);
-int cur_dance(qk_tap_dance_state_t *);
+int cur_dance(tap_dance_state_t *);
 
-void dance_lctl_finished(qk_tap_dance_state_t *, void *);
-void dance_lctl_reset(qk_tap_dance_state_t *, void *);
+void dance_lctl_finished(tap_dance_state_t *, void *);
+void dance_lctl_reset(tap_dance_state_t *, void *);
 
-void dance_lspr_finished(qk_tap_dance_state_t *, void *);
-void dance_lspr_reset(qk_tap_dance_state_t *, void *);
+void dance_lspr_finished(tap_dance_state_t *, void *);
+void dance_lspr_reset(tap_dance_state_t *, void *);
 
-void dance_rctl_finished(qk_tap_dance_state_t *, void *);
-void dance_rctl_reset(qk_tap_dance_state_t *, void *);
+void dance_rctl_finished(tap_dance_state_t *, void *);
+void dance_rctl_reset(tap_dance_state_t *, void *);
 
-void dance_ralt_finished(qk_tap_dance_state_t *, void *);
-void dance_ralt_reset(qk_tap_dance_state_t *, void *);
+void dance_ralt_finished(tap_dance_state_t *, void *);
+void dance_ralt_reset(tap_dance_state_t *, void *);
 
-void dance_uply_finished(qk_tap_dance_state_t *, void *);
-void dance_uply_reset(qk_tap_dance_state_t *, void *);
+void dance_uply_finished(tap_dance_state_t *, void *);
+void dance_uply_reset(tap_dance_state_t *, void *);
 
-void dance_dwly_finished(qk_tap_dance_state_t *, void *);
-void dance_dwly_reset(qk_tap_dance_state_t *, void *);
+void dance_dwly_finished(tap_dance_state_t *, void *);
+void dance_dwly_reset(tap_dance_state_t *, void *);
 
 #endif

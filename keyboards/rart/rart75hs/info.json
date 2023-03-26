@@ -8,6 +8,20 @@
         "pid": "0x5575",
         "device_version": "0.0.3"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C1", "pin_b": "C2"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "D4",
+        "on_state": 0
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
             "LAYOUT_all": {
             "layout": [

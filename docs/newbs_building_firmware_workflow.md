@@ -106,6 +106,9 @@ jobs:
 
     steps:
 
+    - name: Disable git safe directory checks
+      run : git config --global --add safe.directory '*'
+
     - name: Checkout QMK
       uses: actions/checkout@v3
       with:

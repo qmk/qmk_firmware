@@ -2,5 +2,6 @@
     "keyboard_name": "Anne Pro 2 C15 (QMK)",
     "usb": {
         "pid": "0xAC15"
-    }
+    },
+    "community_layouts": ["60_ansi"]
 }

@@ -8,6 +8,18 @@
         "pid": "0x6772",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "F0",
+        "num_lock": "F1",
+        "scroll_lock": "E6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
