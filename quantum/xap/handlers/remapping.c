@@ -10,13 +10,13 @@
 #    define keymap_max_layer_count() keymap_layer_count()
 #endif
 
-bool xap_execute_keymap_get_layer_count_impl(xap_token_t token) {
+bool xap_execute_keymap_get_layer_count(xap_token_t token) {
     uint8_t ret = keymap_max_layer_count();
     return xap_respond_data(token, &ret, sizeof(ret));
 }
 
 
-bool xap_execute_get_keymap_keycode_impl(xap_token_t token, const xap_route_keymap_get_keymap_keycode_arg_t *arg) {
+bool xap_execute_get_keymap_keycode(xap_token_t token, const xap_route_keymap_get_keymap_keycode_arg_t *arg) {
     if (arg->layer >= keymap_max_layer_count()) {
         return false;
     }
@@ -26,7 +26,7 @@ bool xap_execute_get_keymap_keycode_impl(xap_token_t token, const xap_route_keym
 }
 
 #if ((defined(ENCODER_MAP_ENABLE)))
-bool xap_execute_get_encoder_keycode_impl(xap_token_t token, const xap_route_keymap_get_encoder_keycode_arg_t *arg) {
+bool xap_execute_get_encoder_keycode(xap_token_t token, const xap_route_keymap_get_encoder_keycode_arg_t *arg) {
     if (arg->layer >= keymap_max_layer_count()) {
         return false;
     }
@@ -37,7 +37,7 @@ bool xap_execute_get_encoder_keycode_impl(xap_token_t token, const xap_route_key
 #endif
 
 #if ((defined(DYNAMIC_KEYMAP_ENABLE)))
-bool xap_execute_dynamic_keymap_set_keycode_impl(xap_token_t token, const xap_route_remapping_set_keymap_keycode_arg_t *arg) {
+bool xap_execute_dynamic_keymap_set_keycode(xap_token_t token, const xap_route_remapping_set_keymap_keycode_arg_t *arg) {
     if (arg->layer >= keymap_max_layer_count()) {
         return false;
     }
@@ -48,7 +48,7 @@ bool xap_execute_dynamic_keymap_set_keycode_impl(xap_token_t token, const xap_ro
 #endif
 
 #if ((defined(DYNAMIC_KEYMAP_ENABLE) && defined(ENCODER_MAP_ENABLE)))
-bool xap_execute_dynamic_encoder_set_keycode_impl(xap_token_t token, const xap_route_remapping_set_encoder_keycode_arg_t *arg) {
+bool xap_execute_dynamic_encoder_set_keycode(xap_token_t token, const xap_route_remapping_set_encoder_keycode_arg_t *arg) {
     if (arg->layer >= keymap_max_layer_count()) {
         return false;
     }
