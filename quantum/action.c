@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "keycode.h"
 #include "keyboard.h"
-#include "keymap.h"
 #include "mousekey.h"
 #include "programmable_button.h"
 #include "command.h"
@@ -30,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 #include "wait.h"
 #include "keycode_config.h"
+#include "debug.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
