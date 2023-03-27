@@ -13,6 +13,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "print.h"
+#include "os_detection.h"
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+
+
+
+
+//定义一个新键码
+enum custom_keycodes {
+    KC_00 = SAFE_RANGE,
+    KC_WINLK, // Toggles Win key on and off
+    KC_WINLK1,
+    KC_WINLK2,
+};
+bool is_app_active = true; // 空格键是否激活
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+#endif 
+uprintf("OS=%u\n", detected_host_os());
+	
+	switch (keycode) {
+
+       
+    case KC_WINLK:
+        if (record->event.pressed) {// 按下此按键触发以下行为 
+            if(!keymap_config.no_gui) {
+                process_magic(GUI_OFF, record);
+            } else {
+                process_magic(GUI_ON, record);
+            }
+        } else  unregister_code16(keycode);
+        break;
+
+    case KC_APP:
+        if (keymap_config.no_gui)
+            return false;
+        break;
+        
+    }
+    
+    return true;
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

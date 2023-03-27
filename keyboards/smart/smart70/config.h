@@ -16,7 +16,7 @@
 
 
 #pragma once
-#define LED_PIN_ON_STATE 1
+
 
 #define DEBUG_MATRIX_SCAN_RATE
 #define USB_POLLING_INTERVAL_MS 1

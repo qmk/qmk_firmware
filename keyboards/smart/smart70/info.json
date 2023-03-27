@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Smart70Pro",
     "usb": {
-        "pid": "0x5044",
+        "pid": "0x0070",
         "device_version": "0.0.1"
     },
     
@@ -49,8 +49,9 @@
     },
 
     "bootmagic": {
-        "matrix": [1, 1]
+        "matrix": [0, 0]
     },
+    
     "layouts": {
         "LAYOUT": {
             "layout": [

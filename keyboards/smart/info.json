@@ -2,9 +2,8 @@
     "manufacturer": "SmartCloud",
     "url": "www.i-chip.cn",
     "maintainer": "Jacky",
-    "processor": "STM32F103",
     "bootloader": "custom",
-    "board": "STM32_F103_STM32DUINO",
+    "development_board": "bluepill",
     "usb": {
         "vid": "0x5343"
     }
