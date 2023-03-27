@@ -259,6 +259,7 @@
                 "on_state": {"$ref": "qmk.definitions.v1#/bit"}
             }
         },
+        "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
         "layout_aliases": {
             "type": "object",
             "additionalProperties": {"$ref": "qmk.definitions.v1#/layout_macro"}
