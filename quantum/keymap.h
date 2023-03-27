@@ -17,4 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#pragma message("'keymap.h' should no longer be included!")
+#if __has_include_next("keymap.h")
+#    include_next "keymap.h"
+#endif
