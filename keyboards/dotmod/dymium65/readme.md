@@ -2,10 +2,11 @@
 
 A customizable 65% encoder keyboard.
 
-![dymium65](https://i.imgur.com/dymium65.png)
+![dymium65](https://raw.githubusercontent.com/Linyer-qwq/image/main/dymium65.jpg)
 
 * Keyboard Maintainer: [LiWenLiu](https://github.com/LiuLiuQMK)
 * Hardware Supported: dymium65 PCB with atmega32u4 microcontroller
+* Hardware Availability: Coming soon
 
 Make example for this keyboard (after setting up your build environment):
 
