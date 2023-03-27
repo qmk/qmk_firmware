@@ -22,8 +22,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         if (IS_LAYER_ON(LA_LTHUMB1MO)) {
             if (!processKeycodeIfLThumb1Mo(keycode, record)) {return false;}
         }
-        if (IS_LAYER_ON(LA_LTHUMBDOSL)) {return processKeycodeIfLThumbDOsl(keycode, record);}
-        if (IS_LAYER_ON(LA_LTHUMBEOSL)) {return processKeycodeIfLThumbEOsl(keycode, record);}
+        if (IS_LAYER_ON(LA_LTHUMBDOSL)) {
+            if(!processKeycodeIfLThumbDOsl(keycode, record)) {return false;}
+        }
+        if (IS_LAYER_ON(LA_LTHUMBEOSL)) {
+            if(!processKeycodeIfLThumbEOsl(keycode, record)) {return false;}
+        }
         if (IS_LAYER_ON(LA_LTHUMBDMO)) {
             if (!processKeycodeIfLThumbDMo(keycode, record)) {return false;}
         }
