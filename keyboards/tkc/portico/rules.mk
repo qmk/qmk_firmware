@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -27,5 +21,3 @@ SRC += keyboards/wilba_tech/wt_main.c \
        drivers/led/issi/is31fl3731.c
 
 QUANTUM_LIB_SRC += i2c_master.c
-
-LAYOUTS = 65_ansi_blocker

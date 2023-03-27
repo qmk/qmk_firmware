@@ -8,6 +8,9 @@
         "pid": "0x6063",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-ms",
+    "community_layouts": ["75_ansi"],
     "layouts": {
         "LAYOUT_75_ansi": {
             "layout": [

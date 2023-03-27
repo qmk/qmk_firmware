@@ -8,6 +8,12 @@
         "pid": "0x0060",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6",
+        "levels": 6
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_split_spc_split_bspc": {
             "layout": [

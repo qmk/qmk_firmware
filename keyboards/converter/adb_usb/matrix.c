@@ -76,7 +76,7 @@ void matrix_init(void)
     // debug_mouse = true;
     // print("debug enabled.\n");
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 #ifdef ADB_MOUSE_ENABLE
@@ -241,7 +241,7 @@ uint8_t matrix_scan(void)
             extra_key = key1<<8 | 0xFF; // process in a separate call
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

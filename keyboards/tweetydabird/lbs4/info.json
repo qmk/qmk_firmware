@@ -22,8 +22,6 @@
         "lto": true
     },
     
-    "debounce": 5,
-    
     "usb": {
         "vid": "0xFEED",
         "pid": "0x23B0",

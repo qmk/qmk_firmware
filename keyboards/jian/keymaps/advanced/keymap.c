@@ -181,7 +181,7 @@ static uint8_t layout_conversion_dip_state = 0;
 #define LAYOUT_base_wrapper(...) LAYOUT_base(__VA_ARGS__)
 
 #ifdef SWAP_HANDS_ENABLE
-#define SW_TG SH_TG
+#define SW_TG SH_TOGG
 #else
 #define SW_TG _______
 #endif
@@ -191,9 +191,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_base_wrapper(QWERTY_base),
 
 #ifdef DIPS_ENABLE
-[_DIPS] = LAYOUT_dips(\
-  LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH, \
-  LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH \
+[_DIPS] = LAYOUT_dips(
+  LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH,
+  LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH
 ),
 #endif // DIPS_ENABLE
 

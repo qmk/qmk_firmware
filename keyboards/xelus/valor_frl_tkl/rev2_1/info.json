@@ -2,5 +2,7 @@
     "keyboard_name": "Valor FRL TKL Rev2.2",
     "usb": {
         "device_version": "0.0.3"
-    }
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu"
 }

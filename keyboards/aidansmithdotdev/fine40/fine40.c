@@ -1,6 +1,6 @@
 // Copyright 2022 Aidan Smith (@Aidan-OS)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "fine40.h"
+#include "quantum.h"
 
 enum keyboard_layers {
 	_MAIN,

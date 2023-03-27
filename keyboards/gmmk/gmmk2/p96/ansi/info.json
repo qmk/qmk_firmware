@@ -8,6 +8,8 @@
         "pid": "0x504B",
         "device_version": "0.0.1"
     },
+    "processor": "WB32F3G71",
+    "bootloader": "wb32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

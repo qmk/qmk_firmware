@@ -7,6 +7,8 @@
         "vid": "0xABBA",
         "pid": "0x9696"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

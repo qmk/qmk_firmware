@@ -27,7 +27,7 @@ static td_tap_t lyr_tap_state = {.is_press_action = true, .state = TD_NONE};
  * @param A tap dance state struct.
  * @return A struct.
  */
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     switch (state->count) {
         case 1:
             if (!state->pressed)
@@ -49,7 +49,7 @@ td_state_t cur_dance(qk_tap_dance_state_t *state) {
 }
 
 // Functions that control what our tap dance key does
-__attribute__((weak)) void td_layer_finished(qk_tap_dance_state_t *state, void *user_data) {
+__attribute__((weak)) void td_layer_finished(tap_dance_state_t *state, void *user_data) {
     lyr_tap_state.state = cur_dance(state);
     switch (lyr_tap_state.state) {
         case TD_1X_TAP:
@@ -87,7 +87,7 @@ __attribute__((weak)) void td_layer_finished(qk_tap_dance_state_t *state, void *
     }
 }
 
-__attribute__((weak)) void td_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
+__attribute__((weak)) void td_layer_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     if (lyr_tap_state.state == TD_1X_HOLD) {
         layer_off(_ADJUST);

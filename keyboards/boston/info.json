@@ -8,6 +8,23 @@
         "pid": "0x4176",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C13", "pin_b": "F1", "resolution": 2}
+        ]
+    },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "A1",
+        "num_lock": "A0",
+        "scroll_lock": "A2"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
