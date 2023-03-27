@@ -1,8 +1,8 @@
 # T Rex
 
-![t_rex](https://github.com/SylivanKenobi/t-rex/blob/main/pcb.png)
+![t_rex](https://github.com/SylivanKenobi/t-rex/blob/main/assets/pcb.png)
 
-* Keyboard Maintainer: [Sylivan Kenobi](https://github.com/Sylivan Kenobi)
+* Keyboard Maintainer: [Sylivan Kenobi](https://github.com/SylivanKenobi)
 * Hardware Supported: 
     * [PCB](https://github.com/SylivanKenobi/t-rex)
     * Pro Micro Controller or derivates(e.g. elite-pi,puci-c)

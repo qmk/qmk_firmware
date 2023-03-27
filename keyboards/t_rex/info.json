@@ -1,7 +1,7 @@
 {
-    "manufacturer": "Sylivan Kenobi",
+    "manufacturer": "SylivanKenobi",
     "keyboard_name": "t_rex",
-    "maintainer": "Sylivan Kenobi",
+    "maintainer": "SylivanKenobi",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -25,7 +25,7 @@
         "vid": "0xFEED"
     },
     "rgblight": {
-        "led_count": 255,
+        "led_count": 32,
         "pin": "F7",
         "hue_steps": 10,
         "max_brightness": 100,
