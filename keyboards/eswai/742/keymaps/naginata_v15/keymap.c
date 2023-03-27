@@ -290,15 +290,17 @@ bool oled_task_user(void) {
       }
     }
 
-    // なぜか明示的にOLEDのスリープ処理が必要
-    if (timer_expired32(timer_read32(), oled_sleep_timer)) {
-      if (is_oled_on()) {
-        oled_off();
+    // なぜかマスター側は明示的にOLEDのスリープ処理が必要
+    if (is_keyboard_master()) {
+      if (timer_expired32(timer_read32(), oled_sleep_timer)) {
+        if (is_oled_on()) {
+          oled_off();
+        }
+        return false;;
+      } else {
+        if (!is_oled_on())
+          oled_on();
       }
-      return false;;
-    } else {
-      if (!is_oled_on())
-        oled_on();
     }
 
     if (is_keyboard_master()) {
