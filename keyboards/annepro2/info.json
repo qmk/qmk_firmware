@@ -6,25 +6,6 @@
         "vid": "0xFEED",
         "device_version": "13.3.7"
     },
-    "keycodes": [
-        { "key": "KC_AP2_BT1", "aliases": ["AP2_BT1"] },
-        { "key": "KC_AP2_BT2", "aliases": ["AP2_BT2"] },
-        { "key": "KC_AP2_BT3", "aliases": ["AP2_BT3"] },
-        { "key": "KC_AP2_BT4", "aliases": ["AP2_BT4"] },
-        { "key": "KC_AP2_BT_UNPAIR" },
-        { "key": "KC_AP2_USB" },
-        { "key": "KC_AP_LED_ON" },
-        { "key": "KC_AP_LED_OFF" },
-        { "key": "KC_AP_LED_TOG" },
-        { "key": "KC_AP_LED_NEXT_PROFILE" },
-        { "key": "KC_AP_LED_PREV_PROFILE" },
-        { "key": "KC_AP_LED_NEXT_INTENSITY" },
-        { "key": "KC_AP_LED_SPEED" },
-        { "key": "KC_AP_RGB_VAI" },
-        { "key": "KC_AP_RGB_VAD" },
-        { "key": "KC_AP_RGB_TOG" },
-        { "key": "KC_AP_RGB_MOD" }
-    ],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

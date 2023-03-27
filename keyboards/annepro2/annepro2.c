@@ -13,8 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
+
 #include "hal.h"
+#include "annepro2.h"
 #include "annepro2_ble.h"
 #include "spi_master.h"
 #include "ap2_led.h"
