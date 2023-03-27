@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "keyboard.h"
 #include "matrix.h"
-#include "keymap.h"
+#include "keymap_introspection.h"
 #include "magic.h"
 #include "host.h"
 #include "led.h"
