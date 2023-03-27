@@ -1038,6 +1038,12 @@ bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
             register_code16(KC_LCTL);
             editModeLthumbOslStarted = true;
             return false;
+        case MA_NONE:
+            if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+            if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
+            else {layer_off(LA_LTHUMB);}
+            layer_off(LA_LTHUMBDOSL);
+            return false;
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (editModeLthumbOslStarted) {unregister_code16(KC_LCTL);}
@@ -1070,6 +1076,12 @@ bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
         case KC_SPC:
             register_code16(KC_RCTL);
             editModeLthumbOslStarted = true;
+            return false;
+        case MA_NONE:
+            if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+            if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
+            else {layer_off(LA_LTHUMB);}
+            layer_off(LA_LTHUMBDOSL);
             return false;
         case MA_LTHUMB:
         case MA_LTHUMBMS:
