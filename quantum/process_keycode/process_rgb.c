@@ -57,6 +57,13 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
 #else
     if (record->event.pressed) {
 #endif
+#ifndef NO_ACTION_TAPPING
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+        extern int retro_tapping_counter;
+        int        retro_tapping_counter_save = retro_tapping_counter;
+        retro_tapping_counter = 0;
+#    endif
+#endif
 #if (defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)) || (defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES))
         uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
 #endif
@@ -212,6 +219,11 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
 #endif
                 return false;
         }
+#ifndef NO_ACTION_TAPPING
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+        retro_tapping_counter = retro_tapping_counter_save;
+#    endif
+#endif
     }
 
     return true;
