@@ -22,9 +22,8 @@
 #    define AUTO_SHIFT_TIMEOUT 175
 #endif
 
-#define IS_LT(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
-#define IS_MT(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
-#define IS_RETRO(kc) (IS_MT(kc) || IS_LT(kc))
+#define IS_RETRO(kc) (IS_QK_MOD_TAP(kc) || IS_QK_LAYER_TAP(kc))
+
 #define DO_GET_AUTOSHIFT_TIMEOUT(keycode, record, ...) record
 // clang-format off
 #define AUTO_SHIFT_ALPHA KC_A ... KC_Z

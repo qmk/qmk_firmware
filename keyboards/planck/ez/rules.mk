@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F303
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,8 +14,6 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 ENCODER_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3737
-
-MOUSE_SHARED_EP = no
 
 LAYOUTS_HAS_RGB = no
 
