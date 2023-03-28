@@ -1,3 +1,8 @@
 {
-    "keyboard_name": "Dilemma (3x5+2) Assembled"
+    "keyboard_name": "Dilemma (3x5+2) Assembled",
+    "split": {
+        "soft_serial_pin": "GP1"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040"
 }

@@ -3,7 +3,6 @@
   "keyboard_name": "handwired/reclined",
   "maintainer": "qmk",
   "bootloader": "atmel-dfu",
-  "debounce": 5,
   "diode_direction": "ROW2COL",
   "features": {
     "command": true,

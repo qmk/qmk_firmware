@@ -8,6 +8,17 @@
         "pid": "0x87C9",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F7",
+        "scroll_lock": "F6",
+        "on_state": 0
+    },
+    "bootmagic": {
+        "matrix": [6, 5]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

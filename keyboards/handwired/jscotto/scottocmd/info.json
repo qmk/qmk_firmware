@@ -38,6 +38,9 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
     "layouts": {
         "LAYOUT_ortho_4_3x10_4": {
             "layout": [

@@ -8,6 +8,13 @@
         "pid": "0x0007",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A3",
+        "levels": 10,
+        "breathing": true
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

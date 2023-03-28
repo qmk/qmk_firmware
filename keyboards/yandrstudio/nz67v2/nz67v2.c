@@ -108,9 +108,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             eeconfig_update_kb(kb_cums.raw);
             return false;
 #endif
-        case LOCK_GUI:
-            process_magic(GUI_TOG, record);
-            return false;
         default:
             break;
     }

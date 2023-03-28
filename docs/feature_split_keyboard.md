@@ -79,6 +79,16 @@ If you're using a custom transport (communication method), then you will also ne
 SPLIT_TRANSPORT = custom
 ```
 
+### Layout Macro
+
+Configuring your layout in a split keyboard works slightly differently to a non-split keyboard. Take for example the following layout. The top left numbers refer to the matrix row and column, and the bottom right are the order of the keys in the layout:
+
+![Physical layout](https://i.imgur.com/QeY6kMQ.png)
+
+Since the matrix scanning procedure operates on entire rows, it first populates the left half's rows, then the right half's. Thus, the matrix as QMK views it has double the rows instead of double the columns:
+
+![Matrix](https://i.imgur.com/4wjJzBU.png)
+
 ### Setting Handedness
 
 By default, the firmware does not know which side is which; it needs some help to determine that. There are several ways to do this, listed in order of precedence.
@@ -158,21 +168,22 @@ This setting is not changed when re-initializing the EEPROM using the `EE_CLR` k
 
 You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common).
 
+
 #### Handedness by `#define`
 
-You can set the handedness at compile time.  This is done by adding the following to your `config.h` file:
+You can use this option when USB cable is always connected to just one side of the split keyboard.
 
+If the USB cable is always connected to the right side, add the following to your `config.h` file and flash both sides with this option:
 ```c
 #define MASTER_RIGHT
 ```
 
-or 
-
+If the USB cable is always connected to the left side, add the following to your `config.h` file and flash both sides with this option:
 ```c
 #define MASTER_LEFT
 ```
 
-If neither are defined, the handedness defaults to `MASTER_LEFT`.
+?> If neither options are defined, the handedness defaults to `MASTER_LEFT`.
 
 
 ### Communication Options
@@ -282,6 +293,12 @@ This enables transmitting the current ST7565 on/off status to the slave side of 
 This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
 
 !> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
+
+```c
+#define SPLIT_HAPTIC_ENABLE
+```
+
+This enables triggering of haptic feedback on the slave side of the split keyboard. For DRV2605L this will send the mode, but for solenoids it is expected that the desired mode is already set up on the slave.
 
 ### Custom data sync between sides :id=custom-data-sync
 

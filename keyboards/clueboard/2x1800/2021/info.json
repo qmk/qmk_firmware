@@ -3,7 +3,6 @@
     "keyboard_name": "Clueboard 2x1800 2021",
     "maintainer": "skullydazed",
     "bootloader": "halfkay",
-    "debounce": 5,
     "diode_direction": "ROW2COL",
     "features": {
         "audio": true,
@@ -26,6 +25,12 @@
     "processor": "at90usb1286",
     "usb": {
         "pid": "0x23A0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "C5", "pin_b": "C6"}
+        ]
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"

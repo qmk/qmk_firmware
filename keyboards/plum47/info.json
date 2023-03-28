@@ -23,7 +23,6 @@
         "pid": "0x5E14",
         "vid": "0xFEED"
     },
-    "debounce": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -8,6 +8,13 @@
     	"pid": "0x0010",
     	"device_version": "0.0.1"
     },
+    "encoder": {
+    	"rotary": [
+    		{"pin_a": "C7", "pin_b": "C6"}
+    	]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_40ergo_split_ent": {
             "layout": [

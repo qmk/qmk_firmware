@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPID1
