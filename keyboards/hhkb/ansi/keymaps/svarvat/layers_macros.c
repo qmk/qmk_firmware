@@ -1034,6 +1034,8 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
 }
 bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case MA_LTHUMBE:
+            return false;
         case KC_SPC:
             register_code16(KC_LCTL);
             editModeLthumbOslStarted = true;
@@ -1064,15 +1066,15 @@ bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
                 else {layer_off(LA_LTHUMB);}
                 layer_off(LA_LTHUMBEOSL);
-                return false;
-            } else {
-                return true;
             }
+            return true;
     }
 
 }
 bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case MA_LTHUMBD:
+            return false;
         case KC_SPC:
             register_code16(KC_RCTL);
             editModeLthumbOslStarted = true;
@@ -1103,10 +1105,8 @@ bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
                 else {layer_off(LA_LTHUMB);}
                 layer_off(LA_LTHUMBDOSL);
-                return false;
-            } else {
-                return true;
             }
+            return true;
     }
 }
 bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
