@@ -1,0 +1,63 @@
+{
+    "keyboard_name": "BIOI C11",
+    "url": "https://github.com/scottywei",
+    "manufacturer": "Basic I/O Instruments",
+    "maintainer": "Scott Wei",
+    "bootloader": "qmk-dfu",
+    "processor": "atmega32u4",
+    "usb": {
+        "device_version": "1.0.0",
+        "vid": "0x8101",
+        "pid": "0x4311"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "x": 1,
+                    "y": 0
+                },
+                {
+                    "x": 2,
+                    "y": 0
+                },
+                {
+                    "x": 3,
+                    "y": 0
+                },
+                {
+                    "x": 4,
+                    "y": 0
+                },
+                {
+                    "x": 5,
+                    "y": 0
+                },
+                {
+                    "x": 0.5,
+                    "y": 1
+                },
+                {
+                    "x": 1.5,
+                    "y": 1
+                },
+                {
+                    "x": 2.5,
+                    "y": 1
+                },
+                {
+                    "x": 3.5,
+                    "y": 1
+                },
+                {
+                    "x": 4.5,
+                    "y": 1
+                }
+            ]
+        }
+    }
+}

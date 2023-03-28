@@ -172,7 +172,7 @@ Date        Description
 	#define UART0_DATA     UDR
 	#define UART0_UDRIE    UDRIE
 #elif defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega16U4__) || \
-      defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U6__)
+      defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
 	/* ATmega with one USART, but is called USART1 (untested) */
 	#define ATMEGA_USART1
 	#define UART1_RECEIVE_INTERRUPT   USART1_RX_vect
