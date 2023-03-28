@@ -206,6 +206,7 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
 
 report_mouse_t pointing_deivce_task_get_pointing_reports(bool* was_ready) {
     report_mouse_t temp_report = {0};
+    *was_ready = false;
     for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
         report_mouse_t loop_report = {0};
 #if defined(SPLIT_KEYBOARD)
@@ -213,9 +214,9 @@ report_mouse_t pointing_deivce_task_get_pointing_reports(bool* was_ready) {
             continue; // skip processing devices not on this side
         }
 #endif
-        *was_ready = false;
-        *was_ready |= pointing_device_is_ready(pointing_device_configs[i], i);
-        if (*was_ready) {
+        bool device_ready = pointing_device_is_ready(pointing_device_configs[i], i);
+        *was_ready |= device_ready;
+        if (device_ready) {
             loop_report = pointing_device_configs[i].driver->get_report ? pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config) : loop_report;
             loop_report = pointing_device_adjust_report(loop_report, i);
             loop_report = pointing_device_task_kb(loop_report, i);
