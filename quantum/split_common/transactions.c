@@ -704,7 +704,6 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
     static uint32_t last_update   = 0;
     report_mouse_t  target_report = {0};
 
-    pointing_device_set_shared_report((report_mouse_t){0});
     bool okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &target_report, &split_shmem->pointing.report, sizeof(report_mouse_t));
     if (okay) {
         pointing_device_set_shared_report(target_report);
@@ -730,7 +729,7 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
         }
     }
 
-    return true;
+    return okay;
 }
 
 extern const pointing_device_driver_t pointing_device_driver;
