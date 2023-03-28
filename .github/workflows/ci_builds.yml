@@ -17,6 +17,7 @@ jobs:
     if: github.repository == 'qmk/qmk_firmware'
 
     strategy:
+      fail-fast: false
       matrix:
         branch: [master, develop]
         keymap: [default, via]
