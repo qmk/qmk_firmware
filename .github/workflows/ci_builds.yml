@@ -41,13 +41,14 @@ jobs:
         export NCPUS=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
         qmk mass-compile -j $NCPUS -km ${{ matrix.keymap }}
 
-    - name: 'Upload binaries'
+    - name: 'Upload artifacts'
       uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: binaries-${{ matrix.branch }}-${{ matrix.keymap }}
+        name: artifacts-${{ matrix.branch }}-${{ matrix.keymap }}
         if-no-files-found: ignore
         path: |
           *.bin
           *.hex
           *.uf2
+          .build/failed.*
