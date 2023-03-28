@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -36,15 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { C7, B3, B1, B0, D3, D2 }
 #define MATRIX_COL_PINS { B2, D4, F0, C6, F1, D7, F4, E6, F5, B4, F6, B5, F7, B6 }
 
-#define ENCODERS_PAD_B { B7 }
-#define ENCODERS_PAD_A { D6 }
-#define ENCODER_RESOLUTION 2 //default/suggested
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

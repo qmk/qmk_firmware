@@ -8,9 +8,19 @@
         "pid": "0x6874",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7"
+    },
+    "indicators": {
+        "caps_lock": "B6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_tsangan": "LAYOUT_60_tsangan_hhkb"
     },
+    "community_layouts": ["60_hhkb", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [

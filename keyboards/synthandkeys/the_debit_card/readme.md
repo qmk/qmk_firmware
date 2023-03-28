@@ -2,7 +2,7 @@
 
 ![synthandkeys/the_debit_card](https://i.imgur.com/8dpEv73.jpeg)
 
-The Debit Card is a 10-key programmable mechanical keyboard that could fit in your wallet. The ultra-thin, ultra-portable macropad is powered by the XIAO RP2040 and can support KMK, QMK, or VIAL open-source keyboard firmware.
+The Debit Card is a 10-key programmable mechanical keyboard that could fit in your wallet. The ultra-thin, ultra-portable macropad is powered by the XIAO RP2040 and can support KMK, or QMK open-source keyboard firmware.
 
 * Keyboard Maintainer: [Synth and Keys](https://github.com/Synth-and-Keys)
 * Hardware Supported: The Debit Card PCB, Seeed XIAO MCU

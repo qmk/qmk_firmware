@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM encoder_keymaps[][2][2] = {
     [_QWERTY] =  { { C(S(KC_TAB)), C(KC_TAB) },     { G(A(KC_LEFT)), G(A(KC_RIGHT)) } },
-    [_LOWER]  =  { { C(KC_LEFT),   C(KC_RGHT) },    { KC__VOLDOWN,   KC__VOLUP } },
+    [_LOWER]  =  { { C(KC_LEFT),   C(KC_RGHT) },    { KC_VOLD,       KC_VOLU } },
     [_RAISE]  =  { { G(KC_LEFT),   G(KC_RGHT) },    { G(KC_TAB),     G(S(KC_TAB)) } },
     [_ADJUST] =  { { KC_TRNS,      KC_TRNS },       { KC_TRNS,       KC_TRNS } },
 };
@@ -133,18 +133,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 /*
- * Enable `IGNORE_MOD_TAP_INTERRUPT` for all modifiers except `Shift`.
- * For more info see `IGNORE_MOD_TAP_INTERRUPT_PER_KEY` in `docs/tap_hold.md`.
+ * Enable `HOLD_ON_OTHER_KEY_PRESS` only for `Shift`.
+ * For more info see `HOLD_ON_OTHER_KEY_PRESS_PER_KEY` in `docs/tap_hold.md`.
  */
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case S_EQL:
-            return false;
-        case S_MINS:
-            return false;
-        default:
             return true;
+        case S_MINS:
+            return true;
+        default:
+            return false;
     }
 }
 

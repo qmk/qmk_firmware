@@ -22,7 +22,7 @@ enum custom_layers {
 
 /* Rotary encoder variables used to hold down Command (GUI) key while cycling through open programs. */
 bool is_cmd_tab_active = false;
-uint16_t cmd_tab_timer = 0;  
+uint16_t cmd_tab_timer = 0;
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
@@ -53,7 +53,7 @@ enum tapdances {
  *
  * To use this in the configurator, enter the name 'TD_FIVE_ENTER' in the "Any" key.
  */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for 5, twice for Enter. */
     [_TD_FIVE_ENTER] = ACTION_TAP_DANCE_DOUBLE(KC_5, KC_ENT),
 };
@@ -64,14 +64,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  * You can download/upload the two_know.json to the configurator:
  * https://config.qmk.fm/#/keebio/iris/rev6a/LAYOUT
  *
- * If you make changes and download the json, you can run qmk json2c two_knob.json to get converted text. 
+ * If you make changes and download the json, you can run qmk json2c two_knob.json to get converted text.
  * You can copy and paste it here.
  * You will have to reneame the array keys from ints to the custom keycode names.
  *
  * The rotary encoders are programmed manually below because the configurator does not support them yet.
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT(KC_EQL, KC_1, KC_2, KC_3, KC_4, TD_FIVE_ENTER, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS, LT(1, KC_DEL), LT(2, KC_A), LCTL_T(KC_S), KC_D, LGUI_T(KC_F), KC_G, KC_H, RGUI_T(KC_J), KC_K, RCTL_T(KC_L), LT(2, KC_SCLN), LT(1, KC_QUOT), KC_LSPO, LALT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_MINIM, KC_MAXIM, KC_N, KC_M, KC_COMM, KC_DOT, RALT_T(KC_SLSH), KC_RSPC, QK_GESC, KC_SPC, KC_BSPC, KC_TAB, KC_ENT, KC_DEL),
+    [_QWERTY] = LAYOUT(KC_EQL, KC_1, KC_2, KC_3, KC_4, TD_FIVE_ENTER, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS, LT(1, KC_DEL), LT(2, KC_A), LCTL_T(KC_S), KC_D, LGUI_T(KC_F), KC_G, KC_H, RGUI_T(KC_J), KC_K, RCTL_T(KC_L), LT(2, KC_SCLN), LT(1, KC_QUOT), SC_LSPO, LALT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_MINIM, KC_MAXIM, KC_N, KC_M, KC_COMM, KC_DOT, RALT_T(KC_SLSH), SC_RSPC, QK_GESC, KC_SPC, KC_BSPC, KC_TAB, KC_ENT, KC_DEL),
     [_LOWER]  = LAYOUT(KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_TRNS, KC_EXLM, KC_AT, KC_LCBR, KC_RCBR, KC_PIPE, DT_PRNT, KC_7, KC_8, KC_9, KC_ASTR, KC_F12, KC_TRNS, KC_HASH, KC_DLR, KC_LPRN, KC_RPRN, KC_GRV, DT_UP, KC_4, KC_5, KC_6, KC_PPLS, KC_TRNS, KC_TRNS, KC_HASH, KC_DLR, KC_LBRC, KC_RBRC, KC_TILD, KC_TRNS, KC_TRNS, DT_DOWN, KC_1, KC_2, KC_3, KC_PSLS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0),
     [_RAISE]  = LAYOUT(RGB_TOG, KC_ACL0, KC_ACL1, KC_ACL2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_UP, KC_BTN2, RGB_SAI, RGB_SAD, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_SPI, RGB_SPD, KC_TRNS, KC_TRNS, KC_CSGLA, KC_CSGRA, KC_TRNS, KC_TRNS),
     [_ADJUST] = LAYOUT(
@@ -173,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * |64|--|--|63|--|--|--|    |--|--|--|29|--|--|30|
  *             |--|62|--|    |--|28|--|
  */
-// void rgb_matrix_indicators_user(void) {
+// bool rgb_matrix_indicators_user(void) {
 //   if (IS_LAYER_ON(1)) {
 //     /* Upperleft most key red: */
 //     rgb_matrix_set_color(0,255,0,0);
@@ -217,6 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //     rgb_matrix_set_color(02, 255, 200, 0);
 //     rgb_matrix_set_color(03, 255, 235, 0);
 //   }
+//    return false;
 // }
 
 /**
@@ -225,8 +226,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * This can't be programmed through configurator. You must do it here.
  *
  * This uses the amazing "Encoder map" feature which replicates the normal keyswitch layer handling functionality, but with encoders.
- * https://docs.qmk.fm/#/feature_encoders?id=encoder-map 
- * 
+ * https://docs.qmk.fm/#/feature_encoders?id=encoder-map
+ *
  * Uses a variant of the Super-alt-tab macro to switch between open applications on a mac. (Command-tab)
  * https://docs.qmk.fm/#/feature_macros?id=super-alt%e2%86%aftab
  */

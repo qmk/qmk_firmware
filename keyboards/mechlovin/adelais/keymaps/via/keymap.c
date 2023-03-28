@@ -16,16 +16,16 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  BL_TOG = USER00,
-  BL_EFFECT = USER01,
-  BL_ISPD = USER02,
-  BL_DSPD = USER03,
-  BL_IHUE = USER04,
-  BL_DHUE = USER05,
-  BL_ISAT = USER06,
-  BL_DSAT = USER07,
-  BL_IVAL = USER08,
-  BL_DVAL = USER09
+  BL_TOG = QK_KB_0,
+  BL_EFFECT,
+  BL_ISPD,
+  BL_DSPD,
+  BL_IHUE,
+  BL_DHUE,
+  BL_ISAT,
+  BL_DSAT,
+  BL_IVAL,
+  BL_DVAL
 };
 
 

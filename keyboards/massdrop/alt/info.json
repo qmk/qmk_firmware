@@ -1,5 +1,6 @@
 {
-    "keyboard_name": "ALT",
+    "keyboard_name": "ALT Keyboard",
+    "manufacturer": "Massdrop Inc.",
     "url": "https://www.massdrop.com/buy/massdrop-alt-mechanical-keyboard",
     "maintainer": "Massdrop",
     "usb": {
@@ -7,6 +8,7 @@
         "pid": "0xEED3",
         "device_version": "1.0.1"
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

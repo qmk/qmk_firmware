@@ -88,7 +88,7 @@ UNI Layer
 * Umlauts
 * Punctuation
 * Special Characters
-* Switching [Input Modes](https://beta.docs.qmk.fm/using-qmk/software-features/feature_unicode#2-input-modes-id-input-modes) (UC_WINC, UC_WIN, UC_LNX, UC_OSX)
+* Switching [Input Modes](https://beta.docs.qmk.fm/using-qmk/software-features/feature_unicode#2-input-modes-id-input-modes) (UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_WINDOWS, UNICODE_MODE_LINUX, UNICODE_MODE_MACOS)
 
 ## 5 UNI2 Layer
 ```

@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______,  _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,
   _______, _______,  _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
   _______, RGB_TOG,  RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, KC_PIPE, KC_BSLS,
-  DEBUG,   _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  DB_TOGG, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Lower
@@ -93,11 +93,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user(void)
-{
+bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(25, 0, 0, 0);
     rgb_matrix_set_color(36, 0, 0, 0);
     rgb_matrix_set_color(42, 0, 0, 0);
+    return false;
 }
 
 void keyboard_pre_init_user(void) {

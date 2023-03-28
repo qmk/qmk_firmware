@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
 
 /* Key matrix pins */
 #define MATRIX_ROW_PINS { D3, D2, F5, F4 }
@@ -31,7 +26,13 @@
 
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 12
-#define RGBLIGHT_ANIMATIONS
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE

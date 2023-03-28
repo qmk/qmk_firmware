@@ -8,6 +8,9 @@
         "pid": "0x5658",
         "device_version": "0.0.5"
     },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

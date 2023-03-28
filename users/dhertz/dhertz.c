@@ -52,13 +52,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch(keycode) {
             case HSH_TLD:
                 if (get_mods()&(MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))) {
-                    SEND_STRING(SS_TAP(X_NONUS_BSLASH));
+                    SEND_STRING(SS_TAP(X_NONUS_BACKSLASH));
                 } else {
                     SEND_STRING(SS_LALT("3"));
                 }
                 break;
             case CTRL_A:
-                SEND_STRING(SS_LCTRL("a"));
+                SEND_STRING(SS_LCTL("a"));
                 break;
             case CMD_ALT_C:
                 SEND_STRING(SS_LGUI(SS_LALT("c")));

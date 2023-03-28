@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef PRODUCT
 
 #define VENDOR_ID       0xAF88
-#define MANUFACTURER    Droxx-FurFuzz
-#define PRODUCT         Carbon v2 4rk
+#define MANUFACTURER    "Droxx-FurFuzz"
+#define PRODUCT         "Carbon v2 4rk"
 
 /* force N key rollover even on startup regardless of EEPROM setting */
 #define FORCE_NKRO

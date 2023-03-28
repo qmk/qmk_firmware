@@ -46,6 +46,7 @@
 #define RP_IRQ_TIMER_ALARM1_PRIORITY        2
 #define RP_IRQ_TIMER_ALARM2_PRIORITY        2
 #define RP_IRQ_TIMER_ALARM3_PRIORITY        2
+#define RP_IRQ_ADC1_PRIORITY                3
 #define RP_IRQ_UART0_PRIORITY               3
 #define RP_IRQ_UART1_PRIORITY               3
 #define RP_IRQ_SPI0_PRIORITY                2
@@ -57,7 +58,7 @@
 /*
  * ADC driver system settings.
  */
-#define RP_ADC_USE_ADC1                     FALSE
+#define RP_ADC_USE_ADC1                     TRUE
 
 /*
  * SIO driver system settings.
@@ -77,6 +78,19 @@
 #define RP_SPI_SPI0_DMA_PRIORITY            1
 #define RP_SPI_SPI1_DMA_PRIORITY            1
 #define RP_SPI_DMA_ERROR_HOOK(spip)
+
+/*
+ * PWM driver system settings.
+ */
+#define RP_PWM_USE_PWM0                     FALSE
+#define RP_PWM_USE_PWM1                     FALSE
+#define RP_PWM_USE_PWM2                     FALSE
+#define RP_PWM_USE_PWM3                     FALSE
+#define RP_PWM_USE_PWM4                     FALSE
+#define RP_PWM_USE_PWM5                     FALSE
+#define RP_PWM_USE_PWM6                     FALSE
+#define RP_PWM_USE_PWM7                     FALSE
+#define RP_PWM_IRQ_WRAP_NUMBER_PRIORITY     3
 
 /*
  * I2C driver system settings.

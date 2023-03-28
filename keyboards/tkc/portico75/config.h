@@ -17,25 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
 
 #define MATRIX_ROW_PINS \
     { B0, E6, F0, F1, D3, D2 }
 #define MATRIX_COL_PINS \
     { F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, B3, B7 }
-
-/*Rotary Encoder Pins*/
-#define ENCODERS_PAD_A \
-    { B1 }
-#define ENCODERS_PAD_B \
-    { B2 }
-
-/*Sets the number of pulses per increment*/
-#define ENCODER_RESOLUTION 2
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -43,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#    define DEBOUNCE 3
-#    define RGB_DISABLE_AFTER_TIMEOUT 0     // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 
@@ -100,12 +84,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_ADDR_1 0b0110000
 #    define DRIVER_COUNT 1
 #    define DRIVER_1_LED_TOTAL 98
-#    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#    define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #    define DRIVER_INDICATOR_LED_TOTAL 0
 #else
 // WT_RGB IS31FL3741 driver code
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 98
+#    define RGB_MATRIX_LED_COUNT 98
 
 #    define RGB_BACKLIGHT_ENABLED 1
 
@@ -162,7 +146,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
-
-// VIA lighting is handled by the keyboard-level code
-#    define VIA_CUSTOM_LIGHTING_ENABLE
 #endif

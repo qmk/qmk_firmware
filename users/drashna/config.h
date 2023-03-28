@@ -11,7 +11,6 @@
 #endif
 #define IS_COMMAND() (((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT)
 
-
 #if defined(SPLIT_KEYBOARD)
 #    include "split/split_config.h"
 #endif
@@ -27,50 +26,25 @@
 #    include "oled/oled_config.h"
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing/pointing_config.h"
+#endif // POINTING_DEVICE_ENABLE
+
+#ifdef AUDIO_ENABLE
+#    include "audio_config.h"
+#endif // AUDIO_ENABLE
+
 #if defined(WPM_ENABLE)
 // #    define WPM_LAUNCH_CONTROL
-// #    define WPM_ALLOW_COUNT_REGRESSOIN
 // #    define WPM_UNFILTERED
+#    define WPM_ALLOW_COUNT_REGRESSION
 #    define WPM_SAMPLE_SECONDS 10
 #    define WPM_SAMPLE_PERIODS 50
 #    define WPM_ESTIMATED_WORD_SIZE 5
 #endif
 
-#ifdef AUDIO_ENABLE
-#    define AUDIO_CLICKY
-#    define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 
-#    ifdef USER_SONG_LIST
-#        define STARTUP_SONG SONG(RICK_ROLL)
-#        define GOODBYE_SONG SONG(SONIC_RING)
-#        define DEFAULT_LAYER_SONGS \
-            { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND), SONG(OVERWATCH_THEME) }
-#        define UNICODE_SONG_MAC SONG(MARIO_THEME)
-#        define UNICODE_SONG_LNX SONG(MARIO_POWERUP)
-#        define UNICODE_SONG_WIN SONG(MARIO_ONEUP)
-#        define UNICODE_SONG_BSD SONG(RICK_ROLL)
-#        define UNICODE_SONG_WINC SONG(RICK_ROLL)
-#    else
-#        define STARTUP_SONG SONG(STARTUP_SOUND)
-#        define GOODBYE_SONG SONG(GOODBYE_SOUND)
-#        define DEFAULT_LAYER_SONGS \
-            { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND), SONG(WORKMAN_SOUND) }
-#        define UNICODE_SONG_MAC SONG(QWERTY_SOUND)
-#        define UNICODE_SONG_LNX SONG(COLEMAK_SOUND)
-#        define UNICODE_SONG_WIN SONG(DVORAK_SOUND)
-#        define UNICODE_SONG_BSD SONG(WORKMAN_SOUND)
-#        define UNICODE_SONG_WINC SONG(PLOVER_GOODBYE_SOUND)
-#    endif
-#endif // !AUDIO_ENABLE
-
-#define UNICODE_SELECTED_MODES UC_WINC, UC_MAC
-
-// #define WPM_ESTIMATED_WORD_SIZE 5
-#define WPM_ALLOW_COUNT_REGRESSION
-// #define WPM_UNFILTERED
-// #define WPM_SAMPLE_SECONDS 5
-// #define WPM_SAMPLE_PERIODS 50
-// #define WPM_LAUNCH_CONTROL
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS
 
 #ifndef ONESHOT_TAP_TOGGLE
 #    define ONESHOT_TAP_TOGGLE 2
@@ -81,9 +55,8 @@
 #endif // !ONESHOT_TIMEOUT
 
 #if defined(PER_KEY_TAPPING)
-#    define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 #    define PERMISSIVE_HOLD_PER_KEY
-#    define TAPPING_FORCE_HOLD_PER_KEY
+#    define QUICK_TAP_TERM_PER_KEY
 #    define HOLD_ON_OTHER_KEY
 #    define RETRO_TAPPING_PER_KEY
 #    define HOLD_ON_OTHER_KEY_PRESS_PER_KEY

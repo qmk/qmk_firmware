@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   BP_DLR,    BP_DQUO,  BP_LCBR,    BP_RCBR, BP_LPRN, BP_RPRN,        KC_VOLD, KC_MUTE, KC_VOLU,   BP_PLUS,         BP_MINS, BP_SLSH, BP_ASTR,  BP_EQL,  BP_PERC,
   KC_TAB,    BP_B,     BP_EACU,    BP_P,    BP_O,    BP_EGRV,        KC_KP_7, KC_KP_8, KC_KP_9,   BP_DCIR,         BP_V,    BP_D,    BP_L,     BP_J,    BP_Z,
   KC_ESC,    BP_A,     BP_U,       BP_I,    BP_E,    BP_COMM,        KC_HOME, KC_KP_5, KC_END,    BP_C,            BP_T,    BP_S,    BP_R,     BP_N,    BP_M,
-  KC_LSFT,   BP_W,     BP_Y,       BP_X,    BP_DOT,  BP_K,           KC_PGUP, KC_END,  KC_PGDOWN, BP_QUOT,         BP_Q,    BP_G,    BP_H,     BP_F,    KC_RSFT,
+  KC_LSFT,   BP_W,     BP_Y,       BP_X,    BP_DOT,  BP_K,           KC_PGUP, KC_END,  KC_PGDN,   BP_QUOT,         BP_Q,    BP_G,    BP_H,     BP_F,    KC_RSFT,
   KC_LCTL,   KC_LGUI, KC_RALT,     KC_LGUI, BP_UNDS, LT(_FN,KC_ENT), KC_DEL,  KC_KP_0, KC_BSPC,   LT(_FN,KC_SPC),  BP_UNDS, KC_RALT, KC_RALT,  KC_RGUI, KC_LCTL
  ),
 

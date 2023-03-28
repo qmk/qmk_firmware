@@ -101,7 +101,7 @@ enum dances {
     TD_DASH_USCR,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Shift, twice for Caps Lock
     [TD_SHFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_COM_SCL]   = ACTION_TAP_DANCE_DOUBLE(KC_COMM, SE_SCLN),
@@ -164,9 +164,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT_rev41lp(
-    XXXXXXX,   XXXXXXX, XXXXXXX,   BL_OFF,   BL_DEC,   BL_TOGG,            BL_BRTG,   BL_INC,    BL_ON,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,   XXXXXXX, XXXXXXX,   BL_OFF,   BL_DOWN,  BL_TOGG,            BL_BRTG,   BL_UP,     BL_ON,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   BL_STEP,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,   UC_M_WC, UC_M_MA,  UC_M_LN,  XXXXXXX,   XXXXXXX,            QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,   UC_WINC, UC_MAC,   UC_LINX,  XXXXXXX,   XXXXXXX,            QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
                                                _______, _______, _______,  _______,  _______
   )
 };

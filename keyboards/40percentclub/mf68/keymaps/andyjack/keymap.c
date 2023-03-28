@@ -28,7 +28,7 @@ enum layers {
 #define MUT_IN LALT(KC_F10)
 #define MUT_OUT LALT(KC_F11)
 #define MUT_MIC LALT(KC_F12)
-#define SCN_LCK LCTL(KC_SLCK)
+#define SCN_LCK LCTL(KC_SCRL)
 
 extern keymap_config_t keymap_config;
 

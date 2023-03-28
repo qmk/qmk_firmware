@@ -7,7 +7,7 @@ This Python 3 script, by [Tsan-Kuang Lee](https://github.com/tsankuanglee) takes
 For example, the original `keymap.c` looks like
 
 ```
-[0] = LAYOUT_ergodox(KC_EQUAL,KC_1,KC_2,KC_3,KC_4,KC_5,LCTL(KC_MINUS),KC_DELETE,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_LBRACKET,KC_BSPACE,KC_A,KC_S,KC_D,KC_F,KC_G,KC_LSPO,CTL_T(KC_Z),KC_X,KC_C,KC_V,KC_B,ALL_T(KC_NO),LT(1,KC_GRAVE),KC_QUOTE,LALT(KC_LSHIFT),KC_LEFT,KC_RIGHT,ALT_T(KC_APPLICATION),KC_LGUI,KC_HOME,KC_SPACE,KC_UNDS,KC_END,LCTL(KC_EQUAL),KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINUS,KC_RBRACKET,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSLASH,KC_H,ALT_T(KC_J),KC_K,KC_L,LT(2,KC_SCOLON),GUI_T(KC_QUOTE),MEH_T(KC_NO),KC_N,KC_M,KC_COMMA,KC_DOT,CTL_T(KC_SLASH),KC_RSPC,KC_UP,KC_DOWN,KC_LBRACKET,KC_RBRACKET,TT(1),KC_LALT,CTL_T(KC_ESCAPE),KC_PGUP,KC_PGDOWN,LT(1,KC_TAB),KC_ENTER),
+[0] = LAYOUT_ergodox(KC_EQUAL,KC_1,KC_2,KC_3,KC_4,KC_5,LCTL(KC_MINUS),KC_DELETE,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_LBRC,KC_BSPC,KC_A,KC_S,KC_D,KC_F,KC_G,SC_LSPO,CTL_T(KC_Z),KC_X,KC_C,KC_V,KC_B,ALL_T(KC_NO),LT(1,KC_GRAVE),KC_QUOTE,LALT(KC_LSFT),KC_LEFT,KC_RIGHT,ALT_T(KC_APPLICATION),KC_LGUI,KC_HOME,KC_SPACE,KC_UNDS,KC_END,LCTL(KC_EQUAL),KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINUS,KC_RBRC,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSLS,KC_H,ALT_T(KC_J),KC_K,KC_L,LT(2,KC_SCLN),GUI_T(KC_QUOTE),MEH_T(KC_NO),KC_N,KC_M,KC_COMMA,KC_DOT,CTL_T(KC_SLASH),SC_RSPC,KC_UP,KC_DOWN,KC_LBRC,KC_RBRC,TT(1),KC_LALT,CTL_T(KC_ESCAPE),KC_PGUP,KC_PGDN,LT(1,KC_TAB),KC_ENTER),
 ```
 
 The beautifier parses it and outputs:
@@ -17,10 +17,10 @@ The beautifier parses it and outputs:
 // left hand
 
 KC_EQUAL      , KC_1       , KC_2           , KC_3   , KC_4    , KC_5, LCTL(KC_MINUS),
-KC_DELETE     , KC_Q       , KC_W           , KC_E   , KC_R    , KC_T, KC_LBRACKET   ,
-KC_BSPACE     , KC_A       , KC_S           , KC_D   , KC_F    , KC_G,
-KC_LSPO       , CTL_T(KC_Z), KC_X           , KC_C   , KC_V    , KC_B, ALL_T(KC_NO)  ,
-LT(1,KC_GRAVE), KC_QUOTE   , LALT(KC_LSHIFT), KC_LEFT, KC_RIGHT,
+KC_DELETE     , KC_Q       , KC_W           , KC_E   , KC_R    , KC_T, KC_LBRC   ,
+KC_BSPC       , KC_A       , KC_S           , KC_D   , KC_F    , KC_G,
+SC_LSPO       , CTL_T(KC_Z), KC_X           , KC_C   , KC_V    , KC_B, ALL_T(KC_NO)  ,
+LT(1,KC_GRAVE), KC_QUOTE   , LALT(KC_LSFT)  , KC_LEFT, KC_RIGHT,
 
 // left thumb
 
@@ -31,46 +31,46 @@ KC_SPACE, KC_UNDS              , KC_END ,
 // right hand
 
 LCTL(KC_EQUAL), KC_6, KC_7       , KC_8    , KC_9       , KC_0           , KC_MINUS       ,
-KC_RBRACKET   , KC_Y, KC_U       , KC_I    , KC_O       , KC_P           , KC_BSLASH      ,
-                KC_H, ALT_T(KC_J), KC_K    , KC_L       , LT(2,KC_SCOLON), GUI_T(KC_QUOTE),
-MEH_T(KC_NO)  , KC_N, KC_M       , KC_COMMA, KC_DOT     , CTL_T(KC_SLASH), KC_RSPC        ,
-                      KC_UP      , KC_DOWN , KC_LBRACKET, KC_RBRACKET    , TT(1)          ,
+KC_RBRC       , KC_Y, KC_U       , KC_I    , KC_O       , KC_P           , KC_BSLS        ,
+                KC_H, ALT_T(KC_J), KC_K    , KC_L       , LT(2,KC_SCLN)  , GUI_T(KC_QUOTE),
+MEH_T(KC_NO)  , KC_N, KC_M       , KC_COMMA, KC_DOT     , CTL_T(KC_SLASH), SC_RSPC        ,
+                      KC_UP      , KC_DOWN , KC_LBRC,     KC_RBRC        , TT(1)          ,
 
 // right thumb
 
 KC_LALT  , CTL_T(KC_ESCAPE),
 KC_PGUP  ,
-KC_PGDOWN, LT(1,KC_TAB)    , KC_ENTER
+KC_PGDN, LT(1,KC_TAB)    , KC_ENTER
 )
 ```
 
 Optionally, it can also render [LAYOUT_ergodox_pretty](https://github.com/qmk/qmk_firmware/blob/ee700b2e831067bdb7584425569b61bc6329247b/keyboards/ergodox_ez/keymaps/bpruitt-goddard/keymap.c#L49-L57):
 ```
 [0] = LAYOUT_ergodox_pretty(
-  KC_ESCAPE,        KC_1,     KC_2,    KC_3,     KC_4,           KC_5,          KC_LEAD,      KC_LEAD, KC_6          , KC_7            , KC_8            , KC_9               , KC_0              , KC_BSPACE           ,
-     KC_TAB,        KC_Q,     KC_W,    KC_E,     KC_R,           KC_T,          KC_HYPR,      KC_HYPR, KC_Y          , KC_U            , KC_I            , KC_O               , KC_P              , KC_BSLASH           ,
-   KC_LCTRL,        KC_A,     KC_S,    KC_D,     KC_F,           KC_G,                                 KC_H          , KC_J            , KC_K            , KC_L               , KC_SCOLON         , KC_QUOTE            ,
-  KC_LSHIFT,        KC_Z,     KC_X,    KC_C,     KC_V,           KC_B,           SH_MON,      SH_MON , KC_N          , KC_M            , KC_COMMA        , KC_DOT             , KC_SLASH          , KC_RSHIFT           ,
-LT(6,KC_NO), LT(7,KC_NO), KC_LCTRL, KC_LGUI,  KC_LALT,                                                                 ALGR_T(KC_MINUS), RGUI_T(KC_EQUAL), RCTL_T(KC_LBRACKET), LT(10,KC_RBRACKET), LT(6,KC_APPLICATION),
+  KC_ESCAPE,        KC_1,     KC_2,    KC_3,     KC_4,           KC_5,          QK_LEAD,      QK_LEAD, KC_6          , KC_7            , KC_8            , KC_9               , KC_0              , KC_BSPC             ,
+     KC_TAB,        KC_Q,     KC_W,    KC_E,     KC_R,           KC_T,          KC_HYPR,      KC_HYPR, KC_Y          , KC_U            , KC_I            , KC_O               , KC_P              , KC_BSLS             ,
+   KC_LCTL,         KC_A,     KC_S,    KC_D,     KC_F,           KC_G,                                 KC_H          , KC_J            , KC_K            , KC_L               , KC_SCLN           , KC_QUOTE            ,
+  KC_LSFT,          KC_Z,     KC_X,    KC_C,     KC_V,           KC_B,           SH_MON,      SH_MON , KC_N          , KC_M            , KC_COMMA        , KC_DOT             , KC_SLASH          , KC_RSFT             ,
+LT(6,KC_NO), LT(7,KC_NO), KC_LCTL,  KC_LGUI,  KC_LALT,                                                                 ALGR_T(KC_MINUS), RGUI_T(KC_EQUAL), RCTL_T(KC_LBRC),     LT(10,KC_RBRC),     LT(6,KC_APPLICATION),
 
                                                        LT(6,KC_GRAVE),     MEH_T(KC_NO),      KC_LEFT, KC_RIGHT      ,
                                                                        LT(10,KC_DELETE),      KC_UP  ,
-                                             KC_SPACE, LT(8,KC_ENTER),  LT(7,KC_BSPACE),      KC_DOWN, LT(7,KC_SPACE), LT(8,KC_ENTER)
+                                             KC_SPACE, LT(8,KC_ENTER),  LT(7,KC_BSPC),        KC_DOWN, LT(7,KC_SPACE), LT(8,KC_ENTER)
 )
 ```
 
 We can also align everythng t othe left (easier editing in my opinon):
 ```
 [0] = LAYOUT_ergodox_pretty(
-KC_ESCAPE  , KC_1       , KC_2    , KC_3   , KC_4    , KC_5          , KC_LEAD         ,      KC_LEAD, KC_6          , KC_7            , KC_8            , KC_9               , KC_0              , KC_BSPACE           ,
-KC_TAB     , KC_Q       , KC_W    , KC_E   , KC_R    , KC_T          , KC_HYPR         ,      KC_HYPR, KC_Y          , KC_U            , KC_I            , KC_O               , KC_P              , KC_BSLASH           ,
-KC_LCTRL   , KC_A       , KC_S    , KC_D   , KC_F    , KC_G          ,                                 KC_H          , KC_J            , KC_K            , KC_L               , KC_SCOLON         , KC_QUOTE            ,
-KC_LSHIFT  , KC_Z       , KC_X    , KC_C   , KC_V    , KC_B          , SH_MON          ,      SH_MON , KC_N          , KC_M            , KC_COMMA        , KC_DOT             , KC_SLASH          , KC_RSHIFT           ,
-LT(6,KC_NO), LT(7,KC_NO), KC_LCTRL, KC_LGUI, KC_LALT ,                                                                 ALGR_T(KC_MINUS), RGUI_T(KC_EQUAL), RCTL_T(KC_LBRACKET), LT(10,KC_RBRACKET), LT(6,KC_APPLICATION),
+KC_ESCAPE  , KC_1       , KC_2    , KC_3   , KC_4    , KC_5          , QK_LEAD         ,      QK_LEAD, KC_6          , KC_7            , KC_8            , KC_9               , KC_0              , KC_BSPC             ,
+KC_TAB     , KC_Q       , KC_W    , KC_E   , KC_R    , KC_T          , KC_HYPR         ,      KC_HYPR, KC_Y          , KC_U            , KC_I            , KC_O               , KC_P              , KC_BSLS             ,
+KC_LCTL    , KC_A       , KC_S    , KC_D   , KC_F    , KC_G          ,                                 KC_H          , KC_J            , KC_K            , KC_L               , KC_SCLN           , KC_QUOTE            ,
+KC_LSFT    , KC_Z       , KC_X    , KC_C   , KC_V    , KC_B          , SH_MON          ,      SH_MON , KC_N          , KC_M            , KC_COMMA        , KC_DOT             , KC_SLASH          , KC_RSFT             ,
+LT(6,KC_NO), LT(7,KC_NO), KC_LCTL , KC_LGUI, KC_LALT ,                                                                 ALGR_T(KC_MINUS), RGUI_T(KC_EQUAL), RCTL_T(KC_LBRC),     LT(10,KC_RBRC),     LT(6,KC_APPLICATION),
 
                                                        LT(6,KC_GRAVE), MEH_T(KC_NO)    ,      KC_LEFT, KC_RIGHT      ,
                                                                        LT(10,KC_DELETE),      KC_UP  ,
-                                             KC_SPACE, LT(8,KC_ENTER), LT(7,KC_BSPACE) ,      KC_DOWN, LT(7,KC_SPACE), LT(8,KC_ENTER)
+                                             KC_SPACE, LT(8,KC_ENTER), LT(7,KC_BSPC)   ,      KC_DOWN, LT(7,KC_SPACE), LT(8,KC_ENTER)
 )
 ```
 

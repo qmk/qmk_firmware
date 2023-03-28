@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
 
 /*
  * Keyboard Matrix Assignments
@@ -38,12 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 3
-
-#define LED_CAPS_LOCK_PIN E6
-#define LED_PIN_ON_STATE 0
-
 #define RGB_DI_PIN E2
 
 #ifdef RGB_DI_PIN
@@ -53,5 +42,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 8
     #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-    #define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE
 #endif

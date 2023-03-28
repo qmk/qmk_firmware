@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_ortho_4x12(
   LT(_NUMPAD, KC_ESC),   KC_Q,       KC_W,        KC_E,      KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,      KC_P,       KC_BSPC                 ,
   MT(MOD_LSFT, KC_TAB),  KC_A,       KC_S,        KC_D,      KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,      KC_SCLN,    MT(MOD_RSFT, KC_ENT)    ,
-  KC_LSHIFT,             KC_Z,       KC_X,        KC_C,      KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,    KC_SLSH,    KC_RSHIFT               ,
-  MO(_FUNC),             KC_LCTL,    KC_LALT,     KC_LGUI,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   KC_LSHIFT, KC_BTN2,   KC_RCTL,    MO(_FUNC2)
+  KC_LSFT,               KC_Z,       KC_X,        KC_C,      KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,    KC_SLSH,    KC_RSFT                 ,
+  MO(_FUNC),             KC_LCTL,    KC_LALT,     KC_LGUI,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   KC_LSFT,   KC_BTN2,   KC_RCTL,    MO(_FUNC2)
 ),
 
 /* Colemak-DHm
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT_ortho_4x12(
   LT(_NUMPAD, KC_ESC),   KC_Q,       KC_W,        KC_F,      KC_P,    KC_B,    KC_J,    KC_L,    KC_U,      KC_Y,      KC_SCLN,   KC_BSPC                 ,
   MT(MOD_LSFT, KC_TAB),  KC_A,       KC_R,        KC_S,      KC_T,    KC_G,    KC_M,    KC_N,    KC_E,      KC_I,      KC_O,      MT(MOD_RSFT, KC_ENT)    ,
-  KC_LSHIFT,             KC_Z,       KC_X,        KC_C,      KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM,   KC_DOT,    KC_SLSH,   KC_RSHIFT               ,
-  MO(_FUNC),             KC_LCTL,    KC_LALT,     KC_LGUI,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   KC_LSHIFT, KC_BTN2,   KC_RCTL,   MO(_FUNC2)
+  KC_LSFT,               KC_Z,       KC_X,        KC_C,      KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM,   KC_DOT,    KC_SLSH,   KC_RSFT                 ,
+  MO(_FUNC),             KC_LCTL,    KC_LALT,     KC_LGUI,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   KC_LSFT,   KC_BTN2,   KC_RCTL,   MO(_FUNC2)
 ),
 
 /* Function
@@ -67,10 +67,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC] = LAYOUT_ortho_4x12(
-  KC_F1,     KC_F2,           KC_F3,    KC_F4,         KC_F5,   KC_F6,   KC_F7,   KC_F8,      KC_F9,    KC_F10,  KC_F11,  KC_F12                 ,
-  KC_1,      KC_2,            KC_3,     KC_4,          KC_5,    KC_6,    KC_7,    KC_8,       KC_9,     KC_0,    UK_TILD, KC_INSERT              ,
-  KC_LSHIFT, KC_NONUS_BSLASH, KC_GRAVE, KC_NONUS_HASH, KC_PAST, KC_MINS, KC_EQL,  KC_BSLASH,  KC_LBRC,  KC_RBRC, KC_QUOT, MT(MOD_RSFT, KC_ENT)   ,
-  _______,   _______,         _______,  _______,       _______, _______, _______, MO(_MOUSE), _______,  _______, _______, _______
+  KC_F1,     KC_F2,   KC_F3,    KC_F4,         KC_F5,   KC_F6,   KC_F7,   KC_F8,      KC_F9,    KC_F10,  KC_F11,  KC_F12                 ,
+  KC_1,      KC_2,    KC_3,     KC_4,          KC_5,    KC_6,    KC_7,    KC_8,       KC_9,     KC_0,    UK_TILD, KC_INSERT              ,
+  KC_LSFT,   KC_NUBS, KC_GRAVE, KC_NONUS_HASH, KC_PAST, KC_MINS, KC_EQL,  KC_BSLS,    KC_LBRC,  KC_RBRC, KC_QUOT, MT(MOD_RSFT, KC_ENT)   ,
+  _______,   _______, _______,  _______,       _______, _______, _______, MO(_MOUSE), _______,  _______, _______, _______
 ),
 
 /* Lower
@@ -85,10 +85,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_ortho_4x12(
-  KC_1,        KC_2,            KC_3,           KC_4,           KC_5,          KC_6,          KC_7,           KC_8,            KC_9,           KC_0,          KC_DEL,          KC_BSPC                ,
-  LSFT(KC_1),  LSFT(KC_2),      LSFT(KC_3),     LSFT(KC_4),     LSFT(KC_5),    LSFT(KC_6),    LSFT(KC_7),     LSFT(KC_8),      LSFT(KC_9),     LSFT(KC_0),    LCTL(KC_DEL),    LCTL(KC_BSPC)          ,
-  KC_LSPO,     KC_NONUS_BSLASH, KC_GRAVE,       KC_NONUS_HASH,  KC_QUOT,       KC_MINS,       KC_EQL,         KC_NONUS_HASH,   KC_LBRC,        KC_RBRC,       KC_QUOT,         MT(MOD_RSFT, KC_ENT)   ,
-  _______,     _______,         _______,        _______,        _______,       KC_DEL,        _______,        _______,         KC_MNXT,        KC_VOLD,       KC_VOLU,         KC_MPLY
+  KC_1,        KC_2,       KC_3,           KC_4,           KC_5,          KC_6,          KC_7,           KC_8,            KC_9,           KC_0,          KC_DEL,          KC_BSPC                ,
+  LSFT(KC_1),  LSFT(KC_2), LSFT(KC_3),     LSFT(KC_4),     LSFT(KC_5),    LSFT(KC_6),    LSFT(KC_7),     LSFT(KC_8),      LSFT(KC_9),     LSFT(KC_0),    LCTL(KC_DEL),    LCTL(KC_BSPC)          ,
+  SC_LSPO,     KC_NUBS,    KC_GRAVE,       KC_NONUS_HASH,  KC_QUOT,       KC_MINS,       KC_EQL,         KC_NONUS_HASH,   KC_LBRC,        KC_RBRC,       KC_QUOT,         MT(MOD_RSFT, KC_ENT)   ,
+  _______,     _______,    _______,        _______,        _______,       KC_DEL,        _______,        _______,         KC_MNXT,        KC_VOLD,       KC_VOLU,         KC_MPLY
 ),
 
 /* Raise
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12(
-  KC_GRV,     XXXXXXX, M_WORD_SEL, KC_LBRC,       KC_RBRC,       XXXXXXX,   XXXXXXX,       KC_PGUP,  KC_HOME,  KC_PGDOWN,  XXXXXXX,        KC_PSCREEN            ,
+  KC_GRV,     XXXXXXX, M_WORD_SEL, KC_LBRC,       KC_RBRC,       XXXXXXX,   XXXXXXX,       KC_PGUP,  KC_HOME,  KC_PGDN,    XXXXXXX,        KC_PSCR               ,
   KC_GRV,     XXXXXXX, XXXXXXX,    LSFT(KC_9),    LSFT(KC_0),    XXXXXXX,   XXXXXXX,       KC_HOME,  KC_UP,    KC_END,     XXXXXXX,        LCTL(LSFT(KC_EQL))    ,
   _______,    XXXXXXX, XXXXXXX,    LSFT(KC_LBRC), LSFT(KC_RBRC), XXXXXXX,   LCTL(KC_LEFT), KC_LEFT,  KC_DOWN,  KC_RIGHT,   LCTL(KC_RIGHT), LCTL(KC_MINS)         ,
   MO(_MOUSE), _______, _______,    _______,       _______,       KC_LALT,   KC_ENT,        _______,  XXXXXXX,  _______,    _______,        _______
@@ -121,9 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-  M_CUSTOM, QK_BOOT, QWERTY,  BL_ON,   BL_OFF,  DYN_REC_START1,  DYN_REC_START2,  _______,             _______,           _______,              _______,  KC_DEL  ,
-  KC_CAPS,  RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  QWERTY  ,
-  TG(_MAC), RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, DYN_REC_STOP,    DYN_REC_STOP,    KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_MEDIA_NEXT_TRACK,  _______,  COLEMAK ,
+  M_CUSTOM, QK_BOOT, QWERTY,  BL_ON,   BL_OFF,  DM_REC1,         DM_REC2,         _______,             _______,           _______,              _______,  KC_DEL  ,
+  KC_CAPS,  RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, DM_PLY1,         DM_PLY2,         KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  QWERTY  ,
+  TG(_MAC), RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, DM_RSTP,         DM_RSTP,         KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_MEDIA_NEXT_TRACK,  _______,  COLEMAK ,
   _______,  _______, _______, _______, _______, _______,         _______,         _______,             _______,           _______,              _______,  _______
 ),
 
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_ortho_4x12(
-    _______, _______, _______, _______, _______, _______, KC_NLCK, KC_KP_7, KC_KP_8,   KC_KP_9,     KC_KP_SLASH,    _______,
+    _______, _______, _______, _______, _______, _______, KC_NUM,  KC_KP_7, KC_KP_8,   KC_KP_9,     KC_KP_SLASH,    _______,
     _______, _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5,   KC_KP_6,     KC_KP_ASTERISK, _______,
     _______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2,   KC_KP_3,     KC_KP_PLUS,     _______,
     _______, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_KP_DOT, KC_COMM,     KC_KP_MINUS,    _______
