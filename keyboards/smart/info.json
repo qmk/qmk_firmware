@@ -3,9 +3,11 @@
     "url": "www.i-chip.cn",
     "maintainer": "Jacky",
     "bootloader": "custom",
+    "bootloader_instructions": "Press ESC(ROW0COL0), Plug USB. ",
     "development_board": "bluepill",
     "usb": {
-        "vid": "0x5343"
+        "vid": "0x5343",
+        "polling_interval": 1
     }
 
 }
