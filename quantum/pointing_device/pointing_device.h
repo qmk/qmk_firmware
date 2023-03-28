@@ -108,6 +108,10 @@ typedef int16_t clamp_range_t;
     { 0 }
 #define POINTING_DEVICE_THIS_SIDE(index) (pointing_device_configs[index].side == (is_keyboard_left() ? LEFT : RIGHT))
 
+
+#define CONSTRAIN_HID(amt) ((amt) < INT8_MIN ? INT8_MIN : ((amt) > INT8_MAX ? INT8_MAX : (amt)))
+#define CONSTRAIN_HID_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))
+
 void           pointing_device_init(void);
 bool           pointing_device_task(void);
 bool           pointing_device_send(void);
@@ -126,7 +130,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report, uint8_t in
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
 report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report);
 void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
-report_mouse_t pointing_deivce_task_get_pointing_reports(void);
+report_mouse_t pointing_deivce_task_get_pointing_reports(bool *was_ready);
 
 void                          pointing_device_set_shared_report(report_mouse_t report);
 report_mouse_t                pointing_device_get_shared_report(void);
