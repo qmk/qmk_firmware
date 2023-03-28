@@ -93,7 +93,7 @@ void set_layer_color(int layer) {
 
 bool rgb_matrix_indicators_user(void) {
     if (keyboard_config.disable_layer_led) {
-        return;
+        return true;
     }
     switch (get_highest_layer(layer_state)) {
         case 1:

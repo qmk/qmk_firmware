@@ -64,8 +64,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 rgb_matrix_reload_from_eeprom();
                 rawhid_state.rgb_control = false;
             } else {
+#    ifdef RGB_MATRIX_CUSTOM_KB
                 rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_oryx_webhid_effect);
                 rawhid_state.rgb_control = true;
+#    endif
             }
 #else
             oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
