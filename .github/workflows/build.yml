@@ -41,7 +41,7 @@ jobs:
         qmk compile -kb ${{ matrix.keyboard}} -km ${{ matrix.keymap }}
 
         TARGET="$(echo "${{ matrix.keyboard }}" | sed 's#/#_#g')_${{matrix.keymap}}"
-        echo ::set-output name=artifact-name::${TARGET}
+        echo "name=artifact-name::${TARGET}" >> $GITHUB_OUTPUT
         echo "Artifact-name: ${{ steps.build.outputs.artifact-name }}"
 
     - name: Archive artifacts
