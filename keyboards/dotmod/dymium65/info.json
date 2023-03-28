@@ -8,7 +8,6 @@
         "pid": "0x5058",
         "device_version": "0.0.1"
     },
-    "debounce": 5,
     "diode_direction": "ROW2COL",
     "matrix_pins": {
         "cols": ["E6", "B0", "B1", "B2", "B3", "B7", "D2", "D3", "D5", "D4", "D6", "C6", "B4", "B5", "B6","E2"],
