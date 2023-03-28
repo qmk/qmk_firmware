@@ -43,6 +43,8 @@ enum polyglot_keycodes {
  ,BACK
 };
 
+int default_keymap = _QWERTY;
+
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 
@@ -79,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,               KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      GEMINI, _______, _______, RGB_HUD, RGB_MODE_FORWARD, RGB_HUI,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+      GEMINI, RGB_VAD, RGB_VAI, RGB_HUD, RGB_HUI, RGB_MODE_FORWARD,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,XXXXXXX, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -170,22 +172,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-		layer_move(_QWERTY);
+		    layer_move(_QWERTY);
+        default_keymap = _QWERTY;
       }
       return false;
     case DVORAK:
       if (record->event.pressed) {
-		layer_move(_DVORAK);
+		    layer_move(_DVORAK);
+        default_keymap = _DVORAK;
       }
       return false;
     case COLEMAK:
       if (record->event.pressed) {
-		layer_move(_COLEMAK);
+		    layer_move(_COLEMAK);
+        default_keymap = _COLEMAK;
       }
       return false;
     case PLOVER:
       if (record->event.pressed) {
-		layer_move(_PLOVER);
+		    layer_move(_PLOVER);
       }
       return false;
     case GEMINI:
@@ -195,7 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       return false;
     case UNI_PLOVER:
       if (record->event.pressed) {
-		layer_move(_UNI_PLOVER);
+		    layer_move(_UNI_PLOVER);
       }
       return false;
     case UNI_GEMINI:
@@ -205,7 +210,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       return false;
     case BACK:
       if (record->event.pressed) {
-        layer_move(_COLEMAK);
+        layer_move(default_keymap);
       }
       return false;
   }

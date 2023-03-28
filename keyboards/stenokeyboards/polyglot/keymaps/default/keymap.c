@@ -25,16 +25,10 @@ enum polyglot_layers {
  ,_LOWER
 };
 
-enum polyglot_keycodes {
-  STENO = SAFE_RANGE
- ,QWERTY
- ,RAISE
- ,LOWER
- ,BACK
-};
-
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
+#define QWERTY DF(_QWERTY)
+#define STENO DF(_STENO_DEFAULT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -44,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, 					 STN_ST4,  STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
    //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       QWERTY,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LCMD,  KC_SPC,    				KC_VOLD,  KC_LEFT, KC_DOWN, KC_UP ,KC_RIGHT,  KC_VOLU,
+      QWERTY,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LCMD,  KC_SPC,    				KC_VOLD,  KC_LEFT, KC_DOWN, KC_UP ,KC_RIGHT,  KC_VOLU,
    //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                    STN_N1,  STN_A,   STN_O,                       STN_E,   STN_U, STN_N2
                                        //`--------------------------'  `--------------------------'
@@ -89,23 +83,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-		layer_move(_QWERTY);
-      }
-      return false;
-    case STENO:
-      if (record->event.pressed) {
-        layer_move(_STENO_DEFAULT);
-      }
-      return false;
-  }
-  return true;
-}
 
 // initialize steno protocol
 void keyboard_post_init_user(void)
