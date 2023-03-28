@@ -20,6 +20,19 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "encoder": true,
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
