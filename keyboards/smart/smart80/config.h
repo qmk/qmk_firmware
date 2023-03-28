@@ -17,28 +17,13 @@
 
 #pragma once
 
-#define DEBUG_MATRIX_SCAN_RATE
-#define USB_POLLING_INTERVAL_MS 1
+//#define DEBUG_MATRIX_SCAN_RATE
 
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 21
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 #define SPI_DRIVER SPID1
 #define AW_SPI_MODE 3
-
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-
-
 
 
 /* SPI Config for LED Driver */
@@ -53,7 +38,6 @@
 #define DRIVER_2_EN C13
 
 #define DRIVER_COUNT 2
-
 
 
 /* UART Config  */
