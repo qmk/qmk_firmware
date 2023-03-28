@@ -79,12 +79,24 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 layer_on(LA_CAPSLOCK);
             }
             return false;
-        case MA_CAPSWORD:
+        case KC_LSFT:
             if (record->event.pressed) {
-                isCapswordStarted = true;
-                layer_on(LA_CAPSLOCK);
+                if ((mod_state & MOD_BIT(KC_RSFT)) == MOD_BIT(KC_RSFT)) {
+                    isCapswordStarted = true;
+                    layer_on(LA_CAPSLOCK);
+                    return false;
+                }
             }
-            return false;
+            return true;
+        case KC_RSFT:
+            if (record->event.pressed) {
+                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    isCapswordStarted = true;
+                    layer_on(LA_CAPSLOCK);
+                    return false;
+                }
+            }
+            return true;
         case KC_1:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
