@@ -179,13 +179,12 @@ report_mouse_t pointing_device_adjust_report(report_mouse_t report, uint8_t inde
     return report;
 }
 
-report_mouse_t pointing_device_add_and_clamp_report(report_mouse_t report, report_mouse_t additional_report) {
-    report.x = pointing_device_xy_clamp((clamp_range_t)(report.x + additional_report.x));
-    report.y = pointing_device_xy_clamp((clamp_range_t)(report.y + additional_report.y));
-    report.h = pointing_device_hv_clamp((clamp_range_t)(report.h + additional_report.h));
-    report.v = pointing_device_hv_clamp((clamp_range_t)(report.v + additional_report.v));
-    report.buttons |= additional_report.buttons;
-    return report;
+void pointing_device_add_and_clamp_report(report_mouse_t *report, report_mouse_t *additional_report) {
+    report->x = pointing_device_xy_clamp((clamp_range_t)report->x + additional_report->x);
+    report->y = pointing_device_xy_clamp((clamp_range_t)report->y + additional_report->y);
+    report->h = pointing_device_hv_clamp((clamp_range_t)report->h + additional_report->h);
+    report->v = pointing_device_hv_clamp((clamp_range_t)report->v + additional_report->v);
+    report->buttons |= additional_report->buttons;
 }
 
 __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t device_config, uint8_t index) {
@@ -220,7 +219,7 @@ report_mouse_t pointing_deivce_task_get_pointing_reports(bool* was_ready) {
             loop_report = pointing_device_configs[i].driver->get_report ? pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config) : loop_report;
             loop_report = pointing_device_adjust_report(loop_report, i);
             loop_report = pointing_device_task_kb(loop_report, i);
-            temp_report = pointing_device_add_and_clamp_report(temp_report, loop_report);
+            pointing_device_add_and_clamp_report(&temp_report, &loop_report);
         }
     }
     return temp_report;
@@ -243,7 +242,7 @@ __attribute__((weak)) void pointing_device_task(void) {
     if (is_keyboard_master()) {
         static report_mouse_t last_shared_report = {0};
         if (memcmp(&last_shared_report, &shared_report, sizeof(report_mouse_t)) != 0) { // ensure shared report has changed, the target may have not updated this yet due to throttle or motion pin.
-            local_report       = pointing_device_add_and_clamp_report(local_report, shared_report);
+            pointing_device_add_and_clamp_report(&local_report, &shared_report);
             last_shared_report = shared_report;
             report_ready       = true;
         }
