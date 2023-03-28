@@ -87,22 +87,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
 
                 if (is_lang1) {
-                    register_code(KC_LANG1);
+                    register_code(KC_LNG1);
                     is_lang1 = false;
                 }
                 else {
-                    register_code(KC_LANG2);
+                    register_code(KC_LNG2);
                     is_lang1 = true;
                 }
             }
             break;
-        case KC_LANG1:
+        case KC_LNG1:
             if (record->event.pressed) {
                 is_lang1 = false;
             }
             break;
 
-        case KC_LANG2:
+        case KC_LNG2:
             if (record->event.pressed) {
                 is_lang1 = true;
             }
