@@ -1111,6 +1111,18 @@ bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
 }
 bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case KC_UP:
+        case MA_HOME:
+        case MA_END:
+        case KC_RGHT:
+        case KC_DOWN:
+        case KC_LEFT:
+        case MA_PGUP:
+        case MA_PGDN:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMB1MO);
+                return true;
+            }
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
@@ -1124,6 +1136,18 @@ bool processKeycodeIfLThumb1Mo(uint16_t keycode, keyrecord_t* record) {
 }
 bool processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case KC_UP:
+        case MA_HOME:
+        case MA_END:
+        case KC_RGHT:
+        case KC_DOWN:
+        case KC_LEFT:
+        case MA_PGUP:
+        case MA_PGDN:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMB2MO);
+                return true;
+            }
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
@@ -1137,6 +1161,18 @@ bool processKeycodeIfLThumb2Mo(uint16_t keycode, keyrecord_t* record) {
 }
 bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case KC_UP:
+        case MA_HOME:
+        case MA_END:
+        case KC_RGHT:
+        case KC_DOWN:
+        case KC_LEFT:
+        case MA_PGUP:
+        case MA_PGDN:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMB3MO);
+                return true;
+            }
         case MA_LTHUMB:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMB3MO);
