@@ -59,4 +59,4 @@
 // (Optional) Driver global current limit (0-255, higher values means the driver may consume more power). Default 150.
 #define AW_GLOBAL_CURRENT_MAX 255
 
-#define GPIO_INPUT_PIN_DELAY 0
+#define GPIO_INPUT_PIN_DELAY 2
