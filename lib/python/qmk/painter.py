@@ -115,6 +115,25 @@ def _render_image_metadata(metadata):
             f"//        Delta: {_render_values(metadata, 'delta')}",
         ])
 
+        deltas = []
+        for i, v in enumerate(metadata):
+            # Not a delta frame, go to next one
+            if not v["delta"]:
+                continue
+
+            # Unpack rect's coords
+            l, t, r, b = v["delta_rect"]
+
+            delta_px = (r - l) * (b - t)
+            px = size["width"] * size["height"]
+
+            # FIXME: May need need more chars here too
+            deltas.append(f"// Frame {i:3d}: ({l:3d}, {t:3d}) - ({r:3d}, {b:3d}) >> {delta_px:4d}/{px:4d} pixels ({100*delta_px/px:.2f}%)")
+
+        if deltas:
+            lines.append("// Areas on delta frames")
+            lines.extend(deltas)
+
     return "\n".join(lines)
 
 
@@ -192,7 +211,6 @@ def render_header(subs):
 
 source_file_template = """\
 ${license}
-
 ${metadata}
 
 #include <qp.h>
