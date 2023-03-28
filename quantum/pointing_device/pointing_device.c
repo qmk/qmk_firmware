@@ -213,7 +213,8 @@ report_mouse_t pointing_deivce_task_get_pointing_reports(bool* was_ready) {
             continue; // skip processing devices not on this side
         }
 #endif
-        *was_ready = pointing_device_is_ready(pointing_device_configs[i], i);
+        *was_ready = false;
+        *was_ready |= pointing_device_is_ready(pointing_device_configs[i], i);
         if (*was_ready) {
             loop_report = pointing_device_configs[i].driver->get_report ? pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config) : loop_report;
             loop_report = pointing_device_adjust_report(loop_report, i);
