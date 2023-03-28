@@ -43,6 +43,7 @@ jobs:
 
     - name: 'Upload binaries'
       uses: actions/upload-artifact@v3
+      if: always()
       with:
         name: binaries-${{ matrix.branch }}-${{ matrix.keymap }}
         if-no-files-found: ignore
