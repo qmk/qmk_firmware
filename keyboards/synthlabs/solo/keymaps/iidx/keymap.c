@@ -7,14 +7,14 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(
-                                    JS_BUTTON0,JS_BUTTON1,JS_BUTTON2,JS_BUTTON3,JS_BUTTON4,JS_BUTTON5,JS_BUTTON6,
-        JS_BUTTON8, MO(1), JS_BUTTON7,
-                                    JS_BUTTON0,JS_BUTTON1,JS_BUTTON2,JS_BUTTON3,JS_BUTTON4,JS_BUTTON5,JS_BUTTON6
+                                    JS_0,JS_1,JS_2,JS_3,JS_4,JS_5,JS_6,
+        JS_8, MO(1), JS_7,
+                                    JS_0,JS_1,JS_2,JS_3,JS_4,JS_5,JS_6
     ),
     [1] = LAYOUT_all(
-                                    JS_BUTTON9,JS_BUTTON0,JS_BUTTON10, _______,JS_BUTTON11,JS_BUTTON1,JS_BUTTON12,
+                                    JS_9,JS_0,JS_10, _______,JS_11,JS_1,JS_12,
         _______, _______, _______,
-                                    JS_BUTTON10,JS_BUTTON0,JS_BUTTON9, _______,JS_BUTTON11,JS_BUTTON1,JS_BUTTON12
+                                    JS_10,JS_0,JS_9, _______,JS_11,JS_1,JS_12
     ),
 };
 

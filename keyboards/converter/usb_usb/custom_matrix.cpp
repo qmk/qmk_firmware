@@ -93,7 +93,7 @@ extern "C" {
         kbd2.SetReportParser(0, (HIDReportParser*)&kbd_parser2);
         kbd3.SetReportParser(0, (HIDReportParser*)&kbd_parser3);
         kbd4.SetReportParser(0, (HIDReportParser*)&kbd_parser4);
-        matrix_init_quantum();
+        matrix_init_kb();
     }
 
     static void or_report(report_keyboard_t report) {
@@ -182,14 +182,14 @@ extern "C" {
                 led_set(host_keyboard_leds());
             }
         }
-        matrix_scan_quantum();
+        matrix_scan_kb();
         return changed;
     }
 
     bool matrix_is_on(uint8_t row, uint8_t col) {
         uint8_t code = CODE(row, col);
 
-        if (IS_MOD(code)) {
+        if (IS_MODIFIER_KEYCODE(code)) {
             if (local_keyboard_report.mods & ROW_BITS(code)) {
                 return true;
             }
@@ -205,7 +205,7 @@ extern "C" {
     matrix_row_t matrix_get_row(uint8_t row) {
         uint16_t row_bits = 0;
 
-        if (IS_MOD(CODE(row, 0)) && local_keyboard_report.mods) {
+        if (IS_MODIFIER_KEYCODE(CODE(row, 0)) && local_keyboard_report.mods) {
             row_bits |= local_keyboard_report.mods;
         }
 
@@ -233,6 +233,7 @@ extern "C" {
         if (kbd2.isReady()) kbd2.SetReport(0, 0, 2, 0, 1, &usb_led);
         if (kbd3.isReady()) kbd3.SetReport(0, 0, 2, 0, 1, &usb_led);
         if (kbd4.isReady()) kbd4.SetReport(0, 0, 2, 0, 1, &usb_led);
-        led_set_kb(usb_led);
+        led_set_user(usb_led);
+        led_update_kb((led_t){.raw = usb_led});
     }
 }

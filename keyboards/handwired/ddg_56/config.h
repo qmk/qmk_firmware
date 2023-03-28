@@ -14,18 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { B5, B15, B9, B10, A14 }
 #define MATRIX_COL_PINS { A2, B8, B13, B14, B4, B11, B12, A13, A15, A8, A7, A6, B0, B1 }
-
-#define QMK_SPEAKER A5
-
-#define ENCODERS_PAD_A { A1, B3 }
-#define ENCODERS_PAD_B { A0, B2 }

@@ -29,6 +29,9 @@
     "pid": "0x2350",
     "vid": "0xC1ED"
   },
+  "backlight": {
+    "levels": 1
+  },
   "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"

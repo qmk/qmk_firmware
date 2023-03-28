@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega328p
-
-# Bootloader selection
-BOOTLOADER = usbasploader
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,8 +12,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = lite
-
-LAYOUTS = alice_split_bs
 
 SRC += matrix.c
 QUANTUM_LIB_SRC += i2c_master.c

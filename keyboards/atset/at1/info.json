@@ -7,9 +7,13 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
-      "layout": [{"label":"k00", "x":0, "y":0}]
+      "layout": [
+        {"x":0, "y":0, "matrix": [0, 0]}
+      ]
     }
   }
 }
