@@ -51,11 +51,12 @@ typedef struct {
 } pimoroni_data_t;
 
 void           pimoroni_trackball_device_init(const void* i2c_config);
-void           pimoroni_trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
+void           pimoroni_trackball_set_rgbw(const pointing_device_i2c_config_t* i2c_config, uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
 int16_t        pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale);
 uint16_t       pimoroni_trackball_get_cpi(const void* i2c_config);
 void           pimoroni_trackball_set_cpi(const void* i2c_config, uint16_t cpi);
 report_mouse_t pimoroni_trackball_get_raw_report(const void* i2c_config);
-i2c_status_t   read_pimoroni_trackball(pimoroni_data_t* data);
+i2c_status_t   read_pimoroni_trackball(const pointing_device_i2c_config_t* i2c_config, pimoroni_data_t* data);
 
 const pointing_device_driver_t pimoroni_trackball_driver_default;
+const pointing_device_i2c_config_t pimoroni_trackball_config_default;
