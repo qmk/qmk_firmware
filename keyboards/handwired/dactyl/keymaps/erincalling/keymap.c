@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   COLON_EQ,     KC_A,     KC_O,     KC_E,     KC_U,      KC_I,
    KC_LSFT,  KC_SCLN,     KC_Q,     KC_J,     KC_K,      KC_X,
    KC_HOME,   KC_GRV,   KC_EQL,  KC_LEFT,  KC_RGHT,
-                                                    KC_LCTRL,   KC_LALT,
+                                                    KC_LCTL,    KC_LALT,
                                                                MO(CONT),
                                           KC_BSPC,    KC_DEL,   KC_LGUI,
         // right hand

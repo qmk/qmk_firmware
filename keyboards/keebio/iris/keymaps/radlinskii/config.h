@@ -18,7 +18,6 @@
 #undef RGBLIGHT_DEFAULT_MODE
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
 
-#undef RGBLIGHT_ANIMATIONS
 #undef RGBLIGHT_EFFECT_BREATHING // fading in and out
 #undef RGBLIGHT_EFFECT_RAINBOW_MOOD // rainbow all keys at the same time
 #undef RGBLIGHT_EFFECT_RAINBOW_SWIRL // rainbow top bottom

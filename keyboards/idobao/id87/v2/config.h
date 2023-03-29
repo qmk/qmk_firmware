@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* ----------------
  * RGB Matrix stuff
@@ -14,7 +13,7 @@
 // RGB Matrix config
 #if defined(RGB_MATRIX_ENABLE)
 
-    #define DRIVER_LED_TOTAL 103
+    #define RGB_MATRIX_LED_COUNT 103
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180  // limits maximum brightness of LEDs to x out of 255. If not defined maximum brightness is set to 255

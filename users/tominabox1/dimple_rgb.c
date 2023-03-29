@@ -1,7 +1,7 @@
 #include "dz60rgb.h"
 #include "config.h"
 #if defined (dzrgb60_iso)
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, K_14,   J_14,   L_14},
     {0, K_13,   J_13,   L_13},
     {0, K_12,   J_12,   L_12},
@@ -86,7 +86,7 @@ led_config_t g_led_config = { {
 } };
 
 #elif defined (dzrgb60_hhkb)
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 	{0, H_15,   G_15,   I_15},
     {0, K_14,   J_14,   L_14},
     {0, K_13,   J_13,   L_13},
@@ -172,7 +172,7 @@ led_config_t g_led_config = { {
 } };
 
 #elif defined (dzrgb60_hhkb_iso)
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 	{0, H_15,   G_15,   I_15},
     {0, K_14,   J_14,   L_14},
     {0, K_13,   J_13,   L_13},
@@ -258,7 +258,7 @@ led_config_t g_led_config = { {
 } };
 
 #elif defined (dzrgb60_ansi)
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, K_14,   J_14,   L_14},
     {0, K_13,   J_13,   L_13},
     {0, K_12,   J_12,   L_12},
@@ -343,7 +343,7 @@ led_config_t g_led_config = { {
 } };
 
 #else
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, K_14,   J_14,   L_14},
     {0, K_13,   J_13,   L_13},
     {0, K_12,   J_12,   L_12},

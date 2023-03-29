@@ -1,7 +1,6 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
 
 
 #ifdef AUDIO_ENABLE
@@ -17,7 +16,7 @@
                                 }
 #endif
 
-#define MUSIC_MASK (keycode != MU_TOG)
+#define MUSIC_MASK (keycode != MU_TOGG)
 
 
 /*

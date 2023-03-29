@@ -15,11 +15,8 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 // Key matrix (TtB, LtR)
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 8
 #define MATRIX_COL_PINS \
     { B4, D7, D6, D4, F7, F6, F5, F4 }
 #define MATRIX_ROW_PINS \
@@ -29,9 +26,9 @@
 // RGB matrix
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL (4 * 8 * 3)
+#define RGB_MATRIX_LED_COUNT (4 * 8 * 3)
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_SPIRAL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_SPIRAL
 #define RGB_MATRIX_DISABLE_KEYCODES
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -81,9 +78,6 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
 
 #define FORCE_NKRO
 

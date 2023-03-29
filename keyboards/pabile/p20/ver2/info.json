@@ -2,5 +2,7 @@
     "keyboard_name": "P20 ver2",
     "usb": {
         "device_version": "0.0.2"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
 }

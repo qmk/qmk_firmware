@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_60_ansi(
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-            KC_TRNS, KC_TRNS, KC_TRNS, DEBUG,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
+            KC_TRNS, KC_TRNS, KC_TRNS, DB_TOGG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
             KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
             KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
@@ -61,7 +61,7 @@ typedef struct {
     int state;
 } tap;
 
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
     switch (state->count) {
         case 1:
             if (state->interrupted || state->pressed == 0) {
@@ -87,7 +87,7 @@ static tap N ## _state = {                                          \
     .state = 0                                                      \
 };                                                                  \
                                                                     \
-void N ## _finished(qk_tap_dance_state_t *state, void *user_data) { \
+void N ## _finished(tap_dance_state_t *state, void *user_data) { \
     N ## _state.state = cur_dance(state);                           \
     switch (N ## _state.state) {                                    \
         case SINGLE_TAP: case SINGLE_HOLD:                          \
@@ -100,7 +100,7 @@ void N ## _finished(qk_tap_dance_state_t *state, void *user_data) { \
     }                                                               \
 }                                                                   \
                                                                     \
-void N ## _reset(qk_tap_dance_state_t *state, void *user_data) {    \
+void N ## _reset(tap_dance_state_t *state, void *user_data) {    \
     switch (N ## _state.state) {                                    \
         case SINGLE_TAP: case SINGLE_HOLD:                          \
             unregister_code(K0);                                    \
@@ -134,7 +134,7 @@ my_dance_combo_1(rcg, KC_RCTL, KC_RGUI)
 my_dance_combo_3(lsh, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI)
 my_dance_combo_3(rsh, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI)
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LCTL_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lca_finished, lca_reset),
     [TD_RCTL_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rca_finished, rca_reset),
     [TD_LGUI_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lga_finished, lga_reset),

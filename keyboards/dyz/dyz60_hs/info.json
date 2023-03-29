@@ -15,7 +15,16 @@
         "saturation_steps": 10,
         "brightness_steps": 10,
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "indicators": {
@@ -26,6 +35,8 @@
         "pid": "0x001A",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_tsangan_hhkb", "60_iso", "60_iso_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {

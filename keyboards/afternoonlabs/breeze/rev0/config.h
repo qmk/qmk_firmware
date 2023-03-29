@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 9
-
 // wiring of each half
 #define MATRIX_ROW_PINS \
     { F4, F5, F6, F7, B1 }
@@ -29,12 +24,4 @@
 
 #define SPLIT_HAND_PIN B3
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-#define SOFT_SERIAL_PIN D2
-
 #define DIODE_DIRECTION COL2ROW
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COL 5

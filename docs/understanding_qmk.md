@@ -43,7 +43,7 @@ While there are different strategies for doing the actual matrix detection, they
 }
 ```
 
-That datastructure is a direct representation of the matrix for a 4 row by 5 column numpad. When a key is pressed that key's position within the matrix will be returned as `1` instead of `0`.
+That datastructure is a direct representation of the matrix for a 5 row by 4 column numpad. When a key is pressed that key's position within the matrix will be returned as `1` instead of `0`.
 
 Matrix Scanning runs many times per second. The exact rate varies but typically it runs at least 10 times per second to avoid perceptible lag.
 
@@ -159,7 +159,6 @@ The `process_record()` function itself is deceptively simple, but hidden within 
           * [`bool process_unicodemap(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_unicodemap.c#L42)
           * [`bool process_ucis(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_ucis.c#L70)
       * [`bool process_leader(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_leader.c#L48)
-      * [`bool process_printer(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_printer.c#L77)
       * [`bool process_auto_shift(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_auto_shift.c#L353)
       * [`bool process_dynamic_tapping_term(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_dynamic_tapping_term.c#L35)
       * [`bool process_space_cadet(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_space_cadet.c#L123)

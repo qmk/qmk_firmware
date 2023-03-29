@@ -190,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(46, 0, 0, 0);
     rgb_matrix_set_color(104, 0, 0, 0);
 
@@ -212,6 +212,7 @@ void rgb_matrix_indicators_user(void) {
         }
         rgb_matrix_set_color(104, red, green, blue);
     }
+    return false;
 }
 
 #ifdef ENCODER_MAP_ENABLE

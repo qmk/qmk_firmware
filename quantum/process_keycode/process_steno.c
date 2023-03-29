@@ -127,7 +127,7 @@ static const uint16_t combinedmap_second[] PROGMEM = {STN_S2, STN_KL, STN_WL, ST
 #endif
 
 #ifdef STENO_ENABLE_ALL
-void steno_init() {
+void steno_init(void) {
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }

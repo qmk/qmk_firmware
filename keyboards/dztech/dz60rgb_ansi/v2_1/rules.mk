@@ -1,8 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = lufa-ms
 BOOTLOADER_SIZE = 6144
 
 # Build Options

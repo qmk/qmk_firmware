@@ -1,5 +1,5 @@
 {
-    "keyboard": "splitkb/aurora/sweep",
+    "keyboard": "splitkb/aurora/sweep/rev1",
     "keymap": "default",
     "version": 1,
     "layout": "LAYOUT",
@@ -71,19 +71,11 @@
     },
     "mouse_key": {
         "enabled": true,
-        // Set the mouse settings to a comfortable speed/accuracy trade-off,
-        // assuming a screen refresh rate of 60 Htz or higher
-        // The default is 50. This makes the mouse ~3 times faster and more accurate
         "interval": 16,
-        // The default is 20. Since we made the mouse about 3 times faster with the previous setting,
-        // give it more time to accelerate to max speed to retain precise control over short distances.
         "time_to_max": 40,
-        // The default is 300. Let's try and make this as low as possible while keeping the cursor responsive
         "delay": 100,
-        // It makes sense to use the same delay for the mouseweel
         "wheel_delay": 100
     },
-    // Pick good defaults for enabling homerow modifiers
     "tapping": {
         "term": 200,
         "permissive_hold": true,

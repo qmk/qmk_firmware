@@ -1,10 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D7, E6, B4, B5, B6 }
@@ -12,6 +7,3 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5  // 5 is default

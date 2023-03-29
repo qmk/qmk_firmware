@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *      `---------------'
   */
   [BASE] = LAYOUT(
-    KC_NLCK,                   KC_MPLY,
+    KC_NUM,                    KC_MPLY,
     KC_CALC, TO(ONE), KC_MPRV, KC_MNXT,
     KC_EQL,  KC_PSLS, KC_PAST, KC_MINS,
     KC_P7,   KC_P8,   KC_P9,
@@ -339,7 +339,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Unicode input mode set to Windows using WinCompose
 void matrix_init_user(void) {
-    set_unicode_input_mode(UC_WINC);
+    set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
 };
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {

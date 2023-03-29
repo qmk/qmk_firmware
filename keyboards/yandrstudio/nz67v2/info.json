@@ -6,6 +6,11 @@
         "pid": "0xAA83",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A9", "pin_b": "A10"}
+        ]
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

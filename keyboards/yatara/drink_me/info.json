@@ -8,29 +8,20 @@
     "pid": "0x1470",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
+  "matrix_pins": {
+    "direct": [
+      ["B4", "B5", "B6", "B7"]
+    ]
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [
-        {
-          "label": "K0",
-          "x": 0,
-          "y": 0
-        },
-        {
-          "label": "K1",
-          "x": 1,
-          "y": 0
-        },
-        {
-          "label": "K2",
-          "x": 2,
-          "y": 0
-        },
-        {
-          "label": "K3",
-          "x": 3,
-          "y": 0
-        }
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 3, "y": 0, "matrix": [0, 3]}
       ]
     }
   }

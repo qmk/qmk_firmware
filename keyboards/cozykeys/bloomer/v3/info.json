@@ -2,6 +2,8 @@
   "usb": {
     "device_version": "0.0.3"
   },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
       "layout": [

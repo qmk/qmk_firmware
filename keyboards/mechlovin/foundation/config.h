@@ -17,15 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define MATRIX_ROW_PINS { B12, B13, B14, A8, A2 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A5, A4, A3, A15, B9, B8, B7, B6, B5, B4, B3}
-#define UNUSED_PINS
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 18
 
 /*
  * Keyboard Matrix Assignments
@@ -40,11 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_PIN_ON_STATE 0
-#define LED_CAPS_LOCK_PIN A1
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN
@@ -64,17 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_TWINKLE
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
 
-// Encoder pins
-#define ENCODERS_PAD_A { C13 }
-#define ENCODERS_PAD_B { C14 }
-
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10

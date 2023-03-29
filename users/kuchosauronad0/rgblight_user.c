@@ -86,36 +86,36 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
   if (userspace_config.rgb_layer_change) {
     switch (get_highest_layer(state)) {  // _RAISE, _LOWER and _ADJUST use a custom color and the breathing effect
       case _RAISE:
-        rgblight_sethsv_noeeprom_green();
+        rgblight_sethsv_noeeprom(HSV_GREEN);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
         break;
       case _LOWER:
-        rgblight_sethsv_noeeprom_red();
+        rgblight_sethsv_noeeprom(HSV_RED);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
         break;
       case _ADJUST:
-        rgblight_sethsv_noeeprom_white();
+        rgblight_sethsv_noeeprom(HSV_WHITE);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 2);
         break;
       default:  // Use a solid color for normal layers
         switch (get_highest_layer(default_layer_state)) {
           case _QWERTY:
-            rgblight_sethsv_noeeprom_magenta();
+            rgblight_sethsv_noeeprom(HSV_MAGENTA);
             break;
           case _COLEMAK:
-            rgblight_sethsv_noeeprom_green();
+            rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
           case _DVORAK:
-            rgblight_sethsv_noeeprom_blue();
+            rgblight_sethsv_noeeprom(HSV_BLUE);
             break;
           case _WORKMAN:
-            rgblight_sethsv_noeeprom_goldenrod();
+            rgblight_sethsv_noeeprom(HSV_GOLDENROD);
             break;
           case _PLOVER:
-            rgblight_sethsv_noeeprom_pink();
+            rgblight_sethsv_noeeprom(HSV_PINK);
             break;
           default:
-            rgblight_sethsv_noeeprom_white();
+            rgblight_sethsv_noeeprom(HSV_WHITE);
             break;
         }
         get_highest_layer(state) == _MODS ? rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING) : rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);  // if _MODS layer is on, then breath to denote it
@@ -145,7 +145,7 @@ void rgblight_fade_helper(bool direction){
 void fadeflash_leds(uint8_t hue, uint8_t sat, uint8_t val){
   // indicate success / fail of a leader sequence
   // fade out, set new hue and saturation, fade in, fade out, set old color, fade in
-  // this is used in leader.c
+  // this is used in leader_user.c
   // TODO: come up with a better name maybe
   rgblight_fade_helper(false);
   rgblight_sethsv_noeeprom(hue, sat, 0);

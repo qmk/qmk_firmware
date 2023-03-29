@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_ADJUST] = LAYOUT_ortho_3x10(
     QK_BOOT,  _______,  _______,  _______,  _______,  QWERTY,   NUMBERS,  SYMBOLS,  PLOVER,    SONGS,
-    MUV_DE,   MUV_IN,   MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
+    AU_PREV,  AU_NEXT,  MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
     BACKLIT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______
   )
 };
@@ -141,11 +141,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MACSLEEP:
       if (record->event.pressed) {
-          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_POWER);
+          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_PWR);
           register_code(KC_RSFT);
           register_code(KC_RCTL);
-          register_code(KC_POWER);
-          unregister_code(KC_POWER);
+          register_code(KC_PWR);
+          unregister_code(KC_PWR);
           unregister_code(KC_RCTL);
           unregister_code(KC_RSFT);
       }
@@ -174,13 +174,13 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);
@@ -203,7 +203,7 @@ void matrix_scan_user(void) {
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_Z_LCTL]  = ACTION_TAP_DANCE_DOUBLE(KC_Z, KC_LCTL),
   [TD_X_LGUI]  = ACTION_TAP_DANCE_DOUBLE(KC_X, KC_LGUI),

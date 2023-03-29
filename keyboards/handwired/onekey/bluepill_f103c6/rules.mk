@@ -13,10 +13,6 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 # LTO is required to fit the firmware into the available 24K of flash
 LTO_ENABLE = yes
 
-# Disable some features which still don't fit into flash even with LTO
-MOUSEKEY_ENABLE = no
-NKRO_ENABLE = no
-
 # EEPROM emulation not supported yet (need to implement a proper firmware size
 # check first, otherwise the chance of the EEPROM backing store overwriting
 # some part of the firmware code is really high).

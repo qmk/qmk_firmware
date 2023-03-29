@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_LEFT_CTRL,    DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,                         DE_N,    DE_M, KC_COMM,  DE_DOT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         MO(_NUMBER), MO(_SYMBOL), KC_SPC,   KC_BSPACE, KC_ENTER, XXXXXXX
+                                         MO(_NUMBER), MO(_SYMBOL), KC_SPC,   KC_BSPC, KC_ENTER, XXXXXXX
                                             //`--------------------------'  `--------------------------'
 
         ),
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_LEFT_CTRL, DE_HASH,  DE_DLR, DE_PIPE, DE_TILD,  DE_GRV,                      DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                      MO(_NUMBER), MO(_SYMBOL),    KC_SPC,   KC_BSPACE, KC_ENTER, XXXXXXX
+                                      MO(_NUMBER), MO(_SYMBOL),    KC_SPC,   KC_BSPC, KC_ENTER, XXXXXXX
                                             //`--------------------------'  `--------------------------'
 
         ),
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_LEFT_CTRL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,    DE_1,    DE_2,    DE_3, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        MO(_NUMBER), MO(_SYMBOL),  KC_SPC,   KC_BSPACE, KC_ENTER, DE_0
+                                        MO(_NUMBER), MO(_SYMBOL),  KC_SPC,   KC_BSPC, KC_ENTER, DE_0
                                             //`--------------------------'  `--------------------------'
 
         ),

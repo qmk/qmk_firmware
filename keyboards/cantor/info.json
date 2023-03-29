@@ -19,6 +19,29 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "matrix_pins": {
+        "direct": [
+            ["B1", "B10", "A8", "B15", "B14", "B13"],
+            ["B9", "B8", "B5", "B4", "B3", "A15"],
+            ["A3", "A4", "A5", "A6", "A7", "B0"],
+            ["A2", "A1", "A0", null, null, null]
+        ]
+    },
+    "split": {
+        "bootmagic": {
+            "matrix": [4, 5]
+        },
+        "matrix_pins": {
+            "right": {
+                "direct": [
+                    ["B13", "B14", "B15", "A8", "B10", "B1"],
+                    ["A15", "B3", "B4", "B5", "B8", "B9"],
+                    ["B0", "A7", "A6", "A5", "A4", "A3"],
+                    ["A0", "A1", "A2", null, null, null]
+                ]
+            }
+        }
+    },
     "community_layouts": ["split_3x6_3"],
     "layouts": {
         "LAYOUT_split_3x6_3": {

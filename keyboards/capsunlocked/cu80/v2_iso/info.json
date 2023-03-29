@@ -2,7 +2,6 @@
   "manufacturer": "CapsUnlocked",
   "maintainer": "rys / maz0r",
   "bootloader": "atmel-dfu",
-  "debounce": 5,
   "diode_direction": "COL2ROW",
   "features": {
     "audio": false,
@@ -25,7 +24,16 @@
   "processor": "atmega32u4",
   "rgblight": {
     "animations": {
-      "all": false
+      "alternating": false,
+      "breathing": false,
+      "christmas": false,
+      "knight": false,
+      "rainbow_mood": false,
+      "rainbow_swirl": false,
+      "rgb_test": false,
+      "snake": false,
+      "static_gradient": false,
+      "twinkle": false
     },
     "brightness_steps": 8,
     "hue_steps": 8,

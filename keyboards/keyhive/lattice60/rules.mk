@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega328p
-
-# Bootloader selection
-BOOTLOADER = usbasploader
-
 # Processor frequency
 F_CPU = 12000000
 
@@ -19,5 +13,3 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-
-LAYOUTS = 60_hhkb

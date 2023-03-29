@@ -1,0 +1,48 @@
+{
+    "keyboard_name": "Convolution Rev. 1",
+    "usb": {
+        "pid": "0x145F",
+        "device_version": "1.0.0"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "console": true,
+        "rgblight": false,
+        "backlight": false,
+        "rgb_matrix": true,
+    },
+    "matrix_pins": {
+        "cols": ["GP0", "GP4", "GP9", "GP8", "GP20", "GP21", "GP23", "GP24", "GP17"],
+        "rows": ["GP29", "GP28", "GP27", "GP25", "GP22", "GP1", "GP2", "GP3", "GP5", "GP10"]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "GP19", "pin_b": "GP18" },
+            {"pin_a": "GP14", "pin_b": "GP15" }
+        ]
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            { "flags": 2, "x": 12, "y": 13 },
+            { "flags": 2, "x": 40,  "y": 13 },
+            { "flags": 2, "x": 77,  "y": 13 },
+            { "flags": 2, "x": 101,  "y": 13 },
+            { "flags": 2, "x": 126,  "y": 13 },
+            { "flags": 2, "x": 150,  "y": 13 },
+            { "flags": 2, "x": 181,  "y": 13 },
+            { "flags": 2, "x": 212,  "y": 13 },
+            { "flags": 2, "x": 212,  "y": 51 },
+            { "flags": 2, "x": 181,  "y": 51 },
+            { "flags": 2, "x": 149,  "y": 51 },
+            { "flags": 2, "x": 121,  "y": 51 },
+            { "flags": 2, "x": 101,  "y": 51 },
+            { "flags": 2, "x": 75,  "y": 51 },
+            { "flags": 2, "x": 43,  "y": 51 },
+            { "flags": 2, "x": 12,  "y": 51 }
+        ]
+    }
+}
