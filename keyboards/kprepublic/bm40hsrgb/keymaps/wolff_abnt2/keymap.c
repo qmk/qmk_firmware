@@ -1,19 +1,3 @@
-/* Copyright 2021 LuiWolff
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 #include QMK_KEYBOARD_H
 #include <keymap_brazilian_abnt2.h>
 
@@ -22,15 +6,17 @@ enum layers {
   _QWERTY,
   _DVORAK,
   _COLEMAK,
-  _CPY,
-  _SWP,
+  _MIDI,
+  
   _SYM,
   _FUNCTION,
-  _MIDI,
   _NAV,
   _NUM,
   _ADJUST,
-  _MOUSE
+  _MOUSE,
+  
+  _CPY,
+  _SWP
 };
 
 enum planck_keycodes {
@@ -63,25 +49,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_mit(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BR_ACUT,
     NAVTAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    BR_CCED, BR_TILD,
-    SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH, SC_LSPO,
+    SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH, SC_RSPC,
     KC_LCTL, KC_LGUI, KC_LALT, KC_MEH,  NUM,         KC_SPC,       SYM,     FUN,     KC_RALT, KC_HYPR, CTL_ENT
 ),
 [_WORKMAN] = LAYOUT_planck_mit(
     KC_ESC,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    BR_CCED, BR_ACUT,
     NAVTAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    BR_TILD,
-    SC_LSPO, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  BR_SLSH, SC_LSPO,
+    SC_LSPO, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  BR_SLSH, SC_RSPC,
     KC_LCTL, KC_LGUI, KC_LALT, KC_MEH,  NUM,         KC_SPC,       SYM,     FUN,     KC_RALT, KC_HYPR, CTL_ENT
 ),
 [_DVORAK] = LAYOUT_planck_mit(
     KC_ESC,  KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    BR_SLSH, BR_ACUT,
     NAVTAB,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    BR_TILD,
-    SC_LSPO, BR_CCED, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SC_LSPO,
+    SC_LSPO, BR_CCED, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SC_RSPC,
     KC_LCTL, KC_LGUI, KC_LALT, KC_MEH,  NUM,         KC_SPC,       SYM,     FUN,     KC_RALT, KC_HYPR, CTL_ENT
 ),
 [_COLEMAK] = LAYOUT_planck_mit(
     KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    BR_CCED, BR_ACUT,
     NAVTAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    BR_TILD,
-    SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH, SC_LSPO,
+    SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  BR_SLSH, SC_RSPC,
     KC_LCTL, KC_LGUI, KC_LALT, KC_MEH,  NUM,         KC_SPC,       SYM,     FUN,     KC_RALT, KC_HYPR, CTL_ENT
 ),
 
@@ -112,10 +98,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
 ),
 [_NUM] = LAYOUT_planck_mit(
-    _______, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    BR_SLSH, KC_MINS,
-    _______, BR_SLSH, KC_ASTR, KC_MINS, KC_PLUS, _______, _______, KC_4,    KC_5,    KC_6,    KC_ASTR, KC_PLUS,
-    _______, BR_PERC, KC_EQL,  KC_DOT,  KC_COMM, _______, _______, KC_1,    KC_2,    KC_3,    BR_COLN, KC_DOT,
-    _______, _______, _______, _______, _______,     _______,      KC_0,    KC_BSPC, KC_COMM, KC_EQL,  KC_ENT
+    _______, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    BR_SLSH, BR_MINS,
+    _______, BR_SLSH, KC_ASTR, KC_MINS, KC_PLUS, _______, _______, KC_4,    KC_5,    KC_6,    BR_ASTR, BR_PLUS,
+    _______, BR_PERC, KC_EQL,  KC_DOT,  KC_COMM, _______, _______, KC_1,    KC_2,    KC_3,    BR_COLN, BR_DOT,
+    _______, _______, _______, _______, _______,     _______,      KC_0,    KC_BSPC, BR_COMM, BR_EQL,  KC_ENT
 ),
 [_FUNCTION] = LAYOUT_planck_mit(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, KC_LSCR, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_INS,
@@ -145,17 +131,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_BNDD, MI_OCTD, MI_TRSD, MI_VELD, MI_SOFT,     MI_SUST,      SYM,    FUN,    MI_MODD,MI_CHND, MI_AOFF
 ),
 };
-
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case SYM:
-       return true;
-    case NUM:
-       return true;
-    default:
-       return false;
-  }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
