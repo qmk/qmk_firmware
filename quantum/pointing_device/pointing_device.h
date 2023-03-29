@@ -52,7 +52,12 @@ typedef struct {
     pin_t   cs;
     uint8_t mode;
     uint8_t divisor;
-} pointing_device_comm_generic_spi_config_t;
+} pointing_device_spi_config_t;
+
+typedef struct {
+    uint16_t address;
+    uint16_t timeout;
+} pointing_device_i2c_config_t;
 
 typedef struct {
     pin_t pin;
