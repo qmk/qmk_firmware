@@ -28,7 +28,7 @@
        "rows": ["B10", "B12", "B9" , "C0" , "C1" , "A3" ]
    },
    "rgblight": {
-       "led_count": 28,
+       "led_count": 30,
        "pin": "B15"
    },
    "diode_direction": "COL2ROW",
