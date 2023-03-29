@@ -39,7 +39,11 @@ jobs:
     - name: Run `qmk mass-compile` (keymap ${{ matrix.keymap }})
       run: |
         export NCPUS=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
-        qmk mass-compile -t -j $NCPUS -km ${{ matrix.keymap }}
+        qmk mass-compile -t -j $NCPUS -km ${{ matrix.keymap }} -e DUMP_CI_METADATA=yes
+        # Generate the step summary markdown
+        ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY
+        # Truncate to a maximum of 1MB to deal with GitHub workflow limit
+        truncate --size='<960K' $GITHUB_STEP_SUMMARY
 
     - name: 'Upload artifacts'
       uses: actions/upload-artifact@v3
