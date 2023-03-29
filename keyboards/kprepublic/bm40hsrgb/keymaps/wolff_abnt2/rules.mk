@@ -16,8 +16,10 @@ LAYOUTS = planck_mit
 LAYOUTS_HAS_RGB = yes
 
 MIDI_ENABLE = yes
-JOYSTICK_ENABLE = no
+JOYSTICK_ENABLE = yes
+JOYSTICK_DRIVER = digital
 MOUSEKEY_ENABLE = yes        # Mouse keys
 EXTRAKEY_ENABLE = yes        # Audio control and System control
 SWAP_HANDS_ENABLE = yes
+
 STENO_ENABLE = no          # Enabling steno requires disabling all options in the previous block.

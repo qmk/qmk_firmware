@@ -60,6 +60,13 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+// Min 0, max 32
+#define JOYSTICK_BUTTON_COUNT 32
+// Min 0, max 6: X, Y, Z, Rx, Ry, Rz
+#define JOYSTICK_AXIS_COUNT 0
+// Min 8, max 16
+#define JOYSTICK_AXIS_RESOLUTION 8
+
 #define RGB_DI_PIN E2
 #define DRIVER_LED_TOTAL 53
 

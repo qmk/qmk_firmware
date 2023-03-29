@@ -7,6 +7,7 @@ enum layers {
   _DVORAK,
   _COLEMAK,
   _MIDI,
+  _GAME,
   
   _SYM,
   _FUNCTION,
@@ -25,6 +26,7 @@ enum planck_keycodes {
   DVORAK,
   COLEMAK,
   MIDI,
+  GAME,
   TOG_CPY,
   TOG_SWP,
 };
@@ -111,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 //ADJUST LAYER FOR KEYBOARD CONTROL
 [_ADJUST] = LAYOUT_planck_mit(
-    QK_BOOT, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, MIDI,    _______, _______, _______, QK_RBT,
+    QK_BOOT, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, MIDI,    GAME,    _______, _______, QK_RBT,
     KC_CAPS, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, QWERTY,  DVORAK,  COLEMAK, WORKMAN, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, TOG_CPY, TOG_SWP, _______, _______,
     RGB_TOG, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
@@ -129,6 +131,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_C,    MI_D,    MI_E,    MI_F,    MI_G,    MI_A,    MI_B,    MI_C1,  MI_D1,  MI_E,   MI_F1,   MI_G1,
     MI_BNDU, MI_OCTU, MI_TRSU, MI_VELU, KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  MI_MODU,MI_CHNU, MI_TOGG,
     MI_BNDD, MI_OCTD, MI_TRSD, MI_VELD, MI_SOFT,     MI_SUST,      SYM,    FUN,    MI_MODD,MI_CHND, MI_AOFF
+),
+//GAME
+[_GAME] = LAYOUT_planck_mit(
+    KC_ESC,   JS_0,     JS_1,     JS_2,     JS_3,   JS_4,  JS_5,   JS_6,   JS_7,   JS_8,     JS_9,    KC_P,
+    KC_TAB,   JS_10,    JS_11,    JS_12,    JS_13,  JS_14, JS_15,  JS_16,  JS_17,  JS_18,    JS_19,   KC_O,
+    KC_LSFT,  JS_20,    JS_21,    JS_22,    JS_23,  JS_24, JS_25,  JS_26,  JS_27,  JS_28,    JS_29,   KC_L,
+    KC_LCTL,  KC_LGUI,  KC_LALT,  KC_MEH,   NUM,       KC_SPC,     SYM,    FUN,    KC_RALT,  KC_HYPR, CTL_ENT    
 ),
 };
 
@@ -157,6 +166,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MIDI:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_MIDI);
+      }
+      return false;
+    case GAME:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_GAME);
       }
       return false;
     case TOG_CPY:
