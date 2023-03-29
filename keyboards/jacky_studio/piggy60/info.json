@@ -1,60 +1,10 @@
 {
     "manufacturer": "Jacky",
-    "keyboard_name": "Piggy60",
     "maintainer": "qmk",
-    "bootloader": "atmel-dfu",
-    "build": {
-        "lto": true
-    },
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "caps_word": true,
-        "debug": false,
-        "extrakey": true,
-        "mousekey": true,
-        "rgblight": true,
-        "nkro": true
-    },
-     "matrix_pins": {
-        "cols": ["F0", "F1", "E6", "C7", "C6", "B6", "D4", "B1", "F7", "B5", "B4", "D7", "D6", "B3", "B2"],
-        "rows": ["D0", "D1", "D2", "D3", "D5"]
-    },
-    "processor": "atmega32u4",
-    "url": "https://www.notion.so/Piggy-60-Everything-You-Should-Know-7308d056551d4edabdbcc95748e9dabc",
     "usb": {
-        "device_version": "1.0.0",
-        "vid": "0xA13B",
-        "pid": "0x1001"
+        "vid": "0xA13B"
     },
-    "indicators": {
-        "caps_lock": "F4",
-        "on_state": 0
-    },
-    "rgblight": {
-        "led_count": 14,
-        "pin": "E2",
-        "animations": {
-            "alternating": true,
-            "breathing": true,
-            "christmas": true,
-            "knight": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "rgb_test": true,
-            "snake": true,
-            "static_gradient": true,
-            "twinkle": true
-        },
-        "sleep": true,
-        "max_brightness": 255
-    },
-    "tapping": {
-        "tap_keycode_delay": 10,
-        "tap_capslock_delay": 10,
-        "term": 170
-    },
+    "url": "https://www.notion.so/Piggy-60-Everything-You-Should-Know-7308d056551d4edabdbcc95748e9dabc",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
