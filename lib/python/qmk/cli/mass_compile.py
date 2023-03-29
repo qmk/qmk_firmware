@@ -76,9 +76,6 @@ all: {keyboard_safe}_{keymap_name}_binary
                     f"""\
 	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.elf" 2>/dev/null || true
 	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.map" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.hex" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.bin" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.uf2" 2>/dev/null || true
 	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}" || true
 	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}_{keymap_name}" || true
 """# noqa
