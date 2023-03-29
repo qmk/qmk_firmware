@@ -29,8 +29,6 @@ enum ats_layers{
   _MT
 };
 
-#define RS_SLS RSFT_T(KC_SLSH)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
     KC_ESC,                            
@@ -66,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(29, RGB_WHITE);
+        RGB_MATRIX_INDICATOR_SET_COLOR(29, 255, 255, 255);
     }
     return false;
 }
