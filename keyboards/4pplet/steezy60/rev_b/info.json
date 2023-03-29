@@ -1,15 +1,15 @@
 {
-    "keyboard_name": "Steezy60 Rev A",
+    "keyboard_name": "Steezy60 Rev B",
     "manufacturer": "4pplet",
     "url": "https://github.com/4pplet/steezy60",
     "maintainer": "4pplet",
     "usb": {
         "vid": "0x4444",
-        "pid": "0x0002",
-        "device_version": "0.0.1"
+        "pid": "0x0013",
+        "device_version": "0.0.2"
     },
-    "processor": "atmega32u2",
-    "bootloader": "atmel-dfu",
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "community_layouts": [
        "60_ansi",
        "60_ansi_split_bs_rshift",
@@ -22,8 +22,8 @@
     ],
     "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "cols": ["C4","C6","B7","B6","B5","B4","B3","B2","B1","D6","D5","D4","D2","D1"],
-        "rows": ["C2","D0","B0","C7","C5"]
+        "cols": ["A7","A5","A4","A3","A1","F1","F0","C15","C14","B9","B6","B5","B4","B3"],
+        "rows": ["B8","A15","C13","A2","A6"]
     },
     "features": {
         "audio": false,
@@ -38,7 +38,7 @@
     },
     "rgblight": {
         "led_count": 12,
-        "pin": "D3",
+        "pin": "A8",
         "animations": {
             "alternating": true,
             "breathing": true,
