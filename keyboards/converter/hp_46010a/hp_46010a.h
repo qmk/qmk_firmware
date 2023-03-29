@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {KEY_Y,     KEY_T,    KEY_R,    KEY_E,    KEY_W,    KEY_Q,    KEY_TAB,  KEY_U    }, \
     {KEY_RES,   KEY_F,    KEY_D,    KEY_S,    KEY_A,    KC_NO,    KEY_2,    KEY_H    }, \
     {KEY_P7,    KEY_P4,   KEY_P8,   KEY_P5,   KEY_P9,   KEY_P6,   KEY_PADE, KEY_PCOM }, \
-    {KEY_MULT,  KEY_P1,   KEY_DIV,  KEY_P2,   KEY_PLUS, KEY_P3,   KEY_MINU, KEY_PTAB }, \
+    {KEY_MULT,  KEY_P1,   KEY_DIV,  KEY_P2,   KEY_ADD,  KEY_P3,   KEY_SUBT, KEY_PTAB }, \
     {KEY_B1,    KEY_P0,   KEY_B2,   KC_NO,    KEY_B3,   KEY_PDOT, KEY_B4,   KC_NO    }, \
     {KEY_B,     KEY_V,    KEY_C,    KEY_X,    KEY_Z,    KEY_PRNT, KEY_DELE, KEY_N    }, \
 }
